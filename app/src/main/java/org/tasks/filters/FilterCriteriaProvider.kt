@@ -5,6 +5,7 @@ import com.todoroo.andlib.sql.Criterion.Companion.and
 import com.todoroo.andlib.sql.Criterion.Companion.or
 import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join.Companion.inner
+import com.todoroo.andlib.sql.Join.Companion.left
 import com.todoroo.andlib.sql.Query.Companion.select
 import com.todoroo.astrid.api.*
 import com.todoroo.astrid.data.Task
@@ -35,6 +36,7 @@ class FilterCriteriaProvider @Inject constructor(
             IDENTIFIER_RECUR -> recurringFilter
             IDENTIFIER_COMPLETED -> completedFilter
             IDENTIFIER_HIDDEN -> hiddenFilter
+            IDENTIFIER_SUBTASK -> subtaskFilter
             else -> throw RuntimeException("Unknown identifier: $identifier")
         }
     }
@@ -63,6 +65,7 @@ class FilterCriteriaProvider @Inject constructor(
         result.add(recurringFilter)
         result.add(completedFilter)
         result.add(hiddenFilter)
+        result.add(subtaskFilter)
         return result
     }
 
@@ -117,6 +120,20 @@ class FilterCriteriaProvider @Inject constructor(
                 select(Task.ID)
                         .from(Task.TABLE)
                         .where(field("${Task.HIDE_UNTIL.gt(PermaSql.VALUE_NOW)}").eq(1))
+                        .toString()
+        )
+
+    private val subtaskFilter: CustomFilterCriterion
+        get() = BooleanCriterion(
+                IDENTIFIER_SUBTASK,
+                context.getString(R.string.custom_filter_is_subtask),
+                select(Task.ID)
+                        .from(Task.TABLE)
+                        .join(left(GoogleTask.TABLE, GoogleTask.TASK.eq(Task.ID)))
+                        .where(or(
+                                field("${Task.PARENT}>0").eq(1),
+                                field("${GoogleTask.PARENT}>0").eq(1)
+                        ))
                         .toString()
         )
 
@@ -265,5 +282,6 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_RECUR = "recur"
         private const val IDENTIFIER_COMPLETED = "completed"
         private const val IDENTIFIER_HIDDEN = "hidden"
+        private const val IDENTIFIER_SUBTASK = "subtask"
     }
 }

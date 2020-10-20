@@ -656,4 +656,5 @@ File %1$s contained %2$s.\n\n
   <string name="multi_select_reschedule">Reschedule</string>
   <string name="date_picker_multiple">Multiple</string>
   <string name="delete_comment">Delete this comment?</string>
+  <string name="custom_filter_is_subtask">Is subtask</string>
 </resources>
