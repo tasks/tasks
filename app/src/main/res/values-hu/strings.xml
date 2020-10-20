@@ -651,4 +651,5 @@
     <string name="delete_comment">Megjegyzés törlése\?</string>
     <string name="date_picker_multiple">Többszörös</string>
     <string name="multi_select_reschedule">Újraütemezés</string>
+    <string name="always_display_full_date">Teljes dátum mutatása</string>
 </resources>
