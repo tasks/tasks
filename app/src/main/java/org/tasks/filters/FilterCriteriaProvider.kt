@@ -262,8 +262,8 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_CALDAV = "caldavlist"
         private const val IDENTIFIER_TAG_IS = "tag_is"
         private const val IDENTIFIER_TAG_CONTAINS = "tag_contains"
-        private const val IDENTIFIER_RECUR = "tag_recur"
-        private const val IDENTIFIER_COMPLETED = "tag_completed"
-        private const val IDENTIFIER_HIDDEN = "tag_hidden"
+        private const val IDENTIFIER_RECUR = "recur"
+        private const val IDENTIFIER_COMPLETED = "completed"
+        private const val IDENTIFIER_HIDDEN = "hidden"
     }
 }
