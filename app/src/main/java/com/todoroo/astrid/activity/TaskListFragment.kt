@@ -546,7 +546,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             REQUEST_LIST_SETTINGS -> if (resultCode == Activity.RESULT_OK) {
                 val action = data!!.action
                 if (ACTION_DELETED == action) {
-                    openFilter(null)
+                    openFilter(BuiltInFilterExposer.getMyTasksFilter(resources))
                 } else if (ACTION_RELOAD == action) {
                     openFilter(data.getParcelableExtra(MainActivity.OPEN_FILTER))
                 }
