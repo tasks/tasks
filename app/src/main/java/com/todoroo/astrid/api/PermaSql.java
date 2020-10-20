@@ -36,7 +36,7 @@ public final class PermaSql {
   /** value to be replaced by approximate end of day next month as long */
   public static final String VALUE_EOD_NEXT_MONTH = "EODM()"; // $NON-NLS-1$
   /** value to be replaced with the current time as long */
-  private static final String VALUE_NOW = "NOW()"; // $NON-NLS-1$
+  public static final String VALUE_NOW = "NOW()"; // $NON-NLS-1$
   /** value to be replaced by noon yesterday as long */
   private static final String VALUE_NOON_YESTERDAY = "NOONY()"; // $NON-NLS-1$
   /** value to be replaced by noon tomorrow as long */

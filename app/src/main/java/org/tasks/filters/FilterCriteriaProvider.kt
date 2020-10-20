@@ -34,6 +34,7 @@ class FilterCriteriaProvider @Inject constructor(
             IDENTIFIER_TAG_CONTAINS -> tagNameContainsFilter
             IDENTIFIER_RECUR -> recurringFilter
             IDENTIFIER_COMPLETED -> completedFilter
+            IDENTIFIER_HIDDEN -> hiddenFilter
             else -> throw RuntimeException("Unknown identifier: $identifier")
         }
     }
@@ -61,6 +62,7 @@ class FilterCriteriaProvider @Inject constructor(
         result.add(caldavFilterCriteria())
         result.add(recurringFilter)
         result.add(completedFilter)
+        result.add(hiddenFilter)
         return result
     }
 
@@ -105,6 +107,16 @@ class FilterCriteriaProvider @Inject constructor(
                 select(Task.ID)
                         .from(Task.TABLE)
                         .where(field("${Task.COMPLETION_DATE.lt(1)}").eq(0))
+                        .toString()
+        )
+
+    private val hiddenFilter: CustomFilterCriterion
+        get() = BooleanCriterion(
+                IDENTIFIER_HIDDEN,
+                context.getString(R.string.widget_due_date_hidden),
+                select(Task.ID)
+                        .from(Task.TABLE)
+                        .where(field("${Task.HIDE_UNTIL.gt(PermaSql.VALUE_NOW)}").eq(1))
                         .toString()
         )
 
@@ -252,5 +264,6 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_TAG_CONTAINS = "tag_contains"
         private const val IDENTIFIER_RECUR = "tag_recur"
         private const val IDENTIFIER_COMPLETED = "tag_completed"
+        private const val IDENTIFIER_HIDDEN = "tag_hidden"
     }
 }
