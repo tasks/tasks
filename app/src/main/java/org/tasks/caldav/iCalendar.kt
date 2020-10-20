@@ -189,8 +189,12 @@ class iCalendar @Inject constructor(
             taskDao.createNew(task)
             caldavTask = CaldavTask(task.id, calendar.uuid, remote.uid, obj)
         } else {
-            task = taskDao.fetch(existing.task)!!
             caldavTask = existing
+            task = taskDao.fetch(existing.task)
+                    ?: taskCreator.createWithValues("").apply {
+                        taskDao.createNew(this)
+                        caldavTask.task = id
+                    }
         }
         CaldavConverter.apply(task, remote)
         caldavTask.order = remote.order
