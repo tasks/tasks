@@ -40,6 +40,7 @@ import org.tasks.Strings
 import org.tasks.data.Filter
 import org.tasks.data.FilterDao
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.db.QueryUtils
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.locale.Locale
 import java.util.*
@@ -337,7 +338,8 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 subSql = PermaSql.replacePlaceholdersForQuery(subSql)
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ")
             }
-            database.query(sql.toString(), null).use { cursor ->
+            val sqlString = QueryUtils.showHiddenAndCompleted(sql.toString())
+            database.query(sqlString, null).use { cursor ->
                 cursor.moveToNext()
                 instance.start = if (last == -1) cursor.getInt(0) else last
                 instance.end = cursor.getInt(0)
