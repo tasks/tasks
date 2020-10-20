@@ -115,7 +115,7 @@ class NewFilterDialog : DialogFragment() {
             intent.putExtra(FilterSettingsActivity.EXTRA_TITLE, title)
             intent.putExtra(FilterSettingsActivity.EXTRA_CRITERIA, serialize(list))
         }
-        startActivityForResult(intent, NavigationDrawerFragment.REQUEST_NEW_LIST)
+        activity?.startActivityForResult(intent, NavigationDrawerFragment.REQUEST_NEW_LIST)
         dismiss()
     }
 
