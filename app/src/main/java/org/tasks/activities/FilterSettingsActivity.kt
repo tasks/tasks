@@ -340,7 +340,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             } else {
                 var subSql: String? = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value!!))
                 subSql = PermaSql.replacePlaceholdersForQuery(subSql)
-                sql.append(Task.ID).append(" IN (").append(subSql).append(") ")
+                sql.append(Task.ID).append(" IN (").append(subSql).append(")")
             }
             val sqlString = QueryUtils.showHiddenAndCompleted(sql.toString())
             database.query(sqlString, null).use { cursor ->
@@ -372,17 +372,19 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             for (instance in criteria) {
                 val value = getValue(instance)
                 when (instance.type) {
-                    CriterionInstance.TYPE_ADD -> sql.append("OR ")
-                    CriterionInstance.TYPE_SUBTRACT -> sql.append("AND NOT ")
-                    CriterionInstance.TYPE_INTERSECT -> sql.append("AND ")
+                    CriterionInstance.TYPE_ADD -> sql.append(" OR ")
+                    CriterionInstance.TYPE_SUBTRACT -> sql.append(" AND NOT ")
+                    CriterionInstance.TYPE_INTERSECT -> sql.append(" AND ")
                 }
 
                 // special code for all tasks universe
                 if (instance.type == CriterionInstance.TYPE_UNIVERSE || instance.criterion.sql == null) {
-                    sql.append(activeAndVisible()).append(' ')
+                    sql.append(activeAndVisible())
                 } else {
-                    val subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value!!))
-                    sql.append(Task.ID).append(" IN (").append(subSql).append(") ")
+                    val subSql = instance.criterion.sql
+                            .replace("?", UnaryCriterion.sanitize(value!!))
+                            .trim()
+                    sql.append(Task.ID).append(" IN (").append(subSql).append(")")
                 }
             }
             return sql.toString()
