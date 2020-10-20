@@ -25,6 +25,12 @@ open class UnaryCriterion private constructor(private val expression: Field, ope
 
         fun lte(field: Field, value: Any?): Criterion = UnaryCriterion(field, Operator.lte, value)
 
+        fun isNotNull(field: Field): Criterion {
+            return object : UnaryCriterion(field, Operator.isNotNull, null) {
+                override fun populateOperator() = " $operator"
+            }
+        }
+
         fun isNull(field: Field): Criterion {
             return object : UnaryCriterion(field, Operator.isNull, null) {
                 override fun populateOperator() = " $operator"

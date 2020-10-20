@@ -7,6 +7,7 @@ import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join.Companion.inner
 import com.todoroo.andlib.sql.Join.Companion.left
 import com.todoroo.andlib.sql.Query.Companion.select
+import com.todoroo.andlib.sql.UnaryCriterion.Companion.isNotNull
 import com.todoroo.astrid.api.*
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -36,6 +37,7 @@ class FilterCriteriaProvider @Inject constructor(
             IDENTIFIER_RECUR -> recurringFilter
             IDENTIFIER_COMPLETED -> completedFilter
             IDENTIFIER_HIDDEN -> hiddenFilter
+            IDENTIFIER_PARENT -> parentFilter
             IDENTIFIER_SUBTASK -> subtaskFilter
             else -> throw RuntimeException("Unknown identifier: $identifier")
         }
@@ -65,6 +67,7 @@ class FilterCriteriaProvider @Inject constructor(
         result.add(recurringFilter)
         result.add(completedFilter)
         result.add(hiddenFilter)
+        result.add(parentFilter)
         result.add(subtaskFilter)
         return result
     }
@@ -122,6 +125,21 @@ class FilterCriteriaProvider @Inject constructor(
                         .where(field("${Task.HIDE_UNTIL.gt(PermaSql.VALUE_NOW)}").eq(1))
                         .toString()
         )
+
+    private val parentFilter: CustomFilterCriterion
+    get() = BooleanCriterion(
+            IDENTIFIER_PARENT,
+            context.getString(R.string.custom_filter_has_subtask),
+            select(Task.ID)
+                    .from(Task.TABLE)
+                    .join(left(Task.TABLE.`as`("children"), Task.ID.eq(field("children.parent"))))
+                    .join(left(GoogleTask.TABLE, GoogleTask.PARENT.eq(Task.ID)))
+                    .where(or(
+                            isNotNull(field("children._id")),
+                            isNotNull(GoogleTask.ID)
+                    ))
+                    .toString()
+    )
 
     private val subtaskFilter: CustomFilterCriterion
         get() = BooleanCriterion(
@@ -282,6 +300,7 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_RECUR = "recur"
         private const val IDENTIFIER_COMPLETED = "completed"
         private const val IDENTIFIER_HIDDEN = "hidden"
+        private const val IDENTIFIER_PARENT = "parent"
         private const val IDENTIFIER_SUBTASK = "subtask"
     }
 }
