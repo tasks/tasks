@@ -644,4 +644,7 @@
     <string name="delete_comment">删除该注解？</string>
     <string name="date_picker_multiple">多个</string>
     <string name="multi_select_reschedule">重新计划</string>
+    <string name="always_display_full_date">显示完整日期</string>
+    <string name="cancel">取消</string>
+    <string name="ok">好</string>
 </resources>
