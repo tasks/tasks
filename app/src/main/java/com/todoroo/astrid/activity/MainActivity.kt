@@ -6,7 +6,6 @@
 package com.todoroo.astrid.activity
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -18,6 +17,7 @@ import androidx.appcompat.view.ActionMode
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
 import com.todoroo.astrid.api.Filter
@@ -43,7 +43,7 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.fragments.CommentBarFragment.CommentBarFragmentCallback
 import org.tasks.gtasks.PlayServices
 import org.tasks.injection.InjectingAppCompatActivity
-import org.tasks.intents.TaskIntents
+import org.tasks.intents.TaskIntents.getTaskListIntent
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -105,29 +105,28 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == NavigationDrawerFragment.REQUEST_SETTINGS) {
-            if (AndroidUtilities.atLeastNougat()) {
-                recreate()
-            } else {
-                finish()
-                startActivity(TaskIntents.getTaskListIntent(this, filter))
-            }
-        } else if (requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST) {
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                val filter: Filter? = data.getParcelableExtra(OPEN_FILTER)
-                if (filter != null) {
-                    startActivity(TaskIntents.getTaskListIntent(this, filter))
+        when (requestCode) {
+            NavigationDrawerFragment.REQUEST_SETTINGS ->
+                if (atLeastNougat()) {
+                    recreate()
+                } else {
+                    finish()
+                    startActivity(getTaskListIntent(this, filter))
                 }
-            }
-        } else if (requestCode == NavigationDrawerFragment.REQUEST_NEW_PLACE) {
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                val place: Place? = data.getParcelableExtra(LocationPickerActivity.EXTRA_PLACE)
-                if (place != null) {
-                    startActivity(TaskIntents.getTaskListIntent(this, PlaceFilter(place)))
+            NavigationDrawerFragment.REQUEST_NEW_LIST ->
+                if (resultCode == RESULT_OK) {
+                    data
+                            ?.getParcelableExtra<Filter>(OPEN_FILTER)
+                            ?.let { startActivity(getTaskListIntent(this, it)) }
                 }
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            NavigationDrawerFragment.REQUEST_NEW_PLACE ->
+                if (resultCode == RESULT_OK) {
+                    data
+                            ?.getParcelableExtra<Place>(LocationPickerActivity.EXTRA_PLACE)
+                            ?.let { startActivity(getTaskListIntent(this, PlaceFilter(it))) }
+                }
+            else ->
+                super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
