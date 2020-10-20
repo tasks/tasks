@@ -33,6 +33,7 @@ class FilterCriteriaProvider @Inject constructor(
             IDENTIFIER_TAG_IS -> tagFilter()
             IDENTIFIER_TAG_CONTAINS -> tagNameContainsFilter
             IDENTIFIER_RECUR -> recurringFilter
+            IDENTIFIER_COMPLETED -> completedFilter
             else -> throw RuntimeException("Unknown identifier: $identifier")
         }
     }
@@ -59,6 +60,7 @@ class FilterCriteriaProvider @Inject constructor(
         }
         result.add(caldavFilterCriteria())
         result.add(recurringFilter)
+        result.add(completedFilter)
         return result
     }
 
@@ -95,6 +97,16 @@ class FilterCriteriaProvider @Inject constructor(
                             .where(field("LENGTH(${Task.RECURRENCE})>0").eq(1))
                             .toString()
             )
+
+    private val completedFilter: CustomFilterCriterion
+        get() = BooleanCriterion(
+                IDENTIFIER_COMPLETED,
+                context.getString(R.string.rmd_NoA_done),
+                select(Task.ID)
+                        .from(Task.TABLE)
+                        .where(field("${Task.COMPLETION_DATE.lt(1)}").eq(0))
+                        .toString()
+        )
 
     val tagNameContainsFilter: CustomFilterCriterion
         get() = TextInputCriterion(
@@ -239,5 +251,6 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_TAG_IS = "tag_is"
         private const val IDENTIFIER_TAG_CONTAINS = "tag_contains"
         private const val IDENTIFIER_RECUR = "tag_recur"
+        private const val IDENTIFIER_COMPLETED = "tag_completed"
     }
 }
