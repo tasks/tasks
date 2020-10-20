@@ -178,10 +178,10 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                     .setItems(names) { dialog: DialogInterface, which: Int ->
                         val instance = CriterionInstance()
                         instance.criterion = all[which]
-                        showOptionsFor(instance, Runnable {
+                        showOptionsFor(instance) {
                             criteria.add(instance)
                             updateList()
-                        })
+                        }
                         dialog.dismiss()
                     }
                     .show()
@@ -190,6 +190,10 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
 
     /** Show options menu for the given criterioninstance  */
     private fun showOptionsFor(item: CriterionInstance, onComplete: Runnable?) {
+        if (item.criterion is BooleanCriterion) {
+            onComplete?.run()
+            return
+        }
         val dialog = dialogBuilder.newDialog(item.criterion.name)
         if (item.criterion is MultipleSelectCriterion) {
             val multiSelectCriterion = item.criterion as MultipleSelectCriterion

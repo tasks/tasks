@@ -6,10 +6,7 @@ import com.todoroo.andlib.sql.Criterion.Companion.or
 import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join.Companion.inner
 import com.todoroo.andlib.sql.Query.Companion.select
-import com.todoroo.astrid.api.CustomFilterCriterion
-import com.todoroo.astrid.api.MultipleSelectCriterion
-import com.todoroo.astrid.api.PermaSql
-import com.todoroo.astrid.api.TextInputCriterion
+import com.todoroo.astrid.api.*
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
@@ -35,6 +32,7 @@ class FilterCriteriaProvider @Inject constructor(
             IDENTIFIER_CALDAV -> caldavFilterCriteria()
             IDENTIFIER_TAG_IS -> tagFilter()
             IDENTIFIER_TAG_CONTAINS -> tagNameContainsFilter
+            IDENTIFIER_RECUR -> recurringFilter
             else -> throw RuntimeException("Unknown identifier: $identifier")
         }
     }
@@ -60,6 +58,7 @@ class FilterCriteriaProvider @Inject constructor(
             result.add(gtasksFilterCriteria())
         }
         result.add(caldavFilterCriteria())
+        result.add(recurringFilter)
         return result
     }
 
@@ -86,6 +85,16 @@ class FilterCriteriaProvider @Inject constructor(
                 tagNames,
                 context.getString(R.string.CFC_tag_name))
     }
+
+    private val recurringFilter: CustomFilterCriterion
+        get() = BooleanCriterion(
+                    IDENTIFIER_RECUR,
+                    context.getString(R.string.repeats_single, "").trim(),
+                    select(Task.ID)
+                            .from(Task.TABLE)
+                            .where(field("LENGTH(${Task.RECURRENCE})>0").eq(1))
+                            .toString()
+            )
 
     val tagNameContainsFilter: CustomFilterCriterion
         get() = TextInputCriterion(
@@ -229,5 +238,6 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_CALDAV = "caldavlist"
         private const val IDENTIFIER_TAG_IS = "tag_is"
         private const val IDENTIFIER_TAG_CONTAINS = "tag_contains"
+        private const val IDENTIFIER_RECUR = "tag_recur"
     }
 }

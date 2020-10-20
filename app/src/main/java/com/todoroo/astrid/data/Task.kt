@@ -527,6 +527,7 @@ class Task : Parcelable {
         @JvmField val NOTES = TABLE.column("notes")
         @JvmField val TIMER_START = TABLE.column("timerStart")
         @JvmField val PARENT = TABLE.column("parent")
+        @JvmField val RECURRENCE = TABLE.column("recurrence")
 
         /** constant value for no uuid  */
         const val NO_UUID = "0" // $NON-NLS-1$

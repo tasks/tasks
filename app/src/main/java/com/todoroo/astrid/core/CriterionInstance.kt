@@ -1,6 +1,7 @@
 package com.todoroo.astrid.core
 
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.astrid.api.BooleanCriterion
 import com.todoroo.astrid.api.CustomFilterCriterion
 import com.todoroo.astrid.api.MultipleSelectCriterion
 import com.todoroo.astrid.api.TextInputCriterion
@@ -47,6 +48,8 @@ class CriterionInstance {
                 return if (selectedText == null) {
                     criterion.text
                 } else criterion.text.replace("?", selectedText!!)
+            } else if (criterion is BooleanCriterion) {
+                return criterion.name
             }
             throw UnsupportedOperationException("Unknown criterion type") // $NON-NLS-1$
         }
@@ -63,6 +66,8 @@ class CriterionInstance {
                 } else criterion.text
             } else if (criterion is TextInputCriterion) {
                 return selectedText
+            } else if (criterion is BooleanCriterion) {
+                return criterion.name
             }
             throw UnsupportedOperationException("Unknown criterion type") // $NON-NLS-1$
         }
