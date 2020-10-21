@@ -3,8 +3,8 @@
     <string name="actfm_picture_clear">清除圖片</string>
     <string name="TVA_add_comment">評論…</string>
     <string name="backup_BPr_header">備份</string>
-    <string name="backup_BAc_import">匯入任務</string>
-    <string name="backup_BAc_export">匯出任務</string>
+    <string name="backup_BAc_import">匯入備份</string>
+    <string name="backup_BAc_export">現在備份</string>
     <string name="export_toast">在%2$s備份%1$s。</string>
     <string name="import_summary_title">還原摘要</string>
     <string name="import_summary_message">檔案%1$s包含%2$s。
@@ -13,9 +13,9 @@
 \n %4$s已存在
 \n %5$s有問題
 \n</string>
-    <string name="import_progress_read">讀取任務%d…</string>
+    <string name="import_progress_read">讀取任務 %d…</string>
     <string name="read_permission_label">Tasks權限</string>
-    <string name="DLG_delete_this_task_question">刪除任務？</string>
+    <string name="DLG_delete_this_task_question">刪除這項任務？</string>
     <string name="DLG_hour_minutes">時間（小時:分鐘）</string>
     <string name="DLG_undo">復原</string>
     <string name="WID_dateButtonUnset">點選</string>
@@ -241,4 +241,18 @@
     <string name="action_call">通話</string>
     <string name="manage_lists">管理清單</string>
     <string name="display_name">顯示名稱</string>
+    <string name="filter_no_priority">無優先級</string>
+    <string name="filter_low_priority">低優先級</string>
+    <string name="filter_medium_priority">中優先級</string>
+    <string name="filter_high_priority">高優先級</string>
+    <string name="add_filter">新增篩選</string>
+    <string name="add_tags">新增標籤</string>
+    <string name="filter_no_tags">沒有標籤</string>
+    <string name="filter_after_today">今天之後</string>
+    <string name="filter_any_due_date">任何到期日</string>
+    <string name="sort_created">依照建立時間</string>
+    <string name="astrid_sort_order_summary">為 \"我的任務\" , \"今天\" 和標籤 啟用 Astrid 的手動排序模式。這種排序模式將於未來的更新後被 \"我的順序\" 來取代</string>
+    <string name="astrid_sort_order">Astrid 手動排序</string>
+    <string name="cancel">取消</string>
+    <string name="ok">確認</string>
 </resources>
