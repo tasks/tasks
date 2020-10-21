@@ -42,7 +42,7 @@
     <string name="CRA_ignore_all">تجاهل جميع الأحداث</string>
     <string name="CRA_ignore_this">تجاهل هذا الحدث فقط</string>
     <string name="CRA_postpone">من المحتمل لاحقاً</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">المهام سوف تذكرك في الاحداث القادمة وسوف تحثك لتكون جاهزاً.</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">المهام سوف تذكرك في الاحداث القادمة وسوف تحثك لتكون جاهزاً</string>
     <string name="EPr_edit_screen_options">تعديل خيارات الشاشه</string>
     <string name="EPr_beastMode_reset">إعادة التعيين إلى الإعدادات الافتراضية</string>
     <string name="EPr_fullTask_title">إظهار عنوان المهمه</string>
@@ -66,7 +66,7 @@
     <string name="CFA_button_add">إضافة معايير</string>
     <string name="CFC_dueBefore_text">مستحق بحسب :?</string>
     <string name="next_month">الشهر القادم</string>
-    <string name="CFC_title_contains_name">العنوان يحتوي على..</string>
+    <string name="CFC_title_contains_name">العنوان يحتوي على…</string>
     <string name="CFC_title_contains_text">العنوان يحتوي على :?</string>
     <string name="gcal_TEA_showCalendar_label">إفتح أحداث التقويم</string>
     <string name="CFC_gtasks_list_text">في القائمة :?</string>
@@ -98,7 +98,7 @@
     <string name="repeat_forever">تكرار دائم</string>
     <string name="TEA_timer_controls">مؤقت</string>
     <string name="TEA_timer_comment_started">بدء هذه المهمة:</string>
-    <string name="TEA_timer_comment_spent">الوقت المنقضي</string>
+    <string name="TEA_timer_comment_spent">الوقت المنقضي:</string>
     <string name="voice_create_prompt">تحدث لإنشاء مهمه</string>
     <string name="EPr_voiceRemindersEnabled_title">منبهات الصوت</string>
     <string name="delete_task">حذف المهمة</string>
