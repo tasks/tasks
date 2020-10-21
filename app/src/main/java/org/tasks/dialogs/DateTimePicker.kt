@@ -87,8 +87,8 @@ class DateTimePicker : BottomSheetDialogFragment() {
             bundle.putLongArray(EXTRA_TASKS, tasks.map { it.id }.toLongArray())
             val dueDates = tasks.map { it.dueDate.startOfDay() }.toSet()
             val dueTimes = tasks.map { it.dueDate.millisOfDay() }.toSet()
-            bundle.putLong(EXTRA_DAY, if (dueDates.size == 1) dueDates.first() else -1)
-            bundle.putInt(EXTRA_TIME, if (dueTimes.size == 1) dueTimes.first() else -1)
+            bundle.putLong(EXTRA_DAY, if (dueDates.size == 1) dueDates.first() else MULTIPLE_DAYS)
+            bundle.putInt(EXTRA_TIME, if (dueTimes.size == 1) dueTimes.first() else MULTIPLE_TIMES)
             bundle.putBoolean(EXTRA_AUTO_CLOSE, autoClose)
             val fragment = DateTimePicker()
             fragment.arguments = bundle
@@ -129,7 +129,11 @@ class DateTimePicker : BottomSheetDialogFragment() {
             binding.calendarView.firstDayOfWeek = firstDayOfWeek
         }
         selectedDay = savedInstanceState?.getLong(EXTRA_DAY) ?: requireArguments().getLong(EXTRA_DAY)
-        selectedTime = savedInstanceState?.getInt(EXTRA_TIME) ?: requireArguments().getInt(EXTRA_TIME)
+        selectedTime =
+                savedInstanceState?.getInt(EXTRA_TIME)
+                        ?: requireArguments().getInt(EXTRA_TIME)
+                                .takeIf { it == MULTIPLE_TIMES || Task.hasDueTime(it.toLong()) }
+                                ?: NO_TIME
 
         return binding.root
     }
@@ -275,14 +279,26 @@ class DateTimePicker : BottomSheetDialogFragment() {
                     taskDao
                             .fetch(taskIds.toList())
                             .forEach {
+                                val day = if (selectedDay == MULTIPLE_DAYS) {
+                                    if (it.hasDueDate()) it.dueDate else today.millis
+                                } else {
+                                    selectedDay
+                                }
+                                val time = if (selectedTime == MULTIPLE_TIMES) {
+                                    if (it.hasDueTime()) it.dueDate.millisOfDay() else NO_TIME
+                                } else {
+                                    selectedTime
+                                }
                                 it.setDueDateAdjustingHideUntil(when {
-                                    selectedDay == MULTIPLE_DAYS ->
-                                        it.dueDate.toDateTime().withMillisOfDay(selectedTime).millis
-                                    selectedDay == NO_DAY -> 0L
-                                    selectedTime == MULTIPLE_TIMES ->
-                                        selectedDay.toDateTime().withMillisOfDay(it.dueDate.millisOfDay()).millis
-                                    selectedTime == NO_TIME -> selectedDay
-                                    else -> selectedDay.toDateTime().withMillisOfDay(selectedTime).millis
+                                    day == NO_DAY -> 0L
+                                    time == NO_TIME -> Task.createDueDate(
+                                            Task.URGENCY_SPECIFIC_DAY,
+                                            day
+                                    )
+                                    else -> Task.createDueDate(
+                                            Task.URGENCY_SPECIFIC_DAY_TIME,
+                                            day.toDateTime().withMillisOfDay(time).millis
+                                    )
                                 })
                                 taskDao.save(it)
                             }
