@@ -7,6 +7,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
+import org.tasks.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
 import java.util.*
 import javax.inject.Inject
@@ -25,7 +26,12 @@ class TaskDuplicator @Inject constructor(
 
     suspend fun duplicate(taskIds: List<Long>): List<Task> {
         val result: MutableList<Task> = ArrayList()
-        for (task in taskDao.fetch(taskIds)) {
+        val tasks = ArrayList(taskIds)
+        taskIds.dbchunk().forEach {
+            tasks.removeAll(googleTaskDao.getChildren(it))
+            tasks.removeAll(taskDao.getChildren(it))
+        }
+        for (task in taskDao.fetch(tasks)) {
             result.add(clone(task))
         }
         localBroadcastManager.broadcastRefresh()
