@@ -1,7 +1,7 @@
 Change Log
 ---
 =======
-### 10.5 (2020-10-19)
+### 10.5 (2020-10-21)
 
 * Multi-select rescheduling
 * New task default settings
