@@ -664,4 +664,12 @@
     <string name="header_spacing">Интервал</string>
     <string name="default_recurrence">Повторение по умолчанию</string>
     <string name="repeat_type_completion_capitalized">Дата завершения</string>
+    <string name="custom_filter_is_subtask">Подзадача</string>
+    <string name="custom_filter_has_subtask">Есть подзадачи</string>
+    <string name="delete_comment">Удалить этот комментарий\?</string>
+    <string name="default_tags">Теги по умолчанию</string>
+    <string name="default_location">Местоположение по умолчанию</string>
+    <string name="always_display_full_date">Показать полную дату</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">ОК</string>
 </resources>
