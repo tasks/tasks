@@ -651,4 +651,6 @@
     <string name="cancel">Annuler</string>
     <string name="ok">OK</string>
     <string name="always_display_full_date">Afficher la date complète</string>
+    <string name="custom_filter_is_subtask">Est une sous-tâche</string>
+    <string name="custom_filter_has_subtask">A des sous-tâches</string>
 </resources>
