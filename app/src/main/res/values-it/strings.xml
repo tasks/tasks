@@ -651,4 +651,6 @@
     <string name="always_display_full_date">Mostra data completa</string>
     <string name="cancel">\@android:string/cancel</string>
     <string name="ok">\@android:string/ok</string>
+    <string name="custom_filter_has_subtask">Ci sono attività secondarie</string>
+    <string name="custom_filter_is_subtask">E\' un\'attività secondaria</string>
 </resources>
