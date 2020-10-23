@@ -15,6 +15,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.InOrder
 import org.mockito.Mockito
+import org.tasks.Freeze.Companion.freezeClock
 import org.tasks.LocalBroadcastManager
 import org.tasks.makers.TaskMaker.AFTER_COMPLETE
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
@@ -180,10 +181,34 @@ class RepeatTaskHelperTest {
                 task, DateTime(2017, 1, 31, 13, 30, 1), DateTime(2017, 2, 28, 13, 30, 1))
     }
 
-    private fun repeatAndVerify(task: Task, oldDueDate: DateTime, newDueDate: DateTime) = runBlockingTest {
+    @Test
+    fun testAlarmShiftWithNoDueDate() {
+        val task = newTask(
+                with(ID, 1L),
+                with(RRULE, RRule("RRULE:FREQ=DAILY"))
+        )
+        freezeClock {
+            repeatAndVerify(
+                    task,
+                    Task.createDueDate(
+                            Task.URGENCY_SPECIFIC_DAY,
+                            DateTime().millis
+                    ),
+                    Task.createDueDate(
+                            Task.URGENCY_SPECIFIC_DAY,
+                            DateTime().plusDays(1).millis
+                    )
+            )
+        }
+    }
+
+    private fun repeatAndVerify(task: Task, oldDueDate: DateTime, newDueDate: DateTime) =
+            repeatAndVerify(task, oldDueDate.millis, newDueDate.millis)
+
+    private fun repeatAndVerify(task: Task, oldDueDate: Long, newDueDate: Long) = runBlockingTest {
         helper.handleRepeat(task)
         mocks.verify(gCalHelper).rescheduleRepeatingTask(task)
-        mocks.verify(alarmService).rescheduleAlarms(1, oldDueDate.millis, newDueDate.millis)
-        mocks.verify(localBroadcastManager).broadcastRepeat(1, oldDueDate.millis, newDueDate.millis)
+        mocks.verify(alarmService).rescheduleAlarms(1, oldDueDate, newDueDate)
+        mocks.verify(localBroadcastManager).broadcastRepeat(1, oldDueDate, newDueDate)
     }
 }
