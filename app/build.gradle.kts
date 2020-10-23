@@ -211,7 +211,6 @@ dependencies {
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
     googleplayImplementation("com.google.android.gms:play-services-location:17.1.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
-    // Remove transport-runtime and transport-backend-cct after places update
     googleplayImplementation("com.google.android.libraries.places:places:2.4.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
 
