@@ -24,10 +24,9 @@ class AlarmService @Inject constructor(
         private val alarmDao: AlarmDao,
         private val jobs: NotificationQueue) {
 
-    // TODO: remove runBlocking
-    fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) = runBlocking {
-        if (newDueDate <= 0 || newDueDate <= oldDueDate) {
-            return@runBlocking
+    suspend fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) {
+        if (oldDueDate <= 0 || newDueDate <= 0 || newDueDate <= oldDueDate) {
+            return
         }
         val alarms: MutableSet<Long> = LinkedHashSet()
         for (alarm in getAlarms(taskId)) {

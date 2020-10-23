@@ -63,7 +63,13 @@ class RepeatTaskHelper @Inject constructor(
             task.setDueDateAdjustingHideUntil(newDueDate)
             gcalHelper.rescheduleRepeatingTask(task)
             taskDao.save(task)
-            alarmService.rescheduleAlarms(task.id, oldDueDate, newDueDate)
+            alarmService.rescheduleAlarms(
+                    task.id,
+                    oldDueDate
+                            .takeIf { it > 0 }
+                    // try to guess original due date when no due date was set
+                            ?: newDueDate - (computeNextDueDate(task, recurrence, repeatAfterCompletion) - newDueDate),
+                    newDueDate)
             localBroadcastManager.broadcastRepeat(task.id, oldDueDate, newDueDate)
         }
     }
