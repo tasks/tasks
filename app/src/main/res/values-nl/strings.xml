@@ -611,7 +611,7 @@
     <string name="yesterday_lowercase">gisteren</string>
     <string name="tomorrow_lowercase">morgen</string>
     <string name="today_lowercase">vandaag</string>
-    <string name="improve_performance_summary">Zet sorteergroepen en inklapbare subtaken uit om prestaties te verbeteren</string>
+    <string name="improve_performance_summary">Zet sorteergroepen en inklapbare deeltaken uit om prestaties te verbeteren</string>
     <string name="improve_performance">Verbeter prestaties</string>
     <string name="astrid_sort_order_summary">Zet Astrid\'s handmatige sorteermodus aan voor \'Mijn taken\', \'Vandaag\', en labels. Deze sorteermodus zal in een toekomstige update vervangen worden door \'Mijn volgorde\'</string>
     <string name="astrid_sort_order">Astrid\'s handmatig sorteren</string>
@@ -651,4 +651,6 @@
     <string name="cancel">Annuleren</string>
     <string name="ok">OK</string>
     <string name="always_display_full_date">Toon volledige datum</string>
+    <string name="custom_filter_is_subtask">Is deeltaak</string>
+    <string name="custom_filter_has_subtask">Heeft deeltaken</string>
 </resources>
