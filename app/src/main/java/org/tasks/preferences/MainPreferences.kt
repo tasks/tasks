@@ -11,8 +11,8 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.fragments.MainSettingsFragment
-import org.tasks.preferences.fragments.REQUEST_CALDAV_SETTINGS
-import org.tasks.preferences.fragments.REQUEST_GOOGLE_TASKS
+import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_CALDAV_SETTINGS
+import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_GOOGLE_TASKS
 import org.tasks.sync.SyncAdapters
 import org.tasks.ui.Toaster
 import javax.inject.Inject

@@ -32,11 +32,6 @@ import org.tasks.sync.AddAccountDialog.Companion.newAccountDialog
 import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
-const val REQUEST_CALDAV_SETTINGS = 10013
-const val REQUEST_GOOGLE_TASKS = 10014
-private const val FRAG_TAG_ADD_ACCOUNT = "frag_tag_add_account"
-private const val REQUEST_ADD_ACCOUNT = 10015
-
 @AndroidEntryPoint
 class Synchronization : InjectingPreferenceFragment() {
 
@@ -212,5 +207,12 @@ class Synchronization : InjectingPreferenceFragment() {
             findPreference(R.string.accounts).isVisible = syncEnabled
             findPreference(R.string.sync_SPr_interval_title).isVisible = syncEnabled
         }
+    }
+
+    companion object {
+        const val REQUEST_CALDAV_SETTINGS = 10013
+        const val REQUEST_GOOGLE_TASKS = 10014
+        private const val REQUEST_ADD_ACCOUNT = 10015
+        private const val FRAG_TAG_ADD_ACCOUNT = "frag_tag_add_account"
     }
 }
