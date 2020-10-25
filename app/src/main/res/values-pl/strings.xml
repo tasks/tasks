@@ -656,4 +656,17 @@
     <string name="automatic_backups">Automatyczne kopie zapasowe</string>
     <string name="background_location_permission_required">Uprawnienia do lokalizacji są potrzebne do przypomnień opartych na lokalizacji. Jeśli wcześniej odmówiłeś pozwolenia na lokalizację, musisz ręcznie przyznać pozwolenie w ustawieniach urządzenia.</string>
     <string name="no_app_found">Żadna aplikacja nie może obsłużyć tego żądania</string>
+    <string name="custom_filter_is_subtask">Jest podzadaniem</string>
+    <string name="custom_filter_has_subtask">Ma podzadania</string>
+    <string name="delete_comment">Usunąć ten komentarz\?</string>
+    <string name="date_picker_multiple">Wielokrotnie</string>
+    <string name="multi_select_reschedule">Przełóż</string>
+    <string name="default_recurrence">Powtarzanie domyślne</string>
+    <string name="default_tags">Domyślne tagi</string>
+    <string name="header_spacing">Rozstaw</string>
+    <string name="repeat_type_completion_capitalized">Data zakończenia</string>
+    <string name="default_location">Domyślna lokalizacja</string>
+    <string name="always_display_full_date">Pokaż pełną datę</string>
+    <string name="cancel">Anuluj</string>
+    <string name="ok">OK</string>
 </resources>
