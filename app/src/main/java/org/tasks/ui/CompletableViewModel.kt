@@ -1,13 +1,12 @@
 package org.tasks.ui
 
 import androidx.lifecycle.*
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 abstract class CompletableViewModel<T> : ViewModel() {
     private val data = MutableLiveData<T>()
     private val error = MutableLiveData<Throwable>()
-    private val disposables = CompositeDisposable()
 
     var inProgress = false
         private set
@@ -28,15 +27,14 @@ abstract class CompletableViewModel<T> : ViewModel() {
         if (!inProgress) {
             inProgress = true
             try {
-                data.value = callable.invoke()
+                data.postValue(callable.invoke())
             } catch (e: Exception) {
-                error.value = e
+                Timber.e(e)
+                error.postValue(e)
             }
             inProgress = false
         }
     }
-
-    override fun onCleared() = disposables.dispose()
 
     fun removeObserver(owner: LifecycleOwner) {
         data.removeObservers(owner)
