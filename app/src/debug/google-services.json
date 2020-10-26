@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:448612483090:android:c31434c55745e54c",
         "android_client_info": {
-          "package_name": "org.tasks.debug"
+          "package_name": "org.tasks"
         }
       },
       "oauth_client": [

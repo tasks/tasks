@@ -85,7 +85,6 @@ android {
     @Suppress("LocalVariableName")
     buildTypes {
         getByName("debug") {
-            applicationIdSuffix = ".debug"
             firebaseCrashlytics {
                 mappingFileUploadEnabled = false
             }
@@ -98,7 +97,6 @@ android {
         getByName("release") {
             val tasks_mapbox_key: String? by project
             val tasks_google_key: String? by project
-
             resValue("string", "mapbox_key", tasks_mapbox_key ?: "")
             resValue("string", "google_key", tasks_google_key ?: "")
             isMinifyEnabled = true
@@ -111,10 +109,10 @@ android {
 
     productFlavors {
         create("generic") {
-            setDimension("store")
+            dimension("store")
         }
         create("googleplay") {
-            setDimension("store")
+            dimension("store")
         }
     }
 
