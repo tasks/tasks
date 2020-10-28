@@ -115,11 +115,13 @@ class Preferences @JvmOverloads constructor(
         }
 
     fun setPurchases(purchases: Collection<Purchase>) {
+        setPurchases(purchases.map(Purchase::toJson).toHashSet())
+    }
+
+    fun setPurchases(set: HashSet<String>) {
         try {
             val editor = prefs.edit()
-            editor.putStringSet(
-                    context.getString(R.string.p_purchases),
-                    purchases.map(Purchase::toJson).toHashSet())
+            editor.putStringSet(context.getString(R.string.p_purchases), set)
             editor.apply()
         } catch (e: Exception) {
             Timber.e(e)

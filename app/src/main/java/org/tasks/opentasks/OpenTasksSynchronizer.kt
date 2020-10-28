@@ -83,7 +83,7 @@ class OpenTasksSynchronizer @Inject constructor(
             val entries = lists[account.uuid!!]
             if (entries == null) {
                 taskDeleter.delete(account)
-            } else if (!inventory.hasPro()) {
+            } else if (!inventory.hasPro) {
                 setError(account, context.getString(R.string.requires_pro_subscription))
             } else {
                 sync(account, entries)

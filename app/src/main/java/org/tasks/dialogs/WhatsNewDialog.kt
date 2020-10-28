@@ -49,7 +49,7 @@ class WhatsNewDialog : DialogFragment() {
 
         val begForRating = !preferences.getBoolean(R.string.p_clicked_rate, false)
                 && (inventory.purchasedThemes() || firebase.noChurn())
-        val begForSubscription = firebase.noChurn() && !inventory.hasPro()
+        val begForSubscription = firebase.noChurn() && !inventory.hasPro
 
         when {
             BuildConfig.FLAVOR == "generic" -> {
@@ -120,7 +120,7 @@ class WhatsNewDialog : DialogFragment() {
                 Pair(R.string.param_click, click),
                 Pair(R.string.param_whats_new_display_rate, displayedRate),
                 Pair(R.string.param_whats_new_display_subscribe, displayedSubscribe),
-                Pair(R.string.param_user_pro, inventory.hasPro()),
+                Pair(R.string.param_user_pro, inventory.hasPro),
                 Pair(R.string.param_user_no_churn, firebase.noChurn()))
     }
 }

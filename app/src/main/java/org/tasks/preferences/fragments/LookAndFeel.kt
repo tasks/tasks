@@ -190,7 +190,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
                             dialog.dismiss()
                             return@setSingleChoiceItems
                         }
-                        if (!inventory.hasPro()) {
+                        if (!inventory.hasPro) {
                             toaster.longToast(R.string.requires_pro_subscription)
                             dialog.dismiss()
                             return@setSingleChoiceItems
@@ -209,7 +209,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
     }
 
     private fun getPlaceProvider(): Int {
-        return if (playServices.isPlayServicesAvailable && inventory.hasPro()) preferences.getInt(
+        return if (playServices.isPlayServicesAvailable && inventory.hasPro) preferences.getInt(
             R.string.p_place_provider,
             0
         ) else 0
@@ -228,7 +228,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_PURCHASE) {
-            val index = if (inventory.hasPro()) {
+            val index = if (inventory.hasPro) {
                 data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, DEFAULT_BASE_THEME)
                     ?: themeBase.index
             } else {

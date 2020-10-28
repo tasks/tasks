@@ -7,7 +7,7 @@ import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
-internal class SignatureVerifier @Inject constructor(@ApplicationContext context: Context) {
+class SignatureVerifier @Inject constructor(@ApplicationContext context: Context) {
     private val billingKey: String = context.getString(R.string.gp_key)
 
     fun verifySignature(purchase: Purchase): Boolean {

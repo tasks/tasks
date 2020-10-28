@@ -76,7 +76,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
 
         if (BuildConfig.FLAVOR != "generic") {
             val findPreference = findPreference(R.string.upgrade_to_pro)
-            if (inventory.hasPro()) {
+            if (inventory.hasPro) {
                 findPreference.title = getString(R.string.manage_subscription)
                 findPreference.summary = getString(R.string.manage_subscription_summary)
             }

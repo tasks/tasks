@@ -46,7 +46,7 @@ class IconPickerAdapter extends ListAdapter<Integer, IconPickerHolder> {
       int tint = index == current
           ? getData(activity, R.attr.colorAccent)
           : activity.getColor(R.color.icon_tint);
-      boolean available = index < 1000 || inventory.hasPro();
+      boolean available = index < 1000 || inventory.getHasPro();
       float alpha =
           ResourcesCompat.getFloat(
               activity.getResources(),

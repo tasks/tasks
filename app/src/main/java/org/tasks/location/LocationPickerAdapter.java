@@ -73,7 +73,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
   }
 
   private int getIcon(int index) {
-    if (index < 1000 || inventory.hasPro()) {
+    if (index < 1000 || inventory.getHasPro()) {
       Integer icon = CustomIcons.getIconResId(index);
       if (icon != null) {
         return icon;

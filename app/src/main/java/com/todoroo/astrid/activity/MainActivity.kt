@@ -86,7 +86,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         super.onCreate(savedInstanceState)
         theme.applyTheme(this)
         currentNightMode = nightMode
-        currentPro = inventory.hasPro()
+        currentPro = inventory.hasPro
         binding = TaskListActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (savedInstanceState != null) {
@@ -329,7 +329,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     override fun onResume() {
         super.onResume()
-        if (currentNightMode != nightMode || currentPro != inventory.hasPro()) {
+        if (currentNightMode != nightMode || currentPro != inventory.hasPro) {
             recreate()
             return
         }

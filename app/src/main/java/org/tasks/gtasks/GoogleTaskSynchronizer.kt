@@ -60,7 +60,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     suspend fun sync(account: GoogleTaskAccount, i: Int) {
         Timber.d("%s: start sync", account)
         try {
-            if (i == 0 || inventory.hasPro()) {
+            if (i == 0 || inventory.hasPro) {
                 synchronize(account)
             } else {
                 account.error = context.getString(R.string.requires_pro_subscription)

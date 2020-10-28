@@ -61,7 +61,7 @@ public class IconPickerDialog extends DialogFragment {
 
     AlertDialogBuilder builder =
         dialogBuilder.newDialog().setNegativeButton(R.string.cancel, null).setView(view);
-    if (!inventory.hasPro()) {
+    if (!inventory.getHasPro()) {
       builder.setPositiveButton(
           R.string.button_subscribe,
           (dialog, which) -> context.startActivity(new Intent(context, PurchaseActivity.class)));

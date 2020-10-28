@@ -87,7 +87,7 @@ class ColorWheelPicker : DialogFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == org.tasks.dialogs.REQUEST_PURCHASE) {
-            if (inventory.hasPro()) {
+            if (inventory.hasPro) {
                 deliverSelection()
             } else {
                 dialog?.cancel()

@@ -24,7 +24,7 @@ internal class LocationModule {
             inventory: Inventory): PlaceSearchProvider {
         return if (preferences.useGooglePlaces()
                 && playServices.isPlayServicesAvailable
-                && inventory.hasPro()) {
+                && inventory.hasPro) {
             GooglePlacesSearchProvider(context)
         } else {
             MapboxSearchProvider(context)

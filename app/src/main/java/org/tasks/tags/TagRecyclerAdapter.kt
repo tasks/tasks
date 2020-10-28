@@ -46,7 +46,7 @@ internal class TagRecyclerAdapter(
     }
 
     private fun getIcon(tagData: TagData): Int? {
-        return if (tagData.getIcon()!! < 1000 || inventory.hasPro()) getIconResId(tagData.getIcon()!!) else null
+        return if (tagData.getIcon()!! < 1000 || inventory.hasPro) getIconResId(tagData.getIcon()!!) else null
     }
 
     fun submitList(tagData: List<TagData>?) {

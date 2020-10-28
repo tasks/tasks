@@ -86,7 +86,7 @@ class FilterViewHolder internal constructor(
     }
 
     private fun getIcon(filter: FilterListItem): Int {
-        if (filter.icon < 1000 || inventory.hasPro()) {
+        if (filter.icon < 1000 || inventory.hasPro) {
             val icon = getIconResId(filter.icon)
             if (icon != null) {
                 return icon
