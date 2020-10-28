@@ -20,7 +20,6 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_CALDAV_SETTINGS
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_GOOGLE_TASKS
-import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_TASKS_ORG
 import org.tasks.themes.DrawableUtil
 import javax.inject.Inject
 
