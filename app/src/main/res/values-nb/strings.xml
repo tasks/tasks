@@ -651,4 +651,11 @@
     <string name="repeat_type_completion_capitalized">Fullføringsdato</string>
     <string name="default_location">Forvalgt plassering</string>
     <string name="delete_comment">Slett denne kommentaren\?</string>
+    <string name="custom_filter_is_subtask">Er et gjøremålssteg</string>
+    <string name="custom_filter_has_subtask">Har gjøremålssteg</string>
+    <string name="date_picker_multiple">Flere</string>
+    <string name="multi_select_reschedule">Endre tidspunkt</string>
+    <string name="always_display_full_date">Vis full dato</string>
+    <string name="cancel">Avbryt</string>
+    <string name="ok">OK</string>
 </resources>
