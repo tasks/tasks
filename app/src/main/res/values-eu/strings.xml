@@ -256,7 +256,7 @@
     <string name="repeat_until">Errepikatu %s arte</string>
     <string name="repeat_number_of_times">Errepikatu aldi kopuru bat</string>
     <string name="repeat_occurs">Errepikapenak</string>
-    <string name="repeat_snackbar">"%1$s  %2$s-rako programatuta"</string>
+    <string name="repeat_snackbar">%1$s %2$s-rako programatuta</string>
     <string name="new_tag">Sortu etiketa berria</string>
     <string name="new_list">Sortu zerrenda berria</string>
     <string name="delete_tag_confirmation">Ezabatu %s\?</string>
