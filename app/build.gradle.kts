@@ -211,6 +211,7 @@ dependencies {
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
     googleplayImplementation("com.google.android.libraries.places:places:2.4.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
+    googleplayImplementation("com.google.android.gms:play-services-auth:18.1.0")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
     kaptAndroidTest("com.google.dagger:hilt-compiler:${Versions.hilt}")

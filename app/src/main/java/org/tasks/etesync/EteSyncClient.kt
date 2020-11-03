@@ -104,7 +104,7 @@ class EteSyncClient {
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS)
         if (preferences.isFlipperEnabled) {
-            interceptor.add(builder)
+            interceptor.apply(builder)
         }
         httpClient = builder.build()
         httpUrl = url?.toHttpUrlOrNull()

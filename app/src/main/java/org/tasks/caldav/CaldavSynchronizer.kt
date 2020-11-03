@@ -54,7 +54,7 @@ class CaldavSynchronizer @Inject constructor(
         private val taskDeleter: TaskDeleter,
         private val inventory: Inventory,
         private val firebase: Firebase,
-        private val client: CaldavClient,
+        private val provider: CaldavClientProvider,
         private val iCal: iCalendar) {
     companion object {
         init {
@@ -105,7 +105,7 @@ class CaldavSynchronizer @Inject constructor(
 
     @Throws(IOException::class, DavException::class, KeyManagementException::class, NoSuchAlgorithmException::class)
     private suspend fun synchronize(account: CaldavAccount) {
-        val caldavClient = client.forAccount(account)
+        val caldavClient = provider.forAccount(account)
         val resources = caldavClient.calendars()
         val urls = resources.map { it.href.toString() }.toHashSet()
         Timber.d("Found calendars: %s", urls)
@@ -132,7 +132,7 @@ class CaldavSynchronizer @Inject constructor(
                 caldavDao.update(calendar)
                 localBroadcastManager.broadcastRefreshList()
             }
-            sync(calendar, resource, caldavClient.httpClient!!)
+            sync(calendar, resource, caldavClient.httpClient)
         }
         setError(account, "")
     }

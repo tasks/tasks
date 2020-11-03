@@ -5,8 +5,9 @@ import org.tasks.data.CaldavAccount
 import org.tasks.ui.CompletableViewModel
 
 class CreateCalendarViewModel @ViewModelInject constructor(
-        private val client: CaldavClient): CompletableViewModel<String?>() {
+        private val provider: CaldavClientProvider
+): CompletableViewModel<String?>() {
     suspend fun createCalendar(account: CaldavAccount, name: String, color: Int) {
-        run { client.forAccount(account).makeCollection(name, color) }
+        run { provider.forAccount(account).makeCollection(name, color) }
     }
 }

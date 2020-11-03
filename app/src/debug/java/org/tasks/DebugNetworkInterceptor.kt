@@ -12,8 +12,8 @@ import java.io.IOException
 import javax.inject.Inject
 
 class DebugNetworkInterceptor @Inject constructor(@param:ApplicationContext private val context: Context) {
-    fun add(builder: OkHttpClient.Builder) {
-        builder.addNetworkInterceptor(FlipperOkhttpInterceptor(getNetworkPlugin(context)))
+    fun apply(builder: OkHttpClient.Builder?) {
+        builder?.addNetworkInterceptor(FlipperOkhttpInterceptor(getNetworkPlugin(context)))
     }
 
     @Throws(IOException::class)

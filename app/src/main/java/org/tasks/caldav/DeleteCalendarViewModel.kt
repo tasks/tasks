@@ -6,8 +6,11 @@ import org.tasks.data.CaldavCalendar
 import org.tasks.ui.ActionViewModel
 
 class DeleteCalendarViewModel @ViewModelInject constructor(
-        private val client: CaldavClient) : ActionViewModel() {
+        private val provider: CaldavClientProvider
+) : ActionViewModel() {
     suspend fun deleteCalendar(account: CaldavAccount, calendar: CaldavCalendar) {
-        run { client.forCalendar(account, calendar).deleteCollection() }
+        run {
+            calendar.url?.let { provider.forAccount(account, it).deleteCollection() }
+        }
     }
 }

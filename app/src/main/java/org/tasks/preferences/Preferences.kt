@@ -115,7 +115,7 @@ class Preferences @JvmOverloads constructor(
         }
 
     fun setPurchases(purchases: Collection<Purchase>) {
-        setPurchases(purchases.map(Purchase::toJson).toHashSet())
+        setPurchases(purchases.mapNotNull(Purchase::toJson).toHashSet())
     }
 
     fun setPurchases(set: HashSet<String>) {

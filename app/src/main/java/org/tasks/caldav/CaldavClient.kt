@@ -1,9 +1,7 @@
 package org.tasks.caldav
 
-import android.content.Context
 import androidx.annotation.WorkerThread
 import at.bitfire.cert4android.CustomCertManager
-import at.bitfire.dav4jvm.BasicDigestAuthHandler
 import at.bitfire.dav4jvm.DavResource
 import at.bitfire.dav4jvm.Response
 import at.bitfire.dav4jvm.Response.HrefRelation
@@ -16,20 +14,13 @@ import at.bitfire.dav4jvm.exception.HttpException
 import at.bitfire.dav4jvm.property.*
 import at.bitfire.dav4jvm.property.ResourceType.Companion.CALENDAR
 import com.todoroo.astrid.helper.UUIDHelper
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
-import okhttp3.internal.tls.OkHostnameVerifier
-import org.tasks.DebugNetworkInterceptor
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.preferences.Preferences
-import org.tasks.security.KeyStoreEncryption
 import org.tasks.ui.DisplayableException
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
@@ -40,95 +31,31 @@ import java.io.StringWriter
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
 import java.util.*
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.net.ssl.SSLContext
 
-class CaldavClient {
-    private val encryption: KeyStoreEncryption
-    private val preferences: Preferences
-    private val interceptor: DebugNetworkInterceptor
-    val httpClient: OkHttpClient?
-    private val httpUrl: HttpUrl?
-    private val context: Context
-    private val basicDigestAuthHandler: BasicDigestAuthHandler?
-    private var foreground = false
+class CaldavClient(
+        private val provider: CaldavClientProvider,
+        private val customCertManager: CustomCertManager,
+        val httpClient: OkHttpClient,
+        private val httpUrl: HttpUrl?
+) {
+    @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
+    suspend fun forAccount(account: CaldavAccount) =
+            provider.forAccount(account)
 
-    @Inject
-    internal constructor(
-            @ApplicationContext context: Context,
-            encryption: KeyStoreEncryption,
-            preferences: Preferences,
-            interceptor: DebugNetworkInterceptor) {
-        this.context = context
-        this.encryption = encryption
-        this.preferences = preferences
-        this.interceptor = interceptor
-        httpClient = null
-        httpUrl = null
-        basicDigestAuthHandler = null
-    }
-
-    private constructor(
-            context: Context,
-            encryption: KeyStoreEncryption,
-            preferences: Preferences,
-            interceptor: DebugNetworkInterceptor,
+    @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
+    suspend fun forUrl(
             url: String?,
             username: String,
             password: String,
-            foreground: Boolean) {
-        this.context = context
-        this.encryption = encryption
-        this.preferences = preferences
-        this.interceptor = interceptor
-        val customCertManager = CustomCertManager(context)
-        customCertManager.appInForeground = foreground
-        val hostnameVerifier = customCertManager.hostnameVerifier(OkHostnameVerifier)
-        val sslContext = SSLContext.getInstance("TLS")
-        sslContext.init(null, arrayOf(customCertManager), null)
-        basicDigestAuthHandler = BasicDigestAuthHandler(null, username, password)
-        val builder = OkHttpClient()
-                .newBuilder()
-                .addNetworkInterceptor(basicDigestAuthHandler)
-                .authenticator(basicDigestAuthHandler)
-                .cookieJar(MemoryCookieStore())
-                .followRedirects(false)
-                .followSslRedirects(true)
-                .sslSocketFactory(sslContext.socketFactory, customCertManager)
-                .hostnameVerifier(hostnameVerifier)
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(120, TimeUnit.SECONDS)
-        if (preferences.isFlipperEnabled) {
-            interceptor.add(builder)
-        }
-        httpClient = builder.build()
-        httpUrl = url?.toHttpUrlOrNull()
-    }
-
-    @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
-    suspend fun forAccount(account: CaldavAccount): CaldavClient {
-        return forUrl(account.url, account.username!!, account.getPassword(encryption))
-    }
-
-    @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
-    suspend fun forCalendar(account: CaldavAccount, calendar: CaldavCalendar): CaldavClient {
-        return forUrl(calendar.url, account.username!!, account.getPassword(encryption))
-    }
-
-    @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
-    suspend fun forUrl(url: String?, username: String, password: String): CaldavClient = withContext(Dispatchers.IO) {
-        CaldavClient(
-                context, encryption, preferences, interceptor, url, username, password, foreground)
-    }
+            token: String? = null
+    ): CaldavClient = provider.forUrl(url, username, password, token)
 
     @WorkerThread
     @Throws(DavException::class, IOException::class)
     private fun tryFindPrincipal(link: String): String? {
         val url = httpUrl!!.resolve(link)
         Timber.d("Checking for principal: %s", url)
-        val davResource = DavResource(httpClient!!, url!!)
+        val davResource = DavResource(httpClient, url!!)
         val responses = ArrayList<Response>()
         davResource.propfind(0, CurrentUserPrincipal.NAME) { response, _ ->
             responses.add(response)
@@ -149,7 +76,7 @@ class CaldavClient {
     @WorkerThread
     @Throws(DavException::class, IOException::class)
     private fun findHomeset(): String {
-        val davResource = DavResource(httpClient!!, httpUrl!!)
+        val davResource = DavResource(httpClient, httpUrl!!)
         val responses = ArrayList<Response>()
         davResource.propfind(0, CalendarHomeSet.NAME) { response, _ ->
             responses.add(response)
@@ -169,7 +96,11 @@ class CaldavClient {
     }
 
     @Throws(IOException::class, DavException::class, NoSuchAlgorithmException::class, KeyManagementException::class)
-    suspend fun homeSet(): String = withContext(Dispatchers.IO) {
+    suspend fun homeSet(
+            username: String? = null,
+            password: String? = null,
+            token: String? = null
+    ): String = withContext(Dispatchers.IO) {
         var principal: String? = null
         try {
             principal = tryFindPrincipal("/.well-known/caldav")
@@ -182,16 +113,17 @@ class CaldavClient {
         if (principal == null) {
             principal = tryFindPrincipal("")
         }
-        forUrl(
+        provider.forUrl(
                 (if (isNullOrEmpty(principal)) httpUrl else httpUrl!!.resolve(principal!!)).toString(),
-                basicDigestAuthHandler!!.username,
-                basicDigestAuthHandler.password)
+                username,
+                password,
+                token)
                 .findHomeset()
     }
 
     @Throws(IOException::class, DavException::class)
     suspend fun calendars(): List<Response> = withContext(Dispatchers.IO) {
-        val davResource = DavResource(httpClient!!, httpUrl!!)
+        val davResource = DavResource(httpClient, httpUrl!!)
         val responses = ArrayList<Response>()
         davResource.propfind(
                 1,
@@ -226,12 +158,12 @@ class CaldavClient {
 
     @Throws(IOException::class, HttpException::class)
     suspend fun deleteCollection() = withContext(Dispatchers.IO) {
-        DavResource(httpClient!!, httpUrl!!).delete(null) {}
+        DavResource(httpClient, httpUrl!!).delete(null) {}
     }
 
     @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
     suspend fun makeCollection(displayName: String, color: Int): String = withContext(Dispatchers.IO) {
-        val davResource = DavResource(httpClient!!, httpUrl!!.resolve(UUIDHelper.newUUID() + "/")!!)
+        val davResource = DavResource(httpClient, httpUrl!!.resolve(UUIDHelper.newUUID() + "/")!!)
         val mkcolString = getMkcolString(displayName, color)
         davResource.mkCol(mkcolString) {}
         davResource.location.toString()
@@ -239,7 +171,7 @@ class CaldavClient {
 
     @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
     suspend fun updateCollection(displayName: String, color: Int): String = withContext(Dispatchers.IO) {
-        val davResource = PatchableDavResource(httpClient!!, httpUrl!!)
+        val davResource = PatchableDavResource(httpClient, httpUrl!!)
         davResource.propPatch(getPropPatchString(displayName, color)) {}
         davResource.location.toString()
     }
@@ -328,7 +260,7 @@ class CaldavClient {
     }
 
     fun setForeground(): CaldavClient {
-        foreground = true
+        customCertManager.appInForeground = true
         return this
     }
 }

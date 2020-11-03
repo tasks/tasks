@@ -2,8 +2,7 @@ package org.tasks.billing
 
 @Suppress("UNUSED_PARAMETER")
 class Purchase(json: String?) {
-    val sku: String?
-        get() = null
+    val sku: String = ""
 
     fun toJson(): String? {
         return null
@@ -20,4 +19,6 @@ class Purchase(json: String?) {
 
     val isProSubscription: Boolean
         get() = false
+
+    val purchaseToken = ""
 }
