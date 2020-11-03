@@ -8,6 +8,7 @@ import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
+import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.GoogleTaskListDao
@@ -54,7 +55,8 @@ class SyncAdapters @Inject constructor(
             googleTasks.sync(false)
         }
         if (task.checkTransitory(SyncFlags.FORCE_CALDAV_SYNC) || !task.caldavUpToDate(original)) {
-            if (caldavDao.isAccountType(task.id, TYPE_CALDAV)) {
+            if (caldavDao.isAccountType(task.id, TYPE_CALDAV)
+                    || caldavDao.isAccountType(task.id, TYPE_TASKS)) {
                 caldav.sync(false)
             }
             if (caldavDao.isAccountType(task.id, TYPE_ETESYNC)) {
@@ -103,7 +105,8 @@ class SyncAdapters @Inject constructor(
 
     private suspend fun isGoogleTaskSyncEnabled() = googleTaskListDao.getAccounts().isNotEmpty()
 
-    private suspend fun isCaldavSyncEnabled() = caldavDao.getAccounts(TYPE_CALDAV).isNotEmpty()
+    private suspend fun isCaldavSyncEnabled() =
+            caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).isNotEmpty()
 
     private suspend fun isEteSyncEnabled() = caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty()
 

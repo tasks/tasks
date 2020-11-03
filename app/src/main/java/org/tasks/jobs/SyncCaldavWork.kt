@@ -10,6 +10,7 @@ import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
 import org.tasks.preferences.Preferences
 
@@ -23,7 +24,7 @@ class SyncCaldavWork @WorkerInject constructor(
         private val caldavSynchronizer: CaldavSynchronizer
 ) : SyncWork(context, workerParams, firebase, localBroadcastManager, preferences) {
 
-    override suspend fun enabled() = caldavDao.getAccounts(TYPE_CALDAV).isNotEmpty()
+    override suspend fun enabled() = getAccounts().isNotEmpty()
 
     override val syncStatus = R.string.p_sync_ongoing_caldav
 
@@ -32,11 +33,13 @@ class SyncCaldavWork @WorkerInject constructor(
     }
 
     private suspend fun caldavJobs(): List<Deferred<Unit>> = coroutineScope {
-        caldavDao.getAccounts(TYPE_CALDAV)
-                .map {
-                    async(Dispatchers.IO) {
-                        caldavSynchronizer.sync(it)
-                    }
-                }
+        getAccounts().map {
+            async(Dispatchers.IO) {
+                caldavSynchronizer.sync(it)
+            }
+        }
     }
+
+    private suspend fun getAccounts() =
+            caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS)
 }

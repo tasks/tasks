@@ -32,8 +32,13 @@ abstract class CaldavDao {
     @Query("SELECT * FROM caldav_accounts WHERE cda_uuid = :uuid LIMIT 1")
     abstract suspend fun getAccountByUuid(uuid: String): CaldavAccount?
 
-    @Query("SELECT * FROM caldav_accounts WHERE cda_account_type = :type")
-    abstract suspend fun getAccounts(type: Int): List<CaldavAccount>
+    suspend fun getAccounts(vararg types: Int) = getAccounts(types.toList())
+
+    @Query("SELECT * FROM caldav_accounts WHERE cda_account_type IN (:types)")
+    abstract suspend fun getAccounts(types: List<Int>): List<CaldavAccount>
+
+    @Query("SELECT * FROM caldav_accounts WHERE cda_account_type = :type AND cda_username = :username")
+    abstract suspend fun getAccount(type: Int, username: String): CaldavAccount?
 
     @Query("SELECT * FROM caldav_accounts ORDER BY cda_account_type, UPPER(cda_name)")
     abstract suspend fun getAccounts(): List<CaldavAccount>

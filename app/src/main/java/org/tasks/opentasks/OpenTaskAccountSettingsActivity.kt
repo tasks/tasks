@@ -20,7 +20,7 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
         binding.passwordLayout.visibility = View.GONE
         binding.urlLayout.visibility = View.GONE
 
-        if (caldavAccount!!.isOpenTaskEteSync) {
+        if (caldavAccount!!.isOpenTaskEteSync || caldavAccount!!.isTasksOrg) {
             binding.repeat.visibility = View.GONE
         }
     }

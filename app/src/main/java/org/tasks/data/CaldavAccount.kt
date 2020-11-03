@@ -93,6 +93,9 @@ class CaldavAccount : Parcelable {
     val isOpenTaskEteSync: Boolean
         get() = uuid.openTaskType() == ACCOUNT_TYPE_ETESYNC
 
+    val isTasksOrg: Boolean
+        get() = accountType == TYPE_TASKS
+
     fun listSettingsClass(): Class<out BaseListSettingsActivity> = when(accountType) {
         TYPE_ETESYNC -> EteSyncCalendarSettingsActivity::class.java
         TYPE_LOCAL -> LocalListSettingsActivity::class.java
@@ -159,6 +162,7 @@ class CaldavAccount : Parcelable {
         const val TYPE_ETESYNC = 1
         const val TYPE_LOCAL = 2
         const val TYPE_OPENTASKS = 3
+        const val TYPE_TASKS = 4
 
         fun String?.openTaskType(): String? = this?.split(":")?.get(0)
 

@@ -148,6 +148,7 @@ class Synchronization : InjectingPreferenceFragment() {
             if (isNullOrEmpty(error)) {
                 preference.setSummary(when {
                     account.isCaldavAccount -> R.string.caldav
+                    account.isTasksOrg -> R.string.tasks_org
                     account.isEteSyncAccount
                             || (account.isOpenTasks
                             && account.uuid?.startsWith(ACCOUNT_TYPE_ETESYNC) == true) ->
@@ -164,7 +165,8 @@ class Synchronization : InjectingPreferenceFragment() {
                 val intent = Intent(context, when {
                     account.isCaldavAccount -> CaldavAccountSettingsActivity::class.java
                     account.isEteSyncAccount -> EteSyncAccountSettingsActivity::class.java
-                    account.isOpenTasks -> OpenTaskAccountSettingsActivity::class.java
+                    account.isOpenTasks || account.isTasksOrg ->
+                        OpenTaskAccountSettingsActivity::class.java
                     else -> throw IllegalArgumentException("Unexpected account type: $account")
                 })
                 intent.putExtra(BaseCaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, account)

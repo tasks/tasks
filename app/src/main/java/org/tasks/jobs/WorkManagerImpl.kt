@@ -15,6 +15,7 @@ import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
+import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.OpenTaskDao
@@ -148,7 +149,7 @@ class WorkManagerImpl constructor(
             scheduleBackgroundSync(
                     TAG_BACKGROUND_SYNC_CALDAV,
                     SyncCaldavWork::class.java,
-                    enabled && caldavDao.getAccounts(TYPE_CALDAV).isNotEmpty(),
+                    enabled && caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).isNotEmpty(),
                     unmetered)
         }
         throttle.run {
