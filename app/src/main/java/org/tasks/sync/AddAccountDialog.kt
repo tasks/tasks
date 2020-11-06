@@ -14,12 +14,15 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.auth.SignInActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_CALDAV_SETTINGS
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_GOOGLE_TASKS
+import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_TASKS_ORG
 import org.tasks.themes.DrawableUtil
 import javax.inject.Inject
 
@@ -45,7 +48,7 @@ class AddAccountDialog : DialogFragment() {
                 view.findViewById<TextView>(R.id.text2).text = descriptions[position]
                 val icon = view.findViewById<ImageView>(R.id.image_view)
                 icon.setImageDrawable(DrawableUtil.getWrapped(context, icons[position]))
-                if (position == 1) {
+                if (position == 2) {
                     icon.drawable.setTint(context.getColor(R.color.icon_tint))
                 }
                 return view
@@ -56,24 +59,37 @@ class AddAccountDialog : DialogFragment() {
                 .setTitle(R.string.choose_synchronization_service)
                 .setSingleChoiceItems(adapter, -1) { dialog, which ->
                     when (which) {
-                        0 -> activity?.startActivityForResult(
+                        0 -> if (BuildConfig.FLAVOR == "generic") {
+                            dialogBuilder
+                                    .newDialog(R.string.github_sponsor_login)
+                                    .setPositiveButton(R.string.ok, null)
+                                    .show()
+                        } else {
+                            activity?.startActivityForResult(
+                                    Intent(activity, SignInActivity::class.java),
+                                    REQUEST_TASKS_ORG)
+                        }
+                        1 -> activity?.startActivityForResult(
                                 Intent(activity, GtasksLoginActivity::class.java),
                                 REQUEST_GOOGLE_TASKS)
-                        1 -> activity?.startActivityForResult(
+                        2 -> activity?.startActivityForResult(
                                 Intent(activity, CaldavAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
-                        2 -> activity?.startActivityForResult(
+                        3 -> activity?.startActivityForResult(
                                 Intent(activity, EteSyncAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
-                        3 -> activity?.startActivity(
+                        4 -> activity?.startActivity(
                                 Intent(ACTION_VIEW, Uri.parse("https://tasks.org/davx5")))
                     }
                     dialog.dismiss()
                 }
                 .setNeutralButton(R.string.help) { _, _ ->
-                    activity?.startActivity(Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(context?.getString(R.string.help_url_sync))))
+                    activity?.startActivity(
+                            Intent(
+                                    ACTION_VIEW,
+                                    Uri.parse(context?.getString(R.string.help_url_sync))
+                            )
+                    )
                 }
                 .setNegativeButton(R.string.cancel, null)
                 .show()

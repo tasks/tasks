@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -229,16 +230,31 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         }
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+
+        if (arguments?.getBoolean(EXTRA_FINISH_ACTIVITY, false) == true) {
+            activity?.finish()
+        }
+    }
+
     companion object {
         private const val EXTRA_PRICE = "extra_price"
         private const val EXTRA_PRICE_CHANGED = "extra_price_changed"
         private const val EXTRA_NAME_YOUR_PRICE = "extra_name_your_price"
+        const val EXTRA_FINISH_ACTIVITY = "extra_activity_rc"
         @JvmStatic
         val FRAG_TAG_PURCHASE_DIALOG = "frag_tag_purchase_dialog"
 
         @JvmStatic
-        fun newPurchaseDialog(): PurchaseDialog {
-            return PurchaseDialog()
+        fun newPurchaseDialog() = newPurchaseDialog(false)
+
+        fun newPurchaseDialog(finishActivity: Boolean): PurchaseDialog {
+            val dialog = PurchaseDialog()
+            val args = Bundle()
+            args.putBoolean(EXTRA_FINISH_ACTIVITY, finishActivity)
+            dialog.arguments = args
+            return dialog
         }
 
         fun newPurchaseDialog(target: Fragment, rc: Int): PurchaseDialog {

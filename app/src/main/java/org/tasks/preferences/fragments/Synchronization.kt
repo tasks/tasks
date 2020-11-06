@@ -215,6 +215,7 @@ class Synchronization : InjectingPreferenceFragment() {
         const val REQUEST_CALDAV_SETTINGS = 10013
         const val REQUEST_GOOGLE_TASKS = 10014
         private const val REQUEST_ADD_ACCOUNT = 10015
+        const val REQUEST_TASKS_ORG = 10016
         private const val FRAG_TAG_ADD_ACCOUNT = "frag_tag_add_account"
     }
 }
