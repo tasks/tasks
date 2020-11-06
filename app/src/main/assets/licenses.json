@@ -1910,6 +1910,58 @@
       "normalizedLicense": "apache2",
       "url": "https://github.com/google/dagger",
       "libraryName": "hilt-core"
+    },
+    {
+      "artifactId": {
+        "name": "ext-strikethrough",
+        "group": "io.noties.markwon",
+        "version": "+"
+      },
+      "copyrightHolder": "Dimitry Ivanov",
+      "copyrightStatement": "Copyright &copy; Dimitry Ivanov. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/noties/Markwon",
+      "libraryName": "ext-strikethrough"
+    },
+    {
+      "artifactId": {
+        "name": "core",
+        "group": "io.noties.markwon",
+        "version": "+"
+      },
+      "copyrightHolder": "Dimitry Ivanov",
+      "copyrightStatement": "Copyright &copy; Dimitry Ivanov. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/noties/Markwon",
+      "libraryName": "core"
+    },
+    {
+      "artifactId": {
+        "name": "commonmark-ext-gfm-strikethrough",
+        "group": "com.atlassian.commonmark",
+        "version": "+"
+      },
+      "copyrightHolder": "Atlassian and others",
+      "copyrightStatement": "Copyright &copy; Atlassian and others. All rights reserved.",
+      "license": "BSD 2-Clause",
+      "normalizedLicense": "bsd_2_clauses",
+      "libraryName": "commonmark-ext-gfm-strikethrough"
+    },
+    {
+      "artifactId": {
+        "name": "commonmark",
+        "group": "com.atlassian.commonmark",
+        "version": "+"
+      },
+      "copyrightHolder": "Atlassian and others",
+      "copyrightStatement": "Copyright &copy; Atlassian and others. All rights reserved.",
+      "license": "BSD 2-Clause",
+      "normalizedLicense": "bsd_2_clauses",
+      "libraryName": "commonmark"
     }
   ]
 }

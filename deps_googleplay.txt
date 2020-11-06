@@ -398,6 +398,13 @@
 +|    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.2.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-livedata:2.0.0 -> 2.2.0 (*)
 +|    \--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0 (*)
+++--- io.noties.markwon:core:4.6.0
++|    +--- androidx.annotation:annotation:1.1.0
++|    \--- com.atlassian.commonmark:commonmark:0.13.0
+++--- io.noties.markwon:ext-strikethrough:4.6.0
++|    +--- io.noties.markwon:core:4.6.0 (*)
++|    \--- com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:0.13.0
++|         \--- com.atlassian.commonmark:commonmark:0.13.0
 ++--- com.jakewharton:butterknife:10.2.3
 +|    \--- com.jakewharton:butterknife-runtime:10.2.3
 +|         +--- com.jakewharton:butterknife-annotations:10.2.3

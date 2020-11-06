@@ -159,6 +159,8 @@ dependencies {
     kapt("androidx.room:room-compiler:${Versions.room}")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("androidx.paging:paging-runtime:2.1.2")
+    implementation("io.noties.markwon:core:${Versions.markwon}")
+    implementation("io.noties.markwon:ext-strikethrough:${Versions.markwon}")
 
     kapt("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     implementation("com.jakewharton:butterknife:${Versions.butterknife}")

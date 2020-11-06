@@ -17,4 +17,5 @@ object Versions {
     const val hilt = "2.29.1-alpha"
     const val hilt_androidx = "1.0.0-alpha02"
     const val lifecycle = "2.2.0"
+    const val markwon = "4.6.0"
 }
