@@ -1,11 +1,14 @@
 package org.tasks.preferences.fragments
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.BuildConfig
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
@@ -13,6 +16,7 @@ import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
 import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.injection.InjectingPreferenceFragment
+import org.tasks.ui.Toaster
 import javax.inject.Inject
 
 private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
@@ -22,6 +26,15 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
 
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var inventory: Inventory
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var toaster: Toaster
+
+    private val purchaseReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            refreshSubscription()
+            toaster.longToast(R.string.purchases_updated)
+        }
+    }
 
     override fun getPreferenceXml() = R.xml.help_and_feedback
 
@@ -92,14 +105,41 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
     override fun onResume() {
         super.onResume()
 
-        if (BuildConfig.FLAVOR != "generic") {
-            findPreference(R.string.upgrade_to_pro).title = getString(if (inventory.hasPro) {
-                R.string.manage_subscription
-            } else {
-                R.string.upgrade_to_pro
-            })
-            findPreference(R.string.button_unsubscribe).isEnabled = inventory.subscription != null
+        localBroadcastManager.registerPurchaseReceiver(purchaseReceiver)
+
+        refreshSubscription()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        localBroadcastManager.unregisterReceiver(purchaseReceiver)
+    }
+
+    private fun refreshSubscription() {
+        if (BuildConfig.FLAVOR == "generic") {
+            return
         }
+
+        val subscription = inventory.subscription
+        findPreference(R.string.upgrade_to_pro).apply {
+            title = getString(
+                    if (subscription == null) {
+                        R.string.upgrade_to_pro
+                    } else {
+                        R.string.manage_subscription
+                    })
+            summary = if (subscription == null) {
+                null
+            } else {
+                val price = getString(
+                        if (subscription.isMonthly) R.string.price_per_month else R.string.price_per_year,
+                        subscription.subscriptionPrice!! - .01
+                )
+                getString(R.string.current_subscription, price)
+            }
+        }
+        findPreference(R.string.button_unsubscribe).isEnabled = inventory.subscription != null
     }
 
     override fun getMenu() = 0
