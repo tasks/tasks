@@ -1,7 +1,33 @@
 Change Log
 ---
 =======
-### 10.5 (2020-10-21)
+### 11.0 (2020-11-06) [ALPHA](https://tasks.org/docs/pre_release_testing.html)
+
+* New Tasks.org synchronization service
+* New custom filter criteria
+  * Hidden tasks
+  * Completed tasks
+  * Subtasks
+  * Parent tasks
+  * Recurring tasks
+* Bug fixes
+* Translation updates
+  * Arabic - @mhmdanas
+  * Basque - @ppasserini
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - @franconian
+  * Italian - @ppasserini
+  * Korean - @Sunjae Choi
+  * Norwegian Bokmål - @comradekingu
+  * Polish - @alex-ter
+  * Russian - Nikita Epifanov
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Traditional Chinese - @realpineapplemilk
+  * Turkish - @emintufan
+
+### 10.5 (2020-10-21) [BETA](https://tasks.org/docs/pre_release_testing.html)
 
 * Multi-select rescheduling
 * New task default settings
