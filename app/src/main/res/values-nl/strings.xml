@@ -460,13 +460,11 @@
     <string name="filters">Filters</string>
     <string name="filter">Filter</string>
     <string name="accent">Accent</string>
-    <string name="manage_subscription_summary">Aanmelden, afmelden of annuleer je aanmelding</string>
     <string name="button_current_subscription">Huidige abonnement</string>
     <string name="button_restore_subscription">Abonnement herstellen</string>
     <string name="button_downgrade">Terugdraaien abonnement</string>
     <string name="button_upgrade">Abonnement upgraden</string>
     <string name="button_unsubscribe">Abonnement annuleren</string>
-    <string name="name_your_price">Bepaal je prijs</string>
     <string name="monthly">Maandelijks</string>
     <string name="annually">Jaarlijks</string>
     <string name="restart_later">Later</string>
@@ -522,9 +520,6 @@
     <string name="invalid_username_or_password">Ongeldige gebruikersnaam of wachtwoord</string>
     <string name="theme_system_default">Systeeminstelling</string>
     <string name="color_wheel">Kleurenwiel</string>
-    <string name="upgrade_blurb_1">Hoi! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks.</string>
-    <string name="upgrade_blurb_2">Ik heb duizenden uren aan Tasks gewerkt, en ik publiceer de volledige broncode gratis online. Om mijn werk te steunen vereisen sommige functies een abonnement.</string>
-    <string name="upgrade_blurb_3">Kies hierbeneden een abonnementsprijs om je gratis proefperiode te starten. Je kunt het altijd annuleren.</string>
     <string name="upgrade_blurb_4">Je steun betekent veel voor me, bedankt!</string>
     <string name="back">Terug</string>
     <string name="chip_style">Fiche-stijl</string>

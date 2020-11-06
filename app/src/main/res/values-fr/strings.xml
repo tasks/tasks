@@ -465,13 +465,11 @@
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>
     <string name="icon">Icône</string>
-    <string name="manage_subscription_summary">Augmentez, diminuez ou annulez votre abonnement</string>
     <string name="button_current_subscription">Abonnement actuel</string>
     <string name="button_restore_subscription">Restaurer l\'abonnement</string>
     <string name="button_downgrade">Diminuer l\'abonnement</string>
     <string name="button_upgrade">Augmenter l\'abonnement</string>
     <string name="button_unsubscribe">Annuler l\'abonnement</string>
-    <string name="name_your_price">Donnez votre prix</string>
     <string name="monthly">Chaque mois</string>
     <string name="annually">Chaque année</string>
     <string name="error_adding_account">Erreur : %s</string>
@@ -522,9 +520,6 @@
     <string name="invalid_username_or_password">Nom d\'utilisateur ou mot de passe invalide</string>
     <string name="theme_system_default">Défaut du système</string>
     <string name="color_wheel">Palette de couleurs</string>
-    <string name="upgrade_blurb_1">Salut ! Je m\'appelle Alex. Je suis le développeur indépendant à l\'origine de Tasks</string>
-    <string name="upgrade_blurb_2">J\'ai passé des milliers d\'heures à travailler sur Tasks, et je publie gratuitement tout le code source en ligne. Afin de soutenir mon travail, certaines fonctionnalités nécessitent un abonnement</string>
-    <string name="upgrade_blurb_3">Choisissez l\'un des prix d\'abonnement ci-dessous pour commencer votre essai gratuit. Vous pouvez annuler à tout moment</string>
     <string name="upgrade_blurb_4">Votre soutien est très important pour moi, merci !</string>
     <string name="back">Retour</string>
     <string name="chip_style">Style de puce</string>

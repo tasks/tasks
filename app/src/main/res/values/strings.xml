@@ -489,8 +489,7 @@ File %1$s contained %2$s.\n\n
   <string name="network_error">Could not connect</string>
   <string name="background_sync_unmetered_only">Only on unmetered connections</string>
   <string name="upgrade_to_pro">Upgrade to pro</string>
-  <string name="manage_subscription">Manage subscription</string>
-  <string name="manage_subscription_summary">Upgrade, downgrade, or cancel your subscription</string>
+  <string name="manage_subscription">Modify subscription</string>
   <string name="refresh_purchases">Refresh purchases</string>
   <string name="button_subscribe">Subscribe</string>
   <string name="button_current_subscription">Current subscription</string>
@@ -534,7 +533,7 @@ File %1$s contained %2$s.\n\n
   <string name="version_string">Version %s</string>
   <string name="invalid_backup_file">Invalid backup file</string>
   <string name="google_tasks_add_to_top">New tasks on top</string>
-  <string name="name_your_price">Name your price</string>
+  <string name="more_options">More options</string>
   <string name="monthly">Monthly</string>
   <string name="annually">Yearly</string>
   <string name="caldav_account_repeating_tasks">Let server schedule recurring tasks</string>
@@ -569,9 +568,6 @@ File %1$s contained %2$s.\n\n
   <string name="more_notification_settings_summary">Ringtone, vibrations, and more</string>
   <string name="invalid_username_or_password">Invalid username or password</string>
   <string name="color_wheel">Color wheel</string>
-  <string name="upgrade_blurb_1">Hi! My name is Alex. I am the independent developer behind Tasks</string>
-  <string name="upgrade_blurb_2">I have spent thousands of hours working on Tasks, and I publish all of the source code online for free. In order to support my work some features require a subscription</string>
-  <string name="upgrade_blurb_3">Choose any subscription price below to start your free trial. You may cancel at any time</string>
   <string name="upgrade_blurb_4">Your support means a lot to me, thank you!</string>
   <string name="back">Back</string>
   <string name="chip_style">Chip style</string>
@@ -658,4 +654,8 @@ File %1$s contained %2$s.\n\n
   <string name="delete_comment">Delete this comment?</string>
   <string name="custom_filter_has_subtask">Has subtasks</string>
   <string name="custom_filter_is_subtask">Is subtask</string>
+  <string name="price_per_year">$%s/year</string>
+  <string name="price_per_year_abbreviated">$%s/yr</string>
+  <string name="price_per_month">$%s/month</string>
+  <string name="price_per_month_abbreviated">$%s/mo</string>
 </resources>

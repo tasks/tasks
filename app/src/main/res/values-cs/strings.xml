@@ -450,7 +450,6 @@
     <string name="about">O aplikaci</string>
     <string name="license_summary">Aplikace Tasks je svobodný software s otevřeným zdrojovým kódem licencovaný pod GNU General Public License v3.0</string>
     <string name="icon">Ikona</string>
-    <string name="manage_subscription_summary">Zvýšit, snížit nebo zrušit vaše předplatné</string>
     <string name="button_current_subscription">Aktuální předplatné</string>
     <string name="button_restore_subscription">Obnovit předplatné</string>
     <string name="button_downgrade">Snížit předplatné</string>
@@ -493,7 +492,6 @@
     <string name="version_string">Verze %s</string>
     <string name="invalid_backup_file">Neplatný soubor zálohy</string>
     <string name="google_tasks_add_to_top">Nové úkoly na vrchu</string>
-    <string name="name_your_price">Zaplať kolik chceš</string>
     <string name="monthly">Měsíčně</string>
     <string name="annually">Ročně</string>
     <string name="caldav_account_repeating_tasks">Dovolit serveru plánovat opakující se úkoly</string>
@@ -591,9 +589,6 @@
     <string name="on_launch">Při spuštění</string>
     <string name="lists">Seznamy</string>
     <string name="add_filter">Přidat filtr</string>
-    <string name="upgrade_blurb_3">Před zahájení používání bezplatné zkušební verze vyberte níže jakoukoli cenu předplatného. Můžete jej kdykoli zrušit.</string>
-    <string name="upgrade_blurb_2">Strávil jsem tisíce hodin prací na Tasks a bezplatně zveřejňuji veškerý zdrojový kód online. Za účelem podpory mé práce některé funkce vyžadují předplatné</string>
-    <string name="upgrade_blurb_1">Ahoj! Jmenuji se Alex. Jsem nezávislý vývojář Tasks</string>
     <string name="color_wheel">Více barev</string>
     <string name="invalid_username_or_password">Neplatné uživatelské jméno nebo heslo</string>
     <string name="davx5_selection_description">Synchronizujte své úkoly pomocí aplikace DAVx⁵</string>

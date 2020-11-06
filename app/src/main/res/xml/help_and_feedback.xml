@@ -51,11 +51,11 @@
     android:key="@string/upgrade_to_pro"
     android:title="@string/upgrade_to_pro"
     app:allowDividerAbove="true"
-    app:icon="@drawable/ic_outline_attach_money_24px">
-    <intent
-      android:targetClass="org.tasks.billing.PurchaseActivity"
-      android:targetPackage="@string/app_package" />
-  </Preference>
+    app:icon="@drawable/ic_outline_attach_money_24px" />
+
+  <Preference
+    android:key="@string/button_unsubscribe"
+    android:title="@string/button_unsubscribe"/>
 
   <Preference
     android:key="@string/refresh_purchases"

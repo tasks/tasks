@@ -170,9 +170,6 @@
     <string name="chip_style">Boble-stil</string>
     <string name="back">Tilbage</string>
     <string name="upgrade_blurb_4">Din støtte betydet meget for mig, tak!</string>
-    <string name="upgrade_blurb_3">Vælg hvilken som helst abonnementspris herunder for at begynde din gratis prøveperiode. Du kan til enhver tid opsige abonnementet</string>
-    <string name="upgrade_blurb_2">Jeg har brugt tusindvis af arbejdstimer på Tasks, og jeg udgiver hele kildekoden gratis online. For at støtte mit arbejde kræver nogle funktioner et abonnement</string>
-    <string name="upgrade_blurb_1">Hej! Jeg hedder Alex. Jeg er den selvstændige udvikler bag Tasks</string>
     <string name="color_wheel">Farvehjul</string>
     <string name="invalid_username_or_password">Ugyldigt brugernavn eller kodeord</string>
     <string name="more_notification_settings_summary">Ringetone, vibrér og mere</string>
@@ -205,7 +202,6 @@
     <string name="caldav_account_repeating_tasks">Lad serveren planlægge gentagne opgaver</string>
     <string name="annually">Årligt</string>
     <string name="monthly">Månedligt</string>
-    <string name="name_your_price">Betal, hvad du vil</string>
     <string name="google_tasks_add_to_top">Nye opgaver øverst</string>
     <string name="invalid_backup_file">Ugyldig sikkerhedskopi-fil</string>
     <string name="version_string">Version %s</string>
@@ -413,7 +409,6 @@
     <string name="button_downgrade">Nedgrader abonnement</string>
     <string name="upgrade_to_pro">Opgrader til pro</string>
     <string name="refresh_purchases">Opdater køb</string>
-    <string name="manage_subscription_summary">Opgrader, nedgrader eller opsig dit abonnement</string>
     <string name="manage_subscription">Administrer abonnement</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">hver %1$s i %2$s</string>
     <string name="repeat_monthly_every_day_of_nth_week">hver %1$s i %2$s</string>

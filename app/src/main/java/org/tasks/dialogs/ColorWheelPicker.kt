@@ -15,17 +15,16 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseActivity
-import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
+import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
+import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
 import javax.inject.Inject
-
-private const val REQUEST_PURCHASE = 10010
 
 @AndroidEntryPoint
 class ColorWheelPicker : DialogFragment() {
 
     companion object {
         const val EXTRA_SELECTED = "extra_selected"
+        private const val REQUEST_PURCHASE = 10010
 
         fun newColorWheel(target: Fragment?, rc: Int, selected: Int): ColorWheelPicker {
             val args = Bundle()
@@ -66,7 +65,8 @@ class ColorWheelPicker : DialogFragment() {
                     if (inventory.purchasedThemes()) {
                         deliverSelection()
                     } else {
-                        startActivityForResult(Intent(activity, PurchaseActivity::class.java), REQUEST_PURCHASE)
+                        newPurchaseDialog(this, REQUEST_PURCHASE)
+                                .show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
                     }
                 }
                 .setNegativeButton(R.string.cancel, null)
@@ -86,7 +86,7 @@ class ColorWheelPicker : DialogFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == org.tasks.dialogs.REQUEST_PURCHASE) {
+        if (requestCode == REQUEST_PURCHASE) {
             if (inventory.hasPro) {
                 deliverSelection()
             } else {

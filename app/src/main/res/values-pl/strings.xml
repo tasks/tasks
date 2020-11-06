@@ -481,13 +481,11 @@
     <string name="invalid_backup_file">Nieprawidłowy plik kopii zapasowej</string>
     <string name="google_tasks_add_to_top">Nowe zadania na górze</string>
     <string name="icon">Ikona</string>
-    <string name="manage_subscription_summary">Podwyższyć, obniżyć poziom albo anulować subskrypcję</string>
     <string name="button_current_subscription">Aktualna subskrypcja</string>
     <string name="button_restore_subscription">Przywróć subskrypcję</string>
     <string name="button_downgrade">Obniżyć poziom subskrypcji</string>
     <string name="button_upgrade">Podwyższyć poziom subskrypcji</string>
     <string name="button_unsubscribe">Anuluj subskrypcję</string>
-    <string name="name_your_price">Nazwij swoją cenę</string>
     <string name="monthly">Miesięczne</string>
     <string name="annually">Rocznie</string>
     <string name="SSD_sort_my_order">Ręczne</string>
@@ -538,9 +536,6 @@
     <string name="invalid_username_or_password">Nieprawidłowa nazwa użytkownika lub hasło</string>
     <string name="theme_system_default">Domyślny systemowy</string>
     <string name="color_wheel">Paleta</string>
-    <string name="upgrade_blurb_1">Cześć! Mam na imię Alex. Jestem niezależnym deweloperem stojącym za Tasks</string>
-    <string name="upgrade_blurb_2">Spędziłem tysiące godzin pracując nad Tasks i publikuję cały kod źródłowy online za darmo. Aby wesprzeć moją pracę, niektóre funkcję wymagają subskrypcji</string>
-    <string name="upgrade_blurb_3">Wybierz dowolną cenę subskrypcji poniżej, aby rozpocząć bezpłatny okres próbny. Możesz zrezygnować w każdej chwili</string>
     <string name="upgrade_blurb_4">Twoje wsparcie wiele dla mnie znaczy, dziękuję!</string>
     <string name="back">Wstecz</string>
     <string name="chip_style">Styl chipa</string>

@@ -471,13 +471,11 @@
     <string name="error_adding_account">Hata: %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Simge</string>
-    <string name="manage_subscription_summary">Aboneliğinizi yükseltin, alçaltın veya iptal edin</string>
     <string name="button_current_subscription">Geçerli abonelik</string>
     <string name="button_restore_subscription">Aboneliği geri getir</string>
     <string name="button_downgrade">Aboneliği alçalt</string>
     <string name="button_upgrade">Aboneliği yükselt</string>
     <string name="button_unsubscribe">Aboneliği iptal et</string>
-    <string name="name_your_price">Fiyat belirleyin</string>
     <string name="monthly">Aylık</string>
     <string name="annually">Yıllık</string>
     <string name="SSD_sort_my_order">Düzenim</string>
@@ -527,9 +525,6 @@
     <string name="invalid_username_or_password">Geçersiz kullanıcı adı veya parola</string>
     <string name="theme_system_default">Sistem öntanımlısı</string>
     <string name="color_wheel">Renk tekeri</string>
-    <string name="upgrade_blurb_1">Hey! Ben Alex. Tasks\'ın arkasındaki bağımsız geliştiriciyim</string>
-    <string name="upgrade_blurb_2">Binlerce saatimi Tasks\'ta çalışarak geçirdim, kaynak kodun tümünü çevrim içi olarak ücretsiz yayımladım. Çalışmamı desteklemek için bazı özellikler abonelik gerektirir</string>
-    <string name="upgrade_blurb_3">Ücretsiz denemenizi başlatmak için aşağıdan herhangi abonelik bedelini seçin. İstediğinizde iptal edebilirsiniz</string>
     <string name="upgrade_blurb_4">Desteğiniz çok şey ifade ediyor, teşekkürler!</string>
     <string name="back">Geri</string>
     <string name="chip_style">Yonga biçimi</string>

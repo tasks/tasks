@@ -471,13 +471,11 @@
     <string name="version_string">Version %s</string>
     <string name="error_adding_account">Fehler: %s</string>
     <string name="icon">Symbol</string>
-    <string name="manage_subscription_summary">Abonnement hoch-/herabstufen oder kündigen</string>
     <string name="button_current_subscription">Aktuelles Abonnement</string>
     <string name="button_restore_subscription">Abonnement wiederherstellen</string>
     <string name="button_downgrade">Abonnement herabstufen</string>
     <string name="button_upgrade">Abonnement hochstufen</string>
     <string name="button_unsubscribe">Abonnement kündigen</string>
-    <string name="name_your_price">Nennen Sie Ihren Preis</string>
     <string name="monthly">monatlich</string>
     <string name="annually">jährlich</string>
     <string name="SSD_sort_my_order">Manuelle Sortierung</string>
@@ -528,9 +526,6 @@
     <string name="more_notification_settings_summary">Klingelton, Vibration und mehr</string>
     <string name="invalid_username_or_password">Ungültiger Benutzername oder Passwort</string>
     <string name="color_wheel">Farbkreis</string>
-    <string name="upgrade_blurb_1">Hallo! Mein Name ist Alex. Ich bin der unabhängige Entwickler hinter Tasks</string>
-    <string name="upgrade_blurb_2">Ich habe Tausende von Stunden mit der Arbeit an Tasks verbracht und veröffentliche den gesamten Quellcode kostenlos online. Um meine Arbeit zu unterstützen, erfordern einige Funktionen ein Abonnement</string>
-    <string name="upgrade_blurb_3">Wählen Sie unten einen beliebigen Abonnementpreis aus, um Ihre kostenlose Testversion zu starten. Sie können jederzeit kündigen</string>
     <string name="upgrade_blurb_4">Ihre Unterstützung bedeutet mir sehr viel, danke!</string>
     <string name="back">Zurück</string>
     <string name="chip_style">Stil der Marken</string>

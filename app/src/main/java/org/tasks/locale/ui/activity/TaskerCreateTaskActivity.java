@@ -1,5 +1,7 @@
 package org.tasks.locale.ui.activity;
 
+import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +13,7 @@ import net.dinglisch.android.tasker.TaskerPlugin;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.billing.PurchaseActivity;
+import org.tasks.billing.PurchaseDialog;
 import org.tasks.databinding.ActivityTaskerCreateBinding;
 import org.tasks.locale.bundle.TaskCreationBundle;
 
@@ -53,7 +55,8 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   }
 
   private void showPurchaseDialog() {
-    startActivity(new Intent(this, PurchaseActivity.class));
+    newPurchaseDialog()
+        .show(getSupportFragmentManager(), PurchaseDialog.getFRAG_TAG_PURCHASE_DIALOG());
   }
 
   @Override

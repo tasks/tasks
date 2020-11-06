@@ -470,13 +470,11 @@
     <string name="invalid_backup_file">Ugyldig sikkerhetskopifil</string>
     <string name="google_tasks_add_to_top">Nye gjøremål øverst</string>
     <string name="icon">Ikon</string>
-    <string name="manage_subscription_summary">Oppgrader, nedgrader eller avbryt ditt abonnement</string>
     <string name="button_current_subscription">Nåværende abonnement</string>
     <string name="button_restore_subscription">Gjenopprett abonnement</string>
     <string name="button_downgrade">Nedgrader abonnement</string>
     <string name="button_upgrade">Oppgrader abonnement</string>
     <string name="button_unsubscribe">Avbryt abonnement</string>
-    <string name="name_your_price">Betal det du vil</string>
     <string name="monthly">Månedlig</string>
     <string name="annually">Årlig</string>
     <string name="error_adding_account">Feil: %s</string>
@@ -576,11 +574,8 @@
     <string name="chips">Flis</string>
     <string name="chip_style_outlined">Omrisset</string>
     <string name="chip_style">Flisstil</string>
-    <string name="upgrade_blurb_2">Jeg har brukt tusenvis av timer på å jobbe med Tasks, og jeg offentliggjør all kildekoden på nettet gratis. For å støtte mitt arbeid krever noen funksjoner et abonnement</string>
-    <string name="upgrade_blurb_1">Hei, jeg heter Alex. Jeg er den uavhengige utvikleren bak Tasks</string>
     <string name="caldav_account_description">Krever en konto med en CalDAV-tjenestetilbyder, eller en selvdrevet tjener. Finn en tjenestetilbyder ved å besøke tasks.org/caldav</string>
     <string name="chip_style_filled">Fylt</string>
-    <string name="upgrade_blurb_3">Velg en vilkårlig pris nedenfor for å starte din gratisperiode. Du kan avbryte når som helst.</string>
     <string name="wearable_notifications_summary">Vis merknader på din ikledbare</string>
     <string name="wearable_notifications">Ikledbare merknader</string>
     <string name="filter_eisenhower_box_4">Boolsk logikkboks 4</string>

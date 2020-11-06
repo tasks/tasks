@@ -460,13 +460,11 @@
     <string name="invalid_backup_file">无效的备份文件</string>
     <string name="google_tasks_add_to_top">新任务显示在顶部</string>
     <string name="icon">图标</string>
-    <string name="manage_subscription_summary">升级，降级或取消您的订阅</string>
     <string name="button_current_subscription">当前订阅</string>
     <string name="button_restore_subscription">恢复订阅</string>
     <string name="button_downgrade">降级订阅</string>
     <string name="button_upgrade">升级订阅</string>
     <string name="button_unsubscribe">取消订阅</string>
-    <string name="name_your_price">您愿意支付多少费用</string>
     <string name="monthly">每月</string>
     <string name="annually">每年</string>
     <string name="list_separator_with_space">"， "</string>
@@ -518,9 +516,6 @@
     <string name="invalid_username_or_password">无效的用户名或密码</string>
     <string name="theme_system_default">系统默认</string>
     <string name="color_wheel">给滚轮着色</string>
-    <string name="upgrade_blurb_1">你好！我叫Alex，是Tasks背后的独立开发者</string>
-    <string name="upgrade_blurb_2">我已经花了数千个小时用于开发Tasks，并且在网上免费发布了所有源代码。 为了支持我的工作，某些功能需要订阅</string>
-    <string name="upgrade_blurb_3">选择下方任意订阅价格即可开始免费试用。 你可以随时取消</string>
     <string name="upgrade_blurb_4">您的支持对我很重要，谢谢！</string>
     <string name="back">返回</string>
     <string name="chip_style">流式布局样式</string>

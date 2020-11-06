@@ -508,7 +508,6 @@
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="button_restore_subscription">Відновити підписку</string>
     <string name="button_current_subscription">Поточна підписка</string>
-    <string name="manage_subscription_summary">Змініть або скасуйте підписку</string>
     <string name="reenter_encryption_password">Підтвердіть пароль шифрування</string>
     <string name="encryption_password">Пароль шифрування</string>
     <string name="encryption_password_required">Потрібний пароль шифрування</string>
@@ -532,7 +531,6 @@
     <string name="collapse_subtasks">Згорнути підзавдання</string>
     <string name="expand_subtasks">Розгорнути підзавдання</string>
     <string name="caldav_account_repeating_tasks">Дозволити серверу встановлювати регулярні завдання</string>
-    <string name="name_your_price">Назвіть свою ціну</string>
     <string name="annually">Щорічно</string>
     <string name="monthly">Щомісячно</string>
     <string name="this_feature_requires_a_subscription">Ця функція потребує підписки</string>
@@ -562,9 +560,6 @@
     <string name="chip_style">Стиль індикаторів списків</string>
     <string name="back">Назад</string>
     <string name="upgrade_blurb_4">Ваша підтримка багато означає для мене. Дякую!</string>
-    <string name="upgrade_blurb_3">Оберіть будь-яку вартість підписки знизу, щоб розпочати безоплатний пробний період. Його можна скасувати будь-коли</string>
-    <string name="upgrade_blurb_2">Я витратив тисячі годин, працюючи над Tasks, і я публікую весь код онлайн безоплатно. Щоб підтримати мою роботу, деякі функції потребують підписки</string>
-    <string name="upgrade_blurb_1">Привіт! Моє ім\'я Алекс. Я - незалежний розробник Tasks</string>
     <string name="color_wheel">Палітра</string>
     <string name="invalid_username_or_password">Невірне ім\'я користувача або пароль</string>
     <string name="more_notification_settings_summary">Мелодія, вібрація та інше</string>

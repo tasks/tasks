@@ -243,9 +243,6 @@
     <string name="chip_style_outlined">கோடிட்டுக் காட்டப்பட்டுள்ளது</string>
     <string name="chip_style">சிப் பாணி</string>
     <string name="back">மீண்டும்</string>
-    <string name="upgrade_blurb_3">உங்கள் இலவச சோதனையைத் தொடங்க கீழே உள்ள எந்த சந்தா விலையையும் தேர்வு செய்யவும். நீங்கள் எந்த நேரத்திலும் ரத்து செய்யலாம்</string>
-    <string name="upgrade_blurb_2">நான் பணிகளில் ஆயிரக்கணக்கான மணிநேரங்களை செலவிட்டேன், மேலும் மூலக் குறியீடு அனைத்தையும் ஆன்லைனில் இலவசமாக வெளியிடுகிறேன். எனது பணியை ஆதரிக்க சில அம்சங்களுக்கு சந்தா தேவை</string>
-    <string name="upgrade_blurb_1">வணக்கம்! என் பெயர் அலெக்ஸ். பணிகளுக்குப் பின்னால் உள்ள சுயாதீன டெவலப்பர் நான்</string>
     <string name="color_wheel">வண்ண சக்கரம்</string>
     <string name="invalid_username_or_password">தவறான பயனர்பெயர் அல்லது கடவுச்சொல்</string>
     <string name="more_notification_settings_summary">ரிங்டோன், அதிர்வுகள் மற்றும் பல</string>
@@ -278,7 +275,6 @@
     <string name="caldav_account_repeating_tasks">தொடர்ச்சியான பணிகளை சேவையாக அட்டவணைப்படுத்தட்டும்</string>
     <string name="annually">ஆண்டு</string>
     <string name="monthly">மாதாந்திர</string>
-    <string name="name_your_price">உங்கள் விலைக்கு பெயரிடுங்கள்</string>
     <string name="google_tasks_add_to_top">மேலே புதிய பணிகள்</string>
     <string name="invalid_backup_file">தவறான காப்பு கோப்பு</string>
     <string name="version_string">பதிப்பு %s</string>
@@ -321,7 +317,6 @@
     <string name="button_current_subscription">தற்போதைய சந்தா</string>
     <string name="button_subscribe">பதிவு</string>
     <string name="refresh_purchases">வாங்குதல்களைப் புதுப்பிக்கவும்</string>
-    <string name="manage_subscription_summary">உங்கள் சந்தாவை மேம்படுத்தவும், தரமிறக்கவும் அல்லது ரத்து செய்யவும்</string>
     <string name="manage_subscription">சந்தாவை நிர்வகிக்கவும்</string>
     <string name="upgrade_to_pro">சார்புக்கு மேம்படுத்தவும்</string>
     <string name="background_sync_unmetered_only">அளவிடப்படாத இணைப்புகளில் மட்டுமே</string>

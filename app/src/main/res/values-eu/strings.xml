@@ -470,13 +470,11 @@
     <string name="invalid_backup_file">Baliogabeko babes-kopia fitxategia</string>
     <string name="google_tasks_add_to_top">Zeregin berriak goialdean</string>
     <string name="icon">Ikonoa</string>
-    <string name="manage_subscription_summary">Handiagotu, txikiagotu edo ezeztatu zure harpidetza</string>
     <string name="button_current_subscription">Uneko harpidetza</string>
     <string name="button_restore_subscription">Berrezarri harpidetza</string>
     <string name="button_downgrade">Txikiagotu harpidetza</string>
     <string name="button_upgrade">Handiagotu harpidetza</string>
     <string name="button_unsubscribe">Ezeztatu harpidetza</string>
-    <string name="name_your_price">Jarri zuk prezioa</string>
     <string name="monthly">Hilero</string>
     <string name="annually">Urtero</string>
     <string name="error_adding_account">Errorea: %s</string>
@@ -527,9 +525,6 @@
     <string name="invalid_username_or_password">Erabiltzaile-izen edo pasahitz okerra</string>
     <string name="theme_system_default">Sisteman lehenetsia</string>
     <string name="color_wheel">Kolore-gurpila</string>
-    <string name="upgrade_blurb_1">Kaixo! Nire izana Alex da. Ni naiz Tasks aplikazioaren garatzaile independentea</string>
-    <string name="upgrade_blurb_2">Milaka ordu eman ditut Tsks aplikazioan lanean, eta kode guztia argitaratzen dut doan. Nire lana babesteko ezaugarri batzuk harpidetza eskatzen dute</string>
-    <string name="upgrade_blurb_3">Hautatu azpiko harpidetza salneurri bat zure doako proba hasteko. Nahi duzunean eten dezakezu</string>
     <string name="upgrade_blurb_4">Zure babesa asko da niretzat, eskerrik asko!</string>
     <string name="back">Atzera</string>
     <string name="chip_style">Txip estiloa</string>

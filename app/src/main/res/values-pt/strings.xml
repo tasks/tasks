@@ -553,9 +553,6 @@
     <string name="chip_style">Estilo de notificação</string>
     <string name="back">Voltar</string>
     <string name="upgrade_blurb_4">Seu suporte significa muito para mim, obrigado!</string>
-    <string name="upgrade_blurb_3">Escolha qualquer preço de assinatura abaixo para começar seu teste grátis. Poderá cancelar a qualquer momento</string>
-    <string name="upgrade_blurb_2">Eu investi centenas de horas a trabalhar no Tasks e publico todo o código-fonte online de graça. Para apoiar meu trabalho, algumas funcionalidades precisam de uma assinatura</string>
-    <string name="upgrade_blurb_1">Olá! O meu nome é Alex e sou o programador independente por trás do Tasks</string>
     <string name="color_wheel">Roda de cores</string>
     <string name="theme_system_default">Predefinição do Sistema</string>
     <string name="invalid_username_or_password">Nome de utilizador ou palavra-passe inválido</string>
@@ -602,10 +599,8 @@
     <string name="EPr_temp_show_completed_tasks">Temporareamente mostrar tarefas quando completas</string>
     <string name="caldav_account_repeating_tasks">Permita que o servidor agende tarefas recorrentes</string>
     <string name="SSD_sort_my_order">Minha ordem</string>
-    <string name="name_your_price">Dê o seu valor</string>
     <string name="button_upgrade">Atualizar assinatura</string>
     <string name="button_downgrade">Rebaixar assinatura</string>
-    <string name="manage_subscription_summary">Atualizar, rebaixar ou cancelar a sua assinatura</string>
     <string name="network_error">Não foi possível conectar</string>
     <string name="location_radius_meters">%s m</string>
     <string name="davx5_selection_description">Sincronize a suas tarefas com a app DAVx⁵</string>

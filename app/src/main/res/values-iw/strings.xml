@@ -500,13 +500,11 @@
     <string name="google_tasks_add_to_top">משימות חדשות בראש הרשימה</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">סמל</string>
-    <string name="manage_subscription_summary">שדרוג, שנמוך או ביטול המינוי</string>
     <string name="button_current_subscription">מינוי נוכחי</string>
     <string name="button_restore_subscription">שחזור מינוי</string>
     <string name="button_downgrade">שנמוך מינוי</string>
     <string name="button_upgrade">שדרוג מינוי</string>
     <string name="button_unsubscribe">ביטול מינוי</string>
-    <string name="name_your_price">מה המחיר שלך</string>
     <string name="monthly">חודשי</string>
     <string name="annually">שנתי</string>
     <string name="places">מיקומים</string>
@@ -614,9 +612,6 @@
     <string name="permission_read_tasks">גישה מלאה למסד הנתונים של Tasks</string>
     <string name="reset_sort_order">איפוס אופן הסידור</string>
     <string name="upgrade_blurb_4">התמיכה שלך יקרה ללבי, תודה רבה לך!</string>
-    <string name="upgrade_blurb_3">נא לבחור את מחיר ההרשמה להלן כדי להתחיל בהתנסות חינמית. ניתן לבטל אותה בכל עת</string>
-    <string name="upgrade_blurb_2">השקעתי אלפי שעות בעבודה על Tasks ואני מפרסם את כל קוד המקור באינטרנט בחינם. כדי לתמוך בעבודה שלי חלק מהתכונות דורשות הרשמה</string>
-    <string name="upgrade_blurb_1">היי! אני אלכס, המתכנת העצמאי שמאחורי Tasks</string>
     <string name="invalid_username_or_password">שם המשתמש או הססמה שגויים</string>
     <string name="more_notification_settings_summary">צלצול, סוגי רטט ועוד</string>
     <string name="disable_battery_optimizations">השבתת שיפורי סוללה</string>

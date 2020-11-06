@@ -1,9 +1,10 @@
 package org.tasks.dialogs;
 
+import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.billing.PurchaseActivity;
+import org.tasks.billing.PurchaseDialog;
 import org.tasks.themes.CustomIcons;
 
 @AndroidEntryPoint
@@ -64,7 +65,8 @@ public class IconPickerDialog extends DialogFragment {
     if (!inventory.getHasPro()) {
       builder.setPositiveButton(
           R.string.button_subscribe,
-          (dialog, which) -> context.startActivity(new Intent(context, PurchaseActivity.class)));
+          (dialog, which) -> newPurchaseDialog()
+              .show(getParentFragmentManager(), PurchaseDialog.getFRAG_TAG_PURCHASE_DIALOG()));
     }
     return builder.show();
   }

@@ -48,6 +48,6 @@ class Purchase(private val purchase: Purchase) {
         }
 
     companion object {
-        private val PATTERN = Pattern.compile("^(annual|monthly)_([0-1][0-9]|499)$")
+        private val PATTERN = Pattern.compile("^(annual|monthly)_([0-3][0-9]|499)$")
     }
 }

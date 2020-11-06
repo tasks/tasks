@@ -532,10 +532,6 @@
       android:uiOptions="splitActionBarWhenNarrow"
       android:windowSoftInputMode="adjustResize"/>
 
-    <activity
-      android:name=".billing.PurchaseActivity"
-      android:theme="@style/Tasks" />
-
     <activity-alias
       android:enabled="true"
       android:exported="true"

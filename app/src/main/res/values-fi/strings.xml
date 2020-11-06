@@ -442,7 +442,6 @@
     <string name="caldav_account_repeating_tasks">Anna palvelimen ajoittaa toistuvia tehtäviä</string>
     <string name="annually">Vuosittain</string>
     <string name="monthly">Kuukausittain</string>
-    <string name="name_your_price">Nimeä hintasi</string>
     <string name="google_tasks_add_to_top">Uudet tehtävät huipulla</string>
     <string name="invalid_backup_file">Epäsopiva varmuuskopiotiedosto</string>
     <string name="version_string">Versio %s</string>
@@ -545,7 +544,6 @@
     <string name="action_new_task">Uusi tehtävä</string>
     <string name="pro_dashclock_extension">Dashclock-laajennus</string>
     <string name="upgrade_to_pro">Päivitä pro versioon</string>
-    <string name="upgrade_blurb_3">Valitse mikä tahansa alla olevista tilaus vaihtoehdoista aloittaaksesi vapaan kokeilun. Voit keskeyttää milloin haluat</string>
     <string name="etesync_account_description">Vaatii tilin Etesync.com :ssa tai itsehallinnoidun serverin</string>
     <string name="filter_no_priority">Ei tärkeyttä</string>
     <string name="filter_medium_priority">Normaali tärkeys</string>
@@ -580,8 +578,6 @@
     <string name="auto_dismiss_datetime_list_summary">Sulje automaattisesti kun valitaan tehtävä listalta</string>
     <string name="place_settings">Paikka asetukset</string>
     <string name="places">Paikat</string>
-    <string name="upgrade_blurb_2">Olen käyttänyt tuhansia tunteja työskennellen Task ohjelman parissa, ja julkaisen koko lähdekoodin netissä ilmaiseksi. Työni tueksi joidenkin ohjelman ominaisuuksien käyttö vaatii tilauksen</string>
-    <string name="upgrade_blurb_1">Moi! Nimeni on Alex. Olen itsenäinen ohjelmistontekijä Task ohjelman takana</string>
     <string name="troubleshooting">Ongelmien ratkaisu</string>
     <string name="wearable_notifications_summary">Näytä ilmoitukset puettavassa laitteessasi</string>
     <string name="wearable_notifications">Puettavan laitteen ilmoitukset</string>
@@ -593,7 +589,6 @@
     <string name="logout_warning">Kirjaudu ulos %s\? Kaikki tälle tilille tallennetut tiedot poistetaan laitteeltasi</string>
     <string name="button_downgrade">Alenna tilaustasi</string>
     <string name="refresh_purchases">Päivitä ostoksesi</string>
-    <string name="manage_subscription_summary">Päivitä, alenna tai keskeytä tilauksesi</string>
     <string name="background_sync_unmetered_only">Vain rajoittamattomalla yhteydellä</string>
     <string name="widget_due_date_hidden">Piilotettu</string>
     <string name="widget_due_date_below_title">Otsikon alle</string>

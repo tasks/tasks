@@ -9,6 +9,8 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
+import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
+import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.injection.InjectingPreferenceFragment
 import javax.inject.Inject
@@ -60,12 +62,28 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
                 true
             }
 
+        findPreference(R.string.button_unsubscribe).setOnPreferenceClickListener {
+            inventory.subscription?.let {
+                startActivity(
+                        Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(getString(R.string.manage_subscription_url, it.sku))))
+            }
+            false
+        }
+
+        findPreference(R.string.upgrade_to_pro).setOnPreferenceClickListener {
+            newPurchaseDialog().show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+            false
+        }
+
         @Suppress("ConstantConditionIf")
         if (BuildConfig.FLAVOR == "generic") {
             remove(
                 R.string.p_collect_statistics,
                 R.string.rate_tasks,
                 R.string.upgrade_to_pro,
+                R.string.button_unsubscribe,
                 R.string.refresh_purchases
             )
         }
@@ -75,11 +93,12 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
         super.onResume()
 
         if (BuildConfig.FLAVOR != "generic") {
-            val findPreference = findPreference(R.string.upgrade_to_pro)
-            if (inventory.hasPro) {
-                findPreference.title = getString(R.string.manage_subscription)
-                findPreference.summary = getString(R.string.manage_subscription_summary)
-            }
+            findPreference(R.string.upgrade_to_pro).title = getString(if (inventory.hasPro) {
+                R.string.manage_subscription
+            } else {
+                R.string.upgrade_to_pro
+            })
+            findPreference(R.string.button_unsubscribe).isEnabled = inventory.subscription != null
         }
     }
 

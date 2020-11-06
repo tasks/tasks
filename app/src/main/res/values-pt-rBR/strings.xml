@@ -490,9 +490,6 @@
     <string name="chip_style">Estilo de notificação</string>
     <string name="back">Voltar</string>
     <string name="upgrade_blurb_4">Seu suporte significa muito para mim, obrigado!</string>
-    <string name="upgrade_blurb_3">Escolha qualquer preço de subscrição abaixo para começar seu teste grátis. Você poderá cancelar a qualquer momento</string>
-    <string name="upgrade_blurb_2">Eu investi centenas de horas trabalhando no Tasks, e eu publico todo o código fonte online de graça. Para apoiar meu trabalho, algumas funcionalidades precisam de um plano de subscrição</string>
-    <string name="upgrade_blurb_1">Olá! Meu nome é Alex e eu sou o desenvolvedor independente por trás do Tasks</string>
     <string name="color_wheel">Roda de cores</string>
     <string name="invalid_username_or_password">Nome de usuário ou senha inválido</string>
     <string name="more_notification_settings_summary">Toque, vibrações e mais</string>
@@ -526,7 +523,6 @@
     <string name="caldav_account_repeating_tasks">Permita que o servidor agende tarefas recorrentes</string>
     <string name="annually">Anualmente</string>
     <string name="monthly">Mensalmente</string>
-    <string name="name_your_price">Dê seu valor</string>
     <string name="google_tasks_add_to_top">Novas tarefas ao topo</string>
     <string name="invalid_backup_file">Arquivo de restauro inválido</string>
     <string name="version_string">Versão %s</string>
@@ -539,7 +535,6 @@
     <string name="button_downgrade">Rebaixar plano</string>
     <string name="button_restore_subscription">Recuperar plano</string>
     <string name="button_current_subscription">Plano atual</string>
-    <string name="manage_subscription_summary">Atualizar, rebaixar ou cancelar o seu plano</string>
     <string name="help_and_feedback">Ajuda e Comentários</string>
     <string name="list_separator_with_space">", "</string>
     <string name="error_adding_account">Erro: %s</string>

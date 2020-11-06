@@ -18,7 +18,8 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
+import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
@@ -88,7 +89,7 @@ class WhatsNewDialog : DialogFragment() {
     private fun onSubscribeClick() {
         logClick(true)
         dismiss()
-        startActivity(Intent(context, PurchaseActivity::class.java))
+        newPurchaseDialog().show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
     }
 
     private fun onRateClick() {

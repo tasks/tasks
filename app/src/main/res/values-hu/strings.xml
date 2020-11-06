@@ -468,13 +468,11 @@
     <string name="location_radius_meters">%s m</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Ikon</string>
-    <string name="manage_subscription_summary">Előfizetés upgrade-je, downgrade-je vagy lemondása</string>
     <string name="button_current_subscription">Jelenlegi előfizetés</string>
     <string name="button_restore_subscription">Előfizetés visszaállítása</string>
     <string name="button_downgrade">Előfizetés downgrade-je</string>
     <string name="button_upgrade">Előfizetés upgrade-je</string>
     <string name="button_unsubscribe">Előfizetés lemondása</string>
-    <string name="name_your_price">Nevezd meg az árat</string>
     <string name="monthly">Havi</string>
     <string name="annually">Éves</string>
     <string name="SSD_sort_my_order">Egyéni sorrend</string>
@@ -525,9 +523,6 @@
     <string name="invalid_username_or_password">Hibás felhasználónév vagy jelszó</string>
     <string name="theme_system_default">Alapértelmezett</string>
     <string name="color_wheel">Színkör</string>
-    <string name="upgrade_blurb_1">Szia! Alexnek hívnak. Én vagyok a Tasks mögött álló független fejlesztő</string>
-    <string name="upgrade_blurb_2">Több ezer órát dolgoztam a Tasks appon, és a teljes forráskódot ingyenesen elérhetővé tettem. A munkám támogatása érdekében néhány funkció eléréséhez előfizetés szükséges</string>
-    <string name="upgrade_blurb_3">Az ingyenes próbaidőszak megkezdéséhez válassz a lenti előfizetési díjakból. Bármikor lemondhatod az előfizetést</string>
     <string name="upgrade_blurb_4">A támogatásod sokat jelent nekem, köszönöm!</string>
     <string name="back">Vissza</string>
     <string name="chip_style">Jelölő stílusa</string>
