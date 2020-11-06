@@ -86,7 +86,7 @@ class NavigationDrawerFragment : Fragment() {
                             when (item.requestCode) {
                                 REQUEST_PURCHASE ->
                                     newPurchaseDialog().show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
-                                REQUEST_DONATE -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tasks.org/donate")))
+                                REQUEST_DONATE -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_donate))))
                                 REQUEST_NEW_FILTER -> newFilterDialog().show(parentFragmentManager, FRAG_TAG_NEW_FILTER)
                                 else -> activity?.startActivityForResult(item.intent, item.requestCode)
                             }

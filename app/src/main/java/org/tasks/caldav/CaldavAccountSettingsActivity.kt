@@ -74,5 +74,5 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
         }
 
     override val helpUrl: String
-        get() = "https://tasks.org/caldav"
+        get() = getString(R.string.url_caldav)
 }

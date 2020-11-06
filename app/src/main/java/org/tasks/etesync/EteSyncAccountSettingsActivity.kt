@@ -142,7 +142,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         get() = binding.password.text.toString().trim { it <= ' ' }
 
     override val helpUrl: String
-        get() = "https://tasks.org/etesync"
+        get() = getString(R.string.url_etesync)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_ENCRYPTION_PASSWORD) {

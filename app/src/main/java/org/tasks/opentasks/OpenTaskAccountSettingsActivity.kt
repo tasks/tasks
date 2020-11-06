@@ -65,5 +65,5 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
     override suspend fun updateAccount() = updateAccount(caldavAccount!!.url)
 
     override val helpUrl: String
-        get() = "https://tasks.org/sync"
+        get() = getString(R.string.help_url_sync)
 }

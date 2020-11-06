@@ -79,7 +79,7 @@ class AddAccountDialog : DialogFragment() {
                                 Intent(activity, EteSyncAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
                         4 -> activity?.startActivity(
-                                Intent(ACTION_VIEW, Uri.parse("https://tasks.org/davx5")))
+                                Intent(ACTION_VIEW, Uri.parse(getString(R.string.url_davx5))))
                     }
                     dialog.dismiss()
                 }

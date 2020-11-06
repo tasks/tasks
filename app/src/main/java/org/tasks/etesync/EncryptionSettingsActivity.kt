@@ -173,7 +173,7 @@ class EncryptionSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.O
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return if (item.itemId == R.id.menu_help) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tasks.org/etesync")))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_etesync))))
             true
         } else {
             onOptionsItemSelected(item)

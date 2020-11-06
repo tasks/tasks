@@ -101,7 +101,7 @@ class WhatsNewDialog : DialogFragment() {
 
     private fun onDonateClick() {
         dismiss()
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tasks.org/donate")))
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_donate))))
     }
 
     override fun onCancel(dialog: DialogInterface) {

@@ -86,7 +86,7 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         } else {
             benefits += """
 ---                
-#### [${getString(R.string.upgrade_sync_with_tasks)} (BETA)](https://tasks.org/sync)
+#### [${getString(R.string.upgrade_sync_with_tasks)} (BETA)](${getString(R.string.help_url_sync)})
 * **${getString(R.string.upgrade_no_platform_lock_in)}** — ${getString(R.string.upgrade_open_internet_standards)}
 * **${getString(R.string.upgrade_customer)}** — ${getString(R.string.upgrade_privacy)}
 * ${getString(R.string.upgrade_coming_soon)}
@@ -95,15 +95,15 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         benefits += """
 ---
 #### ${getString(R.string.upgrade_synchronization)}
-* [${getString(R.string.davx5)}](https://tasks.org/docs/davx5.html)
-* [${getString(R.string.caldav)}](https://tasks.org/docs/caldav_intro.html)
-* [${getString(R.string.upgrade_etesync)}](https://tasks.org/docs/etesync_intro.html)
+* [${getString(R.string.davx5)}](${getString(R.string.url_davx5)})
+* [${getString(R.string.caldav)}](${getString(R.string.url_caldav)})
+* [${getString(R.string.upgrade_etesync)}](${getString(R.string.url_etesync)})
 * ${getString(R.string.upgrade_google_tasks)}
 ---
 #### ${getString(R.string.upgrade_additional_features)}
 * ${getString(R.string.upgrade_themes)}
 * ${getString(R.string.upgrade_google_places)}
-* [${getString(R.string.upgrade_tasker)}](https://tasks.org/docs/tasker.html)
+* [${getString(R.string.upgrade_tasker)}](${getString(R.string.url_tasker)})
 ---
 * ${getString(R.string.upgrade_free_trial)}
 * **${getString(R.string.upgrade_downgrade)}** — ${getString(R.string.upgrade_balance)}
