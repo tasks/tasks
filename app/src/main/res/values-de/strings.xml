@@ -28,7 +28,7 @@
     <string name="TAd_actionEditTask">Bearbeiten</string>
     <string name="action_call">Anrufen</string>
     <string name="action_open">Öffnen</string>
-    <string name="SSD_sort_auto">Smarte Sortierung</string>
+    <string name="SSD_sort_auto">Intelligente Sortierung</string>
     <string name="SSD_sort_alpha">Nach Titel</string>
     <string name="SSD_sort_due">Nach Fälligkeitsdatum</string>
     <string name="SSD_sort_importance">Nach Dringlichkeit</string>
@@ -148,7 +148,7 @@
     <string name="gtasks_GTA_clear_completed">Erledigte Aufgaben entfernen</string>
     <string name="gtasks_GLA_authenticating">Authentifizierung…</string>
     <string name="gtasks_GLA_errorIOAuth">Leider ist während der Kommunikation mit den Google-Servern ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
-    <string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte ausloggen und erneut über die Einstellungen von Google Tasks einloggen .</string>
+    <string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte abmelden und erneut über die Einstellungen von Google Tasks anmelden.</string>
     <string name="premium_record_audio">Notiz aufzeichnen</string>
     <string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
     <string name="audio_recording_title">Audio aufnehmen</string>
@@ -380,7 +380,7 @@
     <string name="date_and_time">Datum und Uhrzeit</string>
     <string name="start_of_week">Beginn der Woche</string>
     <string name="use_locale_default">Aus Systemeinstellungen</string>
-    <string name="add_account">Account hinzufügen</string>
+    <string name="add_account">Konto hinzufügen</string>
     <string name="user">Benutzer</string>
     <string name="password">Passwort</string>
     <string name="notification_disable_battery_optimizations_description">Energiesparmodus kann Benachrichtigungen verzögern</string>
@@ -457,7 +457,7 @@
     <string name="open_map">Karte öffnen</string>
     <string name="choose_new_location">Neuen Ort auswählen</string>
     <string name="third_party_licenses">Drittsoftware-Lizenzen</string>
-    <string name="invalid_backup_file">Ungültige Backupdatei</string>
+    <string name="invalid_backup_file">Ungültige Sicherungsdatei</string>
     <string name="google_tasks_add_to_top">Neue Aufgaben oben</string>
     <string name="backup_BPr_header">Sicherungen</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
@@ -609,7 +609,7 @@
     <string name="yesterday_lowercase">gestern</string>
     <string name="tomorrow_lowercase">morgen</string>
     <string name="today_lowercase">heute</string>
-    <string name="astrid_sort_order_summary">Astrids manuelle Sortiermethode für \'Meine Aufgaben\', \'Heute\' und Schlagworte aktivieren. Diese Sortiermethode wird in einer zukünftigen Version \'Meine Sortierung\' ersetzen</string>
+    <string name="astrid_sort_order_summary">Astrids manuelle Sortiermethode für „Meine Aufgaben“, „Heute“ und Schlagwörter aktivieren. Diese Sortiermethode wird in einer zukünftigen Version „Meine Sortierung“ ersetzen</string>
     <string name="open_last_viewed_list">Zuletzt betrachtete Liste öffnen</string>
     <string name="improve_performance_summary">Gruppensortierung und einklappbare Teilaufgaben deaktivieren, um die App-Leistung zu verbessern</string>
     <string name="lists">Listen</string>
@@ -640,4 +640,17 @@
     <string name="delete_comment">Kommentar löschen?</string>
     <string name="cancel">Abbrechen</string>
     <string name="ok">OK</string>
+    <string name="header_spacing">Abstände</string>
+    <string name="background_location_permission_required">Die Standortberechtigung wird für ortsabhängige Erinnerungen verwendet. Falls du die Anfrage für die Standortberechtigung bereits abgelehnt hast, kannst du deine Entscheidung manuell in den Einstellungen deines Geräts ändern.</string>
+    <string name="default_tags">Standardsschlagwörter</string>
+    <string name="custom_filter_is_subtask">Ist eine Unteraufgabe</string>
+    <string name="custom_filter_has_subtask">Hat Unteraufgaben</string>
+    <string name="date_picker_multiple">Mehrfach</string>
+    <string name="multi_select_reschedule">Umplanen</string>
+    <string name="default_recurrence">Standardwiederholung</string>
+    <string name="repeat_type_completion_capitalized">Fertigstellungstermin</string>
+    <string name="default_location">Standardspeicherort</string>
+    <string name="backup_location_warning">WARNUNG: Bei der Deinstallation von Tasks werden alle Dateien in %s gelöscht! Bitte wähle einen eigenen Speicherort, um zu verhindern dass Android deine Daten löscht.</string>
+    <string name="backups_ignore_warnings_summary">Ignoriere Warnungen zu Sicherungen, wenn du keine Sicherungen brauchst oder deine eigene Sicherungslösung nutzt</string>
+    <string name="android_auto_backup_device_summary">Sie müssen sich auch über Ihre Geräteeinstellungen für den Sicherungsdienst anmelden. Nicht alle Geräte bieten einen Sicherungsdienst.</string>
 </resources>
