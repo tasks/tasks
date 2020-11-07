@@ -439,7 +439,7 @@
     <string name="action_create_new_task">Crea nuova attività</string>
     <string name="show_description">Mostra la descrizione</string>
     <string name="show_full_description">Mostra la descrizione completa</string>
-    <string name="linkify">Evidenzia link</string>
+    <string name="linkify">Evidenzia collegamenti</string>
     <string name="linkify_description">Aggiungi link a siti web, indirizzi e numeri telefonici</string>
     <string name="location_remind_arrival">Ricorda all\'arrivo</string>
     <string name="location_remind_departure">Ricorda alla partenza</string>
