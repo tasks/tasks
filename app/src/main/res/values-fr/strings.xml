@@ -24,7 +24,7 @@
     <string name="TAd_actionEditTask">Modifier</string>
     <string name="action_call">Appeler</string>
     <string name="action_open">Ouvrir</string>
-    <string name="SSD_sort_auto">Tri intelligent Tasks</string>
+    <string name="SSD_sort_auto">Tri intelligent</string>
     <string name="SSD_sort_alpha">Par titre</string>
     <string name="SSD_sort_due">Par date d\'échéance</string>
     <string name="SSD_sort_importance">Par priorité</string>
@@ -126,9 +126,9 @@
     <string name="next_month">Mois suivant</string>
     <string name="CFC_importance_text">Priorité au dernier ?</string>
     <string name="CFC_importance_name">Priorité…</string>
-    <string name="CFC_tag_name">Tag…</string>
-    <string name="CFC_tag_contains_name">Le nom du tag contient…</string>
-    <string name="CFC_tag_contains_text">Le nom du tag contient : \?</string>
+    <string name="CFC_tag_name">Étiquette…</string>
+    <string name="CFC_tag_contains_name">Le nom de l\'étiquette contient…</string>
+    <string name="CFC_tag_contains_text">Le nom de l\'étiquette contient : \?</string>
     <string name="CFC_title_contains_name">Le titre contient…</string>
     <string name="CFC_title_contains_text">Titre contient : \?</string>
     <string name="gcal_TEA_error">Erreur d\'ajout de tâche à l\'agenda !</string>
@@ -240,9 +240,9 @@
     <string name="repeat_number_of_times">Nombre de répétitions</string>
     <string name="repeat_occurs">Se répète</string>
     <string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
-    <string name="new_tag">Créer un nouveau tag</string>
+    <string name="new_tag">Créer une nouvelle étiquette</string>
     <string name="new_list">Créer une nouvelle liste</string>
-    <string name="delete_tag_confirmation">Supprimer %s \?</string>
+    <string name="delete_tag_confirmation">Supprimer %s \?</string>
     <string name="TPl_notification">Chronomètre actif pour %s !</string>
     <string name="TFE_workingOn">Tâches chronométrées</string>
     <string name="TEA_timer_controls">Minuteur</string>
@@ -310,7 +310,7 @@
     <string name="date_shortcut_must_come_after">%1$s doit venir après %2$s</string>
     <string name="discard_changes">Annuler les modifications \?</string>
     <string name="discard">Annuler</string>
-    <string name="tag_settings">Paramètres des tags</string>
+    <string name="tag_settings">Paramètres des étiquettes</string>
     <string name="list_settings">Paramètres de la liste</string>
     <string name="delete">Supprimer</string>
     <string name="copy">Copier</string>
@@ -326,7 +326,7 @@
     <string name="privacy_policy">Politique de vie privée</string>
     <string name="send_anonymous_statistics">Améliorer Tasks</string>
     <string name="send_anonymous_statistics_summary">Envoyer des statistiques anonymes d\'usage et les rapports de plantage afin d\'aider à l\'amélioration de Tasks. Aucune donnée personnelle ne sera collectée.</string>
-    <string name="tag_already_exists">Le tag existe déjà</string>
+    <string name="tag_already_exists">L\'étiquette existe déjà</string>
     <string name="name_cannot_be_empty">Le nom doit être renseigné</string>
     <string name="username_required">Nom d\'utilisateur requis</string>
     <string name="password_required">Mot de passe requis</string>
@@ -446,7 +446,7 @@
     <string name="google_tasks_add_to_top">Nouvelle tâche au dessus</string>
     <string name="TEA_note_label">Description</string>
     <string name="TEA_control_notes">Description</string>
-    <string name="CFC_tag_text">Tag : \?</string>
+    <string name="CFC_tag_text">Étiquette : \?</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <plurals name="repeat_minutes">
         <item quantity="one">minute</item>
@@ -459,7 +459,7 @@
     <string name="notifications">Notifications</string>
     <string name="vibrations">Vibrations</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="tags">Tags</string>
+    <string name="tags">Étiquettes</string>
     <string name="accent">Accent</string>
     <string name="badges">Badges</string>
     <string name="list_separator_with_space">", "</string>
@@ -488,8 +488,8 @@
     <string name="subtasks">Sous-tâches</string>
     <string name="subtasks_multilevel_google_task">Les sous-tâches multi-niveaux ne sont pas prises en charge par Google Tasks</string>
     <string name="enter_title_hint">Entrer le titre</string>
-    <string name="enter_tag_name">Entrez le nom du tag</string>
-    <string name="create_new_tag">Créer %s</string>
+    <string name="enter_tag_name">Entrez le nom de l\'étiquette</string>
+    <string name="create_new_tag">Créer « %s »</string>
     <string name="encryption_password_required">Mot de passe de chiffrement requis</string>
     <string name="encryption_password">Mot de passe de chiffrement</string>
     <string name="display_name">Afficher le nom</string>
@@ -503,7 +503,7 @@
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
     <string name="caldav_account_description">Nécessite un compte auprès d\'un fournisseur de services CalDAV ou un serveur auto-hébergé. Trouvez un fournisseur de services en visitant tasks.org/caldav</string>
     <string name="etesync_account_description">Nécessite un compte sur EteSync.com ou un serveur auto-hébergé</string>
-    <string name="etesync_encryption_description">N\'oubliez pas le mot de passe de cryptage que vous choisissez, il ne peut pas être récupéré !</string>
+    <string name="etesync_encryption_description">N\'oubliez pas le mot de passe de chiffrement que vous choisissez, il ne peut pas être récupéré !</string>
     <string name="encryption_password_wrong">Mot de passe de chiffrement erroné</string>
     <string name="help_and_feedback">Aide et commentaires</string>
     <string name="documentation">Documentation</string>
@@ -533,7 +533,7 @@
     <string name="places">Lieux</string>
     <string name="place_settings">Paramètres du lieu</string>
     <string name="navigation_drawer">Tiroir de navigation</string>
-    <string name="hide_unused_tags">Cacher les tags non utilisés</string>
+    <string name="hide_unused_tags">Masquer les étiquettes inutilisés</string>
     <string name="hide_unused_places">Masquer les lieux inutilisés</string>
     <string name="add_place">Ajouter un lieu</string>
     <string name="menu_discard_changes">Annuler les modifications</string>
@@ -586,8 +586,8 @@
     <string name="filter_medium_priority">Priorité moyenne</string>
     <string name="filter_high_priority">Haute priorité</string>
     <string name="add_filter">Ajouter un filtre</string>
-    <string name="add_tags">Ajouter des tags</string>
-    <string name="filter_no_tags">Pas de tags</string>
+    <string name="add_tags">Ajouter des étiquettes</string>
+    <string name="filter_no_tags">Aucune étiquette</string>
     <string name="filter_after_today">Après aujourd\'hui</string>
     <string name="filter_any_due_date">Toute date d\'échéance</string>
     <string name="filter_today_only">Aujourd\'hui seulement</string>
@@ -611,7 +611,7 @@
     <string name="open_last_viewed_list">Ouvrir la dernière liste consultée</string>
     <string name="on_launch">Au lancement</string>
     <string name="lists">Listes</string>
-    <string name="astrid_sort_order_summary">Activez le mode de tri manuel d’Astrid pour \'Mes tâches\', \'Aujourd\'hui\', et les tags. Ce mode tri sera remplacé par \'Mon ordre\' dans une future mise à jour</string>
+    <string name="astrid_sort_order_summary">Activez le mode de tri manuel d’Astrid pour « Mes tâches », « Aujourd\'hui », et les étiquettes. Ce mode tri sera remplacé par « Mon ordre » dans une future mise à jour</string>
     <string name="astrid_sort_order">Tri manuel Astrid</string>
     <string name="disable_sort_groups">Désactiver les groupes de tri</string>
     <string name="CFC_list_name">Dans la liste…</string>
@@ -638,7 +638,7 @@
     <string name="header_spacing">Espacement</string>
     <string name="default_recurrence">Récurrence par défaut</string>
     <string name="repeat_type_completion_capitalized">Date d’achèvement</string>
-    <string name="default_tags">Tags par défaut</string>
+    <string name="default_tags">Étiquettes par défaut</string>
     <string name="default_location">Emplacement par défaut</string>
     <string name="delete_comment">Supprimer ce commentaire \?</string>
     <string name="date_picker_multiple">Plusieurs</string>
