@@ -434,7 +434,7 @@
     <string name="network_error">Kunne ikke koble til</string>
     <string name="background_sync_unmetered_only">Kun for ubegrensede tilkoblinger</string>
     <string name="upgrade_to_pro">Oppgrader til pro</string>
-    <string name="manage_subscription">Håndter abonnement</string>
+    <string name="manage_subscription">Endre abonnement</string>
     <string name="refresh_purchases">Gjenoppfrisk kjøp</string>
     <string name="button_subscribe">Abonner</string>
     <string name="button_more_info">Mer info</string>
@@ -653,4 +653,15 @@
     <string name="always_display_full_date">Vis full dato</string>
     <string name="cancel">Avbryt</string>
     <string name="ok">OK</string>
+    <string name="insufficient_subscription">Utilstrekkelig abonnementsnivå. Oppgrader ditt abonnement for å fortsette tjenesten.</string>
+    <string name="purchases_updated">Kjøp oppdatert</string>
+    <string name="current_subscription">Nåværende abonnement: %s</string>
+    <string name="price_per_month_abbreviated">$%s/md.</string>
+    <string name="price_per_month">$%s/måned</string>
+    <string name="price_per_year_abbreviated">$%s/år</string>
+    <string name="price_per_year">$%s/år</string>
+    <string name="your_subscription_expired">Ditt abonnement har utløpt. Abonner nå for å fortsette tjenesten.</string>
+    <string name="logged_in">Innlogget som %s</string>
+    <string name="tasks_org_sync_description">Synkroniser din data med Tasks.org</string>
+    <string name="more_options">Flere innstillinger</string>
 </resources>
