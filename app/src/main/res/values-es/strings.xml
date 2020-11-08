@@ -428,7 +428,7 @@
     <string name="network_error">No se pudo conectar</string>
     <string name="background_sync_unmetered_only">Sólo en conexiones sin cargos</string>
     <string name="upgrade_to_pro">Actualizar a profesional</string>
-    <string name="manage_subscription">Gestionar suscripción</string>
+    <string name="manage_subscription">Modificar suscripción</string>
     <string name="refresh_purchases">Actualizar los acquisiciones</string>
     <string name="button_subscribe">Suscribe</string>
     <string name="button_more_info">Más información</string>
@@ -653,4 +653,15 @@
     <string name="always_display_full_date">Mostrar la fecha completa</string>
     <string name="custom_filter_is_subtask">Es una subtarea</string>
     <string name="custom_filter_has_subtask">Tiene subtareas</string>
+    <string name="purchases_updated">Compras actualizadas</string>
+    <string name="current_subscription">Suscripción actual: %s</string>
+    <string name="price_per_month_abbreviated">$%s/mes</string>
+    <string name="price_per_month">$%s/mes</string>
+    <string name="price_per_year_abbreviated">$%s/año</string>
+    <string name="price_per_year">$%s/año</string>
+    <string name="insufficient_subscription">Nivel de suscripción insuficiente. Actualice su suscripción para reanudar el servicio.</string>
+    <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>
+    <string name="logged_in">Autenticado como %s</string>
+    <string name="tasks_org_sync_description">Sincronice sus datos con Tasks.org</string>
+    <string name="more_options">Más opciones</string>
 </resources>
