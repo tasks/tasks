@@ -424,9 +424,9 @@
     <string name="network_error">Connessione fallita</string>
     <string name="background_sync_unmetered_only">Solo su connessioni non a consumo</string>
     <string name="upgrade_to_pro">Aggiorna a pro</string>
-    <string name="manage_subscription">Gestisci abbonamento</string>
+    <string name="manage_subscription">Modifica abbonamento</string>
     <string name="refresh_purchases">Aggiorna acquisti</string>
-    <string name="button_subscribe">Sottoscrivi</string>
+    <string name="button_subscribe">Abbonati</string>
     <string name="button_more_info">Più informazioni</string>
     <string name="about">A riguardo</string>
     <string name="license_summary">Tasks è un software libero ed open-source, rilasciato sotto licenza GNU General Public License v3.0</string>
@@ -648,4 +648,15 @@
     <string name="ok">\@android:string/ok</string>
     <string name="custom_filter_has_subtask">Ci sono attività secondarie</string>
     <string name="custom_filter_is_subtask">È un\'attività secondaria</string>
+    <string name="purchases_updated">Acquisti aggiornati</string>
+    <string name="current_subscription">Abbonamento attuale: %s</string>
+    <string name="price_per_month_abbreviated">$%s/mese</string>
+    <string name="price_per_month">$%s/mese</string>
+    <string name="price_per_year_abbreviated">$%s/anno</string>
+    <string name="price_per_year">$%s/anno</string>
+    <string name="insufficient_subscription">Livello di abbonamento insufficiente. Per favore aggiornalo per riattivare il servizio.</string>
+    <string name="your_subscription_expired">Il tuo abbonamento è scaduto. Abbonati ora per riattivare il servizio.</string>
+    <string name="logged_in">Collegato come %s</string>
+    <string name="tasks_org_sync_description">Sincronizzare i tuoi dati con Tasks.org</string>
+    <string name="more_options">Altre opzioni</string>
 </resources>
