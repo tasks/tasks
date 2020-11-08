@@ -410,7 +410,7 @@
     <string name="network_error">Impossible de se connecter</string>
     <string name="background_sync_unmetered_only">Uniquement sur les connexions illimitées</string>
     <string name="upgrade_to_pro">Passer en pro</string>
-    <string name="manage_subscription">Gérer les abonnements</string>
+    <string name="manage_subscription">Modifier les abonnements</string>
     <string name="refresh_purchases">Rafraîchir les achats</string>
     <string name="button_subscribe">S\'abonner</string>
     <string name="button_more_info">Plus d\'info</string>
@@ -648,4 +648,15 @@
     <string name="always_display_full_date">Afficher la date complète</string>
     <string name="custom_filter_is_subtask">Est une sous-tâche</string>
     <string name="custom_filter_has_subtask">A des sous-tâches</string>
+    <string name="purchases_updated">Achats mis à jour</string>
+    <string name="current_subscription">Abonnement actuel : %s</string>
+    <string name="price_per_month_abbreviated">$%s/mois</string>
+    <string name="price_per_month">$%s/mois</string>
+    <string name="price_per_year_abbreviated">$%s/an</string>
+    <string name="price_per_year">$%s/an</string>
+    <string name="insufficient_subscription">Niveau d\'abonnement insuffisant. Veuillez mettre votre abonnement à niveau pour reprendre le service.</string>
+    <string name="your_subscription_expired">Votre abonnement a expiré. Abonnez-vous dès maintenant pour reprendre le service.</string>
+    <string name="logged_in">Connecté en tant que %s</string>
+    <string name="tasks_org_sync_description">Synchroniser vos données avec Tasks.org</string>
+    <string name="more_options">Plus d’options</string>
 </resources>
