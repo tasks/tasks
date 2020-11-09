@@ -429,7 +429,7 @@
     <string name="network_error">Sikertelen kapcsolódás</string>
     <string name="background_sync_unmetered_only">Csak forgalmidíj mentes kapcsolatoknál</string>
     <string name="upgrade_to_pro">Upgrade pro verzióra</string>
-    <string name="manage_subscription">Előfizetés kezelése</string>
+    <string name="manage_subscription">Előfizetés módosítása</string>
     <string name="refresh_purchases">Vásárlások frissítése</string>
     <string name="button_subscribe">Előfizetés</string>
     <string name="button_more_info">További információk</string>
@@ -647,4 +647,19 @@
     <string name="date_picker_multiple">Többszörös</string>
     <string name="multi_select_reschedule">Újraütemezés</string>
     <string name="always_display_full_date">Teljes dátum mutatása</string>
+    <string name="purchases_updated">Vásárlás frissítve</string>
+    <string name="current_subscription">Jelenlegi előfizetés: %s</string>
+    <string name="price_per_month">%s $/hónap</string>
+    <string name="price_per_month_abbreviated">%s $/hó</string>
+    <string name="price_per_year_abbreviated">%s $/év</string>
+    <string name="price_per_year">%s $/év</string>
+    <string name="insufficient_subscription">Elégtelen előfizetési szint. Kérem, upgrade-elje az előfizetést a szolgáltatás folytatásához.</string>
+    <string name="your_subscription_expired">Az előfizetés lejárt. Fizessen elő most a szolgáltatás folytatásához.</string>
+    <string name="logged_in">Logolva itt: %s</string>
+    <string name="custom_filter_is_subtask">Alfeladat</string>
+    <string name="custom_filter_has_subtask">Van alfeladata</string>
+    <string name="tasks_org_sync_description">Adatok szinkronizálása a Tasks.org-al</string>
+    <string name="more_options">Több lehetőség</string>
+    <string name="cancel">Mégse</string>
+    <string name="ok">OK</string>
 </resources>
