@@ -440,7 +440,7 @@
     <string name="add_location">添加位置</string>
     <string name="geofence_radius">半径</string>
     <string name="location_radius_meters">%s 米</string>
-    <string name="manage_subscription">管理订阅</string>
+    <string name="manage_subscription">修改订阅</string>
     <string name="location_remind_arrival">抵达时提醒</string>
     <string name="location_remind_departure">离开时提醒</string>
     <string name="visit_website">访问网站</string>
@@ -491,7 +491,7 @@
     <string name="display_name">显示名称</string>
     <string name="this_feature_requires_a_subscription">该功能需要订阅</string>
     <string name="choose_synchronization_service">选择平台</string>
-    <string name="google_tasks_selection_description">与您的谷歌账户同步的基本服务</string>
+    <string name="google_tasks_selection_description">基本服务，用你的谷歌账户进行数据同步</string>
     <string name="caldav_selection_description">基于开放的互联网标准的同步</string>
     <string name="etesync_selection_description">开源、端到端加密的同步</string>
     <string name="passwords_do_not_match">密码不匹配</string>
@@ -644,4 +644,15 @@
     <string name="ok">好</string>
     <string name="custom_filter_is_subtask">是子任务</string>
     <string name="custom_filter_has_subtask">有子任务</string>
+    <string name="tasks_org_sync_description">用Tasks.org同步你的数据</string>
+    <string name="purchases_updated">购买已更新</string>
+    <string name="current_subscription">当前订阅：%s</string>
+    <string name="price_per_month_abbreviated">$%s/月</string>
+    <string name="price_per_month">$%s/月</string>
+    <string name="price_per_year_abbreviated">$%s/年</string>
+    <string name="price_per_year">$%s/年</string>
+    <string name="insufficient_subscription">订阅等级不够。请升级你的订阅来恢复服务。</string>
+    <string name="your_subscription_expired">你的订阅已到期。现在订阅恢复服务。</string>
+    <string name="logged_in">登录%s</string>
+    <string name="more_options">更多选项</string>
 </resources>
