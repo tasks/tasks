@@ -56,8 +56,10 @@ class NotificationManager @Inject constructor(
     @SuppressLint("CheckResult")
     suspend fun cancel(ids: Iterable<Long>) {
         for (id in ids) {
-            notificationManagerCompat.cancel(id.toInt())
-            queue.remove(id)
+            throttle.run {
+                notificationManagerCompat.cancel(id.toInt())
+                queue.remove(id)
+            }
         }
         notificationDao.deleteAll(ids.toList())
         notifyTasks(emptyList(), alert = false, nonstop = false, fiveTimes = false)
