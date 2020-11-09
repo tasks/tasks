@@ -43,6 +43,7 @@ class TaskDuplicator @Inject constructor(
         with(clone) {
             creationDate = DateUtilities.now()
             modificationDate = DateUtilities.now()
+            reminderLast = 0
             completionDate = 0L
             calendarURI = ""
             parent = parentId
