@@ -205,6 +205,7 @@ dependencies {
 
     // https://github.com/mapbox/mapbox-gl-native-android/issues/316
     genericImplementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.4.1")
+    genericImplementation("com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0")
 
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}")

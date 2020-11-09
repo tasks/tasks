@@ -1,7 +1,7 @@
 Change Log
 ---
 =======
-### 11.0 (2020-11-06) [BETA](https://tasks.org/docs/pre_release_testing.html)
+### 11.0 (2020-11-09) [BETA](https://tasks.org/docs/pre_release_testing.html)
 
 * New Tasks.org synchronization service
 * Multi-select rescheduling
@@ -37,6 +37,10 @@ Change Log
   * Spanish - @FlorianLeChat
   * Traditional Chinese - @realpineapplemilk
   * Turkish - @emintufan, Oğuz Ersen
+
+### 10.4.1 (2020-11-09)
+
+* Fix Mapbox Maps crash on Android 11 (F-Droid only)
 
 ### 10.4 (2020-10-09)
 
