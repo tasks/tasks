@@ -418,14 +418,14 @@
     <string name="network_error">Kon geen verbinding maken</string>
     <string name="background_sync_unmetered_only">Alleen bij onbeperkte verbindingen</string>
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
-    <string name="manage_subscription">Beheer aanmeldingen</string>
+    <string name="manage_subscription">Verander abonnement</string>
     <string name="refresh_purchases">Vernieuw aankopen</string>
     <string name="button_subscribe">Aanmelden</string>
     <string name="button_more_info">Meer informatie</string>
     <string name="about">Over</string>
     <string name="license_summary">Tasks is vrije open-source software, gelicensieerd onder de GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Dashclock extentie</string>
-    <string name="requires_pro_subscription">Pro aanmelding vereist</string>
+    <string name="requires_pro_subscription">Pro abonnement vereist</string>
     <string name="logout">Uitloggen</string>
     <string name="logout_warning">Uitloggen voor %s? Alle data voor dit account zal worden verwijderd van je toestel</string>
     <string name="cannot_access_account">Geen toegang tot account</string>
@@ -648,4 +648,15 @@
     <string name="always_display_full_date">Toon volledige datum</string>
     <string name="custom_filter_is_subtask">Is deeltaak</string>
     <string name="custom_filter_has_subtask">Heeft deeltaken</string>
+    <string name="purchases_updated">Aankopen geüpdatet</string>
+    <string name="current_subscription">Huidige abonnement: %s</string>
+    <string name="price_per_month_abbreviated">$%s/ma</string>
+    <string name="price_per_month">$%s/maand</string>
+    <string name="price_per_year_abbreviated">$%s/jr</string>
+    <string name="price_per_year">$%s/jaar</string>
+    <string name="insufficient_subscription">Abonnementsniveau onvoldoende. Verhoog a.u.b. je abonnement om deze dienst te hervatten.</string>
+    <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer je nu om deze dienst te hervatten.</string>
+    <string name="logged_in">Ingelogd als %s</string>
+    <string name="tasks_org_sync_description">Synchroniseer je data met Tasks.org</string>
+    <string name="more_options">Meer opties</string>
 </resources>
