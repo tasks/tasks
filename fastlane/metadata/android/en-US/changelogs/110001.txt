@@ -1,9 +1,16 @@
+* New Tasks.org synchronization service
 * Multi-select rescheduling
 * New task default settings
   * Default tags
   * Default recurrence
   * Default location
   * Hide until due time
+* New custom filter criteria
+  * Hidden tasks
+  * Completed tasks
+  * Subtasks
+  * Parent tasks
+  * Recurring tasks
 * Add ability to delete comments (Thanks to @Romedius!)
 * Add option to always display date (Thanks to @T0M0F!)
 * Copy subtasks when copying tasks (Thanks to @supermzn!)

@@ -1,8 +1,0 @@
-* New Tasks.org synchronization service
-* New custom filter criteria
-  * Hidden tasks
-  * Completed tasks
-  * Subtasks
-  * Parent tasks
-  * Recurring tasks
-* Bug fixes and translation updates

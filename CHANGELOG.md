@@ -1,15 +1,24 @@
 Change Log
 ---
 =======
-### 11.0 (2020-11-06) [ALPHA](https://tasks.org/docs/pre_release_testing.html)
+### 11.0 (2020-11-06) [BETA](https://tasks.org/docs/pre_release_testing.html)
 
 * New Tasks.org synchronization service
+* Multi-select rescheduling
+* New task default settings
+  * Default tags
+  * Default recurrence
+  * Default location
+  * Hide until due time
 * New custom filter criteria
   * Hidden tasks
   * Completed tasks
   * Subtasks
   * Parent tasks
   * Recurring tasks
+* Add ability to delete comments (Thanks to @romedius!)
+* Add option to always display date (Thanks to @T0M0F!)
+* Copy subtasks when copying tasks (Thanks to @supermzn!)
 * Bug fixes
 * Translation updates
   * Arabic - @mhmdanas
@@ -17,6 +26,8 @@ Change Log
   * Dutch - @fvbommel
   * French - @FlorianLeChat
   * German - @franconian
+  * Hebrew - @yarons
+  * Hungarian - kaciokos
   * Italian - @ppasserini
   * Korean - @Sunjae Choi
   * Norwegian Bokmål - @comradekingu
@@ -25,30 +36,6 @@ Change Log
   * Simplified Chinese - @sr093906
   * Spanish - @FlorianLeChat
   * Traditional Chinese - @realpineapplemilk
-  * Turkish - @emintufan
-
-### 10.5 (2020-10-21) [BETA](https://tasks.org/docs/pre_release_testing.html)
-
-* Multi-select rescheduling
-* New task default settings
-  * Default tags
-  * Default recurrence
-  * Default location
-  * Hide until due time
-* Add ability to delete comments (Thanks to @romedius!)
-* Add option to always display date (Thanks to @T0M0F!)
-* Copy subtasks when copying tasks (Thanks to @supermzn!)
-* Bug fixes
-* Translation updates
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * Hebrew - @yarons
-  * Hungarian - kaciokos
-  * Italian - @ppasserini
-  * Norwegian Bokmål - @comradekingu
-  * Russian - Nikita Epifanov
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
   * Turkish - @emintufan, Oğuz Ersen
 
 ### 10.4 (2020-10-09)
