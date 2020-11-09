@@ -1,6 +1,10 @@
 Change Log
 ---
 =======
+### 10.4.1 (2020-11-09)
+
+* Fix Mapbox Maps crash on Android 11 (F-Droid only)
+
 ### 10.4 (2020-10-09)
 
 * New widget configuration options

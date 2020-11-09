@@ -44,8 +44,8 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 100400
-        versionName = "10.4"
+        versionCode = 100401
+        versionName = "10.4.1"
         targetSdkVersion(Versions.targetSdk)
         minSdkVersion(Versions.minSdk)
         testInstrumentationRunner = "org.tasks.TestRunner"
@@ -205,6 +205,7 @@ dependencies {
 
     // https://github.com/mapbox/mapbox-gl-native-android/issues/316
     genericImplementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.4.1")
+    genericImplementation("com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0")
 
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}")
