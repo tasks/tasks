@@ -53,7 +53,7 @@ class GtasksLoginActivity : InjectingAppCompatActivity() {
 
     private fun chooseAccount() {
         val chooseAccountIntent = AccountManager.newChooseAccountIntent(
-                null, null, arrayOf("com.google"), false, null, null, null, null)
+                null, null, arrayOf("com.google"), null, null, null, null)
         startActivityForResult(chooseAccountIntent, RC_CHOOSE_ACCOUNT)
     }
 

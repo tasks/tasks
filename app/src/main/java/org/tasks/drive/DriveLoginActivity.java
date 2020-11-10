@@ -40,7 +40,7 @@ public class DriveLoginActivity extends InjectingAppCompatActivity {
 
     Intent chooseAccountIntent =
         android.accounts.AccountManager.newChooseAccountIntent(
-            null, null, new String[] {"com.google"}, false, null, null, null, null);
+            null, null, new String[] {"com.google"}, null, null, null, null);
     startActivityForResult(chooseAccountIntent, RC_CHOOSE_ACCOUNT);
   }
 
