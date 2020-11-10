@@ -4,8 +4,8 @@ plugins {
     id("com.google.firebase.crashlytics")
     kotlin("android")
     kotlin("kapt")
-    id("com.cookpad.android.plugin.license-tools") version "1.2.2"
-    id("com.github.ben-manes.versions") version "0.33.0"
+    id("com.cookpad.android.plugin.license-tools") version "1.2.5"
+    id("com.github.ben-manes.versions") version "0.36.0"
     id("com.vanniktech.android.junit.jacoco") version "0.16.0"
     id("dagger.hilt.android.plugin")
 }
@@ -138,7 +138,7 @@ val genericImplementation by configurations
 val googleplayImplementation by configurations
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.10")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.0")
     implementation("com.gitlab.bitfireAT:dav4jvm:2.1.1")
     implementation("com.gitlab.bitfireAT:ical4android:e4c50b3485")
     implementation("com.gitlab.bitfireAT:cert4android:72cf235ad9")
@@ -177,7 +177,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.google.android.material:material:1.2.1")
     implementation("androidx.annotation:annotation:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.2")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.preference:preference:1.1.1")
     implementation("com.jakewharton.timber:timber:4.7.1")
@@ -194,11 +194,11 @@ dependencies {
     implementation("com.wdullaer:materialdatetimepicker:4.2.3")
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
     implementation("com.google.apis:google-api-services-tasks:v1-rev20200905-1.30.10")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20200813-1.30.10")
-    implementation("com.google.auth:google-auth-library-oauth2-http:0.21.1")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20201101-1.30.10")
+    implementation("com.google.auth:google-auth-library-oauth2-http:0.22.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("androidx.work:work-runtime-ktx:${Versions.work}")
-    implementation("com.mapbox.mapboxsdk:mapbox-android-core:3.0.0")
+    implementation("com.mapbox.mapboxsdk:mapbox-android-core:3.1.0")
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0")
     implementation("com.etesync:journalmanager:1.1.1")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
@@ -214,7 +214,7 @@ dependencies {
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
     googleplayImplementation("com.google.android.libraries.places:places:2.4.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
-    googleplayImplementation("com.google.android.gms:play-services-auth:18.1.0")
+    googleplayImplementation("com.google.android.gms:play-services-auth:19.0.0")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
     kaptAndroidTest("com.google.dagger:hilt-compiler:${Versions.hilt}")
@@ -227,8 +227,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.annotation:annotation:1.1.0")
 
-    testImplementation("junit:junit:4.13")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9")
+    testImplementation("junit:junit:4.13.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.1")
     testImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
     testImplementation("androidx.test:core:${Versions.androidx_test}")
     testImplementation("org.mockito:mockito-core:${Versions.mockito}")

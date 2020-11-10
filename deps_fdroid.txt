@@ -26,7 +26,7 @@
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.3.72 -> 1.4.10 (*)
 +|    |    +--- com.google.code.gson:gson:2.8.5 -> 2.8.6
 +|    |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
-+|    |    +--- com.mapbox.mapboxsdk:mapbox-android-core:3.0.0
++|    |    +--- com.mapbox.mapboxsdk:mapbox-android-core:3.0.0 -> 3.1.0
 +|    |    \--- androidx.legacy:legacy-support-core-utils:1.0.0
 +|    |         +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
 +|    |         +--- androidx.core:core:1.0.0 -> 1.3.2
@@ -301,10 +301,10 @@
 ++--- com.google.code.gson:gson:2.8.6
 ++--- com.google.android.material:material:1.2.1 (*)
 ++--- androidx.annotation:annotation:1.1.0
-++--- androidx.constraintlayout:constraintlayout:2.0.2
+++--- androidx.constraintlayout:constraintlayout:2.0.4
 +|    +--- androidx.appcompat:appcompat:1.2.0 (*)
 +|    +--- androidx.core:core:1.3.1 -> 1.3.2 (*)
-+|    \--- androidx.constraintlayout:constraintlayout-solver:2.0.2
++|    \--- androidx.constraintlayout:constraintlayout-solver:2.0.4
 ++--- androidx.swiperefreshlayout:swiperefreshlayout:1.1.0
 +|    +--- androidx.annotation:annotation:1.1.0
 +|    +--- androidx.core:core:1.1.0 -> 1.3.2 (*)
@@ -329,7 +329,7 @@
 ++--- com.google.apis:google-api-services-tasks:v1-rev20200905-1.30.10
 +|    \--- com.google.api-client:google-api-client:1.30.10
 +|         +--- com.google.oauth-client:google-oauth-client:1.31.0
-+|         |    +--- com.google.http-client:google-http-client:1.35.0 -> 1.36.0
++|         |    +--- com.google.http-client:google-http-client:1.35.0 -> 1.37.0
 +|         |    |    +--- org.apache.httpcomponents:httpcore:4.4.13
 +|         |    |    +--- com.google.guava:guava:29.0-android
 +|         |    |    |    +--- com.google.guava:failureaccess:1.0.1
@@ -340,24 +340,24 @@
 +|         |    |         +--- io.opencensus:opencensus-api:0.24.0 (*)
 +|         |    |         \--- com.google.guava:guava:26.0-android -> 29.0-android (*)
 +|         |    \--- com.google.guava:guava:29.0-android (*)
-+|         +--- com.google.http-client:google-http-client-jackson2:1.36.0
-+|         |    +--- com.google.http-client:google-http-client:1.36.0 (*)
-+|         |    \--- com.fasterxml.jackson.core:jackson-core:2.11.1
++|         +--- com.google.http-client:google-http-client-jackson2:1.36.0 -> 1.37.0
++|         |    +--- com.google.http-client:google-http-client:1.37.0 (*)
++|         |    \--- com.fasterxml.jackson.core:jackson-core:2.11.3
 +|         \--- com.google.guava:guava:29.0-android (*)
-++--- com.google.apis:google-api-services-drive:v3-rev20200813-1.30.10
+++--- com.google.apis:google-api-services-drive:v3-rev20201101-1.30.10
 +|    \--- com.google.api-client:google-api-client:1.30.10 (*)
-++--- com.google.auth:google-auth-library-oauth2-http:0.21.1
-+|    +--- com.google.auto.value:auto-value-annotations:1.7.2
-+|    +--- com.google.auth:google-auth-library-credentials:0.21.1
-+|    +--- com.google.http-client:google-http-client:1.36.0 (*)
-+|    +--- com.google.http-client:google-http-client-jackson2:1.36.0 (*)
+++--- com.google.auth:google-auth-library-oauth2-http:0.22.0
++|    +--- com.google.auto.value:auto-value-annotations:1.7.4
++|    +--- com.google.auth:google-auth-library-credentials:0.22.0
++|    +--- com.google.http-client:google-http-client:1.37.0 (*)
++|    +--- com.google.http-client:google-http-client-jackson2:1.37.0 (*)
 +|    \--- com.google.guava:guava:29.0-android (*)
 ++--- androidx.work:work-runtime:2.4.0 (*)
 ++--- androidx.work:work-runtime-ktx:2.4.0
 +|    +--- androidx.work:work-runtime:2.4.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.71 -> 1.4.10 (*)
 +|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.4 (*)
-++--- com.mapbox.mapboxsdk:mapbox-android-core:3.0.0
+++--- com.mapbox.mapboxsdk:mapbox-android-core:3.1.0
 ++--- com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0
 +|    +--- com.mapbox.mapboxsdk:mapbox-sdk-core:5.3.0
 +|    |    +--- com.google.code.gson:gson:2.8.6
