@@ -62,7 +62,7 @@ class HttpCredentialsAdapter @Inject constructor(private val googleAccountManage
         }
     }
 
-    fun checkToken(account: String?, scope: String) {
+    suspend fun checkToken(account: String?, scope: String) {
         if (credentials == null) {
             val token = googleAccountManager.getAccessToken(account, scope)
             credentials = GoogleCredentials(AccessToken(token, null))

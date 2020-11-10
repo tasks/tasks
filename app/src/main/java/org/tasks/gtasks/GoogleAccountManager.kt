@@ -7,19 +7,15 @@ import android.accounts.OperationCanceledException
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import com.google.api.services.drive.DriveScopes
 import com.google.api.services.tasks.TasksScopes
 import com.google.common.collect.Lists
-import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.play.AuthResultHandler
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -43,7 +39,7 @@ class GoogleAccountManager @Inject constructor(
             emptyList()
         }
 
-    fun getAccount(name: String): Account? = if (isNullOrEmpty(name)) {
+    fun getAccount(name: String?): Account? = if (isNullOrEmpty(name)) {
         null
     } else {
         accountList.find { name.equals(it.name, ignoreCase = true) }
@@ -53,16 +49,17 @@ class GoogleAccountManager @Inject constructor(
         return getAccount(name) != null
     }
 
-    fun getAccessToken(name: String, scope: String): String? {
-        AndroidUtilities.assertNotMainThread()
-        val account = getAccount(name)
+    suspend fun getAccessToken(name: String?, scope: String): String? {
+        val account = name?.let { getAccount(it) }
         if (account == null) {
             Timber.e("Cannot find account %s", name)
             return null
         }
         val alreadyNotified = preferences.alreadyNotified(name, scope)
         return try {
-            val token = accountManager.blockingGetAuthToken(account, "oauth2:$scope", !alreadyNotified)
+            val token = withContext(Dispatchers.IO) {
+                accountManager.blockingGetAuthToken(account, "oauth2:$scope", !alreadyNotified)
+            }
             preferences.setAlreadyNotified(name, scope, isNullOrEmpty(token))
             token
         } catch (e: AuthenticatorException) {
@@ -77,44 +74,26 @@ class GoogleAccountManager @Inject constructor(
         }
     }
 
-    fun getTasksAuthToken(activity: Activity, accountName: String, handler: AuthResultHandler) {
-        getToken(TasksScopes.TASKS, activity, accountName, handler)
+    suspend fun getTasksAuthToken(activity: Activity, accountName: String): Bundle? {
+        return getToken(TasksScopes.TASKS, activity, accountName)
     }
 
-    fun getDriveAuthToken(activity: Activity, accountName: String, handler: AuthResultHandler) {
-        getToken(DriveScopes.DRIVE_FILE, activity, accountName, handler)
+    suspend fun getDriveAuthToken(activity: Activity, accountName: String): Bundle? {
+        return getToken(DriveScopes.DRIVE_FILE, activity, accountName)
     }
 
     @SuppressLint("CheckResult")
-    private fun getToken(
-            scope: String, activity: Activity, accountName: String, handler: AuthResultHandler) {
+    private suspend fun getToken(scope: String, activity: Activity, accountName: String): Bundle? {
         val account = getAccount(accountName)
-        Single.fromCallable {
-            if (account == null) {
-                throw RuntimeException(
+                ?: throw RuntimeException(
                         activity.getString(R.string.gtasks_error_accountNotFound, accountName))
-            }
-            AndroidUtilities.assertNotMainThread()
-            accountManager
+        return withContext(Dispatchers.IO) {
+            val bundle = accountManager
                     .getAuthToken(account, "oauth2:$scope", Bundle(), activity, null, null)
                     .result
+            preferences.setAlreadyNotified(accountName, scope, false)
+            bundle
         }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { bundle: Bundle ->
-                            preferences.setAlreadyNotified(accountName, scope, false)
-                            val intent = bundle[AccountManager.KEY_INTENT] as Intent?
-                            if (intent != null) {
-                                activity.startActivity(intent)
-                            } else {
-                                handler.authenticationSuccessful(accountName)
-                            }
-                        }
-                ) { e: Throwable ->
-                    Timber.e(e)
-                    handler.authenticationFailed(e.message)
-                }
     }
 
     fun invalidateToken(token: String?) {

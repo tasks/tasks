@@ -25,7 +25,6 @@ import org.tasks.data.GoogleTaskListDao
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.gtasks.GoogleAccountManager
 import org.tasks.injection.InjectingAppCompatActivity
-import org.tasks.play.AuthResultHandler
 import org.tasks.preferences.ActivityPermissionRequestor
 import org.tasks.preferences.PermissionRequestor
 import javax.inject.Inject
@@ -57,19 +56,20 @@ class GtasksLoginActivity : InjectingAppCompatActivity() {
         startActivityForResult(chooseAccountIntent, RC_CHOOSE_ACCOUNT)
     }
 
-    private fun getAuthToken(account: String) {
+    private suspend fun getAuthToken(account: String) {
         val pd = dialogBuilder.newProgressDialog(R.string.gtasks_GLA_authenticating)
         pd.show()
         getAuthToken(account, pd)
     }
 
-    private fun getAuthToken(a: String, pd: ProgressDialog) {
-        googleAccountManager.getTasksAuthToken(
-                this,
-                a,
-                object : AuthResultHandler {
-                    override fun authenticationSuccessful(accountName: String) {
-                        lifecycleScope.launch {
+    private suspend fun getAuthToken(accountName: String, pd: ProgressDialog) {
+        try {
+            googleAccountManager.getTasksAuthToken(this, accountName)
+                    ?.let { bundle ->
+                        val intent = bundle[AccountManager.KEY_INTENT]
+                        if (intent is Intent) {
+                            startActivity(intent)
+                        } else {
                             withContext(NonCancellable) {
                                 var account = googleTaskListDao.getAccount(accountName)
                                 if (account == null) {
@@ -92,19 +92,20 @@ class GtasksLoginActivity : InjectingAppCompatActivity() {
                         }
                     }
 
-                    override fun authenticationFailed(message: String?) {
-                        setResult(Activity.RESULT_CANCELED, Intent().putExtra(EXTRA_ERROR, message))
-                        DialogUtilities.dismissDialog(this@GtasksLoginActivity, pd)
-                        finish()
-                    }
-                })
+        } catch (e: Exception) {
+            setResult(Activity.RESULT_CANCELED, Intent().putExtra(EXTRA_ERROR, e.message))
+            DialogUtilities.dismissDialog(this@GtasksLoginActivity, pd)
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == RC_CHOOSE_ACCOUNT) {
             if (resultCode == Activity.RESULT_OK) {
                 val account = data!!.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)!!
-                getAuthToken(account)
+                lifecycleScope.launch {
+                    getAuthToken(account)
+                }
             } else {
                 finish()
             }
