@@ -1,12 +1,12 @@
 package org.tasks.notifications
 
+import androidx.work.impl.utils.SynchronousExecutor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.tasks.SuspendFreeze
+import org.tasks.Freeze
 import org.tasks.time.DateTimeUtils
 
 @ExperimentalCoroutinesApi
@@ -20,8 +20,8 @@ class ThrottleTest {
     }
 
     @Test
-    fun dontThrottle() = runBlockingTest {
-        throttle = Throttle(3, scope = this) { sleep.add(it) }
+    fun dontThrottle() {
+        throttle = Throttle(3, executor = SynchronousExecutor()) { sleep.add(it) }
         val now = DateTimeUtils.currentTimeMillis()
         runAt(now)
         runAt(now)
@@ -31,8 +31,8 @@ class ThrottleTest {
     }
 
     @Test
-    fun throttleForOneMillisecond() = runBlockingTest {
-        throttle = Throttle(3, scope = this) { sleep.add(it) }
+    fun throttleForOneMillisecond() {
+        throttle = Throttle(3, executor = SynchronousExecutor()) { sleep.add(it) }
         val now = DateTimeUtils.currentTimeMillis()
         runAt(now)
         runAt(now)
@@ -42,8 +42,8 @@ class ThrottleTest {
     }
 
     @Test
-    fun throttleForOneSecond() = runBlockingTest {
-        throttle = Throttle(3, scope = this) { sleep.add(it) }
+    fun throttleForOneSecond() {
+        throttle = Throttle(3, executor = SynchronousExecutor()) { sleep.add(it) }
         val now = DateTimeUtils.currentTimeMillis()
         runAt(now)
         runAt(now)
@@ -53,8 +53,8 @@ class ThrottleTest {
     }
 
     @Test
-    fun throttleMultiple() = runBlockingTest {
-        throttle = Throttle(3, scope = this) { sleep.add(it) }
+    fun throttleMultiple() {
+        throttle = Throttle(3, executor = SynchronousExecutor()) { sleep.add(it) }
         val now = DateTimeUtils.currentTimeMillis()
         runAt(now)
         runAt(now + 200)
@@ -65,7 +65,7 @@ class ThrottleTest {
         assertEquals(arrayListOf(300L, 450L), sleep)
     }
 
-    private suspend fun runAt(millis: Long) {
-        SuspendFreeze.freezeAt(millis) { throttle.run {} }
+    private fun runAt(millis: Long) {
+        Freeze.freezeAt(millis) { throttle.run {} }
     }
 }

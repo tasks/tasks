@@ -29,6 +29,12 @@ class NotificationLimiter {
     return evicted;
   }
 
+  synchronized void remove(Iterable<Long> ids) {
+    for (Long id : ids) {
+      remove(id);
+    }
+  }
+
   synchronized void remove(long id) {
     if (id == NotificationManager.SUMMARY_NOTIFICATION_ID) {
       summary = false;

@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.reminders.ReminderService
@@ -38,10 +37,9 @@ class NotificationManager @Inject constructor(
         private val taskDao: TaskDao,
         private val locationDao: LocationDao,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val reminderService: ReminderService) {
-    private val notificationManagerCompat = NotificationManagerCompat.from(context)
+        private val reminderService: ReminderService,
+        private val notificationManager: ThrottledNotificationManager) {
     private val colorProvider = ColorProvider(context, preferences)
-    private val throttle = Throttle(NOTIFICATIONS_PER_SECOND, tag = "NOTIFY")
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
     @SuppressLint("CheckResult")
@@ -56,11 +54,9 @@ class NotificationManager @Inject constructor(
     @SuppressLint("CheckResult")
     suspend fun cancel(ids: Iterable<Long>) {
         for (id in ids) {
-            throttle.run {
-                notificationManagerCompat.cancel(id.toInt())
-                queue.remove(id)
-            }
+            notificationManager.cancel(id.toInt())
         }
+        queue.remove(ids)
         notificationDao.deleteAll(ids.toList())
         notifyTasks(emptyList(), alert = false, nonstop = false, fiveTimes = false)
     }
@@ -69,7 +65,7 @@ class NotificationManager @Inject constructor(
         val notifications = notificationDao.getAllOrdered()
         if (cancelExisting) {
             for (notification in notifications) {
-                notificationManagerCompat.cancel(notification.taskId.toInt())
+                notificationManager.cancel(notification.taskId.toInt())
             }
         }
         if (preferences.bundleNotifications() && notifications.size > 1) {
@@ -150,7 +146,7 @@ class NotificationManager @Inject constructor(
         for (notification in notifications) {
             val builder = getTaskNotification(notification)
             if (builder == null) {
-                notificationManagerCompat.cancel(notification.taskId.toInt())
+                notificationManager.cancel(notification.taskId.toInt())
                 notificationDao.delete(notification.taskId)
             } else {
                 builder
@@ -206,7 +202,7 @@ class NotificationManager @Inject constructor(
             cancel(evicted)
         }
         for (i in 0 until ringTimes) {
-            throttle.run { notificationManagerCompat.notify(notificationId.toInt(), notification) }
+            notificationManager.notify(notificationId.toInt(), notification)
         }
     }
 
@@ -365,7 +361,7 @@ class NotificationManager @Inject constructor(
     }
 
     private fun cancelSummaryNotification() {
-        notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID)
+        notificationManager.cancel(SUMMARY_NOTIFICATION_ID)
     }
 
     companion object {
@@ -377,7 +373,5 @@ class NotificationManager @Inject constructor(
         const val EXTRA_NOTIFICATION_ID = "extra_notification_id"
         const val SUMMARY_NOTIFICATION_ID = 0
         private const val GROUP_KEY = "tasks"
-        private const val NOTIFICATIONS_PER_SECOND = 4
     }
-
 }
