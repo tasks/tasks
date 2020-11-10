@@ -619,7 +619,6 @@
     <string name="support_development_subscribe">Разблокировать дополнительные функции и поддержать ПО с открытым исходным кодом</string>
     <string name="tell_me_how_im_doing">Пожалуйста, дайте мне знать, как я справляюсь</string>
     <string name="enjoying_tasks">Нравится Tasks\?</string>
-    <string name="whats_new_in_version">Что нового в версии %s</string>
     <string name="whats_new">Что нового</string>
     <string name="action_new_task">Новая задача</string>
     <string name="sort_modified_group">Модифицировано %s</string>

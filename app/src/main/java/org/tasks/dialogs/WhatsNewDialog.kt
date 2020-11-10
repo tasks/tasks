@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -14,6 +15,8 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
+import io.noties.markwon.Markwon
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -21,6 +24,7 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
 import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
 import org.tasks.preferences.Preferences
+import java.io.BufferedReader
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,9 +48,13 @@ class WhatsNewDialog : DialogFragment() {
         val view: View = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_whats_new, null)
         ButterKnife.bind(this, view)
 
-        val entries = resources.getStringArray(R.array.changelog).joinToString("\n\n") { "\u2022 $it" }
-        val text = "$entries\n\nVisit https://tasks.org/changelog for more info"
-        changelog.text = text
+        val textStream = requireContext().assets.open("CHANGELOG.md")
+        val text = BufferedReader(textStream.reader()).readText()
+        val markwon = Markwon.builder(requireContext())
+                .usePlugin(StrikethroughPlugin.create())
+                .build()
+        changelog.movementMethod = LinkMovementMethod.getInstance()
+        changelog.text = markwon.toMarkdown(text)
 
         val begForRating = !preferences.getBoolean(R.string.p_clicked_rate, false)
                 && (inventory.purchasedThemes() || firebase.noChurn())
@@ -81,7 +89,7 @@ class WhatsNewDialog : DialogFragment() {
             actionText.visibility = View.GONE
         }
 
-        return dialogBuilder.newDialog(R.string.whats_new_in_version, BuildConfig.VERSION_NAME)
+        return dialogBuilder.newDialog()
                 .setView(view)
                 .show()
     }

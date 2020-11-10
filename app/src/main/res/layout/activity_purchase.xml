@@ -3,21 +3,20 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:orientation="vertical">
+  xmlns:tools="http://schemas.android.com/tools">
     <ScrollView
       android:id="@+id/scroll"
       android:layout_above="@id/bottom_panel"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content">
 
         <TextView
           android:id="@+id/text"
+          style="@style/TextAppearance"
           android:scrollbars="none"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:lineSpacingMultiplier="1.2"
-          android:textSize="16sp"
           android:padding="@dimen/keyline_second"/>
     </ScrollView>
 

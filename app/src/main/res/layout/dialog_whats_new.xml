@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   xmlns:tools="http://schemas.android.com/tools"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:orientation="vertical">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
       android:id="@+id/scrollView2"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constrainedHeight="true"
-      app:layout_constraintHeight_max="@dimen/whats_new_height">
+      android:layout_above="@id/action_block">
 
         <TextView
           android:id="@+id/changelog"
           style="@style/TextAppearance"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:autoLink="all"
-          android:padding="@dimen/keyline_first" />
+          android:lineSpacingMultiplier="1.2"
+          android:padding="@dimen/keyline_second" />
 
     </ScrollView>
 
     <LinearLayout
       android:id="@+id/action_block"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
+      android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+      android:layout_alignParentBottom="true">
 
         <View style="@style/horizontal_divider" />
 
@@ -77,4 +74,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

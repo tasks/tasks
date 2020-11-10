@@ -559,7 +559,6 @@
     <string name="support_development_subscribe">Avaa lisäominaisuuksia ja tue avoimen lähdekoodin ohjelmistoa</string>
     <string name="tell_me_how_im_doing">Kerrothan miten onnistuin</string>
     <string name="enjoying_tasks">Pidätkö Tasks ohjelmasta\?</string>
-    <string name="whats_new_in_version">Päivitykset versiossa %s</string>
     <string name="filter_low_priority">Alhainen tärkeys</string>
     <string name="filter_high_priority">Suuri tärkeys</string>
     <string name="add_filter">Lisää suodin</string>

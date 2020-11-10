@@ -550,7 +550,6 @@
     <string name="sort_modified_group">%s 변경</string>
     <string name="sort_created_group">%s 생성</string>
     <string name="enjoying_tasks">Tasks 잘 쓰고 계십니까\?</string>
-    <string name="whats_new_in_version">버전 %s의 새 기능</string>
     <string name="filter_eisenhower_box_4">아이젠하워 박스 4</string>
     <string name="filter_eisenhower_box_3">아이젠하워 박스 3</string>
     <string name="filter_eisenhower_box_2">아이젠하워 박스 2</string>

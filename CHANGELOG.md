@@ -1,7 +1,4 @@
-Change Log
----
-=======
-### 11.0 (2020-11-10) [BETA](https://tasks.org/docs/pre_release_testing.html)
+### 11.0 (2020-11-10)
 
 * New Tasks.org synchronization service
 * Multi-select rescheduling

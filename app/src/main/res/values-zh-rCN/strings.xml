@@ -594,7 +594,6 @@
     <string name="support_development_subscribe">解锁额外功能并支持开源软件</string>
     <string name="tell_me_how_im_doing">请告诉我做得怎么样</string>
     <string name="enjoying_tasks">享受Tasks\?</string>
-    <string name="whats_new_in_version">%s 版本的新变化</string>
     <string name="whats_new">更新日志</string>
     <string name="action_new_task">新任务</string>
     <string name="sort_modified_group">修改 %s</string>

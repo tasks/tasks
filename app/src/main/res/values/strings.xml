@@ -626,7 +626,6 @@ File %1$s contained %2$s.\n\n
   <string name="filter_eisenhower_box_2">Eisenhower box 2</string>
   <string name="filter_eisenhower_box_3">Eisenhower box 3</string>
   <string name="filter_eisenhower_box_4">Eisenhower box 4</string>
-  <string name="whats_new_in_version">What\'s New in Version %s</string>
   <string name="enjoying_tasks">Enjoying Tasks?</string>
   <string name="tell_me_how_im_doing">Please tell me how I\'m doing</string>
   <string name="support_development_subscribe">Unlock additional features and support open source software</string>

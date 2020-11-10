@@ -603,7 +603,6 @@
     <string name="support_development_subscribe">Desblokeatu ezaugarri gehigarriak eta babestu software librea</string>
     <string name="tell_me_how_im_doing">Esadazu nola noan</string>
     <string name="enjoying_tasks">Tasks gogoko\?</string>
-    <string name="whats_new_in_version">Zer dago berri %s bertsioan</string>
     <string name="whats_new">Zer dago berri</string>
     <string name="action_new_task">Zeregin berria</string>
     <string name="sort_modified_group">Aldaketa %s</string>
