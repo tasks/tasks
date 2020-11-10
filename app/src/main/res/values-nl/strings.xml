@@ -631,7 +631,6 @@
     <string name="no_app_found">Geen app kon dit verzoek afhandelen</string>
     <string name="background_location">Achtergrond locatie</string>
     <string name="foreground_location">Voorgrond locatie</string>
-    <string name="background_location_permission_required">Voor locatie-gebaseerde herinneringen is een locatie-machtiging vereist. Als je al ooit een locatie-machtigingsverzoek hebt afgewezen moet je deze machtiging handmatig aanzetten in je apparaatinstellingen.</string>
     <string name="backup_location_warning">WAARSCHUWING: Bestanden die zich in %s bevinden zullen worden verwijderd als Tasks verwijderd wordt! Kies a.u.b. een aangepaste locatie om te voorkomen dat Android je bestanden verwijdert.</string>
     <string name="backups_ignore_warnings_summary">Negeer back-up waarschuwingen als je geen back-ups nodig hebt of je je eigen back-up oplossing hebt</string>
     <string name="backups_ignore_warnings">Negeer waarschuwingen</string>

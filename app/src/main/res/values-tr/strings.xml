@@ -626,7 +626,6 @@
     <string name="manage_lists">Listeleri yönet</string>
     <string name="permission_read_tasks">Tasks veri tabanına tam erişim</string>
     <string name="davx5_selection_description">DAVx⁵ uygulamasıyla görevlerinizi eşitleyin</string>
-    <string name="background_location_permission_required">Konum izinleri, konum tabanlı anımsatıcılar için gereklidir. Eğer daha önce konum izni isteğini reddettiyseniz, aygıt ayarlarınızdan elle izin vermelisiniz.</string>
     <string name="background_location">Ön plan konumu</string>
     <string name="foreground_location">Arka plan konumu</string>
     <string name="account">Hesap</string>

@@ -641,7 +641,6 @@
     <string name="cancel">Abbrechen</string>
     <string name="ok">OK</string>
     <string name="header_spacing">Abstände</string>
-    <string name="background_location_permission_required">Die Standortberechtigung wird für ortsabhängige Erinnerungen verwendet. Falls du die Anfrage für die Standortberechtigung bereits abgelehnt hast, kannst du deine Entscheidung manuell in den Einstellungen deines Geräts ändern.</string>
     <string name="default_tags">Standardsschlagwörter</string>
     <string name="custom_filter_is_subtask">Ist eine Unteraufgabe</string>
     <string name="custom_filter_has_subtask">Hat Unteraufgaben</string>

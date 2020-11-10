@@ -452,7 +452,6 @@
     <string name="more_options">Opsi Lanjutan</string>
     <string name="caldav_account_repeating_tasks">Biarkan server menjadwalkan tugas berulang</string>
     <string name="whats_new">Apa yang baru</string>
-    <string name="background_location_permission_required">Izin lokasi diperlukan untuk pengingat berbasis lokasi. Jika sebelumnya Anda telah menolak permintaan izin lokasi, Anda harus memberikan izin secara manual melalui pengaturan pada perangkat Anda.</string>
     <string name="missing_permissions">Gagal Mengizinkan</string>
     <string name="building_notifications">Hasilkan pemberitahuan</string>
     <string name="location_remind_departure">Ingatkan saat keberangkatan</string>

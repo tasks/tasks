@@ -670,7 +670,6 @@
     <string name="foreground_location">מיקום חזית</string>
     <string name="android_auto_backup_device_summary">עליך להירשם לשירות הגיבוי דרך הגדרות המכשיר שלך. לא כל המכשירים תומכים בשירות הגיבוי.</string>
     <string name="android_auto_backup">שירות הגיבוי של Android</string>
-    <string name="background_location_permission_required">הרשאות מיקום נדרשות לטובת תזכורות מבוססות מיקום. אם בעבר דחית בקשת הרשאת מיקום יהיה עליך להעניק את ההרשאה ידנית דרך הגדרות המכשיר שלך.</string>
     <string name="no_app_found">לאף יישומון אין אפשרות לטפל בבקשה הזו</string>
     <string name="header_spacing">ריווח</string>
     <string name="delete_comment">למחוק את ההערה הזאת\?</string>

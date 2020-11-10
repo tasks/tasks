@@ -633,7 +633,6 @@
     <string name="automatic_backups">Automatikus mentések</string>
     <string name="background_location">Helymeghatározás háttérben</string>
     <string name="foreground_location">Helymeghatározás előtérben</string>
-    <string name="background_location_permission_required">A hely emlékeztető használatához helymeghatározási jogosultság szükséges. Ha korábban megtagadta a helymeghatározási jogosultság megadását, akkor az csak a készülék beállítások között engedélyezhető újra.</string>
     <string name="no_app_found">Nem található megfelelő alkalmazás</string>
     <string name="backup_location_warning">FIGYELMEZTETÉS: A %s könyvtárban tárolt file-ok a Tasks uninstallálásával törlésre kerülnek! Válassz egy másik könyvtárat, hogy az Android ne törölje a file-jaidat.</string>
     <string name="backups_ignore_warnings_summary">Mentési figyelmeztetések ignorálása, ha a mentés szükségtelen vagy más módszerrel megoldott</string>

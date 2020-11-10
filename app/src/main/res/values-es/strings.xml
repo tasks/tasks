@@ -635,7 +635,6 @@
     <string name="automatic_backups">Copias de respaldo automáticas</string>
     <string name="background_location">Ubicación de fondo</string>
     <string name="foreground_location">Ubicación en primer plano</string>
-    <string name="background_location_permission_required">Los permisos de ubicación son necesarios para los recordatorios basados en la ubicación. Si previamente ha denegado una solicitud de permiso de ubicación, debe otorgar el permiso manualmente a través de la configuración de su dispositivo.</string>
     <string name="no_app_found">Ninguna aplicación podría manejar esta solicitud</string>
     <string name="backup_location_warning">ADVERTENCIA: Los archivos ubicados en %s se eliminarán si se desinstala Tasks. Elija una ubicación personalizada para evitar que Android elimine sus archivos.</string>
     <string name="backups_ignore_warnings_summary">Ignora avisos de copia de seguridad si no necesitas copias de seguridad o tener vuestra solución de copia de seguridad propia</string>

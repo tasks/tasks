@@ -630,7 +630,6 @@
     <string name="automatic_backups">Sauvegardes automatiques</string>
     <string name="background_location">Emplacement en arrière-plan</string>
     <string name="foreground_location">Emplacement au premier plan</string>
-    <string name="background_location_permission_required">Les autorisations de localisation sont nécessaires pour les rappels basés sur la localisation. Si vous avez précédemment refusé une demande d\'autorisation de localisation, vous devez accorder manuellement l\'autorisation via les paramètres de votre appareil.</string>
     <string name="no_app_found">Aucune application ne peut gérer cette demande</string>
     <string name="backup_location_warning">AVERTISSEMENT : les fichiers situés dans %s seront supprimés si Tasks est désinstallé ! Veuillez choisir un emplacement personnalisé pour empêcher Android de supprimer vos fichiers.</string>
     <string name="backups_ignore_warnings_summary">Ignorez les avertissements de sauvegarde si vous n\'avez pas besoin de sauvegardes ou si vous disposez de votre propre solution de sauvegarde</string>

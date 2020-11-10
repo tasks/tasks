@@ -649,7 +649,6 @@
     <string name="android_auto_backup_device_summary">Musisz również wyrazić zgodę na usługę tworzenia kopii zapasowych w ustawieniach urządzenia. Nie wszystkie urządzenia zapewniają usługę tworzenia kopii zapasowych.</string>
     <string name="android_auto_backup">Usługa kopii zapasowych systemu Android</string>
     <string name="automatic_backups">Automatyczne kopie zapasowe</string>
-    <string name="background_location_permission_required">Uprawnienia do lokalizacji są potrzebne do przypomnień opartych na lokalizacji. Jeśli wcześniej odmówiłeś pozwolenia na lokalizację, musisz ręcznie przyznać pozwolenie w ustawieniach urządzenia.</string>
     <string name="no_app_found">Żadna aplikacja nie może obsłużyć tego żądania</string>
     <string name="custom_filter_is_subtask">Jest podzadaniem</string>
     <string name="custom_filter_has_subtask">Ma podzadania</string>

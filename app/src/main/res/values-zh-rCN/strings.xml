@@ -626,7 +626,6 @@
     <string name="automatic_backups">自动备份</string>
     <string name="foreground_location">前台位置</string>
     <string name="background_location">后台位置</string>
-    <string name="background_location_permission_required">基于位置的提醒需要位置权限。如果您以前拒绝过位置权限请求，那么您必须通过您的设备设置手动授予权限。</string>
     <string name="no_app_found">没有应用能处理这一请求</string>
     <string name="backup_location_warning">警告:如果Tasks被卸载，位于%s的文件将被删除!请选择一个自定义位置，以防止Android删除您的文件。</string>
     <string name="backups_ignore_warnings_summary">如果不需要备份或有自己的备份解决方案，请忽略备份警告</string>

@@ -627,7 +627,6 @@
     <string name="disable_sort_groups">정렬그룹 비활성화</string>
     <string name="improve_performance_summary">앱 성능을 개선하기 위해 정렬그룹과 하위할일 보기를 비활성화합니다</string>
     <string name="improve_performance">성능 개선</string>
-    <string name="background_location_permission_required">위치 기반 알림을 사용하려면 위치 권한이 필요합니다. 이전에 위치 권한 요청을 거부한 경우, 기기 환경설정에서 직접 권한을 부여하셔야 합니다.</string>
     <string name="default_tags">기본 태그</string>
     <string name="no_app_found">이 요청을 처리할 앱이 없습니다</string>
     <string name="date_shortcut_tomorrow_night">내일 밤</string>

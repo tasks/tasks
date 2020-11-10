@@ -638,7 +638,6 @@
     <string name="backups_ignore_warnings">Ignorer advarsler</string>
     <string name="background_location">Bakgrunnsposisjon</string>
     <string name="foreground_location">Forgrunnsposisjon</string>
-    <string name="background_location_permission_required">Posisjonstilgang trengs for posisjons-baserte påminnelser. Hvis du tidligere har nektet posisjonstilgangsforespørselen, må du manuelt innvilge den i enhetsinnstillingene.</string>
     <string name="no_app_found">Ingen programmer kunne håndtere forespørselen</string>
     <string name="header_spacing">Inndeling</string>
     <string name="default_recurrence">Forvalgt gjentagelse</string>

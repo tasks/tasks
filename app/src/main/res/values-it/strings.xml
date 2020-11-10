@@ -633,7 +633,6 @@
     <string name="android_auto_backup_device_summary">E\' necessario attivare il servizio di backup tramite le impostazioni del dispositivo. Non tutti i dispositivi forniscono tale servizio.</string>
     <string name="android_auto_backup">Servizio di backup Android</string>
     <string name="automatic_backups">Backup automatici</string>
-    <string name="background_location_permission_required">Sono necessari i relativi permessi per i promemoria basati sulla localizzazione. Se in precedenza è stata negata una richiesta di autorizzazione alla localizzazione, sarà necessario concedere manualmente tale autorizzazione nelle impostazioni del dispositivo.</string>
     <string name="no_app_found">Nessuna app è in grado di gestire questa richiesta</string>
     <string name="header_spacing">Spaziatura</string>
     <string name="default_recurrence">Ricorrenza predefinita</string>
