@@ -393,7 +393,7 @@
     <string name="google_tasks_add_to_top">Tugas baru di atas</string>
     <string name="monthly">Bulanan</string>
     <string name="annually">Tahunan</string>
-    <string name="expand_subtasks"/>Perluas Subtugas</string?
+    <string name="expand_subtasks"/>Perluas Subtugas</string>
     <string name="subtasks_multilevel_google_task">Subtugas multi-level tidak didukung oleh Google Tasks</string>
     <string name="enter_title_hint">Masukkan judul</string>
     <string name="enter_tag_name">Masukkan nama tag</string>
