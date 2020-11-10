@@ -7,7 +7,6 @@ import at.bitfire.dav4jvm.Response
 import at.bitfire.dav4jvm.Response.HrefRelation
 import at.bitfire.dav4jvm.XmlUtils.NS_APPLE_ICAL
 import at.bitfire.dav4jvm.XmlUtils.NS_CALDAV
-import at.bitfire.dav4jvm.XmlUtils.NS_CARDDAV
 import at.bitfire.dav4jvm.XmlUtils.NS_WEBDAV
 import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
@@ -185,7 +184,6 @@ class CaldavClient(
         xml.startDocument("UTF-8", null)
         xml.setPrefix("", NS_WEBDAV)
         xml.setPrefix("CAL", NS_CALDAV)
-        xml.setPrefix("CARD", NS_CARDDAV)
         xml.startTag(NS_WEBDAV, "propertyupdate")
         xml.startTag(NS_WEBDAV, "set")
         xml.startTag(NS_WEBDAV, "prop")
@@ -218,7 +216,6 @@ class CaldavClient(
         xml.startDocument("UTF-8", null)
         xml.setPrefix("", NS_WEBDAV)
         xml.setPrefix("CAL", NS_CALDAV)
-        xml.setPrefix("CARD", NS_CARDDAV)
         xml.startTag(NS_WEBDAV, "mkcol")
         xml.startTag(NS_WEBDAV, "set")
         xml.startTag(NS_WEBDAV, "prop")
