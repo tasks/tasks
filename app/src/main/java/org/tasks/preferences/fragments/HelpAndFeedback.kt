@@ -16,7 +16,6 @@ import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
 import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.injection.InjectingPreferenceFragment
-import org.tasks.ui.Toaster
 import javax.inject.Inject
 
 private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
@@ -27,12 +26,10 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var toaster: Toaster
 
     private val purchaseReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             refreshSubscription()
-            toaster.longToast(R.string.purchases_updated)
         }
     }
 
