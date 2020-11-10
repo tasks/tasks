@@ -1,7 +1,7 @@
 Change Log
 ---
 =======
-### 11.0 (2020-11-09) [BETA](https://tasks.org/docs/pre_release_testing.html)
+### 11.0 (2020-11-10) [BETA](https://tasks.org/docs/pre_release_testing.html)
 
 * New Tasks.org synchronization service
 * Multi-select rescheduling
@@ -28,6 +28,7 @@ Change Log
   * German - @franconian
   * Hebrew - @yarons
   * Hungarian - kaciokos
+  * Indonesian - @andikatuluspangestu
   * Italian - @ppasserini
   * Korean - @Sunjae Choi
   * Norwegian Bokmål - @comradekingu
