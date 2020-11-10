@@ -203,13 +203,14 @@ public class CustomRecurrenceDialog extends DialogFragment {
       repeatMonthlyDayOfLastWeek.setVisibility(View.GONE);
     }
 
-    if (dayOfWeekInMonth < 5) {
+    if (dayOfWeekInMonth < 6) {
       int[] resources =
           new int[] {
             R.string.repeat_monthly_first_week,
             R.string.repeat_monthly_second_week,
             R.string.repeat_monthly_third_week,
-            R.string.repeat_monthly_fourth_week
+            R.string.repeat_monthly_fourth_week,
+            R.string.repeat_monthly_fifth_week,
           };
       repeatMonthlyDayOfNthWeek.setVisibility(View.VISIBLE);
       String nth = getString(resources[dayOfWeekInMonth - 1]);

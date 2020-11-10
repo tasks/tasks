@@ -133,7 +133,8 @@ public class RepeatRuleToString {
               R.string.repeat_monthly_first_week,
               R.string.repeat_monthly_second_week,
               R.string.repeat_monthly_third_week,
-              R.string.repeat_monthly_fourth_week
+              R.string.repeat_monthly_fourth_week,
+              R.string.repeat_monthly_fifth_week
             };
         return context.getString(
             R.string.repeat_monthly_every_day_of_nth_week,

@@ -480,6 +480,7 @@ File %1$s contained %2$s.\n\n
   <string name="repeat_monthly_second_week">second</string>
   <string name="repeat_monthly_third_week">third</string>
   <string name="repeat_monthly_fourth_week">fourth</string>
+  <string name="repeat_monthly_fifth_week">fifth</string>
   <string name="repeat_monthly_last_week">last</string>
   <string name="tasker_create_task">Create task</string>
   <string name="tasker_list_notification">List notification</string>
