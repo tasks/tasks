@@ -16,6 +16,15 @@
   </Preference>
 
   <Preference
+    android:key="@string/follow_reddit"
+    android:title="@string/follow_reddit"
+    app:icon="@drawable/ic_reddit_share_silhouette">
+    <intent
+      android:action="android.intent.action.VIEW"
+      android:data="@string/url_reddit" />
+  </Preference>
+
+  <Preference
     android:key="@string/contact_developer"
     android:title="@string/contact_developer"
     app:icon="@drawable/ic_outline_email_24px" />

@@ -664,4 +664,5 @@ File %1$s contained %2$s.\n\n
   <string name="price_per_month_abbreviated">$%s/mo</string>
   <string name="current_subscription">Current subscription: %s</string>
   <string name="purchases_updated">Purchases updated</string>
+  <string name="follow_reddit">Follow r/tasks</string>
 </resources>

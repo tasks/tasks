@@ -23,6 +23,7 @@
   <string name="url_etesync">https://tasks.org/etesync</string>
   <string name="url_tasker">https://tasks.org/help/tasker</string>
   <string name="url_donate">https://tasks.org/donate</string>
+  <string name="url_reddit">https://reddit.com/r/tasks</string>
 
   <!-- Eventually these should be moved to strings.xml for translation -->
   <string name="upgrade_header">Subscribe to unlock additional features and support open source software!</string>
