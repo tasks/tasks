@@ -170,16 +170,6 @@
   * Drag and drop to rearrange the drawer
   * Tap to edit or delete a list
 * Display 2 additional snooze options - @rangzen
-* Update translations
-  * Dutch - @fvbommel
-  * Finnish - Rami Lehtinen
-  * French - @FlorianLeChat, @NathanBnm, @rangzen
-  * German - @franconian, @sklueber
-  * Hungarian - kaciokos
-  * Italian - @Fabioah, @ppasserini
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
-  * Turkish - etc
 
 ### 9.6 (2020-06-06)
 
@@ -193,15 +183,6 @@
 * Add '⚙ > Task defaults > New tasks on top'
 * Add '⚙ > Advanced > Astrid manual sorting'
 * Fix preference reset button
-* Update translations
-  * Basque - @osoitz
-  * Czech - @vitSkalicky
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * Hungarian - kaciokos
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
-  * Turkish - etc
 
 ### 9.5 (2020-06-03)
 
@@ -209,21 +190,6 @@
 * Drag and drop to reprioritize or reschedule tasks while sorting by due date
   or priority
 * Bug fixes
-* Update translations
-  * Basque - @osoitz
-  * Czech - Radek Řehořek
-  * Dutch - @fvbommel
-  * Finnish - Rami Lehtinen
-  * French - @FlorianLeChat
-  * German - @sklueber
-  * Hungarian - kaciokos
-  * Korean - @Sunjae Choi
-  * Norwegian Bokmål - @comradekingu
-  * Polish - @alex-ter
-  * Russian - @alex-ter
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
-  * Turkish - etc, Oğuz Ersen
 
 ### 9.4.1 (2020-06-01)
 
@@ -249,10 +215,6 @@
 ### 9.3 (2020-05-22)
 
 * Add manual sorting support for CalDAV and EteSync
-* Update translations
-  * Finnish - Rami Lehtinen
-  * German - @franconian
-  * Turkish - mahmut özcan
 
 ### 9.2 (2020-05-13)
 
@@ -260,24 +222,11 @@
 * Search results match place names and addresses, caldav list names, google task list names, and comments
 * Fix duplicated search results
 * Began migrating codebase to Kotlin
-* Update translations
-  * Czech - @vitSkalicky, Radek Řehořek
-  * Dutch - @fvbommel
-  * Finnish - Rami Lehtinen
-  * German - @sklueber
-  * Hebrew - @avipars, @Lishaysokol
-  * Hungarian - kaciokos
-  * Simplified Chinese - @sr093906
-  * Turkish - etc
 
 ### 9.1 (2020-05-04)
 
 * 'New task' launcher shortcut (Android 7.1+)
 * Add option to disable subtask chip on widget
-* Update translations
-  * French - @FlorianLeChat
-  * German - marmo
-  * Spanish - @FlorianLeChat
 
 ### 9.0 (2020-05-03)
 
@@ -288,19 +237,6 @@
 * Indent subtasks in 'Share' output
 * Don't trigger location reminders for snoozed or hidden tasks
 * Minimum supported version is now Android 6.0
-* Update translations
-  * Basque - @osoitz
-  * Dutch - @fvbommel
-  * Finnish - Rami Lehtinen
-  * French - @FlorianLeChat
-  * German - Jeannette L, Martin, @sklueber
-  * Hungarian - kaciokos
-  * Norwegian Bokmål - @comradekingu
-  * Polish - @alex-ter
-  * Russian - @alex-ter
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
-  * Turkish - etc
 
 ### 8.11 (2020-04-27)
 
@@ -311,19 +247,6 @@
 * Offer additional built-in filters
 * Add sort by creation time
 * Choose any day as start of week
-* Update translations
-  * Catalan - @jmontane
-  * Dutch - @fvbommel
-  * Finnish - Jeannette L
-  * French - @FlorianLeChat, Jeannette L
-  * German - Jeannette L
-  * Hungarian - kaciokos
-  * Italian - Jeannette L
-  * Polish - @alex-ter
-  * Russian - @alex-ter
-  * Simplified Chinese - @sr093906
-  * Slovak - Atilla Farkas
-  * Spanish - @FlorianLeChat
 
 ### 8.10 (2020-04-20)
 
@@ -346,18 +269,6 @@
 * Expand/collapse Google Task subtasks in 'My order' mode
 * Fix bug when changing sort order to/from 'My order'
 * Fix crash when switching to 'My order' list with subtasks disabled
-* Update translations
-  * Basque - @osoitz
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * German - Joey Meigele, marmo
-  * Hungarian - kaciokos
-  * Norwegian Bokmål - @comradekingu
-  * Russian - @tolstovka
-  * Simplified Chinese - @sr093906, ERDwaYbR
-  * Spanish - @FlorianLeChat
-  * Turkish - etc
-  * Ukrainian - @tolstovka
 
 ### 8.9.2 (2020-04-10)
 
@@ -365,8 +276,6 @@
 * Fix move between EteSync lists
 * Accept date time changes when dismissing dialog
 * Improve date time picker behavior in landscape mode
-* Update translations
-  * Basque - @osoitz
 
 ### 8.9.1 (2020-04-08)
 
@@ -378,30 +287,12 @@
 * Fix clicking on hidden task titles
 * Fix tag picker checkbox tint on Android 4.4
 * Fix EteSync crash on malformed iCalendar data
-* Update translations
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * German - Joey Meigele, Martin
-  * Hungarian - kaciokos
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
-  * Ukrainian - @nathalier
 
 ### 8.9 (2020-04-06)
 
 * Add 'Select all' option to multi-select menu
 * Add 'Share' to menu and multi-select menu
 * Display 'Calendar event created' snackbar after creating a calendar event
-* Update translations
-  * Dutch - @fvbommel
-  * Finnish - @LittleCoffeeTables
-  * French - @FlorianLeChat
-  * Hungarian - kaciokos
-  * Italian - @Fabioah
-  * Korean - @Sunjae Choi
-  * Spanish - @FlorianLeChat
-  * Turkish - etc
-  * Ukrainian - @nathalier
 
 ### 8.8 (2020-04-01)
 
@@ -415,17 +306,6 @@
 * Updated date and time formatting
 * Minimum supported version is now Android 4.4
 * Custom backup/attachment directory requires Android 5+
-* Update translations
-  * Basque - @osoitz
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * German - Joey Meigele
-  * Hungarian - kaciokos
-  * Polish - @alex-ter
-  * Russian - @alex-ter
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
-  * Ukrainian - @testuser51
 
 ### 8.7.1 (2020-03-31)
 
@@ -439,13 +319,6 @@
 * Add new navigation drawer settings
   * Option to remove filters, tags, and places from drawer
   * Option to hide unused tags and places in drawer
-* Update translations
-  * Basque - @osoitz
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * Hungarian - kaciokos
-  * Spanish - @FlorianLeChat
-  * Turkish - etc
 
 ### 8.6.1 (2020-03-19)
 
@@ -454,23 +327,11 @@
 ### 8.6 (2020-03-17)
 
 * Expand and collapse navigation drawer groups
-* Update translations
-  * Basque - @osoitz
-  * Hungarian - kaciokos
-  * Polish - @alex-ter
-  * Russian - @alex-ter
 
 ### 8.5 (2020-03-13)
 
 * Synchronize locations with CalDAV and EteSync
 * Fix crash when clearing completed from recently modified filter
-* Update translations
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * Hungarian - kaciokos
-  * Norwegian Bokmål - @comradekingu
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
 
 ### 8.4 (2020-03-11)
 
@@ -480,13 +341,6 @@
 * Add option to disable color desaturation
 * Fix EteSync shared lists
 * Google Task sync requires Android 4.4+
-* Update translations
-  * Czech - @vitSkalicky
-  * Hungarian - kaciokos
-  * Interlingua - @softinterlingua
-  * Polish - @alex-ter
-  * Russian - @alex-ter
-  * Simplified Chinese - @sr093906
 
 ### 8.3 (2020-03-08)
 
@@ -499,13 +353,6 @@
 * Increase default chip text contrast
 * New purchase activity
 * Fix dividers on Android 4.x
-* Update translations
-  * Basque - @osoitz
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * Italian - Claudia
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
 
 ### 8.2 (2020-03-04)
 
@@ -518,33 +365,10 @@
 * Desaturate theme colors in dark mode
 * Improve dialog theming consistency
 * Bug fixes
-* Update translations
-  * Czech - @vitSkalicky
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * German - mondstern
-  * Hungarian - kaciokos
-  * Indonesian - @zmni
-  * Polish - @alex-ter
-  * Russian - @alex-ter
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
 
 ### 8.1 (2020-02-21)
 
 * Updated app settings screen
-* Update translations
-  * Basque - @osoitz, @mberasategi
-  * Catalan - @cmmata
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * Hungarian - kaciokos
-  * Korean - Sunjae Choi
-  * Norwegian Bokmål - @comradekingu
-  * Polish - @alex-ter
-  * Russian - @alex-ter
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
 
 ### 8.0.1 (2020-02-16)
 
@@ -553,17 +377,6 @@
 ### 8.0 (2020-02-12)
 
 * EteSync support
-* Update translations
-  * Basque - Osoitz
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * Hungarian - kaciokos
-  * Indonesian - @zmni
-  * Polish - @alex-ter
-  * Russian - @alex-ter
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
-  * Turkish - @emintufan
 
 ### 7.8 (2020-01-24)
 
@@ -580,40 +393,20 @@
 * Fix bug when moving multi-level CalDAV subtasks
 * Preserve remote VTODO when moving CalDAV tasks
 * Add Interlingua translations - @softinterlingua
-* Update translations
-  * Traditional Chinese - @gensitu
-  * Simplified Chinese - @sr093906
 
 ### 7.6 (2020-01-10)
 
 * Change tags with multi-select
 * Fix custom filter crash on deleted tag
-* Update translations
-  * Basque - Osoitz
-  * Norwegian Bokmål - @comradekingu
 
 ### 7.5 (2020-01-07)
 
 * New tag picker
 * Support self-signed SSL certificates
-* Update translations
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * Hungarian - kaciokos
-  * Polish - @alex-ter
-  * Russian - @alex-ter
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
 
 ### 7.4.2 (2019-12-30)
 
 * Fix Tasker plugin settings
-* Update translations
-  * Basque - Osoitz
-  * Czech - vitSkalicky
-  * Norwegian Bokmål - @comradekingu
-  * Polish - @alex-ter
-  * Russian - @alex-ter
 
 ### 7.4.1 (2019-12-27)
 
@@ -622,15 +415,6 @@
 * Ask Play Services to update security provider
 * Display custom icons in tag picker
 * Fix case comparison when sorting navigation drawer
-* Update translations
-  * Basque - Osoitz
-  * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * Hungarian - kaciokos
-  * Polish - @alex-ter
-  * Russian - @alex-ter
-  * Simplified Chinese - @sr093906
-  * Spanish - @FlorianLeChat
 
 ### 7.4 (2019-12-16)
 
@@ -639,13 +423,6 @@
 * Fix duplicated multi-level subtask count
 * Increase checkbox touch target
 * Naturally order lists and filters
-* Update translations
-  * Basque - Osoitz
-  * Dutch - @fvbommel
-  * German - Martin
-  * Hungarian - kaciokos
-  * Norwegian Bokmål - @comradekingu
-  * Simplified Chinese - @sr093906
 
 ### 7.3.2 (2019-12-12)
 
@@ -657,15 +434,10 @@
 ### 7.3.1 (2019-12-05)
 
 * Fix crash on missing filter
-* Update translations
-  * Dutch - @fvbommel
-  * Hungarian - kaciokos
-  * Simplified Chinese - @sr093906
 
 ### 7.3 (2019-12-03)
 
 * Expand and collapse subtasks
-* Update Norwegian Bokmål - @comradekingu
 
 ### 7.2.2 (2019-12-03)
 
@@ -675,44 +447,28 @@
 ### 7.2.1 (2019-11-27)
 
 * Bug fixes and minor improvements
-* Update translations
-  * Dutch - @fvbommel
-  * Hungarian - kaciokos
-  * Simplified Chinese - @sr093906
 
 ### 7.2 (2019-11-25)
 
 * Display Google Task and CalDAV subtasks in all lists (Android 5+)
 * Remove completed tasks immediately - @creywood
-* Update translations
-  * Dutch - @fvbommel
-  * Swedish - @mattiasmun
 
 ### 7.1.2 (2019-11-22)
 
 * Add CalDAV account setting for repeating tasks
 * Fix CalDAV repeating tasks
 * Fix Google Tasks HTTP 400 response
-* Update translations
-  * Hungarian - kaciokos
-  * Simplified Chinese - @sr093906
 
 ### 7.1.1 (2019-11-18)
 
 * Improve subtask query performance
 * Fix crash when deleting 1000+ CalDAV tasks
-* Update translations
-  * Dutch - @fvbommel
-  * Swedish - @mattiasmun, Marcus Kwasniewski
 
 ### 7.1 (2019-11-14)
 
 * Display subtasks on Google Task and CalDAV widgets (Android 5+)
 * Fix subtasks after backup import
 * Fix chained subtask completion
-* Update translations
-  * Hungarian - kaciokos
-  * Swedish - Marcus Kwasniewski
 
 ### 7.0 (2019-11-12)
 
@@ -724,45 +480,27 @@
 * Fix disappearance of remotely completed recurring Google Tasks
 * Fix '0 tasks' notification
 * Limit to 20 active notifications due to change in Android 10
-* Update Simplified Chinese translations - @sr093906
 
 ### 6.9.2 (2019-10-25)
 
 * Fix bug forcing new Google Tasks to top
 * Fix bug preventing deleted tasks from being synchronized - @creywood
-* Update translations
-  * French - @NathanBnm
-  * Swedish - @mattiasmun
 
 ### 6.9.1 (2019-10-09)
 
 * Fix location reminders on Android 10
 * Fix CalDAV time zone issue
-* Update Simplified Chinese translations - @sr093906
 
 ### 6.9 (2019-09-23)
 
 * Synchronize tags with CalDAV
 * Target Android 10
 * Bug fixes
-* Update translations
-  * Russian - @mcvaw, @leela52452
-  * Slovenian - @leela52452
-  * Finnish - @leela52452
-  * Polish - @leela52452
-  * Ukrainian - @leela52452
-  * Dutch - rvdbrnk, @fvbommel
-  * Hebrew - @yarons
-  * Chinese - @sr093906
 
 ### 6.8.1 (2019-08-05)
 
 * Fix CalDAV filter migration
 * Fix native date picker crash
-* Update translations
-  * Hebrew - @yarons
-  * Japanese - @naofum
-  * Portuguese - @jrcacd
 
 ### 6.8 (2019-07-30)
 
@@ -772,11 +510,6 @@
 * Performance improvements
 * Allow duplicate CalDAV list names
 * Fix duplicate tag name bug
-* Update translations
-  * Basque - @osoitz
-  * Dutch - revdbrink
-  * Hungarian - kaciokos
-  * Norwegian Bokmål - @comradekingu
 
 ### 6.7.3 (2019-07-16)
 
@@ -798,16 +531,6 @@
 * Fix Google Task migration from older versions
 * Fix corrupted checkbox issue
 * Fix some RTL issues
-* Add Basque translations - @osoitz
-* Update translations
-  * Danish - @comradekingu
-  * French - @FlorianLeChat
-  * German - @Marmo, @SantosSi
-  * Hebrew - @yarons
-  * Hungarian - kaciokos
-  * Norwegian Bokmål - @comradekingu
-  * Spanish - @comradekingu
-  * Swedish - @comradekingu
 
 ### 6.7 (2019-06-13)
 
@@ -823,19 +546,6 @@
 * Don't display sync indicator when there is no network connection
 * Don't synchronize immediately after every change
 * Added Estonian translations - Eraser
-* Update translations
-  * Arabic - asaeed
-  * Bulgarian - ddmdima96
-  * Dutch - revdbrink
-  * French - Florian_Dubois
-  * German - Strubbl
-  * Hebrew - elazar
-  * Hungarian - kaciokos
-  * Japanese - naofumi
-  * Lithuanian - gacuxz
-  * Spanish - i2nm7s
-  * Turkish - etc
-  * Ukrainian - nathalier
 
 ### 6.6.4 (2019-05-21)
 
@@ -846,10 +556,6 @@
 * Fix backup import crash
 * Fix crash when refreshing purchases
 * Google Tasks synchronization bug fix
-* Update translations
-  * Polish - mujehu
-  * Russian - Balbatoon
-  * Slovak - Cuco
 
 ### 6.6.2 (2019-04-22)
 
@@ -859,26 +565,11 @@
 * Add third-party licenses, changelog, and version info
 * Fix backup import crash
 * Fix widget bugs
-* Update translations
-  * Dutch - revdbrink
-  * German - marmo
-  * French - Florian_Dubois, mathieufoucher
-  * Hebrew - elazar
-  * Hungarian - kaciokos
-  * Japanese - naofumi
-  * Lithuanian - gacuxz
-  * Spanish - i2nm7s
-  * Turkish - etc
-  * Ukrainian - nathalier
 
 ### 6.6.1 (2019-04-15)
 
 * Fix crash on devices running Android 5.1 and below
 * Fix analytics opt-out
-* Update translations
-  * Italian - dfdario
-  * Japanese - naofumi
-  * Turkish - etc
 
 ### 6.6 (2019-04-10)
 
@@ -892,18 +583,6 @@
 * Enable location picker in F-Droid build
 * Resume support for Amazon App Store
 * Fix Android Q background warning
-* Update translations
-  * Brazilian Portuguese - douglaslmr
-  * Dutch - revdbrink
-  * German - marmo
-  * Hebrew - elazar
-  * French - Florian_Dubois
-  * Hungarian - kaciokos
-  * Italian - dfdario
-  * Japanese - naofumi
-  * Lithuanian - gacuxz
-  * Spanish - i2nm7s, Pum
-  * Ukrainian - nathalier
 
 ### 6.5.6 (2019-03-27)
 
@@ -918,37 +597,20 @@
 
 * Fix black screen issue
 * Fix crash when task not found
-* Update translations
-  * Brazilian Portuguese - douglaslmr
-  * Dutch - revdbrink
-  * French - Florian_Dubois
-  * German - @MPK44
-  * Hebrew - elazar
-  * Hungarian - kaciokos
-  * Italian - passero
-  * Japanese - naofumi
-  * Lithuanian - gacuxz
-  * Spanish - i2nm7s
-  * Turkish - etc
 
 ### 6.5.3 (2019-02-19)
 
 * Fix crash when upgrading from Android 7 to 8+
 * Improve OneTask interoperability
 * Performance improvement
-* Update Russian translations - x32
 
 ### 6.5.2 (2019-02-11)
 
 * Bug fixes
-* Update translations
-  * Bulgarian - ddmdima96
-  * Dutch - revdbrink
 
 ### 6.5.1 (2019-02-10)
 
 * Bug fixes
-* Update German translations - Strubbl
 
 ### 6.5 (2019-02-08)
 
@@ -956,16 +618,6 @@
 * Performance improvements
 * Bug fixes
 * Add Tagalog translations - Topol
-* Update translations
-  * Bulgarian - ddmdima96
-  * Brazilian Portuguese - douglaslmr
-  * French - Florian_Dubois
-  * Hebrew - elazar
-  * Hungarian - kaciokos
-  * Japanese - naofumi
-  * Lithuanian - gacuxz
-  * Spanish - i2nm7s
-  * Turkish - etc
 
 ### 6.4.1 (2019-01-16)
 
@@ -982,22 +634,6 @@
 * Use system directory picker (Android 5.0+)
 * Accept 'send' and 'send_multiple' actions with images
 * File attachment bug fixes
-* Update translations
-  * Brazilian Portuguese - douglaslmr
-  * Bulgarian - ddmdima96
-  * Dutch - revdbrink
-  * French - DragoVaillant, Florian_Dubois
-  * German - marmo, Strubbl
-  * Hebrew - elazar
-  * Hungarian - kaciokos
-  * Italian - dfdario, passero
-  * Japanese - naofumi
-  * Korean - timeforwarp
-  * Lithuanian - gacuxz
-  * Slovak - Cuco
-  * Spanish - i2nm7s, Pum
-  * Turkish - etc
-  * Ukrainian - nathalier
 
 ### 6.3.1 (2018-11-07)
 
@@ -1005,20 +641,6 @@
 * Add location departure notifications
 * Set CalDAV completion percentage and status
 * Bug fixes
-* Update translations
-  * Brazilian Portuguese - douglaslmr
-  * Bulgarian - ddmdima96
-  * Dutch - revdbrink
-  * French - Florian_Dubois
-  * German - marmo, sNiXx, Strubbl
-  * Hebrew - elazar
-  * Hungarian - kaciokos
-  * Italian - dfdario
-  * Japanese - naofumi
-  * Lithuanian - gacuxz
-  * Polish - bilbolodz, hadogenes
-  * Spanish - i2nm7s
-  * Turkish - etc
 
 ### 6.2 (2018-10-29)
 
@@ -1032,19 +654,6 @@
 * Updated hidden task visualization
 * No longer require contacts permission (Oreo+)
 * Dropped support for Android 4.0
-* Update translations
-  * Brazilian Portuguese - douglaslmr
-  * Bulgarian - ddmdima96
-  * Chinese - Atlantids
-  * Dutch - revdbrink
-  * French - Florian_Dubois
-  * German - marmo
-  * Hebrew - elazar
-  * Hungarian - kaciokos
-  * Italian - dfdario, passero
-  * Lithuanian - gacuxz
-  * Spanish - i2nm7s
-  * Turkish - etc
 
 ### 6.1.3 (2018-10-22)
 
@@ -1057,17 +666,12 @@
 * Fix refresh issue affecting Pure Calendar Widget
 * Fix memory leak
 * Schedule jobs with WorkManager instead of android-job
-* Update translations
-  * French - Fabeuss, primokorn
-  * Hebrew - elazar
-  * Korean - timeforwarp
 
 ### 6.1.1 (2018-07-20)
 
 * Fix notification badge issues
 * Allow non-SSL connections
 * Allow user-defined certificate authorities
-* Update Chinese translations (Atlantids)
 
 ### 6.1 (2018-06-30)
 
@@ -1084,28 +688,12 @@
 * Fix crash in backup import
 * Fix crash on invalid URL during CalDAV setup
 * Fix crash when editing task
-* Update translations
-  * Brazilian Portuguese - douglaslmr
-  * Bulgarian - ddmdima96
-  * Dutch - revdbrink
-  * French - Florian_Dubois, MystEre84
-  * German - @marmo, sNiXx, Strubbl
-  * Hungarian - kaciokos
-  * Italian - dfdario
-  * Korean - timeforwarp
-  * Lithuanian - gacuxz
-  * Polish - hadogenes
-  * Russian - @uryevich
-  * Spanish - i2nm7s
-  * Turkish - etc
 
 ### 6.0.6 (2018-04-28)
 
 * Fix crash when creating shortcuts on pre-Oreo devices
 * Fix crash when Google Task or CalDAV list is missing
 * Downgrade Play Services for compatibility with MicroG
-* Update translations
-  * German - marmo
 
 ### 6.0.5 (2018-04-26)
 
@@ -1113,9 +701,6 @@
 * Fix hidden dates in date picker
 * Fix crash on bad response from billing client
 * Report crash when database fails to open
-* Update translations
-  * Dutch - revdbrink
-  * German - marmo
 
 ### 6.0.4 (2018-04-25)
 
@@ -1151,17 +736,3 @@
 * Custom filters with due date criteria no longer set a due time of 23:59/11:59PM
 * Internal improvements to notification scheduling should reduce notification delays
 * Fix list animation bug
-* Update translations
-  * Bulgarian - ddmdima96
-  * Dutch - revdbrink
-  * French - Florian_Dubois
-  * German - jens_neuss, Marmo
-  * Hungarian - kaciokos
-  * Italian - dfdario, Tsanten
-  * Japanese - naofumi
-  * Lithuanian - gacuxz
-  * Polish - bilbolodz, porridge
-  * Russian - gacuxz, uryevich
-  * Slovak - Cuco
-  * Spanish - i2nm7s
-  * Turkish - etc
