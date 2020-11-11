@@ -40,7 +40,11 @@ import java.net.URI
 import java.util.*
 import javax.inject.Inject
 
-class HttpCredentialsAdapter @Inject constructor(private val googleAccountManager: GoogleAccountManager) : HttpRequestInitializer {
+class HttpCredentialsAdapter @Inject constructor(
+        private val googleAccountManager: GoogleAccountManager,
+        private val account: String,
+        private val scope: String
+) : HttpRequestInitializer {
 
     private var credentials: GoogleCredentials? = null
 
@@ -62,7 +66,7 @@ class HttpCredentialsAdapter @Inject constructor(private val googleAccountManage
         }
     }
 
-    suspend fun checkToken(account: String?, scope: String) {
+    suspend fun checkToken() {
         if (credentials == null) {
             val token = googleAccountManager.getAccessToken(account, scope)
             credentials = GoogleCredentials(AccessToken(token, null))

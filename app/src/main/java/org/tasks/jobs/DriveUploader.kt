@@ -13,7 +13,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.drive.DriveInvoker
+import org.tasks.googleapis.InvokerFactory
 import org.tasks.injection.BaseWorker
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -28,10 +28,11 @@ class DriveUploader @WorkerInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,
-        private val drive: DriveInvoker,
+        invokers: InvokerFactory,
         private val preferences: Preferences,
         private val localBroadcastManager: LocalBroadcastManager
 ) : BaseWorker(context, workerParams, firebase) {
+    private val drive = invokers.getDriveInvoker()
 
     override suspend fun run(): Result {
         val inputData = inputData

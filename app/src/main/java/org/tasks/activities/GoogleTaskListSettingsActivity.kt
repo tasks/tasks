@@ -15,7 +15,6 @@ import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.gtasks.api.GtasksInvoker
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -32,7 +31,6 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     @Inject @ApplicationContext lateinit var context: Context
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
-    @Inject lateinit var gtasksInvoker: GtasksInvoker
 
     @BindView(R.id.name)
     lateinit var name: TextInputEditText

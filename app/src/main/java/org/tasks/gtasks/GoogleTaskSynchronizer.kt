@@ -25,6 +25,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.data.*
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.googleapis.InvokerFactory
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
@@ -55,7 +56,7 @@ class GoogleTaskSynchronizer @Inject constructor(
         private val localBroadcastManager: LocalBroadcastManager,
         private val inventory: Inventory,
         private val taskDeleter: TaskDeleter,
-        private val gtasksInvoker: GtasksInvoker) {
+        private val invokers: InvokerFactory) {
 
     suspend fun sync(account: GoogleTaskAccount, i: Int) {
         Timber.d("%s: start sync", account)
@@ -106,7 +107,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             account.error = context.getString(R.string.cannot_access_account)
             return
         }
-        val gtasksInvoker = gtasksInvoker.forAccount(account.account!!)
+        val gtasksInvoker = invokers.getGtasksInvoker(account.account!!)
         pushLocalChanges(account, gtasksInvoker)
         val gtaskLists: MutableList<TaskList> = ArrayList()
         var nextPageToken: String? = null

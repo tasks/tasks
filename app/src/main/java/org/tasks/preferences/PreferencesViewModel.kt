@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.date.DateTimeUtils.newDateTime
-import org.tasks.drive.DriveInvoker
+import org.tasks.googleapis.InvokerFactory
 import org.tasks.gtasks.GoogleAccountManager
 import timber.log.Timber
 import java.io.File
@@ -23,9 +23,10 @@ import java.io.File
 class PreferencesViewModel @ViewModelInject constructor(
         @ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val driveInvoker: DriveInvoker,
+        invokers: InvokerFactory,
         private val googleAccountManager: GoogleAccountManager,
 ) : ViewModel() {
+    private val driveInvoker = invokers.getDriveInvoker()
     val lastBackup = MutableLiveData<Long?>()
     val lastDriveBackup = MutableLiveData<Long?>()
     val lastAndroidBackup = MutableLiveData<Long>()

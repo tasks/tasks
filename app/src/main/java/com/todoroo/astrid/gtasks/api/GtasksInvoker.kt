@@ -1,27 +1,16 @@
 package com.todoroo.astrid.gtasks.api
 
-import android.content.Context
-import com.google.api.client.http.HttpResponseException
 import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.json.GenericJson
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.tasks.Tasks
-import com.google.api.services.tasks.TasksRequest
-import com.google.api.services.tasks.TasksScopes
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.TaskLists
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import org.tasks.BuildConfig
 import org.tasks.DebugNetworkInterceptor
-import org.tasks.gtasks.GoogleAccountManager
+import org.tasks.googleapis.BaseInvoker
 import org.tasks.preferences.Preferences
-import timber.log.Timber
 import java.io.IOException
-import javax.inject.Inject
 
 /**
  * Wrapper around the official Google Tasks API to simplify common operations. In the case of an
@@ -29,50 +18,15 @@ import javax.inject.Inject
  *
  * @author Sam Bosley
  */
-class GtasksInvoker {
-    private val context: Context
-    private val googleAccountManager: GoogleAccountManager
-    private val preferences: Preferences
-    private val interceptor: DebugNetworkInterceptor
-    private val account: String?
-    private val service: Tasks?
-    private val credentialsAdapter: HttpCredentialsAdapter?
-
-    @Inject
-    constructor(
-            @ApplicationContext context: Context,
-            googleAccountManager: GoogleAccountManager,
-            preferences: Preferences,
-            interceptor: DebugNetworkInterceptor) {
-        this.context = context
-        this.googleAccountManager = googleAccountManager
-        this.preferences = preferences
-        this.interceptor = interceptor
-        account = null
-        service = null
-        credentialsAdapter = null
-    }
-
-    private constructor(
-            context: Context,
-            googleAccountManager: GoogleAccountManager,
-            preferences: Preferences,
-            interceptor: DebugNetworkInterceptor,
-            account: String) {
-        this.context = context
-        this.googleAccountManager = googleAccountManager
-        this.preferences = preferences
-        this.interceptor = interceptor
-        this.account = account
-        credentialsAdapter = HttpCredentialsAdapter(googleAccountManager)
-        service = Tasks.Builder(NetHttpTransport(), JacksonFactory(), credentialsAdapter)
-                .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
-                .build()
-    }
-
-    fun forAccount(account: String): GtasksInvoker {
-        return GtasksInvoker(context, googleAccountManager, preferences, interceptor, account)
-    }
+class GtasksInvoker(
+        credentials: HttpCredentialsAdapter,
+        preferences: Preferences,
+        interceptor: DebugNetworkInterceptor
+) : BaseInvoker(credentials, preferences, interceptor) {
+    private val service =
+            Tasks.Builder(NetHttpTransport(), JacksonFactory(), credentials)
+                    .setApplicationName(APP_NAME)
+                    .build()
 
     @Throws(IOException::class)
     suspend fun allGtaskLists(pageToken: String?): TaskLists? =
@@ -82,28 +36,28 @@ class GtasksInvoker {
     suspend fun getAllGtasksFromListId(
             listId: String?, lastSyncDate: Long, pageToken: String?): com.google.api.services.tasks.model.Tasks? =
             execute(
-                service!!
-                        .tasks()
-                        .list(listId)
-                        .setMaxResults(100)
-                        .setShowDeleted(true)
-                        .setShowHidden(true)
-                        .setPageToken(pageToken)
-                        .setUpdatedMin(
-                                GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339()))
+                    service!!
+                            .tasks()
+                            .list(listId)
+                            .setMaxResults(100)
+                            .setShowDeleted(true)
+                            .setShowHidden(true)
+                            .setPageToken(pageToken)
+                            .setUpdatedMin(
+                                    GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339()))
 
     @Throws(IOException::class)
     suspend fun getAllPositions(
             listId: String?, pageToken: String?): com.google.api.services.tasks.model.Tasks? =
             execute(
-                service!!
-                        .tasks()
-                        .list(listId)
-                        .setMaxResults(100)
-                        .setShowDeleted(false)
-                        .setShowHidden(false)
-                        .setPageToken(pageToken)
-                        .setFields("items(id,parent,position),nextPageToken"))
+                    service!!
+                            .tasks()
+                            .list(listId)
+                            .setMaxResults(100)
+                            .setShowDeleted(false)
+                            .setShowHidden(false)
+                            .setPageToken(pageToken)
+                            .setFields("items(id,parent,position),nextPageToken"))
 
     @Throws(IOException::class)
     suspend fun createGtask(
@@ -148,58 +102,5 @@ class GtasksInvoker {
             execute(service!!.tasks().delete(listId, taskId))
         } catch (ignored: HttpNotFoundException) {
         }
-    }
-
-    @Synchronized
-    @Throws(IOException::class)
-    private suspend fun <T> execute(request: TasksRequest<T>): T? = execute(request, false)
-
-    @Synchronized
-    @Throws(IOException::class)
-    private suspend fun <T> execute(request: TasksRequest<T>, retry: Boolean): T? =
-            withContext(Dispatchers.IO) {
-                credentialsAdapter!!.checkToken(account, TasksScopes.TASKS)
-                val response: T?
-                response = try {
-                    val httpRequest = request.buildHttpRequest()
-                    Timber.d("%s", httpRequest.url)
-                    if (preferences.isFlipperEnabled) {
-                        interceptor.execute(httpRequest, request.responseClass)
-                    } else {
-                        httpRequest.execute().parseAs(request.responseClass)
-                    }
-                } catch (e: HttpResponseException) {
-                    return@withContext if (e.statusCode == 401 && !retry) {
-                        credentialsAdapter.invalidateToken()
-                        execute(request, true)
-                    } else if (e.statusCode == 404) {
-                        throw HttpNotFoundException(e)
-                    } else {
-                        throw e
-                    }
-                }
-                Timber.d("%s response: %s", getCaller(retry), prettyPrint(response))
-                response
-            }
-
-    @Throws(IOException::class)
-    private fun <T> prettyPrint(`object`: T?): Any? {
-        if (BuildConfig.DEBUG) {
-            if (`object` is GenericJson) {
-                return (`object` as GenericJson).toPrettyString()
-            }
-        }
-        return `object`
-    }
-
-    private fun getCaller(retry: Boolean): String {
-        if (BuildConfig.DEBUG) {
-            try {
-                return Thread.currentThread().stackTrace[if (retry) 6 else 5].methodName
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-        }
-        return ""
     }
 }

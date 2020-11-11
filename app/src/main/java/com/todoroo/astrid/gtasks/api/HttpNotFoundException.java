@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class HttpNotFoundException extends IOException {
 
-  HttpNotFoundException(HttpResponseException e) {
+  public HttpNotFoundException(HttpResponseException e) {
     super(e.getMessage());
   }
 }
