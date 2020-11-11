@@ -664,4 +664,5 @@
     <string name="more_options">Más opciones</string>
     <string name="background_location_permission_required">Tasks recopila datos de ubicación para habilitar recordatorios basados en la ubicación, incluso cuando la aplicación está cerrada o no está en uso.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
+    <string name="follow_reddit">Seguir r/Tasks</string>
 </resources>
