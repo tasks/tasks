@@ -638,7 +638,7 @@
     <string name="background_location">Bakgrunnsposisjon</string>
     <string name="foreground_location">Forgrunnsposisjon</string>
     <string name="no_app_found">Ingen programmer kunne håndtere forespørselen</string>
-    <string name="header_spacing">Inndeling</string>
+    <string name="header_spacing">Avstad</string>
     <string name="default_recurrence">Forvalgt gjentagelse</string>
     <string name="default_tags">Forvalgte etiketter</string>
     <string name="repeat_type_completion_capitalized">Fullføringsdato</string>
@@ -662,4 +662,7 @@
     <string name="logged_in">Innlogget som %s</string>
     <string name="tasks_org_sync_description">Synkroniser din data med Tasks.org</string>
     <string name="more_options">Flere innstillinger</string>
+    <string name="follow_reddit">Følg r/tasks</string>
+    <string name="background_location_permission_required">Tasks samler posisjonsdata for å kunne utløse posisjonsbaserte påminnelser, selv når programmet er lukket eller ikke i bruk.</string>
+    <string name="repeat_monthly_fifth_week">femte</string>
 </resources>
