@@ -7,7 +7,6 @@
   <string name="app_package">org.tasks</string>
   <string name="opentasks_authority" tools:node="replace">org.tasks.opentasks</string>
   <string name="backup_api_key">AEdPqrEAAAAI49v5bBusi_bq1bgLBB1LIsepNV0eBrFkQrBZkw</string>
-  <string name="google_sign_in" tools:ignore="TypographyDashes">1006257750459-3jt0e32kbqgug7hkluqe26d5mbno92no.apps.googleusercontent.com</string>
   <string name="mdtp_ok">@string/ok</string>
   <string name="mdtp_cancel">@string/cancel</string>
   <string name="FSA_label">Tasks Shortcut</string>

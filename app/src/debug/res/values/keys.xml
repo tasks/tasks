@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name" tools:ignore="PrivateResource">Tasks Debug</string>
   <string name="tasks_caldav_url">https://caldav.tasks.org</string>
+  <string name="google_sign_in" tools:ignore="TypographyDashes">1006257750459-3jt0e32kbqgug7hkluqe26d5mbno92no.apps.googleusercontent.com</string>
   <string name="debug_strict_mode_thread">Strict mode - Thread</string>
   <string name="debug_strict_mode_vm">Strict mode - VM</string>
   <string name="debug_leakcanary">LeakCanary</string>
