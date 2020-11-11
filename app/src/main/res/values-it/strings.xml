@@ -664,4 +664,5 @@
     <string name="more_options">Altre opzioni</string>
     <string name="background_location_permission_required">Tasks raccoglie i dati di localizzazione per abilitare i promemoria basati sulla localizzazione, anche quando l\'app è chiusa o non è in uso.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
+    <string name="follow_reddit">Segui r/tasks</string>
 </resources>
