@@ -2,5 +2,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name">Tasks</string>
   <string name="tasks_caldav_url">https://caldav.tasks.org</string>
-  <string name="google_sign_in" tools:ignore="TypographyDashes">363426363175-op3tqa3qir2qkm7dtj6jr6mp4hudmsgs.apps.googleusercontent.com </string>
+  <string name="google_sign_in" tools:ignore="TypographyDashes">363426363175-op3tqa3qir2qkm7dtj6jr6mp4hudmsgs.apps.googleusercontent.com</string>
 </resources>
