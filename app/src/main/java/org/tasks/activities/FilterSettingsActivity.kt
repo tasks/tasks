@@ -68,7 +68,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     
     private var filter: CustomFilter? = null
     private lateinit var adapter: CustomFilterAdapter
-    private lateinit var criteria: MutableList<CriterionInstance>
+    private var criteria: MutableList<CriterionInstance> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         filter = intent.getParcelableExtra(TOKEN_FILTER)
