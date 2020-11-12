@@ -657,7 +657,7 @@
     <string name="logged_in">Connecté en tant que %s</string>
     <string name="tasks_org_sync_description">Synchroniser vos données avec Tasks.org</string>
     <string name="more_options">Plus d’options</string>
-    <string name="background_location_permission_required">Tasks collecte des données de localisation pour permettre des rappels basés sur la localisation, même lorsque l\'application est fermée ou non utilisée.</string>
+    <string name="background_location_permission_required">Cette application collecte des données de localisation pour activer les rappels basés sur la localisation, même lorsque l’application est fermée ou non en cours d’utilisation.</string>
     <string name="repeat_monthly_fifth_week">cinquième</string>
     <string name="follow_reddit">Suivre r/Tasks</string>
 </resources>
