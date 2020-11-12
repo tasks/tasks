@@ -463,7 +463,7 @@
     <string name="network_error">לא ניתן להתחבר</string>
     <string name="background_sync_unmetered_only">רק בחיבורים ללא חיוב לפי נפח גלישה</string>
     <string name="upgrade_to_pro">שידרוג לגירסת pro</string>
-    <string name="manage_subscription"> נהל מנוי</string>
+    <string name="manage_subscription">ניהול מינוי</string>
     <string name="refresh_purchases">עדכן רכישות</string>
     <string name="button_subscribe">רישום כמנוי</string>
     <string name="button_more_info">עוד מידע</string>
@@ -494,7 +494,7 @@
     <string name="location_permission_required_location">הרשאות מיקום נדרשות על מנת למצוא את מיקומך הנוכחי</string>
     <string name="open_map">פתיחת מפה</string>
     <string name="choose_new_location">בחירת מיקום חדש</string>
-    <string name="third_party_licenses">רשיונות צד ג\'</string>
+    <string name="third_party_licenses">רשיונות צד ג׳</string>
     <string name="version_string">גירסה %s</string>
     <string name="invalid_backup_file">קובץ גיבוי לא תקין</string>
     <string name="google_tasks_add_to_top">משימות חדשות בראש הרשימה</string>
@@ -680,4 +680,21 @@
     <string name="default_location">מיקום בררת מחדל</string>
     <string name="cancel">ביטול</string>
     <string name="ok">אישור</string>
+    <string name="insufficient_subscription">רמת המינוי אינה מספיקה. נא לשדרג את המינוי כדי להמשיך את השירות.</string>
+    <string name="background_location_permission_required">Tasks אוסף נתוני מיקום כדי לאפשר תזכורות על בסיס מיקום אפילו כשהיישומון סגור ולא בשימוש.</string>
+    <string name="follow_reddit">מעקב אחר r/tasks</string>
+    <string name="purchases_updated">המינויים עודכנו</string>
+    <string name="current_subscription">מינוי נוכחי: %s</string>
+    <string name="price_per_month_abbreviated">$%s/חודש</string>
+    <string name="price_per_month">$%s לחודש</string>
+    <string name="price_per_year_abbreviated">$%s/שנה</string>
+    <string name="price_per_year">$%s לשנה</string>
+    <string name="your_subscription_expired">תוקף המינוי שלך פג. ניתן להירשם כעת להמשיך את השירות.</string>
+    <string name="logged_in">נכנסת %s</string>
+    <string name="custom_filter_is_subtask">הוא תת־משימה</string>
+    <string name="custom_filter_has_subtask">יש תת־משימות</string>
+    <string name="tasks_org_sync_description">סנכרון הנתונים שלך מול Tasks.org</string>
+    <string name="more_options">אפשרויות נוספות</string>
+    <string name="repeat_monthly_fifth_week">החמישי</string>
+    <string name="always_display_full_date">הצגת התאריך המלא</string>
 </resources>
