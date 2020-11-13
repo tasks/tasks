@@ -23,7 +23,7 @@
     <string name="DLG_undo">Annulla l\'ultima azione</string>
     <string name="WID_dateButtonUnset">Clicca per impostare</string>
     <string name="TLA_no_items">Qui non ci sono attività.</string>
-    <string name="TLA_menu_sort">Ordinamento</string>
+    <string name="TLA_menu_sort">Ordina</string>
     <string name="TLA_menu_search">Cerca</string>
     <string name="TLA_menu_settings">Impostazioni</string>
     <string name="TAd_actionEditTask">Modifica</string>
