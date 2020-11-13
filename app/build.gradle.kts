@@ -138,7 +138,7 @@ val genericImplementation by configurations
 val googleplayImplementation by configurations
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.1")
     implementation("com.gitlab.bitfireAT:dav4jvm:2.1.1")
     implementation("com.gitlab.bitfireAT:ical4android:e4c50b3485")
     implementation("com.gitlab.bitfireAT:cert4android:72cf235ad9")
