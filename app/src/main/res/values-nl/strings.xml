@@ -658,6 +658,6 @@
     <string name="tasks_org_sync_description">Synchroniseer je data met Tasks.org</string>
     <string name="more_options">Meer opties</string>
     <string name="follow_reddit">Volg r/tasks</string>
-    <string name="background_location_permission_required">Tasks verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de applicatie gesloten is of niet gebruikt wordt.</string>
+    <string name="background_location_permission_required">Deze applicatie verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de applicatie gesloten is of niet gebruikt wordt.</string>
     <string name="repeat_monthly_fifth_week">vijfde</string>
 </resources>
