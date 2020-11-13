@@ -119,15 +119,12 @@
 +|    |    |    |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
 +|    |    |    \--- androidx.print:print:1.0.0
 +|    |    |         \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
-+|    |    +--- com.google.android.gms:play-services-ads-identifier:17.0.0
-+|    |    |    \--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
 +|    |    +--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
 +|    |    +--- com.google.android.gms:play-services-measurement-base:18.0.0
 +|    |    |    \--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
 +|    |    +--- com.google.android.gms:play-services-measurement-impl:18.0.0
 +|    |    |    +--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
 +|    |    |    +--- androidx.core:core:1.0.0 -> 1.3.2 (*)
-+|    |    |    +--- com.google.android.gms:play-services-ads-identifier:17.0.0 (*)
 +|    |    |    +--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
 +|    |    |    +--- com.google.android.gms:play-services-measurement-base:18.0.0 (*)
 +|    |    |    \--- com.google.android.gms:play-services-stats:17.0.0
@@ -135,7 +132,6 @@
 +|    |    |         \--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
 +|    |    \--- com.google.android.gms:play-services-stats:17.0.0 (*)
 +|    +--- com.google.android.gms:play-services-measurement-api:18.0.0
-+|    |    +--- com.google.android.gms:play-services-ads-identifier:17.0.0 (*)
 +|    |    +--- com.google.android.gms:play-services-basement:17.0.0 -> 17.3.0 (*)
 +|    |    +--- com.google.android.gms:play-services-measurement-base:18.0.0 (*)
 +|    |    +--- com.google.android.gms:play-services-measurement-sdk-api:18.0.0

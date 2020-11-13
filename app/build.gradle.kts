@@ -208,7 +208,9 @@ dependencies {
     genericImplementation("com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0")
 
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
-    googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}")
+    googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}") {
+        exclude("com.google.android.gms", "play-services-ads-identifier")
+    }
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
     googleplayImplementation("com.google.android.gms:play-services-location:17.1.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
