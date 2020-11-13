@@ -425,7 +425,7 @@
     <string name="network_error">Verbindung fehlgeschlagen</string>
     <string name="background_sync_unmetered_only">Nur bei unbeschränkter Verbindung</string>
     <string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
-    <string name="manage_subscription">Abonnements verwalten</string>
+    <string name="manage_subscription">Abonnement ändern</string>
     <string name="refresh_purchases">Einkäufe aktualisieren</string>
     <string name="button_subscribe">Abonnieren</string>
     <string name="button_more_info">Weitere Informationen</string>
@@ -598,7 +598,7 @@
     <string name="enjoying_tasks">Gefällt Ihnen Tasks\?</string>
     <string name="whats_new">Was gibt\'s Neues</string>
     <string name="filter_eisenhower_box_4">Eisenhower-Quadrant IV</string>
-    <string name="filter_eisenhower_box_3">Eisenhower-Quadrant III</string>
+    <string name="filter_eisenhower_box_3">Eisenhower Box 3</string>
     <string name="filter_eisenhower_box_2">Eisenhower-Quadrant II</string>
     <string name="filter_eisenhower_box_1">Eisenhower-Quadrant I</string>
     <string name="got_it">Verstanden!</string>
@@ -651,4 +651,14 @@
     <string name="backup_location_warning">WARNUNG: Bei der Deinstallation von Tasks werden alle Dateien in %s gelöscht! Bitte wähle einen eigenen Speicherort, um zu verhindern dass Android deine Daten löscht.</string>
     <string name="backups_ignore_warnings_summary">Ignoriere Warnungen zu Sicherungen, wenn du keine Sicherungen brauchst oder deine eigene Sicherungslösung nutzt</string>
     <string name="android_auto_backup_device_summary">Sie müssen sich auch über Ihre Geräteeinstellungen für den Sicherungsdienst anmelden. Nicht alle Geräte bieten einen Sicherungsdienst.</string>
+    <string name="follow_reddit">r/tasks folgen</string>
+    <string name="purchases_updated">Käufe aktualisiert</string>
+    <string name="current_subscription">Aktuelles Abonnement: %s</string>
+    <string name="insufficient_subscription">Unzureichende Abonnementstufe. Bitte aktualisieren Sie Ihr Abonnement, um den Dienst wieder aufzunehmen.</string>
+    <string name="your_subscription_expired">Ihr Abonnement ist abgelaufen. Abonnieren Sie jetzt, um den Dienst fortzusetzen.</string>
+    <string name="logged_in">Angemeldet als %s</string>
+    <string name="tasks_org_sync_description">Ihre Daten mit Tasks.org synchronisieren</string>
+    <string name="more_options">Weitere Optionen</string>
+    <string name="background_location_permission_required">Diese Anwendung sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die Anwendung geschlossen ist oder nicht verwendet wird.</string>
+    <string name="repeat_monthly_fifth_week">fünften</string>
 </resources>
