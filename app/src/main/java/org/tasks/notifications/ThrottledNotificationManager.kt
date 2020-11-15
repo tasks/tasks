@@ -26,6 +26,8 @@ class ThrottledNotificationManager @Inject constructor(
         }
     }
 
+    fun pause(millis: Long) = throttle.pause(millis)
+
     companion object {
         private const val NOTIFICATIONS_PER_SECOND = 4
     }

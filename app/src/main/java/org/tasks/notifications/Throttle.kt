@@ -34,4 +34,8 @@ internal class Throttle constructor(
             oldest = (oldest + 1) % throttle.size
         }
     }
+
+    fun pause(millis: Long) = executor.execute {
+        Thread.sleep(millis)
+    }
 }

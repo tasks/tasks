@@ -202,6 +202,9 @@ class NotificationManager @Inject constructor(
             cancel(evicted)
         }
         for (i in 0 until ringTimes) {
+            if (i > 0) {
+                notificationManager.pause(2000)
+            }
             notificationManager.notify(notificationId.toInt(), notification)
         }
     }
