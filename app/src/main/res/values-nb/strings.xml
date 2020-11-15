@@ -372,7 +372,7 @@
     <string name="pick_from_storage">Velg fra lagring</string>
     <string name="privacy_policy">Personvernspraksis</string>
     <string name="send_anonymous_statistics">Forbedre Tasks</string>
-    <string name="send_anonymous_statistics_summary">Send anonym bruksstatistkk og kræsjrapporter for å hjelpe til å forbedre Tasks. Ingen personlig data vil bli samlet inn.</string>
+    <string name="send_anonymous_statistics_summary">Send anonym bruksstatistkk og krasjrapporter for å hjelpe til å forbedre Tasks. Ingen personlig data vil bli samlet inn.</string>
     <string name="name_cannot_be_empty">Navn kan ikke stå tomt</string>
     <string name="username_required">Brukernavn kreves</string>
     <string name="password_required">Passord kreves</string>
