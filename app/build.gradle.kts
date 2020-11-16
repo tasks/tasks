@@ -93,6 +93,10 @@ android {
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
             isTestCoverageEnabled = project.hasProperty("coverage")
+
+            setManifestPlaceholders(mapOf(
+                    "appAuthRedirectScheme" to "com.googleusercontent.apps.1006257750459-vf4mvft1b3rfda8b4c4bl4k4418abqlf"
+            ))
         }
         getByName("release") {
             val tasks_mapbox_key: String? by project
@@ -102,6 +106,10 @@ android {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard.pro")
             signingConfig = signingConfigs.getByName("release")
+
+            setManifestPlaceholders(mapOf(
+                    "appAuthRedirectScheme" to "com.googleusercontent.apps.363426363175-jdrijf7hql9030klgjcjlpi6k5spviif"
+            ))
         }
     }
 
@@ -202,6 +210,8 @@ dependencies {
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0")
     implementation("com.etesync:journalmanager:1.1.1")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
+    implementation("androidx.security:security-crypto:1.1.0-alpha02")
+    implementation("net.openid:appauth:0.7.1")
 
     // https://github.com/mapbox/mapbox-gl-native-android/issues/316
     genericImplementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.4.1")
@@ -216,7 +226,6 @@ dependencies {
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
     googleplayImplementation("com.google.android.libraries.places:places:2.4.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
-    googleplayImplementation("com.google.android.gms:play-services-auth:19.0.0")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
     kaptAndroidTest("com.google.dagger:hilt-compiler:${Versions.hilt}")

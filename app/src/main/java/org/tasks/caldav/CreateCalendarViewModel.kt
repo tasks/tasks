@@ -10,4 +10,8 @@ class CreateCalendarViewModel @ViewModelInject constructor(
     suspend fun createCalendar(account: CaldavAccount, name: String, color: Int) {
         run { provider.forAccount(account).makeCollection(name, color) }
     }
+
+    override fun onCleared() {
+        provider.dispose()
+    }
 }

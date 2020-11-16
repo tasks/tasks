@@ -9,4 +9,8 @@ class UpdateCaldavAccountViewModel @ViewModelInject constructor(
     suspend fun updateCaldavAccount(url: String, username: String, password: String) {
         run { provider.forUrl(url, username, password).homeSet(username, password) }
     }
+
+    override fun onCleared() {
+        provider.dispose()
+    }
 }

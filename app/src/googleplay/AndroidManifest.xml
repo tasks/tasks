@@ -15,10 +15,6 @@
 
     <service android:name=".location.GeofenceTransitionsIntentService"/>
 
-    <activity
-      android:name=".auth.SignInActivity"
-      android:theme="@style/TranslucentDialog" />
-
   </application>
 
 </manifest>

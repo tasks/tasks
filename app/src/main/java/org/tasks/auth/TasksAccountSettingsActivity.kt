@@ -9,9 +9,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TasksAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
+
+    @Inject lateinit var authorizationService: AuthorizationService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +63,17 @@ class TasksAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolba
     override suspend fun updateAccount(url: String, username: String, password: String) {}
 
     override suspend fun updateAccount() = updateAccount(caldavAccount!!.url)
+
+    override suspend fun removeAccount() {
+        authorizationService.signOut()
+        super.removeAccount()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        authorizationService.dispose()
+    }
 
     override val helpUrl: String
         get() = getString(R.string.help_url_sync)

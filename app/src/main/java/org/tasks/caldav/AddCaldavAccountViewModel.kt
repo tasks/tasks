@@ -13,4 +13,8 @@ class AddCaldavAccountViewModel @ViewModelInject constructor(
                     .setForeground()
                     .homeSet(username, password) }
     }
+
+    override fun onCleared() {
+        provider.dispose()
+    }
 }

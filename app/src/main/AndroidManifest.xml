@@ -134,6 +134,19 @@
     android:name="android.hardware.touchscreen"
     android:required="false"/>
 
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.BROWSABLE" />
+      <data android:scheme="https" />
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.APP_BROWSER" />
+      <data android:scheme="https" />
+    </intent>
+  </queries>
+
   <application
     android:allowBackup="true"
     android:backupAgent="org.tasks.backup.TasksBackupAgent"
@@ -150,6 +163,12 @@
     tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
     android:preserveLegacyExternalStorage="true"
     android:hasFragileUserData="true">
+
+    <activity
+      android:name=".auth.SignInActivity"
+      android:theme="@style/TranslucentDialog"
+      android:windowSoftInputMode="stateHidden" >
+    </activity>
 
     <meta-data
       android:name="firebase_crashlytics_collection_enabled"

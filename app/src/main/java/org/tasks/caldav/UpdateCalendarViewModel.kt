@@ -13,4 +13,8 @@ class UpdateCalendarViewModel @ViewModelInject constructor(
             calendar.url?.let { provider.forAccount(account, it).updateCollection(name, color) }
         }
     }
+
+    override fun onCleared() {
+        provider.dispose()
+    }
 }
