@@ -667,4 +667,17 @@
     <string name="ok">ОК</string>
     <string name="date_picker_multiple">Несколько</string>
     <string name="multi_select_reschedule">Перенести</string>
+    <string name="follow_reddit">Подписаться на r/tasks</string>
+    <string name="purchases_updated">Покупки обновлены</string>
+    <string name="current_subscription">Текущая подписка: %s</string>
+    <string name="price_per_month_abbreviated">$%s/мес.</string>
+    <string name="price_per_month">$%s/месяц</string>
+    <string name="price_per_year_abbreviated">$%s/год</string>
+    <string name="price_per_year">$%s/год</string>
+    <string name="insufficient_subscription">Недостаточный уровень подписки. Обновите подписку, чтобы возобновить обслуживание.</string>
+    <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
+    <string name="logged_in">Вы вошли как %s</string>
+    <string name="tasks_org_sync_description">Синхронизируйте свои данные с Tasks.org</string>
+    <string name="more_options">Дополнительные параметры</string>
+    <string name="background_location_permission_required">Это приложение собирает данные о местоположении, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
 </resources>
