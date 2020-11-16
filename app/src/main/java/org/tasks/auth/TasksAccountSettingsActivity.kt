@@ -1,4 +1,4 @@
-package org.tasks.opentasks
+package org.tasks.auth
 
 import android.app.Activity
 import android.os.Bundle
@@ -11,7 +11,7 @@ import org.tasks.R
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 
 @AndroidEntryPoint
-class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
+class TasksAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,10 +19,7 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
         binding.userLayout.visibility = View.GONE
         binding.passwordLayout.visibility = View.GONE
         binding.urlLayout.visibility = View.GONE
-
-        if (caldavAccount!!.isOpenTaskEteSync) {
-            binding.repeat.visibility = View.GONE
-        }
+        binding.repeat.visibility = View.GONE
     }
 
     override val description: Int

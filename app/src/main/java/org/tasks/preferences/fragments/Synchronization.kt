@@ -27,6 +27,7 @@ import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
 import org.tasks.opentasks.OpenTaskAccountSettingsActivity
+import org.tasks.auth.TasksAccountSettingsActivity
 import org.tasks.preferences.Preferences
 import org.tasks.sync.AddAccountDialog.Companion.newAccountDialog
 import org.tasks.sync.SyncAdapters
@@ -163,10 +164,10 @@ class Synchronization : InjectingPreferenceFragment() {
             }
             preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 val intent = Intent(context, when {
+                    account.isTasksOrg -> TasksAccountSettingsActivity::class.java
                     account.isCaldavAccount -> CaldavAccountSettingsActivity::class.java
                     account.isEteSyncAccount -> EteSyncAccountSettingsActivity::class.java
-                    account.isOpenTasks || account.isTasksOrg ->
-                        OpenTaskAccountSettingsActivity::class.java
+                    account.isOpenTasks -> OpenTaskAccountSettingsActivity::class.java
                     else -> throw IllegalArgumentException("Unexpected account type: $account")
                 })
                 intent.putExtra(BaseCaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, account)
