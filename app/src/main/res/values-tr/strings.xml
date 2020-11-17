@@ -431,7 +431,7 @@
     <string name="network_error">Bağlanamadı</string>
     <string name="background_sync_unmetered_only">Yalnızca ölçülmeyen bağlantılarda</string>
     <string name="upgrade_to_pro">Pro\'ya yükselt</string>
-    <string name="manage_subscription">Aboneliği yönet</string>
+    <string name="manage_subscription">Aboneliği değiştir</string>
     <string name="refresh_purchases">Satın alımları yenile</string>
     <string name="button_subscribe">Abone ol</string>
     <string name="button_more_info">Daha çok bilgi</string>
@@ -651,4 +651,18 @@
     <string name="always_display_full_date">Tam tarihi göster</string>
     <string name="custom_filter_is_subtask">Alt görev</string>
     <string name="custom_filter_has_subtask">Alt görevleri olan</string>
+    <string name="background_location_permission_required">Bu uygulama, kapalıyken veya kullanımda değilken bile konuma dayalı hatırlatmaları etkinleştirmek için konum verilerini toplar.</string>
+    <string name="follow_reddit">r/tasks sayfasını takip et</string>
+    <string name="purchases_updated">Satın alımlar güncellendi</string>
+    <string name="current_subscription">Geçerli abonelik: %s</string>
+    <string name="price_per_month_abbreviated">%s$/ay</string>
+    <string name="price_per_month">%s$/ay</string>
+    <string name="price_per_year_abbreviated">%s$/yıl</string>
+    <string name="price_per_year">%s$/yıl</string>
+    <string name="insufficient_subscription">Yetersiz abonelik düzeyi. Hizmeti devam ettirmek için lütfen aboneliğinizi yükseltin.</string>
+    <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti devam ettirmek için şimdi abone olun.</string>
+    <string name="logged_in">Oturum açıldı: %s</string>
+    <string name="tasks_org_sync_description">Verilerinizi Tasks.org ile eşzamanlayın</string>
+    <string name="more_options">Daha fazla seçenek</string>
+    <string name="repeat_monthly_fifth_week">beşinci</string>
 </resources>
