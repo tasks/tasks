@@ -660,4 +660,5 @@
     <string name="follow_reddit">Volg r/tasks</string>
     <string name="background_location_permission_required">Deze applicatie verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de applicatie gesloten is of niet gebruikt wordt.</string>
     <string name="repeat_monthly_fifth_week">vijfde</string>
+    <string name="authorization_cancelled">Autorisatie geannuleerd</string>
 </resources>
