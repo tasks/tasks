@@ -80,19 +80,27 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
         caller: PreferenceFragmentCompat,
         pref: Preference
     ): Boolean {
-        val args = pref.extras
-        val fragment = supportFragmentManager.fragmentFactory.instantiate(
-            classLoader,
-            pref.fragment
-        ).apply {
-            arguments = args
-            setTargetFragment(caller, 0)
-        }
+        return startPreference(
+                caller,
+                supportFragmentManager
+                        .fragmentFactory
+                        .instantiate(classLoader, pref.fragment)
+                        .apply { arguments = pref.extras },
+                pref.title
+        )
+    }
+
+    fun startPreference(
+            caller: PreferenceFragmentCompat,
+            fragment: Fragment,
+            title: CharSequence
+    ): Boolean {
+        fragment.setTargetFragment(caller, 0)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.settings, fragment)
-            .addToBackStack(null)
-            .commit()
-        toolbar.title = pref.title
+                .replace(R.id.settings, fragment)
+                .addToBackStack(null)
+                .commit()
+        toolbar.title = title
         setupMenu(fragment)
         return true
     }

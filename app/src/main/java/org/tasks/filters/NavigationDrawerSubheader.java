@@ -123,6 +123,7 @@ public class NavigationDrawerSubheader extends FilterListItem {
   public enum SubheaderType {
     PREFERENCE,
     GOOGLE_TASKS,
-    CALDAV
+    CALDAV,
+    TASKS
   }
 }

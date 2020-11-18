@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:key="@string/preference_screen">
+
+  <Preference
+    android:key="@string/sign_in_with_google"
+    android:title="@string/sign_in_with_google"
+    app:isPreferenceVisible="false"
+    tools:isPreferenceVisible="true"/>
+
+  <Preference
+    android:key="@string/upgrade_to_pro"
+    android:title="@string/upgrade_to_pro"
+    app:allowDividerAbove="true"
+    app:icon="@drawable/ic_outline_attach_money_24px" />
+
+  <Preference
+    android:key="@string/button_unsubscribe"
+    android:title="@string/button_unsubscribe"/>
+
+  <Preference
+    android:key="@string/refresh_purchases"
+    android:title="@string/refresh_purchases"
+    app:icon="@drawable/ic_cached_24px" />
+
+  <PreferenceCategory
+    android:key="@string/sync_SPr_interval_title"
+    android:title="@string/sync_SPr_interval_title">
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_background_sync"
+      android:title="@string/enabled" />
+    <SwitchPreferenceCompat
+      android:defaultValue="false"
+      android:dependency="@string/p_background_sync"
+      android:key="@string/p_background_sync_unmetered_only"
+      android:title="@string/background_sync_unmetered_only" />
+  </PreferenceCategory>
+
+  <Preference
+    android:key="@string/logout"
+    android:title="@string/logout"
+    app:allowDividerAbove="true"/>
+
+</PreferenceScreen>

@@ -1,5 +1,8 @@
 package org.tasks.billing
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -69,6 +72,17 @@ class Inventory @Inject constructor(
 
     val hasTasksSubscription: Boolean
         get() = subscription?.isTasksSubscription ?: false
+
+    fun unsubscribe(context: Context): Boolean {
+        subscription?.let {
+            context.startActivity(
+                    Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(context.getString(R.string.manage_subscription_url, it.sku)))
+            )
+        }
+        return false
+    }
 
     companion object {
         private const val SKU_VIP = "vip"

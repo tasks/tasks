@@ -12,14 +12,14 @@ import org.tasks.R
 import org.tasks.auth.AuthStateManager
 import org.tasks.auth.IdToken
 import org.tasks.auth.SignInActivity
-import org.tasks.auth.TasksAccountSettingsActivity
-import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.IconPreference
+import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.PreferencesViewModel
+import org.tasks.preferences.fragments.TasksAccount.Companion.newTasksAccountPreference
 import org.tasks.widget.AppWidgetManager
 import javax.inject.Inject
 
@@ -93,9 +93,10 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
             pref.tint = context?.getColor(R.color.overdue)
         }
         pref.setOnPreferenceClickListener {
-            startActivity(
-                    Intent(requireContext(), TasksAccountSettingsActivity::class.java)
-                            .putExtra(BaseCaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, account)
+            (activity as MainPreferences).startPreference(
+                    this,
+                    newTasksAccountPreference(account),
+                    getString(R.string.tasks_org)
             )
             false
         }

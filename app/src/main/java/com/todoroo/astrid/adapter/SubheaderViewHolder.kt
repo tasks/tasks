@@ -17,6 +17,7 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
+import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.SyncPreferences
 import org.tasks.themes.DrawableUtil
@@ -45,7 +46,8 @@ internal class SubheaderViewHolder(
             when (subheader.subheaderType) {
                 SubheaderType.PREFERENCE -> preferences.setBoolean(subheader.id.toInt(), collapsed)
                 SubheaderType.GOOGLE_TASKS -> googleTaskDao.setCollapsed(subheader.id, collapsed)
-                SubheaderType.CALDAV -> caldavDao.setCollapsed(subheader.id, collapsed)
+                SubheaderType.CALDAV, SubheaderType.TASKS ->
+                    caldavDao.setCollapsed(subheader.id, collapsed)
             }
             localBroadcastManager.broadcastRefreshList()
         }
@@ -64,7 +66,12 @@ internal class SubheaderViewHolder(
     init {
         ButterKnife.bind(this, itemView)
         errorIcon.setOnClickListener {
-            activity.startActivity(Intent(activity, SyncPreferences::class.java))
+            val preferenceClass = if (subheader.subheaderType == SubheaderType.TASKS) {
+                MainPreferences::class.java
+            } else {
+                SyncPreferences::class.java
+            }
+            activity.startActivity(Intent(activity, preferenceClass))
         }
     }
 }

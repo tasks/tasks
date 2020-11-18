@@ -60,11 +60,10 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
                 false
             }
 
-        findPreference(R.string.refresh_purchases)
-            .setOnPreferenceClickListener {
-                billingClient.queryPurchases()
-                false
-            }
+        findPreference(R.string.refresh_purchases).setOnPreferenceClickListener {
+            billingClient.queryPurchases()
+            false
+        }
 
         findPreference(R.string.p_collect_statistics)
             .setOnPreferenceClickListener {
@@ -73,13 +72,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
             }
 
         findPreference(R.string.button_unsubscribe).setOnPreferenceClickListener {
-            inventory.subscription?.let {
-                startActivity(
-                        Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(getString(R.string.manage_subscription_url, it.sku))))
-            }
-            false
+            inventory.unsubscribe(requireActivity())
         }
 
         findPreference(R.string.upgrade_to_pro).setOnPreferenceClickListener {

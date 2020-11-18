@@ -97,16 +97,7 @@ class CaldavSynchronizer @Inject constructor(
             setError(account, e.message)
         } catch (e: HttpException) {
             val message = when(e.code) {
-                402 -> if (account.isTasksOrg) {
-                    context.getString(if (inventory.subscription == null) {
-                        R.string.your_subscription_expired
-                    } else {
-                        R.string.insufficient_subscription
-                    })
-                } else {
-                    e.message
-                }
-                in 500..599 -> e.message
+                402, in 500..599 -> e.message
                 else -> {
                     firebase.reportException(e)
                     e.message
