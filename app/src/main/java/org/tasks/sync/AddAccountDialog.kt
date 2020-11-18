@@ -15,13 +15,11 @@ import androidx.fragment.app.Fragment
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.auth.SignInActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_CALDAV_SETTINGS
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_GOOGLE_TASKS
-import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_TASKS_ORG
 import org.tasks.themes.DrawableUtil
 import javax.inject.Inject
 
@@ -47,7 +45,7 @@ class AddAccountDialog : DialogFragment() {
                 view.findViewById<TextView>(R.id.text2).text = descriptions[position]
                 val icon = view.findViewById<ImageView>(R.id.image_view)
                 icon.setImageDrawable(DrawableUtil.getWrapped(context, icons[position]))
-                if (position == 3) {
+                if (position == 2) {
                     icon.drawable.setTint(context.getColor(R.color.icon_tint))
                 }
                 return view
@@ -59,17 +57,14 @@ class AddAccountDialog : DialogFragment() {
                 .setSingleChoiceItems(adapter, -1) { dialog, which ->
                     when (which) {
                         0 -> activity?.startActivityForResult(
-                                Intent(activity, SignInActivity::class.java),
-                                REQUEST_TASKS_ORG)
-                        1 -> activity?.startActivityForResult(
                                 Intent(activity, GtasksLoginActivity::class.java),
                                 REQUEST_GOOGLE_TASKS)
-                        2 -> activity?.startActivity(
+                        1 -> activity?.startActivity(
                                 Intent(ACTION_VIEW, Uri.parse(getString(R.string.url_davx5))))
-                        3 -> activity?.startActivityForResult(
+                        2 -> activity?.startActivityForResult(
                                 Intent(activity, CaldavAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
-                        4 -> activity?.startActivityForResult(
+                        3 -> activity?.startActivityForResult(
                                 Intent(activity, EteSyncAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
                     }

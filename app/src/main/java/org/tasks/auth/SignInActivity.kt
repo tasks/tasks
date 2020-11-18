@@ -21,10 +21,15 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.lifecycleScope
+import at.bitfire.dav4jvm.exception.HttpException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import net.openid.appauth.*
 import org.tasks.R
+import org.tasks.billing.Inventory
+import org.tasks.billing.PurchaseDialog
+import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
+import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.themes.ThemeColor
 import timber.log.Timber
@@ -43,18 +48,14 @@ import javax.inject.Inject
  * configuration.
  * - Utilize dynamic client registration, if no static client id is specified.
  * - Initiate the authorization request using the built-in heuristics or a user-selected browser.
- *
- * _NOTE_: From a clean checkout of this project, the authorization service is not configured.
- * Edit `res/values/auth_config.xml` to provide the required configuration properties. See the
- * README.md in the app/ directory for configuration instructions, and the adjacent IDP-specific
- * instructions.
  */
 @AndroidEntryPoint
-class SignInActivity : InjectingAppCompatActivity() {
+class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHandler {
     @Inject lateinit var authService: AuthorizationService
     @Inject lateinit var authStateManager: AuthStateManager
     @Inject lateinit var configuration: Configuration
     @Inject lateinit var themeColor: ThemeColor
+    @Inject lateinit var inventory: Inventory
 
     private val viewModel: SignInViewModel by viewModels()
 
@@ -66,13 +67,16 @@ class SignInActivity : InjectingAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel.error.observe(this, this::handleError)
+
         if (authStateManager.current.isAuthorized &&
                 !configuration.hasConfigurationChanged()) {
             Timber.i("User is already authenticated, signing out")
-            authService.signOut()
+            authStateManager.signOut()
         }
         if (!configuration.isValid) {
-            displayError(configuration.configurationError)
+            returnError(configuration.configurationError)
             return
         }
         if (configuration.hasConfigurationChanged()) {
@@ -82,6 +86,14 @@ class SignInActivity : InjectingAppCompatActivity() {
             configuration.acceptConfiguration()
         }
         mExecutor.submit { initializeAppAuth() }
+    }
+
+    private fun handleError(e: Throwable) {
+        if (e is HttpException && e.code == 402) {
+            newPurchaseDialog().show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+        } else {
+            returnError(e.message)
+        }
     }
 
     override fun onStop() {
@@ -100,14 +112,18 @@ class SignInActivity : InjectingAppCompatActivity() {
         if (requestCode == RC_AUTH) {
             if (resultCode == RESULT_OK) {
                 lifecycleScope.launch {
-                    viewModel.handleResult(data!!)
-                    authStateManager.current.authorizationException?.let { e ->
-                        displayError(e.message)
+                    val account = try {
+                        viewModel.handleResult(data!!)
+                    } catch (e: Exception) {
+                        returnError(e.message)
                     }
-                    finish()
+                    if (account != null) {
+                        setResult(RESULT_OK)
+                        finish()
+                    }
                 }
             } else {
-                displayError(getString(R.string.authorization_cancelled))
+                returnError(getString(R.string.authorization_cancelled))
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -162,7 +178,7 @@ class SignInActivity : InjectingAppCompatActivity() {
             ex: AuthorizationException?) {
         if (config == null) {
             Timber.i(ex, "Failed to retrieve discovery document")
-            displayError("Failed to retrieve discovery document: " + ex!!.message)
+            returnError("Failed to retrieve discovery document: " + ex!!.message)
             return
         }
         Timber.i("Discovery document retrieved")
@@ -237,7 +253,7 @@ class SignInActivity : InjectingAppCompatActivity() {
     }
 
     @MainThread
-    private fun displayError(error: String?) {
+    private fun returnError(error: String?) {
         Timber.e(error)
         setResult(RESULT_CANCELED, Intent().putExtra(EXTRA_ERROR, error))
         finish()
@@ -246,7 +262,7 @@ class SignInActivity : InjectingAppCompatActivity() {
     // WrongThread inference is incorrect in this case
     @AnyThread
     private fun displayErrorLater(error: String) {
-        runOnUiThread { displayError(error) }
+        runOnUiThread { returnError(error) }
     }
 
     @MainThread
@@ -282,5 +298,19 @@ class SignInActivity : InjectingAppCompatActivity() {
     companion object {
         const val EXTRA_ERROR = "extra_error"
         private const val RC_AUTH = 100
+    }
+
+    override fun onPurchaseDialogDismissed() {
+        if (inventory.hasTasksSubscription) {
+            lifecycleScope.launch {
+                val account = viewModel.setupAccount(authStateManager.current)
+                if (account != null) {
+                    setResult(RESULT_OK)
+                    finish()
+                }
+            }
+        } else {
+            finish()
+        }
     }
 }

@@ -38,6 +38,19 @@ class AuthStateManager @Inject constructor(@ApplicationContext private val conte
     private val prefsLock = ReentrantLock()
     private val currentAuthState = AtomicReference<AuthState>()
 
+    fun signOut() {
+        // discard the authorization and token state, but retain the configuration and
+        // dynamic client registration (if applicable), to save from retrieving them again.
+        val currentState = current
+        val clearedState = currentState.authorizationServiceConfiguration
+                ?.let { AuthState(it) }
+                ?: return
+        if (currentState.lastRegistrationResponse != null) {
+            clearedState.update(currentState.lastRegistrationResponse)
+        }
+        replace(clearedState)
+    }
+
     val current: AuthState
         get() {
             if (currentAuthState.get() != null) {

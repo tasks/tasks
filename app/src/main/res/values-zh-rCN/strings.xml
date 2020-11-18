@@ -642,7 +642,6 @@
     <string name="ok">好</string>
     <string name="custom_filter_is_subtask">是子任务</string>
     <string name="custom_filter_has_subtask">有子任务</string>
-    <string name="tasks_org_sync_description">用Tasks.org同步你的数据</string>
     <string name="purchases_updated">购买已更新</string>
     <string name="current_subscription">当前订阅：%s</string>
     <string name="price_per_month_abbreviated">$%s/月</string>

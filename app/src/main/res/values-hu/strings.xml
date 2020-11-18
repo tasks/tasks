@@ -656,7 +656,6 @@
     <string name="logged_in">Logolva itt: %s</string>
     <string name="custom_filter_is_subtask">Alfeladat</string>
     <string name="custom_filter_has_subtask">Van alfeladata</string>
-    <string name="tasks_org_sync_description">Adatok szinkronizálása a Tasks.org-al</string>
     <string name="more_options">Több lehetőség</string>
     <string name="cancel">Mégse</string>
     <string name="ok">OK</string>

@@ -18,6 +18,7 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
+import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskListDao
@@ -27,7 +28,6 @@ import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
 import org.tasks.opentasks.OpenTaskAccountSettingsActivity
-import org.tasks.auth.TasksAccountSettingsActivity
 import org.tasks.preferences.Preferences
 import org.tasks.sync.AddAccountDialog.Companion.newAccountDialog
 import org.tasks.sync.SyncAdapters
@@ -140,7 +140,7 @@ class Synchronization : InjectingPreferenceFragment() {
 
     private suspend fun addCaldavAccounts(category: PreferenceCategory): Boolean {
         val accounts = caldavDao.getAccounts().filter {
-            it.accountType != TYPE_LOCAL
+            it.accountType != TYPE_LOCAL && it.accountType != TYPE_TASKS
         }
         for (account in accounts) {
             val preference = Preference(context)
@@ -149,7 +149,6 @@ class Synchronization : InjectingPreferenceFragment() {
             if (isNullOrEmpty(error)) {
                 preference.setSummary(when {
                     account.isCaldavAccount -> R.string.caldav
-                    account.isTasksOrg -> R.string.tasks_org
                     account.isEteSyncAccount
                             || (account.isOpenTasks
                             && account.uuid?.startsWith(ACCOUNT_TYPE_ETESYNC) == true) ->
@@ -164,7 +163,6 @@ class Synchronization : InjectingPreferenceFragment() {
             }
             preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 val intent = Intent(context, when {
-                    account.isTasksOrg -> TasksAccountSettingsActivity::class.java
                     account.isCaldavAccount -> CaldavAccountSettingsActivity::class.java
                     account.isEteSyncAccount -> EteSyncAccountSettingsActivity::class.java
                     account.isOpenTasks -> OpenTaskAccountSettingsActivity::class.java

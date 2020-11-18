@@ -322,6 +322,7 @@ File %1$s contained %2$s.\n\n
   <string name="google_drive_backup">Google Drive backup</string>
   <string name="miscellaneous">Miscellaneous</string>
   <string name="synchronization">Synchronization</string>
+  <string name="synchronization_third_party">Third-party synchronization</string>
   <string name="subtasks">Subtasks</string>
   <string name="enabled">Enabled</string>
   <string name="font_size">Font size</string>
@@ -548,7 +549,6 @@ File %1$s contained %2$s.\n\n
   <string name="enter_tag_name">Enter tag name</string>
   <string name="create_new_tag">Create \"%s\"</string>
   <string name="choose_synchronization_service">Select a platform</string>
-  <string name="tasks_org_sync_description">Synchronize your data with Tasks.org</string>
   <string name="google_tasks_selection_description">Basic service that synchronizes with your Google account</string>
   <string name="caldav_selection_description">Synchronization based on open internet standards</string>
   <string name="etesync_selection_description">Open source, end-to-end encrypted synchronization</string>
@@ -666,4 +666,5 @@ File %1$s contained %2$s.\n\n
   <string name="purchases_updated">Purchases updated</string>
   <string name="follow_reddit">Follow r/tasks</string>
   <string name="authorization_cancelled">Authorization cancelled</string>
+  <string name="sign_in_with_google">Sign in with Google</string>
 </resources>

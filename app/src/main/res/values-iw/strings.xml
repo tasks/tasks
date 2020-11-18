@@ -693,7 +693,6 @@
     <string name="logged_in">נכנסת %s</string>
     <string name="custom_filter_is_subtask">הוא תת־משימה</string>
     <string name="custom_filter_has_subtask">יש תת־משימות</string>
-    <string name="tasks_org_sync_description">סנכרון הנתונים שלך מול Tasks.org</string>
     <string name="more_options">אפשרויות נוספות</string>
     <string name="repeat_monthly_fifth_week">החמישי</string>
     <string name="always_display_full_date">הצגת התאריך המלא</string>

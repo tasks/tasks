@@ -47,6 +47,19 @@ class Purchase(private val purchase: Purchase) {
             return null
         }
 
+    val isTasksSubscription: Boolean
+        get() {
+            return subscriptionPrice
+                    ?.let {
+                        if (isMonthly) {
+                            it >= 3
+                        } else {
+                            it >= 30
+                        }
+                    }
+                    ?: false
+        }
+
     companion object {
         private val PATTERN = Pattern.compile("^(annual|monthly)_([0-3][0-9]|499)$")
     }

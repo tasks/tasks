@@ -14,7 +14,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TasksAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
 
-    @Inject lateinit var authorizationService: AuthorizationService
+    @Inject lateinit var authStateManager: AuthStateManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +46,9 @@ class TasksAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolba
         finish()
     }
 
+    override val needsPurchase: Boolean
+        get() = !inventory.hasTasksSubscription
+
     override fun hasChanges() =
             newName != caldavAccount!!.name
                     || binding.repeat.isChecked != caldavAccount!!.isSuppressRepeatingTasks
@@ -65,14 +68,8 @@ class TasksAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolba
     override suspend fun updateAccount() = updateAccount(caldavAccount!!.url)
 
     override suspend fun removeAccount() {
-        authorizationService.signOut()
+        authStateManager.signOut()
         super.removeAccount()
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        authorizationService.dispose()
     }
 
     override val helpUrl: String

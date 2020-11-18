@@ -79,13 +79,6 @@ class AuthorizationService @Inject constructor(
     }
 
     fun signOut() {
-        // discard the authorization and token state, but retain the configuration and
-        // dynamic client registration (if applicable), to save from retrieving them again.
-        val currentState = authStateManager.current
-        val clearedState = AuthState(currentState.authorizationServiceConfiguration!!)
-        if (currentState.lastRegistrationResponse != null) {
-            clearedState.update(currentState.lastRegistrationResponse)
-        }
-        authStateManager.replace(clearedState)
+        authStateManager.signOut()
     }
 }

@@ -67,6 +67,9 @@ class Inventory @Inject constructor(
                 }
                 .firstOrNull()
 
+    val hasTasksSubscription: Boolean
+        get() = subscription?.isTasksSubscription ?: false
+
     companion object {
         private const val SKU_VIP = "vip"
         const val SKU_TASKER = "tasker"

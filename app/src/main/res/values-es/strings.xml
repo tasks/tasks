@@ -660,7 +660,6 @@
     <string name="insufficient_subscription">Nivel de suscripción insuficiente. Actualice su suscripción para reanudar el servicio.</string>
     <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>
     <string name="logged_in">Autenticado como %s</string>
-    <string name="tasks_org_sync_description">Sincronice sus datos con Tasks.org</string>
     <string name="more_options">Más opciones</string>
     <string name="background_location_permission_required">Esta aplicación recopila datos de ubicación para habilitar recordatorios basados en la ubicación incluso cuando la aplicación está cerrada o no está en uso.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>

@@ -94,7 +94,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.name, InputMethodManager.SHOW_IMPLICIT)
         }
-        if (!inventory.hasPro) {
+        if (needsPurchase) {
             newSnackbar(getString(R.string.this_feature_requires_a_subscription))
                     .setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction(R.string.button_subscribe) {
@@ -103,6 +103,9 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
                     .show()
         }
     }
+
+    protected open val needsPurchase: Boolean
+            get() = !inventory.hasPro
 
     @get:StringRes
     protected abstract val description: Int

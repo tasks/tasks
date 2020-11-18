@@ -662,7 +662,6 @@
     <string name="insufficient_subscription">Yetersiz abonelik düzeyi. Hizmeti devam ettirmek için lütfen aboneliğinizi yükseltin.</string>
     <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti devam ettirmek için şimdi abone olun.</string>
     <string name="logged_in">Oturum açıldı: %s</string>
-    <string name="tasks_org_sync_description">Verilerinizi Tasks.org ile eşzamanlayın</string>
     <string name="more_options">Daha fazla seçenek</string>
     <string name="repeat_monthly_fifth_week">beşinci</string>
     <string name="authorization_cancelled">Yetkilendirme iptal edildi</string>

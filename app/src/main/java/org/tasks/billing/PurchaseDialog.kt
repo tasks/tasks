@@ -29,6 +29,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
 
+    interface PurchaseHandler {
+        fun onPurchaseDialogDismissed()
+    }
+
     private val purchaseReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             setup()
@@ -233,6 +237,9 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
 
+        activity.takeIf { it is PurchaseHandler }?.let {
+            (it as PurchaseHandler).onPurchaseDialogDismissed()
+        }
         if (arguments?.getBoolean(EXTRA_FINISH_ACTIVITY, false) == true) {
             activity?.finish()
         }
