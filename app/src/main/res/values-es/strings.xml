@@ -665,4 +665,5 @@
     <string name="background_location_permission_required">Esta aplicación recopila datos de ubicación para habilitar recordatorios basados en la ubicación incluso cuando la aplicación está cerrada o no está en uso.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="follow_reddit">Seguir r/Tasks</string>
+    <string name="authorization_cancelled">Autorización cancelada</string>
 </resources>
