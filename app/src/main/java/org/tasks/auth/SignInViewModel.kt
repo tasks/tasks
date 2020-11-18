@@ -2,7 +2,6 @@ package org.tasks.auth
 
 import android.content.Context
 import android.content.Intent
-import android.util.Base64
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.todoroo.astrid.helper.UUIDHelper
@@ -10,7 +9,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.ClientAuthentication.UnsupportedAuthenticationMethod
-import org.json.JSONObject
 import org.tasks.R
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.data.CaldavAccount
@@ -40,19 +38,16 @@ class SignInViewModel @ViewModelInject constructor(
         if (!auth.isAuthorized) {
             return null
         }
-        val idToken = auth.idToken
-        val parts: List<String> = idToken!!.split(".")
-        val payloadJson = JSONObject(String(Base64.decode(parts[1], Base64.DEFAULT)))
-        val sub = payloadJson.getString("sub")
-        val username = "google_$sub"
-        val email = payloadJson.getString("email")
+        val tokenString = auth.idToken ?: return null
+        val idToken = IdToken(tokenString)
+        val username = "google_${idToken.sub}"
         val homeSet = provider
                 .forUrl(
                         "${context.getString(R.string.tasks_caldav_url)}/google_login",
-                        token = idToken
+                        token = tokenString
                 )
                 .setForeground()
-                .homeSet(token = idToken)
+                .homeSet(token = tokenString)
         return caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
                 ?.apply {
                     error = null
@@ -63,7 +58,7 @@ class SignInViewModel @ViewModelInject constructor(
                     uuid = UUIDHelper.newUUID()
                     url = homeSet
                     this.username = username
-                    name = email
+                    name = idToken.email
                     caldavDao.insert(this)
                 }
     }
