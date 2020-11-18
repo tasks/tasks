@@ -2111,7 +2111,7 @@
       },
       "copyrightHolder": "Google Inc.",
       "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
-      "license": "Apache License, Version 2.0",
+      "license": "The Apache Software License, Version 2.0",
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "normalizedLicense": "apache2",
       "url": "http://github.com/google/tink",

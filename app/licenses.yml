@@ -886,6 +886,6 @@
 - artifact: com.google.crypto.tink:tink-android:+
   name: tink-android
   copyrightHolder: Google Inc.
-  license: Apache License, Version 2.0
+  license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://github.com/google/tink
