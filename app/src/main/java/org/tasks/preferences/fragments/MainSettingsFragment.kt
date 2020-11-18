@@ -25,6 +25,11 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        findPreference(R.string.synchronization).summary =
+                resources
+                        .getStringArray(R.array.synchronization_services)
+                        .joinToString(getString(R.string.list_separator_with_space))
+
         viewModel.lastBackup.observe(this) { updateBackupWarning() }
         viewModel.lastAndroidBackup.observe(this) { updateBackupWarning() }
         viewModel.lastDriveBackup.observe(this) { updateBackupWarning() }

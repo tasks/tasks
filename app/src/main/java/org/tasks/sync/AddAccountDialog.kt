@@ -14,7 +14,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.auth.SignInActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
@@ -48,7 +47,7 @@ class AddAccountDialog : DialogFragment() {
                 view.findViewById<TextView>(R.id.text2).text = descriptions[position]
                 val icon = view.findViewById<ImageView>(R.id.image_view)
                 icon.setImageDrawable(DrawableUtil.getWrapped(context, icons[position]))
-                if (position == 2) {
+                if (position == 3) {
                     icon.drawable.setTint(context.getColor(R.color.icon_tint))
                 }
                 return view
@@ -59,27 +58,20 @@ class AddAccountDialog : DialogFragment() {
                 .setTitle(R.string.choose_synchronization_service)
                 .setSingleChoiceItems(adapter, -1) { dialog, which ->
                     when (which) {
-                        0 -> if (BuildConfig.FLAVOR == "generic") {
-                            dialogBuilder
-                                    .newDialog(R.string.github_sponsor_login)
-                                    .setPositiveButton(R.string.ok, null)
-                                    .show()
-                        } else {
-                            activity?.startActivityForResult(
-                                    Intent(activity, SignInActivity::class.java),
-                                    REQUEST_TASKS_ORG)
-                        }
+                        0 -> activity?.startActivityForResult(
+                                Intent(activity, SignInActivity::class.java),
+                                REQUEST_TASKS_ORG)
                         1 -> activity?.startActivityForResult(
                                 Intent(activity, GtasksLoginActivity::class.java),
                                 REQUEST_GOOGLE_TASKS)
-                        2 -> activity?.startActivityForResult(
+                        2 -> activity?.startActivity(
+                                Intent(ACTION_VIEW, Uri.parse(getString(R.string.url_davx5))))
+                        3 -> activity?.startActivityForResult(
                                 Intent(activity, CaldavAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
-                        3 -> activity?.startActivityForResult(
+                        4 -> activity?.startActivityForResult(
                                 Intent(activity, EteSyncAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
-                        4 -> activity?.startActivity(
-                                Intent(ACTION_VIEW, Uri.parse(getString(R.string.url_davx5))))
                     }
                     dialog.dismiss()
                 }

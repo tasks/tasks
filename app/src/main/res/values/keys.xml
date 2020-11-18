@@ -44,7 +44,6 @@
   <string name="upgrade_balance">Your remaining balance will apply to your new subscription</string>
   <string name="upgrade_cancel">Cancel at any time</string>
   <string name="upgrade_benefits_retained">benefits are retained until the end of your billing period</string>
-  <string name="github_sponsor_login">Login for Github Sponsors coming soon!</string>
 
   <string name="p_date_shortcut_morning">date_shortcut_morning</string>
   <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>

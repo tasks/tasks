@@ -13,6 +13,7 @@
     app:title="@string/notifications" />
 
   <Preference
+    android:key="@string/synchronization"
     app:fragment="org.tasks.preferences.fragments.Synchronization"
     app:icon="@drawable/ic_outline_cloud_24px"
     app:title="@string/synchronization" />
