@@ -183,7 +183,9 @@ object CustomIcons {
         1158 to R.drawable.ic_outdoor_grill_24px,
         1159 to R.drawable.ic_thumb_up_24px,
         1160 to R.drawable.ic_thumb_down_24px,
-        1161 to R.drawable.ic_vertical_align_top_24px
+        1161 to R.drawable.ic_vertical_align_top_24px,
+        1162 to R.drawable.ic_keyboard_arrow_left_24px,
+        1163 to R.drawable.ic_keyboard_arrow_right_24px,
     )
 
     @JvmStatic
