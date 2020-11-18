@@ -663,4 +663,5 @@
     <string name="follow_reddit">r/tasks követése</string>
     <string name="background_location_permission_required">Az app a helyinformációkat a helyalapú emlékeztetőkhöz használja fel, még akkor is, ha az app be van zárva vagy nincs használatban.</string>
     <string name="repeat_monthly_fifth_week">ötödik</string>
+    <string name="authorization_cancelled">Azonosítás megszakítva</string>
 </resources>
