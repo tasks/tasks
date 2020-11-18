@@ -660,4 +660,5 @@
     <string name="background_location_permission_required">Cette application collecte des données de localisation pour activer les rappels basés sur la localisation, même lorsque l’application est fermée ou non en cours d’utilisation.</string>
     <string name="repeat_monthly_fifth_week">cinquième</string>
     <string name="follow_reddit">Suivre r/Tasks</string>
+    <string name="authorization_cancelled">Autorisation annulée</string>
 </resources>
