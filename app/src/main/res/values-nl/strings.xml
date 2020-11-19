@@ -449,7 +449,7 @@
     <string name="location_permission_required_location">Locatie rechten zijn nodig om je huidige locatie te vinden</string>
     <string name="open_map">Open kaart</string>
     <string name="choose_new_location">Kies nieuwe locatie</string>
-    <string name="third_party_licenses">Third-party licensies</string>
+    <string name="third_party_licenses">Licenties van derden</string>
     <string name="version_string">Versie %s</string>
     <string name="invalid_backup_file">Ongeldig backup bestand</string>
     <string name="google_tasks_add_to_top">Nieuwe taken bovenaan</string>
@@ -660,4 +660,6 @@
     <string name="background_location_permission_required">Deze applicatie verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de applicatie gesloten is of niet gebruikt wordt.</string>
     <string name="repeat_monthly_fifth_week">vijfde</string>
     <string name="authorization_cancelled">Autorisatie geannuleerd</string>
+    <string name="sign_in_with_google">Log in met Google</string>
+    <string name="synchronization_third_party">Synchronisatie via derden</string>
 </resources>
