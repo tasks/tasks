@@ -665,4 +665,6 @@
     <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="follow_reddit">Seguir r/Tasks</string>
     <string name="authorization_cancelled">Autorización cancelada</string>
+    <string name="sign_in_with_google">Inicia sesión con Google</string>
+    <string name="synchronization_third_party">Sincronización con terceros</string>
 </resources>
