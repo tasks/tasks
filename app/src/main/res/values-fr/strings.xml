@@ -660,4 +660,6 @@
     <string name="repeat_monthly_fifth_week">cinquième</string>
     <string name="follow_reddit">Suivre r/Tasks</string>
     <string name="authorization_cancelled">Autorisation annulée</string>
+    <string name="sign_in_with_google">Connectez-vous avec Google</string>
+    <string name="synchronization_third_party">Synchronisation avec les tiers</string>
 </resources>
