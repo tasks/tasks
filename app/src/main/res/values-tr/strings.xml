@@ -665,4 +665,6 @@
     <string name="more_options">Daha fazla seçenek</string>
     <string name="repeat_monthly_fifth_week">beşinci</string>
     <string name="authorization_cancelled">Yetkilendirme iptal edildi</string>
+    <string name="sign_in_with_google">Google ile oturum aç</string>
+    <string name="synchronization_third_party">Üçüncü taraf eşzamanlama</string>
 </resources>
