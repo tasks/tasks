@@ -664,4 +664,7 @@
     <string name="follow_reddit">Følg r/tasks</string>
     <string name="background_location_permission_required">Dette programmet posisjonsdata for å kunne utløse posisjonsbaserte påminnelser, selv når programmet er lukket eller ikke i bruk.</string>
     <string name="repeat_monthly_fifth_week">femte</string>
+    <string name="sign_in_with_google">Logg inn med Google</string>
+    <string name="authorization_cancelled">Identietsbekreftelse avbrutt</string>
+    <string name="synchronization_third_party">Tredjepartssynkronisering</string>
 </resources>
