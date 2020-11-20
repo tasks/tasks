@@ -524,7 +524,7 @@
     <string name="chips">Chips</string>
     <string name="chip_appearance">Chip外观</string>
     <string name="desaturate_colors">饱和色</string>
-    <string name="desaturate_colors_summary_on">颜色饱和度会在深色主题下下降</string>
+    <string name="desaturate_colors_summary_on">颜色饱和度会在深色主题下降低</string>
     <string name="desaturate_colors_summary_off">在深色主题中颜色饱和度不会降低</string>
     <string name="places">地点</string>
     <string name="place_settings">地点设置</string>
@@ -656,4 +656,6 @@
     <string name="background_location_permission_required">本应用收集位置数据，以启用基于位置的提醒，即使应用程序关闭或不使用。</string>
     <string name="repeat_monthly_fifth_week">第五</string>
     <string name="authorization_cancelled">授权被取消</string>
+    <string name="sign_in_with_google">用谷歌帐号登录</string>
+    <string name="synchronization_third_party">第三方同步</string>
 </resources>
