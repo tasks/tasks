@@ -636,4 +636,18 @@
     <string name="astrid_sort_order_summary">\'나의 할일\', \'오늘\', 태그 화면에서 Astrid 수동 정렬을 사용할 수 있습니다. 추후 업데이트 시 \'순서 직접 정렬\' 을 이 방식으로 대체할 예정입니다</string>
     <string name="astrid_sort_order">Astrid 수동 정렬</string>
     <string name="manage_lists">목록 관리</string>
+    <string name="authorization_cancelled">인증 취소됨</string>
+    <string name="purchases_updated">구매 업데이트됨</string>
+    <string name="current_subscription">현재 구독: %s</string>
+    <string name="price_per_year">$%s/년</string>
+    <string name="price_per_year_abbreviated">$%s/년</string>
+    <string name="price_per_month_abbreviated">$%s/월</string>
+    <string name="price_per_month">$%s/월</string>
+    <string name="your_subscription_expired">구독이 만료되었습니다. 서비스를 재개하려면 지금 구독하세요.</string>
+    <string name="logged_in">%s에 로그인됨</string>
+    <string name="background_location">백그라운드 위치정보</string>
+    <string name="permission_read_tasks">Tasks 데이터베이스에 대한 전체 액세스</string>
+    <string name="more_options">추가 옵션</string>
+    <string name="background_location_permission_required">앱이 닫히거나 사용하지 않을 때에도 위치 기반 미리 알림을 사용하도록 위치 데이터를 수집합니다.</string>
+    <string name="synchronization_third_party">서드 파티앱 동기화</string>
 </resources>
