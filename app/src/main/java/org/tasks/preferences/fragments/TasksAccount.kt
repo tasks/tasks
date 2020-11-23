@@ -20,7 +20,9 @@ import org.tasks.billing.PurchaseDialog
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
 import org.tasks.injection.InjectingPreferenceFragment
+import org.tasks.preferences.IconPreference
 import java.net.HttpURLConnection.HTTP_PAYMENT_REQUIRED
+import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -43,7 +45,7 @@ class TasksAccount : InjectingPreferenceFragment() {
                     caldavAccount.error = null
                     caldavDao.update(caldavAccount)
                 }
-                refreshSubscription()
+                refreshUi()
             }
         }
     }
@@ -78,6 +80,8 @@ class TasksAccount : InjectingPreferenceFragment() {
             billingClient.queryPurchases()
             false
         }
+
+        refreshUi()
     }
 
     private fun removeAccount() = lifecycleScope.launch {
@@ -92,7 +96,7 @@ class TasksAccount : InjectingPreferenceFragment() {
         localBroadcastManager.registerPurchaseReceiver(purchaseReceiver)
         localBroadcastManager.registerRefreshListReceiver(purchaseReceiver)
 
-        refreshSubscription()
+        refreshUi()
     }
 
     override fun onPause() {
@@ -101,7 +105,12 @@ class TasksAccount : InjectingPreferenceFragment() {
         localBroadcastManager.unregisterReceiver(purchaseReceiver)
     }
 
-    private fun refreshSubscription() {
+    private fun refreshUi() {
+        (findPreference(R.string.sign_in_with_google) as IconPreference).apply {
+            isVisible = caldavAccount.error.isLoggedOut()
+            iconVisible = true
+        }
+
         if (BuildConfig.FLAVOR == "generic") {
             return
         }
@@ -157,6 +166,9 @@ class TasksAccount : InjectingPreferenceFragment() {
             }
             return fragment
         }
+
+        private fun String?.isLoggedOut(): Boolean =
+                this?.startsWith("HTTP $HTTP_UNAUTHORIZED") == true
 
         private fun String?.isPaymentRequired(): Boolean =
                 this?.startsWith("HTTP $HTTP_PAYMENT_REQUIRED") == true

@@ -4,9 +4,11 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:key="@string/preference_screen">
 
-  <Preference
+  <org.tasks.preferences.IconPreference
     android:key="@string/sign_in_with_google"
+    android:layout="@layout/preference_icon"
     android:title="@string/sign_in_with_google"
+    android:summary="@string/authentication_required"
     app:isPreferenceVisible="false"
     tools:isPreferenceVisible="true"/>
 

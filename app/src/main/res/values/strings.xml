@@ -667,4 +667,5 @@ File %1$s contained %2$s.\n\n
   <string name="follow_reddit">Follow r/tasks</string>
   <string name="authorization_cancelled">Authorization cancelled</string>
   <string name="sign_in_with_google">Sign in with Google</string>
+  <string name="authentication_required">Authentication required</string>
 </resources>
