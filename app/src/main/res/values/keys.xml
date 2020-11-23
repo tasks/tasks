@@ -23,9 +23,10 @@
   <string name="url_tasker">https://tasks.org/help/tasker</string>
   <string name="url_donate">https://tasks.org/donate</string>
   <string name="url_reddit">https://reddit.com/r/tasks</string>
+  <string name="url_sponsor">https://github.com/sponsors/abaker</string>
 
   <!-- Eventually these should be moved to strings.xml for translation -->
-  <string name="upgrade_header">Subscribe to unlock additional features and support open source software!</string>
+  <string name="upgrade_header">Unlock additional features and support open source software!</string>
   <string name="upgrade_sync_with_tasks">Sync with Tasks.org</string>
   <string name="upgrade_no_platform_lock_in">No platform lock-in</string>
   <string name="upgrade_open_internet_standards">Tasks.org is based on open internet standards</string>
@@ -44,6 +45,8 @@
   <string name="upgrade_balance">Your remaining balance will apply to your new subscription</string>
   <string name="upgrade_cancel">Cancel at any time</string>
   <string name="upgrade_benefits_retained">benefits are retained until the end of your billing period</string>
+  <string name="upgrade_previous_donors">Previous donors</string>
+  <string name="upgrade_previous_donors_contact">to receive one month credit for every $3 in past donations</string>
 
   <string name="p_date_shortcut_morning">date_shortcut_morning</string>
   <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>

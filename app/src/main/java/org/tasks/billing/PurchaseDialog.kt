@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import androidx.core.view.isVisible
@@ -17,6 +18,7 @@ import com.google.android.material.slider.Slider
 import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.Markwon
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
+import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.databinding.ActivityPurchaseBinding
@@ -73,7 +75,15 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
                 .usePlugin(StrikethroughPlugin.create())
                 .build()
 
-        setWaitScreen(true)
+        if (BuildConfig.FLAVOR != "generic") {
+            setWaitScreen(true)
+        } else {
+            setWaitScreen(false)
+            binding.payAnnually.isVisible = false
+            binding.payMonthly.isVisible = false
+            binding.payOther.isVisible = false
+            binding.sponsor.isVisible = true
+        }
 
         return dialogBuilder.newDialog()
                 .setView(binding.root)
@@ -82,13 +92,13 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
 
     private fun updateText() {
         var benefits = "### ${getString(R.string.upgrade_header)}"
-        if (nameYourPrice) {
-            benefits += """
+        benefits += if (nameYourPrice) {
+            """
 ---
 #### ~~${getString(R.string.upgrade_sync_with_tasks)}~~
 """
         } else {
-            benefits += """
+            """
 ---                
 #### [${getString(R.string.upgrade_sync_with_tasks)} (BETA)](${getString(R.string.help_url_sync)})
 * **${getString(R.string.upgrade_no_platform_lock_in)}** — ${getString(R.string.upgrade_open_internet_standards)}
@@ -96,7 +106,13 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
 * ${getString(R.string.upgrade_coming_soon)}
 """
         }
-        benefits += """
+        benefits += if (BuildConfig.FLAVOR == "generic") {
+            """
+---
+**${getString(R.string.upgrade_previous_donors)}** - [${getString(R.string.contact_developer)}](mailto:${getString(R.string.support_email)}) ${getString(R.string.upgrade_previous_donors_contact)}
+"""
+        } else {
+            """
 ---
 #### ${getString(R.string.upgrade_synchronization)}
 * [${getString(R.string.davx5)}](${getString(R.string.url_davx5)})
@@ -113,7 +129,7 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
 * **${getString(R.string.upgrade_downgrade)}** — ${getString(R.string.upgrade_balance)}
 * **${getString(R.string.upgrade_cancel)}** — ${getString(R.string.upgrade_benefits_retained)}
 """
-
+        }
         binding.text.text = markwon.toMarkdown(benefits)
     }
 
@@ -125,6 +141,11 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
     @OnClick(R.id.pay_monthly)
     fun subscribeMonthly() {
         initiatePurchase(true, 3)
+    }
+
+    @OnClick(R.id.sponsor)
+    fun sponsor() {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_sponsor))))
     }
     
     private fun initiatePurchase(isMonthly: Boolean, price: Int) {

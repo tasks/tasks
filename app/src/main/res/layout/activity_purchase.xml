@@ -6,6 +6,7 @@
   xmlns:tools="http://schemas.android.com/tools">
     <ScrollView
       android:id="@+id/scroll"
+      android:layout_alignParentTop="true"
       android:layout_above="@id/bottom_panel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -101,6 +102,20 @@
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/pay_annually"
               tools:text="@string/back"/>
+
+            <com.google.android.material.button.MaterialButton
+              android:id="@+id/sponsor"
+              style="@style/OutlineButton"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/github_sponsor"
+              android:textColor="@color/text_secondary"
+              android:visibility="gone"
+              app:icon="@drawable/ic_outline_favorite_border_24px"
+              app:iconTint="@color/github_sponsor"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/pay_annually"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

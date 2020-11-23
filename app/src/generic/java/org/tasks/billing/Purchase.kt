@@ -4,21 +4,17 @@ package org.tasks.billing
 class Purchase(json: String?) {
     val sku: String = ""
 
-    fun toJson(): String? {
-        return null
-    }
+    fun toJson(): String? = null
 
-    val isCanceled: Boolean
-        get() = false
+    val isCanceled = false
 
-    val subscriptionPrice: Int
-        get() = 0
+    val subscriptionPrice = 0
 
-    val isMonthly: Boolean
-        get() = false
+    val isMonthly = false
 
-    val isProSubscription: Boolean
-        get() = false
+    val isProSubscription = false
+
+    val isTasksSubscription = false
 
     val purchaseToken = ""
 }
