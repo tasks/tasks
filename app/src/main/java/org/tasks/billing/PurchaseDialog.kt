@@ -75,15 +75,7 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
                 .usePlugin(StrikethroughPlugin.create())
                 .build()
 
-        if (BuildConfig.FLAVOR != "generic") {
-            setWaitScreen(true)
-        } else {
-            setWaitScreen(false)
-            binding.payAnnually.isVisible = false
-            binding.payMonthly.isVisible = false
-            binding.payOther.isVisible = false
-            binding.sponsor.isVisible = true
-        }
+        setWaitScreen(BuildConfig.FLAVOR != "generic")
 
         return dialogBuilder.newDialog()
                 .setView(binding.root)
@@ -175,11 +167,13 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
 
     private fun setWaitScreen(isWaitScreen: Boolean) {
         Timber.d("setWaitScreen(%s)", isWaitScreen)
+        val generic = BuildConfig.FLAVOR == "generic"
         binding.slider.isVisible = !isWaitScreen && nameYourPrice
         binding.payOther.isVisible = !isWaitScreen
         binding.payOther.setText(if (nameYourPrice) R.string.back else R.string.more_options)
-        binding.tasksOrgButtonPanel.isVisible = !isWaitScreen
-        binding.screenWait.isVisible = isWaitScreen
+        binding.tasksOrgButtonPanel.isVisible = !isWaitScreen && !generic
+        binding.screenWait.isVisible = isWaitScreen && !generic
+        binding.sponsor.isVisible = generic
         updateText()
     }
 
