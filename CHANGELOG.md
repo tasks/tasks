@@ -1,4 +1,4 @@
-### 11.0 (2020-11-11)
+### 11.0 (2020-11-24)
 
 * New Tasks.org synchronization service
 * Multi-select rescheduling
@@ -16,18 +16,19 @@
 * Add ability to delete comments (Thanks to @romedius!)
 * Add option to always display date (Thanks to @T0M0F!)
 * Copy subtasks when copying tasks (Thanks to @supermzn!)
+* Fix ring five times cutoff (Thanks to @przemhb!)
 * Bug fixes
 * Translation updates
   * Arabic - @mhmdanas
-  * Basque - @ppasserini
+  * Basque - @osoitz, @ppasserini
   * Dutch - @fvbommel
   * French - @FlorianLeChat
-  * German - @franconian
+  * German - @franconian, J. Lavoie, @myabc
   * Hebrew - @yarons
   * Hungarian - kaciokos
   * Indonesian - @andikatuluspangestu
-  * Italian - @ppasserini
-  * Korean - @Sunjae Choi
+  * Italian - @ppasserini, @Fs00
+  * Korean - Sunjae Choi, @Hwaro-K
   * Norwegian Bokmål - @comradekingu
   * Polish - @alex-ter
   * Russian - Nikita Epifanov
