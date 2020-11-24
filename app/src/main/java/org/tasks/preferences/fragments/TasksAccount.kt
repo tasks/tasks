@@ -14,6 +14,7 @@ import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.auth.AuthStateManager
+import org.tasks.auth.SignInActivity
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseDialog
@@ -88,6 +89,13 @@ class TasksAccount : InjectingPreferenceFragment() {
         findPreference(R.string.offline_lists).setOnPreferenceClickListener {
             workManager.migrateLocalTasks(caldavAccount)
             toaster.longToast(R.string.migrating_tasks)
+            false
+        }
+
+        findPreference(R.string.sign_in_with_google).setOnPreferenceClickListener {
+            activity?.startActivityForResult(
+                    Intent(activity, SignInActivity::class.java),
+                    Synchronization.REQUEST_TASKS_ORG)
             false
         }
 
