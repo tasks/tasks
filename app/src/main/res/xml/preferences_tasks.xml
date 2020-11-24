@@ -28,6 +28,16 @@
     app:icon="@drawable/ic_cached_24px" />
 
   <PreferenceCategory
+    android:key="@string/migrate"
+    android:title="@string/migrate">
+
+    <Preference
+      android:key="@string/offline_lists"
+      android:title="@string/offline_lists"/>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
     android:key="@string/sync_SPr_interval_title"
     android:title="@string/sync_SPr_interval_title">
 

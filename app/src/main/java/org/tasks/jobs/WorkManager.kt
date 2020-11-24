@@ -3,6 +3,7 @@ package org.tasks.jobs
 import android.net.Uri
 import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
+import org.tasks.data.CaldavAccount
 import org.tasks.data.Place
 
 interface WorkManager {
@@ -12,6 +13,8 @@ interface WorkManager {
     fun updateCalendar(task: Task)
 
     fun cleanup(ids: Iterable<Long>)
+
+    fun migrateLocalTasks(caldavAccount: CaldavAccount)
 
     fun googleTaskSync(immediate: Boolean)
 
@@ -57,5 +60,6 @@ interface WorkManager {
         const val TAG_BACKGROUND_SYNC_ETESYNC = "tag_background_sync_etesync"
         const val TAG_BACKGROUND_SYNC_OPENTASKS = "tag_background_sync_opentasks"
         const val TAG_REMOTE_CONFIG = "tag_remote_config"
+        const val TAG_MIGRATE_LOCAL = "tag_migrate_local"
     }
 }

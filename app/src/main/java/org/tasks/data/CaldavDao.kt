@@ -20,6 +20,9 @@ import org.tasks.time.DateTimeUtils.currentTimeMillis
 
 @Dao
 abstract class CaldavDao {
+    @Query("SELECT COUNT(*) FROM caldav_lists WHERE cdl_account = :account")
+    abstract fun listCount(account: String): Int
+
     @Query("SELECT * FROM caldav_lists")
     abstract fun subscribeToCalendars(): LiveData<List<CaldavCalendar>>
 

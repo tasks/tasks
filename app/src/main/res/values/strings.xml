@@ -217,6 +217,10 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d subtask</item>
     <item quantity="other">%d subtasks</item>
   </plurals>
+  <plurals name="list_count">
+    <item quantity="one">%d list</item>
+    <item quantity="other">%d lists</item>
+  </plurals>
   <plurals name="repeat_times">
     <item quantity="one">time</item>
     <item quantity="other">times</item>
@@ -669,4 +673,8 @@ File %1$s contained %2$s.\n\n
   <string name="sign_in_with_google">Sign in with Google</string>
   <string name="authentication_required">Authentication required</string>
   <string name="github_sponsor">Sponsor</string>
+  <string name="migrate">Migrate</string>
+  <string name="migrating_tasks">Migrating tasks</string>
+  <string name="offline_lists">Offline lists</string>
+  <string name="migrate_count">Move %s to Tasks.org</string>
 </resources>

@@ -12,16 +12,14 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.OpenTaskDao
-import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.jobs.MigrateLocalWork.Companion.EXTRA_ACCOUNT
 import org.tasks.jobs.SyncWork.Companion.EXTRA_IMMEDIATE
 import org.tasks.jobs.WorkManager.Companion.MAX_CLEANUP_LENGTH
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
@@ -31,6 +29,7 @@ import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_GOOGLE_TASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_OPENTASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKUP
 import org.tasks.jobs.WorkManager.Companion.TAG_MIDNIGHT_REFRESH
+import org.tasks.jobs.WorkManager.Companion.TAG_MIGRATE_LOCAL
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
@@ -70,6 +69,16 @@ class WorkManagerImpl constructor(
                         .setInputData(Data.Builder()
                                 .putLong(UpdateCalendarWork.EXTRA_ID, task.id)
                                 .build()))
+    }
+
+    @SuppressLint("EnqueueWork")
+    override fun migrateLocalTasks(caldavAccount: CaldavAccount) {
+        val builder = OneTimeWorkRequest.Builder(MigrateLocalWork::class.java)
+                .setInputData(Data.Builder().putString(EXTRA_ACCOUNT, caldavAccount.uuid).build())
+                .setConstraints(Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build())
+        enqueue(workManager.beginUniqueWork(TAG_MIGRATE_LOCAL, ExistingWorkPolicy.APPEND_OR_REPLACE, builder.build()))
     }
 
     override fun cleanup(ids: Iterable<Long>) {
@@ -250,7 +259,7 @@ class WorkManagerImpl constructor(
     }
 
     @SuppressLint("EnqueueWork")
-    private fun enqueueUnique(key: String, c: Class<out Worker?>, time: Long) {
+    private fun enqueueUnique(key: String, c: Class<out Worker?>, time: Long = 0) {
         val delay = time - DateUtilities.now()
         val builder = OneTimeWorkRequest.Builder(c)
         if (delay > 0) {

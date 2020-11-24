@@ -20,7 +20,9 @@ import org.tasks.billing.PurchaseDialog
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
 import org.tasks.injection.InjectingPreferenceFragment
+import org.tasks.jobs.WorkManager
 import org.tasks.preferences.IconPreference
+import org.tasks.ui.Toaster
 import java.net.HttpURLConnection.HTTP_PAYMENT_REQUIRED
 import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 import javax.inject.Inject
@@ -34,6 +36,8 @@ class TasksAccount : InjectingPreferenceFragment() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var workManager: WorkManager
+    @Inject lateinit var toaster: Toaster
 
     lateinit var caldavAccount: CaldavAccount
 
@@ -81,6 +85,12 @@ class TasksAccount : InjectingPreferenceFragment() {
             false
         }
 
+        findPreference(R.string.offline_lists).setOnPreferenceClickListener {
+            workManager.migrateLocalTasks(caldavAccount)
+            toaster.longToast(R.string.migrating_tasks)
+            false
+        }
+
         refreshUi()
     }
 
@@ -109,6 +119,14 @@ class TasksAccount : InjectingPreferenceFragment() {
         (findPreference(R.string.sign_in_with_google) as IconPreference).apply {
             isVisible = caldavAccount.error.isLoggedOut()
             iconVisible = true
+        }
+
+        lifecycleScope.launch {
+            val listCount = caldavDao.listCount(CaldavDao.LOCAL)
+            val quantityString = resources.getQuantityString(R.plurals.list_count, listCount, listCount)
+            findPreference(R.string.migrate).isVisible = listCount > 0
+            findPreference(R.string.offline_lists).summary =
+                    getString(R.string.migrate_count, quantityString)
         }
 
         if (BuildConfig.FLAVOR == "generic") {
