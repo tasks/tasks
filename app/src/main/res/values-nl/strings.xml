@@ -662,4 +662,6 @@
     <string name="authorization_cancelled">Autorisatie geannuleerd</string>
     <string name="sign_in_with_google">Log in met Google</string>
     <string name="synchronization_third_party">Synchronisatie via derden</string>
+    <string name="authentication_required">Authenticatie verplicht</string>
+    <string name="github_sponsor">Sponsor</string>
 </resources>
