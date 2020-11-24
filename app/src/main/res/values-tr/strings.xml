@@ -667,4 +667,6 @@
     <string name="authorization_cancelled">Yetkilendirme iptal edildi</string>
     <string name="sign_in_with_google">Google ile oturum aç</string>
     <string name="synchronization_third_party">Üçüncü taraf eşzamanlama</string>
+    <string name="github_sponsor">Sponsor</string>
+    <string name="authentication_required">Kimlik doğrulama gerekli</string>
 </resources>
