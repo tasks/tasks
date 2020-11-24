@@ -64,21 +64,21 @@ class AuthorizationService @Inject constructor(
         }
     }
 
-    suspend fun getFreshToken(): String? = withContext(Dispatchers.IO) {
-        suspendCoroutine { cont ->
-            authStateManager
-                    .current
-                    .performActionWithFreshTokens(authorizationService) { _, idToken, exception ->
-                        if (exception == null) {
-                            cont.resumeWith(Result.success(idToken))
-                        } else {
-                            cont.resumeWith(Result.failure(exception))
-                        }
-                    }
+    suspend fun getFreshToken(): String? {
+        val authState = authStateManager.current
+        if (!authState.isAuthorized) {
+            return null
         }
-    }
-
-    fun signOut() {
-        authStateManager.signOut()
+        return withContext(Dispatchers.IO) {
+            suspendCoroutine { cont ->
+                authState.performActionWithFreshTokens(authorizationService) { _, idToken, exception ->
+                    if (exception == null) {
+                        cont.resumeWith(Result.success(idToken))
+                    } else {
+                        cont.resumeWith(Result.failure(exception))
+                    }
+                }
+            }
+        }
     }
 }
