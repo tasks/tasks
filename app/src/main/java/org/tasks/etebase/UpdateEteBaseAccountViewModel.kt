@@ -7,15 +7,24 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.ui.CompletableViewModel
 
 class UpdateEteBaseAccountViewModel @ViewModelInject constructor(
-        private val client: EteBaseClient) : CompletableViewModel<Pair<UserInfo, String>>() {
+        private val clientProvider: EteBaseClientProvider) : CompletableViewModel<Pair<UserInfo, String>>() {
     suspend fun updateAccount(url: String, user: String, pass: String?, token: String) {
         run {
-            client.setForeground()
             if (isNullOrEmpty(pass)) {
-                Pair.create(client.forUrl(url, user, null, token).userInfo(), token)
+                Pair.create(
+                        clientProvider.forUrl(url, user, null, token).setForeground().userInfo(),
+                        token
+                )
             } else {
-                val newToken = client.forUrl(url, user, null, null).getToken(pass)
-                Pair.create(client.forUrl(url, user, null, newToken).userInfo(), newToken)
+                val newToken =
+                        clientProvider
+                                .forUrl(url, user, null, null)
+                                .setForeground()
+                                .getToken(pass)!!
+                Pair.create(
+                        clientProvider.forUrl(url, user, null, newToken).userInfo(),
+                        newToken
+                )
             }
         }
     }

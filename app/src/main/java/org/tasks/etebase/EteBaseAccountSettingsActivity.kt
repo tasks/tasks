@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class EteBaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
-    @Inject lateinit var eteBaseClient: EteBaseClient
+    @Inject lateinit var clientProvider: EteBaseClientProvider
 
     private val addAccountViewModel: AddEteBaseAccountViewModel by viewModels()
     private val updateAccountViewModel: UpdateEteBaseAccountViewModel by viewModels()
@@ -173,7 +173,7 @@ class EteBaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     }
 
     override suspend fun removeAccount() {
-        caldavAccount?.let { eteBaseClient.forAccount(it).invalidateToken() }
+        caldavAccount?.let { clientProvider.forAccount(it).invalidateToken() }
         super.removeAccount()
     }
 

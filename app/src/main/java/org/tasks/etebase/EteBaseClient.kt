@@ -1,6 +1,5 @@
 package org.tasks.etebase
 
-import android.content.Context
 import androidx.core.util.Pair
 import at.bitfire.cert4android.CustomCertManager
 import com.etesync.journalmanager.*
@@ -14,134 +13,34 @@ import com.etesync.journalmanager.UserInfoManager.UserInfo.Companion.generate
 import com.etesync.journalmanager.model.CollectionInfo
 import com.etesync.journalmanager.model.CollectionInfo.Companion.fromJson
 import com.etesync.journalmanager.model.SyncEntry
-import com.etesync.journalmanager.util.TokenAuthenticator
 import com.google.common.collect.Lists
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
-import okhttp3.internal.tls.OkHostnameVerifier
-import org.tasks.DebugNetworkInterceptor
-import org.tasks.caldav.MemoryCookieStore
-import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
-import org.tasks.preferences.Preferences
-import org.tasks.security.KeyStoreEncryption
 import timber.log.Timber
 import java.io.IOException
-import java.security.KeyManagementException
-import java.security.NoSuchAlgorithmException
 import java.util.*
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.net.ssl.SSLContext
 
-class EteBaseClient {
-    private val encryption: KeyStoreEncryption
-    private val preferences: Preferences
-    private val interceptor: DebugNetworkInterceptor
-    private val username: String?
-    private val token: String?
-    private val encryptionPassword: String?
-    private val httpClient: OkHttpClient?
-    private val httpUrl: HttpUrl?
-    private val context: Context
-    private val journalManager: JournalManager?
-    private var foreground = false
-
-    @Inject
-    constructor(
-            @ApplicationContext context: Context,
-            encryption: KeyStoreEncryption,
-            preferences: Preferences,
-            interceptor: DebugNetworkInterceptor) {
-        this.context = context
-        this.encryption = encryption
-        this.preferences = preferences
-        this.interceptor = interceptor
-        username = null
-        token = null
-        encryptionPassword = null
-        httpClient = null
-        httpUrl = null
-        journalManager = null
-    }
-
-    private constructor(
-            context: Context,
-            encryption: KeyStoreEncryption,
-            preferences: Preferences,
-            interceptor: DebugNetworkInterceptor,
-            url: String?,
-            username: String?,
-            encryptionPassword: String?,
-            token: String?,
-            foreground: Boolean) {
-        this.context = context
-        this.encryption = encryption
-        this.preferences = preferences
-        this.interceptor = interceptor
-        this.username = username
-        this.encryptionPassword = encryptionPassword
-        this.token = token
-        this.foreground = foreground
-        val customCertManager = CustomCertManager(context)
-        customCertManager.appInForeground = foreground
-        val hostnameVerifier = customCertManager.hostnameVerifier(OkHostnameVerifier)
-        val sslContext = SSLContext.getInstance("TLS")
-        sslContext.init(null, arrayOf(customCertManager), null)
-        val builder = OkHttpClient()
-                .newBuilder()
-                .addNetworkInterceptor(TokenAuthenticator(null, token))
-                .cookieJar(MemoryCookieStore())
-                .followRedirects(false)
-                .followSslRedirects(true)
-                .sslSocketFactory(sslContext.socketFactory, customCertManager)
-                .hostnameVerifier(hostnameVerifier)
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(120, TimeUnit.SECONDS)
-        if (preferences.isFlipperEnabled) {
-            interceptor.apply(builder)
-        }
-        httpClient = builder.build()
-        httpUrl = url?.toHttpUrlOrNull()
-        journalManager = JournalManager(httpClient, httpUrl!!)
-    }
-
-    @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
-    suspend fun forAccount(account: CaldavAccount): EteBaseClient {
-        return forUrl(
-                account.url,
-                account.username,
-                account.getEncryptionPassword(encryption),
-                account.getPassword(encryption))
-    }
-
-    @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
-    suspend fun forUrl(url: String?, username: String?, encryptionPassword: String?, token: String?): EteBaseClient = withContext(Dispatchers.IO) {
-        EteBaseClient(
-                context,
-                encryption,
-                preferences,
-                interceptor,
-                url,
-                username,
-                encryptionPassword,
-                token,
-                foreground)
-    }
+class EteBaseClient(
+        private val customCertManager: CustomCertManager,
+        private val username: String?,
+        private val encryptionPassword: String?,
+        private val token: String?,
+        private val httpClient: OkHttpClient,
+        private val httpUrl: HttpUrl
+) {
+    private val journalManager = JournalManager(httpClient, httpUrl)
 
     @Throws(IOException::class, Exceptions.HttpException::class)
     suspend fun getToken(password: String?): String? = withContext(Dispatchers.IO) {
-        JournalAuthenticator(httpClient!!, httpUrl!!).getAuthToken(username!!, password!!)
+        JournalAuthenticator(httpClient, httpUrl).getAuthToken(username!!, password!!)
     }
 
     @Throws(Exceptions.HttpException::class)
     suspend fun userInfo(): UserInfoManager.UserInfo? = withContext(Dispatchers.IO) {
-        val userInfoManager = UserInfoManager(httpClient!!, httpUrl!!)
+        val userInfoManager = UserInfoManager(httpClient, httpUrl)
         userInfoManager.fetch(username!!)
     }
 
@@ -177,7 +76,7 @@ class EteBaseClient {
     @Throws(Exceptions.HttpException::class)
     suspend fun getCalendars(userInfo: UserInfoManager.UserInfo?): Map<Journal, CollectionInfo> = withContext(Dispatchers.IO) {
         val result: MutableMap<Journal, CollectionInfo> = HashMap()
-        for (journal in journalManager!!.list()) {
+        for (journal in journalManager.list()) {
             val collection = convertJournalToCollection(userInfo, journal)
             if (collection != null) {
                 if (TYPE_TASKS == collection.type) {
@@ -197,7 +96,7 @@ class EteBaseClient {
             journal: Journal,
             calendar: CaldavCalendar,
             callback: suspend (List<Pair<JournalEntryManager.Entry, SyncEntry>>) -> Unit) = withContext(Dispatchers.IO) {
-        val journalEntryManager = JournalEntryManager(httpClient!!, httpUrl!!, journal.uid!!)
+        val journalEntryManager = JournalEntryManager(httpClient, httpUrl, journal.uid!!)
         val crypto = getCrypto(userInfo, journal)
         var journalEntries: List<JournalEntryManager.Entry>
         do {
@@ -211,20 +110,21 @@ class EteBaseClient {
     @Throws(Exceptions.HttpException::class)
     suspend fun pushEntries(journal: Journal, entries: List<JournalEntryManager.Entry>?, remoteCtag: String?) = withContext(Dispatchers.IO) {
         var remoteCtag = remoteCtag
-        val journalEntryManager = JournalEntryManager(httpClient!!, httpUrl!!, journal.uid!!)
+        val journalEntryManager = JournalEntryManager(httpClient, httpUrl, journal.uid!!)
         for (partition in Lists.partition(entries!!, MAX_PUSH)) {
             journalEntryManager.create(partition, remoteCtag)
             remoteCtag = partition[partition.size - 1].uid
         }
     }
 
-    fun setForeground() {
-        foreground = true
+    fun setForeground(): EteBaseClient {
+        customCertManager.appInForeground = true
+        return this
     }
 
     suspend fun invalidateToken() = withContext(Dispatchers.IO) {
         try {
-            JournalAuthenticator(httpClient!!, httpUrl!!).invalidateAuthToken(token!!)
+            JournalAuthenticator(httpClient, httpUrl).invalidateAuthToken(token!!)
         } catch (e: Exception) {
             Timber.e(e)
         }
@@ -240,14 +140,14 @@ class EteBaseClient {
         collectionInfo.selected = true
         collectionInfo.color = if (color == 0) null else color
         val crypto = CryptoManager(collectionInfo.version, encryptionPassword!!, uid)
-        journalManager!!.create(Journal(crypto, collectionInfo.toJson(), uid))
+        journalManager.create(Journal(crypto, collectionInfo.toJson(), uid))
         uid
     }
 
     @Throws(VersionTooNewException::class, IntegrityException::class, Exceptions.HttpException::class)
-    suspend fun updateCollection(calendar: CaldavCalendar, name: String?, color: Int): String? = withContext(Dispatchers.IO) {
+    suspend fun updateCollection(calendar: CaldavCalendar, name: String?, color: Int): String = withContext(Dispatchers.IO) {
         val uid = calendar.url
-        val journal = journalManager!!.fetch(uid!!)
+        val journal = journalManager.fetch(uid!!)
         val userInfo = userInfo()
         val crypto = getCrypto(userInfo, journal)
         val collectionInfo = convertJournalToCollection(userInfo, journal)
@@ -259,14 +159,14 @@ class EteBaseClient {
 
     @Throws(Exceptions.HttpException::class)
     suspend fun deleteCollection(calendar: CaldavCalendar) = withContext(Dispatchers.IO) {
-        journalManager!!.delete(Journal.fakeWithUid(calendar.url!!))
+        journalManager.delete(Journal.fakeWithUid(calendar.url!!))
     }
 
     @Throws(Exceptions.HttpException::class, VersionTooNewException::class, IntegrityException::class, IOException::class)
     suspend fun createUserInfo(derivedKey: String?) = withContext(Dispatchers.IO) {
         val cryptoManager = CryptoManager(CURRENT_VERSION, derivedKey!!, "userInfo")
         val userInfo: UserInfoManager.UserInfo = generate(cryptoManager, username!!)
-        UserInfoManager(httpClient!!, httpUrl!!).create(userInfo)
+        UserInfoManager(httpClient, httpUrl).create(userInfo)
     }
 
     companion object {

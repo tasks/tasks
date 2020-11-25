@@ -39,7 +39,7 @@ class EteBaseSynchronizer @Inject constructor(
         private val localBroadcastManager: LocalBroadcastManager,
         private val taskDeleter: TaskDeleter,
         private val inventory: Inventory,
-        private val client: EteBaseClient,
+        private val clientProvider: EteBaseClientProvider,
         private val iCal: iCalendar) {
     companion object {
         init {
@@ -79,7 +79,7 @@ class EteBaseSynchronizer @Inject constructor(
 
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class, Exceptions.HttpException::class, IntegrityException::class, VersionTooNewException::class)
     private suspend fun synchronize(account: CaldavAccount) {
-        val client = client.forAccount(account)
+        val client = clientProvider.forAccount(account)
         val userInfo = client.userInfo()
         val resources = client.getCalendars(userInfo)
         val uids: Set<String> = resources.values.mapNotNull { it.uid }.toHashSet()
