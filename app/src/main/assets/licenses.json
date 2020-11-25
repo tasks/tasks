@@ -2116,6 +2116,20 @@
       "normalizedLicense": "apache2",
       "url": "http://github.com/google/tink",
       "libraryName": "tink-android"
+    },
+    {
+      "artifactId": {
+        "name": "client",
+        "group": "com.etebase",
+        "version": "+"
+      },
+      "copyrightHolder": "Tom Hacohen",
+      "copyrightStatement": "Copyright &copy; Tom Hacohen. All rights reserved.",
+      "license": "LGPL-3.0-only",
+      "licenseUrl": "https://spdx.org/licenses/LGPL-3.0-only.html",
+      "normalizedLicense": "lgpl3",
+      "url": "https://www.etebase.com",
+      "libraryName": "client"
     }
   ]
 }

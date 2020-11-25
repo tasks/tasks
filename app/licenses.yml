@@ -889,3 +889,9 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://github.com/google/tink
+- artifact: com.etebase:client:+
+  name: client
+  copyrightHolder: Tom Hacohen
+  license: LGPL-3.0-only
+  licenseUrl: https://spdx.org/licenses/LGPL-3.0-only.html
+  url: https://www.etebase.com

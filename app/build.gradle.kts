@@ -209,6 +209,7 @@ dependencies {
     implementation("com.mapbox.mapboxsdk:mapbox-android-core:3.1.0")
     implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0")
     implementation("com.etesync:journalmanager:1.1.1")
+    implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("androidx.security:security-crypto:1.1.0-alpha02")
     implementation("net.openid:appauth:0.7.1")
