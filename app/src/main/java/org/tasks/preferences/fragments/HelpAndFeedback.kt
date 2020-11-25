@@ -124,7 +124,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
             } else {
                 val price = getString(
                         if (subscription.isMonthly) R.string.price_per_month else R.string.price_per_year,
-                        subscription.subscriptionPrice!! - .01
+                        (subscription.subscriptionPrice!! - .01).toString()
                 )
                 getString(R.string.current_subscription, price)
             }
