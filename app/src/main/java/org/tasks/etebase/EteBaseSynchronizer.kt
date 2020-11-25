@@ -1,4 +1,4 @@
-package org.tasks.etesync
+package org.tasks.etebase
 
 import android.content.Context
 import androidx.core.util.Pair
@@ -33,14 +33,13 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.collections.HashSet
 
-@Deprecated("use etebase")
-class EteSynchronizer @Inject constructor(
+class EteBaseSynchronizer @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val caldavDao: CaldavDao,
         private val localBroadcastManager: LocalBroadcastManager,
         private val taskDeleter: TaskDeleter,
         private val inventory: Inventory,
-        private val client: EteSyncClient,
+        private val client: EteBaseClient,
         private val iCal: iCalendar) {
     companion object {
         init {
@@ -126,7 +125,7 @@ class EteSynchronizer @Inject constructor(
 
     @Throws(IntegrityException::class, Exceptions.HttpException::class, VersionTooNewException::class)
     private suspend fun sync(
-            client: EteSyncClient,
+            client: EteBaseClient,
             userInfo: UserInfoManager.UserInfo,
             caldavCalendar: CaldavCalendar,
             journal: Journal) {

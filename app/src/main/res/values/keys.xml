@@ -12,6 +12,7 @@
   <string name="FSA_label">Tasks Shortcut</string>
   <string name="caldav">CalDAV</string>
   <string name="etesync">EteSync</string>
+  <string name="etesync_v1">EteSync v1</string>
   <string name="davx5">DAVx⁵</string>
   <string name="tasks_org">Tasks.org</string>
   <string name="etesync_url">https://api.etesync.com</string>
@@ -390,6 +391,7 @@
   <string name="p_sync_ongoing_google_tasks">sync_ongoing_google_tasks</string>
   <string name="p_sync_ongoing_caldav">sync_ongoing_caldav</string>
   <string name="p_sync_ongoing_etesync">sync_ongoing_etesync</string>
+  <string name="p_sync_ongoing_etebase">sync_ongoing_etebase</string>
   <string name="p_sync_ongoing_opentasks">sync_ongoing_opentasks</string>
   <string name="p_sync_ongoing_android">sync_ongoing_android</string>
   <string name="p_last_backup">last_backup</string>

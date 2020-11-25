@@ -8,35 +8,34 @@ import kotlinx.coroutines.*
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.analytics.Firebase
-import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
+import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.CaldavDao
-import org.tasks.etesync.EteSynchronizer
+import org.tasks.etebase.EteBaseSynchronizer
 import org.tasks.preferences.Preferences
 
-@Deprecated("use etebase")
-class SyncEteSyncWork @WorkerInject constructor(
+class SyncEteBaseWork @WorkerInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,
         localBroadcastManager: LocalBroadcastManager,
         preferences: Preferences,
         private val caldavDao: CaldavDao,
-        private val eteSynchronizer: EteSynchronizer
+        private val synchronizer: EteBaseSynchronizer
 ) : SyncWork(context, workerParams, firebase, localBroadcastManager, preferences) {
 
-    override suspend fun enabled() = caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty()
+    override suspend fun enabled() = caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty()
 
-    override val syncStatus = R.string.p_sync_ongoing_etesync
+    override val syncStatus = R.string.p_sync_ongoing_etebase
 
     override suspend fun doSync() {
-        etesyncJobs().awaitAll()
+        jobs().awaitAll()
     }
 
-    private suspend fun etesyncJobs(): List<Deferred<Unit>> = coroutineScope {
-        caldavDao.getAccounts(TYPE_ETESYNC)
+    private suspend fun jobs(): List<Deferred<Unit>> = coroutineScope {
+        caldavDao.getAccounts(TYPE_ETEBASE)
                 .map {
                     async(Dispatchers.IO) {
-                        eteSynchronizer.sync(it)
+                        synchronizer.sync(it)
                     }
                 }
     }

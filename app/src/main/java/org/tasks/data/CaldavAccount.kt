@@ -12,6 +12,7 @@ import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
+import org.tasks.etebase.EteBaseCalendarSettingsActivity
 import org.tasks.etesync.EteSyncCalendarSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.security.KeyStoreEncryption
@@ -84,8 +85,12 @@ class CaldavAccount : Parcelable {
     val isCaldavAccount: Boolean
         get() = accountType == TYPE_CALDAV
 
+    @Deprecated("use etebase")
     val isEteSyncAccount: Boolean
         get() = accountType == TYPE_ETESYNC
+
+    val isEteBaseAccount: Boolean
+        get() = accountType == TYPE_ETEBASE
 
     val isOpenTasks: Boolean
         get() = accountType == TYPE_OPENTASKS
@@ -100,6 +105,7 @@ class CaldavAccount : Parcelable {
         TYPE_ETESYNC -> EteSyncCalendarSettingsActivity::class.java
         TYPE_LOCAL -> LocalListSettingsActivity::class.java
         TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
+        TYPE_ETEBASE -> EteBaseCalendarSettingsActivity::class.java
         else -> CaldavCalendarSettingsActivity::class.java
     }
 
@@ -159,10 +165,11 @@ class CaldavAccount : Parcelable {
 
     companion object {
         const val TYPE_CALDAV = 0
-        const val TYPE_ETESYNC = 1
+        @Deprecated("use etebase") const val TYPE_ETESYNC = 1
         const val TYPE_LOCAL = 2
         const val TYPE_OPENTASKS = 3
         const val TYPE_TASKS = 4
+        const val TYPE_ETEBASE = 5
 
         fun String?.openTaskType(): String? = this?.split(":")?.get(0)
 

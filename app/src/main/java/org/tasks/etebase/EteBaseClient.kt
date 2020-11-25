@@ -1,4 +1,4 @@
-package org.tasks.etesync
+package org.tasks.etebase
 
 import android.content.Context
 import androidx.core.util.Pair
@@ -38,8 +38,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.net.ssl.SSLContext
 
-@Deprecated("use etebase")
-class EteSyncClient {
+class EteBaseClient {
     private val encryption: KeyStoreEncryption
     private val preferences: Preferences
     private val interceptor: DebugNetworkInterceptor
@@ -113,7 +112,7 @@ class EteSyncClient {
     }
 
     @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
-    suspend fun forAccount(account: CaldavAccount): EteSyncClient {
+    suspend fun forAccount(account: CaldavAccount): EteBaseClient {
         return forUrl(
                 account.url,
                 account.username,
@@ -122,8 +121,8 @@ class EteSyncClient {
     }
 
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
-    suspend fun forUrl(url: String?, username: String?, encryptionPassword: String?, token: String?): EteSyncClient = withContext(Dispatchers.IO) {
-        EteSyncClient(
+    suspend fun forUrl(url: String?, username: String?, encryptionPassword: String?, token: String?): EteBaseClient = withContext(Dispatchers.IO) {
+        EteBaseClient(
                 context,
                 encryption,
                 preferences,

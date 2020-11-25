@@ -1,4 +1,4 @@
-package org.tasks.etesync
+package org.tasks.etebase
 
 import android.app.Activity
 import android.content.Intent
@@ -25,13 +25,12 @@ import org.tasks.data.CaldavAccount
 import timber.log.Timber
 import javax.inject.Inject
 
-@Deprecated("use etebase")
 @AndroidEntryPoint
-class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
-    @Inject lateinit var eteSyncClient: EteSyncClient
+class EteBaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
+    @Inject lateinit var eteBaseClient: EteBaseClient
 
-    private val addAccountViewModel: AddEteSyncAccountViewModel by viewModels()
-    private val updateAccountViewModel: UpdateEteSyncAccountViewModel by viewModels()
+    private val addAccountViewModel: AddEteBaseAccountViewModel by viewModels()
+    private val updateAccountViewModel: UpdateEteBaseAccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +53,12 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         updateAccountViewModel.removeObserver(this)
     }
 
+    override val description: Int
+        get() = R.string.etesync_account_description
+
     private suspend fun addAccount(userInfoAndToken: Pair<UserInfoManager.UserInfo, String>) {
         caldavAccount = CaldavAccount()
-        caldavAccount!!.accountType = CaldavAccount.TYPE_ETESYNC
+        caldavAccount!!.accountType = CaldavAccount.TYPE_ETEBASE
         caldavAccount!!.uuid = UUIDHelper.newUUID()
         applyTo(caldavAccount!!, userInfoAndToken)
     }
@@ -133,7 +135,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     override val newURL: String
         get() {
             val url = super.newURL
-            return if (isNullOrEmpty(url)) getString(R.string.etesync_url) else url
+            return if (isNullOrEmpty(url)) getString(R.string.etesync_url) else url // TODO: change to etebase url
         }
 
     override val newPassword: String
@@ -161,7 +163,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
             caldavDao.insert(caldavAccount!!)
             firebase.logEvent(
                     R.string.event_sync_add_account,
-                    R.string.param_type to Constants.SYNC_TYPE_ETESYNC
+                    R.string.param_type to Constants.SYNC_TYPE_ETEBASE
             )
         } else {
             caldavDao.update(caldavAccount!!)
@@ -171,7 +173,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     }
 
     override suspend fun removeAccount() {
-        caldavAccount?.let { eteSyncClient.forAccount(it).invalidateToken() }
+        caldavAccount?.let { eteBaseClient.forAccount(it).invalidateToken() }
         super.removeAccount()
     }
 

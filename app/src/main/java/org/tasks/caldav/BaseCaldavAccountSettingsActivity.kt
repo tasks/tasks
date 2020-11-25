@@ -108,7 +108,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             get() = !inventory.hasPro
 
     @get:StringRes
-    protected abstract val description: Int
+    protected open val description = 0
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

@@ -382,6 +382,10 @@
       android:theme="@style/Tasks" />
 
     <activity
+      android:name=".etebase.EteBaseAccountSettingsActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
       android:name=".opentasks.OpenTaskAccountSettingsActivity"
       android:theme="@style/Tasks" />
 
@@ -599,6 +603,14 @@
 
     <activity
       android:name=".etesync.EncryptionSettingsActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name=".etebase.EteBaseCalendarSettingsActivity"
+      android:theme="@style/Tasks" />
+
+    <activity
+      android:name=".etebase.EncryptionSettingsActivity"
       android:theme="@style/Tasks" />
 
     <activity

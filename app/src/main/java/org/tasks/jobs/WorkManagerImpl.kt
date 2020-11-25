@@ -14,6 +14,7 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
@@ -24,6 +25,7 @@ import org.tasks.jobs.SyncWork.Companion.EXTRA_IMMEDIATE
 import org.tasks.jobs.WorkManager.Companion.MAX_CLEANUP_LENGTH
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_CALDAV
+import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_ETEBASE
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_ETESYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_GOOGLE_TASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_OPENTASKS
@@ -33,6 +35,7 @@ import org.tasks.jobs.WorkManager.Companion.TAG_MIGRATE_LOCAL
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
+import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETEBASE
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETESYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_GOOGLE_TASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_OPENTASK
@@ -101,6 +104,9 @@ class WorkManagerImpl constructor(
     override fun eteSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_ETESYNC, SyncEteSyncWork::class.java)
 
+    override fun eteBaseSync(immediate: Boolean) =
+            sync(immediate, TAG_SYNC_ETEBASE, SyncEteBaseWork::class.java)
+
     override fun openTaskSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_OPENTASK, SyncOpenTasksWork::class.java, false)
 
@@ -166,6 +172,13 @@ class WorkManagerImpl constructor(
                     TAG_BACKGROUND_SYNC_ETESYNC,
                     SyncEteSyncWork::class.java,
                     enabled && caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty(),
+                    unmetered)
+        }
+        throttle.run {
+            scheduleBackgroundSync(
+                    TAG_BACKGROUND_SYNC_ETEBASE,
+                    SyncEteBaseWork::class.java,
+                    enabled && caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty(),
                     unmetered)
         }
         throttle.run {

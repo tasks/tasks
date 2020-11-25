@@ -25,9 +25,6 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
         }
     }
 
-    override val description: Int
-        get() = 0
-
     override val newPassword: String?
         get() = ""
 

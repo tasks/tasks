@@ -1,4 +1,4 @@
-package org.tasks.etesync
+package org.tasks.etebase
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -7,9 +7,8 @@ import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 
-@Deprecated("use etebase")
 @AndroidEntryPoint
-class EteSyncCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
+class EteBaseCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
     private val createCalendarViewModel: CreateCalendarViewModel by viewModels()
     private val deleteCalendarViewModel: DeleteCalendarViewModel by viewModels()
     private val updateCalendarViewModel: UpdateCalendarViewModel by viewModels()

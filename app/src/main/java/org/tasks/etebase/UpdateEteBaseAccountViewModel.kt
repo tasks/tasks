@@ -1,4 +1,4 @@
-package org.tasks.etesync
+package org.tasks.etebase
 
 import androidx.core.util.Pair
 import androidx.hilt.lifecycle.ViewModelInject
@@ -6,9 +6,8 @@ import com.etesync.journalmanager.UserInfoManager.UserInfo
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.ui.CompletableViewModel
 
-@Deprecated("use etebase")
-class UpdateEteSyncAccountViewModel @ViewModelInject constructor(
-        private val client: EteSyncClient) : CompletableViewModel<Pair<UserInfo, String>>() {
+class UpdateEteBaseAccountViewModel @ViewModelInject constructor(
+        private val client: EteBaseClient) : CompletableViewModel<Pair<UserInfo, String>>() {
     suspend fun updateAccount(url: String, user: String, pass: String?, token: String) {
         run {
             client.setForeground()

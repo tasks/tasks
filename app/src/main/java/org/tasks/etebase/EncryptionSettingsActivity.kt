@@ -1,4 +1,4 @@
-package org.tasks.etesync
+package org.tasks.etebase
 
 import android.app.Activity
 import android.content.Intent
@@ -31,7 +31,6 @@ import org.tasks.ui.DisplayableException
 import java.net.ConnectException
 import javax.inject.Inject
 
-@Deprecated("use etebase")
 @AndroidEntryPoint
 class EncryptionSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var encryption: KeyStoreEncryption
