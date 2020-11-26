@@ -80,7 +80,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         get() = caldavCalendar == null
 
     override val toolbarTitle: String
-        get() = if (isNew) getString(R.string.new_list) else caldavCalendar!!.name!!
+        get() = if (isNew) getString(R.string.new_list) else caldavCalendar!!.name ?: ""
 
     @OnTextChanged(R.id.name)
     fun onNameChanged() {

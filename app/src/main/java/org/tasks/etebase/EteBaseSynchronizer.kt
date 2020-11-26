@@ -1,16 +1,13 @@
 package org.tasks.etebase
 
 import android.content.Context
-import androidx.core.util.Pair
+import android.graphics.Color
 import at.bitfire.ical4android.ICalendar.Companion.prodId
+import com.etebase.client.Collection
+import com.etebase.client.Item
 import com.etesync.journalmanager.Exceptions
 import com.etesync.journalmanager.Exceptions.IntegrityException
 import com.etesync.journalmanager.Exceptions.VersionTooNewException
-import com.etesync.journalmanager.JournalEntryManager
-import com.etesync.journalmanager.JournalEntryManager.Entry.Companion.getFakeWithUid
-import com.etesync.journalmanager.JournalManager.Journal
-import com.etesync.journalmanager.UserInfoManager
-import com.etesync.journalmanager.model.SyncEntry
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -31,7 +28,6 @@ import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.HashSet
 
 class EteBaseSynchronizer @Inject constructor(
         @param:ApplicationContext private val context: Context,
@@ -58,10 +54,6 @@ class EteBaseSynchronizer @Inject constructor(
             setError(account, context.getString(R.string.password_required))
             return
         }
-        if (isNullOrEmpty(account.encryptionKey)) {
-            setError(account, context.getString(R.string.encryption_password_required))
-            return
-        }
         try {
             synchronize(account)
         } catch (e: KeyManagementException) {
@@ -80,36 +72,34 @@ class EteBaseSynchronizer @Inject constructor(
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class, Exceptions.HttpException::class, IntegrityException::class, VersionTooNewException::class)
     private suspend fun synchronize(account: CaldavAccount) {
         val client = clientProvider.forAccount(account)
-        val userInfo = client.userInfo()
-        val resources = client.getCalendars(userInfo)
-        val uids: Set<String> = resources.values.mapNotNull { it.uid }.toHashSet()
+        val collections = client.getCollections()
+        val uids = collections.map { it.uid }
         Timber.d("Found uids: %s", uids)
-        for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, uids.toList())) {
+        for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, uids)) {
             taskDeleter.delete(calendar)
         }
-        for ((key, collection) in resources) {
+        for (collection in collections) {
             val uid = collection.uid
-            var calendar = caldavDao.getCalendarByUrl(account.uuid!!, uid!!)
-            val colorInt = collection.color
-            val color = colorInt ?: 0
+            var calendar = caldavDao.getCalendarByUrl(account.uuid!!, uid)
+            val meta = collection.meta
+            val color = meta.color?.let { Color.parseColor(it) } ?: 0
             if (calendar == null) {
                 calendar = CaldavCalendar()
-                calendar.name = collection.displayName
+                calendar.name = meta.name
                 calendar.account = account.uuid
                 calendar.url = collection.uid
                 calendar.uuid = UUIDHelper.newUUID()
                 calendar.color = color
                 caldavDao.insert(calendar)
             } else {
-                if (calendar.name != collection.displayName
-                        || calendar.color != color) {
-                    calendar.name = collection.displayName
+                if (calendar.name != meta.name || calendar.color != color) {
+                    calendar.name = meta.name
                     calendar.color = color
                     caldavDao.update(calendar)
                     localBroadcastManager.broadcastRefreshList()
                 }
             }
-            sync(client, userInfo!!, calendar, key)
+            sync(client, calendar, collection)
         }
         setError(account, "")
     }
@@ -126,59 +116,47 @@ class EteBaseSynchronizer @Inject constructor(
     @Throws(IntegrityException::class, Exceptions.HttpException::class, VersionTooNewException::class)
     private suspend fun sync(
             client: EteBaseClient,
-            userInfo: UserInfoManager.UserInfo,
             caldavCalendar: CaldavCalendar,
-            journal: Journal) {
+            collection: Collection
+    ) {
         Timber.d("sync(%s)", caldavCalendar)
         val localChanges = HashMap<String?, CaldavTaskContainer>()
         for (task in caldavDao.getCaldavTasksToPush(caldavCalendar.uuid!!)) {
             localChanges[task.remoteId] = task
         }
-        var remoteCtag = journal.lastUid
+        val remoteCtag = collection.stoken
         if (isNullOrEmpty(remoteCtag) || remoteCtag != caldavCalendar.ctag) {
-            Timber.v("Applying remote changes")
-            client.getSyncEntries(userInfo, journal, caldavCalendar) {
+            Timber.d("${caldavCalendar.name}: Applying remote changes")
+            client.fetchItems(collection, caldavCalendar) {
                 applyEntries(caldavCalendar, it, localChanges.keys)
+                client.updateCache(collection, it.second)
             }
         } else {
-            Timber.d("%s up to date", caldavCalendar.name)
+            Timber.d("${caldavCalendar.name} up to date")
         }
-        val changes: MutableList<SyncEntry> = ArrayList()
+        val changes = ArrayList<Item>()
         for (task in caldavDao.getMoved(caldavCalendar.uuid!!)) {
-            val vtodo = task.vtodo
-            if (!isNullOrEmpty(vtodo)) {
-                changes.add(SyncEntry(vtodo!!, SyncEntry.Actions.DELETE))
-            }
+            client.deleteItem(collection, task.remoteId!!)?.let { changes.add(it) }
         }
         for (task in localChanges.values) {
             val vtodo = task.vtodo
             val existingTask = !isNullOrEmpty(vtodo)
             if (task.isDeleted) {
                 if (existingTask) {
-                    changes.add(SyncEntry(vtodo!!, SyncEntry.Actions.DELETE))
+                    client.deleteItem(collection, task.remoteId!!)?.let { changes.add(it) }
                 }
             } else {
-                changes.add(
-                        SyncEntry(
-                                String(iCal.toVtodo(task.caldavTask, task.task)),
-                                if (existingTask) SyncEntry.Actions.CHANGE else SyncEntry.Actions.ADD))
+                changes.add(client.updateItem(
+                        collection,
+                        task.caldavTask,
+                        iCal.toVtodo(task.caldavTask, task.task)
+                ))
             }
         }
-        remoteCtag = caldavCalendar.ctag
-        val crypto = client.getCrypto(userInfo, journal)
-        val updates: MutableList<Pair<JournalEntryManager.Entry, SyncEntry>> = ArrayList()
-        var previous: JournalEntryManager.Entry? = if (isNullOrEmpty(remoteCtag)) null else getFakeWithUid(remoteCtag!!)
-        for (syncEntry in changes) {
-            val entry = JournalEntryManager.Entry()
-            entry.update(crypto, syncEntry.toJson(), previous)
-            updates.add(Pair.create(entry, syncEntry))
-            previous = entry
-        }
-        if (updates.size > 0) {
-            Timber.v("Pushing local changes")
-            client.pushEntries(journal, updates.mapNotNull { it.first }, remoteCtag)
-            Timber.v("Applying local changes")
-            applyEntries(caldavCalendar, updates, HashSet())
+        if (changes.isNotEmpty()) {
+            client.uploadChanges(collection, changes)
+            applyEntries(caldavCalendar, Pair(caldavCalendar.ctag, changes), HashSet())
+            client.updateCache(collection, changes)
         }
         Timber.d("UPDATE %s", caldavCalendar)
         caldavDao.update(caldavCalendar)
@@ -188,37 +166,34 @@ class EteBaseSynchronizer @Inject constructor(
 
     private suspend fun applyEntries(
             caldavCalendar: CaldavCalendar,
-            syncEntries: List<Pair<JournalEntryManager.Entry, SyncEntry>>,
+            items: Pair<String?, List<Item>>,
             dirty: MutableSet<String?>) {
-        for (entry in syncEntries) {
-            val journalEntry = entry.first
-            val syncEntry = entry.second
-            val action = syncEntry!!.action
-            val vtodo = syncEntry.content
-            Timber.v("%s: %s", action, vtodo)
+        for (item in items.second) {
+            val vtodo = item.contentString
             val task = fromVtodo(vtodo) ?: continue
             val remoteId = task.uid
             val caldavTask = caldavDao.getTaskByRemoteId(caldavCalendar.uuid!!, remoteId!!)
-            when (action) {
-                SyncEntry.Actions.ADD, SyncEntry.Actions.CHANGE -> if (dirty.contains(remoteId)) {
+            if (item.isDeleted) {
+                dirty.remove(remoteId)
+                if (caldavTask != null) {
+                    if (caldavTask.isDeleted()) {
+                        caldavDao.delete(caldavTask)
+                    } else {
+                        taskDeleter.delete(caldavTask.task)
+                    }
+                }
+            } else {
+                caldavTask?.`object` = item.uid
+                if (dirty.contains(remoteId)) {
                     caldavTask!!.vtodo = vtodo
                     caldavDao.update(caldavTask)
                 } else {
-                    iCal.fromVtodo(caldavCalendar, caldavTask, task, vtodo, null, null)
-                }
-                SyncEntry.Actions.DELETE -> {
-                    dirty.remove(remoteId)
-                    if (caldavTask != null) {
-                        if (caldavTask.isDeleted()) {
-                            caldavDao.delete(caldavTask)
-                        } else {
-                            taskDeleter.delete(caldavTask.task)
-                        }
-                    }
+                    iCal.fromVtodo(caldavCalendar, caldavTask, task, vtodo, item.uid, null)
                 }
             }
-            caldavCalendar.ctag = journalEntry!!.uid
-            caldavDao.update(caldavCalendar)
         }
+        caldavCalendar.ctag = items.first
+        Timber.d("Setting stoken to ${caldavCalendar.ctag}")
+        caldavDao.update(caldavCalendar)
     }
 }

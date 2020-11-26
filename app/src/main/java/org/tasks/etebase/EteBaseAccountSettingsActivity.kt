@@ -1,28 +1,19 @@
 package org.tasks.etebase
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
-import androidx.core.util.Pair
-import androidx.lifecycle.lifecycleScope
 import butterknife.OnCheckedChanged
-import com.etesync.journalmanager.Crypto.CryptoManager
-import com.etesync.journalmanager.Exceptions.IntegrityException
-import com.etesync.journalmanager.Exceptions.VersionTooNewException
-import com.etesync.journalmanager.UserInfoManager
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Constants
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,52 +47,27 @@ class EteBaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     override val description: Int
         get() = R.string.etesync_account_description
 
-    private suspend fun addAccount(userInfoAndToken: Pair<UserInfoManager.UserInfo, String>) {
+    private suspend fun addAccount(session: String) {
         caldavAccount = CaldavAccount()
         caldavAccount!!.accountType = CaldavAccount.TYPE_ETEBASE
         caldavAccount!!.uuid = UUIDHelper.newUUID()
-        applyTo(caldavAccount!!, userInfoAndToken)
+        applyTo(caldavAccount!!, session)
     }
 
-    private suspend fun updateAccount(userInfoAndToken: Pair<UserInfoManager.UserInfo, String>) {
+    private suspend fun updateAccount(session: String) {
         caldavAccount!!.error = ""
-        applyTo(caldavAccount!!, userInfoAndToken)
+        applyTo(caldavAccount!!, session)
     }
 
-    private suspend fun applyTo(account: CaldavAccount, userInfoAndToken: Pair<UserInfoManager.UserInfo, String>) {
+    private suspend fun applyTo(account: CaldavAccount, session: String) {
         hideProgressIndicator()
         account.name = newName
         account.url = newURL
         account.username = newUsername
-        val token = userInfoAndToken.second
-        if (token != account.getPassword(encryption)) {
-            account.password = encryption.encrypt(token!!)
+        if (session != account.getPassword(encryption)) {
+            account.password = encryption.encrypt(session)
         }
-        val userInfo = userInfoAndToken.first
-        if (testUserInfo(userInfo)) {
-            saveAccountAndFinish()
-        } else {
-            val intent = Intent(this, EncryptionSettingsActivity::class.java)
-            intent.putExtra(EncryptionSettingsActivity.EXTRA_USER_INFO, userInfo)
-            intent.putExtra(EncryptionSettingsActivity.EXTRA_ACCOUNT, account)
-            startActivityForResult(intent, REQUEST_ENCRYPTION_PASSWORD)
-        }
-    }
-
-    private fun testUserInfo(userInfo: UserInfoManager.UserInfo?): Boolean {
-        val encryptionKey = caldavAccount!!.getEncryptionPassword(encryption)
-        if (userInfo != null && !isNullOrEmpty(encryptionKey)) {
-            try {
-                val cryptoManager = CryptoManager(userInfo.version!!.toInt(), encryptionKey, "userInfo")
-                userInfo.verify(cryptoManager)
-                return true
-            } catch (e: IntegrityException) {
-                Timber.e(e)
-            } catch (e: VersionTooNewException) {
-                Timber.e(e)
-            }
-        }
-        return false
+        saveAccountAndFinish()
     }
 
     @OnCheckedChanged(R.id.show_advanced)
@@ -133,30 +99,16 @@ class EteBaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     }
 
     override val newURL: String
-        get() {
-            val url = super.newURL
-            return if (isNullOrEmpty(url)) getString(R.string.etesync_url) else url // TODO: change to etebase url
-        }
+        get() =
+            super.newURL
+                    .takeIf { it.isNotBlank() }
+                    ?: getString(R.string.etebase_url)
 
     override val newPassword: String
         get() = binding.password.text.toString().trim { it <= ' ' }
 
     override val helpUrl: String
         get() = getString(R.string.url_etesync)
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_ENCRYPTION_PASSWORD) {
-            if (resultCode == Activity.RESULT_OK) {
-                lifecycleScope.launch {
-                    val key = data!!.getStringExtra(EncryptionSettingsActivity.EXTRA_DERIVED_KEY)!!
-                    caldavAccount!!.encryptionKey = encryption.encrypt(key)
-                    saveAccountAndFinish()
-                }
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
 
     private suspend fun saveAccountAndFinish() {
         if (caldavAccount!!.id == Task.NO_ID) {
@@ -173,11 +125,7 @@ class EteBaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     }
 
     override suspend fun removeAccount() {
-        caldavAccount?.let { clientProvider.forAccount(it).invalidateToken() }
+        caldavAccount?.let { clientProvider.forAccount(it).logout() }
         super.removeAccount()
-    }
-
-    companion object {
-        private const val REQUEST_ENCRYPTION_PASSWORD = 10101
     }
 }

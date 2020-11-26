@@ -1,21 +1,28 @@
 package org.tasks.etebase
 
 import android.content.Context
+import android.os.Build
 import at.bitfire.cert4android.CustomCertManager
-import com.etesync.journalmanager.util.TokenAuthenticator
+import com.etebase.client.Account
+import com.etebase.client.Client
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.HttpUrl.Companion.toHttpUrl
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.internal.tls.OkHostnameVerifier
+import org.tasks.BuildConfig
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.caldav.MemoryCookieStore
 import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavDao
 import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption
+import java.io.IOException
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.net.ssl.SSLContext
@@ -24,46 +31,38 @@ class EteBaseClientProvider @Inject constructor(
         @ApplicationContext private val context: Context,
         private val encryption: KeyStoreEncryption,
         private val preferences: Preferences,
-        private val interceptor: DebugNetworkInterceptor
+        private val interceptor: DebugNetworkInterceptor,
+        private val caldavDao: CaldavDao
 ) {
     @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
     suspend fun forAccount(account: CaldavAccount): EteBaseClient {
         return forUrl(
                 account.url!!,
-                account.username,
-                account.getEncryptionPassword(encryption),
+                account.username!!,
+                null,
                 account.getPassword(encryption))
     }
 
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
-    suspend fun forUrl(url: String, username: String?, encryptionPassword: String?, token: String?): EteBaseClient = withContext(Dispatchers.IO) {
-        val customCertManager = newCertManager()
-        EteBaseClient(
-                customCertManager,
-                username,
-                encryptionPassword,
-                token,
-                createHttpClient(token, customCertManager),
-                url.toHttpUrl()
-        )
+    suspend fun forUrl(url: String, username: String, password: String?, session: String? = null, foreground: Boolean = false): EteBaseClient = withContext(Dispatchers.IO) {
+        val httpClient = createHttpClient(foreground)
+        val client = Client.create(httpClient, url)
+        val etebase = session
+                ?.let { Account.restore(client, it, null) }
+                ?: Account.login(client, username, password!!)
+        EteBaseClient(context, username, etebase, caldavDao)
     }
 
-    private suspend fun newCertManager() = withContext(Dispatchers.Default) {
-        CustomCertManager(context)
-    }
-
-    private fun createHttpClient(
-            token: String?,
-            customCertManager: CustomCertManager,
-            foreground: Boolean = false
-    ): OkHttpClient {
-        customCertManager.appInForeground = foreground
+    private suspend fun createHttpClient(foreground: Boolean): OkHttpClient {
+        val customCertManager = withContext(Dispatchers.Default) {
+            CustomCertManager(context, foreground)
+        }
         val hostnameVerifier = customCertManager.hostnameVerifier(OkHostnameVerifier)
         val sslContext = SSLContext.getInstance("TLS")
         sslContext.init(null, arrayOf(customCertManager), null)
         val builder = OkHttpClient()
                 .newBuilder()
-                .addNetworkInterceptor(TokenAuthenticator(null, token))
+                .addNetworkInterceptor(UserAgentInterceptor)
                 .cookieJar(MemoryCookieStore())
                 .followRedirects(false)
                 .followSslRedirects(true)
@@ -76,5 +75,19 @@ class EteBaseClientProvider @Inject constructor(
             interceptor.apply(builder)
         }
         return builder.build()
+    }
+
+    private object UserAgentInterceptor : Interceptor {
+        private val userAgent = "${BuildConfig.APPLICATION_ID}/${BuildConfig.VERSION_NAME} (okhttp3) Android/${Build.VERSION.RELEASE}"
+
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val locale = Locale.getDefault()
+            val request = chain.request().newBuilder()
+                    .header("User-Agent", userAgent)
+                    .header("Accept-Language", locale.language + "-" + locale.country + ", " + locale.language + ";q=0.7, *;q=0.5")
+                    .build()
+            return chain.proceed(request)
+        }
     }
 }

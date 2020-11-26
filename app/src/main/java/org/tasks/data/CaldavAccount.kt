@@ -47,6 +47,7 @@ class CaldavAccount : Parcelable {
     @ColumnInfo(name = "cda_repeat")
     var isSuppressRepeatingTasks = false
 
+    @Deprecated("use etebase")
     @ColumnInfo(name = "cda_encryption_key")
     @Transient
     var encryptionKey: String? = null
@@ -78,6 +79,7 @@ class CaldavAccount : Parcelable {
         return encryption.decrypt(password) ?: ""
     }
 
+    @Deprecated("use etebase")
     fun getEncryptionPassword(encryption: KeyStoreEncryption): String {
         return encryption.decrypt(encryptionKey) ?: ""
     }

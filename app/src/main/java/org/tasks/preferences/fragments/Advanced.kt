@@ -15,6 +15,7 @@ import org.tasks.PermissionUtil
 import org.tasks.R
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.TaskDao
+import org.tasks.etebase.EtebaseLocalCache
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.FragmentPermissionRequestor
@@ -205,8 +206,9 @@ class Advanced : InjectingPreferenceFragment() {
             .newDialog()
             .setMessage(R.string.EPr_delete_task_data_warning)
             .setPositiveButton(R.string.EPr_delete_task_data) { _, _ ->
-                context?.deleteDatabase(database.name)
-                requireContext().deleteDatabase(database.name)
+                val context = requireContext()
+                context.deleteDatabase(database.name)
+                EtebaseLocalCache.clear(context)
                 restart()
             }
             .setNegativeButton(R.string.cancel, null)
