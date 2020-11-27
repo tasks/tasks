@@ -664,4 +664,11 @@
     <string name="background_location_permission_required">Questa app raccoglie i dati di localizzazione per abilitare i promemoria basati sulla posizione, anche quando è chiusa o non è in uso.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="follow_reddit">Segui r/tasks</string>
+    <string name="authorization_cancelled">Autorizzazione annullata</string>
+    <string name="authentication_required">Autenticazione richiesta</string>
+    <string name="sign_in_with_google">Accedi con Google</string>
+    <plurals name="list_count">
+        <item quantity="one">%d lista</item>
+        <item quantity="other">%d liste</item>
+    </plurals>
 </resources>
