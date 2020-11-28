@@ -651,7 +651,7 @@
     <string name="always_display_full_date">Tam tarihi göster</string>
     <string name="custom_filter_is_subtask">Alt görev</string>
     <string name="custom_filter_has_subtask">Alt görevleri olan</string>
-    <string name="background_location_permission_required">Bu uygulama, kapalıyken veya kullanımda değilken bile konuma dayalı hatırlatmaları etkinleştirmek için konum verilerini toplar.</string>
+    <string name="background_location_permission_required">Bu uygulama, kapalıyken veya kullanımda değilken de konuma dayalı anımsatmaları etkinleştirmek için konum verisi toplar.</string>
     <string name="follow_reddit">r/tasks sayfasını takip et</string>
     <string name="purchases_updated">Satın alımlar güncellendi</string>
     <string name="current_subscription">Geçerli abonelik: %s</string>
@@ -659,14 +659,22 @@
     <string name="price_per_month">%s$/ay</string>
     <string name="price_per_year_abbreviated">%s$/yıl</string>
     <string name="price_per_year">%s$/yıl</string>
-    <string name="insufficient_subscription">Yetersiz abonelik düzeyi. Hizmeti devam ettirmek için lütfen aboneliğinizi yükseltin.</string>
-    <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti devam ettirmek için şimdi abone olun.</string>
+    <string name="insufficient_subscription">Yetersiz abonelik düzeyi. Hizmeti sürdürmek için lütfen aboneliğinizi yükseltin.</string>
+    <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti sürdürmek için şimdi abone olun.</string>
     <string name="logged_in">Oturum açıldı: %s</string>
-    <string name="more_options">Daha fazla seçenek</string>
+    <string name="more_options">Daha çok seçenek</string>
     <string name="repeat_monthly_fifth_week">beşinci</string>
     <string name="authorization_cancelled">Yetkilendirme iptal edildi</string>
     <string name="sign_in_with_google">Google ile oturum aç</string>
     <string name="synchronization_third_party">Üçüncü taraf eşzamanlama</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Kimlik doğrulama gerekli</string>
+    <string name="migrate_count">%s taneyi Tasks.org\'a taşı</string>
+    <string name="offline_lists">Çevrim dışı listeler</string>
+    <string name="migrating_tasks">Görevler göç ediliyor</string>
+    <string name="migrate">Göç et</string>
+    <plurals name="list_count">
+        <item quantity="one">%d liste</item>
+        <item quantity="other">%d liste</item>
+    </plurals>
 </resources>
