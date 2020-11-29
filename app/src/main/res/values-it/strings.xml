@@ -671,4 +671,10 @@
         <item quantity="one">%d lista</item>
         <item quantity="other">%d liste</item>
     </plurals>
+    <string name="migrate">Migra</string>
+    <string name="synchronization_third_party">Sincronizzazione di terze parti</string>
+    <string name="github_sponsor">Diventa uno sponsor</string>
+    <string name="migrate_count">Sposta %s su Tasks.org</string>
+    <string name="migrating_tasks">Migrazione delle attività in corso</string>
+    <string name="offline_lists">Liste offline</string>
 </resources>
