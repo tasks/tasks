@@ -433,10 +433,10 @@
     <string name="EPr_default_location_radius">默认半径</string>
     <string name="no_reminders">无提醒</string>
     <string name="default_location_reminder_on_arrival">抵达时</string>
-    <string name="default_location_reminder_on_departure">离开时</string>
-    <string name="default_location_reminder_on_arrival_or_departure">抵达或离开时默认的位置提醒</string>
+    <string name="default_location_reminder_on_departure">出发时</string>
+    <string name="default_location_reminder_on_arrival_or_departure">到达与出发时</string>
     <string name="gtasks_GPr_header">谷歌任务</string>
-    <string name="google_drive_backup">谷歌云盘备份</string>
+    <string name="google_drive_backup">备份到Google Drive</string>
     <string name="add_location">添加位置</string>
     <string name="geofence_radius">半径</string>
     <string name="location_radius_meters">%s 米</string>
