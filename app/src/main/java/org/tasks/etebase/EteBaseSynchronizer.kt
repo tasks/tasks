@@ -135,21 +135,23 @@ class EteBaseSynchronizer @Inject constructor(
             Timber.d("${caldavCalendar.name} up to date")
         }
         val changes = ArrayList<Item>()
-        for (task in caldavDao.getMoved(caldavCalendar.uuid!!)) {
-            client.deleteItem(collection, task.remoteId!!)?.let { changes.add(it) }
+        for (caldavTask in caldavDao.getMoved(caldavCalendar.uuid!!)) {
+            client.deleteItem(collection, caldavTask)
+                    ?.let { changes.add(it) }
+                    ?: caldavDao.delete(caldavTask)
         }
-        for (task in localChanges.values) {
-            val vtodo = task.vtodo
-            val existingTask = !isNullOrEmpty(vtodo)
+        for (change in localChanges.values) {
+            val task = change.task
+            val caldavTask = change.caldavTask
             if (task.isDeleted) {
-                if (existingTask) {
-                    client.deleteItem(collection, task.remoteId!!)?.let { changes.add(it) }
-                }
+                client.deleteItem(collection, caldavTask)
+                        ?.let { changes.add(it) }
+                        ?: taskDeleter.delete(task)
             } else {
                 changes.add(client.updateItem(
                         collection,
-                        task.caldavTask,
-                        iCal.toVtodo(task.caldavTask, task.task)
+                        caldavTask,
+                        iCal.toVtodo(caldavTask, task)
                 ))
             }
         }

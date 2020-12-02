@@ -66,7 +66,11 @@ class EtebaseLocalCache private constructor(context: Context, username: String) 
     suspend fun itemSet(itemMgr: ItemManager, colUid: String, item: Item) {
         withContext(Dispatchers.IO) {
             if (item.isDeleted) {
-                fsCache.itemUnset(itemMgr, colUid, item.uid)
+                try {
+                    fsCache.itemUnset(itemMgr, colUid, item.uid)
+                } catch (e: UrlParseException) {
+                    // Ignore, as it just means the file doesn't exist
+                }
             } else {
                 fsCache.itemSet(itemMgr, colUid, item)
             }

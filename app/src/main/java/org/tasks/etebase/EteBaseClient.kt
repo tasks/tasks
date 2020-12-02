@@ -75,9 +75,11 @@ class EteBaseClient(
         return item
     }
 
-    suspend fun deleteItem(collection: Collection, uid: String): Item? {
+    suspend fun deleteItem(collection: Collection, task: CaldavTask): Item? {
         val itemManager = etebase.collectionManager.getItemManager(collection)
-        return cache.itemGet(itemManager, collection.uid, uid)?.apply { delete() }
+        return cache.itemGet(itemManager, collection.uid, task.`object`!!)
+                ?.takeIf { !it.isDeleted }
+                ?.apply { delete() }
     }
 
     suspend fun updateCache(collection: Collection, items: List<Item>) {
