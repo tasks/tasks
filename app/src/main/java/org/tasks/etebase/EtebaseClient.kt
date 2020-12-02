@@ -67,10 +67,7 @@ class EtebaseClient(
                             task.`object` = uid
                             caldavDao.update(task)
                         }
-        item.meta = item.meta.let { meta ->
-            meta.mtime = currentTimeMillis()
-            meta
-        }
+        item.meta = updateMtime(item.meta)
         item.content = content
         return item
     }
@@ -79,7 +76,15 @@ class EtebaseClient(
         val itemManager = etebase.collectionManager.getItemManager(collection)
         return cache.itemGet(itemManager, collection.uid, task.`object`!!)
                 ?.takeIf { !it.isDeleted }
-                ?.apply { delete() }
+                ?.apply {
+                    meta = updateMtime(meta)
+                    delete()
+                }
+    }
+
+    private fun updateMtime(meta: ItemMetadata): ItemMetadata {
+        meta.mtime = currentTimeMillis()
+        return meta
     }
 
     suspend fun updateCache(collection: Collection, items: List<Item>) {
