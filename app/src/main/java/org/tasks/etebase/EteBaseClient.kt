@@ -90,16 +90,9 @@ class EteBaseClient(
     suspend fun uploadChanges(collection: Collection, items: List<Item>) {
         val itemManager = etebase.collectionManager.getItemManager(collection)
         withContext(Dispatchers.IO) {
-            itemManager.batch(items.toTypedArray())
+            itemManager.transaction(items.toTypedArray())
         }
     }
-
-    suspend fun getItem(collection: Collection, uid: String): Item? =
-            cache.itemGet(
-                    etebase.collectionManager.getItemManager(collection),
-                    collection.uid,
-                    uid
-            )
 
     suspend fun logout() {
         try {
