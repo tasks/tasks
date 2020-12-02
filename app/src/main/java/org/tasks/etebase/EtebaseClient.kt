@@ -29,15 +29,17 @@ class EtebaseClient(
     @Throws(Exceptions.HttpException::class)
     suspend fun getCollections(): List<Collection> {
         val collectionManager = etebase.collectionManager
-        val response = withContext(Dispatchers.IO) {
-            collectionManager.list(TYPE_TASKS)
-        }
-        response.data.forEach {
-            cache.collectionSet(collectionManager, it)
-        }
-        response.removedMemberships.forEach {
-            cache.collectionUnset(collectionManager, it)
-        }
+        do {
+            val response = withContext(Dispatchers.IO) {
+                collectionManager.list(TYPE_TASKS)
+            }
+            response.data.forEach {
+                cache.collectionSet(collectionManager, it)
+            }
+            response.removedMemberships.forEach {
+                cache.collectionUnset(collectionManager, it)
+            }
+        } while (!response.isDone)
         return cache.collectionList(collectionManager)
     }
 
