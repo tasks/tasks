@@ -1,4 +1,4 @@
-### 11.0 (2020-11-24)
+### 11.0 (2020-12-02)
 
 * New Tasks.org synchronization service
 * Multi-select rescheduling
@@ -13,6 +13,10 @@
   * Subtasks
   * Parent tasks
   * Recurring tasks
+* Added EteSync v2 support
+* Deprecated EteSync v1 support
+  * v1 accounts cannot be added to Tasks.org
+  * v1 accounts can be added to the EteSync Android client
 * Add ability to delete comments (Thanks to @romedius!)
 * Add option to always display date (Thanks to @T0M0F!)
 * Copy subtasks when copying tasks (Thanks to @supermzn!)
@@ -27,7 +31,7 @@
   * Hebrew - @yarons
   * Hungarian - kaciokos
   * Indonesian - @andikatuluspangestu
-  * Italian - @ppasserini, @Fs00
+  * Italian - @ppasserini, @Fs00, @pjammo
   * Korean - Sunjae Choi, @Hwaro-K
   * Norwegian Bokmål - @comradekingu
   * Polish - @alex-ter

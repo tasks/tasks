@@ -11,6 +11,10 @@
   * Subtasks
   * Parent tasks
   * Recurring tasks
+* Added EteSync v2 support
+* Deprecated EteSync v1 support
+  * v1 accounts cannot be added to Tasks.org
+  * v1 accounts can be added to the EteSync Android client
 * Add ability to delete comments (Thanks to @Romedius!)
 * Add option to always display date (Thanks to @T0M0F!)
 * Copy subtasks when copying tasks (Thanks to @supermzn!)
