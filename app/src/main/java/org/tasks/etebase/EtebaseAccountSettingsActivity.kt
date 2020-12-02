@@ -17,11 +17,11 @@ import org.tasks.data.CaldavAccount
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class EteBaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
-    @Inject lateinit var clientProvider: EteBaseClientProvider
+class EtebaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
+    @Inject lateinit var clientProvider: EtebaseClientProvider
 
-    private val addAccountViewModel: AddEteBaseAccountViewModel by viewModels()
-    private val updateAccountViewModel: UpdateEteBaseAccountViewModel by viewModels()
+    private val addAccountViewModel: AddEtebaseAccountViewModel by viewModels()
+    private val updateAccountViewModel: UpdateEtebaseAccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

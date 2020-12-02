@@ -8,7 +8,7 @@ import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 
 @AndroidEntryPoint
-class EteBaseCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
+class EtebaseCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
     private val createCalendarViewModel: CreateCalendarViewModel by viewModels()
     private val deleteCalendarViewModel: DeleteCalendarViewModel by viewModels()
     private val updateCalendarViewModel: UpdateCalendarViewModel by viewModels()

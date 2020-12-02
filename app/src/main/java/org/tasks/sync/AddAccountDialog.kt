@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.etebase.EteBaseAccountSettingsActivity
+import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_CALDAV_SETTINGS
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_GOOGLE_TASKS
 import org.tasks.themes.DrawableUtil
@@ -65,7 +65,7 @@ class AddAccountDialog : DialogFragment() {
                                 Intent(activity, CaldavAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
                         3 -> activity?.startActivityForResult(
-                                Intent(activity, EteBaseAccountSettingsActivity::class.java),
+                                Intent(activity, EtebaseAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
                     }
                     dialog.dismiss()

@@ -24,7 +24,7 @@ import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_DAVx5
 import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
-import org.tasks.etebase.EteBaseAccountSettingsActivity
+import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
@@ -151,7 +151,7 @@ class Synchronization : InjectingPreferenceFragment() {
                 preference.setSummary(when {
                     account.isCaldavAccount -> R.string.caldav
                     account.isEteSyncAccount -> R.string.etesync_v1
-                    account.isEteBaseAccount
+                    account.isEtebaseAccount
                             || (account.isOpenTasks
                             && account.uuid?.startsWith(ACCOUNT_TYPE_ETESYNC) == true) ->
                         R.string.etesync
@@ -167,7 +167,7 @@ class Synchronization : InjectingPreferenceFragment() {
                 val intent = Intent(context, when {
                     account.isCaldavAccount -> CaldavAccountSettingsActivity::class.java
                     account.isEteSyncAccount -> EteSyncAccountSettingsActivity::class.java
-                    account.isEteBaseAccount -> EteBaseAccountSettingsActivity::class.java
+                    account.isEtebaseAccount -> EtebaseAccountSettingsActivity::class.java
                     account.isOpenTasks -> OpenTaskAccountSettingsActivity::class.java
                     else -> throw IllegalArgumentException("Unexpected account type: $account")
                 })

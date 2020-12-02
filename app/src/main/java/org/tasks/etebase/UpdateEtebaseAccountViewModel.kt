@@ -4,8 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.ui.CompletableViewModel
 
-class UpdateEteBaseAccountViewModel @ViewModelInject constructor(
-        private val clientProvider: EteBaseClientProvider) : CompletableViewModel<String>() {
+class UpdateEtebaseAccountViewModel @ViewModelInject constructor(
+        private val clientProvider: EtebaseClientProvider) : CompletableViewModel<String>() {
     suspend fun updateAccount(url: String, user: String, pass: String?, session: String) {
         run {
             if (isNullOrEmpty(pass)) {

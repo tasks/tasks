@@ -12,7 +12,7 @@ import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
-import org.tasks.etebase.EteBaseCalendarSettingsActivity
+import org.tasks.etebase.EtebaseCalendarSettingsActivity
 import org.tasks.etesync.EteSyncCalendarSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.security.KeyStoreEncryption
@@ -91,7 +91,7 @@ class CaldavAccount : Parcelable {
     val isEteSyncAccount: Boolean
         get() = accountType == TYPE_ETESYNC
 
-    val isEteBaseAccount: Boolean
+    val isEtebaseAccount: Boolean
         get() = accountType == TYPE_ETEBASE
 
     val isOpenTasks: Boolean
@@ -107,7 +107,7 @@ class CaldavAccount : Parcelable {
         TYPE_ETESYNC -> EteSyncCalendarSettingsActivity::class.java
         TYPE_LOCAL -> LocalListSettingsActivity::class.java
         TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
-        TYPE_ETEBASE -> EteBaseCalendarSettingsActivity::class.java
+        TYPE_ETEBASE -> EtebaseCalendarSettingsActivity::class.java
         else -> CaldavCalendarSettingsActivity::class.java
     }
 

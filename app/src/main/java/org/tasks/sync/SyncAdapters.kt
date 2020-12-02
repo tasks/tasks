@@ -90,7 +90,7 @@ class SyncAdapters @Inject constructor(
         val googleTasksEnabled = async { isGoogleTaskSyncEnabled() }
         val caldavEnabled = async { isCaldavSyncEnabled() }
         val eteSyncEnabled = async { isEteSyncEnabled() }
-        val eteBaseEnabled = async { isEteBaseEnabled() }
+        val eteBaseEnabled = async { isEtebaseEnabled() }
         val opentasksEnabled = async { isOpenTaskSyncEnabled() }
 
         if (googleTasksEnabled.await()) {
@@ -122,7 +122,7 @@ class SyncAdapters @Inject constructor(
     @Deprecated("use etebase")
     private suspend fun isEteSyncEnabled() = caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty()
 
-    private suspend fun isEteBaseEnabled() = caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty()
+    private suspend fun isEtebaseEnabled() = caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty()
 
     private suspend fun isOpenTaskSyncEnabled() =
             caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty()

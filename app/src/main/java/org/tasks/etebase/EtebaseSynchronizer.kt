@@ -29,13 +29,13 @@ import java.security.NoSuchAlgorithmException
 import java.util.*
 import javax.inject.Inject
 
-class EteBaseSynchronizer @Inject constructor(
+class EtebaseSynchronizer @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val caldavDao: CaldavDao,
         private val localBroadcastManager: LocalBroadcastManager,
         private val taskDeleter: TaskDeleter,
         private val inventory: Inventory,
-        private val clientProvider: EteBaseClientProvider,
+        private val clientProvider: EtebaseClientProvider,
         private val iCal: iCalendar) {
     companion object {
         init {
@@ -115,7 +115,7 @@ class EteBaseSynchronizer @Inject constructor(
 
     @Throws(IntegrityException::class, Exceptions.HttpException::class, VersionTooNewException::class)
     private suspend fun sync(
-            client: EteBaseClient,
+            client: EtebaseClient,
             caldavCalendar: CaldavCalendar,
             collection: Collection
     ) {

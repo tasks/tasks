@@ -10,17 +10,17 @@ import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.CaldavDao
-import org.tasks.etebase.EteBaseSynchronizer
+import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.preferences.Preferences
 
-class SyncEteBaseWork @WorkerInject constructor(
+class SyncEtebaseWork @WorkerInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,
         localBroadcastManager: LocalBroadcastManager,
         preferences: Preferences,
         private val caldavDao: CaldavDao,
-        private val synchronizer: EteBaseSynchronizer
+        private val synchronizer: EtebaseSynchronizer
 ) : SyncWork(context, workerParams, firebase, localBroadcastManager, preferences) {
 
     override suspend fun enabled() = caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty()

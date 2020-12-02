@@ -105,7 +105,7 @@ class WorkManagerImpl constructor(
             sync(immediate, TAG_SYNC_ETESYNC, SyncEteSyncWork::class.java)
 
     override fun eteBaseSync(immediate: Boolean) =
-            sync(immediate, TAG_SYNC_ETEBASE, SyncEteBaseWork::class.java)
+            sync(immediate, TAG_SYNC_ETEBASE, SyncEtebaseWork::class.java)
 
     override fun openTaskSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_OPENTASK, SyncOpenTasksWork::class.java, false)
@@ -177,7 +177,7 @@ class WorkManagerImpl constructor(
         throttle.run {
             scheduleBackgroundSync(
                     TAG_BACKGROUND_SYNC_ETEBASE,
-                    SyncEteBaseWork::class.java,
+                    SyncEtebaseWork::class.java,
                     enabled && caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty(),
                     unmetered)
         }

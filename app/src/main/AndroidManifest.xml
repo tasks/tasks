@@ -382,7 +382,7 @@
       android:theme="@style/Tasks" />
 
     <activity
-      android:name=".etebase.EteBaseAccountSettingsActivity"
+      android:name=".etebase.EtebaseAccountSettingsActivity"
       android:theme="@style/Tasks" />
 
     <activity
@@ -606,7 +606,7 @@
       android:theme="@style/Tasks" />
 
     <activity
-      android:name=".etebase.EteBaseCalendarSettingsActivity"
+      android:name=".etebase.EtebaseCalendarSettingsActivity"
       android:theme="@style/Tasks" />
 
     <activity

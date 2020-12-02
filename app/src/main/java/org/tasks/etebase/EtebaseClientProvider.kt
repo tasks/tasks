@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.net.ssl.SSLContext
 
-class EteBaseClientProvider @Inject constructor(
+class EtebaseClientProvider @Inject constructor(
         @ApplicationContext private val context: Context,
         private val encryption: KeyStoreEncryption,
         private val preferences: Preferences,
@@ -35,7 +35,7 @@ class EteBaseClientProvider @Inject constructor(
         private val caldavDao: CaldavDao
 ) {
     @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
-    suspend fun forAccount(account: CaldavAccount): EteBaseClient {
+    suspend fun forAccount(account: CaldavAccount): EtebaseClient {
         return forUrl(
                 account.url!!,
                 account.username!!,
@@ -44,13 +44,13 @@ class EteBaseClientProvider @Inject constructor(
     }
 
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
-    suspend fun forUrl(url: String, username: String, password: String?, session: String? = null, foreground: Boolean = false): EteBaseClient = withContext(Dispatchers.IO) {
+    suspend fun forUrl(url: String, username: String, password: String?, session: String? = null, foreground: Boolean = false): EtebaseClient = withContext(Dispatchers.IO) {
         val httpClient = createHttpClient(foreground)
         val client = Client.create(httpClient, url)
         val etebase = session
                 ?.let { Account.restore(client, it, null) }
                 ?: Account.login(client, username, password!!)
-        EteBaseClient(context, username, etebase, caldavDao)
+        EtebaseClient(context, username, etebase, caldavDao)
     }
 
     private suspend fun createHttpClient(foreground: Boolean): OkHttpClient {

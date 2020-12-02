@@ -15,7 +15,7 @@ import org.tasks.time.DateTimeUtils.currentTimeMillis
 import timber.log.Timber
 import java.io.IOException
 
-class EteBaseClient(
+class EtebaseClient(
         private val context: Context,
         private val username: String,
         private val etebase: Account,
