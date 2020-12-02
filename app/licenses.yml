@@ -823,56 +823,8 @@
   name: commonmark
   copyrightHolder: Atlassian and others
   license: BSD 2-Clause
-- artifact: net.openid:appauth:+
-  name: appauth
-  copyrightHolder: The AppAuth for Android Authors
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/openid/AppAuth-Android
 - artifact: androidx.browser:browser:+
   name: browser
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
-- artifact: androidx.legacy:legacy-support-core-ui:+
-  name: legacy-support-core-ui
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
-- artifact: androidx.legacy:legacy-support-core-utils:+
-  name: legacy-support-core-utils
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
-- artifact: androidx.slidingpanelayout:slidingpanelayout:+
-  name: slidingpanelayout
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
-- artifact: androidx.asynclayoutinflater:asynclayoutinflater:+
-  name: asynclayoutinflater
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
-- artifact: androidx.documentfile:documentfile:+
-  name: documentfile
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
-- artifact: androidx.localbroadcastmanager:localbroadcastmanager:+
-  name: localbroadcastmanager
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://developer.android.com/tools/extras/support-library.html
-- artifact: androidx.print:print:+
-  name: print
   copyrightHolder: Android Open Source Project
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
@@ -895,3 +847,15 @@
   license: LGPL-3.0-only
   licenseUrl: https://spdx.org/licenses/LGPL-3.0-only.html
   url: https://www.etebase.com
+- artifact: com.github.openid:AppAuth-Android:+
+  name: AppAuth-Android
+  copyrightHolder: The AppAuth for Android Authors
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/openid/AppAuth-Android
+- artifact: androidx.concurrent:concurrent-futures:+
+  name: concurrent-futures
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/topic/libraries/architecture/index.html

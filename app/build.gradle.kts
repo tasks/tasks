@@ -212,7 +212,7 @@ dependencies {
     implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("androidx.security:security-crypto:1.1.0-alpha02")
-    implementation("net.openid:appauth:0.7.1")
+    implementation("com.github.openid:AppAuth-Android:27b62d5")
 
     // https://github.com/mapbox/mapbox-gl-native-android/issues/316
     genericImplementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.4.1")
