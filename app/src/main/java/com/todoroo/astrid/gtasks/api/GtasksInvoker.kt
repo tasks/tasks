@@ -6,7 +6,6 @@ import com.google.api.services.tasks.Tasks
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.TaskLists
-import kotlinx.coroutines.runBlocking
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.googleapis.BaseInvoker
 import org.tasks.preferences.Preferences
@@ -79,7 +78,7 @@ class GtasksInvoker(
                             .setPrevious(previousId))
 
     @Throws(IOException::class)
-    fun deleteGtaskList(listId: String?) = runBlocking {
+    suspend fun deleteGtaskList(listId: String?) {
         try {
             execute(service!!.tasklists().delete(listId))
         } catch (ignored: HttpNotFoundException) {
@@ -87,14 +86,12 @@ class GtasksInvoker(
     }
 
     @Throws(IOException::class)
-    fun renameGtaskList(listId: String?, title: String?): TaskList? = runBlocking {
-        execute(service!!.tasklists().patch(listId, TaskList().setTitle(title)))
-    }
+    suspend fun renameGtaskList(listId: String?, title: String?): TaskList? =
+            execute(service!!.tasklists().patch(listId, TaskList().setTitle(title)))
 
     @Throws(IOException::class)
-    fun createGtaskList(title: String?): TaskList? = runBlocking {
-        execute(service!!.tasklists().insert(TaskList().setTitle(title)))
-    }
+    suspend fun createGtaskList(title: String?): TaskList? =
+            execute(service!!.tasklists().insert(TaskList().setTitle(title)))
 
     @Throws(IOException::class)
     suspend fun deleteGtask(listId: String?, taskId: String?) {
