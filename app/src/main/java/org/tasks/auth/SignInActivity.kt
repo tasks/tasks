@@ -90,7 +90,8 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
 
     private fun handleError(e: Throwable) {
         if (e is HttpException && e.code == 402) {
-            newPurchaseDialog().show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+            newPurchaseDialog(tasksPayment = true)
+                    .show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
         } else {
             returnError(e.message)
         }

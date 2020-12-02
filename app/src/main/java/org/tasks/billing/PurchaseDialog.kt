@@ -152,10 +152,14 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
     
     @OnClick(R.id.pay_other)
     fun nameYourPrice() {
-        nameYourPrice = !nameYourPrice
-        setWaitScreen(false)
-        binding.scroll.scrollTo(0, 0)
-        updateSubscribeButton()
+        if (isTasksPayment) {
+            dismiss()
+        } else {
+            nameYourPrice = !nameYourPrice
+            setWaitScreen(false)
+            binding.scroll.scrollTo(0, 0)
+            updateSubscribeButton()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -170,7 +174,11 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         val generic = BuildConfig.FLAVOR == "generic"
         binding.slider.isVisible = !isWaitScreen && nameYourPrice
         binding.payOther.isVisible = !isWaitScreen
-        binding.payOther.setText(if (nameYourPrice) R.string.back else R.string.more_options)
+        binding.payOther.setText(when {
+            nameYourPrice -> R.string.back
+            isTasksPayment -> R.string.cancel
+            else -> R.string.more_options
+        })
         binding.tasksOrgButtonPanel.isVisible = !isWaitScreen && !generic
         binding.screenWait.isVisible = isWaitScreen && !generic
         binding.sponsor.isVisible = generic
@@ -255,26 +263,25 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         activity.takeIf { it is PurchaseHandler }?.let {
             (it as PurchaseHandler).onPurchaseDialogDismissed()
         }
-        if (arguments?.getBoolean(EXTRA_FINISH_ACTIVITY, false) == true) {
-            activity?.finish()
-        }
     }
+
+    private val isTasksPayment: Boolean
+        get() = arguments?.getBoolean(EXTRA_TASKS_PAYMENT, false) ?: false
 
     companion object {
         private const val EXTRA_PRICE = "extra_price"
         private const val EXTRA_PRICE_CHANGED = "extra_price_changed"
         private const val EXTRA_NAME_YOUR_PRICE = "extra_name_your_price"
-        const val EXTRA_FINISH_ACTIVITY = "extra_activity_rc"
+        private const val EXTRA_TASKS_PAYMENT = "extra_tasks_payment"
         @JvmStatic
         val FRAG_TAG_PURCHASE_DIALOG = "frag_tag_purchase_dialog"
 
         @JvmStatic
-        fun newPurchaseDialog() = newPurchaseDialog(false)
-
-        fun newPurchaseDialog(finishActivity: Boolean): PurchaseDialog {
+        @JvmOverloads
+        fun newPurchaseDialog(tasksPayment: Boolean = false): PurchaseDialog {
             val dialog = PurchaseDialog()
             val args = Bundle()
-            args.putBoolean(EXTRA_FINISH_ACTIVITY, finishActivity)
+            args.putBoolean(EXTRA_TASKS_PAYMENT, tasksPayment)
             dialog.arguments = args
             return dialog
         }

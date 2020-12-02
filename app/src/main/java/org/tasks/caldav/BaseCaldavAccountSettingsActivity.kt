@@ -98,7 +98,8 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             newSnackbar(getString(R.string.this_feature_requires_a_subscription))
                     .setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction(R.string.button_subscribe) {
-                        newPurchaseDialog().show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+                        newPurchaseDialog(tasksPayment = caldavAccount?.isTasksOrg ?: false)
+                                .show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
                     }
                     .show()
         }
