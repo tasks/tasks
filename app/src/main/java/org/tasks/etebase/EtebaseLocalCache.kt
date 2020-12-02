@@ -19,6 +19,16 @@ class EtebaseLocalCache private constructor(context: Context, username: String) 
         }
     }
 
+    suspend fun saveStoken(stoken: String) {
+        withContext(Dispatchers.IO) {
+            fsCache.saveStoken(stoken)
+        }
+    }
+
+    suspend fun loadStoken(): String? = withContext(Dispatchers.IO) {
+        fsCache.loadStoken()
+    }
+
     suspend fun collectionList(colMgr: CollectionManager): List<Collection> =
             withContext(Dispatchers.IO) {
                 fsCache._unstable_collectionList(colMgr).filter { !it.isDeleted }

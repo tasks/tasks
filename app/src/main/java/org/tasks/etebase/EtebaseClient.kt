@@ -29,10 +29,15 @@ class EtebaseClient(
     @Throws(Exceptions.HttpException::class)
     suspend fun getCollections(): List<Collection> {
         val collectionManager = etebase.collectionManager
+        var stoken: String? = cache.loadStoken()
         do {
             val response = withContext(Dispatchers.IO) {
-                collectionManager.list(TYPE_TASKS)
+                collectionManager.list(
+                        TYPE_TASKS,
+                        FetchOptions().stoken(stoken).limit(MAX_FETCH)
+                )
             }
+            stoken = response.stoken
             response.data.forEach {
                 cache.collectionSet(collectionManager, it)
             }
@@ -40,6 +45,7 @@ class EtebaseClient(
                 cache.collectionUnset(collectionManager, it)
             }
         } while (!response.isDone)
+        stoken?.let { cache.saveStoken(it) }
         return cache.collectionList(collectionManager)
     }
 
