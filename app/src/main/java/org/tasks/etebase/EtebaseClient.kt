@@ -140,6 +140,7 @@ class EtebaseClient(
         collection.meta = collection.meta.let { meta ->
             name?.let { meta.name = it }
             color?.let { meta.color = it.toHexColor() }
+            meta.mtime = currentTimeMillis()
             meta
         }
         val collectionManager = etebase.collectionManager
