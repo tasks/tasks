@@ -9,6 +9,7 @@ import com.google.api.services.drive.Drive
 import com.google.api.services.drive.model.File
 import com.todoroo.astrid.backup.BackupConstants
 import com.todoroo.astrid.gtasks.api.HttpCredentialsAdapter
+import com.todoroo.astrid.gtasks.api.HttpNotFoundException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.files.FileHelper
@@ -28,13 +29,18 @@ class DriveInvoker(
                     .build()
 
     @Throws(IOException::class)
-    suspend fun getFile(folderId: String?): File? {
-        return execute(service.files()[folderId].setFields("id, trashed"))
+    suspend fun getFile(folderId: String?): File? = try {
+        execute(service.files()[folderId].setFields("id, trashed"))
+    } catch (ignored: HttpNotFoundException) {
+        null
     }
 
     @Throws(IOException::class)
     suspend fun delete(file: File) {
-        execute(service.files().delete(file.id))
+        try {
+            execute(service.files().delete(file.id))
+        } catch (ignored: HttpNotFoundException) {
+        }
     }
 
     @Throws(IOException::class)

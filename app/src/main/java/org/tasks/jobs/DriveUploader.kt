@@ -48,17 +48,7 @@ class DriveUploader @WorkerInject constructor(
                 drive
                         .getFilesByPrefix(folder.id, "auto.")
                         .drop(BackupWork.DAYS_TO_KEEP_BACKUP)
-                        .forEach {
-                            try {
-                                drive.delete(it)
-                            } catch (e: GoogleJsonResponseException) {
-                                if (e.statusCode == 404) {
-                                    Timber.e(e)
-                                } else {
-                                    throw e
-                                }
-                            }
-                        }
+                        .forEach { drive.delete(it) }
             }
             Result.success()
         } catch (e: SocketTimeoutException) {
@@ -102,13 +92,7 @@ class DriveUploader @WorkerInject constructor(
         val folderId = preferences.getStringValue(R.string.p_google_drive_backup_folder)
         var file: File? = null
         if (!isNullOrEmpty(folderId)) {
-            try {
-                file = drive.getFile(folderId)
-            } catch (e: GoogleJsonResponseException) {
-                if (e.statusCode != 404) {
-                    throw e
-                }
-            }
+            file = drive.getFile(folderId)
         }
         return if (file == null || file.trashed) drive.createFolder(FOLDER_NAME) else file
     }
