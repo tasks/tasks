@@ -114,10 +114,10 @@
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.71 -> 1.4.10 (*)
 +|         +--- androidx.annotation:annotation:1.1.0
 +|         \--- androidx.core:core:1.3.2 (*)
-++--- com.gitlab.bitfireAT:cert4android:72cf235ad9
-+|    +--- androidx.databinding:databinding-common:4.0.1 -> 4.1.1
-+|    +--- androidx.databinding:databinding-runtime:4.0.1 -> 4.1.1 (*)
-+|    +--- androidx.databinding:databinding-adapters:4.0.1 -> 4.1.1 (*)
+++--- com.gitlab.bitfireAT:cert4android:0710fb57c1
++|    +--- androidx.databinding:databinding-common:4.1.0 -> 4.1.1
++|    +--- androidx.databinding:databinding-runtime:4.1.0 -> 4.1.1 (*)
++|    +--- androidx.databinding:databinding-adapters:4.1.0 -> 4.1.1 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10 (*)
 +|    +--- androidx.appcompat:appcompat:1.2.0
 +|    |    +--- androidx.annotation:annotation:1.1.0
@@ -157,14 +157,20 @@
 +|    |    +--- androidx.lifecycle:lifecycle-service:2.2.0
 +|    |    |    \--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
 +|    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
-+|    +--- androidx.lifecycle:lifecycle-livedata:2.2.0 (*)
++|    +--- androidx.lifecycle:lifecycle-livedata-ktx:2.2.0
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.10 (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0 -> 1.3.4
++|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.70 -> 1.4.10 (*)
++|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.3.70 -> 1.4.10
++|    |    +--- androidx.lifecycle:lifecycle-livedata:2.2.0 (*)
++|    |    \--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.10 (*)
++|    |         \--- androidx.lifecycle:lifecycle-livedata-core:2.2.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.10 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0 -> 1.3.4
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.70 -> 1.4.10 (*)
-+|    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4
-+|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.70 -> 1.4.10 (*)
-+|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.3.70 -> 1.4.10
++|    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4 (*)
 +|    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
 +|    +--- com.google.android.material:material:1.2.1
 +|    |    +--- androidx.annotation:annotation:1.0.1 -> 1.1.0
@@ -195,7 +201,7 @@
 +|    |         +--- androidx.recyclerview:recyclerview:1.1.0 (*)
 +|    |         +--- androidx.core:core:1.1.0 -> 1.3.2 (*)
 +|    |         \--- androidx.collection:collection:1.1.0 (*)
-+|    \--- org.conscrypt:conscrypt-android:2.4.0
++|    \--- org.conscrypt:conscrypt-android:2.5.0
 ++--- com.github.dmfs.opentasks:opentasks-provider:1.2.4
 +|    +--- org.dmfs:rfc5545-datetime:0.2.4
 +|    +--- org.dmfs:lib-recur:0.11.4
@@ -259,9 +265,7 @@
 +|    +--- androidx.collection:collection-ktx:1.1.0
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.20 -> 1.4.10 (*)
 +|    |    \--- androidx.collection:collection:1.1.0 (*)
-+|    +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0
-+|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.10 (*)
-+|    |    \--- androidx.lifecycle:lifecycle-livedata-core:2.2.0 (*)
++|    +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0 (*)
 +|    \--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0 (*)
 ++--- androidx.lifecycle:lifecycle-runtime-ktx:2.2.0 (*)
 ++--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0 (*)
