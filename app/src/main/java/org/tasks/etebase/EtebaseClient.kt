@@ -95,7 +95,7 @@ class EtebaseClient(
     suspend fun uploadChanges(collection: Collection, items: List<Item>) {
         val itemManager = etebase.collectionManager.getItemManager(collection)
         withContext(Dispatchers.IO) {
-            itemManager.transaction(items.toTypedArray())
+            itemManager.batch(items.toTypedArray())
         }
     }
 
