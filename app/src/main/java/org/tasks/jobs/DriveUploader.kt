@@ -20,6 +20,7 @@ import timber.log.Timber
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.net.ConnectException
+import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
@@ -51,40 +52,45 @@ class DriveUploader @WorkerInject constructor(
                         .forEach { drive.delete(it) }
             }
             Result.success()
-        } catch (e: SocketTimeoutException) {
-            Timber.e(e)
-            Result.retry()
-        } catch (e: SSLException) {
-            Timber.e(e)
-            Result.retry()
-        } catch (e: ConnectException) {
-            Timber.e(e)
-            Result.retry()
-        } catch (e: UnknownHostException) {
-            Timber.e(e)
-            Result.retry()
         } catch (e: FileNotFoundException) {
-            Timber.e(e)
-            Result.failure()
+            fail(e)
+        } catch (e: SocketException) {
+            retry(e)
+        } catch (e: SocketTimeoutException) {
+            retry(e)
+        } catch (e: SSLException) {
+            retry(e)
+        } catch (e: ConnectException) {
+            retry(e)
+        } catch (e: UnknownHostException) {
+            retry(e)
         } catch (e: GoogleJsonResponseException) {
             when (e.statusCode) {
-                401 -> {
-                    Timber.e(e)
-                    Result.failure()
-                }
-                503 -> {
-                    Timber.e(e)
-                    Result.retry()
-                }
-                else -> {
-                    firebase.reportException(e)
-                    Result.retry()
-                }
+                401, 403 -> fail(e)
+                503 -> retry(e)
+                else -> retry(e, report = true)
             }
         } catch (e: IOException) {
-            firebase.reportException(e)
-            Result.failure()
+            fail(e, report = true)
         }
+    }
+
+    private fun fail(e: Throwable, report: Boolean = false): Result {
+        if (report) {
+            firebase.reportException(e)
+        } else {
+            Timber.e(e)
+        }
+        return Result.failure()
+    }
+
+    private fun retry(e: Throwable, report: Boolean = false): Result {
+        if (report) {
+            firebase.reportException(e)
+        } else {
+            Timber.e(e)
+        }
+        return Result.retry()
     }
 
     @Throws(IOException::class)
