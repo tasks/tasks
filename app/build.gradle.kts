@@ -93,10 +93,6 @@ android {
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
             isTestCoverageEnabled = project.hasProperty("coverage")
-
-            setManifestPlaceholders(mapOf(
-                    "appAuthRedirectScheme" to "com.googleusercontent.apps.1006257750459-vf4mvft1b3rfda8b4c4bl4k4418abqlf"
-            ))
         }
         getByName("release") {
             val tasks_mapbox_key: String? by project
@@ -106,10 +102,6 @@ android {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard.pro")
             signingConfig = signingConfigs.getByName("release")
-
-            setManifestPlaceholders(mapOf(
-                    "appAuthRedirectScheme" to "com.googleusercontent.apps.363426363175-jdrijf7hql9030klgjcjlpi6k5spviif"
-            ))
         }
     }
 

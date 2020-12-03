@@ -6,17 +6,13 @@
   <application tools:ignore="GoogleAppIndexingWarning">
 
     <activity
-      android:exported="true"
-      android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"/>
-
-    <activity
       android:name="net.openid.appauth.RedirectUriReceiverActivity"
       tools:node="replace">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="com.googleusercontent.apps.1006257750459-vf4mvft1b3rfda8b4c4bl4k4418abqlf" />
+        <data android:scheme="com.googleusercontent.apps.363426363175-jdrijf7hql9030klgjcjlpi6k5spviif" />
       </intent-filter>
     </activity>
 
