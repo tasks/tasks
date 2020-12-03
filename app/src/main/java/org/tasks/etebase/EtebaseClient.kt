@@ -38,9 +38,9 @@ class EtebaseClient(
                 )
             }
             stoken = response.stoken
-            response.data.forEach {
-                cache.collectionSet(collectionManager, it)
-            }
+            response.data
+                    .filter { it.collectionType == TYPE_TASKS }
+                    .forEach { cache.collectionSet(collectionManager, it) }
             response.removedMemberships.forEach {
                 cache.collectionUnset(collectionManager, it)
             }
