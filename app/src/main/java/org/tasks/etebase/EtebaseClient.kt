@@ -3,9 +3,6 @@ package org.tasks.etebase
 import android.content.Context
 import com.etebase.client.*
 import com.etebase.client.Collection
-import com.etesync.journalmanager.Exceptions
-import com.etesync.journalmanager.Exceptions.IntegrityException
-import com.etesync.journalmanager.Exceptions.VersionTooNewException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.data.CaldavCalendar
@@ -13,7 +10,6 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import timber.log.Timber
-import java.io.IOException
 
 class EtebaseClient(
         private val context: Context,
@@ -23,10 +19,8 @@ class EtebaseClient(
 ) {
     private val cache = EtebaseLocalCache.getInstance(context, username)
 
-    @Throws(IOException::class, Exceptions.HttpException::class)
     fun getSession(): String = etebase.save(null)
 
-    @Throws(Exceptions.HttpException::class)
     suspend fun getCollections(): List<Collection> {
         val collectionManager = etebase.collectionManager
         var stoken: String? = cache.loadStoken()
@@ -49,7 +43,6 @@ class EtebaseClient(
         return cache.collectionList(collectionManager)
     }
 
-    @Throws(IntegrityException::class, Exceptions.HttpException::class, VersionTooNewException::class)
     suspend fun fetchItems(
             collection: Collection,
             calendar: CaldavCalendar,
@@ -118,20 +111,17 @@ class EtebaseClient(
         }
     }
 
-    @Throws(VersionTooNewException::class, IntegrityException::class, Exceptions.HttpException::class)
     suspend fun makeCollection(name: String, color: Int) =
             etebase
                     .collectionManager
                     .create(TYPE_TASKS, ItemMetadata(), "")
                     .let { setAndUpload(it, name, color) }
 
-    @Throws(VersionTooNewException::class, IntegrityException::class, Exceptions.HttpException::class)
     suspend fun updateCollection(calendar: CaldavCalendar, name: String, color: Int) =
             cache
                     .collectionGet(etebase.collectionManager, calendar.url!!)
                     .let { setAndUpload(it, name, color) }
 
-    @Throws(Exceptions.HttpException::class)
     suspend fun deleteCollection(calendar: CaldavCalendar) =
             cache
                     .collectionGet(etebase.collectionManager, calendar.url!!)
