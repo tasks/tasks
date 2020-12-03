@@ -1,23 +1,21 @@
 package org.tasks.caldav
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.tasks.DebugNetworkInterceptor
-import org.tasks.TestUtilities.newPreferences
-import org.tasks.security.KeyStoreEncryption
+import org.tasks.injection.InjectingTestCase
+import org.tasks.injection.ProductionModule
+import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
-class CaldavClientTest {
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
+class CaldavClientTest : InjectingTestCase() {
+
+    @Inject lateinit var clientProvider: CaldavClientProvider
+
     @Test
-    fun dontCrashOnSpaceInUrl() {
-        runBlocking {
-            val context = ApplicationProvider.getApplicationContext<Context>()
-            CaldavClient(context, KeyStoreEncryption(), newPreferences(context), DebugNetworkInterceptor(ApplicationProvider.getApplicationContext()))
-                    .forUrl("https://example.com/remote.php/a space/", "username", "password")
-        }
+    fun dontCrashOnSpaceInUrl(): Unit = runBlocking {
+        clientProvider.forUrl("https://example.com/remote.php/a space/", "username", "password")
     }
 }
