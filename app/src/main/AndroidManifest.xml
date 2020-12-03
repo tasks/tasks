@@ -165,6 +165,17 @@
     android:hasFragileUserData="true">
 
     <activity
+      android:name="net.openid.appauth.RedirectUriReceiverActivity"
+      tools:node="replace">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="@string/google_oauth_scheme" />
+      </intent-filter>
+    </activity>
+
+    <activity
       android:name=".auth.SignInActivity"
       android:theme="@style/TranslucentDialog"
       android:windowSoftInputMode="stateHidden" >
