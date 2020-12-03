@@ -1,8 +1,8 @@
 # https://github.com/andstatus/todoagenda/blob/aa2bc56effa379e145eecb104cc5bac33975b7aa/.travis.yml
 # Based on https://travis-ci.org/ankidroid/Anki-Android/builds/624268367
 # See also https://travis-ci.community/t/is-android-28-emulator-supported/1718/6
-sudo: true
-language: bash
+language: shell
+os: linux
 # ignored on non-linux platforms, but bionic is required for nested virtualization
 dist: bionic
 
@@ -25,7 +25,7 @@ env:
     - TOOLS=${ANDROID_HOME}/tools
     # PATH order is incredibly important. e.g. the 'emulator' script exists in more than one place!
     - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
-  matrix:
+  jobs:
     - API=29
 
 before_install:
