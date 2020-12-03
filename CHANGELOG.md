@@ -1,4 +1,4 @@
-### 11.0 (2020-12-02)
+### 11.0 (2020-12-03)
 
 * New Tasks.org synchronization service
 * Multi-select rescheduling
