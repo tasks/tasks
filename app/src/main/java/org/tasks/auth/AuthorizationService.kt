@@ -4,19 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.openid.appauth.*
 import net.openid.appauth.AuthorizationService
 import net.openid.appauth.browser.AnyBrowserMatcher
-import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 
-class AuthorizationService @Inject constructor(
-        @ApplicationContext context: Context,
+class AuthorizationService constructor(
+        context: Context,
         private val authStateManager: AuthStateManager,
-        configuration: Configuration
+        val configuration: Configuration
 ) {
     private val authorizationService = AuthorizationService(
             context,

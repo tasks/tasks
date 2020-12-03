@@ -20,7 +20,7 @@ import timber.log.Timber
 class SignInViewModel @ViewModelInject constructor(
         @ApplicationContext private val context: Context,
         private val authStateManager: AuthStateManager,
-        private val authorizationService: AuthorizationService,
+        private val authorizationServiceProvider: AuthorizationServiceProvider,
         private val provider: CaldavClientProvider,
         private val caldavDao: CaldavDao
 ) : ViewModel() {
@@ -88,12 +88,14 @@ class SignInViewModel @ViewModelInject constructor(
             throw ex
         }
         try {
-            authorizationService.performTokenRequest(request, clientAuthentication)?.let {
-                authStateManager.updateAfterTokenResponse(it, null)
-                if (authStateManager.current.isAuthorized) {
-                    Timber.d("Authorization successful")
-                }
-            }
+            authorizationServiceProvider
+                    .google
+                    .performTokenRequest(request, clientAuthentication)?.let {
+                        authStateManager.updateAfterTokenResponse(it, null)
+                        if (authStateManager.current.isAuthorized) {
+                            Timber.d("Authorization successful")
+                        }
+                    }
         } catch (e: AuthorizationException) {
             authStateManager.updateAfterTokenResponse(null, e)
         }

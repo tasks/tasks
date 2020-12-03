@@ -12,7 +12,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.DebugNetworkInterceptor
-import org.tasks.auth.AuthorizationService
+import org.tasks.auth.AuthorizationServiceProvider
 import org.tasks.billing.Inventory
 import org.tasks.data.CaldavAccount
 import org.tasks.preferences.Preferences
@@ -27,7 +27,7 @@ class CaldavClientProvider @Inject constructor(
         private val preferences: Preferences,
         private val interceptor: DebugNetworkInterceptor,
         private val inventory: Inventory,
-        private val authorizationService: AuthorizationService
+        private val authorizationServiceProvider: AuthorizationServiceProvider
 ) {
     suspend fun forUrl(
             url: String?,
@@ -66,9 +66,11 @@ class CaldavClientProvider @Inject constructor(
             token: String? = null
     ): Interceptor? {
         return when {
-            account?.isTasksOrg == true -> authorizationService.getFreshToken()?.let {
-                TokenInterceptor(it, inventory)
-            }
+            account?.isTasksOrg == true ->
+                authorizationServiceProvider
+                        .google
+                        .getFreshToken()
+                        ?.let { TokenInterceptor(it, inventory) }
             username?.isNotBlank() == true && password?.isNotBlank() == true ->
                 BasicDigestAuthHandler(null, username, password)
             token?.isNotBlank() == true ->
@@ -106,6 +108,6 @@ class CaldavClientProvider @Inject constructor(
     }
 
     fun dispose() {
-        authorizationService.dispose()
+        authorizationServiceProvider.dispose()
     }
 }

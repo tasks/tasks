@@ -17,7 +17,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
-import dagger.hilt.android.qualifiers.ApplicationContext
 import net.openid.appauth.connectivity.ConnectionBuilder
 import net.openid.appauth.connectivity.DefaultConnectionBuilder
 import okio.Buffer
@@ -28,17 +27,15 @@ import org.json.JSONObject
 import org.tasks.R
 import java.io.IOException
 import java.nio.charset.StandardCharsets
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
- * Reads and validates the demo app configuration from `res/raw/auth_config.json`. Configuration
+ * Reads and validates the app configuration from `authConfig`. Configuration
  * changes are detected by comparing the hash of the last known configuration to the read
  * configuration. When a configuration change is detected, the app state is reset.
  */
-@Singleton
-class Configuration @Inject constructor(
-        @ApplicationContext private val context: Context
+class Configuration constructor(
+        private val context: Context,
+        private val authConfig: Int
 ) {
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     private var configJson: JSONObject? = null
@@ -100,7 +97,7 @@ class Configuration @Inject constructor(
 
     @Throws(InvalidConfigurationException::class)
     private fun readConfiguration() {
-        val configSource = context.resources.openRawResource(R.raw.auth_config).source().buffer()
+        val configSource = context.resources.openRawResource(authConfig).source().buffer()
         val configData = Buffer()
         configJson = try {
             configSource.readAll(configData)
@@ -209,6 +206,7 @@ class Configuration @Inject constructor(
     companion object {
         private const val PREFS_NAME = "config"
         private const val KEY_LAST_HASH = "lastHash"
+        const val GOOGLE_CONFIG = R.raw.google_config
     }
 
     init {

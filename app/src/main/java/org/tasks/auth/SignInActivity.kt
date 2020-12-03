@@ -41,8 +41,7 @@ import javax.inject.Inject
 
 /**
  * Demonstrates the usage of the AppAuth to authorize a user with an OAuth2 / OpenID Connect
- * provider. Based on the configuration provided in `res/raw/auth_config.json`, the code
- * contained here will:
+ * provider
  *
  * - Retrieve an OpenID Connect discovery document for the provider, or use a local static
  * configuration.
@@ -51,9 +50,8 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHandler {
-    @Inject lateinit var authService: AuthorizationService
+    @Inject lateinit var authorizationServiceProvider: AuthorizationServiceProvider
     @Inject lateinit var authStateManager: AuthStateManager
-    @Inject lateinit var configuration: Configuration
     @Inject lateinit var themeColor: ThemeColor
     @Inject lateinit var inventory: Inventory
 
@@ -65,10 +63,16 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
     private var mAuthIntentLatch = CountDownLatch(1)
     private val mExecutor: ExecutorService = newSingleThreadExecutor()
 
+    lateinit var authService: AuthorizationService
+    lateinit var configuration: Configuration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel.error.observe(this, this::handleError)
+
+        authService = authorizationServiceProvider.google
+        configuration = authService.configuration
 
         if (authStateManager.current.isAuthorized &&
                 !configuration.hasConfigurationChanged()) {
@@ -155,7 +159,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
         // if we are not using discovery, build the authorization service configuration directly
         // from the static configuration values.
         if (configuration.discoveryUri == null) {
-            Timber.i("Creating auth config from res/raw/auth_config.json")
+            Timber.i("Creating auth config")
             val config = AuthorizationServiceConfiguration(
                     configuration.authEndpointUri!!,
                     configuration.tokenEndpointUri!!,
