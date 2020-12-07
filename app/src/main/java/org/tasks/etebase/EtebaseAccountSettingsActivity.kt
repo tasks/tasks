@@ -14,6 +14,7 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Constants
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -125,7 +126,11 @@ class EtebaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     }
 
     override suspend fun removeAccount() {
-        caldavAccount?.let { clientProvider.forAccount(it).logout() }
+        try {
+            caldavAccount?.let { clientProvider.forAccount(it).logout() }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
         super.removeAccount()
     }
 }
