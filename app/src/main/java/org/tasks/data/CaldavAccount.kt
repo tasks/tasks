@@ -175,11 +175,9 @@ class CaldavAccount : Parcelable {
                 !isLoggedOut()
     }
 
-    fun isLoggedOut(): Boolean =
-            error?.startsWith("HTTP ${HttpURLConnection.HTTP_UNAUTHORIZED}") == true
+    fun isLoggedOut() = error?.startsWith(ERROR_UNAUTHORIZED) == true
 
-    fun isPaymentRequired(): Boolean =
-            error?.startsWith("HTTP ${HttpURLConnection.HTTP_PAYMENT_REQUIRED}") == true
+    fun isPaymentRequired() = error?.startsWith(EROR_PAYMENT_REQUIRED) == true
 
     companion object {
         const val TYPE_CALDAV = 0
@@ -188,6 +186,9 @@ class CaldavAccount : Parcelable {
         const val TYPE_OPENTASKS = 3
         const val TYPE_TASKS = 4
         const val TYPE_ETEBASE = 5
+
+        const val ERROR_UNAUTHORIZED = "HTTP ${HttpURLConnection.HTTP_UNAUTHORIZED}"
+        const val EROR_PAYMENT_REQUIRED = "HTTP ${HttpURLConnection.HTTP_PAYMENT_REQUIRED}"
 
         fun String?.openTaskType(): String? = this?.split(":")?.get(0)
 

@@ -30,6 +30,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.ERROR_UNAUTHORIZED
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
@@ -69,11 +70,11 @@ class CaldavSynchronizer @Inject constructor(
             return
         }
         if (isNullOrEmpty(account.password)) {
-            setError(account, context.getString(if (account.isTasksOrg) {
-                R.string.authentication_required
+            setError(account, if (account.isTasksOrg) {
+                ERROR_UNAUTHORIZED
             } else {
-                R.string.password_required
-            }))
+                context.getString(R.string.password_required)
+            })
             return
         }
         try {

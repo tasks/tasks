@@ -152,8 +152,8 @@ class TasksAccount : InjectingPreferenceFragment() {
                         setOnPreferenceClickListener {
                             showPurchaseDialog()
                         }
-                        if (subscription == null) {
-                            setTitle(R.string.upgrade_to_pro)
+                        if (subscription == null || subscription.isTasksSubscription) {
+                            setTitle(R.string.button_subscribe)
                             setSummary(R.string.your_subscription_expired)
                         } else {
                             setTitle(R.string.manage_subscription)
@@ -203,10 +203,11 @@ class TasksAccount : InjectingPreferenceFragment() {
         findPreference(R.string.upgrade_to_pro).apply {
             title = getString(
                     if (subscription == null) {
-                        R.string.upgrade_to_pro
+                        R.string.button_subscribe
                     } else {
                         R.string.manage_subscription
-                    })
+                    }
+            )
             summary = if (subscription == null) {
                 null
             } else {
