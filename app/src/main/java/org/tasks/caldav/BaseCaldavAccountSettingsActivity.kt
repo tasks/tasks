@@ -94,19 +94,15 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.name, InputMethodManager.SHOW_IMPLICIT)
         }
-        if (needsPurchase) {
+        if (!inventory.hasPro) {
             newSnackbar(getString(R.string.this_feature_requires_a_subscription))
                     .setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction(R.string.button_subscribe) {
-                        newPurchaseDialog(tasksPayment = caldavAccount?.isTasksOrg ?: false)
-                                .show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+                        newPurchaseDialog().show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
                     }
                     .show()
         }
     }
-
-    protected open val needsPurchase: Boolean
-            get() = !inventory.hasPro
 
     @get:StringRes
     protected open val description = 0
