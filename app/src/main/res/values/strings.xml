@@ -662,6 +662,8 @@ File %1$s contained %2$s.\n\n
   <string name="logged_in">Logged in %s</string>
   <string name="your_subscription_expired">Your subscription has expired. Subscribe now to resume service.</string>
   <string name="insufficient_subscription">Insufficient subscription level. Please upgrade your subscription to resume service.</string>
+  <string name="insufficient_sponsorship">No eligible GitHub sponsorship found</string>
+  <string name="no_google_play_subscription">No eligible Google Play subscription found</string>
   <string name="price_per_year">$%s/year</string>
   <string name="price_per_year_abbreviated">$%s/yr</string>
   <string name="price_per_month">$%s/month</string>
@@ -670,7 +672,11 @@ File %1$s contained %2$s.\n\n
   <string name="purchases_updated">Purchases updated</string>
   <string name="follow_reddit">Follow r/tasks</string>
   <string name="authorization_cancelled">Authorization cancelled</string>
+  <string name="not_signed_in">Not signed in</string>
+  <string name="google_play_subscribers">Google Play subscribers</string>
+  <string name="github_sponsors">GitHub Sponsors</string>
   <string name="sign_in_with_google">Sign in with Google</string>
+  <string name="sign_in_with_github">Sign in with GitHub</string>
   <string name="authentication_required">Authentication required</string>
   <string name="github_sponsor">Sponsor</string>
   <string name="migrate">Migrate</string>

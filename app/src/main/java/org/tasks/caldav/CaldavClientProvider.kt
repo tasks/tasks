@@ -12,7 +12,6 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.DebugNetworkInterceptor
-import org.tasks.auth.AuthorizationServiceProvider
 import org.tasks.billing.Inventory
 import org.tasks.data.CaldavAccount
 import org.tasks.preferences.Preferences
@@ -26,8 +25,7 @@ class CaldavClientProvider @Inject constructor(
         private val encryption: KeyStoreEncryption,
         private val preferences: Preferences,
         private val interceptor: DebugNetworkInterceptor,
-        private val inventory: Inventory,
-        private val authorizationServiceProvider: AuthorizationServiceProvider
+        private val inventory: Inventory
 ) {
     suspend fun forUrl(
             url: String?,
@@ -59,7 +57,7 @@ class CaldavClientProvider @Inject constructor(
         CustomCertManager(context)
     }
 
-    private suspend fun getAuthInterceptor(
+    private fun getAuthInterceptor(
             account: CaldavAccount? = null,
             username: String? = account?.username,
             password: String? = account?.getPassword(encryption),
@@ -67,9 +65,8 @@ class CaldavClientProvider @Inject constructor(
     ): Interceptor? {
         return when {
             account?.isTasksOrg == true ->
-                authorizationServiceProvider
-                        .google
-                        .getFreshToken()
+                account.password
+                        ?.let { encryption.decrypt(it) }
                         ?.let { TokenInterceptor(it, inventory) }
             username?.isNotBlank() == true && password?.isNotBlank() == true ->
                 BasicDigestAuthHandler(null, username, password)
@@ -105,9 +102,5 @@ class CaldavClientProvider @Inject constructor(
         }
 
         return builder.build()
-    }
-
-    fun dispose() {
-        authorizationServiceProvider.dispose()
     }
 }

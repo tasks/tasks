@@ -13,8 +13,4 @@ class DeleteCalendarViewModel @ViewModelInject constructor(
             calendar.url?.let { provider.forAccount(account, it).deleteCollection() }
         }
     }
-
-    override fun onCleared() {
-        provider.dispose()
-    }
 }

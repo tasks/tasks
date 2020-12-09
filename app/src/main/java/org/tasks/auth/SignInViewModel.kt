@@ -7,28 +7,38 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
-import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.ClientAuthentication.UnsupportedAuthenticationMethod
+import net.openid.appauth.GrantTypeValues
+import net.openid.appauth.TokenRequest
 import org.tasks.R
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
+import org.tasks.security.KeyStoreEncryption
 import timber.log.Timber
 
 class SignInViewModel @ViewModelInject constructor(
         @ApplicationContext private val context: Context,
-        private val authStateManager: AuthStateManager,
-        private val authorizationServiceProvider: AuthorizationServiceProvider,
         private val provider: CaldavClientProvider,
-        private val caldavDao: CaldavDao
+        private val caldavDao: CaldavDao,
+        private val encryption: KeyStoreEncryption,
+        private val debugConnectionBuilder: DebugConnectionBuilder
 ) : ViewModel() {
     val error = MutableLiveData<Throwable>()
 
-    suspend fun handleResult(intent: Intent): CaldavAccount? {
+    var authService: AuthorizationService? = null
+
+    fun initializeAuthService(iss: String) {
+        authService?.dispose()
+        authService = AuthorizationService(iss, context, debugConnectionBuilder)
+    }
+
+    suspend fun handleResult(authService: AuthorizationService, intent: Intent): CaldavAccount? {
         val response = AuthorizationResponse.fromIntent(intent)
         val ex = AuthorizationException.fromIntent(intent)
+        val authStateManager = authService.authStateManager
 
         if (response != null || ex != null) {
             authStateManager.updateAfterAuthorization(response, ex)
@@ -36,7 +46,7 @@ class SignInViewModel @ViewModelInject constructor(
 
         if (response?.authorizationCode != null) {
             authStateManager.updateAfterAuthorization(response, ex)
-            exchangeAuthorizationCode(response)
+            exchangeAuthorizationCode(authService, response)
         }
 
         ex?.let {
@@ -46,32 +56,36 @@ class SignInViewModel @ViewModelInject constructor(
 
         return authStateManager.current
                 .takeIf { it.isAuthorized }
-                ?.let { setupAccount(it) }
+                ?.let { setupAccount(authService) }
     }
 
-    suspend fun setupAccount(auth: AuthState): CaldavAccount? {
-        val tokenString = auth.idToken ?: return null
-        val idToken = IdToken(tokenString)
-        val username = "google_${idToken.sub}"
+    suspend fun setupAccount(authService: AuthorizationService): CaldavAccount? {
+        val auth = authService.authStateManager.current
+        val tokenString = auth.accessToken ?: return null
+        val idToken = auth.idToken?.let { IdToken(it) } ?: return null
         try {
             val homeSet = provider
                     .forUrl(
-                            "${context.getString(R.string.tasks_caldav_url)}/google_login",
+                            context.getString(R.string.tasks_caldav_url),
                             token = tokenString
                     )
                     .setForeground()
                     .homeSet(token = tokenString)
+            val username = "${authService.iss}_${idToken.sub}"
+            val password = encryption.encrypt(tokenString)
             return caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
                     ?.apply {
                         error = null
+                        this.password = password
                         caldavDao.update(this)
                     }
                     ?: CaldavAccount().apply {
                         accountType = CaldavAccount.TYPE_TASKS
                         uuid = UUIDHelper.newUUID()
-                        url = homeSet
                         this.username = username
-                        name = idToken.email
+                        this.password = password
+                        url = homeSet
+                        name = idToken.email ?: idToken.login
                         caldavDao.insert(this)
                     }
         } catch (e: Exception) {
@@ -80,24 +94,49 @@ class SignInViewModel @ViewModelInject constructor(
         return null
     }
 
-    private suspend fun exchangeAuthorizationCode(authorizationResponse: AuthorizationResponse) {
-        val request = authorizationResponse.createTokenExchangeRequest()
+    private suspend fun exchangeAuthorizationCode(
+            authService: AuthorizationService,
+            authorizationResponse: AuthorizationResponse
+    ) {
+        val authStateManager = authService.authStateManager
+        val request = if (authService.isGitHub) {
+            authorizationResponse.createGithubTokenRequest()
+        } else {
+            authorizationResponse.createTokenExchangeRequest()
+        }
         val clientAuthentication = try {
             authStateManager.current.clientAuthentication
         } catch (ex: UnsupportedAuthenticationMethod) {
             throw ex
         }
         try {
-            authorizationServiceProvider
-                    .google
-                    .performTokenRequest(request, clientAuthentication)?.let {
-                        authStateManager.updateAfterTokenResponse(it, null)
-                        if (authStateManager.current.isAuthorized) {
-                            Timber.d("Authorization successful")
-                        }
-                    }
+            authService.performTokenRequest(request, clientAuthentication)?.let {
+                authStateManager.updateAfterTokenResponse(it, null)
+                if (authStateManager.current.isAuthorized) {
+                    Timber.d("Authorization successful")
+                }
+            }
         } catch (e: AuthorizationException) {
+            Timber.e(e)
             authStateManager.updateAfterTokenResponse(null, e)
+        }
+    }
+
+    override fun onCleared() {
+        authService?.dispose()
+    }
+
+    companion object {
+        fun AuthorizationResponse.createGithubTokenRequest(): TokenRequest {
+            checkNotNull(authorizationCode) { "authorizationCode not available for exchange request" }
+            return TokenRequest
+                    .Builder(request.configuration, request.clientId)
+                    .setGrantType(GrantTypeValues.AUTHORIZATION_CODE)
+                    .setRedirectUri(request.redirectUri)
+                    .setCodeVerifier(request.codeVerifier)
+                    .setAuthorizationCode(authorizationCode)
+                    .setAdditionalParameters(emptyMap())
+                    .build()
         }
     }
 }

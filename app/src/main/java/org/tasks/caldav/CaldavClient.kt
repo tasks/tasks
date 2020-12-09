@@ -41,14 +41,6 @@ class CaldavClient(
     suspend fun forAccount(account: CaldavAccount) =
             provider.forAccount(account)
 
-    @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
-    suspend fun forUrl(
-            url: String?,
-            username: String,
-            password: String,
-            token: String? = null
-    ): CaldavClient = provider.forUrl(url, username, password, token)
-
     @WorkerThread
     @Throws(DavException::class, IOException::class)
     private fun tryFindPrincipal(link: String): String? {

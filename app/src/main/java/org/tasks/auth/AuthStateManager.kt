@@ -14,28 +14,10 @@
 
 package org.tasks.auth
 
-import android.content.Context
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
-import dagger.hilt.android.qualifiers.ApplicationContext
 import net.openid.appauth.*
-import org.json.JSONException
-import timber.log.Timber
 import java.util.concurrent.atomic.AtomicReference
-import java.util.concurrent.locks.ReentrantLock
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class AuthStateManager @Inject constructor(@ApplicationContext private val context: Context) {
-    private val prefs = EncryptedSharedPreferences.create(
-            context,
-            STORE_NAME,
-            MasterKey.Builder(context).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build(),
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-    )
-    private val prefsLock = ReentrantLock()
+class AuthStateManager {
     private val currentAuthState = AtomicReference<AuthState>()
 
     fun signOut() {
@@ -56,7 +38,7 @@ class AuthStateManager @Inject constructor(@ApplicationContext private val conte
             if (currentAuthState.get() != null) {
                 return currentAuthState.get()
             }
-            val state = readState()
+            val state = AuthState()
             return if (currentAuthState.compareAndSet(null, state)) {
                 state
             } else {
@@ -65,7 +47,6 @@ class AuthStateManager @Inject constructor(@ApplicationContext private val conte
         }
 
     fun replace(state: AuthState): AuthState {
-        writeState(state)
         currentAuthState.set(state)
         return state
     }
@@ -98,41 +79,5 @@ class AuthStateManager @Inject constructor(@ApplicationContext private val conte
         }
         current.update(response)
         return replace(current)
-    }
-
-    private fun readState(): AuthState {
-        prefsLock.lock()
-        return try {
-            val currentState = prefs.getString(KEY_STATE, null)
-                    ?: return AuthState()
-            try {
-                AuthState.jsonDeserialize(currentState)
-            } catch (ex: JSONException) {
-                Timber.w("Failed to deserialize stored auth state - discarding")
-                AuthState()
-            }
-        } finally {
-            prefsLock.unlock()
-        }
-    }
-
-    private fun writeState(state: AuthState?) {
-        prefsLock.lock()
-        try {
-            val editor = prefs.edit()
-            if (state == null) {
-                editor.remove(KEY_STATE)
-            } else {
-                editor.putString(KEY_STATE, state.jsonSerializeString())
-            }
-            check(editor.commit()) { "Failed to write state to shared prefs" }
-        } finally {
-            prefsLock.unlock()
-        }
-    }
-
-    companion object {
-        private const val STORE_NAME = "AuthState"
-        private const val KEY_STATE = "state"
     }
 }

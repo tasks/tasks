@@ -15,6 +15,11 @@ package org.tasks.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.annotation.AnyThread
 import androidx.annotation.MainThread
@@ -30,6 +35,7 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseDialog
 import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
 import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
+import org.tasks.dialogs.DialogBuilder
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.themes.ThemeColor
 import timber.log.Timber
@@ -50,10 +56,9 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHandler {
-    @Inject lateinit var authorizationServiceProvider: AuthorizationServiceProvider
-    @Inject lateinit var authStateManager: AuthStateManager
     @Inject lateinit var themeColor: ThemeColor
     @Inject lateinit var inventory: Inventory
+    @Inject lateinit var dialogBuilder: DialogBuilder
 
     private val viewModel: SignInViewModel by viewModels()
 
@@ -63,16 +68,68 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
     private var mAuthIntentLatch = CountDownLatch(1)
     private val mExecutor: ExecutorService = newSingleThreadExecutor()
 
-    lateinit var authService: AuthorizationService
-    lateinit var configuration: Configuration
+    private lateinit var authService: AuthorizationService
+
+    private val configuration: Configuration
+        get() = authService.configuration
+
+    private val authStateManager: AuthStateManager
+        get() = authService.authStateManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel.error.observe(this, this::handleError)
 
-        authService = authorizationServiceProvider.google
-        configuration = authService.configuration
+        val titles = resources.getStringArray(R.array.sign_in_titles)
+        val summaries = resources.getStringArray(R.array.sign_in_summaries)
+        val typedArray = resources.obtainTypedArray(R.array.sign_in_icons)
+        val icons = IntArray(typedArray.length())
+        for (i in icons.indices) {
+            icons[i] = typedArray.getResourceId(i, 0)
+        }
+        typedArray.recycle()
+        val adapter = object : BaseAdapter() {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = layoutInflater.inflate(R.layout.simple_list_item_2_themed, null)
+                val icon = view.findViewById<ImageView>(R.id.image_view)
+                icon.setImageResource(icons[position])
+                view.findViewById<TextView>(R.id.text2).text = titles[position]
+                view.findViewById<TextView>(R.id.text1).text = summaries[position]
+                if (position == 1) {
+                    icon.drawable.setTint(getColor(R.color.icon_tint))
+                }
+                return view
+            }
+
+            override fun getCount() = titles.size
+
+            override fun getItem(position: Int) = titles[position]
+
+            override fun getItemId(position: Int): Long = position.toLong()
+        }
+        val autoSelect = intent.getIntExtra(EXTRA_SELECT_SERVICE, -1)
+        if (autoSelect >= 0 && autoSelect < titles.size) {
+            selectService(autoSelect)
+        } else {
+            dialogBuilder.newDialog()
+                    .setAdapter(adapter) { _, which -> selectService(which) }
+                    .setOnCancelListener { finish() }
+                    .show()
+        }
+    }
+
+    private fun selectService(which: Int) {
+        viewModel.initializeAuthService(when (which) {
+            0 -> AuthorizationService.ISS_GOOGLE
+            1 -> AuthorizationService.ISS_GITHUB
+            else -> throw IllegalArgumentException()
+        })
+        viewModel.authService?.let { startAuthorization(it) }
+    }
+
+    private fun startAuthorization(authService: AuthorizationService) {
+        this.authService = authService
 
         if (authStateManager.current.isAuthorized &&
                 !configuration.hasConfigurationChanged()) {
@@ -94,23 +151,17 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
 
     private fun handleError(e: Throwable) {
         if (e is HttpException && e.code == 402) {
-            newPurchaseDialog(tasksPayment = true)
+            newPurchaseDialog(tasksPayment = true, github = authService.isGitHub)
                     .show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
         } else {
             returnError(e.message)
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-
-        mExecutor.shutdownNow()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
 
-        authService.dispose()
+        mExecutor.shutdownNow()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -118,7 +169,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
             if (resultCode == RESULT_OK) {
                 lifecycleScope.launch {
                     val account = try {
-                        viewModel.handleResult(data!!)
+                        viewModel.handleResult(authService, data!!)
                     } catch (e: Exception) {
                         returnError(e.message)
                     }
@@ -302,13 +353,14 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
 
     companion object {
         const val EXTRA_ERROR = "extra_error"
+        const val EXTRA_SELECT_SERVICE = "extra_select_service"
         private const val RC_AUTH = 100
     }
 
     override fun onPurchaseDialogDismissed() {
         if (inventory.subscription?.isTasksSubscription == true) {
             lifecycleScope.launch {
-                val account = viewModel.setupAccount(authStateManager.current)
+                val account = viewModel.setupAccount(authService)
                 if (account != null) {
                     setResult(RESULT_OK)
                     finish()

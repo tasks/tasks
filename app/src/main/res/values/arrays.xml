@@ -238,4 +238,19 @@
     <item>1</item>
     <item>2</item>
   </string-array>
+
+  <string-array name="sign_in_titles">
+    <item>@string/google_play_subscribers</item>
+    <item>@string/github_sponsors</item>
+  </string-array>
+
+  <string-array name="sign_in_summaries">
+    <item>@string/sign_in_with_google</item>
+    <item>@string/sign_in_with_github</item>
+  </string-array>
+
+  <array name="sign_in_icons">
+    <item>@drawable/ic_google</item>
+    <item>@drawable/ic_octocat</item>
+  </array>
 </resources>

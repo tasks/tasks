@@ -5,11 +5,14 @@ import org.json.JSONObject
 
 class IdToken(idToken: String) {
     private val parts: List<String> = idToken.split(".")
-    val json = JSONObject(String(Base64.decode(parts[1], Base64.DEFAULT)))
+    private val json = JSONObject(String(Base64.decode(parts[1], Base64.DEFAULT)))
 
-    val email: String
-        get() = json.getString("email")
+    val email: String?
+        get() = json.optString("email").takeIf { it.isNotBlank() }
 
     val sub: String
         get() = json.getString("sub")
+
+    val login: String?
+        get() = json.optString("login").takeIf { it.isNotBlank() }
 }

@@ -9,6 +9,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -77,10 +78,33 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
 
         setWaitScreen(BuildConfig.FLAVOR != "generic")
 
-        return dialogBuilder.newDialog()
-                .setView(binding.root)
-                .show()
+        return if (BuildConfig.FLAVOR == "generic") {
+            if (isGitHub) {
+                getPurchaseDialog()
+            } else {
+                getMessageDialog(R.string.no_google_play_subscription)
+            }
+        } else {
+            if (isGitHub) {
+                getMessageDialog(R.string.insufficient_sponsorship)
+            } else {
+                getPurchaseDialog()
+            }
+        }
     }
+
+    private fun getPurchaseDialog(): AlertDialog =
+            dialogBuilder.newDialog().setView(binding.root).show()
+
+    private fun getMessageDialog(res: Int): AlertDialog =
+            dialogBuilder.newDialog()
+                    .setMessage(res)
+                    .setPositiveButton(R.string.ok, null)
+                    .setNeutralButton(R.string.help) { _, _ ->
+                        val url = Uri.parse(getString(R.string.subscription_help_url))
+                        startActivity(Intent(Intent.ACTION_VIEW, url))
+                    }
+                    .show()
 
     private fun updateText() {
         var benefits = "### ${getString(R.string.upgrade_header)}"
@@ -268,20 +292,29 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
     private val isTasksPayment: Boolean
         get() = arguments?.getBoolean(EXTRA_TASKS_PAYMENT, false) ?: false
 
+    private val isGitHub: Boolean
+        get() = arguments?.getBoolean(EXTRA_GITHUB, false) ?: false
+
     companion object {
         private const val EXTRA_PRICE = "extra_price"
         private const val EXTRA_PRICE_CHANGED = "extra_price_changed"
         private const val EXTRA_NAME_YOUR_PRICE = "extra_name_your_price"
         private const val EXTRA_TASKS_PAYMENT = "extra_tasks_payment"
+        private const val EXTRA_GITHUB = "extra_github"
+
         @JvmStatic
         val FRAG_TAG_PURCHASE_DIALOG = "frag_tag_purchase_dialog"
 
         @JvmStatic
         @JvmOverloads
-        fun newPurchaseDialog(tasksPayment: Boolean = false): PurchaseDialog {
+        fun newPurchaseDialog(
+                tasksPayment: Boolean = false,
+                github: Boolean = BuildConfig.FLAVOR == "generic"
+        ): PurchaseDialog {
             val dialog = PurchaseDialog()
             val args = Bundle()
             args.putBoolean(EXTRA_TASKS_PAYMENT, tasksPayment)
+            args.putBoolean(EXTRA_GITHUB, github)
             dialog.arguments = args
             return dialog
         }

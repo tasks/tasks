@@ -64,6 +64,12 @@ public class AlertDialogBuilder {
     return this;
   }
 
+  public AlertDialogBuilder setAdapter(
+      ListAdapter adapter, DialogInterface.OnClickListener onClickListener) {
+    builder.setAdapter(adapter, onClickListener);
+    return this;
+  }
+
   public AlertDialogBuilder setView(View dialogView) {
     builder.setView(dialogView);
     return this;

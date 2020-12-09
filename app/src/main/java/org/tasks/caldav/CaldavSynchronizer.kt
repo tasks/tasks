@@ -30,7 +30,6 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
@@ -65,15 +64,17 @@ class CaldavSynchronizer @Inject constructor(
     suspend fun sync(account: CaldavAccount) {
         Thread.currentThread().contextClassLoader = context.classLoader
 
-        if (account.accountType != TYPE_TASKS) {
-            if (!inventory.hasPro) {
-                setError(account, context.getString(R.string.requires_pro_subscription))
-                return
-            }
-            if (isNullOrEmpty(account.password)) {
-                setError(account, context.getString(R.string.password_required))
-                return
-            }
+        if (!inventory.hasPro && !account.isTasksOrg) {
+            setError(account, context.getString(R.string.requires_pro_subscription))
+            return
+        }
+        if (isNullOrEmpty(account.password)) {
+            setError(account, context.getString(if (account.isTasksOrg) {
+                R.string.authentication_required
+            } else {
+                R.string.password_required
+            }))
+            return
         }
         try {
             synchronize(account)
@@ -107,8 +108,6 @@ class CaldavSynchronizer @Inject constructor(
         } catch (e: DavException) {
             setError(account, e.message)
             firebase.reportException(e)
-        } finally {
-            provider.dispose()
         }
     }
 

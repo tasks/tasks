@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -13,7 +14,6 @@ import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.auth.AuthStateManager
 import org.tasks.auth.SignInActivity
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
@@ -29,7 +29,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TasksAccount : InjectingPreferenceFragment() {
 
-    @Inject lateinit var authStateManager: AuthStateManager
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var inventory: Inventory
@@ -69,10 +68,7 @@ class TasksAccount : InjectingPreferenceFragment() {
         }
 
         findPreference(R.string.upgrade_to_pro).setOnPreferenceClickListener {
-            PurchaseDialog
-                    .newPurchaseDialog(this, REQUEST_PURCHASE)
-                    .show(parentFragmentManager, PurchaseDialog.FRAG_TAG_PURCHASE_DIALOG)
-            false
+            showPurchaseDialog()
         }
 
         findPreference(R.string.button_unsubscribe).setOnPreferenceClickListener {
@@ -90,19 +86,26 @@ class TasksAccount : InjectingPreferenceFragment() {
             false
         }
 
-        findPreference(R.string.sign_in_with_google).setOnPreferenceClickListener {
-            activity?.startActivityForResult(
-                    Intent(activity, SignInActivity::class.java),
-                    Synchronization.REQUEST_TASKS_ORG)
-            false
+        if (isGitHubAccount) {
+            findPreference(R.string.upgrade_to_pro).isVisible = false
+            findPreference(R.string.button_unsubscribe).isVisible = false
+            findPreference(R.string.refresh_purchases).isVisible = false
         }
 
         refreshUi()
     }
 
+    private fun showPurchaseDialog(): Boolean {
+        PurchaseDialog
+                .newPurchaseDialog(this, REQUEST_PURCHASE)
+                .show(parentFragmentManager, PurchaseDialog.FRAG_TAG_PURCHASE_DIALOG)
+        return false
+    }
+
     private fun removeAccount() = lifecycleScope.launch {
+        // try to delete session from caldav.tasks.org
         taskDeleter.delete(caldavAccount)
-        authStateManager.signOut()
+        inventory.updateTasksSubscription()
         activity?.onBackPressed()
     }
 
@@ -121,9 +124,67 @@ class TasksAccount : InjectingPreferenceFragment() {
         localBroadcastManager.unregisterReceiver(purchaseReceiver)
     }
 
+    private val isGitHubAccount: Boolean
+        get() = caldavAccount.username?.startsWith("github") == true
+
     private fun refreshUi() {
         (findPreference(R.string.sign_in_with_google) as IconPreference).apply {
-            isVisible = caldavAccount.isLoggedOut()
+            if (caldavAccount.error.isNullOrBlank()) {
+                isVisible = false
+                return
+            }
+            isVisible = true
+            when {
+                caldavAccount.isPaymentRequired() -> {
+                    val subscription = inventory.subscription
+                    if (isGitHubAccount) {
+                        title = null
+                        setSummary(R.string.insufficient_sponsorship)
+                        if (BuildConfig.FLAVOR == "googleplay") {
+                            onPreferenceClickListener = null
+                        } else {
+                            setOnPreferenceClickListener {
+                                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_sponsor))))
+                                false
+                            }
+                        }
+                    } else {
+                        setOnPreferenceClickListener {
+                            showPurchaseDialog()
+                        }
+                        if (subscription == null) {
+                            setTitle(R.string.upgrade_to_pro)
+                            setSummary(R.string.your_subscription_expired)
+                        } else {
+                            setTitle(R.string.manage_subscription)
+                            setSummary(R.string.insufficient_subscription)
+                        }
+                    }
+                }
+                caldavAccount.isLoggedOut() -> {
+                    setTitle(if (isGitHubAccount) {
+                        R.string.sign_in_with_github
+                    } else {
+                        R.string.sign_in_with_google
+                    })
+                    setSummary(R.string.authentication_required)
+                    setOnPreferenceClickListener {
+                        activity?.startActivityForResult(
+                                Intent(activity, SignInActivity::class.java)
+                                        .putExtra(
+                                                SignInActivity.EXTRA_SELECT_SERVICE,
+                                                if (isGitHubAccount) 1 else 0
+                                        ),
+                                Synchronization.REQUEST_TASKS_ORG)
+                        false
+                    }
+                }
+                else -> {
+                    this.title = null
+                    this.summary = caldavAccount.error
+                    this.onPreferenceClickListener = null
+                }
+            }
             iconVisible = true
         }
 
@@ -140,30 +201,20 @@ class TasksAccount : InjectingPreferenceFragment() {
         }
         val subscription = inventory.subscription
         findPreference(R.string.upgrade_to_pro).apply {
-            if (caldavAccount.isPaymentRequired()) {
-                if (subscription == null) {
-                    setTitle(R.string.upgrade_to_pro)
-                    setSummary(R.string.your_subscription_expired)
-                } else {
-                    setTitle(R.string.manage_subscription)
-                    setSummary(R.string.insufficient_subscription)
-                }
+            title = getString(
+                    if (subscription == null) {
+                        R.string.upgrade_to_pro
+                    } else {
+                        R.string.manage_subscription
+                    })
+            summary = if (subscription == null) {
+                null
             } else {
-                title = getString(
-                        if (subscription == null) {
-                            R.string.upgrade_to_pro
-                        } else {
-                            R.string.manage_subscription
-                        })
-                summary = if (subscription == null) {
-                    null
-                } else {
-                    val price = getString(
-                            if (subscription.isMonthly) R.string.price_per_month else R.string.price_per_year,
-                            (subscription.subscriptionPrice!! - .01).toString()
-                    )
-                    getString(R.string.current_subscription, price)
-                }
+                val price = getString(
+                        if (subscription.isMonthly) R.string.price_per_month else R.string.price_per_year,
+                        (subscription.subscriptionPrice!! - .01).toString()
+                )
+                getString(R.string.current_subscription, price)
             }
         }
         findPreference(R.string.button_unsubscribe).isEnabled = inventory.subscription != null

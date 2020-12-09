@@ -12,10 +12,21 @@ import net.openid.appauth.browser.AnyBrowserMatcher
 import kotlin.coroutines.suspendCoroutine
 
 class AuthorizationService constructor(
+        val iss: String,
         context: Context,
-        private val authStateManager: AuthStateManager,
-        val configuration: Configuration
+        debugConnectionBuilder: DebugConnectionBuilder
 ) {
+    val isGitHub = iss == ISS_GITHUB
+    val authStateManager = AuthStateManager()
+    val configuration = Configuration(
+            context,
+            when (iss) {
+                ISS_GOOGLE -> Configuration.GOOGLE_CONFIG
+                ISS_GITHUB -> Configuration.GITHUB_CONFIG
+                else -> throw IllegalArgumentException()
+            },
+            debugConnectionBuilder
+    )
     private val authorizationService = AuthorizationService(
             context,
             AppAuthConfiguration.Builder()
@@ -62,21 +73,8 @@ class AuthorizationService constructor(
         }
     }
 
-    suspend fun getFreshToken(): String? {
-        val authState = authStateManager.current
-        if (!authState.isAuthorized) {
-            return null
-        }
-        return withContext(Dispatchers.IO) {
-            suspendCoroutine { cont ->
-                authState.performActionWithFreshTokens(authorizationService) { _, idToken, exception ->
-                    if (exception == null) {
-                        cont.resumeWith(Result.success(idToken))
-                    } else {
-                        cont.resumeWith(Result.failure(exception))
-                    }
-                }
-            }
-        }
+    companion object {
+        const val ISS_GOOGLE = "google"
+        const val ISS_GITHUB = "github"
     }
 }

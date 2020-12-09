@@ -35,10 +35,6 @@ class MigrateLocalWork @WorkerInject constructor(
         return Result.success()
     }
 
-    override fun destroy() {
-        clientProvider.dispose()
-    }
-
     companion object {
         const val EXTRA_ACCOUNT = "extra_account"
     }

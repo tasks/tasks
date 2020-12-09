@@ -173,6 +173,12 @@
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="@string/google_oauth_scheme" />
       </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="org.tasks.github.a50fdbf3e289a7fb2fc6" />
+      </intent-filter>
     </activity>
 
     <activity

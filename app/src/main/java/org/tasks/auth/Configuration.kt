@@ -24,6 +24,7 @@ import okio.buffer
 import okio.source
 import org.json.JSONException
 import org.json.JSONObject
+import org.tasks.BuildConfig
 import org.tasks.R
 import java.io.IOException
 import java.nio.charset.StandardCharsets
@@ -35,7 +36,8 @@ import java.nio.charset.StandardCharsets
  */
 class Configuration constructor(
         private val context: Context,
-        private val authConfig: Int
+        private val authConfig: Int,
+        debugConnectionBuilder: DebugConnectionBuilder
 ) {
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     private var configJson: JSONObject? = null
@@ -90,7 +92,10 @@ class Configuration constructor(
     val redirectUri: Uri
         get() = mRedirectUri!!
 
-    val connectionBuilder: ConnectionBuilder = DefaultConnectionBuilder.INSTANCE
+    val connectionBuilder: ConnectionBuilder = when {
+        BuildConfig.DEBUG -> debugConnectionBuilder
+        else -> DefaultConnectionBuilder.INSTANCE
+    }
 
     private val lastKnownConfigHash: String?
         get() = prefs.getString(KEY_LAST_HASH, null)
@@ -207,6 +212,7 @@ class Configuration constructor(
         private const val PREFS_NAME = "config"
         private const val KEY_LAST_HASH = "lastHash"
         const val GOOGLE_CONFIG = R.raw.google_config
+        const val GITHUB_CONFIG = R.raw.github_config
     }
 
     init {

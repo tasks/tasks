@@ -1979,34 +1979,6 @@
     },
     {
       "artifactId": {
-        "name": "security-crypto",
-        "group": "androidx.security",
-        "version": "+"
-      },
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://developer.android.com/jetpack/androidx/releases/security#1.1.0-alpha02",
-      "libraryName": "security-crypto"
-    },
-    {
-      "artifactId": {
-        "name": "tink-android",
-        "group": "com.google.crypto.tink",
-        "version": "+"
-      },
-      "copyrightHolder": "Google Inc.",
-      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "http://github.com/google/tink",
-      "libraryName": "tink-android"
-    },
-    {
-      "artifactId": {
         "name": "client",
         "group": "com.etebase",
         "version": "+"

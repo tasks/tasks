@@ -170,7 +170,7 @@ class CaldavAccount : Parcelable {
 
     fun isTasksSubscription(context: Context): Boolean {
         val caldavUrl = context.getString(R.string.tasks_caldav_url)
-        return url?.startsWith("https://${caldavUrl}/calendars/") == true &&
+        return url?.startsWith("${caldavUrl}/calendars/") == true &&
                 !isPaymentRequired() &&
                 !isLoggedOut()
     }

@@ -9,8 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.auth.AuthStateManager
-import org.tasks.auth.IdToken
 import org.tasks.auth.SignInActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
@@ -28,7 +26,6 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
 
     @Inject lateinit var appWidgetManager: AppWidgetManager
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var authStateManager: AuthStateManager
     @Inject lateinit var caldavDao: CaldavDao
 
     private val viewModel: PreferencesViewModel by activityViewModels()
@@ -71,20 +68,11 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         val accounts = caldavDao.getAccounts(CaldavAccount.TYPE_TASKS)
         if (accounts.isEmpty()) {
             pref.setOnPreferenceClickListener { signIn() }
-            pref.summary = getString(R.string.sign_in_with_google)
+            pref.summary = getString(R.string.not_signed_in)
             return
         }
-        val idToken = authStateManager.current
-                .takeIf { it.isAuthorized }
-                ?.idToken
-                ?.let { IdToken(it) }
-        val account = idToken
-                ?.let { token -> accounts.firstOrNull { it.username == "google_${token.sub}" } }
-                ?: accounts.first().apply {
-                    // auth state doesn't match any accounts
-                    authStateManager.signOut()
-                }
-        pref.summary = idToken?.email ?: account.name
+        val account = accounts.first()
+        pref.summary = account.name
 
         if (!account.error.isNullOrBlank()) {
             pref.drawable = ContextCompat
