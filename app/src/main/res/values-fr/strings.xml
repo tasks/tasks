@@ -672,4 +672,10 @@
         <item quantity="one">%d liste</item>
         <item quantity="other">%d listes</item>
     </plurals>
+    <string name="sign_in_with_github">Connectez-vous avec GitHub</string>
+    <string name="github_sponsors">Soutiens GitHub</string>
+    <string name="google_play_subscribers">Abonnés Google Play</string>
+    <string name="not_signed_in">Non connecté</string>
+    <string name="no_google_play_subscription">Aucun abonnement Google Play éligible trouvé</string>
+    <string name="insufficient_sponsorship">Aucun parrainage GitHub éligible trouvé</string>
 </resources>
