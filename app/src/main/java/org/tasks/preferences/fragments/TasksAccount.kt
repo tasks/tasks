@@ -24,8 +24,6 @@ import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.IconPreference
 import org.tasks.ui.Toaster
-import java.net.HttpURLConnection.HTTP_PAYMENT_REQUIRED
-import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -46,7 +44,7 @@ class TasksAccount : InjectingPreferenceFragment() {
         override fun onReceive(context: Context, intent: Intent) {
             lifecycleScope.launch {
                 if (inventory.subscription?.isTasksSubscription == true
-                        && caldavAccount.error.isPaymentRequired()) {
+                        && caldavAccount.isPaymentRequired()) {
                     caldavAccount.error = null
                     caldavDao.update(caldavAccount)
                 }
@@ -125,7 +123,7 @@ class TasksAccount : InjectingPreferenceFragment() {
 
     private fun refreshUi() {
         (findPreference(R.string.sign_in_with_google) as IconPreference).apply {
-            isVisible = caldavAccount.error.isLoggedOut()
+            isVisible = caldavAccount.isLoggedOut()
             iconVisible = true
         }
 
@@ -142,7 +140,7 @@ class TasksAccount : InjectingPreferenceFragment() {
         }
         val subscription = inventory.subscription
         findPreference(R.string.upgrade_to_pro).apply {
-            if (caldavAccount.error.isPaymentRequired()) {
+            if (caldavAccount.isPaymentRequired()) {
                 if (subscription == null) {
                     setTitle(R.string.upgrade_to_pro)
                     setSummary(R.string.your_subscription_expired)
@@ -192,11 +190,5 @@ class TasksAccount : InjectingPreferenceFragment() {
             }
             return fragment
         }
-
-        private fun String?.isLoggedOut(): Boolean =
-                this?.startsWith("HTTP $HTTP_UNAUTHORIZED") == true
-
-        private fun String?.isPaymentRequired(): Boolean =
-                this?.startsWith("HTTP $HTTP_PAYMENT_REQUIRED") == true
     }
 }

@@ -3,9 +3,12 @@ package org.tasks.billing
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
+import org.tasks.data.CaldavDao
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.util.*
@@ -14,11 +17,15 @@ import javax.inject.Singleton
 
 @Singleton
 class Inventory @Inject constructor(
+        @ApplicationContext private val context: Context,
         private val preferences: Preferences,
         private val signatureVerifier: SignatureVerifier,
-        private val localBroadcastManager: LocalBroadcastManager
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val caldavDao: CaldavDao
 ) {
     private val purchases: MutableMap<String, Purchase> = HashMap()
+    var hasTasksSubscription = false
+        private set
 
     fun clear() {
         Timber.d("clear()")
@@ -49,9 +56,16 @@ class Inventory @Inject constructor(
         get() {
             return BuildConfig.FLAVOR == "generic"
                     || (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false))
+                    || hasTasksSubscription
                     || field
         }
         private set
+
+    suspend fun updateTasksSubscription() {
+        hasTasksSubscription = caldavDao.getAccounts(TYPE_TASKS).any {
+            it.isTasksSubscription(context)
+        }
+    }
 
     fun purchased(sku: String) = purchases.containsKey(sku)
 
@@ -69,9 +83,6 @@ class Inventory @Inject constructor(
                     return@sortedWith r.subscriptionPrice!!.compareTo(l.subscriptionPrice!!)
                 }
                 .firstOrNull()
-
-    val hasTasksSubscription: Boolean
-        get() = subscription?.isTasksSubscription ?: false
 
     fun unsubscribe(context: Context): Boolean {
         subscription?.let {

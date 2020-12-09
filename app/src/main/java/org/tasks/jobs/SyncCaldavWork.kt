@@ -8,6 +8,7 @@ import kotlinx.coroutines.*
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.analytics.Firebase
+import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
@@ -21,7 +22,8 @@ class SyncCaldavWork @WorkerInject constructor(
         localBroadcastManager: LocalBroadcastManager,
         preferences: Preferences,
         private val caldavDao: CaldavDao,
-        private val caldavSynchronizer: CaldavSynchronizer
+        private val caldavSynchronizer: CaldavSynchronizer,
+        private val inventory: Inventory
 ) : SyncWork(context, workerParams, firebase, localBroadcastManager, preferences) {
 
     override suspend fun enabled() = getAccounts().isNotEmpty()
@@ -30,6 +32,7 @@ class SyncCaldavWork @WorkerInject constructor(
 
     override suspend fun doSync() {
         caldavJobs().awaitAll()
+        inventory.updateTasksSubscription()
     }
 
     private suspend fun caldavJobs(): List<Deferred<Unit>> = coroutineScope {

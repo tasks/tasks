@@ -169,7 +169,7 @@ class FilterProvider @Inject constructor(
 
     private val navDrawerFooter: List<FilterListItem>
         get() = listOf(NavigationDrawerSeparator())
-                .plusIf(BuildConfig.FLAVOR == "generic") {
+                .plusIf(BuildConfig.FLAVOR == "generic" && !inventory.hasTasksSubscription) {
                     NavigationDrawerAction(
                             context.getString(R.string.TLA_menu_donate),
                             R.drawable.ic_outline_attach_money_24px,

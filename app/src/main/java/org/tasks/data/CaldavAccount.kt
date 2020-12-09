@@ -1,5 +1,6 @@
 package org.tasks.data
 
+import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.core.os.ParcelCompat
@@ -8,6 +9,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.todoroo.astrid.data.Task
+import org.tasks.R
 import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
@@ -16,6 +18,7 @@ import org.tasks.etebase.EtebaseCalendarSettingsActivity
 import org.tasks.etesync.EteSyncCalendarSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.security.KeyStoreEncryption
+import java.net.HttpURLConnection
 
 @Entity(tableName = "caldav_accounts")
 class CaldavAccount : Parcelable {
@@ -164,6 +167,19 @@ class CaldavAccount : Parcelable {
     override fun toString(): String {
         return "CaldavAccount(id=$id, uuid=$uuid, name=$name, url=$url, username=$username, password=$password, error=$error, isSuppressRepeatingTasks=$isSuppressRepeatingTasks, encryptionKey=$encryptionKey, accountType=$accountType, isCollapsed=$isCollapsed)"
     }
+
+    fun isTasksSubscription(context: Context): Boolean {
+        val caldavUrl = context.getString(R.string.tasks_caldav_url)
+        return url?.startsWith("https://${caldavUrl}/calendars/") == true &&
+                !isPaymentRequired() &&
+                !isLoggedOut()
+    }
+
+    fun isLoggedOut(): Boolean =
+            error?.startsWith("HTTP ${HttpURLConnection.HTTP_UNAUTHORIZED}") == true
+
+    fun isPaymentRequired(): Boolean =
+            error?.startsWith("HTTP ${HttpURLConnection.HTTP_PAYMENT_REQUIRED}") == true
 
     companion object {
         const val TYPE_CALDAV = 0
