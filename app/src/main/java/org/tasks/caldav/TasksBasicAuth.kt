@@ -1,15 +1,19 @@
 package org.tasks.caldav
 
+import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.Response
 import org.tasks.billing.Inventory
 
-class TokenInterceptor(
-        private val token: String,
+class TasksBasicAuth(
+        user: String,
+        token: String,
         private val inventory: Inventory
 ) : Interceptor {
+    private val credentials = Credentials.basic(user, token, Charsets.UTF_8)
+
     override fun intercept(chain: Interceptor.Chain): Response {
-        val builder = chain.request().newBuilder().header(AUTHORIZATION, "Bearer $token")
+        val builder = chain.request().newBuilder().header(AUTHORIZATION, credentials)
         inventory.subscription?.let {
             builder.header(SKU, it.sku)
             builder.header(TOKEN, it.purchaseToken)

@@ -89,8 +89,7 @@ class CaldavClient(
     @Throws(IOException::class, DavException::class, NoSuchAlgorithmException::class, KeyManagementException::class)
     suspend fun homeSet(
             username: String? = null,
-            password: String? = null,
-            token: String? = null
+            password: String? = null
     ): String = withContext(Dispatchers.IO) {
         var principal: String? = null
         try {
@@ -107,8 +106,7 @@ class CaldavClient(
         provider.forUrl(
                 (if (isNullOrEmpty(principal)) httpUrl else httpUrl!!.resolve(principal!!)).toString(),
                 username,
-                password,
-                token)
+                password)
                 .findHomeset()
     }
 

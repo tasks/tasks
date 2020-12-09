@@ -63,15 +63,16 @@ class SignInViewModel @ViewModelInject constructor(
         val auth = authService.authStateManager.current
         val tokenString = auth.accessToken ?: return null
         val idToken = auth.idToken?.let { IdToken(it) } ?: return null
+        val username = "${authService.iss}_${idToken.sub}"
         try {
             val homeSet = provider
                     .forUrl(
                             context.getString(R.string.tasks_caldav_url),
-                            token = tokenString
+                            username,
+                            tokenString
                     )
                     .setForeground()
-                    .homeSet(token = tokenString)
-            val username = "${authService.iss}_${idToken.sub}"
+                    .homeSet(username, tokenString)
             val password = encryption.encrypt(tokenString)
             return caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
                     ?.apply {

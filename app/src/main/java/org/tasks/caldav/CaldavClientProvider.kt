@@ -12,6 +12,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.DebugNetworkInterceptor
+import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.data.CaldavAccount
 import org.tasks.preferences.Preferences
@@ -27,12 +28,14 @@ class CaldavClientProvider @Inject constructor(
         private val interceptor: DebugNetworkInterceptor,
         private val inventory: Inventory
 ) {
+    private val tasksUrl = context.getString(R.string.tasks_caldav_url)
+
     suspend fun forUrl(
             url: String?,
             username: String? = null,
-            password: String? = null,
-            token: String? = null): CaldavClient {
-        val auth = getAuthInterceptor(username = username, password = password, token = token)
+            password: String? = null
+    ): CaldavClient {
+        val auth = getAuthInterceptor(username, password, url)
         val customCertManager = newCertManager()
         return CaldavClient(
                 this,
@@ -43,7 +46,11 @@ class CaldavClientProvider @Inject constructor(
     }
 
     suspend fun forAccount(account: CaldavAccount, url: String? = account.url): CaldavClient {
-        val auth = getAuthInterceptor(account)
+        val auth = getAuthInterceptor(
+                account.username,
+                account.getPassword(encryption),
+                account.url
+        )
         val customCertManager = newCertManager()
         return CaldavClient(
                 this,
@@ -58,22 +65,13 @@ class CaldavClientProvider @Inject constructor(
     }
 
     private fun getAuthInterceptor(
-            account: CaldavAccount? = null,
-            username: String? = account?.username,
-            password: String? = account?.getPassword(encryption),
-            token: String? = null
-    ): Interceptor? {
-        return when {
-            account?.isTasksOrg == true ->
-                account.password
-                        ?.let { encryption.decrypt(it) }
-                        ?.let { TokenInterceptor(it, inventory) }
-            username?.isNotBlank() == true && password?.isNotBlank() == true ->
-                BasicDigestAuthHandler(null, username, password)
-            token?.isNotBlank() == true ->
-                TokenInterceptor(token, inventory)
-            else -> null
-        }
+            username: String?,
+            password: String?,
+            url: String?
+    ): Interceptor? = when {
+        username.isNullOrBlank() || password.isNullOrBlank() -> null
+        url?.startsWith(tasksUrl) == true -> TasksBasicAuth(username, password, inventory)
+        else -> BasicDigestAuthHandler(null, username, password)
     }
 
     private fun createHttpClient(auth: Interceptor?, customCertManager: CustomCertManager, foreground: Boolean = false): OkHttpClient {
