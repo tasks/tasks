@@ -150,7 +150,7 @@
     <string name="gtasks_GLA_authenticating">Kimlik doğrulanıyor…</string>
     <string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
     <string name="gtasks_GPr_header">Google Görevleri (Beta!)</string>
-    <string name="gtasks_error_accountNotFound">%s hesabı bulunamadı—lütfen çıkış yapıp Google Görev ayarlarından yeniden giriş yapın.</string>
+    <string name="gtasks_error_accountNotFound">%s hesabı bulunamadı—lütfen çıkış yapıp Google Görev ayarlarından yeniden oturum açın.</string>
     <string name="premium_record_audio">Bir not kaydet</string>
     <string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>
     <string name="audio_recording_title">Ses Kaydediliyor</string>
@@ -661,7 +661,7 @@
     <string name="price_per_year">%s$/yıl</string>
     <string name="insufficient_subscription">Yetersiz abonelik düzeyi. Hizmeti sürdürmek için lütfen aboneliğinizi yükseltin.</string>
     <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti sürdürmek için şimdi abone olun.</string>
-    <string name="logged_in">Oturum açıldı: %s</string>
+    <string name="logged_in">%s oturumu açıldı</string>
     <string name="more_options">Daha çok seçenek</string>
     <string name="repeat_monthly_fifth_week">beşinci</string>
     <string name="authorization_cancelled">Yetkilendirme iptal edildi</string>
@@ -677,4 +677,10 @@
         <item quantity="one">%d liste</item>
         <item quantity="other">%d liste</item>
     </plurals>
+    <string name="sign_in_with_github">GitHub ile oturum aç</string>
+    <string name="github_sponsors">GitHub Sponsorları</string>
+    <string name="google_play_subscribers">Google Play aboneleri</string>
+    <string name="not_signed_in">Giriş yapılmadı</string>
+    <string name="no_google_play_subscription">Uygun Google Play aboneliği bulunamadı</string>
+    <string name="insufficient_sponsorship">Uygun GitHub sponsorluğu bulunamadı</string>
 </resources>
