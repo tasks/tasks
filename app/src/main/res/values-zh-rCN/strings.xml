@@ -185,7 +185,7 @@
         <item quantity="other">%d 个任务</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="other">时间</item>
+        <item quantity="other">次</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">分钟</item>
@@ -390,9 +390,9 @@
     <string name="repeats_plural">在每 %s 重复</string>
     <string name="repeats_plural_on">在每 %1$s 的 %2$s 重复</string>
     <string name="repeats_plural_until">在每 %1$s 重复 直到 %2$s</string>
-    <string name="repeats_plural_number_of_times">在每 %1$s, 重复 %2$d %3$s</string>
+    <string name="repeats_plural_number_of_times">每 %1$s 重复, 发生 %2$d %3$s</string>
     <string name="repeats_plural_on_until">在每 %1$s 的 %2$s 重复 直到 %3$s</string>
-    <string name="repeats_plural_on_number_of_times">在每 %1$s 的 %2$s 重复 发生 %3$d %4$s</string>
+    <string name="repeats_plural_on_number_of_times">每 %1$s 的 %2$s 重复，发生 %3$d %4$s</string>
     <string name="dont_add_to_calendar">不添加到日历</string>
     <string name="default_calendar">默认日历</string>
     <string name="badges_description">在Tasks启动图标上显示任务计数。不是所有的启动器都支持角标。</string>
@@ -667,4 +667,10 @@
     <plurals name="list_count">
         <item quantity="other">%d 个列表</item>
     </plurals>
+    <string name="sign_in_with_github">用 GitHub 登录</string>
+    <string name="github_sponsors">Github 赞助者</string>
+    <string name="google_play_subscribers">Google Play 订阅者</string>
+    <string name="not_signed_in">未登录</string>
+    <string name="no_google_play_subscription">未找到符合要求的 Google Play 订阅</string>
+    <string name="insufficient_sponsorship">没有找到符合要求的GitHub赞助</string>
 </resources>
