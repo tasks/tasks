@@ -420,7 +420,7 @@
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
     <string name="manage_subscription">Verander abonnement</string>
     <string name="refresh_purchases">Vernieuw aankopen</string>
-    <string name="button_subscribe">Aanmelden</string>
+    <string name="button_subscribe">Abonneren</string>
     <string name="button_more_info">Meer informatie</string>
     <string name="about">Over</string>
     <string name="license_summary">Tasks is vrije open-source software, gelicensieerd onder de GNU General Public License v3.0</string>
@@ -672,4 +672,10 @@
         <item quantity="one">%d lijst</item>
         <item quantity="other">%d lijsten</item>
     </plurals>
+    <string name="github_sponsors">GitHub sponsors</string>
+    <string name="google_play_subscribers">Google Play abonnees</string>
+    <string name="sign_in_with_github">Log in met GitHub</string>
+    <string name="not_signed_in">Niet ingelogd</string>
+    <string name="no_google_play_subscription">Geen in aanmerking komende Google Play abonnement gevonden</string>
+    <string name="insufficient_sponsorship">Geen in aanmerking komende GitHub-sponsoring gevonden</string>
 </resources>
