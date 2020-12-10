@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,17 +38,21 @@ class TasksAccount : InjectingPreferenceFragment() {
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var toaster: Toaster
 
-    lateinit var caldavAccount: CaldavAccount
+    private lateinit var caldavAccountLiveData: LiveData<CaldavAccount>
+
+    val caldavAccount: CaldavAccount
+        get() = caldavAccountLiveData.value ?: requireArguments().getParcelable(EXTRA_ACCOUNT)!!
 
     private val purchaseReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             lifecycleScope.launch {
-                if (inventory.subscription?.isTasksSubscription == true
-                        && caldavAccount.isPaymentRequired()) {
-                    caldavAccount.error = null
-                    caldavDao.update(caldavAccount)
+                caldavAccount.let {
+                    if (inventory.subscription?.isTasksSubscription == true
+                            && it.isPaymentRequired()) {
+                        it.error = null
+                        caldavDao.update(it)
+                    }
                 }
-                refreshUi()
             }
         }
     }
@@ -55,7 +60,9 @@ class TasksAccount : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = R.xml.preferences_tasks
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
-        caldavAccount = requireArguments().getParcelable(EXTRA_ACCOUNT)!!
+        caldavAccountLiveData = caldavDao.watchAccount(
+                requireArguments().getParcelable<CaldavAccount>(EXTRA_ACCOUNT)!!.id
+        )
 
         findPreference(R.string.logout).setOnPreferenceClickListener {
             dialogBuilder
@@ -92,7 +99,9 @@ class TasksAccount : InjectingPreferenceFragment() {
             findPreference(R.string.refresh_purchases).isVisible = false
         }
 
-        refreshUi()
+        caldavAccountLiveData.observe(this) { account ->
+            account?.let { refreshUi(it) }
+        }
     }
 
     private fun showPurchaseDialog(): Boolean {
@@ -114,8 +123,6 @@ class TasksAccount : InjectingPreferenceFragment() {
 
         localBroadcastManager.registerPurchaseReceiver(purchaseReceiver)
         localBroadcastManager.registerRefreshListReceiver(purchaseReceiver)
-
-        refreshUi()
     }
 
     override fun onPause() {
@@ -127,15 +134,15 @@ class TasksAccount : InjectingPreferenceFragment() {
     private val isGitHubAccount: Boolean
         get() = caldavAccount.username?.startsWith("github") == true
 
-    private fun refreshUi() {
+    private fun refreshUi(account: CaldavAccount) {
         (findPreference(R.string.sign_in_with_google) as IconPreference).apply {
-            if (caldavAccount.error.isNullOrBlank()) {
+            if (account.error.isNullOrBlank()) {
                 isVisible = false
                 return
             }
             isVisible = true
             when {
-                caldavAccount.isPaymentRequired() -> {
+                account.isPaymentRequired() -> {
                     val subscription = inventory.subscription
                     if (isGitHubAccount) {
                         title = null
@@ -161,7 +168,7 @@ class TasksAccount : InjectingPreferenceFragment() {
                         }
                     }
                 }
-                caldavAccount.isLoggedOut() -> {
+                account.isLoggedOut() -> {
                     setTitle(if (isGitHubAccount) {
                         R.string.sign_in_with_github
                     } else {
@@ -181,7 +188,7 @@ class TasksAccount : InjectingPreferenceFragment() {
                 }
                 else -> {
                     this.title = null
-                    this.summary = caldavAccount.error
+                    this.summary = account.error
                     this.onPreferenceClickListener = null
                 }
             }

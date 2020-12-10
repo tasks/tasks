@@ -43,6 +43,9 @@ abstract class CaldavDao {
     @Query("SELECT * FROM caldav_accounts WHERE cda_account_type = :type AND cda_username = :username")
     abstract suspend fun getAccount(type: Int, username: String): CaldavAccount?
 
+    @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
+    abstract fun watchAccount(id: Long): LiveData<CaldavAccount>
+
     @Query("SELECT * FROM caldav_accounts ORDER BY cda_account_type, UPPER(cda_name)")
     abstract suspend fun getAccounts(): List<CaldavAccount>
 
