@@ -675,4 +675,10 @@
         <item quantity="one">%d lista</item>
         <item quantity="other">%d listák</item>
     </plurals>
+    <string name="sign_in_with_github">Bejelentkezés GitHub fiókkal</string>
+    <string name="github_sponsors">GitHub szponzorok</string>
+    <string name="google_play_subscribers">Google Play előfizetők</string>
+    <string name="not_signed_in">Nincs bejelentkezve</string>
+    <string name="no_google_play_subscription">Nem található Google Play előfizetés</string>
+    <string name="insufficient_sponsorship">Nem található GitHub szponzorálás</string>
 </resources>
