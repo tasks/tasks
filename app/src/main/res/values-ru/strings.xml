@@ -446,7 +446,7 @@
     <string name="network_error">Не удалось подключиться</string>
     <string name="background_sync_unmetered_only">Только на соединениях без тарификации</string>
     <string name="upgrade_to_pro">Обновить до версии Про</string>
-    <string name="manage_subscription">Управление подпиской</string>
+    <string name="manage_subscription">Изменить подписку</string>
     <string name="refresh_purchases">Обновить покупки</string>
     <string name="button_subscribe">Подписаться</string>
     <string name="button_more_info">Подробнее</string>
@@ -679,4 +679,25 @@
     <string name="logged_in">Вы вошли как %s</string>
     <string name="more_options">Дополнительные параметры</string>
     <string name="background_location_permission_required">Это приложение собирает данные о местоположении, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
+    <string name="migrate_count">Переместить %s на Tasks.org</string>
+    <string name="offline_lists">Автономные списки</string>
+    <string name="migrating_tasks">Перенос задач</string>
+    <string name="migrate">Перенести</string>
+    <string name="github_sponsor">Спонсор</string>
+    <string name="authentication_required">Необходима аутентификация</string>
+    <string name="sign_in_with_github">Войти через GitHub</string>
+    <string name="sign_in_with_google">Войти через Google</string>
+    <string name="github_sponsors">Спонсоры GitHub</string>
+    <string name="google_play_subscribers">Подписчики Google Play</string>
+    <string name="not_signed_in">Не авторизован</string>
+    <string name="authorization_cancelled">Авторизация отменена</string>
+    <string name="no_google_play_subscription">Подходящей подписки Google Play не найдено</string>
+    <string name="insufficient_sponsorship">Подходящее спонсорство GitHub не найдено</string>
+    <string name="synchronization_third_party">Сторонняя синхронизация</string>
+    <plurals name="list_count">
+        <item quantity="one">%d список</item>
+        <item quantity="few">%d списка</item>
+        <item quantity="many">%d списков</item>
+        <item quantity="other">%d списков</item>
+    </plurals>
 </resources>
