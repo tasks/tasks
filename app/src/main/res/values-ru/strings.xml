@@ -700,4 +700,5 @@
         <item quantity="many">%d списков</item>
         <item quantity="other">%d списков</item>
     </plurals>
+    <string name="repeat_monthly_fifth_week">Пятая</string>
 </resources>
