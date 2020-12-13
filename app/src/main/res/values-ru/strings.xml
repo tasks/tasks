@@ -348,7 +348,7 @@
     <string name="tag_settings">Настройки тегов</string>
     <string name="list_settings">Настройки списка</string>
     <string name="delete">Удалить</string>
-    <string name="copy">Копия</string>
+    <string name="copy">Копировать</string>
     <string name="move">Перенести</string>
     <string name="filter_settings">Настройки фильтра</string>
     <string name="show_hidden">Показать скрытые</string>
