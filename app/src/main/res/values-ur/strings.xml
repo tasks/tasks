@@ -1,2 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="import_progress_read">"%d ٹاسک  پڑھا جا رہا ہے…"</string>
+    <string name="export_toast">%1$s سے %2$s بیک اپ ہو گیا۔</string>
+    <string name="TEA_load_more">مزید لوڈ کریں…</string>
+    <string name="TEA_control_hidden_section">----ہمیشہ چھپائیں----</string>
+    <string name="TEA_control_timer">ٹائمر کنٹرول</string>
+    <string name="TEA_control_reminders">یاد دہانی</string>
+    <string name="TEA_control_files">فائلیں</string>
+    <string name="TEA_control_notes">تفصیل</string>
+    <string name="TEA_control_location">جگہ</string>
+    <string name="TEA_control_importance">ترجیح</string>
+    <string name="TEA_control_gcal">کیلنڈر</string>
+    <string name="TEA_control_repeat">دہرائیں</string>
+    <string name="TEA_control_when">کب</string>
+    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">وقت مقررہ سے ہفتہ قبل</string>
+    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">مقررہ وقت سے ایک دن پہلے</string>
+    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">مقررہ وقت</string>
+    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">مقررہ تاریخ</string>
+    <string name="week_before_due">وقت مقررہ سے ہفتہ قبل</string>
+    <string name="day_before_due">مقررہ دن سے ایک دن قبل</string>
+    <string name="due_time">وقت مقرر</string>
+    <string name="due_date">آخری تاریخ</string>
+    <string name="TEA_no_time">کوئی وقت نہیں</string>
+    <string name="TEA_timer_elap">%s گز چکا</string>
+    <string name="save">محفوظ کریں</string>
+    <string name="TEA_elapsedDuration_label">صرف شدہ وقت</string>
+    <string name="TEA_estimatedDuration_label">یہ کتنی دیر لے گا؟</string>
+    <string name="TEA_note_label">تفصیل</string>
+    <string name="TEA_hideUntil_display">%s تک چھپائیں</string>
+    <string name="TEA_hideUntil_label">اس وقت تک چھپائیں</string>
+    <string name="TEA_no_date">کوئی تاریخ نہیں</string>
+    <string name="TEA_add_subtask">ذیلی ٹاسک بنائیں</string>
+    <string name="TEA_importance_label">ترجیح</string>
+    <string name="TEA_title_hint">ٹاسک کا نام</string>
+    <string name="FLA_new_filter">نیا فلٹر بنائیں</string>
+    <string name="FLA_search_filter">متماثل \'%s\'</string>
+    <string name="sort_created">بلحاظ وقت تخلیق</string>
+    <string name="SSD_sort_modified">بلحاظ آخری ترمیم</string>
+    <string name="SSD_sort_importance">بلحاظ ترجیح</string>
+    <string name="SSD_sort_due">بلحاظ مقررہ تاریخ</string>
+    <string name="SSD_sort_alpha">بلحاظ عنوان</string>
+    <string name="SSD_sort_auto">سمارٹ ترتیب</string>
+    <string name="astrid_sort_order">آسرڈ کی مینول ترتیب</string>
+    <string name="SSD_sort_my_order">میرا آرڈر</string>
+    <string name="action_open">کھولیں</string>
+    <string name="action_call">کال</string>
+    <string name="manage_lists">فہرستیں مینیج کریں</string>
+    <string name="TAd_actionEditTask">ترمیم</string>
+    <string name="TLA_menu_settings">سیٹنگز</string>
+    <string name="TLA_menu_search">تلاش</string>
+    <string name="TLA_menu_sort">ترتیب</string>
+    <string name="TLA_no_items">یہاں کوئی ٹاسکس نہیں ہیں.</string>
+    <string name="WID_dateButtonUnset">سیٹ کرنے کیلئے کلک کریں</string>
+    <string name="DLG_undo">ان ڈو کریں</string>
+    <string name="DLG_hour_minutes">وقت (گھنٹے : منٹس)</string>
+    <string name="DLG_delete_this_task_question">اس ٹاسک کو ڈیلیٹ کریں؟</string>
+    <string name="keep_editing">ترمیم کرتے رہیں</string>
+    <string name="discard_confirmation">کیا آپ واقعی اپنی تبدیلیوں کو منسوخ کرنا چاہتے ہیں؟</string>
+    <string name="read_permission_label">ٹاسک کی اجازت</string>
+    <string name="cancel">منسوخ کریں</string>
+    <string name="ok">ٹھیک ہے</string>
+    <string name="import_summary_title">سمری بحال کریں</string>
+    <string name="backup_BAc_import">بیک اپ امپورٹ کریں</string>
+    <string name="backup_BAc_export">بیک اپ کریں</string>
+    <string name="backup_BPr_header">بیک اپس</string>
+    <string name="enter_filter_name">فلٹر کا نام لکھیں</string>
+    <string name="display_name">ظاہری نام</string>
+    <string name="TVA_add_comment">تبصرہ کریں…</string>
+    <string name="actfm_picture_clear">تصویر کلئیر کریں</string>
+</resources>
