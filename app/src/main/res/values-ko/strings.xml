@@ -36,7 +36,7 @@
     <string name="FLA_new_filter">새 필터 만들기</string>
     <string name="TEA_title_hint">할일 제목</string>
     <string name="TEA_importance_label">우선순위</string>
-    <string name="TEA_no_date">기한 없음</string>
+    <string name="TEA_no_date">마감일 없음</string>
     <string name="TEA_hideUntil_label">숨기기 기한</string>
     <string name="TEA_hideUntil_display">%s 까지 숨기기</string>
     <string name="TEA_note_label">설명</string>
@@ -452,7 +452,7 @@
     <string name="url">URL</string>
     <string name="error_adding_account">오류: %s</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="manage_subscription">구독 관리</string>
+    <string name="manage_subscription">구독 수정</string>
     <string name="visit_website">웹사이트 방문</string>
     <string name="choose_a_location">위치 선택</string>
     <string name="pick_this_location">현위치 선택</string>
@@ -650,4 +650,29 @@
     <string name="more_options">추가 옵션</string>
     <string name="background_location_permission_required">앱이 닫히거나 사용하지 않을 때에도 위치 기반 미리 알림을 사용하도록 위치 데이터를 수집합니다.</string>
     <string name="synchronization_third_party">서드 파티앱 동기화</string>
+    <string name="migrate_count">Tasks.org 로 %s 개 이동</string>
+    <string name="migrate">이전</string>
+    <string name="offline_lists">오프라인 목록</string>
+    <string name="migrating_tasks">할일 이전 중</string>
+    <string name="github_sponsor">후원자</string>
+    <string name="authentication_required">인증 필요</string>
+    <string name="sign_in_with_github">깃허브를 이용해서 로그인</string>
+    <string name="sign_in_with_google">구글을 이용해서 로그인</string>
+    <string name="github_sponsors">깃허브 후원자</string>
+    <string name="google_play_subscribers">구글 플레이 구독자</string>
+    <string name="not_signed_in">로그인 되어있지 않음</string>
+    <string name="follow_reddit">r/tasks 팔로우</string>
+    <string name="no_google_play_subscription">적합한 구글 플레이 구독을 찾을 수 없습니다</string>
+    <string name="insufficient_sponsorship">적합한 깃허브 후원 자격을 찾을 수 없습니다</string>
+    <string name="insufficient_subscription">부족한 구독 단계. 서비스를 재개하려면 구독을 업그레이드하세요.</string>
+    <string name="custom_filter_is_subtask">하위할일</string>
+    <string name="custom_filter_has_subtask">하위할일 있음</string>
+    <string name="date_picker_multiple">각각 다양</string>
+    <string name="repeat_monthly_fifth_week">다섯번째</string>
+    <plurals name="list_count">
+        <item quantity="other">%d 목록</item>
+    </plurals>
+    <string name="always_display_full_date">일시 간략화하지 않고 그대로 표기</string>
+    <string name="ok">확인</string>
+    <string name="cancel">취소</string>
 </resources>
