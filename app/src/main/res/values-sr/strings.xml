@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="SSD_sort_auto">Pametno sortiranje</string>
     <string name="SSD_sort_alpha">Po naslovu</string>
@@ -25,4 +25,15 @@
     <string name="quiet_hours_summary">Bez podsetnika u mirnim satima</string>
     <string name="filter_settings">Filter podešavanja</string>
     <string name="show_hidden">Prikaži skrivene</string>
+    <string name="import_summary_title">Обнови сажетак</string>
+    <string name="export_toast">Копија сачувана од %1$s до %2$s.</string>
+    <string name="backup_BAc_import">Увези задатке</string>
+    <string name="backup_BAc_export">Извези задатке</string>
+    <string name="backup_BPr_header">Резервне копије</string>
+    <string name="enter_filter_name">Унеси назив филтера</string>
+    <string name="TVA_add_comment">Додајте коментар…</string>
+    <string name="cancel">Откажи</string>
+    <string name="ok">У реду</string>
+    <string name="read_permission_label">Дозволе задатака</string>
+    <string name="import_progress_read">Учитавам задатак %d…</string>
 </resources>
