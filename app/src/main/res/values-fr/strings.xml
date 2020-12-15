@@ -470,6 +470,7 @@
     <string name="button_downgrade">Diminuer l\'abonnement</string>
     <string name="button_upgrade">Augmenter l\'abonnement</string>
     <string name="button_unsubscribe">Annuler l\'abonnement</string>
+    <string name="name_your_price">Donnez votre prix</string>
     <string name="monthly">Chaque mois</string>
     <string name="annually">Chaque année</string>
     <string name="error_adding_account">Erreur : %s</string>

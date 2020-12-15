@@ -476,6 +476,7 @@
     <string name="button_downgrade">Abonnement herabstufen</string>
     <string name="button_upgrade">Abonnement hochstufen</string>
     <string name="button_unsubscribe">Abonnement kündigen</string>
+    <string name="name_your_price">Nennen Sie Ihren Preis</string>
     <string name="monthly">monatlich</string>
     <string name="annually">jährlich</string>
     <string name="SSD_sort_my_order">Manuelle Sortierung</string>

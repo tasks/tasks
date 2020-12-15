@@ -61,6 +61,8 @@ class Firebase @Inject constructor(
 
     fun noChurn(): Boolean = remoteConfig?.getBoolean("no_churn") ?: false
 
+    fun averageSubscription(): Double = remoteConfig?.getDouble("avg_sub") ?: 3.57
+
     init {
         if (preferences.isTrackingEnabled) {
             analytics = FirebaseAnalytics.getInstance(context).apply {

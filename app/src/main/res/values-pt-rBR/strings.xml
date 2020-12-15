@@ -523,6 +523,7 @@
     <string name="caldav_account_repeating_tasks">Permita que o servidor agende tarefas recorrentes</string>
     <string name="annually">Anualmente</string>
     <string name="monthly">Mensalmente</string>
+    <string name="name_your_price">Dê seu valor</string>
     <string name="google_tasks_add_to_top">Novas tarefas ao topo</string>
     <string name="invalid_backup_file">Arquivo de restauro inválido</string>
     <string name="version_string">Versão %s</string>

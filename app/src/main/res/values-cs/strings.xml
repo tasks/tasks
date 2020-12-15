@@ -492,6 +492,7 @@
     <string name="version_string">Verze %s</string>
     <string name="invalid_backup_file">Neplatný soubor zálohy</string>
     <string name="google_tasks_add_to_top">Nové úkoly na vrchu</string>
+    <string name="name_your_price">Zaplať kolik chceš</string>
     <string name="monthly">Měsíčně</string>
     <string name="annually">Ročně</string>
     <string name="caldav_account_repeating_tasks">Dovolit serveru plánovat opakující se úkoly</string>

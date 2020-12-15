@@ -519,6 +519,7 @@
     <string name="enter_tag_name">Inserisci il nome dell\'etichetta</string>
     <string name="enter_title_hint">Inserisci titolo</string>
     <string name="collapse_subtasks">Comprimi attività secondarie</string>
+    <string name="name_your_price">Fai tu il prezzo</string>
     <string name="third_party_licenses">Licenze di terze parti</string>
     <string name="this_feature_requires_a_subscription">Questa funzione richiede un abbonamento</string>
     <string name="button_unsubscribe">Annulla abbonamento</string>

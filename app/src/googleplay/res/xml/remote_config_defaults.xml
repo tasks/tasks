@@ -5,4 +5,8 @@
         <key>no_churn</key>
         <value>false</value>
     </entry>
+    <entry>
+        <key>avg_sub</key>
+        <value>3.57</value>
+    </entry>
 </defaultsMap>

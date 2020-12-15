@@ -475,6 +475,7 @@
     <string name="button_downgrade">Txikiagotu harpidetza</string>
     <string name="button_upgrade">Handiagotu harpidetza</string>
     <string name="button_unsubscribe">Ezeztatu harpidetza</string>
+    <string name="name_your_price">Jarri zuk prezioa</string>
     <string name="monthly">Hilero</string>
     <string name="annually">Urtero</string>
     <string name="error_adding_account">Errorea: %s</string>

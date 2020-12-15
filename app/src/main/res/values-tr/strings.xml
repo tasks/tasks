@@ -476,6 +476,7 @@
     <string name="button_downgrade">Aboneliği alçalt</string>
     <string name="button_upgrade">Aboneliği yükselt</string>
     <string name="button_unsubscribe">Aboneliği iptal et</string>
+    <string name="name_your_price">Fiyat belirleyin</string>
     <string name="monthly">Aylık</string>
     <string name="annually">Yıllık</string>
     <string name="SSD_sort_my_order">Düzenim</string>

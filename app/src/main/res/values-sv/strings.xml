@@ -470,6 +470,7 @@
     <string name="button_downgrade">Nedgradera prenumeration</string>
     <string name="button_upgrade">Uppgradera prenumerationen</string>
     <string name="button_unsubscribe">Avbryt prenumeration</string>
+    <string name="name_your_price">Namnge ditt pris</string>
     <string name="monthly">Månadsvis</string>
     <string name="annually">Årligen</string>
     <string name="SSD_sort_my_order">Min ordning</string>

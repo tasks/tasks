@@ -465,6 +465,7 @@
     <string name="button_downgrade">Terugdraaien abonnement</string>
     <string name="button_upgrade">Abonnement upgraden</string>
     <string name="button_unsubscribe">Abonnement annuleren</string>
+    <string name="name_your_price">Bepaal je prijs</string>
     <string name="monthly">Maandelijks</string>
     <string name="annually">Jaarlijks</string>
     <string name="restart_later">Later</string>

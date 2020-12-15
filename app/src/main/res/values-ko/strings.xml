@@ -472,6 +472,7 @@
     <string name="button_downgrade">구독 다운그레이드</string>
     <string name="button_upgrade">구독 업그레이드</string>
     <string name="button_unsubscribe">구독 취소</string>
+    <string name="name_your_price">구독 금액 정하기</string>
     <string name="monthly">매월</string>
     <string name="annually">매년</string>
     <string name="SSD_sort_my_order">순서 직접 정렬</string>

@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -22,10 +23,10 @@ import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.databinding.ActivityPurchaseBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.locale.Locale
-import org.tasks.themes.Theme
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -42,12 +43,12 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         }
     }
 
-    @Inject lateinit var tasksTheme: Theme
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var locale: Locale
+    @Inject lateinit var firebase: Firebase
 
     private lateinit var binding: ActivityPurchaseBinding
     private lateinit var markwon: Markwon
@@ -67,9 +68,7 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         }
 
         binding.slider.addOnChangeListener(this::onPriceChanged)
-        binding.slider.setLabelFormatter {
-            "$${it - .01}"
-        }
+        binding.slider.setLabelFormatter { "$${it - .01}" }
         binding.text.movementMethod = LinkMovementMethod.getInstance()
 
         markwon = Markwon.builder(requireContext())
@@ -196,7 +195,7 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
     private fun setWaitScreen(isWaitScreen: Boolean) {
         Timber.d("setWaitScreen(%s)", isWaitScreen)
         val generic = BuildConfig.FLAVOR == "generic"
-        binding.slider.isVisible = !isWaitScreen && nameYourPrice
+        binding.sliderContainer.isVisible = !isWaitScreen && nameYourPrice
         binding.payOther.isVisible = !isWaitScreen
         binding.payOther.setText(when {
             nameYourPrice -> R.string.back
@@ -238,6 +237,13 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         val annualPrice = if (nameYourPrice) sliderValue else 30
         val monthlyPrice = if (nameYourPrice) sliderValue else 3
         val constrained = resources.getBoolean(R.bool.width_constrained)
+        if (sliderValue < firebase.averageSubscription()) {
+            binding.avgAnnual.setText(R.string.below_average)
+            binding.avgAnnual.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_a400))
+        } else {
+            binding.avgAnnual.setText(R.string.above_average)
+            binding.avgAnnual.setTextColor(ContextCompat.getColor(requireContext(), R.color.green_a400))
+        }
         binding.payAnnually.let {
             it.isEnabled = true
             it.text = getString(
@@ -259,6 +265,8 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
             }
             it.isVisible = !nameYourPrice || sliderValue < 3
         }
+        binding.avgAnnual.isVisible = nameYourPrice && binding.payAnnually.isVisible
+        binding.avgMonthly.isVisible = nameYourPrice && binding.payMonthly.isVisible
         currentSubscription?.let {
             binding.payMonthly.isEnabled =
                     it.isCanceled || !it.isMonthly || monthlyPrice != it.subscriptionPrice

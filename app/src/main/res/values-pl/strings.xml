@@ -486,6 +486,7 @@
     <string name="button_downgrade">Obniżyć poziom subskrypcji</string>
     <string name="button_upgrade">Podwyższyć poziom subskrypcji</string>
     <string name="button_unsubscribe">Anuluj subskrypcję</string>
+    <string name="name_your_price">Nazwij swoją cenę</string>
     <string name="monthly">Miesięczne</string>
     <string name="annually">Rocznie</string>
     <string name="SSD_sort_my_order">Ręczne</string>

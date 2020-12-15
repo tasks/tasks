@@ -201,6 +201,7 @@
     <string name="caldav_account_repeating_tasks">Lad serveren planlægge gentagne opgaver</string>
     <string name="annually">Årligt</string>
     <string name="monthly">Månedligt</string>
+    <string name="name_your_price">Betal, hvad du vil</string>
     <string name="google_tasks_add_to_top">Nye opgaver øverst</string>
     <string name="invalid_backup_file">Ugyldig sikkerhedskopi-fil</string>
     <string name="version_string">Version %s</string>

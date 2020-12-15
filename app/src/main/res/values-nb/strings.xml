@@ -475,6 +475,7 @@
     <string name="button_downgrade">Nedgrader abonnement</string>
     <string name="button_upgrade">Oppgrader abonnement</string>
     <string name="button_unsubscribe">Avbryt abonnement</string>
+    <string name="name_your_price">Betal det du vil</string>
     <string name="monthly">Månedlig</string>
     <string name="annually">Årlig</string>
     <string name="error_adding_account">Feil: %s</string>

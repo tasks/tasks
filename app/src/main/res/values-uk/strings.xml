@@ -531,6 +531,7 @@
     <string name="collapse_subtasks">Згорнути підзавдання</string>
     <string name="expand_subtasks">Розгорнути підзавдання</string>
     <string name="caldav_account_repeating_tasks">Дозволити серверу встановлювати регулярні завдання</string>
+    <string name="name_your_price">Назвіть свою ціну</string>
     <string name="annually">Щорічно</string>
     <string name="monthly">Щомісячно</string>
     <string name="this_feature_requires_a_subscription">Ця функція потребує підписки</string>

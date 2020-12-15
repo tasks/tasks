@@ -45,24 +45,58 @@
           android:indeterminate="true"
           android:visibility="gone" />
 
-        <com.google.android.material.slider.Slider
-          android:id="@+id/slider"
+        <RelativeLayout
+          android:id="@+id/slider_container"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:valueFrom="1"
-          android:valueTo="25"
-          android:value="10"
-          android:stepSize="1"
-          app:trackColorActive="?attr/colorSecondary"
-          app:thumbColor="?attr/colorSecondary"
-          app:tickColorActive="?attr/colorOnSecondary"
-          app:tickColorInactive="?attr/colorSecondary"
-          app:tickColor="@android:color/transparent"
-          app:trackColorInactive="@color/text_tertiary"
           android:visibility="gone"
+          tools:visibility="visible"
           android:layout_marginStart="@dimen/keyline_first"
-          android:layout_marginEnd="@dimen/keyline_first"
-          tools:visibility="visible"/>
+          android:layout_marginEnd="@dimen/keyline_first">
+            <TextView
+              android:layout_alignParentTop="true"
+              android:id="@+id/name_your_price"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/name_your_price"
+              style="@style/TextAppearance"
+              android:textAlignment="center" />
+
+            <TextView
+              android:id="@+id/price_low"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
+              android:layout_below="@id/slider"
+              style="@style/TextAppearance.MaterialComponents.Caption"
+              android:text="$0.99"/>
+
+            <TextView
+              android:id="@+id/price_high"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:layout_below="@id/slider"
+              style="@style/TextAppearance.MaterialComponents.Caption"
+              android:text="$24.99"/>
+
+            <com.google.android.material.slider.Slider
+              android:id="@+id/slider"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:valueFrom="1"
+              android:valueTo="25"
+              android:value="10"
+              android:stepSize="1"
+              android:layout_below="@id/name_your_price"
+              app:trackColorActive="?attr/colorSecondary"
+              app:thumbColor="?attr/colorSecondary"
+              app:tickColorActive="?attr/colorOnSecondary"
+              app:tickColorInactive="?attr/colorSecondary"
+              app:tickColor="@android:color/transparent"
+              app:trackColorInactive="@color/text_tertiary"/>
+
+        </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/tasks_org_button_panel"
@@ -91,6 +125,34 @@
               app:layout_constraintStart_toEndOf="@id/pay_annually"
               app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+              android:id="@+id/avg_annual"
+              style="@style/TextAppearance.MaterialComponents.Caption"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toBottomOf="@id/pay_annually"
+              app:layout_constraintEnd_toEndOf="@id/pay_annually"
+              app:layout_constraintStart_toStartOf="@id/pay_annually"
+              android:textAlignment="center"
+              android:visibility="gone"
+              tools:text="@string/below_average"
+              tools:textColor="@color/red_a400"
+              tools:visibility="visible"/>
+
+            <TextView
+              android:id="@+id/avg_monthly"
+              style="@style/TextAppearance.MaterialComponents.Caption"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toBottomOf="@id/pay_monthly"
+              app:layout_constraintEnd_toEndOf="@id/pay_monthly"
+              app:layout_constraintStart_toStartOf="@id/pay_monthly"
+              android:text="@string/above_average"
+              android:visibility="gone"
+              tools:visibility="visible"
+              android:textColor="@color/green_a400"
+              android:textAlignment="center"/>
+
             <com.google.android.material.button.MaterialButton
               android:id="@+id/pay_other"
               style="@style/TextButton"
@@ -100,7 +162,7 @@
               android:textColor="@color/text_secondary"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@+id/pay_annually"
+              app:layout_constraintTop_toBottomOf="@+id/avg_annual"
               tools:text="@string/back"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -470,6 +470,7 @@
     <string name="button_downgrade">サブスクリプションのダウングレード</string>
     <string name="button_upgrade">サブスクリプションのアップグレード</string>
     <string name="button_unsubscribe">サブスクリプションのキャンセル</string>
+    <string name="name_your_price">価格の名前</string>
     <string name="monthly">毎月</string>
     <string name="annually">毎年</string>
 </resources>

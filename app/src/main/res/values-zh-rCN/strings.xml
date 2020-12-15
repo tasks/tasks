@@ -465,6 +465,7 @@
     <string name="button_downgrade">降级订阅</string>
     <string name="button_upgrade">升级订阅</string>
     <string name="button_unsubscribe">取消订阅</string>
+    <string name="name_your_price">您愿意支付多少费用</string>
     <string name="monthly">每月</string>
     <string name="annually">每年</string>
     <string name="list_separator_with_space">"， "</string>

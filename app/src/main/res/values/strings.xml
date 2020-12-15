@@ -539,6 +539,7 @@ File %1$s contained %2$s.\n\n
   <string name="version_string">Version %s</string>
   <string name="invalid_backup_file">Invalid backup file</string>
   <string name="google_tasks_add_to_top">New tasks on top</string>
+  <string name="name_your_price">Name your price</string>
   <string name="more_options">More options</string>
   <string name="monthly">Monthly</string>
   <string name="annually">Yearly</string>
@@ -683,4 +684,6 @@ File %1$s contained %2$s.\n\n
   <string name="migrating_tasks">Migrating tasks</string>
   <string name="offline_lists">Offline lists</string>
   <string name="migrate_count">Move %s to Tasks.org</string>
+  <string name="above_average">Above average</string>
+  <string name="below_average">Below average</string>
 </resources>

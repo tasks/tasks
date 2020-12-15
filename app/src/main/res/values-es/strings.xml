@@ -476,6 +476,7 @@
     <string name="button_downgrade">Suscripción de degradación</string>
     <string name="button_upgrade">Suscripción de actualización</string>
     <string name="button_unsubscribe">Cancelar la suscripción</string>
+    <string name="name_your_price">Escoger tu precio</string>
     <string name="monthly">Mensualmente</string>
     <string name="annually">Anualmente</string>
     <string name="SSD_sort_my_order">Mi orden</string>

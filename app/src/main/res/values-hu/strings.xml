@@ -473,6 +473,7 @@
     <string name="button_downgrade">Előfizetés downgrade-je</string>
     <string name="button_upgrade">Előfizetés upgrade-je</string>
     <string name="button_unsubscribe">Előfizetés lemondása</string>
+    <string name="name_your_price">Nevezd meg az árat</string>
     <string name="monthly">Havi</string>
     <string name="annually">Éves</string>
     <string name="SSD_sort_my_order">Egyéni sorrend</string>

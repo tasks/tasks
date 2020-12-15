@@ -95,7 +95,7 @@
 
   <!--================================================== General == -->
 
-  <style name="TextAppearance" parent="android:TextAppearance">
+  <style name="TextAppearance" parent="TextAppearance.MaterialComponents.Body1">
     <item name="android:textColor">@color/text_primary</item>
   </style>
 

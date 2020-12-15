@@ -442,6 +442,7 @@
     <string name="caldav_account_repeating_tasks">Anna palvelimen ajoittaa toistuvia tehtäviä</string>
     <string name="annually">Vuosittain</string>
     <string name="monthly">Kuukausittain</string>
+    <string name="name_your_price">Nimeä hintasi</string>
     <string name="google_tasks_add_to_top">Uudet tehtävät huipulla</string>
     <string name="invalid_backup_file">Epäsopiva varmuuskopiotiedosto</string>
     <string name="version_string">Versio %s</string>

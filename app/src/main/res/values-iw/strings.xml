@@ -505,6 +505,7 @@
     <string name="button_downgrade">שנמוך מינוי</string>
     <string name="button_upgrade">שדרוג מינוי</string>
     <string name="button_unsubscribe">ביטול מינוי</string>
+    <string name="name_your_price">מה המחיר שלך</string>
     <string name="monthly">חודשי</string>
     <string name="annually">שנתי</string>
     <string name="places">מיקומים</string>
