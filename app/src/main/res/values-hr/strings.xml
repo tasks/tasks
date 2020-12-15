@@ -1,2 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="read_permission_label">Dozvole zadataka</string>
+    <string name="import_summary_title">Obnovi sažetak</string>
+    <string name="export_toast">Kopija sačuvana od %1$s do %2$s.</string>
+    <string name="backup_BAc_export">Izvezi zadatke</string>
+    <string name="backup_BPr_header">Sigurnosne kopije</string>
+    <string name="EPr_edit_screen_options">Postavke zaslona za uređivanje</string>
+    <string name="TEA_hideUntil_display">Sakrij do %s</string>
+    <string name="backup_BAc_import">Uvezi sigurnosnu kopiju</string>
+    <string name="manage_lists">Uređivanje popisa</string>
+    <string name="always_display_full_date">Prikaži puni datum</string>
+    <string name="EPr_fullTask_title">Prikaži puni naslov zadatka</string>
+    <string name="EPr_beastMode_reset">Vrati na zadane vrijednosti</string>
+    <string name="TEA_load_more">Učitaj više…</string>
+    <string name="TEA_control_files">Datoteke</string>
+    <string name="TEA_control_notes">Opis</string>
+    <string name="TEA_control_location">Lokacija</string>
+    <string name="TEA_control_importance">Prioritet</string>
+    <string name="TEA_control_gcal">Kalendar</string>
+    <string name="TEA_control_when">Kada</string>
+    <string name="save">Spremi</string>
+    <string name="TEA_note_label">Opis</string>
+    <string name="TEA_hideUntil_label">Sakrij do</string>
+    <string name="TEA_add_subtask">Dodajte podzadatak</string>
+    <string name="TEA_importance_label">Prioritet</string>
+    <string name="TEA_title_hint">Naziv zadatka</string>
+    <string name="sort_created">Po vremenu stvaranja</string>
+    <string name="SSD_sort_due">Po datumu dospijeća</string>
+    <string name="SSD_sort_alpha">Po naslovu</string>
+    <string name="SSD_sort_importance">Po prioritetu</string>
+    <string name="SSD_sort_auto">Pametno sortiranje</string>
+    <string name="astrid_sort_order">Ručno sortiranje</string>
+    <string name="action_open">Otvori</string>
+    <string name="TLA_menu_search">Pretraga</string>
+    <string name="TLA_menu_settings">Postavke</string>
+    <string name="TLA_menu_sort">Poredaj</string>
+    <string name="TLA_no_items">Ovdje nema nijednu zadatku.</string>
+    <string name="DLG_undo">Poništi</string>
+    <string name="discard_confirmation">Jeste li sigurni da želite odbaciti svoje promjene\?</string>
+    <string name="import_progress_read">Učitavam zadatak broj %d…</string>
+    <string name="TVA_add_comment">Dodajte komentar…</string>
+    <string name="cancel">Prekid</string>
+    <string name="ok">U redu</string>
+</resources>
