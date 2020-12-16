@@ -674,4 +674,6 @@
     <string name="not_signed_in">未登录</string>
     <string name="no_google_play_subscription">未找到符合要求的 Google Play 订阅</string>
     <string name="insufficient_sponsorship">没有找到符合要求的GitHub赞助</string>
+    <string name="below_average">低于平均</string>
+    <string name="above_average">高于平均</string>
 </resources>
