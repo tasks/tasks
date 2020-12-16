@@ -200,6 +200,10 @@
     <item name="rippleColor">@color/button_accent_ripple</item>
   </style>
 
+  <style name="RedText" parent="TextAppearance.MaterialComponents.Body1">
+    <item name="android:textColor">@color/overdue</item>
+  </style>
+
   <style name="mdtp_ActionButton.Text" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush"/>
 
   <style name="AlertButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">

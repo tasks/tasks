@@ -500,9 +500,6 @@
     <string name="google_tasks_add_to_top">משימות חדשות בראש הרשימה</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">סמל</string>
-    <string name="button_current_subscription">מינוי נוכחי</string>
-    <string name="button_restore_subscription">שחזור מינוי</string>
-    <string name="button_downgrade">שנמוך מינוי</string>
     <string name="button_upgrade">שדרוג מינוי</string>
     <string name="button_unsubscribe">ביטול מינוי</string>
     <string name="name_your_price">מה המחיר שלך</string>

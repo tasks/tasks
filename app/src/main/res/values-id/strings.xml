@@ -360,9 +360,6 @@
     <string name="manage_subscription">Kelola langganan</string>
     <string name="refresh_purchases">Segarkan pembelian</string>
     <string name="button_subscribe">Langganan</string>
-    <string name="button_current_subscription">Langganan saat ini</string>
-    <string name="button_restore_subscription">Pulihkan langganan</string>
-    <string name="button_downgrade">Turunkan langganan</string>
     <string name="button_upgrade">Tingkatkan langganan</string>
     <string name="button_unsubscribe">Batalkan langganan</string>
     <string name="button_more_info">Info lainnya</string>

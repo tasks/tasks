@@ -312,9 +312,6 @@
     <string name="button_more_info">மேலும் தகவல்</string>
     <string name="button_unsubscribe">சந்தாவை ரத்துசெய்</string>
     <string name="button_upgrade">சந்தாவை மேம்படுத்தவும்</string>
-    <string name="button_downgrade">தரமிறக்குதல் சந்தா</string>
-    <string name="button_restore_subscription">சந்தாவை மீட்டமை</string>
-    <string name="button_current_subscription">தற்போதைய சந்தா</string>
     <string name="button_subscribe">பதிவு</string>
     <string name="refresh_purchases">வாங்குதல்களைப் புதுப்பிக்கவும்</string>
     <string name="manage_subscription">சந்தாவை நிர்வகிக்கவும்</string>

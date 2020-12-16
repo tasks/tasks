@@ -404,8 +404,6 @@
     <string name="annually">Anual</string>
     <string name="monthly">Mensal</string>
     <string name="button_unsubscribe">Cancelar assinatura</string>
-    <string name="button_restore_subscription">Restaurar assinatura</string>
-    <string name="button_current_subscription">Assinatura atual</string>
     <string name="icon">Ícone</string>
     <string name="google_tasks_add_to_top">Novas tarefas no topo</string>
     <string name="invalid_backup_file">O ficheiro de backup é inválido</string>
@@ -601,7 +599,6 @@
     <string name="SSD_sort_my_order">Minha ordem</string>
     <string name="name_your_price">Dê o seu valor</string>
     <string name="button_upgrade">Atualizar assinatura</string>
-    <string name="button_downgrade">Rebaixar assinatura</string>
     <string name="network_error">Não foi possível conectar</string>
     <string name="location_radius_meters">%s m</string>
     <string name="davx5_selection_description">Sincronize a suas tarefas com a app DAVx⁵</string>

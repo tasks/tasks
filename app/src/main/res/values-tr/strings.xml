@@ -471,9 +471,6 @@
     <string name="error_adding_account">Hata: %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Simge</string>
-    <string name="button_current_subscription">Geçerli abonelik</string>
-    <string name="button_restore_subscription">Aboneliği geri getir</string>
-    <string name="button_downgrade">Aboneliği alçalt</string>
     <string name="button_upgrade">Aboneliği yükselt</string>
     <string name="button_unsubscribe">Aboneliği iptal et</string>
     <string name="name_your_price">Fiyat belirleyin</string>

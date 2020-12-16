@@ -467,9 +467,6 @@
     <string name="invalid_backup_file">부적합한 백업 파일</string>
     <string name="google_tasks_add_to_top">새 할일을 가장 위로</string>
     <string name="icon">아이콘</string>
-    <string name="button_current_subscription">현재 구독</string>
-    <string name="button_restore_subscription">구독 복원</string>
-    <string name="button_downgrade">구독 다운그레이드</string>
     <string name="button_upgrade">구독 업그레이드</string>
     <string name="button_unsubscribe">구독 취소</string>
     <string name="name_your_price">구독 금액 정하기</string>

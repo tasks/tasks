@@ -9,6 +9,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.text.style.TextAppearanceSpan
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -18,8 +19,11 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.slider.Slider
 import dagger.hilt.android.AndroidEntryPoint
+import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
+import io.noties.markwon.MarkwonSpansFactory
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
+import org.commonmark.ext.gfm.strikethrough.Strikethrough
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -29,6 +33,7 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.locale.Locale
 import timber.log.Timber
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
@@ -73,6 +78,13 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
 
         markwon = Markwon.builder(requireContext())
                 .usePlugin(StrikethroughPlugin.create())
+                .usePlugin(object : AbstractMarkwonPlugin() {
+                    override fun configureSpansFactory(builder: MarkwonSpansFactory.Builder) {
+                        builder.appendFactory(Strikethrough::class.java) { _, _ ->
+                            TextAppearanceSpan(requireContext(), R.style.RedText)
+                        }
+                    }
+                })
                 .build()
 
         setWaitScreen(BuildConfig.FLAVOR != "generic")
@@ -106,7 +118,12 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
                     .show()
 
     private fun updateText() {
-        var benefits = "### ${getString(R.string.upgrade_header)}"
+        var benefits = "### ${getString(when {
+            nameYourPrice -> R.string.name_your_price
+            !inventory.hasPro -> R.string.upgrade_to_pro
+            !inventory.hasTasksSubscription -> R.string.button_upgrade
+            else -> R.string.modify_subscription
+        })}"
         benefits += if (nameYourPrice) {
             """
 ---
@@ -115,10 +132,10 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         } else {
             """
 ---                
-#### [${getString(R.string.upgrade_sync_with_tasks)} (BETA)](${getString(R.string.help_url_sync)})
-* **${getString(R.string.upgrade_no_platform_lock_in)}** — ${getString(R.string.upgrade_open_internet_standards)}
-* **${getString(R.string.upgrade_customer)}** — ${getString(R.string.upgrade_privacy)}
-* ${getString(R.string.upgrade_coming_soon)}
+#### ${getString(R.string.upgrade_sync_with_tasks)}
+* ${getString(R.string.upgrade_open_internet_standards)}
+* ${getString(R.string.upgrade_privacy)}
+* [${getString(R.string.upgrade_coming_soon)}](${getString(R.string.help_url_sync)})
 """
         }
         benefits += if (BuildConfig.FLAVOR == "generic") {
@@ -129,20 +146,17 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         } else {
             """
 ---
-#### ${getString(R.string.upgrade_synchronization)}
+#### ${getString(R.string.upgrade_additional_features)}
+* ${getString(R.string.upgrade_themes)}
 * [${getString(R.string.davx5)}](${getString(R.string.url_davx5)})
 * [${getString(R.string.caldav)}](${getString(R.string.url_caldav)})
 * [${getString(R.string.upgrade_etesync)}](${getString(R.string.url_etesync)})
 * ${getString(R.string.upgrade_google_tasks)}
----
-#### ${getString(R.string.upgrade_additional_features)}
-* ${getString(R.string.upgrade_themes)}
 * ${getString(R.string.upgrade_google_places)}
 * [${getString(R.string.upgrade_tasker)}](${getString(R.string.url_tasker)})
 ---
 * ${getString(R.string.upgrade_free_trial)}
-* **${getString(R.string.upgrade_downgrade)}** — ${getString(R.string.upgrade_balance)}
-* **${getString(R.string.upgrade_cancel)}** — ${getString(R.string.upgrade_benefits_retained)}
+* ${getString(R.string.upgrade_downgrade)}
 """
         }
         binding.text.text = markwon.toMarkdown(benefits)
@@ -237,13 +251,26 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         val annualPrice = if (nameYourPrice) sliderValue else 30
         val monthlyPrice = if (nameYourPrice) sliderValue else 3
         val constrained = resources.getBoolean(R.bool.width_constrained)
-        if (sliderValue < firebase.averageSubscription()) {
-            binding.avgAnnual.setText(R.string.below_average)
-            binding.avgAnnual.setTextColor(ContextCompat.getColor(requireContext(), R.color.red_a400))
-        } else {
-            binding.avgAnnual.setText(R.string.above_average)
-            binding.avgAnnual.setTextColor(ContextCompat.getColor(requireContext(), R.color.green_a400))
+        val aboveAverage = "${getString(R.string.above_average)} $POPPER"
+        binding.avgAnnual.text = when {
+            !nameYourPrice -> "${getString(
+                    R.string.save_percent,
+                    ((1 - (annualPrice / (12.0 * monthlyPrice))) * 100).toInt()
+            )} $POPPER"
+            sliderValue < firebase.averageSubscription() -> "" //getString(R.string.below_average)
+            else -> aboveAverage
         }
+        binding.avgAnnual.setTextColor(
+                if (nameYourPrice && sliderValue < firebase.averageSubscription()) {
+                    ContextCompat.getColor(requireContext(), R.color.text_secondary)
+                } else {
+                    ContextCompat.getColor(requireContext(), R.color.purchase_highlight)
+                }
+        )
+        binding.avgMonthly.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.purchase_highlight)
+        )
+        binding.avgMonthly.text = aboveAverage
         binding.payAnnually.let {
             it.isEnabled = true
             it.text = getString(
@@ -265,7 +292,6 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
             }
             it.isVisible = !nameYourPrice || sliderValue < 3
         }
-        binding.avgAnnual.isVisible = nameYourPrice && binding.payAnnually.isVisible
         binding.avgMonthly.isVisible = nameYourPrice && binding.payMonthly.isVisible
         currentSubscription?.let {
             binding.payMonthly.isEnabled =
@@ -304,6 +330,7 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         get() = arguments?.getBoolean(EXTRA_GITHUB, false) ?: false
 
     companion object {
+        private const val POPPER = "\uD83C\uDF89"
         private const val EXTRA_PRICE = "extra_price"
         private const val EXTRA_PRICE_CHANGED = "extra_price_changed"
         private const val EXTRA_NAME_YOUR_PRICE = "extra_name_your_price"

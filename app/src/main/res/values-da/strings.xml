@@ -238,8 +238,6 @@
     <string name="about">Om</string>
     <string name="button_more_info">Mere info</string>
     <string name="button_unsubscribe">Opsig abonnement</string>
-    <string name="button_restore_subscription">Gendan abonnement</string>
-    <string name="button_current_subscription">Nuværende abonnement</string>
     <string name="button_subscribe">Abonnér</string>
     <string name="network_error">Kunne ikke oprette forbindelse</string>
     <string name="caldav_home_set_not_found">Kunne ikke finde Home Set</string>
@@ -406,7 +404,6 @@
     <string name="wearable_notifications_summary">Vis notifikationer på din wearable-enhed</string>
     <string name="license_summary">Tasks er gratis, open-source software udgivet under GNU General Public License v3.0</string>
     <string name="button_upgrade">Opgrader abonnement</string>
-    <string name="button_downgrade">Nedgrader abonnement</string>
     <string name="upgrade_to_pro">Opgrader til pro</string>
     <string name="refresh_purchases">Opdater køb</string>
     <string name="manage_subscription">Administrer abonnement</string>

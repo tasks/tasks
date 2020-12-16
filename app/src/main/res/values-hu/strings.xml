@@ -468,9 +468,6 @@
     <string name="location_radius_meters">%s m</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Ikon</string>
-    <string name="button_current_subscription">Jelenlegi előfizetés</string>
-    <string name="button_restore_subscription">Előfizetés visszaállítása</string>
-    <string name="button_downgrade">Előfizetés downgrade-je</string>
     <string name="button_upgrade">Előfizetés upgrade-je</string>
     <string name="button_unsubscribe">Előfizetés lemondása</string>
     <string name="name_your_price">Nevezd meg az árat</string>

@@ -62,9 +62,10 @@ class Inventory @Inject constructor(
         private set
 
     suspend fun updateTasksSubscription() {
-        hasTasksSubscription = caldavDao.getAccounts(TYPE_TASKS).any {
-            it.isTasksSubscription(context)
-        }
+        hasTasksSubscription =
+                subscription?.isTasksSubscription == true || caldavDao.getAccounts(TYPE_TASKS).any {
+                    it.isTasksSubscription(context)
+                }
     }
 
     fun purchased(sku: String) = purchases.containsKey(sku)

@@ -465,9 +465,6 @@
     <string name="url">URL</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">アイコン</string>
-    <string name="button_current_subscription">現在のサブスクリプション</string>
-    <string name="button_restore_subscription">サブスクリプションの復元</string>
-    <string name="button_downgrade">サブスクリプションのダウングレード</string>
     <string name="button_upgrade">サブスクリプションのアップグレード</string>
     <string name="button_unsubscribe">サブスクリプションのキャンセル</string>
     <string name="name_your_price">価格の名前</string>

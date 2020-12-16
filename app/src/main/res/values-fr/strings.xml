@@ -465,9 +465,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>
     <string name="icon">Icône</string>
-    <string name="button_current_subscription">Abonnement actuel</string>
-    <string name="button_restore_subscription">Restaurer l\'abonnement</string>
-    <string name="button_downgrade">Diminuer l\'abonnement</string>
     <string name="button_upgrade">Augmenter l\'abonnement</string>
     <string name="button_unsubscribe">Annuler l\'abonnement</string>
     <string name="name_your_price">Donnez votre prix</string>
@@ -679,6 +676,5 @@
     <string name="not_signed_in">Non connecté</string>
     <string name="no_google_play_subscription">Aucun abonnement Google Play éligible trouvé</string>
     <string name="insufficient_sponsorship">Aucun parrainage GitHub éligible trouvé</string>
-    <string name="below_average">En dessous de la moyenne</string>
     <string name="above_average">Au-dessus de la moyenne</string>
 </resources>

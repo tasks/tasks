@@ -471,9 +471,6 @@
     <string name="error_adding_account">Error : %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Icono</string>
-    <string name="button_current_subscription">Suscripción actual</string>
-    <string name="button_restore_subscription">Restaurar la suscripción</string>
-    <string name="button_downgrade">Suscripción de degradación</string>
     <string name="button_upgrade">Suscripción de actualización</string>
     <string name="button_unsubscribe">Cancelar la suscripción</string>
     <string name="name_your_price">Escoger tu precio</string>
@@ -684,6 +681,5 @@
     <string name="not_signed_in">No registrado</string>
     <string name="no_google_play_subscription">No se encontró ninguna suscripción de Google Play elegible</string>
     <string name="insufficient_sponsorship">No se encontró ningún patrocinio de GitHub elegible</string>
-    <string name="below_average">Por debajo del promedio</string>
     <string name="above_average">Por encima del promedio</string>
 </resources>

@@ -506,8 +506,6 @@
         <item quantity="many">%d підзадач</item>
     </plurals>
     <string name="gtasks_GPr_header">Google Tasks</string>
-    <string name="button_restore_subscription">Відновити підписку</string>
-    <string name="button_current_subscription">Поточна підписка</string>
     <string name="reenter_encryption_password">Підтвердіть пароль шифрування</string>
     <string name="encryption_password">Пароль шифрування</string>
     <string name="encryption_password_required">Потрібний пароль шифрування</string>
@@ -536,7 +534,6 @@
     <string name="monthly">Щомісячно</string>
     <string name="this_feature_requires_a_subscription">Ця функція потребує підписки</string>
     <string name="button_unsubscribe">Скасувати підписку</string>
-    <string name="button_downgrade">Спростити підписку</string>
     <string name="share">Поділитися</string>
     <string name="select_all">Обрати всі</string>
     <string name="calendar_event_created">В календарі створено подію для %s</string>

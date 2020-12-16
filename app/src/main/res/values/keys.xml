@@ -28,25 +28,19 @@
   <string name="url_sponsor">https://github.com/sponsors/abaker</string>
 
   <!-- Eventually these should be moved to strings.xml for translation -->
-  <string name="upgrade_header">Unlock additional features and support open source software!</string>
-  <string name="upgrade_sync_with_tasks">Sync with Tasks.org</string>
-  <string name="upgrade_no_platform_lock_in">No platform lock-in</string>
+  <string name="modify_subscription">Modify your subscription</string>
+  <string name="upgrade_sync_with_tasks">Sync your data with Tasks.org</string>
   <string name="upgrade_open_internet_standards">Tasks.org is based on open internet standards</string>
-  <string name="upgrade_customer">You are the customer</string>
-  <string name="upgrade_privacy">Tasks.org does not monetize you or your data</string>
+  <string name="upgrade_privacy">Tasks.org does not show ads or sell personal information</string>
   <string name="upgrade_coming_soon">Many new features coming soon!</string>
-  <string name="upgrade_synchronization">Sync with third-party or self-hosted servers</string>
   <string name="upgrade_etesync">End-to-end encryption with EteSync</string>
   <string name="upgrade_google_tasks">Multiple Google Task accounts</string>
-  <string name="upgrade_additional_features">Additional features</string>
+  <string name="upgrade_additional_features">Unlock additional features</string>
   <string name="upgrade_themes">Unlock all themes, colors, and icons</string>
   <string name="upgrade_google_places">Improved location search with Google Places</string>
   <string name="upgrade_tasker">Tasker plugins</string>
-  <string name="upgrade_free_trial">New subscribers receive a 7-day free trial</string>
-  <string name="upgrade_downgrade">Upgrade or downgrade at any time</string>
-  <string name="upgrade_balance">Your remaining balance will apply to your new subscription</string>
-  <string name="upgrade_cancel">Cancel at any time</string>
-  <string name="upgrade_benefits_retained">benefits are retained until the end of your billing period</string>
+  <string name="upgrade_free_trial">7-day free trial for new subscribers</string>
+  <string name="upgrade_downgrade">Upgrade, downgrade, or cancel your subscription at any time</string>
   <string name="upgrade_previous_donors">Previous donors</string>
   <string name="upgrade_previous_donors_contact">to receive one month credit for every $3 in past donations</string>
 

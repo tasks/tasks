@@ -460,9 +460,6 @@
     <string name="invalid_backup_file">无效的备份文件</string>
     <string name="google_tasks_add_to_top">新任务显示在顶部</string>
     <string name="icon">图标</string>
-    <string name="button_current_subscription">当前订阅</string>
-    <string name="button_restore_subscription">恢复订阅</string>
-    <string name="button_downgrade">降级订阅</string>
     <string name="button_upgrade">升级订阅</string>
     <string name="button_unsubscribe">取消订阅</string>
     <string name="name_your_price">您愿意支付多少费用</string>
@@ -674,6 +671,5 @@
     <string name="not_signed_in">未登录</string>
     <string name="no_google_play_subscription">未找到符合要求的 Google Play 订阅</string>
     <string name="insufficient_sponsorship">没有找到符合要求的GitHub赞助</string>
-    <string name="below_average">低于平均</string>
     <string name="above_average">高于平均</string>
 </resources>

@@ -472,8 +472,6 @@
     <string name="about">Tietoja sovelluksesta</string>
     <string name="button_more_info">Lisätietoja</string>
     <string name="button_unsubscribe">Peruuta tilaus</string>
-    <string name="button_restore_subscription">Palauta tilaus</string>
-    <string name="button_current_subscription">Nykytilaus</string>
     <string name="button_subscribe">Tilaa</string>
     <string name="manage_subscription">Hallinnoi tilausta</string>
     <string name="network_error">Yhteyttä ei saatu</string>
@@ -587,7 +585,6 @@
     <string name="location_departed">Lähdit paikasta %s</string>
     <string name="location_arrived">Saavuit paikkaan %s</string>
     <string name="logout_warning">Kirjaudu ulos %s\? Kaikki tälle tilille tallennetut tiedot poistetaan laitteeltasi</string>
-    <string name="button_downgrade">Alenna tilaustasi</string>
     <string name="refresh_purchases">Päivitä ostoksesi</string>
     <string name="background_sync_unmetered_only">Vain rajoittamattomalla yhteydellä</string>
     <string name="widget_due_date_hidden">Piilotettu</string>

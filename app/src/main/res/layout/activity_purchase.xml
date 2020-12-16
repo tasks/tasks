@@ -54,15 +54,6 @@
           android:layout_marginStart="@dimen/keyline_first"
           android:layout_marginEnd="@dimen/keyline_first">
             <TextView
-              android:layout_alignParentTop="true"
-              android:id="@+id/name_your_price"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="@string/name_your_price"
-              style="@style/TextAppearance"
-              android:textAlignment="center" />
-
-            <TextView
               android:id="@+id/price_low"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -88,7 +79,7 @@
               android:valueTo="25"
               android:value="10"
               android:stepSize="1"
-              android:layout_below="@id/name_your_price"
+              android:layout_alignParentTop="true"
               app:trackColorActive="?attr/colorSecondary"
               app:thumbColor="?attr/colorSecondary"
               app:tickColorActive="?attr/colorOnSecondary"
@@ -134,10 +125,8 @@
               app:layout_constraintEnd_toEndOf="@id/pay_annually"
               app:layout_constraintStart_toStartOf="@id/pay_annually"
               android:textAlignment="center"
-              android:visibility="gone"
-              tools:text="@string/below_average"
-              tools:textColor="@color/red_a400"
-              tools:visibility="visible"/>
+              android:textAllCaps="true"
+              tools:text="@string/above_average"/>
 
             <TextView
               android:id="@+id/avg_monthly"
@@ -147,11 +136,12 @@
               app:layout_constraintTop_toBottomOf="@id/pay_monthly"
               app:layout_constraintEnd_toEndOf="@id/pay_monthly"
               app:layout_constraintStart_toStartOf="@id/pay_monthly"
-              android:text="@string/above_average"
+              android:textAllCaps="true"
               android:visibility="gone"
               tools:visibility="visible"
-              android:textColor="@color/green_a400"
-              android:textAlignment="center"/>
+              android:textColor="?attr/colorAccent"
+              android:textAlignment="center"
+              tools:text="@string/above_average"/>
 
             <com.google.android.material.button.MaterialButton
               android:id="@+id/pay_other"

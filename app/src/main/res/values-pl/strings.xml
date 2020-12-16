@@ -481,9 +481,6 @@
     <string name="invalid_backup_file">Nieprawidłowy plik kopii zapasowej</string>
     <string name="google_tasks_add_to_top">Nowe zadania na górze</string>
     <string name="icon">Ikona</string>
-    <string name="button_current_subscription">Aktualna subskrypcja</string>
-    <string name="button_restore_subscription">Przywróć subskrypcję</string>
-    <string name="button_downgrade">Obniżyć poziom subskrypcji</string>
     <string name="button_upgrade">Podwyższyć poziom subskrypcji</string>
     <string name="button_unsubscribe">Anuluj subskrypcję</string>
     <string name="name_your_price">Nazwij swoją cenę</string>

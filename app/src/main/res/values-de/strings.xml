@@ -471,9 +471,6 @@
     <string name="version_string">Version %s</string>
     <string name="error_adding_account">Fehler: %s</string>
     <string name="icon">Symbol</string>
-    <string name="button_current_subscription">Aktuelles Abonnement</string>
-    <string name="button_restore_subscription">Abonnement wiederherstellen</string>
-    <string name="button_downgrade">Abonnement herabstufen</string>
     <string name="button_upgrade">Abonnement hochstufen</string>
     <string name="button_unsubscribe">Abonnement kündigen</string>
     <string name="name_your_price">Nennen Sie Ihren Preis</string>

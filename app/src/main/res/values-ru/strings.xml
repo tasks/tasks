@@ -479,15 +479,12 @@
     <string name="choose_new_location">Выберите новое местоположение</string>
     <string name="invalid_backup_file">Неверный файл резервной копии</string>
     <string name="icon">Иконка</string>
-    <string name="button_current_subscription">Текущая подписка</string>
-    <string name="button_restore_subscription">Восстановить подписку</string>
     <string name="button_unsubscribe">Отменить подписку</string>
     <string name="name_your_price">Назовите свою цену</string>
     <string name="url">URL</string>
     <string name="error_adding_account">Ошибка: %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="building_notifications">Генерация уведомлений</string>
-    <string name="button_downgrade">Понизить уровень подписки</string>
     <string name="button_upgrade">Повысить уровень подписки</string>
     <string name="SSD_sort_my_order">Ручная сортировка</string>
     <string name="EPr_temp_show_completed_tasks">Временно показывать задачи после завершения</string>
@@ -702,6 +699,5 @@
         <item quantity="other">%d списков</item>
     </plurals>
     <string name="repeat_monthly_fifth_week">Пятая</string>
-    <string name="below_average">Ниже среднего</string>
     <string name="above_average">Выше среднего</string>
 </resources>

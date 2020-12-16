@@ -450,9 +450,6 @@
     <string name="about">O aplikaci</string>
     <string name="license_summary">Aplikace Tasks je svobodný software s otevřeným zdrojovým kódem licencovaný pod GNU General Public License v3.0</string>
     <string name="icon">Ikona</string>
-    <string name="button_current_subscription">Aktuální předplatné</string>
-    <string name="button_restore_subscription">Obnovit předplatné</string>
-    <string name="button_downgrade">Snížit předplatné</string>
     <string name="button_upgrade">Zvýšit předplatné</string>
     <string name="button_unsubscribe">Zrušit předplatné</string>
     <string name="encryption_password_required">Zadejte heslo pro šifrování</string>

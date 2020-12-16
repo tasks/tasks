@@ -470,9 +470,6 @@
     <string name="invalid_backup_file">Baliogabeko babes-kopia fitxategia</string>
     <string name="google_tasks_add_to_top">Zeregin berriak goialdean</string>
     <string name="icon">Ikonoa</string>
-    <string name="button_current_subscription">Uneko harpidetza</string>
-    <string name="button_restore_subscription">Berrezarri harpidetza</string>
-    <string name="button_downgrade">Txikiagotu harpidetza</string>
     <string name="button_upgrade">Handiagotu harpidetza</string>
     <string name="button_unsubscribe">Ezeztatu harpidetza</string>
     <string name="name_your_price">Jarri zuk prezioa</string>

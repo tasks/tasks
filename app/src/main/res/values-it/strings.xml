@@ -468,7 +468,6 @@
     <string name="desaturate_colors">Riduci saturazione colori</string>
     <string name="etesync_encryption_description">Ricorda la password di cifratura che hai scelto, non può essere recuperata!</string>
     <string name="button_upgrade">Passa alla versione premium</string>
-    <string name="button_downgrade">Torna alla versione base dell\'abbonamento</string>
     <string name="reenter_encryption_password">Conferma password di cifratura</string>
     <string name="encryption_password">Password di cifratura</string>
     <string name="encryption_password_wrong">Password di cifratura sbagliata</string>
@@ -523,8 +522,6 @@
     <string name="third_party_licenses">Licenze di terze parti</string>
     <string name="this_feature_requires_a_subscription">Questa funzione richiede un abbonamento</string>
     <string name="button_unsubscribe">Annulla abbonamento</string>
-    <string name="button_restore_subscription">Ripristina abbonamento</string>
-    <string name="button_current_subscription">Abbonamento attuale</string>
     <string name="help_and_feedback">Aiuto e feedback</string>
     <string name="url">URL</string>
     <string name="password">Password</string>
