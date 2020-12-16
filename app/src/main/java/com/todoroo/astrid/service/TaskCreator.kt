@@ -8,6 +8,7 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_NONE
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.helper.UUIDHelper
@@ -93,6 +94,10 @@ class TaskCreator @Inject constructor(
         }
         task.uuid = UUIDHelper.newUUID()
         task.priority = preferences.defaultPriority
+        task.hideUntil = task.createHideUntil(
+                preferences.getIntegerFromString(R.string.p_default_hideUntil_key, HIDE_UNTIL_NONE),
+                0
+        )
         task.dueDate = createDueDate(
                 preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE),
                 0)
@@ -103,11 +108,9 @@ class TaskCreator @Inject constructor(
                             RRule(it),
                             preferences.getIntegerFromString(R.string.p_default_recurrence_from, 0) == 1)
                 }
-        val setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE)
         preferences.getStringValue(R.string.p_default_location)
                 ?.takeIf { it.isNotBlank() }
                 ?.let { task.putTransitory(Place.KEY, it) }
-        task.hideUntil = task.createHideUntil(setting, 0)
         setDefaultReminders(preferences, task)
         val tags = ArrayList<String>()
         if (values != null && values.isNotEmpty()) {
