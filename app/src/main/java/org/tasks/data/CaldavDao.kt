@@ -189,6 +189,15 @@ SELECT EXISTS(SELECT 1
     @Query("SELECT cd_object FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0")
     abstract suspend fun getObjects(calendar: String): List<String>
 
+    @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0")
+    abstract suspend fun getRemoteIds(calendar: String): List<String>
+
+    suspend fun getTasksByRemoteId(calendar: String, remoteIds: List<String>): List<Long> =
+            remoteIds.chunkedMap { getTasksByRemoteIdInternal(calendar, it) }
+
+    @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_remote_id IN (:remoteIds)")
+    internal abstract suspend fun getTasksByRemoteIdInternal(calendar: String, remoteIds: List<String>): List<Long>
+
     suspend fun getTasks(calendar: String, objects: List<String>): List<Long> =
             objects.chunkedMap { getTasksInternal(calendar, it) }
 

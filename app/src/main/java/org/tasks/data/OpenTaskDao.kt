@@ -63,13 +63,13 @@ class OpenTaskDao @Inject constructor(
         val items = ArrayList<Triple<String, String?, String>>()
         cr.query(
                 tasks,
-                arrayOf(Tasks._SYNC_ID, Tasks.SYNC1, "version"),
+                arrayOf(Tasks._UID, Tasks.SYNC1, "version"),
                 "${Tasks.LIST_ID} = $listId",
                 null,
                 null)?.use {
             while (it.moveToNext()) {
                 items.add(Triple(
-                        it.getString(Tasks._SYNC_ID)!!,
+                        it.getString(Tasks._UID)!!,
                         it.getString(Tasks.SYNC1),
                         it.getLong("version").toString()))
             }
@@ -77,10 +77,10 @@ class OpenTaskDao @Inject constructor(
         items
     }
 
-    fun delete(listId: Long, item: String): ContentProviderOperation =
+    fun delete(listId: Long, uid: String): ContentProviderOperation =
             newDelete(tasks)
                     .withSelection(
-                            "${Tasks.LIST_ID} = $listId AND ${Tasks._SYNC_ID} = '$item'",
+                            "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '$uid'",
                             null)
                     .build()
 
@@ -89,10 +89,10 @@ class OpenTaskDao @Inject constructor(
                     .withValues(values)
                     .build()
 
-    fun update(listId: Long, item: String, values: ContentValues): ContentProviderOperation =
+    fun update(listId: Long, uid: String, values: ContentValues): ContentProviderOperation =
             newUpdate(tasks)
                     .withSelection(
-                            "${Tasks.LIST_ID} = $listId AND ${Tasks._SYNC_ID} = '$item'",
+                            "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '$uid'",
                             null)
                     .withValues(values)
                     .build()
