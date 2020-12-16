@@ -1,3 +1,22 @@
+### 11.0.1 (2020-12-16)
+
+* Fix EteSync client issue with v2 accounts
+  ([b761309](https://github.com/tasks/tasks/commit/b76130902ae0be6e1d580d588798a9ed0d7ff385))
+* Fix default hide until due time
+  ([#842](https://github.com/tasks/tasks/issues/842#issuecomment-746358382))
+* Add Croatian translations - Garden Hose
+* Add Urdu translations - Maaz
+* Update translations
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Korean - Sunjae Choi
+  * Polish - @lstolcman
+  * Russian - Nikita Epifanov, @KovalevArtem
+  * Serbian - Garden Hose
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - @emintufan
+
 ### 11.0 (2020-12-10)
 
 * New Tasks.org synchronization service
