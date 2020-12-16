@@ -679,4 +679,6 @@
     <string name="not_signed_in">Non connecté</string>
     <string name="no_google_play_subscription">Aucun abonnement Google Play éligible trouvé</string>
     <string name="insufficient_sponsorship">Aucun parrainage GitHub éligible trouvé</string>
+    <string name="below_average">En dessous de la moyenne</string>
+    <string name="above_average">Au-dessus de la moyenne</string>
 </resources>
