@@ -702,4 +702,6 @@
         <item quantity="other">%d списков</item>
     </plurals>
     <string name="repeat_monthly_fifth_week">Пятая</string>
+    <string name="below_average">Ниже среднего</string>
+    <string name="above_average">Выше среднего</string>
 </resources>
