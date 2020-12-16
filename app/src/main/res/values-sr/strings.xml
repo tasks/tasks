@@ -23,7 +23,7 @@
     <string name="contact_developer">Kontaktiraj razvojni tim</string>
     <string name="rate_tasks">Oceni Task</string>
     <string name="quiet_hours_summary">Bez podsetnika u mirnim satima</string>
-    <string name="filter_settings">Filter podešavanja</string>
+    <string name="filter_settings">Подешавања филтера</string>
     <string name="show_hidden">Prikaži skrivene</string>
     <string name="import_summary_title">Обнови сажетак</string>
     <string name="export_toast">Копија сачувана од %1$s до %2$s.</string>
@@ -36,4 +36,5 @@
     <string name="ok">У реду</string>
     <string name="read_permission_label">Дозволе задатака</string>
     <string name="import_progress_read">Учитавам задатак %d…</string>
+    <string name="TLA_menu_settings">Подешавања</string>
 </resources>
