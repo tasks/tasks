@@ -679,4 +679,6 @@
     <string name="not_signed_in">Nincs bejelentkezve</string>
     <string name="no_google_play_subscription">Nem található Google Play előfizetés</string>
     <string name="insufficient_sponsorship">Nem található GitHub szponzorálás</string>
+    <string name="save_percent">Mentés %d%%</string>
+    <string name="above_average">Átlag felett</string>
 </resources>
