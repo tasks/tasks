@@ -231,10 +231,11 @@ class DateTimePicker : BottomSheetDialogFragment() {
 
     @OnClick(R.id.pick_time_button)
     fun pickTime() {
-        val time = if (Task.hasDueTime(today.withMillisOfDay(selectedTime).millis)) {
-            selectedTime
-        } else {
+        val time = if (selectedTime == MULTIPLE_TIMES
+                || !Task.hasDueTime(today.withMillisOfDay(selectedTime).millis)) {
             today.noon().millisOfDay
+        } else {
+            selectedTime
         }
         newTimePicker(this, REQUEST_TIME, today.withMillisOfDay(time).millis)
                 .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
