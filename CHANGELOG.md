@@ -1,3 +1,14 @@
+### 11.1 (2020-12-17)
+
+* Add [DecSync CC synchronization](https://tasks.org/decsync)
+* Update translations
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Urdu - Maaz
+
 ### 11.0.1 (2020-12-17)
 
 * Fix EteSync client issue with v2 accounts
