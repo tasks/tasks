@@ -138,4 +138,19 @@
     <string name="CRA_title">میٹنگ لسٹ کی ضرورت ہے؟</string>
     <string name="CRA_ignore">نظر انداز کریں</string>
     <string name="TEA_timer_est">تقریبا %s</string>
+    <string name="CFC_title_contains_text">عنوان مشتمل ہے:؟</string>
+    <string name="CFC_title_contains_name">عنوان مشتمل ہے…</string>
+    <string name="CFC_tag_contains_text">ٹیگ کا نام مشتمل ہے:؟</string>
+    <string name="CFC_tag_contains_name">ٹیگ کا نام مشتمل ہے…</string>
+    <string name="CFC_tag_name">ٹیگ…</string>
+    <string name="CFC_tag_text">ٹیگ:؟</string>
+    <string name="CFC_importance_name">ترجیح…</string>
+    <string name="CFC_importance_text">کم از کم ترجیح؟</string>
+    <string name="next_month">اگلے مہینے</string>
+    <string name="no_due_date">کوئی مقررہ تاریخ نہیں</string>
+    <string name="CFC_dueBefore_name">آخری تاریخ…</string>
+    <string name="CFC_dueBefore_text">اتنے وقت تک مکمل کریں:؟</string>
+    <string name="CFA_button_add">معیار داخل کریں</string>
+    <string name="CFA_context_delete">قطار ڈیلیٹ کریں</string>
+    <string name="CFA_context_chain">%s کا معیار ہے</string>
 </resources>
