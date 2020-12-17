@@ -682,4 +682,5 @@
     <string name="no_google_play_subscription">No se encontró ninguna suscripción de Google Play elegible</string>
     <string name="insufficient_sponsorship">No se encontró ningún patrocinio de GitHub elegible</string>
     <string name="above_average">Por encima del promedio</string>
+    <string name="save_percent">Ahorre %d %%</string>
 </resources>
