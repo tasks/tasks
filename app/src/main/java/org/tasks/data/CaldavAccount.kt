@@ -13,7 +13,6 @@ import org.tasks.R
 import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
-import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
 import org.tasks.etebase.EtebaseCalendarSettingsActivity
 import org.tasks.etesync.EteSyncCalendarSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
@@ -99,9 +98,6 @@ class CaldavAccount : Parcelable {
 
     val isOpenTasks: Boolean
         get() = accountType == TYPE_OPENTASKS
-
-    val isOpenTaskEteSync: Boolean
-        get() = uuid.openTaskType() == ACCOUNT_TYPE_ETESYNC
 
     val isTasksOrg: Boolean
         get() = accountType == TYPE_TASKS

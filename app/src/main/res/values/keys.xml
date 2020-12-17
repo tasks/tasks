@@ -14,6 +14,7 @@
   <string name="etesync">EteSync</string>
   <string name="etesync_v1">EteSync v1</string>
   <string name="davx5">DAVx⁵</string>
+  <string name="decsync">DecSync CC</string>
   <string name="tasks_org">Tasks.org</string>
   <string name="etesync_url">https://api.etesync.com</string>
   <string name="etebase_url">https://api.etebase.com/partner/tasksorg/</string>
@@ -22,6 +23,7 @@
   <string name="url_davx5">https://tasks.org/davx5</string>
   <string name="url_caldav">https://tasks.org/caldav</string>
   <string name="url_etesync">https://tasks.org/etesync</string>
+  <string name="url_decsync">https://tasks.org/decsync</string>
   <string name="url_tasker">https://tasks.org/help/tasker</string>
   <string name="url_donate">https://tasks.org/donate</string>
   <string name="url_reddit">https://reddit.com/r/tasks</string>

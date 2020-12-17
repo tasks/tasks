@@ -7,4 +7,5 @@ object Constants {
     const val SYNC_TYPE_GOOGLE_TASKS = "google_tasks"
     const val SYNC_TYPE_ETESYNC_OT = "etesync_ot"
     const val SYNC_TYPE_ETEBASE = "etebase"
+    const val SYNC_TYPE_DECSYNC = "decsync"
 }

@@ -38,7 +38,7 @@ class OpenTaskDao @Inject constructor(
         cr.query(
                 TaskLists.getContentUri(authority),
                 null,
-                "${TaskListColumns.SYNC_ENABLED}=1 AND ($ACCOUNT_TYPE = '$ACCOUNT_TYPE_DAVx5' OR $ACCOUNT_TYPE = '$ACCOUNT_TYPE_ETESYNC')",
+                "${TaskListColumns.SYNC_ENABLED}=1 AND ($SUPPORTED_TYPE_FILTER)",
                 null,
                 null)?.use {
             while (it.moveToNext()) {
@@ -240,13 +240,26 @@ class OpenTaskDao @Inject constructor(
 
     companion object {
         private const val OPENTASK_BATCH_LIMIT = 499
-        const val ACCOUNT_TYPE_DAVx5 = "bitfire.at.davdroid"
-        const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
+        private const val ACCOUNT_TYPE_DAVx5 = "bitfire.at.davdroid"
+        private const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
+        private const val ACCOUNT_TYPE_DECSYNC = "org.decsync.tasks"
+        val SUPPORTED_TYPES = setOf(
+                ACCOUNT_TYPE_DAVx5,
+                ACCOUNT_TYPE_ETESYNC,
+                ACCOUNT_TYPE_DECSYNC
+        )
+        val SUPPORTED_TYPE_FILTER = SUPPORTED_TYPES.joinToString(" OR ") { "ACCOUNT_TYPE = '$it'" }
 
         suspend fun Map<String, List<CaldavCalendar>>.newAccounts(caldavDao: CaldavDao) =
                 filterNot { (_, lists) -> caldavDao.anyExist(lists.map { it.url!! }) }
                         .map { it.key }
                         .distinct()
+
+        fun String?.isDavx5(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVx5) == true
+
+        fun String?.isEteSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_ETESYNC) == true
+
+        fun String?.isDecSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_DECSYNC) == true
 
         fun Cursor.getString(columnName: String): String? =
                 getString(getColumnIndex(columnName))

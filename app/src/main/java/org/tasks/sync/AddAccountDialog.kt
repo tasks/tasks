@@ -67,6 +67,8 @@ class AddAccountDialog : DialogFragment() {
                         3 -> activity?.startActivityForResult(
                                 Intent(activity, EtebaseAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
+                        4 -> activity?.startActivity(
+                                Intent(ACTION_VIEW, Uri.parse(getString(R.string.url_decsync))))
                     }
                     dialog.dismiss()
                 }

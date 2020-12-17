@@ -13,8 +13,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.OpenTaskDao
-import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_DAVx5
-import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
+import org.tasks.data.OpenTaskDao.Companion.SUPPORTED_TYPES
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
 
@@ -41,7 +40,7 @@ class SyncOpenTasksWork @WorkerInject constructor(
             AccountManager
                     .get(context)
                     .accounts
-                    .filter { it.type == ACCOUNT_TYPE_DAVx5 || it.type == ACCOUNT_TYPE_ETESYNC }
+                    .filter { SUPPORTED_TYPES.contains(it.type) }
                     .forEach {
                         ContentResolver.requestSync(
                                 it,

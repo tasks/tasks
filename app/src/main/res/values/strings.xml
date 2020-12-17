@@ -554,6 +554,7 @@ File %1$s contained %2$s.\n\n
   <string name="google_tasks_selection_description">Basic service that synchronizes with your Google account</string>
   <string name="caldav_selection_description">Synchronization based on open internet standards</string>
   <string name="etesync_selection_description">Open source, end-to-end encrypted synchronization</string>
+  <string name="decsync_selection_description">Synchronize your tasks with the DecSync CC app</string>
   <string name="davx5_selection_description">Synchronize your tasks with the DAVx⁵ app</string>
   <string name="show_advanced_settings">Show advanced settings</string>
   <string name="caldav_account_description">Requires an account with a CalDAV service provider or a self-hosted server. Find a service provider by visiting tasks.org/caldav</string>

@@ -22,8 +22,9 @@ import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_DAVx5
-import org.tasks.data.OpenTaskDao.Companion.ACCOUNT_TYPE_ETESYNC
+import org.tasks.data.OpenTaskDao.Companion.isDavx5
+import org.tasks.data.OpenTaskDao.Companion.isDecSync
+import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.injection.InjectingPreferenceFragment
@@ -151,13 +152,10 @@ class Synchronization : InjectingPreferenceFragment() {
                 preference.setSummary(when {
                     account.isCaldavAccount -> R.string.caldav
                     account.isEteSyncAccount -> R.string.etesync_v1
-                    account.isEtebaseAccount
-                            || (account.isOpenTasks
-                            && account.uuid?.startsWith(ACCOUNT_TYPE_ETESYNC) == true) ->
-                        R.string.etesync
-                    account.isOpenTasks
-                            && account.uuid?.startsWith(ACCOUNT_TYPE_DAVx5) == true ->
-                        R.string.davx5
+                    account.isEtebaseAccount -> R.string.etesync
+                    account.isOpenTasks && account.uuid.isEteSync() -> R.string.etesync
+                    account.isOpenTasks && account.uuid.isDavx5() -> R.string.davx5
+                    account.isOpenTasks && account.uuid.isDecSync() -> R.string.decsync
                     else -> 0
                 })
             } else {

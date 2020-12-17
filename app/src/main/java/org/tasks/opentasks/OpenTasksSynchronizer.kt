@@ -30,6 +30,9 @@ import org.tasks.data.CaldavAccount.Companion.openTaskType
 import org.tasks.data.OpenTaskDao.Companion.getInt
 import org.tasks.data.OpenTaskDao.Companion.getLong
 import org.tasks.data.OpenTaskDao.Companion.getString
+import org.tasks.data.OpenTaskDao.Companion.isDavx5
+import org.tasks.data.OpenTaskDao.Companion.isDecSync
+import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.OpenTaskDao.Companion.newAccounts
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.time.DateTime
@@ -72,10 +75,11 @@ class OpenTasksSynchronizer @Inject constructor(
                 .forEach {
                     firebase.logEvent(
                             R.string.event_sync_add_account,
-                            R.string.param_type to if (it.isOpenTaskEteSync) {
-                                Constants.SYNC_TYPE_ETESYNC_OT
-                            } else {
-                                Constants.SYNC_TYPE_DAVX5
+                            R.string.param_type to when {
+                                it.uuid.isDavx5() -> Constants.SYNC_TYPE_DAVX5
+                                it.uuid.isEteSync() -> Constants.SYNC_TYPE_ETESYNC_OT
+                                it.uuid.isDecSync() -> Constants.SYNC_TYPE_DECSYNC
+                                else -> throw IllegalArgumentException()
                             }
                     )
                 }
@@ -131,7 +135,7 @@ class OpenTasksSynchronizer @Inject constructor(
             listId: Long
     ) {
         Timber.d("SYNC $calendar")
-        val isEteSync = account.isOpenTaskEteSync
+        val isEteSync = account.uuid?.isEteSync() == true
 
         val moved = caldavDao.getMoved(calendar.uuid!!)
         val (deleted, updated) =

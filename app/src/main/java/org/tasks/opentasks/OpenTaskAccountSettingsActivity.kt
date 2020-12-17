@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
+import org.tasks.data.OpenTaskDao.Companion.isDavx5
 
 @AndroidEntryPoint
 class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
@@ -20,13 +21,12 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
         binding.passwordLayout.visibility = View.GONE
         binding.urlLayout.visibility = View.GONE
 
-        if (caldavAccount!!.isOpenTaskEteSync) {
+        if (caldavAccount?.uuid?.isDavx5() != true) {
             binding.repeat.visibility = View.GONE
         }
     }
 
-    override val newPassword: String?
-        get() = ""
+    override val newPassword = ""
 
     private suspend fun updateAccount(principal: String?) {
         hideProgressIndicator()
@@ -35,7 +35,7 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
         caldavAccount!!.username = newUsername
         caldavAccount!!.error = ""
         if (passwordChanged()) {
-            caldavAccount!!.password = encryption.encrypt(newPassword!!)
+            caldavAccount!!.password = encryption.encrypt(newPassword)
         }
         caldavAccount!!.isSuppressRepeatingTasks = binding.repeat.isChecked
         caldavDao.update(caldavAccount!!)
