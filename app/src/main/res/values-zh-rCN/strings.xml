@@ -672,4 +672,5 @@
     <string name="no_google_play_subscription">未找到符合要求的 Google Play 订阅</string>
     <string name="insufficient_sponsorship">没有找到符合要求的GitHub赞助</string>
     <string name="above_average">高于平均</string>
+    <string name="save_percent">节省 %d%%</string>
 </resources>
