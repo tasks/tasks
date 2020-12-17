@@ -676,4 +676,6 @@
     <string name="not_signed_in">Niet ingelogd</string>
     <string name="no_google_play_subscription">Geen in aanmerking komende Google Play abonnement gevonden</string>
     <string name="insufficient_sponsorship">Geen in aanmerking komende GitHub-sponsoring gevonden</string>
+    <string name="save_percent">Bespaar %d%%</string>
+    <string name="above_average">Bovengemiddeld</string>
 </resources>
