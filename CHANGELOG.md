@@ -1,7 +1,8 @@
-### 11.0.1 (2020-12-16)
+### 11.0.1 (2020-12-17)
 
 * Fix EteSync client issue with v2 accounts
   ([b761309](https://github.com/tasks/tasks/commit/b76130902ae0be6e1d580d588798a9ed0d7ff385))
+* Fix multi-select 'Pick time' crash
 * Fix default hide until due time
   ([#842](https://github.com/tasks/tasks/issues/842#issuecomment-746358382))
 * Add Croatian translations - Garden Hose
