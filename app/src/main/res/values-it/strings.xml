@@ -682,4 +682,6 @@
     <string name="no_google_play_subscription">Nessun abbonamento Google Play idoneo trovato</string>
     <string name="insufficient_sponsorship">Nessuna sponsorizzazione GitHub idonea trovata</string>
     <string name="decsync_selection_description">Sincronizza le tue attività con l\'app DecSync CC</string>
+    <string name="cancel">Annulla</string>
+    <string name="ok">OK</string>
 </resources>
