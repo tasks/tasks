@@ -678,4 +678,5 @@
     <string name="insufficient_sponsorship">Geen in aanmerking komende GitHub-sponsoring gevonden</string>
     <string name="save_percent">Bespaar %d%%</string>
     <string name="above_average">Bovengemiddeld</string>
+    <string name="decsync_selection_description">Synchroniseer je taken met de DecSync CC applicatie</string>
 </resources>
