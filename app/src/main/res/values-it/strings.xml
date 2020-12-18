@@ -645,8 +645,6 @@
     <string name="date_picker_multiple">Molteplici</string>
     <string name="multi_select_reschedule">Modifica pianificazione</string>
     <string name="always_display_full_date">Mostra data completa</string>
-    <string name="cancel">@android:string/cancel</string>
-    <string name="ok">@android:string/ok</string>
     <string name="custom_filter_has_subtask">Ci sono attività secondarie</string>
     <string name="custom_filter_is_subtask">È un\'attività secondaria</string>
     <string name="purchases_updated">Acquisti aggiornati</string>

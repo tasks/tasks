@@ -663,6 +663,4 @@
     <string name="repeat_type_completion_capitalized">Burutze-data</string>
     <string name="default_location">Lehenetsitako kokalekua</string>
     <string name="always_display_full_date">Erakutsi data osoa</string>
-    <string name="cancel">\@android:string/cancel</string>
-    <string name="ok">\@android:string/ok</string>
 </resources>
