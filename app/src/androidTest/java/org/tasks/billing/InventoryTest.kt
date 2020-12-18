@@ -6,6 +6,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
+import org.tasks.data.CaldavDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
@@ -18,6 +19,7 @@ class InventoryTest : InjectingTestCase() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var signatureVerifier: SignatureVerifier
+    @Inject lateinit var caldavDao: CaldavDao
 
     lateinit var inventory: Inventory
 
@@ -58,7 +60,7 @@ class InventoryTest : InjectingTestCase() {
 
     private fun withPurchases(vararg purchases: String) {
         preferences.setPurchases(purchases.toHashSet())
-        inventory = Inventory(preferences, signatureVerifier, localBroadcastManager)
+        inventory = Inventory(context, preferences, signatureVerifier, localBroadcastManager, caldavDao)
     }
 
     companion object {

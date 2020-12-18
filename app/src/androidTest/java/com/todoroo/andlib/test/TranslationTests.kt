@@ -165,7 +165,7 @@ class TranslationTests {
         return idsAsIntArray
     }
 
-    private class FormatStringData internal constructor(
+    private class FormatStringData constructor(
             /** the original string  */
             val string: String) {
         /** format characters  */
