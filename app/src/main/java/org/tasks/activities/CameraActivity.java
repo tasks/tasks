@@ -49,7 +49,7 @@ public class CameraActivity extends InjectingAppCompatActivity {
         throw new RuntimeException("Invalid Uri");
       }
       final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-      Uri shared =
+      final Uri shared =
           FileProvider.getUriForFile(
               this, Constants.FILE_PROVIDER_AUTHORITY, new File(uri.getPath()));
       intent.putExtra(MediaStore.EXTRA_OUTPUT, shared);
@@ -62,7 +62,7 @@ public class CameraActivity extends InjectingAppCompatActivity {
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_CODE_CAMERA) {
       if (resultCode == RESULT_OK) {
-        Intent intent = new Intent();
+        final Intent intent = new Intent();
         intent.setData(uri);
         setResult(RESULT_OK, intent);
       }

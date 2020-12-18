@@ -18,7 +18,7 @@ fun Context.safeStartActivity(intent: Intent) {
 fun Fragment.safeStartActivityForResult(intent: Intent, rc: Int) {
     try {
         startActivityForResult(intent, rc)
-    } catch(e: ActivityNotFoundException) {
+    } catch (e: ActivityNotFoundException) {
         toast(context)
     }
 }
