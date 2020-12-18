@@ -151,11 +151,10 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     private val newName: String
         get() = name.text.toString().trim { it <= ' ' }
 
-    override fun hasChanges(): Boolean {
-        return if (isNewList) {
+    override fun hasChanges(): Boolean =
+        if (isNewList) {
             selectedColor >= 0 || !isNullOrEmpty(newName)
         } else colorChanged() || nameChanged() || iconChanged()
-    }
 
     private fun colorChanged() = selectedColor != gtasksList.getColor()
 
@@ -164,11 +163,14 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     private fun nameChanged() = newName != gtasksList.title
 
     private suspend fun onListCreated(taskList: TaskList) {
-        gtasksList.remoteId = taskList.id
-        gtasksList.title = taskList.title
-        gtasksList.setColor(selectedColor)
-        gtasksList.setIcon(selectedIcon)
-        gtasksList.id = googleTaskListDao.insertOrReplace(gtasksList)
+        with(gtasksList) {
+            remoteId = taskList.id
+            title = taskList.title
+            setColor(selectedColor)
+            setIcon(selectedIcon)
+            id = googleTaskListDao.insertOrReplace(this)
+        }
+
         setResult(
                 Activity.RESULT_OK, Intent().putExtra(MainActivity.OPEN_FILTER, GtasksFilter(gtasksList)))
         finish()
@@ -183,10 +185,13 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     }
 
     private suspend fun onListRenamed(taskList: TaskList) {
-        gtasksList.title = taskList.title
-        gtasksList.setColor(selectedColor)
-        gtasksList.setIcon(selectedIcon)
-        googleTaskListDao.insertOrReplace(gtasksList)
+        with(gtasksList) {
+            title = taskList.title
+            setColor(selectedColor)
+            setIcon(selectedIcon)
+            googleTaskListDao.insertOrReplace(this)
+        }
+
         setResult(
                 Activity.RESULT_OK,
                 Intent(TaskListFragment.ACTION_RELOAD)

@@ -122,14 +122,12 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     private fun onDelete(index: Int) {
         criteria.removeAt(index)
         updateList()
-        return
     }
 
     private fun onMove(from: Int, to: Int) {
         val criterion = criteria.removeAt(from)
         criteria.add(to, criterion)
         adapter.notifyItemMoved(from, to)
-        return
     }
 
     private fun onClick(replaceId: String) {
@@ -148,24 +146,21 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 }
                 .setNeutralButton(R.string.help) { _, _ -> help() }
                 .show()
-        return
     }
 
-    private fun getSelected(instance: CriterionInstance): Int {
-        return when (instance.type) {
+    private fun getSelected(instance: CriterionInstance): Int =
+        when (instance.type) {
             CriterionInstance.TYPE_ADD -> R.id.button_or
             CriterionInstance.TYPE_SUBTRACT -> R.id.button_not
             else -> R.id.button_and
         }
-    }
 
-    private fun getType(selected: Int): Int {
-        return when (selected) {
+    private fun getType(selected: Int): Int =
+        when (selected) {
             R.id.button_or -> CriterionInstance.TYPE_ADD
             R.id.button_not -> CriterionInstance.TYPE_SUBTRACT
             else -> CriterionInstance.TYPE_INTERSECT
         }
-    }
 
     @OnClick(R.id.fab)
     fun addCriteria() {
@@ -305,14 +300,13 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         finish()
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.menu_help) {
+    override fun onMenuItemClick(item: MenuItem): Boolean =
+        if (item.itemId == R.id.menu_help) {
             help()
             true
         } else {
             super.onMenuItemClick(item)
         }
-    }
 
     private fun help() {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tasks.org/filters")))

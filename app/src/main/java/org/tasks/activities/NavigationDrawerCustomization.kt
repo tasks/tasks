@@ -59,11 +59,14 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
         toolbar = binding.toolbar.toolbar
 
-        toolbar.title = getString(R.string.manage_lists)
-        toolbar.navigationIcon = getDrawable(R.drawable.ic_outline_arrow_back_24px)
-        toolbar.setNavigationOnClickListener { finish() }
-        toolbar.setOnMenuItemClickListener(this)
-        toolbar.inflateMenu(R.menu.menu_nav_drawer_customization)
+        with(toolbar) {
+            title = getString(R.string.manage_lists)
+            navigationIcon = getDrawable(R.drawable.ic_outline_arrow_back_24px)
+            setNavigationOnClickListener { finish() }
+            setOnMenuItemClickListener(this@NavigationDrawerCustomization)
+            inflateMenu(R.menu.menu_nav_drawer_customization)
+        }
+
         themeColor.apply(toolbar)
         themeColor.applyToSystemBars(this)
 

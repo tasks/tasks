@@ -76,7 +76,7 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity
   @Override
   public void onTimePicked(long timestamp) {
     if (timestamp != MyTimePickerDialog.NO_TIME) {
-      Intent data = new Intent();
+      final Intent data = new Intent();
       data.putExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, timestamp);
       setResult(RESULT_OK, data);
     }

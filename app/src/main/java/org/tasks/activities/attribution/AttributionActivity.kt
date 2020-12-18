@@ -57,7 +57,7 @@ class AttributionActivity : ThemedInjectingAppCompatActivity() {
     private fun getRows(attributions: List<LibraryAttribution>): Iterable<AttributionRow> {
         val byCopyrightHolder = Multimaps.index(attributions) { lib -> lib!!.copyrightHolder }
         return byCopyrightHolder.keySet().sorted().map {
-            val libraries = byCopyrightHolder[it].map { a -> "\u2022 " + a.libraryName }
+            val libraries = byCopyrightHolder[it].map { a -> "\u2022 ${a.libraryName}"}
             AttributionRow(it, libraries.sorted().joinToString("\n"))
         }
     }
