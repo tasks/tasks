@@ -151,6 +151,7 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
 * [${getString(R.string.davx5)}](${getString(R.string.url_davx5)})
 * [${getString(R.string.caldav)}](${getString(R.string.url_caldav)})
 * [${getString(R.string.upgrade_etesync)}](${getString(R.string.url_etesync)})
+* [${getString(R.string.decsync)}](${getString(R.string.url_decsync)})
 * ${getString(R.string.upgrade_google_tasks)}
 * ${getString(R.string.upgrade_google_places)}
 * [${getString(R.string.upgrade_tasker)}](${getString(R.string.url_tasker)})
