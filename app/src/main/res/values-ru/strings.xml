@@ -700,4 +700,6 @@
     </plurals>
     <string name="repeat_monthly_fifth_week">Пятая</string>
     <string name="above_average">Выше среднего</string>
+    <string name="save_percent">Сохранить %d%%</string>
+    <string name="decsync_selection_description">Синхронизируйте свои задачи с приложением DecSync CC</string>
 </resources>
