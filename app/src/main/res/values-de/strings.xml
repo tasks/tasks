@@ -683,4 +683,5 @@
     <string name="google_play_subscribers">Goole Play-Abonnementen</string>
     <string name="not_signed_in">Nicht angemeldet</string>
     <string name="authorization_cancelled">Authorisierung abgebrochen</string>
+    <string name="sign_in_with_google">Mit Google anmelden</string>
 </resources>
