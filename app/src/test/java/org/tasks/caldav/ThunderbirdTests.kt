@@ -4,6 +4,7 @@ import com.todoroo.astrid.data.Task
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.tasks.TestUtilities.setup
 import org.tasks.TestUtilities.vtodo
@@ -99,5 +100,11 @@ class ThunderbirdTests {
         assertEquals(
                 "FREQ=WEEKLY;UNTIL=20200731T160000Z;BYDAY=MO,TU,WE,TH,FR",
                 remote.rRule!!.value)
+    }
+
+    @Test
+    @Ignore
+    fun dontCrashOnMultipleTasks() {
+        vtodo("thunderbird/completed_repeating_task.txt")
     }
 }

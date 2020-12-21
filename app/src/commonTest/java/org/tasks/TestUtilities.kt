@@ -31,12 +31,16 @@ object TestUtilities {
     private fun fromResource(path: String): at.bitfire.ical4android.Task =
             fromString(readFile(path))
 
-    fun readFile(path: String): String {
-        val url = javaClass.classLoader!!.getResource(path)
-        val paths = Paths.get(url!!.toURI())
+    private fun readFile(path: String): String {
+        val uri = javaClass.classLoader?.getResource(path)?.toURI()
+                ?: throw IllegalArgumentException()
+        val paths = Paths.get(uri)
         return String(Files.readAllBytes(paths), Charsets.UTF_8)
     }
 
-    fun fromString(task: String): at.bitfire.ical4android.Task =
-            task.let { tasksFromReader(StringReader(it))[0] }
+    private fun fromString(task: String): at.bitfire.ical4android.Task =
+            tasksFromReader(StringReader(task))
+                    .takeIf { it.size == 1 }
+                    ?.first()
+                    ?: throw IllegalStateException()
 }
