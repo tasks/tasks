@@ -1,12 +1,20 @@
-### 11.1 (2020-12-17)
+### 11.1 (2020-12-21)
 
 * Add [DecSync CC synchronization](https://tasks.org/decsync)
+* Fix rescheduling remotely completed recurring task
+  ([5eb9370](https://github.com/tasks/tasks/commit/5eb9370294ef707b3e667c4a42851030419920d8))
+* Miscellaneous code improvements - Thanks @mhmdanas!
 * Update translations
+  * Czech - @vitSkalicky
   * Dutch - @fvbommel
-  * French - @FlorianLeChat
+  * French - @FlorianLeChat, J. Lavoie
+  * German - J. Lavoie, Manuel Bichler, @myabc
   * Hungarian - kaciokos
+  * Italian - J. Lavoie
+  * Russian - Nikita Epifanov
   * Simplified Chinese - @sr093906
   * Spanish - @FlorianLeChat
+  * Turkish - @emintufan
   * Urdu - Maaz
 
 ### 11.0.1 (2020-12-17)
