@@ -16,7 +16,7 @@
 \n</string>
     <string name="import_progress_read">Lettura attività %d…</string>
     <string name="read_permission_label">Permessi attività</string>
-    <string name="discard_confirmation">Sei sicuro di voler annullare tutte le modifiche\?</string>
+    <string name="discard_confirmation">Sei sicuro/a di voler annullare tutte le modifiche\?</string>
     <string name="keep_editing">No, continua la modifica</string>
     <string name="DLG_delete_this_task_question">Eliminare questa attività\?</string>
     <string name="DLG_hour_minutes">Tempo (ore : minuti)</string>
@@ -152,8 +152,8 @@
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Account %s non trovato—esci ed accedi nuovamente dalle impostazioni di Google Tasks.</string>
     <string name="premium_record_audio">Registra una nota</string>
-    <string name="premium_remove_file_confirm">Sei sicuro\? L\'azione non può essere annullata</string>
-    <string name="audio_recording_title">Registrazione Audio</string>
+    <string name="premium_remove_file_confirm">Sei sicuro/a\? L\'azione non può essere annullata</string>
+    <string name="audio_recording_title">Registrazione audio</string>
     <string name="audio_stop_recording">Termina registrazione</string>
     <string name="ring_once">Suona una volta</string>
     <string name="ring_five_times">Suona cinque volte</string>
@@ -649,10 +649,10 @@
     <string name="custom_filter_is_subtask">È un\'attività secondaria</string>
     <string name="purchases_updated">Acquisti aggiornati</string>
     <string name="current_subscription">Abbonamento attuale: %s</string>
-    <string name="price_per_month_abbreviated">$%s/mese</string>
-    <string name="price_per_month">$%s/mese</string>
-    <string name="price_per_year_abbreviated">$%s/anno</string>
-    <string name="price_per_year">$%s/anno</string>
+    <string name="price_per_month_abbreviated">%s $/mese</string>
+    <string name="price_per_month">%s $/mese</string>
+    <string name="price_per_year_abbreviated">%s $/anno</string>
+    <string name="price_per_year">%s $/anno</string>
     <string name="insufficient_subscription">Livello di abbonamento insufficiente. Per favore aggiornalo per riattivare il servizio.</string>
     <string name="your_subscription_expired">Il tuo abbonamento è scaduto. Abbonati ora per riattivare il servizio.</string>
     <string name="logged_in">Collegato come %s</string>
@@ -673,4 +673,13 @@
     <string name="migrate_count">Sposta %s su Tasks.org</string>
     <string name="migrating_tasks">Migrazione delle attività in corso</string>
     <string name="offline_lists">Liste offline</string>
+    <string name="save_percent">Risparmia il %d%%</string>
+    <string name="above_average">Sopra la media</string>
+    <string name="sign_in_with_github">Accedi con GitHub</string>
+    <string name="github_sponsors">Sponsor di GitHub</string>
+    <string name="google_play_subscribers">Abbonati a Google Play</string>
+    <string name="not_signed_in">Accesso non eseguito</string>
+    <string name="no_google_play_subscription">Nessun abbonamento Google Play idoneo trovato</string>
+    <string name="insufficient_sponsorship">Nessuna sponsorizzazione GitHub idonea trovata</string>
+    <string name="decsync_selection_description">Sincronizza le tue attività con l\'app DecSync CC</string>
 </resources>
