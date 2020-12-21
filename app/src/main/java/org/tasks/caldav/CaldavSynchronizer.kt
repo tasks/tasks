@@ -184,12 +184,11 @@ class CaldavSynchronizer @Inject constructor(
             }
         }
         val changed = members.filter { vCard: Response ->
-            val eTag = vCard[GetETag::class.java]
-            if (eTag == null || isNullOrEmpty(eTag.eTag)) {
+            val eTag = vCard[GetETag::class.java]?.eTag
+            if (eTag.isNullOrBlank()) {
                 return@filter false
             }
-            val caldavTask = caldavDao.getTask(caldavCalendar.uuid!!, vCard.hrefName())
-            caldavTask == null || eTag.eTag != caldavTask.etag
+            eTag != caldavDao.getTask(caldavCalendar.uuid!!, vCard.hrefName())?.etag
         }
         for (items in changed.chunked(30)) {
             val urls = items.map { it.href }
@@ -201,24 +200,23 @@ class CaldavSynchronizer @Inject constructor(
             }
             Timber.d("MULTI %s", urls)
             for (vCard in responses) {
-                val eTag = vCard[GetETag::class.java]
+                val eTag = vCard[GetETag::class.java]?.eTag
                 val url = vCard.href
-                if (eTag == null || isNullOrEmpty(eTag.eTag)) {
+                if (eTag.isNullOrBlank()) {
                     throw DavException("Received CalDAV GET response without ETag for $url")
                 }
-                val calendarData = vCard[CalendarData::class.java]
-                if (calendarData == null || isNullOrEmpty(calendarData.iCalendar)) {
+                val vtodo = vCard[CalendarData::class.java]?.iCalendar
+                if (vtodo.isNullOrBlank()) {
                     throw DavException("Received CalDAV GET response without CalendarData for $url")
                 }
                 val fileName = vCard.hrefName()
-                val vtodo = calendarData.iCalendar
-                val remote = fromVtodo(vtodo!!)
+                val remote = fromVtodo(vtodo)
                 if (remote == null) {
                     Timber.e("Invalid VCALENDAR: %s", fileName)
                     return
                 }
                 val caldavTask = caldavDao.getTask(caldavCalendar.uuid!!, fileName)
-                iCal.fromVtodo(caldavCalendar, caldavTask, remote, vtodo, fileName, eTag.eTag)
+                iCal.fromVtodo(caldavCalendar, caldavTask, remote, vtodo, fileName, eTag)
             }
         }
         caldavDao
