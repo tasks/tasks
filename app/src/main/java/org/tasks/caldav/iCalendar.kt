@@ -2,7 +2,6 @@ package org.tasks.caldav
 
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
@@ -205,7 +204,7 @@ class iCalendar @Inject constructor(
         taskDao.save(task)
         caldavTask.vtodo = vtodo
         caldavTask.etag = eTag
-        caldavTask.lastSync = DateUtilities.now() + 1000L
+        caldavTask.lastSync = task.modificationDate
         caldavTask.remoteParent = remote.getParent()
         if (caldavTask.id == com.todoroo.astrid.data.Task.NO_ID) {
             caldavTask.id = caldavDao.insert(caldavTask)

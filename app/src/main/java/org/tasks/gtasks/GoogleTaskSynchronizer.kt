@@ -269,16 +269,8 @@ class GoogleTaskSynchronizer @Inject constructor(
                 return
             }
         }
-        task.modificationDate = DateUtilities.now()
         gtasksMetadata.isMoved = false
-        gtasksMetadata.lastSync = DateUtilities.now() + 1000L
-        if (gtasksMetadata.id == com.todoroo.astrid.data.Task.NO_ID) {
-            googleTaskDao.insert(gtasksMetadata)
-        } else {
-            googleTaskDao.update(gtasksMetadata)
-        }
-        task.suppressSync()
-        taskDao.save(task)
+        write(task, gtasksMetadata)
     }
 
     @Synchronized
@@ -347,8 +339,9 @@ class GoogleTaskSynchronizer @Inject constructor(
             mergeDates(createDueDate(com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
             task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
             googleTask.listId = listId
-            googleTask.lastSync = DateUtilities.now() + 1000L
-            write(task, googleTask)
+            if (task.title?.isNotBlank() == true || task.notes?.isNotBlank() == true) {
+                write(task, googleTask)
+            }
         }
         list.lastSync = lastSyncDate
         googleTaskListDao.insertOrReplace(list)
@@ -360,20 +353,19 @@ class GoogleTaskSynchronizer @Inject constructor(
         googleTask.parent = googleTask.remoteParent?.let { googleTaskDao.getTask(it) } ?: 0L
     }
 
-    private suspend fun write(task: com.todoroo.astrid.data.Task?, googleTask: GoogleTask) {
-        if (!(isNullOrEmpty(task!!.title) && isNullOrEmpty(task.notes))) {
-            task.suppressSync()
-            task.suppressRefresh()
-            if (task.isNew) {
-                taskDao.createNew(task)
-            }
-            taskDao.save(task)
-            googleTask.task = task.id
-            if (googleTask.id == 0L) {
-                googleTaskDao.insert(googleTask)
-            } else {
-                googleTaskDao.update(googleTask)
-            }
+    private suspend fun write(task: com.todoroo.astrid.data.Task, googleTask: GoogleTask) {
+        task.suppressSync()
+        task.suppressRefresh()
+        if (task.isNew) {
+            taskDao.createNew(task)
+        }
+        taskDao.save(task)
+        googleTask.lastSync = task.modificationDate
+        googleTask.task = task.id
+        if (googleTask.isNew) {
+            googleTaskDao.insert(googleTask)
+        } else {
+            googleTaskDao.update(googleTask)
         }
     }
 

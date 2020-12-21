@@ -34,7 +34,6 @@ import org.tasks.data.CaldavAccount.Companion.ERROR_UNAUTHORIZED
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
-import org.tasks.time.DateTimeUtils
 import timber.log.Timber
 import java.io.IOException
 import java.net.ConnectException
@@ -295,7 +294,7 @@ class CaldavSynchronizer @Inject constructor(
             Timber.e(e)
             return
         }
-        caldavTask.lastSync = DateTimeUtils.currentTimeMillis()
+        caldavTask.lastSync = task.modificationDate
         caldavDao.update(caldavTask)
         Timber.d("SENT %s", caldavTask)
     }

@@ -68,7 +68,7 @@ class EtebaseClient(
                             task.`object` = uid
                             caldavDao.update(task)
                         }
-        item.meta = updateMtime(item.meta)
+        item.meta = updateMtime(item.meta, task.lastSync)
         item.content = content
         return item
     }
@@ -83,8 +83,8 @@ class EtebaseClient(
                 }
     }
 
-    private fun updateMtime(meta: ItemMetadata): ItemMetadata {
-        meta.mtime = currentTimeMillis()
+    private fun updateMtime(meta: ItemMetadata, mtime: Long = currentTimeMillis()): ItemMetadata {
+        meta.mtime = mtime
         return meta
     }
 

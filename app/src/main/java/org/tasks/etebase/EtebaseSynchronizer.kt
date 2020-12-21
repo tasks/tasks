@@ -6,7 +6,6 @@ import at.bitfire.ical4android.ICalendar.Companion.prodId
 import com.etebase.client.Collection
 import com.etebase.client.Item
 import com.etebase.client.exceptions.*
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -145,10 +144,10 @@ class EtebaseSynchronizer @Inject constructor(
                     ?.let { changes.add(it) }
                     ?: caldavDao.delete(caldavTask)
         }
-        val syncTime = now()
         for (change in caldavDao.getCaldavTasksToPush(caldavCalendar.uuid!!)) {
             val task = change.task
             val caldavTask = change.caldavTask
+            caldavTask.lastSync = task.modificationDate
             if (task.isDeleted) {
                 client.deleteItem(collection, caldavTask)
                         ?.let { changes.add(it) }
@@ -161,7 +160,7 @@ class EtebaseSynchronizer @Inject constructor(
         }
         if (changes.isNotEmpty()) {
             client.uploadChanges(collection, changes)
-            applyEntries(caldavCalendar, changes, syncTime = syncTime, isLocalChange = true)
+            applyEntries(caldavCalendar, changes, isLocalChange = true)
             client.updateCache(collection, changes)
         }
     }
@@ -170,7 +169,6 @@ class EtebaseSynchronizer @Inject constructor(
             caldavCalendar: CaldavCalendar,
             items: List<Item>,
             stoken: String? = null,
-            syncTime: Long = currentTimeMillis(),
             isLocalChange: Boolean = false) {
         for (item in items) {
             val vtodo = item.contentString
@@ -188,7 +186,7 @@ class EtebaseSynchronizer @Inject constructor(
             } else if (isLocalChange) {
                 caldavTask?.let {
                     it.vtodo = vtodo
-                    it.lastSync = syncTime
+                    it.lastSync = item.meta.mtime ?: currentTimeMillis()
                     caldavDao.update(it)
                 }
             } else {
