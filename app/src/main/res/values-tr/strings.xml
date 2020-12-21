@@ -149,8 +149,8 @@
     <string name="gtasks_GTA_clear_completed">Tamamlanları Temizle</string>
     <string name="gtasks_GLA_authenticating">Kimlik doğrulanıyor…</string>
     <string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
-    <string name="gtasks_GPr_header">Google Görevleri (Beta!)</string>
-    <string name="gtasks_error_accountNotFound">%s hesabı bulunamadı—lütfen çıkış yapıp Google Görev ayarlarından yeniden oturum açın.</string>
+    <string name="gtasks_GPr_header">Google Görevler</string>
+    <string name="gtasks_error_accountNotFound">%s hesabı bulunamadı—lütfen çıkış yapıp Google Görevler ayarlarından yeniden oturum açın.</string>
     <string name="premium_record_audio">Bir not kaydet</string>
     <string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>
     <string name="audio_recording_title">Ses Kaydediliyor</string>
@@ -489,7 +489,7 @@
     <string name="collapse_subtasks">Alt görevleri gizle</string>
     <string name="TEA_add_subtask">Alt görev ekle</string>
     <string name="subtasks">Alt görevler</string>
-    <string name="subtasks_multilevel_google_task">Google Tasks, çoklu düzey alt görevleri desteklemez</string>
+    <string name="subtasks_multilevel_google_task">Google Görevler, çoklu düzey alt görevleri desteklemez</string>
     <string name="enter_title_hint">Başlık girin</string>
     <string name="enter_tag_name">Etiket adı girin</string>
     <string name="create_new_tag">\"%s\" oluştur</string>
@@ -498,9 +498,9 @@
     <string name="display_name">Gösterim adı</string>
     <string name="this_feature_requires_a_subscription">Bu özellik abonelik gerektiriyor</string>
     <string name="choose_synchronization_service">Platform seç</string>
-    <string name="google_tasks_selection_description">Google hesabınızla eşitleyen basit servis</string>
-    <string name="caldav_selection_description">Açık internet standartlarında eşitleme</string>
-    <string name="etesync_selection_description">Açık kaynak, uçtan uca şifreli eşitleme</string>
+    <string name="google_tasks_selection_description">Google hesabınızla eşzamanlayan basit servis</string>
+    <string name="caldav_selection_description">Açık internet standartlarında eşzamanlama</string>
+    <string name="etesync_selection_description">Açık kaynak, uçtan uca şifreli eşzamanlama</string>
     <string name="passwords_do_not_match">Parolalar eşleşmiyor</string>
     <string name="reenter_encryption_password">Şifreleme parolasını doğrula</string>
     <string name="show_advanced_settings">Gelişmiş ayarları göster</string>
@@ -622,7 +622,7 @@
     <string name="date_shortcut_tomorrow_evening">Yarın akşam</string>
     <string name="manage_lists">Listeleri yönet</string>
     <string name="permission_read_tasks">Tasks veri tabanına tam erişim</string>
-    <string name="davx5_selection_description">DAVx⁵ uygulamasıyla görevlerinizi eşitleyin</string>
+    <string name="davx5_selection_description">DAVx⁵ uygulamasıyla görevlerinizi eşzamanlayın</string>
     <string name="background_location">Ön plan konumu</string>
     <string name="foreground_location">Arka plan konumu</string>
     <string name="account">Hesap</string>
@@ -681,4 +681,7 @@
     <string name="not_signed_in">Giriş yapılmadı</string>
     <string name="no_google_play_subscription">Uygun Google Play aboneliği bulunamadı</string>
     <string name="insufficient_sponsorship">Uygun GitHub sponsorluğu bulunamadı</string>
+    <string name="save_percent">%%%d tasarruf</string>
+    <string name="above_average">Ortalamanın üstü</string>
+    <string name="decsync_selection_description">Görevlerinizi DecSync CC ile eşzamanlayın</string>
 </resources>
