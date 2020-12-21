@@ -16,16 +16,16 @@ interface WorkManager {
 
     fun migrateLocalTasks(caldavAccount: CaldavAccount)
 
-    fun googleTaskSync(immediate: Boolean)
+    suspend fun googleTaskSync(immediate: Boolean)
 
-    fun caldavSync(immediate: Boolean)
+    suspend fun caldavSync(immediate: Boolean)
 
     @Deprecated("use etebase")
-    fun eteSync(immediate: Boolean)
+    suspend fun eteSync(immediate: Boolean)
 
-    fun eteBaseSync(immediate: Boolean)
+    suspend fun eteBaseSync(immediate: Boolean)
 
-    fun openTaskSync(immediate: Boolean)
+    suspend fun openTaskSync(immediate: Boolean)
 
     fun reverseGeocode(place: Place)
 

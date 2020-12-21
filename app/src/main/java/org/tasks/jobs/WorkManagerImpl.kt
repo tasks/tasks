@@ -7,6 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.work.*
+import androidx.work.ExistingWorkPolicy.APPEND_OR_REPLACE
+import androidx.work.ExistingWorkPolicy.REPLACE
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
@@ -81,7 +83,7 @@ class WorkManagerImpl constructor(
                 .setConstraints(Constraints.Builder()
                         .setRequiredNetworkType(NetworkType.CONNECTED)
                         .build())
-        enqueue(workManager.beginUniqueWork(TAG_MIGRATE_LOCAL, ExistingWorkPolicy.APPEND_OR_REPLACE, builder.build()))
+        enqueue(workManager.beginUniqueWork(TAG_MIGRATE_LOCAL, APPEND_OR_REPLACE, builder.build()))
     }
 
     override fun cleanup(ids: Iterable<Long>) {
@@ -95,23 +97,23 @@ class WorkManagerImpl constructor(
         }
     }
 
-    override fun googleTaskSync(immediate: Boolean) =
+    override suspend fun googleTaskSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_GOOGLE_TASKS, SyncGoogleTasksWork::class.java)
 
-    override fun caldavSync(immediate: Boolean) =
+    override suspend fun caldavSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_CALDAV, SyncCaldavWork::class.java)
 
-    override fun eteSync(immediate: Boolean) =
+    override suspend fun eteSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_ETESYNC, SyncEteSyncWork::class.java)
 
-    override fun eteBaseSync(immediate: Boolean) =
+    override suspend fun eteBaseSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_ETEBASE, SyncEtebaseWork::class.java)
 
-    override fun openTaskSync(immediate: Boolean) =
+    override suspend fun openTaskSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_OPENTASK, SyncOpenTasksWork::class.java, false)
 
     @SuppressLint("EnqueueWork")
-    private fun sync(immediate: Boolean, tag: String, c: Class<out SyncWork>, requireNetwork: Boolean = true) {
+    private suspend fun sync(immediate: Boolean, tag: String, c: Class<out SyncWork>, requireNetwork: Boolean = true) {
         Timber.d("sync(immediate = $immediate, $tag, $c, requireNetwork = $requireNetwork)")
         val builder = OneTimeWorkRequest.Builder(c)
                 .setInputData(Data.Builder().putBoolean(EXTRA_IMMEDIATE, immediate).build())
@@ -128,7 +130,14 @@ class WorkManagerImpl constructor(
         if (!immediate) {
             builder.setInitialDelay(1, TimeUnit.MINUTES)
         }
-        enqueue(workManager.beginUniqueWork(tag, ExistingWorkPolicy.REPLACE, builder.build()))
+        val append = workManager.getWorkInfosByTag(tag).await().any {
+            it.state == WorkInfo.State.RUNNING
+        }
+        enqueue(workManager.beginUniqueWork(
+                tag,
+                if (append) APPEND_OR_REPLACE else REPLACE,
+                builder.build())
+        )
     }
 
     override fun reverseGeocode(place: Place) {
@@ -279,7 +288,7 @@ class WorkManagerImpl constructor(
             builder.setInitialDelay(delay, TimeUnit.MILLISECONDS)
         }
         Timber.d("$key: ${DateTimeUtils.printTimestamp(time)} (${DateTimeUtils.printDuration(delay)})")
-        enqueue(workManager.beginUniqueWork(key, ExistingWorkPolicy.REPLACE, builder.build()))
+        enqueue(workManager.beginUniqueWork(key, REPLACE, builder.build()))
     }
 
     private fun enqueue(builder: WorkRequest.Builder<*, *>) {
