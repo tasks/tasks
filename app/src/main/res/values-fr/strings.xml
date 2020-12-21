@@ -677,6 +677,6 @@
     <string name="no_google_play_subscription">Aucun abonnement Google Play éligible trouvé</string>
     <string name="insufficient_sponsorship">Aucun parrainage GitHub éligible trouvé</string>
     <string name="above_average">Au-dessus de la moyenne</string>
-    <string name="save_percent">Économisez %d% %</string>
+    <string name="save_percent">Économisez %d%%</string>
     <string name="decsync_selection_description">Synchronisez vos tâches avec l’application DecSync CC</string>
 </resources>

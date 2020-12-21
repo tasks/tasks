@@ -12,6 +12,8 @@ import androidx.work.ExistingWorkPolicy.REPLACE
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.*
@@ -130,8 +132,10 @@ class WorkManagerImpl constructor(
         if (!immediate) {
             builder.setInitialDelay(1, TimeUnit.MINUTES)
         }
-        val append = workManager.getWorkInfosByTag(tag).await().any {
-            it.state == WorkInfo.State.RUNNING
+        val append = withContext(Dispatchers.IO) {
+            workManager.getWorkInfosByTag(tag).get().any {
+                it.state == WorkInfo.State.RUNNING
+            }
         }
         enqueue(workManager.beginUniqueWork(
                 tag,
