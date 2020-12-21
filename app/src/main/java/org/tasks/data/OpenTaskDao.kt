@@ -116,7 +116,10 @@ class OpenTaskDao @Inject constructor(
                             }
                         }
                     }
-                    ?: Timber.e("No task with uid=$uid").let { null }
+                    ?: uid?.let {
+                        Timber.e("No task with uid=$it")
+                        null
+                    }
 
     suspend fun batch(operations: List<ContentProviderOperation>) = withContext(Dispatchers.IO) {
         operations.chunked(OPENTASK_BATCH_LIMIT).forEach {
