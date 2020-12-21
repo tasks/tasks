@@ -122,17 +122,20 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
             nameYourPrice -> R.string.name_your_price
             !inventory.hasPro -> R.string.upgrade_to_pro
             !inventory.hasTasksSubscription -> R.string.button_upgrade
-            else -> R.string.modify_subscription
+            else -> R.string.manage_subscription
         })}"
         benefits += if (nameYourPrice) {
             """
 ---
-#### ~~${getString(R.string.upgrade_sync_with_tasks)}~~
+#### ~~${getString(R.string.upgrade_tasks_account)}~~
+
+_${getString(R.string.upgrade_tasks_no_account)}_
 """
         } else {
             """
 ---                
-#### ${getString(R.string.upgrade_sync_with_tasks)}
+#### ${getString(R.string.upgrade_tasks_account)}
+* ${getString(R.string.upgrade_sync_with_tasks)}
 * ${getString(R.string.upgrade_open_internet_standards)}
 * ${getString(R.string.upgrade_privacy)}
 * [${getString(R.string.upgrade_coming_soon)}](${getString(R.string.help_url_sync)})
@@ -146,13 +149,15 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         } else {
             """
 ---
-#### ${getString(R.string.upgrade_additional_features)}
-* ${getString(R.string.upgrade_themes)}
+#### ${getString(R.string.upgrade_sync_self_hosted)}
 * [${getString(R.string.davx5)}](${getString(R.string.url_davx5)})
 * [${getString(R.string.caldav)}](${getString(R.string.url_caldav)})
-* [${getString(R.string.upgrade_etesync)}](${getString(R.string.url_etesync)})
+* [${getString(R.string.etesync)}](${getString(R.string.url_etesync)})
 * [${getString(R.string.decsync)}](${getString(R.string.url_decsync)})
 * ${getString(R.string.upgrade_google_tasks)}
+---
+#### ${getString(R.string.upgrade_additional_features)}
+* ${getString(R.string.upgrade_themes)}
 * ${getString(R.string.upgrade_google_places)}
 * [${getString(R.string.upgrade_tasker)}](${getString(R.string.url_tasker)})
 ---
@@ -212,11 +217,7 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         val generic = BuildConfig.FLAVOR == "generic"
         binding.sliderContainer.isVisible = !isWaitScreen && nameYourPrice
         binding.payOther.isVisible = !isWaitScreen
-        binding.payOther.setText(when {
-            nameYourPrice -> R.string.back
-            isTasksPayment -> R.string.cancel
-            else -> R.string.more_options
-        })
+        binding.payOther.setText(if (nameYourPrice) R.string.back else R.string.more_options)
         binding.tasksOrgButtonPanel.isVisible = !isWaitScreen && !generic
         binding.screenWait.isVisible = isWaitScreen && !generic
         binding.sponsor.isVisible = generic

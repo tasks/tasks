@@ -30,15 +30,16 @@
   <string name="url_sponsor">https://github.com/sponsors/abaker</string>
 
   <!-- Eventually these should be moved to strings.xml for translation -->
-  <string name="modify_subscription">Modify your subscription</string>
+  <string name="upgrade_tasks_account">Tasks.org account</string>
+  <string name="upgrade_tasks_no_account">Tasks.org account not included with \'Name your price\' subscriptions</string>
   <string name="upgrade_sync_with_tasks">Sync your data with Tasks.org</string>
+  <string name="upgrade_sync_self_hosted">Sync with third-party apps and services</string>
   <string name="upgrade_open_internet_standards">Tasks.org is based on open internet standards</string>
   <string name="upgrade_privacy">Tasks.org does not show ads or sell personal information</string>
   <string name="upgrade_coming_soon">Many new features coming soon!</string>
-  <string name="upgrade_etesync">End-to-end encryption with EteSync</string>
   <string name="upgrade_google_tasks">Multiple Google Task accounts</string>
   <string name="upgrade_additional_features">Unlock additional features</string>
-  <string name="upgrade_themes">Unlock all themes, colors, and icons</string>
+  <string name="upgrade_themes">All themes, colors, and icons</string>
   <string name="upgrade_google_places">Improved location search with Google Places</string>
   <string name="upgrade_tasker">Tasker plugins</string>
   <string name="upgrade_free_trial">7-day free trial for new subscribers</string>
