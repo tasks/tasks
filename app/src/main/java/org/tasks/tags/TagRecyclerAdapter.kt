@@ -35,7 +35,7 @@ internal class TagRecyclerAdapter(
 
     private fun getColor(tagData: TagData): Int {
         if (tagData.getColor() != 0) {
-            val themeColor = colorProvider.getThemeColor(tagData.getColor(), true)
+            val themeColor = colorProvider.getThemeColor(tagData.getColor()!!, true)
             if (inventory.purchasedThemes() || themeColor.isFree) {
                 return themeColor.primaryColor
             }
@@ -44,7 +44,7 @@ internal class TagRecyclerAdapter(
     }
 
     private fun getIcon(tagData: TagData): Int? =
-            if (tagData.getIcon() < 1000 || inventory.hasPro) getIconResId(tagData.getIcon()) else null
+            tagData.getIcon()?.takeIf { it < 1000 || inventory.hasPro }?.let { getIconResId(it) }
 
     fun submitList(tagData: List<TagData>?) {
         differ.submitList(tagData)

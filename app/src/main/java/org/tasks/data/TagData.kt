@@ -66,13 +66,15 @@ class TagData : Parcelable {
         }
     }
 
-    fun getColor(): Int = color ?: 0
+    @Suppress("RedundantNullableReturnType")
+    fun getColor(): Int? = color ?: 0
 
     fun setColor(color: Int?) {
         this.color = color
     }
 
-    fun getIcon(): Int = icon ?: LABEL
+    @Suppress("RedundantNullableReturnType")
+    fun getIcon(): Int? = icon ?: LABEL
 
     fun setIcon(icon: Int?) {
         this.icon = icon
@@ -87,7 +89,7 @@ class TagData : Parcelable {
             writeString(name)
             writeInt(color!!)
             writeString(tagOrdering)
-            writeInt(getIcon())
+            writeInt(getIcon()!!)
             writeInt(order)
         }
     }

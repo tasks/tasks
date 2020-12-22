@@ -46,13 +46,15 @@ class Filter {
     val valuesAsMap: Map<String, Any>?
         get() = if (Strings.isNullOrEmpty(values)) null else AndroidUtilities.mapFromSerializedString(values)
 
-    fun getColor(): Int = color ?: 0
+    @Suppress("RedundantNullableReturnType")
+    fun getColor(): Int? = color ?: 0
 
     fun setColor(color: Int?) {
         this.color = color
     }
 
-    fun getIcon(): Int = icon ?: FILTER
+    @Suppress("RedundantNullableReturnType")
+    fun getIcon(): Int? = icon ?: FILTER
 
     fun setIcon(icon: Int?) {
         this.icon = icon

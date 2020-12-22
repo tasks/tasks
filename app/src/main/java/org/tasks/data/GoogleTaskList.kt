@@ -52,13 +52,15 @@ class GoogleTaskList : Parcelable {
         icon = parcel.readInt()
     }
 
-    fun getColor(): Int = color ?: 0
+    @Suppress("RedundantNullableReturnType")
+    fun getColor(): Int? = color ?: 0
 
     fun setColor(color: Int?) {
         this.color = color
     }
 
-    fun getIcon(): Int = icon ?: LIST
+    @Suppress("RedundantNullableReturnType")
+    fun getIcon(): Int? = icon ?: LIST
 
     fun setIcon(icon: Int?) {
         this.icon = icon
@@ -74,8 +76,8 @@ class GoogleTaskList : Parcelable {
             writeString(title)
             writeInt(order)
             writeLong(lastSync)
-            writeInt(getColor())
-            writeInt(getIcon())
+            writeInt(getColor()!!)
+            writeInt(getIcon()!!)
         }
     }
 
