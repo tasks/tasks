@@ -4,6 +4,7 @@ import android.content.ContentProviderOperation
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
@@ -299,7 +300,13 @@ class OpenTasksSynchronizer @Inject constructor(
                     ?: CaldavTask(task.id, calendar.uuid, it.getString(Tasks._UID), null)
             task.title = it.getString(Tasks.TITLE)
             task.priority = CaldavConverter.fromRemote(it.getInt(Tasks.PRIORITY))
-            task.completionDate = it.getLong(Tasks.COMPLETED)
+            val completedAt = it.getLong(Tasks.COMPLETED)
+            task.completionDate = when {
+                completedAt > 0 -> completedAt
+                it.getInt(Tasks.STATUS) == Tasks.STATUS_COMPLETED ->
+                    if (task.isCompleted) task.completionDate else now()
+                else -> 0L
+            }
             task.notes = it.getString(Tasks.DESCRIPTION)
             task.modificationDate = currentTimeMillis()
             task.creationDate = it.getLong(Tasks.CREATED).toLocal()
