@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">مسح الصورة</string>
-    <string name="TVA_add_comment">إضافة تعليق …</string>
+    <string name="TVA_add_comment">إضافة تعليق…</string>
     <string name="backup_BPr_header">النسخ الإحتياطي</string>
-    <string name="backup_BAc_import">إستيراد مهام</string>
+    <string name="backup_BAc_import">إستيراد نسخة احتياطية</string>
     <string name="import_summary_title"> إستعادة المُلخَّص</string>
     <string name="read_permission_label">إذن المهام</string>
     <string name="DLG_delete_this_task_question">حذف هذه المهمه؟</string>
@@ -95,17 +95,21 @@
     <string name="default_random_reminder_bi_weekly">مرتين في الاسبوع</string>
     <string name="default_random_reminder_monthly">شهري</string>
     <string name="default_random_reminder_bi_monthly">مرتين في الشهر</string>
-    <string name="repeat_forever">تكرار دائم</string>
+    <string name="repeat_forever">كرِّر للأبد</string>
     <string name="TEA_timer_controls">مؤقت</string>
     <string name="TEA_timer_comment_started">بدء هذه المهمة:</string>
     <string name="TEA_timer_comment_spent">الوقت المنقضي:</string>
     <string name="voice_create_prompt">تحدث لإنشاء مهمه</string>
     <string name="EPr_voiceRemindersEnabled_title">منبهات الصوت</string>
     <string name="delete_task">حذف المهمة</string>
-    <string name="voice_command_added_task">مهام مضافه</string>
+    <string name="voice_command_added_task">مهام مضافة</string>
     <plurals name="Ntasks">
-        <item quantity="one">١ مهمه</item>
-        <item quantity="other">%d tasks</item>
+        <item quantity="zero">لا مهام</item>
+        <item quantity="one">مهمة واحدة</item>
+        <item quantity="two">مهمتان</item>
+        <item quantity="few">%d مهام</item>
+        <item quantity="many">%d مهمة</item>
+        <item quantity="other">%d مهمة</item>
     </plurals>
     <string name="today">اليوم</string>
     <string name="tomorrow">غدا</string>
@@ -218,13 +222,31 @@
     <string name="yesterday_lowercase">البارحة</string>
     <string name="tomorrow_lowercase">الغد</string>
     <string name="today_lowercase">اليوم</string>
-    <string name="repeat_option_every_year">سنوياً</string>
-    <string name="repeat_option_every_month">شهرياً</string>
-    <string name="repeat_option_every_week">أسبوعياً</string>
-    <string name="repeat_option_every_day">يومياً</string>
+    <string name="repeat_option_every_year">سنويًّا</string>
+    <string name="repeat_option_every_month">شهريًّا</string>
+    <string name="repeat_option_every_week">أسبوعيًّا</string>
+    <string name="repeat_option_every_day">يوميًّا</string>
     <string name="priority_low">منخفض</string>
     <string name="priority_medium">متوسط</string>
     <string name="priority_high">عال</string>
     <string name="pick_a_time">اختر وقتًا</string>
     <string name="date_and_time">التاريخ و الوقت</string>
+    <string name="repeat_until">كرِّر حتَّى %s</string>
+    <plurals name="task_count">
+        <item quantity="zero">لا مهام</item>
+        <item quantity="one">مهمة واحدة</item>
+        <item quantity="two">مهمتان</item>
+        <item quantity="few">%d مهام</item>
+        <item quantity="many">%d مهمة</item>
+        <item quantity="other">%d مهمة</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">تاريخ الإكمال</string>
+    <string name="repeat_type_completion">تاريخ الإكمال</string>
+    <string name="repeat_minutely">كرِّر كل دقيقة</string>
+    <string name="repeat_yearly">كرِّر سنويًّا</string>
+    <string name="repeat_monthly">كرِّر شهريًّا</string>
+    <string name="repeat_weekly">كرِّر أسبوعيًّا</string>
+    <string name="repeat_daily">كرِّر يوميًّا</string>
+    <string name="repeat_hourly">كرِّر كلّ ساعة</string>
+    <string name="above_average">فوق المتوسط</string>
 </resources>
