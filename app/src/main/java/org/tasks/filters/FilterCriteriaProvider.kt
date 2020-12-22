@@ -24,23 +24,21 @@ class FilterCriteriaProvider @Inject constructor(
         private val caldavDao: CaldavDao) {
     private val r = context.resources
 
-    suspend fun getFilterCriteria(identifier: String): CustomFilterCriterion {
-        return when (identifier) {
-            IDENTIFIER_UNIVERSE -> startingUniverse
-            IDENTIFIER_TITLE -> taskTitleContainsFilter
-            IDENTIFIER_IMPORTANCE -> priorityFilter
-            IDENTIFIER_DUEDATE -> dueDateFilter
-            IDENTIFIER_GTASKS -> gtasksFilterCriteria()
-            IDENTIFIER_CALDAV -> caldavFilterCriteria()
-            IDENTIFIER_TAG_IS -> tagFilter()
-            IDENTIFIER_TAG_CONTAINS -> tagNameContainsFilter
-            IDENTIFIER_RECUR -> recurringFilter
-            IDENTIFIER_COMPLETED -> completedFilter
-            IDENTIFIER_HIDDEN -> hiddenFilter
-            IDENTIFIER_PARENT -> parentFilter
-            IDENTIFIER_SUBTASK -> subtaskFilter
-            else -> throw RuntimeException("Unknown identifier: $identifier")
-        }
+    suspend fun getFilterCriteria(identifier: String): CustomFilterCriterion = when (identifier) {
+        IDENTIFIER_UNIVERSE -> startingUniverse
+        IDENTIFIER_TITLE -> taskTitleContainsFilter
+        IDENTIFIER_IMPORTANCE -> priorityFilter
+        IDENTIFIER_DUEDATE -> dueDateFilter
+        IDENTIFIER_GTASKS -> gtasksFilterCriteria()
+        IDENTIFIER_CALDAV -> caldavFilterCriteria()
+        IDENTIFIER_TAG_IS -> tagFilter()
+        IDENTIFIER_TAG_CONTAINS -> tagNameContainsFilter
+        IDENTIFIER_RECUR -> recurringFilter
+        IDENTIFIER_COMPLETED -> completedFilter
+        IDENTIFIER_HIDDEN -> hiddenFilter
+        IDENTIFIER_PARENT -> parentFilter
+        IDENTIFIER_SUBTASK -> subtaskFilter
+        else -> throw RuntimeException("Unknown identifier: $identifier")
     }
 
     val startingUniverse: CustomFilterCriterion
@@ -55,20 +53,22 @@ class FilterCriteriaProvider @Inject constructor(
 
     suspend fun all(): List<CustomFilterCriterion> {
         val result: MutableList<CustomFilterCriterion> = ArrayList()
-        result.add(tagFilter())
-        result.add(tagNameContainsFilter)
-        result.add(dueDateFilter)
-        result.add(priorityFilter)
-        result.add(taskTitleContainsFilter)
-        if (googleTaskListDao.getAccounts().isNotEmpty()) {
-            result.add(gtasksFilterCriteria())
+        with(result) {
+            add(tagFilter())
+            add(tagNameContainsFilter)
+            add(dueDateFilter)
+            add(priorityFilter)
+            add(taskTitleContainsFilter)
+            if (googleTaskListDao.getAccounts().isNotEmpty()) {
+                add(gtasksFilterCriteria())
+            }
+            add(caldavFilterCriteria())
+            add(recurringFilter)
+            add(completedFilter)
+            add(hiddenFilter)
+            add(parentFilter)
+            add(subtaskFilter)
         }
-        result.add(caldavFilterCriteria())
-        result.add(recurringFilter)
-        result.add(completedFilter)
-        result.add(hiddenFilter)
-        result.add(parentFilter)
-        result.add(subtaskFilter)
         return result
     }
 

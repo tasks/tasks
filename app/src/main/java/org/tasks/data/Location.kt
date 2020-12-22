@@ -82,19 +82,13 @@ class Location : Serializable, Parcelable {
         return result
     }
 
-    override fun toString(): String {
-        return "Location(geofence=$geofence, place=$place)"
-    }
+    override fun toString(): String = "Location(geofence=$geofence, place=$place)"
 
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<Location> = object : Parcelable.Creator<Location> {
-            override fun createFromParcel(`in`: Parcel): Location? {
-                return Location(`in`)
-            }
+            override fun createFromParcel(`in`: Parcel): Location = Location(`in`)
 
-            override fun newArray(size: Int): Array<Location?> {
-                return arrayOfNulls(size)
-            }
+            override fun newArray(size: Int): Array<Location?> = arrayOfNulls(size)
         }
     }
 }

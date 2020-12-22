@@ -92,9 +92,8 @@ class GoogleTask {
         return result
     }
 
-    override fun toString(): String {
-        return "GoogleTask(id=$id, task=$task, remoteId='$remoteId', listId='$listId', parent=$parent, remoteParent=$remoteParent, isMoved=$isMoved, order=$order, remoteOrder=$remoteOrder, lastSync=$lastSync, deleted=$deleted)"
-    }
+    override fun toString(): String =
+            "GoogleTask(id=$id, task=$task, remoteId='$remoteId', listId='$listId', parent=$parent, remoteParent=$remoteParent, isMoved=$isMoved, order=$order, remoteOrder=$remoteOrder, lastSync=$lastSync, deleted=$deleted)"
 
     val isNew: Boolean
         get() = id == 0L

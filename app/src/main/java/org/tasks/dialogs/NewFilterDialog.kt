@@ -119,19 +119,17 @@ class NewFilterDialog : DialogFragment() {
         dismiss()
     }
 
-    private fun newMultiSelect(criteria: CustomFilterCriterion, index: Int, type: Int): CriterionInstance {
-        val criterion = CriterionInstance()
-        criterion.criterion = criteria
-        criterion.selectedIndex = index
-        criterion.type = type
-        return criterion
-    }
+    private fun newMultiSelect(criteria: CustomFilterCriterion, index: Int, type: Int): CriterionInstance =
+            CriterionInstance().apply {
+                criterion = criteria
+                selectedIndex = index
+                this.type = type
+            }
 
-    private fun newText(criteria: CustomFilterCriterion, text: String, type: Int): CriterionInstance {
-        val criterion = CriterionInstance()
-        criterion.criterion = criteria
-        criterion.selectedText = text
-        criterion.type = type
-        return criterion
-    }
+    private fun newText(criteria: CustomFilterCriterion, text: String, type: Int): CriterionInstance =
+            CriterionInstance().apply {
+                criterion = criteria
+                selectedText = text
+                this.type = type
+            }
 }

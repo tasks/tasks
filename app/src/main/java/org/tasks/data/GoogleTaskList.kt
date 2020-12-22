@@ -52,17 +52,13 @@ class GoogleTaskList : Parcelable {
         icon = parcel.readInt()
     }
 
-    fun getColor(): Int? {
-        return (if (color == null) 0 else color)!!
-    }
+    fun getColor(): Int = color ?: 0
 
     fun setColor(color: Int?) {
         this.color = color
     }
 
-    fun getIcon(): Int? {
-        return (if (icon == null) LIST else icon!!)
-    }
+    fun getIcon(): Int = icon ?: LIST
 
     fun setIcon(icon: Int?) {
         this.icon = icon
@@ -71,14 +67,16 @@ class GoogleTaskList : Parcelable {
     override fun describeContents() = 0
 
     override fun writeToParcel(parcel: Parcel, i: Int) {
-        parcel.writeLong(id)
-        parcel.writeString(account)
-        parcel.writeString(remoteId)
-        parcel.writeString(title)
-        parcel.writeInt(order)
-        parcel.writeLong(lastSync)
-        parcel.writeInt(getColor()!!)
-        parcel.writeInt(getIcon()!!)
+        with(parcel) {
+            writeLong(id)
+            writeString(account)
+            writeString(remoteId)
+            writeString(title)
+            writeInt(order)
+            writeLong(lastSync)
+            writeInt(getColor())
+            writeInt(getIcon())
+        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -109,22 +107,17 @@ class GoogleTaskList : Parcelable {
         return result
     }
 
-    override fun toString(): String {
-        return "GoogleTaskList(id=$id, account=$account, remoteId=$remoteId, title=$title, remoteOrder=$order, lastSync=$lastSync, color=$color, icon=$icon)"
-    }
+    override fun toString(): String =
+            "GoogleTaskList(id=$id, account=$account, remoteId=$remoteId, title=$title, remoteOrder=$order, lastSync=$lastSync, color=$color, icon=$icon)"
 
     companion object {
         @JvmField val TABLE = Table("google_task_lists")
         @JvmField val REMOTE_ID = TABLE.column("gtl_remote_id")
         @JvmField val NAME = TABLE.column("gtl_title")
         @JvmField val CREATOR: Parcelable.Creator<GoogleTaskList> = object : Parcelable.Creator<GoogleTaskList> {
-            override fun createFromParcel(parcel: Parcel): GoogleTaskList? {
-                return GoogleTaskList(parcel)
-            }
+            override fun createFromParcel(parcel: Parcel): GoogleTaskList = GoogleTaskList(parcel)
 
-            override fun newArray(size: Int): Array<GoogleTaskList?> {
-                return arrayOfNulls(size)
-            }
+            override fun newArray(size: Int): Array<GoogleTaskList?> = arrayOfNulls(size)
         }
     }
 }

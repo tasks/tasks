@@ -273,27 +273,28 @@ _${getString(R.string.upgrade_tasks_no_account)}_
                 ContextCompat.getColor(requireContext(), R.color.purchase_highlight)
         )
         binding.avgMonthly.text = aboveAverage
-        binding.payAnnually.let {
-            it.isEnabled = true
-            it.text = getString(
-                    if (constrained) R.string.price_per_year_abbreviated else R.string.price_per_year,
-                    annualPrice - .01
+        with(binding.payAnnually) {
+            isEnabled = true
+            text = getString(
+                if (constrained) R.string.price_per_year_abbreviated else R.string.price_per_year,
+                annualPrice - .01
             )
-            it.setOnClickListener {
+            setOnClickListener {
                 initiatePurchase(false, if (nameYourPrice) sliderValue else 30)
             }
         }
-        binding.payMonthly.let {
-            it.isEnabled = true
-            it.text = getString(
-                    if (constrained) R.string.price_per_month_abbreviated else R.string.price_per_month,
-                    monthlyPrice - .01
-            )
-            it.setOnClickListener {
+        with(binding.payMonthly) {
+            isEnabled = true
+            text = getString(
+                if (constrained) R.string.price_per_month_abbreviated else R.string.price_per_month,
+                monthlyPrice - .01
+        )
+            setOnClickListener {
                 initiatePurchase(true, if (nameYourPrice) sliderValue else 3)
             }
-            it.isVisible = !nameYourPrice || sliderValue < 3
+            isVisible = !nameYourPrice || sliderValue < 3
         }
+
         binding.avgMonthly.isVisible = nameYourPrice && binding.payMonthly.isVisible
         currentSubscription?.let {
             binding.payMonthly.isEnabled =

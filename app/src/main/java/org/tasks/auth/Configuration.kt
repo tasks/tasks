@@ -67,10 +67,7 @@ class Configuration constructor(
     /**
      * Indicates whether the configuration has changed from the last known valid state.
      */
-    fun hasConfigurationChanged(): Boolean {
-        val lastHash = lastKnownConfigHash
-        return configHash != lastHash
-    }
+    fun hasConfigurationChanged(): Boolean = configHash != lastKnownConfigHash
 
     /**
      * Indicates whether the current configuration is valid.
@@ -141,23 +138,18 @@ class Configuration constructor(
     private fun getConfigString(propName: String?): String? {
         var value = configJson!!.optString(propName) ?: return null
         value = value.trim { it <= ' ' }
-        return if (TextUtils.isEmpty(value)) {
-            null
-        } else value
+        return if (TextUtils.isEmpty(value)) null else value
     }
 
     @Throws(InvalidConfigurationException::class)
-    private fun getRequiredConfigString(propName: String): String {
-        return getConfigString(propName)
-                ?: throw InvalidConfigurationException(
-                        "$propName is required but not specified in the configuration")
-    }
+    private fun getRequiredConfigString(propName: String): String = getConfigString(propName)
+            ?: throw InvalidConfigurationException(
+                    "$propName is required but not specified in the configuration")
 
     @Throws(InvalidConfigurationException::class)
     fun getRequiredConfigUri(propName: String): Uri {
         val uriStr = getRequiredConfigString(propName)
-        val uri: Uri
-        uri = try {
+        val uri = try {
             Uri.parse(uriStr)
         } catch (ex: Throwable) {
             throw InvalidConfigurationException("$propName could not be parsed", ex)
@@ -195,12 +187,13 @@ class Configuration constructor(
         get() {
             // ensure that the redirect URI declared in the configuration is handled by some activity
             // in the app, by querying the package manager speculatively
-            val redirectIntent = Intent()
-            redirectIntent.setPackage(context.packageName)
-            redirectIntent.action = Intent.ACTION_VIEW
-            redirectIntent.addCategory(Intent.CATEGORY_BROWSABLE)
-            redirectIntent.data = mRedirectUri
-            return !context.packageManager.queryIntentActivities(redirectIntent, 0).isEmpty()
+            val redirectIntent = Intent().apply {
+                setPackage(context.packageName)
+                action = Intent.ACTION_VIEW
+                addCategory(Intent.CATEGORY_BROWSABLE)
+                data = mRedirectUri
+            }
+            return context.packageManager.queryIntentActivities(redirectIntent, 0).isNotEmpty()
         }
 
     class InvalidConfigurationException : Exception {

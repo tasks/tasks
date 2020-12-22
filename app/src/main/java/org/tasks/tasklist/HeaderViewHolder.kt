@@ -38,21 +38,20 @@ class HeaderViewHolder(
         }
     }
 
-    private fun getHeader(sortMode: Int, alwaysDisplayFullDate: Boolean, group: Long): String {
-        return when {
-            sortMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(group.toInt()))
-            group == 0L -> context.getString(if (sortMode == SortHelper.SORT_DUE) {
-                R.string.no_due_date
-            } else {
-                R.string.no_date
-            })
-            sortMode == SortHelper.SORT_CREATED ->
-                context.getString(R.string.sort_created_group, getDateString(group, alwaysDisplayFullDate))
-            sortMode == SortHelper.SORT_MODIFIED ->
-                context.getString(R.string.sort_modified_group, getDateString(group, alwaysDisplayFullDate))
-            else -> getDateString(group, alwaysDisplayFullDate, false)
-        }
-    }
+    private fun getHeader(sortMode: Int, alwaysDisplayFullDate: Boolean, group: Long): String =
+            when {
+                sortMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(group.toInt()))
+                group == 0L -> context.getString(if (sortMode == SortHelper.SORT_DUE) {
+                    R.string.no_due_date
+                } else {
+                    R.string.no_date
+                })
+                sortMode == SortHelper.SORT_CREATED ->
+                    context.getString(R.string.sort_created_group, getDateString(group, alwaysDisplayFullDate))
+                sortMode == SortHelper.SORT_MODIFIED ->
+                    context.getString(R.string.sort_modified_group, getDateString(group, alwaysDisplayFullDate))
+                else -> getDateString(group, alwaysDisplayFullDate, false)
+            }
 
     private fun getDateString(value: Long, alwaysDisplayFullDate: Boolean, lowercase: Boolean = true) =
             DateUtilities.getRelativeDay(context, value, locale, FormatStyle.FULL, alwaysDisplayFullDate, lowercase)

@@ -119,37 +119,35 @@ class TaskDefaults : InjectingPreferenceFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_DEFAULT_LIST) {
-            val list: Filter? = data!!.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER)
-            if (list is GtasksFilter || list is CaldavFilter) {
-                defaultFilterProvider.defaultList = list
-            } else {
-                throw RuntimeException("Unhandled filter type")
+        when (requestCode) {
+            REQUEST_DEFAULT_LIST -> {
+                val list: Filter? = data!!.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER)
+                if (list is GtasksFilter || list is CaldavFilter) {
+                    defaultFilterProvider.defaultList = list
+                } else {
+                    throw RuntimeException("Unhandled filter type")
+                }
+                updateRemoteListSummary()
             }
-            updateRemoteListSummary()
-        } else if (requestCode == REQUEST_CALENDAR_SELECTION) {
-            if (resultCode == RESULT_OK) {
+            REQUEST_CALENDAR_SELECTION -> if (resultCode == RESULT_OK) {
                 preferences.setString(
-                    R.string.gcal_p_default,
-                    data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
+                        R.string.gcal_p_default,
+                        data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
                 )
                 defaultCalendarPref.summary =
-                    data.getStringExtra(CalendarPicker.EXTRA_CALENDAR_NAME)
+                        data.getStringExtra(CalendarPicker.EXTRA_CALENDAR_NAME)
             }
-        } else if (requestCode == REQUEST_RECURRENCE) {
-            if (resultCode == RESULT_OK) {
+            REQUEST_RECURRENCE -> if (resultCode == RESULT_OK) {
                 preferences.setString(
                         R.string.p_default_recurrence,
                         data?.getStringExtra(EXTRA_RRULE)
                 )
                 updateRecurrence()
             }
-        } else if (requestCode == REQUEST_LOCATION) {
-            if (resultCode == RESULT_OK) {
-                setDefaultLocation(data?.getParcelableExtra(EXTRA_PLACE))
-            }
-        } else if (requestCode == REQUEST_TAGS) {
-            if (resultCode == RESULT_OK) {
+            REQUEST_LOCATION ->
+                if (resultCode == RESULT_OK)
+                    setDefaultLocation(data?.getParcelableExtra(EXTRA_PLACE))
+            REQUEST_TAGS -> if (resultCode == RESULT_OK) {
                 preferences.setString(
                         R.string.p_default_tags,
                         data?.getParcelableArrayListExtra<TagData>(EXTRA_SELECTED)
@@ -158,8 +156,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
                 )
                 updateTags()
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

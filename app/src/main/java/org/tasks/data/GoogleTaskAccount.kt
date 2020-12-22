@@ -47,11 +47,13 @@ class GoogleTaskAccount : Parcelable {
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeLong(id)
-        dest.writeString(account)
-        dest.writeString(error)
-        dest.writeString(etag)
-        ParcelCompat.writeBoolean(dest, isCollapsed)
+        with(dest) {
+            writeLong(id)
+            writeString(account)
+            writeString(error)
+            writeString(etag)
+            ParcelCompat.writeBoolean(this, isCollapsed)
+        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -76,19 +78,14 @@ class GoogleTaskAccount : Parcelable {
         return result
     }
 
-    override fun toString(): String {
-        return "GoogleTaskAccount(id=$id, account=$account, error=$error, etag=$etag, isCollapsed=$isCollapsed)"
-    }
+    override fun toString(): String =
+            "GoogleTaskAccount(id=$id, account=$account, error=$error, etag=$etag, isCollapsed=$isCollapsed)"
 
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<GoogleTaskAccount> = object : Parcelable.Creator<GoogleTaskAccount> {
-            override fun createFromParcel(source: Parcel): GoogleTaskAccount? {
-                return GoogleTaskAccount(source)
-            }
+            override fun createFromParcel(source: Parcel): GoogleTaskAccount = GoogleTaskAccount(source)
 
-            override fun newArray(size: Int): Array<GoogleTaskAccount?> {
-                return arrayOfNulls(size)
-            }
+            override fun newArray(size: Int): Array<GoogleTaskAccount?> = arrayOfNulls(size)
         }
     }
 }

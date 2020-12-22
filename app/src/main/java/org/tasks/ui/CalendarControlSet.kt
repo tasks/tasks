@@ -96,10 +96,8 @@ class CalendarControlSet : TaskEditControlFragment() {
         if (viewModel.eventUri.isNullOrBlank()) {
             CalendarPicker.newCalendarPicker(this, REQUEST_CODE_PICK_CALENDAR, calendarName)
                     .show(parentFragmentManager, FRAG_TAG_CALENDAR_PICKER)
-        } else {
-            if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_OPEN_EVENT)) {
-                openCalendarEvent()
-            }
+        } else if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_OPEN_EVENT)) {
+            openCalendarEvent()
         }
     }
 

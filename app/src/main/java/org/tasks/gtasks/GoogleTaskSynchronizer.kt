@@ -395,14 +395,12 @@ class GoogleTaskSynchronizer @Inject constructor(
             }
         }
 
-        fun truncate(string: String?, max: Int): String? {
-            return if (string == null || string.length <= max) string else string.substring(0, max)
-        }
+        fun truncate(string: String?, max: Int): String? =
+                if (string == null || string.length <= max) string else string.substring(0, max)
 
-        fun getTruncatedValue(currentValue: String?, newValue: String?, maxLength: Int): String? {
-            return if (isNullOrEmpty(newValue)
-                    || newValue!!.length < maxLength || isNullOrEmpty(currentValue)
-                    || !currentValue!!.startsWith(newValue)) newValue else currentValue
-        }
+        fun getTruncatedValue(currentValue: String?, newValue: String?, maxLength: Int): String? =
+                if (isNullOrEmpty(newValue)
+                        || newValue!!.length < maxLength || isNullOrEmpty(currentValue)
+                        || !currentValue!!.startsWith(newValue)) newValue else currentValue
     }
 }

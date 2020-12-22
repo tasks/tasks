@@ -205,9 +205,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         super.onBackPressed()
     }
 
-    private fun closeSearch(): Boolean {
-        return search.isActionViewExpanded && search.collapseActionView()
-    }
+    private fun closeSearch(): Boolean = search.isActionViewExpanded && search.collapseActionView()
 
     override fun onPlaceSelected(place: Place) {
         returnPlace(place)
@@ -356,14 +354,11 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         viewModel.saveState(outState)
     }
 
-    override fun onMenuItemClick(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.menu_search) {
-            searchPlace()
-            true
-        } else {
-            false
-        }
-    }
+    override fun onMenuItemClick(item: MenuItem): Boolean =
+            if (item.itemId == R.id.menu_search) {
+                searchPlace()
+                true
+            } else false
 
     override fun picked(place: Place) {
         returnPlace(place)
@@ -375,9 +370,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         startActivity(intent)
     }
 
-    override fun onQueryTextSubmit(query: String): Boolean {
-        return false
-    }
+    override fun onQueryTextSubmit(query: String): Boolean = false
 
     override fun onQueryTextChange(query: String): Boolean {
         searchSubject.onNext(query)

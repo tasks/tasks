@@ -172,54 +172,49 @@ class Notifications : InjectingPreferenceFragment() {
         return true
     }
 
-    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
-        return if (preference!!.key == getString(R.string.p_rmd_ringtone)) {
-            val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
-            intent.putExtra(
-                RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI,
-                Settings.System.DEFAULT_NOTIFICATION_URI
-            )
-            val existingValue: String? = preferences.getStringValue(R.string.p_rmd_ringtone)
-            if (existingValue != null) {
-                if (existingValue.isEmpty()) {
-                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, null as Uri?)
+    override fun onPreferenceTreeClick(preference: Preference?): Boolean =
+            if (preference!!.key == getString(R.string.p_rmd_ringtone)) {
+                val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
+                intent.putExtra(
+                    RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI,
+                    Settings.System.DEFAULT_NOTIFICATION_URI
+                )
+                val existingValue: String? = preferences.getStringValue(R.string.p_rmd_ringtone)
+                if (existingValue != null) {
+                    if (existingValue.isEmpty()) {
+                        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, null as Uri?)
+                    } else {
+                        intent.putExtra(
+                            RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
+                            Uri.parse(existingValue)
+                        )
+                    }
                 } else {
                     intent.putExtra(
                         RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
-                        Uri.parse(existingValue)
+                        Settings.System.DEFAULT_NOTIFICATION_URI
                     )
                 }
+                startActivityForResult(intent, REQUEST_CODE_ALERT_RINGTONE)
+                true
             } else {
-                intent.putExtra(
-                    RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
-                    Settings.System.DEFAULT_NOTIFICATION_URI
-                )
+                super.onPreferenceTreeClick(preference)
             }
-            startActivityForResult(intent, REQUEST_CODE_ALERT_RINGTONE)
-            true
-        } else {
-            super.onPreferenceTreeClick(preference)
-        }
-    }
 
-    private fun getQuietStartPreference(): TimePreference? {
-        return getTimePreference(R.string.p_rmd_quietStart)
-    }
+    private fun getQuietStartPreference(): TimePreference? =
+            getTimePreference(R.string.p_rmd_quietStart)
 
-    private fun getQuietEndPreference(): TimePreference? {
-        return getTimePreference(R.string.p_rmd_quietEnd)
-    }
+    private fun getQuietEndPreference(): TimePreference? =
+            getTimePreference(R.string.p_rmd_quietEnd)
 
-    private fun getDefaultRemindTimePreference(): TimePreference? {
-        return getTimePreference(R.string.p_rmd_time)
-    }
+    private fun getDefaultRemindTimePreference(): TimePreference? =
+            getTimePreference(R.string.p_rmd_time)
 
-    private fun getTimePreference(resId: Int): TimePreference? {
-        return findPreference(getString(resId)) as TimePreference?
-    }
+    private fun getTimePreference(resId: Int): TimePreference? =
+            findPreference(getString(resId)) as TimePreference?
 
     private fun initializeTimePreference(preference: TimePreference, requestCode: Int) {
         preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
@@ -256,10 +251,10 @@ class Notifications : InjectingPreferenceFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CODE_ALERT_RINGTONE) {
-            if (resultCode == RESULT_OK && data != null) {
+        when (requestCode) {
+            REQUEST_CODE_ALERT_RINGTONE -> if (resultCode == RESULT_OK && data != null) {
                 val ringtone: Uri? =
-                    data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+                        data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
                 if (ringtone != null) {
                     preferences.setString(R.string.p_rmd_ringtone, ringtone.toString())
                 } else {
@@ -267,36 +262,30 @@ class Notifications : InjectingPreferenceFragment() {
                 }
                 initializeRingtonePreference()
             }
-        } else if (requestCode == REQUEST_QUIET_START) {
-            if (resultCode == RESULT_OK) {
+            REQUEST_QUIET_START -> if (resultCode == RESULT_OK) {
                 getQuietStartPreference()!!.handleTimePickerActivityIntent(data)
             }
-        } else if (requestCode == REQUEST_QUIET_END) {
-            if (resultCode == RESULT_OK) {
+            REQUEST_QUIET_END -> if (resultCode == RESULT_OK) {
                 getQuietEndPreference()!!.handleTimePickerActivityIntent(data)
             }
-        } else if (requestCode == REQUEST_DEFAULT_REMIND) {
-            if (resultCode == RESULT_OK) {
+            REQUEST_DEFAULT_REMIND -> if (resultCode == RESULT_OK) {
                 getDefaultRemindTimePreference()!!.handleTimePickerActivityIntent(data)
             }
-        } else if (requestCode == REQUEST_BADGE_LIST) {
-            if (resultCode == RESULT_OK) {
+            REQUEST_BADGE_LIST -> if (resultCode == RESULT_OK) {
                 val filter: Filter =
-                    data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
+                        data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
                 defaultFilterProvider.setBadgeFilter(filter)
                 findPreference(R.string.p_badge_list).summary = filter.listingTitle
                 localBroadcastManager.broadcastRefresh()
             }
-        } else if (requestCode == REQUEST_CODE_TTS_CHECK) {
-            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) { // success, create the TTS instance
+            REQUEST_CODE_TTS_CHECK -> if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) { // success, create the TTS instance
                 voiceOutputAssistant.initTTS()
             } else { // missing data, install it
                 val installIntent = Intent()
                 installIntent.action = TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA
                 startActivity(installIntent)
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 }

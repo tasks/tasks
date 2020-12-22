@@ -83,10 +83,10 @@ class EtebaseClient(
                 }
     }
 
-    private fun updateMtime(meta: ItemMetadata, mtime: Long = currentTimeMillis()): ItemMetadata {
-        meta.mtime = mtime
-        return meta
-    }
+    private fun updateMtime(meta: ItemMetadata, mtime: Long = currentTimeMillis()): ItemMetadata =
+            meta.also {
+                it.mtime = mtime
+            }
 
     suspend fun updateCache(collection: Collection, items: List<Item>) {
         val itemManager = etebase.collectionManager.getItemManager(collection)

@@ -32,9 +32,9 @@ class Inventory @Inject constructor(
         purchases.clear()
     }
 
-    fun add(purchases: Iterable<Purchase>) {
-        verifyAndAdd(purchases)
-        preferences.setPurchases(this.purchases.values)
+    fun add(items: Iterable<Purchase>) {
+        verifyAndAdd(items)
+        preferences.setPurchases(purchases.values)
         localBroadcastManager.broadcastPurchasesUpdated()
     }
 
@@ -42,7 +42,7 @@ class Inventory @Inject constructor(
         for (purchase in items) {
             if (signatureVerifier.verifySignature(purchase)) {
                 Timber.d("add(%s)", purchase)
-                this.purchases[purchase.sku] = purchase
+                purchases[purchase.sku] = purchase
             }
         }
         hasPro = purchases.values.any { it.isProSubscription } || purchases.containsKey(SKU_VIP)
@@ -76,12 +76,12 @@ class Inventory @Inject constructor(
         get() = purchases
                 .values
                 .filter { it.isProSubscription }
-                .sortedWith{ l, r ->
+                .sortedWith { l, r ->
                     r.isMonthly.compareTo(l.isMonthly)
                             .takeIf { it != 0 }?.let { return@sortedWith it }
                     l.isCanceled.compareTo(r.isCanceled)
                             .takeIf { it != 0 }?.let { return@sortedWith it }
-                    return@sortedWith r.subscriptionPrice!!.compareTo(l.subscriptionPrice!!)
+                    r.subscriptionPrice!!.compareTo(l.subscriptionPrice!!)
                 }
                 .firstOrNull()
 

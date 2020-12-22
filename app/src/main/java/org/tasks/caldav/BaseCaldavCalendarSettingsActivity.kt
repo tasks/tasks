@@ -96,16 +96,17 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
             nameLayout.error = getString(R.string.name_cannot_be_empty)
             return
         }
-        if (caldavCalendar == null) {
-            showProgressIndicator()
-            createCalendar(caldavAccount, name, selectedColor)
-        } else if (nameChanged() || colorChanged()) {
-            showProgressIndicator()
-            updateNameAndColor(caldavAccount, caldavCalendar!!, name, selectedColor)
-        } else if (iconChanged()) {
-            updateCalendar()
-        } else {
-            finish()
+        when {
+            caldavCalendar == null -> {
+                showProgressIndicator()
+                createCalendar(caldavAccount, name, selectedColor)
+            }
+            nameChanged() || colorChanged() -> {
+                showProgressIndicator()
+                updateNameAndColor(caldavAccount, caldavCalendar!!, name, selectedColor)
+            }
+            iconChanged() -> updateCalendar()
+            else -> finish()
         }
     }
 
@@ -181,21 +182,17 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         finish()
     }
 
-    override fun hasChanges(): Boolean {
-        return if (caldavCalendar == null) !isNullOrEmpty(newName) || selectedColor != 0 || selectedIcon != -1 else nameChanged() || iconChanged() || colorChanged()
-    }
+    override fun hasChanges(): Boolean =
+            if (caldavCalendar == null)
+                !isNullOrEmpty(newName) || selectedColor != 0 || selectedIcon != -1
+            else
+                nameChanged() || iconChanged() || colorChanged()
 
-    private fun nameChanged(): Boolean {
-        return caldavCalendar!!.name != newName
-    }
+    private fun nameChanged(): Boolean = caldavCalendar!!.name != newName
 
-    private fun colorChanged(): Boolean {
-        return selectedColor != caldavCalendar!!.color
-    }
+    private fun colorChanged(): Boolean = selectedColor != caldavCalendar!!.color
 
-    private fun iconChanged(): Boolean {
-        return selectedIcon != caldavCalendar!!.getIcon()
-    }
+    private fun iconChanged(): Boolean = selectedIcon != caldavCalendar!!.getIcon()
 
     private val newName: String
         get() = name.text.toString().trim { it <= ' ' }

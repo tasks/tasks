@@ -9,15 +9,14 @@ object DateTimeUtils {
 
     @JvmStatic
     fun newDateUtc(
-            year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int): DateTime {
-        return DateTime(year, month, day, hour, minute, second, 0, TimeZone.getTimeZone("GMT"))
-    }
+            year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int): DateTime =
+            DateTime(year, month, day, hour, minute, second, 0, TimeZone.getTimeZone("GMT"))
 
     @JvmStatic
-    fun newDateTime(): DateTime =  DateTime()
+    fun newDateTime(): DateTime = DateTime()
 
     @JvmStatic
-    fun midnight(): Long =  newDateTime().plusDays(1).startOfDay().millis
+    fun midnight(): Long = newDateTime().plusDays(1).startOfDay().millis
 
     @JvmStatic
     fun newDateTime(timestamp: Long): DateTime = DateTime(timestamp)

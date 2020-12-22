@@ -74,15 +74,17 @@ class CaldavCalendar : Parcelable {
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeLong(id)
-        dest.writeString(account)
-        dest.writeString(uuid)
-        dest.writeString(name)
-        dest.writeInt(color)
-        dest.writeString(ctag)
-        dest.writeString(url)
-        dest.writeInt(getIcon()!!)
-        dest.writeInt(order)
+        with(dest) {
+            writeLong(id)
+            writeString(account)
+            writeString(uuid)
+            writeString(name)
+            writeInt(color)
+            writeString(ctag)
+            writeString(url)
+            writeInt(getIcon()!!)
+            writeInt(order)
+        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -115,22 +117,17 @@ class CaldavCalendar : Parcelable {
         return result
     }
 
-    override fun toString(): String {
-        return "CaldavCalendar(id=$id, account=$account, uuid=$uuid, name=$name, color=$color, ctag=$ctag, url=$url, icon=$icon, order=$order)"
-    }
+    override fun toString(): String =
+            "CaldavCalendar(id=$id, account=$account, uuid=$uuid, name=$name, color=$color, ctag=$ctag, url=$url, icon=$icon, order=$order)"
 
     companion object {
         @JvmField val TABLE = Table("caldav_lists")
         @JvmField val UUID = TABLE.column("cdl_uuid")
         @JvmField val NAME = TABLE.column("cdl_name")
         @JvmField val CREATOR: Parcelable.Creator<CaldavCalendar> = object : Parcelable.Creator<CaldavCalendar> {
-            override fun createFromParcel(source: Parcel): CaldavCalendar? {
-                return CaldavCalendar(source)
-            }
+            override fun createFromParcel(source: Parcel): CaldavCalendar = CaldavCalendar(source)
 
-            override fun newArray(size: Int): Array<CaldavCalendar?> {
-                return arrayOfNulls(size)
-            }
+            override fun newArray(size: Int): Array<CaldavCalendar?> = arrayOfNulls(size)
         }
     }
 }

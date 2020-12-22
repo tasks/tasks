@@ -132,9 +132,7 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
     private val themeIndex: Int
         get() = if (selectedTheme >= 0 && selectedTheme < ThemeColor.LAUNCHER_COLORS.size) selectedTheme else 7
 
-    private fun getShortcutName(): String {
-        return shortcutName.text.toString().trim { it <= ' ' }
-    }
+    private fun getShortcutName(): String = shortcutName.text.toString().trim { it <= ' ' }
 
     private fun save() {
         val filterId = defaultFilterProvider.getFilterPreferenceValue(selectedFilter!!)

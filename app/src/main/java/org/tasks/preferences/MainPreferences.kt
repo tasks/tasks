@@ -48,27 +48,24 @@ class MainPreferences : BasePreferences() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CALDAV_SETTINGS) {
-            if (resultCode == RESULT_OK) {
+        when (requestCode) {
+            REQUEST_CALDAV_SETTINGS -> if (resultCode == RESULT_OK) {
                 syncAdapters.sync(true)
                 workManager.updateBackgroundSync()
             }
-        } else if (requestCode == REQUEST_GOOGLE_TASKS) {
-            if (resultCode == Activity.RESULT_OK) {
+            REQUEST_GOOGLE_TASKS -> if (resultCode == Activity.RESULT_OK) {
                 syncAdapters.sync(true)
                 workManager.updateBackgroundSync()
             } else {
                 data?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)?.let { toaster.longToast(it) }
             }
-        } else if (requestCode == REQUEST_TASKS_ORG) {
-            if (resultCode == Activity.RESULT_OK) {
+            REQUEST_TASKS_ORG -> if (resultCode == Activity.RESULT_OK) {
                 syncAdapters.sync(true)
                 workManager.updateBackgroundSync()
             } else {
                 data?.getStringExtra(SignInActivity.EXTRA_ERROR)?.let { toaster.longToast(it) }
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

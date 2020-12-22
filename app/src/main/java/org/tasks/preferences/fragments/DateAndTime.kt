@@ -132,48 +132,39 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     private fun updateStartOfWeek(value: String) {
         val preference = getStartOfWeekPreference()
         val index = preference.findIndexOfValue(value)
-        val summary: String? = getWeekdayEntries()?.get(index)
+        val summary: String? = getWeekdayEntries().get(index)
         preference.summary = summary
     }
 
-    private fun getStartOfWeekPreference(): ListPreference {
-        return findPreference(R.string.p_start_of_week) as ListPreference
-    }
+    private fun getStartOfWeekPreference(): ListPreference =
+            findPreference(R.string.p_start_of_week) as ListPreference
 
-    private fun getWeekdayDisplayName(dayOfWeek: DayOfWeek): String {
-        return dayOfWeek.getDisplayName(TextStyle.FULL, locale.locale)
-    }
+    private fun getWeekdayDisplayName(dayOfWeek: DayOfWeek): String =
+            dayOfWeek.getDisplayName(TextStyle.FULL, locale.locale)
 
-    private fun getMorningPreference(): TimePreference {
-        return getTimePreference(R.string.p_date_shortcut_morning)
-    }
+    private fun getMorningPreference(): TimePreference =
+            getTimePreference(R.string.p_date_shortcut_morning)
 
-    private fun getAfternoonPreference(): TimePreference {
-        return getTimePreference(R.string.p_date_shortcut_afternoon)
-    }
+    private fun getAfternoonPreference(): TimePreference =
+            getTimePreference(R.string.p_date_shortcut_afternoon)
 
-    private fun getEveningPreference(): TimePreference {
-        return getTimePreference(R.string.p_date_shortcut_evening)
-    }
+    private fun getEveningPreference(): TimePreference =
+            getTimePreference(R.string.p_date_shortcut_evening)
 
-    private fun getNightPreference(): TimePreference {
-        return getTimePreference(R.string.p_date_shortcut_night)
-    }
+    private fun getNightPreference(): TimePreference =
+            getTimePreference(R.string.p_date_shortcut_night)
 
-    private fun getTimePreference(resId: Int): TimePreference {
-        return findPreference(resId) as TimePreference
-    }
+    private fun getTimePreference(resId: Int): TimePreference =
+            findPreference(resId) as TimePreference
 
-    private fun getWeekdayEntries(): Array<String?>? {
-        return arrayOf(
-            getString(R.string.use_locale_default),
-            getWeekdayDisplayName(DayOfWeek.SUNDAY),
-            getWeekdayDisplayName(DayOfWeek.MONDAY),
-            getWeekdayDisplayName(DayOfWeek.TUESDAY),
-            getWeekdayDisplayName(DayOfWeek.WEDNESDAY),
-            getWeekdayDisplayName(DayOfWeek.THURSDAY),
-            getWeekdayDisplayName(DayOfWeek.FRIDAY),
-            getWeekdayDisplayName(DayOfWeek.SATURDAY)
-        )
-    }
+    private fun getWeekdayEntries(): Array<String?> = arrayOf(
+        getString(R.string.use_locale_default),
+        getWeekdayDisplayName(DayOfWeek.SUNDAY),
+        getWeekdayDisplayName(DayOfWeek.MONDAY),
+        getWeekdayDisplayName(DayOfWeek.TUESDAY),
+        getWeekdayDisplayName(DayOfWeek.WEDNESDAY),
+        getWeekdayDisplayName(DayOfWeek.THURSDAY),
+        getWeekdayDisplayName(DayOfWeek.FRIDAY),
+        getWeekdayDisplayName(DayOfWeek.SATURDAY)
+    )
 }

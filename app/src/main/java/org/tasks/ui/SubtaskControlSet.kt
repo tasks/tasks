@@ -219,19 +219,17 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
 
     companion object {
         const val TAG = R.string.TEA_ctrl_subtask_pref
-        private fun getQueryTemplate(task: Task): QueryTemplate {
-            return QueryTemplate()
-                    .join(
-                            Join.left(
-                                    GoogleTask.TABLE,
-                                    Criterion.and(
-                                            GoogleTask.PARENT.eq(task.id),
-                                            GoogleTask.TASK.eq(Task.ID),
-                                            GoogleTask.DELETED.eq(0))))
-                    .where(
-                            Criterion.and(
-                                    activeAndVisible(),
-                                    Criterion.or(Task.PARENT.eq(task.id), GoogleTask.TASK.gt(0))))
-        }
+        private fun getQueryTemplate(task: Task): QueryTemplate = QueryTemplate()
+                .join(
+                        Join.left(
+                                GoogleTask.TABLE,
+                                Criterion.and(
+                                        GoogleTask.PARENT.eq(task.id),
+                                        GoogleTask.TASK.eq(Task.ID),
+                                        GoogleTask.DELETED.eq(0))))
+                .where(
+                        Criterion.and(
+                                activeAndVisible(),
+                                Criterion.or(Task.PARENT.eq(task.id), GoogleTask.TASK.gt(0))))
     }
 }

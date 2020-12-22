@@ -24,9 +24,8 @@ class Notification {
     @ColumnInfo(name = "location")
     var location: Long? = null
 
-    override fun toString(): String {
-        return "Notification(uid=$uid, taskId=$taskId, timestamp=$timestamp, type=$type, location=$location)"
-    }
+    override fun toString(): String =
+            "Notification(uid=$uid, taskId=$taskId, timestamp=$timestamp, type=$type, location=$location)"
 
     companion object {
         const val TABLE_NAME = "notification"

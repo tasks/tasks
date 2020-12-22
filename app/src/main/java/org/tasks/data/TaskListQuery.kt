@@ -36,15 +36,13 @@ object TaskListQuery {
             preferences: QueryPreferences,
             filter: Filter,
             subtasks: SubtaskInfo
-    ): MutableList<String> {
-        return if (filter.supportsManualSort() && preferences.isManualSort) {
+    ): MutableList<String> = when {
+        filter.supportsManualSort() && preferences.isManualSort ->
             getRecursiveQuery(filter, preferences, subtasks)
-        } else if (filter.supportsAstridSorting() && preferences.isAstridSort) {
+        filter.supportsAstridSorting() && preferences.isAstridSort ->
             getNonRecursiveQuery(filter, preferences)
-        } else if (filter.supportsSubtasks() && subtasks.usesSubtasks() && !preferences.usePagedQueries()) {
+        filter.supportsSubtasks() && subtasks.usesSubtasks() && !preferences.usePagedQueries() ->
             getRecursiveQuery(filter, preferences, subtasks)
-        } else {
-            getNonRecursiveQuery(filter, preferences)
-        }
+        else -> getNonRecursiveQuery(filter, preferences)
     }
 }

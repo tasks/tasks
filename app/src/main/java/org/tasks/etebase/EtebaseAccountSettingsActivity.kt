@@ -80,9 +80,8 @@ class EtebaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         binding.urlLayout.visibility = if (binding.showAdvanced.isChecked) View.VISIBLE else View.GONE
     }
 
-    override fun needsValidation(): Boolean {
-        return super.needsValidation() || isNullOrEmpty(caldavAccount!!.encryptionKey)
-    }
+    override fun needsValidation(): Boolean =
+            super.needsValidation() || isNullOrEmpty(caldavAccount!!.encryptionKey)
 
     override suspend fun addAccount(url: String, username: String, password: String) =
         addAccountViewModel.addAccount(url, username, password)

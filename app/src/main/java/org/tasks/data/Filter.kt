@@ -36,10 +36,8 @@ class Filter {
     @ColumnInfo(name = "f_order")
     var order = NO_ORDER
 
-    fun getSql(): String {
-        // TODO: replace dirty hack for missing column
-        return sql!!.replace("tasks.userId=0", "1")
-    }
+    // TODO: replace dirty hack for missing column
+    fun getSql(): String = sql!!.replace("tasks.userId=0", "1")
 
     fun setSql(sql: String?) {
         this.sql = sql
@@ -48,17 +46,13 @@ class Filter {
     val valuesAsMap: Map<String, Any>?
         get() = if (Strings.isNullOrEmpty(values)) null else AndroidUtilities.mapFromSerializedString(values)
 
-    fun getColor(): Int? {
-        return (if (color == null) 0 else color)!!
-    }
+    fun getColor(): Int = color ?: 0
 
     fun setColor(color: Int?) {
         this.color = color
     }
 
-    fun getIcon(): Int? {
-        return (if (icon == null) FILTER else icon!!)
-    }
+    fun getIcon(): Int = icon ?: FILTER
 
     fun setIcon(icon: Int?) {
         this.icon = icon
@@ -92,7 +86,6 @@ class Filter {
         return result
     }
 
-    override fun toString(): String {
-        return "Filter(id=$id, title=$title, sql=$sql, values=$values, criterion=$criterion, color=$color, icon=$icon, order=$order)"
-    }
+    override fun toString(): String =
+            "Filter(id=$id, title=$title, sql=$sql, values=$values, criterion=$criterion, color=$color, icon=$icon, order=$order)"
 }

@@ -39,12 +39,9 @@ class ColorPickerAdapter(
     }
 
     private class DiffCallback : DiffUtil.ItemCallback<Pickable>() {
-        override fun areItemsTheSame(oldItem: Pickable, newItem: Pickable): Boolean {
-            return oldItem == newItem
-        }
+        override fun areItemsTheSame(oldItem: Pickable, newItem: Pickable): Boolean =
+                oldItem == newItem
 
-        override fun areContentsTheSame(oldItem: Pickable, newItem: Pickable): Boolean {
-            return true
-        }
+        override fun areContentsTheSame(oldItem: Pickable, newItem: Pickable): Boolean = true
     }
 }

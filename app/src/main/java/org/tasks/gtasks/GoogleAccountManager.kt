@@ -45,9 +45,7 @@ class GoogleAccountManager @Inject constructor(
         accountList.find { name.equals(it.name, ignoreCase = true) }
     }
 
-    fun canAccessAccount(name: String): Boolean {
-        return getAccount(name) != null
-    }
+    fun canAccessAccount(name: String): Boolean = getAccount(name) != null
 
     suspend fun getAccessToken(name: String?, scope: String): String? {
         val account = name?.let { getAccount(it) }
@@ -74,13 +72,11 @@ class GoogleAccountManager @Inject constructor(
         }
     }
 
-    suspend fun getTasksAuthToken(activity: Activity, accountName: String): Bundle? {
-        return getToken(TasksScopes.TASKS, activity, accountName)
-    }
+    suspend fun getTasksAuthToken(activity: Activity, accountName: String): Bundle? =
+            getToken(TasksScopes.TASKS, activity, accountName)
 
-    suspend fun getDriveAuthToken(activity: Activity, accountName: String): Bundle? {
-        return getToken(DriveScopes.DRIVE_FILE, activity, accountName)
-    }
+    suspend fun getDriveAuthToken(activity: Activity, accountName: String): Bundle? =
+            getToken(DriveScopes.DRIVE_FILE, activity, accountName)
 
     @SuppressLint("CheckResult")
     private suspend fun getToken(scope: String, activity: Activity, accountName: String): Bundle? {

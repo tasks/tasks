@@ -52,13 +52,13 @@ class DebugConnectionBuilder @Inject constructor(
         val hostnameVerifier = customCertManager.hostnameVerifier(OkHostnameVerifier)
         val sslContext = SSLContext.getInstance("TLS")
         sslContext.init(null, arrayOf(customCertManager), null)
-        val conn = URL(uri.toString()).openConnection() as HttpsURLConnection
-        conn.connectTimeout = CONNECTION_TIMEOUT_MS
-        conn.readTimeout = READ_TIMEOUT_MS
-        conn.instanceFollowRedirects = false
-        conn.hostnameVerifier = hostnameVerifier
-        conn.sslSocketFactory = sslContext.socketFactory
-        return conn
+        return (URL(uri.toString()).openConnection() as HttpsURLConnection).apply {
+            connectTimeout = CONNECTION_TIMEOUT_MS
+            readTimeout = READ_TIMEOUT_MS
+            instanceFollowRedirects = false
+            this.hostnameVerifier = hostnameVerifier
+            sslSocketFactory = sslContext.socketFactory
+        }
     }
 
     companion object {

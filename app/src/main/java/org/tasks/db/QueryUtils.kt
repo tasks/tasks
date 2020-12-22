@@ -20,15 +20,13 @@ object QueryUtils {
     fun showHiddenAndCompleted(query: String): String = showCompleted(showHidden(query))
 
     @JvmStatic
-    fun showRecentlyCompleted(query: String): String {
-        return UNCOMPLETED
-                .matcher(query)
-                .replaceAll(
-                        or(
-                                Task.COMPLETION_DATE.lte(0),
-                                Task.COMPLETION_DATE.gte(DateUtilities.now() - 59999))
-                                .toString())
-    }
+    fun showRecentlyCompleted(query: String): String = UNCOMPLETED
+            .matcher(query)
+            .replaceAll(
+                    or(
+                            Task.COMPLETION_DATE.lte(0),
+                            Task.COMPLETION_DATE.gte(DateUtilities.now() - 59999))
+                            .toString())
 
     fun removeOrder(query: String): String = ORDER.matcher(query).replaceAll("")
 }

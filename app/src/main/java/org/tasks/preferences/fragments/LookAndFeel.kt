@@ -209,12 +209,13 @@ class LookAndFeel : InjectingPreferenceFragment() {
         placeProviderPreference.summary = choices[placeProvider]
     }
 
-    private fun getPlaceProvider(): Int {
-        return if (playServices.isPlayServicesAvailable && inventory.hasPro) preferences.getInt(
-            R.string.p_place_provider,
-            0
-        ) else 0
-    }
+    private fun getPlaceProvider(): Int =
+            if (playServices.isPlayServicesAvailable && inventory.hasPro)
+                preferences.getInt(
+                        R.string.p_place_provider,
+                        0
+                )
+            else 0
 
     private fun setBaseTheme(index: Int) {
         activity?.intent?.removeExtra(EXTRA_THEME_OVERRIDE)
@@ -228,79 +229,86 @@ class LookAndFeel : InjectingPreferenceFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_PURCHASE) {
-            val index = if (inventory.hasPro) {
-                data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, DEFAULT_BASE_THEME)
-                    ?: themeBase.index
-            } else {
-                preferences.themeBase
-            }
-            setBaseTheme(index)
-        } else if (requestCode == REQUEST_THEME_PICKER) {
-            val index = data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, DEFAULT_BASE_THEME)
-                ?: preferences.themeBase
-            if (resultCode == RESULT_OK) {
-                if (inventory.purchasedThemes() || ThemeBase(index).isFree) {
-                    setBaseTheme(index)
-                } else {
-                    newPurchaseDialog(this, REQUEST_PURCHASE)
-                            .show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
-                }
-            } else {
+        when (requestCode) {
+            REQUEST_PURCHASE -> {
+                val index = if (inventory.hasPro) {
+                    data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, DEFAULT_BASE_THEME)
+                            ?: themeBase.index
+                } else preferences.themeBase
                 setBaseTheme(index)
             }
-        } else if (requestCode == REQUEST_COLOR_PICKER) {
-            if (resultCode == RESULT_OK) {
-                val color = data?.getIntExtra(
-                    ColorWheelPicker.EXTRA_SELECTED,
-                    themeColor.primaryColor
-                )
-                    ?: themeColor.primaryColor
-                if (preferences.defaultThemeColor != color) {
-                    preferences.setInt(R.string.p_theme_color, color)
-                    recreate()
-                }
-            }
-        } else if (requestCode == REQUEST_ACCENT_PICKER) {
-            if (resultCode == RESULT_OK) {
-                val index = data!!.getIntExtra(ColorPalettePicker.EXTRA_SELECTED, 0)
-                if (preferences.getInt(R.string.p_theme_accent, -1) != index) {
-                    preferences.setInt(R.string.p_theme_accent, index)
-                    recreate()
-                }
-            }
-        } else if (requestCode == REQUEST_LAUNCHER_PICKER) {
-            if (resultCode == RESULT_OK) {
-                val index = data!!.getIntExtra(ColorPalettePicker.EXTRA_SELECTED, 0)
-                setLauncherIcon(index)
-                preferences.setInt(R.string.p_theme_launcher, index)
-                updateLauncherPreference()
-            }
-        } else if (requestCode == REQUEST_DEFAULT_LIST) {
-            if (resultCode == RESULT_OK) {
-                val filter: Filter =
-                    data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
-                defaultFilterProvider.setDefaultOpenFilter(filter)
-                findPreference(R.string.p_default_open_filter).summary = filter.listingTitle
-                localBroadcastManager.broadcastRefresh()
-            }
-        } else if (requestCode == REQUEST_LOCALE) {
-            if (resultCode == RESULT_OK) {
-                val newValue: Locale =
-                    data!!.getSerializableExtra(LocalePickerDialog.EXTRA_LOCALE) as Locale
-                val override: String? = newValue.languageOverride
-                if (isNullOrEmpty(override)) {
-                    preferences.remove(R.string.p_language)
+            REQUEST_THEME_PICKER -> {
+                val index = data?.getIntExtra(ThemePickerDialog.EXTRA_SELECTED, DEFAULT_BASE_THEME)
+                        ?: preferences.themeBase
+                if (resultCode == RESULT_OK) {
+                    if (inventory.purchasedThemes() || ThemeBase(index).isFree) {
+                        setBaseTheme(index)
+                    } else {
+                        newPurchaseDialog(this, REQUEST_PURCHASE)
+                                .show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+                    }
                 } else {
-                    preferences.setString(R.string.p_language, override)
-                }
-                updateLocale()
-                if (locale != newValue) {
-                    showRestartDialog()
+                    setBaseTheme(index)
                 }
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            REQUEST_COLOR_PICKER -> {
+                if (resultCode == RESULT_OK) {
+                    val color = data?.getIntExtra(
+                            ColorWheelPicker.EXTRA_SELECTED,
+                            themeColor.primaryColor
+                    ) ?: themeColor.primaryColor
+
+                    if (preferences.defaultThemeColor != color) {
+                        preferences.setInt(R.string.p_theme_color, color)
+                        recreate()
+                    }
+                }
+            }
+            REQUEST_ACCENT_PICKER -> {
+                if (resultCode == RESULT_OK) {
+                    val index = data!!.getIntExtra(ColorPalettePicker.EXTRA_SELECTED, 0)
+                    if (preferences.getInt(R.string.p_theme_accent, -1) != index) {
+                        preferences.setInt(R.string.p_theme_accent, index)
+                        recreate()
+                    }
+                }
+            }
+            REQUEST_LAUNCHER_PICKER -> {
+                if (resultCode == RESULT_OK) {
+                    val index = data!!.getIntExtra(ColorPalettePicker.EXTRA_SELECTED, 0)
+                    setLauncherIcon(index)
+                    preferences.setInt(R.string.p_theme_launcher, index)
+                    updateLauncherPreference()
+                }
+            }
+            REQUEST_DEFAULT_LIST -> {
+                if (resultCode == RESULT_OK) {
+                    val filter: Filter =
+                            data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
+                    defaultFilterProvider.setDefaultOpenFilter(filter)
+                    findPreference(R.string.p_default_open_filter).summary = filter.listingTitle
+                    localBroadcastManager.broadcastRefresh()
+                }
+            }
+            REQUEST_LOCALE -> {
+                if (resultCode == RESULT_OK) {
+                    val newValue: Locale =
+                            data!!.getSerializableExtra(LocalePickerDialog.EXTRA_LOCALE) as Locale
+                    val override: String? = newValue.languageOverride
+                    if (isNullOrEmpty(override)) {
+                        preferences.remove(R.string.p_language)
+                    } else {
+                        preferences.setString(R.string.p_language, override)
+                    }
+                    updateLocale()
+                    if (locale != newValue) {
+                        showRestartDialog()
+                    }
+                }
+            }
+            else -> {
+                super.onActivityResult(requestCode, resultCode, data)
+            }
         }
     }
 

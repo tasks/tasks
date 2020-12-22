@@ -44,17 +44,11 @@ class ChipListCache @Inject internal constructor(
         localBroadcastManager.broadcastRefresh()
     }
 
-    fun getGoogleTaskList(googleTaskList: String?): Filter? {
-        return googleTaskLists[googleTaskList]
-    }
+    fun getGoogleTaskList(googleTaskList: String?): Filter? = googleTaskLists[googleTaskList]
 
-    fun getCaldavList(caldav: String?): Filter? {
-        return caldavCalendars[caldav]
-    }
+    fun getCaldavList(caldav: String?): Filter? = caldavCalendars[caldav]
 
-    fun getTag(tag: String?): TagFilter? {
-        return tagDatas[tag]
-    }
+    fun getTag(tag: String?): TagFilter? = tagDatas[tag]
 
     init {
         googleTaskListDao.subscribeToLists().observeForever { updated: List<GoogleTaskList> -> updateGoogleTaskLists(updated) }

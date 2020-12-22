@@ -50,11 +50,9 @@ class NotificationQueue @Inject constructor(private val preferences: Preferences
 
     @get:Synchronized
     val overdueJobs: List<NotificationQueueEntry>
-        get() {
-            return jobs.keySet()
-                    .headSet(DateTime().startOfMinute().plusMinutes(1).millis)
-                    .flatMap { jobs[it] }
-        }
+        get() = jobs.keySet()
+                .headSet(DateTime().startOfMinute().plusMinutes(1).millis)
+                .flatMap { jobs[it] }
 
     @Synchronized
     fun scheduleNext() = scheduleNext(false)

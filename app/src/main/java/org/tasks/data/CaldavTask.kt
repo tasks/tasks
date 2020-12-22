@@ -64,9 +64,8 @@ class CaldavTask {
 
     fun isDeleted() = deleted > 0
 
-    override fun toString(): String {
-        return "CaldavTask(id=$id, task=$task, calendar=$calendar, `object`=$`object`, remoteId=$remoteId, etag=$etag, lastSync=$lastSync, deleted=$deleted, vtodo=$vtodo, remoteParent=$remoteParent, order=$order)"
-    }
+    override fun toString(): String =
+            "CaldavTask(id=$id, task=$task, calendar=$calendar, `object`=$`object`, remoteId=$remoteId, etag=$etag, lastSync=$lastSync, deleted=$deleted, vtodo=$vtodo, remoteParent=$remoteParent, order=$order)"
 
     companion object {
         const val KEY = "caldav"

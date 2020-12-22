@@ -102,9 +102,8 @@ class ChipProvider @Inject constructor(
                 showIcon = true)
     }
 
-    private fun newChip(filter: Filter?, defIcon: Int): Chip? {
-        return newChip(filter, defIcon, showText, showIcon)
-    }
+    private fun newChip(filter: Filter?, defIcon: Int): Chip? =
+            newChip(filter, defIcon, showText, showIcon)
 
     fun newChip(filter: Filter?, defIcon: Int, showText: Boolean, showIcon: Boolean): Chip? {
         if (filter == null) {

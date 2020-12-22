@@ -64,10 +64,8 @@ class TasksJsonExporter @Inject constructor(
         this.progressDialog = progressDialog
         if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
             handler = Handler()
-            runBackup(exportType)
-        } else {
-            runBackup(exportType)
         }
+        runBackup(exportType)
     }
 
     private suspend fun runBackup(exportType: ExportType) {
@@ -157,12 +155,11 @@ class TasksJsonExporter @Inject constructor(
     }
 
 
-    private fun getFileName(type: ExportType): String {
-        return when (type) {
+    private fun getFileName(type: ExportType): String =
+        when (type) {
             ExportType.EXPORT_TYPE_SERVICE -> String.format(BackupConstants.BACKUP_FILE_NAME, dateForExport)
             ExportType.EXPORT_TYPE_MANUAL -> String.format(BackupConstants.EXPORT_FILE_NAME, dateForExport)
         }
-    }
 
     enum class ExportType {
         EXPORT_TYPE_SERVICE, EXPORT_TYPE_MANUAL

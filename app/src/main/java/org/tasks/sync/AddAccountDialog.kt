@@ -85,10 +85,9 @@ class AddAccountDialog : DialogFragment() {
     }
 
     companion object {
-        fun newAccountDialog(targetFragment: Fragment, rc: Int): AddAccountDialog {
-            val dialog = AddAccountDialog()
-            dialog.setTargetFragment(targetFragment, rc)
-            return dialog
-        }
+        fun newAccountDialog(targetFragment: Fragment, rc: Int): AddAccountDialog =
+                AddAccountDialog().apply {
+                    setTargetFragment(targetFragment, rc)
+                }
     }
 }

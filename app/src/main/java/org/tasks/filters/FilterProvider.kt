@@ -197,9 +197,8 @@ class FilterProvider @Inject constructor(
                         Intent(context, HelpAndFeedback::class.java),
                         0))
 
-    private suspend fun googleTaskFilters(showCreate: Boolean = true): List<FilterListItem> {
-        return googleTaskListDao.getAccounts().flatMap { googleTaskFilter(it, showCreate) }
-    }
+    private suspend fun googleTaskFilters(showCreate: Boolean = true): List<FilterListItem> =
+            googleTaskListDao.getAccounts().flatMap { googleTaskFilter(it, showCreate) }
 
     private suspend fun googleTaskFilter(account: GoogleTaskAccount, showCreate: Boolean): List<FilterListItem> =
             listOf(
@@ -275,12 +274,12 @@ class FilterProvider @Inject constructor(
                 }
 
         private suspend fun <T> Collection<T>.plusAllIf(predicate: Boolean, item: suspend () -> Iterable<T>): List<T> =
-                plus(if (predicate) item.invoke() else emptyList())
+                plus(if (predicate) item() else emptyList())
 
         private fun <T> Iterable<T>.plusIf(predicate: Boolean, item: () -> T): List<T> =
-                if (predicate) plus(item.invoke()) else this.toList()
+                if (predicate) plus(item()) else toList()
 
         private fun <T> Iterable<T>.filterIf(predicate: Boolean, predicate2: (T) -> Boolean): List<T> =
-                if (predicate) filter(predicate2) else this.toList()
+                if (predicate) filter(predicate2) else toList()
     }
 }

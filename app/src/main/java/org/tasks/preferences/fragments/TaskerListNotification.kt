@@ -64,18 +64,16 @@ class TaskerListNotification : InjectingPreferenceFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_SELECT_FILTER) {
-            if (resultCode == RESULT_OK) {
+        when (requestCode) {
+            REQUEST_SELECT_FILTER -> if (resultCode == RESULT_OK) {
                 filter = data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
                 refreshPreferences()
             }
-        } else if (requestCode == REQUEST_SUBSCRIPTION) {
-            if (!inventory.purchasedTasker()) {
+            REQUEST_SUBSCRIPTION -> if (!inventory.purchasedTasker()) {
                 cancelled = true
                 requireActivity().finish()
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

@@ -78,12 +78,14 @@ class Geofence : Serializable, Parcelable {
     override fun describeContents() = 0
 
     override fun writeToParcel(out: Parcel, flags: Int) {
-        out.writeLong(id)
-        out.writeLong(task)
-        out.writeString(place)
-        out.writeInt(radius)
-        out.writeInt(if (isArrival) 1 else 0)
-        out.writeInt(if (isDeparture) 1 else 0)
+        with(out) {
+            writeLong(id)
+            writeLong(task)
+            writeString(place)
+            writeInt(radius)
+            writeInt(if (isArrival) 1 else 0)
+            writeInt(if (isDeparture) 1 else 0)
+        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -110,9 +112,8 @@ class Geofence : Serializable, Parcelable {
         return result
     }
 
-    override fun toString(): String {
-        return "Geofence(id=$id, task=$task, place=$place, radius=$radius, isArrival=$isArrival, isDeparture=$isDeparture)"
-    }
+    override fun toString(): String =
+            "Geofence(id=$id, task=$task, place=$place, radius=$radius, isArrival=$isArrival, isDeparture=$isDeparture)"
 
     companion object {
         const val TABLE_NAME = "geofences"
@@ -120,13 +121,9 @@ class Geofence : Serializable, Parcelable {
         @JvmField val TASK = TABLE.column("task")
         @JvmField val PLACE = TABLE.column("place")
         @JvmField val CREATOR: Parcelable.Creator<Geofence> = object : Parcelable.Creator<Geofence> {
-            override fun createFromParcel(source: Parcel): Geofence? {
-                return Geofence(source)
-            }
+            override fun createFromParcel(source: Parcel): Geofence = Geofence(source)
 
-            override fun newArray(size: Int): Array<Geofence?> {
-                return arrayOfNulls(size)
-            }
+            override fun newArray(size: Int): Array<Geofence?> = arrayOfNulls(size)
         }
     }
 }

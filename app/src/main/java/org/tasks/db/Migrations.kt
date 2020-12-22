@@ -392,9 +392,7 @@ object Migrations {
             MIGRATION_75_76
     )
 
-    private fun noop(from: Int, to: Int): Migration {
-        return object : Migration(from, to) {
-            override fun migrate(database: SupportSQLiteDatabase) {}
-        }
+    private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {
+        override fun migrate(database: SupportSQLiteDatabase) {}
     }
 }

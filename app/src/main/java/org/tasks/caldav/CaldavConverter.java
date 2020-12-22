@@ -80,16 +80,19 @@ public class CaldavConverter {
   }
 
   public static int toRemote(int remotePriority, int localPriority) {
-    if (localPriority == Priority.NONE) {
-      return 0;
+    switch (localPriority) {
+      case Priority.NONE:
+        return 0;
+
+      case Priority.MEDIUM:
+        return 5;
+
+      case Priority.HIGH:
+        return remotePriority < 5 ? Math.max(1, remotePriority) : 1;
+
+      default:
+        return remotePriority > 5 ? Math.min(9, remotePriority) : 9;
     }
-    if (localPriority == Priority.MEDIUM) {
-      return 5;
-    }
-    if (localPriority == Priority.HIGH) {
-      return remotePriority < 5 ? Math.max(1, remotePriority) : 1;
-    }
-    return remotePriority > 5 ? Math.min(9, remotePriority) : 9;
   }
 
   public static at.bitfire.ical4android.Task toCaldav(CaldavTask caldavTask, Task task) {

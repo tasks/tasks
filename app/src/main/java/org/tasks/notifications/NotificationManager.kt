@@ -99,39 +99,40 @@ class NotificationManager @Inject constructor(
         val existingNotifications = notificationDao.getAllOrdered()
         notificationDao.insertAll(newNotifications)
         val totalCount = existingNotifications.size + newNotifications.size
-        if (totalCount == 0) {
-            cancelSummaryNotification()
-        } else if (totalCount == 1) {
-            val notifications = existingNotifications + newNotifications
-            createNotifications(notifications, alert, nonstop, fiveTimes, false)
-            cancelSummaryNotification()
-        } else if (preferences.bundleNotifications()) {
-            updateSummary(
-                    notify = false,
-                    nonStop = false,
-                    fiveTimes = false,
-                    newNotifications = emptyList())
-            if (existingNotifications.size == 1) {
-                createNotifications(
-                        existingNotifications,
-                        alert = false,
-                        nonstop = false,
-                        fiveTimes = false,
-                        useGroupKey = true)
+        when {
+            totalCount == 0 -> cancelSummaryNotification()
+            totalCount == 1 -> {
+                val notifications = existingNotifications + newNotifications
+                createNotifications(notifications, alert, nonstop, fiveTimes, false)
+                cancelSummaryNotification()
             }
-            if (AndroidUtilities.atLeastNougat() && newNotifications.size == 1) {
-                createNotifications(newNotifications, alert, nonstop, fiveTimes, true)
-            } else {
-                createNotifications(
-                        newNotifications,
-                        alert = false,
-                        nonstop = false,
+            preferences.bundleNotifications() -> {
+                updateSummary(
+                        notify = false,
+                        nonStop = false,
                         fiveTimes = false,
-                        useGroupKey = true)
-                updateSummary(alert, nonstop, fiveTimes, newNotifications)
+                        newNotifications = emptyList())
+                if (existingNotifications.size == 1) {
+                    createNotifications(
+                            existingNotifications,
+                            alert = false,
+                            nonstop = false,
+                            fiveTimes = false,
+                            useGroupKey = true)
+                }
+                if (AndroidUtilities.atLeastNougat() && newNotifications.size == 1) {
+                    createNotifications(newNotifications, alert, nonstop, fiveTimes, true)
+                } else {
+                    createNotifications(
+                            newNotifications,
+                            alert = false,
+                            nonstop = false,
+                            fiveTimes = false,
+                            useGroupKey = true)
+                    updateSummary(alert, nonstop, fiveTimes, newNotifications)
+                }
             }
-        } else {
-            createNotifications(newNotifications, alert, nonstop, fiveTimes, false)
+            else -> createNotifications(newNotifications, alert, nonstop, fiveTimes, false)
         }
         localBroadcastManager.broadcastRefresh()
     }

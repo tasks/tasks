@@ -448,8 +448,6 @@ class TaskEditViewModel @ViewModelInject constructor(
     }
 
     companion object {
-        fun String?.stripCarriageReturns(): String? {
-            return this?.replace("\\r\\n?".toRegex(), "\n")
-        }
+        fun String?.stripCarriageReturns(): String? = this?.replace("\\r\\n?".toRegex(), "\n")
     }
 }

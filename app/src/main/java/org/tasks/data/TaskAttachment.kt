@@ -50,9 +50,7 @@ class TaskAttachment {
         setUri(Uri.fromFile(File(uri!!)).toString())
     }
 
-    fun parseUri(): Uri? {
-        return if (Strings.isNullOrEmpty(uri)) null else Uri.parse(uri)
-    }
+    fun parseUri(): Uri? = if (Strings.isNullOrEmpty(uri)) null else Uri.parse(uri)
 
     companion object {
         const val KEY = "attachment"

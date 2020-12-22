@@ -92,10 +92,8 @@ class LocationPermissionDialog : DialogFragment() {
         fun newLocationPermissionDialog(
                 targetFragment: Fragment,
                 rc: Int
-        ): LocationPermissionDialog {
-            val dialog = LocationPermissionDialog()
-            dialog.setTargetFragment(targetFragment, rc)
-            return dialog
+        ): LocationPermissionDialog = LocationPermissionDialog().apply {
+            setTargetFragment(targetFragment, rc)
         }
     }
 }

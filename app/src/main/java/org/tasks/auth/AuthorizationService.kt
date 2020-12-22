@@ -41,16 +41,13 @@ class AuthorizationService constructor(
     fun getAuthorizationRequestIntent(
             request: AuthorizationRequest,
             customTabsIntent: CustomTabsIntent
-    ): Intent {
-        return authorizationService.getAuthorizationRequestIntent(request, customTabsIntent)
-    }
+    ): Intent = authorizationService.getAuthorizationRequestIntent(request, customTabsIntent)
 
-    fun createCustomTabsIntent(uri: Uri, color: Int): CustomTabsIntent {
-        return authorizationService
+    fun createCustomTabsIntent(uri: Uri, color: Int): CustomTabsIntent =
+            authorizationService
                 .createCustomTabsIntentBuilder(uri)
                 .setToolbarColor(color)
                 .build()
-    }
 
     fun performRegistrationRequest(
             request: RegistrationRequest,
@@ -59,19 +56,19 @@ class AuthorizationService constructor(
         authorizationService.performRegistrationRequest(request, callback)
     }
 
-    suspend fun performTokenRequest(request: TokenRequest, clientAuthentication: ClientAuthentication): TokenResponse? {
-        return withContext(Dispatchers.IO) {
+    suspend fun performTokenRequest(request: TokenRequest, clientAuthentication: ClientAuthentication): TokenResponse? =
+        withContext(Dispatchers.IO) {
             suspendCoroutine { cont ->
                 authorizationService.performTokenRequest(request, clientAuthentication) { response, exception ->
-                    if (exception != null) {
-                        cont.resumeWith(Result.failure(exception))
-                    } else {
-                        cont.resumeWith(Result.success(response))
-                    }
+                    cont.resumeWith(
+                            if (exception != null)
+                                Result.failure(exception)
+                            else
+                                Result.success(response)
+                    )
                 }
             }
         }
-    }
 
     companion object {
         const val ISS_GOOGLE = "google"

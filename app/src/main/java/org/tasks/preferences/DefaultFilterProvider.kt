@@ -56,13 +56,12 @@ class DefaultFilterProvider @Inject constructor(
     fun setDefaultOpenFilter(filter: Filter) =
             setFilterPreference(filter, R.string.p_default_open_filter)
 
-    suspend fun getStartupFilter(): Filter {
-        return if (preferences.getBoolean(R.string.p_open_last_viewed_list, true)) {
-            getLastViewedFilter()
-        } else {
-            getDefaultOpenFilter()
-        }
-    }
+    suspend fun getStartupFilter(): Filter =
+            if (preferences.getBoolean(R.string.p_open_last_viewed_list, true)) {
+                getLastViewedFilter()
+            } else {
+                getDefaultOpenFilter()
+            }
 
     @Deprecated("use coroutines")
     fun getFilterFromPreferenceBlocking(prefString: String?) = runBlocking {

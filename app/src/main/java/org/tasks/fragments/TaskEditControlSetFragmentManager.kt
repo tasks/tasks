@@ -39,24 +39,22 @@ class TaskEditControlSetFragmentManager @Inject constructor(
         return fragments
     }
 
-    private fun createFragment(fragmentId: Int): TaskEditControlFragment {
-        return when (fragmentId) {
-            DeadlineControlSet.TAG -> DeadlineControlSet()
-            PriorityControlSet.TAG -> PriorityControlSet()
-            DescriptionControlSet.TAG -> DescriptionControlSet()
-            CalendarControlSet.TAG -> CalendarControlSet()
-            HideUntilControlSet.TAG -> HideUntilControlSet()
-            ReminderControlSet.TAG -> ReminderControlSet()
-            LocationControlSet.TAG -> LocationControlSet()
-            FilesControlSet.TAG -> FilesControlSet()
-            TimerControlSet.TAG -> TimerControlSet()
-            TagsControlSet.TAG -> TagsControlSet()
-            RepeatControlSet.TAG -> RepeatControlSet()
-            CommentBarFragment.TAG -> CommentBarFragment()
-            ListFragment.TAG -> ListFragment()
-            SubtaskControlSet.TAG -> SubtaskControlSet()
-            else -> throw RuntimeException("Unsupported fragment")
-        }
+    private fun createFragment(fragmentId: Int): TaskEditControlFragment = when (fragmentId) {
+        DeadlineControlSet.TAG -> DeadlineControlSet()
+        PriorityControlSet.TAG -> PriorityControlSet()
+        DescriptionControlSet.TAG -> DescriptionControlSet()
+        CalendarControlSet.TAG -> CalendarControlSet()
+        HideUntilControlSet.TAG -> HideUntilControlSet()
+        ReminderControlSet.TAG -> ReminderControlSet()
+        LocationControlSet.TAG -> LocationControlSet()
+        FilesControlSet.TAG -> FilesControlSet()
+        TimerControlSet.TAG -> TimerControlSet()
+        TagsControlSet.TAG -> TagsControlSet()
+        RepeatControlSet.TAG -> RepeatControlSet()
+        CommentBarFragment.TAG -> CommentBarFragment()
+        ListFragment.TAG -> ListFragment()
+        SubtaskControlSet.TAG -> SubtaskControlSet()
+        else -> throw RuntimeException("Unsupported fragment")
     }
 
     init {

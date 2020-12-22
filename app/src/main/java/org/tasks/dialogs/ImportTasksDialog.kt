@@ -30,10 +30,12 @@ class ImportTasksDialog : DialogFragment() {
         val arguments = requireArguments()
         val data = arguments.getParcelable<Uri>(EXTRA_URI)
         val extension = arguments.getString(EXTRA_EXTENSION)
-        val progressDialog = dialogBuilder.newProgressDialog()
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        progressDialog.setCancelable(false)
-        progressDialog.isIndeterminate = true
+        val progressDialog = dialogBuilder.newProgressDialog().apply {
+            setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            setCancelable(false)
+            isIndeterminate = true
+        }
+
         progressDialog.show()
         isCancelable = false
         when (extension) {

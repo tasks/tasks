@@ -109,36 +109,25 @@ internal class ScrollableViewsFactory(
         return tasks.size
     }
 
-    override fun getViewAt(position: Int): RemoteViews? {
-        return if (tasks.isHeader(position)) buildHeader(position) else buildUpdate(position)
-    }
+    override fun getViewAt(position: Int): RemoteViews? =
+            if (tasks.isHeader(position)) buildHeader(position) else buildUpdate(position)
 
-    override fun getLoadingView(): RemoteViews {
-        return newRemoteView()
-    }
+    override fun getLoadingView(): RemoteViews = newRemoteView()
 
-    override fun getViewTypeCount(): Int {
-        return 2
-    }
+    override fun getViewTypeCount(): Int = 2
 
     override fun getItemId(position: Int) = getTask(position)?.id ?: 0
 
-    override fun hasStableIds(): Boolean {
-        return true
-    }
+    override fun hasStableIds(): Boolean = true
 
-    private fun getCheckbox(task: Task): Bitmap {
-        return checkBoxProvider.getWidgetCheckBox(task)
-    }
+    private fun getCheckbox(task: Task): Bitmap = checkBoxProvider.getWidgetCheckBox(task)
 
-    private fun newRemoteView(): RemoteViews {
-        return RemoteViews(
-                BuildConfig.APPLICATION_ID,
-                if (isDark) R.layout.widget_row_dark else R.layout.widget_row_light
-        )
-    }
+    private fun newRemoteView(): RemoteViews = RemoteViews(
+            BuildConfig.APPLICATION_ID,
+            if (isDark) R.layout.widget_row_dark else R.layout.widget_row_light
+    )
 
-    private fun buildHeader(position: Int): RemoteViews? {
+    private fun buildHeader(position: Int): RemoteViews {
         val row = RemoteViews(
                 BuildConfig.APPLICATION_ID,
                 if (isDark) R.layout.widget_header_dark else R.layout.widget_header_light
@@ -177,20 +166,18 @@ internal class ScrollableViewsFactory(
         return row
     }
 
-    private fun getHeader(sortMode: Int, group: Long): String {
-        return when {
-            sortMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(group.toInt()))
-            group == 0L -> context.getString(if (sortMode == SortHelper.SORT_DUE) {
-                R.string.no_due_date
-            } else {
-                R.string.no_date
-            })
-            sortMode == SortHelper.SORT_CREATED ->
-                context.getString(R.string.sort_created_group, getDateString(group))
-            sortMode == SortHelper.SORT_MODIFIED ->
-                context.getString(R.string.sort_modified_group, getDateString(group))
-            else -> getDateString(group, false)
-        }
+    private fun getHeader(sortMode: Int, group: Long): String = when {
+        sortMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(group.toInt()))
+        group == 0L -> context.getString(if (sortMode == SortHelper.SORT_DUE) {
+            R.string.no_due_date
+        } else {
+            R.string.no_date
+        })
+        sortMode == SortHelper.SORT_CREATED ->
+            context.getString(R.string.sort_created_group, getDateString(group))
+        sortMode == SortHelper.SORT_MODIFIED ->
+            context.getString(R.string.sort_modified_group, getDateString(group))
+        else -> getDateString(group, false)
     }
 
     private fun getDateString(value: Long, lowercase: Boolean = true) =

@@ -60,7 +60,7 @@ class iCalendar @Inject constructor(
             return null
         }
 
-        fun Task.getParents(): List<RelatedTo> = relatedTo.filter(IS_PARENT)
+        private fun Task.getParents(): List<RelatedTo> = relatedTo.filter(IS_PARENT)
 
         fun Task.getParent(): String? {
             return relatedTo.find(IS_PARENT)?.value
@@ -68,12 +68,10 @@ class iCalendar @Inject constructor(
 
         fun Task.setParent(value: String?) {
             val parents = getParents()
-            if (value.isNullOrBlank()) {
-                relatedTo.removeAll(parents)
-            } else {
-                if (parents.isEmpty()) {
-                    relatedTo.add(RelatedTo(value))
-                } else {
+            when {
+                value.isNullOrBlank() -> relatedTo.removeAll(parents)
+                parents.isEmpty() -> relatedTo.add(RelatedTo(value))
+                else -> {
                     if (parents.size > 1) {
                         relatedTo.removeAll(parents.drop(1))
                     }

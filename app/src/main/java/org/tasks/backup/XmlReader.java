@@ -12,24 +12,24 @@ public class XmlReader {
   }
 
   public Long readLong(String name) {
-    String value = xpp.getAttributeValue(null, name);
+    final String value = xpp.getAttributeValue(null, name);
     return value == null || XML_NULL.equals(value) ? null : Long.parseLong(value);
   }
 
   public void readLong(String name, ValueWriter<Long> writer) {
-    Long value = readLong(name);
+    final Long value = readLong(name);
     if (value != null) {
       writer.write(value);
     }
   }
 
   public Integer readInteger(String name) {
-    String value = xpp.getAttributeValue(null, name);
+    final String value = xpp.getAttributeValue(null, name);
     return value == null || XML_NULL.equals(value) ? null : Integer.parseInt(value);
   }
 
   public void readInteger(String name, ValueWriter<Integer> writer) {
-    Integer value = readInteger(name);
+    final Integer value = readInteger(name);
     if (value != null) {
       writer.write(value);
     }
@@ -40,14 +40,14 @@ public class XmlReader {
   }
 
   public void readString(String name, ValueWriter<String> writer) {
-    String value = readString(name);
+    final String value = readString(name);
     if (value != null) {
       writer.write(value);
     }
   }
 
   public Double readDouble(String name) {
-    String value = xpp.getAttributeValue(null, name);
+    final String value = xpp.getAttributeValue(null, name);
     return value == null || XML_NULL.equals(value) ? null : Double.parseDouble(value);
   }
 

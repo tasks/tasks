@@ -25,13 +25,9 @@ abstract class TagDataDao {
      * If a tag already exists in the database that case insensitively matches the given tag, return
      * that. Otherwise, return the argument
      */
-    suspend fun getTagWithCase(tag: String): String? {
-        return getTagByName(tag)?.name ?: tag
-    }
+    suspend fun getTagWithCase(tag: String): String? = getTagByName(tag)?.name ?: tag
 
-    suspend fun searchTags(query: String): List<TagData> {
-        return searchTagsInternal("%$query%").sort()
-    }
+    suspend fun searchTags(query: String): List<TagData> = searchTagsInternal("%$query%").sort()
 
     @Query("SELECT * FROM tagdata WHERE name LIKE :query AND name NOT NULL AND name != ''")
     protected abstract suspend fun searchTagsInternal(query: String): List<TagData>

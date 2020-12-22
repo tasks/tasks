@@ -27,35 +27,36 @@ import java.util.*
 
 object FileHelper {
     const val MAX_FILENAME_LENGTH = 40
-    fun newFilePickerIntent(activity: Activity?, initial: Uri?, vararg mimeTypes: String?): Intent {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-        intent.putExtra("android.content.extra.SHOW_ADVANCED", true)
-        intent.putExtra("android.content.extra.FANCY", true)
-        intent.putExtra("android.content.extra.SHOW_FILESIZE", true)
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
-        setInitialUri(activity, intent, initial)
-        if (mimeTypes.size == 1) {
-            intent.type = mimeTypes[0]
-        } else {
-            intent.type = "*/*"
-            if (mimeTypes.size > 1) {
-                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+    fun newFilePickerIntent(activity: Activity?, initial: Uri?, vararg mimeTypes: String?): Intent =
+            Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                putExtra("android.content.extra.SHOW_ADVANCED", true)
+                putExtra("android.content.extra.FANCY", true)
+                putExtra("android.content.extra.SHOW_FILESIZE", true)
+                addCategory(Intent.CATEGORY_OPENABLE)
+                setInitialUri(activity, this, initial)
+
+                if (mimeTypes.size == 1) {
+                    type = mimeTypes[0]
+                } else {
+                    type = "*/*"
+                    if (mimeTypes.size > 1) {
+                        putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+                    }
+                }
             }
-        }
-        return intent
-    }
 
     fun newDirectoryPicker(fragment: Fragment, rc: Int, initial: Uri?) {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-        intent.addFlags(
-                Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
-                        or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                        or Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        or Intent.FLAG_GRANT_PREFIX_URI_PERMISSION)
-        intent.putExtra("android.content.extra.SHOW_ADVANCED", true)
-        intent.putExtra("android.content.extra.FANCY", true)
-        intent.putExtra("android.content.extra.SHOW_FILESIZE", true)
-        setInitialUri(fragment.context, intent, initial)
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+            addFlags(
+                    Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                            or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                            or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            or Intent.FLAG_GRANT_PREFIX_URI_PERMISSION)
+            putExtra("android.content.extra.SHOW_ADVANCED", true)
+            putExtra("android.content.extra.FANCY", true)
+            putExtra("android.content.extra.SHOW_FILESIZE", true)
+            setInitialUri(fragment.context, this, initial)
+        }
         fragment.startActivityForResult(intent, rc)
     }
 
@@ -120,9 +121,10 @@ object FileHelper {
             }
         }
         val extension = MimeTypeMap.getFileExtensionFromUrl(uri.path)
-        return if (!isNullOrEmpty(extension)) {
+        return if (!isNullOrEmpty(extension))
             extension
-        } else Files.getFileExtension(getFilename(context, uri)!!)
+        else
+            Files.getFileExtension(getFilename(context, uri)!!)
     }
 
     fun getMimeType(context: Context, uri: Uri): String? {
@@ -179,19 +181,17 @@ object FileHelper {
         return copyToUri(context, destination, input, Files.getNameWithoutExtension(filename!!))
     }
 
-    fun copyToUri(context: Context, destination: Uri, input: Uri, basename: String): Uri {
-        return try {
-            val output = newFile(
-                    context,
-                    destination,
-                    getMimeType(context, input),
-                    basename,
-                    getExtension(context, input))
-            copyStream(context, input, output)
-            output
-        } catch (e: IOException) {
-            throw IllegalStateException(e)
-        }
+    fun copyToUri(context: Context, destination: Uri, input: Uri, basename: String): Uri = try {
+        val output = newFile(
+                context,
+                destination,
+                getMimeType(context, input),
+                basename,
+                getExtension(context, input))
+        copyStream(context, input, output)
+        output
+    } catch (e: IOException) {
+        throw IllegalStateException(e)
     }
 
     fun copyStream(context: Context, input: Uri?, output: Uri?) {
@@ -245,8 +245,9 @@ object FileHelper {
         if (uri == null) {
             return ""
         }
-        return if (uri.scheme == ContentResolver.SCHEME_FILE) {
+        return if (uri.scheme == ContentResolver.SCHEME_FILE)
             File(uri.path).absolutePath
-        } else uri.toString()
+        else
+            uri.toString()
     }
 }

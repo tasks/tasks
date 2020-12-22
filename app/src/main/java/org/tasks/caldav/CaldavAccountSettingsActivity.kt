@@ -28,13 +28,14 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
     private suspend fun addAccount(principal: String) {
         hideProgressIndicator()
         Timber.d("Found principal: %s", principal)
-        val newAccount = CaldavAccount()
-        newAccount.name = newName
-        newAccount.url = principal
-        newAccount.username = newUsername
-        newAccount.password = encryption.encrypt(newPassword!!)
-        newAccount.uuid = UUIDHelper.newUUID()
-        newAccount.id = caldavDao.insert(newAccount)
+        val newAccount = CaldavAccount().apply {
+            name = newName
+            url = principal
+            username = newUsername
+            password = encryption.encrypt(newPassword!!)
+            uuid = UUIDHelper.newUUID()
+            id = caldavDao.insert(this)
+        }
         firebase.logEvent(
                 R.string.event_sync_add_account,
                 R.string.param_type to Constants.SYNC_TYPE_CALDAV

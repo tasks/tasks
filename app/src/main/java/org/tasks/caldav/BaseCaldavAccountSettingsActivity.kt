@@ -70,14 +70,14 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             binding.description.visibility = View.GONE
         }
         if (savedInstanceState == null) {
-            if (caldavAccount != null) {
-                binding.name.setText(caldavAccount!!.name)
-                binding.url.setText(caldavAccount!!.url)
-                binding.user.setText(caldavAccount!!.username)
-                if (!isNullOrEmpty(caldavAccount!!.password)) {
+            caldavAccount?.let {
+                binding.name.setText(it.name)
+                binding.url.setText(it.url)
+                binding.user.setText(it.username)
+                if (!isNullOrEmpty(it.password)) {
                     binding.password.setText(PASSWORD_MASK)
                 }
-                binding.repeat.isChecked = caldavAccount!!.isSuppressRepeatingTasks
+                binding.repeat.isChecked = it.isSuppressRepeatingTasks
             }
         }
         val toolbar = binding.toolbar.toolbar
@@ -150,10 +150,8 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             if (PASSWORD_MASK == binding.password.text.toString()) {
                 binding.password.setText("")
             }
-        } else {
-            if (TextUtils.isEmpty(binding.password.text) && caldavAccount != null) {
-                binding.password.setText(PASSWORD_MASK)
-            }
+        } else if (TextUtils.isEmpty(binding.password.text) && caldavAccount != null) {
+            binding.password.setText(PASSWORD_MASK)
         }
     }
 
@@ -252,19 +250,18 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
 
     protected fun requestFailed(t: Throwable) {
         hideProgressIndicator()
-        if (t is HttpException) {
-            if (t.code == 401) {
-                showSnackbar(R.string.invalid_username_or_password)
-            } else {
-                showSnackbar(t.message)
+        when (t) {
+            is HttpException ->
+                if (t.code == 401)
+                    showSnackbar(R.string.invalid_username_or_password)
+                else
+                    showSnackbar(t.message)
+            is DisplayableException -> showSnackbar(t.resId)
+            is ConnectException -> showSnackbar(R.string.network_error)
+            else -> {
+                Timber.e(t)
+                showSnackbar(R.string.error_adding_account, t.message!!)
             }
-        } else if (t is DisplayableException) {
-            showSnackbar(t.resId)
-        } else if (t is ConnectException) {
-            showSnackbar(R.string.network_error)
-        } else {
-            Timber.e(t)
-            showSnackbar(R.string.error_adding_account, t.message!!)
         }
     }
 
@@ -298,11 +295,10 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
                 || binding.repeat.isChecked != caldavAccount!!.isSuppressRepeatingTasks
     }
 
-    protected open fun needsValidation(): Boolean {
-        return (newURL != caldavAccount!!.url
-                || newUsername != caldavAccount!!.username
-                || passwordChanged())
-    }
+    protected open fun needsValidation(): Boolean =
+            newURL != caldavAccount!!.url
+                    || newUsername != caldavAccount!!.username
+                    || passwordChanged()
 
     override fun finish() {
         if (!requestInProgress()) {
@@ -338,14 +334,14 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         if (requestInProgress()) {
             return
         }
-        if (!hasChanges()) {
-            finish()
-        } else {
+        if (hasChanges()) {
             dialogBuilder
                     .newDialog(R.string.discard_changes)
                     .setPositiveButton(R.string.discard) { _, _ -> finish() }
                     .setNegativeButton(R.string.cancel, null)
                     .show()
+        } else {
+            finish()
         }
     }
 

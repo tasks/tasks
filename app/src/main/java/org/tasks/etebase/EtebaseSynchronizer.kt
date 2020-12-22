@@ -86,13 +86,11 @@ class EtebaseSynchronizer @Inject constructor(
                 calendar.uuid = UUIDHelper.newUUID()
                 calendar.color = color
                 caldavDao.insert(calendar)
-            } else {
-                if (calendar.name != meta.name || calendar.color != color) {
-                    calendar.name = meta.name
-                    calendar.color = color
-                    caldavDao.update(calendar)
-                    localBroadcastManager.broadcastRefreshList()
-                }
+            } else if (calendar.name != meta.name || calendar.color != color) {
+                calendar.name = meta.name
+                calendar.color = color
+                caldavDao.update(calendar)
+                localBroadcastManager.broadcastRefreshList()
             }
             sync(client, calendar, collection)
         }

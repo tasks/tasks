@@ -90,9 +90,7 @@ class Place : Serializable, Parcelable {
         order = parcel.readInt()
     }
 
-    fun getIcon(): Int? {
-        return if (icon == -1) PLACE else icon
-    }
+    fun getIcon(): Int = if (icon == -1) PLACE else icon
 
     fun setIcon(icon: Int) {
         this.icon = icon
@@ -128,17 +126,19 @@ class Place : Serializable, Parcelable {
     override fun describeContents() = 0
 
     override fun writeToParcel(out: Parcel, flags: Int) {
-        out.writeLong(id)
-        out.writeString(uid)
-        out.writeString(name)
-        out.writeString(address)
-        out.writeString(phone)
-        out.writeString(url)
-        out.writeDouble(latitude)
-        out.writeDouble(longitude)
-        out.writeInt(color)
-        out.writeInt(icon)
-        out.writeInt(order)
+        with(out) {
+            writeLong(id)
+            writeString(uid)
+            writeString(name)
+            writeString(address)
+            writeString(phone)
+            writeString(url)
+            writeDouble(latitude)
+            writeDouble(longitude)
+            writeInt(color)
+            writeInt(icon)
+            writeInt(order)
+        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -175,9 +175,8 @@ class Place : Serializable, Parcelable {
         return result
     }
 
-    override fun toString(): String {
-        return "Place(id=$id, uid=$uid, name=$name, address=$address, phone=$phone, url=$url, latitude=$latitude, longitude=$longitude, color=$color, icon=$icon, order=$order)"
-    }
+    override fun toString(): String =
+            "Place(id=$id, uid=$uid, name=$name, address=$address, phone=$phone, url=$url, latitude=$latitude, longitude=$longitude, color=$color, icon=$icon, order=$order)"
 
     companion object {
         const val KEY = "place"
@@ -187,13 +186,9 @@ class Place : Serializable, Parcelable {
         @JvmField val NAME = TABLE.column("name")
         @JvmField val ADDRESS = TABLE.column("address")
         @JvmField val CREATOR: Parcelable.Creator<Place> = object : Parcelable.Creator<Place> {
-            override fun createFromParcel(source: Parcel): Place? {
-                return Place(source)
-            }
+            override fun createFromParcel(source: Parcel): Place = Place(source)
 
-            override fun newArray(size: Int): Array<Place?> {
-                return arrayOfNulls(size)
-            }
+            override fun newArray(size: Int): Array<Place?> = arrayOfNulls(size)
         }
         private val pattern = Pattern.compile("(\\d+):(\\d+):(\\d+\\.\\d+)")
         private val COORDS = Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$")
@@ -212,42 +207,36 @@ class Place : Serializable, Parcelable {
             }
         }
 
-        @JvmStatic fun newPlace(geo: Geo): Place {
-            val place = newPlace()
-            place.latitude = geo.latitude.toDouble()
-            place.longitude = geo.longitude.toDouble()
-            return place
+        @JvmStatic fun newPlace(geo: Geo): Place = newPlace().apply {
+            latitude = geo.latitude.toDouble()
+            longitude = geo.longitude.toDouble()
         }
 
         @JvmStatic fun newPlace(mapPosition: MapPosition?): Place? {
             if (mapPosition == null) {
                 return null
             }
-            val place = newPlace()
-            place.latitude = mapPosition.latitude
-            place.longitude = mapPosition.longitude
-            return place
+
+            return newPlace().apply {
+                latitude = mapPosition.latitude
+                longitude = mapPosition.longitude
+            }
         }
 
-        @JvmStatic fun newPlace(feature: CarmenFeature): Place {
-            val address = feature.placeName()
+        @JvmStatic fun newPlace(feature: CarmenFeature): Place = newPlace().apply {
             val types = feature.placeType()
-            val place = newPlace()
-            place.name = if (types != null && types.contains(GeocodingCriteria.TYPE_ADDRESS)) {
+
+            name = if (types != null && types.contains(GeocodingCriteria.TYPE_ADDRESS)) {
                 "${feature.address()} ${feature.text()}"
             } else {
                 feature.text()
             }
-            place.address = address
-            place.latitude = feature.center()!!.latitude()
-            place.longitude = feature.center()!!.longitude()
-            return place
+
+            address = feature.placeName()
+            latitude = feature.center()!!.latitude()
+            longitude = feature.center()!!.longitude()
         }
 
-        @JvmStatic fun newPlace(): Place {
-            val place = Place()
-            place.uid = UUIDHelper.newUUID()
-            return place
-        }
+        @JvmStatic fun newPlace(): Place = Place().apply { uid = UUIDHelper.newUUID() }
     }
 }

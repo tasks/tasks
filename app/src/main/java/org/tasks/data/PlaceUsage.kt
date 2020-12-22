@@ -28,7 +28,5 @@ class PlaceUsage {
         return result
     }
 
-    override fun toString(): String {
-        return "PlaceUsage(place=$place, count=$count)"
-    }
+    override fun toString(): String = "PlaceUsage(place=$place, count=$count)"
 }

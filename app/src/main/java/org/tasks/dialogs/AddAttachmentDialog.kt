@@ -78,10 +78,9 @@ class AddAttachmentDialog : DialogFragment() {
         const val REQUEST_AUDIO = 12123
         private const val FRAG_TAG_RECORD_AUDIO = "frag_tag_record_audio"
 
-        fun newAddAttachmentDialog(target: FilesControlSet?): AddAttachmentDialog {
-            val dialog = AddAttachmentDialog()
-            dialog.setTargetFragment(target, 0)
-            return dialog
-        }
+        fun newAddAttachmentDialog(target: FilesControlSet?): AddAttachmentDialog =
+                AddAttachmentDialog().apply {
+                    setTargetFragment(target, 0)
+                }
     }
 }

@@ -39,8 +39,7 @@ class DriveInvoker(
     suspend fun delete(file: File) {
         try {
             execute(service.files().delete(file.id))
-        } catch (ignored: HttpNotFoundException) {
-        }
+        } catch (ignored: HttpNotFoundException) {}
     }
 
     @Throws(IOException::class)

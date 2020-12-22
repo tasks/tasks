@@ -44,7 +44,6 @@ internal class ProductionModule {
             googleTaskListDao: GoogleTaskListDao,
             caldavDao: CaldavDao,
             openTaskDao: OpenTaskDao
-    ): WorkManager {
-        return WorkManagerImpl(context, preferences, googleTaskListDao, caldavDao, openTaskDao)
-    }
+    ): WorkManager =
+            WorkManagerImpl(context, preferences, googleTaskListDao, caldavDao, openTaskDao)
 }

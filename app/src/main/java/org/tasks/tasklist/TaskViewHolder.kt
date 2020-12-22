@@ -229,14 +229,10 @@ class TaskViewHolder internal constructor(
     }
 
     @OnClick(R.id.rowBody)
-    fun onRowBodyClick() {
-        callback.onClick(this)
-    }
+    fun onRowBodyClick() = callback.onClick(this)
 
     @OnLongClick(R.id.rowBody)
-    fun onRowBodyLongClick(): Boolean {
-        return callback.onLongPress(this)
-    }
+    fun onRowBodyLongClick(): Boolean = callback.onLongPress(this)
 
     @OnClick(R.id.completeBox)
     fun onCompleteBoxClick() {

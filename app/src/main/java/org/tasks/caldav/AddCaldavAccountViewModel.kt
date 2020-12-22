@@ -11,6 +11,7 @@ class AddCaldavAccountViewModel @ViewModelInject constructor(
             provider
                     .forUrl(url, username, password)
                     .setForeground()
-                    .homeSet(username, password) }
+                    .homeSet(username, password)
+        }
     }
 }

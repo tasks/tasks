@@ -52,7 +52,7 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
     private fun setupMenu() = setupMenu(supportFragmentManager.findFragmentById(R.id.settings))
 
     private fun setupMenu(fragment: Fragment?) {
-        this.menu = if (fragment is InjectingPreferenceFragment) fragment.getMenu() else 0
+        menu = if (fragment is InjectingPreferenceFragment) fragment.getMenu() else 0
         toolbar.menu.clear()
         if (menu > 0) {
             toolbar.inflateMenu(menu)
@@ -79,16 +79,14 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
     override fun onPreferenceStartFragment(
         caller: PreferenceFragmentCompat,
         pref: Preference
-    ): Boolean {
-        return startPreference(
-                caller,
-                supportFragmentManager
-                        .fragmentFactory
-                        .instantiate(classLoader, pref.fragment)
-                        .apply { arguments = pref.extras },
-                pref.title
-        )
-    }
+    ): Boolean = startPreference(
+            caller,
+            supportFragmentManager
+                    .fragmentFactory
+                    .instantiate(classLoader, pref.fragment)
+                    .apply { arguments = pref.extras },
+            pref.title
+    )
 
     fun startPreference(
             caller: PreferenceFragmentCompat,
@@ -105,12 +103,9 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
         return true
     }
 
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        return if (item?.itemId == R.id.menu_help_and_feedback) {
-            startActivity(Intent(this, HelpAndFeedback::class.java))
-            true
-        } else {
-            false
-        }
-    }
+    override fun onMenuItemClick(item: MenuItem?): Boolean =
+            if (item?.itemId == R.id.menu_help_and_feedback) {
+                startActivity(Intent(this, HelpAndFeedback::class.java))
+                true
+            } else false
 }

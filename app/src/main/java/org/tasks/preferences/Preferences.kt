@@ -41,13 +41,9 @@ class Preferences @JvmOverloads constructor(
 
     fun showBackupWarnings() = !getBoolean(R.string.p_backups_ignore_warnings, false)
 
-    fun addTasksToTop(): Boolean {
-        return getBoolean(R.string.p_add_to_top, true)
-    }
+    fun addTasksToTop(): Boolean = getBoolean(R.string.p_add_to_top, true)
 
-    fun backButtonSavesTask(): Boolean {
-        return getBoolean(R.string.p_back_button_saves_task, false)
-    }
+    fun backButtonSavesTask(): Boolean = getBoolean(R.string.p_back_button_saves_task, false)
 
     val isCurrentlyQuietHours: Boolean
         get() {
@@ -84,9 +80,7 @@ class Preferences @JvmOverloads constructor(
         return time
     }
 
-    private fun quietHoursEnabled(): Boolean {
-        return getBoolean(R.string.p_rmd_enable_quiet, false)
-    }
+    private fun quietHoursEnabled(): Boolean = getBoolean(R.string.p_rmd_enable_quiet, false)
 
     val defaultDueTime: Int
         get() = getInt(R.string.p_rmd_time, TimeUnit.HOURS.toMillis(18).toInt())
@@ -190,13 +184,10 @@ class Preferences @JvmOverloads constructor(
         setDefaults()
     }
 
-    fun getStringValue(key: String?): String? {
-        return prefs.getString(key, null)
-    }
+    fun getStringValue(key: String?): String? = prefs.getString(key, null)
 
-    fun getStringValue(keyResource: Int): String? {
-        return prefs.getString(context.getString(keyResource), null)
-    }
+    fun getStringValue(keyResource: Int): String? =
+            prefs.getString(context.getString(keyResource), null)
 
     val defaultReminders: Int
         get() = getIntegerFromString(
@@ -251,18 +242,15 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
-    fun getBoolean(key: String?, defValue: Boolean): Boolean {
-        return try {
-            prefs.getBoolean(key, defValue)
-        } catch (e: ClassCastException) {
-            Timber.e(e)
-            defValue
-        }
+    fun getBoolean(key: String?, defValue: Boolean): Boolean = try {
+        prefs.getBoolean(key, defValue)
+    } catch (e: ClassCastException) {
+        Timber.e(e)
+        defValue
     }
 
-    fun getBoolean(keyResources: Int, defValue: Boolean): Boolean {
-        return getBoolean(context.getString(keyResources), defValue)
-    }
+    fun getBoolean(keyResources: Int, defValue: Boolean): Boolean =
+            getBoolean(context.getString(keyResources), defValue)
 
     fun setBoolean(keyResource: Int, value: Boolean) {
         setBoolean(context.getString(keyResource), value)
@@ -274,13 +262,10 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
-    fun getInt(resourceId: Int, defValue: Int): Int {
-        return getInt(context.getString(resourceId), defValue)
-    }
+    fun getInt(resourceId: Int, defValue: Int): Int =
+            getInt(context.getString(resourceId), defValue)
 
-    fun getInt(key: String?, defValue: Int): Int {
-        return prefs.getInt(key, defValue)
-    }
+    fun getInt(key: String?, defValue: Int): Int = prefs.getInt(key, defValue)
 
     fun setInt(resourceId: Int, value: Int) {
         setInt(context.getString(resourceId), value)
@@ -292,13 +277,10 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
-    fun getLong(resourceId: Int, defValue: Long): Long {
-        return getLong(context.getString(resourceId), defValue)
-    }
+    fun getLong(resourceId: Int, defValue: Long): Long =
+            getLong(context.getString(resourceId), defValue)
 
-    fun getLong(key: String?, defValue: Long): Long {
-        return prefs.getLong(key, defValue)
-    }
+    fun getLong(key: String?, defValue: Long): Long = prefs.getLong(key, defValue)
 
     fun setLong(resourceId: Int, value: Long) {
         setLong(context.getString(resourceId), value)
@@ -404,14 +386,13 @@ class Preferences @JvmOverloads constructor(
             return DocumentFile.fromFile(cacheDir!!).uri
         }
 
-    private fun hasWritePermission(context: Context, uri: Uri): Boolean {
-        return (PackageManager.PERMISSION_GRANTED
-                == context.checkUriPermission(
-                uri,
-                Binder.getCallingPid(),
-                Binder.getCallingUid(),
-                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION))
-    }
+    private fun hasWritePermission(context: Context, uri: Uri): Boolean =
+            (PackageManager.PERMISSION_GRANTED
+                    == context.checkUriPermission(
+                    uri,
+                    Binder.getCallingPid(),
+                    Binder.getCallingUid(),
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION))
 
     val notificationDefaults: Int
         get() {
@@ -431,13 +412,9 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
-    fun bundleNotifications(): Boolean {
-        return getBoolean(R.string.p_bundle_notifications, true)
-    }
+    fun bundleNotifications(): Boolean = getBoolean(R.string.p_bundle_notifications, true)
 
-    fun usePersistentReminders(): Boolean {
-        return getBoolean(R.string.p_rmd_persistent, true)
-    }
+    fun usePersistentReminders(): Boolean = getBoolean(R.string.p_rmd_persistent, true)
 
     var isSyncOngoing: Boolean
         get() = syncFlags.any { getBoolean(it, false) }
@@ -445,9 +422,7 @@ class Preferences @JvmOverloads constructor(
             syncFlags.forEach { setBoolean(it, value) }
         }
 
-    fun useGooglePlaces(): Boolean {
-        return getInt(R.string.p_place_provider, 0) == 1
-    }
+    fun useGooglePlaces(): Boolean = getInt(R.string.p_place_provider, 0) == 1
 
     fun <T> getPrefs(c: Class<T>): Map<String, T> {
         val result: MutableMap<String, T> = HashMap()
@@ -498,9 +473,8 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_tag_chips, true)
         set(value) = setBoolean(R.string.p_tag_chips, value)
 
-    fun alreadyNotified(account: String?, scope: String?): Boolean {
-        return getBoolean(context.getString(R.string.p_notified_oauth_error, account, scope), false)
-    }
+    fun alreadyNotified(account: String?, scope: String?): Boolean =
+            getBoolean(context.getString(R.string.p_notified_oauth_error, account, scope), false)
 
     fun setAlreadyNotified(account: String?, scope: String?, value: Boolean) {
         setBoolean(context.getString(R.string.p_notified_oauth_error, account, scope), value)
@@ -509,19 +483,17 @@ class Preferences @JvmOverloads constructor(
     val defaultThemeColor: Int
         get() = getInt(R.string.p_theme_color, ColorProvider.BLUE_500)
 
-    override fun usePagedQueries(): Boolean {
-        return getBoolean(R.string.p_use_paged_queries, false)
-    }
+    override fun usePagedQueries(): Boolean = getBoolean(R.string.p_use_paged_queries, false)
 
-    fun showGroupHeaders(): Boolean {
-        return !usePagedQueries() && !getBoolean(R.string.p_disable_sort_groups, false)
-    }
+    fun showGroupHeaders(): Boolean =
+            !usePagedQueries() && !getBoolean(R.string.p_disable_sort_groups, false)
 
     companion object {
         private const val PREF_SORT_SORT = "sort_sort" // $NON-NLS-1$
-        private fun getSharedPreferencesName(context: Context): String {
-            return context.packageName + "_preferences"
-        }
+
+        private fun getSharedPreferencesName(context: Context): String =
+                context.packageName + "_preferences"
+
         private val syncFlags = listOf(
                 R.string.p_sync_ongoing_google_tasks,
                 R.string.p_sync_ongoing_caldav,

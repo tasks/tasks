@@ -24,20 +24,15 @@ object DateTimeUtils {
         MILLIS_PROVIDER = SYSTEM_MILLIS_PROVIDER
     }
 
-    fun printTimestamp(timestamp: Long): String {
-        return if (BuildConfig.DEBUG) Date(timestamp).toString() else timestamp.toString()
-    }
+    fun printTimestamp(timestamp: Long): String =
+            if (BuildConfig.DEBUG) Date(timestamp).toString() else timestamp.toString()
 
     @SuppressLint("DefaultLocale")
-    fun printDuration(millis: Long): String {
-        return if (BuildConfig.DEBUG) {
-            val seconds = millis / 1000
-            String.format(
-                    "%dh %dm %ds", seconds / 3600L, (seconds % 3600L / 60L).toInt(), (seconds % 60L).toInt())
-        } else {
-            millis.toString()
-        }
-    }
+    fun printDuration(millis: Long): String = if (BuildConfig.DEBUG) {
+        val seconds = millis / 1000
+        String.format(
+                "%dh %dm %ds", seconds / 3600L, (seconds % 3600L / 60L).toInt(), (seconds % 60L).toInt())
+    } else millis.toString()
 
     fun Long.startOfDay(): Long = if (this > 0) toDateTime().startOfDay().millis else 0
 

@@ -99,25 +99,23 @@ abstract class TaskDao(private val database: Database) {
         return fetchTasks(callback, getSubtaskInfo())
     }
 
-    open suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> {
-        return database.withTransaction {
-            val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
-            val queries = callback.invoke(subtasks)
-            val last = queries.size - 1
-            for (i in 0 until last) {
-                query(SimpleSQLiteQuery(queries[i]))
+    open suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> =
+            database.withTransaction {
+                val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
+                val queries = callback.invoke(subtasks)
+                val last = queries.size - 1
+                for (i in 0 until last) {
+                    query(SimpleSQLiteQuery(queries[i]))
+                }
+                val result = fetchTasks(SimpleSQLiteQuery(queries[last]))
+                Timber.v("%sms: %s", DateUtilities.now() - start, queries.joinToString(";\n"))
+                result
             }
-            val result = fetchTasks(SimpleSQLiteQuery(queries[last]))
-            Timber.v("%sms: %s", DateUtilities.now() - start, queries.joinToString(";\n"))
-            result
-        }
-    }
 
-    suspend fun fetchTasks(preferences: Preferences, filter: Filter): List<TaskContainer> {
-        return fetchTasks {
-            TaskListQuery.getQuery(preferences, filter, it)
-        }
-    }
+    suspend fun fetchTasks(preferences: Preferences, filter: Filter): List<TaskContainer> =
+            fetchTasks {
+                TaskListQuery.getQuery(preferences, filter, it)
+            }
 
     @RawQuery
     internal abstract suspend fun query(query: SimpleSQLiteQuery): Int
@@ -154,9 +152,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     @Query("UPDATE tasks SET lastNotified = :timestamp WHERE _id = :id AND lastNotified != :timestamp")
     abstract suspend fun setLastNotified(id: Long, timestamp: Long): Int
 
-    suspend fun getChildren(id: Long): List<Long> {
-        return getChildren(listOf(id))
-    }
+    suspend fun getChildren(id: Long): List<Long> = getChildren(listOf(id))
 
     @Query("WITH RECURSIVE "
             + " recursive_tasks (task) AS ( "
@@ -225,9 +221,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
         return count
     }
 
-    suspend fun fetchFiltered(filter: Filter): List<Task> {
-        return fetchFiltered(filter.getSqlQuery())
-    }
+    suspend fun fetchFiltered(filter: Filter): List<Task> = fetchFiltered(filter.getSqlQuery())
 
     suspend fun fetchFiltered(queryTemplate: String): List<Task> {
         val query = getQuery(queryTemplate, Task.FIELDS)
@@ -252,21 +246,18 @@ WHERE gt_id IS NULL
     object TaskCriteria {
         /** @return tasks that have not yet been completed or deleted
          */
-        @JvmStatic fun activeAndVisible(): Criterion {
-            return Criterion.and(
-                    Task.COMPLETION_DATE.lte(0),
-                    Task.DELETION_DATE.lte(0),
-                    Task.HIDE_UNTIL.lte(Functions.now()))
-        }
+        @JvmStatic fun activeAndVisible(): Criterion = Criterion.and(
+                Task.COMPLETION_DATE.lte(0),
+                Task.DELETION_DATE.lte(0),
+                Task.HIDE_UNTIL.lte(Functions.now()))
     }
 
     companion object {
-        fun getQuery(queryTemplate: String, vararg fields: Field): SimpleSQLiteQuery {
-            return SimpleSQLiteQuery(
-                    com.todoroo.andlib.sql.Query.select(*fields)
-                            .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))
-                            .from(Task.TABLE)
-                            .toString())
-        }
+        fun getQuery(queryTemplate: String, vararg fields: Field): SimpleSQLiteQuery =
+                SimpleSQLiteQuery(
+                        com.todoroo.andlib.sql.Query.select(*fields)
+                                .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))
+                                .from(Task.TABLE)
+                                .toString())
     }
 }

@@ -35,13 +35,11 @@ class EtebaseClientProvider @Inject constructor(
         private val caldavDao: CaldavDao
 ) {
     @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
-    suspend fun forAccount(account: CaldavAccount): EtebaseClient {
-        return forUrl(
-                account.url!!,
-                account.username!!,
-                null,
-                account.getPassword(encryption))
-    }
+    suspend fun forAccount(account: CaldavAccount): EtebaseClient = forUrl(
+            account.url!!,
+            account.username!!,
+            null,
+            account.getPassword(encryption))
 
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
     suspend fun forUrl(url: String, username: String, password: String?, session: String? = null, foreground: Boolean = false): EtebaseClient = withContext(Dispatchers.IO) {

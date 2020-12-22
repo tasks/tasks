@@ -32,7 +32,7 @@ class EmptyTaskEditFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentTaskEditEmptyBinding.inflate(inflater)
 
         val tint = arguments?.getParcelable<Filter>(EXTRA_FILTER)?.tint

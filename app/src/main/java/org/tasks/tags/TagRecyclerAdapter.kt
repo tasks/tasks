@@ -31,13 +31,11 @@ internal class TagRecyclerAdapter(
         holder.bind(tagData, getColor(tagData), getIcon(tagData), viewModel.getState(tagData))
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
+    override fun getItemCount(): Int = differ.currentList.size
 
     private fun getColor(tagData: TagData): Int {
         if (tagData.getColor() != 0) {
-            val themeColor = colorProvider.getThemeColor(tagData.getColor()!!, true)
+            val themeColor = colorProvider.getThemeColor(tagData.getColor(), true)
             if (inventory.purchasedThemes() || themeColor.isFree) {
                 return themeColor.primaryColor
             }
@@ -45,9 +43,8 @@ internal class TagRecyclerAdapter(
         return context.getColor(R.color.icon_tint_with_alpha)
     }
 
-    private fun getIcon(tagData: TagData): Int? {
-        return if (tagData.getIcon()!! < 1000 || inventory.hasPro) getIconResId(tagData.getIcon()!!) else null
-    }
+    private fun getIcon(tagData: TagData): Int? =
+            if (tagData.getIcon() < 1000 || inventory.hasPro) getIconResId(tagData.getIcon()) else null
 
     fun submitList(tagData: List<TagData>?) {
         differ.submitList(tagData)

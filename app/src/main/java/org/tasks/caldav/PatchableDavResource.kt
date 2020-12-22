@@ -18,7 +18,7 @@ class PatchableDavResource(client: OkHttpClient, url: HttpUrl) : DavResource(cli
      */
     @Throws(IOException::class, HttpException::class)
     fun propPatch(xmlBody: String?, callback: (response: Response) -> Unit) {
-        val rqBody = if (xmlBody != null) RequestBody.create(MIME_XML, xmlBody) else null
+        val rqBody = xmlBody?.let { RequestBody.create(MIME_XML, it) }
 
         followRedirects {
             httpClient.newCall(Request.Builder()

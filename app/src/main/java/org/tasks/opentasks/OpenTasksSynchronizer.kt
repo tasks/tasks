@@ -230,9 +230,7 @@ class OpenTasksSynchronizer @Inject constructor(
                 rrule.recur.until = DateTime(task.repeatUntil).toUTC().toDateTime()
             }
             RRule(rrule.value.sanitizeRRule()).value
-        } else {
-            null
-        })
+        } else null)
         values.put(Tasks.IS_ALLDAY, if (task.hasDueDate() && !task.hasDueTime()) 1 else 0)
         values.put(Tasks.DUE, when {
             task.hasDueTime() -> newDateTime(task.dueDate).toDateTime().time
@@ -245,9 +243,7 @@ class OpenTasksSynchronizer @Inject constructor(
         values.put(Tasks.PERCENT_COMPLETE, if (task.isCompleted) 100 else null)
         values.put(Tasks.TZ, if (task.hasDueTime() || task.isCompleted) {
             TimeZone.getDefault().id
-        } else {
-            null
-        })
+        } else null)
         values.put(Tasks.PARENT_ID, null as Long?)
         val existing = cr.query(
                 Tasks.getContentUri(openTaskDao.authority),

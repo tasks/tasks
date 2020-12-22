@@ -130,10 +130,9 @@ class TasksWidget : AppWidgetProvider() {
         return context.getColor(background)
     }
 
-    private fun getPendingIntentTemplate(context: Context): PendingIntent {
-        return PendingIntent.getActivity(
-                context, 0, Intent(context, WidgetClickActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
-    }
+    private fun getPendingIntentTemplate(context: Context): PendingIntent =
+            PendingIntent.getActivity(
+                    context, 0, Intent(context, WidgetClickActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
 
     private fun getOpenListIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
         val intent = TaskIntents.getTaskListIntent(context, filter)

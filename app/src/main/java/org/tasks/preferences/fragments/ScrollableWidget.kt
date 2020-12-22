@@ -144,37 +144,31 @@ class ScrollableWidget : InjectingPreferenceFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_FILTER) {
-            if (resultCode == Activity.RESULT_OK) {
+        when (requestCode) {
+            REQUEST_FILTER -> if (resultCode == Activity.RESULT_OK) {
                 val filter: Filter =
-                    data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
+                        data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
                 widgetPreferences.setFilter(defaultFilterProvider.getFilterPreferenceValue(filter))
                 updateFilter()
             }
-        } else if (requestCode == REQUEST_THEME_SELECTION) {
-            if (resultCode == Activity.RESULT_OK) {
+            REQUEST_THEME_SELECTION -> if (resultCode == Activity.RESULT_OK) {
                 widgetPreferences.setTheme(
-                    data?.getIntExtra(
-                        ColorPalettePicker.EXTRA_SELECTED,
-                        0
-                    ) ?: widgetPreferences.themeIndex
+                        data?.getIntExtra(
+                                ColorPalettePicker.EXTRA_SELECTED,
+                                0
+                        ) ?: widgetPreferences.themeIndex
                 )
                 updateTheme()
             }
-        } else if (requestCode == REQUEST_COLOR_SELECTION) {
-            if (resultCode == Activity.RESULT_OK) {
+            REQUEST_COLOR_SELECTION -> if (resultCode == Activity.RESULT_OK) {
                 widgetPreferences.color = data!!.getIntExtra(
                         ColorWheelPicker.EXTRA_SELECTED,
                         0
                 )
                 updateColor()
             }
-        } else if (requestCode == REQUEST_SORT) {
-            if (resultCode == Activity.RESULT_OK) {
-                updateSort()
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            REQUEST_SORT -> if (resultCode == Activity.RESULT_OK) updateSort()
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -217,9 +211,8 @@ class ScrollableWidget : InjectingPreferenceFragment() {
                 })
     }
 
-    private suspend fun getFilter(): Filter {
-        return defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
-    }
+    private suspend fun getFilter(): Filter =
+            defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
 
     private fun setupSlider(resId: Int, defValue: Int): SeekBarPreference {
         val preference = findPreference(resId) as SeekBarPreference

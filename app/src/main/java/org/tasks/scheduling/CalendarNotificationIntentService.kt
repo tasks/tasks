@@ -43,11 +43,9 @@ class CalendarNotificationIntentService : RecurringIntervalIntentService() {
     }
 
     override fun intervalMillis() =
-            if (preferences.getBoolean(R.string.p_calendar_reminders, false)) {
+            if (preferences.getBoolean(R.string.p_calendar_reminders, false))
                 TimeUnit.HOURS.toMillis(12)
-            } else {
-                0
-            }
+            else 0
 
     class Broadcast : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {

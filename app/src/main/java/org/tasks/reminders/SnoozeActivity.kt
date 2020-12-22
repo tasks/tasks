@@ -15,6 +15,8 @@ import org.tasks.data.TaskDao
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.notifications.NotificationManager
+import org.tasks.reminders.SnoozeActivity.Companion.EXTRA_TASK_IDS
+import org.tasks.reminders.SnoozeActivity.Companion.FLAGS
 import org.tasks.themes.ThemeAccent
 import org.tasks.time.DateTime
 import java.util.*
@@ -107,18 +109,16 @@ class SnoozeActivity : InjectingAppCompatActivity(), SnoozeCallback, DialogInter
         private const val FRAG_TAG_SNOOZE_DIALOG = "frag_tag_snooze_dialog"
         private const val EXTRA_PICKING_DATE_TIME = "extra_picking_date_time"
         private const val REQUEST_DATE_TIME = 10101
-        fun newIntent(context: Context?, id: Long?): Intent {
-            val intent = Intent(context, SnoozeActivity::class.java)
-            intent.flags = FLAGS
-            intent.putExtra(EXTRA_TASK_ID, id)
-            return intent
-        }
+        fun newIntent(context: Context?, id: Long?): Intent =
+                Intent(context, SnoozeActivity::class.java).apply {
+                    flags = FLAGS
+                    putExtra(EXTRA_TASK_ID, id)
+                }
 
-        fun newIntent(context: Context?, ids: List<Long?>?): Intent {
-            val intent = Intent(context, SnoozeActivity::class.java)
-            intent.flags = FLAGS
-            intent.putExtra(EXTRA_TASK_IDS, ArrayList<Any?>(ids!!))
-            return intent
-        }
+        fun newIntent(context: Context?, ids: List<Long?>?): Intent =
+                Intent(context, SnoozeActivity::class.java).apply {
+                    flags = FLAGS
+                    putExtra(EXTRA_TASK_IDS, ArrayList<Any?>(ids!!))
+                }
     }
 }

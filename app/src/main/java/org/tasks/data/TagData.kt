@@ -55,26 +55,24 @@ class TagData : Parcelable {
     @SuppressLint("ParcelClassLoader")
     @Ignore
     private constructor(parcel: Parcel) {
-        id = parcel.readValue(null) as Long?
-        remoteId = parcel.readString()
-        name = parcel.readString()
-        color = parcel.readInt()
-        tagOrdering = parcel.readString()
-        icon = parcel.readInt()
-        order = parcel.readInt()
+        with(parcel) {
+            id = readValue(null) as Long?
+            remoteId = readString()
+            name = readString()
+            color = readInt()
+            tagOrdering = readString()
+            icon = readInt()
+            order = readInt()
+        }
     }
 
-    fun getColor(): Int? {
-        return (if (color == null) 0 else color)!!
-    }
+    fun getColor(): Int = color ?: 0
 
     fun setColor(color: Int?) {
         this.color = color
     }
 
-    fun getIcon(): Int? {
-        return (if (icon == null) LABEL else icon!!)
-    }
+    fun getIcon(): Int = icon ?: LABEL
 
     fun setIcon(icon: Int?) {
         this.icon = icon
@@ -83,13 +81,15 @@ class TagData : Parcelable {
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeValue(id)
-        dest.writeString(remoteId)
-        dest.writeString(name)
-        dest.writeInt(color!!)
-        dest.writeString(tagOrdering)
-        dest.writeInt(getIcon()!!)
-        dest.writeInt(order)
+        with(dest) {
+            writeValue(id)
+            writeString(remoteId)
+            writeString(name)
+            writeInt(color!!)
+            writeString(tagOrdering)
+            writeInt(getIcon())
+            writeInt(order)
+        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -118,19 +118,14 @@ class TagData : Parcelable {
         return result
     }
 
-    override fun toString(): String {
-        return "TagData(id=$id, remoteId=$remoteId, name=$name, color=$color, tagOrdering=$tagOrdering, icon=$icon, order=$order)"
-    }
+    override fun toString(): String =
+            "TagData(id=$id, remoteId=$remoteId, name=$name, color=$color, tagOrdering=$tagOrdering, icon=$icon, order=$order)"
 
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<TagData> = object : Parcelable.Creator<TagData> {
-            override fun createFromParcel(source: Parcel): TagData? {
-                return TagData(source)
-            }
+            override fun createFromParcel(source: Parcel): TagData = TagData(source)
 
-            override fun newArray(size: Int): Array<TagData?> {
-                return arrayOfNulls(size)
-            }
+            override fun newArray(size: Int): Array<TagData?> = arrayOfNulls(size)
         }
     }
 }

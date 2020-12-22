@@ -17,7 +17,6 @@ class MergedGeofence {
     val longitude: Double
         get() = place.longitude
 
-    override fun toString(): String {
-        return "MergedGeofence(place=$place, arrival=$arrival, departure=$departure, radius=$radius)"
-    }
+    override fun toString(): String =
+            "MergedGeofence(place=$place, arrival=$arrival, departure=$departure, radius=$radius)"
 }

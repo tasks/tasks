@@ -15,23 +15,18 @@ class NotificationsFilter : Filter {
 
     private constructor()
 
-    override fun supportsHiddenTasks(): Boolean {
-        return false
-    }
+    override fun supportsHiddenTasks(): Boolean = false
 
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<NotificationsFilter> = object : Parcelable.Creator<NotificationsFilter> {
             /** {@inheritDoc}  */
-            override fun createFromParcel(source: Parcel): NotificationsFilter {
-                val item = NotificationsFilter()
-                item.readFromParcel(source)
-                return item
-            }
+            override fun createFromParcel(source: Parcel): NotificationsFilter =
+                    NotificationsFilter().apply {
+                        readFromParcel(source)
+                    }
 
             /** {@inheritDoc}  */
-            override fun newArray(size: Int): Array<NotificationsFilter?> {
-                return arrayOfNulls(size)
-            }
+            override fun newArray(size: Int): Array<NotificationsFilter?> = arrayOfNulls(size)
         }
 
         private val queryTemplate: QueryTemplate

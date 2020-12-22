@@ -26,7 +26,6 @@ class SubsetCaldav {
         return result
     }
 
-    override fun toString(): String {
-        return "SubsetCaldav(cd_id=$cd_id, cd_calendar=$cd_calendar, cd_remote_parent=$cd_remote_parent, cd_order=$cd_order)"
-    }
+    override fun toString(): String =
+            "SubsetCaldav(cd_id=$cd_id, cd_calendar=$cd_calendar, cd_remote_parent=$cd_remote_parent, cd_order=$cd_order)"
 }

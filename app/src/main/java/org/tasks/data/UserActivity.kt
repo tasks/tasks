@@ -55,12 +55,14 @@ class UserActivity : Parcelable {
 
     @Ignore
     private constructor(parcel: Parcel) {
-        id = parcel.readLong()
-        remoteId = parcel.readString()
-        message = parcel.readString()
-        picture = parcel.readString()
-        targetId = parcel.readString()
-        created = parcel.readLong()
+        with(parcel) {
+            id = readLong()
+            remoteId = readString()
+            message = readString()
+            picture = readString()
+            targetId = readString()
+            created = readLong()
+        }
     }
 
     fun setPicture(uri: Uri?) {
@@ -77,12 +79,14 @@ class UserActivity : Parcelable {
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeLong(id!!)
-        dest.writeString(remoteId)
-        dest.writeString(message)
-        dest.writeString(picture)
-        dest.writeString(targetId)
-        dest.writeLong(created!!)
+        with(dest) {
+            writeLong(id!!)
+            writeString(remoteId)
+            writeString(message)
+            writeString(picture)
+            writeString(targetId)
+            writeLong(created!!)
+        }
     }
 
     companion object {
@@ -90,13 +94,9 @@ class UserActivity : Parcelable {
         @JvmField val TASK = TABLE.column("target_id")
         @JvmField val MESSAGE = TABLE.column("message")
         @JvmField val CREATOR: Parcelable.Creator<UserActivity> = object : Parcelable.Creator<UserActivity> {
-            override fun createFromParcel(source: Parcel): UserActivity? {
-                return UserActivity(source)
-            }
+            override fun createFromParcel(source: Parcel): UserActivity = UserActivity(source)
 
-            override fun newArray(size: Int): Array<UserActivity?> {
-                return arrayOfNulls(size)
-            }
+            override fun newArray(size: Int): Array<UserActivity?> = arrayOfNulls(size)
         }
 
         private fun getLegacyPictureUri(value: String?): Uri? {

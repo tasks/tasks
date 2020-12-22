@@ -37,8 +37,7 @@ class LocalePickerDialog : DialogFragment() {
 
     companion object {
         const val EXTRA_LOCALE = "extra_locale"
-        fun newLocalePickerDialog(): LocalePickerDialog {
-            return LocalePickerDialog()
-        }
+
+        fun newLocalePickerDialog(): LocalePickerDialog = LocalePickerDialog()
     }
 }

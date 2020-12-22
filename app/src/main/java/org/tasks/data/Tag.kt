@@ -49,9 +49,7 @@ class Tag {
         xmlReader.readString("task_uid") { taskUid: String -> setTaskUid(taskUid) }
     }
 
-    fun getTaskUid(): String {
-        return taskUid!!
-    }
+    fun getTaskUid(): String = taskUid!!
 
     fun setTaskUid(taskUid: String) {
         this.taskUid = taskUid

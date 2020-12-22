@@ -23,10 +23,9 @@ object GeoUtils {
         return if (string.numDecimalPlaces() < 4) string else "${string}%"
     }
 
-    fun Geo.equalish(other: Geo?): Boolean {
-        return latitude.truncate() == other?.latitude?.truncate()
-                && longitude.truncate() == other.longitude?.truncate()
-    }
+    fun Geo.equalish(other: Geo?): Boolean =
+            latitude.truncate() == other?.latitude?.truncate()
+                    && longitude.truncate() == other.longitude?.truncate()
 
     private fun String.numDecimalPlaces(): Int {
         val index = indexOf(".")

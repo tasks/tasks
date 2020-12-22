@@ -20,7 +20,5 @@ class CaldavTaskContainer {
     val sortOrder: Long
         get() = caldavTask.order ?: DateTime(task.creationDate).toAppleEpoch()
 
-    override fun toString(): String {
-        return "CaldavTaskContainer{task=$task, caldavTask=$caldavTask}"
-    }
+    override fun toString(): String = "CaldavTaskContainer{task=$task, caldavTask=$caldavTask}"
 }

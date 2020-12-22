@@ -100,7 +100,6 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
         requireActivity().recreate()
     }
 
-    protected fun findPreference(@StringRes prefId: Int): Preference {
-        return findPreference(getString(prefId))!!
-    }
+    protected fun findPreference(@StringRes prefId: Int): Preference =
+            findPreference(getString(prefId))!!
 }
