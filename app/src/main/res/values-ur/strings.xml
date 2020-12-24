@@ -153,4 +153,16 @@
     <string name="CFA_button_add">معیار داخل کریں</string>
     <string name="CFA_context_delete">قطار ڈیلیٹ کریں</string>
     <string name="CFA_context_chain">%s کا معیار ہے</string>
+    <string name="gtasks_GPr_header">گوگل ٹاسکس</string>
+    <string name="gtasks_GLA_errorIOAuth">معذرت ، گوگل سرورز کے ساتھ رابطہ نہیں ہو سکا براہ کرم کچھ دیر بعد کوشش کریں.</string>
+    <string name="gtasks_GLA_authenticating">تصدیق ہو رہی…</string>
+    <string name="gtasks_GTA_clear_completed">کلئیر مکمل ہو گیا</string>
+    <string name="CFC_list_name">لسٹ میں…</string>
+    <string name="CFC_gtasks_list_name">جی ٹاسک لسٹ میں…</string>
+    <string name="CFC_gtasks_list_text">لسٹ میں:؟</string>
+    <string name="gcal_completed_title">%s مکمل ہو گیا</string>
+    <string name="calendar_event_not_found">کیلنڈر ایونٹ نہیں مل سکا</string>
+    <string name="delete_calendar_event_confirmation">کیلنڈر ایونٹ ڈیلیٹ کریں؟</string>
+    <string name="gcal_TEA_showCalendar_label">کیلنڈر ایونٹ کھولیں</string>
+    <string name="gcal_TEA_error">کیلنڈر میں کام شامل کرنے میں خرابی!</string>
 </resources>
