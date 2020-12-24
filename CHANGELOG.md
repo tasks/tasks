@@ -1,3 +1,15 @@
+### 11.1.1 (2020-12-24)
+
+* Fix compatibility issues with third-party clients
+  * Completed tasks without completion dates
+    ([222a34f](https://github.com/tasks/tasks/commit/222a34fc263816bb23f633bc9c79de78aeb3968d))
+  * Tasks with start date but no due date
+    ([7a1d566](https://github.com/tasks/tasks/commit/7a1d566bfb613b95d3fe1df46d8fa67200c91021))
+* Miscellaneous improvements - Thanks @mhmdanas!
+* Update translations
+  * Arabic - @mhmdanas
+  * Urdu - Maaz
+
 ### 11.1 (2020-12-21)
 
 * Add [DecSync CC synchronization](https://tasks.org/decsync)
