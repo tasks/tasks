@@ -242,9 +242,9 @@ class OpenTasksSynchronizer @Inject constructor(
         values.put(Tasks.COMPLETED, if (task.isCompleted) task.completionDate else null)
         values.put(Tasks.STATUS, if (task.isCompleted) Tasks.STATUS_COMPLETED else null)
         values.put(Tasks.PERCENT_COMPLETE, if (task.isCompleted) 100 else null)
-        values.put(Tasks.TZ, if (task.hasDueTime() || task.isCompleted) {
-            TimeZone.getDefault().id
-        } else null)
+        if (task.hasDueTime() || task.isCompleted) {
+            values.put(Tasks.TZ, TimeZone.getDefault().id)
+        }
         values.put(Tasks.PARENT_ID, null as Long?)
         val existing = cr.query(
                 Tasks.getContentUri(openTaskDao.authority),
