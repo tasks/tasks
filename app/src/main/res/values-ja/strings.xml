@@ -159,7 +159,7 @@
     <string name="random_reminder_two_weeks">2週間以内</string>
     <string name="random_reminder_month">1か月</string>
     <string name="random_reminder_two_months">2か月以内</string>
-    <string name="rmd_NoA_done">既に完了しています!</string>
+    <string name="rmd_NoA_done">完了しました</string>
     <string name="rmd_NoA_snooze">スヌーズ</string>
     <string name="snooze_all">すべてスヌーズ</string>
     <string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>
@@ -470,4 +470,5 @@
     <string name="name_your_price">価格の名前</string>
     <string name="monthly">毎月</string>
     <string name="annually">毎年</string>
+    <string name="cancel">キャンセル</string>
 </resources>
