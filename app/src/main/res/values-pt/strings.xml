@@ -3,9 +3,9 @@
     <string name="actfm_picture_clear">Limpar imagem</string>
     <string name="TVA_add_comment">Adicionar um comentário…</string>
     <string name="enter_filter_name">Introduza o nome do fitro</string>
-    <string name="backup_BAc_import">Importar tarefas</string>
-    <string name="backup_BAc_export">Exportar tarefas</string>
-    <string name="export_toast">Backup de %1$s para %2$s.</string>
+    <string name="backup_BAc_import">Importar cópia de segurança</string>
+    <string name="backup_BAc_export">Fazer cópia de segurança</string>
+    <string name="export_toast">"Copia de segurança de  %1$s para %2$s."</string>
     <string name="import_summary_title">Resumo de restauro</string>
     <string name="import_summary_message">Ficheiro %1$s continha %2$s.\n\n
 %3$s importadas,\n
@@ -274,7 +274,7 @@
     <string name="vibrations">Vibrações</string>
     <string name="quiet_hours">Horas de silêncio</string>
     <string name="attachment_directory">Diretório do anexo</string>
-    <string name="backup_directory">Diretório de backup</string>
+    <string name="backup_directory">Diretório de cópia de segurança</string>
     <string name="miscellaneous">Outras</string>
     <string name="synchronization">Sincronização</string>
     <string name="enabled">Ativo</string>
@@ -621,4 +621,31 @@
     <string name="auto_dismiss_datetime_widget_summary">Auto-encerre ao obtendo do widget</string>
     <string name="compact">Compacto</string>
     <string name="caldav_selection_description">Sincronização usando Protocolos Padrões e Livres da Internet</string>
+    <string name="cancel">\@android:string/Cancelar</string>
+    <string name="synchronization_third_party">Sincronização com outras aplicações</string>
+    <string name="github_sponsor">Patrocíonar</string>
+    <string name="migrating_tasks">A migrar as suas tarefas</string>
+    <string name="above_average">Acima da média</string>
+    <string name="save_percent">Guardar %d%%</string>
+    <string name="migrate_count">Mover %s para Tasks.org</string>
+    <string name="authorization_cancelled">Autorização</string>
+    <string name="follow_reddit">Segue r/</string>
+    <string name="current_subscription">Subscrição atual: %s</string>
+    <string name="price_per_month_abbreviated">%s€/mês</string>
+    <string name="price_per_month">%s€/mês</string>
+    <string name="price_per_year_abbreviated">%s€/ano</string>
+    <string name="price_per_year">%s€/</string>
+    <string name="custom_filter_is_subtask">É</string>
+    <string name="delete_comment">Apagar este comentário\?</string>
+    <string name="backup_location_warning">Atenção: Os ficheiros localizados em %s serão apagados se Tasks for desinstalada! Por favor escolha outra localização para prevenir que o Android apage os seus ficheiros</string>
+    <string name="backups_ignore_warnings">Ignorar avisos</string>
+    <string name="device_settings">Definições do telemóvel</string>
+    <string name="last_backup_never">Nunca</string>
+    <string name="more_options">Mais opções</string>
+    <string name="background_location_permission_required">A aplicação usa a localização para permitir alertas com base na localização mesmo quando a aplicação está fechada ou não está em uso</string>
+    <string name="default_tags">Tags pré-definid</string>
+    <string name="header_spacing">Espaçamento</string>
+    <string name="ok">Ok</string>
+    <string name="repeat_type_completion_capitalized">Data de término</string>
+    <string name="always_display_full_date">Mostrar data completa</string>
 </resources>
