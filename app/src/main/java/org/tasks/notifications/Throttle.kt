@@ -21,11 +21,11 @@ internal class Throttle constructor(
             val sleep = throttle[oldest] - (currentTimeMillis() - periodMillis)
             if (sleep > 0) {
                 Timber.v("$tag: Throttled for ${sleep}ms")
-                sleeper.invoke(sleep)
+                sleeper(sleep)
             }
             try {
                 runBlocking {
-                    runnable.invoke()
+                    runnable()
                 }
             } catch (e: Exception) {
                 Timber.e(e)

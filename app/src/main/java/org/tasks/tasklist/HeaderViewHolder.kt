@@ -66,7 +66,7 @@ class HeaderViewHolder(
 
     init {
         header.setOnClickListener {
-            callback.invoke(sortGroup)
+            callback(sortGroup)
         }
     }
 }

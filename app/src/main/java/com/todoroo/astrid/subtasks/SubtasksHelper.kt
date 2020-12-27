@@ -105,7 +105,7 @@ class SubtasksHelper @Inject constructor(
             var i = 0
             while (i < children.size) {
                 val child = children[i]
-                val key = helper.invoke(child.uuid)
+                val key = helper(child.uuid)
                 val uuid = idMap[key]
                 if (!isValidUuid(uuid!!)) {
                     children.removeAt(i)

@@ -30,7 +30,7 @@ class CustomFilterItemTouchHelper(
         if (toPosition == 0) {
             return false
         }
-        onMove.invoke(src.adapterPosition, toPosition)
+        onMove(src.adapterPosition, toPosition)
         return true
     }
 
@@ -60,10 +60,10 @@ class CustomFilterItemTouchHelper(
 
         (viewHolder as CriterionViewHolder).setMoving(false)
 
-        onClear.invoke()
+        onClear()
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        onDelete.invoke(viewHolder.adapterPosition)
+        onDelete(viewHolder.adapterPosition)
     }
 }

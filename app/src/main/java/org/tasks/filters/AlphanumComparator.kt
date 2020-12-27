@@ -69,8 +69,8 @@ class AlphanumComparator<T>(private val getTitle: (T) -> String?) : Comparator<T
     }
 
     override fun compare(t1: T, t2: T): Int {
-        val s1 = getTitle.invoke(t1)
-        val s2 = getTitle.invoke(t2)
+        val s1 = getTitle(t1)
+        val s2 = getTitle(t2)
         if (s1 == null || s2 == null) {
             return 0
         }

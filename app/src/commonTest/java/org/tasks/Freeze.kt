@@ -6,7 +6,7 @@ import org.tasks.time.DateTimeUtils
 class Freeze {
     fun thawAfter(run: () -> Unit) {
         try {
-            run.invoke()
+            run()
         } finally {
             thaw()
         }

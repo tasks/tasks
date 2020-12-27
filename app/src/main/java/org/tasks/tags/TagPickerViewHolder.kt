@@ -33,7 +33,7 @@ class TagPickerViewHolder internal constructor(
     @OnClick(R.id.tag_row)
     fun onClickRow() {
         if (tagData!!.id == null) {
-            callback.invoke(tagData!!, this)
+            callback(tagData!!, this)
         } else {
             checkBox.toggle()
         }
@@ -41,7 +41,7 @@ class TagPickerViewHolder internal constructor(
 
     @OnCheckedChanged(R.id.checkbox)
     fun onCheckedChanged() {
-        callback.invoke(tagData!!, this)
+        callback(tagData!!, this)
     }
 
     fun bind(

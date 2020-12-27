@@ -186,7 +186,7 @@ class Advanced : InjectingPreferenceFragment() {
     }
 
     private fun performAction(message: Int, callable: suspend () -> Int) = lifecycleScope.launch {
-        toaster.longToastUnformatted(message, callable.invoke())
+        toaster.longToastUnformatted(message, callable())
     }
 
     private fun resetPreferences() {

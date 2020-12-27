@@ -7,7 +7,7 @@ class SuspendFreeze {
 
     suspend fun thawAfter(run: suspend () -> Unit) {
         try {
-            run.invoke()
+            run()
         } finally {
             thaw()
         }

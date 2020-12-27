@@ -12,7 +12,7 @@ class Debouncer constructor(private val tag: String, private val block: suspend 
         delay(1000)
 
         if (immediate || thisCount == count) {
-            block.invoke(immediate)
+            block(immediate)
         } else {
             Timber.v("debouncing $tag")
         }

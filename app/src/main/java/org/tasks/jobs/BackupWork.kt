@@ -78,7 +78,7 @@ class BackupWork @WorkerInject constructor(
         const val DAYS_TO_KEEP_BACKUP = 7
         val BACKUP_FILE_NAME_REGEX = Regex("auto\\.[-\\d]+\\.json")
         private val FILENAME_FILTER = { f: String -> f.matches(BACKUP_FILE_NAME_REGEX) }
-        val FILE_FILTER = FileFilter { f: File -> FILENAME_FILTER.invoke(f.name) }
+        val FILE_FILTER = FileFilter { f: File -> FILENAME_FILTER(f.name) }
         private val BY_LAST_MODIFIED = { f1: File, f2: File ->
             BackupConstants.getTimestamp(f2).compareTo(BackupConstants.getTimestamp(f1))
         }
@@ -89,7 +89,7 @@ class BackupWork @WorkerInject constructor(
 
         private fun getDeleteList(fileArray: Array<DocumentFile>?) =
                 fileArray
-                        ?.filter { FILENAME_FILTER.invoke(it.name!!) }
+                        ?.filter { FILENAME_FILTER(it.name!!) }
                         ?.sortedWith(DOCUMENT_FILE_COMPARATOR)
                         ?.drop(DAYS_TO_KEEP_BACKUP)
                         ?: emptyList()

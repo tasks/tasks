@@ -186,14 +186,14 @@ class CommentBarFragment : TaskEditControlFragment() {
             options.add(getString(R.string.take_a_picture))
         }
         if (clearImageOption != null) {
-            runnables.add { clearImageOption.invoke() }
+            runnables.add { clearImageOption() }
             options.add(getString(R.string.actfm_picture_clear))
         }
         if (runnables.size == 1) {
-            runnables[0].invoke()
+            runnables[0]()
         } else {
             val listener = DialogInterface.OnClickListener { d: DialogInterface, which: Int ->
-                runnables[which].invoke()
+                runnables[which]()
                 d.dismiss()
             }
 

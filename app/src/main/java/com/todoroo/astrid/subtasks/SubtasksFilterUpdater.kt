@@ -141,7 +141,7 @@ class SubtasksFilterUpdater @Inject constructor(
     private suspend fun applyToDescendantsHelper(n: Node, visitor: suspend (Node) -> Unit) {
         val children = n.children
         for (child in children) {
-            visitor.invoke(child)
+            visitor(child)
             applyToDescendantsHelper(child, visitor)
         }
     }

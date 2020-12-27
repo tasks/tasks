@@ -27,7 +27,7 @@ class TranslationTests {
     private fun forEachLocale(callback: (Resources) -> Unit) {
         val locales = Locale.getAvailableLocales()
         for (locale in locales) {
-            callback.invoke(getResourcesForLocale(locale))
+            callback(getResourcesForLocale(locale))
         }
     }
 

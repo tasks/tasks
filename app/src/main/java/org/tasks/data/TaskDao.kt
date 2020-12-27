@@ -102,7 +102,7 @@ abstract class TaskDao(private val database: Database) {
     open suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> =
             database.withTransaction {
                 val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
-                val queries = callback.invoke(subtasks)
+                val queries = callback(subtasks)
                 val last = queries.size - 1
                 for (i in 0 until last) {
                     query(SimpleSQLiteQuery(queries[i]))
