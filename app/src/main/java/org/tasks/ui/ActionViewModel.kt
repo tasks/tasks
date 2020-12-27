@@ -18,7 +18,7 @@ open class ActionViewModel : ViewModel() {
             errorObserver: (Throwable) -> Unit) {
         completed.observe(lifecycleOwner) {
             lifecycleOwner.lifecycleScope.launch {
-                completeObserver.invoke(it)
+                completeObserver(it)
             }
         }
         error.observe(lifecycleOwner, errorObserver)
@@ -28,7 +28,7 @@ open class ActionViewModel : ViewModel() {
         if (!inProgress) {
             inProgress = true
             try {
-                action.invoke()
+                action()
                 completed.value = true
             } catch (e: Exception) {
                 error.value = e

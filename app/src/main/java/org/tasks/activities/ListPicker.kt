@@ -107,7 +107,7 @@ class ListPicker : DialogFragment() {
                     .setSingleChoiceItems(filterAdapter,-1) { dialog: DialogInterface, which: Int ->
                         val item = filterAdapter.getItem(which)
                         if (item is GtasksFilter || item is CaldavFilter) {
-                            handler.invoke(item as Filter)
+                            handler(item as Filter)
                         }
                         dialog.dismiss()
                     }

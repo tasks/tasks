@@ -17,7 +17,7 @@ abstract class CompletableViewModel<T> : ViewModel() {
             errorObserver: (Throwable) -> Unit) {
         data.observe(lifecycleOwner) {
             lifecycleOwner.lifecycleScope.launch {
-                dataObserver.invoke(it)
+                dataObserver(it)
             }
         }
         error.observe(lifecycleOwner, errorObserver)
@@ -27,7 +27,7 @@ abstract class CompletableViewModel<T> : ViewModel() {
         if (!inProgress) {
             inProgress = true
             try {
-                data.postValue(callable.invoke())
+                data.postValue(callable())
             } catch (e: Exception) {
                 Timber.e(e)
                 error.postValue(e)

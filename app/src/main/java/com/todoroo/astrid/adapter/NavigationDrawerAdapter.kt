@@ -97,7 +97,7 @@ class NavigationDrawerAdapter @Inject constructor(
         }
     }
 
-    private fun onClickFilter(filter: FilterListItem?) = onClick.invoke(if (filter == selected) null else filter)
+    private fun onClickFilter(filter: FilterListItem?) = onClick(if (filter == selected) null else filter)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)

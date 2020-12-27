@@ -203,7 +203,7 @@ class EteSyncClient {
         var journalEntries: List<JournalEntryManager.Entry>
         do {
             journalEntries = journalEntryManager.list(crypto, calendar.ctag, MAX_FETCH)
-            callback.invoke(journalEntries.map {
+            callback(journalEntries.map {
                 Pair.create(it, SyncEntry.fromJournalEntry(crypto, it))
             })
         } while (journalEntries.size >= MAX_FETCH)

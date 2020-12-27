@@ -8,8 +8,8 @@ object SuspendDbUtils {
             eachChunk(MAX_SQLITE_ARGS, action)
 
     suspend fun <T> Iterable<T>.eachChunk(size: Int, action: suspend (List<T>) -> Unit) =
-            chunked(size).forEach { action.invoke(it) }
+            chunked(size).forEach { action(it) }
 
     suspend fun <T, R> Iterable<T>.chunkedMap(transform: suspend (List<T>) -> Iterable<R>): List<R> =
-            dbchunk().flatMap { transform.invoke(it) }
+            dbchunk().flatMap { transform(it) }
 }

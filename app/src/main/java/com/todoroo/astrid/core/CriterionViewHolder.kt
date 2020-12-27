@@ -72,7 +72,7 @@ class CriterionViewHolder(
     }
 
     @OnClick(R.id.row)
-    fun onClick() = this.onClick.invoke(criterion.id)
+    fun onClick() = onClick(criterion.id)
 
     fun setMoving(moving: Boolean) {
         if (moving) {

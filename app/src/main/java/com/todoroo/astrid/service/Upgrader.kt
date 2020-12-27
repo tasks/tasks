@@ -82,7 +82,7 @@ class Upgrader @Inject constructor(
     private fun run(from: Int, version: Int, runnable: suspend () -> Unit) {
         if (from < version) {
             runBlocking {
-                runnable.invoke()
+                runnable()
             }
             preferences.setCurrentVersion(version)
         }

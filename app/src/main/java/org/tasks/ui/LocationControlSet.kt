@@ -108,7 +108,7 @@ class LocationControlSet : TaskEditControlFragment() {
             dialogBuilder
                     .newDialog(location.displayName)
                     .setItems(items) { _, which: Int ->
-                        options[which].second!!.invoke()
+                        options[which].second!!()
                     }
                     .show()
         }
