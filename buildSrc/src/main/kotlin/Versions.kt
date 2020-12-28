@@ -4,7 +4,7 @@ object Versions {
     const val minSdk = 23
     const val butterknife = "10.2.3"
     const val work = "2.4.0"
-    const val leakcanary = "2.5"
+    const val leakcanary = "2.6"
     const val room = "2.2.5"
     const val crashlytics = "17.2.2"
     const val analytics = "18.0.0"
