@@ -14,6 +14,7 @@
 package org.tasks.auth
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -114,6 +115,18 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
         } else {
             dialogBuilder.newDialog()
                     .setTitle(R.string.sign_in_to_tasks)
+                    .setNeutralButton(R.string.help) { _, _ ->
+                        startActivity(
+                                Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse(getString(R.string.help_url_sync))
+                                )
+                        )
+                        finish()
+                    }
+                    .setNegativeButton(R.string.cancel) { _, _ ->
+                        finish()
+                    }
                     .setAdapter(adapter) { _, which -> selectService(which) }
                     .setOnCancelListener { finish() }
                     .show()
