@@ -113,6 +113,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
             selectService(autoSelect)
         } else {
             dialogBuilder.newDialog()
+                    .setTitle(R.string.sign_in_to_tasks)
                     .setAdapter(adapter) { _, which -> selectService(which) }
                     .setOnCancelListener { finish() }
                     .show()
