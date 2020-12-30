@@ -186,6 +186,8 @@ object CustomIcons {
         1161 to R.drawable.ic_vertical_align_top_24px,
         1162 to R.drawable.ic_keyboard_arrow_left_24px,
         1163 to R.drawable.ic_keyboard_arrow_right_24px,
+        1164 to R.drawable.ic_content_paste_24px,
+        1165 to R.drawable.ic_content_copy_24px,
     )
 
     @JvmStatic
