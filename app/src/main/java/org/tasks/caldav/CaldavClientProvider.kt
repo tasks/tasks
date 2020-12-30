@@ -45,6 +45,13 @@ class CaldavClientProvider @Inject constructor(
         )
     }
 
+    suspend fun forTasksAccount(account: CaldavAccount): TasksClient {
+        if (!account.isTasksOrg) {
+            throw IllegalArgumentException()
+        }
+        return forAccount(account) as TasksClient
+    }
+
     suspend fun forAccount(account: CaldavAccount, url: String? = account.url): CaldavClient {
         val auth = getAuthInterceptor(
                 account.username,
@@ -52,12 +59,12 @@ class CaldavClientProvider @Inject constructor(
                 account.url
         )
         val customCertManager = newCertManager()
-        return CaldavClient(
-                this,
-                customCertManager,
-                createHttpClient(auth, customCertManager),
-                url?.toHttpUrlOrNull()
-        )
+        val client = createHttpClient(auth, customCertManager)
+        return if (account.isTasksOrg) {
+            TasksClient(this, customCertManager, client, url?.toHttpUrlOrNull())
+        } else {
+            CaldavClient(this, customCertManager, client, url?.toHttpUrlOrNull())
+        }
     }
 
     private suspend fun newCertManager() = withContext(Dispatchers.Default) {
@@ -74,8 +81,7 @@ class CaldavClientProvider @Inject constructor(
         else -> BasicDigestAuthHandler(null, username, password)
     }
 
-    private fun createHttpClient(auth: Interceptor?, customCertManager: CustomCertManager, foreground: Boolean = false): OkHttpClient {
-        customCertManager.appInForeground = foreground
+    private fun createHttpClient(auth: Interceptor?, customCertManager: CustomCertManager): OkHttpClient {
         val hostnameVerifier = customCertManager.hostnameVerifier(OkHostnameVerifier)
         val sslContext = SSLContext.getInstance("TLS")
         sslContext.init(null, arrayOf(customCertManager), null)

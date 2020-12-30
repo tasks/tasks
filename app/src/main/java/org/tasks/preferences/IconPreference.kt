@@ -9,7 +9,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import org.tasks.R
 
-class IconPreference(context: Context?, attrs: AttributeSet?) : Preference(context, attrs) {
+class IconPreference(context: Context?, attrs: AttributeSet? = null) : Preference(context, attrs) {
 
     private var imageView: ImageView? = null
 

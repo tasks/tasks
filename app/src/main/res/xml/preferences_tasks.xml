@@ -54,6 +54,26 @@
       android:title="@string/background_sync_unmetered_only" />
   </PreferenceCategory>
 
+  <PreferenceCategory
+    android:key="@string/app_passwords"
+    android:title="@string/app_passwords">
+  </PreferenceCategory>
+
+  <Preference
+    android:icon="@drawable/ic_open_in_new_24px"
+    android:key="@string/app_passwords_more_info"
+    android:summary="@string/app_passwords_more_info">
+    <intent
+      android:action="android.intent.action.VIEW"
+      android:data="@string/url_app_passwords" />
+  </Preference>
+
+  <EditTextPreference
+    android:icon="@drawable/ic_outline_add_24px"
+    android:key="@string/generate_new_password"
+    android:title="@string/generate_new_password"
+    android:dialogTitle="@string/app_password_enter_description" />
+
   <Preference
     android:key="@string/logout"
     android:title="@string/logout"

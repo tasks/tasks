@@ -1,14 +1,20 @@
 package org.tasks.preferences.fragments
 
 import android.app.Activity.RESULT_OK
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceCategory
+import com.google.android.material.textfield.TextInputLayout
+import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,8 +29,10 @@ import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
+import org.tasks.locale.Locale
 import org.tasks.preferences.IconPreference
 import org.tasks.ui.Toaster
+import java.time.format.FormatStyle
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,6 +45,9 @@ class TasksAccount : InjectingPreferenceFragment() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var toaster: Toaster
+    @Inject lateinit var locale: Locale
+
+    private val viewModel: TasksAccountViewModel by viewModels()
 
     private lateinit var caldavAccountLiveData: LiveData<CaldavAccount>
 
@@ -63,6 +74,9 @@ class TasksAccount : InjectingPreferenceFragment() {
         caldavAccountLiveData = caldavDao.watchAccount(
                 requireArguments().getParcelable<CaldavAccount>(EXTRA_ACCOUNT)!!.id
         )
+        if (savedInstanceState == null) {
+            viewModel.refreshPasswords(caldavAccount)
+        }
 
         findPreference(R.string.logout).setOnPreferenceClickListener {
             dialogBuilder
@@ -99,8 +113,9 @@ class TasksAccount : InjectingPreferenceFragment() {
             findPreference(R.string.refresh_purchases).isVisible = false
         }
 
-        caldavAccountLiveData.observe(this) { account ->
-            account?.let { refreshUi(it) }
+        findPreference(R.string.generate_new_password).setOnPreferenceChangeListener { _, description ->
+            viewModel.requestNewPassword(caldavAccount, description as String)
+            false
         }
     }
 
@@ -120,9 +135,48 @@ class TasksAccount : InjectingPreferenceFragment() {
 
     override fun onResume() {
         super.onResume()
-
+        caldavAccountLiveData.observe(this) { account ->
+            account?.let { refreshUi(it) }
+        }
+        viewModel.appPasswords.observe(this) { passwords ->
+            passwords?.let { refreshPasswords(passwords) }
+        }
+        viewModel.newPassword.observe(this) {
+            it?.let {
+                val view = LayoutInflater.from(requireActivity()).inflate(R.layout.dialog_app_password, null)
+                setupTextField(view, R.id.url_layout, R.string.url, getString(R.string.tasks_caldav_url))
+                setupTextField(view, R.id.user_layout, R.string.user, it.username)
+                setupTextField(view, R.id.password_layout, R.string.password, it.password)
+                dialogBuilder.newDialog()
+                        .setView(view)
+                        .setPositiveButton(R.string.ok) { _, _ ->
+                            viewModel.clearNewPassword()
+                            viewModel.refreshPasswords(caldavAccount)
+                        }
+                        .setCancelable(false)
+                        .setNeutralButton(R.string.help) { _, _ ->
+                            startActivity(Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse(getString(R.string.url_app_passwords)))
+                            )
+                        }
+                        .show()
+            }
+        }
         localBroadcastManager.registerPurchaseReceiver(purchaseReceiver)
         localBroadcastManager.registerRefreshListReceiver(purchaseReceiver)
+    }
+
+    private fun setupTextField(v: View, layout: Int, labelRes: Int, value: String?) {
+        with(v.findViewById<TextInputLayout>(layout)) {
+            editText?.setText(value)
+            setEndIconOnClickListener {
+                val label = getString(labelRes)
+                getSystemService(requireContext(), ClipboardManager::class.java)
+                        ?.setPrimaryClip(ClipData.newPlainText(label, value))
+                toaster.toast(R.string.copied_to_clipboard, label)
+            }
+        }
     }
 
     override fun onPause() {
@@ -226,6 +280,48 @@ class TasksAccount : InjectingPreferenceFragment() {
             }
         }
         findPreference(R.string.button_unsubscribe).isEnabled = inventory.subscription != null
+    }
+
+    private fun refreshPasswords(passwords: List<TasksAccountViewModel.AppPassword>) {
+        findPreference(R.string.app_passwords_more_info).isVisible = passwords.isEmpty()
+        val category = findPreference(R.string.app_passwords) as PreferenceCategory
+        category.removeAll()
+        passwords.forEach {
+            val description = it.description ?: getString(R.string.app_password)
+            category.addPreference(IconPreference(context).apply {
+                layoutResource = R.layout.preference_icon
+                iconVisible = true
+                drawable = context?.getDrawable(R.drawable.ic_outline_delete_24px)
+                tint = ContextCompat.getColor(requireContext(), R.color.icon_tint_with_alpha)
+                title = description
+                iconClickListener = View.OnClickListener { _ ->
+                    dialogBuilder.newDialog()
+                            .setTitle(R.string.delete_tag_confirmation, description)
+                            .setMessage(R.string.app_password_delete_confirmation)
+                            .setPositiveButton(R.string.ok) { _, _ ->
+                                viewModel.deletePassword(caldavAccount, it.id)
+                            }
+                            .setNegativeButton(R.string.cancel, null)
+                            .show()
+
+                }
+                summary = """
+                ${getString(R.string.app_password_created_at, formatString(it.createdAt))}
+                ${getString(R.string.app_password_last_access, formatString(it.lastAccess) ?: getString(R.string.last_backup_never))}
+            """.trimIndent()
+            })
+        }
+    }
+
+    private fun formatString(date: Long?): String? = date?.let {
+        DateUtilities.getRelativeDay(
+                requireContext(),
+                date,
+                locale.locale,
+                FormatStyle.FULL,
+                false,
+                true
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

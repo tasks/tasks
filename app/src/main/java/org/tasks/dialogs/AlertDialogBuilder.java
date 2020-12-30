@@ -48,7 +48,7 @@ public class AlertDialogBuilder {
     return this;
   }
 
-  AlertDialogBuilder setTitle(int title, Object... formatArgs) {
+  public AlertDialogBuilder setTitle(int title, Object... formatArgs) {
     builder.setTitle(context.getString(title, formatArgs));
     return this;
   }
@@ -122,6 +122,11 @@ public class AlertDialogBuilder {
   public AlertDialogBuilder setOnDismissListener(
       DialogInterface.OnDismissListener onDismissListener) {
     builder.setOnDismissListener(onDismissListener);
+    return this;
+  }
+
+  public AlertDialogBuilder setCancelable(boolean cancelable) {
+    builder.setCancelable(cancelable);
     return this;
   }
 

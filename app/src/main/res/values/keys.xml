@@ -28,14 +28,14 @@
   <string name="url_donate">https://tasks.org/donate</string>
   <string name="url_reddit">https://reddit.com/r/tasks</string>
   <string name="url_sponsor">https://github.com/sponsors/abaker</string>
+  <string name="url_app_passwords">https://tasks.org/passwords</string>
 
   <!-- Eventually these should be moved to strings.xml for translation -->
   <string name="upgrade_tasks_account">Tasks.org account</string>
   <string name="upgrade_tasks_no_account">Tasks.org account not included with \'Name your price\' subscriptions</string>
-  <string name="upgrade_sync_with_tasks">Sync your data with Tasks.org</string>
+  <string name="upgrade_sync_tasks">Sync your tasks and calendars with Tasks.org</string>
   <string name="upgrade_sync_self_hosted">Sync with third-party apps and services</string>
-  <string name="upgrade_open_internet_standards">Tasks.org is based on open internet standards</string>
-  <string name="upgrade_privacy">Tasks.org does not show ads or sell personal information</string>
+  <string name="upgrade_third_party_apps">Compatible with Outlook, Thunderbird, Apple Reminders, and more</string>
   <string name="upgrade_coming_soon">Many new features coming soon!</string>
   <string name="upgrade_google_tasks">Multiple Google Task accounts</string>
   <string name="upgrade_additional_features">Unlock additional features</string>
@@ -44,6 +44,7 @@
   <string name="upgrade_tasker">Tasker plugins</string>
   <string name="upgrade_free_trial">7-day free trial for new subscribers</string>
   <string name="upgrade_downgrade">Upgrade, downgrade, or cancel your subscription at any time</string>
+  <string name="upgrade_support_development">Your subscription supports open source software!</string>
   <string name="upgrade_previous_donors">Previous donors</string>
   <string name="upgrade_previous_donors_contact">to receive one month credit for every $3 in past donations</string>
 

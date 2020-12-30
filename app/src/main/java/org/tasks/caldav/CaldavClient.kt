@@ -31,7 +31,7 @@ import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
 import java.util.*
 
-class CaldavClient(
+open class CaldavClient(
         private val provider: CaldavClientProvider,
         private val customCertManager: CustomCertManager,
         val httpClient: OkHttpClient,

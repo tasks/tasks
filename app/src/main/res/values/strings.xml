@@ -685,4 +685,14 @@ File %1$s contained %2$s.\n\n
   <string name="above_average">Above average</string>
   <string name="save_percent">Save %d%%</string>
   <string name="sign_in_to_tasks">Sign in to Tasks.org</string>
+  <string name="app_password">App password</string>
+  <string name="app_passwords">App passwords</string>
+  <string name="app_passwords_more_info">Synchronize your tasks and calendars with third-party desktop and mobile apps. Tap here for more info</string>
+  <string name="generate_new_password">Generate new password</string>
+  <string name="app_password_enter_description">Give your password a name (optional)</string>
+  <string name="app_password_created_at">Created: %s</string>
+  <string name="app_password_last_access">Last used: %s</string>
+  <string name="app_password_delete_confirmation">Any app using this password will be signed out</string>
+  <string name="app_password_save">Use these credentials to configure a third-party app. They grant complete access to your Tasks.org account, don\'t write them down or share them with anyone!</string>
+  <string name="copied_to_clipboard">%s copied to clipboard</string>
 </resources>
