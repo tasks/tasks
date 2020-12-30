@@ -679,4 +679,5 @@
     <string name="save_percent">Bespaar %d%%</string>
     <string name="above_average">Bovengemiddeld</string>
     <string name="decsync_selection_description">Synchroniseer je taken met de DecSync CC applicatie</string>
+    <string name="sign_in_to_tasks">Log in bij Tasks.org</string>
 </resources>
