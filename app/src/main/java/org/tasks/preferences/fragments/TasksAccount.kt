@@ -138,7 +138,7 @@ class TasksAccount : InjectingPreferenceFragment() {
         (findPreference(R.string.sign_in_with_google) as IconPreference).apply {
             if (account.error.isNullOrBlank()) {
                 isVisible = false
-                return
+                return@apply
             }
             isVisible = true
             when {

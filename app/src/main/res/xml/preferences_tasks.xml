@@ -15,6 +15,7 @@
   <Preference
     android:key="@string/upgrade_to_pro"
     android:title="@string/upgrade_to_pro"
+    android:summary=" "
     app:allowDividerAbove="true"
     app:icon="@drawable/ic_outline_attach_money_24px" />
 
@@ -29,7 +30,8 @@
 
   <PreferenceCategory
     android:key="@string/migrate"
-    android:title="@string/migrate">
+    android:title="@string/migrate"
+    app:isPreferenceVisible="false">
 
     <Preference
       android:key="@string/offline_lists"
