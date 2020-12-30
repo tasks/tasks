@@ -681,4 +681,8 @@
         <item quantity="one">%d liste</item>
         <item quantity="other">%d lister</item>
     </plurals>
+    <string name="sign_in_to_tasks">Logg inn på Tasks.org</string>
+    <string name="save_percent">Lagre %d%%</string>
+    <string name="above_average">Over gjenomsnitt</string>
+    <string name="decsync_selection_description">Synkroniser dine gjøremål med DecSync CC-programmet</string>
 </resources>
