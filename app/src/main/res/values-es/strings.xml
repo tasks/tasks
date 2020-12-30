@@ -684,4 +684,5 @@
     <string name="above_average">Por encima del promedio</string>
     <string name="save_percent">Ahorre %d %%</string>
     <string name="decsync_selection_description">Sincronice sus tareas con la aplicación DecSync CC</string>
+    <string name="sign_in_to_tasks">Ingrese a Tasks.org</string>
 </resources>
