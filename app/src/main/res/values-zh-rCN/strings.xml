@@ -674,4 +674,5 @@
     <string name="above_average">高于平均</string>
     <string name="save_percent">节省 %d%%</string>
     <string name="decsync_selection_description">用 DecSync CC 应用程序同步你的任务</string>
+    <string name="sign_in_to_tasks">登录到 Tasks.org</string>
 </resources>
