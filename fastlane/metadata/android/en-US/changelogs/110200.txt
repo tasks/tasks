@@ -1,0 +1,2 @@
+* Synchronize your Tasks.org account with third-party task and calendar apps
+* Update translations

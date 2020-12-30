@@ -1,3 +1,20 @@
+### 11.2 (2020-12-30)
+
+* [Synchronize your Tasks.org account with third-party task and calendar apps, like Outlook,
+  Thunderbird, or Apple Reminders](https://tasks.org/passwords)
+* Miscellaneous improvements - Thanks @mhmdanas!
+* Update translations
+  * Croatian - @ggdorman
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Japanese - @junjuni86
+  * Norwegian Bokmål - @comradekingu
+  * Portuguese - @alvar0liveira
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Urdu - Maaz
+
 ### 11.1.1 (2020-12-24)
 
 * Fix compatibility issues with third-party clients
