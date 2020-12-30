@@ -682,4 +682,5 @@
     <string name="save_percent">Mentés %d%%</string>
     <string name="above_average">Átlag felett</string>
     <string name="decsync_selection_description">Feladatok szinkronizálása DecSync CC alkalmazással</string>
+    <string name="sign_in_to_tasks">Tasks.org bejelentkezés</string>
 </resources>
