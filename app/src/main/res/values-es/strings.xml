@@ -685,4 +685,14 @@
     <string name="save_percent">Ahorre %d %%</string>
     <string name="decsync_selection_description">Sincronice sus tareas con la aplicación DecSync CC</string>
     <string name="sign_in_to_tasks">Ingrese a Tasks.org</string>
+    <string name="copied_to_clipboard">%s copiado al portapapeles</string>
+    <string name="app_password_save">Utilice estas credenciales para configurar una aplicación de terceros. Conceden un acceso completo a su cuenta de Tasks.org, ¡no las escriba ni las comparta con nadie!</string>
+    <string name="app_password_delete_confirmation">Se cerrará la sesión de cualquier aplicación que utilice esta contraseña</string>
+    <string name="app_password_last_access">Ultima utilización: %s</string>
+    <string name="app_password_created_at">Creado: %s</string>
+    <string name="app_password_enter_description">Dale un nombre a tu contraseña (opcional)</string>
+    <string name="generate_new_password">Generar contraseña</string>
+    <string name="app_passwords_more_info">Sincronice sus tareas y calendarios con aplicaciones móviles y de escritorio de terceros. Toque aquí para obtener más información</string>
+    <string name="app_passwords">Contraseñas de la aplicación</string>
+    <string name="app_password">Contraseña de la aplicación</string>
 </resources>
