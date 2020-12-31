@@ -683,4 +683,6 @@
     <string name="above_average">Átlag felett</string>
     <string name="decsync_selection_description">Feladatok szinkronizálása DecSync CC alkalmazással</string>
     <string name="sign_in_to_tasks">Tasks.org bejelentkezés</string>
+    <string name="app_passwords">Alkalmazás jelszavak</string>
+    <string name="app_password">Alkalmazás jelszó</string>
 </resources>
