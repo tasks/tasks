@@ -621,7 +621,7 @@
     <string name="auto_dismiss_datetime_widget_summary">Auto-encerre ao obtendo do widget</string>
     <string name="compact">Compacto</string>
     <string name="caldav_selection_description">Sincronização usando Protocolos Padrões e Livres da Internet</string>
-    <string name="cancel">\@android:string/Cancelar</string>
+    <string name="cancel">Cancelar</string>
     <string name="synchronization_third_party">Sincronização com outras aplicações</string>
     <string name="github_sponsor">Patrocíonar</string>
     <string name="migrating_tasks">A migrar as suas tarefas</string>
