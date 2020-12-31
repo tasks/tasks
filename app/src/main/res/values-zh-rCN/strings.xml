@@ -675,4 +675,14 @@
     <string name="save_percent">节省 %d%%</string>
     <string name="decsync_selection_description">用 DecSync CC 应用程序同步你的任务</string>
     <string name="sign_in_to_tasks">登录到 Tasks.org</string>
+    <string name="copied_to_clipboard">%s 被复制到剪贴板</string>
+    <string name="app_password_save">使用这些凭据配置第三方应用程序。它们允许对你的 Tasks.org 账户的完整访问权限，所以不要不要把它们写下来或与任何人分享！</string>
+    <string name="app_password_delete_confirmation">任何使用此密码的应用程序都会退出登录</string>
+    <string name="app_password_last_access">上次使用：%s</string>
+    <string name="app_password_created_at">创建于：%s</string>
+    <string name="app_password_enter_description">给你的密码一个名称 （可选）</string>
+    <string name="generate_new_password">生成新密码</string>
+    <string name="app_passwords_more_info">用第三方桌面和移动应用程序同步你的任务和日历。点击此处了解更多信息</string>
+    <string name="app_passwords">多个应用程序密码</string>
+    <string name="app_password">应用程序密码</string>
 </resources>
