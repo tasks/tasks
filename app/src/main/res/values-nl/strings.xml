@@ -680,4 +680,14 @@
     <string name="above_average">Bovengemiddeld</string>
     <string name="decsync_selection_description">Synchroniseer je taken met de DecSync CC applicatie</string>
     <string name="sign_in_to_tasks">Log in bij Tasks.org</string>
+    <string name="copied_to_clipboard">%s naar het klembord gekopiëerd</string>
+    <string name="app_password_save">Gebruik deze inloggegevens om andere apps te configureren. Ze verlenen volledige toegang tot je Tasks.org account, dus schrijf ze nergens op en deel ze met niemand!</string>
+    <string name="app_password_delete_confirmation">Alle apps die dit wachtwoord gebruiken worden uitgelogd</string>
+    <string name="app_password_last_access">Laatst gebruikt: %s</string>
+    <string name="app_password_created_at">Aangemaakt: %s</string>
+    <string name="app_password_enter_description">Geef je wachtwoord een naam (optioneel)</string>
+    <string name="generate_new_password">Genereer nieuw wachtwoord</string>
+    <string name="app_passwords_more_info">Synchroniseer je taken en agenda\'s met andere desktop en mobiele apps. Tik hier voor meer info</string>
+    <string name="app_passwords">App wachtwoorden</string>
+    <string name="app_password">App wachtwoord</string>
 </resources>
