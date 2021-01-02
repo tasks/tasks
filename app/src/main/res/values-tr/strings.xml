@@ -678,10 +678,21 @@
     <string name="sign_in_with_github">GitHub ile oturum aç</string>
     <string name="github_sponsors">GitHub Sponsorları</string>
     <string name="google_play_subscribers">Google Play aboneleri</string>
-    <string name="not_signed_in">Giriş yapılmadı</string>
+    <string name="not_signed_in">Oturum açılmadı</string>
     <string name="no_google_play_subscription">Uygun Google Play aboneliği bulunamadı</string>
     <string name="insufficient_sponsorship">Uygun GitHub sponsorluğu bulunamadı</string>
     <string name="save_percent">%%%d tasarruf</string>
     <string name="above_average">Ortalamanın üstü</string>
     <string name="decsync_selection_description">Görevlerinizi DecSync CC ile eşzamanlayın</string>
+    <string name="copied_to_clipboard">%s panoya kopyalandı</string>
+    <string name="app_password_save">Bu kimlik bilgilerini üçüncü taraf uygulamayı yapılandırmakta kullan. Bunlar Tasks.org hesabınıza tam erişim sağlar, başka yere yazmayın veya biriyle paylaşmayın!</string>
+    <string name="app_password_delete_confirmation">Bu parolayı kullanan tüm uygulamaların oturumu kapatılacak</string>
+    <string name="app_password_last_access">Son kullanım: %s</string>
+    <string name="app_password_created_at">Oluşturulma: %s</string>
+    <string name="app_password_enter_description">Parolanızı adlandırın (isteğe bağlı)</string>
+    <string name="generate_new_password">Yeni parola yarat</string>
+    <string name="app_passwords_more_info">Görevlerinizi ve takvimlerinizi üçüncü taraf masaüstü ve mobil uygulamalarla eşzamanlayın. Daha çok bilgi için dokun</string>
+    <string name="app_passwords">Uygulama parolaları</string>
+    <string name="app_password">Uygulama parolası</string>
+    <string name="sign_in_to_tasks">Tasks.org\'da oturum aç</string>
 </resources>
