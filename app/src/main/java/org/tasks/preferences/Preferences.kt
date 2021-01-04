@@ -204,9 +204,8 @@ class Preferences @JvmOverloads constructor(
     }
 
     fun getIntegerFromString(keyResource: String?, defaultValue: Int): Int {
-        val value = prefs.getString(keyResource, null) ?: return defaultValue
         return try {
-            value.toInt()
+            prefs.getString(keyResource, null)?.toInt() ?: return defaultValue
         } catch (e: Exception) {
             Timber.e(e)
             defaultValue
