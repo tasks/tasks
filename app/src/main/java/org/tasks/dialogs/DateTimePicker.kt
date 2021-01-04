@@ -2,24 +2,15 @@ package org.tasks.dialogs
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -33,8 +24,6 @@ import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
 import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
-import org.tasks.preferences.Preferences
-import org.tasks.themes.Theme
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.millisOfDay
 import org.tasks.time.DateTimeUtils.startOfDay
@@ -42,14 +31,12 @@ import java.time.format.FormatStyle
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DateTimePicker : BottomSheetDialogFragment() {
+class DateTimePicker : BaseDateTimePicker() {
 
     @Inject lateinit var activity: Activity
-    @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var notificationManager: NotificationManager
-    @Inject lateinit var theme: Theme
 
     lateinit var binding: DialogDateTimePickerBinding
     private var customDate = NO_DAY
@@ -59,22 +46,17 @@ class DateTimePicker : BottomSheetDialogFragment() {
     private val today = newDateTime().startOfDay()
     private val tomorrow = today.plusDays(1)
     private val nextWeek = today.plusDays(7)
-    private var morning = 32401000
-    private var afternoon = 46801000
-    private var evening = 61201000
-    private var night = 72001000
-    private var onDismissHandler: OnDismissHandler? = null
-
-    interface OnDismissHandler {
-        fun onDismiss()
-    }
+    override val calendarView get() = binding.calendarView
+    override val morningButton get() = binding.shortcuts.morningButton
+    override val afternoonButton get() = binding.shortcuts.afternoonButton
+    override val eveningButton get() = binding.shortcuts.eveningButton
+    override val nightButton get() = binding.shortcuts.nightButton
 
     companion object {
         const val EXTRA_DAY = "extra_day"
         const val EXTRA_TIME = "extra_time"
         const val EXTRA_TASKS = "extra_tasks"
         const val EXTRA_TIMESTAMP = "extra_timestamp"
-        private const val EXTRA_AUTO_CLOSE = "extra_auto_close"
         private const val REQUEST_TIME = 10101
         private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
         private const val NO_DAY = 0L
@@ -109,24 +91,13 @@ class DateTimePicker : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DialogDateTimePickerBinding.inflate(theme.getLayoutInflater(context))
-        morning = preferences.dateShortcutMorning + 1000
-        afternoon = preferences.dateShortcutAfternoon + 1000
-        evening = preferences.dateShortcutEvening + 1000
-        night = preferences.dateShortcutNight + 1000
-        binding.shortcuts.morningButton.text = DateUtilities.getTimeString(context, newDateTime().withMillisOfDay(morning))
-        binding.shortcuts.afternoonButton.text = DateUtilities.getTimeString(context, newDateTime().withMillisOfDay(afternoon))
-        binding.shortcuts.eveningButton.text = DateUtilities.getTimeString(context, newDateTime().withMillisOfDay(evening))
-        binding.shortcuts.nightButton.text = DateUtilities.getTimeString(context, newDateTime().withMillisOfDay(night))
+        setupShortcutsAndCalendar()
         ButterKnife.bind(this, binding.root)
         binding.shortcuts.nextWeekButton.text =
                 getString(R.string.next, DateUtilities.getWeekdayShort(newDateTime().plusWeeks(1), locale.locale))
         binding.calendarView.setOnDateChangeListener { _, y, m, d ->
             returnDate(day = DateTime(y, m + 1, d).millis)
             refreshButtons()
-        }
-        val firstDayOfWeek = preferences.firstDayOfWeek
-        if (firstDayOfWeek in 1..7) {
-            binding.calendarView.firstDayOfWeek = firstDayOfWeek
         }
         selectedDay = savedInstanceState?.getLong(EXTRA_DAY) ?: requireArguments().getLong(EXTRA_DAY)
         selectedTime =
@@ -138,23 +109,7 @@ class DateTimePicker : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-
-        if (activity is OnDismissHandler) {
-            onDismissHandler = activity
-        }
-    }
-
-    private fun closeAutomatically(): Boolean = arguments?.getBoolean(EXTRA_AUTO_CLOSE) ?: false
-
-    override fun onResume() {
-        super.onResume()
-
-        refreshButtons()
-    }
-
-    private fun refreshButtons() {
+    override fun refreshButtons() {
         when (selectedDay) {
             0L -> binding.shortcuts.dateGroup.check(R.id.no_date_button)
             today.millis -> binding.shortcuts.dateGroup.check(R.id.today_button)
@@ -264,7 +219,7 @@ class DateTimePicker : BottomSheetDialogFragment() {
     private val taskIds: LongArray
         get() = arguments?.getLongArray(EXTRA_TASKS) ?: longArrayOf()
 
-    private fun sendSelected() {
+    override fun sendSelected() {
         if (selectedDay != arguments?.getLong(EXTRA_DAY)
                 || selectedTime != arguments?.getInt(EXTRA_TIME)) {
             if (taskIds.isEmpty()) {
@@ -309,64 +264,11 @@ class DateTimePicker : BottomSheetDialogFragment() {
         dismiss()
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-
-        onDismissHandler?.onDismiss()
-    }
-
-    override fun onCancel(dialog: DialogInterface) = sendSelected()
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
         outState.putLong(EXTRA_DAY, selectedDay)
         outState.putInt(EXTRA_TIME, selectedTime)
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-        dialog.setOnShowListener {
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                dialog.behavior.halfExpandedRatio = .75f
-                val bottomSheet = dialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
-                BottomSheetBehavior.from(bottomSheet!!).state = BottomSheetBehavior.STATE_HALF_EXPANDED
-                dialog.behavior.peekHeight = bottomSheet.height
-            }
-
-            if (!closeAutomatically()) {
-                addButtons(dialog)
-            }
-        }
-        return dialog
-    }
-
-    private fun addButtons(dialog: BottomSheetDialog) {
-        val coordinator = dialog
-                .findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
-        val containerLayout =
-                dialog.findViewById<FrameLayout>(com.google.android.material.R.id.container)
-        val buttons = theme.getLayoutInflater(context).inflate(R.layout.dialog_date_time_picker_buttons, null)
-        buttons.findViewById<View>(R.id.cancel_button).setOnClickListener { dismiss() }
-        buttons.findViewById<View>(R.id.ok_button).setOnClickListener { sendSelected() }
-        buttons.layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM
-        ).apply {
-            gravity = Gravity.BOTTOM
-        }
-        containerLayout!!.addView(buttons)
-
-        buttons.post {
-            (coordinator!!.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                buttons.measure(
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-                )
-                this.bottomMargin = buttons.measuredHeight
-                containerLayout.requestLayout()
-            }
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
