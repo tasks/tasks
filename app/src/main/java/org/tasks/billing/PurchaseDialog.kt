@@ -217,7 +217,7 @@ _${getString(R.string.upgrade_tasks_no_account)}_
         val generic = BuildConfig.FLAVOR == "generic"
         binding.sliderContainer.isVisible = !isWaitScreen && nameYourPrice
         binding.payOther.isVisible = !isWaitScreen
-        binding.payOther.setText(if (nameYourPrice) R.string.back else R.string.more_options)
+        binding.payOther.setText(if (nameYourPrice) R.string.back else R.string.name_your_price)
         binding.tasksOrgButtonPanel.isVisible = !isWaitScreen && !generic
         binding.screenWait.isVisible = isWaitScreen && !generic
         binding.sponsor.isVisible = generic
