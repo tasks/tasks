@@ -32,6 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import net.openid.appauth.*
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseDialog
 import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
@@ -60,6 +61,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
     @Inject lateinit var themeColor: ThemeColor
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var dialogBuilder: DialogBuilder
+    @Inject lateinit var firebase: Firebase
 
     private val viewModel: SignInViewModel by viewModels()
 
@@ -168,6 +170,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
             newPurchaseDialog(tasksPayment = true, github = authService.isGitHub)
                     .show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
         } else {
+            firebase.reportException(e)
             returnError(e.message)
         }
     }
