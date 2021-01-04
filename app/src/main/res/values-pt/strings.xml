@@ -46,7 +46,6 @@
     <string name="due_time">Hora da tarefa</string>
     <string name="day_before_due">Um dia antes</string>
     <string name="week_before_due">Semana anterior</string>
-    <string name="TEA_control_when">Quando</string>
     <string name="TEA_control_repeat">Repetição</string>
     <string name="TEA_control_gcal">Calendário</string>
     <string name="TEA_control_importance">Prioridade</string>

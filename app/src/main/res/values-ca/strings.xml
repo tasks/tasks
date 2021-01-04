@@ -33,7 +33,6 @@
     <string name="due_date">Data de venciment</string>
     <string name="day_before_due">El dia abans del venciment</string>
     <string name="week_before_due">La setmana abans del venciment</string>
-    <string name="TEA_control_when">Quan</string>
     <string name="TEA_control_importance">Prioritat</string>
     <string name="TEA_control_notes">Descripció</string>
     <string name="TEA_control_files">Fitxers</string>

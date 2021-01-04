@@ -55,7 +55,6 @@
     <string name="TEA_control_importance">முன்னுரிமை</string>
     <string name="TEA_control_gcal">நாள்காட்டி</string>
     <string name="TEA_control_repeat">மீண்டும் செய்யவும்</string>
-    <string name="TEA_control_when">எப்பொழுது</string>
     <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">வாரத்திற்கு முன்</string>
     <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">செலுத்த வேண்டிய நாள் முன்</string>
     <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">உரிய நேரத்தில்</string>

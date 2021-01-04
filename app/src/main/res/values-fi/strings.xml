@@ -48,7 +48,6 @@
     <string name="due_time">Määräaika</string>
     <string name="day_before_due">Päivä ennen määräpäivää</string>
     <string name="week_before_due">Viikko ennen määräpäivää</string>
-    <string name="TEA_control_when">Kun</string>
     <string name="TEA_control_repeat">Toista</string>
     <string name="TEA_control_gcal">Kalenteri</string>
     <string name="TEA_control_importance">Tärkeys</string>

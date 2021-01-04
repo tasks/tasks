@@ -18,7 +18,6 @@
     <string name="TEA_control_location">Lokacija</string>
     <string name="TEA_control_importance">Prioritet</string>
     <string name="TEA_control_gcal">Kalendar</string>
-    <string name="TEA_control_when">Kada</string>
     <string name="save">Spremi</string>
     <string name="TEA_note_label">Opis</string>
     <string name="TEA_hideUntil_label">Sakrij do</string>

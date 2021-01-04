@@ -12,7 +12,6 @@
     <string name="TEA_control_importance">ترجیح</string>
     <string name="TEA_control_gcal">کیلنڈر</string>
     <string name="TEA_control_repeat">دہرائیں</string>
-    <string name="TEA_control_when">کب</string>
     <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">وقت مقررہ سے ہفتہ قبل</string>
     <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">مقررہ وقت سے ایک دن پہلے</string>
     <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">مقررہ وقت</string>

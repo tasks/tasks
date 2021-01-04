@@ -42,7 +42,6 @@
     <string name="due_time">Ώρα λήξης</string>
     <string name="day_before_due">Μια ημέρα πριν τη λήξη</string>
     <string name="week_before_due">Εβδομάδα πριν τη λήξη</string>
-    <string name="TEA_control_when">Όταν</string>
     <string name="TEA_control_importance">Προτεραιότητα</string>
     <string name="TEA_control_notes">Περιγραφή</string>
     <string name="TEA_control_files">Αρχεία</string>

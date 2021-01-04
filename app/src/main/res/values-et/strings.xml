@@ -39,7 +39,6 @@
     <string name="TEA_no_time">Aega pole</string>
     <string name="due_date">Tähtaeg</string>
     <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">nädal enne tähtaega</string>
-    <string name="TEA_control_when">Millal</string>
     <string name="TEA_control_repeat">Korda</string>
     <string name="TEA_control_gcal">Kalender</string>
     <string name="TEA_control_importance">Tähtsus</string>

@@ -35,7 +35,6 @@
     <string name="TEA_timer_est">Ansl. %s</string>
     <string name="TEA_timer_elap">Forløpt %s</string>
     <string name="TEA_no_time">Ikke begynt</string>
-    <string name="TEA_control_when">Når</string>
     <string name="TEA_control_importance">Prioritet</string>
     <string name="TEA_control_notes">Beskrivelse</string>
     <string name="TEA_control_files">Filer</string>

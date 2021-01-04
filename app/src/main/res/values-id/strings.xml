@@ -29,7 +29,6 @@
     <string name="TEA_add_subtask">Tambah subtugas</string>
     <string name="TEA_note_label">Deskripsi</string>
     <string name="save">Simpan</string>
-    <string name="TEA_control_when">Kapan</string>
     <string name="TEA_control_repeat">Ulangi</string>
     <string name="TEA_control_gcal">Kalender</string>
     <string name="TEA_control_importance">Prioritas</string>

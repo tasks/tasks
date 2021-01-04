@@ -42,7 +42,6 @@
     <string name="due_time">Dospelost po času</string>
     <string name="day_before_due">Dan pred dospelostjo</string>
     <string name="week_before_due">Teden pred dospelostjo</string>
-    <string name="TEA_control_when">Kdaj</string>
     <string name="TEA_control_importance">Prioriteta</string>
     <string name="TEA_control_notes">Opis</string>
     <string name="TEA_control_files">Datoteke</string>

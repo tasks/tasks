@@ -45,7 +45,6 @@
     <string name="due_time">Förfallotid</string>
     <string name="day_before_due">Dagen innan förfallodatum</string>
     <string name="week_before_due">Vecka innan förfallodatum</string>
-    <string name="TEA_control_when">När</string>
     <string name="TEA_control_repeat">Upprepa</string>
     <string name="TEA_control_gcal">Kalender</string>
     <string name="TEA_control_importance">Prioritet</string>

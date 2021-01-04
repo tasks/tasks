@@ -51,7 +51,6 @@
     <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">termino laikas</string>
     <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">diena iki termino pabaigos</string>
     <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">savaitė iki termino pabaigos</string>
-    <string name="TEA_control_when">Kada</string>
     <string name="TEA_control_repeat">Kartoti</string>
     <string name="TEA_control_gcal">Kalendorius</string>
     <string name="TEA_control_importance">Pirmenybė</string>

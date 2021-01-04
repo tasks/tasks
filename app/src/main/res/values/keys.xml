@@ -246,7 +246,7 @@
   <string name="gcal_p_default">default_calendar_id</string>
 
   <string-array name="TEA_control_sets_beast">
-    <item>@string/TEA_control_when</item>
+    <item>@string/due_date</item>
     <item>@string/TEA_control_repeat</item>
     <item>@string/TEA_control_importance</item>
     <item>@string/TEA_control_location</item>

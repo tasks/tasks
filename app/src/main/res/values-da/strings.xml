@@ -589,7 +589,6 @@
     <string name="TEA_control_location">Sted</string>
     <string name="TEA_control_gcal">Kalender</string>
     <string name="TEA_control_repeat">Gentag</string>
-    <string name="TEA_control_when">Hvornår</string>
     <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">ugen før frist</string>
     <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">dagen før frist</string>
     <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">frist-tid</string>

@@ -29,7 +29,6 @@
     <string name="due_time">الوقت المحدد</string>
     <string name="day_before_due">يوم قبل الموعد</string>
     <string name="week_before_due">أسبوع قبل الموعد</string>
-    <string name="TEA_control_when">متى</string>
     <string name="TEA_control_repeat">إعادة</string>
     <string name="TEA_control_gcal">تقويم</string>
     <string name="TEA_control_importance">الأولوية</string>

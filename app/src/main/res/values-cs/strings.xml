@@ -42,7 +42,6 @@
     <string name="due_time">Čas dokončení</string>
     <string name="day_before_due">Den před termínem</string>
     <string name="week_before_due">Týden před termínem</string>
-    <string name="TEA_control_when">Kdy</string>
     <string name="TEA_control_repeat">Opakovat</string>
     <string name="TEA_control_gcal">Kalendář</string>
     <string name="TEA_control_importance">Důležitost</string>

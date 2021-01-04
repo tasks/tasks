@@ -35,7 +35,6 @@
     <string name="TEA_estimatedDuration_label">എത്ര സമയമെടുക്കും\?</string>
     <string name="save">സംരക്ഷിക്കുക</string>
     <string name="TEA_no_time">സമയമില്ല</string>
-    <string name="TEA_control_when">എപ്പോൾ</string>
     <string name="TEA_control_repeat">ആവർത്തിക്കുക</string>
     <string name="TEA_control_gcal">കലണ്ടർ</string>
     <string name="TEA_control_notes">വിവരണം</string>

@@ -51,7 +51,6 @@
     <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">o czasie</string>
     <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Dzień przed terminem</string>
     <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">tydzień przed terminem</string>
-    <string name="TEA_control_when">Kiedy</string>
     <string name="TEA_control_repeat">Powtórz</string>
     <string name="TEA_control_gcal">Kalendarz</string>
     <string name="TEA_control_importance">Priorytet</string>

@@ -44,7 +44,6 @@
     <string name="due_time">Hora de vencimiento</string>
     <string name="day_before_due">Día previo al vencimiento</string>
     <string name="week_before_due">Semana previa al vencimiento</string>
-    <string name="TEA_control_when">Cuando</string>
     <string name="TEA_control_repeat">Repetir</string>
     <string name="TEA_control_gcal">Calendario</string>
     <string name="TEA_control_importance">Prioridad</string>

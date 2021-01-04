@@ -42,7 +42,6 @@
     <string name="TEA_no_time">沒有時間</string>
     <string name="due_date">到期日</string>
     <string name="week_before_due">到期前一週</string>
-    <string name="TEA_control_when">時間</string>
     <string name="TEA_control_importance">優先權</string>
     <string name="TEA_control_notes">描述</string>
     <string name="TEA_control_files">檔案</string>

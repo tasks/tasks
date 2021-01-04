@@ -54,7 +54,6 @@
     <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">마감시간</string>
     <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">마감 하루 전</string>
     <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">마감 일주일 전</string>
-    <string name="TEA_control_when">언제</string>
     <string name="TEA_control_repeat">반복</string>
     <string name="TEA_control_gcal">달력</string>
     <string name="TEA_control_importance">우선순위</string>

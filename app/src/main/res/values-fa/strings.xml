@@ -37,7 +37,6 @@
     <string name="due_time">زمان موعود</string>
     <string name="day_before_due">روز قبل از موعود</string>
     <string name="week_before_due">هفته قبل از موعود</string>
-    <string name="TEA_control_when">زمانی که</string>
     <string name="TEA_control_repeat">تکرار</string>
     <string name="TEA_control_gcal">تقویم</string>
     <string name="TEA_control_importance">اولیت</string>
