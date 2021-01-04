@@ -432,7 +432,6 @@
     <string name="manage_subscription">Előfizetés módosítása</string>
     <string name="refresh_purchases">Vásárlások frissítése</string>
     <string name="button_subscribe">Előfizetés</string>
-    <string name="button_more_info">További információk</string>
     <string name="about">Névjegy</string>
     <string name="license_summary">A Tasks nyílt forráskódú program, a GNU Általános Nyilvános Licenc v3.0 alapján licenszelve</string>
     <string name="pro_dashclock_extension">Dashclock kiterjesztés</string>

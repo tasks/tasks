@@ -447,7 +447,6 @@
     <string name="manage_subscription">Управління підписками</string>
     <string name="refresh_purchases">Оновити покупки</string>
     <string name="button_subscribe">Підписатися</string>
-    <string name="button_more_info">Більше інформації</string>
     <string name="about">Про Tasks</string>
     <string name="license_summary">Tasks — це програма з відкритим кодом, ліцензованим GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Розширення Dashclock</string>

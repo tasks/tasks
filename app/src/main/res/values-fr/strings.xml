@@ -413,7 +413,6 @@
     <string name="manage_subscription">Modifier les abonnements</string>
     <string name="refresh_purchases">Rafraîchir les achats</string>
     <string name="button_subscribe">S\'abonner</string>
-    <string name="button_more_info">Plus d\'info</string>
     <string name="about">À propos</string>
     <string name="license_summary">Tasks est un logiciel libre et open-source, licencié selon le GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extension Dashclock</string>

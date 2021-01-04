@@ -466,7 +466,6 @@
     <string name="manage_subscription">ניהול מינוי</string>
     <string name="refresh_purchases">עדכן רכישות</string>
     <string name="button_subscribe">רישום כמנוי</string>
-    <string name="button_more_info">עוד מידע</string>
     <string name="about">אודות</string>
     <string name="license_summary">Tasks הוא חופשי ובקוד פתוח, מוגש בתנאי הרישיון הציבורי הכללי של GNU בגרסה 3.0</string>
     <string name="pro_dashclock_extension">הרחבת Dashclock</string>

@@ -432,7 +432,6 @@
     <string name="manage_subscription">Hantera prenumerations</string>
     <string name="refresh_purchases">Uppdatera inköp</string>
     <string name="button_subscribe">Prenumerera</string>
-    <string name="button_more_info">Mer info</string>
     <string name="about">Om</string>
     <string name="license_summary">Tasks är Libre Open-Source programvara, licensierad under GNU General Public License v 3.0</string>
     <string name="pro_dashclock_extension">DashClock extension</string>

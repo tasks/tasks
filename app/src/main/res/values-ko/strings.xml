@@ -429,7 +429,6 @@
     <string name="upgrade_to_pro">프로 서비스로 업그레이드</string>
     <string name="refresh_purchases">구매 새로고침</string>
     <string name="button_subscribe">신청</string>
-    <string name="button_more_info">추가정보</string>
     <string name="about">정보</string>
     <string name="license_summary">Tasks는 GNU 일반공중사용권 3.0 (GPLv3)에 따라 사용이 허가된 리브레 오픈소스 소프트웨어입니다</string>
     <string name="pro_dashclock_extension">Dashclock 확장프로그램</string>

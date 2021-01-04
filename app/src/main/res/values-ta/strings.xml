@@ -309,7 +309,6 @@
     <string name="pro_dashclock_extension">டாஷ்க்லாக் நீட்டிப்பு</string>
     <string name="license_summary">பணிகள் லிப்ரே ஓப்பன் சோர்ஸ் மென்பொருளாகும், இது குனு GPLv3.0 இன் கீழ் உரிமம் பெற்றது</string>
     <string name="about">பற்றி</string>
-    <string name="button_more_info">மேலும் தகவல்</string>
     <string name="button_unsubscribe">சந்தாவை ரத்துசெய்</string>
     <string name="button_upgrade">சந்தாவை மேம்படுத்தவும்</string>
     <string name="button_subscribe">பதிவு</string>

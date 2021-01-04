@@ -500,7 +500,6 @@ File %1$s contained %2$s.\n\n
   <string name="button_subscribe">Subscribe</string>
   <string name="button_upgrade">Upgrade subscription</string>
   <string name="button_unsubscribe">Cancel subscription</string>
-  <string name="button_more_info">More info</string>
   <string name="about">About</string>
   <string name="license_summary">Tasks is libre open-source software, licensed under the GNU General Public License v3.0</string>
   <string name="pro_dashclock_extension">Dashclock extension</string>

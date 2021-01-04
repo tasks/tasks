@@ -446,7 +446,6 @@
     <string name="manage_subscription">Spravovat předplatné</string>
     <string name="refresh_purchases">Obnovit nákupy</string>
     <string name="button_subscribe">Předplatit</string>
-    <string name="button_more_info">Více informací</string>
     <string name="about">O aplikaci</string>
     <string name="license_summary">Aplikace Tasks je svobodný software s otevřeným zdrojovým kódem licencovaný pod GNU General Public License v3.0</string>
     <string name="icon">Ikona</string>

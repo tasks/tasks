@@ -470,7 +470,6 @@
     <string name="requires_pro_subscription">Edellyttää Pro-version tilauksen</string>
     <string name="license_summary">Tasks on vapaa avoimen ohjelmakoodin ohjelmisto lisensöity GNU General Public License v3.0 -lisenssillä</string>
     <string name="about">Tietoja sovelluksesta</string>
-    <string name="button_more_info">Lisätietoja</string>
     <string name="button_unsubscribe">Peruuta tilaus</string>
     <string name="button_subscribe">Tilaa</string>
     <string name="manage_subscription">Hallinnoi tilausta</string>

@@ -442,7 +442,6 @@
     <string name="manage_subscription">Zarządzaj subskrypcją</string>
     <string name="refresh_purchases">Odśwież zakupy</string>
     <string name="button_subscribe">Zasubskrybuj</string>
-    <string name="button_more_info">Więcej informacji</string>
     <string name="about">O programie</string>
     <string name="license_summary">Tasks jest aplikacją darmową/libre z otwartym kodem źródłowym, na licencji GNU General Public License v3.0</string>
     <string name="requires_pro_subscription">Wymaga subskrypcji pro</string>

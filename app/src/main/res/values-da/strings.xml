@@ -236,7 +236,6 @@
     <string name="requires_pro_subscription">Kræver pro-abonnement</string>
     <string name="pro_dashclock_extension">Dashclock-udvidelse</string>
     <string name="about">Om</string>
-    <string name="button_more_info">Mere info</string>
     <string name="button_unsubscribe">Opsig abonnement</string>
     <string name="button_subscribe">Abonnér</string>
     <string name="network_error">Kunne ikke oprette forbindelse</string>
