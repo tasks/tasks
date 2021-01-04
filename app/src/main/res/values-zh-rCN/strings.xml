@@ -649,7 +649,6 @@
     <string name="insufficient_subscription">订阅等级不够。请升级你的订阅来恢复服务。</string>
     <string name="your_subscription_expired">你的订阅已到期。现在订阅恢复服务。</string>
     <string name="logged_in">登录%s</string>
-    <string name="more_options">更多选项</string>
     <string name="follow_reddit">关注 r/tasks</string>
     <string name="background_location_permission_required">本应用收集位置数据，以启用基于位置的提醒，即使应用程序关闭或不使用。</string>
     <string name="repeat_monthly_fifth_week">第五</string>

@@ -445,7 +445,6 @@
     <string name="disable_sort_groups">Nonaktifkan grup sortir</string>
     <string name="improve_performance_summary">Nonaktifkan grup sortir dan subtugas yang bisa diciutkan untuk meningkatkan kinerja aplikasi</string>
     <string name="improve_performance">Meningkatkan kinerja</string>
-    <string name="more_options">Opsi Lanjutan</string>
     <string name="caldav_account_repeating_tasks">Biarkan server menjadwalkan tugas berulang</string>
     <string name="whats_new">Apa yang baru</string>
     <string name="missing_permissions">Gagal Mengizinkan</string>

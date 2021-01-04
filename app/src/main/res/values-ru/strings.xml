@@ -675,7 +675,6 @@
     <string name="insufficient_subscription">Недостаточный уровень подписки. Обновите подписку, чтобы возобновить обслуживание.</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
     <string name="logged_in">Вы вошли как %s</string>
-    <string name="more_options">Дополнительные параметры</string>
     <string name="background_location_permission_required">Это приложение собирает данные о местоположении, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
     <string name="migrate_count">Переместить %s на Tasks.org</string>
     <string name="offline_lists">Автономные списки</string>

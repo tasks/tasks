@@ -652,7 +652,6 @@
     <string name="android_auto_backup">Android babeskopia zerbitzua</string>
     <string name="automatic_backups">Babeskopia automatikoak</string>
     <string name="davx5_selection_description">Sinkronizatu zure zereginak DAVx⁵ aplikazioarekin</string>
-    <string name="more_options">Aukera gehiago</string>
     <string name="background_location_permission_required">Aplikazio honek kokapen datuak jasotzen ditu aplikazioa itxita dagoenean kokapenean oinarritutako oroigarriak gaitu ahal izateko.</string>
     <string name="repeat_monthly_fifth_week">bostgarrena</string>
     <string name="default_recurrence">Lehenetsitako errepikapena</string>

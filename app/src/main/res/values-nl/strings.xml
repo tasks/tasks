@@ -653,7 +653,6 @@
     <string name="insufficient_subscription">Abonnementsniveau onvoldoende. Verhoog a.u.b. je abonnement om deze dienst te hervatten.</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer je nu om deze dienst te hervatten.</string>
     <string name="logged_in">Ingelogd als %s</string>
-    <string name="more_options">Meer opties</string>
     <string name="follow_reddit">Volg r/tasks</string>
     <string name="background_location_permission_required">Deze applicatie verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de applicatie gesloten is of niet gebruikt wordt.</string>
     <string name="repeat_monthly_fifth_week">vijfde</string>
