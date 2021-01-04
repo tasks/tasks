@@ -1,3 +1,16 @@
+### 11.2.1 (2021-01-04)
+
+* Fix Portuguese translation issue
+* Report OpenTask sync errors
+* Report Tasks.org sign in errors
+* Don't crash on widget configuration error
+* Purchase dialog changes
+* Update translations
+  * Dutch - @fvbommel
+  * Hungarian - kaciokos
+  * Simplified Chinese - @sr093906
+  * Turkish - @emintufan
+
 ### 11.2 (2020-12-30)
 
 * [Synchronize your Tasks.org account with third-party task and calendar apps, like Outlook,
