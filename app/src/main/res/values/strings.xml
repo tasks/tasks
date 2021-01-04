@@ -143,7 +143,7 @@ File %1$s contained %2$s.\n\n
   <string name="CFA_button_add">Add Criteria</string>
   <string name="CFC_dueBefore_text">Due By: ?</string>
   <string name="CFC_dueBefore_name">Due By…</string>
-  <string name="no_due_date">No Due Date</string>
+  <string name="no_due_date">No due date</string>
   <string name="next_month">Next Month</string>
   <string name="CFC_importance_text">Priority at least ?</string>
   <string name="CFC_importance_name">Priority…</string>
