@@ -90,7 +90,13 @@ class OpenTasksSynchronizer @Inject constructor(
             } else if (!inventory.hasPro) {
                 setError(account, context.getString(R.string.requires_pro_subscription))
             } else {
-                sync(account, entries)
+                try {
+                    sync(account, entries)
+                    setError(account, null)
+                } catch (e: Exception) {
+                    firebase.reportException(e)
+                    setError(account, e.message)
+                }
             }
         }
     }
@@ -104,7 +110,6 @@ class OpenTasksSynchronizer @Inject constructor(
             val calendar = toLocalCalendar(uuid, it)
             sync(account, calendar, it.ctag, it.id)
         }
-        setError(account, null)
     }
 
     private suspend fun toLocalCalendar(account: String, remote: CaldavCalendar): CaldavCalendar {
@@ -320,15 +325,16 @@ class OpenTasksSynchronizer @Inject constructor(
             })
             iCalendar.setPlace(task.id, it.getString(Tasks.GEO).toGeo())
             task.setRecurrence(it.getString(Tasks.RRULE).toRRule())
+            val tagNames = openTaskDao.getTags(listId, caldavTask)
+            val tags = iCalendar.getTags(tagNames)
+            caldavTask.etag = etag
+            caldavTask.order = openTaskDao.getRemoteOrder(listId, caldavTask)
+            caldavTask.remoteParent = openTaskDao.getParent(it.getLong(Tasks._ID))
             task.suppressSync()
             task.suppressRefresh()
             taskDao.save(task)
+            tagDao.applyTags(task, tagDataDao, tags)
             caldavTask.lastSync = task.modificationDate
-            caldavTask.etag = etag
-            val tags = openTaskDao.getTags(listId, caldavTask)
-            tagDao.applyTags(task, tagDataDao, iCalendar.getTags(tags))
-            caldavTask.order = openTaskDao.getRemoteOrder(listId, caldavTask)
-            caldavTask.remoteParent = openTaskDao.getParent(it.getLong(Tasks._ID))
             if (caldavTask.id == Task.NO_ID) {
                 caldavTask.id = caldavDao.insert(caldavTask)
                 Timber.d("NEW $caldavTask")
