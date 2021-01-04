@@ -28,7 +28,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
-    @Inject @ApplicationContext lateinit var context: Context
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
 

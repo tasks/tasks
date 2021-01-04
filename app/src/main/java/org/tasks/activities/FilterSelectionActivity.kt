@@ -11,7 +11,6 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.adapter.FilterAdapter
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.dialogs.DialogBuilder
@@ -24,7 +23,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class FilterSelectionActivity : InjectingAppCompatActivity() {
-    @Inject @ApplicationContext lateinit var context: Context
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var filterAdapter: FilterAdapter
     @Inject lateinit var filterProvider: FilterProvider
@@ -58,7 +56,7 @@ class FilterSelectionActivity : InjectingAppCompatActivity() {
                         data.putExtra(EXTRA_FILTER, selectedFilter)
                     }
                     if (widgetId != -1) {
-                        WidgetPreferences(context, preferences, widgetId)
+                        WidgetPreferences(this, preferences, widgetId)
                                 .setFilter(defaultFilterProvider.getFilterPreferenceValue(selectedFilter))
                         localBroadcastManager.reconfigureWidget(widgetId)
                     }

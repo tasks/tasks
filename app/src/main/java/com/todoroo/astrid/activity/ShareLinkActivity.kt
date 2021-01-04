@@ -1,6 +1,5 @@
 package com.todoroo.astrid.activity
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,7 +9,6 @@ import com.google.common.io.Files
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TaskAttachment
@@ -30,7 +28,6 @@ import kotlin.math.min
  */
 @AndroidEntryPoint
 class ShareLinkActivity : InjectingAppCompatActivity() {
-    @Inject @ApplicationContext lateinit var context: Context
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var preferences: Preferences
 
@@ -85,7 +82,7 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
 
     private fun copyAttachment(intent: Intent): ArrayList<Uri> {
         val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM) ?: return ArrayList()
-        var filename = FileHelper.getFilename(context, uri)
+        var filename = FileHelper.getFilename(this, uri)
         if (isNullOrEmpty(filename)) {
             filename = intent.getStringExtra(Intent.EXTRA_SUBJECT)
                     ?.takeIf { it.isNotBlank() }
@@ -93,7 +90,7 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
                     ?: uri.lastPathSegment
         }
         val basename = Files.getNameWithoutExtension(filename!!)
-        return Lists.newArrayList(FileHelper.copyToUri(context, preferences.attachmentsDirectory!!, uri, basename))
+        return Lists.newArrayList(FileHelper.copyToUri(this, preferences.attachmentsDirectory!!, uri, basename))
     }
 
     private fun copyMultipleAttachments(intent: Intent): ArrayList<Uri> {
@@ -101,7 +98,7 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
         val uris = intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
         if (uris != null) {
             for (uri in uris) {
-                result.add(FileHelper.copyToUri(context, preferences.attachmentsDirectory!!, uri))
+                result.add(FileHelper.copyToUri(this, preferences.attachmentsDirectory!!, uri))
             }
         }
         return result
