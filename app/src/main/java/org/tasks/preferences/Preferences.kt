@@ -184,10 +184,14 @@ class Preferences @JvmOverloads constructor(
         setDefaults()
     }
 
-    fun getStringValue(key: String?): String? = prefs.getString(key, null)
+    fun getStringValue(keyResource: Int): String? = getStringValue(context.getString(keyResource))
 
-    fun getStringValue(keyResource: Int): String? =
-            prefs.getString(context.getString(keyResource), null)
+    fun getStringValue(key: String?): String? = try {
+        prefs.getString(key, null)
+    } catch (e: Exception) {
+        Timber.e(e)
+        null
+    }
 
     val defaultReminders: Int
         get() = getIntegerFromString(
@@ -199,18 +203,11 @@ class Preferences @JvmOverloads constructor(
     val fontSize: Int
         get() = getInt(R.string.p_fontSize, 16)
 
-    fun getIntegerFromString(keyResource: Int, defaultValue: Int): Int {
-        return getIntegerFromString(context.getString(keyResource), defaultValue)
-    }
+    fun getIntegerFromString(keyResource: Int, defaultValue: Int): Int =
+        getIntegerFromString(context.getString(keyResource), defaultValue)
 
-    fun getIntegerFromString(keyResource: String?, defaultValue: Int): Int {
-        return try {
-            prefs.getString(keyResource, null)?.toInt() ?: return defaultValue
-        } catch (e: Exception) {
-            Timber.e(e)
-            defaultValue
-        }
-    }
+    fun getIntegerFromString(keyResource: String?, defaultValue: Int): Int =
+        getStringValue(keyResource)?.toIntOrNull() ?: defaultValue
 
     private fun getUri(key: Int): Uri? {
         val uri = getStringValue(key)
