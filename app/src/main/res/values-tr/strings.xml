@@ -128,7 +128,7 @@
     <string name="CFA_button_add">Ölçüt Ekle</string>
     <string name="CFC_dueBefore_text">Bitiş: \?</string>
     <string name="CFC_dueBefore_name">Bitiş…</string>
-    <string name="no_due_date">Son Tarih Yok</string>
+    <string name="no_due_date">Bitiş tarihi yok</string>
     <string name="next_month">Gelecek Ay</string>
     <string name="CFC_importance_text">En az öncelik ?</string>
     <string name="CFC_importance_name">Öncelik…</string>
