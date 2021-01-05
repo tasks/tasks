@@ -195,14 +195,10 @@ _${getString(R.string.upgrade_tasks_no_account)}_
     
     @OnClick(R.id.pay_other)
     fun nameYourPrice() {
-        if (isTasksPayment) {
-            dismiss()
-        } else {
-            nameYourPrice = !nameYourPrice
-            setWaitScreen(false)
-            binding.scroll.scrollTo(0, 0)
-            updateSubscribeButton()
-        }
+        nameYourPrice = !nameYourPrice
+        setWaitScreen(false)
+        binding.scroll.scrollTo(0, 0)
+        updateSubscribeButton()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
