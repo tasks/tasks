@@ -22,7 +22,6 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.annotation.AnyThread
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.browser.customtabs.CustomTabsIntent
@@ -153,7 +152,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
             authStateManager.signOut()
         }
         if (!configuration.isValid) {
-            returnError(configuration.configurationError)
+            returnError(Exception(configuration.configurationError))
             return
         }
         if (configuration.hasConfigurationChanged()) {
@@ -170,8 +169,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
             newPurchaseDialog(tasksPayment = true, github = authService.isGitHub)
                     .show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
         } else {
-            firebase.reportException(e)
-            returnError(e.message)
+            returnError(e)
         }
     }
 
@@ -188,7 +186,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
                     val account = try {
                         viewModel.handleResult(authService, data!!)
                     } catch (e: Exception) {
-                        returnError(e.message)
+                        returnError(e)
                     }
                     if (account != null) {
                         setResult(RESULT_OK)
@@ -196,7 +194,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
                     }
                 }
             } else {
-                returnError(getString(R.string.authorization_cancelled))
+                returnError(Exception(getString(R.string.authorization_cancelled)), report = false)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -250,8 +248,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
             config: AuthorizationServiceConfiguration?,
             ex: AuthorizationException?) {
         if (config == null) {
-            Timber.i(ex, "Failed to retrieve discovery document")
-            returnError("Failed to retrieve discovery document: " + ex!!.message)
+            returnError(ex ?: Exception("Failed to retrieve discovery document"))
             return
         }
         Timber.i("Discovery document retrieved")
@@ -298,8 +295,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
             ex: AuthorizationException?) {
         authStateManager.updateAfterRegistration(response, ex)
         if (response == null) {
-            Timber.i(ex, "Failed to dynamically register client")
-            displayErrorLater("Failed to register client: " + ex!!.message)
+            runOnUiThread { returnError(ex ?: Exception("Failed to dynamically register client")) }
             return
         }
         Timber.i("Dynamically registered client: %s", response.clientId)
@@ -326,16 +322,12 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
     }
 
     @MainThread
-    private fun returnError(error: String?) {
-        Timber.e(error)
-        setResult(RESULT_CANCELED, Intent().putExtra(EXTRA_ERROR, error))
+    private fun returnError(e: Throwable, report: Boolean = true) {
+        if (report) {
+            firebase.reportException(e)
+        }
+        setResult(RESULT_CANCELED, Intent().putExtra(EXTRA_ERROR, e.message))
         finish()
-    }
-
-    // WrongThread inference is incorrect in this case
-    @AnyThread
-    private fun displayErrorLater(error: String) {
-        runOnUiThread { returnError(error) }
     }
 
     @MainThread
