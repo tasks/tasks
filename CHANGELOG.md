@@ -1,4 +1,4 @@
-### 11.2.1 (2021-01-04)
+### 11.2.1 (2021-01-05)
 
 * Fix Portuguese translation issue
 * Report OpenTask sync errors
@@ -9,7 +9,7 @@
   * Dutch - @fvbommel
   * Hungarian - kaciokos
   * Simplified Chinese - @sr093906
-  * Turkish - @emintufan
+  * Turkish - @emintufan, Oğuz Ersen
 
 ### 11.2 (2020-12-30)
 
