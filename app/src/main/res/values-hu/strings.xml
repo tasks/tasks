@@ -682,4 +682,12 @@
     <string name="sign_in_to_tasks">Tasks.org bejelentkezés</string>
     <string name="app_passwords">Alkalmazás jelszavak</string>
     <string name="app_password">Alkalmazás jelszó</string>
+    <string name="copied_to_clipboard">%s a vágólapra másolva</string>
+    <string name="app_password_save">Ezek a belépési adatok harmadik féltől származó alkalmazás beállítására használhatóak. Teljes hozzáférést biztosítanak a Tasks.org fiókhoz, leírása vagy másokkal való megosztása nem javasolt!</string>
+    <string name="app_password_delete_confirmation">Ezen jelszót használó alkalmazások kijelentkeztetésre kerülnek</string>
+    <string name="app_password_last_access">Utolsó használat: %s</string>
+    <string name="app_password_created_at">Létrehozva: %s</string>
+    <string name="app_password_enter_description">Jelszó elnevezése (opcionális)</string>
+    <string name="generate_new_password">Új jelszó generálása</string>
+    <string name="app_passwords_more_info">Feladatok és naptárak szinkronizálása harmadik féltől származó asztali és mobil alkalmazásokkal. Részletes információért kattintson ide</string>
 </resources>
