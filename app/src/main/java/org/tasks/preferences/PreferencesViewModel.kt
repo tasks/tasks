@@ -14,6 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavDao
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.googleapis.InvokerFactory
 import org.tasks.gtasks.GoogleAccountManager
@@ -25,6 +27,7 @@ class PreferencesViewModel @ViewModelInject constructor(
         private val preferences: Preferences,
         invokers: InvokerFactory,
         private val googleAccountManager: GoogleAccountManager,
+        private val caldavDao: CaldavDao,
 ) : ViewModel() {
     private val driveInvoker = invokers.getDriveInvoker()
     val lastBackup = MutableLiveData<Long?>()
@@ -56,6 +59,9 @@ class PreferencesViewModel @ViewModelInject constructor(
                     && !preferences.alreadyNotified(account, DriveScopes.DRIVE_FILE)
             return if (enabled) account else null
         }
+
+    suspend fun tasksAccount(): CaldavAccount? =
+            caldavDao.getAccounts(CaldavAccount.TYPE_TASKS).firstOrNull()
 
     fun updateDriveBackup() = viewModelScope.launch {
         if (driveAccount.isNullOrBlank()) {
