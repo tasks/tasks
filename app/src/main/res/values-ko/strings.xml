@@ -647,7 +647,6 @@
     <string name="synchronization_third_party">서드 파티앱 동기화</string>
     <string name="migrate_count">Tasks.org 로 %s 개 이동</string>
     <string name="migrate">이전</string>
-    <string name="offline_lists">오프라인 목록</string>
     <string name="migrating_tasks">할일 이전 중</string>
     <string name="github_sponsor">후원자</string>
     <string name="authentication_required">인증 필요</string>

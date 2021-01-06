@@ -51,7 +51,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/lists">
+    <PreferenceCategory android:title="@string/local_lists">
         <SwitchPreferenceCompat
           android:defaultValue="true"
           android:key="@string/p_lists_enabled"

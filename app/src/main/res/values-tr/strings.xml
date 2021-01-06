@@ -665,7 +665,6 @@
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Kimlik doğrulama gerekli</string>
     <string name="migrate_count">%s taneyi Tasks.org\'a taşı</string>
-    <string name="offline_lists">Çevrim dışı listeler</string>
     <string name="migrating_tasks">Görevler göç ediliyor</string>
     <string name="migrate">Göç et</string>
     <plurals name="list_count">

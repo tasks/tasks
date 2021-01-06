@@ -671,7 +671,6 @@
     <string name="no_google_play_subscription">Fant ikke noe Google Play-abonnement</string>
     <string name="insufficient_sponsorship">Fant ikke noe GitHub-sponsorabonnement</string>
     <string name="migrate_count">Flytt %s til Tasks.org</string>
-    <string name="offline_lists">Frakoblede lister</string>
     <string name="sign_in_with_github">Logg inn med GitHub</string>
     <string name="not_signed_in">Ikke innlogget</string>
     <plurals name="list_count">

@@ -669,7 +669,6 @@
     <string name="github_sponsor">Diventa uno sponsor</string>
     <string name="migrate_count">Sposta %s su Tasks.org</string>
     <string name="migrating_tasks">Migrazione delle attività in corso</string>
-    <string name="offline_lists">Liste offline</string>
     <string name="save_percent">Risparmia il %d%%</string>
     <string name="above_average">Sopra la media</string>
     <string name="sign_in_with_github">Accedi con GitHub</string>

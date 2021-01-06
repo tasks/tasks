@@ -635,6 +635,7 @@ File %1$s contained %2$s.\n\n
   <string name="sort_modified_group">Modified %s</string>
   <string name="on_launch">On launch</string>
   <string name="open_last_viewed_list">Open last viewed list</string>
+  <string name="local_lists">Local lists</string>
   <string name="lists">Lists</string>
   <string name="reset_sort_order">Reset sort order</string>
   <string name="permission_read_tasks">Full access to Tasks database</string>
@@ -677,7 +678,6 @@ File %1$s contained %2$s.\n\n
   <string name="github_sponsor">Sponsor</string>
   <string name="migrate">Migrate</string>
   <string name="migrating_tasks">Migrating tasks</string>
-  <string name="offline_lists">Offline lists</string>
   <string name="migrate_count">Move %s to Tasks.org</string>
   <string name="above_average">Above average</string>
   <string name="save_percent">Save %d%%</string>

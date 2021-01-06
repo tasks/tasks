@@ -660,7 +660,6 @@
     <string name="authentication_required">Authenticatie verplicht</string>
     <string name="github_sponsor">Sponsor</string>
     <string name="migrate_count">Verplaats %s naar Tasks.org</string>
-    <string name="offline_lists">Offline lijsten</string>
     <string name="migrating_tasks">Taken aan het migreren</string>
     <string name="migrate">Migreer</string>
     <plurals name="list_count">

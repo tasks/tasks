@@ -663,7 +663,6 @@
     <string name="github_sponsor">Szponzor</string>
     <string name="authentication_required">Azonosítás szükséges</string>
     <string name="migrate_count">%s mozgatása a Tasks.org-ra</string>
-    <string name="offline_lists">Offline listák</string>
     <string name="migrating_tasks">Feladatok migrálása</string>
     <string name="migrate">Migrálás</string>
     <plurals name="list_count">

@@ -232,7 +232,7 @@ class FilterProvider @Inject constructor(
             listOf(
                     NavigationDrawerSubheader(
                             if (account.accountType == TYPE_LOCAL) {
-                                context.getString(R.string.lists)
+                                context.getString(R.string.local_lists)
                             } else {
                                 account.name
                             },

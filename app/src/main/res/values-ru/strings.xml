@@ -675,7 +675,6 @@
     <string name="logged_in">Вы вошли как %s</string>
     <string name="background_location_permission_required">Это приложение собирает данные о местоположении, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
     <string name="migrate_count">Переместить %s на Tasks.org</string>
-    <string name="offline_lists">Автономные списки</string>
     <string name="migrating_tasks">Перенос задач</string>
     <string name="migrate">Перенести</string>
     <string name="github_sponsor">Спонсор</string>

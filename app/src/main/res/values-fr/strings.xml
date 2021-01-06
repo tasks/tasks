@@ -660,7 +660,6 @@
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Authentification requise</string>
     <string name="migrate_count">Déplacer %s vers Tasks.org</string>
-    <string name="offline_lists">Listes hors ligne</string>
     <string name="migrating_tasks">Migration des tâches</string>
     <string name="migrate">Migrer</string>
     <plurals name="list_count">

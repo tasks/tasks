@@ -656,7 +656,6 @@
     <string name="github_sponsor">赞助者</string>
     <string name="authentication_required">需要认证</string>
     <string name="migrate_count">移动 %s 到 Tasks.org</string>
-    <string name="offline_lists">离线列表</string>
     <string name="migrating_tasks">正在迁移任务</string>
     <string name="migrate">迁移</string>
     <plurals name="list_count">

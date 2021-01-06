@@ -670,7 +670,6 @@
     </plurals>
     <string name="above_average">Überdurchschnittlich</string>
     <string name="migrate_count">Verschiebe %s zu Tasks.org</string>
-    <string name="offline_lists">Offline-Listen</string>
     <string name="migrating_tasks">Aufgaben werden migriert</string>
     <string name="migrate">Migrieren</string>
     <string name="github_sponsor">Pate</string>

@@ -63,6 +63,7 @@ class TasksAccount : InjectingPreferenceFragment() {
                         it.error = null
                         caldavDao.update(it)
                     }
+                    refreshUi(it)
                 }
             }
         }
@@ -101,7 +102,7 @@ class TasksAccount : InjectingPreferenceFragment() {
             false
         }
 
-        findPreference(R.string.offline_lists).setOnPreferenceClickListener {
+        findPreference(R.string.local_lists).setOnPreferenceClickListener {
             workManager.migrateLocalTasks(caldavAccount)
             toaster.longToast(R.string.migrating_tasks)
             false
@@ -253,7 +254,7 @@ class TasksAccount : InjectingPreferenceFragment() {
             val listCount = caldavDao.listCount(CaldavDao.LOCAL)
             val quantityString = resources.getQuantityString(R.plurals.list_count, listCount, listCount)
             findPreference(R.string.migrate).isVisible = listCount > 0
-            findPreference(R.string.offline_lists).summary =
+            findPreference(R.string.local_lists).summary =
                     getString(R.string.migrate_count, quantityString)
         }
 

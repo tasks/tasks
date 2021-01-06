@@ -34,8 +34,8 @@
     app:isPreferenceVisible="false">
 
     <Preference
-      android:key="@string/offline_lists"
-      android:title="@string/offline_lists"/>
+      android:key="@string/local_lists"
+      android:title="@string/local_lists"/>
 
   </PreferenceCategory>
 
