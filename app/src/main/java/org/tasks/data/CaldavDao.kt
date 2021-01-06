@@ -11,7 +11,9 @@ import com.todoroo.astrid.helper.UUIDHelper
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.tasks.R
+import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
+import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.db.DbUtils.dbchunk
 import org.tasks.db.SuspendDbUtils.chunkedMap
@@ -46,7 +48,15 @@ abstract class CaldavDao {
     @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
     abstract fun watchAccount(id: Long): LiveData<CaldavAccount>
 
-    @Query("SELECT * FROM caldav_accounts ORDER BY cda_account_type, UPPER(cda_name)")
+    @Query("""
+SELECT *
+FROM caldav_accounts
+ORDER BY CASE cda_account_type
+             WHEN $TYPE_TASKS THEN 0
+             WHEN $TYPE_LOCAL THEN 2
+             ELSE 1
+             END, UPPER(cda_name)
+    """)
     abstract suspend fun getAccounts(): List<CaldavAccount>
 
     @Query("UPDATE caldav_accounts SET cda_collapsed = :collapsed WHERE cda_id = :id")
