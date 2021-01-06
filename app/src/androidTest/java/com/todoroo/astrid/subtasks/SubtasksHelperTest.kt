@@ -60,6 +60,6 @@ class SubtasksHelperTest : SubtasksTestCase() {
 
     companion object {
         private val EXPECTED_ORDER = arrayOf("-1", "1", "2", "3", "4", "5", "6")
-        private val EXPECTED_REMOTE = "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]".replace("\\s".toRegex(), "")
+        private val EXPECTED_REMOTE = """["-1", ["6", "4", ["3", "1"]], "2", "5"]""".replace("\\s".toRegex(), "")
     }
 }
