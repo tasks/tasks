@@ -622,13 +622,13 @@
     <string name="yesterday_lowercase">вчера</string>
     <string name="tomorrow_lowercase">завтра</string>
     <string name="today_lowercase">сегодня</string>
-    <string name="permission_read_tasks">Полный доступ к базе данных задач</string>
+    <string name="permission_read_tasks">Полный доступ к базе данных Tasks</string>
     <string name="reset_sort_order">Сбросить порядок сортировки</string>
     <string name="lists">Списки</string>
     <string name="open_last_viewed_list">Открыть последний просмотренный список</string>
     <string name="on_launch">При запуске</string>
-    <string name="disable_sort_groups">Отключить сортировку групп</string>
-    <string name="improve_performance_summary">Отключите группы сортировки и складные подзадачи, чтобы повысить производительность приложения</string>
+    <string name="disable_sort_groups">Отключить группы сортировки</string>
+    <string name="improve_performance_summary">Отключить группы сортировки и сворачиваемые подзадачи для улучшения производительности</string>
     <string name="improve_performance">Улучшить производительность</string>
     <string name="date_shortcut_tomorrow_night">Завтра ночью</string>
     <string name="date_shortcut_tomorrow_evening">Завтра вечером</string>
@@ -698,4 +698,15 @@
     <string name="above_average">Выше среднего</string>
     <string name="save_percent">Сохранить %d%%</string>
     <string name="decsync_selection_description">Синхронизируйте свои задачи с приложением DecSync CC</string>
+    <string name="copied_to_clipboard">%s скопировано в буфер обмена</string>
+    <string name="app_password_save">Используйте эти учетные данные для настройки стороннего приложения. Они предоставляют полный доступ к Вашей учетной записи Tasks.org, не записывайте их и не делитесь ими с кем-либо!</string>
+    <string name="app_password_delete_confirmation">Любое приложение, использующее этот пароль, выйдет из системы</string>
+    <string name="app_password_last_access">Последнее использование: %s</string>
+    <string name="app_password_created_at">Создано: %s</string>
+    <string name="app_password_enter_description">Присвойте вашему паролю имя (необязательно)</string>
+    <string name="generate_new_password">Создать новый пароль</string>
+    <string name="app_passwords_more_info">Синхронизируйте свои задачи и календари со сторонними настольными и мобильными приложениями. Нажмите здесь, чтобы узнать больше</string>
+    <string name="app_passwords">Пароли приложений</string>
+    <string name="app_password">Пароль приложения</string>
+    <string name="sign_in_to_tasks">Войти в Tasks.org</string>
 </resources>
