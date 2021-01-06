@@ -534,8 +534,8 @@
     <string name="add_place">Ajouter un lieu</string>
     <string name="menu_discard_changes">Annuler les modifications</string>
     <string name="chip_appearance_text_and_icon">Texte et icône</string>
-    <string name="chip_appearance_text_only">Texte seulement</string>
-    <string name="chip_appearance_icon_only">Icône seulement</string>
+    <string name="chip_appearance_text_only">Texte seul</string>
+    <string name="chip_appearance_icon_only">Icône seule</string>
     <string name="shortcut_pick_time">Choisissez l\'heure</string>
     <string name="no_time">Aucune heure</string>
     <string name="no_date">Aucune date</string>
@@ -686,4 +686,5 @@
     <string name="app_passwords_more_info">Synchronisez vos tâches et calendriers avec des applications de bureau et mobiles tierces. Appuyez ici pour plus d’informations</string>
     <string name="app_passwords">Mots de passe d\'application</string>
     <string name="app_password">Mot de passe de l\'application</string>
+    <string name="local_lists">Listes locales</string>
 </resources>
