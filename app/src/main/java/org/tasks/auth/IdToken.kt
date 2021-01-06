@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 class IdToken(idToken: String) {
     private val parts: List<String> = idToken.split(".")
-    private val json = JSONObject(String(Base64.decode(parts[1], Base64.DEFAULT)))
+    private val json = JSONObject(String(Base64.decode(parts[1], Base64.URL_SAFE)))
 
     val email: String?
         get() = json.optString("email").takeIf { it.isNotBlank() }
