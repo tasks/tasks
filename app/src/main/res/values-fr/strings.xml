@@ -518,11 +518,11 @@
     <string name="color_wheel">Palette de couleurs</string>
     <string name="upgrade_blurb_4">Votre soutien est très important pour moi, merci !</string>
     <string name="back">Retour</string>
-    <string name="chip_style">Style de puce</string>
+    <string name="chip_style">Style d\'étiquette</string>
     <string name="chip_style_outlined">Entouré</string>
     <string name="chip_style_filled">Rempli</string>
-    <string name="chips">Puces</string>
-    <string name="chip_appearance">Apparence de la puce</string>
+    <string name="chips">Étiquettes</string>
+    <string name="chip_appearance">Apparence de l\'étiquette</string>
     <string name="desaturate_colors">Désaturer les couleurs</string>
     <string name="desaturate_colors_summary_on">Les couleurs seront désaturées dans des thèmes sombres</string>
     <string name="desaturate_colors_summary_off">Les couleurs ne seront pas désaturées dans des thèmes sombres</string>
@@ -544,7 +544,7 @@
     <string name="calendar_event_created">Calendrier de l\'événement créé pour %s</string>
     <string name="share">Partager</string>
     <string name="select_all">Tout sélectionner</string>
-    <string name="hide_check_button">Cacher le bouton de vérification</string>
+    <string name="hide_check_button">Cacher le bouton d\'achèvement</string>
     <string name="compact">Compacte</string>
     <string name="settings_default">Par défaut</string>
     <string name="widget_id">ID du widget : %d</string>
