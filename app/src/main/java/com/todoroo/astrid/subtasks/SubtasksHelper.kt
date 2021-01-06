@@ -81,7 +81,7 @@ class SubtasksHelper @Inject constructor(
 
         fun getStringIdArray(serializedTree: String?): Array<String> {
             val ids = ArrayList<String>()
-            val values = serializedTree!!.split("[\\[\\],\"\\s]".toRegex()).toTypedArray() // Split on [ ] , or whitespace chars
+            val values = serializedTree!!.split("""[\[\],"\s]""".toRegex()).toTypedArray() // Split on [ ] , or whitespace chars
             for (idString in values) {
                 if (!isNullOrEmpty(idString)) {
                     ids.add(idString)
