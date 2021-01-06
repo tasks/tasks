@@ -691,4 +691,5 @@
     <string name="app_passwords_more_info">Sincronice sus tareas y calendarios con aplicaciones móviles y de escritorio de terceros. Toque aquí para obtener más información</string>
     <string name="app_passwords">Contraseñas de la aplicación</string>
     <string name="app_password">Contraseña de la aplicación</string>
+    <string name="local_lists">Listas locales</string>
 </resources>
