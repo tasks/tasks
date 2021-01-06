@@ -76,7 +76,7 @@ class BackupWork @WorkerInject constructor(
 
     companion object {
         const val DAYS_TO_KEEP_BACKUP = 7
-        val BACKUP_FILE_NAME_REGEX = Regex("auto\\.[-\\d]+\\.json")
+        val BACKUP_FILE_NAME_REGEX = Regex("""auto\.[-\d]+\.json""")
         private val FILENAME_FILTER = { f: String -> f.matches(BACKUP_FILE_NAME_REGEX) }
         val FILE_FILTER = FileFilter { f: File -> FILENAME_FILTER(f.name) }
         private val BY_LAST_MODIFIED = { f1: File, f2: File ->

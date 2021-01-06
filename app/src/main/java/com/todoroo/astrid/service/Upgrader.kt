@@ -277,12 +277,12 @@ class Upgrader @Inject constructor(
     private fun migrateMetadata(input: String?): String {
         return input.orEmpty()
                 .replace(
-                        "SELECT metadata\\.task AS task FROM metadata INNER JOIN tasks ON \\(\\(metadata\\.task=tasks\\._id\\)\\) WHERE \\(\\(\\(tasks\\.completed=0\\) AND \\(tasks\\.deleted=0\\) AND \\(tasks\\.hideUntil<\\(strftime\\(\\'%s\\',\\'now\\'\\)\\*1000\\)\\)\\) AND \\(metadata\\.key=\\'tags-tag\\'\\) AND \\(metadata\\.value".toRegex(),
+                        """SELECT metadata\.task AS task FROM metadata INNER JOIN tasks ON \(\(metadata\.task=tasks\._id\)\) WHERE \(\(\(tasks\.completed=0\) AND \(tasks\.deleted=0\) AND \(tasks\.hideUntil<\(strftime\(\'%s\',\'now\'\)\*1000\)\)\) AND \(metadata\.key=\'tags-tag\'\) AND \(metadata\.value""".toRegex(),
                         "SELECT tags.task AS task FROM tags INNER JOIN tasks ON ((tags.task=tasks._id)) WHERE (((tasks.completed=0) AND (tasks.deleted=0) AND (tasks.hideUntil<(strftime('%s','now')*1000))) AND (tags.name")
                 .replace(
-                        "SELECT metadata\\.task AS task FROM metadata INNER JOIN tasks ON \\(\\(metadata\\.task=tasks\\._id\\)\\) WHERE \\(\\(\\(tasks\\.completed=0\\) AND \\(tasks\\.deleted=0\\) AND \\(tasks\\.hideUntil<\\(strftime\\(\\'%s\\',\\'now\\'\\)\\*1000\\)\\)\\) AND \\(metadata\\.key=\\'gtasks\\'\\) AND \\(metadata\\.value2".toRegex(),
+                        """SELECT metadata\.task AS task FROM metadata INNER JOIN tasks ON \(\(metadata\.task=tasks\._id\)\) WHERE \(\(\(tasks\.completed=0\) AND \(tasks\.deleted=0\) AND \(tasks\.hideUntil<\(strftime\(\'%s\',\'now\'\)\*1000\)\)\) AND \(metadata\.key=\'gtasks\'\) AND \(metadata\.value2""".toRegex(),
                         "SELECT google_tasks.task AS task FROM google_tasks INNER JOIN tasks ON ((google_tasks.task=tasks._id)) WHERE (((tasks.completed=0) AND (tasks.deleted=0) AND (tasks.hideUntil<(strftime('%s','now')*1000))) AND (google_tasks.list_id")
-                .replace("AND \\(metadata\\.deleted=0\\)".toRegex(), "")
+                .replace("""AND \(metadata\.deleted=0\)""".toRegex(), "")
     }
 
     private suspend fun removeDuplicateTagData(tagData: List<TagData>) {

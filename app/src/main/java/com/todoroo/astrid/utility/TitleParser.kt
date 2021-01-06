@@ -96,11 +96,11 @@ object TitleParser {
     private fun priorityHelper(task: Task) {
         var inputText = task.title
         val importanceStrings = arrayOf(
-                "()((^|[^\\w!])!+|(^|[^\\w!])!\\d)($|[^\\w!])",
-                "()(?i)((\\s?bang){1,})$",
-                "(?i)(\\spriority\\s?(\\d)$)",
-                "(?i)(\\sbang\\s?(\\d)$)",
-                "(?i)()(\\shigh(est)?|\\slow(est)?|\\stop|\\sleast) ?priority$"
+                """()((^|[^\w!])!+|(^|[^\w!])!\d)($|[^\w!])""",
+                """()(?i)((\s?bang){1,})$""",
+                """(?i)(\spriority\s?(\d)$)""",
+                """(?i)(\sbang\s?(\d)$)""",
+                """(?i)()(\shigh(est)?|\slow(est)?|\stop|\sleast) ?priority$"""
         )
         for (importanceString in importanceStrings) {
             val importancePattern = Pattern.compile(importanceString)

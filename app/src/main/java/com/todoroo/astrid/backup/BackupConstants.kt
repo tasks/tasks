@@ -41,7 +41,7 @@ object BackupConstants {
     const val EXPORT_FILE_NAME = "user.%s.json"
     const val BACKUP_FILE_NAME = "auto.%s.json"
 
-    private val MATCHER = Pattern.compile("(auto|user)\\.(\\d{2})(\\d{2})(\\d{2})-(\\d{2})(\\d{2})\\.json")
+    private val MATCHER = Pattern.compile("""(auto|user)\.(\d{2})(\d{2})(\d{2})-(\d{2})(\d{2})\.json""")
 
     fun isBackupFile(name: String?) = name?.let { MATCHER.matcher(it).matches() } ?: false
 
