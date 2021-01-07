@@ -573,10 +573,10 @@
     <string name="custom_filter_not">NON</string>
     <string name="custom_filter_or">OU</string>
     <string name="custom_filter_and">ET</string>
-    <string name="filter_eisenhower_box_4">Boîte Eisenhower 4</string>
-    <string name="filter_eisenhower_box_3">Boîte Eisenhower 3</string>
-    <string name="filter_eisenhower_box_2">Boîte Eisenhower 2</string>
-    <string name="filter_eisenhower_box_1">Boîte Eisenhower 1</string>
+    <string name="filter_eisenhower_box_4">Pas important et pas urgent</string>
+    <string name="filter_eisenhower_box_3">Pas important et urgent</string>
+    <string name="filter_eisenhower_box_2">Important et pas urgent</string>
+    <string name="filter_eisenhower_box_1">Important et urgent</string>
     <string name="filter_no_priority">Aucune priorité</string>
     <string name="filter_low_priority">Priorité basse</string>
     <string name="filter_medium_priority">Priorité moyenne</string>
