@@ -681,4 +681,5 @@
     <string name="app_passwords_more_info">用第三方桌面和移动应用程序同步你的任务和日历。点击此处了解更多信息</string>
     <string name="app_passwords">多个应用程序密码</string>
     <string name="app_password">应用程序密码</string>
+    <string name="local_lists">本地列表</string>
 </resources>
