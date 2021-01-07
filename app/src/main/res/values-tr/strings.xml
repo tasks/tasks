@@ -576,10 +576,10 @@
     <string name="widget_footer">Alt bölüm</string>
     <string name="filter_overdue">Geciken</string>
     <string name="filter_any_due_date">Herhangi bitiş tarihi</string>
-    <string name="filter_eisenhower_box_4">Eisenhower kutusu 4</string>
-    <string name="filter_eisenhower_box_3">Eisenhower kutusu 3</string>
-    <string name="filter_eisenhower_box_2">Eisenhower kutusu 2</string>
-    <string name="filter_eisenhower_box_1">Eisenhower kutusu 1</string>
+    <string name="filter_eisenhower_box_4">Önemli veya ivedi değil</string>
+    <string name="filter_eisenhower_box_3">Önemli değil ve ivedi</string>
+    <string name="filter_eisenhower_box_2">Önemli ve ivedi değil</string>
+    <string name="filter_eisenhower_box_1">Önemli ve ivedi</string>
     <string name="filter_no_priority">Önceliksiz</string>
     <string name="filter_low_priority">Düşük öncelik</string>
     <string name="filter_medium_priority">Orta öncelik</string>
