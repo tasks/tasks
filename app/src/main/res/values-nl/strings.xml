@@ -573,10 +573,10 @@
     <string name="custom_filter_or">OF</string>
     <string name="custom_filter_and">EN</string>
     <string name="custom_filter_criteria">Filter criteria</string>
-    <string name="filter_eisenhower_box_4">Eisenhower box 4</string>
-    <string name="filter_eisenhower_box_3">Eisenhower box 3</string>
-    <string name="filter_eisenhower_box_2">Eisenhower box 2</string>
-    <string name="filter_eisenhower_box_1">Eisenhower box 1</string>
+    <string name="filter_eisenhower_box_4">Niet belangrijk en niet dringend</string>
+    <string name="filter_eisenhower_box_3">Niet belangrijk maar wel dringend</string>
+    <string name="filter_eisenhower_box_2">Belangrijk en niet dringend</string>
+    <string name="filter_eisenhower_box_1">Belangrijk en dringend</string>
     <string name="filter_no_priority">Geen prioriteit</string>
     <string name="filter_low_priority">Lage prioriteit</string>
     <string name="filter_medium_priority">Gemiddelde prioriteit</string>
@@ -686,4 +686,5 @@
     <string name="app_passwords_more_info">Synchroniseer je taken en agenda\'s met andere desktop en mobiele apps. Tik hier voor meer info</string>
     <string name="app_passwords">App wachtwoorden</string>
     <string name="app_password">App wachtwoord</string>
+    <string name="local_lists">Lokale lijsten</string>
 </resources>
