@@ -689,4 +689,5 @@
     <string name="app_password_enter_description">Jelszó elnevezése (opcionális)</string>
     <string name="generate_new_password">Új jelszó generálása</string>
     <string name="app_passwords_more_info">Feladatok és naptárak szinkronizálása harmadik féltől származó asztali és mobil alkalmazásokkal. Részletes információért kattintson ide</string>
+    <string name="local_lists">Helyi listák</string>
 </resources>
