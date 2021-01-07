@@ -195,4 +195,15 @@
     <string name="audio_recording_title">آڈیو ریکارڈ ہو رہی</string>
     <string name="premium_remove_file_confirm">کیا آپ تیار ہیں؟ یہ واپس نہیں ہو گا</string>
     <string name="premium_record_audio">ایک نوٹ ریکارڈ کریں</string>
+    <string name="repeat_weekly">ہفتہ وار دہرانا</string>
+    <string name="repeat_daily">روزانہ دہرانا</string>
+    <string name="repeat_hourly">گھنٹہ وار دہرانا</string>
+    <string name="repeat_minutely">منٹ وار دہرانا</string>
+    <string name="repeat_option_custom">کسٹم…</string>
+    <string name="repeat_option_every_year">ہر سال</string>
+    <string name="repeat_option_every_month">ہر مہینے</string>
+    <string name="repeat_option_every_week">ہر ہفتے</string>
+    <string name="repeat_option_every_day">ہر روز</string>
+    <string name="repeat_option_does_not_repeat">دہراتا نہیں ہے</string>
+    <string name="gtasks_error_accountNotFound">اکاؤنٹ%s نہیں ملا — براہ کرم لاگ آؤٹ کریں اور گوگل ٹاسکس کی سیٹنگز سے لاگ اِن ہوں۔</string>
 </resources>
