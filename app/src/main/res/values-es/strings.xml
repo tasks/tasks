@@ -578,10 +578,10 @@
     <string name="custom_filter_or">O</string>
     <string name="custom_filter_and">Y</string>
     <string name="custom_filter_criteria">Criterios de filtro</string>
-    <string name="filter_eisenhower_box_4">Eisenhower caja 4</string>
-    <string name="filter_eisenhower_box_3">Eisenhower caja 3</string>
-    <string name="filter_eisenhower_box_2">Eisenhower caja 2</string>
-    <string name="filter_eisenhower_box_1">Eisenhower caja 1</string>
+    <string name="filter_eisenhower_box_4">No es importante y no urgente</string>
+    <string name="filter_eisenhower_box_3">No es importante y urgente</string>
+    <string name="filter_eisenhower_box_2">Importante y no urgente</string>
+    <string name="filter_eisenhower_box_1">Importante y urgente</string>
     <string name="filter_no_priority">Sin prioridad</string>
     <string name="filter_low_priority">Baja prioridad</string>
     <string name="filter_medium_priority">Prioridad media</string>
