@@ -686,7 +686,6 @@
     <string name="save_percent">Zapisano %d%%</string>
     <string name="above_average">Powyżej średniej</string>
     <string name="migrate_count">Przenieś %s do Tasks.org</string>
-    <string name="offline_lists">Listy trybu offline</string>
     <string name="migrating_tasks">Migrowanie zadań</string>
     <string name="github_sponsors">Sponsorzy GitHub</string>
     <string name="google_play_subscribers">Subskrybenci Google Play</string>
