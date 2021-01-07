@@ -691,4 +691,5 @@
     <string name="app_passwords">Uygulama parolaları</string>
     <string name="app_password">Uygulama parolası</string>
     <string name="sign_in_to_tasks">Tasks.org\'da oturum aç</string>
+    <string name="local_lists">Yerel listeler</string>
 </resources>
