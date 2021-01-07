@@ -90,8 +90,10 @@ android {
             }
             val tasks_mapbox_key_debug: String? by project
             val tasks_google_key_debug: String? by project
+            val tasks_caldav_url: String? by project
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
+            resValue("string", "tasks_caldav_url", tasks_caldav_url ?: "https://caldav.tasks.org")
             isTestCoverageEnabled = project.hasProperty("coverage")
         }
         getByName("release") {

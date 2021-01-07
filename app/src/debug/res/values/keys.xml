@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name" tools:ignore="PrivateResource">Tasks Debug</string>
-  <string name="tasks_caldav_url">https://caldav.tasks.org</string>
   <string name="debug_strict_mode_thread">Strict mode - Thread</string>
   <string name="debug_strict_mode_vm">Strict mode - VM</string>
   <string name="debug_leakcanary">LeakCanary</string>

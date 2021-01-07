@@ -131,6 +131,12 @@ class Configuration constructor(
             }
         } else {
             discoveryUri = getRequiredConfigWebUri("discovery_uri")
+            if (BuildConfig.DEBUG) {
+                discoveryUri = Uri.parse(discoveryUri.toString().replace(
+                        """^https://caldav.tasks.org""".toRegex(),
+                        context.getString(R.string.tasks_caldav_url)
+                ))
+            }
         }
         isHttpsRequired = configJson!!.optBoolean("https_required", true)
     }
