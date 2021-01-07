@@ -1,0 +1,2 @@
+* Minor changes
+* Update translations

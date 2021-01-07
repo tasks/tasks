@@ -1,3 +1,18 @@
+### 11.2.2 (2021-01-07)
+
+* Rename 'Lists' to 'Local lists' to clarify that they are not synchronized
+* Tasks.org sign in improvements
+* Miscellaneous improvements - Thanks @mhmdanas!
+* Update translations
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - @emintufan, Oğuz Ersen
+  * Urdu - Maaz
+
 ### 11.2.1 (2021-01-05)
 
 * Fix Portuguese translation issue
