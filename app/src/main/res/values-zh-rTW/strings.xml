@@ -72,7 +72,6 @@
     <string name="EPr_manage_delete_all_gcal_message">您真的想刪除您所有事件中的各項任務工作嗎？</string>
     <string name="EPr_manage_delete_all_gcal_status">已經刪除了 %d 個日曆事件了！</string>
     <string name="task_defaults">工作預設值</string>
-    <string name="EPr_default_urgency_title">預設期限</string>
     <string name="EPr_default_importance_title">預設優先權</string>
     <string name="EPr_default_hideUntil_title">預設隱藏直到…</string>
     <string name="EPr_default_reminders_title">預設提醒</string>
@@ -80,7 +79,6 @@
     <string name="priority_high">高</string>
     <string name="priority_medium">中</string>
     <string name="priority_low">低</string>
-    <string name="no_deadline">無截止日</string>
     <string name="day_after_tomorrow">後天</string>
     <string name="next_week">下週</string>
     <string name="dont_hide">不隱藏</string>

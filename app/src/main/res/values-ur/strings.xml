@@ -81,7 +81,6 @@
     <string name="dont_hide">نہ چھپائیں</string>
     <string name="next_week">اگلے ہفتے</string>
     <string name="day_after_tomorrow">پرسوں</string>
-    <string name="no_deadline">کوئی مقررہ تاریخ نہیں</string>
     <string name="priority_low">کم</string>
     <string name="priority_medium">درمیانہ</string>
     <string name="priority_high">ہائی</string>
@@ -92,7 +91,6 @@
     <string name="EPr_default_reminders_title">ڈیفالٹ یاددہانی</string>
     <string name="EPr_default_hideUntil_title">ڈیفالٹ چھپائیں اتنے عرصے تک</string>
     <string name="EPr_default_importance_title">ڈیفالٹ ترجیح</string>
-    <string name="EPr_default_urgency_title">ڈیفالٹ آخری تاریخ</string>
     <string name="task_defaults">ٹاسک کے ڈیفالٹس</string>
     <string name="EPr_manage_delete_all_gcal_status">%d کیلنڈر ایونٹس ڈٰیلییٹ ہوگئے!</string>
     <string name="EPr_manage_delete_all_gcal_message">کیا آپ واقعی ٹاسکس کیلئے تمام ایونٹس ڈیلیٹ کرنا چاہتے ہیں؟</string>

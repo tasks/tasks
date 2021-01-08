@@ -98,7 +98,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Görevlerdeki tüm olayları silmek istediğinize emin misiniz?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d takvim olayı silindi!</string>
     <string name="task_defaults">Görev öntanımlıları</string>
-    <string name="EPr_default_urgency_title">Öntanımlı bitiş tarihi</string>
     <string name="EPr_default_importance_title">Öntanımlı öncelik</string>
     <string name="EPr_default_hideUntil_title">Öntanımlı şuna kadar gizleme</string>
     <string name="EPr_default_reminders_title">Öntanımlı hatırlatmalar</string>
@@ -108,7 +107,6 @@
     <string name="priority_high">Yüksek</string>
     <string name="priority_medium">Orta</string>
     <string name="priority_low">Düşük</string>
-    <string name="no_deadline">Son tarih yok</string>
     <string name="day_after_tomorrow">Yarından Sonra</string>
     <string name="next_week">Gelecek Hafta</string>
     <string name="dont_hide">Gizleme</string>

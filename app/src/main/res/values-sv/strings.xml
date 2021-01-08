@@ -86,7 +86,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Vill du verkligen radera alla dina händelser i kalendern för uppgifter?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d kalenderhändelser raderade!</string>
     <string name="task_defaults">Förval för nya uppgifter</string>
-    <string name="EPr_default_urgency_title">Standardfrist</string>
     <string name="EPr_default_importance_title">Standard prioritet</string>
     <string name="EPr_default_hideUntil_title">Standard Dölj tills</string>
     <string name="EPr_default_reminders_title">Standardpåminnelser</string>
@@ -94,7 +93,6 @@
     <string name="priority_high">Hög</string>
     <string name="priority_medium">Medel</string>
     <string name="priority_low">Låg</string>
-    <string name="no_deadline">Ingen frist</string>
     <string name="day_after_tomorrow">I övermorgon</string>
     <string name="next_week">Nästa vecka</string>
     <string name="dont_hide">Dölj inte</string>

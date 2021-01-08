@@ -89,7 +89,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Haluatko todella poistaa kaikki tapahtumat tehtävistä?</string>
     <string name="EPr_manage_delete_all_gcal_status">Poistettu %d kalenteritapahtumaa!</string>
     <string name="task_defaults">Tehtävän oletukset</string>
-    <string name="EPr_default_urgency_title">Oletus määräpäivä</string>
     <string name="EPr_default_importance_title">Oletusprioriteetti</string>
     <string name="EPr_default_hideUntil_title">Oletus piilota kunnes</string>
     <string name="EPr_default_reminders_title">Oletusmuistutukset</string>
@@ -97,7 +96,6 @@
     <string name="priority_high">Korkea</string>
     <string name="priority_medium">Kohtalainen</string>
     <string name="priority_low">Matala</string>
-    <string name="no_deadline">Ei määräpäivää</string>
     <string name="day_after_tomorrow">Ylihuomenna</string>
     <string name="next_week">Ensi viikko</string>
     <string name="dont_hide">Älä piilota</string>

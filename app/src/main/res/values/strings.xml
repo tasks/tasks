@@ -111,9 +111,9 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
   <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
   <string name="task_defaults">Task defaults</string>
-  <string name="EPr_default_urgency_title">Default deadline</string>
   <string name="EPr_default_importance_title">Default priority</string>
   <string name="EPr_default_hideUntil_title">Default hide until</string>
+  <string name="default_due_date">Default due date</string>
   <string name="EPr_default_reminders_title">Default reminders</string>
   <string name="EPr_default_location_reminder_title">Default location reminders</string>
   <string name="EPr_default_location_radius">Default radius</string>
@@ -122,7 +122,6 @@ File %1$s contained %2$s.\n\n
   <string name="priority_high">High</string>
   <string name="priority_medium">Medium</string>
   <string name="priority_low">Low</string>
-  <string name="no_deadline">No deadline</string>
   <string name="day_after_tomorrow">Day after tomorrow</string>
   <string name="next_week">Next week</string>
   <string name="dont_hide">Don\'t hide</string>

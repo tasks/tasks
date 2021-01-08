@@ -50,7 +50,6 @@
     <string name="EPr_manage_delete_all_gcal">حذف جميع نشاطات التقويم للمهام</string>
     <string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام ؟</string>
     <string name="task_defaults">افتراضيات المهام</string>
-    <string name="EPr_default_urgency_title">الموعد النهائي الافتراضي</string>
     <string name="EPr_default_reminders_title">منبهات افتراضية</string>
     <string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
     <string name="day_after_tomorrow">بعد غد</string>

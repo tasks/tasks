@@ -36,7 +36,7 @@
     android:icon="@drawable/ic_outline_schedule_24px"
     android:key="@string/p_default_urgency_key"
     android:summary="%s"
-    android:title="@string/EPr_default_urgency_title" />
+    android:title="@string/default_due_date" />
 
   <ListPreference
     android:defaultValue="0"

@@ -97,7 +97,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Möchten Sie wirklich alle Kalendereinträge für Aufgaben löschen\?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
     <string name="task_defaults">Standardwerte für Aufgaben</string>
-    <string name="EPr_default_urgency_title">Terminvorauswahl</string>
     <string name="EPr_default_importance_title">Dringlichkeitsvorgabe</string>
     <string name="EPr_default_hideUntil_title">Standardmäßig ausblenden bis</string>
     <string name="EPr_default_reminders_title">Vorgaben für Erinnerungen</string>
@@ -107,7 +106,6 @@
     <string name="priority_high">Hoch</string>
     <string name="priority_medium">Mittel</string>
     <string name="priority_low">Niedrig</string>
-    <string name="no_deadline">Ohne Termin</string>
     <string name="day_after_tomorrow">Übermorgen</string>
     <string name="next_week">Nächste Woche</string>
     <string name="dont_hide">Nicht ausblenden</string>

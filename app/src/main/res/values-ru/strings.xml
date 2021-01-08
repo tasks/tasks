@@ -98,7 +98,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Вы уверены, что хотите удалить все Ваши события для задач\?</string>
     <string name="EPr_manage_delete_all_gcal_status">Удалено %d календарных событий!</string>
     <string name="task_defaults">Параметры по умолчанию</string>
-    <string name="EPr_default_urgency_title">Намеченный срок по умолчанию</string>
     <string name="EPr_default_importance_title">Приоритет по умолчанию</string>
     <string name="EPr_default_hideUntil_title">Срок скрытия по умолчанию</string>
     <string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
@@ -108,7 +107,6 @@
     <string name="priority_high">Высокий</string>
     <string name="priority_medium">Средний</string>
     <string name="priority_low">Низкий</string>
-    <string name="no_deadline">Без срока выполнения</string>
     <string name="day_after_tomorrow">Послезавтра</string>
     <string name="next_week">Следующая неделя</string>
     <string name="dont_hide">Не скрывать</string>

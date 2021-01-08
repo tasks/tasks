@@ -98,7 +98,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Ziur zure zereginen gertaera guztiak ezabatu nahi dituzula egutegitik\?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d gertaera ezabatuta egutegitik!</string>
     <string name="task_defaults">Zereginen lehenespenak</string>
-    <string name="EPr_default_urgency_title">Lehenetsitako epemuga</string>
     <string name="EPr_default_importance_title">Lehenetsitako lehentasuna</string>
     <string name="EPr_default_hideUntil_title">Lehenetsita ezkutatu noiz arte</string>
     <string name="EPr_default_reminders_title">Lehenetsitako oroigarriak</string>
@@ -108,7 +107,6 @@
     <string name="priority_high">Altua</string>
     <string name="priority_medium">Ertaina</string>
     <string name="priority_low">Baxua</string>
-    <string name="no_deadline">Epemugarik ez</string>
     <string name="day_after_tomorrow">Etzi</string>
     <string name="next_week">Datorren astean</string>
     <string name="dont_hide">Ez ezkutatu</string>

@@ -98,7 +98,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programma\?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d eventi del calendario sono stati eliminati!</string>
     <string name="task_defaults">Opzioni predefinite attività</string>
-    <string name="EPr_default_urgency_title">Scadenza predefinita</string>
     <string name="EPr_default_importance_title">Priorità predefinita</string>
     <string name="EPr_default_hideUntil_title">Nascondi, per impostazione predefinita, fino a</string>
     <string name="EPr_default_reminders_title">Promemoria predefiniti</string>
@@ -108,7 +107,6 @@
     <string name="priority_high">Alta</string>
     <string name="priority_medium">Media</string>
     <string name="priority_low">Bassa</string>
-    <string name="no_deadline">Nessuna scadenza</string>
     <string name="day_after_tomorrow">Dopodomani</string>
     <string name="next_week">Settimana prossima</string>
     <string name="dont_hide">Non nascondere</string>

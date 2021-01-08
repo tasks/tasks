@@ -93,7 +93,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Naozaj chceš zmazať všetky svoje udalosti úloh?</string>
     <string name="EPr_manage_delete_all_gcal_status">Zmazané %d udalosti kalendára!</string>
     <string name="task_defaults">Predvoľby úloh</string>
-    <string name="EPr_default_urgency_title">Predvolený termín dokončenia</string>
     <string name="EPr_default_importance_title">Predvolená dôležitosť</string>
     <string name="EPr_default_hideUntil_title">Predvolené Skryť do</string>
     <string name="EPr_default_reminders_title">Predvolené pripomienky</string>
@@ -103,7 +102,6 @@
     <string name="priority_high">Vysoká</string>
     <string name="priority_medium">Stredná</string>
     <string name="priority_low">Nízka</string>
-    <string name="no_deadline">Žiaden termín</string>
     <string name="day_after_tomorrow">Pozajtra</string>
     <string name="next_week">Nasledujúci týždeň</string>
     <string name="dont_hide">Neskrývať</string>

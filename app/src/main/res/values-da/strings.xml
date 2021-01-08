@@ -37,7 +37,6 @@
     <string name="TEA_load_more">Indlæs flere…</string>
     <string name="CRA_ignore_all">Ignorér alle begivenheder</string>
     <string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
-    <string name="EPr_default_urgency_title">Standardfrist</string>
     <string name="EPr_default_importance_title">Standardprioritet</string>
     <string name="EPr_default_hideUntil_title">Skjul indtil… som standard</string>
     <string name="EPr_default_reminders_title">Standardpåmindelser</string>
@@ -548,7 +547,6 @@
     <string name="dont_hide">Skjul ikke</string>
     <string name="next_week">Næste uge</string>
     <string name="day_after_tomorrow">I overmorgen</string>
-    <string name="no_deadline">Ingen frist</string>
     <string name="priority_low">Lav</string>
     <string name="priority_medium">Middel</string>
     <string name="priority_high">Høj</string>

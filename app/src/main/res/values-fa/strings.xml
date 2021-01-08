@@ -63,13 +63,11 @@
     <string name="EPr_cal_start_at_due_time">شروع رویدادهای تقویم در موعود</string>
     <string name="EPr_delete_task_data">حذف داده وظیفه</string>
     <string name="task_defaults">پیش فرض های وظیفه</string>
-    <string name="EPr_default_urgency_title">موعود پیش فرض</string>
     <string name="EPr_default_importance_title">اولویت پیش فرض</string>
     <string name="EPr_default_reminders_title">یادآورهای پیش فرض</string>
     <string name="priority_high">زیاد</string>
     <string name="priority_medium">متوسط</string>
     <string name="priority_low">کم</string>
-    <string name="no_deadline">بدون موعود</string>
     <string name="day_after_tomorrow">پس فردا</string>
     <string name="next_week">هفته بعد</string>
     <string name="dont_hide">مخفی نکن</string>

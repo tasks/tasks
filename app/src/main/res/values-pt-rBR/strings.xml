@@ -94,7 +94,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Você quer mesmo apagar todos os eventos de calendário das tarefas?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d eventos de agenda apagados!</string>
     <string name="task_defaults">Padrões de tarefa</string>
-    <string name="EPr_default_urgency_title">Prazo padrão</string>
     <string name="EPr_default_importance_title">Prioridade padrão</string>
     <string name="EPr_default_hideUntil_title">Padrão de Ocultar até</string>
     <string name="EPr_default_reminders_title">Lembretes padrões</string>
@@ -104,7 +103,6 @@
     <string name="priority_high">Alta</string>
     <string name="priority_medium">Média</string>
     <string name="priority_low">Baixa</string>
-    <string name="no_deadline">Sem prazo</string>
     <string name="day_after_tomorrow">Depois de amanhã</string>
     <string name="next_week">Próxima semana</string>
     <string name="dont_hide">Não ocultar</string>

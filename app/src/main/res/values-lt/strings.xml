@@ -93,7 +93,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Ar tikrai norite ištrinti visus įvykius, skirtus užduotims?</string>
     <string name="EPr_manage_delete_all_gcal_status">Ištrinta %d kalendoriaus įvykių!</string>
     <string name="task_defaults">Užduočių įprasti nustatymai</string>
-    <string name="EPr_default_urgency_title">Numatytasis terminas</string>
     <string name="EPr_default_importance_title">Numatytasis prioritetas</string>
     <string name="EPr_default_hideUntil_title">Įprastai slėpti iki</string>
     <string name="EPr_default_reminders_title">Numatytieji priminimai</string>
@@ -103,7 +102,6 @@
     <string name="priority_high">Aukštas</string>
     <string name="priority_medium">Vidutinis</string>
     <string name="priority_low">Žemas</string>
-    <string name="no_deadline">Be termino</string>
     <string name="day_after_tomorrow">Poryt</string>
     <string name="next_week">Kitą savaitę</string>
     <string name="dont_hide">Neslėpti</string>

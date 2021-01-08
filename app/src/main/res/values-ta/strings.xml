@@ -6,7 +6,6 @@
     <string name="dont_hide">மறைக்க வேண்டாம்</string>
     <string name="next_week">அடுத்த வாரம்</string>
     <string name="day_after_tomorrow">நாளை மறுநாள்</string>
-    <string name="no_deadline">காலக்கெடு இல்லை</string>
     <string name="priority_low">குறைந்த</string>
     <string name="priority_medium">நடுத்தரமான</string>
     <string name="priority_high">உயரமான</string>
@@ -15,7 +14,6 @@
     <string name="EPr_default_reminders_title">இயல்புநிலை நினைவூட்டல்கள்</string>
     <string name="EPr_default_hideUntil_title">இயல்புநிலை வரை மறை</string>
     <string name="EPr_default_importance_title">இயல்புநிலை முன்னுரிமை</string>
-    <string name="EPr_default_urgency_title">இயல்புநிலை காலக்கெடு</string>
     <string name="task_defaults">பணி இயல்புநிலை</string>
     <string name="EPr_manage_delete_all_gcal_message">பணிகளுக்காக உங்கள் எல்லா நிகழ்வுகளையும் நீக்க விரும்புகிறீர்களா\?</string>
     <string name="EPr_manage_delete_all_gcal">பணிகளுக்கான அனைத்து நாள்காட்டி நிகழ்வுகளையும் நீக்கு</string>

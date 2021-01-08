@@ -40,7 +40,6 @@
     <string name="TEA_control_files">Filer</string>
     <string name="TEA_control_reminders">Påminnelser</string>
     <string name="TEA_control_hidden_section">----Skjul alltid----</string>
-    <string name="EPr_default_urgency_title">Forvalgsfrist</string>
     <string name="EPr_default_importance_title">Forvalgsprioritert</string>
     <string name="EPr_default_hideUntil_title">Forvalgt skjuling til</string>
     <string name="EPr_default_reminders_title">Forvalgte påminnelser</string>
@@ -222,7 +221,6 @@
     <string name="priority_high">Høy</string>
     <string name="priority_medium">Middels</string>
     <string name="priority_low">Lav</string>
-    <string name="no_deadline">Ingen tidsfrist</string>
     <string name="day_after_tomorrow">I overimorgen</string>
     <string name="next_week">Neste uke</string>
     <string name="at_deadline">Ved tidsfrist</string>

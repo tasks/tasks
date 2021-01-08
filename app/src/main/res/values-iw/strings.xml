@@ -98,7 +98,6 @@
     <string name="EPr_manage_delete_all_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן בעבור המשימות?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו!</string>
     <string name="task_defaults">ברירות מחדל למשימות</string>
-    <string name="EPr_default_urgency_title">דחיפות ברירת המחדל</string>
     <string name="EPr_default_importance_title">עדיפות מחדל</string>
     <string name="EPr_default_hideUntil_title">ברירת מחדל לזמן הסתרה</string>
     <string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
@@ -108,7 +107,6 @@
     <string name="priority_high">גבוה</string>
     <string name="priority_medium">בינוני</string>
     <string name="priority_low">נמוך</string>
-    <string name="no_deadline">ללא מועד סף</string>
     <string name="day_after_tomorrow">מחרתיים</string>
     <string name="next_week">בשבוע הבא</string>
     <string name="dont_hide">אל תסתיר</string>

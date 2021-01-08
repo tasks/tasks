@@ -68,7 +68,6 @@
     <string name="EPr_manage_delete_completed_gcal_message">Kas sa tõesti soovid kustutada kõigi lõpetatud ülesannete sündmused\?</string>
     <string name="EPr_manage_delete_completed_gcal_status">Kalendrist kustutati %d sündmust!</string>
     <string name="task_defaults">Ülesande vaikeväärtused</string>
-    <string name="EPr_default_urgency_title">Vaikimisi tähtaeg</string>
     <string name="EPr_default_importance_title">Vaikimisi tähtsus</string>
     <string name="EPr_default_reminders_title">Vaikimisi meeldetuletused</string>
     <string name="EPr_default_location_reminder_title">Vaikimisi asukoha-põhised meeldetuletused</string>
@@ -76,7 +75,6 @@
     <string name="priority_high">Kõrge</string>
     <string name="priority_medium">Keskmine</string>
     <string name="priority_low">Madal</string>
-    <string name="no_deadline">Tähtaega pole</string>
     <string name="day_after_tomorrow">Ülehomme</string>
     <string name="next_week">Järgmisel nädalal</string>
     <string name="dont_hide">Ära peida</string>

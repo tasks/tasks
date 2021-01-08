@@ -96,7 +96,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Ви дійсно хочете видалити всі події для завдань?</string>
     <string name="EPr_manage_delete_all_gcal_status">Видалено %d календарних подій!</string>
     <string name="task_defaults">Типові налаштування завдань</string>
-    <string name="EPr_default_urgency_title">Кінцевий термін по замовчуванню</string>
     <string name="EPr_default_importance_title">Пріоритет по замовчуванню</string>
     <string name="EPr_default_hideUntil_title">Термін приховування за замовчуванням</string>
     <string name="EPr_default_reminders_title">Нагадування по замовчуванню</string>
@@ -106,7 +105,6 @@
     <string name="priority_high">Високий</string>
     <string name="priority_medium">Середній</string>
     <string name="priority_low">Низький</string>
-    <string name="no_deadline">Немає дедлайну</string>
     <string name="day_after_tomorrow">Післязавтра</string>
     <string name="next_week">Наступного тижня</string>
     <string name="dont_hide">Не приховувати</string>

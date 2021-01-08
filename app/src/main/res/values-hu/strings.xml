@@ -96,7 +96,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Biztosan törölni akarja a feladatokhoz tartozó eseményeket?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d naptárbejegyzés törölve!</string>
     <string name="task_defaults">Feladat alapértelmezései</string>
-    <string name="EPr_default_urgency_title">Alapértelmezett határidő</string>
     <string name="EPr_default_importance_title">Alapértelmezett prioritás</string>
     <string name="EPr_default_hideUntil_title">Alapértelmezett elrejtési idő</string>
     <string name="EPr_default_reminders_title">Alapértelmezett emlékeztetők</string>
@@ -106,7 +105,6 @@
     <string name="priority_high">Magas</string>
     <string name="priority_medium">Közepes</string>
     <string name="priority_low">Alacsony</string>
-    <string name="no_deadline">Nincs határidő</string>
     <string name="day_after_tomorrow">Holnapután</string>
     <string name="next_week">Következő hét</string>
     <string name="dont_hide">Nem rejtett</string>

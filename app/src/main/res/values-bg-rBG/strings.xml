@@ -96,7 +96,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Наистина ли искате да изтриете всичките си събития за задачи?</string>
     <string name="EPr_manage_delete_all_gcal_status">Изтрити %d събития от календара!</string>
     <string name="task_defaults">Настройки по подразбиране</string>
-    <string name="EPr_default_urgency_title">Краен срок по подразбиране</string>
     <string name="EPr_default_importance_title">Приоритет по подразбиране</string>
     <string name="EPr_default_hideUntil_title">Скрий до - по подразбиране </string>
     <string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
@@ -106,7 +105,6 @@
     <string name="priority_high">Висок</string>
     <string name="priority_medium">Среден</string>
     <string name="priority_low">Нисък</string>
-    <string name="no_deadline">Без краен срок</string>
     <string name="day_after_tomorrow">Ден след утрешния</string>
     <string name="next_week">Следваща седмица</string>
     <string name="dont_hide">Не скривай</string>

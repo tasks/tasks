@@ -92,7 +92,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Weet je zeker dat je alle items voor taken wil verwijderen\?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d agenda-items verwijderd!</string>
     <string name="task_defaults">Basisinstellingen nieuwe taak</string>
-    <string name="EPr_default_urgency_title">Standaard prioriteit</string>
     <string name="EPr_default_importance_title">Standaard prioriteit</string>
     <string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
     <string name="EPr_default_reminders_title">Standaard herinneringen</string>
@@ -102,7 +101,6 @@
     <string name="priority_high">Hoog</string>
     <string name="priority_medium">Middelmatig</string>
     <string name="priority_low">Laag</string>
-    <string name="no_deadline">Geen einddatum</string>
     <string name="day_after_tomorrow">Overmorgen</string>
     <string name="next_week">Volgende week</string>
     <string name="dont_hide">Niet verbergen</string>

@@ -97,7 +97,7 @@
   </string-array>
 
   <string-array name="EPr_default_urgency">
-    <item>@string/no_deadline</item>
+    <item>@string/no_due_date</item>
     <item>@string/today</item>
     <item>@string/tomorrow</item>
     <item>@string/day_after_tomorrow</item>

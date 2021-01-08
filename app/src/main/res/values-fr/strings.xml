@@ -91,7 +91,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Voulez-vous vraiment supprimer tous vos événements liés aux tâches ?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d événements du calendrier ont été supprimés !</string>
     <string name="task_defaults">Valeurs par défaut</string>
-    <string name="EPr_default_urgency_title">Échéance par défaut</string>
     <string name="EPr_default_importance_title">Priorité par défaut</string>
     <string name="EPr_default_hideUntil_title">Masquer par défaut jusqu\'à</string>
     <string name="EPr_default_reminders_title">Rappels par défaut</string>
@@ -101,7 +100,6 @@
     <string name="priority_high">Haute</string>
     <string name="priority_medium">Moyenne</string>
     <string name="priority_low">Faible</string>
-    <string name="no_deadline">Aucune échéance</string>
     <string name="day_after_tomorrow">Après-demain</string>
     <string name="next_week">La semaine prochaine</string>
     <string name="dont_hide">Ne pas masquer</string>

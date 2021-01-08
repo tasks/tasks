@@ -81,7 +81,6 @@
     <string name="EPr_manage_delete_all_gcal">Smazat v kalendáři všechny události z úkolů</string>
     <string name="EPr_manage_delete_all_gcal_message">Opravdu chcete odstranit všechny události z úkolů?</string>
     <string name="EPr_manage_delete_all_gcal_status">Smazáno %d událostí v kalendáři!</string>
-    <string name="EPr_default_urgency_title">Výchozí termín dokončení</string>
     <string name="EPr_default_importance_title">Výchozí důležitost</string>
     <string name="EPr_default_hideUntil_title">Výchozí doba skrytí</string>
     <string name="EPr_default_reminders_title">Výchozí upomínky</string>
@@ -89,7 +88,6 @@
     <string name="priority_high">Vysoká</string>
     <string name="priority_medium">Střední</string>
     <string name="priority_low">Nízká</string>
-    <string name="no_deadline">Žádný termín</string>
     <string name="day_after_tomorrow">Pozítří</string>
     <string name="next_week">Příští týden</string>
     <string name="dont_hide">Neskrývat</string>

@@ -93,7 +93,6 @@
     <string name="EPr_manage_delete_all_gcal_message">タスクのイベントをすべて削除してもよろしいですか?</string>
     <string name="EPr_manage_delete_all_gcal_status">%d カレンダーイベントが削除されました!</string>
     <string name="task_defaults">タスクのデフォルト</string>
-    <string name="EPr_default_urgency_title">期限</string>
     <string name="EPr_default_importance_title">標準の優先順位</string>
     <string name="EPr_default_hideUntil_title">表示期間</string>
     <string name="EPr_default_reminders_title">標準リマインダー</string>
@@ -103,7 +102,6 @@
     <string name="priority_high">高</string>
     <string name="priority_medium">中</string>
     <string name="priority_low">低</string>
-    <string name="no_deadline">期限なし</string>
     <string name="day_after_tomorrow">明後日</string>
     <string name="next_week">来週</string>
     <string name="dont_hide">常に表示する</string>

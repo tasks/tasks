@@ -93,7 +93,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zadań?</string>
     <string name="EPr_manage_delete_all_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
     <string name="task_defaults">Domyślne ustawienia zadań</string>
-    <string name="EPr_default_urgency_title">Termin końcowy (domyślnie)</string>
     <string name="EPr_default_importance_title">Domyślny priorytet</string>
     <string name="EPr_default_hideUntil_title">Ukrywanie zadania (domyślnie)</string>
     <string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
@@ -103,7 +102,6 @@
     <string name="priority_high">Ważne</string>
     <string name="priority_medium">Średnio ważne</string>
     <string name="priority_low">Mało ważne</string>
-    <string name="no_deadline">Bez nieprzekraczalnego terminu</string>
     <string name="day_after_tomorrow">Pojutrze</string>
     <string name="next_week">Przyszły tydzień</string>
     <string name="dont_hide">Nie ukrywaj</string>
