@@ -569,10 +569,10 @@
     <string name="custom_filter_or">或</string>
     <string name="custom_filter_and">和</string>
     <string name="custom_filter_criteria">过滤条件</string>
-    <string name="filter_eisenhower_box_4">艾森豪威尔象限 4</string>
-    <string name="filter_eisenhower_box_3">艾森豪威尔象限 3</string>
-    <string name="filter_eisenhower_box_2">艾森豪威尔象限 2</string>
-    <string name="filter_eisenhower_box_1">艾森豪威尔象限 1</string>
+    <string name="filter_eisenhower_box_4">不重要不紧急</string>
+    <string name="filter_eisenhower_box_3">不重要但紧急</string>
+    <string name="filter_eisenhower_box_2">重要但不紧急</string>
+    <string name="filter_eisenhower_box_1">重要且紧急</string>
     <string name="filter_no_priority">无优先级</string>
     <string name="filter_low_priority">低优先级</string>
     <string name="filter_medium_priority">中等优先级</string>
