@@ -64,6 +64,7 @@ internal class ScrollableViewsFactory(
     private var showDividers = false
     private var disableGroups = false
     private var showSubtasks = false
+    private var showStartDates = false
     private var showPlaces = false
     private var showLists = false
     private var showTags = false
@@ -199,9 +200,6 @@ internal class ScrollableViewsFactory(
             val row = newRemoteView()
             if (task.isHidden) {
                 textColorTitle = textColorSecondary
-                row.setViewVisibility(R.id.hidden_icon, View.VISIBLE)
-            } else {
-                row.setViewVisibility(R.id.hidden_icon, View.GONE)
             }
             if (task.isCompleted) {
                 textColorTitle = textColorSecondary
@@ -266,6 +264,11 @@ internal class ScrollableViewsFactory(
                                 .putExtra(WidgetClickActivity.EXTRA_TASK, task)
                                 .putExtra(WidgetClickActivity.EXTRA_COLLAPSED, !taskContainer.isCollapsed)
                 )
+            }
+            if (taskContainer.isHidden && showStartDates) {
+                chipProvider
+                        .getStartDateChip(taskContainer, showFullDate)
+                        ?.let { row.addView(R.id.chips, it) }
             }
             if (taskContainer.hasLocation() && showPlaces) {
                 chipProvider
@@ -367,6 +370,7 @@ internal class ScrollableViewsFactory(
         } == true
         showPlaces = widgetPreferences.showPlaces()
         showSubtasks = widgetPreferences.showSubtasks()
+        showStartDates = widgetPreferences.showStartDates()
         showLists = widgetPreferences.showLists()
         showTags = widgetPreferences.showTags()
         showFullDate = widgetPreferences.alwaysDisplayFullDate

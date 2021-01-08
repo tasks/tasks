@@ -44,22 +44,11 @@
           android:textSize="14sp"
           tools:text="Tmrrw" />
 
-        <ImageView
-          android:id="@+id/hidden_icon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_toEndOf="@id/completeBox"
-          android:paddingEnd="2dp"
-          android:paddingStart="0dp"
-          android:src="@drawable/ic_outline_visibility_off_24px"
-          app:tint="@color/icon_tint_with_alpha"
-          android:contentDescription="@string/widget_due_date_hidden" />
-
         <TextView
           android:id="@+id/title"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_toEndOf="@id/hidden_icon"
+          android:layout_toEndOf="@id/completeBox"
           android:layout_toStartOf="@id/due_date"
           android:paddingStart="0dp"
           android:paddingEnd="@dimen/half_keyline_first"

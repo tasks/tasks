@@ -59,6 +59,7 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_no_time">No time</string>
   <string name="due_date">Due date</string>
   <string name="due_time">Due time</string>
+  <string name="start_date">Start date</string>
   <string name="day_before_due">Day before due</string>
   <string name="week_before_due">Week before due</string>
   <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">due date</string>

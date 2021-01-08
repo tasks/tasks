@@ -6,6 +6,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.chip.Chip
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
@@ -21,6 +22,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons.getIconResId
 import org.tasks.themes.ThemeColor
+import java.time.format.FormatStyle
 import java.util.*
 import javax.inject.Inject
 
@@ -46,6 +48,26 @@ class ChipProvider @Inject constructor(
         showIcon = appearance != 1
     }
 
+    private fun newStartDateChip(task: TaskContainer, compact: Boolean): Chip {
+        val chip = newChip(task)
+        apply(
+                chip,
+                R.drawable.ic_pending_actions_24px,
+                DateUtilities.getRelativeDateTime(
+                        activity,
+                        task.startDate,
+                        locale.locale,
+                        if (compact) FormatStyle.SHORT else FormatStyle.MEDIUM,
+                        false,
+                        false
+                ),
+                0,
+                showText = true,
+                showIcon = true
+        )
+        return chip
+    }
+
     fun newSubtaskChip(task: TaskContainer, compact: Boolean): Chip {
         val chip = newChip(task)
         apply(
@@ -65,6 +87,9 @@ class ChipProvider @Inject constructor(
         val chips = ArrayList<Chip>()
         if (task.hasChildren() && preferences.showSubtaskChip) {
             chips.add(newSubtaskChip(task, !showText))
+        }
+        if (task.isHidden && preferences.showStartDateChip) {
+            chips.add(newStartDateChip(task, !showText))
         }
         if (task.hasLocation() && filter !is PlaceFilter && preferences.showPlaceChip) {
             val location = task.getLocation()

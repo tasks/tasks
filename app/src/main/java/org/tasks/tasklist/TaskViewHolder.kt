@@ -67,9 +67,6 @@ class TaskViewHolder internal constructor(
     @BindView(R.id.chip_group)
     lateinit var chipGroup: ChipGroup
 
-    @BindView(R.id.hidden_icon)
-    lateinit var hiddenIcon: View
-    
     lateinit var task: TaskContainer
     
     var indent = 0
@@ -139,7 +136,6 @@ class TaskViewHolder internal constructor(
         this.task = task
         indent = task.indent
         nameView.text = task.title
-        hiddenIcon.visibility = if (task.isHidden) View.VISIBLE else View.GONE
         setupTitleAndCheckbox()
         setupDueDate(sortByDueDate)
         setupChips(filter)
@@ -271,7 +267,7 @@ class TaskViewHolder internal constructor(
             description.isSingleLine = false
             description.ellipsize = null
         }
-        setTopPadding(rowPadding, nameView, completeBox, dueDate, hiddenIcon)
+        setTopPadding(rowPadding, nameView, completeBox, dueDate)
         setBottomPadding(rowPadding, completeBox, dueDate)
         nameView.textSize = fontSize.toFloat()
         description.textSize = fontSize.toFloat()

@@ -350,6 +350,7 @@
   <string name="p_widget_show_full_task_title">widget-show-full-task-title-</string>
   <string name="p_widget_show_dividers">widget-show-dividers-</string>
   <string name="p_widget_show_subtasks">widget-show-subtasks-</string>
+  <string name="p_widget_show_start_dates">widget-show-start-dates-</string>
   <string name="p_widget_disable_groups">widget-disable_groups-</string>
   <string name="p_widget_show_places">widget-show-places-</string>
   <string name="p_widget_show_lists">widget-show-lists-</string>
@@ -414,6 +415,7 @@
   <string name="p_chip_style">chip_style</string>
   <string name="p_chip_appearance">chip_appearance</string>
   <string name="p_subtask_chips">chips_subtask</string>
+  <string name="p_start_date_chip">chips_start_date</string>
   <string name="p_place_chips">chips_place</string>
   <string name="p_list_chips">chips_list</string>
   <string name="p_tag_chips">chips_tag</string>

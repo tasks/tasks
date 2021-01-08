@@ -132,6 +132,11 @@
 
       <SwitchPreferenceCompat
         android:defaultValue="true"
+        android:key="@string/p_start_date_chip"
+        android:title="@string/start_date" />
+
+      <SwitchPreferenceCompat
+        android:defaultValue="true"
         android:key="@string/p_place_chips"
         android:title="@string/places" />
 

@@ -54,6 +54,10 @@ public class TaskContainer {
     return task.isHidden();
   }
 
+  public long getStartDate() {
+    return task.getHideUntil();
+  }
+
   public boolean isCompleted() {
     return task.isCompleted();
   }

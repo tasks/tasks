@@ -2,6 +2,7 @@ package org.tasks.widget
 
 import android.content.Context
 import android.widget.RemoteViews
+import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
@@ -11,13 +12,18 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.TaskContainer
 import org.tasks.filters.PlaceFilter
+import org.tasks.locale.Locale
+import org.tasks.preferences.Preferences
 import org.tasks.themes.CustomIcons
 import org.tasks.ui.ChipListCache
+import java.time.format.FormatStyle
 import javax.inject.Inject
 
 class ChipProvider @Inject constructor(
         @ApplicationContext private val context: Context,
         private val chipListCache: ChipListCache,
+        private val locale: Locale,
+        private val preferences: Preferences,
 ) {
 
     var isDark = false
@@ -39,6 +45,27 @@ class ChipProvider @Inject constructor(
                 }
         )
         return chip
+    }
+
+    fun getStartDateChip(task: TaskContainer, showFullDate: Boolean): RemoteViews? {
+        return if (task.isHidden) {
+            val chip = newChip()
+            chip.setTextViewText(
+                    R.id.chip_text,
+                    DateUtilities.getRelativeDateTime(
+                            context,
+                            task.startDate,
+                            locale.locale,
+                            FormatStyle.MEDIUM,
+                            showFullDate,
+                            false
+                    )
+            )
+            chip.setImageViewResource(R.id.chip_icon, R.drawable.ic_pending_actions_24px)
+            chip
+        } else {
+            null
+        }
     }
 
     fun getListChip(filter: Filter?, task: TaskContainer): RemoteViews? {

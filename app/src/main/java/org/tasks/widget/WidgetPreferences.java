@@ -60,6 +60,10 @@ public class WidgetPreferences implements QueryPreferences {
     return getBoolean(R.string.p_widget_show_subtasks, true);
   }
 
+  boolean showStartDates() {
+    return getBoolean(R.string.p_widget_show_start_dates, true);
+  }
+
   boolean disableGroups() {
     return getBoolean(R.string.p_widget_disable_groups, false);
   }

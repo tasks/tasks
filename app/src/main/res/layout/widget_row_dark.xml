@@ -44,23 +44,9 @@
     tools:paddingEnd="@dimen/widget_padding"
     tools:textColor="@color/white_60"/>
 
-  <ImageView
-    android:id="@+id/hidden_icon"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_toEndOf="@id/widget_complete_box"
-    android:layout_below="@id/top_padding"
-    android:paddingStart="0dp"
-    android:paddingEnd="2dp"
-    android:visibility="gone"
-    android:src="@drawable/ic_outline_visibility_off_24px"
-    android:tint="@color/icon_tint_dark_alpha"
-    tools:visibility="visible"
-    tools:ignore="UseAppTint" />
-
   <TextView
     android:id="@+id/widget_text"
-    android:layout_toEndOf="@id/hidden_icon"
+    android:layout_toEndOf="@id/widget_complete_box"
     android:layout_toStartOf="@id/widget_due_end"
     android:layout_below="@id/top_padding"
     android:layout_width="match_parent"

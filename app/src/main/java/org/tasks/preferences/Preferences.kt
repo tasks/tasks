@@ -456,6 +456,9 @@ class Preferences @JvmOverloads constructor(
     val showSubtaskChip: Boolean
         get() = getBoolean(R.string.p_subtask_chips, true)
 
+    val showStartDateChip: Boolean
+        get() = getBoolean(R.string.p_start_date_chip, true)
+
     val showPlaceChip: Boolean
         get() = getBoolean(R.string.p_place_chips, true)
 
