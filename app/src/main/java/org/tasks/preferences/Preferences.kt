@@ -453,21 +453,17 @@ class Preferences @JvmOverloads constructor(
     val themeBase: Int
         get() = getInt(R.string.p_theme, ThemeBase.DEFAULT_BASE_THEME)
 
-    var showSubtaskChip: Boolean
+    val showSubtaskChip: Boolean
         get() = getBoolean(R.string.p_subtask_chips, true)
-        set(value) = setBoolean(R.string.p_subtask_chips, value)
 
-    var showPlaceChip: Boolean
+    val showPlaceChip: Boolean
         get() = getBoolean(R.string.p_place_chips, true)
-        set(value) = setBoolean(R.string.p_place_chips, value)
 
-    var showListChip: Boolean
+    val showListChip: Boolean
         get() = getBoolean(R.string.p_list_chips, true)
-        set(value) = setBoolean(R.string.p_list_chips, value)
 
-    var showTagChip: Boolean
+    val showTagChip: Boolean
         get() = getBoolean(R.string.p_tag_chips, true)
-        set(value) = setBoolean(R.string.p_tag_chips, value)
 
     fun alreadyNotified(account: String?, scope: String?): Boolean =
             getBoolean(context.getString(R.string.p_notified_oauth_error, account, scope), false)

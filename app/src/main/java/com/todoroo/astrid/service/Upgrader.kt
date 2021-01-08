@@ -59,11 +59,6 @@ class Upgrader @Inject constructor(
             run(from, V8_10) { migrateWidgets() }
             run(from, V9_3) { applyCaldavOrder() }
             run(from, V9_6) {
-                val chips = preferences.getBoolean("show_list_indicators", true)
-                preferences.showSubtaskChip = chips
-                preferences.showPlaceChip = chips
-                preferences.showListChip = chips
-                preferences.showTagChip = chips
                 preferences.setBoolean(R.string.p_astrid_sort_enabled, true)
                 taskMover.migrateLocalTasks()
             }
