@@ -5,7 +5,7 @@
     <string name="enter_filter_name">Introduza o nome do fitro</string>
     <string name="backup_BAc_import">Importar cópia de segurança</string>
     <string name="backup_BAc_export">Fazer cópia de segurança</string>
-    <string name="export_toast">"Copia de segurança de  %1$s para %2$s."</string>
+    <string name="export_toast">"Copia de segurança feita de  %1$s para %2$s."</string>
     <string name="import_summary_title">Resumo de restauro</string>
     <string name="import_summary_message">Ficheiro %1$s continha %2$s.\n\n
 %3$s importadas,\n
@@ -645,4 +645,8 @@
     <string name="ok">Ok</string>
     <string name="repeat_type_completion_capitalized">Data de término</string>
     <string name="always_display_full_date">Mostrar data completa</string>
+    <plurals name="list_count">
+        <item quantity="one">Lista %d</item>
+        <item quantity="other">Listas %d</item>
+    </plurals>
 </resources>
