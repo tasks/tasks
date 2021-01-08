@@ -188,6 +188,11 @@ object CustomIcons {
         1163 to R.drawable.ic_keyboard_arrow_right_24px,
         1164 to R.drawable.ic_content_paste_24px,
         1165 to R.drawable.ic_content_copy_24px,
+        1166 to R.drawable.ic_outline_play_arrow_24px,
+        1167 to R.drawable.ic_play_circle_outline_24px,
+        1168 to R.drawable.ic_not_started_24px,
+        1169 to R.drawable.ic_date_range_24px,
+        1170 to R.drawable.ic_pending_actions_24px,
     )
 
     @JvmStatic
