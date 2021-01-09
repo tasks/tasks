@@ -685,4 +685,5 @@
     <string name="app_passwords">App wachtwoorden</string>
     <string name="app_password">App wachtwoord</string>
     <string name="local_lists">Lokale lijsten</string>
+    <string name="default_due_date">Standaard einddatum</string>
 </resources>
