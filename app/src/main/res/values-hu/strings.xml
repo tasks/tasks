@@ -574,10 +574,10 @@
     <string name="custom_filter_or">VAGY</string>
     <string name="custom_filter_and">ÉS</string>
     <string name="custom_filter_criteria">Szűrő feltétel</string>
-    <string name="filter_eisenhower_box_4">Eisenhower doboz 4</string>
-    <string name="filter_eisenhower_box_3">Eisenhower doboz 3</string>
-    <string name="filter_eisenhower_box_2">Eisenhower doboz 2</string>
-    <string name="filter_eisenhower_box_1">Eisenhower doboz 1</string>
+    <string name="filter_eisenhower_box_4">Nem fontos és nem sürgős</string>
+    <string name="filter_eisenhower_box_3">Nem fontos, de sürgős</string>
+    <string name="filter_eisenhower_box_2">Fontos, de nem sürgős</string>
+    <string name="filter_eisenhower_box_1">Fontos és sürgős</string>
     <string name="filter_no_priority">Nincs prioritás</string>
     <string name="filter_low_priority">Alacsony prioritás</string>
     <string name="filter_medium_priority">Közepes prioritás</string>
@@ -688,4 +688,5 @@
     <string name="generate_new_password">Új jelszó generálása</string>
     <string name="app_passwords_more_info">Feladatok és naptárak szinkronizálása harmadik féltől származó asztali és mobil alkalmazásokkal. Részletes információért kattintson ide</string>
     <string name="local_lists">Helyi listák</string>
+    <string name="default_due_date">Alapértelmezett határidő</string>
 </resources>
