@@ -691,4 +691,5 @@
     <string name="sign_in_to_tasks">Tasks.org\'da oturum aç</string>
     <string name="local_lists">Yerel listeler</string>
     <string name="default_due_date">Öntanımlı bitiş tarihi</string>
+    <string name="start_date">Başlangıç tarihi</string>
 </resources>
