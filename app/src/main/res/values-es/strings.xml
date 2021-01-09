@@ -691,4 +691,5 @@
     <string name="app_password">Contraseña de la aplicación</string>
     <string name="local_lists">Listas locales</string>
     <string name="default_due_date">Fecha de vencimiento predeterminada</string>
+    <string name="start_date">Fecha de inicio</string>
 </resources>
