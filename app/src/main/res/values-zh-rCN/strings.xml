@@ -680,4 +680,5 @@
     <string name="app_passwords">多个应用程序密码</string>
     <string name="app_password">应用程序密码</string>
     <string name="local_lists">本地列表</string>
+    <string name="default_due_date">默认到期日</string>
 </resources>
