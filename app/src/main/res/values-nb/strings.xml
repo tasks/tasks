@@ -677,6 +677,18 @@
     </plurals>
     <string name="sign_in_to_tasks">Logg inn på Tasks.org</string>
     <string name="save_percent">Lagre %d%%</string>
-    <string name="above_average">Over gjenomsnitt</string>
+    <string name="above_average">Over gjennomsnittet</string>
     <string name="decsync_selection_description">Synkroniser dine gjøremål med DecSync CC-programmet</string>
+    <string name="app_password_save">Bruk disse identitetsdetaljene for å sette opp tredjepartsprogrammer. De tilbyr full tilgang til din Tasks.org-konto. Ikke skriv dem ned eller del dem med noen!</string>
+    <string name="app_password_delete_confirmation">Ethvert program som bruker dette passordet vil bli utlogget</string>
+    <string name="app_password_enter_description">Gi ditt nye passord et navn (valgfritt)</string>
+    <string name="generate_new_password">Generer nytt passord</string>
+    <string name="app_passwords_more_info">Synkroniser dine gjøremål og kalendre med tredjepartsprogrammer for skrivebord og mobil. Trykk her for mer info.</string>
+    <string name="app_password">Programpassord</string>
+    <string name="local_lists">Lokale lister</string>
+    <string name="default_due_date">Forvalgt fristdato</string>
+    <string name="copied_to_clipboard">%s kopiert til utklippstavlen</string>
+    <string name="app_password_last_access">Sist brukt: %s</string>
+    <string name="app_password_created_at">Opprettet: %s</string>
+    <string name="app_passwords">Programpassord</string>
 </resources>
