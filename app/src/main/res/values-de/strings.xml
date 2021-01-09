@@ -38,8 +38,6 @@
     <string name="TEA_title_hint">Aufgabenname</string>
     <string name="TEA_importance_label">Dringlichkeit</string>
     <string name="TEA_no_date">Ohne Datum</string>
-    <string name="TEA_hideUntil_label">Ausblenden bis</string>
-    <string name="TEA_hideUntil_display">Ausblenden bis %s</string>
     <string name="TEA_note_label">Beschreibung</string>
     <string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
     <string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
@@ -51,10 +49,6 @@
     <string name="due_time">Fälligkeitsuhrzeit</string>
     <string name="day_before_due">Tag vor Fälligkeit</string>
     <string name="week_before_due">Woche vor Fälligkeit</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">Fälligkeitsdatum</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">Fälligkeitsuhrzeit</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Tag vor Fälligkeit</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">Woche vor Fälligkeit</string>
     <string name="TEA_control_repeat">Wiederholen</string>
     <string name="TEA_control_gcal">Kalender</string>
     <string name="TEA_control_importance">Dringlichkeit</string>
@@ -98,7 +92,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
     <string name="task_defaults">Standardwerte für Aufgaben</string>
     <string name="EPr_default_importance_title">Dringlichkeitsvorgabe</string>
-    <string name="EPr_default_hideUntil_title">Standardmäßig ausblenden bis</string>
     <string name="EPr_default_reminders_title">Vorgaben für Erinnerungen</string>
     <string name="EPr_default_location_reminder_title">Ortsbasierte Standarderinnerungen</string>
     <string name="EPr_default_location_radius">Standardradius</string>
@@ -108,7 +101,6 @@
     <string name="priority_low">Niedrig</string>
     <string name="day_after_tomorrow">Übermorgen</string>
     <string name="next_week">Nächste Woche</string>
-    <string name="dont_hide">Nicht ausblenden</string>
     <string name="at_deadline">Zum Termin</string>
     <string name="at_deadline_or_overdue">Zum Termin oder wenn überfällig</string>
     <string name="no_reminders">Keine Erinnerungen</string>
@@ -329,7 +321,6 @@
     <string name="copy">Kopieren</string>
     <string name="move">Bewegen</string>
     <string name="filter_settings">Filtereinstellungen</string>
-    <string name="show_hidden">Ausgeblendete anzeigen</string>
     <string name="show_completed">Erledigte anzeigen</string>
     <string name="reverse">Rückwärts</string>
     <string name="add_attachment">Anhang hinzufügen</string>

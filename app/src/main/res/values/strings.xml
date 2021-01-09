@@ -48,8 +48,6 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_importance_label">Priority</string>
   <string name="TEA_add_subtask">Add subtask</string>
   <string name="TEA_no_date">No date</string>
-  <string name="TEA_hideUntil_label">Hide until</string>
-  <string name="TEA_hideUntil_display">Hide until %s</string>
   <string name="TEA_note_label">Description</string>
   <string name="TEA_estimatedDuration_label">How long will it take?</string>
   <string name="TEA_elapsedDuration_label">Time already spent</string>
@@ -62,10 +60,6 @@ File %1$s contained %2$s.\n\n
   <string name="start_date">Start date</string>
   <string name="day_before_due">Day before due</string>
   <string name="week_before_due">Week before due</string>
-  <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">due date</string>
-  <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">due time</string>
-  <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">day before due</string>
-  <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">week before due</string>
   <string name="TEA_control_repeat">Repeat</string>
   <string name="TEA_control_gcal">Calendar</string>
   <string name="TEA_control_importance">Priority</string>
@@ -113,7 +107,7 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
   <string name="task_defaults">Task defaults</string>
   <string name="EPr_default_importance_title">Default priority</string>
-  <string name="EPr_default_hideUntil_title">Default hide until</string>
+  <string name="default_start_date">Default start date</string>
   <string name="default_due_date">Default due date</string>
   <string name="EPr_default_reminders_title">Default reminders</string>
   <string name="EPr_default_location_reminder_title">Default location reminders</string>
@@ -125,7 +119,6 @@ File %1$s contained %2$s.\n\n
   <string name="priority_low">Low</string>
   <string name="day_after_tomorrow">Day after tomorrow</string>
   <string name="next_week">Next week</string>
-  <string name="dont_hide">Don\'t hide</string>
   <string name="at_deadline">At deadline</string>
   <string name="at_deadline_or_overdue">At deadline or overdue</string>
   <string name="no_reminders">No reminders</string>
@@ -143,6 +136,7 @@ File %1$s contained %2$s.\n\n
   <string name="CFC_dueBefore_text">Due By: ?</string>
   <string name="CFC_dueBefore_name">Due By…</string>
   <string name="no_due_date">No due date</string>
+  <string name="no_start_date">No start date</string>
   <string name="next_month">Next Month</string>
   <string name="CFC_importance_text">Priority at least ?</string>
   <string name="CFC_importance_name">Priority…</string>
@@ -372,8 +366,9 @@ File %1$s contained %2$s.\n\n
   <string name="copy">Copy</string>
   <string name="move">Move</string>
   <string name="filter_settings">Filter settings</string>
-  <string name="show_hidden">Show hidden</string>
+  <string name="show_unstarted">Show unstarted</string>
   <string name="show_completed">Show completed</string>
+  <string name="filter_criteria_unstarted">Not started</string>
   <string name="reverse">Reverse</string>
   <string name="no_app_found">No app could handle this request</string>
   <string name="add_attachment">Add attachment</string>

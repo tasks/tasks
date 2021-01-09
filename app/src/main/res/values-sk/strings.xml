@@ -34,8 +34,6 @@
     <string name="TEA_title_hint">Názov úlohy</string>
     <string name="TEA_importance_label">Dôležitosť</string>
     <string name="TEA_no_date">Bez dátumu</string>
-    <string name="TEA_hideUntil_label">Skryť do</string>
-    <string name="TEA_hideUntil_display">Skryť do %s</string>
     <string name="TEA_note_label">Popis</string>
     <string name="TEA_estimatedDuration_label">Ako dlho to bude trvať?</string>
     <string name="TEA_elapsedDuration_label">Ako dlho už pracujete na úlohe</string>
@@ -47,10 +45,6 @@
     <string name="due_time">Čas dokončenia</string>
     <string name="day_before_due">Deň pre ukončením</string>
     <string name="week_before_due">Týždeň pred ukončením</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">termín deň</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">termín čas</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">o deň skôr</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">o týždeň skôr</string>
     <string name="TEA_control_repeat">Opakovať</string>
     <string name="TEA_control_gcal">Kalendár</string>
     <string name="TEA_control_importance">Priorita</string>
@@ -94,7 +88,6 @@
     <string name="EPr_manage_delete_all_gcal_status">Zmazané %d udalosti kalendára!</string>
     <string name="task_defaults">Predvoľby úloh</string>
     <string name="EPr_default_importance_title">Predvolená dôležitosť</string>
-    <string name="EPr_default_hideUntil_title">Predvolené Skryť do</string>
     <string name="EPr_default_reminders_title">Predvolené pripomienky</string>
     <string name="EPr_default_location_reminder_title">Východzie upozornenia podľa polohy</string>
     <string name="EPr_default_location_radius">Predvolený polomer</string>
@@ -104,7 +97,6 @@
     <string name="priority_low">Nízka</string>
     <string name="day_after_tomorrow">Pozajtra</string>
     <string name="next_week">Nasledujúci týždeň</string>
-    <string name="dont_hide">Neskrývať</string>
     <string name="at_deadline">V termíne</string>
     <string name="at_deadline_or_overdue">V termíne alebo po termíne</string>
     <string name="no_reminders">Žiadne upozornenia</string>
@@ -328,7 +320,6 @@
     <string name="copy">Kopírovať</string>
     <string name="move">Presunúť</string>
     <string name="filter_settings">Nastavenie filtra</string>
-    <string name="show_hidden">Zobraziť skryté</string>
     <string name="show_completed">Zobraziť dokončené</string>
     <string name="reverse">Opačné</string>
     <string name="add_attachment">Pridať prílohu </string>

@@ -36,6 +36,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.notes.CommentsController
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.timers.TimerPlugin
+import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
@@ -284,6 +285,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     private val subtaskControlSet: SubtaskControlSet?
         get() = getFragment<SubtaskControlSet>(SubtaskControlSet.TAG)
 
+    private val startDateControlSet: StartDateControlSet?
+        get() = getFragment<StartDateControlSet>(StartDateControlSet.TAG)
+
     private fun <T : TaskEditControlFragment?> getFragment(tag: Int): T? {
         return childFragmentManager.findFragmentByTag(getString(tag)) as T?
     }
@@ -328,6 +332,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
    */
     fun onDueDateChanged() {
         repeatControlSet?.onDueDateChanged()
+        startDateControlSet?.onDueDateChanged()
     }
 
     fun onRemoteListChanged(filter: Filter?) {

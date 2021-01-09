@@ -37,8 +37,6 @@
     <string name="TEA_title_hint">Feladat neve</string>
     <string name="TEA_importance_label">Prioritás</string>
     <string name="TEA_no_date">Dátum nélkül</string>
-    <string name="TEA_hideUntil_label">Elrejtés eddig</string>
-    <string name="TEA_hideUntil_display">Elrejtés eddig: %s</string>
     <string name="TEA_note_label">Leírás</string>
     <string name="TEA_estimatedDuration_label">Meddig fog tartani?</string>
     <string name="TEA_elapsedDuration_label">Már eltöltött idő</string>
@@ -50,10 +48,6 @@
     <string name="due_time">Esedékesség ideje</string>
     <string name="day_before_due">Egy nappal a határidő előtt</string>
     <string name="week_before_due">Egy héttel a határidő előtt</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">határidő</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">esedékesség ideje</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">egy nappal a határidő előtt</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">egy héttel a határidő előtt</string>
     <string name="TEA_control_repeat">Ismétlés</string>
     <string name="TEA_control_gcal">Naptár</string>
     <string name="TEA_control_importance">Prioritás</string>
@@ -97,7 +91,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d naptárbejegyzés törölve!</string>
     <string name="task_defaults">Feladat alapértelmezései</string>
     <string name="EPr_default_importance_title">Alapértelmezett prioritás</string>
-    <string name="EPr_default_hideUntil_title">Alapértelmezett elrejtési idő</string>
     <string name="EPr_default_reminders_title">Alapértelmezett emlékeztetők</string>
     <string name="EPr_default_location_reminder_title">Alapértelmezett hely emlékeztetők</string>
     <string name="EPr_default_location_radius">Alapértelmezett távolság</string>
@@ -107,7 +100,6 @@
     <string name="priority_low">Alacsony</string>
     <string name="day_after_tomorrow">Holnapután</string>
     <string name="next_week">Következő hét</string>
-    <string name="dont_hide">Nem rejtett</string>
     <string name="at_deadline">Határidő bekövetkeztekor</string>
     <string name="at_deadline_or_overdue">Határidő bekövetkeztekor vagy túllépésekor</string>
     <string name="no_reminders">Nincs emlékeztető</string>
@@ -330,7 +322,6 @@
     <string name="copy">Másolás</string>
     <string name="move">Mozgatás</string>
     <string name="filter_settings">Szűrő beállítások</string>
-    <string name="show_hidden">Rejtettek megjelenítése</string>
     <string name="show_completed">Elvégzettek megjelenítése</string>
     <string name="reverse">Visszafelé</string>
     <string name="add_attachment">Csatolmány hozzáadása</string>

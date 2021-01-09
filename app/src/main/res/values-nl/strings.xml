@@ -33,8 +33,6 @@
     <string name="TEA_title_hint">Taak naam</string>
     <string name="TEA_importance_label">Prioriteit</string>
     <string name="TEA_no_date">Geen datum</string>
-    <string name="TEA_hideUntil_label">Verbergen tot</string>
-    <string name="TEA_hideUntil_display">Verberg tot %s</string>
     <string name="TEA_note_label">Omschrijving</string>
     <string name="TEA_estimatedDuration_label">Hoe lang duurt het\?</string>
     <string name="TEA_elapsedDuration_label">Bestede tijd tot nu toe</string>
@@ -46,10 +44,6 @@
     <string name="due_time">Eindtijd</string>
     <string name="day_before_due">Dag voor einddatum</string>
     <string name="week_before_due">Week voor einddatum</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">einddatum</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">verval tijd</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">dag voor verval</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">week voor verval</string>
     <string name="TEA_control_repeat">Herhaal</string>
     <string name="TEA_control_gcal">Agenda</string>
     <string name="TEA_control_importance">Prioriteit</string>
@@ -93,7 +87,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d agenda-items verwijderd!</string>
     <string name="task_defaults">Basisinstellingen nieuwe taak</string>
     <string name="EPr_default_importance_title">Standaard prioriteit</string>
-    <string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
     <string name="EPr_default_reminders_title">Standaard herinneringen</string>
     <string name="EPr_default_location_reminder_title">Standaard locatie herinneringen</string>
     <string name="EPr_default_location_radius">Standaard straal</string>
@@ -103,7 +96,6 @@
     <string name="priority_low">Laag</string>
     <string name="day_after_tomorrow">Overmorgen</string>
     <string name="next_week">Volgende week</string>
-    <string name="dont_hide">Niet verbergen</string>
     <string name="at_deadline">Op de einddatum</string>
     <string name="at_deadline_or_overdue">Op of na de einddatum</string>
     <string name="no_reminders">Geen herinneringen</string>
@@ -324,7 +316,6 @@
     <string name="copy">Kopieer</string>
     <string name="move">Verplaats</string>
     <string name="filter_settings">Filter instellingen</string>
-    <string name="show_hidden">Toon verborgen</string>
     <string name="show_completed">Toon voltooide</string>
     <string name="reverse">Omgekeerde</string>
     <string name="add_attachment">Bijlage toevoegen</string>

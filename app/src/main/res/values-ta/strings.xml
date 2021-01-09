@@ -3,7 +3,6 @@
     <string name="no_reminders">நினைவூட்டல்கள் இல்லை</string>
     <string name="at_deadline_or_overdue">காலக்கெடு அல்லது தாமதமாக</string>
     <string name="at_deadline">காலக்கெடுவில்</string>
-    <string name="dont_hide">மறைக்க வேண்டாம்</string>
     <string name="next_week">அடுத்த வாரம்</string>
     <string name="day_after_tomorrow">நாளை மறுநாள்</string>
     <string name="priority_low">குறைந்த</string>
@@ -12,7 +11,6 @@
     <string name="EPr_default_location_radius">இயல்புநிலை ஆரம்</string>
     <string name="EPr_default_location_reminder_title">இயல்புநிலை இருப்பிட நினைவூட்டல்கள்</string>
     <string name="EPr_default_reminders_title">இயல்புநிலை நினைவூட்டல்கள்</string>
-    <string name="EPr_default_hideUntil_title">இயல்புநிலை வரை மறை</string>
     <string name="EPr_default_importance_title">இயல்புநிலை முன்னுரிமை</string>
     <string name="task_defaults">பணி இயல்புநிலை</string>
     <string name="EPr_manage_delete_all_gcal_message">பணிகளுக்காக உங்கள் எல்லா நிகழ்வுகளையும் நீக்க விரும்புகிறீர்களா\?</string>
@@ -53,16 +51,11 @@
     <string name="TEA_control_importance">முன்னுரிமை</string>
     <string name="TEA_control_gcal">நாள்காட்டி</string>
     <string name="TEA_control_repeat">மீண்டும் செய்யவும்</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">வாரத்திற்கு முன்</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">செலுத்த வேண்டிய நாள் முன்</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">உரிய நேரத்தில்</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">உரிய தேதி</string>
     <string name="week_before_due">செலுத்த வேண்டிய வாரம் முன்</string>
     <string name="day_before_due">செலுத்த வேண்டிய நாள் முன்</string>
     <string name="due_time">உரிய தேதி</string>
     <string name="due_date">உரிய தேதி</string>
     <string name="TEA_no_time">நேரம் இல்லை</string>
-    <string name="TEA_hideUntil_label">வரைக்கும் மறை</string>
     <string name="TEA_add_subtask">துணை பணி சேர்க்கவும்</string>
     <string name="FLA_new_filter">புதிய வடிப்பானை உருவாக்கவும்</string>
     <string name="sort_created">படைப்பு நேரம் மூலம்</string>
@@ -178,7 +171,6 @@
     <string name="CFA_type_add">அல்லது</string>
     <string name="BFE_Recent">சமீபத்தில் மாற்றியவை</string>
     <string name="BFE_Active">என் வேலைகள்</string>
-    <string name="TEA_hideUntil_display">%s வரை மூடு</string>
     <string name="import_progress_read">%d… வேலையை படிக்கிறது</string>
     <string name="permission_read_tasks">பணிகள் தரவுத்தளத்திற்கான முழு அணுகல்</string>
     <string name="reset_sort_order">வரிசை வரிசையை மீட்டமைக்கவும்</string>
@@ -416,7 +408,6 @@
     <string name="add_attachment">இணைப்பை சேர்க்கவும்</string>
     <string name="reverse">தலைகீழ்</string>
     <string name="show_completed">நிகழ்ச்சி முடிந்தது</string>
-    <string name="show_hidden">மறைக்கப்பட்டதைக் காட்டு</string>
     <string name="filter_settings">அமைப்புகளை வடிகட்டவும்</string>
     <string name="move">நகர்வு</string>
     <string name="copy">நகலெடுக்கவும்</string>

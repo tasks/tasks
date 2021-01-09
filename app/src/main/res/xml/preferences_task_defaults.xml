@@ -31,21 +31,21 @@
 
   <ListPreference
     android:defaultValue="0"
+    android:entries="@array/EPr_default_hideUntil"
+    android:entryValues="@array/EPr_default_hideUntil_values"
+    android:icon="@drawable/ic_pending_actions_24px"
+    android:key="@string/p_default_hideUntil_key"
+    android:summary="%s"
+    android:title="@string/default_start_date" />
+
+  <ListPreference
+    android:defaultValue="0"
     android:entries="@array/EPr_default_urgency"
     android:entryValues="@array/EPr_default_urgency_values"
     android:icon="@drawable/ic_outline_schedule_24px"
     android:key="@string/p_default_urgency_key"
     android:summary="%s"
     android:title="@string/default_due_date" />
-
-  <ListPreference
-    android:defaultValue="0"
-    android:entries="@array/EPr_default_hideUntil"
-    android:entryValues="@array/EPr_default_hideUntil_values"
-    android:icon="@drawable/ic_outline_visibility_off_24px"
-    android:key="@string/p_default_hideUntil_key"
-    android:summary="%s"
-    android:title="@string/EPr_default_hideUntil_title" />
 
   <Preference
     android:defaultValue="-1"

@@ -32,8 +32,6 @@
     <string name="TEA_title_hint">Uppgiftsnamn</string>
     <string name="TEA_importance_label">Prioritet</string>
     <string name="TEA_no_date">Inget datum</string>
-    <string name="TEA_hideUntil_label">Dölj tills</string>
-    <string name="TEA_hideUntil_display">Dölj tills %s</string>
     <string name="TEA_note_label">Beskrivning</string>
     <string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
     <string name="TEA_elapsedDuration_label">Tid redan spenderad på uppgiften</string>
@@ -87,7 +85,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d kalenderhändelser raderade!</string>
     <string name="task_defaults">Förval för nya uppgifter</string>
     <string name="EPr_default_importance_title">Standard prioritet</string>
-    <string name="EPr_default_hideUntil_title">Standard Dölj tills</string>
     <string name="EPr_default_reminders_title">Standardpåminnelser</string>
     <string name="EPr_default_reminders_mode_title">Standardtyp av ringsignal/vibration</string>
     <string name="priority_high">Hög</string>
@@ -95,7 +92,6 @@
     <string name="priority_low">Låg</string>
     <string name="day_after_tomorrow">I övermorgon</string>
     <string name="next_week">Nästa vecka</string>
-    <string name="dont_hide">Dölj inte</string>
     <string name="at_deadline">Vid förfallodagen</string>
     <string name="at_deadline_or_overdue">Vid eller efter förfallodagen</string>
     <string name="BFE_Active">Mina Uppgifter</string>
@@ -234,7 +230,6 @@
     <string name="list_settings">Listinställningar</string>
     <string name="delete">Ta bort</string>
     <string name="filter_settings">Filterinställningar</string>
-    <string name="show_hidden">Visa dolda</string>
     <string name="show_completed">Visa slutförda</string>
     <string name="reverse">Omvänt</string>
     <string name="add_attachment">Bifoga filer</string>
@@ -269,10 +264,6 @@
     <string name="clear_completed_tasks_confirmation">Rensa bort slutförda uppgifter?</string>
     <string name="action_call">Ring</string>
     <string name="action_open">Öppna</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">förfallodatum</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">förfallotid</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">dagen innan förfallodatum</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">veckan innan förfallodatum</string>
     <string name="TEA_control_location">Plats</string>
     <string name="EPr_default_location_reminder_title">Standardplatspåminnelse</string>
     <string name="EPr_default_location_radius">Standardavstånd</string>

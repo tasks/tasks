@@ -29,8 +29,6 @@
     <string name="TEA_title_hint">Název úkolu</string>
     <string name="TEA_importance_label">Důležitost</string>
     <string name="TEA_no_date">Bez termínu</string>
-    <string name="TEA_hideUntil_label">Skrýt až do</string>
-    <string name="TEA_hideUntil_display">Skrýt až do %s</string>
     <string name="TEA_note_label">Popis</string>
     <string name="TEA_estimatedDuration_label">Kolik času to zabere\?</string>
     <string name="TEA_elapsedDuration_label">Již strávený čas</string>
@@ -82,7 +80,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Opravdu chcete odstranit všechny události z úkolů?</string>
     <string name="EPr_manage_delete_all_gcal_status">Smazáno %d událostí v kalendáři!</string>
     <string name="EPr_default_importance_title">Výchozí důležitost</string>
-    <string name="EPr_default_hideUntil_title">Výchozí doba skrytí</string>
     <string name="EPr_default_reminders_title">Výchozí upomínky</string>
     <string name="EPr_default_reminders_mode_title">Výchozí vyzvánění / vibrace</string>
     <string name="priority_high">Vysoká</string>
@@ -90,7 +87,6 @@
     <string name="priority_low">Nízká</string>
     <string name="day_after_tomorrow">Pozítří</string>
     <string name="next_week">Příští týden</string>
-    <string name="dont_hide">Neskrývat</string>
     <string name="at_deadline">V termínu</string>
     <string name="at_deadline_or_overdue">V termínu nebo po něm</string>
     <string name="BFE_Active">Moje úkoly</string>
@@ -207,7 +203,6 @@
     <string name="tag_settings">Nastavení štítku</string>
     <string name="delete">Smazat</string>
     <string name="filter_settings">Nastavení filtru</string>
-    <string name="show_hidden">Zobrazit skryté</string>
     <string name="show_completed">Zobrazit dokončené</string>
     <string name="reverse">Seřadit pozpátku</string>
     <string name="add_attachment">Přidat přílohu</string>
@@ -239,10 +234,6 @@
     <string name="keep_editing">Pokračovat v úpravách</string>
     <string name="action_call">Volat</string>
     <string name="action_open">Otevřít</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">termín dokončení</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">čas dokončení</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">den před termínem</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">týden před termínem</string>
     <string name="TEA_control_location">Umístění</string>
     <string name="task_defaults">Výchozí hodnoty úkolu</string>
     <string name="no_reminders">Žádné upomínky</string>

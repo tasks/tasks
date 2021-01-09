@@ -27,9 +27,9 @@
   <group
     android:checkableBehavior="all">
     <item
-      android:id="@+id/menu_show_hidden"
+      android:id="@+id/menu_show_unstarted"
       android:checkable="true"
-      android:title="@string/show_hidden"/>
+      android:title="@string/show_unstarted"/>
     <item
       android:id="@+id/menu_show_completed"
       android:checkable="true"

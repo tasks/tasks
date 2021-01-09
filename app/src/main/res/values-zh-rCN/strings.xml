@@ -34,8 +34,6 @@
     <string name="TEA_title_hint">任务名</string>
     <string name="TEA_importance_label">优先级</string>
     <string name="TEA_no_date">暂无数据</string>
-    <string name="TEA_hideUntil_label">隐藏直到</string>
-    <string name="TEA_hideUntil_display">隐藏直到 %s</string>
     <string name="TEA_note_label">描述</string>
     <string name="TEA_estimatedDuration_label">要花多久时间?</string>
     <string name="TEA_elapsedDuration_label">已用于任务的时间</string>
@@ -47,10 +45,6 @@
     <string name="due_time">到期时间</string>
     <string name="day_before_due">截止期前一天</string>
     <string name="week_before_due">截止期前一周</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">截止日期</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">截止时间</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">截止期前一天</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">截止期前一周</string>
     <string name="TEA_control_repeat">重复</string>
     <string name="TEA_control_gcal">日历</string>
     <string name="TEA_control_importance">优先级</string>
@@ -93,7 +87,6 @@
     <string name="EPr_manage_delete_all_gcal_status">已删除 %d 个日历事件！</string>
     <string name="task_defaults">任务默认值</string>
     <string name="EPr_default_importance_title">默认优先级</string>
-    <string name="EPr_default_hideUntil_title">默认隐藏直到</string>
     <string name="EPr_default_reminders_title">默认提醒</string>
     <string name="EPr_default_reminders_mode_title">默认铃声／振动类型</string>
     <string name="priority_high">高</string>
@@ -101,7 +94,6 @@
     <string name="priority_low">低</string>
     <string name="day_after_tomorrow">后天</string>
     <string name="next_week">下周</string>
-    <string name="dont_hide">不隐藏</string>
     <string name="at_deadline">截止期限时</string>
     <string name="at_deadline_or_overdue">截止期限或过期时</string>
     <string name="BFE_Active">我的任务</string>
@@ -313,7 +305,6 @@
     <string name="copy">拷贝</string>
     <string name="move">移动</string>
     <string name="filter_settings">过滤器设置</string>
-    <string name="show_hidden">显示隐藏的任务</string>
     <string name="show_completed">显示已完成任务</string>
     <string name="reverse">反向</string>
     <string name="add_attachment">添加附件</string>

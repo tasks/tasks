@@ -39,8 +39,6 @@
     <string name="TEA_title_hint">Nome attività</string>
     <string name="TEA_importance_label">Priorità</string>
     <string name="TEA_no_date">Senza data</string>
-    <string name="TEA_hideUntil_label">Nascondi fino a</string>
-    <string name="TEA_hideUntil_display">Nascondi fino a %s</string>
     <string name="TEA_note_label">Descrizione</string>
     <string name="TEA_estimatedDuration_label">Quanto tempo impiegherà?</string>
     <string name="TEA_elapsedDuration_label">Tempo già speso per l\'attività</string>
@@ -52,10 +50,6 @@
     <string name="due_time">Ora di scadenza</string>
     <string name="day_before_due">Giorno prima della scadenza</string>
     <string name="week_before_due">Settimana prima della scadenza</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">data di scadenza</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">ora di scadenza</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">giorno prima della scadenza</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">settimana prima della scadenza</string>
     <string name="TEA_control_repeat">Ripeti</string>
     <string name="TEA_control_gcal">Calendario</string>
     <string name="TEA_control_importance">Priorità</string>
@@ -99,7 +93,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d eventi del calendario sono stati eliminati!</string>
     <string name="task_defaults">Opzioni predefinite attività</string>
     <string name="EPr_default_importance_title">Priorità predefinita</string>
-    <string name="EPr_default_hideUntil_title">Nascondi, per impostazione predefinita, fino a</string>
     <string name="EPr_default_reminders_title">Promemoria predefiniti</string>
     <string name="EPr_default_location_reminder_title">Posizione promemoria predefinita</string>
     <string name="EPr_default_location_radius">Raggio predefinito</string>
@@ -109,7 +102,6 @@
     <string name="priority_low">Bassa</string>
     <string name="day_after_tomorrow">Dopodomani</string>
     <string name="next_week">Settimana prossima</string>
-    <string name="dont_hide">Non nascondere</string>
     <string name="at_deadline">Alla scadenza</string>
     <string name="at_deadline_or_overdue">Alla scadenza o già scaduta</string>
     <string name="no_reminders">Nessun promemoria</string>
@@ -332,7 +324,6 @@
     <string name="copy">Copia</string>
     <string name="move">Sposta</string>
     <string name="filter_settings">Impostazioni filtro</string>
-    <string name="show_hidden">Mostra nascoste</string>
     <string name="show_completed">Mostra completate</string>
     <string name="reverse">Inverso</string>
     <string name="add_attachment">Aggiungi allegato</string>

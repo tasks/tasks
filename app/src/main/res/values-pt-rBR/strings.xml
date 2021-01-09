@@ -36,8 +36,6 @@
     <string name="TEA_title_hint">Nome da tarefa</string>
     <string name="TEA_importance_label">Prioridade</string>
     <string name="TEA_no_date">Sem data</string>
-    <string name="TEA_hideUntil_label">Ocultar até</string>
-    <string name="TEA_hideUntil_display">Ocultar até %s</string>
     <string name="TEA_note_label">Descrição</string>
     <string name="TEA_estimatedDuration_label">Quanto tempo isto vai levar?</string>
     <string name="TEA_elapsedDuration_label">Tempo já gasto</string>
@@ -48,10 +46,6 @@
     <string name="due_time">No tempo devido</string>
     <string name="day_before_due">Dias antes do vencimento</string>
     <string name="week_before_due">Semanas antes do vencimento</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">data de vencimento</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">prazo de entrega</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">dia antes do vencimento</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">semana antes do vencimento</string>
     <string name="TEA_control_repeat">Repetir</string>
     <string name="TEA_control_gcal">Calendário</string>
     <string name="TEA_control_importance">Prioridade</string>
@@ -95,7 +89,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d eventos de agenda apagados!</string>
     <string name="task_defaults">Padrões de tarefa</string>
     <string name="EPr_default_importance_title">Prioridade padrão</string>
-    <string name="EPr_default_hideUntil_title">Padrão de Ocultar até</string>
     <string name="EPr_default_reminders_title">Lembretes padrões</string>
     <string name="EPr_default_location_reminder_title">Lembretes de localização padrão</string>
     <string name="EPr_default_location_radius">Raio padrão</string>
@@ -105,7 +98,6 @@
     <string name="priority_low">Baixa</string>
     <string name="day_after_tomorrow">Depois de amanhã</string>
     <string name="next_week">Próxima semana</string>
-    <string name="dont_hide">Não ocultar</string>
     <string name="at_deadline">No vencimento</string>
     <string name="at_deadline_or_overdue">No prazo ou vencidas</string>
     <string name="no_reminders">Sem lembretes</string>
@@ -328,7 +320,6 @@
     <string name="copy">Copiar</string>
     <string name="move">Mover</string>
     <string name="filter_settings">Configurações de filtro</string>
-    <string name="show_hidden">Mostrar ocultas</string>
     <string name="show_completed">Mostrar concluídas</string>
     <string name="reverse">Reverso</string>
     <string name="add_attachment">Adicionar anexo</string>

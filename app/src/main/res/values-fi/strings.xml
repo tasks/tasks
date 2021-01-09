@@ -35,8 +35,6 @@
     <string name="TEA_title_hint">Tehtävän nimi</string>
     <string name="TEA_importance_label">Tärkeys</string>
     <string name="TEA_no_date">Ei päiväystä</string>
-    <string name="TEA_hideUntil_label">Piilota kunnes</string>
-    <string name="TEA_hideUntil_display">Piilota kunnes %s</string>
     <string name="TEA_note_label">Kuvaus</string>
     <string name="TEA_estimatedDuration_label">Kuinka pitkään se kestää?</string>
     <string name="TEA_elapsedDuration_label">Aika on jo käytetty</string>
@@ -90,7 +88,6 @@
     <string name="EPr_manage_delete_all_gcal_status">Poistettu %d kalenteritapahtumaa!</string>
     <string name="task_defaults">Tehtävän oletukset</string>
     <string name="EPr_default_importance_title">Oletusprioriteetti</string>
-    <string name="EPr_default_hideUntil_title">Oletus piilota kunnes</string>
     <string name="EPr_default_reminders_title">Oletusmuistutukset</string>
     <string name="EPr_default_reminders_mode_title">Oletussoittoääni/värinä -tyyppi</string>
     <string name="priority_high">Korkea</string>
@@ -98,7 +95,6 @@
     <string name="priority_low">Matala</string>
     <string name="day_after_tomorrow">Ylihuomenna</string>
     <string name="next_week">Ensi viikko</string>
-    <string name="dont_hide">Älä piilota</string>
     <string name="at_deadline">Määräaikana</string>
     <string name="at_deadline_or_overdue">Määräpäivänä tai yliajalla</string>
     <string name="BFE_Active">Omat tehtävät</string>
@@ -314,7 +310,6 @@
     <string name="delete">Poista</string>
     <string name="copy">Kopio</string>
     <string name="filter_settings">Suodatusasetukset</string>
-    <string name="show_hidden">Näytä piilotetut</string>
     <string name="show_completed">Näytä valmiit</string>
     <string name="reverse">Käänteinen</string>
     <string name="add_attachment">Lisää liite</string>
@@ -511,10 +506,6 @@
     <string name="EPr_temp_completed_tasks_showing">Tehtävät jäävät listaan näkyviin vielä hetkeksi valmistuttuaankin</string>
     <string name="EPr_temp_show_completed_tasks">Näytä tehtävät hetkellisesti valmistuttuaan</string>
     <string name="TEA_control_location">Sijainti</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">Viikko ennen määräpäivän</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Päivää ennen määräpäivän</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">Määräaika</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">Määräpäivä</string>
     <string name="TEA_add_subtask">Lisää alitehtävä</string>
     <string name="SSD_sort_my_order">Oma järjestys</string>
     <string name="action_open">Avaa</string>

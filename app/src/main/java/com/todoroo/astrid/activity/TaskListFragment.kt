@@ -255,7 +255,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         if (filter.hasMenu()) {
             toolbar.inflateMenu(filter.menu)
         }
-        val hidden = menu.findItem(R.id.menu_show_hidden)
+        val hidden = menu.findItem(R.id.menu_show_unstarted)
         val completed = menu.findItem(R.id.menu_show_completed)
         if (!taskAdapter.supportsHiddenTasks() || !filter.supportsHiddenTasks()) {
             completed.isChecked = true
@@ -333,7 +333,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         .show(childFragmentManager, FRAG_TAG_SORT_DIALOG)
                 true
             }
-            R.id.menu_show_hidden -> {
+            R.id.menu_show_unstarted -> {
                 item.isChecked = !item.isChecked
                 preferences.setBoolean(R.string.p_show_hidden_tasks, item.isChecked)
                 loadTaskListContent()

@@ -29,8 +29,6 @@
     <string name="TEA_importance_label">മുൻഗണന</string>
     <string name="TEA_add_subtask">ഉപ ടാസ്‌ക് ചേർക്കുക</string>
     <string name="TEA_no_date">തീയതിയില്ല</string>
-    <string name="TEA_hideUntil_label">വരെ മറയ്‌ക്കുക</string>
-    <string name="TEA_hideUntil_display">%sവരെ മറയ്‌ക്കുക</string>
     <string name="TEA_note_label">വിവരണം</string>
     <string name="TEA_estimatedDuration_label">എത്ര സമയമെടുക്കും\?</string>
     <string name="save">സംരക്ഷിക്കുക</string>

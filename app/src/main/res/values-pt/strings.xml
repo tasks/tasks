@@ -34,8 +34,6 @@
     <string name="TEA_title_hint">Nome da tarefa</string>
     <string name="TEA_importance_label">Prioridade</string>
     <string name="TEA_no_date">Sem data</string>
-    <string name="TEA_hideUntil_label">Ocultar até</string>
-    <string name="TEA_hideUntil_display">Ocultar até %s</string>
     <string name="TEA_note_label">Descrição</string>
     <string name="TEA_estimatedDuration_label">Quanto tempo irá durar?</string>
     <string name="TEA_elapsedDuration_label">Tempo já gasto</string>
@@ -88,7 +86,6 @@
     <string name="EPr_manage_delete_all_gcal_status">Eliminados %d eventos de calendário!</string>
     <string name="task_defaults">Predefinições</string>
     <string name="EPr_default_importance_title">Prioridade predefinida</string>
-    <string name="EPr_default_hideUntil_title">Predefinição de ocultar até</string>
     <string name="EPr_default_reminders_title">Lembretes predefinidos</string>
     <string name="EPr_default_reminders_mode_title">Tipo de vibração/toque predefinido</string>
     <string name="priority_high">Alta</string>
@@ -96,7 +93,6 @@
     <string name="priority_low">Baixa</string>
     <string name="day_after_tomorrow">Depois de amanhã</string>
     <string name="next_week">Próxima semana</string>
-    <string name="dont_hide">Não ocultar</string>
     <string name="at_deadline">Na data limite</string>
     <string name="at_deadline_or_overdue">Na data limite ou ultrapassada</string>
     <string name="BFE_Active">Minhas tarefas</string>
@@ -311,7 +307,6 @@
     <string name="delete">Apagar</string>
     <string name="copy">Copiar</string>
     <string name="filter_settings">Definições de filtro</string>
-    <string name="show_hidden">Mostrar ocultas</string>
     <string name="show_completed">Mostrar terminadas</string>
     <string name="reverse">Reverter</string>
     <string name="add_attachment">Adicionar anexo</string>
@@ -391,10 +386,6 @@
     <string name="action_call">Ligar</string>
     <string name="action_open">Abrir</string>
     <string name="TEA_timer_est">Est. %s</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">Data conclusão</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">Hora conclusão</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Dia anterior à conclusão</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">Semana anterior à conclusão</string>
     <string name="yesterday_lowercase">ontem</string>
     <string name="tomorrow_lowercase">amanhã</string>
     <string name="today_lowercase">hoje</string>

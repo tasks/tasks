@@ -43,12 +43,8 @@
     <string name="TLA_no_items">Belum ada tugas yang dibuat.</string>
     <string name="action_call">Panggil</string>
     <string name="SSD_sort_due">Jatuh tempo</string>
-    <string name="TEA_hideUntil_label">Sembunyikan sampai</string>
-    <string name="TEA_hideUntil_display">Sembunyikan sampai %s</string>
     <string name="due_date">Tanggal jatuh tempo</string>
     <string name="due_time">Waktu jatuh tempo</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">tanggal jatuh tempo</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">waktu jatuh tempo</string>
     <string name="TEA_control_hidden_section">----Selalu Sembunyi----</string>
     <string name="CRA_calendar_reminders_pref_title">Asisten kalender</string>
     <string name="none">Nihil</string>
@@ -74,7 +70,6 @@
     <string name="priority_low">Rendah</string>
     <string name="day_after_tomorrow">Lusa</string>
     <string name="next_week">Minggu depan</string>
-    <string name="dont_hide">Jangan sembunyikan</string>
     <string name="at_deadline">Saat batas waktu</string>
     <string name="at_deadline_or_overdue">Saat batas waktu atau saat lewat jatuh tempo</string>
     <string name="no_reminders">Tidak ada pengingat</string>
@@ -245,7 +240,6 @@
     <string name="copy">Salin</string>
     <string name="move">Pindah</string>
     <string name="filter_settings">Pengaturan Filter</string>
-    <string name="show_hidden">Tampilkan tersembunyi</string>
     <string name="show_completed">Tampilkan selesai</string>
     <string name="add_attachment">Tambah lampiran</string>
     <string name="take_a_picture">Ambil gambar</string>
@@ -485,8 +479,6 @@
     <string name="EPr_default_location_reminder_title">Pengingat lokasi default</string>
     <string name="CRA_ignore_body">Anda telah mengabaikan beberapa acara dalam kalender. Haruskah Tasks berhenti menanyakannya kepada Anda\?</string>
     <string name="TEA_control_timer">Atur Pengingat</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">Seminggu sebelum jatuh tempo</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Hari sebelum jatuh tempo</string>
     <string name="week_before_due">Seminggu sebelum jatuh tempo</string>
     <string name="TEA_no_time">Tidak Ada Waktu</string>
     <string name="TEA_timer_elap">Berlalu %s</string>

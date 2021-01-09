@@ -119,7 +119,7 @@ class FilterCriteriaProvider @Inject constructor(
     private val hiddenFilter: CustomFilterCriterion
         get() = BooleanCriterion(
                 IDENTIFIER_HIDDEN,
-                context.getString(R.string.widget_due_date_hidden),
+                context.getString(R.string.filter_criteria_unstarted),
                 select(Task.ID)
                         .from(Task.TABLE)
                         .where(field("${Task.HIDE_UNTIL.gt(PermaSql.VALUE_NOW)}").eq(1))

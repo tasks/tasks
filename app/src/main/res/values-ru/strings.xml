@@ -39,8 +39,6 @@
     <string name="TEA_title_hint">Имя задачи</string>
     <string name="TEA_importance_label">Приоритет</string>
     <string name="TEA_no_date">Без даты</string>
-    <string name="TEA_hideUntil_label">Скрыть до</string>
-    <string name="TEA_hideUntil_display">Скрыть до %s</string>
     <string name="TEA_note_label">Описание</string>
     <string name="TEA_estimatedDuration_label">Сколько времени это займет\?</string>
     <string name="TEA_elapsedDuration_label">Затраченное время</string>
@@ -52,10 +50,6 @@
     <string name="due_time">Намеченное время</string>
     <string name="day_before_due">Сутки до намеченной даты</string>
     <string name="week_before_due">Неделя до намеченной даты</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">намеченной даты</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">намеченного времени</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">сутки до намеченной даты</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">неделя до намеченной даты</string>
     <string name="TEA_control_repeat">Повтор</string>
     <string name="TEA_control_gcal">Календарь</string>
     <string name="TEA_control_importance">Приоритет</string>
@@ -99,7 +93,6 @@
     <string name="EPr_manage_delete_all_gcal_status">Удалено %d календарных событий!</string>
     <string name="task_defaults">Параметры по умолчанию</string>
     <string name="EPr_default_importance_title">Приоритет по умолчанию</string>
-    <string name="EPr_default_hideUntil_title">Срок скрытия по умолчанию</string>
     <string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
     <string name="EPr_default_location_reminder_title">Напоминания о месте по умолчанию</string>
     <string name="EPr_default_location_radius">Радиус по умолчанию</string>
@@ -109,7 +102,6 @@
     <string name="priority_low">Низкий</string>
     <string name="day_after_tomorrow">Послезавтра</string>
     <string name="next_week">Следующая неделя</string>
-    <string name="dont_hide">Не скрывать</string>
     <string name="at_deadline">В срок</string>
     <string name="at_deadline_or_overdue">Вовремя или просрочена</string>
     <string name="no_reminders">Без напоминаний</string>
@@ -348,7 +340,6 @@
     <string name="copy">Копировать</string>
     <string name="move">Перенести</string>
     <string name="filter_settings">Настройки фильтра</string>
-    <string name="show_hidden">Показать скрытые</string>
     <string name="show_completed">Показать выполненные</string>
     <string name="reverse">Наоборот</string>
     <string name="add_attachment">Прикрепить файл</string>

@@ -37,8 +37,6 @@
     <string name="TEA_title_hint">할일 제목</string>
     <string name="TEA_importance_label">우선순위</string>
     <string name="TEA_no_date">마감일 없음</string>
-    <string name="TEA_hideUntil_label">숨기기 기한</string>
-    <string name="TEA_hideUntil_display">%s 까지 숨기기</string>
     <string name="TEA_note_label">설명</string>
     <string name="TEA_estimatedDuration_label">일정 완료 예상 시간은?</string>
     <string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
@@ -50,10 +48,6 @@
     <string name="due_time">마감 시간</string>
     <string name="day_before_due">마감 하루 전</string>
     <string name="week_before_due">마감 일주일 전</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">마감일</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">마감시간</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">마감 하루 전</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">마감 일주일 전</string>
     <string name="TEA_control_repeat">반복</string>
     <string name="TEA_control_gcal">달력</string>
     <string name="TEA_control_importance">우선순위</string>
@@ -97,7 +91,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
     <string name="task_defaults">할일 기본값</string>
     <string name="EPr_default_importance_title">기본 우선순위</string>
-    <string name="EPr_default_hideUntil_title">기본 숨기기 기한</string>
     <string name="EPr_default_reminders_title">기본 알림</string>
     <string name="EPr_default_location_reminder_title">기본 위치 알림</string>
     <string name="EPr_default_location_radius">기본 반경</string>
@@ -107,7 +100,6 @@
     <string name="priority_low">낮음</string>
     <string name="day_after_tomorrow">모레</string>
     <string name="next_week">다음 주</string>
-    <string name="dont_hide">숨기지 않기</string>
     <string name="at_deadline">완료일에</string>
     <string name="at_deadline_or_overdue">마감일이나 그 이후</string>
     <string name="no_reminders">알림 없음</string>
@@ -329,7 +321,6 @@
     <string name="copy">복사</string>
     <string name="move">이동</string>
     <string name="filter_settings">필터 설정</string>
-    <string name="show_hidden">숨겨진 할일 표시</string>
     <string name="show_completed">완료한 할일 표시</string>
     <string name="reverse">역순</string>
     <string name="add_attachment">첨부파일 추가</string>

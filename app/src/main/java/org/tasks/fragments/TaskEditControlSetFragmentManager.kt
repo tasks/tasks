@@ -7,7 +7,7 @@ import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.tags.TagsControlSet
 import com.todoroo.astrid.timers.TimerControlSet
-import com.todoroo.astrid.ui.HideUntilControlSet
+import com.todoroo.astrid.ui.StartDateControlSet
 import com.todoroo.astrid.ui.ReminderControlSet
 import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.BuildConfig
@@ -44,7 +44,7 @@ class TaskEditControlSetFragmentManager @Inject constructor(
         PriorityControlSet.TAG -> PriorityControlSet()
         DescriptionControlSet.TAG -> DescriptionControlSet()
         CalendarControlSet.TAG -> CalendarControlSet()
-        HideUntilControlSet.TAG -> HideUntilControlSet()
+        StartDateControlSet.TAG -> StartDateControlSet()
         ReminderControlSet.TAG -> ReminderControlSet()
         LocationControlSet.TAG -> LocationControlSet()
         FilesControlSet.TAG -> FilesControlSet()
@@ -97,7 +97,7 @@ class TaskEditControlSetFragmentManager @Inject constructor(
                 DescriptionControlSet.TAG,
                 CalendarControlSet.TAG,
                 PriorityControlSet.TAG,
-                HideUntilControlSet.TAG,
+                StartDateControlSet.TAG,
                 ReminderControlSet.TAG,
                 LocationControlSet.TAG,
                 FilesControlSet.TAG,

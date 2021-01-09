@@ -37,8 +37,6 @@
     <string name="TEA_title_hint">Ім\'я завдання</string>
     <string name="TEA_importance_label">Пріоритет</string>
     <string name="TEA_no_date">Без дати</string>
-    <string name="TEA_hideUntil_label">Приховати до</string>
-    <string name="TEA_hideUntil_display">Приховати до %s</string>
     <string name="TEA_note_label">Опис</string>
     <string name="TEA_estimatedDuration_label">Як довго це триватиме?</string>
     <string name="TEA_elapsedDuration_label">Часу витрачено</string>
@@ -50,10 +48,6 @@
     <string name="due_time">Призначеного часу</string>
     <string name="day_before_due">За день до</string>
     <string name="week_before_due">За тиждень до</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">призначеної дати</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">призначеного часу</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">за день до</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">за тиждень до</string>
     <string name="TEA_control_repeat">Повторити</string>
     <string name="TEA_control_gcal">Календар</string>
     <string name="TEA_control_importance">Пріоритет</string>
@@ -97,7 +91,6 @@
     <string name="EPr_manage_delete_all_gcal_status">Видалено %d календарних подій!</string>
     <string name="task_defaults">Типові налаштування завдань</string>
     <string name="EPr_default_importance_title">Пріоритет по замовчуванню</string>
-    <string name="EPr_default_hideUntil_title">Термін приховування за замовчуванням</string>
     <string name="EPr_default_reminders_title">Нагадування по замовчуванню</string>
     <string name="EPr_default_location_reminder_title">Типове нагадування місцезнаходження</string>
     <string name="EPr_default_location_radius">Радіус за замовчуванням</string>
@@ -107,7 +100,6 @@
     <string name="priority_low">Низький</string>
     <string name="day_after_tomorrow">Післязавтра</string>
     <string name="next_week">Наступного тижня</string>
-    <string name="dont_hide">Не приховувати</string>
     <string name="at_deadline">Під час дедлайну</string>
     <string name="at_deadline_or_overdue">Вчасно або прострочено</string>
     <string name="no_reminders">Без нагадувань</string>
@@ -346,7 +338,6 @@
     <string name="copy">Копіювати</string>
     <string name="move">Перемістити</string>
     <string name="filter_settings">Налаштування фільтрів</string>
-    <string name="show_hidden">Показати приховані</string>
     <string name="show_completed">Показати завершені</string>
     <string name="reverse">Реверс</string>
     <string name="add_attachment">Додати вкладення</string>

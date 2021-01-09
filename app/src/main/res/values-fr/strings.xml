@@ -34,8 +34,6 @@
     <string name="TEA_title_hint">Nom de la tâche</string>
     <string name="TEA_importance_label">Priorité</string>
     <string name="TEA_no_date">Sans date</string>
-    <string name="TEA_hideUntil_label">Masquer jusqu\'à</string>
-    <string name="TEA_hideUntil_display">Masquer jusqu\'à %s</string>
     <string name="TEA_estimatedDuration_label">Combien de temps cela va-t-il prendre ?</string>
     <string name="TEA_elapsedDuration_label">Temps déjà passé sur la tâche</string>
     <string name="save">Sauvegarder</string>
@@ -46,10 +44,6 @@
     <string name="due_time">Heure d\'échéance</string>
     <string name="day_before_due">Jour avant échéance</string>
     <string name="week_before_due">Semaine avant échéance</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">date d\'échéance</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">heure d\'échéance</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">jour(s) avant échéance</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">semaine(s) avant échéance</string>
     <string name="TEA_control_repeat">Répéter</string>
     <string name="TEA_control_gcal">Calendrier</string>
     <string name="TEA_control_importance">Priorité</string>
@@ -92,7 +86,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d événements du calendrier ont été supprimés !</string>
     <string name="task_defaults">Valeurs par défaut</string>
     <string name="EPr_default_importance_title">Priorité par défaut</string>
-    <string name="EPr_default_hideUntil_title">Masquer par défaut jusqu\'à</string>
     <string name="EPr_default_reminders_title">Rappels par défaut</string>
     <string name="EPr_default_location_reminder_title">Rappels d\'emplacement par défaut</string>
     <string name="EPr_default_location_radius">Rayon par défaut</string>
@@ -102,7 +95,6 @@
     <string name="priority_low">Faible</string>
     <string name="day_after_tomorrow">Après-demain</string>
     <string name="next_week">La semaine prochaine</string>
-    <string name="dont_hide">Ne pas masquer</string>
     <string name="at_deadline">À la date limite</string>
     <string name="at_deadline_or_overdue">À la date limite ou après</string>
     <string name="no_reminders">Aucun rappel</string>
@@ -313,7 +305,6 @@
     <string name="copy">Copier</string>
     <string name="move">Déplacer</string>
     <string name="filter_settings">Paramètres du filtre</string>
-    <string name="show_hidden">Afficher les tâches cachées</string>
     <string name="show_completed">Afficher les tâches terminées</string>
     <string name="reverse">Inverser</string>
     <string name="add_attachment">Ajouter une pièce jointe</string>

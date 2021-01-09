@@ -25,7 +25,6 @@
     <string name="TEA_title_hint">Nom de la tasca</string>
     <string name="TEA_importance_label">Prioritat</string>
     <string name="TEA_no_date">Sense data</string>
-    <string name="TEA_hideUntil_label">Amaga fins al</string>
     <string name="TEA_note_label">Descripció</string>
     <string name="TEA_estimatedDuration_label">Quant de temps us portarà\?</string>
     <string name="TEA_elapsedDuration_label">Temps que ja s\'hi ha invertit</string>
@@ -45,7 +44,6 @@
     <string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
     <string name="day_after_tomorrow">Demà passat</string>
     <string name="next_week">La setmana que ve</string>
-    <string name="dont_hide">No amagis</string>
     <string name="BFE_Active">Tasques actives</string>
     <string name="BFE_Recent">Modificades fa poc</string>
     <string name="CFA_type_add">o</string>
@@ -94,7 +92,6 @@
     <string name="quiet_hours_summary">Sense recordatoris durant les hores de silenci</string>
     <string name="filters">Filtres</string>
     <string name="filter_settings">Configuració dels filtres</string>
-    <string name="show_hidden">Mostra ocultes</string>
     <string name="show_completed">Mostra completades</string>
     <string name="reverse">Ordenació inversa</string>
     <string name="language">Idioma</string>
@@ -114,7 +111,6 @@
     <string name="action_call">Truca</string>
     <string name="action_open">Obre</string>
     <string name="FLA_new_filter">Crea un filtre</string>
-    <string name="TEA_hideUntil_display">Amaga fins %s</string>
     <string name="save">Desa</string>
     <string name="TEA_timer_est">Est. %s</string>
     <string name="SSD_sort_my_order">La meva comanda</string>
@@ -127,10 +123,6 @@
     <string name="TEA_control_location">Ubicació</string>
     <string name="TEA_control_gcal">Agenda</string>
     <string name="TEA_control_repeat">Repeteix</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">la setmana abans del venciment</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">el dia abans del venciment</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">hora de venciment</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">data de venciment</string>
     <string name="due_time">Data de venciment</string>
     <string name="TEA_timer_elap">Transcorregut %s</string>
 </resources>

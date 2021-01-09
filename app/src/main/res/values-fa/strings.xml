@@ -25,8 +25,6 @@
     <string name="TEA_title_hint">نام وظیفه</string>
     <string name="TEA_importance_label">اولویت</string>
     <string name="TEA_no_date">بدون تاریخ</string>
-    <string name="TEA_hideUntil_label">مخفی تا</string>
-    <string name="TEA_hideUntil_display">پنهان باشد تا %s</string>
     <string name="TEA_note_label">توضیحات</string>
     <string name="TEA_estimatedDuration_label">این چقدر طول میکشد ؟</string>
     <string name="TEA_elapsedDuration_label">زمان سپری شده</string>
@@ -70,7 +68,6 @@
     <string name="priority_low">کم</string>
     <string name="day_after_tomorrow">پس فردا</string>
     <string name="next_week">هفته بعد</string>
-    <string name="dont_hide">مخفی نکن</string>
     <string name="at_deadline">روز موعود</string>
     <string name="at_deadline_or_overdue">در روز موعد یا پس از موعود</string>
     <string name="BFE_Active">وظایف من</string>
@@ -211,7 +208,6 @@
     <string name="tag_settings">تنظیمات تگ</string>
     <string name="delete">حذف</string>
     <string name="filter_settings">تنظیمات فیلتر</string>
-    <string name="show_hidden">نمایش مخفی ها</string>
     <string name="show_completed">نمایش انجام شده ها</string>
     <string name="reverse">برعکس</string>
     <string name="add_attachment">الصاق پیوست</string>

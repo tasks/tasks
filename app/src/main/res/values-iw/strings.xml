@@ -39,8 +39,6 @@
     <string name="TEA_title_hint">שם המשימה</string>
     <string name="TEA_importance_label">עדיפות</string>
     <string name="TEA_no_date">ללא תאריך</string>
-    <string name="TEA_hideUntil_label">הסתר עד</string>
-    <string name="TEA_hideUntil_display">הסתר עד %s</string>
     <string name="TEA_note_label">תיאור</string>
     <string name="TEA_estimatedDuration_label">כמה זמן תיקח המשימה?</string>
     <string name="TEA_elapsedDuration_label">זמן שהושקע במשימה</string>
@@ -52,10 +50,6 @@
     <string name="due_time">מועד הביצוע</string>
     <string name="day_before_due">יום לפני מועד היעד</string>
     <string name="week_before_due">שבוע לפני מועד היעד</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">תאריך יעד</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">זמן יעד</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">ימים לפני מועד יעד</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">שבוע לפני מועד יעד</string>
     <string name="TEA_control_repeat">חזרה</string>
     <string name="TEA_control_gcal">יומן</string>
     <string name="TEA_control_importance">עדיפות</string>
@@ -99,7 +93,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו!</string>
     <string name="task_defaults">ברירות מחדל למשימות</string>
     <string name="EPr_default_importance_title">עדיפות מחדל</string>
-    <string name="EPr_default_hideUntil_title">ברירת מחדל לזמן הסתרה</string>
     <string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
     <string name="EPr_default_location_reminder_title">תזכורות מיקום ברירת מחדל</string>
     <string name="EPr_default_location_radius">רדיוס ברירת מחדל</string>
@@ -109,7 +102,6 @@
     <string name="priority_low">נמוך</string>
     <string name="day_after_tomorrow">מחרתיים</string>
     <string name="next_week">בשבוע הבא</string>
-    <string name="dont_hide">אל תסתיר</string>
     <string name="at_deadline">במועד הסף</string>
     <string name="at_deadline_or_overdue">במועד היעד או לאחריו</string>
     <string name="no_reminders">אין תזכורות</string>
@@ -364,7 +356,6 @@
     <string name="copy">העתק</string>
     <string name="move">הזז</string>
     <string name="filter_settings">הגדרות סינון</string>
-    <string name="show_hidden">הצגת משימות נסתרות</string>
     <string name="show_completed">הצגת משימות שבוצעו</string>
     <string name="reverse">אחורה</string>
     <string name="add_attachment">הוספ/י קובץ</string>

@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string-array name="TEA_hideUntil_spinner">
-    <item>@string/due_date</item>
-    <item>@string/due_time</item>
-    <item>@string/day_before_due</item>
-    <item>@string/week_before_due</item>
-    <item>@string/pick_a_date_and_time</item>
-  </string-array>
-
-  <string-array name="TEA_hideUntil_display">
-    <item>@string/TEA_hideUntil_due_date</item>
-    <item>@string/TEA_hideUntil_due_time</item>
-    <item>@string/TEA_hideUntil_day_before_due</item>
-    <item>@string/TEA_hideUntil_week_before_due</item>
-  </string-array>
-
   <string-array name="EPr_default_hideUntil">
-    <item>@string/dont_hide</item>
+    <item>@string/no_start_date</item>
     <item>@string/due_date</item>
     <item>@string/due_time</item>
     <item>@string/day_before_due</item>

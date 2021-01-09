@@ -34,8 +34,6 @@
     <string name="TEA_title_hint">Tytuł zadania</string>
     <string name="TEA_importance_label">Priorytet</string>
     <string name="TEA_no_date">Brak daty</string>
-    <string name="TEA_hideUntil_label">Ukrywanie</string>
-    <string name="TEA_hideUntil_display">Ukryj do %s</string>
     <string name="TEA_note_label">Opis</string>
     <string name="TEA_estimatedDuration_label">Jak długo to zajmie?</string>
     <string name="TEA_elapsedDuration_label">Czas dotychczas spędzony nad tym zadaniem</string>
@@ -47,10 +45,6 @@
     <string name="due_time">Dokładnie w terminie</string>
     <string name="day_before_due">Dzień przed terminem</string>
     <string name="week_before_due">Tydzień przed terminem</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">w terminie</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">o czasie</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">Dzień przed terminem</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">tydzień przed terminem</string>
     <string name="TEA_control_repeat">Powtórz</string>
     <string name="TEA_control_gcal">Kalendarz</string>
     <string name="TEA_control_importance">Priorytet</string>
@@ -94,7 +88,6 @@
     <string name="EPr_manage_delete_all_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
     <string name="task_defaults">Domyślne ustawienia zadań</string>
     <string name="EPr_default_importance_title">Domyślny priorytet</string>
-    <string name="EPr_default_hideUntil_title">Ukrywanie zadania (domyślnie)</string>
     <string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
     <string name="EPr_default_location_reminder_title">Domyślne powiadomienia o lokalizacji</string>
     <string name="EPr_default_location_radius">Domyślny promień</string>
@@ -104,7 +97,6 @@
     <string name="priority_low">Mało ważne</string>
     <string name="day_after_tomorrow">Pojutrze</string>
     <string name="next_week">Przyszły tydzień</string>
-    <string name="dont_hide">Nie ukrywaj</string>
     <string name="at_deadline">W dniu terminu nieprzekraczalnego</string>
     <string name="at_deadline_or_overdue">W nieprzekraczalnym terminie lub gdy zaległe</string>
     <string name="no_reminders">Brak przypomnień</string>
@@ -342,7 +334,6 @@
     <string name="copy">Kopiuj</string>
     <string name="move">Przenieś</string>
     <string name="filter_settings">Ustawienia filtrów</string>
-    <string name="show_hidden">Pokaż ukryte</string>
     <string name="show_completed">Pokaż ukończone</string>
     <string name="reverse">Odwrotnie</string>
     <string name="add_attachment">Dodaj załącznik</string>

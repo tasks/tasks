@@ -7,8 +7,6 @@
     <string name="FLA_search_filter">Tumutugma \'%s\'</string>
     <string name="TEA_title_hint">Pangalan ng gawain</string>
     <string name="TEA_importance_label">Prayoridad</string>
-    <string name="TEA_hideUntil_label">Itago hanggang</string>
-    <string name="TEA_hideUntil_display">Itago hanggang %s</string>
     <string name="no_reminders">Walang paalala</string>
     <string name="default_location_reminder_on_arrival">Sa pagdating</string>
     <string name="CFA_type_add">o</string>
@@ -51,7 +49,6 @@
     <string name="contact_developer">Kontakin ang developer</string>
     <string name="rate_tasks">Halagahan ang Tasks</string>
     <string name="quiet_hours_summary">Walang paalala sa tahimik na mga oras</string>
-    <string name="show_hidden">Ipakita ang nakatago</string>
     <string name="show_completed">Ipakita ang natapos</string>
     <string name="username_required">Pangalan ng gumagamit kailangan</string>
     <string name="password_required">Password kailangan</string>

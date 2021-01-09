@@ -28,8 +28,6 @@
     <string name="TEA_title_hint">Ülesande nimi</string>
     <string name="TEA_importance_label">Tähtsus</string>
     <string name="TEA_no_date">Kuupäeva pole</string>
-    <string name="TEA_hideUntil_label">Peida kuni</string>
-    <string name="TEA_hideUntil_display">Peida kuni %s</string>
     <string name="TEA_note_label">Kirjeldus</string>
     <string name="TEA_estimatedDuration_label">Kui kaua see aega võtab\?</string>
     <string name="TEA_elapsedDuration_label">Juba kulunud aeg</string>
@@ -38,7 +36,6 @@
     <string name="TEA_timer_elap">Kulunud %s</string>
     <string name="TEA_no_time">Aega pole</string>
     <string name="due_date">Tähtaeg</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">nädal enne tähtaega</string>
     <string name="TEA_control_repeat">Korda</string>
     <string name="TEA_control_gcal">Kalender</string>
     <string name="TEA_control_importance">Tähtsus</string>
@@ -77,7 +74,6 @@
     <string name="priority_low">Madal</string>
     <string name="day_after_tomorrow">Ülehomme</string>
     <string name="next_week">Järgmisel nädalal</string>
-    <string name="dont_hide">Ära peida</string>
     <string name="no_reminders">Meeldetuletusi pole</string>
     <string name="default_location_reminder_on_arrival">Saabumisel</string>
     <string name="default_location_reminder_on_departure">Lahkumisel</string>
@@ -200,7 +196,6 @@
     <string name="copy">Kopeeri</string>
     <string name="move">Liiguta</string>
     <string name="filter_settings">Filtri seaded</string>
-    <string name="show_hidden">Näita peidetuid</string>
     <string name="show_completed">Nõita lõpetatuid</string>
     <string name="reverse">Pööra ümber</string>
     <string name="add_attachment">Lisa fail</string>

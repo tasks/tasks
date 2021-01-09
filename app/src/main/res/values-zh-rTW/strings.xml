@@ -32,8 +32,6 @@
     <string name="FLA_new_filter">新增過濾器</string>
     <string name="TEA_title_hint">工作名稱</string>
     <string name="TEA_importance_label">優先權</string>
-    <string name="TEA_hideUntil_label">隱藏直到</string>
-    <string name="TEA_hideUntil_display">隱藏直到%s</string>
     <string name="TEA_note_label">描述</string>
     <string name="TEA_estimatedDuration_label">要花多久？</string>
     <string name="TEA_elapsedDuration_label">已消耗的時間</string>
@@ -73,7 +71,6 @@
     <string name="EPr_manage_delete_all_gcal_status">已經刪除了 %d 個日曆事件了！</string>
     <string name="task_defaults">工作預設值</string>
     <string name="EPr_default_importance_title">預設優先權</string>
-    <string name="EPr_default_hideUntil_title">預設隱藏直到…</string>
     <string name="EPr_default_reminders_title">預設提醒</string>
     <string name="EPr_default_reminders_mode_title">預設鈴聲 / 震動類型</string>
     <string name="priority_high">高</string>
@@ -81,7 +78,6 @@
     <string name="priority_low">低</string>
     <string name="day_after_tomorrow">後天</string>
     <string name="next_week">下週</string>
-    <string name="dont_hide">不隱藏</string>
     <string name="at_deadline">在截止期限時</string>
     <string name="at_deadline_or_overdue">在截止期限或過期時</string>
     <string name="BFE_Active">我的工作</string>
@@ -185,7 +181,6 @@
     <string name="date_shortcut_must_come_before">%1$s 必須在 %2$s 之前</string>
     <string name="date_shortcut_must_come_after">%1$s 必須在 %2$s 之後</string>
     <string name="filter_settings">過濾器設定</string>
-    <string name="show_hidden">顯示隱藏</string>
     <string name="show_completed">顯示已完成</string>
     <string name="default_list">預設清單</string>
     <string name="opacity">透明度</string>
@@ -214,10 +209,6 @@
     <string name="save">儲存</string>
     <string name="due_time">到期時間</string>
     <string name="day_before_due">到期前一天</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">到期日</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">到期時間</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">到期前一天</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">到期前一週</string>
     <string name="TEA_control_repeat">重複</string>
     <string name="TEA_control_gcal">月曆</string>
     <string name="TEA_control_location">地點</string>

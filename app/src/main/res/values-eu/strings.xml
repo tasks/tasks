@@ -39,8 +39,6 @@
     <string name="TEA_title_hint">Zereginaren izena</string>
     <string name="TEA_importance_label">Lehentasuna</string>
     <string name="TEA_no_date">Datarik ez</string>
-    <string name="TEA_hideUntil_label">Ezkutatu noiz arte</string>
-    <string name="TEA_hideUntil_display">Ezkutatu %s arte</string>
     <string name="TEA_note_label">Deskripzioa</string>
     <string name="TEA_estimatedDuration_label">Zenbat hartuko dizu\?</string>
     <string name="TEA_elapsedDuration_label">Jada erabilitako denbora</string>
@@ -52,10 +50,6 @@
     <string name="due_time">Epemuga-ordua</string>
     <string name="day_before_due">Epemugaren aurreko eguna</string>
     <string name="week_before_due">Epemugaren aurreko astea</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">epemuga data</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">epemuga-ordua</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">epemugaren aurreko eguna</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">epemugaren aurreko astea</string>
     <string name="TEA_control_repeat">Errepikatu</string>
     <string name="TEA_control_gcal">Egutegia</string>
     <string name="TEA_control_importance">Lehentasuna</string>
@@ -99,7 +93,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d gertaera ezabatuta egutegitik!</string>
     <string name="task_defaults">Zereginen lehenespenak</string>
     <string name="EPr_default_importance_title">Lehenetsitako lehentasuna</string>
-    <string name="EPr_default_hideUntil_title">Lehenetsita ezkutatu noiz arte</string>
     <string name="EPr_default_reminders_title">Lehenetsitako oroigarriak</string>
     <string name="EPr_default_location_reminder_title">Lehenetsitako kokaleku-oroigarriak</string>
     <string name="EPr_default_location_radius">Lehenetsitako erradioa</string>
@@ -109,7 +102,6 @@
     <string name="priority_low">Baxua</string>
     <string name="day_after_tomorrow">Etzi</string>
     <string name="next_week">Datorren astean</string>
-    <string name="dont_hide">Ez ezkutatu</string>
     <string name="at_deadline">Epemugan</string>
     <string name="at_deadline_or_overdue">Epemugan edo hau gaindituta dagoenean</string>
     <string name="no_reminders">Oroigarririk ez</string>
@@ -334,7 +326,6 @@
     <string name="copy">Kopiatu</string>
     <string name="move">Lekuz aldatu</string>
     <string name="filter_settings">Iragazki-ezarpenak</string>
-    <string name="show_hidden">Erakutsi ezkutatutakoak</string>
     <string name="show_completed">Erakutsi burututakoak</string>
     <string name="reverse">Alderantziz</string>
     <string name="add_attachment">Gehitu eranskina</string>

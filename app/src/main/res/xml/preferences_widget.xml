@@ -16,7 +16,7 @@
 
   <SwitchPreferenceCompat
     android:key="@string/p_widget_show_hidden"
-    android:title="@string/show_hidden" />
+    android:title="@string/show_unstarted" />
 
   <SwitchPreferenceCompat
     android:key="@string/p_widget_show_completed"

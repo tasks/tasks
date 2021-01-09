@@ -6,7 +6,6 @@
     <string name="backup_BAc_export">Izvezi zadatke</string>
     <string name="backup_BPr_header">Sigurnosne kopije</string>
     <string name="EPr_edit_screen_options">Postavke zaslona za uređivanje</string>
-    <string name="TEA_hideUntil_display">Sakrij do %s</string>
     <string name="backup_BAc_import">Uvezi sigurnosnu kopiju</string>
     <string name="manage_lists">Upravljaj popisima</string>
     <string name="always_display_full_date">Prikaži puni datum</string>
@@ -20,7 +19,6 @@
     <string name="TEA_control_gcal">Kalendar</string>
     <string name="save">Spremi</string>
     <string name="TEA_note_label">Opis</string>
-    <string name="TEA_hideUntil_label">Sakrij do</string>
     <string name="TEA_add_subtask">Dodaj podzadatak</string>
     <string name="TEA_importance_label">Prioritet</string>
     <string name="TEA_title_hint">Naziv zadatka</string>

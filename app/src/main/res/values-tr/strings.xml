@@ -39,8 +39,6 @@
     <string name="TEA_title_hint">Görev adı</string>
     <string name="TEA_importance_label">Öncelik</string>
     <string name="TEA_no_date">Tarih yok</string>
-    <string name="TEA_hideUntil_label">Şuna kadar gizle</string>
-    <string name="TEA_hideUntil_display">%s kadar gizle</string>
     <string name="TEA_note_label">Açıklama</string>
     <string name="TEA_estimatedDuration_label">Ne kadar sürecek?</string>
     <string name="TEA_elapsedDuration_label">Önceden geçirilen zaman</string>
@@ -52,10 +50,6 @@
     <string name="due_time">Bitiş zamanı</string>
     <string name="day_before_due">Bitişten önceki gün</string>
     <string name="week_before_due">Bitişten önceki hafta</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">bitiş tarihi</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">bitiş zamanı</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">son günden bir gün önce</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">son günden bir hafta önce</string>
     <string name="TEA_control_repeat">Yinele</string>
     <string name="TEA_control_gcal">Takvim</string>
     <string name="TEA_control_importance">Öncelik</string>
@@ -99,7 +93,6 @@
     <string name="EPr_manage_delete_all_gcal_status">%d takvim olayı silindi!</string>
     <string name="task_defaults">Görev öntanımlıları</string>
     <string name="EPr_default_importance_title">Öntanımlı öncelik</string>
-    <string name="EPr_default_hideUntil_title">Öntanımlı şuna kadar gizleme</string>
     <string name="EPr_default_reminders_title">Öntanımlı hatırlatmalar</string>
     <string name="EPr_default_location_reminder_title">Öntanımlı konum hatırlatmalar</string>
     <string name="EPr_default_location_radius">Öntanımlı yarıçap</string>
@@ -109,7 +102,6 @@
     <string name="priority_low">Düşük</string>
     <string name="day_after_tomorrow">Yarından Sonra</string>
     <string name="next_week">Gelecek Hafta</string>
-    <string name="dont_hide">Gizleme</string>
     <string name="at_deadline">Son tarihte</string>
     <string name="at_deadline_or_overdue">Son tarihte ya da geciktiğinde</string>
     <string name="no_reminders">Hatırlatma yok</string>
@@ -333,7 +325,6 @@
     <string name="copy">Kopyala</string>
     <string name="move">Taşı</string>
     <string name="filter_settings">Süzgeç ayarları</string>
-    <string name="show_hidden">Gizlenenleri göster</string>
     <string name="show_completed">Tamamlananları göster</string>
     <string name="reverse">Ters</string>
     <string name="add_attachment">Ek ekle</string>

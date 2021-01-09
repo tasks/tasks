@@ -21,7 +21,6 @@
     <string name="SSD_sort_modified">بواسطة التعديل الأخير</string>
     <string name="TEA_title_hint">اسم المهمة</string>
     <string name="TEA_importance_label">الأولوية</string>
-    <string name="TEA_hideUntil_label">إخفاء حتى</string>
     <string name="TEA_note_label">وصف</string>
     <string name="TEA_estimatedDuration_label">كم من الوقت ستأخذ؟</string>
     <string name="TEA_elapsedDuration_label">الوقت المنقضي</string>
@@ -54,7 +53,6 @@
     <string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
     <string name="day_after_tomorrow">بعد غد</string>
     <string name="next_week">الأسبوع القادم</string>
-    <string name="dont_hide">لا تُخبئ</string>
     <string name="BFE_Active">مهامي</string>
     <string name="BFE_Recent">ما تم تعديله مؤخرا</string>
     <string name="CFA_type_add">أو</string>
@@ -139,7 +137,6 @@
     <string name="pick_a_date_and_time">اختر التاريخ و الوقت</string>
     <string name="filters">تصفيات</string>
     <string name="filter_settings">إعدادات التصفية</string>
-    <string name="show_hidden">عرض المهام المخفية</string>
     <string name="show_completed">إظهار المهام المكتملة</string>
     <string name="opacity">التعتيم</string>
     <string name="settings_localization">تخصيص اللغة و الجهة</string>

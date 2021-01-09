@@ -24,8 +24,6 @@
     <string name="FLA_search_filter">Matcher ‘%s’</string>
     <string name="TEA_title_hint">Opgavenavn</string>
     <string name="TEA_importance_label">Prioritet</string>
-    <string name="TEA_hideUntil_label">Skjul indtil</string>
-    <string name="TEA_hideUntil_display">Skjul indtil %s</string>
     <string name="TEA_note_label">Beskrivelse</string>
     <string name="TEA_estimatedDuration_label">Hvor lang tid tager det?</string>
     <string name="TEA_elapsedDuration_label">Tid allerede brugt på denne opgave</string>
@@ -38,7 +36,6 @@
     <string name="CRA_ignore_all">Ignorér alle begivenheder</string>
     <string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
     <string name="EPr_default_importance_title">Standardprioritet</string>
-    <string name="EPr_default_hideUntil_title">Skjul indtil… som standard</string>
     <string name="EPr_default_reminders_title">Standardpåmindelser</string>
     <string name="BFE_Active">Mine opgaver</string>
     <string name="BFE_Recent">Senest ændrede</string>
@@ -341,7 +338,6 @@
     <string name="take_a_picture">Tag et billede</string>
     <string name="add_attachment">Vedhæft fil</string>
     <string name="show_completed">Vis udførte</string>
-    <string name="show_hidden">Vis skjulte</string>
     <string name="filter_settings">Filterindstillinger</string>
     <string name="move">Flyt</string>
     <string name="copy">Kopiér</string>
@@ -544,7 +540,6 @@
     <string name="no_reminders">Ingen påmindelser</string>
     <string name="at_deadline_or_overdue">Ved frist eller overskredet</string>
     <string name="at_deadline">Ved frist</string>
-    <string name="dont_hide">Skjul ikke</string>
     <string name="next_week">Næste uge</string>
     <string name="day_after_tomorrow">I overmorgen</string>
     <string name="priority_low">Lav</string>
@@ -587,10 +582,6 @@
     <string name="TEA_control_location">Sted</string>
     <string name="TEA_control_gcal">Kalender</string>
     <string name="TEA_control_repeat">Gentag</string>
-    <string name="TEA_hideUntil_week_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization.">ugen før frist</string>
-    <string name="TEA_hideUntil_day_before_due" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization.">dagen før frist</string>
-    <string name="TEA_hideUntil_due_time" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization.">frist-tid</string>
-    <string name="TEA_hideUntil_due_date" comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization.">frist-dato</string>
     <string name="week_before_due">Ugen før frist</string>
     <string name="day_before_due">Dagen før frist</string>
     <string name="due_time">Frist-tid</string>

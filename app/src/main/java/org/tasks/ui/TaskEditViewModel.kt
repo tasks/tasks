@@ -23,7 +23,6 @@ import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
-import com.todoroo.astrid.ui.HideUntilControlSet
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableSet
@@ -36,11 +35,13 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.*
+import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.currentTimeMillis
+import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
 import java.text.ParseException
 
@@ -105,10 +106,17 @@ class TaskEditViewModel @ViewModelInject constructor(
     var description: String? = null
         get() = field ?: task?.notes.stripCarriageReturns()
 
-    val hideUntil: Long
-        get() = task?.hideUntil ?: 0
-
-    var hideUntilValue: HideUntilControlSet.HideUntilValue? = null
+    var hideUntil: Long? = null
+        get() = field ?: task?.hideUntil ?: 0
+        set(value) {
+            field = when {
+                value == null -> null
+                value == 0L -> 0
+                hasDueTime(value) ->
+                    value.toDateTime().withSecondOfMinute(1).withMillisOfSecond(0).millis
+                else -> value.startOfDay()
+            }
+        }
 
     var recurrence: String? = null
         get() = field ?: task?.recurrence
@@ -251,7 +259,7 @@ class TaskEditViewModel @ViewModelInject constructor(
                 it.dueDate != dueDate ||
                 it.priority != priority ||
                 it.notes != description ||
-                it.hideUntil != it.createHideUntil(hideUntilValue) ||
+                it.hideUntil != hideUntil ||
                 if (it.recurrence.isNullOrBlank()) {
                     !recurrence.isNullOrBlank()
                 } else {
@@ -292,7 +300,7 @@ class TaskEditViewModel @ViewModelInject constructor(
         it.dueDate = dueDate!!
         it.priority = priority!!
         it.notes = description
-        it.hideUntil = it.createHideUntil(hideUntilValue)
+        it.hideUntil = hideUntil!!
         it.recurrence = recurrence
         it.repeatUntil = repeatUntil!!
         it.elapsedSeconds = elapsedSeconds!!

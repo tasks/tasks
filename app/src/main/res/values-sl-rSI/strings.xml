@@ -30,8 +30,6 @@
     <string name="TEA_title_hint">Poimenovanje opravka</string>
     <string name="TEA_importance_label">Prioriteta</string>
     <string name="TEA_no_date">Brez datuma</string>
-    <string name="TEA_hideUntil_label">Skrij do</string>
-    <string name="TEA_hideUntil_display">Skrij do %s</string>
     <string name="TEA_note_label">Opis</string>
     <string name="TEA_estimatedDuration_label">Kako dolgo bo trajalo?</string>
     <string name="TEA_elapsedDuration_label">Porabljen čas</string>
@@ -75,12 +73,10 @@
     <string name="EPr_manage_delete_all_gcal_message">Ste prepričani, da želite zbrisati vse opravke iz vaših dogodkov?</string>
     <string name="EPr_manage_delete_all_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
     <string name="EPr_default_importance_title">Privzeta dospelost</string>
-    <string name="EPr_default_hideUntil_title">Privzeto skrij do</string>
     <string name="EPr_default_reminders_title">Privzeti opomniki</string>
     <string name="EPr_default_reminders_mode_title">Privzeti način zvonenja/vibriranja</string>
     <string name="day_after_tomorrow">Pojutrišnjem</string>
     <string name="next_week">Naslednji teden</string>
-    <string name="dont_hide">Ne skrij</string>
     <string name="at_deadline">Ob dospelosti</string>
     <string name="at_deadline_or_overdue">Ob dospelosti ali potem</string>
     <string name="BFE_Active">Moji Opravki</string>

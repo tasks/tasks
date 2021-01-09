@@ -10,12 +10,10 @@ import com.google.ical.values.RRule
 import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.ui.HideUntilControlSet
 import org.tasks.Strings
 import org.tasks.backup.XmlReader
 import org.tasks.data.Tag
 import org.tasks.date.DateTimeUtils
-import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.startOfDay
@@ -199,9 +197,6 @@ class Task : Parcelable {
     /** Checks whether task is done. Requires DUE_DATE  */
     fun hasDueDate() = dueDate > 0
 
-    fun createHideUntil(value: HideUntilControlSet.HideUntilValue?) =
-            value?.let { createHideUntil(it.setting, it.date) } ?: 0
-
     /**
      * Create hide until for this task.
      *
@@ -214,7 +209,7 @@ class Task : Parcelable {
             HIDE_UNTIL_DUE, HIDE_UNTIL_DUE_TIME -> dueDate
             HIDE_UNTIL_DAY_BEFORE -> dueDate - DateUtilities.ONE_DAY
             HIDE_UNTIL_WEEK_BEFORE -> dueDate - DateUtilities.ONE_WEEK
-            HIDE_UNTIL_SPECIFIC_DAY, HIDE_UNTIL_SPECIFIC_DAY_TIME -> customDate
+            HIDE_UNTIL_SPECIFIC_DAY, HIDE_UNTIL_SPECIFIC_DAY_TIME -> customDate.startOfDay()
             else -> throw IllegalArgumentException("Unknown setting $setting")
         }
         if (date <= 0) {
