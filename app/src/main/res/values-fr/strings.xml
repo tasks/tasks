@@ -686,4 +686,5 @@
     <string name="app_password">Mot de passe de l\'application</string>
     <string name="local_lists">Listes locales</string>
     <string name="default_due_date">Date d’échéance par défaut</string>
+    <string name="start_date">Date de début</string>
 </resources>
