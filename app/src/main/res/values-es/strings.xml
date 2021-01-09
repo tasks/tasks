@@ -690,4 +690,5 @@
     <string name="app_passwords">Contraseñas de la aplicación</string>
     <string name="app_password">Contraseña de la aplicación</string>
     <string name="local_lists">Listas locales</string>
+    <string name="default_due_date">Fecha de vencimiento predeterminada</string>
 </resources>
