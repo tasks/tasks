@@ -681,4 +681,5 @@
     <string name="app_password">应用程序密码</string>
     <string name="local_lists">本地列表</string>
     <string name="default_due_date">默认到期日</string>
+    <string name="start_date">开始日期</string>
 </resources>
