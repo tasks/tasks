@@ -689,4 +689,5 @@
     <string name="app_passwords_more_info">Feladatok és naptárak szinkronizálása harmadik féltől származó asztali és mobil alkalmazásokkal. Részletes információért kattintson ide</string>
     <string name="local_lists">Helyi listák</string>
     <string name="default_due_date">Alapértelmezett határidő</string>
+    <string name="start_date">Kezdő dátum</string>
 </resources>
