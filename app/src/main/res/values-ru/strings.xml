@@ -707,4 +707,7 @@
     <string name="app_passwords">Пароли приложений</string>
     <string name="app_password">Пароль приложения</string>
     <string name="sign_in_to_tasks">Войти в Tasks.org</string>
+    <string name="local_lists">Локальный список</string>
+    <string name="default_due_date">Срок выполнения по умолчанию</string>
+    <string name="start_date">Дата начала</string>
 </resources>
