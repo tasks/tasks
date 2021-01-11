@@ -7,14 +7,17 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
+import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.TaskContainer
+import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.filters.PlaceFilter
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import org.tasks.themes.CustomIcons
+import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.ChipListCache
 import java.time.format.FormatStyle
 import javax.inject.Inject
@@ -47,20 +50,25 @@ class ChipProvider @Inject constructor(
         return chip
     }
 
-    fun getStartDateChip(task: TaskContainer, showFullDate: Boolean): RemoteViews? {
+    fun getStartDateChip(task: TaskContainer, showFullDate: Boolean, sortByStartDate: Boolean): RemoteViews? {
         return if (task.isHidden) {
             val chip = newChip()
-            chip.setTextViewText(
-                    R.id.chip_text,
-                    DateUtilities.getRelativeDateTime(
-                            context,
-                            task.startDate,
-                            locale.locale,
-                            FormatStyle.MEDIUM,
-                            showFullDate,
-                            false
-                    )
-            )
+            val time = if (sortByStartDate && task.sortGroup?.startOfDay() == task.startDate.startOfDay()) {
+                task.startDate
+                        .takeIf { Task.hasDueTime(it) }
+                        ?.let { DateUtilities.getTimeString(context, it.toDateTime()) }
+                        ?: return null
+            } else {
+                DateUtilities.getRelativeDateTime(
+                        context,
+                        task.startDate,
+                        locale.locale,
+                        FormatStyle.MEDIUM,
+                        showFullDate,
+                        false
+                )
+            }
+            chip.setTextViewText(R.id.chip_text, time)
             chip.setImageViewResource(R.id.chip_icon, R.drawable.ic_pending_actions_24px)
             chip
         } else {

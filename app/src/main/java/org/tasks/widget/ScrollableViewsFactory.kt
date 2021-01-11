@@ -270,8 +270,9 @@ internal class ScrollableViewsFactory(
                 )
             }
             if (taskContainer.isHidden && showStartDates) {
+                val sortByDate = sortMode == SortHelper.SORT_START && !disableGroups
                 chipProvider
-                        .getStartDateChip(taskContainer, showFullDate)
+                        .getStartDateChip(taskContainer, showFullDate, sortByDate)
                         ?.let { row.addView(R.id.chips, it) }
             }
             if (taskContainer.hasLocation() && showPlaces) {
@@ -320,8 +321,7 @@ internal class ScrollableViewsFactory(
                 row.setViewPadding(R.id.widget_due_end, hPad, vPad, hPad, vPad)
             }
             row.setViewVisibility(dueDateRes, View.VISIBLE)
-            val text = if (filter?.supportsSorting() == true
-                    && sortMode == SortHelper.SORT_DUE
+            val text = if (sortMode == SortHelper.SORT_DUE
                     && !disableGroups
                     && task.sortGroup?.startOfDay() == task.dueDate.startOfDay()) {
                 task.takeIf { it.hasDueTime() }?.let {

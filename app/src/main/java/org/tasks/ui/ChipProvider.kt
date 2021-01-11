@@ -24,6 +24,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons.getIconResId
 import org.tasks.themes.ThemeColor
+import org.tasks.time.DateTimeUtils.startOfDay
 import java.time.format.FormatStyle
 import java.util.*
 import javax.inject.Inject
@@ -52,10 +53,13 @@ class ChipProvider @Inject constructor(
 
     private fun newStartDateChip(task: TaskContainer, compact: Boolean, timeOnly: Boolean): Chip? {
         val chip = newChip(task)
-        val text = if (timeOnly) {
+        val text = if (timeOnly
+                && task.sortGroup?.startOfDay() == task.startDate.startOfDay()
+                && preferences.showGroupHeaders()
+        ) {
             task.startDate
                     .takeIf { Task.hasDueTime(it) }
-                    ?.let { DateUtilities.getTimeString(activity, task.startDate.toDateTime()) }
+                    ?.let { DateUtilities.getTimeString(activity, it.toDateTime()) }
                     ?: return null
         } else {
             DateUtilities.getRelativeDateTime(
