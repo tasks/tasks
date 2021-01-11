@@ -683,4 +683,8 @@
     <string name="local_lists">Yerel listeler</string>
     <string name="default_due_date">Öntanımlı bitiş tarihi</string>
     <string name="start_date">Başlangıç tarihi</string>
+    <string name="filter_criteria_unstarted">Başlamadı</string>
+    <string name="show_unstarted">Başlamayanları göster</string>
+    <string name="no_start_date">Başlangıç tarihi yok</string>
+    <string name="default_start_date">Öntanımlı başlangıç tarihi</string>
 </resources>
