@@ -1,3 +1,37 @@
+### 11.3 (2021-01-19)
+
+* 'Hide until' is now 'Start date'
+  * Synchronize start dates with Tasks.org, DAVx⁵, CalDAV, EteSync, and DecSync
+  * New start date picker
+  * New start date custom filter criteria
+  * Add sort 'By start date'
+  * Display start dates as chips
+* Don't perform background sync when data saver enabled
+* Preference changes
+  * Add app and widget preferences to disable start date chips
+  * Synchronization accounts displayed on main preference screen
+  * Removed background sync and metered connection options (now respecting data
+    saver mode)
+  * Removed Google Tasks 'Custom order synchronization fix' (automatically
+    performing full sync if 'My order' enabled)
+* Bug fixes
+* Update translations
+  * Arabic - @mhmdanas
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hebrew - Joe Bobson
+  * Hungarian - kaciokos
+  * Italian - @Fs00
+  * Korean - @vousosir
+  * Norwegian Bokmål - @comradekingu
+  * Polish - @alex-ter
+  * Portuguese - @alvar0liveira
+  * Russian - Nikita Epifanov, @tolstovka, @alex-ter
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - @emintufan, Oğuz Ersen
+  * Ukrainian - @tolstovka
+
 ### 11.2.2 (2021-01-07)
 
 * Rename 'Lists' to 'Local lists' to clarify that they are not synchronized
