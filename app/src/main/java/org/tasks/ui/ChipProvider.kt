@@ -11,11 +11,13 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
+import com.todoroo.astrid.data.Task
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Inventory
 import org.tasks.data.TagData
 import org.tasks.data.TaskContainer
+import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.filters.PlaceFilter
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
@@ -48,23 +50,24 @@ class ChipProvider @Inject constructor(
         showIcon = appearance != 1
     }
 
-    private fun newStartDateChip(task: TaskContainer, compact: Boolean): Chip {
+    private fun newStartDateChip(task: TaskContainer, compact: Boolean, timeOnly: Boolean): Chip? {
         val chip = newChip(task)
-        apply(
-                chip,
-                R.drawable.ic_pending_actions_24px,
-                DateUtilities.getRelativeDateTime(
-                        activity,
-                        task.startDate,
-                        locale.locale,
-                        if (compact) FormatStyle.SHORT else FormatStyle.MEDIUM,
-                        false,
-                        false
-                ),
-                0,
-                showText = true,
-                showIcon = true
-        )
+        val text = if (timeOnly) {
+            task.startDate
+                    .takeIf { Task.hasDueTime(it) }
+                    ?.let { DateUtilities.getTimeString(activity, task.startDate.toDateTime()) }
+                    ?: return null
+        } else {
+            DateUtilities.getRelativeDateTime(
+                    activity,
+                    task.startDate,
+                    locale.locale,
+                    if (compact) FormatStyle.SHORT else FormatStyle.MEDIUM,
+                    false,
+                    false
+            )
+        }
+        apply(chip, R.drawable.ic_pending_actions_24px, text, 0, showText = true, showIcon = true)
         return chip
     }
 
@@ -82,14 +85,14 @@ class ChipProvider @Inject constructor(
         return chip
     }
 
-    fun getChips(filter: Filter?, isSubtask: Boolean, task: TaskContainer): List<Chip> {
+    fun getChips(filter: Filter?, isSubtask: Boolean, task: TaskContainer, sortByStartDate: Boolean): List<Chip> {
         AndroidUtilities.assertMainThread()
         val chips = ArrayList<Chip>()
         if (task.hasChildren() && preferences.showSubtaskChip) {
             chips.add(newSubtaskChip(task, !showText))
         }
         if (task.isHidden && preferences.showStartDateChip) {
-            chips.add(newStartDateChip(task, !showText))
+            newStartDateChip(task, !showText, sortByStartDate)?.let(chips::add)
         }
         if (task.hasLocation() && filter !is PlaceFilter && preferences.showPlaceChip) {
             val location = task.getLocation()

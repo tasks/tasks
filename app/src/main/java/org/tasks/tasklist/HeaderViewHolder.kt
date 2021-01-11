@@ -34,17 +34,24 @@ class HeaderViewHolder(
             this.header.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, if (section.collapsed) R.drawable.ic_keyboard_arrow_down_black_18dp else R.drawable.ic_keyboard_arrow_up_black_18dp, 0)
             this.header.setTextColor(
                     context.getColor(
-                            if (sortMode == SortHelper.SORT_DUE && sortGroup > 0 && newDateTime(sortGroup).plusDays(1).startOfDay().isBeforeNow) R.color.overdue else R.color.text_secondary))
+                            if ((sortMode == SortHelper.SORT_DUE || sortMode == SortHelper.SORT_START)
+                                    && sortGroup > 0
+                                    && newDateTime(sortGroup).plusDays(1).startOfDay().isBeforeNow) {
+                                R.color.overdue
+                            } else {
+                                R.color.text_secondary
+                            }))
         }
     }
 
     private fun getHeader(sortMode: Int, alwaysDisplayFullDate: Boolean, group: Long): String =
             when {
-                sortMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(group.toInt()))
-                group == 0L -> context.getString(if (sortMode == SortHelper.SORT_DUE) {
-                    R.string.no_due_date
-                } else {
-                    R.string.no_date
+                sortMode == SortHelper.SORT_IMPORTANCE ->
+                    context.getString(priorityToString(group.toInt()))
+                group == 0L -> context.getString(when (sortMode) {
+                    SortHelper.SORT_DUE -> R.string.no_due_date
+                    SortHelper.SORT_START -> R.string.no_start_date
+                    else -> R.string.no_date
                 })
                 sortMode == SortHelper.SORT_CREATED ->
                     context.getString(R.string.sort_created_group, getDateString(group, alwaysDisplayFullDate))

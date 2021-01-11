@@ -5,15 +5,16 @@
  */
 package com.todoroo.astrid.adapter
 
-import com.todoroo.astrid.core.SortHelper.SORT_DUE
-import com.todoroo.astrid.core.SortHelper.SORT_IMPORTANCE
+import com.todoroo.astrid.core.SortHelper.*
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.time.DateTimeUtils.millisOfDay
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -207,18 +208,31 @@ open class TaskAdapter(
                     taskDao.save(t)
                 }
             }
-            SORT_DUE -> applyDate(task.task, dataSource.nearestHeader(if (pos == 0) 1 else pos))
+            SORT_DUE -> applyDueDate(task.task, dataSource.nearestHeader(if (pos == 0) 1 else pos))
+            SORT_START -> applyStartDate(task.task, dataSource.nearestHeader(if (pos == 0) 1 else pos))
         }
     }
 
-    private suspend fun applyDate(task: Task, date: Long) {
+    private suspend fun applyDueDate(task: Task, date: Long) {
         val original = task.dueDate
         task.setDueDateAdjustingHideUntil(when {
             date == 0L -> 0L
-            task.hasDueTime() -> date.toDateTime().withMillisOfDay(task.dueDate.toDateTime().millisOfDay).millis
+            task.hasDueTime() -> date.toDateTime().withMillisOfDay(original.millisOfDay()).millis
             else -> Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, date)
         })
         if (original != task.dueDate) {
+            taskDao.save(task)
+        }
+    }
+
+    private suspend fun applyStartDate(task: Task, date: Long) {
+        val original = task.hideUntil
+        task.hideUntil = when {
+            date == 0L -> 0L
+            task.hasHideUntilDate() -> date.toDateTime().withMillisOfDay(original.millisOfDay()).millis
+            else -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, date)
+        }
+        if (original != task.hideUntil) {
             taskDao.save(task)
         }
     }

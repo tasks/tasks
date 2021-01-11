@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterDataSource
-import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
 
@@ -22,13 +21,13 @@ abstract class TaskListRecyclerAdapter internal constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val filter = taskList.getFilter()
-        val sortByDueDate = filter.supportsSorting()
-                && preferences.sortMode == SORT_DUE
+        val groupsEnabled = filter.supportsSorting()
                 && !(filter.supportsManualSort() && preferences.isManualSort)
                 && !(filter.supportsAstridSorting() && preferences.isAstridSort)
         val task = getItem(position)
         if (task != null) {
-            (holder as TaskViewHolder).bindView(task, filter, sortByDueDate)
+            (holder as TaskViewHolder)
+                    .bindView(task, filter, if (groupsEnabled) preferences.sortMode else -1)
             holder.moving = false
             val indent = adapter.getIndent(task)
             task.setIndent(indent)

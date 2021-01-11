@@ -15,6 +15,8 @@ import butterknife.OnLongClick
 import com.google.android.material.chip.ChipGroup
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.core.SortHelper.SORT_DUE
+import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.ui.CheckableImageView
 import org.tasks.R
 import org.tasks.data.TaskContainer
@@ -132,13 +134,13 @@ class TaskViewHolder internal constructor(
 
     private fun getIndentSize(indent: Int) = (indent * shiftSize).roundToInt()
 
-    fun bindView(task: TaskContainer, filter: Filter, sortByDueDate: Boolean) {
+    fun bindView(task: TaskContainer, filter: Filter, sortMode: Int) {
         this.task = task
         indent = task.indent
         nameView.text = task.title
         setupTitleAndCheckbox()
-        setupDueDate(sortByDueDate)
-        setupChips(filter)
+        setupDueDate(sortMode == SORT_DUE)
+        setupChips(filter, sortMode == SORT_START)
         if (preferences.getBoolean(R.string.p_show_description, true)) {
             description.text = task.notes
             description.visibility = if (task.hasNotes()) View.VISIBLE else View.GONE
@@ -201,8 +203,8 @@ class TaskViewHolder internal constructor(
         }
     }
 
-    private fun setupChips(filter: Filter) {
-        val chips = chipProvider.getChips(filter, indent > 0, task)
+    private fun setupChips(filter: Filter, sortByStartDate: Boolean) {
+        val chips = chipProvider.getChips(filter, indent > 0, task, sortByStartDate)
         if (chips.isEmpty()) {
             chipGroup.visibility = View.GONE
         } else {

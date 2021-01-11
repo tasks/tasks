@@ -32,6 +32,7 @@ public class SortHelper {
   public static final int SORT_CREATED = 5;
   public static final int SORT_GTASKS = 6;
   public static final int SORT_CALDAV = 7;
+  public static final int SORT_START = 8;
 
   public static final long APPLE_EPOCH = 978307200000L; // 1/1/2001 GMT
   @SuppressLint("DefaultLocale")
@@ -40,6 +41,8 @@ public class SortHelper {
 
   private static final String ADJUSTED_DUE_DATE =
       "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
+  private static final String ADJUSTED_START_DATE =
+      "(CASE WHEN (hideUntil / 1000) % 60 > 0 THEN hideUntil ELSE (hideUntil + 86399000) END)";
   private static final Order ORDER_TITLE = Order.asc(Functions.upper(Task.TITLE));
 
   /** Takes a SQL query, and if there isn't already an order, creates an order. */
@@ -90,6 +93,13 @@ public class SortHelper {
                     + ADJUSTED_DUE_DATE
                     + " END)+importance");
         break;
+      case SORT_START:
+        order =
+            Order.asc(
+                "(CASE WHEN (hideUntil=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+                    + ADJUSTED_START_DATE
+                    + " END)+importance");
+        break;
       case SORT_IMPORTANCE:
         order =
             Order.asc(
@@ -126,6 +136,8 @@ public class SortHelper {
     switch (sortType) {
       case SORT_DUE:
         return "tasks.dueDate";
+      case SORT_START:
+        return "tasks.hideUntil";
       case SORT_IMPORTANCE:
         return "tasks.importance";
       case SORT_MODIFIED:
@@ -148,6 +160,11 @@ public class SortHelper {
         select = "(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
                    + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
                    + " END)+tasks.importance AS sort_duedate";
+        break;
+      case SORT_START:
+        select = "(CASE WHEN (tasks.hideUntil=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+                  + ADJUSTED_START_DATE.replace("hideUntil", "tasks.hideUntil")
+                  + " END)+tasks.importance AS sort_startdate";
         break;
       case SORT_IMPORTANCE:
         select = "tasks.importance*(strftime('%s','now')*1000)+(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000) ELSE tasks.dueDate END) AS sort_importance";
@@ -188,6 +205,9 @@ public class SortHelper {
         break;
       case SORT_DUE:
         order = Order.asc("sort_duedate");
+        break;
+      case SORT_START:
+        order = Order.asc("sort_startdate");
         break;
       case SORT_IMPORTANCE:
         order = Order.asc("sort_importance");

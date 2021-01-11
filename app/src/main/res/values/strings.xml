@@ -38,6 +38,7 @@ File %1$s contained %2$s.\n\n
   <string name="astrid_sort_order_summary">Enable Astrid\'s manual sort mode for \'My Tasks\', \'Today\', and tags. This sort mode will be replaced by \'My order\' in a future update</string>
   <string name="SSD_sort_auto">Smart sort</string>
   <string name="SSD_sort_alpha">By title</string>
+  <string name="SSD_sort_start">By start date</string>
   <string name="SSD_sort_due">By due date</string>
   <string name="SSD_sort_importance">By priority</string>
   <string name="SSD_sort_modified">By last modified</string>

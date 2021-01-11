@@ -150,6 +150,10 @@ internal class ScrollableViewsFactory(
                 && sortGroup > 0
                 && DateTimeUtils.newDateTime(sortGroup).plusDays(1).startOfDay().isBeforeNow) {
             context.getColor(R.color.overdue)
+        } else if (sortMode == SortHelper.SORT_START
+                && sortGroup > 0
+                && DateTimeUtils.newDateTime(sortGroup).plusDays(1).startOfDay().isBeforeNow) {
+            context.getColor(R.color.overdue)
         } else {
             textColorSecondary
         }
@@ -169,10 +173,10 @@ internal class ScrollableViewsFactory(
 
     private fun getHeader(sortMode: Int, group: Long): String = when {
         sortMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(group.toInt()))
-        group == 0L -> context.getString(if (sortMode == SortHelper.SORT_DUE) {
-            R.string.no_due_date
-        } else {
-            R.string.no_date
+        group == 0L -> context.getString(when (sortMode) {
+            SortHelper.SORT_DUE -> R.string.no_due_date
+            SortHelper.SORT_START -> R.string.no_start_date
+            else -> R.string.no_date
         })
         sortMode == SortHelper.SORT_CREATED ->
             context.getString(R.string.sort_created_group, getDateString(group))

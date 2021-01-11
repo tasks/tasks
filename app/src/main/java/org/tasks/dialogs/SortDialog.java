@@ -86,6 +86,7 @@ public class SortDialog extends DialogFragment {
     }
 
     items.add(getString(R.string.SSD_sort_auto));
+    items.add(getString(R.string.SSD_sort_start));
     items.add(getString(R.string.SSD_sort_due));
     items.add(getString(R.string.SSD_sort_importance));
     items.add(getString(R.string.SSD_sort_alpha));
@@ -173,16 +174,18 @@ public class SortDialog extends DialogFragment {
     switch (sortMode) {
       case SortHelper.SORT_AUTO:
         return 1;
-      case SortHelper.SORT_DUE:
+      case SortHelper.SORT_START:
         return 2;
-      case SortHelper.SORT_IMPORTANCE:
+      case SortHelper.SORT_DUE:
         return 3;
-      case SortHelper.SORT_ALPHA:
+      case SortHelper.SORT_IMPORTANCE:
         return 4;
-      case SortHelper.SORT_MODIFIED:
+      case SortHelper.SORT_ALPHA:
         return 5;
-      case SortHelper.SORT_CREATED:
+      case SortHelper.SORT_MODIFIED:
         return 6;
+      case SortHelper.SORT_CREATED:
+        return 7;
     }
 
     Timber.e("Invalid sort mode: %s", sortMode);
@@ -194,14 +197,16 @@ public class SortDialog extends DialogFragment {
       case 1:
         return SortHelper.SORT_AUTO;
       case 2:
-        return SortHelper.SORT_DUE;
+        return SortHelper.SORT_START;
       case 3:
-        return SortHelper.SORT_IMPORTANCE;
+        return SortHelper.SORT_DUE;
       case 4:
-        return SortHelper.SORT_ALPHA;
+        return SortHelper.SORT_IMPORTANCE;
       case 5:
-        return SortHelper.SORT_MODIFIED;
+        return SortHelper.SORT_ALPHA;
       case 6:
+        return SortHelper.SORT_MODIFIED;
+      case 7:
         return SortHelper.SORT_CREATED;
     }
 

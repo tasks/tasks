@@ -203,6 +203,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
                 } else {
                     when (widgetPreferences.sortMode) {
                         SORT_DUE -> R.string.SSD_sort_due
+                        SORT_START -> R.string.SSD_sort_start
                         SORT_IMPORTANCE -> R.string.SSD_sort_importance
                         SORT_ALPHA -> R.string.SSD_sort_alpha
                         SORT_MODIFIED -> R.string.SSD_sort_modified
