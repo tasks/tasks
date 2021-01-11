@@ -683,4 +683,8 @@
     <string name="local_lists">Listas locales</string>
     <string name="default_due_date">Fecha de vencimiento predeterminada</string>
     <string name="start_date">Fecha de inicio</string>
+    <string name="no_start_date">Sin fecha de inicio</string>
+    <string name="filter_criteria_unstarted">No se ha iniciado</string>
+    <string name="show_unstarted">Mostrar sin comenzar</string>
+    <string name="default_start_date">Fecha de inicio predeterminada</string>
 </resources>
