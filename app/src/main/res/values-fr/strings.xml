@@ -678,4 +678,8 @@
     <string name="local_lists">Listes locales</string>
     <string name="default_due_date">Date d’échéance par défaut</string>
     <string name="start_date">Date de début</string>
+    <string name="filter_criteria_unstarted">Pas commencé</string>
+    <string name="show_unstarted">Afficher non démarré</string>
+    <string name="no_start_date">Pas de date de début</string>
+    <string name="default_start_date">Date de début par défaut</string>
 </resources>
