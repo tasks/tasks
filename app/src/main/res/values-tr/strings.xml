@@ -687,4 +687,5 @@
     <string name="show_unstarted">Başlamayanları göster</string>
     <string name="no_start_date">Başlangıç tarihi yok</string>
     <string name="default_start_date">Öntanımlı başlangıç tarihi</string>
+    <string name="SSD_sort_start">Başlangıç tarihine göre</string>
 </resources>
