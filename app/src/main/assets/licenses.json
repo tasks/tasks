@@ -16,7 +16,7 @@
     {
       "artifactId": {
         "name": "ical4android",
-        "group": "com.gitlab.bitfireAT",
+        "group": "com.gitlab.abaker",
         "version": "+"
       },
       "copyrightHolder": "bitfire web engineering (Ricki Hirner, Bernhard Stockmann)",

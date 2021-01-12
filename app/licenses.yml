@@ -3,7 +3,7 @@
   copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
   license: Mozilla Public License, Version 2.0
   licenseUrl: https://www.mozilla.org/en-US/MPL/2.0/
-- artifact: com.gitlab.bitfireAT:ical4android:+
+- artifact: com.gitlab.abaker:ical4android:+
   name: ical4android
   copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
   license: GNU General Public License, Version 3.0
