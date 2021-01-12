@@ -229,7 +229,7 @@ open class TaskAdapter(
         val original = task.hideUntil
         task.hideUntil = when {
             date == 0L -> 0L
-            task.hasHideUntilDate() -> date.toDateTime().withMillisOfDay(original.millisOfDay()).millis
+            task.hasStartDate() -> date.toDateTime().withMillisOfDay(original.millisOfDay()).millis
             else -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, date)
         }
         if (original != task.hideUntil) {

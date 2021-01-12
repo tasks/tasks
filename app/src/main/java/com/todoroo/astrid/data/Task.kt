@@ -192,7 +192,7 @@ class Task : Parcelable {
     val isHidden
         get() = hideUntil > DateUtilities.now()
 
-    fun hasHideUntilDate() = hideUntil > 0
+    fun hasStartDate() = hideUntil > 0
 
     /** Checks whether task is done. Requires DUE_DATE  */
     fun hasDueDate() = dueDate > 0

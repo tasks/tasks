@@ -35,7 +35,7 @@ class RefreshScheduler @Inject internal constructor(
         } else if (task.hasDueDate()) {
             scheduleRefresh(task.dueDate)
         }
-        if (task.hasHideUntilDate()) {
+        if (task.hasStartDate()) {
             scheduleRefresh(task.hideUntil)
         }
     }
