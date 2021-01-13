@@ -2,27 +2,27 @@
 <resources>
     <string name="actfm_picture_clear">Убрать изображение</string>
     <string name="TVA_add_comment">Добавить комментарий…</string>
-    <string name="enter_filter_name">Введите имя фильтра</string>
+    <string name="enter_filter_name">Введите название фильтра</string>
     <string name="backup_BPr_header">Резервные копии</string>
     <string name="backup_BAc_import">Импортировать резервную копию</string>
     <string name="backup_BAc_export">Сделать резервную копию сейчас</string>
     <string name="export_toast">Сохранено %1$s в %2$s.</string>
-    <string name="import_summary_title">Итог восстановления</string>
+    <string name="import_summary_title">Восстановить сводку</string>
     <string name="import_summary_message">Файл %1$s содержал %2$s.
 \n
 \n %3$s импортировано,
-\n %4$s уже существовало
+\n %4$s уже существовало,
 \n %5$s с ошибками
 \n</string>
     <string name="import_progress_read">Чтение задачи %d…</string>
     <string name="read_permission_label">Разрешения Tasks</string>
     <string name="discard_confirmation">Вы действительно хотите отказаться от сделанных изменений?</string>
-    <string name="keep_editing">Продолжить редактировать</string>
+    <string name="keep_editing">Продолжить редактирование</string>
     <string name="DLG_delete_this_task_question">Удалить эту задачу?</string>
-    <string name="DLG_hour_minutes">Время (час : мин)</string>
-    <string name="DLG_undo">Отмена</string>
-    <string name="WID_dateButtonUnset">Установить</string>
-    <string name="TLA_no_items">Задач нет.</string>
+    <string name="DLG_hour_minutes">Время (часы : минуты)</string>
+    <string name="DLG_undo">Отменить</string>
+    <string name="WID_dateButtonUnset">Нажмите, чтобы установить</string>
+    <string name="TLA_no_items">Здесь нет задач.</string>
     <string name="TLA_menu_sort">Сортировка</string>
     <string name="TLA_menu_search">Поиск</string>
     <string name="TLA_menu_settings">Настройки</string>
@@ -31,25 +31,25 @@
     <string name="action_open">Открыть</string>
     <string name="SSD_sort_auto">Умная сортировка</string>
     <string name="SSD_sort_alpha">По названию</string>
-    <string name="SSD_sort_due">По намеченному сроку</string>
+    <string name="SSD_sort_due">По дате выполнения</string>
     <string name="SSD_sort_importance">По приоритету</string>
-    <string name="SSD_sort_modified">Последние изменённые</string>
-    <string name="FLA_search_filter">Соответствует \'%s\'</string>
+    <string name="SSD_sort_modified">По дате последнего изменения</string>
+    <string name="FLA_search_filter">Соответствия с «%s»</string>
     <string name="FLA_new_filter">Создать новый фильтр</string>
-    <string name="TEA_title_hint">Имя задачи</string>
+    <string name="TEA_title_hint">Название задачи</string>
     <string name="TEA_importance_label">Приоритет</string>
     <string name="TEA_no_date">Без даты</string>
     <string name="TEA_note_label">Описание</string>
-    <string name="TEA_estimatedDuration_label">Сколько времени это займет\?</string>
-    <string name="TEA_elapsedDuration_label">Затраченное время</string>
+    <string name="TEA_estimatedDuration_label">Сколько времени это займёт\?</string>
+    <string name="TEA_elapsedDuration_label">Времени уже потрачено</string>
     <string name="save">Сохранить </string>
-    <string name="TEA_timer_est">Расчет %s</string>
+    <string name="TEA_timer_est">Прибл. %s</string>
     <string name="TEA_timer_elap">Прошло %s</string>
     <string name="TEA_no_time">Без времени</string>
-    <string name="due_date">Намеченная дата</string>
-    <string name="due_time">Намеченное время</string>
-    <string name="day_before_due">Сутки до намеченной даты</string>
-    <string name="week_before_due">Неделя до намеченной даты</string>
+    <string name="due_date">Дата выполнения</string>
+    <string name="due_time">Время выполнения</string>
+    <string name="day_before_due">Сутки до даты выполнения</string>
+    <string name="week_before_due">Неделя до даты выполнения</string>
     <string name="TEA_control_repeat">Повтор</string>
     <string name="TEA_control_gcal">Календарь</string>
     <string name="TEA_control_importance">Приоритет</string>
@@ -57,25 +57,25 @@
     <string name="TEA_control_notes">Описание</string>
     <string name="TEA_control_files">Файлы</string>
     <string name="TEA_control_reminders">Напоминания</string>
-    <string name="TEA_control_timer">Учет времени</string>
+    <string name="TEA_control_timer">Управление таймером</string>
     <string name="TEA_control_hidden_section">----Всегда скрывать----</string>
     <string name="TEA_load_more">Загрузить больше…</string>
     <string name="CRA_ignore">Игнорировать</string>
-    <string name="CRA_title">Необходим список встреч?</string>
-    <string name="CRA_ignore_body">Вы пропустили несколько событий календаря. Прекратить спрашивать о них?</string>
+    <string name="CRA_title">Нужен список встреч\?</string>
+    <string name="CRA_ignore_body">Вы проигнорировали несколько событий в календаре. Прекратить спрашивать о них\?</string>
     <string name="CRA_ignore_all">Пропустить все события</string>
-    <string name="CRA_ignore_this">Пропустить только это событие</string>
-    <string name="CRA_speech_bubble_start">Похоже скоро начнется %s. Хотите создать список действий?</string>
-    <string name="CRA_speech_bubble_end">Похоже Вы только что завершили %s. Хотите создать список действий?</string>
-    <string name="CRA_postpone">Возможно позднее</string>
+    <string name="CRA_ignore_this">Проигнорировать только это событие</string>
+    <string name="CRA_speech_bubble_start">Похоже, скоро начнётся %s. Хотите создать список действий\?</string>
+    <string name="CRA_speech_bubble_end">Похоже, вы только что завершили %s. Хотите создать список действий\?</string>
+    <string name="CRA_postpone">Возможно, позднее</string>
     <string name="CRA_calendar_reminders_pref_title">Ассистент календаря</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks будет напоминать вам о предстоящих событиях в календаре и напомнит вам подготовиться к ним</string>
-    <string name="CRA_default_list_name">Пункты события: %s</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks будет напоминать вам о предстоящих событиях в календаре и предлагать подготовиться к ним</string>
+    <string name="CRA_default_list_name">Список действий: %s</string>
     <string name="none">Нет</string>
     <string name="EPr_filters_to_show_title">Показать фильтры</string>
     <string name="EPr_edit_screen_options">Настройки экрана редактирования</string>
-    <string name="EPr_beastMode_reset">Сброс настроек</string>
-    <string name="EPr_fullTask_title">Показывать полный заголовок задачи</string>
+    <string name="EPr_beastMode_reset">Сбросить настройки</string>
+    <string name="EPr_fullTask_title">Показывать полное название задачи</string>
     <string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
     <string name="task_list_options">Настройки списка задач</string>
     <string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
@@ -333,7 +333,7 @@
     <string name="date_shortcut_must_come_before">%1$s должно идти перед %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s должно идти после %2$s</string>
     <string name="discard_changes">Отменить изменения?</string>
-    <string name="discard">Отмена</string>
+    <string name="discard">Отменить</string>
     <string name="tag_settings">Настройки тегов</string>
     <string name="list_settings">Настройки списка</string>
     <string name="delete">Удалить</string>
@@ -473,7 +473,7 @@
     <string name="list_separator_with_space">", "</string>
     <string name="building_notifications">Генерация уведомлений</string>
     <string name="button_upgrade">Повысить уровень подписки</string>
-    <string name="SSD_sort_my_order">Ручная сортировка</string>
+    <string name="SSD_sort_my_order">Мой порядок</string>
     <string name="EPr_temp_show_completed_tasks">Временно показывать задачи после завершения</string>
     <string name="EPr_temp_completed_tasks_showing">Задачи будут временно видны в списке после завершения</string>
     <string name="EPr_temp_completed_tasks_not_showing">Задачи сразу же исчезнут из списка после завершения</string>
@@ -484,7 +484,7 @@
     </plurals>
     <string name="TEA_add_subtask">Добавить подзадачу</string>
     <string name="subtasks">Подзадачи</string>
-    <string name="location_permission_required_location">Доступ к данным о геолокации нужен, чтобы определить Ваше текущее местоположение</string>
+    <string name="location_permission_required_location">Доступ к данным геолокации нужен, чтобы определить ваше текущее местоположение</string>
     <string name="third_party_licenses">Сторонние лицензии</string>
     <string name="google_tasks_add_to_top">Новые задачи наверху</string>
     <string name="monthly">Ежемесячно</string>
@@ -498,7 +498,7 @@
     <string name="create_new_tag">Создать \"%s\"</string>
     <string name="encryption_password_required">Требуется пароль шифрования</string>
     <string name="encryption_password">Пароль шифрования</string>
-    <string name="display_name">Имя</string>
+    <string name="display_name">Отображаемое название</string>
     <string name="this_feature_requires_a_subscription">Эта функция требует подписки</string>
     <string name="choose_synchronization_service">Выберите платформу</string>
     <string name="google_tasks_selection_description">Простой сервис, который синхронизируется с Вашим аккаунтом Google</string>
@@ -544,7 +544,7 @@
     <string name="chip_appearance_text_and_icon">Текст и иконка</string>
     <string name="add_place">Добавить место</string>
     <string name="hide_unused_places">Спрятать неиспользуемые места</string>
-    <string name="hide_unused_tags">Спрятать неиспользуемые метки</string>
+    <string name="hide_unused_tags">Спрятать неиспользуемые теги</string>
     <string name="navigation_drawer">Панель навигации</string>
     <string name="place_settings">Настройки места</string>
     <string name="places">Места</string>
@@ -579,10 +579,10 @@
     <string name="widget_show_dividers">Показать разделители</string>
     <string name="widget_show_menu">Показать меню</string>
     <string name="widget_hide_background">Спрятать фон</string>
-    <string name="filter_eisenhower_box_4">Матрица Эйзенхауера 4</string>
-    <string name="filter_eisenhower_box_3">Матрица Эйзенхауера 3</string>
-    <string name="filter_eisenhower_box_2">Матрица Эйзенхауера 2</string>
-    <string name="filter_eisenhower_box_1">Матрица Эйзенхауера 1</string>
+    <string name="filter_eisenhower_box_4">Не важное и не срочное</string>
+    <string name="filter_eisenhower_box_3">Не важное и срочное</string>
+    <string name="filter_eisenhower_box_2">Важное и не срочное</string>
+    <string name="filter_eisenhower_box_1">Важное и срочное</string>
     <string name="filter_no_priority">Без приоритета</string>
     <string name="filter_low_priority">Низкий приоритет</string>
     <string name="filter_medium_priority">Средний приоритет</string>
@@ -622,7 +622,7 @@
     <string name="date_shortcut_tomorrow_night">Завтра ночью</string>
     <string name="date_shortcut_tomorrow_evening">Завтра вечером</string>
     <string name="CFC_list_name">В списке…</string>
-    <string name="astrid_sort_order_summary">Включите режим ручной сортировки Astrid для «Мои задачи», «Сегодня» и тегов. Этот режим сортировки будет заменен на «Мой порядок» в будущем обновлении</string>
+    <string name="astrid_sort_order_summary">Включите режим ручной сортировки Astrid для «Моих задач», «Сегодня» и тегов. Этот режим сортировки будет заменён на «Мой порядок» в будущем обновлении</string>
     <string name="astrid_sort_order">Ручная сортировка Astrid</string>
     <string name="manage_lists">Управление списками</string>
     <string name="davx5_selection_description">Синхронизируйте свои задачи с приложением DAVx⁵</string>
@@ -635,7 +635,7 @@
     <string name="automatic_backups">Автоматическое резервное копирование</string>
     <string name="background_location">Местоположение на заднем плане</string>
     <string name="foreground_location">Расположение на переднем плане</string>
-    <string name="no_app_found">Ни одно приложение не может обработать этот запрос</string>
+    <string name="no_app_found">Нет приложений, которые могут обработать этот запрос</string>
     <string name="backup_location_warning">ВНИМАНИЕ: Файлы, расположенные в %s, будут удалены при удалении Tasks! Выберите произвольное расположение, чтобы Android не смог удалить ваши файлы.</string>
     <string name="backups_ignore_warnings_summary">Игнорировать предупреждения о резервном копировании, если вам не нужны резервные копии или у вас есть собственное решение для резервного копирования</string>
     <string name="backups_ignore_warnings">Игнорировать предупреждения</string>
@@ -662,7 +662,7 @@
     <string name="insufficient_subscription">Недостаточный уровень подписки. Обновите подписку, чтобы возобновить обслуживание.</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
     <string name="logged_in">Вы вошли как %s</string>
-    <string name="background_location_permission_required">Это приложение собирает данные о местоположении, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
+    <string name="background_location_permission_required">Это приложение собирает данные геолокации, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
     <string name="migrate_count">Переместить %s на Tasks.org</string>
     <string name="migrating_tasks">Перенос задач</string>
     <string name="migrate">Перенести</string>
@@ -676,7 +676,7 @@
     <string name="authorization_cancelled">Авторизация отменена</string>
     <string name="no_google_play_subscription">Подходящей подписки Google Play не найдено</string>
     <string name="insufficient_sponsorship">Подходящее спонсорство GitHub не найдено</string>
-    <string name="synchronization_third_party">Сторонняя синхронизация</string>
+    <string name="synchronization_third_party">Синхронизация со сторонними сервисами</string>
     <plurals name="list_count">
         <item quantity="one">%d список</item>
         <item quantity="few">%d списка</item>
@@ -698,7 +698,12 @@
     <string name="app_passwords">Пароли приложений</string>
     <string name="app_password">Пароль приложения</string>
     <string name="sign_in_to_tasks">Войти в Tasks.org</string>
-    <string name="local_lists">Локальный список</string>
-    <string name="default_due_date">Срок выполнения по умолчанию</string>
+    <string name="local_lists">Локальные списки</string>
+    <string name="default_due_date">Дата выполнения по умолчанию</string>
     <string name="start_date">Дата начала</string>
+    <string name="filter_criteria_unstarted">Не начавшиеся</string>
+    <string name="show_unstarted">Показать не начавшиеся</string>
+    <string name="no_start_date">Нет даты начала</string>
+    <string name="default_start_date">Дата начала по умолчанию</string>
+    <string name="SSD_sort_start">По дате начала</string>
 </resources>
