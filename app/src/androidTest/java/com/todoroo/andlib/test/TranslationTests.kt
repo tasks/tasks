@@ -55,6 +55,7 @@ class TranslationTests {
         forEachLocale { r: Resources ->
             contains(r, string.CFC_tag_text, failures, "?")
             contains(r, string.CFC_title_contains_text, failures, "?")
+            contains(r, string.CFC_startBefore_text, failures, "?")
             contains(r, string.CFC_dueBefore_text, failures, "?")
             contains(r, string.CFC_tag_contains_text, failures, "?")
             contains(r, string.CFC_gtasks_list_text, failures, "?")

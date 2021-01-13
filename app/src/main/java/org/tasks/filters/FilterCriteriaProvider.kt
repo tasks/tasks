@@ -28,6 +28,7 @@ class FilterCriteriaProvider @Inject constructor(
         IDENTIFIER_UNIVERSE -> startingUniverse
         IDENTIFIER_TITLE -> taskTitleContainsFilter
         IDENTIFIER_IMPORTANCE -> priorityFilter
+        IDENTIFIER_STARTDATE -> startDateFilter
         IDENTIFIER_DUEDATE -> dueDateFilter
         IDENTIFIER_GTASKS -> gtasksFilterCriteria()
         IDENTIFIER_CALDAV -> caldavFilterCriteria()
@@ -56,6 +57,7 @@ class FilterCriteriaProvider @Inject constructor(
         with(result) {
             add(tagFilter())
             add(tagNameContainsFilter)
+            add(startDateFilter)
             add(dueDateFilter)
             add(priorityFilter)
             add(taskTitleContainsFilter)
@@ -197,6 +199,35 @@ class FilterCriteriaProvider @Inject constructor(
                     r.getString(R.string.CFC_dueBefore_name))
         }
 
+    val startDateFilter: CustomFilterCriterion
+        get() {
+            val entryValues = arrayOf(
+                    "0",
+                    PermaSql.VALUE_EOD_YESTERDAY,
+                    PermaSql.VALUE_EOD,
+                    PermaSql.VALUE_EOD_TOMORROW,
+                    PermaSql.VALUE_EOD_DAY_AFTER,
+                    PermaSql.VALUE_EOD_NEXT_WEEK,
+                    PermaSql.VALUE_EOD_NEXT_MONTH)
+            val values: MutableMap<String?, Any> = HashMap()
+            values[Task.HIDE_UNTIL.name] = "?"
+            return MultipleSelectCriterion(
+                    IDENTIFIER_STARTDATE,
+                    r.getString(R.string.CFC_startBefore_text),
+                    select(Task.ID)
+                            .from(Task.TABLE)
+                            .where(
+                                    and(
+                                            activeAndVisible(),
+                                            or(field("?").eq(0), Task.HIDE_UNTIL.gt(0)),
+                                            Task.HIDE_UNTIL.lte("?")))
+                            .toString(),
+                    values,
+                    r.getStringArray(R.array.CFC_startBefore_entries),
+                    entryValues,
+                    r.getString(R.string.CFC_startBefore_name))
+        }
+
     val priorityFilter: CustomFilterCriterion
         get() {
             val entryValues = arrayOf(
@@ -292,6 +323,7 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_UNIVERSE = "active"
         private const val IDENTIFIER_TITLE = "title"
         private const val IDENTIFIER_IMPORTANCE = "importance"
+        private const val IDENTIFIER_STARTDATE = "startDate"
         private const val IDENTIFIER_DUEDATE = "dueDate"
         private const val IDENTIFIER_GTASKS = "gtaskslist"
         private const val IDENTIFIER_CALDAV = "caldavlist"
