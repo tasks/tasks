@@ -533,7 +533,7 @@
     <string name="calendar_event_created">Calendrier de l\'événement créé pour %s</string>
     <string name="share">Partager</string>
     <string name="select_all">Tout sélectionner</string>
-    <string name="hide_check_button">Cacher le bouton d\'achèvement</string>
+    <string name="hide_check_button">Masquer le bouton d\'achèvement</string>
     <string name="compact">Compacte</string>
     <string name="settings_default">Par défaut</string>
     <string name="widget_id">ID du widget : %d</string>
@@ -682,4 +682,5 @@
     <string name="show_unstarted">Afficher non démarré</string>
     <string name="no_start_date">Pas de date de début</string>
     <string name="default_start_date">Date de début par défaut</string>
+    <string name="SSD_sort_start">Par date de début</string>
 </resources>
