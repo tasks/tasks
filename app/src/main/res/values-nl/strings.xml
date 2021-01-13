@@ -245,7 +245,7 @@
     <string name="delete_tag_confirmation">Verwijder %s?</string>
     <string name="TPl_notification">Timers ingeschakeld voor %s!</string>
     <string name="TFE_workingOn">Taken met timer</string>
-    <string name="TEA_timer_comment_started">taak begonnen:</string>
+    <string name="TEA_timer_comment_started">taak gestart:</string>
     <string name="TEA_timer_comment_stopped">taak gestopt:</string>
     <string name="TEA_timer_comment_spent">Gebruikte tijd:</string>
     <string name="voice_create_prompt">Spreek om taak te maken</string>
@@ -678,4 +678,9 @@
     <string name="local_lists">Lokale lijsten</string>
     <string name="default_due_date">Standaard einddatum</string>
     <string name="start_date">Startdatum</string>
+    <string name="default_start_date">Op startdatum</string>
+    <string name="show_unstarted">Toon ongestart</string>
+    <string name="filter_criteria_unstarted">Ongestart</string>
+    <string name="no_start_date">Geen startdatum</string>
+    <string name="SSD_sort_start">Op startdatum</string>
 </resources>
