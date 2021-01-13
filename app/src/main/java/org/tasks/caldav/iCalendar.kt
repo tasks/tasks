@@ -36,73 +36,6 @@ class iCalendar @Inject constructor(
         private val taskDao: TaskDao,
         private val caldavDao: CaldavDao) {
 
-    companion object {
-        const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
-        private val IS_PARENT = { r: RelatedTo ->
-            r.parameters.getParameter<RelType>(Parameter.RELTYPE).let {
-                it === RelType.PARENT || it == null || it.value.isNullOrBlank()
-            }
-        }
-
-        private val IS_APPLE_SORT_ORDER = { x: Property? ->
-            x?.name.equals(APPLE_SORT_ORDER, true)
-        }
-
-        fun fromVtodo(vtodo: String): Task? {
-            try {
-                val tasks = tasksFromReader(StringReader(vtodo))
-                if (tasks.size == 1) {
-                    return tasks[0]
-                }
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-            return null
-        }
-
-        private fun Task.getParents(): List<RelatedTo> = relatedTo.filter(IS_PARENT)
-
-        fun Task.getParent(): String? {
-            return relatedTo.find(IS_PARENT)?.value
-        }
-
-        fun Task.setParent(value: String?) {
-            val parents = getParents()
-            when {
-                value.isNullOrBlank() -> relatedTo.removeAll(parents)
-                parents.isEmpty() -> relatedTo.add(RelatedTo(value))
-                else -> {
-                    if (parents.size > 1) {
-                        relatedTo.removeAll(parents.drop(1))
-                    }
-                    parents[0].let {
-                        it.value = value
-                        it.parameters.replace(RelType.PARENT)
-                    }
-                }
-            }
-        }
-
-        var Task.order: Long?
-            get() = unknownProperties
-                    .find { it.name?.equals(APPLE_SORT_ORDER, true) == true }
-                    .let { it?.value?.toLongOrNull() }
-            set(order) {
-                if (order == null) {
-                    unknownProperties.removeAll(unknownProperties.filter(IS_APPLE_SORT_ORDER))
-                } else {
-                    val existingOrder = unknownProperties
-                            .find { it.name?.equals(APPLE_SORT_ORDER, true) == true }
-
-                    if (existingOrder != null) {
-                        existingOrder.value = order.toString()
-                    } else {
-                        unknownProperties.add(XProperty(APPLE_SORT_ORDER, order.toString()))
-                    }
-                }
-            }
-    }
-
     suspend fun setPlace(taskId: Long, geo: Geo?) {
         if (geo == null) {
             locationDao.getActiveGeofences(taskId).forEach {
@@ -211,5 +144,72 @@ class iCalendar @Inject constructor(
             caldavDao.update(caldavTask)
             Timber.d("UPDATE %s", caldavTask)
         }
+    }
+
+    companion object {
+        const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
+        private val IS_PARENT = { r: RelatedTo ->
+            r.parameters.getParameter<RelType>(Parameter.RELTYPE).let {
+                it === RelType.PARENT || it == null || it.value.isNullOrBlank()
+            }
+        }
+
+        private val IS_APPLE_SORT_ORDER = { x: Property? ->
+            x?.name.equals(APPLE_SORT_ORDER, true)
+        }
+
+        fun fromVtodo(vtodo: String): Task? {
+            try {
+                val tasks = tasksFromReader(StringReader(vtodo))
+                if (tasks.size == 1) {
+                    return tasks[0]
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+            return null
+        }
+
+        private fun Task.getParents(): List<RelatedTo> = relatedTo.filter(IS_PARENT)
+
+        fun Task.getParent(): String? {
+            return relatedTo.find(IS_PARENT)?.value
+        }
+
+        fun Task.setParent(value: String?) {
+            val parents = getParents()
+            when {
+                value.isNullOrBlank() -> relatedTo.removeAll(parents)
+                parents.isEmpty() -> relatedTo.add(RelatedTo(value))
+                else -> {
+                    if (parents.size > 1) {
+                        relatedTo.removeAll(parents.drop(1))
+                    }
+                    parents[0].let {
+                        it.value = value
+                        it.parameters.replace(RelType.PARENT)
+                    }
+                }
+            }
+        }
+
+        var Task.order: Long?
+            get() = unknownProperties
+                    .find { it.name?.equals(APPLE_SORT_ORDER, true) == true }
+                    .let { it?.value?.toLongOrNull() }
+            set(order) {
+                if (order == null) {
+                    unknownProperties.removeAll(unknownProperties.filter(IS_APPLE_SORT_ORDER))
+                } else {
+                    val existingOrder = unknownProperties
+                            .find { it.name?.equals(APPLE_SORT_ORDER, true) == true }
+
+                    if (existingOrder != null) {
+                        existingOrder.value = order.toString()
+                    } else {
+                        unknownProperties.add(XProperty(APPLE_SORT_ORDER, order.toString()))
+                    }
+                }
+            }
     }
 }
