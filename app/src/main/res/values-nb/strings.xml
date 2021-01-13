@@ -645,6 +645,7 @@
     <string name="price_per_year">$%s/år</string>
     <string name="your_subscription_expired">Ditt abonnement har utløpt. Abonner nå for å fortsette tjenesten.</string>
     <string name="logged_in">Innlogget som %s</string>
+    <string name="more_options">Flere innstillinger</string>
     <string name="follow_reddit">Følg r/tasks</string>
     <string name="background_location_permission_required">Dette programmet posisjonsdata for å kunne utløse posisjonsbaserte påminnelser, selv når programmet er lukket eller ikke i bruk.</string>
     <string name="repeat_monthly_fifth_week">femte</string>

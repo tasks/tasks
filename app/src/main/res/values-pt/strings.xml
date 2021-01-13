@@ -628,6 +628,7 @@
     <string name="backups_ignore_warnings">Ignorar avisos</string>
     <string name="device_settings">Definições do telemóvel</string>
     <string name="last_backup_never">Nunca</string>
+    <string name="more_options">Mais opções</string>
     <string name="background_location_permission_required">A aplicação usa a localização para permitir alertas com base na localização mesmo quando a aplicação está fechada ou não está em uso</string>
     <string name="default_tags">Tags pré-definid</string>
     <string name="header_spacing">Espaçamento</string>

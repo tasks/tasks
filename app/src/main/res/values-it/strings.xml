@@ -643,6 +643,7 @@
     <string name="insufficient_subscription">Livello di abbonamento insufficiente. Per favore aggiornalo per riattivare il servizio.</string>
     <string name="your_subscription_expired">Il tuo abbonamento è scaduto. Abbonati ora per riattivare il servizio.</string>
     <string name="logged_in">Collegato come %s</string>
+    <string name="more_options">Altre opzioni</string>
     <string name="background_location_permission_required">Questa app raccoglie i dati di localizzazione per abilitare i promemoria basati sulla posizione, anche quando è chiusa o non è in uso.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="follow_reddit">Segui r/tasks</string>

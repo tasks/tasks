@@ -149,6 +149,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:textColor="@color/text_secondary"
+              android:drawableTint="@color/icon_tint_with_alpha"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/avg_annual"

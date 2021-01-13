@@ -641,6 +641,7 @@
     <string name="logged_in">Logolva itt: %s</string>
     <string name="custom_filter_is_subtask">Alfeladat</string>
     <string name="custom_filter_has_subtask">Van alfeladata</string>
+    <string name="more_options">Több lehetőség</string>
     <string name="cancel">Mégse</string>
     <string name="ok">OK</string>
     <string name="follow_reddit">r/tasks követése</string>
