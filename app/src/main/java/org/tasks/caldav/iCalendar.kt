@@ -3,15 +3,20 @@ package org.tasks.caldav
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
+import net.fortuna.ical4j.model.DateTime
 import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.Property
 import net.fortuna.ical4j.model.parameter.RelType
+import net.fortuna.ical4j.model.property.DtStart
 import net.fortuna.ical4j.model.property.Geo
 import net.fortuna.ical4j.model.property.RelatedTo
 import net.fortuna.ical4j.model.property.XProperty
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.caldav.CaldavConverter.DUE_DATE_FORMAT
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
@@ -22,6 +27,7 @@ import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
+import java.text.ParseException
 import javax.inject.Inject
 
 @Suppress("ClassName")
@@ -156,6 +162,23 @@ class iCalendar @Inject constructor(
 
         private val IS_APPLE_SORT_ORDER = { x: Property? ->
             x?.name.equals(APPLE_SORT_ORDER, true)
+        }
+
+        fun DtStart?.apply(task: com.todoroo.astrid.data.Task) {
+            when (this?.date) {
+                null -> 0
+                is DateTime -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, date.time)
+                else -> try {
+                    DUE_DATE_FORMAT.parse(value)?.let {
+                        task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, it.time)
+                    }
+                } catch (e: ParseException) {
+                    Timber.e(e)
+                    null
+                }
+            }?.let {
+                task.hideUntil = it
+            }
         }
 
         fun fromVtodo(vtodo: String): Task? {

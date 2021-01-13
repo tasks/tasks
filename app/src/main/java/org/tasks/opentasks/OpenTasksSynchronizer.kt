@@ -7,13 +7,14 @@ import android.database.Cursor
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.data.Task.Companion.sanitizeRRule
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
-import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.property.Geo
 import net.fortuna.ical4j.model.property.RRule
 import org.dmfs.tasks.contract.TaskContract.Tasks
@@ -34,9 +35,9 @@ import org.tasks.data.OpenTaskDao.Companion.isDavx5
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
 import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.OpenTaskDao.Companion.newAccounts
-import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.currentTimeMillis
+import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -237,17 +238,23 @@ class OpenTasksSynchronizer @Inject constructor(
             }
             RRule(rrule.value.sanitizeRRule()).value
         } else null)
-        values.put(Tasks.IS_ALLDAY, if (task.hasDueDate() && !task.hasDueTime()) 1 else 0)
+        val allDay = !task.hasDueTime() && !task.hasStartTime()
+        values.put(Tasks.IS_ALLDAY, if (allDay) 1 else 0)
         values.put(Tasks.DUE, when {
-            task.hasDueTime() -> newDateTime(task.dueDate).toDateTime().time
-            task.hasDueDate() -> Date(task.dueDate).time
+            task.hasDueTime() -> task.dueDate
+            task.hasDueDate() -> task.dueDate.startOfDay()
+            else -> null
+        })
+        values.put(Tasks.DTSTART, when {
+            task.hasStartTime() -> task.hideUntil
+            task.hasStartDate() -> task.hideUntil.startOfDay()
             else -> null
         })
         values.put(Tasks.COMPLETED_IS_ALLDAY, 0)
         values.put(Tasks.COMPLETED, if (task.isCompleted) task.completionDate else null)
         values.put(Tasks.STATUS, if (task.isCompleted) Tasks.STATUS_COMPLETED else null)
         values.put(Tasks.PERCENT_COMPLETE, if (task.isCompleted) 100 else null)
-        if (task.hasDueTime() || task.isCompleted) {
+        if (!allDay || task.isCompleted) {
             values.put(Tasks.TZ, TimeZone.getDefault().id)
         }
         values.put(Tasks.PARENT_ID, null as Long?)
@@ -315,14 +322,19 @@ class OpenTasksSynchronizer @Inject constructor(
             task.notes = it.getString(Tasks.DESCRIPTION)
             task.modificationDate = currentTimeMillis()
             task.creationDate = it.getLong(Tasks.CREATED).toLocal()
-            task.setDueDateAdjustingHideUntil(it.getLong(Tasks.DUE).let { due ->
-                when {
-                    due == 0L -> 0
-                    it.getBoolean(Tasks.IS_ALLDAY) ->
-                        Task.createDueDate(URGENCY_SPECIFIC_DAY, due - DateTime(due).offset)
-                    else -> Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, due)
-                }
-            })
+            val allDay = it.getBoolean(Tasks.IS_ALLDAY)
+            val due = it.getLong(Tasks.DUE)
+            task.dueDate = when {
+                due == 0L -> 0
+                allDay -> Task.createDueDate(URGENCY_SPECIFIC_DAY, due - DateTime(due).offset)
+                else -> Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, due)
+            }
+            val start = it.getLong(Tasks.DTSTART)
+            task.hideUntil = when {
+                start == 0L -> 0
+                allDay -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, start - DateTime(start).offset)
+                else -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, start)
+            }
             iCalendar.setPlace(task.id, it.getString(Tasks.GEO).toGeo())
             task.setRecurrence(it.getString(Tasks.RRULE).toRRule())
             val tagNames = openTaskDao.getTags(listId, caldavTask)

@@ -103,6 +103,13 @@ class ThunderbirdTests {
     }
 
     @Test
+    fun startDateTime() {
+        assertEquals(
+                DateTime(2021, 1, 12, 11, 0, 1).millis,
+                vtodo("thunderbird/start_date_time.txt").hideUntil)
+    }
+
+    @Test
     @Ignore
     fun dontCrashOnMultipleTasks() {
         vtodo("thunderbird/completed_repeating_task.txt")

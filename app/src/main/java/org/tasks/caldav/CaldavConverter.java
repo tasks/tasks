@@ -5,6 +5,7 @@ import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME;
 import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.time.DateTimeUtils.startOfDay;
 
 import at.bitfire.ical4android.DateUtils;
 import com.todoroo.astrid.data.Task;
@@ -26,7 +27,7 @@ import timber.log.Timber;
 
 public class CaldavConverter {
 
-  private static final DateFormat DUE_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.US);
+  static final DateFormat DUE_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.US);
 
   public static void apply(Task local, at.bitfire.ical4android.Task remote) {
     Completed completedAt = remote.getCompletedAt();
@@ -54,11 +55,10 @@ public class CaldavConverter {
     } else {
       Date dueDate = due.getDate();
       if (dueDate instanceof DateTime) {
-        local.setDueDateAdjustingHideUntil(
-            Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getTime()));
+        local.setDueDate(Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getTime()));
       } else {
         try {
-          local.setDueDateAdjustingHideUntil(
+          local.setDueDate(
               Task.createDueDate(
                   URGENCY_SPECIFIC_DAY, DUE_DATE_FORMAT.parse(due.getValue()).getTime()));
         } catch (ParseException e) {
@@ -66,6 +66,7 @@ public class CaldavConverter {
         }
       }
     }
+    iCalendar.Companion.apply(remote.getDtStart(), local);
   }
 
   public static @Priority int fromRemote(int remotePriority) {
@@ -110,18 +111,19 @@ public class CaldavConverter {
     remote.setCreatedAt(newDateTime(task.getCreationDate()).toUTC().getMillis());
     remote.setSummary(task.getTitle());
     remote.setDescription(task.getNotes());
-    if (task.hasDueTime()) {
-      net.fortuna.ical4j.model.TimeZone tz =
-          DateUtils.INSTANCE.ical4jTimeZone(TimeZone.getDefault().getID());
-      DateTime dateTime = new DateTime(tz != null
-          ? task.getDueDate()
-          : new org.tasks.time.DateTime(task.getDueDate()).toUTC().getMillis());
-      dateTime.setTimeZone(tz);
-      remote.setDue(new Due(dateTime));
-    } else if (task.hasDueDate()) {
-      remote.setDue(new Due(new Date(task.getDueDate())));
+    boolean allDay = !task.hasDueTime() && !task.hasStartTime();
+    long dueDate = task.hasDueTime() ? task.getDueDate() : startOfDay(task.getDueDate());
+    long startDate = task.hasStartTime() ? task.getHideUntil() : startOfDay(task.getHideUntil());
+    if (dueDate > 0) {
+      startDate = Math.min(dueDate, startDate);
+      remote.setDue(new Due(allDay ? new Date(dueDate) : getDateTime(dueDate)));
     } else {
       remote.setDue(null);
+    }
+    if (startDate > 0) {
+      remote.setDtStart(new DtStart(allDay ? new Date(startDate) : getDateTime(startDate)));
+    } else {
+      remote.setDtStart(null);
     }
     if (task.isCompleted()) {
       remote.setCompletedAt(new Completed(new DateTime(task.getCompletionDate())));
@@ -157,5 +159,15 @@ public class CaldavConverter {
     iCalendar.Companion.setParent(remote, task.getParent() == 0 ? null : caldavTask.getRemoteParent());
 
     return remote;
+  }
+
+  private static DateTime getDateTime(long timestamp) {
+    net.fortuna.ical4j.model.TimeZone tz =
+        DateUtils.INSTANCE.ical4jTimeZone(TimeZone.getDefault().getID());
+    DateTime dateTime = new DateTime(tz != null
+        ? timestamp
+        : new org.tasks.time.DateTime(timestamp).toUTC().getMillis());
+    dateTime.setTimeZone(tz);
+    return dateTime;
   }
 }

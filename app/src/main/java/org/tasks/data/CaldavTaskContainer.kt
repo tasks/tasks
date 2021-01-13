@@ -8,6 +8,9 @@ class CaldavTaskContainer {
     @Embedded lateinit var task: Task
     @Embedded lateinit var caldavTask: CaldavTask
 
+    val id: Long
+        get() = task.id
+
     val remoteId: String?
         get() = caldavTask.remoteId
 
@@ -19,6 +22,9 @@ class CaldavTaskContainer {
 
     val sortOrder: Long
         get() = caldavTask.order ?: DateTime(task.creationDate).toAppleEpoch()
+
+    val startDate: Long
+        get() = task.hideUntil
 
     override fun toString(): String = "CaldavTaskContainer{task=$task, caldavTask=$caldavTask}"
 }

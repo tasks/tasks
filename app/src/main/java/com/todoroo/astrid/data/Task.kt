@@ -192,6 +192,8 @@ class Task : Parcelable {
     val isHidden
         get() = hideUntil > DateUtilities.now()
 
+    fun hasStartTime() = hasDueTime(hideUntil)
+
     fun hasStartDate() = hideUntil > 0
 
     /** Checks whether task is done. Requires DUE_DATE  */
@@ -209,7 +211,7 @@ class Task : Parcelable {
             HIDE_UNTIL_DUE, HIDE_UNTIL_DUE_TIME -> dueDate
             HIDE_UNTIL_DAY_BEFORE -> dueDate - DateUtilities.ONE_DAY
             HIDE_UNTIL_WEEK_BEFORE -> dueDate - DateUtilities.ONE_WEEK
-            HIDE_UNTIL_SPECIFIC_DAY, HIDE_UNTIL_SPECIFIC_DAY_TIME -> customDate.startOfDay()
+            HIDE_UNTIL_SPECIFIC_DAY, HIDE_UNTIL_SPECIFIC_DAY_TIME -> customDate
             else -> throw IllegalArgumentException("Unknown setting $setting")
         }
         if (date <= 0) {
@@ -224,7 +226,7 @@ class Task : Parcelable {
     }
 
     /** Checks whether this due date has a due time or only a date  */
-    fun hasDueTime(): Boolean = hasDueDate() && hasDueTime(dueDate)
+    fun hasDueTime(): Boolean = hasDueTime(dueDate)
 
     val isOverdue: Boolean
         get() {
@@ -368,6 +370,7 @@ class Task : Parcelable {
             false
         } else title == original.title
                 && priority == original.priority
+                && hideUntil == original.hideUntil
                 && dueDate == original.dueDate
                 && completionDate == original.completionDate
                 && deletionDate == original.deletionDate
