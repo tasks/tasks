@@ -2,8 +2,20 @@ package org.tasks.tasklist
 
 import androidx.recyclerview.widget.DiffUtil
 import com.todoroo.astrid.adapter.TaskAdapter
+import com.todoroo.astrid.core.SortHelper.SORT_DUE
+import com.todoroo.astrid.core.SortHelper.SORT_START
 
-internal class DiffCallback(private val old: SectionedDataSource, private val new: SectionedDataSource, @Deprecated("") private val adapter: TaskAdapter) : DiffUtil.Callback() {
+internal class DiffCallback(
+        private val old: SectionedDataSource,
+        private val new: SectionedDataSource,
+        @Deprecated("") private val adapter: TaskAdapter
+) : DiffUtil.Callback() {
+
+    private val refreshDates = when (old.sortMode) {
+        SORT_DUE -> new.sortMode == SORT_START
+        SORT_START -> new.sortMode == SORT_DUE
+        else -> false
+    }
 
     override fun getOldListSize() = old.size
 
@@ -28,6 +40,6 @@ internal class DiffCallback(private val old: SectionedDataSource, private val ne
         }
         val oldItem = old.getItem(oldPosition)!!
         val newItem = new.getItem(newPosition)!!
-        return oldItem == newItem && oldItem.getIndent() == adapter.getIndent(newItem)
+        return !refreshDates && oldItem == newItem && oldItem.getIndent() == adapter.getIndent(newItem)
     }
 }
