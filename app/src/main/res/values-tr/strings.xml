@@ -689,4 +689,7 @@
     <string name="no_start_date">Başlangıç tarihi yok</string>
     <string name="default_start_date">Öntanımlı başlangıç tarihi</string>
     <string name="SSD_sort_start">Başlangıç tarihine göre</string>
+    <string name="CFC_startBefore_name">Başlangıç…</string>
+    <string name="CFC_startBefore_text">Başlangıç: \?</string>
+    <string name="filter_any_start_date">Herhangi başlangıç tarihi</string>
 </resources>
