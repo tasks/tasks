@@ -549,6 +549,7 @@ File %1$s contained %2$s.\n\n
   <string name="enter_tag_name">Enter tag name</string>
   <string name="create_new_tag">Create \"%s\"</string>
   <string name="choose_synchronization_service">Select a platform</string>
+  <string name="tasks_org_description">Synchronize your tasks with Tasks.org</string>
   <string name="google_tasks_selection_description">Basic service that synchronizes with your Google account</string>
   <string name="caldav_selection_description">Synchronization based on open internet standards</string>
   <string name="etesync_selection_description">Open source, end-to-end encrypted synchronization</string>

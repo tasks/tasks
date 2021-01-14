@@ -2,6 +2,7 @@ package org.tasks.preferences.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
@@ -29,6 +30,7 @@ import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
 import org.tasks.opentasks.OpenTaskAccountSettingsActivity
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.PreferencesViewModel
 import org.tasks.sync.AddAccountDialog.Companion.newAccountDialog
 import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
@@ -42,6 +44,8 @@ class Synchronization : InjectingPreferenceFragment() {
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var syncAdapters: SyncAdapters
+
+    private val viewModel: PreferencesViewModel by activityViewModels()
 
     override fun getPreferenceXml() = R.xml.preferences_synchronization
 
@@ -63,8 +67,11 @@ class Synchronization : InjectingPreferenceFragment() {
 
         findPreference(R.string.add_account)
             .setOnPreferenceClickListener {
-                newAccountDialog(this@Synchronization, REQUEST_ADD_ACCOUNT)
-                        .show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
+                lifecycleScope.launch {
+                    val hasTasksAccount = viewModel.tasksAccount() != null
+                    newAccountDialog(this@Synchronization, REQUEST_ADD_ACCOUNT, hasTasksAccount)
+                            .show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
+                }
                 false
             }
     }

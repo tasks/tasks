@@ -135,7 +135,7 @@ _${getString(R.string.upgrade_tasks_no_account)}_
             """
 ---                
 #### ${getString(R.string.upgrade_tasks_account)}
-* ${getString(R.string.upgrade_sync_tasks)}
+* ${getString(R.string.tasks_org_description)}
 * [${getString(R.string.upgrade_third_party_apps)}](${getString(R.string.url_app_passwords)})
 * [${getString(R.string.upgrade_coming_soon)}](${getString(R.string.help_url_sync)})
 """

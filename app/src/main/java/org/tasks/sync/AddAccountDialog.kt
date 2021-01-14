@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.auth.SignInActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.etebase.EtebaseAccountSettingsActivity
@@ -22,6 +23,7 @@ import org.tasks.extensions.getMutableIntList
 import org.tasks.extensions.getMutableStringList
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_CALDAV_SETTINGS
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_GOOGLE_TASKS
+import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_TASKS_ORG
 import org.tasks.themes.DrawableUtil
 import javax.inject.Inject
 
@@ -30,10 +32,17 @@ class AddAccountDialog : DialogFragment() {
 
     @Inject lateinit var dialogBuilder: DialogBuilder
 
+    private val hasTasksAccount: Boolean
+        get() = arguments?.getBoolean(EXTRA_HAS_TASKS_ACCOUNT) ?: false
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val services = resources.getMutableStringList(R.array.synchronization_services)
         val descriptions = resources.getMutableStringList(R.array.synchronization_services_description)
         val icons = resources.getMutableIntList(R.array.synchronization_services_icons)
+        if (hasTasksAccount) {
+            services.removeAt(0)
+            descriptions.removeAt(0)
+            icons.removeAt(0)
         }
         val adapter: ArrayAdapter<String> = object : ArrayAdapter<String>(
                 requireActivity(), R.layout.simple_list_item_2_themed, R.id.text1, services) {
@@ -42,8 +51,9 @@ class AddAccountDialog : DialogFragment() {
                 view.findViewById<TextView>(R.id.text1).text = services[position]
                 view.findViewById<TextView>(R.id.text2).text = descriptions[position]
                 val icon = view.findViewById<ImageView>(R.id.image_view)
-                icon.setImageDrawable(DrawableUtil.getWrapped(context, icons[position]))
-                if (position == 2) {
+                val iconResId = icons[position]
+                icon.setImageDrawable(DrawableUtil.getWrapped(context, iconResId))
+                if (iconResId == R.drawable.ic_webdav_logo) {
                     icon.drawable.setTint(context.getColor(R.color.icon_tint))
                 }
                 return view
@@ -53,19 +63,22 @@ class AddAccountDialog : DialogFragment() {
                 .newDialog()
                 .setTitle(R.string.choose_synchronization_service)
                 .setSingleChoiceItems(adapter, -1) { dialog, which ->
-                    when (which) {
+                    when (if (hasTasksAccount) which + 1 else which) {
                         0 -> activity?.startActivityForResult(
+                                Intent(activity, SignInActivity::class.java),
+                                REQUEST_TASKS_ORG)
+                        1 -> activity?.startActivityForResult(
                                 Intent(activity, GtasksLoginActivity::class.java),
                                 REQUEST_GOOGLE_TASKS)
-                        1 -> activity?.startActivity(
+                        2 -> activity?.startActivity(
                                 Intent(ACTION_VIEW, Uri.parse(getString(R.string.url_davx5))))
-                        2 -> activity?.startActivityForResult(
+                        3 -> activity?.startActivityForResult(
                                 Intent(activity, CaldavAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
-                        3 -> activity?.startActivityForResult(
+                        4 -> activity?.startActivityForResult(
                                 Intent(activity, EtebaseAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
-                        4 -> activity?.startActivity(
+                        5 -> activity?.startActivity(
                                 Intent(ACTION_VIEW, Uri.parse(getString(R.string.url_decsync))))
                     }
                     dialog.dismiss()
@@ -83,9 +96,19 @@ class AddAccountDialog : DialogFragment() {
     }
 
     companion object {
-        fun newAccountDialog(targetFragment: Fragment, rc: Int): AddAccountDialog =
-                AddAccountDialog().apply {
-                    setTargetFragment(targetFragment, rc)
-                }
+        private const val EXTRA_HAS_TASKS_ACCOUNT = "extra_has_tasks_account"
+
+        fun newAccountDialog(
+                targetFragment: Fragment,
+                rc: Int,
+                hasTasksAccount: Boolean
+        ): AddAccountDialog {
+            val dialog = AddAccountDialog()
+            dialog.arguments = Bundle().apply {
+                putBoolean(EXTRA_HAS_TASKS_ACCOUNT, hasTasksAccount)
+            }
+            dialog.setTargetFragment(targetFragment, rc)
+            return dialog
+        }
     }
 }
