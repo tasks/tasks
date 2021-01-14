@@ -679,4 +679,7 @@
     <string name="no_start_date">无开始日期</string>
     <string name="default_start_date">默认的开始日期</string>
     <string name="SSD_sort_start">按开始日期</string>
+    <string name="CFC_startBefore_name">开始于…</string>
+    <string name="CFC_startBefore_text">开始于：？</string>
+    <string name="filter_any_start_date">任意开始日期</string>
 </resources>
