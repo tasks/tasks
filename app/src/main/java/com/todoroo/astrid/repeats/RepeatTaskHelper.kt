@@ -194,6 +194,9 @@ class RepeatTaskHelper @Inject constructor(
         private fun initRRule(recurrence: String?): RRule {
             val rrule = RRule(recurrence)
 
+            if (rrule.count < 0) {
+                rrule.count = 0
+            }
             // handle the iCalendar "byDay" field differently depending on if
             // we are weekly or otherwise
             if (rrule.freq != Frequency.WEEKLY && rrule.freq != Frequency.MONTHLY) {
