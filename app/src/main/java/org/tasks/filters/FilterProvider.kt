@@ -63,8 +63,10 @@ class FilterProvider @Inject constructor(
                                 BuiltInFilterExposer.getNoListFilter(),
                                 BuiltInFilterExposer.getNoTitleFilter(),
                                 BuiltInFilterExposer.getMissingListFilter(),
+                                BuiltInFilterExposer.getMissingAccountFilter(),
                                 BuiltInFilterExposer.getNoCreateDateFilter(),
-                                BuiltInFilterExposer.getNoModificationDateFilter()
+                                BuiltInFilterExposer.getNoModificationDateFilter(),
+                                BuiltInFilterExposer.getDeleted()
                         ))
 
             } else {
@@ -158,7 +160,6 @@ class FilterProvider @Inject constructor(
             } else {
                 ArrayList<FilterListItem>()
             }
-                    .plusAllIf(BuildConfig.DEBUG) { getDebugFilters() }
                     .asSequence()
                     .plus(addFilters(showCreate, showBuiltIn))
                     .plus(addTags(showCreate))
@@ -166,6 +167,7 @@ class FilterProvider @Inject constructor(
                     .plus(googleTaskFilters(showCreate))
                     .plus(caldavFilters(showCreate))
                     .toList()
+                    .plusAllIf(BuildConfig.DEBUG) { getDebugFilters() }
 
     private val navDrawerFooter: List<FilterListItem>
         get() = listOf(NavigationDrawerSeparator())

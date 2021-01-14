@@ -7,7 +7,6 @@ package com.todoroo.astrid.core
 
 import android.content.Context
 import android.content.res.Resources
-import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Criterion.Companion.and
 import com.todoroo.andlib.sql.Criterion.Companion.or
 import com.todoroo.andlib.sql.Join
@@ -87,76 +86,68 @@ class BuiltInFilterExposer @Inject constructor(
                     todayValues)
         }
 
-        fun getNoListFilter(): Filter {
-            return Filter(
-                    "No list",
-                    QueryTemplate()
-                            .join(Join.left(GoogleTask.TABLE, and(GoogleTask.TASK.eq(Task.ID), GoogleTask.DELETED.eq(0))))
-                            .join(Join.left(CaldavTask.TABLE, and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
-                            .where(and(
-                                    activeAndVisible(),
-                                    GoogleTask.ID.eq(null),
-                                    CaldavTask.ID.eq(null))))
-                    .apply {
-                        icon = R.drawable.ic_outline_cloud_off_24px
-                    }
-        }
+        fun getNoListFilter() =
+                Filter(
+                        "No list",
+                        QueryTemplate()
+                                .join(Join.left(GoogleTask.TABLE, GoogleTask.TASK.eq(Task.ID)))
+                                .join(Join.left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
+                                .where(and(GoogleTask.ID.eq(null), CaldavTask.ID.eq(null)))
+                ).apply {
+                    icon = R.drawable.ic_outline_cloud_off_24px
+                }
 
-        fun getMissingListFilter(): Filter {
-            return Filter(
-                    "Missing list",
-                    QueryTemplate()
-                            .join(Join.left(GoogleTask.TABLE, and(GoogleTask.TASK.eq(Task.ID), GoogleTask.DELETED.eq(0))))
-                            .join(Join.left(CaldavTask.TABLE, and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
-                            .join(Join.left(GoogleTaskList.TABLE, GoogleTaskList.REMOTE_ID.eq(GoogleTask.LIST)))
-                            .join(Join.left(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)))
-                            .where(and(
-                                    activeAndVisible(),
-                                    or(
-                                            and(GoogleTask.ID.gt(0), GoogleTaskList.REMOTE_ID.eq(null)),
-                                            and(CaldavTask.ID.gt(0), CaldavCalendar.UUID.eq(null))
-                                    )
-                                    )))
-                    .apply {
-                        icon = R.drawable.ic_outline_cloud_off_24px
-                    }
-        }
+        fun getDeleted() =
+                Filter("Deleted", QueryTemplate().where(Task.DELETION_DATE.gt(0)))
+                        .apply { icon = R.drawable.ic_outline_delete_24px }
 
-        fun getNoTitleFilter(): Filter {
-            return Filter(
-                    "No title",
-                    QueryTemplate()
-                            .where(and(
-                                    activeAndVisible(),
-                                    Criterion.or(Task.TITLE.eq(null), Task.TITLE.eq("")))))
-                    .apply {
-                        icon = R.drawable.ic_outline_clear_24px
-                    }
-        }
+        fun getMissingListFilter() =
+                Filter(
+                        "Missing list",
+                        QueryTemplate()
+                                .join(Join.left(GoogleTask.TABLE, GoogleTask.TASK.eq(Task.ID)))
+                                .join(Join.left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
+                                .join(Join.left(GoogleTaskList.TABLE, GoogleTaskList.REMOTE_ID.eq(GoogleTask.LIST)))
+                                .join(Join.left(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)))
+                                .where(or(
+                                        and(GoogleTask.ID.gt(0), GoogleTaskList.REMOTE_ID.eq(null)),
+                                        and(CaldavTask.ID.gt(0), CaldavCalendar.UUID.eq(null))))
+                ).apply {
+                    icon = R.drawable.ic_outline_cloud_off_24px
+                }
 
-        fun getNoCreateDateFilter(): Filter {
-            return Filter(
-                    "No create time",
-                    QueryTemplate()
-                            .where(and(
-                                    activeAndVisible(),
-                                    Task.CREATION_DATE.eq(0))))
-                    .apply {
-                        icon = R.drawable.ic_outline_add_24px
-                    }
-        }
+        fun getMissingAccountFilter() =
+                Filter(
+                        "Missing account",
+                        QueryTemplate()
+                                .join(Join.left(GoogleTask.TABLE, and(GoogleTask.TASK.eq(Task.ID))))
+                                .join(Join.left(CaldavTask.TABLE, and(CaldavTask.TASK.eq(Task.ID))))
+                                .join(Join.left(GoogleTaskList.TABLE, GoogleTaskList.REMOTE_ID.eq(GoogleTask.LIST)))
+                                .join(Join.left(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)))
+                                .join(Join.left(GoogleTaskAccount.TABLE, GoogleTaskAccount.ACCOUNT.eq(GoogleTaskList.ACCOUNT)))
+                                .join(Join.left(CaldavAccount.TABLE, CaldavAccount.UUID.eq(CaldavCalendar.ACCOUNT)))
+                                .where(or(
+                                        and(GoogleTask.ID.gt(0), GoogleTaskAccount.ACCOUNT.eq(null)),
+                                        and(CaldavTask.ID.gt(0), CaldavAccount.UUID.eq(null))))
+                ).apply {
+                    icon = R.drawable.ic_outline_cloud_off_24px
+                }
 
-        fun getNoModificationDateFilter(): Filter {
-            return Filter(
-                    "No modify time",
-                    QueryTemplate()
-                            .where(and(
-                                    activeAndVisible(),
-                                    Task.MODIFICATION_DATE.eq(0))))
-                    .apply {
-                        icon = R.drawable.ic_outline_edit_24px
-                    }
-        }
+        fun getNoTitleFilter() =
+                Filter(
+                        "No title",
+                        QueryTemplate().where(or(Task.TITLE.eq(null), Task.TITLE.eq("")))
+                ).apply {
+                    icon = R.drawable.ic_outline_clear_24px
+                }
+
+        fun getNoCreateDateFilter() =
+                Filter("No create time", QueryTemplate().where(Task.CREATION_DATE.eq(0)))
+                        .apply { icon = R.drawable.ic_outline_add_24px }
+
+        fun getNoModificationDateFilter() =
+                Filter("No modify time", QueryTemplate().where(Task.MODIFICATION_DATE.eq(0)))
+                        .apply { icon = R.drawable.ic_outline_edit_24px }
 
         fun getRecentlyModifiedFilter(r: Resources) =
                 RecentlyModifiedFilter(r.getString(R.string.BFE_Recent))

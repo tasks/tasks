@@ -122,6 +122,7 @@ class CaldavCalendar : Parcelable {
 
     companion object {
         @JvmField val TABLE = Table("caldav_lists")
+        val ACCOUNT = TABLE.column("cdl_account")
         @JvmField val UUID = TABLE.column("cdl_uuid")
         @JvmField val NAME = TABLE.column("cdl_name")
         @JvmField val CREATOR: Parcelable.Creator<CaldavCalendar> = object : Parcelable.Creator<CaldavCalendar> {

@@ -7,6 +7,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.todoroo.andlib.data.Table
 
 @Entity(tableName = "google_task_accounts")
 class GoogleTaskAccount : Parcelable {
@@ -82,6 +83,9 @@ class GoogleTaskAccount : Parcelable {
             "GoogleTaskAccount(id=$id, account=$account, error=$error, etag=$etag, isCollapsed=$isCollapsed)"
 
     companion object {
+        val TABLE = Table("google_task_accounts")
+        val ACCOUNT = TABLE.column("gta_account")
+
         @JvmField val CREATOR: Parcelable.Creator<GoogleTaskAccount> = object : Parcelable.Creator<GoogleTaskAccount> {
             override fun createFromParcel(source: Parcel): GoogleTaskAccount = GoogleTaskAccount(source)
 

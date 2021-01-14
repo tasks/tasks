@@ -8,6 +8,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
 import org.tasks.R
 import org.tasks.activities.BaseListSettingsActivity
@@ -178,6 +179,9 @@ class CaldavAccount : Parcelable {
     fun isPaymentRequired() = error?.startsWith(EROR_PAYMENT_REQUIRED) == true
 
     companion object {
+        val TABLE = Table("caldav_accounts")
+        val UUID = TABLE.column("cda_uuid")
+
         const val TYPE_CALDAV = 0
         @Deprecated("use etebase") const val TYPE_ETESYNC = 1
         const val TYPE_LOCAL = 2
