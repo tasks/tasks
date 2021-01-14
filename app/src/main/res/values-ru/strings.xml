@@ -662,7 +662,7 @@
     <string name="insufficient_subscription">Недостаточный уровень подписки. Обновите подписку, чтобы возобновить обслуживание.</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
     <string name="logged_in">Вы вошли как %s</string>
-    <string name="more_options">Дополнительные параметры</string>
+    <string name="more_options">Больше вариантов</string>
     <string name="background_location_permission_required">Это приложение собирает данные геолокации, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
     <string name="migrate_count">Переместить %s на Tasks.org</string>
     <string name="migrating_tasks">Перенос задач</string>
@@ -707,4 +707,7 @@
     <string name="no_start_date">Нет даты начала</string>
     <string name="default_start_date">Дата начала по умолчанию</string>
     <string name="SSD_sort_start">По дате начала</string>
+    <string name="CFC_startBefore_name">Дата начала…</string>
+    <string name="CFC_startBefore_text">Дата начала: \?</string>
+    <string name="filter_any_start_date">Любая дата начала</string>
 </resources>
