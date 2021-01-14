@@ -12,6 +12,7 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.iCalendar
+import org.tasks.caldav.iCalendar.Companion.apply
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.iCalendar.Companion.getParent
 import org.tasks.caldav.iCalendar.Companion.order
@@ -70,6 +71,9 @@ class Upgrader @Inject constructor(
                         .filter { it.getSql().trim() == "WHERE" }
                         .forEach { filterDao.delete(it) }
             }
+            run(from, V11_3) {
+                applyiCalendarStartDates()
+            }
             preferences.setBoolean(R.string.p_just_updated, true)
         }
         preferences.setCurrentVersion(to)
@@ -114,6 +118,19 @@ class Upgrader @Inject constructor(
 
     private fun getAndroidColor(index: Int): Int {
         return getAndroidColor(context, index)
+    }
+
+    private suspend fun applyiCalendarStartDates() {
+        val (hasStartDate, noStartDate) = upgraderDao.tasksWithVtodos().partition { it.startDate > 0 }
+        for (task in noStartDate) {
+            task.vtodo?.let { fromVtodo(it) }?.dtStart?.let {
+                it.apply(task.task)
+                upgraderDao.setStartDate(task.id, task.startDate)
+            }
+        }
+        hasStartDate
+                .map { it.id }
+                .let { taskDao.touch(it) }
     }
 
     private suspend fun applyCaldavOrder() {
@@ -317,6 +334,7 @@ class Upgrader @Inject constructor(
         const val V9_7 = 90700
         const val V9_7_3 = 90704
         const val V10_0_2 = 100012
+        const val V11_3 = 110300
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

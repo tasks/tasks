@@ -23,4 +23,7 @@ FROM tasks
 GROUP BY tasks._id
     """)
     suspend fun tasksWithTags(): List<Long>
+
+    @Query("UPDATE tasks SET hideUntil = :startDate WHERE _id = :task")
+    fun setStartDate(task: Long, startDate: Long)
 }
