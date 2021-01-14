@@ -14,18 +14,6 @@
     app:icon="@drawable/ic_outline_add_24px" />
 
   <PreferenceCategory
-    android:key="@string/gtasks_GPr_header"
-    android:title="@string/gtasks_GPr_header"
-    app:isPreferenceVisible="false">
-
-    <SwitchPreferenceCompat
-      android:key="@string/google_tasks_position_hack"
-      android:summary="@string/google_tasks_position_hack_summary"
-      android:title="@string/google_tasks_position_hack" />
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
     android:key="@string/sync_SPr_interval_title"
     android:title="@string/sync_SPr_interval_title"
     app:isPreferenceVisible="false">

@@ -12,6 +12,8 @@ import android.os.Binder
 import androidx.core.app.NotificationCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.preference.PreferenceManager
+import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.api.AstridApiConstants
 import com.todoroo.astrid.core.SortHelper
@@ -432,8 +434,9 @@ class Preferences @JvmOverloads constructor(
     val isFlipperEnabled: Boolean
         get() = BuildConfig.DEBUG && getBoolean(R.string.p_flipper, false)
 
-    val isPositionHackEnabled: Boolean
-        get() = getLong(R.string.p_google_tasks_position_hack, 0) > 0
+    var isPositionHackEnabled: Boolean
+        get() = getLong(R.string.p_google_tasks_position_hack, 0) > now() - DateUtilities.ONE_WEEK
+        set(value) { setLong(R.string.p_google_tasks_position_hack, if (value) now() else 0) }
 
     override var isManualSort: Boolean
         get() = getBoolean(R.string.p_manual_sort, false)

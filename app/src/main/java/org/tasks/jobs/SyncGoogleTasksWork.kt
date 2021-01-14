@@ -17,7 +17,7 @@ class SyncGoogleTasksWork @WorkerInject constructor(
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,
         localBroadcastManager: LocalBroadcastManager,
-        preferences: Preferences,
+        private val preferences: Preferences,
         private val googleTaskListDao: GoogleTaskListDao,
         private val googleTaskSynchronizer: GoogleTaskSynchronizer
 ) : SyncWork(context, workerParams, firebase, localBroadcastManager, preferences) {
@@ -27,6 +27,9 @@ class SyncGoogleTasksWork @WorkerInject constructor(
     override val syncStatus = R.string.p_sync_ongoing_google_tasks
 
     override suspend fun doSync() {
+        if (preferences.isManualSort) {
+            preferences.isPositionHackEnabled = true
+        }
         googleTaskJobs().awaitAll()
     }
 

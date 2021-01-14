@@ -405,8 +405,6 @@
   <string name="preference_screen">preference_screen</string>
   <string name="p_add_to_top">google_tasks_add_to_top</string>
   <string name="p_google_tasks_position_hack">google_tasks_position_hack</string>
-  <string name="google_tasks_position_hack">Custom order synchronization fix</string>
-  <string name="google_tasks_position_hack_summary">Always perform a full synchronization to workaround https://issuetracker.google.com/issues/132432317</string>
   <string name="subscription_help_url">https://tasks.org/subscribe</string>
   <string name="p_use_paged_queries">disable_subtasks</string>
   <string name="p_disable_sort_groups">disable_sort_groups</string>

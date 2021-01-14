@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
-import androidx.preference.SwitchPreferenceCompat
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,22 +59,6 @@ class Synchronization : InjectingPreferenceFragment() {
                     workManager.updateBackgroundSync(o as Boolean?, null)
                 }
                 true
-            }
-
-        val positionHack =
-            findPreference(R.string.google_tasks_position_hack) as SwitchPreferenceCompat
-        positionHack.isChecked = preferences.isPositionHackEnabled
-        positionHack.onPreferenceChangeListener =
-            Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any? ->
-                if (newValue == null) {
-                    false
-                } else {
-                    preferences.setLong(
-                        R.string.p_google_tasks_position_hack,
-                        if (newValue as Boolean) DateUtilities.now() else 0
-                    )
-                    true
-                }
             }
 
         findPreference(R.string.add_account)
@@ -204,7 +186,6 @@ class Synchronization : InjectingPreferenceFragment() {
             synchronizationPreferences.removeAll()
             val hasGoogleAccounts: Boolean = addGoogleTasksAccounts(synchronizationPreferences)
             val hasCaldavAccounts = addCaldavAccounts(synchronizationPreferences)
-            findPreference(R.string.gtasks_GPr_header).isVisible = hasGoogleAccounts
             val syncEnabled = hasGoogleAccounts || hasCaldavAccounts
             findPreference(R.string.accounts).isVisible = syncEnabled
             findPreference(R.string.sync_SPr_interval_title).isVisible = syncEnabled
