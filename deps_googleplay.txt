@@ -249,7 +249,7 @@
 ++--- com.gitlab.bitfireAT:dav4jvm:2.1.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.72 -> 1.4.21 (*)
 +|    \--- org.apache.commons:commons-lang3:3.9
-++--- com.gitlab.abaker:ical4android:6ccdb1a
+++--- com.gitlab.abaker:ical4android:007f7751d5
 +|    +--- org.mnode.ical4j:ical4j:3.0.21
 +|    |    +--- org.slf4j:slf4j-api:1.7.25 -> 1.7.30
 +|    |    +--- commons-codec:commons-codec:1.11

@@ -115,25 +115,16 @@ class iCalendar @Inject constructor(
             calendar: CaldavCalendar,
             existing: CaldavTask?,
             remote: Task,
-            vtodo: String,
+            vtodo: String?,
             obj: String? = null,
             eTag: String? = null) {
-        val task: com.todoroo.astrid.data.Task
-        val caldavTask: CaldavTask
-        if (existing == null) {
-            task = taskCreator.createWithValues("")
-            taskDao.createNew(task)
-            caldavTask = CaldavTask(task.id, calendar.uuid, remote.uid, obj)
-        } else {
-            caldavTask = existing
-            task = taskDao.fetch(existing.task)
-                    ?: taskCreator.createWithValues("").apply {
-                        taskDao.createNew(this)
-                        caldavTask.task = id
-                    }
-        }
+        val task = existing?.task?.let { taskDao.fetch(it) }
+                ?: taskCreator.createWithValues("").apply {
+                    taskDao.createNew(this)
+                    existing?.task = id
+                }
+        val caldavTask = existing ?: CaldavTask(task.id, calendar.uuid, remote.uid, obj)
         CaldavConverter.apply(task, remote)
-        caldavTask.order = remote.order
         setPlace(task.id, remote.geoPosition)
         tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
         task.suppressSync()
@@ -143,6 +134,7 @@ class iCalendar @Inject constructor(
         caldavTask.etag = eTag
         caldavTask.lastSync = task.modificationDate
         caldavTask.remoteParent = remote.getParent()
+        caldavTask.order = remote.order
         if (caldavTask.id == com.todoroo.astrid.data.Task.NO_ID) {
             caldavTask.id = caldavDao.insert(caldavTask)
             Timber.d("NEW %s", caldavTask)

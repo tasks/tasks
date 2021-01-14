@@ -3,19 +3,11 @@ package org.tasks.opentasks
 import android.content.ContentProviderOperation
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
-import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
-import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.data.Task.Companion.sanitizeRRule
-import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
-import net.fortuna.ical4j.model.property.Geo
 import net.fortuna.ical4j.model.property.RRule
 import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.tasks.LocalBroadcastManager
@@ -23,20 +15,16 @@ import org.tasks.R
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.caldav.CaldavConverter
 import org.tasks.caldav.CaldavConverter.toRemote
 import org.tasks.caldav.iCalendar
 import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.openTaskType
 import org.tasks.data.OpenTaskDao.Companion.getInt
-import org.tasks.data.OpenTaskDao.Companion.getLong
-import org.tasks.data.OpenTaskDao.Companion.getString
 import org.tasks.data.OpenTaskDao.Companion.isDavx5
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
 import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.OpenTaskDao.Companion.newAccounts
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
 import java.util.*
@@ -49,13 +37,11 @@ class OpenTasksSynchronizer @Inject constructor(
         private val caldavDao: CaldavDao,
         private val taskDeleter: TaskDeleter,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val taskCreator: TaskCreator,
         private val taskDao: TaskDao,
         private val firebase: Firebase,
         private val iCalendar: iCalendar,
         private val locationDao: LocationDao,
         private val openTaskDao: OpenTaskDao,
-        private val tagDao: TagDao,
         private val tagDataDao: TagDataDao,
         private val inventory: Inventory) {
 
@@ -293,90 +279,14 @@ class OpenTasksSynchronizer @Inject constructor(
             listId: Long,
             uid: String,
             etag: String?,
-            existing: CaldavTask?) {
-        cr.query(
-                Tasks.getContentUri(openTaskDao.authority),
-                null,
-                "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '$uid'",
-                null,
-                null)?.use {
-            if (!it.moveToFirst()) {
-                return
-            }
-            val task = existing?.task
-                    ?.let { task -> taskDao.fetch(task) }
-                    ?: taskCreator
-                            .createWithValues("")
-                            .apply { taskDao.createNew(this) }
-            val caldavTask = existing
-                    ?: CaldavTask(task.id, calendar.uuid, it.getString(Tasks._UID), null)
-            task.title = it.getString(Tasks.TITLE)
-            task.priority = CaldavConverter.fromRemote(it.getInt(Tasks.PRIORITY))
-            val completedAt = it.getLong(Tasks.COMPLETED)
-            task.completionDate = when {
-                completedAt > 0 -> completedAt
-                it.getInt(Tasks.STATUS) == Tasks.STATUS_COMPLETED ->
-                    if (task.isCompleted) task.completionDate else now()
-                else -> 0L
-            }
-            task.notes = it.getString(Tasks.DESCRIPTION)
-            task.modificationDate = currentTimeMillis()
-            task.creationDate = it.getLong(Tasks.CREATED).toLocal()
-            val allDay = it.getBoolean(Tasks.IS_ALLDAY)
-            val due = it.getLong(Tasks.DUE)
-            task.dueDate = when {
-                due == 0L -> 0
-                allDay -> Task.createDueDate(URGENCY_SPECIFIC_DAY, due - DateTime(due).offset)
-                else -> Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, due)
-            }
-            val start = it.getLong(Tasks.DTSTART)
-            task.hideUntil = when {
-                start == 0L -> 0
-                allDay -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, start - DateTime(start).offset)
-                else -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, start)
-            }
-            iCalendar.setPlace(task.id, it.getString(Tasks.GEO).toGeo())
-            task.setRecurrence(it.getString(Tasks.RRULE).toRRule())
-            val tagNames = openTaskDao.getTags(listId, caldavTask)
-            val tags = iCalendar.getTags(tagNames)
-            caldavTask.etag = etag
-            caldavTask.order = openTaskDao.getRemoteOrder(listId, caldavTask)
-            caldavTask.remoteParent = openTaskDao.getParent(it.getLong(Tasks._ID))
-            task.suppressSync()
-            task.suppressRefresh()
-            taskDao.save(task)
-            tagDao.applyTags(task, tagDataDao, tags)
-            caldavTask.lastSync = task.modificationDate
-            if (caldavTask.id == Task.NO_ID) {
-                caldavTask.id = caldavDao.insert(caldavTask)
-                Timber.d("NEW $caldavTask")
-            } else {
-                caldavDao.update(caldavTask)
-                Timber.d("UPDATE $caldavTask")
-            }
+            existing: CaldavTask?
+    ) {
+        openTaskDao.getTask(listId, uid)?.let {
+            iCalendar.fromVtodo(calendar, existing, it, null, null, etag)
         }
     }
 
     companion object {
         private fun Location?.toGeoString(): String? = this?.let { "$longitude,$latitude" }
-
-        private fun String?.toGeo(): Geo? =
-                this
-                        ?.takeIf { it.isNotBlank() }
-                        ?.split(",")
-                        ?.takeIf {
-                            it.size == 2
-                                    && it[0].toDoubleOrNull() != null
-                                    && it[1].toDoubleOrNull() != null }
-                        ?.let { Geo("${it[1]};${it[0]}") }
-
-        private fun String?.toRRule(): RRule? =
-                this?.takeIf { it.isNotBlank() }?.let(::RRule)
-
-        private fun Cursor.getBoolean(columnName: String): Boolean =
-                getInt(getColumnIndex(columnName)) != 0
-
-        private fun Long.toLocal(): Long =
-                DateTime(this).toLocal().millis
     }
 }

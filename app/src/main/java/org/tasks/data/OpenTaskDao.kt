@@ -5,6 +5,9 @@ import android.content.ContentProviderOperation.*
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import at.bitfire.ical4android.AndroidTask
+import at.bitfire.ical4android.MiscUtils.CursorHelper.toValues
+import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.UnknownProperty
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -127,22 +130,6 @@ class OpenTaskDao @Inject constructor(
         }
     }
 
-    suspend fun getTags(listId: Long, caldavTask: CaldavTask): List<String> = withContext(Dispatchers.IO) {
-        val id = getId(listId, caldavTask.remoteId)
-        val tags = ArrayList<String>()
-        cr.query(
-                properties,
-                arrayOf(Properties.DATA1),
-                "${Properties.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${Category.CONTENT_ITEM_TYPE}'",
-                null,
-                null)?.use {
-            while (it.moveToNext()) {
-                it.getString(Properties.DATA1)?.let(tags::add)
-            }
-        }
-        return@withContext tags
-    }
-
     fun setTags(id: Long, tags: List<String>): List<ContentProviderOperation> {
         val delete = listOf(
                 newDelete(properties)
@@ -160,26 +147,6 @@ class OpenTaskDao @Inject constructor(
                     .build()
         }
         return delete + inserts
-    }
-
-    suspend fun getRemoteOrder(listId: Long, caldavTask: CaldavTask): Long? = withContext(Dispatchers.IO) {
-        val id = getId(listId, caldavTask.remoteId) ?: return@withContext null
-        cr.query(
-                properties,
-                arrayOf(Properties.DATA0),
-                "${Properties.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${UnknownProperty.CONTENT_ITEM_TYPE}' AND ${Properties.DATA0} LIKE '%$APPLE_SORT_ORDER%'",
-                null,
-                null)?.use {
-            while (it.moveToNext()) {
-                it.getString(Properties.DATA0)
-                        ?.let(UnknownProperty::fromJsonString)
-                        ?.takeIf { xprop -> xprop.name.equals(APPLE_SORT_ORDER, true) }
-                        ?.let { xprop ->
-                            return@withContext xprop.value.toLong()
-                        }
-            }
-        }
-        return@withContext null
     }
 
     fun setRemoteOrder(id: Long, caldavTask: CaldavTask): List<ContentProviderOperation> {
@@ -226,15 +193,18 @@ class OpenTaskDao @Inject constructor(
         return operations
     }
 
-    suspend fun getParent(id: Long): String? = withContext(Dispatchers.IO) {
+    suspend fun getTask(listId: Long, uid: String): Task? = withContext(Dispatchers.IO) {
         cr.query(
-                properties,
-                arrayOf(Relation.RELATED_UID),
-                "${Relation.TASK_ID} = $id AND ${Properties.MIMETYPE} = '${Relation.CONTENT_ITEM_TYPE}' AND ${Relation.RELATED_TYPE} = ${Relation.RELTYPE_PARENT}",
+                Tasks.getContentUri(authority)
+                        .buildUpon()
+                        .appendQueryParameter(LOAD_PROPERTIES, "1")
+                        .build(),
+                null,
+                "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '$uid'",
                 null,
                 null)?.use {
             if (it.moveToFirst()) {
-                it.getString(Relation.RELATED_UID)
+                MyAndroidTask(it).task
             } else {
                 null
             }
@@ -264,13 +234,31 @@ class OpenTaskDao @Inject constructor(
 
         fun String?.isDecSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_DECSYNC) == true
 
-        fun Cursor.getString(columnName: String): String? =
+        private fun Cursor.getString(columnName: String): String? =
                 getString(getColumnIndex(columnName))
 
         fun Cursor.getInt(columnName: String): Int =
                 getInt(getColumnIndex(columnName))
 
-        fun Cursor.getLong(columnName: String): Long =
+        private fun Cursor.getLong(columnName: String): Long =
                 getLong(getColumnIndex(columnName))
+
+        private class MyAndroidTask(cursor: Cursor) : AndroidTask(null) {
+            init {
+                val values = cursor.toValues()
+                task = Task()
+                populateTask(values)
+                populateRelatedTo(values)
+                if (values.containsKey(Properties.PROPERTY_ID)) {
+                    // process the first property, which is combined with the task row
+                    populateProperty(values)
+
+                    while (cursor.moveToNext()) {
+                        // process the other properties
+                        populateProperty(cursor.toValues(true))
+                    }
+                }
+            }
+        }
     }
 }
