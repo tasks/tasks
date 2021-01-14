@@ -681,7 +681,6 @@
     <string name="date_shortcut_tomorrow_night">Завтра вночі</string>
     <string name="date_shortcut_tomorrow_evening">Завтра ввечері</string>
     <string name="header_spacing">Інтервал</string>
-    <string name="synchronization_third_party">Синхронізация зі сторонніми сервісами</string>
     <string name="widget_show_dividers">Показати розділювачі</string>
     <string name="widget_show_menu">Показати меню</string>
     <string name="widget_hide_background">Сховати фон</string>

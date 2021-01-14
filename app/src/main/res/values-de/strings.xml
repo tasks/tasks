@@ -645,7 +645,6 @@
     <string name="more_options">Weitere Optionen</string>
     <string name="background_location_permission_required">Diese Anwendung sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die Anwendung geschlossen ist oder nicht verwendet wird.</string>
     <string name="repeat_monthly_fifth_week">fünften</string>
-    <string name="synchronization_third_party">Synchronisierung mit Fremdsystemen</string>
     <string name="price_per_month_abbreviated">%s $/Monat</string>
     <string name="price_per_month">%s $/Monat</string>
     <string name="price_per_year_abbreviated">%s $/Jahr</string>

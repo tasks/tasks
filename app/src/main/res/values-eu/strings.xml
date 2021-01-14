@@ -646,7 +646,6 @@
     <string name="default_tags">Lehenetsitako etiketak</string>
     <string name="no_app_found">Ez dago eskaera bete dezakeen aplikaziorik</string>
     <string name="header_spacing">Espazioa</string>
-    <string name="synchronization_third_party">Hirugarrengoekin sinkronizazioa</string>
     <string name="repeat_type_completion_capitalized">Burutze-data</string>
     <string name="default_location">Lehenetsitako kokalekua</string>
     <string name="always_display_full_date">Erakutsi data osoa</string>

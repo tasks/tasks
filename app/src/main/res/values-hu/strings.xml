@@ -649,7 +649,6 @@
     <string name="repeat_monthly_fifth_week">ötödik</string>
     <string name="authorization_cancelled">Azonosítás megszakítva</string>
     <string name="sign_in_with_google">Bejelentkezés Google fiókkal</string>
-    <string name="synchronization_third_party">Szinkronizáció harmadik féllel</string>
     <string name="github_sponsor">Szponzor</string>
     <string name="authentication_required">Azonosítás szükséges</string>
     <string name="migrate_count">%s mozgatása a Tasks.org-ra</string>

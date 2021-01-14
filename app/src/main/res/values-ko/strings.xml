@@ -634,7 +634,6 @@
     <string name="permission_read_tasks">Tasks 데이터베이스에 대한 전체 액세스</string>
     <string name="more_options">추가 옵션</string>
     <string name="background_location_permission_required">앱이 닫히거나 사용하지 않을 때에도 위치 기반 미리 알림을 사용하도록 위치 데이터를 수집합니다.</string>
-    <string name="synchronization_third_party">서드 파티앱 동기화</string>
     <string name="migrate_count">Tasks.org 로 %s 개 이동</string>
     <string name="migrate">이전</string>
     <string name="migrating_tasks">할일 이전 중</string>

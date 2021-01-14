@@ -642,7 +642,6 @@
     <string name="repeat_monthly_fifth_week">第五</string>
     <string name="authorization_cancelled">授权被取消</string>
     <string name="sign_in_with_google">用谷歌帐号登录</string>
-    <string name="synchronization_third_party">第三方同步</string>
     <string name="github_sponsor">赞助者</string>
     <string name="authentication_required">需要认证</string>
     <string name="migrate_count">移动 %s 到 Tasks.org</string>

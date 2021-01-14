@@ -323,7 +323,6 @@ File %1$s contained %2$s.\n\n
   <string name="google_drive_backup">Google Drive backup</string>
   <string name="miscellaneous">Miscellaneous</string>
   <string name="synchronization">Synchronization</string>
-  <string name="synchronization_third_party">Third-party synchronization</string>
   <string name="subtasks">Subtasks</string>
   <string name="enabled">Enabled</string>
   <string name="font_size">Font size</string>

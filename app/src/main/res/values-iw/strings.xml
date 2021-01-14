@@ -709,7 +709,6 @@
     <string name="insufficient_sponsorship">לא נמצאת חסות GitHub מתאימה</string>
     <string name="local_lists">רשימות מקומיות</string>
     <string name="decsync_selection_description">סנכרן את המשימות שלך עם אפליקציית DecSync CC</string>
-    <string name="synchronization_third_party">סינכרון צד שלישי</string>
     <plurals name="list_count">
         <item quantity="one">רשימה %d</item>
         <item quantity="two">%d רשימות</item>

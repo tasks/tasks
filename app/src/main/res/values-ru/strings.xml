@@ -677,7 +677,6 @@
     <string name="authorization_cancelled">Авторизация отменена</string>
     <string name="no_google_play_subscription">Подходящей подписки Google Play не найдено</string>
     <string name="insufficient_sponsorship">Подходящее спонсорство GitHub не найдено</string>
-    <string name="synchronization_third_party">Синхронизация со сторонними сервисами</string>
     <plurals name="list_count">
         <item quantity="one">%d список</item>
         <item quantity="few">%d списка</item>

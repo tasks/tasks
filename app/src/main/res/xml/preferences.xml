@@ -25,7 +25,7 @@
     android:key="@string/synchronization"
     app:fragment="org.tasks.preferences.fragments.Synchronization"
     app:icon="@drawable/ic_outline_cloud_24px"
-    app:title="@string/synchronization_third_party" />
+    app:title="@string/synchronization" />
 
   <Preference
     app:fragment="org.tasks.preferences.fragments.TaskDefaults"

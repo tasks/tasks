@@ -693,5 +693,4 @@
     <string name="your_subscription_expired">Twoja subskrypcja wygasła. Zasubskrybuj teraz, aby wznowić usługę.</string>
     <string name="logged_in">Zalogowany %s</string>
     <string name="decsync_selection_description">Synchronizuj swoje zadania z aplikacją DecSync CC</string>
-    <string name="synchronization_third_party">Synchronizacja z innymi serwisami</string>
 </resources>

@@ -83,7 +83,6 @@
     <string name="navigation_drawer">Ladica za navigaciju</string>
     <string name="date_and_time">Datum i vrijeme</string>
     <string name="task_defaults">Zadane postavke zadataka</string>
-    <string name="synchronization_third_party">Sinkronizacija s trećim stranama</string>
     <string name="notifications">Obavijesti</string>
     <string name="preferences_look_and_feel">Izgled i dojam</string>
     <string name="privacy_policy">Politika privatnosti</string>

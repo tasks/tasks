@@ -288,7 +288,6 @@
     <string name="header_spacing">間距</string>
     <string name="font_size">字體大小</string>
     <string name="subtasks">子任務</string>
-    <string name="synchronization_third_party">第三方同步</string>
     <string name="google_drive_backup">Google 雲端硬碟備份</string>
     <string name="attachment_directory">附件資料夾</string>
     <string name="quiet_hours">靜音時間</string>
