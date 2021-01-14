@@ -18,6 +18,8 @@ import org.tasks.R
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.etebase.EtebaseAccountSettingsActivity
+import org.tasks.extensions.getMutableIntList
+import org.tasks.extensions.getMutableStringList
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_CALDAV_SETTINGS
 import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_GOOGLE_TASKS
 import org.tasks.themes.DrawableUtil
@@ -29,14 +31,10 @@ class AddAccountDialog : DialogFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val services = requireActivity().resources.getStringArray(R.array.synchronization_services)
-        val descriptions = requireActivity().resources.getStringArray(R.array.synchronization_services_description)
-        val typedArray = requireActivity().resources.obtainTypedArray(R.array.synchronization_services_icons)
-        val icons = IntArray(typedArray.length())
-        for (i in icons.indices) {
-            icons[i] = typedArray.getResourceId(i, 0)
+        val services = resources.getMutableStringList(R.array.synchronization_services)
+        val descriptions = resources.getMutableStringList(R.array.synchronization_services_description)
+        val icons = resources.getMutableIntList(R.array.synchronization_services_icons)
         }
-        typedArray.recycle()
         val adapter: ArrayAdapter<String> = object : ArrayAdapter<String>(
                 requireActivity(), R.layout.simple_list_item_2_themed, R.id.text1, services) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
