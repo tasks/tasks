@@ -179,7 +179,7 @@ class FilterProvider @Inject constructor(
                 }
                 .plusIf(!inventory.hasPro) {
                     NavigationDrawerAction(
-                            context.getString(R.string.upgrade_to_pro),
+                            context.getString(R.string.name_your_price),
                             R.drawable.ic_outline_attach_money_24px,
                             NavigationDrawerFragment.REQUEST_PURCHASE)
                 }

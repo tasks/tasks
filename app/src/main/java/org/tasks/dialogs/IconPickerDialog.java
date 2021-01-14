@@ -64,7 +64,7 @@ public class IconPickerDialog extends DialogFragment {
         dialogBuilder.newDialog().setNegativeButton(R.string.cancel, null).setView(view);
     if (!inventory.getHasPro()) {
       builder.setPositiveButton(
-          R.string.button_subscribe,
+          R.string.upgrade_to_pro,
           (dialog, which) -> newPurchaseDialog()
               .show(getParentFragmentManager(), PurchaseDialog.getFRAG_TAG_PURCHASE_DIALOG()));
     }

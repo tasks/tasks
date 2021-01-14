@@ -32,7 +32,7 @@
 
   <!-- Eventually these should be moved to strings.xml for translation -->
   <string name="upgrade_tasks_account">Tasks.org account</string>
-  <string name="upgrade_tasks_no_account">Tasks.org account not included with \'Name your price\' subscriptions</string>
+  <string name="upgrade_tasks_no_account">Not included with \'Name your price\' subscriptions</string>
   <string name="upgrade_sync_self_hosted">Sync with third-party apps and services</string>
   <string name="upgrade_third_party_apps">Compatible with Outlook, Thunderbird, Apple Reminders, and more</string>
   <string name="upgrade_coming_soon">Many new features coming soon!</string>

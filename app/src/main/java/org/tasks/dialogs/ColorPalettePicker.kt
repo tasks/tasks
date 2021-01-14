@@ -107,7 +107,7 @@ class ColorPalettePicker : DialogFragment() {
         if (inventory.purchasedThemes()) {
             builder.setNegativeButton(R.string.cancel, null)
         } else {
-            builder.setPositiveButton(R.string.button_subscribe) { _: DialogInterface?, _: Int ->
+            builder.setPositiveButton(R.string.upgrade_to_pro) { _: DialogInterface?, _: Int ->
                 newPurchaseDialog().show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
             }
         }

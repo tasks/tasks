@@ -66,7 +66,9 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         binding = ActivityPurchaseBinding.inflate(layoutInflater)
         ButterKnife.bind(this, binding.root)
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
+            nameYourPrice = !isTasksPayment
+        } else {
             binding.slider.value = savedInstanceState.getFloat(EXTRA_PRICE)
             priceChanged = savedInstanceState.getBoolean(EXTRA_PRICE_CHANGED)
             nameYourPrice = savedInstanceState.getBoolean(EXTRA_NAME_YOUR_PRICE)
@@ -195,10 +197,14 @@ _${getString(R.string.upgrade_tasks_no_account)}_
     
     @OnClick(R.id.pay_other)
     fun nameYourPrice() {
-        nameYourPrice = !nameYourPrice
-        setWaitScreen(false)
-        binding.scroll.scrollTo(0, 0)
-        updateSubscribeButton()
+        if (isTasksPayment) {
+            dismiss()
+        } else {
+            nameYourPrice = !nameYourPrice
+            setWaitScreen(false)
+            binding.scroll.scrollTo(0, 0)
+            updateSubscribeButton()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -213,13 +219,11 @@ _${getString(R.string.upgrade_tasks_no_account)}_
         val generic = BuildConfig.FLAVOR == "generic"
         binding.sliderContainer.isVisible = !isWaitScreen && nameYourPrice
         binding.payOther.isVisible = !isWaitScreen
-        if (nameYourPrice) {
-            binding.payOther.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
-            binding.payOther.setText(R.string.back)
-        } else {
-            binding.payOther.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_keyboard_arrow_right_24px, 0)
-            binding.payOther.setText(R.string.more_options)
-        }
+        binding.payOther.setText(when {
+            isTasksPayment -> R.string.cancel
+            nameYourPrice -> R.string.upgrade_tasks_account
+            else -> R.string.back
+        })
         binding.tasksOrgButtonPanel.isVisible = !isWaitScreen && !generic
         binding.screenWait.isVisible = isWaitScreen && !generic
         binding.sponsor.isVisible = generic
@@ -359,8 +363,12 @@ _${getString(R.string.upgrade_tasks_no_account)}_
             return dialog
         }
 
-        fun newPurchaseDialog(target: Fragment, rc: Int): PurchaseDialog {
-            val dialog = PurchaseDialog()
+        fun newPurchaseDialog(
+                target: Fragment,
+                rc: Int,
+                tasksPayment: Boolean = false
+        ): PurchaseDialog {
+            val dialog = newPurchaseDialog(tasksPayment)
             dialog.setTargetFragment(target, rc)
             return dialog
         }

@@ -26,6 +26,7 @@ import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
 import org.tasks.preferences.Preferences
 import java.io.BufferedReader
 import javax.inject.Inject
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class WhatsNewDialog : DialogFragment() {
@@ -56,9 +57,10 @@ class WhatsNewDialog : DialogFragment() {
         changelog.movementMethod = LinkMovementMethod.getInstance()
         changelog.text = markwon.toMarkdown(text)
 
+        val begForSubscription = firebase.noChurn() && !inventory.hasPro
         val begForRating = !preferences.getBoolean(R.string.p_clicked_rate, false)
                 && (inventory.purchasedThemes() || firebase.noChurn())
-        val begForSubscription = firebase.noChurn() && !inventory.hasPro
+                && (!begForSubscription || Random.nextBoolean())
 
         when {
             BuildConfig.FLAVOR == "generic" -> {
@@ -74,7 +76,7 @@ class WhatsNewDialog : DialogFragment() {
             begForSubscription -> {
                 displayedSubscribe = true
                 actionText.text = getString(R.string.support_development_subscribe)
-                actionButton.text = getString(R.string.button_subscribe)
+                actionButton.text = getString(R.string.name_your_price)
                 actionButton.setOnClickListener { onSubscribeClick() }
             }
             else -> {

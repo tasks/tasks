@@ -123,7 +123,7 @@ class ThemePickerDialog : DialogFragment() {
         val stringRes = if (available()) {
             R.string.cancel
         } else {
-            R.string.button_subscribe
+            R.string.upgrade_to_pro
         }
 
         dialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.text = getString(stringRes)

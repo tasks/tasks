@@ -122,7 +122,7 @@ class TasksAccount : InjectingPreferenceFragment() {
 
     private fun showPurchaseDialog(): Boolean {
         PurchaseDialog
-                .newPurchaseDialog(this, REQUEST_PURCHASE)
+                .newPurchaseDialog(this, REQUEST_PURCHASE, tasksPayment = true)
                 .show(parentFragmentManager, PurchaseDialog.FRAG_TAG_PURCHASE_DIALOG)
         return false
     }
