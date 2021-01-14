@@ -8,7 +8,6 @@ import android.graphics.Paint
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService.RemoteViewsFactory
-import androidx.annotation.StringRes
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.SortHelper
@@ -136,7 +135,7 @@ internal class ScrollableViewsFactory(
         val section = tasks.getSection(position)
         val sortGroup = section.value
         val header: String? = if (filter?.supportsSorting() == true) {
-            getHeader(sortMode, section.value)
+            section.headerString(context, locale.locale, sortMode, showFullDate, FormatStyle.MEDIUM)
         } else {
             null
         }
@@ -146,18 +145,7 @@ internal class ScrollableViewsFactory(
         } else {
             R.drawable.ic_keyboard_arrow_up_black_18dp
         })
-        val color = if (sortMode == SortHelper.SORT_DUE
-                && sortGroup > 0
-                && DateTimeUtils.newDateTime(sortGroup).plusDays(1).startOfDay().isBeforeNow) {
-            context.getColor(R.color.overdue)
-        } else if (sortMode == SortHelper.SORT_START
-                && sortGroup > 0
-                && DateTimeUtils.newDateTime(sortGroup).plusDays(1).startOfDay().isBeforeNow) {
-            context.getColor(R.color.overdue)
-        } else {
-            textColorSecondary
-        }
-        row.setTextColor(R.id.header, color)
+        row.setTextColor(R.id.header, section.headerColor(context, sortMode))
         if (!showDividers) {
             row.setViewVisibility(R.id.divider, View.GONE)
         }
@@ -169,31 +157,6 @@ internal class ScrollableViewsFactory(
                         .putExtra(WidgetClickActivity.EXTRA_COLLAPSED, !section.collapsed)
         )
         return row
-    }
-
-    private fun getHeader(sortMode: Int, group: Long): String = when {
-        sortMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(group.toInt()))
-        group == 0L -> context.getString(when (sortMode) {
-            SortHelper.SORT_DUE -> R.string.no_due_date
-            SortHelper.SORT_START -> R.string.no_start_date
-            else -> R.string.no_date
-        })
-        sortMode == SortHelper.SORT_CREATED ->
-            context.getString(R.string.sort_created_group, getDateString(group))
-        sortMode == SortHelper.SORT_MODIFIED ->
-            context.getString(R.string.sort_modified_group, getDateString(group))
-        else -> getDateString(group, false)
-    }
-
-    private fun getDateString(value: Long, lowercase: Boolean = true) =
-            DateUtilities.getRelativeDay(context, value, locale.locale, FormatStyle.MEDIUM, showFullDate, lowercase)
-
-    @StringRes
-    private fun priorityToString(priority: Int) = when (priority) {
-        0 -> R.string.filter_high_priority
-        1 -> R.string.filter_medium_priority
-        2 -> R.string.filter_low_priority
-        else -> R.string.filter_no_priority
     }
 
     private fun buildUpdate(position: Int): RemoteViews? {

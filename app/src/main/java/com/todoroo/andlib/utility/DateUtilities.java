@@ -6,7 +6,6 @@
 
 package com.todoroo.andlib.utility;
 
-import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -14,13 +13,13 @@ import android.content.Context;
 import android.text.format.DateFormat;
 import androidx.annotation.Nullable;
 import com.todoroo.astrid.data.Task;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.format.TextStyle;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.locale.Locale;
 import org.tasks.time.DateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.time.format.TextStyle;
 
 public class DateUtilities {
 
@@ -174,14 +173,14 @@ public class DateUtilities {
     if (startOfToday.plusDays(1).equals(startOfDate)) {
       return context.getString(
           abbreviated
-              ? R.string.tmrw
+              ? lowercase ? R.string.tomorrow_abbrev_lowercase : R.string.tmrw
               : lowercase ? R.string.tomorrow_lowercase : R.string.tomorrow);
     }
 
     if (startOfDate.plusDays(1).equals(startOfToday)) {
       return context.getString(
           abbreviated
-              ? R.string.yest
+              ? lowercase ? R.string.yesterday_abbrev_lowercase : R.string.yest
               : lowercase ? R.string.yesterday_lowercase : R.string.yesterday);
     }
 
