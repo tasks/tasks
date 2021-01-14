@@ -10,8 +10,6 @@ import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.auth.SignInActivity
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavDao
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.IconPreference
 import org.tasks.preferences.MainPreferences
@@ -26,7 +24,6 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
 
     @Inject lateinit var appWidgetManager: AppWidgetManager
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var caldavDao: CaldavDao
 
     private val viewModel: PreferencesViewModel by activityViewModels()
 
@@ -65,13 +62,12 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
                 .getDrawable(requireContext(), R.drawable.ic_keyboard_arrow_right_24px)
                 ?.mutate()
         pref.tint = context?.getColor(R.color.icon_tint_with_alpha)
-        val accounts = caldavDao.getAccounts(CaldavAccount.TYPE_TASKS)
-        if (accounts.isEmpty()) {
+        val account = viewModel.tasksAccount()
+        if (account == null) {
             pref.setOnPreferenceClickListener { signIn() }
             pref.summary = getString(R.string.not_signed_in)
             return
         }
-        val account = accounts.first()
         pref.summary = account.name
 
         if (!account.error.isNullOrBlank()) {
