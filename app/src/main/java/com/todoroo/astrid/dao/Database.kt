@@ -44,6 +44,7 @@ abstract class Database : RoomDatabase() {
     abstract val caldavDao: CaldavDao
     abstract val deletionDao: DeletionDao
     abstract val contentProviderDao: ContentProviderDao
+    abstract val upgraderDao: UpgraderDao
 
     /** @return human-readable database name for debugging
      */

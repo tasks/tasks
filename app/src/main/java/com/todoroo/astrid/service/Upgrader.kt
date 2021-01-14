@@ -40,7 +40,8 @@ class Upgrader @Inject constructor(
         private val locationDao: LocationDao,
         private val iCal: iCalendar,
         private val widgetManager: AppWidgetManager,
-        private val taskMover: TaskMover) {
+        private val taskMover: TaskMover,
+        private val upgraderDao: UpgraderDao) {
 
     fun upgrade(from: Int, to: Int) {
         if (from > 0) {
@@ -116,7 +117,7 @@ class Upgrader @Inject constructor(
     }
 
     private suspend fun applyCaldavOrder() {
-        for (task in caldavDao.getTasks().map(CaldavTaskContainer::caldavTask)) {
+        for (task in upgraderDao.tasksWithVtodos().map(CaldavTaskContainer::caldavTask)) {
             val remoteTask = fromVtodo(task.vtodo!!) ?: continue
             val order: Long? = remoteTask.order
             if (order != null) {
@@ -128,7 +129,7 @@ class Upgrader @Inject constructor(
 
     private suspend fun applyCaldavGeo() {
         val tasksWithLocations = locationDao.getActiveGeofences().map(Location::task)
-        for (task in caldavDao.getTasks().map(CaldavTaskContainer::caldavTask)) {
+        for (task in upgraderDao.tasksWithVtodos().map(CaldavTaskContainer::caldavTask)) {
             val taskId = task.task
             if (tasksWithLocations.contains(taskId)) {
                 continue
@@ -142,7 +143,7 @@ class Upgrader @Inject constructor(
 
     private suspend fun applyCaldavSubtasks() {
         val updated: MutableList<CaldavTask> = ArrayList()
-        for (task in caldavDao.getTasks().map(CaldavTaskContainer::caldavTask)) {
+        for (task in upgraderDao.tasksWithVtodos().map(CaldavTaskContainer::caldavTask)) {
             val remoteTask = fromVtodo(task.vtodo!!) ?: continue
             task.remoteParent = remoteTask.getParent()
             if (!isNullOrEmpty(task.remoteParent)) {
@@ -154,8 +155,8 @@ class Upgrader @Inject constructor(
     }
 
     private suspend fun applyCaldavCategories() {
-        val tasksWithTags: List<Long> = caldavDao.getTasksWithTags()
-        for (container in caldavDao.getTasks()) {
+        val tasksWithTags: List<Long> = upgraderDao.tasksWithTags()
+        for (container in upgraderDao.tasksWithVtodos()) {
             val remoteTask = fromVtodo(container.vtodo!!)
             if (remoteTask != null) {
                 tagDao.insert(container.task, iCal.getTags(remoteTask.categories))

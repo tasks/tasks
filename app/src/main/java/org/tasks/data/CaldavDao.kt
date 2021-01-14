@@ -171,11 +171,6 @@ SELECT EXISTS(SELECT 1
 
     @Query("SELECT task.*, caldav_task.* FROM tasks AS task "
             + "INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task "
-            + "WHERE cd_deleted = 0 AND cd_vtodo IS NOT NULL AND cd_vtodo != ''")
-    abstract suspend fun getTasks(): List<CaldavTaskContainer>
-
-    @Query("SELECT task.*, caldav_task.* FROM tasks AS task "
-            + "INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task "
             + "WHERE cd_calendar = :calendar "
             + "AND modified > cd_last_sync "
             + "AND cd_deleted = 0")
@@ -236,12 +231,6 @@ SELECT EXISTS(SELECT 1
             + " WHERE caldav_lists.cdl_account = :uuid"
             + " GROUP BY caldav_lists.cdl_uuid")
     abstract suspend fun getCaldavFilters(uuid: String, now: Long = currentTimeMillis()): List<CaldavFilters>
-
-    @Query("SELECT tasks._id FROM tasks "
-            + "INNER JOIN tags ON tags.task = tasks._id "
-            + "INNER JOIN caldav_tasks ON cd_task = tasks._id "
-            + "GROUP BY tasks._id")
-    abstract suspend fun getTasksWithTags(): List<Long>
 
     @Query("UPDATE tasks SET parent = IFNULL(("
             + " SELECT p.cd_task FROM caldav_tasks AS p"
