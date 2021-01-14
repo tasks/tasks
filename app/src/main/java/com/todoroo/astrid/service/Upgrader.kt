@@ -65,7 +65,7 @@ class Upgrader @Inject constructor(
             run(from, V9_7) { googleTaskListDao.resetOrders() }
             run(from, V9_7_3) { googleTaskDao.updateParents() }
             run(from, V10_0_2) {
-                filterDao.getAll()
+                filterDao.getFilters()
                         .filter { it.getSql().trim() == "WHERE" }
                         .forEach { filterDao.delete(it) }
             }
@@ -173,7 +173,7 @@ class Upgrader @Inject constructor(
     }
 
     private suspend fun migrateGoogleTaskFilters() {
-        for (filter in filterDao.getAll()) {
+        for (filter in filterDao.getFilters()) {
             filter.setSql(migrateGoogleTaskFilters(filter.getSql()))
             filter.criterion = migrateGoogleTaskFilters(filter.criterion)
             filterDao.update(filter)
@@ -181,7 +181,7 @@ class Upgrader @Inject constructor(
     }
 
     private suspend fun migrateCaldavFilters() {
-        for (filter in filterDao.getAll()) {
+        for (filter in filterDao.getFilters()) {
             filter.setSql(migrateCaldavFilters(filter.getSql()))
             filter.criterion = migrateCaldavFilters(filter.criterion)
             filterDao.update(filter)

@@ -127,7 +127,7 @@ class TasksJsonExporter @Inject constructor(
                 taskBackups,
                 locationDao.getPlaces(),
                 tagDataDao.getAll(),
-                filterDao.getAll(),
+                filterDao.getFilters(),
                 googleTaskListDao.getAccounts(),
                 googleTaskListDao.getAllLists(),
                 caldavDao.getAccounts(),
