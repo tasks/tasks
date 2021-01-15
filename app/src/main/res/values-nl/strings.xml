@@ -574,7 +574,7 @@
     <string name="add_tags">Voeg label toe</string>
     <string name="filter_no_tags">Zonder label</string>
     <string name="filter_after_today">Na vandaag</string>
-    <string name="filter_any_due_date">Alle eindtijden</string>
+    <string name="filter_any_due_date">Alle einddatums</string>
     <string name="filter_today_only">Alleen vandaag</string>
     <string name="filter_overdue">Te laat</string>
     <string name="sort_created">Op aanmaaktijd</string>
@@ -683,4 +683,7 @@
     <string name="filter_criteria_unstarted">Ongestart</string>
     <string name="no_start_date">Geen startdatum</string>
     <string name="SSD_sort_start">Op startdatum</string>
+    <string name="filter_any_start_date">Alle startdatums</string>
+    <string name="CFC_startBefore_name">Startdatum…</string>
+    <string name="CFC_startBefore_text">Startdatum: \?</string>
 </resources>
