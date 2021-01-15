@@ -691,4 +691,9 @@
     <string name="filter_any_start_date">Cualquier fecha de inicio</string>
     <string name="CFC_startBefore_name">Comience por…</string>
     <string name="CFC_startBefore_text">Comience por: \?</string>
+    <string name="sort_due_group">Previsto %s</string>
+    <string name="sort_start_group">Inicio %s</string>
+    <string name="tasks_org_description">Sincronice sus tareas con Tasks.org</string>
+    <string name="yesterday_abbrev_lowercase">ayer</string>
+    <string name="tomorrow_abbrev_lowercase">mñna</string>
 </resources>
