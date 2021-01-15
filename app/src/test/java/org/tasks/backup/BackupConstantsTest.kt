@@ -1,4 +1,4 @@
-package com.todoroo.astrid.backup
+package org.tasks.backup
 
 import org.junit.Assert.*
 import org.junit.Test

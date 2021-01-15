@@ -8,12 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.api.services.drive.DriveScopes
-import com.todoroo.astrid.backup.BackupConstants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
+import org.tasks.backup.BackupConstants
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
 import org.tasks.date.DateTimeUtils.newDateTime

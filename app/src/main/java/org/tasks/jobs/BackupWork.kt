@@ -7,9 +7,9 @@ import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.WorkerParameters
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.backup.BackupConstants
 import org.tasks.R
 import org.tasks.analytics.Firebase
+import org.tasks.backup.BackupConstants
 import org.tasks.backup.TasksJsonExporter
 import org.tasks.preferences.Preferences
 import timber.log.Timber

@@ -12,7 +12,6 @@ import com.todoroo.astrid.data.Task
 import org.json.JSONException
 import org.json.JSONObject
 import org.tasks.Strings
-import org.tasks.backup.XmlReader
 import timber.log.Timber
 import java.io.File
 
@@ -40,18 +39,6 @@ class UserActivity : Parcelable {
     var created: Long? = 0L
 
     constructor()
-
-    @Ignore
-    constructor(reader: XmlReader) {
-        reader.readString("remoteId") { remoteId: String? -> this.remoteId = remoteId }
-        reader.readString("message") { message: String? -> this.message = message }
-        reader.readString("picture") { p: String? ->
-            picture = p
-            convertPictureUri()
-        }
-        reader.readString("target_id") { targetId: String? -> this.targetId = targetId }
-        reader.readLong("created_at") { created: Long -> this.created = created }
-    }
 
     @Ignore
     private constructor(parcel: Parcel) {

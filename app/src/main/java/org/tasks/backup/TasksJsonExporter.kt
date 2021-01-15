@@ -11,7 +11,6 @@ import com.google.common.io.Files
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.todoroo.andlib.utility.DialogUtilities
-import com.todoroo.astrid.backup.BackupConstants
 import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.R

@@ -3,7 +3,6 @@ package org.tasks.data
 import androidx.room.*
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
-import org.tasks.backup.XmlReader
 
 @Entity(tableName = "tags", indices = [Index(name = "tag_task", value = ["task"])])
 class Tag {
@@ -40,13 +39,6 @@ class Tag {
         this.taskUid = taskUid
         this.name = name
         this.tagUid = tagUid
-    }
-
-    @Ignore
-    constructor(xmlReader: XmlReader) {
-        xmlReader.readString("name") { name: String? -> this.name = name }
-        xmlReader.readString("tag_uid") { tagUid: String? -> this.tagUid = tagUid }
-        xmlReader.readString("task_uid") { taskUid: String -> setTaskUid(taskUid) }
     }
 
     fun getTaskUid(): String = taskUid!!

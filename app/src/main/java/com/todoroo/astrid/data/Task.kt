@@ -11,7 +11,6 @@ import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.Strings
-import org.tasks.backup.XmlReader
 import org.tasks.data.Tag
 import org.tasks.date.DateTimeUtils
 import org.tasks.date.DateTimeUtils.toDateTime
@@ -121,30 +120,6 @@ class Task : Parcelable {
     private var transitoryData: HashMap<String, Any>? = null
 
     constructor()
-
-    @Ignore
-    constructor(reader: XmlReader) {
-        calendarURI = reader.readString("calendarUri")
-        completionDate = reader.readLong("completed")
-        creationDate = reader.readLong("created")
-        deletionDate = reader.readLong("deleted")
-        dueDate = reader.readLong("dueDate")
-        elapsedSeconds = reader.readInteger("elapsedSeconds")
-        estimatedSeconds = reader.readInteger("estimatedSeconds")
-        hideUntil = reader.readLong("hideUntil")
-        priority = reader.readInteger("importance")
-        modificationDate = reader.readLong("modified")
-        notes = reader.readString("notes")
-        recurrence = reader.readString("recurrence")
-        reminderFlags = reader.readInteger("notificationFlags")
-        reminderLast = reader.readLong("lastNotified")
-        reminderPeriod = reader.readLong("notifications")
-        reminderSnooze = reader.readLong("snoozeTime")
-        repeatUntil = reader.readLong("repeatUntil")
-        timerStart = reader.readLong("timerStart")
-        title = reader.readString("title")
-        remoteId = reader.readString("remoteId")
-    }
 
     @Ignore
     constructor(parcel: Parcel) {

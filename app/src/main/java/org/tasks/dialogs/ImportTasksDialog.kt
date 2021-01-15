@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.backup.TasksXmlImporter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
@@ -20,7 +19,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ImportTasksDialog : DialogFragment() {
-    @Inject lateinit var xmlImporter: TasksXmlImporter
     @Inject lateinit var jsonImporter: TasksJsonImporter
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var context: Activity
@@ -47,9 +45,6 @@ class ImportTasksDialog : DialogFragment() {
                     progressDialog.dismiss()
                 }
                 showSummary(result)
-            }
-            "xml" -> lifecycleScope.launch {
-                xmlImporter.importTasks(activity, data, progressDialog)
             }
             else -> throw RuntimeException("Invalid extension: $extension")
         }

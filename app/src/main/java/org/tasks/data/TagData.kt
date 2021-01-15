@@ -9,7 +9,6 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.data.Task
-import org.tasks.backup.XmlReader
 import org.tasks.themes.CustomIcons.LABEL
 
 @Entity(tableName = "tagdata")
@@ -43,14 +42,6 @@ class TagData : Parcelable {
     }
 
     constructor()
-
-    @Ignore
-    constructor(reader: XmlReader) {
-        reader.readString("remoteId") { remoteId: String? -> this.remoteId = remoteId }
-        reader.readString("name") { name: String? -> this.name = name }
-        reader.readInteger("color") { color: Int? -> setColor(color) }
-        reader.readString("tagOrdering") { tagOrdering: String? -> this.tagOrdering = tagOrdering }
-    }
 
     @SuppressLint("ParcelClassLoader")
     @Ignore
