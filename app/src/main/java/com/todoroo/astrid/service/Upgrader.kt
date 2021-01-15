@@ -42,7 +42,8 @@ class Upgrader @Inject constructor(
         private val iCal: iCalendar,
         private val widgetManager: AppWidgetManager,
         private val taskMover: TaskMover,
-        private val upgraderDao: UpgraderDao) {
+        private val upgraderDao: UpgraderDao,
+        private val openTaskDao: OpenTaskDao) {
 
     fun upgrade(from: Int, to: Int) {
         if (from > 0) {
@@ -73,6 +74,7 @@ class Upgrader @Inject constructor(
             }
             run(from, V11_3) {
                 applyiCalendarStartDates()
+                applyOpenTaskStartDates()
             }
             preferences.setBoolean(R.string.p_just_updated, true)
         }
@@ -131,6 +133,27 @@ class Upgrader @Inject constructor(
         hasStartDate
                 .map { it.id }
                 .let { taskDao.touch(it) }
+    }
+
+    private suspend fun applyOpenTaskStartDates() {
+        openTaskDao.getLists().forEach { list ->
+            val (hasStartDate, noStartDate) =
+                    upgraderDao
+                            .getOpenTasksForList(list.account!!, list.url!!)
+                            .partition { it.startDate > 0 }
+            for (task in noStartDate) {
+                openTaskDao
+                        .getTask(list.id, task.remoteId!!)
+                        ?.dtStart
+                        ?.let {
+                            it.apply(task.task)
+                            upgraderDao.setStartDate(task.id, task.startDate)
+                        }
+            }
+            hasStartDate
+                    .map { it.id }
+                    .let { taskDao.touch(it) }
+        }
     }
 
     private suspend fun applyCaldavOrder() {
