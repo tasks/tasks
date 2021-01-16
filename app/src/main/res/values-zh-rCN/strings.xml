@@ -679,4 +679,9 @@
     <string name="CFC_startBefore_name">开始于…</string>
     <string name="CFC_startBefore_text">开始于：?</string>
     <string name="filter_any_start_date">任意开始日期</string>
+    <string name="sort_due_group">到期 %s</string>
+    <string name="sort_start_group">启动 %s</string>
+    <string name="tasks_org_description">将你的任务与 Tasks.org 同步</string>
+    <string name="yesterday_abbrev_lowercase">昨天</string>
+    <string name="tomorrow_abbrev_lowercase">明天</string>
 </resources>
