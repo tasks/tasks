@@ -689,4 +689,9 @@
     <string name="CFC_startBefore_name">Başlangıç…</string>
     <string name="CFC_startBefore_text">Başlangıç: \?</string>
     <string name="filter_any_start_date">Herhangi başlangıç tarihi</string>
+    <string name="sort_due_group">%s biten</string>
+    <string name="sort_start_group">%s başlayan</string>
+    <string name="tasks_org_description">Görevlerinizi Tasks.org ile eşzamanlayın</string>
+    <string name="yesterday_abbrev_lowercase">dün</string>
+    <string name="tomorrow_abbrev_lowercase">yarın</string>
 </resources>
