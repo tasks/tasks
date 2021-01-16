@@ -572,10 +572,10 @@
     <string name="widget_show_dividers">Pokaż przegródki</string>
     <string name="widget_show_menu">Pokaż menu</string>
     <string name="widget_hide_background">Ukryj tło</string>
-    <string name="filter_eisenhower_box_4">Matryca Eisenhowera 4</string>
-    <string name="filter_eisenhower_box_3">Matryca Eisenhowera 3</string>
-    <string name="filter_eisenhower_box_2">Matryca Eisenhowera 2</string>
-    <string name="filter_eisenhower_box_1">Matryca Eisenhowera 1</string>
+    <string name="filter_eisenhower_box_4">Nieważne i niepilne</string>
+    <string name="filter_eisenhower_box_3">Nieważne i pilne</string>
+    <string name="filter_eisenhower_box_2">Ważne i niepilne</string>
+    <string name="filter_eisenhower_box_1">Ważne i pilne</string>
     <string name="filter_no_priority">Bez priorytetu</string>
     <string name="filter_low_priority">Niski priorytet</string>
     <string name="filter_medium_priority">Średni priorytet</string>
@@ -691,4 +691,20 @@
     <string name="your_subscription_expired">Twoja subskrypcja wygasła. Zasubskrybuj teraz, aby wznowić usługę.</string>
     <string name="logged_in">Zalogowany %s</string>
     <string name="decsync_selection_description">Synchronizuj swoje zadania z aplikacją DecSync CC</string>
+    <string name="local_lists">Listy lokalne</string>
+    <string name="sort_due_group">Termin %s</string>
+    <string name="sort_start_group">Początek %s</string>
+    <string name="tasks_org_description">Synchronizowanie zadań z Tasks.org</string>
+    <string name="filter_criteria_unstarted">Nierozpoczęte</string>
+    <string name="show_unstarted">Pokaż nierozpoczęte</string>
+    <string name="yesterday_abbrev_lowercase">wcz</string>
+    <string name="tomorrow_abbrev_lowercase">jtr</string>
+    <string name="filter_any_start_date">Dowolna data rozpoczęcia</string>
+    <string name="no_start_date">Bez daty rozpoczęcia</string>
+    <string name="CFC_startBefore_name">Początek przed…</string>
+    <string name="CFC_startBefore_text">Początek przed: \?</string>
+    <string name="default_due_date">Domyślny termin</string>
+    <string name="default_start_date">Domyślna data rozpoczęcia</string>
+    <string name="start_date">Data rozpoczęcia</string>
+    <string name="SSD_sort_start">Wg daty rozpoczęcia</string>
 </resources>
