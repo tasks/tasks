@@ -243,4 +243,20 @@
     <string name="repeat_daily">كرِّر يوميًّا</string>
     <string name="repeat_hourly">كرِّر كلّ ساعة</string>
     <string name="above_average">فوق المتوسط</string>
+    <string name="icon">الأيقونة</string>
+    <string name="copy">نسخ</string>
+    <string name="date_shortcut_tomorrow_night">ليلة غد</string>
+    <string name="date_shortcut_tomorrow_evening">مساء غد</string>
+    <string name="date_shortcut_tomorrow_morning">صباح غد</string>
+    <string name="date_shortcut_night">ليلًا</string>
+    <string name="date_shortcut_evening">مساءً</string>
+    <string name="date_shortcut_morning">صباحًا</string>
+    <string name="repeat_number_of_times">كرّر عددًا من المرات</string>
+    <string name="repeat_every">كلّ</string>
+    <string name="default_random_reminder_hourly">كل ساعة</string>
+    <string name="no_reminders">لا منبهات</string>
+    <string name="always_display_full_date">أظهر التاريخ الكامل</string>
+    <string name="SSD_sort_my_order">ترتيبي</string>
+    <string name="cancel">إلغاء</string>
+    <string name="ok">حسنًا</string>
 </resources>
