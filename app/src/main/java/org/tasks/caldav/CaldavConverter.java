@@ -144,10 +144,6 @@ public class CaldavConverter {
                 repeatUntil > 0 ? new DateTime(newDateTime(repeatUntil).toUTC().getMillis()) : null);
         String sanitized = Task.sanitizeRRule(rrule.getValue()); // ical4j adds COUNT=-1 if there is an UNTIL value
         remote.setRRule(new RRule(sanitized));
-        if (remote.getDtStart() == null) {
-          Date date = remote.getDue() != null ? remote.getDue().getDate() : new Date();
-          remote.setDtStart(new DtStart(date));
-        }
       } catch (ParseException e) {
         Timber.e(e);
       }
