@@ -268,7 +268,6 @@
     <string name="yesterday">Gestern</string>
     <string name="tmrw">Morgen</string>
     <string name="yest">Gestern</string>
-    <string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
     <string name="widget_show_checkboxes">Checkboxen anzeigen</string>
     <string name="widget_show_header">Kopfleiste anzeigen</string>
     <string name="widget_show_settings">Einstellungen anzeigen</string>
@@ -411,7 +410,6 @@
     <string name="help">Hilfe</string>
     <string name="caldav_home_set_not_found">CalDAV-Home-Set nicht gefunden</string>
     <string name="network_error">Verbindung fehlgeschlagen</string>
-    <string name="background_sync_unmetered_only">Nur bei unbeschränkter Verbindung</string>
     <string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
     <string name="manage_subscription">Abonnement ändern</string>
     <string name="refresh_purchases">Einkäufe aktualisieren</string>

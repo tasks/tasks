@@ -146,6 +146,5 @@
     <string name="yesterday">Χθές</string>
     <string name="tmrw">Αύριο</string>
     <string name="yest">Χθές</string>
-    <string name="sync_SPr_interval_title">Συγχρονισμός παρασκηνίου</string>
     <string name="TLA_menu_donate">Δωρίστε</string>
 </resources>

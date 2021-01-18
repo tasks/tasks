@@ -182,7 +182,6 @@
     <string name="yesterday">Igår</string>
     <string name="tmrw">Imorgon</string>
     <string name="yest">Igår</string>
-    <string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
     <string name="widget_show_checkboxes">Visa kryssrutor</string>
     <string name="widget_show_header">Visa rubrik</string>
     <string name="widget_show_settings">Visa ikon för inställningar</string>
@@ -415,7 +414,6 @@
     <string name="help">Hjälp</string>
     <string name="caldav_home_set_not_found">Hemuppsättning hittades inte</string>
     <string name="network_error">Kunde inte ansluta</string>
-    <string name="background_sync_unmetered_only">Endast på obegränsade anslutningar</string>
     <string name="upgrade_to_pro">Uppgradera till Pro</string>
     <string name="manage_subscription">Hantera prenumerations</string>
     <string name="refresh_purchases">Uppdatera inköp</string>

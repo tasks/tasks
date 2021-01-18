@@ -271,7 +271,6 @@
     <string name="yesterday">Atzo</string>
     <string name="tmrw">Bihar</string>
     <string name="yest">Atzo</string>
-    <string name="sync_SPr_interval_title">Bigarren planoko sinkronizazioa</string>
     <string name="widget_show_checkboxes">Erakutsi markaketa-koadroak</string>
     <string name="widget_show_header">Erakutsi goiburua</string>
     <string name="widget_show_settings">Erakutsi ezarpenak</string>
@@ -420,7 +419,6 @@
     <string name="help">Laguntza</string>
     <string name="caldav_home_set_not_found">Ez da jatorria aurkitu</string>
     <string name="network_error">Ezin izan da konektatu</string>
-    <string name="background_sync_unmetered_only">Mugagabeko konexioetan besterik ez</string>
     <string name="upgrade_to_pro">Aldatu pro bertsiora</string>
     <string name="manage_subscription">Aldatu harpidetza</string>
     <string name="refresh_purchases">Freskatu erosketak</string>

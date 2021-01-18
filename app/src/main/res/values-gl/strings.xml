@@ -182,7 +182,6 @@
     <string name="yesterday">Ayer</string>
     <string name="tmrw">Mñna</string>
     <string name="yest">Ayer</string>
-    <string name="sync_SPr_interval_title">Sincronización en segundo plano</string>
     <string name="widget_show_checkboxes">Mostrar casillas de verificación</string>
     <string name="widget_show_header">Mostrar encabezado</string>
     <string name="widget_show_settings">Mostrar configuración</string>

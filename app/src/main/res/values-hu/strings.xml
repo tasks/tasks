@@ -268,7 +268,6 @@
     <string name="yesterday">Tegnap</string>
     <string name="tmrw">Holn</string>
     <string name="yest">Tegn</string>
-    <string name="sync_SPr_interval_title">Szinkronizáció a háttérben</string>
     <string name="widget_show_checkboxes">Jelölőnégyzetek megjelenítése</string>
     <string name="widget_show_header">Fejléc megjelenítése</string>
     <string name="widget_show_settings">Beállítások megjelenítése</string>
@@ -415,7 +414,6 @@
     <string name="help">Súgó</string>
     <string name="caldav_home_set_not_found">Home set nem található</string>
     <string name="network_error">Sikertelen kapcsolódás</string>
-    <string name="background_sync_unmetered_only">Csak forgalmidíj mentes kapcsolatoknál</string>
     <string name="upgrade_to_pro">Upgrade pro verzióra</string>
     <string name="manage_subscription">Előfizetés módosítása</string>
     <string name="refresh_purchases">Vásárlások frissítése</string>

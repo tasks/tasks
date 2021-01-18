@@ -265,7 +265,6 @@
     <string name="yesterday">Vakar</string>
     <string name="tmrw">Ryt</string>
     <string name="yest">Vakar</string>
-    <string name="sync_SPr_interval_title">Foninis sinchronizavimas</string>
     <string name="widget_show_checkboxes">Rodyti žymimus kvadratėlius</string>
     <string name="widget_show_header">Rodyti antraštę</string>
     <string name="widget_show_settings">Rodyti nustatymus</string>
@@ -411,7 +410,6 @@
     <string name="help">Pagalba</string>
     <string name="caldav_home_set_not_found">Kalendorių rinkinio direktorija nerasta</string>
     <string name="network_error">Sujungimas nepavyko</string>
-    <string name="background_sync_unmetered_only">Naudoti tik \"unmetered\" ryšius</string>
     <string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
     <string name="manage_subscription">Redaguoti prenumeratą</string>
     <string name="refresh_purchases">Atnaujinti pirkimus</string>

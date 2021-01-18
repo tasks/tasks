@@ -304,7 +304,6 @@
     <string name="refresh_purchases">வாங்குதல்களைப் புதுப்பிக்கவும்</string>
     <string name="manage_subscription">சந்தாவை நிர்வகிக்கவும்</string>
     <string name="upgrade_to_pro">சார்புக்கு மேம்படுத்தவும்</string>
-    <string name="background_sync_unmetered_only">அளவிடப்படாத இணைப்புகளில் மட்டுமே</string>
     <string name="network_error">இணைக்க முடியவில்லை</string>
     <string name="caldav_home_set_not_found">முகப்பு தொகுப்பு கிடைக்கவில்லை</string>
     <string name="help_and_feedback">உதவி &amp; கருத்து</string>
@@ -468,7 +467,6 @@
     <string name="widget_show_header">தலைப்பைக் காட்டு</string>
     <string name="widget_hide_background">பின்னணியை மறைக்க</string>
     <string name="widget_show_checkboxes">தேர்வுப்பெட்டிகளைக் காட்டு</string>
-    <string name="sync_SPr_interval_title">பின்னணி ஒத்திசைவு</string>
     <string name="yest">நேற்று</string>
     <string name="tmrw">நாளை</string>
     <string name="yesterday_lowercase">நேற்று</string>

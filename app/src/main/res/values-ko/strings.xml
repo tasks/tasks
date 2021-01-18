@@ -268,7 +268,6 @@
     <string name="yesterday">어제</string>
     <string name="tmrw">내일</string>
     <string name="yest">어제</string>
-    <string name="sync_SPr_interval_title">백그라운드 동기화</string>
     <string name="widget_show_checkboxes">체크박스 표시</string>
     <string name="widget_show_header">헤더 표시</string>
     <string name="widget_show_settings">설정버튼 표시</string>
@@ -413,7 +412,6 @@
     <string name="help">도움말</string>
     <string name="caldav_home_set_not_found">CalDAV 홈 설정 없음</string>
     <string name="network_error">연결 실패</string>
-    <string name="background_sync_unmetered_only">요금이 부과되지 않는 접속인 경우에만</string>
     <string name="upgrade_to_pro">프로 서비스로 업그레이드</string>
     <string name="refresh_purchases">구매 새로고침</string>
     <string name="button_subscribe">신청</string>

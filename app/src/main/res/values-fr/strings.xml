@@ -254,7 +254,6 @@
     <string name="yesterday">Hier</string>
     <string name="tmrw">Demain</string>
     <string name="yest">Hier</string>
-    <string name="sync_SPr_interval_title">Synchro. en arrière-plan</string>
     <string name="widget_show_checkboxes">Montrer les cases à cocher</string>
     <string name="widget_show_header">Montrer l\'en-tête</string>
     <string name="widget_show_settings">Voir les paramètres</string>
@@ -396,7 +395,6 @@
     <string name="help">Aide</string>
     <string name="caldav_home_set_not_found">Ensemble d\'accueil non trouvé</string>
     <string name="network_error">Impossible de se connecter</string>
-    <string name="background_sync_unmetered_only">Uniquement sur les connexions illimitées</string>
     <string name="upgrade_to_pro">Passer en pro</string>
     <string name="manage_subscription">Modifier les abonnements</string>
     <string name="refresh_purchases">Rafraîchir les achats</string>

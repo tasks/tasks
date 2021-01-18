@@ -151,6 +151,5 @@
     <string name="yesterday">Včeraj</string>
     <string name="tmrw">Jutr</string>
     <string name="yest">Včer</string>
-    <string name="sync_SPr_interval_title">Usklajevanje v ozadju</string>
     <string name="TLA_menu_donate">Donirajte</string>
 </resources>

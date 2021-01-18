@@ -194,7 +194,6 @@
     <string name="yesterday">Kemarin</string>
     <string name="tmrw">Bsk</string>
     <string name="yest">Kmrn</string>
-    <string name="sync_SPr_interval_title">Sinkronisasi latar belakang</string>
     <string name="widget_show_checkboxes">Tampilkan kotak centang</string>
     <string name="widget_show_header">Tampilkan tajuk</string>
     <string name="widget_show_settings">Tampilkan pengaturan</string>
@@ -347,7 +346,6 @@
     <string name="tasker_create_task">Buat tugas</string>
     <string name="help">Bantuan</string>
     <string name="network_error">Koneksi gagal</string>
-    <string name="background_sync_unmetered_only">Hanya pada koneksi tak terbatas</string>
     <string name="upgrade_to_pro">Tingkatkan ke pro</string>
     <string name="manage_subscription">Kelola langganan</string>
     <string name="refresh_purchases">Segarkan pembelian</string>

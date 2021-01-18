@@ -270,7 +270,6 @@
     <string name="yesterday">Ieri</string>
     <string name="tmrw">Domani</string>
     <string name="yest">Ieri</string>
-    <string name="sync_SPr_interval_title">Sincronizza in background</string>
     <string name="widget_show_checkboxes">Mostra le caselle di selezione</string>
     <string name="widget_show_header">Mostra intestazione</string>
     <string name="widget_show_settings">Mostra impostazioni</string>
@@ -415,7 +414,6 @@
     <string name="help">Aiuto</string>
     <string name="caldav_home_set_not_found">Home set non trovato</string>
     <string name="network_error">Connessione fallita</string>
-    <string name="background_sync_unmetered_only">Solo su connessioni non a consumo</string>
     <string name="upgrade_to_pro">Aggiorna a pro</string>
     <string name="manage_subscription">Modifica abbonamento</string>
     <string name="refresh_purchases">Aggiorna acquisti</string>

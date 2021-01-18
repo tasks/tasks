@@ -376,7 +376,6 @@
 
   <string name="debug">Debug</string>
   <string name="p_start_of_week">start_of_week</string>
-  <string name="p_background_sync">gtask_background_sync</string>
   <string name="p_bundle_notifications">bundle_notifications</string>
   <string name="p_strict_mode_vm">strict_mode_vm</string>
   <string name="p_strict_mode_thread">strict_mode_thread</string>
@@ -385,7 +384,6 @@
   <string name="p_debug_pro">debug_pro</string>
   <string name="p_crash_main_queries">debug_crash_main_queries</string>
   <string name="warned_play_services">warned_play_services</string>
-  <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>
   <string name="p_sync_ongoing_google_tasks">sync_ongoing_google_tasks</string>
   <string name="p_sync_ongoing_caldav">sync_ongoing_caldav</string>
   <string name="p_sync_ongoing_etesync">sync_ongoing_etesync</string>

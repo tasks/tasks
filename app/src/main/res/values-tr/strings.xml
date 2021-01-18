@@ -271,7 +271,6 @@
     <string name="yesterday">Dün</string>
     <string name="tmrw">Yarın</string>
     <string name="yest">Dün</string>
-    <string name="sync_SPr_interval_title">Arka planda eşzamanla</string>
     <string name="widget_show_checkboxes">Onay kutularını göster</string>
     <string name="widget_show_header">Başlığı göster</string>
     <string name="widget_show_settings">Ayarları göster</string>
@@ -417,7 +416,6 @@
     <string name="help">Yardım</string>
     <string name="caldav_home_set_not_found">Ev takımı (home set) bulunamadı</string>
     <string name="network_error">Bağlanamadı</string>
-    <string name="background_sync_unmetered_only">Yalnızca ölçülmeyen bağlantılarda</string>
     <string name="upgrade_to_pro">Pro\'ya yükselt</string>
     <string name="manage_subscription">Aboneliği değiştir</string>
     <string name="refresh_purchases">Satın alımları yenile</string>

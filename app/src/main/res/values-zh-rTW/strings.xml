@@ -159,7 +159,6 @@
     <string name="yesterday">昨天</string>
     <string name="tmrw">明天</string>
     <string name="yest">昨天</string>
-    <string name="sync_SPr_interval_title">後台同步</string>
     <string name="widget_show_checkboxes">顯示核取方塊</string>
     <string name="widget_show_header">顯示標頭</string>
     <string name="widget_show_settings">顯示設定</string>

@@ -27,7 +27,6 @@ import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.injection.InjectingPreferenceFragment
-import org.tasks.jobs.WorkManager
 import org.tasks.opentasks.OpenTaskAccountSettingsActivity
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.PreferencesViewModel
@@ -38,7 +37,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class Synchronization : InjectingPreferenceFragment() {
 
-    @Inject lateinit var workManager: WorkManager
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
@@ -50,21 +48,6 @@ class Synchronization : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = R.xml.preferences_synchronization
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
-        findPreference(R.string.p_background_sync_unmetered_only)
-            .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
-                lifecycleScope.launch {
-                    workManager.updateBackgroundSync(null, o as Boolean?)
-                }
-                true
-            }
-        findPreference(R.string.p_background_sync)
-            .setOnPreferenceChangeListener { _: Preference?, o: Any? ->
-                lifecycleScope.launch {
-                    workManager.updateBackgroundSync(o as Boolean?, null)
-                }
-                true
-            }
-
         findPreference(R.string.add_account)
             .setOnPreferenceClickListener {
                 lifecycleScope.launch {
@@ -193,9 +176,7 @@ class Synchronization : InjectingPreferenceFragment() {
             synchronizationPreferences.removeAll()
             val hasGoogleAccounts: Boolean = addGoogleTasksAccounts(synchronizationPreferences)
             val hasCaldavAccounts = addCaldavAccounts(synchronizationPreferences)
-            val syncEnabled = hasGoogleAccounts || hasCaldavAccounts
-            findPreference(R.string.accounts).isVisible = syncEnabled
-            findPreference(R.string.sync_SPr_interval_title).isVisible = syncEnabled
+            findPreference(R.string.accounts).isVisible = hasGoogleAccounts || hasCaldavAccounts
         }
     }
 

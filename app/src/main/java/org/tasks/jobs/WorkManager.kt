@@ -31,9 +31,6 @@ interface WorkManager {
 
     fun updateBackgroundSync()
 
-    fun updateBackgroundSync(
-            forceBackgroundEnabled: Boolean?, forceOnlyOnUnmetered: Boolean?)
-
     fun scheduleRefresh(time: Long)
 
     fun scheduleMidnightRefresh()

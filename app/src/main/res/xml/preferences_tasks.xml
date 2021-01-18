@@ -40,21 +40,6 @@
   </PreferenceCategory>
 
   <PreferenceCategory
-    android:key="@string/sync_SPr_interval_title"
-    android:title="@string/sync_SPr_interval_title">
-
-    <SwitchPreferenceCompat
-      android:defaultValue="true"
-      android:key="@string/p_background_sync"
-      android:title="@string/enabled" />
-    <SwitchPreferenceCompat
-      android:defaultValue="false"
-      android:dependency="@string/p_background_sync"
-      android:key="@string/p_background_sync_unmetered_only"
-      android:title="@string/background_sync_unmetered_only" />
-  </PreferenceCategory>
-
-  <PreferenceCategory
     android:key="@string/app_passwords"
     android:title="@string/app_passwords">
   </PreferenceCategory>

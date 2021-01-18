@@ -301,7 +301,6 @@
     <string name="yesterday">אתמול</string>
     <string name="tmrw">מחר</string>
     <string name="yest">אתמול</string>
-    <string name="sync_SPr_interval_title">סנכרון ברקע</string>
     <string name="widget_show_checkboxes">הצג תיבות סימון</string>
     <string name="widget_show_header">הצג כותרת</string>
     <string name="widget_show_settings">הצג הגדרות</string>
@@ -449,7 +448,6 @@
     <string name="help">עזרה</string>
     <string name="caldav_home_set_not_found">קבוצת הבית לא נמצאה</string>
     <string name="network_error">לא ניתן להתחבר</string>
-    <string name="background_sync_unmetered_only">רק בחיבורים ללא חיוב לפי נפח גלישה</string>
     <string name="upgrade_to_pro">שידרוג לגירסת pro</string>
     <string name="manage_subscription">ניהול מינוי</string>
     <string name="refresh_purchases">עדכן רכישות</string>

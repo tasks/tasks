@@ -280,7 +280,6 @@
     <string name="yesterday">Wczoraj</string>
     <string name="tmrw">jtr</string>
     <string name="yest">wcz</string>
-    <string name="sync_SPr_interval_title">Synchronizacja w tle</string>
     <string name="widget_show_checkboxes">Pokaż przyciski wyboru</string>
     <string name="widget_show_header">Pokaż nagłówek</string>
     <string name="widget_show_settings">Pokaż ustawienia</string>
@@ -425,7 +424,6 @@
     <string name="tasker_list_notification">Lista powiadomień</string>
     <string name="help">Pomoc</string>
     <string name="network_error">Błąd połączenia</string>
-    <string name="background_sync_unmetered_only">Tylko niezliczane połączenia</string>
     <string name="upgrade_to_pro">Upgrade do pro</string>
     <string name="manage_subscription">Zmodyfikuj subskrypcję</string>
     <string name="refresh_purchases">Odśwież zakupy</string>

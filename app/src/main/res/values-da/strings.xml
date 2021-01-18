@@ -73,7 +73,6 @@
     <string name="today">I dag</string>
     <string name="tomorrow">I morgen</string>
     <string name="yesterday">I går</string>
-    <string name="sync_SPr_interval_title">Baggrundssynkronisering</string>
     <string name="source_code">Kildekode</string>
     <string name="repeats_single_on_until">Gentages %1$s hver %2$s indtil %3$s</string>
     <string name="repeats_single_on">Gentages %1$s hver %2$s</string>
@@ -225,7 +224,6 @@
     <string name="action_create_new_task">Opret ny opgave</string>
     <string name="reinitialize_account">Geninitialisér</string>
     <string name="cannot_access_account">Kunne ikke tilgå kontoen</string>
-    <string name="background_sync_unmetered_only">Kun på ubegrænsede forbindelser</string>
     <string name="logout_warning">Log ud af %s\? Al data for denne konto vil blive slettet fra enheden</string>
     <string name="logout">Log ud</string>
     <string name="this_feature_requires_a_subscription">Denne funktion kræver et abonnement</string>

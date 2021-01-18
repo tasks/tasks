@@ -254,7 +254,6 @@
     <string name="yesterday">昨天</string>
     <string name="tmrw">明天</string>
     <string name="yest">昨天</string>
-    <string name="sync_SPr_interval_title">后台同步</string>
     <string name="widget_show_checkboxes">显示复选框</string>
     <string name="widget_show_header">显示标题</string>
     <string name="widget_show_settings">显示设置</string>
@@ -398,7 +397,6 @@
     <string name="help">帮助</string>
     <string name="caldav_home_set_not_found">未设置CalDAVHome</string>
     <string name="network_error">无法连接</string>
-    <string name="background_sync_unmetered_only">仅于不计费的连接</string>
     <string name="upgrade_to_pro">升级至专业版</string>
     <string name="refresh_purchases">刷新购买</string>
     <string name="button_subscribe">订购</string>

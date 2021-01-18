@@ -167,7 +167,6 @@
     <string name="yesterday">Včera</string>
     <string name="tmrw">Zítra</string>
     <string name="yest">Včera</string>
-    <string name="sync_SPr_interval_title">Synchronizace na pozadí</string>
     <string name="widget_show_checkboxes">Zobrazovat zaškrtávací políčka</string>
     <string name="widget_show_header">Zobrazit záhlaví</string>
     <string name="widget_show_settings">Zobrazit nastavení</string>
@@ -429,7 +428,6 @@
     <string name="tasker_list_notification">Zobrazit upozornění</string>
     <string name="help">Nápověda</string>
     <string name="network_error">Nepodařilo se připojit</string>
-    <string name="background_sync_unmetered_only">Pouze pokud připojení není účtované podle objemu dat</string>
     <string name="upgrade_to_pro">Získat PRO verzi</string>
     <string name="manage_subscription">Spravovat předplatné</string>
     <string name="refresh_purchases">Obnovit nákupy</string>

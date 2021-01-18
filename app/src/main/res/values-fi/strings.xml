@@ -260,7 +260,6 @@
     <string name="yesterday">Eilen</string>
     <string name="tmrw">Huominen</string>
     <string name="yest">Eilinen</string>
-    <string name="sync_SPr_interval_title">Tausta synkronointi</string>
     <string name="widget_show_checkboxes">Näytä valintaruudut</string>
     <string name="widget_show_header">Näytä otsikot</string>
     <string name="widget_show_settings">Näytä asetukset</string>
@@ -573,7 +572,6 @@
     <string name="location_arrived">Saavuit paikkaan %s</string>
     <string name="logout_warning">Kirjaudu ulos %s\? Kaikki tälle tilille tallennetut tiedot poistetaan laitteeltasi</string>
     <string name="refresh_purchases">Päivitä ostoksesi</string>
-    <string name="background_sync_unmetered_only">Vain rajoittamattomalla yhteydellä</string>
     <string name="widget_due_date_hidden">Piilotettu</string>
     <string name="widget_due_date_below_title">Otsikon alle</string>
     <string name="widget_due_date_after_title">Otsikon jälkeen</string>

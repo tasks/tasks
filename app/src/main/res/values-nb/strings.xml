@@ -113,7 +113,6 @@
     <string name="today">I dag</string>
     <string name="tomorrow">I morgen</string>
     <string name="yesterday">I går</string>
-    <string name="sync_SPr_interval_title">Bakgrunnssynkronisering</string>
     <string name="widget_show_checkboxes">Vis avkryssingsbokser</string>
     <string name="widget_show_settings">Vis innstillinger</string>
     <string name="notifications"> Varsler</string>
@@ -420,7 +419,6 @@
     <string name="help">Hjelp</string>
     <string name="caldav_home_set_not_found">Fant ikke CalDAV-\"home set\"</string>
     <string name="network_error">Kunne ikke koble til</string>
-    <string name="background_sync_unmetered_only">Kun for ubegrensede tilkoblinger</string>
     <string name="upgrade_to_pro">Oppgrader til pro</string>
     <string name="manage_subscription">Endre abonnement</string>
     <string name="refresh_purchases">Gjenoppfrisk kjøp</string>

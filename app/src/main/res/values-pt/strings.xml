@@ -257,7 +257,6 @@
     <string name="yesterday">Ontem</string>
     <string name="tmrw">Amanhã</string>
     <string name="yest">Ontem</string>
-    <string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
     <string name="widget_show_checkboxes">Mostrar caixas de seleção</string>
     <string name="widget_show_header">Mostrar cabeçalho</string>
     <string name="widget_show_settings">Definições:</string>
@@ -428,7 +427,6 @@
     <string name="refresh_purchases">Atualizar compras</string>
     <string name="manage_subscription">Gerir assinatura</string>
     <string name="upgrade_to_pro">Atualizar para pro</string>
-    <string name="background_sync_unmetered_only">Apenas em conexões ilimitadas</string>
     <string name="caldav_home_set_not_found">Conjunto inicial não encontrado</string>
     <string name="help">Ajuda</string>
     <string name="tasker_list_notification">Listar notificações</string>

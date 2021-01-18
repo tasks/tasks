@@ -286,7 +286,6 @@
     <string name="yesterday">Вчора</string>
     <string name="tmrw">Звтр</string>
     <string name="yest">Вчр</string>
-    <string name="sync_SPr_interval_title">Фонова синхронізація</string>
     <string name="widget_show_checkboxes">Показати кнопки для галочок</string>
     <string name="widget_show_header">Показати заголовок</string>
     <string name="widget_show_settings">Показати налаштування</string>
@@ -433,7 +432,6 @@
     <string name="help">Допомога</string>
     <string name="caldav_home_set_not_found">Домашній список не знайдено</string>
     <string name="network_error">Не вдалося з’єднатися</string>
-    <string name="background_sync_unmetered_only">Лише при з\'єднанні без обліку трафіка</string>
     <string name="upgrade_to_pro">Покращити до Преміум</string>
     <string name="manage_subscription">Змінити підписку</string>
     <string name="refresh_purchases">Оновити покупки</string>

@@ -25,6 +25,7 @@ import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.jobs.MigrateLocalWork.Companion.EXTRA_ACCOUNT
+import org.tasks.jobs.SyncWork.Companion.EXTRA_BACKGROUND
 import org.tasks.jobs.SyncWork.Companion.EXTRA_IMMEDIATE
 import org.tasks.jobs.WorkManager.Companion.MAX_CLEANUP_LENGTH
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
@@ -82,9 +83,7 @@ class WorkManagerImpl constructor(
     override fun migrateLocalTasks(caldavAccount: CaldavAccount) {
         val builder = OneTimeWorkRequest.Builder(MigrateLocalWork::class.java)
                 .setInputData(Data.Builder().putString(EXTRA_ACCOUNT, caldavAccount.uuid).build())
-                .setConstraints(Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build())
+                .setConstraints(networkConstraints)
         enqueue(workManager.beginUniqueWork(TAG_MIGRATE_LOCAL, APPEND_OR_REPLACE, builder.build()))
     }
 
@@ -120,14 +119,7 @@ class WorkManagerImpl constructor(
         val builder = OneTimeWorkRequest.Builder(c)
                 .setInputData(Data.Builder().putBoolean(EXTRA_IMMEDIATE, immediate).build())
         if (requireNetwork) {
-            builder.setConstraints(Constraints.Builder()
-                    .setRequiredNetworkType(
-                            if (!immediate && preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)) {
-                                NetworkType.UNMETERED
-                            } else {
-                                NetworkType.CONNECTED
-                            })
-                    .build())
+            builder.setConstraints(networkConstraints)
         }
         if (!immediate) {
             builder.setInitialDelay(1, TimeUnit.MINUTES)
@@ -151,48 +143,33 @@ class WorkManagerImpl constructor(
         enqueue(
                 OneTimeWorkRequest.Builder(ReverseGeocodeWork::class.java)
                         .setInputData(Data.Builder().putLong(ReverseGeocodeWork.PLACE_ID, place.id).build())
-                        .setConstraints(
-                                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()))
+                        .setConstraints(networkConstraints))
     }
 
     override fun updateBackgroundSync() {
-        updateBackgroundSync(null, null)
-    }
-
-    @SuppressLint("CheckResult")
-    override fun updateBackgroundSync(
-            forceBackgroundEnabled: Boolean?, forceOnlyOnUnmetered: Boolean?) {
-        val enabled = forceBackgroundEnabled
-                ?: preferences.getBoolean(R.string.p_background_sync, true)
-        val unmetered = forceOnlyOnUnmetered
-                ?: preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
         throttle.run {
             scheduleBackgroundSync(
                     TAG_BACKGROUND_SYNC_GOOGLE_TASKS,
                     SyncGoogleTasksWork::class.java,
-                    enabled && googleTaskListDao.accountCount() > 0,
-                    unmetered)
+                    googleTaskListDao.accountCount() > 0)
         }
         throttle.run {
             scheduleBackgroundSync(
                     TAG_BACKGROUND_SYNC_CALDAV,
                     SyncCaldavWork::class.java,
-                    enabled && caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).isNotEmpty(),
-                    unmetered)
+                    caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).isNotEmpty())
         }
         throttle.run {
             scheduleBackgroundSync(
                     TAG_BACKGROUND_SYNC_ETESYNC,
                     SyncEteSyncWork::class.java,
-                    enabled && caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty(),
-                    unmetered)
+                    caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty())
         }
         throttle.run {
             scheduleBackgroundSync(
                     TAG_BACKGROUND_SYNC_ETEBASE,
                     SyncEtebaseWork::class.java,
-                    enabled && caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty(),
-                    unmetered)
+                    caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty())
         }
         throttle.run {
             scheduleBackgroundSync(
@@ -203,12 +180,12 @@ class WorkManagerImpl constructor(
         }
     }
 
-    private fun scheduleBackgroundSync(
-            tag: String, c: Class<out SyncWork>, enabled: Boolean, unmetered: Boolean? = null) {
-        Timber.d("scheduleBackgroundSync($tag, $c, enabled = $enabled, unmetered = $unmetered)")
+    private fun scheduleBackgroundSync(tag: String, c: Class<out SyncWork>, enabled: Boolean) {
+        Timber.d("scheduleBackgroundSync($tag, $c, enabled = $enabled)")
         if (enabled) {
             val builder = PeriodicWorkRequest.Builder(c, 1, TimeUnit.HOURS)
-            unmetered?.let { builder.setConstraints(getNetworkConstraints(it)) }
+                    .setInputData(Data.Builder().putBoolean(EXTRA_BACKGROUND, true).build())
+                    .setConstraints(networkConstraints)
             workManager.enqueueUniquePeriodicWork(
                     tag, ExistingPeriodicWorkPolicy.KEEP, builder.build())
         } else {
@@ -252,8 +229,7 @@ class WorkManagerImpl constructor(
                     ExistingPeriodicWorkPolicy.KEEP,
                     PeriodicWorkRequest.Builder(
                             RemoteConfigWork::class.java, REMOTE_CONFIG_INTERVAL_HOURS, TimeUnit.HOURS)
-                            .setConstraints(
-                                    Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+                            .setConstraints(networkConstraints)
                             .build())
         }
     }
@@ -272,13 +248,7 @@ class WorkManagerImpl constructor(
     }
 
     private val networkConstraints: Constraints
-        get() = getNetworkConstraints(
-                preferences.getBoolean(R.string.p_background_sync_unmetered_only, false))
-
-    private fun getNetworkConstraints(unmeteredOnly: Boolean) =
-            Constraints.Builder()
-                    .setRequiredNetworkType(if (unmeteredOnly) NetworkType.UNMETERED else NetworkType.CONNECTED)
-                    .build()
+        get() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
 
     override fun cancelNotifications() {
         alarmManager.cancel(notificationPendingIntent)

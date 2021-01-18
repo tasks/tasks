@@ -58,7 +58,6 @@
     <string name="add_account">Magdagdag ng account</string>
     <string name="user">Gumagamit</string>
     <string name="notification_disable_battery_optimizations_description">Mga baterya optimization ay maaaring antalahin ang mga notification</string>
-    <string name="background_sync_unmetered_only">Sa metered connections laang</string>
     <string name="location_remind_departure">Ipaalala sa pagdating</string>
     <string name="location_arrived">Dumating sa %s</string>
     <string name="location_departed">Umalis %s</string>

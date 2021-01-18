@@ -264,7 +264,6 @@
     <string name="yesterday">Gisteren</string>
     <string name="tmrw">mrgn</string>
     <string name="yest">gisteren</string>
-    <string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
     <string name="widget_show_checkboxes">Toon vinkboxjes</string>
     <string name="widget_show_header">Toon titel</string>
     <string name="widget_show_settings">Toon instellingen</string>
@@ -404,7 +403,6 @@
     <string name="tasker_list_notification">Notificatie lijst</string>
     <string name="caldav_home_set_not_found">Home set niet gevonden</string>
     <string name="network_error">Kon geen verbinding maken</string>
-    <string name="background_sync_unmetered_only">Alleen bij onbeperkte verbindingen</string>
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
     <string name="manage_subscription">Verander abonnement</string>
     <string name="refresh_purchases">Vernieuw aankopen</string>

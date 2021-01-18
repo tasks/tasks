@@ -36,7 +36,7 @@ class SyncOpenTasksWork @WorkerInject constructor(
     override suspend fun doSync() {
         openTasksSynchronizer.sync()
 
-        if (inputData.getBoolean(EXTRA_IMMEDIATE, false)) {
+        if (isImmediate) {
             AccountManager
                     .get(context)
                     .accounts

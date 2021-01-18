@@ -308,7 +308,6 @@ File %1$s contained %2$s.\n\n
   <string name="tomorrow_abbrev_lowercase">tmrw</string>
   <string name="yest">Yest</string>
   <string name="yesterday_abbrev_lowercase">yest</string>
-  <string name="sync_SPr_interval_title">Background sync</string>
   <string name="widget_show_checkboxes">Show checkboxes</string>
   <string name="widget_hide_background">Hide background</string>
   <string name="widget_show_header">Show header</string>
@@ -492,7 +491,6 @@ File %1$s contained %2$s.\n\n
   <string name="help_and_feedback">Help &amp; feedback</string>
   <string name="caldav_home_set_not_found">Home set not found</string>
   <string name="network_error">Could not connect</string>
-  <string name="background_sync_unmetered_only">Only on unmetered connections</string>
   <string name="upgrade_to_pro">Upgrade to pro</string>
   <string name="manage_subscription">Modify subscription</string>
   <string name="refresh_purchases">Refresh purchases</string>

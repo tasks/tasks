@@ -85,7 +85,6 @@
     <string name="today">Avui</string>
     <string name="tomorrow">Demà</string>
     <string name="yesterday">Ahir</string>
-    <string name="sync_SPr_interval_title">Sincronitzar en segon pla</string>
     <string name="source_code">Codi font</string>
     <string name="translations">Contribuir traduccions</string>
     <string name="contact_developer">Contacta amb el desenvolupador</string>

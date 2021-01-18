@@ -269,7 +269,6 @@
     <string name="yesterday">Ayer</string>
     <string name="tmrw">Mñna</string>
     <string name="yest">Ayer</string>
-    <string name="sync_SPr_interval_title">Sincronización en segundo plano</string>
     <string name="widget_show_checkboxes">Mostrar casillas de verificación</string>
     <string name="widget_show_header">Mostrar encabezado</string>
     <string name="widget_show_settings">Mostrar configuración</string>
@@ -414,7 +413,6 @@
     <string name="help">Ayuda</string>
     <string name="caldav_home_set_not_found">Origen no encontrado</string>
     <string name="network_error">No se pudo conectar</string>
-    <string name="background_sync_unmetered_only">Sólo en conexiones sin cargos</string>
     <string name="upgrade_to_pro">Actualizar a profesional</string>
     <string name="manage_subscription">Modificar suscripción</string>
     <string name="refresh_purchases">Actualizar los acquisiciones</string>

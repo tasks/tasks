@@ -268,7 +268,6 @@
     <string name="yesterday">Вчера</string>
     <string name="tmrw">Утре</string>
     <string name="yest">Вчера</string>
-    <string name="sync_SPr_interval_title">Синхронзиране във фонов режим</string>
     <string name="widget_show_checkboxes">Покажи отметки</string>
     <string name="widget_show_header">Покажи хедър</string>
     <string name="widget_show_settings">Покажи настройки</string>
@@ -415,7 +414,6 @@
     <string name="help">Помощ</string>
     <string name="caldav_home_set_not_found">Home set не е намерен</string>
     <string name="network_error">Свързването е неуспешно</string>
-    <string name="background_sync_unmetered_only">Само при неограничени връзки</string>
     <string name="upgrade_to_pro">Обнови към pro</string>
     <string name="manage_subscription">Управление на абонамент</string>
     <string name="refresh_purchases">Обнови покупки</string>

@@ -285,7 +285,6 @@
     <string name="yesterday">Вчера</string>
     <string name="tmrw">Завтра</string>
     <string name="yest">Вчера</string>
-    <string name="sync_SPr_interval_title">Фоновая синхронизация</string>
     <string name="widget_show_checkboxes">Показать кнопки для галочек</string>
     <string name="widget_show_header">Показать заголовок</string>
     <string name="widget_show_settings">Показать настройки</string>
@@ -432,7 +431,6 @@
     <string name="help">Помощь</string>
     <string name="caldav_home_set_not_found">Домашний набор не найден</string>
     <string name="network_error">Не удалось подключиться</string>
-    <string name="background_sync_unmetered_only">Только на соединениях без тарификации</string>
     <string name="upgrade_to_pro">Обновить до версии Про</string>
     <string name="manage_subscription">Изменить подписку</string>
     <string name="refresh_purchases">Обновить покупки</string>
