@@ -684,4 +684,9 @@
     <string name="filter_any_start_date">Alle startdatums</string>
     <string name="CFC_startBefore_name">Startdatum…</string>
     <string name="CFC_startBefore_text">Startdatum: \?</string>
+    <string name="sort_due_group">Einde: %s</string>
+    <string name="sort_start_group">Start: %s</string>
+    <string name="yesterday_abbrev_lowercase">gist</string>
+    <string name="tomorrow_abbrev_lowercase">mrgn</string>
+    <string name="tasks_org_description">Synchroniseer je taken met Tasks.org</string>
 </resources>
