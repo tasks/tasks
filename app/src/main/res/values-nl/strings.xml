@@ -263,7 +263,7 @@
     <string name="next">Volgende %s</string>
     <string name="yesterday">Gisteren</string>
     <string name="tmrw">mrgn</string>
-    <string name="yest">gisteren</string>
+    <string name="yest">Gisteren</string>
     <string name="widget_show_checkboxes">Toon vinkboxjes</string>
     <string name="widget_show_header">Toon titel</string>
     <string name="widget_show_settings">Toon instellingen</string>
