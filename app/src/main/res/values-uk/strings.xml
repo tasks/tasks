@@ -708,4 +708,9 @@
     <string name="filter_any_start_date">Будь-яка дата початку</string>
     <string name="CFC_startBefore_name">Дата початку…</string>
     <string name="CFC_startBefore_text">Дата початку: \?</string>
+    <string name="sort_due_group">Завершення %s</string>
+    <string name="sort_start_group">Початок %s</string>
+    <string name="tasks_org_description">Синхронізувати ваші завдання з Tasks.org</string>
+    <string name="yesterday_abbrev_lowercase">вчора</string>
+    <string name="tomorrow_abbrev_lowercase">завтра</string>
 </resources>
