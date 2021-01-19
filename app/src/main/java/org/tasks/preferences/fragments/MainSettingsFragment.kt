@@ -78,9 +78,7 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
                 preferenceScreen.insertAt(current++)
             })
         }
-        repeat(current.until(index).count()) {
-            preferenceScreen.removePreference(preferenceScreen.getPreference(current))
-        }
+        preferenceScreen.removeAt(current, index - current)
         if (caldavAccounts.isEmpty() && googleTaskAccounts.isEmpty()) {
             addAccount.setTitle(R.string.not_signed_in)
             addAccount.setIcon(R.drawable.ic_outline_cloud_24px)
@@ -225,6 +223,11 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         const val REQUEST_GOOGLE_TASKS = 10014
         const val REQUEST_TASKS_ORG = 10016
 
+        fun PreferenceScreen.removeAt(index: Int, count: Int = 1) {
+            repeat(count) {
+                removePreference(getPreference(index))
+            }
+        }
 
         fun PreferenceScreen.indexOf(pref: Preference): Int =
                 0.until(preferenceCount).first { pref == getPreference(it) }
