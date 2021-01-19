@@ -139,8 +139,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     override val newPassword: String
         get() = binding.password.text.toString().trim { it <= ' ' }
 
-    override val helpUrl: String
-        get() = getString(R.string.url_etesync)
+    override val helpUrl = R.string.url_etesync
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_ENCRYPTION_PASSWORD) {

@@ -84,7 +84,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         toolbar.title = if (caldavAccount == null) getString(R.string.add_account) else caldavAccount!!.name
         toolbar.navigationIcon = getDrawable(R.drawable.ic_outline_save_24px)
         toolbar.setNavigationOnClickListener { save() }
-        toolbar.inflateMenu(R.menu.menu_caldav_account_settings)
+        toolbar.inflateMenu(menuRes)
         toolbar.setOnMenuItemClickListener(this)
         toolbar.showOverflowMenu()
         themeColor.apply(toolbar)
@@ -106,6 +106,8 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
 
     @get:StringRes
     protected open val description = 0
+
+    protected open val menuRes = R.menu.menu_caldav_account_settings
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -246,7 +248,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     protected abstract suspend fun addAccount(url: String, username: String, password: String)
     protected abstract suspend fun updateAccount(url: String, username: String, password: String)
     protected abstract suspend fun updateAccount()
-    protected abstract val helpUrl: String?
+    protected abstract val helpUrl: Int
 
     protected fun requestFailed(t: Throwable) {
         hideProgressIndicator()
@@ -347,7 +349,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_help -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(helpUrl)))
+            R.id.menu_help -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(helpUrl))))
             R.id.remove -> removeAccountPrompt()
         }
         return onOptionsItemSelected(item)

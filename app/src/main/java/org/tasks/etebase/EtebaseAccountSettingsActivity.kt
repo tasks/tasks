@@ -107,8 +107,7 @@ class EtebaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     override val newPassword: String
         get() = binding.password.text.toString().trim { it <= ' ' }
 
-    override val helpUrl: String
-        get() = getString(R.string.url_etesync)
+    override val helpUrl = R.string.url_etesync
 
     private suspend fun saveAccountAndFinish() {
         if (caldavAccount!!.id == Task.NO_ID) {

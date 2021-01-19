@@ -74,6 +74,5 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
             return if (PASSWORD_MASK == input) encryption.decrypt(caldavAccount!!.password) else input
         }
 
-    override val helpUrl: String
-        get() = getString(R.string.url_caldav)
+    override val helpUrl = R.string.url_caldav
 }
