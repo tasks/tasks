@@ -647,10 +647,6 @@
       android:name=".preferences.ManageSpaceActivity"
       android:theme="@style/Tasks" />
 
-    <activity
-      android:name=".preferences.SyncPreferences"
-      android:theme="@style/Tasks" />
-
     <!-- launcher icons -->
 
     <activity-alias
