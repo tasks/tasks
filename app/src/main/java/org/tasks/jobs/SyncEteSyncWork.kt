@@ -29,6 +29,7 @@ class SyncEteSyncWork @WorkerInject constructor(
     override val syncStatus = R.string.p_sync_ongoing_etesync
 
     override suspend fun doSync() {
+        firebase.logEvent(R.string.legacy_etesync)
         etesyncJobs().awaitAll()
     }
 
