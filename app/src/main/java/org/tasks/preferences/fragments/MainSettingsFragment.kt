@@ -81,7 +81,7 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         preferenceScreen.removeAt(current, index - current)
         if (caldavAccounts.isEmpty() && googleTaskAccounts.isEmpty()) {
             addAccount.setTitle(R.string.not_signed_in)
-            addAccount.setIcon(R.drawable.ic_outline_cloud_24px)
+            addAccount.setIcon(R.drawable.ic_outline_cloud_off_24px)
         } else {
             addAccount.setTitle(R.string.add_account)
             addAccount.setIcon(R.drawable.ic_outline_add_24px)
