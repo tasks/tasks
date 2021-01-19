@@ -3,6 +3,7 @@ package org.tasks.billing
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
@@ -24,12 +25,15 @@ class Inventory @Inject constructor(
         private val caldavDao: CaldavDao
 ) {
     private val purchases: MutableMap<String, Purchase> = HashMap()
+    val subscription = MutableLiveData<Purchase>()
+
     var hasTasksSubscription = false
         private set
 
     fun clear() {
         Timber.d("clear()")
         purchases.clear()
+        subscription.value = null
     }
 
     fun add(items: Iterable<Purchase>) {
@@ -46,6 +50,7 @@ class Inventory @Inject constructor(
             }
         }
         hasPro = purchases.values.any { it.isProSubscription } || purchases.containsKey(SKU_VIP)
+        updateSubscription()
     }
 
     fun purchasedTasker() = hasPro || purchases.containsKey(SKU_TASKER)
@@ -63,7 +68,7 @@ class Inventory @Inject constructor(
 
     suspend fun updateTasksSubscription() {
         hasTasksSubscription =
-                subscription?.isTasksSubscription == true || caldavDao.getAccounts(TYPE_TASKS).any {
+                subscription.value?.isTasksSubscription == true || caldavDao.getAccounts(TYPE_TASKS).any {
                     it.isTasksSubscription(context)
                 }
     }
@@ -72,8 +77,8 @@ class Inventory @Inject constructor(
 
     fun getPurchase(sku: String) = purchases[sku]
 
-    val subscription: Purchase?
-        get() = purchases
+    private fun updateSubscription() {
+        subscription.value = purchases
                 .values
                 .filter { it.isProSubscription }
                 .sortedWith { l, r ->
@@ -84,9 +89,10 @@ class Inventory @Inject constructor(
                     r.subscriptionPrice!!.compareTo(l.subscriptionPrice!!)
                 }
                 .firstOrNull()
+    }
 
     fun unsubscribe(context: Context): Boolean {
-        subscription?.let {
+        subscription.value?.let {
             context.startActivity(
                     Intent(
                             Intent.ACTION_VIEW,

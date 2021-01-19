@@ -242,7 +242,7 @@ _${getString(R.string.upgrade_tasks_no_account)}_
     }
 
     private fun setup() {
-        currentSubscription = inventory.subscription
+        currentSubscription = inventory.subscription.value
         if (!priceChanged) {
             binding.slider.value =
                     currentSubscription

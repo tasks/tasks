@@ -367,7 +367,7 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
     }
 
     override fun onPurchaseDialogDismissed() {
-        if (inventory.subscription?.isTasksSubscription == true) {
+        if (inventory.subscription.value?.isTasksSubscription == true) {
             lifecycleScope.launch {
                 val account = viewModel.setupAccount(authService)
                 if (account != null) {

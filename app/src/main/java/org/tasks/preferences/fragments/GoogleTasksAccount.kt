@@ -34,7 +34,7 @@ class GoogleTasksAccount : BaseAccountPreference() {
         override fun onReceive(context: Context, intent: Intent) {
             lifecycleScope.launch {
                 googleTaskAccount.let {
-                    if (inventory.subscription != null && it.error.isPaymentRequired()) {
+                    if (inventory.subscription.value != null && it.error.isPaymentRequired()) {
                         it.error = null
                         googleTaskListDao.update(it)
                     }

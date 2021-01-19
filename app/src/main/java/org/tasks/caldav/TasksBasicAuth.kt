@@ -14,7 +14,7 @@ class TasksBasicAuth(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val builder = chain.request().newBuilder().header(AUTHORIZATION, credentials)
-        inventory.subscription?.let {
+        inventory.subscription.value?.let {
             builder.header(SKU, it.sku)
             builder.header(TOKEN, it.purchaseToken)
         }

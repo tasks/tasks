@@ -111,7 +111,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
             return
         }
 
-        val subscription = inventory.subscription
+        val subscription = inventory.subscription.value
         findPreference(R.string.upgrade_to_pro).apply {
             title = getString(
                     if (subscription == null) {
@@ -129,7 +129,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
                 getString(R.string.current_subscription, price)
             }
         }
-        findPreference(R.string.button_unsubscribe).isEnabled = inventory.subscription != null
+        findPreference(R.string.button_unsubscribe).isEnabled = inventory.subscription.value != null
     }
 
     override fun getMenu() = 0

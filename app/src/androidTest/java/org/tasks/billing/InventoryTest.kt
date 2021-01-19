@@ -34,28 +34,28 @@ class InventoryTest : InjectingTestCase() {
     fun testMonthlyUpgrade() {
         withPurchases(monthly01, monthly03)
 
-        assertEquals(3, inventory.subscription?.subscriptionPrice)
+        assertEquals(3, inventory.subscription.value?.subscriptionPrice)
     }
 
     @Test
     fun testMonthlyOverAnnual() {
         withPurchases(monthly01, annual03)
 
-        assertTrue(inventory.subscription!!.isMonthly)
+        assertTrue(inventory.subscription.value!!.isMonthly)
     }
 
     @Test
     fun isCancelled() {
         withPurchases(annual03Cancelled)
 
-        assertTrue(inventory.subscription!!.isCanceled)
+        assertTrue(inventory.subscription.value!!.isCanceled)
     }
 
     @Test
     fun cancelledIsStillPro() {
         withPurchases(annual03Cancelled)
 
-        assertTrue(inventory.subscription!!.isProSubscription)
+        assertTrue(inventory.subscription.value!!.isProSubscription)
     }
 
     private fun withPurchases(vararg purchases: String) {

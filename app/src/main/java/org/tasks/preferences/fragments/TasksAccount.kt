@@ -54,7 +54,7 @@ class TasksAccount : BaseAccountPreference() {
         override fun onReceive(context: Context, intent: Intent) {
             lifecycleScope.launch {
                 caldavAccount.let {
-                    if (inventory.subscription?.isTasksSubscription == true
+                    if (inventory.subscription.value?.isTasksSubscription == true
                             && it.isPaymentRequired()) {
                         it.error = null
                         caldavDao.update(it)
@@ -178,7 +178,7 @@ class TasksAccount : BaseAccountPreference() {
             isVisible = true
             when {
                 account.isPaymentRequired() -> {
-                    val subscription = inventory.subscription
+                    val subscription = inventory.subscription.value
                     if (isGitHubAccount) {
                         title = null
                         setSummary(R.string.insufficient_sponsorship)
@@ -241,7 +241,7 @@ class TasksAccount : BaseAccountPreference() {
         if (BuildConfig.FLAVOR == "generic") {
             return
         }
-        val subscription = inventory.subscription
+        val subscription = inventory.subscription.value
         findPreference(R.string.upgrade_to_pro).apply {
             title = getString(
                     if (subscription == null) {
@@ -260,7 +260,7 @@ class TasksAccount : BaseAccountPreference() {
                 getString(R.string.current_subscription, price)
             }
         }
-        findPreference(R.string.button_unsubscribe).isEnabled = inventory.subscription != null
+        findPreference(R.string.button_unsubscribe).isEnabled = inventory.subscription.value != null
     }
 
     private fun refreshPasswords(passwords: List<TasksAccountViewModel.AppPassword>) {
