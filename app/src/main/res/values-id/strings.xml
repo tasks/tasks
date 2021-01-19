@@ -356,7 +356,7 @@
     <string name="pro_dashclock_extension">Ekstensi Dashclock</string>
     <string name="requires_pro_subscription">Membutuhkan langganan versi pro</string>
     <string name="logout">Keluar</string>
-    <string name="logout_warning">Keluar dari %s\? Semua data akun ini akan dihapus dari perangkat anda</string>
+    <string name="logout_warning">Semua data akun ini akan dihapus dari perangkat anda</string>
     <string name="cannot_access_account">Tidak bisa mengakses akun</string>
     <string name="reinitialize_account">Inisialisasi ulang</string>
     <string name="action_create_new_task">Buat tugas baru</string>

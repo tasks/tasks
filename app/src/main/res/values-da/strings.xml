@@ -224,7 +224,7 @@
     <string name="action_create_new_task">Opret ny opgave</string>
     <string name="reinitialize_account">Geninitialisér</string>
     <string name="cannot_access_account">Kunne ikke tilgå kontoen</string>
-    <string name="logout_warning">Log ud af %s\? Al data for denne konto vil blive slettet fra enheden</string>
+    <string name="logout_warning">Al data for denne konto vil blive slettet fra enheden</string>
     <string name="logout">Log ud</string>
     <string name="this_feature_requires_a_subscription">Denne funktion kræver et abonnement</string>
     <string name="requires_pro_subscription">Kræver pro-abonnement</string>

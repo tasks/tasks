@@ -422,7 +422,7 @@
     <string name="pro_dashclock_extension">DashClock extension</string>
     <string name="requires_pro_subscription">Kräver Pro-prenumeration</string>
     <string name="logout">Logga ut</string>
-    <string name="logout_warning">Logga ut från %s\? Alla data för det här kontot tas bort från enheten</string>
+    <string name="logout_warning">Alla data för det här kontot tas bort från enheten</string>
     <string name="cannot_access_account">Kan inte komma åt kontot</string>
     <string name="reinitialize_account">Initiera</string>
     <string name="action_create_new_task">Skapa ny uppgift</string>

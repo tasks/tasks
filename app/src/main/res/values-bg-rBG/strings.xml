@@ -421,7 +421,7 @@
     <string name="pro_dashclock_extension">Dashclock  разширение</string>
     <string name="requires_pro_subscription">Изисква pro абонамент</string>
     <string name="logout">Излизане</string>
-    <string name="logout_warning">Разлогване от %s? Всички данни за този акаунт ще бъдат изтрити от Вашето устройство</string>
+    <string name="logout_warning">Всички данни за този акаунт ще бъдат изтрити от Вашето устройство</string>
     <string name="cannot_access_account">Няма достъп до акаунт</string>
     <string name="reinitialize_account">Реинициализиране</string>
     <string name="action_create_new_task">Създай нова задача</string>

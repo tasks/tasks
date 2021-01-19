@@ -418,7 +418,7 @@
     <string name="pro_dashclock_extension">Dashclock plėtinys</string>
     <string name="requires_pro_subscription">Reikalinga \"pro\" prenumerata</string>
     <string name="logout">Atsijungti</string>
-    <string name="logout_warning">Atsijungti nuo %s? Visi šios paskyros duomenys iš šio įrenginio bus pašalinti.</string>
+    <string name="logout_warning">Visi šios paskyros duomenys iš šio įrenginio bus pašalinti.</string>
     <string name="cannot_access_account">Paskyra nepasiekiama.</string>
     <string name="reinitialize_account">Inicijuoti iš naujo</string>
     <string name="action_create_new_task">Sukurti naują užduotį</string>

@@ -56,7 +56,7 @@
     <string name="show_description">Prikaži opis</string>
     <string name="action_create_new_task">Stvori novi zadatak</string>
     <string name="cannot_access_account">Nije moguće učitati račun</string>
-    <string name="logout_warning">Odjava s računa \"%s\"\? Svi podaci za ovaj račun uklonit će se s uređaja</string>
+    <string name="logout_warning">Svi podaci za ovaj račun uklonit će se s uređaja</string>
     <string name="logout">Odjavi</string>
     <string name="license_summary">Tasks je libre aplikacija otvorenog koda, licencirano pod GNU General Public License v3.0</string>
     <string name="about">O aplikaciju</string>

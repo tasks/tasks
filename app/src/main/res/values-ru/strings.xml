@@ -439,7 +439,7 @@
     <string name="pro_dashclock_extension">Расширение для Dashclock</string>
     <string name="requires_pro_subscription">Требуется версия Про</string>
     <string name="logout">Отключиться</string>
-    <string name="logout_warning">Отключиться от %s? Все данные учётной записи на этом устройстве будут удалены</string>
+    <string name="logout_warning">Все данные учётной записи на этом устройстве будут удалены</string>
     <string name="cannot_access_account">Учётная запись недоступна</string>
     <string name="reinitialize_account">Инициализировать заново</string>
     <string name="action_create_new_task">Создать новую задачу</string>

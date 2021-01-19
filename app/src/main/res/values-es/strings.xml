@@ -421,7 +421,7 @@
     <string name="pro_dashclock_extension">Extensión Dashclock</string>
     <string name="requires_pro_subscription">Requiere suscripción profesional</string>
     <string name="logout">Cerrar sesión</string>
-    <string name="logout_warning">¿Cerrar sesión %s? Todos los datos de esta cuenta se borrarán del dispositivo</string>
+    <string name="logout_warning">Todos los datos de esta cuenta se borrarán del dispositivo</string>
     <string name="cannot_access_account">No se puede acceder a la cuenta</string>
     <string name="reinitialize_account">Reinicializar</string>
     <string name="action_create_new_task">Crear nueva tarea</string>

@@ -8,6 +8,9 @@ import org.tasks.time.DateTimeUtils.currentTimeMillis
 
 @Dao
 interface GoogleTaskListDao {
+    @Query("SELECT * FROM google_task_accounts WHERE gta_id = :id")
+    fun watchAccount(id: Long): LiveData<GoogleTaskAccount>
+
     @Query("SELECT COUNT(*) FROM google_task_accounts")
     suspend fun accountCount(): Int
 

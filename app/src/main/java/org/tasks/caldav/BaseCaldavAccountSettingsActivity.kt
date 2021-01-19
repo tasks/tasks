@@ -320,7 +320,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         }
         dialogBuilder
                 .newDialog()
-                .setMessage(R.string.logout_warning, caldavAccount!!.name)
+                .setMessage(R.string.logout_warning)
                 .setPositiveButton(R.string.remove) { _, _ -> lifecycleScope.launch { removeAccount() } }
                 .setNegativeButton(R.string.cancel, null)
                 .show()

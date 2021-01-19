@@ -291,7 +291,7 @@
     <string name="action_create_new_task">புதிய பணியை உருவாக்கவும்</string>
     <string name="reinitialize_account">மீண்டும் துவக்கு</string>
     <string name="cannot_access_account">கணக்கை அணுக முடியாது</string>
-    <string name="logout_warning">%s இலிருந்து வெளியேற வேண்டுமா\? இந்தக் கணக்கிற்கான எல்லா தரவும் உங்கள் சாதனத்திலிருந்து அகற்றப்படும்</string>
+    <string name="logout_warning">இந்தக் கணக்கிற்கான எல்லா தரவும் உங்கள் சாதனத்திலிருந்து அகற்றப்படும்</string>
     <string name="logout">வெளியேறு</string>
     <string name="this_feature_requires_a_subscription">இந்த அம்சத்திற்கு சந்தா தேவை</string>
     <string name="requires_pro_subscription">சார்பு சந்தா தேவை</string>

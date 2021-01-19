@@ -456,7 +456,7 @@
     <string name="pro_dashclock_extension">הרחבת Dashclock</string>
     <string name="requires_pro_subscription">לא דורש הרשמה</string>
     <string name="logout">התנתקות מהחשבון</string>
-    <string name="logout_warning">להתנתק מ-%s? כל המידע של חשבון זה יימחק מהמכשיר שלך</string>
+    <string name="logout_warning">כל המידע של חשבון זה יימחק מהמכשיר שלך</string>
     <string name="cannot_access_account">לא ניתן לגשת לחשבון</string>
     <string name="reinitialize_account">איתחול מחדש</string>
     <string name="action_create_new_task">יצירת משימה חדשה</string>

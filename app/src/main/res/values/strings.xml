@@ -502,7 +502,7 @@ File %1$s contained %2$s.\n\n
   <string name="requires_pro_subscription">Requires pro subscription</string>
   <string name="this_feature_requires_a_subscription">This feature requires a subscription</string>
   <string name="logout">Log out</string>
-  <string name="logout_warning">Log out of %s? All data for this account will be removed from your device</string>
+  <string name="logout_warning">All data for this account will be removed from your device</string>
   <string name="cannot_access_account">Cannot access account</string>
   <string name="reinitialize_account">Reinitialize</string>
   <string name="action_create_new_task">Create new task</string>

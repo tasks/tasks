@@ -64,7 +64,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             if (i == 0 || inventory.hasPro) {
                 synchronize(account)
             } else {
-                account.error = context.getString(R.string.requires_pro_subscription)
+                account.error = CaldavAccount.ERROR_PAYMENT_REQUIRED
             }
         } catch (e: SocketTimeoutException) {
             Timber.e(e)

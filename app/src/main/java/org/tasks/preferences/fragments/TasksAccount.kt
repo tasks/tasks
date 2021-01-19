@@ -1,6 +1,5 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity.RESULT_OK
 import android.content.*
 import android.net.Uri
 import android.os.Bundle
@@ -22,12 +21,9 @@ import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.auth.SignInActivity
-import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseDialog
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
-import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
 import org.tasks.locale.Locale
 import org.tasks.preferences.IconPreference
@@ -37,10 +33,9 @@ import java.time.format.FormatStyle
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TasksAccount : InjectingPreferenceFragment() {
+class TasksAccount : BaseAccountPreference() {
 
     @Inject lateinit var taskDeleter: TaskDeleter
-    @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var caldavDao: CaldavDao
@@ -73,6 +68,8 @@ class TasksAccount : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = R.xml.preferences_tasks
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
+        super.setupPreferences(savedInstanceState)
+
         caldavAccountLiveData = caldavDao.watchAccount(
                 requireArguments().getParcelable<CaldavAccount>(EXTRA_ACCOUNT)!!.id
         )
@@ -80,18 +77,8 @@ class TasksAccount : InjectingPreferenceFragment() {
             viewModel.refreshPasswords(caldavAccount)
         }
 
-        findPreference(R.string.logout).setOnPreferenceClickListener {
-            dialogBuilder
-                    .newDialog()
-                    .setMessage(R.string.logout_warning, getString(R.string.tasks_org))
-                    .setPositiveButton(R.string.remove) { _, _ -> removeAccount() }
-                    .setNegativeButton(R.string.cancel, null)
-                    .show()
-            false
-        }
-
         findPreference(R.string.upgrade_to_pro).setOnPreferenceClickListener {
-            showPurchaseDialog()
+            showPurchaseDialog(tasksPayment = true)
         }
 
         findPreference(R.string.button_unsubscribe).setOnPreferenceClickListener {
@@ -121,18 +108,10 @@ class TasksAccount : InjectingPreferenceFragment() {
         }
     }
 
-    private fun showPurchaseDialog(): Boolean {
-        PurchaseDialog
-                .newPurchaseDialog(this, REQUEST_PURCHASE, tasksPayment = true)
-                .show(parentFragmentManager, PurchaseDialog.FRAG_TAG_PURCHASE_DIALOG)
-        return false
-    }
-
-    private fun removeAccount() = lifecycleScope.launch {
+    override suspend fun removeAccount() {
         // try to delete session from caldav.tasks.org
         taskDeleter.delete(caldavAccount)
         inventory.updateTasksSubscription()
-        activity?.onBackPressed()
     }
 
     override fun onResume() {
@@ -213,7 +192,7 @@ class TasksAccount : InjectingPreferenceFragment() {
                         }
                     } else {
                         setOnPreferenceClickListener {
-                            showPurchaseDialog()
+                            showPurchaseDialog(tasksPayment = true)
                         }
                         if (subscription == null || subscription.isTasksSubscription) {
                             setTitle(R.string.button_subscribe)
@@ -326,18 +305,7 @@ class TasksAccount : InjectingPreferenceFragment() {
         )
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_PURCHASE) {
-            if (resultCode == RESULT_OK) {
-                billingClient.queryPurchases()
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     companion object {
-        private const val REQUEST_PURCHASE = 10201
         private const val EXTRA_ACCOUNT = "extra_account"
 
         fun newTasksAccountPreference(account: CaldavAccount): Fragment {

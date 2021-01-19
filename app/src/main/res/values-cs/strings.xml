@@ -449,7 +449,7 @@
     <string name="repeat_minutely">OPAKOVAT PO MINUTĚ</string>
     <string name="repeat_number_of_times">Opakovat několikrát</string>
     <string name="when_overdue">Po termínu</string>
-    <string name="logout_warning">Odhlásit se z %s\? Všechna data daného účtu budou odstraněna z tohoto zařízení</string>
+    <string name="logout_warning">Všechna data daného účtu budou odstraněna z tohoto zařízení</string>
     <string name="cannot_access_account">Nepodařilo se připojit k účtu</string>
     <string name="action_create_new_task">Vytvořit nový úkol</string>
     <string name="show_description">Zobrazit poznámky</string>

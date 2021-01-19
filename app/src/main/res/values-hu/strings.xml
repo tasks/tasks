@@ -422,7 +422,7 @@
     <string name="pro_dashclock_extension">Dashclock kiterjesztés</string>
     <string name="requires_pro_subscription">Pro előfizetést igényel</string>
     <string name="logout">Kijelentkezés</string>
-    <string name="logout_warning">Kijelentkezés ebből: %s\? A fiókhoz tartozó összes adat törlésre kerül az eszközről</string>
+    <string name="logout_warning">A fiókhoz tartozó összes adat törlésre kerül az eszközről</string>
     <string name="cannot_access_account">Fiók nem elérhető</string>
     <string name="reinitialize_account">Újrainicializálás</string>
     <string name="action_create_new_task">Új feladat létrehozása</string>

@@ -419,7 +419,7 @@
     <string name="pro_dashclock_extension">Dashclock 拡張</string>
     <string name="requires_pro_subscription">プロ版のサブスクリプションが必要です</string>
     <string name="logout">ログアウト</string>
-    <string name="logout_warning">%s をログアウトしますか? このアカウントのデータがお使いの端末からすべて削除されます</string>
+    <string name="logout_warning">このアカウントのデータがお使いの端末からすべて削除されます</string>
     <string name="cannot_access_account">アカウントにアクセスできません</string>
     <string name="reinitialize_account">再初期化</string>
     <string name="action_create_new_task">新しいタスクを作成</string>

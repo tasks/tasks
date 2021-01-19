@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:key="@string/preference_screen">
+
+  <org.tasks.preferences.IconPreference
+    android:key="@string/sign_in_with_google"
+    android:layout="@layout/preference_icon"
+    android:title="@string/sign_in_with_google"
+    android:summary="@string/authentication_required"
+    app:isPreferenceVisible="false"
+    tools:isPreferenceVisible="true"/>
+
+  <Preference
+    android:key="@string/reinitialize_account"
+    android:title="@string/reinitialize_account" />
+
+  <Preference
+    android:key="@string/logout"
+    android:title="@string/logout"
+    app:allowDividerAbove="true"/>
+
+</PreferenceScreen>

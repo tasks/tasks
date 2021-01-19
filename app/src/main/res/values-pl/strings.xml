@@ -431,7 +431,7 @@
     <string name="license_summary">Tasks jest aplikacją darmową/libre z otwartym kodem źródłowym, na licencji GNU General Public License v3.0</string>
     <string name="requires_pro_subscription">Wymaga subskrypcji pro</string>
     <string name="logout">Wyloguj</string>
-    <string name="logout_warning">Wyloguj z %s? Wszystkie dane z tego konta zostaną usunięte z urządzenia</string>
+    <string name="logout_warning">Wszystkie dane z tego konta zostaną usunięte z urządzenia</string>
     <string name="cannot_access_account">Brak dostępu do konta</string>
     <string name="reinitialize_account">Powiąż ponownie</string>
     <string name="action_create_new_task">Stwórz nowe zadanie</string>

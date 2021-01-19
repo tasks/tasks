@@ -7,7 +7,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
-import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
@@ -23,6 +22,7 @@ import org.tasks.preferences.IconPreference
 import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.PreferencesViewModel
+import org.tasks.preferences.fragments.GoogleTasksAccount.Companion.newGoogleTasksAccountPreference
 import org.tasks.preferences.fragments.TasksAccount.Companion.newTasksAccountPreference
 import org.tasks.sync.AddAccountDialog.Companion.newAccountDialog
 import org.tasks.widget.AppWidgetManager
@@ -158,47 +158,15 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         pref.summary = account.account
         setupErrorIcon(pref, account.error)
         pref.setOnPreferenceClickListener {
-            dialogBuilder
-                    .newDialog(account.account)
-                    .setItems(
-                            listOf(
-                                    getString(R.string.reinitialize_account),
-                                    getString(R.string.logout)
-                            )
-                    ) { _, which ->
-                        if (which == 0) {
-                            startActivityForResult(
-                                    Intent(context, GtasksLoginActivity::class.java),
-                                    REQUEST_GOOGLE_TASKS
-                            )
-                        } else {
-                            logoutConfirmation(account)
-                        }
-                    }
-                    .setNegativeButton(R.string.cancel, null)
-                    .show()
+            (activity as MainPreferences).startPreference(
+                    this,
+                    newGoogleTasksAccountPreference(account),
+                    account.account!!
+            )
             false
         }
     }
 
-    private fun logoutConfirmation(account: GoogleTaskAccount) {
-        val name = account.account
-        val alertDialog = dialogBuilder
-                .newDialog()
-                .setMessage(R.string.logout_warning, name)
-                .setPositiveButton(R.string.logout) { _, _ ->
-                    lifecycleScope.launch {
-                        withContext(NonCancellable) {
-                            taskDeleter.delete(account)
-                        }
-                    }
-                }
-                .setNegativeButton(R.string.cancel, null)
-                .create()
-        alertDialog.setCanceledOnTouchOutside(false)
-        alertDialog.setCancelable(false)
-        alertDialog.show()
-    }
 
     private fun setupErrorIcon(pref: IconPreference, error: String?) {
         val hasError = !error.isNullOrBlank()

@@ -418,7 +418,7 @@
     <string name="pro_dashclock_extension">Rozšírenie Dashclock</string>
     <string name="requires_pro_subscription">Vyžaduje platenú verziu pro</string>
     <string name="logout">Odhlásiť sa</string>
-    <string name="logout_warning">Odhlásiť sa o %s? Všetky údaje tohto účtu budú odstránené z Vášho zariadenia</string>
+    <string name="logout_warning">Všetky údaje tohto účtu budú odstránené z Vášho zariadenia</string>
     <string name="cannot_access_account">Chyba v prístupe k účtu</string>
     <string name="reinitialize_account">Znovu aktivovať</string>
     <string name="action_create_new_task">Vytvoriť novú úlohu</string>

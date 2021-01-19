@@ -404,7 +404,7 @@
     <string name="pro_dashclock_extension">Dashclock扩展</string>
     <string name="requires_pro_subscription">需要订阅专业版</string>
     <string name="logout">登出</string>
-    <string name="logout_warning">登出 %s? 此帐户的所有数据都将从您的设备中删除</string>
+    <string name="logout_warning">此帐户的所有数据都将从您的设备中删除</string>
     <string name="cannot_access_account">无法访问帐户</string>
     <string name="reinitialize_account">重新初始化</string>
     <string name="action_create_new_task">新建任务</string>

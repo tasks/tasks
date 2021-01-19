@@ -424,7 +424,7 @@
     <string name="pro_dashclock_extension">Dashclock eklentisi</string>
     <string name="requires_pro_subscription">Pro aboneliği gerektirir</string>
     <string name="logout">Oturumu kapat</string>
-    <string name="logout_warning">%s oturumunu kapat? Bu hesapla ilgili tüm veri aygıtınızdan kaldırılacak</string>
+    <string name="logout_warning">Bu hesapla ilgili tüm veri aygıtınızdan kaldırılacak</string>
     <string name="cannot_access_account">Hesaba erişilemedi</string>
     <string name="reinitialize_account">Yeniden başlat</string>
     <string name="action_create_new_task">Yeni görev oluştur</string>

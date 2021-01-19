@@ -416,7 +416,7 @@
     <string name="action_create_new_task">Criar nova tarefa</string>
     <string name="reinitialize_account">Reinicializar</string>
     <string name="cannot_access_account">Não é possível acessar a conta</string>
-    <string name="logout_warning">Sair de %s\? Todos os dados dessa conta serão removidos do seu aparelho</string>
+    <string name="logout_warning">Todos os dados dessa conta serão removidos do seu aparelho</string>
     <string name="logout">Sair</string>
     <string name="requires_pro_subscription">Requer assinatura pro</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>

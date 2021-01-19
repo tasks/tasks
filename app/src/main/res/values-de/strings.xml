@@ -418,7 +418,7 @@
     <string name="pro_dashclock_extension">Dashclock-Erweiterung</string>
     <string name="requires_pro_subscription">Pro-Freischaltung benötigt</string>
     <string name="logout">Abmelden</string>
-    <string name="logout_warning">Von %s abmelden\? Das wird alle Daten dieses Kontos von Ihrem Gerät löschen</string>
+    <string name="logout_warning">Das wird alle Daten dieses Kontos von Ihrem Gerät löschen</string>
     <string name="cannot_access_account">Zugriff auf Konto fehlgeschlagen</string>
     <string name="reinitialize_account">Neu initialisieren</string>
     <string name="action_create_new_task">Neue Aufgabe erstellen</string>

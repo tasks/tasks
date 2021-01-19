@@ -411,7 +411,7 @@
     <string name="pro_dashclock_extension">Dashclock extentie</string>
     <string name="requires_pro_subscription">Pro abonnement vereist</string>
     <string name="logout">Uitloggen</string>
-    <string name="logout_warning">Uitloggen voor %s? Alle data voor dit account zal worden verwijderd van je toestel</string>
+    <string name="logout_warning">Alle data voor dit account zal worden verwijderd van je toestel</string>
     <string name="cannot_access_account">Geen toegang tot account</string>
     <string name="reinitialize_account">Herinitialiseren</string>
     <string name="action_create_new_task">Nieuwe taak maken</string>

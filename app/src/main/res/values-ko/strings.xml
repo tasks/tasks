@@ -419,7 +419,7 @@
     <string name="pro_dashclock_extension">Dashclock 확장프로그램</string>
     <string name="requires_pro_subscription">프로 서비스 구독이 필요합니다</string>
     <string name="logout">로그아웃</string>
-    <string name="logout_warning">%s로부터 로그아웃할까요\? 이 계정의 모든 정보가 기기에서 삭제됩니다</string>
+    <string name="logout_warning">이 계정의 모든 정보가 기기에서 삭제됩니다</string>
     <string name="cannot_access_account">계정에 접근할 수 없습니다</string>
     <string name="reinitialize_account">다시 초기화하기</string>
     <string name="action_create_new_task">새 할일 만들기</string>

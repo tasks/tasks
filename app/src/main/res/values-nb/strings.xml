@@ -427,7 +427,7 @@
     <string name="pro_dashclock_extension">Dashclock-utvidelse</string>
     <string name="requires_pro_subscription">Krever pro-abonnement</string>
     <string name="logout">Logg ut</string>
-    <string name="logout_warning">Logg ut av %s\? All data tilknyttet denne kontoen vil bli fjernet fra enheten din</string>
+    <string name="logout_warning">All data tilknyttet denne kontoen vil bli fjernet fra enheten din</string>
     <string name="cannot_access_account">Får ikke tilgang til konto</string>
     <string name="reinitialize_account">Last inn på ny</string>
     <string name="action_create_new_task">Opprett nytt gjøremål</string>

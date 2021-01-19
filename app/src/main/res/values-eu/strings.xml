@@ -427,7 +427,7 @@
     <string name="pro_dashclock_extension">Dashclock luzapena</string>
     <string name="requires_pro_subscription">Pro harpidetza eskatzen du</string>
     <string name="logout">Amaitu saioa</string>
-    <string name="logout_warning">Amaitu %s saioa\? Kontu honetako datu guztiak zure gailutik kenduko dira</string>
+    <string name="logout_warning">Kontu honetako datu guztiak zure gailutik kenduko dira</string>
     <string name="cannot_access_account">Ezin izan da kontua atzitu</string>
     <string name="reinitialize_account">Berrhasi</string>
     <string name="action_create_new_task">Sortu zeregin berria</string>

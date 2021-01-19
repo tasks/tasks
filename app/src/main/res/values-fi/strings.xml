@@ -569,7 +569,7 @@
     <string name="whats_new">Päivitykset</string>
     <string name="location_departed">Lähdit paikasta %s</string>
     <string name="location_arrived">Saavuit paikkaan %s</string>
-    <string name="logout_warning">Kirjaudu ulos %s\? Kaikki tälle tilille tallennetut tiedot poistetaan laitteeltasi</string>
+    <string name="logout_warning">Kaikki tälle tilille tallennetut tiedot poistetaan laitteeltasi</string>
     <string name="refresh_purchases">Päivitä ostoksesi</string>
     <string name="widget_due_date_hidden">Piilotettu</string>
     <string name="widget_due_date_below_title">Otsikon alle</string>
