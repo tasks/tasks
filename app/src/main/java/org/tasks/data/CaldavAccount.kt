@@ -12,10 +12,18 @@ import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
 import org.tasks.R
 import org.tasks.activities.BaseListSettingsActivity
+import org.tasks.caldav.BaseCaldavAccountSettingsActivity
+import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
+import org.tasks.data.OpenTaskDao.Companion.isDavx5
+import org.tasks.data.OpenTaskDao.Companion.isDecSync
+import org.tasks.data.OpenTaskDao.Companion.isEteSync
+import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.etebase.EtebaseCalendarSettingsActivity
+import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.etesync.EteSyncCalendarSettingsActivity
+import org.tasks.opentasks.OpenTaskAccountSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.security.KeyStoreEncryption
 import java.net.HttpURLConnection
@@ -111,6 +119,15 @@ class CaldavAccount : Parcelable {
         else -> CaldavCalendarSettingsActivity::class.java
     }
 
+    val accountSettingsClass: Class<out BaseCaldavAccountSettingsActivity>
+        get() = when {
+            isCaldavAccount -> CaldavAccountSettingsActivity::class.java
+            isEteSyncAccount -> EteSyncAccountSettingsActivity::class.java
+            isEtebaseAccount -> EtebaseAccountSettingsActivity::class.java
+            isOpenTasks -> OpenTaskAccountSettingsActivity::class.java
+            else -> throw IllegalArgumentException("Unexpected account type: $this")
+        }
+
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -177,6 +194,27 @@ class CaldavAccount : Parcelable {
     fun isLoggedOut() = error?.startsWith(ERROR_UNAUTHORIZED) == true
 
     fun isPaymentRequired() = error?.startsWith(EROR_PAYMENT_REQUIRED) == true
+
+    val prefTitle: Int
+        get() = when {
+            isTasksOrg -> R.string.tasks_org
+            isCaldavAccount -> R.string.caldav
+            isEtebaseAccount || uuid.isEteSync() -> R.string.etesync
+            isEteSyncAccount -> R.string.etesync_v1
+            uuid.isDavx5() -> R.string.davx5
+            uuid.isDecSync() -> R.string.decsync
+            else -> 0
+        }
+
+    val prefIcon: Int
+        get() = when {
+            isTasksOrg -> R.drawable.ic_round_icon
+            isCaldavAccount -> R.drawable.ic_webdav_logo
+            isEtebaseAccount || isEteSyncAccount || uuid.isEteSync() -> R.drawable.ic_etesync
+            uuid.isDavx5() -> R.drawable.ic_davx5_icon_green_bg
+            uuid.isDecSync() -> R.drawable.ic_decsync
+            else -> 0
+        }
 
     companion object {
         val TABLE = Table("caldav_accounts")

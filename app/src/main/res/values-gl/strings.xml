@@ -193,7 +193,6 @@
     <string name="attachment_directory">Directorio de archivos adjuntos</string>
     <string name="backup_directory">Directorio de copia de seguridad</string>
     <string name="miscellaneous">Miscelánea</string>
-    <string name="synchronization">Sincronización</string>
     <string name="enabled">Habilitado</string>
     <string name="font_size">Tamaño de la fuente</string>
     <string name="row_spacing">Espaciado de fila</string>

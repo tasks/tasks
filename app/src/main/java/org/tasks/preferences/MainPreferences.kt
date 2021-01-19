@@ -15,9 +15,9 @@ import org.tasks.R
 import org.tasks.auth.SignInActivity
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.fragments.MainSettingsFragment
-import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_CALDAV_SETTINGS
-import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_GOOGLE_TASKS
-import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_TASKS_ORG
+import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_CALDAV_SETTINGS
+import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_GOOGLE_TASKS
+import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
 import org.tasks.preferences.fragments.TasksAccount
 import org.tasks.sync.SyncAdapters
 import org.tasks.ui.Toaster

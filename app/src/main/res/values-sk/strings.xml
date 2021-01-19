@@ -278,7 +278,6 @@
     <string name="backup_directory">Zalóhovať adresár</string>
     <string name="google_drive_backup">Kopírovať na Disk Google</string>
     <string name="miscellaneous">Rôzne</string>
-    <string name="synchronization">Synchronizácia</string>
     <string name="enabled">Povolené</string>
     <string name="font_size">Veľkosť písma</string>
     <string name="row_spacing">Šírka riadkov</string>

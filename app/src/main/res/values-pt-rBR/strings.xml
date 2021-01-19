@@ -278,7 +278,6 @@
     <string name="backup_directory">Pasta de backup</string>
     <string name="google_drive_backup">Copiar para o Google Drive</string>
     <string name="miscellaneous">Miscelânea</string>
-    <string name="synchronization">Sincronização</string>
     <string name="enabled">Ativado</string>
     <string name="font_size">Tamanho do texto</string>
     <string name="row_spacing">Espaçamento da linha</string>

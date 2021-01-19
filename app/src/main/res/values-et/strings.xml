@@ -159,7 +159,6 @@
     <string name="backup_directory">Varukoopia kaust</string>
     <string name="google_drive_backup">Kopeeri Google Drive-i</string>
     <string name="miscellaneous">Varia</string>
-    <string name="synchronization">Sünkroonimine</string>
     <string name="enabled">Sisse lülitatud</string>
     <string name="font_size">Teksti suurus</string>
     <string name="row_spacing">Reavahed</string>

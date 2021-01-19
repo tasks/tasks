@@ -313,7 +313,6 @@
     <string name="backup_directory">תיקיית גיבוי</string>
     <string name="google_drive_backup">גיבוי Google Drive</string>
     <string name="miscellaneous">שונות</string>
-    <string name="synchronization">סינכרון</string>
     <string name="enabled">אפשר</string>
     <string name="font_size">גודל גופן</string>
     <string name="row_spacing">מרווח שורה</string>

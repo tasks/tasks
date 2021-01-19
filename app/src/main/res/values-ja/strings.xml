@@ -278,7 +278,6 @@
     <string name="backup_directory">ディレクトリをバックアップ</string>
     <string name="google_drive_backup">Google ドライブにコピー</string>
     <string name="miscellaneous">その他</string>
-    <string name="synchronization">同期</string>
     <string name="enabled">有効</string>
     <string name="font_size">フォントサイズ</string>
     <string name="row_spacing">行間隔</string>

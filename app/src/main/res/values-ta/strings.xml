@@ -451,7 +451,6 @@
     <string name="font_size">எழுத்துரு அளவு</string>
     <string name="enabled">இயக்கப்பட்டது</string>
     <string name="subtasks">துணை பணிகள்</string>
-    <string name="synchronization">ஒத்திசைவு</string>
     <string name="miscellaneous">இதர</string>
     <string name="google_drive_backup">Google இயக்கத்தில் நகலெடுக்கவும்</string>
     <string name="backup_directory">காப்பு கோப்புறை</string>

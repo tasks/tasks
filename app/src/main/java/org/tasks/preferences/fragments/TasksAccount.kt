@@ -31,6 +31,7 @@ import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.jobs.WorkManager
 import org.tasks.locale.Locale
 import org.tasks.preferences.IconPreference
+import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
 import org.tasks.ui.Toaster
 import java.time.format.FormatStyle
 import javax.inject.Inject
@@ -237,7 +238,7 @@ class TasksAccount : InjectingPreferenceFragment() {
                                                 SignInActivity.EXTRA_SELECT_SERVICE,
                                                 if (isGitHubAccount) 1 else 0
                                         ),
-                                Synchronization.REQUEST_TASKS_ORG)
+                                REQUEST_TASKS_ORG)
                         false
                     }
                 }

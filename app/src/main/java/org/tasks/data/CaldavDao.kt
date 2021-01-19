@@ -51,6 +51,17 @@ abstract class CaldavDao {
     @Query("""
 SELECT *
 FROM caldav_accounts
+WHERE cda_account_type != $TYPE_LOCAL
+ORDER BY CASE cda_account_type
+             WHEN $TYPE_TASKS THEN 0
+             ELSE 1
+             END, UPPER(cda_name)
+    """)
+    abstract fun watchAccounts(): LiveData<List<CaldavAccount>>
+
+    @Query("""
+SELECT *
+FROM caldav_accounts
 ORDER BY CASE cda_account_type
              WHEN $TYPE_TASKS THEN 0
              WHEN $TYPE_LOCAL THEN 2

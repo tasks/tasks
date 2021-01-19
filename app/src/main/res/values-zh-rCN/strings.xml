@@ -265,7 +265,6 @@
     <string name="attachment_directory">附件文件夹</string>
     <string name="backup_directory">备份文件夹</string>
     <string name="miscellaneous">杂项</string>
-    <string name="synchronization">同步</string>
     <string name="enabled">启用</string>
     <string name="font_size">字体大小</string>
     <string name="row_spacing">行间距</string>

@@ -281,7 +281,6 @@
     <string name="backup_directory">Carpeta de copia de seguridad</string>
     <string name="google_drive_backup">Copia de seguridad de Google Drive</string>
     <string name="miscellaneous">Miscelánea</string>
-    <string name="synchronization">Sincronización</string>
     <string name="enabled">Habilitado</string>
     <string name="font_size">Tamaño de la fuente</string>
     <string name="row_spacing">Espaciado de fila</string>

@@ -373,7 +373,6 @@
     <string name="font_size">Skriftstørrelse</string>
     <string name="enabled">Aktiveret</string>
     <string name="subtasks">Underopgaver</string>
-    <string name="synchronization">Synkronisering</string>
     <string name="miscellaneous">Diverse</string>
     <string name="google_drive_backup">Kopiér til Google Drive</string>
     <string name="backup_directory">Mappe til sikkerhedskopi</string>

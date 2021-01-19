@@ -21,9 +21,9 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.extensions.getMutableIntList
 import org.tasks.extensions.getMutableStringList
-import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_CALDAV_SETTINGS
-import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_GOOGLE_TASKS
-import org.tasks.preferences.fragments.Synchronization.Companion.REQUEST_TASKS_ORG
+import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_CALDAV_SETTINGS
+import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_GOOGLE_TASKS
+import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
 import org.tasks.themes.DrawableUtil
 import javax.inject.Inject
 

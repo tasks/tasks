@@ -280,7 +280,6 @@
     <string name="backup_directory">Sicherungsordner</string>
     <string name="google_drive_backup">Google Drive-Sicherung</string>
     <string name="miscellaneous">Verschiedenes</string>
-    <string name="synchronization">Synchronisierung</string>
     <string name="enabled">Aktiviert</string>
     <string name="font_size">Schriftgröße</string>
     <string name="row_spacing">Zeilenabstand</string>

@@ -283,7 +283,6 @@
     <string name="backup_directory">Yedekleme klasörü</string>
     <string name="google_drive_backup">Google Drive yedeği</string>
     <string name="miscellaneous">Türlü</string>
-    <string name="synchronization">Eşzamanlama</string>
     <string name="enabled">Etkin</string>
     <string name="font_size">Yazı tipi boyutu</string>
     <string name="row_spacing">Satır aralığı</string>

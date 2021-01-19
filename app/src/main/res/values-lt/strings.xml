@@ -277,7 +277,6 @@
     <string name="backup_directory">Atsarginių kopijų direktorija</string>
     <string name="google_drive_backup">Kopijuoti į Google Drive</string>
     <string name="miscellaneous">Įvairūs</string>
-    <string name="synchronization">Sinchronizacija</string>
     <string name="enabled">Įjungta</string>
     <string name="font_size">Šrifto dydis</string>
     <string name="row_spacing">Eilutės plotis</string>

@@ -280,7 +280,6 @@
     <string name="backup_directory">Mentési mappa</string>
     <string name="google_drive_backup">Mentés Google Drive-ba</string>
     <string name="miscellaneous">Egyéb</string>
-    <string name="synchronization">Szinkronizáció</string>
     <string name="enabled">Engedélyezve</string>
     <string name="font_size">Karakter méret</string>
     <string name="row_spacing">Sorköz</string>

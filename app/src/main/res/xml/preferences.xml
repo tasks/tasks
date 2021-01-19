@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <org.tasks.preferences.IconPreference
-    android:key="@string/tasks_org"
-    android:layout="@layout/preference_icon"
-    android:title="@string/tasks_org"
-    android:summary=" "
-    tools:summary="@string/sign_in_with_google" />
+  <Preference
+    android:key="@string/add_account"
+    android:title="@string/not_signed_in" />
 
   <Preference
     app:fragment="org.tasks.preferences.fragments.LookAndFeel"
@@ -20,12 +16,6 @@
     app:fragment="org.tasks.preferences.fragments.Notifications"
     app:icon="@drawable/ic_outline_notifications_24px"
     app:title="@string/notifications" />
-
-  <Preference
-    android:key="@string/synchronization"
-    app:fragment="org.tasks.preferences.fragments.Synchronization"
-    app:icon="@drawable/ic_outline_cloud_24px"
-    app:title="@string/synchronization" />
 
   <Preference
     app:fragment="org.tasks.preferences.fragments.TaskDefaults"

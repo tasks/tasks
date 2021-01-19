@@ -317,7 +317,6 @@
     <string name="backup_directory">Sikkerhetskopimappe</string>
     <string name="google_drive_backup">Google Drive-sikkerhetskopi</string>
     <string name="miscellaneous">Ymse</string>
-    <string name="synchronization">Synkronisering</string>
     <string name="enabled">Påskrudd</string>
     <string name="font_size">Skriftstørrelse</string>
     <string name="customize_edit_screen">Tilpass redigeringsskjerm</string>

@@ -297,7 +297,6 @@
     <string name="backup_directory">Папка резервных копий</string>
     <string name="google_drive_backup">Резервное копирование в Google Drive</string>
     <string name="miscellaneous">Прочие настройки</string>
-    <string name="synchronization">Синхронизация</string>
     <string name="enabled">Включить режим</string>
     <string name="font_size">Размер шрифта</string>
     <string name="row_spacing">Межстрочный интервал</string>

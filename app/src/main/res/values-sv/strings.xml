@@ -193,7 +193,6 @@
     <string name="attachment_directory">Lagringsplats för bilagor</string>
     <string name="backup_directory">Lagringsplats för säkerhetskopior</string>
     <string name="miscellaneous">Övrigt</string>
-    <string name="synchronization">Synkronisering</string>
     <string name="enabled">Aktiverad</string>
     <string name="font_size">Teckenstorlek</string>
     <string name="customize_edit_screen">Anpassa redigeringsvyn</string>

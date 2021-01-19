@@ -14,6 +14,9 @@ interface GoogleTaskListDao {
     @Query("SELECT * FROM google_task_accounts")
     suspend fun getAccounts(): List<GoogleTaskAccount>
 
+    @Query("SELECT * FROM google_task_accounts")
+    fun watchAccounts(): LiveData<List<GoogleTaskAccount>>
+
     @Query("SELECT * FROM google_task_accounts WHERE gta_account = :account COLLATE NOCASE LIMIT 1")
     suspend fun getAccount(account: String): GoogleTaskAccount?
 

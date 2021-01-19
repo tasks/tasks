@@ -292,7 +292,6 @@
     <string name="backup_directory">Katalog kopii zapasowych</string>
     <string name="google_drive_backup">Kopia zapasowa na Dysku Google</string>
     <string name="miscellaneous">Różne</string>
-    <string name="synchronization">Synchronizacja</string>
     <string name="enabled">Włączone</string>
     <string name="font_size">Rozmiar czcionki</string>
     <string name="row_spacing">Odstęp wierszy</string>

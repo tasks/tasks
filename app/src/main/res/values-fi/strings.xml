@@ -271,7 +271,6 @@
     <string name="attachment_directory">Liitehakemisto</string>
     <string name="backup_directory">Varmuuskopioiden hakemisto</string>
     <string name="miscellaneous">Sekalaista</string>
-    <string name="synchronization">Synkronointi</string>
     <string name="enabled">Sallittu</string>
     <string name="font_size">Kirjasimen koko</string>
     <string name="row_spacing">Rivinväli</string>

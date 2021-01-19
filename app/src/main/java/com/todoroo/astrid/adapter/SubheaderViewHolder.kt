@@ -19,7 +19,6 @@ import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
-import org.tasks.preferences.SyncPreferences
 import org.tasks.themes.DrawableUtil
 
 internal class SubheaderViewHolder(
@@ -66,12 +65,7 @@ internal class SubheaderViewHolder(
     init {
         ButterKnife.bind(this, itemView)
         errorIcon.setOnClickListener {
-            val preferenceClass = if (subheader.subheaderType == SubheaderType.TASKS) {
-                MainPreferences::class.java
-            } else {
-                SyncPreferences::class.java
-            }
-            activity.startActivity(Intent(activity, preferenceClass))
+            activity.startActivity(Intent(activity, MainPreferences::class.java))
         }
     }
 }

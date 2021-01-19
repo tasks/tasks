@@ -264,7 +264,6 @@
     <string name="backup_directory">Dossier de sauvegarde</string>
     <string name="google_drive_backup">Sauvegarde de Google Drive</string>
     <string name="miscellaneous">Divers</string>
-    <string name="synchronization">Synchronisation</string>
     <string name="enabled">Activé</string>
     <string name="font_size">Taille de police</string>
     <string name="row_spacing">Écartement de la ligne</string>

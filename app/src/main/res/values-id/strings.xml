@@ -203,7 +203,6 @@
     <string name="backup_directory">Direktori cadangan</string>
     <string name="google_drive_backup">Salin ke Google Drive</string>
     <string name="miscellaneous">Lain-lain</string>
-    <string name="synchronization">Sinkronisasi</string>
     <string name="subtasks">Subtugas</string>
     <string name="enabled">Aktif</string>
     <string name="font_size">Ukuran fon</string>
