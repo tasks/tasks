@@ -67,7 +67,7 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         ButterKnife.bind(this, binding.root)
 
         if (savedInstanceState == null) {
-            nameYourPrice = !isTasksPayment
+            nameYourPrice = !isTasksPayment && !inventory.hasTasksSubscription
         } else {
             binding.slider.value = savedInstanceState.getFloat(EXTRA_PRICE)
             priceChanged = savedInstanceState.getBoolean(EXTRA_PRICE_CHANGED)
@@ -129,14 +129,14 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         benefits += if (nameYourPrice) {
             """
 ---
-#### ~~${getString(R.string.upgrade_tasks_account)}~~
+#### ~~${getString(R.string.tasks_org_account)}~~
 
-_${getString(R.string.upgrade_tasks_no_account)}_
+_${getString(R.string.account_not_included)}_
 """
         } else {
             """
 ---                
-#### ${getString(R.string.upgrade_tasks_account)}
+#### ${getString(R.string.tasks_org_account)}
 * ${getString(R.string.tasks_org_description)}
 * [${getString(R.string.upgrade_third_party_apps)}](${getString(R.string.url_app_passwords)})
 * [${getString(R.string.upgrade_coming_soon)}](${getString(R.string.help_url_sync)})
@@ -221,8 +221,8 @@ _${getString(R.string.upgrade_tasks_no_account)}_
         binding.payOther.isVisible = !isWaitScreen
         binding.payOther.setText(when {
             isTasksPayment -> R.string.cancel
-            nameYourPrice -> R.string.upgrade_tasks_account
-            else -> R.string.back
+            nameYourPrice -> R.string.get_tasks_org_account
+            else -> R.string.name_your_price
         })
         binding.tasksOrgButtonPanel.isVisible = !isWaitScreen && !generic
         binding.screenWait.isVisible = isWaitScreen && !generic
