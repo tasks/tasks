@@ -491,6 +491,7 @@ File %1$s contained %2$s.\n\n
   <string name="caldav_home_set_not_found">Home set not found</string>
   <string name="network_error">Could not connect</string>
   <string name="upgrade_to_pro">Upgrade to pro</string>
+  <string name="subscription">Subscription</string>
   <string name="manage_subscription">Modify subscription</string>
   <string name="refresh_purchases">Refresh purchases</string>
   <string name="button_subscribe">Subscribe</string>

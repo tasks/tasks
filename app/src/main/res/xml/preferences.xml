@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <Preference
     android:key="@string/add_account"
@@ -60,5 +61,26 @@
     app:fragment="org.tasks.preferences.fragments.Debug"
     app:icon="@drawable/ic_outline_bug_report_24px"
     app:title="@string/debug" />
+
+  <PreferenceCategory
+    android:key="@string/upgrade_to_pro"
+    tools:title="@string/upgrade_to_pro">
+
+    <Preference
+      android:key="@string/name_your_price"
+      android:summary=" "
+      app:icon="@drawable/ic_outline_attach_money_24px"
+      tools:title="@string/name_your_price"/>
+
+    <Preference
+      android:key="@string/button_unsubscribe"
+      android:title="@string/button_unsubscribe"/>
+
+    <Preference
+      android:key="@string/refresh_purchases"
+      android:title="@string/refresh_purchases"
+      app:icon="@drawable/ic_cached_24px" />
+
+  </PreferenceCategory>
 
 </PreferenceScreen>

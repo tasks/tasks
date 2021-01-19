@@ -22,7 +22,9 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.auth.SignInActivity
 import org.tasks.billing.Inventory
+import org.tasks.billing.Purchase
 import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.isPaymentRequired
 import org.tasks.data.CaldavDao
 import org.tasks.jobs.WorkManager
 import org.tasks.locale.Locale
@@ -50,25 +52,27 @@ class TasksAccount : BaseAccountPreference() {
     val caldavAccount: CaldavAccount
         get() = caldavAccountLiveData.value ?: requireArguments().getParcelable(EXTRA_ACCOUNT)!!
 
-    private val purchaseReceiver = object : BroadcastReceiver() {
+    private val refreshReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            lifecycleScope.launch {
-                caldavAccount.let {
-                    if (inventory.subscription.value?.isTasksSubscription == true
-                            && it.isPaymentRequired()) {
-                        it.error = null
-                        caldavDao.update(it)
-                    }
-                    refreshUi(it)
-                }
-            }
+            refreshUi(caldavAccount)
         }
     }
 
     override fun getPreferenceXml() = R.xml.preferences_tasks
 
+    private fun clearPurchaseError(purchase: Purchase?) {
+        if (purchase?.isTasksSubscription == true && caldavAccount.error.isPaymentRequired()) {
+            caldavAccount.error = null
+            lifecycleScope.launch {
+                caldavDao.update(caldavAccount)
+            }
+        }
+    }
+
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         super.setupPreferences(savedInstanceState)
+
+        inventory.subscription.observe(this) { clearPurchaseError(it) }
 
         caldavAccountLiveData = caldavDao.watchAccount(
                 requireArguments().getParcelable<CaldavAccount>(EXTRA_ACCOUNT)!!.id
@@ -77,29 +81,10 @@ class TasksAccount : BaseAccountPreference() {
             viewModel.refreshPasswords(caldavAccount)
         }
 
-        findPreference(R.string.upgrade_to_pro).setOnPreferenceClickListener {
-            showPurchaseDialog(tasksPayment = true)
-        }
-
-        findPreference(R.string.button_unsubscribe).setOnPreferenceClickListener {
-            inventory.unsubscribe(requireActivity())
-        }
-
-        findPreference(R.string.refresh_purchases).setOnPreferenceClickListener {
-            billingClient.queryPurchases()
-            false
-        }
-
         findPreference(R.string.local_lists).setOnPreferenceClickListener {
             workManager.migrateLocalTasks(caldavAccount)
             toaster.longToast(R.string.migrating_tasks)
             false
-        }
-
-        if (isGitHubAccount) {
-            findPreference(R.string.upgrade_to_pro).isVisible = false
-            findPreference(R.string.button_unsubscribe).isVisible = false
-            findPreference(R.string.refresh_purchases).isVisible = false
         }
 
         findPreference(R.string.generate_new_password).setOnPreferenceChangeListener { _, description ->
@@ -144,8 +129,7 @@ class TasksAccount : BaseAccountPreference() {
                         .show()
             }
         }
-        localBroadcastManager.registerPurchaseReceiver(purchaseReceiver)
-        localBroadcastManager.registerRefreshListReceiver(purchaseReceiver)
+        localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
     }
 
     private fun setupTextField(v: View, layout: Int, labelRes: Int, value: String?) {
@@ -163,7 +147,7 @@ class TasksAccount : BaseAccountPreference() {
     override fun onPause() {
         super.onPause()
 
-        localBroadcastManager.unregisterReceiver(purchaseReceiver)
+        localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
 
     private val isGitHubAccount: Boolean
@@ -237,30 +221,6 @@ class TasksAccount : BaseAccountPreference() {
             findPreference(R.string.local_lists).summary =
                     getString(R.string.migrate_count, quantityString)
         }
-
-        if (BuildConfig.FLAVOR == "generic") {
-            return
-        }
-        val subscription = inventory.subscription.value
-        findPreference(R.string.upgrade_to_pro).apply {
-            title = getString(
-                    if (subscription == null) {
-                        R.string.button_subscribe
-                    } else {
-                        R.string.manage_subscription
-                    }
-            )
-            summary = if (subscription == null) {
-                null
-            } else {
-                val price = getString(
-                        if (subscription.isMonthly) R.string.price_per_month else R.string.price_per_year,
-                        (subscription.subscriptionPrice!! - .01).toString()
-                )
-                getString(R.string.current_subscription, price)
-            }
-        }
-        findPreference(R.string.button_unsubscribe).isEnabled = inventory.subscription.value != null
     }
 
     private fun refreshPasswords(passwords: List<TasksAccountViewModel.AppPassword>) {

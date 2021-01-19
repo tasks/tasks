@@ -4,16 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.billing.BillingClient
+import org.tasks.billing.Inventory
+import org.tasks.billing.Purchase
+import org.tasks.billing.PurchaseDialog
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.GoogleTaskAccount
@@ -34,6 +34,8 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
     @Inject lateinit var appWidgetManager: AppWidgetManager
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskDeleter: TaskDeleter
+    @Inject lateinit var inventory: Inventory
+    @Inject lateinit var billingClient: BillingClient
 
     private val viewModel: PreferencesViewModel by activityViewModels()
 
@@ -44,11 +46,32 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
 
         findPreference(R.string.add_account).setOnPreferenceClickListener { addAccount() }
 
+        findPreference(R.string.name_your_price).setOnPreferenceClickListener {
+            PurchaseDialog
+                    .newPurchaseDialog()
+                    .show(parentFragmentManager, PurchaseDialog.FRAG_TAG_PURCHASE_DIALOG)
+            false
+        }
+
+        findPreference(R.string.button_unsubscribe).setOnPreferenceClickListener {
+            inventory.unsubscribe(requireActivity())
+        }
+
+        findPreference(R.string.refresh_purchases).setOnPreferenceClickListener {
+            billingClient.queryPurchases()
+            false
+        }
+
         viewModel.lastBackup.observe(this) { updateBackupWarning() }
         viewModel.lastAndroidBackup.observe(this) { updateBackupWarning() }
         viewModel.lastDriveBackup.observe(this) { updateBackupWarning() }
         viewModel.googleTaskAccounts.observe(this) { refreshAccounts() }
         viewModel.caldavAccounts.observe(this) { refreshAccounts() }
+        if (BuildConfig.FLAVOR == "generic") {
+            remove(R.string.upgrade_to_pro)
+        } else {
+            inventory.subscription.observe(this) { refreshSubscription(it) }
+        }
     }
 
     override fun onResume() {
@@ -167,7 +190,6 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         }
     }
 
-
     private fun setupErrorIcon(pref: IconPreference, error: String?) {
         val hasError = !error.isNullOrBlank()
         pref.drawable = ContextCompat
@@ -182,6 +204,30 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         } else {
             R.color.icon_tint_with_alpha
         })
+    }
+
+    private fun refreshSubscription(subscription: Purchase?) {
+        findPreference(R.string.upgrade_to_pro).setTitle(if (subscription == null) {
+            R.string.upgrade_to_pro
+        } else {
+            R.string.subscription
+        })
+        findPreference(R.string.name_your_price).apply {
+            if (subscription == null) {
+                title = getString(R.string.name_your_price)
+                summary = null
+            } else {
+                val interval = if (subscription.isMonthly) {
+                    R.string.price_per_month
+                } else {
+                    R.string.price_per_year
+                }
+                val price = (subscription.subscriptionPrice!! - .01).toString()
+                title = getString(R.string.manage_subscription)
+                summary = getString(R.string.current_subscription, getString(interval, price))
+            }
+        }
+        findPreference(R.string.button_unsubscribe).isVisible = subscription != null
     }
 
     companion object {
