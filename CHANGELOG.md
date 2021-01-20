@@ -1,4 +1,4 @@
-### 11.3 (2021-01-19)
+### 11.3 (2021-01-20)
 
 * 'Hide until' is now 'Start date'
   * Synchronize start dates with Tasks.org, DAVx⁵, CalDAV, EteSync, and DecSync
@@ -31,6 +31,7 @@
   * Spanish - @FlorianLeChat
   * Turkish - @emintufan, Oğuz Ersen
   * Ukrainian - @tolstovka
+  * Urdu - Maaz
 
 ### 11.2.2 (2021-01-07)
 
