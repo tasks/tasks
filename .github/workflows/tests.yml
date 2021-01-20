@@ -16,7 +16,4 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: >
-            - ./gradlew :app:jacocoTestReportGoogleplayDebug
-            - ./gradlew -Pcoverage :app:createGoogleplayDebugAndroidTestCoverageReport
-            - bash <(curl -s https://codecov.io/bash)
+          script: ./gradlew -Pcoverage :app:jacocoTestReportGoogleplayDebug :app:createGoogleplayDebugAndroidTestCoverageReport && bash <(curl -s https://codecov.io/bash)
