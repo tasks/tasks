@@ -688,4 +688,8 @@
     <string name="sort_start_group">Début %s</string>
     <string name="tasks_org_description">Synchronisez vos tâches avec Tasks.org</string>
     <string name="yesterday_abbrev_lowercase">hier</string>
+    <string name="account_not_included">Non inclus avec les abonnements « Donnez votre prix »</string>
+    <string name="get_tasks_org_account">Créez un compte Tasks.org</string>
+    <string name="tasks_org_account">Compte Tasks.org</string>
+    <string name="subscription">Abonnement</string>
 </resources>
