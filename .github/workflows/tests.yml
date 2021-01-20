@@ -19,6 +19,7 @@ jobs:
           script: ./gradlew -Pcoverage :app:jacocoTestReportGoogleplayDebug :app:createGoogleplayDebugAndroidTestCoverageReport
       - name: upload coverage
         uses: codecov/codecov-action@v1
+        with:
           directory: ./app/build
           fail_ci_if_error: true
           verbose: true
