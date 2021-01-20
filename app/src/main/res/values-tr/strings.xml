@@ -672,7 +672,7 @@
     <string name="app_password_last_access">Son kullanım: %s</string>
     <string name="app_password_created_at">Oluşturulma: %s</string>
     <string name="app_password_enter_description">Parolanızı adlandırın (isteğe bağlı)</string>
-    <string name="generate_new_password">Yeni parola yarat</string>
+    <string name="generate_new_password">Yeni parola oluştur</string>
     <string name="app_passwords_more_info">Görevlerinizi ve takvimlerinizi üçüncü taraf masaüstü ve mobil uygulamalarla eşzamanlayın. Daha çok bilgi için dokun</string>
     <string name="app_passwords">Uygulama parolaları</string>
     <string name="app_password">Uygulama parolası</string>
@@ -693,4 +693,8 @@
     <string name="tasks_org_description">Görevlerinizi Tasks.org ile eşzamanlayın</string>
     <string name="yesterday_abbrev_lowercase">dün</string>
     <string name="tomorrow_abbrev_lowercase">yarın</string>
+    <string name="account_not_included">\'Fiyat belirleyin\' aboneliklerine dahil değildir</string>
+    <string name="get_tasks_org_account">Tasks.org hesabı edinin</string>
+    <string name="tasks_org_account">Tasks.org hesabı</string>
+    <string name="subscription">Abonelik</string>
 </resources>
