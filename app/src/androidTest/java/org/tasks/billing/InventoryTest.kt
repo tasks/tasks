@@ -60,7 +60,15 @@ class InventoryTest : InjectingTestCase() {
 
     private fun withPurchases(vararg purchases: String) {
         preferences.setPurchases(purchases.toHashSet())
-        inventory = Inventory(context, preferences, signatureVerifier, localBroadcastManager, caldavDao)
+        runOnMainSync {
+            inventory = Inventory(
+                    context,
+                    preferences,
+                    signatureVerifier,
+                    localBroadcastManager,
+                    caldavDao
+            )
+        }
     }
 
     companion object {

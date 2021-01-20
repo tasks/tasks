@@ -3,6 +3,7 @@ package org.tasks.billing
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Handler
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
@@ -109,6 +110,12 @@ class Inventory @Inject constructor(
     }
 
     init {
-        verifyAndAdd(preferences.purchases)
+        val runnable = { verifyAndAdd(preferences.purchases) }
+        val mainLooper = context.mainLooper
+        if (mainLooper.isCurrentThread) {
+            runnable()
+        } else {
+            Handler(context.mainLooper).post(runnable)
+        }
     }
 }
