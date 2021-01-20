@@ -693,4 +693,8 @@
     <string name="tasks_org_description">Sincronice sus tareas con Tasks.org</string>
     <string name="yesterday_abbrev_lowercase">ayer</string>
     <string name="tomorrow_abbrev_lowercase">mñna</string>
+    <string name="account_not_included">No incluido con las suscripciones de \"Nombre de su precio\"</string>
+    <string name="get_tasks_org_account">Obtener una cuenta de Tasks.org</string>
+    <string name="tasks_org_account">Tasks.org cuenta</string>
+    <string name="subscription">Suscripción</string>
 </resources>
