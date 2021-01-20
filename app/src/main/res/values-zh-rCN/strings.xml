@@ -683,4 +683,8 @@
     <string name="tasks_org_description">将你的任务与 Tasks.org 同步</string>
     <string name="yesterday_abbrev_lowercase">昨天</string>
     <string name="tomorrow_abbrev_lowercase">明天</string>
+    <string name="account_not_included">不包含于“您愿意支付多少费用”订阅</string>
+    <string name="get_tasks_org_account">获取 Tasks.org 账户</string>
+    <string name="tasks_org_account">Tasks.org 账户</string>
+    <string name="subscription">订阅</string>
 </resources>
