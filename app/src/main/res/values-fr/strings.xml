@@ -456,7 +456,7 @@
     <string name="annually">Chaque année</string>
     <string name="error_adding_account">Erreur : %s</string>
     <string name="SSD_sort_my_order">Mon tri</string>
-    <string name="caldav_account_repeating_tasks">Permet au serveur de programmer des tâches récurrentes</string>
+    <string name="caldav_account_repeating_tasks">Le serveur gère les tâches récurrentes</string>
     <string name="EPr_temp_show_completed_tasks">Afficher temporairement les tâches une fois terminées</string>
     <string name="EPr_temp_completed_tasks_showing">Les tâches resteront temporairement visibles dans la liste une fois terminées</string>
     <string name="EPr_temp_completed_tasks_not_showing">Les tâches vont immédiatement disparaître de la liste après complétion</string>
