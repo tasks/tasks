@@ -446,7 +446,7 @@
     <string name="accent">Accent</string>
     <string name="button_upgrade">Abonnement upgraden</string>
     <string name="button_unsubscribe">Abonnement annuleren</string>
-    <string name="name_your_price">Bepaal je prijs</string>
+    <string name="name_your_price">Bepaal je eigen prijs</string>
     <string name="monthly">Maandelijks</string>
     <string name="annually">Jaarlijks</string>
     <string name="restart_later">Later</string>
@@ -688,4 +688,8 @@
     <string name="yesterday_abbrev_lowercase">gist</string>
     <string name="tomorrow_abbrev_lowercase">mrgn</string>
     <string name="tasks_org_description">Synchroniseer je taken met Tasks.org</string>
+    <string name="get_tasks_org_account">Krijg een Tasks.org account</string>
+    <string name="account_not_included">Niet inbegrepen bij \"Bepaal je eigen prijs\" abonnementen</string>
+    <string name="tasks_org_account">Tasks.org account</string>
+    <string name="subscription">Abonnement</string>
 </resources>
