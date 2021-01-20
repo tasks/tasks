@@ -88,7 +88,27 @@ class iCalendar @Inject constructor(
     }
 
     suspend fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task): ByteArray {
-        val remoteModel = CaldavConverter.toCaldav(caldavTask, task)
+        var remoteModel: Task? = null
+        try {
+            if (!isNullOrEmpty(caldavTask.vtodo)) {
+                remoteModel = fromVtodo(caldavTask.vtodo!!)
+            }
+        } catch (e: java.lang.Exception) {
+            Timber.e(e)
+        }
+        if (remoteModel == null) {
+            remoteModel = Task()
+        }
+
+        toVtodo(caldavTask, task, remoteModel)
+
+        val os = ByteArrayOutputStream()
+        remoteModel.write(os)
+        return os.toByteArray()
+    }
+
+    suspend fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task, remoteModel: Task) {
+        CaldavConverter.toCaldav(caldavTask, task, remoteModel)
         remoteModel.order = caldavTask.order
         val categories = remoteModel.categories
         categories.clear()
@@ -105,10 +125,6 @@ class iCalendar @Inject constructor(
         if (localGeo == null || !localGeo.equalish(remoteModel.geoPosition)) {
             remoteModel.geoPosition = localGeo
         }
-
-        val os = ByteArrayOutputStream()
-        remoteModel.write(os)
-        return os.toByteArray()
     }
 
     suspend fun fromVtodo(

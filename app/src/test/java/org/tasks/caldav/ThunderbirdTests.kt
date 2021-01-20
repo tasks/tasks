@@ -95,8 +95,8 @@ class ThunderbirdTests {
 
     @Test
     fun dontTruncateTimeFromUntil() {
-        val (task, caldavTask) = setup("thunderbird/repeat_until_date_time.txt")
-        val remote = CaldavConverter.toCaldav(caldavTask, task)
+        val (task, caldavTask, remote) = setup("thunderbird/repeat_until_date_time.txt")
+        CaldavConverter.toCaldav(caldavTask, task, remote)
         assertEquals(
                 "FREQ=WEEKLY;UNTIL=20200731T160000Z;BYDAY=MO,TU,WE,TH,FR",
                 remote.rRule!!.value)

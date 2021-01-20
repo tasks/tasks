@@ -21,11 +21,12 @@ object TestUtilities {
         return task
     }
 
-    fun setup(path: String): Pair<Task, CaldavTask> {
+    fun setup(path: String): Triple<Task, CaldavTask, at.bitfire.ical4android.Task> {
         val task = Task()
         val vtodo = readFile(path)
-        CaldavConverter.apply(task, fromString(vtodo))
-        return Pair(task, CaldavTask().apply { this.vtodo = vtodo })
+        val remote = fromString(vtodo)
+        CaldavConverter.apply(task, remote)
+        return Triple(task, CaldavTask().apply { this.vtodo = vtodo }, remote)
     }
 
     private fun fromResource(path: String): at.bitfire.ical4android.Task =

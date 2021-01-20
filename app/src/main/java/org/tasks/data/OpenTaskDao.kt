@@ -1,10 +1,12 @@
 package org.tasks.data
 
 import android.content.ContentProviderOperation
-import android.content.ContentProviderOperation.*
+import android.content.ContentProviderOperation.newDelete
+import android.content.ContentProviderOperation.newInsert
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import at.bitfire.ical4android.BatchOperation
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.UnknownProperty
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -26,7 +28,7 @@ class OpenTaskDao @Inject constructor(
 ) {
     private val cr = context.contentResolver
     val authority = context.getString(R.string.opentasks_authority)
-    private val tasks = Tasks.getContentUri(authority)
+    val tasks = Tasks.getContentUri(authority)
     private val properties = Properties.getContentUri(authority)
 
     suspend fun newAccounts(): List<String> = getListsByAccount().newAccounts(caldavDao)
@@ -85,17 +87,14 @@ class OpenTaskDao @Inject constructor(
                             null)
                     .build()
 
-    fun insert(values: ContentValues): ContentProviderOperation =
-            newInsert(tasks)
-                    .withValues(values)
-                    .build()
+    fun insert(builder: BatchOperation.CpoBuilder): ContentProviderOperation = builder.build()
 
-    fun update(listId: Long, uid: String, values: ContentValues): ContentProviderOperation =
-            newUpdate(tasks)
+    fun update(listId: Long, uid: String, builder: BatchOperation.CpoBuilder): ContentProviderOperation =
+            builder
                     .withSelection(
                             "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '$uid'",
-                            null)
-                    .withValues(values)
+                            emptyArray()
+                    )
                     .build()
 
     suspend fun getId(listId: Long, uid: String?): Long? =
@@ -235,7 +234,7 @@ class OpenTaskDao @Inject constructor(
         private fun Cursor.getString(columnName: String): String? =
                 getString(getColumnIndex(columnName))
 
-        fun Cursor.getInt(columnName: String): Int =
+        private fun Cursor.getInt(columnName: String): Int =
                 getInt(getColumnIndex(columnName))
 
         private fun Cursor.getLong(columnName: String): Long =

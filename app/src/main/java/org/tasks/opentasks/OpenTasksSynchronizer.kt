@@ -1,31 +1,24 @@
 package org.tasks.opentasks
 
 import android.content.ContentProviderOperation
-import android.content.ContentValues
 import android.content.Context
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.sanitizeRRule
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
-import net.fortuna.ical4j.model.property.RRule
 import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.caldav.CaldavConverter.toRemote
 import org.tasks.caldav.iCalendar
 import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.openTaskType
-import org.tasks.data.OpenTaskDao.Companion.getInt
 import org.tasks.data.OpenTaskDao.Companion.isDavx5
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
 import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.OpenTaskDao.Companion.newAccounts
-import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -40,12 +33,9 @@ class OpenTasksSynchronizer @Inject constructor(
         private val taskDao: TaskDao,
         private val firebase: Firebase,
         private val iCalendar: iCalendar,
-        private val locationDao: LocationDao,
         private val openTaskDao: OpenTaskDao,
         private val tagDataDao: TagDataDao,
         private val inventory: Inventory) {
-
-    private val cr = context.contentResolver
 
     suspend fun sync() {
         val lists = openTaskDao.getListsByAccount()
@@ -212,60 +202,21 @@ class OpenTasksSynchronizer @Inject constructor(
     ): Pair<CaldavTask, ContentProviderOperation>? {
         val caldavTask = caldavDao.getTask(task.id) ?: return null
         caldavTask.lastSync = task.modificationDate
-        val values = ContentValues()
-        values.put(Tasks.LIST_ID, listId)
-        values.put(Tasks.TITLE, task.title)
-        values.put(Tasks.DESCRIPTION, task.notes)
-        values.put(Tasks.GEO, locationDao.getGeofences(task.id).toGeoString())
-        values.put(Tasks.RRULE, if (task.isRecurring) {
-            val rrule = RRule(task.getRecurrenceWithoutFrom()!!.replace("RRULE:", ""))
-            if (task.repeatUntil > 0) {
-                rrule.recur.until = DateTime(task.repeatUntil).toUTC().toDateTime()
-            }
-            RRule(rrule.value.sanitizeRRule()).value
-        } else null)
-        val allDay = !task.hasDueTime() && !task.hasStartTime()
-        values.put(Tasks.IS_ALLDAY, if (allDay) 1 else 0)
-        values.put(Tasks.DUE, when {
-            task.hasDueTime() -> task.dueDate
-            task.hasDueDate() -> task.dueDate.startOfDay()
-            else -> null
-        })
-        values.put(Tasks.DTSTART, when {
-            task.hasStartTime() -> task.hideUntil
-            task.hasStartDate() -> task.hideUntil.startOfDay()
-            else -> null
-        })
-        values.put(Tasks.COMPLETED_IS_ALLDAY, 0)
-        values.put(Tasks.COMPLETED, if (task.isCompleted) task.completionDate else null)
-        values.put(Tasks.STATUS, if (task.isCompleted) Tasks.STATUS_COMPLETED else null)
-        values.put(Tasks.PERCENT_COMPLETE, if (task.isCompleted) 100 else null)
-        if (!allDay || task.isCompleted) {
-            values.put(Tasks.TZ, TimeZone.getDefault().id)
-        }
-        values.put(Tasks.PARENT_ID, null as Long?)
-        val existing = cr.query(
-                Tasks.getContentUri(openTaskDao.authority),
-                arrayOf(Tasks.PRIORITY),
-                "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '${caldavTask.remoteId}'",
-                null,
-                null)?.use {
-            if (!it.moveToFirst()) {
-                return@use false
-            }
-            values.put(Tasks.PRIORITY, toRemote(it.getInt(Tasks.PRIORITY), task.priority))
-            true
-        } ?: false
+        val remoteModel = openTaskDao.getTask(listId, caldavTask.remoteId!!)
+                ?: at.bitfire.ical4android.Task()
+        val isNew = remoteModel.uid.isNullOrBlank()
+        iCalendar.toVtodo(caldavTask, task, remoteModel)
+        val builder = MyAndroidTask(remoteModel).toBuilder(openTaskDao.tasks, isNew)
+
         val operation = try {
-            if (existing) {
-                openTaskDao.update(listId, caldavTask.remoteId!!, values)
-            } else {
+            if (isNew) {
                 if (isEteSync) {
-                    values.put(Tasks.SYNC2, caldavTask.remoteId)
+                    builder.withValue(Tasks.SYNC2, caldavTask.remoteId)
                 }
-                values.put(Tasks._UID, caldavTask.remoteId)
-                values.put(Tasks.PRIORITY, toRemote(task.priority, task.priority))
-                openTaskDao.insert(values)
+                builder.withValue(Tasks.LIST_ID, listId)
+                openTaskDao.insert(builder)
+            } else {
+                openTaskDao.update(listId, caldavTask.remoteId!!, builder)
             }
         } catch (e: Exception) {
             firebase.reportException(e)
@@ -284,9 +235,5 @@ class OpenTasksSynchronizer @Inject constructor(
         openTaskDao.getTask(listId, uid)?.let {
             iCalendar.fromVtodo(calendar, existing, it, null, null, etag)
         }
-    }
-
-    companion object {
-        private fun Location?.toGeoString(): String? = this?.let { "$longitude,$latitude" }
     }
 }

@@ -3,7 +3,6 @@ package org.tasks.caldav;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME;
-import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.startOfDay;
 
@@ -96,18 +95,7 @@ public class CaldavConverter {
     }
   }
 
-  public static at.bitfire.ical4android.Task toCaldav(CaldavTask caldavTask, Task task) {
-    at.bitfire.ical4android.Task remote = null;
-    try {
-      if (!isNullOrEmpty(caldavTask.getVtodo())) {
-        remote = iCalendar.Companion.fromVtodo(caldavTask.getVtodo());
-      }
-    } catch (Exception e) {
-      Timber.e(e);
-    }
-    if (remote == null) {
-      remote = new at.bitfire.ical4android.Task();
-    }
+  public static void toCaldav(CaldavTask caldavTask, Task task, at.bitfire.ical4android.Task remote) {
     remote.setCreatedAt(newDateTime(task.getCreationDate()).toUTC().getMillis());
     remote.setSummary(task.getTitle());
     remote.setDescription(task.getNotes());
@@ -153,8 +141,6 @@ public class CaldavConverter {
     remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());
     remote.setPriority(toRemote(remote.getPriority(), task.getPriority()));
     iCalendar.Companion.setParent(remote, task.getParent() == 0 ? null : caldavTask.getRemoteParent());
-
-    return remote;
   }
 
   private static DateTime getDateTime(long timestamp) {
