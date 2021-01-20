@@ -461,7 +461,7 @@
     <string name="monthly">Mensualmente</string>
     <string name="annually">Anualmente</string>
     <string name="SSD_sort_my_order">Mi orden</string>
-    <string name="caldav_account_repeating_tasks">Permita que el servidor programe tareas recurrentes</string>
+    <string name="caldav_account_repeating_tasks">El servidor se encarga de las tareas recurrentes</string>
     <string name="EPr_temp_show_completed_tasks">Mostrar temporalmente las tareas una vez completadas</string>
     <string name="EPr_temp_completed_tasks_showing">Las tareas permanecerán temporalmente visibles en la lista una vez completadas</string>
     <string name="EPr_temp_completed_tasks_not_showing">Las tareas desaparecerán inmediatamente de la lista una vez completadas</string>
