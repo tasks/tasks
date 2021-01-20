@@ -196,4 +196,89 @@
     <string name="repeat_option_every_day">ہر روز</string>
     <string name="repeat_option_does_not_repeat">دہراتا نہیں ہے</string>
     <string name="gtasks_error_accountNotFound">اکاؤنٹ%s نہیں ملا — براہ کرم لاگ آؤٹ کریں اور گوگل ٹاسکس کی سیٹنگز سے لاگ اِن ہوں۔</string>
+    <string name="delete_tag_confirmation">%s کو ڈیلیٹ کریں؟</string>
+    <string name="new_list">نئی فہرست بنائیں</string>
+    <string name="new_tag">نیا ٹیگ بنائیں</string>
+    <string name="repeat_snackbar">%1$s کو شیڈول بدل کر %2$s کردیا گیا</string>
+    <string name="filter_any_start_date">کوئی بھی تاریخ آغاز</string>
+    <string name="no_start_date">کوئی تاریخ آغاز نہیں</string>
+    <string name="CFC_startBefore_name">آغاز بلحاظ…</string>
+    <string name="CFC_startBefore_text">ترتیب بلحاظ: ؟</string>
+    <string name="default_due_date">ڈیفالٹ مقررہ تاریخ</string>
+    <string name="default_start_date">ڈیفالٹ تاریخ آغاز</string>
+    <string name="start_date">تاریخ آغاز</string>
+    <string name="SSD_sort_start">بلحاظ تاریخ آغاز</string>
+    <string name="repeat_occurs">واقع ہونا</string>
+    <string name="repeat_number_of_times">چند مرتبہ دہرانا</string>
+    <string name="repeat_until">%s تک دہرانا</string>
+    <string name="repeat_forever">ہمیشہ دہرانا</string>
+    <string name="repeat_type_completion_capitalized">تاریخ تکمیل</string>
+    <string name="repeat_type_completion">تاریخ تکمیل</string>
+    <string name="repeat_type_due">مقررہ تاریخ</string>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%d سال</item>
+        <item quantity="other">%d سال</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">سال</item>
+        <item quantity="other">سال</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%d مہینہ</item>
+        <item quantity="other">%d مہینے</item>
+    </plurals>
+    <plurals name="list_count">
+        <item quantity="one">%d فہرست</item>
+        <item quantity="other">%d فہسرتیں</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">مہینہ</item>
+        <item quantity="other">مہینے</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%d ہفتہ</item>
+        <item quantity="other">%d ہفتے</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">ہفتہ</item>
+        <item quantity="other">ہفتے</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%d دن</item>
+        <item quantity="other">%d دنوں</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">دن</item>
+        <item quantity="other">دنوں</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%d گھنٹہ</item>
+        <item quantity="other">%d گھنٹے</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">گھنٹہ</item>
+        <item quantity="other">گھنٹے</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%d منٹ</item>
+        <item quantity="other">%d منٹس</item>
+    </plurals>
+    <plurals name="repeat_minutes">
+        <item quantity="one">منٹ</item>
+        <item quantity="other">منٹس</item>
+    </plurals>
+    <plurals name="repeat_times">
+        <item quantity="one">وقت</item>
+        <item quantity="other">اوقات</item>
+    </plurals>
+    <plurals name="subtask_count">
+        <item quantity="one">%d ذیلی ٹاسک</item>
+        <item quantity="other">%d ذیلی ٹاسکس</item>
+    </plurals>
+    <plurals name="task_count">
+        <item quantity="one">%d ٹاسک</item>
+        <item quantity="other">%d ٹاسکس</item>
+    </plurals>
+    <string name="repeat_yearly">سالانہ دہرانا</string>
+    <string name="repeat_monthly">مہینہ وار دہرانا</string>
 </resources>
