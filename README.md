@@ -15,7 +15,7 @@ Please visit [tasks.org](https://tasks.org) for end user documentation and suppo
 [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg?logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=alex@tasks.org)
 [![Liberapay donate button](https://img.shields.io/liberapay/receives/tasks.svg?logo=liberapay)](https://liberapay.com/tasks/donate)
 
-[![weblate](https://hosted.weblate.org/widgets/tasks/-/android/svg-badge.svg)](https://hosted.weblate.org/engage/tasks/?utm_source=widget) [![codecov](https://codecov.io/gh/tasks/tasks/branch/main/graph/badge.svg)](https://codecov.io/gh/tasks/tasks) [![codebeat badge](https://codebeat.co/badges/07924fca-2f18-4eff-99a3-120ec5ac2d5f)](https://codebeat.co/projects/github-com-tasks-tasks-main)
+![tests](https://github.com/tasks/tasks/workflows/Run%20tests/badge.svg) [![weblate](https://hosted.weblate.org/widgets/tasks/-/android/svg-badge.svg)](https://hosted.weblate.org/engage/tasks/?utm_source=widget) [![codecov](https://codecov.io/gh/tasks/tasks/branch/main/graph/badge.svg)](https://codecov.io/gh/tasks/tasks) [![codebeat badge](https://codebeat.co/badges/07924fca-2f18-4eff-99a3-120ec5ac2d5f)](https://codebeat.co/projects/github-com-tasks-tasks-main)
 
 #### To get started with development:
 1. [Fork](https://help.github.com/articles/fork-a-repo/) and [clone](https://help.github.com/articles/cloning-a-repository/) the repository
