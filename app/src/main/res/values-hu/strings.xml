@@ -678,4 +678,21 @@
     <string name="local_lists">Helyi listák</string>
     <string name="default_due_date">Alapértelmezett határidő</string>
     <string name="start_date">Kezdő dátum</string>
+    <string name="account_not_included">A \"Nevezd meg az árat\" előfizetés nem tartalmazza</string>
+    <string name="get_tasks_org_account">Tasks.org fiók létrehozása</string>
+    <string name="tasks_org_account">Tasks.org fiók</string>
+    <string name="sort_due_group">Határidő %s</string>
+    <string name="sort_start_group">Kezdés %s</string>
+    <string name="tasks_org_description">Feladatok szinkronizálása a Tasks.org-gal</string>
+    <string name="subscription">Előfizetés</string>
+    <string name="filter_criteria_unstarted">El nem kezdett</string>
+    <string name="show_unstarted">El nem kezdettek mutatása</string>
+    <string name="yesterday_abbrev_lowercase">tgnp</string>
+    <string name="tomorrow_abbrev_lowercase">hlnp</string>
+    <string name="filter_any_start_date">Tetszőleges kezdő dátum</string>
+    <string name="no_start_date">Nincs kezdő dátum</string>
+    <string name="CFC_startBefore_name">Kezdés…</string>
+    <string name="CFC_startBefore_text">Kezdés: \?</string>
+    <string name="default_start_date">Alapértelmezett kezdő dátum</string>
+    <string name="SSD_sort_start">Kezdés dátuma szerint</string>
 </resources>
