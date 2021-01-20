@@ -5,8 +5,6 @@ import android.content.ContentProviderOperation.*
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import at.bitfire.ical4android.AndroidTask
-import at.bitfire.ical4android.MiscUtils.CursorHelper.toValues
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.UnknownProperty
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -242,23 +240,5 @@ class OpenTaskDao @Inject constructor(
 
         private fun Cursor.getLong(columnName: String): Long =
                 getLong(getColumnIndex(columnName))
-
-        private class MyAndroidTask(cursor: Cursor) : AndroidTask(null) {
-            init {
-                val values = cursor.toValues()
-                task = Task()
-                populateTask(values)
-                populateRelatedTo(values)
-                if (values.containsKey(Properties.PROPERTY_ID)) {
-                    // process the first property, which is combined with the task row
-                    populateProperty(values)
-
-                    while (cursor.moveToNext()) {
-                        // process the other properties
-                        populateProperty(cursor.toValues(true))
-                    }
-                }
-            }
-        }
     }
 }
