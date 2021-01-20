@@ -11,6 +11,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
 import butterknife.ButterKnife
@@ -68,6 +69,11 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         } else {
             binding.nameLayout.visibility = View.VISIBLE
             binding.description.visibility = View.GONE
+            caldavAccount?.error?.takeIf { it.isNotBlank() }?.let {
+                binding.description.visibility = View.VISIBLE
+                binding.description.setTextColor(ContextCompat.getColor(this, R.color.overdue))
+                binding.description.text = getString(R.string.error_adding_account, it)
+            }
         }
         if (savedInstanceState == null) {
             caldavAccount?.let {
