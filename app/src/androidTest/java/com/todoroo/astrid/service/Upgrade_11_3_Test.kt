@@ -2,22 +2,16 @@
 
 package com.todoroo.astrid.service
 
-import android.content.ContentProviderResult
-import at.bitfire.ical4android.BatchOperation
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.dmfs.tasks.contract.TaskContract
-import org.dmfs.tasks.contract.TaskContract.CALLER_IS_SYNCADAPTER
-import org.dmfs.tasks.contract.TaskContract.TaskLists
 import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.TestUtilities.assertEquals
-import org.tasks.TestUtilities.fromString
-import org.tasks.data.*
+import org.tasks.data.CaldavDao
+import org.tasks.data.TaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
@@ -29,6 +23,7 @@ import org.tasks.makers.TaskMaker.DUE_DATE
 import org.tasks.makers.TaskMaker.HIDE_TYPE
 import org.tasks.makers.TaskMaker.MODIFICATION_TIME
 import org.tasks.makers.TaskMaker.newTask
+import org.tasks.opentasks.TestOpenTaskDao
 import org.tasks.time.DateTime
 import javax.inject.Inject
 
@@ -37,7 +32,7 @@ import javax.inject.Inject
 class Upgrade_11_3_Test : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var openTaskDao: OpenTaskDao
+    @Inject lateinit var openTaskDao: TestOpenTaskDao
     @Inject lateinit var upgrader: Upgrade_11_3
 
     @Test
@@ -91,12 +86,8 @@ class Upgrade_11_3_Test : InjectingTestCase() {
 
     @Test
     fun applyRemoteOpenTaskStartDate() = runBlocking {
-        val (listId, list) = insertList()
-        applyOperation(
-                MyAndroidTask(fromString(VTODO_WITH_START_DATE))
-                        .toBuilder(openTaskDao.tasks, true)
-                        .withValue(TaskContract.TaskColumns.LIST_ID, listId)
-        )
+        val (listId, list) = openTaskDao.insertList()
+        openTaskDao.insertTask(listId, VTODO_WITH_START_DATE)
         val taskId = taskDao.insert(newTask())
         caldavDao.insert(newCaldavTask(
                 with(CALENDAR, list.uuid),
@@ -111,12 +102,8 @@ class Upgrade_11_3_Test : InjectingTestCase() {
 
     @Test
     fun ignoreRemoteOpenTaskStartDate() = runBlocking {
-        val (listId, list) = insertList()
-        applyOperation(
-                MyAndroidTask(fromString(VTODO_WITH_START_DATE))
-                        .toBuilder(openTaskDao.tasks, true)
-                        .withValue(TaskContract.TaskColumns.LIST_ID, listId)
-        )
+        val (listId, list) = openTaskDao.insertList()
+        openTaskDao.insertTask(listId, VTODO_WITH_START_DATE)
         val taskId = taskDao.insert(newTask(
                 with(DUE_DATE, DateTime(2021, 1, 20)),
                 with(HIDE_TYPE, Task.HIDE_UNTIL_DUE)
@@ -135,12 +122,8 @@ class Upgrade_11_3_Test : InjectingTestCase() {
     @Test
     fun touchWithOpenTaskStartDate() = runBlocking {
         val upgradeTime = DateTime(2021, 1, 21, 11, 47, 32, 450)
-        val (listId, list) = insertList()
-        applyOperation(
-                MyAndroidTask(fromString(VTODO_WITH_START_DATE))
-                        .toBuilder(openTaskDao.tasks, true)
-                        .withValue(TaskContract.TaskColumns.LIST_ID, listId)
-        )
+        val (listId, list) = openTaskDao.insertList()
+        openTaskDao.insertTask(listId, VTODO_WITH_START_DATE)
         val taskId = taskDao.insert(newTask(
                 with(DUE_DATE, DateTime(2021, 1, 20)),
                 with(HIDE_TYPE, Task.HIDE_UNTIL_DUE),
@@ -162,12 +145,8 @@ class Upgrade_11_3_Test : InjectingTestCase() {
     @Test
     fun dontTouchNoOpenTaskStartDate() = runBlocking {
         val modificationTime = DateTime(2021, 1, 21, 9, 50, 4, 348)
-        val (listId, list) = insertList()
-        applyOperation(
-                MyAndroidTask(fromString(VTODO_NO_START_DATE))
-                        .toBuilder(openTaskDao.tasks, true)
-                        .withValue(TaskContract.TaskColumns.LIST_ID, listId)
-        )
+        val (listId, list) = openTaskDao.insertList()
+        openTaskDao.insertTask(listId, VTODO_NO_START_DATE)
         val taskId = taskDao.insert(newTask(with(MODIFICATION_TIME, modificationTime)))
         caldavDao.insert(newCaldavTask(
                 with(CALENDAR, list.uuid),
@@ -179,32 +158,6 @@ class Upgrade_11_3_Test : InjectingTestCase() {
 
         assertEquals(modificationTime, taskDao.fetch(taskId)?.modificationDate)
     }
-
-    private suspend fun insertList(
-            type: String = OpenTaskDao.ACCOUNT_TYPE_DAVx5,
-            account: String = "account"
-    ): Pair<String, CaldavCalendar> {
-        val url = UUIDHelper.newUUID()
-        val uri = openTaskDao.taskLists.buildUpon()
-                .appendQueryParameter(CALLER_IS_SYNCADAPTER, "true")
-                .appendQueryParameter(TaskLists.ACCOUNT_NAME, account)
-                .appendQueryParameter(TaskLists.ACCOUNT_TYPE, type)
-                .build()
-        val result = applyOperation(
-                BatchOperation.CpoBuilder.newInsert(uri)
-                        .withValue(TaskContract.CommonSyncColumns._SYNC_ID, url)
-                        .withValue(TaskLists.SYNC_ENABLED, "1")
-        )
-        return Pair(result.uri!!.lastPathSegment!!, CaldavCalendar().apply {
-            uuid = UUIDHelper.newUUID()
-            this.account = "$type:$account"
-            this.url = url
-            caldavDao.insert(this)
-        })
-    }
-
-    private fun applyOperation(build: BatchOperation.CpoBuilder): ContentProviderResult =
-            context.contentResolver.applyBatch(openTaskDao.authority, arrayListOf(build.build()))[0]
 
     companion object {
         val VTODO_WITH_START_DATE = """

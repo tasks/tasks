@@ -23,11 +23,11 @@ import org.tasks.caldav.iCalendar.Companion.APPLE_SORT_ORDER
 import timber.log.Timber
 import javax.inject.Inject
 
-class OpenTaskDao @Inject constructor(
+open class OpenTaskDao @Inject constructor(
         @ApplicationContext context: Context,
         private val caldavDao: CaldavDao
 ) {
-    private val cr = context.contentResolver
+    protected val cr = context.contentResolver
     val authority = context.getString(R.string.opentasks_authority)
     val tasks: Uri = Tasks.getContentUri(authority)
     val taskLists: Uri = TaskLists.getContentUri(authority)
