@@ -471,7 +471,7 @@
     <string name="monthly">Miesięczne</string>
     <string name="annually">Rocznie</string>
     <string name="SSD_sort_my_order">Ręczne</string>
-    <string name="caldav_account_repeating_tasks">Pozwól serwerowi planować cykliczne zadania</string>
+    <string name="caldav_account_repeating_tasks">Serwer obsługuje powtarzające się zadania</string>
     <string name="EPr_temp_show_completed_tasks">Tymczasowo pokazuj zadania po zakończeniu</string>
     <string name="EPr_temp_completed_tasks_showing">Zadania będą tymczasowo widoczne na liście po zakończeniu</string>
     <string name="EPr_temp_completed_tasks_not_showing">Zadania natychmiast znikną z listy po zakończeniu</string>
@@ -706,4 +706,7 @@
     <string name="default_start_date">Domyślna data rozpoczęcia</string>
     <string name="start_date">Data rozpoczęcia</string>
     <string name="SSD_sort_start">Wg daty rozpoczęcia</string>
+    <string name="get_tasks_org_account">Załóż konto Tasks.org</string>
+    <string name="tasks_org_account">Konto Tasks.org</string>
+    <string name="subscription">Subskrypcja</string>
 </resources>
