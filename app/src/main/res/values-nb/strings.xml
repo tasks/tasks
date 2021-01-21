@@ -679,4 +679,22 @@
     <string name="app_password_last_access">Sist brukt: %s</string>
     <string name="app_password_created_at">Opprettet: %s</string>
     <string name="app_passwords">Programpassord</string>
+    <string name="account_not_included">Ikke inkludert i «Bestem prisen selv»-abonnementer</string>
+    <string name="tasks_org_description">Synkroniser dine gjøremål med Tasks.org</string>
+    <string name="subscription">Abonnement</string>
+    <string name="filter_criteria_unstarted">Ikke startet</string>
+    <string name="show_unstarted">Vis ustartede</string>
+    <string name="yesterday_abbrev_lowercase">igår</string>
+    <string name="tomorrow_abbrev_lowercase">imrgn</string>
+    <string name="filter_any_start_date">Vilkårlig startdato</string>
+    <string name="no_start_date">Ingen startdato</string>
+    <string name="CFC_startBefore_name">Start innen …</string>
+    <string name="CFC_startBefore_text">Start innen: \?</string>
+    <string name="default_start_date">Forvalgt startdato</string>
+    <string name="SSD_sort_start">I henhold til startdato</string>
+    <string name="start_date">Startdato</string>
+    <string name="sort_start_group">Start %s</string>
+    <string name="sort_due_group">Frist %s</string>
+    <string name="get_tasks_org_account">Skaff Tasks.org-konto</string>
+    <string name="tasks_org_account">Tasks.org-konto</string>
 </resources>
