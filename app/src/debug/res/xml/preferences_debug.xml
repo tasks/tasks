@@ -2,18 +2,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
   <SwitchPreferenceCompat
+    android:defaultValue="false"
     android:key="@string/p_leakcanary"
     android:title="@string/debug_leakcanary" />
 
   <SwitchPreferenceCompat
+    android:defaultValue="false"
     android:key="@string/p_flipper"
     android:title="@string/debug_flipper"/>
 
   <SwitchPreferenceCompat
+    android:defaultValue="false"
     android:key="@string/p_strict_mode_vm"
     android:title="@string/debug_strict_mode_vm"/>
 
   <SwitchPreferenceCompat
+    android:defaultValue="false"
     android:key="@string/p_strict_mode_thread"
     android:title="@string/debug_strict_mode_thread"/>
 
@@ -23,6 +27,7 @@
     android:title="@string/debug_main_queries" />
 
   <SwitchPreferenceCompat
+    android:defaultValue="false"
     android:key="@string/p_debug_pro"
     android:title="@string/debug_pro"/>
 

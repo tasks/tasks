@@ -242,7 +242,7 @@ class Preferences @JvmOverloads constructor(
     fun getBoolean(key: String?, defValue: Boolean): Boolean = try {
         prefs.getBoolean(key, defValue)
     } catch (e: ClassCastException) {
-        Timber.e(e)
+        Timber.w(e)
         defValue
     }
 
