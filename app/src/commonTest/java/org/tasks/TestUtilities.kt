@@ -6,11 +6,18 @@ import com.todoroo.astrid.data.Task
 import org.tasks.caldav.CaldavConverter
 import org.tasks.data.CaldavTask
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTime
 import java.io.StringReader
 import java.nio.file.Files
 import java.nio.file.Paths
 
 object TestUtilities {
+    fun assertEquals(expected: Long, actual: DateTime) =
+            org.junit.Assert.assertEquals(expected, actual.millis)
+
+    fun assertEquals(expected: DateTime, actual: Long?) =
+            org.junit.Assert.assertEquals(expected.millis, actual)
+
     fun newPreferences(context: Context): Preferences {
         return Preferences(context, "test_preferences")
     }
@@ -39,7 +46,7 @@ object TestUtilities {
         return String(Files.readAllBytes(paths), Charsets.UTF_8)
     }
 
-    private fun fromString(task: String): at.bitfire.ical4android.Task =
+    fun fromString(task: String): at.bitfire.ical4android.Task =
             tasksFromReader(StringReader(task))
                     .takeIf { it.size == 1 }
                     ?.first()

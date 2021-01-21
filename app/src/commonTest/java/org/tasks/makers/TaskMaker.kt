@@ -21,6 +21,7 @@ object TaskMaker {
     val RANDOM_REMINDER_PERIOD: Property<Task, Long> = newProperty()
     val HIDE_TYPE: Property<Task, Int> = newProperty()
     val REMINDERS: Property<Task, Int> = newProperty()
+    val MODIFICATION_TIME: Property<Task, DateTime> = newProperty()
     val CREATION_TIME: Property<Task, DateTime> = newProperty()
     val COMPLETION_TIME: Property<Task, DateTime> = newProperty()
     val DELETION_TIME: Property<Task, DateTime?> = newProperty()
@@ -89,7 +90,7 @@ object TaskMaker {
         task.uuid = lookup.valueOf(UUID, NO_UUID)
         val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())
         task.creationDate = creationTime.millis
-        task.modificationDate = creationTime.millis
+        task.modificationDate = lookup.valueOf(MODIFICATION_TIME, creationTime).millis
         task.parent = lookup.valueOf(PARENT, 0L)
         task
     }

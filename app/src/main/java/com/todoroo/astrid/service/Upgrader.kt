@@ -7,12 +7,12 @@ import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
+import dagger.Lazy
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.iCalendar
-import org.tasks.caldav.iCalendar.Companion.apply
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.iCalendar.Companion.getParent
 import org.tasks.caldav.iCalendar.Companion.order
@@ -43,7 +43,7 @@ class Upgrader @Inject constructor(
         private val widgetManager: AppWidgetManager,
         private val taskMover: TaskMover,
         private val upgraderDao: UpgraderDao,
-        private val openTaskDao: OpenTaskDao) {
+        private val upgrade_11_3: Lazy<Upgrade_11_3>) {
 
     fun upgrade(from: Int, to: Int) {
         if (from > 0) {
@@ -72,9 +72,11 @@ class Upgrader @Inject constructor(
                         .filter { it.getSql().trim() == "WHERE" }
                         .forEach { filterDao.delete(it) }
             }
-            run(from, V11_3) {
-                applyiCalendarStartDates()
-                applyOpenTaskStartDates()
+            run(from, Upgrade_11_3.VERSION) {
+                with(upgrade_11_3.get()) {
+                    applyiCalendarStartDates()
+                    applyOpenTaskStartDates()
+                }
             }
             preferences.setBoolean(R.string.p_just_updated, true)
         }
@@ -122,39 +124,6 @@ class Upgrader @Inject constructor(
         return getAndroidColor(context, index)
     }
 
-    private suspend fun applyiCalendarStartDates() {
-        val (hasStartDate, noStartDate) = upgraderDao.tasksWithVtodos().partition { it.startDate > 0 }
-        for (task in noStartDate) {
-            task.vtodo?.let { fromVtodo(it) }?.dtStart?.let {
-                it.apply(task.task)
-                upgraderDao.setStartDate(task.id, task.startDate)
-            }
-        }
-        hasStartDate
-                .map { it.id }
-                .let { taskDao.touch(it) }
-    }
-
-    private suspend fun applyOpenTaskStartDates() {
-        openTaskDao.getLists().forEach { list ->
-            val (hasStartDate, noStartDate) =
-                    upgraderDao
-                            .getOpenTasksForList(list.account!!, list.url!!)
-                            .partition { it.startDate > 0 }
-            for (task in noStartDate) {
-                openTaskDao
-                        .getTask(list.id, task.remoteId!!)
-                        ?.dtStart
-                        ?.let {
-                            it.apply(task.task)
-                            upgraderDao.setStartDate(task.id, task.startDate)
-                        }
-            }
-            hasStartDate
-                    .map { it.id }
-                    .let { taskDao.touch(it) }
-        }
-    }
 
     private suspend fun applyCaldavOrder() {
         for (task in upgraderDao.tasksWithVtodos().map(CaldavTaskContainer::caldavTask)) {
@@ -357,7 +326,6 @@ class Upgrader @Inject constructor(
         const val V9_7 = 90700
         const val V9_7_3 = 90704
         const val V10_0_2 = 100012
-        const val V11_3 = 110300
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

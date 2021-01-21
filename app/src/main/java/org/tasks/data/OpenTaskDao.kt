@@ -6,6 +6,7 @@ import android.content.ContentProviderOperation.newInsert
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import android.net.Uri
 import at.bitfire.ical4android.BatchOperation
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.UnknownProperty
@@ -28,7 +29,8 @@ class OpenTaskDao @Inject constructor(
 ) {
     private val cr = context.contentResolver
     val authority = context.getString(R.string.opentasks_authority)
-    val tasks = Tasks.getContentUri(authority)
+    val tasks: Uri = Tasks.getContentUri(authority)
+    val taskLists: Uri = TaskLists.getContentUri(authority)
     private val properties = Properties.getContentUri(authority)
 
     suspend fun newAccounts(): List<String> = getListsByAccount().newAccounts(caldavDao)
@@ -39,7 +41,7 @@ class OpenTaskDao @Inject constructor(
     suspend fun getLists(): List<CaldavCalendar> = withContext(Dispatchers.IO) {
         val calendars = ArrayList<CaldavCalendar>()
         cr.query(
-                TaskLists.getContentUri(authority),
+                taskLists,
                 null,
                 "${TaskListColumns.SYNC_ENABLED}=1 AND ($SUPPORTED_TYPE_FILTER)",
                 null,
@@ -192,10 +194,7 @@ class OpenTaskDao @Inject constructor(
 
     suspend fun getTask(listId: Long, uid: String): Task? = withContext(Dispatchers.IO) {
         cr.query(
-                Tasks.getContentUri(authority)
-                        .buildUpon()
-                        .appendQueryParameter(LOAD_PROPERTIES, "1")
-                        .build(),
+                tasks.buildUpon().appendQueryParameter(LOAD_PROPERTIES, "1").build(),
                 null,
                 "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '$uid'",
                 null,
@@ -210,7 +209,7 @@ class OpenTaskDao @Inject constructor(
 
     companion object {
         private const val OPENTASK_BATCH_LIMIT = 499
-        private const val ACCOUNT_TYPE_DAVx5 = "bitfire.at.davdroid"
+        const val ACCOUNT_TYPE_DAVx5 = "bitfire.at.davdroid"
         private const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
         private const val ACCOUNT_TYPE_DECSYNC = "org.decsync.tasks"
         val SUPPORTED_TYPES = setOf(
