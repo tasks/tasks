@@ -456,7 +456,7 @@
     <string name="icon">Icon</string>
     <string name="SSD_sort_my_order">Mijn volgorde</string>
     <string name="error_adding_account">Fout: %s</string>
-    <string name="caldav_account_repeating_tasks">Laat server terugkerende taken inplannen</string>
+    <string name="caldav_account_repeating_tasks">Server plant terugkerende taken in</string>
     <string name="EPr_temp_show_completed_tasks">Laat voltooide taken tijdelijk nog zien</string>
     <string name="EPr_temp_completed_tasks_showing">Taken blijven tijdelijk zichtbaar in de lijst na voltooiing</string>
     <string name="EPr_temp_completed_tasks_not_showing">Taken verdwijnen onmiddellijk uit de lijst na voltooiing</string>
