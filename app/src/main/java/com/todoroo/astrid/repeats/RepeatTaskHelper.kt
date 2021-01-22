@@ -13,6 +13,7 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.gcal.GCalHelper
+import com.todoroo.astrid.service.TaskCompleter
 import org.tasks.LocalBroadcastManager
 import org.tasks.date.DateTimeUtils.newDate
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -27,7 +28,9 @@ class RepeatTaskHelper @Inject constructor(
         private val gcalHelper: GCalHelper,
         private val alarmService: AlarmService,
         private val taskDao: TaskDao,
-        private val localBroadcastManager: LocalBroadcastManager) {
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val taskCompleter: TaskCompleter,
+) {
     suspend fun handleRepeat(task: Task) {
         val recurrence = task.sanitizedRecurrence()
         val repeatAfterCompletion = task.repeatAfterCompletion()
@@ -68,6 +71,7 @@ class RepeatTaskHelper @Inject constructor(
                             .takeIf { it > 0 }
                             ?: newDueDate - (computeNextDueDate(task, recurrence, repeatAfterCompletion) - newDueDate)
             alarmService.rescheduleAlarms(task.id, previousDueDate, newDueDate)
+            taskCompleter.completeChildren(task.id, 0L)
             localBroadcastManager.broadcastRepeat(task.id, previousDueDate, newDueDate)
         }
     }

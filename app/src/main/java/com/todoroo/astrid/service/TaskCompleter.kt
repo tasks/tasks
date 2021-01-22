@@ -20,13 +20,19 @@ class TaskCompleter @Inject internal constructor(
     suspend fun setComplete(item: Task, completed: Boolean) {
         val completionDate = if (completed) DateUtilities.now() else 0L
         setComplete(listOf(item), completionDate)
-        val tasks = googleTaskDao.getChildTasks(item.id)
-                .plus(taskDao.getChildren(item.id)
+        completeChildren(item.id, completionDate)
+    }
+
+    suspend fun completeChildren(id: Long, completionDate: Long) {
+        googleTaskDao
+                .getChildTasks(id)
+                .plus(taskDao.getChildren(id)
                         .takeIf { it.isNotEmpty() }
                         ?.let { taskDao.fetch(it) }
-                        ?: emptyList())
-                .filter { it.isCompleted != completed }
-        setComplete(tasks, completionDate)
+                        ?: emptyList()
+                )
+                .filter { it.isCompleted != completionDate > 0 }
+                .let { setComplete(it, completionDate)}
     }
 
     private suspend fun setComplete(tasks: List<Task>, completionDate: Long) {

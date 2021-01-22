@@ -7,6 +7,7 @@ import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
+import com.todoroo.astrid.service.TaskCompleter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -35,6 +36,7 @@ class RepeatTaskHelperTest {
     private lateinit var gCalHelper: GCalHelper
     private lateinit var helper: RepeatTaskHelper
     private lateinit var mocks: InOrder
+    private lateinit var taskCompleter: TaskCompleter
 
     @Before
     fun setUp() {
@@ -42,8 +44,9 @@ class RepeatTaskHelperTest {
         alarmService = Mockito.mock(AlarmService::class.java)
         gCalHelper = Mockito.mock(GCalHelper::class.java)
         localBroadcastManager = Mockito.mock(LocalBroadcastManager::class.java)
+        taskCompleter = Mockito.mock(TaskCompleter::class.java)
         mocks = Mockito.inOrder(alarmService, gCalHelper, localBroadcastManager)
-        helper = RepeatTaskHelper(gCalHelper, alarmService, taskDao, localBroadcastManager)
+        helper = RepeatTaskHelper(gCalHelper, alarmService, taskDao, localBroadcastManager, taskCompleter)
     }
 
     @After
@@ -190,14 +193,8 @@ class RepeatTaskHelperTest {
         freezeClock {
             repeatAndVerify(
                     task,
-                    Task.createDueDate(
-                            Task.URGENCY_SPECIFIC_DAY,
-                            DateTime().millis
-                    ),
-                    Task.createDueDate(
-                            Task.URGENCY_SPECIFIC_DAY,
-                            DateTime().plusDays(1).millis
-                    )
+                    Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime().millis),
+                    Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime().plusDays(1).millis)
             )
         }
     }
