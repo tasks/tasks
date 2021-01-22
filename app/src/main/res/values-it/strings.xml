@@ -502,7 +502,7 @@
     <string name="enter_tag_name">Inserisci il nome dell\'etichetta</string>
     <string name="enter_title_hint">Inserisci titolo</string>
     <string name="collapse_subtasks">Comprimi attività secondarie</string>
-    <string name="name_your_price">Fai tu il prezzo</string>
+    <string name="name_your_price">Scegli tu il prezzo</string>
     <string name="third_party_licenses">Licenze di terze parti</string>
     <string name="this_feature_requires_a_subscription">Questa funzione richiede un abbonamento</string>
     <string name="button_unsubscribe">Annulla abbonamento</string>
@@ -521,7 +521,7 @@
     <string name="create_new_tag">Crea «%s»</string>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
-    <string name="caldav_account_repeating_tasks">Lascia che il server programmi le attività ricorrenti</string>
+    <string name="caldav_account_repeating_tasks">Il server gestisce le attività ricorrenti</string>
     <string name="annually">Annuale</string>
     <string name="monthly">Mensile</string>
     <string name="google_tasks_add_to_top">Nuove attività in cima alla lista</string>
@@ -688,4 +688,7 @@
     <string name="local_lists">Liste locali</string>
     <string name="tomorrow_abbrev_lowercase">domani</string>
     <string name="yesterday_abbrev_lowercase">ieri</string>
+    <string name="account_not_included">Non incluso negli abbonamenti con prezzo a scelta</string>
+    <string name="tasks_org_account">Account Tasks.org</string>
+    <string name="subscription">Abbonamento</string>
 </resources>
