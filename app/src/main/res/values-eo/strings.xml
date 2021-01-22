@@ -1,2 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="remove">Forigi</string>
+    <string name="rate_tasks">Taksi Tasks</string>
+    <string name="translations">Helpu kun traduko</string>
+    <string name="font_size">Tipara grando</string>
+    <string name="sound">Sono</string>
+    <string name="notifications">Sciigoj</string>
+    <string name="widget_show_menu">Montri menuon</string>
+    <string name="widget_show_settings">Montri agordojn</string>
+    <string name="yesterday_lowercase">hieraŭ</string>
+    <string name="yesterday">Hieraŭ</string>
+    <string name="tomorrow_lowercase">morgaŭ</string>
+    <string name="tomorrow">Morgaŭ</string>
+    <string name="today_lowercase">hodiaŭ</string>
+    <string name="today">Hodiaŭ</string>
+    <plurals name="Ntasks">
+        <item quantity="one">1 tasko</item>
+        <item quantity="other">%d taskoj</item>
+    </plurals>
+    <string name="delete_task">Forigi taskon</string>
+    <string name="delete_tag_confirmation">Forigi %s\?</string>
+    <plurals name="repeat_years">
+        <item quantity="one">jaro</item>
+        <item quantity="other">jaroj</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">monato</item>
+        <item quantity="other">monatoj</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">semajno</item>
+        <item quantity="other">semajnoj</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">tago</item>
+        <item quantity="other">tagoj</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">horo</item>
+        <item quantity="other">horoj</item>
+    </plurals>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minuto</item>
+        <item quantity="other">minutoj</item>
+    </plurals>
+    <plurals name="repeat_times">
+        <item quantity="one">fojo</item>
+        <item quantity="other">fojoj</item>
+    </plurals>
+    <plurals name="list_count">
+        <item quantity="one">%d listo</item>
+        <item quantity="other">%d listoj</item>
+    </plurals>
+    <plurals name="task_count">
+        <item quantity="one">%d tasko</item>
+        <item quantity="other">%d taskoj</item>
+    </plurals>
+    <string name="repeat_option_custom">Propra…</string>
+    <string name="random_reminder_day">tage</string>
+    <string name="no_start_date">Sen ek dato</string>
+    <string name="CFA_type_intersect">ankaŭ</string>
+    <string name="CFA_type_subtract">ne</string>
+    <string name="CFA_type_add">aŭ</string>
+    <string name="BFE_Active">Miaj taskoj</string>
+    <string name="day_after_tomorrow">Postmorgaŭ</string>
+    <string name="always_display_full_date">Montri tutan daton</string>
+    <string name="none">Neniu</string>
+    <string name="CRA_calendar_reminders_pref_title">Kalendara asistanto</string>
+    <string name="CRA_postpone">Eble poste</string>
+    <string name="TEA_control_hidden_section">----Ĉiam kaŝigu----</string>
+    <string name="TEA_control_files">Dosieroj</string>
+    <string name="TEA_control_notes">Priskribo</string>
+    <string name="TEA_control_gcal">Kalendaro</string>
+    <string name="start_date">Ek dato</string>
+    <string name="TEA_no_time">Sen horo</string>
+    <string name="save">Konservi</string>
+    <string name="TEA_note_label">Priskribo</string>
+    <string name="TEA_no_date">Sen dato</string>
+    <string name="TEA_title_hint">Taska titolo</string>
+    <string name="SSD_sort_my_order">Propra ordo</string>
+    <string name="action_open">Malfermi</string>
+    <string name="action_call">Altelefoni</string>
+    <string name="TAd_actionEditTask">Redakti</string>
+    <string name="TLA_menu_settings">Agordoj</string>
+    <string name="TLA_menu_search">Serĉi</string>
+    <string name="TLA_no_items">Ne estas iajn taskojn.</string>
+    <string name="WID_dateButtonUnset">Alklaku por ŝanĝi</string>
+    <string name="DLG_undo">Malfari</string>
+    <string name="DLG_hour_minutes">Tempo (horoj : minutoj)</string>
+    <string name="DLG_delete_this_task_question">Forigi la taskon\?</string>
+    <string name="display_name">Nomo</string>
+    <string name="TVA_add_comment">Aldoni komenton…</string>
+    <string name="cancel">Nuligi</string>
+    <string name="ok">Bone</string>
+</resources>
