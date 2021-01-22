@@ -2,6 +2,7 @@ package org.tasks.data
 
 import androidx.room.*
 import com.todoroo.astrid.data.Task
+import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 
 @Dao
@@ -90,6 +91,21 @@ abstract class GoogleTaskDao {
 
     @Query("SELECT gt_task FROM google_tasks WHERE gt_parent IN (:ids) AND gt_deleted = 0")
     abstract suspend fun getChildren(ids: List<Long>): List<Long>
+
+    suspend fun hasRecurringParent(ids: List<Long>): List<Long> =
+            ids.chunkedMap { internalHasRecurringParent(ids) }
+
+    @Query("""
+SELECT gt_task
+FROM google_tasks
+         INNER JOIN tasks ON gt_parent = _id
+WHERE gt_task IN (:ids)
+  AND gt_deleted = 0
+  AND tasks.recurrence IS NOT NULL
+  AND tasks.recurrence != ''
+  AND tasks.completed = 0
+        """)
+    abstract suspend fun internalHasRecurringParent(ids: List<Long>): List<Long>
 
     @Query("SELECT tasks.* FROM tasks JOIN google_tasks ON tasks._id = gt_task WHERE gt_parent = :taskId")
     abstract suspend fun getChildTasks(taskId: Long): List<Task>

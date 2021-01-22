@@ -43,6 +43,9 @@ class TaskDeleter @Inject constructor(
         val completed = taskDao.fetchTasks(preferences, deleteFilter)
                 .filter(TaskContainer::isCompleted)
                 .map(TaskContainer::getId)
+                .toMutableList()
+        completed.removeAll(deletionDao.hasRecurringAncestors(completed))
+        completed.removeAll(googleTaskDao.hasRecurringParent(completed))
         markDeleted(completed)
         return completed.size
     }

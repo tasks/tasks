@@ -154,18 +154,19 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
 
     suspend fun getChildren(id: Long): List<Long> = getChildren(listOf(id))
 
-    @Query("WITH RECURSIVE "
-            + " recursive_tasks (task) AS ( "
-            + " SELECT _id "
-            + " FROM tasks "
-            + "WHERE parent IN (:ids)"
-            + "UNION ALL "
-            + " SELECT _id "
-            + " FROM tasks "
-            + " INNER JOIN recursive_tasks "
-            + "  ON recursive_tasks.task = tasks.parent"
-            + " WHERE tasks.deleted = 0)"
-            + "SELECT task FROM recursive_tasks")
+    @Query("""
+WITH RECURSIVE recursive_tasks (task) AS (
+    SELECT _id
+    FROM tasks
+    WHERE parent IN (:ids)
+    UNION ALL
+    SELECT _id
+    FROM tasks
+             INNER JOIN recursive_tasks ON recursive_tasks.task = tasks.parent
+    WHERE tasks.deleted = 0)
+SELECT task
+FROM recursive_tasks
+    """)
     abstract suspend fun getChildren(ids: List<Long>): List<Long>
 
     @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id = :id")

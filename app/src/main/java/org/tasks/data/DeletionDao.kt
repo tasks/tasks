@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import org.tasks.data.CaldavDao.Companion.LOCAL
+import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.db.SuspendDbUtils.eachChunk
 import java.util.*
 
@@ -27,6 +28,32 @@ abstract class DeletionDao {
 
     @Query("DELETE FROM tasks WHERE _id IN(:ids)")
     internal abstract suspend fun deleteTasks(ids: List<Long>)
+
+    suspend fun hasRecurringAncestors(ids: List<Long>): List<Long> =
+            ids.chunkedMap { internalHasRecurringAncestors(it) }
+
+    @Query("""
+WITH RECURSIVE recursive_tasks (descendent, parent, recurring) AS (
+    SELECT _id, parent, 0
+    FROM tasks
+    WHERE _id IN (:ids)
+      AND parent > 0
+    UNION ALL
+    SELECT recursive_tasks.descendent,
+           tasks.parent,
+           CASE
+               WHEN recursive_tasks.recurring THEN 1
+               WHEN recurrence IS NOT NULL AND recurrence != '' AND completed = 0 THEN 1
+               ELSE 0
+               END
+    FROM tasks
+             INNER JOIN recursive_tasks ON recursive_tasks.parent = _id
+)
+SELECT DISTINCT(descendent)
+FROM recursive_tasks
+WHERE recurring = 1
+    """)
+    abstract suspend fun internalHasRecurringAncestors(ids: List<Long>): List<Long>
 
     @Transaction
     open suspend fun delete(ids: List<Long>) {

@@ -1,7 +1,6 @@
 package org.tasks.opentasks
 
-import com.natpryce.makeiteasy.MakeItEasy
-import com.todoroo.astrid.helper.UUIDHelper
+import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
@@ -18,6 +17,7 @@ import org.tasks.data.TaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker
+import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -97,7 +97,6 @@ class OpenTasksSynchronizerTest : InjectingTestCase() {
         val (_, list) = openTaskDao.insertList(url = "url1")
         caldavDao.insert(CaldavCalendar().apply {
             account = list.account
-            uuid = UUIDHelper.newUUID()
             url = "url2"
         })
 
@@ -110,9 +109,9 @@ class OpenTasksSynchronizerTest : InjectingTestCase() {
     fun simplePushNewTask() = runBlocking {
         val (_, list) = openTaskDao.insertList()
         val taskId = taskDao.insert(newTask())
-        caldavDao.insert(CaldavTaskMaker.newCaldavTask(
-                MakeItEasy.with(CaldavTaskMaker.CALENDAR, list.uuid),
-                MakeItEasy.with(CaldavTaskMaker.TASK, taskId)
+        caldavDao.insert(newCaldavTask(
+                with(CaldavTaskMaker.CALENDAR, list.uuid),
+                with(CaldavTaskMaker.TASK, taskId)
         ))
 
         synchronizer.sync()
