@@ -457,11 +457,11 @@
     <string name="icon">Simge</string>
     <string name="button_upgrade">Aboneliği yükselt</string>
     <string name="button_unsubscribe">Aboneliği iptal et</string>
-    <string name="name_your_price">Fiyat belirleyin</string>
+    <string name="name_your_price">Fiyat belirle</string>
     <string name="monthly">Aylık</string>
     <string name="annually">Yıllık</string>
     <string name="SSD_sort_my_order">Düzenim</string>
-    <string name="caldav_account_repeating_tasks">Yineleyen görev planlamasını sunucuya bırak</string>
+    <string name="caldav_account_repeating_tasks">Sunucu, yineleyen görevleri halleder</string>
     <string name="EPr_temp_show_completed_tasks">Tamamlandıklarında görevleri geçici olarak göster</string>
     <string name="EPr_temp_completed_tasks_showing">Görevler, tamamlandıktan sonra listede geçici olarak görünecek</string>
     <string name="EPr_temp_completed_tasks_not_showing">Görevler, tamamlandıktan sonra listeden hemen kaybolacak</string>
@@ -672,7 +672,7 @@
     <string name="app_password_last_access">Son kullanım: %s</string>
     <string name="app_password_created_at">Oluşturulma: %s</string>
     <string name="app_password_enter_description">Parolanızı adlandırın (isteğe bağlı)</string>
-    <string name="generate_new_password">Yeni parola oluştur</string>
+    <string name="generate_new_password">Yeni parola yarat</string>
     <string name="app_passwords_more_info">Görevlerinizi ve takvimlerinizi üçüncü taraf masaüstü ve mobil uygulamalarla eşzamanlayın. Daha çok bilgi için dokun</string>
     <string name="app_passwords">Uygulama parolaları</string>
     <string name="app_password">Uygulama parolası</string>
@@ -693,8 +693,8 @@
     <string name="tasks_org_description">Görevlerinizi Tasks.org ile eşzamanlayın</string>
     <string name="yesterday_abbrev_lowercase">dün</string>
     <string name="tomorrow_abbrev_lowercase">yarın</string>
-    <string name="account_not_included">\'Fiyat belirleyin\' aboneliklerine dahil değildir</string>
-    <string name="get_tasks_org_account">Tasks.org hesabı edinin</string>
+    <string name="account_not_included">\'Fiyat belirle\' aboneliklerini içermez</string>
+    <string name="get_tasks_org_account">Tasks.org hesabı edin</string>
     <string name="tasks_org_account">Tasks.org hesabı</string>
     <string name="subscription">Abonelik</string>
 </resources>
