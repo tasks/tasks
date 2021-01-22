@@ -461,7 +461,7 @@
     <string name="annually">Årlig</string>
     <string name="error_adding_account">Feil: %s</string>
     <string name="SSD_sort_my_order">Min bestilling</string>
-    <string name="caldav_account_repeating_tasks">La tjeneren legge inn gjentagende gjøremål</string>
+    <string name="caldav_account_repeating_tasks">Tjeneren håndterer gjentagende gjøremål</string>
     <string name="EPr_temp_show_completed_tasks">Vis gjøremål midlertidig ved fullførelse</string>
     <string name="EPr_temp_completed_tasks_showing">Gjøremål vil midlertidig forbli synlige i listen etter fullførelse</string>
     <string name="EPr_temp_completed_tasks_not_showing">Gjøremål vil fjernes umiddelbart fra listen etter fullførelse</string>
@@ -560,10 +560,10 @@
     <string name="chip_style_filled">Fylt</string>
     <string name="wearable_notifications_summary">Vis merknader på din ikledbare</string>
     <string name="wearable_notifications">Ikledbare merknader</string>
-    <string name="filter_eisenhower_box_4">Boolsk logikkboks 4</string>
-    <string name="filter_eisenhower_box_3">Boolsk logikkboks 3</string>
-    <string name="filter_eisenhower_box_2">Boolsk logikkboks 2</string>
-    <string name="filter_eisenhower_box_1">Boolsk logikkboks 1</string>
+    <string name="filter_eisenhower_box_4">Ikke viktig og haster ikke</string>
+    <string name="filter_eisenhower_box_3">Ikke viktig og haster</string>
+    <string name="filter_eisenhower_box_2">Viktig og haster ikke</string>
+    <string name="filter_eisenhower_box_1">Viktig og haster</string>
     <string name="add_filter">Legg til filter</string>
     <string name="add_tags">Legg til etiketter</string>
     <string name="filter_no_tags">Ingen etiketter</string>
