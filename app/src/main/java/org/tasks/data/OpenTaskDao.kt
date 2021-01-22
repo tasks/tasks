@@ -15,13 +15,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.fortuna.ical4j.model.property.XProperty
 import org.dmfs.tasks.contract.TaskContract.*
+import org.dmfs.tasks.contract.TaskContract.Properties
 import org.dmfs.tasks.contract.TaskContract.Property.Category
 import org.dmfs.tasks.contract.TaskContract.Property.Relation
 import org.json.JSONObject
 import org.tasks.R
 import org.tasks.caldav.iCalendar.Companion.APPLE_SORT_ORDER
+import org.tasks.data.CaldavAccount.Companion.openTaskType
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 open class OpenTaskDao @Inject constructor(
         @ApplicationContext context: Context,
@@ -238,5 +242,18 @@ open class OpenTaskDao @Inject constructor(
 
         private fun Cursor.getLong(columnName: String): Long =
                 getLong(getColumnIndex(columnName))
+
+        fun CaldavCalendar.toLocalCalendar(): CaldavCalendar {
+            val remote = this
+            return CaldavCalendar().apply {
+                uuid = UUID
+                        .nameUUIDFromBytes("${account.openTaskType()}${remote.url}".toByteArray())
+                        .toString()
+                url = remote.url
+                color = remote.color
+                name = remote.name
+                account = remote.account
+            }
+        }
     }
 }

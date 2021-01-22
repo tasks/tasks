@@ -4,6 +4,7 @@ import android.content.ContentProviderOperation
 import android.content.Context
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.NO_ID
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract.Tasks
@@ -14,11 +15,11 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar
 import org.tasks.data.*
-import org.tasks.data.CaldavAccount.Companion.openTaskType
 import org.tasks.data.OpenTaskDao.Companion.isDavx5
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
 import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.OpenTaskDao.Companion.newAccounts
+import org.tasks.data.OpenTaskDao.Companion.toLocalCalendar
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -84,23 +85,19 @@ class OpenTasksSynchronizer @Inject constructor(
                 .findDeletedCalendars(uuid, lists.mapNotNull { it.url })
                 .forEach { taskDeleter.delete(it) }
         lists.forEach {
-            val calendar = toLocalCalendar(uuid, it)
+            val calendar = toLocalCalendar(it)
             sync(account, calendar, it.ctag, it.id)
         }
     }
 
-    private suspend fun toLocalCalendar(account: String, remote: CaldavCalendar): CaldavCalendar {
-        val local = caldavDao.getCalendarByUrl(account, remote.url!!)
-                ?: CaldavCalendar().apply {
-                    uuid = UUID
-                            .nameUUIDFromBytes("${account.openTaskType()}${remote.url}".toByteArray())
-                            .toString()
-                    url = remote.url
-                    this.account = account
-                    caldavDao.insert(this)
-                    Timber.d("Created calendar: $this")
-                }
-        if (local.name != remote.name || local.color != remote.color) {
+    private suspend fun toLocalCalendar(remote: CaldavCalendar): CaldavCalendar {
+        val local = caldavDao.getCalendarByUrl(remote.account!!, remote.url!!)
+                ?: remote.toLocalCalendar()
+        if (local.id == NO_ID) {
+            caldavDao.insert(local)
+            Timber.d("Created calendar: $local")
+            localBroadcastManager.broadcastRefreshList()
+        } else if (local.name != remote.name || local.color != remote.color) {
             local.color = remote.color
             local.name = remote.name
             caldavDao.update(local)

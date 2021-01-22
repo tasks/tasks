@@ -3,6 +3,7 @@ package org.tasks.opentasks
 import android.content.ContentProviderResult
 import android.content.Context
 import at.bitfire.ical4android.BatchOperation
+import at.bitfire.ical4android.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
@@ -20,9 +21,9 @@ class TestOpenTaskDao @Inject constructor(
     suspend fun insertList(
             name: String = DEFAULT_LIST,
             type: String = DEFAULT_TYPE,
-            account: String = DEFAULT_ACCOUNT
+            account: String = DEFAULT_ACCOUNT,
+            url: String = UUIDHelper.newUUID(),
     ): Pair<String, CaldavCalendar> {
-        val url = UUIDHelper.newUUID()
         val uri = taskLists.buildUpon()
                 .appendQueryParameter(TaskContract.CALLER_IS_SYNCADAPTER, "true")
                 .appendQueryParameter(TaskContract.TaskLists.ACCOUNT_NAME, account)
@@ -36,6 +37,7 @@ class TestOpenTaskDao @Inject constructor(
         )
         return Pair(result.uri!!.lastPathSegment!!, CaldavCalendar().apply {
             uuid = UUIDHelper.newUUID()
+            this.name = name
             this.account = "$type:$account"
             this.url = url
             caldavDao.insert(this)
@@ -48,6 +50,21 @@ class TestOpenTaskDao @Inject constructor(
                         .toBuilder(tasks, true)
                         .withValue(TaskContract.TaskColumns.LIST_ID, listId)
         )
+    }
+
+    fun getTasks(): List<Task> {
+        val result = ArrayList<Task>()
+        cr.query(
+                tasks.buildUpon().appendQueryParameter(TaskContract.LOAD_PROPERTIES, "1").build(),
+                null,
+                null,
+                null,
+                null)?.use {
+            while (it.moveToNext()) {
+                MyAndroidTask(it).task?.let { task -> result.add(task) }
+            }
+        }
+        return result
     }
 
     fun reset(
