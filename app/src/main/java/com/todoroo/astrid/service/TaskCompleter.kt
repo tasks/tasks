@@ -19,8 +19,8 @@ class TaskCompleter @Inject internal constructor(
 
     suspend fun setComplete(item: Task, completed: Boolean) {
         val completionDate = if (completed) DateUtilities.now() else 0L
-        setComplete(listOf(item), completionDate)
         completeChildren(item.id, completionDate)
+        setComplete(listOf(item), completionDate)
     }
 
     suspend fun completeChildren(id: Long, completionDate: Long) {
