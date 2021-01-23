@@ -486,7 +486,7 @@
     <string name="google_tasks_add_to_top">Новые задачи наверху</string>
     <string name="monthly">Ежемесячно</string>
     <string name="annually">Ежегодно</string>
-    <string name="caldav_account_repeating_tasks">Позволить серверу запланировать повторяющиеся задачи</string>
+    <string name="caldav_account_repeating_tasks">Сервер обрабатывает повторяющиеся задачи</string>
     <string name="expand_subtasks">Развернуть подзадачи</string>
     <string name="collapse_subtasks">Свернуть подзадачи</string>
     <string name="subtasks_multilevel_google_task">Многоуровневые подзадачи не поддерживаются Google Tasks</string>
@@ -711,4 +711,8 @@
     <string name="tasks_org_description">Синхронизировать задачи с Tasks.org</string>
     <string name="yesterday_abbrev_lowercase">вчера</string>
     <string name="tomorrow_abbrev_lowercase">завтра</string>
+    <string name="account_not_included">Не включено в подписку \'Назовите свою цену\'</string>
+    <string name="get_tasks_org_account">Получить аккаунт Tasks.org</string>
+    <string name="tasks_org_account">Аккаунт Tasks.org</string>
+    <string name="subscription">Подписка</string>
 </resources>
