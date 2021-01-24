@@ -481,11 +481,25 @@
     <string name="TEA_no_time">Tidak Ada Waktu</string>
     <string name="TEA_timer_elap">Berlalu %s</string>
     <string name="TEA_timer_est">Sejak %s</string>
-    <string name="TEA_elapsedDuration_label">Waktu telah selesai</string>
-    <string name="TEA_no_date">Tidak ada Tanggal</string>
+    <string name="TEA_elapsedDuration_label">Waktu telah terpakai</string>
+    <string name="TEA_no_date">Tidak ada tanggal</string>
     <string name="sort_created">Berdasarkan Waktu Pembuatan</string>
     <string name="manage_lists">Kelola Daftar</string>
     <string name="WID_dateButtonUnset">Klik untuk mengatur</string>
     <string name="cancel">Batal</string>
     <string name="ok">Oke</string>
+    <string name="EPr_temp_show_completed_tasks">Tampilkan tugas untuk sementara setelah selesai</string>
+    <string name="CRA_default_list_name">Tindakan Item: %s</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">Tugas akan mengingatkan Anda tentang acara kalender mendatang dan menyarankan Anda untuk bersiap-siap untuk hal tersebut</string>
+    <string name="CRA_postpone">Mungkin sesudahnya</string>
+    <string name="CRA_speech_bubble_end">Sepertinya Anda telah menyelesaikan %s. Ingin membuat sebuah daftar untuk tindakan item\?</string>
+    <string name="CRA_speech_bubble_start">Sepertinya %s akan segela dimulai. Ingin membuat sebuah daftar untuk tindakan item\?</string>
+    <string name="day_before_due">Hari sebelum jatuh tempo</string>
+    <string name="start_date">Tanggal mulai</string>
+    <string name="TEA_estimatedDuration_label">Seberapa lama itu akan berjalan\?</string>
+    <string name="FLA_search_filter">Mencocokkan \'%s\'</string>
+    <string name="SSD_sort_start">Berdasarkan tanggal awal</string>
+    <string name="astrid_sort_order_summary">Aktifkan sortir manual Astrid untuk \'Tugas Saya\', \'Hari Ini\', dan tag. Mode sortir ini akan digantikan dengan \'Sortiran Saya\' di pembaharuan berikutnya</string>
+    <string name="astrid_sort_order">Sortir manual Astrid</string>
+    <string name="display_name">Nama Tampilan</string>
 </resources>
