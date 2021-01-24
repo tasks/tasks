@@ -709,4 +709,5 @@
     <string name="get_tasks_org_account">Załóż konto Tasks.org</string>
     <string name="tasks_org_account">Konto Tasks.org</string>
     <string name="subscription">Subskrypcja</string>
+    <string name="account_not_included">Nie obejmuje subskrypcji \"Podaj swoją cenę\"</string>
 </resources>
