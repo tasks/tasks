@@ -281,4 +281,27 @@
     </plurals>
     <string name="repeat_yearly">سالانہ دہرانا</string>
     <string name="repeat_monthly">مہینہ وار دہرانا</string>
+    <string name="yesterday_lowercase">گزشتہ کل</string>
+    <string name="yesterday">گزشتہ کل</string>
+    <string name="next">اگلا%s</string>
+    <string name="tomorrow_lowercase">آنے والا کل</string>
+    <string name="tomorrow">آنے والا کل</string>
+    <string name="today_lowercase">آج</string>
+    <string name="today">آج</string>
+    <plurals name="Ntasks">
+        <item quantity="one">ایک ٹاسک</item>
+        <item quantity="other">%d ٹاسکس</item>
+    </plurals>
+    <string name="voice_command_added_task">ٹاسک جمع کر دیا گیا</string>
+    <string name="delete_task">ٹاسک ڈیلیٹ کریں</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">ٹاسکس یاد دہانیوں کے دوران ٹاسکس کے نام بولیں گے</string>
+    <string name="EPr_voiceRemindersEnabled_title">صوتی یاد دہانیاں</string>
+    <string name="EPr_voiceInputEnabled_title">وائس ان پٹ</string>
+    <string name="voice_create_prompt">ٹاسک بنانے کیلئے بولیں</string>
+    <string name="TEA_timer_comment_spent">صرف کیا گیا وقت:</string>
+    <string name="TEA_timer_comment_stopped">یہ ٹاسک روکیں:</string>
+    <string name="TEA_timer_comment_started">یہ ٹاسک شروع کیا:</string>
+    <string name="TEA_timer_controls">ٹائمر</string>
+    <string name="TFE_workingOn">ٹاسک کا وقت متعین کیا جا رہا ہے</string>
+    <string name="TPl_notification">%s کیلئے ٹائمرز فعال ہو گئے!</string>
 </resources>
