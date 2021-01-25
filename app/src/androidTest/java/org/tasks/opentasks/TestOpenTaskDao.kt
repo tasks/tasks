@@ -47,7 +47,7 @@ class TestOpenTaskDao @Inject constructor(
     fun insertTask(listId: String, vtodo: String) {
         applyOperation(
                 MyAndroidTask(TestUtilities.fromString(vtodo))
-                        .toBuilder(tasks, true)
+                        .toBuilder(tasks)
                         .withValue(TaskContract.TaskColumns.LIST_ID, listId)
         )
     }

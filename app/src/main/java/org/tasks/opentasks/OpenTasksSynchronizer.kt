@@ -1,12 +1,13 @@
 package org.tasks.opentasks
 
-import android.content.ContentProviderOperation
 import android.content.Context
+import at.bitfire.ical4android.BatchOperation
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.NO_ID
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.dmfs.tasks.contract.TaskContract
 import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -35,7 +36,6 @@ class OpenTasksSynchronizer @Inject constructor(
         private val firebase: Firebase,
         private val iCalendar: iCalendar,
         private val openTaskDao: OpenTaskDao,
-        private val tagDataDao: TagDataDao,
         private val inventory: Inventory) {
 
     suspend fun sync() {
@@ -128,25 +128,9 @@ class OpenTasksSynchronizer @Inject constructor(
         caldavDao.delete(moved)
         taskDeleter.delete(deleted.map { it.id })
 
-        val operations = updated.mapNotNull { toOperation(it, listId, isEteSync) }
-        val caldavTasks = operations.map { it.first }
-        openTaskDao.batch(operations.map { it.second })
-        openTaskDao.batch(caldavTasks.flatMap {
-            val id = openTaskDao.getId(listId, it.remoteId)
-                    ?: return@flatMap emptyList<ContentProviderOperation>()
-            val tags = tagDataDao.getTagDataForTask(it.task).mapNotNull(TagData::name)
-            val parent = openTaskDao.getId(listId, it.remoteParent)
-            openTaskDao.setTags(id, tags)
-                    .plus(openTaskDao.setRemoteOrder(id, it))
-                    .plus(openTaskDao.updateParent(id, parent))
-        })
-
-        caldavTasks
-                .takeIf { it.isNotEmpty() }
-                ?.let {
-                    caldavDao.update(it) // apply task modification date
-                    Timber.d("SENT ${it.joinToString("\n")}")
-                }
+        updated.forEach {
+            push(it, listId, isEteSync)
+        }
 
         ctag?.let {
             if (ctag == calendar.ctag) {
@@ -192,34 +176,38 @@ class OpenTasksSynchronizer @Inject constructor(
         }
     }
 
-    private suspend fun toOperation(
-            task: Task,
-            listId: Long,
-            isEteSync: Boolean
-    ): Pair<CaldavTask, ContentProviderOperation>? {
-        val caldavTask = caldavDao.getTask(task.id) ?: return null
-        caldavTask.lastSync = task.modificationDate
-        val remoteModel = openTaskDao.getTask(listId, caldavTask.remoteId!!)
-                ?: at.bitfire.ical4android.Task()
-        val isNew = remoteModel.uid.isNullOrBlank()
-        iCalendar.toVtodo(caldavTask, task, remoteModel)
-        val builder = MyAndroidTask(remoteModel).toBuilder(openTaskDao.tasks, isNew)
-
-        val operation = try {
-            if (isNew) {
-                if (isEteSync) {
-                    builder.withValue(Tasks.SYNC2, caldavTask.remoteId)
-                }
-                builder.withValue(Tasks.LIST_ID, listId)
-                openTaskDao.insert(builder)
-            } else {
-                openTaskDao.update(listId, caldavTask.remoteId!!, builder)
+    private suspend fun push(task: Task, listId: Long, isEteSync: Boolean) {
+        val caldavTask = caldavDao.getTask(task.id) ?: return
+        val uid = caldavTask.remoteId!!
+        val androidTask = openTaskDao.getTask(listId, uid) ?: return
+        iCalendar.toVtodo(caldavTask, task, androidTask.task!!)
+        val operations = ArrayList<BatchOperation.CpoBuilder>()
+        val builder = androidTask.toBuilder(openTaskDao.tasks)
+        val idxTask = if (androidTask.isNew) {
+            if (isEteSync) {
+                builder.withValue(Tasks.SYNC2, uid)
             }
-        } catch (e: Exception) {
-            firebase.reportException(e)
+            builder.withValue(Tasks.LIST_ID, listId)
+            0
+        } else {
+            // remove associated rows which are added later again
+            operations.add(BatchOperation.CpoBuilder
+                    .newDelete(openTaskDao.properties)
+                    .withSelection(
+                            "${TaskContract.Properties.TASK_ID}=?",
+                            arrayOf(androidTask.id.toString())
+                    )
+            )
             null
         }
-        return operation?.let { Pair(caldavTask, it) }
+        operations.add(builder)
+        androidTask.enqueueProperties(openTaskDao.properties, operations, idxTask)
+
+        operations.map { it.build() }.let { openTaskDao.batch(it) }
+
+        caldavTask.lastSync = task.modificationDate
+        caldavDao.update(caldavTask)
+        Timber.d("SENT $caldavTask")
     }
 
     private suspend fun applyChanges(
@@ -230,7 +218,7 @@ class OpenTasksSynchronizer @Inject constructor(
             existing: CaldavTask?
     ) {
         openTaskDao.getTask(listId, uid)?.let {
-            iCalendar.fromVtodo(calendar, existing, it, null, null, etag)
+            iCalendar.fromVtodo(calendar, existing, it.task!!, null, null, etag)
         }
     }
 }

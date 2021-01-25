@@ -37,6 +37,7 @@ class Upgrade_11_3 @Inject constructor(
             for (task in noStartDate) {
                 openTaskDao
                         .getTask(list.id, task.remoteId!!)
+                        ?.task
                         ?.dtStart
                         ?.let {
                             it.apply(task.task)
