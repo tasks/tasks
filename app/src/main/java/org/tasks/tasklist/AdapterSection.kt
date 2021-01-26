@@ -30,7 +30,8 @@ data class AdapterSection(
             locale: Locale,
             sortMode: Int,
             alwaysDisplayFullDate: Boolean,
-            style: FormatStyle = FormatStyle.FULL
+            style: FormatStyle = FormatStyle.FULL,
+            compact: Boolean = false
     ): String =
             when {
                 sortMode == SORT_IMPORTANCE -> context.getString(priorityToString())
@@ -41,13 +42,18 @@ data class AdapterSection(
                 })
                 else -> {
                     val dateString = DateUtilities.getRelativeDay(
-                            context, value, locale, style, alwaysDisplayFullDate, true
+                            context, value, locale, style, alwaysDisplayFullDate, !compact
                     )
-                    when (sortMode) {
-                        SORT_DUE -> context.getString(R.string.sort_due_group, dateString)
-                        SORT_START -> context.getString(R.string.sort_start_group, dateString)
-                        SORT_CREATED -> context.getString(R.string.sort_created_group, dateString)
-                        SORT_MODIFIED -> context.getString(R.string.sort_modified_group, dateString)
+                    when {
+                        compact -> dateString
+                        sortMode == SORT_DUE ->
+                            context.getString(R.string.sort_due_group, dateString)
+                        sortMode == SORT_START ->
+                            context.getString(R.string.sort_start_group, dateString)
+                        sortMode == SORT_CREATED ->
+                            context.getString(R.string.sort_created_group, dateString)
+                        sortMode == SORT_MODIFIED ->
+                            context.getString(R.string.sort_modified_group, dateString)
                         else -> throw IllegalArgumentException()
                     }
                 }

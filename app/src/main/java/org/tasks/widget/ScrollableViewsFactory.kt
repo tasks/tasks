@@ -74,6 +74,7 @@ internal class ScrollableViewsFactory(
     private val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
     private var isDark = checkIfDark
     private var showFullDate = false
+    private var compact = false
 
     private val checkIfDark: Boolean
         get() = when (widgetPreferences.themeIndex) {
@@ -135,7 +136,14 @@ internal class ScrollableViewsFactory(
         val section = tasks.getSection(position)
         val sortGroup = section.value
         val header: String? = if (filter?.supportsSorting() == true) {
-            section.headerString(context, locale.locale, sortMode, showFullDate, FormatStyle.MEDIUM)
+            section.headerString(
+                    context,
+                    locale.locale,
+                    sortMode,
+                    showFullDate,
+                    FormatStyle.MEDIUM,
+                    compact
+            )
         } else {
             null
         }
@@ -350,6 +358,7 @@ internal class ScrollableViewsFactory(
                 }
         collapsed = widgetPreferences.collapsed
         isRtl = locale.directionality == View.LAYOUT_DIRECTION_RTL
+        compact = widgetPreferences.compact
     }
 
     init {

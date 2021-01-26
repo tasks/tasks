@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
@@ -35,15 +36,30 @@ class TasksWidget : AppWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         for (id in appWidgetIds) {
             try {
-                appWidgetManager.updateAppWidget(id, createScrollableWidget(context, id))
+                val options = appWidgetManager.getAppWidgetOptions(id)
+                appWidgetManager.updateAppWidget(id, createScrollableWidget(context, id, options))
             } catch (e: Exception) {
                 Timber.e(e)
             }
         }
     }
 
-    private fun createScrollableWidget(context: Context, id: Int): RemoteViews {
+    override fun onAppWidgetOptionsChanged(
+            context: Context,
+            appWidgetManager: AppWidgetManager,
+            appWidgetId: Int,
+            newOptions: Bundle?
+    ) {
+        newOptions?.let {
+            appWidgetManager
+                    .updateAppWidget(appWidgetId, createScrollableWidget(context, appWidgetId, it))
+        }
+    }
+
+    private fun createScrollableWidget(context: Context, id: Int, options: Bundle): RemoteViews {
         val widgetPreferences = WidgetPreferences(context, preferences, id)
+        widgetPreferences.compact =
+                options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH) < COMPACT_MAX
         val filterId = widgetPreferences.filterId
         val color = ThemeColor(context, widgetPreferences.color)
         val remoteViews = RemoteViews(context.packageName, R.layout.scrollable_widget)
@@ -168,6 +184,7 @@ class TasksWidget : AppWidgetProvider() {
     }
 
     companion object {
+        private const val COMPACT_MAX = 275
         private const val flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         private val buttons = intArrayOf(
                 R.id.widget_change_list, R.id.widget_button, R.id.widget_reconfigure

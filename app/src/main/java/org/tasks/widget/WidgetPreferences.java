@@ -199,6 +199,14 @@ public class WidgetPreferences implements QueryPreferences {
     preferences.setString(getKey(R.string.p_widget_filter), filterPreferenceValue);
   }
 
+  public boolean getCompact() {
+    return getBoolean(R.string.p_widget_compact, false);
+  }
+
+  public void setCompact(boolean value) {
+    setBoolean(R.string.p_widget_compact, value);
+  }
+
   private int getInt(int resId, int defValue) {
     return preferences.getInt(getKey(resId), defValue);
   }

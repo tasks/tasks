@@ -339,6 +339,7 @@
   <string name="p_widget_sort_astrid">widget-sort-astrid-</string>
   <string name="p_widget_show_hidden">widget-hidden-</string>
   <string name="p_widget_show_completed">widget-completed-</string>
+  <string name="p_widget_compact">widget-compact-</string>
   <string name="p_widget_color">widget-color-</string>
   <string name="p_widget_color_v2">widget-color-v2</string>
   <string name="p_widget_opacity">widget-opacity-v3-</string>
