@@ -697,4 +697,5 @@
     <string name="get_tasks_org_account">Tasks.org hesabı edin</string>
     <string name="tasks_org_account">Tasks.org hesabı</string>
     <string name="subscription">Abonelik</string>
+    <string name="widget_show_title">Başlığı göster</string>
 </resources>
