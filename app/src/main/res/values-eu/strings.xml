@@ -648,4 +648,6 @@
     <string name="always_display_full_date">Erakutsi data osoa</string>
     <string name="cancel">Utzi</string>
     <string name="ok">Ados</string>
+    <string name="start_date">Hasiera data</string>
+    <string name="SSD_sort_start">Hasiera dataren arabera</string>
 </resources>
