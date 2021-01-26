@@ -71,7 +71,7 @@
     <string name="SSD_sort_my_order">Moj poredak</string>
     <string name="keep_editing">Nastavi uređivati</string>
     <string name="enter_filter_name">Unesi naziv filtra</string>
-    <string name="EPr_delete_task_data">Izbriši podatke o zadatku</string>
+    <string name="EPr_delete_task_data">Izbriši podatke zadatka</string>
     <string name="EPr_reset_preferences_warning">Postavke će se vratiti na zadane vrijednosti</string>
     <string name="EPr_reset_preferences">Poništi postavke</string>
     <string name="reverse">Obrnuto</string>
@@ -121,4 +121,13 @@
     <string name="gcal_TEA_error">Pogreška pri dodavanju zadatka u kalendar!</string>
     <string name="add_attachment">Dodaj privitak</string>
     <string name="add_location">Dodaj lokaciju</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Stvarno želiš izbrisati sve tvoje događaje za dovršene zadatke\?</string>
+    <string name="EPr_manage_delete_completed_gcal">Izbriši kalendarske događaje za dovršene zadatke</string>
+    <string name="EPr_delete_task_data_warning">Svi zadaci će se trajno izbrisati</string>
+    <string name="TEA_control_repeat">Ponovi</string>
+    <string name="start_date">Datum početka</string>
+    <string name="due_time">Vrijeme roka</string>
+    <string name="due_date">Datum roka</string>
+    <string name="TEA_timer_est">Cca %s</string>
+    <string name="TEA_elapsedDuration_label">Već utrošeno vrijeme</string>
 </resources>
