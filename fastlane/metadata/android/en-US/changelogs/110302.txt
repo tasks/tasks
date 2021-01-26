@@ -1,0 +1,7 @@
+* Improve support for recurring tasks with subtasks
+  * Subtasks will be unchecked after completing a recurring task
+  * Clear completed will not delete subtasks of recurring tasks
+* Improve widget sort header when space is limited
+* Add option to hide widget title
+* Add Esperanto translations - @jakubfabijan
+* Update translations
