@@ -83,6 +83,10 @@
       android:summary="%s" />
 
     <SwitchPreferenceCompat
+      android:key="@string/p_widget_show_title"
+      android:title="@string/widget_show_title" />
+
+    <SwitchPreferenceCompat
       android:key="@string/p_widget_show_menu"
       android:title="@string/widget_show_menu" />
 

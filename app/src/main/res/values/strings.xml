@@ -312,6 +312,7 @@ File %1$s contained %2$s.\n\n
   <string name="widget_hide_background">Hide background</string>
   <string name="widget_show_header">Show header</string>
   <string name="widget_show_settings">Show settings</string>
+  <string name="widget_show_title">Show title</string>
   <string name="widget_show_menu">Show menu</string>
   <string name="widget_show_dividers">Show dividers</string>
   <string name="notifications">Notifications</string>

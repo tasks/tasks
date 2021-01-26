@@ -28,6 +28,10 @@ public class WidgetPreferences implements QueryPreferences {
     return getBoolean(R.string.p_widget_show_header, true);
   }
 
+  boolean showTitle() {
+    return getBoolean(R.string.p_widget_show_title, true);
+  }
+
   boolean showCheckboxes() {
     return getBoolean(R.string.p_widget_show_checkboxes, true);
   }

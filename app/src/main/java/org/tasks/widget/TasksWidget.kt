@@ -89,7 +89,11 @@ class TasksWidget : AppWidgetProvider() {
                 "setBackgroundColor",
                 ColorUtils.setAlphaComponent(bgColor, widgetPreferences.footerOpacity))
         val filter = runBlocking { defaultFilterProvider.getFilterFromPreference(filterId) }
-        remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle)
+        remoteViews.setTextViewText(R.id.widget_title, if (widgetPreferences.showTitle()) {
+            filter.listingTitle
+        } else {
+            null
+        })
         val cacheBuster = Uri.parse("tasks://widget/" + System.currentTimeMillis())
         remoteViews.setRemoteAdapter(
                 R.id.list_view,

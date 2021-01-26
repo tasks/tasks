@@ -357,6 +357,7 @@
   <string name="p_widget_show_checkboxes">widget-show-checkboxes-</string>
   <string name="p_widget_show_header">widget-show-header-</string>
   <string name="p_widget_show_settings">widget-show-settings-</string>
+  <string name="p_widget_show_title">widget-show-title-</string>
   <string name="p_widget_show_menu">widget-show-menu-</string>
   <string name="p_widget_header_opacity">widget-header-opacity-</string>
   <string name="p_widget_footer_opacity">widget-empty-space-opacity-</string>
