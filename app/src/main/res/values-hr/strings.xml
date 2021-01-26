@@ -130,4 +130,25 @@
     <string name="due_date">Datum roka</string>
     <string name="TEA_timer_est">Cca %s</string>
     <string name="TEA_elapsedDuration_label">Već utrošeno vrijeme</string>
+    <string name="week_before_due">Tjedan prije roka</string>
+    <string name="CRA_ignore_body">Zanemarili ste nekoliko kalendarskih događaja. Bi li vas Tasks trebali prestati pitati o njima\?</string>
+    <string name="CRA_ignore_this">Zanemari samo ovaj događaj</string>
+    <string name="CRA_ignore_all">Zanemari sve događaje</string>
+    <string name="TEA_control_hidden_section">----Uvijek sakrij----</string>
+    <string name="day_before_due">Dan prije roka</string>
+    <string name="TEA_estimatedDuration_label">Koliko će to trajati\?</string>
+    <string name="astrid_sort_order_summary">Omogućite Astridov način ručnog sortiranja za \'Moje zadatke\', \'Danas\' i oznake. Ovakav način sortiranja zamijenit će \"Moj poredak\" u budućem ažuriranju</string>
+    <string name="WID_dateButtonUnset">Kliknite za postavljanje</string>
+    <string name="DLG_hour_minutes">Vrijeme (sati: minute)</string>
+    <string name="import_summary_message">Datoteka %1$s sadrži %2$s.
+\n
+\n %3$s uvezena,
+\n %4$s već postoje
+\n %5$s imao je pogrešaka
+\n</string>
+    <string name="when_overdue">Kad kasni</string>
+    <string name="when_due">Kad dospije</string>
+    <string name="SSD_sort_start">Po datumu početka</string>
+    <string name="SSD_sort_modified">Po zadnjoj izmjeni</string>
+    <string name="TAd_actionEditTask">Uredi</string>
 </resources>
