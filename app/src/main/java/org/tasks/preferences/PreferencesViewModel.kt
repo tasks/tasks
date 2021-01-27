@@ -3,11 +3,11 @@ package org.tasks.preferences
 import android.content.ContentResolver
 import android.content.Context
 import androidx.documentfile.provider.DocumentFile
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.api.services.drive.DriveScopes
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,8 +20,10 @@ import org.tasks.googleapis.InvokerFactory
 import org.tasks.gtasks.GoogleAccountManager
 import timber.log.Timber
 import java.io.File
+import javax.inject.Inject
 
-class PreferencesViewModel @ViewModelInject constructor(
+@HiltViewModel
+class PreferencesViewModel @Inject constructor(
         @ApplicationContext private val context: Context,
         private val preferences: Preferences,
         invokers: InvokerFactory,

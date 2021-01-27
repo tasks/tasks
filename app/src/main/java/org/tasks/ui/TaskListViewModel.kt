@@ -1,6 +1,5 @@
 package org.tasks.ui
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -8,6 +7,7 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
@@ -17,8 +17,10 @@ import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.preferences.Preferences
 import timber.log.Timber
+import javax.inject.Inject
 
-class TaskListViewModel @ViewModelInject constructor(
+@HiltViewModel
+class TaskListViewModel @Inject constructor(
         private val preferences: Preferences,
         private val taskDao: TaskDao) : ViewModel(), Observer<PagedList<TaskContainer>> {
 

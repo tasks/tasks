@@ -1,9 +1,10 @@
 package org.tasks.jobs
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.*
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -13,7 +14,8 @@ import org.tasks.data.CaldavDao
 import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.preferences.Preferences
 
-class SyncEtebaseWork @WorkerInject constructor(
+@HiltWorker
+class SyncEtebaseWork @AssistedInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,

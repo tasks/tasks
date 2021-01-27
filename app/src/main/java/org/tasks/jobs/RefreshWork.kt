@@ -1,14 +1,16 @@
 package org.tasks.jobs
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.scheduling.RefreshScheduler
 
-class RefreshWork @WorkerInject constructor(
+@HiltWorker
+class RefreshWork @AssistedInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,

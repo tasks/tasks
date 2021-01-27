@@ -1,15 +1,17 @@
 package org.tasks.tags
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
 import org.tasks.tags.CheckBoxTriStates.State
 import java.util.*
+import javax.inject.Inject
 
-class TagPickerViewModel @ViewModelInject constructor(
+@HiltViewModel
+class TagPickerViewModel @Inject constructor(
         private val tagDataDao: TagDataDao
 ) : ViewModel() {
 

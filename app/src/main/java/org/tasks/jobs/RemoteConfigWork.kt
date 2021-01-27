@@ -1,13 +1,15 @@
 package org.tasks.jobs
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import org.tasks.analytics.Firebase
 import org.tasks.injection.BaseWorker
 
-class RemoteConfigWork @WorkerInject constructor(
+@HiltWorker
+class RemoteConfigWork @AssistedInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase) : BaseWorker(context, workerParams, firebase) {

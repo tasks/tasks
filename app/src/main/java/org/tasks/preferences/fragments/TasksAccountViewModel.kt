@@ -1,16 +1,18 @@
 package org.tasks.preferences.fragments
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.data.CaldavAccount
 import timber.log.Timber
+import javax.inject.Inject
 
-class TasksAccountViewModel @ViewModelInject constructor(
+@HiltViewModel
+class TasksAccountViewModel @Inject constructor(
         private val provider: CaldavClientProvider
 ) : ViewModel() {
     val newPassword = MutableLiveData<AppPassword?>()

@@ -1,17 +1,19 @@
 package org.tasks.location
 
 import android.os.Bundle
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.todoroo.andlib.utility.AndroidUtilities
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.tasks.Event
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.Place
+import javax.inject.Inject
 
-class PlaceSearchViewModel @ViewModelInject constructor(
+@HiltViewModel
+class PlaceSearchViewModel @Inject constructor(
         private val searchProvider: PlaceSearchProvider
 ): ViewModel() {
     private val searchResults = MutableLiveData<List<PlaceSearchResult>>()
@@ -52,4 +54,6 @@ class PlaceSearchViewModel @ViewModelInject constructor(
     private fun setError(message: String) {
         error.value = Event(message)
     }
+
+    fun getAttributionRes(dark: Boolean) = searchProvider.getAttributionRes(dark)
 }

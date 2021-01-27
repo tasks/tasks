@@ -1,9 +1,10 @@
 package org.tasks.jobs
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.data.LocationDao
@@ -12,7 +13,8 @@ import org.tasks.location.Geocoder
 import timber.log.Timber
 import java.io.IOException
 
-class ReverseGeocodeWork @WorkerInject constructor(
+@HiltWorker
+class ReverseGeocodeWork @AssistedInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,

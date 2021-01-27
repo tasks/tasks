@@ -3,10 +3,11 @@ package org.tasks.jobs
 import android.content.ContentResolver
 import android.content.Context
 import androidx.documentfile.provider.DocumentFile
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
 import com.todoroo.andlib.utility.DateUtilities
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.backup.BackupConstants
@@ -17,7 +18,8 @@ import java.io.File
 import java.io.FileFilter
 import java.util.*
 
-class BackupWork @WorkerInject constructor(
+@HiltWorker
+class BackupWork @AssistedInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,

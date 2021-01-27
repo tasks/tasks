@@ -1,13 +1,15 @@
 package org.tasks.etesync
 
 import androidx.core.util.Pair
-import androidx.hilt.lifecycle.ViewModelInject
 import com.etesync.journalmanager.UserInfoManager.UserInfo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.ui.CompletableViewModel
+import javax.inject.Inject
 
 @Deprecated("use etebase")
-class UpdateEteSyncAccountViewModel @ViewModelInject constructor(
+@HiltViewModel
+class UpdateEteSyncAccountViewModel @Inject constructor(
         private val client: EteSyncClient) : CompletableViewModel<Pair<UserInfo, String>>() {
     suspend fun updateAccount(url: String, user: String, pass: String?, token: String) {
         run {

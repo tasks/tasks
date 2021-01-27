@@ -1,9 +1,11 @@
 package org.tasks.caldav
 
-import androidx.hilt.lifecycle.ViewModelInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.tasks.ui.CompletableViewModel
+import javax.inject.Inject
 
-class AddCaldavAccountViewModel @ViewModelInject constructor(
+@HiltViewModel
+class AddCaldavAccountViewModel @Inject constructor(
         private val provider: CaldavClientProvider
 ) : CompletableViewModel<String>() {
     suspend fun addAccount(url: String, username: String, password: String) {

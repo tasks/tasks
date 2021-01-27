@@ -2,10 +2,10 @@ package org.tasks.auth
 
 import android.content.Context
 import android.content.Intent
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.todoroo.astrid.helper.UUIDHelper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
@@ -18,8 +18,10 @@ import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
 import org.tasks.security.KeyStoreEncryption
 import timber.log.Timber
+import javax.inject.Inject
 
-class SignInViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SignInViewModel @Inject constructor(
         @ApplicationContext private val context: Context,
         private val provider: CaldavClientProvider,
         private val caldavDao: CaldavDao,

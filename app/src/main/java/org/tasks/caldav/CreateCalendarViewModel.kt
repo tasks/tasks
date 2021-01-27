@@ -1,10 +1,12 @@
 package org.tasks.caldav
 
-import androidx.hilt.lifecycle.ViewModelInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.tasks.data.CaldavAccount
 import org.tasks.ui.CompletableViewModel
+import javax.inject.Inject
 
-class CreateCalendarViewModel @ViewModelInject constructor(
+@HiltViewModel
+class CreateCalendarViewModel @Inject constructor(
         private val provider: CaldavClientProvider
 ): CompletableViewModel<String?>() {
     suspend fun createCalendar(account: CaldavAccount, name: String, color: Int) {

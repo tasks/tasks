@@ -1,11 +1,13 @@
 package org.tasks.etebase
 
-import androidx.hilt.lifecycle.ViewModelInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.ui.ActionViewModel
+import javax.inject.Inject
 
-class DeleteCalendarViewModel @ViewModelInject constructor(
+@HiltViewModel
+class DeleteCalendarViewModel @Inject constructor(
         private val clientProvider: EtebaseClientProvider) : ActionViewModel() {
     suspend fun deleteCalendar(account: CaldavAccount, calendar: CaldavCalendar) {
         run { clientProvider.forAccount(account).deleteCollection(calendar) }

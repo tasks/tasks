@@ -1,22 +1,27 @@
 package org.tasks.jobs
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.timers.TimerPlugin
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Firebase
-import org.tasks.data.*
+import org.tasks.data.DeletionDao
+import org.tasks.data.LocationDao
+import org.tasks.data.TaskAttachmentDao
+import org.tasks.data.UserActivityDao
 import org.tasks.files.FileHelper
 import org.tasks.injection.BaseWorker
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import timber.log.Timber
 
-class CleanupWork @WorkerInject constructor(
+@HiltWorker
+class CleanupWork @AssistedInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,

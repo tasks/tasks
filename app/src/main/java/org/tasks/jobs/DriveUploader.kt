@@ -2,12 +2,13 @@ package org.tasks.jobs
 
 import android.content.Context
 import android.net.Uri
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.services.drive.model.File
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -25,7 +26,8 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
 
-class DriveUploader @WorkerInject constructor(
+@HiltWorker
+class DriveUploader @AssistedInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,

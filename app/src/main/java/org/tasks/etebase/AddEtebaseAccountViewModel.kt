@@ -1,9 +1,11 @@
 package org.tasks.etebase
 
-import androidx.hilt.lifecycle.ViewModelInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.tasks.ui.CompletableViewModel
+import javax.inject.Inject
 
-class AddEtebaseAccountViewModel @ViewModelInject constructor(
+@HiltViewModel
+class AddEtebaseAccountViewModel @Inject constructor(
         private val clientProvider: EtebaseClientProvider): CompletableViewModel<String>() {
     suspend fun addAccount(url: String, username: String, password: String) {
         run {

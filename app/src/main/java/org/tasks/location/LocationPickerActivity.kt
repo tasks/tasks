@@ -90,7 +90,6 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     @Inject lateinit var theme: Theme
     @Inject lateinit var toaster: Toaster
     @Inject lateinit var locationDao: LocationDao
-    @Inject lateinit var searchProvider: PlaceSearchProvider
     @Inject lateinit var permissionChecker: PermissionChecker
     @Inject lateinit var permissionRequestor: ActivityPermissionRequestor
     @Inject lateinit var dialogBuilder: DialogBuilder
@@ -174,7 +173,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
             appBarLayout.post { expandToolbar(false) }
         }
         findViewById<View>(map.markerId).visibility = View.VISIBLE
-        searchAdapter = LocationSearchAdapter(searchProvider.getAttributionRes(dark), this)
+        searchAdapter = LocationSearchAdapter(viewModel.getAttributionRes(dark), this)
         recentsAdapter = LocationPickerAdapter(this, inventory, colorProvider, this)
         recentsAdapter!!.setHasStableIds(true)
         recyclerView.layoutManager = LinearLayoutManager(this)

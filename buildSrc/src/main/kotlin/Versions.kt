@@ -14,8 +14,8 @@ object Versions {
     const val mockito = "3.3.3"
     const val androidx_test = "1.3.0"
     const val make_it_easy = "4.0.1"
-    const val hilt = "2.29.1-alpha"
-    const val hilt_androidx = "1.0.0-alpha02"
+    const val hilt = "2.31.2-alpha"
+    const val hilt_androidx = "1.0.0-alpha03"
     const val lifecycle = "2.2.0"
     const val markwon = "4.6.0"
 }

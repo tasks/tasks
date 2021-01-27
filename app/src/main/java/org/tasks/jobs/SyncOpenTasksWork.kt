@@ -4,9 +4,10 @@ import android.accounts.AccountManager
 import android.content.ContentResolver
 import android.content.Context
 import android.os.Bundle
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -17,7 +18,8 @@ import org.tasks.data.OpenTaskDao.Companion.SUPPORTED_TYPES
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
 
-class SyncOpenTasksWork @WorkerInject constructor(
+@HiltWorker
+class SyncOpenTasksWork @AssistedInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,

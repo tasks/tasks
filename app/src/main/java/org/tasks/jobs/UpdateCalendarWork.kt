@@ -1,17 +1,19 @@
 package org.tasks.jobs
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
 import com.todoroo.astrid.gcal.GCalHelper
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.TaskDao
 import org.tasks.injection.BaseWorker
 import org.tasks.preferences.PermissionChecker
 
-class UpdateCalendarWork @WorkerInject constructor(
+@HiltWorker
+class UpdateCalendarWork @AssistedInject constructor(
         @Assisted context: Context,
         @Assisted workerParams: WorkerParameters,
         firebase: Firebase,

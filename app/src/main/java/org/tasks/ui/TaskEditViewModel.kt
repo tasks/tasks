@@ -2,7 +2,6 @@ package org.tasks.ui
 
 import android.content.Context
 import androidx.annotation.MainThread
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.ical.values.RRule
@@ -23,6 +22,7 @@ import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableSet
@@ -44,8 +44,10 @@ import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
 import java.text.ParseException
+import javax.inject.Inject
 
-class TaskEditViewModel @ViewModelInject constructor(
+@HiltViewModel
+class TaskEditViewModel @Inject constructor(
         @ApplicationContext private val context: Context,
         private val taskDao: TaskDao,
         private val taskDeleter: TaskDeleter,
