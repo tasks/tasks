@@ -237,7 +237,7 @@ class Task : Parcelable {
             repeatUntil = 0
             recurrence = null
         } else {
-            repeatUntil = rrule.recur.until?.let { DateTime.from(it).millis } ?: 0
+            repeatUntil = rrule.recur.until?.let { DateTime(it).millis } ?: 0
             recurrence = "RRULE:${rrule.value.sanitizeRRule()}" + if (repeatAfterCompletion()) ";FROM=COMPLETION" else ""
         }
     }

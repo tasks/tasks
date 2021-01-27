@@ -18,11 +18,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-import net.fortuna.ical4j.model.Date;
 import org.tasks.locale.Locale;
 
 public class DateTime {
@@ -76,7 +76,7 @@ public class DateTime {
     this(timestamp, TimeZone.getDefault());
   }
 
-  private DateTime(long timestamp, TimeZone timeZone) {
+  public DateTime(long timestamp, TimeZone timeZone) {
     this.timestamp = timestamp;
     this.timeZone = timeZone;
   }
@@ -96,12 +96,8 @@ public class DateTime {
     return new DateTime(dateValue.year(), dateValue.month(), dateValue.day());
   }
 
-  public static DateTime from(Date date) {
-    return new DateTime(date.getTime(), UTC);
-  }
-
-  public static DateTime from(net.fortuna.ical4j.model.DateTime dateTime) {
-    return new DateTime(dateTime.getTime(), dateTime.getTimeZone());
+  public DateTime(Date date) {
+    this(date.getTime());
   }
 
   private DateTime setTime(int hours, int minutes, int seconds, int milliseconds) {

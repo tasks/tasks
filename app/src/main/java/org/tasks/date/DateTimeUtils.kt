@@ -21,6 +21,9 @@ object DateTimeUtils {
     @JvmStatic
     fun newDateTime(timestamp: Long): DateTime = DateTime(timestamp)
 
+    @JvmStatic
+    fun newDateTime(timestamp: Long, timeZone: TimeZone): DateTime = DateTime(timestamp, timeZone)
+
     fun Long.toAppleEpoch(): Long = DateTime(this).toAppleEpoch()
 
     fun Long.toDateTime(): DateTime = DateTime(this)

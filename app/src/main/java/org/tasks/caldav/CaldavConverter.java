@@ -1,18 +1,15 @@
 package org.tasks.caldav;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
-import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY;
-import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME;
+import static org.tasks.caldav.iCalendar.getLocal;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.time.DateTime.UTC;
 import static org.tasks.time.DateTimeUtils.startOfDay;
 
 import at.bitfire.ical4android.DateUtils;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.TimeZone;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
@@ -26,12 +23,10 @@ import timber.log.Timber;
 
 public class CaldavConverter {
 
-  static final DateFormat DUE_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.US);
-
   public static void apply(Task local, at.bitfire.ical4android.Task remote) {
     Completed completedAt = remote.getCompletedAt();
     if (completedAt != null) {
-      local.setCompletionDate(remote.getCompletedAt().getDate().getTime());
+      local.setCompletionDate(getLocal(completedAt));
     } else if (remote.getStatus() == Status.VTODO_COMPLETED) {
       if (!local.isCompleted()) {
         local.setCompletionDate(now());
@@ -39,32 +34,15 @@ public class CaldavConverter {
     } else {
       local.setCompletionDate(0L);
     }
-
     Long createdAt = remote.getCreatedAt();
     if (createdAt != null) {
-      local.setCreationDate(newDateTime(createdAt).toLocal().getMillis());
+      local.setCreationDate(newDateTime(createdAt, UTC).toLocal().getMillis());
     }
     local.setTitle(remote.getSummary());
     local.setNotes(remote.getDescription());
     local.setPriority(fromRemote(remote.getPriority()));
     local.setRecurrence(remote.getRRule());
-    Due due = remote.getDue();
-    if (due == null) {
-      local.setDueDate(0L);
-    } else {
-      Date dueDate = due.getDate();
-      if (dueDate instanceof DateTime) {
-        local.setDueDate(Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getTime()));
-      } else {
-        try {
-          local.setDueDate(
-              Task.createDueDate(
-                  URGENCY_SPECIFIC_DAY, DUE_DATE_FORMAT.parse(due.getValue()).getTime()));
-        } catch (ParseException e) {
-          Timber.e(e);
-        }
-      }
-    }
+    iCalendar.Companion.apply(remote.getDue(), local);
     iCalendar.Companion.apply(remote.getDtStart(), local);
   }
 

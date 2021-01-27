@@ -5,18 +5,16 @@ import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
+import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
+import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
 import net.fortuna.ical4j.model.DateTime
 import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.Property
 import net.fortuna.ical4j.model.parameter.RelType
-import net.fortuna.ical4j.model.property.DtStart
-import net.fortuna.ical4j.model.property.Geo
-import net.fortuna.ical4j.model.property.RelatedTo
-import net.fortuna.ical4j.model.property.XProperty
+import net.fortuna.ical4j.model.property.*
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.caldav.CaldavConverter.DUE_DATE_FORMAT
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
@@ -24,10 +22,13 @@ import org.tasks.data.*
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTime.UTC
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
 import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @Suppress("ClassName")
@@ -58,7 +59,7 @@ class iCalendar @Inject constructor(
             place.id = locationDao.insert(place)
             workManager.reverseGeocode(place)
         }
-        val existing: Location? = locationDao.getGeofences(taskId)
+        val existing = locationDao.getGeofences(taskId)
         if (existing == null) {
             val geofence = Geofence(place.uid, preferences)
             geofence.task = taskId
@@ -161,7 +162,8 @@ class iCalendar @Inject constructor(
     }
 
     companion object {
-        const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
+        private val DUE_DATE_FORMAT = SimpleDateFormat("yyyyMMdd", Locale.US)
+        private const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
         private val IS_PARENT = { r: RelatedTo ->
             r.parameters.getParameter<RelType>(Parameter.RELTYPE).let {
                 it === RelType.PARENT || it == null || it.value.isNullOrBlank()
@@ -172,21 +174,47 @@ class iCalendar @Inject constructor(
             x?.name.equals(APPLE_SORT_ORDER, true)
         }
 
-        fun DtStart?.apply(task: com.todoroo.astrid.data.Task) {
-            when (this?.date) {
+        fun Due?.apply(task: com.todoroo.astrid.data.Task) {
+            task.dueDate = when (this?.date) {
                 null -> 0
-                is DateTime -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, date.time)
-                else -> try {
-                    DUE_DATE_FORMAT.parse(value)?.let {
-                        task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, it.time)
+                is DateTime -> com.todoroo.astrid.data.Task.createDueDate(
+                        URGENCY_SPECIFIC_DAY_TIME,
+                        getLocal(this)
+                )
+                else -> com.todoroo.astrid.data.Task.createDueDate(
+                        URGENCY_SPECIFIC_DAY,
+                        getLocal(this)
+                )
+            }
+        }
+
+        fun DtStart?.apply(task: com.todoroo.astrid.data.Task) {
+            task.hideUntil = when (this?.date) {
+                null -> 0
+                is DateTime -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, getLocal(this))
+                else -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, getLocal(this))
+            }
+        }
+
+        @JvmStatic
+        fun getLocal(property: DateProperty): Long {
+            val dateTime = if (property.date is DateTime) {
+                val dt = property.date as DateTime
+                org.tasks.time.DateTime(
+                        dt.time,
+                        dt.timeZone ?: if (dt.isUtc) UTC else TimeZone.getDefault()
+                )
+            } else {
+                try {
+                    DUE_DATE_FORMAT.parse(property.value)?.let {
+                        org.tasks.time.DateTime(it)
                     }
                 } catch (e: ParseException) {
                     Timber.e(e)
                     null
                 }
-            }?.let {
-                task.hideUntil = it
             }
+            return dateTime?.toLocal()?.millis ?: 0
         }
 
         fun fromVtodo(vtodo: String): Task? {
