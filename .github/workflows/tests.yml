@@ -21,5 +21,3 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           directory: ./app/build
-          fail_ci_if_error: true
-          verbose: true
