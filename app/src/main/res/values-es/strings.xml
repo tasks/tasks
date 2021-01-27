@@ -697,4 +697,5 @@
     <string name="get_tasks_org_account">Obtener una cuenta de Tasks.org</string>
     <string name="tasks_org_account">Tasks.org cuenta</string>
     <string name="subscription">Suscripción</string>
+    <string name="widget_show_title">Mostrar título</string>
 </resources>
