@@ -687,4 +687,5 @@
     <string name="get_tasks_org_account">获取 Tasks.org 账户</string>
     <string name="tasks_org_account">Tasks.org 账户</string>
     <string name="subscription">订阅</string>
+    <string name="widget_show_title">显示标题</string>
 </resources>
