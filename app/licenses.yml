@@ -578,8 +578,8 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/jetpack/androidx
-- artifact: org.jetbrains.kotlinx:kotlinx-coroutines-core:+
-  name: kotlinx-coroutines-core
+- artifact: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:+
+  name: kotlinx-coroutines-core-jvm
   copyrightHolder: JetBrains s.r.o.
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
@@ -708,12 +708,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/google/dagger
-- artifact: javax.annotation:jsr250-api:+
-  name: jsr250-api
-  copyrightHolder: Sun Microsystems, Inc
-  license: COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
-  licenseUrl: https://glassfish.dev.java.net/public/CDDLv1.0.html
-  url: http://jcp.org/aboutJava/communityprocess/final/jsr250/index.html
 - artifact: androidx.room:room-ktx:+
   name: room-ktx
   copyrightHolder: Android Open Source Project

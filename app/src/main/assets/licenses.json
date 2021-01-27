@@ -1369,7 +1369,7 @@
     },
     {
       "artifactId": {
-        "name": "kotlinx-coroutines-core",
+        "name": "kotlinx-coroutines-core-jvm",
         "group": "org.jetbrains.kotlinx",
         "version": "+"
       },
@@ -1379,7 +1379,7 @@
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "normalizedLicense": "apache2",
       "url": "https://github.com/Kotlin/kotlinx.coroutines",
-      "libraryName": "kotlinx-coroutines-core"
+      "libraryName": "kotlinx-coroutines-core-jvm"
     },
     {
       "artifactId": {
@@ -1688,20 +1688,6 @@
       "normalizedLicense": "apache2",
       "url": "https://github.com/google/dagger",
       "libraryName": "dagger-lint-aar"
-    },
-    {
-      "artifactId": {
-        "name": "jsr250-api",
-        "group": "javax.annotation",
-        "version": "+"
-      },
-      "copyrightHolder": "Sun Microsystems, Inc",
-      "copyrightStatement": "Copyright &copy; Sun Microsystems, Inc. All rights reserved.",
-      "license": "COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0",
-      "licenseUrl": "https://glassfish.dev.java.net/public/CDDLv1.0.html",
-      "normalizedLicense": "cddl1",
-      "url": "http://jcp.org/aboutJava/communityprocess/final/jsr250/index.html",
-      "libraryName": "jsr250-api"
     },
     {
       "artifactId": {
