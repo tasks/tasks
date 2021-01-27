@@ -695,4 +695,5 @@
     <string name="CFC_startBefore_text">Kezdés: \?</string>
     <string name="default_start_date">Alapértelmezett kezdő dátum</string>
     <string name="SSD_sort_start">Kezdés dátuma szerint</string>
+    <string name="widget_show_title">Cím megjelenítése</string>
 </resources>
