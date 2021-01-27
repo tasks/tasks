@@ -697,4 +697,5 @@
     <string name="sort_due_group">Frist %s</string>
     <string name="get_tasks_org_account">Skaff Tasks.org-konto</string>
     <string name="tasks_org_account">Tasks.org-konto</string>
+    <string name="widget_show_title">Vis tittel</string>
 </resources>
