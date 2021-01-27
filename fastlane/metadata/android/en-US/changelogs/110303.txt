@@ -3,5 +3,6 @@
   * Clear completed will not delete subtasks of recurring tasks
 * Improve widget sort header when space is limited
 * Add option to hide widget title
+* Fix timezone conversions during synchronization
 * Add Esperanto translations - @jakubfabijan
 * Update translations

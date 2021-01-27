@@ -1,15 +1,17 @@
-### 11.3.1 (2021-01-26)
+### 11.3.1 (2021-01-27)
 
 * Improve support for recurring tasks with subtasks
   * Subtasks will be unchecked after completing a recurring task
   * Clear completed will not delete subtasks of recurring tasks
 * Improve widget sort header when space is limited
 * Add option to hide widget title
+* Fix timezone conversions during synchronization
 * Add Esperanto translations - @jakubfabijan
 * Update translations
   * Basque - @Thadah
   * Croatian - @milotype, @ggdorman
   * Dutch - @fvbommel
+  * French - @FlorianLeChat
   * Hungarian - kaciokos
   * Indonesian - when we were sober
   * Italian - @Fs00
@@ -17,7 +19,8 @@
   * Polish - @m-aciek, @jakubfabijan, @alex-ter
   * Russian - Nikita Epifanov
   * Simplified Chinese - @sr093906
-  * Turkish - @emintufan
+  * Spanish - @FlorianLeChat
+  * Turkish - @emintufan, Oğuz Ersen
   * Urdu - Maaz
 
 ### 11.3 (2021-01-20)
