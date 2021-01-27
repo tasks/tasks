@@ -3,7 +3,7 @@ package org.tasks.time
 import org.junit.Assert.*
 import org.junit.Test
 import org.tasks.Freeze
-import java.util.*
+import org.tasks.TestUtilities.withTZ
 import java.util.concurrent.TimeUnit
 
 class DateTimeTest {
@@ -21,39 +21,29 @@ class DateTimeTest {
 
     @Test
     fun testWithMillisOfDayDuringDST() {
-        val def = TimeZone.getDefault()
-        try {
-            TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"))
+        withTZ("America/Chicago") {
             assertEquals(
                     2,
                     DateTime(2015, 10, 31, 2, 0, 0)
                             .withMillisOfDay(TimeUnit.HOURS.toMillis(2).toInt())
                             .hourOfDay)
-        } finally {
-            TimeZone.setDefault(def)
         }
     }
 
     @Test
     fun testWithMillisOfDayAfterDST() {
-        val def = TimeZone.getDefault()
-        try {
-            TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"))
+        withTZ("America/Chicago") {
             assertEquals(
                     2,
                     DateTime(2015, 11, 2, 2, 0, 0)
                             .withMillisOfDay(TimeUnit.HOURS.toMillis(2).toInt())
                             .hourOfDay)
-        } finally {
-            TimeZone.setDefault(def)
         }
     }
 
     @Test
     fun testWithMillisOfDayStartDST() {
-        val def = TimeZone.getDefault()
-        try {
-            TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"))
+        withTZ("America/Chicago") {
             assertEquals(
                     1,
                     DateTime(2015, 3, 8, 0, 0, 0)
@@ -81,16 +71,12 @@ class DateTimeTest {
                     DateTime(2015, 3, 8, 0, 0, 0)
                             .withMillisOfDay(TimeUnit.HOURS.toMillis(3).toInt())
                             .millis)
-        } finally {
-            TimeZone.setDefault(def)
         }
     }
 
     @Test
     fun testWithMillisOfDayEndDST() {
-        val def = TimeZone.getDefault()
-        try {
-            TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"))
+        withTZ("America/Chicago") {
             assertEquals(
                     1,
                     DateTime(2015, 11, 1, 0, 0, 0)
@@ -106,8 +92,6 @@ class DateTimeTest {
                     DateTime(2015, 11, 1, 0, 0, 0)
                             .withMillisOfDay(TimeUnit.HOURS.toMillis(3).toInt())
                             .hourOfDay)
-        } finally {
-            TimeZone.setDefault(def)
         }
     }
 
@@ -323,16 +307,38 @@ class DateTimeTest {
     }
 
     @Test
-    fun testToUTC() {
-        val def = TimeZone.getDefault()
-        try {
-            TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"))
+    fun toUTC() {
+        withTZ("America/Chicago") {
             assertEquals(
-                    DateTime(2015, 10, 6, 14, 45, 15, 0, TimeZone.getTimeZone("GMT")),
+                    DateTime(2015, 10, 6, 14, 45, 15, 0, DateTime.UTC),
                     DateTime(2015, 10, 6, 9, 45, 15).toUTC())
-        } finally {
-            TimeZone.setDefault(def)
         }
+    }
+
+    @Test
+    fun fromUTC() {
+        withTZ("America/Chicago") {
+            assertEquals(
+                    DateTime(2021, 1, 27, 10, 56, 15, 423),
+                    DateTime(2021, 1, 27, 16, 56, 15, 423, DateTime.UTC).toLocal()
+            )
+        }
+    }
+
+    @Test
+    fun dontAdjustLocal() {
+        assertEquals(
+                DateTime(2021, 1, 27, 10, 56, 15, 423),
+                DateTime(2021, 1, 27, 10, 56, 15, 423).toLocal()
+        )
+    }
+
+    @Test
+    fun dontAdjustUTC() {
+        assertEquals(
+                DateTime(2021, 1, 27, 16, 56, 15, 423, DateTime.UTC),
+                DateTime(2021, 1, 27, 16, 56, 15, 423, DateTime.UTC).toUTC()
+        )
     }
 
     @Test

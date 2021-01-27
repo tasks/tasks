@@ -28,7 +28,7 @@ import org.tasks.locale.Locale;
 public class DateTime {
 
   public static final int MAX_MILLIS_PER_DAY = (int) TimeUnit.DAYS.toMillis(1) - 1;
-  private static final TimeZone UTC = TimeZone.getTimeZone("GMT");
+  public static final TimeZone UTC = TimeZone.getTimeZone("GMT");
   private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
   private static final int MILLIS_PER_MINUTE = (int) TimeUnit.MINUTES.toMillis(1);
   private static final int MILLIS_PER_SECOND = (int) TimeUnit.SECONDS.toMillis(1);
@@ -98,6 +98,10 @@ public class DateTime {
 
   public static DateTime from(Date date) {
     return new DateTime(date.getTime(), UTC);
+  }
+
+  public static DateTime from(net.fortuna.ical4j.model.DateTime dateTime) {
+    return new DateTime(dateTime.getTime(), dateTime.getTimeZone());
   }
 
   private DateTime setTime(int hours, int minutes, int seconds, int milliseconds) {
@@ -318,6 +322,9 @@ public class DateTime {
   }
 
   private DateTime toTimeZone(TimeZone timeZone) {
+    if (timeZone == this.timeZone) {
+      return this;
+    }
     Calendar current = getCalendar();
     Calendar target = new GregorianCalendar(timeZone);
     target.setTimeInMillis(current.getTimeInMillis());

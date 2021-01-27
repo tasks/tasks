@@ -10,8 +10,21 @@ import org.tasks.time.DateTime
 import java.io.StringReader
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.util.*
 
 object TestUtilities {
+    fun withTZ(id: String, runnable: () -> Unit) = withTZ(TimeZone.getTimeZone(id), runnable)
+
+    fun withTZ(tz: TimeZone, runnable: () -> Unit) {
+        val def = TimeZone.getDefault()
+        try {
+            TimeZone.setDefault(tz)
+            runnable()
+        } finally {
+            TimeZone.setDefault(def)
+        }
+    }
+
     fun assertEquals(expected: Long, actual: DateTime) =
             org.junit.Assert.assertEquals(expected, actual.millis)
 
