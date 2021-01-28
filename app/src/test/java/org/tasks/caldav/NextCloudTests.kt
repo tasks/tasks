@@ -47,6 +47,14 @@ class NextCloudTests {
     }
 
     @Test
+    fun readAllDayTask() {
+        assertEquals(
+                Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2021, 2, 1).millis),
+                vtodo("nextcloud/all_day_task.txt").dueDate
+        )
+    }
+
+    @Test
     fun priorityNoStars() {
         assertEquals(Task.Priority.NONE, vtodo("nextcloud/priority_no_stars.txt").priority)
     }
