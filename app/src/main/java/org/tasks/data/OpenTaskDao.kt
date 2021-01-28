@@ -126,7 +126,7 @@ open class OpenTaskDao @Inject constructor(
             if (it.moveToFirst()) {
                 MyAndroidTask(it)
             } else {
-                MyAndroidTask(at.bitfire.ical4android.Task())
+                null
             }
         }
     }

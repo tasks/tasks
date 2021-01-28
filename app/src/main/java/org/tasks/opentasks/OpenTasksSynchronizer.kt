@@ -179,7 +179,8 @@ class OpenTasksSynchronizer @Inject constructor(
     private suspend fun push(task: Task, listId: Long, isEteSync: Boolean) {
         val caldavTask = caldavDao.getTask(task.id) ?: return
         val uid = caldavTask.remoteId!!
-        val androidTask = openTaskDao.getTask(listId, uid) ?: return
+        val androidTask = openTaskDao.getTask(listId, uid)
+                ?: MyAndroidTask(at.bitfire.ical4android.Task())
         iCalendar.toVtodo(caldavTask, task, androidTask.task!!)
         val operations = ArrayList<BatchOperation.CpoBuilder>()
         val builder = androidTask.toBuilder(openTaskDao.tasks)
