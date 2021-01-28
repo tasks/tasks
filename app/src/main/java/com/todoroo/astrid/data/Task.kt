@@ -552,6 +552,8 @@ class Task : Parcelable {
 
         const val TRANS_SUPPRESS_REFRESH = "suppress-refresh"
 
+        private val INVALID_COUNT = ";?COUNT=-1".toRegex()
+
         /**
          * Creates due date for this task. If this due date has no time associated, we move it to the last
          * millisecond of the day.
@@ -603,7 +605,7 @@ class Task : Parcelable {
         @JvmStatic
         fun String?.sanitizeRRule(): String? = this
                 ?.replace("BYDAY=;", "")
-                ?.replace("COUNT=-1;", "")
+                ?.replace(INVALID_COUNT, "")
 
         @JvmStatic fun isUuidEmpty(uuid: String?): Boolean {
             return NO_UUID == uuid || Strings.isNullOrEmpty(uuid)

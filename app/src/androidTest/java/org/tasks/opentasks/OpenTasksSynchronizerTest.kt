@@ -1,5 +1,6 @@
 package org.tasks.opentasks
 
+import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -16,8 +17,10 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.TaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.CaldavTaskMaker
+import org.tasks.makers.CaldavTaskMaker.CALENDAR
+import org.tasks.makers.CaldavTaskMaker.TASK
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
+import org.tasks.makers.TaskMaker.RRULE
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -110,8 +113,8 @@ class OpenTasksSynchronizerTest : InjectingTestCase() {
         val (_, list) = openTaskDao.insertList()
         val taskId = taskDao.insert(newTask())
         caldavDao.insert(newCaldavTask(
-                with(CaldavTaskMaker.CALENDAR, list.uuid),
-                with(CaldavTaskMaker.TASK, taskId)
+                with(CALENDAR, list.uuid),
+                with(TASK, taskId)
         ))
 
         synchronizer.sync()
@@ -119,5 +122,20 @@ class OpenTasksSynchronizerTest : InjectingTestCase() {
         val tasks = openTaskDao.getTasks()
         assertEquals(1, tasks.size)
         assertEquals(taskId, caldavDao.getTaskByRemoteId(list.uuid!!, tasks[0].uid!!)?.task)
+    }
+
+    @Test
+    fun sanitizeRecurrenceRule() = runBlocking {
+        val (_, list) = openTaskDao.insertList()
+        val taskId = taskDao.insert(newTask(with(RRULE, RRule("RRULE:FREQ=WEEKLY;COUNT=-1"))))
+        caldavDao.insert(newCaldavTask(
+                with(CALENDAR, list.uuid),
+                with(TASK, taskId)
+        ))
+
+        synchronizer.sync()
+
+        val task = openTaskDao.getTasks().first()
+        assertEquals("FREQ=WEEKLY", task.rRule?.value)
     }
 }
