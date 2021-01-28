@@ -45,11 +45,11 @@ class TestOpenTaskDao @Inject constructor(
     }
 
     fun insertTask(listId: String, vtodo: String) {
-        applyOperation(
-                MyAndroidTask(TestUtilities.fromString(vtodo))
-                        .toBuilder(tasks)
-                        .withValue(TaskContract.TaskColumns.LIST_ID, listId)
-        )
+        val ops = ArrayList<BatchOperation.CpoBuilder>()
+        val task = MyAndroidTask(TestUtilities.fromString(vtodo))
+        ops.add(task.toBuilder(tasks).withValue(TaskContract.TaskColumns.LIST_ID, listId))
+        task.enqueueProperties(properties, ops, 0)
+        applyOperation(*ops.toTypedArray())
     }
 
     fun getTasks(): List<Task> {
@@ -83,8 +83,8 @@ class TestOpenTaskDao @Inject constructor(
         cr.delete(tasks, null, null)
     }
 
-    private fun applyOperation(build: BatchOperation.CpoBuilder): ContentProviderResult =
-            cr.applyBatch(authority, arrayListOf(build.build()))[0]
+    private fun applyOperation(vararg builders: BatchOperation.CpoBuilder): ContentProviderResult =
+            cr.applyBatch(authority, ArrayList(builders.asList().map { it.build() }))[0]
 
     companion object {
         const val DEFAULT_ACCOUNT = "test_account"

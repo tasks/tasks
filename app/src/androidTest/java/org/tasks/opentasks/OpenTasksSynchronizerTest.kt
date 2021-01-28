@@ -5,11 +5,11 @@ import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.tasks.R
+import org.tasks.caldav.iCalendar.Companion.getParent
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavCalendar
@@ -18,8 +18,11 @@ import org.tasks.data.TaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
+import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
+import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
 import org.tasks.makers.CaldavTaskMaker.TASK
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
+import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.RRULE
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.preferences.Preferences
@@ -110,18 +113,17 @@ class OpenTasksSynchronizerTest : InjectingTestCase() {
 
     @Test
     fun simplePushNewTask() = runBlocking {
-        val (_, list) = openTaskDao.insertList()
-        val taskId = taskDao.insert(newTask())
+        val (listId, list) = openTaskDao.insertList()
+        val taskId = taskDao.createNew(newTask())
         caldavDao.insert(newCaldavTask(
                 with(CALENDAR, list.uuid),
+                with(REMOTE_ID, "1234"),
                 with(TASK, taskId)
         ))
 
         synchronizer.sync()
 
-        val tasks = openTaskDao.getTasks()
-        assertEquals(1, tasks.size)
-        assertEquals(taskId, caldavDao.getTaskByRemoteId(list.uuid!!, tasks[0].uid!!)?.task)
+        assertNotNull(openTaskDao.getTask(listId.toLong(), "1234"))
     }
 
     @Test
@@ -137,5 +139,50 @@ class OpenTasksSynchronizerTest : InjectingTestCase() {
 
         val task = openTaskDao.getTasks().first()
         assertEquals("FREQ=WEEKLY", task.rRule?.value)
+    }
+
+    @Test
+    fun loadRemoteParentInfo() = runBlocking {
+        val (listId, list) = openTaskDao.insertList()
+        openTaskDao.insertTask(listId, SUBTASK)
+
+        synchronizer.sync()
+
+        val task = caldavDao.getTaskByRemoteId(list.uuid!!, "dfede1b0-435b-4bba-9708-2422e781747c")
+        assertEquals("7daa4a5c-cc76-4ddf-b4f8-b9d3a9cb00e7", task?.remoteParent)
+    }
+
+    @Test
+    fun pushParentInfo() = runBlocking {
+        val (listId, list) = openTaskDao.insertList()
+        val taskId = taskDao.createNew(newTask(with(PARENT, 594)))
+
+        caldavDao.insert(newCaldavTask(
+                with(CALENDAR, list.uuid),
+                with(TASK, taskId),
+                with(REMOTE_ID, "abcd"),
+                with(REMOTE_PARENT, "1234")
+        ))
+
+        synchronizer.sync()
+
+        assertEquals("1234", openTaskDao.getTask(listId.toLong(), "abcd")?.task?.getParent())
+    }
+
+    companion object {
+        val SUBTASK = """
+            BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:-//Nextcloud Tasks v0.13.6
+            BEGIN:VTODO
+            UID:dfede1b0-435b-4bba-9708-2422e781747c
+            CREATED:20210128T150333
+            LAST-MODIFIED:20210128T150338
+            DTSTAMP:20210128T150338
+            SUMMARY:Child
+            RELATED-TO:7daa4a5c-cc76-4ddf-b4f8-b9d3a9cb00e7
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
     }
 }
