@@ -1,3 +1,8 @@
+### 11.3.2 (2021-01-28)
+
+* Fix recurrence sync issue
+  ([#1323](https://github.com/tasks/tasks/issues/1323))
+
 ### 11.3.1 (2021-01-27)
 
 * Improve support for recurring tasks with subtasks
