@@ -715,4 +715,5 @@
     <string name="get_tasks_org_account">Получить аккаунт Tasks.org</string>
     <string name="tasks_org_account">Аккаунт Tasks.org</string>
     <string name="subscription">Подписка</string>
+    <string name="widget_show_title">Показать заголовок</string>
 </resources>
