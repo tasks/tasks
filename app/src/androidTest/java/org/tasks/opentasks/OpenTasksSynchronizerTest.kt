@@ -9,6 +9,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.tasks.R
+import org.tasks.TestUtilities.withTZ
 import org.tasks.caldav.iCalendar.Companion.getParent
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
@@ -22,10 +23,13 @@ import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
 import org.tasks.makers.CaldavTaskMaker.TASK
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
+import org.tasks.makers.TaskMaker
 import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.RRULE
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTime
+import java.util.*
 import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
@@ -169,7 +173,121 @@ class OpenTasksSynchronizerTest : InjectingTestCase() {
         assertEquals("1234", openTaskDao.getTask(listId.toLong(), "abcd")?.task?.getParent())
     }
 
+    @Test
+    fun readDueDatePositiveOffset() = runBlocking {
+        val (listId, list) = openTaskDao.insertList()
+        openTaskDao.insertTask(listId, ALL_DAY_DUE)
+
+        withTZ(BERLIN) {
+            synchronizer.sync()
+        }
+
+        val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "3863299529704302692")
+        val task = taskDao.fetch(caldavTask!!.task)
+        assertEquals(
+                DateTime(2021, 2, 1, 12, 0, 0, 0, BERLIN).millis,
+                task?.dueDate
+        )
+    }
+
+    @Test
+    fun writeDueDatePositiveOffset() = withTZ(BERLIN) {
+        val (listId, list) = openTaskDao.insertList()
+        val taskId = taskDao.createNew(newTask(
+                with(TaskMaker.DUE_DATE, DateTime(2021, 2, 1))
+        ))
+        caldavDao.insert(newCaldavTask(
+                with(CALENDAR, list.uuid),
+                with(REMOTE_ID, "1234"),
+                with(TASK, taskId)
+        ))
+
+        synchronizer.sync()
+
+        assertEquals(
+                1612137600000,
+                openTaskDao.getTask(listId.toLong(), "1234")?.task?.due?.date?.time
+        )
+    }
+
+    @Test
+    fun readDueDateNoOffset() = runBlocking {
+        val (listId, list) = openTaskDao.insertList()
+        openTaskDao.insertTask(listId, ALL_DAY_DUE)
+
+        withTZ(LONDON) {
+            synchronizer.sync()
+        }
+
+        val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "3863299529704302692")
+        val task = taskDao.fetch(caldavTask!!.task)
+        assertEquals(
+                DateTime(2021, 2, 1, 12, 0, 0, 0, LONDON).millis,
+                task?.dueDate
+        )
+    }
+
+    @Test
+    fun writeDueDateNoOffset() = withTZ(LONDON) {
+        val (listId, list) = openTaskDao.insertList()
+        val taskId = taskDao.createNew(newTask(
+                with(TaskMaker.DUE_DATE, DateTime(2021, 2, 1))
+        ))
+        caldavDao.insert(newCaldavTask(
+                with(CALENDAR, list.uuid),
+                with(REMOTE_ID, "1234"),
+                with(TASK, taskId)
+        ))
+
+        synchronizer.sync()
+
+        assertEquals(
+                1612137600000,
+                openTaskDao.getTask(listId.toLong(), "1234")?.task?.due?.date?.time
+        )
+    }
+
+    @Test
+    fun readDueDateNegativeOffset() = runBlocking {
+        val (listId, list) = openTaskDao.insertList()
+        openTaskDao.insertTask(listId, ALL_DAY_DUE)
+
+        withTZ(NEW_YORK) {
+            synchronizer.sync()
+        }
+
+        val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "3863299529704302692")
+        val task = taskDao.fetch(caldavTask!!.task)
+        assertEquals(
+                DateTime(2021, 2, 1, 12, 0, 0, 0, NEW_YORK).millis,
+                task?.dueDate
+        )
+    }
+
+    @Test
+    fun writeDueDateNegativeOffset() = withTZ(NEW_YORK) {
+        val (listId, list) = openTaskDao.insertList()
+        val taskId = taskDao.createNew(newTask(
+                with(TaskMaker.DUE_DATE, DateTime(2021, 2, 1))
+        ))
+        caldavDao.insert(newCaldavTask(
+                with(CALENDAR, list.uuid),
+                with(REMOTE_ID, "1234"),
+                with(TASK, taskId)
+        ))
+
+        synchronizer.sync()
+
+        assertEquals(
+                1612137600000,
+                openTaskDao.getTask(listId.toLong(), "1234")?.task?.due?.date?.time
+        )
+    }
+
     companion object {
+        val BERLIN = TimeZone.getTimeZone("Europe/Berlin")
+        val LONDON = TimeZone.getTimeZone("Europe/London")
+        val NEW_YORK = TimeZone.getTimeZone("America/New_York")
         val SUBTASK = """
             BEGIN:VCALENDAR
             VERSION:2.0
@@ -181,6 +299,21 @@ class OpenTasksSynchronizerTest : InjectingTestCase() {
             DTSTAMP:20210128T150338
             SUMMARY:Child
             RELATED-TO:7daa4a5c-cc76-4ddf-b4f8-b9d3a9cb00e7
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
+
+        val ALL_DAY_DUE = """
+            BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:+//IDN tasks.org//android-110304//EN
+            BEGIN:VTODO
+            DTSTAMP:20210129T155402Z
+            UID:3863299529704302692
+            CREATED:20210129T155318Z
+            LAST-MODIFIED:20210129T155329Z
+            SUMMARY:Due date
+            DUE;VALUE=DATE:20210201
             END:VTODO
             END:VCALENDAR
         """.trimIndent()

@@ -277,7 +277,7 @@ public class DateTime {
     return subtract(Calendar.MINUTE, minutes);
   }
 
-  public DateTime minusMillis(int millis) {
+  public DateTime minusMillis(long millis) {
     return new DateTime(timestamp - millis, timeZone);
   }
 

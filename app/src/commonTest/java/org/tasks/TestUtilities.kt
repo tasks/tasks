@@ -3,6 +3,7 @@ package org.tasks
 import android.content.Context
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import com.todoroo.astrid.data.Task
+import kotlinx.coroutines.runBlocking
 import org.tasks.caldav.CaldavConverter
 import org.tasks.data.CaldavTask
 import org.tasks.preferences.Preferences
@@ -13,13 +14,15 @@ import java.nio.file.Paths
 import java.util.*
 
 object TestUtilities {
-    fun withTZ(id: String, runnable: () -> Unit) = withTZ(TimeZone.getTimeZone(id), runnable)
+    fun withTZ(id: String, runnable: suspend () -> Unit) = withTZ(TimeZone.getTimeZone(id), runnable)
 
-    fun withTZ(tz: TimeZone, runnable: () -> Unit) {
+    fun withTZ(tz: TimeZone, runnable: suspend () -> Unit) {
         val def = TimeZone.getDefault()
         try {
             TimeZone.setDefault(tz)
-            runnable()
+            runBlocking {
+                runnable()
+            }
         } finally {
             TimeZone.setDefault(def)
         }

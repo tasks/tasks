@@ -82,12 +82,12 @@ public class CaldavConverter {
     long startDate = task.hasStartTime() ? task.getHideUntil() : startOfDay(task.getHideUntil());
     if (dueDate > 0) {
       startDate = Math.min(dueDate, startDate);
-      remote.setDue(new Due(allDay ? new Date(dueDate) : getDateTime(dueDate)));
+      remote.setDue(new Due(allDay ? getDate(dueDate) : getDateTime(dueDate)));
     } else {
       remote.setDue(null);
     }
     if (startDate > 0) {
-      remote.setDtStart(new DtStart(allDay ? new Date(startDate) : getDateTime(startDate)));
+      remote.setDtStart(new DtStart(allDay ? getDate(startDate) : getDateTime(startDate)));
     } else {
       remote.setDtStart(null);
     }
@@ -119,6 +119,10 @@ public class CaldavConverter {
     remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());
     remote.setPriority(toRemote(remote.getPriority(), task.getPriority()));
     iCalendar.Companion.setParent(remote, task.getParent() == 0 ? null : caldavTask.getRemoteParent());
+  }
+
+  private static Date getDate(long timestamp) {
+    return new Date(timestamp + newDateTime(timestamp).getOffset());
   }
 
   private static DateTime getDateTime(long timestamp) {

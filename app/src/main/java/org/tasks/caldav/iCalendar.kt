@@ -26,8 +26,6 @@ import org.tasks.time.DateTime.UTC
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -162,7 +160,6 @@ class iCalendar @Inject constructor(
     }
 
     companion object {
-        private val DUE_DATE_FORMAT = SimpleDateFormat("yyyyMMdd", Locale.US)
         private const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
         private val IS_PARENT = { r: RelatedTo ->
             r.parameters.getParameter<RelType>(Parameter.RELTYPE).let {
@@ -198,21 +195,14 @@ class iCalendar @Inject constructor(
 
         @JvmStatic
         fun getLocal(property: DateProperty): Long {
-            val dateTime = if (property.date is DateTime) {
+            val dateTime: org.tasks.time.DateTime? = if (property.date is DateTime) {
                 val dt = property.date as DateTime
                 org.tasks.time.DateTime(
                         dt.time,
                         dt.timeZone ?: if (dt.isUtc) UTC else TimeZone.getDefault()
                 )
             } else {
-                try {
-                    DUE_DATE_FORMAT.parse(property.value)?.let {
-                        org.tasks.time.DateTime(it)
-                    }
-                } catch (e: ParseException) {
-                    Timber.e(e)
-                    null
-                }
+                org.tasks.time.DateTime(property.date.time).let { it.minusMillis(it.offset) }
             }
             return dateTime?.toLocal()?.millis ?: 0
         }
