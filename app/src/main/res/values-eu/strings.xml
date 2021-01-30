@@ -666,7 +666,7 @@
     <string name="app_passwords">Aplikazio-pasahitzak</string>
     <string name="app_password">Aplikazioaren pasahitza</string>
     <string name="sign_in_to_tasks">Hasi saioa Tasks.org gunean</string>
-    <string name="save_percent">Aurreztu % %d</string>
+    <string name="save_percent">Aurreztu %% %d</string>
     <string name="above_average">Batezbestekotik gora</string>
     <string name="migrate_count">Eraman %s Tasks.org gunera</string>
     <string name="migrating_tasks">Zereginak migratzen</string>
