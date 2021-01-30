@@ -1,3 +1,11 @@
+### 11.3.3 (2021-01-30)
+
+* Fix all-day due date synchronization
+  ([#1325](https://github.com/tasks/tasks/issues/1325))
+* Update translations
+  * Basque - @osoitz
+  * Russian - Nikita Epifanov
+
 ### 11.3.2 (2021-01-28)
 
 * Fix recurrence sync issue

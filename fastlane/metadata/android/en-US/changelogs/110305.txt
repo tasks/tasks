@@ -1,0 +1,2 @@
+* Fix all-day due date synchronization
+* Update translations
