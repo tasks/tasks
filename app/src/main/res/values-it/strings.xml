@@ -470,7 +470,7 @@
     <string name="add_place">Aggiungi luogo</string>
     <string name="hide_unused_places">Nascondi luoghi non usati</string>
     <string name="hide_unused_tags">Nascondi etichette non usate</string>
-    <string name="navigation_drawer">Menu laterale</string>
+    <string name="navigation_drawer">Menù laterale</string>
     <string name="place_settings">Impostazioni luogo</string>
     <string name="places">Luoghi</string>
     <string name="desaturate_colors_summary_on">I colori perderanno saturazione nei temi scuri</string>
@@ -538,7 +538,7 @@
     <string name="custom_filter_not">NON</string>
     <string name="custom_filter_or">O</string>
     <string name="custom_filter_and">E</string>
-    <string name="widget_show_menu">Mostra il menu</string>
+    <string name="widget_show_menu">Mostra il menù</string>
     <string name="widget_hide_background">Nascondi lo sfondo</string>
     <string name="action_new_task">Nuova attività</string>
     <string name="add_tags">Aggiungi etichetta</string>
@@ -629,7 +629,7 @@
     <string name="date_picker_multiple">Molteplici</string>
     <string name="multi_select_reschedule">Modifica pianificazione</string>
     <string name="always_display_full_date">Mostra data completa</string>
-    <string name="custom_filter_has_subtask">Ci sono attività secondarie</string>
+    <string name="custom_filter_has_subtask">Contiene attività secondarie</string>
     <string name="custom_filter_is_subtask">È un\'attività secondaria</string>
     <string name="purchases_updated">Acquisti aggiornati</string>
     <string name="current_subscription">Abbonamento attuale: %s</string>
@@ -691,4 +691,9 @@
     <string name="account_not_included">Non incluso negli abbonamenti con prezzo a scelta</string>
     <string name="tasks_org_account">Account Tasks.org</string>
     <string name="subscription">Abbonamento</string>
+    <string name="get_tasks_org_account">Crea un account Tasks.org</string>
+    <string name="CFC_startBefore_text">Inizia: \?</string>
+    <string name="CFC_startBefore_name">Inizia…</string>
+    <string name="app_passwords">Password delle app</string>
+    <string name="widget_show_title">Mostra titolo</string>
 </resources>
