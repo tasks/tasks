@@ -6,8 +6,8 @@
     <string name="enter_filter_name">ফিল্টারের নাম যোগ করুন</string>
     <string name="display_name">নাম দেখান</string>
     <string name="TVA_add_comment">মতামত যোগ করুন…</string>
-    <string name="SSD_sort_my_order">আমার তলিকা</string>
-    <string name="action_open">খোলো</string>
+    <string name="SSD_sort_my_order">আমার তালিকা</string>
+    <string name="action_open">খুলো</string>
     <string name="action_call">কল</string>
     <string name="manage_lists">তালিকা পরিচালনা করো</string>
     <string name="TAd_actionEditTask">সম্পাদনা</string>
@@ -26,7 +26,7 @@
     <string name="import_summary_title">সারাংশ পুনরুদ্ধার করো</string>
     <string name="export_toast">%1$s থেকে %2$s-এ ব্যাকআপকৃত।</string>
     <string name="actfm_picture_clear">স্পষ্ট ছবি</string>
-    <string name="astrid_sort_order">অ্যাস্ট্রিড ম্যানুয়াল বাছাই</string>
+    <string name="astrid_sort_order">অ্যাস্ট্রিড ম্যানুয়াল সাজানো</string>
     <string name="import_summary_message">%1$s ফাইলটিতে %2$s রয়েছে।
 \n
 \n %3$s আমদানি করা,
