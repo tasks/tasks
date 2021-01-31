@@ -309,7 +309,7 @@ class Preferences @JvmOverloads constructor(
         }
 
     override var showHidden: Boolean
-        get() = getBoolean(R.string.p_show_hidden_tasks, false)
+        get() = getBoolean(R.string.p_show_hidden_tasks, true)
         set(value) { setBoolean(R.string.p_show_hidden_tasks, value) }
 
     override var showCompleted: Boolean

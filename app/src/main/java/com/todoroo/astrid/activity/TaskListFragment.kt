@@ -263,8 +263,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             hidden.isChecked = true
             hidden.isEnabled = false
         } else {
-            hidden.isChecked = preferences.getBoolean(R.string.p_show_hidden_tasks, false)
-            completed.isChecked = preferences.getBoolean(R.string.p_show_completed_tasks, false)
+            hidden.isChecked = preferences.showHidden
+            completed.isChecked = preferences.showCompleted
         }
         val sortMenu = menu.findItem(R.id.menu_sort)
         if (!filter.supportsSorting()) {
@@ -335,14 +335,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             R.id.menu_show_unstarted -> {
                 item.isChecked = !item.isChecked
-                preferences.setBoolean(R.string.p_show_hidden_tasks, item.isChecked)
+                preferences.showHidden = item.isChecked
                 loadTaskListContent()
                 localBroadcastManager.broadcastRefresh()
                 true
             }
             R.id.menu_show_completed -> {
                 item.isChecked = !item.isChecked
-                preferences.setBoolean(R.string.p_show_completed_tasks, item.isChecked)
+                preferences.showCompleted = item.isChecked
                 loadTaskListContent()
                 localBroadcastManager.broadcastRefresh()
                 true
