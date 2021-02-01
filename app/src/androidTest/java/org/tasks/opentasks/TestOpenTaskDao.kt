@@ -23,7 +23,7 @@ class TestOpenTaskDao @Inject constructor(
             type: String = DEFAULT_TYPE,
             account: String = DEFAULT_ACCOUNT,
             url: String = UUIDHelper.newUUID(),
-    ): Pair<String, CaldavCalendar> {
+    ): Pair<Long, CaldavCalendar> {
         val uri = taskLists.buildUpon()
                 .appendQueryParameter(TaskContract.CALLER_IS_SYNCADAPTER, "true")
                 .appendQueryParameter(TaskContract.TaskLists.ACCOUNT_NAME, account)
@@ -35,7 +35,7 @@ class TestOpenTaskDao @Inject constructor(
                         .withValue(TaskContract.TaskListColumns.LIST_NAME, name)
                         .withValue(TaskContract.TaskLists.SYNC_ENABLED, "1")
         )
-        return Pair(result.uri!!.lastPathSegment!!, CaldavCalendar().apply {
+        return Pair(result.uri!!.lastPathSegment!!.toLong(), CaldavCalendar().apply {
             uuid = UUIDHelper.newUUID()
             this.name = name
             this.account = "$type:$account"
@@ -44,7 +44,7 @@ class TestOpenTaskDao @Inject constructor(
         })
     }
 
-    fun insertTask(listId: String, vtodo: String) {
+    fun insertTask(listId: Long, vtodo: String) {
         val ops = ArrayList<BatchOperation.CpoBuilder>()
         val task = MyAndroidTask(TestUtilities.fromString(vtodo))
         ops.add(task.toBuilder(tasks).withValue(TaskContract.TaskColumns.LIST_ID, listId))

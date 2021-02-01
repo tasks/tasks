@@ -47,6 +47,9 @@ class Tag {
         this.taskUid = taskUid
     }
 
+    override fun toString(): String =
+        "Tag(id=$id, task=$task, name=$name, tagUid=$tagUid, taskUid=$taskUid)"
+
     companion object {
         const val KEY = "tags-tag" // $NON-NLS-1$
         @JvmField val TABLE = Table("tags")
