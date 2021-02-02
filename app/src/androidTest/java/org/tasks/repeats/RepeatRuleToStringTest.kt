@@ -1,16 +1,25 @@
 package org.tasks.repeats
 
-import androidx.test.InstrumentationRegistry
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.ical.values.RRule
+import com.todoroo.astrid.data.Task.Companion.withoutRRULE
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
+import net.fortuna.ical4j.model.property.RRule
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
+import org.tasks.TestUtilities.withTZ
+import org.tasks.analytics.Firebase
+import org.tasks.injection.InjectingTestCase
+import org.tasks.injection.ProductionModule
 import org.tasks.locale.Locale
 import java.text.ParseException
+import java.util.*
+import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
-class RepeatRuleToStringTest {
+@UninstallModules(ProductionModule::class)
+@HiltAndroidTest
+class RepeatRuleToStringTest : InjectingTestCase() {
+    @Inject lateinit var firebase: Firebase
+
     @Test
     fun daily() {
         assertEquals("Repeats daily", toString("RRULE:FREQ=DAILY"))
@@ -47,6 +56,60 @@ class RepeatRuleToStringTest {
                 toString("de", "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SA,SU"))
     }
 
+    @Test
+    fun everyFifthTuesday() {
+        assertEquals(
+                "Repeats monthly on every fifth Tuesday",
+                toString("RRULE:FREQ=MONTHLY;INTERVAL=1;BYDAY=5TU")
+        )
+    }
+
+    @Test
+    fun everyLastWednesday() {
+        assertEquals(
+                "Repeats monthly on every last Wednesday",
+                toString("RRULE:FREQ=MONTHLY;INTERVAL=1;BYDAY=-1WE")
+        )
+    }
+
+    @Test
+    fun everyFirstThursday() {
+        assertEquals(
+                "Repeats every 2 months on every first Thursday",
+                toString("RRULE:FREQ=MONTHLY;INTERVAL=2;BYDAY=1TH")
+        )
+    }
+
+    @Test
+    fun repeatUntilPositiveOffset() {
+        withTZ(BERLIN) {
+            assertEquals(
+                    "Repeats daily until February 23",
+                    toString("RRULE:FREQ=DAILY;UNTIL=20210223;INTERVAL=1")
+            )
+        }
+    }
+
+    @Test
+    fun repeatUntilNoOffset() {
+        withTZ(LONDON) {
+            assertEquals(
+                    "Repeats daily until February 23",
+                    toString("RRULE:FREQ=DAILY;UNTIL=20210223;INTERVAL=1")
+            )
+        }
+    }
+
+    @Test
+    fun repeatUntilNegativeOffset() {
+        withTZ(NEW_YORK) {
+            assertEquals(
+                    "Repeats daily until February 23",
+                    toString("RRULE:FREQ=DAILY;UNTIL=20210223;INTERVAL=1")
+            )
+        }
+    }
+
     private fun toString(rrule: String): String {
         return toString(null, rrule)
     }
@@ -54,10 +117,16 @@ class RepeatRuleToStringTest {
     private fun toString(language: String?, rrule: String): String {
         return try {
             val locale = Locale(java.util.Locale.getDefault(), language)
-            RepeatRuleToString(locale.createConfigurationContext(InstrumentationRegistry.getTargetContext()), locale)
-                    .toString(RRule(rrule))
+            RepeatRuleToString(locale.createConfigurationContext(context), locale, firebase)
+                    .toString(RRule(rrule.withoutRRULE()))
         } catch (e: ParseException) {
             throw RuntimeException(e)
         }
+    }
+
+    companion object {
+        private val BERLIN = TimeZone.getTimeZone("Europe/Berlin")
+        private val LONDON = TimeZone.getTimeZone("Europe/London")
+        private val NEW_YORK = TimeZone.getTimeZone("America/New_York")
     }
 }

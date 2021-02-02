@@ -614,5 +614,8 @@ class Task : Parcelable {
         fun String?.isRepeatAfterCompletion() = this?.contains("FROM=COMPLETION") ?: false
 
         fun String?.withoutFrom(): String? = this?.replace(";?FROM=[^;]*".toRegex(), "")
+
+        @JvmStatic
+        fun String?.withoutRRULE(): String? = this?.replace("^RRULE:".toRegex(), "")
     }
 }

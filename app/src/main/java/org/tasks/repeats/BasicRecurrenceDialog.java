@@ -77,7 +77,7 @@ public class BasicRecurrenceDialog extends DialogFragment {
         new SingleCheckedArrayAdapter(context, repeatOptions);
     int selected = 0;
     if (customPicked) {
-      adapter.insert(repeatRuleToString.toString(rrule), 0);
+      adapter.insert(repeatRuleToString.toString(rule), 0);
     } else if (rrule != null) {
       switch (rrule.getFreq()) {
         case DAILY:

@@ -225,7 +225,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
                         ?.takeIf { it.isNotBlank() }
                         ?.let {
                             try {
-                                repeatRuleToString.toString(RRule(it))
+                                repeatRuleToString.toString(it)
                             } catch (e: Exception) {
                                 null
                             }

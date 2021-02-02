@@ -1,6 +1,7 @@
 package org.tasks.caldav;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static com.todoroo.astrid.data.Task.withoutRRULE;
 import static org.tasks.caldav.iCalendar.getLocal;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTime.UTC;
@@ -102,7 +103,7 @@ public class CaldavConverter {
     }
     if (task.isRecurring()) {
       try {
-        RRule rrule = new RRule(task.getRecurrenceWithoutFrom().replace("RRULE:", ""));
+        RRule rrule = new RRule(withoutRRULE(task.getRecurrenceWithoutFrom()));
         long repeatUntil = task.getRepeatUntil();
         rrule
             .getRecur()

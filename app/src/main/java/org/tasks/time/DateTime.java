@@ -85,6 +85,11 @@ public class DateTime {
     this(calendar.getTimeInMillis(), calendar.getTimeZone());
   }
 
+  public static DateTime from(Date date) {
+    DateTime dateTime = new DateTime(date.getTime());
+    return dateTime.minusMillis(dateTime.getOffset());
+  }
+
   public static DateTime from(DateValue dateValue) {
     if (dateValue == null) {
       return new DateTime(0);

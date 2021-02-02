@@ -202,7 +202,7 @@ class iCalendar @Inject constructor(
                         dt.timeZone ?: if (dt.isUtc) UTC else TimeZone.getDefault()
                 )
             } else {
-                org.tasks.time.DateTime(property.date.time).let { it.minusMillis(it.offset) }
+                org.tasks.time.DateTime.from(property.date)
             }
             return dateTime?.toLocal()?.millis ?: 0
         }

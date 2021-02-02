@@ -145,7 +145,7 @@ class RepeatControlSet : TaskEditControlFragment() {
                 displayView.text = null
                 repeatTypeContainer.visibility = View.GONE
             } else {
-                displayView.text = repeatRuleToString.toString(it)
+                displayView.text = repeatRuleToString.toString(it.toIcal())
                 repeatTypeContainer.visibility = View.VISIBLE
             }
         }

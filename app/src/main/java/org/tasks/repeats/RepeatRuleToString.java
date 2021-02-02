@@ -1,23 +1,27 @@
 package org.tasks.repeats;
 
-import static com.google.ical.values.Frequency.MONTHLY;
-import static com.google.ical.values.Frequency.WEEKLY;
+import static com.todoroo.astrid.data.Task.withoutRRULE;
+import static net.fortuna.ical4j.model.Recur.Frequency.MONTHLY;
+import static net.fortuna.ical4j.model.Recur.Frequency.WEEKLY;
 
 import android.content.Context;
 import com.google.common.base.Joiner;
-import com.google.ical.values.Frequency;
-import com.google.ical.values.RRule;
-import com.google.ical.values.Weekday;
-import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import javax.inject.Inject;
+import net.fortuna.ical4j.model.Recur;
+import net.fortuna.ical4j.model.Recur.Frequency;
+import net.fortuna.ical4j.model.WeekDay;
+import net.fortuna.ical4j.model.WeekDay.Day;
+import net.fortuna.ical4j.model.property.RRule;
 import org.tasks.R;
+import org.tasks.analytics.Firebase;
 import org.tasks.locale.Locale;
 import org.tasks.time.DateTime;
 
@@ -25,24 +29,40 @@ public class RepeatRuleToString {
 
   private final Context context;
   private final Locale locale;
-  private final List<Weekday> weekdays = Arrays.asList(Weekday.values());
+  private final Firebase firebase;
+  private final List<Day> weekdays = Arrays.asList(Day.values());
 
   @Inject
-  public RepeatRuleToString(@ApplicationContext Context context, Locale locale) {
+  public RepeatRuleToString(
+      @ApplicationContext Context context,
+      Locale locale,
+      Firebase firebase
+  ) {
     this.context = context;
     this.locale = locale;
+    this.firebase = firebase;
   }
 
-  public String toString(RRule rrule) {
+  public String toString(String rrule) {
+    try {
+      return toString(new RRule(withoutRRULE(rrule)));
+    } catch (ParseException e) {
+      firebase.reportException(e);
+    }
+    return null;
+  }
+
+  public String toString(RRule r) {
+    Recur rrule = r.getRecur();
     int interval = rrule.getInterval();
-    Frequency frequency = rrule.getFreq();
+    Frequency frequency = rrule.getFrequency();
     DateTime repeatUntil = rrule.getUntil() == null ? null : DateTime.from(rrule.getUntil());
     int count = rrule.getCount();
     String countString =
         count > 0 ? context.getResources().getQuantityString(R.plurals.repeat_times, count) : "";
     if (interval <= 1) {
       String frequencyString = context.getString(getSingleFrequencyResource(frequency));
-      if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty()) {
+      if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.getDayList().isEmpty()) {
         String dayString = getDayString(rrule);
         if (count > 0) {
           return context.getString(
@@ -74,7 +94,7 @@ public class RepeatRuleToString {
     } else {
       int plural = getFrequencyPlural(frequency);
       String frequencyPlural = context.getResources().getQuantityString(plural, interval, interval);
-      if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty()) {
+      if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.getDayList().isEmpty()) {
         String dayString = getDayString(rrule);
         if (count > 0) {
           return context.getString(
@@ -106,23 +126,23 @@ public class RepeatRuleToString {
     }
   }
 
-  private String getDayString(RRule rrule) {
+  private String getDayString(Recur rrule) {
     DateFormatSymbols dfs = new DateFormatSymbols(locale.getLocale());
-    if (rrule.getFreq() == WEEKLY) {
+    if (rrule.getFrequency() == WEEKLY) {
       String[] shortWeekdays = dfs.getShortWeekdays();
       List<String> days = new ArrayList<>();
-      for (WeekdayNum weekday : rrule.getByDay()) {
-        days.add(shortWeekdays[weekdays.indexOf(weekday.wday) + 1]);
+      for (WeekDay weekday : rrule.getDayList()) {
+        days.add(shortWeekdays[weekdays.indexOf(weekday.getDay()) + 1]);
       }
       return Joiner.on(context.getString(R.string.list_separator_with_space)).join(days);
-    } else if (rrule.getFreq() == MONTHLY) {
+    } else if (rrule.getFrequency() == MONTHLY) {
       String[] longWeekdays = dfs.getWeekdays();
-      WeekdayNum weekdayNum = rrule.getByDay().get(0);
+      WeekDay weekdayNum = rrule.getDayList().get(0);
       String weekday;
       Calendar dayOfWeekCalendar = Calendar.getInstance(locale.getLocale());
-      dayOfWeekCalendar.set(Calendar.DAY_OF_WEEK, weekdayToCalendarDay(weekdayNum.wday));
+      dayOfWeekCalendar.set(Calendar.DAY_OF_WEEK, weekdayToCalendarDay(weekdayNum.getDay()));
       weekday = longWeekdays[dayOfWeekCalendar.get(Calendar.DAY_OF_WEEK)];
-      if (weekdayNum.num == -1) {
+      if (weekdayNum.getOffset() == -1) {
         return context.getString(
             R.string.repeat_monthly_every_day_of_nth_week,
             context.getString(R.string.repeat_monthly_last_week),
@@ -138,7 +158,7 @@ public class RepeatRuleToString {
             };
         return context.getString(
             R.string.repeat_monthly_every_day_of_nth_week,
-            context.getString(resources[weekdayNum.num - 1]),
+            context.getString(resources[weekdayNum.getOffset() - 1]),
             weekday);
       }
     } else {
@@ -146,7 +166,7 @@ public class RepeatRuleToString {
     }
   }
 
-  private int weekdayToCalendarDay(Weekday weekday) {
+  private int weekdayToCalendarDay(Day weekday) {
     switch (weekday) {
       case SU:
         return Calendar.SUNDAY;
