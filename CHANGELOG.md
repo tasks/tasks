@@ -1,3 +1,18 @@
+### 11.3.4 (2021-02-03)
+
+* Adjust start times by one second during sync
+  ([#1326](https://github.com/tasks/tasks/issues/1326))
+  * Can now sync start time = due time with DAVx⁵, EteSync app, and DecSync CC
+  * All day start date must come before all day due date with DAVx⁵, EteSync
+    app, and DecSync CC
+* 'Show unstarted' toggled on by default
+* Update translations
+  * Bengali - @Oymate
+  * Danish - @Tntdruid
+  * German - Achim Schumacher, @franconian, Martin
+  * Italian - @Fs00
+  * Traditional Chinese - @crlambda
+
 ### 11.3.3 (2021-01-30)
 
 * Fix all-day due date synchronization

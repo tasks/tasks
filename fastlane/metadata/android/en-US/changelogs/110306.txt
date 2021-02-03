@@ -1,0 +1,6 @@
+* Adjust start times by one second during sync
+  * Can now sync start time = due time with DAVx⁵, EteSync app, and DecSync CC
+  * All day start date must come before all day due date with DAVx⁵, EteSync
+    app, and DecSync CC
+* 'Show unstarted' toggled on by default
+* Update translations
