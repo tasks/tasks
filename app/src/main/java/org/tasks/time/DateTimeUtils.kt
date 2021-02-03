@@ -37,5 +37,7 @@ object DateTimeUtils {
     @JvmStatic
     fun Long.startOfDay(): Long = if (this > 0) toDateTime().startOfDay().millis else 0
 
+    fun Long.startOfMinute(): Long = if (this > 0) toDateTime().startOfMinute().millis else 0
+
     fun Long.millisOfDay(): Int = if (this > 0) toDateTime().millisOfDay else 0
 }

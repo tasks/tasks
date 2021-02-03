@@ -30,6 +30,7 @@ import org.tasks.location.GeofenceApi
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime.UTC
 import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.DateTimeUtils.startOfMinute
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
@@ -305,7 +306,11 @@ class iCalendar @Inject constructor(
             description = task.notes
             val allDay = !task.hasDueTime() && !task.hasStartTime()
             val dueDate = if (task.hasDueTime()) task.dueDate else task.dueDate.startOfDay()
-            var startDate = if (task.hasStartTime()) task.hideUntil else task.hideUntil.startOfDay()
+            var startDate = if (task.hasStartTime()) {
+                task.hideUntil.startOfMinute()
+            } else {
+                task.hideUntil.startOfDay()
+            }
             due = if (dueDate > 0) {
                 startDate = min(dueDate, startDate)
                 Due(if (allDay) getDate(dueDate) else getDateTime(dueDate))
