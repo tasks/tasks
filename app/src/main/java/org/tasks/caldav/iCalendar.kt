@@ -1,14 +1,19 @@
 package org.tasks.caldav
 
+import at.bitfire.ical4android.DateUtils.ical4jTimeZone
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
+import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
+import com.todoroo.astrid.data.Task.Companion.sanitizeRRule
+import com.todoroo.astrid.data.Task.Companion.withoutRRULE
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
+import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.DateTime
 import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.Property
@@ -19,15 +24,20 @@ import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.data.*
+import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime.UTC
+import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
+import java.text.ParseException
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.max
+import kotlin.math.min
 
 @Suppress("ClassName")
 class iCalendar @Inject constructor(
@@ -107,7 +117,7 @@ class iCalendar @Inject constructor(
     }
 
     suspend fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task, remoteModel: Task) {
-        CaldavConverter.toCaldav(caldavTask, task, remoteModel)
+        remoteModel.applyLocal(caldavTask, task)
         remoteModel.order = caldavTask.order
         val categories = remoteModel.categories
         categories.clear()
@@ -139,7 +149,7 @@ class iCalendar @Inject constructor(
                     existing?.task = id
                 }
         val caldavTask = existing ?: CaldavTask(task.id, calendar.uuid, remote.uid, obj)
-        CaldavConverter.apply(task, remote)
+        task.applyRemote(remote)
         setPlace(task.id, remote.geoPosition)
         tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
         task.suppressSync()
@@ -260,5 +270,97 @@ class iCalendar @Inject constructor(
                     }
                 }
             }
+
+        fun com.todoroo.astrid.data.Task.applyRemote(remote: Task) {
+            val completedAt = remote.completedAt
+            if (completedAt != null) {
+                completionDate = getLocal(completedAt)
+            } else if (remote.status === Status.VTODO_COMPLETED) {
+                if (!isCompleted) {
+                    completionDate = DateUtilities.now()
+                }
+            } else {
+                completionDate = 0L
+            }
+            remote.createdAt?.let {
+                creationDate = newDateTime(it, UTC).toLocal().millis
+            }
+            title = remote.summary
+            notes = remote.description
+            priority = when (remote.priority) {
+                // https://tools.ietf.org/html/rfc5545#section-3.8.1.9
+                in 1..4 -> com.todoroo.astrid.data.Task.Priority.HIGH
+                5 -> com.todoroo.astrid.data.Task.Priority.MEDIUM
+                in 6..9 -> com.todoroo.astrid.data.Task.Priority.LOW
+                else -> com.todoroo.astrid.data.Task.Priority.NONE
+            }
+            setRecurrence(remote.rRule)
+            remote.due.apply(this)
+            remote.dtStart.apply(this)
+        }
+
+        fun Task.applyLocal(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task) {
+            createdAt = newDateTime(task.creationDate).toUTC().millis
+            summary = task.title
+            description = task.notes
+            val allDay = !task.hasDueTime() && !task.hasStartTime()
+            val dueDate = if (task.hasDueTime()) task.dueDate else task.dueDate.startOfDay()
+            var startDate = if (task.hasStartTime()) task.hideUntil else task.hideUntil.startOfDay()
+            due = if (dueDate > 0) {
+                startDate = min(dueDate, startDate)
+                Due(if (allDay) getDate(dueDate) else getDateTime(dueDate))
+            } else {
+                null
+            }
+            dtStart = if (startDate > 0) {
+                DtStart(if (allDay) getDate(startDate) else getDateTime(startDate))
+            } else {
+                null
+            }
+            if (task.isCompleted) {
+                completedAt = Completed(DateTime(task.completionDate))
+                status = Status.VTODO_COMPLETED
+                percentComplete = 100
+            } else if (completedAt != null) {
+                completedAt = null
+                status = null
+                percentComplete = null
+            }
+            rRule = if (task.isRecurring) {
+                try {
+                    val rrule = RRule(task.getRecurrenceWithoutFrom().withoutRRULE())
+                    val repeatUntil = task.repeatUntil
+                    rrule
+                            .recur.until = if (repeatUntil > 0) DateTime(newDateTime(repeatUntil).toUTC().millis) else null
+                    val sanitized: String = rrule.value.sanitizeRRule()!! // ical4j adds COUNT=-1 if there is an UNTIL value
+                    RRule(sanitized)
+                } catch (e: ParseException) {
+                    Timber.e(e)
+                    null
+                }
+            } else {
+                null
+            }
+            lastModified = newDateTime(task.modificationDate).toUTC().millis
+            priority = when (task.priority) {
+                com.todoroo.astrid.data.Task.Priority.NONE -> 0
+                com.todoroo.astrid.data.Task.Priority.MEDIUM -> 5
+                com.todoroo.astrid.data.Task.Priority.HIGH ->
+                    if (priority < 5) max(1, priority) else 1
+                else -> if (priority > 5) min(9, priority) else 9
+            }
+            setParent(if (task.parent == 0L) null else caldavTask.remoteParent)
+        }
+
+        private fun getDate(timestamp: Long): Date {
+            return Date(timestamp + newDateTime(timestamp).offset)
+        }
+
+        private fun getDateTime(timestamp: Long): DateTime {
+            val tz = ical4jTimeZone(TimeZone.getDefault().id)
+            val dateTime = DateTime(if (tz != null) timestamp else org.tasks.time.DateTime(timestamp).toUTC().millis)
+            dateTime.timeZone = tz
+            return dateTime
+        }
     }
 }

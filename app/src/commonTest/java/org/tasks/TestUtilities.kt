@@ -4,7 +4,7 @@ import android.content.Context
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.runBlocking
-import org.tasks.caldav.CaldavConverter
+import org.tasks.caldav.iCalendar.Companion.applyRemote
 import org.tasks.data.CaldavTask
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
@@ -40,7 +40,7 @@ object TestUtilities {
 
     fun vtodo(path: String): Task {
         val task = Task()
-        CaldavConverter.apply(task, fromResource(path))
+        task.applyRemote(fromResource(path))
         return task
     }
 
@@ -48,7 +48,7 @@ object TestUtilities {
         val task = Task()
         val vtodo = readFile(path)
         val remote = fromString(vtodo)
-        CaldavConverter.apply(task, remote)
+        task.applyRemote(remote)
         return Triple(task, CaldavTask().apply { this.vtodo = vtodo }, remote)
     }
 

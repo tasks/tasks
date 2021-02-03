@@ -8,6 +8,7 @@ import org.junit.Ignore
 import org.junit.Test
 import org.tasks.TestUtilities.setup
 import org.tasks.TestUtilities.vtodo
+import org.tasks.caldav.iCalendar.Companion.applyLocal
 import org.tasks.time.DateTime
 import java.util.*
 
@@ -96,7 +97,7 @@ class ThunderbirdTests {
     @Test
     fun dontTruncateTimeFromUntil() {
         val (task, caldavTask, remote) = setup("thunderbird/repeat_until_date_time.txt")
-        CaldavConverter.toCaldav(caldavTask, task, remote)
+        remote.applyLocal(caldavTask, task)
         assertEquals(
                 "FREQ=WEEKLY;UNTIL=20200731T160000Z;BYDAY=MO,TU,WE,TH,FR",
                 remote.rRule!!.value)
