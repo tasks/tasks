@@ -15,7 +15,7 @@ import org.tasks.makers.TaskMaker.newTask
 class RepeatTests : BaseTaskEditViewModelTest() {
     @Test
     fun changeRepeatAfterCompletion() = runBlocking {
-        val task = newTask(with(TaskMaker.RECUR, "RRULE:FREQ=DAILY;INTERVAL=1"))
+        val task = newTask(with(TaskMaker.RECUR, "FREQ=DAILY;INTERVAL=1"))
         setup(task)
 
         viewModel.repeatAfterCompletion = true
