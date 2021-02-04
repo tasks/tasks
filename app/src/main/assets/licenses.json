@@ -2004,6 +2004,76 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/jetpack/androidx",
       "libraryName": "lifecycle-livedata-ktx"
+    },
+    {
+      "artifactId": {
+        "name": "dynamicanimation",
+        "group": "androidx.dynamicanimation",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "dynamicanimation"
+    },
+    {
+      "artifactId": {
+        "name": "legacy-support-core-utils",
+        "group": "androidx.legacy",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "legacy-support-core-utils"
+    },
+    {
+      "artifactId": {
+        "name": "documentfile",
+        "group": "androidx.documentfile",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "documentfile"
+    },
+    {
+      "artifactId": {
+        "name": "localbroadcastmanager",
+        "group": "androidx.localbroadcastmanager",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "localbroadcastmanager"
+    },
+    {
+      "artifactId": {
+        "name": "print",
+        "group": "androidx.print",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "http://developer.android.com/tools/extras/support-library.html",
+      "libraryName": "print"
     }
   ]
 }

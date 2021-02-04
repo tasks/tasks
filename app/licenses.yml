@@ -841,3 +841,33 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/jetpack/androidx
+- artifact: androidx.dynamicanimation:dynamicanimation:+
+  name: dynamicanimation
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://developer.android.com/tools/extras/support-library.html
+- artifact: androidx.legacy:legacy-support-core-utils:+
+  name: legacy-support-core-utils
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://developer.android.com/tools/extras/support-library.html
+- artifact: androidx.documentfile:documentfile:+
+  name: documentfile
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://developer.android.com/tools/extras/support-library.html
+- artifact: androidx.localbroadcastmanager:localbroadcastmanager:+
+  name: localbroadcastmanager
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://developer.android.com/tools/extras/support-library.html
+- artifact: androidx.print:print:+
+  name: print
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://developer.android.com/tools/extras/support-library.html

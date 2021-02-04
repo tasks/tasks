@@ -177,7 +177,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.3")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.code.gson:gson:2.8.6")
-    implementation("com.google.android.material:material:1.2.1")
+    implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.annotation:annotation:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
