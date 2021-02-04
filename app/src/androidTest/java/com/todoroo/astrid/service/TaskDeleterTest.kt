@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service
 
-import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.getMyTasksFilter
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -18,7 +17,7 @@ import org.tasks.makers.GoogleTaskMaker.TASK
 import org.tasks.makers.GoogleTaskMaker.newGoogleTask
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.PARENT
-import org.tasks.makers.TaskMaker.RRULE
+import org.tasks.makers.TaskMaker.RECUR
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import javax.inject.Inject
@@ -41,7 +40,7 @@ class TaskDeleterTest : InjectingTestCase() {
 
     @Test
     fun dontDeleteTaskWithRecurringParent() = runBlocking {
-        val parent = taskDao.createNew(newTask(with(RRULE, RRule("RRULE:FREQ=DAILY;INTERVAL=1"))))
+        val parent = taskDao.createNew(newTask(with(RECUR, "RRULE:FREQ=DAILY;INTERVAL=1")))
         val child = taskDao.createNew(newTask(
                 with(PARENT, parent),
                 with(COMPLETION_TIME, DateTime())
@@ -54,7 +53,7 @@ class TaskDeleterTest : InjectingTestCase() {
 
     @Test
     fun dontDeleteTaskWithRecurringGrandparent() = runBlocking {
-        val grandparent = taskDao.createNew(newTask(with(RRULE, RRule("RRULE:FREQ=DAILY;INTERVAL=1"))))
+        val grandparent = taskDao.createNew(newTask(with(RECUR, "RRULE:FREQ=DAILY;INTERVAL=1")))
         val parent = taskDao.createNew(newTask(with(PARENT, grandparent)))
         val child = taskDao.createNew(newTask(
                 with(PARENT, parent),
@@ -83,7 +82,7 @@ class TaskDeleterTest : InjectingTestCase() {
     @Test
     fun clearGrandchildWithCompletedRecurringAncestor() = runBlocking {
         val grandparent = taskDao.createNew(newTask(
-                with(RRULE, RRule("RRULE:FREQ=DAILY;INTERVAL=1")),
+                with(RECUR, "RRULE:FREQ=DAILY;INTERVAL=1"),
                 with(COMPLETION_TIME, DateTime())
         ))
         val parent = taskDao.createNew(newTask(with(PARENT, grandparent)))
@@ -99,7 +98,7 @@ class TaskDeleterTest : InjectingTestCase() {
 
     @Test
     fun dontClearCompletedGoogleTaskWithRecurringParent() = runBlocking {
-        val parent = taskDao.createNew(newTask(with(RRULE, RRule("RRULE:FREQ=DAILY;INTERVAL=1"))))
+        val parent = taskDao.createNew(newTask(with(RECUR, "RRULE:FREQ=DAILY;INTERVAL=1")))
         val child = taskDao.createNew(newTask(with(COMPLETION_TIME, DateTime())))
         googleTaskDao.insert(newGoogleTask(with(TASK, child), with(GoogleTaskMaker.PARENT, parent)))
 
@@ -122,7 +121,7 @@ class TaskDeleterTest : InjectingTestCase() {
     @Test
     fun clearCompletedGoogleTaskWithCompletedRecurringParent() = runBlocking {
         val parent = taskDao.createNew(newTask(
-                with(RRULE, RRule("RRULE:FREQ=DAILY;INTERVAL=1")),
+                with(RECUR, "RRULE:FREQ=DAILY;INTERVAL=1"),
                 with(COMPLETION_TIME, DateTime())
         ))
         val child = taskDao.createNew(newTask(with(COMPLETION_TIME, DateTime())))

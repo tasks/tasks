@@ -1,6 +1,5 @@
 package org.tasks.opentasks
 
-import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -16,7 +15,7 @@ import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.TASK
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
-import org.tasks.makers.TaskMaker.RRULE
+import org.tasks.makers.TaskMaker.RECUR
 import org.tasks.makers.TaskMaker.newTask
 
 @UninstallModules(ProductionModule::class)
@@ -107,7 +106,7 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
     @Test
     fun sanitizeRecurrenceRule() = runBlocking {
         val (_, list) = openTaskDao.insertList()
-        val taskId = taskDao.insert(newTask(with(RRULE, RRule("RRULE:FREQ=WEEKLY;COUNT=-1"))))
+        val taskId = taskDao.insert(newTask(with(RECUR, "RRULE:FREQ=WEEKLY;COUNT=-1")))
         caldavDao.insert(newCaldavTask(
                 with(CALENDAR, list.uuid),
                 with(TASK, taskId)

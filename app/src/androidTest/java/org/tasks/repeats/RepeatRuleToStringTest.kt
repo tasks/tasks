@@ -1,9 +1,7 @@
 package org.tasks.repeats
 
-import com.todoroo.astrid.data.Task.Companion.withoutRRULE
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import net.fortuna.ical4j.model.property.RRule
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.TestUtilities.withTZ
@@ -110,15 +108,15 @@ class RepeatRuleToStringTest : InjectingTestCase() {
         }
     }
 
-    private fun toString(rrule: String): String {
+    private fun toString(rrule: String): String? {
         return toString(null, rrule)
     }
 
-    private fun toString(language: String?, rrule: String): String {
+    private fun toString(language: String?, rrule: String): String? {
         return try {
             val locale = Locale(java.util.Locale.getDefault(), language)
             RepeatRuleToString(locale.createConfigurationContext(context), locale, firebase)
-                    .toString(RRule(rrule.withoutRRULE()))
+                    .toString(rrule)
         } catch (e: ParseException) {
             throw RuntimeException(e)
         }

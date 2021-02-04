@@ -1,7 +1,6 @@
 package com.todoroo.astrid.repeats
 
 import android.annotation.SuppressLint
-import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
@@ -22,8 +21,9 @@ import org.tasks.makers.TaskMaker.AFTER_COMPLETE
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.DUE_TIME
 import org.tasks.makers.TaskMaker.ID
-import org.tasks.makers.TaskMaker.RRULE
+import org.tasks.makers.TaskMaker.RECUR
 import org.tasks.makers.TaskMaker.newTask
+import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import java.text.ParseException
 
@@ -65,7 +65,7 @@ class RepeatTaskHelperTest {
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
-                with(RRULE, RRule("RRULE:FREQ=MINUTELY;INTERVAL=30")))
+                with(RECUR, "RRULE:FREQ=MINUTELY;INTERVAL=30"))
         repeatAndVerify(
                 task, DateTime(2017, 10, 4, 13, 30, 1), DateTime(2017, 10, 4, 14, 0, 1))
     }
@@ -77,7 +77,7 @@ class RepeatTaskHelperTest {
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
                 with(COMPLETION_TIME, DateTime(2017, 10, 4, 13, 17, 45, 340)),
-                with(RRULE, RRule("RRULE:FREQ=MINUTELY;INTERVAL=30")),
+                with(RECUR, "RRULE:FREQ=MINUTELY;INTERVAL=30"),
                 with(AFTER_COMPLETE, true))
         repeatAndVerify(
                 task, DateTime(2017, 10, 4, 13, 30, 1), DateTime(2017, 10, 4, 13, 47, 1))
@@ -89,10 +89,10 @@ class RepeatTaskHelperTest {
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
-                with(RRULE, RRule("RRULE:FREQ=MINUTELY;COUNT=2;INTERVAL=30")))
+                with(RECUR, "RRULE:FREQ=MINUTELY;COUNT=2;INTERVAL=30"))
         repeatAndVerify(
                 task, DateTime(2017, 10, 4, 13, 30, 1), DateTime(2017, 10, 4, 14, 0, 1))
-        assertEquals(1, RRule(task.getRecurrenceWithoutFrom()).count)
+        assertEquals(1, newRecur(task.recurrence!!).count)
     }
 
     @Test
@@ -101,7 +101,7 @@ class RepeatTaskHelperTest {
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
-                with(RRULE, RRule("RRULE:FREQ=MINUTELY;COUNT=1;INTERVAL=30")))
+                with(RECUR, "RRULE:FREQ=MINUTELY;COUNT=1;INTERVAL=30"))
         helper.handleRepeat(task)
     }
 
@@ -111,7 +111,7 @@ class RepeatTaskHelperTest {
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
-                with(RRULE, RRule("RRULE:FREQ=HOURLY;INTERVAL=6")))
+                with(RECUR, "RRULE:FREQ=HOURLY;INTERVAL=6"))
         repeatAndVerify(
                 task, DateTime(2017, 10, 4, 13, 30, 1), DateTime(2017, 10, 4, 19, 30, 1))
     }
@@ -123,7 +123,7 @@ class RepeatTaskHelperTest {
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
                 with(COMPLETION_TIME, DateTime(2017, 10, 4, 13, 17, 45, 340)),
-                with(RRULE, RRule("RRULE:FREQ=HOURLY;INTERVAL=6")),
+                with(RECUR, "RRULE:FREQ=HOURLY;INTERVAL=6"),
                 with(AFTER_COMPLETE, true))
         repeatAndVerify(
                 task, DateTime(2017, 10, 4, 13, 30, 1), DateTime(2017, 10, 4, 19, 17, 1))
@@ -135,7 +135,7 @@ class RepeatTaskHelperTest {
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
-                with(RRULE, RRule("RRULE:FREQ=DAILY;INTERVAL=6")))
+                with(RECUR, "RRULE:FREQ=DAILY;INTERVAL=6"))
         repeatAndVerify(
                 task, DateTime(2017, 10, 4, 13, 30, 1), DateTime(2017, 10, 10, 13, 30, 1))
     }
@@ -146,7 +146,7 @@ class RepeatTaskHelperTest {
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
-                with(RRULE, RRule("RRULE:FREQ=WEEKLY;INTERVAL=2")))
+                with(RECUR, "RRULE:FREQ=WEEKLY;INTERVAL=2"))
         repeatAndVerify(
                 task, DateTime(2017, 10, 4, 13, 30, 1), DateTime(2017, 10, 18, 13, 30, 1))
     }
@@ -157,7 +157,7 @@ class RepeatTaskHelperTest {
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
-                with(RRULE, RRule("RRULE:FREQ=YEARLY;INTERVAL=3")))
+                with(RECUR, "RRULE:FREQ=YEARLY;INTERVAL=3"))
         repeatAndVerify(
                 task, DateTime(2017, 10, 4, 13, 30, 1), DateTime(2020, 10, 4, 13, 30, 1))
     }
@@ -168,7 +168,7 @@ class RepeatTaskHelperTest {
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 10, 4, 13, 30)),
-                with(RRULE, RRule("RRULE:FREQ=MONTHLY;INTERVAL=3")))
+                with(RECUR, "RRULE:FREQ=MONTHLY;INTERVAL=3"))
         repeatAndVerify(
                 task, DateTime(2017, 10, 4, 13, 30, 1), DateTime(2018, 1, 4, 13, 30, 1))
     }
@@ -179,7 +179,7 @@ class RepeatTaskHelperTest {
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, DateTime(2017, 1, 31, 13, 30)),
-                with(RRULE, RRule("RRULE:FREQ=MONTHLY;INTERVAL=1")))
+                with(RECUR, "RRULE:FREQ=MONTHLY;INTERVAL=1"))
         repeatAndVerify(
                 task, DateTime(2017, 1, 31, 13, 30, 1), DateTime(2017, 2, 28, 13, 30, 1))
     }
@@ -188,7 +188,7 @@ class RepeatTaskHelperTest {
     fun testAlarmShiftWithNoDueDate() {
         val task = newTask(
                 with(ID, 1L),
-                with(RRULE, RRule("RRULE:FREQ=DAILY"))
+                with(RECUR, "RRULE:FREQ=DAILY")
         )
         freezeClock {
             repeatAndVerify(

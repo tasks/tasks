@@ -1,6 +1,5 @@
 package com.todoroo.astrid.repeats
 
-import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -12,7 +11,7 @@ import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.PARENT
-import org.tasks.makers.TaskMaker.RRULE
+import org.tasks.makers.TaskMaker.RECUR
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import javax.inject.Inject
@@ -25,7 +24,7 @@ class RepeatWithSubtasksTests : InjectingTestCase() {
 
     @Test
     fun uncompleteGrandchildren() = runBlocking {
-        val grandparent = taskDao.createNew(newTask(with(RRULE, RRule("RRULE:FREQ=DAILY"))))
+        val grandparent = taskDao.createNew(newTask(with(RECUR, "RRULE:FREQ=DAILY")))
         val parent = taskDao.createNew(newTask(with(PARENT, grandparent)))
         val child = taskDao.createNew(newTask(
                 with(PARENT, parent),
@@ -39,7 +38,7 @@ class RepeatWithSubtasksTests : InjectingTestCase() {
 
     @Test
     fun uncompleteGoogleTaskChildren() = runBlocking {
-        val parent = taskDao.createNew(newTask(with(RRULE, RRule("RRULE:FREQ=DAILY"))))
+        val parent = taskDao.createNew(newTask(with(RECUR, "RRULE:FREQ=DAILY")))
         val child = taskDao.createNew(newTask(
                 with(PARENT, parent),
                 with(COMPLETION_TIME, DateTime())

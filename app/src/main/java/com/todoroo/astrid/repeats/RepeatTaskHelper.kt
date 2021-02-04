@@ -12,6 +12,7 @@ import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.createDueDate
+import com.todoroo.astrid.data.Task.Companion.withoutFrom
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
 import org.tasks.LocalBroadcastManager
@@ -38,7 +39,7 @@ class RepeatTaskHelper @Inject constructor(
             val newDueDate: Long
             val rrule: RRule
             try {
-                rrule = initRRule(task.getRecurrenceWithoutFrom())
+                rrule = initRRule(task.recurrence)
                 newDueDate = computeNextDueDate(task, recurrence, repeatAfterCompletion)
                 if (newDueDate == -1L) {
                     return
@@ -196,7 +197,9 @@ class RepeatTaskHelper @Inject constructor(
         /** Initialize RRule instance  */
         @Throws(ParseException::class)
         private fun initRRule(recurrence: String?): RRule {
-            val rrule = RRule(recurrence)
+            val rrule = RRule(recurrence
+                    ?.let { if (it.startsWith("RRULE:")) it else "RRULE:$it" }
+                    ?.withoutFrom())
 
             if (rrule.count < 0) {
                 rrule.count = 0

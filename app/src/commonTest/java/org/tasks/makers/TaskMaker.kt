@@ -26,7 +26,7 @@ object TaskMaker {
     val COMPLETION_TIME: Property<Task, DateTime> = newProperty()
     val DELETION_TIME: Property<Task, DateTime?> = newProperty()
     val SNOOZE_TIME: Property<Task, DateTime?> = newProperty()
-    val RRULE: Property<Task, RRule?> = newProperty()
+    val RECUR: Property<Task, String?> = newProperty()
     val AFTER_COMPLETE: Property<Task, Boolean> = newProperty()
     val TITLE: Property<Task, String?> = newProperty()
     val PRIORITY: Property<Task, Int> = newProperty()
@@ -83,9 +83,9 @@ object TaskMaker {
         if (randomReminderPeriod > 0) {
             task.reminderPeriod = randomReminderPeriod
         }
-        val rrule = lookup.valueOf(RRULE, null as RRule?)
-        if (rrule != null) {
-            task.setRecurrence(rrule, lookup.valueOf(AFTER_COMPLETE, false))
+        lookup.valueOf(RECUR, null as String?)?.let {
+            val rrule = if (it.startsWith("RRULE:")) it else "RRULE:$it"
+            task.setRecurrence(RRule(rrule), lookup.valueOf(AFTER_COMPLETE, false))
         }
         task.uuid = lookup.valueOf(UUID, NO_UUID)
         val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())

@@ -1,18 +1,17 @@
 package com.todoroo.astrid.repeats
 
-import com.google.ical.values.Frequency
-import com.google.ical.values.RRule
-import com.google.ical.values.Weekday
-import com.google.ical.values.WeekdayNum
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.data.Task
+import net.fortuna.ical4j.model.Recur.Frequency
+import net.fortuna.ical4j.model.WeekDay
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.makers.TaskMaker.AFTER_COMPLETE
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.DUE_TIME
-import org.tasks.makers.TaskMaker.RRULE
+import org.tasks.makers.TaskMaker.RECUR
 import org.tasks.makers.TaskMaker.newTask
+import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import java.text.ParseException
 
@@ -179,7 +178,7 @@ class NewRepeatTests {
     fun testAdvancedRepeatWeeklyFromDueDate() {
         val dueDateTime = newDayTime(2016, 8, 29, 0, 25)
         val task = newWeeklyFromDue(
-                1, dueDateTime, WeekdayNum(0, Weekday.MO), WeekdayNum(0, Weekday.WE))
+                1, dueDateTime, WeekDay(WeekDay.MO, 0), WeekDay(WeekDay.WE, 0))
         assertEquals(newDayTime(2016, 8, 31, 0, 25), calculateNextDueDate(task))
     }
 
@@ -192,8 +191,8 @@ class NewRepeatTests {
                 1,
                 dueDateTime,
                 completionDateTime,
-                WeekdayNum(0, Weekday.MO),
-                WeekdayNum(0, Weekday.WE))
+                WeekDay(WeekDay.MO, 0),
+                WeekDay(WeekDay.WE, 0))
         assertEquals(newDayTime(2016, 8, 29, 0, 25), calculateNextDueDate(task))
     }
 
@@ -206,8 +205,8 @@ class NewRepeatTests {
                 1,
                 dueDateTime,
                 completionDateTime,
-                WeekdayNum(0, Weekday.MO),
-                WeekdayNum(0, Weekday.WE))
+                WeekDay(WeekDay.MO, 0),
+                WeekDay(WeekDay.WE, 0))
         assertEquals(newDayTime(2016, 9, 5, 0, 25), calculateNextDueDate(task))
     }
 
@@ -221,19 +220,19 @@ class NewRepeatTests {
     @Throws(ParseException::class)
     private fun calculateNextDueDate(task: Task): DateTime {
         return DateTime(
-                RepeatTaskHelper.computeNextDueDate(task, task.sanitizedRecurrence(), task.repeatAfterCompletion()))
+                RepeatTaskHelper.computeNextDueDate(task, task.recurrence!!, task.repeatAfterCompletion()))
     }
 
     private fun newFromDue(frequency: Frequency, interval: Int, dueDateTime: DateTime): Task {
         return newTask(
-                with(RRULE, getRecurrenceRule(frequency, interval)),
+                with(RECUR, getRecurrenceRule(frequency, interval)),
                 with(AFTER_COMPLETE, false),
                 with(DUE_TIME, dueDateTime))
     }
 
-    private fun newWeeklyFromDue(interval: Int, dueDateTime: DateTime, vararg weekdays: WeekdayNum): Task {
+    private fun newWeeklyFromDue(interval: Int, dueDateTime: DateTime, vararg weekdays: WeekDay): Task {
         return newTask(
-                with(RRULE, getRecurrenceRule(Frequency.WEEKLY, interval, *weekdays)),
+                with(RECUR, getRecurrenceRule(Frequency.WEEKLY, interval, *weekdays)),
                 with(AFTER_COMPLETE, false),
                 with(DUE_TIME, dueDateTime))
     }
@@ -241,29 +240,29 @@ class NewRepeatTests {
     private fun newFromCompleted(
             frequency: Frequency, interval: Int, dueDateTime: DateTime, completionDate: DateTime): Task {
         return newTask(
-                with(RRULE, getRecurrenceRule(frequency, interval)),
+                with(RECUR, getRecurrenceRule(frequency, interval)),
                 with(AFTER_COMPLETE, true),
                 with(DUE_TIME, dueDateTime),
                 with(COMPLETION_TIME, completionDate))
     }
 
     private fun newWeeklyFromCompleted(
-            interval: Int, dueDateTime: DateTime, completionDate: DateTime, vararg weekdays: WeekdayNum): Task {
+            interval: Int, dueDateTime: DateTime, completionDate: DateTime, vararg weekdays: WeekDay): Task {
         return newTask(
-                with(RRULE, getRecurrenceRule(Frequency.WEEKLY, interval, *weekdays)),
+                with(RECUR, getRecurrenceRule(Frequency.WEEKLY, interval, *weekdays)),
                 with(AFTER_COMPLETE, true),
                 with(DUE_TIME, dueDateTime),
                 with(COMPLETION_TIME, completionDate))
     }
 
     private fun getRecurrenceRule(
-            frequency: Frequency, interval: Int, vararg weekdays: WeekdayNum): RRule {
-        val rrule = RRule()
-        rrule.freq = frequency
+            frequency: Frequency, interval: Int, vararg weekdays: WeekDay): String {
+        val rrule = newRecur()
+        rrule.setFrequency(frequency.name)
         rrule.interval = interval
         if (weekdays.isNotEmpty()) {
-            rrule.byDay = listOf(*weekdays)
+            rrule.dayList.addAll(weekdays)
         }
-        return rrule
+        return rrule.toString()
     }
 }

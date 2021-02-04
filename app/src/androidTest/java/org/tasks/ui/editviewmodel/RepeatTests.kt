@@ -1,6 +1,5 @@
 package org.tasks.ui.editviewmodel
 
-import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -16,7 +15,7 @@ import org.tasks.makers.TaskMaker.newTask
 class RepeatTests : BaseTaskEditViewModelTest() {
     @Test
     fun changeRepeatAfterCompletion() = runBlocking {
-        val task = newTask(with(TaskMaker.RRULE, RRule("RRULE:FREQ=DAILY;INTERVAL=1")))
+        val task = newTask(with(TaskMaker.RECUR, "RRULE:FREQ=DAILY;INTERVAL=1"))
         setup(task)
 
         viewModel.repeatAfterCompletion = true

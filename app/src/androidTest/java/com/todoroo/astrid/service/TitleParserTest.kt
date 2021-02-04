@@ -5,13 +5,12 @@
  */
 package com.todoroo.astrid.service
 
-import com.google.ical.values.Frequency
-import com.google.ical.values.RRule
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.utility.TitleParser
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
+import net.fortuna.ical4j.model.Recur.Frequency.*
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Ignore
@@ -22,6 +21,7 @@ import org.tasks.date.DateTimeUtils
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
+import org.tasks.repeats.RecurrenceUtils.newRecur
 import java.util.*
 import javax.inject.Inject
 
@@ -280,22 +280,22 @@ class TitleParserTest : InjectingTestCase() {
     fun testDailyWithNoDueDate() = runBlocking {
         var title = "Jog daily"
         var task = taskCreator.createWithValues(title)
-        val rrule = RRule()
-        rrule.freq = Frequency.DAILY
-        rrule.interval = 1
-        assertEquals(task.recurrence, rrule.toIcal())
+        val recur = newRecur()
+        recur.setFrequency(DAILY.name)
+        recur.interval = 1
+        assertEquals(task.recurrence, "RRULE:$recur")
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         title = "Jog every day"
         task = taskCreator.createWithValues(title)
-        assertEquals(task.recurrence, rrule.toIcal())
+        assertEquals(task.recurrence, "RRULE:$recur")
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         for (i in 1..12) {
             title = "Jog every $i days."
-            rrule.interval = i
+            recur.interval = i
             task = taskCreator.createWithValues(title)
-            assertEquals(task.recurrence, rrule.toIcal())
+            assertEquals(task.recurrence, "RRULE:$recur")
             assertFalse(task.hasDueTime())
             assertFalse(task.hasDueDate())
         }
@@ -306,22 +306,22 @@ class TitleParserTest : InjectingTestCase() {
     fun testWeeklyWithNoDueDate() = runBlocking {
         var title = "Jog weekly"
         var task = taskCreator.createWithValues(title)
-        val rrule = RRule()
-        rrule.freq = Frequency.WEEKLY
-        rrule.interval = 1
-        assertEquals(task.recurrence, rrule.toIcal())
+        val recur = newRecur()
+        recur.setFrequency(WEEKLY.name)
+        recur.interval = 1
+        assertEquals(task.recurrence, "RRULE:$recur")
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         title = "Jog every week"
         task = taskCreator.createWithValues(title)
-        assertEquals(task.recurrence, rrule.toIcal())
+        assertEquals(task.recurrence, "RRULE:$recur")
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         for (i in 1..12) {
             title = "Jog every $i weeks"
-            rrule.interval = i
+            recur.interval = i
             task = taskCreator.createWithValues(title)
-            assertEquals(task.recurrence, rrule.toIcal())
+            assertEquals(task.recurrence, "RRULE:$recur")
             assertFalse(task.hasDueTime())
             assertFalse(task.hasDueDate())
         }
@@ -332,22 +332,22 @@ class TitleParserTest : InjectingTestCase() {
     fun testMonthlyFromNoDueDate() = runBlocking {
         var title = "Jog monthly"
         var task = taskCreator.createWithValues(title)
-        val rrule = RRule()
-        rrule.freq = Frequency.MONTHLY
-        rrule.interval = 1
-        assertEquals(task.recurrence, rrule.toIcal())
+        val recur = newRecur()
+        recur.setFrequency(MONTHLY.name)
+        recur.interval = 1
+        assertEquals(task.recurrence, "RRULE:$recur")
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         title = "Jog every month"
         task = taskCreator.createWithValues(title)
-        assertEquals(task.recurrence, rrule.toIcal())
+        assertEquals(task.recurrence, "RRULE:$recur")
         assertFalse(task.hasDueTime())
         assertFalse(task.hasDueDate())
         for (i in 1..12) {
             title = "Jog every $i months"
-            rrule.interval = i
+            recur.interval = i
             task = taskCreator.createWithValues(title)
-            assertEquals(task.recurrence, rrule.toIcal())
+            assertEquals(task.recurrence, "RRULE:$recur")
             assertFalse(task.hasDueTime())
             assertFalse(task.hasDueDate())
         }
@@ -357,20 +357,20 @@ class TitleParserTest : InjectingTestCase() {
     fun testDailyFromDueDate() = runBlocking {
         var title = "Jog daily starting from today"
         var task = taskCreator.createWithValues(title)
-        val rrule = RRule()
-        rrule.freq = Frequency.DAILY
-        rrule.interval = 1
-        assertEquals(task.recurrence, rrule.toIcal())
+        val recur = newRecur()
+        recur.setFrequency(DAILY.name)
+        recur.interval = 1
+        assertEquals(task.recurrence, "RRULE:$recur")
         assertTrue(task.hasDueDate())
         title = "Jog every day starting from today"
         task = taskCreator.createWithValues(title)
-        assertEquals(task.recurrence, rrule.toIcal())
+        assertEquals(task.recurrence, "RRULE:$recur")
         assertTrue(task.hasDueDate())
         for (i in 1..12) {
             title = "Jog every $i days starting from today"
-            rrule.interval = i
+            recur.interval = i
             task = taskCreator.createWithValues(title)
-            assertEquals(task.recurrence, rrule.toIcal())
+            assertEquals(task.recurrence, "RRULE:$recur")
             assertTrue(task.hasDueDate())
         }
     }
@@ -379,20 +379,20 @@ class TitleParserTest : InjectingTestCase() {
     fun testWeeklyFromDueDate() = runBlocking {
         var title = "Jog weekly starting from today"
         var task = taskCreator.createWithValues(title)
-        val rrule = RRule()
-        rrule.freq = Frequency.WEEKLY
-        rrule.interval = 1
-        assertEquals(task.recurrence, rrule.toIcal())
+        val recur = newRecur()
+        recur.setFrequency(WEEKLY.name)
+        recur.interval = 1
+        assertEquals(task.recurrence, "RRULE:$recur")
         assertTrue(task.hasDueDate())
         title = "Jog every week starting from today"
         task = taskCreator.createWithValues(title)
-        assertEquals(task.recurrence, rrule.toIcal())
+        assertEquals(task.recurrence, "RRULE:$recur")
         assertTrue(task.hasDueDate())
         for (i in 1..12) {
             title = "Jog every $i weeks starting from today"
-            rrule.interval = i
+            recur.interval = i
             task = taskCreator.createWithValues(title)
-            assertEquals(task.recurrence, rrule.toIcal())
+            assertEquals(task.recurrence, "RRULE:$recur")
             assertTrue(task.hasDueDate())
         }
     }
