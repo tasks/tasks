@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
-import com.google.ical.values.RRule
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
@@ -78,10 +77,9 @@ class TaskDefaults : InjectingPreferenceFragment() {
 
         findPreference(R.string.p_default_recurrence)
                 .setOnPreferenceClickListener {
-                    val rrule: RRule? = preferences
+                    val rrule = preferences
                             .getStringValue(R.string.p_default_recurrence)
                             ?.takeIf { it.isNotBlank() }
-                            ?.let { RRule(it) }
                     BasicRecurrenceDialog
                             .newBasicRecurrenceDialog(this, REQUEST_RECURRENCE, rrule, -1)
                             .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)

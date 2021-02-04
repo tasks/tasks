@@ -59,7 +59,7 @@ class ThunderbirdTests {
     @Test
     fun repeatDaily() {
         assertEquals(
-                "RRULE:FREQ=DAILY", vtodo("thunderbird/repeat_daily.txt").recurrence)
+                "FREQ=DAILY", vtodo("thunderbird/repeat_daily.txt").recurrence)
     }
 
     @Test

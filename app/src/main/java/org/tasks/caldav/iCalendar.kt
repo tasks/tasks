@@ -9,8 +9,6 @@ import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
-import com.todoroo.astrid.data.Task.Companion.sanitizeRRule
-import com.todoroo.astrid.data.Task.Companion.withoutRRULE
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
 import net.fortuna.ical4j.model.Date
@@ -28,6 +26,8 @@ import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.Preferences
+import org.tasks.repeats.RecurrenceUtils.newRRule
+import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime.UTC
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils.startOfMinute
@@ -205,18 +205,8 @@ class iCalendar @Inject constructor(
         }
 
         @JvmStatic
-        fun getLocal(property: DateProperty): Long {
-            val dateTime: org.tasks.time.DateTime? = if (property.date is DateTime) {
-                val dt = property.date as DateTime
-                org.tasks.time.DateTime(
-                        dt.time,
-                        dt.timeZone ?: if (dt.isUtc) UTC else TimeZone.getDefault()
-                )
-            } else {
-                org.tasks.time.DateTime.from(property.date)
-            }
-            return dateTime?.toLocal()?.millis ?: 0
-        }
+        fun getLocal(property: DateProperty): Long =
+                org.tasks.time.DateTime.from(property.date)?.toLocal()?.millis ?: 0
 
         fun fromVtodo(vtodo: String): Task? {
             try {
@@ -295,7 +285,7 @@ class iCalendar @Inject constructor(
                 in 6..9 -> com.todoroo.astrid.data.Task.Priority.LOW
                 else -> com.todoroo.astrid.data.Task.Priority.NONE
             }
-            setRecurrence(remote.rRule)
+            setRecurrence(remote.rRule?.recur)
             remote.due.apply(this)
             remote.dtStart.apply(this)
         }
@@ -333,12 +323,14 @@ class iCalendar @Inject constructor(
             }
             rRule = if (task.isRecurring) {
                 try {
-                    val rrule = RRule(task.getRecurrenceWithoutFrom().withoutRRULE())
+                    val recur = newRecur(task.recurrence!!)
                     val repeatUntil = task.repeatUntil
-                    rrule
-                            .recur.until = if (repeatUntil > 0) DateTime(newDateTime(repeatUntil).toUTC().millis) else null
-                    val sanitized: String = rrule.value.sanitizeRRule()!! // ical4j adds COUNT=-1 if there is an UNTIL value
-                    RRule(sanitized)
+                    recur.until = if (repeatUntil > 0) {
+                        DateTime(newDateTime(repeatUntil).toUTC().millis)
+                    } else {
+                        null
+                    }
+                    newRRule(recur.toString())
                 } catch (e: ParseException) {
                     Timber.e(e)
                     null

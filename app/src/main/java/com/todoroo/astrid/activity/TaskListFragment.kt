@@ -32,7 +32,6 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.material.snackbar.Snackbar
-import com.google.ical.values.RRule
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
@@ -73,6 +72,7 @@ import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
+import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerActivity
 import org.tasks.tasklist.*
@@ -849,12 +849,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                     task.setDueDateAdjustingHideUntil(oldDueDate)
                                     task.completionDate = 0L
                                     try {
-                                        val rrule = RRule(task.getRecurrenceWithoutFrom())
-                                        val count = rrule.count
+                                        val recur = newRecur(task.recurrence!!)
+                                        val count = recur.count
                                         if (count > 0) {
-                                            rrule.count = count + 1
+                                            recur.count = count + 1
                                         }
-                                        task.setRecurrence(rrule, task.repeatAfterCompletion())
+                                        task.setRecurrence(recur.toString(), task.repeatAfterCompletion())
                                     } catch (e: ParseException) {
                                         Timber.e(e)
                                     }

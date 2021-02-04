@@ -2,17 +2,16 @@ package org.tasks.repeats
 
 import android.content.Context
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.data.Task.Companion.withoutRRULE
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.Recur.Frequency
 import net.fortuna.ical4j.model.Recur.Frequency.*
 import net.fortuna.ical4j.model.WeekDay.Day
 import net.fortuna.ical4j.model.WeekDay.Day.*
-import net.fortuna.ical4j.model.property.RRule
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.locale.Locale
+import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import java.text.DateFormatSymbols
 import java.text.ParseException
@@ -27,14 +26,13 @@ class RepeatRuleToString @Inject constructor(
     private val weekdays = listOf(*Day.values())
 
     fun toString(rrule: String?): String? = try {
-        toString(RRule(rrule.withoutRRULE()))
+        rrule?.let { toString(newRecur(it)) }
     } catch (e: ParseException) {
         firebase.reportException(e)
         null
     }
 
-    fun toString(r: RRule): String {
-        val rrule = r.recur
+    fun toString(rrule: Recur): String {
         val interval = rrule.interval
         val frequency = rrule.frequency
         val repeatUntil = if (rrule.until == null) null else DateTime.from(rrule.until)

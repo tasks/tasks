@@ -5,14 +5,14 @@
  */
 package com.todoroo.astrid.utility
 
-import com.google.ical.values.Frequency
-import com.google.ical.values.RRule
 import com.mdimension.jchronic.AstridChronic
 import com.mdimension.jchronic.Chronic
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.createDueDate
+import net.fortuna.ical4j.model.Recur.Frequency
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagDataDao
+import org.tasks.repeats.RecurrenceUtils.newRecur
 import timber.log.Timber
 import java.util.*
 import java.util.regex.Matcher
@@ -373,10 +373,10 @@ object TitleParser {
             val m = pattern.matcher(inputText)
             if (m.find()) {
                 val rtime = repeatTimes[repeatTime]
-                val rrule = RRule()
-                rrule.freq = rtime
-                rrule.interval = findInterval(inputText)
-                task.recurrence = rrule.toIcal()
+                val recur = newRecur()
+                recur.setFrequency(rtime!!.name)
+                recur.interval = findInterval(inputText)
+                task.recurrence = recur.toString()
                 return
             }
         }
@@ -385,11 +385,10 @@ object TitleParser {
             val m = pattern.matcher(inputText)
             if (m.find()) {
                 val rtime = repeatTimesIntervalOne[repeatTimeIntervalOne]
-                val rrule = RRule()
-                rrule.freq = rtime
-                rrule.interval = 1
-                val thing = rrule.toIcal()
-                task.recurrence = thing
+                val recur = newRecur()
+                recur.setFrequency(rtime!!.name)
+                recur.interval = 1
+                task.recurrence = recur.toString()
                 return
             }
         }

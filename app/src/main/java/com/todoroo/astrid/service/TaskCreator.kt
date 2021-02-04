@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service
 
-import com.google.ical.values.RRule
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
@@ -105,7 +104,7 @@ class TaskCreator @Inject constructor(
                 ?.takeIf { it.isNotBlank() }
                 ?.let {
                     task.setRecurrence(
-                            RRule(it),
+                            it,
                             preferences.getIntegerFromString(R.string.p_default_recurrence_from, 0) == 1)
                 }
         preferences.getStringValue(R.string.p_default_location)

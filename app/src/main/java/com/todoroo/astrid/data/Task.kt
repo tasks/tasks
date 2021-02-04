@@ -6,10 +6,10 @@ import android.os.Parcelable
 import androidx.annotation.IntDef
 import androidx.core.os.ParcelCompat
 import androidx.room.*
-import com.google.ical.values.RRule
 import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.utility.DateUtilities
+import net.fortuna.ical4j.model.Recur
 import org.tasks.Strings
 import org.tasks.data.Tag
 import org.tasks.date.DateTimeUtils
@@ -212,10 +212,6 @@ class Task : Parcelable {
 
     fun repeatAfterCompletion(): Boolean = recurrence.isRepeatAfterCompletion()
 
-    fun sanitizedRecurrence(): String? = getRecurrenceWithoutFrom()?.sanitizeRRule()
-
-    fun getRecurrenceWithoutFrom(): String? = recurrence.withoutFrom()
-
     fun setDueDateAdjustingHideUntil(newDueDate: Long) {
         if (dueDate > 0) {
             if (hideUntil > 0) {
@@ -228,17 +224,17 @@ class Task : Parcelable {
     val isRecurring: Boolean
         get() = !Strings.isNullOrEmpty(recurrence)
 
-    fun setRecurrence(rrule: RRule, afterCompletion: Boolean) {
-        recurrence = rrule.toIcal() + if (afterCompletion) ";FROM=COMPLETION" else ""
+    fun setRecurrence(rrule: String, afterCompletion: Boolean) {
+        recurrence = rrule + if (afterCompletion) ";FROM=COMPLETION" else ""
     }
 
-    fun setRecurrence(rrule: net.fortuna.ical4j.model.property.RRule?) {
+    fun setRecurrence(rrule: Recur?) {
         if (rrule == null) {
             repeatUntil = 0
             recurrence = null
         } else {
-            repeatUntil = rrule.recur.until?.let { DateTime(it).millis } ?: 0
-            recurrence = "RRULE:${rrule.value.sanitizeRRule()}" + if (repeatAfterCompletion()) ";FROM=COMPLETION" else ""
+            repeatUntil = rrule.until?.let { DateTime(it).millis } ?: 0
+            recurrence = rrule.toString() + if (repeatAfterCompletion()) ";FROM=COMPLETION" else ""
         }
     }
 
@@ -603,9 +599,9 @@ class Task : Parcelable {
         }
 
         @JvmStatic
-        fun String?.sanitizeRRule(): String? = this
+        fun String?.sanitizeRecur(): String? = this
                 ?.replace("BYDAY=;", "")
-                ?.replace(INVALID_COUNT, "")
+                ?.replace(INVALID_COUNT, "") // ical4j adds COUNT=-1 if there is an UNTIL value
 
         @JvmStatic fun isUuidEmpty(uuid: String?): Boolean {
             return NO_UUID == uuid || Strings.isNullOrEmpty(uuid)
@@ -614,8 +610,5 @@ class Task : Parcelable {
         fun String?.isRepeatAfterCompletion() = this?.contains("FROM=COMPLETION") ?: false
 
         fun String?.withoutFrom(): String? = this?.replace(";?FROM=[^;]*".toRegex(), "")
-
-        @JvmStatic
-        fun String?.withoutRRULE(): String? = this?.replace("^RRULE:".toRegex(), "")
     }
 }

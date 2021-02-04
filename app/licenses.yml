@@ -156,12 +156,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
-- artifact: org.scala-saddle:google-rfc-2445:+
-  name: google-rfc-2445
-  copyrightHolder: Google Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://code.google.com/p/google-rfc-2445/
 - artifact: com.google.dagger:dagger:+
   name: Dagger
   copyrightHolder: The Dagger Authors

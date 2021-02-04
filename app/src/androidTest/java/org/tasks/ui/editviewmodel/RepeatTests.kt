@@ -23,7 +23,7 @@ class RepeatTests : BaseTaskEditViewModelTest() {
         save()
 
         assertEquals(
-                "RRULE:FREQ=DAILY;INTERVAL=1;FROM=COMPLETION",
+                "FREQ=DAILY;INTERVAL=1;FROM=COMPLETION",
                 taskDao.fetch(task.id)!!.recurrence)
     }
 

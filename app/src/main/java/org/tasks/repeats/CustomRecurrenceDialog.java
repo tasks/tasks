@@ -2,16 +2,17 @@ package org.tasks.repeats;
 
 import static android.app.Activity.RESULT_OK;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.ical.values.Frequency.DAILY;
-import static com.google.ical.values.Frequency.HOURLY;
-import static com.google.ical.values.Frequency.MINUTELY;
-import static com.google.ical.values.Frequency.MONTHLY;
-import static com.google.ical.values.Frequency.WEEKLY;
-import static com.google.ical.values.Frequency.YEARLY;
 import static java.util.Arrays.asList;
+import static net.fortuna.ical4j.model.Recur.Frequency.DAILY;
+import static net.fortuna.ical4j.model.Recur.Frequency.HOURLY;
+import static net.fortuna.ical4j.model.Recur.Frequency.MINUTELY;
+import static net.fortuna.ical4j.model.Recur.Frequency.MONTHLY;
+import static net.fortuna.ical4j.model.Recur.Frequency.WEEKLY;
+import static net.fortuna.ical4j.model.Recur.Frequency.YEARLY;
 import static org.tasks.Strings.isNullOrEmpty;
 import static org.tasks.dialogs.MyDatePickerDialog.newDatePicker;
 import static org.tasks.repeats.BasicRecurrenceDialog.EXTRA_RRULE;
+import static org.tasks.repeats.RecurrenceUtils.newRecur;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.app.Activity;
@@ -46,19 +47,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
-import com.google.ical.values.Frequency;
-import com.google.ical.values.RRule;
-import com.google.ical.values.Weekday;
-import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.text.DateFormatSymbols;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
+import net.fortuna.ical4j.model.Recur;
+import net.fortuna.ical4j.model.Recur.Frequency;
+import net.fortuna.ical4j.model.WeekDay;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.MyDatePickerDialog;
@@ -140,16 +139,16 @@ public class CustomRecurrenceDialog extends DialogFragment {
 
   private ArrayAdapter<String> repeatUntilAdapter;
   private ToggleButton[] weekButtons;
-  private RRule rrule;
+  private Recur rrule;
   private long dueDate;
 
   public static CustomRecurrenceDialog newCustomRecurrenceDialog(
-      Fragment target, int rc, RRule rrule, long dueDate) {
+      Fragment target, int rc, String rrule, long dueDate) {
     CustomRecurrenceDialog dialog = new CustomRecurrenceDialog();
     dialog.setTargetFragment(target, rc);
     Bundle arguments = new Bundle();
     if (rrule != null) {
-      arguments.putString(EXTRA_RRULE, rrule.toIcal());
+      arguments.putString(EXTRA_RRULE, rrule);
     }
     arguments.putLong(EXTRA_DATE, dueDate);
     dialog.setArguments(arguments);
@@ -170,15 +169,15 @@ public class CustomRecurrenceDialog extends DialogFragment {
             : savedInstanceState.getString(EXTRA_RRULE);
     try {
       if (!isNullOrEmpty(rule)) {
-        rrule = new RRule(rule);
+        rrule = newRecur(rule);
       }
     } catch (Exception e) {
       Timber.e(e);
     }
     if (rrule == null) {
-      rrule = new RRule();
+      rrule = newRecur();
       rrule.setInterval(1);
-      rrule.setFreq(WEEKLY);
+      rrule.setFrequency(WEEKLY.name());
     }
 
     DateFormatSymbols dfs = new DateFormatSymbols(locale.getLocale());
@@ -197,7 +196,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
       repeatMonthlyDayOfLastWeek.setVisibility(View.VISIBLE);
       String last = getString(R.string.repeat_monthly_last_week);
       String text = getString(R.string.repeat_monthly_on_every_day_of_nth_week, last, today);
-      repeatMonthlyDayOfLastWeek.setTag(new WeekdayNum(-1, calendarDayToWeekday(dueDayOfWeek)));
+      repeatMonthlyDayOfLastWeek.setTag(new WeekDay(calendarDayToWeekday(dueDayOfWeek), -1));
       repeatMonthlyDayOfLastWeek.setText(text);
     } else {
       repeatMonthlyDayOfLastWeek.setVisibility(View.GONE);
@@ -216,18 +215,18 @@ public class CustomRecurrenceDialog extends DialogFragment {
       String nth = getString(resources[dayOfWeekInMonth - 1]);
       String text = getString(R.string.repeat_monthly_on_every_day_of_nth_week, nth, today);
       repeatMonthlyDayOfNthWeek.setTag(
-          new WeekdayNum(dayOfWeekInMonth, calendarDayToWeekday(dueDayOfWeek)));
+          new WeekDay(calendarDayToWeekday(dueDayOfWeek), dayOfWeekInMonth));
       repeatMonthlyDayOfNthWeek.setText(text);
     } else {
       repeatMonthlyDayOfNthWeek.setVisibility(View.GONE);
     }
 
-    if (rrule.getFreq() == MONTHLY) {
-      if (rrule.getByDay().size() == 1) {
-        WeekdayNum weekdayNum = rrule.getByDay().get(0);
-        if (weekdayNum.num == -1) {
+    if (rrule.getFrequency() == MONTHLY) {
+      if (rrule.getDayList().size() == 1) {
+        WeekDay weekday = rrule.getDayList().get(0);
+        if (weekday.getOffset() == -1) {
           repeatMonthlyDayOfLastWeek.setChecked(true);
-        } else if (weekdayNum.num == dayOfWeekInMonth) {
+        } else if (weekday.getOffset() == dayOfWeekInMonth) {
           repeatMonthlyDayOfNthWeek.setChecked(true);
         }
       }
@@ -241,7 +240,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
         ArrayAdapter.createFromResource(context, R.array.repeat_frequency, R.layout.frequency_item);
     frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     frequencySpinner.setAdapter(frequencyAdapter);
-    frequencySpinner.setSelection(FREQUENCIES.indexOf(rrule.getFreq()));
+    frequencySpinner.setSelection(FREQUENCIES.indexOf(rrule.getFrequency()));
 
     intervalEditText.setText(locale.formatNumber(rrule.getInterval()));
 
@@ -280,7 +279,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     Calendar dayOfWeekCalendar = Calendar.getInstance(locale.getLocale());
     dayOfWeekCalendar.set(Calendar.DAY_OF_WEEK, dayOfWeekCalendar.getFirstDayOfWeek());
 
-    WeekdayNum todayWeekday = new WeekdayNum(0, new DateTime(dueDate).getWeekday());
+    WeekDay todayWeekday = new WeekDay(new DateTime(dueDate).getWeekDay(), 0);
 
     ColorStateList colorStateList =
         new ColorStateList(
@@ -323,12 +322,12 @@ public class CustomRecurrenceDialog extends DialogFragment {
       weekButton.setTextColor(colorStateList);
       weekButton.setTextOn(text);
       weekButton.setTextOff(text);
-      weekButton.setTag(new WeekdayNum(0, calendarDayToWeekday(dayOfWeek)));
+      weekButton.setTag(new WeekDay(calendarDayToWeekday(dayOfWeek), 0));
       if (savedInstanceState == null) {
         weekButton.setChecked(
-            rrule.getFreq() != WEEKLY || rrule.getByDay().isEmpty()
+            rrule.getFrequency() != WEEKLY || rrule.getDayList().isEmpty()
                 ? todayWeekday.equals(weekButton.getTag())
-                : rrule.getByDay().contains(weekButton.getTag()));
+                : rrule.getDayList().contains(weekButton.getTag()));
       }
       dayOfWeekCalendar.add(Calendar.DATE, 1);
     }
@@ -344,51 +343,54 @@ public class CustomRecurrenceDialog extends DialogFragment {
   }
 
   private void onRuleSelected(DialogInterface dialogInterface, int which) {
-    if (rrule.getFreq() == WEEKLY) {
-      List<WeekdayNum> checked = new ArrayList<>();
+    if (rrule.getFrequency() == WEEKLY) {
+      List<WeekDay> checked = new ArrayList<>();
       for (ToggleButton weekButton : weekButtons) {
         if (weekButton.isChecked()) {
-          checked.add((WeekdayNum) weekButton.getTag());
+          checked.add((WeekDay) weekButton.getTag());
         }
       }
-      rrule.setByDay(checked);
-    } else if (rrule.getFreq() == MONTHLY) {
+      rrule.getDayList().clear();
+      rrule.getDayList().addAll(checked);
+    } else if (rrule.getFrequency() == MONTHLY) {
       switch (monthGroup.getCheckedRadioButtonId()) {
         case R.id.repeat_monthly_same_day:
-          rrule.setByDay(Collections.emptyList());
+          rrule.getDayList().clear();
           break;
         case R.id.repeat_monthly_day_of_nth_week:
-          rrule.setByDay(newArrayList((WeekdayNum) repeatMonthlyDayOfNthWeek.getTag()));
+          rrule.getDayList().clear();
+          rrule.getDayList().addAll(newArrayList((WeekDay) repeatMonthlyDayOfNthWeek.getTag()));
           break;
         case R.id.repeat_monthly_day_of_last_week:
-          rrule.setByDay(newArrayList((WeekdayNum) repeatMonthlyDayOfLastWeek.getTag()));
+          rrule.getDayList().clear();
+          rrule.getDayList().addAll(newArrayList((WeekDay) repeatMonthlyDayOfLastWeek.getTag()));
           break;
       }
     } else {
-      rrule.setByDay(Collections.emptyList());
+      rrule.getDayList().clear();
     }
     Intent intent = new Intent();
-    intent.putExtra(EXTRA_RRULE, rrule.toIcal());
+    intent.putExtra(EXTRA_RRULE, rrule.toString());
     getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
     dismiss();
   }
 
-  private Weekday calendarDayToWeekday(int calendarDay) {
+  private WeekDay calendarDayToWeekday(int calendarDay) {
     switch (calendarDay) {
       case Calendar.SUNDAY:
-        return Weekday.SU;
+        return WeekDay.SU;
       case Calendar.MONDAY:
-        return Weekday.MO;
+        return WeekDay.MO;
       case Calendar.TUESDAY:
-        return Weekday.TU;
+        return WeekDay.TU;
       case Calendar.WEDNESDAY:
-        return Weekday.WE;
+        return WeekDay.WE;
       case Calendar.THURSDAY:
-        return Weekday.TH;
+        return WeekDay.TH;
       case Calendar.FRIDAY:
-        return Weekday.FR;
+        return WeekDay.FR;
       case Calendar.SATURDAY:
-        return Weekday.SA;
+        return WeekDay.SA;
     }
     throw new RuntimeException("Invalid calendar day: " + calendarDay);
   }
@@ -397,7 +399,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
   public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
 
-    outState.putString(EXTRA_RRULE, rrule.toIcal());
+    outState.putString(EXTRA_RRULE, rrule.toString());
   }
 
   private void setInterval(int interval, boolean updateEditText) {
@@ -428,7 +430,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
   }
 
   private int getFrequencyPlural() {
-    switch (rrule.getFreq()) {
+    switch (rrule.getFrequency()) {
       case MINUTELY:
         return R.plurals.repeat_minutes;
       case HOURLY:
@@ -442,7 +444,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
       case YEARLY:
         return R.plurals.repeat_years;
       default:
-        throw new RuntimeException("Invalid frequency: " + rrule.getFreq());
+        throw new RuntimeException("Invalid frequency: " + rrule.getFrequency());
     }
   }
 
@@ -467,7 +469,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
   @OnItemSelected(R.id.frequency)
   public void onFrequencyChanged(int position) {
     Frequency frequency = FREQUENCIES.get(position);
-    rrule.setFreq(frequency);
+    rrule.setFrequency(frequency.name());
     int weekVisibility = frequency == WEEKLY ? View.VISIBLE : View.GONE;
     weekGroup1.setVisibility(weekVisibility);
     if (weekGroup2 != null) {
@@ -545,7 +547,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     if (requestCode == REQUEST_PICK_DATE) {
       if (resultCode == RESULT_OK) {
         rrule.setUntil(
-            new DateTime(data.getLongExtra(MyDatePickerDialog.EXTRA_TIMESTAMP, 0L)).toDateValue());
+            new DateTime(data.getLongExtra(MyDatePickerDialog.EXTRA_TIMESTAMP, 0L)).toDate());
         rrule.setCount(0);
       }
       updateRepeatUntilOptions();

@@ -1,6 +1,5 @@
 package org.tasks.makers
 
-import com.google.ical.values.RRule
 import com.natpryce.makeiteasy.Instantiator
 import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
@@ -84,8 +83,7 @@ object TaskMaker {
             task.reminderPeriod = randomReminderPeriod
         }
         lookup.valueOf(RECUR, null as String?)?.let {
-            val rrule = if (it.startsWith("RRULE:")) it else "RRULE:$it"
-            task.setRecurrence(RRule(rrule), lookup.valueOf(AFTER_COMPLETE, false))
+            task.setRecurrence(it, lookup.valueOf(AFTER_COMPLETE, false))
         }
         task.uuid = lookup.valueOf(UUID, NO_UUID)
         val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())

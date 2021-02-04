@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.annotation.MainThread
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.ical.values.RRule
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.api.CaldavFilter
@@ -30,6 +29,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.runBlocking
+import net.fortuna.ical4j.model.Recur
 import org.tasks.Event
 import org.tasks.R
 import org.tasks.Strings
@@ -39,6 +39,7 @@ import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
+import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.time.DateTimeUtils.startOfDay
@@ -139,12 +140,14 @@ class TaskEditViewModel @Inject constructor(
             }
         }
 
-    var rrule: RRule?
+    var recur: Recur?
         get() = if (recurrence.isNullOrBlank()) {
             null
         } else {
-            val rrule = RRule(recurrence.withoutFrom())
-            rrule.until = DateTime(repeatUntil!!).toDateValue()
+            val rrule = newRecur(recurrence!!)
+            repeatUntil?.takeIf { it > 0 }?.let {
+                rrule.until = DateTime(it).toDate()
+            }
             rrule
         }
         set(value) {
@@ -153,16 +156,18 @@ class TaskEditViewModel @Inject constructor(
                 repeatUntil = 0
                 return
             }
-            val copy: RRule = try {
-                RRule(value.toIcal())
+            val copy = try {
+                newRecur(value.toString())
             } catch (e: ParseException) {
                 recurrence = ""
                 repeatUntil = 0
                 return
             }
             repeatUntil = DateTime.from(copy.until).millis
-            copy.until = null
-            var result = copy.toIcal()
+            if (repeatUntil ?: 0 > 0) {
+                copy.until = null
+            }
+            var result = copy.toString()
             if (repeatAfterCompletion!! && !result.isNullOrBlank()) {
                 result += ";FROM=COMPLETION"
             }

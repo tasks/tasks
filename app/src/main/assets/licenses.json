@@ -374,20 +374,6 @@
     },
     {
       "artifactId": {
-        "name": "google-rfc-2445",
-        "group": "org.scala-saddle",
-        "version": "+"
-      },
-      "copyrightHolder": "Google Inc.",
-      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "http://code.google.com/p/google-rfc-2445/",
-      "libraryName": "google-rfc-2445"
-    },
-    {
-      "artifactId": {
         "name": "dagger",
         "group": "com.google.dagger",
         "version": "+"

@@ -326,7 +326,6 @@
 ++--- com.google.android.apps.dashclock:dashclock-api:2.0.0
 ++--- com.twofortyfouram:android-plugin-api-for-locale:1.0.2
 ++--- com.rubiconproject.oss:jchronic:0.2.6
-++--- org.scala-saddle:google-rfc-2445:20110304
 ++--- com.wdullaer:materialdatetimepicker:4.2.3
 +|    +--- androidx.appcompat:appcompat:1.0.2 -> 1.2.0 (*)
 +|    \--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0 (*)

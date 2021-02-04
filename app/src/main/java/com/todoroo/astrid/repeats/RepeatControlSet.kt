@@ -17,14 +17,14 @@ import android.widget.Spinner
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.OnItemSelected
-import com.google.ical.values.Frequency
-import com.google.ical.values.RRule
-import com.google.ical.values.WeekdayNum
 import dagger.hilt.android.AndroidEntryPoint
+import net.fortuna.ical4j.model.Recur
+import net.fortuna.ical4j.model.WeekDay
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.repeats.BasicRecurrenceDialog
+import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.themes.Theme
 import org.tasks.time.DateTime
@@ -63,9 +63,9 @@ class RepeatControlSet : TaskEditControlFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_RECURRENCE) {
             if (resultCode == RESULT_OK) {
-                viewModel.rrule = data
+                viewModel.recur = data
                         ?.getStringExtra(BasicRecurrenceDialog.EXTRA_RRULE)
-                        ?.let { RRule(it) }
+                        ?.let { newRecur(it) }
                 refreshDisplayView()
             }
         } else {
@@ -74,19 +74,22 @@ class RepeatControlSet : TaskEditControlFragment() {
     }
 
     fun onDueDateChanged() {
-        viewModel.rrule?.let {
-            if (it.freq == Frequency.MONTHLY && it.byDay.isNotEmpty()) {
-                val weekdayNum = it.byDay[0]
+        viewModel.recur?.let { recur ->
+            if (recur.frequency == Recur.Frequency.MONTHLY && recur.dayList.isNotEmpty()) {
+                val weekdayNum = recur.dayList[0]
                 val dateTime = DateTime(this.dueDate)
                 val num: Int
                 val dayOfWeekInMonth = dateTime.dayOfWeekInMonth
-                num = if (weekdayNum.num == -1 || dayOfWeekInMonth == 5) {
+                num = if (weekdayNum.offset == -1 || dayOfWeekInMonth == 5) {
                     if (dayOfWeekInMonth == dateTime.maxDayOfWeekInMonth) -1 else dayOfWeekInMonth
                 } else {
                     dayOfWeekInMonth
                 }
-                it.byDay = listOf((WeekdayNum(num, dateTime.weekday)))
-                viewModel.rrule = it
+                recur.dayList.let {
+                    it.clear()
+                    it.add(WeekDay(dateTime.weekDay, num))
+                }
+                viewModel.recur = recur
                 refreshDisplayView()
             }
         }
@@ -127,7 +130,7 @@ class RepeatControlSet : TaskEditControlFragment() {
 
     override fun onRowClick() {
         BasicRecurrenceDialog.newBasicRecurrenceDialog(
-                this, REQUEST_RECURRENCE, viewModel.rrule, dueDate)
+                this, REQUEST_RECURRENCE, viewModel.recur?.toString(), dueDate)
                 .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
     }
 
@@ -140,12 +143,12 @@ class RepeatControlSet : TaskEditControlFragment() {
     override fun controlId() = TAG
 
     private fun refreshDisplayView() {
-        viewModel.rrule.let {
+        viewModel.recur.let {
             if (it == null) {
                 displayView.text = null
                 repeatTypeContainer.visibility = View.GONE
             } else {
-                displayView.text = repeatRuleToString.toString(it.toIcal())
+                displayView.text = repeatRuleToString.toString(it)
                 repeatTypeContainer.visibility = View.VISIBLE
             }
         }

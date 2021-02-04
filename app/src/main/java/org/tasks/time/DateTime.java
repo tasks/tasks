@@ -10,10 +10,6 @@ import static java.util.Calendar.TUESDAY;
 import static java.util.Calendar.WEDNESDAY;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import com.google.ical.values.DateTimeValue;
-import com.google.ical.values.DateValue;
-import com.google.ical.values.DateValueImpl;
-import com.google.ical.values.Weekday;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +19,7 @@ import java.util.GregorianCalendar;
 import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+import net.fortuna.ical4j.model.WeekDay;
 import org.tasks.locale.Locale;
 
 public class DateTime {
@@ -86,19 +83,24 @@ public class DateTime {
   }
 
   public static DateTime from(Date date) {
+    if (date == null) {
+      return new DateTime(0);
+    }
     DateTime dateTime = new DateTime(date.getTime());
     return dateTime.minusMillis(dateTime.getOffset());
   }
 
-  public static DateTime from(DateValue dateValue) {
-    if (dateValue == null) {
-      return new DateTime(0);
+  public static DateTime from(net.fortuna.ical4j.model.Date date) {
+    if (date instanceof net.fortuna.ical4j.model.DateTime) {
+      net.fortuna.ical4j.model.DateTime dt = (net.fortuna.ical4j.model.DateTime) date;
+      TimeZone tz = dt.getTimeZone();
+      return new DateTime(
+          dt.getTime(),
+          tz != null ? tz : dt.isUtc() ? UTC : TimeZone.getDefault()
+      );
+    } else {
+      return from((java.util.Date) date);
     }
-    if (dateValue instanceof DateTimeValue) {
-      DateTimeValue dt = (DateTimeValue) dateValue;
-      return new DateTime(dt.year(), dt.month(), dt.day(), dt.hour(), dt.minute(), dt.second());
-    }
-    return new DateTime(dateValue.year(), dateValue.month(), dateValue.day());
   }
 
   public DateTime(Date date) {
@@ -358,8 +360,8 @@ public class DateTime {
     return timestamp == 0 ? null : new net.fortuna.ical4j.model.DateTime(timestamp);
   }
 
-  public DateValue toDateValue() {
-    return timestamp == 0 ? null : new DateValueImpl(getYear(), getMonthOfYear(), getDayOfMonth());
+  public net.fortuna.ical4j.model.Date toDate() {
+    return timestamp == 0 ? null : new net.fortuna.ical4j.model.Date(timestamp);
   }
 
   public LocalDate toLocalDate() {
@@ -382,22 +384,22 @@ public class DateTime {
     return getCalendar().getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH);
   }
 
-  public Weekday getWeekday() {
+  public WeekDay getWeekDay() {
     switch (getCalendar().get(Calendar.DAY_OF_WEEK)) {
       case SUNDAY:
-        return Weekday.SU;
+        return WeekDay.SU;
       case MONDAY:
-        return Weekday.MO;
+        return WeekDay.MO;
       case TUESDAY:
-        return Weekday.TU;
+        return WeekDay.TU;
       case WEDNESDAY:
-        return Weekday.WE;
+        return WeekDay.WE;
       case THURSDAY:
-        return Weekday.TH;
+        return WeekDay.TH;
       case FRIDAY:
-        return Weekday.FR;
+        return WeekDay.FR;
       case SATURDAY:
-        return Weekday.SA;
+        return WeekDay.SA;
     }
     throw new RuntimeException();
   }
