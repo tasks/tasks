@@ -344,7 +344,7 @@
     </plurals>
     <string name="repeat_type_due">termínu úkolu</string>
     <string name="repeat_type_completion">datum dokončení</string>
-    <string name="repeat_occurs">Vyskytne se</string>
+    <string name="repeat_occurs">Opakovat</string>
     <string name="repeat_snackbar">Úkol %1$s byl znovu naplánován na %2$s</string>
     <string name="new_list">Vytvořit nový seznam</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks bude při upomínce nahlas číst název úkolu</string>
@@ -619,4 +619,10 @@
         <item quantity="other">%d seznamů</item>
     </plurals>
     <string name="always_display_full_date">Zobrazit celé datum</string>
+    <string name="no_app_found">Žádná vhodná aplikace nenalezena</string>
+    <string name="widget_show_title">Zobrazit název</string>
+    <string name="yesterday_abbrev_lowercase">včera</string>
+    <string name="tomorrow_abbrev_lowercase">zítra</string>
+    <string name="default_location">Výchozí místo</string>
+    <string name="default_due_date">Výchozí termín</string>
 </resources>
