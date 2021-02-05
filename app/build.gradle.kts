@@ -12,9 +12,9 @@ plugins {
 
 repositories {
     mavenCentral()
-    jcenter()
     google()
     maven(url = "https://jitpack.io")
+    jcenter()
 }
 
 android {
