@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.google.api.client.http.InputStreamContent
 import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.json.jackson2.JacksonFactory
+import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.model.File
 import com.todoroo.astrid.gtasks.api.HttpCredentialsAdapter
@@ -24,7 +24,7 @@ class DriveInvoker(
         interceptor: DebugNetworkInterceptor
 ) : BaseInvoker(credentialsAdapter, preferences, interceptor) {
     private val service =
-            Drive.Builder(NetHttpTransport(), JacksonFactory(), credentialsAdapter)
+            Drive.Builder(NetHttpTransport(), GsonFactory(), credentialsAdapter)
                     .setApplicationName(APP_NAME)
                     .build()
 

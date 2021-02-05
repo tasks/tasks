@@ -135,6 +135,8 @@ configurations.all {
     exclude(group = "com.google.code.findbugs")
     exclude(group = "com.google.errorprone")
     exclude(group = "com.google.j2objc")
+    exclude(group = "com.google.http-client", module = "google-http-client-apache-v2")
+    exclude(group = "com.google.http-client", module = "google-http-client-jackson2")
 }
 
 val genericImplementation by configurations
@@ -170,7 +172,7 @@ dependencies {
 
     debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${Versions.flipper}")
-    debugImplementation("com.facebook.soloader:soloader:0.9.0")
+    debugImplementation("com.facebook.soloader:soloader:0.10.1")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
 
@@ -193,13 +195,13 @@ dependencies {
     }
     implementation("com.wdullaer:materialdatetimepicker:4.2.3")
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
-    implementation("com.google.apis:google-api-services-tasks:v1-rev20200905-1.30.10")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20201101-1.30.10")
-    implementation("com.google.auth:google-auth-library-oauth2-http:0.22.0")
+    implementation("com.google.apis:google-api-services-tasks:v1-rev20200905-1.31.0")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20201130-1.31.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:0.23.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("androidx.work:work-runtime-ktx:${Versions.work}")
-    implementation("com.mapbox.mapboxsdk:mapbox-android-core:3.1.0")
-    implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0")
+    implementation("com.mapbox.mapboxsdk:mapbox-android-core:3.1.1")
+    implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.8.0")
     implementation("com.etesync:journalmanager:1.1.1")
     implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
@@ -231,7 +233,7 @@ dependencies {
     androidTestImplementation("androidx.annotation:annotation:1.1.0")
 
     testImplementation("junit:junit:4.13.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2")
     testImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
     testImplementation("androidx.test:core:${Versions.androidx_test}")
     testImplementation("org.mockito:mockito-core:${Versions.mockito}")

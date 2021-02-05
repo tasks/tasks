@@ -625,20 +625,6 @@
     },
     {
       "artifactId": {
-        "name": "jackson-core",
-        "group": "com.fasterxml.jackson.core",
-        "version": "+"
-      },
-      "copyrightHolder": "FasterXML",
-      "copyrightStatement": "Copyright &copy; FasterXML. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/FasterXML/jackson-core",
-      "libraryName": "Jackson-core"
-    },
-    {
-      "artifactId": {
         "name": "cardview",
         "group": "androidx.cardview",
         "version": "+"
@@ -1022,19 +1008,6 @@
       "normalizedLicense": "apache2",
       "url": "https://kotlinlang.org/",
       "libraryName": "org.jetbrains.kotlin:kotlin-stdlib-common"
-    },
-    {
-      "artifactId": {
-        "name": "google-http-client-jackson2",
-        "group": "com.google.http-client",
-        "version": "+"
-      },
-      "copyrightHolder": "Google Inc.",
-      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "libraryName": "Jackson 2 extensions to the Google HTTP Client Library for Java."
     },
     {
       "artifactId": {
@@ -2074,6 +2047,18 @@
       "normalizedLicense": "apache2",
       "url": "http://developer.android.com/tools/extras/support-library.html",
       "libraryName": "print"
+    },
+    {
+      "artifactId": {
+        "name": "google-http-client-gson",
+        "group": "com.google.http-client",
+        "version": "+"
+      },
+      "copyrightHolder": "Google Inc.",
+      "copyrightStatement": "Copyright &copy; Google Inc. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "normalizedLicense": "apache2",
+      "libraryName": "google-http-client-gson"
     }
   ]
 }

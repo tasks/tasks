@@ -265,12 +265,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
-- artifact: com.fasterxml.jackson.core:jackson-core:+
-  name: Jackson-core
-  copyrightHolder: FasterXML
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/FasterXML/jackson-core
 - artifact: androidx.cardview:cardview:+
   name: Android Support CardView v7
   copyrightHolder: Android Open Source Project
@@ -434,11 +428,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://kotlinlang.org/
-- artifact: com.google.http-client:google-http-client-jackson2:+
-  name: Jackson 2 extensions to the Google HTTP Client Library for Java.
-  copyrightHolder: Google Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: com.jakewharton:butterknife:+
   name: ButterKnife
   copyrightHolder: Jake Wharton
@@ -871,3 +860,7 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
+- artifact: com.google.http-client:google-http-client-gson:+
+  name: google-http-client-gson
+  copyrightHolder: Google Inc.
+  license: The Apache Software License, Version 2.0

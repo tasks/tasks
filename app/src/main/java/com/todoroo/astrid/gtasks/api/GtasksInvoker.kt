@@ -1,7 +1,7 @@
 package com.todoroo.astrid.gtasks.api
 
 import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.json.jackson2.JacksonFactory
+import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.tasks.Tasks
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
@@ -23,7 +23,7 @@ class GtasksInvoker(
         interceptor: DebugNetworkInterceptor
 ) : BaseInvoker(credentials, preferences, interceptor) {
     private val service =
-            Tasks.Builder(NetHttpTransport(), JacksonFactory(), credentials)
+            Tasks.Builder(NetHttpTransport(), GsonFactory(), credentials)
                     .setApplicationName(APP_NAME)
                     .build()
 
