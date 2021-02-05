@@ -1,13 +1,13 @@
 package org.tasks.location;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 import org.tasks.data.Place;
 
 public interface MapFragment {
 
-  void init(FragmentManager fragmentManager, MapFragmentCallback callback, boolean dark);
+  void init(AppCompatActivity activity, MapFragmentCallback callback, boolean dark);
 
   @Nullable MapPosition getMapPosition();
 
@@ -19,7 +19,11 @@ public interface MapFragment {
 
   void showMyLocation();
 
-  int getMarkerId();
+  void onPause();
+
+  void onResume();
+
+  void onDestroy();
 
   interface MapFragmentCallback {
     void onMapReady(MapFragment mapFragment);

@@ -54,7 +54,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
             selectedIcon = place.getIcon()!!
         }
 
-        map.init(supportFragmentManager, this, tasksTheme.themeBase.isDarkTheme(this))
+        map.init(this, this, tasksTheme.themeBase.isDarkTheme(this))
 
         updateTheme()
     }

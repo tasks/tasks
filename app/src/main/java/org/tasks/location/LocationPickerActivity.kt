@@ -140,7 +140,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         themeColor.setStatusBarColor(toolbarLayout)
         themeColor.apply(toolbar)
         val dark = theme.themeBase.isDarkTheme(this)
-        map.init(supportFragmentManager, this, dark)
+        map.init(this, this, dark)
         val params = appBarLayout.layoutParams as CoordinatorLayout.LayoutParams
         val behavior = AppBarLayout.Behavior()
         behavior.setDragCallback(
@@ -166,13 +166,15 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
                         coordinatorLayout.removeOnLayoutChangeListener(this)
                         locationDao
                                 .getPlaceUsage()
-                                .observe(this@LocationPickerActivity, Observer { places: List<PlaceUsage> -> updatePlaces(places) })
+                                .observe(this@LocationPickerActivity) {
+                                    places: List<PlaceUsage> -> updatePlaces(places)
+                                }
                     }
                 })
         if (offset != 0) {
             appBarLayout.post { expandToolbar(false) }
         }
-        findViewById<View>(map.markerId).visibility = View.VISIBLE
+        findViewById<View>(R.id.google_marker).visibility = View.VISIBLE
         searchAdapter = LocationSearchAdapter(viewModel.getAttributionRes(dark), this)
         recentsAdapter = LocationPickerAdapter(this, inventory, colorProvider, this)
         recentsAdapter!!.setHasStableIds(true)
@@ -298,12 +300,18 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
 
     override fun onResume() {
         super.onResume()
+        map.onResume()
         viewModel.observe(this, Observer { list: List<PlaceSearchResult?>? -> searchAdapter!!.submitList(list) }, Observer { place: Place? -> returnPlace(place) }, Observer { error: Event<String> -> handleError(error) })
         disposables = CompositeDisposable(
                 searchSubject
                         .debounce(SEARCH_DEBOUNCE_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe { query: String? -> viewModel.query(query, mapPosition) })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        map.onDestroy()
     }
 
     private fun handleError(error: Event<String>) {
@@ -343,6 +351,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
 
     override fun onPause() {
         super.onPause()
+        map.onPause()
         disposables!!.dispose()
     }
 

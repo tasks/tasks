@@ -207,9 +207,7 @@ dependencies {
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("com.github.openid:AppAuth-Android:27b62d5")
 
-    // https://github.com/mapbox/mapbox-gl-native-android/issues/316
-    genericImplementation("com.mapbox.mapboxsdk:mapbox-android-sdk:7.4.1")
-    genericImplementation("com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0")
+    genericImplementation("org.osmdroid:osmdroid-android:6.1.10@aar")
 
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}") {

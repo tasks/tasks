@@ -2,7 +2,7 @@ package org.tasks.location
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -19,9 +19,10 @@ class GoogleMapFragment(private val context: Context) : MapFragment, OnMapReadyC
     private var dark = false
     private var map: GoogleMap? = null
 
-    override fun init(fragmentManager: FragmentManager, callbacks: MapFragmentCallback, dark: Boolean) {
+    override fun init(activity: AppCompatActivity, callbacks: MapFragmentCallback, dark: Boolean) {
         this.callbacks = callbacks
         this.dark = dark
+        val fragmentManager = activity.supportFragmentManager
         var mapFragment = fragmentManager.findFragmentByTag(FRAG_TAG_MAP) as SupportMapFragment?
         if (mapFragment == null) {
             mapFragment = SupportMapFragment()
@@ -89,7 +90,11 @@ class GoogleMapFragment(private val context: Context) : MapFragment, OnMapReadyC
         callbacks.onMapReady(this)
     }
 
-    override fun getMarkerId() = R.id.google_marker
+    override fun onPause() {}
+
+    override fun onResume() {}
+
+    override fun onDestroy() {}
 
     override fun onMarkerClick(marker: Marker): Boolean {
         callbacks.onPlaceSelected(marker.tag as Place?)

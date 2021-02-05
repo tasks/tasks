@@ -39,18 +39,6 @@
           app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
-          android:id="@+id/mapbox_marker"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:src="@drawable/mapbox_marker_icon_default"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="@id/map"
-          app:layout_constraintLeft_toLeftOf="@id/map"
-          app:layout_constraintRight_toRightOf="@id/map"
-          app:layout_constraintTop_toTopOf="@id/map"/>
-
-        <ImageView
           android:id="@+id/google_marker"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -75,16 +63,6 @@
           app:borderWidth="0dp"
           app:layout_constraintBottom_toBottomOf="@id/map"
           app:layout_constraintEnd_toEndOf="@id/map"/>
-
-        <!--
-        This view is a hack, when using a Mapbox fragment for some reason other views
-        dont collapse under the status bar without this
-        -->
-        <View
-          android:layout_width="match_parent"
-          android:layout_height="0px"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"/>
 
         <RelativeLayout
           android:id="@+id/select_this_location"
