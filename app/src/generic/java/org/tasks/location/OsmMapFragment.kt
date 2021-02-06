@@ -77,7 +77,10 @@ class OsmMapFragment(private val context: Context) : MapFragment {
         }
     }
 
-    override fun disableGestures() = map.setMultiTouchControls(false)
+    @SuppressLint("ClickableViewAccessibility")
+    override fun disableGestures() {
+        map.setOnTouchListener { _, _ -> true }
+    }
 
     @SuppressLint("MissingPermission")
     override fun showMyLocation() {
