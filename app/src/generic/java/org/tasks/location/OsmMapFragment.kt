@@ -11,6 +11,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.CopyrightOverlay
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.TilesOverlay
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
@@ -36,6 +37,9 @@ class OsmMapFragment(private val context: Context) : MapFragment {
             if (dark) {
                 overlayManager.tilesOverlay.setColorFilter(TilesOverlay.INVERT_COLORS)
             }
+            val copyright = CopyrightOverlay(activity)
+            copyright.setTextColor(ContextCompat.getColor(activity, R.color.text_primary))
+            overlays.add(copyright)
             activity.findViewById<ViewGroup>(R.id.map).addView(this)
         }
         callbacks.onMapReady(this)
