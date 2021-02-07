@@ -67,8 +67,8 @@ class OsmMapFragment(private val context: Context) : MapFragment {
         for (place in places) {
             overlays.add(Marker(map).apply {
                 position = GeoPoint(place.latitude, place.longitude)
-                setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
-                icon = ContextCompat.getDrawable(context, R.drawable.map_marker_padding)!!.mutate()
+                setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
+                icon = ContextCompat.getDrawable(context, R.drawable.ic_map_marker_select_red_48dp)!!.mutate()
                 setOnMarkerClickListener { _, _ ->
                     callbacks.onPlaceSelected(place)
                     false
