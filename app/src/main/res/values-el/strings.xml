@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">Καθαρή εικόνα</string>
     <string name="TVA_add_comment">Προσθήκη σχόλιου…</string>
@@ -146,5 +146,8 @@
     <string name="yesterday">Χθές</string>
     <string name="tmrw">Αύριο</string>
     <string name="yest">Χθές</string>
-    <string name="TLA_menu_donate">Δωρίστε</string>
+    <string name="TLA_menu_donate">Δωρεά</string>
+    <string name="remove">Αφαίρεση</string>
+    <string name="add_location">Προσθήκη τοποθεσίας</string>
+    <string name="add_reminder">Προσθήκη υπενθύμισης</string>
 </resources>
