@@ -486,12 +486,6 @@
       android:name=".scheduling.CalendarNotificationIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"/>
 
-    <receiver android:name=".location.GeofenceTransitionsIntentService$Broadcast"/>
-    <service
-      android:exported="false"
-      android:name=".location.GeofenceTransitionsIntentService"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
-
     <receiver android:name=".notifications.NotificationClearedReceiver"/>
 
     <service
