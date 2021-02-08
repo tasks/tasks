@@ -58,7 +58,7 @@
     </plurals>
     <string name="repeat_option_custom">Propra…</string>
     <string name="random_reminder_day">tage</string>
-    <string name="no_start_date">Sen ek dato</string>
+    <string name="no_start_date">Sen komencdato</string>
     <string name="CFA_type_intersect">ankaŭ</string>
     <string name="CFA_type_subtract">ne</string>
     <string name="CFA_type_add">aŭ</string>
@@ -72,8 +72,8 @@
     <string name="TEA_control_files">Dosieroj</string>
     <string name="TEA_control_notes">Priskribo</string>
     <string name="TEA_control_gcal">Kalendaro</string>
-    <string name="start_date">Ek dato</string>
-    <string name="TEA_no_time">Sen horo</string>
+    <string name="start_date">Komencdato</string>
+    <string name="TEA_no_time">Sen tempo</string>
     <string name="save">Konservi</string>
     <string name="TEA_note_label">Priskribo</string>
     <string name="TEA_no_date">Sen dato</string>
@@ -93,4 +93,9 @@
     <string name="TVA_add_comment">Aldoni komenton…</string>
     <string name="cancel">Nuligi</string>
     <string name="ok">Bone</string>
+    <string name="no_time">Sen tempo</string>
+    <string name="no_due_date">Sen limdato</string>
+    <string name="default_due_date">Defaŭlta limdato</string>
+    <string name="due_time">Limtempo</string>
+    <string name="due_date">Limdato</string>
 </resources>
