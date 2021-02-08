@@ -84,7 +84,7 @@
     <string name="TAd_actionEditTask">Redakti</string>
     <string name="TLA_menu_settings">Agordoj</string>
     <string name="TLA_menu_search">Serĉi</string>
-    <string name="TLA_no_items">Ne estas iajn taskojn.</string>
+    <string name="TLA_no_items">Ne estas ajn taskojn.</string>
     <string name="WID_dateButtonUnset">Alklaku por ŝanĝi</string>
     <string name="DLG_undo">Malfari</string>
     <string name="DLG_hour_minutes">Tempo (horoj : minutoj)</string>
@@ -98,4 +98,23 @@
     <string name="default_due_date">Defaŭlta limdato</string>
     <string name="due_time">Limtempo</string>
     <string name="due_date">Limdato</string>
+    <string name="color_wheel">Kolora rado</string>
+    <string name="color">Koloro</string>
+    <string name="chip_appearance_icon_only">Nur bildeto</string>
+    <string name="chip_appearance_text_and_icon">Teksto kaj bildeto</string>
+    <string name="icon">Bildeto</string>
+    <string name="custom_filter_is_subtask">Estas subtasko</string>
+    <string name="custom_filter_has_subtask">Kun subtaskoj</string>
+    <string name="subtasks">Subtaskoj</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d subtasko</item>
+        <item quantity="other">%d subtaskoj</item>
+    </plurals>
+    <string name="TEA_add_subtask">Aldoni subtaskon</string>
+    <string name="repeat_option_every_year">Ĉiujare</string>
+    <string name="repeat_option_every_month">Ĉiumonate</string>
+    <string name="repeat_option_every_day">Ĉiutage</string>
+    <string name="repeat_option_every_week">Ĉiusemajne</string>
+    <string name="repeat_every">Ĉiu</string>
+    <string name="repeat_option_does_not_repeat">Ne ripetas</string>
 </resources>
