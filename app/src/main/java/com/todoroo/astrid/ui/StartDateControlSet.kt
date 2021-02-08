@@ -92,7 +92,7 @@ class StartDateControlSet : TaskEditControlFragment() {
             selectedDay = savedInstanceState.getLong(EXTRA_DAY)
             selectedTime = savedInstanceState.getInt(EXTRA_TIME)
         }
-        refreshDisplayView()
+        applySelectionToHideUntil()
     }
 
     override val layout = R.layout.control_set_hide

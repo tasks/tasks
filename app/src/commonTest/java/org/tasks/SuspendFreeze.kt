@@ -5,9 +5,9 @@ import org.tasks.time.DateTimeUtils
 
 class SuspendFreeze {
 
-    suspend fun thawAfter(run: suspend () -> Unit) {
+    suspend fun <T> thawAfter(run: suspend () -> T): T {
         try {
-            run()
+            return run()
         } finally {
             thaw()
         }
@@ -15,16 +15,16 @@ class SuspendFreeze {
 
     companion object {
 
-        suspend fun freezeClock(run: suspend () -> Unit) {
-            freezeAt(DateTimeUtils.currentTimeMillis()).thawAfter(run)
+        suspend fun <T> freezeClock(run: suspend () -> T): T {
+            return freezeAt(DateTimeUtils.currentTimeMillis()).thawAfter(run)
         }
 
-        suspend fun freezeAt(dateTime: DateTime, run: suspend () -> Unit) {
-            freezeAt(dateTime.millis, run)
+        suspend fun <T> freezeAt(dateTime: DateTime, run: suspend () -> T): T {
+            return freezeAt(dateTime.millis, run)
         }
 
-        suspend fun freezeAt(timestamp: Long, run: suspend () -> Unit) {
-            freezeAt(timestamp).thawAfter(run)
+        suspend fun <T> freezeAt(timestamp: Long, run: suspend () -> T): T {
+            return freezeAt(timestamp).thawAfter(run)
         }
 
         fun freezeAt(dateTime: DateTime): SuspendFreeze {

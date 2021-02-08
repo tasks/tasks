@@ -7,7 +7,10 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.DUE_DATE
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_NONE
+import com.todoroo.astrid.data.Task.Companion.IMPORTANCE
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.helper.UUIDHelper
@@ -17,6 +20,7 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.*
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -84,7 +88,7 @@ class TaskCreator @Inject constructor(
      * Create task from the given content values, saving it. This version doesn't need to start with a
      * base task model.
      */
-    private suspend fun create(values: Map<String, Any>?, title: String?): Task {
+    internal suspend fun create(values: Map<String, Any>?, title: String?): Task {
         val task = Task()
         task.creationDate = DateUtilities.now()
         task.modificationDate = DateUtilities.now()
@@ -93,13 +97,6 @@ class TaskCreator @Inject constructor(
         }
         task.uuid = UUIDHelper.newUUID()
         task.priority = preferences.defaultPriority
-        task.hideUntil = task.createHideUntil(
-                preferences.getIntegerFromString(R.string.p_default_hideUntil_key, HIDE_UNTIL_NONE),
-                0
-        )
-        task.dueDate = createDueDate(
-                preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE),
-                0)
         preferences.getStringValue(R.string.p_default_recurrence)
                 ?.takeIf { it.isNotBlank() }
                 ?.let {
@@ -112,26 +109,26 @@ class TaskCreator @Inject constructor(
                 ?.let { task.putTransitory(Place.KEY, it) }
         setDefaultReminders(preferences, task)
         val tags = ArrayList<String>()
-        if (values != null && values.isNotEmpty()) {
-            for (item in values.entries) {
-                val key = item.key
-                var value: Any? = item.value
-                when (key) {
-                    Tag.KEY -> tags.add(value as String)
-                    GoogleTask.KEY, CaldavTask.KEY, Place.KEY -> task.putTransitory(key, value!!)
-                    else -> {
-                        if (value is String) {
-                            value = PermaSql.replacePlaceholdersForNewTask(value as String?)
-                        }
-                        when (key) {
-                            "dueDate" -> task.dueDate = java.lang.Long.valueOf((value as String?)!!)
-                            "importance" -> task.priority = Integer.valueOf((value as String?)!!)
-                            else -> {
-                            }
-                        }
-                    }
-                }
+        values?.entries?.forEach { (key, value) ->
+            when (key) {
+                Tag.KEY -> tags.add(value as String)
+                GoogleTask.KEY, CaldavTask.KEY, Place.KEY -> task.putTransitory(key, value)
+                DUE_DATE.name -> value.substitute()?.toLongOrNull()?.let { task.dueDate = it }
+                IMPORTANCE.name -> value.substitute()?.toIntOrNull()?.let { task.priority = it }
+                HIDE_UNTIL.name ->
+                    value.substitute()?.toLongOrNull()?.let { task.hideUntil = it.startOfDay() }
             }
+        }
+        if (values?.containsKey(DUE_DATE.name) != true) {
+            task.dueDate = createDueDate(
+                    preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE),
+                    0)
+        }
+        if (values?.containsKey(HIDE_UNTIL.name) != true) {
+            task.hideUntil = task.createHideUntil(
+                    preferences.getIntegerFromString(R.string.p_default_hideUntil_key, HIDE_UNTIL_NONE),
+                    0
+            )
         }
         if (tags.isEmpty()) {
             preferences.getStringValue(R.string.p_default_tags)
@@ -167,5 +164,8 @@ class TaskCreator @Inject constructor(
                     * preferences.getIntegerFromString(R.string.p_rmd_default_random_hours, 0))
             task.reminderFlags = preferences.defaultReminders or preferences.defaultRingMode
         }
+
+        private fun Any?.substitute(): String? =
+            (this as? String)?.let { PermaSql.replacePlaceholdersForNewTask(it) }
     }
 }
