@@ -6,14 +6,10 @@ import android.content.Intent
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.reminders.ReminderService
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.Notifier
 import org.tasks.data.LocationDao
-import org.tasks.data.Place
 import org.tasks.injection.InjectingJobIntentService
-import org.tasks.notifications.Notification
-import org.tasks.time.DateTimeUtils
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -53,21 +49,10 @@ class GeofenceTransitionsIntentService : InjectingJobIntentService() {
             } else {
                 locationDao.getDepartureGeofences(place.uid!!, DateUtilities.now())
             }
-            geofences
-                    .map { toNotification(place, it, arrival) }
-                    .let { notifier.triggerNotifications(it) }
+            notifier.triggerNotifications(place.id, geofences, arrival)
         } catch (e: Exception) {
             Timber.e(e, "Error triggering geofence %s: %s", requestId, e.message)
         }
-    }
-
-    private fun toNotification(place: Place, geofence: org.tasks.data.Geofence?, arrival: Boolean): Notification {
-        val notification = Notification()
-        notification.taskId = geofence!!.task
-        notification.type = if (arrival) ReminderService.TYPE_GEOFENCE_ENTER else ReminderService.TYPE_GEOFENCE_EXIT
-        notification.timestamp = DateTimeUtils.currentTimeMillis()
-        notification.location = place.id
-        return notification
     }
 
     class Broadcast : BroadcastReceiver() {
