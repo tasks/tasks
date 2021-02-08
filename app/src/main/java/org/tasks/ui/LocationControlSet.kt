@@ -65,7 +65,7 @@ class LocationControlSet : TaskEditControlFragment() {
             geofenceOptions.visibility = View.GONE
             locationAddress.visibility = View.GONE
         } else {
-            geofenceOptions.visibility = if (device.supportsGeofences()) View.VISIBLE else View.GONE
+            geofenceOptions.visibility = View.VISIBLE
             geofenceOptions.setImageResource(
                     if (permissionChecker.canAccessBackgroundLocation()
                             && (location.isArrival || location.isDeparture)) R.drawable.ic_outline_notifications_24px else R.drawable.ic_outline_notifications_off_24px)

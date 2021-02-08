@@ -112,8 +112,6 @@ class TaskDefaults : InjectingPreferenceFragment() {
         updateRecurrence()
         updateDefaultLocation()
         updateTags()
-
-        requires(device.supportsGeofences(), R.string.p_default_location_reminder_key, R.string.p_default_location_radius)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

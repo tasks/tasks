@@ -2,6 +2,7 @@ package org.tasks.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.data.Task
 import org.tasks.filters.LocationFilters
@@ -38,13 +39,13 @@ interface LocationDao {
             + " INNER JOIN tasks ON tasks._id = geofences.task"
             + " WHERE place = :place AND arrival = 1 AND tasks.completed = 0"
             + " AND tasks.deleted = 0 AND tasks.snoozeTime < :now AND tasks.hideUntil < :now")
-    suspend fun getArrivalGeofences(place: String, now: Long): List<Geofence>
+    suspend fun getArrivalGeofences(place: String, now: Long = now()): List<Geofence>
 
     @Query("SELECT geofences.* FROM geofences"
             + " INNER JOIN tasks ON tasks._id = geofences.task"
             + " WHERE place = :place AND departure = 1 AND tasks.completed = 0"
             + " AND tasks.deleted = 0 AND tasks.snoozeTime < :now AND tasks.hideUntil < :now")
-    suspend fun getDepartureGeofences(place: String, now: Long): List<Geofence>
+    suspend fun getDepartureGeofences(place: String, now: Long = now()): List<Geofence>
 
     @Query("SELECT * FROM geofences"
             + " INNER JOIN places ON geofences.place = places.uid"

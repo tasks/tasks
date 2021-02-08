@@ -13,7 +13,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.BuildConfig;
-import org.tasks.R;
 import org.tasks.locale.Locale;
 import timber.log.Timber;
 
@@ -34,10 +33,6 @@ public class Device {
 
   public boolean hasMicrophone() {
     return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE);
-  }
-
-  public boolean supportsGeofences() {
-    return context.getResources().getBoolean(R.bool.support_geofences);
   }
 
   public boolean voiceInputAvailable() {
