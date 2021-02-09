@@ -5,8 +5,7 @@ import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.getParent
@@ -172,6 +171,26 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
         synchronizer.sync()
 
         assertTrue(openTaskDao.getTask(listId, "abcd")?.task!!.collapsed)
+    }
+
+    @Test
+    fun removeCollapsedState() = runBlocking {
+        val (listId, list) = withVtodo(HIDE_SUBTASKS)
+
+        synchronizer.sync()
+
+        val task = caldavDao.getTaskByRemoteId(list.uuid!!, "2822976a-b71e-4962-92e4-db7297789c20")
+
+        taskDao.setCollapsed(task!!.task, false)
+
+        synchronizer.sync()
+
+        assertFalse(
+                openTaskDao
+                        .getTask(listId, "2822976a-b71e-4962-92e4-db7297789c20")
+                        ?.task
+                        !!.collapsed
+        )
     }
 
     private suspend fun insertTag(task: Task, name: String) =

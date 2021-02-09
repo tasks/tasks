@@ -1,10 +1,10 @@
 package org.tasks.opentasks
 
+import com.todoroo.astrid.dao.TaskDao
 import org.junit.Before
 import org.tasks.R
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
-import org.tasks.data.TaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
