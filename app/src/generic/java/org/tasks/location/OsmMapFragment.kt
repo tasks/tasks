@@ -63,7 +63,7 @@ class OsmMapFragment(private val context: Context) : MapFragment {
 
     override fun setMarkers(places: List<Place>) {
         val overlays = map.overlays
-        overlays.removeIf { it is Marker }
+        overlays.removeAll(overlays.filterIsInstance<Marker>())
         for (place in places) {
             overlays.add(Marker(map).apply {
                 position = GeoPoint(place.latitude, place.longitude)
