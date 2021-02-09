@@ -2,6 +2,7 @@ package org.tasks.widget
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
@@ -9,7 +10,6 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.TaskDao
 import org.tasks.dialogs.BaseDateTimePicker.OnDismissHandler
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.injection.InjectingAppCompatActivity

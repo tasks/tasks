@@ -71,10 +71,15 @@ class TaskDao @Inject constructor(
 
     suspend fun getChildren(id: Long): List<Long> = taskDao.getChildren(id)
 
-    suspend fun setCollapsed(id: Long, collapsed: Boolean) = taskDao.setCollapsed(id, collapsed)
+    suspend fun setCollapsed(id: Long, collapsed: Boolean) {
+        taskDao.setCollapsed(listOf(id), collapsed)
+        syncAdapters.sync()
+    }
 
-    suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) =
-            taskDao.setCollapsed(preferences, filter, collapsed)
+    suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
+        taskDao.setCollapsed(preferences, filter, collapsed)
+        syncAdapters.sync()
+    }
 
     // --- save
     // TODO: get rid of this super-hack

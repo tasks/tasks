@@ -29,6 +29,7 @@ import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator

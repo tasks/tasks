@@ -119,7 +119,6 @@ class iCalendar @Inject constructor(
 
     suspend fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task, remoteModel: Task) {
         remoteModel.applyLocal(caldavTask, task)
-        remoteModel.order = caldavTask.order
         val categories = remoteModel.categories
         categories.clear()
         categories.addAll(tagDataDao.getTagDataForTask(task.id).map { it.name!! })
@@ -172,6 +171,8 @@ class iCalendar @Inject constructor(
 
     companion object {
         private const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
+        private const val OC_HIDESUBTASKS = "X-OC-HIDESUBTASKS"
+        private const val HIDE_SUBTASKS = "1"
         private val IS_PARENT = { r: RelatedTo ->
             r.parameters.getParameter<RelType>(Parameter.RELTYPE).let {
                 it === RelType.PARENT || it == null || it.value.isNullOrBlank()
@@ -180,6 +181,10 @@ class iCalendar @Inject constructor(
 
         private val IS_APPLE_SORT_ORDER = { x: Property? ->
             x?.name.equals(APPLE_SORT_ORDER, true)
+        }
+
+        private val IS_OC_HIDESUBTASKS = { x: Property? ->
+            x?.name.equals(OC_HIDESUBTASKS, true)
         }
 
         fun Due?.apply(task: com.todoroo.astrid.data.Task) {
@@ -244,21 +249,28 @@ class iCalendar @Inject constructor(
         }
 
         var Task.order: Long?
-            get() = unknownProperties
-                    .find { it.name?.equals(APPLE_SORT_ORDER, true) == true }
-                    .let { it?.value?.toLongOrNull() }
+            get() = unknownProperties.find(IS_APPLE_SORT_ORDER).let { it?.value?.toLongOrNull() }
             set(order) {
                 if (order == null) {
-                    unknownProperties.removeAll(unknownProperties.filter(IS_APPLE_SORT_ORDER))
+                    unknownProperties.removeIf(IS_APPLE_SORT_ORDER)
                 } else {
-                    val existingOrder = unknownProperties
-                            .find { it.name?.equals(APPLE_SORT_ORDER, true) == true }
+                    unknownProperties
+                            .find(IS_APPLE_SORT_ORDER)
+                            ?.let { it.value = order.toString() }
+                            ?: unknownProperties.add(XProperty(APPLE_SORT_ORDER, order.toString()))
+                }
+            }
 
-                    if (existingOrder != null) {
-                        existingOrder.value = order.toString()
-                    } else {
-                        unknownProperties.add(XProperty(APPLE_SORT_ORDER, order.toString()))
-                    }
+        var Task.collapsed: Boolean
+            get() = unknownProperties.find(IS_OC_HIDESUBTASKS).let { it?.value == HIDE_SUBTASKS }
+            set(collapsed) {
+                if (collapsed) {
+                    unknownProperties
+                            .find(IS_OC_HIDESUBTASKS)
+                            ?.let { it.value = HIDE_SUBTASKS }
+                            ?: unknownProperties.add(XProperty(OC_HIDESUBTASKS, HIDE_SUBTASKS))
+                } else {
+                    unknownProperties.removeIf(IS_OC_HIDESUBTASKS)
                 }
             }
 
@@ -288,6 +300,7 @@ class iCalendar @Inject constructor(
             setRecurrence(remote.rRule?.recur)
             remote.due.apply(this)
             remote.dtStart.apply(this)
+            isCollapsed = remote.collapsed
         }
 
         fun Task.applyLocal(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task) {
@@ -347,6 +360,8 @@ class iCalendar @Inject constructor(
                 else -> if (priority > 5) min(9, priority) else 9
             }
             setParent(if (task.parent == 0L) null else caldavTask.remoteParent)
+            order = caldavTask.order
+            collapsed = task.isCollapsed
         }
 
         private fun getDate(timestamp: Long): Date {

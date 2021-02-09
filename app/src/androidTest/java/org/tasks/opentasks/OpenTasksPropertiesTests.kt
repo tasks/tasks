@@ -6,7 +6,9 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.getParent
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.data.TagDao
@@ -23,6 +25,7 @@ import org.tasks.makers.TagMaker.TAGDATA
 import org.tasks.makers.TagMaker.TASK
 import org.tasks.makers.TagMaker.newTag
 import org.tasks.makers.TaskMaker
+import org.tasks.makers.TaskMaker.COLLAPSED
 import org.tasks.makers.TaskMaker.newTask
 import javax.inject.Inject
 
@@ -143,6 +146,34 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
         )
     }
 
+    @Test
+    fun readCollapsedState() = runBlocking {
+        val (_, list) = withVtodo(HIDE_SUBTASKS)
+
+        synchronizer.sync()
+
+        val task = caldavDao
+                .getTaskByRemoteId(list.uuid!!, "2822976a-b71e-4962-92e4-db7297789c20")
+                ?.let { taskDao.fetch(it.task) }
+        assertTrue(task!!.isCollapsed)
+    }
+
+    @Test
+    fun pushCollapsedState() = runBlocking {
+        val (listId, list) = openTaskDao.insertList()
+        val taskId = taskDao.createNew(newTask(with(COLLAPSED, true)))
+
+        caldavDao.insert(newCaldavTask(
+                with(CALENDAR, list.uuid),
+                with(CaldavTaskMaker.TASK, taskId),
+                with(REMOTE_ID, "abcd")
+        ))
+
+        synchronizer.sync()
+
+        assertTrue(openTaskDao.getTask(listId, "abcd")?.task!!.collapsed)
+    }
+
     private suspend fun insertTag(task: Task, name: String) =
             newTagData(with(NAME, name))
                     .apply { tagDataDao.createNew(this) }
@@ -192,6 +223,21 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
             SUMMARY:Tags
             CATEGORIES:Tag1,Tag2
             X-APPLE-SORT-ORDER:633734058
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
+
+        private val HIDE_SUBTASKS = """
+            BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:-//Nextcloud Tasks v0.13.6
+            BEGIN:VTODO
+            UID:2822976a-b71e-4962-92e4-db7297789c20
+            CREATED:20210209T104536
+            LAST-MODIFIED:20210209T104548
+            DTSTAMP:20210209T104548
+            SUMMARY:Parent
+            X-OC-HIDESUBTASKS:1
             END:VTODO
             END:VCALENDAR
         """.trimIndent()

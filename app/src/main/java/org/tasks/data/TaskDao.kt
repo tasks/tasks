@@ -6,7 +6,7 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field
 import com.todoroo.andlib.sql.Functions
-import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.dao.Database
@@ -24,7 +24,7 @@ import timber.log.Timber
 abstract class TaskDao(private val database: Database) {
 
     @Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0 AND (hideUntil > :now OR dueDate > :now)")
-    internal abstract suspend fun needsRefresh(now: Long = DateUtilities.now()): List<Task>
+    internal abstract suspend fun needsRefresh(now: Long = now()): List<Task>
 
     @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     abstract suspend fun fetch(id: Long): Task?
@@ -101,14 +101,14 @@ abstract class TaskDao(private val database: Database) {
 
     open suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> =
             database.withTransaction {
-                val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
+                val start = if (BuildConfig.DEBUG) now() else 0
                 val queries = callback(subtasks)
                 val last = queries.size - 1
                 for (i in 0 until last) {
                     query(SimpleSQLiteQuery(queries[i]))
                 }
                 val result = fetchTasks(SimpleSQLiteQuery(queries[last]))
-                Timber.v("%sms: %s", DateUtilities.now() - start, queries.joinToString(";\n"))
+                Timber.v("%sms: %s", now() - start, queries.joinToString(";\n"))
                 result
             }
 
@@ -169,25 +169,22 @@ FROM recursive_tasks
     """)
     abstract suspend fun getChildren(ids: List<Long>): List<Long>
 
-    @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id = :id")
-    abstract suspend fun setCollapsed(id: Long, collapsed: Boolean)
-
-    open suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
+    internal suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
         fetchTasks(preferences, filter)
                 .filter(TaskContainer::hasChildren)
                 .map(TaskContainer::getId)
-                .eachChunk { collapse(it, collapsed) }
+                .eachChunk { setCollapsed(it, collapsed) }
     }
 
-    @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id IN (:ids)")
-    internal abstract suspend fun collapse(ids: List<Long>, collapsed: Boolean)
+    @Query("UPDATE tasks SET collapsed = :collapsed, modified = :now WHERE _id IN (:ids)")
+    internal abstract suspend fun setCollapsed(ids: List<Long>, collapsed: Boolean, now: Long = now())
 
     @Insert
     abstract suspend fun insert(task: Task): Long
 
     suspend fun update(task: Task, original: Task? = null): Boolean {
         if (!task.insignificantChange(original)) {
-            task.modificationDate = DateUtilities.now()
+            task.modificationDate = now()
         }
         if (task.dueDate != original?.dueDate) {
             task.reminderSnooze = 0
@@ -201,7 +198,7 @@ FROM recursive_tasks
     suspend fun createNew(task: Task): Long {
         task.id = NO_ID
         if (task.creationDate == 0L) {
-            task.creationDate = DateUtilities.now()
+            task.creationDate = now()
         }
         if (Task.isUuidEmpty(task.remoteId)) {
             task.remoteId = UUIDHelper.newUUID()
@@ -216,9 +213,9 @@ FROM recursive_tasks
 
     suspend fun count(filter: Filter): Int {
         val query = getQuery(filter.sqlQuery, Field.COUNT)
-        val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
+        val start = if (BuildConfig.DEBUG) now() else 0
         val count = count(query)
-        Timber.v("%sms: %s", DateUtilities.now() - start, query.sql)
+        Timber.v("%sms: %s", now() - start, query.sql)
         return count
     }
 
@@ -226,9 +223,9 @@ FROM recursive_tasks
 
     suspend fun fetchFiltered(queryTemplate: String): List<Task> {
         val query = getQuery(queryTemplate, Task.FIELDS)
-        val start = if (BuildConfig.DEBUG) DateUtilities.now() else 0
+        val start = if (BuildConfig.DEBUG) now() else 0
         val tasks = fetchTasks(query)
-        Timber.v("%sms: %s", DateUtilities.now() - start, query.sql)
+        Timber.v("%sms: %s", now() - start, query.sql)
         return tasks.map(TaskContainer::getTask)
     }
 

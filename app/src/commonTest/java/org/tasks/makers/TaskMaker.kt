@@ -31,6 +31,7 @@ object TaskMaker {
     val PRIORITY: Property<Task, Int> = newProperty()
     val PARENT: Property<Task, Long> = newProperty()
     val UUID: Property<Task, String> = newProperty()
+    val COLLAPSED: Property<Task, Boolean> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<Task> ->
         val task = Task()
@@ -85,6 +86,7 @@ object TaskMaker {
         lookup.valueOf(RECUR, null as String?)?.let {
             task.setRecurrence(it, lookup.valueOf(AFTER_COMPLETE, false))
         }
+        task.isCollapsed = lookup.valueOf(COLLAPSED, false)
         task.uuid = lookup.valueOf(UUID, NO_UUID)
         val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())
         task.creationDate = creationTime.millis

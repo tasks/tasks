@@ -349,6 +349,7 @@ class Task : Parcelable {
                 && recurrence == original.recurrence
                 && parent == original.parent
                 && repeatUntil == original.repeatUntil
+                && isCollapsed == original.isCollapsed
     }
 
     val isSaved: Boolean
