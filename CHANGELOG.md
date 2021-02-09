@@ -1,3 +1,16 @@
+### 11.4 (2021-02-09)
+
+* Sync collapsed subtask state with Tasks.org, DAVx⁵, CalDAV, EteSync, and
+  DecSync ([#1339](https://github.com/tasks/tasks/issues/1339))
+  * Compatible with Nextcloud and ownCloud
+* F-Droid: Add location based reminders ([#770](https://github.com/tasks/tasks/issues/770))
+* F-Droid: Replace Mapbox tiles with OpenStreetMap tiles ([#922](https://github.com/tasks/tasks/issues/922))
+* Fix default start date ([#1350](https://github.com/tasks/tasks/issues/1350))
+* Update translations
+  * Esperanto - @jakubfabijan
+  * Greek - Michalis
+  * Polish - @alex-ter
+
 ### 11.3.4 (2021-02-03)
 
 * Adjust start times by one second during sync

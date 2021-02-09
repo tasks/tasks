@@ -1,0 +1,7 @@
+* Sync collapsed subtask state with Tasks.org, DAVx⁵, CalDAV, EteSync, and
+  DecSync
+  * Compatible with Nextcloud and ownCloud
+* F-Droid: Add location based reminders
+* F-Droid: Replace Mapbox tiles with OpenStreetMap tiles
+* Fix default start date
+* Update translations
