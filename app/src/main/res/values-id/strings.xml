@@ -680,4 +680,5 @@
     <string name="always_display_full_date">Tampilkan tanggal penuh</string>
     <string name="EPr_temp_completed_tasks_not_showing">Tugas akan segera menghilang pada tugas setelah selesai</string>
     <string name="EPr_temp_completed_tasks_showing">Tugas akan tetap terlihat sementara pada tugas setelah selesai</string>
+    <string name="widget_show_title">Tampilkan judul</string>
 </resources>
