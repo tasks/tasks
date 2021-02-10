@@ -36,7 +36,7 @@ internal class LocationModule {
     @Provides
     @ActivityScoped
     fun getLocationProvider(@ApplicationContext context: Context): LocationProvider =
-            MapboxLocationProvider(context)
+            PlayLocationProvider(context)
 
     @Provides
     @ActivityScoped

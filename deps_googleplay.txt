@@ -478,7 +478,6 @@
 +|    +--- androidx.work:work-runtime:2.5.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.21 -> 1.4.30 (*)
 +|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1 (*)
-++--- com.mapbox.mapboxsdk:mapbox-android-core:3.1.1
 ++--- com.mapbox.mapboxsdk:mapbox-sdk-services:5.8.0
 +|    +--- com.mapbox.mapboxsdk:mapbox-sdk-core:5.8.0
 +|    |    +--- com.google.code.gson:gson:2.8.6

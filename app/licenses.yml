@@ -108,13 +108,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
-- artifact: com.mapbox.mapboxsdk:mapbox-android-core:+
-  name: Mapbox Android Core Library
-  copyrightHolder: Mapbox
-  license: MIT License
-  licenseUrl: http://www.opensource.org/licenses/mit-license.php
-  url: https://github.com/mapbox/mapbox-events-android
-  forceGenerate: true
 - artifact: androidx.lifecycle:lifecycle-livedata:+
   name: Android Lifecycle LiveData
   copyrightHolder: Android Open Source Project

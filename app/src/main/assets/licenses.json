@@ -263,20 +263,6 @@
     },
     {
       "artifactId": {
-        "name": "mapbox-android-core",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "MIT License",
-      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-      "normalizedLicense": "mit",
-      "url": "https://github.com/mapbox/mapbox-events-android",
-      "libraryName": "Mapbox Android Core Library"
-    },
-    {
-      "artifactId": {
         "name": "lifecycle-livedata",
         "group": "androidx.lifecycle",
         "version": "+"
