@@ -75,7 +75,7 @@ class GoogleMapFragment(private val context: Context) : MapFragment, OnMapReadyC
 
     @SuppressLint("MissingPermission")
     override fun showMyLocation() {
-        map!!.isMyLocationEnabled = true
+        map?.isMyLocationEnabled = true
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
