@@ -53,8 +53,8 @@ abstract class TaskDao(private val database: Database) {
     @Query("UPDATE tasks SET completed = :completionDate " + "WHERE remoteId = :remoteId")
     abstract suspend fun setCompletionDate(remoteId: String, completionDate: Long)
 
-    @Query("UPDATE tasks SET snoozeTime = :millis WHERE _id in (:taskIds)")
-    abstract suspend fun snooze(taskIds: List<Long>, millis: Long)
+    @Query("UPDATE tasks SET snoozeTime = :snoozeTime, modified = :updateTime WHERE _id in (:taskIds)")
+    internal abstract suspend fun snooze(taskIds: List<Long>, snoozeTime: Long, updateTime: Long = now())
 
     @Query("SELECT tasks.* FROM tasks "
             + "LEFT JOIN google_tasks ON tasks._id = google_tasks.gt_task "
@@ -185,9 +185,6 @@ FROM recursive_tasks
     suspend fun update(task: Task, original: Task? = null): Boolean {
         if (!task.insignificantChange(original)) {
             task.modificationDate = now()
-        }
-        if (task.dueDate != original?.dueDate) {
-            task.reminderSnooze = 0
         }
         return updateInternal(task) == 1
     }

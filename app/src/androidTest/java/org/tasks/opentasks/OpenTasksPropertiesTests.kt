@@ -7,9 +7,12 @@ import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
+import org.tasks.SuspendFreeze.Companion.freezeAt
+import org.tasks.TestUtilities.withTZ
 import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
+import org.tasks.caldav.iCalendar.Companion.snooze
 import org.tasks.data.TagDao
 import org.tasks.data.TagDataDao
 import org.tasks.injection.ProductionModule
@@ -25,7 +28,10 @@ import org.tasks.makers.TagMaker.TASK
 import org.tasks.makers.TagMaker.newTag
 import org.tasks.makers.TaskMaker
 import org.tasks.makers.TaskMaker.COLLAPSED
+import org.tasks.makers.TaskMaker.SNOOZE_TIME
 import org.tasks.makers.TaskMaker.newTask
+import org.tasks.time.DateTime
+import java.util.*
 import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
@@ -193,12 +199,89 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
         )
     }
 
+    @Test
+    fun readSnoozeTime() = runBlocking {
+        val (_, list) = withVtodo(SNOOZED)
+
+        withTZ(CHICAGO) {
+            synchronizer.sync()
+        }
+
+        val task = caldavDao
+                .getTaskByRemoteId(list.uuid!!, "4CBBC669-70E3-474D-A0A3-0FC42A14A5A5")
+                ?.let { taskDao.fetch(it.task) }
+
+        assertEquals(1612972355000, task!!.reminderSnooze)
+    }
+
+    @Test
+    fun pushSnoozeTime() = withTZ(CHICAGO) {
+        val (listId, list) = openTaskDao.insertList()
+        val taskId = taskDao.createNew(newTask(
+                with(SNOOZE_TIME, DateTime(2021, 2, 4, 13, 30))
+        ))
+
+        caldavDao.insert(newCaldavTask(
+                with(CALENDAR, list.uuid),
+                with(CaldavTaskMaker.TASK, taskId),
+                with(REMOTE_ID, "abcd")
+        ))
+
+        freezeAt(DateTime(2021, 2, 4, 12, 30, 45, 125)) {
+            synchronizer.sync()
+        }
+
+        assertEquals(1612467000000, openTaskDao.getTask(listId, "abcd")?.task!!.snooze)
+    }
+
+    @Test
+    fun dontPushLapsedSnoozeTime() = withTZ(CHICAGO) {
+        val (listId, list) = openTaskDao.insertList()
+        val taskId = taskDao.createNew(newTask(
+                with(SNOOZE_TIME, DateTime(2021, 2, 4, 13, 30))
+        ))
+
+        caldavDao.insert(newCaldavTask(
+                with(CALENDAR, list.uuid),
+                with(CaldavTaskMaker.TASK, taskId),
+                with(REMOTE_ID, "abcd")
+        ))
+
+        freezeAt(DateTime(2021, 2, 4, 13, 30, 45, 125)) {
+            synchronizer.sync()
+        }
+
+        assertNull(openTaskDao.getTask(listId, "abcd")?.task!!.snooze)
+    }
+
+    @Test
+    fun removeSnoozeTime() = runBlocking {
+        val (listId, list) = withVtodo(SNOOZED)
+
+        synchronizer.sync()
+
+        val task = caldavDao.getTaskByRemoteId(list.uuid!!, "4CBBC669-70E3-474D-A0A3-0FC42A14A5A5")
+
+        taskDao.snooze(listOf(task!!.task), 0L)
+
+        synchronizer.sync()
+
+        assertNull(
+                openTaskDao
+                        .getTask(listId, "4CBBC669-70E3-474D-A0A3-0FC42A14A5A5")
+                        ?.task
+                !!.snooze
+        )
+    }
+
     private suspend fun insertTag(task: Task, name: String) =
             newTagData(with(NAME, name))
                     .apply { tagDataDao.createNew(this) }
                     .let { tagDao.insert(newTag(with(TASK, task), with(TAGDATA, it))) }
 
     companion object {
+        private val CHICAGO = TimeZone.getTimeZone("America/Chicago")
+
         private val SUBTASK = """
             BEGIN:VCALENDAR
             VERSION:2.0
@@ -257,6 +340,26 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
             DTSTAMP:20210209T104548
             SUMMARY:Parent
             X-OC-HIDESUBTASKS:1
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
+
+        private val SNOOZED = """
+            BEGIN:VCALENDAR
+            PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN
+            VERSION:2.0
+            BEGIN:VTODO
+            CREATED:20210210T151826Z
+            LAST-MODIFIED:20210210T152235Z
+            DTSTAMP:20210210T152235Z
+            UID:4CBBC669-70E3-474D-A0A3-0FC42A14A5A5
+            SUMMARY:Test snooze
+            STATUS:NEEDS-ACTION
+            X-MOZ-LASTACK:20210210T152235Z
+            DTSTART;TZID=America/Chicago:20210210T091900
+            DUE;TZID=America/Chicago:20210210T091900
+            X-MOZ-SNOOZE-TIME:20210210T155235Z
+            X-MOZ-GENERATION:1
             END:VTODO
             END:VCALENDAR
         """.trimIndent()

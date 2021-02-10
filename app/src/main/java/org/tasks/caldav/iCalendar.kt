@@ -23,6 +23,7 @@ import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.data.*
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.Preferences
@@ -172,6 +173,8 @@ class iCalendar @Inject constructor(
     companion object {
         private const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
         private const val OC_HIDESUBTASKS = "X-OC-HIDESUBTASKS"
+        private const val MOZ_SNOOZE_TIME = "X-MOZ-SNOOZE-TIME"
+        private const val MOZ_LASTACK = "X-MOZ-LASTACK"
         private const val HIDE_SUBTASKS = "1"
         private val IS_PARENT = { r: RelatedTo ->
             r.parameters.getParameter<RelType>(Parameter.RELTYPE).let {
@@ -179,13 +182,10 @@ class iCalendar @Inject constructor(
             }
         }
 
-        private val IS_APPLE_SORT_ORDER = { x: Property? ->
-            x?.name.equals(APPLE_SORT_ORDER, true)
-        }
-
-        private val IS_OC_HIDESUBTASKS = { x: Property? ->
-            x?.name.equals(OC_HIDESUBTASKS, true)
-        }
+        private val IS_APPLE_SORT_ORDER = { x: Property? -> x?.name.equals(APPLE_SORT_ORDER, true) }
+        private val IS_OC_HIDESUBTASKS = { x: Property? -> x?.name.equals(OC_HIDESUBTASKS, true) }
+        private val IS_MOZ_SNOOZE_TIME = { x: Property? -> x?.name.equals(MOZ_SNOOZE_TIME, true) }
+        private val IS_MOZ_LASTACK = { x: Property? -> x?.name.equals(MOZ_LASTACK, true) }
 
         fun Due?.apply(task: com.todoroo.astrid.data.Task) {
             task.dueDate = when (this?.date) {
@@ -270,6 +270,32 @@ class iCalendar @Inject constructor(
                 }
             }
 
+        var Task.snooze: Long?
+            get() = unknownProperties.find(IS_MOZ_SNOOZE_TIME)?.value?.let {
+                org.tasks.time.DateTime.from(DateTime(it)).toLocal().millis
+            }
+            set(value) {
+                value
+                        ?.toDateTime()
+                        ?.takeIf { it.isAfterNow }
+                        ?.toUTC()
+                        ?.let { DateTime(true).apply { time = it.millis } }
+                        ?.let { utc ->
+                            unknownProperties.find(IS_MOZ_SNOOZE_TIME)
+                                    ?.let { it.value = utc.toString() }
+                                    ?: unknownProperties.add(
+                                            XProperty(MOZ_SNOOZE_TIME, utc.toString())
+                                    )
+                            val lastAck = DateTime(true).apply { time = lastModified!! }
+                            unknownProperties.find(IS_MOZ_LASTACK)
+                                    ?.let { it.value = lastAck.toString() }
+                                    ?: unknownProperties.add(
+                                            XProperty(MOZ_LASTACK, lastAck.toString())
+                                    )
+                        }
+                        ?: unknownProperties.removeIf(IS_MOZ_SNOOZE_TIME)
+            }
+
         fun com.todoroo.astrid.data.Task.applyRemote(remote: Task) {
             val completedAt = remote.completedAt
             if (completedAt != null) {
@@ -297,6 +323,7 @@ class iCalendar @Inject constructor(
             remote.due.apply(this)
             remote.dtStart.apply(this)
             isCollapsed = remote.collapsed
+            reminderSnooze = remote.snooze ?: 0
         }
 
         fun Task.applyLocal(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task) {
@@ -358,6 +385,7 @@ class iCalendar @Inject constructor(
             parent = if (task.parent == 0L) null else caldavTask.remoteParent
             order = caldavTask.order
             collapsed = task.isCollapsed
+            snooze = task.reminderSnooze
         }
 
         private fun getDate(timestamp: Long): Date {

@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.dao
 
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.reminders.ReminderService
@@ -16,7 +17,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
-import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.date.DateTimeUtils.isAfterNow
 import org.tasks.db.SuspendDbUtils.eachChunk
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
@@ -48,6 +49,11 @@ class TaskDao @Inject constructor(
 
     suspend fun setCompletionDate(remoteId: String, completionDate: Long) =
             taskDao.setCompletionDate(remoteId, completionDate)
+
+    suspend fun snooze(taskIds: List<Long>, snoozeTime: Long, updateTime: Long = now()) {
+        taskDao.snooze(taskIds, snoozeTime, updateTime)
+        syncAdapters.sync()
+    }
 
     suspend fun getGoogleTasksToPush(account: String): List<Task> =
             taskDao.getGoogleTasksToPush(account)
@@ -109,7 +115,10 @@ class TaskDao @Inject constructor(
                             timerPlugin.stopTimer(task)
                         }
                     }
-                    if (task.dueDate != original?.dueDate && newDateTime(task.dueDate).isAfterNow) {
+                    if (task.reminderSnooze.isAfterNow()) {
+                        notificationManager.cancel(task.id)
+                    }
+                    if (task.dueDate != original?.dueDate && task.dueDate.isAfterNow()) {
                         notificationManager.cancel(task.id)
                     }
                     if (completionDateModified || deletionDateModified) {

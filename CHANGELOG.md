@@ -1,3 +1,10 @@
+### Next release
+
+* Sync snooze time with Tasks.org, DAVx⁵, CalDAV, EteSync, and DecSync
+  * Compatible with Thunderbird
+* Update translations
+  * Indonesian - when we were sober
+
 ### 11.4 (2021-02-09)
 
 * Sync collapsed subtask state with Tasks.org, DAVx⁵, CalDAV, EteSync, and

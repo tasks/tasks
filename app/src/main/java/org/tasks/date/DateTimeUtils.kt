@@ -27,4 +27,6 @@ object DateTimeUtils {
     fun Long.toAppleEpoch(): Long = DateTime(this).toAppleEpoch()
 
     fun Long.toDateTime(): DateTime = DateTime(this)
+
+    fun Long.isAfterNow(): Boolean = DateTime(this).isAfterNow
 }

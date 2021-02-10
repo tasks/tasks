@@ -317,6 +317,7 @@ class Task : Parcelable {
                 && calendarURI == task.calendarURI
                 && parent == task.parent
                 && remoteId == task.remoteId
+                && reminderSnooze == task.reminderSnooze
     }
 
     fun googleTaskUpToDate(original: Task?): Boolean {
@@ -350,6 +351,7 @@ class Task : Parcelable {
                 && parent == original.parent
                 && repeatUntil == original.repeatUntil
                 && isCollapsed == original.isCollapsed
+                && reminderSnooze == original.reminderSnooze
     }
 
     val isSaved: Boolean
