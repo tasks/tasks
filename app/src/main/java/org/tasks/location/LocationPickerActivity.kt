@@ -1,6 +1,5 @@
 package org.tasks.location
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
@@ -24,9 +23,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.mapbox.android.core.location.LocationEngineCallback
-import com.mapbox.android.core.location.LocationEngineProvider
-import com.mapbox.android.core.location.LocationEngineResult
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
@@ -97,6 +93,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     @Inject lateinit var geocoder: Geocoder
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
+    @Inject lateinit var locationProvider: LocationProvider
     
     private var disposables: CompositeDisposable? = null
     private var mapPosition: MapPosition? = null
@@ -251,26 +248,17 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         search.expandActionView()
     }
 
-    @SuppressLint("MissingPermission")
     private fun moveToCurrentLocation(animate: Boolean) {
         if (!permissionChecker.canAccessForegroundLocation()) {
             return
         }
-        LocationEngineProvider.getBestLocationEngine(this)
-                .getLastLocation(
-                        object : LocationEngineCallback<LocationEngineResult> {
-                            override fun onSuccess(result: LocationEngineResult) {
-                                val location = result.lastLocation
-                                if (location != null) {
-                                    map.movePosition(
-                                            MapPosition(location.latitude, location.longitude), animate)
-                                }
-                            }
-
-                            override fun onFailure(exception: Exception) {
-                                toaster.longToast(exception.message)
-                            }
-                        })
+        lifecycleScope.launch {
+            try {
+                map.movePosition(locationProvider.currentLocation(), animate)
+            } catch (e: Exception) {
+                toaster.longToast(e.message)
+            }
+        }
     }
 
     private fun returnPlace(place: Place?) {

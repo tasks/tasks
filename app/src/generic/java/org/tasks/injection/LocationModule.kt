@@ -9,10 +9,7 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityScoped
 import dagger.hilt.android.scopes.ViewModelScoped
-import org.tasks.location.MapFragment
-import org.tasks.location.MapboxSearchProvider
-import org.tasks.location.OsmMapFragment
-import org.tasks.location.PlaceSearchProvider
+import org.tasks.location.*
 
 @Module
 @InstallIn(ActivityComponent::class, ViewModelComponent::class)
@@ -21,6 +18,12 @@ class LocationModule {
     @ViewModelScoped
     fun getPlaceSearchProvider(@ApplicationContext context: Context): PlaceSearchProvider {
         return MapboxSearchProvider(context)
+    }
+
+    @Provides
+    @ActivityScoped
+    fun getLocationProvider(@ApplicationContext context: Context): LocationProvider {
+        return MapboxLocationProvider(context)
     }
 
     @Provides

@@ -35,6 +35,11 @@ internal class LocationModule {
 
     @Provides
     @ActivityScoped
+    fun getLocationProvider(@ApplicationContext context: Context): LocationProvider =
+            MapboxLocationProvider(context)
+
+    @Provides
+    @ActivityScoped
     fun getMapFragment(@ApplicationContext context: Context): MapFragment =
             GoogleMapFragment(context)
 }
