@@ -14,8 +14,8 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
-import org.tasks.caldav.iCalendar.Companion.getParent
 import org.tasks.caldav.iCalendar.Companion.order
+import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.data.*
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -154,7 +154,7 @@ class Upgrader @Inject constructor(
         val updated: MutableList<CaldavTask> = ArrayList()
         for (task in upgraderDao.tasksWithVtodos().map(CaldavTaskContainer::caldavTask)) {
             val remoteTask = fromVtodo(task.vtodo!!) ?: continue
-            task.remoteParent = remoteTask.getParent()
+            task.remoteParent = remoteTask.parent
             if (!isNullOrEmpty(task.remoteParent)) {
                 updated.add(task)
             }

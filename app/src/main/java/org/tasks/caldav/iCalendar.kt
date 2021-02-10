@@ -158,7 +158,7 @@ class iCalendar @Inject constructor(
         caldavTask.vtodo = vtodo
         caldavTask.etag = eTag
         caldavTask.lastSync = task.modificationDate
-        caldavTask.remoteParent = remote.getParent()
+        caldavTask.remoteParent = remote.parent
         caldavTask.order = remote.order
         if (caldavTask.id == com.todoroo.astrid.data.Task.NO_ID) {
             caldavTask.id = caldavDao.insert(caldavTask)
@@ -225,28 +225,24 @@ class iCalendar @Inject constructor(
             return null
         }
 
-        private fun Task.getParents(): List<RelatedTo> = relatedTo.filter(IS_PARENT)
-
-        fun Task.getParent(): String? {
-            return relatedTo.find(IS_PARENT)?.value
-        }
-
-        fun Task.setParent(value: String?) {
-            val parents = getParents()
-            when {
-                value.isNullOrBlank() -> relatedTo.removeAll(parents)
-                parents.isEmpty() -> relatedTo.add(RelatedTo(value))
-                else -> {
-                    if (parents.size > 1) {
-                        relatedTo.removeAll(parents.drop(1))
-                    }
-                    parents[0].let {
-                        it.value = value
-                        it.parameters.replace(RelType.PARENT)
+        var Task.parent: String?
+            get() = relatedTo.find(IS_PARENT)?.value
+            set(value) {
+                val parents = relatedTo.filter(IS_PARENT)
+                when {
+                    value.isNullOrBlank() -> relatedTo.removeAll(parents)
+                    parents.isEmpty() -> relatedTo.add(RelatedTo(value))
+                    else -> {
+                        if (parents.size > 1) {
+                            relatedTo.removeAll(parents.drop(1))
+                        }
+                        parents[0].let {
+                            it.value = value
+                            it.parameters.replace(RelType.PARENT)
+                        }
                     }
                 }
             }
-        }
 
         var Task.order: Long?
             get() = unknownProperties.find(IS_APPLE_SORT_ORDER).let { it?.value?.toLongOrNull() }
@@ -359,7 +355,7 @@ class iCalendar @Inject constructor(
                     if (priority < 5) max(1, priority) else 1
                 else -> if (priority > 5) min(9, priority) else 9
             }
-            setParent(if (task.parent == 0L) null else caldavTask.remoteParent)
+            parent = if (task.parent == 0L) null else caldavTask.remoteParent
             order = caldavTask.order
             collapsed = task.isCollapsed
         }

@@ -8,8 +8,8 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 import org.tasks.caldav.iCalendar.Companion.collapsed
-import org.tasks.caldav.iCalendar.Companion.getParent
 import org.tasks.caldav.iCalendar.Companion.order
+import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.data.TagDao
 import org.tasks.data.TagDataDao
 import org.tasks.injection.ProductionModule
@@ -59,7 +59,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
 
         synchronizer.sync()
 
-        assertEquals("1234", openTaskDao.getTask(listId, "abcd")?.task?.getParent())
+        assertEquals("1234", openTaskDao.getTask(listId, "abcd")?.task?.parent)
     }
 
     @Test
