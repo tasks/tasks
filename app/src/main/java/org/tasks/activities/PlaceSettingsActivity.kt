@@ -103,12 +103,12 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         finish()
     }
 
-    override fun onMapReady(mapFragment: MapFragment?) {
-        map = mapFragment!!
+    override fun onMapReady(mapFragment: MapFragment) {
+        map = mapFragment
         map.setMarkers(listOf(place))
         map.disableGestures()
         map.movePosition(place.mapPosition, false)
     }
 
-    override fun onPlaceSelected(place: Place?) {}
+    override fun onPlaceSelected(place: Place) {}
 }

@@ -21,12 +21,12 @@ import org.tasks.data.Place
 import org.tasks.location.MapFragment.MapFragmentCallback
 
 class OsmMapFragment(private val context: Context) : MapFragment {
-    private lateinit var callbacks: MapFragmentCallback
+    private lateinit var callback: MapFragmentCallback
     private lateinit var map: MapView
     private var locationOverlay: MyLocationNewOverlay? = null
 
-    override fun init(activity: AppCompatActivity, callbacks: MapFragmentCallback, dark: Boolean) {
-        this.callbacks = callbacks
+    override fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean) {
+        this.callback = callback
         Configuration.getInstance()
                 .load(activity, PreferenceManager.getDefaultSharedPreferences(activity))
         map = MapView(activity).apply {
@@ -42,13 +42,14 @@ class OsmMapFragment(private val context: Context) : MapFragment {
             overlays.add(copyright)
             activity.findViewById<ViewGroup>(R.id.map).addView(this)
         }
-        callbacks.onMapReady(this)
+        callback.onMapReady(this)
     }
 
-    override fun getMapPosition(): MapPosition {
-        val center = map.mapCenter
-        return MapPosition(center.latitude, center.longitude, map.zoomLevelDouble.toFloat())
-    }
+    override val mapPosition: MapPosition
+        get() {
+            val center = map.mapCenter
+            return MapPosition(center.latitude, center.longitude, map.zoomLevelDouble.toFloat())
+        }
 
     override fun movePosition(mapPosition: MapPosition, animate: Boolean) {
         val controller = map.controller
@@ -70,7 +71,7 @@ class OsmMapFragment(private val context: Context) : MapFragment {
                 setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
                 icon = ContextCompat.getDrawable(context, R.drawable.ic_map_marker_select_red_48dp)!!.mutate()
                 setOnMarkerClickListener { _, _ ->
-                    callbacks.onPlaceSelected(place)
+                    callback.onPlaceSelected(place)
                     false
                 }
             })
@@ -78,9 +79,7 @@ class OsmMapFragment(private val context: Context) : MapFragment {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun disableGestures() {
-        map.setOnTouchListener { _, _ -> true }
-    }
+    override fun disableGestures() = map.setOnTouchListener { _, _ -> true }
 
     @SuppressLint("MissingPermission")
     override fun showMyLocation() {

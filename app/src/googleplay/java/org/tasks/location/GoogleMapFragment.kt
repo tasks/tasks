@@ -13,14 +13,16 @@ import org.tasks.data.Place
 import org.tasks.location.MapFragment.MapFragmentCallback
 import java.util.*
 
-class GoogleMapFragment(private val context: Context) : MapFragment, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class GoogleMapFragment(
+        private val context: Context
+) : MapFragment, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private val markers: MutableList<Marker> = ArrayList()
-    private lateinit var callbacks: MapFragmentCallback
+    private lateinit var callback: MapFragmentCallback
     private var dark = false
     private var map: GoogleMap? = null
 
-    override fun init(activity: AppCompatActivity, callbacks: MapFragmentCallback, dark: Boolean) {
-        this.callbacks = callbacks
+    override fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean) {
+        this.callback = callback
         this.dark = dark
         val fragmentManager = activity.supportFragmentManager
         var mapFragment = fragmentManager.findFragmentByTag(FRAG_TAG_MAP) as SupportMapFragment?
@@ -31,14 +33,11 @@ class GoogleMapFragment(private val context: Context) : MapFragment, OnMapReadyC
         mapFragment.getMapAsync(this)
     }
 
-    override fun getMapPosition(): MapPosition? {
-        if (map == null) {
-            return null
+    override val mapPosition: MapPosition?
+        get() = map?.cameraPosition?.let { it ->
+            val target = it.target
+            return MapPosition(target.latitude, target.longitude, it.zoom)
         }
-        val cameraPosition = map!!.cameraPosition
-        val target = cameraPosition.target
-        return MapPosition(target.latitude, target.longitude, cameraPosition.zoom)
-    }
 
     override fun movePosition(mapPosition: MapPosition, animate: Boolean) {
         val cameraUpdate = CameraUpdateFactory.newCameraPosition(
@@ -70,7 +69,7 @@ class GoogleMapFragment(private val context: Context) : MapFragment, OnMapReadyC
     }
 
     override fun disableGestures() {
-        map!!.uiSettings.setAllGesturesEnabled(false)
+        map?.uiSettings?.setAllGesturesEnabled(false)
     }
 
     @SuppressLint("MissingPermission")
@@ -87,7 +86,7 @@ class GoogleMapFragment(private val context: Context) : MapFragment, OnMapReadyC
         uiSettings.isMyLocationButtonEnabled = false
         uiSettings.isRotateGesturesEnabled = false
         map!!.setOnMarkerClickListener(this)
-        callbacks.onMapReady(this)
+        callback.onMapReady(this)
     }
 
     override fun onPause() {}
@@ -97,7 +96,7 @@ class GoogleMapFragment(private val context: Context) : MapFragment, OnMapReadyC
     override fun onDestroy() {}
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        callbacks.onPlaceSelected(marker.tag as Place?)
+        callback.onPlaceSelected(marker.tag as Place)
         return true
     }
 

@@ -188,11 +188,10 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         if (permissionChecker.canAccessForegroundLocation()) {
             mapFragment.showMyLocation()
         }
-        if (mapPosition != null) {
-            map.movePosition(mapPosition, false)
-        } else if (permissionChecker.canAccessForegroundLocation()) {
-            moveToCurrentLocation(false)
-        }
+
+        mapPosition
+                ?.let { map.movePosition(it, false) }
+                ?: moveToCurrentLocation(false)
     }
 
     override fun onBackPressed() {
@@ -213,11 +212,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     }
 
     @OnClick(R.id.current_location)
-    fun onClick() {
-        if (permissionRequestor.requestForegroundLocation()) {
-            moveToCurrentLocation(true)
-        }
-    }
+    fun onClick() = moveToCurrentLocation(true)
 
     override fun onRequestPermissionsResult(
             requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -258,6 +253,9 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
 
     @SuppressLint("MissingPermission")
     private fun moveToCurrentLocation(animate: Boolean) {
+        if (!permissionChecker.canAccessForegroundLocation()) {
+            return
+        }
         LocationEngineProvider.getBestLocationEngine(this)
                 .getLastLocation(
                         object : LocationEngineCallback<LocationEngineResult> {
