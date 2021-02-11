@@ -205,7 +205,7 @@ dependencies {
     implementation("com.etesync:journalmanager:1.1.1")
     implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
-    implementation("com.github.openid:AppAuth-Android:27b62d5")
+    implementation("com.github.openid:AppAuth-Android:0.8.0")
 
     genericImplementation("com.mapbox.mapboxsdk:mapbox-android-core:3.1.1")
     genericImplementation("org.osmdroid:osmdroid-android:6.1.10@aar")
