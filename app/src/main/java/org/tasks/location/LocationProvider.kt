@@ -1,5 +1,5 @@
 package org.tasks.location
 
 interface LocationProvider {
-    suspend fun currentLocation(): MapPosition
+    suspend fun currentLocation(): MapPosition?
 }

@@ -22,9 +22,7 @@ class LocationModule {
 
     @Provides
     @ActivityScoped
-    fun getLocationProvider(@ApplicationContext context: Context): LocationProvider {
-        return MapboxLocationProvider(context)
-    }
+    fun getLocationProvider(provider: AndroidLocationProvider): LocationProvider = provider
 
     @Provides
     @ActivityScoped

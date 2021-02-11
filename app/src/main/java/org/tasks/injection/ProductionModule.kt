@@ -16,6 +16,8 @@ import org.tasks.data.OpenTaskDao
 import org.tasks.db.Migrations
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManagerImpl
+import org.tasks.location.AndroidLocationManager
+import org.tasks.location.LocationManager
 import org.tasks.preferences.Preferences
 import javax.inject.Singleton
 
@@ -35,6 +37,9 @@ internal class ProductionModule {
 
     @Provides
     fun getPreferences(@ApplicationContext context: Context): Preferences = Preferences(context)
+
+    @Provides
+    fun locationManager(locationManager: AndroidLocationManager): LocationManager = locationManager
 
     @Provides
     @Singleton

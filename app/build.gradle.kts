@@ -207,7 +207,6 @@ dependencies {
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("com.github.openid:AppAuth-Android:0.8.0")
 
-    genericImplementation("com.mapbox.mapboxsdk:mapbox-android-core:3.1.1")
     genericImplementation("org.osmdroid:osmdroid-android:6.1.10@aar")
 
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")

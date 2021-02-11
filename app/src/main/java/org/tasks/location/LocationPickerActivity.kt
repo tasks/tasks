@@ -254,7 +254,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         }
         lifecycleScope.launch {
             try {
-                map.movePosition(locationProvider.currentLocation(), animate)
+                locationProvider.currentLocation()?.let { map.movePosition(it, animate) }
             } catch (e: Exception) {
                 toaster.longToast(e.message)
             }
