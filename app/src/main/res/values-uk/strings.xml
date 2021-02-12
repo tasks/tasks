@@ -496,7 +496,7 @@
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="reenter_encryption_password">Підтвердіть пароль шифрування</string>
     <string name="encryption_password">Пароль шифрування</string>
-    <string name="encryption_password_required">Потрібний пароль шифрування</string>
+    <string name="encryption_password_required">Потрібен пароль шифрування</string>
     <string name="encryption_password_wrong">Невірний пароль шифрування</string>
     <string name="wearable_notifications_summary">Показувати повідомлення на натільних пристроях</string>
     <string name="wearable_notifications">Повідомлення на натільні пристрої</string>
