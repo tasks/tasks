@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class AndroidLocationProvider @Inject constructor(
-        internal val locationManager: LocationManager,
+        private val locationManager: LocationManager,
         private val permissionChecker: PermissionChecker,
 ) : LocationProvider {
 
