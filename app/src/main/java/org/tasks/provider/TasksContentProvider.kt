@@ -10,7 +10,7 @@ import com.todoroo.astrid.data.Task
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -19,7 +19,7 @@ import org.tasks.data.ContentProviderDaoBlocking
 class TasksContentProvider : ContentProvider() {
 
     @EntryPoint
-    @InstallIn(ApplicationComponent::class)
+    @InstallIn(SingletonComponent::class)
     interface TasksContentProviderEntryPoint {
         val contentProviderDao: ContentProviderDaoBlocking
         val firebase: Firebase

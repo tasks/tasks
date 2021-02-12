@@ -9,7 +9,7 @@ import android.os.ParcelFileDescriptor
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -22,7 +22,7 @@ class TasksFileBackupHelper(
 ) : FileBackupHelper(context, BackupConstants.INTERNAL_BACKUP) {
 
     @EntryPoint
-    @InstallIn(ApplicationComponent::class)
+    @InstallIn(SingletonComponent::class)
     internal interface TasksFileBackupHelperEntryPoint {
         val tasksJsonImporter: TasksJsonImporter
         val preferences: Preferences

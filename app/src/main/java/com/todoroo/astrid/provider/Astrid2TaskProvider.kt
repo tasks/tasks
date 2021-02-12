@@ -16,7 +16,7 @@ import androidx.annotation.ColorRes
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -37,7 +37,7 @@ import java.security.NoSuchAlgorithmException
  */
 class Astrid2TaskProvider : ContentProvider() {
     @EntryPoint
-    @InstallIn(ApplicationComponent::class)
+    @InstallIn(SingletonComponent::class)
     interface Astrid2TaskProviderEntryPoint {
         val contentProviderDao: ContentProviderDaoBlocking
         val firebase: Firebase
