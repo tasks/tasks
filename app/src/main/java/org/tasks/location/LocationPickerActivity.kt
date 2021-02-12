@@ -25,10 +25,8 @@ import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.launch
 import org.tasks.Event
@@ -231,14 +229,13 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
 
     @OnClick(R.id.select_this_location)
     fun selectLocation() {
+        val mapPosition = map.mapPosition ?: return
         loadingIndicator.visibility = View.VISIBLE
-        val mapPosition = map.mapPosition
-        disposables!!.add(
-                Single.fromCallable { geocoder.reverseGeocode(mapPosition) }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doFinally { loadingIndicator.visibility = View.GONE }
-                        .subscribe({ place: Place? -> returnPlace(place) }) { e: Throwable -> toaster.longToast(e.message) })
+        lifecycleScope.launch {
+            val place = geocoder.reverseGeocode(mapPosition)
+            loadingIndicator.visibility = View.GONE
+            returnPlace(place)
+        }
     }
 
     @OnClick(R.id.search)

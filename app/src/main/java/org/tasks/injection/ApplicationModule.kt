@@ -13,8 +13,6 @@ import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
 import org.tasks.data.*
 import org.tasks.locale.Locale
-import org.tasks.location.Geocoder
-import org.tasks.location.MapboxGeocoder
 import org.tasks.notifications.NotificationDao
 import javax.inject.Singleton
 
@@ -96,7 +94,4 @@ class ApplicationModule {
     @Provides
     fun getBillingClient(@ApplicationContext context: Context, inventory: Inventory, firebase: Firebase): BillingClient
             = BillingClientImpl(context, inventory, firebase)
-
-    @Provides
-    fun getGeocoder(@ApplicationContext context: Context): Geocoder = MapboxGeocoder(context)
 }
