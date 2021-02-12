@@ -1,0 +1,341 @@
+{
+  "type": "FeatureCollection",
+  "query": [
+    -87.63380599999999,
+    41.8299365
+  ],
+  "features": [
+    {
+      "id": "poi.128849020577",
+      "type": "Feature",
+      "place_type": [
+        "poi"
+      ],
+      "relevance": 1,
+      "properties": {
+        "wikidata": "Q633613",
+        "category": "baseball stadium, baseball, leisure",
+        "landmark": true,
+        "address": "333 W 35th St",
+        "foursquare": "40dcbc80f964a52080011fe3"
+      },
+      "text": "Guaranteed Rate Field",
+      "place_name": "Guaranteed Rate Field, 333 W 35th St, Chicago, Illinois 60616, United States",
+      "center": [
+        -87.63380599999999,
+        41.8299365
+      ],
+      "geometry": {
+        "coordinates": [
+          -87.63380599999999,
+          41.8299365
+        ],
+        "type": "Point"
+      },
+      "context": [
+        {
+          "id": "neighborhood.33950",
+          "text": "Bridgeport"
+        },
+        {
+          "id": "postcode.11036815072354260",
+          "text": "60616"
+        },
+        {
+          "id": "place.1924128844701850",
+          "wikidata": "Q1297",
+          "text": "Chicago"
+        },
+        {
+          "id": "district.8754923997749290",
+          "wikidata": "Q108418",
+          "text": "Cook County"
+        },
+        {
+          "id": "region.10854263468358810",
+          "wikidata": "Q1204",
+          "short_code": "US-IL",
+          "text": "Illinois"
+        },
+        {
+          "id": "country.19678805456372290",
+          "wikidata": "Q30",
+          "short_code": "us",
+          "text": "United States"
+        }
+      ]
+    },
+    {
+      "id": "neighborhood.33950",
+      "type": "Feature",
+      "place_type": [
+        "neighborhood"
+      ],
+      "relevance": 1,
+      "properties": {},
+      "text": "Bridgeport",
+      "place_name": "Bridgeport, Chicago, Illinois 60616, United States",
+      "bbox": [
+        -87.665847,
+        41.823142,
+        -87.630759,
+        41.849457
+      ],
+      "center": [
+        -87.6512,
+        41.8381
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6512,
+          41.8381
+        ]
+      },
+      "context": [
+        {
+          "id": "postcode.11036815072354260",
+          "text": "60616"
+        },
+        {
+          "id": "place.1924128844701850",
+          "wikidata": "Q1297",
+          "text": "Chicago"
+        },
+        {
+          "id": "district.8754923997749290",
+          "wikidata": "Q108418",
+          "text": "Cook County"
+        },
+        {
+          "id": "region.10854263468358810",
+          "wikidata": "Q1204",
+          "short_code": "US-IL",
+          "text": "Illinois"
+        },
+        {
+          "id": "country.19678805456372290",
+          "wikidata": "Q30",
+          "short_code": "us",
+          "text": "United States"
+        }
+      ]
+    },
+    {
+      "id": "postcode.11036815072354260",
+      "type": "Feature",
+      "place_type": [
+        "postcode"
+      ],
+      "relevance": 1,
+      "properties": {},
+      "text": "60616",
+      "place_name": "Chicago, Illinois 60616, United States",
+      "bbox": [
+        -87.6466359591625,
+        41.8272291061023,
+        -87.592612118742,
+        41.8674338954049
+      ],
+      "center": [
+        -87.62,
+        41.86
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.62,
+          41.86
+        ]
+      },
+      "context": [
+        {
+          "id": "place.1924128844701850",
+          "wikidata": "Q1297",
+          "text": "Chicago"
+        },
+        {
+          "id": "district.8754923997749290",
+          "wikidata": "Q108418",
+          "text": "Cook County"
+        },
+        {
+          "id": "region.10854263468358810",
+          "wikidata": "Q1204",
+          "short_code": "US-IL",
+          "text": "Illinois"
+        },
+        {
+          "id": "country.19678805456372290",
+          "wikidata": "Q30",
+          "short_code": "us",
+          "text": "United States"
+        }
+      ]
+    },
+    {
+      "id": "place.1924128844701850",
+      "type": "Feature",
+      "place_type": [
+        "place"
+      ],
+      "relevance": 1,
+      "properties": {
+        "wikidata": "Q1297"
+      },
+      "text": "Chicago",
+      "place_name": "Chicago, Illinois, United States",
+      "bbox": [
+        -87.9058109309507,
+        41.6299229800457,
+        -87.523686109734,
+        42.0234323628388
+      ],
+      "center": [
+        -87.6244,
+        41.8756
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.6244,
+          41.8756
+        ]
+      },
+      "context": [
+        {
+          "id": "district.8754923997749290",
+          "wikidata": "Q108418",
+          "text": "Cook County"
+        },
+        {
+          "id": "region.10854263468358810",
+          "wikidata": "Q1204",
+          "short_code": "US-IL",
+          "text": "Illinois"
+        },
+        {
+          "id": "country.19678805456372290",
+          "wikidata": "Q30",
+          "short_code": "us",
+          "text": "United States"
+        }
+      ]
+    },
+    {
+      "id": "district.8754923997749290",
+      "type": "Feature",
+      "place_type": [
+        "district"
+      ],
+      "relevance": 1,
+      "properties": {
+        "wikidata": "Q108418"
+      },
+      "text": "Cook County",
+      "place_name": "Cook County, Illinois, United States",
+      "bbox": [
+        -88.263641,
+        41.469705,
+        -87.523907,
+        42.154292
+      ],
+      "center": [
+        -87.71667,
+        41.8
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.71667,
+          41.8
+        ]
+      },
+      "context": [
+        {
+          "id": "region.10854263468358810",
+          "wikidata": "Q1204",
+          "short_code": "US-IL",
+          "text": "Illinois"
+        },
+        {
+          "id": "country.19678805456372290",
+          "wikidata": "Q30",
+          "short_code": "us",
+          "text": "United States"
+        }
+      ]
+    },
+    {
+      "id": "region.10854263468358810",
+      "type": "Feature",
+      "place_type": [
+        "region"
+      ],
+      "relevance": 1,
+      "properties": {
+        "wikidata": "Q1204",
+        "short_code": "US-IL"
+      },
+      "text": "Illinois",
+      "place_name": "Illinois, United States",
+      "bbox": [
+        -91.5130799991365,
+        36.9702970055306,
+        -87.0117177165746,
+        42.553081292589
+      ],
+      "center": [
+        -89.2749461071049,
+        40.1492928594
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -89.2749461071049,
+          40.1492928594
+        ]
+      },
+      "context": [
+        {
+          "id": "country.19678805456372290",
+          "wikidata": "Q30",
+          "short_code": "us",
+          "text": "United States"
+        }
+      ]
+    },
+    {
+      "id": "country.19678805456372290",
+      "type": "Feature",
+      "place_type": [
+        "country"
+      ],
+      "relevance": 1,
+      "properties": {
+        "wikidata": "Q30",
+        "short_code": "us"
+      },
+      "text": "United States",
+      "place_name": "United States",
+      "bbox": [
+        -179.9,
+        18.8163608007951,
+        -66.8847646185949,
+        71.4202919997506
+      ],
+      "center": [
+        -97.9222112121185,
+        39.3812661305678
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.9222112121185,
+          39.3812661305678
+        ]
+      }
+    }
+  ],
+  "attribution": "NOTICE: © 2021 Mapbox and its suppliers. All rights reserved. Use of this data is subject to the Mapbox Terms of Service (https://www.mapbox.com/about/maps/). This response and the information it contains may not be retained. POI(s) provided by Foursquare."
+}

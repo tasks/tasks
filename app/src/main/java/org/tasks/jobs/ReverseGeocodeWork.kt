@@ -11,7 +11,6 @@ import org.tasks.data.LocationDao
 import org.tasks.injection.BaseWorker
 import org.tasks.location.Geocoder
 import timber.log.Timber
-import java.io.IOException
 
 @HiltWorker
 class ReverseGeocodeWork @AssistedInject constructor(
@@ -38,14 +37,14 @@ class ReverseGeocodeWork @AssistedInject constructor(
             return Result.failure()
         }
         return try {
-            val result = geocoder.reverseGeocode(place.mapPosition)
+            val result = geocoder.reverseGeocode(place.mapPosition) ?: return Result.failure()
             result.id = place.id
             result.uid = place.uid
             locationDao.update(result)
             localBroadcastManager.broadcastRefresh()
             Timber.d("found $result")
             Result.success()
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             firebase.reportException(e)
             Result.failure()
         }

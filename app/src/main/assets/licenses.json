@@ -124,20 +124,6 @@
     },
     {
       "artifactId": {
-        "name": "mapbox-sdk-services",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "MIT License",
-      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-      "normalizedLicense": "mit",
-      "url": "https://github.com/mapbox/mapbox-java",
-      "libraryName": "Mapbox services"
-    },
-    {
-      "artifactId": {
         "name": "core",
         "group": "androidx.core",
         "version": "+"
@@ -426,20 +412,6 @@
       "normalizedLicense": "apache2",
       "url": "http://commons.apache.org/proper/commons-lang/",
       "libraryName": "Apache Commons Lang"
-    },
-    {
-      "artifactId": {
-        "name": "mapbox-sdk-geojson",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "MIT License",
-      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-      "normalizedLicense": "mit",
-      "url": "https://github.com/mapbox/mapbox-java",
-      "libraryName": "Mapbox services-geojson"
     },
     {
       "artifactId": {
@@ -751,20 +723,6 @@
     },
     {
       "artifactId": {
-        "name": "mapbox-sdk-core",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "MIT License",
-      "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-      "normalizedLicense": "mit",
-      "url": "https://github.com/mapbox/mapbox-java",
-      "libraryName": "Mapbox services-core"
-    },
-    {
-      "artifactId": {
         "name": "lifecycle-process",
         "group": "androidx.lifecycle",
         "version": "+"
@@ -956,19 +914,6 @@
     },
     {
       "artifactId": {
-        "name": "retrofit",
-        "group": "com.squareup.retrofit2",
-        "version": "+"
-      },
-      "copyrightHolder": "Square, Inc.",
-      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "libraryName": "Retrofit"
-    },
-    {
-      "artifactId": {
         "name": "slf4j-api",
         "group": "org.slf4j",
         "version": "+"
@@ -1022,19 +967,6 @@
       "normalizedLicense": "apache2",
       "url": "https://github.com/JakeWharton/butterknife/",
       "libraryName": "ButterKnife Annotations"
-    },
-    {
-      "artifactId": {
-        "name": "converter-gson",
-        "group": "com.squareup.retrofit2",
-        "version": "+"
-      },
-      "copyrightHolder": "Square, Inc.",
-      "copyrightStatement": "Copyright &copy; Square, Inc. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "libraryName": "Converter: Gson"
     },
     {
       "artifactId": {
@@ -1498,34 +1430,6 @@
       "normalizedLicense": "apache2",
       "url": "https://github.com/google/auto/tree/master/value",
       "libraryName": "AutoValue Annotations"
-    },
-    {
-      "artifactId": {
-        "name": "mapbox-sdk-directions-refresh-models",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/mapbox/mapbox-java",
-      "libraryName": "mapbox-sdk-directions-refresh-models"
-    },
-    {
-      "artifactId": {
-        "name": "mapbox-sdk-directions-models",
-        "group": "com.mapbox.mapboxsdk",
-        "version": "+"
-      },
-      "copyrightHolder": "Mapbox",
-      "copyrightStatement": "Copyright &copy; Mapbox. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/mapbox/mapbox-java",
-      "libraryName": "mapbox-sdk-directions-models"
     },
     {
       "artifactId": {

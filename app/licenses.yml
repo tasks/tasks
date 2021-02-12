@@ -48,13 +48,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
-- artifact: com.mapbox.mapboxsdk:mapbox-sdk-services:+
-  name: Mapbox services
-  copyrightHolder: Mapbox
-  license: MIT License
-  licenseUrl: http://www.opensource.org/licenses/mit-license.php
-  url: https://github.com/mapbox/mapbox-java
-  forceGenerate: true
 - artifact: androidx.core:core:+
   name: Android Support Library compat
   copyrightHolder: Android Open Source Project
@@ -178,13 +171,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://commons.apache.org/proper/commons-lang/
-- artifact: com.mapbox.mapboxsdk:mapbox-sdk-geojson:+
-  name: Mapbox services-geojson
-  copyrightHolder: Mapbox
-  license: MIT License
-  licenseUrl: http://www.opensource.org/licenses/mit-license.php
-  url: https://github.com/mapbox/mapbox-java
-  forceGenerate: true
 - artifact: androidx.loader:loader:+
   name: Android Support Library loader
   copyrightHolder: Android Open Source Project
@@ -318,13 +304,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
-- artifact: com.mapbox.mapboxsdk:mapbox-sdk-core:+
-  name: Mapbox services-core
-  copyrightHolder: Mapbox
-  license: MIT License
-  licenseUrl: http://www.opensource.org/licenses/mit-license.php
-  url: https://github.com/mapbox/mapbox-java
-  forceGenerate: true
 - artifact: androidx.lifecycle:lifecycle-process:+
   name: Android Lifecycle Process
   copyrightHolder: Android Open Source Project
@@ -404,11 +383,6 @@
   copyrightHolder: Square, Inc.
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-- artifact: com.squareup.retrofit2:retrofit:+
-  name: Retrofit
-  copyrightHolder: Square, Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: org.slf4j:slf4j-api:+
   name: SLF4J API Module
   copyrightHolder: QOS.ch
@@ -433,11 +407,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/JakeWharton/butterknife/
-- artifact: com.squareup.retrofit2:converter-gson:+
-  name: "Converter: Gson"
-  copyrightHolder: Square, Inc.
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: com.squareup.okhttp3:logging-interceptor:+
   name: OkHttp Logging Interceptor
   copyrightHolder: Square, Inc.
@@ -629,18 +598,6 @@
   copyrightHolder: Google LLC
   license: The Apache Software License, Version 2.0
   url: https://github.com/google/auto/tree/master/value
-- artifact: com.mapbox.mapboxsdk:mapbox-sdk-directions-refresh-models:+
-  name: mapbox-sdk-directions-refresh-models
-  copyrightHolder: Mapbox
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/mapbox/mapbox-java
-- artifact: com.mapbox.mapboxsdk:mapbox-sdk-directions-models:+
-  name: mapbox-sdk-directions-models
-  copyrightHolder: Mapbox
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/mapbox/mapbox-java
 - artifact: com.sun.mail:android-mail:+
   name: android-mail
   copyrightHolder: Oracle and/or its affiliates

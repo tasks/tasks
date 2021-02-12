@@ -23,13 +23,15 @@ internal class LocationModule {
             @ApplicationContext context: Context,
             preferences: Preferences,
             playServices: PlayServices,
-            inventory: Inventory): PlaceSearchProvider {
+            inventory: Inventory,
+            mapboxSearchProvider: MapboxSearchProvider
+    ): PlaceSearchProvider {
         return if (preferences.useGooglePlaces()
                 && playServices.isPlayServicesAvailable
                 && inventory.hasPro) {
             GooglePlacesSearchProvider(context)
         } else {
-            MapboxSearchProvider(context)
+            mapboxSearchProvider
         }
     }
 

@@ -55,7 +55,7 @@ object TestUtilities {
     private fun fromResource(path: String): at.bitfire.ical4android.Task =
             fromString(readFile(path))
 
-    private fun readFile(path: String): String {
+    fun readFile(path: String): String {
         val uri = javaClass.classLoader?.getResource(path)?.toURI()
                 ?: throw IllegalArgumentException()
         val paths = Paths.get(uri)

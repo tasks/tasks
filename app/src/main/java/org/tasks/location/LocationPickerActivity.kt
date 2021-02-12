@@ -38,6 +38,7 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
+import org.tasks.data.Place.Companion.newPlace
 import org.tasks.data.PlaceUsage
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.injection.InjectingAppCompatActivity
@@ -232,7 +233,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         val mapPosition = map.mapPosition ?: return
         loadingIndicator.visibility = View.VISIBLE
         lifecycleScope.launch {
-            val place = geocoder.reverseGeocode(mapPosition)
+            val place = geocoder.reverseGeocode(mapPosition) ?: newPlace(mapPosition)
             loadingIndicator.visibility = View.GONE
             returnPlace(place)
         }

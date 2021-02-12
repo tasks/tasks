@@ -1,48 +1,72 @@
 package org.tasks.location
 
 import android.content.Context
-import com.google.gson.GsonBuilder
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import com.mapbox.api.geocoding.v5.MapboxGeocoding
-import com.mapbox.geojson.Point
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.tasks.BuildConfig
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.tasks.DebugNetworkInterceptor
 import org.tasks.R
 import org.tasks.data.Place
 import org.tasks.data.Place.Companion.newPlace
-import timber.log.Timber
+import org.tasks.preferences.Preferences
+import java.io.IOException
 import javax.inject.Inject
 
-class MapboxGeocoder @Inject constructor(@ApplicationContext context: Context) : Geocoder {
-    private val token: String = context.getString(R.string.mapbox_key)
+class MapboxGeocoder @Inject constructor(
+        @ApplicationContext context: Context,
+        private val preferences: Preferences,
+        private val interceptor: DebugNetworkInterceptor,
+) : Geocoder {
+    private val token = context.getString(R.string.mapbox_key)
 
-    override suspend fun reverseGeocode(mapPosition: MapPosition): Place =
+    override suspend fun reverseGeocode(mapPosition: MapPosition): Place? =
             withContext(Dispatchers.IO) {
-                val response = MapboxGeocoding.builder()
-                        .accessToken(token)
-                        .query(Point.fromLngLat(mapPosition.longitude, mapPosition.latitude))
-                        .build()
-                        .executeCall()
-                val body = response.body()
-                if (response.isSuccessful && body != null) {
-                    Timber.d(prettyPrint(body.toJson()))
-                    val features = body.features()
-                    if (features.size > 0) {
-                        return@withContext newPlace(features[0])
-                    }
-                } else {
-                    Timber.e(response.errorBody()!!.string())
+                val builder = OkHttpClient().newBuilder()
+                if (preferences.isFlipperEnabled) {
+                    interceptor.apply(builder)
                 }
-                newPlace(mapPosition)!!
+                val client = builder.build()
+                val url = "https://api.mapbox.com/geocoding/v5/mapbox.places/${mapPosition.longitude},${mapPosition.latitude}.json?access_token=$token"
+                val response = client.newCall(Request.Builder().get().url(url).build()).execute()
+                if (response.isSuccessful) {
+                    response.body?.string()?.let { jsonToPlace(it) }
+                } else {
+                    throw IOException("${response.code} ${response.message}")
+                }
             }
 
     companion object {
-        private fun prettyPrint(json: String): String {
-            return if (BuildConfig.DEBUG) {
-                GsonBuilder().setPrettyPrinting().create().toJson(JsonParser().parse(json))
-            } else json
-        }
+        internal fun jsonToPlace(json: String): Place? =
+                JsonParser
+                        .parseString(json).asJsonObject.getAsJsonArray("features")
+                        .takeIf { it.size() > 0 }?.get(0)?.asJsonObject
+                        ?.let { toPlace(it) }
+
+        internal fun toPlace(feature: JsonObject): Place =
+                newPlace().apply {
+                    val types = feature.get("place_type").asStringList
+                    val text = feature.get("text").asString
+                    name = if (types.contains("address")) {
+                        "${feature.get("address").asString} $text"
+                    } else {
+                        text
+                    }
+                    address = feature.get("place_name").asString
+                    feature.get("center").asCoordinates.let {
+                        longitude = it.first
+                        latitude = it.second
+                    }
+                }
+
+        private val JsonElement.asStringList: List<String>
+            get() = asJsonArray.map { it.asString }
+
+        private val JsonElement.asCoordinates: Pair<Double, Double>
+            get() = asJsonArray.let { Pair(it[0].asDouble, it[1].asDouble) }
     }
 }

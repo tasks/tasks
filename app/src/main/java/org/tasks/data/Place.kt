@@ -7,8 +7,6 @@ import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.*
-import com.mapbox.api.geocoding.v5.GeocodingCriteria
-import com.mapbox.api.geocoding.v5.models.CarmenFeature
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.helper.UUIDHelper
@@ -212,29 +210,9 @@ class Place : Serializable, Parcelable {
             longitude = geo.longitude.toDouble()
         }
 
-        @JvmStatic fun newPlace(mapPosition: MapPosition?): Place? {
-            if (mapPosition == null) {
-                return null
-            }
-
-            return newPlace().apply {
-                latitude = mapPosition.latitude
-                longitude = mapPosition.longitude
-            }
-        }
-
-        @JvmStatic fun newPlace(feature: CarmenFeature): Place = newPlace().apply {
-            val types = feature.placeType()
-
-            name = if (types != null && types.contains(GeocodingCriteria.TYPE_ADDRESS)) {
-                "${feature.address()} ${feature.text()}"
-            } else {
-                feature.text()
-            }
-
-            address = feature.placeName()
-            latitude = feature.center()!!.latitude()
-            longitude = feature.center()!!.longitude()
+        fun newPlace(mapPosition: MapPosition) = newPlace().apply {
+            latitude = mapPosition.latitude
+            longitude = mapPosition.longitude
         }
 
         @JvmStatic fun newPlace(): Place = Place().apply { uid = UUIDHelper.newUUID() }

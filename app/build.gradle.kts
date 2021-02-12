@@ -201,7 +201,6 @@ dependencies {
     implementation("com.google.auth:google-auth-library-oauth2-http:0.23.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("androidx.work:work-runtime-ktx:${Versions.work}")
-    implementation("com.mapbox.mapboxsdk:mapbox-sdk-services:5.8.0")
     implementation("com.etesync:journalmanager:1.1.1")
     implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
