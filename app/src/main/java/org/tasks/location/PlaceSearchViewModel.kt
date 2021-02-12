@@ -1,14 +1,10 @@
 package org.tasks.location
 
 import android.os.Bundle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import com.todoroo.andlib.utility.AndroidUtilities
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import org.tasks.Event
-import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.Place
 import javax.inject.Inject
 
@@ -30,7 +26,7 @@ class PlaceSearchViewModel @Inject constructor(
         error.observe(owner, onError!!)
     }
 
-    fun saveState(outState: Bundle?) {
+    fun saveState(outState: Bundle) {
         searchProvider.saveState(outState)
     }
 
@@ -38,17 +34,24 @@ class PlaceSearchViewModel @Inject constructor(
         searchProvider.restoreState(savedInstanceState)
     }
 
-    fun query(query: String?, bias: MapPosition?) {
-        AndroidUtilities.assertMainThread()
-        if (isNullOrEmpty(query)) {
+    fun query(query: String?, bias: MapPosition?) = viewModelScope.launch {
+        if (query.isNullOrBlank()) {
             searchResults.postValue(emptyList())
         } else {
-            searchProvider.search(query, bias, { value: List<PlaceSearchResult> -> searchResults.setValue(value) }) { message: String -> setError(message) }
+            try {
+                searchResults.value = searchProvider.search(query, bias)
+            } catch (e: Exception) {
+                e.message?.let { setError(it) }
+            }
         }
     }
 
-    fun fetch(result: PlaceSearchResult?) {
-        searchProvider.fetch(result, { value: Place -> selection.setValue(value) }) { message: String -> setError(message) }
+    fun fetch(result: PlaceSearchResult) = viewModelScope.launch {
+        try {
+            selection.value = searchProvider.fetch(result)
+        } catch (e: Exception) {
+            e.message?.let { setError(it) }
+        }
     }
 
     private fun setError(message: String) {

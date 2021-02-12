@@ -10,17 +10,19 @@ import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.Place.Field
 import com.google.android.libraries.places.api.model.RectangularBounds
 import com.google.android.libraries.places.api.net.*
-import org.tasks.Callback
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.data.Place
 import org.tasks.data.Place.Companion.newPlace
+import kotlin.coroutines.suspendCoroutine
 
 class GooglePlacesSearchProvider(private val context: Context) : PlaceSearchProvider {
     private var token: AutocompleteSessionToken? = null
     private var placesClient: PlacesClient? = null
 
-    override fun restoreState(savedInstanceState: Bundle) {
-        token = savedInstanceState.getParcelable(EXTRA_SESSION_TOKEN)
+    override fun restoreState(savedInstanceState: Bundle?) {
+        token = savedInstanceState?.getParcelable(EXTRA_SESSION_TOKEN)
     }
 
     override fun saveState(outState: Bundle) {
@@ -31,52 +33,63 @@ class GooglePlacesSearchProvider(private val context: Context) : PlaceSearchProv
         return if (dark) R.drawable.places_powered_by_google_dark else R.drawable.places_powered_by_google_light
     }
 
-    override fun search(
-            query: String,
-            bias: MapPosition?,
-            onSuccess: Callback<List<PlaceSearchResult>>,
-            onError: Callback<String>) {
-        if (!Places.isInitialized()) {
-            Places.initialize(context, context.getString(R.string.google_key))
-        }
-        if (placesClient == null) {
-            placesClient = Places.createClient(context)
-        }
-        if (token == null) {
-            token = AutocompleteSessionToken.newInstance()
-        }
-        val request = FindAutocompletePredictionsRequest.builder().setSessionToken(token).setQuery(query)
-        if (bias != null) {
-            request.setLocationBias(
-                    RectangularBounds.newInstance(
-                            LatLngBounds.builder()
-                                    .include(LatLng(bias.latitude, bias.longitude))
-                                    .build()))
-        }
-        placesClient!!
-                .findAutocompletePredictions(request.build())
-                .addOnSuccessListener { response: FindAutocompletePredictionsResponse -> onSuccess.call(toSearchResults(response.autocompletePredictions)) }
-                .addOnFailureListener { e: Exception -> onError.call(e.message) }
-    }
+    override suspend fun search(query: String, bias: MapPosition?): List<PlaceSearchResult> =
+            withContext(Dispatchers.IO) {
+                suspendCoroutine { cont ->
+                    if (!Places.isInitialized()) {
+                        Places.initialize(context, context.getString(R.string.google_key))
+                    }
+                    if (placesClient == null) {
+                        placesClient = Places.createClient(context)
+                    }
+                    if (token == null) {
+                        token = AutocompleteSessionToken.newInstance()
+                    }
+                    val request = FindAutocompletePredictionsRequest.builder().setSessionToken(token).setQuery(query)
+                    if (bias != null) {
+                        request.locationBias =
+                                RectangularBounds.newInstance(
+                                        LatLngBounds.builder()
+                                                .include(LatLng(bias.latitude, bias.longitude))
+                                                .build())
+                    }
+                    placesClient!!
+                            .findAutocompletePredictions(request.build())
+                            .addOnSuccessListener { response: FindAutocompletePredictionsResponse ->
+                                val places = toSearchResults(response.autocompletePredictions)
+                                cont.resumeWith(Result.success(places))
+                            }
+                            .addOnFailureListener { e: Exception ->
+                                cont.resumeWith(Result.failure(e))
+                            }
+                }
+            }
 
-    override fun fetch(
-            placeSearchResult: PlaceSearchResult, onSuccess: Callback<Place>, onError: Callback<String>) {
-        placesClient!!
-                .fetchPlace(
-                        FetchPlaceRequest.builder(
-                                placeSearchResult.id,
-                                listOf(
-                                        Field.ID,
-                                        Field.LAT_LNG,
-                                        Field.ADDRESS,
-                                        Field.WEBSITE_URI,
-                                        Field.NAME,
-                                        Field.PHONE_NUMBER))
-                                .setSessionToken(token)
-                                .build())
-                .addOnSuccessListener { result: FetchPlaceResponse -> onSuccess.call(toPlace(result)) }
-                .addOnFailureListener { e: Exception -> onError.call(e.message) }
-    }
+    override suspend fun fetch(placeSearchResult: PlaceSearchResult): Place =
+            withContext(Dispatchers.IO) {
+                suspendCoroutine { cont ->
+                    placesClient!!
+                            .fetchPlace(
+                                    FetchPlaceRequest.builder(
+                                            placeSearchResult.id,
+                                            listOf(
+                                                    Field.ID,
+                                                    Field.LAT_LNG,
+                                                    Field.ADDRESS,
+                                                    Field.WEBSITE_URI,
+                                                    Field.NAME,
+                                                    Field.PHONE_NUMBER))
+                                            .setSessionToken(token)
+                                            .build())
+                            .addOnSuccessListener { result: FetchPlaceResponse ->
+                                cont.resumeWith(Result.success(toPlace(result)))
+                            }
+                            .addOnFailureListener { e: Exception ->
+                                cont.resumeWith(Result.failure(e))
+                            }
+                }
+            }
+
 
     private fun toSearchResults(predictions: List<AutocompletePrediction>): List<PlaceSearchResult> {
         return predictions.map {
