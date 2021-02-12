@@ -1,0 +1,45 @@
+{
+  "type": "FeatureCollection",
+  "geocoding": {
+    "version": "0.1.0",
+    "attribution": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+    "licence": "ODbL",
+    "query": "41.8299365,-87.633806"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "geocoding": {
+          "place_id": 258870464,
+          "osm_type": "relation",
+          "osm_id": 3834547,
+          "type": "pitch",
+          "accuracy": 0,
+          "label": "Guaranteed Rate Field, West 36th Street, Armour Square, Chicago, Cook County, Illinois, 60616, United States",
+          "name": "Guaranteed Rate Field",
+          "country": "United States",
+          "postcode": "60616",
+          "state": "Illinois",
+          "county": "Cook County",
+          "city": "Chicago",
+          "district": "Armour Square",
+          "street": "West 36th Street",
+          "admin": {
+            "level4": "Illinois",
+            "level6": "Cook County",
+            "level8": "Chicago",
+            "level10": "Armour Square"
+          }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.63362064328714,
+          41.82982845
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "geocoding": {
+    "version": "0.1.0",
+    "attribution": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+    "licence": "ODbL",
+    "query": "60.2301296,11.1658572"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "geocoding": {
+          "place_id": 39928913,
+          "osm_type": "node",
+          "osm_id": 3110596255,
+          "type": "house",
+          "accuracy": 0,
+          "label": "1, Løvenbergvegen, Mogreina, Ullensaker, Viken, 2054, Norge",
+          "country": "Norge",
+          "postcode": "2054",
+          "county": "Viken",
+          "city": "Mogreina",
+          "street": "Løvenbergvegen",
+          "housenumber": "1",
+          "admin": {
+            "level4": "Viken",
+            "level7": "Ullensaker"
+          }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.1658572,
+          60.2301296
+        ]
+      }
+    }
+  ]
+}
