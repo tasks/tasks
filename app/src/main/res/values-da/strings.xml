@@ -7,7 +7,12 @@
     <string name="backup_BAc_export">Eksportér opgaver</string>
     <string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>
     <string name="import_summary_title">Gendan opsummering</string>
-    <string name="import_summary_message">Filen %1$s indeholdt %2$s.\n\n %3$s importeret,\n %4$s findes allerede\n %5$s indeholdt fejl\n</string>
+    <string name="import_summary_message">Filen %1$s indeholdt %2$s.
+\n
+\n%3$s importeret,
+\n%4$s findes allerede
+\n%5$s indeholdt fejl
+\n</string>
     <string name="import_progress_read">Indlæser opgave %d…</string>
     <string name="read_permission_label">Tasks’ Tilladelser</string>
     <string name="DLG_delete_this_task_question">Slet denne opgave?</string>
@@ -634,4 +639,33 @@
     <string name="price_per_month">$%s/måned</string>
     <string name="default_location">Standardplacering</string>
     <string name="start_date">Start dato</string>
+    <string name="default_due_date">Standard forfaldsdato</string>
+    <string name="default_start_date">Standard startdato</string>
+    <string name="always_display_full_date">Vis fuld dato</string>
+    <string name="automatic_backups">Automatiske sikkerhedskopier</string>
+    <string name="device_settings">Enhedsindstillinger</string>
+    <string name="last_backup_never">aldrig</string>
+    <string name="last_backup">Sidste sikkerhedskopi: %s</string>
+    <string name="account_not_included">Ikke inkluderet i abonnementer \'Navngiv din pris\'</string>
+    <string name="cancel">\@android:string/annullere</string>
+    <string name="ok">\@android:string/ok</string>
+    <string name="repeat_monthly_fifth_week">femte</string>
+    <string name="more_options">Flere muligheder</string>
+    <string name="backup_location_warning">ADVARSEL: Filer i %s slettes, hvis Tasks afinstalleres! Vælg en brugerdefineret placering for at forhindre, at Android sletter dine filer.</string>
+    <string name="backups_ignore_warnings_summary">Ignorer backupadvarsler, hvis du ikke har brug for sikkerhedskopier eller har din egen sikkerhedskopiløsning</string>
+    <string name="backups_ignore_warnings">Ignorer advarsler</string>
+    <string name="background_location">Baggrundsplacering</string>
+    <string name="foreground_location">Forgrundsplacering</string>
+    <string name="account">Konto</string>
+    <string name="no_app_found">Ingen app kunne håndtere denne anmodning</string>
+    <string name="insufficient_sponsorship">Der blev ikke fundet noget kvalificeret GitHub sponsorat</string>
+    <string name="insufficient_subscription">Utilstrækkeligt abonnementsniveau. Opgrader venligst dit abonnement for at genoptage tjenesten.</string>
+    <string name="your_subscription_expired">Dit abonnement er udløbet. Abonner nu for at genoptage tjenesten.</string>
+    <string name="logged_in">Logget ind %s</string>
+    <string name="custom_filter_is_subtask">Er underopgaver</string>
+    <string name="custom_filter_has_subtask">Har underopgaver</string>
+    <string name="price_per_month_abbreviated">$%s/m</string>
+    <string name="price_per_year_abbreviated">$%s/år</string>
+    <string name="price_per_year">$%s/år</string>
+    <string name="no_google_play_subscription">Ingen kvalificeret Google Play abonnement fundet</string>
 </resources>
