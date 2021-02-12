@@ -493,10 +493,10 @@
       android:name=".locale.receiver.TaskerIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"/>
 
-    <receiver android:name=".location.GeofenceTransitionsIntentService$Broadcast"/>
+    <receiver android:name=".location.AndroidGeofenceTransitionIntentService$Broadcast"/>
     <service
       android:exported="false"
-      android:name=".location.GeofenceTransitionsIntentService"
+      android:name=".location.AndroidGeofenceTransitionIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     <!-- Uses Library -->

@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GeofenceApi @Inject constructor(
         private val permissionChecker: PermissionChecker,
         private val locationDao: LocationDao,
-        private val client: GeofenceClient
+        private val client: Geofencing
 ) {
     suspend fun registerAll() = locationDao.getPlacesWithGeofences().forEach { update(it) }
 

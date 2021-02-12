@@ -12,21 +12,23 @@ import org.tasks.data.MergedGeofence
 import org.tasks.data.Place
 import javax.inject.Inject
 
-class GeofenceClient @Inject constructor(@ApplicationContext private val context: Context) {
+class GoogleGeofencing @Inject constructor(
+        @ApplicationContext private val context: Context
+): Geofencing {
     private val client = LocationServices.getGeofencingClient(context)
 
     @SuppressLint("MissingPermission")
-    fun addGeofences(geofence: MergedGeofence) {
+    override fun addGeofences(geofence: MergedGeofence) {
         client.addGeofences(
                 GeofencingRequest.Builder().addGeofence(toGoogleGeofence(geofence)).build(),
                 PendingIntent.getBroadcast(
                         context,
                         0,
-                        Intent(context, GeofenceTransitionsIntentService.Broadcast::class.java),
+                        Intent(context, GoogleGeofenceTransitionIntentService.Broadcast::class.java),
                         PendingIntent.FLAG_UPDATE_CURRENT))
     }
 
-    fun removeGeofences(place: Place) {
+    override fun removeGeofences(place: Place) {
         client.removeGeofences(listOf(place.id.toString()))
     }
 

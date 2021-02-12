@@ -14,7 +14,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class GeofenceTransitionsIntentService : InjectingJobIntentService() {
+class GoogleGeofenceTransitionIntentService : InjectingJobIntentService() {
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var notifier: Notifier
 
@@ -59,7 +59,7 @@ class GeofenceTransitionsIntentService : InjectingJobIntentService() {
         override fun onReceive(context: Context, intent: Intent) {
             enqueueWork(
                     context,
-                    GeofenceTransitionsIntentService::class.java,
+                    GoogleGeofenceTransitionIntentService::class.java,
                     JOB_ID_GEOFENCE_TRANSITION,
                     intent)
         }

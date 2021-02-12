@@ -13,6 +13,12 @@
       android:name="com.google.android.gms.version"
       android:value="@integer/google_play_services_version"/>
 
+    <receiver android:name=".location.GoogleGeofenceTransitionIntentService$Broadcast"/>
+    <service
+      android:exported="false"
+      android:name=".location.GoogleGeofenceTransitionIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
   </application>
 
 </manifest>
