@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.tasks.BuildConfig
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.data.Place
 import org.tasks.data.Place.Companion.newPlace
@@ -25,7 +26,9 @@ class NominatimGeocoder @Inject constructor(
                 }
                 val client = builder.build()
                 val url = "https://nominatim.openstreetmap.org/reverse?format=geocodejson&lat=${mapPosition.latitude}&lon=${mapPosition.longitude}"
-                val response = client.newCall(Request.Builder().get().url(url).build()).execute()
+                val response = client.newCall(
+                        Request.Builder().get().url(url).addHeader(USER_AGENT, UA_VALUE).build()
+                ).execute()
                 if (response.isSuccessful) {
                     response.body?.string()?.let { jsonToPlace(it) }
                 } else {
@@ -34,6 +37,9 @@ class NominatimGeocoder @Inject constructor(
             }
 
     companion object {
+        private const val USER_AGENT = "User-Agent"
+        private const val UA_VALUE = "${BuildConfig.APPLICATION_ID}/${BuildConfig.VERSION_NAME} (${BuildConfig.FLAVOR}-${BuildConfig.BUILD_TYPE})"
+
         internal fun jsonToPlace(json: String): Place? =
                 JsonParser
                         .parseString(json).asJsonObject.getAsJsonArray("features")
