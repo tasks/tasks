@@ -698,6 +698,7 @@ File %1$s contained %2$s.\n\n
   <string name="copied_to_clipboard">%s copied to clipboard</string>
   <string name="tasks_org_account">Tasks.org account</string>
   <string name="get_tasks_org_account">Get Tasks.org account</string>
+  <string name="tasks_org_account_required">Tasks.org account required</string>
   <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
   <string name="reverse_geocoder">Reverse geocoder</string>
   <string name="maps">Maps</string>
