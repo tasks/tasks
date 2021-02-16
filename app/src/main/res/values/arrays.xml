@@ -258,6 +258,18 @@
     <item>@drawable/ic_octocat</item>
   </array>
 
+  <string-array name="reverse_geocoder_names">
+    <item>@string/mapbox</item>
+    <item>@string/nominatim</item>
+    <item>@string/android</item>
+  </string-array>
+
+  <string-array name="reverse_geocoder_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
+
   <string-array name="map_tile_names">
     <item>@string/google_maps</item>
     <item>@string/openstreetmap</item>

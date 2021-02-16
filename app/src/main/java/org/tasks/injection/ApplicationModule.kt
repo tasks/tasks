@@ -7,13 +7,21 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import org.tasks.DebugNetworkInterceptor
+import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
 import org.tasks.data.*
+import org.tasks.http.HttpClientFactory
 import org.tasks.locale.Locale
+import org.tasks.location.Geocoder
+import org.tasks.location.GeocoderAndroid
+import org.tasks.location.GeocoderMapbox
+import org.tasks.location.GeocoderNominatim
 import org.tasks.notifications.NotificationDao
+import org.tasks.preferences.Preferences
 import javax.inject.Singleton
 
 @Module
@@ -94,4 +102,16 @@ class ApplicationModule {
     @Provides
     fun getBillingClient(@ApplicationContext context: Context, inventory: Inventory, firebase: Firebase): BillingClient
             = BillingClientImpl(context, inventory, firebase)
+
+    @Provides
+    fun getGeocoder(
+            @ApplicationContext context: Context,
+            httpClientFactory: HttpClientFactory,
+            preferences: Preferences,
+            interceptor: DebugNetworkInterceptor,
+    ): Geocoder = when (preferences.getIntegerFromString(R.string.p_reverse_geocoder, 0)) {
+        1 -> GeocoderNominatim(context, httpClientFactory)
+        2 -> GeocoderAndroid(context)
+        else -> GeocoderMapbox(context, preferences, interceptor)
+    }
 }

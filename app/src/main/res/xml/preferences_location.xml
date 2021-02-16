@@ -29,6 +29,14 @@
     android:title="@string/places">
 
     <ListPreference
+      android:defaultValue="@string/default_reverse_geocoder"
+      android:key="@string/p_reverse_geocoder"
+      android:title="@string/reverse_geocoder"
+      android:entries="@array/reverse_geocoder_names"
+      android:entryValues="@array/reverse_geocoder_values"
+      android:summary="%s"/>
+
+    <ListPreference
       android:defaultValue="0"
       android:key="@string/p_place_provider"
       android:title="@string/map_search_provider"

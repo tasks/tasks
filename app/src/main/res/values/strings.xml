@@ -699,6 +699,7 @@ File %1$s contained %2$s.\n\n
   <string name="tasks_org_account">Tasks.org account</string>
   <string name="get_tasks_org_account">Get Tasks.org account</string>
   <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
+  <string name="reverse_geocoder">Reverse geocoder</string>
   <string name="maps">Maps</string>
   <string name="map_tiles">Map tiles</string>
   <string name="map_theme_use_app_theme">Use app theme</string>
