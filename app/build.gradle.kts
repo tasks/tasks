@@ -95,6 +95,7 @@ android {
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
             resValue("string", "tasks_caldav_url", tasks_caldav_url ?: "https://caldav.tasks.org")
+            resValue("string", "tasks_nominatim_url", tasks_caldav_url ?: "https://nominatim.tasks.org")
             isTestCoverageEnabled = project.hasProperty("coverage")
         }
         getByName("release") {

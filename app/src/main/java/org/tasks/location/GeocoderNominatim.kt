@@ -1,38 +1,37 @@
 package org.tasks.location
 
+import android.content.Context
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.tasks.BuildConfig
-import org.tasks.DebugNetworkInterceptor
+import org.tasks.R
 import org.tasks.data.Place
 import org.tasks.data.Place.Companion.newPlace
-import org.tasks.preferences.Preferences
-import java.io.IOException
+import org.tasks.http.HttpClientFactory
+import org.tasks.http.HttpException
 import javax.inject.Inject
 
 class GeocoderNominatim @Inject constructor(
-        private val preferences: Preferences,
-        private val interceptor: DebugNetworkInterceptor,
+        @ApplicationContext context: Context,
+        private val httpClientFactory: HttpClientFactory,
 ) : Geocoder {
+    private val url = context.getString(R.string.tasks_nominatim_url)
+
     override suspend fun reverseGeocode(mapPosition: MapPosition): Place? =
             withContext(Dispatchers.IO) {
-                val builder = OkHttpClient().newBuilder()
-                if (preferences.isFlipperEnabled) {
-                    interceptor.apply(builder)
-                }
-                val client = builder.build()
-                val url = "https://nominatim.openstreetmap.org/reverse?format=geocodejson&lat=${mapPosition.latitude}&lon=${mapPosition.longitude}"
+                val client = httpClientFactory.newBuilder(true).build()
+                val url = "$url/reverse?format=geocodejson&lat=${mapPosition.latitude}&lon=${mapPosition.longitude}"
                 val response = client.newCall(
                         Request.Builder().get().url(url).addHeader(USER_AGENT, UA_VALUE).build()
                 ).execute()
                 if (response.isSuccessful) {
                     response.body?.string()?.let { jsonToPlace(it) }
                 } else {
-                    throw IOException("${response.code} ${response.message}")
+                    throw HttpException(response.code, response.message)
                 }
             }
 

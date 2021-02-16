@@ -2,4 +2,5 @@
 <resources>
   <string name="app_name">Tasks</string>
   <string name="tasks_caldav_url">https://caldav.tasks.org</string>
+  <string name="tasks_nominatim_url">https://nominatim.tasks.org</string>
 </resources>

@@ -34,6 +34,7 @@ import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.PlaceSettingsActivity
+import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.data.LocationDao
@@ -93,6 +94,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var locationProvider: LocationProvider
+    @Inject lateinit var firebase: Firebase
     
     private var disposables: CompositeDisposable? = null
     private var mapPosition: MapPosition? = null
@@ -232,10 +234,14 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     fun selectLocation() {
         val mapPosition = map.mapPosition ?: return
         loadingIndicator.visibility = View.VISIBLE
-        lifecycleScope.launch {
-            val place = geocoder.reverseGeocode(mapPosition) ?: newPlace(mapPosition)
+        try {
+            lifecycleScope.launch {
+                returnPlace(geocoder.reverseGeocode(mapPosition) ?: newPlace(mapPosition))
+            }
+        } catch (e: Exception) {
             loadingIndicator.visibility = View.GONE
-            returnPlace(place)
+            firebase.reportException(e)
+            toaster.longToast(e.message)
         }
     }
 
