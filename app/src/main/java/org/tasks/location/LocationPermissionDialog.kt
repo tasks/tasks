@@ -1,7 +1,9 @@
 package org.tasks.location
 
+import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -52,9 +54,7 @@ class LocationPermissionDialog : DialogFragment() {
 
         return dialogBuilder.newDialog(R.string.missing_permissions)
                 .setView(binding.root)
-                .setNegativeButton(R.string.cancel) { _, _ ->
-                    dismiss()
-                }
+                .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.cancel() }
                 .setNeutralButton(R.string.TLA_menu_settings) { _, _ ->
                     startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                         addCategory(Intent.CATEGORY_DEFAULT)
@@ -86,6 +86,10 @@ class LocationPermissionDialog : DialogFragment() {
             }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        targetFragment?.onActivityResult(targetRequestCode, RESULT_CANCELED, null)
     }
 
     companion object {

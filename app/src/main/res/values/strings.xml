@@ -703,4 +703,8 @@ File %1$s contained %2$s.\n\n
   <string name="maps">Maps</string>
   <string name="map_tiles">Map tiles</string>
   <string name="map_theme_use_app_theme">Use app theme</string>
+  <string name="location_based_reminders">Location-based reminders</string>
+  <string name="geofence_service">Geofence service</string>
+  <string name="google_play_location_service">Google Play location service</string>
+  <string name="android_location_services">Android location service</string>
 </resources>

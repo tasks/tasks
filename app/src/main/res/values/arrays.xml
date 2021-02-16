@@ -301,4 +301,14 @@
     <item>0</item>
     <item>1</item>
   </string-array>
+
+  <string-array name="geofence_service_names">
+    <item>@string/google_play_location_service</item>
+    <item>@string/android_location_services</item>
+  </string-array>
+
+  <string-array name="geofence_service_values">
+    <item>0</item>
+    <item>1</item>
+  </string-array>
 </resources>

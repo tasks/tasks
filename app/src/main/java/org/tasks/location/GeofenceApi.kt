@@ -13,6 +13,8 @@ class GeofenceApi @Inject constructor(
 ) {
     suspend fun registerAll() = locationDao.getPlacesWithGeofences().forEach { update(it) }
 
+    suspend fun cancelAll() = locationDao.getPlacesWithGeofences().forEach { cancel(it) }
+
     suspend fun update(taskId: Long) = update(locationDao.getPlaceForTask(taskId))
 
     suspend fun update(place: String) = update(locationDao.getPlace(place))
@@ -26,9 +28,11 @@ class GeofenceApi @Inject constructor(
                     Timber.d("Adding geofence for %s", it)
                     client.addGeofences(it)
                 }
-                ?: place.let {
-                    Timber.d("Removing geofence for %s", it)
-                    client.removeGeofences(it)
-                }
+                ?: cancel(place)
+    }
+
+    private fun cancel(place: Place?) = place?.let {
+        Timber.d("Removing geofence for %s", place)
+        client.removeGeofences(place)
     }
 }
