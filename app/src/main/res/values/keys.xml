@@ -396,7 +396,7 @@
   <string name="p_always_display_full_date">always_display_full_date</string>
   <string name="p_linkify_task_list">linkify_task_list</string>
   <string name="p_linkify_task_edit">linkify_task_edit</string>
-  <string name="map_provider_mapbox">Mapbox</string>
+  <string name="mapbox">Mapbox</string>
   <string name="map_search_google_places">Google Places</string>
   <string name="p_place_provider">place_provider_v2</string>
   <string name="preference_screen">preference_screen</string>
