@@ -16,7 +16,7 @@ import org.tasks.location.*
 class LocationModule {
     @Provides
     @ViewModelScoped
-    fun getPlaceSearchProvider(mapboxSearchProvider: MapboxSearchProvider): PlaceSearchProvider =
+    fun getPlaceSearchProvider(mapboxSearchProvider: PlaceSearchMapbox): PlaceSearch =
             mapboxSearchProvider
 
     @Provides
