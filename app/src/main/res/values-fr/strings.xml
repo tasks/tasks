@@ -420,7 +420,6 @@
     <string name="choose_a_location">Choisir une localisation</string>
     <string name="pick_this_location">Sélectionner cette localisation</string>
     <string name="or_choose_a_location">Ou choisir une localisation</string>
-    <string name="map_search_provider">Moteurs de recherche</string>
     <string name="missing_permissions">Permissions manquantes</string>
     <string name="location_permission_required_location">La permission de la localisation est nécessaire pour trouver votre localisation actuelle</string>
     <string name="open_map">Ouvrir la carte</string>

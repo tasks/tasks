@@ -35,16 +35,10 @@ class LocationPreferences : InjectingPreferenceFragment() {
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         if (IS_GOOGLE_PLAY) {
-            findPreference(R.string.p_place_provider)
-                    .setOnPreferenceChangeListener(this::onPlaceSearchChanged)
             findPreference(R.string.p_geofence_service)
                     .setOnPreferenceChangeListener(this::onGeofenceServiceChanged)
         } else {
-            disable(
-                    R.string.p_map_tiles,
-                    R.string.p_place_provider,
-                    R.string.p_geofence_service
-            )
+            disable(R.string.p_map_tiles, R.string.p_geofence_service)
         }
     }
 
@@ -70,21 +64,6 @@ class LocationPreferences : InjectingPreferenceFragment() {
         }
         findPreference(R.string.p_geofence_service).isEnabled = hasPermissions && IS_GOOGLE_PLAY
     }
-
-    private fun onPlaceSearchChanged(preference: Preference, newValue: Any): Boolean =
-            if (newValue.toString().toIntOrNull() ?: 0 == 1) {
-                if (!playServices.refreshAndCheck()) {
-                    playServices.resolve(activity)
-                    false
-                } else if (!inventory.hasPro) {
-                    toaster.longToast(R.string.requires_pro_subscription)
-                    false
-                } else {
-                    true
-                }
-            } else {
-                true
-            }
 
     private fun onGeofenceServiceChanged(preference: Preference, newValue: Any): Boolean =
             if (newValue.toString().toIntOrNull() ?: 0 == 1) {

@@ -448,7 +448,6 @@
     <string name="choose_a_location">Wybierz lokalizację</string>
     <string name="pick_this_location">Ustaw wybraną lokalizację</string>
     <string name="or_choose_a_location">Lub wybierz lokalizację</string>
-    <string name="map_search_provider">Silnik wyszukiwania</string>
     <string name="missing_permissions">Brakujące uprawnienia</string>
     <string name="location_permission_required_location">Uprawnienia lokalizacji są wymagane do ustalenia twojej aktualnej lokalizacji</string>
     <string name="open_map">Otwórz mapę</string>

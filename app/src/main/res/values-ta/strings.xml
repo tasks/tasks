@@ -273,7 +273,6 @@
     <string name="open_map">வரைபடத்தைத் திறக்கவும்</string>
     <string name="location_permission_required_location">உங்கள் தற்போதைய இருப்பிடத்தைக் கண்டுபிடிக்க இருப்பிட அனுமதிகள் தேவை</string>
     <string name="missing_permissions">அனுமதிகள் இல்லை</string>
-    <string name="map_search_provider">தேடல் வழங்குநர்</string>
     <string name="or_choose_a_location">அல்லது இருப்பிடத்தைத் தேர்வுசெய்க</string>
     <string name="pick_this_location">இந்த இருப்பிடத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="choose_a_location">இருப்பிடத்தைத் தேர்வுசெய்க</string>

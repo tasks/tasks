@@ -435,7 +435,6 @@
     <string name="choose_a_location">Pasirinkti vietą</string>
     <string name="pick_this_location">Pasirinkti šią vietą</string>
     <string name="or_choose_a_location">Arba pasirinkti vietą</string>
-    <string name="map_search_provider">Paieškos tiekėjas</string>
     <string name="missing_permissions">Dingę leidimai</string>
     <string name="location_permission_required_location">Vietos leidimai reikalingi surasti jūsų esamą vietą</string>
     <string name="open_map">Atidaryti žemėlapį</string>

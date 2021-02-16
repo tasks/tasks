@@ -435,7 +435,6 @@
     <string name="choose_a_location">Ort auswählen</string>
     <string name="pick_this_location">Diesen Ort auswählen</string>
     <string name="or_choose_a_location">Oder Ort auswählen</string>
-    <string name="map_search_provider">Suchanbieter</string>
     <string name="missing_permissions">Fehlende Berechtigungen</string>
     <string name="location_permission_required_location">Standortberechtigung wird zur Ermittlung des aktuellen Standortes benötigt</string>
     <string name="open_map">Karte öffnen</string>

@@ -441,7 +441,6 @@
     <string name="open_map">Avaa kartta</string>
     <string name="location_permission_required_location">Sijaintioikeudet tarvitaan nykysijainnin paikannukseen</string>
     <string name="missing_permissions">Oikeuksia puuttuu</string>
-    <string name="map_search_provider">Hauntarjoaja</string>
     <string name="or_choose_a_location">Tai valitse muu sijainti</string>
     <string name="pick_this_location">Valitse tämä sijainti</string>
     <string name="choose_a_location">Valitse sijainti</string>

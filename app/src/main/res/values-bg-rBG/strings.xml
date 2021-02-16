@@ -438,7 +438,6 @@
     <string name="choose_a_location">Изберете местоположение</string>
     <string name="pick_this_location">Избери това местоположение</string>
     <string name="or_choose_a_location">Или избери местоположение</string>
-    <string name="map_search_provider">Намери доставчик</string>
     <string name="missing_permissions">Липсващи разрешения</string>
     <string name="location_permission_required_location">Необходими са разрешения за местоположение, за да откриете текущото ви местоположение</string>
     <string name="open_map">Отворете картата</string>

@@ -54,14 +54,6 @@
       android:entryValues="@array/reverse_geocoder_values"
       android:summary="%s"/>
 
-    <ListPreference
-      android:defaultValue="0"
-      android:key="@string/p_place_provider"
-      android:title="@string/map_search_provider"
-      android:entries="@array/map_search_provider_names"
-      android:entryValues="@array/map_search_provider_values"
-      android:summary="%s" />
-
   </PreferenceCategory>
 
 </PreferenceScreen>

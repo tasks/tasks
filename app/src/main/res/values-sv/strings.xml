@@ -439,7 +439,6 @@
     <string name="choose_a_location">Välj en plats</string>
     <string name="pick_this_location">Välj den här platsen</string>
     <string name="or_choose_a_location">Eller Välj en plats</string>
-    <string name="map_search_provider">Sökleverantör</string>
     <string name="missing_permissions">Saknar behörigheter</string>
     <string name="location_permission_required_location">Plats behörigheter behövs för att hitta din aktuella plats</string>
     <string name="open_map">Öppna karta</string>

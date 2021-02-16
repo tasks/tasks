@@ -523,7 +523,6 @@ File %1$s contained %2$s.\n\n
   <string name="choose_a_location">Choose a location</string>
   <string name="pick_this_location">Select this location</string>
   <string name="or_choose_a_location">Or choose a location</string>
-  <string name="map_search_provider">Search provider</string>
   <string name="missing_permissions">Missing permissions</string>
   <string name="background_location_permission_required">This app collects location data to enable location-based reminders even when the app is closed or not in use.</string>
   <string name="location_permission_required_location">Location permissions are needed to find your current location</string>

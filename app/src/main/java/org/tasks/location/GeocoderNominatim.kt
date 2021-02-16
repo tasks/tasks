@@ -23,7 +23,7 @@ class GeocoderNominatim @Inject constructor(
 
     override suspend fun reverseGeocode(mapPosition: MapPosition): Place? =
             withContext(Dispatchers.IO) {
-                val client = httpClientFactory.newBuilder(true).build()
+                val client = httpClientFactory.newBuilder(foreground = true).build()
                 val url = "$url/reverse?format=geocodejson&lat=${mapPosition.latitude}&lon=${mapPosition.longitude}"
                 val response = client.newCall(
                         Request.Builder().get().url(url).addHeader(USER_AGENT, UA_VALUE).build()

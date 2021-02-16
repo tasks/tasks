@@ -457,7 +457,6 @@
     <string name="choose_a_location">Обрати місце</string>
     <string name="pick_this_location">Обрати це місце</string>
     <string name="or_choose_a_location">Або вказати інше місце</string>
-    <string name="map_search_provider">Знайти провайдера</string>
     <string name="missing_permissions">Відсутні дозволи</string>
     <string name="location_permission_required_location">Щоб визначити ваше місцезнаходження необхідний дозвіл на перегляд місцезнаходження </string>
     <string name="open_map">Відкрити карту</string>

@@ -423,8 +423,6 @@ class Preferences @JvmOverloads constructor(
             syncFlags.forEach { setBoolean(it, value) }
         }
 
-    fun useGooglePlaces(): Boolean = getIntegerFromString(R.string.p_place_provider, 0) == 1
-
     fun <T> getPrefs(c: Class<T>): Map<String, T> {
         val result: MutableMap<String, T> = HashMap()
         val entries: Iterable<Map.Entry<String, *>> = prefs.all.entries.filter { e: Map.Entry<String?, Any?> -> c.isInstance(e.value) }

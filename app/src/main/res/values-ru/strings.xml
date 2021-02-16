@@ -455,7 +455,6 @@
     <string name="choose_a_location">Выбрать местоположение</string>
     <string name="pick_this_location">Выбрать это местоположение</string>
     <string name="or_choose_a_location">Или выбрать местоположение</string>
-    <string name="map_search_provider">Поставщик системы поиска</string>
     <string name="missing_permissions">Отсутствующие разрешения</string>
     <string name="version_string">Версия %s</string>
     <string name="gtasks_GPr_header">Google Tasks</string>

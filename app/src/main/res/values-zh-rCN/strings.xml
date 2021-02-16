@@ -434,7 +434,6 @@
     <string name="choose_a_location">选择一个位置</string>
     <string name="pick_this_location">选中这个位置</string>
     <string name="or_choose_a_location">或选择一个位置</string>
-    <string name="map_search_provider">搜索引擎供应商</string>
     <string name="missing_permissions">缺少权限</string>
     <string name="location_permission_required_location">需要位置权限来发现您当前位置</string>
     <string name="open_map">打开地图</string>

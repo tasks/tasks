@@ -444,7 +444,6 @@
     <string name="choose_a_location">Hautatu kokaleku bat</string>
     <string name="pick_this_location">Hautatu kokaleku hau</string>
     <string name="or_choose_a_location">Edo hautatu kokaleku bat</string>
-    <string name="map_search_provider">Bilatu hornitzailea</string>
     <string name="missing_permissions">Baimenak falta dira</string>
     <string name="location_permission_required_location">Kokapen baimena behar da zure uneko kokalekua aurkitzeko</string>
     <string name="open_map">Ireki mapa</string>

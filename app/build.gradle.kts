@@ -96,6 +96,7 @@ android {
             resValue("string", "google_key", tasks_google_key_debug ?: "")
             resValue("string", "tasks_caldav_url", tasks_caldav_url ?: "https://caldav.tasks.org")
             resValue("string", "tasks_nominatim_url", tasks_caldav_url ?: "https://nominatim.tasks.org")
+            resValue("string", "tasks_places_url", tasks_caldav_url ?: "https://places.tasks.org")
             isTestCoverageEnabled = project.hasProperty("coverage")
         }
         getByName("release") {
@@ -215,7 +216,6 @@ dependencies {
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
     googleplayImplementation("com.google.android.gms:play-services-location:17.1.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
-    googleplayImplementation("com.google.android.libraries.places:places:2.4.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")

@@ -5,20 +5,16 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityScoped
-import dagger.hilt.android.scopes.ViewModelScoped
-import org.tasks.location.*
+import org.tasks.location.AndroidLocationProvider
+import org.tasks.location.LocationProvider
+import org.tasks.location.MapFragment
+import org.tasks.location.OsmMapFragment
 
 @Module
-@InstallIn(ActivityComponent::class, ViewModelComponent::class)
+@InstallIn(ActivityComponent::class)
 class LocationModule {
-    @Provides
-    @ViewModelScoped
-    fun getPlaceSearchProvider(mapboxSearchProvider: PlaceSearchMapbox): PlaceSearch =
-            mapboxSearchProvider
-
     @Provides
     @ActivityScoped
     fun getLocationProvider(provider: AndroidLocationProvider): LocationProvider = provider

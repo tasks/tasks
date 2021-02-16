@@ -439,7 +439,6 @@
     <string name="choose_a_location">Hely kiválasztása</string>
     <string name="pick_this_location">Hely kiválasztása</string>
     <string name="or_choose_a_location">Vagy másik hely keresése</string>
-    <string name="map_search_provider">Keresési szolgáltató</string>
     <string name="missing_permissions">Hiányzó jogosultságok</string>
     <string name="location_permission_required_location">A jelenlegi pozíció meghatározásához helymeghatározási jogosultság szükséges</string>
     <string name="open_map">Térkép megnyitása</string>

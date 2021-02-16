@@ -1,0 +1,225 @@
+{
+  "predictions": [
+    {
+      "description": "portillo's hot dogs",
+      "matched_substrings": [
+        {
+          "length": 19,
+          "offset": 0
+        }
+      ],
+      "structured_formatting": {
+        "main_text": "portillo's hot dogs",
+        "main_text_matched_substrings": [
+          {
+            "length": 19,
+            "offset": 0
+          }
+        ]
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "portillo's hot dogs"
+        }
+      ]
+    },
+    {
+      "description": "Portillo Diesel, Leo Avenue, San Jose, CA, USA",
+      "matched_substrings": [
+        {
+          "length": 15,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJfQQVCCMzjoARce0POzONI8I",
+      "reference": "ChIJfQQVCCMzjoARce0POzONI8I",
+      "structured_formatting": {
+        "main_text": "Portillo Diesel",
+        "main_text_matched_substrings": [
+          {
+            "length": 15,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Leo Avenue, San Jose, CA, USA"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Portillo Diesel"
+        },
+        {
+          "offset": 17,
+          "value": "Leo Avenue"
+        },
+        {
+          "offset": 29,
+          "value": "San Jose"
+        },
+        {
+          "offset": 39,
+          "value": "CA"
+        },
+        {
+          "offset": 43,
+          "value": "USA"
+        }
+      ],
+      "types": [
+        "car_repair",
+        "point_of_interest",
+        "establishment"
+      ]
+    },
+    {
+      "description": "Portillo's Trucking, Franklin Street, Oakland, CA, USA",
+      "matched_substrings": [
+        {
+          "length": 19,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJQXqgXsiAj4ARqtl6U4GD-Cw",
+      "reference": "ChIJQXqgXsiAj4ARqtl6U4GD-Cw",
+      "structured_formatting": {
+        "main_text": "Portillo's Trucking",
+        "main_text_matched_substrings": [
+          {
+            "length": 19,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Franklin Street, Oakland, CA, USA"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Portillo's Trucking"
+        },
+        {
+          "offset": 21,
+          "value": "Franklin Street"
+        },
+        {
+          "offset": 38,
+          "value": "Oakland"
+        },
+        {
+          "offset": 47,
+          "value": "CA"
+        },
+        {
+          "offset": 51,
+          "value": "USA"
+        }
+      ],
+      "types": [
+        "moving_company",
+        "point_of_interest",
+        "establishment"
+      ]
+    },
+    {
+      "description": "Portillo's Hot Dogs, La Palma Avenue, Buena Park, CA, USA",
+      "matched_substrings": [
+        {
+          "length": 19,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJCWNdVNgr3YAR4pLlOt8CfEk",
+      "reference": "ChIJCWNdVNgr3YAR4pLlOt8CfEk",
+      "structured_formatting": {
+        "main_text": "Portillo's Hot Dogs",
+        "main_text_matched_substrings": [
+          {
+            "length": 19,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "La Palma Avenue, Buena Park, CA, USA"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Portillo's Hot Dogs"
+        },
+        {
+          "offset": 21,
+          "value": "La Palma Avenue"
+        },
+        {
+          "offset": 38,
+          "value": "Buena Park"
+        },
+        {
+          "offset": 50,
+          "value": "CA"
+        },
+        {
+          "offset": 54,
+          "value": "USA"
+        }
+      ],
+      "types": [
+        "meal_takeaway",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ]
+    },
+    {
+      "description": "Portillo's Hot Dogs, Day Street, Moreno Valley, CA, USA",
+      "matched_substrings": [
+        {
+          "length": 19,
+          "offset": 0
+        }
+      ],
+      "place_id": "ChIJhTEH6lev3IARDMKC_pGF6nI",
+      "reference": "ChIJhTEH6lev3IARDMKC_pGF6nI",
+      "structured_formatting": {
+        "main_text": "Portillo's Hot Dogs",
+        "main_text_matched_substrings": [
+          {
+            "length": 19,
+            "offset": 0
+          }
+        ],
+        "secondary_text": "Day Street, Moreno Valley, CA, USA"
+      },
+      "terms": [
+        {
+          "offset": 0,
+          "value": "Portillo's Hot Dogs"
+        },
+        {
+          "offset": 21,
+          "value": "Day Street"
+        },
+        {
+          "offset": 33,
+          "value": "Moreno Valley"
+        },
+        {
+          "offset": 48,
+          "value": "CA"
+        },
+        {
+          "offset": 52,
+          "value": "USA"
+        }
+      ],
+      "types": [
+        "meal_takeaway",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ]
+    }
+  ],
+  "status": "OK"
+}

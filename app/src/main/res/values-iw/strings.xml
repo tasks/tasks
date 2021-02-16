@@ -473,7 +473,6 @@
     <string name="choose_a_location">בחרו מיקום</string>
     <string name="pick_this_location">בחרו את המיקום הזה</string>
     <string name="or_choose_a_location">או בחרו מיקום</string>
-    <string name="map_search_provider">ספק חיפוש</string>
     <string name="missing_permissions">חסרות הרשאות</string>
     <string name="location_permission_required_location">הרשאות מיקום נדרשות על מנת למצוא את מיקומך הנוכחי</string>
     <string name="open_map">פתיחת מפה</string>

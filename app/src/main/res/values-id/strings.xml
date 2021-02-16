@@ -368,7 +368,6 @@
     <string name="choose_a_location">Pilih sebuah lokasi</string>
     <string name="pick_this_location">Pilih lokasi ini</string>
     <string name="or_choose_a_location">Atau pilih sebuah lokasi</string>
-    <string name="map_search_provider">Penyedia pencarian</string>
     <string name="location_permission_required_location">Izin akses lokasi diperlukan untuk mencari lokasi Anda saat ini</string>
     <string name="open_map">Buka peta</string>
     <string name="choose_new_location">Pilih lokasi baru</string>

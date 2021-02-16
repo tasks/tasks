@@ -399,7 +399,6 @@
     <string name="open_map">Abrir mapa</string>
     <string name="location_permission_required_location">Permissão de localização é necessária para encontrar a sua localização atual</string>
     <string name="missing_permissions">Permissões faltando</string>
-    <string name="map_search_provider">Provedor de pesquisa</string>
     <string name="or_choose_a_location">Ou escolha uma localização</string>
     <string name="pick_this_location">Selecione esta localização</string>
     <string name="choose_a_location">Escolher uma localização</string>

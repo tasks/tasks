@@ -140,6 +140,7 @@ _${getString(R.string.account_not_included)}_
 #### ${getString(R.string.tasks_org_account)}
 * ${getString(R.string.tasks_org_description)}
 * [${getString(R.string.upgrade_third_party_apps)}](${getString(R.string.url_app_passwords)})
+* ${getString(R.string.upgrade_google_places)}
 * [${getString(R.string.upgrade_coming_soon)}](${getString(R.string.help_url_sync)})
 """
         }
@@ -155,7 +156,6 @@ _${getString(R.string.account_not_included)}_
 ---
 #### ${getString(R.string.upgrade_additional_features)}
 * ${getString(R.string.upgrade_themes)}
-* ${getString(R.string.upgrade_google_places)}
 * [${getString(R.string.upgrade_tasker)}](${getString(R.string.url_tasker)})
 ---
 * ${getString(R.string.upgrade_free_trial)}

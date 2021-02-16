@@ -303,7 +303,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
                 searchSubject
                         .debounce(SEARCH_DEBOUNCE_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { query: String? -> viewModel.query(query, mapPosition) })
+                        .subscribe { query: String? -> viewModel.query(query, map.mapPosition) })
     }
 
     override fun onDestroy() {

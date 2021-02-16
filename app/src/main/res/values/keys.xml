@@ -396,12 +396,10 @@
   <string name="p_linkify_task_list">linkify_task_list</string>
   <string name="p_linkify_task_edit">linkify_task_edit</string>
   <string name="mapbox">Mapbox</string>
-  <string name="map_search_google_places">Google Places</string>
   <string name="nominatim">Nominatim</string>
   <string name="google_maps">Google Maps</string>
   <string name="openstreetmap">OpenStreetMap</string>
   <string name="android">Android</string>
-  <string name="p_place_provider">place_provider_v2</string>
   <string name="p_location_based_reminders">location_based_reminders</string>
   <string name="p_geofence_service">geofence_service</string>
   <string name="preference_screen">preference_screen</string>

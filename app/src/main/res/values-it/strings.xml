@@ -439,7 +439,6 @@
     <string name="choose_a_location">Scegli una posizione</string>
     <string name="pick_this_location">Seleziona questa posizione</string>
     <string name="or_choose_a_location">O scegli una posizione</string>
-    <string name="map_search_provider">Seleziona fornitore</string>
     <string name="missing_permissions">Permessi mancanti</string>
     <string name="location_permission_required_location">Per trovare la tua posizione sono richiesti i permessi di localizzazione</string>
     <string name="open_map">Apri mappa</string>

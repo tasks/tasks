@@ -436,7 +436,6 @@
     <string name="choose_a_location">場所を選択</string>
     <string name="pick_this_location">この場所を選択</string>
     <string name="or_choose_a_location">または場所を選ぶ</string>
-    <string name="map_search_provider">プロバイダーを検索</string>
     <string name="missing_permissions">アクセス許可がありません</string>
     <string name="location_permission_required_location">現在の場所を見つけるには位置のアクセス許可が必要です</string>
     <string name="open_map">地図を開く</string>

@@ -435,7 +435,6 @@
     <string name="choose_a_location">Vybrať polohu</string>
     <string name="pick_this_location">Vybrať túto polohu</string>
     <string name="or_choose_a_location">Alebo vybrať polohu ručne</string>
-    <string name="map_search_provider">Vyhľadávanie poskytuje</string>
     <string name="missing_permissions">Chýbajúce oprávnenia</string>
     <string name="location_permission_required_location">Pre učenie súčasnej polohy sú potrebné povolenia</string>
     <string name="open_map">Otvoriť mapu</string>

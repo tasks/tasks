@@ -441,7 +441,6 @@
     <string name="choose_a_location">Konum seç</string>
     <string name="pick_this_location">Bu konumu seç</string>
     <string name="or_choose_a_location">Ya da konum seç</string>
-    <string name="map_search_provider">Arama sağlayıcı</string>
     <string name="missing_permissions">Eksik izinler</string>
     <string name="location_permission_required_location">Geçerli konumunuzu bulmak için konum izinleri gereklidir</string>
     <string name="open_map">Haritayı aç</string>

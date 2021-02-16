@@ -211,7 +211,6 @@
     <string name="open_map">Åbn kort</string>
     <string name="location_permission_required_location">Placeringstilladelse kræves for at finde din nuværende placering</string>
     <string name="missing_permissions">Manglende tilladelser</string>
-    <string name="map_search_provider">Søgeudbyder</string>
     <string name="or_choose_a_location">Eller vælg et sted</string>
     <string name="pick_this_location">Vælg dette sted</string>
     <string name="choose_a_location">Vælg sted</string>

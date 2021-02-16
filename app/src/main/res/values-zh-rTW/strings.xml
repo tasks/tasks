@@ -444,7 +444,6 @@
     <string name="open_map">開啟地圖</string>
     <string name="location_permission_required_location">需要位置權限以找到您現在的位置</string>
     <string name="missing_permissions">缺少權限</string>
-    <string name="map_search_provider">搜尋提供者</string>
     <string name="or_choose_a_location">或選擇一個地點</string>
     <string name="pick_this_location">選擇此地點</string>
     <string name="choose_a_location">選擇一個地點</string>

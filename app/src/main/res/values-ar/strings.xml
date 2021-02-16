@@ -188,7 +188,6 @@
     <string name="building_notifications">توليد الإخطارات</string>
     <string name="bundle_notifications_summary">ادمج عدة إشعارات في شعار واحد</string>
     <string name="notification_troubleshooting_summary">انقر هنا إذا كنت تواجه مشاكل في الإشعارات</string>
-    <string name="map_search_provider">مزود الخرائط</string>
     <string name="TEA_control_location">الموقع</string>
     <string name="EPr_show_task_edit_comments">إظهار التعليقات في شاشة تحرير المهمة</string>
     <string name="back_button_saves_task">الضغط على زر الرجوع يحفظ المهمة</string>

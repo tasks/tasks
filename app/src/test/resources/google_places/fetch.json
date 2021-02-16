@@ -1,0 +1,17 @@
+{
+  "html_attributions": [],
+  "result": {
+    "formatted_address": "1180 Seven Seas Drive, Lake Buena Vista, FL 32836, USA",
+    "geometry": {
+      "location": {
+        "lat": 28.417663,
+        "lng": -81.581212
+      }
+    },
+    "international_phone_number": "+1 407-939-5277",
+    "name": "Magic Kingdom Park",
+    "place_id": "ChIJgUulalN-3YgRGoTaWM2LawY",
+    "website": "https://disneyworld.disney.go.com/destinations/magic-kingdom/?CMP=OKC-80007944_GM_WDW_destination_magickingdompark_NA"
+  },
+  "status": "OK"
+}

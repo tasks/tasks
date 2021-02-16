@@ -464,7 +464,6 @@
     <string name="theme_system_default">Dle systému</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">každý %1$s %2$s</string>
     <string name="or_choose_a_location">Nebo vyberte místo</string>
-    <string name="map_search_provider">Poskytovatel vyhledávání</string>
     <string name="missing_permissions">Chybí oprávnění</string>
     <string name="location_permission_required_location">Oprávnění k přístupu k poloze je nutné pro zjištění Vaší aktuální polohy</string>
     <string name="open_map">Otevřít mapu</string>

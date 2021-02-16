@@ -441,7 +441,6 @@
     <string name="choose_a_location">위치 선택</string>
     <string name="pick_this_location">현위치 선택</string>
     <string name="or_choose_a_location">위치 고르기</string>
-    <string name="map_search_provider">검색 제공업체</string>
     <string name="missing_permissions">권한 누락</string>
     <string name="location_permission_required_location">기기의 현재 위치를 확인하려면 위치 권한이 필요합니다</string>
     <string name="open_map">지도 열기</string>
