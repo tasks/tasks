@@ -30,7 +30,7 @@ internal class LocationModule {
         return if (preferences.useGooglePlaces()
                 && playServices.isPlayServicesAvailable
                 && inventory.hasPro) {
-            GooglePlacesSearchProvider(context)
+            PlaceSearchGoogle(context)
         } else {
             mapboxSearchProvider
         }

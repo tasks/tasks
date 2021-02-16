@@ -17,7 +17,7 @@ import org.tasks.data.Place
 import org.tasks.data.Place.Companion.newPlace
 import kotlin.coroutines.suspendCoroutine
 
-class GooglePlacesSearchProvider(private val context: Context) : PlaceSearchProvider {
+class PlaceSearchGoogle(private val context: Context) : PlaceSearch {
     private var token: AutocompleteSessionToken? = null
     private var placesClient: PlacesClient? = null
 

@@ -16,11 +16,11 @@ import org.tasks.preferences.Preferences
 import java.io.IOException
 import javax.inject.Inject
 
-class MapboxSearchProvider @Inject constructor(
+class PlaceSearchMapbox @Inject constructor(
         @ApplicationContext context: Context,
         private val preferences: Preferences,
         private val interceptor: DebugNetworkInterceptor,
-) : PlaceSearchProvider {
+) : PlaceSearch {
     val token = context.getString(R.string.mapbox_key)
 
     override fun restoreState(savedInstanceState: Bundle?) {}

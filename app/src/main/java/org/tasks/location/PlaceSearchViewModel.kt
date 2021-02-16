@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlaceSearchViewModel @Inject constructor(
-        private val searchProvider: PlaceSearchProvider
+        private val search: PlaceSearch
 ): ViewModel() {
     private val searchResults = MutableLiveData<List<PlaceSearchResult>>()
     private val error = MutableLiveData<Event<String>>()
@@ -27,11 +27,11 @@ class PlaceSearchViewModel @Inject constructor(
     }
 
     fun saveState(outState: Bundle) {
-        searchProvider.saveState(outState)
+        search.saveState(outState)
     }
 
     fun restoreState(savedInstanceState: Bundle?) {
-        searchProvider.restoreState(savedInstanceState)
+        search.restoreState(savedInstanceState)
     }
 
     fun query(query: String?, bias: MapPosition?) = viewModelScope.launch {
@@ -39,7 +39,7 @@ class PlaceSearchViewModel @Inject constructor(
             searchResults.postValue(emptyList())
         } else {
             try {
-                searchResults.value = searchProvider.search(query, bias)
+                searchResults.value = search.search(query, bias)
             } catch (e: Exception) {
                 e.message?.let { setError(it) }
             }
@@ -48,7 +48,7 @@ class PlaceSearchViewModel @Inject constructor(
 
     fun fetch(result: PlaceSearchResult) = viewModelScope.launch {
         try {
-            selection.value = searchProvider.fetch(result)
+            selection.value = search.fetch(result)
         } catch (e: Exception) {
             e.message?.let { setError(it) }
         }
@@ -58,5 +58,5 @@ class PlaceSearchViewModel @Inject constructor(
         error.value = Event(message)
     }
 
-    fun getAttributionRes(dark: Boolean) = searchProvider.getAttributionRes(dark)
+    fun getAttributionRes(dark: Boolean) = search.getAttributionRes(dark)
 }

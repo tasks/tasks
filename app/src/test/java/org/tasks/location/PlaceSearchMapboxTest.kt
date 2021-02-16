@@ -4,9 +4,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.TestUtilities.readFile
-import org.tasks.location.MapboxSearchProvider.Companion.jsonToSearchResults
+import org.tasks.location.PlaceSearchMapbox.Companion.jsonToSearchResults
 
-class MapboxPlaceSearchTest {
+class PlaceSearchMapboxTest {
     @Test
     fun searchWithMultipleResults() {
         val results = jsonToSearchResults(readFile("mapbox/search.json"))
