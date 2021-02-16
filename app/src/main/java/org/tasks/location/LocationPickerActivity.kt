@@ -210,7 +210,11 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     }
 
     @OnClick(R.id.current_location)
-    fun onClick() = moveToCurrentLocation(true)
+    fun onClick() {
+        if (permissionRequestor.requestForegroundLocation()) {
+            moveToCurrentLocation(true)
+        }
+    }
 
     override fun onRequestPermissionsResult(
             requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
