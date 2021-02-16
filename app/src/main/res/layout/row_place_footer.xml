@@ -3,6 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  xmlns:tools="http://schemas.android.com/tools"
   android:orientation="vertical">
 
   <View
@@ -17,7 +18,6 @@
     android:paddingBottom="@dimen/keyline_first"
     android:paddingStart="@dimen/keyline_content_inset"
     android:paddingEnd="@dimen/keyline_second"
-    app:tint="@color/icon_tint_with_alpha"
-    android:src="@drawable/mapbox_logo_icon"/>
+    tools:src="@drawable/mapbox_logo_icon"/>
 
 </LinearLayout>
