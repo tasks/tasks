@@ -142,13 +142,7 @@ _${getString(R.string.account_not_included)}_
 * [${getString(R.string.upgrade_coming_soon)}](${getString(R.string.help_url_sync)})
 """
         }
-        benefits += if (BuildConfig.FLAVOR == "generic") {
-            """
----
-**${getString(R.string.upgrade_previous_donors)}** - [${getString(R.string.contact_developer)}](mailto:${getString(R.string.support_email)}) ${getString(R.string.upgrade_previous_donors_contact)}
-"""
-        } else {
-            """
+        benefits += """
 ---
 #### ${getString(R.string.upgrade_sync_self_hosted)}
 * [${getString(R.string.davx5)}](${getString(R.string.url_davx5)})
@@ -166,7 +160,6 @@ _${getString(R.string.account_not_included)}_
 * ${getString(R.string.upgrade_downgrade)}
 * ${getString(R.string.upgrade_support_development)}
 """
-        }
         binding.text.text = markwon.toMarkdown(benefits)
     }
 

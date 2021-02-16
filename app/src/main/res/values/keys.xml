@@ -43,8 +43,6 @@
   <string name="upgrade_free_trial">7-day free trial for new subscribers</string>
   <string name="upgrade_downgrade">Upgrade, downgrade, or cancel your subscription at any time</string>
   <string name="upgrade_support_development">Your subscription supports open source software!</string>
-  <string name="upgrade_previous_donors">Previous donors</string>
-  <string name="upgrade_previous_donors_contact">to receive one month credit for every $3 in past donations</string>
 
   <string name="p_date_shortcut_morning">date_shortcut_morning</string>
   <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>
