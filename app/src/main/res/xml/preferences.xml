@@ -24,6 +24,11 @@
     app:title="@string/task_defaults" />
 
   <Preference
+    app:fragment="org.tasks.preferences.fragments.LocationPreferences"
+    app:icon="@drawable/ic_outline_place_24px"
+    app:title="@string/TEA_control_location" />
+
+  <Preference
     app:fragment="org.tasks.preferences.fragments.DateAndTime"
     app:icon="@drawable/ic_outline_schedule_24px"
     app:title="@string/date_and_time" />

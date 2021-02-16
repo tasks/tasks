@@ -172,6 +172,7 @@ class Preferences @JvmOverloads constructor(
         PreferenceManager.setDefaultValues(context, R.xml.preferences_look_and_feel, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_notifications, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_task_defaults, true)
+        PreferenceManager.setDefaultValues(context, R.xml.preferences_location, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_date_and_time, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_navigation_drawer, true)
         PreferenceManager.setDefaultValues(context, R.xml.preferences_backups, true)
@@ -419,7 +420,7 @@ class Preferences @JvmOverloads constructor(
             syncFlags.forEach { setBoolean(it, value) }
         }
 
-    fun useGooglePlaces(): Boolean = getInt(R.string.p_place_provider, 0) == 1
+    fun useGooglePlaces(): Boolean = getIntegerFromString(R.string.p_place_provider, 0) == 1
 
     fun <T> getPrefs(c: Class<T>): Map<String, T> {
         val result: MutableMap<String, T> = HashMap()

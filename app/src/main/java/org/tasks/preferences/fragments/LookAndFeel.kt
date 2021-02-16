@@ -2,7 +2,6 @@ package org.tasks.preferences.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.ComponentName
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -15,7 +14,6 @@ import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -29,7 +27,6 @@ import org.tasks.dialogs.ColorPickerAdapter
 import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
-import org.tasks.gtasks.PlayServices
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.Locale
 import org.tasks.locale.LocalePickerDialog
@@ -43,8 +40,6 @@ import org.tasks.themes.ThemeColor
 import org.tasks.themes.ThemeColor.getLauncherColor
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
-import org.tasks.ui.SingleCheckedArrayAdapter
-import org.tasks.ui.Toaster
 import javax.inject.Inject
 
 private const val REQUEST_THEME_PICKER = 10001
@@ -67,9 +62,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var locale: Locale
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var playServices: PlayServices
     @Inject lateinit var inventory: Inventory
-    @Inject lateinit var toaster: Toaster
     @Inject lateinit var chipProvider: ChipProvider
 
     override fun getPreferenceXml() = R.xml.preferences_look_and_feel
@@ -132,11 +125,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
             dialog.show(parentFragmentManager, FRAG_TAG_LOCALE_PICKER)
             false
         }
-
-        @Suppress("ConstantConditionIf")
-        if (BuildConfig.FLAVOR != "googleplay") {
-            removeGroup(R.string.TEA_control_location)
-        }
     }
 
     override fun onResume() {
@@ -155,11 +143,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
             REQUEST_ACCENT_PICKER
         )
         updateLauncherPreference()
-
-        @Suppress("ConstantConditionIf")
-        if (BuildConfig.FLAVOR == "googleplay") {
-            setupLocationPickers()
-        }
     }
 
     private fun updateLauncherPreference() {
@@ -171,51 +154,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
             REQUEST_LAUNCHER_PICKER
         )
     }
-
-    private fun setupLocationPickers() {
-        val choices =
-            listOf(getString(R.string.map_provider_mapbox), getString(R.string.map_provider_google))
-        val singleCheckedArrayAdapter = SingleCheckedArrayAdapter(requireContext(), choices)
-
-        val placeProviderPreference = findPreference(R.string.p_place_provider)
-        placeProviderPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            dialogBuilder
-                .newDialog()
-                .setSingleChoiceItems(
-                    singleCheckedArrayAdapter,
-                    getPlaceProvider()
-                ) { dialog: DialogInterface, which: Int ->
-                    if (which == 1) {
-                        if (!playServices.refreshAndCheck()) {
-                            playServices.resolve(activity)
-                            dialog.dismiss()
-                            return@setSingleChoiceItems
-                        }
-                        if (!inventory.hasPro) {
-                            toaster.longToast(R.string.requires_pro_subscription)
-                            dialog.dismiss()
-                            return@setSingleChoiceItems
-                        }
-                    }
-                    preferences.setInt(R.string.p_place_provider, which)
-                    placeProviderPreference.summary = choices[which]
-                    dialog.dismiss()
-                }
-                .setNegativeButton(R.string.cancel, null)
-                .show()
-            false
-        }
-        val placeProvider: Int = getPlaceProvider()
-        placeProviderPreference.summary = choices[placeProvider]
-    }
-
-    private fun getPlaceProvider(): Int =
-            if (playServices.isPlayServicesAvailable && inventory.hasPro)
-                preferences.getInt(
-                        R.string.p_place_provider,
-                        0
-                )
-            else 0
 
     private fun setBaseTheme(index: Int) {
         activity?.intent?.removeExtra(EXTRA_THEME_OVERRIDE)

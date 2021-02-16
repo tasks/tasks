@@ -106,4 +106,9 @@ class Tasks : Application(), Configuration.Provider {
                     intent)
         }
     }
+
+    companion object {
+        const val IS_GOOGLE_PLAY = BuildConfig.FLAVOR == "googleplay"
+        const val IS_GENERIC = BuildConfig.FLAVOR == "generic"
+    }
 }

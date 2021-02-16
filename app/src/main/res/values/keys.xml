@@ -397,8 +397,8 @@
   <string name="p_linkify_task_list">linkify_task_list</string>
   <string name="p_linkify_task_edit">linkify_task_edit</string>
   <string name="map_provider_mapbox">Mapbox</string>
-  <string name="map_provider_google">Google</string>
-  <string name="p_place_provider">place_provider</string>
+  <string name="map_search_google_places">Google Places</string>
+  <string name="p_place_provider">place_provider_v2</string>
   <string name="preference_screen">preference_screen</string>
   <string name="p_add_to_top">google_tasks_add_to_top</string>
   <string name="p_google_tasks_position_hack">google_tasks_position_hack</string>

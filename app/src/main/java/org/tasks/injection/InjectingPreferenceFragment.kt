@@ -90,6 +90,10 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
         }
     }
 
+    protected fun disable(vararg resIds: Int) = resIds.forEach {
+        findPreference(it).isEnabled = false
+    }
+
     open fun getMenu() = R.menu.menu_preferences
 
     abstract fun getPreferenceXml(): Int

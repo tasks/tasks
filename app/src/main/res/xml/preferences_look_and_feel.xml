@@ -188,17 +188,6 @@
   </PreferenceCategory>
 
   <PreferenceCategory
-    android:key="@string/TEA_control_location"
-    android:title="@string/TEA_control_location">
-
-    <Preference
-      android:defaultValue="-1"
-      android:key="@string/p_place_provider"
-      android:title="@string/map_search_provider" />
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
     android:key="@string/settings_localization"
     android:title="@string/settings_localization">
 
