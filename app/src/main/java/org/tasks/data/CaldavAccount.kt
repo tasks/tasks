@@ -195,6 +195,9 @@ class CaldavAccount : Parcelable {
 
     fun isPaymentRequired() = error.isPaymentRequired()
 
+    val hasError: Boolean
+        get() = !error.isNullOrBlank()
+
     val prefTitle: Int
         get() = when {
             isTasksOrg -> R.string.tasks_org

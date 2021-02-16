@@ -11,6 +11,7 @@ import com.todoroo.astrid.helper.UUIDHelper
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.tasks.R
+import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
@@ -195,6 +196,7 @@ SELECT EXISTS(SELECT 1
               FROM caldav_lists
                        INNER JOIN caldav_accounts ON cdl_account = cda_uuid
               WHERE cda_account_type != $TYPE_OPENTASKS
+                AND cda_account_type != $TYPE_ETESYNC
                 AND cdl_url IN (:urls))
     """)
     abstract suspend fun anyExist(urls: List<String>): Boolean

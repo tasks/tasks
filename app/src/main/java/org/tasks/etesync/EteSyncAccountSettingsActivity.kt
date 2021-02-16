@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.lifecycle.lifecycleScope
 import butterknife.OnCheckedChanged
@@ -37,8 +38,13 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         super.onCreate(savedInstanceState)
         binding.repeat.visibility = View.GONE
         binding.showAdvanced.visibility = View.VISIBLE
+        binding.description.visibility = View.VISIBLE
+        binding.description.setTextColor(ContextCompat.getColor(this, R.color.overdue))
+        binding.description.setText(description)
         updateUrlVisibility()
     }
+
+    override val description = R.string.etesync_deprecated
 
     override fun onResume() {
         super.onResume()

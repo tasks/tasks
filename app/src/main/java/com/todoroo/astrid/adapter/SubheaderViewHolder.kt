@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
@@ -45,7 +46,7 @@ internal class SubheaderViewHolder(
             when (subheader.subheaderType) {
                 SubheaderType.PREFERENCE -> preferences.setBoolean(subheader.id.toInt(), collapsed)
                 SubheaderType.GOOGLE_TASKS -> googleTaskDao.setCollapsed(subheader.id, collapsed)
-                SubheaderType.CALDAV, SubheaderType.TASKS ->
+                SubheaderType.CALDAV, SubheaderType.TASKS, SubheaderType.ETESYNC ->
                     caldavDao.setCollapsed(subheader.id, collapsed)
             }
             localBroadcastManager.broadcastRefreshList()
@@ -55,7 +56,17 @@ internal class SubheaderViewHolder(
     fun bind(subheader: NavigationDrawerSubheader) {
         this.subheader = subheader
         text.text = subheader.listingTitle
-        errorIcon.visibility = if (subheader.error) View.VISIBLE else View.GONE
+        when {
+            subheader.error -> with(errorIcon) {
+                setColorFilter(ContextCompat.getColor(activity, R.color.overdue))
+                visibility = View.VISIBLE
+            }
+            subheader.subheaderType == SubheaderType.ETESYNC -> with(errorIcon) {
+                setColorFilter(ContextCompat.getColor(activity, R.color.orange_500))
+                visibility = View.VISIBLE
+            }
+            else -> errorIcon.visibility = View.GONE
+        }
         DrawableUtil.setRightDrawable(
                 itemView.context,
                 text,

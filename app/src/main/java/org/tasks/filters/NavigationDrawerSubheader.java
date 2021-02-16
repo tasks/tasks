@@ -124,6 +124,7 @@ public class NavigationDrawerSubheader extends FilterListItem {
     PREFERENCE,
     GOOGLE_TASKS,
     CALDAV,
-    TASKS
+    TASKS,
+    @Deprecated ETESYNC
   }
 }

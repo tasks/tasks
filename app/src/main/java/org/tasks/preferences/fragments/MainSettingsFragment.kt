@@ -172,14 +172,14 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
                 }
             }
         }
-        setupErrorIcon(pref, account.error)
+        setupErrorIcon(pref, account.hasError, account.isEteSyncAccount)
     }
 
     private fun setup(account: GoogleTaskAccount, pref: IconPreference) {
         pref.setTitle(R.string.gtasks_GPr_header)
         pref.setIcon(R.drawable.ic_google)
         pref.summary = account.account
-        setupErrorIcon(pref, account.error)
+        setupErrorIcon(pref, account.hasError)
         pref.setOnPreferenceClickListener {
             (activity as MainPreferences).startPreference(
                     this,
@@ -190,19 +190,22 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         }
     }
 
-    private fun setupErrorIcon(pref: IconPreference, error: String?) {
-        val hasError = !error.isNullOrBlank()
+    private fun setupErrorIcon(
+            pref: IconPreference,
+            hasError: Boolean,
+            hasWarning: Boolean = false
+    ) {
         pref.drawable = ContextCompat
-                .getDrawable(requireContext(), if (hasError) {
-                    R.drawable.ic_outline_error_outline_24px
-                } else {
-                    R.drawable.ic_keyboard_arrow_right_24px
+                .getDrawable(requireContext(), when {
+                    hasError -> R.drawable.ic_outline_error_outline_24px
+                    hasWarning -> R.drawable.ic_outline_error_outline_24px
+                    else -> R.drawable.ic_keyboard_arrow_right_24px
                 })
                 ?.mutate()
-        pref.tint = context?.getColor(if (hasError) {
-            R.color.overdue
-        } else {
-            R.color.icon_tint_with_alpha
+        pref.tint = context?.getColor(when {
+            hasError -> R.color.overdue
+            hasWarning -> R.color.orange_500
+            else -> R.color.icon_tint_with_alpha
         })
     }
 

@@ -82,6 +82,9 @@ class GoogleTaskAccount : Parcelable {
     override fun toString(): String =
             "GoogleTaskAccount(id=$id, account=$account, error=$error, etag=$etag, isCollapsed=$isCollapsed)"
 
+    val hasError: Boolean
+        get() = !error.isNullOrBlank()
+
     companion object {
         val TABLE = Table("google_task_accounts")
         val ACCOUNT = TABLE.column("gta_account")

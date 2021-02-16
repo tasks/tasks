@@ -240,7 +240,11 @@ class FilterProvider @Inject constructor(
                             },
                             account.error?.isNotBlank() ?: false,
                             account.isCollapsed,
-                            if (account.isTasksOrg) SubheaderType.TASKS else SubheaderType.CALDAV,
+                            when {
+                                account.isTasksOrg -> SubheaderType.TASKS
+                                account.isEteSyncAccount -> SubheaderType.ETESYNC
+                                else -> SubheaderType.CALDAV
+                            },
                             account.id))
                     .apply { if (account.isCollapsed) return this }
                     .plus(caldavDao
