@@ -403,6 +403,7 @@ File %1$s contained %2$s.\n\n
   <string name="opacity_row">Row opacity</string>
   <string name="opacity_footer">Footer opacity</string>
   <string name="theme">Theme</string>
+  <string name="map_theme">Map theme</string>
   <string name="color">Color</string>
   <string name="icon">Icon</string>
   <string name="accent">Accent</string>
@@ -700,4 +701,5 @@ File %1$s contained %2$s.\n\n
   <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
   <string name="maps">Maps</string>
   <string name="map_tiles">Map tiles</string>
+  <string name="map_theme_use_app_theme">Use app theme</string>
 </resources>

@@ -14,6 +14,14 @@
       android:entryValues="@array/map_tile_values"
       android:summary="%s" />
 
+    <ListPreference
+      android:defaultValue="0"
+      android:key="@string/p_map_theme"
+      android:title="@string/map_theme"
+      android:entries="@array/map_theme_names"
+      android:entryValues="@array/map_theme_values"
+      android:summary="%s" />
+
   </PreferenceCategory>
 
   <PreferenceCategory

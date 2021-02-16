@@ -16,6 +16,7 @@ import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.filters.PlaceFilter
 import org.tasks.location.MapFragment
+import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,6 +31,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
 
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var map: MapFragment
+    @Inject lateinit var preferences: Preferences
 
     private lateinit var place: Place
 
@@ -54,7 +56,10 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
             selectedIcon = place.getIcon()!!
         }
 
-        map.init(this, this, tasksTheme.themeBase.isDarkTheme(this))
+        val dark = preferences.mapTheme == 2
+                || preferences.mapTheme == 0 && tasksTheme.themeBase.isDarkTheme(this)
+
+        map.init(this, this, dark)
 
         updateTheme()
     }

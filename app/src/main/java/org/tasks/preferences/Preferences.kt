@@ -205,6 +205,9 @@ class Preferences @JvmOverloads constructor(
     val fontSize: Int
         get() = getInt(R.string.p_fontSize, 16)
 
+    val mapTheme: Int
+        get() = getIntegerFromString(R.string.p_map_theme, 0)
+
     fun getIntegerFromString(keyResource: Int, defaultValue: Int): Int =
         getIntegerFromString(context.getString(keyResource), defaultValue)
 

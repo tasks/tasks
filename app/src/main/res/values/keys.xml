@@ -448,4 +448,5 @@
   <string name="legacy_etesync">legacy_etesync</string>
   <string name="param_type">type</string>
   <string name="p_map_tiles">map_tiles</string>
+  <string name="p_map_theme">map_theme</string>
 </resources>

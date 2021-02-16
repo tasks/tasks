@@ -49,6 +49,7 @@ import org.tasks.location.MapFragment.MapFragmentCallback
 import org.tasks.preferences.ActivityPermissionRequestor
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.PermissionRequestor
+import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
 import org.tasks.ui.Toaster
@@ -95,7 +96,8 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var locationProvider: LocationProvider
     @Inject lateinit var firebase: Firebase
-    
+    @Inject lateinit var preferences: Preferences
+
     private var disposables: CompositeDisposable? = null
     private var mapPosition: MapPosition? = null
     private var recentsAdapter: LocationPickerAdapter? = null
@@ -137,7 +139,8 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         themeColor.applyToNavigationBar(this)
         themeColor.setStatusBarColor(toolbarLayout)
         themeColor.apply(toolbar)
-        val dark = theme.themeBase.isDarkTheme(this)
+        val dark = preferences.mapTheme == 2
+                || preferences.mapTheme == 0 && theme.themeBase.isDarkTheme(this)
         map.init(this, this, dark)
         val params = appBarLayout.layoutParams as CoordinatorLayout.LayoutParams
         val behavior = AppBarLayout.Behavior()
