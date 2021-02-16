@@ -132,7 +132,7 @@ configure<CheckstyleExtension> {
 }
 
 configurations.all {
-    exclude(group = "org.apache.httpcomponents", module = "httpclient")
+    exclude(group = "org.apache.httpcomponents")
     exclude(group = "org.checkerframework")
     exclude(group = "com.google.code.findbugs")
     exclude(group = "com.google.errorprone")

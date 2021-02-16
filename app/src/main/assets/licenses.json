@@ -1287,19 +1287,6 @@
     },
     {
       "artifactId": {
-        "name": "httpcore",
-        "group": "org.apache.httpcomponents",
-        "version": "+"
-      },
-      "copyrightHolder": "The Apache Software Foundation",
-      "copyrightStatement": "Copyright &copy; The Apache Software Foundation. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "normalizedLicense": "apache2",
-      "url": "http://hc.apache.org/httpcomponents-core-ga",
-      "libraryName": "Apache HttpCore"
-    },
-    {
-      "artifactId": {
         "name": "viewbinding",
         "group": "androidx.databinding",
         "version": "+"
