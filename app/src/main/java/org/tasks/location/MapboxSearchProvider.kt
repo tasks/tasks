@@ -11,7 +11,7 @@ import okhttp3.Request
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.R
 import org.tasks.data.Place
-import org.tasks.location.MapboxGeocoder.Companion.toPlace
+import org.tasks.location.GeocoderMapbox.Companion.toPlace
 import org.tasks.preferences.Preferences
 import java.io.IOException
 import javax.inject.Inject

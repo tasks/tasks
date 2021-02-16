@@ -1,15 +1,12 @@
 package org.tasks.location
 
 import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.data.Place
 import org.tasks.data.Place.Companion.newPlace
-import javax.inject.Inject
 
-@Suppress("unused")
-class AndroidGeocoder @Inject constructor(@ApplicationContext context: Context) : Geocoder {
+class GeocoderAndroid constructor(context: Context) : Geocoder {
     private val geocoder = if (android.location.Geocoder.isPresent()) {
         android.location.Geocoder(context)
     } else {

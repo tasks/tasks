@@ -14,7 +14,7 @@ import org.tasks.preferences.Preferences
 import java.io.IOException
 import javax.inject.Inject
 
-class NominatimGeocoder @Inject constructor(
+class GeocoderNominatim @Inject constructor(
         private val preferences: Preferences,
         private val interceptor: DebugNetworkInterceptor,
 ) : Geocoder {

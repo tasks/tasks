@@ -17,7 +17,7 @@ import org.tasks.preferences.Preferences
 import java.io.IOException
 import javax.inject.Inject
 
-class MapboxGeocoder @Inject constructor(
+class GeocoderMapbox @Inject constructor(
         @ApplicationContext context: Context,
         private val preferences: Preferences,
         private val interceptor: DebugNetworkInterceptor,

@@ -4,10 +4,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.TestUtilities.readFile
 
-class NominatimGeocoderTest {
+class GeocoderNominatimTest {
     @Test
     fun pitchGeocode() {
-        val place = NominatimGeocoder.jsonToPlace(readFile("nominatim/pitch.json"))!!
+        val place = GeocoderNominatim.jsonToPlace(readFile("nominatim/pitch.json"))!!
 
         assertEquals("Guaranteed Rate Field", place.name)
         assertEquals(-87.63362064328714, place.longitude, 0.0)
@@ -20,7 +20,7 @@ class NominatimGeocoderTest {
 
     @Test
     fun houseGeocode() {
-        val place = NominatimGeocoder.jsonToPlace(readFile("nominatim/house.json"))!!
+        val place = GeocoderNominatim.jsonToPlace(readFile("nominatim/house.json"))!!
 
         assertEquals("1 Løvenbergvegen", place.name)
         assertEquals(11.1658572, place.longitude, 0.0)

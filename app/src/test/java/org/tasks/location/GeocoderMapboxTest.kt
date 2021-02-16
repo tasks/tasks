@@ -3,9 +3,9 @@ package org.tasks.location
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.TestUtilities.readFile
-import org.tasks.location.MapboxGeocoder.Companion.jsonToPlace
+import org.tasks.location.GeocoderMapbox.Companion.jsonToPlace
 
-class MapboxGeocoderTest {
+class GeocoderMapboxTest {
     @Test
     fun poiGeocode() {
         val place = jsonToPlace(readFile("mapbox/poi.json"))!!
