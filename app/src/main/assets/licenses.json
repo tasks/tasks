@@ -1949,6 +1949,20 @@
       "license": "The Apache Software License, Version 2.0",
       "normalizedLicense": "apache2",
       "libraryName": "google-http-client-gson"
+    },
+    {
+      "artifactId": {
+        "name": "osmdroid-android",
+        "group": "org.osmdroid",
+        "version": "+"
+      },
+      "copyrightHolder": "The OsmDroid Authors",
+      "copyrightStatement": "Copyright &copy; The OsmDroid Authors. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/osmdroid/osmdroid",
+      "libraryName": "osmdroid-android"
     }
   ]
 }

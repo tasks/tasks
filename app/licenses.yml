@@ -814,3 +814,9 @@
   name: google-http-client-gson
   copyrightHolder: Google Inc.
   license: The Apache Software License, Version 2.0
+- artifact: org.osmdroid:osmdroid-android:+
+  name: osmdroid-android
+  copyrightHolder: The OsmDroid Authors
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0
+  url: https://github.com/osmdroid/osmdroid

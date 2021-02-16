@@ -6,4 +6,5 @@
   <!--suppress CheckTagEmptyBody -->
   <string name="manage_subscription_url">%s</string>
   <string name="support_email">support@tasks.org</string>
+  <string name="default_maps">1</string> <!-- OpenStreetMaps -->
 </resources>

@@ -3,6 +3,20 @@
   android:key="@string/preference_screen">
 
   <PreferenceCategory
+    android:key="@string/maps"
+    android:title="@string/maps">
+
+    <ListPreference
+      android:defaultValue="@string/default_maps"
+      android:key="@string/p_map_tiles"
+      android:title="@string/map_tiles"
+      android:entries="@array/map_tile_names"
+      android:entryValues="@array/map_tile_values"
+      android:summary="%s" />
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
     android:key="@string/places"
     android:title="@string/places">
 

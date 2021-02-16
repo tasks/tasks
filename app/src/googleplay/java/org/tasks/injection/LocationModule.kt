@@ -9,6 +9,7 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityScoped
 import dagger.hilt.android.scopes.ViewModelScoped
+import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.gtasks.PlayServices
 import org.tasks.location.*
@@ -42,6 +43,11 @@ internal class LocationModule {
 
     @Provides
     @ActivityScoped
-    fun getMapFragment(@ApplicationContext context: Context): MapFragment =
-            GoogleMapFragment(context)
+    fun getMapFragment(
+            preferences: Preferences,
+            @ApplicationContext context: Context
+    ): MapFragment = when (preferences.getIntegerFromString(R.string.p_map_tiles, 0)) {
+        1 -> OsmMapFragment(context)
+        else -> GoogleMapFragment(context)
+    }
 }

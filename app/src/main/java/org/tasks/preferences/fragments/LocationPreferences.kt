@@ -26,6 +26,7 @@ class LocationPreferences : InjectingPreferenceFragment() {
                     .setOnPreferenceChangeListener(this::onPlaceSearchChanged)
         } else {
             disable(
+                    R.string.p_map_tiles,
                     R.string.p_place_provider,
             )
         }

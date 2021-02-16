@@ -206,8 +206,7 @@ dependencies {
     implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("com.github.openid:AppAuth-Android:0.8.0")
-
-    genericImplementation("org.osmdroid:osmdroid-android:6.1.10@aar")
+    implementation("org.osmdroid:osmdroid-android:6.1.10@aar")
 
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}") {
