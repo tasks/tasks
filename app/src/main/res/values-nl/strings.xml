@@ -696,6 +696,5 @@
     <string name="location_based_reminders">Locatiegebaseerde herinneringen</string>
     <string name="map_theme">Kaartthema</string>
     <string name="map_theme_use_app_theme">Gebruik app-thema</string>
-    <string name="maps">Kaarten</string>
     <string name="tasks_org_account_required">Vereist een Tasks.org account</string>
 </resources>

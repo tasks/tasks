@@ -26,6 +26,14 @@
     android:summaryOn="@string/desaturate_colors_summary_on"
     android:summaryOff="@string/desaturate_colors_summary_off" />
 
+  <ListPreference
+    android:defaultValue="0"
+    android:key="@string/p_map_theme"
+    android:title="@string/map_theme"
+    android:entries="@array/map_theme_names"
+    android:entryValues="@array/map_theme_values"
+    android:summary="%s" />
+
   <PreferenceCategory
     android:title="@string/on_launch">
 

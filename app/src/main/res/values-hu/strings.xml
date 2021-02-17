@@ -698,7 +698,6 @@
     <string name="location_based_reminders">Hely alapú emlékeztetők</string>
     <string name="reverse_geocoder">Fordított geokódoló</string>
     <string name="map_theme_use_app_theme">Alkalmazás témájának használata</string>
-    <string name="maps">Térképek</string>
     <string name="tasks_org_account_required">Tasks.org fiók szükséges</string>
     <string name="map_theme">Térkép téma</string>
 </resources>

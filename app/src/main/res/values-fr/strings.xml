@@ -696,6 +696,5 @@
     <string name="map_theme">Thème de la carte</string>
     <string name="location_based_reminders">Rappels basés sur la localisation</string>
     <string name="map_theme_use_app_theme">Utiliser le thème de l’application</string>
-    <string name="maps">Cartes</string>
     <string name="tasks_org_account_required">Compte Tasks.org requis</string>
 </resources>
