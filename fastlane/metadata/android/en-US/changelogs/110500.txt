@@ -1,0 +1,9 @@
+* Sync snooze time with Tasks.org, DAVx⁵, CalDAV, EteSync, and DecSync
+  * Compatible with Thunderbird
+* New map theme preference
+* 10 new icons
+* F-Droid: Use Nominatim for reverse geocoding
+* Google Play: Use OpenStreetMap tiles when Play Services not available
+* Google Play: Use Android location services when Play Services not available
+* Google Places search requires Tasks.org account
+* Update translations

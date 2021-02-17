@@ -1,9 +1,21 @@
-### Next release
+### 11.5 (2021-02-17)
 
 * Sync snooze time with Tasks.org, DAVx⁵, CalDAV, EteSync, and DecSync
   * Compatible with Thunderbird
+* New map theme preference
+* 10 new icons
+* F-Droid: Use Nominatim for reverse geocoding
+* Google Play: Use OpenStreetMap tiles when Play Services not available
+* Google Play: Use Android location services when Play Services not available
+* Tasks.org accounts: Use Google Places for map search
 * Update translations
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
   * Indonesian - when we were sober
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Ukrainian - @IhorHordiichuk
 
 ### 11.4 (2021-02-09)
 
