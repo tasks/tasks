@@ -38,7 +38,7 @@ class LocationPreferences : InjectingPreferenceFragment() {
             findPreference(R.string.p_geofence_service)
                     .setOnPreferenceChangeListener(this::onGeofenceServiceChanged)
         } else {
-            disable(R.string.p_map_tiles, R.string.p_geofence_service)
+            disable(R.string.p_geofence_service)
         }
     }
 

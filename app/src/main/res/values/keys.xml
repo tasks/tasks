@@ -397,8 +397,6 @@
   <string name="p_linkify_task_edit">linkify_task_edit</string>
   <string name="mapbox">Mapbox</string>
   <string name="nominatim">Nominatim</string>
-  <string name="google_maps">Google Maps</string>
-  <string name="openstreetmap">OpenStreetMap</string>
   <string name="android">Android</string>
   <string name="p_location_based_reminders">location_based_reminders</string>
   <string name="p_geofence_service">geofence_service</string>
@@ -449,6 +447,5 @@
   <string name="legacy_etesync">legacy_etesync</string>
   <string name="param_type">type</string>
   <string name="p_reverse_geocoder">reverse_geocoder</string>
-  <string name="p_map_tiles">map_tiles</string>
   <string name="p_map_theme">map_theme</string>
 </resources>

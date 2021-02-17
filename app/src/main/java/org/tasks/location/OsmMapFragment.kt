@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -19,8 +20,11 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import org.tasks.R
 import org.tasks.data.Place
 import org.tasks.location.MapFragment.MapFragmentCallback
+import javax.inject.Inject
 
-class OsmMapFragment(private val context: Context) : MapFragment {
+class OsmMapFragment @Inject constructor(
+        @ApplicationContext private val context: Context
+) : MapFragment {
     private lateinit var callback: MapFragmentCallback
     private lateinit var map: MapView
     private var locationOverlay: MyLocationNewOverlay? = null

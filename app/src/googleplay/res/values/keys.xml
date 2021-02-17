@@ -7,6 +7,5 @@
   <string name="manage_subscription_url">https://play.google.com/store/account/subscriptions?sku=%s&amp;package=org.tasks</string>
   <string name="support_email">play-support@tasks.org</string>
   <string name="default_reverse_geocoder">0</string> <!-- Mapbox -->
-  <string name="default_maps">0</string> <!-- Google Maps -->
   <string name="default_geofence_service">0</string> <!-- Google Play Location Services -->
 </resources>

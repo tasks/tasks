@@ -701,7 +701,6 @@ File %1$s contained %2$s.\n\n
   <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
   <string name="reverse_geocoder">Reverse geocoder</string>
   <string name="maps">Maps</string>
-  <string name="map_tiles">Map tiles</string>
   <string name="map_theme_use_app_theme">Use app theme</string>
   <string name="location_based_reminders">Location-based reminders</string>
   <string name="geofence_service">Geofence service</string>

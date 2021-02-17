@@ -722,7 +722,6 @@
     <string name="geofence_service">Служба геозон</string>
     <string name="location_based_reminders">Нагадування на основі розташування</string>
     <string name="map_theme_use_app_theme">Використовувати тему застосунку</string>
-    <string name="map_tiles">Плитки карти</string>
     <string name="maps">Карти</string>
     <string name="reverse_geocoder">Зворотний геокодер</string>
     <string name="tasks_org_account_required">Потрібен обліковий запис Tasks.org</string>

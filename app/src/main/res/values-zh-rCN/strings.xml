@@ -692,7 +692,6 @@
     <string name="geofence_service">地理围栏服务</string>
     <string name="location_based_reminders">基于位置的提醒</string>
     <string name="map_theme_use_app_theme">使用应用主题</string>
-    <string name="map_tiles">地图图块</string>
     <string name="maps">地图</string>
     <string name="reverse_geocoder">反向地理编码器</string>
     <string name="tasks_org_account_required">需要 Tasks.org 账户</string>

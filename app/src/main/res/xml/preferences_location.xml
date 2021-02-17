@@ -25,14 +25,6 @@
     android:title="@string/maps">
 
     <ListPreference
-      android:defaultValue="@string/default_maps"
-      android:key="@string/p_map_tiles"
-      android:title="@string/map_tiles"
-      android:entries="@array/map_tile_names"
-      android:entryValues="@array/map_tile_values"
-      android:summary="%s" />
-
-    <ListPreference
       android:defaultValue="0"
       android:key="@string/p_map_theme"
       android:title="@string/map_theme"

@@ -8,13 +8,15 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.data.Place
 import org.tasks.location.MapFragment.MapFragmentCallback
 import java.util.*
+import javax.inject.Inject
 
-class GoogleMapFragment(
-        private val context: Context
+class GoogleMapFragment @Inject constructor(
+        @ApplicationContext private val context: Context
 ) : MapFragment, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private val markers: MutableList<Marker> = ArrayList()
     private lateinit var callback: MapFragmentCallback

@@ -692,7 +692,6 @@
     <string name="tasks_org_account">Compte Tasks.org</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Afficher le titre</string>
-    <string name="map_tiles">Carte des tuiles</string>
     <string name="reverse_geocoder">Géocodeur inversé</string>
     <string name="map_theme">Thème de la carte</string>
     <string name="android_location_services">Service de localisation Android</string>

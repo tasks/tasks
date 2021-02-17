@@ -702,7 +702,6 @@
     <string name="geofence_service">Servicio de geovallas</string>
     <string name="location_based_reminders">Recordatorios basados en la ubicación</string>
     <string name="map_theme_use_app_theme">Utilizar el tema de la aplicación</string>
-    <string name="map_tiles">Azulejos del mapa</string>
     <string name="maps">Mapas</string>
     <string name="reverse_geocoder">Geocodificador inverso</string>
     <string name="tasks_org_account_required">Se requiere una cuenta de Tasks.org</string>
