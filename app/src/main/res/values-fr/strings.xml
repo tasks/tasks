@@ -676,4 +676,5 @@
     <string name="map_theme">Thème de la carte</string>
     <string name="map_theme_use_app_theme">Utiliser le thème de l’application</string>
     <string name="tasks_org_account_required">Compte Tasks.org requis</string>
+    <string name="reverse_geocoder">Géocodeur inversé</string>
 </resources>
