@@ -10,14 +10,14 @@
     android:paddingStart="@dimen/keyline_second"
     android:paddingEnd="@dimen/keyline_first"
     android:orientation="vertical">
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
       android:id="@+id/location_arrival"
       android:layout_width="match_parent"
       android:layout_height="?android:attr/listPreferredItemHeightSmall"
       android:gravity="center_vertical"
       android:text="@string/location_remind_arrival"
       android:textAppearance="?attr/textAppearanceListItemSmall"/>
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
       android:id="@+id/location_departure"
       android:layout_width="match_parent"
       android:layout_height="?android:attr/listPreferredItemHeightSmall"

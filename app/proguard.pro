@@ -42,7 +42,6 @@
 -dontwarn org.codehaus.groovy.**
 -dontwarn org.apache.log4j.**             # ignore warnings from log4j dependency
 -keep class net.fortuna.ical4j.** { *; }  # keep all model classes (properties/factories, created at runtime)
--keep class org.threeten.bp.** { *; }     # keep ThreeTen (for time zone processing)
 -keep class at.bitfire.** { *; }       # all DAVdroid code is required
 
 # https://github.com/google/google-api-java-client-samples/blob/34c3b43cb15f4ee1b636a0e01521cc81a2451dcd/tasks-android-sample/proguard-google-api-client.txt

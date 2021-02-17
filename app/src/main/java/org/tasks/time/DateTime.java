@@ -178,10 +178,6 @@ public class DateTime {
     return timestamp;
   }
 
-  public TimeZone getTimeZone() {
-    return timeZone;
-  }
-
   public int getMillisOfDay() {
     Calendar calendar = getCalendar();
     long millisOfDay =

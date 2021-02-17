@@ -10,13 +10,13 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Switch;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.material.slider.Slider;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -42,10 +42,10 @@ public class GeofenceDialog extends DialogFragment {
   @Inject Toaster toaster;
 
   @BindView(R.id.location_arrival)
-  Switch arrivalView;
+  SwitchMaterial arrivalView;
 
   @BindView(R.id.location_departure)
-  Switch departureView;
+  SwitchMaterial departureView;
 
   @BindView(R.id.slider)
   Slider slider;
