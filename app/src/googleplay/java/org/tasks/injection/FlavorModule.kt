@@ -4,12 +4,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.tasks.location.Geofencing
-import org.tasks.location.GoogleGeofencing
+import org.tasks.location.LocationService
+import org.tasks.location.LocationServiceGooglePlay
 
 @Module
 @InstallIn(SingletonComponent::class)
 class FlavorModule {
     @Provides
-    fun getGeofencing(geofencing: GoogleGeofencing): Geofencing = geofencing
+    fun getLocationService(service: LocationServiceGooglePlay): LocationService = service
 }

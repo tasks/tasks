@@ -94,7 +94,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     @Inject lateinit var geocoder: Geocoder
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
-    @Inject lateinit var locationProvider: LocationProvider
+    @Inject lateinit var locationService: LocationService
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var preferences: Preferences
 
@@ -265,7 +265,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         }
         lifecycleScope.launch {
             try {
-                locationProvider.currentLocation()?.let { map.movePosition(it, animate) }
+                locationService.currentLocation()?.let { map.movePosition(it, animate) }
             } catch (e: Exception) {
                 toaster.longToast(e.message)
             }

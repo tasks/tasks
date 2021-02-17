@@ -16,8 +16,8 @@ import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
-class AndroidLocationProviderTest : InjectingTestCase() {
-    @Inject lateinit var provider: AndroidLocationProvider
+class LocationServiceAndroidTest : InjectingTestCase() {
+    @Inject lateinit var service: LocationServiceAndroid
     @Inject lateinit var locationManager: MockLocationManager
 
     @Test
@@ -25,7 +25,7 @@ class AndroidLocationProviderTest : InjectingTestCase() {
         newLocation(NETWORK_PROVIDER, 45.0, 46.0, 50f, DateTime(2021, 2, 4, 13, 35, 45, 121))
         newLocation(GPS_PROVIDER, 45.1, 46.1, 30f, DateTime(2021, 2, 4, 13, 33, 45, 121))
 
-        assertEquals(MapPosition(45.1, 46.1), provider.currentLocation())
+        assertEquals(MapPosition(45.1, 46.1), service.currentLocation())
     }
 
     @Test
@@ -33,7 +33,7 @@ class AndroidLocationProviderTest : InjectingTestCase() {
         newLocation(GPS_PROVIDER, 45.1, 46.1, 30f, DateTime(2021, 2, 4, 13, 33, 44, 121))
         newLocation(NETWORK_PROVIDER, 45.0, 46.0, 50f, DateTime(2021, 2, 4, 13, 35, 45, 121))
 
-        assertEquals(MapPosition(45.0, 46.0), provider.currentLocation())
+        assertEquals(MapPosition(45.0, 46.0), service.currentLocation())
     }
 
     @Test
@@ -41,23 +41,23 @@ class AndroidLocationProviderTest : InjectingTestCase() {
         newLocation(GPS_PROVIDER, 45.1, 46.1, 50f, DateTime(2021, 2, 4, 13, 35, 45, 100))
         newLocation(NETWORK_PROVIDER, 45.0, 46.0, 50f, DateTime(2021, 2, 4, 13, 35, 45, 121))
 
-        assertEquals(MapPosition(45.0, 46.0), provider.currentLocation())
+        assertEquals(MapPosition(45.0, 46.0), service.currentLocation())
     }
 
     @Test
     fun returnCachedLocation() = runBlocking {
         newLocation(GPS_PROVIDER, 45.1, 46.1, 50f, DateTime(2021, 2, 4, 13, 35, 45, 100))
 
-        provider.currentLocation()
+        service.currentLocation()
 
         locationManager.clearLocations()
 
-        assertEquals(MapPosition(45.1, 46.1), provider.currentLocation())
+        assertEquals(MapPosition(45.1, 46.1), service.currentLocation())
     }
 
     @Test
     fun nullWhenNoPosition() = runBlocking {
-        assertNull(provider.currentLocation())
+        assertNull(service.currentLocation())
     }
 
     private fun newLocation(

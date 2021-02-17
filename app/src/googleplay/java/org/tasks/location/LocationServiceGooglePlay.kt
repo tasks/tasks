@@ -8,18 +8,34 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.tasks.data.MergedGeofence
 import org.tasks.data.Place
 import javax.inject.Inject
+import kotlin.coroutines.suspendCoroutine
 
-class GoogleGeofencing @Inject constructor(
+class LocationServiceGooglePlay @Inject constructor(
         @ApplicationContext private val context: Context
-): Geofencing {
-    private val client = LocationServices.getGeofencingClient(context)
+) : LocationService {
+    @SuppressLint("MissingPermission")
+    override suspend fun currentLocation(): MapPosition = withContext(Dispatchers.IO) {
+        suspendCoroutine { cont ->
+            LocationServices
+                    .getFusedLocationProviderClient(context)
+                    .lastLocation
+                    .addOnSuccessListener {
+                        cont.resumeWith(Result.success(MapPosition(it.latitude, it.longitude)))
+                    }
+                    .addOnFailureListener { cont.resumeWith(Result.failure(it)) }
+        }
+    }
 
     @SuppressLint("MissingPermission")
     override fun addGeofences(geofence: MergedGeofence) {
-        client.addGeofences(
+        LocationServices
+                .getGeofencingClient(context)
+                .addGeofences(
                 GeofencingRequest.Builder().addGeofence(toGoogleGeofence(geofence)).build(),
                 PendingIntent.getBroadcast(
                         context,
@@ -29,7 +45,9 @@ class GoogleGeofencing @Inject constructor(
     }
 
     override fun removeGeofences(place: Place) {
-        client.removeGeofences(listOf(place.id.toString()))
+        LocationServices
+                .getGeofencingClient(context)
+                .removeGeofences(listOf(place.id.toString()))
     }
 
     private fun toGoogleGeofence(geofence: MergedGeofence): Geofence {

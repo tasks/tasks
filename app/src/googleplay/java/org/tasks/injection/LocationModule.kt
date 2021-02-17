@@ -8,17 +8,14 @@ import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityScoped
 import org.tasks.R
-import org.tasks.location.*
+import org.tasks.location.GoogleMapFragment
+import org.tasks.location.MapFragment
+import org.tasks.location.OsmMapFragment
 import org.tasks.preferences.Preferences
 
 @Module
 @InstallIn(ActivityComponent::class)
 internal class LocationModule {
-    @Provides
-    @ActivityScoped
-    fun getLocationProvider(@ApplicationContext context: Context): LocationProvider =
-            PlayLocationProvider(context)
-
     @Provides
     @ActivityScoped
     fun getMapFragment(

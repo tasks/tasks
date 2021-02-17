@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GeofenceApi @Inject constructor(
         private val permissionChecker: PermissionChecker,
         private val locationDao: LocationDao,
-        private val client: Geofencing
+        private val locationService: LocationService
 ) {
     suspend fun registerAll() = locationDao.getPlacesWithGeofences().forEach { update(it) }
 
@@ -26,13 +26,13 @@ class GeofenceApi @Inject constructor(
         locationDao
                 .getGeofencesByPlace(place.uid!!)?.let {
                     Timber.d("Adding geofence for %s", it)
-                    client.addGeofences(it)
+                    locationService.addGeofences(it)
                 }
                 ?: cancel(place)
     }
 
     private fun cancel(place: Place?) = place?.let {
         Timber.d("Removing geofence for %s", place)
-        client.removeGeofences(place)
+        locationService.removeGeofences(place)
     }
 }

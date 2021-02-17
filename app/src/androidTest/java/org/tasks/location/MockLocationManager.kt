@@ -1,5 +1,6 @@
 package org.tasks.location
 
+import android.app.PendingIntent
 import android.location.Location
 
 class MockLocationManager : LocationManager {
@@ -13,4 +14,13 @@ class MockLocationManager : LocationManager {
 
     override val lastKnownLocations: List<Location>
         get() = mockLocations
+
+    override fun addProximityAlert(
+            latitude: Double,
+            longitude: Double,
+            radius: Float,
+            intent: PendingIntent
+    ) {}
+
+    override fun removeProximityAlert(intent: PendingIntent) {}
 }
