@@ -692,9 +692,7 @@
     <string name="tasks_org_account">Compte Tasks.org</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Afficher le titre</string>
-    <string name="reverse_geocoder">Géocodeur inversé</string>
     <string name="map_theme">Thème de la carte</string>
-    <string name="location_based_reminders">Rappels basés sur la localisation</string>
     <string name="map_theme_use_app_theme">Utiliser le thème de l’application</string>
     <string name="tasks_org_account_required">Compte Tasks.org requis</string>
 </resources>

@@ -4,10 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.tasks.location.LocationService
-import org.tasks.location.LocationServiceAndroid
-import org.tasks.location.MapFragment
-import org.tasks.location.OsmMapFragment
+import org.tasks.location.*
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -17,4 +14,7 @@ class FlavorModule {
 
     @Provides
     fun getMapFragment(osm: OsmMapFragment): MapFragment = osm
+
+    @Provides
+    fun getGeocoder(nominatim: GeocoderNominatim): Geocoder = nominatim
 }

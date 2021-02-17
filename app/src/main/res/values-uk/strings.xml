@@ -717,9 +717,7 @@
     <string name="tasks_org_account">Обліковий запис Tasks.org</string>
     <string name="subscription">Підписка</string>
     <string name="widget_show_title">Показати заголовок</string>
-    <string name="location_based_reminders">Нагадування на основі розташування</string>
     <string name="map_theme_use_app_theme">Використовувати тему застосунку</string>
-    <string name="reverse_geocoder">Зворотний геокодер</string>
     <string name="tasks_org_account_required">Потрібен обліковий запис Tasks.org</string>
     <string name="map_theme">Тема карти</string>
 </resources>

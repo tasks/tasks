@@ -26,4 +26,7 @@ class FlavorModule {
             osm: Lazy<OsmMapFragment>,
             google: Lazy<GoogleMapFragment>,
     ): MapFragment = if (PlayServices.isAvailable(context)) google.get() else osm.get()
+
+    @Provides
+    fun getGeocoder(mapbox: GeocoderMapbox): Geocoder = mapbox
 }

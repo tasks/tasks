@@ -394,10 +394,6 @@
   <string name="p_always_display_full_date">always_display_full_date</string>
   <string name="p_linkify_task_list">linkify_task_list</string>
   <string name="p_linkify_task_edit">linkify_task_edit</string>
-  <string name="mapbox">Mapbox</string>
-  <string name="nominatim">Nominatim</string>
-  <string name="android">Android</string>
-  <string name="p_location_based_reminders">location_based_reminders</string>
   <string name="preference_screen">preference_screen</string>
   <string name="p_add_to_top">google_tasks_add_to_top</string>
   <string name="p_google_tasks_position_hack">google_tasks_position_hack</string>
@@ -444,6 +440,5 @@
   <string name="event_sync_add_account">sync_add_account</string>
   <string name="legacy_etesync">legacy_etesync</string>
   <string name="param_type">type</string>
-  <string name="p_reverse_geocoder">reverse_geocoder</string>
   <string name="p_map_theme">map_theme</string>
 </resources>
