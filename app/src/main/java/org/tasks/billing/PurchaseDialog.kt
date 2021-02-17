@@ -24,9 +24,10 @@ import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonSpansFactory
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import org.commonmark.ext.gfm.strikethrough.Strikethrough
-import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.Tasks.Companion.IS_GENERIC
+import org.tasks.Tasks.Companion.IS_GOOGLE_PLAY
 import org.tasks.analytics.Firebase
 import org.tasks.databinding.ActivityPurchaseBinding
 import org.tasks.dialogs.DialogBuilder
@@ -89,9 +90,9 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
                 })
                 .build()
 
-        setWaitScreen(BuildConfig.FLAVOR != "generic")
+        setWaitScreen(!IS_GENERIC)
 
-        return if (BuildConfig.FLAVOR == "generic") {
+        return if (IS_GENERIC) {
             if (isGitHub) {
                 getPurchaseDialog()
             } else {
@@ -142,7 +143,8 @@ _${getString(R.string.account_not_included)}_
 * [${getString(R.string.upgrade_coming_soon)}](${getString(R.string.help_url_sync)})
 """
         }
-        benefits += """
+        if (IS_GOOGLE_PLAY) {
+            benefits += """
 ---
 #### ${getString(R.string.upgrade_sync_self_hosted)}
 * [${getString(R.string.davx5)}](${getString(R.string.url_davx5)})
@@ -160,6 +162,7 @@ _${getString(R.string.account_not_included)}_
 * ${getString(R.string.upgrade_downgrade)}
 * ${getString(R.string.upgrade_support_development)}
 """
+        }
         binding.text.text = markwon.toMarkdown(benefits)
     }
 
@@ -209,7 +212,6 @@ _${getString(R.string.account_not_included)}_
 
     private fun setWaitScreen(isWaitScreen: Boolean) {
         Timber.d("setWaitScreen(%s)", isWaitScreen)
-        val generic = BuildConfig.FLAVOR == "generic"
         binding.sliderContainer.isVisible = !isWaitScreen && nameYourPrice
         binding.payOther.isVisible = !isWaitScreen
         binding.payOther.setText(when {
@@ -217,9 +219,9 @@ _${getString(R.string.account_not_included)}_
             nameYourPrice -> R.string.get_tasks_org_account
             else -> R.string.name_your_price
         })
-        binding.tasksOrgButtonPanel.isVisible = !isWaitScreen && !generic
-        binding.screenWait.isVisible = isWaitScreen && !generic
-        binding.sponsor.isVisible = generic
+        binding.tasksOrgButtonPanel.isVisible = !isWaitScreen && !IS_GENERIC
+        binding.screenWait.isVisible = isWaitScreen && !IS_GENERIC
+        binding.sponsor.isVisible = IS_GENERIC
         updateText()
     }
 
@@ -346,7 +348,7 @@ _${getString(R.string.account_not_included)}_
         @JvmOverloads
         fun newPurchaseDialog(
                 tasksPayment: Boolean = false,
-                github: Boolean = BuildConfig.FLAVOR == "generic"
+                github: Boolean = IS_GENERIC
         ): PurchaseDialog {
             val dialog = PurchaseDialog()
             val args = Bundle()
