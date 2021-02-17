@@ -194,6 +194,16 @@ object CustomIcons {
         1169 to R.drawable.ic_date_range_24px,
         1170 to R.drawable.ic_pending_actions_24px,
         1171 to R.drawable.ic_outline_visibility_off_24px,
+        1172 to R.drawable.ic_nature_24px,
+        1173 to R.drawable.ic_eco_24px,
+        1174 to R.drawable.ic_bedtime_24px,
+        1175 to R.drawable.ic_auto_stories_24px,
+        1176 to R.drawable.ic_flash_on_24px,
+        1177 to R.drawable.ic_wb_twilight_24px,
+        1178 to R.drawable.ic_local_atm_24px,
+        1179 to R.drawable.ic_cleaning_services_24px,
+        1180 to R.drawable.ic_plumbing_24px,
+        1181 to R.drawable.ic_pest_control_rodent_24px
     )
 
     @JvmStatic
