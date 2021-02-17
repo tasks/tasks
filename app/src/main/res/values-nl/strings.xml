@@ -693,4 +693,14 @@
     <string name="tasks_org_account">Tasks.org account</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Toon titel</string>
+    <string name="reverse_geocoder">Omgekeerde geocoder</string>
+    <string name="android_location_services">Android-locatieservice</string>
+    <string name="google_play_location_service">Google Play-locatieservice</string>
+    <string name="geofence_service">Geofence-service</string>
+    <string name="location_based_reminders">Locatiegebaseerde herinneringen</string>
+    <string name="map_theme">Kaartthema</string>
+    <string name="map_theme_use_app_theme">Gebruik app-thema</string>
+    <string name="map_tiles">Kaarttegels</string>
+    <string name="maps">Kaarten</string>
+    <string name="tasks_org_account_required">Vereist een Tasks.org account</string>
 </resources>
