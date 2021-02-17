@@ -697,9 +697,6 @@
     <string name="tasks_org_account">Tasks.org cuenta</string>
     <string name="subscription">Suscripción</string>
     <string name="widget_show_title">Mostrar título</string>
-    <string name="android_location_services">Servicio de localización de Android</string>
-    <string name="google_play_location_service">Servicio de localización de Google Play</string>
-    <string name="geofence_service">Servicio de geovallas</string>
     <string name="location_based_reminders">Recordatorios basados en la ubicación</string>
     <string name="map_theme_use_app_theme">Utilizar el tema de la aplicación</string>
     <string name="maps">Mapas</string>

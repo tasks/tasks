@@ -41,7 +41,6 @@ import org.tasks.dialogs.SortDialog.SortDialogCallback
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.filters.PlaceFilter
 import org.tasks.fragments.CommentBarFragment.CommentBarFragmentCallback
-import org.tasks.gtasks.PlayServices
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents.getTaskListIntent
 import org.tasks.location.LocationPickerActivity
@@ -66,7 +65,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var taskCreator: TaskCreator
-    @Inject lateinit var playServices: PlayServices
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var locationDao: LocationDao
@@ -487,12 +485,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     override fun onListChanged(filter: Filter?) {
         taskEditFragment!!.onRemoteListChanged(filter)
-    }
-
-    init {
-        lifecycleScope.launchWhenResumed {
-            playServices.check(this@MainActivity)
-        }
     }
 
     companion object {

@@ -1,9 +1,11 @@
 package org.tasks.injection
 
+import android.content.Context
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.tasks.gtasks.PlayServices
 import org.tasks.location.*
@@ -12,12 +14,16 @@ import org.tasks.location.*
 @InstallIn(SingletonComponent::class)
 class FlavorModule {
     @Provides
-    fun getLocationService(service: LocationServiceGooglePlay): LocationService = service
+    fun getLocationService(
+            @ApplicationContext context: Context,
+            google: Lazy<LocationServiceGooglePlay>,
+            android: Lazy<LocationServiceAndroid>
+    ): LocationService = if (PlayServices.isAvailable(context)) google.get() else android.get()
 
     @Provides
     fun getMapFragment(
-            playServices: PlayServices,
+            @ApplicationContext context: Context,
             osm: Lazy<OsmMapFragment>,
             google: Lazy<GoogleMapFragment>,
-    ): MapFragment = if (playServices.isPlayServicesAvailable) google.get() else osm.get()
+    ): MapFragment = if (PlayServices.isAvailable(context)) google.get() else osm.get()
 }

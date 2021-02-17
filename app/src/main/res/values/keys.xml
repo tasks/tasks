@@ -382,7 +382,6 @@
   <string name="p_flipper">p_flipper</string>
   <string name="p_debug_pro">debug_pro</string>
   <string name="p_crash_main_queries">debug_crash_main_queries</string>
-  <string name="warned_play_services">warned_play_services</string>
   <string name="p_sync_ongoing_google_tasks">sync_ongoing_google_tasks</string>
   <string name="p_sync_ongoing_caldav">sync_ongoing_caldav</string>
   <string name="p_sync_ongoing_etesync">sync_ongoing_etesync</string>
@@ -399,7 +398,6 @@
   <string name="nominatim">Nominatim</string>
   <string name="android">Android</string>
   <string name="p_location_based_reminders">location_based_reminders</string>
-  <string name="p_geofence_service">geofence_service</string>
   <string name="preference_screen">preference_screen</string>
   <string name="p_add_to_top">google_tasks_add_to_top</string>
   <string name="p_google_tasks_position_hack">google_tasks_position_hack</string>

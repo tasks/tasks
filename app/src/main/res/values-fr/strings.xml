@@ -694,9 +694,6 @@
     <string name="widget_show_title">Afficher le titre</string>
     <string name="reverse_geocoder">Géocodeur inversé</string>
     <string name="map_theme">Thème de la carte</string>
-    <string name="android_location_services">Service de localisation Android</string>
-    <string name="google_play_location_service">Service de localisation Google Play</string>
-    <string name="geofence_service">Service Geofence</string>
     <string name="location_based_reminders">Rappels basés sur la localisation</string>
     <string name="map_theme_use_app_theme">Utiliser le thème de l’application</string>
     <string name="maps">Cartes</string>

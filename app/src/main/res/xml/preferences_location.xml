@@ -10,14 +10,6 @@
       android:key="@string/p_location_based_reminders"
       android:title="@string/enabled" />
 
-    <ListPreference
-      android:defaultValue="@string/default_geofence_service"
-      android:key="@string/p_geofence_service"
-      android:title="@string/geofence_service"
-      android:entries="@array/geofence_service_names"
-      android:entryValues="@array/geofence_service_values"
-      android:summary="%s" />
-
   </PreferenceCategory>
 
   <PreferenceCategory

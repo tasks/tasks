@@ -687,9 +687,6 @@
     <string name="tasks_org_account">Tasks.org 账户</string>
     <string name="subscription">订阅</string>
     <string name="widget_show_title">显示标题</string>
-    <string name="android_location_services">安卓位置服务</string>
-    <string name="google_play_location_service">Google Play 位置服务</string>
-    <string name="geofence_service">地理围栏服务</string>
     <string name="location_based_reminders">基于位置的提醒</string>
     <string name="map_theme_use_app_theme">使用应用主题</string>
     <string name="maps">地图</string>
