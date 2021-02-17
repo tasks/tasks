@@ -28,14 +28,12 @@
     <string name="FLA_new_filter">Vytvořit nový filtr</string>
     <string name="TEA_title_hint">Název úkolu</string>
     <string name="TEA_importance_label">Důležitost</string>
-    <string name="TEA_no_date">Bez termínu</string>
     <string name="TEA_note_label">Popis</string>
     <string name="TEA_estimatedDuration_label">Kolik času to zabere\?</string>
     <string name="TEA_elapsedDuration_label">Již strávený čas</string>
     <string name="save">Uložit</string>
     <string name="TEA_timer_est">Zal. %s</string>
     <string name="TEA_timer_elap">Uplynulo %s</string>
-    <string name="TEA_no_time">Žádný čas</string>
     <string name="due_date">Termín dokončení</string>
     <string name="due_time">Čas dokončení</string>
     <string name="day_before_due">Den před termínem</string>
@@ -60,7 +58,6 @@
     <string name="CRA_calendar_reminders_pref_title">Asistent pro kalendář</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">Aplikace Tasks vám připomene nadcházející události v kalendáři a vyzve vás, abyste se na ně připravili</string>
     <string name="none">Žádný</string>
-    <string name="EPr_filters_to_show_title">Filtry pro zobrazení</string>
     <string name="EPr_edit_screen_options">Upravit možnosti zobrazení</string>
     <string name="EPr_beastMode_reset">Obnovit výchozí hodnoty</string>
     <string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
@@ -91,11 +88,6 @@
     <string name="at_deadline_or_overdue">V termínu nebo po něm</string>
     <string name="BFE_Active">Moje úkoly</string>
     <string name="BFE_Recent">Nedávno upravené</string>
-    <string name="CFA_type_add">nebo</string>
-    <string name="CFA_type_subtract">ne</string>
-    <string name="CFA_type_intersect">také</string>
-    <string name="CFA_context_chain">%s splňuje podmínku</string>
-    <string name="CFA_context_delete">Odstranit řádek</string>
     <string name="CFA_button_add">Přidat podmínku</string>
     <string name="CFC_dueBefore_text">Podle termínu: ?</string>
     <string name="CFC_dueBefore_name">Podle termínu…</string>
@@ -187,8 +179,6 @@
     <string name="TLA_menu_donate">Darovat</string>
     <string name="remove">Odstranit</string>
     <string name="randomly">Náhodně</string>
-    <string name="pick_a_date">Vybrat datum</string>
-    <string name="pick_a_time">Vybrat čas</string>
     <string name="tags">Štítky</string>
     <string name="filters">Filtry</string>
     <string name="date_shortcut_morning">Ráno</string>
@@ -227,7 +217,6 @@
     <string name="settings_localization">Překlad</string>
     <string name="no_calendars_found">Nenalezeny žádné kalendáře</string>
     <string name="widget_settings">Nastavení widgetu</string>
-    <string name="enter_filter_name">Zadejte název filtru</string>
     <string name="discard_confirmation">Skutečně chcete zahodit provedené změny\?</string>
     <string name="keep_editing">Pokračovat v úpravách</string>
     <string name="action_call">Volat</string>
@@ -473,8 +462,6 @@
     <string name="invalid_backup_file">Neplatný soubor zálohy</string>
     <string name="google_tasks_add_to_top">Nové úkoly na vrchu</string>
     <string name="name_your_price">Zaplať kolik chceš</string>
-    <string name="monthly">Měsíčně</string>
-    <string name="annually">Ročně</string>
     <string name="caldav_account_repeating_tasks">Dovolit serveru plánovat opakující se úkoly</string>
     <string name="expand_subtasks">Rozbalit podúkoly</string>
     <string name="collapse_subtasks">Sbalit podúkoly</string>
@@ -493,7 +480,6 @@
     <string name="preferences_look_and_feel">Vzhled a chování</string>
     <string name="documentation">Dokumentace</string>
     <string name="preferences_advanced">Pokročilé možnosti</string>
-    <string name="accounts">Účty</string>
     <string name="wearable_notifications">Upozornění na hodinkách</string>
     <string name="wearable_notifications_summary">Zobrazí upozornění na Vašich chytrých hodinkách</string>
     <string name="troubleshooting">Řešení problémů</string>
@@ -503,7 +489,6 @@
     <string name="more_notification_settings_summary">Zvuk upozornění, vibrace, atd.</string>
     <string name="menu_discard_changes">Zrušit změny</string>
     <string name="widget_show_menu">Zobrazit nabídku</string>
-    <string name="widget_hide_background">Skrýt pozadí</string>
     <string name="sort_created">Podle data vytvoření</string>
     <string name="delete_multiple_tasks_confirmation">%s smazáno</string>
     <string name="copy_multiple_tasks_confirmation">%s zkopírováno</string>
@@ -550,7 +535,6 @@
     <string name="widget_open_list">Otevřít seznam</string>
     <string name="widget_do_nothing">Nic nedělat</string>
     <string name="widget_footer">Zápatí</string>
-    <string name="widget_footer_settings">Nastavení zápatí</string>
     <string name="widget_show_dividers">Zobrazit oddělovače</string>
     <string name="improve_performance">Optimalizovat výkon</string>
     <string name="whats_new">Co je nového</string>
@@ -607,7 +591,6 @@
     <string name="back">Zpět</string>
     <string name="upgrade_blurb_4">Vaše podpora pro mne hodně znamená, děkuji!</string>
     <string name="decsync_selection_description">Synchronizujte své úkoly pomocí aplikace DecSync CC</string>
-    <string name="more_options">Více možností</string>
     <string name="repeat_monthly_fifth_week">pátý</string>
     <string name="default_recurrence">Výchozí opakování</string>
     <string name="default_tags">Výchozí štítky</string>

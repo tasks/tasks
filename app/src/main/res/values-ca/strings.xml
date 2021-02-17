@@ -24,11 +24,11 @@
     <string name="FLA_search_filter">Coincidència \'%s\'</string>
     <string name="TEA_title_hint">Nom de la tasca</string>
     <string name="TEA_importance_label">Prioritat</string>
-    <string name="TEA_no_date">Sense data</string>
+    <string name="no_date">Sense data</string>
     <string name="TEA_note_label">Descripció</string>
     <string name="TEA_estimatedDuration_label">Quant de temps us portarà\?</string>
     <string name="TEA_elapsedDuration_label">Temps que ja s\'hi ha invertit</string>
-    <string name="TEA_no_time">Sense temps</string>
+    <string name="no_time">Sense temps</string>
     <string name="due_date">Data de venciment</string>
     <string name="day_before_due">El dia abans del venciment</string>
     <string name="week_before_due">La setmana abans del venciment</string>
@@ -46,11 +46,9 @@
     <string name="next_week">La setmana que ve</string>
     <string name="BFE_Active">Tasques actives</string>
     <string name="BFE_Recent">Modificades fa poc</string>
-    <string name="CFA_type_add">o</string>
-    <string name="CFA_type_subtract">no</string>
-    <string name="CFA_type_intersect">també</string>
-    <string name="CFA_context_chain">%s té criteris</string>
-    <string name="CFA_context_delete">Suprimeix la fila</string>
+    <string name="custom_filter_or">o</string>
+    <string name="custom_filter_not">no</string>
+    <string name="custom_filter_and">també</string>
     <string name="CFA_button_add">Afegeix criteris</string>
     <string name="CFC_dueBefore_text">Vençuda per: ?</string>
     <string name="CFC_dueBefore_name">Venciment per…</string>
@@ -96,7 +94,6 @@
     <string name="language">Idioma</string>
     <string name="settings_localization">Localització</string>
     <string name="led_notification">Led de notificació</string>
-    <string name="enter_filter_name">Introdueixi el nom del filtre</string>
     <string name="export_toast">Recolzades %1$s de %2$s.</string>
     <string name="import_summary_message">El fitxer %1$s contenia %2$s. 
 \n 

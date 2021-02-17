@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Kép törlése</string>
     <string name="TVA_add_comment">Hozzászólás írása…</string>
-    <string name="enter_filter_name">Kérem a szűrő nevét</string>
     <string name="backup_BPr_header">Mentések</string>
     <string name="backup_BAc_import">Mentés importálása</string>
     <string name="backup_BAc_export">Mentés most</string>
@@ -36,14 +35,12 @@
     <string name="FLA_new_filter">Új szűrő létrehozása</string>
     <string name="TEA_title_hint">Feladat neve</string>
     <string name="TEA_importance_label">Prioritás</string>
-    <string name="TEA_no_date">Dátum nélkül</string>
     <string name="TEA_note_label">Leírás</string>
     <string name="TEA_estimatedDuration_label">Meddig fog tartani?</string>
     <string name="TEA_elapsedDuration_label">Már eltöltött idő</string>
     <string name="save">Mentés</string>
     <string name="TEA_timer_est">Kb. %s</string>
     <string name="TEA_timer_elap">Eltelt %s</string>
-    <string name="TEA_no_time">Időpont nélkül</string>
     <string name="due_date">Határidő</string>
     <string name="due_time">Esedékesség ideje</string>
     <string name="day_before_due">Egy nappal a határidő előtt</string>
@@ -70,7 +67,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">A Tasks emlékeztetni fog a közelgő naptáreseményekre, és a felkészülésre</string>
     <string name="CRA_default_list_name">Akciópontok: %s</string>
     <string name="none">Nincs</string>
-    <string name="EPr_filters_to_show_title">Megjelenítendő szűrők</string>
     <string name="EPr_edit_screen_options">Szerkesztési képernyő beállításai</string>
     <string name="EPr_beastMode_reset">Visszaállítás alapértékre</string>
     <string name="EPr_fullTask_title">Feladat teljes nevének megjelenítése</string>
@@ -108,11 +104,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">Megérkezéskor és elinduláskor</string>
     <string name="BFE_Active">Saját Feladatok</string>
     <string name="BFE_Recent">Nemrég módosítva</string>
-    <string name="CFA_type_add">vagy</string>
-    <string name="CFA_type_subtract">nem</string>
-    <string name="CFA_type_intersect">is</string>
-    <string name="CFA_context_chain">%s rendelkezik kritériummal</string>
-    <string name="CFA_context_delete">Sor törlése</string>
     <string name="CFA_button_add">Kritérium hozzáadása</string>
     <string name="CFC_dueBefore_text">Határidő: ?</string>
     <string name="CFC_dueBefore_name">Határidő…</string>
@@ -295,8 +286,6 @@
     <string name="remove">Eltávolítás</string>
     <string name="randomly_once">Véletlenszerűen egyszer</string>
     <string name="randomly">Véletlenszerűen</string>
-    <string name="pick_a_date">Dátum kiválasztása</string>
-    <string name="pick_a_time">Időpont kiválasztása</string>
     <string name="pick_a_date_and_time">Válasszon dátumot és időpontot</string>
     <string name="when_overdue">Határidő lejárta után</string>
     <string name="when_due">Határidő elérésekor</string>
@@ -454,8 +443,6 @@
     <string name="button_upgrade">Előfizetés upgrade-je</string>
     <string name="button_unsubscribe">Előfizetés lemondása</string>
     <string name="name_your_price">Nevezd meg az árat</string>
-    <string name="monthly">Havi</string>
-    <string name="annually">Éves</string>
     <string name="SSD_sort_my_order">Egyéni sorrend</string>
     <string name="error_adding_account">Hiba: %s</string>
     <string name="caldav_account_repeating_tasks">A szerver kezeli az ismétlődő feladatokat</string>
@@ -493,7 +480,6 @@
     <string name="documentation">Dokumentáció</string>
     <string name="preferences_look_and_feel">Kinézet</string>
     <string name="preferences_advanced">További lehetőségek</string>
-    <string name="accounts">Fiókok</string>
     <string name="wearable_notifications">Hordozható eszköz értesítései</string>
     <string name="wearable_notifications_summary">Értesítés megjelenítése hordozható eszközön</string>
     <string name="troubleshooting">Hibaelhárítás</string>
@@ -543,12 +529,10 @@
     <string name="widget_open_list">Lista megnyitása</string>
     <string name="widget_do_nothing">Nincs művelet</string>
     <string name="widget_on_click">Kattintásra</string>
-    <string name="widget_footer_settings">Lábléc beállításai</string>
     <string name="opacity_footer">Lábléc átlátszóság</string>
     <string name="opacity_row">Sor átlátszóság</string>
     <string name="opacity_header">Fejléc átlátszóság</string>
     <string name="widget_show_dividers">Elválasztók megjelenítése</string>
-    <string name="widget_hide_background">Háttér elrejtése</string>
     <string name="auto_dismiss_datetime_widget_summary">Automatikus bezárás a Widgetről történő választáskor</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
     <string name="auto_dismiss_datetime_edit_summary">Automatikus bezárás a feladat szerkesztő ablakból történő választáskor</string>
@@ -626,7 +610,6 @@
     <string name="date_picker_multiple">Többszörös</string>
     <string name="multi_select_reschedule">Újraütemezés</string>
     <string name="always_display_full_date">Teljes dátum mutatása</string>
-    <string name="purchases_updated">Vásárlás frissítve</string>
     <string name="current_subscription">Jelenlegi előfizetés: %s</string>
     <string name="price_per_month">%s $/hónap</string>
     <string name="price_per_month_abbreviated">%s $/hó</string>
@@ -634,10 +617,8 @@
     <string name="price_per_year">%s $/év</string>
     <string name="insufficient_subscription">Elégtelen előfizetési szint. Kérem, upgrade-elje az előfizetést a szolgáltatás folytatásához.</string>
     <string name="your_subscription_expired">Az előfizetés lejárt. Fizessen elő most a szolgáltatás folytatásához.</string>
-    <string name="logged_in">Logolva itt: %s</string>
     <string name="custom_filter_is_subtask">Alfeladat</string>
     <string name="custom_filter_has_subtask">Van alfeladata</string>
-    <string name="more_options">Több lehetőség</string>
     <string name="cancel">Mégse</string>
     <string name="ok">OK</string>
     <string name="follow_reddit">r/tasks követése</string>

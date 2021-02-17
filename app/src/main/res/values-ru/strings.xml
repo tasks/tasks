@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Убрать изображение</string>
     <string name="TVA_add_comment">Добавить комментарий…</string>
-    <string name="enter_filter_name">Введите название фильтра</string>
     <string name="backup_BPr_header">Резервные копии</string>
     <string name="backup_BAc_import">Импортировать резервную копию</string>
     <string name="backup_BAc_export">Сделать резервную копию сейчас</string>
@@ -38,14 +37,12 @@
     <string name="FLA_new_filter">Создать новый фильтр</string>
     <string name="TEA_title_hint">Название задачи</string>
     <string name="TEA_importance_label">Приоритет</string>
-    <string name="TEA_no_date">Без даты</string>
     <string name="TEA_note_label">Описание</string>
     <string name="TEA_estimatedDuration_label">Сколько времени это займёт\?</string>
     <string name="TEA_elapsedDuration_label">Времени уже потрачено</string>
     <string name="save">Сохранить </string>
     <string name="TEA_timer_est">Прибл. %s</string>
     <string name="TEA_timer_elap">Прошло %s</string>
-    <string name="TEA_no_time">Без времени</string>
     <string name="due_date">Дата выполнения</string>
     <string name="due_time">Время выполнения</string>
     <string name="day_before_due">Сутки до даты выполнения</string>
@@ -72,7 +69,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks будет напоминать вам о предстоящих событиях в календаре и предлагать подготовиться к ним</string>
     <string name="CRA_default_list_name">Список действий: %s</string>
     <string name="none">Нет</string>
-    <string name="EPr_filters_to_show_title">Показать фильтры</string>
     <string name="EPr_edit_screen_options">Настройки экрана редактирования</string>
     <string name="EPr_beastMode_reset">Сбросить настройки</string>
     <string name="EPr_fullTask_title">Показывать полное название задачи</string>
@@ -110,11 +106,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">По прибытии и покинув место</string>
     <string name="BFE_Active">Мои задачи</string>
     <string name="BFE_Recent">Недавно изменённые</string>
-    <string name="CFA_type_add">или</string>
-    <string name="CFA_type_subtract">не</string>
-    <string name="CFA_type_intersect">и</string>
-    <string name="CFA_context_chain">%s содержит критерий</string>
-    <string name="CFA_context_delete">Удалить строку</string>
     <string name="CFA_button_add">Добавить условие</string>
     <string name="CFC_dueBefore_text">Конечный срок: ?</string>
     <string name="CFC_dueBefore_name">Конечный срок…</string>
@@ -312,8 +303,6 @@
     <string name="remove">Удалить</string>
     <string name="randomly_once">Случайно один раз</string>
     <string name="randomly">Случайно</string>
-    <string name="pick_a_date">Дата</string>
-    <string name="pick_a_time">Время</string>
     <string name="pick_a_date_and_time">Дата и время</string>
     <string name="when_overdue">Когда просрочено</string>
     <string name="when_due">В срок</string>
@@ -483,8 +472,6 @@
     <string name="location_permission_required_location">Доступ к данным геолокации нужен, чтобы определить ваше текущее местоположение</string>
     <string name="third_party_licenses">Сторонние лицензии</string>
     <string name="google_tasks_add_to_top">Новые задачи наверху</string>
-    <string name="monthly">Ежемесячно</string>
-    <string name="annually">Ежегодно</string>
     <string name="caldav_account_repeating_tasks">Сервер обрабатывает повторяющиеся задачи</string>
     <string name="expand_subtasks">Развернуть подзадачи</string>
     <string name="collapse_subtasks">Свернуть подзадачи</string>
@@ -511,7 +498,6 @@
     <string name="documentation">Документация</string>
     <string name="preferences_look_and_feel">Внешний вид</string>
     <string name="preferences_advanced">Расширенные</string>
-    <string name="accounts">Учетные записи</string>
     <string name="wearable_notifications">Уведомления носимых устройств</string>
     <string name="wearable_notifications_summary">Отображать уведомления на Вашем носимом устройстве</string>
     <string name="troubleshooting">Решение проблем</string>
@@ -568,13 +554,11 @@
     <string name="widget_do_nothing">Ничего не делать</string>
     <string name="widget_on_click">По щелчку</string>
     <string name="widget_footer">Футер</string>
-    <string name="widget_footer_settings">Настройки футера</string>
     <string name="opacity_footer">Непрозрачность футера</string>
     <string name="opacity_row">Непрозрачность строки</string>
     <string name="opacity_header">Непрозрачность заголовка</string>
     <string name="widget_show_dividers">Показать разделители</string>
     <string name="widget_show_menu">Показать меню</string>
-    <string name="widget_hide_background">Спрятать фон</string>
     <string name="filter_eisenhower_box_4">Не важное и не срочное</string>
     <string name="filter_eisenhower_box_3">Не важное и срочное</string>
     <string name="filter_eisenhower_box_2">Важное и не срочное</string>
@@ -649,7 +633,6 @@
     <string name="date_picker_multiple">Несколько</string>
     <string name="multi_select_reschedule">Перенести</string>
     <string name="follow_reddit">Подписаться на r/tasks</string>
-    <string name="purchases_updated">Покупки обновлены</string>
     <string name="current_subscription">Текущая подписка: %s</string>
     <string name="price_per_month_abbreviated">$%s/мес.</string>
     <string name="price_per_month">$%s/месяц</string>
@@ -657,8 +640,6 @@
     <string name="price_per_year">$%s/год</string>
     <string name="insufficient_subscription">Недостаточный уровень подписки. Обновите подписку, чтобы возобновить обслуживание.</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
-    <string name="logged_in">Вы вошли как %s</string>
-    <string name="more_options">Больше вариантов</string>
     <string name="background_location_permission_required">Это приложение собирает данные геолокации, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
     <string name="migrate_count">Переместить %s на Tasks.org</string>
     <string name="migrating_tasks">Перенос задач</string>

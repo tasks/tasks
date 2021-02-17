@@ -19,10 +19,9 @@
     <string name="TEA_control_notes">บันทึกย่อ</string>
     <string name="BFE_Active">แผนงานตอนนี้</string>
     <string name="BFE_Recent">เพิ่งถูกแก้ไข</string>
-    <string name="CFA_type_add">หรือ</string>
-    <string name="CFA_type_subtract">ไม่ใช่</string>
-    <string name="CFA_type_intersect">รวมถึง</string>
-    <string name="CFA_context_delete">ลบแถว</string>
+    <string name="custom_filter_or">หรือ</string>
+    <string name="custom_filter_not">ไม่ใช่</string>
+    <string name="custom_filter_and">รวมถึง</string>
     <string name="CFA_button_add">เพิ่มข้อกำหนด</string>
     <string name="CFC_importance_text">มีความสำคัญอย่างน้อย ?</string>
     <string name="CFC_importance_name">ความสำคัญ…</string>

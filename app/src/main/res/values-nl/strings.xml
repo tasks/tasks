@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Verwijder Foto</string>
     <string name="TVA_add_comment">Voeg een opmerking toe…</string>
-    <string name="enter_filter_name">Vul een filter naam in</string>
     <string name="backup_BPr_header">Back-ups</string>
     <string name="backup_BAc_import">Back-up importeren</string>
     <string name="backup_BAc_export">Back-up nu uitvoeren</string>
@@ -32,14 +31,12 @@
     <string name="FLA_new_filter">Nieuw filter aanmaken</string>
     <string name="TEA_title_hint">Taak naam</string>
     <string name="TEA_importance_label">Prioriteit</string>
-    <string name="TEA_no_date">Geen datum</string>
     <string name="TEA_note_label">Omschrijving</string>
     <string name="TEA_estimatedDuration_label">Hoe lang duurt het\?</string>
     <string name="TEA_elapsedDuration_label">Bestede tijd tot nu toe</string>
     <string name="save">Opslaan</string>
     <string name="TEA_timer_est">Gesch. %s</string>
     <string name="TEA_timer_elap">Verstreken %s</string>
-    <string name="TEA_no_time">Geen tijd</string>
     <string name="due_date">Einddatum </string>
     <string name="due_time">Eindtijd</string>
     <string name="day_before_due">Dag voor einddatum</string>
@@ -66,7 +63,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks herinnert je aan aankomende agenda-items en fluistert je in je voor te bereiden</string>
     <string name="CRA_default_list_name">Actie-items: %s</string>
     <string name="none">Geen</string>
-    <string name="EPr_filters_to_show_title">Te tonen filters</string>
     <string name="EPr_edit_screen_options">Scherm opties bewerken</string>
     <string name="EPr_beastMode_reset">Standaardinstellingen herstellen</string>
     <string name="EPr_fullTask_title">Toon volledige taak titel</string>
@@ -104,11 +100,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">Bij aankomst en vertrek</string>
     <string name="BFE_Active">Mijn taken</string>
     <string name="BFE_Recent">Onlangs aangepast</string>
-    <string name="CFA_type_add">of</string>
-    <string name="CFA_type_subtract">niet</string>
-    <string name="CFA_type_intersect">ook</string>
-    <string name="CFA_context_chain">%s met criteria</string>
-    <string name="CFA_context_delete">Regel verwijderen</string>
     <string name="CFA_button_add">Criteria toevoegen</string>
     <string name="CFC_dueBefore_text">Einddatum: ?</string>
     <string name="CFC_dueBefore_name">Einddatum…</string>
@@ -290,8 +281,6 @@
     <string name="remove">Verwijder</string>
     <string name="randomly_once">Willekeurig eenmalig</string>
     <string name="randomly">Willekeurig</string>
-    <string name="pick_a_date">Kies een datum</string>
-    <string name="pick_a_time">Kies een tijd</string>
     <string name="pick_a_date_and_time">Kies een datum en tijd</string>
     <string name="when_overdue">Na de einddatum</string>
     <string name="when_due">Op de eindtijd</string>
@@ -446,8 +435,6 @@
     <string name="button_upgrade">Abonnement upgraden</string>
     <string name="button_unsubscribe">Abonnement annuleren</string>
     <string name="name_your_price">Bepaal je eigen prijs</string>
-    <string name="monthly">Maandelijks</string>
-    <string name="annually">Jaarlijks</string>
     <string name="restart_later">Later</string>
     <string name="url">Link</string>
     <string name="list_separator_with_space">", "</string>
@@ -490,7 +477,6 @@
     <string name="documentation">Documentatie</string>
     <string name="preferences_look_and_feel">Uiterlijk</string>
     <string name="preferences_advanced">Geavanceerd</string>
-    <string name="accounts">Accounts</string>
     <string name="wearable_notifications">Meldingen op gekoppelde apparaten</string>
     <string name="wearable_notifications_summary">Laat meldingen zien op gekoppelde apparaten</string>
     <string name="troubleshooting">Problemen oplossen</string>
@@ -537,14 +523,12 @@
     <string name="widget_open_list">Open lijst</string>
     <string name="widget_do_nothing">Doe niets</string>
     <string name="widget_on_click">Als je klikt</string>
-    <string name="widget_hide_background">Verberg achtergrond</string>
     <string name="widget_due_date_hidden">Verborgen</string>
     <string name="widget_due_date_below_title">Onder titel</string>
     <string name="widget_due_date_after_title">Na titel</string>
     <string name="opacity_footer">Voet ondoorzichtigheid</string>
     <string name="opacity_row">Rij ondoorzichtigheid</string>
     <string name="opacity_header">Kop ondoorzichtigheid</string>
-    <string name="widget_footer_settings">Voet instellingen</string>
     <string name="widget_show_dividers">Toon scheidingen</string>
     <string name="auto_dismiss_datetime_list_summary">Automatisch sluiten bij kiezen vanuit takenlijst</string>
     <string name="auto_dismiss_datetime_edit_summary">Automatisch sluiten bij kiezen vanuit bewerkscherm</string>
@@ -627,7 +611,6 @@
     <string name="always_display_full_date">Toon volledige datum</string>
     <string name="custom_filter_is_subtask">Is deeltaak</string>
     <string name="custom_filter_has_subtask">Heeft deeltaken</string>
-    <string name="purchases_updated">Aankopen geüpdatet</string>
     <string name="current_subscription">Huidige abonnement: %s</string>
     <string name="price_per_month_abbreviated">$%s/ma</string>
     <string name="price_per_month">$%s/maand</string>
@@ -635,8 +618,6 @@
     <string name="price_per_year">$%s/jaar</string>
     <string name="insufficient_subscription">Abonnementsniveau onvoldoende. Verhoog a.u.b. je abonnement om deze dienst te hervatten.</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer je nu om deze dienst te hervatten.</string>
-    <string name="logged_in">Ingelogd als %s</string>
-    <string name="more_options">Meer opties</string>
     <string name="follow_reddit">Volg r/tasks</string>
     <string name="background_location_permission_required">Deze applicatie verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de applicatie gesloten is of niet gebruikt wordt.</string>
     <string name="repeat_monthly_fifth_week">vijfde</string>

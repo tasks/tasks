@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Odstrániť obrázok</string>
     <string name="TVA_add_comment">Pridať poznámku…</string>
-    <string name="enter_filter_name">Zadaj názov filtra</string>
     <string name="backup_BPr_header">Zálohy</string>
     <string name="backup_BAc_import">Importovať úlohy</string>
     <string name="backup_BAc_export">Exportovať úlohy</string>
@@ -33,14 +32,14 @@
     <string name="FLA_new_filter">Vytvoriť nový filter</string>
     <string name="TEA_title_hint">Názov úlohy</string>
     <string name="TEA_importance_label">Dôležitosť</string>
-    <string name="TEA_no_date">Bez dátumu</string>
+    <string name="no_date">Bez dátumu</string>
     <string name="TEA_note_label">Popis</string>
     <string name="TEA_estimatedDuration_label">Ako dlho to bude trvať?</string>
     <string name="TEA_elapsedDuration_label">Ako dlho už pracujete na úlohe</string>
     <string name="save">Uložiť</string>
     <string name="TEA_timer_est">Spolu %s</string>
     <string name="TEA_timer_elap">Uplynulo %s</string>
-    <string name="TEA_no_time">Bez času</string>
+    <string name="no_time">Bez času</string>
     <string name="due_date">Do termínu</string>
     <string name="due_time">Čas dokončenia</string>
     <string name="day_before_due">Deň pre ukončením</string>
@@ -67,7 +66,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Úlohy vám pripomenú nadchádzajúce udalosti z kalendára a vyzvú vás, aby ste sa na ne pripravili.</string>
     <string name="CRA_default_list_name">Položky akcie: %s</string>
     <string name="none">Žiadna</string>
-    <string name="EPr_filters_to_show_title">Filtre pre zobrazenie</string>
     <string name="EPr_edit_screen_options">Možnosti úprav zobrazenia</string>
     <string name="EPr_beastMode_reset">Obnoviť na predvolené</string>
     <string name="EPr_fullTask_title">Zobraziť celý názov úlohy</string>
@@ -105,11 +103,9 @@
     <string name="default_location_reminder_on_arrival_or_departure">Pri príchode aj pri odchode</string>
     <string name="BFE_Active">Moje Úlohy</string>
     <string name="BFE_Recent">Naposledy upravené</string>
-    <string name="CFA_type_add">alebo</string>
-    <string name="CFA_type_subtract">nie</string>
-    <string name="CFA_type_intersect">tiež</string>
-    <string name="CFA_context_chain">%s má kritériá</string>
-    <string name="CFA_context_delete">Zmazať riadok</string>
+    <string name="custom_filter_or">alebo</string>
+    <string name="custom_filter_not">nie</string>
+    <string name="custom_filter_and">tiež</string>
     <string name="CFA_button_add">Pridať kritériá</string>
     <string name="CFC_dueBefore_text">Podľa termínu: ?</string>
     <string name="CFC_dueBefore_name">Podľa termínu…</string>
@@ -293,8 +289,6 @@
     <string name="remove">Odstrániť</string>
     <string name="randomly_once">Raz náhodne</string>
     <string name="randomly">Náhodne</string>
-    <string name="pick_a_date">Vybrať dátum</string>
-    <string name="pick_a_time">Vybrať čas</string>
     <string name="pick_a_date_and_time">Vybrať dátum a čas</string>
     <string name="when_overdue">Keď po termíne</string>
     <string name="when_due">Keď v termíne</string>

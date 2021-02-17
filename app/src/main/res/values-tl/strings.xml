@@ -9,9 +9,8 @@
     <string name="TEA_importance_label">Prayoridad</string>
     <string name="no_reminders">Walang paalala</string>
     <string name="default_location_reminder_on_arrival">Sa pagdating</string>
-    <string name="CFA_type_add">o</string>
-    <string name="CFA_type_subtract">hindi</string>
-    <string name="CFA_context_delete">Tanggalin Hilera</string>
+    <string name="custom_filter_or">o</string>
+    <string name="custom_filter_not">hindi</string>
     <string name="CFC_title_contains_text">Pamagat naglalaman ng: ?</string>
     <string name="gcal_TEA_error">Kamalian sa pagdadagdag ng gawain sa kalendaryo!</string>
     <string name="gcal_TEA_showCalendar_label">Buksan ang pangyayari sa kalendaryo</string>

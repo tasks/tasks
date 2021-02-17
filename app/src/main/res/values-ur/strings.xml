@@ -16,13 +16,13 @@
     <string name="day_before_due">مقررہ دن سے ایک دن قبل</string>
     <string name="due_time">وقت مقرر</string>
     <string name="due_date">آخری تاریخ</string>
-    <string name="TEA_no_time">کوئی وقت نہیں</string>
+    <string name="no_time">کوئی وقت نہیں</string>
     <string name="TEA_timer_elap">%s گز چکا</string>
     <string name="save">محفوظ کریں</string>
     <string name="TEA_elapsedDuration_label">صرف شدہ وقت</string>
     <string name="TEA_estimatedDuration_label">یہ کتنی دیر لے گا؟</string>
     <string name="TEA_note_label">تفصیل</string>
-    <string name="TEA_no_date">کوئی تاریخ نہیں</string>
+    <string name="no_date">کوئی تاریخ نہیں</string>
     <string name="TEA_add_subtask">ذیلی ٹاسک بنائیں</string>
     <string name="TEA_importance_label">ترجیح</string>
     <string name="TEA_title_hint">ٹاسک کا نام</string>
@@ -57,13 +57,12 @@
     <string name="backup_BAc_import">بیک اپ امپورٹ کریں</string>
     <string name="backup_BAc_export">بیک اپ کریں</string>
     <string name="backup_BPr_header">بیک اپس</string>
-    <string name="enter_filter_name">فلٹر کا نام لکھیں</string>
     <string name="display_name">ظاہری نام</string>
     <string name="TVA_add_comment">تبصرہ کریں…</string>
     <string name="actfm_picture_clear">تصویر کلئیر کریں</string>
-    <string name="CFA_type_intersect">بھی</string>
-    <string name="CFA_type_subtract">نہیں</string>
-    <string name="CFA_type_add">یا</string>
+    <string name="custom_filter_and">بھی</string>
+    <string name="custom_filter_not">نہیں</string>
+    <string name="custom_filter_or">یا</string>
     <string name="BFE_Recent">حالیہ ترمییم شدہ</string>
     <string name="BFE_Active">میرے ٹاسکس</string>
     <string name="default_location_reminder_on_arrival_or_departure">آمد اور روانگی پر</string>
@@ -113,7 +112,6 @@
     <string name="EPr_fullTask_title">ٹاسک کا پورا ٹائٹل دکھائیں</string>
     <string name="EPr_beastMode_reset">ڈیفالٹ پر ری سیٹ کریں</string>
     <string name="EPr_edit_screen_options">اسکرین آپشنز میں ترمیم کریں</string>
-    <string name="EPr_filters_to_show_title">دکھانے کے لئے فلٹرز</string>
     <string name="none">کوئی نہیں</string>
     <string name="CRA_default_list_name">ایکشن آئٹمز: %s</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">ٹاسک آپ کو آنے والے کیلنڈرایونٹس کے بارے میں یاد دلائے گا اور آپ کو ان کے لئے تیار رہنے کا اشارہ کرے گا</string>
@@ -140,8 +138,6 @@
     <string name="CFC_dueBefore_name">آخری تاریخ…</string>
     <string name="CFC_dueBefore_text">اتنے وقت تک مکمل کریں:?</string>
     <string name="CFA_button_add">معیار داخل کریں</string>
-    <string name="CFA_context_delete">قطار ڈیلیٹ کریں</string>
-    <string name="CFA_context_chain">%s کا معیار ہے</string>
     <string name="gtasks_GPr_header">گوگل ٹاسکس</string>
     <string name="gtasks_GLA_errorIOAuth">معذرت ، گوگل سرورز کے ساتھ رابطہ نہیں ہو سکا براہ کرم کچھ دیر بعد کوشش کریں.</string>
     <string name="gtasks_GLA_authenticating">تصدیق ہو رہی…</string>
@@ -320,8 +316,6 @@
     <string name="when_due">جب واجب ہو</string>
     <string name="when_overdue">جب واجب الادا ہو</string>
     <string name="pick_a_date_and_time">تاریخ اور وقت مقرر کریں</string>
-    <string name="pick_a_time">وقت مقرر کریں</string>
-    <string name="pick_a_date">تاریخ مقرر کریں</string>
     <string name="randomly">بے ترتیب</string>
     <string name="randomly_once">بلاترتیب ایک دفعہ</string>
     <string name="remove">ختم کریں</string>
@@ -353,7 +347,6 @@
     <string name="widget_show_title">عنوان دکھائیں</string>
     <string name="widget_show_settings">سیٹنگز دکھائیں</string>
     <string name="widget_show_header">ہیڈر دکھائیں</string>
-    <string name="widget_hide_background">پس منظر ہٹائیں</string>
     <string name="widget_show_checkboxes">چیک باکس دکھائیں</string>
     <string name="yest">گزشتہ کل</string>
     <string name="yesterday_abbrev_lowercase">گزشتہ کل</string>

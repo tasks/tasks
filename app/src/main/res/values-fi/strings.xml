@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Tyhjennä kuva</string>
     <string name="TVA_add_comment">Lisää kommentti…</string>
-    <string name="enter_filter_name">Syötä suodattimen nimi</string>
     <string name="backup_BPr_header">Varmuuskopiot</string>
     <string name="backup_BAc_import">Tuo tehtävät</string>
     <string name="backup_BAc_export">Vie tehtävät</string>
@@ -34,14 +33,12 @@
     <string name="FLA_new_filter">Luo uusi suodatin</string>
     <string name="TEA_title_hint">Tehtävän nimi</string>
     <string name="TEA_importance_label">Tärkeys</string>
-    <string name="TEA_no_date">Ei päiväystä</string>
     <string name="TEA_note_label">Kuvaus</string>
     <string name="TEA_estimatedDuration_label">Kuinka pitkään se kestää?</string>
     <string name="TEA_elapsedDuration_label">Aika on jo käytetty</string>
     <string name="save">Tallenna</string>
     <string name="TEA_timer_est">Arvio %s</string>
     <string name="TEA_timer_elap">Kulunut %s</string>
-    <string name="TEA_no_time">Ei aikaa</string>
     <string name="due_date">Määräpäivä</string>
     <string name="due_time">Määräaika</string>
     <string name="day_before_due">Päivä ennen määräpäivää</string>
@@ -67,7 +64,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ilmoittaa tulevista kalenteritapahtumista ja kehottaa valmistautumaan niihin</string>
     <string name="CRA_default_list_name">Tehtäviä listalla: %s</string>
     <string name="none">Ei mitään</string>
-    <string name="EPr_filters_to_show_title">Näytettävät suodattimet</string>
     <string name="EPr_edit_screen_options">Muokkaa näytön vaihtoehtoja</string>
     <string name="EPr_beastMode_reset">Palauta oletukset</string>
     <string name="EPr_fullTask_title">Näytä tehtävän koko otsikko</string>
@@ -99,11 +95,6 @@
     <string name="at_deadline_or_overdue">Määräpäivänä tai yliajalla</string>
     <string name="BFE_Active">Omat tehtävät</string>
     <string name="BFE_Recent">Äskettäin muokattu</string>
-    <string name="CFA_type_add">tai</string>
-    <string name="CFA_type_subtract">ei</string>
-    <string name="CFA_type_intersect">myös</string>
-    <string name="CFA_context_chain">%s on perusteet</string>
-    <string name="CFA_context_delete">Poista rivi</string>
     <string name="CFA_button_add">Lisää kriteeri</string>
     <string name="CFC_dueBefore_text">Mennessä: ?</string>
     <string name="CFC_dueBefore_name">Mennessä…</string>
@@ -285,8 +276,6 @@
     <string name="remove">Poista</string>
     <string name="randomly_once">Satunnaisesti kerran</string>
     <string name="randomly">Satunnaisesti</string>
-    <string name="pick_a_date">Valitse päivä</string>
-    <string name="pick_a_time">Valitse aika</string>
     <string name="pick_a_date_and_time">Valitse päivä ja aika</string>
     <string name="when_overdue">Kunnes yliajalla</string>
     <string name="when_due">Milloin määräaika</string>
@@ -416,7 +405,6 @@
     <string name="more_settings">Lisäasetukset</string>
     <string name="disable_battery_optimizations">Älä säästä virtaa</string>
     <string name="notification_troubleshooting_summary">Paina tästä jos ilmoitusten kanssa on ongelmia</string>
-    <string name="accounts">Tilit</string>
     <string name="documentation">Dokumentaatio</string>
     <string name="preferences_look_and_feel">Ulkonäkö ja tunnelma</string>
     <string name="etesync_encryption_description">Painathan salaukselle asettamasti salasanan muistiin, sillä sitä ei voi palauttaa tai nollata!</string>
@@ -430,8 +418,6 @@
     <string name="collapse_subtasks">Pienennä alitehtävät</string>
     <string name="expand_subtasks">Laajenna alitehtävät</string>
     <string name="caldav_account_repeating_tasks">Anna palvelimen ajoittaa toistuvia tehtäviä</string>
-    <string name="annually">Vuosittain</string>
-    <string name="monthly">Kuukausittain</string>
     <string name="name_your_price">Nimeä hintasi</string>
     <string name="google_tasks_add_to_top">Uudet tehtävät huipulla</string>
     <string name="invalid_backup_file">Epäsopiva varmuuskopiotiedosto</string>
@@ -519,7 +505,6 @@
     <string name="share">Jaa</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="widget_show_menu">Näytä valikko</string>
-    <string name="widget_hide_background">Piilota tausta</string>
     <string name="sort_created">Luontiajan mukaan</string>
     <string name="widget_show_dividers">Näytä jakajat</string>
     <string name="got_it">Selvä!</string>
@@ -578,7 +563,6 @@
     <string name="widget_do_nothing">Älä tee mitään</string>
     <string name="widget_on_click">Klikattaessa</string>
     <string name="widget_footer">Alatunniste</string>
-    <string name="widget_footer_settings">Alatunnisteen asetukset</string>
     <string name="opacity_row">Rivin läpinäkyvyys</string>
     <string name="opacity_header">Ylätunnisteen läpinäkyvyys</string>
     <string name="button_upgrade">Päivitä tilaus</string>

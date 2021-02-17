@@ -44,9 +44,7 @@
   <dimen name="chip_stroke">1dp</dimen>
   <dimen name="chip_icon_size">18dp</dimen>
   <dimen name="chip_min_height">26dp</dimen>
-  <dimen name="chip_text_padding">4dp</dimen>
 
   <dimen name="icon_picker_size">48dp</dimen>
   <dimen name="list_item_spacing">8dp</dimen>
-  <dimen name="whats_new_height">150dp</dimen>
 </resources>

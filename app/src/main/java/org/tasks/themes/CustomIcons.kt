@@ -193,6 +193,7 @@ object CustomIcons {
         1168 to R.drawable.ic_not_started_24px,
         1169 to R.drawable.ic_date_range_24px,
         1170 to R.drawable.ic_pending_actions_24px,
+        1171 to R.drawable.ic_outline_visibility_off_24px,
     )
 
     @JvmStatic

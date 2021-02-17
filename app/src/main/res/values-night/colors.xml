@@ -10,7 +10,6 @@
   <color name="text_secondary">@color/white_60</color>
   <color name="text_tertiary">@color/white_38</color>
   <color name="overdue">@color/error_color_material_dark</color>
-  <color name="tag_color_none_background">@color/grey_300</color>
   <color name="chip_text">@color/white_72</color>
   <color name="divider">@color/white_12</color>
 </resources>

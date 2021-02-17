@@ -59,9 +59,9 @@
     <string name="repeat_option_custom">Propra…</string>
     <string name="random_reminder_day">tage</string>
     <string name="no_start_date">Sen komencdato</string>
-    <string name="CFA_type_intersect">ankaŭ</string>
-    <string name="CFA_type_subtract">ne</string>
-    <string name="CFA_type_add">aŭ</string>
+    <string name="custom_filter_and">ankaŭ</string>
+    <string name="custom_filter_not">ne</string>
+    <string name="custom_filter_or">aŭ</string>
     <string name="BFE_Active">Miaj taskoj</string>
     <string name="day_after_tomorrow">Postmorgaŭ</string>
     <string name="always_display_full_date">Montri tutan daton</string>
@@ -73,10 +73,9 @@
     <string name="TEA_control_notes">Priskribo</string>
     <string name="TEA_control_gcal">Kalendaro</string>
     <string name="start_date">Komencdato</string>
-    <string name="TEA_no_time">Sen tempo</string>
     <string name="save">Konservi</string>
     <string name="TEA_note_label">Priskribo</string>
-    <string name="TEA_no_date">Sen dato</string>
+    <string name="no_date">Sen dato</string>
     <string name="TEA_title_hint">Taska titolo</string>
     <string name="SSD_sort_my_order">Propra ordo</string>
     <string name="action_open">Malfermi</string>

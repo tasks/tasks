@@ -6,11 +6,9 @@
     <string name="SSD_sort_importance">Volgens prioriteit</string>
     <string name="SSD_sort_modified">Volgens laaste verander</string>
     <string name="FLA_search_filter">Gelyk aan \'%s\'</string>
-    <string name="CFA_type_add">of</string>
-    <string name="CFA_type_subtract">nie</string>
-    <string name="CFA_type_intersect">ook</string>
-    <string name="CFA_context_chain">%s het kriteria</string>
-    <string name="CFA_context_delete">Verwyder ry</string>
+    <string name="custom_filter_or">of</string>
+    <string name="custom_filter_not">nie</string>
+    <string name="custom_filter_and">ook</string>
     <string name="CFA_button_add">Voeg kriteria by</string>
     <string name="CFC_dueBefore_text">Verskuldig teen: ? </string>
     <string name="CFC_importance_text">Prioriteit ten minste ?</string>

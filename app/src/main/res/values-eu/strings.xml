@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Garbitu irudia</string>
     <string name="TVA_add_comment">Gehitu iruzkin bat…</string>
-    <string name="enter_filter_name">Sartu iragazkiaren izena</string>
     <string name="backup_BPr_header">Babes-kopiak</string>
     <string name="backup_BAc_import">Inportatu babeskopia</string>
     <string name="backup_BAc_export">Egin babeskopia orain</string>
@@ -38,14 +37,12 @@
     <string name="FLA_new_filter">Sortu iragazki berria</string>
     <string name="TEA_title_hint">Zereginaren izena</string>
     <string name="TEA_importance_label">Lehentasuna</string>
-    <string name="TEA_no_date">Datarik ez</string>
     <string name="TEA_note_label">Deskripzioa</string>
     <string name="TEA_estimatedDuration_label">Zenbat hartuko dizu\?</string>
     <string name="TEA_elapsedDuration_label">Jada erabilitako denbora</string>
     <string name="save">Gorde</string>
     <string name="TEA_timer_est">Est. %s</string>
     <string name="TEA_timer_elap">Igarota %s</string>
-    <string name="TEA_no_time">Ordu gabe</string>
     <string name="due_date">Epemuga data</string>
     <string name="due_time">Epemuga-ordua</string>
     <string name="day_before_due">Epemugaren aurreko eguna</string>
@@ -72,7 +69,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks aplikazioak egutegiko gertaerak gogorarazi egingo dizkizu hurbil daudenean horietarako prestatu zaitezen</string>
     <string name="CRA_default_list_name">Ekintzak: %s</string>
     <string name="none">Bat ere ez</string>
-    <string name="EPr_filters_to_show_title">Erakutsitako iragazkiak</string>
     <string name="EPr_edit_screen_options">Edizio pantailaren aukerak</string>
     <string name="EPr_beastMode_reset">Berrezarri lehenetsitakoak</string>
     <string name="EPr_fullTask_title">Erakutsi zereginaren izenburu osoa</string>
@@ -110,11 +106,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">Ateratzean eta heltzean</string>
     <string name="BFE_Active">Nire zereginak</string>
     <string name="BFE_Recent">Aldatutako azkenak</string>
-    <string name="CFA_type_add">edo</string>
-    <string name="CFA_type_subtract">ez</string>
-    <string name="CFA_type_intersect">baita</string>
-    <string name="CFA_context_chain">%s irizpidea du</string>
-    <string name="CFA_context_delete">Ezabatu errenkada</string>
     <string name="CFA_button_add">Gehitu irizpidea</string>
     <string name="CFC_dueBefore_text">Epemuga: \?</string>
     <string name="CFC_dueBefore_name">Epemuga…</string>
@@ -298,8 +289,6 @@
     <string name="remove">Kendu</string>
     <string name="randomly_once">Ausaz behin</string>
     <string name="randomly">Ausaz</string>
-    <string name="pick_a_date">Hautatu data</string>
-    <string name="pick_a_time">Hautatu ordua</string>
     <string name="pick_a_date_and_time">Hautatu data eta ordua</string>
     <string name="when_overdue">Epemuga gaindituta badago</string>
     <string name="when_due">Epemugan</string>
@@ -456,8 +445,6 @@
     <string name="button_upgrade">Handiagotu harpidetza</string>
     <string name="button_unsubscribe">Ezeztatu harpidetza</string>
     <string name="name_your_price">Jarri zuk prezioa</string>
-    <string name="monthly">Hilero</string>
-    <string name="annually">Urtero</string>
     <string name="error_adding_account">Errorea: %s</string>
     <string name="SSD_sort_my_order">Nire eskaria</string>
     <string name="caldav_account_repeating_tasks">Zerbitzariari kudeatzen ditu zeregin errepikakorrak</string>
@@ -495,7 +482,6 @@
     <string name="documentation">Dokumentazioa</string>
     <string name="preferences_look_and_feel">Itxura</string>
     <string name="preferences_advanced">Aurreratua</string>
-    <string name="accounts">Kontuak</string>
     <string name="wearable_notifications">Erlojuaren jakinarazpenak</string>
     <string name="wearable_notifications_summary">Erakutsi jakinarazpenak erlojuan</string>
     <string name="troubleshooting">Arazoen konponketa</string>
@@ -571,13 +557,11 @@
     <string name="widget_do_nothing">Ez egin ezer</string>
     <string name="widget_on_click">Sakatzean</string>
     <string name="widget_footer">Oina</string>
-    <string name="widget_footer_settings">Oinaren ezarpenak</string>
     <string name="opacity_footer">Oinaren opakotasuna</string>
     <string name="opacity_row">Errenkadaren opakotasuna</string>
     <string name="opacity_header">Goiburuaren opakotasuna</string>
     <string name="widget_show_dividers">Erakutsi banatzaileak</string>
     <string name="widget_show_menu">Erakutsi menua</string>
-    <string name="widget_hide_background">Ezkutatu atzealdea</string>
     <string name="sort_created">Sorrera dataren arabera</string>
     <string name="got_it">Ulertuta!</string>
     <string name="no_thanks">Ez eskerrik asko</string>
@@ -605,11 +589,9 @@
     <string name="CFC_list_name">Zerrendan…</string>
     <string name="manage_lists">Kudeatu zerrendak</string>
     <string name="permission_read_tasks">Tasks datu-basera sarbide osoa</string>
-    <string name="logged_in">%s-n saioa hasita</string>
     <string name="sign_in_with_google">Hasi saioa Google-n</string>
     <string name="authorization_cancelled">Autorizazioa ezeztatuta</string>
     <string name="follow_reddit">Jarraitu r/tasks</string>
-    <string name="purchases_updated">Erosketak eguneratuta</string>
     <string name="current_subscription">Uneko harpidetza: %s</string>
     <string name="price_per_month_abbreviated">$%s hilean</string>
     <string name="price_per_month">$%s hilean</string>
@@ -635,7 +617,6 @@
     <string name="android_auto_backup">Android babeskopia zerbitzua</string>
     <string name="automatic_backups">Babeskopia automatikoak</string>
     <string name="davx5_selection_description">Sinkronizatu zure zereginak DAVx⁵ aplikazioarekin</string>
-    <string name="more_options">Aukera gehiago</string>
     <string name="background_location_permission_required">Aplikazio honek kokapen datuak jasotzen ditu aplikazioa itxita dagoenean kokapenean oinarritutako oroigarriak gaitu ahal izateko.</string>
     <string name="repeat_monthly_fifth_week">bostgarrena</string>
     <string name="default_recurrence">Lehenetsitako errepikapena</string>

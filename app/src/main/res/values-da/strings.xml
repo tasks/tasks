@@ -44,11 +44,6 @@
     <string name="EPr_default_reminders_title">Standardpåmindelser</string>
     <string name="BFE_Active">Mine opgaver</string>
     <string name="BFE_Recent">Senest ændrede</string>
-    <string name="CFA_type_add">eller</string>
-    <string name="CFA_type_subtract">ikke</string>
-    <string name="CFA_type_intersect">også</string>
-    <string name="CFA_context_chain">%s har kriterier</string>
-    <string name="CFA_context_delete">Slet række</string>
     <string name="CFA_button_add">Tilføj kriterier</string>
     <string name="CFC_dueBefore_text">Frist: \?</string>
     <string name="CFC_dueBefore_name">Frist…</string>
@@ -176,7 +171,6 @@
     <string name="notification_troubleshooting_summary">Tryk her, hvis du har problemer med notifikationer</string>
     <string name="troubleshooting">Problemsøgning</string>
     <string name="wearable_notifications">Notifikationer på wearables</string>
-    <string name="accounts">Konti</string>
     <string name="documentation">Dokumentation</string>
     <string name="preferences_advanced">Avanceret</string>
     <string name="preferences_look_and_feel">Udseende</string>
@@ -199,8 +193,6 @@
     <string name="collapse_subtasks">Skjul underopgaver</string>
     <string name="expand_subtasks">Udvid underopgaver</string>
     <string name="caldav_account_repeating_tasks">Lad serveren planlægge gentagne opgaver</string>
-    <string name="annually">Årligt</string>
-    <string name="monthly">Månedligt</string>
     <string name="name_your_price">Betal, hvad du vil</string>
     <string name="google_tasks_add_to_top">Nye opgaver øverst</string>
     <string name="invalid_backup_file">Ugyldig sikkerhedskopi-fil</string>
@@ -293,7 +285,6 @@
     <string name="widget_do_nothing">Gør ingenting</string>
     <string name="widget_on_click">Ved tryk</string>
     <string name="widget_footer">Fodbjælke</string>
-    <string name="widget_footer_settings">Fodbjælkeindstillinger</string>
     <string name="widget_row_settings">Rækkeindstillinger</string>
     <string name="widget_header_settings">Topbjælkeindstillinger</string>
     <string name="widget_settings">Widget-indstillinger</string>
@@ -361,8 +352,6 @@
     <string name="when_overdue">Når fristen er overskredet</string>
     <string name="when_due">Når der er frist</string>
     <string name="pick_a_date_and_time">Vælg dato og tidspunkt</string>
-    <string name="pick_a_time">Vælg tidspunkt</string>
-    <string name="pick_a_date">Vælg dato</string>
     <string name="randomly">Tilfældigt</string>
     <string name="randomly_once">Tilfældigt én gang</string>
     <string name="remove">Fjern</string>
@@ -388,7 +377,6 @@
     <string name="widget_show_dividers">Vis afgrænsninger</string>
     <string name="widget_show_menu">Vis menu</string>
     <string name="widget_show_settings">Vis indstillinger</string>
-    <string name="widget_hide_background">Skjul baggrund</string>
     <string name="widget_show_checkboxes">Vis afkrydsningsfelter</string>
     <string name="yest">I går</string>
     <string name="tmrw">I morgen</string>
@@ -568,7 +556,6 @@
     <string name="task_list_options">Indstillinger for opgavelister</string>
     <string name="EPr_beastMode_reset">Gendan standardindstillinger</string>
     <string name="EPr_edit_screen_options">Rediger skærmindstillinger</string>
-    <string name="EPr_filters_to_show_title">Filtre at vise</string>
     <string name="none">Ingen</string>
     <string name="CRA_default_list_name">Opgaver: %s</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks vil minde dig om kommende begivenheder og foreslå dig at forberede dig på dem</string>
@@ -588,11 +575,9 @@
     <string name="due_time">Frist-tid</string>
     <string name="due_date">Frist-dato</string>
     <string name="display_name">Vist navn</string>
-    <string name="TEA_no_time">Ingen tid</string>
     <string name="TEA_timer_elap">Brugt %s</string>
     <string name="TEA_timer_est">Ca. %s</string>
     <string name="save">Gem</string>
-    <string name="TEA_no_date">Ingen dato</string>
     <string name="TEA_add_subtask">Tilføj underopgave</string>
     <string name="FLA_new_filter">Opret nyt filter</string>
     <string name="sort_created">Efter oprettelse</string>
@@ -600,7 +585,6 @@
     <string name="SSD_sort_my_order">Min rækkefølge</string>
     <string name="action_open">Åbn</string>
     <string name="action_call">Ring</string>
-    <string name="enter_filter_name">Indtast filternavn</string>
     <string name="TLA_menu_search">Søg</string>
     <string name="TLA_no_items">Der er ingen opgaver her.</string>
     <string name="DLG_undo">Fortryd</string>
@@ -633,7 +617,6 @@
     <string name="not_signed_in">Ikke logget ind</string>
     <string name="authorization_cancelled">Autorisationen blev annulleret</string>
     <string name="follow_reddit">Følg r/tasks</string>
-    <string name="purchases_updated">Køb opdateret</string>
     <string name="current_subscription">Nuværende abonnement: %s</string>
     <string name="price_per_month">$%s/måned</string>
     <string name="default_location">Standardplacering</string>
@@ -649,7 +632,6 @@
     <string name="cancel">\@android:string/annullere</string>
     <string name="ok">\@android:string/ok</string>
     <string name="repeat_monthly_fifth_week">femte</string>
-    <string name="more_options">Flere muligheder</string>
     <string name="backup_location_warning">ADVARSEL: Filer i %s slettes, hvis Tasks afinstalleres! Vælg en brugerdefineret placering for at forhindre, at Android sletter dine filer.</string>
     <string name="backups_ignore_warnings_summary">Ignorer backupadvarsler, hvis du ikke har brug for sikkerhedskopier eller har din egen sikkerhedskopiløsning</string>
     <string name="backups_ignore_warnings">Ignorer advarsler</string>
@@ -660,7 +642,6 @@
     <string name="insufficient_sponsorship">Der blev ikke fundet noget kvalificeret GitHub sponsorat</string>
     <string name="insufficient_subscription">Utilstrækkeligt abonnementsniveau. Opgrader venligst dit abonnement for at genoptage tjenesten.</string>
     <string name="your_subscription_expired">Dit abonnement er udløbet. Abonner nu for at genoptage tjenesten.</string>
-    <string name="logged_in">Logget ind %s</string>
     <string name="custom_filter_is_subtask">Er underopgaver</string>
     <string name="custom_filter_has_subtask">Har underopgaver</string>
     <string name="price_per_month_abbreviated">$%s/m</string>

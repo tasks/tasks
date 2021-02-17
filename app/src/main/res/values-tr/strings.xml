@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Resmi sil</string>
     <string name="TVA_add_comment">Yorum gir…</string>
-    <string name="enter_filter_name">Süzgeç adı girin</string>
     <string name="backup_BPr_header">Yedekler</string>
     <string name="backup_BAc_import">Yedeği içe aktar</string>
     <string name="backup_BAc_export">Şimdi yedekle</string>
@@ -38,14 +37,12 @@
     <string name="FLA_new_filter">Yeni süzgeç oluştur</string>
     <string name="TEA_title_hint">Görev adı</string>
     <string name="TEA_importance_label">Öncelik</string>
-    <string name="TEA_no_date">Tarih yok</string>
     <string name="TEA_note_label">Açıklama</string>
     <string name="TEA_estimatedDuration_label">Ne kadar sürecek?</string>
     <string name="TEA_elapsedDuration_label">Önceden geçirilen zaman</string>
     <string name="save">Kaydet</string>
     <string name="TEA_timer_est">Kalan %s</string>
     <string name="TEA_timer_elap">Geçen %s</string>
-    <string name="TEA_no_time">Zaman yok</string>
     <string name="due_date">Bitiş tarihi</string>
     <string name="due_time">Bitiş zamanı</string>
     <string name="day_before_due">Bitişten önceki gün</string>
@@ -72,7 +69,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks, gelecek takvim etkinliklerini anımsatacak ve hazırlanmanız için bilgilendirecek</string>
     <string name="CRA_default_list_name">Eylem Ögeleri: %s</string>
     <string name="none">Hiçbiri</string>
-    <string name="EPr_filters_to_show_title">Gösterilecek süzgeçler</string>
     <string name="EPr_edit_screen_options">Düzenleme ekranı ayarları</string>
     <string name="EPr_beastMode_reset">Öntanımlılara sıfırla</string>
     <string name="EPr_fullTask_title">Tüm görev başlığını göster</string>
@@ -110,11 +106,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">Varışta ve kalkışta</string>
     <string name="BFE_Active">Görevlerim</string>
     <string name="BFE_Recent">Yakında değiştirilenler</string>
-    <string name="CFA_type_add">veya</string>
-    <string name="CFA_type_subtract">değil</string>
-    <string name="CFA_type_intersect">ayrıca</string>
-    <string name="CFA_context_chain">%s ölçütüne sahip</string>
-    <string name="CFA_context_delete">Satırı Sil</string>
     <string name="CFA_button_add">Ölçüt Ekle</string>
     <string name="CFC_dueBefore_text">Bitiş: \?</string>
     <string name="CFC_dueBefore_name">Bitiş…</string>
@@ -298,8 +289,6 @@
     <string name="remove">Kaldır</string>
     <string name="randomly_once">Şunda rastgele bir kez</string>
     <string name="randomly">Gelişigüzel</string>
-    <string name="pick_a_date">Bir tarih seç</string>
-    <string name="pick_a_time">Bir zaman seç</string>
     <string name="pick_a_date_and_time">Bir tarih ve zaman seç</string>
     <string name="when_overdue">Geciktiğinde</string>
     <string name="when_due">Zamanı geldiğinde</string>
@@ -457,8 +446,6 @@
     <string name="button_upgrade">Aboneliği yükselt</string>
     <string name="button_unsubscribe">Aboneliği iptal et</string>
     <string name="name_your_price">Fiyat belirle</string>
-    <string name="monthly">Aylık</string>
-    <string name="annually">Yıllık</string>
     <string name="SSD_sort_my_order">Düzenim</string>
     <string name="caldav_account_repeating_tasks">Sunucu, yineleyen görevleri halleder</string>
     <string name="EPr_temp_show_completed_tasks">Tamamlandıklarında görevleri geçici olarak göster</string>
@@ -495,7 +482,6 @@
     <string name="documentation">Belgelendirme</string>
     <string name="preferences_look_and_feel">Görünüm ve his</string>
     <string name="preferences_advanced">Gelişmiş</string>
-    <string name="accounts">Hesaplar</string>
     <string name="wearable_notifications">Giyilebilir bildirimleri</string>
     <string name="wearable_notifications_summary">Giyilebilirinizde bildirim gösterin</string>
     <string name="troubleshooting">Sorun giderme</string>
@@ -544,13 +530,11 @@
     <string name="widget_open_list">Listeyi aç</string>
     <string name="widget_do_nothing">Bir şey yapma</string>
     <string name="widget_on_click">Tıkladığında</string>
-    <string name="widget_footer_settings">Alt bölüm ayarları</string>
     <string name="opacity_footer">Alt bölüm opaklığı</string>
     <string name="opacity_row">Satır opaklığı</string>
     <string name="opacity_header">Başlık opaklığı</string>
     <string name="widget_show_dividers">Ayırıcıları göster</string>
     <string name="widget_show_menu">Menüyü göster</string>
-    <string name="widget_hide_background">Arka planı gizle</string>
     <string name="auto_dismiss_datetime_edit">Görev düzenleme</string>
     <string name="widget_due_date_reschedule">Görevi yeniden zamanla</string>
     <string name="auto_dismiss_datetime_widget_summary">Widget\'tan seçerken kendiliğinden kapat</string>
@@ -634,7 +618,6 @@
     <string name="custom_filter_has_subtask">Alt görevleri olan</string>
     <string name="background_location_permission_required">Bu uygulama, kapalıyken veya kullanımda değilken de konuma dayalı anımsatmaları etkinleştirmek için konum verisi toplar.</string>
     <string name="follow_reddit">r/tasks sayfasını takip et</string>
-    <string name="purchases_updated">Satın alımlar güncellendi</string>
     <string name="current_subscription">Geçerli abonelik: %s</string>
     <string name="price_per_month_abbreviated">%s$/ay</string>
     <string name="price_per_month">%s$/ay</string>
@@ -642,8 +625,6 @@
     <string name="price_per_year">%s$/yıl</string>
     <string name="insufficient_subscription">Yetersiz abonelik düzeyi. Hizmeti sürdürmek için lütfen aboneliğinizi yükseltin.</string>
     <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti sürdürmek için şimdi abone olun.</string>
-    <string name="logged_in">%s oturumu açıldı</string>
-    <string name="more_options">Daha çok seçenek</string>
     <string name="repeat_monthly_fifth_week">beşinci</string>
     <string name="authorization_cancelled">Yetkilendirme iptal edildi</string>
     <string name="sign_in_with_google">Google ile oturum aç</string>

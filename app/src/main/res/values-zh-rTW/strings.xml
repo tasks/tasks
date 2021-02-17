@@ -37,7 +37,6 @@
     <string name="TEA_elapsedDuration_label">已消耗的時間</string>
     <string name="TEA_timer_est">估計%s</string>
     <string name="TEA_timer_elap">已過%s</string>
-    <string name="TEA_no_time">沒有時間</string>
     <string name="due_date">到期日</string>
     <string name="week_before_due">到期前一週</string>
     <string name="TEA_control_importance">優先權</string>
@@ -82,11 +81,6 @@
     <string name="at_deadline_or_overdue">在截止期限或過期時</string>
     <string name="BFE_Active">我的工作</string>
     <string name="BFE_Recent">最近修改過</string>
-    <string name="CFA_type_add">或</string>
-    <string name="CFA_type_subtract">非</string>
-    <string name="CFA_type_intersect">也</string>
-    <string name="CFA_context_chain">%s 含條件</string>
-    <string name="CFA_context_delete">刪除列</string>
     <string name="CFA_button_add">加入條件</string>
     <string name="CFC_dueBefore_text">期限: ?</string>
     <string name="CFC_dueBefore_name">期限…</string>
@@ -197,19 +191,16 @@
     <string name="repeats_monthly">每月</string>
     <string name="repeats_yearly">每年</string>
     <string name="repeats_plural">每 %s 重複</string>
-    <string name="enter_filter_name">輸入過濾名稱</string>
     <string name="discard_confirmation">您要放棄更改嗎？</string>
     <string name="keep_editing">繼續編輯</string>
     <string name="TLA_no_items">這裡沒有任務。</string>
     <string name="action_open">開啟</string>
-    <string name="TEA_no_date">沒有日期</string>
     <string name="save">儲存</string>
     <string name="due_time">到期時間</string>
     <string name="day_before_due">到期前一天</string>
     <string name="TEA_control_repeat">重複</string>
     <string name="TEA_control_gcal">月曆</string>
     <string name="TEA_control_location">地點</string>
-    <string name="EPr_filters_to_show_title">使用過濾</string>
     <string name="task_list_options">工作表選項</string>
     <string name="EPr_cal_end_or_start_at_due_time">活動時間</string>
     <string name="EPr_cal_end_at_due_time">到期時結束活動</string>
@@ -271,8 +262,6 @@
     <string name="when_due">到期時</string>
     <string name="when_overdue">當過期時</string>
     <string name="pick_a_date_and_time">選擇時間和日期</string>
-    <string name="pick_a_time">選擇時間</string>
-    <string name="pick_a_date">選擇日期</string>
     <string name="randomly">隨機地</string>
     <string name="randomly_once">隨機一次</string>
     <string name="remove">移除</string>
@@ -291,7 +280,6 @@
     <string name="silent">靜音</string>
     <string name="widget_show_dividers">顯示分隔線</string>
     <string name="widget_show_menu">顯示清單</string>
-    <string name="widget_hide_background">隱藏背景</string>
     <string name="yesterday_lowercase">昨天</string>
     <string name="next">下一個 %s</string>
     <string name="tomorrow_lowercase">明天</string>
@@ -357,7 +345,6 @@
     <string name="google_play_subscribers">Goole Play 訂閱者</string>
     <string name="not_signed_in">未登入</string>
     <string name="authorization_cancelled">取消授權</string>
-    <string name="purchases_updated">付費狀態已更新</string>
     <string name="current_subscription">目前訂閱: %s</string>
     <string name="price_per_month_abbreviated">$%s/每月</string>
     <string name="price_per_month">$%s/每月</string>
@@ -420,7 +407,6 @@
     <string name="disable_battery_optimizations">關閉電池最佳化</string>
     <string name="wearable_notifications_summary">在您的可穿戴裝置上顯示通知</string>
     <string name="wearable_notifications">可穿戴裝置通知</string>
-    <string name="accounts">帳戶</string>
     <string name="documentation">檔案</string>
     <string name="preferences_advanced">進階</string>
     <string name="preferences_look_and_feel">外觀</string>
@@ -432,9 +418,6 @@
     <string name="enter_title_hint">輸入標題</string>
     <string name="collapse_subtasks">收起次工作</string>
     <string name="expand_subtasks">展開副工作</string>
-    <string name="annually">每年</string>
-    <string name="monthly">每月</string>
-    <string name="more_options">更多選項</string>
     <string name="google_tasks_add_to_top">新任務置頂</string>
     <string name="invalid_backup_file">無效的備份檔</string>
     <string name="version_string">版本 %s</string>
@@ -515,7 +498,6 @@
     <string name="widget_on_click">點擊時</string>
     <string name="widget_footer">註腳</string>
     <string name="widget_row_settings">行設定</string>
-    <string name="widget_footer_settings">註腳設定</string>
     <string name="widget_header_settings">標頭設定</string>
     <string name="widget_settings">小工具設定</string>
     <string name="hardware_support_required">需要硬體支援</string>

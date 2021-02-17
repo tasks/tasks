@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Rensa bild</string>
     <string name="TVA_add_comment">Lägg till en kommentar…</string>
-    <string name="enter_filter_name">Ange ett namn för filtret</string>
     <string name="backup_BPr_header">Säkerhetskopior</string>
     <string name="backup_BAc_import">Importera uppgifter</string>
     <string name="backup_BAc_export">Exportera uppgifter</string>
@@ -31,14 +30,12 @@
     <string name="FLA_new_filter">Skapa ett nytt filter</string>
     <string name="TEA_title_hint">Uppgiftsnamn</string>
     <string name="TEA_importance_label">Prioritet</string>
-    <string name="TEA_no_date">Inget datum</string>
     <string name="TEA_note_label">Beskrivning</string>
     <string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
     <string name="TEA_elapsedDuration_label">Tid redan spenderad på uppgiften</string>
     <string name="save">Spara</string>
     <string name="TEA_timer_est">Ung. %s</string>
     <string name="TEA_timer_elap">Förfluten %s</string>
-    <string name="TEA_no_time">Ingen tid</string>
     <string name="due_date">Förfallodatum</string>
     <string name="due_time">Förfallotid</string>
     <string name="day_before_due">Dagen innan förfallodatum</string>
@@ -64,7 +61,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks kommer att påminna om kommande kalenderhändelser och uppmana dig att förbereda dem</string>
     <string name="CRA_default_list_name">Saker att göra: %s</string>
     <string name="none">Ingen</string>
-    <string name="EPr_filters_to_show_title">Filter att visa</string>
     <string name="EPr_edit_screen_options">Ändra skärminställningar</string>
     <string name="EPr_beastMode_reset">Återställ till standardvärden</string>
     <string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>
@@ -96,11 +92,9 @@
     <string name="at_deadline_or_overdue">Vid eller efter förfallodagen</string>
     <string name="BFE_Active">Mina Uppgifter</string>
     <string name="BFE_Recent">Nyligen ändrade</string>
-    <string name="CFA_type_add">eller</string>
-    <string name="CFA_type_subtract">inte</string>
-    <string name="CFA_type_intersect">också</string>
-    <string name="CFA_context_chain">%s har kriterier</string>
-    <string name="CFA_context_delete">Radera rad</string>
+    <string name="custom_filter_or">eller</string>
+    <string name="custom_filter_not">inte</string>
+    <string name="custom_filter_and">också</string>
     <string name="CFA_button_add">Lägg till kriterium</string>
     <string name="CFC_dueBefore_text">Förfaller innan: ?</string>
     <string name="CFC_dueBefore_name">Förfaller innan…</string>
@@ -206,8 +200,6 @@
     <string name="remove">Ta bort</string>
     <string name="randomly_once">En gång slumpmässigt</string>
     <string name="randomly">Slumpmässigt</string>
-    <string name="pick_a_date">Ställ in datum</string>
-    <string name="pick_a_time">Ställ in tid</string>
     <string name="pick_a_date_and_time">Ställ in datum och tid</string>
     <string name="when_overdue">Efter förfallotid</string>
     <string name="when_due">Vid förfallotid</string>
@@ -451,8 +443,6 @@
     <string name="button_upgrade">Uppgradera prenumerationen</string>
     <string name="button_unsubscribe">Avbryt prenumeration</string>
     <string name="name_your_price">Namnge ditt pris</string>
-    <string name="monthly">Månadsvis</string>
-    <string name="annually">Årligen</string>
     <string name="SSD_sort_my_order">Min ordning</string>
     <string name="error_adding_account">Fel: %s</string>
     <string name="caldav_account_repeating_tasks">Låt servern schemalägga återkommande uppgifter</string>
@@ -485,7 +475,6 @@
     <string name="more_notification_settings_summary">Ringsignal, vibrationer och mer</string>
     <string name="more_settings">Mer inställningar</string>
     <string name="troubleshooting">Felsökning</string>
-    <string name="accounts">Konton</string>
     <string name="documentation">Dokumentation</string>
     <string name="preferences_advanced">Avancerat</string>
     <string name="show_advanced_settings">Visa avancerade inställningar</string>

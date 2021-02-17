@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Изчисти Картинка</string>
     <string name="TVA_add_comment">Добави коментар…</string>
-    <string name="enter_filter_name">Въведете име на филтъра</string>
     <string name="backup_BPr_header">Резервни копия</string>
     <string name="backup_BAc_import">Импортиране на задачи</string>
     <string name="backup_BAc_export">Експортиране на задачи</string>
@@ -36,14 +35,14 @@
     <string name="FLA_new_filter">Нов филтър</string>
     <string name="TEA_title_hint">Име на задачата</string>
     <string name="TEA_importance_label">Приоритет</string>
-    <string name="TEA_no_date">Без дата</string>
+    <string name="no_date">Без дата</string>
     <string name="TEA_note_label">Описание</string>
     <string name="TEA_estimatedDuration_label">Колко време ще отнеме?</string>
     <string name="TEA_elapsedDuration_label">Време, което вече е отделено</string>
     <string name="save">Запази</string>
     <string name="TEA_timer_est">Приблизително %s</string>
     <string name="TEA_timer_elap">Изминали %s</string>
-    <string name="TEA_no_time">Без време</string>
+    <string name="no_time">Без време</string>
     <string name="due_date">Краен срок</string>
     <string name="due_time">До време</string>
     <string name="day_before_due">Ден преди крайния срок</string>
@@ -70,7 +69,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ще ви напомня за предстоящи събития в календара и ще ви подканва да се подготвите за тях</string>
     <string name="CRA_default_list_name">Действия: %s</string>
     <string name="none">Нищо</string>
-    <string name="EPr_filters_to_show_title">Филтри за показване</string>
     <string name="EPr_edit_screen_options">Редактиране на опциите екрана</string>
     <string name="EPr_beastMode_reset">Възстанови по подразбиране</string>
     <string name="EPr_fullTask_title">Покажи пълното име на задачата</string>
@@ -108,11 +106,9 @@
     <string name="default_location_reminder_on_arrival_or_departure">При пристигане и заминаване</string>
     <string name="BFE_Active">Моите задачи</string>
     <string name="BFE_Recent">Наскоро променени</string>
-    <string name="CFA_type_add">или</string>
-    <string name="CFA_type_subtract">не</string>
-    <string name="CFA_type_intersect">и</string>
-    <string name="CFA_context_chain">%s има критерий</string>
-    <string name="CFA_context_delete">Изтрий реда</string>
+    <string name="custom_filter_or">или</string>
+    <string name="custom_filter_not">не</string>
+    <string name="custom_filter_and">и</string>
     <string name="CFA_button_add">Добави Критерий</string>
     <string name="CFC_dueBefore_text">Краен срок: ?</string>
     <string name="CFC_dueBefore_name">Краен срок…</string>
@@ -295,8 +291,6 @@
     <string name="remove">Изтрий</string>
     <string name="randomly_once">Произволно веднъж</string>
     <string name="randomly">Произволно</string>
-    <string name="pick_a_date">Избери дата</string>
-    <string name="pick_a_time">Избери време</string>
     <string name="pick_a_date_and_time">Избери дата и време</string>
     <string name="when_overdue">След крайния срок</string>
     <string name="when_due">При краен срок</string>

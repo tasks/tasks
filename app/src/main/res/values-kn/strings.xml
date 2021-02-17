@@ -11,7 +11,6 @@
     <string name="backup_BAc_export">ಈಗ ಕಾದಿರಿಸು</string>
     <string name="backup_BPr_header">ಕಾದಿಟ್ಟವುಗಳು</string>
     <string name="export_toast">%1$ರಿಂದ %2$ಕ್ಕೆ ಕಾದಿರಿಸು.</string>
-    <string name="enter_filter_name">ಶೋಧಿಸಬೇಕಾದ ಹೆಸರನ್ನು ತಿಳಿಸು</string>
     <string name="display_name">ಹೆಸರನ್ನು ತೋರಿಸು</string>
     <string name="TVA_add_comment">ಅಭಿಪ್ರಾಯವನ್ನು ಸೇರಿಸು…</string>
     <string name="actfm_picture_clear">ಚಿತ್ರವನ್ನು ಅಳಿಸು</string>

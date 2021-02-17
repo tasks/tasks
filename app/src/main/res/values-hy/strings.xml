@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="enter_filter_name">Ֆիլտրի անուն</string>
     <string name="display_name">Ցուցադրվող անուն</string>
     <string name="TVA_add_comment">Ավելացնել մեկնաբանություն…</string>
     <string name="actfm_picture_clear">Մաքրել նկարը</string>

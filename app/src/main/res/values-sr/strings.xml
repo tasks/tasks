@@ -7,11 +7,9 @@
     <string name="SSD_sort_modified">Po zadnjoj izmeni</string>
     <string name="TEA_title_hint">Ime zadatka</string>
     <string name="TEA_importance_label">Prioritet</string>
-    <string name="CFA_type_add">ili</string>
-    <string name="CFA_type_subtract">Ne</string>
-    <string name="CFA_type_intersect">takođe</string>
-    <string name="CFA_context_chain">%s od kriterijuma</string>
-    <string name="CFA_context_delete">Izbriši red</string>
+    <string name="custom_filter_or">ili</string>
+    <string name="custom_filter_not">Ne</string>
+    <string name="custom_filter_and">takođe</string>
     <string name="CFA_button_add">Dodati kriterijum</string>
     <string name="CFC_dueBefore_text">Po datumu: ?</string>
     <string name="gcal_completed_title">%s (završeno)</string>
@@ -29,7 +27,6 @@
     <string name="backup_BAc_import">Увези задатке</string>
     <string name="backup_BAc_export">Извези задатке</string>
     <string name="backup_BPr_header">Резервне копије</string>
-    <string name="enter_filter_name">Унеси назив филтера</string>
     <string name="TVA_add_comment">Додајте коментар…</string>
     <string name="cancel">Откажи</string>
     <string name="ok">У реду</string>

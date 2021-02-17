@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Borrar imagen</string>
     <string name="TVA_add_comment">Añadir un comentario…</string>
-    <string name="enter_filter_name">Introduzca el nombre del filtro</string>
     <string name="backup_BPr_header">Copias de seguridad</string>
     <string name="backup_BAc_import">Importar tareas</string>
     <string name="backup_BAc_export">Exportar tareas</string>
@@ -31,13 +30,13 @@
     <string name="FLA_new_filter">Crear nuevo filtro</string>
     <string name="TEA_title_hint">Nombre de la tarea</string>
     <string name="TEA_importance_label">Prioridad</string>
-    <string name="TEA_no_date">Sin fecha</string>
+    <string name="no_date">Sin fecha</string>
     <string name="TEA_note_label">Descripción</string>
     <string name="TEA_estimatedDuration_label">¿Cuanto tiempo llevará?</string>
     <string name="TEA_elapsedDuration_label">Tiempo ya empleado en la tarea</string>
     <string name="save">Guardar</string>
     <string name="TEA_timer_elap">Transcurrido %s</string>
-    <string name="TEA_no_time">Sin horario</string>
+    <string name="no_time">Sin horario</string>
     <string name="due_date">Fecha de vencimiento</string>
     <string name="due_time">Hora de vencimiento</string>
     <string name="day_before_due">Día previo al vencimiento</string>
@@ -63,7 +62,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks le recordará los próximos eventos de calendario y le pedirá que se prepare para ellos</string>
     <string name="CRA_default_list_name">Acciones: %s</string>
     <string name="none">Ninguna</string>
-    <string name="EPr_filters_to_show_title">Filtros a mostrar</string>
     <string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
     <string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
     <string name="EPr_fullTask_title">Mostrar completo el título de la tarea</string>
@@ -95,11 +93,9 @@
     <string name="at_deadline_or_overdue">En la fecha de vencimiento o ya vencida</string>
     <string name="BFE_Active">Mis Tareas</string>
     <string name="BFE_Recent">Recién modificadas</string>
-    <string name="CFA_type_add">ou</string>
-    <string name="CFA_type_subtract">non</string>
-    <string name="CFA_type_intersect">tamén</string>
-    <string name="CFA_context_chain">%s cumpre o criterio</string>
-    <string name="CFA_context_delete">Eliminar Fila</string>
+    <string name="custom_filter_or">ou</string>
+    <string name="custom_filter_not">non</string>
+    <string name="custom_filter_and">tamén</string>
     <string name="CFA_button_add">Engadir Criterio</string>
     <string name="CFC_dueBefore_text">Vence o: ?</string>
     <string name="CFC_dueBefore_name">Vence el…</string>
@@ -207,8 +203,6 @@
     <string name="remove">Eliminar</string>
     <string name="randomly_once">Aleatorio, una sola vez</string>
     <string name="randomly">Aleatoriamente</string>
-    <string name="pick_a_date">Elegir fecha</string>
-    <string name="pick_a_time">Elegir hora</string>
     <string name="pick_a_date_and_time">Elegir fecha y hora</string>
     <string name="when_overdue">Si está atrasada</string>
     <string name="when_due">Al vencimiento</string>

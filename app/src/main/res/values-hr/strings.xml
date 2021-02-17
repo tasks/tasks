@@ -60,9 +60,9 @@
     <string name="logout">Odjavi</string>
     <string name="license_summary">Tasks je libre aplikacija otvorenog koda, licencirano pod GNU General Public License v3.0</string>
     <string name="about">O aplikaciju</string>
-    <string name="TEA_no_time">Neodređeno vrijeme</string>
+    <string name="no_time">Neodređeno vrijeme</string>
     <string name="TEA_timer_elap">Proteklo vrijeme %s</string>
-    <string name="TEA_no_date">Bez datuma</string>
+    <string name="no_date">Bez datuma</string>
     <string name="FLA_new_filter">Stvori novi filtar</string>
     <string name="FLA_search_filter">Pretraga za \'%s\'</string>
     <string name="action_call">Nazovi</string>
@@ -70,7 +70,6 @@
     <string name="TEA_control_reminders">Podsjetnici</string>
     <string name="SSD_sort_my_order">Moj poredak</string>
     <string name="keep_editing">Nastavi uređivati</string>
-    <string name="enter_filter_name">Unesi naziv filtra</string>
     <string name="EPr_delete_task_data">Izbriši podatke zadatka</string>
     <string name="EPr_reset_preferences_warning">Postavke će se vratiti na zadane vrijednosti</string>
     <string name="EPr_reset_preferences">Poništi postavke</string>

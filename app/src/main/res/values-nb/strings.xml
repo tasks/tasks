@@ -32,7 +32,6 @@
     <string name="TEA_elapsedDuration_label">Tid brukt til nå</string>
     <string name="TEA_timer_est">Ansl. %s</string>
     <string name="TEA_timer_elap">Forløpt %s</string>
-    <string name="TEA_no_time">Ikke begynt</string>
     <string name="TEA_control_importance">Prioritet</string>
     <string name="TEA_control_notes">Beskrivelse</string>
     <string name="TEA_control_files">Filer</string>
@@ -42,10 +41,6 @@
     <string name="EPr_default_reminders_title">Forvalgte påminnelser</string>
     <string name="BFE_Active">Mine gjøremål</string>
     <string name="BFE_Recent">Nylig endret</string>
-    <string name="CFA_type_add">eller</string>
-    <string name="CFA_type_intersect">også</string>
-    <string name="CFA_context_chain">%s har kriterier</string>
-    <string name="CFA_context_delete">Slett rad</string>
     <string name="CFA_button_add">Legg til kriterium</string>
     <string name="CFC_dueBefore_text">Frist til: ?</string>
     <string name="CFC_dueBefore_name">Frist til…</string>
@@ -153,7 +148,6 @@
     <string name="bundle_notifications_summary">Kombiner flere merknader sammen til én</string>
     <string name="actfm_picture_clear">Tøm bilde</string>
     <string name="TVA_add_comment">Legg til kommentar…</string>
-    <string name="enter_filter_name">Skriv inn filternavn</string>
     <string name="discard_confirmation">Er du sikker på at du vil forkaste dine endringer\?</string>
     <string name="keep_editing">Fortsett å redigere</string>
     <string name="DLG_undo">Angre</string>
@@ -162,7 +156,6 @@
     <string name="action_call">Ring</string>
     <string name="action_open">Åpne</string>
     <string name="FLA_new_filter">Opprett nytt filter</string>
-    <string name="TEA_no_date">Ingen dato</string>
     <string name="save">Lagre</string>
     <string name="due_date">Tidsfristsdato</string>
     <string name="due_time">Tidsfrist</string>
@@ -185,7 +178,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks minner deg om kommende kalenderhendelser og formaner forberedelse</string>
     <string name="CRA_default_list_name">Gjøremål: %s</string>
     <string name="none">Ingen</string>
-    <string name="EPr_filters_to_show_title">Filter å vise</string>
     <string name="EPr_edit_screen_options">Rediger skjermvalg</string>
     <string name="EPr_beastMode_reset">Tilbakestill til forvalg</string>
     <string name="EPr_fullTask_title">Vis full gjøremålstittel</string>
@@ -219,7 +211,6 @@
     <string name="default_location_reminder_on_arrival">Ved ankomst</string>
     <string name="default_location_reminder_on_departure">Ved avgang</string>
     <string name="default_location_reminder_on_arrival_or_departure">Ved ankomst og avgang</string>
-    <string name="CFA_type_subtract">ikke</string>
     <string name="no_due_date">Ingen tidsfristdato</string>
     <string name="next_month">Neste måned</string>
     <string name="CFC_tag_text">Etikett: \?</string>
@@ -328,8 +319,6 @@
     <string name="remove">Fjern</string>
     <string name="randomly_once">Tilfeldig én gang</string>
     <string name="randomly">Tilfeldig</string>
-    <string name="pick_a_date">Velg en dato</string>
-    <string name="pick_a_time">Velg en tid</string>
     <string name="pick_a_date_and_time">Velg dato og tid</string>
     <string name="when_overdue">Når forfalt</string>
     <string name="when_due">Ved frist</string>
@@ -456,8 +445,6 @@
     <string name="button_upgrade">Oppgrader abonnement</string>
     <string name="button_unsubscribe">Avbryt abonnement</string>
     <string name="name_your_price">Betal det du vil</string>
-    <string name="monthly">Månedlig</string>
-    <string name="annually">Årlig</string>
     <string name="error_adding_account">Feil: %s</string>
     <string name="SSD_sort_my_order">Min bestilling</string>
     <string name="caldav_account_repeating_tasks">Tjeneren håndterer gjentagende gjøremål</string>
@@ -491,12 +478,10 @@
     <string name="help_and_feedback">Hjelp og tilbakemelding</string>
     <string name="documentation">Dokumentasjon</string>
     <string name="preferences_advanced">Avansert</string>
-    <string name="accounts">Kontoer</string>
     <string name="more_settings">Flere innstillinger</string>
     <string name="invalid_username_or_password">Ugyldig brukernavn eller passord</string>
     <string name="theme_system_default">Systemforvalg</string>
     <string name="back">Tilbake</string>
-    <string name="widget_hide_background">Skjul bakgrunn</string>
     <string name="select_all">Velg alt</string>
     <string name="share">Del</string>
     <string name="compact">Kompakt</string>
@@ -533,7 +518,6 @@
     <string name="widget_due_date_below_title">Under tittelen</string>
     <string name="widget_due_date_after_title">Etter tittel</string>
     <string name="widget_footer">Bunntekst</string>
-    <string name="widget_footer_settings">Bunntekst-innstillinger</string>
     <string name="opacity_footer">Bunntekst-dekkevne</string>
     <string name="opacity_row">Rad-dekkevne</string>
     <string name="opacity_header">Topptekst-dekkevne</string>
@@ -633,15 +617,12 @@
     <string name="cancel">Avbryt</string>
     <string name="ok">OK</string>
     <string name="insufficient_subscription">Utilstrekkelig abonnementsnivå. Oppgrader ditt abonnement for å fortsette tjenesten.</string>
-    <string name="purchases_updated">Kjøp oppdatert</string>
     <string name="current_subscription">Nåværende abonnement: %s</string>
     <string name="price_per_month_abbreviated">$%s/md.</string>
     <string name="price_per_month">$%s/måned</string>
     <string name="price_per_year_abbreviated">$%s/år</string>
     <string name="price_per_year">$%s/år</string>
     <string name="your_subscription_expired">Ditt abonnement har utløpt. Abonner nå for å fortsette tjenesten.</string>
-    <string name="logged_in">Innlogget som %s</string>
-    <string name="more_options">Flere innstillinger</string>
     <string name="follow_reddit">Følg r/tasks</string>
     <string name="background_location_permission_required">Dette programmet posisjonsdata for å kunne utløse posisjonsbaserte påminnelser, selv når programmet er lukket eller ikke i bruk.</string>
     <string name="repeat_monthly_fifth_week">femte</string>

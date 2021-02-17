@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">사진 제거하기</string>
     <string name="TVA_add_comment">댓글 쓰기…</string>
-    <string name="enter_filter_name">필터 이름 입력</string>
     <string name="backup_BPr_header">백업</string>
     <string name="backup_BAc_import">백업 가져오기</string>
     <string name="backup_BAc_export">지금 백업하기</string>
@@ -36,14 +35,12 @@
     <string name="FLA_new_filter">새 필터 만들기</string>
     <string name="TEA_title_hint">할일 제목</string>
     <string name="TEA_importance_label">우선순위</string>
-    <string name="TEA_no_date">마감일 없음</string>
     <string name="TEA_note_label">설명</string>
     <string name="TEA_estimatedDuration_label">일정 완료 예상 시간은?</string>
     <string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
     <string name="save">저장</string>
     <string name="TEA_timer_est">동부표준시 %s</string>
     <string name="TEA_timer_elap">경과 시간: %s</string>
-    <string name="TEA_no_time">시한 없음</string>
     <string name="due_date">마감일</string>
     <string name="due_time">마감 시간</string>
     <string name="day_before_due">마감 하루 전</string>
@@ -70,7 +67,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks는 다가오는 달력 이벤트를 알리고 당신이 준비하도록 할 것입니다</string>
     <string name="CRA_default_list_name">활동 아이템: %s</string>
     <string name="none">없음</string>
-    <string name="EPr_filters_to_show_title">표시할 필터</string>
     <string name="EPr_edit_screen_options">화면 설정 편집하기</string>
     <string name="EPr_beastMode_reset">기본값으로 초기화하기</string>
     <string name="EPr_fullTask_title">할일 제목 전체 보기</string>
@@ -108,11 +104,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">도착 및 출발 시</string>
     <string name="BFE_Active">나의 할일</string>
     <string name="BFE_Recent">최근에 변경한 할일</string>
-    <string name="CFA_type_add">또는</string>
-    <string name="CFA_type_subtract">제외</string>
-    <string name="CFA_type_intersect">또한</string>
-    <string name="CFA_context_chain">%s 은 조건이 있습니다</string>
-    <string name="CFA_context_delete">가로줄 삭제</string>
     <string name="CFA_button_add">조건 추가</string>
     <string name="CFC_dueBefore_text">마감일: ?</string>
     <string name="CFC_dueBefore_name">마감일…</string>
@@ -294,8 +285,6 @@
     <string name="remove">지우기</string>
     <string name="randomly_once">무작위로 한 번</string>
     <string name="randomly">무작위로</string>
-    <string name="pick_a_date">날짜 선택</string>
-    <string name="pick_a_time">시간 선택</string>
     <string name="pick_a_date_and_time">날짜와 시간 선택</string>
     <string name="when_overdue">일정 마감일이 지났을 때</string>
     <string name="when_due">일정 마감일에</string>
@@ -453,8 +442,6 @@
     <string name="button_upgrade">구독 업그레이드</string>
     <string name="button_unsubscribe">구독 취소</string>
     <string name="name_your_price">구독 금액 정하기</string>
-    <string name="monthly">매월</string>
-    <string name="annually">매년</string>
     <string name="SSD_sort_my_order">순서 직접 정렬</string>
     <string name="caldav_account_repeating_tasks">서버가 반복 할일 일정잡기</string>
     <string name="EPr_temp_show_completed_tasks">할일 완료 시 일시적으로 보여주기</string>
@@ -516,7 +503,6 @@
     <string name="troubleshooting">문제해결</string>
     <string name="wearable_notifications_summary">웨어러블 장치에 알림을 표시합니다</string>
     <string name="wearable_notifications">웨어러블 알림</string>
-    <string name="accounts">계정</string>
     <string name="documentation">문서</string>
     <string name="preferences_advanced">고급</string>
     <string name="help_and_feedback">도움말 및 피드백</string>
@@ -573,7 +559,6 @@
     <string name="widget_open_list">목록 열기</string>
     <string name="widget_do_nothing">아무 동작 하지 않음</string>
     <string name="widget_on_click">클릭 시</string>
-    <string name="widget_footer_settings">푸터 설정</string>
     <string name="opacity_footer">푸터 불투명도</string>
     <string name="widget_footer">푸터</string>
     <string name="opacity_row">줄 불투명도</string>
@@ -612,23 +597,19 @@
     <string name="date_shortcut_tomorrow_night">내일 밤</string>
     <string name="date_shortcut_tomorrow_evening">내일 저녁</string>
     <string name="header_spacing">줄 간격</string>
-    <string name="widget_hide_background">배경 숨기기</string>
     <string name="repeat_type_completion_capitalized">완료일</string>
     <string name="astrid_sort_order_summary">\'나의 할일\', \'오늘\', 태그 화면에서 Astrid 수동 정렬을 사용할 수 있습니다. 추후 업데이트 시 \'순서 직접 정렬\' 을 이 방식으로 대체할 예정입니다</string>
     <string name="astrid_sort_order">Astrid 수동 정렬</string>
     <string name="manage_lists">목록 관리</string>
     <string name="authorization_cancelled">인증 취소됨</string>
-    <string name="purchases_updated">구매 업데이트됨</string>
     <string name="current_subscription">현재 구독: %s</string>
     <string name="price_per_year">$%s/년</string>
     <string name="price_per_year_abbreviated">$%s/년</string>
     <string name="price_per_month_abbreviated">$%s/월</string>
     <string name="price_per_month">$%s/월</string>
     <string name="your_subscription_expired">구독이 만료되었습니다. 서비스를 재개하려면 지금 구독하세요.</string>
-    <string name="logged_in">%s에 로그인됨</string>
     <string name="background_location">백그라운드 위치정보</string>
     <string name="permission_read_tasks">Tasks 데이터베이스에 대한 전체 액세스</string>
-    <string name="more_options">추가 옵션</string>
     <string name="background_location_permission_required">앱이 닫히거나 사용하지 않을 때에도 위치 기반 미리 알림을 사용하도록 위치 데이터를 수집합니다.</string>
     <string name="migrate_count">Tasks.org 로 %s 개 이동</string>
     <string name="migrate">이전</string>

@@ -32,7 +32,6 @@
     <string name="EPr_fullTask_title">முழு பணி தலைப்பைக் காட்டு</string>
     <string name="EPr_beastMode_reset">இயல்புநிலைக்கு மீட்டமை</string>
     <string name="EPr_edit_screen_options">திரை விருப்பங்களைத் திருத்து</string>
-    <string name="EPr_filters_to_show_title">காண்பிக்க வடிப்பான்கள்</string>
     <string name="none">எதுவுமில்லை</string>
     <string name="CRA_calendar_reminders_pref_title">நாள்காட்டி உதவியாளர்</string>
     <string name="CRA_postpone">ஒருவேளை பின்னர்</string>
@@ -55,7 +54,6 @@
     <string name="day_before_due">செலுத்த வேண்டிய நாள் முன்</string>
     <string name="due_time">உரிய தேதி</string>
     <string name="due_date">உரிய தேதி</string>
-    <string name="TEA_no_time">நேரம் இல்லை</string>
     <string name="TEA_add_subtask">துணை பணி சேர்க்கவும்</string>
     <string name="FLA_new_filter">புதிய வடிப்பானை உருவாக்கவும்</string>
     <string name="sort_created">படைப்பு நேரம் மூலம்</string>
@@ -72,14 +70,12 @@
     <string name="discard_confirmation">உங்கள் மாற்றங்களை நிராகரிக்க விரும்புகிறீர்களா\?</string>
     <string name="import_summary_title">சுருக்கத்தை மீட்டமை</string>
     <string name="backup_BPr_header">காப்புப்பிரதிகள்</string>
-    <string name="enter_filter_name">வடிகட்டிய பெயரை உள்ளிடவும்</string>
     <string name="TVA_add_comment">ஒரு கருத்தைச் சேர்க்கவும்…</string>
     <string name="actfm_picture_clear">தெளிவான படம்</string>
     <string name="save">சேமி</string>
     <string name="TEA_elapsedDuration_label">ஏற்கனவே செலவழித்த நேரம்</string>
     <string name="TEA_estimatedDuration_label">இது எவ்வளவு நேரம் எடுக்கும்\?</string>
     <string name="TEA_note_label">விவரிப்பு</string>
-    <string name="TEA_no_date">தேதி இல்லை</string>
     <string name="TEA_importance_label">முன்னுரிமை</string>
     <string name="TEA_title_hint">வேலை பெயர்</string>
     <string name="action_open">திற</string>
@@ -160,15 +156,11 @@
     <string name="CFC_dueBefore_name">காரணமாக…</string>
     <string name="CFC_dueBefore_text">காரணமாக :\?</string>
     <string name="CFA_button_add">அளவுகோல்களைச் சேர்க்கவும்</string>
-    <string name="CFA_context_delete">வரிசையை நீக்கு</string>
-    <string name="CFA_type_subtract">இல்லை</string>
     <string name="default_location_reminder_on_arrival_or_departure">வருகை மற்றும் புறப்படும் போது</string>
     <string name="default_location_reminder_on_departure">புறப்படும் போது</string>
     <string name="default_location_reminder_on_arrival">வந்தவுடன்</string>
     <string name="EPr_default_reminders_mode_title">இயல்புநிலை வளையம் / அதிர்வு வகை</string>
     <string name="gcal_TEA_error">வேலையை நாட்காட்டியில் சேர்க்க முடியவில்லை!</string>
-    <string name="CFA_type_intersect">மேலும்</string>
-    <string name="CFA_type_add">அல்லது</string>
     <string name="BFE_Recent">சமீபத்தில் மாற்றியவை</string>
     <string name="BFE_Active">என் வேலைகள்</string>
     <string name="import_progress_read">%d… வேலையை படிக்கிறது</string>
@@ -239,7 +231,6 @@
     <string name="notification_troubleshooting_summary">அறிவிப்புகளில் சிக்கல் இருந்தால் இங்கே தட்டவும்</string>
     <string name="troubleshooting">பழுது நீக்கும்</string>
     <string name="wearable_notifications">அணியக்கூடிய அறிவிப்புகள்</string>
-    <string name="accounts">கணக்குகள்</string>
     <string name="documentation">ஆவணம்</string>
     <string name="preferences_advanced">மேம்படுத்தபட்ட</string>
     <string name="preferences_look_and_feel">பார்க்கவும் உணரவும்</string>
@@ -261,8 +252,6 @@
     <string name="collapse_subtasks">துணை பணிகளைச் சுருக்கவும்</string>
     <string name="expand_subtasks">துணை பணிகளை விரிவாக்குங்கள்</string>
     <string name="caldav_account_repeating_tasks">தொடர்ச்சியான பணிகளை சேவையாக அட்டவணைப்படுத்தட்டும்</string>
-    <string name="annually">ஆண்டு</string>
-    <string name="monthly">மாதாந்திர</string>
     <string name="name_your_price">உங்கள் விலைக்கு பெயரிடுங்கள்</string>
     <string name="google_tasks_add_to_top">மேலே புதிய பணிகள்</string>
     <string name="invalid_backup_file">தவறான காப்பு கோப்பு</string>
@@ -357,7 +346,6 @@
     <string name="widget_do_nothing">எதுவும் செய்ய வேண்டாம்</string>
     <string name="widget_on_click">கிளிக் செய்தால்</string>
     <string name="widget_footer">அடிக்குறிப்பு</string>
-    <string name="widget_footer_settings">அடிக்குறிப்பு அமைப்புகள்</string>
     <string name="widget_row_settings">வரிசை அமைப்புகள்</string>
     <string name="widget_header_settings">தலைப்பு அமைப்புகள்</string>
     <string name="widget_settings">விட்ஜெட் அமைப்புகள்</string>
@@ -432,8 +420,6 @@
     <string name="when_due">காரணமாக இருக்கும்போது</string>
     <string name="when_overdue">தாமதமாகும்போது</string>
     <string name="pick_a_date_and_time">தேதி மற்றும் நேரத்தைத் தேர்ந்தெடுங்கள்</string>
-    <string name="pick_a_time">ஒரு நேரத்தைத் தேர்ந்தெடுங்கள்</string>
-    <string name="pick_a_date">தேதியைத் தேர்ந்தெடுங்கள்</string>
     <string name="randomly">சீரற்ற</string>
     <string name="randomly_once">சீரற்ற ஒரு முறை</string>
     <string name="remove">அகற்று</string>
@@ -463,7 +449,6 @@
     <string name="widget_show_menu">மெனுவைக் காட்டு</string>
     <string name="widget_show_settings">அமைப்புகளைக் காட்டு</string>
     <string name="widget_show_header">தலைப்பைக் காட்டு</string>
-    <string name="widget_hide_background">பின்னணியை மறைக்க</string>
     <string name="widget_show_checkboxes">தேர்வுப்பெட்டிகளைக் காட்டு</string>
     <string name="yest">நேற்று</string>
     <string name="tmrw">நாளை</string>
@@ -559,7 +544,6 @@
         <item quantity="one">%d பணி</item>
         <item quantity="other">%d பணிகள்</item>
     </plurals>
-    <string name="CFA_context_chain">%s க்கு அளவுகோல்கள் உள்ளன</string>
     <string name="EPr_manage_delete_all_gcal_status">"%d நாள்காட்டி நிகழ்வுகள் நீக்கப்பட்டன!"</string>
     <string name="EPr_manage_delete_completed_gcal_status">%d நாள்காட்டி நிகழ்வுகள் நீக்கப்பட்டன!</string>
     <string name="CRA_default_list_name">செயல் உருப்படிகள்: %s</string>

@@ -109,6 +109,11 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             }
         }
         val backButtonSavesTask = preferences.backButtonSavesTask()
+        toolbar.setNavigationContentDescription(if (backButtonSavesTask) {
+            R.string.discard
+        } else {
+            R.string.save
+        })
         toolbar.inflateMenu(R.menu.menu_task_edit_fragment)
         val menu = toolbar.menu
         val delete = menu.findItem(R.id.menu_delete)

@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">写真を削除</string>
     <string name="TVA_add_comment">コメントする</string>
-    <string name="enter_filter_name">フィルター名を入力</string>
     <string name="backup_BPr_header">バックアップ</string>
     <string name="backup_BAc_import">タスクのインポート</string>
     <string name="backup_BAc_export">タスクのエクスポート</string>
@@ -33,14 +32,14 @@
     <string name="FLA_new_filter">新しいフィルターを作成</string>
     <string name="TEA_title_hint">タスク名</string>
     <string name="TEA_importance_label">優先順位</string>
-    <string name="TEA_no_date">日付なし</string>
+    <string name="no_date">日付なし</string>
     <string name="TEA_note_label">概要</string>
     <string name="TEA_estimatedDuration_label">所要時間は?</string>
     <string name="TEA_elapsedDuration_label">既にタスクに費やした時間</string>
     <string name="save">保存</string>
     <string name="TEA_timer_est">予定 %s</string>
     <string name="TEA_timer_elap">経過時間 %s</string>
-    <string name="TEA_no_time">時間がありません</string>
+    <string name="no_time">時間がありません</string>
     <string name="due_date">期限日</string>
     <string name="due_time">期限時間</string>
     <string name="day_before_due">期限の前日から</string>
@@ -67,7 +66,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks は近づいているカレンダーイベントを通知して準備するように促します</string>
     <string name="CRA_default_list_name">アクションアイテム: %s</string>
     <string name="none">なし</string>
-    <string name="EPr_filters_to_show_title">表示のフィルター</string>
     <string name="EPr_edit_screen_options">編集画面オプション</string>
     <string name="EPr_beastMode_reset">デフォルトにリセット</string>
     <string name="EPr_fullTask_title">完全なタスク見出しを表示</string>
@@ -105,11 +103,9 @@
     <string name="default_location_reminder_on_arrival_or_departure">到着と出発時</string>
     <string name="BFE_Active">マイ タスク</string>
     <string name="BFE_Recent">最近編集したタスク</string>
-    <string name="CFA_type_add">または</string>
-    <string name="CFA_type_subtract">除外</string>
-    <string name="CFA_type_intersect">かつ</string>
-    <string name="CFA_context_chain">%s</string>
-    <string name="CFA_context_delete">条件の削除</string>
+    <string name="custom_filter_or">または</string>
+    <string name="custom_filter_not">除外</string>
+    <string name="custom_filter_and">かつ</string>
     <string name="CFA_button_add">条件の追加</string>
     <string name="CFC_dueBefore_text">期限: ?</string>
     <string name="CFC_dueBefore_name">期限</string>
@@ -293,8 +289,6 @@
     <string name="remove">削除</string>
     <string name="randomly_once">1回ランダムに</string>
     <string name="randomly">ランダムに</string>
-    <string name="pick_a_date">日付を選択</string>
-    <string name="pick_a_time">時間を選択</string>
     <string name="pick_a_date_and_time">日付と時間を選択</string>
     <string name="when_overdue">期限を過ぎたとき</string>
     <string name="when_due">期限に</string>
@@ -451,7 +445,5 @@
     <string name="button_upgrade">サブスクリプションのアップグレード</string>
     <string name="button_unsubscribe">サブスクリプションのキャンセル</string>
     <string name="name_your_price">価格の名前</string>
-    <string name="monthly">毎月</string>
-    <string name="annually">毎年</string>
     <string name="cancel">キャンセル</string>
 </resources>

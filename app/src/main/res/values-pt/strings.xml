@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Limpar imagem</string>
     <string name="TVA_add_comment">Adicionar um comentário…</string>
-    <string name="enter_filter_name">Introduza o nome do fitro</string>
     <string name="backup_BAc_import">Importar cópia de segurança</string>
     <string name="backup_BAc_export">Fazer cópia de segurança</string>
     <string name="export_toast">"Copia de segurança feita de  %1$s para %2$s."</string>
@@ -33,13 +32,11 @@
     <string name="FLA_new_filter">Criar novo filtro</string>
     <string name="TEA_title_hint">Nome da tarefa</string>
     <string name="TEA_importance_label">Prioridade</string>
-    <string name="TEA_no_date">Sem data</string>
     <string name="TEA_note_label">Descrição</string>
     <string name="TEA_estimatedDuration_label">Quanto tempo irá durar?</string>
     <string name="TEA_elapsedDuration_label">Tempo já gasto</string>
     <string name="save">Guardar</string>
     <string name="TEA_timer_elap">Decorrido %s</string>
-    <string name="TEA_no_time">Sem tempo</string>
     <string name="due_date">Data limite</string>
     <string name="due_time">Hora da tarefa</string>
     <string name="day_before_due">Um dia antes</string>
@@ -65,7 +62,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">O Tasks irá lembra-lo sobre os próximos eventos de calendário e pedir a sua preparação</string>
     <string name="CRA_default_list_name">Itens de ação: %s</string>
     <string name="none">Nenhum</string>
-    <string name="EPr_filters_to_show_title">Filtros a mostrar</string>
     <string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
     <string name="EPr_beastMode_reset">Restaurar definições originas</string>
     <string name="EPr_fullTask_title">Mostrar título completo das tarefas</string>
@@ -97,11 +93,6 @@
     <string name="at_deadline_or_overdue">Na data limite ou ultrapassada</string>
     <string name="BFE_Active">Minhas tarefas</string>
     <string name="BFE_Recent">Alteradas recentemente</string>
-    <string name="CFA_type_add">ou</string>
-    <string name="CFA_type_subtract">não</string>
-    <string name="CFA_type_intersect">também</string>
-    <string name="CFA_context_chain">%s tem critérios</string>
-    <string name="CFA_context_delete">Eliminar linha</string>
     <string name="CFA_button_add">Adicionar critério</string>
     <string name="CFC_dueBefore_text">Data limite: ?</string>
     <string name="CFC_dueBefore_name">Data limite…</string>
@@ -282,8 +273,6 @@
     <string name="remove">Remover</string>
     <string name="randomly_once">Uma vez aleatória</string>
     <string name="randomly">Aleatoriamente</string>
-    <string name="pick_a_date">Escolha a data</string>
-    <string name="pick_a_time">Escolha a hora</string>
     <string name="pick_a_date_and_time">Escolha a data e a hora</string>
     <string name="when_overdue">Se data limite ultrapassada</string>
     <string name="when_due">Na data limite</string>
@@ -387,8 +376,6 @@
     <string name="yesterday_lowercase">ontem</string>
     <string name="tomorrow_lowercase">amanhã</string>
     <string name="today_lowercase">hoje</string>
-    <string name="annually">Anual</string>
-    <string name="monthly">Mensal</string>
     <string name="button_unsubscribe">Cancelar assinatura</string>
     <string name="icon">Ícone</string>
     <string name="google_tasks_add_to_top">Novas tarefas no topo</string>
@@ -456,7 +443,6 @@
     <string name="EPr_default_location_radius">Raio padrão</string>
     <string name="EPr_default_location_reminder_title">Lembretes de localização padrão</string>
     <string name="TEA_control_location">Localização</string>
-    <string name="widget_hide_background">Ocultar o fundo</string>
     <string name="manage_lists">Gerir Listas</string>
     <string name="date_shortcut_tomorrow_night">Amanhã à noite</string>
     <string name="date_shortcut_tomorrow_evening">Amanhã à tardinha</string>
@@ -497,7 +483,6 @@
     <string name="widget_due_date_hidden">Escondido</string>
     <string name="widget_due_date_below_title">Abaixo do título</string>
     <string name="widget_due_date_after_title">Depois do título</string>
-    <string name="widget_footer_settings">Configurações do rodapé</string>
     <string name="opacity_footer">Opacidade do rodapé</string>
     <string name="opacity_row">Opacidade da linha</string>
     <string name="opacity_header">Opacidade do cabeçalho</string>
@@ -544,7 +529,6 @@
     <string name="troubleshooting">Soluções de problemas</string>
     <string name="wearable_notifications_summary">Mostrar notificações no seu weareable</string>
     <string name="wearable_notifications">Notificações em aparelhos weareables</string>
-    <string name="accounts">Contas</string>
     <string name="preferences_advanced">Avançado</string>
     <string name="preferences_look_and_feel">Interface e experiência do utilizador</string>
     <string name="documentation">Documentação</string>
@@ -623,7 +607,6 @@
     <string name="backups_ignore_warnings">Ignorar avisos</string>
     <string name="device_settings">Definições do telemóvel</string>
     <string name="last_backup_never">Nunca</string>
-    <string name="more_options">Mais opções</string>
     <string name="background_location_permission_required">A aplicação usa a localização para permitir alertas com base na localização mesmo quando a aplicação está fechada ou não está em uso</string>
     <string name="default_tags">Tags pré-definid</string>
     <string name="header_spacing">Espaçamento</string>

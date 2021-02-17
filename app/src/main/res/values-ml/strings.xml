@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="TVA_add_comment">ഒരു അഭിപ്രായം ചേർക്കുക…</string>
-    <string name="enter_filter_name">ഫിൽട്ടർ നാമം നൽകുക</string>
     <string name="backup_BPr_header">ബാക്കപ്പുകൾ</string>
     <string name="backup_BAc_export">ഇപ്പോൾ ബാക്കപ്പ് ചെയ്യുക</string>
     <string name="CRA_postpone">ഒരുപക്ഷേ അതിനുശേഷം</string>
@@ -28,11 +27,11 @@
     <string name="TEA_title_hint">ടാസ്‌ക് നാമം</string>
     <string name="TEA_importance_label">മുൻഗണന</string>
     <string name="TEA_add_subtask">ഉപ ടാസ്‌ക് ചേർക്കുക</string>
-    <string name="TEA_no_date">തീയതിയില്ല</string>
+    <string name="no_date">തീയതിയില്ല</string>
     <string name="TEA_note_label">വിവരണം</string>
     <string name="TEA_estimatedDuration_label">എത്ര സമയമെടുക്കും\?</string>
     <string name="save">സംരക്ഷിക്കുക</string>
-    <string name="TEA_no_time">സമയമില്ല</string>
+    <string name="no_time">സമയമില്ല</string>
     <string name="TEA_control_repeat">ആവർത്തിക്കുക</string>
     <string name="TEA_control_gcal">കലണ്ടർ</string>
     <string name="TEA_control_notes">വിവരണം</string>

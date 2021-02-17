@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Supprimer l\'image</string>
     <string name="TVA_add_comment">Ajouter un commentaire…</string>
-    <string name="enter_filter_name">Entrer le nom du filtre</string>
     <string name="backup_BPr_header">Sauvegardes</string>
     <string name="backup_BAc_import">Importer la sauvegarde</string>
     <string name="backup_BAc_export">Sauvegarder maintenant</string>
@@ -33,13 +32,11 @@
     <string name="FLA_new_filter">Créer un nouveau filtre</string>
     <string name="TEA_title_hint">Nom de la tâche</string>
     <string name="TEA_importance_label">Priorité</string>
-    <string name="TEA_no_date">Sans date</string>
     <string name="TEA_estimatedDuration_label">Combien de temps cela va-t-il prendre ?</string>
     <string name="TEA_elapsedDuration_label">Temps déjà passé sur la tâche</string>
     <string name="save">Sauvegarder</string>
     <string name="TEA_timer_est">Restant %s</string>
     <string name="TEA_timer_elap">Passé %s</string>
-    <string name="TEA_no_time">Pas d\'heure</string>
     <string name="due_date">Date d\'échéance</string>
     <string name="due_time">Heure d\'échéance</string>
     <string name="day_before_due">Jour avant échéance</string>
@@ -65,7 +62,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks émettra un rappel au sujet des prochains événements et vous proposera de vous y préparer</string>
     <string name="CRA_default_list_name">Choix d\'actions : %s</string>
     <string name="none">Aucun</string>
-    <string name="EPr_filters_to_show_title">Filtres à afficher</string>
     <string name="EPr_edit_screen_options">Modifier les options d\'affichage</string>
     <string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>
     <string name="EPr_fullTask_title">Voir le titre complet de la tâche</string>
@@ -103,11 +99,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">A l\'arrivée et au départ</string>
     <string name="BFE_Active">Mes tâches</string>
     <string name="BFE_Recent">Récemment modifié</string>
-    <string name="CFA_type_add">ou</string>
-    <string name="CFA_type_subtract">non</string>
-    <string name="CFA_type_intersect">aussi</string>
-    <string name="CFA_context_chain">%s comme critère</string>
-    <string name="CFA_context_delete">Supprimer la ligne</string>
     <string name="CFA_button_add">Ajouter un critère</string>
     <string name="CFC_dueBefore_text">Échue le : \?</string>
     <string name="CFC_dueBefore_name">Échue le…</string>
@@ -279,8 +270,6 @@
     <string name="remove">Retirer</string>
     <string name="randomly_once">Une fois aléatoirement</string>
     <string name="randomly">Aléatoirement</string>
-    <string name="pick_a_date">Choisir une date</string>
-    <string name="pick_a_time">Choisir une heure</string>
     <string name="pick_a_date_and_time">Choisir date et heure</string>
     <string name="when_overdue">En cas de retard</string>
     <string name="when_due">À l\'échéance</string>
@@ -451,8 +440,6 @@
     <string name="button_upgrade">Augmenter l\'abonnement</string>
     <string name="button_unsubscribe">Annuler l\'abonnement</string>
     <string name="name_your_price">Donnez votre prix</string>
-    <string name="monthly">Chaque mois</string>
-    <string name="annually">Chaque année</string>
     <string name="error_adding_account">Erreur : %s</string>
     <string name="SSD_sort_my_order">Mon tri</string>
     <string name="caldav_account_repeating_tasks">Le serveur gère les tâches récurrentes</string>
@@ -490,7 +477,6 @@
     <string name="documentation">Documentation</string>
     <string name="preferences_look_and_feel">Apparence</string>
     <string name="preferences_advanced">Avancé</string>
-    <string name="accounts">Comptes</string>
     <string name="wearable_notifications">Notifications de la montre</string>
     <string name="wearable_notifications_summary">Afficher les notifications sur votre montre</string>
     <string name="troubleshooting">Dépannage</string>
@@ -536,12 +522,10 @@
     <string name="widget_show_menu">Afficher le menu</string>
     <string name="widget_open_list">Liste ouverte</string>
     <string name="widget_do_nothing">Ne rien faire</string>
-    <string name="widget_hide_background">Cacher fond</string>
     <string name="widget_on_click">Sur clic</string>
     <string name="widget_due_date_hidden">Caché</string>
     <string name="widget_due_date_below_title">Sous le titre</string>
     <string name="widget_due_date_after_title">Après le titre</string>
-    <string name="widget_footer_settings">Paramètres du pied de page</string>
     <string name="opacity_footer">Opacité du pied de page</string>
     <string name="opacity_row">Opacité des lignes</string>
     <string name="opacity_header">Opacité de l\'en-tête</string>
@@ -627,7 +611,6 @@
     <string name="always_display_full_date">Afficher la date complète</string>
     <string name="custom_filter_is_subtask">Est une sous-tâche</string>
     <string name="custom_filter_has_subtask">A des sous-tâches</string>
-    <string name="purchases_updated">Achats mis à jour</string>
     <string name="current_subscription">Abonnement actuel : %s</string>
     <string name="price_per_month_abbreviated">%s $/mois</string>
     <string name="price_per_month">%s $/mois</string>
@@ -635,8 +618,6 @@
     <string name="price_per_year">%s $/an</string>
     <string name="insufficient_subscription">Niveau d\'abonnement insuffisant. Veuillez mettre votre abonnement à niveau pour reprendre le service.</string>
     <string name="your_subscription_expired">Votre abonnement a expiré. Abonnez-vous dès maintenant pour reprendre le service.</string>
-    <string name="logged_in">Connecté en tant que %s</string>
-    <string name="more_options">Plus d’options</string>
     <string name="background_location_permission_required">Cette application collecte des données de localisation pour activer les rappels basés sur la localisation, même lorsque l’application est fermée ou non en cours d’utilisation.</string>
     <string name="repeat_monthly_fifth_week">cinquième</string>
     <string name="follow_reddit">Suivre r/Tasks</string>

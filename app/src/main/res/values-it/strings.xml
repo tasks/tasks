@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Deseleziona immagine</string>
     <string name="TVA_add_comment">Aggiungi un commento…</string>
-    <string name="enter_filter_name">Inserisci il nome del filtro</string>
     <string name="backup_BPr_header">Backup</string>
     <string name="backup_BAc_import">Importa backup</string>
     <string name="backup_BAc_export">Esegui backup</string>
@@ -38,14 +37,12 @@
     <string name="FLA_new_filter">Crea nuovo filtro</string>
     <string name="TEA_title_hint">Nome attività</string>
     <string name="TEA_importance_label">Priorità</string>
-    <string name="TEA_no_date">Senza data</string>
     <string name="TEA_note_label">Descrizione</string>
     <string name="TEA_estimatedDuration_label">Quanto tempo impiegherà?</string>
     <string name="TEA_elapsedDuration_label">Tempo già speso per l\'attività</string>
     <string name="save">Salva</string>
     <string name="TEA_timer_est">Stimato %s</string>
     <string name="TEA_timer_elap">Trascorso %s</string>
-    <string name="TEA_no_time">Senza ora</string>
     <string name="due_date">Scadenza</string>
     <string name="due_time">Ora di scadenza</string>
     <string name="day_before_due">Giorno prima della scadenza</string>
@@ -72,7 +69,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ti ricorderà di eventi del calendario imminenti e ti avviserà di prepararti</string>
     <string name="CRA_default_list_name">Azioni: %s</string>
     <string name="none">Nessuno</string>
-    <string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
     <string name="EPr_edit_screen_options">Opzioni schermata di modifica</string>
     <string name="EPr_beastMode_reset">Ripristina predefiniti</string>
     <string name="EPr_fullTask_title">Mostra il titolo completo</string>
@@ -110,11 +106,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">All\'arrivo ed alla partenza</string>
     <string name="BFE_Active">Le mie attività</string>
     <string name="BFE_Recent">Modificate di recente</string>
-    <string name="CFA_type_add">o</string>
-    <string name="CFA_type_subtract">non</string>
-    <string name="CFA_type_intersect">anche</string>
-    <string name="CFA_context_chain">%s ha dei criteri</string>
-    <string name="CFA_context_delete">Cancella Riga</string>
     <string name="CFA_button_add">Aggiungi Criteri</string>
     <string name="CFC_dueBefore_text">Entro: ?</string>
     <string name="CFC_dueBefore_name">Entro…</string>
@@ -297,8 +288,6 @@
     <string name="remove">Elimina</string>
     <string name="randomly_once">In modo casuale</string>
     <string name="randomly">Casualmente</string>
-    <string name="pick_a_date">Scegli una data</string>
-    <string name="pick_a_time">Scegli un\'ora</string>
     <string name="pick_a_date_and_time">Scegli data e ora</string>
     <string name="when_overdue">Quando scaduta</string>
     <string name="when_due">Alla scadenza</string>
@@ -487,7 +476,6 @@
     <string name="troubleshooting">Risoluzione problemi</string>
     <string name="wearable_notifications_summary">Mostra notifiche sul tuo dispositivo indossabile</string>
     <string name="wearable_notifications">Notifiche dispositivi indossabili</string>
-    <string name="accounts">Account</string>
     <string name="documentation">Documentazione (online)</string>
     <string name="preferences_advanced">Avanzate</string>
     <string name="preferences_look_and_feel">Aspetto</string>
@@ -521,8 +509,6 @@
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
     <string name="caldav_account_repeating_tasks">Il server gestisce le attività ricorrenti</string>
-    <string name="annually">Annuale</string>
-    <string name="monthly">Mensile</string>
     <string name="google_tasks_add_to_top">Nuove attività in cima alla lista</string>
     <string name="invalid_backup_file">File di backup non valido</string>
     <string name="version_string">Versione %s</string>
@@ -538,7 +524,6 @@
     <string name="custom_filter_or">O</string>
     <string name="custom_filter_and">E</string>
     <string name="widget_show_menu">Mostra il menù</string>
-    <string name="widget_hide_background">Nascondi lo sfondo</string>
     <string name="action_new_task">Nuova attività</string>
     <string name="add_tags">Aggiungi etichetta</string>
     <string name="improve_performance_summary">Disabilita i gruppi di ordinamento e le attività secondarie per migliorare le prestazioni dell\'app</string>
@@ -564,7 +549,6 @@
     <string name="widget_do_nothing">Non fare nulla</string>
     <string name="widget_on_click">Al clic</string>
     <string name="widget_footer">Piè di pagina</string>
-    <string name="widget_footer_settings">Impostazioni piè di pagina</string>
     <string name="yesterday_lowercase">ieri</string>
     <string name="tomorrow_lowercase">domani</string>
     <string name="today_lowercase">oggi</string>
@@ -630,7 +614,6 @@
     <string name="always_display_full_date">Mostra data completa</string>
     <string name="custom_filter_has_subtask">Contiene attività secondarie</string>
     <string name="custom_filter_is_subtask">È un\'attività secondaria</string>
-    <string name="purchases_updated">Acquisti aggiornati</string>
     <string name="current_subscription">Abbonamento attuale: %s</string>
     <string name="price_per_month_abbreviated">%s $/mese</string>
     <string name="price_per_month">%s $/mese</string>
@@ -638,8 +621,6 @@
     <string name="price_per_year">%s $/anno</string>
     <string name="insufficient_subscription">Livello di abbonamento insufficiente. Per favore aggiornalo per riattivare il servizio.</string>
     <string name="your_subscription_expired">Il tuo abbonamento è scaduto. Abbonati ora per riattivare il servizio.</string>
-    <string name="logged_in">Collegato come %s</string>
-    <string name="more_options">Altre opzioni</string>
     <string name="background_location_permission_required">Questa app raccoglie i dati di localizzazione per abilitare i promemoria basati sulla posizione, anche quando è chiusa o non è in uso.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="follow_reddit">Segui r/tasks</string>

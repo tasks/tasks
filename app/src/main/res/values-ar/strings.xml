@@ -55,10 +55,9 @@
     <string name="next_week">الأسبوع القادم</string>
     <string name="BFE_Active">مهامي</string>
     <string name="BFE_Recent">ما تم تعديله مؤخرا</string>
-    <string name="CFA_type_add">أو</string>
-    <string name="CFA_type_subtract">ليس</string>
-    <string name="CFA_type_intersect">أيضا</string>
-    <string name="CFA_context_delete">حذف الصف</string>
+    <string name="custom_filter_or">أو</string>
+    <string name="custom_filter_not">ليس</string>
+    <string name="custom_filter_and">أيضا</string>
     <string name="CFA_button_add">إضافة معايير</string>
     <string name="CFC_dueBefore_text">مستحق بحسب :?</string>
     <string name="next_month">الشهر القادم</string>
@@ -153,8 +152,6 @@
     <string name="discard_confirmation">هل أنت متأكد أنك تريد تجاهل تغييراتك؟</string>
     <string name="language">اللغة</string>
     <string name="restart_later">لاحقاً</string>
-    <string name="TEA_no_time">لا وقت</string>
-    <string name="TEA_no_date">لا تاريخ</string>
     <string name="action_call">اتصل</string>
     <string name="TLA_no_items">لا يوجد مهمات هنا.</string>
     <string name="action_open">افتح</string>
@@ -200,9 +197,6 @@
     <string name="no_time">لا وقت</string>
     <string name="no_date">لا تاريخ</string>
     <string name="more_settings">المزيد من الإعدادات</string>
-    <string name="accounts">حسابات</string>
-    <string name="annually">سنوياً</string>
-    <string name="monthly">شهرياً</string>
     <string name="whats_new">ما الجديد</string>
     <string name="open_map">افتح خريطة</string>
     <string name="visit_website">زر الموقع</string>
@@ -210,7 +204,6 @@
     <string name="help">مساعدة</string>
     <string name="start_of_week">بداية أسبوع</string>
     <string name="take_a_picture">التقط صورة</string>
-    <string name="pick_a_date">اختر تاريخاً</string>
     <string name="yesterday_lowercase">البارحة</string>
     <string name="tomorrow_lowercase">الغد</string>
     <string name="today_lowercase">اليوم</string>
@@ -221,7 +214,6 @@
     <string name="priority_low">منخفض</string>
     <string name="priority_medium">متوسط</string>
     <string name="priority_high">عال</string>
-    <string name="pick_a_time">اختر وقتًا</string>
     <string name="date_and_time">التاريخ و الوقت</string>
     <string name="repeat_until">كرِّر حتَّى %s</string>
     <plurals name="task_count">

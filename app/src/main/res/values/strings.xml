@@ -5,7 +5,6 @@
   <string name="actfm_picture_clear">Clear Picture</string>
   <string name="TVA_add_comment">Add a comment…</string>
   <string name="display_name">Display name</string>
-  <string name="enter_filter_name">Enter filter name</string>
   <string name="backup_BPr_header">Backups</string>
   <string name="backup_BAc_export">Backup now</string>
   <string name="backup_BAc_import">Import backup</string>
@@ -48,14 +47,12 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_title_hint">Task name</string>
   <string name="TEA_importance_label">Priority</string>
   <string name="TEA_add_subtask">Add subtask</string>
-  <string name="TEA_no_date">No date</string>
   <string name="TEA_note_label">Description</string>
   <string name="TEA_estimatedDuration_label">How long will it take?</string>
   <string name="TEA_elapsedDuration_label">Time already spent</string>
   <string name="save">Save</string>
   <string name="TEA_timer_est">Est. %s</string>
   <string name="TEA_timer_elap">Elapsed %s</string>
-  <string name="TEA_no_time">No time</string>
   <string name="due_date">Due date</string>
   <string name="due_time">Due time</string>
   <string name="start_date">Start date</string>
@@ -83,7 +80,6 @@ File %1$s contained %2$s.\n\n
   <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks will remind you about upcoming calendar events and prompt you to prepare for them</string>
   <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="none">None</string>
-  <string name="EPr_filters_to_show_title">Filters to show</string>
   <string name="EPr_edit_screen_options">Edit screen options</string>
   <string name="EPr_beastMode_reset">Reset to defaults</string>
   <string name="EPr_fullTask_title">Show full task title</string>
@@ -128,11 +124,6 @@ File %1$s contained %2$s.\n\n
   <string name="default_location_reminder_on_arrival_or_departure">On arrival and departure</string>
   <string name="BFE_Active">My Tasks</string>
   <string name="BFE_Recent">Recently modified</string>
-  <string name="CFA_type_add">or</string>
-  <string name="CFA_type_subtract">not</string>
-  <string name="CFA_type_intersect">also</string>
-  <string name="CFA_context_chain">%s has criteria</string>
-  <string name="CFA_context_delete">Delete Row</string>
   <string name="CFA_button_add">Add Criteria</string>
   <string name="CFC_dueBefore_text">Due By: ?</string>
   <string name="CFC_dueBefore_name">Due By…</string>
@@ -309,7 +300,6 @@ File %1$s contained %2$s.\n\n
   <string name="yest">Yest</string>
   <string name="yesterday_abbrev_lowercase">yest</string>
   <string name="widget_show_checkboxes">Show checkboxes</string>
-  <string name="widget_hide_background">Hide background</string>
   <string name="widget_show_header">Show header</string>
   <string name="widget_show_settings">Show settings</string>
   <string name="widget_show_title">Show title</string>
@@ -341,8 +331,6 @@ File %1$s contained %2$s.\n\n
   <string name="remove">Remove</string>
   <string name="randomly_once">Randomly once</string>
   <string name="randomly">Randomly</string>
-  <string name="pick_a_date">Pick a date</string>
-  <string name="pick_a_time">Pick a time</string>
   <string name="pick_a_date_and_time">Pick a date and time</string>
   <string name="when_overdue">When overdue</string>
   <string name="when_due">When due</string>
@@ -425,7 +413,6 @@ File %1$s contained %2$s.\n\n
   <string name="widget_settings">Widget settings</string>
   <string name="widget_header_settings">Header settings</string>
   <string name="widget_row_settings">Row settings</string>
-  <string name="widget_footer_settings">Footer settings</string>
   <string name="widget_footer">Footer</string>
   <string name="widget_on_click">On click</string>
   <string name="widget_do_nothing">Do nothing</string>
@@ -534,9 +521,6 @@ File %1$s contained %2$s.\n\n
   <string name="invalid_backup_file">Invalid backup file</string>
   <string name="google_tasks_add_to_top">New tasks on top</string>
   <string name="name_your_price">Name your price</string>
-  <string name="more_options">More options</string>
-  <string name="monthly">Monthly</string>
-  <string name="annually">Yearly</string>
   <string name="caldav_account_repeating_tasks">Server handles recurring tasks</string>
   <string name="expand_subtasks">Expand subtasks</string>
   <string name="collapse_subtasks">Collapse subtasks</string>
@@ -561,7 +545,6 @@ File %1$s contained %2$s.\n\n
   <string name="preferences_look_and_feel">Look and feel</string>
   <string name="preferences_advanced">Advanced</string>
   <string name="documentation">Documentation</string>
-  <string name="accounts">Accounts</string>
   <string name="wearable_notifications">Wearable notifications</string>
   <string name="wearable_notifications_summary">Display notifications on your wearable</string>
   <string name="troubleshooting">Troubleshooting</string>
@@ -659,7 +642,6 @@ File %1$s contained %2$s.\n\n
   <string name="delete_comment">Delete this comment?</string>
   <string name="custom_filter_has_subtask">Has subtasks</string>
   <string name="custom_filter_is_subtask">Is subtask</string>
-  <string name="logged_in">Logged in %s</string>
   <string name="your_subscription_expired">Your subscription has expired. Subscribe now to resume service.</string>
   <string name="insufficient_subscription">Insufficient subscription level. Please upgrade your subscription to resume service.</string>
   <string name="insufficient_sponsorship">No eligible GitHub sponsorship found</string>
@@ -669,7 +651,6 @@ File %1$s contained %2$s.\n\n
   <string name="price_per_month">$%s/month</string>
   <string name="price_per_month_abbreviated">$%s/mo</string>
   <string name="current_subscription">Current subscription: %s</string>
-  <string name="purchases_updated">Purchases updated</string>
   <string name="follow_reddit">Follow r/tasks</string>
   <string name="authorization_cancelled">Authorization cancelled</string>
   <string name="not_signed_in">Not signed in</string>
@@ -699,6 +680,5 @@ File %1$s contained %2$s.\n\n
   <string name="get_tasks_org_account">Get Tasks.org account</string>
   <string name="tasks_org_account_required">Tasks.org account required</string>
   <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
-  <string name="reverse_geocoder">Reverse geocoder</string>
   <string name="map_theme_use_app_theme">Use app theme</string>
 </resources>

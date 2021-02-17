@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Išvalyti paveiksliuką</string>
     <string name="TVA_add_comment">Pridėti komentarą…</string>
-    <string name="enter_filter_name">Įvesti filtro pavadinimą</string>
     <string name="backup_BPr_header">Atsarginės kopijos</string>
     <string name="backup_BAc_import">Importuoti užduotis</string>
     <string name="backup_BAc_export">Eksportuoti užduotis</string>
@@ -33,14 +32,14 @@
     <string name="FLA_new_filter">Sukurti naują filtrą</string>
     <string name="TEA_title_hint">Užduoties pavadinimas</string>
     <string name="TEA_importance_label">Pirmenybė</string>
-    <string name="TEA_no_date">Be datos</string>
+    <string name="no_date">Be datos</string>
     <string name="TEA_note_label">Aprašymas</string>
     <string name="TEA_estimatedDuration_label">Kiek laiko tai užtruks?</string>
     <string name="TEA_elapsedDuration_label">Praleista laiko</string>
     <string name="save">Išsaugoti</string>
     <string name="TEA_timer_est">Apie %s</string>
     <string name="TEA_timer_elap">Prabėgo %s</string>
-    <string name="TEA_no_time">Be laiko</string>
+    <string name="no_time">Be laiko</string>
     <string name="due_date">Termino tada</string>
     <string name="due_time">Termino laikas</string>
     <string name="day_before_due">Diena iki termino pabaigos</string>
@@ -67,7 +66,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks programa primins apie artėjančius kalendoriaus įvykius ir pasiūlys jiems pasiruošti</string>
     <string name="CRA_default_list_name">Veiksmų punktas: %s</string>
     <string name="none">Nėra</string>
-    <string name="EPr_filters_to_show_title">Kuriuos filtrus rodyti</string>
     <string name="EPr_edit_screen_options">Redaguoti ekrano opcijas</string>
     <string name="EPr_beastMode_reset">Ištrinti numatytuosius</string>
     <string name="EPr_fullTask_title">Rodyti visą užduoties pavadinimą</string>
@@ -105,11 +103,9 @@
     <string name="default_location_reminder_on_arrival_or_departure">Atvykus ir išvykstant</string>
     <string name="BFE_Active">Mano užduotys</string>
     <string name="BFE_Recent">Neseniai redaguoti</string>
-    <string name="CFA_type_add">arba</string>
-    <string name="CFA_type_subtract">ne</string>
-    <string name="CFA_type_intersect">taip pat</string>
-    <string name="CFA_context_chain">%s turi kriterijų</string>
-    <string name="CFA_context_delete">Ištrinti eilutę</string>
+    <string name="custom_filter_or">arba</string>
+    <string name="custom_filter_not">ne</string>
+    <string name="custom_filter_and">taip pat</string>
     <string name="CFA_button_add">Pridėti kriterijų</string>
     <string name="CFC_dueBefore_text">Pabaigos terminas pagal: ?</string>
     <string name="CFC_dueBefore_name">Terminas pagal…</string>
@@ -292,8 +288,6 @@
     <string name="remove">Išmesti</string>
     <string name="randomly_once">Atsitiktinai vieną kartą</string>
     <string name="randomly">Atsitiktinai</string>
-    <string name="pick_a_date">Pasirinkti datą</string>
-    <string name="pick_a_time">Pasirinkti laiką</string>
     <string name="pick_a_date_and_time">Pasirinkti datą ir laiką</string>
     <string name="when_overdue">Terminui pasibaigus</string>
     <string name="when_due">Atėjus terminui</string>

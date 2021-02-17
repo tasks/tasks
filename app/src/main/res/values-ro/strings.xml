@@ -4,7 +4,6 @@
     <string name="TEA_control_importance">Prioritate</string>
     <string name="TEA_control_notes">Descriere</string>
     <string name="TEA_control_files">Fisiere</string>
-    <string name="CFA_type_add">sau</string>
-    <string name="CFA_context_delete">Sterge linia</string>
+    <string name="custom_filter_or">sau</string>
     <string name="filters">Filtre</string>
 </resources>

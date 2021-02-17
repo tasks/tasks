@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">清除图片</string>
     <string name="TVA_add_comment">添加一个注释…</string>
-    <string name="enter_filter_name">输入过滤器名称</string>
     <string name="backup_BPr_header">备份</string>
     <string name="backup_BAc_import">导入备份</string>
     <string name="backup_BAc_export">现在备份</string>
@@ -33,14 +32,12 @@
     <string name="FLA_new_filter">新建过滤器</string>
     <string name="TEA_title_hint">任务名</string>
     <string name="TEA_importance_label">优先级</string>
-    <string name="TEA_no_date">暂无数据</string>
     <string name="TEA_note_label">描述</string>
     <string name="TEA_estimatedDuration_label">要花多久时间?</string>
     <string name="TEA_elapsedDuration_label">已用于任务的时间</string>
     <string name="save">保存</string>
     <string name="TEA_timer_est">估计 %s</string>
     <string name="TEA_timer_elap">已耗时 %s</string>
-    <string name="TEA_no_time">没有时间</string>
     <string name="due_date">截止日期</string>
     <string name="due_time">到期时间</string>
     <string name="day_before_due">截止期前一天</string>
@@ -66,7 +63,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks将会提醒你即将到来的日历事件，并提示你为他们做准备</string>
     <string name="CRA_default_list_name">行动项目：%s</string>
     <string name="none">无</string>
-    <string name="EPr_filters_to_show_title">要显示的过滤器</string>
     <string name="EPr_edit_screen_options">编辑屏幕选项</string>
     <string name="EPr_beastMode_reset">恢复默认值</string>
     <string name="EPr_fullTask_title">显示完整的任务标题</string>
@@ -98,11 +94,6 @@
     <string name="at_deadline_or_overdue">截止期限或过期时</string>
     <string name="BFE_Active">我的任务</string>
     <string name="BFE_Recent">最近修改过的</string>
-    <string name="CFA_type_add">或</string>
-    <string name="CFA_type_subtract">非</string>
-    <string name="CFA_type_intersect">且</string>
-    <string name="CFA_context_chain">%s 含条件</string>
-    <string name="CFA_context_delete">删除行</string>
     <string name="CFA_button_add">添加条件</string>
     <string name="CFC_dueBefore_text">期限: ?</string>
     <string name="CFC_dueBefore_name">何时到期…</string>
@@ -279,8 +270,6 @@
     <string name="remove">移除</string>
     <string name="randomly_once">随机一次</string>
     <string name="randomly">随机</string>
-    <string name="pick_a_date">选个日期</string>
-    <string name="pick_a_time">选个时间</string>
     <string name="pick_a_date_and_time">选个日期和时间</string>
     <string name="when_overdue">过期时</string>
     <string name="when_due">到期时</string>
@@ -446,8 +435,6 @@
     <string name="button_upgrade">升级订阅</string>
     <string name="button_unsubscribe">取消订阅</string>
     <string name="name_your_price">您愿意支付多少费用</string>
-    <string name="monthly">每月</string>
-    <string name="annually">每年</string>
     <string name="list_separator_with_space">"， "</string>
     <string name="error_adding_account">错误：%s</string>
     <string name="SSD_sort_my_order">我的顺序</string>
@@ -486,7 +473,6 @@
     <string name="documentation">文档</string>
     <string name="preferences_look_and_feel">外观和感觉</string>
     <string name="preferences_advanced">高级</string>
-    <string name="accounts">账户</string>
     <string name="wearable_notifications">可穿戴设备提示</string>
     <string name="wearable_notifications_summary">在你的可穿戴设备上显示通知</string>
     <string name="troubleshooting">疑难解答</string>
@@ -533,7 +519,6 @@
     <string name="widget_open_list">打开列表</string>
     <string name="widget_do_nothing">什么也不做</string>
     <string name="widget_on_click">点击时</string>
-    <string name="widget_hide_background">隐藏背景</string>
     <string name="auto_dismiss_datetime_widget_summary">从小部件中选择时自动关闭</string>
     <string name="auto_dismiss_datetime_widget">小部件</string>
     <string name="auto_dismiss_datetime_edit_summary">从任务编辑中选择时自动关闭</string>
@@ -545,7 +530,6 @@
     <string name="widget_due_date_after_title">标题后</string>
     <string name="widget_due_date_reschedule">重新安排任务</string>
     <string name="widget_footer">页脚</string>
-    <string name="widget_footer_settings">页脚设置</string>
     <string name="opacity_footer">页脚不透明度</string>
     <string name="opacity_row">行不透明度</string>
     <string name="opacity_header">标题不透明度</string>
@@ -623,7 +607,6 @@
     <string name="ok">好</string>
     <string name="custom_filter_is_subtask">是子任务</string>
     <string name="custom_filter_has_subtask">有子任务</string>
-    <string name="purchases_updated">购买已更新</string>
     <string name="current_subscription">当前订阅：%s</string>
     <string name="price_per_month_abbreviated">$%s/月</string>
     <string name="price_per_month">$%s/月</string>
@@ -631,8 +614,6 @@
     <string name="price_per_year">$%s/年</string>
     <string name="insufficient_subscription">订阅等级不够。请升级你的订阅来恢复服务。</string>
     <string name="your_subscription_expired">你的订阅已到期。现在订阅恢复服务。</string>
-    <string name="logged_in">登录%s</string>
-    <string name="more_options">更多选项</string>
     <string name="follow_reddit">关注 r/tasks</string>
     <string name="background_location_permission_required">本应用收集位置数据，以启用基于位置的提醒，即使应用程序关闭或不使用。</string>
     <string name="repeat_monthly_fifth_week">第五</string>

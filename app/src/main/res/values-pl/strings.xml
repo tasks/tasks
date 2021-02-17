@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Usuń obrazek</string>
     <string name="TVA_add_comment">Dodaj komentarz…</string>
-    <string name="enter_filter_name">Podaj nazwę filtra</string>
     <string name="backup_BPr_header">Kopie zapasowe</string>
     <string name="backup_BAc_import">Importuj kopię zapasową</string>
     <string name="backup_BAc_export">Utwórz kopię zapasową teraz</string>
@@ -33,14 +32,12 @@
     <string name="FLA_new_filter">Stwórz nowy filtr</string>
     <string name="TEA_title_hint">Tytuł zadania</string>
     <string name="TEA_importance_label">Priorytet</string>
-    <string name="TEA_no_date">Brak daty</string>
     <string name="TEA_note_label">Opis</string>
     <string name="TEA_estimatedDuration_label">Jak długo to zajmie?</string>
     <string name="TEA_elapsedDuration_label">Czas dotychczas spędzony nad tym zadaniem</string>
     <string name="save">Zapisz</string>
     <string name="TEA_timer_est">zał. %s</string>
     <string name="TEA_timer_elap">Minęło %s</string>
-    <string name="TEA_no_time">Bez godziny</string>
     <string name="due_date">W dniu terminu</string>
     <string name="due_time">Dokładnie w terminie</string>
     <string name="day_before_due">Dzień przed terminem</string>
@@ -67,7 +64,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks będzie przypominał ci o nadchodzących wydarzeniach w kalendarzu oraz będzie nakłaniał do przygotowania się do nich</string>
     <string name="CRA_default_list_name">Wydarzenia aktywne: %s</string>
     <string name="none">Brak</string>
-    <string name="EPr_filters_to_show_title">Pokazywane filtry</string>
     <string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
     <string name="EPr_beastMode_reset">Przywróć domyślne</string>
     <string name="EPr_fullTask_title">Pokaż pełny tytuł zadania</string>
@@ -105,11 +101,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">Po przybyciu i przy wyruszeniu</string>
     <string name="BFE_Active">Moje zadania</string>
     <string name="BFE_Recent">Niedawno zmodyfikowane</string>
-    <string name="CFA_type_add">lub</string>
-    <string name="CFA_type_subtract">nie</string>
-    <string name="CFA_type_intersect">także</string>
-    <string name="CFA_context_chain">%s zawiera kryteria</string>
-    <string name="CFA_context_delete">Usuń kryterium</string>
     <string name="CFA_button_add">Dodaj kryterium</string>
     <string name="CFC_dueBefore_text">Termin wykonania: ?</string>
     <string name="CFC_dueBefore_name">Termin wykonania…</string>
@@ -307,8 +298,6 @@
     <string name="remove">Usuń</string>
     <string name="randomly_once">Losowo raz</string>
     <string name="randomly">Losowo</string>
-    <string name="pick_a_date">Wybierz datę</string>
-    <string name="pick_a_time">Wybierz czas</string>
     <string name="pick_a_date_and_time">Wybierz datę i czas</string>
     <string name="when_overdue">Gdy zaległe</string>
     <string name="when_due">Gdy w terminie</string>
@@ -467,8 +456,6 @@
     <string name="button_upgrade">Podwyższyć poziom subskrypcji</string>
     <string name="button_unsubscribe">Anuluj subskrypcję</string>
     <string name="name_your_price">Nazwij swoją cenę</string>
-    <string name="monthly">Miesięczne</string>
-    <string name="annually">Rocznie</string>
     <string name="SSD_sort_my_order">Ręczne</string>
     <string name="caldav_account_repeating_tasks">Serwer obsługuje powtarzające się zadania</string>
     <string name="EPr_temp_show_completed_tasks">Tymczasowo pokazuj zadania po zakończeniu</string>
@@ -506,7 +493,6 @@
     <string name="documentation">Dokumentacja</string>
     <string name="preferences_look_and_feel">Wygląd</string>
     <string name="preferences_advanced">Zaawansowane</string>
-    <string name="accounts">Konta</string>
     <string name="wearable_notifications">Powiadomienia wearable</string>
     <string name="wearable_notifications_summary">Wyświetlanie powiadomień na urządzeniu do noszenia</string>
     <string name="troubleshooting">Rozwiązywanie problemów</string>
@@ -563,13 +549,11 @@
     <string name="widget_do_nothing">Nie rób nic</string>
     <string name="widget_on_click">Po kliknięciu</string>
     <string name="widget_footer">Stopka</string>
-    <string name="widget_footer_settings">Ustawienia stopki</string>
     <string name="opacity_footer">Nieprzezroczystość stopki</string>
     <string name="opacity_row">Nieprzezroczystość wierszy</string>
     <string name="opacity_header">Nieprzezroczystość nagłówka</string>
     <string name="widget_show_dividers">Pokaż przegródki</string>
     <string name="widget_show_menu">Pokaż menu</string>
-    <string name="widget_hide_background">Ukryj tło</string>
     <string name="filter_eisenhower_box_4">Nieważne i niepilne</string>
     <string name="filter_eisenhower_box_3">Nieważne i pilne</string>
     <string name="filter_eisenhower_box_2">Ważne i niepilne</string>
@@ -649,7 +633,6 @@
     <string name="sign_in_with_github">Zaloguj z GitHub</string>
     <string name="sign_in_with_google">Zaloguj z Google</string>
     <string name="not_signed_in">Niezalogowany</string>
-    <string name="more_options">Więcej opcji</string>
     <string name="repeat_monthly_fifth_week">piąty</string>
     <plurals name="list_count">
         <item quantity="one">%d lista</item>
@@ -677,7 +660,6 @@
     <string name="google_play_subscribers">Subskrybenci Google Play</string>
     <string name="authorization_cancelled">Autoryzacja anulowana</string>
     <string name="follow_reddit">Śledź r/tasks</string>
-    <string name="purchases_updated">Zaktualizowano zakupy</string>
     <string name="current_subscription">Aktualna subskrypcja: %s</string>
     <string name="price_per_month_abbreviated">$%s/mies.</string>
     <string name="price_per_month">$%s/miesiąc</string>
@@ -687,7 +669,6 @@
     <string name="insufficient_sponsorship">Nie znaleziono kwalifikującego się sponsoringu GitHub</string>
     <string name="insufficient_subscription">Niewystarczający poziom subskrypcji. Zwiększ poziom subskrypcji, aby wznowić usługę.</string>
     <string name="your_subscription_expired">Twoja subskrypcja wygasła. Zasubskrybuj teraz, aby wznowić usługę.</string>
-    <string name="logged_in">Zalogowany %s</string>
     <string name="decsync_selection_description">Synchronizuj swoje zadania z aplikacją DecSync CC</string>
     <string name="local_lists">Listy lokalne</string>
     <string name="sort_due_group">Termin %s</string>

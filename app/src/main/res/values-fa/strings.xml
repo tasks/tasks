@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">پاک کردن عکس</string>
     <string name="TVA_add_comment">اضافه کردن نظر</string>
-    <string name="enter_filter_name">نام فیلتر را وارد نمایید</string>
     <string name="backup_BPr_header">پشتیبان ها</string>
     <string name="backup_BAc_import">واردکردن وظایف</string>
     <string name="backup_BAc_export">خرجی از وظایف</string>
@@ -24,13 +23,13 @@
     <string name="FLA_new_filter">ایجاد فیلتر جدید</string>
     <string name="TEA_title_hint">نام وظیفه</string>
     <string name="TEA_importance_label">اولویت</string>
-    <string name="TEA_no_date">بدون تاریخ</string>
+    <string name="no_date">بدون تاریخ</string>
     <string name="TEA_note_label">توضیحات</string>
     <string name="TEA_estimatedDuration_label">این چقدر طول میکشد ؟</string>
     <string name="TEA_elapsedDuration_label">زمان سپری شده</string>
     <string name="save">ذخیره</string>
     <string name="TEA_timer_elap">سپری‌شده %s</string>
-    <string name="TEA_no_time">بدون زمان</string>
+    <string name="no_time">بدون زمان</string>
     <string name="due_date">تاریخ موعود</string>
     <string name="due_time">زمان موعود</string>
     <string name="day_before_due">روز قبل از موعود</string>
@@ -51,7 +50,6 @@
     <string name="CRA_postpone">شاید یعدا</string>
     <string name="CRA_calendar_reminders_pref_title">دستیار تقویم</string>
     <string name="none">هیچکدام</string>
-    <string name="EPr_filters_to_show_title">فیلترها برای نمایش</string>
     <string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
     <string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
     <string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>
@@ -72,10 +70,9 @@
     <string name="at_deadline_or_overdue">در روز موعد یا پس از موعود</string>
     <string name="BFE_Active">وظایف من</string>
     <string name="BFE_Recent">اخیرا ویرایش شده</string>
-    <string name="CFA_type_add">يا</string>
-    <string name="CFA_type_subtract">نه</string>
-    <string name="CFA_type_intersect">همچنین</string>
-    <string name="CFA_context_delete">حذف سطر</string>
+    <string name="custom_filter_or">يا</string>
+    <string name="custom_filter_not">نه</string>
+    <string name="custom_filter_and">همچنین</string>
     <string name="CFA_button_add">اضافه کردن محتوا</string>
     <string name="CFC_dueBefore_name">موعود بر اساس</string>
     <string name="no_due_date">بدون موعود</string>
@@ -188,8 +185,6 @@
     <string name="remove">حذف</string>
     <string name="randomly_once">به طور تصادفی یک دفعه</string>
     <string name="randomly">به طور تصادفی</string>
-    <string name="pick_a_date">یک تاریخ انتخاب کنید</string>
-    <string name="pick_a_time">یک زمان انتخاب کنید</string>
     <string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
     <string name="when_overdue">پس از موعود</string>
     <string name="when_due">روز موعود</string>

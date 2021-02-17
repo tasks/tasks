@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">הסר תמונה</string>
     <string name="TVA_add_comment">הוספת הערה…</string>
-    <string name="enter_filter_name">הזן שם מסנן</string>
     <string name="backup_BPr_header">גיבויים</string>
     <string name="backup_BAc_import">ייבוא מגיבוי</string>
     <string name="backup_BAc_export">גיבוי כעת</string>
@@ -38,14 +37,12 @@
     <string name="FLA_new_filter">יצירת מסנן חדש</string>
     <string name="TEA_title_hint">שם המשימה</string>
     <string name="TEA_importance_label">עדיפות</string>
-    <string name="TEA_no_date">ללא תאריך</string>
     <string name="TEA_note_label">תיאור</string>
     <string name="TEA_estimatedDuration_label">כמה זמן תיקח המשימה?</string>
     <string name="TEA_elapsedDuration_label">זמן שהושקע במשימה</string>
     <string name="save">שמור</string>
     <string name="TEA_timer_est">נשארו %s</string>
     <string name="TEA_timer_elap">זמן שעבר %s</string>
-    <string name="TEA_no_time">ללא שעה מסויימת</string>
     <string name="due_date">עד ה</string>
     <string name="due_time">מועד הביצוע</string>
     <string name="day_before_due">יום לפני מועד היעד</string>
@@ -72,7 +69,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">אסטריד תזכיר לך אירועי יומן עתידיים ותעודד אותך להתכונן אליהם</string>
     <string name="CRA_default_list_name">פריטי פעולה: %s</string>
     <string name="none">ללא</string>
-    <string name="EPr_filters_to_show_title">אילו מַסְנְנִים להציג</string>
     <string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>
     <string name="EPr_beastMode_reset">אפס להגדרות ברירת מחדל</string>
     <string name="EPr_fullTask_title">הצג כותרת מלאה</string>
@@ -110,11 +106,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">ברגע ההגעה והעזיבה</string>
     <string name="BFE_Active">המשימות שלי</string>
     <string name="BFE_Recent">עודכנו לאחרונה</string>
-    <string name="CFA_type_add">או</string>
-    <string name="CFA_type_subtract">לא</string>
-    <string name="CFA_type_intersect">וגם</string>
-    <string name="CFA_context_chain">%s כולל קריטריונים</string>
-    <string name="CFA_context_delete">מחק שורה</string>
     <string name="CFA_button_add">הוסף קריטריון</string>
     <string name="CFC_dueBefore_text">תאריך יעד לפי: ?</string>
     <string name="CFC_dueBefore_name">מועד יעד…</string>
@@ -328,8 +319,6 @@
     <string name="remove">הסר</string>
     <string name="randomly_once">אקראי יחיד</string>
     <string name="randomly">אקראי</string>
-    <string name="pick_a_date">בחר/י בתאריך</string>
-    <string name="pick_a_time">בחר שעה</string>
     <string name="pick_a_date_and_time">בחר תאריך ושעה</string>
     <string name="when_overdue">לאחר מועד היעד</string>
     <string name="when_due">במועד היעד</string>
@@ -486,14 +475,11 @@
     <string name="button_upgrade">שדרוג מינוי</string>
     <string name="button_unsubscribe">ביטול מינוי</string>
     <string name="name_your_price">מה המחיר שלך</string>
-    <string name="monthly">חודשי</string>
-    <string name="annually">שנתי</string>
     <string name="places">מיקומים</string>
     <string name="no_time">אין זמן</string>
     <string name="no_date">אין תאריך</string>
     <string name="chip_appearance_text_only">רק טקסט</string>
     <string name="more_settings">יותר הגדרות</string>
-    <string name="accounts">חשבונות</string>
     <string name="preferences_advanced">מתקדם</string>
     <string name="preferences_look_and_feel">מראה ותחושה</string>
     <string name="create_new_tag">לייצור \"%s\"</string>
@@ -549,7 +535,6 @@
     <string name="subtasks">תתי משימות</string>
     <string name="widget_show_dividers">הצג חוצצים</string>
     <string name="widget_show_menu">הצג תפריט</string>
-    <string name="widget_hide_background">הסתרת רקע</string>
     <string name="EPr_temp_completed_tasks_showing">המשימות יישארו גלויות ברשימה, באופן זמני, לאחר השלמתן</string>
     <string name="EPr_temp_show_completed_tasks">הצג באופן זמני משימות עם השלמתם</string>
     <string name="TEA_add_subtask">הוסף משימת משנה</string>
@@ -572,7 +557,6 @@
     <string name="widget_do_nothing">לא לעשות כלום</string>
     <string name="widget_on_click">בלחיצה</string>
     <string name="widget_footer">כותרת תחתונה</string>
-    <string name="widget_footer_settings">הגדרות כותרת תחתונה</string>
     <string name="theme_system_default">בררת המחדל של המערכת</string>
     <string name="opacity_footer">אטימות הכותרת התחתונה</string>
     <string name="opacity_header">אטימות כותרת</string>
@@ -664,17 +648,14 @@
     <string name="insufficient_subscription">רמת המינוי אינה מספיקה. נא לשדרג את המינוי כדי להמשיך את השירות.</string>
     <string name="background_location_permission_required">האפליקצייה הזו אוספת נתוני מיקום כדי לאפשר תזכורות על בסיס מיקום אפילו כשהיישומון סגור ולא בשימוש.</string>
     <string name="follow_reddit">מעקב אחר r/tasks</string>
-    <string name="purchases_updated">המינויים עודכנו</string>
     <string name="current_subscription">מינוי נוכחי: %s</string>
     <string name="price_per_month_abbreviated">$%s/חודש</string>
     <string name="price_per_month">$%s לחודש</string>
     <string name="price_per_year_abbreviated">$%s/שנה</string>
     <string name="price_per_year">$%s לשנה</string>
     <string name="your_subscription_expired">תוקף המינוי שלך פג. ניתן להירשם כעת להמשיך את השירות.</string>
-    <string name="logged_in">נכנסת %s</string>
     <string name="custom_filter_is_subtask">היא תת־משימה</string>
     <string name="custom_filter_has_subtask">כוללת תתי־משימות</string>
-    <string name="more_options">אפשרויות נוספות</string>
     <string name="repeat_monthly_fifth_week">החמישי</string>
     <string name="always_display_full_date">הצגת תאריך שלם</string>
     <string name="migrating_tasks">מעביר משימות</string>

@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Borrar imagen</string>
     <string name="TVA_add_comment">Añadir un comentario…</string>
-    <string name="enter_filter_name">Introducir el nombre del filtro</string>
     <string name="backup_BPr_header">Copias de seguridad</string>
     <string name="backup_BAc_import">Importar copia de seguridad</string>
     <string name="backup_BAc_export">Copia ahora</string>
@@ -38,13 +37,11 @@
     <string name="FLA_new_filter">Crear nuevo filtro</string>
     <string name="TEA_title_hint">Nombre de la tarea</string>
     <string name="TEA_importance_label">Prioridad</string>
-    <string name="TEA_no_date">Sin fecha</string>
     <string name="TEA_note_label">Descripción</string>
     <string name="TEA_estimatedDuration_label">¿Cuanto tiempo llevará?</string>
     <string name="TEA_elapsedDuration_label">Tiempo ya empleado en la tarea</string>
     <string name="save">Guardar</string>
     <string name="TEA_timer_elap">Transcurrido %s</string>
-    <string name="TEA_no_time">Sin horario</string>
     <string name="due_date">Fecha de vencimiento</string>
     <string name="due_time">Hora de vencimiento</string>
     <string name="day_before_due">Día previo al vencimiento</string>
@@ -71,7 +68,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks le recordará los próximos eventos de calendario y le pedirá que se prepare para ellos</string>
     <string name="CRA_default_list_name">Acciones: %s</string>
     <string name="none">Ninguna</string>
-    <string name="EPr_filters_to_show_title">Filtros a mostrar</string>
     <string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
     <string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
     <string name="EPr_fullTask_title">Mostrar completo el título de la tarea</string>
@@ -109,11 +105,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">A la salida y llegada</string>
     <string name="BFE_Active">Mis Tareas</string>
     <string name="BFE_Recent">Recién modificadas</string>
-    <string name="CFA_type_add">o</string>
-    <string name="CFA_type_subtract">no</string>
-    <string name="CFA_type_intersect">también</string>
-    <string name="CFA_context_chain">%s cumple el criterio</string>
-    <string name="CFA_context_delete">Eliminar Fila</string>
     <string name="CFA_button_add">Añadir Criterio</string>
     <string name="CFC_dueBefore_text">Vence el: ?</string>
     <string name="CFC_dueBefore_name">Vence el…</string>
@@ -296,8 +287,6 @@
     <string name="remove">Eliminar</string>
     <string name="randomly_once">Aleatorio, una sola vez</string>
     <string name="randomly">Aleatoriamente</string>
-    <string name="pick_a_date">Elegir fecha</string>
-    <string name="pick_a_time">Elegir hora</string>
     <string name="pick_a_date_and_time">Elegir fecha y hora</string>
     <string name="when_overdue">Si está atrasada</string>
     <string name="when_due">Al vencimiento</string>
@@ -457,8 +446,6 @@
     <string name="button_upgrade">Suscripción de actualización</string>
     <string name="button_unsubscribe">Cancelar la suscripción</string>
     <string name="name_your_price">Escoger tu precio</string>
-    <string name="monthly">Mensualmente</string>
-    <string name="annually">Anualmente</string>
     <string name="SSD_sort_my_order">Mi orden</string>
     <string name="caldav_account_repeating_tasks">El servidor se encarga de las tareas recurrentes</string>
     <string name="EPr_temp_show_completed_tasks">Mostrar temporalmente las tareas una vez completadas</string>
@@ -495,7 +482,6 @@
     <string name="documentation">Documentación</string>
     <string name="preferences_look_and_feel">Apariencia</string>
     <string name="preferences_advanced">Avanzado</string>
-    <string name="accounts">Cuentas</string>
     <string name="wearable_notifications">Notificaciones del reloj</string>
     <string name="wearable_notifications_summary">Mostrar las notificaciones en su reloj</string>
     <string name="troubleshooting">Solución de problemas</string>
@@ -542,11 +528,9 @@
     <string name="widget_do_nothing">No hagas nada</string>
     <string name="widget_on_click">Al hacer clic</string>
     <string name="widget_show_menu">Mostrar el menú</string>
-    <string name="widget_hide_background">Ocultar fondo</string>
     <string name="widget_due_date_hidden">Oculto</string>
     <string name="widget_due_date_below_title">Debajo del título</string>
     <string name="widget_due_date_after_title">Después del título</string>
-    <string name="widget_footer_settings">Configuración del pie de página</string>
     <string name="opacity_footer">Opacidad del pie de página</string>
     <string name="opacity_row">Opacidad de la fila</string>
     <string name="opacity_header">Opacidad del encabezado</string>
@@ -632,7 +616,6 @@
     <string name="always_display_full_date">Mostrar la fecha completa</string>
     <string name="custom_filter_is_subtask">Es una subtarea</string>
     <string name="custom_filter_has_subtask">Tiene subtareas</string>
-    <string name="purchases_updated">Compras actualizadas</string>
     <string name="current_subscription">Suscripción actual: %s</string>
     <string name="price_per_month_abbreviated">$%s/mes</string>
     <string name="price_per_month">$%s/mes</string>
@@ -640,8 +623,6 @@
     <string name="price_per_year">$%s/año</string>
     <string name="insufficient_subscription">Nivel de suscripción insuficiente. Actualice su suscripción para reanudar el servicio.</string>
     <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>
-    <string name="logged_in">Autenticado como %s</string>
-    <string name="more_options">Más opciones</string>
     <string name="background_location_permission_required">Esta aplicación recopila datos de ubicación para habilitar recordatorios basados en la ubicación incluso cuando la aplicación está cerrada o no está en uso.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="follow_reddit">Seguir r/Tasks</string>

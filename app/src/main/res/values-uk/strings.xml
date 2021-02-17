@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Очистити картинку</string>
     <string name="TVA_add_comment">Додати коментар…</string>
-    <string name="enter_filter_name">Введіть назву фільтра</string>
     <string name="backup_BPr_header">Резервні копії</string>
     <string name="backup_BAc_import">Імпортувати резервну копію</string>
     <string name="backup_BAc_export">Створити резервну копію зараз</string>
@@ -38,14 +37,12 @@
     <string name="FLA_new_filter">Створити новий фільтр</string>
     <string name="TEA_title_hint">Назва завдання</string>
     <string name="TEA_importance_label">Пріоритет</string>
-    <string name="TEA_no_date">Без дати</string>
     <string name="TEA_note_label">Опис</string>
     <string name="TEA_estimatedDuration_label">Скільки часу це займе\?</string>
     <string name="TEA_elapsedDuration_label">Часу вже витрачено</string>
     <string name="save">Зберегти</string>
     <string name="TEA_timer_est">Прибл. %s</string>
     <string name="TEA_timer_elap">Пройшло %s</string>
-    <string name="TEA_no_time">Без часу</string>
     <string name="due_date">Дата виконання</string>
     <string name="due_time">Час виконання</string>
     <string name="day_before_due">Доба до дати виконання</string>
@@ -72,7 +69,6 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks буде нагадувати вам про майбутні події у календарі та пропонувати приготуватися до них</string>
     <string name="CRA_default_list_name">Список дій: %s</string>
     <string name="none">Немає</string>
-    <string name="EPr_filters_to_show_title">Показати фільтри</string>
     <string name="EPr_edit_screen_options">Налаштування екрану редагування</string>
     <string name="EPr_beastMode_reset">Скинути налаштування</string>
     <string name="EPr_fullTask_title">Показувати повну назву завдання</string>
@@ -110,11 +106,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">Після прибуття та під час покиданні місця</string>
     <string name="BFE_Active">Мої завдання</string>
     <string name="BFE_Recent">Нещодавно змінені</string>
-    <string name="CFA_type_add">або</string>
-    <string name="CFA_type_subtract">не</string>
-    <string name="CFA_type_intersect">також</string>
-    <string name="CFA_context_chain">%s має критерії</string>
-    <string name="CFA_context_delete">Видалити рядок</string>
     <string name="CFA_button_add">Додати критерій</string>
     <string name="CFC_dueBefore_text">Дата завершення: \?</string>
     <string name="CFC_dueBefore_name">Дата завершення…</string>
@@ -313,8 +304,6 @@
     <string name="remove">Вилучити</string>
     <string name="randomly_once">Випадково раз</string>
     <string name="randomly">Випадково</string>
-    <string name="pick_a_date">Обрати дату</string>
-    <string name="pick_a_time">Обрати час</string>
     <string name="pick_a_date_and_time">Обрати дату та час</string>
     <string name="when_overdue">Коли прострочено</string>
     <string name="when_due">В призначений час</string>
@@ -499,7 +488,6 @@
     <string name="encryption_password_wrong">Невірний пароль шифрування</string>
     <string name="wearable_notifications_summary">Показувати повідомлення на натільних пристроях</string>
     <string name="wearable_notifications">Повідомлення на натільні пристрої</string>
-    <string name="accounts">Облікові записи</string>
     <string name="documentation">Документація</string>
     <string name="etesync_encryption_description">Запам\'ятайте свій пароль шифрування. Його неможливо відновити!</string>
     <string name="etesync_account_description">Потрібний обліковий запис у EteSync.com або власний сервер</string>
@@ -517,8 +505,6 @@
     <string name="expand_subtasks">Розгорнути підзавдання</string>
     <string name="caldav_account_repeating_tasks">Сервер обробляє повторювані завдання</string>
     <string name="name_your_price">Назвіть свою ціну</string>
-    <string name="annually">Щорічно</string>
-    <string name="monthly">Щомісячно</string>
     <string name="this_feature_requires_a_subscription">Ця функція потребує підписки</string>
     <string name="button_unsubscribe">Скасувати підписку</string>
     <string name="share">Поділитися</string>
@@ -579,7 +565,6 @@
     <string name="not_signed_in">Не авторизовані</string>
     <string name="authorization_cancelled">Авторизацію скасовано</string>
     <string name="follow_reddit">Підписатися на r/tasks</string>
-    <string name="purchases_updated">Покупки оновлені</string>
     <string name="current_subscription">Поточна підписка: %s</string>
     <string name="price_per_year_abbreviated">%s $/рік</string>
     <string name="price_per_month_abbreviated">%s$/міс.</string>
@@ -589,7 +574,6 @@
     <string name="insufficient_sponsorship">Відповідного вимогам спонсорства GitHub не знайдено</string>
     <string name="insufficient_subscription">Недостатній рівень підписки. Будь ласка, оновіть свою підписку, щоб відновити обслуговування.</string>
     <string name="your_subscription_expired">Термін дії вашої підписки закінчився. Підпишіться зараз, щоб відновити обслуговування.</string>
-    <string name="logged_in">Ви увійшли як %s</string>
     <string name="custom_filter_is_subtask">Підзавдання</string>
     <string name="custom_filter_has_subtask">Є підзавдання</string>
     <string name="delete_comment">Видалити цей коментар\?</string>
@@ -665,7 +649,6 @@
     <string name="widget_do_nothing">Нічого не робити</string>
     <string name="widget_on_click">Після натискання</string>
     <string name="widget_footer">Спід</string>
-    <string name="widget_footer_settings">Налаштування споду</string>
     <string name="opacity_footer">Непрозорість споду</string>
     <string name="opacity_row">Непрозорість строки</string>
     <string name="opacity_header">Непрозорість заголовка</string>
@@ -679,7 +662,6 @@
     <string name="header_spacing">Інтервал</string>
     <string name="widget_show_dividers">Показати розділювачі</string>
     <string name="widget_show_menu">Показати меню</string>
-    <string name="widget_hide_background">Сховати фон</string>
     <string name="yesterday_lowercase">вчора</string>
     <string name="tomorrow_lowercase">завтра</string>
     <string name="today_lowercase">сьогодні</string>
@@ -703,7 +685,6 @@
     <string name="manage_lists">Керування списками</string>
     <string name="cancel">Скасувати</string>
     <string name="ok">ОК</string>
-    <string name="more_options">Більше варіантів</string>
     <string name="filter_any_start_date">Будь-яка дата початку</string>
     <string name="CFC_startBefore_name">Дата початку…</string>
     <string name="CFC_startBefore_text">Дата початку: \?</string>
