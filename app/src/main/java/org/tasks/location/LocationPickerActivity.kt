@@ -241,14 +241,14 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     fun selectLocation() {
         val mapPosition = map.mapPosition ?: return
         loadingIndicator.visibility = View.VISIBLE
-        try {
-            lifecycleScope.launch {
+        lifecycleScope.launch {
+            try {
                 returnPlace(geocoder.reverseGeocode(mapPosition) ?: newPlace(mapPosition))
+            } catch (e: Exception) {
+                loadingIndicator.visibility = View.GONE
+                firebase.reportException(e)
+                toaster.longToast(e.message)
             }
-        } catch (e: Exception) {
-            loadingIndicator.visibility = View.GONE
-            firebase.reportException(e)
-            toaster.longToast(e.message)
         }
     }
 
