@@ -3,7 +3,7 @@
     {
       "artifactId": {
         "name": "dav4jvm",
-        "group": "com.gitlab.bitfireAT",
+        "group": "com.gitlab.abaker",
         "version": "+"
       },
       "copyrightHolder": "bitfire web engineering (Ricki Hirner, Bernhard Stockmann)",

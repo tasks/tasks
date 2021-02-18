@@ -1,4 +1,4 @@
-- artifact: com.gitlab.bitfireAT:dav4jvm:+
+- artifact: com.gitlab.abaker:dav4jvm:+
   name: dav4jvm
   copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
   license: Mozilla Public License, Version 2.0
