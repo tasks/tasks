@@ -638,7 +638,7 @@
     <string name="improve_performance_summary">Вимкнути групи сортування та згортання підзавдань для пришвидшення роботи застосунку</string>
     <string name="improve_performance">Пришвидщити роботу</string>
     <string name="whats_new">Що нового</string>
-    <string name="background_location_permission_required">Цей застосунок збирає дані геолокації, щоб активувати нагадування на основі розташування, навіть коли застосунок закритий або не використовується.</string>
+    <string name="background_location_permission_required">Tasks збирає дані геолокації, щоб активувати нагадування на основі розташування навіть коли застосунок закритий або не використовується.</string>
     <string name="action_new_task">Нове завдання</string>
     <string name="repeat_monthly_fifth_week">П’ята</string>
     <string name="widget_due_date_hidden">Сховано</string>
