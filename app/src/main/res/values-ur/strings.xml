@@ -352,4 +352,24 @@
     <string name="yesterday_abbrev_lowercase">گزشتہ کل</string>
     <string name="tomorrow_abbrev_lowercase">کل</string>
     <string name="tmrw">کل</string>
+    <string name="pick_from_storage">اسٹوریج سے اٹھائیں</string>
+    <string name="pick_from_gallery">گیلری سے اٹھائیں</string>
+    <string name="take_a_picture">تصویر لیں</string>
+    <string name="add_attachment">اٹیچ منٹ لگائیں</string>
+    <string name="no_app_found">کوئی ایپ اس درخواست پر عمل نہیں کر سکتی</string>
+    <string name="reverse">الٹا کریں</string>
+    <string name="filter_criteria_unstarted">شروع نہ کیے گئے</string>
+    <string name="show_completed">مکمل ہو چکے دکھائیں</string>
+    <string name="show_unstarted">غیر شروع دکھائیں</string>
+    <string name="filter_settings">فلٹر سیٹنگ</string>
+    <string name="move">منتقل کریں</string>
+    <string name="copy">کاپی کریں</string>
+    <string name="delete">ڈیلیٹ کریں</string>
+    <string name="list_settings">لسٹ سیٹنگ</string>
+    <string name="tag_settings">ٹیگ سیٹنگ</string>
+    <string name="discard">مسترد کریں</string>
+    <string name="menu_discard_changes">تبدیلیاں مسترد کریں</string>
+    <string name="discard_changes">تبدیلیاں مسترد کریں؟</string>
+    <string name="date_shortcut_must_come_after">%1$s کو %2$sسے پہلے آنا چاہیے</string>
+    <string name="date_shortcut_must_come_before">%1$s کو %2$s سے پہلے آنا چایئے</string>
 </resources>
