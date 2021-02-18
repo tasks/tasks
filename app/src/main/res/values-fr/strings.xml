@@ -64,7 +64,7 @@
     <string name="none">Aucun</string>
     <string name="EPr_edit_screen_options">Modifier les options d\'affichage</string>
     <string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>
-    <string name="EPr_fullTask_title">Voir le titre complet de la tâche</string>
+    <string name="EPr_fullTask_title">Afficher le titre complet de la tâche</string>
     <string name="EPr_show_task_edit_comments">Afficher les commentaires dans l\'édition de tâches</string>
     <string name="task_list_options">Options de la liste des tâches</string>
     <string name="EPr_cal_end_or_start_at_due_time">Heure de l\'événement dans le calendrier</string>
@@ -245,9 +245,9 @@
     <string name="yesterday">Hier</string>
     <string name="tmrw">Demain</string>
     <string name="yest">Hier</string>
-    <string name="widget_show_checkboxes">Montrer les cases à cocher</string>
-    <string name="widget_show_header">Montrer l\'en-tête</string>
-    <string name="widget_show_settings">Voir les paramètres</string>
+    <string name="widget_show_checkboxes">Afficher les cases à cocher</string>
+    <string name="widget_show_header">Afficher l\'en-tête</string>
+    <string name="widget_show_settings">Afficher les paramètres</string>
     <string name="silent">Silencieux</string>
     <string name="sound">Son</string>
     <string name="quiet_hours">Heures de repos</string>
@@ -396,8 +396,8 @@
     <string name="cannot_access_account">Impossible d\'accéder au compte</string>
     <string name="reinitialize_account">Réinitialiser</string>
     <string name="action_create_new_task">Créer une nouvelle tâche</string>
-    <string name="show_description">Montrer la description</string>
-    <string name="show_full_description">Montrer la description complète</string>
+    <string name="show_description">Afficher la description</string>
+    <string name="show_full_description">Afficher la description complète</string>
     <string name="linkify">Afficher les liens</string>
     <string name="linkify_description">Ajouter des liens vers des sites Web, des adresses et des numéros de téléphone</string>
     <string name="location_remind_arrival">Rappel à l\'arrivée</string>
@@ -445,7 +445,7 @@
     <string name="caldav_account_repeating_tasks">Le serveur gère les tâches récurrentes</string>
     <string name="EPr_temp_show_completed_tasks">Afficher temporairement les tâches une fois terminées</string>
     <string name="EPr_temp_completed_tasks_showing">Les tâches resteront temporairement visibles dans la liste une fois terminées</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Les tâches vont immédiatement disparaître de la liste après complétion</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Les tâches disparaîtront immédiatement de la liste après complétion</string>
     <plurals name="subtask_count">
         <item quantity="one">%d sous-tâche</item>
         <item quantity="other">%d sous-tâches</item>
@@ -656,7 +656,7 @@
     <string name="default_due_date">Date d’échéance par défaut</string>
     <string name="start_date">Date de début</string>
     <string name="filter_criteria_unstarted">Pas commencé</string>
-    <string name="show_unstarted">Afficher non démarré</string>
+    <string name="show_unstarted">Afficher les tâches à venir</string>
     <string name="no_start_date">Pas de date de début</string>
     <string name="default_start_date">Date de début par défaut</string>
     <string name="SSD_sort_start">Par date de début</string>
