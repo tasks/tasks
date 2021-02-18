@@ -623,7 +623,7 @@
     <string name="price_per_year">$%s/año</string>
     <string name="insufficient_subscription">Nivel de suscripción insuficiente. Actualice su suscripción para reanudar el servicio.</string>
     <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>
-    <string name="background_location_permission_required">Esta aplicación recopila datos de ubicación para habilitar recordatorios basados en la ubicación incluso cuando la aplicación está cerrada o no está en uso.</string>
+    <string name="background_location_permission_required">Tasks recopila datos de ubicación para habilitar recordatorios basados en la ubicación, incluso cuando la aplicación está cerrada o no está en uso.</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="follow_reddit">Seguir r/Tasks</string>
     <string name="authorization_cancelled">Autorización cancelada</string>
