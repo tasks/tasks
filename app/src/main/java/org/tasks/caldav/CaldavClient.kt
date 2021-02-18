@@ -160,8 +160,8 @@ open class CaldavClient(
 
     @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
     suspend fun updateCollection(displayName: String, color: Int): String = withContext(Dispatchers.IO) {
-        val davResource = PatchableDavResource(httpClient, httpUrl!!)
-        davResource.propPatch(getPropPatchString(displayName, color)) {}
+        val davResource = DavResource(httpClient, httpUrl!!)
+        davResource.proppatch(getPropPatchString(displayName, color)) { _, _ -> }
         davResource.location.toString()
     }
 
