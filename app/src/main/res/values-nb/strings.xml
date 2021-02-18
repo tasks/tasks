@@ -168,14 +168,14 @@
     <string name="TEA_load_more">Last inn mer…</string>
     <string name="CRA_ignore">Ignorer</string>
     <string name="CRA_title">Trenger du en møteliste\?</string>
-    <string name="CRA_ignore_body">Du har ignorert flere kalenderhendelser. Skal Tasks slutte å minne deg om dem\?</string>
+    <string name="CRA_ignore_body">Du har ignorert flere kalenderhendelser. Skal Tasks slutte å påminne deg om dem\?</string>
     <string name="CRA_ignore_all">Ignorer alle hendelser</string>
     <string name="CRA_ignore_this">Kun ignorer denne hendelsen</string>
     <string name="CRA_speech_bubble_start">Ser ut til at %s starter snart. Ønsker du å opprette en gjøremålsliste\?</string>
     <string name="CRA_speech_bubble_end">Ser ut til at du akkurat fullførte %s. Ønsker du å opprette en gjøremålsliste\?</string>
     <string name="CRA_postpone">Kanskje etterpå</string>
     <string name="CRA_calendar_reminders_pref_title">Kalenderassistent</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks minner deg om kommende kalenderhendelser og formaner forberedelse</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks påminner deg om kommende kalenderhendelser og formaner forberedelse</string>
     <string name="CRA_default_list_name">Gjøremål: %s</string>
     <string name="none">Ingen</string>
     <string name="EPr_edit_screen_options">Rediger skjermvalg</string>
@@ -624,7 +624,7 @@
     <string name="price_per_year">$%s/år</string>
     <string name="your_subscription_expired">Ditt abonnement har utløpt. Abonner nå for å fortsette tjenesten.</string>
     <string name="follow_reddit">Følg r/tasks</string>
-    <string name="background_location_permission_required">Dette programmet posisjonsdata for å kunne utløse posisjonsbaserte påminnelser, selv når programmet er lukket eller ikke i bruk.</string>
+    <string name="background_location_permission_required">Tasks samler posisjonsdata for å kunne utløse posisjonsbaserte påminnelser, selv når programmet er lukket eller ikke i bruk.</string>
     <string name="repeat_monthly_fifth_week">femte</string>
     <string name="sign_in_with_google">Logg inn med Google</string>
     <string name="authorization_cancelled">Identietsbekreftelse avbrutt</string>
@@ -678,4 +678,7 @@
     <string name="get_tasks_org_account">Skaff Tasks.org-konto</string>
     <string name="tasks_org_account">Tasks.org-konto</string>
     <string name="widget_show_title">Vis tittel</string>
+    <string name="map_theme_use_app_theme">Bruk programdrakt</string>
+    <string name="tasks_org_account_required">Tasks.org-konto kreves</string>
+    <string name="map_theme">Kartdrakt</string>
 </resources>
