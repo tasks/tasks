@@ -25,7 +25,10 @@ class LocationServiceGooglePlay @Inject constructor(
                     .getFusedLocationProviderClient(context)
                     .lastLocation
                     .addOnSuccessListener {
-                        cont.resumeWith(Result.success(MapPosition(it.latitude, it.longitude)))
+                        cont.resumeWith(
+                                it?.let { Result.success(MapPosition(it.latitude, it.longitude)) }
+                                        ?: Result.failure(NullPointerException())
+                        )
                     }
                     .addOnFailureListener { cont.resumeWith(Result.failure(it)) }
         }
