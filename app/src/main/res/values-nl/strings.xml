@@ -619,7 +619,7 @@
     <string name="insufficient_subscription">Abonnementsniveau onvoldoende. Verhoog a.u.b. je abonnement om deze dienst te hervatten.</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer je nu om deze dienst te hervatten.</string>
     <string name="follow_reddit">Volg r/tasks</string>
-    <string name="background_location_permission_required">Deze applicatie verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de applicatie gesloten is of niet gebruikt wordt.</string>
+    <string name="background_location_permission_required">Tasks verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de applicatie gesloten is of niet gebruikt wordt.</string>
     <string name="repeat_monthly_fifth_week">vijfde</string>
     <string name="authorization_cancelled">Autorisatie geannuleerd</string>
     <string name="sign_in_with_google">Log in met Google</string>
