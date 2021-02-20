@@ -640,7 +640,7 @@
         <item quantity="many">%d list</item>
         <item quantity="other">%d list</item>
     </plurals>
-    <string name="background_location_permission_required">Ta aplikacja zbiera dane o lokalizacji, nawet gdy aplikacja jest zamknięta lub nie jest używana - to jest potrzebne dla przypomnień opartych o lokalizację.</string>
+    <string name="background_location_permission_required">Tasks zbiera dane o lokalizacji, nawet gdy aplikacja jest zamknięta lub nie jest używana - to jest potrzebne dla przypomnień opartych o lokalizację.</string>
     <string name="copied_to_clipboard">%s skopiowano do schowka</string>
     <string name="app_password_save">Użyj tych poświadczeń, aby skonfigurować aplikację innej firmy. Dają pełny dostęp do Twojego konta Tasks.org, nie zapisuj ich ani nie udostępniaj nikomu!</string>
     <string name="app_password_delete_confirmation">Każda aplikacja korzystająca z tego hasła zostanie wylogowana</string>
@@ -691,4 +691,7 @@
     <string name="subscription">Subskrypcja</string>
     <string name="account_not_included">Nie obejmuje subskrypcji \"Podaj swoją cenę\"</string>
     <string name="widget_show_title">Pokaż tytuł</string>
+    <string name="map_theme_use_app_theme">Użyj motywu aplikacji</string>
+    <string name="tasks_org_account_required">Wymagane konto Tasks.org</string>
+    <string name="map_theme">Motyw mapy</string>
 </resources>
