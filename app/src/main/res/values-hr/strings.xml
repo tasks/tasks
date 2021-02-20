@@ -103,11 +103,11 @@
     <string name="shortcut_pick_time">Odaberite vrijeme</string>
     <string name="next_month">Sljedeći mjesec</string>
     <string name="next_week">Sljedeći tjedan</string>
-    <string name="yesterday">Jučer</string>
+    <string name="yesterday">jučer</string>
     <string name="yesterday_lowercase">jučer</string>
-    <string name="yest">Jučer</string>
-    <string name="tmrw">Sutra</string>
-    <string name="today">Danas</string>
+    <string name="yest">jučer</string>
+    <string name="tmrw">sutra</string>
+    <string name="today">danas</string>
     <string name="today_lowercase">danas</string>
     <string name="no_due_date">Bez datuma dospijeća</string>
     <string name="repeat_option_custom">Prilagođen…</string>
@@ -150,4 +150,12 @@
     <string name="SSD_sort_start">Po datumu početka</string>
     <string name="SSD_sort_modified">Po zadnjoj izmjeni</string>
     <string name="TAd_actionEditTask">Uredi</string>
+    <string name="customize_edit_screen">Prilagodi zaslon za uređivanje</string>
+    <string name="font_size">Veličina fonta</string>
+    <string name="enabled">Omogućeno</string>
+    <string name="subtasks">Podzadaci</string>
+    <string name="yesterday_abbrev_lowercase">jučer</string>
+    <string name="tomorrow_lowercase">sutra</string>
+    <string name="tomorrow">sutra</string>
+    <string name="tomorrow_abbrev_lowercase">sutra</string>
 </resources>
