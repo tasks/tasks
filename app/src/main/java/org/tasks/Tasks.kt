@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
+import org.tasks.caldav.property.Invite
 import org.tasks.caldav.property.ShareAccess
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingJobIntentService
@@ -94,6 +95,7 @@ class Tasks : Application(), Configuration.Provider {
         appWidgetManager.get().reconfigureWidgets()
         PropertyRegistry.register(listOf(
                 ShareAccess.Factory(),
+                Invite.Factory()
         ))
     }
 

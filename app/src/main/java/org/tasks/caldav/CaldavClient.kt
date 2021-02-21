@@ -19,6 +19,7 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.caldav.property.Invite
 import org.tasks.caldav.property.ShareAccess
 import org.tasks.data.CaldavAccount
 import org.tasks.ui.DisplayableException
@@ -124,6 +125,7 @@ open class CaldavClient(
                 CalendarColor.NAME,
                 SyncToken.NAME,
                 ShareAccess.NAME,
+                Invite.NAME
         ) { response: Response, relation: HrefRelation ->
             if (relation == HrefRelation.MEMBER) {
                 responses.add(response)
