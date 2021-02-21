@@ -234,6 +234,7 @@ dependencies {
     testImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
     testImplementation("androidx.test:core:${Versions.androidx_test}")
     testImplementation("org.mockito:mockito-core:${Versions.mockito}")
+    testImplementation("org.ogce:xpp3:1.1.6")
 }
 
 apply(mapOf("plugin" to "com.google.gms.google-services"))

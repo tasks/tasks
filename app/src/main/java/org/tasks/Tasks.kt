@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.core.app.JobIntentService
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
+import at.bitfire.dav4jvm.PropertyRegistry
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
 import dagger.hilt.android.HiltAndroidApp
@@ -17,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
+import org.tasks.caldav.property.ShareAccess
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
@@ -90,6 +92,9 @@ class Tasks : Application(), Configuration.Provider {
         FileHelper.delete(context, preferences.cacheDirectory)
         billingClient.get().queryPurchases()
         appWidgetManager.get().reconfigureWidgets()
+        PropertyRegistry.register(listOf(
+                ShareAccess.Factory(),
+        ))
     }
 
     override fun getWorkManagerConfiguration(): Configuration = Configuration.Builder()
