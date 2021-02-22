@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.caldav.property.Invite
+import org.tasks.caldav.property.OCInvite
 import org.tasks.caldav.property.OCOwnerPrincipal
 import org.tasks.caldav.property.PropertyUtils.register
 import org.tasks.caldav.property.ShareAccess
@@ -99,6 +100,7 @@ class Tasks : Application(), Configuration.Provider {
                 ShareAccess.Factory(),
                 Invite.Factory(),
                 OCOwnerPrincipal.Factory(),
+                OCInvite.Factory(),
         )
     }
 

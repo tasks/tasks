@@ -20,6 +20,7 @@ import okhttp3.OkHttpClient
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.property.Invite
+import org.tasks.caldav.property.OCInvite
 import org.tasks.caldav.property.OCOwnerPrincipal
 import org.tasks.caldav.property.ShareAccess
 import org.tasks.data.CaldavAccount
@@ -222,6 +223,7 @@ open class CaldavClient(
                 ShareAccess.NAME,
                 Invite.NAME,
                 OCOwnerPrincipal.NAME,
+                OCInvite.NAME,
         )
 
         private suspend fun DavResource.propfind(

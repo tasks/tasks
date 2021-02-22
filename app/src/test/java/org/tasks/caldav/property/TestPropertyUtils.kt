@@ -5,8 +5,10 @@ import at.bitfire.dav4jvm.XmlUtils
 import java.io.StringReader
 
 object TestPropertyUtils {
-    fun <T: Property> String.toProperty(ns: String = """d="DAV:""""): T =
-            toProperties(ns)
+    private val DAV = "d" to XmlUtils.NS_WEBDAV
+
+    fun <T: Property> String.toProperty(vararg ns: Pair<String, String>): T =
+            toProperties(*ns)
                     .apply { if (this.size != 1) throw IllegalStateException("${this.size} items") }
                     .first()
                     .let {
@@ -14,12 +16,15 @@ object TestPropertyUtils {
                         it as T
                     }
 
-    fun String.toProperties(ns: String = """d="DAV:""""): List<Property> =
+    fun String.toProperties(vararg ns: Pair<String, String>): List<Property> =
             XmlUtils.newPullParser()
                     .apply {
+                        val namespaces = ns.toList().plus(DAV).joinToString(" ") {
+                            """xmlns:${it.first}="${it.second}""""
+                        }
                         setInput(
                                 StringReader("""
-                                    <test xmlns:$ns>
+                                    <test $namespaces>
                                         ${this@toProperties}
                                     </test>
                                     """.trimIndent()
