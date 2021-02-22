@@ -1,8 +1,8 @@
 package org.tasks.caldav
 
-import androidx.annotation.WorkerThread
 import at.bitfire.cert4android.CustomCertManager
 import at.bitfire.dav4jvm.DavResource
+import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.Response
 import at.bitfire.dav4jvm.Response.HrefRelation
 import at.bitfire.dav4jvm.XmlUtils.NS_APPLE_ICAL
@@ -32,6 +32,7 @@ import java.io.StringWriter
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
 import java.util.*
+import kotlin.coroutines.suspendCoroutine
 
 open class CaldavClient(
         private val provider: CaldavClientProvider,
@@ -43,49 +44,26 @@ open class CaldavClient(
     suspend fun forAccount(account: CaldavAccount) =
             provider.forAccount(account)
 
-    @WorkerThread
-    @Throws(DavException::class, IOException::class)
-    private fun tryFindPrincipal(link: String): String? {
-        val url = httpUrl!!.resolve(link)
-        Timber.d("Checking for principal: %s", url)
-        val davResource = DavResource(httpClient, url!!)
-        val responses = ArrayList<Response>()
-        davResource.propfind(0, CurrentUserPrincipal.NAME) { response, _ ->
-            responses.add(response)
-        }
-        if (responses.isNotEmpty()) {
-            val response = responses[0]
-            val currentUserPrincipal = response[CurrentUserPrincipal::class.java]
-            if (currentUserPrincipal != null) {
-                val href = currentUserPrincipal.href
-                if (!isNullOrEmpty(href)) {
-                    return href
-                }
-            }
-        }
-        return null
-    }
+    private suspend fun tryFindPrincipal(link: String): String? =
+            httpUrl
+                    ?.resolve(link)
+                    ?.let { DavResource(httpClient, it) }
+                    ?.propfind(0, CurrentUserPrincipal.NAME)
+                    ?.firstOrNull()
+                    ?.let { (response, _) -> response[CurrentUserPrincipal::class.java] }
+                    ?.href
+                    ?.takeIf { it.isNotBlank() }
 
-    @WorkerThread
-    @Throws(DavException::class, IOException::class)
-    private fun findHomeset(): String {
+    private suspend fun findHomeset(): String {
         val davResource = DavResource(httpClient, httpUrl!!)
-        val responses = ArrayList<Response>()
-        davResource.propfind(0, CalendarHomeSet.NAME) { response, _ ->
-            responses.add(response)
-        }
-        val response = responses[0]
-        val calendarHomeSet = response[CalendarHomeSet::class.java]
+        return davResource
+                .propfind(0, CalendarHomeSet.NAME)
+                .firstOrNull()
+                ?.let { (response, _) -> response[CalendarHomeSet::class.java] }
+                ?.href
+                ?.takeIf { it.isNotBlank() }
+                ?.let { davResource.location.resolve(it).toString() }
                 ?: throw DisplayableException(R.string.caldav_home_set_not_found)
-        val hrefs: List<String> = calendarHomeSet.hrefs
-        if (hrefs.size != 1) {
-            throw DisplayableException(R.string.caldav_home_set_not_found)
-        }
-        val homeSet = hrefs[0]
-        if (isNullOrEmpty(homeSet)) {
-            throw DisplayableException(R.string.caldav_home_set_not_found)
-        }
-        return davResource.location.resolve(homeSet).toString()
     }
 
     @Throws(IOException::class, DavException::class, NoSuchAlgorithmException::class, KeyManagementException::class)
@@ -112,43 +90,15 @@ open class CaldavClient(
                 .findHomeset()
     }
 
-    @Throws(IOException::class, DavException::class)
-    suspend fun calendars(): List<Response> = withContext(Dispatchers.IO) {
-        val davResource = DavResource(httpClient, httpUrl!!)
-        val responses = ArrayList<Response>()
-        davResource.propfind(
-                1,
-                ResourceType.NAME,
-                DisplayName.NAME,
-                SupportedCalendarComponentSet.NAME,
-                GetCTag.NAME,
-                CalendarColor.NAME,
-                SyncToken.NAME,
-                ShareAccess.NAME,
-                Invite.NAME
-        ) { response: Response, relation: HrefRelation ->
-            if (relation == HrefRelation.MEMBER) {
-                responses.add(response)
-            }
-        }
-        val urls: MutableList<Response> = ArrayList()
-        for (member in responses) {
-            val resourceType = member[ResourceType::class.java]
-            if (resourceType == null
-                    || !resourceType.types.contains(CALENDAR)) {
-                Timber.d("%s is not a calendar", member)
-                continue
-            }
-            val supportedCalendarComponentSet = member.get(SupportedCalendarComponentSet::class.java)
-            if (supportedCalendarComponentSet == null
-                    || !supportedCalendarComponentSet.supportsTasks) {
-                Timber.d("%s does not support tasks", member)
-                continue
-            }
-            urls.add(member)
-        }
-        urls
-    }
+    suspend fun calendars(): List<Response> =
+            DavResource(httpClient, httpUrl!!)
+                    .propfind(1, *calendarProperties)
+                    .filter { (response, relation) ->
+                        relation == HrefRelation.MEMBER &&
+                                response[ResourceType::class.java]?.types?.contains(CALENDAR) == true &&
+                                response[SupportedCalendarComponentSet::class.java]?.supportsTasks == true
+                    }
+                    .map { (response, _) -> response }
 
     @Throws(IOException::class, HttpException::class)
     suspend fun deleteCollection() = withContext(Dispatchers.IO) {
@@ -258,5 +208,32 @@ open class CaldavClient(
     fun setForeground(): CaldavClient {
         customCertManager.appInForeground = true
         return this
+    }
+
+    companion object {
+        private val calendarProperties = arrayOf(
+                ResourceType.NAME,
+                DisplayName.NAME,
+                SupportedCalendarComponentSet.NAME,
+                GetCTag.NAME,
+                CalendarColor.NAME,
+                SyncToken.NAME,
+                ShareAccess.NAME,
+                Invite.NAME
+        )
+
+        private suspend fun DavResource.propfind(
+                depth: Int,
+                vararg reqProp: Property.Name
+        ): List<Pair<Response, HrefRelation>> =
+                withContext(Dispatchers.IO) {
+                    suspendCoroutine { cont ->
+                        val responses = ArrayList<Pair<Response, HrefRelation>>()
+                        propfind(depth, *reqProp) { response, relation ->
+                            responses.add(Pair(response, relation))
+                        }
+                        cont.resumeWith(Result.success(responses))
+                    }
+                }
     }
 }
