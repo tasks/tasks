@@ -20,6 +20,7 @@ import okhttp3.OkHttpClient
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.property.Invite
+import org.tasks.caldav.property.OCOwnerPrincipal
 import org.tasks.caldav.property.ShareAccess
 import org.tasks.data.CaldavAccount
 import org.tasks.ui.DisplayableException
@@ -219,7 +220,8 @@ open class CaldavClient(
                 CalendarColor.NAME,
                 SyncToken.NAME,
                 ShareAccess.NAME,
-                Invite.NAME
+                Invite.NAME,
+                OCOwnerPrincipal.NAME,
         )
 
         private suspend fun DavResource.propfind(

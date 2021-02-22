@@ -4,7 +4,7 @@ import at.bitfire.dav4jvm.PropertyRegistry
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.tasks.caldav.property.PropertyUtils.toProperty
+import org.tasks.caldav.property.TestPropertyUtils.toProperty
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
 
 class ShareAccessTest {

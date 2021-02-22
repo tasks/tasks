@@ -4,44 +4,33 @@ import at.bitfire.dav4jvm.PropertyRegistry
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.tasks.caldav.property.PropertyUtils.toProperty
+import org.tasks.caldav.property.PropertyUtils.register
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
+import org.tasks.caldav.property.TestPropertyUtils.toProperty
 
 class InviteTest {
     @Before
     fun setUp() {
-        PropertyRegistry.register(listOf(
-                ShareAccess.Factory(),
-                Invite.Factory()
-        ))
+        PropertyRegistry.register(ShareAccess.Factory(), Invite.Factory())
     }
 
     @Test
-    fun emptyInvite() {
-        val invite: Invite = "<d:invite />".toProperty()
-
-        assertTrue(invite.sharees.isEmpty())
-    }
+    fun emptyInvite() = assertTrue("<d:invite />".toProperty<Invite>().sharees.isEmpty())
 
     @Test
-    fun shareeAccess() {
-        assertEquals(ShareAccess(SHARED_OWNER), sharee(SHARE_OWNER).access)
-    }
+    fun shareeAccess() = assertEquals(ShareAccess(SHARED_OWNER), sharee(SHARE_OWNER).access)
 
     @Test
-    fun shareeHref() {
-        assertEquals("/principals/102967489186752069531", sharee(SHARE_OWNER).href)
-    }
+    fun shareeHref() = assertEquals("/principals/102967489186752069531", sharee(SHARE_OWNER).href)
 
     @Test
-    fun inviteStatus() {
-        assertEquals(Sharee.INVITE_ACCEPTED, sharee(SHARE_OWNER).response)
-    }
+    fun inviteStatus() = assertEquals(Sharee.INVITE_ACCEPTED, sharee(SHARE_OWNER).response)
 
     @Test
-    fun noComment() {
-        assertNull(sharee(SHARE_OWNER).comment)
-    }
+    fun noComment() = assertNull(sharee(SHARE_OWNER).comment)
+
+    @Test
+    fun noProperties() = assertTrue(sharee(SHARE_OWNER).properties.isEmpty())
 
     private fun sharee(xml: String): Sharee = xml.toProperty<Invite>().sharees.first()
 

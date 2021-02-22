@@ -4,9 +4,9 @@ import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.XmlUtils
 import java.io.StringReader
 
-object PropertyUtils {
-    fun <T: Property> String.toProperty(): T =
-            toProperties()
+object TestPropertyUtils {
+    fun <T: Property> String.toProperty(ns: String = """d="DAV:""""): T =
+            toProperties(ns)
                     .apply { if (this.size != 1) throw IllegalStateException("${this.size} items") }
                     .first()
                     .let {
@@ -14,12 +14,12 @@ object PropertyUtils {
                         it as T
                     }
 
-    fun String.toProperties(): List<Property> =
+    fun String.toProperties(ns: String = """d="DAV:""""): List<Property> =
             XmlUtils.newPullParser()
                     .apply {
                         setInput(
                                 StringReader("""
-                                    <test xmlns:d="DAV:">
+                                    <test xmlns:$ns>
                                         ${this@toProperties}
                                     </test>
                                     """.trimIndent()
