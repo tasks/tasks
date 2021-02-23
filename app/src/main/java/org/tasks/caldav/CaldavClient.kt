@@ -224,6 +224,8 @@ open class CaldavClient(
                 Invite.NAME,
                 OCOwnerPrincipal.NAME,
                 OCInvite.NAME,
+                CurrentUserPrivilegeSet.NAME,
+                CurrentUserPrincipal.NAME,
         )
 
         private suspend fun DavResource.propfind(

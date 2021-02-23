@@ -42,6 +42,9 @@ class CaldavCalendar : Parcelable {
     @ColumnInfo(name = "cdl_order")
     var order = NO_ORDER
 
+    @ColumnInfo(name = "cdl_access")
+    var access = 0
+
     constructor()
 
     @Ignore
@@ -61,6 +64,7 @@ class CaldavCalendar : Parcelable {
         url = source.readString()
         icon = source.readInt()
         order = source.readInt()
+        access = source.readInt()
     }
 
     fun getIcon(): Int? {
@@ -84,6 +88,7 @@ class CaldavCalendar : Parcelable {
             writeString(url)
             writeInt(getIcon()!!)
             writeInt(order)
+            writeInt(access)
         }
     }
 
@@ -100,6 +105,7 @@ class CaldavCalendar : Parcelable {
         if (url != other.url) return false
         if (icon != other.icon) return false
         if (order != other.order) return false
+        if (access != other.access) return false
 
         return true
     }
@@ -114,13 +120,19 @@ class CaldavCalendar : Parcelable {
         result = 31 * result + (url?.hashCode() ?: 0)
         result = 31 * result + (icon ?: 0)
         result = 31 * result + order
+        result = 31 * result + access
         return result
     }
 
-    override fun toString(): String =
-            "CaldavCalendar(id=$id, account=$account, uuid=$uuid, name=$name, color=$color, ctag=$ctag, url=$url, icon=$icon, order=$order)"
+    override fun toString(): String {
+        return "CaldavCalendar(id=$id, account=$account, uuid=$uuid, name=$name, color=$color, ctag=$ctag, url=$url, icon=$icon, order=$order, access=$access)"
+    }
 
     companion object {
+        const val ACCESS_OWNER = 0
+        const val ACCESS_READ_WRITE = 1
+        const val ACCESS_READ_ONLY = 2
+
         @JvmField val TABLE = Table("caldav_lists")
         val ACCOUNT = TABLE.column("cdl_account")
         @JvmField val UUID = TABLE.column("cdl_uuid")

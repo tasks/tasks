@@ -4,6 +4,7 @@ import android.content.Context
 import at.bitfire.dav4jvm.DavCalendar
 import at.bitfire.dav4jvm.DavCalendar.Companion.MIME_ICALENDAR
 import at.bitfire.dav4jvm.DavResource
+import at.bitfire.dav4jvm.PropertyRegistry
 import at.bitfire.dav4jvm.Response
 import at.bitfire.dav4jvm.Response.HrefRelation
 import at.bitfire.dav4jvm.exception.DavException
@@ -29,9 +30,19 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
+import org.tasks.caldav.property.Invite
+import org.tasks.caldav.property.OCInvite
+import org.tasks.caldav.property.OCOwnerPrincipal
+import org.tasks.caldav.property.PropertyUtils.register
+import org.tasks.caldav.property.ShareAccess
+import org.tasks.caldav.property.ShareAccess.Companion.READ
+import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.ERROR_UNAUTHORIZED
 import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
 import timber.log.Timber
@@ -120,6 +131,7 @@ class CaldavSynchronizer @Inject constructor(
             var calendar = caldavDao.getCalendarByUrl(account.uuid!!, url)
             val remoteName = resource[DisplayName::class.java]!!.displayName
             val calendarColor = resource[CalendarColor::class.java]
+            val access = resource.accessLevel
             val color = calendarColor?.color ?: 0
             if (calendar == null) {
                 calendar = CaldavCalendar()
@@ -128,10 +140,15 @@ class CaldavSynchronizer @Inject constructor(
                 calendar.url = url
                 calendar.uuid = UUIDHelper.newUUID()
                 calendar.color = color
+                calendar.access = access
                 caldavDao.insert(calendar)
-            } else if (calendar.name != remoteName || calendar.color != color) {
+            } else if (calendar.name != remoteName
+                    || calendar.color != color
+                    || calendar.access != access
+            ) {
                 calendar.color = color
                 calendar.name = remoteName
+                calendar.access = access
                 caldavDao.update(calendar)
                 localBroadcastManager.broadcastRefreshList()
             }
@@ -156,7 +173,9 @@ class CaldavSynchronizer @Inject constructor(
             httpClient: OkHttpClient) {
         Timber.d("sync(%s)", caldavCalendar)
         val httpUrl = resource.href
-        pushLocalChanges(caldavCalendar, httpClient, httpUrl)
+        if (caldavCalendar.access != ACCESS_READ_ONLY) {
+            pushLocalChanges(caldavCalendar, httpClient, httpUrl)
+        }
         val remoteCtag = resource.ctag
         if (caldavCalendar.ctag?.equals(remoteCtag) == true) {
             Timber.d("%s up to date", caldavCalendar.name)
@@ -291,7 +310,37 @@ class CaldavSynchronizer @Inject constructor(
             prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
         }
 
+        fun registerFactories() {
+            PropertyRegistry.register(
+                ShareAccess.Factory(),
+                Invite.Factory(),
+                OCOwnerPrincipal.Factory(),
+                OCInvite.Factory(),
+            )
+        }
+
         val Response.ctag: String?
             get() = this[SyncToken::class.java]?.token ?: this[GetCTag::class.java]?.cTag
+
+        val Response.accessLevel: Int
+            get() {
+                this[ShareAccess::class.java]?.let {
+                    return when (it.access) {
+                        SHARED_OWNER -> ACCESS_OWNER
+                        READ -> ACCESS_READ_ONLY
+                        else -> ACCESS_READ_WRITE
+                    }
+                }
+                this[OCOwnerPrincipal::class.java]?.owner?.let {
+                    val current = this[CurrentUserPrincipal::class.java]?.href
+                    if (current?.endsWith("$it/") == true) {
+                        return ACCESS_OWNER
+                    }
+                }
+                return when (this[CurrentUserPrivilegeSet::class.java]?.mayWriteContent) {
+                    false -> ACCESS_READ_ONLY
+                    else -> ACCESS_READ_WRITE
+                }
+        }
     }
 }
