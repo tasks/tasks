@@ -1950,6 +1950,34 @@
       "normalizedLicense": "apache2",
       "url": "https://github.com/osmdroid/osmdroid",
       "libraryName": "osmdroid-android"
+    },
+    {
+      "artifactId": {
+        "name": "savedstate-ktx",
+        "group": "androidx.savedstate",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/savedstate#1.1.0",
+      "libraryName": "savedstate-ktx"
+    },
+    {
+      "artifactId": {
+        "name": "tracing",
+        "group": "androidx.tracing",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/tracing#1.0.0",
+      "libraryName": "tracing"
     }
   ]
 }

@@ -3,11 +3,14 @@
 ++--- androidx.databinding:databinding-common:4.1.2
 ++--- androidx.databinding:databinding-runtime:4.1.2
 +|    +--- androidx.databinding:viewbinding:4.1.2 (*)
-+|    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.2.0
-+|    |    +--- androidx.lifecycle:lifecycle-common:2.2.0
++|    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.3.0
++|    |    +--- androidx.arch.core:core-runtime:2.1.0
++|    |    |    +--- androidx.annotation:annotation:1.1.0
++|    |    |    \--- androidx.arch.core:core-common:2.1.0
++|    |    |         \--- androidx.annotation:annotation:1.1.0
++|    |    +--- androidx.lifecycle:lifecycle-common:2.3.0
 +|    |    |    \--- androidx.annotation:annotation:1.1.0
-+|    |    +--- androidx.arch.core:core-common:2.1.0
-+|    |    |    \--- androidx.annotation:annotation:1.1.0
++|    |    +--- androidx.arch.core:core-common:2.1.0 (*)
 +|    |    \--- androidx.annotation:annotation:1.1.0
 +|    +--- androidx.collection:collection:1.0.0 -> 1.1.0
 +|    |    \--- androidx.annotation:annotation:1.1.0
@@ -38,7 +41,7 @@
 +|         +--- androidx.annotation:annotation:1.1.0
 +|         \--- androidx.core:core:1.3.2
 +|              +--- androidx.annotation:annotation:1.1.0
-+|              +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.2.0 (*)
++|              +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.3.0 (*)
 +|              +--- androidx.versionedparcelable:versionedparcelable:1.1.0
 +|              |    +--- androidx.annotation:annotation:1.1.0
 +|              |    \--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
@@ -53,7 +56,7 @@
 +|    |    +--- androidx.core:core:1.3.0 -> 1.3.2 (*)
 +|    |    +--- androidx.cursoradapter:cursoradapter:1.0.0
 +|    |    |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
-+|    |    +--- androidx.fragment:fragment:1.1.0 -> 1.2.5
++|    |    +--- androidx.fragment:fragment:1.1.0 -> 1.3.0
 +|    |    |    +--- androidx.annotation:annotation:1.1.0
 +|    |    |    +--- androidx.core:core:1.1.0 -> 1.3.2 (*)
 +|    |    |    +--- androidx.collection:collection:1.1.0 (*)
@@ -67,33 +70,36 @@
 +|    |    |    |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
 +|    |    |    |    +--- androidx.core:core:1.0.0 -> 1.3.2 (*)
 +|    |    |    |    +--- androidx.lifecycle:lifecycle-livedata:2.0.0 -> 2.2.0
-+|    |    |    |    |    +--- androidx.arch.core:core-runtime:2.1.0
-+|    |    |    |    |    |    +--- androidx.annotation:annotation:1.1.0
-+|    |    |    |    |    |    \--- androidx.arch.core:core-common:2.1.0 (*)
-+|    |    |    |    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.2.0
-+|    |    |    |    |    |    +--- androidx.lifecycle:lifecycle-common:2.2.0 (*)
++|    |    |    |    |    +--- androidx.arch.core:core-runtime:2.1.0 (*)
++|    |    |    |    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.2.0 -> 2.3.0
 +|    |    |    |    |    |    +--- androidx.arch.core:core-common:2.1.0 (*)
-+|    |    |    |    |    |    \--- androidx.arch.core:core-runtime:2.1.0 (*)
++|    |    |    |    |    |    +--- androidx.arch.core:core-runtime:2.1.0 (*)
++|    |    |    |    |    |    \--- androidx.lifecycle:lifecycle-common:2.3.0 (*)
 +|    |    |    |    |    \--- androidx.arch.core:core-common:2.1.0 (*)
-+|    |    |    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.0.0 -> 2.2.0
++|    |    |    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.0.0 -> 2.3.0
 +|    |    |    |         \--- androidx.annotation:annotation:1.1.0
-+|    |    |    +--- androidx.activity:activity:1.1.0
++|    |    |    +--- androidx.activity:activity:1.2.0
 +|    |    |    |    +--- androidx.annotation:annotation:1.1.0
 +|    |    |    |    +--- androidx.core:core:1.1.0 -> 1.3.2 (*)
-+|    |    |    |    +--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
-+|    |    |    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
-+|    |    |    |    +--- androidx.savedstate:savedstate:1.0.0
++|    |    |    |    +--- androidx.lifecycle:lifecycle-runtime:2.3.0 (*)
++|    |    |    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.3.0 (*)
++|    |    |    |    +--- androidx.savedstate:savedstate:1.1.0
 +|    |    |    |    |    +--- androidx.annotation:annotation:1.1.0
 +|    |    |    |    |    +--- androidx.arch.core:core-common:2.0.1 -> 2.1.0 (*)
-+|    |    |    |    |    \--- androidx.lifecycle:lifecycle-common:2.0.0 -> 2.2.0 (*)
-+|    |    |    |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0 -> 2.2.0
-+|    |    |    |         +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
-+|    |    |    |         +--- androidx.savedstate:savedstate:1.0.0 (*)
-+|    |    |    |         +--- androidx.lifecycle:lifecycle-livedata-core:2.2.0 (*)
-+|    |    |    |         \--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
-+|    |    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.2.0 (*)
-+|    |    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
-+|    |    |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0 (*)
++|    |    |    |    |    \--- androidx.lifecycle:lifecycle-common:2.0.0 -> 2.3.0 (*)
++|    |    |    |    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0
++|    |    |    |    |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
++|    |    |    |    |    +--- androidx.savedstate:savedstate:1.1.0 (*)
++|    |    |    |    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.3.0 (*)
++|    |    |    |    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.3.0 (*)
++|    |    |    |    +--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
++|    |    |    |    \--- androidx.tracing:tracing:1.0.0
++|    |    |    |         \--- androidx.annotation:annotation:1.1.0
++|    |    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.3.0 (*)
++|    |    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.3.0 (*)
++|    |    |    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0 (*)
++|    |    |    +--- androidx.savedstate:savedstate:1.1.0 (*)
++|    |    |    \--- androidx.annotation:annotation-experimental:1.0.0
 +|    |    +--- androidx.appcompat:appcompat-resources:1.2.0
 +|    |    |    +--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
 +|    |    |    +--- androidx.annotation:annotation:1.1.0
@@ -115,17 +121,17 @@
 +|    +--- androidx.cardview:cardview:1.0.0
 +|    |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
 +|    +--- androidx.lifecycle:lifecycle-extensions:2.2.0
-+|    |    +--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-runtime:2.2.0 -> 2.3.0 (*)
 +|    |    +--- androidx.arch.core:core-common:2.1.0 (*)
 +|    |    +--- androidx.arch.core:core-runtime:2.1.0 (*)
-+|    |    +--- androidx.fragment:fragment:1.2.0 -> 1.2.5 (*)
-+|    |    +--- androidx.lifecycle:lifecycle-common:2.2.0 (*)
++|    |    +--- androidx.fragment:fragment:1.2.0 -> 1.3.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-common:2.2.0 -> 2.3.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.2.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-process:2.2.0
-+|    |    |    \--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
++|    |    |    \--- androidx.lifecycle:lifecycle-runtime:2.2.0 -> 2.3.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-service:2.2.0
-+|    |    |    \--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
-+|    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
++|    |    |    \--- androidx.lifecycle:lifecycle-runtime:2.2.0 -> 2.3.0 (*)
++|    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 -> 2.3.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-livedata-ktx:2.2.0
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.30 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0 -> 1.4.1
@@ -133,15 +139,15 @@
 +|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.0 -> 1.4.30 (*)
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.0 -> 1.4.30
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.2.0 (*)
-+|    |    \--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0
-+|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.30 (*)
-+|    |         \--- androidx.lifecycle:lifecycle-livedata-core:2.2.0 (*)
-+|    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0
-+|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.30 (*)
-+|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0 -> 1.4.1
-+|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1 (*)
-+|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.0 -> 1.4.30 (*)
-+|    |    \--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
++|    |    \--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0 -> 2.3.0
++|    |         +--- androidx.lifecycle:lifecycle-livedata-core:2.3.0 (*)
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.20 -> 1.4.30 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0 -> 2.3.0
++|    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.3.0 (*)
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.20 -> 1.4.30 (*)
++|    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1
++|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1 (*)
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.0 -> 1.4.30 (*)
 +|    +--- com.google.android.material:material:1.2.1 -> 1.3.0
 +|    |    +--- androidx.annotation:annotation:1.0.1 -> 1.1.0
 +|    |    +--- androidx.appcompat:appcompat:1.1.0 -> 1.2.0 (*)
@@ -170,8 +176,8 @@
 +|    |    |         \--- androidx.print:print:1.0.0
 +|    |    |              \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
 +|    |    +--- androidx.annotation:annotation-experimental:1.0.0
-+|    |    +--- androidx.fragment:fragment:1.0.0 -> 1.2.5 (*)
-+|    |    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.2.0 (*)
++|    |    +--- androidx.fragment:fragment:1.0.0 -> 1.3.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.3.0 (*)
 +|    |    +--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0
 +|    |    |    +--- androidx.annotation:annotation:1.1.0
 +|    |    |    +--- androidx.core:core:1.1.0 -> 1.3.2 (*)
@@ -184,7 +190,7 @@
 +|    |    +--- androidx.vectordrawable:vectordrawable:1.1.0 (*)
 +|    |    \--- androidx.viewpager2:viewpager2:1.0.0
 +|    |         +--- androidx.annotation:annotation:1.1.0
-+|    |         +--- androidx.fragment:fragment:1.1.0 -> 1.2.5 (*)
++|    |         +--- androidx.fragment:fragment:1.1.0 -> 1.3.0 (*)
 +|    |         +--- androidx.recyclerview:recyclerview:1.1.0 (*)
 +|    |         +--- androidx.core:core:1.1.0 -> 1.3.2 (*)
 +|    |         \--- androidx.collection:collection:1.1.0 (*)
@@ -194,24 +200,24 @@
 +|    +--- org.dmfs:lib-recur:0.11.4
 +|    |    \--- org.dmfs:rfc5545-datetime:0.2.4
 +|    \--- org.dmfs:jems:1.33
-++--- com.google.dagger:hilt-android:2.31.2-alpha
-+|    +--- com.google.dagger:dagger:2.31.2
+++--- com.google.dagger:hilt-android:2.32-alpha
++|    +--- com.google.dagger:dagger:2.32
 +|    |    \--- javax.inject:javax.inject:1
-+|    +--- com.google.dagger:dagger-lint-aar:2.31.2
-+|    +--- com.google.dagger:hilt-core:2.31.2-alpha
-+|    |    +--- com.google.dagger:dagger:2.31.2 (*)
++|    +--- com.google.dagger:dagger-lint-aar:2.32
++|    +--- com.google.dagger:hilt-core:2.32-alpha
++|    |    +--- com.google.dagger:dagger:2.32 (*)
 +|    |    \--- javax.inject:javax.inject:1
-+|    +--- androidx.activity:activity:1.1.0 (*)
++|    +--- androidx.activity:activity:1.1.0 -> 1.2.0 (*)
 +|    +--- androidx.annotation:annotation:1.1.0
-+|    +--- androidx.fragment:fragment:1.2.5 (*)
-+|    +--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 (*)
-+|    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0 (*)
-+|    +--- androidx.savedstate:savedstate:1.0.0 (*)
++|    +--- androidx.fragment:fragment:1.2.5 -> 1.3.0 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 -> 2.3.0 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0 -> 2.3.0 (*)
++|    +--- androidx.savedstate:savedstate:1.0.0 -> 1.1.0 (*)
 +|    \--- javax.inject:javax.inject:1
 ++--- androidx.hilt:hilt-work:1.0.0-alpha03
 +|    +--- androidx.annotation:annotation:1.1.0
 +|    +--- androidx.hilt:hilt-common:1.0.0-alpha03
-+|    |    \--- com.google.dagger:hilt-core:2.31-alpha -> 2.31.2-alpha (*)
++|    |    \--- com.google.dagger:hilt-core:2.31-alpha -> 2.32-alpha (*)
 +|    +--- androidx.work:work-runtime:2.3.4 -> 2.5.0
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.1.0 -> 2.2.0 (*)
@@ -228,34 +234,38 @@
 +|    |    +--- androidx.sqlite:sqlite-framework:2.1.0 (*)
 +|    |    +--- androidx.core:core:1.1.0 -> 1.3.2 (*)
 +|    |    \--- androidx.lifecycle:lifecycle-service:2.1.0 -> 2.2.0 (*)
-+|    \--- com.google.dagger:hilt-android:2.31-alpha -> 2.31.2-alpha (*)
++|    \--- com.google.dagger:hilt-android:2.31-alpha -> 2.32-alpha (*)
 ++--- androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03
-+|    +--- androidx.activity:activity:1.1.0 (*)
++|    +--- androidx.activity:activity:1.1.0 -> 1.2.0 (*)
 +|    +--- androidx.annotation:annotation:1.1.0
 +|    +--- androidx.hilt:hilt-common:1.0.0-alpha03 (*)
-+|    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0 (*)
-+|    \--- com.google.dagger:hilt-android:2.31-alpha -> 2.31.2-alpha (*)
-++--- androidx.fragment:fragment-ktx:1.2.5
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.30 (*)
-+|    +--- androidx.fragment:fragment:1.2.5 (*)
-+|    +--- androidx.activity:activity-ktx:1.1.0
-+|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.30 (*)
-+|    |    +--- androidx.activity:activity:1.1.0 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0 -> 2.3.0 (*)
++|    \--- com.google.dagger:hilt-android:2.31-alpha -> 2.32-alpha (*)
+++--- androidx.fragment:fragment-ktx:1.3.0
++|    +--- androidx.fragment:fragment:1.3.0 (*)
++|    +--- androidx.activity:activity-ktx:1.2.0
++|    |    +--- androidx.activity:activity:1.2.0 (*)
 +|    |    +--- androidx.core:core-ktx:1.1.0 -> 1.3.2 (*)
-+|    |    +--- androidx.lifecycle:lifecycle-runtime-ktx:2.2.0
-+|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.50 -> 1.4.30 (*)
-+|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0 -> 1.4.1 (*)
-+|    |    |    +--- androidx.lifecycle:lifecycle-runtime:2.2.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-runtime-ktx:2.3.0
++|    |    |    +--- androidx.lifecycle:lifecycle-runtime:2.3.0 (*)
++|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.20 -> 1.4.30 (*)
++|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1 (*)
 +|    |    |    \--- androidx.annotation:annotation:1.0.0 -> 1.1.0
-+|    |    \--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0 (*)
++|    |    +--- androidx.savedstate:savedstate-ktx:1.1.0
++|    |    |    +--- androidx.savedstate:savedstate:1.1.0 (*)
++|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.20 -> 1.4.30 (*)
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.20 -> 1.4.30 (*)
 +|    +--- androidx.core:core-ktx:1.1.0 -> 1.3.2 (*)
 +|    +--- androidx.collection:collection-ktx:1.1.0
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.20 -> 1.4.30 (*)
 +|    |    \--- androidx.collection:collection:1.1.0 (*)
-+|    +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0 (*)
-+|    \--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0 (*)
-++--- androidx.lifecycle:lifecycle-runtime-ktx:2.2.0 (*)
-++--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0 (*)
++|    +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.0 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0 (*)
++|    +--- androidx.savedstate:savedstate-ktx:1.1.0 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.20 -> 1.4.30 (*)
+++--- androidx.lifecycle:lifecycle-runtime-ktx:2.3.0 (*)
+++--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0 (*)
 ++--- androidx.room:room-ktx:2.2.5
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.41 -> 1.4.30 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0 -> 1.4.1 (*)
@@ -269,14 +279,14 @@
 +|    |    +--- androidx.annotation:annotation:1.0.0 -> 1.1.0
 +|    |    \--- androidx.arch.core:core-common:2.0.0 -> 2.1.0 (*)
 +|    +--- androidx.arch.core:core-runtime:2.0.0 -> 2.1.0 (*)
-+|    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.2.0 (*)
++|    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.3.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-livedata:2.0.0 -> 2.2.0 (*)
 +|    \--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0 (*)
-++--- io.noties.markwon:core:4.6.1
+++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0
 +|    \--- com.atlassian.commonmark:commonmark:0.13.0
-++--- io.noties.markwon:ext-strikethrough:4.6.1
-+|    +--- io.noties.markwon:core:4.6.1 (*)
+++--- io.noties.markwon:ext-strikethrough:4.6.2
++|    +--- io.noties.markwon:core:4.6.2 (*)
 +|    \--- com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:0.13.0
 +|         \--- com.atlassian.commonmark:commonmark:0.13.0
 ++--- com.jakewharton:butterknife:10.2.3
@@ -304,7 +314,7 @@
 ++--- androidx.preference:preference:1.1.1
 +|    +--- androidx.appcompat:appcompat:1.1.0 -> 1.2.0 (*)
 +|    +--- androidx.core:core:1.1.0 -> 1.3.2 (*)
-+|    +--- androidx.fragment:fragment:1.2.4 -> 1.2.5 (*)
++|    +--- androidx.fragment:fragment:1.2.4 -> 1.3.0 (*)
 +|    +--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0 (*)
 +|    +--- androidx.annotation:annotation:1.1.0
 +|    \--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
@@ -317,7 +327,7 @@
 +|    +--- androidx.appcompat:appcompat:1.0.2 -> 1.2.0 (*)
 +|    \--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0 (*)
 ++--- me.leolin:ShortcutBadger:1.1.22
-++--- com.google.apis:google-api-services-tasks:v1-rev20200905-1.31.0
+++--- com.google.apis:google-api-services-tasks:v1-rev20210109-1.31.0
 +|    \--- com.google.api-client:google-api-client:1.31.1
 +|         +--- com.google.oauth-client:google-oauth-client:1.31.2
 +|         |    +--- com.google.http-client:google-http-client:1.38.0 -> 1.38.1
@@ -331,11 +341,11 @@
 +|         |    |         \--- com.google.guava:guava:26.0-android -> 30.1-android (*)
 +|         |    \--- com.google.guava:guava:30.0-android -> 30.1-android (*)
 +|         \--- com.google.guava:guava:29.0-android -> 30.1-android (*)
-++--- com.google.apis:google-api-services-drive:v3-rev20201130-1.31.0
+++--- com.google.apis:google-api-services-drive:v3-rev20210207-1.31.0
 +|    \--- com.google.api-client:google-api-client:1.31.1 (*)
-++--- com.google.auth:google-auth-library-oauth2-http:0.23.0
+++--- com.google.auth:google-auth-library-oauth2-http:0.24.0
 +|    +--- com.google.auto.value:auto-value-annotations:1.7.4
-+|    +--- com.google.auth:google-auth-library-credentials:0.23.0
++|    +--- com.google.auth:google-auth-library-credentials:0.24.0
 +|    +--- com.google.http-client:google-http-client:1.38.1 (*)
 +|    +--- com.google.http-client:google-http-client-gson:1.38.1
 +|    |    +--- com.google.http-client:google-http-client:1.38.1 (*)

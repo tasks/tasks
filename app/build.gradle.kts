@@ -160,7 +160,7 @@ dependencies {
     implementation("androidx.hilt:hilt-work:${Versions.hilt_androidx}")
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_androidx}")
 
-    implementation("androidx.fragment:fragment-ktx:1.2.5")
+    implementation("androidx.fragment:fragment-ktx:1.3.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
     implementation("androidx.room:room-ktx:${Versions.room}")
@@ -198,9 +198,9 @@ dependencies {
     }
     implementation("com.wdullaer:materialdatetimepicker:4.2.3")
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
-    implementation("com.google.apis:google-api-services-tasks:v1-rev20200905-1.31.0")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20201130-1.31.0")
-    implementation("com.google.auth:google-auth-library-oauth2-http:0.23.0")
+    implementation("com.google.apis:google-api-services-tasks:v1-rev20210109-1.31.0")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20210207-1.31.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:0.24.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("androidx.work:work-runtime-ktx:${Versions.work}")
     implementation("com.etesync:journalmanager:1.1.1")
@@ -214,7 +214,7 @@ dependencies {
         exclude("com.google.android.gms", "play-services-ads-identifier")
     }
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
-    googleplayImplementation("com.google.android.gms:play-services-location:17.1.0")
+    googleplayImplementation("com.google.android.gms:play-services-location:18.0.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
     googleplayImplementation("com.android.billingclient:billing:1.2.2")
 
@@ -230,7 +230,7 @@ dependencies {
     androidTestImplementation("androidx.annotation:annotation:1.1.0")
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:${Versions.okhttp}")
 
-    testImplementation("junit:junit:4.13.1")
+    testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2")
     testImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
     testImplementation("androidx.test:core:${Versions.androidx_test}")
