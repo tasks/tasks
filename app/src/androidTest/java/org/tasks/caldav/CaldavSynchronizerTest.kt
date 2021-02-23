@@ -5,43 +5,24 @@ import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.tasks.R
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
-import org.tasks.data.TaskDao
-import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.ETAG
 import org.tasks.makers.CaldavTaskMaker.OBJECT
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
-import org.tasks.preferences.Preferences
-import org.tasks.security.KeyStoreEncryption
-import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
-class CaldavSynchronizerTest : InjectingTestCase() {
-    @Inject lateinit var synchronizer: CaldavSynchronizer
-    @Inject lateinit var encryption: KeyStoreEncryption
-    @Inject lateinit var preferences: Preferences
-    @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var taskDao: TaskDao
-    private val server = MockWebServer()
-    lateinit var account: CaldavAccount
+class CaldavSynchronizerTest : CaldavTest() {
 
     @Before
     override fun setUp() = runBlocking {
         super.setUp()
-        preferences.setBoolean(R.string.p_debug_pro, true)
-        server.start()
         account = CaldavAccount().apply {
             uuid = UUIDHelper.newUUID()
             username = "username"
@@ -50,9 +31,6 @@ class CaldavSynchronizerTest : InjectingTestCase() {
             id = caldavDao.insert(this)
         }
     }
-
-    @After
-    fun after() = server.shutdown()
 
     @Test
     fun setMessageOnError() = runBlocking {
@@ -109,18 +87,6 @@ class CaldavSynchronizerTest : InjectingTestCase() {
         val caldavTask = caldavDao.getTaskByRemoteId(calendar.uuid!!, "3164728546640386952")!!
         assertEquals("Test task", taskDao.fetch(caldavTask.task)!!.title)
     }
-
-    private fun enqueue(vararg responses: String) = responses.forEach {
-        server.enqueue(
-                MockResponse()
-                        .setResponseCode(207)
-                        .setHeader("Content-Type", "text/xml; charset=\"utf-8\"")
-                        .setBody(it)
-        )
-    }
-
-    private fun enqueueFailure(code: Int = 500) =
-            server.enqueue(MockResponse().setResponseCode(code))
 
     companion object {
         private val OC_SHARE_PROPFIND = """
