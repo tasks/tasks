@@ -105,7 +105,7 @@ class CaldavSynchronizer @Inject constructor(
                 }
             }
             setError(account, message)
-        } catch (e: DavException) {
+        } catch (e: Exception) {
             setError(account, e.message)
             firebase.reportException(e)
         }

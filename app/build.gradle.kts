@@ -228,6 +228,7 @@ dependencies {
     androidTestImplementation("androidx.test:rules:${Versions.androidx_test}")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.annotation:annotation:1.1.0")
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:${Versions.okhttp}")
 
     testImplementation("junit:junit:4.13.1")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2")
