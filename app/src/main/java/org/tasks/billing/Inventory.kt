@@ -34,7 +34,8 @@ class Inventory @Inject constructor(
     fun clear() {
         Timber.d("clear()")
         purchases.clear()
-        subscription.value = null
+        subscription.postValue(null)
+        hasPro = false
     }
 
     fun add(items: Iterable<Purchase>) {
