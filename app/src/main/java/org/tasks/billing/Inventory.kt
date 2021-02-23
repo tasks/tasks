@@ -35,6 +35,7 @@ class Inventory @Inject constructor(
         Timber.d("clear()")
         purchases.clear()
         subscription.postValue(null)
+        hasTasksSubscription = false
         hasPro = false
     }
 
