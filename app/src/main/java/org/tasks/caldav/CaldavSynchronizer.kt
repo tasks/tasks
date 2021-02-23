@@ -55,11 +55,6 @@ class CaldavSynchronizer @Inject constructor(
         private val firebase: Firebase,
         private val provider: CaldavClientProvider,
         private val iCal: iCalendar) {
-    companion object {
-        init {
-            prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
-        }
-    }
 
     suspend fun sync(account: CaldavAccount) {
         Thread.currentThread().contextClassLoader = context.classLoader
@@ -162,16 +157,8 @@ class CaldavSynchronizer @Inject constructor(
         Timber.d("sync(%s)", caldavCalendar)
         val httpUrl = resource.href
         pushLocalChanges(caldavCalendar, httpClient, httpUrl)
-        val syncToken = resource[SyncToken::class.java]
-        val ctag = resource[GetCTag::class.java]
-        var remoteCtag: String? = null
-        if (syncToken != null) {
-            remoteCtag = syncToken.token
-        } else if (ctag != null) {
-            remoteCtag = ctag.cTag
-        }
-        val localCtag = caldavCalendar.ctag
-        if (localCtag != null && localCtag == remoteCtag) {
+        val remoteCtag = resource.ctag
+        if (caldavCalendar.ctag?.equals(remoteCtag) == true) {
             Timber.d("%s up to date", caldavCalendar.name)
             return
         }
@@ -297,5 +284,14 @@ class CaldavSynchronizer @Inject constructor(
         caldavTask.lastSync = task.modificationDate
         caldavDao.update(caldavTask)
         Timber.d("SENT %s", caldavTask)
+    }
+
+    companion object {
+        init {
+            prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
+        }
+
+        val Response.ctag: String?
+            get() = this[SyncToken::class.java]?.token ?: this[GetCTag::class.java]?.cTag
     }
 }
