@@ -52,7 +52,7 @@ class SignInViewModel @Inject constructor(
         }
 
         ex?.let {
-            error.value = ex
+            error.value = it
             return null
         }
 
