@@ -2,6 +2,7 @@ package org.tasks.location
 
 import android.content.Context
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -49,13 +50,10 @@ class GeocoderNominatim @Inject constructor(
                                     .get("geocoding").asJsonObject
                             val geometry = feature.get("geometry").asJsonObject
                             newPlace().apply {
-                                val type = geocoding.get("type").asString
-                                name = if (type.equals("house")) {
-                                    "${geocoding.get("housenumber").asString} ${geocoding.get("street").asString}"
-                                } else {
-                                    geocoding.get("name").asString
-                                }
-                                address = geocoding.get("label").asString
+                                name = geocoding.getStringOrNull("name")
+                                    ?: geocoding.getStringOrNull("housenumber")
+                                        ?.let { "$it ${geocoding.get("street").asString}" }
+                                address = geocoding.getOrNull("label")?.asString
                                 geometry.get("coordinates").asCoordinates.let {
                                     longitude = it.first
                                     latitude = it.second
@@ -65,5 +63,9 @@ class GeocoderNominatim @Inject constructor(
 
         private val JsonElement.asCoordinates: Pair<Double, Double>
             get() = asJsonArray.let { Pair(it[0].asDouble, it[1].asDouble) }
+
+        private fun JsonObject.getStringOrNull(key: String): String? = getOrNull(key)?.asString
+
+        private fun JsonObject.getOrNull(key: String) = if (has(key)) get(key) else null
     }
 }
