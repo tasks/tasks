@@ -5,50 +5,60 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Test
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.injection.ProductionModule
 
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
-class OwnCloudSynchronizationTest : CaldavTest() {
+class SharingOwncloudTest : CaldavTest() {
 
-    @Before
-    override fun setUp() = runBlocking {
-        super.setUp()
+    private suspend fun setupAccount(user: String) {
         account = CaldavAccount().apply {
             uuid = UUIDHelper.newUUID()
-            username = "username"
+            username = user
             password = encryption.encrypt("password")
-            url = server.url("/remote.php/dav/calendars/user1/").toString()
+            url = server.url("/remote.php/dav/calendars/$user/").toString()
             id = caldavDao.insert(this)
         }
     }
 
     @Test
     fun calendarOwner() = runBlocking {
+        setupAccount("user1")
         val calendar = CaldavCalendar().apply {
-            account = this@OwnCloudSynchronizationTest.account.uuid
+            account = this@SharingOwncloudTest.account.uuid
             ctag = "http://sabre.io/ns/sync/1"
-            url = "${this@OwnCloudSynchronizationTest.account.url}test-shared/"
+            url = "${this@SharingOwncloudTest.account.url}test-shared/"
             caldavDao.insert(this)
         }
         enqueue(OC_OWNER)
-        enqueueFailure()
 
         synchronizer.sync(account)
 
         assertEquals(ACCESS_OWNER, caldavDao.getCalendarByUuid(calendar.uuid!!)?.access)
     }
 
-    companion object {
-        init {
-            CaldavSynchronizer.registerFactories()
+    @Test
+    fun readOnly() = runBlocking {
+        setupAccount("user2")
+        val calendar = CaldavCalendar().apply {
+            account = this@SharingOwncloudTest.account.uuid
+            ctag = "http://sabre.io/ns/sync/2"
+            url = "${this@SharingOwncloudTest.account.url}test-shared_shared_by_user1/"
+            caldavDao.insert(this)
         }
+        enqueue(OC_READ_ONLY)
 
+        synchronizer.sync(account)
+
+        assertEquals(ACCESS_READ_ONLY, caldavDao.getCalendarByUuid(calendar.uuid!!)?.access)
+    }
+
+    companion object {
         private val OC_OWNER = """
             <?xml version="1.0"?>
             <d:multistatus xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav"
@@ -116,6 +126,62 @@ class OwnCloudSynchronizationTest : CaldavTest() {
                             </d:current-user-privilege-set>
                             <d:current-user-principal>
                                 <d:href>/remote.php/dav/principals/users/user1/</d:href>
+                            </d:current-user-principal>
+                        </d:prop>
+                        <d:status>HTTP/1.1 200 OK</d:status>
+                    </d:propstat>
+                    <d:propstat>
+                        <d:prop>
+                            <d:share-access />
+                            <d:invite />
+                        </d:prop>
+                        <d:status>HTTP/1.1 404 Not Found</d:status>
+                    </d:propstat>
+                </d:response>
+            </d:multistatus>
+        """.trimIndent()
+
+        val OC_READ_ONLY = """
+            <?xml version="1.0"?>
+            <d:multistatus xmlns:cal="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/"
+                xmlns:d="DAV:" xmlns:nc="http://nextcloud.org/ns"
+                xmlns:oc="http://owncloud.org/ns" xmlns:s="http://sabredav.org/ns">
+                <d:response>
+                    <d:href>/remote.php/dav/calendars/user2/test-shared_shared_by_user1/</d:href>
+                    <d:propstat>
+                        <d:prop>
+                            <d:resourcetype>
+                                <d:collection />
+                                <cal:calendar />
+                            </d:resourcetype>
+                            <d:displayname>Test shared (user1)</d:displayname>
+                            <cal:supported-calendar-component-set>
+                                <cal:comp name="VTODO" />
+                            </cal:supported-calendar-component-set>
+                            <cs:getctag>http://sabre.io/ns/sync/2</cs:getctag>
+                            <x1:calendar-color xmlns:x1="http://apple.com/ns/ical/">#0082c9</x1:calendar-color>
+                            <d:sync-token>http://sabre.io/ns/sync/2</d:sync-token>
+                            <oc:owner-principal>principals/users/user1</oc:owner-principal>
+                            <oc:invite />
+                            <d:current-user-privilege-set>
+                                <d:privilege>
+                                    <d:write-properties />
+                                </d:privilege>
+                                <d:privilege>
+                                    <d:read />
+                                </d:privilege>
+                                <d:privilege>
+                                    <d:read-acl />
+                                </d:privilege>
+                                <d:privilege>
+                                    <d:read-current-user-privilege-set />
+                                </d:privilege>
+                                <d:privilege>
+                                    <cal:read-free-busy />
+                                </d:privilege>
+                            </d:current-user-privilege-set>
+                            <d:current-user-principal>
+                                <d:href>/remote.php/dav/principals/users/user2/</d:href>
                             </d:current-user-principal>
                         </d:prop>
                         <d:status>HTTP/1.1 200 OK</d:status>

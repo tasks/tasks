@@ -34,7 +34,7 @@ class CaldavSynchronizerTest : CaldavTest() {
 
     @Test
     fun setMessageOnError() = runBlocking {
-        enqueueFailure(500)
+        enqueue()
 
         synchronizer.sync(account)
 
@@ -49,7 +49,6 @@ class CaldavSynchronizerTest : CaldavTest() {
             url = "${this@CaldavSynchronizerTest.account.url}test-shared/"
         })
         enqueue(OC_SHARE_PROPFIND)
-        enqueueFailure()
 
         synchronizer.sync(account)
 
@@ -70,7 +69,6 @@ class CaldavSynchronizerTest : CaldavTest() {
                 with(CALENDAR, calendar.uuid)
         ))
         enqueue(OC_SHARE_PROPFIND, OC_SHARE_REPORT)
-        enqueueFailure()
 
         synchronizer.sync(account)
 

@@ -33,15 +33,21 @@ abstract class CaldavTest : InjectingTestCase() {
     @After
     fun after() = server.shutdown()
 
-    protected fun enqueue(vararg responses: String) = responses.forEach {
-        server.enqueue(
+    protected fun enqueue(vararg responses: String) {
+        responses.forEach {
+            server.enqueue(
                 MockResponse()
-                        .setResponseCode(207)
-                        .setHeader("Content-Type", "text/xml; charset=\"utf-8\"")
-                        .setBody(it)
-        )
+                    .setResponseCode(207)
+                    .setHeader("Content-Type", "text/xml; charset=\"utf-8\"")
+                    .setBody(it)
+            )
+        }
+        server.enqueue(MockResponse().setResponseCode(500))
     }
 
-    protected fun enqueueFailure(code: Int = 500) =
-            server.enqueue(MockResponse().setResponseCode(code))
+    companion object {
+        init {
+            CaldavSynchronizer.registerFactories()
+        }
+    }
 }
