@@ -1,5 +1,6 @@
 package org.tasks.caldav
 
+import androidx.test.annotation.UiThreadTest
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -18,9 +19,11 @@ class CaldavSubscriptionTest : CaldavTest() {
     @Inject lateinit var inventory: Inventory
 
     @Test
+    @UiThreadTest
     fun cantSyncWithoutPro() = runBlocking {
         preferences.setBoolean(R.string.p_debug_pro, false)
         inventory.clear()
+        inventory.add(emptyList())
 
         account = CaldavAccount().apply {
             uuid = UUIDHelper.newUUID()
