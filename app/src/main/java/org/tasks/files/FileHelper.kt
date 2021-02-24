@@ -102,7 +102,7 @@ object FileHelper {
                 val cursor = context.contentResolver.query(uri, null, null, null, null)
                 if (cursor != null && cursor.moveToFirst()) {
                     return try {
-                        cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                        cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
                     } finally {
                         cursor.close()
                     }

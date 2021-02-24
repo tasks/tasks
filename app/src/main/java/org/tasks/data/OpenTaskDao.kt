@@ -155,13 +155,13 @@ open class OpenTaskDao @Inject constructor(
         fun String?.isDecSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_DECSYNC) == true
 
         private fun Cursor.getString(columnName: String): String? =
-                getString(getColumnIndex(columnName))
+                getString(getColumnIndexOrThrow(columnName))
 
         private fun Cursor.getInt(columnName: String): Int =
-                getInt(getColumnIndex(columnName))
+                getInt(getColumnIndexOrThrow(columnName))
 
         fun Cursor.getLong(columnName: String): Long =
-                getLong(getColumnIndex(columnName))
+                getLong(getColumnIndexOrThrow(columnName))
 
         fun CaldavCalendar.toLocalCalendar(): CaldavCalendar {
             val remote = this
