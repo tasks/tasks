@@ -548,7 +548,6 @@ public class CustomRecurrenceDialog extends DialogFragment {
       if (resultCode == RESULT_OK) {
         rrule.setUntil(
             new DateTime(data.getLongExtra(MyDatePickerDialog.EXTRA_TIMESTAMP, 0L)).toDate());
-        rrule.setCount(0);
       }
       updateRepeatUntilOptions();
     }

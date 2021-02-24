@@ -1,3 +1,25 @@
+### 11.5.1 (2021-02-24)
+
+* Fix 'repeat until' date
+* Fix repeat dates for UTC+13
+  ([#1374](https://github.com/tasks/tasks/issues/1374))
+* F-Droid: Handle null name in Nominatim reverse geocoder
+  ([#1380](https://github.com/tasks/tasks/issues/1380))
+* Update translations
+  * Basque - Sergio Varela
+  * Croatian - @ggdorman
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Norwegian Bokmål - @comradekingu
+  * Polish - @alex-ter
+  * Russian - Nikita Epifanov
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - Oğuz Ersen
+  * Ukrainian - @IhorHordiichuk
+  * Urdu - Maaz
+
 ### 11.5 (2021-02-17)
 
 * Sync snooze time with Tasks.org, DAVx⁵, CalDAV, EteSync, and DecSync

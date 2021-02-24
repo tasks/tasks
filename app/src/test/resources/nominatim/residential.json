@@ -1,0 +1,42 @@
+{
+  "type": "FeatureCollection",
+  "geocoding": {
+    "version": "0.1.0",
+    "attribution": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+    "licence": "ODbL",
+    "query": "53.894495732719,-9.5531306587933"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "geocoding": {
+          "place_id": 104842902,
+          "osm_type": "way",
+          "osm_id": 58918090,
+          "type": "residential",
+          "accuracy": 0,
+          "label": "Newport East ED, Westport-Belmullet Municipal District, County Mayo, Connacht, Éire / Ireland",
+          "country": "Éire / Ireland",
+          "county": "County Mayo",
+          "city": "Westport-Belmullet Municipal District",
+          "district": "Newport East ED",
+          "admin": {
+            "level5": "Connacht",
+            "level6": "County Mayo",
+            "level7": "County Mayo",
+            "level8": "Westport-Belmullet Municipal District",
+            "level9": "Newport East ED"
+          }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -9.553143,
+          53.8946414
+        ]
+      }
+    }
+  ]
+}

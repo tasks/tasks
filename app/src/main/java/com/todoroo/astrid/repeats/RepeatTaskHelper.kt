@@ -204,7 +204,7 @@ class RepeatTaskHelper @Inject constructor(
             return if (task.hasDueTime()) {
                 startDate.toDateTime()
             } else {
-                startDate.toDate()
+                Date(startDate.millis + startDate.offset)
             }
         }
 

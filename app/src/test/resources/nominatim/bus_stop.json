@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "geocoding": {
+    "version": "0.1.0",
+    "attribution": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+    "licence": "ODbL",
+    "query": "53.27478,-6.41509"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "geocoding": {
+          "place_id": 51801784,
+          "osm_type": "node",
+          "osm_id": 4386456055,
+          "type": "bus_stop",
+          "accuracy": 0,
+          "label": "Blessington Road, Clondalkin ED, Tallaght, South Dublin, County Dublin, Leinster, D24 EP20, Éire / Ireland",
+          "name": "Blessington Road",
+          "country": "Éire / Ireland",
+          "postcode": "D24 EP20",
+          "county": "County Dublin",
+          "city": "Tallaght",
+          "district": "Clondalkin ED",
+          "street": "Blessington Road",
+          "admin": {
+            "level5": "Leinster",
+            "level6": "County Dublin",
+            "level7": "South Dublin",
+            "level9": "Clondalkin ED"
+          }
+        }
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.4154817,
+          53.2751611
+        ]
+      }
+    }
+  ]
+}
