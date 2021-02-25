@@ -699,4 +699,6 @@
     <string name="map_theme_use_app_theme">Використовувати тему застосунку</string>
     <string name="tasks_org_account_required">Потрібен обліковий запис Tasks.org</string>
     <string name="map_theme">Тема карти</string>
+    <string name="cancel">\@android:string/cancel</string>
+    <string name="ok">\@android:string/ok</string>
 </resources>
