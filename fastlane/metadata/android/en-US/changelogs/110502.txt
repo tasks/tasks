@@ -1,0 +1,4 @@
+* Fix 'repeat until' date
+* Fix repeat dates for UTC+13
+* F-Droid: Handle null name in Nominatim reverse geocoder
+* Update translations
