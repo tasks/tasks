@@ -629,8 +629,6 @@
     <string name="last_backup_never">aldrig</string>
     <string name="last_backup">Sidste sikkerhedskopi: %s</string>
     <string name="account_not_included">Ikke inkluderet i abonnementer \'Navngiv din pris\'</string>
-    <string name="cancel">\@android:string/annullere</string>
-    <string name="ok">\@android:string/ok</string>
     <string name="repeat_monthly_fifth_week">femte</string>
     <string name="backup_location_warning">ADVARSEL: Filer i %s slettes, hvis Tasks afinstalleres! Vælg en brugerdefineret placering for at forhindre, at Android sletter dine filer.</string>
     <string name="backups_ignore_warnings_summary">Ignorer backupadvarsler, hvis du ikke har brug for sikkerhedskopier eller har din egen sikkerhedskopiløsning</string>
