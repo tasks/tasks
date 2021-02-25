@@ -469,8 +469,6 @@
     <string name="sort_created">Berdasarkan waktu pembuatan</string>
     <string name="manage_lists">Kelola Daftar</string>
     <string name="WID_dateButtonUnset">Klik untuk mengatur</string>
-    <string name="cancel">\@android:string/Batal</string>
-    <string name="ok">\@android:string/Oke</string>
     <string name="EPr_temp_show_completed_tasks">Tampilkan tugas untuk sementara setelah selesai</string>
     <string name="CRA_default_list_name">Tindakan Item: %s</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tugas akan mengingatkan Anda tentang acara kalender mendatang dan menyarankan Anda untuk bersiap-siap untuk hal tersebut</string>

@@ -683,8 +683,6 @@
     <string name="astrid_sort_order_summary">Увімкніть режим ручного сортування Astria для «Моїх завдань», «Сьогодні» та міток. Цей режим сортування буде замінено на «Мій порядок» у майбутньому оновленні</string>
     <string name="astrid_sort_order">Ручне сортування Astrid</string>
     <string name="manage_lists">Керування списками</string>
-    <string name="cancel">\@android:string/cancel</string>
-    <string name="ok">\@android:string/ok</string>
     <string name="filter_any_start_date">Будь-яка дата початку</string>
     <string name="CFC_startBefore_name">Дата початку…</string>
     <string name="CFC_startBefore_text">Дата початку: \?</string>
