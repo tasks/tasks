@@ -438,6 +438,7 @@
   <string name="event_todoagenda">cp_todoagenda</string>
   <string name="event_astrid2taskprovider">cp_astrid2taskprovider</string>
   <string name="event_sync_add_account">sync_add_account</string>
+  <string name="event_sync_unknown_access">sync_unknown_access</string>
   <string name="legacy_etesync">legacy_etesync</string>
   <string name="param_type">type</string>
   <string name="p_map_theme">map_theme</string>

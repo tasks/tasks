@@ -36,6 +36,7 @@ import org.tasks.caldav.property.OCOwnerPrincipal
 import org.tasks.caldav.property.PropertyUtils.register
 import org.tasks.caldav.property.ShareAccess
 import org.tasks.caldav.property.ShareAccess.Companion.READ
+import org.tasks.caldav.property.ShareAccess.Companion.READ_WRITE
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.ERROR_UNAUTHORIZED
@@ -43,6 +44,7 @@ import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_UNKNOWN
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
 import timber.log.Timber
@@ -132,6 +134,13 @@ class CaldavSynchronizer @Inject constructor(
             val remoteName = resource[DisplayName::class.java]!!.displayName
             val calendarColor = resource[CalendarColor::class.java]
             val access = resource.accessLevel
+            if (access == ACCESS_UNKNOWN) {
+                firebase.logEvent(
+                    R.string.event_sync_unknown_access,
+                    R.string.param_type to
+                            (resource[ShareAccess::class.java]?.access?.toString() ?: "???")
+                )
+            }
             val color = calendarColor?.color ?: 0
             if (calendar == null) {
                 calendar = CaldavCalendar()
@@ -327,8 +336,9 @@ class CaldavSynchronizer @Inject constructor(
                 this[ShareAccess::class.java]?.let {
                     return when (it.access) {
                         SHARED_OWNER -> ACCESS_OWNER
+                        READ_WRITE -> ACCESS_READ_WRITE
                         READ -> ACCESS_READ_ONLY
-                        else -> ACCESS_READ_WRITE
+                        else -> ACCESS_UNKNOWN
                     }
                 }
                 this[OCOwnerPrincipal::class.java]?.owner?.let {

@@ -129,6 +129,7 @@ class CaldavCalendar : Parcelable {
     }
 
     companion object {
+        const val ACCESS_UNKNOWN = -1
         const val ACCESS_OWNER = 0
         const val ACCESS_READ_WRITE = 1
         const val ACCESS_READ_ONLY = 2
