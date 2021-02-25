@@ -149,8 +149,9 @@ class RepeatTaskHelper @Inject constructor(
         }
 
         private fun invokeRecurrence(recur: Recur, original: DateTime, startDateAsDV: Date): Long {
-            val nextDate = recur.getNextDate(startDateAsDV, startDateAsDV)
-            return buildNewDueDate(original, nextDate)
+            return recur.getNextDate(startDateAsDV, startDateAsDV)
+                ?.let { buildNewDueDate(original, it) }
+                ?: throw IllegalStateException("recur=$recur original=$original startDateAsDv=$startDateAsDV")
         }
 
         /** Compute long due date from DateValue  */

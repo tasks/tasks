@@ -34,9 +34,7 @@ data class ShareAccess(val access: Property.Name): Property {
             var eventType = parser.eventType
             while (!(eventType == XmlPullParser.END_TAG && parser.depth == depth)) {
                 if (eventType == XmlPullParser.START_TAG && parser.depth == depth + 1) {
-                    when (val name = parser.propertyName()) {
-                        SHARED_OWNER, READ_WRITE, NOT_SHARED, READ -> result = name
-                    }
+                    result = parser.propertyName()
                 }
                 eventType = parser.next()
             }

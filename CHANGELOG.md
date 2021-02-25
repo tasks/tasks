@@ -1,3 +1,8 @@
+### 11.5.2 (2021-02-25)
+
+* Fix CalDAV sync error
+* Report errors when generating recurrence dates
+
 ### 11.5.1 (2021-02-24)
 
 * Fix 'repeat until' date
