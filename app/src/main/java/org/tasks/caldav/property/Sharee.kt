@@ -28,9 +28,10 @@ class Sharee(parser: XmlPullParser) {
                     DavResource.HREF ->
                         XmlUtils.readText(parser)?.let { href = it }
                     ShareAccess.NAME ->
-                        access = PropertyRegistry.create(ShareAccess.NAME, parser) as ShareAccess
+                        PropertyRegistry.create(ShareAccess.NAME, parser)
+                            ?.let { access = it as ShareAccess }
                     COMMENT ->
-                        comment = XmlUtils.readText(parser)
+                        XmlUtils.readText(parser)?.let { comment = it }
                     INVITE_ACCEPTED, INVITE_DECLINED, INVITE_NORESPONSE, INVITE_INVALID ->
                         response = name
                     DavResource.PROP ->
