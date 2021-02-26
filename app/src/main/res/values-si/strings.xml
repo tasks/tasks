@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="github_sponsor">අනුග්‍රාහකයා</string>
+    <string name="map_theme_use_app_theme">යෙදුම් තේමාව භාවිතා කරන්න</string>
+</resources>
