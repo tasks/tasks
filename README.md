@@ -20,3 +20,11 @@ Please visit [tasks.org](https://tasks.org) for end user documentation and suppo
 ### Contributing
 
 Contributions are always welcome! Whether translations, code changes, bug reports, feature requests, or otherwise, your help is appreciated. To get started, take a look at [CONTRIBUTING.md](CONTRIBUTING.md).
+
+### Communication
+
+Join the #tasks channel on Freenode to chat with the Tasks team and other people. [Link to webchat](https://webchat.freenode.net/?channels=tasks)
+
+You can also use [GitHub Discussions](https://github.com/tasks/tasks/discussions).
+
+If you have a suggestion or want to report a bug, please see [CONTRIBUTING.md](CONTRIBUTING.md).
