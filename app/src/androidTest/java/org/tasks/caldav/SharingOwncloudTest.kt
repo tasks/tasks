@@ -10,11 +10,15 @@ import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
+import org.tasks.data.PrincipalDao
 import org.tasks.injection.ProductionModule
+import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class SharingOwncloudTest : CaldavTest() {
+
+    @Inject lateinit var principalDao: PrincipalDao
 
     private suspend fun setupAccount(user: String) {
         account = CaldavAccount().apply {
@@ -56,6 +60,54 @@ class SharingOwncloudTest : CaldavTest() {
         synchronizer.sync(account)
 
         assertEquals(ACCESS_READ_ONLY, caldavDao.getCalendarByUuid(calendar.uuid!!)?.access)
+    }
+
+    @Test
+    fun principalForSharee() = runBlocking {
+        setupAccount("user1")
+        val calendar = CaldavCalendar().apply {
+            account = this@SharingOwncloudTest.account.uuid
+            ctag = "http://sabre.io/ns/sync/1"
+            url = "${this@SharingOwncloudTest.account.url}test-shared/"
+            caldavDao.insert(this)
+        }
+        enqueue(OC_OWNER)
+
+        synchronizer.sync(account)
+
+        val principal = principalDao.getAll()
+            .apply { assertTrue(size == 1) }
+            .first()
+
+        assertEquals(calendar.id, principal.list)
+        assertEquals("principal:principals/users/user2", principal.principal)
+        assertEquals("user2", principal.displayName)
+        assertEquals(CaldavCalendar.INVITE_ACCEPTED, principal.inviteStatus)
+        assertEquals(CaldavCalendar.ACCESS_READ_ONLY, principal.access)
+    }
+
+    @Test
+    fun principalForOwner() = runBlocking {
+        setupAccount("user2")
+        val calendar = CaldavCalendar().apply {
+            account = this@SharingOwncloudTest.account.uuid
+            ctag = "http://sabre.io/ns/sync/2"
+            url = "${this@SharingOwncloudTest.account.url}test-shared_shared_by_user1/"
+            caldavDao.insert(this)
+        }
+        enqueue(OC_READ_ONLY)
+
+        synchronizer.sync(account)
+
+        val principal = principalDao.getAll()
+            .apply { assertTrue(size == 1) }
+            .first()
+
+        assertEquals(calendar.id, principal.list)
+        assertEquals("principals/users/user1", principal.principal)
+        assertEquals(null, principal.displayName)
+        assertEquals(CaldavCalendar.INVITE_ACCEPTED, principal.inviteStatus)
+        assertEquals(CaldavCalendar.ACCESS_OWNER, principal.access)
     }
 
     companion object {

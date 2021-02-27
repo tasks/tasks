@@ -5,16 +5,22 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
+import org.tasks.data.CaldavCalendar.Companion.INVITE_ACCEPTED
+import org.tasks.data.PrincipalDao
 import org.tasks.injection.ProductionModule
+import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class SharingSabredavTest : CaldavTest() {
+
+    @Inject lateinit var principalDao: PrincipalDao
 
     private suspend fun setupAccount(user: String) {
         account = CaldavAccount().apply {
@@ -62,6 +68,54 @@ class SharingSabredavTest : CaldavTest() {
             ACCESS_READ_WRITE,
             caldavDao.getCalendarByUuid(calendar.uuid!!)?.access
         )
+    }
+
+    @Test
+    fun principalForSharee() = runBlocking {
+        setupAccount("user1")
+        val calendar = CaldavCalendar().apply {
+            account = this@SharingSabredavTest.account.uuid
+            ctag = "http://sabre.io/ns/sync/1"
+            url = "${this@SharingSabredavTest.account.url}940468858232147861/"
+            caldavDao.insert(this)
+        }
+        enqueue(SD_OWNER)
+
+        synchronizer.sync(account)
+
+        val principal = principalDao.getAll()
+            .apply { assertTrue(size == 1) }
+            .first()
+
+        assertEquals(calendar.id, principal.list)
+        assertEquals("mailto:user@example.com", principal.principal)
+        assertEquals("Example User", principal.displayName)
+        assertEquals(INVITE_ACCEPTED, principal.inviteStatus)
+        assertEquals(ACCESS_READ_WRITE, principal.access)
+    }
+
+    @Test
+    fun principalForOwner() = runBlocking {
+        setupAccount("user2")
+        val calendar = CaldavCalendar().apply {
+            account = this@SharingSabredavTest.account.uuid
+            ctag = "http://sabre.io/ns/sync/1"
+            url = "${this@SharingSabredavTest.account.url}c3853d69-cb7a-476c-a23b-30ffd70f110b/"
+            caldavDao.insert(this)
+        }
+        enqueue(SD_SHAREE)
+
+        synchronizer.sync(account)
+
+        val principal = principalDao.getAll()
+            .apply { assertTrue(size == 1) }
+            .first()
+
+        assertEquals(calendar.id, principal.list)
+        assertEquals("/principals/user1", principal.principal)
+        assertEquals(null, principal.displayName)
+        assertEquals(INVITE_ACCEPTED, principal.inviteStatus)
+        assertEquals(ACCESS_OWNER, principal.access)
     }
 
     companion object {

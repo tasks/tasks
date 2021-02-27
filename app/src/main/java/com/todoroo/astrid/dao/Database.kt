@@ -26,8 +26,10 @@ import org.tasks.notifications.NotificationDao
             CaldavCalendar::class,
             CaldavTask::class,
             CaldavAccount::class,
-            GoogleTaskAccount::class],
-        version = 77)
+            GoogleTaskAccount::class,
+            Principal::class,
+        ],
+        version = 78)
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao
     abstract val tagDataDao: TagDataDao
@@ -45,6 +47,7 @@ abstract class Database : RoomDatabase() {
     abstract val deletionDao: DeletionDao
     abstract val contentProviderDao: ContentProviderDao
     abstract val upgraderDao: UpgraderDao
+    abstract val principalDao: PrincipalDao
 
     /** @return human-readable database name for debugging
      */

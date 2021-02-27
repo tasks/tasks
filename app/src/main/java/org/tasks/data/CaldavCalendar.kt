@@ -134,6 +134,12 @@ class CaldavCalendar : Parcelable {
         const val ACCESS_READ_WRITE = 1
         const val ACCESS_READ_ONLY = 2
 
+        const val INVITE_UNKNOWN = -1
+        const val INVITE_ACCEPTED = 0
+        const val INVITE_NO_RESPONSE = 1
+        const val INVITE_DECLINED = 2
+        const val INVITE_INVALID = 3
+
         @JvmField val TABLE = Table("caldav_lists")
         val ACCOUNT = TABLE.column("cdl_account")
         @JvmField val UUID = TABLE.column("cdl_uuid")

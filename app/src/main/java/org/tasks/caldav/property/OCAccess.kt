@@ -16,9 +16,7 @@ class OCAccess(parser: XmlPullParser) : Property {
         var eventType = parser.eventType
         while (!(eventType == XmlPullParser.END_TAG && parser.depth == depth)) {
             if (eventType == XmlPullParser.START_TAG && parser.depth == depth + 1) {
-                when (val name = parser.propertyName()) {
-                    SHARED_OWNER, READ_WRITE, NOT_SHARED, READ -> access = name
-                }
+                access = parser.propertyName()
             }
             eventType = parser.next()
         }

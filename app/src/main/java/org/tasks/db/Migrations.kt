@@ -364,6 +364,16 @@ object Migrations {
         }
     }
 
+    private val MIGRATION_77_78: Migration = object : Migration(77, 78) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `principals` (`principal_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `principal_list` INTEGER NOT NULL, `principal` TEXT, `display_name` TEXT, `invite` INTEGER NOT NULL, `access` INTEGER NOT NULL, FOREIGN KEY(`principal_list`) REFERENCES `caldav_lists`(`cdl_id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
+            database.execSQL(
+                "CREATE UNIQUE INDEX IF NOT EXISTS `index_principals_principal_list_principal` ON `principals` (`principal_list`, `principal`)"
+            )
+        }
+    }
+
     val MIGRATIONS = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
@@ -398,6 +408,7 @@ object Migrations {
             MIGRATION_74_75,
             MIGRATION_75_76,
             MIGRATION_76_77,
+            MIGRATION_77_78,
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {

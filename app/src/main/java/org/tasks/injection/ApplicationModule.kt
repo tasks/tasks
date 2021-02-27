@@ -92,6 +92,10 @@ class ApplicationModule {
     fun getUpgraderDao(db: Database) = db.upgraderDao
 
     @Provides
+    @Singleton
+    fun getPrincipalDao(db: Database) = db.principalDao
+
+    @Provides
     fun getBillingClient(@ApplicationContext context: Context, inventory: Inventory, firebase: Firebase): BillingClient
             = BillingClientImpl(context, inventory, firebase)
 }

@@ -1,11 +1,8 @@
 package org.tasks.caldav
 
 import android.content.Context
-import at.bitfire.dav4jvm.DavCalendar
+import at.bitfire.dav4jvm.*
 import at.bitfire.dav4jvm.DavCalendar.Companion.MIME_ICALENDAR
-import at.bitfire.dav4jvm.DavResource
-import at.bitfire.dav4jvm.PropertyRegistry
-import at.bitfire.dav4jvm.Response
 import at.bitfire.dav4jvm.Response.HrefRelation
 import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
@@ -30,23 +27,22 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
-import org.tasks.caldav.property.Invite
-import org.tasks.caldav.property.OCInvite
-import org.tasks.caldav.property.OCOwnerPrincipal
+import org.tasks.caldav.property.*
 import org.tasks.caldav.property.PropertyUtils.register
-import org.tasks.caldav.property.ShareAccess
 import org.tasks.caldav.property.ShareAccess.Companion.READ
 import org.tasks.caldav.property.ShareAccess.Companion.READ_WRITE
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
-import org.tasks.data.CaldavAccount
+import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.ERROR_UNAUTHORIZED
-import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_UNKNOWN
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
+import org.tasks.data.CaldavCalendar.Companion.INVITE_ACCEPTED
+import org.tasks.data.CaldavCalendar.Companion.INVITE_DECLINED
+import org.tasks.data.CaldavCalendar.Companion.INVITE_INVALID
+import org.tasks.data.CaldavCalendar.Companion.INVITE_NO_RESPONSE
+import org.tasks.data.CaldavCalendar.Companion.INVITE_UNKNOWN
 import timber.log.Timber
 import java.io.IOException
 import java.net.ConnectException
@@ -67,8 +63,9 @@ class CaldavSynchronizer @Inject constructor(
         private val inventory: Inventory,
         private val firebase: Firebase,
         private val provider: CaldavClientProvider,
-        private val iCal: iCalendar) {
-
+        private val iCal: iCalendar,
+        private val principalDao: PrincipalDao,
+) {
     suspend fun sync(account: CaldavAccount) {
         Thread.currentThread().contextClassLoader = context.classLoader
 
@@ -161,6 +158,13 @@ class CaldavSynchronizer @Inject constructor(
                 caldavDao.update(calendar)
                 localBroadcastManager.broadcastRefreshList()
             }
+            resource
+                .principals
+                .onEach { it.list = calendar.id }
+                .let {
+                    principalDao.deleteRemoved(calendar.id, it.mapNotNull { p -> p.principal } )
+                    principalDao.insert(it)
+                }
             sync(calendar, resource, caldavClient.httpClient)
         }
         setError(account, "")
@@ -319,6 +323,8 @@ class CaldavSynchronizer @Inject constructor(
             prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
         }
 
+        private val MAILTO = "^mailto:".toRegex()
+
         fun registerFactories() {
             PropertyRegistry.register(
                 ShareAccess.Factory(),
@@ -341,16 +347,75 @@ class CaldavSynchronizer @Inject constructor(
                         else -> ACCESS_UNKNOWN
                     }
                 }
-                this[OCOwnerPrincipal::class.java]?.owner?.let {
-                    val current = this[CurrentUserPrincipal::class.java]?.href
-                    if (current?.endsWith("$it/") == true) {
-                        return ACCESS_OWNER
-                    }
+                if (isOwncloudOwner) {
+                    return ACCESS_OWNER
                 }
                 return when (this[CurrentUserPrivilegeSet::class.java]?.mayWriteContent) {
                     false -> ACCESS_READ_ONLY
                     else -> ACCESS_READ_WRITE
                 }
         }
+
+        val Response.isOwncloudOwner: Boolean
+            get() = this[OCOwnerPrincipal::class.java]?.owner
+                ?.let {
+                    this[CurrentUserPrincipal::class.java]?.href?.endsWith("$it/") == true
+                }
+                ?: false
+
+        val Response.principals: List<Principal>
+            get() {
+                val principals = ArrayList<Principal>()
+                this[Invite::class.java]?.sharees
+                    ?.map {
+                        Principal().apply {
+                            principal = it.href
+                            it.properties.find { it is DisplayName }?.let { name ->
+                                displayName = (name as DisplayName).displayName
+                                    ?: it.href.replace(MAILTO, "")
+                            }
+                            inviteStatus = it.response.toStatus
+                            access = it.access.access.toAccess
+                        }
+                    }
+                    ?.let { principals.addAll(it) }
+                this[OCInvite::class.java]?.users
+                    ?.map {
+                        Principal().apply {
+                            principal = it.href
+                            displayName = it.commonName
+                            inviteStatus = it.response.toStatus
+                            access = it.access.access.toAccess
+                        }
+                    }
+                    ?.let {
+                        if (!isOwncloudOwner) {
+                            principals.add(Principal().apply {
+                                principal = this@principals[OCOwnerPrincipal::class.java]?.owner
+                                inviteStatus = INVITE_ACCEPTED
+                                access = ACCESS_OWNER
+                            })
+                        }
+                        principals.addAll(it)
+                    }
+                return principals
+            }
+
+        val Property.Name.toAccess: Int
+            get() = when(this) {
+                SHARED_OWNER, OCAccess.SHARED_OWNER -> ACCESS_OWNER
+                READ_WRITE, OCAccess.READ_WRITE -> ACCESS_READ_WRITE
+                READ, OCAccess.READ -> ACCESS_READ_ONLY
+                else -> ACCESS_UNKNOWN
+            }
+
+        val Property.Name.toStatus: Int
+            get() = when (this) {
+                Sharee.INVITE_ACCEPTED, OCUser.INVITE_ACCEPTED -> INVITE_ACCEPTED
+                Sharee.INVITE_NORESPONSE, OCUser.INVITE_NORESPONSE -> INVITE_NO_RESPONSE
+                Sharee.INVITE_DECLINED, OCUser.INVITE_DECLINED -> INVITE_DECLINED
+                Sharee.INVITE_INVALID, OCUser.INVITE_INVALID -> INVITE_INVALID
+                else -> INVITE_UNKNOWN
+            }
     }
 }
