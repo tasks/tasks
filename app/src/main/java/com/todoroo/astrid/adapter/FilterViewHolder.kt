@@ -38,6 +38,9 @@ class FilterViewHolder internal constructor(
     @BindView(R.id.size)
     lateinit var size: TextView
 
+    @BindView(R.id.share_indicator)
+    lateinit var shareIndicator: ImageView
+
     lateinit var filter: FilterListItem
 
     init {
@@ -63,11 +66,12 @@ class FilterViewHolder internal constructor(
         this.icon.drawable.setTint(getColor(filter))
         text.text = filter.listingTitle
         if (count == null || count == 0) {
-            size.visibility = View.GONE
+            size.visibility = View.INVISIBLE
         } else {
             size.text = locale.formatNumber(count)
             size.visibility = View.VISIBLE
         }
+        shareIndicator.visibility = if (filter.shared) View.VISIBLE else View.GONE
         if (onClick != null) {
             row.setOnClickListener {
                 onClick.invoke(filter)

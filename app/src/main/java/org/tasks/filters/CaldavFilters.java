@@ -1,17 +1,22 @@
 package org.tasks.filters;
 
 import androidx.room.Embedded;
+
 import com.todoroo.astrid.api.CaldavFilter;
-import java.util.Objects;
+
 import org.tasks.data.CaldavCalendar;
+
+import java.util.Objects;
 
 public class CaldavFilters {
   @Embedded public CaldavCalendar caldavCalendar;
   public int count;
+  public int principals;
 
   CaldavFilter toCaldavFilter() {
     CaldavFilter filter = new CaldavFilter(caldavCalendar);
     filter.count = count;
+    filter.shared = principals > 0;
     return filter;
   }
 

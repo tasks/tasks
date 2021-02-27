@@ -203,7 +203,8 @@ object CustomIcons {
         1178 to R.drawable.ic_local_atm_24px,
         1179 to R.drawable.ic_cleaning_services_24px,
         1180 to R.drawable.ic_plumbing_24px,
-        1181 to R.drawable.ic_pest_control_rodent_24px
+        1181 to R.drawable.ic_pest_control_rodent_24px,
+        1182 to R.drawable.ic_outline_people_outline_24,
     )
 
     @JvmStatic

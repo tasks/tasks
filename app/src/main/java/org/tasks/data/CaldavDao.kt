@@ -237,12 +237,17 @@ SELECT EXISTS(SELECT 1
     @Query("SELECT DISTINCT cd_calendar FROM caldav_tasks WHERE cd_deleted = 0 AND cd_task IN (:tasks)")
     abstract suspend fun getCalendars(tasks: List<Long>): List<String>
 
-    @Query("SELECT caldav_lists.*, COUNT(tasks._id) AS count"
-            + " FROM caldav_lists"
-            + " LEFT JOIN caldav_tasks ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid"
-            + " LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now AND cd_deleted = 0"
-            + " WHERE caldav_lists.cdl_account = :uuid"
-            + " GROUP BY caldav_lists.cdl_uuid")
+    @Query("""
+SELECT caldav_lists.*, COUNT(tasks._id) AS count, COUNT(principals.principal_id) AS principals
+FROM caldav_lists
+         LEFT JOIN caldav_tasks
+                   ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid
+         LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND
+                            tasks.hideUntil < :now AND cd_deleted = 0
+         LEFT JOIN principals ON caldav_lists.cdl_id = principals.principal_list
+WHERE caldav_lists.cdl_account = :uuid
+GROUP BY caldav_lists.cdl_uuid
+    """)
     abstract suspend fun getCaldavFilters(uuid: String, now: Long = currentTimeMillis()): List<CaldavFilters>
 
     @Query("UPDATE tasks SET parent = IFNULL(("

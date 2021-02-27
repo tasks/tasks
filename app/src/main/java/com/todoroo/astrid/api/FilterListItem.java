@@ -8,10 +8,13 @@ package com.todoroo.astrid.api;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-import java.util.Objects;
+
 import org.tasks.R;
+
+import java.util.Objects;
 
 /**
  * Represents an item displayed by Astrid's FilterListActivity
@@ -29,6 +32,7 @@ public abstract class FilterListItem implements Parcelable {
   public int icon = -1;
   public int tint = 0;
   public int count = -1;
+  public boolean shared = false;
   public int order = NO_ORDER;
 
   public abstract Type getItemType();
