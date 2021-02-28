@@ -39,11 +39,11 @@
     <string name="CRA_title">تريد قائمة للمقابلات؟</string>
     <string name="CRA_ignore_all">تجاهل جميع الأحداث</string>
     <string name="CRA_ignore_this">تجاهل هذا الحدث فقط</string>
-    <string name="CRA_postpone">من المحتمل لاحقاً</string>
+    <string name="CRA_postpone">ربَّما لاحقًا</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">المهام سوف تذكرك في الاحداث القادمة وسوف تحثك لتكون جاهزاً</string>
-    <string name="EPr_edit_screen_options">تعديل خيارات الشاشه</string>
+    <string name="EPr_edit_screen_options">تعديل خيارات الشاشة</string>
     <string name="EPr_beastMode_reset">إعادة التعيين إلى الإعدادات الافتراضية</string>
-    <string name="EPr_fullTask_title">إظهار عنوان المهمه</string>
+    <string name="EPr_fullTask_title">إظهار عنوان المهمة الكامل</string>
     <string name="task_list_options">خيارات قائمة المهام</string>
     <string name="EPr_manage_delete_completed_gcal">حذف أحداث التقويم للمهام المُتَممه</string>
     <string name="EPr_manage_delete_all_gcal">حذف جميع نشاطات التقويم للمهام</string>
@@ -137,7 +137,7 @@
     <string name="show_completed">إظهار المهام المكتملة</string>
     <string name="opacity">التعتيم</string>
     <string name="settings_localization">تخصيص اللغة و الجهة</string>
-    <string name="backup_BAc_export">تصدير المهام</string>
+    <string name="backup_BAc_export">تصدير الآن</string>
     <string name="desaturate_colors">ألوان غير مشبعة</string>
     <string name="accent">اللون الثانوي</string>
     <string name="theme_system_default">افتراضيات النظام</string>
@@ -249,4 +249,8 @@
     <string name="SSD_sort_my_order">ترتيبي</string>
     <string name="cancel">إلغاء</string>
     <string name="ok">حسنًا</string>
+    <string name="TEA_load_more">حمّل المزيد…</string>
+    <string name="start_date">تاريخ البدأ</string>
+    <string name="SSD_sort_start">بتاريخ البدأ</string>
+    <string name="export_toast">تم تصدير %1$s إلى %2$s.</string>
 </resources>
