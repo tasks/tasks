@@ -357,16 +357,17 @@ class CaldavSynchronizer @Inject constructor(
         }
 
         val Response.isOwncloudOwner: Boolean
-            get() = this[OCOwnerPrincipal::class.java]?.owner
-                ?.let {
-                    this[CurrentUserPrincipal::class.java]?.href?.endsWith("$it/") == true
-                }
-                ?: false
+            get() = this[OCOwnerPrincipal::class.java]?.owner?.let { isCurrentUser(it) } ?: false
+
+        fun Response.isCurrentUser(href: String) =
+            this[CurrentUserPrincipal::class.java]?.href?.endsWith("$href/") == true
 
         val Response.principals: List<Principal>
             get() {
                 val principals = ArrayList<Principal>()
-                this[Invite::class.java]?.sharees
+                this[Invite::class.java]
+                    ?.sharees
+                    ?.filterNot { isCurrentUser(it.href) }
                     ?.map {
                         Principal().apply {
                             principal = it.href

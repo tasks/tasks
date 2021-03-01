@@ -130,6 +130,7 @@ class SharingSabredavTest : CaldavTest() {
                             <d:resourcetype>
                                 <d:collection />
                                 <cal:calendar />
+                                <cs:shared-owner />
                             </d:resourcetype>
                             <d:displayname>Shared</d:displayname>
                             <cal:supported-calendar-component-set>
@@ -141,6 +142,14 @@ class SharingSabredavTest : CaldavTest() {
                                 <d:shared-owner />
                             </d:share-access>
                             <d:invite>
+                                <d:sharee>
+                                    <d:href>/principals/user1</d:href>
+                                    <d:prop />
+                                    <d:share-access>
+                                        <d:shared-owner />
+                                    </d:share-access>
+                                    <d:invite-accepted />
+                                </d:sharee>
                                 <d:sharee>
                                     <d:href>mailto:user@example.com</d:href>
                                     <d:prop>
