@@ -71,6 +71,22 @@ class SharingSabredavTest : CaldavTest() {
     }
 
     @Test
+    fun excludeCurrentUserPrincipalFromSharees() = runBlocking {
+        setupAccount("user1")
+        CaldavCalendar().apply {
+            account = this@SharingSabredavTest.account.uuid
+            ctag = "http://sabre.io/ns/sync/1"
+            url = "${this@SharingSabredavTest.account.url}940468858232147861/"
+            caldavDao.insert(this)
+        }
+        enqueue(SD_OWNER)
+
+        synchronizer.sync(account)
+
+        assertEquals(1, principalDao.getAll().size)
+    }
+
+    @Test
     fun principalForSharee() = runBlocking {
         setupAccount("user1")
         val calendar = CaldavCalendar().apply {
@@ -83,9 +99,7 @@ class SharingSabredavTest : CaldavTest() {
 
         synchronizer.sync(account)
 
-        val principal = principalDao.getAll()
-            .apply { assertTrue(size == 1) }
-            .first()
+        val principal = principalDao.getAll().first()
 
         assertEquals(calendar.id, principal.list)
         assertEquals("mailto:user@example.com", principal.principal)
