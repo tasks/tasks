@@ -78,26 +78,21 @@ public abstract class FilterListItem implements Parcelable {
         && icon == other.icon
         && tint == other.tint
         && count == other.count
-        && order == other.order;
+        && order == other.order
+        && shared == other.shared;
   }
 
   @Override
   public String toString() {
-    return "FilterListItem{"
-        + "listingTitle='"
-        + listingTitle
-        + '\''
-        + ", id="
-        + id
-        + ", icon="
-        + icon
-        + ", tint="
-        + tint
-        + ", count="
-        + count
-        + ", order="
-        + order
-        + '}';
+    return "FilterListItem{" +
+            "listingTitle='" + listingTitle + '\'' +
+            ", id=" + id +
+            ", icon=" + icon +
+            ", tint=" + tint +
+            ", count=" + count +
+            ", shared=" + shared +
+            ", order=" + order +
+            '}';
   }
 
   public enum Type {
