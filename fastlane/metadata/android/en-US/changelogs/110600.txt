@@ -1,0 +1,5 @@
+* CalDAV: Display indicator in drawer when a list is shared with other users
+  * Compatible with Tasks.org, Nextcloud, ownCloud, and sabre/dav
+* CalDAV: Don't upload changes to read-only lists
+* Remove unnecessary icon-mirroring for RTL users
+* Update translations

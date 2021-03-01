@@ -1,3 +1,21 @@
+### Shared lists are coming to Tasks! [Read more](https://tasks.org/blog/shared-lists-are-coming)
+
+### 11.6 (2021-03-02)
+
+* CalDAV: Display indicator in drawer when a list is shared with other users
+  * Compatible with Tasks.org, Nextcloud, ownCloud, and sabre/dav
+* CalDAV: Don't upload changes to read-only lists
+  ([#931](https://github.com/tasks/tasks/issues/931))
+* Remove unnecessary icon-mirroring for RTL users
+  ([#1385](https://github.com/tasks/tasks/issues/1385) and
+  [#1391](https://github.com/tasks/tasks/pull/1391)) - Thanks to @mhmdanas
+* Update translations
+  * Arabic - @mhmdanas
+  * Czech - @vitSkalicky
+  * Indonesian - @putu
+  * Sinhala - HelaBasa
+  * Ukrainian - @IhorHordiichuk
+
 ### 11.5.2 (2021-02-25)
 
 * Fix CalDAV sync error
