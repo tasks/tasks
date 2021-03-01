@@ -34,7 +34,7 @@
     <string name="save">Uložit</string>
     <string name="TEA_timer_est">Zal. %s</string>
     <string name="TEA_timer_elap">Uplynulo %s</string>
-    <string name="due_date">Termín dokončení</string>
+    <string name="due_date">Termín úkolu</string>
     <string name="due_time">Čas dokončení</string>
     <string name="day_before_due">Den před termínem</string>
     <string name="week_before_due">Týden před termínem</string>
@@ -332,7 +332,7 @@
         <item quantity="other">%d podúkolů</item>
     </plurals>
     <string name="repeat_type_due">termínu úkolu</string>
-    <string name="repeat_type_completion">datum dokončení</string>
+    <string name="repeat_type_completion">okamžiku dokončení</string>
     <string name="repeat_occurs">Opakovat</string>
     <string name="repeat_snackbar">Úkol %1$s byl znovu naplánován na %2$s</string>
     <string name="new_list">Vytvořit nový seznam</string>
@@ -546,8 +546,8 @@
     <string name="date_shortcut_tomorrow_night">Zítra v noci</string>
     <string name="date_shortcut_tomorrow_evening">Zítra večer</string>
     <string name="CFC_list_name">V seznamu…</string>
-    <string name="astrid_sort_order_summary">Zapněte Astrid ruční třídění pro \"Moje úkoly\", \" Dnes\" a štítky. Tento režim třidění bude v budoucnu nahrazen režimem \"Vlastní pořadí\"</string>
-    <string name="astrid_sort_order">Astrid ruční třídění</string>
+    <string name="astrid_sort_order_summary">Zapněte ruční řazení Astrid pro \"Moje úkoly\", \"Dnes\" a štítky. Tento režim řazení bude v budoucnu nahrazen režimem \"Vlastní řazení\"</string>
+    <string name="astrid_sort_order">Ruční řazení Astrid</string>
     <string name="manage_lists">Spravovat seznamy</string>
     <string name="CRA_default_list_name">Akční položky: %s</string>
     <string name="open_last_viewed_list">Otevřít poslední prohlížený seznam</string>
@@ -607,4 +607,6 @@
     <string name="tomorrow_abbrev_lowercase">zítra</string>
     <string name="default_location">Výchozí místo</string>
     <string name="default_due_date">Výchozí termín</string>
+    <string name="repeat_type_completion_capitalized">Okamžik dokončení</string>
+    <string name="cancel">Zrušit</string>
 </resources>
