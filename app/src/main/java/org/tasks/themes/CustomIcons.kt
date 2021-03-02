@@ -205,6 +205,8 @@ object CustomIcons {
         1180 to R.drawable.ic_plumbing_24px,
         1181 to R.drawable.ic_pest_control_rodent_24px,
         1182 to R.drawable.ic_outline_people_outline_24,
+        1183 to R.drawable.ic_outline_forum_24,
+        1184 to R.drawable.ic_twitter_logo_black,
     )
 
     @JvmStatic

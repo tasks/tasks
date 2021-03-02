@@ -8,68 +8,111 @@
     app:icon="@drawable/ic_outline_new_releases_24px"/>
 
   <Preference
-    android:title="@string/documentation"
-    app:icon="@drawable/ic_outline_help_outline_24px">
+      android:key="@string/rate_tasks"
+      android:title="@string/rate_tasks"
+      app:icon="@drawable/ic_outline_star_border_24px">
     <intent
-      android:action="android.intent.action.VIEW"
-      android:data="https://tasks.org" />
+        android:action="android.intent.action.VIEW"
+        android:data="@string/market_url" />
   </Preference>
 
-  <Preference
-    android:key="@string/follow_reddit"
-    android:title="@string/follow_reddit"
-    app:icon="@drawable/ic_reddit_share_silhouette">
-    <intent
-      android:action="android.intent.action.VIEW"
-      android:data="@string/url_reddit" />
-  </Preference>
+  <PreferenceCategory
+      android:title="@string/support">
 
-  <Preference
-    android:key="@string/contact_developer"
-    android:title="@string/contact_developer"
-    app:icon="@drawable/ic_outline_email_24px" />
+    <Preference
+        android:title="@string/documentation"
+        app:icon="@drawable/ic_outline_help_outline_24px">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://tasks.org" />
+    </Preference>
 
-  <Preference
-    android:key="@string/rate_tasks"
-    android:title="@string/rate_tasks"
-    app:icon="@drawable/ic_outline_star_border_24px">
-    <intent
-      android:action="android.intent.action.VIEW"
-      android:data="@string/market_url" />
-  </Preference>
+    <Preference
+        android:title="@string/issue_tracker"
+        app:icon="@drawable/ic_outline_bug_report_24px">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://github.com/tasks/tasks/issues" />
+    </Preference>
 
-  <Preference
-    android:summary="@string/license_summary"
-    android:title="@string/source_code"
-    app:allowDividerAbove="true"
-    app:icon="@drawable/ic_octocat">
-    <intent
-      android:action="android.intent.action.VIEW"
-      android:data="https://tasks.org/source" />
-  </Preference>
+    <Preference
+        android:key="@string/contact_developer"
+        android:title="@string/contact_developer"
+        app:icon="@drawable/ic_outline_email_24px" />
 
-  <Preference
-    android:title="@string/third_party_licenses"
-    app:icon="@drawable/ic_outline_gavel_24px">
-    <intent
-      android:targetClass="org.tasks.activities.attribution.AttributionActivity"
-      android:targetPackage="@string/app_package" />
-  </Preference>
+  </PreferenceCategory>
 
-  <Preference
-    android:title="@string/privacy_policy"
-    app:allowDividerAbove="true"
-    app:icon="@drawable/ic_outline_perm_identity_24px">
-    <intent
-      android:action="android.intent.action.VIEW"
-      android:data="https://tasks.org/privacy.html" />
-  </Preference>
+  <PreferenceCategory
+    android:title="@string/social">
 
-  <SwitchPreferenceCompat
-    android:defaultValue="true"
-    android:key="@string/p_collect_statistics"
-    android:summary="@string/send_anonymous_statistics_summary"
-    android:title="@string/send_anonymous_statistics"
-    app:icon="@drawable/ic_outline_bug_report_24px" />
+    <Preference
+        android:key="@string/follow_reddit"
+        android:title="@string/follow_reddit"
+        app:icon="@drawable/ic_reddit_share_silhouette">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="@string/url_reddit" />
+    </Preference>
+
+    <Preference
+        android:key="@string/follow_twitter"
+        android:title="@string/follow_twitter"
+        app:icon="@drawable/ic_twitter_logo_black">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="@string/url_twitter" />
+    </Preference>
+
+    <Preference
+        android:key="@string/chat_freenode"
+        android:title="@string/chat_freenode"
+        app:icon="@drawable/ic_outline_forum_24">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="@string/url_freenode" />
+    </Preference>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="@string/open_source">
+
+    <Preference
+        android:summary="@string/license_summary"
+        android:title="@string/source_code"
+        app:icon="@drawable/ic_octocat">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://tasks.org/source" />
+    </Preference>
+
+    <Preference
+        android:title="@string/third_party_licenses"
+        app:icon="@drawable/ic_outline_gavel_24px">
+      <intent
+          android:targetClass="org.tasks.activities.attribution.AttributionActivity"
+          android:targetPackage="@string/app_package" />
+    </Preference>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="@string/privacy">
+    <Preference
+        android:title="@string/privacy_policy"
+        app:icon="@drawable/ic_outline_perm_identity_24px">
+      <intent
+          android:action="android.intent.action.VIEW"
+          android:data="https://tasks.org/privacy.html" />
+    </Preference>
+
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/p_collect_statistics"
+        android:summary="@string/send_anonymous_statistics_summary"
+        android:title="@string/send_anonymous_statistics"
+        app:icon="@drawable/ic_outline_bug_report_24px" />
+
+  </PreferenceCategory>
 
 </PreferenceScreen>

@@ -57,7 +57,7 @@ class WhatsNewDialog : DialogFragment() {
         changelog.movementMethod = LinkMovementMethod.getInstance()
         changelog.text = markwon.toMarkdown(text)
 
-        val begForSubscription = firebase.noChurn() && !inventory.hasPro
+        val begForSubscription = !inventory.hasPro
         val begForRating = !preferences.getBoolean(R.string.p_clicked_rate, false)
                 && (inventory.purchasedThemes() || firebase.noChurn())
                 && (!begForSubscription || Random.nextBoolean())

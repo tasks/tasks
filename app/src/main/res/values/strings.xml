@@ -651,7 +651,14 @@ File %1$s contained %2$s.\n\n
   <string name="price_per_month">$%s/month</string>
   <string name="price_per_month_abbreviated">$%s/mo</string>
   <string name="current_subscription">Current subscription: %s</string>
-  <string name="follow_reddit">Follow r/tasks</string>
+  <string name="follow_reddit">Join r/tasks</string>
+  <string name="follow_twitter">Follow @tasks_org</string>
+  <string name="chat_freenode">Join #tasks on Freenode</string>
+  <string name="social">Social</string>
+  <string name="support">Support</string>
+  <string name="issue_tracker">Issue tracker</string>
+  <string name="open_source">Open source</string>
+  <string name="privacy">Privacy</string>
   <string name="authorization_cancelled">Authorization cancelled</string>
   <string name="not_signed_in">Not signed in</string>
   <string name="google_play_subscribers">Google Play subscribers</string>

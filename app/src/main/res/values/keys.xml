@@ -28,6 +28,8 @@
   <string name="url_tasker">https://tasks.org/help/tasker</string>
   <string name="url_donate">https://tasks.org/donate</string>
   <string name="url_reddit">https://reddit.com/r/tasks</string>
+  <string name="url_twitter">https://twitter.com/tasks_org</string>
+  <string name="url_freenode">https://webchat.freenode.net/?channels=tasks</string>
   <string name="url_sponsor">https://github.com/sponsors/abaker</string>
   <string name="url_app_passwords">https://tasks.org/passwords</string>
 

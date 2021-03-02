@@ -7,13 +7,18 @@ import androidx.fragment.app.FragmentManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.Tasks.Companion.IS_GENERIC
+import org.tasks.analytics.Firebase
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.injection.InjectingPreferenceFragment
+import javax.inject.Inject
 
 private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
 
 @AndroidEntryPoint
 class HelpAndFeedback : InjectingPreferenceFragment() {
+
+    @Inject lateinit var firebase: Firebase
 
     override fun getPreferenceXml() = R.xml.help_and_feedback
 
@@ -48,12 +53,13 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
                 true
             }
 
-        @Suppress("ConstantConditionIf")
-        if (BuildConfig.FLAVOR == "generic") {
+        if (IS_GENERIC) {
             remove(
                 R.string.p_collect_statistics,
                 R.string.rate_tasks,
             )
+        } else if (!firebase.noChurn()) {
+            remove(R.string.rate_tasks)
         }
     }
 
