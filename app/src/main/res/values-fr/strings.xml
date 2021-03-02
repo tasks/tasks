@@ -620,7 +620,7 @@
     <string name="your_subscription_expired">Votre abonnement a expiré. Abonnez-vous dès maintenant pour reprendre le service.</string>
     <string name="background_location_permission_required">Tasks collecte des données de localisation pour permettre des rappels basés sur la localisation, même lorsque l\'application est fermée ou non utilisée.</string>
     <string name="repeat_monthly_fifth_week">cinquième</string>
-    <string name="follow_reddit">Suivre r/Tasks</string>
+    <string name="follow_reddit">Rejoindre r/Tasks</string>
     <string name="authorization_cancelled">Autorisation annulée</string>
     <string name="sign_in_with_google">Connectez-vous avec Google</string>
     <string name="github_sponsor">Sponsor</string>
@@ -676,4 +676,11 @@
     <string name="map_theme">Thème de la carte</string>
     <string name="map_theme_use_app_theme">Utiliser le thème de l’application</string>
     <string name="tasks_org_account_required">Compte Tasks.org requis</string>
+    <string name="privacy">Vie privée</string>
+    <string name="open_source">Source ouverte</string>
+    <string name="issue_tracker">Suivi des problèmes</string>
+    <string name="support">Aide</string>
+    <string name="social">Social</string>
+    <string name="chat_freenode">Rejoignez #tasks sur Freenode</string>
+    <string name="follow_twitter">Suivez @tasks_org</string>
 </resources>
