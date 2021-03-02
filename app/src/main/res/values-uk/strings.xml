@@ -564,7 +564,7 @@
     <string name="google_play_subscribers">Підписники Google Play</string>
     <string name="not_signed_in">Не авторизовані</string>
     <string name="authorization_cancelled">Авторизацію скасовано</string>
-    <string name="follow_reddit">Підписатися на r/tasks</string>
+    <string name="follow_reddit">Долучитися до r/tasks</string>
     <string name="current_subscription">Поточна підписка: %s</string>
     <string name="price_per_year_abbreviated">%s $/рік</string>
     <string name="price_per_month_abbreviated">%s$/міс.</string>
@@ -701,4 +701,11 @@
     <string name="map_theme">Тема карти</string>
     <string name="cancel">Скасувати</string>
     <string name="ok">OK</string>
+    <string name="privacy">Приватність</string>
+    <string name="open_source">Відкритий джерельний код</string>
+    <string name="issue_tracker">Відстеження помилок</string>
+    <string name="support">Підтримка</string>
+    <string name="social">Суспільні</string>
+    <string name="chat_freenode">Долучитися до #tasks на Freenode</string>
+    <string name="follow_twitter">Стежити за @tasks_org</string>
 </resources>
