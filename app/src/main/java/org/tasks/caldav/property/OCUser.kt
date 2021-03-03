@@ -11,7 +11,7 @@ import org.xmlpull.v1.XmlPullParser
 class OCUser(parser: XmlPullParser) {
     lateinit var href: String
         private set
-    lateinit var commonName: String
+    var commonName: String? = null
         private set
     lateinit var access: OCAccess
         private set
