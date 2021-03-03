@@ -587,11 +587,11 @@
     <string name="date_shortcut_tomorrow_night">Bihar gauez</string>
     <string name="date_shortcut_tomorrow_evening">Bihar arratsaldez</string>
     <string name="CFC_list_name">Zerrendan…</string>
-    <string name="manage_lists">Kudeatu zerrendak</string>
+    <string name="manage_lists">Zerrendak kudeatu</string>
     <string name="permission_read_tasks">Tasks datu-basera sarbide osoa</string>
     <string name="sign_in_with_google">Hasi saioa Google-n</string>
     <string name="authorization_cancelled">Autorizazioa ezeztatuta</string>
-    <string name="follow_reddit">Jarraitu r/tasks</string>
+    <string name="follow_reddit">Egin bat r/task-ekin</string>
     <string name="current_subscription">Uneko harpidetza: %s</string>
     <string name="price_per_month_abbreviated">$%s hilean</string>
     <string name="price_per_month">$%s hilean</string>
@@ -681,4 +681,11 @@
     <string name="map_theme_use_app_theme">Aplikazioaren gaia erabili</string>
     <string name="tasks_org_account_required">Tasks.org kontua behar da</string>
     <string name="map_theme">Maparen gaia</string>
+    <string name="privacy">Pribatutasuna</string>
+    <string name="open_source">Kode irekia</string>
+    <string name="issue_tracker">Gorabeheren arakatzailea</string>
+    <string name="support">Euskarria</string>
+    <string name="social">Soziala</string>
+    <string name="chat_freenode">Batu #tasks -ekin Freenode-n</string>
+    <string name="follow_twitter">Jarraitu @tasks_org</string>
 </resources>
