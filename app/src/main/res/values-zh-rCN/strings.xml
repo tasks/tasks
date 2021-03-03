@@ -614,7 +614,7 @@
     <string name="price_per_year">$%s/年</string>
     <string name="insufficient_subscription">订阅等级不够。请升级你的订阅来恢复服务。</string>
     <string name="your_subscription_expired">你的订阅已到期。现在订阅恢复服务。</string>
-    <string name="follow_reddit">关注 r/tasks</string>
+    <string name="follow_reddit">加入 r/tasks</string>
     <string name="background_location_permission_required">Tasks 收集位置数据，以启用基于位置的提醒，即使应用程序关闭或不使用。</string>
     <string name="repeat_monthly_fifth_week">第五</string>
     <string name="authorization_cancelled">授权被取消</string>
@@ -671,4 +671,11 @@
     <string name="map_theme_use_app_theme">使用应用主题</string>
     <string name="tasks_org_account_required">需要 Tasks.org 账户</string>
     <string name="map_theme">地图主题</string>
+    <string name="privacy">隐私</string>
+    <string name="open_source">开源</string>
+    <string name="issue_tracker">问题跟踪器</string>
+    <string name="support">支持</string>
+    <string name="social">社交</string>
+    <string name="chat_freenode">加入 Freenode 上的 #tasks</string>
+    <string name="follow_twitter">关注 @tasks_org</string>
 </resources>
