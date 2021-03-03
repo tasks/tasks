@@ -1,6 +1,6 @@
 ### Shared lists are coming to Tasks! [Read more](https://tasks.org/blog/shared-lists-are-coming)
 
-### 11.6 (2021-03-02)
+### 11.6 (2021-03-03)
 
 * CalDAV: Display indicator in drawer when a list is shared with other users
   * Compatible with Tasks.org, Nextcloud, ownCloud, and sabre/dav
@@ -11,9 +11,16 @@
   [#1391](https://github.com/tasks/tasks/pull/1391)) - Thanks to @mhmdanas
 * Update translations
   * Arabic - @mhmdanas
+  * Basque - Sergio Varela
   * Czech - @vitSkalicky
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
   * Indonesian - @putu
+  * Russian - Nikita Epifanov
+  * Simplified Chinese - @sr093906
   * Sinhala - HelaBasa
+  * Spanish - @FlorianLeChat
   * Ukrainian - @IhorHordiichuk
 
 ### 11.5.2 (2021-02-25)
