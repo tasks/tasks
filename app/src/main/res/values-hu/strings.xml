@@ -621,7 +621,7 @@
     <string name="custom_filter_has_subtask">Van alfeladata</string>
     <string name="cancel">Mégse</string>
     <string name="ok">OK</string>
-    <string name="follow_reddit">r/tasks követése</string>
+    <string name="follow_reddit">Csatlakozás r/tasks</string>
     <string name="background_location_permission_required">A Tasks a helyinformációkat a helyalapú emlékeztetőkhöz használja fel, még akkor is, ha az app be van zárva vagy nincs használatban.</string>
     <string name="repeat_monthly_fifth_week">ötödik</string>
     <string name="authorization_cancelled">Azonosítás megszakítva</string>
@@ -679,4 +679,11 @@
     <string name="map_theme_use_app_theme">Alkalmazás témájának használata</string>
     <string name="tasks_org_account_required">Tasks.org fiók szükséges</string>
     <string name="map_theme">Térkép téma</string>
+    <string name="privacy">Adatvédelem</string>
+    <string name="open_source">Nyílt forráskódú</string>
+    <string name="issue_tracker">Hibakövető</string>
+    <string name="support">Támogatás</string>
+    <string name="social">Közösségi</string>
+    <string name="chat_freenode">Csatlakozás a #tasks-hoz a Freenode-on</string>
+    <string name="follow_twitter">\@tasks_org követése</string>
 </resources>
