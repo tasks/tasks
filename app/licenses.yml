@@ -838,3 +838,81 @@
   license: The Apache License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://kotlinlang.org/
+- artifact: androidx.compose.ui:ui:+
+  name: ui
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01
+- artifact: androidx.compose.animation:animation-core:+
+  name: animation-core
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-animation#1.0.0-beta01
+- artifact: androidx.compose.ui:ui-text:+
+  name: ui-text
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01
+- artifact: androidx.compose.runtime:runtime-saveable:+
+  name: runtime-saveable
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.0.0-beta01
+- artifact: androidx.compose.ui:ui-graphics:+
+  name: ui-graphics
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01
+- artifact: androidx.compose.ui:ui-unit:+
+  name: ui-unit
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01
+- artifact: androidx.compose.ui:ui-geometry:+
+  name: ui-geometry
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01
+- artifact: androidx.compose.ui:ui-util:+
+  name: ui-util
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01
+- artifact: androidx.compose.runtime:runtime:+
+  name: runtime
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.0.0-beta01
+- artifact: androidx.autofill:autofill:+
+  name: autofill
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx
+- artifact: androidx.compose.foundation:foundation:+
+  name: foundation
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.0.0-beta01
+- artifact: androidx.compose.animation:animation:+
+  name: animation
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-animation#1.0.0-beta01
+- artifact: androidx.compose.foundation:foundation-layout:+
+  name: foundation-layout
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.0.0-beta01

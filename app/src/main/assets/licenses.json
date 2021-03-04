@@ -2005,6 +2005,188 @@
       "normalizedLicense": "apache2",
       "url": "https://kotlinlang.org/",
       "libraryName": "kotlin-stdlib-jdk8"
+    },
+    {
+      "artifactId": {
+        "name": "ui",
+        "group": "androidx.compose.ui",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01",
+      "libraryName": "ui"
+    },
+    {
+      "artifactId": {
+        "name": "animation-core",
+        "group": "androidx.compose.animation",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-animation#1.0.0-beta01",
+      "libraryName": "animation-core"
+    },
+    {
+      "artifactId": {
+        "name": "ui-text",
+        "group": "androidx.compose.ui",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01",
+      "libraryName": "ui-text"
+    },
+    {
+      "artifactId": {
+        "name": "runtime-saveable",
+        "group": "androidx.compose.runtime",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.0.0-beta01",
+      "libraryName": "runtime-saveable"
+    },
+    {
+      "artifactId": {
+        "name": "ui-graphics",
+        "group": "androidx.compose.ui",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01",
+      "libraryName": "ui-graphics"
+    },
+    {
+      "artifactId": {
+        "name": "ui-unit",
+        "group": "androidx.compose.ui",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01",
+      "libraryName": "ui-unit"
+    },
+    {
+      "artifactId": {
+        "name": "ui-geometry",
+        "group": "androidx.compose.ui",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01",
+      "libraryName": "ui-geometry"
+    },
+    {
+      "artifactId": {
+        "name": "ui-util",
+        "group": "androidx.compose.ui",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-beta01",
+      "libraryName": "ui-util"
+    },
+    {
+      "artifactId": {
+        "name": "runtime",
+        "group": "androidx.compose.runtime",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.0.0-beta01",
+      "libraryName": "runtime"
+    },
+    {
+      "artifactId": {
+        "name": "autofill",
+        "group": "androidx.autofill",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx",
+      "libraryName": "autofill"
+    },
+    {
+      "artifactId": {
+        "name": "foundation",
+        "group": "androidx.compose.foundation",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.0.0-beta01",
+      "libraryName": "foundation"
+    },
+    {
+      "artifactId": {
+        "name": "animation",
+        "group": "androidx.compose.animation",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-animation#1.0.0-beta01",
+      "libraryName": "animation"
+    },
+    {
+      "artifactId": {
+        "name": "foundation-layout",
+        "group": "androidx.compose.foundation",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.0.0-beta01",
+      "libraryName": "foundation-layout"
     }
   ]
 }

@@ -31,6 +31,7 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose = true
     }
 
     lint {
@@ -77,6 +78,10 @@ android {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.compose
     }
 
     kotlinOptions {
@@ -176,8 +181,9 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${Versions.flipper}")
     debugImplementation("com.facebook.soloader:soloader:0.10.1")
-
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
+    debugImplementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
+    debugImplementation("org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.3")
@@ -209,6 +215,10 @@ dependencies {
     implementation("com.github.openid:AppAuth-Android:0.8.0")
     implementation("org.osmdroid:osmdroid-android:6.1.10@aar")
 
+    implementation("androidx.compose.ui:ui:${Versions.compose}")
+    implementation("androidx.compose.foundation:foundation:${Versions.compose}")
+    implementation("androidx.compose.material:material:${Versions.compose}")
+    
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}") {
         exclude("com.google.android.gms", "play-services-ads-identifier")
