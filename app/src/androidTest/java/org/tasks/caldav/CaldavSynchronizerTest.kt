@@ -50,9 +50,7 @@ class CaldavSynchronizerTest : CaldavTest() {
         })
         enqueue(OC_SHARE_PROPFIND)
 
-        synchronizer.sync(account)
-
-        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        sync()
     }
 
     @Test
@@ -70,16 +68,14 @@ class CaldavSynchronizerTest : CaldavTest() {
         ))
         enqueue(OC_SHARE_PROPFIND, OC_SHARE_REPORT)
 
-        synchronizer.sync(account)
-
-        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        sync()
     }
 
     @Test
     fun syncNewTask() = runBlocking {
         enqueue(OC_SHARE_PROPFIND, OC_SHARE_REPORT, OC_SHARE_TASK)
 
-        synchronizer.sync(account)
+        sync()
 
         val calendar = caldavDao.getCalendars().takeIf { it.size == 1 }!!.first()
         val caldavTask = caldavDao.getTaskByRemoteId(calendar.uuid!!, "3164728546640386952")!!

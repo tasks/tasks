@@ -43,7 +43,7 @@ class SharingSabredavTest : CaldavTest() {
         }
         enqueue(SD_OWNER)
 
-        synchronizer.sync(account)
+        sync()
 
         assertEquals(
             ACCESS_OWNER,
@@ -62,7 +62,7 @@ class SharingSabredavTest : CaldavTest() {
         }
         enqueue(SD_SHAREE)
 
-        synchronizer.sync(account)
+        sync()
 
         assertEquals(
             ACCESS_READ_WRITE,
@@ -81,7 +81,7 @@ class SharingSabredavTest : CaldavTest() {
         }
         enqueue(SD_OWNER)
 
-        synchronizer.sync(account)
+        sync()
 
         assertEquals(1, principalDao.getAll().size)
     }
@@ -97,7 +97,7 @@ class SharingSabredavTest : CaldavTest() {
         }
         enqueue(SD_OWNER)
 
-        synchronizer.sync(account)
+        sync()
 
         val principal = principalDao.getAll().first()
 
@@ -119,7 +119,7 @@ class SharingSabredavTest : CaldavTest() {
         }
         enqueue(SD_SHAREE)
 
-        synchronizer.sync(account)
+        sync()
 
         val principal = principalDao.getAll()
             .apply { assertTrue(size == 1) }

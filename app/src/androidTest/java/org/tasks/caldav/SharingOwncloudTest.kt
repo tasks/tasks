@@ -41,7 +41,7 @@ class SharingOwncloudTest : CaldavTest() {
         }
         enqueue(OC_OWNER)
 
-        synchronizer.sync(account)
+        sync()
 
         assertEquals(ACCESS_OWNER, caldavDao.getCalendarByUuid(calendar.uuid!!)?.access)
     }
@@ -57,7 +57,7 @@ class SharingOwncloudTest : CaldavTest() {
         }
         enqueue(OC_READ_ONLY)
 
-        synchronizer.sync(account)
+        sync()
 
         assertEquals(ACCESS_READ_ONLY, caldavDao.getCalendarByUuid(calendar.uuid!!)?.access)
     }
@@ -73,7 +73,7 @@ class SharingOwncloudTest : CaldavTest() {
         }
         enqueue(OC_OWNER)
 
-        synchronizer.sync(account)
+        sync()
 
         val principal = principalDao.getAll()
             .apply { assertTrue(size == 1) }
@@ -97,7 +97,7 @@ class SharingOwncloudTest : CaldavTest() {
         }
         enqueue(OC_READ_ONLY)
 
-        synchronizer.sync(account)
+        sync()
 
         val principal = principalDao.getAll()
             .apply { assertTrue(size == 1) }

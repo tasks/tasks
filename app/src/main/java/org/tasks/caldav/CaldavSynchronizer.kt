@@ -323,8 +323,6 @@ class CaldavSynchronizer @Inject constructor(
             prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
         }
 
-        private val MAILTO = "^mailto:".toRegex()
-
         fun registerFactories() {
             PropertyRegistry.register(
                 ShareAccess.Factory(),
@@ -367,16 +365,15 @@ class CaldavSynchronizer @Inject constructor(
                 val principals = ArrayList<Principal>()
                 this[Invite::class.java]
                     ?.sharees
-                    ?.filterNot { isCurrentUser(it.href) }
+                    ?.filter { it.href?.let { href -> !isCurrentUser(href) } ?: false }
                     ?.map {
                         Principal().apply {
                             principal = it.href
                             it.properties.find { it is DisplayName }?.let { name ->
                                 displayName = (name as DisplayName).displayName
-                                    ?: it.href.replace(MAILTO, "")
                             }
-                            inviteStatus = it.response.toStatus
-                            access = it.access.access.toAccess
+                            inviteStatus = it.response?.toStatus ?: INVITE_UNKNOWN
+                            access = it.access?.access?.toAccess ?: ACCESS_UNKNOWN
                         }
                     }
                     ?.let { principals.addAll(it) }

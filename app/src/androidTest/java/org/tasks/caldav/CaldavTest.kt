@@ -1,10 +1,13 @@
 package org.tasks.caldav
 
 import com.todoroo.astrid.dao.TaskDao
+import junit.framework.Assert.assertFalse
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
+import org.junit.rules.Timeout
 import org.tasks.R
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
@@ -22,6 +25,9 @@ abstract class CaldavTest : InjectingTestCase() {
     protected val server = MockWebServer()
     protected lateinit var account: CaldavAccount
 
+    @get:Rule
+    val globalTimeout: Timeout = Timeout.seconds(30)
+
     @Before
     override fun setUp() {
         super.setUp()
@@ -32,6 +38,12 @@ abstract class CaldavTest : InjectingTestCase() {
 
     @After
     fun after() = server.shutdown()
+
+    protected suspend fun sync(account: CaldavAccount = this.account) {
+        synchronizer.sync(account)
+
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+    }
 
     protected fun enqueue(vararg responses: String) {
         responses.forEach {

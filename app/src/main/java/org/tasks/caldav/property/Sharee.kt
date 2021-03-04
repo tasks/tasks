@@ -9,11 +9,11 @@ import org.tasks.BuildConfig
 import org.xmlpull.v1.XmlPullParser
 
 class Sharee(parser: XmlPullParser) {
-    lateinit var href: String
+    var href: String? = null
         private set
-    lateinit var access: ShareAccess
+    var access: ShareAccess? = null
         private set
-    lateinit var response: Property.Name
+    var response: Property.Name? = null
         private set
     var comment: String? = null
         private set
