@@ -16,9 +16,9 @@
     <string name="TAd_actionEditTask">تعديل</string>
     <string name="SSD_sort_auto">ترتيب ذكي</string>
     <string name="SSD_sort_alpha">بالعنوان</string>
-    <string name="SSD_sort_due">بحسب تاريخ الإستحقاق</string>
-    <string name="SSD_sort_importance">بحسب الأولوية</string>
-    <string name="SSD_sort_modified">بواسطة التعديل الأخير</string>
+    <string name="SSD_sort_due">بتاريخ الإستحقاق</string>
+    <string name="SSD_sort_importance">بالأولوية</string>
+    <string name="SSD_sort_modified">بوقت آخر تعديل</string>
     <string name="TEA_title_hint">اسم المهمة</string>
     <string name="TEA_importance_label">الأولوية</string>
     <string name="TEA_note_label">وصف</string>
@@ -253,4 +253,8 @@
     <string name="start_date">تاريخ البدأ</string>
     <string name="SSD_sort_start">بتاريخ البدأ</string>
     <string name="export_toast">تم تصدير %1$s إلى %2$s.</string>
+    <string name="TEA_timer_elap">مضى %s</string>
+    <string name="save">حفظ</string>
+    <string name="astrid_sort_order">ترتيب Astrid اليدوي</string>
+    <string name="display_name">اسم العرض</string>
 </resources>
