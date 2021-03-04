@@ -46,8 +46,9 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
     @BindView(R.id.progress_bar)
     lateinit var progressView: ProgressBar
 
-    private var caldavCalendar: CaldavCalendar? = null
-    private lateinit var caldavAccount: CaldavAccount
+    protected var caldavCalendar: CaldavCalendar? = null
+
+    protected lateinit var caldavAccount: CaldavAccount
 
     override val layout: Int
         get() = R.layout.activity_caldav_calendar_settings

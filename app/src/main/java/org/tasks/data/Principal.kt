@@ -62,4 +62,15 @@ class Principal {
     override fun toString(): String {
         return "Principal(id=$id, list=$list, principal=$principal, displayName=$displayName, inviteStatus=$inviteStatus, access=$access)"
     }
+
+    companion object {
+        private val MAILTO = "^mailto:".toRegex()
+        private val LAST_SEGMENT = ".*/([^/]+).*".toRegex()
+
+        val Principal.name: String?
+            get() = displayName
+                ?: principal
+                    ?.replace(MAILTO, "")
+                    ?.replaceFirst(LAST_SEGMENT, "$1")
+    }
 }

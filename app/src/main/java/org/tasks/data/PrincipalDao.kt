@@ -1,5 +1,6 @@
 package org.tasks.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -19,4 +20,7 @@ WHERE principal_list = :list
 
     @Query("SELECT * FROM principals")
     fun getAll(): List<Principal>
+
+    @Query("SELECT * FROM principals WHERE principal_list = :id")
+    fun getPrincipals(id: Long): LiveData<List<Principal>>
 }
