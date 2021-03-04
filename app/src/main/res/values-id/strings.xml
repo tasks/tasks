@@ -522,7 +522,7 @@
     <string name="google_play_subscribers">Pelanggan Google Play</string>
     <string name="not_signed_in">Tidak masuk</string>
     <string name="authorization_cancelled">Otorisasi dibatalkan</string>
-    <string name="follow_reddit">Ikuti r/tasks</string>
+    <string name="follow_reddit">Gabung r/tasks</string>
     <string name="current_subscription">Langganan saat ini: %s</string>
     <string name="price_per_month_abbreviated">$%s/Bln</string>
     <string name="price_per_month">$%s/Bulan</string>
@@ -664,4 +664,11 @@
     <string name="map_theme_use_app_theme">Gunakan Tema Aplikasi</string>
     <string name="tasks_org_account_required">Akun Tasks.org Dibutuhkan</string>
     <string name="map_theme">Tema Peta</string>
+    <string name="privacy">Privasi</string>
+    <string name="open_source">Sumber Terbuka</string>
+    <string name="issue_tracker">Pelacak isu</string>
+    <string name="support">Dukung</string>
+    <string name="social">Sosial</string>
+    <string name="chat_freenode">Gabung #tasks di Freenode</string>
+    <string name="follow_twitter">Ikuti @tasks_org</string>
 </resources>
