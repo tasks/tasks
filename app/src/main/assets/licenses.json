@@ -1978,6 +1978,33 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/jetpack/androidx/releases/tracing#1.0.0",
       "libraryName": "tracing"
+    },
+    {
+      "artifactId": {
+        "name": "databinding-ktx",
+        "group": "androidx.databinding",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "libraryName": "databinding-ktx"
+    },
+    {
+      "artifactId": {
+        "name": "kotlin-stdlib-jdk8",
+        "group": "org.jetbrains.kotlin",
+        "version": "+"
+      },
+      "copyrightHolder": "JetBrains s.r.o.",
+      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
+      "license": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://kotlinlang.org/",
+      "libraryName": "kotlin-stdlib-jdk8"
     }
   ]
 }

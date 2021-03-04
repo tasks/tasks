@@ -33,7 +33,7 @@ android {
         dataBinding = true
     }
 
-    lintOptions {
+    lint {
         disable("InvalidPeriodicWorkRequestInterval")
         lintConfig = file("lint.xml")
         textOutput("stdout")
