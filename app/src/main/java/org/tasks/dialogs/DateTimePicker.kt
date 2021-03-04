@@ -90,7 +90,7 @@ class DateTimePicker : BaseDateTimePicker() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DialogDateTimePickerBinding.inflate(theme.getLayoutInflater(context))
+        binding = DialogDateTimePickerBinding.inflate(theme.getLayoutInflater(requireContext()))
         setupShortcutsAndCalendar()
         ButterKnife.bind(this, binding.root)
         binding.shortcuts.nextWeekButton.text =

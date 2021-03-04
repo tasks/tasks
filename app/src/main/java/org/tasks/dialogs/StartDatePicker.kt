@@ -69,7 +69,7 @@ class StartDatePicker : BaseDateTimePicker() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DialogStartDatePickerBinding.inflate(theme.getLayoutInflater(context))
+        binding = DialogStartDatePickerBinding.inflate(theme.getLayoutInflater(requireContext()))
         setupShortcutsAndCalendar()
         ButterKnife.bind(this, binding.root)
         binding.calendarView.setOnDateChangeListener { _, y, m, d ->

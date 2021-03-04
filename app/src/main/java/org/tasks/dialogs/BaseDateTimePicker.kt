@@ -81,7 +81,8 @@ abstract class BaseDateTimePicker : BottomSheetDialogFragment() {
                 .findViewById<CoordinatorLayout>(com.google.android.material.R.id.coordinator)
         val containerLayout =
                 dialog.findViewById<FrameLayout>(com.google.android.material.R.id.container)
-        val buttons = theme.getLayoutInflater(context).inflate(R.layout.dialog_date_time_picker_buttons, null)
+        val buttons = theme.getLayoutInflater(requireContext())
+            .inflate(R.layout.dialog_date_time_picker_buttons, null)
         buttons.findViewById<View>(R.id.cancel_button).setOnClickListener { dismiss() }
         buttons.findViewById<View>(R.id.ok_button).setOnClickListener { sendSelected() }
         buttons.layoutParams = FrameLayout.LayoutParams(
