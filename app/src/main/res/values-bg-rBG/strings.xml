@@ -1,24 +1,26 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="actfm_picture_clear">Изчисти Картинка</string>
-    <string name="TVA_add_comment">Добави коментар…</string>
+    <string name="actfm_picture_clear">Изчистване изображение</string>
+    <string name="TVA_add_comment">Добавяне на коментар…</string>
     <string name="backup_BPr_header">Резервни копия</string>
-    <string name="backup_BAc_import">Импортиране на задачи</string>
-    <string name="backup_BAc_export">Експортиране на задачи</string>
+    <string name="backup_BAc_import">Внасяне от резервно копие</string>
+    <string name="backup_BAc_export">Правене на резервно копие</string>
     <string name="export_toast">Създадено е резервно копие %1$s на %2$s.</string>
     <string name="import_summary_title">Възстановяване на описанието</string>
-    <string name="import_summary_message">Файлът %1$s съдържа %2$s.\n\n
-%3$s импортирани,\n
-%4$s вече съществуват\n
-%5$s имат грешки\n</string>
+    <string name="import_summary_message">Файлът %1$s съдържа %2$s.
+\n
+\n%3$s внесени,
+\n%4$s съществуващи
+\n%5$s с грешка
+\n</string>
     <string name="import_progress_read">Прочитане на задачи %d…</string>
-    <string name="read_permission_label">Tasks Разрешение</string>
-    <string name="discard_confirmation">Сигурни ли сте че искате да отхвърлите промените си?</string>
+    <string name="read_permission_label">Разрешения за Tasks</string>
+    <string name="discard_confirmation">Искате да отхвърлите промените си\?</string>
     <string name="keep_editing">Продължаване на редактиране</string>
-    <string name="DLG_delete_this_task_question">Изтриване на тази задача?</string>
+    <string name="DLG_delete_this_task_question">Изтриване на задачата\?</string>
     <string name="DLG_hour_minutes">Време (часове: минути)</string>
-    <string name="DLG_undo">Върни</string>
-    <string name="WID_dateButtonUnset">Кликнете, за да зададете</string>
+    <string name="DLG_undo">Отменяне</string>
+    <string name="WID_dateButtonUnset">Докоснете за задаване</string>
     <string name="TLA_no_items">Тук няма задачи.</string>
     <string name="TLA_menu_sort">Сортирай</string>
     <string name="TLA_menu_search">Търсене</string>
@@ -104,32 +106,32 @@
     <string name="default_location_reminder_on_arrival">При пристигане</string>
     <string name="default_location_reminder_on_departure">При заминаване</string>
     <string name="default_location_reminder_on_arrival_or_departure">При пристигане и заминаване</string>
-    <string name="BFE_Active">Моите задачи</string>
+    <string name="BFE_Active">Мои задачи</string>
     <string name="BFE_Recent">Наскоро променени</string>
     <string name="custom_filter_or">или</string>
     <string name="custom_filter_not">не</string>
     <string name="custom_filter_and">и</string>
-    <string name="CFA_button_add">Добави Критерий</string>
+    <string name="CFA_button_add">Добавяне на критерий</string>
     <string name="CFC_dueBefore_text">Краен срок: ?</string>
     <string name="CFC_dueBefore_name">Краен срок…</string>
     <string name="no_due_date">Без крайна дата</string>
     <string name="next_month">Следващия месец</string>
     <string name="CFC_importance_text">С приоритет поне ?</string>
-    <string name="CFC_importance_name">Приоритет</string>
-    <string name="CFC_tag_text">Таг: ?</string>
-    <string name="CFC_tag_name">Таг…</string>
-    <string name="CFC_tag_contains_name">Името на тага съдържа…</string>
-    <string name="CFC_tag_contains_text">Името на тага съдържа: ?</string>
+    <string name="CFC_importance_name">Приоритет…</string>
+    <string name="CFC_tag_text">Етикет: \?</string>
+    <string name="CFC_tag_name">Етикет…</string>
+    <string name="CFC_tag_contains_name">Етикетът съдържа…</string>
+    <string name="CFC_tag_contains_text">Етикетът съдържа: \?</string>
     <string name="CFC_title_contains_name">Имена съдържащи…</string>
     <string name="CFC_title_contains_text">Името съдържа: ?</string>
-    <string name="gcal_TEA_error">Грешка при добавяне на задачата към каледнара!</string>
-    <string name="gcal_TEA_showCalendar_label">Добави събитие към календара</string>
+    <string name="gcal_TEA_error">Грешка при добавяне на задачата към календара!</string>
+    <string name="gcal_TEA_showCalendar_label">Добавяне на събитие в календара</string>
     <string name="delete_calendar_event_confirmation">Изтриване на събитие в календара?</string>
     <string name="calendar_event_not_found">Събитието в календара не е намерено</string>
     <string name="gcal_completed_title">%s (завършено)</string>
     <string name="CFC_gtasks_list_text">В списък: ?</string>
     <string name="CFC_gtasks_list_name">В списък GTasks…</string>
-    <string name="gtasks_GTA_clear_completed">Изчисти Завършени</string>
+    <string name="gtasks_GTA_clear_completed">Изчистване завършени</string>
     <string name="gtasks_GLA_authenticating">Удостоверява се…</string>
     <string name="gtasks_GLA_errorIOAuth">Съжаляваме, ние имахме проблем с комуникацията със сървърите на Google. Моля, опитайте отново по-късно.</string>
     <string name="gtasks_error_accountNotFound">Акаунт %s не е намерен-моля да излезнете и да влязнете отново от настройките на Google Tasks.</string>
@@ -152,9 +154,9 @@
     <string name="rmd_EPr_quiet_hours_start_title">Тихи часове начало</string>
     <string name="rmd_EPr_quiet_hours_end_title">Тихи часове край</string>
     <string name="rmd_EPr_rmd_time_title">Напомняне по подразбиране</string>
-    <string name="rmd_EPr_rmd_time_desc">Уведомления за задачи без крайни срокове ще се показват на %s</string>
-    <string name="persistent_notifications">Постоянни уведомления</string>
-    <string name="persistent_notifications_description">Постоянни уведомления не могат да бъдат изчиствани</string>
+    <string name="rmd_EPr_rmd_time_desc">Известия за задачи без краен срок ще се показват на %s</string>
+    <string name="persistent_notifications">Постоянни известия</string>
+    <string name="persistent_notifications_description">Постояннити известия не могат да бъдат изчиствани</string>
     <string name="rmd_EPr_defaultRemind_title">Случайни напомняния</string>
     <string name="default_random_reminder_disabled">изключено</string>
     <string name="default_random_reminder_hourly">всеки час</string>
@@ -239,12 +241,12 @@
     <string name="repeat_number_of_times">Повтаряй брой пъти</string>
     <string name="repeat_occurs">Възниква</string>
     <string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
-    <string name="new_tag">Нов таг</string>
+    <string name="new_tag">Добавяне на етикет</string>
     <string name="new_list">Създаване на нов списък</string>
     <string name="delete_tag_confirmation">Изтрий %s?</string>
     <string name="TPl_notification">Таймерите са Активни за %s!</string>
     <string name="TFE_workingOn">Tasks за отмерване на време</string>
-    <string name="TEA_timer_controls">Таймер</string>
+    <string name="TEA_timer_controls">Отброяване</string>
     <string name="TEA_timer_comment_started">тази задача е започната на:</string>
     <string name="TEA_timer_comment_stopped">тази задача е приключена на:</string>
     <string name="TEA_timer_comment_spent">Отделено време:</string>
@@ -267,13 +269,13 @@
     <string name="widget_show_checkboxes">Покажи отметки</string>
     <string name="widget_show_header">Покажи хедър</string>
     <string name="widget_show_settings">Покажи настройки</string>
-    <string name="notifications">Уведомления</string>
+    <string name="notifications">Известия</string>
     <string name="silent">Безшумен</string>
     <string name="sound">Звук</string>
     <string name="vibrations">Вибрации</string>
     <string name="quiet_hours">Тихи часове</string>
-    <string name="attachment_directory">Директория за прикачени файлове</string>
-    <string name="backup_directory">Директория за резервни копия</string>
+    <string name="attachment_directory">Папка за прикачени файлове</string>
+    <string name="backup_directory">Папка за резервни копия</string>
     <string name="google_drive_backup">Копирай в Google Drive</string>
     <string name="miscellaneous">Разни</string>
     <string name="enabled">Активирано</string>
@@ -286,8 +288,8 @@
     <string name="rate_tasks">Гласувайте за Tasks</string>
     <string name="quiet_hours_summary">Без напомняния по време на тихи часове</string>
     <string name="TLA_menu_donate">Дарете</string>
-    <string name="add_reminder">Добави напомняне</string>
-    <string name="add_location">Добави местоположение</string>
+    <string name="add_reminder">Добавяне на напомняне</string>
+    <string name="add_location">Добавяне на местоположение</string>
     <string name="remove">Изтрий</string>
     <string name="randomly_once">Произволно веднъж</string>
     <string name="randomly">Произволно</string>
@@ -296,7 +298,7 @@
     <string name="when_due">При краен срок</string>
     <string name="geofence_radius">Радиус</string>
     <string name="location_radius_meters">%s м</string>
-    <string name="tags">Тагове</string>
+    <string name="tags">Етикети</string>
     <string name="filters">Филтри</string>
     <string name="date_shortcut_hour">За час</string>
     <string name="date_shortcut_morning">Сутрин</string>
@@ -307,14 +309,14 @@
     <string name="date_shortcut_tomorrow_afternoon">Утре следобед</string>
     <string name="date_shortcut_must_come_before">%1$s трябва да дойде преди %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s трябва да дойде след %2$s</string>
-    <string name="discard_changes">Откажи промените</string>
+    <string name="discard_changes">Отказ от промените\?</string>
     <string name="discard">Откажи</string>
-    <string name="tag_settings">Настройки на тага</string>
+    <string name="tag_settings">Настройки на етикети</string>
     <string name="list_settings">Настройки на списъка</string>
     <string name="delete">Изтрий</string>
     <string name="copy">Копирай</string>
-    <string name="move">Премести</string>
-    <string name="filter_settings">Настройки на филтъра</string>
+    <string name="move">Преместване</string>
+    <string name="filter_settings">Настройки на филтър</string>
     <string name="show_completed">Покажи завършени</string>
     <string name="reverse">Обратно</string>
     <string name="add_attachment">Добавяне на прикачен файл</string>
@@ -324,7 +326,7 @@
     <string name="privacy_policy">Декларация за поверителност</string>
     <string name="send_anonymous_statistics">Подобряване на Tasks</string>
     <string name="send_anonymous_statistics_summary">Изпращане на анонимна статистика за използването и отчети за грешки, за да се подпомогне подобряването на Tasks. Няма да бъдат събирани персонални данни.</string>
-    <string name="tag_already_exists">Този таг вече съществува</string>
+    <string name="tag_already_exists">Етикетът вече съществува</string>
     <string name="name_cannot_be_empty">Името не може да е празно</string>
     <string name="username_required">Потребителското име е задължително</string>
     <string name="password_required">Паролата е задължителна</string>
@@ -363,12 +365,12 @@
     <string name="copy_selected_tasks">Копиране на избраните задачи?</string>
     <string name="date_and_time">Дата и време</string>
     <string name="start_of_week">Начало на седмицата</string>
-    <string name="use_locale_default">Локализация по подразбиране</string>
-    <string name="add_account">Добави акаунт</string>
+    <string name="use_locale_default">По подразбиране от езика</string>
+    <string name="add_account">Добавяне на сметка</string>
     <string name="user">Потребител</string>
     <string name="password">Парола</string>
-    <string name="notification_disable_battery_optimizations_description">Оптимизациите на батерията могат да забавят уведомленията</string>
-    <string name="bundle_notifications">Обединяване на уведомленията</string>
+    <string name="notification_disable_battery_optimizations_description">Оптимизация на батерията могат да забавят известията</string>
+    <string name="bundle_notifications">Обединяване на известия</string>
     <string name="badges">Значки</string>
     <string name="list">Списък</string>
     <string name="repeats_from">Повтаряй от</string>
@@ -390,7 +392,7 @@
     <string name="repeats_plural_number_of_times">Повтаря се всеки %1$s, възниква %2$d %3$s</string>
     <string name="repeats_plural_on_until">Повтаряй всеки %1$s на %2$s до %3$s</string>
     <string name="repeats_plural_on_number_of_times">Повтаря се всеки %1$s на %2$s, възниква %3$d %4$s</string>
-    <string name="dont_add_to_calendar">Не добавяй към календара</string>
+    <string name="dont_add_to_calendar">Без добавяне към календара</string>
     <string name="default_calendar">Календар по подразбиране</string>
     <string name="badges_description">Показвай броя задачи върху икона на Tasks в лаунчера. Не всички лаунчери поддържат значки.</string>
     <string name="bundle_notifications_summary">Комбинирай множество нотификации в една</string>
@@ -410,7 +412,7 @@
     <string name="upgrade_to_pro">Обнови към pro</string>
     <string name="manage_subscription">Управление на абонамент</string>
     <string name="refresh_purchases">Обнови покупки</string>
-    <string name="button_subscribe">Подпиши се</string>
+    <string name="button_subscribe">Абониране</string>
     <string name="about">Относно</string>
     <string name="pro_dashclock_extension">Dashclock  разширение</string>
     <string name="requires_pro_subscription">Изисква pro абонамент</string>
@@ -428,7 +430,7 @@
     <string name="visit_website">Посетете уебсайта</string>
     <string name="location_arrived">Пристигнал на %s</string>
     <string name="location_departed">Заминал %s</string>
-    <string name="building_notifications">Създаване на уведомления</string>
+    <string name="building_notifications">Създаване на известия</string>
     <string name="choose_a_location">Изберете местоположение</string>
     <string name="pick_this_location">Избери това местоположение</string>
     <string name="or_choose_a_location">Или избери местоположение</string>
@@ -438,6 +440,49 @@
     <string name="choose_new_location">Изберете ново местоположение</string>
     <string name="third_party_licenses">Лицензи на трети страни</string>
     <string name="version_string">Версия %s</string>
-    <string name="invalid_backup_file">Невалиден резервен файл</string>
+    <string name="invalid_backup_file">Невалидно резервно копие</string>
     <string name="google_tasks_add_to_top">Нови задачи отгоре</string>
+    <string name="action_new_task">Нова задача</string>
+    <string name="hide_unused_places">Скриване на неизползвани места</string>
+    <string name="hide_unused_tags">Скриване на неизползвани етикети</string>
+    <string name="support">Поддръжка</string>
+    <string name="tell_me_how_im_doing">Кажете ни как се справяме</string>
+    <string name="enjoying_tasks">Харесвате ли Tasks\?</string>
+    <string name="filter_eisenhower_box_4">Не важни и не спешни</string>
+    <string name="filter_eisenhower_box_3">Не важни, но спешни</string>
+    <string name="filter_eisenhower_box_2">Важни, но не спешни</string>
+    <string name="filter_eisenhower_box_1">Важни и спешни</string>
+    <string name="filter_no_priority">Без приоритет</string>
+    <string name="filter_no_tags">Без етикет</string>
+    <string name="filter_today_only">Само днес</string>
+    <string name="more_settings">Повече настройки</string>
+    <string name="help_and_feedback">Помощ и обратна връзка</string>
+    <string name="improve_performance">Подобряване на производителността</string>
+    <string name="theme_system_default">По подразбиране от системата</string>
+    <string name="today_lowercase">днес</string>
+    <string name="yesterday_lowercase">вчера</string>
+    <string name="default_location">Място по подразбиране</string>
+    <string name="manage_lists">Управление на списъци</string>
+    <string name="enter_tag_name">Въведете име на етикета</string>
+    <string name="create_new_tag">Добавяне на „%s“</string>
+    <string name="add_filter">Добавяне на филтър</string>
+    <string name="add_tags">Добавяне на етикети</string>
+    <string name="error_adding_account">Грешка: %s</string>
+    <string name="add_place">Добавяне на място</string>
+    <string name="place_settings">Настройки на местата</string>
+    <string name="places">Места</string>
+    <string name="no_start_date">Без начална дата</string>
+    <string name="TEA_add_subtask">Добавяне на подзадача</string>
+    <string name="custom_filter_has_subtask">Има подзадачи</string>
+    <string name="collapse_subtasks">Затваряне подзадачи</string>
+    <string name="expand_subtasks">Отваряне подзадачи</string>
+    <string name="subtasks">Подзадачи</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d подзадача</item>
+        <item quantity="other">%d подзадачи</item>
+    </plurals>
+    <string name="backups_ignore_warnings">Пренебрегване на предупреждения</string>
+    <string name="last_backup_never">никога</string>
+    <string name="last_backup">Последно резервно копие: %s</string>
+    <string name="automatic_backups">Автоматични резервни копия</string>
 </resources>
