@@ -9,6 +9,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.core.content.ContextCompat
 import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
 import javax.inject.Inject
@@ -34,6 +35,8 @@ class Theme @Inject constructor(
                     primary = primary,
                     onPrimary = onPrimary,
                     secondary = secondary,
+                    background = Color(ContextCompat.getColor(context, R.color.window_background)),
+                    surface = Color(ContextCompat.getColor(context, R.color.content_background)),
                 )
             } else {
                 lightColors(
