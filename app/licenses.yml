@@ -757,8 +757,8 @@
   license: LGPL-3.0-only
   licenseUrl: https://spdx.org/licenses/LGPL-3.0-only.html
   url: https://www.etebase.com
-- artifact: com.github.openid:AppAuth-Android:+
-  name: AppAuth-Android
+- artifact: net.openid:appauth:+
+  name: appauth
   copyrightHolder: The AppAuth for Android Authors
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt

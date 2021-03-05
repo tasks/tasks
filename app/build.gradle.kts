@@ -13,8 +13,22 @@ plugins {
 repositories {
     mavenCentral()
     google()
-    maven(url = "https://jitpack.io")
-    jcenter()
+    maven {
+        url = uri("https://jitpack.io")
+        content {
+            includeGroup("com.gitlab.abaker")
+            includeModule("com.gitlab.bitfireAT", "cert4android")
+            includeModule("com.github.dmfs.opentasks", "opentasks-provider")
+            includeModule("com.github.QuadFlask", "colorpicker")
+        }
+    }
+    jcenter {
+        content {
+            includeModule("com.twofortyfouram", "android-plugin-api-for-locale")
+            includeModule("org.jetbrains.kotlinx", "kotlinx-collections-immutable-jvm")
+            includeModule("com.android.billingclient", "billing")
+        }
+    }
 }
 
 android {
@@ -212,7 +226,7 @@ dependencies {
     implementation("com.etesync:journalmanager:1.1.1")
     implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
-    implementation("com.github.openid:AppAuth-Android:0.8.0")
+    implementation("net.openid:appauth:0.8.0")
     implementation("org.osmdroid:osmdroid-android:6.1.10@aar")
 
     implementation("androidx.compose.ui:ui:${Versions.compose}")

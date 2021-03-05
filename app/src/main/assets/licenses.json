@@ -1815,8 +1815,8 @@
     },
     {
       "artifactId": {
-        "name": "AppAuth-Android",
-        "group": "com.github.openid",
+        "name": "appauth",
+        "group": "net.openid",
         "version": "+"
       },
       "copyrightHolder": "The AppAuth for Android Authors",
@@ -1825,7 +1825,7 @@
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "normalizedLicense": "apache2",
       "url": "https://github.com/openid/AppAuth-Android",
-      "libraryName": "AppAuth-Android"
+      "libraryName": "appauth"
     },
     {
       "artifactId": {
