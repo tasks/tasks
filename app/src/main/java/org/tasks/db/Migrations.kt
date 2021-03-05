@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteException
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
 import timber.log.Timber
 
 object Migrations {
@@ -374,6 +375,14 @@ object Migrations {
         }
     }
 
+    private val MIGRATION_78_79: Migration = object : Migration(78, 79) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL(
+                "ALTER TABLE `caldav_accounts` ADD COLUMN `cda_server_type` INTEGER NOT NULL DEFAULT $SERVER_UNKNOWN"
+            )
+        }
+    }
+
     val MIGRATIONS = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
@@ -409,6 +418,7 @@ object Migrations {
             MIGRATION_75_76,
             MIGRATION_76_77,
             MIGRATION_77_78,
+            MIGRATION_78_79,
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {

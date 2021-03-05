@@ -34,6 +34,7 @@ abstract class CaldavTest : InjectingTestCase() {
 
         preferences.setBoolean(R.string.p_debug_pro, true)
         server.start()
+        headers.clear()
     }
 
     @After
@@ -45,14 +46,16 @@ abstract class CaldavTest : InjectingTestCase() {
         assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
     }
 
+    val headers = HashMap<String, String>()
+
     protected fun enqueue(vararg responses: String) {
         responses.forEach {
             server.enqueue(
                 MockResponse()
                     .setResponseCode(207)
                     .setHeader("Content-Type", "text/xml; charset=\"utf-8\"")
-                    .setBody(it)
-            )
+                    .apply { this@CaldavTest.headers.forEach { (k, v) -> setHeader(k, v) } }
+                    .setBody(it))
         }
         server.enqueue(MockResponse().setResponseCode(500))
     }

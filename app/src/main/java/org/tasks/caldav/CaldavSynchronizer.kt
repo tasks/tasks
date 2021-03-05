@@ -1,8 +1,12 @@
 package org.tasks.caldav
 
 import android.content.Context
-import at.bitfire.dav4jvm.*
+import at.bitfire.dav4jvm.DavCalendar
 import at.bitfire.dav4jvm.DavCalendar.Companion.MIME_ICALENDAR
+import at.bitfire.dav4jvm.DavResource
+import at.bitfire.dav4jvm.Property
+import at.bitfire.dav4jvm.PropertyRegistry
+import at.bitfire.dav4jvm.Response
 import at.bitfire.dav4jvm.Response.HrefRelation
 import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
@@ -17,7 +21,9 @@ import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.property.ProdId
+import okhttp3.Headers
 import okhttp3.HttpUrl
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.tasks.BuildConfig
@@ -34,6 +40,11 @@ import org.tasks.caldav.property.ShareAccess.Companion.READ_WRITE
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
 import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.ERROR_UNAUTHORIZED
+import org.tasks.data.CaldavAccount.Companion.SERVER_OPEN_XCHANGE
+import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
+import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
+import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
+import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
@@ -116,10 +127,20 @@ class CaldavSynchronizer @Inject constructor(
         }
     }
 
-    @Throws(IOException::class, DavException::class, KeyManagementException::class, NoSuchAlgorithmException::class)
     private suspend fun synchronize(account: CaldavAccount) {
         val caldavClient = provider.forAccount(account)
-        val resources = caldavClient.calendars()
+        var serverType = SERVER_UNKNOWN
+        val resources = caldavClient.calendars(object : Interceptor {
+            override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
+                val response = chain.proceed(chain.request())
+                serverType = getServerType(account, response.headers)
+                return response
+            }
+        })
+        if (serverType != account.serverType) {
+            account.serverType = serverType
+            caldavDao.update(account)
+        }
         val urls = resources.map { it.href.toString() }.toHashSet()
         Timber.d("Found calendars: %s", urls)
         for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, ArrayList(urls))) {
@@ -170,6 +191,14 @@ class CaldavSynchronizer @Inject constructor(
         setError(account, "")
     }
 
+    private fun getServerType(account: CaldavAccount, headers: Headers) = when {
+        account.isTasksOrg -> SERVER_TASKS
+        headers["DAV"]?.contains("oc-resource-sharing") == true -> SERVER_OWNCLOUD
+        headers["x-sabre-version"]?.isNotBlank() == true -> SERVER_SABREDAV
+        headers["server"] == "Openexchange WebDAV" -> SERVER_OPEN_XCHANGE
+        else -> SERVER_UNKNOWN
+    }
+
     private suspend fun setError(account: CaldavAccount, message: String?) {
         account.error = message
         caldavDao.update(account)
@@ -179,7 +208,6 @@ class CaldavSynchronizer @Inject constructor(
         }
     }
 
-    @Throws(DavException::class)
     private suspend fun sync(
             caldavCalendar: CaldavCalendar,
             resource: Response,
@@ -287,7 +315,6 @@ class CaldavSynchronizer @Inject constructor(
         return true
     }
 
-    @Throws(IOException::class)
     private suspend fun pushTask(task: Task, httpClient: OkHttpClient, httpUrl: HttpUrl) {
         Timber.d("pushing %s", task)
         val caldavTask = caldavDao.getTask(task.id) ?: return
@@ -354,10 +381,10 @@ class CaldavSynchronizer @Inject constructor(
                 }
         }
 
-        val Response.isOwncloudOwner: Boolean
+        private val Response.isOwncloudOwner: Boolean
             get() = this[OCOwnerPrincipal::class.java]?.owner?.let { isCurrentUser(it) } ?: false
 
-        fun Response.isCurrentUser(href: String) =
+        private fun Response.isCurrentUser(href: String) =
             this[CurrentUserPrincipal::class.java]?.href?.endsWith("$href/") == true
 
         val Response.principals: List<Principal>
@@ -399,15 +426,15 @@ class CaldavSynchronizer @Inject constructor(
                 return principals
             }
 
-        val Property.Name.toAccess: Int
-            get() = when(this) {
+        private val Property.Name.toAccess: Int
+            get() = when (this) {
                 SHARED_OWNER, OCAccess.SHARED_OWNER -> ACCESS_OWNER
                 READ_WRITE, OCAccess.READ_WRITE -> ACCESS_READ_WRITE
                 READ, OCAccess.READ -> ACCESS_READ_ONLY
                 else -> ACCESS_UNKNOWN
             }
 
-        val Property.Name.toStatus: Int
+        private val Property.Name.toStatus: Int
             get() = when (this) {
                 Sharee.INVITE_ACCEPTED, OCUser.INVITE_ACCEPTED -> INVITE_ACCEPTED
                 Sharee.INVITE_NORESPONSE, OCUser.INVITE_NORESPONSE -> INVITE_NO_RESPONSE

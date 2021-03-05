@@ -64,10 +64,13 @@ class CaldavAccount : Parcelable {
     var encryptionKey: String? = null
 
     @ColumnInfo(name = "cda_account_type")
-    var accountType = 0
+    var accountType = TYPE_CALDAV
 
     @ColumnInfo(name = "cda_collapsed")
     var isCollapsed = false
+
+    @ColumnInfo(name = "cda_server_type")
+    var serverType = SERVER_UNKNOWN
 
     constructor()
 
@@ -84,6 +87,7 @@ class CaldavAccount : Parcelable {
         accountType = source.readInt()
         encryptionKey = source.readString()
         isCollapsed = ParcelCompat.readBoolean(source)
+        serverType = source.readInt()
     }
 
     fun getPassword(encryption: KeyStoreEncryption): String {
@@ -143,12 +147,15 @@ class CaldavAccount : Parcelable {
             writeInt(accountType)
             writeString(encryptionKey)
             ParcelCompat.writeBoolean(this, isCollapsed)
+            writeInt(serverType)
         }
     }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is CaldavAccount) return false
+        if (javaClass != other?.javaClass) return false
+
+        other as CaldavAccount
 
         if (id != other.id) return false
         if (uuid != other.uuid) return false
@@ -161,6 +168,7 @@ class CaldavAccount : Parcelable {
         if (encryptionKey != other.encryptionKey) return false
         if (accountType != other.accountType) return false
         if (isCollapsed != other.isCollapsed) return false
+        if (serverType != other.serverType) return false
 
         return true
     }
@@ -177,11 +185,12 @@ class CaldavAccount : Parcelable {
         result = 31 * result + (encryptionKey?.hashCode() ?: 0)
         result = 31 * result + accountType
         result = 31 * result + isCollapsed.hashCode()
+        result = 31 * result + serverType
         return result
     }
 
     override fun toString(): String {
-        return "CaldavAccount(id=$id, uuid=$uuid, name=$name, url=$url, username=$username, password=$password, error=$error, isSuppressRepeatingTasks=$isSuppressRepeatingTasks, encryptionKey=$encryptionKey, accountType=$accountType, isCollapsed=$isCollapsed)"
+        return "CaldavAccount(id=$id, uuid=$uuid, name=$name, url=$url, username=$username, password=$password, error=$error, isSuppressRepeatingTasks=$isSuppressRepeatingTasks, encryptionKey=$encryptionKey, accountType=$accountType, isCollapsed=$isCollapsed, serverType=$serverType)"
     }
 
     fun isTasksSubscription(context: Context): Boolean {
@@ -229,6 +238,12 @@ class CaldavAccount : Parcelable {
         const val TYPE_OPENTASKS = 3
         const val TYPE_TASKS = 4
         const val TYPE_ETEBASE = 5
+
+        const val SERVER_UNKNOWN = -1
+        const val SERVER_TASKS = 0
+        const val SERVER_OWNCLOUD = 1
+        const val SERVER_SABREDAV = 2
+        const val SERVER_OPEN_XCHANGE = 3
 
         const val ERROR_UNAUTHORIZED = "HTTP ${HttpURLConnection.HTTP_UNAUTHORIZED}"
         const val ERROR_PAYMENT_REQUIRED = "HTTP ${HttpURLConnection.HTTP_PAYMENT_REQUIRED}"

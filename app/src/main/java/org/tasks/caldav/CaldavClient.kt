@@ -16,6 +16,7 @@ import com.todoroo.astrid.helper.UUIDHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -92,15 +93,18 @@ open class CaldavClient(
                 .findHomeset()
     }
 
-    suspend fun calendars(): List<Response> =
-            DavResource(httpClient, httpUrl!!)
-                    .propfind(1, *calendarProperties)
-                    .filter { (response, relation) ->
-                        relation == HrefRelation.MEMBER &&
-                                response[ResourceType::class.java]?.types?.contains(CALENDAR) == true &&
-                                response[SupportedCalendarComponentSet::class.java]?.supportsTasks == true
-                    }
-                    .map { (response, _) -> response }
+    suspend fun calendars(interceptor: Interceptor): List<Response> =
+        DavResource(
+            httpClient.newBuilder().addNetworkInterceptor(interceptor).build(),
+            httpUrl!!
+        )
+            .propfind(1, *calendarProperties)
+            .filter { (response, relation) ->
+                relation == HrefRelation.MEMBER &&
+                        response[ResourceType::class.java]?.types?.contains(CALENDAR) == true &&
+                        response[SupportedCalendarComponentSet::class.java]?.supportsTasks == true
+            }
+            .map { (response, _) -> response }
 
     @Throws(IOException::class, HttpException::class)
     suspend fun deleteCollection() = withContext(Dispatchers.IO) {

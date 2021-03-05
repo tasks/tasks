@@ -29,7 +29,7 @@ import org.tasks.notifications.NotificationDao
             GoogleTaskAccount::class,
             Principal::class,
         ],
-        version = 78)
+        version = 79)
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao
     abstract val tagDataDao: TagDataDao
