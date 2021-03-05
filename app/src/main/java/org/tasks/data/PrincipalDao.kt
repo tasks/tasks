@@ -16,6 +16,9 @@ WHERE principal_list = :list
     fun deleteRemoved(list: Long, principals: List<String>)
 
     @Delete
+    fun delete(principal: Principal)
+
+    @Delete
     fun delete(principals: List<Principal>)
 
     @Query("SELECT * FROM principals")

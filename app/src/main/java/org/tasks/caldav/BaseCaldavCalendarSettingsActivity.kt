@@ -127,7 +127,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         progressView.visibility = View.GONE
     }
 
-    private fun requestInProgress(): Boolean {
+    protected fun requestInProgress(): Boolean {
         return progressView.visibility == View.VISIBLE
     }
 

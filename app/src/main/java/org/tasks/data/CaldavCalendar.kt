@@ -43,7 +43,7 @@ class CaldavCalendar : Parcelable {
     var order = NO_ORDER
 
     @ColumnInfo(name = "cdl_access")
-    var access = 0
+    var access = ACCESS_OWNER
 
     constructor()
 

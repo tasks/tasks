@@ -1,7 +1,9 @@
 package org.tasks.caldav
 
 import at.bitfire.cert4android.CustomCertManager
+import at.bitfire.dav4jvm.DavCollection
 import at.bitfire.dav4jvm.DavResource
+import at.bitfire.dav4jvm.DavResource.Companion.MIME_XML
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.Response
 import at.bitfire.dav4jvm.Response.HrefRelation
@@ -10,21 +12,38 @@ import at.bitfire.dav4jvm.XmlUtils.NS_CALDAV
 import at.bitfire.dav4jvm.XmlUtils.NS_WEBDAV
 import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
-import at.bitfire.dav4jvm.property.*
+import at.bitfire.dav4jvm.property.CalendarColor
+import at.bitfire.dav4jvm.property.CalendarHomeSet
+import at.bitfire.dav4jvm.property.CurrentUserPrincipal
+import at.bitfire.dav4jvm.property.CurrentUserPrivilegeSet
+import at.bitfire.dav4jvm.property.DisplayName
+import at.bitfire.dav4jvm.property.GetCTag
+import at.bitfire.dav4jvm.property.ResourceType
 import at.bitfire.dav4jvm.property.ResourceType.Companion.CALENDAR
+import at.bitfire.dav4jvm.property.SupportedCalendarComponentSet
+import at.bitfire.dav4jvm.property.SyncToken
 import com.todoroo.astrid.helper.UUIDHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.property.Invite
 import org.tasks.caldav.property.OCInvite
 import org.tasks.caldav.property.OCOwnerPrincipal
+import org.tasks.caldav.property.PropertyUtils.NS_OWNCLOUD
 import org.tasks.caldav.property.ShareAccess
 import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
+import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
+import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.Principal
 import org.tasks.ui.DisplayableException
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
@@ -216,7 +235,52 @@ open class CaldavClient(
         return this
     }
 
+    suspend fun removePrincipal(
+        account: CaldavAccount,
+        calendar: CaldavCalendar,
+        principal: Principal,
+    ) {
+        when (account.serverType) {
+            SERVER_TASKS, SERVER_SABREDAV -> removeSabrePrincipal(calendar, principal)
+            SERVER_OWNCLOUD -> removeOwncloudPrincipal(calendar, principal)
+            else -> throw IllegalArgumentException()
+        }
+    }
+
+    private suspend fun removeOwncloudPrincipal(calendar: CaldavCalendar, principal: Principal) =
+        withContext(Dispatchers.IO) {
+            DavCollection(httpClient, calendar.url!!.toHttpUrl())
+                .post(
+                    """
+                    <x4:share xmlns:x4="$NS_OWNCLOUD">
+                        <x4:remove>
+                            <x0:href xmlns:x0="$NS_WEBDAV">${principal.principal}</x0:href>
+                        </x4:remove>
+                    </x4:share>
+                    """.trimIndent().toRequestBody(MIME_XML)
+                ) {}
+        }
+
+    private suspend fun removeSabrePrincipal(calendar: CaldavCalendar, principal: Principal) =
+        withContext(Dispatchers.IO) {
+            DavCollection(httpClient, calendar.url!!.toHttpUrl())
+                .post(
+                    """
+                    <D:share-resource xmlns:D="$NS_WEBDAV">
+                        <D:sharee>
+                            <D:href>${principal.principal}</D:href>
+                            <D:share-access>
+                                <D:no-access />
+                            </D:share-access>
+                        </D:sharee>
+                    </D:share-resource>
+                    """.trimIndent().toRequestBody(MEDIATYPE_SHARING)
+                ) {}
+        }
+
     companion object {
+        private val MEDIATYPE_SHARING = "application/davsharing+xml".toMediaType()
+
         private val calendarProperties = arrayOf(
                 ResourceType.NAME,
                 DisplayName.NAME,

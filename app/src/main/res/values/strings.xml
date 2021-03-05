@@ -689,4 +689,6 @@ File %1$s contained %2$s.\n\n
   <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
   <string name="map_theme_use_app_theme">Use app theme</string>
   <string name="list_members">List members</string>
+  <string name="remove_user">Remove user?</string>
+  <string name="remove_user_confirmation">%1$s will no longer have access to %2$s</string>
 </resources>
