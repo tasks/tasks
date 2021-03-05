@@ -455,25 +455,44 @@
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1 (*)
 +|    +--- androidx.fragment:fragment:1.3.0 (*)
 +|    \--- androidx.appcompat:appcompat:1.3.0-beta01 (*)
-+\--- androidx.compose.foundation:foundation:1.0.0-beta01
-+     +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
-+     +--- androidx.compose.animation:animation:1.0.0-beta01
-+     |    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
-+     |    +--- androidx.compose.animation:animation-core:1.0.0-beta01 (*)
-+     |    +--- androidx.compose.foundation:foundation-layout:1.0.0-beta01
-+     |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
-+     |    |    +--- androidx.compose.ui:ui:1.0.0-beta01 (*)
-+     |    |    +--- androidx.compose.runtime:runtime:1.0.0-beta01 (*)
-+     |    |    +--- androidx.compose.ui:ui-util:1.0.0-beta01 (*)
-+     |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.30
-+     |    +--- androidx.compose.runtime:runtime:1.0.0-beta01 (*)
+++--- androidx.compose.foundation:foundation:1.0.0-beta01
++|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
++|    +--- androidx.compose.animation:animation:1.0.0-beta01
++|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
++|    |    +--- androidx.compose.animation:animation-core:1.0.0-beta01 (*)
++|    |    +--- androidx.compose.foundation:foundation-layout:1.0.0-beta01
++|    |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
++|    |    |    +--- androidx.compose.ui:ui:1.0.0-beta01 (*)
++|    |    |    +--- androidx.compose.runtime:runtime:1.0.0-beta01 (*)
++|    |    |    +--- androidx.compose.ui:ui-util:1.0.0-beta01 (*)
++|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.30
++|    |    +--- androidx.compose.runtime:runtime:1.0.0-beta01 (*)
++|    |    +--- androidx.compose.ui:ui:1.0.0-beta01 (*)
++|    |    +--- androidx.compose.ui:ui-geometry:1.0.0-beta01 (*)
++|    |    +--- androidx.compose.ui:ui-util:1.0.0-beta01 (*)
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.30
++|    +--- androidx.compose.runtime:runtime:1.0.0-beta01 (*)
++|    +--- androidx.compose.ui:ui:1.0.0-beta01 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.30
++|    +--- androidx.compose.foundation:foundation-layout:1.0.0-beta01 (*)
++|    +--- androidx.compose.ui:ui-text:1.0.0-beta01 (*)
++|    \--- androidx.compose.ui:ui-util:1.0.0-beta01 (*)
++\--- androidx.compose.material:material:1.0.0-beta01
++     +--- androidx.compose.animation:animation-core:1.0.0-beta01 (*)
++     +--- androidx.compose.foundation:foundation:1.0.0-beta01 (*)
++     +--- androidx.compose.material:material-icons-core:1.0.0-beta01
 +     |    +--- androidx.compose.ui:ui:1.0.0-beta01 (*)
-+     |    +--- androidx.compose.ui:ui-geometry:1.0.0-beta01 (*)
-+     |    +--- androidx.compose.ui:ui-util:1.0.0-beta01 (*)
-+     |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.30
++     |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.30 (*)
++     +--- androidx.compose.material:material-ripple:1.0.0-beta01
++     |    +--- androidx.compose.foundation:foundation:1.0.0-beta01 (*)
++     |    +--- androidx.compose.runtime:runtime:1.0.0-beta01 (*)
++     |    +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.30
++     |    +--- androidx.compose.animation:animation:1.0.0-beta01 (*)
++     |    \--- androidx.compose.ui:ui-util:1.0.0-beta01 (*)
 +     +--- androidx.compose.runtime:runtime:1.0.0-beta01 (*)
 +     +--- androidx.compose.ui:ui:1.0.0-beta01 (*)
-+     +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.30
-+     +--- androidx.compose.foundation:foundation-layout:1.0.0-beta01 (*)
 +     +--- androidx.compose.ui:ui-text:1.0.0-beta01 (*)
++     +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.30
++     +--- androidx.compose.animation:animation:1.0.0-beta01 (*)
++     +--- androidx.compose.foundation:foundation-layout:1.0.0-beta01 (*)
 +     \--- androidx.compose.ui:ui-util:1.0.0-beta01 (*)

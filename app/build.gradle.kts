@@ -4,7 +4,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     kotlin("android")
     kotlin("kapt")
-    id("com.cookpad.android.plugin.license-tools") version "1.2.5"
+    id("com.cookpad.android.plugin.license-tools") version "1.2.6"
     id("com.github.ben-manes.versions") version "0.36.0"
     id("com.vanniktech.android.junit.jacoco") version "0.16.0"
     id("dagger.hilt.android.plugin")
@@ -218,7 +218,8 @@ dependencies {
     implementation("androidx.compose.ui:ui:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
-    
+    releaseCompileOnly("androidx.compose.ui:ui-tooling:${Versions.compose}")
+
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}") {
         exclude("com.google.android.gms", "play-services-ads-identifier")

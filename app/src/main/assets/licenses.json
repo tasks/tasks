@@ -2187,6 +2187,48 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.0.0-beta01",
       "libraryName": "foundation-layout"
+    },
+    {
+      "artifactId": {
+        "name": "material",
+        "group": "androidx.compose.material",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.0.0-beta01",
+      "libraryName": "material"
+    },
+    {
+      "artifactId": {
+        "name": "material-ripple",
+        "group": "androidx.compose.material",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.0.0-beta01",
+      "libraryName": "material-ripple"
+    },
+    {
+      "artifactId": {
+        "name": "material-icons-core",
+        "group": "androidx.compose.material",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.0.0-beta01",
+      "libraryName": "material-icons-core"
     }
   ]
 }

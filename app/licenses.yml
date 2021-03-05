@@ -916,3 +916,25 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.0.0-beta01
+- artifact: androidx.compose.material:material:+
+  name: material
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-material#1.0.0-beta01
+- artifact: androidx.compose.material:material-ripple:+
+  name: material-ripple
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-material#1.0.0-beta01
+- artifact: androidx.compose.material:material-icons-core:+
+  name: material-icons-core
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-material#1.0.0-beta01
+- artifact: androidx.compose.ui:ui-tooling:+
+  skip: true
+- artifact: androidx.compose.ui:ui-tooling-data:+
+  skip: true
