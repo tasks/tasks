@@ -32,6 +32,7 @@ import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime.UTC
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils.startOfMinute
+import org.tasks.time.DateTimeUtils.toDate
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
@@ -339,12 +340,12 @@ class iCalendar @Inject constructor(
             }
             due = if (dueDate > 0) {
                 startDate = min(dueDate, startDate)
-                Due(if (allDay) getDate(dueDate) else getDateTime(dueDate))
+                Due(if (allDay) dueDate.toDate() else getDateTime(dueDate))
             } else {
                 null
             }
             dtStart = if (startDate > 0) {
-                DtStart(if (allDay) getDate(startDate) else getDateTime(startDate))
+                DtStart(if (allDay) startDate.toDate() else getDateTime(startDate))
             } else {
                 null
             }
@@ -386,10 +387,6 @@ class iCalendar @Inject constructor(
             order = caldavTask.order
             collapsed = task.isCollapsed
             snooze = task.reminderSnooze
-        }
-
-        private fun getDate(timestamp: Long): Date {
-            return Date(timestamp + newDateTime(timestamp).offset)
         }
 
         private fun getDateTime(timestamp: Long): DateTime {

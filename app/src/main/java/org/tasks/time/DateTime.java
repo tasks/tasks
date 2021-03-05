@@ -1,14 +1,8 @@
 package org.tasks.time;
 
-import static com.todoroo.astrid.core.SortHelper.APPLE_EPOCH;
-import static java.util.Calendar.FRIDAY;
-import static java.util.Calendar.MONDAY;
-import static java.util.Calendar.SATURDAY;
-import static java.util.Calendar.SUNDAY;
-import static java.util.Calendar.THURSDAY;
-import static java.util.Calendar.TUESDAY;
-import static java.util.Calendar.WEDNESDAY;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+import net.fortuna.ical4j.model.WeekDay;
+
+import org.tasks.locale.Locale;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -19,8 +13,16 @@ import java.util.GregorianCalendar;
 import java.util.Objects;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-import net.fortuna.ical4j.model.WeekDay;
-import org.tasks.locale.Locale;
+
+import static com.todoroo.astrid.core.SortHelper.APPLE_EPOCH;
+import static java.util.Calendar.FRIDAY;
+import static java.util.Calendar.MONDAY;
+import static java.util.Calendar.SATURDAY;
+import static java.util.Calendar.SUNDAY;
+import static java.util.Calendar.THURSDAY;
+import static java.util.Calendar.TUESDAY;
+import static java.util.Calendar.WEDNESDAY;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class DateTime {
 
@@ -357,7 +359,7 @@ public class DateTime {
   }
 
   public net.fortuna.ical4j.model.Date toDate() {
-    return timestamp == 0 ? null : new net.fortuna.ical4j.model.Date(timestamp);
+    return timestamp == 0 ? null : new net.fortuna.ical4j.model.Date(timestamp + getOffset());
   }
 
   public LocalDate toLocalDate() {
