@@ -1,9 +1,19 @@
 ### Shared lists are coming to Tasks! [Read more](https://tasks.org/blog/shared-lists-are-coming)
 
+### 11.7 (2021-03-06)
+
+* CalDAV: Display shared list members in list settings
+  * Compatible with Tasks.org, Nextcloud, ownCloud, OpenXchange, and sabre/dav
+* CalDAV: List owners can remove shared list members from list
+  * Compatible with Tasks.org, Nextcloud, ownCloud, and sabre/dav
+* Fix time zone issue in recurrence picker
+* Update translations
+  * Turkish - Oğuz Ersen
+
 ### 11.6 (2021-03-04)
 
 * CalDAV: Display indicator in drawer when a list is shared with other users
-  * Compatible with Tasks.org, Nextcloud, ownCloud, and sabre/dav
+  * Compatible with Tasks.org, Nextcloud, ownCloud, OpenXchange, and sabre/dav
 * CalDAV: Don't upload changes to read-only lists
   ([#931](https://github.com/tasks/tasks/issues/931))
 * Remove unnecessary icon-mirroring for RTL users

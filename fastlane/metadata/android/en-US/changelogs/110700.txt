@@ -1,0 +1,6 @@
+* CalDAV: Display shared list members in list settings
+  * Compatible with Tasks.org, Nextcloud, ownCloud, OpenXchange, and sabre/dav
+* CalDAV: List owners can remove shared list members from list
+  * Compatible with Tasks.org, Nextcloud, ownCloud, and sabre/dav
+* Fix time zone issue in recurrence picker
+* Update translations
