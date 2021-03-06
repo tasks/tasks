@@ -682,4 +682,7 @@
     <string name="social">Social</string>
     <string name="chat_freenode">Rejoignez #tasks sur Freenode</string>
     <string name="follow_twitter">Suivez @tasks_org</string>
+    <string name="remove_user_confirmation">%1$s n’aura plus accès à %2$s</string>
+    <string name="remove_user">Supprimer l’utilisateur \?</string>
+    <string name="list_members">Liste des membres</string>
 </resources>
