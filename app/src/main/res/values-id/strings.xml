@@ -670,4 +670,7 @@
     <string name="social">Sosial</string>
     <string name="chat_freenode">Gabung #tasks di Freenode</string>
     <string name="follow_twitter">Ikuti @tasks_org</string>
+    <string name="remove_user_confirmation">%1$s tidak akan mempunyai akses lagi pada %2$s</string>
+    <string name="remove_user">Hapus pengguna\?</string>
+    <string name="list_members">Daftar anggota</string>
 </resources>
