@@ -617,7 +617,7 @@
     <string name="custom_filter_is_subtask">Alt görev</string>
     <string name="custom_filter_has_subtask">Alt görevleri olan</string>
     <string name="background_location_permission_required">Tasks, kapalıyken veya kullanımda değilken de konuma dayalı anımsatmaları etkinleştirmek için konum verisi toplar.</string>
-    <string name="follow_reddit">r/tasks sayfasını takip et</string>
+    <string name="follow_reddit">r/tasks topluluğuna katıl</string>
     <string name="current_subscription">Geçerli abonelik: %s</string>
     <string name="price_per_month_abbreviated">%s$/ay</string>
     <string name="price_per_month">%s$/ay</string>
@@ -681,4 +681,11 @@
     <string name="map_theme_use_app_theme">Uygulama temasını kullan</string>
     <string name="tasks_org_account_required">Tasks.org hesabı gerekli</string>
     <string name="map_theme">Harita teması</string>
+    <string name="privacy">Gizlilik</string>
+    <string name="open_source">Açık kaynak</string>
+    <string name="issue_tracker">Sorun izleyicisi</string>
+    <string name="support">Destek</string>
+    <string name="social">Sosyal</string>
+    <string name="chat_freenode">Freenode üzerinde #tasks kanalına katıl</string>
+    <string name="follow_twitter">\@tasks_org hesabını takip et</string>
 </resources>
