@@ -677,4 +677,7 @@
     <string name="social">社交</string>
     <string name="chat_freenode">加入 Freenode 上的 #tasks</string>
     <string name="follow_twitter">关注 @tasks_org</string>
+    <string name="remove_user_confirmation">%1$s 将无法再访问 %2$s</string>
+    <string name="remove_user">移除用户吗？</string>
+    <string name="list_members">列表成员</string>
 </resources>
