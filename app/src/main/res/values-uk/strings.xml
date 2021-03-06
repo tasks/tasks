@@ -707,4 +707,7 @@
     <string name="social">Суспільні</string>
     <string name="chat_freenode">Долучитися до #tasks на Freenode</string>
     <string name="follow_twitter">Стежити за @tasks_org</string>
+    <string name="remove_user_confirmation">%1$s надалі не матиме доступу до %2$s</string>
+    <string name="remove_user">Вилучити користувача\?</string>
+    <string name="list_members">Перелік учасників</string>
 </resources>
