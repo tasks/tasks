@@ -9,6 +9,7 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
 import org.tasks.data.PrincipalDao
 import org.tasks.injection.ProductionModule
 import javax.inject.Inject
@@ -18,6 +19,29 @@ import javax.inject.Inject
 class SharingMailboxDotOrgTest : CaldavTest() {
 
     @Inject lateinit var principalDao: PrincipalDao
+
+    @Test
+    fun ownerAccess() = runBlocking {
+        account = CaldavAccount().apply {
+            uuid = UUIDHelper.newUUID()
+            username = "3"
+            password = encryption.encrypt("password")
+            url = server.url("/caldav/").toString()
+            id = caldavDao.insert(this)
+        }
+        val calendar = CaldavCalendar().apply {
+            account = this@SharingMailboxDotOrgTest.account.uuid
+            ctag = "1614876450015"
+            url = "${this@SharingMailboxDotOrgTest.account.url}MzM/"
+            caldavDao.insert(this)
+        }
+        enqueue(SHARE_OWNER)
+
+        sync()
+
+        // TODO: mailbox.org uses share-access differently, need to figure out how to set owner
+        assertEquals(ACCESS_READ_WRITE, caldavDao.getCalendar(calendar.uuid!!)!!.access)
+    }
 
     @Test
     fun principalForSharee() = runBlocking {
