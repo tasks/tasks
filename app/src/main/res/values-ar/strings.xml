@@ -256,4 +256,12 @@
     <string name="save">حفظ</string>
     <string name="astrid_sort_order">ترتيب Astrid اليدوي</string>
     <string name="display_name">اسم العرض</string>
+    <string name="filter_any_start_date">أيّ تاريخ بدأ</string>
+    <string name="no_start_date">لا تاريخ بدأ</string>
+    <string name="default_start_date">تاريخ البدأ الافتراضي</string>
+    <string name="EPr_delete_task_data">حذف معلومات المهمة</string>
+    <string name="EPr_reset_preferences">إعادة ضبط الإعدادات</string>
+    <string name="CRA_calendar_reminders_pref_title">مساعد التقويم</string>
+    <string name="TEA_timer_est">تقريبًا %s</string>
+    <string name="FLA_search_filter">موافقًا ل\'%s\'</string>
 </resources>
