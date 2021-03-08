@@ -2,7 +2,12 @@ package org.tasks.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.core.SortHelper.APPLE_EPOCH
@@ -238,7 +243,7 @@ SELECT EXISTS(SELECT 1
     abstract suspend fun getCalendars(tasks: List<Long>): List<String>
 
     @Query("""
-SELECT caldav_lists.*, COUNT(tasks._id) AS count, COUNT(principals.principal_id) AS principals
+SELECT caldav_lists.*, COUNT(tasks._id) AS count, COUNT(DISTINCT(principals.principal_id)) AS principals
 FROM caldav_lists
          LEFT JOIN caldav_tasks
                    ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid

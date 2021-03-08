@@ -16,7 +16,7 @@ public class CaldavFilters {
   CaldavFilter toCaldavFilter() {
     CaldavFilter filter = new CaldavFilter(caldavCalendar);
     filter.count = count;
-    filter.shared = principals > 0;
+    filter.principals = principals;
     return filter;
   }
 

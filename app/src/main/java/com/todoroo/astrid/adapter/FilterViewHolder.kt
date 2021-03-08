@@ -5,10 +5,15 @@ import android.view.View
 import android.widget.CheckedTextView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.todoroo.astrid.api.*
+import com.todoroo.astrid.api.CaldavFilter
+import com.todoroo.astrid.api.CustomFilter
+import com.todoroo.astrid.api.FilterListItem
+import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.api.TagFilter
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.filters.PlaceFilter
@@ -71,7 +76,14 @@ class FilterViewHolder internal constructor(
             size.text = locale.formatNumber(count)
             size.visibility = View.VISIBLE
         }
-        shareIndicator.visibility = if (filter.shared) View.VISIBLE else View.GONE
+        shareIndicator.apply {
+            isVisible = filter.principals > 0
+            setImageResource(when {
+                filter.principals <= 0 -> 0
+                filter.principals == 1 -> R.drawable.ic_outline_perm_identity_24px
+                else -> R.drawable.ic_outline_people_outline_24
+            })
+        }
         if (onClick != null) {
             row.setOnClickListener {
                 onClick.invoke(filter)

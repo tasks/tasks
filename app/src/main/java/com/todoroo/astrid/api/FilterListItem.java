@@ -32,7 +32,7 @@ public abstract class FilterListItem implements Parcelable {
   public int icon = -1;
   public int tint = 0;
   public int count = -1;
-  public boolean shared = false;
+  public int principals = 0;
   public int order = NO_ORDER;
 
   public abstract Type getItemType();
@@ -79,7 +79,7 @@ public abstract class FilterListItem implements Parcelable {
         && tint == other.tint
         && count == other.count
         && order == other.order
-        && shared == other.shared;
+        && principals == other.principals;
   }
 
   @Override
@@ -90,7 +90,7 @@ public abstract class FilterListItem implements Parcelable {
             ", icon=" + icon +
             ", tint=" + tint +
             ", count=" + count +
-            ", shared=" + shared +
+            ", principals=" + principals +
             ", order=" + order +
             '}';
   }
