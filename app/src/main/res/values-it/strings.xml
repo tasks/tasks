@@ -587,7 +587,6 @@
     <string name="reset_sort_order">Ripristina ordinamento</string>
     <string name="date_shortcut_tomorrow_night">Domani notte</string>
     <string name="date_shortcut_tomorrow_evening">Domani sera</string>
-    <string name="manage_lists">Gestisci liste</string>
     <string name="permission_read_tasks">Accesso completo al database di Tasks</string>
     <string name="davx5_selection_description">Sincronizza le tue attività con l\'app DAVx⁵</string>
     <string name="backup_location_warning">ATTENZIONE: i file che si trovano in %s verranno eliminati quando si disinstalla Tasks. Si consiglia di scegliere una posizione alternativa per evitare tale evenienza.</string>

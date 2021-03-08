@@ -462,7 +462,6 @@
     <string name="today_lowercase">днес</string>
     <string name="yesterday_lowercase">вчера</string>
     <string name="default_location">Място по подразбиране</string>
-    <string name="manage_lists">Управление на списъци</string>
     <string name="enter_tag_name">Въведете име на етикета</string>
     <string name="create_new_tag">Добавяне на „%s“</string>
     <string name="add_filter">Добавяне на филтър</string>

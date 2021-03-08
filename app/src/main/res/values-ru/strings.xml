@@ -604,7 +604,6 @@
     <string name="CFC_list_name">В списке…</string>
     <string name="astrid_sort_order_summary">Включите режим ручной сортировки Astrid для «Моих задач», «Сегодня» и тегов. Этот режим сортировки будет заменён на «Мой порядок» в будущем обновлении</string>
     <string name="astrid_sort_order">Ручная сортировка Astrid</string>
-    <string name="manage_lists">Управление списками</string>
     <string name="davx5_selection_description">Синхронизируйте свои задачи с приложением DAVx⁵</string>
     <string name="account">Учётная запись</string>
     <string name="device_settings">Настройки устройства</string>

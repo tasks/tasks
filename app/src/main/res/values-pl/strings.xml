@@ -599,7 +599,6 @@
     <string name="CFC_list_name">Na liście…</string>
     <string name="astrid_sort_order_summary">Aktywuje ręczny (jak w Astrid) tryb sortowania dla \'Moich zadań\', \'Dzisiaj\' oraz tagów. Ten tryb sortowania będzie zastąpiony przez \'Ręczne\' w kolejnych aktualizacjach</string>
     <string name="astrid_sort_order">Ręczne sortowanie (jak w Astrid)</string>
-    <string name="manage_lists">Zarządzaj listami</string>
     <string name="davx5_selection_description">Synchronizuj swoje zadania z aplikacją DAVx⁵</string>
     <string name="backup_location_warning">OSTRZEŻENIE: Pliki znajdujące się w %s zostaną usunięte, jeśli aplikacja Tasks zostanie odinstalowana! Wybierz własną lokalizację, aby zapobiec usunięciu plików przez system Android.</string>
     <string name="backups_ignore_warnings_summary">Ignoruj ostrzeżenia dotyczące kopii zapasowych, jeśli nie potrzebujesz kopii zapasowych lub masz własne rozwiązanie do tworzenia kopii zapasowych</string>

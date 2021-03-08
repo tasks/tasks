@@ -7,7 +7,6 @@
     <string name="backup_BPr_header">Sigurnosne kopije</string>
     <string name="EPr_edit_screen_options">Postavke zaslona za uređivanje</string>
     <string name="backup_BAc_import">Uvezi sigurnosnu kopiju</string>
-    <string name="manage_lists">Upravljaj popisima</string>
     <string name="always_display_full_date">Prikaži puni datum</string>
     <string name="EPr_fullTask_title">Prikaži puni naslov zadatka</string>
     <string name="EPr_beastMode_reset">Vrati na zadane vrijednosti</string>

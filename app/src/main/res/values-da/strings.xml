@@ -96,7 +96,6 @@
     <string name="EPr_show_task_edit_comments">Vis kommentarer i opgaveredigering</string>
     <string name="EPr_fullTask_title">Vis hele opgavetitlen</string>
     <string name="astrid_sort_order">Astrids manuelle sortering</string>
-    <string name="manage_lists">Administrer lister</string>
     <string name="permission_read_tasks">Fuld adgang til Tasks-databasen</string>
     <string name="reset_sort_order">Nulstil rækkefølge</string>
     <string name="lists">Lister</string>

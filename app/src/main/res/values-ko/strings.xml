@@ -600,7 +600,6 @@
     <string name="repeat_type_completion_capitalized">완료일</string>
     <string name="astrid_sort_order_summary">\'나의 할일\', \'오늘\', 태그 화면에서 Astrid 수동 정렬을 사용할 수 있습니다. 추후 업데이트 시 \'순서 직접 정렬\' 을 이 방식으로 대체할 예정입니다</string>
     <string name="astrid_sort_order">Astrid 수동 정렬</string>
-    <string name="manage_lists">목록 관리</string>
     <string name="authorization_cancelled">인증 취소됨</string>
     <string name="current_subscription">현재 구독: %s</string>
     <string name="price_per_year">$%s/년</string>

@@ -18,7 +18,6 @@
     <string name="TLA_no_items">ഇവിടെ ടാസ്‌ക്കുകളൊന്നുമില്ല.</string>
     <string name="TLA_menu_search">തിരയുക</string>
     <string name="TLA_menu_settings">ക്രമീകരണങ്ങൾ</string>
-    <string name="manage_lists">ലിസ്റ്റുകൾ നിയന്ത്രിക്കുക</string>
     <string name="action_open">തുറക്കുക</string>
     <string name="SSD_sort_alpha">ശീർഷക പ്രകാരം</string>
     <string name="SSD_sort_due">നിശ്ചിത തീയതി</string>

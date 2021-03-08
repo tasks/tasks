@@ -443,7 +443,6 @@
     <string name="EPr_default_location_radius">Raio padrão</string>
     <string name="EPr_default_location_reminder_title">Lembretes de localização padrão</string>
     <string name="TEA_control_location">Localização</string>
-    <string name="manage_lists">Gerir Listas</string>
     <string name="date_shortcut_tomorrow_night">Amanhã à noite</string>
     <string name="date_shortcut_tomorrow_evening">Amanhã à tardinha</string>
     <string name="CFC_list_name">Na lista…</string>

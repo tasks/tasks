@@ -548,7 +548,6 @@
     <string name="CFC_list_name">V seznamu…</string>
     <string name="astrid_sort_order_summary">Zapněte ruční řazení Astrid pro \"Moje úkoly\", \"Dnes\" a štítky. Tento režim řazení bude v budoucnu nahrazen režimem \"Vlastní řazení\"</string>
     <string name="astrid_sort_order">Ruční řazení Astrid</string>
-    <string name="manage_lists">Spravovat seznamy</string>
     <string name="CRA_default_list_name">Akční položky: %s</string>
     <string name="open_last_viewed_list">Otevřít poslední prohlížený seznam</string>
     <string name="on_launch">Při spuštění</string>

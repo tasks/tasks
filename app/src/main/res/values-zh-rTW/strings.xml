@@ -215,7 +215,6 @@
     <string name="EPr_temp_completed_tasks_not_showing">工作完成後立刻從工作表刪除</string>
     <string name="TEA_add_subtask">加入副工作</string>
     <string name="action_call">通話</string>
-    <string name="manage_lists">管理清單</string>
     <string name="display_name">顯示名稱</string>
     <string name="filter_no_priority">無優先級</string>
     <string name="filter_low_priority">低優先級</string>

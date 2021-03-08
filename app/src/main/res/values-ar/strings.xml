@@ -189,7 +189,6 @@
     <string name="EPr_show_task_edit_comments">إظهار التعليقات في شاشة تحرير المهمة</string>
     <string name="back_button_saves_task">الضغط على زر الرجوع يحفظ المهمة</string>
     <string name="lists">القوائم</string>
-    <string name="manage_lists">إدارة القوائم</string>
     <string name="places">الأماكن</string>
     <string name="notification_disable_battery_optimizations_description">قد يؤدي تحسين البطارية إلى تأخير الإشعارات</string>
     <string name="EPr_reset_preferences_warning">ستتم إعادة تعيين التفضيلات إلى القيم الافتراضية</string>

@@ -581,7 +581,6 @@
     <string name="CFC_list_name">In lijst…</string>
     <string name="date_shortcut_tomorrow_night">Morgennacht</string>
     <string name="date_shortcut_tomorrow_evening">Morgenavond</string>
-    <string name="manage_lists">Beheer lijsten</string>
     <string name="reset_sort_order">Sorteervolgorde resetten</string>
     <string name="permission_read_tasks">Volledige toegang tot Tasks database</string>
     <string name="davx5_selection_description">Synchroniseer je taken met de DAVx⁵ applicatie</string>

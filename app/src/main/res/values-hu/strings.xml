@@ -585,7 +585,6 @@
     <string name="date_shortcut_tomorrow_night">Holnap éjszaka</string>
     <string name="date_shortcut_tomorrow_evening">Holnap este</string>
     <string name="reset_sort_order">Sorbarendezés visszaállítása</string>
-    <string name="manage_lists">Listák kezelése</string>
     <string name="permission_read_tasks">Teljes hozzáférés a Tasks adatbázishoz</string>
     <string name="davx5_selection_description">Feladatok szinkronizálása DAVx⁵ alkalmazással</string>
     <string name="account">Fiók</string>

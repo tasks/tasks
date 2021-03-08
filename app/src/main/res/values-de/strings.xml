@@ -587,7 +587,6 @@
     <string name="date_shortcut_tomorrow_night">morgen Nacht</string>
     <string name="date_shortcut_tomorrow_evening">morgen Abend</string>
     <string name="reset_sort_order">Sortierung zurücksetzen</string>
-    <string name="manage_lists">Listen verwalten</string>
     <string name="permission_read_tasks">Vollzugriff auf die Tasks-Datenbank</string>
     <string name="tell_me_how_im_doing">Erzählen Sie mir bitte, wie gut ich das mache</string>
     <string name="davx5_selection_description">Aufgaben mit der DAVx⁵-App synchronisieren</string>

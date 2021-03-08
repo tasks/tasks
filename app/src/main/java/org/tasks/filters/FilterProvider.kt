@@ -184,7 +184,7 @@ class FilterProvider @Inject constructor(
                             NavigationDrawerFragment.REQUEST_PURCHASE)
                 }
                 .plus(NavigationDrawerAction(
-                        context.getString(R.string.manage_lists),
+                        context.getString(R.string.manage_drawer),
                         R.drawable.ic_outline_edit_24px,
                         Intent(context, NavigationDrawerCustomization::class.java),
                         0))
