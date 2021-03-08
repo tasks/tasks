@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -16,6 +17,7 @@ import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Text
 import androidx.compose.material.darkColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
@@ -31,7 +33,7 @@ import org.tasks.data.Principal.Companion.name
 
 private val principals = listOf(
     Principal().apply { displayName = "user1" },
-    Principal().apply { displayName = "user2" },
+    Principal().apply { displayName = "a really really really really really long display name" },
 )
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
@@ -80,24 +82,41 @@ object ListSettingsComposables {
         principal: Principal,
         onRemove: ((Principal) -> Unit)?,
     ) {
-        Row(modifier = Modifier
-            .padding(PaddingValues(0.dp, KEYLINE_FIRST))
-            .fillMaxWidth()) {
-            Icon(
-                painter = painterResource(R.drawable.ic_outline_perm_identity_24px),
-                contentDescription = null,
-                tint = colors.onBackground,
-                modifier = Modifier
-                    .padding(end = KEYLINE_FIRST)
-                    .alpha(ICON_ALPHA),
-            )
-            Text(
-                principal.name!!,
-                style = MaterialTheme.typography.body1,
-                color = colors.onBackground,
-            )
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(PaddingValues(0.dp, KEYLINE_FIRST)),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Row(
+                Modifier
+                    .width(72.dp - KEYLINE_FIRST),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_outline_perm_identity_24px),
+                    contentDescription = null,
+                    tint = colors.onBackground,
+                    modifier = Modifier
+                        .padding(end = KEYLINE_FIRST)
+                        .alpha(ICON_ALPHA),
+                )
+            }
+            Row(
+                Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    principal.name!!,
+                    style = MaterialTheme.typography.body1,
+                    color = colors.onBackground,
+                )
+            }
             onRemove?.let {
-                Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.End
+                ) {
                     IconButton(
                         modifier = Modifier.then(Modifier.size(24.dp)),
                         onClick = { it(principal) }) {
