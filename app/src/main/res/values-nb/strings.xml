@@ -622,7 +622,7 @@
     <string name="price_per_year_abbreviated">$%s/år</string>
     <string name="price_per_year">$%s/år</string>
     <string name="your_subscription_expired">Ditt abonnement har utløpt. Abonner nå for å fortsette tjenesten.</string>
-    <string name="follow_reddit">Følg r/tasks</string>
+    <string name="follow_reddit">Ta del i r/tasks</string>
     <string name="background_location_permission_required">Tasks samler posisjonsdata for å kunne utløse posisjonsbaserte påminnelser, selv når programmet er lukket eller ikke i bruk.</string>
     <string name="repeat_monthly_fifth_week">femte</string>
     <string name="sign_in_with_google">Logg inn med Google</string>
@@ -680,4 +680,15 @@
     <string name="map_theme_use_app_theme">Bruk programdrakt</string>
     <string name="tasks_org_account_required">Tasks.org-konto kreves</string>
     <string name="map_theme">Kartdrakt</string>
+    <string name="list_members">Liste over medlemmer</string>
+    <string name="social">Sosialt</string>
+    <string name="chat_freenode">Ta del i #tasks på freenode</string>
+    <string name="remove_user_confirmation">%1$s vil ikke lenger ha tilgang til %2$s</string>
+    <string name="remove_user">Fjern bruker\?</string>
+    <string name="privacy">Personvern</string>
+    <string name="open_source">Fri programvare</string>
+    <string name="issue_tracker">Problemsporer</string>
+    <string name="support">Støtte</string>
+    <string name="follow_twitter">Følg @tasks_org</string>
+    <string name="manage_drawer">Håndter skuff</string>
 </resources>
