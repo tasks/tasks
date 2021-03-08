@@ -1,6 +1,6 @@
 ### Shared lists are coming to Tasks! [Read more](https://tasks.org/blog/shared-lists-are-coming)
 
-### 11.7 (2021-03-06)
+### 11.7 (2021-03-08)
 
 * CalDAV: Display shared list members in list settings
   * Compatible with Tasks.org, Nextcloud, ownCloud, OpenXchange, and sabre/dav
@@ -8,7 +8,16 @@
   * Compatible with Tasks.org, Nextcloud, ownCloud, and sabre/dav
 * Fix time zone issue in recurrence picker
 * Update translations
-  * Turkish - Oğuz Ersen
+  * Arabic - @mhmdanas
+  * Basque - Sergio Varela
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Indonesian - @putulopi
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - @emintufan, Oğuz Ersen
+  * Ukrainian - @IhorHordiichuk
 
 ### 11.6 (2021-03-04)
 
