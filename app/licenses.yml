@@ -938,3 +938,9 @@
   skip: true
 - artifact: androidx.compose.ui:ui-tooling-data:+
   skip: true
+- artifact: androidx.compose.runtime:runtime-livedata:+
+  name: runtime-livedata
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.0.0-beta01
