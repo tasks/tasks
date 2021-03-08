@@ -27,10 +27,6 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
     private val viewModel: CaldavCalendarViewModel by viewModels()
 
-    private val createCalendarViewModel: CreateCalendarViewModel by viewModels()
-    private val deleteCalendarViewModel: DeleteCalendarViewModel by viewModels()
-    private val updateCalendarViewModel: UpdateCalendarViewModel by viewModels()
-
     override val layout = R.layout.activity_caldav_calendar_settings
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,13 +39,10 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                 viewModel.error.value = null
             }
         }
-
-        createCalendarViewModel.observe(this, this::createSuccessful, this::requestFailed)
-        deleteCalendarViewModel.observe(this, this::onDeleted, this::requestFailed)
-        updateCalendarViewModel.observe(
-                this,
-                { updateCalendar() },
-                this::requestFailed)
+        viewModel.finish.observe(this) {
+            setResult(RESULT_OK, it)
+            finish()
+        }
 
         caldavCalendar?.takeIf { it.id > 0 }?.let {
             principalDao.getPrincipals(it.id).observe(this) {
@@ -81,21 +74,32 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
     private fun removePrincipal(principal: Principal) = lifecycleScope.launch {
         try {
-            viewModel.remove(caldavAccount, caldavCalendar!!, principal)
+            viewModel.removeUser(caldavAccount, caldavCalendar!!, principal)
         } catch (e: Exception) {
             requestFailed(e)
         }
     }
 
-    override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) =
-            createCalendarViewModel.createCalendar(caldavAccount, name, color)
+    override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) {
+        viewModel.createCalendar(caldavAccount, name, color, selectedIcon)
+    }
 
     override suspend fun updateNameAndColor(
-            account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
-            updateCalendarViewModel.updateCalendar(account, calendar, name, color)
+            account: CaldavAccount,
+            calendar: CaldavCalendar,
+            name: String,
+            color: Int
+    ) {
+        viewModel.updateCalendar(account, calendar, name, color, selectedIcon)
+    }
 
-    override suspend fun deleteCalendar(caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar) =
-            deleteCalendarViewModel.deleteCalendar(caldavAccount, caldavCalendar)
+    override suspend fun deleteCalendar(
+        caldavAccount: CaldavAccount,
+        caldavCalendar: CaldavCalendar
+    ) {
+        viewModel.deleteCalendar(caldavAccount, caldavCalendar)
+    }
+
 
     companion object {
         val CaldavAccount.canRemovePrincipal: Boolean
