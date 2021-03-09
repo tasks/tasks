@@ -235,6 +235,41 @@ open class CaldavClient(
         return this
     }
 
+    suspend fun share(
+        account: CaldavAccount,
+        email: String,
+        displayName: String? = null,
+        comment: String? = null
+    ) {
+        when (account.serverType) {
+            SERVER_TASKS, SERVER_SABREDAV -> shareSabredav(email)
+            else -> throw IllegalArgumentException()
+        }
+    }
+
+    private suspend fun shareSabredav(email: String, displayName: String? = null, comment: String? = null) =
+        withContext(Dispatchers.IO) {
+            DavCollection(httpClient, httpUrl!!)
+                .post("""
+                    <D:share-resource xmlns:D="$NS_WEBDAV">
+                        <D:sharee>
+                            <D:href>mailto:$email</D:href>
+                            ${displayName?.let { """
+                            <D:prop>
+                                <D:displayname>$it</D:displayname>
+                            </D:prop>
+                            """.trimIndent() }}
+                            ${comment?.let { """
+                            <D:comment>$it</D:comment>
+                            """.trimIndent() }}
+                            <D:share-access>
+                                <D:read-write />
+                            </D:share-access>
+                        </D:sharee>
+                    </D:share-resource>
+                    """.trimIndent().toRequestBody(MEDIATYPE_SHARING)) {}
+        }
+
     suspend fun removePrincipal(
         account: CaldavAccount,
         calendar: CaldavCalendar,

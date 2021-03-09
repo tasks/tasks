@@ -2,13 +2,21 @@ package org.tasks.caldav
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.ListSettingsComposables.PrincipalList
+import org.tasks.compose.ShareInvite.ShareInviteDialog
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
@@ -55,6 +63,29 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                     }
             }
         }
+        if (caldavAccount.canShare && (isNew || caldavCalendar?.access == ACCESS_OWNER)) {
+            findViewById<ComposeView>(R.id.fab)
+                .apply { isVisible = true }
+                .setContent {
+                    tasksTheme.TasksTheme {
+                        val openDialog = rememberSaveable { mutableStateOf(false) }
+                        ShareInviteDialog(openDialog) { email ->
+                            lifecycleScope.launch {
+                                // TODO: remove delay hack after beta02 release
+                                email?.let { share(it) } ?: delay(100)
+                                openDialog.value = false
+                            }
+                        }
+                        FloatingActionButton(onClick = { openDialog.value = true }) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_outline_person_add_24),
+                                contentDescription = null,
+                                tint = MaterialTheme.colors.onPrimary,
+                            )
+                        }
+                    }
+                }
+        }
     }
 
     private val canRemovePrincipals: Boolean
@@ -81,7 +112,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
     }
 
     override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) {
-        viewModel.createCalendar(caldavAccount, name, color, selectedIcon)
+        caldavCalendar = viewModel.createCalendar(caldavAccount, name, color, selectedIcon)
     }
 
     override suspend fun updateNameAndColor(
@@ -100,11 +131,28 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         viewModel.deleteCalendar(caldavAccount, caldavCalendar)
     }
 
+    private suspend fun share(email: String) {
+        if (isNew) {
+            viewModel.ignoreFinish = true
+            try {
+                save()
+            } finally {
+                viewModel.ignoreFinish = false
+            }
+        }
+        caldavCalendar?.let { viewModel.addUser(caldavAccount, it, email) }
+    }
 
     companion object {
         val CaldavAccount.canRemovePrincipal: Boolean
             get() = when (serverType) {
                 SERVER_TASKS, SERVER_OWNCLOUD, SERVER_SABREDAV -> true
+                else -> false
+            }
+
+        val CaldavAccount.canShare: Boolean
+            get() = when (serverType) {
+                SERVER_TASKS, SERVER_SABREDAV -> true
                 else -> false
             }
     }

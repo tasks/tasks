@@ -691,6 +691,9 @@ File %1$s contained %2$s.\n\n
   <string name="list_members">List members</string>
   <string name="remove_user">Remove user?</string>
   <string name="remove_user_confirmation">%1$s will no longer have access to %2$s</string>
+  <string name="share_list">Share list</string>
+  <string name="email">Email</string>
+  <string name="invite">Invite</string>
   <string name="invite_declined">Invite declined</string>
   <string name="invite_awaiting_response">Invite awaiting response</string>
   <string name="invite_invalid">Invite invalid</string>

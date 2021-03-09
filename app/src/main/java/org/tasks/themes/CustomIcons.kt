@@ -207,6 +207,7 @@ object CustomIcons {
         1182 to R.drawable.ic_outline_people_outline_24,
         1183 to R.drawable.ic_outline_forum_24,
         1184 to R.drawable.ic_twitter_logo_black,
+        1185 to R.drawable.ic_outline_person_add_24,
     )
 
     @JvmStatic

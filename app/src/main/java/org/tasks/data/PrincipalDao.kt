@@ -1,12 +1,19 @@
 package org.tasks.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 
 @Dao
 interface PrincipalDao {
+    @Insert
+    fun insert(principal: Principal)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(principal: List<Principal>)
+    fun insert(principals: List<Principal>)
 
     @Query("""
 DELETE
