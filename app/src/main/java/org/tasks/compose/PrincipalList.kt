@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,11 +29,19 @@ import org.tasks.R
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.ICON_ALPHA
 import org.tasks.compose.Constants.KEYLINE_FIRST
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavCalendar.Companion.INVITE_DECLINED
+import org.tasks.data.CaldavCalendar.Companion.INVITE_INVALID
+import org.tasks.data.CaldavCalendar.Companion.INVITE_NO_RESPONSE
+import org.tasks.data.CaldavCalendar.Companion.INVITE_UNKNOWN
 import org.tasks.data.Principal
 import org.tasks.data.Principal.Companion.name
 
 private val principals = listOf(
-    Principal().apply { displayName = "user1" },
+    Principal().apply {
+        displayName = "user1"
+        inviteStatus = INVITE_INVALID
+    },
     Principal().apply { displayName = "a really really really really really long display name" },
 )
 
@@ -106,11 +115,31 @@ object ListSettingsComposables {
                 Modifier.weight(1f),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    principal.name!!,
-                    style = MaterialTheme.typography.body1,
-                    color = colors.onBackground,
-                )
+                Column {
+                    Text(
+                        principal.name!!,
+                        style = MaterialTheme.typography.body1,
+                        color = colors.onBackground,
+                    )
+                    if (principal.inviteStatus != CaldavCalendar.INVITE_ACCEPTED) {
+                        Text(
+                            stringResource(when (principal.inviteStatus) {
+                                INVITE_UNKNOWN, INVITE_NO_RESPONSE ->
+                                    R.string.invite_awaiting_response
+                                INVITE_DECLINED ->
+                                    R.string.invite_declined
+                                INVITE_INVALID ->
+                                    R.string.invite_invalid
+                                else -> throw IllegalStateException()
+                            }),
+                            style = MaterialTheme.typography.body2,
+                            color = when (principal.inviteStatus) {
+                                INVITE_DECLINED, INVITE_INVALID -> colorResource(R.color.overdue)
+                                else -> colors.onBackground
+                            },
+                        )
+                    }
+                }
             }
             onRemove?.let {
                 Row(
