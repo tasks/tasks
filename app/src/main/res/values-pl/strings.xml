@@ -269,16 +269,16 @@
     <string name="tomorrow">Jutro</string>
     <string name="next">Następny %s</string>
     <string name="yesterday">Wczoraj</string>
-    <string name="tmrw">jtr</string>
-    <string name="yest">wcz</string>
-    <string name="widget_show_checkboxes">Pokaż przyciski wyboru</string>
+    <string name="tmrw">jutro</string>
+    <string name="yest">wczoraj</string>
+    <string name="widget_show_checkboxes">Pokaż pola wyboru</string>
     <string name="widget_show_header">Pokaż nagłówek</string>
     <string name="widget_show_settings">Pokaż ustawienia</string>
     <string name="notifications">Powiadomienia</string>
     <string name="silent">Cichy</string>
     <string name="sound">Dźwięk</string>
     <string name="vibrations">Wibracje</string>
-    <string name="quiet_hours">Ciche gdzoiny</string>
+    <string name="quiet_hours">Ciche godziny</string>
     <string name="attachment_directory">Katalog załączników</string>
     <string name="backup_directory">Katalog kopii zapasowych</string>
     <string name="google_drive_backup">Kopia zapasowa na Dysku Google</string>
@@ -658,7 +658,7 @@
     <string name="github_sponsors">Sponsorzy GitHub</string>
     <string name="google_play_subscribers">Subskrybenci Google Play</string>
     <string name="authorization_cancelled">Autoryzacja anulowana</string>
-    <string name="follow_reddit">Śledź r/tasks</string>
+    <string name="follow_reddit">Dołącz do r/tasks</string>
     <string name="current_subscription">Aktualna subskrypcja: %s</string>
     <string name="price_per_month_abbreviated">$%s/mies.</string>
     <string name="price_per_month">$%s/miesiąc</string>
@@ -675,8 +675,8 @@
     <string name="tasks_org_description">Synchronizowanie zadań z Tasks.org</string>
     <string name="filter_criteria_unstarted">Nierozpoczęte</string>
     <string name="show_unstarted">Pokaż nierozpoczęte</string>
-    <string name="yesterday_abbrev_lowercase">wcz</string>
-    <string name="tomorrow_abbrev_lowercase">jtr</string>
+    <string name="yesterday_abbrev_lowercase">wczoraj</string>
+    <string name="tomorrow_abbrev_lowercase">jutro</string>
     <string name="filter_any_start_date">Dowolna data rozpoczęcia</string>
     <string name="no_start_date">Bez daty rozpoczęcia</string>
     <string name="CFC_startBefore_name">Początek przed…</string>
@@ -693,4 +693,9 @@
     <string name="map_theme_use_app_theme">Użyj motywu aplikacji</string>
     <string name="tasks_org_account_required">Wymagane konto Tasks.org</string>
     <string name="map_theme">Motyw mapy</string>
+    <string name="privacy">Prywatność</string>
+    <string name="social">Media społecznościowe</string>
+    <string name="follow_twitter">Obserwuj @tasks_org</string>
+    <string name="remove_user">Usunąć użytkownika\?</string>
+    <string name="support">Wsparcie</string>
 </resources>
