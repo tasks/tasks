@@ -237,31 +237,35 @@ open class CaldavClient(
 
     suspend fun share(
         account: CaldavAccount,
-        email: String,
-        displayName: String? = null,
-        comment: String? = null
+        href: String,
     ) {
         when (account.serverType) {
-            SERVER_TASKS, SERVER_SABREDAV -> shareSabredav(email)
+            SERVER_TASKS, SERVER_SABREDAV -> shareSabredav(href)
+            SERVER_OWNCLOUD -> shareOwncloud(href)
             else -> throw IllegalArgumentException()
         }
     }
 
-    private suspend fun shareSabredav(email: String, displayName: String? = null, comment: String? = null) =
+    private suspend fun shareOwncloud(href: String) =
+        withContext(Dispatchers.IO) {
+            DavCollection(httpClient, httpUrl!!)
+                .post("""
+                    <x4:share xmlns:x4="$NS_OWNCLOUD">
+                        <x4:set>
+                            <x0:href xmlns:x0="$NS_WEBDAV">$href</x0:href>
+                        </x4:set>
+                    </x4:share>
+                """.trimIndent().toRequestBody(MIME_XML)
+                ) {}
+        }
+
+    private suspend fun shareSabredav(href: String) =
         withContext(Dispatchers.IO) {
             DavCollection(httpClient, httpUrl!!)
                 .post("""
                     <D:share-resource xmlns:D="$NS_WEBDAV">
                         <D:sharee>
-                            <D:href>mailto:$email</D:href>
-                            ${displayName?.let { """
-                            <D:prop>
-                                <D:displayname>$it</D:displayname>
-                            </D:prop>
-                            """.trimIndent() }}
-                            ${comment?.let { """
-                            <D:comment>$it</D:comment>
-                            """.trimIndent() }}
+                            <D:href>$href</D:href>
                             <D:share-access>
                                 <D:read-write />
                             </D:share-access>

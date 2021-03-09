@@ -69,10 +69,13 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                 .setContent {
                     tasksTheme.TasksTheme {
                         val openDialog = rememberSaveable { mutableStateOf(false) }
-                        ShareInviteDialog(openDialog) { email ->
+                        ShareInviteDialog(
+                            openDialog,
+                            email = caldavAccount.serverType != SERVER_OWNCLOUD
+                        ) { input ->
                             lifecycleScope.launch {
                                 // TODO: remove delay hack after beta02 release
-                                email?.let { share(it) } ?: delay(100)
+                                input?.let { share(it) } ?: delay(100)
                                 openDialog.value = false
                             }
                         }
@@ -152,7 +155,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
         val CaldavAccount.canShare: Boolean
             get() = when (serverType) {
-                SERVER_TASKS, SERVER_SABREDAV -> true
+                SERVER_TASKS, SERVER_OWNCLOUD, SERVER_SABREDAV -> true
                 else -> false
             }
     }

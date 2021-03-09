@@ -13,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.darkColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -29,44 +30,45 @@ import org.tasks.compose.ShareInvite.ShareInvite
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
 private fun Invite() = MaterialTheme {
-    ShareInvite(mutableStateOf(""))
+    ShareInvite(true, mutableStateOf(""))
 }
 
 @Preview(showBackground = true, backgroundColor = 0x202124)
 @Composable
 private fun InviteDark() = MaterialTheme(darkColors()) {
-    ShareInvite(mutableStateOf(""))
+    ShareInvite(false, mutableStateOf(""))
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
 private fun InviteFilled() = MaterialTheme {
-    ShareInvite(mutableStateOf("user@example.com"))
+    ShareInvite(true, mutableStateOf("user@example.com"))
 }
 
 @Preview(showBackground = true, backgroundColor = 0x202124)
 @Composable
 private fun InviteDarkFilled() = MaterialTheme(darkColors()) {
-    ShareInvite(mutableStateOf("user@example.com"))
+    ShareInvite(false, mutableStateOf("user@example.com"))
 }
 
 object ShareInvite {
     @Composable
     fun ShareInviteDialog(
         openDialog: MutableState<Boolean>,
+        email: Boolean,
         invite: (String?) -> Unit,
     ) {
-        val email = rememberSaveable { mutableStateOf("") }
+        val text = rememberSaveable { mutableStateOf("") }
         // TODO: remove after beta02 release: https://issuetracker.google.com/issues/181282423
         val enableHack = rememberSaveable { mutableStateOf(true) }
         if (openDialog.value) {
             AlertDialog(
                 onDismissRequest = {},
-                text = { ShareInvite(email, enableHack) },
+                text = { ShareInvite(email, text, enableHack) },
                 confirmButton = {
                     TextButton(text = R.string.invite, onClick = {
                         enableHack.value = false
-                        invite(email.value)
+                        invite(text.value)
                     })
                 },
                 dismissButton = {
@@ -77,29 +79,36 @@ object ShareInvite {
                 },
             )
         } else {
-            email.value = ""
+            text.value = ""
             enableHack.value = true
         }
     }
 
     @Composable
-    fun ShareInvite(email: MutableState<String>, enableHack: MutableState<Boolean> = mutableStateOf(true)) {
+    fun ShareInvite(
+        email: Boolean,
+        text: MutableState<String>,
+        enableHack: MutableState<Boolean> = mutableStateOf(true)
+    ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
                 stringResource(R.string.share_list),
                 style = MaterialTheme.typography.h6,
             )
             Spacer(Modifier.height(Constants.KEYLINE_FIRST))
+            val label = stringResource(if (email) R.string.email else R.string.user)
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = email.value,
-                label = { Text(stringResource(R.string.email)) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                onValueChange = { email.value = it },
+                value = text.value,
+                label = { Text(label) },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = if (email) KeyboardType.Email else KeyboardType.Text
+                ),
+                onValueChange = { text.value = it },
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Outlined.Email,
-                        contentDescription = stringResource(id = R.string.email)
+                        imageVector = if (email) Icons.Outlined.Email else Icons.Outlined.Person,
+                        contentDescription = label
                     )
                 },
                 enabled = enableHack.value,

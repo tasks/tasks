@@ -94,14 +94,18 @@ class CaldavCalendarViewModel @Inject constructor(
     suspend fun addUser(
         account: CaldavAccount,
         list: CaldavCalendar,
-        email: String
+        input: String
     ) = doRequest {
+        val href = if (account.serverType == CaldavAccount.SERVER_OWNCLOUD)
+            "principal:principals/users/$input"
+        else
+            "mailto:$input"
         withContext(Dispatchers.IO) {
-            provider.forAccount(account, list.url!!).share(account, email)
+            provider.forAccount(account, list.url!!).share(account, href)
         }
         principalDao.insert(Principal().apply {
             this.list = list.id
-            principal = "mailto:$email"
+            principal = href
             inviteStatus = INVITE_UNKNOWN
             access = ACCESS_READ_WRITE
         })
