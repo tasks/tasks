@@ -17,10 +17,13 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+
+import org.tasks.BuildConfig;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import org.tasks.BuildConfig;
+
 import timber.log.Timber;
 
 /**
@@ -138,10 +141,6 @@ public class AndroidUtilities {
 
   public static boolean preOreo() {
     return !atLeastOreo();
-  }
-
-  public static boolean atLeastNougat() {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
   }
 
   public static boolean atLeastNougatMR1() {

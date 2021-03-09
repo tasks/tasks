@@ -17,7 +17,6 @@ import androidx.appcompat.view.ActionMode
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
 import com.todoroo.astrid.api.Filter
@@ -104,13 +103,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            NavigationDrawerFragment.REQUEST_SETTINGS ->
-                if (atLeastNougat()) {
-                    recreate()
-                } else {
-                    finish()
-                    startActivity(getTaskListIntent(this, filter))
-                }
+            NavigationDrawerFragment.REQUEST_SETTINGS -> recreate()
             NavigationDrawerFragment.REQUEST_NEW_LIST ->
                 if (resultCode == RESULT_OK) {
                     data

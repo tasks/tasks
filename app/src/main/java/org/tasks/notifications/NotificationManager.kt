@@ -120,7 +120,7 @@ class NotificationManager @Inject constructor(
                             fiveTimes = false,
                             useGroupKey = true)
                 }
-                if (AndroidUtilities.atLeastNougat() && newNotifications.size == 1) {
+                if (newNotifications.size == 1) {
                     createNotifications(newNotifications, alert, nonstop, fiveTimes, true)
                 } else {
                     createNotifications(
@@ -151,8 +151,7 @@ class NotificationManager @Inject constructor(
                 notificationDao.delete(notification.taskId)
             } else {
                 builder
-                        .setGroup(
-                                if (useGroupKey) GROUP_KEY else if (AndroidUtilities.atLeastNougat()) notification.taskId.toString() else null)
+                        .setGroup(if (useGroupKey) GROUP_KEY else notification.taskId.toString())
                         .setGroupAlertBehavior(
                                 if (alert) NotificationCompat.GROUP_ALERT_CHILDREN else NotificationCompat.GROUP_ALERT_SUMMARY)
                 notify(notification.taskId, builder, alert, nonstop, fiveTimes)

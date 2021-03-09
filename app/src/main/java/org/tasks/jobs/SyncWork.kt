@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.ConnectivityManagerCompat.RESTRICT_BACKGROUND_STATUS_ENABLED
 import androidx.work.WorkerParameters
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.injection.BaseWorker
@@ -23,7 +22,7 @@ abstract class SyncWork constructor(
         if (!enabled()) {
             return Result.failure()
         }
-        if (atLeastNougat() && isBackground) {
+        if (isBackground) {
             getSystemService(context, ConnectivityManager::class.java)?.apply {
                 if (restrictBackgroundStatus == RESTRICT_BACKGROUND_STATUS_ENABLED) {
                     return Result.failure()
