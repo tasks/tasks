@@ -243,7 +243,7 @@ SELECT EXISTS(SELECT 1
     abstract suspend fun getCalendars(tasks: List<Long>): List<String>
 
     @Query("""
-SELECT caldav_lists.*, COUNT(tasks._id) AS count, COUNT(DISTINCT(principals.principal_id)) AS principals
+SELECT caldav_lists.*, COUNT(DISTINCT(tasks._id)) AS count, COUNT(DISTINCT(principals.principal_id)) AS principals
 FROM caldav_lists
          LEFT JOIN caldav_tasks
                    ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid
