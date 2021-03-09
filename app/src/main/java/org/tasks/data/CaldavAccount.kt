@@ -22,7 +22,6 @@ import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.etebase.EtebaseCalendarSettingsActivity
 import org.tasks.etesync.EteSyncAccountSettingsActivity
-import org.tasks.etesync.EteSyncCalendarSettingsActivity
 import org.tasks.opentasks.OpenTaskAccountSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.security.KeyStoreEncryption
@@ -116,9 +115,8 @@ class CaldavAccount : Parcelable {
         get() = accountType == TYPE_TASKS
 
     fun listSettingsClass(): Class<out BaseListSettingsActivity> = when(accountType) {
-        TYPE_ETESYNC -> EteSyncCalendarSettingsActivity::class.java
         TYPE_LOCAL -> LocalListSettingsActivity::class.java
-        TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
+        TYPE_ETESYNC, TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
         TYPE_ETEBASE -> EtebaseCalendarSettingsActivity::class.java
         else -> CaldavCalendarSettingsActivity::class.java
     }
