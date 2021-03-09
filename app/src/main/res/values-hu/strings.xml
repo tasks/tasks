@@ -688,4 +688,5 @@
     <string name="remove_user_confirmation">%1$s nem fog hozzáférni ehhez: %2$s</string>
     <string name="remove_user">Felhasználó eltávolítása\?</string>
     <string name="list_members">Listatagok</string>
+    <string name="manage_drawer">Fiók kezelése</string>
 </resources>
