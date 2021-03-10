@@ -686,4 +686,10 @@
     <string name="remove_user_confirmation">%1$s zal geen toegang meer hebben tot %2$s</string>
     <string name="remove_user">Gebruiker verwijderen\?</string>
     <string name="manage_drawer">Beheer la</string>
+    <string name="share_list">Lijst delen</string>
+    <string name="invite">Uitnodigen</string>
+    <string name="invite_invalid">Uitnodiging ongeldig</string>
+    <string name="invite_awaiting_response">Uitnodiging wacht op reactie</string>
+    <string name="invite_declined">Uitnodiging afgewezen</string>
+    <string name="email">E-mail</string>
 </resources>
