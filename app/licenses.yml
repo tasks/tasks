@@ -612,12 +612,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/topic/libraries/architecture/index.html
-- artifact: androidx.hilt:hilt-lifecycle-viewmodel:+
-  name: hilt-lifecycle-viewmodel
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://developer.android.com/topic/libraries/architecture/index.html
 - artifact: androidx.hilt:hilt-common:+
   name: hilt-common
   copyrightHolder: Android Open Source Project

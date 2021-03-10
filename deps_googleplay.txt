@@ -330,24 +330,24 @@
 +|    +--- org.dmfs:lib-recur:0.11.4
 +|    |    \--- org.dmfs:rfc5545-datetime:0.2.4
 +|    \--- org.dmfs:jems:1.33
-++--- com.google.dagger:hilt-android:2.32-alpha
-+|    +--- com.google.dagger:dagger:2.32
+++--- com.google.dagger:hilt-android:2.33-beta
++|    +--- com.google.dagger:dagger:2.33
 +|    |    \--- javax.inject:javax.inject:1
-+|    +--- com.google.dagger:dagger-lint-aar:2.32
-+|    +--- com.google.dagger:hilt-core:2.32-alpha
-+|    |    +--- com.google.dagger:dagger:2.32 (*)
++|    +--- com.google.dagger:dagger-lint-aar:2.33
++|    +--- com.google.dagger:hilt-core:2.33-beta
++|    |    +--- com.google.dagger:dagger:2.33 (*)
 +|    |    \--- javax.inject:javax.inject:1
-+|    +--- androidx.activity:activity:1.1.0 -> 1.2.1 (*)
++|    +--- androidx.activity:activity:1.2.0 -> 1.2.1 (*)
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
-+|    +--- androidx.fragment:fragment:1.2.5 -> 1.3.1 (*)
-+|    +--- androidx.lifecycle:lifecycle-viewmodel:2.2.0 -> 2.3.0 (*)
-+|    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0 -> 2.3.0 (*)
-+|    +--- androidx.savedstate:savedstate:1.0.0 -> 1.1.0 (*)
++|    +--- androidx.fragment:fragment:1.3.0 -> 1.3.1 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel:2.3.0 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0 (*)
++|    +--- androidx.savedstate:savedstate:1.1.0 (*)
 +|    \--- javax.inject:javax.inject:1
-++--- androidx.hilt:hilt-work:1.0.0-alpha03
+++--- androidx.hilt:hilt-work:1.0.0-beta01
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
-+|    +--- androidx.hilt:hilt-common:1.0.0-alpha03
-+|    |    \--- com.google.dagger:hilt-core:2.31-alpha -> 2.32-alpha (*)
++|    +--- androidx.hilt:hilt-common:1.0.0-beta01
++|    |    \--- com.google.dagger:hilt-core:2.33-beta (*)
 +|    +--- androidx.work:work-runtime:2.3.4 -> 2.5.0
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.1.0 -> 2.2.0 (*)
@@ -364,13 +364,7 @@
 +|    |    +--- androidx.sqlite:sqlite-framework:2.1.0 (*)
 +|    |    +--- androidx.core:core:1.1.0 -> 1.5.0-beta01 (*)
 +|    |    \--- androidx.lifecycle:lifecycle-service:2.1.0 -> 2.2.0 (*)
-+|    \--- com.google.dagger:hilt-android:2.31-alpha -> 2.32-alpha (*)
-++--- androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03
-+|    +--- androidx.activity:activity:1.1.0 -> 1.2.1 (*)
-+|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
-+|    +--- androidx.hilt:hilt-common:1.0.0-alpha03 (*)
-+|    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0 -> 2.3.0 (*)
-+|    \--- com.google.dagger:hilt-android:2.31-alpha -> 2.32-alpha (*)
++|    \--- com.google.dagger:hilt-android:2.33-beta (*)
 ++--- androidx.fragment:fragment-ktx:1.3.1
 +|    +--- androidx.fragment:fragment:1.3.1 (*)
 +|    +--- androidx.activity:activity-ktx:1.2.1
