@@ -1,5 +1,24 @@
 ### Shared lists are coming to Tasks! [Read more](https://tasks.org/blog/shared-lists-are-coming)
 
+### 11.8 (2021-03-10)
+
+* CalDAV: Send shared list invites
+  * Compatible with Tasks.org, Nextcloud, ownCloud, and sabre/dav
+* Show shared list invite status in list settings
+* Fix drawer count when list is shared with 2+ users
+* Removed legacy EteSync v1 list management features
+* Dropped support for Android 6.0
+* Update translations
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Hungarian - kaciokos
+  * Indonesian - when we were sober
+  * Norwegian Bokmål - @comradekingu
+  * Polish - @doegedomita
+  * Spanish - @FlorianLeChat
+  * Turkish - Oğuz Ersen
+  * Ukrainian - @IhorHordiichuk
+
 ### 11.7 (2021-03-08)
 
 * CalDAV: Display shared list members in list settings

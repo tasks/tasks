@@ -1,0 +1,7 @@
+* CalDAV: Send shared list invites
+  * Compatible with Tasks.org, Nextcloud, ownCloud, and sabre/dav
+* Show shared list invite status in list settings
+* Fix drawer count when list is shared with 2+ users
+* Removed legacy EteSync v1 list management features
+* Dropped support for Android 6.0
+* Update translations
