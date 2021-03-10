@@ -691,4 +691,10 @@
     <string name="remove_user">¿Extraer al usuario\?</string>
     <string name="list_members">Lista de miembros</string>
     <string name="manage_drawer">Gestionar el cajón</string>
+    <string name="invite_invalid">Invitación inválida</string>
+    <string name="invite_awaiting_response">Invitación en espera de respuesta</string>
+    <string name="invite_declined">Invita declinado</string>
+    <string name="invite">Invitar</string>
+    <string name="email">Email</string>
+    <string name="share_list">Compartir la lista</string>
 </resources>
