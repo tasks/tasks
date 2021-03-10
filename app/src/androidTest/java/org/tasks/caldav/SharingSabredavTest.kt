@@ -102,10 +102,10 @@ class SharingSabredavTest : CaldavTest() {
         val principal = principalDao.getAll().first()
 
         assertEquals(calendar.id, principal.list)
-        assertEquals("mailto:user@example.com", principal.principal)
+        assertEquals("mailto:user@example.com", principal.href)
         assertEquals("Example User", principal.displayName)
         assertEquals(INVITE_ACCEPTED, principal.inviteStatus)
-        assertEquals(ACCESS_READ_WRITE, principal.access)
+        assertEquals(ACCESS_READ_WRITE, principal.access.access)
     }
 
     @Test
@@ -126,10 +126,10 @@ class SharingSabredavTest : CaldavTest() {
             .first()
 
         assertEquals(calendar.id, principal.list)
-        assertEquals("/principals/user1", principal.principal)
+        assertEquals("/principals/user1", principal.href)
         assertEquals(null, principal.displayName)
         assertEquals(INVITE_ACCEPTED, principal.inviteStatus)
-        assertEquals(ACCESS_OWNER, principal.access)
+        assertEquals(ACCESS_OWNER, principal.access.access)
     }
 
     companion object {

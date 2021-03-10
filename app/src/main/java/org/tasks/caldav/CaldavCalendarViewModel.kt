@@ -17,8 +17,8 @@ import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
 import org.tasks.data.CaldavCalendar.Companion.INVITE_UNKNOWN
 import org.tasks.data.CaldavDao
-import org.tasks.data.Principal
 import org.tasks.data.PrincipalDao
+import org.tasks.data.PrincipalWithAccess
 import org.tasks.sync.SyncAdapters
 import timber.log.Timber
 import javax.inject.Inject
@@ -103,21 +103,17 @@ class CaldavCalendarViewModel @Inject constructor(
         withContext(Dispatchers.IO) {
             provider.forAccount(account, list.url!!).share(account, href)
         }
-        principalDao.insert(Principal().apply {
-            this.list = list.id
-            principal = href
-            inviteStatus = INVITE_UNKNOWN
-            access = ACCESS_READ_WRITE
-        })
+        val principal = principalDao.getOrCreatePrincipal(account, href)
+        principalDao.getOrCreateAccess(list, principal, INVITE_UNKNOWN, ACCESS_READ_WRITE)
         syncAdapters.sync(true)
     }
 
-    suspend fun removeUser(account: CaldavAccount, list: CaldavCalendar, principal: Principal) =
+    suspend fun removeUser(account: CaldavAccount, list: CaldavCalendar, principal: PrincipalWithAccess) =
         doRequest {
             withContext(Dispatchers.IO) {
-                provider.forAccount(account).removePrincipal(account, list, principal)
+                provider.forAccount(account).removePrincipal(account, list, principal.href)
             }
-            principalDao.delete(principal)
+            principalDao.delete(principal.access)
         }
 
     private suspend fun <T> doRequest(action: suspend () -> T): T? =

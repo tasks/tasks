@@ -43,7 +43,6 @@ import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.CaldavCalendar
-import org.tasks.data.Principal
 import org.tasks.ui.DisplayableException
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
@@ -277,37 +276,37 @@ open class CaldavClient(
     suspend fun removePrincipal(
         account: CaldavAccount,
         calendar: CaldavCalendar,
-        principal: Principal,
+        href: String,
     ) {
         when (account.serverType) {
-            SERVER_TASKS, SERVER_SABREDAV -> removeSabrePrincipal(calendar, principal)
-            SERVER_OWNCLOUD -> removeOwncloudPrincipal(calendar, principal)
+            SERVER_TASKS, SERVER_SABREDAV -> removeSabrePrincipal(calendar, href)
+            SERVER_OWNCLOUD -> removeOwncloudPrincipal(calendar, href)
             else -> throw IllegalArgumentException()
         }
     }
 
-    private suspend fun removeOwncloudPrincipal(calendar: CaldavCalendar, principal: Principal) =
+    private suspend fun removeOwncloudPrincipal(calendar: CaldavCalendar, href: String) =
         withContext(Dispatchers.IO) {
             DavCollection(httpClient, calendar.url!!.toHttpUrl())
                 .post(
                     """
                     <x4:share xmlns:x4="$NS_OWNCLOUD">
                         <x4:remove>
-                            <x0:href xmlns:x0="$NS_WEBDAV">${principal.principal}</x0:href>
+                            <x0:href xmlns:x0="$NS_WEBDAV">$href</x0:href>
                         </x4:remove>
                     </x4:share>
                     """.trimIndent().toRequestBody(MIME_XML)
                 ) {}
         }
 
-    private suspend fun removeSabrePrincipal(calendar: CaldavCalendar, principal: Principal) =
+    private suspend fun removeSabrePrincipal(calendar: CaldavCalendar, href: String) =
         withContext(Dispatchers.IO) {
             DavCollection(httpClient, calendar.url!!.toHttpUrl())
                 .post(
                     """
                     <D:share-resource xmlns:D="$NS_WEBDAV">
                         <D:sharee>
-                            <D:href>${principal.principal}</D:href>
+                            <D:href>$href</D:href>
                             <D:share-access>
                                 <D:no-access />
                             </D:share-access>

@@ -24,8 +24,8 @@ import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.Principal
-import org.tasks.data.Principal.Companion.name
 import org.tasks.data.PrincipalDao
+import org.tasks.data.PrincipalWithAccess
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -94,7 +94,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
     private val canRemovePrincipals: Boolean
         get() = caldavCalendar?.access == ACCESS_OWNER && caldavAccount.canRemovePrincipal
 
-    private fun onRemove(principal: Principal) {
+    private fun onRemove(principal: PrincipalWithAccess) {
         if (requestInProgress()) {
             return
         }
@@ -106,7 +106,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
             .show()
     }
 
-    private fun removePrincipal(principal: Principal) = lifecycleScope.launch {
+    private fun removePrincipal(principal: PrincipalWithAccess) = lifecycleScope.launch {
         try {
             viewModel.removeUser(caldavAccount, caldavCalendar!!, principal)
         } catch (e: Exception) {

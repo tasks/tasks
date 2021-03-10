@@ -180,12 +180,8 @@ class CaldavSynchronizer @Inject constructor(
                 localBroadcastManager.broadcastRefreshList()
             }
             resource
-                .principals
-                .onEach { it.list = calendar.id }
-                .let {
-                    principalDao.deleteRemoved(calendar.id, it.mapNotNull { p -> p.principal } )
-                    principalDao.insert(it)
-                }
+                .principals(account, calendar)
+                .let { principalDao.deleteRemoved(calendar.id, it.map(PrincipalAccess::id)) }
             sync(calendar, resource, caldavClient.httpClient)
         }
         setError(account, "")
@@ -345,6 +341,57 @@ class CaldavSynchronizer @Inject constructor(
         Timber.d("SENT %s", caldavTask)
     }
 
+    fun Response.principals(
+        account: CaldavAccount,
+        list: CaldavCalendar
+    ): List<PrincipalAccess> {
+        val access = ArrayList<PrincipalAccess>()
+        this[Invite::class.java]
+            ?.sharees
+            ?.filter { it.href?.let { href -> !isCurrentUser(href) } ?: false }
+            ?.map {
+                val principal = principalDao.getOrCreatePrincipal(
+                    account,
+                    it.href!!,
+                    it.properties
+                        .find { p -> p is DisplayName }
+                        ?.let { name -> (name as DisplayName).displayName }
+                )
+                principalDao.getOrCreateAccess(
+                    list,
+                    principal,
+                    invite = it.response?.toStatus ?: INVITE_UNKNOWN,
+                    access = it.access?.access?.toAccess ?: ACCESS_UNKNOWN
+                )
+            }
+            ?.let { access.addAll(it) }
+        this[OCInvite::class.java]?.users
+            ?.map {
+                val principal = principalDao.getOrCreatePrincipal(account, it.href)
+                principalDao.getOrCreateAccess(
+                    list,
+                    principal,
+                    it.response.toStatus,
+                    it.access.access.toAccess
+                )
+            }
+            ?.let {
+                if (!isOwncloudOwner) {
+                    val principal = principalDao.getOrCreatePrincipal(
+                        account, this@principals[OCOwnerPrincipal::class.java]?.owner!!
+                    )
+                    access.add(principalDao.getOrCreateAccess(
+                        list,
+                        principal,
+                        INVITE_ACCEPTED,
+                        ACCESS_OWNER
+                    ))
+                }
+                access.addAll(it)
+            }
+        return access
+    }
+
     companion object {
         init {
             prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
@@ -386,45 +433,6 @@ class CaldavSynchronizer @Inject constructor(
 
         private fun Response.isCurrentUser(href: String) =
             this[CurrentUserPrincipal::class.java]?.href?.endsWith("$href/") == true
-
-        val Response.principals: List<Principal>
-            get() {
-                val principals = ArrayList<Principal>()
-                this[Invite::class.java]
-                    ?.sharees
-                    ?.filter { it.href?.let { href -> !isCurrentUser(href) } ?: false }
-                    ?.map {
-                        Principal().apply {
-                            principal = it.href
-                            it.properties.find { it is DisplayName }?.let { name ->
-                                displayName = (name as DisplayName).displayName
-                            }
-                            inviteStatus = it.response?.toStatus ?: INVITE_UNKNOWN
-                            access = it.access?.access?.toAccess ?: ACCESS_UNKNOWN
-                        }
-                    }
-                    ?.let { principals.addAll(it) }
-                this[OCInvite::class.java]?.users
-                    ?.map {
-                        Principal().apply {
-                            principal = it.href
-                            displayName = it.commonName
-                            inviteStatus = it.response.toStatus
-                            access = it.access.access.toAccess
-                        }
-                    }
-                    ?.let {
-                        if (!isOwncloudOwner) {
-                            principals.add(Principal().apply {
-                                principal = this@principals[OCOwnerPrincipal::class.java]?.owner
-                                inviteStatus = INVITE_ACCEPTED
-                                access = ACCESS_OWNER
-                            })
-                        }
-                        principals.addAll(it)
-                    }
-                return principals
-            }
 
         private val Property.Name.toAccess: Int
             get() = when (this) {

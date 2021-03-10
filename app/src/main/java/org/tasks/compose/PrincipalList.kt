@@ -29,20 +29,24 @@ import org.tasks.R
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.ICON_ALPHA
 import org.tasks.compose.Constants.KEYLINE_FIRST
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavCalendar.Companion.INVITE_ACCEPTED
 import org.tasks.data.CaldavCalendar.Companion.INVITE_DECLINED
 import org.tasks.data.CaldavCalendar.Companion.INVITE_INVALID
 import org.tasks.data.CaldavCalendar.Companion.INVITE_NO_RESPONSE
 import org.tasks.data.CaldavCalendar.Companion.INVITE_UNKNOWN
 import org.tasks.data.Principal
-import org.tasks.data.Principal.Companion.name
+import org.tasks.data.PrincipalAccess
+import org.tasks.data.PrincipalWithAccess
 
 private val principals = listOf(
-    Principal().apply {
-        displayName = "user1"
-        inviteStatus = INVITE_INVALID
-    },
-    Principal().apply { displayName = "a really really really really really long display name" },
+    PrincipalWithAccess(
+        PrincipalAccess(list = 0, invite = INVITE_INVALID),
+        Principal(account = 0, href = "", displayName = "user1")
+    ),
+    PrincipalWithAccess(
+        PrincipalAccess(list = 0, invite = INVITE_ACCEPTED),
+        Principal(account = 0, href = "", displayName = "a really really really really really long display name")
+    )
 )
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
@@ -66,8 +70,8 @@ private fun NotOwner() = MaterialTheme {
 object ListSettingsComposables {
     @Composable
     fun PrincipalList(
-        principals: List<Principal>,
-        onRemove: ((Principal) -> Unit)?,
+        principals: List<PrincipalWithAccess>,
+        onRemove: ((PrincipalWithAccess) -> Unit)?,
     ) {
         Column(
             modifier = Modifier
@@ -88,8 +92,8 @@ object ListSettingsComposables {
 
     @Composable
     fun PrincipalRow(
-        principal: Principal,
-        onRemove: ((Principal) -> Unit)?,
+        principal: PrincipalWithAccess,
+        onRemove: ((PrincipalWithAccess) -> Unit)?,
     ) {
         Row(
             Modifier
@@ -121,7 +125,7 @@ object ListSettingsComposables {
                         style = MaterialTheme.typography.body1,
                         color = colors.onBackground,
                     )
-                    if (principal.inviteStatus != CaldavCalendar.INVITE_ACCEPTED) {
+                    if (principal.inviteStatus != INVITE_ACCEPTED) {
                         Text(
                             stringResource(when (principal.inviteStatus) {
                                 INVITE_UNKNOWN, INVITE_NO_RESPONSE ->

@@ -243,13 +243,13 @@ SELECT EXISTS(SELECT 1
     abstract suspend fun getCalendars(tasks: List<Long>): List<String>
 
     @Query("""
-SELECT caldav_lists.*, COUNT(DISTINCT(tasks._id)) AS count, COUNT(DISTINCT(principals.principal_id)) AS principals
+SELECT caldav_lists.*, COUNT(DISTINCT(tasks._id)) AS count, COUNT(DISTINCT(principal_access.id)) AS principals
 FROM caldav_lists
          LEFT JOIN caldav_tasks
                    ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid
          LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND
                             tasks.hideUntil < :now AND cd_deleted = 0
-         LEFT JOIN principals ON caldav_lists.cdl_id = principals.principal_list
+         LEFT JOIN principal_access ON caldav_lists.cdl_id = principal_access.list
 WHERE caldav_lists.cdl_account = :uuid
 GROUP BY caldav_lists.cdl_uuid
     """)

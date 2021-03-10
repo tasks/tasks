@@ -65,10 +65,10 @@ class SharingMailboxDotOrgTest : CaldavTest() {
         val principal = principalDao.getAll().first()
 
         assertEquals(calendar.id, principal.list)
-        assertEquals("/principals/users/5", principal.principal)
+        assertEquals("/principals/users/5", principal.href)
         assertNull(principal.displayName)
         assertEquals(CaldavCalendar.INVITE_ACCEPTED, principal.inviteStatus)
-        assertEquals(CaldavCalendar.ACCESS_UNKNOWN, principal.access)
+        assertEquals(CaldavCalendar.ACCESS_UNKNOWN, principal.access.access)
     }
 
     companion object {
