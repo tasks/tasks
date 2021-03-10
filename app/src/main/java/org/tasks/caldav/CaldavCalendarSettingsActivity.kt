@@ -12,7 +12,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.ListSettingsComposables.PrincipalList
@@ -23,7 +22,6 @@ import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
-import org.tasks.data.Principal
 import org.tasks.data.PrincipalDao
 import org.tasks.data.PrincipalWithAccess
 import javax.inject.Inject
@@ -74,8 +72,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                             email = caldavAccount.serverType != SERVER_OWNCLOUD
                         ) { input ->
                             lifecycleScope.launch {
-                                // TODO: remove delay hack after beta02 release
-                                input?.let { share(it) } ?: delay(100)
+                                share(input)
                                 openDialog.value = false
                             }
                         }

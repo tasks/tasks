@@ -1,5 +1,5 @@
 object Versions {
-    const val kotlin = "1.4.30"
+    const val kotlin = "1.4.31"
     const val targetSdk = 30
     const val minSdk = 24
     const val butterknife = "10.2.3"
@@ -18,5 +18,5 @@ object Versions {
     const val hilt_androidx = "1.0.0-alpha03"
     const val lifecycle = "2.3.0"
     const val markwon = "4.6.2"
-    const val compose = "1.0.0-beta01"
+    const val compose = "1.0.0-beta02"
 }

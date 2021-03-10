@@ -56,31 +56,22 @@ object ShareInvite {
     fun ShareInviteDialog(
         openDialog: MutableState<Boolean>,
         email: Boolean,
-        invite: (String?) -> Unit,
+        invite: (String) -> Unit,
     ) {
         val text = rememberSaveable { mutableStateOf("") }
-        // TODO: remove after beta02 release: https://issuetracker.google.com/issues/181282423
-        val enableHack = rememberSaveable { mutableStateOf(true) }
         if (openDialog.value) {
             AlertDialog(
                 onDismissRequest = {},
-                text = { ShareInvite(email, text, enableHack) },
+                text = { ShareInvite(email, text) },
                 confirmButton = {
-                    TextButton(text = R.string.invite, onClick = {
-                        enableHack.value = false
-                        invite(text.value)
-                    })
+                    TextButton(text = R.string.invite, onClick = { invite(text.value) })
                 },
                 dismissButton = {
-                    TextButton(text = R.string.cancel, onClick = {
-                        enableHack.value = false
-                        invite(null as String?)
-                    })
+                    TextButton(text = R.string.cancel, onClick = { openDialog.value = false })
                 },
             )
         } else {
             text.value = ""
-            enableHack.value = true
         }
     }
 
@@ -88,7 +79,6 @@ object ShareInvite {
     fun ShareInvite(
         email: Boolean,
         text: MutableState<String>,
-        enableHack: MutableState<Boolean> = mutableStateOf(true)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
@@ -111,7 +101,6 @@ object ShareInvite {
                         contentDescription = label
                     )
                 },
-                enabled = enableHack.value,
                 textStyle = MaterialTheme.typography.body1,
                 colors = textFieldColors(),
             )
