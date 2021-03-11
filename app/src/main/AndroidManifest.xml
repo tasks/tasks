@@ -499,11 +499,6 @@
       android:name=".location.AndroidGeofenceTransitionIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"/>
 
-    <!-- Uses Library -->
-    <uses-library
-      android:name="com.google.android.maps"
-      android:required="false"/>
-
     <!-- DashClock extension -->
 
     <service
