@@ -38,6 +38,10 @@
   * Turkish - @emintufan, Oğuz Ersen
   * Ukrainian - @IhorHordiichuk
 
+### 11.6.1 (2021-03-11)
+
+* F-Droid: Fix OpenStreetMap crash
+
 ### 11.6 (2021-03-04)
 
 * CalDAV: Display indicator in drawer when a list is shared with other users
