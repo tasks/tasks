@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -13,13 +14,22 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
-    private val addCaldavAccountViewModel: AddCaldavAccountViewModel by viewModels()
-    private val updateCaldavAccountViewModel: UpdateCaldavAccountViewModel by viewModels()
+    private val viewModel: CaldavAccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addCaldavAccountViewModel.observe(this, this::addAccount, this::requestFailed)
-        updateCaldavAccountViewModel.observe(this, this::updateAccount, this::requestFailed)
+
+        viewModel.inFlight.observe(this) { binding.progressBar.progressBar.isVisible = it }
+        viewModel.error.observe(this) { throwable ->
+            throwable?.let {
+                requestFailed(it)
+                viewModel.error.value = null
+            }
+        }
+        viewModel.finish.observe(this) {
+            setResult(RESULT_OK, it)
+            finish()
+        }
     }
 
     override val description: Int
@@ -28,7 +38,7 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
     private suspend fun addAccount(principal: String) {
         hideProgressIndicator()
         Timber.d("Found principal: %s", principal)
-        val newAccount = CaldavAccount().apply {
+        CaldavAccount().apply {
             name = newName
             url = principal
             username = newUsername
@@ -59,14 +69,15 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
         finish()
     }
 
-    override suspend fun addAccount(url: String, username: String, password: String) =
-            addCaldavAccountViewModel.addAccount(url, username, password)
+    override suspend fun addAccount(url: String, username: String, password: String) {
+        viewModel.addAccount(url, username, password)?.let { addAccount(it) }
+    }
 
-    override suspend fun updateAccount(url: String, username: String, password: String) =
-            updateCaldavAccountViewModel.updateCaldavAccount(url, username, password)
+    override suspend fun updateAccount(url: String, username: String, password: String) {
+        viewModel.updateCaldavAccount(url, username, password)?.let { updateAccount(it) }
+    }
 
-    override suspend fun updateAccount() =
-            updateAccount(caldavAccount!!.url)
+    override suspend fun updateAccount() = updateAccount(caldavAccount!!.url)
 
     override val newPassword: String?
         get() {

@@ -1,8 +1,6 @@
 package org.tasks.caldav
 
 import android.content.Intent
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.CaldavFilter
@@ -10,7 +8,6 @@ import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
@@ -20,7 +17,6 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.PrincipalDao
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.sync.SyncAdapters
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,10 +26,7 @@ class CaldavCalendarViewModel @Inject constructor(
     private val principalDao: PrincipalDao,
     private val taskDeleter: TaskDeleter,
     private val syncAdapters: SyncAdapters,
-) : ViewModel() {
-    val error = MutableLiveData<Throwable?>()
-    val inFlight = MutableLiveData(false)
-    val finish = MutableLiveData<Intent>()
+) : CaldavViewModel() {
     var ignoreFinish = false
 
     suspend fun createCalendar(
@@ -114,22 +107,5 @@ class CaldavCalendarViewModel @Inject constructor(
                 provider.forAccount(account).removePrincipal(account, list, principal.href)
             }
             principalDao.delete(principal.access)
-        }
-
-    private suspend fun <T> doRequest(action: suspend () -> T): T? =
-        withContext(NonCancellable) {
-            if (inFlight.value == true) {
-                return@withContext null
-            }
-            inFlight.value = true
-            try {
-                return@withContext action()
-            } catch (e: Exception) {
-                Timber.e(e)
-                error.value = e
-                return@withContext null
-            } finally {
-                inFlight.value = false
-            }
         }
 }
