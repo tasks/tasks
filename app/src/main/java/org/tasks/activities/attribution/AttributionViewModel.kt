@@ -2,48 +2,38 @@ package org.tasks.activities.attribution
 
 import android.content.Context
 import androidx.annotation.Keep
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.gson.GsonBuilder
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
+import javax.inject.Inject
 
-class AttributionViewModel : ViewModel() {
-    private val attributions = MutableLiveData<List<LibraryAttribution>?>()
-    private val disposables = CompositeDisposable()
-    private var loaded = false
+@HiltViewModel
+class AttributionViewModel @Inject constructor(
+    @ApplicationContext context: Context
+): ViewModel() {
+    val attributions = MutableLiveData<Map<String, Map<String, List<LibraryAttribution>>>>()
 
-    fun observe(activity: AppCompatActivity, observer: Observer<List<LibraryAttribution>?>) {
-        attributions.observe(activity, observer)
-        load(activity)
-    }
-
-    private fun load(context: Context) {
-        if (loaded) {
-            return
-        }
-        loaded = true
-        disposables.add(
-                Single.fromCallable {
-                    val licenses = context.assets.open("licenses.json")
-                    val reader = InputStreamReader(licenses, StandardCharsets.UTF_8)
-                    val list = GsonBuilder().create().fromJson(reader, AttributionList::class.java)
-                    list.libraries
+    init {
+        viewModelScope.launch {
+            val licenses = withContext(Dispatchers.IO) {
+                context.assets.open("licenses.json")
+            }
+            val reader = InputStreamReader(licenses, StandardCharsets.UTF_8)
+            val list = GsonBuilder().create().fromJson(reader, AttributionList::class.java)
+            attributions.value = list.libraries!!
+                .groupBy { it.license!! }.toSortedMap()
+                .mapValues { (_, libraries) ->
+                    libraries.groupBy { it.copyrightHolder!! }.toSortedMap()
                 }
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ value: List<LibraryAttribution>? -> attributions.setValue(value) }) { t: Throwable? -> Timber.e(t) })
-    }
-
-    override fun onCleared() {
-        disposables.dispose()
+        }
     }
 
     internal class AttributionList {
@@ -56,6 +46,5 @@ class AttributionViewModel : ViewModel() {
         @get:Keep
         var license: String? = null
         var libraryName: String? = null
-
     }
 }

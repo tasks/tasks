@@ -143,17 +143,6 @@
     <item name="android:layout_height">24dp</item>
   </style>
 
-  <style name="CardViewStyle" parent="Widget.MaterialComponents.CardView">
-    <item name="android:layout_marginTop">0dp</item>
-    <item name="android:layout_marginBottom">0dp</item>
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_marginEnd">@dimen/card_view_margin</item>
-    <item name="android:layout_marginStart">@dimen/card_view_margin</item>
-    <item name="cardCornerRadius">@dimen/card_view_card_corner_radius</item>
-    <item name="cardElevation">@dimen/card_view_card_elevation</item>
-    <item name="cardPreventCornerOverlap">false</item>
-  </style>
-
   <style name="ChipStyle" parent="Base.Widget.MaterialComponents.Chip">
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_width">wrap_content</item>

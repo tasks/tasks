@@ -4,13 +4,13 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
-  <include layout="@layout/toolbar"/>
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar" />
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?android:attr/windowBackground"
-    android:gravity="center"/>
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/compose"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
 
 </LinearLayout>

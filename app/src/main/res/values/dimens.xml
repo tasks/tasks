@@ -33,8 +33,6 @@
   <dimen name="sku_details_row_text_size">14sp</dimen>
 
   <dimen name="card_view_margin">8dp</dimen>
-  <dimen name="card_view_card_corner_radius">2dp</dimen>
-  <dimen name="card_view_card_elevation">2sp</dimen>
 
   <dimen name="header_gap">8dp</dimen>
 

@@ -1,64 +1,36 @@
 package org.tasks.activities.attribution
 
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
+import androidx.activity.viewModels
 import butterknife.ButterKnife
-import com.google.common.collect.Multimaps
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.activities.attribution.AttributionViewModel.LibraryAttribution
+import org.tasks.compose.AttributionList.AttributionList
+import org.tasks.databinding.ActivityAttributionsBinding
 import org.tasks.injection.ThemedInjectingAppCompatActivity
-import timber.log.Timber
-import java.util.*
 
 @AndroidEntryPoint
 class AttributionActivity : ThemedInjectingAppCompatActivity() {
-    @BindView(R.id.toolbar)
-    lateinit var toolbar: Toolbar
-
-    @BindView(R.id.list)
-    lateinit var recyclerView: RecyclerView
+    val viewModel: AttributionViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_attributions)
+        val binding = ActivityAttributionsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ButterKnife.bind(this)
-        toolbar.setTitle(R.string.third_party_licenses)
-        toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24px)
-        toolbar.setNavigationOnClickListener { finish() }
-        themeColor.apply(toolbar)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ViewModelProvider(this)
-                .get(AttributionViewModel::class.java)
-                .observe(this, androidx.lifecycle.Observer { libraryAttributions: List<LibraryAttribution>? ->
-                    updateAttributions(libraryAttributions!!)
-                })
-    }
-
-    private fun updateAttributions(libraryAttributions: List<LibraryAttribution>) {
-        val rows = ArrayList<AttributionRow>()
-        val byLicense = Multimaps.index(libraryAttributions) { it!!.license }
-        byLicense.keySet().sorted().forEach { license ->
-            rows.add(AttributionRow(license))
-            rows.addAll(getRows(byLicense[license]))
+        with(binding.toolbar.toolbar) {
+            setTitle(R.string.third_party_licenses)
+            setNavigationIcon(R.drawable.ic_outline_arrow_back_24px)
+            setNavigationOnClickListener { finish() }
+            themeColor.apply(this)
         }
-        recyclerView.adapter = AttributionAdapter(rows)
-        Timber.d(libraryAttributions.toString())
-    }
-
-    private fun getRows(attributions: List<LibraryAttribution>): Iterable<AttributionRow> {
-        val byCopyrightHolder = Multimaps.index(attributions) { lib -> lib!!.copyrightHolder }
-        return byCopyrightHolder.keySet().sorted().map {
-            val libraries = byCopyrightHolder[it].map { a -> "\u2022 ${a.libraryName}"}
-            AttributionRow(it, libraries.sorted().joinToString("\n"))
+        viewModel.attributions.observe(this) {
+            binding.compose.setContent {
+                MdcTheme {
+                    AttributionList(it)
+                }
+            }
         }
     }
 }
