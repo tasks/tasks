@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
@@ -55,7 +56,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                 findViewById<ComposeView>(R.id.people)
                     .apply { isVisible = it.isNotEmpty() }
                     .setContent {
-                        tasksTheme.TasksTheme {
+                        MdcTheme {
                             PrincipalList(it, if (canRemovePrincipals) this::onRemove else null)
                         }
                     }
@@ -65,7 +66,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
             findViewById<ComposeView>(R.id.fab)
                 .apply { isVisible = true }
                 .setContent {
-                    tasksTheme.TasksTheme {
+                    MdcTheme {
                         val openDialog = rememberSaveable { mutableStateOf(false) }
                         ShareInviteDialog(
                             openDialog,
