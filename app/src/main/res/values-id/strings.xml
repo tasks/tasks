@@ -468,8 +468,8 @@
     <string name="TEA_elapsedDuration_label">Waktu telah terpakai</string>
     <string name="sort_created">Berdasarkan waktu pembuatan</string>
     <string name="WID_dateButtonUnset">Klik untuk mengatur</string>
-    <string name="cancel">Batal</string>
-    <string name="ok">Oke</string>
+    <string name="cancel">\@android:string/batal</string>
+    <string name="ok">\@android:string/oke</string>
     <string name="EPr_temp_show_completed_tasks">Tampilkan tugas untuk sementara setelah selesai</string>
     <string name="CRA_default_list_name">Tindakan Item: %s</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tugas akan mengingatkan Anda tentang acara kalender mendatang dan menyarankan Anda untuk bersiap-siap untuk hal tersebut</string>
@@ -674,4 +674,10 @@
     <string name="remove_user">Hapus pengguna\?</string>
     <string name="list_members">Daftar anggota</string>
     <string name="manage_drawer">Laci Kelola</string>
+    <string name="invite_invalid">Undangan tidak valid</string>
+    <string name="invite_awaiting_response">Undangan menunggu respon</string>
+    <string name="invite_declined">Undangan ditolak</string>
+    <string name="invite">Undang</string>
+    <string name="email">Email</string>
+    <string name="share_list">Bagikan daftar</string>
 </resources>
