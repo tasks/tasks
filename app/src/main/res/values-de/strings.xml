@@ -615,11 +615,11 @@
     <string name="backup_location_warning">WARNUNG: Bei der Deinstallation von Tasks werden alle Dateien in %s gelöscht! Bitte wähle einen eigenen Speicherort, um zu verhindern dass Android deine Daten löscht.</string>
     <string name="backups_ignore_warnings_summary">Ignoriere Warnungen zu Sicherungen, wenn du keine Sicherungen brauchst oder deine eigene Sicherungslösung nutzt</string>
     <string name="android_auto_backup_device_summary">Sie müssen sich auch über Ihre Geräteeinstellungen für den Sicherungsdienst anmelden. Nicht alle Geräte bieten einen Sicherungsdienst.</string>
-    <string name="follow_reddit">r/tasks folgen</string>
+    <string name="follow_reddit">Beitritt zu r/tasks</string>
     <string name="current_subscription">Aktuelles Abonnement: %s</string>
     <string name="insufficient_subscription">Unzureichende Abonnementstufe. Bitte aktualisieren Sie Ihr Abonnement, um den Dienst wieder aufzunehmen.</string>
     <string name="your_subscription_expired">Ihr Abonnement ist abgelaufen. Abonnieren Sie jetzt, um den Dienst fortzusetzen.</string>
-    <string name="background_location_permission_required">Diese Anwendung sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die Anwendung geschlossen ist oder nicht verwendet wird.</string>
+    <string name="background_location_permission_required">Tasks sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die App geschlossen oder nicht in Gebrauch ist.</string>
     <string name="repeat_monthly_fifth_week">fünften</string>
     <string name="price_per_month_abbreviated">%s $/Monat</string>
     <string name="price_per_month">%s $/Monat</string>
@@ -677,4 +677,12 @@
     <string name="get_tasks_org_account">Tasks.org-Konto erstellen</string>
     <string name="tomorrow_abbrev_lowercase">mrgn</string>
     <string name="yesterday_abbrev_lowercase">gest</string>
+    <string name="open_source">Open source</string>
+    <string name="issue_tracker">Issue Tracker</string>
+    <string name="support">Support</string>
+    <string name="social">Sozial</string>
+    <string name="chat_freenode">Treten Sie #tasks auf Freenode bei</string>
+    <string name="follow_twitter">Folgen Sie @tasks_org</string>
+    <string name="map_theme">Kartenthema</string>
+    <string name="manage_drawer">Schublade verwalten</string>
 </resources>
