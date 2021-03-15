@@ -680,4 +680,5 @@
     <string name="invite">Undang</string>
     <string name="email">Email</string>
     <string name="share_list">Bagikan daftar</string>
+    <string name="tasks_org_share">Bagikan daftar dengan pengguna lain</string>
 </resources>
