@@ -687,4 +687,5 @@
     <string name="invite">邀请</string>
     <string name="email">电子邮件</string>
     <string name="share_list">分享列表</string>
+    <string name="tasks_org_share">与其他用户分享列表</string>
 </resources>
