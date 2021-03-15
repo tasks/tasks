@@ -626,7 +626,7 @@
     <string name="date_shortcut_must_come_after">%1$s harus datang setelah %2$s</string>
     <string name="geofence_radius">Radius</string>
     <string name="randomly_once">Secara acak satu kali</string>
-    <string name="widget_show_dividers">Tampilkan pemisah</string>
+    <string name="widget_show_dividers">Tunjukan Batas Waktu</string>
     <string name="yesterday_abbrev_lowercase">kmrn</string>
     <string name="tomorrow_abbrev_lowercase">bsk</string>
     <string name="TEA_timer_comment_spent">Waktu terpakai:</string>
@@ -643,14 +643,14 @@
     <string name="gtasks_GTA_clear_completed">Hapus Telah Selesai</string>
     <string name="CFC_list_name">Dalam daftar…</string>
     <string name="CFC_title_contains_text">Judul mempuat: \?</string>
-    <string name="CFC_title_contains_name">Judul mengandung…</string>
+    <string name="CFC_title_contains_name">Judul berisi …</string>
     <string name="CFC_importance_text">Prioritas setidaknya \?</string>
     <string name="filter_any_start_date">Tanggal mulai kapanpun</string>
     <string name="no_start_date">Tidak ada tanggal mulai</string>
     <string name="CFC_startBefore_name">Mulai pada…</string>
     <string name="CFC_startBefore_text">Mulai pada: \?</string>
-    <string name="CFC_dueBefore_text">Batas Sampai: \?</string>
-    <string name="default_location_reminder_on_departure">Pada keberangkatan</string>
+    <string name="CFC_dueBefore_text">Karena:\?</string>
+    <string name="default_location_reminder_on_departure">Saat keberangkatan</string>
     <string name="default_location_reminder_on_arrival">Pada kedatangan</string>
     <string name="EPr_default_reminders_mode_title">Tipe dering/getar bawaan</string>
     <string name="EPr_default_location_radius">Radius bawaan</string>
