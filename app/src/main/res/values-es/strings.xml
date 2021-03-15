@@ -697,4 +697,5 @@
     <string name="invite">Invitar</string>
     <string name="email">Email</string>
     <string name="share_list">Compartir la lista</string>
+    <string name="tasks_org_share">Compartir listas con otros usuarios</string>
 </resources>
