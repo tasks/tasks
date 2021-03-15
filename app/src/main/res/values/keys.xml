@@ -32,6 +32,7 @@
   <string name="url_freenode">https://webchat.freenode.net/?channels=tasks</string>
   <string name="url_sponsor">https://github.com/sponsors/abaker</string>
   <string name="url_app_passwords">https://tasks.org/passwords</string>
+  <string name="url_sharing">https://tasks.org/sharing</string>
 
   <!-- Eventually these should be moved to strings.xml for translation -->
   <string name="upgrade_sync_self_hosted">Sync with third-party apps and services</string>

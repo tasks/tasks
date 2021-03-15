@@ -139,6 +139,7 @@ _${getString(R.string.account_not_included)}_
 ---                
 #### ${getString(R.string.tasks_org_account)}
 * ${getString(R.string.tasks_org_description)}
+* [${getString(R.string.tasks_org_share)}](${getString(R.string.url_sharing)})
 * [${getString(R.string.upgrade_third_party_apps)}](${getString(R.string.url_app_passwords)})
 * ${getString(R.string.upgrade_google_places)}
 * [${getString(R.string.upgrade_coming_soon)}](${getString(R.string.help_url_sync)})
