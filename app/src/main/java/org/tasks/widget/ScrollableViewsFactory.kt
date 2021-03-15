@@ -153,7 +153,14 @@ internal class ScrollableViewsFactory(
         } else {
             R.drawable.ic_keyboard_arrow_up_black_18dp
         })
-        row.setTextColor(R.id.header, section.headerColor(context, sortMode))
+        row.setTextColor(
+            R.id.header,
+            section.headerColor(
+                context,
+                sortMode,
+                if (isDark) R.color.white_60 else R.color.black_60
+            )
+        )
         if (!showDividers) {
             row.setViewVisibility(R.id.divider, View.GONE)
         }

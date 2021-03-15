@@ -16,13 +16,13 @@ data class AdapterSection(
         var sectionedPosition: Int = 0,
         var collapsed: Boolean = false
 ) {
-    fun headerColor(context: Context, sortMode: Int) =
+    fun headerColor(context: Context, sortMode: Int, textColor: Int = R.color.text_secondary) =
             ContextCompat.getColor(context, if ((sortMode == SORT_DUE || sortMode == SORT_START)
                     && value > 0
                     && value.toDateTime().plusDays(1).startOfDay().isBeforeNow) {
                 R.color.overdue
             } else {
-                R.color.text_secondary
+                textColor
             })
 
     fun headerString(
