@@ -387,20 +387,6 @@
     },
     {
       "artifactId": {
-        "name": "materialdatetimepicker",
-        "group": "com.wdullaer",
-        "version": "+"
-      },
-      "copyrightHolder": "Wouter Dullaert",
-      "copyrightStatement": "Copyright &copy; Wouter Dullaert. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/wdullaer/MaterialDateTimePicker",
-      "libraryName": "MaterialDateTimePicker"
-    },
-    {
-      "artifactId": {
         "name": "commons-lang3",
         "group": "org.apache.commons",
         "version": "+"

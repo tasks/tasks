@@ -8,7 +8,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
+import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences

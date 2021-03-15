@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
-import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
+import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences

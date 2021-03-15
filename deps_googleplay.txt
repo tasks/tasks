@@ -444,9 +444,6 @@
 ++--- com.google.android.apps.dashclock:dashclock-api:2.0.0
 ++--- com.twofortyfouram:android-plugin-api-for-locale:1.0.2
 ++--- com.rubiconproject.oss:jchronic:0.2.6
-++--- com.wdullaer:materialdatetimepicker:4.2.3
-+|    +--- androidx.appcompat:appcompat:1.0.2 -> 1.3.0-beta01 (*)
-+|    \--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0 (*)
 ++--- me.leolin:ShortcutBadger:1.1.22
 ++--- com.google.apis:google-api-services-tasks:v1-rev20210109-1.31.0
 +|    \--- com.google.api-client:google-api-client:1.31.1

@@ -21,7 +21,7 @@ import org.tasks.R
 import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.dialogs.MyTimePickerDialog.newTimePicker
+import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
 import org.tasks.time.DateTime

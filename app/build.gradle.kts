@@ -216,7 +216,6 @@ dependencies {
     implementation("com.rubiconproject.oss:jchronic:0.2.6") {
         isTransitive = false
     }
-    implementation("com.wdullaer:materialdatetimepicker:4.2.3")
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
     implementation("com.google.apis:google-api-services-tasks:v1-rev20210109-1.31.0")
     implementation("com.google.apis:google-api-services-drive:v3-rev20210228-1.31.0")

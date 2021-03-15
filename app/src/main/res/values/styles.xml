@@ -20,6 +20,9 @@
     <item name="materialAlertDialogTheme">@style/TasksDialogAlert</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    <item name="materialTimePickerTheme">@style/ClockTheme</item>
+    <item name="materialCalendarTheme">@style/CalendarTheme</item>
+    <item name="textInputStyle">@style/OutlinedBox</item>
   </style>
 
   <style name="TaskEditTextPrimary">
@@ -187,8 +190,6 @@
     <item name="android:textColor">@color/overdue</item>
   </style>
 
-  <style name="mdtp_ActionButton.Text" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush"/>
-
   <style name="AlertButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
     <item name="android:textColor">?attr/colorSecondary</item>
   </style>
@@ -211,4 +212,59 @@
     <item name="android:scaleType">fitCenter</item>
   </style>
 
+  <style name="ClockTheme" parent="ThemeOverlay.MaterialComponents.TimePicker">
+    <item name="materialClockStyle">@style/ClockStyle</item>
+  </style>
+
+  <style name="ClockStyle" parent="Widget.MaterialComponents.TimePicker.Clock">
+    <item name="clockHandColor">?attr/colorSecondary</item>
+    <item name="clockNumberTextColor">@color/clock_text_color</item>
+  </style>
+
+  <style name="CalendarTheme" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+    <item name="materialCalendarStyle">@style/CalendarStyle</item>
+    <item name="materialCalendarHeaderLayout">@style/CalendarHeaderLayout</item>
+    <item name="materialCalendarHeaderDivider">@style/CalendarHeaderDivider</item>
+    <item name="materialCalendarHeaderTitle">@style/CalendarHeaderTitle</item>
+    <item name="materialCalendarHeaderSelection">@style/CalendarHeaderSelection</item>
+    <item name="android:colorControlActivated">?attr/colorSecondary</item>
+  </style>
+
+  <style name="CalendarStyle" parent="@style/Widget.MaterialComponents.MaterialCalendar">
+    <item name="daySelectedStyle">@style/CalendarDaySelected</item>
+    <item name="yearSelectedStyle">@style/CalendarYearSelected</item>
+    <item name="hintTextColor">?attr/colorSecondary</item>
+  </style>
+
+  <style name="CalendarHeaderLayout" parent="Widget.MaterialComponents.MaterialCalendar.HeaderLayout">
+    <item name="android:background">?attr/colorSecondary</item>
+  </style>
+
+  <style name="CalendarHeaderDivider" parent="Widget.MaterialComponents.MaterialCalendar.HeaderDivider">
+    <item name="android:background">?attr/colorOnSecondary</item>
+  </style>
+
+  <style name="CalendarHeaderTitle" parent="Widget.MaterialComponents.MaterialCalendar.HeaderTitle">
+    <item name="android:textColor">?attr/colorOnSecondary</item>
+  </style>
+
+  <style name="CalendarHeaderSelection" parent="Widget.MaterialComponents.MaterialCalendar.HeaderSelection">
+    <item name="android:textColor">?attr/colorOnSecondary</item>
+  </style>
+
+  <style name="CalendarDaySelected" parent="Widget.MaterialComponents.MaterialCalendar.Day.Selected">
+    <item name="itemFillColor">?attr/colorSecondary</item>
+    <item name="itemTextColor">?attr/colorOnSecondary</item>
+  </style>
+
+  <style name="CalendarYearSelected" parent="Widget.MaterialComponents.MaterialCalendar.Year.Selected">
+    <item name="itemFillColor">?attr/colorSecondary</item>
+    <item name="itemTextColor">?attr/colorOnSecondary</item>
+    <item name="itemStrokeColor">?attr/colorOnSecondary</item>
+  </style>
+
+  <style name="OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+    <item name="boxStrokeColor">?attr/colorSecondary</item>
+    <item name="hintTextColor">?attr/colorSecondary</item>
+  </style>
 </resources>
