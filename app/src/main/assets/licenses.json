@@ -846,20 +846,6 @@
     },
     {
       "artifactId": {
-        "name": "constraintlayout-solver",
-        "group": "androidx.constraintlayout",
-        "version": "+"
-      },
-      "copyrightHolder": "Android Open Source Project",
-      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "http://tools.android.com",
-      "libraryName": "Android ConstraintLayout Solver"
-    },
-    {
-      "artifactId": {
         "name": "kotlin-stdlib",
         "group": "org.jetbrains.kotlin",
         "version": "+"
@@ -2243,6 +2229,20 @@
       "normalizedLicense": "apache2",
       "url": "https://github.com/material-components/material-components-android-compose-theme-adapter/",
       "libraryName": "compose-theme-adapter"
+    },
+    {
+      "artifactId": {
+        "name": "constraintlayout-core",
+        "group": "androidx.constraintlayout",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "http://tools.android.com",
+      "libraryName": "constraintlayout-core"
     }
   ]
 }

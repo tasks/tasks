@@ -355,12 +355,6 @@
   copyrightHolder: Google Inc.
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-- artifact: androidx.constraintlayout:constraintlayout-solver:+
-  name: Android ConstraintLayout Solver
-  copyrightHolder: Android Open Source Project
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: http://tools.android.com
 - artifact: org.jetbrains.kotlin:kotlin-stdlib:+
   name: org.jetbrains.kotlin:kotlin-stdlib
   copyrightHolder: JetBrains s.r.o.
@@ -944,3 +938,9 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/material-components/material-components-android-compose-theme-adapter/
+- artifact: androidx.constraintlayout:constraintlayout-core:+
+  name: constraintlayout-core
+  copyrightHolder: Android Open Source Project
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: http://tools.android.com
