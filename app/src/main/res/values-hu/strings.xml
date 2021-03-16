@@ -695,4 +695,5 @@
     <string name="invite">Meghívás</string>
     <string name="email">Email</string>
     <string name="share_list">Lista megosztása</string>
+    <string name="tasks_org_share">Lista megosztása más felhasználókkal</string>
 </resources>
