@@ -643,12 +643,12 @@
     <string name="github_sponsors">GitHub-Paten</string>
     <string name="google_play_subscribers">Goole Play-Abonnementen</string>
     <string name="not_signed_in">Nicht angemeldet</string>
-    <string name="authorization_cancelled">Authorisierung abgebrochen</string>
+    <string name="authorization_cancelled">Autorisierung abgebrochen</string>
     <string name="sign_in_with_google">Mit Google anmelden</string>
     <string name="account_not_included">Nicht im \"Wähle deinen Preis\"-Abonnement enthalten</string>
-    <string name="tasks_org_account">Tasks.org-Account</string>
+    <string name="tasks_org_account">Tasks.org-Konto</string>
     <string name="copied_to_clipboard">%s in Zwischenablage kopiert</string>
-    <string name="app_password_save">Nutze diese Anmeldedaten, um eine Drittanbieterapp zu konfigurieren. Sie erlauben vollen Zugriff auf deinen Tasks.org-Account. Schreibe sie nirgends auf und teile sie mit niemandem!</string>
+    <string name="app_password_save">Nutze diese Anmeldedaten, um eine Drittanbieterapp zu konfigurieren. Sie erlauben vollen Zugriff auf dein Tasks.org-Konto. Schreibe sie nirgends auf und teile sie mit niemandem!</string>
     <string name="app_password_delete_confirmation">Jede App, die dieses Passwort benutzt, wird abgemeldet</string>
     <string name="app_password_last_access">Zuletzt genutzt: %s</string>
     <string name="app_password_created_at">Erstellt: %s</string>
@@ -685,4 +685,17 @@
     <string name="follow_twitter">Folgen Sie @tasks_org</string>
     <string name="map_theme">Kartenthema</string>
     <string name="manage_drawer">Schublade verwalten</string>
+    <string name="map_theme_use_app_theme">App-Thema nutzen</string>
+    <string name="tasks_org_account_required">Tasks.org-Konto erforderlich</string>
+    <string name="invite_awaiting_response">Einladung wartet auf Antwort</string>
+    <string name="remove_user_confirmation">%1$s wird keinen Zugriff mehr auf %2$s haben</string>
+    <string name="remove_user">Benutzer entfernen\?</string>
+    <string name="list_members">Listenmitglieder</string>
+    <string name="privacy">Datenschutz</string>
+    <string name="invite_invalid">Einladung ungültig</string>
+    <string name="invite_declined">Einladung abgelehnt</string>
+    <string name="invite">Einladen</string>
+    <string name="email">E-Mail</string>
+    <string name="share_list">Listen teilen</string>
+    <string name="tasks_org_share">Listen mit anderen Nutzern teilen</string>
 </resources>
