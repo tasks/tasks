@@ -692,4 +692,5 @@
     <string name="invite_awaiting_response">Uitnodiging wacht op reactie</string>
     <string name="invite_declined">Uitnodiging afgewezen</string>
     <string name="email">E-mail</string>
+    <string name="tasks_org_share">Deel lijsten met andere gebruikers</string>
 </resources>
