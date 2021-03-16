@@ -717,4 +717,5 @@
     <string name="invite">Запросити</string>
     <string name="email">Е-пошта</string>
     <string name="share_list">Поділитися списком</string>
+    <string name="tasks_org_share">Поділіться списками з іншими користувачами</string>
 </resources>
