@@ -5,7 +5,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.cookpad.android.plugin.license-tools") version "1.2.6"
-    id("com.github.ben-manes.versions") version "0.36.0"
+    id("com.github.ben-manes.versions") version "0.38.0"
     id("com.vanniktech.android.junit.jacoco") version "0.16.0"
     id("dagger.hilt.android.plugin")
 }
