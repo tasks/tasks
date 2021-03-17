@@ -698,4 +698,9 @@
     <string name="email">Email</string>
     <string name="share_list">Compartir la lista</string>
     <string name="tasks_org_share">Compartir listas con otros usuarios</string>
+    <string name="picker_mode_text">Texto</string>
+    <string name="picker_mode_clock">Reloj</string>
+    <string name="picker_mode_calendar">Calendario</string>
+    <string name="picker_mode_time">Modo de selección del tiempo</string>
+    <string name="picker_mode_date">Modo de selección de fecha</string>
 </resources>
