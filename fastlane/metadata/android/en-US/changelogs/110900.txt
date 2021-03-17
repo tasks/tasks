@@ -1,0 +1,5 @@
+* New calendar and clock pickers
+  * New preference to default to text input for date and time
+* Fix issue causing Tasks to use wrong search provider
+* Fix crash when Nextcloud/ownCloud don't send list owner
+* Update translations

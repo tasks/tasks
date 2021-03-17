@@ -1,5 +1,23 @@
 ### Shared lists are coming to Tasks! [Read more](https://tasks.org/blog/shared-lists-are-coming)
 
+### 11.9 (2021-03-20)
+
+* New calendar and clock pickers
+  * New preference to default to text input for date and time
+* Fix issue causing Tasks to use wrong search provider
+* Fix crash when Nextcloud/ownCloud don't send list owner
+* Update translations
+  * Basque - Sergio Varela
+  * Croatian - @milotype
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - Achim Schumacher
+  * Hungarian - kaciokos
+  * Indonesian - when we were sober
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Ukrainian - @IhorHordiichuk
+
 ### 11.8 (2021-03-15)
 
 * CalDAV: Send shared list invites
