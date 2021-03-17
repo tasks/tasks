@@ -492,6 +492,8 @@
     <string name="invalid_username_or_password">Nombre de usuario o contraseña inválidos</string>
     <string name="theme_system_default">El sistema por defecto</string>
     <string name="color_wheel">Rueda de colores</string>
+    <string name="upgrade_blurb_1">¡Hola! Me llamo Alex. Soy el desarrollador independiente detrás de Tasks</string>
+    <string name="upgrade_blurb_2">He pasado miles de horas trabajando en Tareas, y publico todo el código fuente en línea de forma gratuita. Para apoyar mi trabajo, algunas características requieren una suscripción</string>
     <string name="upgrade_blurb_4">Su apoyo significa mucho para mí, ¡gracias!</string>
     <string name="back">Volver</string>
     <string name="chip_style">Estilo de chip</string>
@@ -616,9 +618,7 @@
     <string name="custom_filter_is_subtask">Es una subtarea</string>
     <string name="custom_filter_has_subtask">Tiene subtareas</string>
     <string name="current_subscription">Suscripción actual: %s</string>
-    <string name="price_per_month_abbreviated">$%s/mes</string>
     <string name="price_per_month">$%s/mes</string>
-    <string name="price_per_year_abbreviated">$%s/año</string>
     <string name="price_per_year">$%s/año</string>
     <string name="insufficient_subscription">Nivel de suscripción insuficiente. Actualice su suscripción para reanudar el servicio.</string>
     <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>

@@ -1,25 +1,28 @@
 package org.tasks.dialogs;
 
-import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.tasks.R;
+import org.tasks.billing.Inventory;
+import org.tasks.billing.PurchaseActivity;
+import org.tasks.themes.CustomIcons;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.hilt.android.AndroidEntryPoint;
-import javax.inject.Inject;
-import org.tasks.R;
-import org.tasks.billing.Inventory;
-import org.tasks.billing.PurchaseDialog;
-import org.tasks.themes.CustomIcons;
 
 @AndroidEntryPoint
 public class IconPickerDialog extends DialogFragment {
@@ -65,8 +68,8 @@ public class IconPickerDialog extends DialogFragment {
     if (!inventory.getHasPro()) {
       builder.setPositiveButton(
           R.string.upgrade_to_pro,
-          (dialog, which) -> newPurchaseDialog()
-              .show(getParentFragmentManager(), PurchaseDialog.getFRAG_TAG_PURCHASE_DIALOG()));
+          (dialog, which) -> startActivity(new Intent(getContext(), PurchaseActivity.class))
+      );
     }
     return builder.show();
   }

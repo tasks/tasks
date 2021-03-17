@@ -24,8 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
-import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
+import org.tasks.billing.PurchaseActivity
 import org.tasks.data.TaskDao
 import org.tasks.dialogs.NewFilterDialog.Companion.newFilterDialog
 import org.tasks.filters.FilterProvider
@@ -85,7 +84,7 @@ class NavigationDrawerFragment : Fragment() {
                         } else if (item is NavigationDrawerAction) {
                             when (item.requestCode) {
                                 REQUEST_PURCHASE ->
-                                    newPurchaseDialog().show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+                                    startActivity(Intent(context, PurchaseActivity::class.java))
                                 REQUEST_DONATE -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_donate))))
                                 REQUEST_NEW_FILTER -> newFilterDialog().show(parentFragmentManager, FRAG_TAG_NEW_FILTER)
                                 else -> activity?.startActivityForResult(item.intent, item.requestCode)

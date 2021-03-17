@@ -32,19 +32,6 @@
   <string name="url_app_passwords">https://tasks.org/passwords</string>
   <string name="url_sharing">https://tasks.org/sharing</string>
 
-  <!-- Eventually these should be moved to strings.xml for translation -->
-  <string name="upgrade_sync_self_hosted">Sync with third-party apps and services</string>
-  <string name="upgrade_third_party_apps">Compatible with Outlook, Thunderbird, Apple Reminders, and more</string>
-  <string name="upgrade_coming_soon">Many new features coming soon!</string>
-  <string name="upgrade_google_tasks">Multiple Google Task accounts</string>
-  <string name="upgrade_additional_features">Unlock additional features</string>
-  <string name="upgrade_themes">All themes, colors, and icons</string>
-  <string name="upgrade_google_places">Improved location search with Google Places</string>
-  <string name="upgrade_tasker">Tasker plugins</string>
-  <string name="upgrade_free_trial">7-day free trial for new subscribers</string>
-  <string name="upgrade_downgrade">Upgrade, downgrade, or cancel your subscription at any time</string>
-  <string name="upgrade_support_development">Your subscription supports open source software!</string>
-
   <string name="p_date_shortcut_morning">date_shortcut_morning</string>
   <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>
   <string name="p_date_shortcut_evening">date_shortcut_evening</string>

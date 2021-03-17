@@ -503,6 +503,8 @@
     <string name="invalid_username_or_password">Nieprawidłowa nazwa użytkownika lub hasło</string>
     <string name="theme_system_default">Domyślny systemowy</string>
     <string name="color_wheel">Paleta</string>
+    <string name="upgrade_blurb_1">Cześć! Mam na imię Alex. Jestem niezależnym deweloperem stojącym za Tasks</string>
+    <string name="upgrade_blurb_2">Spędziłem tysiące godzin pracując nad Tasks i publikuję cały kod źródłowy online za darmo. Aby wesprzeć moją pracę, niektóre funkcję wymagają subskrypcji</string>
     <string name="upgrade_blurb_4">Twoje wsparcie wiele dla mnie znaczy, dziękuję!</string>
     <string name="back">Wstecz</string>
     <string name="chip_style">Styl chipa</string>
@@ -660,9 +662,7 @@
     <string name="authorization_cancelled">Autoryzacja anulowana</string>
     <string name="follow_reddit">Dołącz do r/tasks</string>
     <string name="current_subscription">Aktualna subskrypcja: %s</string>
-    <string name="price_per_month_abbreviated">$%s/mies.</string>
     <string name="price_per_month">$%s/miesiąc</string>
-    <string name="price_per_year_abbreviated">$%s/rok</string>
     <string name="price_per_year">$%s/rok</string>
     <string name="no_google_play_subscription">Nie znaleziono kwalifikującej się subskrypcji Google Play</string>
     <string name="insufficient_sponsorship">Nie znaleziono kwalifikującego się sponsoringu GitHub</string>

@@ -485,6 +485,7 @@
     <string name="navigation_drawer">네비게이션 서랍</string>
     <string name="place_settings">위치 설정</string>
     <string name="places">위치</string>
+    <string name="upgrade_blurb_1">안녕하세요! Tasks의 1인 개발자 알렉스입니다</string>
     <string name="desaturate_colors_summary_on">다크 테마 사용 시 채도를 낮춥니다</string>
     <string name="desaturate_colors_summary_off">다크 테마 사용 시 채도를 낮추지 않습니다</string>
     <string name="desaturate_colors">저채도 색상</string>
@@ -493,6 +494,7 @@
     <string name="chips">칩</string>
     <string name="chip_style_filled">배경색 채움</string>
     <string name="chip_style">칩 스타일</string>
+    <string name="upgrade_blurb_2">저는 Tasks 개발에 엄청나게 많은 시간을 쏟고 있으며, 모든 소스코드를 웹에 무상으로 공개하고 있습니다. 저의 작업을 후원하기 위해 일부 기능은 구독이 필요합니다</string>
     <string name="upgrade_blurb_4">당신의 후원은 저에게 큰 힘이 됩니다. 감사합니다!</string>
     <string name="color_wheel">색상환</string>
     <string name="invalid_username_or_password">유효하지 않은 사용자명과 비밀번호</string>
@@ -603,8 +605,6 @@
     <string name="authorization_cancelled">인증 취소됨</string>
     <string name="current_subscription">현재 구독: %s</string>
     <string name="price_per_year">$%s/년</string>
-    <string name="price_per_year_abbreviated">$%s/년</string>
-    <string name="price_per_month_abbreviated">$%s/월</string>
     <string name="price_per_month">$%s/월</string>
     <string name="your_subscription_expired">구독이 만료되었습니다. 서비스를 재개하려면 지금 구독하세요.</string>
     <string name="background_location">백그라운드 위치정보</string>

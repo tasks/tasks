@@ -16,8 +16,7 @@ import butterknife.ButterKnife
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
-import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
+import org.tasks.billing.PurchaseActivity
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.themes.ColorProvider
@@ -108,7 +107,7 @@ class ColorPalettePicker : DialogFragment() {
             builder.setNegativeButton(R.string.cancel, null)
         } else {
             builder.setPositiveButton(R.string.upgrade_to_pro) { _: DialogInterface?, _: Int ->
-                newPurchaseDialog().show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+                startActivity(Intent(context, PurchaseActivity::class.java))
             }
         }
         return builder.show()

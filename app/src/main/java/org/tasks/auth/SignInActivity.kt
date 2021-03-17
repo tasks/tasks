@@ -29,13 +29,19 @@ import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import net.openid.appauth.*
+import net.openid.appauth.AuthState
+import net.openid.appauth.AuthorizationException
+import net.openid.appauth.AuthorizationRequest
+import net.openid.appauth.AuthorizationServiceConfiguration
+import net.openid.appauth.ClientSecretBasic
+import net.openid.appauth.RegistrationRequest
+import net.openid.appauth.RegistrationResponse
+import net.openid.appauth.ResponseTypeValues
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseDialog
-import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
-import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
+import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivity.Companion.EXTRA_GITHUB
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.themes.ThemeColor
@@ -56,7 +62,7 @@ import javax.inject.Inject
  * - Initiate the authorization request using the built-in heuristics or a user-selected browser.
  */
 @AndroidEntryPoint
-class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHandler {
+class SignInActivity : InjectingAppCompatActivity() {
     @Inject lateinit var themeColor: ThemeColor
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var dialogBuilder: DialogBuilder
@@ -166,8 +172,11 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
 
     private fun handleError(e: Throwable) {
         if (e is HttpException && e.code == 402) {
-            newPurchaseDialog(tasksPayment = true, github = authService.isGitHub)
-                    .show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+            startActivityForResult(
+                Intent(this, PurchaseActivity::class.java)
+                    .putExtra(EXTRA_GITHUB, authService.isGitHub),
+                RC_PURCHASE
+            )
         } else {
             returnError(e)
         }
@@ -180,24 +189,39 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RC_AUTH) {
-            if (resultCode == RESULT_OK) {
-                lifecycleScope.launch {
-                    val account = try {
-                        viewModel.handleResult(authService, data!!)
-                    } catch (e: Exception) {
-                        returnError(e)
+        when (requestCode) {
+            RC_PURCHASE ->
+                if (inventory.subscription.value?.isTasksSubscription == true) {
+                    lifecycleScope.launch {
+                        val account = viewModel.setupAccount(authService)
+                        if (account != null) {
+                            setResult(RESULT_OK)
+                            finish()
+                        }
                     }
-                    if (account != null) {
-                        setResult(RESULT_OK)
-                        finish()
-                    }
+                } else {
+                    finish()
                 }
-            } else {
-                returnError(Exception(getString(R.string.authorization_cancelled)), report = false)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            RC_AUTH ->
+                if (resultCode == RESULT_OK) {
+                    lifecycleScope.launch {
+                        val account = try {
+                            viewModel.handleResult(authService, data!!)
+                        } catch (e: Exception) {
+                            returnError(e)
+                        }
+                        if (account != null) {
+                            setResult(RESULT_OK)
+                            finish()
+                        }
+                    }
+                } else {
+                    returnError(
+                        Exception(getString(R.string.authorization_cancelled)),
+                        report = false
+                    )
+                }
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -364,19 +388,6 @@ class SignInActivity : InjectingAppCompatActivity(), PurchaseDialog.PurchaseHand
         const val EXTRA_ERROR = "extra_error"
         const val EXTRA_SELECT_SERVICE = "extra_select_service"
         private const val RC_AUTH = 100
-    }
-
-    override fun onPurchaseDialogDismissed() {
-        if (inventory.subscription.value?.isTasksSubscription == true) {
-            lifecycleScope.launch {
-                val account = viewModel.setupAccount(authService)
-                if (account != null) {
-                    setResult(RESULT_OK)
-                    finish()
-                }
-            }
-        } else {
-            finish()
-        }
+        private const val RC_PURCHASE = 101
     }
 }

@@ -490,6 +490,8 @@
     <string name="invalid_username_or_password">Hibás felhasználónév vagy jelszó</string>
     <string name="theme_system_default">Alapértelmezett</string>
     <string name="color_wheel">Színkör</string>
+    <string name="upgrade_blurb_1">Szia! Alexnek hívnak. Én vagyok a Tasks mögött álló független fejlesztő</string>
+    <string name="upgrade_blurb_2">Több ezer órát dolgoztam a Tasks appon, és a teljes forráskódot ingyenesen elérhetővé tettem. A munkám támogatása érdekében néhány funkció eléréséhez előfizetés szükséges</string>
     <string name="upgrade_blurb_4">A támogatásod sokat jelent nekem, köszönöm!</string>
     <string name="back">Vissza</string>
     <string name="chip_style">Jelölő stílusa</string>
@@ -611,8 +613,6 @@
     <string name="always_display_full_date">Teljes dátum mutatása</string>
     <string name="current_subscription">Jelenlegi előfizetés: %s</string>
     <string name="price_per_month">%s $/hónap</string>
-    <string name="price_per_month_abbreviated">%s $/hó</string>
-    <string name="price_per_year_abbreviated">%s $/év</string>
     <string name="price_per_year">%s $/év</string>
     <string name="insufficient_subscription">Elégtelen előfizetési szint. Kérem, upgrade-elje az előfizetést a szolgáltatás folytatásához.</string>
     <string name="your_subscription_expired">Az előfizetés lejárt. Fizessen elő most a szolgáltatás folytatásához.</string>

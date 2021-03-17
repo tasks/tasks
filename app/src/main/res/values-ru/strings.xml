@@ -508,6 +508,8 @@
     <string name="invalid_username_or_password">Неверное имя пользователя или пароль</string>
     <string name="theme_system_default">Системная по умолчанию</string>
     <string name="color_wheel">Палитра</string>
+    <string name="upgrade_blurb_1">Привет! Меня зовут Алекс. Я - независимый разработчик, стоящий за программой Tasks</string>
+    <string name="upgrade_blurb_2">Я потратил тысячи часов, работая над Tasks, и я публикую весь исходный код онлайн, бесплатно. Для того, чтобы поддержать мою работу, некоторые функциональности требуют подписки</string>
     <string name="upgrade_blurb_4">Ваша поддержка много значит для меня, спасибо!</string>
     <string name="back">Назад</string>
     <string name="chip_style">Стиль индикаторов списков</string>
@@ -633,9 +635,7 @@
     <string name="multi_select_reschedule">Перенести</string>
     <string name="follow_reddit">Подписаться на r/tasks</string>
     <string name="current_subscription">Текущая подписка: %s</string>
-    <string name="price_per_month_abbreviated">$%s/мес.</string>
     <string name="price_per_month">$%s/месяц</string>
-    <string name="price_per_year_abbreviated">$%s/год</string>
     <string name="price_per_year">$%s/год</string>
     <string name="insufficient_subscription">Недостаточный уровень подписки. Обновите подписку, чтобы возобновить обслуживание.</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>

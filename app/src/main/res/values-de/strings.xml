@@ -493,6 +493,8 @@
     <string name="more_notification_settings_summary">Klingelton, Vibration und mehr</string>
     <string name="invalid_username_or_password">Ungültiger Benutzername oder Passwort</string>
     <string name="color_wheel">Farbkreis</string>
+    <string name="upgrade_blurb_1">Hallo! Mein Name ist Alex. Ich bin der unabhängige Entwickler hinter Tasks</string>
+    <string name="upgrade_blurb_2">Ich habe Tausende von Stunden mit der Arbeit an Tasks verbracht und veröffentliche den gesamten Quellcode kostenlos online. Um meine Arbeit zu unterstützen, erfordern einige Funktionen ein Abonnement</string>
     <string name="upgrade_blurb_4">Ihre Unterstützung bedeutet mir sehr viel, danke!</string>
     <string name="back">Zurück</string>
     <string name="chip_style">Stil der Marken</string>
@@ -621,9 +623,7 @@
     <string name="your_subscription_expired">Ihr Abonnement ist abgelaufen. Abonnieren Sie jetzt, um den Dienst fortzusetzen.</string>
     <string name="background_location_permission_required">Tasks sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die App geschlossen oder nicht in Gebrauch ist.</string>
     <string name="repeat_monthly_fifth_week">fünften</string>
-    <string name="price_per_month_abbreviated">%s $/Monat</string>
     <string name="price_per_month">%s $/Monat</string>
-    <string name="price_per_year_abbreviated">%s $/Jahr</string>
     <string name="price_per_year">%s $/Jahr</string>
     <string name="save_percent">%d %% sparen</string>
     <string name="no_google_play_subscription">Kein qualifiziertes Googl Play -Abo gefunden</string>

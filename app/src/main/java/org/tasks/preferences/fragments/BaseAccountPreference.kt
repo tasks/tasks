@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.billing.BillingClient
-import org.tasks.billing.PurchaseDialog
+import org.tasks.billing.PurchaseActivity
 import org.tasks.injection.InjectingPreferenceFragment
 import javax.inject.Inject
 
@@ -38,10 +38,11 @@ abstract class BaseAccountPreference : InjectingPreferenceFragment() {
 
     protected abstract suspend fun removeAccount()
 
-    protected fun showPurchaseDialog(tasksPayment: Boolean = false): Boolean {
-        PurchaseDialog
-                .newPurchaseDialog(this, REQUEST_PURCHASE, tasksPayment)
-                .show(parentFragmentManager, PurchaseDialog.FRAG_TAG_PURCHASE_DIALOG)
+    protected fun showPurchaseDialog(): Boolean {
+        startActivityForResult(
+            Intent(context, PurchaseActivity::class.java),
+            REQUEST_PURCHASE
+        )
         return false
     }
 

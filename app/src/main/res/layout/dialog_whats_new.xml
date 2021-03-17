@@ -45,6 +45,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
+          android:paddingTop="@dimen/half_keyline_first"
           android:paddingStart="@dimen/keyline_first"
           android:paddingEnd="@dimen/keyline_first"
           android:text="@string/tell_me_how_im_doing"

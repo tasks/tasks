@@ -345,9 +345,7 @@
     <string name="not_signed_in">未登入</string>
     <string name="authorization_cancelled">取消授權</string>
     <string name="current_subscription">目前訂閱: %s</string>
-    <string name="price_per_month_abbreviated">$%s/每月</string>
     <string name="price_per_month">$%s/每月</string>
-    <string name="price_per_year_abbreviated">$%s/每年</string>
     <string name="custom_filter_is_subtask">為副工作</string>
     <string name="custom_filter_has_subtask">有副工作</string>
     <string name="backups_ignore_warnings">忽略警告</string>

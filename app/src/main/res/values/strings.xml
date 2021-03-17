@@ -536,8 +536,8 @@ File %1$s contained %2$s.\n\n
   <string name="tasks_org_share">Share lists with other users</string>
   <string name="google_tasks_selection_description">Basic service that synchronizes with your Google account</string>
   <string name="caldav_selection_description">Synchronization based on open internet standards</string>
-  <string name="etesync_selection_description">Open source, end-to-end encrypted synchronization</string>
-  <string name="decsync_selection_description">Synchronize your tasks with the DecSync CC app</string>
+  <string name="etesync_selection_description">End-to-end encrypted synchronization</string>
+  <string name="decsync_selection_description">File-based synchronization</string>
   <string name="davx5_selection_description">Synchronize your tasks with the DAVx⁵ app</string>
   <string name="show_advanced_settings">Show advanced settings</string>
   <string name="caldav_account_description">Requires an account with a CalDAV service provider or a self-hosted server. Find a service provider by visiting tasks.org/caldav</string>
@@ -555,6 +555,9 @@ File %1$s contained %2$s.\n\n
   <string name="more_notification_settings_summary">Ringtone, vibrations, and more</string>
   <string name="invalid_username_or_password">Invalid username or password</string>
   <string name="color_wheel">Color wheel</string>
+  <string name="upgrade_blurb_1">Hi! My name is Alex. I am the independent developer behind Tasks</string>
+  <string name="upgrade_blurb_2">I have spent thousands of hours working on Tasks, and I publish all of the source code online for free. In order to support my work some features require a subscription</string>
+  <string name="subscription_benefits">Subscription benefits</string>
   <string name="upgrade_blurb_4">Your support means a lot to me, thank you!</string>
   <string name="back">Back</string>
   <string name="chip_style">Chip style</string>
@@ -612,6 +615,7 @@ File %1$s contained %2$s.\n\n
   <string name="filter_eisenhower_box_3">Not important and urgent</string>
   <string name="filter_eisenhower_box_4">Not important and not urgent</string>
   <string name="enjoying_tasks">Enjoying Tasks?</string>
+  <string name="tasks_needs_your_support">Tasks needs your support!</string>
   <string name="tell_me_how_im_doing">Please tell me how I\'m doing</string>
   <string name="support_development_subscribe">Unlock additional features and support open source software</string>
   <string name="no_thanks">No thanks</string>
@@ -648,9 +652,7 @@ File %1$s contained %2$s.\n\n
   <string name="insufficient_sponsorship">No eligible GitHub sponsorship found</string>
   <string name="no_google_play_subscription">No eligible Google Play subscription found</string>
   <string name="price_per_year">$%s/year</string>
-  <string name="price_per_year_abbreviated">$%s/yr</string>
   <string name="price_per_month">$%s/month</string>
-  <string name="price_per_month_abbreviated">$%s/mo</string>
   <string name="current_subscription">Current subscription: %s</string>
   <string name="follow_reddit">Join r/tasks</string>
   <string name="follow_twitter">Follow @tasks_org</string>
@@ -703,4 +705,18 @@ File %1$s contained %2$s.\n\n
   <string name="picker_mode_calendar">Calendar</string>
   <string name="picker_mode_clock">Clock</string>
   <string name="picker_mode_text">Text</string>
+  <string name="pro_free_trial">New subscribers receive a 7-day free trial. Cancel at any time</string>
+  <string name="upgrade_more_customization">More customization</string>
+  <string name="upgrade_more_customization_description">Unlock all themes, colors, and icons</string>
+  <string name="upgrade_customization_themes">Wallpaper and day/night themes</string>
+  <string name="upgrade_customization_colors">Launcher icons, color palettes, and color wheel</string>
+  <string name="upgrade_customization_icons">List icons</string>
+  <string name="upgrade_google_tasks">Synchronize multiple accounts</string>
+  <string name="upgrade_tasks_org_account_description">Sync with Tasks.org and collaborate with other users</string>
+  <string name="upgrade_desktop_access">Desktop access</string>
+  <string name="upgrade_desktop_access_description">Sync with third-party clients like Outlook and Apple Reminders</string>
+  <string name="upgrade_open_source_description">Your subscription supports continued development</string>
+  <string name="upgrade_automation">Automation</string>
+  <string name="upgrade_automation_description">Plugins for Tasker, Automate, and Locale</string>
+  <string name="more_options">More options</string>
 </resources>

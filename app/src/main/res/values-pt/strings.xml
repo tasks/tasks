@@ -518,6 +518,8 @@
     <string name="chip_style">Estilo de notificação</string>
     <string name="back">Voltar</string>
     <string name="upgrade_blurb_4">Seu suporte significa muito para mim, obrigado!</string>
+    <string name="upgrade_blurb_2">Eu investi centenas de horas a trabalhar no Tasks e publico todo o código-fonte online de graça. Para apoiar meu trabalho, algumas funcionalidades precisam de uma assinatura</string>
+    <string name="upgrade_blurb_1">Olá! O meu nome é Alex e sou o programador independente por trás do Tasks</string>
     <string name="color_wheel">Roda de cores</string>
     <string name="theme_system_default">Predefinição do Sistema</string>
     <string name="invalid_username_or_password">Nome de utilizador ou palavra-passe inválido</string>
@@ -596,9 +598,7 @@
     <string name="authorization_cancelled">Autorização</string>
     <string name="follow_reddit">Segue r/</string>
     <string name="current_subscription">Subscrição atual: %s</string>
-    <string name="price_per_month_abbreviated">%s€/mês</string>
     <string name="price_per_month">%s€/mês</string>
-    <string name="price_per_year_abbreviated">%s€/ano</string>
     <string name="price_per_year">%s€/</string>
     <string name="custom_filter_is_subtask">É</string>
     <string name="delete_comment">Apagar este comentário\?</string>

@@ -467,6 +467,8 @@
     <string name="chip_style_outlined">Contornato</string>
     <string name="back">Indietro</string>
     <string name="upgrade_blurb_4">Il tuo supporto significa molto per me, grazie!</string>
+    <string name="upgrade_blurb_2">Ho dedicato a Tasks migliaia di ore di lavoro, pubblicando tutto il codice sorgente online, gratuitamente. Per supportare il mio lavoro alcune funzioni richiedono un abbonamento</string>
+    <string name="upgrade_blurb_1">Ciao! Mi chiamo Alex. Sono lo sviluppatore, indipendente, di Tasks</string>
     <string name="color_wheel">Cerchio cromatico</string>
     <string name="invalid_username_or_password">Nome utente o password non validi</string>
     <string name="more_notification_settings_summary">Suoneria, vibrazione ed altro</string>
@@ -614,9 +616,7 @@
     <string name="custom_filter_has_subtask">Contiene attività secondarie</string>
     <string name="custom_filter_is_subtask">È un\'attività secondaria</string>
     <string name="current_subscription">Abbonamento attuale: %s</string>
-    <string name="price_per_month_abbreviated">%s $/mese</string>
     <string name="price_per_month">%s $/mese</string>
-    <string name="price_per_year_abbreviated">%s $/anno</string>
     <string name="price_per_year">%s $/anno</string>
     <string name="insufficient_subscription">Livello di abbonamento insufficiente. Per favore aggiornalo per riattivare il servizio.</string>
     <string name="your_subscription_expired">Il tuo abbonamento è scaduto. Abbonati ora per riattivare il servizio.</string>

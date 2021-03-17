@@ -6,23 +6,16 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
-import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.Markwon
-import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
-import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
-import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
+import org.tasks.billing.PurchaseActivity
+import org.tasks.databinding.DialogWhatsNewBinding
 import org.tasks.preferences.Preferences
 import java.io.BufferedReader
 import javax.inject.Inject
@@ -36,26 +29,17 @@ class WhatsNewDialog : DialogFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var inventory: Inventory
 
-    @BindView(R.id.changelog) lateinit var changelog: TextView
-    @BindView(R.id.action_question) lateinit var actionQuestion: TextView
-    @BindView(R.id.action_text) lateinit var actionText: TextView
-    @BindView(R.id.action_button) lateinit var actionButton: MaterialButton
-    @BindView(R.id.dismiss_button) lateinit var dismissButton: MaterialButton
-
     private var displayedRate = false
     private var displayedSubscribe = false
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view: View = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_whats_new, null)
-        ButterKnife.bind(this, view)
+        val binding = DialogWhatsNewBinding.inflate(layoutInflater)
 
         val textStream = requireContext().assets.open("CHANGELOG.md")
         val text = BufferedReader(textStream.reader()).readText()
-        val markwon = Markwon.builder(requireContext())
-                .usePlugin(StrikethroughPlugin.create())
-                .build()
-        changelog.movementMethod = LinkMovementMethod.getInstance()
-        changelog.text = markwon.toMarkdown(text)
+        val markwon = Markwon.builder(requireContext()).build()
+        binding.changelog.movementMethod = LinkMovementMethod.getInstance()
+        binding.changelog.text = markwon.toMarkdown(text)
 
         val begForSubscription = !inventory.hasPro
         val begForRating = !preferences.getBoolean(R.string.p_clicked_rate, false)
@@ -63,43 +47,51 @@ class WhatsNewDialog : DialogFragment() {
                 && (!begForSubscription || Random.nextBoolean())
 
         when {
-            BuildConfig.FLAVOR == "generic" -> {
-                actionText.text = getString(R.string.upgrade_blurb_4)
-                actionButton.text = getString(R.string.TLA_menu_donate)
-                actionButton.setOnClickListener { onDonateClick() }
+            IS_GENERIC -> {
+                binding.actionQuestion.setText(R.string.enjoying_tasks)
+                binding.actionText.setText(R.string.upgrade_blurb_4)
+                binding.actionButton.text = getString(R.string.TLA_menu_donate)
+                binding.actionButton.setOnClickListener { onDonateClick() }
             }
             begForRating -> {
                 displayedRate = true
-                actionButton.text = getString(R.string.rate_tasks)
-                actionButton.setOnClickListener { onRateClick() }
+                binding.actionQuestion.setText(R.string.enjoying_tasks)
+                binding.actionButton.setText(R.string.rate_tasks)
+                binding.actionButton.setOnClickListener { onRateClick() }
             }
             begForSubscription -> {
                 displayedSubscribe = true
-                actionText.text = getString(R.string.support_development_subscribe)
-                actionButton.text = getString(R.string.name_your_price)
-                actionButton.setOnClickListener { onSubscribeClick() }
+                binding.actionQuestion.setText(R.string.tasks_needs_your_support)
+                binding.actionText.setText(R.string.support_development_subscribe)
+                binding.actionButton.setText(R.string.name_your_price)
+                binding.actionButton.setOnClickListener { onSubscribeClick() }
             }
             else -> {
-                actionQuestion.visibility = View.GONE
-                actionText.visibility = View.GONE
-                actionButton.visibility = View.GONE
-                dismissButton.text = getString(R.string.got_it)
+                binding.actionQuestion.visibility = View.GONE
+                binding.actionText.visibility = View.GONE
+                binding.actionButton.visibility = View.GONE
+                binding.dismissButton.text = getString(R.string.got_it)
             }
         }
 
         if (!resources.getBoolean(R.bool.whats_new_action)) {
-            actionText.visibility = View.GONE
+            binding.actionText.visibility = View.GONE
+        }
+
+        binding.dismissButton.setOnClickListener {
+            logClick(false)
+            dismiss()
         }
 
         return dialogBuilder.newDialog()
-                .setView(view)
+                .setView(binding.root)
                 .show()
     }
 
     private fun onSubscribeClick() {
         logClick(true)
         dismiss()
-        newPurchaseDialog().show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+        startActivity(Intent(context, PurchaseActivity::class.java))
     }
 
     private fun onRateClick() {
@@ -117,12 +109,6 @@ class WhatsNewDialog : DialogFragment() {
     override fun onCancel(dialog: DialogInterface) {
         logClick(false)
         super.onCancel(dialog)
-    }
-
-    @OnClick(R.id.dismiss_button)
-    fun onDismissClick() {
-        logClick(false)
-        dismiss()
     }
 
     private fun logClick(click: Boolean) {

@@ -13,7 +13,7 @@ import org.tasks.R
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.billing.Purchase
-import org.tasks.billing.PurchaseDialog
+import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.GoogleTaskAccount
@@ -47,9 +47,7 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         findPreference(R.string.add_account).setOnPreferenceClickListener { addAccount() }
 
         findPreference(R.string.name_your_price).setOnPreferenceClickListener {
-            PurchaseDialog
-                    .newPurchaseDialog()
-                    .show(parentFragmentManager, PurchaseDialog.FRAG_TAG_PURCHASE_DIALOG)
+            startActivity(Intent(context, PurchaseActivity::class.java))
             false
         }
 

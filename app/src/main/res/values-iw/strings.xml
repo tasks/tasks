@@ -575,6 +575,8 @@
     <string name="permission_read_tasks">גישה מלאה למסד הנתונים של Tasks</string>
     <string name="reset_sort_order">איפוס אופן הסידור</string>
     <string name="upgrade_blurb_4">התמיכה שלך יקרה ללבי, תודה רבה לך!</string>
+    <string name="upgrade_blurb_2">השקעתי אלפי שעות בעבודה על Tasks ואני מפרסם את כל קוד המקור באינטרנט בחינם. כדי לתמוך בעבודה שלי חלק מהתכונות דורשות הרשמה</string>
+    <string name="upgrade_blurb_1">היי! אני אלכס, המתכנת העצמאי שמאחורי Tasks</string>
     <string name="invalid_username_or_password">שם המשתמש או הססמה שגויים</string>
     <string name="more_notification_settings_summary">צלצול, סוגי רטט ועוד</string>
     <string name="disable_battery_optimizations">השבתת שיפורי סוללה</string>
@@ -648,9 +650,7 @@
     <string name="background_location_permission_required">האפליקצייה הזו אוספת נתוני מיקום כדי לאפשר תזכורות על בסיס מיקום אפילו כשהיישומון סגור ולא בשימוש.</string>
     <string name="follow_reddit">מעקב אחר r/tasks</string>
     <string name="current_subscription">מינוי נוכחי: %s</string>
-    <string name="price_per_month_abbreviated">$%s/חודש</string>
     <string name="price_per_month">$%s לחודש</string>
-    <string name="price_per_year_abbreviated">$%s/שנה</string>
     <string name="price_per_year">$%s לשנה</string>
     <string name="your_subscription_expired">תוקף המינוי שלך פג. ניתן להירשם כעת להמשיך את השירות.</string>
     <string name="custom_filter_is_subtask">היא תת־משימה</string>

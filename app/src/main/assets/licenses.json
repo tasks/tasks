@@ -1693,20 +1693,6 @@
     },
     {
       "artifactId": {
-        "name": "ext-strikethrough",
-        "group": "io.noties.markwon",
-        "version": "+"
-      },
-      "copyrightHolder": "Dimitry Ivanov",
-      "copyrightStatement": "Copyright &copy; Dimitry Ivanov. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/noties/Markwon",
-      "libraryName": "ext-strikethrough"
-    },
-    {
-      "artifactId": {
         "name": "core",
         "group": "io.noties.markwon",
         "version": "+"

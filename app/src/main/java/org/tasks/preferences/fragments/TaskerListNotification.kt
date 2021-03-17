@@ -8,8 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
-import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
+import org.tasks.billing.PurchaseActivity
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.bundle.ListNotificationBundle
 import org.tasks.preferences.DefaultFilterProvider
@@ -58,8 +57,10 @@ class TaskerListNotification : InjectingPreferenceFragment() {
         }
 
         if (!inventory.purchasedTasker()) {
-            newPurchaseDialog(this, REQUEST_SUBSCRIPTION)
-                    .show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+            startActivityForResult(
+                Intent(context, PurchaseActivity::class.java),
+                REQUEST_SUBSCRIPTION
+            )
         }
     }
 

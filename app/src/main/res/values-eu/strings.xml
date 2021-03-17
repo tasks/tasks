@@ -492,6 +492,8 @@
     <string name="invalid_username_or_password">Erabiltzaile-izen edo pasahitz okerra</string>
     <string name="theme_system_default">Sisteman lehenetsia</string>
     <string name="color_wheel">Kolore-gurpila</string>
+    <string name="upgrade_blurb_1">Kaixo! Nire izana Alex da. Ni naiz Tasks aplikazioaren garatzaile independentea</string>
+    <string name="upgrade_blurb_2">Milaka ordu eman ditut Tsks aplikazioan lanean, eta kode guztia argitaratzen dut doan. Nire lana babesteko ezaugarri batzuk harpidetza eskatzen dute</string>
     <string name="upgrade_blurb_4">Zure babesa asko da niretzat, eskerrik asko!</string>
     <string name="back">Atzera</string>
     <string name="chip_style">Txip estiloa</string>
@@ -592,9 +594,7 @@
     <string name="authorization_cancelled">Autorizazioa ezeztatuta</string>
     <string name="follow_reddit">Egin bat r/task-ekin</string>
     <string name="current_subscription">Uneko harpidetza: %s</string>
-    <string name="price_per_month_abbreviated">$%s hilean</string>
     <string name="price_per_month">$%s hilean</string>
-    <string name="price_per_year_abbreviated">$%s urtean</string>
     <string name="price_per_year">$%s urtean</string>
     <string name="insufficient_subscription">Harpidetza maila ez da nahikoa. Hobetu zure harpidetza zerbitzua berrekiteko.</string>
     <string name="your_subscription_expired">Zure harpidetza agortu da. Harpidetu orain zerbitzua berrekiteko.</string>

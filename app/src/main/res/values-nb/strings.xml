@@ -539,6 +539,8 @@
     <string name="chips">Flis</string>
     <string name="chip_style_outlined">Omrisset</string>
     <string name="chip_style">Flisstil</string>
+    <string name="upgrade_blurb_2">Jeg har brukt tusenvis av timer på å jobbe med Tasks, og jeg offentliggjør all kildekoden på nettet gratis. For å støtte mitt arbeid krever noen funksjoner et abonnement</string>
+    <string name="upgrade_blurb_1">Hei, jeg heter Alex. Jeg er den uavhengige utvikleren bak Tasks</string>
     <string name="caldav_account_description">Krever en konto med en CalDAV-tjenestetilbyder, eller en selvdrevet tjener. Finn en tjenestetilbyder ved å besøke tasks.org/caldav</string>
     <string name="chip_style_filled">Fylt</string>
     <string name="wearable_notifications_summary">Vis merknader på din ikledbare</string>
@@ -617,9 +619,7 @@
     <string name="ok">OK</string>
     <string name="insufficient_subscription">Utilstrekkelig abonnementsnivå. Oppgrader ditt abonnement for å fortsette tjenesten.</string>
     <string name="current_subscription">Nåværende abonnement: %s</string>
-    <string name="price_per_month_abbreviated">$%s/md.</string>
     <string name="price_per_month">$%s/måned</string>
-    <string name="price_per_year_abbreviated">$%s/år</string>
     <string name="price_per_year">$%s/år</string>
     <string name="your_subscription_expired">Ditt abonnement har utløpt. Abonner nå for å fortsette tjenesten.</string>
     <string name="follow_reddit">Ta del i r/tasks</string>

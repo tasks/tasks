@@ -175,9 +175,7 @@ class TasksAccount : BaseAccountPreference() {
                             }
                         }
                     } else {
-                        setOnPreferenceClickListener {
-                            showPurchaseDialog(tasksPayment = true)
-                        }
+                        setOnPreferenceClickListener { showPurchaseDialog() }
                         if (subscription == null || subscription.isTasksSubscription) {
                             setTitle(R.string.button_subscribe)
                             setSummary(R.string.your_subscription_expired)

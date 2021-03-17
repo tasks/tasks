@@ -1,21 +1,24 @@
 package org.tasks.locale.ui.activity;
 
-import static org.tasks.billing.PurchaseDialog.newPurchaseDialog;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import androidx.appcompat.widget.Toolbar;
-import dagger.hilt.android.AndroidEntryPoint;
-import javax.inject.Inject;
+
 import net.dinglisch.android.tasker.TaskerPlugin;
+
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.billing.PurchaseDialog;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.databinding.ActivityTaskerCreateBinding;
 import org.tasks.locale.bundle.TaskCreationBundle;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCompatActivity
@@ -55,8 +58,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   }
 
   private void showPurchaseDialog() {
-    newPurchaseDialog()
-        .show(getSupportFragmentManager(), PurchaseDialog.getFRAG_TAG_PURCHASE_DIALOG());
+    startActivity(new Intent(this, PurchaseActivity.class));
   }
 
   @Override

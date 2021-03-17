@@ -292,10 +292,6 @@
 ++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
 +|    \--- com.atlassian.commonmark:commonmark:0.13.0
-++--- io.noties.markwon:ext-strikethrough:4.6.2
-+|    +--- io.noties.markwon:core:4.6.2 (*)
-+|    \--- com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:0.13.0
-+|         \--- com.atlassian.commonmark:commonmark:0.13.0
 ++--- com.jakewharton:butterknife:10.2.3
 +|    \--- com.jakewharton:butterknife-runtime:10.2.3
 +|         +--- com.jakewharton:butterknife-annotations:10.2.3

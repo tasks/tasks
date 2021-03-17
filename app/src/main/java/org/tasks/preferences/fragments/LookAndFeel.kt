@@ -19,8 +19,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
-import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
+import org.tasks.billing.PurchaseActivity
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter
@@ -182,8 +181,10 @@ class LookAndFeel : InjectingPreferenceFragment() {
                     if (inventory.purchasedThemes() || ThemeBase(index).isFree) {
                         setBaseTheme(index)
                     } else {
-                        newPurchaseDialog(this, REQUEST_PURCHASE)
-                                .show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+                        startActivityForResult(
+                            Intent(context, PurchaseActivity::class.java),
+                            REQUEST_PURCHASE
+                        )
                     }
                 } else {
                     setBaseTheme(index)

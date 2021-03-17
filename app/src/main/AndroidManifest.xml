@@ -302,6 +302,10 @@
       </intent-filter>
     </activity>
 
+    <activity
+        android:name=".billing.PurchaseActivity"
+        android:theme="@style/TranslucentDialog" />
+
     <!-- ======================================================= Receivers = -->
 
     <!-- widgets -->

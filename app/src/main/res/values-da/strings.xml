@@ -163,6 +163,8 @@
     <string name="chip_style">Boble-stil</string>
     <string name="back">Tilbage</string>
     <string name="upgrade_blurb_4">Din støtte betydet meget for mig, tak!</string>
+    <string name="upgrade_blurb_2">Jeg har brugt tusindvis af arbejdstimer på Tasks, og jeg udgiver hele kildekoden gratis online. For at støtte mit arbejde kræver nogle funktioner et abonnement</string>
+    <string name="upgrade_blurb_1">Hej! Jeg hedder Alex. Jeg er den selvstændige udvikler bag Tasks</string>
     <string name="color_wheel">Farvehjul</string>
     <string name="invalid_username_or_password">Ugyldigt brugernavn eller kodeord</string>
     <string name="more_notification_settings_summary">Ringetone, vibrér og mere</string>
@@ -641,8 +643,6 @@
     <string name="your_subscription_expired">Dit abonnement er udløbet. Abonner nu for at genoptage tjenesten.</string>
     <string name="custom_filter_is_subtask">Er underopgaver</string>
     <string name="custom_filter_has_subtask">Har underopgaver</string>
-    <string name="price_per_month_abbreviated">$%s/m</string>
-    <string name="price_per_year_abbreviated">$%s/år</string>
     <string name="price_per_year">$%s/år</string>
     <string name="no_google_play_subscription">Ingen kvalificeret Google Play abonnement fundet</string>
 </resources>

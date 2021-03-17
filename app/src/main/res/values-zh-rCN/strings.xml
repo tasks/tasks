@@ -483,6 +483,8 @@
     <string name="invalid_username_or_password">无效的用户名或密码</string>
     <string name="theme_system_default">系统默认</string>
     <string name="color_wheel">给滚轮着色</string>
+    <string name="upgrade_blurb_1">你好！我叫Alex，是Tasks背后的独立开发者</string>
+    <string name="upgrade_blurb_2">我已经花了数千个小时用于开发Tasks，并且在网上免费发布了所有源代码。 为了支持我的工作，某些功能需要订阅</string>
     <string name="upgrade_blurb_4">您的支持对我很重要，谢谢！</string>
     <string name="back">返回</string>
     <string name="chip_style">流式布局样式</string>
@@ -607,9 +609,7 @@
     <string name="custom_filter_is_subtask">是子任务</string>
     <string name="custom_filter_has_subtask">有子任务</string>
     <string name="current_subscription">当前订阅：%s</string>
-    <string name="price_per_month_abbreviated">$%s/月</string>
     <string name="price_per_month">$%s/月</string>
-    <string name="price_per_year_abbreviated">$%s/年</string>
     <string name="price_per_year">$%s/年</string>
     <string name="insufficient_subscription">订阅等级不够。请升级你的订阅来恢复服务。</string>
     <string name="your_subscription_expired">你的订阅已到期。现在订阅恢复服务。</string>

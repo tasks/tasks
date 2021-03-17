@@ -487,6 +487,8 @@
     <string name="invalid_username_or_password">Nom d\'utilisateur ou mot de passe invalide</string>
     <string name="theme_system_default">Défaut du système</string>
     <string name="color_wheel">Palette de couleurs</string>
+    <string name="upgrade_blurb_1">Salut ! Je m\'appelle Alex. Je suis le développeur indépendant à l\'origine de Tasks</string>
+    <string name="upgrade_blurb_2">J\'ai passé des milliers d\'heures à travailler sur Tasks, et je publie gratuitement tout le code source en ligne. Afin de soutenir mon travail, certaines fonctionnalités nécessitent un abonnement</string>
     <string name="upgrade_blurb_4">Votre soutien est très important pour moi, merci !</string>
     <string name="back">Retour</string>
     <string name="chip_style">Style d\'étiquette</string>
@@ -611,9 +613,7 @@
     <string name="custom_filter_is_subtask">Est une sous-tâche</string>
     <string name="custom_filter_has_subtask">A des sous-tâches</string>
     <string name="current_subscription">Abonnement actuel : %s</string>
-    <string name="price_per_month_abbreviated">%s $/mois</string>
     <string name="price_per_month">%s $/mois</string>
-    <string name="price_per_year_abbreviated">%s $/an</string>
     <string name="price_per_year">%s $/an</string>
     <string name="insufficient_subscription">Niveau d\'abonnement insuffisant. Veuillez mettre votre abonnement à niveau pour reprendre le service.</string>
     <string name="your_subscription_expired">Votre abonnement a expiré. Abonnez-vous dès maintenant pour reprendre le service.</string>

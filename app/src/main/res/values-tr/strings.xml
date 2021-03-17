@@ -492,6 +492,8 @@
     <string name="invalid_username_or_password">Geçersiz kullanıcı adı veya parola</string>
     <string name="theme_system_default">Sistem öntanımlısı</string>
     <string name="color_wheel">Renk tekeri</string>
+    <string name="upgrade_blurb_1">Hey! Ben Alex. Tasks\'ın arkasındaki bağımsız geliştiriciyim</string>
+    <string name="upgrade_blurb_2">Binlerce saatimi Tasks\'ta çalışarak geçirdim, kaynak kodun tümünü çevrim içi olarak ücretsiz yayımladım. Çalışmamı desteklemek için bazı özellikler abonelik gerektirir</string>
     <string name="upgrade_blurb_4">Desteğiniz çok şey ifade ediyor, teşekkürler!</string>
     <string name="back">Geri</string>
     <string name="chip_style">Yonga biçimi</string>
@@ -618,9 +620,7 @@
     <string name="background_location_permission_required">Tasks, kapalıyken veya kullanılmazken de konuma dayalı anımsatmaları etkinleştirmek için konum verisi toplar.</string>
     <string name="follow_reddit">r/tasks topluluğuna katıl</string>
     <string name="current_subscription">Geçerli abonelik: %s</string>
-    <string name="price_per_month_abbreviated">%s$/ay</string>
     <string name="price_per_month">%s$/ay</string>
-    <string name="price_per_year_abbreviated">%s$/yıl</string>
     <string name="price_per_year">%s$/yıl</string>
     <string name="insufficient_subscription">Yetersiz abonelik düzeyi. Hizmeti sürdürmek için lütfen aboneliğinizi yükseltin.</string>
     <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti sürdürmek için şimdi abone olun.</string>

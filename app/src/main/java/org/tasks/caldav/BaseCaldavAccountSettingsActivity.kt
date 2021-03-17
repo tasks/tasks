@@ -26,8 +26,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
-import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
+import org.tasks.billing.PurchaseActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding
@@ -104,7 +103,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             newSnackbar(getString(R.string.this_feature_requires_a_subscription))
                     .setDuration(BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction(R.string.button_subscribe) {
-                        newPurchaseDialog().show(supportFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+                        startActivity(Intent(this, PurchaseActivity::class.java))
                     }
                     .show()
         }

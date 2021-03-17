@@ -487,6 +487,8 @@
     <string name="invalid_username_or_password">Ongeldige gebruikersnaam of wachtwoord</string>
     <string name="theme_system_default">Systeeminstelling</string>
     <string name="color_wheel">Kleurenwiel</string>
+    <string name="upgrade_blurb_1">Hoi! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks.</string>
+    <string name="upgrade_blurb_2">Ik heb duizenden uren aan Tasks gewerkt, en ik publiceer de volledige broncode gratis online. Om mijn werk te steunen vereisen sommige functies een abonnement.</string>
     <string name="upgrade_blurb_4">Je steun betekent veel voor me, bedankt!</string>
     <string name="back">Terug</string>
     <string name="chip_style">Fiche-stijl</string>
@@ -611,9 +613,7 @@
     <string name="custom_filter_is_subtask">Is deeltaak</string>
     <string name="custom_filter_has_subtask">Heeft deeltaken</string>
     <string name="current_subscription">Huidige abonnement: %s</string>
-    <string name="price_per_month_abbreviated">$%s/ma</string>
     <string name="price_per_month">$%s/maand</string>
-    <string name="price_per_year_abbreviated">$%s/jr</string>
     <string name="price_per_year">$%s/jaar</string>
     <string name="insufficient_subscription">Abonnementsniveau onvoldoende. Verhoog a.u.b. je abonnement om deze dienst te hervatten.</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer je nu om deze dienst te hervatten.</string>

@@ -531,6 +531,8 @@
     <string name="chip_style">Стиль індикаторів списків</string>
     <string name="back">Назад</string>
     <string name="upgrade_blurb_4">Ваша підтримка багато означає для мене. Дякую!</string>
+    <string name="upgrade_blurb_2">Я витратив тисячі годин, працюючи над Tasks, і я публікую весь код онлайн безоплатно. Щоб підтримати мою роботу, деякі функції потребують підписки</string>
+    <string name="upgrade_blurb_1">Привіт! Моє ім\'я Алекс. Я - незалежний розробник Tasks</string>
     <string name="color_wheel">Палітра</string>
     <string name="invalid_username_or_password">Невірне ім\'я користувача або пароль</string>
     <string name="more_notification_settings_summary">Мелодія, вібрація та інше</string>
@@ -566,8 +568,6 @@
     <string name="authorization_cancelled">Авторизацію скасовано</string>
     <string name="follow_reddit">Долучитися до r/tasks</string>
     <string name="current_subscription">Поточна підписка: %s</string>
-    <string name="price_per_year_abbreviated">%s $/рік</string>
-    <string name="price_per_month_abbreviated">%s$/міс.</string>
     <string name="price_per_month">%s $ на місяць</string>
     <string name="price_per_year">%s $ на рік</string>
     <string name="no_google_play_subscription">Відповідної вимогам підписки Google Play не знайдено</string>

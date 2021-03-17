@@ -15,8 +15,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseDialog.Companion.FRAG_TAG_PURCHASE_DIALOG
-import org.tasks.billing.PurchaseDialog.Companion.newPurchaseDialog
+import org.tasks.billing.PurchaseActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -65,8 +64,10 @@ class ColorWheelPicker : DialogFragment() {
                     if (inventory.purchasedThemes()) {
                         deliverSelection()
                     } else {
-                        newPurchaseDialog(this, REQUEST_PURCHASE)
-                                .show(parentFragmentManager, FRAG_TAG_PURCHASE_DIALOG)
+                        startActivityForResult(
+                            Intent(context, PurchaseActivity::class.java),
+                            REQUEST_PURCHASE
+                        )
                     }
                 }
                 .setNegativeButton(R.string.cancel, null)

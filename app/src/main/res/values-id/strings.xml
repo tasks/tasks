@@ -523,9 +523,7 @@
     <string name="authorization_cancelled">Otorisasi dibatalkan</string>
     <string name="follow_reddit">Gabung r/tasks</string>
     <string name="current_subscription">Langganan saat ini: %s</string>
-    <string name="price_per_month_abbreviated">$%s/Bln</string>
     <string name="price_per_month">$%s/Bulan</string>
-    <string name="price_per_year_abbreviated">$%s/Thn</string>
     <string name="price_per_year">$%s/Tahun</string>
     <string name="no_google_play_subscription">Tidak ditemukan langganan Google Play yang memenuhi syarat</string>
     <string name="insufficient_sponsorship">Tidak ditemukan sponsor GitHub yang memenuhi syarat</string>
