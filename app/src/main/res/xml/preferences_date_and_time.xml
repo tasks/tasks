@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-  android:key="@string/preference_screen">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="@string/preference_screen">
 
     <ListPreference
       android:defaultValue="0"
@@ -13,10 +14,28 @@
       android:key="@string/p_always_display_full_date"
       android:title="@string/always_display_full_date" />
 
+    <ListPreference
+        android:defaultValue="0"
+        android:key="@string/p_picker_mode_date"
+        android:title="@string/picker_mode_date"
+        android:entries="@array/date_picker_modes"
+        android:entryValues="@array/two_values"
+        android:summary="%s"
+        app:allowDividerAbove="true" />
+
+    <ListPreference
+        android:defaultValue="0"
+        android:key="@string/p_picker_mode_time"
+        android:title="@string/picker_mode_time"
+        android:entries="@array/time_picker_modes"
+        android:entryValues="@array/two_values"
+        android:summary="%s" />
+
     <org.tasks.ui.TimePreference
-      android:defaultValue="@integer/default_morning"
-      android:key="@string/p_date_shortcut_morning"
-      android:title="@string/date_shortcut_morning" />
+        android:defaultValue="@integer/default_morning"
+        android:key="@string/p_date_shortcut_morning"
+        android:title="@string/date_shortcut_morning"
+        app:allowDividerAbove="true" />
 
     <org.tasks.ui.TimePreference
       android:defaultValue="@integer/default_afternoon"

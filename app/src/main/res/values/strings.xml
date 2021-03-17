@@ -698,4 +698,9 @@ File %1$s contained %2$s.\n\n
   <string name="invite_declined">Invite declined</string>
   <string name="invite_awaiting_response">Invite awaiting response</string>
   <string name="invite_invalid">Invite invalid</string>
+  <string name="picker_mode_date">Date picker mode</string>
+  <string name="picker_mode_time">Time picker mode</string>
+  <string name="picker_mode_calendar">Calendar</string>
+  <string name="picker_mode_clock">Clock</string>
+  <string name="picker_mode_text">Text</string>
 </resources>

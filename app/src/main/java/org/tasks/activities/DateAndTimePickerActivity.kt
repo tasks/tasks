@@ -5,9 +5,11 @@ import android.os.Bundle
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.dialogs.MyDatePickerDialog.Companion.dateInputMode
 import org.tasks.dialogs.MyDatePickerDialog.Companion.newDatePicker
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
+import org.tasks.dialogs.MyTimePickerDialog.Companion.timeInputMode
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeAccent
@@ -44,7 +46,7 @@ class DateAndTimePickerActivity : InjectingAppCompatActivity() {
         val picker =
             supportFragmentManager
                 .findFragmentByTag(FRAG_TAG_DATE_PICKER) as? MaterialDatePicker<Long>
-                ?: newDatePicker(date.millis).apply {
+                ?: newDatePicker(date.millis, preferences.dateInputMode).apply {
                     show(supportFragmentManager, FRAG_TAG_DATE_PICKER)
                 }
         picker.apply {
@@ -65,7 +67,8 @@ class DateAndTimePickerActivity : InjectingAppCompatActivity() {
                 ?: newTimePicker(
                     this,
                     DateTime(dateSelected!!.year, dateSelected!!.monthOfYear, dateSelected!!.dayOfMonth)
-                        .withMillisOfDay(initial!!.millisOfDay).millis
+                        .withMillisOfDay(initial!!.millisOfDay).millis,
+                    preferences.timeInputMode
                 ).apply { show(fragmentManager, FRAG_TAG_TIME_PICKER) }
         picker.apply {
             addOnCancelListener {

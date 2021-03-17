@@ -7,18 +7,27 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALENDAR
+import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_TEXT
 import com.todoroo.andlib.utility.DateUtilities
+import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.R
+import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.time.DateTimeUtils.startOfDay
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MyDatePickerDialog : DialogFragment() {
+
+    @Inject lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val fragment =
             (childFragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) as? MaterialDatePicker<Long>)
-                ?: newDatePicker(initial)
+                ?: newDatePicker(initial, preferences.dateInputMode)
                     .let {
                         childFragmentManager
                             .beginTransaction()
@@ -67,10 +76,17 @@ class MyDatePickerDialog : DialogFragment() {
             }
 
         @JvmStatic
-        fun newDatePicker(initial: Long) = MaterialDatePicker.Builder.datePicker()
-            // TODO: setInputMode for calendar or text
-            // TODO: figure out hack for first day of week
-            .setSelection(if (initial > 0) initial else currentTimeMillis())
-            .build()
+        fun newDatePicker(initial: Long, inputMode: Int) =
+            MaterialDatePicker.Builder.datePicker()
+                // TODO: figure out hack for first day of week
+                .setInputMode(inputMode)
+                .setSelection(if (initial > 0) initial else currentTimeMillis())
+                .build()
+
+        val Preferences.dateInputMode: Int
+            get() = when (getIntegerFromString(R.string.p_picker_mode_date, 0)) {
+                1 -> INPUT_MODE_TEXT
+                else -> INPUT_MODE_CALENDAR
+            }
     }
 }
