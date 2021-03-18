@@ -377,15 +377,15 @@ class CaldavSynchronizer @Inject constructor(
             }
             ?.let {
                 if (!isOwncloudOwner) {
-                    val principal = principalDao.getOrCreatePrincipal(
-                        account, this@principals[OCOwnerPrincipal::class.java]?.owner!!
-                    )
-                    access.add(principalDao.getOrCreateAccess(
-                        list,
-                        principal,
-                        INVITE_ACCEPTED,
-                        ACCESS_OWNER
-                    ))
+                    this@principals[OCOwnerPrincipal::class.java]?.owner?.let { href ->
+                        val principal = principalDao.getOrCreatePrincipal(account, href)
+                        access.add(principalDao.getOrCreateAccess(
+                            list,
+                            principal,
+                            INVITE_ACCEPTED,
+                            ACCESS_OWNER
+                        ))
+                    }
                 }
                 access.addAll(it)
             }
