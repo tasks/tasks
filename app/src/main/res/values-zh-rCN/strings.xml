@@ -688,4 +688,9 @@
     <string name="email">电子邮件</string>
     <string name="share_list">分享列表</string>
     <string name="tasks_org_share">与其他用户分享列表</string>
+    <string name="picker_mode_calendar">日历</string>
+    <string name="picker_mode_text">文本</string>
+    <string name="picker_mode_clock">时钟</string>
+    <string name="picker_mode_time">时间选择器模式</string>
+    <string name="picker_mode_date">日期选择器模式</string>
 </resources>
