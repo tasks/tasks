@@ -14,7 +14,6 @@ import org.tasks.locale.Locale
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import java.text.DateFormatSymbols
-import java.text.ParseException
 import java.util.*
 import javax.inject.Inject
 
@@ -25,20 +24,15 @@ class RepeatRuleToString @Inject constructor(
 ) {
     private val weekdays = listOf(*Day.values())
 
-    fun toString(rrule: String?): String? = try {
-        rrule?.let { toString(newRecur(it)) }
-    } catch (e: ParseException) {
-        firebase.reportException(e)
-        null
-    }
+    fun toString(rrule: String?): String? = rrule?.let { toString(newRecur(it)) }
 
-    fun toString(rrule: Recur): String {
+    fun toString(rrule: Recur): String = try {
         val interval = rrule.interval
         val frequency = rrule.frequency
         val repeatUntil = if (rrule.until == null) null else DateTime.from(rrule.until)
         val count = rrule.count
         val countString = if (count > 0) context.resources.getQuantityString(R.plurals.repeat_times, count) else ""
-        return if (interval <= 1) {
+        if (interval <= 1) {
             val frequencyString = context.getString(getSingleFrequencyResource(frequency))
             if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.dayList.isEmpty()) {
                 val dayString = getDayString(rrule)
@@ -104,6 +98,9 @@ class RepeatRuleToString @Inject constructor(
                         DateUtilities.getLongDateString(repeatUntil, locale.locale))
             }
         }
+    } catch (e: Exception) {
+        firebase.reportException(IllegalStateException("$rrule caused $e"))
+        rrule.toString()
     }
 
     private fun getDayString(rrule: Recur): String {
