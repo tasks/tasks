@@ -718,4 +718,9 @@
     <string name="email">Е-пошта</string>
     <string name="share_list">Поділитися списком</string>
     <string name="tasks_org_share">Поділіться списками з іншими користувачами</string>
+    <string name="picker_mode_text">Текст</string>
+    <string name="picker_mode_clock">Годинник</string>
+    <string name="picker_mode_calendar">Календар</string>
+    <string name="picker_mode_time">Режим вибору часу</string>
+    <string name="picker_mode_date">Режим вибору дати</string>
 </resources>
