@@ -23,7 +23,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.property.ProdId
 import okhttp3.Headers
 import okhttp3.HttpUrl
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.tasks.BuildConfig
@@ -130,13 +129,11 @@ class CaldavSynchronizer @Inject constructor(
     private suspend fun synchronize(account: CaldavAccount) {
         val caldavClient = provider.forAccount(account)
         var serverType = SERVER_UNKNOWN
-        val resources = caldavClient.calendars(object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
-                val response = chain.proceed(chain.request())
-                serverType = getServerType(account, response.headers)
-                return response
-            }
-        })
+        val resources = caldavClient.calendars { chain ->
+            val response = chain.proceed(chain.request())
+            serverType = getServerType(account, response.headers)
+            response
+        }
         if (serverType != account.serverType) {
             account.serverType = serverType
             caldavDao.update(account)
