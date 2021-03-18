@@ -2229,6 +2229,20 @@
       "normalizedLicense": "apache2",
       "url": "http://tools.android.com",
       "libraryName": "constraintlayout-core"
+    },
+    {
+      "artifactId": {
+        "name": "activity-compose",
+        "group": "androidx.activity",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/activity#1.3.0-alpha04",
+      "libraryName": "activity-compose"
     }
   ]
 }
