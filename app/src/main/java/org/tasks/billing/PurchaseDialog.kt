@@ -63,12 +63,15 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
     private var priceChanged = false
     private var nameYourPrice = false
 
+    private val hasTasksSubscription
+        get() = inventory.subscription.value?.isTasksSubscription == true
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = ActivityPurchaseBinding.inflate(layoutInflater)
         ButterKnife.bind(this, binding.root)
 
         if (savedInstanceState == null) {
-            nameYourPrice = !isTasksPayment && !inventory.hasTasksSubscription
+            nameYourPrice = !isTasksPayment && !hasTasksSubscription
         } else {
             binding.slider.value = savedInstanceState.getFloat(EXTRA_PRICE)
             priceChanged = savedInstanceState.getBoolean(EXTRA_PRICE_CHANGED)
@@ -124,7 +127,7 @@ class PurchaseDialog : DialogFragment(), OnPurchasesUpdated {
         var benefits = "### ${getString(when {
             nameYourPrice -> R.string.name_your_price
             !inventory.hasPro -> R.string.upgrade_to_pro
-            !inventory.hasTasksSubscription -> R.string.button_upgrade
+            !hasTasksSubscription -> R.string.button_upgrade
             else -> R.string.manage_subscription
         })}"
         benefits += if (nameYourPrice) {

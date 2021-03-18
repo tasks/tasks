@@ -20,5 +20,5 @@ class ViewModelModule {
             inventory: Inventory,
             google: Lazy<PlaceSearchGoogle>,
             mapbox: Lazy<PlaceSearchMapbox>
-    ): PlaceSearch = if (inventory.hasTasksSubscription) google.get() else mapbox.get()
+    ): PlaceSearch = if (inventory.hasTasksAccount) google.get() else mapbox.get()
 }

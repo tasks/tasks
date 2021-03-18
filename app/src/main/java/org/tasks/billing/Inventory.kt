@@ -28,7 +28,7 @@ class Inventory @Inject constructor(
     private val purchases: MutableMap<String, Purchase> = HashMap()
     val subscription = MutableLiveData<Purchase?>()
 
-    var hasTasksSubscription = false
+    var hasTasksAccount = false
         private set
 
     fun clear() {
@@ -62,16 +62,15 @@ class Inventory @Inject constructor(
         get() {
             return BuildConfig.FLAVOR == "generic"
                     || (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false))
-                    || hasTasksSubscription
+                    || hasTasksAccount
                     || field
         }
         private set
 
-    suspend fun updateTasksSubscription() {
-        hasTasksSubscription =
-                subscription.value?.isTasksSubscription == true || caldavDao.getAccounts(TYPE_TASKS).any {
-                    it.isTasksSubscription(context)
-                }
+    suspend fun updateTasksAccount() {
+        hasTasksAccount = caldavDao.getAccounts(TYPE_TASKS).any {
+            it.isTasksSubscription(context)
+        }
     }
 
     fun purchased(sku: String) = purchases.containsKey(sku)

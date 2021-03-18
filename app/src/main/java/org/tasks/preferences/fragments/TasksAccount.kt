@@ -96,7 +96,7 @@ class TasksAccount : BaseAccountPreference() {
     override suspend fun removeAccount() {
         // try to delete session from caldav.tasks.org
         taskDeleter.delete(caldavAccount)
-        inventory.updateTasksSubscription()
+        inventory.updateTasksAccount()
     }
 
     override fun onResume() {

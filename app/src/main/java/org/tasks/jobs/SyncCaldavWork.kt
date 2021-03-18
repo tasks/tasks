@@ -34,7 +34,7 @@ class SyncCaldavWork @AssistedInject constructor(
 
     override suspend fun doSync() {
         caldavJobs().awaitAll()
-        inventory.updateTasksSubscription()
+        inventory.updateTasksAccount()
     }
 
     private suspend fun caldavJobs(): List<Deferred<Unit>> = coroutineScope {
