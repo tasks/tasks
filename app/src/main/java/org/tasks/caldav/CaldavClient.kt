@@ -111,7 +111,7 @@ open class CaldavClient(
                 .findHomeset()
     }
 
-    suspend fun calendars(interceptor: Interceptor): List<Response> =
+    suspend fun calendars(interceptor: (Interceptor.Chain) -> okhttp3.Response): List<Response> =
         DavResource(
             httpClient.newBuilder().addNetworkInterceptor(interceptor).build(),
             httpUrl!!
