@@ -492,7 +492,7 @@
     <string name="etesync_encryption_description">Запам\'ятайте свій пароль шифрування. Його неможливо відновити!</string>
     <string name="etesync_account_description">Потрібний обліковий запис у EteSync.com або власний сервер</string>
     <string name="caldav_account_description">Потрібний обліковий запис у провайдера сервісу CalDAV або власний сервер. Відвідайте tasks.org/caldav, щоб переглянути список провайдерів</string>
-    <string name="etesync_selection_description">Синхронізація з відкритим кодом, на основі end-to-end шифрування</string>
+    <string name="etesync_selection_description">Захищена наскрізним шифруванням синхронізація</string>
     <string name="button_upgrade">Підвищити клас підписки</string>
     <string name="caldav_selection_description">Синхронізація на основі стандартів відкритого інтернету</string>
     <string name="google_tasks_selection_description">Базовий сервіс, що синхронізується з вашим обліковим записом Google</string>
@@ -633,7 +633,7 @@
     <string name="auto_dismiss_datetime_list_summary">Автоматично закривати після вибору зі списку завдань</string>
     <string name="auto_dismiss_datetime_list">Список завдань</string>
     <string name="davx5_selection_description">Синхронізувати ваші завдання з застосунком DAVx⁵</string>
-    <string name="decsync_selection_description">Синхронізувати ваші завдання з застосунком DecSync CC</string>
+    <string name="decsync_selection_description">Синхронізація на основі файлів</string>
     <string name="disable_sort_groups">Вимкнути групи сортування</string>
     <string name="improve_performance_summary">Вимкнути групи сортування та згортання підзавдань для пришвидшення роботи застосунку</string>
     <string name="improve_performance">Пришвидшити роботу</string>
@@ -723,4 +723,20 @@
     <string name="picker_mode_calendar">Календар</string>
     <string name="picker_mode_time">Режим вибору часу</string>
     <string name="picker_mode_date">Режим вибору дати</string>
+    <string name="more_options">Додаткові параметри</string>
+    <string name="upgrade_automation_description">Плагіни для Tasker, Automate і Locale</string>
+    <string name="upgrade_automation">Автоматизація</string>
+    <string name="upgrade_open_source_description">Ваша передплата підтримує постійний розвиток</string>
+    <string name="upgrade_desktop_access_description">Синхронізація зі сторонніми клієнтами, наприклад Outlook і Apple Нагадування</string>
+    <string name="upgrade_desktop_access">Доступ до комп\'ютера</string>
+    <string name="upgrade_tasks_org_account_description">Синхронізація з Tasks.org та співпраця з іншими користувачами</string>
+    <string name="upgrade_google_tasks">Синхронізація кількох облікових записів</string>
+    <string name="upgrade_customization_icons">Піктограми списків</string>
+    <string name="upgrade_customization_colors">Значки панелі запуску, кольорові палітри та кольорове коло</string>
+    <string name="upgrade_customization_themes">Тло та денні/нічні теми</string>
+    <string name="upgrade_more_customization_description">Розблокування всіх тем, кольорів і піктограм</string>
+    <string name="upgrade_more_customization">Більше налаштувань</string>
+    <string name="pro_free_trial">Нові передплатники отримують 7-денну безплатну пробну версію. Скасувати її можна в будь-який час</string>
+    <string name="tasks_needs_your_support">Tasks потребує вашої підтримки!</string>
+    <string name="subscription_benefits">Переваги передплати</string>
 </resources>
