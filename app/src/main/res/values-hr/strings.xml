@@ -31,7 +31,7 @@
     <string name="TLA_menu_search">Pretraži</string>
     <string name="TLA_menu_settings">Postavke</string>
     <string name="TLA_menu_sort">Poredaj</string>
-    <string name="TLA_no_items">Ovdje nema nijednu zadatku.</string>
+    <string name="TLA_no_items">Ovdje nema zadataka.</string>
     <string name="DLG_undo">Poništi</string>
     <string name="discard_confirmation">Odbaci promjene\?</string>
     <string name="import_progress_read">Učitavam zadatak broj %d…</string>
