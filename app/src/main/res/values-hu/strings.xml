@@ -696,4 +696,9 @@
     <string name="email">Email</string>
     <string name="share_list">Lista megosztása</string>
     <string name="tasks_org_share">Lista megosztása más felhasználókkal</string>
+    <string name="picker_mode_text">Szöveg</string>
+    <string name="picker_mode_clock">Óra</string>
+    <string name="picker_mode_calendar">Naptár</string>
+    <string name="picker_mode_time">Időválasztó mód</string>
+    <string name="picker_mode_date">Dátumválasztó mód</string>
 </resources>
