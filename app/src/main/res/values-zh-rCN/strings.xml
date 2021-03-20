@@ -461,7 +461,7 @@
     <string name="choose_synchronization_service">选择平台</string>
     <string name="google_tasks_selection_description">基本服务，用你的谷歌账户进行数据同步</string>
     <string name="caldav_selection_description">基于开放的互联网标准的同步</string>
-    <string name="etesync_selection_description">开源、端到端加密的同步</string>
+    <string name="etesync_selection_description">端到端加密的同步</string>
     <string name="passwords_do_not_match">密码不匹配</string>
     <string name="reenter_encryption_password">确认加密密码</string>
     <string name="show_advanced_settings">显示高级设置</string>
@@ -634,7 +634,7 @@
     <string name="insufficient_sponsorship">没有找到符合要求的GitHub赞助</string>
     <string name="above_average">高于平均</string>
     <string name="save_percent">节省 %d%%</string>
-    <string name="decsync_selection_description">用 DecSync CC 应用程序同步你的任务</string>
+    <string name="decsync_selection_description">基于文件的同步</string>
     <string name="sign_in_to_tasks">登录到 Tasks.org</string>
     <string name="copied_to_clipboard">%s 被复制到剪贴板</string>
     <string name="app_password_save">使用这些凭据配置第三方应用程序。它们允许对你的 Tasks.org 账户的完整访问权限，所以不要不要把它们写下来或与任何人分享！</string>
@@ -693,4 +693,20 @@
     <string name="picker_mode_clock">时钟</string>
     <string name="picker_mode_time">时间选择器模式</string>
     <string name="picker_mode_date">日期选择器模式</string>
+    <string name="more_options">更多选项</string>
+    <string name="upgrade_automation_description">Tasker、自动化和语言环境的插件</string>
+    <string name="upgrade_automation">自动化</string>
+    <string name="upgrade_open_source_description">你的订阅支持持续开发</string>
+    <string name="upgrade_desktop_access_description">与 Outlook 和 Apple Reminders 等第三方客户端同步</string>
+    <string name="upgrade_desktop_access">桌面访问</string>
+    <string name="upgrade_tasks_org_account_description">与 Tasks.org 同步并与其他用户协作</string>
+    <string name="upgrade_google_tasks">同步多个账户</string>
+    <string name="upgrade_customization_icons">列表图标</string>
+    <string name="upgrade_customization_colors">启动器图标、调色盘和色轮</string>
+    <string name="upgrade_customization_themes">壁纸和日/夜主题</string>
+    <string name="upgrade_more_customization_description">解锁所有主题、颜色和图标</string>
+    <string name="upgrade_more_customization">更多自定义</string>
+    <string name="pro_free_trial">新订户将获得 7 天的免费试用期。可随时取消订阅</string>
+    <string name="tasks_needs_your_support">Tasks 需要你的支持！</string>
+    <string name="subscription_benefits">订阅好处</string>
 </resources>
