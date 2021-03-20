@@ -713,10 +713,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/noties/Markwon
-- artifact: com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:+
-  name: commonmark-ext-gfm-strikethrough
-  copyrightHolder: Atlassian and others
-  license: BSD 2-Clause
 - artifact: com.atlassian.commonmark:commonmark:+
   name: commonmark
   copyrightHolder: Atlassian and others

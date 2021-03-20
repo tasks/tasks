@@ -1707,18 +1707,6 @@
     },
     {
       "artifactId": {
-        "name": "commonmark-ext-gfm-strikethrough",
-        "group": "com.atlassian.commonmark",
-        "version": "+"
-      },
-      "copyrightHolder": "Atlassian and others",
-      "copyrightStatement": "Copyright &copy; Atlassian and others. All rights reserved.",
-      "license": "BSD 2-Clause",
-      "normalizedLicense": "bsd_2_clauses",
-      "libraryName": "commonmark-ext-gfm-strikethrough"
-    },
-    {
-      "artifactId": {
         "name": "commonmark",
         "group": "com.atlassian.commonmark",
         "version": "+"
