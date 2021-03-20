@@ -465,7 +465,7 @@
     <string name="choose_synchronization_service">Sélectionnez une plate-forme</string>
     <string name="google_tasks_selection_description">Service de base qui se synchronise avec votre compte Google</string>
     <string name="caldav_selection_description">Synchronisation basée sur des normes d\'Internet ouvertes</string>
-    <string name="etesync_selection_description">Source ouverte, synchronisation chiffrée de bout en bout</string>
+    <string name="etesync_selection_description">Synchronisation du chiffrement de bout en bout</string>
     <string name="passwords_do_not_match">Les mots de passe ne correspondent pas</string>
     <string name="reenter_encryption_password">Confirmer le mot de passe de chiffrement</string>
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
@@ -639,7 +639,7 @@
     <string name="insufficient_sponsorship">Aucun parrainage GitHub éligible trouvé</string>
     <string name="above_average">Au-dessus de la moyenne</string>
     <string name="save_percent">Économisez %d%%</string>
-    <string name="decsync_selection_description">Synchronisez vos tâches avec l’application DecSync CC</string>
+    <string name="decsync_selection_description">Synchronisation basée sur les fichiers</string>
     <string name="sign_in_to_tasks">Connectez-vous à Tasks.org</string>
     <string name="copied_to_clipboard">%s copié dans le presse-papiers</string>
     <string name="app_password_save">Utilisez ces informations d\'identification pour configurer une application tierce. Elles vous donnent un accès complet à votre compte Tasks.org, ne les écrivez pas et ne les partagez avec personne !</string>
@@ -698,4 +698,20 @@
     <string name="picker_mode_calendar">Calendrier</string>
     <string name="picker_mode_time">Mode sélection de temps</string>
     <string name="picker_mode_date">Mode sélection de date</string>
+    <string name="more_options">Plus d’options</string>
+    <string name="upgrade_automation_description">Plugins pour Tasker, Automate et Local</string>
+    <string name="upgrade_automation">Automatisation</string>
+    <string name="upgrade_open_source_description">Votre abonnement soutient le développement continu</string>
+    <string name="upgrade_desktop_access_description">Synchronisez avec des clients tiers comme Outlook et Apple Reminders</string>
+    <string name="upgrade_desktop_access">Accès au bureau</string>
+    <string name="upgrade_tasks_org_account_description">Synchronisez avec Tasks.org et collaborez avec d\'autres utilisateurs</string>
+    <string name="upgrade_more_customization_description">Déverrouillez tous les thèmes, couleurs et icônes</string>
+    <string name="upgrade_google_tasks">Synchronisez plusieurs comptes</string>
+    <string name="upgrade_customization_icons">Liste des icônes</string>
+    <string name="upgrade_customization_colors">Icônes du lanceur, palettes de couleurs et roue des couleurs</string>
+    <string name="upgrade_customization_themes">Fonds d\'écran et thèmes jour/nuit</string>
+    <string name="upgrade_more_customization">Plus de personnalisation</string>
+    <string name="pro_free_trial">Les nouveaux abonnés bénéficient d\'un essai gratuit de 7 jours. Annulez à tout moment</string>
+    <string name="tasks_needs_your_support">Tasks a besoin de votre soutien !</string>
+    <string name="subscription_benefits">Avantages de l\'abonnement</string>
 </resources>
