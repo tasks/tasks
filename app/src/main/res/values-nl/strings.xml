@@ -465,7 +465,7 @@
     <string name="choose_synchronization_service">Selecteer een platform</string>
     <string name="google_tasks_selection_description">Basisservice die synchroniseert met uw Google-account</string>
     <string name="caldav_selection_description">Synchronisatie gebaseerd op open internetstandaarden</string>
-    <string name="etesync_selection_description">Open source, end-to-end versleutelde synchronisatie</string>
+    <string name="etesync_selection_description">End-to-end versleutelde synchronisatie</string>
     <string name="passwords_do_not_match">Wachtwoorden komen niet overeen</string>
     <string name="reenter_encryption_password">Bevestig coderingswachtwoord</string>
     <string name="show_advanced_settings">Toon geavanceerde instellingen</string>
@@ -487,8 +487,8 @@
     <string name="invalid_username_or_password">Ongeldige gebruikersnaam of wachtwoord</string>
     <string name="theme_system_default">Systeeminstelling</string>
     <string name="color_wheel">Kleurenwiel</string>
-    <string name="upgrade_blurb_1">Hoi! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks.</string>
-    <string name="upgrade_blurb_2">Ik heb duizenden uren aan Tasks gewerkt, en ik publiceer de volledige broncode gratis online. Om mijn werk te steunen vereisen sommige functies een abonnement.</string>
+    <string name="upgrade_blurb_1">Hoi! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks</string>
+    <string name="upgrade_blurb_2">Ik heb duizenden uren aan Tasks gewerkt, en ik publiceer de volledige broncode gratis online. Om mijn werk te steunen vereisen sommige functies een abonnement</string>
     <string name="upgrade_blurb_4">Je steun betekent veel voor me, bedankt!</string>
     <string name="back">Terug</string>
     <string name="chip_style">Fiche-stijl</string>
@@ -639,7 +639,7 @@
     <string name="insufficient_sponsorship">Geen in aanmerking komende GitHub-sponsoring gevonden</string>
     <string name="save_percent">Bespaar %d%%</string>
     <string name="above_average">Bovengemiddeld</string>
-    <string name="decsync_selection_description">Synchroniseer je taken met de DecSync CC applicatie</string>
+    <string name="decsync_selection_description">Bestands-gebaseerde synchronisatie</string>
     <string name="sign_in_to_tasks">Log in bij Tasks.org</string>
     <string name="copied_to_clipboard">%s naar het klembord gekopiëerd</string>
     <string name="app_password_save">Gebruik deze inloggegevens om andere apps te configureren. Ze verlenen volledige toegang tot je Tasks.org account, dus schrijf ze nergens op en deel ze met niemand!</string>
@@ -698,4 +698,20 @@
     <string name="picker_mode_calendar">Kalender</string>
     <string name="picker_mode_time">Tijdkiezer-modus</string>
     <string name="picker_mode_date">Datumkiezer-modus</string>
+    <string name="upgrade_more_customization">Meer aan kunnen passen</string>
+    <string name="upgrade_more_customization_description">Ontgrendel alle thema\'s, kleuren en iconen</string>
+    <string name="more_options">Meer opties</string>
+    <string name="upgrade_automation_description">Plugins voor Tasker, Automate en Locale</string>
+    <string name="upgrade_automation">Automatisering</string>
+    <string name="upgrade_open_source_description">Jouw abonnement ondersteunt verdere ontwikkeling</string>
+    <string name="upgrade_desktop_access_description">Synchroniseer met andere applicaties zoals Outlook en Apple Herinneringen</string>
+    <string name="upgrade_desktop_access">Desktop-toegang</string>
+    <string name="upgrade_tasks_org_account_description">Synchroniseer met Tasks.org en werk samen met andere gebruikers</string>
+    <string name="upgrade_google_tasks">Synchroniseer meerdere accounts</string>
+    <string name="upgrade_customization_icons">Lijst iconen</string>
+    <string name="upgrade_customization_colors">Start iconen, kleurenpaletten en kleurenwiel</string>
+    <string name="upgrade_customization_themes">Achtergrond en dag/nacht thema\'s</string>
+    <string name="pro_free_trial">Nieuwe abonnees krijgen een gratis proefperiode van 7 dagen. Je kunt ieder moment annuleren</string>
+    <string name="tasks_needs_your_support">Tasks heeft jouw steun nodig!</string>
+    <string name="subscription_benefits">Voordelen van abonnement</string>
 </resources>
