@@ -13,6 +13,7 @@ import org.tasks.DebugNetworkInterceptor
 import org.tasks.R
 import org.tasks.data.Place
 import org.tasks.data.Place.Companion.newPlace
+import org.tasks.extensions.JsonObject.getStringOrNull
 import org.tasks.preferences.Preferences
 import java.io.IOException
 import javax.inject.Inject
@@ -52,7 +53,10 @@ class GeocoderMapbox @Inject constructor(
                     val types = feature.get("place_type").asStringList
                     val text = feature.get("text").asString
                     name = if (types.contains("address")) {
-                        "${feature.get("address").asString} $text"
+                        feature
+                            .getStringOrNull("address")
+                            ?.let { "$it $text" }
+                            ?: text
                     } else {
                         text
                     }

@@ -2,7 +2,6 @@ package org.tasks.location
 
 import android.content.Context
 import com.google.gson.JsonElement
-import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +11,8 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.Place
 import org.tasks.data.Place.Companion.newPlace
+import org.tasks.extensions.JsonObject.getOrNull
+import org.tasks.extensions.JsonObject.getStringOrNull
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.HttpException
 import javax.inject.Inject
@@ -63,9 +64,5 @@ class GeocoderNominatim @Inject constructor(
 
         private val JsonElement.asCoordinates: Pair<Double, Double>
             get() = asJsonArray.let { Pair(it[0].asDouble, it[1].asDouble) }
-
-        private fun JsonObject.getStringOrNull(key: String): String? = getOrNull(key)?.asString
-
-        private fun JsonObject.getOrNull(key: String) = if (has(key)) get(key) else null
     }
 }
