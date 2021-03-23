@@ -6,7 +6,6 @@ import android.app.backup.BackupManager
 import android.content.Context
 import android.net.Uri
 import android.os.Handler
-import android.widget.Toast
 import com.google.common.io.Files
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -17,6 +16,7 @@ import org.tasks.R
 import org.tasks.backup.BackupContainer.TaskBackup
 import org.tasks.data.*
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
@@ -144,13 +144,13 @@ class TasksJsonExporter @Inject constructor(
     }
 
     private fun onFinishExport(outputFile: String) = post {
-        val text: CharSequence = String.format(
-                context!!.getString(R.string.export_toast),
-                context!!
-                        .resources
-                        .getQuantityString(R.plurals.Ntasks, exportCount, exportCount),
-                outputFile)
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+        context?.toast(
+            R.string.export_toast,
+            context!!
+                .resources
+                .getQuantityString(R.plurals.Ntasks, exportCount, exportCount),
+            outputFile
+        )
     }
 
 

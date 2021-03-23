@@ -3,12 +3,12 @@ package org.tasks.preferences.fragments
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
+import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
@@ -120,14 +120,8 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         invalidSetting(R.string.date_shortcut_must_come_after, settingResId, relativeResId)
     }
 
-    private fun invalidSetting(errorResId: Int, settingResId: Int, relativeResId: Int) {
-        Toast.makeText(
-            context,
-            getString(errorResId, getString(settingResId), getString(relativeResId)),
-            Toast.LENGTH_SHORT
-        )
-            .show()
-    }
+    private fun invalidSetting(errorResId: Int, settingResId: Int, relativeResId: Int) =
+        context?.toast(errorResId, getString(settingResId), getString(relativeResId))
 
     private fun updateStartOfWeek(value: String) {
         val preference = getStartOfWeekPreference()

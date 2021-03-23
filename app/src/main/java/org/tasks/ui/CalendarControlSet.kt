@@ -6,7 +6,7 @@ import android.net.Uri
 import android.provider.CalendarContract
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import butterknife.BindView
 import butterknife.OnClick
 import com.todoroo.astrid.gcal.GCalHelper
@@ -19,6 +19,7 @@ import org.tasks.calendars.CalendarEventProvider
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarProvider
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.extensions.Context.toast
 import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
@@ -112,8 +113,7 @@ class CalendarControlSet : TaskEditControlFragment() {
                     null,
                     null).use { cursor ->
                 if (cursor!!.count == 0) {
-                    // event no longer exists
-                    Toast.makeText(activity, R.string.calendar_event_not_found, Toast.LENGTH_SHORT).show()
+                    activity.toast(R.string.calendar_event_not_found, duration = LENGTH_SHORT)
                     viewModel.eventUri = null
                     refreshDisplayView()
                 } else {
@@ -125,7 +125,7 @@ class CalendarControlSet : TaskEditControlFragment() {
             }
         } catch (e: Exception) {
             Timber.e(e)
-            Toast.makeText(activity, R.string.gcal_TEA_error, Toast.LENGTH_LONG).show()
+            activity.toast(R.string.gcal_TEA_error)
         }
     }
 

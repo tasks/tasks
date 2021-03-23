@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.activity.viewModels
 import butterknife.BindView
 import com.google.android.material.textfield.TextInputEditText
@@ -17,12 +16,12 @@ import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskList
 import org.tasks.data.GoogleTaskListDao
+import org.tasks.extensions.Context.toast
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -94,7 +93,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         }
         val newName = newName
         if (isNullOrEmpty(newName)) {
-            Toast.makeText(this, R.string.name_cannot_be_empty, Toast.LENGTH_LONG).show()
+            toast(R.string.name_cannot_be_empty)
             return
         }
         when {
@@ -201,7 +200,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     private fun requestFailed(error: Throwable) {
         Timber.e(error)
         hideProgressIndicator()
-        Toast.makeText(this, R.string.gtasks_GLA_errorIOAuth, Toast.LENGTH_LONG).show()
+        toast(R.string.gtasks_GLA_errorIOAuth)
         return
     }
 
