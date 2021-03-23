@@ -468,7 +468,7 @@
     <string name="choose_synchronization_service">Platform választása</string>
     <string name="google_tasks_selection_description">Alapvető szolgáltatás, ami a Google accounttal szinkronizál</string>
     <string name="caldav_selection_description">Nyílt Internetes szabványon alapuló szinkronizáció</string>
-    <string name="etesync_selection_description">Nyílt forráskódú, végponttól végpontig titkosított szinkronizáció</string>
+    <string name="etesync_selection_description">Végponttól végpontig titkosított szinkronizáció</string>
     <string name="passwords_do_not_match">A jelszavak nem egyeznek</string>
     <string name="reenter_encryption_password">Titkosítás jelszavának megerősítése</string>
     <string name="show_advanced_settings">Haladó beállítások mutatása</string>
@@ -642,7 +642,7 @@
     <string name="insufficient_sponsorship">Nem található GitHub szponzorálás</string>
     <string name="save_percent">Mentés %d%%</string>
     <string name="above_average">Átlag felett</string>
-    <string name="decsync_selection_description">Feladatok szinkronizálása DecSync CC alkalmazással</string>
+    <string name="decsync_selection_description">Fájl alapú szinkronizálás</string>
     <string name="sign_in_to_tasks">Tasks.org bejelentkezés</string>
     <string name="app_passwords">Alkalmazás jelszavak</string>
     <string name="app_password">Alkalmazás jelszó</string>
@@ -701,4 +701,6 @@
     <string name="picker_mode_calendar">Naptár</string>
     <string name="picker_mode_time">Időválasztó mód</string>
     <string name="picker_mode_date">Dátumválasztó mód</string>
+    <string name="tasks_needs_your_support">A Tasks-nak szüksége van a támogatásodra!</string>
+    <string name="subscription_benefits">Az előfizetés előnyei</string>
 </resources>
