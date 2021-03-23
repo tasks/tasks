@@ -470,7 +470,7 @@
     <string name="choose_synchronization_service">Platform seç</string>
     <string name="google_tasks_selection_description">Google hesabınızla eşzamanlayan basit servis</string>
     <string name="caldav_selection_description">Açık internet standartlarında eşzamanlama</string>
-    <string name="etesync_selection_description">Açık kaynak, uçtan uca şifreli eşzamanlama</string>
+    <string name="etesync_selection_description">Uçtan uca şifreli eşzamanlama</string>
     <string name="passwords_do_not_match">Parolalar eşleşmiyor</string>
     <string name="reenter_encryption_password">Şifreleme parolasını doğrula</string>
     <string name="show_advanced_settings">Gelişmiş ayarları göster</string>
@@ -644,7 +644,7 @@
     <string name="insufficient_sponsorship">Uygun GitHub sponsorluğu bulunamadı</string>
     <string name="save_percent">%%%d tasarruf</string>
     <string name="above_average">Ortalamanın üstü</string>
-    <string name="decsync_selection_description">Görevlerinizi DecSync CC ile eşzamanlayın</string>
+    <string name="decsync_selection_description">Dosya tabanlı eşzamanlama</string>
     <string name="copied_to_clipboard">%s panoya kopyalandı</string>
     <string name="app_password_save">Bu kimlik bilgilerini üçüncü taraf uygulamayı yapılandırmakta kullan. Bunlar Tasks.org hesabınıza tam erişim sağlar, başka yere yazmayın veya biriyle paylaşmayın!</string>
     <string name="app_password_delete_confirmation">Bu parolayı kullanan tüm uygulamaların oturumu kapatılacak</string>
@@ -677,9 +677,9 @@
     <string name="tasks_org_account">Tasks.org hesabı</string>
     <string name="subscription">Abonelik</string>
     <string name="widget_show_title">Başlığı göster</string>
-    <string name="map_theme_use_app_theme">Uygulama temasını kullan</string>
+    <string name="map_theme_use_app_theme">Uygulama gövdesi kullan</string>
     <string name="tasks_org_account_required">Tasks.org hesabı gerekli</string>
-    <string name="map_theme">Harita teması</string>
+    <string name="map_theme">Harita gövdesi</string>
     <string name="privacy">Gizlilik</string>
     <string name="open_source">Açık kaynak</string>
     <string name="issue_tracker">Sorun izleyicisi</string>
@@ -697,4 +697,26 @@
     <string name="invite">Davet et</string>
     <string name="email">E-posta</string>
     <string name="share_list">Listeyi paylaş</string>
+    <string name="more_options">Daha çok seçenek</string>
+    <string name="upgrade_automation_description">Tasker, Automate ve Locale için eklentiler</string>
+    <string name="upgrade_automation">Otomasyon</string>
+    <string name="upgrade_open_source_description">Aboneliğiniz geliştirmenin sürekliliğini destekler</string>
+    <string name="upgrade_desktop_access_description">Outlook ve Apple Anımsatıcılar gibi üçüncü taraf istemcilerle eşzamanlama</string>
+    <string name="upgrade_customization_themes">Duvar kağıdı ve gündüz/gece gövdeleri</string>
+    <string name="upgrade_more_customization_description">Tüm gövdeler, renkler ve simgeler kullanılabilir</string>
+    <string name="upgrade_desktop_access">Masaüstü erişimi</string>
+    <string name="upgrade_tasks_org_account_description">Tasks.org ile eşzamanla ve diğer kullanıcılarla ortak çalış</string>
+    <string name="upgrade_google_tasks">Çoklu hesapları eşzamanla</string>
+    <string name="upgrade_customization_icons">Liste simgeleri</string>
+    <string name="upgrade_customization_colors">Başlatıcı simgeleri, renk paletleri ve renk tekeri</string>
+    <string name="upgrade_more_customization">Daha çok özelleştirme</string>
+    <string name="pro_free_trial">Yeni aboneler 7 günlük sınama süresi kazanır. İstendiğinde iptal edilir</string>
+    <string name="picker_mode_text">Metin</string>
+    <string name="picker_mode_clock">Saat</string>
+    <string name="picker_mode_calendar">Takvim</string>
+    <string name="picker_mode_time">Zaman seçici kipi</string>
+    <string name="picker_mode_date">Tarih seçici kipi</string>
+    <string name="tasks_needs_your_support">Tasks, desteğinize gereksiniyor!</string>
+    <string name="subscription_benefits">Abonelik yararları</string>
+    <string name="tasks_org_share">Listeleri diğer kullanıcılarla paylaş</string>
 </resources>
