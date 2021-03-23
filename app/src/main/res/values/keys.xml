@@ -31,6 +31,7 @@
   <string name="url_sponsor">https://github.com/sponsors/abaker</string>
   <string name="url_app_passwords">https://tasks.org/passwords</string>
   <string name="url_sharing">https://tasks.org/sharing</string>
+  <string name="url_filters">https://tasks.org/filters</string>
 
   <string name="p_date_shortcut_morning">date_shortcut_morning</string>
   <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>

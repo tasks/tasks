@@ -1,7 +1,6 @@
 package org.tasks.data
 
 import android.content.Context
-import android.content.Intent
 import android.location.Location
 import android.net.Uri
 import android.os.Parcel
@@ -12,7 +11,7 @@ import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.helper.UUIDHelper
 import net.fortuna.ical4j.model.property.Geo
 import org.tasks.Strings
-import org.tasks.extensions.Context.safeStartActivity
+import org.tasks.extensions.Context.openUri
 import org.tasks.location.MapPosition
 import org.tasks.themes.CustomIcons.PLACE
 import java.io.Serializable
@@ -109,14 +108,8 @@ class Place : Serializable, Parcelable {
     val displayAddress: String?
         get() = if (Strings.isNullOrEmpty(address)) null else address!!.replace("$name, ", "")
 
-    fun open(context: Context?) {
-        context?.safeStartActivity(
-                Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("geo:$latitude,$longitude?q=${Uri.encode(displayName)}")
-                )
-        )
-    }
+    fun open(context: Context?) =
+        context?.openUri("geo:$latitude,$longitude?q=${Uri.encode(displayName)}")
 
     val mapPosition: MapPosition
         get() = MapPosition(latitude, longitude)

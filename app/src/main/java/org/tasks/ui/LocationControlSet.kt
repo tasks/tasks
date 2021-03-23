@@ -21,6 +21,7 @@ import org.tasks.data.Location
 import org.tasks.data.Place
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.GeofenceDialog
+import org.tasks.extensions.Context.openUri
 import org.tasks.location.LocationPermissionDialog.Companion.newLocationPermissionDialog
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.Device
@@ -147,9 +148,7 @@ class LocationControlSet : TaskEditControlFragment() {
     override val isClickable = true
 
     private fun openWebsite() {
-        viewModel.selectedLocation?.let {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.url)))
-        }
+        viewModel.selectedLocation?.let { context?.openUri(it.url) }
     }
 
     private fun call() {

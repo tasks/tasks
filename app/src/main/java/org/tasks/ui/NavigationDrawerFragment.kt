@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +26,7 @@ import org.tasks.R
 import org.tasks.billing.PurchaseActivity
 import org.tasks.data.TaskDao
 import org.tasks.dialogs.NewFilterDialog.Companion.newFilterDialog
+import org.tasks.extensions.Context.openUri
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerAction
 import org.tasks.intents.TaskIntents
@@ -85,7 +85,7 @@ class NavigationDrawerFragment : Fragment() {
                             when (item.requestCode) {
                                 REQUEST_PURCHASE ->
                                     startActivity(Intent(context, PurchaseActivity::class.java))
-                                REQUEST_DONATE -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_donate))))
+                                REQUEST_DONATE -> context?.openUri(R.string.url_donate)
                                 REQUEST_NEW_FILTER -> newFilterDialog().show(parentFragmentManager, FRAG_TAG_NEW_FILTER)
                                 else -> activity?.startActivityForResult(item.intent, item.requestCode)
                             }

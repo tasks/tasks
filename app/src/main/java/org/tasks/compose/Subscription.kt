@@ -1,7 +1,5 @@
 package org.tasks.compose
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -47,6 +45,7 @@ import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.KEYLINE_FIRST
 import org.tasks.compose.PurchaseText.PurchaseText
+import org.tasks.extensions.Context.openUri
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
@@ -165,14 +164,7 @@ object PurchaseText {
     fun SponsorButton() {
         val context = LocalContext.current
         OutlinedButton(
-            onClick = {
-                context.startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(context.getString(R.string.url_sponsor))
-                    )
-                )
-            },
+            onClick = { context.openUri(R.string.url_sponsor) },
             colors = ButtonDefaults.textButtonColors(
                 backgroundColor = MaterialTheme.colors.secondary,
                 contentColor = MaterialTheme.colors.onSecondary

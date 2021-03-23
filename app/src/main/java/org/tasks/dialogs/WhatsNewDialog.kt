@@ -3,7 +3,6 @@ package org.tasks.dialogs
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -16,6 +15,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.databinding.DialogWhatsNewBinding
+import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.Preferences
 import java.io.BufferedReader
 import javax.inject.Inject
@@ -98,12 +98,12 @@ class WhatsNewDialog : DialogFragment() {
         logClick(true)
         preferences.setBoolean(R.string.p_clicked_rate, true)
         dismiss()
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.market_url))))
+        context?.openUri(R.string.market_url)
     }
 
     private fun onDonateClick() {
         dismiss()
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_donate))))
+        context?.openUri(R.string.url_donate)
     }
 
     override fun onCancel(dialog: DialogInterface) {

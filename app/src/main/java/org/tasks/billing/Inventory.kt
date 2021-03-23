@@ -1,8 +1,6 @@
 package org.tasks.billing
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Handler
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -11,6 +9,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
+import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.util.*
@@ -93,11 +92,7 @@ class Inventory @Inject constructor(
 
     fun unsubscribe(context: Context): Boolean {
         subscription.value?.let {
-            context.startActivity(
-                    Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(context.getString(R.string.manage_subscription_url, it.sku)))
-            )
+            context.openUri(R.string.manage_subscription_url, it.sku)
         }
         return false
     }

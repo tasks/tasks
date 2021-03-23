@@ -2,8 +2,6 @@ package org.tasks.sync
 
 import android.app.Dialog
 import android.content.Intent
-import android.content.Intent.ACTION_VIEW
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +17,7 @@ import org.tasks.auth.SignInActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.etebase.EtebaseAccountSettingsActivity
+import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Resources.getMutableIntList
 import org.tasks.extensions.Resources.getMutableStringList
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_CALDAV_SETTINGS
@@ -70,27 +69,18 @@ class AddAccountDialog : DialogFragment() {
                         1 -> activity?.startActivityForResult(
                                 Intent(activity, GtasksLoginActivity::class.java),
                                 REQUEST_GOOGLE_TASKS)
-                        2 -> activity?.startActivity(
-                                Intent(ACTION_VIEW, Uri.parse(getString(R.string.url_davx5))))
+                        2 -> activity?.openUri(R.string.url_davx5)
                         3 -> activity?.startActivityForResult(
                                 Intent(activity, CaldavAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
                         4 -> activity?.startActivityForResult(
                                 Intent(activity, EtebaseAccountSettingsActivity::class.java),
                                 REQUEST_CALDAV_SETTINGS)
-                        5 -> activity?.startActivity(
-                                Intent(ACTION_VIEW, Uri.parse(getString(R.string.url_decsync))))
+                        5 -> activity?.openUri(R.string.url_decsync)
                     }
                     dialog.dismiss()
                 }
-                .setNeutralButton(R.string.help) { _, _ ->
-                    activity?.startActivity(
-                            Intent(
-                                    ACTION_VIEW,
-                                    Uri.parse(context?.getString(R.string.help_url_sync))
-                            )
-                    )
-                }
+                .setNeutralButton(R.string.help) { _, _ -> activity?.openUri(R.string.help_url_sync) }
                 .setNegativeButton(R.string.cancel, null)
                 .show()
     }

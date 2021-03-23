@@ -1,7 +1,6 @@
 package org.tasks.preferences.fragments
 
 import android.content.*
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +26,7 @@ import org.tasks.billing.Purchase
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.isPaymentRequired
 import org.tasks.data.CaldavDao
+import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
 import org.tasks.locale.Locale
@@ -121,10 +121,7 @@ class TasksAccount : BaseAccountPreference() {
                         }
                         .setCancelable(false)
                         .setNeutralButton(R.string.help) { _, _ ->
-                            startActivity(Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse(getString(R.string.url_app_passwords)))
-                            )
+                            context?.openUri(R.string.url_app_passwords)
                         }
                         .show()
             }
@@ -170,7 +167,7 @@ class TasksAccount : BaseAccountPreference() {
                             onPreferenceClickListener = null
                         } else {
                             setOnPreferenceClickListener {
-                                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_sponsor))))
+                                context?.openUri(R.string.url_sponsor)
                                 false
                             }
                         }

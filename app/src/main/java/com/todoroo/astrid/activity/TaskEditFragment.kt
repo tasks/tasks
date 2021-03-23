@@ -7,7 +7,6 @@ package com.todoroo.astrid.activity
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -50,6 +49,7 @@ import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
+import org.tasks.extensions.Context.openUri
 import org.tasks.files.FileHelper
 import org.tasks.fragments.TaskEditControlSetFragmentManager
 import org.tasks.notifications.NotificationManager
@@ -268,11 +268,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 taskListFragment.onTaskCreated(model.uuid)
                 if (!isNullOrEmpty(model.calendarURI)) {
                     taskListFragment.makeSnackbar(R.string.calendar_event_created, model.title)
-                            ?.setAction(R.string.action_open) {
-                                val uri = model.calendarURI
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-                                taskListFragment.startActivity(intent)
-                            }
+                            ?.setAction(R.string.action_open) { context.openUri(model.calendarURI) }
                             ?.show()
                 }
             }

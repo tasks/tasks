@@ -1,7 +1,6 @@
 package org.tasks.locale.ui.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -14,6 +13,7 @@ import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.databinding.ActivityTaskerCreateBinding;
+import org.tasks.extensions.Context;
 import org.tasks.locale.bundle.TaskCreationBundle;
 
 import javax.inject.Inject;
@@ -133,8 +133,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   @Override
   public boolean onMenuItemClick(MenuItem item) {
     if (item.getItemId() == R.id.menu_help) {
-      startActivity(
-          new Intent(Intent.ACTION_VIEW).setData(Uri.parse(getString(R.string.url_tasker))));
+      Context.INSTANCE.openUri(this, R.string.url_tasker);
       return true;
     }
     return onOptionsItemSelected(item);

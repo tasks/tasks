@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -41,6 +40,7 @@ import org.tasks.data.Filter
 import org.tasks.data.FilterDao
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.db.QueryUtils
+import org.tasks.extensions.Context.openUri
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.locale.Locale
 import java.util.*
@@ -308,9 +308,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             super.onMenuItemClick(item)
         }
 
-    private fun help() {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://tasks.org/filters")))
-    }
+    private fun help() = openUri(R.string.url_filters)
 
     private fun updateList() {
         var max = 0

@@ -32,6 +32,7 @@ import org.tasks.data.CaldavDao
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
+import org.tasks.extensions.Context.openUri
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.ui.DisplayableException
@@ -354,7 +355,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_help -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(helpUrl))))
+            R.id.menu_help -> openUri(helpUrl)
             R.id.remove -> removeAccountPrompt()
         }
         return onOptionsItemSelected(item)

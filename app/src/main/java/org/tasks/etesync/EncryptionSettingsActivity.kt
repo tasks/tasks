@@ -2,7 +2,6 @@ package org.tasks.etesync
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -25,6 +24,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.CaldavAccount
 import org.tasks.databinding.ActivityEtesyncEncryptionSettingsBinding
+import org.tasks.extensions.Context.openUri
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.ui.DisplayableException
@@ -174,7 +174,7 @@ class EncryptionSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.O
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return if (item.itemId == R.id.menu_help) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_etesync))))
+            openUri(R.string.url_etesync)
             true
         } else {
             onOptionsItemSelected(item)

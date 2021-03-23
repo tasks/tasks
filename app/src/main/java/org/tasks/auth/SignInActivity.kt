@@ -14,7 +14,6 @@
 package org.tasks.auth
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +42,7 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivity.Companion.EXTRA_GITHUB
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.extensions.Context.openUri
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.themes.ThemeColor
 import timber.log.Timber
@@ -123,12 +123,7 @@ class SignInActivity : InjectingAppCompatActivity() {
             dialogBuilder.newDialog()
                     .setTitle(R.string.sign_in_to_tasks)
                     .setNeutralButton(R.string.help) { _, _ ->
-                        startActivity(
-                                Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse(getString(R.string.help_url_sync))
-                                )
-                        )
+                        openUri(R.string.help_url_sync)
                         finish()
                     }
                     .setNegativeButton(R.string.cancel) { _, _ ->
