@@ -10,7 +10,7 @@ import com.todoroo.astrid.files.FilesControlSet
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.CameraActivity
-import org.tasks.extensions.safeStartActivityForResult
+import org.tasks.extensions.Fragment.safeStartActivityForResult
 import org.tasks.files.FileHelper.newFilePickerIntent
 import org.tasks.preferences.Device
 import java.util.*

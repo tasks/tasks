@@ -65,7 +65,7 @@ import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.SortDialog
-import org.tasks.extensions.safeStartActivityForResult
+import org.tasks.extensions.Fragment.safeStartActivityForResult
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents
 import org.tasks.locale.Locale

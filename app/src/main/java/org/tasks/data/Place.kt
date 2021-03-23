@@ -12,7 +12,7 @@ import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.helper.UUIDHelper
 import net.fortuna.ical4j.model.property.Geo
 import org.tasks.Strings
-import org.tasks.extensions.safeStartActivity
+import org.tasks.extensions.Context.safeStartActivity
 import org.tasks.location.MapPosition
 import org.tasks.themes.CustomIcons.PLACE
 import java.io.Serializable

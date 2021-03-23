@@ -18,7 +18,7 @@ import com.google.common.io.ByteStreams
 import com.google.common.io.Files
 import com.todoroo.astrid.utility.Constants
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.extensions.safeStartActivity
+import org.tasks.extensions.Context.safeStartActivity
 import timber.log.Timber
 import java.io.File
 import java.io.FileNotFoundException
