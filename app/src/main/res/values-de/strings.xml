@@ -684,7 +684,7 @@
     <string name="chat_freenode">Treten Sie #tasks auf Freenode bei</string>
     <string name="follow_twitter">Folgen Sie @tasks_org</string>
     <string name="map_theme">Kartenthema</string>
-    <string name="manage_drawer">Schublade verwalten</string>
+    <string name="manage_drawer">Navigationsmenü verwalten</string>
     <string name="map_theme_use_app_theme">App-Thema nutzen</string>
     <string name="tasks_org_account_required">Tasks.org-Konto erforderlich</string>
     <string name="invite_awaiting_response">Einladung wartet auf Antwort</string>
