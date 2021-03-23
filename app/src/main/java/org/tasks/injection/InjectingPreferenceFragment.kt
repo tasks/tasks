@@ -10,6 +10,7 @@ import androidx.preference.PreferenceScreen
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.Device
 import org.tasks.themes.DrawableUtil
 import javax.inject.Inject
@@ -102,4 +103,10 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
 
     protected fun findPreference(@StringRes prefId: Int): Preference =
             findPreference(getString(prefId))!!
+
+    protected fun openUrl(prefId: Int, url: Int) =
+        findPreference(prefId).setOnPreferenceClickListener {
+            context?.openUri(url)
+            false
+        }
 }

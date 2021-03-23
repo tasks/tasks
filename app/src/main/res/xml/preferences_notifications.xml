@@ -3,15 +3,10 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <Preference
+    android:key="@string/troubleshooting"
     android:icon="@drawable/ic_open_in_new_24px"
     android:summary="@string/notification_troubleshooting_summary"
-    android:title="@string/troubleshooting">
-
-    <intent
-      android:action="android.intent.action.VIEW"
-      android:data="https://tasks.org/notifications" />
-
-  </Preference>
+    android:title="@string/troubleshooting" />
 
   <Preference
     android:key="@string/disable_battery_optimizations"

@@ -91,6 +91,8 @@ class TasksAccount : BaseAccountPreference() {
             viewModel.requestNewPassword(caldavAccount, description as String)
             false
         }
+
+        openUrl(R.string.app_passwords_more_info, R.string.url_app_passwords)
     }
 
     override suspend fun removeAccount() {

@@ -10,30 +10,20 @@
   <Preference
       android:key="@string/rate_tasks"
       android:title="@string/rate_tasks"
-      app:icon="@drawable/ic_outline_star_border_24px">
-    <intent
-        android:action="android.intent.action.VIEW"
-        android:data="@string/market_url" />
-  </Preference>
+      app:icon="@drawable/ic_outline_star_border_24px" />
 
   <PreferenceCategory
       android:title="@string/support">
 
     <Preference
+        android:key="@string/documentation"
         android:title="@string/documentation"
-        app:icon="@drawable/ic_outline_help_outline_24px">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://tasks.org" />
-    </Preference>
+        app:icon="@drawable/ic_outline_help_outline_24px"/>
 
     <Preference
+        android:key="@string/issue_tracker"
         android:title="@string/issue_tracker"
-        app:icon="@drawable/ic_outline_bug_report_24px">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://github.com/tasks/tasks/issues" />
-    </Preference>
+        app:icon="@drawable/ic_outline_bug_report_24px" />
 
     <Preference
         android:key="@string/contact_developer"
@@ -48,20 +38,12 @@
     <Preference
         android:key="@string/follow_reddit"
         android:title="@string/follow_reddit"
-        app:icon="@drawable/ic_reddit_share_silhouette">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="@string/url_reddit" />
-    </Preference>
+        app:icon="@drawable/ic_reddit_share_silhouette" />
 
     <Preference
         android:key="@string/follow_twitter"
         android:title="@string/follow_twitter"
-        app:icon="@drawable/ic_twitter_logo_black">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="@string/url_twitter" />
-    </Preference>
+        app:icon="@drawable/ic_twitter_logo_black" />
 
     <Preference
         android:key="@string/chat_freenode"
@@ -78,13 +60,10 @@
     android:title="@string/open_source">
 
     <Preference
+        android:key="@string/source_code"
         android:summary="@string/license_summary"
         android:title="@string/source_code"
-        app:icon="@drawable/ic_octocat">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://tasks.org/source" />
-    </Preference>
+        app:icon="@drawable/ic_octocat" />
 
     <Preference
         android:title="@string/third_party_licenses"
@@ -99,12 +78,9 @@
   <PreferenceCategory
     android:title="@string/privacy">
     <Preference
+        android:key="@string/privacy_policy"
         android:title="@string/privacy_policy"
-        app:icon="@drawable/ic_outline_perm_identity_24px">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://tasks.org/privacy.html" />
-    </Preference>
+        app:icon="@drawable/ic_outline_perm_identity_24px" />
 
     <SwitchPreferenceCompat
         android:defaultValue="true"

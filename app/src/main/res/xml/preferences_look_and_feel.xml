@@ -204,12 +204,9 @@
       android:title="@string/language" />
 
     <Preference
+      android:key="@string/translations"
       android:title="@string/translations"
-      app:icon="@drawable/ic_open_in_new_24px">
-      <intent
-        android:action="android.intent.action.VIEW"
-        android:data="https://tasks.org/translations" />
-    </Preference>
+      app:icon="@drawable/ic_open_in_new_24px" />
 
   </PreferenceCategory>
 

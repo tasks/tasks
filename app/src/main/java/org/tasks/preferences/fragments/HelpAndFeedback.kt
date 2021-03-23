@@ -60,7 +60,16 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
             )
         } else if (!firebase.noChurn()) {
             remove(R.string.rate_tasks)
+        } else {
+            openUrl(R.string.rate_tasks, R.string.market_url)
         }
+
+        openUrl(R.string.documentation, R.string.url_documentation)
+        openUrl(R.string.issue_tracker, R.string.url_issue_tracker)
+        openUrl(R.string.follow_reddit, R.string.url_reddit)
+        openUrl(R.string.follow_twitter, R.string.url_twitter)
+        openUrl(R.string.source_code, R.string.url_source_code)
+        openUrl(R.string.privacy_policy, R.string.url_privacy_policy)
     }
 
     override fun getMenu() = 0

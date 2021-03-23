@@ -124,6 +124,8 @@ class LookAndFeel : InjectingPreferenceFragment() {
             dialog.show(parentFragmentManager, FRAG_TAG_LOCALE_PICKER)
             false
         }
+
+        openUrl(R.string.translations, R.string.url_translations)
     }
 
     override fun onResume() {

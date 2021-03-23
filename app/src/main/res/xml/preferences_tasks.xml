@@ -31,11 +31,7 @@
   <Preference
     android:icon="@drawable/ic_open_in_new_24px"
     android:key="@string/app_passwords_more_info"
-    android:summary="@string/app_passwords_more_info">
-    <intent
-      android:action="android.intent.action.VIEW"
-      android:data="@string/url_app_passwords" />
-  </Preference>
+    android:summary="@string/app_passwords_more_info" />
 
   <EditTextPreference
     android:icon="@drawable/ic_outline_add_24px"

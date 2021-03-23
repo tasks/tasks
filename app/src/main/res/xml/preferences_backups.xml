@@ -3,14 +3,9 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <Preference
+    android:key="@string/documentation"
     android:title="@string/documentation"
-    android:icon="@drawable/ic_open_in_new_24px">
-
-    <intent
-      android:action="android.intent.action.VIEW"
-      android:data="https://tasks.org/backups" />
-
-  </Preference>
+    android:icon="@drawable/ic_open_in_new_24px" />
 
   <Preference
     android:key="@string/p_backup_dir"

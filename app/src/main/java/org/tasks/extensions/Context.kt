@@ -6,9 +6,13 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
 import org.tasks.R
 
 object Context {
+    private const val HTTP = "http"
+    private const val HTTPS = "https"
+
     fun Context.safeStartActivity(intent: Intent) {
         try {
             startActivity(intent)
@@ -20,7 +24,22 @@ object Context {
     fun Context.openUri(resId: Int, vararg formatArgs: Any) = openUri(getString(resId, formatArgs))
 
     fun Context.openUri(url: String?) =
-        url?.let { safeStartActivity(Intent(ACTION_VIEW, Uri.parse(it))) }
+        url?.let { Uri.parse(it) }?.let {
+            when {
+                it.scheme.equals(HTTPS, true) || it.scheme.equals(HTTP, true) ->
+                    try {
+                        CustomTabsIntent.Builder()
+                            .setUrlBarHidingEnabled(true)
+                            .setShowTitle(true)
+                            .setShareState(CustomTabsIntent.SHARE_STATE_ON)
+                            .build()
+                            .launchUrl(this, it)
+                    } catch (e: ActivityNotFoundException) {
+                        toast(R.string.no_app_found)
+                    }
+                else -> safeStartActivity(Intent(ACTION_VIEW, it))
+            }
+        }
 
     fun Context.toast(resId: Int, vararg formatArgs: Any, duration: Int = Toast.LENGTH_LONG) =
         toast(getString(resId, formatArgs), duration)

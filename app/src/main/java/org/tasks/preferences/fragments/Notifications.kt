@@ -131,6 +131,8 @@ class Notifications : InjectingPreferenceFragment() {
 
         checkBatteryOptimizations()
 
+        openUrl(R.string.troubleshooting, R.string.url_notifications)
+
         requires(AndroidUtilities.atLeastOreo(), R.string.more_settings)
         requires(
             AndroidUtilities.preOreo(),

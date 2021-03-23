@@ -88,6 +88,8 @@ class Backups : InjectingPreferenceFragment() {
             }
         }
 
+        openUrl(R.string.documentation, R.string.url_backups)
+
         viewModel.lastBackup.observe(this, this::updateLastBackup)
         viewModel.lastDriveBackup.observe(this, this::updateDriveBackup)
         viewModel.lastAndroidBackup.observe(this, this::updateAndroidBackup)
