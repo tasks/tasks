@@ -14,7 +14,6 @@ import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.backup.TasksJsonImporter
 import org.tasks.backup.TasksJsonImporter.ImportResult
-import org.tasks.ui.Toaster
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,7 +21,6 @@ class ImportTasksDialog : DialogFragment() {
     @Inject lateinit var jsonImporter: TasksJsonImporter
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var context: Activity
-    @Inject lateinit var toaster: Toaster
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val arguments = requireArguments()

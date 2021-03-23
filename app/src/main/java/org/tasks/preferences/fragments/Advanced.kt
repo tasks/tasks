@@ -16,6 +16,7 @@ import org.tasks.R
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.TaskDao
 import org.tasks.etebase.EtebaseLocalCache
+import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.FragmentPermissionRequestor
@@ -23,7 +24,6 @@ import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.PermissionRequestor
 import org.tasks.preferences.Preferences
 import org.tasks.scheduling.CalendarNotificationIntentService
-import org.tasks.ui.Toaster
 import javax.inject.Inject
 
 private const val REQUEST_CODE_FILES_DIR = 10000
@@ -35,7 +35,6 @@ class Advanced : InjectingPreferenceFragment() {
     @Inject lateinit var database: Database
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
-    @Inject lateinit var toaster: Toaster
     @Inject lateinit var permissionRequester: FragmentPermissionRequestor
     @Inject lateinit var permissionChecker: PermissionChecker
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
@@ -186,7 +185,7 @@ class Advanced : InjectingPreferenceFragment() {
     }
 
     private fun performAction(message: Int, callable: suspend () -> Int) = lifecycleScope.launch {
-        toaster.longToastUnformatted(message, callable())
+        context?.toast(message, callable())
     }
 
     private fun resetPreferences() {

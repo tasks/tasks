@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.auth.SignInActivity
+import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.fragments.MainSettingsFragment
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_CALDAV_SETTINGS
@@ -20,7 +21,6 @@ import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_GO
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
 import org.tasks.preferences.fragments.TasksAccount
 import org.tasks.sync.SyncAdapters
-import org.tasks.ui.Toaster
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -28,7 +28,6 @@ class MainPreferences : BasePreferences() {
 
     @Inject lateinit var syncAdapters: SyncAdapters
     @Inject lateinit var workManager: WorkManager
-    @Inject lateinit var toaster: Toaster
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private val viewModel: PreferencesViewModel by viewModels()
@@ -61,7 +60,7 @@ class MainPreferences : BasePreferences() {
                 syncAdapters.sync(true)
                 workManager.updateBackgroundSync()
             } else {
-                data?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)?.let { toaster.longToast(it) }
+                data?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)?.let { toast(it) }
             }
             REQUEST_TASKS_ORG -> if (resultCode == Activity.RESULT_OK) {
                 syncAdapters.sync(true)
@@ -78,7 +77,7 @@ class MainPreferences : BasePreferences() {
                     }
                 }
             } else {
-                data?.getStringExtra(SignInActivity.EXTRA_ERROR)?.let { toaster.longToast(it) }
+                data?.getStringExtra(SignInActivity.EXTRA_ERROR)?.let { toast(it) }
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }

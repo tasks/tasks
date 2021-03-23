@@ -42,6 +42,7 @@ import org.tasks.data.Place
 import org.tasks.data.Place.Companion.newPlace
 import org.tasks.data.PlaceUsage
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.location.LocationPickerAdapter.OnLocationPicked
 import org.tasks.location.LocationSearchAdapter.OnPredictionPicked
@@ -52,7 +53,6 @@ import org.tasks.preferences.PermissionRequestor
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
-import org.tasks.ui.Toaster
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -85,7 +85,6 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     lateinit var recyclerView: RecyclerView
 
     @Inject lateinit var theme: Theme
-    @Inject lateinit var toaster: Toaster
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var permissionChecker: PermissionChecker
     @Inject lateinit var permissionRequestor: ActivityPermissionRequestor
@@ -247,7 +246,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
             } catch (e: Exception) {
                 loadingIndicator.visibility = View.GONE
                 firebase.reportException(e)
-                toaster.longToast(e.message)
+                toast(e.message)
             }
         }
     }
@@ -267,7 +266,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
             try {
                 locationService.currentLocation()?.let { map.movePosition(it, animate) }
             } catch (e: Exception) {
-                toaster.longToast(e.message)
+                toast(e.message)
             }
         }
     }
@@ -314,7 +313,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     private fun handleError(error: Event<String>) {
         val message = error.ifUnhandled
         if (!isNullOrEmpty(message)) {
-            toaster.longToast(message)
+            toast(message)
         }
     }
 

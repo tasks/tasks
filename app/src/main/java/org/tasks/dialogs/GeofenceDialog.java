@@ -24,7 +24,6 @@ import org.tasks.data.Geofence;
 import org.tasks.data.Location;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.PermissionChecker;
-import org.tasks.ui.Toaster;
 
 @AndroidEntryPoint
 public class GeofenceDialog extends DialogFragment {
@@ -39,7 +38,6 @@ public class GeofenceDialog extends DialogFragment {
   @Inject Activity context;
   @Inject Locale locale;
   @Inject PermissionChecker permissionChecker;
-  @Inject Toaster toaster;
 
   @BindView(R.id.location_arrival)
   SwitchMaterial arrivalView;

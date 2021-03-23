@@ -13,13 +13,13 @@ import org.tasks.R
 import org.tasks.dialogs.ExportTasksDialog
 import org.tasks.dialogs.ImportTasksDialog
 import org.tasks.drive.DriveLoginActivity
+import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionRequestor
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.PreferencesViewModel
-import org.tasks.ui.Toaster
 import java.util.*
 import javax.inject.Inject
 
@@ -35,7 +35,6 @@ class Backups : InjectingPreferenceFragment() {
 
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
-    @Inject lateinit var toaster: Toaster
     @Inject lateinit var locale: Locale
 
     private val viewModel: PreferencesViewModel by activityViewModels()
@@ -195,7 +194,7 @@ class Backups : InjectingPreferenceFragment() {
                         ignoreCase = true
                     ))
                 ) {
-                    toaster.longToast(R.string.invalid_backup_file)
+                    context?.toast(R.string.invalid_backup_file)
                 } else {
                     ImportTasksDialog.newImportTasksDialog(uri, extension)
                         .show(parentFragmentManager, FRAG_TAG_IMPORT_TASKS)
@@ -205,7 +204,7 @@ class Backups : InjectingPreferenceFragment() {
             if (resultCode == RESULT_OK) {
                 viewModel.updateDriveBackup()
             } else {
-                data?.getStringExtra(DriveLoginActivity.EXTRA_ERROR)?.let { toaster.longToast(it) }
+                data?.getStringExtra(DriveLoginActivity.EXTRA_ERROR)?.let { context?.toast(it) }
             }
         } else if (requestCode == REQUEST_BACKUP_NOW) {
             if (resultCode == RESULT_OK) {

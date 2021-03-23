@@ -9,15 +9,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingAppCompatActivity
-import org.tasks.ui.Toaster
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class VoiceCommandActivity : InjectingAppCompatActivity() {
     @Inject lateinit var taskCreator: TaskCreator
     @Inject @ApplicationContext lateinit var context: Context
-    @Inject lateinit var toaster: Toaster
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +27,7 @@ class VoiceCommandActivity : InjectingAppCompatActivity() {
                         ?.takeUnless { it.isBlank() }
                         ?.let {
                             taskCreator.basicQuickAddTask(it)
-                            toaster.longToast(R.string.voice_command_added_task)
+                            toast(R.string.voice_command_added_task)
                         }
                 finish()
             }

@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast.LENGTH_SHORT
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
@@ -26,11 +27,11 @@ import org.tasks.billing.Purchase
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.isPaymentRequired
 import org.tasks.data.CaldavDao
+import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
 import org.tasks.locale.Locale
 import org.tasks.preferences.IconPreference
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
-import org.tasks.ui.Toaster
 import java.time.format.FormatStyle
 import javax.inject.Inject
 
@@ -42,7 +43,6 @@ class TasksAccount : BaseAccountPreference() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var workManager: WorkManager
-    @Inject lateinit var toaster: Toaster
     @Inject lateinit var locale: Locale
 
     private val viewModel: TasksAccountViewModel by viewModels()
@@ -83,7 +83,7 @@ class TasksAccount : BaseAccountPreference() {
 
         findPreference(R.string.local_lists).setOnPreferenceClickListener {
             workManager.migrateLocalTasks(caldavAccount)
-            toaster.longToast(R.string.migrating_tasks)
+            context?.toast(R.string.migrating_tasks)
             false
         }
 
@@ -139,7 +139,7 @@ class TasksAccount : BaseAccountPreference() {
                 val label = getString(labelRes)
                 getSystemService(requireContext(), ClipboardManager::class.java)
                         ?.setPrimaryClip(ClipData.newPlainText(label, value))
-                toaster.toast(R.string.copied_to_clipboard, label)
+                context?.toast(R.string.copied_to_clipboard, label, duration = LENGTH_SHORT)
             }
         }
     }

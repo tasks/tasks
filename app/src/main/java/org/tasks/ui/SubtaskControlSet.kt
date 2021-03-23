@@ -40,6 +40,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.*
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.extensions.Context.toast
 import org.tasks.locale.Locale
 import org.tasks.tasklist.SubtaskViewHolder
 import org.tasks.tasklist.SubtasksRecyclerAdapter
@@ -57,7 +58,6 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var googleTaskDao: GoogleTaskDao
-    @Inject lateinit var toaster: Toaster
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDao: TaskDao
@@ -114,7 +114,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     @OnClick(R.id.add_subtask)
     fun addSubtask() {
         if (isGoogleTaskChild) {
-            toaster.longToast(R.string.subtasks_multilevel_google_task)
+            context?.toast(R.string.subtasks_multilevel_google_task)
         } else {
             lifecycleScope.launch {
                 val task = taskCreator.createWithValues("")

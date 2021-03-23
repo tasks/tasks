@@ -8,8 +8,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
+import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingPreferenceFragment
-import org.tasks.ui.Toaster
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -17,7 +17,6 @@ class Debug : InjectingPreferenceFragment() {
 
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var billingClient: BillingClient
-    @Inject lateinit var toaster: Toaster
 
     override fun getPreferenceXml() = R.xml.preferences_debug
 
@@ -38,7 +37,7 @@ class Debug : InjectingPreferenceFragment() {
 
         findPreference(R.string.debug_reset_ssl).setOnPreferenceClickListener {
             resetCertificates(requireContext())
-            toaster.longToast("SSL certificates reset")
+            context?.toast("SSL certificates reset")
             false
         }
 

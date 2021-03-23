@@ -65,6 +65,7 @@ import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.SortDialog
+import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents
@@ -79,7 +80,6 @@ import org.tasks.tasklist.*
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
 import org.tasks.ui.TaskListViewModel
-import org.tasks.ui.Toaster
 import timber.log.Timber
 import java.text.ParseException
 import java.time.format.FormatStyle
@@ -105,7 +105,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var device: Device
     @Inject lateinit var taskMover: TaskMover
-    @Inject lateinit var toaster: Toaster
     @Inject lateinit var taskAdapterProvider: TaskAdapterProvider
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskDuplicator: TaskDuplicator
@@ -421,7 +420,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     private fun clearCompleted() = lifecycleScope.launch {
         val count = taskDeleter.clearCompleted(filter)
-        toaster.longToast(R.string.delete_multiple_tasks_confirmation, count)
+        context?.toast(R.string.delete_multiple_tasks_confirmation, locale.formatNumber(count))
     }
 
     @OnClick(R.id.fab)
