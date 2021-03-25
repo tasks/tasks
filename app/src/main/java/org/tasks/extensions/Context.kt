@@ -42,7 +42,7 @@ object Context {
         }
 
     fun Context.toast(resId: Int, vararg formatArgs: Any, duration: Int = Toast.LENGTH_LONG) =
-        toast(getString(resId, formatArgs), duration)
+        toast(getString(resId, *formatArgs), duration)
 
     fun Context.toast(text: String?, duration: Int = Toast.LENGTH_LONG) =
         text?.let { Toast.makeText(this, it, duration).show() }
