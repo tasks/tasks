@@ -380,4 +380,35 @@
     <string name="etesync_encryption_description">تذكّر كلمة سرّ التشفير التي تختارها، لا يمكن استرجاعها!</string>
     <string name="choose_synchronization_service">اختر منصّة</string>
     <string name="create_new_tag">أنشأ \"%s\"</string>
+    <string name="no_calendars_found">لم يوجد أيّ تقويم</string>
+    <string name="filter">تصفية</string>
+    <string name="passwords_do_not_match">كلمات السرّ لا تتّفق</string>
+    <string name="encryption_password_wrong">كلمة سر تشفير خاطئة</string>
+    <string name="move">انقل</string>
+    <string name="subtasks">مهام فرعيّة</string>
+    <plurals name="list_count">
+        <item quantity="zero">%d قائمة</item>
+        <item quantity="one">%d قائمة</item>
+        <item quantity="two">قائمتان</item>
+        <item quantity="few">%d قوائم</item>
+        <item quantity="many">%d قائمة</item>
+        <item quantity="other">%d قائمة</item>
+    </plurals>
+    <plurals name="subtask_count">
+        <item quantity="zero">%d مهمّة فرعيّة</item>
+        <item quantity="one">%d مهمّة فرعيّة</item>
+        <item quantity="two">مهمّتان فرعيّتان</item>
+        <item quantity="few">%d مهمّات فرعيّة</item>
+        <item quantity="many">%d مهمّة فرعيّة</item>
+        <item quantity="other">%d مهمّة فرعيّة</item>
+    </plurals>
+    <string name="CFC_list_name">في القائمة…</string>
+    <string name="calendar_event_not_found">لم يوجد حدث التقويم</string>
+    <string name="CFC_tag_contains_text">اسم العلامة يحتوي: \?</string>
+    <string name="default_location_reminder_on_arrival_or_departure">عند الوصول والمغادرة</string>
+    <string name="default_location_reminder_on_departure">عند المغادرة</string>
+    <string name="default_location_reminder_on_arrival">عند الوصول</string>
+    <string name="at_deadline">عند الموعد النهائي</string>
+    <string name="EPr_manage_delete_completed_gcal_message">هل حقًّا تريد حذف كل أحداثك للمهام المتمّمة؟</string>
+    <string name="TEA_add_subtask">أضف مهمّة فرعيّة</string>
 </resources>
