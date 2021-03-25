@@ -1,5 +1,17 @@
 ### Shared lists are coming to Tasks! [Read more](https://tasks.org/blog/shared-lists-are-coming)
 
+### 11.9.1 (2021-03-25)
+
+* Open documentation links in custom tabs
+* Fix crash in Mapbox reverse geocoder
+* Increase 'Add subtask' touch target
+* Update translations
+  * Arabic - @mhmdanas
+  * German - Achim Schumacher
+  * Hungarian - kaciokos
+  * Italian - @Fs00
+  * Turkish - @emintufan
+
 ### 11.9 (2021-03-20)
 
 * New calendar and clock pickers
