@@ -703,4 +703,18 @@
     <string name="picker_mode_date">Dátumválasztó mód</string>
     <string name="tasks_needs_your_support">A Tasks-nak szüksége van a támogatásodra!</string>
     <string name="subscription_benefits">Az előfizetés előnyei</string>
+    <string name="more_options">Több opció</string>
+    <string name="upgrade_automation_description">Tasker, Automate és Locate beépülő modulok</string>
+    <string name="upgrade_automation">Automatizálás</string>
+    <string name="upgrade_open_source_description">Az előfizetéseddel a folyamatos fejlesztést támogatod</string>
+    <string name="upgrade_desktop_access_description">Szinkronizálás harmadik fél megoldásaival, mint az Outlook vagy az Apple Emlékeztetők</string>
+    <string name="upgrade_desktop_access">Desktop hozzáférés</string>
+    <string name="upgrade_tasks_org_account_description">Tasks.org szinkronizáció és együttműködés más felhasználókkal</string>
+    <string name="upgrade_google_tasks">Több fiók szinkronizálása</string>
+    <string name="upgrade_customization_icons">Lista ikonok</string>
+    <string name="upgrade_customization_colors">Launcher ikonok, színpaletták és színkör</string>
+    <string name="upgrade_customization_themes">Háttérkép és nappali/éjszakai téma</string>
+    <string name="upgrade_more_customization_description">Az összes téma, szín és ikon feloldása</string>
+    <string name="upgrade_more_customization">Még nagyobb testreszabhatóság</string>
+    <string name="pro_free_trial">Az új előfizetők 7 napos ingyenes kipróbálási lehetőséget kapnak. Az előfizetés bármikor lemondható</string>
 </resources>
