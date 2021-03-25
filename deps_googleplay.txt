@@ -422,7 +422,6 @@
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.3.72 -> 1.4.31 (*)
 ++--- com.google.code.gson:gson:2.8.6
 ++--- com.google.android.material:material:1.3.0 (*)
-++--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01
 ++--- androidx.constraintlayout:constraintlayout:2.1.0-beta01 (*)
 ++--- androidx.swiperefreshlayout:swiperefreshlayout:1.1.0
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0-beta01

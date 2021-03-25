@@ -203,7 +203,6 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.google.android.material:material:1.3.0")
-    implementation("androidx.annotation:annotation:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0-beta01")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.preference:preference:1.1.1")
@@ -253,7 +252,6 @@ dependencies {
     androidTestImplementation("androidx.test:runner:${Versions.androidx_test}")
     androidTestImplementation("androidx.test:rules:${Versions.androidx_test}")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.annotation:annotation:1.1.0")
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:${Versions.okhttp}")
 
     testImplementation("junit:junit:4.13.2")
