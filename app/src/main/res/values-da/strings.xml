@@ -644,4 +644,5 @@
     <string name="custom_filter_has_subtask">Har underopgaver</string>
     <string name="price_per_year">$%s/år</string>
     <string name="no_google_play_subscription">Ingen kvalificeret Google Play abonnement fundet</string>
+    <string name="email">E-mail</string>
 </resources>
