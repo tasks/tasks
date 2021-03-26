@@ -700,4 +700,22 @@
     <string name="social">Social</string>
     <string name="follow_twitter">Segui @tasks_org</string>
     <string name="tasks_needs_your_support">Tasks ha bisogno del tuo supporto!</string>
+    <string name="upgrade_automation_description">Estensioni per Tasker, Automate e Locale</string>
+    <string name="upgrade_automation">Automazione</string>
+    <string name="upgrade_open_source_description">Il tuo abbonamento supporta lo sviluppo continuo</string>
+    <string name="upgrade_desktop_access_description">Sincronizza con clienti di terze parti come Outlook e Apple Reminders</string>
+    <string name="upgrade_desktop_access">Accesso desktop</string>
+    <string name="upgrade_tasks_org_account_description">Sincronizza con Tasks.org e collabora con altri utenti</string>
+    <string name="upgrade_google_tasks">Sincronizza più account</string>
+    <string name="upgrade_customization_icons">Elenco icone</string>
+    <string name="upgrade_customization_colors">Icone di avvio, tavolozze dei colori e ruota dei colori</string>
+    <string name="upgrade_customization_themes">Sfondo e temi giorno/notte</string>
+    <string name="upgrade_more_customization_description">Sblocca tutti i temi, i colori e le icone</string>
+    <string name="upgrade_more_customization">Più personalizzazione</string>
+    <string name="pro_free_trial">I nuovi abbonati ricevono 7 giorni di prova gratuita. Cancella in qualsiasi momento</string>
+    <string name="list_members">Elenco dei membri</string>
+    <string name="sort_due_group">Scadenza %s</string>
+    <string name="sort_start_group">Inizio %s</string>
+    <string name="subscription_benefits">Vantaggi dell\'abbonamento</string>
+    <string name="tasks_org_share">Condividi elenchi con altri utenti</string>
 </resources>
