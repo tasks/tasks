@@ -445,4 +445,5 @@
     <string name="button_unsubscribe">サブスクリプションのキャンセル</string>
     <string name="name_your_price">価格の名前</string>
     <string name="cancel">キャンセル</string>
+    <string name="email">電子メール</string>
 </resources>
