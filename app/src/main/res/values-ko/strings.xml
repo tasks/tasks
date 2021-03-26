@@ -645,4 +645,5 @@
     <string name="no_start_date">시작일 없음</string>
     <string name="CFC_startBefore_name">시작일…</string>
     <string name="CFC_startBefore_text">시작일: \?</string>
+    <string name="email">이메일</string>
 </resources>
