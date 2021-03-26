@@ -475,7 +475,7 @@
     <string name="choose_synchronization_service">Einen Dienst wählen</string>
     <string name="google_tasks_selection_description">Basisdienst zur Synchronisation mit Ihrem Google-Konto</string>
     <string name="caldav_selection_description">Synchronisation basierend auf offenen Internetstandards</string>
-    <string name="etesync_selection_description">Quelloffene, Ende-zu-Ende verschlüsselte Synchronisation</string>
+    <string name="etesync_selection_description">Ende-zu-Ende-verschlüsselte Synchronisation</string>
     <string name="show_advanced_settings">Erweiterte Einstellungen anzeigen</string>
     <string name="caldav_account_description">Erfordert ein Konto bei einem CalDAV-Dienstanbieter oder einem selbst gehosteten Server. Finden Sie einen Dienstanbieter, indem Sie tasks.org/caldav besuchen</string>
     <string name="etesync_account_description">Erfordert ein Konto bei EteSync.com oder einen selbst gehosteten Server</string>
@@ -697,4 +697,25 @@
     <string name="email">E-Mail</string>
     <string name="share_list">Listen teilen</string>
     <string name="tasks_org_share">Listen mit anderen Nutzern teilen</string>
+    <string name="more_options">Weitere Optionen</string>
+    <string name="upgrade_automation_description">Erweiterungen für Tasker, Automate und Locale</string>
+    <string name="upgrade_automation">Automatisierung</string>
+    <string name="upgrade_open_source_description">Dein Abonnement unterstützt die Weiterentwicklung</string>
+    <string name="upgrade_desktop_access_description">Synchronisierung mit Drittanbieter-Clients wie Outlook und Apple Reminders</string>
+    <string name="upgrade_desktop_access">Zugriff zur Arbeitoberfläche</string>
+    <string name="upgrade_tasks_org_account_description">Synchronisiere mit Tasks.org und arbeite mit anderen Benutzern zusammen</string>
+    <string name="upgrade_google_tasks">Synchronisiere mehrere Konten</string>
+    <string name="upgrade_customization_icons">Symbolenliste</string>
+    <string name="upgrade_customization_colors">Startprogramm-Symbole, Farbpaletten und Farbrad</string>
+    <string name="upgrade_customization_themes">Hintergrundbild und Tag/Nacht-Themen</string>
+    <string name="upgrade_more_customization_description">Schalte alle Themen, Farben und Symbole frei</string>
+    <string name="upgrade_more_customization">Mehr Anpassungsmöglichkeiten</string>
+    <string name="pro_free_trial">Neue Abonnenten erhalten eine 7-tägige kostenlose Testversion. Jederzeit abbrechen</string>
+    <string name="picker_mode_text">Text</string>
+    <string name="picker_mode_clock">Uhr</string>
+    <string name="picker_mode_calendar">Kalender</string>
+    <string name="picker_mode_time">Zeitauswahlmodus</string>
+    <string name="picker_mode_date">Datumsauswahlmodus</string>
+    <string name="tasks_needs_your_support">Tasks braucht deine Unterstützung!</string>
+    <string name="subscription_benefits">Abonnementvorteile</string>
 </resources>
