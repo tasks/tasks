@@ -483,4 +483,5 @@
     <string name="last_backup_never">никога</string>
     <string name="last_backup">Последно резервно копие: %s</string>
     <string name="automatic_backups">Автоматични резервни копия</string>
+    <string name="email">Е-поща</string>
 </resources>
