@@ -718,4 +718,11 @@
     <string name="tasks_needs_your_support">Tasks, desteğinize gereksiniyor!</string>
     <string name="subscription_benefits">Abonelik yararları</string>
     <string name="tasks_org_share">Listeleri diğer kullanıcılarla paylaş</string>
+    <string name="next_friday">Sonraki Cma</string>
+    <string name="next_saturday">Sonraki Cts</string>
+    <string name="next_thursday">Sonraki Per</string>
+    <string name="next_wednesday">Sonraki Çar</string>
+    <string name="next_tuesday">Sonraki Sal</string>
+    <string name="next_monday">Sonraki Pts</string>
+    <string name="next_sunday">Sonraki Pzr</string>
 </resources>
