@@ -609,4 +609,5 @@
     <string name="default_due_date">Výchozí termín</string>
     <string name="repeat_type_completion_capitalized">Okamžik dokončení</string>
     <string name="cancel">Zrušit</string>
+    <string name="email">E-mail</string>
 </resources>
