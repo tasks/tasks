@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="TVA_add_comment">Lisa kommentaar…</string>
     <string name="backup_BPr_header">Varukoopiad</string>
@@ -262,4 +262,5 @@
     <string name="version_string">Versioon %s</string>
     <string name="invalid_backup_file">Vigane varukoopia fail</string>
     <string name="google_tasks_add_to_top">Uued ülesanded üleval</string>
+    <string name="email">E-post</string>
 </resources>
