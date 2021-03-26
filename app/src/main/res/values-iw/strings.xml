@@ -692,4 +692,5 @@
     </plurals>
     <string name="default_due_date">ברירת מחדל לתאריך יעד</string>
     <string name="start_date">תאריך התחלה</string>
+    <string name="email">דוא״ל</string>
 </resources>
