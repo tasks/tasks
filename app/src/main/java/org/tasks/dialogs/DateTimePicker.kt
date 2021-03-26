@@ -28,6 +28,7 @@ import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.millisOfDay
 import org.tasks.time.DateTimeUtils.startOfDay
 import java.time.format.FormatStyle
+import java.util.Calendar.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -96,13 +97,14 @@ class DateTimePicker : BaseDateTimePicker() {
         binding.shortcuts.nextWeekButton.text =
                 getString(
                         when (newDateTime().plusWeeks(1).dayOfWeek) {
-                            DayOfWeek.SUNDAY -> R.string.next_sunday
-                            DayOfWeek.MONDAY -> R.string.next_monday
-                            DayOfWeek.TUESDAY -> R.string.next_tuesday
-                            DayOfWeek.WEDNESDAY -> R.string.next_wednesday
-                            DayOfWeek.THURSDAY -> R.string.next_thursday
-                            DayOfWeek.FRIDAY -> R.string.next_friday
-                            DayOfWeek.SATURDAY -> R.string.next_saturday
+                            SUNDAY -> R.string.next_sunday
+                            MONDAY -> R.string.next_monday
+                            TUESDAY -> R.string.next_tuesday
+                            WEDNESDAY -> R.string.next_wednesday
+                            THURSDAY -> R.string.next_thursday
+                            FRIDAY -> R.string.next_friday
+                            SATURDAY -> R.string.next_saturday
+                            else -> throw IllegalArgumentException()
                         }
                 )
         binding.calendarView.setOnDateChangeListener { _, y, m, d ->
