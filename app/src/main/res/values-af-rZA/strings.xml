@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="SSD_sort_auto">Slim sorteer</string>
     <string name="SSD_sort_alpha">Volgens titel</string>
@@ -19,4 +19,5 @@
     <string name="quiet_hours_summary">Geen herinneringe gedurende stil ure nie</string>
     <string name="show_completed">Wys voltooide</string>
     <string name="notification_disable_battery_optimizations_description">Batteryoptimalisering kan kennisgewings vertraag</string>
+    <string name="email">E-pos</string>
 </resources>
