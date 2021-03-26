@@ -33,4 +33,5 @@
     <string name="read_permission_label">Дозволе задатака</string>
     <string name="import_progress_read">Учитавам задатак %d…</string>
     <string name="TLA_menu_settings">Подешавања</string>
+    <string name="email">Е-пошта</string>
 </resources>
