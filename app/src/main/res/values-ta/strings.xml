@@ -560,4 +560,5 @@
     <string name="ring_nonstop">நிறுத்தாமல் ஒலி</string>
     <string name="ring_five_times">ஐந்து முறை ஒலி</string>
     <string name="ring_once">ஒரு முறை ஒலி</string>
+    <string name="email">மின்னஞ்சல்</string>
 </resources>
