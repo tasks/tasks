@@ -262,7 +262,6 @@
     </plurals>
     <string name="today">Днес</string>
     <string name="tomorrow">Утре</string>
-    <string name="next">Следващ %s</string>
     <string name="yesterday">Вчера</string>
     <string name="tmrw">Утре</string>
     <string name="yest">Вчера</string>

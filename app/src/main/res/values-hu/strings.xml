@@ -255,7 +255,6 @@
     </plurals>
     <string name="today">Ma</string>
     <string name="tomorrow">Holnap</string>
-    <string name="next">Következő %s</string>
     <string name="yesterday">Tegnap</string>
     <string name="tmrw">Holn</string>
     <string name="yest">Tegn</string>

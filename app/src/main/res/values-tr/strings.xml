@@ -258,7 +258,6 @@
     </plurals>
     <string name="today">Bugün</string>
     <string name="tomorrow">Yarın</string>
-    <string name="next">Gelecek %s</string>
     <string name="yesterday">Dün</string>
     <string name="tmrw">Yarın</string>
     <string name="yest">Dün</string>

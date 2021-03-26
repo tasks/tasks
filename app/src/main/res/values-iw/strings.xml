@@ -288,7 +288,6 @@
     </plurals>
     <string name="today">היום</string>
     <string name="tomorrow">מחר</string>
-    <string name="next">הבא: %s</string>
     <string name="yesterday">אתמול</string>
     <string name="tmrw">מחר</string>
     <string name="yest">אתמול</string>

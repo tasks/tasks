@@ -297,7 +297,6 @@
     <string name="delete_tag_confirmation">Slett %s\?</string>
     <string name="TEA_timer_comment_stopped">stoppet arbeid med dette gjøremålet:</string>
     <string name="voice_command_added_task">La til gjøremål</string>
-    <string name="next">Neste %s</string>
     <string name="tmrw">Imrgn</string>
     <string name="yest">Igår</string>
     <string name="widget_show_header">Vis hode</string>

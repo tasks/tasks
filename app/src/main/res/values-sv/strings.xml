@@ -172,7 +172,6 @@
     </plurals>
     <string name="today">Idag</string>
     <string name="tomorrow">Imorgon</string>
-    <string name="next">Nästa %s</string>
     <string name="yesterday">Igår</string>
     <string name="tmrw">Imorgon</string>
     <string name="yest">Igår</string>

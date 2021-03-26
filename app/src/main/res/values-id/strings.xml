@@ -185,7 +185,6 @@
     </plurals>
     <string name="today">Hari ini</string>
     <string name="tomorrow">Besok</string>
-    <string name="next">%s depan</string>
     <string name="yesterday">Kemarin</string>
     <string name="tmrw">Bsk</string>
     <string name="yest">Kmrn</string>

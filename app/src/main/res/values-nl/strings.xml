@@ -251,7 +251,6 @@
     </plurals>
     <string name="today">Vandaag</string>
     <string name="tomorrow">Morgen</string>
-    <string name="next">Volgende %s</string>
     <string name="yesterday">Gisteren</string>
     <string name="tmrw">mrgn</string>
     <string name="yest">Gisteren</string>

@@ -255,7 +255,6 @@
     </plurals>
     <string name="today">Heute</string>
     <string name="tomorrow">Morgen</string>
-    <string name="next">Nächster %s</string>
     <string name="yesterday">Gestern</string>
     <string name="tmrw">Morgen</string>
     <string name="yest">Gestern</string>

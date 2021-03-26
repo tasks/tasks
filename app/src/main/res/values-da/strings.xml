@@ -382,7 +382,6 @@
     <string name="yest">I går</string>
     <string name="tmrw">I morgen</string>
     <string name="yesterday_lowercase">i går</string>
-    <string name="next">Næste %s</string>
     <string name="sort_created_group">Oprettet %s</string>
     <string name="disable_battery_optimizations">Deaktiver strømsparetilstand</string>
     <string name="wearable_notifications_summary">Vis notifikationer på din wearable-enhed</string>

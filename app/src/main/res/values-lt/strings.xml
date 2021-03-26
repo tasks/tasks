@@ -257,7 +257,6 @@
     </plurals>
     <string name="today">Šiandien</string>
     <string name="tomorrow">Ryt</string>
-    <string name="next">Kitas %s</string>
     <string name="yesterday">Vakar</string>
     <string name="tmrw">Ryt</string>
     <string name="yest">Vakar</string>

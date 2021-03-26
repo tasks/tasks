@@ -255,7 +255,6 @@
     </plurals>
     <string name="today">오늘</string>
     <string name="tomorrow">내일</string>
-    <string name="next">다음 %s</string>
     <string name="yesterday">어제</string>
     <string name="tmrw">내일</string>
     <string name="yest">어제</string>

@@ -258,7 +258,6 @@
     </plurals>
     <string name="today">Dnes</string>
     <string name="tomorrow">Zajtra</string>
-    <string name="next">Nasledujúci %s</string>
     <string name="yesterday">Včera</string>
     <string name="tmrw">Zajtra</string>
     <string name="yest">Včera</string>

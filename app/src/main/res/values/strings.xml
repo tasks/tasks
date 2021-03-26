@@ -292,7 +292,13 @@ File %1$s contained %2$s.\n\n
   <string name="today_lowercase">today</string>
   <string name="tomorrow">Tomorrow</string>
   <string name="tomorrow_lowercase">tomorrow</string>
-  <string name="next">Next %s</string>
+  <string name="next_sunday">Next Sun</string>
+  <string name="next_monday">Next Mon</string>
+  <string name="next_tuesday">Next Tue</string>
+  <string name="next_wednesday">Next Wed</string>
+  <string name="next_thursday">Next Thu</string>
+  <string name="next_friday">Next Fri</string>
+  <string name="next_saturday">Next Sat</string>
   <string name="yesterday">Yesterday</string>
   <string name="yesterday_lowercase">yesterday</string>
   <string name="tmrw">Tmrw</string>

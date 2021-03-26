@@ -94,7 +94,17 @@ class DateTimePicker : BaseDateTimePicker() {
         setupShortcutsAndCalendar()
         ButterKnife.bind(this, binding.root)
         binding.shortcuts.nextWeekButton.text =
-                getString(R.string.next, DateUtilities.getWeekdayShort(newDateTime().plusWeeks(1), locale.locale))
+                getString(
+                        when (newDateTime().plusWeeks(1).dayOfWeek) {
+                            DayOfWeek.SUNDAY -> R.string.next_sunday
+                            DayOfWeek.MONDAY -> R.string.next_monday
+                            DayOfWeek.TUESDAY -> R.string.next_tuesday
+                            DayOfWeek.WEDNESDAY -> R.string.next_wednesday
+                            DayOfWeek.THURSDAY -> R.string.next_thursday
+                            DayOfWeek.FRIDAY -> R.string.next_friday
+                            DayOfWeek.SATURDAY -> R.string.next_saturday
+                        }
+                )
         binding.calendarView.setOnDateChangeListener { _, y, m, d ->
             returnDate(day = DateTime(y, m + 1, d).millis)
             refreshButtons()

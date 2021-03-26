@@ -257,7 +257,6 @@
     </plurals>
     <string name="today">Oggi</string>
     <string name="tomorrow">Domani</string>
-    <string name="next">Prossimo %s</string>
     <string name="yesterday">Ieri</string>
     <string name="tmrw">Domani</string>
     <string name="yest">Ieri</string>

@@ -267,7 +267,6 @@
     </plurals>
     <string name="today">Dzisiaj</string>
     <string name="tomorrow">Jutro</string>
-    <string name="next">Następny %s</string>
     <string name="yesterday">Wczoraj</string>
     <string name="tmrw">jutro</string>
     <string name="yest">wczoraj</string>

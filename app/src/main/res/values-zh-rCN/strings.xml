@@ -241,7 +241,6 @@
     </plurals>
     <string name="today">今天</string>
     <string name="tomorrow">明天</string>
-    <string name="next">下个 %s</string>
     <string name="yesterday">昨天</string>
     <string name="tmrw">明天</string>
     <string name="yest">昨天</string>

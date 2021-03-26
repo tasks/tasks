@@ -241,7 +241,6 @@
     </plurals>
     <string name="today">Aujourd\'hui</string>
     <string name="tomorrow">Demain</string>
-    <string name="next">%s prochain</string>
     <string name="yesterday">Hier</string>
     <string name="tmrw">Demain</string>
     <string name="yest">Hier</string>

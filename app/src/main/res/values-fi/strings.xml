@@ -247,7 +247,6 @@
     </plurals>
     <string name="today">Tänään</string>
     <string name="tomorrow">Huomenna</string>
-    <string name="next">Seuraava %s</string>
     <string name="yesterday">Eilen</string>
     <string name="tmrw">Huominen</string>
     <string name="yest">Eilinen</string>

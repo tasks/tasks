@@ -280,7 +280,6 @@
     <string name="widget_show_dividers">顯示分隔線</string>
     <string name="widget_show_menu">顯示清單</string>
     <string name="yesterday_lowercase">昨天</string>
-    <string name="next">下一個 %s</string>
     <string name="tomorrow_lowercase">明天</string>
     <string name="today_lowercase">今天</string>
     <string name="voice_command_added_task">已新增的任務</string>

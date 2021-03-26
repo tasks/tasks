@@ -258,7 +258,6 @@
     </plurals>
     <string name="today">Gaur</string>
     <string name="tomorrow">Bihar</string>
-    <string name="next">Datorren %s</string>
     <string name="yesterday">Atzo</string>
     <string name="tmrw">Bihar</string>
     <string name="yest">Atzo</string>
