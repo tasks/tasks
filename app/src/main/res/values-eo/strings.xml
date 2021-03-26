@@ -222,4 +222,5 @@
     <string name="backup_BAc_import">Enporti savkopion</string>
     <string name="backup_BAc_export">Savkopii nun</string>
     <string name="backup_BPr_header">Savkopioj</string>
+    <string name="email">Retpoŝto</string>
 </resources>
