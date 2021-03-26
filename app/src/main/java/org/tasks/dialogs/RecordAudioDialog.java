@@ -8,26 +8,28 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Chronometer;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.todoroo.astrid.voice.AACRecorder;
-import dagger.hilt.android.AndroidEntryPoint;
-import java.io.IOException;
-import javax.inject.Inject;
+
 import org.tasks.R;
+import org.tasks.databinding.AacRecordActivityBinding;
 import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class RecordAudioDialog extends DialogFragment implements AACRecorder.AACRecorderCallbacks {
@@ -38,9 +40,7 @@ public class RecordAudioDialog extends DialogFragment implements AACRecorder.AAC
   @Inject FragmentPermissionRequestor permissionRequestor;
   @Inject PermissionChecker permissionChecker;
 
-  @BindView(R.id.timer)
-  Chronometer timer;
-
+  private Chronometer timer;
   private AACRecorder recorder;
 
   static RecordAudioDialog newRecordAudioDialog(Fragment target, int requestCode) {
@@ -52,10 +52,10 @@ public class RecordAudioDialog extends DialogFragment implements AACRecorder.AAC
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    LayoutInflater layoutInflater = theme.getLayoutInflater(getContext());
-    View view = layoutInflater.inflate(R.layout.aac_record_activity, null);
-    ButterKnife.bind(this, view);
-
+    AacRecordActivityBinding binding =
+            AacRecordActivityBinding.inflate(theme.getLayoutInflater(getContext()));
+    timer = binding.timer;
+    binding.stopRecording.setOnClickListener(v -> stopRecording());
     recorder = new ViewModelProvider(this).get(AACRecorder.class);
     recorder.init(this, preferences);
 
@@ -67,7 +67,7 @@ public class RecordAudioDialog extends DialogFragment implements AACRecorder.AAC
 
     return dialogBuilder
         .newDialog(R.string.audio_recording_title)
-        .setView(view)
+        .setView(binding.getRoot())
         .create();
   }
 
@@ -88,8 +88,7 @@ public class RecordAudioDialog extends DialogFragment implements AACRecorder.AAC
     stopRecording();
   }
 
-  @OnClick(R.id.stop_recording)
-  void stopRecording() {
+  private void stopRecording() {
     recorder.stopRecording();
     timer.stop();
   }

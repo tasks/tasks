@@ -2,7 +2,6 @@ package org.tasks.repeats;
 
 import static android.app.Activity.RESULT_OK;
 import static com.google.common.collect.Lists.newArrayList;
-import static java.util.Arrays.asList;
 import static net.fortuna.ical4j.model.Recur.Frequency.DAILY;
 import static net.fortuna.ical4j.model.Recur.Frequency.HOURLY;
 import static net.fortuna.ical4j.model.Recur.Frequency.MINUTELY;
@@ -14,6 +13,7 @@ import static org.tasks.dialogs.MyDatePickerDialog.newDatePicker;
 import static org.tasks.repeats.BasicRecurrenceDialog.EXTRA_RRULE;
 import static org.tasks.repeats.RecurrenceUtils.newRecur;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+import static java.util.Arrays.asList;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -39,31 +39,39 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnItemSelected;
-import butterknife.OnTextChanged;
+
 import com.todoroo.andlib.utility.DateUtilities;
-import dagger.hilt.android.AndroidEntryPoint;
-import java.text.DateFormatSymbols;
-import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import javax.inject.Inject;
+
 import net.fortuna.ical4j.model.Recur;
 import net.fortuna.ical4j.model.Recur.Frequency;
 import net.fortuna.ical4j.model.WeekDay;
+
 import org.tasks.R;
+import org.tasks.databinding.ControlSetRepeatBinding;
+import org.tasks.databinding.WeekButtonsBinding;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.ResourceResolver;
 import org.tasks.time.DateTime;
+import org.tasks.ui.OnItemSelected;
+import org.tasks.ui.OnTextChanged;
+
+import java.text.DateFormatSymbols;
+import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
 
 @AndroidEntryPoint
@@ -79,63 +87,16 @@ public class CustomRecurrenceDialog extends DialogFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject Locale locale;
 
-  @BindView(R.id.weekGroup)
-  LinearLayout weekGroup1;
-
-  @BindView(R.id.weekGroup2)
-  @Nullable
-  LinearLayout weekGroup2;
-
-  @BindView(R.id.week_day_1)
-  ToggleButton day1;
-
-  @BindView(R.id.week_day_2)
-  ToggleButton day2;
-
-  @BindView(R.id.week_day_3)
-  ToggleButton day3;
-
-  @BindView(R.id.week_day_4)
-  ToggleButton day4;
-
-  @BindView(R.id.week_day_5)
-  ToggleButton day5;
-
-  @BindView(R.id.week_day_6)
-  ToggleButton day6;
-
-  @BindView(R.id.week_day_7)
-  ToggleButton day7;
-
-  @BindView(R.id.month_group)
-  RadioGroup monthGroup;
-
-  @BindView(R.id.repeat_monthly_same_day)
-  RadioButton repeatMonthlySameDay;
-
-  @BindView(R.id.repeat_monthly_day_of_nth_week)
-  RadioButton repeatMonthlyDayOfNthWeek;
-
-  @BindView(R.id.repeat_monthly_day_of_last_week)
-  RadioButton repeatMonthlyDayOfLastWeek;
-
-  @BindView(R.id.repeat_until)
-  Spinner repeatUntilSpinner;
-
-  @BindView(R.id.frequency)
-  Spinner frequencySpinner;
-
-  @BindView(R.id.intervalValue)
-  EditText intervalEditText;
-
-  @BindView(R.id.intervalText)
-  TextView intervalTextView;
-
-  @BindView(R.id.repeatTimesValue)
-  EditText repeatTimes;
-
-  @BindView(R.id.repeatTimesText)
-  TextView repeatTimesText;
+  private LinearLayout weekGroup1;
+  @Nullable private LinearLayout weekGroup2;
+  private RadioGroup monthGroup;
+  private RadioButton repeatMonthlyDayOfNthWeek;
+  private RadioButton repeatMonthlyDayOfLastWeek;
+  private Spinner repeatUntilSpinner;
+  private EditText intervalEditText;
+  private TextView intervalTextView;
+  private EditText repeatTimes;
+  private TextView repeatTimesText;
 
   private ArrayAdapter<String> repeatUntilAdapter;
   private ToggleButton[] weekButtons;
@@ -159,7 +120,8 @@ public class CustomRecurrenceDialog extends DialogFragment {
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     LayoutInflater inflater = LayoutInflater.from(context);
-    View dialogView = inflater.inflate(R.layout.control_set_repeat, null);
+    ControlSetRepeatBinding binding = ControlSetRepeatBinding.inflate(inflater);
+    WeekButtonsBinding weekBinding = WeekButtonsBinding.bind(binding.getRoot());
 
     Bundle arguments = getArguments();
     dueDate = arguments.getLong(EXTRA_DATE, currentTimeMillis());
@@ -183,7 +145,45 @@ public class CustomRecurrenceDialog extends DialogFragment {
     DateFormatSymbols dfs = new DateFormatSymbols(locale.getLocale());
     String[] shortWeekdays = dfs.getShortWeekdays();
 
-    ButterKnife.bind(this, dialogView);
+    weekGroup1 = weekBinding.weekGroup;
+    weekGroup2 = weekBinding.weekGroup2;
+    monthGroup = binding.monthGroup;
+    repeatMonthlyDayOfNthWeek = binding.repeatMonthlyDayOfNthWeek;
+    repeatMonthlyDayOfLastWeek = binding.repeatMonthlyDayOfLastWeek;
+    repeatUntilSpinner = binding.repeatUntil;
+    repeatUntilSpinner.setOnItemSelectedListener(new OnItemSelected() {
+      @Override
+      public void onItemSelected(int position) {
+        onRepeatUntilChanged(position);
+      }
+    });
+    intervalEditText = binding.intervalValue;
+    intervalEditText.addTextChangedListener(new OnTextChanged() {
+      @Override
+      public void onTextChanged(@Nullable CharSequence text) {
+        if (text != null) {
+          onRepeatValueChanged(text);
+        }
+      }
+    });
+    intervalTextView = binding.intervalText;
+    repeatTimes = binding.repeatTimesValue;
+    repeatTimes.addTextChangedListener(new OnTextChanged() {
+      @Override
+      public void onTextChanged(@Nullable CharSequence text) {
+        if (text != null) {
+          onRepeatTimesValueChanged(text);
+        }
+      }
+    });
+    repeatTimesText = binding.repeatTimesText;
+    AppCompatSpinner frequency = binding.frequency;
+    frequency.setOnItemSelectedListener(new OnItemSelected() {
+      @Override
+      public void onItemSelected(int position) {
+        onFrequencyChanged(position);
+      }
+    });
 
     Calendar dayOfMonthCalendar = Calendar.getInstance(locale.getLocale());
     dayOfMonthCalendar.setTimeInMillis(dueDate);
@@ -233,14 +233,14 @@ public class CustomRecurrenceDialog extends DialogFragment {
     }
     if (monthGroup.getCheckedRadioButtonId() != R.id.repeat_monthly_day_of_last_week
         && monthGroup.getCheckedRadioButtonId() != R.id.repeat_monthly_day_of_nth_week) {
-      repeatMonthlySameDay.setChecked(true);
+      binding.repeatMonthlySameDay.setChecked(true);
     }
 
     ArrayAdapter<CharSequence> frequencyAdapter =
         ArrayAdapter.createFromResource(context, R.array.repeat_frequency, R.layout.frequency_item);
     frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    frequencySpinner.setAdapter(frequencyAdapter);
-    frequencySpinner.setSelection(FREQUENCIES.indexOf(rrule.getFrequency()));
+    frequency.setAdapter(frequencyAdapter);
+    frequency.setSelection(FREQUENCIES.indexOf(rrule.getFrequency()));
 
     intervalEditText.setText(locale.formatNumber(rrule.getInterval()));
 
@@ -273,7 +273,15 @@ public class CustomRecurrenceDialog extends DialogFragment {
     repeatUntilSpinner.setAdapter(repeatUntilAdapter);
     updateRepeatUntilOptions();
 
-    weekButtons = new ToggleButton[] {day1, day2, day3, day4, day5, day6, day7};
+    weekButtons = new ToggleButton[]{
+            weekBinding.weekDay1.button,
+            weekBinding.weekDay2.button,
+            weekBinding.weekDay3.button,
+            weekBinding.weekDay4.button,
+            weekBinding.weekDay5.button,
+            weekBinding.weekDay6.button,
+            weekBinding.weekDay7.button
+    };
 
     // set up days of week
     Calendar dayOfWeekCalendar = Calendar.getInstance(locale.getLocale());
@@ -336,7 +344,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
 
     return dialogBuilder
         .newDialog()
-        .setView(dialogView)
+        .setView(binding.getRoot())
         .setPositiveButton(R.string.ok, this::onRuleSelected)
         .setNegativeButton(R.string.cancel, null)
         .show();
@@ -448,8 +456,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     }
   }
 
-  @OnItemSelected(R.id.repeat_until)
-  public void onRepeatUntilChanged(int position) {
+  private void onRepeatUntilChanged(int position) {
     if (repeatUntilOptions.size() == 4) {
       position--;
     }
@@ -466,8 +473,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     }
   }
 
-  @OnItemSelected(R.id.frequency)
-  public void onFrequencyChanged(int position) {
+  private void onFrequencyChanged(int position) {
     Frequency frequency = FREQUENCIES.get(position);
     rrule.setFrequency(frequency.name());
     int weekVisibility = frequency == WEEKLY ? View.VISIBLE : View.GONE;
@@ -479,8 +485,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     updateIntervalTextView();
   }
 
-  @OnTextChanged(R.id.intervalValue)
-  public void onRepeatValueChanged(CharSequence text) {
+  private void onRepeatValueChanged(CharSequence text) {
     Integer value = locale.parseInteger(text.toString());
     if (value == null) {
       return;
@@ -492,8 +497,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     }
   }
 
-  @OnTextChanged(R.id.repeatTimesValue)
-  public void onRepeatTimesValueChanged(CharSequence text) {
+  private void onRepeatTimesValueChanged(CharSequence text) {
     Integer value = locale.parseInteger(text.toString());
     if (value == null) {
       return;

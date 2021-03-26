@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
-import butterknife.OnCheckedChanged
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +27,9 @@ class EtebaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         super.onCreate(savedInstanceState)
         binding.repeat.visibility = View.GONE
         binding.showAdvanced.visibility = View.VISIBLE
+        binding.showAdvanced.setOnCheckedChangeListener { _, _ ->
+            updateUrlVisibility()
+        }
         updateUrlVisibility()
     }
 
@@ -69,11 +71,6 @@ class EtebaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
             account.password = encryption.encrypt(session)
         }
         saveAccountAndFinish()
-    }
-
-    @OnCheckedChanged(R.id.show_advanced)
-    fun toggleUrl() {
-        updateUrlVisibility()
     }
 
     private fun updateUrlVisibility() {

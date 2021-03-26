@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -71,7 +69,6 @@ class StartDatePicker : BaseDateTimePicker() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DialogStartDatePickerBinding.inflate(theme.getLayoutInflater(requireContext()))
         setupShortcutsAndCalendar()
-        ButterKnife.bind(this, binding.root)
         binding.calendarView.setOnDateChangeListener { _, y, m, d ->
             returnDate(day = DateTime(y, m + 1, d).millis)
             refreshButtons()
@@ -82,7 +79,21 @@ class StartDatePicker : BaseDateTimePicker() {
                         ?: requireArguments().getInt(EXTRA_TIME)
                                 .takeIf { Task.hasDueTime(it.toLong()) }
                                 ?: NO_TIME
-
+        with(binding.shortcuts) {
+            noDateButton.setOnClickListener { clearDate() }
+            noTime.setOnClickListener { clearTime() }
+            dueDateButton.setOnClickListener { setToday() }
+            dayBeforeDueButton.setOnClickListener { setTomorrow() }
+            weekBeforeDueButton.setOnClickListener { setNextWeek() }
+            morningButton.setOnClickListener { setMorning() }
+            afternoonButton.setOnClickListener { setAfternoon() }
+            eveningButton.setOnClickListener { setEvening() }
+            nightButton.setOnClickListener { setNight() }
+            dueTimeButton.setOnClickListener { setDueTime() }
+            currentDateSelection.setOnClickListener { currentDate() }
+            currentTimeSelection.setOnClickListener { currentTime() }
+            pickTimeButton.setOnClickListener { pickTime() }
+        }
         return binding.root
     }
 
@@ -128,50 +139,25 @@ class StartDatePicker : BaseDateTimePicker() {
         }
     }
 
-    @OnClick(R.id.no_date_button)
-    fun clearDate() = returnDate(day = 0, time = 0)
-
-    @OnClick(R.id.no_time)
-    fun clearTime() = returnDate(
+    private fun clearDate() = returnDate(day = 0, time = 0)
+    private fun clearTime() = returnDate(
             day = when (selectedDay) {
                 DUE_TIME -> DUE_DATE
                 else -> selectedDay
             },
             time = 0
     )
-
-    @OnClick(R.id.due_date_button)
-    fun setToday() = returnDate(day = DUE_DATE)
-
-    @OnClick(R.id.day_before_due_button)
-    fun setTomorrow() = returnDate(day = DAY_BEFORE_DUE)
-
-    @OnClick(R.id.week_before_due_button)
-    fun setNextWeek() = returnDate(day = WEEK_BEFORE_DUE)
-
-    @OnClick(R.id.morning_button)
-    fun setMorning() = returnSelectedTime(morning)
-
-    @OnClick(R.id.afternoon_button)
-    fun setAfternoon() = returnSelectedTime(afternoon)
-
-    @OnClick(R.id.evening_button)
-    fun setEvening() = returnSelectedTime(evening)
-
-    @OnClick(R.id.night_button)
-    fun setNight() = returnSelectedTime(night)
-
-    @OnClick(R.id.due_time_button)
-    fun setDueTime() = returnDate(day = DUE_TIME, time = NO_TIME)
-
-    @OnClick(R.id.current_date_selection)
-    fun currentDate() = returnDate(day = customDate)
-
-    @OnClick(R.id.current_time_selection)
-    fun currentTime() = returnSelectedTime(customTime)
-
-    @OnClick(R.id.pick_time_button)
-    fun pickTime() {
+    private fun setToday() = returnDate(day = DUE_DATE)
+    private fun setTomorrow() = returnDate(day = DAY_BEFORE_DUE)
+    private fun setNextWeek() = returnDate(day = WEEK_BEFORE_DUE)
+    private fun setMorning() = returnSelectedTime(morning)
+    private fun setAfternoon() = returnSelectedTime(afternoon)
+    private fun setEvening() = returnSelectedTime(evening)
+    private fun setNight() = returnSelectedTime(night)
+    private fun setDueTime() = returnDate(day = DUE_TIME, time = NO_TIME)
+    private fun currentDate() = returnDate(day = customDate)
+    private fun currentTime() = returnSelectedTime(customTime)
+    private fun pickTime() {
         val time = if (selectedTime < 0 || !Task.hasDueTime(today.withMillisOfDay(selectedTime).millis)) {
             today.noon().millisOfDay
         } else {

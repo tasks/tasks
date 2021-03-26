@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.data.TagData
+import org.tasks.databinding.RowTagPickerBinding
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons.getIconResId
 
@@ -21,10 +22,12 @@ internal class TagRecyclerAdapter(
 
     private val differ: AsyncListDiffer<TagData> = AsyncListDiffer(this, TagDiffCallback())
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagPickerViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.row_tag_picker, parent, false)
-        return TagPickerViewHolder(context, view, callback)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        TagPickerViewHolder(
+            context,
+            RowTagPickerBinding.inflate(LayoutInflater.from(context), parent, false),
+            callback
+        )
 
     override fun onBindViewHolder(holder: TagPickerViewHolder, position: Int) {
         val tagData = differ.currentList[position]

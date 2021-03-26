@@ -5,12 +5,10 @@ import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.dialogs.ColorPalettePicker
@@ -34,22 +32,26 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
     protected var selectedColor = 0
     protected var selectedIcon = -1
 
-    @BindView(R.id.clear)
-    lateinit var clear: View
-
-    @BindView(R.id.color)
-    lateinit var color: TextView
-
-    @BindView(R.id.icon)
-    lateinit var icon: TextView
-
-    @BindView(R.id.toolbar)
-    lateinit var toolbar: Toolbar
+    private lateinit var clear: View
+    private lateinit var color: TextView
+    private lateinit var icon: TextView
+    protected lateinit var toolbar: Toolbar
+    protected lateinit var colorRow: ViewGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout)
-        ButterKnife.bind(this)
+        val view = bind()
+        setContentView(view)
+        clear = findViewById<View>(R.id.clear).apply {
+            setOnClickListener { clearColor() }
+        }
+        color = findViewById(R.id.color)
+        colorRow = findViewById<ViewGroup>(R.id.color_row).apply {
+            setOnClickListener { showThemePicker() }
+        }
+        icon = findViewById(R.id.icon)
+        findViewById<View>(R.id.icon_row).setOnClickListener { showIconPicker() }
+        toolbar = view.findViewById(R.id.toolbar)
         if (savedInstanceState != null) {
             selectedColor = savedInstanceState.getInt(EXTRA_SELECTED_THEME)
             selectedIcon = savedInstanceState.getInt(EXTRA_SELECTED_ICON)
@@ -73,12 +75,12 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
         discard()
     }
 
-    protected abstract val layout: Int
     protected abstract fun hasChanges(): Boolean
     protected abstract suspend fun save()
     protected abstract val isNew: Boolean
     protected abstract val toolbarTitle: String?
     protected abstract suspend fun delete()
+    protected abstract fun bind(): View
     protected open fun discard() {
         if (!hasChanges()) {
             finish()
@@ -91,19 +93,16 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
         }
     }
 
-    @OnClick(R.id.clear)
-    fun clearColor() {
+    private fun clearColor() {
         onColorPicked(0)
     }
 
-    @OnClick(R.id.color_row)
-    fun showThemePicker() {
+    private fun showThemePicker() {
         newColorPalette(null, 0, selectedColor, Palette.COLORS)
                 .show(supportFragmentManager, FRAG_TAG_COLOR_PICKER)
     }
 
-    @OnClick(R.id.icon_row)
-    fun showIconPicker() {
+    private fun showIconPicker() {
         IconPickerDialog.newIconPicker(selectedIcon).show(supportFragmentManager, FRAG_TAG_ICON_PICKER)
     }
 

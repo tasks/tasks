@@ -10,13 +10,11 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.databinding.DialogIconPickerBinding
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
 import org.tasks.themes.ColorProvider
@@ -68,16 +66,12 @@ class ColorPalettePicker : DialogFragment() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
 
-    @BindView(R.id.icons) lateinit var recyclerView: RecyclerView
-
     private lateinit var colors: List<Pickable>
     private lateinit var palette: Palette
     var callback: ColorPickedCallback? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.dialog_icon_picker, null)
-        ButterKnife.bind(this, view)
+        val binding = DialogIconPickerBinding.inflate(LayoutInflater.from(context))
         palette = requireArguments().getSerializable(EXTRA_PALETTE) as Palette
         colors = when (palette) {
             Palette.COLORS -> colorProvider.getThemeColors()
@@ -89,13 +83,15 @@ class ColorPalettePicker : DialogFragment() {
         }
 
         val iconPickerAdapter = ColorPickerAdapter(requireActivity(), inventory, this::onSelected)
-        recyclerView.layoutManager = IconLayoutManager(context)
-        recyclerView.adapter = iconPickerAdapter
+        with(binding.icons) {
+            layoutManager = IconLayoutManager(context)
+            adapter = iconPickerAdapter
+        }
         iconPickerAdapter.submitList(colors)
         val builder =
             dialogBuilder
                 .newDialog()
-                .setView(view)
+                .setView(binding.root)
         if (palette == Palette.COLORS || palette == Palette.WIDGET) {
             builder.setNeutralButton(R.string.color_wheel) { _, _ ->
                 val selected = arguments?.getInt(EXTRA_SELECTED) ?: 0

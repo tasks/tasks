@@ -20,8 +20,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.OnClick
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.QueryTemplate
@@ -40,6 +38,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.*
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.databinding.ControlSetSubtasksBinding
 import org.tasks.extensions.Context.toast
 import org.tasks.locale.Locale
 import org.tasks.tasklist.SubtaskViewHolder
@@ -48,11 +47,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks {
-    @BindView(R.id.recycler_view)
-    lateinit var recyclerView: RecyclerView
-
-    @BindView(R.id.new_subtasks)
-    lateinit var newSubtaskContainer: LinearLayout
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var newSubtaskContainer: LinearLayout
 
     @Inject lateinit var activity: Activity
     @Inject lateinit var taskCompleter: TaskCompleter
@@ -89,7 +85,13 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
         }
     }
 
-    override val layout = R.layout.control_set_subtasks
+    override fun bind(parent: ViewGroup?) =
+        ControlSetSubtasksBinding.inflate(layoutInflater, parent, true).let {
+            recyclerView = it.recyclerView
+            newSubtaskContainer = it.newSubtasks
+            it.addSubtask.setOnClickListener { addSubtask() }
+            it.root
+        }
 
     override val icon = R.drawable.ic_subdirectory_arrow_right_black_24dp
 
@@ -111,8 +113,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
         localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
 
-    @OnClick(R.id.add_subtask)
-    fun addSubtask() {
+    private fun addSubtask() {
         if (isGoogleTaskChild) {
             context?.toast(R.string.subtasks_multilevel_google_task)
         } else {

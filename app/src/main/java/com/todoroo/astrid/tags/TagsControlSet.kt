@@ -9,12 +9,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import butterknife.BindView
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.data.TagData
+import org.tasks.databinding.ControlSetTagsBinding
 import org.tasks.tags.TagPickerActivity
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.TaskEditControlFragment
@@ -29,11 +30,8 @@ import javax.inject.Inject
 class TagsControlSet : TaskEditControlFragment() {
     @Inject lateinit var chipProvider: ChipProvider
     
-    @BindView(R.id.no_tags)
-    lateinit var tagsDisplay: TextView
-
-    @BindView(R.id.chip_group)
-    lateinit var chipGroup: ChipGroup
+    private lateinit var tagsDisplay: TextView
+    private lateinit var chipGroup: ChipGroup
     
     override fun createView(savedInstanceState: Bundle?) {
         refreshDisplayView()
@@ -45,7 +43,12 @@ class TagsControlSet : TaskEditControlFragment() {
         startActivityForResult(intent, REQUEST_TAG_PICKER_ACTIVITY)
     }
 
-    override val layout = R.layout.control_set_tags
+    override fun bind(parent: ViewGroup?) =
+        ControlSetTagsBinding.inflate(layoutInflater, parent, true).let {
+            tagsDisplay = it.noTags
+            chipGroup = it.chipGroup
+            it.root
+        }
 
     override val isClickable = true
 

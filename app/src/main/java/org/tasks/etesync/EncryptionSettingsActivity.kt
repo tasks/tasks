@@ -7,10 +7,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
-import butterknife.ButterKnife
-import butterknife.OnTextChanged
 import com.etesync.journalmanager.Constants.Companion.CURRENT_VERSION
 import com.etesync.journalmanager.Crypto.CryptoManager
 import com.etesync.journalmanager.Crypto.deriveKey
@@ -45,7 +44,6 @@ class EncryptionSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.O
         super.onCreate(savedInstanceState)
         binding = ActivityEtesyncEncryptionSettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ButterKnife.bind(this)
         val intent = intent
         caldavAccount = intent.getParcelableExtra(EXTRA_ACCOUNT)
         userInfo = intent.getSerializableExtra(EXTRA_USER_INFO) as UserInfoManager.UserInfo
@@ -64,6 +62,12 @@ class EncryptionSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.O
         if (createUserInfoViewModel.inProgress) {
             showProgressIndicator()
         }
+        binding.repeatEncryptionPassword.addTextChangedListener(
+            onTextChanged = { _, _, _, _ -> onRepeatEncryptionPasswordChanged() }
+        )
+        binding.encryptionPassword.addTextChangedListener(
+            onTextChanged = { _, _, _, _ -> onEncryptionPasswordChanged() }
+        )
     }
 
     private fun showProgressIndicator() {
@@ -153,13 +157,11 @@ class EncryptionSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.O
         return snackbar
     }
 
-    @OnTextChanged(R.id.repeat_encryption_password)
-    fun onRpeatEncryptionPasswordChanged() {
+    private fun onRepeatEncryptionPasswordChanged() {
         binding.repeatEncryptionPasswordLayout.error = null
     }
 
-    @OnTextChanged(R.id.encryption_password)
-    fun onEncryptionPasswordChanged() {
+    private fun onEncryptionPasswordChanged() {
         binding.encryptionPasswordLayout.error = null
     }
 

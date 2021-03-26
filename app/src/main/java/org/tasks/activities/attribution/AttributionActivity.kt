@@ -2,7 +2,6 @@ package org.tasks.activities.attribution
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import butterknife.ButterKnife
 import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -18,7 +17,6 @@ class AttributionActivity : ThemedInjectingAppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityAttributionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ButterKnife.bind(this)
         with(binding.toolbar.toolbar) {
             setTitle(R.string.third_party_licenses)
             setNavigationIcon(R.drawable.ic_outline_arrow_back_24px)

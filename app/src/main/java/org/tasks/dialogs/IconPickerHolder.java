@@ -1,40 +1,36 @@
 package org.tasks.dialogs;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import org.tasks.Callback;
 import org.tasks.R;
+import org.tasks.databinding.DialogIconPickerCellBinding;
 import org.tasks.themes.DrawableUtil;
 
 public class IconPickerHolder extends RecyclerView.ViewHolder {
 
   private final Context context;
   private final Callback<Integer> onClick;
-
-  @BindView(R.id.icon)
-  AppCompatImageView imageView;
+  private final AppCompatImageView imageView;
 
   private int index;
   private boolean isEnabled;
 
-  IconPickerHolder(Context context, @NonNull View view, Callback<Integer> onClick) {
-    super(view);
+  IconPickerHolder(Context context, DialogIconPickerCellBinding binding, Callback<Integer> onClick) {
+    super(binding.getRoot());
 
-    ButterKnife.bind(this, view);
+    imageView = binding.icon;
+    imageView.setOnClickListener(v -> onClick());
 
     this.context = context;
     this.onClick = onClick;
   }
 
-  @OnClick(R.id.icon)
-  void onClick() {
+  private void onClick() {
     if (isEnabled) {
       onClick.call(index);
     } else {

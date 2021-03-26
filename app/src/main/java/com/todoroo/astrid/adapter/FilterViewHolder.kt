@@ -7,8 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.FilterListItem
@@ -16,6 +14,7 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import org.tasks.R
 import org.tasks.billing.Inventory
+import org.tasks.databinding.FilterAdapterRowBinding
 import org.tasks.filters.PlaceFilter
 import org.tasks.locale.Locale
 import org.tasks.themes.ColorProvider
@@ -31,25 +30,22 @@ class FilterViewHolder internal constructor(
         private val colorProvider: ColorProvider,
         private val onClick: ((FilterListItem?) -> Unit)?) : RecyclerView.ViewHolder(itemView) {
 
-    @BindView(R.id.row)
-    lateinit var row: View
-
-    @BindView(R.id.text)
-    lateinit var text: CheckedTextView
-
-    @BindView(R.id.icon)
-    lateinit var icon: ImageView
-
-    @BindView(R.id.size)
-    lateinit var size: TextView
-
-    @BindView(R.id.share_indicator)
-    lateinit var shareIndicator: ImageView
+    private val row: View
+    private val text: CheckedTextView
+    private val icon: ImageView
+    private val size: TextView
+    private val shareIndicator: ImageView
 
     lateinit var filter: FilterListItem
 
     init {
-        ButterKnife.bind(this, itemView)
+        FilterAdapterRowBinding.bind(itemView).let {
+            row = it.row
+            text = it.text
+            icon = it.icon
+            size = it.size
+            shareIndicator = it.shareIndicator
+        }
         if (navigationDrawer) {
             text.checkMarkDrawable = null
         }

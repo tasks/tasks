@@ -5,10 +5,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.todoroo.astrid.api.FilterListItem
-import org.tasks.R
+import org.tasks.databinding.FilterAdapterActionBinding
 import org.tasks.themes.DrawableUtil
 
 class ActionViewHolder internal constructor(
@@ -16,17 +14,16 @@ class ActionViewHolder internal constructor(
         itemView: View,
         private val onClick: ((FilterListItem?) -> Unit)?) : RecyclerView.ViewHolder(itemView) {
 
-    @BindView(R.id.row)
-    lateinit var row: View
-
-    @BindView(R.id.text)
-    lateinit var text: TextView
-
-    @BindView(R.id.icon)
-    lateinit var icon: ImageView
+    private val row: View
+    private val text: TextView
+    private val icon: ImageView
 
     init {
-        ButterKnife.bind(this, itemView)
+        FilterAdapterActionBinding.bind(itemView).let {
+            row = it.row
+            text = it.text
+            icon = it.icon
+        }
     }
 
     fun bind(filter: FilterListItem) {

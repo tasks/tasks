@@ -3,21 +3,20 @@ package org.tasks.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import butterknife.BindView
+import android.view.ViewGroup
 import com.google.android.material.chip.ChipGroup
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.ListPicker
+import org.tasks.databinding.ControlSetRemoteListBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ListFragment : TaskEditControlFragment() {
-    @BindView(R.id.chip_group)
-    lateinit var chipGroup: ChipGroup
+    private lateinit var chipGroup: ChipGroup
 
     @Inject lateinit var chipProvider: ChipProvider
     
@@ -42,7 +41,11 @@ class ListFragment : TaskEditControlFragment() {
         callback.onListChanged(filter)
     }
 
-    override val layout = R.layout.control_set_remote_list
+    override fun bind(parent: ViewGroup?) =
+        ControlSetRemoteListBinding.inflate(layoutInflater, parent, true).let {
+            chipGroup = it.chipGroup
+            it.root
+        }
 
     override val icon = R.drawable.ic_list_24px
 

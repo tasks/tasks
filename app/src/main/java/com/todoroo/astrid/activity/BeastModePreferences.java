@@ -6,26 +6,30 @@
 
 package com.todoroo.astrid.activity;
 
-import static java.util.Arrays.asList;
 import static org.tasks.Strings.isNullOrEmpty;
+import static java.util.Arrays.asList;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import dagger.hilt.android.AndroidEntryPoint;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.inject.Inject;
+
 import org.tasks.R;
+import org.tasks.databinding.BeastModePrefActivityBinding;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.preferences.beast.BeastModeRecyclerAdapter;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class BeastModePreferences extends ThemedInjectingAppCompatActivity
@@ -33,12 +37,6 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
 
   private static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v6"; // $NON-NLS-1$
   private static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";";
-
-  @BindView(R.id.toolbar)
-  Toolbar toolbar;
-
-  @BindView(R.id.recycler_view)
-  RecyclerView recyclerView;
 
   @Inject Preferences preferences;
   private BeastModeRecyclerAdapter adapter;
@@ -87,8 +85,10 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.beast_mode_pref_activity);
-    ButterKnife.bind(this);
+    BeastModePrefActivityBinding binding = BeastModePrefActivityBinding.inflate(getLayoutInflater());
+    Toolbar toolbar = binding.toolbar.toolbar;
+    RecyclerView recyclerView = binding.recyclerView;
+    setContentView(binding.getRoot());
 
     toolbar.setNavigationIcon(
         getDrawable(R.drawable.ic_outline_arrow_back_24px));

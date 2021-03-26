@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,21 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
+import org.tasks.databinding.DialogIconPickerBinding;
 import org.tasks.themes.CustomIcons;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class IconPickerDialog extends DialogFragment {
 
   private static final String EXTRA_CURRENT = "extra_current";
-
-  @BindView(R.id.icons)
-  RecyclerView recyclerView;
 
   @Inject DialogBuilder dialogBuilder;
   @Inject Activity context;
@@ -48,23 +43,23 @@ public class IconPickerDialog extends DialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    LayoutInflater inflater = LayoutInflater.from(context);
-    View view = inflater.inflate(R.layout.dialog_icon_picker, null);
-
-    ButterKnife.bind(this, view);
-
+    DialogIconPickerBinding binding = DialogIconPickerBinding.inflate(LayoutInflater.from(context));
     Bundle arguments = getArguments();
     int current = arguments.getInt(EXTRA_CURRENT);
 
     IconPickerAdapter iconPickerAdapter =
-        new IconPickerAdapter((Activity) context, inventory, current, this::onSelected);
+        new IconPickerAdapter(context, inventory, current, this::onSelected);
+    RecyclerView recyclerView = binding.icons;
     recyclerView.setLayoutManager(new IconLayoutManager(context));
     recyclerView.setAdapter(iconPickerAdapter);
 
     iconPickerAdapter.submitList(CustomIcons.getIconList());
 
     AlertDialogBuilder builder =
-        dialogBuilder.newDialog().setNegativeButton(R.string.cancel, null).setView(view);
+        dialogBuilder
+                .newDialog()
+                .setNegativeButton(R.string.cancel, null)
+                .setView(binding.getRoot());
     if (!inventory.getHasPro()) {
       builder.setPositiveButton(
           R.string.upgrade_to_pro,

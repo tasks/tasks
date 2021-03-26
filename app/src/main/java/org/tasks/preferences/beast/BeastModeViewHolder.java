@@ -3,33 +3,30 @@ package org.tasks.preferences.beast;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.core.view.MotionEventCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnTouch;
-import org.tasks.R;
+
+import org.tasks.databinding.PreferenceDraggableRowBinding;
 
 class BeastModeViewHolder extends RecyclerView.ViewHolder {
 
   private final ItemTouchHelper itemTouchHelper;
+  private final TextView textView;
 
-  @BindView(R.id.text)
-  TextView textView;
-
-  BeastModeViewHolder(View itemView, ItemTouchHelper itemTouchHelper) {
-    super(itemView);
+  BeastModeViewHolder(PreferenceDraggableRowBinding binding, ItemTouchHelper itemTouchHelper) {
+    super(binding.getRoot());
     this.itemTouchHelper = itemTouchHelper;
-    ButterKnife.bind(this, itemView);
+    textView = binding.text;
+    binding.grabber.setOnTouchListener(this::onTouch);
   }
 
   void setText(String text) {
     textView.setText(text);
   }
 
-  @OnTouch(R.id.grabber)
-  boolean onTouch(MotionEvent event) {
+  private boolean onTouch(View v, MotionEvent event) {
     if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
       itemTouchHelper.startDrag(this);
     }

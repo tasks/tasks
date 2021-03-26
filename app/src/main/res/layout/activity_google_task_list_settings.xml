@@ -6,7 +6,9 @@
 
   <include layout="@layout/toolbar"/>
 
-  <include layout="@layout/progress_view"/>
+  <include
+      android:id="@+id/progress_bar"
+      layout="@layout/progress_view"/>
 
   <ScrollView
     android:layout_width="fill_parent"

@@ -34,8 +34,6 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
     private val viewModel: CaldavCalendarViewModel by viewModels()
 
-    override val layout = R.layout.activity_caldav_calendar_settings
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

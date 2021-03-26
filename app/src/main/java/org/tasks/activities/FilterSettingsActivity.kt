@@ -9,13 +9,11 @@ import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.OnClick
-import butterknife.OnTextChanged
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
@@ -26,7 +24,12 @@ import com.todoroo.andlib.sql.UnaryCriterion
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.api.*
+import com.todoroo.astrid.api.BooleanCriterion
+import com.todoroo.astrid.api.CustomFilter
+import com.todoroo.astrid.api.CustomFilterCriterion
+import com.todoroo.astrid.api.MultipleSelectCriterion
+import com.todoroo.astrid.api.PermaSql
+import com.todoroo.astrid.api.TextInputCriterion
 import com.todoroo.astrid.core.CriterionInstance
 import com.todoroo.astrid.core.CustomFilterAdapter
 import com.todoroo.astrid.core.CustomFilterItemTouchHelper
@@ -39,6 +42,7 @@ import org.tasks.Strings
 import org.tasks.data.Filter
 import org.tasks.data.FilterDao
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.databinding.FilterSettingsActivityBinding
 import org.tasks.db.QueryUtils
 import org.tasks.extensions.Context.openUri
 import org.tasks.filters.FilterCriteriaProvider
@@ -54,17 +58,10 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var database: Database
     @Inject lateinit var filterCriteriaProvider: FilterCriteriaProvider
 
-    @BindView(R.id.name) 
-    lateinit var name: TextInputEditText
-    
-    @BindView(R.id.name_layout) 
-    lateinit var nameLayout: TextInputLayout
-    
-    @BindView(R.id.recycler_view) 
-    lateinit var recyclerView: RecyclerView
-
-    @BindView(R.id.fab)
-    lateinit var fab: ExtendedFloatingActionButton
+    private lateinit var name: TextInputEditText
+    private lateinit var nameLayout: TextInputLayout
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var fab: ExtendedFloatingActionButton
     
     private var filter: CustomFilter? = null
     private lateinit var adapter: CustomFilterAdapter
@@ -162,8 +159,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             else -> CriterionInstance.TYPE_INTERSECT
         }
 
-    @OnClick(R.id.fab)
-    fun addCriteria() {
+    private fun addCriteria() {
         AndroidUtilities.hideKeyboard(this)
         fab.shrink()
         lifecycleScope.launch {
@@ -230,11 +226,6 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     override val toolbarTitle: String?
         get() = if (isNew) getString(R.string.FLA_new_filter) else filter!!.listingTitle
 
-    @OnTextChanged(R.id.name)
-    fun onTextChanged() {
-        nameLayout.error = null
-    }
-
     override suspend fun save() {
         val newName = newName
         if (Strings.isNullOrEmpty(newName)) {
@@ -290,8 +281,19 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         super.finish()
     }
 
-    override val layout: Int
-        get() = R.layout.filter_settings_activity
+    override fun bind() = FilterSettingsActivityBinding.inflate(layoutInflater).let {
+        name = it.name.apply {
+            addTextChangedListener(
+                onTextChanged = { _, _, _, _ -> nameLayout.error = null }
+            )
+        }
+        nameLayout = it.nameLayout
+        recyclerView = it.recyclerView
+        fab = it.fab.apply {
+            setOnClickListener { addCriteria() }
+        }
+        it.root
+    }
 
     override suspend fun delete() {
         filterDao.delete(filter!!.id)

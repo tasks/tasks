@@ -188,9 +188,6 @@ dependencies {
     implementation("androidx.paging:paging-runtime:2.1.2")
     implementation("io.noties.markwon:core:${Versions.markwon}")
 
-    kapt("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
-    implementation("com.jakewharton:butterknife:${Versions.butterknife}")
-
     debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${Versions.flipper}")
     debugImplementation("com.facebook.soloader:soloader:0.10.1")
@@ -246,7 +243,6 @@ dependencies {
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
     kaptAndroidTest("com.google.dagger:hilt-compiler:${Versions.hilt}")
     kaptAndroidTest("androidx.hilt:hilt-compiler:${Versions.hilt_androidx}")
-    kaptAndroidTest("com.jakewharton:butterknife-compiler:${Versions.butterknife}")
     androidTestImplementation("org.mockito:mockito-android:${Versions.mockito}")
     androidTestImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
     androidTestImplementation("androidx.test:runner:${Versions.androidx_test}")

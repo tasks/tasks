@@ -11,7 +11,9 @@
 
   <include layout="@layout/toolbar"/>
 
-  <include layout="@layout/progress_view"/>
+  <include
+      android:id="@+id/progress_bar"
+      layout="@layout/progress_view" />
 
   <FrameLayout
       android:layout_width="match_parent"

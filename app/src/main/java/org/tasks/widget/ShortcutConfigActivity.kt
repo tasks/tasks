@@ -8,16 +8,13 @@ import android.os.Parcelable
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
-import butterknife.OnFocusChange
 import com.google.android.material.textfield.TextInputEditText
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.FilterSelectionActivity
+import org.tasks.databinding.ActivityWidgetShortcutLayoutBinding
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
@@ -32,29 +29,31 @@ import javax.inject.Inject
 class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPalettePicker.ColorPickedCallback {
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
 
-    @BindView(R.id.toolbar)
-    lateinit var toolbar: Toolbar
-
-    @BindView(R.id.shortcut_list)
-    lateinit var shortcutList: TextInputEditText
-
-    @BindView(R.id.shortcut_name)
-    lateinit var shortcutName: TextInputEditText
-
-    @BindView(R.id.color)
-    lateinit var colorIcon: TextView
-
-    @BindView(R.id.clear)
-    lateinit var clear: View
+    private lateinit var toolbar: Toolbar
+    private lateinit var shortcutList: TextInputEditText
+    private lateinit var shortcutName: TextInputEditText
+    private lateinit var colorIcon: TextView
+    private lateinit var clear: View
 
     private var selectedFilter: Filter? = null
     private var selectedTheme = 0
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val binding = ActivityWidgetShortcutLayoutBinding.inflate(layoutInflater)
+        binding.let {
+            toolbar = it.toolbar.toolbar
+            shortcutList = it.body.shortcutList.apply {
+                setOnClickListener { showListPicker() }
+                setOnFocusChangeListener { _, hasFocus -> onListFocusChange(hasFocus) }
+            }
+            shortcutName = it.body.shortcutName
+            colorIcon = it.body.color.color
+            clear = it.body.color.clear.clear
+            it.body.color.colorRow.setOnClickListener { showThemePicker() }
+        }
+        setContentView(binding.root)
 
-        setContentView(R.layout.activity_widget_shortcut_layout)
-        ButterKnife.bind(this)
         toolbar.setTitle(R.string.FSA_label)
         toolbar.navigationIcon = getDrawable(R.drawable.ic_outline_save_24px)
         toolbar.setNavigationOnClickListener { save() }
@@ -88,24 +87,21 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
         outState.putInt(EXTRA_THEME, selectedTheme)
     }
 
-    @OnFocusChange(R.id.shortcut_list)
-    fun onListFocusChange(focused: Boolean) {
+    private fun onListFocusChange(focused: Boolean) {
         if (focused) {
             shortcutList.clearFocus()
             showListPicker()
         }
     }
 
-    @OnClick(R.id.shortcut_list)
-    fun showListPicker() {
+    private fun showListPicker() {
         val intent = Intent(this, FilterSelectionActivity::class.java)
         intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, selectedFilter)
         intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
         startActivityForResult(intent, REQUEST_FILTER)
     }
 
-    @OnClick(R.id.color_row)
-    fun showThemePicker() {
+    private fun showThemePicker() {
         newColorPalette(null, 0, Palette.LAUNCHERS)
                 .show(supportFragmentManager, FRAG_TAG_COLOR_PICKER)
     }

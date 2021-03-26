@@ -6,16 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.CheckableImageView;
-import org.tasks.R;
+
 import org.tasks.data.TaskContainer;
+import org.tasks.databinding.SubtaskAdapterRowBodyBinding;
 import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.ChipProvider;
 
@@ -28,31 +28,32 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
 
   private TaskContainer task;
 
-  @BindView(R.id.rowBody)
-  ViewGroup rowBody;
-
-  @BindView(R.id.title)
-  TextView nameView;
-
-  @BindView(R.id.completeBox)
-  CheckableImageView completeBox;
-
-  @BindView(R.id.chip_group)
-  ChipGroup chipGroup;
+  private final ViewGroup rowBody;
+  private final TextView nameView;
+  private final CheckableImageView completeBox;
+  private final ChipGroup chipGroup;
 
   SubtaskViewHolder(
-      ViewGroup view,
-      Callbacks callbacks,
-      DisplayMetrics metrics,
-      ChipProvider chipProvider,
-      CheckBoxProvider checkBoxProvider) {
-    super(view);
+          SubtaskAdapterRowBodyBinding binding,
+          Callbacks callbacks,
+          DisplayMetrics metrics,
+          ChipProvider chipProvider,
+          CheckBoxProvider checkBoxProvider) {
+    super(binding.getRoot());
     this.callbacks = callbacks;
     this.metrics = metrics;
     this.chipProvider = chipProvider;
     this.checkBoxProvider = checkBoxProvider;
-    ButterKnife.bind(this, view);
 
+    rowBody = binding.rowBody;
+    nameView = binding.title;
+    completeBox = binding.completeBox;
+    chipGroup = binding.chipGroup;
+
+    nameView.setOnClickListener(v -> openSubtask());
+    completeBox.setOnClickListener(v -> onCompleteBoxClick());
+
+    ViewGroup view = binding.getRoot();
     view.setTag(this);
     for (int i = 0; i < view.getChildCount(); i++) {
       view.getChildAt(i).setTag(this);
@@ -98,13 +99,11 @@ public class SubtaskViewHolder extends RecyclerView.ViewHolder {
     completeBox.invalidate();
   }
 
-  @OnClick(R.id.title)
-  void openSubtask() {
+  private void openSubtask() {
     callbacks.openSubtask(task.getTask());
   }
 
-  @OnClick(R.id.completeBox)
-  void onCompleteBoxClick() {
+  private void onCompleteBoxClick() {
     if (task == null) {
       return;
     }

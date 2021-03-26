@@ -292,11 +292,6 @@
 ++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
 +|    \--- com.atlassian.commonmark:commonmark:0.13.0
-++--- com.jakewharton:butterknife:10.2.3
-+|    \--- com.jakewharton:butterknife-runtime:10.2.3
-+|         +--- com.jakewharton:butterknife-annotations:10.2.3
-+|         |    \--- androidx.annotation:annotation:1.0.0 -> 1.2.0
-+|         \--- androidx.core:core:1.0.0 -> 1.5.0-rc01 (*)
 ++--- org.jetbrains.kotlin:kotlin-stdlib:1.4.31 (*)
 ++--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.3
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.0 -> 1.4.31 (*)

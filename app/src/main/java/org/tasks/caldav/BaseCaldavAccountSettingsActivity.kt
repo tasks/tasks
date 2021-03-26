@@ -12,11 +12,9 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
-import butterknife.ButterKnife
-import butterknife.OnFocusChange
-import butterknife.OnTextChanged
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.astrid.data.Task
@@ -59,7 +57,6 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         super.onCreate(savedInstanceState)
         binding = ActivityCaldavAccountSettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ButterKnife.bind(this)
         caldavAccount = if (savedInstanceState == null) intent.getParcelableExtra(EXTRA_CALDAV_DATA) else savedInstanceState.getParcelable(EXTRA_CALDAV_DATA)
         if (caldavAccount == null || caldavAccount!!.id == Task.NO_ID) {
             binding.nameLayout.visibility = View.GONE
@@ -108,6 +105,19 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
                     }
                     .show()
         }
+        binding.name.addTextChangedListener(
+            onTextChanged = { _, _, _, _ -> binding.nameLayout.error = null }
+        )
+        binding.url.addTextChangedListener(
+            onTextChanged = { _, _, _, _ -> binding.urlLayout.error = null }
+        )
+        binding.user.addTextChangedListener(
+            onTextChanged = { _, _, _, _ -> binding.userLayout.error = null }
+        )
+        binding.password.addTextChangedListener(
+            onTextChanged = { _, _, _, _ -> binding.passwordLayout.error = null }
+        )
+        binding.password.setOnFocusChangeListener { _, hasFocus -> onPasswordFocused(hasFocus) }
     }
 
     @get:StringRes
@@ -132,28 +142,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         return binding.progressBar.progressBar.visibility == View.VISIBLE
     }
 
-    @OnTextChanged(R.id.name)
-    fun onNameChanged() {
-        binding.nameLayout.error = null
-    }
-
-    @OnTextChanged(R.id.url)
-    fun onUrlChanged() {
-        binding.urlLayout.error = null
-    }
-
-    @OnTextChanged(R.id.user)
-    fun onUserChanged() {
-        binding.userLayout.error = null
-    }
-
-    @OnTextChanged(R.id.password)
-    fun onPasswordChanged() {
-        binding.passwordLayout.error = null
-    }
-
-    @OnFocusChange(R.id.password)
-    fun onPasswordFocused(hasFocus: Boolean) {
+    private fun onPasswordFocused(hasFocus: Boolean) {
         if (hasFocus) {
             if (PASSWORD_MASK == binding.password.text.toString()) {
                 binding.password.setText("")

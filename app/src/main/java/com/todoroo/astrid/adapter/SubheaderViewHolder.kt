@@ -8,14 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
+import org.tasks.databinding.FilterAdapterSubheaderBinding
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.preferences.MainPreferences
@@ -31,16 +29,12 @@ internal class SubheaderViewHolder(
         private val localBroadcastManager: LocalBroadcastManager)
     : RecyclerView.ViewHolder(itemView) {
 
-    @BindView(R.id.text)
-    lateinit var text: TextView
-
-    @BindView(R.id.icon_error)
-    lateinit var errorIcon: ImageView
+    private val text: TextView
+    private val errorIcon: ImageView
 
     private lateinit var subheader: NavigationDrawerSubheader
 
-    @OnClick(R.id.subheader_row)
-    fun onClick() {
+    private fun onClick() {
         activity.lifecycleScope.launch {
             val collapsed = !subheader.isCollapsed
             when (subheader.subheaderType) {
@@ -74,7 +68,11 @@ internal class SubheaderViewHolder(
     }
 
     init {
-        ButterKnife.bind(this, itemView)
+        FilterAdapterSubheaderBinding.bind(itemView).let {
+            text = it.text
+            errorIcon = it.iconError
+            it.subheaderRow.setOnClickListener { onClick() }
+        }
         errorIcon.setOnClickListener {
             activity.startActivity(Intent(activity, MainPreferences::class.java))
         }

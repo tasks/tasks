@@ -8,17 +8,17 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ClickableSpan
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.util.Pair
-import butterknife.BindView
-import butterknife.OnClick
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.Geofence
 import org.tasks.data.Location
 import org.tasks.data.Place
+import org.tasks.databinding.LocationRowBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.GeofenceDialog
 import org.tasks.extensions.Context.openUri
@@ -39,14 +39,9 @@ class LocationControlSet : TaskEditControlFragment() {
     @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
     @Inject lateinit var permissionChecker: PermissionChecker
 
-    @BindView(R.id.location_name)
-    lateinit var locationName: TextView
-
-    @BindView(R.id.location_address)
-    lateinit var locationAddress: TextView
-
-    @BindView(R.id.geofence_options)
-    lateinit var geofenceOptions: ImageView
+    private lateinit var locationName: TextView
+    private lateinit var locationAddress: TextView
+    private lateinit var geofenceOptions: ImageView
 
     override fun onResume() {
         super.onResume()
@@ -123,8 +118,7 @@ class LocationControlSet : TaskEditControlFragment() {
         startActivityForResult(intent, REQUEST_LOCATION_REMINDER)
     }
 
-    @OnClick(R.id.geofence_options)
-    fun geofenceOptions() {
+    private fun geofenceOptions() {
         if (permissionChecker.canAccessBackgroundLocation()) {
             showGeofenceOptions()
         } else {
@@ -139,7 +133,15 @@ class LocationControlSet : TaskEditControlFragment() {
         dialog.show(parentFragmentManager, FRAG_TAG_LOCATION_DIALOG)
     }
 
-    override val layout = R.layout.location_row
+    override fun bind(parent: ViewGroup?) =
+        LocationRowBinding.inflate(layoutInflater, parent, true).let {
+            locationName = it.locationName
+            locationAddress = it.locationAddress
+            geofenceOptions = it.geofenceOptions.apply {
+                setOnClickListener { geofenceOptions() }
+            }
+            it.root
+        }
 
     override val icon = R.drawable.ic_outline_place_24px
 

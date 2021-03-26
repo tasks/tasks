@@ -5,19 +5,18 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.CalendarContract
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast.LENGTH_SHORT
-import butterknife.BindView
-import butterknife.OnClick
 import com.todoroo.astrid.gcal.GCalHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.calendars.CalendarEventProvider
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarProvider
+import org.tasks.databinding.ControlSetGcalDisplayBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.toast
 import org.tasks.preferences.FragmentPermissionRequestor
@@ -29,11 +28,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CalendarControlSet : TaskEditControlFragment() {
-    @BindView(R.id.clear)
-    lateinit var cancelButton: View
-
-    @BindView(R.id.calendar_display_which)
-    lateinit var calendar: TextView
+    private lateinit var cancelButton: View
+    private lateinit var calendar: TextView
 
     @Inject lateinit var activity: Activity
     @Inject lateinit var gcalHelper: GCalHelper
@@ -44,8 +40,7 @@ class CalendarControlSet : TaskEditControlFragment() {
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var themeBase: ThemeBase
-    @Inject lateinit var calendarEventProvider: CalendarEventProvider
-    
+
     override fun onResume() {
         super.onResume()
 
@@ -62,7 +57,14 @@ class CalendarControlSet : TaskEditControlFragment() {
         refreshDisplayView()
     }
 
-    override val layout = R.layout.control_set_gcal_display
+    override fun bind(parent: ViewGroup?) =
+        ControlSetGcalDisplayBinding.inflate(layoutInflater, parent, true).let {
+            cancelButton = it.clear.clear.apply {
+                setOnClickListener { clearCalendar() }
+            }
+            calendar = it.calendarDisplayWhich
+            it.root
+        }
 
     override val icon = R.drawable.ic_outline_event_24px
 
@@ -70,8 +72,7 @@ class CalendarControlSet : TaskEditControlFragment() {
 
     override val isClickable = true
 
-    @OnClick(R.id.clear)
-    fun clearCalendar() {
+    private fun clearCalendar() {
         if (viewModel.eventUri.isNullOrBlank()) {
             clear()
         } else {

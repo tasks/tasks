@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
+import org.tasks.databinding.TaskAdapterRowBinding
 import org.tasks.dialogs.Linkify
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.ResourceResolver
@@ -42,7 +43,7 @@ class ViewHolderFactory @Inject constructor(
     fun newViewHolder(parent: ViewGroup?, callbacks: ViewHolderCallbacks) =
             TaskViewHolder(
                     context as Activity,
-                    LayoutInflater.from(context).inflate(R.layout.task_adapter_row, parent, false) as ViewGroup,
+                    TaskAdapterRowBinding.inflate(LayoutInflater.from(context), parent, false),
                     preferences,
                     fontSize,
                     chipProvider,

@@ -5,20 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import androidx.activity.viewModels
-import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnTextChanged
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Inventory
 import org.tasks.data.TagData
+import org.tasks.databinding.ActivityTagPickerBinding
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
@@ -27,19 +24,13 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class TagPickerActivity : ThemedInjectingAppCompatActivity() {
-    @BindView(R.id.toolbar)
-    lateinit var toolbar: Toolbar
-    @BindView(R.id.recycler_view)
-    lateinit var recyclerView: RecyclerView
-    @BindView(R.id.search_input)
-    lateinit var editText: EditText
-
     @Inject lateinit var theme: Theme
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
 
     private val viewModel: TagPickerViewModel by viewModels()
     private var taskIds: ArrayList<Long>? = null
+    private lateinit var editText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +44,14 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
                 )
             }
         }
-        setContentView(R.layout.activity_tag_picker)
-        ButterKnife.bind(this)
+        val binding = ActivityTagPickerBinding.inflate(layoutInflater)
+        editText = binding.searchInput.apply {
+            addTextChangedListener(
+                onTextChanged = { text, _, _, _ -> onSearch(text) }
+            )
+        }
+        setContentView(binding.root)
+        val toolbar = binding.toolbar
         toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24px)
         toolbar.setNavigationOnClickListener { onBackPressed() }
         val themeColor = theme.themeColor
@@ -64,6 +61,7 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
         val recyclerAdapter = TagRecyclerAdapter(this, viewModel, inventory, colorProvider) { tagData, vh ->
             onToggle(tagData, vh)
         }
+        val recyclerView = binding.recyclerView
         recyclerView.adapter = recyclerAdapter
         (recyclerView.itemAnimator as DefaultItemAnimator?)!!.supportsChangeAnimations = false
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -80,9 +78,8 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
         }
     }
 
-    @OnTextChanged(R.id.search_input)
-    fun onSearch(text: CharSequence) {
-        viewModel.search(text.toString())
+    private fun onSearch(text: CharSequence?) {
+        viewModel.search(text?.toString() ?: "")
     }
 
     override fun onBackPressed() {

@@ -8,9 +8,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import androidx.core.widget.addTextChangedListener
 import at.bitfire.dav4jvm.exception.HttpException
-import butterknife.BindView
-import butterknife.OnTextChanged
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -26,6 +25,7 @@ import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
+import org.tasks.databinding.ActivityCaldavCalendarSettingsBinding
 import org.tasks.ui.DisplayableException
 import java.net.ConnectException
 import javax.inject.Inject
@@ -34,24 +34,26 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDeleter: TaskDeleter
 
-    @BindView(R.id.root_layout)
-    lateinit var root: LinearLayout
-
-    @BindView(R.id.name)
-    lateinit var name: TextInputEditText
-
-    @BindView(R.id.name_layout)
-    lateinit var nameLayout: TextInputLayout
-
-    @BindView(R.id.progress_bar)
-    lateinit var progressView: ProgressBar
+    private lateinit var root: LinearLayout
+    private lateinit var name: TextInputEditText
+    protected lateinit var nameLayout: TextInputLayout
+    protected lateinit var progressView: ProgressBar
 
     protected var caldavCalendar: CaldavCalendar? = null
 
     protected lateinit var caldavAccount: CaldavAccount
 
-    override val layout: Int
-        get() = R.layout.activity_caldav_calendar_settings
+    override fun bind() = ActivityCaldavCalendarSettingsBinding.inflate(layoutInflater).let {
+        root = it.rootLayout
+        name = it.name.apply {
+            addTextChangedListener(
+                onTextChanged = { _, _, _, _ -> nameLayout.error = null }
+            )
+        }
+        nameLayout = it.nameLayout
+        progressView = it.progressBar.progressBar
+        it.root
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val intent = intent
@@ -82,11 +84,6 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
 
     override val toolbarTitle: String
         get() = if (isNew) getString(R.string.new_list) else caldavCalendar!!.name ?: ""
-
-    @OnTextChanged(R.id.name)
-    fun onNameChanged() {
-        nameLayout.error = null
-    }
 
     override suspend fun save() {
         if (requestInProgress()) {

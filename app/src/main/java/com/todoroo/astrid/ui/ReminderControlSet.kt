@@ -11,16 +11,15 @@ import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.StringRes
-import butterknife.BindView
-import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.alarms.AlarmService
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
+import org.tasks.databinding.ControlSetRemindersBinding
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
@@ -38,15 +37,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ReminderControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
-    @Inject lateinit var alarmService: AlarmService
     @Inject lateinit var locale: Locale
     @Inject lateinit var dialogBuilder: DialogBuilder
     
-    @BindView(R.id.alert_container)
-    lateinit var alertContainer: LinearLayout
-
-    @BindView(R.id.reminder_alarm)
-    lateinit var mode: TextView
+    private lateinit var alertContainer: LinearLayout
+    private lateinit var mode: TextView
     
     private var randomControlSet: RandomReminderControlSet? = null
 
@@ -69,8 +64,7 @@ class ReminderControlSet : TaskEditControlFragment() {
         viewModel.selectedAlarms?.forEach(this::addAlarmRow)
     }
 
-    @OnClick(R.id.reminder_alarm)
-    fun onClickRingType() {
+    private fun onClickRingType() {
         val modes = resources.getStringArray(R.array.reminder_ring_modes)
         val ringMode = when {
             viewModel.ringNonstop == true -> 2
@@ -110,8 +104,7 @@ class ReminderControlSet : TaskEditControlFragment() {
         }
     }
 
-    @OnClick(R.id.alarms_add)
-    fun addAlarm() {
+    private fun addAlarm() {
         val options = options
         if (options.size == 1) {
             addNewAlarm()
@@ -126,7 +119,15 @@ class ReminderControlSet : TaskEditControlFragment() {
         }
     }
 
-    override val layout = R.layout.control_set_reminders
+    override fun bind(parent: ViewGroup?) =
+        ControlSetRemindersBinding.inflate(layoutInflater, parent, true).let {
+            alertContainer = it.alertContainer
+            mode = it.reminderAlarm.apply {
+                setOnClickListener { onClickRingType() }
+            }
+            it.alarmsAdd.setOnClickListener { addAlarm() }
+            it.root
+        }
 
     override val icon = R.drawable.ic_outline_notifications_24px
 

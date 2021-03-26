@@ -15,13 +15,12 @@ import android.widget.AdapterView
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
-import butterknife.BindView
-import butterknife.OnItemSelected
 import dagger.hilt.android.AndroidEntryPoint
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
 import org.tasks.R
 import org.tasks.analytics.Firebase
+import org.tasks.databinding.ControlSetRepeatDisplayBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RecurrenceUtils.newRecur
@@ -30,6 +29,7 @@ import org.tasks.themes.Theme
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.ui.HiddenTopArrayAdapter
+import org.tasks.ui.OnItemSelected
 import org.tasks.ui.TaskEditControlFragment
 import java.util.*
 import javax.inject.Inject
@@ -49,14 +49,9 @@ class RepeatControlSet : TaskEditControlFragment() {
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var repeatRuleToString: RepeatRuleToString
 
-    @BindView(R.id.display_row_edit)
-    lateinit var displayView: TextView
-
-    @BindView(R.id.repeatType)
-    lateinit var typeSpinner: Spinner
-
-    @BindView(R.id.repeatTypeContainer)
-    lateinit var repeatTypeContainer: LinearLayout
+    private lateinit var displayView: TextView
+    private lateinit var typeSpinner: Spinner
+    private lateinit var repeatTypeContainer: LinearLayout
     
     private lateinit var typeAdapter: HiddenTopArrayAdapter<String>
 
@@ -118,8 +113,7 @@ class RepeatControlSet : TaskEditControlFragment() {
         refreshDisplayView()
     }
 
-    @OnItemSelected(R.id.repeatType)
-    fun onRepeatTypeChanged(position: Int) {
+    private fun onRepeatTypeChanged(position: Int) {
         viewModel.repeatAfterCompletion = position == TYPE_COMPLETION_DATE
         repeatTypes[0] = if (viewModel.repeatAfterCompletion!!) repeatTypes[2] else repeatTypes[1]
         typeAdapter.notifyDataSetChanged()
@@ -136,7 +130,19 @@ class RepeatControlSet : TaskEditControlFragment() {
 
     override val isClickable = true
 
-    override val layout = R.layout.control_set_repeat_display
+    override fun bind(parent: ViewGroup?) =
+        ControlSetRepeatDisplayBinding.inflate(layoutInflater, parent, true).let {
+            displayView = it.displayRowEdit
+            typeSpinner = it.repeatType.apply {
+                onItemSelectedListener = object : OnItemSelected() {
+                    override fun onItemSelected(position: Int) {
+                        onRepeatTypeChanged(position)
+                    }
+                }
+            }
+            repeatTypeContainer = it.repeatTypeContainer
+            it.root
+        }
 
     override val icon = R.drawable.ic_outline_repeat_24px
 

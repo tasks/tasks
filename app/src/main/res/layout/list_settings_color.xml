@@ -5,7 +5,9 @@
   style="@style/TagSettingsRow"
   android:background="?attr/selectableItemBackground">
 
-  <include layout="@layout/control_set_clear_button" />
+  <include
+      android:id="@+id/clear"
+      layout="@layout/control_set_clear_button" />
 
   <TextView
     android:id="@+id/color"

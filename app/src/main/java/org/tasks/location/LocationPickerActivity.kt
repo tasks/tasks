@@ -16,9 +16,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
@@ -41,6 +38,7 @@ import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.data.Place.Companion.newPlace
 import org.tasks.data.PlaceUsage
+import org.tasks.databinding.ActivityLocationPickerBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingAppCompatActivity
@@ -60,29 +58,14 @@ import kotlin.math.abs
 
 @AndroidEntryPoint
 class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemClickListener, MapFragmentCallback, OnLocationPicked, SearchView.OnQueryTextListener, OnPredictionPicked, MenuItem.OnActionExpandListener {
-    @BindView(R.id.toolbar)
-    lateinit var toolbar: Toolbar
-
-    @BindView(R.id.app_bar_layout)
-    lateinit var appBarLayout: AppBarLayout
-
-    @BindView(R.id.collapsing_toolbar_layout)
-    lateinit var toolbarLayout: CollapsingToolbarLayout
-
-    @BindView(R.id.coordinator)
-    lateinit var coordinatorLayout: CoordinatorLayout
-
-    @BindView(R.id.search)
-    lateinit var searchView: View
-
-    @BindView(R.id.loading_indicator)
-    lateinit var loadingIndicator: ContentLoadingProgressBar
-
-    @BindView(R.id.choose_recent_location)
-    lateinit var chooseRecentLocation: View
-
-    @BindView(R.id.recent_locations)
-    lateinit var recyclerView: RecyclerView
+    private lateinit var toolbar: Toolbar
+    private lateinit var appBarLayout: AppBarLayout
+    private lateinit var toolbarLayout: CollapsingToolbarLayout
+    private lateinit var coordinatorLayout: CoordinatorLayout
+    private lateinit var searchView: View
+    private lateinit var loadingIndicator: ContentLoadingProgressBar
+    private lateinit var chooseRecentLocation: View
+    private lateinit var recyclerView: RecyclerView
 
     @Inject lateinit var theme: Theme
     @Inject lateinit var locationDao: LocationDao
@@ -110,8 +93,18 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme.applyTheme(this)
-        setContentView(R.layout.activity_location_picker)
-        ButterKnife.bind(this)
+        val binding = ActivityLocationPickerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        toolbar = binding.toolbar
+        appBarLayout = binding.appBarLayout
+        toolbarLayout = binding.collapsingToolbarLayout
+        coordinatorLayout = binding.coordinator
+        searchView = binding.search.apply {
+            setOnClickListener { searchPlace() }
+        }
+        loadingIndicator = binding.loadingIndicator
+        chooseRecentLocation = binding.chooseRecentLocation
+        recyclerView = binding.recentLocations
         val configuration = resources.configuration
         if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
                 && configuration.smallestScreenWidthDp < 480) {
@@ -180,6 +173,9 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         recentsAdapter!!.setHasStableIds(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = if (search.isActionViewExpanded) searchAdapter else recentsAdapter
+
+        binding.currentLocation.setOnClickListener { currentLocation() }
+        binding.selectThisLocation.setOnClickListener { selectLocation() }
     }
 
     override fun onMapReady(mapFragment: MapFragment) {
@@ -211,8 +207,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         returnPlace(place)
     }
 
-    @OnClick(R.id.current_location)
-    fun onClick() {
+    private fun currentLocation() {
         if (permissionRequestor.requestForegroundLocation()) {
             moveToCurrentLocation(true)
         }
@@ -236,8 +231,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         }
     }
 
-    @OnClick(R.id.select_this_location)
-    fun selectLocation() {
+    private fun selectLocation() {
         val mapPosition = map.mapPosition ?: return
         loadingIndicator.visibility = View.VISIBLE
         lifecycleScope.launch {
@@ -251,8 +245,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         }
     }
 
-    @OnClick(R.id.search)
-    fun searchPlace() {
+    private fun searchPlace() {
         mapPosition = map.mapPosition
         expandToolbar(true)
         search.expandActionView()

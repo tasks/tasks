@@ -10,8 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import butterknife.BindView
-import butterknife.OnTextChanged
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
@@ -24,6 +23,7 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagDao
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
+import org.tasks.databinding.ActivityTagSettingsBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -31,11 +31,8 @@ class TagSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var tagDao: TagDao
 
-    @BindView(R.id.name)
-    lateinit var name: TextInputEditText
-
-    @BindView(R.id.name_layout)
-    lateinit var nameLayout: TextInputLayout
+    private lateinit var name: TextInputEditText
+    private lateinit var nameLayout: TextInputLayout
 
     private var isNewTag = false
     private lateinit var tagData: TagData
@@ -69,11 +66,6 @@ class TagSettingsActivity : BaseListSettingsActivity() {
 
     override val toolbarTitle: String
         get() = if (isNew) getString(R.string.new_tag) else tagData.name!!
-
-    @OnTextChanged(R.id.name)
-    fun onTextChanged() {
-        nameLayout.error = null
-    }
 
     private val newName: String
         get() = name.text.toString().trim { it <= ' ' }
@@ -129,8 +121,15 @@ class TagSettingsActivity : BaseListSettingsActivity() {
         super.finish()
     }
 
-    override val layout: Int
-        get() = R.layout.activity_tag_settings
+    override fun bind() = ActivityTagSettingsBinding.inflate(layoutInflater).let {
+        name = it.name.apply {
+            addTextChangedListener(
+                onTextChanged = { _, _, _, _ -> nameLayout.error = null }
+            )
+        }
+        nameLayout = it.nameLayout
+        it.root
+    }
 
     override suspend fun delete() {
         val uuid = tagData.remoteId

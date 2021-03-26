@@ -18,7 +18,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -31,9 +33,13 @@
         android:layout_height="match_parent"
         android:layout_weight="100">
 
-        <include layout="@layout/task_list_body_standard"/>
+        <include
+            android:id="@+id/body_standard"
+            layout="@layout/task_list_body_standard" />
 
-        <include layout="@layout/task_list_body_empty"/>
+        <include
+            android:id="@+id/body_empty"
+            layout="@layout/task_list_body_empty" />
 
       </FrameLayout>
 

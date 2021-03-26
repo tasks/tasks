@@ -5,10 +5,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import org.tasks.R
+import org.tasks.databinding.CustomFilterRowBinding
 import org.tasks.locale.Locale
 import org.tasks.preferences.ResourceResolver
 
@@ -19,25 +17,23 @@ class CriterionViewHolder(
         private val onClick: (String) -> Unit)
     : RecyclerView.ViewHolder(itemView) {
 
-    @BindView(R.id.divider)
-    lateinit var divider: View
-
-    @BindView(R.id.icon)
-    lateinit var icon: ImageView
-
-    @BindView(R.id.name)
-    lateinit var name: TextView
-
-    @BindView(R.id.filter_count)
-    lateinit var filterCount: TextView
-
-    @BindView(R.id.row)
-    lateinit var row: View
+    private val divider: View
+    private val icon: ImageView
+    private val name: TextView
+    private val filterCount: TextView
+    private val row: View
 
     private lateinit var criterion: CriterionInstance
 
     init {
-        ButterKnife.bind(this, itemView)
+        CustomFilterRowBinding.bind(itemView).let {
+            divider = it.divider
+            icon = it.icon
+            name = it.name
+            filterCount = it.filterCount
+            row = it.row
+        }
+        row.setOnClickListener { onClick(criterion.id) }
     }
 
     fun bind(criterion: CriterionInstance) {
@@ -70,9 +66,6 @@ class CriterionViewHolder(
 
         row.isClickable = criterion.type != CriterionInstance.TYPE_UNIVERSE
     }
-
-    @OnClick(R.id.row)
-    fun onClick() = onClick(criterion.id)
 
     fun setMoving(moving: Boolean) {
         if (moving) {

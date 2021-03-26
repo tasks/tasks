@@ -14,12 +14,13 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
-import butterknife.*
+import androidx.core.widget.addTextChangedListener
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.CameraActivity
+import org.tasks.databinding.FragmentCommentBarBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.files.ImageHelper
 import org.tasks.preferences.Device
@@ -37,18 +38,10 @@ class CommentBarFragment : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var themeColor: ThemeColor
     
-    @BindView(R.id.commentButton)
-    lateinit var commentButton: View
-
-    @BindView(R.id.commentField)
-    lateinit var commentField: EditText
-
-    @BindView(R.id.picture)
-    lateinit var pictureButton: ImageView
-
-    @BindView(R.id.updatesFooter)
-    lateinit var commentBar: LinearLayout
-    
+    private lateinit var commentButton: View
+    private lateinit var commentField: EditText
+    private lateinit var pictureButton: ImageView
+    private lateinit var commentBar: LinearLayout
     private lateinit var callback: CommentBarFragmentCallback
     private var pendingCommentPicture: Uri? = null
     
@@ -59,8 +52,7 @@ class CommentBarFragment : TaskEditControlFragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(layout, container, false)
-        ButterKnife.bind(this, view)
+        val view = bind(container)
         createView(savedInstanceState)
         return view
     }
@@ -83,19 +75,33 @@ class CommentBarFragment : TaskEditControlFragment() {
         resetPictureButton()
     }
 
-    override val layout = R.layout.fragment_comment_bar
+    override fun bind(parent: ViewGroup?) =
+        FragmentCommentBarBinding.inflate(layoutInflater, parent, false).let {
+            commentButton = it.commentButton.apply {
+                setOnClickListener { addClicked() }
+            }
+            commentField = it.commentField.apply {
+                addTextChangedListener(
+                    onTextChanged = { text, _, _, _ -> onTextChanged(text?.toString()) }
+                )
+                setOnEditorActionListener { _, _, event -> onEditorAction(event) }
+            }
+            pictureButton = it.picture.apply {
+                setOnClickListener { onClickPicture() }
+            }
+            commentBar = it.updatesFooter
+            it.root
+        }
 
     override val icon = 0
 
     override fun controlId() = TAG
 
-    @OnTextChanged(R.id.commentField)
-    fun onTextChanged(s: CharSequence) {
+    private fun onTextChanged(s: String?) {
         commentButton.visibility = if (pendingCommentPicture == null && isNullOrEmpty(s.toString())) View.GONE else View.VISIBLE
     }
 
-    @OnEditorAction(R.id.commentField)
-    fun onEditorAction(key: KeyEvent?): Boolean {
+    private fun onEditorAction(key: KeyEvent?): Boolean {
         val actionId = key?.action ?: 0
         if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_NULL) {
             if (commentField.text.isNotEmpty() || pendingCommentPicture != null) {
@@ -106,8 +112,7 @@ class CommentBarFragment : TaskEditControlFragment() {
         return false
     }
 
-    @OnClick(R.id.commentButton)
-    fun addClicked() {
+    private fun addClicked() {
         addComment()
     }
 
@@ -119,8 +124,7 @@ class CommentBarFragment : TaskEditControlFragment() {
         }
     }
 
-    @OnClick(R.id.picture)
-    fun onClickPicture() {
+    private fun onClickPicture() {
         if (pendingCommentPicture == null) {
             showPictureLauncher(null)
         } else {

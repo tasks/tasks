@@ -28,9 +28,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
@@ -61,6 +58,7 @@ import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.CaldavDao
 import org.tasks.data.TagDataDao
 import org.tasks.data.TaskContainer
+import org.tasks.databinding.FragmentTaskListBinding
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
@@ -118,20 +116,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var locale: Locale
     @Inject lateinit var firebase: Firebase
     
-    @BindView(R.id.swipe_layout)
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
-
-    @BindView(R.id.swipe_layout_empty)
-    lateinit var emptyRefreshLayout: SwipeRefreshLayout
-
-    @BindView(R.id.toolbar)
-    lateinit var toolbar: Toolbar
-
-    @BindView(R.id.task_list_coordinator)
-    lateinit var coordinatorLayout: CoordinatorLayout
-
-    @BindView(R.id.recycler_view)
-    lateinit var recyclerView: RecyclerView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var emptyRefreshLayout: SwipeRefreshLayout
+    private lateinit var toolbar: Toolbar
+    private lateinit var coordinatorLayout: CoordinatorLayout
+    private lateinit var recyclerView: RecyclerView
     
     private val listViewModel: TaskListViewModel by viewModels()
     private lateinit var taskAdapter: TaskAdapter
@@ -186,8 +175,15 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val parent = inflater.inflate(R.layout.fragment_task_list, container, false)
-        ButterKnife.bind(this, parent)
+        val binding = FragmentTaskListBinding.inflate(inflater, container, false)
+        with (binding) {
+            swipeRefreshLayout = bodyStandard.swipeLayout
+            emptyRefreshLayout = bodyEmpty.swipeLayoutEmpty
+            this@TaskListFragment.toolbar = toolbar.toolbar
+            coordinatorLayout = taskListCoordinator
+            recyclerView = bodyStandard.recyclerView
+            fab.setOnClickListener { createNewTask() }
+        }
         filter = getFilter()
         themeColor = if (filter.tint != 0) colorProvider.getThemeColor(filter.tint, true) else defaultThemeColor
         filter.setFilterQueryOverride(null)
@@ -218,7 +214,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         toolbar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
         toolbar.setOnMenuItemClickListener(this)
         setupMenu()
-        return parent
+        return binding.root
     }
 
     private fun submitList(tasks: List<TaskContainer>) {
@@ -423,8 +419,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         context?.toast(R.string.delete_multiple_tasks_confirmation, locale.formatNumber(count))
     }
 
-    @OnClick(R.id.fab)
-    fun createNewTask() {
+    private fun createNewTask() {
         lifecycleScope.launch {
             shortcutManager.reportShortcutUsed(ShortcutManager.SHORTCUT_NEW_TASK)
             onTaskListItemClicked(addTask(""))

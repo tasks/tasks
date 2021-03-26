@@ -914,34 +914,6 @@
     },
     {
       "artifactId": {
-        "name": "butterknife",
-        "group": "com.jakewharton",
-        "version": "+"
-      },
-      "copyrightHolder": "Jake Wharton",
-      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/JakeWharton/butterknife/",
-      "libraryName": "ButterKnife"
-    },
-    {
-      "artifactId": {
-        "name": "butterknife-annotations",
-        "group": "com.jakewharton",
-        "version": "+"
-      },
-      "copyrightHolder": "Jake Wharton",
-      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/JakeWharton/butterknife/",
-      "libraryName": "ButterKnife Annotations"
-    },
-    {
-      "artifactId": {
         "name": "logging-interceptor",
         "group": "com.squareup.okhttp3",
         "version": "+"
@@ -966,20 +938,6 @@
       "normalizedLicense": "apache2",
       "url": "https://kotlinlang.org/",
       "libraryName": "org.jetbrains.kotlin:kotlin-stdlib-jdk7"
-    },
-    {
-      "artifactId": {
-        "name": "butterknife-runtime",
-        "group": "com.jakewharton",
-        "version": "+"
-      },
-      "copyrightHolder": "Jake Wharton",
-      "copyrightStatement": "Copyright &copy; Jake Wharton. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/JakeWharton/butterknife/",
-      "libraryName": "ButterKnife Runtime"
     },
     {
       "artifactId": {

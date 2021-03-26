@@ -12,7 +12,9 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/shortcut_name_layout">
 
-    <include layout="@layout/list_settings_color" />
+    <include
+        android:id="@+id/color"
+        layout="@layout/list_settings_color" />
 
   </LinearLayout>
 

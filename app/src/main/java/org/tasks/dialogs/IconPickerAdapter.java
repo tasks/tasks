@@ -4,13 +4,16 @@ import static org.tasks.preferences.ResourceResolver.getData;
 
 import android.app.Activity;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
+
 import org.tasks.Callback;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
+import org.tasks.databinding.DialogIconPickerCellBinding;
 import org.tasks.themes.CustomIcons;
 
 class IconPickerAdapter extends ListAdapter<Integer, IconPickerHolder> {
@@ -34,7 +37,7 @@ class IconPickerAdapter extends ListAdapter<Integer, IconPickerHolder> {
   public IconPickerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     return new IconPickerHolder(
         activity,
-        activity.getLayoutInflater().inflate(R.layout.dialog_icon_picker_cell, parent, false),
+        DialogIconPickerCellBinding.inflate(activity.getLayoutInflater(), parent, false),
         onSelected);
   }
 

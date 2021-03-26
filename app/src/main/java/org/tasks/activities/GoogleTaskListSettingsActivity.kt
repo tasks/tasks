@@ -8,7 +8,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.activity.viewModels
-import butterknife.BindView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity
@@ -21,6 +20,7 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.GoogleTaskAccount
 import org.tasks.data.GoogleTaskList
 import org.tasks.data.GoogleTaskListDao
+import org.tasks.databinding.ActivityGoogleTaskListSettingsBinding
 import org.tasks.extensions.Context.toast
 import timber.log.Timber
 import javax.inject.Inject
@@ -30,11 +30,8 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var taskDeleter: TaskDeleter
 
-    @BindView(R.id.name)
-    lateinit var name: TextInputEditText
-
-    @BindView(R.id.progress_bar)
-    lateinit var progressView: ProgressBar
+    private lateinit var name: TextInputEditText
+    private lateinit var progressView: ProgressBar
 
     private var isNewList = false
     private lateinit var gtasksList: GoogleTaskList
@@ -126,8 +123,11 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         super.finish()
     }
 
-    override val layout: Int
-        get() = R.layout.activity_google_task_list_settings
+    override fun bind() = ActivityGoogleTaskListSettingsBinding.inflate(layoutInflater).let {
+        name = it.name
+        progressView = it.progressBar.progressBar
+        it.root
+    }
 
     override fun promptDelete() {
         if (!requestInProgress()) {
@@ -174,7 +174,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         finish()
     }
 
-    private suspend fun onListDeleted(deleted: Boolean) {
+    private fun onListDeleted(deleted: Boolean) {
         if (deleted) {
             taskDeleter.delete(gtasksList)
             setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))

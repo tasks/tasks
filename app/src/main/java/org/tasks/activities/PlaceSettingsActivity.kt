@@ -3,8 +3,7 @@ package org.tasks.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import butterknife.BindView
-import butterknife.OnTextChanged
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
@@ -14,6 +13,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
+import org.tasks.databinding.ActivityLocationSettingsBinding
 import org.tasks.filters.PlaceFilter
 import org.tasks.location.MapFragment
 import org.tasks.preferences.Preferences
@@ -26,8 +26,8 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         const val EXTRA_PLACE = "extra_place"
     }
 
-    @BindView(R.id.name) lateinit var name: TextInputEditText
-    @BindView(R.id.name_layout) lateinit var nameLayout: TextInputLayout
+    private lateinit var name: TextInputEditText
+    private lateinit var nameLayout: TextInputLayout
 
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var map: MapFragment
@@ -64,17 +64,19 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         updateTheme()
     }
 
-    override val layout: Int
-        get() = R.layout.activity_location_settings
+    override fun bind() = ActivityLocationSettingsBinding.inflate(layoutInflater).let {
+        name = it.name.apply {
+            addTextChangedListener(
+                onTextChanged = { _, _, _, _ -> nameLayout.error = null }
+            )
+        }
+        nameLayout = it.nameLayout
+        it.root
+    }
 
     override fun hasChanges() = name.text.toString() != place.displayName
                     || selectedColor != place.color
                     || selectedIcon != place.getIcon()!!
-
-    @OnTextChanged(R.id.name)
-    fun onNameChanged() {
-        nameLayout.error = null
-    }
 
     override suspend fun save() {
         val newName: String = name.text.toString()

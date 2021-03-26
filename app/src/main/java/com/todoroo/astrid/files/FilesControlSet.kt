@@ -11,11 +11,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
-import butterknife.BindView
-import butterknife.OnClick
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
@@ -23,6 +22,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.data.TaskAttachment
 import org.tasks.data.TaskAttachmentDao
+import org.tasks.databinding.ControlSetFilesBinding
 import org.tasks.dialogs.AddAttachmentDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.files.FileHelper
@@ -38,11 +38,8 @@ class FilesControlSet : TaskEditControlFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var preferences: Preferences
     
-    @BindView(R.id.attachment_container)
-    lateinit var attachmentContainer: LinearLayout
-
-    @BindView(R.id.add_attachment)
-    lateinit var addAttachment: TextView
+    private lateinit var attachmentContainer: LinearLayout
+    private lateinit var addAttachment: TextView
     
     override fun createView(savedInstanceState: Bundle?) {
         val task = viewModel.task!!
@@ -61,12 +58,18 @@ class FilesControlSet : TaskEditControlFragment() {
         }
     }
 
-    @OnClick(R.id.add_attachment)
-    fun addAttachment() {
+    private fun addAttachment() {
         AddAttachmentDialog.newAddAttachmentDialog(this).show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
     }
 
-    override val layout = R.layout.control_set_files
+    override fun bind(parent: ViewGroup?) =
+        ControlSetFilesBinding.inflate(layoutInflater, parent, true).let {
+            attachmentContainer = it.attachmentContainer
+            addAttachment = it.addAttachment.apply {
+                setOnClickListener { addAttachment() }
+            }
+            it.root
+        }
 
     override val icon = R.drawable.ic_outline_attachment_24px
 

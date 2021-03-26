@@ -9,7 +9,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.lifecycle.lifecycleScope
-import butterknife.OnCheckedChanged
 import com.etesync.journalmanager.Crypto.CryptoManager
 import com.etesync.journalmanager.Exceptions.IntegrityException
 import com.etesync.journalmanager.Exceptions.VersionTooNewException
@@ -41,6 +40,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         binding.description.visibility = View.VISIBLE
         binding.description.setTextColor(ContextCompat.getColor(this, R.color.overdue))
         binding.description.setText(description)
+        binding.showAdvanced.setOnCheckedChangeListener { _, _ -> updateUrlVisibility() }
         updateUrlVisibility()
     }
 
@@ -106,11 +106,6 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
             }
         }
         return false
-    }
-
-    @OnCheckedChanged(R.id.show_advanced)
-    fun toggleUrl() {
-        updateUrlVisibility()
     }
 
     private fun updateUrlVisibility() {

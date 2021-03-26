@@ -3,13 +3,14 @@ package com.todoroo.astrid.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.TextView
-import butterknife.BindView
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.databinding.ControlSetHideBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.dialogs.StartDatePicker
@@ -35,8 +36,7 @@ class StartDateControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
 
-    @BindView(R.id.start_date)
-    lateinit var startDate: TextView
+    private lateinit var startDate: TextView
 
     private val dueDateTime
         get() = viewModel.dueDate!!
@@ -95,7 +95,11 @@ class StartDateControlSet : TaskEditControlFragment() {
         applySelectionToHideUntil()
     }
 
-    override val layout = R.layout.control_set_hide
+    override fun bind(parent: ViewGroup?) =
+        ControlSetHideBinding.inflate(layoutInflater, parent, true).let {
+            startDate = it.startDate
+            it.root
+        }
 
     override val icon = R.drawable.ic_pending_actions_24px
 

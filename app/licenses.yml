@@ -383,18 +383,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://kotlinlang.org/
-- artifact: com.jakewharton:butterknife:+
-  name: ButterKnife
-  copyrightHolder: Jake Wharton
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/JakeWharton/butterknife/
-- artifact: com.jakewharton:butterknife-annotations:+
-  name: ButterKnife Annotations
-  copyrightHolder: Jake Wharton
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/JakeWharton/butterknife/
 - artifact: com.squareup.okhttp3:logging-interceptor:+
   name: OkHttp Logging Interceptor
   copyrightHolder: Square, Inc.
@@ -406,12 +394,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://kotlinlang.org/
-- artifact: com.jakewharton:butterknife-runtime:+
-  name: ButterKnife Runtime
-  copyrightHolder: Jake Wharton
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/JakeWharton/butterknife/
 - artifact: io.grpc:grpc-context:+
   name: io.grpc:grpc-context
   copyrightHolder: The gRPC Authors

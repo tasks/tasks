@@ -3,15 +3,18 @@ package org.tasks.preferences.beast;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.tasks.R;
+import org.tasks.databinding.PreferenceDraggableRowBinding;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import org.tasks.R;
 
 public class BeastModeRecyclerAdapter extends RecyclerView.Adapter<BeastModeViewHolder> {
 
@@ -42,10 +45,10 @@ public class BeastModeRecyclerAdapter extends RecyclerView.Adapter<BeastModeView
 
   @Override
   public BeastModeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view =
-        LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.preference_draggable_row, parent, false);
-    return new BeastModeViewHolder(view, itemTouchHelper);
+    return new BeastModeViewHolder(
+            PreferenceDraggableRowBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false),
+            itemTouchHelper
+    );
   }
 
   @Override

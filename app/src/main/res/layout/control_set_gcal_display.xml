@@ -19,6 +19,8 @@
     android:hint="@string/dont_add_to_calendar"
     android:textAlignment="viewStart"/>
 
-  <include layout="@layout/control_set_clear_button"/>
+  <include
+      android:id="@+id/clear"
+      layout="@layout/control_set_clear_button" />
 
 </LinearLayout>

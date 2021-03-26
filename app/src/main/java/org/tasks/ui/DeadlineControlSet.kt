@@ -3,12 +3,13 @@ package org.tasks.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.TextView
-import butterknife.BindView
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task.Companion.hasDueTime
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.databinding.ControlSetDeadlineBinding
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
@@ -23,9 +24,7 @@ class DeadlineControlSet : TaskEditControlFragment() {
     @Inject lateinit var locale: Locale
     @Inject lateinit var preferences: Preferences
 
-    @BindView(R.id.due_date)
-    lateinit var dueDate: TextView
-
+    private lateinit var dueDate: TextView
     private lateinit var callback: DueDateChangeListener
 
     override fun onAttach(activity: Activity) {
@@ -51,7 +50,11 @@ class DeadlineControlSet : TaskEditControlFragment() {
 
     override val isClickable = true
 
-    override val layout = R.layout.control_set_deadline
+    override fun bind(parent: ViewGroup?) =
+        ControlSetDeadlineBinding.inflate(layoutInflater, parent, true).let {
+            dueDate = it.dueDate
+            it.root
+        }
 
     override val icon = R.drawable.ic_outline_schedule_24px
 

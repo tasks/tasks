@@ -2,12 +2,12 @@ package org.tasks.ui
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatRadioButton
-import butterknife.BindView
-import butterknife.OnClick
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.databinding.ControlSetPriorityBinding
 import org.tasks.themes.ColorProvider
 import javax.inject.Inject
 
@@ -15,20 +15,12 @@ import javax.inject.Inject
 class PriorityControlSet : TaskEditControlFragment() {
     @Inject lateinit var colorProvider: ColorProvider
 
-    @BindView(R.id.priority_high)
-    lateinit var priorityHigh: AppCompatRadioButton
+    private lateinit var priorityHigh: AppCompatRadioButton
+    private lateinit var priorityMedium: AppCompatRadioButton
+    private lateinit var priorityLow: AppCompatRadioButton
+    private lateinit var priorityNone: AppCompatRadioButton
 
-    @BindView(R.id.priority_medium)
-    lateinit var priorityMedium: AppCompatRadioButton
-
-    @BindView(R.id.priority_low)
-    lateinit var priorityLow: AppCompatRadioButton
-
-    @BindView(R.id.priority_none)
-    lateinit var priorityNone: AppCompatRadioButton
-
-    @OnClick(R.id.priority_high, R.id.priority_medium, R.id.priority_low, R.id.priority_none)
-    fun onPriorityChanged() {
+    private fun onPriorityChanged() {
         viewModel.priority = getPriority()
     }
 
@@ -45,7 +37,22 @@ class PriorityControlSet : TaskEditControlFragment() {
         tintRadioButton(priorityNone, 3)
     }
 
-    override val layout = R.layout.control_set_priority
+    override fun bind(parent: ViewGroup?) =
+        ControlSetPriorityBinding.inflate(layoutInflater, parent, true).let {
+            priorityHigh = it.priorityHigh.apply {
+                setOnClickListener { onPriorityChanged() }
+            }
+            priorityMedium = it.priorityMedium.apply {
+                setOnClickListener { onPriorityChanged() }
+            }
+            priorityLow = it.priorityLow.apply {
+                setOnClickListener { onPriorityChanged() }
+            }
+            priorityNone = it.priorityNone.apply {
+                setOnClickListener { onPriorityChanged() }
+            }
+            it.root
+        }
 
     override val icon = R.drawable.ic_outline_flag_24px
 

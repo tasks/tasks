@@ -11,14 +11,13 @@ import android.os.SystemClock
 import android.text.format.DateFormat
 import android.text.format.DateUtils
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Chronometer
 import android.widget.Chronometer.OnChronometerTickListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
-import butterknife.BindView
-import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.ui.TimeDurationControlSet
@@ -26,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.databinding.ControlSetTimersBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.themes.Theme
 import org.tasks.ui.TaskEditControlFragment
@@ -42,14 +42,9 @@ class TimerControlSet : TaskEditControlFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var theme: Theme
     
-    @BindView(R.id.display_row_edit)
-    lateinit var displayEdit: TextView
-
-    @BindView(R.id.timer)
-    lateinit var chronometer: Chronometer
-
-    @BindView(R.id.timer_button)
-    lateinit var timerButton: ImageView
+    private lateinit var displayEdit: TextView
+    private lateinit var chronometer: Chronometer
+    private lateinit var timerButton: ImageView
     
     private lateinit var estimated: TimeDurationControlSet
     private lateinit var elapsed: TimeDurationControlSet
@@ -87,8 +82,7 @@ class TimerControlSet : TaskEditControlFragment() {
                 .create()
     }
 
-    @OnClick(R.id.timer_container)
-    fun timerClicked() {
+    private fun timerClicked() {
         lifecycleScope.launch {
             if (timerActive()) {
                 val task = callback.stopTimer()
@@ -105,7 +99,14 @@ class TimerControlSet : TaskEditControlFragment() {
         }
     }
 
-    override val layout = R.layout.control_set_timers
+    override fun bind(parent: ViewGroup?) =
+        ControlSetTimersBinding.inflate(layoutInflater, parent, true).let {
+            displayEdit = it.displayRowEdit
+            chronometer = it.timer
+            timerButton = it.timerButton
+            it.timerContainer.setOnClickListener { timerClicked() }
+            it.root
+        }
 
     override val icon = R.drawable.ic_outline_timer_24px
 

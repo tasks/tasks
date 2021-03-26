@@ -9,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -93,20 +91,33 @@ class DateTimePicker : BaseDateTimePicker() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DialogDateTimePickerBinding.inflate(theme.getLayoutInflater(requireContext()))
         setupShortcutsAndCalendar()
-        ButterKnife.bind(this, binding.root)
-        binding.shortcuts.nextWeekButton.text =
+        with (binding.shortcuts) {
+            nextWeekButton.text =
                 getString(
-                        when (newDateTime().plusWeeks(1).dayOfWeek) {
-                            SUNDAY -> R.string.next_sunday
-                            MONDAY -> R.string.next_monday
-                            TUESDAY -> R.string.next_tuesday
-                            WEDNESDAY -> R.string.next_wednesday
-                            THURSDAY -> R.string.next_thursday
-                            FRIDAY -> R.string.next_friday
-                            SATURDAY -> R.string.next_saturday
-                            else -> throw IllegalArgumentException()
-                        }
+                    when (newDateTime().plusWeeks(1).dayOfWeek) {
+                        SUNDAY -> R.string.next_sunday
+                        MONDAY -> R.string.next_monday
+                        TUESDAY -> R.string.next_tuesday
+                        WEDNESDAY -> R.string.next_wednesday
+                        THURSDAY -> R.string.next_thursday
+                        FRIDAY -> R.string.next_friday
+                        SATURDAY -> R.string.next_saturday
+                        else -> throw IllegalArgumentException()
+                    }
                 )
+            noDateButton.setOnClickListener { clearDate() }
+            noTime.setOnClickListener { clearTime() }
+            todayButton.setOnClickListener { setToday() }
+            tomorrowButton.setOnClickListener { setTomorrow() }
+            nextWeekButton.setOnClickListener { setNextWeek() }
+            morningButton.setOnClickListener { setMorning() }
+            afternoonButton.setOnClickListener { setAfternoon() }
+            eveningButton.setOnClickListener { setEvening() }
+            nightButton.setOnClickListener { setNight() }
+            currentDateSelection.setOnClickListener { currentDate() }
+            currentTimeSelection.setOnClickListener { currentTime() }
+            pickTimeButton.setOnClickListener { pickTime() }
+        }
         binding.calendarView.setOnDateChangeListener { _, y, m, d ->
             returnDate(day = DateTime(y, m + 1, d).millis)
             refreshButtons()
@@ -163,40 +174,18 @@ class DateTimePicker : BaseDateTimePicker() {
         }
     }
 
-    @OnClick(R.id.no_date_button)
-    fun clearDate() = returnDate(day = 0, time = 0)
+    private fun clearDate() = returnDate(day = 0, time = 0)
+    private fun clearTime() = returnDate(time = 0)
+    private fun setToday() = returnDate(day = today.startOfDay().millis)
+    private fun setTomorrow() = returnDate(day = tomorrow.startOfDay().millis)
+    private fun setNextWeek() = returnDate(day = nextWeek.startOfDay().millis)
+    private fun setMorning() = returnSelectedTime(morning)
+    private fun setAfternoon() = returnSelectedTime(afternoon)
+    private fun setEvening() = returnSelectedTime(evening)
+    private fun setNight() = returnSelectedTime(night)
+    private fun currentDate() = returnDate(day = customDate)
+    private fun currentTime() = returnSelectedTime(customTime)
 
-    @OnClick(R.id.no_time)
-    fun clearTime() = returnDate(time = 0)
-
-    @OnClick(R.id.today_button)
-    fun setToday() = returnDate(day = today.startOfDay().millis)
-
-    @OnClick(R.id.tomorrow_button)
-    fun setTomorrow() = returnDate(day = tomorrow.startOfDay().millis)
-
-    @OnClick(R.id.next_week_button)
-    fun setNextWeek() = returnDate(day = nextWeek.startOfDay().millis)
-
-    @OnClick(R.id.morning_button)
-    fun setMorning() = returnSelectedTime(morning)
-
-    @OnClick(R.id.afternoon_button)
-    fun setAfternoon() = returnSelectedTime(afternoon)
-
-    @OnClick(R.id.evening_button)
-    fun setEvening() = returnSelectedTime(evening)
-
-    @OnClick(R.id.night_button)
-    fun setNight() = returnSelectedTime(night)
-
-    @OnClick(R.id.current_date_selection)
-    fun currentDate() = returnDate(day = customDate)
-
-    @OnClick(R.id.current_time_selection)
-    fun currentTime() = returnSelectedTime(customTime)
-
-    @OnClick(R.id.pick_time_button)
     fun pickTime() {
         val time = if (selectedTime == MULTIPLE_TIMES
                 || !Task.hasDueTime(today.withMillisOfDay(selectedTime).millis)) {

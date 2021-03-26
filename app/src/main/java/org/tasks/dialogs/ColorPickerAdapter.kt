@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import org.tasks.R
 import org.tasks.billing.Inventory
+import org.tasks.databinding.DialogIconPickerCellBinding
 import org.tasks.dialogs.ColorPalettePicker.Pickable
 
 class ColorPickerAdapter(
@@ -21,10 +22,12 @@ class ColorPickerAdapter(
         WIDGET
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IconPickerHolder {
-        val view = activity.layoutInflater.inflate(R.layout.dialog_icon_picker_cell, parent, false)
-        return IconPickerHolder(activity, view, onSelected)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        IconPickerHolder(
+            activity,
+            DialogIconPickerCellBinding.inflate(activity.layoutInflater, parent, false),
+            onSelected
+        )
 
     override fun onBindViewHolder(holder: IconPickerHolder, position: Int) {
         val pickable = getItem(position)

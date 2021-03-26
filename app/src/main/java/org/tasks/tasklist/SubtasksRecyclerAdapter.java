@@ -4,18 +4,21 @@ import android.app.Activity;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.List;
-import org.tasks.R;
+
 import org.tasks.data.TaskContainer;
+import org.tasks.databinding.SubtaskAdapterRowBodyBinding;
 import org.tasks.tasklist.SubtaskViewHolder.Callbacks;
 import org.tasks.ui.CheckBoxProvider;
 import org.tasks.ui.ChipProvider;
+
+import java.util.List;
 
 public class SubtasksRecyclerAdapter extends RecyclerView.Adapter<SubtaskViewHolder>
     implements ListUpdateCallback {
@@ -46,10 +49,13 @@ public class SubtasksRecyclerAdapter extends RecyclerView.Adapter<SubtaskViewHol
   @NonNull
   @Override
   public SubtaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    ViewGroup view =
-        (ViewGroup)
-            LayoutInflater.from(activity).inflate(R.layout.subtask_adapter_row_body, parent, false);
-    return new SubtaskViewHolder(view, callbacks, metrics, chipProvider, checkBoxProvider);
+    return new SubtaskViewHolder(
+            SubtaskAdapterRowBodyBinding.inflate(LayoutInflater.from(activity), parent, false),
+            callbacks,
+            metrics,
+            chipProvider,
+            checkBoxProvider
+    );
   }
 
   @Override

@@ -11,9 +11,6 @@ import org.tasks.data.CaldavDao
 @AndroidEntryPoint
 class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
-    override val layout: Int
-        get() = R.layout.activity_caldav_calendar_settings
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

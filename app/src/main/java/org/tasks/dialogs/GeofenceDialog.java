@@ -9,21 +9,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
-import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.google.android.material.slider.Slider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import dagger.hilt.android.AndroidEntryPoint;
-import javax.inject.Inject;
+
 import org.tasks.R;
 import org.tasks.data.Geofence;
 import org.tasks.data.Location;
+import org.tasks.databinding.LocationDetailsBinding;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.PermissionChecker;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class GeofenceDialog extends DialogFragment {
@@ -39,14 +42,9 @@ public class GeofenceDialog extends DialogFragment {
   @Inject Locale locale;
   @Inject PermissionChecker permissionChecker;
 
-  @BindView(R.id.location_arrival)
-  SwitchMaterial arrivalView;
-
-  @BindView(R.id.location_departure)
-  SwitchMaterial departureView;
-
-  @BindView(R.id.slider)
-  Slider slider;
+  private SwitchMaterial arrivalView;
+  private SwitchMaterial departureView;
+  private Slider slider;
 
   public static GeofenceDialog newGeofenceDialog(Location location) {
     GeofenceDialog dialog = new GeofenceDialog();
@@ -66,8 +64,10 @@ public class GeofenceDialog extends DialogFragment {
             : savedInstanceState.getParcelable(EXTRA_GEOFENCE);
 
     LayoutInflater layoutInflater = LayoutInflater.from(context);
-    View view = layoutInflater.inflate(R.layout.location_details, null);
-    ButterKnife.bind(this, view);
+    LocationDetailsBinding binding = LocationDetailsBinding.inflate(layoutInflater);
+    arrivalView = binding.locationArrival;
+    departureView = binding.locationDeparture;
+    slider = binding.slider;
     arrivalView.setChecked(geofence.isArrival());
     departureView.setChecked(geofence.isDeparture());
     slider.setLabelFormatter(
@@ -79,7 +79,7 @@ public class GeofenceDialog extends DialogFragment {
     slider.setValue(Math.round((geofence.getRadius() / STEP) * STEP));
     return dialogBuilder
         .newDialog(original.getDisplayName())
-        .setView(view)
+        .setView(binding.getRoot())
         .setNegativeButton(R.string.cancel, null)
         .setOnCancelListener(this::sendResult)
         .setPositiveButton(R.string.ok, this::sendResult)

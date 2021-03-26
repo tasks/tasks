@@ -2,8 +2,6 @@ package org.tasks.opentasks
 
 import android.os.Bundle
 import android.view.View
-import android.widget.RelativeLayout
-import butterknife.BindView
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
@@ -12,9 +10,6 @@ import org.tasks.data.CaldavCalendar
 
 @AndroidEntryPoint
 class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
-
-    @BindView(R.id.color_row)
-    lateinit var colorRow: RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

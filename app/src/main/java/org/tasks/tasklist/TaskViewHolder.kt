@@ -8,10 +8,6 @@ import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
-import butterknife.OnLongClick
 import com.google.android.material.chip.ChipGroup
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
@@ -20,6 +16,7 @@ import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.ui.CheckableImageView
 import org.tasks.R
 import org.tasks.data.TaskContainer
+import org.tasks.databinding.TaskAdapterRowBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.Linkify
 import org.tasks.preferences.Preferences
@@ -32,42 +29,37 @@ import kotlin.math.max
 import kotlin.math.roundToInt
 
 class TaskViewHolder internal constructor(
-        private val context: Activity,
-        view: ViewGroup,
-        private val preferences: Preferences,
-        fontSize: Int,
-        private val chipProvider: ChipProvider,
-        private val checkBoxProvider: CheckBoxProvider,
-        private val textColorOverdue: Int,
-        private val textColorSecondary: Int,
-        private val callback: ViewHolderCallbacks,
-        private val metrics: DisplayMetrics,
-        private val background: Int,
-        private val selectedColor: Int,
-        private val rowPadding: Int,
-        private val linkify: Linkify,
-        private val locale: Locale) : RecyclerView.ViewHolder(view) {
+    private val context: Activity,
+    binding: TaskAdapterRowBinding,
+    private val preferences: Preferences,
+    fontSize: Int,
+    private val chipProvider: ChipProvider,
+    private val checkBoxProvider: CheckBoxProvider,
+    private val textColorOverdue: Int,
+    private val textColorSecondary: Int,
+    private val callback: ViewHolderCallbacks,
+    private val metrics: DisplayMetrics,
+    private val background: Int,
+    private val selectedColor: Int,
+    private val rowPadding: Int,
+    private val linkify: Linkify,
+    private val locale: Locale
+) : RecyclerView.ViewHolder(binding.root) {
 
-    @BindView(R.id.row)
-    lateinit var row: ViewGroup
-
-    @BindView(R.id.due_date)
-    lateinit var dueDate: TextView
-    
-    @BindView(R.id.rowBody)
-    lateinit var rowBody: ViewGroup
-
-    @BindView(R.id.title)
-    lateinit var nameView: TextView
-
-    @BindView(R.id.description)
-    lateinit var description: TextView
-
-    @BindView(R.id.completeBox)
-    lateinit var completeBox: CheckableImageView
-
-    @BindView(R.id.chip_group)
-    lateinit var chipGroup: ChipGroup
+    private val row: ViewGroup = binding.row
+    private val dueDate: TextView = binding.dueDate.apply {
+        setOnClickListener { changeDueDate() }
+    }
+    private val rowBody: ViewGroup = binding.rowBody.apply {
+        setOnClickListener { onRowBodyClick() }
+        setOnLongClickListener { onRowBodyLongClick() }
+    }
+    private val nameView: TextView = binding.title
+    private val description: TextView = binding.description
+    private val completeBox: CheckableImageView = binding.completeBox.apply {
+        setOnClickListener { onCompleteBoxClick() }
+    }
+    private val chipGroup: ChipGroup = binding.chipGroup
 
     lateinit var task: TaskContainer
     
@@ -226,14 +218,11 @@ class TaskViewHolder internal constructor(
         }
     }
 
-    @OnClick(R.id.rowBody)
-    fun onRowBodyClick() = callback.onClick(this)
+    private fun onRowBodyClick() = callback.onClick(this)
 
-    @OnLongClick(R.id.rowBody)
-    fun onRowBodyLongClick(): Boolean = callback.onLongPress(this)
+    private fun onRowBodyLongClick(): Boolean = callback.onLongPress(this)
 
-    @OnClick(R.id.completeBox)
-    fun onCompleteBoxClick() {
+    private fun onCompleteBoxClick() {
         val newState = completeBox.isChecked
         if (newState != task.isCompleted) {
             callback.onCompletedTask(task, newState)
@@ -243,8 +232,7 @@ class TaskViewHolder internal constructor(
         setupTitleAndCheckbox()
     }
 
-    @OnClick(R.id.due_date)
-    fun changeDueDate() {
+    private fun changeDueDate() {
         callback.onChangeDueDate(task)
     }
 
@@ -258,7 +246,6 @@ class TaskViewHolder internal constructor(
     }
 
     init {
-        ButterKnife.bind(this, view)
         if (preferences.getBoolean(R.string.p_fullTaskTitle, false)) {
             nameView.maxLines = Int.MAX_VALUE
             nameView.isSingleLine = false
@@ -275,9 +262,11 @@ class TaskViewHolder internal constructor(
         description.textSize = fontSize.toFloat()
         val fontSizeDetails = max(10, fontSize - 2)
         dueDate.textSize = fontSizeDetails.toFloat()
-        view.tag = this
-        for (i in 0 until view.childCount) {
-            view.getChildAt(i).tag = this
+        with(binding.root) {
+            tag = this@TaskViewHolder
+            for (i in 0 until childCount) {
+                getChildAt(i).tag = this@TaskViewHolder
+            }
         }
     }
 }

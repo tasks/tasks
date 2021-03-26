@@ -1,11 +1,12 @@
 package org.tasks.ui
 
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.EditText
-import butterknife.BindView
-import butterknife.OnTextChanged
+import androidx.core.widget.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.databinding.ControlSetDescriptionBinding
 import org.tasks.dialogs.Linkify
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -15,8 +16,7 @@ class DescriptionControlSet : TaskEditControlFragment() {
     @Inject lateinit var linkify: Linkify
     @Inject lateinit var preferences: Preferences
 
-    @BindView(R.id.notes)
-    lateinit var editText: EditText
+    private lateinit var editText: EditText
     
     override fun createView(savedInstanceState: Bundle?) {
         viewModel.description?.let(editText::setTextKeepState)
@@ -25,15 +25,22 @@ class DescriptionControlSet : TaskEditControlFragment() {
         }
     }
 
-    override val layout = R.layout.control_set_description
+    override fun bind(parent: ViewGroup?) =
+        ControlSetDescriptionBinding.inflate(layoutInflater, parent, true).let {
+            editText = it.notes.apply {
+                addTextChangedListener(
+                    onTextChanged = { text, _, _, _ -> textChanged(text) }
+                )
+            }
+            it.root
+        }
 
     override val icon = R.drawable.ic_outline_notes_24px
 
     override fun controlId() = TAG
 
-    @OnTextChanged(R.id.notes)
-    fun textChanged(text: CharSequence) {
-        viewModel.description = text.toString().trim { it <= ' ' }
+    private fun textChanged(text: CharSequence?) {
+        viewModel.description = text?.toString()?.trim { it <= ' ' }
     }
 
     companion object {

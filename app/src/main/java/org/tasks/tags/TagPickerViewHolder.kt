@@ -4,34 +4,27 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnCheckedChanged
-import butterknife.OnClick
 import org.tasks.R
 import org.tasks.data.TagData
-import org.tasks.tags.CheckBoxTriStates
+import org.tasks.databinding.RowTagPickerBinding
 import org.tasks.themes.DrawableUtil
 
 class TagPickerViewHolder internal constructor(
-        private val context: Context,
-        view: View,
-        private val callback: (TagData, TagPickerViewHolder) -> Unit
-) : RecyclerView.ViewHolder(view) {
+    private val context: Context,
+    binding: RowTagPickerBinding,
+    private val callback: (TagData, TagPickerViewHolder) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
 
     val isChecked: Boolean
         get() = checkBox.isChecked
 
-    @BindView(R.id.text)
-    lateinit var text: TextView
-
-    @BindView(R.id.checkbox)
-    lateinit var checkBox: CheckBoxTriStates
-
+    private val text: TextView = binding.text
+    private val checkBox: CheckBoxTriStates = binding.checkbox.apply {
+        setOnCheckedChangeListener { _, _ ->  onCheckedChanged() }
+    }
     private var tagData: TagData? = null
 
-    @OnClick(R.id.tag_row)
-    fun onClickRow() {
+    private fun onClickRow() {
         if (tagData!!.id == null) {
             callback(tagData!!, this)
         } else {
@@ -39,8 +32,7 @@ class TagPickerViewHolder internal constructor(
         }
     }
 
-    @OnCheckedChanged(R.id.checkbox)
-    fun onCheckedChanged() {
+    private fun onCheckedChanged() {
         callback(tagData!!, this)
     }
 
@@ -73,6 +65,6 @@ class TagPickerViewHolder internal constructor(
     }
 
     init {
-        ButterKnife.bind(this, view)
+        binding.tagRow.setOnClickListener { onClickRow() }
     }
 }
