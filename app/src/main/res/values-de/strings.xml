@@ -38,7 +38,7 @@
     <string name="TEA_importance_label">Dringlichkeit</string>
     <string name="TEA_note_label">Beschreibung</string>
     <string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
-    <string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
+    <string name="TEA_elapsedDuration_label">Schon benötigte Zeit</string>
     <string name="save">Speichern</string>
     <string name="TEA_timer_est">Geschätzt %s</string>
     <string name="TEA_timer_elap">%s verstrichen</string>
