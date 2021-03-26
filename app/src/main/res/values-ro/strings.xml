@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="TEA_title_hint">Numele taskului</string>
     <string name="TEA_control_importance">Prioritate</string>
@@ -6,4 +6,5 @@
     <string name="TEA_control_files">Fisiere</string>
     <string name="custom_filter_or">sau</string>
     <string name="filters">Filtre</string>
+    <string name="email">E-mail</string>
 </resources>
