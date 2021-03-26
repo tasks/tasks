@@ -713,4 +713,11 @@
     <string name="pro_free_trial">Les nouveaux abonnés bénéficient d\'un essai gratuit de 7 jours. Annulez à tout moment</string>
     <string name="tasks_needs_your_support">Tasks a besoin de votre soutien !</string>
     <string name="subscription_benefits">Avantages de l\'abonnement</string>
+    <string name="next_sunday">Dimanche suivant</string>
+    <string name="next_saturday">Samedi suivant</string>
+    <string name="next_friday">Vendredi suivant</string>
+    <string name="next_thursday">Jeudi suivant</string>
+    <string name="next_wednesday">Mercredi suivant</string>
+    <string name="next_tuesday">Mardi suivant</string>
+    <string name="next_monday">Lundi suivant</string>
 </resources>
