@@ -157,4 +157,5 @@
     <string name="tomorrow_lowercase">sutra</string>
     <string name="tomorrow">sutra</string>
     <string name="tomorrow_abbrev_lowercase">sutra</string>
+    <string name="email">E-pošta</string>
 </resources>
