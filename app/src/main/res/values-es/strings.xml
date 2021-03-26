@@ -694,7 +694,7 @@
     <string name="invite_awaiting_response">Invitación en espera de respuesta</string>
     <string name="invite_declined">Invita declinado</string>
     <string name="invite">Invitar</string>
-    <string name="email">Email</string>
+    <string name="email">Correo electrónico</string>
     <string name="share_list">Compartir la lista</string>
     <string name="tasks_org_share">Compartir listas con otros usuarios</string>
     <string name="picker_mode_text">Texto</string>
