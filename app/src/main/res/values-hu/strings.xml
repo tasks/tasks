@@ -692,7 +692,7 @@
     <string name="invite_awaiting_response">Válaszra váró meghívás</string>
     <string name="invite_declined">Meghívás visszautasítva</string>
     <string name="invite">Meghívás</string>
-    <string name="email">Email</string>
+    <string name="email">E-mail</string>
     <string name="share_list">Lista megosztása</string>
     <string name="tasks_org_share">Lista megosztása más felhasználókkal</string>
     <string name="picker_mode_text">Szöveg</string>
