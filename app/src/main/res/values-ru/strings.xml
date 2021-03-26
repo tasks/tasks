@@ -703,4 +703,5 @@
     <string name="open_source">Открытый исходный код</string>
     <string name="issue_tracker">Отслеживание ошибок</string>
     <string name="support">Поддержка</string>
+    <string name="email">Эл. почта</string>
 </resources>
