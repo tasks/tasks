@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">Išvalyti paveiksliuką</string>
     <string name="TVA_add_comment">Pridėti komentarą…</string>
@@ -436,4 +436,5 @@
     <string name="version_string">Versija %s</string>
     <string name="invalid_backup_file">Blogas atsarginės kopijos failas</string>
     <string name="google_tasks_add_to_top">Naujos užduotys viršuje</string>
+    <string name="email">El. paštas</string>
 </resources>
