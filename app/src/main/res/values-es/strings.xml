@@ -718,4 +718,11 @@
     <string name="pro_free_trial">Los nuevos suscriptores reciben una prueba gratuita de 7 días. Cancelar en cualquier momento</string>
     <string name="tasks_needs_your_support">¡Tasks necesitan su apoyo!</string>
     <string name="subscription_benefits">Beneficios de suscripción</string>
+    <string name="next_saturday">Próximo sábado</string>
+    <string name="next_friday">Próximo viernes</string>
+    <string name="next_thursday">Próximo jueves</string>
+    <string name="next_wednesday">Próximo miércoles</string>
+    <string name="next_tuesday">Próximo martes</string>
+    <string name="next_monday">Próximo lunes</string>
+    <string name="next_sunday">Próximo domingo</string>
 </resources>
