@@ -697,4 +697,5 @@
     <string name="follow_twitter">Obserwuj @tasks_org</string>
     <string name="remove_user">Usunąć użytkownika\?</string>
     <string name="support">Wsparcie</string>
+    <string name="email">Poczta elektroniczna</string>
 </resources>
