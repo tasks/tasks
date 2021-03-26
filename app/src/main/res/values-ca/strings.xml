@@ -121,4 +121,5 @@
     <string name="TEA_control_repeat">Repeteix</string>
     <string name="due_time">Data de venciment</string>
     <string name="TEA_timer_elap">Transcorregut %s</string>
+    <string name="email">Correu-e</string>
 </resources>
