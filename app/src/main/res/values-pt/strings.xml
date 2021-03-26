@@ -615,4 +615,5 @@
         <item quantity="one">Lista %d</item>
         <item quantity="other">Listas %d</item>
     </plurals>
+    <string name="email">Correio eletrónico</string>
 </resources>
