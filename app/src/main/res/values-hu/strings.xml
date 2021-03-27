@@ -716,4 +716,11 @@
     <string name="upgrade_more_customization_description">Az összes téma, szín és ikon feloldása</string>
     <string name="upgrade_more_customization">Még nagyobb testreszabhatóság</string>
     <string name="pro_free_trial">Az új előfizetők 7 napos ingyenes kipróbálási lehetőséget kapnak. Az előfizetés bármikor lemondható</string>
+    <string name="next_saturday">Köv. Szo</string>
+    <string name="next_friday">Köv. P</string>
+    <string name="next_thursday">Köv. Cs</string>
+    <string name="next_wednesday">Köv. Sze</string>
+    <string name="next_monday">Köv. H</string>
+    <string name="next_sunday">Köv. V</string>
+    <string name="next_tuesday">Köv. K</string>
 </resources>
