@@ -461,7 +461,7 @@
     <string name="subtasks">Teilaufgaben</string>
     <string name="subtasks_multilevel_google_task">Mehrstufige Teilaufgaben werden von Google Tasks nicht unterstützt</string>
     <string name="enter_title_hint">Titel eingeben</string>
-    <string name="encryption_password_required">Verschlüsselungs-Passwort erforderlich</string>
+    <string name="encryption_password_required">Passwort zur Verschlüsselung erforderlich</string>
     <string name="encryption_password">Verschlüsselungspasswort</string>
     <string name="display_name">Anzeigename</string>
     <string name="this_feature_requires_a_subscription">Diese Funktion benötigt ein Abonnement</string>
@@ -508,7 +508,7 @@
     <string name="place_settings">Ortseinstellungen</string>
     <string name="navigation_drawer">Navigationsmenü</string>
     <string name="hide_unused_tags">Ungenutzte Schlagwörter ausblenden</string>
-    <string name="hide_unused_places">Nicht verwendete Orte ausblenden</string>
+    <string name="hide_unused_places">Ungenutzte Orte ausblenden</string>
     <string name="add_place">Ort hinzufügen</string>
     <string name="menu_discard_changes">Änderungen verwerfen</string>
     <string name="chip_appearance_text_and_icon">Text und Symbol</string>
