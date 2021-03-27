@@ -701,4 +701,11 @@
     <string name="subscription_benefits">Keuntungan berlangganan</string>
     <string name="upgrade_blurb_2">Saya telah menghabiskan ribuan jam bekerja pada Tasks, dan saya mempublikasikan semua kode sumber online secara gratis. Untuk mendukung pekerjaan saya, beberapa fitur memerlukan berlangganan</string>
     <string name="upgrade_blurb_1">Hi. Nama saya Alex. Saya adalah pengembang independen dibelakang aplikasi Tasks</string>
+    <string name="next_saturday">Sabtu Depan</string>
+    <string name="next_friday">Jumat Depan</string>
+    <string name="next_thursday">Kamis Depan</string>
+    <string name="next_wednesday">Rabu Depan</string>
+    <string name="next_tuesday">Selasa Depan</string>
+    <string name="next_monday">Senin Depan</string>
+    <string name="next_sunday">Minggu Depan</string>
 </resources>
