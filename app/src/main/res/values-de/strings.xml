@@ -464,7 +464,7 @@
     <string name="encryption_password_required">Verschlüsselungs-Passwort erforderlich</string>
     <string name="encryption_password">Verschlüsselungspasswort</string>
     <string name="display_name">Anzeigename</string>
-    <string name="this_feature_requires_a_subscription">Diese Funktion erfordert ein Abonnement</string>
+    <string name="this_feature_requires_a_subscription">Diese Funktion benötigt ein Abonnement</string>
     <string name="passwords_do_not_match">Passwörter stimmen nicht überein</string>
     <string name="reenter_encryption_password">Verschlüsselungspasswort bestätigen</string>
     <string name="encryption_password_wrong">Falsches Passwort zur Verschlüsselung</string>
@@ -486,7 +486,7 @@
     <string name="more_settings">Weitere Einstellungen</string>
     <string name="wearable_notifications">Benachrichtigungen auf Wearables</string>
     <string name="wearable_notifications_summary">Benachrichtigungen auf Ihrem Wearable anzeigen</string>
-    <string name="troubleshooting">Problembehandlung</string>
+    <string name="troubleshooting">Fehlerbehebung</string>
     <string name="notification_troubleshooting_summary">Tippen Sie hier, wenn Sie Probleme mit Benachrichtigungen haben</string>
     <string name="disable_battery_optimizations">Batterieoptimierung deaktivieren</string>
     <string name="more_notification_settings_summary">Klingelton, Vibration und mehr</string>
@@ -507,7 +507,7 @@
     <string name="places">Orte</string>
     <string name="place_settings">Ortseinstellungen</string>
     <string name="navigation_drawer">Navigationsmenü</string>
-    <string name="hide_unused_tags">Nicht verwendete Schlagwörter ausblenden</string>
+    <string name="hide_unused_tags">Ungenutzte Schlagwörter ausblenden</string>
     <string name="hide_unused_places">Nicht verwendete Orte ausblenden</string>
     <string name="add_place">Ort hinzufügen</string>
     <string name="menu_discard_changes">Änderungen verwerfen</string>
@@ -620,7 +620,7 @@
     <string name="current_subscription">Aktuelles Abonnement: %s</string>
     <string name="insufficient_subscription">Unzureichende Abonnementstufe. Bitte aktualisieren Sie Ihr Abonnement, um den Dienst wieder aufzunehmen.</string>
     <string name="your_subscription_expired">Ihr Abonnement ist abgelaufen. Abonnieren Sie jetzt, um den Dienst fortzusetzen.</string>
-    <string name="background_location_permission_required">Tasks sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die Anwendung geschlossen oder nicht in Gebrauch ist.</string>
+    <string name="background_location_permission_required">Tasks sammelt Standortdaten, um standortbezogene Erinnerungen zu ermöglichen, auch wenn die Anwendung geschlossen ist oder nicht verwendet wird.</string>
     <string name="repeat_monthly_fifth_week">fünften</string>
     <string name="price_per_month">%s $/Monat</string>
     <string name="price_per_year">%s $/Jahr</string>
@@ -644,7 +644,7 @@
     <string name="not_signed_in">Nicht angemeldet</string>
     <string name="authorization_cancelled">Autorisierung abgebrochen</string>
     <string name="sign_in_with_google">Mit Google anmelden</string>
-    <string name="account_not_included">Nicht im \"Wähle deinen Preis\"-Abonnement enthalten</string>
+    <string name="account_not_included">Nicht im „Wähle deinen Preis“-Abonnement enthalten</string>
     <string name="tasks_org_account">Tasks.org-Konto</string>
     <string name="copied_to_clipboard">%s in Zwischenablage kopiert</string>
     <string name="app_password_save">Nutze diese Anmeldedaten, um eine Drittanbieternanwendung zu konfigurieren. Diese erlauben vollen Zugriff auf deinen Task.org-Konto. Schreib sie nicht auf und teile sie mit niemandem!</string>
@@ -673,16 +673,16 @@
     <string name="default_start_date">Standardstartdatum</string>
     <string name="start_date">Startdatum</string>
     <string name="SSD_sort_start">Nach Startdatum</string>
-    <string name="get_tasks_org_account">Tasks.org-Konto erstellen</string>
+    <string name="get_tasks_org_account">Erstelle dir ein Task.org-Konto</string>
     <string name="tomorrow_abbrev_lowercase">mrgn</string>
-    <string name="yesterday_abbrev_lowercase">gest</string>
+    <string name="yesterday_abbrev_lowercase">gestern</string>
     <string name="open_source">Open source</string>
     <string name="issue_tracker">Issue Tracker</string>
     <string name="support">Support</string>
     <string name="social">Sozial</string>
     <string name="chat_freenode">Treten Sie #tasks auf Freenode bei</string>
     <string name="follow_twitter">Folgen Sie @tasks_org</string>
-    <string name="map_theme">Kartenthema</string>
+    <string name="map_theme">Kartendesign</string>
     <string name="manage_drawer">Seitenleiste verwalten</string>
     <string name="map_theme_use_app_theme">Anwendungsthema nutzen</string>
     <string name="tasks_org_account_required">Tasks.org-Konto erforderlich</string>
@@ -718,4 +718,11 @@
     <string name="picker_mode_date">Datumsauswahlmodus</string>
     <string name="tasks_needs_your_support">Tasks braucht deine Unterstützung!</string>
     <string name="subscription_benefits">Abonnementvorteile</string>
+    <string name="next_saturday">Nächsten Samstag</string>
+    <string name="next_friday">Nächsten Freitag</string>
+    <string name="next_thursday">Nächsten Donnerstag</string>
+    <string name="next_wednesday">Nächsten Mittwoch</string>
+    <string name="next_tuesday">Nächsten Dienstag</string>
+    <string name="next_monday">Nächsten Montag</string>
+    <string name="next_sunday">Nächsten Sonntag</string>
 </resources>
