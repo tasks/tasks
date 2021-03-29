@@ -488,7 +488,6 @@
     <string name="color_wheel">Palette de couleurs</string>
     <string name="upgrade_blurb_1">Salut ! Je m\'appelle Alex. Je suis le développeur indépendant à l\'origine de Tasks</string>
     <string name="upgrade_blurb_2">J\'ai passé des milliers d\'heures à travailler sur Tasks, et je publie gratuitement tout le code source en ligne. Afin de soutenir mon travail, certaines fonctionnalités nécessitent un abonnement</string>
-    <string name="upgrade_blurb_4">Votre soutien est très important pour moi, merci !</string>
     <string name="back">Retour</string>
     <string name="chip_style">Style d\'étiquette</string>
     <string name="chip_style_outlined">Entouré</string>

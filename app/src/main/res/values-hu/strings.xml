@@ -491,7 +491,6 @@
     <string name="color_wheel">Színkör</string>
     <string name="upgrade_blurb_1">Szia! Alexnek hívnak. Én vagyok a Tasks mögött álló független fejlesztő</string>
     <string name="upgrade_blurb_2">Több ezer órát dolgoztam a Tasks appon, és a teljes forráskódot ingyenesen elérhetővé tettem. A munkám támogatása érdekében néhány funkció eléréséhez előfizetés szükséges</string>
-    <string name="upgrade_blurb_4">A támogatásod sokat jelent nekem, köszönöm!</string>
     <string name="back">Vissza</string>
     <string name="chip_style">Jelölő stílusa</string>
     <string name="chip_style_outlined">Körvonal</string>

@@ -589,7 +589,6 @@
     <string name="select_all">Vybrat vše</string>
     <string name="calendar_event_created">Událost v kalendáři vytvořena pro %s</string>
     <string name="back">Zpět</string>
-    <string name="upgrade_blurb_4">Vaše podpora pro mne hodně znamená, děkuji!</string>
     <string name="decsync_selection_description">Synchronizujte své úkoly pomocí aplikace DecSync CC</string>
     <string name="repeat_monthly_fifth_week">pátý</string>
     <string name="default_recurrence">Výchozí opakování</string>

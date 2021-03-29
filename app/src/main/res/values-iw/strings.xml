@@ -573,7 +573,6 @@
     <string name="open_last_viewed_list">פתיחת הרשימה האחרונה שנצפתה</string>
     <string name="permission_read_tasks">גישה מלאה למסד הנתונים של Tasks</string>
     <string name="reset_sort_order">איפוס אופן הסידור</string>
-    <string name="upgrade_blurb_4">התמיכה שלך יקרה ללבי, תודה רבה לך!</string>
     <string name="upgrade_blurb_2">השקעתי אלפי שעות בעבודה על Tasks ואני מפרסם את כל קוד המקור באינטרנט בחינם. כדי לתמוך בעבודה שלי חלק מהתכונות דורשות הרשמה</string>
     <string name="upgrade_blurb_1">היי! אני אלכס, המתכנת העצמאי שמאחורי Tasks</string>
     <string name="invalid_username_or_password">שם המשתמש או הססמה שגויים</string>

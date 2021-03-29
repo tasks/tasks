@@ -519,7 +519,6 @@
     <string name="auto_dismiss_datetime_list">Tehtävä lista</string>
     <string name="navigation_drawer">Navigointi valikko</string>
     <string name="desaturate_colors">Himmennä värit</string>
-    <string name="upgrade_blurb_4">Tukesi merkitsee minulle paljon, kiitos!</string>
     <string name="show_advanced_settings">Näytä lisäasetukset</string>
     <string name="google_tasks_selection_description">Perus palvelu joka synkronoi sinun Google tilisi kanssa</string>
     <string name="opacity_footer">Alatunnisteen läpinäkyvyys</string>

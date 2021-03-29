@@ -49,7 +49,7 @@ class WhatsNewDialog : DialogFragment() {
         when {
             IS_GENERIC -> {
                 binding.actionQuestion.setText(R.string.enjoying_tasks)
-                binding.actionText.setText(R.string.upgrade_blurb_4)
+                binding.actionText.setText(R.string.tasks_needs_your_support)
                 binding.actionButton.text = getString(R.string.TLA_menu_donate)
                 binding.actionButton.setOnClickListener { onDonateClick() }
             }

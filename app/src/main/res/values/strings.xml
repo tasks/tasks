@@ -564,7 +564,6 @@ File %1$s contained %2$s.\n\n
   <string name="upgrade_blurb_1">Hi! My name is Alex. I am the independent developer behind Tasks</string>
   <string name="upgrade_blurb_2">I have spent thousands of hours working on Tasks, and I publish all of the source code online for free. In order to support my work some features require a subscription</string>
   <string name="subscription_benefits">Subscription benefits</string>
-  <string name="upgrade_blurb_4">Your support means a lot to me, thank you!</string>
   <string name="back">Back</string>
   <string name="chip_style">Chip style</string>
   <string name="chip_style_outlined">Outlined</string>

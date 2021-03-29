@@ -509,7 +509,6 @@
     <string name="color_wheel">Палитра</string>
     <string name="upgrade_blurb_1">Привет! Меня зовут Алекс. Я - независимый разработчик, стоящий за программой Tasks</string>
     <string name="upgrade_blurb_2">Я потратил тысячи часов, работая над Tasks, и я публикую весь исходный код онлайн, бесплатно. Для того, чтобы поддержать мою работу, некоторые функциональности требуют подписки</string>
-    <string name="upgrade_blurb_4">Ваша поддержка много значит для меня, спасибо!</string>
     <string name="back">Назад</string>
     <string name="chip_style">Стиль индикаторов списков</string>
     <string name="chip_style_outlined">Контурный</string>

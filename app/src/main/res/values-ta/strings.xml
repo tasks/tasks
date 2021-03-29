@@ -555,7 +555,6 @@
     <string name="FLA_search_filter">பொருந்தும் \'%s\'</string>
     <string name="auto_dismiss_datetime_summary">தேதி தேர்வை, தேர்வுக்கு பின் மூடவும்</string>
     <string name="auto_dismiss_datetime">தேதி தேர்வை தானாகவே மூடவும்</string>
-    <string name="upgrade_blurb_4">உங்கள் ஆதரவு எனக்கு என்றென்றும் தேவை, நன்றி!</string>
     <string name="wearable_notifications_summary">நீங்கள் அணிந்திருப்பவற்றில் notifications காட்டவும்</string>
     <string name="ring_nonstop">நிறுத்தாமல் ஒலி</string>
     <string name="ring_five_times">ஐந்து முறை ஒலி</string>

@@ -395,7 +395,6 @@
     <string name="hide_unused_places">隱藏未使用地點</string>
     <string name="hide_unused_tags">隱藏未使用標籤</string>
     <string name="desaturate_colors_summary_off">暗色主題中顏色將不飽和</string>
-    <string name="upgrade_blurb_4">您的支持對我意義重大，非常感謝！</string>
     <string name="color_wheel">色輪</string>
     <string name="invalid_username_or_password">無效的使用者名稱或密碼</string>
     <string name="more_notification_settings_summary">鈴聲、震動、與更多</string>

@@ -494,7 +494,6 @@
     <string name="chip_style_filled">배경색 채움</string>
     <string name="chip_style">칩 스타일</string>
     <string name="upgrade_blurb_2">저는 Tasks 개발에 엄청나게 많은 시간을 쏟고 있으며, 모든 소스코드를 웹에 무상으로 공개하고 있습니다. 저의 작업을 후원하기 위해 일부 기능은 구독이 필요합니다</string>
-    <string name="upgrade_blurb_4">당신의 후원은 저에게 큰 힘이 됩니다. 감사합니다!</string>
     <string name="color_wheel">색상환</string>
     <string name="invalid_username_or_password">유효하지 않은 사용자명과 비밀번호</string>
     <string name="more_notification_settings_summary">신호음, 진동 등</string>

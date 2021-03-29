@@ -484,7 +484,6 @@
     <string name="color_wheel">给滚轮着色</string>
     <string name="upgrade_blurb_1">你好！我叫Alex，是Tasks背后的独立开发者</string>
     <string name="upgrade_blurb_2">我已经花了数千个小时用于开发Tasks，并且在网上免费发布了所有源代码。 为了支持我的工作，某些功能需要订阅</string>
-    <string name="upgrade_blurb_4">您的支持对我很重要，谢谢！</string>
     <string name="back">返回</string>
     <string name="chip_style">流式布局样式</string>
     <string name="chip_style_outlined">描边</string>
