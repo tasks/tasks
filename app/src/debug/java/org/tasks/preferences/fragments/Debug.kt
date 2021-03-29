@@ -59,7 +59,7 @@ class Debug : InjectingPreferenceFragment() {
         if (inventory.getPurchase(sku) == null) {
             preference.title = getString(R.string.debug_purchase, sku)
             preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                billingClient.initiatePurchaseFlow(activity, sku, "inapp" /*SkuType.INAPP*/, null)
+                billingClient.initiatePurchaseFlow(requireActivity().parent, sku, "inapp" /*SkuType.INAPP*/, null)
                 false
             }
         } else {
