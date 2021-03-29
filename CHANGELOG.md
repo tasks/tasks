@@ -1,4 +1,18 @@
-### Shared lists are coming to Tasks! [Read more](https://tasks.org/blog/shared-lists-are-coming)
+### 11.9.2 (2021-03-29)
+
+* Fix date translation issue - Thanks @mhmdanas!
+* Fix misc translation strings - Thanks J. Lavoie!
+* Update translations
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - @franconian, Achim Schumacher, J. Lavoie
+  * Hungarian - kaciokos
+  * Indonesian - when we were sober
+  * Italian - @Fs00
+  * Simplified Chinese - @sr093906
+  * Spanish - @FlorianLeChat
+  * Turkish - @emintufan
+  * Ukrainian - @IhorHordiichuk
 
 ### 11.9.1 (2021-03-25)
 
