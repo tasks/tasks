@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service
 
-import com.google.common.collect.Lists
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -54,7 +53,7 @@ class TaskDuplicator @Inject constructor(
         val newId = taskDao.createNew(clone)
         val tags = tagDataDao.getTagDataForTask(originalId)
         if (tags.isNotEmpty()) {
-            tagDao.insert(Lists.transform(tags) { td: TagData? -> Tag(clone, td!!) })
+            tagDao.insert(tags.map { Tag(clone, it) })
         }
         val googleTask = googleTaskDao.getByTaskId(originalId)
         val addToTop = preferences.addTasksToTop()
@@ -71,7 +70,7 @@ class TaskDuplicator @Inject constructor(
         }
         val alarms = alarmDao.getAlarms(originalId)
         if (alarms.isNotEmpty()) {
-            alarmDao.insert(Lists.transform(alarms) { a: Alarm? -> Alarm(clone.id, a!!.time) })
+            alarmDao.insert(alarms.map { Alarm(clone.id, it.time) })
         }
         gcalHelper.createTaskEventIfEnabled(clone)
         taskDao.save(clone, null) // TODO: delete me

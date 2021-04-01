@@ -10,7 +10,6 @@ import android.content.Context
 import android.os.Bundle
 import com.google.api.services.drive.DriveScopes
 import com.google.api.services.tasks.TasksScopes
-import com.google.common.collect.Lists
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,7 +29,7 @@ class GoogleAccountManager @Inject constructor(
     private val accountManager: AccountManager = AccountManager.get(context)
 
     val accounts: List<String>
-        get() = Lists.transform(accountList) { account: Account? -> account!!.name }
+        get() = accountList.map { it.name }
 
     private val accountList: List<Account>
         get() = if (permissionChecker.canAccessAccounts()) {

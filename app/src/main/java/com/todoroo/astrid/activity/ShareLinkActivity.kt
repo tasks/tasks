@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.google.common.collect.Lists
 import com.google.common.io.Files
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
@@ -90,7 +89,7 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
                     ?: uri.lastPathSegment
         }
         val basename = Files.getNameWithoutExtension(filename!!)
-        return Lists.newArrayList(FileHelper.copyToUri(this, preferences.attachmentsDirectory!!, uri, basename))
+        return arrayListOf(FileHelper.copyToUri(this, preferences.attachmentsDirectory!!, uri, basename))
     }
 
     private fun copyMultipleAttachments(intent: Intent): ArrayList<Uri> {

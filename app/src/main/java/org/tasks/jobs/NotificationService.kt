@@ -2,7 +2,6 @@ package org.tasks.jobs
 
 import android.content.Intent
 import android.os.IBinder
-import com.google.common.collect.Lists
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.Notifier
@@ -31,7 +30,7 @@ class NotificationService : InjectingService() {
             if (!notificationQueue.remove(overdueJobs)) {
                 throw RuntimeException("Failed to remove jobs from queue")
             }
-            notifier.triggerNotifications(Lists.transform(overdueJobs) { obj: NotificationQueueEntry? -> obj!!.toNotification() })
+            notifier.triggerNotifications(overdueJobs.map { it.toNotification() })
         }
     }
 

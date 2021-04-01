@@ -15,7 +15,6 @@ import com.etesync.journalmanager.model.CollectionInfo
 import com.etesync.journalmanager.model.CollectionInfo.Companion.fromJson
 import com.etesync.journalmanager.model.SyncEntry
 import com.etesync.journalmanager.util.TokenAuthenticator
-import com.google.common.collect.Lists
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -213,7 +212,7 @@ class EteSyncClient {
     suspend fun pushEntries(journal: Journal, entries: List<JournalEntryManager.Entry>?, remoteCtag: String?) = withContext(Dispatchers.IO) {
         var remoteCtag = remoteCtag
         val journalEntryManager = JournalEntryManager(httpClient!!, httpUrl!!, journal.uid!!)
-        for (partition in Lists.partition(entries!!, MAX_PUSH)) {
+        for (partition in entries!!.chunked(MAX_PUSH)) {
             journalEntryManager.create(partition, remoteCtag)
             remoteCtag = partition[partition.size - 1].uid
         }

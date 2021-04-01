@@ -6,7 +6,6 @@ import com.google.api.client.util.DateTime
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.Tasks
-import com.google.common.collect.Lists
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
@@ -129,7 +128,7 @@ class GoogleTaskSynchronizer @Inject constructor(
                 preferences.setString(R.string.p_default_list, null)
             }
         }
-        for (list in googleTaskListDao.getByRemoteId(Lists.transform(gtaskLists) { obj: TaskList? -> obj!!.id })) {
+        for (list in googleTaskListDao.getByRemoteId(gtaskLists.map { it.id })) {
             if (isNullOrEmpty(list.remoteId)) {
                 firebase.reportException(RuntimeException("Empty remote id"))
                 continue
