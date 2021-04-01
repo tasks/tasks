@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.billing.BillingClient
@@ -56,7 +58,9 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         }
 
         findPreference(R.string.refresh_purchases).setOnPreferenceClickListener {
-            billingClient.queryPurchases()
+            lifecycleScope.launch {
+                billingClient.queryPurchases()
+            }
             false
         }
 

@@ -2,9 +2,11 @@ package org.tasks.preferences.fragments
 
 import android.os.Bundle
 import androidx.annotation.StringRes
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import at.bitfire.cert4android.CustomCertManager.Companion.resetCertificates
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
@@ -59,13 +61,17 @@ class Debug : InjectingPreferenceFragment() {
         if (inventory.getPurchase(sku) == null) {
             preference.title = getString(R.string.debug_purchase, sku)
             preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                billingClient.initiatePurchaseFlow(requireActivity().parent, sku, "inapp" /*SkuType.INAPP*/, null)
+                lifecycleScope.launch {
+                    billingClient.initiatePurchaseFlow(requireActivity().parent, "inapp" /*SkuType.INAPP*/, sku)
+                }
                 false
             }
         } else {
             preference.title = getString(R.string.debug_consume, sku)
             preference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                billingClient.consume(sku)
+                lifecycleScope.launch {
+                    billingClient.consume(sku)
+                }
                 false
             }
         }

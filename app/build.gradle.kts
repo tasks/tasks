@@ -25,7 +25,6 @@ repositories {
     jcenter {
         content {
             includeModule("com.twofortyfouram", "android-plugin-api-for-locale")
-            includeModule("com.android.billingclient", "billing")
         }
     }
 }
@@ -237,7 +236,7 @@ dependencies {
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
     googleplayImplementation("com.google.android.gms:play-services-location:18.0.0")
     googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
-    googleplayImplementation("com.android.billingclient:billing:1.2.2")
+    googleplayImplementation("com.android.billingclient:billing-ktx:3.0.3")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
     kaptAndroidTest("com.google.dagger:hilt-compiler:${Versions.hilt}")

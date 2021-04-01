@@ -72,8 +72,6 @@ class Inventory @Inject constructor(
         }
     }
 
-    fun purchased(sku: String) = purchases.containsKey(sku)
-
     fun getPurchase(sku: String) = purchases[sku]
 
     private fun updateSubscription() {

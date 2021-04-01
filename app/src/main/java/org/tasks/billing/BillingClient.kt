@@ -3,8 +3,12 @@ package org.tasks.billing
 import android.app.Activity
 
 interface BillingClient {
-    fun queryPurchases()
-    fun consume(sku: String)
-    fun initiatePurchaseFlow(activity: Activity, sku: String, skuType: String, oldSku: String?)
-    fun addPurchaseCallback(onPurchasesUpdated: OnPurchasesUpdated)
+    suspend fun queryPurchases()
+    suspend fun consume(sku: String)
+    suspend fun initiatePurchaseFlow(
+        activity: Activity,
+        sku: String,
+        skuType: String,
+        oldPurchase: Purchase? = null
+    )
 }

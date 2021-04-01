@@ -49,7 +49,9 @@ abstract class BaseAccountPreference : InjectingPreferenceFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_PURCHASE) {
             if (resultCode == Activity.RESULT_OK) {
-                billingClient.queryPurchases()
+                lifecycleScope.launch {
+                    billingClient.queryPurchases()
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
