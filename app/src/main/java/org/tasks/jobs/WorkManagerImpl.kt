@@ -19,7 +19,6 @@ import org.tasks.R
 import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
-import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.date.DateTimeUtils.midnight
@@ -31,7 +30,6 @@ import org.tasks.jobs.WorkManager.Companion.MAX_CLEANUP_LENGTH
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_CALDAV
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_ETEBASE
-import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_ETESYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_GOOGLE_TASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_OPENTASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKUP
@@ -159,12 +157,6 @@ class WorkManagerImpl constructor(
                     TAG_BACKGROUND_SYNC_CALDAV,
                     SyncCaldavWork::class.java,
                     caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).isNotEmpty())
-        }
-        throttle.run {
-            scheduleBackgroundSync(
-                    TAG_BACKGROUND_SYNC_ETESYNC,
-                    SyncEteSyncWork::class.java,
-                    caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty())
         }
         throttle.run {
             scheduleBackgroundSync(

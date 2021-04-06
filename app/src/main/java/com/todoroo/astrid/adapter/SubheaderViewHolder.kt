@@ -56,7 +56,7 @@ internal class SubheaderViewHolder(
                 visibility = View.VISIBLE
             }
             subheader.subheaderType == SubheaderType.ETESYNC -> with(errorIcon) {
-                setColorFilter(ContextCompat.getColor(activity, R.color.orange_500))
+                setColorFilter(ContextCompat.getColor(activity, R.color.overdue))
                 visibility = View.VISIBLE
             }
             else -> errorIcon.visibility = View.GONE
