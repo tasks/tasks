@@ -17,4 +17,8 @@ class Purchase(json: String?) {
     val isTasksSubscription = false
 
     val purchaseToken = ""
+
+    val needsAcknowledgement = false
+
+    val isPurchased = true
 }

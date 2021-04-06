@@ -2,6 +2,7 @@ package org.tasks.billing
 
 import com.android.billingclient.api.Purchase
 import com.google.gson.GsonBuilder
+import org.tasks.billing.BillingClientImpl.Companion.STATE_PURCHASED
 import java.util.regex.Pattern
 
 class Purchase(private val purchase: Purchase) {
@@ -37,6 +38,12 @@ class Purchase(private val purchase: Purchase) {
     val isCanceled: Boolean
         get() = !purchase.isAutoRenewing
 
+    val needsAcknowledgement: Boolean
+        get() = purchase.needsAcknowledgement
+
+    val isPurchased: Boolean
+        get() = purchase.isPurchased
+
     val subscriptionPrice: Int?
         get() {
             val matcher = PATTERN.matcher(sku)
@@ -62,5 +69,11 @@ class Purchase(private val purchase: Purchase) {
 
     companion object {
         private val PATTERN = Pattern.compile("^(annual|monthly)_([0-3][0-9]|499)$")
+
+        val Purchase.isPurchased: Boolean
+            get() = purchaseState == STATE_PURCHASED
+
+        val Purchase.needsAcknowledgement: Boolean
+            get() = isPurchased && !isAcknowledged
     }
 }

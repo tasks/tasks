@@ -19,6 +19,7 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
 import org.tasks.data.GoogleTaskAccount
+import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.IconPreference
 import org.tasks.preferences.MainPreferences
@@ -59,7 +60,14 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
 
         findPreference(R.string.refresh_purchases).setOnPreferenceClickListener {
             lifecycleScope.launch {
-                billingClient.queryPurchases()
+                try {
+                    billingClient.queryPurchases(throwError = true)
+                    if (inventory.subscription.value == null) {
+                        activity?.toast(R.string.no_google_play_subscription)
+                    }
+                } catch (e: Exception) {
+                    activity?.toast(e.message)
+                }
             }
             false
         }

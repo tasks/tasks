@@ -45,6 +45,8 @@ interface WorkManager {
 
     fun cancelNotifications()
 
+    fun updatePurchases()
+
     companion object {
         val REMOTE_CONFIG_INTERVAL_HOURS = if (BuildConfig.DEBUG) 1 else 12.toLong()
         const val MAX_CLEANUP_LENGTH = 500
@@ -63,5 +65,6 @@ interface WorkManager {
         const val TAG_BACKGROUND_SYNC_OPENTASKS = "tag_background_sync_opentasks"
         const val TAG_REMOTE_CONFIG = "tag_remote_config"
         const val TAG_MIGRATE_LOCAL = "tag_migrate_local"
+        const val TAG_UPDATE_PURCHASES = "tag_update_purchases"
     }
 }

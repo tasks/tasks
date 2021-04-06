@@ -15,7 +15,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.files.FileHelper
@@ -46,7 +45,6 @@ class Tasks : Application(), Configuration.Provider {
     @Inject lateinit var workManager: Lazy<WorkManager>
     @Inject lateinit var refreshScheduler: Lazy<RefreshScheduler>
     @Inject lateinit var geofenceApi: Lazy<GeofenceApi>
-    @Inject lateinit var billingClient: Lazy<BillingClient>
     @Inject lateinit var appWidgetManager: Lazy<AppWidgetManager>
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
@@ -86,10 +84,10 @@ class Tasks : Application(), Configuration.Provider {
             scheduleBackup()
             scheduleConfigRefresh()
             OpenTaskContentObserver.registerObserver(context, contentObserver.get())
+            updatePurchases()
         }
         geofenceApi.get().registerAll()
         FileHelper.delete(context, preferences.cacheDirectory)
-        billingClient.get().queryPurchases()
         appWidgetManager.get().reconfigureWidgets()
         CaldavSynchronizer.registerFactories()
     }

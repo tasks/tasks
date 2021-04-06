@@ -12,6 +12,7 @@ import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
 import org.tasks.data.*
+import org.tasks.jobs.WorkManager
 import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationDao
 import javax.inject.Singleton
@@ -96,6 +97,10 @@ class ApplicationModule {
     fun getPrincipalDao(db: Database) = db.principalDao
 
     @Provides
-    fun getBillingClient(@ApplicationContext context: Context, inventory: Inventory, firebase: Firebase): BillingClient
-            = BillingClientImpl(context, inventory, firebase)
+    fun getBillingClient(
+        @ApplicationContext context: Context,
+        inventory: Inventory,
+        firebase: Firebase,
+        workManager: WorkManager,
+    ): BillingClient = BillingClientImpl(context, inventory, firebase, workManager)
 }

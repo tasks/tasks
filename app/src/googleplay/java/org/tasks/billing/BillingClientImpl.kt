@@ -2,12 +2,14 @@ package org.tasks.billing
 
 import android.app.Activity
 import android.content.Context
+import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient.*
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingFlowParams.ProrationMode
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ConsumeParams
+import com.android.billingclient.api.Purchase.PurchaseState
 import com.android.billingclient.api.Purchase.PurchasesResult
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetailsParams
@@ -19,14 +21,19 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.analytics.Firebase
+import org.tasks.billing.Purchase.Companion.isPurchased
+import org.tasks.billing.Purchase.Companion.needsAcknowledgement
+import org.tasks.jobs.WorkManager
 import timber.log.Timber
+import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class BillingClientImpl(
     @ApplicationContext context: Context?,
     private val inventory: Inventory,
-    private val firebase: Firebase
+    private val firebase: Firebase,
+    private val workManager: WorkManager
 ) : BillingClient, PurchasesUpdatedListener {
     private val billingClient =
         newBuilder(context!!)
@@ -36,7 +43,7 @@ class BillingClientImpl(
     private var connected = false
     private var onPurchasesUpdated: OnPurchasesUpdated? = null
 
-    override suspend fun queryPurchases() = try {
+    override suspend fun queryPurchases(throwError: Boolean) = try {
         executeServiceRequest {
             withContext(Dispatchers.IO + NonCancellable) {
                 val subs = billingClient.queryPurchases(SkuType.SUBS)
@@ -52,7 +59,11 @@ class BillingClientImpl(
             }
         }
     } catch (e: IllegalStateException) {
-        Timber.e(e.message)
+        if (throwError) {
+            throw e
+        } else {
+            Timber.e(e.message)
+        }
     }
 
     override fun onPurchasesUpdated(
@@ -62,10 +73,15 @@ class BillingClientImpl(
         if (success) {
             add(purchases ?: emptyList())
         }
+        workManager.updatePurchases()
         onPurchasesUpdated?.onPurchasesUpdated(success)
-        val skus = purchases?.joinToString(";") { it.sku } ?: "null"
-        Timber.i("onPurchasesUpdated(${result.responseCodeString}, $skus)")
-        firebase.reportIabResult(result, skus)
+        purchases?.forEach {
+            firebase.reportIabResult(
+                result.responseCodeString,
+                it.sku,
+                it.purchaseState.purchaseStateString
+            )
+        }
     }
 
     private fun add(purchases: List<com.android.billingclient.api.Purchase>) {
@@ -93,7 +109,6 @@ class BillingClientImpl(
             val skuDetails =
                 skuDetailsResult
                     .skuDetailsList
-                    ?.takeIf { it.isNotEmpty() }
                     ?.firstOrNull()
                     ?: throw IllegalStateException("Sku $sku not found")
             val params = BillingFlowParams.newBuilder().setSkuDetails(skuDetails)
@@ -106,6 +121,22 @@ class BillingClientImpl(
                 onPurchasesUpdated = activity
             }
             billingClient.launchBillingFlow(activity, params.build())
+        }
+    }
+
+    override suspend fun acknowledge(purchase: Purchase) {
+        if (purchase.needsAcknowledgement) {
+            val params = AcknowledgePurchaseParams.newBuilder()
+                .setPurchaseToken(purchase.purchaseToken)
+                .build()
+            withContext(Dispatchers.IO) {
+                suspendCoroutine<BillingResult> { cont ->
+                    billingClient.acknowledgePurchase(params) {
+                        Timber.d("acknowledge: ${it.responseCodeString} $purchase")
+                        cont.resume(it)
+                    }
+                }
+            }
         }
     }
 
@@ -154,6 +185,7 @@ class BillingClientImpl(
 
     companion object {
         const val TYPE_SUBS = SkuType.SUBS
+        const val STATE_PURCHASED = PurchaseState.PURCHASED
 
         private val PurchasesResult.success: Boolean
             get() = responseCode == BillingResponseCode.OK
@@ -175,6 +207,14 @@ class BillingClientImpl(
                 BillingResponseCode.ITEM_ALREADY_OWNED -> "ITEM_ALREADY_OWNED"
                 BillingResponseCode.ITEM_NOT_OWNED -> "ITEM_NOT_OWNED"
                 else -> "UNKNOWN"
+            }
+
+        val Int.purchaseStateString: String
+            get() = when (this) {
+                PurchaseState.UNSPECIFIED_STATE -> "UNSPECIFIED_STATE"
+                PurchaseState.PURCHASED -> "PURCHASED"
+                PurchaseState.PENDING -> "PENDING"
+                else -> this.toString()
             }
 
         private val PurchasesResult.responseCodeString: String

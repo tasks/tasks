@@ -66,7 +66,11 @@ class PurchaseActivity : InjectingAppCompatActivity(), OnPurchasesUpdated {
 
         localBroadcastManager.registerPurchaseReceiver(purchaseReceiver)
         lifecycleScope.launch {
-            billingClient.queryPurchases()
+            try {
+                billingClient.queryPurchases(throwError = true)
+            } catch (e: Exception) {
+                toast(e.message)
+            }
         }
     }
 

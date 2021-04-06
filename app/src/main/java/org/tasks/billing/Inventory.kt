@@ -24,7 +24,7 @@ class Inventory @Inject constructor(
         private val localBroadcastManager: LocalBroadcastManager,
         private val caldavDao: CaldavDao
 ) {
-    private val purchases: MutableMap<String, Purchase> = HashMap()
+    val purchases: MutableMap<String, Purchase> = HashMap()
     val subscription = MutableLiveData<Purchase?>()
 
     var hasTasksAccount = false

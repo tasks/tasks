@@ -44,6 +44,7 @@ import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETEBASE
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETESYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_GOOGLE_TASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_OPENTASK
+import org.tasks.jobs.WorkManager.Companion.TAG_UPDATE_PURCHASES
 import org.tasks.notifications.Throttle
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils
@@ -253,6 +254,9 @@ class WorkManagerImpl constructor(
     override fun cancelNotifications() {
         alarmManager.cancel(notificationPendingIntent)
     }
+
+    override fun updatePurchases() =
+        enqueueUnique(TAG_UPDATE_PURCHASES, UpdatePurchaseWork::class.java)
 
     @SuppressLint("EnqueueWork")
     private fun enqueueUnique(key: String, c: Class<out Worker?>, time: Long = 0) {

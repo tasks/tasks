@@ -3,14 +3,12 @@ package org.tasks.analytics
 import android.content.Context
 import android.os.Bundle
 import androidx.annotation.StringRes
-import com.android.billingclient.api.BillingResult
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.billing.BillingClientImpl.Companion.responseCodeString
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -33,11 +31,13 @@ class Firebase @Inject constructor(
         crashlytics?.recordException(t)
     }
 
-    fun reportIabResult(response: BillingResult, sku: String?) {
-        analytics?.logEvent(FirebaseAnalytics.Event.ECOMMERCE_PURCHASE, Bundle().apply {
-            putString(FirebaseAnalytics.Param.ITEM_ID, sku)
-            putString(FirebaseAnalytics.Param.SUCCESS, response.responseCodeString)
-        })
+    fun reportIabResult(result: String, sku: String, state: String) {
+        logEvent(
+            R.string.event_purchase_result,
+            R.string.param_sku to sku,
+            R.string.param_result to result,
+            R.string.param_state to state,
+        )
     }
 
     fun updateRemoteConfig() {

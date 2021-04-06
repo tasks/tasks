@@ -431,6 +431,10 @@
   <string name="param_user_no_churn">user_no_churn</string>
   <string name="param_user_pro">user_pro</string>
   <string name="param_click">click</string>
+  <string name="event_purchase_result">billing_flow_result</string>
+  <string name="param_sku">sku</string>
+  <string name="param_result">result</string>
+  <string name="param_state">state</string>
   <string name="event_todoagenda">cp_todoagenda</string>
   <string name="event_astrid2taskprovider">cp_astrid2taskprovider</string>
   <string name="event_sync_add_account">sync_add_account</string>
