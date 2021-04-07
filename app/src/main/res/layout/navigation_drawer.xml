@@ -5,6 +5,5 @@
   android:layout_width="@dimen/navigation_drawer_width"
   android:layout_height="match_parent"
   android:layout_gravity="start"
-  android:fitsSystemWindows="true"
   android:name="org.tasks.ui.NavigationDrawerFragment"
   tools:layout="@layout/fragment_navigation_drawer"/>
