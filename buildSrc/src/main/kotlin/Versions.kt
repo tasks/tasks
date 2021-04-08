@@ -1,5 +1,5 @@
 object Versions {
-    const val kotlin = "1.4.31"
+    const val kotlin = "1.4.32"
     const val targetSdk = 30
     const val minSdk = 24
     const val work = "2.5.0"
