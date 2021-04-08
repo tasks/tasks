@@ -485,7 +485,7 @@
     <string name="choose_synchronization_service">Выберите платформу</string>
     <string name="google_tasks_selection_description">Простой сервис, который синхронизируется с Вашим аккаунтом Google</string>
     <string name="caldav_selection_description">Синхронизация, основанная на открытых стандартах</string>
-    <string name="etesync_selection_description">Синхронизация с открытым исходным кодом, основанная на end-to-end шифровании</string>
+    <string name="etesync_selection_description">Сквозная зашифрованная синхронизация</string>
     <string name="passwords_do_not_match">Пароли не совпадают</string>
     <string name="reenter_encryption_password">Подтвердите пароль шифрования</string>
     <string name="show_advanced_settings">Показать расширенные настройки</string>
@@ -631,7 +631,7 @@
     <string name="ok">ОК</string>
     <string name="date_picker_multiple">Несколько</string>
     <string name="multi_select_reschedule">Перенести</string>
-    <string name="follow_reddit">Подписаться на r/tasks</string>
+    <string name="follow_reddit">Присоединяйтесь к r/tasks</string>
     <string name="current_subscription">Текущая подписка: %s</string>
     <string name="price_per_month">$%s/месяц</string>
     <string name="price_per_year">$%s/год</string>
@@ -660,7 +660,7 @@
     <string name="repeat_monthly_fifth_week">Пятая</string>
     <string name="above_average">Выше среднего</string>
     <string name="save_percent">Сохранить %d%%</string>
-    <string name="decsync_selection_description">Синхронизируйте свои задачи с приложением DecSync CC</string>
+    <string name="decsync_selection_description">Файловая синхронизация</string>
     <string name="copied_to_clipboard">%s скопировано в буфер обмена</string>
     <string name="app_password_save">Используйте эти учетные данные для настройки стороннего приложения. Они предоставляют полный доступ к Вашей учетной записи Tasks.org, не записывайте их и не делитесь ими с кем-либо!</string>
     <string name="app_password_delete_confirmation">Любое приложение, использующее этот пароль, выйдет из системы</string>
@@ -732,11 +732,12 @@
     <string name="tasks_needs_your_support">Tasks требуют вашей поддержки!</string>
     <string name="subscription_benefits">Преимущества подписки</string>
     <string name="tasks_org_share">Поделиться списками с другими пользователями</string>
-    <string name="next_saturday">Следующая сб</string>
-    <string name="next_friday">Следующий Пт</string>
-    <string name="next_thursday">Следующий чт</string>
-    <string name="next_monday">Следующий пн</string>
+    <string name="next_saturday">Следующая Сб</string>
+    <string name="next_friday">Следующая Пт</string>
+    <string name="next_thursday">Следующий Чт</string>
+    <string name="next_monday">Следующий Пн</string>
     <string name="next_sunday">Следующий Пн</string>
     <string name="next_tuesday">В следующий вторник</string>
     <string name="manage_drawer">Управление черновиками</string>
+    <string name="social">Социальные сети</string>
 </resources>
