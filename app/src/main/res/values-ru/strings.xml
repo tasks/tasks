@@ -737,7 +737,9 @@
     <string name="next_thursday">Следующий Чт</string>
     <string name="next_monday">Следующий Пн</string>
     <string name="next_sunday">Следующий Пн</string>
-    <string name="next_tuesday">В следующий вторник</string>
+    <string name="next_tuesday">Следующий Вт</string>
     <string name="manage_drawer">Управление черновиками</string>
     <string name="social">Социальные сети</string>
+    <string name="upgrade_desktop_access">Доступ к рабочему столу</string>
+    <string name="next_wednesday">Следующая ср</string>
 </resources>
