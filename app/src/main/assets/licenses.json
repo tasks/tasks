@@ -2175,6 +2175,114 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/jetpack/androidx/releases/activity#1.3.0-alpha04",
       "libraryName": "activity-compose"
+    },
+    {
+      "artifactId": {
+        "name": "editor",
+        "group": "io.noties.markwon",
+        "version": "+"
+      },
+      "copyrightHolder": "Dimitry Ivanov",
+      "copyrightStatement": "Copyright &copy; Dimitry Ivanov. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/noties/Markwon",
+      "libraryName": "editor"
+    },
+    {
+      "artifactId": {
+        "name": "ext-tasklist",
+        "group": "io.noties.markwon",
+        "version": "+"
+      },
+      "copyrightHolder": "Dimitry Ivanov",
+      "copyrightStatement": "Copyright &copy; Dimitry Ivanov. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/noties/Markwon",
+      "libraryName": "ext-tasklist"
+    },
+    {
+      "artifactId": {
+        "name": "ext-strikethrough",
+        "group": "io.noties.markwon",
+        "version": "+"
+      },
+      "copyrightHolder": "Dimitry Ivanov",
+      "copyrightStatement": "Copyright &copy; Dimitry Ivanov. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/noties/Markwon",
+      "libraryName": "ext-strikethrough"
+    },
+    {
+      "artifactId": {
+        "name": "commonmark-ext-gfm-strikethrough",
+        "group": "com.atlassian.commonmark",
+        "version": "+"
+      },
+      "copyrightHolder": "Atlassian and others",
+      "copyrightStatement": "Copyright &copy; Atlassian and others. All rights reserved.",
+      "license": "BSD 2-Clause",
+      "normalizedLicense": "bsd_2_clauses",
+      "libraryName": "commonmark-ext-gfm-strikethrough"
+    },
+    {
+      "artifactId": {
+        "name": "better-link-movement-method",
+        "group": "me.saket",
+        "version": "+"
+      },
+      "copyrightHolder": "Saket Narayan",
+      "copyrightStatement": "Copyright &copy; Saket Narayan. All rights reserved.",
+      "license": "Apache License v2",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/Saketme/BetterLinkMovementMethod",
+      "libraryName": "better-link-movement-method"
+    },
+    {
+      "artifactId": {
+        "name": "linkify",
+        "group": "io.noties.markwon",
+        "version": "+"
+      },
+      "copyrightHolder": "Dimitry Ivanov",
+      "copyrightStatement": "Copyright &copy; Dimitry Ivanov. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/noties/Markwon",
+      "libraryName": "linkify"
+    },
+    {
+      "artifactId": {
+        "name": "ext-tables",
+        "group": "io.noties.markwon",
+        "version": "+"
+      },
+      "copyrightHolder": "Dimitry Ivanov",
+      "copyrightStatement": "Copyright &copy; Dimitry Ivanov. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://github.com/noties/Markwon",
+      "libraryName": "ext-tables"
+    },
+    {
+      "artifactId": {
+        "name": "commonmark-ext-gfm-tables",
+        "group": "com.atlassian.commonmark",
+        "version": "+"
+      },
+      "copyrightHolder": "Atlassian and others",
+      "copyrightStatement": "Copyright &copy; Atlassian and others. All rights reserved.",
+      "license": "BSD 2-Clause",
+      "normalizedLicense": "bsd_2_clauses",
+      "libraryName": "commonmark-ext-gfm-tables"
     }
   ]
 }

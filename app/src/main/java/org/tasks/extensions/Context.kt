@@ -7,6 +7,11 @@ import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
+import io.noties.markwon.Markwon
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
+import io.noties.markwon.ext.tables.TablePlugin
+import io.noties.markwon.ext.tasklist.TaskListPlugin
+import io.noties.markwon.linkify.LinkifyPlugin
 import org.tasks.R
 
 object Context {
@@ -46,4 +51,18 @@ object Context {
 
     fun Context.toast(text: String?, duration: Int = Toast.LENGTH_LONG) =
         text?.let { Toast.makeText(this, it, duration).show() }
+
+    val Context.markwon: Markwon
+        get() =
+            Markwon
+                .builder(this)
+                .usePlugins(
+                    listOf(
+                        TaskListPlugin.create(this),
+                        TablePlugin.create(this),
+                        LinkifyPlugin.create(android.text.util.Linkify.ALL, true),
+                        StrikethroughPlugin.create()
+                    )
+                )
+                .build()
 }

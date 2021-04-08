@@ -444,4 +444,5 @@
   <string name="p_map_theme">map_theme</string>
   <string name="p_picker_mode_date">picker_mode_date</string>
   <string name="p_picker_mode_time">picker_mode_time</string>
+  <string name="p_markdown">markdown</string>
 </resources>

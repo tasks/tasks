@@ -916,3 +916,47 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://developer.android.com/jetpack/androidx/releases/activity#1.3.0-alpha04
+- artifact: io.noties.markwon:editor:+
+  name: editor
+  copyrightHolder: Dimitry Ivanov
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/noties/Markwon
+- artifact: io.noties.markwon:ext-tasklist:+
+  name: ext-tasklist
+  copyrightHolder: Dimitry Ivanov
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/noties/Markwon
+- artifact: io.noties.markwon:ext-strikethrough:+
+  name: ext-strikethrough
+  copyrightHolder: Dimitry Ivanov
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/noties/Markwon
+- artifact: com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:+
+  name: commonmark-ext-gfm-strikethrough
+  copyrightHolder: Atlassian and others
+  license: BSD 2-Clause
+- artifact: me.saket:better-link-movement-method:+
+  name: better-link-movement-method
+  copyrightHolder: Saket Narayan
+  license: Apache License v2
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0
+  url: https://github.com/Saketme/BetterLinkMovementMethod
+- artifact: io.noties.markwon:linkify:+
+  name: linkify
+  copyrightHolder: Dimitry Ivanov
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/noties/Markwon
+- artifact: io.noties.markwon:ext-tables:+
+  name: ext-tables
+  copyrightHolder: Dimitry Ivanov
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/noties/Markwon
+- artifact: com.atlassian.commonmark:commonmark-ext-gfm-tables:+
+  name: commonmark-ext-gfm-tables
+  copyrightHolder: Atlassian and others
+  license: BSD 2-Clause

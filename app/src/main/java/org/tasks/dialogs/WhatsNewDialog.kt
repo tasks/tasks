@@ -8,13 +8,13 @@ import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.fragment.app.DialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.noties.markwon.Markwon
 import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.databinding.DialogWhatsNewBinding
+import org.tasks.extensions.Context.markwon
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.Preferences
 import java.io.BufferedReader
@@ -37,9 +37,8 @@ class WhatsNewDialog : DialogFragment() {
 
         val textStream = requireContext().assets.open("CHANGELOG.md")
         val text = BufferedReader(textStream.reader()).readText()
-        val markwon = Markwon.builder(requireContext()).build()
         binding.changelog.movementMethod = LinkMovementMethod.getInstance()
-        binding.changelog.text = markwon.toMarkdown(text)
+        requireContext().markwon.setMarkdown(binding.changelog, text)
 
         val begForSubscription = !inventory.hasPro
         val begForRating = !preferences.getBoolean(R.string.p_clicked_rate, false)

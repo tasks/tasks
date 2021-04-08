@@ -19,6 +19,7 @@ import org.tasks.data.TaskContainer
 import org.tasks.databinding.TaskAdapterRowBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.Linkify
+import org.tasks.extensions.Context.markwon
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
@@ -45,7 +46,7 @@ class TaskViewHolder internal constructor(
     private val linkify: Linkify,
     private val locale: Locale
 ) : RecyclerView.ViewHolder(binding.root) {
-
+    private val markwon = if (preferences.markdown) context.markwon else null
     private val row: ViewGroup = binding.row
     private val dueDate: TextView = binding.dueDate.apply {
         setOnClickListener { changeDueDate() }
@@ -129,17 +130,29 @@ class TaskViewHolder internal constructor(
     fun bindView(task: TaskContainer, filter: Filter, sortMode: Int) {
         this.task = task
         indent = task.indent
-        nameView.text = task.title
+        if (markwon == null) {
+            nameView.text = task.title
+        } else {
+            task.title?.let { markwon.setMarkdown(nameView, it) }
+        }
         setupTitleAndCheckbox()
         setupDueDate(sortMode == SORT_DUE)
         setupChips(filter, sortMode == SORT_START)
         if (preferences.getBoolean(R.string.p_show_description, true)) {
-            description.text = task.notes
+            if (markwon == null) {
+                description.text = task.notes
+            } else {
+                task.notes?.let { markwon.setMarkdown(description, it) }
+            }
             description.visibility = if (task.hasNotes()) View.VISIBLE else View.GONE
         }
         if (preferences.getBoolean(R.string.p_linkify_task_list, false)) {
-            linkify.linkify(nameView) { onRowBodyClick() }
-            linkify.linkify(description) { onRowBodyClick() }
+            linkify.setMovementMethod(nameView) { onRowBodyClick() }
+            linkify.setMovementMethod(description) { onRowBodyClick() }
+            if (markwon == null) {
+                Linkify.safeLinkify(nameView)
+                Linkify.safeLinkify(description)
+            }
             nameView.setOnLongClickListener { onRowBodyLongClick() }
             description.setOnLongClickListener { onRowBodyLongClick() }
         }

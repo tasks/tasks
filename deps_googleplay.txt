@@ -409,6 +409,21 @@
 ++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
 +|    \--- com.atlassian.commonmark:commonmark:0.13.0
+++--- io.noties.markwon:editor:4.6.2
++|    \--- io.noties.markwon:core:4.6.2 (*)
+++--- io.noties.markwon:ext-tasklist:4.6.2
++|    \--- io.noties.markwon:core:4.6.2 (*)
+++--- io.noties.markwon:ext-strikethrough:4.6.2
++|    +--- io.noties.markwon:core:4.6.2 (*)
++|    \--- com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:0.13.0
++|         \--- com.atlassian.commonmark:commonmark:0.13.0
+++--- io.noties.markwon:ext-tables:4.6.2
++|    +--- io.noties.markwon:core:4.6.2 (*)
++|    \--- com.atlassian.commonmark:commonmark-ext-gfm-tables:0.13.0
++|         \--- com.atlassian.commonmark:commonmark:0.13.0
+++--- io.noties.markwon:linkify:4.6.2
++|    \--- io.noties.markwon:core:4.6.2 (*)
+++--- me.saket:better-link-movement-method:2.2.0
 ++--- org.jetbrains.kotlin:kotlin-stdlib:1.4.32 (*)
 ++--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.4
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.30 -> 1.4.32 (*)

@@ -87,7 +87,7 @@ class CommentsController @Inject constructor(
         // name
         val nameView = view.findViewById<TextView>(R.id.title)
         nameView.text = Html.fromHtml(item.message)
-        Linkify.safeLinkify(nameView, android.text.util.Linkify.ALL)
+        Linkify.safeLinkify(nameView)
 
         // date
         val date = view.findViewById<TextView>(R.id.date)

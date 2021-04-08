@@ -486,6 +486,9 @@ class Preferences @JvmOverloads constructor(
     fun showGroupHeaders(): Boolean =
             !usePagedQueries() && !getBoolean(R.string.p_disable_sort_groups, false)
 
+    val markdown: Boolean
+        get() = getBoolean(R.string.p_markdown, false)
+
     companion object {
         private const val PREF_SORT_SORT = "sort_sort" // $NON-NLS-1$
 

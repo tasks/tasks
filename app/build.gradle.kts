@@ -185,6 +185,12 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("androidx.paging:paging-runtime:2.1.2")
     implementation("io.noties.markwon:core:${Versions.markwon}")
+    implementation("io.noties.markwon:editor:${Versions.markwon}")
+    implementation("io.noties.markwon:ext-tasklist:${Versions.markwon}")
+    implementation("io.noties.markwon:ext-strikethrough:${Versions.markwon}")
+    implementation("io.noties.markwon:ext-tables:${Versions.markwon}")
+    implementation("io.noties.markwon:linkify:${Versions.markwon}")
+    implementation("me.saket:better-link-movement-method:2.2.0")
 
     debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${Versions.flipper}")

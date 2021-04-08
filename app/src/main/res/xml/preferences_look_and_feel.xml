@@ -173,6 +173,12 @@
     </Preference>
 
     <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_markdown"
+        android:summary="@string/markdown_description"
+        android:title="@string/markdown" />
+
+    <SwitchPreferenceCompat
       android:defaultValue="false"
       android:key="@string/p_linkify_task_edit"
       android:summary="@string/linkify_description"

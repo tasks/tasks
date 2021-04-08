@@ -724,4 +724,6 @@ File %1$s contained %2$s.\n\n
   <string name="upgrade_automation">Automation</string>
   <string name="upgrade_automation_description">Plugins for Tasker, Automate, and Locale</string>
   <string name="more_options">More options</string>
+  <string name="markdown">Markdown</string>
+  <string name="markdown_description">Enable Markdown in title and description</string>
 </resources>
