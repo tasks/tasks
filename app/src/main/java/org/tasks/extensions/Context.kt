@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
-import android.text.util.Linkify
+import android.text.util.Linkify.*
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import io.noties.markwon.Markwon
@@ -53,20 +53,21 @@ object Context {
     fun Context.toast(text: String?, duration: Int = Toast.LENGTH_LONG) =
         text?.let { Toast.makeText(this, it, duration).show() }
 
-    val Context.markwon: Markwon
-        get() =
-            Markwon
-                .builder(this)
-                .usePlugins(
-                    listOf(
-                        TaskListPlugin.create(this),
-                        TablePlugin.create(this),
-                        LinkifyPlugin.create(
-                            Linkify.WEB_URLS or Linkify.EMAIL_ADDRESSES or Linkify.PHONE_NUMBERS,
-                            true
-                        ),
-                        StrikethroughPlugin.create()
-                    )
+    fun Context.markwon(linkify: Boolean = false): Markwon {
+        val builder = Markwon
+            .builder(this)
+            .usePlugins(
+                listOf(
+                    TaskListPlugin.create(this),
+                    TablePlugin.create(this),
+                    StrikethroughPlugin.create()
                 )
-                .build()
+            )
+        if (linkify) {
+            builder.usePlugin(
+                LinkifyPlugin.create(WEB_URLS or EMAIL_ADDRESSES or PHONE_NUMBERS, true)
+            )
+        }
+        return builder.build()
+    }
 }

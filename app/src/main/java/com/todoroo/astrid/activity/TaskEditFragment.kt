@@ -79,6 +79,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var timerPlugin: TimerPlugin
     @Inject lateinit var linkify: Linkify
 
+    private val linkifyEnabled: Boolean
+        get() = preferences.getBoolean(R.string.p_linkify_task_edit, false)
+
     val editViewModel: TaskEditViewModel by viewModels()
     lateinit var binding: FragmentTaskEditBinding
     private var showKeyboard = false
@@ -144,7 +147,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         val title = binding.title
         val markdown = if (preferences.markdown) {
             MarkwonEditorTextWatcher.withPreRender(
-                MarkwonEditor.create(requireContext().markwon),
+                MarkwonEditor.create(requireContext().markwon(linkifyEnabled)),
                 Executors.newCachedThreadPool(),
                 title
             )
@@ -200,7 +203,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             lifecycleScope.launch {
                 notificationManager.cancel(model.id)
             }
-            if (preferences.getBoolean(R.string.p_linkify_task_edit, false)) {
+            if (linkifyEnabled) {
                 linkify.linkify(title)
             }
         }

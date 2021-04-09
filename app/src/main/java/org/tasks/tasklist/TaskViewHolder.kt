@@ -46,7 +46,7 @@ class TaskViewHolder internal constructor(
     private val linkify: Linkify,
     private val locale: Locale
 ) : RecyclerView.ViewHolder(binding.root) {
-    private val markwon = if (preferences.markdown) context.markwon else null
+    private val markwon = if (preferences.markdown) context.markwon(linkifyEnabled) else null
     private val row: ViewGroup = binding.row
     private val dueDate: TextView = binding.dueDate.apply {
         setOnClickListener { changeDueDate() }
@@ -63,7 +63,10 @@ class TaskViewHolder internal constructor(
     private val chipGroup: ChipGroup = binding.chipGroup
 
     lateinit var task: TaskContainer
-    
+
+    private val linkifyEnabled: Boolean
+        get() = preferences.getBoolean(R.string.p_linkify_task_list, false)
+
     var indent = 0
         set(value) {
             field = value
@@ -146,7 +149,7 @@ class TaskViewHolder internal constructor(
             }
             description.visibility = if (task.hasNotes()) View.VISIBLE else View.GONE
         }
-        if (preferences.getBoolean(R.string.p_linkify_task_list, false)) {
+        if (markwon != null || preferences.getBoolean(R.string.p_linkify_task_list, false)) {
             linkify.setMovementMethod(nameView) { onRowBodyClick() }
             linkify.setMovementMethod(description) { onRowBodyClick() }
             if (markwon == null) {

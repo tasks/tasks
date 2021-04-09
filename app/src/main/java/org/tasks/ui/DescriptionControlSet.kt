@@ -21,10 +21,13 @@ class DescriptionControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
 
     private lateinit var editText: EditText
-    
+
+    private val linkifyEnabled: Boolean
+        get() = preferences.getBoolean(R.string.p_linkify_task_edit, false)
+
     override fun createView(savedInstanceState: Bundle?) {
         viewModel.description?.let(editText::setTextKeepState)
-        if (preferences.getBoolean(R.string.p_linkify_task_edit, false)) {
+        if (linkifyEnabled) {
             linkify.linkify(editText)
         }
     }
@@ -34,7 +37,7 @@ class DescriptionControlSet : TaskEditControlFragment() {
             editText = it.notes
             val markdown = if (preferences.markdown) {
                 MarkwonEditorTextWatcher.withPreRender(
-                    MarkwonEditor.create(requireContext().markwon),
+                    MarkwonEditor.create(requireContext().markwon(linkifyEnabled)),
                     Executors.newCachedThreadPool(),
                     editText
                 )
