@@ -48,7 +48,6 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
-    @Inject lateinit var linkify: Linkify
 
     protected var caldavAccount: CaldavAccount? = null
     protected lateinit var binding: ActivityCaldavAccountSettingsBinding
@@ -62,7 +61,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             binding.nameLayout.visibility = View.GONE
             binding.description.visibility = View.VISIBLE
             binding.description.setText(description)
-            linkify.safeLinkify(binding.description, android.text.util.Linkify.WEB_URLS)
+            Linkify.safeLinkify(binding.description, android.text.util.Linkify.WEB_URLS)
         } else {
             binding.nameLayout.visibility = View.VISIBLE
             binding.description.visibility = View.GONE

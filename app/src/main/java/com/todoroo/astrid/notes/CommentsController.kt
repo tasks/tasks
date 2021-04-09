@@ -38,9 +38,8 @@ class CommentsController @Inject constructor(
         private val userActivityDao: UserActivityDao,
         private val activity: Activity,
         private val preferences: Preferences,
-        private val locale: Locale,
-        private val linkify: Linkify) {
-
+        private val locale: Locale
+) {
     private val items = ArrayList<UserActivity>()
     private var commentItems = 10
     private var task: Task? = null
@@ -88,7 +87,7 @@ class CommentsController @Inject constructor(
         // name
         val nameView = view.findViewById<TextView>(R.id.title)
         nameView.text = Html.fromHtml(item.message)
-        linkify.safeLinkify(nameView, android.text.util.Linkify.ALL)
+        Linkify.safeLinkify(nameView, android.text.util.Linkify.ALL)
 
         // date
         val date = view.findViewById<TextView>(R.id.date)
