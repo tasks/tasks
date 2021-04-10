@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
+import android.text.util.Linkify
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import io.noties.markwon.Markwon
@@ -60,7 +61,10 @@ object Context {
                     listOf(
                         TaskListPlugin.create(this),
                         TablePlugin.create(this),
-                        LinkifyPlugin.create(android.text.util.Linkify.ALL, true),
+                        LinkifyPlugin.create(
+                            Linkify.WEB_URLS or Linkify.EMAIL_ADDRESSES or Linkify.PHONE_NUMBERS,
+                            true
+                        ),
                         StrikethroughPlugin.create()
                     )
                 )
