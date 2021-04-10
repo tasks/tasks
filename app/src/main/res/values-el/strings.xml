@@ -118,12 +118,12 @@
     <string name="rmd_EPr_rmd_time_desc">Ειδοποιήσεις για εργασίες χωρίς ώρα λήξης θα φαίνονται στις %s</string>
     <string name="rmd_EPr_defaultRemind_title">Τυχαίες υπενθυμίσεις</string>
     <string name="default_random_reminder_disabled">απενεργοποιημένο</string>
-    <string name="default_random_reminder_hourly">ωριαία</string>
-    <string name="default_random_reminder_daily">καθημερινά</string>
+    <string name="default_random_reminder_hourly">Ωριαία</string>
+    <string name="default_random_reminder_daily">Ημερήσια</string>
     <string name="default_random_reminder_weekly">Εβδομαδιαία</string>
     <string name="default_random_reminder_bi_weekly">κάθε δυο εβδομάδες</string>
-    <string name="default_random_reminder_monthly">μηνιαία</string>
-    <string name="default_random_reminder_bi_monthly">διμηνιαία</string>
+    <string name="default_random_reminder_monthly">Μηνιαία</string>
+    <string name="default_random_reminder_bi_monthly">Διμηνιαία</string>
     <string name="repeat_forever">Επανάληψη επ\'αορίστου</string>
     <string name="repeat_until">Επανάληψη μέχρι %s</string>
     <string name="TPl_notification">Χρονοδιακόπτες ενεργοί για %s!</string>
@@ -148,4 +148,6 @@
     <string name="add_location">Προσθήκη τοποθεσίας</string>
     <string name="add_reminder">Προσθήκη υπενθύμισης</string>
     <string name="email">Ηλε. ταχυδρομείο</string>
+    <string name="repeat_option_does_not_repeat">Δεν επαναλαμβάνεται</string>
+    <string name="repeat_every">Κάθε</string>
 </resources>
