@@ -85,7 +85,7 @@
     <string name="CFC_dueBefore_text">Λήγει στίς: ?</string>
     <string name="CFC_dueBefore_name">Λήγει στίς…</string>
     <string name="no_due_date">Χωρίς ημερομηνία λήξης</string>
-    <string name="next_month">Επόμενος μήνας</string>
+    <string name="next_month">Τον επόμενο μήνα</string>
     <string name="CFC_importance_text">Προτεραιότητα τουλάχιστον ?</string>
     <string name="CFC_importance_name">Προτεραιότητα..</string>
     <string name="CFC_title_contains_name">Ο τίτλος περιέχει…</string>
@@ -108,7 +108,7 @@
     <string name="random_reminder_day">μια μέρα</string>
     <string name="random_reminder_week">μια εβδομάδα</string>
     <string name="random_reminder_two_weeks">σε δύο εβδομάδες</string>
-    <string name="random_reminder_month">εναν μήνα</string>
+    <string name="random_reminder_month">ένα μήνα</string>
     <string name="random_reminder_two_months">σε δύο μήνες</string>
     <string name="rmd_NoA_done">Ολοκληρωμένο</string>
     <string name="rmd_NoA_snooze">Αναβολή</string>
