@@ -1,3 +1,19 @@
+### 11.10 (2021-04-12)
+
+* Markdown support ([Documentation](https://tasks.org/docs/markdown))
+* Update to Google Play Billing v3
+* Remove background sync for legacy EteSync v1 accounts
+* Update translations
+  * Brazilian Portuguese - @daylightdev
+  * French - @FlorianLeChat
+  * Greek - Michalis
+  * Japanese - @kisaragi-hiu
+  * Russian - @zhelemysh, Nikita Epifanov
+  * Spanish - @FlorianLeChat
+  * Turkish - Oğuz Ersen
+  * Ukrainian - @IhorHordiichuk
+  * Urdu - Maaz
+
 ### 11.9.2 (2021-03-29)
 
 * Fix date translation issue - Thanks @mhmdanas!
