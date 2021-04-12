@@ -719,4 +719,6 @@
     <string name="next_wednesday">Mercredi suivant</string>
     <string name="next_tuesday">Mardi suivant</string>
     <string name="next_monday">Lundi suivant</string>
+    <string name="markdown_description">Activez le format Markdown dans le titre et la description</string>
+    <string name="markdown">Markdown</string>
 </resources>
