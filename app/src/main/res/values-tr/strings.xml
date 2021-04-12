@@ -724,4 +724,6 @@
     <string name="next_tuesday">Sonraki Sal</string>
     <string name="next_monday">Sonraki Pts</string>
     <string name="next_sunday">Sonraki Pzr</string>
+    <string name="markdown_description">Başlık ve açıklamada Markdown\'ı etkinleştir</string>
+    <string name="markdown">Markdown</string>
 </resources>
