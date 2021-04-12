@@ -724,4 +724,6 @@
     <string name="next_tuesday">Próximo martes</string>
     <string name="next_monday">Próximo lunes</string>
     <string name="next_sunday">Próximo domingo</string>
+    <string name="markdown_description">Habilitar Markdown en el título y la descripción</string>
+    <string name="markdown">Markdown</string>
 </resources>
