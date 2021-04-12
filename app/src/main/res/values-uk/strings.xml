@@ -744,4 +744,6 @@
     <string name="next_tuesday">Наступного Вт</string>
     <string name="next_monday">Наступного Пн</string>
     <string name="next_sunday">Наступної Нд</string>
+    <string name="markdown_description">Увімкнути Markdown у заголовку та описі</string>
+    <string name="markdown">Markdown</string>
 </resources>
