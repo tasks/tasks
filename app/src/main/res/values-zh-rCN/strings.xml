@@ -714,4 +714,6 @@
     <string name="next_tuesday">下周二</string>
     <string name="next_monday">下周一</string>
     <string name="next_sunday">下周日</string>
+    <string name="markdown_description">在标题和描述中启用 Markdown</string>
+    <string name="markdown">Markdown</string>
 </resources>
