@@ -722,4 +722,5 @@
     <string name="next_monday">Köv. H</string>
     <string name="next_sunday">Köv. V</string>
     <string name="next_tuesday">Köv. K</string>
+    <string name="markdown"></string>
 </resources>
