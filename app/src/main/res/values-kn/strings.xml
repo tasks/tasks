@@ -14,4 +14,7 @@
     <string name="display_name">ಹೆಸರನ್ನು ತೋರಿಸು</string>
     <string name="TVA_add_comment">ಅಭಿಪ್ರಾಯವನ್ನು ಸೇರಿಸು…</string>
     <string name="actfm_picture_clear">ಚಿತ್ರವನ್ನು ಅಳಿಸು</string>
+    <string name="import_progress_read">ಓದುವ ಕಾರ್ಯ %d…</string>
+    <string name="cancel">\@android:string/ರದ್ದುಮಾಡಿ</string>
+    <string name="ok">\@android:string/ಸರಿ</string>
 </resources>
