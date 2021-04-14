@@ -18,11 +18,10 @@ import com.android.billingclient.api.consumePurchase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.analytics.Firebase
-import org.tasks.billing.Purchase.Companion.isPurchased
-import org.tasks.billing.Purchase.Companion.needsAcknowledgement
 import org.tasks.jobs.WorkManager
 import timber.log.Timber
 import kotlin.coroutines.resume
@@ -141,13 +140,15 @@ class BillingClientImpl(
     }
 
     private suspend fun connect(): BillingResult =
-        suspendCoroutine { cont ->
+        suspendCancellableCoroutine { cont ->
             billingClient.startConnection(
                 object : BillingClientStateListener {
                     override fun onBillingSetupFinished(result: BillingResult) {
                         if (result.success) {
                             connected = true
-                            cont.resumeWith(Result.success(result))
+                            if (cont.isActive) {
+                                cont.resumeWith(Result.success(result))
+                            }
                         } else {
                             cont.resumeWithException(
                                 IllegalStateException(result.responseCodeString)
