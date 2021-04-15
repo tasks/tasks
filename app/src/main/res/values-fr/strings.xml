@@ -472,7 +472,7 @@
     <string name="etesync_account_description">Nécessite un compte sur EteSync.com ou un serveur auto-hébergé</string>
     <string name="etesync_encryption_description">N\'oubliez pas le mot de passe de chiffrement que vous choisissez, il ne peut pas être récupéré !</string>
     <string name="encryption_password_wrong">Mot de passe de chiffrement erroné</string>
-    <string name="help_and_feedback">Aide et commentaires</string>
+    <string name="help_and_feedback">Aide et remarques</string>
     <string name="documentation">Documentation</string>
     <string name="preferences_look_and_feel">Apparence</string>
     <string name="preferences_advanced">Avancé</string>
@@ -719,6 +719,6 @@
     <string name="next_wednesday">Mercredi suivant</string>
     <string name="next_tuesday">Mardi suivant</string>
     <string name="next_monday">Lundi suivant</string>
-    <string name="markdown_description">Activez le format Markdown dans le titre et la description</string>
+    <string name="markdown_description">Activer le format Markdown dans le titre et la description</string>
     <string name="markdown">Markdown</string>
 </resources>
