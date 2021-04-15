@@ -46,7 +46,7 @@
     <string name="TEA_control_reminders">Υπενθυμίσεις</string>
     <string name="TEA_control_timer">Χειριστήρια χρονοδιακόπτη</string>
     <string name="TEA_control_hidden_section">-----Απόκρυψη πάντα-----</string>
-    <string name="TEA_load_more">Φόρτωση περισσότερων</string>
+    <string name="TEA_load_more">Φόρτωση περισσότερων…</string>
     <string name="CRA_ignore">Αγνοήστε</string>
     <string name="CRA_title">Χρειάζεστε λίστα για συνάντηση?</string>
     <string name="CRA_ignore_body">Αγνοήσατε αρκετές κλήσεις. Να σταματήσουμε να ρωτάμε για αυτές;</string>
@@ -87,7 +87,7 @@
     <string name="no_due_date">Χωρίς ημερομηνία λήξης</string>
     <string name="next_month">Τον επόμενο μήνα</string>
     <string name="CFC_importance_text">Προτεραιότητα τουλάχιστον ?</string>
-    <string name="CFC_importance_name">Προτεραιότητα..</string>
+    <string name="CFC_importance_name">Προτεραιότητα…</string>
     <string name="CFC_title_contains_name">Ο τίτλος περιέχει…</string>
     <string name="CFC_title_contains_text">Ο τίτλος περιέχει: ?</string>
     <string name="gcal_TEA_error">Σφάλμα πρόσθεσης καθήκοντος στο ημερολόγιο!</string>
@@ -97,7 +97,7 @@
     <string name="CFC_gtasks_list_name">Στην λίστα του GTasks…</string>
     <string name="gtasks_GTA_clear_completed">Καθαρισμός ολοκληρωμένων</string>
     <string name="gtasks_GLA_authenticating">Αυθεντικοποίηση…</string>
-    <string name="gtasks_GLA_errorIOAuth">Συγγνώμη, υπήρξε σφάλμα επικοινωνίας με τους διακομιστές της Google. Παρακαλουμε δοκιμάστε πάλι μετά</string>
+    <string name="gtasks_GLA_errorIOAuth">Συγγνώμη, υπήρξε σφάλμα επικοινωνίας με τους διακομιστές της Google. Παρακαλουμε δοκιμάστε πάλι μετά.</string>
     <string name="gtasks_GPr_header">Εργασίες Google</string>
     <string name="gtasks_error_accountNotFound">Λογαριασμός %s δεν βρέθηκε - παρακαλώ αποσυνδεθείτε και συνδεθείτε πάλι απο τις ρυθμίσεις του Google Tasks.</string>
     <string name="premium_record_audio">Ηχογράφηση σημείωσης</string>
@@ -131,7 +131,7 @@
     <string name="TEA_timer_controls">Χρονοδιακόπτης</string>
     <string name="TEA_timer_comment_started">ξεκίνησε αυτή την εργασία:</string>
     <string name="TEA_timer_comment_stopped">σταμάτησε να κάνεις την εργασία:</string>
-    <string name="TEA_timer_comment_spent">Χρόνος που πέρασε</string>
+    <string name="TEA_timer_comment_spent">Χρόνος που πέρασε:</string>
     <string name="voice_create_prompt">Μιλήστε για να δημιουργήσετε εργασία</string>
     <string name="EPr_voiceInputEnabled_title">Εισαγωγή φωνής</string>
     <string name="EPr_voiceRemindersEnabled_title">Φωνητικές υπενθυμίσεις</string>
