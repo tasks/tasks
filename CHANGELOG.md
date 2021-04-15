@@ -1,14 +1,18 @@
-### 11.10 (2021-04-14)
+### 11.10 (2021-04-16)
 
 * Markdown support ([Documentation](https://tasks.org/docs/markdown))
+* Samsung DeX support - Thanks @mhmdanas!
 * Update to Google Play Billing v3
 * Remove background sync for legacy EteSync v1 accounts
 * Update translations
+  * Arabic - @mhmdanas
   * Brazilian Portuguese - @daylightdev
   * Dutch - @fvbommel
-  * French - @FlorianLeChat
-  * Greek - Michalis
+  * French - @FlorianLeChat, J. Lavoie
+  * German - J. Lavoie
+  * Greek - Michalis, Eugenia Russell
   * Indonesian - @liimee
+  * Italian - J. Lavoie
   * Japanese - @kisaragi-hiu
   * Kannada - @shashank-p
   * Russian - @zhelemysh, Nikita Epifanov

@@ -1,4 +1,5 @@
 * Markdown support (https://tasks.org/docs/markdown)
+* Samsung DeX support - Thanks @mhmdanas!
 * Update to Google Play Billing v3
 * Remove background sync for legacy EteSync v1 accounts
 * Update translations
