@@ -37,6 +37,7 @@ import net.openid.appauth.RegistrationRequest
 import net.openid.appauth.RegistrationResponse
 import net.openid.appauth.ResponseTypeValues
 import org.tasks.R
+import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
@@ -76,7 +77,8 @@ class SignInActivity : InjectingAppCompatActivity() {
     private var mAuthIntentLatch = CountDownLatch(1)
     private val mExecutor: ExecutorService = newSingleThreadExecutor()
 
-    private lateinit var authService: AuthorizationService
+    private val authService: AuthorizationService
+        get() = viewModel.authService!!
 
     private val configuration: Configuration
         get() = authService.configuration
@@ -141,12 +143,10 @@ class SignInActivity : InjectingAppCompatActivity() {
             1 -> AuthorizationService.ISS_GITHUB
             else -> throw IllegalArgumentException()
         })
-        viewModel.authService?.let { startAuthorization(it) }
+        startAuthorization()
     }
 
-    private fun startAuthorization(authService: AuthorizationService) {
-        this.authService = authService
-
+    private fun startAuthorization() {
         if (authStateManager.current.isAuthorized &&
                 !configuration.hasConfigurationChanged()) {
             Timber.i("User is already authenticated, signing out")
@@ -169,7 +169,7 @@ class SignInActivity : InjectingAppCompatActivity() {
         if (e is HttpException && e.code == 402) {
             startActivityForResult(
                 Intent(this, PurchaseActivity::class.java)
-                    .putExtra(EXTRA_GITHUB, authService.isGitHub),
+                    .putExtra(EXTRA_GITHUB, viewModel.authService?.isGitHub ?: IS_GENERIC),
                 RC_PURCHASE
             )
         } else {
