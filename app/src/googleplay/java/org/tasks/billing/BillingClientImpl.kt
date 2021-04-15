@@ -150,9 +150,12 @@ class BillingClientImpl(
                                 cont.resumeWith(Result.success(result))
                             }
                         } else {
-                            cont.resumeWithException(
-                                IllegalStateException(result.responseCodeString)
-                            )
+                            connected = false
+                            if (cont.isActive) {
+                                cont.resumeWithException(
+                                    IllegalStateException(result.responseCodeString)
+                                )
+                            }
                         }
                     }
 
