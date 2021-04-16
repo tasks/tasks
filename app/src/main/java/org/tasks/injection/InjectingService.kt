@@ -60,6 +60,7 @@ abstract class InjectingService : Service() {
         return NotificationCompat.Builder(
                 this, NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS)
                 .setSound(null)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(notificationBody))
