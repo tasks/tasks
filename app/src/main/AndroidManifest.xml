@@ -967,6 +967,12 @@
         android:resource="@xml/shortcuts" />
     </activity-alias>
 
+    <!-- See https://github.com/tasks/tasks/issues/1056 and https://developer.samsung.com/samsung-dex/modify-optimizing.html. -->
+    <!-- Version < 3.0. DeX Mode and Screen Mirroring support -->
+    <meta-data android:name="com.samsung.android.keepalive.density" android:value="true"/>
+    <!-- Version >= 3.0. DeX Dual Mode support -->
+    <meta-data android:name="com.samsung.android.multidisplay.keep_process_alive" android:value="true"/>
+
   </application>
 
 </manifest>
