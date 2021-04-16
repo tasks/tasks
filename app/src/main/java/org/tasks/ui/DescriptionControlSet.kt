@@ -5,20 +5,18 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
-import io.noties.markwon.editor.MarkwonEditor
-import io.noties.markwon.editor.MarkwonEditorTextWatcher
 import org.tasks.R
 import org.tasks.databinding.ControlSetDescriptionBinding
 import org.tasks.dialogs.Linkify
-import org.tasks.extensions.Context.markwon
+import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Preferences
-import java.util.concurrent.Executors
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class DescriptionControlSet : TaskEditControlFragment() {
     @Inject lateinit var linkify: Linkify
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var markdownProvider: MarkdownProvider
 
     private lateinit var editText: EditText
 
@@ -35,18 +33,10 @@ class DescriptionControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?) =
         ControlSetDescriptionBinding.inflate(layoutInflater, parent, true).let {
             editText = it.notes
-            val markdown = if (preferences.markdown) {
-                MarkwonEditorTextWatcher.withPreRender(
-                    MarkwonEditor.create(requireContext().markwon(linkifyEnabled)),
-                    Executors.newCachedThreadPool(),
-                    editText
-                )
-            } else {
-                null
-            }
+            val textWatcher = markdownProvider.markdown(linkifyEnabled).textWatcher(editText)
             editText.addTextChangedListener(
                 onTextChanged = { text, _, _, _ -> textChanged(text) },
-                afterTextChanged = { editable -> markdown?.afterTextChanged(editable) }
+                afterTextChanged = { editable -> textWatcher?.invoke(editable) }
             )
             it.root
         }

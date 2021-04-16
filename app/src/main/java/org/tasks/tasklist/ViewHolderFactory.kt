@@ -10,6 +10,7 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
 import org.tasks.databinding.TaskAdapterRowBinding
 import org.tasks.dialogs.Linkify
+import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.ResourceResolver
 import org.tasks.tasklist.TaskViewHolder.ViewHolderCallbacks
@@ -32,6 +33,8 @@ class ViewHolderFactory @Inject constructor(
     private val background: Int = ResourceResolver.getResourceId(context, R.attr.selectableItemBackground)
     private val selectedColor: Int = ResourceResolver.getData(context, R.attr.colorControlHighlight)
     private val rowPadding: Int = AndroidUtilities.convertDpToPixels(metrics, preferences.getInt(R.string.p_rowPadding, 16))
+    private val markdown =
+        MarkdownProvider(context, preferences).markdown(R.string.p_linkify_task_list)
 
     fun newHeaderViewHolder(parent: ViewGroup?, callback: (Long) -> Unit) =
             HeaderViewHolder(
@@ -56,5 +59,7 @@ class ViewHolderFactory @Inject constructor(
                     selectedColor,
                     rowPadding,
                     linkify,
-                    locale)
+                    locale,
+                    markdown
+            )
 }

@@ -16,6 +16,7 @@ import org.tasks.data.LocationDao
 import org.tasks.data.TaskDao
 import org.tasks.filters.NotificationsFilter
 import org.tasks.intents.TaskIntents
+import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.CompleteTaskReceiver
 import org.tasks.reminders.NotificationActivity
@@ -38,7 +39,9 @@ class NotificationManager @Inject constructor(
         private val locationDao: LocationDao,
         private val localBroadcastManager: LocalBroadcastManager,
         private val reminderService: ReminderService,
-        private val notificationManager: ThrottledNotificationManager) {
+        private val notificationManager: ThrottledNotificationManager,
+        private val markdownProvider: MarkdownProvider,
+) {
     private val colorProvider = ColorProvider(context, preferences)
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
@@ -298,8 +301,9 @@ class NotificationManager @Inject constructor(
         }
 
         // read properties
-        val taskTitle = task.title
-        val taskDescription = task.notes
+        val markdown = markdownProvider.markdown()
+        val taskTitle = markdown.toMarkdown(task.title)
+        val taskDescription = markdown.toMarkdown(task.notes)
 
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
@@ -310,7 +314,7 @@ class NotificationManager @Inject constructor(
                 .setOnlyAlertOnce(false)
                 .setShowWhen(true)
                 .setTicker(taskTitle)
-        val intent = NotificationActivity.newIntent(context, taskTitle, id)
+        val intent = NotificationActivity.newIntent(context, taskTitle.toString(), id)
         builder.setContentIntent(
                 PendingIntent.getActivity(context, id.toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT))
         if (type == ReminderService.TYPE_GEOFENCE_ENTER || type == ReminderService.TYPE_GEOFENCE_EXIT) {
@@ -321,7 +325,7 @@ class NotificationManager @Inject constructor(
                                 if (type == ReminderService.TYPE_GEOFENCE_ENTER) R.string.location_arrived else R.string.location_departed,
                                 place.displayName))
             }
-        } else if (!isNullOrEmpty(taskDescription)) {
+        } else if (taskDescription?.isNotBlank() == true) {
             builder
                     .setContentText(taskDescription)
                     .setStyle(NotificationCompat.BigTextStyle().bigText(taskDescription))

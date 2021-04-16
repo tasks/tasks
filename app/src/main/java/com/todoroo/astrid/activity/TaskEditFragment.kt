@@ -37,8 +37,6 @@ import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.AndroidEntryPoint
-import io.noties.markwon.editor.MarkwonEditor
-import io.noties.markwon.editor.MarkwonEditorTextWatcher
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -51,17 +49,16 @@ import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
-import org.tasks.extensions.Context.markwon
 import org.tasks.extensions.Context.openUri
 import org.tasks.files.FileHelper
 import org.tasks.fragments.TaskEditControlSetFragmentManager
+import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeColor
 import org.tasks.ui.SubtaskControlSet
 import org.tasks.ui.TaskEditControlFragment
 import org.tasks.ui.TaskEditViewModel
-import java.util.concurrent.Executors
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -78,6 +75,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var timerPlugin: TimerPlugin
     @Inject lateinit var linkify: Linkify
+    @Inject lateinit var markdownProvider: MarkdownProvider
 
     private val linkifyEnabled: Boolean
         get() = preferences.getBoolean(R.string.p_linkify_task_edit, false)
@@ -145,21 +143,13 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         toolbar.setOnMenuItemClickListener(this)
         themeColor.apply(binding.collapsingtoolbarlayout, toolbar)
         val title = binding.title
-        val markdown = if (preferences.markdown) {
-            MarkwonEditorTextWatcher.withPreRender(
-                MarkwonEditor.create(requireContext().markwon(linkifyEnabled)),
-                Executors.newCachedThreadPool(),
-                title
-            )
-        } else {
-            null
-        }
+        val textWatcher = markdownProvider.markdown(linkifyEnabled).textWatcher(title)
         title.addTextChangedListener(
             onTextChanged = { _, _, _, _ ->
                 editViewModel.title = title.text.toString().trim { it <= ' ' }
             },
             afterTextChanged = {
-                markdown?.afterTextChanged(it)
+                textWatcher?.invoke(it)
             }
         )
         title.setText(model.title)

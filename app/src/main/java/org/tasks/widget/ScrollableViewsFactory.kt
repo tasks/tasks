@@ -23,6 +23,7 @@ import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.date.DateTimeUtils
 import org.tasks.locale.Locale
+import org.tasks.markdown.Markdown
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource
@@ -43,7 +44,8 @@ internal class ScrollableViewsFactory(
         private val checkBoxProvider: CheckBoxProvider,
         private val locale: Locale,
         private val chipProvider: ChipProvider,
-        private val localBroadcastManager: LocalBroadcastManager
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val markdown: Markdown
 ) : RemoteViewsFactory {
     private val indentPadding: Int
     private var showDueDates = false
@@ -203,11 +205,17 @@ internal class ScrollableViewsFactory(
             if (showFullTaskTitle) {
                 row.setInt(R.id.widget_text, "setMaxLines", Int.MAX_VALUE)
             }
-            row.setTextViewText(R.id.widget_text, task.title)
+            row.setTextViewText(
+                R.id.widget_text,
+                markdown.toMarkdown(task.title)
+            )
             row.setTextColor(R.id.widget_text, textColorTitle)
             if (showDescription && task.hasNotes()) {
                 row.setFloat(R.id.widget_description, "setTextSize", textSize)
-                row.setTextViewText(R.id.widget_description, task.notes)
+                row.setTextViewText(
+                    R.id.widget_description,
+                    markdown.toMarkdown(task.notes)
+                )
                 row.setViewVisibility(R.id.widget_description, View.VISIBLE)
                 if (showFullDescription) {
                     row.setInt(R.id.widget_description, "setMaxLines", Int.MAX_VALUE)

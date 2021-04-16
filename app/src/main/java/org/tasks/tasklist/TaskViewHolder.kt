@@ -19,7 +19,7 @@ import org.tasks.data.TaskContainer
 import org.tasks.databinding.TaskAdapterRowBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.Linkify
-import org.tasks.extensions.Context.markwon
+import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
@@ -44,9 +44,9 @@ class TaskViewHolder internal constructor(
     private val selectedColor: Int,
     private val rowPadding: Int,
     private val linkify: Linkify,
-    private val locale: Locale
+    private val locale: Locale,
+    private val markdown: Markdown
 ) : RecyclerView.ViewHolder(binding.root) {
-    private val markwon = if (preferences.markdown) context.markwon(linkifyEnabled) else null
     private val row: ViewGroup = binding.row
     private val dueDate: TextView = binding.dueDate.apply {
         setOnClickListener { changeDueDate() }
@@ -63,9 +63,6 @@ class TaskViewHolder internal constructor(
     private val chipGroup: ChipGroup = binding.chipGroup
 
     lateinit var task: TaskContainer
-
-    private val linkifyEnabled: Boolean
-        get() = preferences.getBoolean(R.string.p_linkify_task_list, false)
 
     var indent = 0
         set(value) {
@@ -133,26 +130,18 @@ class TaskViewHolder internal constructor(
     fun bindView(task: TaskContainer, filter: Filter, sortMode: Int) {
         this.task = task
         indent = task.indent
-        if (markwon == null) {
-            nameView.text = task.title
-        } else {
-            task.title?.let { markwon.setMarkdown(nameView, it) }
-        }
+        markdown.setMarkdown(nameView, task.title)
         setupTitleAndCheckbox()
         setupDueDate(sortMode == SORT_DUE)
         setupChips(filter, sortMode == SORT_START)
         if (preferences.getBoolean(R.string.p_show_description, true)) {
-            if (markwon == null) {
-                description.text = task.notes
-            } else {
-                task.notes?.let { markwon.setMarkdown(description, it) }
-            }
+            markdown.setMarkdown(description, task.notes)
             description.visibility = if (task.hasNotes()) View.VISIBLE else View.GONE
         }
-        if (markwon != null || preferences.getBoolean(R.string.p_linkify_task_list, false)) {
+        if (markdown.enabled || preferences.getBoolean(R.string.p_linkify_task_list, false)) {
             linkify.setMovementMethod(nameView) { onRowBodyClick() }
             linkify.setMovementMethod(description) { onRowBodyClick() }
-            if (markwon == null) {
+            if (!markdown.enabled) {
                 Linkify.safeLinkify(nameView)
                 Linkify.safeLinkify(description)
             }

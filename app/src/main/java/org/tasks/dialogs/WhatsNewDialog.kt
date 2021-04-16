@@ -14,8 +14,8 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.databinding.DialogWhatsNewBinding
-import org.tasks.extensions.Context.markwon
 import org.tasks.extensions.Context.openUri
+import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Preferences
 import java.io.BufferedReader
 import javax.inject.Inject
@@ -28,6 +28,7 @@ class WhatsNewDialog : DialogFragment() {
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var inventory: Inventory
+    @Inject lateinit var markdownProvider: MarkdownProvider
 
     private var displayedRate = false
     private var displayedSubscribe = false
@@ -38,7 +39,7 @@ class WhatsNewDialog : DialogFragment() {
         val textStream = requireContext().assets.open("CHANGELOG.md")
         val text = BufferedReader(textStream.reader()).readText()
         binding.changelog.movementMethod = LinkMovementMethod.getInstance()
-        requireContext().markwon(true).setMarkdown(binding.changelog, text)
+        markdownProvider.markdown(true).setMarkdown(binding.changelog, text)
 
         val begForSubscription = !inventory.hasPro
         val begForRating = !preferences.getBoolean(R.string.p_clicked_rate, false)
