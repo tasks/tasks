@@ -480,4 +480,16 @@
     <string name="next_tuesday">اگلے منگل</string>
     <string name="next_monday">اگلے پیر</string>
     <string name="next_sunday">اگلے اتوار</string>
+    <string name="button_subscribe">سبسکرائب</string>
+    <string name="refresh_purchases">خریداریوں کو ری فریش کریں</string>
+    <string name="manage_subscription">سبسکرپشن تبدیل کریں</string>
+    <string name="subscription">سبسکرپشن</string>
+    <string name="upgrade_to_pro">پرو پر اپ گریڈ کریں</string>
+    <string name="network_error">رابطہ نہیں ہو سکا</string>
+    <string name="caldav_home_set_not_found">ہوم سیٹ نہیں ملا</string>
+    <string name="help_and_feedback">مدداور تجاویز</string>
+    <string name="help">مدد</string>
+    <string name="tasker_list_notification">لسٹ نوٹیفیکیشنز</string>
+    <string name="list_separator_with_space">"، "</string>
+    <string name="repeats_plural_on_number_of_times">ہر %1$sکو %2$s پر دہراتا ہے، %3$d%4$sپر واقع ہوتا ہے</string>
 </resources>
