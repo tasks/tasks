@@ -1,4 +1,4 @@
-### 11.10 (2021-04-16)
+### 11.10 (2021-04-19)
 
 * Markdown support ([Documentation](https://tasks.org/docs/markdown))
 * Samsung DeX support - Thanks @mhmdanas!
@@ -12,7 +12,7 @@
   * German - J. Lavoie
   * Greek - Michalis, Eugenia Russell
   * Indonesian - @liimee
-  * Italian - J. Lavoie
+  * Italian - J. Lavoie, @Fs00
   * Japanese - @kisaragi-hiu
   * Kannada - @shashank-p
   * Russian - @zhelemysh, Nikita Epifanov
