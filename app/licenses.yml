@@ -938,12 +938,6 @@
   name: commonmark-ext-gfm-strikethrough
   copyrightHolder: Atlassian and others
   license: BSD 2-Clause
-- artifact: me.saket:better-link-movement-method:+
-  name: better-link-movement-method
-  copyrightHolder: Saket Narayan
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0
-  url: https://github.com/Saketme/BetterLinkMovementMethod
 - artifact: io.noties.markwon:linkify:+
   name: linkify
   copyrightHolder: Dimitry Ivanov

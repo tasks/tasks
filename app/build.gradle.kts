@@ -190,7 +190,6 @@ dependencies {
     implementation("io.noties.markwon:ext-strikethrough:${Versions.markwon}")
     implementation("io.noties.markwon:ext-tables:${Versions.markwon}")
     implementation("io.noties.markwon:linkify:${Versions.markwon}")
-    implementation("me.saket:better-link-movement-method:2.2.0")
 
     debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${Versions.flipper}")
