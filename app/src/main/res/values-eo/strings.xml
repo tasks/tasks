@@ -210,7 +210,7 @@
     <string name="SSD_sort_alpha">Laŭ titolo</string>
     <string name="SSD_sort_auto">Saĝe</string>
     <string name="TLA_menu_sort">Ordigi</string>
-    <string name="keep_editing">Daŭrigi redakti</string>
+    <string name="keep_editing">Daŭrige redakti</string>
     <string name="discard_confirmation">Ĉu vi certas ke vi volas nuligi viajn ŝanĝojn\?</string>
     <string name="import_summary_message">Dosiero %1$s enhavis %2$s.
 \n
@@ -234,4 +234,5 @@
     <string name="manage_drawer">Administri tirkeston</string>
     <string name="read_permission_label">Permesoj de Tasks</string>
     <string name="import_summary_title">Restaŭri resumon</string>
+    <string name="import_progress_read">Legado de tasko %d…</string>
 </resources>
