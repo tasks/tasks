@@ -216,8 +216,8 @@ dependencies {
     }
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
     implementation("com.google.apis:google-api-services-tasks:v1-rev20210109-1.31.0")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20210228-1.31.0")
-    implementation("com.google.auth:google-auth-library-oauth2-http:0.25.2")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20210315-1.31.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:0.25.4")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("androidx.work:work-runtime-ktx:${Versions.work}")
     implementation("com.etesync:journalmanager:1.1.1")
@@ -230,8 +230,8 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
-    implementation("com.google.android.material:compose-theme-adapter:${Versions.compose}")
-    implementation("androidx.activity:activity-compose:1.3.0-alpha05")
+    implementation("com.google.android.material:compose-theme-adapter:1.0.0-beta04")
+    implementation("androidx.activity:activity-compose:1.3.0-alpha07")
     releaseCompileOnly("androidx.compose.ui:ui-tooling:${Versions.compose}")
 
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
