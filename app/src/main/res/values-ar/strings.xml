@@ -316,9 +316,9 @@
     <string name="default_recurrence">التكرار الافتراضي</string>
     <string name="default_tags">العلامات الافتراضيّة</string>
     <string name="no_title">(لا عنوان)</string>
-    <string name="encryption_password_required">كلمة سرّ التشفير إجباريّة</string>
-    <string name="password_required">كلمة السرّ إجباريّة</string>
-    <string name="username_required">اسم المستعمل إجباري</string>
+    <string name="encryption_password_required">كلمة سرّ التشفير مطلوبة</string>
+    <string name="password_required">كلمة السرّ مطلوبة</string>
+    <string name="username_required">اسم المستعمل مطلوب</string>
     <string name="pick_from_storage">انتقِ من التخزين</string>
     <string name="list_settings">إعدادات القوائم</string>
     <string name="tag_settings">إعدادات العلامات</string>
@@ -470,4 +470,15 @@
     <string name="next_tuesday">الثلاثاء القادم</string>
     <string name="next_monday">الإثنين القادم</string>
     <string name="next_sunday">الأحد القادم</string>
+    <string name="url_invalid_scheme">يجب أن يبدأ بhttp(s)://</string>
+    <string name="url_required">الرابط مطلوب</string>
+    <string name="location_radius_meters">%s م</string>
+    <string name="header_spacing">التباعد</string>
+    <string name="miscellaneous">متنوّع</string>
+    <string name="CFC_tag_text">علامة: \?</string>
+    <string name="CFC_importance_text">الأولويّة على الأقل \?</string>
+    <string name="CRA_default_list_name">عناصر العمل: %s</string>
+    <string name="CRA_speech_bubble_end">يبدو أنك انتهيت للتو من %s. هل تريد إنشاء قائمة بعناصر العمل؟</string>
+    <string name="CRA_speech_bubble_start">يبدو أن %s سيبدأ قريبًا. هل تريد إنشاء قائمة بعناصر العمل؟</string>
+    <string name="TEA_control_timer">ضوابط المؤقت</string>
 </resources>
