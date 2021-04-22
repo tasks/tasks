@@ -114,7 +114,7 @@
     <string name="CFC_tag_text">Címke: ?</string>
     <string name="CFC_tag_name">Címke…</string>
     <string name="CFC_tag_contains_name">A címke neve tartalmaz…</string>
-    <string name="CFC_tag_contains_text">A címke neve ?-t tartalmaz</string>
+    <string name="CFC_tag_contains_text">A címke neve \?-et tartalmaz</string>
     <string name="CFC_title_contains_name">A név tartalmazza ezt…</string>
     <string name="CFC_title_contains_text">A név tartalmazza ezt: ?</string>
     <string name="gcal_TEA_error">Nem sikerült a feladat hozzáadása a naptárhoz!</string>
@@ -722,4 +722,6 @@
     <string name="next_monday">Köv. H</string>
     <string name="next_sunday">Köv. V</string>
     <string name="next_tuesday">Köv. K</string>
+    <string name="markdown_description">Markdown engedélyezése címben és leírásban</string>
+    <string name="markdown">Markdown</string>
 </resources>
