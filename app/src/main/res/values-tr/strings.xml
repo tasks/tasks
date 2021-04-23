@@ -83,10 +83,9 @@
     <string name="EPr_delete_task_data_warning">Tüm görevler kalıcı olarak silinecek</string>
     <string name="EPr_manage_delete_completed_gcal">Tamamlanan görevler için takvim olaylarını sil</string>
     <string name="EPr_manage_delete_completed_gcal_message">Tamamlanmış görevlerden tüm olayları silmek istediğinize emin misiniz?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d takvim olayı silindi!</string>
+    <string name="EPr_manage_delete_gcal_status">%d takvim olayı silindi!</string>
     <string name="EPr_manage_delete_all_gcal">Görevler için tüm takvim olaylarını sil</string>
     <string name="EPr_manage_delete_all_gcal_message">Görevlerdeki tüm olayları silmek istediğinize emin misiniz?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d takvim olayı silindi!</string>
     <string name="task_defaults">Görev öntanımlıları</string>
     <string name="EPr_default_importance_title">Öntanımlı öncelik</string>
     <string name="EPr_default_reminders_title">Öntanımlı hatırlatmalar</string>

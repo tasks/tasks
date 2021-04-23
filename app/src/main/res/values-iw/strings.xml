@@ -83,10 +83,9 @@
     <string name="EPr_delete_task_data_warning">כל המשימות ימחקו לצמיתות</string>
     <string name="EPr_manage_delete_completed_gcal">מחקי אירועי יומן בעבור משימות שבוצעו</string>
     <string name="EPr_manage_delete_completed_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן של משימות שבוצעו?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d אירועי יומן נמחקו!</string>
+    <string name="EPr_manage_delete_gcal_status">%d אירועי יומן נמחקו!</string>
     <string name="EPr_manage_delete_all_gcal">מחק את כל אירועי היומן הקשורים למשימות</string>
     <string name="EPr_manage_delete_all_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן בעבור המשימות?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו!</string>
     <string name="task_defaults">ברירות מחדל למשימות</string>
     <string name="EPr_default_importance_title">עדיפות מחדל</string>
     <string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>

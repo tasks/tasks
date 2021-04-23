@@ -61,7 +61,7 @@
     <string name="EPr_delete_task_data">Kustuta ülesande andmed</string>
     <string name="EPr_delete_task_data_warning">Kõik ülesanded kustutatakse jäädavalt</string>
     <string name="EPr_manage_delete_completed_gcal_message">Kas sa tõesti soovid kustutada kõigi lõpetatud ülesannete sündmused\?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Kalendrist kustutati %d sündmust!</string>
+    <string name="EPr_manage_delete_gcal_status">Kalendrist kustutati %d sündmust!</string>
     <string name="task_defaults">Ülesande vaikeväärtused</string>
     <string name="EPr_default_importance_title">Vaikimisi tähtsus</string>
     <string name="EPr_default_reminders_title">Vaikimisi meeldetuletused</string>

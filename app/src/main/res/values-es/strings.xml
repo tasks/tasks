@@ -82,10 +82,9 @@
     <string name="EPr_delete_task_data_warning">Todas las tareas serán borradas</string>
     <string name="EPr_manage_delete_completed_gcal">Borrar eventos del calendario para las tareas completadas</string>
     <string name="EPr_manage_delete_completed_gcal_message">¿Seguro que realmente desea borrar todas las tareas completadas?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Borrados %d eventos del calendario!</string>
+    <string name="EPr_manage_delete_gcal_status">Borrados %d eventos del calendario!</string>
     <string name="EPr_manage_delete_all_gcal">Borrar todos los eventos del calendario de las tareas</string>
     <string name="EPr_manage_delete_all_gcal_message">¿Seguro que quieres borrar todos tus eventos para las tareas?</string>
-    <string name="EPr_manage_delete_all_gcal_status">¡Borrados %d eventos del calendario!</string>
     <string name="task_defaults">Configuración por defecto de tareas</string>
     <string name="EPr_default_importance_title">Prioridad predeterminada</string>
     <string name="EPr_default_reminders_title">Recordatorios por defecto</string>

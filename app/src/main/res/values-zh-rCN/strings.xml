@@ -77,10 +77,9 @@
     <string name="EPr_delete_task_data_warning">所有任务将被永久删除</string>
     <string name="EPr_manage_delete_completed_gcal">为已完成的任务删除日历事件</string>
     <string name="EPr_manage_delete_completed_gcal_message">真的想为已完成的任务删除日历事件吗？</string>
-    <string name="EPr_manage_delete_completed_gcal_status">已删除 %d 个日历事件！</string>
+    <string name="EPr_manage_delete_gcal_status">已删除 %d 个日历事件！</string>
     <string name="EPr_manage_delete_all_gcal">删除所有的日历事件</string>
     <string name="EPr_manage_delete_all_gcal_message">真的想删除你所有事件吗？</string>
-    <string name="EPr_manage_delete_all_gcal_status">已删除 %d 个日历事件！</string>
     <string name="task_defaults">任务默认值</string>
     <string name="EPr_default_importance_title">默认优先级</string>
     <string name="EPr_default_reminders_title">默认提醒</string>

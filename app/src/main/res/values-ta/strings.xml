@@ -544,8 +544,7 @@
         <item quantity="one">%d பணி</item>
         <item quantity="other">%d பணிகள்</item>
     </plurals>
-    <string name="EPr_manage_delete_all_gcal_status">"%d நாள்காட்டி நிகழ்வுகள் நீக்கப்பட்டன!"</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d நாள்காட்டி நிகழ்வுகள் நீக்கப்பட்டன!</string>
+    <string name="EPr_manage_delete_gcal_status">%d நாள்காட்டி நிகழ்வுகள் நீக்கப்பட்டன!</string>
     <string name="CRA_default_list_name">செயல் உருப்படிகள்: %s</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">வரவிருக்கும் காலண்டர் நிகழ்வுகளைப் பற்றி பணிகள் உங்களுக்கு நினைவூட்டுவதோடு, அவற்றைத் தயாரிக்கும்படி கேட்கும்</string>
     <string name="CRA_speech_bubble_end">நீங்கள் %s உடன் முடித்ததாகத் தெரிகிறது. செயல் உருப்படிகளுக்கான பட்டியலை உருவாக்க விரும்புகிறீர்களா\?</string>

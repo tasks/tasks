@@ -82,10 +82,9 @@
     <string name="EPr_delete_task_data_warning">Alle Aufgaben werden dauerhaft gelöscht</string>
     <string name="EPr_manage_delete_completed_gcal">Kalendereinträge für erledigte Aufgaben löschen</string>
     <string name="EPr_manage_delete_completed_gcal_message">Möchten Sie wirklich alle Ihre Kalendereinträge mit erledigten Aufgaben löschen\?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d Kalendereinträge gelöscht!</string>
+    <string name="EPr_manage_delete_gcal_status">%d Kalendereinträge gelöscht!</string>
     <string name="EPr_manage_delete_all_gcal">Alle Kalendereinträge für Aufgaben löschen</string>
     <string name="EPr_manage_delete_all_gcal_message">Möchten Sie wirklich alle Kalendereinträge für Aufgaben löschen\?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
     <string name="task_defaults">Standardwerte für Aufgaben</string>
     <string name="EPr_default_importance_title">Dringlichkeitsvorgabe</string>
     <string name="EPr_default_reminders_title">Vorgaben für Erinnerungen</string>

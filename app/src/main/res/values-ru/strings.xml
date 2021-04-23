@@ -83,10 +83,9 @@
     <string name="EPr_delete_task_data_warning">Все задачи будут удалены навсегда</string>
     <string name="EPr_manage_delete_completed_gcal">Удалить календарные события для завершенных задач</string>
     <string name="EPr_manage_delete_completed_gcal_message">Вы уверены, что хотите удалить все Ваши события для завершенных задач\?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Удалено %d календарных событий!</string>
+    <string name="EPr_manage_delete_gcal_status">Удалено %d календарных событий!</string>
     <string name="EPr_manage_delete_all_gcal">Удалить все календарные события для задач</string>
     <string name="EPr_manage_delete_all_gcal_message">Вы уверены, что хотите удалить все Ваши события для задач\?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Удалено %d календарных событий!</string>
     <string name="task_defaults">Параметры по умолчанию</string>
     <string name="EPr_default_importance_title">Приоритет по умолчанию</string>
     <string name="EPr_default_reminders_title">Напоминания по умолчанию</string>

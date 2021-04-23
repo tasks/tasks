@@ -82,10 +82,9 @@
     <string name="EPr_default_reminders_title">ڈیفالٹ یاددہانی</string>
     <string name="EPr_default_importance_title">ڈیفالٹ ترجیح</string>
     <string name="task_defaults">ٹاسک کے ڈیفالٹس</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d کیلنڈر ایونٹس ڈٰیلییٹ ہوگئے!</string>
     <string name="EPr_manage_delete_all_gcal_message">کیا آپ واقعی ٹاسکس کیلئے تمام ایونٹس ڈیلیٹ کرنا چاہتے ہیں؟</string>
     <string name="EPr_manage_delete_all_gcal">ٹاسکس کیلئے تمام کیلنڈر ایونٹس ڈیلیٹ کریں</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d کیلنڈر ایونٹس ڈیلیٹ ہو گئے!</string>
+    <string name="EPr_manage_delete_gcal_status">%d کیلنڈر ایونٹس ڈیلیٹ ہو گئے!</string>
     <string name="EPr_manage_delete_completed_gcal_message">کیا آپ واقعی تکمیل شدہ ایونٹس کیلئے اپنے ایونٹس ڈیلیٹ کرنا چاہتے ہیں؟</string>
     <string name="EPr_manage_delete_completed_gcal">تکمیل شدہ ٹاسکس کیلئے کیلنڈر ایونٹس ڈیلیٹ کریں</string>
     <string name="EPr_delete_task_data_warning">تمام ٹاسکس مستقل طور پر ڈیلیٹ کردیئے جائیں گے</string>

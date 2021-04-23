@@ -98,10 +98,9 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_delete_task_data_warning">All tasks will be permanently deleted</string>
   <string name="EPr_manage_delete_completed_gcal">Delete calendar events for completed tasks</string>
   <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
-  <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
+  <string name="EPr_manage_delete_gcal_status">Deleted %d calendar events!</string>
   <string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
-  <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
   <string name="task_defaults">Task defaults</string>
   <string name="EPr_default_importance_title">Default priority</string>
   <string name="default_start_date">Default start date</string>

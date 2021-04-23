@@ -185,8 +185,7 @@
     <string name="priority_high">Grava</string>
     <string name="EPr_default_reminders_title">Defaŭltaj memorigiloj</string>
     <string name="default_start_date">Defaŭlta komencdato</string>
-    <string name="EPr_manage_delete_all_gcal_status">Forigis %d kalendarajn eventojn!</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Forigis %d kalendarajn eventojn!</string>
+    <string name="EPr_manage_delete_gcal_status">Forigis %d kalendarajn eventojn!</string>
     <string name="EPr_delete_task_data">Forigi datumon de Tasks</string>
     <string name="EPr_fullTask_title">Montri tutan taskan titolon</string>
     <string name="EPr_edit_screen_options">Redakti ekranajn opciojn</string>

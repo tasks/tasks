@@ -72,10 +72,9 @@
     <string name="EPr_delete_task_data_warning">Všechny úkoly budou trvale odstraněny</string>
     <string name="EPr_manage_delete_completed_gcal">Smazat události v kalendáři pro hotové úkoly</string>
     <string name="EPr_manage_delete_completed_gcal_message">Opravdu chcete smazat všechny události pro dokončené úkoly?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Smazáno %d událostí z kalendáře!</string>
+    <string name="EPr_manage_delete_gcal_status">Smazáno %d událostí z kalendáře!</string>
     <string name="EPr_manage_delete_all_gcal">Smazat v kalendáři všechny události z úkolů</string>
     <string name="EPr_manage_delete_all_gcal_message">Opravdu chcete odstranit všechny události z úkolů?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Smazáno %d událostí v kalendáři!</string>
     <string name="EPr_default_importance_title">Výchozí důležitost</string>
     <string name="EPr_default_reminders_title">Výchozí upomínky</string>
     <string name="EPr_default_reminders_mode_title">Výchozí vyzvánění / vibrace</string>

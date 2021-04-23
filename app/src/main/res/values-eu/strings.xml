@@ -83,10 +83,9 @@
     <string name="EPr_delete_task_data_warning">Zeregin guztiak behin betiko ezabatuko dira</string>
     <string name="EPr_manage_delete_completed_gcal">Ezabatu burututako zereginen egutegiko gertaerak</string>
     <string name="EPr_manage_delete_completed_gcal_message">Ziur zure burututako zereginen egutegiko gertaera guztiak ezabatu nahi dituzula\?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d gertaera ezabatuta egutegitik!</string>
+    <string name="EPr_manage_delete_gcal_status">%d gertaera ezabatuta egutegitik!</string>
     <string name="EPr_manage_delete_all_gcal">Ezabatu zereginen gertaera guztiak egutegitik</string>
     <string name="EPr_manage_delete_all_gcal_message">Ziur zure zereginen gertaera guztiak ezabatu nahi dituzula egutegitik\?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d gertaera ezabatuta egutegitik!</string>
     <string name="task_defaults">Zereginen lehenespenak</string>
     <string name="EPr_default_importance_title">Lehenetsitako lehentasuna</string>
     <string name="EPr_default_reminders_title">Lehenetsitako oroigarriak</string>

@@ -67,10 +67,9 @@
     <string name="EPr_cal_start_at_due_time">Začni dogodke na koledarju ob dospelosti</string>
     <string name="EPr_manage_delete_completed_gcal">Zbriši dokončane opravke s koledarja dogodkov</string>
     <string name="EPr_manage_delete_completed_gcal_message">Ste prepričani, da želite zbrisati vse dokončane opravke iz vaših dogodkov?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
+    <string name="EPr_manage_delete_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
     <string name="EPr_manage_delete_all_gcal">Zbriši vse dogodke na koledarju z opravki</string>
     <string name="EPr_manage_delete_all_gcal_message">Ste prepričani, da želite zbrisati vse opravke iz vaših dogodkov?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
     <string name="EPr_default_importance_title">Privzeta dospelost</string>
     <string name="EPr_default_reminders_title">Privzeti opomniki</string>
     <string name="EPr_default_reminders_mode_title">Privzeti način zvonenja/vibriranja</string>

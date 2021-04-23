@@ -75,10 +75,9 @@
     <string name="EPr_delete_task_data_warning">Alla uppgifter kommer raderas permanent</string>
     <string name="EPr_manage_delete_completed_gcal">Radera kalenderhändelser för färdiga uppgifter</string>
     <string name="EPr_manage_delete_completed_gcal_message">Vill du verkligen radera alla händelser i kalendern för uppgifter som är färdiga?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d kalenderhändelser raderade!</string>
+    <string name="EPr_manage_delete_gcal_status">%d kalenderhändelser raderade!</string>
     <string name="EPr_manage_delete_all_gcal">Radera alla kalenderhändelser för uppgifter</string>
     <string name="EPr_manage_delete_all_gcal_message">Vill du verkligen radera alla dina händelser i kalendern för uppgifter?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d kalenderhändelser raderade!</string>
     <string name="task_defaults">Förval för nya uppgifter</string>
     <string name="EPr_default_importance_title">Standard prioritet</string>
     <string name="EPr_default_reminders_title">Standardpåminnelser</string>

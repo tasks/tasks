@@ -83,10 +83,9 @@
     <string name="EPr_delete_task_data_warning">Всі завдання буде видалено назавжди</string>
     <string name="EPr_manage_delete_completed_gcal">Видалити календарні події для завершених завдань</string>
     <string name="EPr_manage_delete_completed_gcal_message">Ви дійсно бажаєте видалити усі події, що стосуються завершених завдань\?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Видалено %d подій у календарі!</string>
+    <string name="EPr_manage_delete_gcal_status">Видалено %d подій у календарі!</string>
     <string name="EPr_manage_delete_all_gcal">Видалити усі події у календарі, що стосуються завдань</string>
     <string name="EPr_manage_delete_all_gcal_message">Ви дійсно хочете видалити всі події для завдань?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Видалено %d подій у календарі!</string>
     <string name="task_defaults">Типові налаштування завдань</string>
     <string name="EPr_default_importance_title">Типовий пріоритет</string>
     <string name="EPr_default_reminders_title">Типові нагадування</string>
