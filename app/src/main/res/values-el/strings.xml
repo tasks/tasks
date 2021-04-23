@@ -67,10 +67,9 @@
     <string name="EPr_cal_start_at_due_time">Εκκίνηση γεγονότων ημερολογίου στην ώρα λήξης τους</string>
     <string name="EPr_manage_delete_completed_gcal">Διαγραφή των γεγονότων ημερολογίου για ολοκληρωμένες εργασίες</string>
     <string name="EPr_manage_delete_completed_gcal_message">Σίγουρα θέλεις τη διαγραφή όλων των γεγονότων για τις ολοκληρωμένες εργασίες;</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Διαγράφτηκαν %d γεγονότα ημερολογίου!</string>
+    <string name="EPr_manage_delete_gcal_status">Διαγράφτηκαν %d γεγονότα ημερολογίου!</string>
     <string name="EPr_manage_delete_all_gcal">Διαγραφή όλων των γεγονότων ημερολογίου για εργασίες</string>
     <string name="EPr_manage_delete_all_gcal_message">Θέλετε στα αλήθεια την διαγραφή όλων των γεγονότων για τις εργασίες σας;</string>
-    <string name="EPr_manage_delete_all_gcal_status">Διαγράφτηκαν %d γεγονότα ημερολογίου!</string>
     <string name="EPr_default_importance_title">Προκαθορισμένη προτεραιότητα</string>
     <string name="EPr_default_reminders_title">Προκαθορισμένες υπενθυμίσεις</string>
     <string name="EPr_default_reminders_mode_title">Προκαθορισμένος ήχος/τύπος δόνησης</string>

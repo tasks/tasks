@@ -73,7 +73,7 @@
     <string name="EPr_reset_preferences_warning">Postavke će se vratiti na zadane vrijednosti</string>
     <string name="EPr_reset_preferences">Poništi postavke</string>
     <string name="reverse">Obrnuto</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Izbrisano %d kalendarskih događaja!</string>
+    <string name="EPr_manage_delete_gcal_status">Izbrisano %d kalendarskih događaja!</string>
     <string name="actfm_picture_clear">Ukloni sliku</string>
     <string name="delete_multiple_tasks_confirmation">Izbrisano %s zadataka</string>
     <string name="preferences_advanced">Napredno</string>

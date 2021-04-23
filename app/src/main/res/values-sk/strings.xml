@@ -80,10 +80,9 @@
     <string name="EPr_delete_task_data_warning">Všetky úlohy budú trvalo odstránené </string>
     <string name="EPr_manage_delete_completed_gcal">Zmazať dokončené úlohy z kalendára</string>
     <string name="EPr_manage_delete_completed_gcal_message">Naozaj chceš odstrániť všetky svoje dokončené úlohy z kalendára?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Zmazané %d udalosti kalendára</string>
+    <string name="EPr_manage_delete_gcal_status">Zmazané %d udalosti kalendára</string>
     <string name="EPr_manage_delete_all_gcal">Zmazať všetky úlohy z kalendára</string>
     <string name="EPr_manage_delete_all_gcal_message">Naozaj chceš zmazať všetky svoje udalosti úloh?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Zmazané %d udalosti kalendára!</string>
     <string name="task_defaults">Predvoľby úloh</string>
     <string name="EPr_default_importance_title">Predvolená dôležitosť</string>
     <string name="EPr_default_reminders_title">Predvolené pripomienky</string>

@@ -76,10 +76,9 @@
     <string name="EPr_delete_task_data_warning">Toutes les tâches seront supprimées de façon permanente</string>
     <string name="EPr_manage_delete_completed_gcal">Supprimer les événements de calendrier pour les tâches terminées</string>
     <string name="EPr_manage_delete_completed_gcal_message">Voulez-vous réellement supprimer tous les événements des tâches terminées ?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d événements du calendrier ont été supprimés !</string>
+    <string name="EPr_manage_delete_gcal_status">%d événements du calendrier ont été supprimés !</string>
     <string name="EPr_manage_delete_all_gcal">Supprimer toutes les entrées de calendrier des tâches</string>
     <string name="EPr_manage_delete_all_gcal_message">Voulez-vous vraiment supprimer tous vos événements liés aux tâches ?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d événements du calendrier ont été supprimés !</string>
     <string name="task_defaults">Valeurs par défaut</string>
     <string name="EPr_default_importance_title">Priorité par défaut</string>
     <string name="EPr_default_reminders_title">Rappels par défaut</string>

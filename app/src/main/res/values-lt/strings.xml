@@ -80,10 +80,9 @@
     <string name="EPr_delete_task_data_warning">Visos užduotys bus negrįžtamai ištrintos</string>
     <string name="EPr_manage_delete_completed_gcal">Ištrinti kalendoriaus įvykius, kurių užduotys jau įvykdytos</string>
     <string name="EPr_manage_delete_completed_gcal_message">Ar tikrai ištrinti įvykius, kurių užduotys jau įvykdytos?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Ištrinta %d kalendoriaus įvykių!</string>
+    <string name="EPr_manage_delete_gcal_status">Ištrinta %d kalendoriaus įvykių!</string>
     <string name="EPr_manage_delete_all_gcal">Ištrinti visus kalendoriaus įvykius skirtus užduotims</string>
     <string name="EPr_manage_delete_all_gcal_message">Ar tikrai norite ištrinti visus įvykius, skirtus užduotims?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Ištrinta %d kalendoriaus įvykių!</string>
     <string name="task_defaults">Užduočių įprasti nustatymai</string>
     <string name="EPr_default_importance_title">Numatytasis prioritetas</string>
     <string name="EPr_default_reminders_title">Numatytieji priminimai</string>

@@ -59,7 +59,7 @@
     <string name="EPr_delete_task_data_warning">Semua tugas akan dihapus secara permanen</string>
     <string name="EPr_manage_delete_completed_gcal">Hapus acara kalender untuk tugas yang telah selesai</string>
     <string name="EPr_manage_delete_completed_gcal_message">Apakah anda benar-benar ingin menghapus semua acara untuk tugas yang telah selesai\?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Menghapus %d acara kalender!</string>
+    <string name="EPr_manage_delete_gcal_status">Menghapus %d acara kalender!</string>
     <string name="task_defaults">Bawaan tugas</string>
     <string name="EPr_default_importance_title">Prioritas bawaan</string>
     <string name="EPr_default_reminders_title">Pengingat bawaan</string>
@@ -315,7 +315,6 @@
     <string name="EPr_cal_start_at_due_time">Mulai acara kalender pada waktu jatuh tempo</string>
     <string name="EPr_manage_delete_all_gcal">Hapus semua acara kalender untuk tugas</string>
     <string name="EPr_manage_delete_all_gcal_message">Apakah anda benar-benar ingin menghapus semua acara untuk tugas\?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d acara kalender dihapus!</string>
     <string name="persistent_notifications">Notifikasi tetap</string>
     <plurals name="repeat_times">
         <item quantity="other">kali</item>

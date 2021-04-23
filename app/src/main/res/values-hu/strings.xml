@@ -81,10 +81,9 @@
     <string name="EPr_delete_task_data_warning">Az összes feladat végleges törlésre kerül</string>
     <string name="EPr_manage_delete_completed_gcal">Elvégzett feladatok naptárbejegyzésének törlése</string>
     <string name="EPr_manage_delete_completed_gcal_message">Biztosan törölni akarja az elvégzett feladatokhoz tartozó eseményeket?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d naptárbejegyzés törölve!</string>
+    <string name="EPr_manage_delete_gcal_status">%d naptárbejegyzés törölve!</string>
     <string name="EPr_manage_delete_all_gcal">Feladatok naptárbejegyzésének törlése</string>
     <string name="EPr_manage_delete_all_gcal_message">Biztosan törölni akarja a feladatokhoz tartozó eseményeket?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d naptárbejegyzés törölve!</string>
     <string name="task_defaults">Feladat alapértelmezései</string>
     <string name="EPr_default_importance_title">Alapértelmezett prioritás</string>
     <string name="EPr_default_reminders_title">Alapértelmezett emlékeztetők</string>

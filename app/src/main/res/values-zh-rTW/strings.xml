@@ -64,10 +64,9 @@
     <string name="EPr_show_task_edit_comments">編輯工作時顯示註解</string>
     <string name="EPr_manage_delete_completed_gcal">刪除日程表中已完成任務工作</string>
     <string name="EPr_manage_delete_completed_gcal_message">您真的想刪除您所有的事件中已經完成的任務工作嗎？</string>
-    <string name="EPr_manage_delete_completed_gcal_status">清除%d個日曆事件!</string>
+    <string name="EPr_manage_delete_gcal_status">清除%d個日曆事件!</string>
     <string name="EPr_manage_delete_all_gcal">刪除所有日程表</string>
     <string name="EPr_manage_delete_all_gcal_message">您真的想刪除您所有事件中的各項任務工作嗎？</string>
-    <string name="EPr_manage_delete_all_gcal_status">已經刪除了 %d 個日曆事件了！</string>
     <string name="task_defaults">工作預設值</string>
     <string name="EPr_default_importance_title">預設優先權</string>
     <string name="EPr_default_reminders_title">預設提醒</string>

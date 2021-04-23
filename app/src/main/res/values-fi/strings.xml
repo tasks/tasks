@@ -78,10 +78,9 @@
     <string name="EPr_delete_task_data_warning">Kaikki tehtävät poistetaan pysyvästi</string>
     <string name="EPr_manage_delete_completed_gcal">Poista valmiiden tehtävien kalenteritapahtumat</string>
     <string name="EPr_manage_delete_completed_gcal_message">Haluatko todella poistaa kaikki tapahtumat valmiista tehtävistä?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Poistettu %d kanteritapahtumaa!</string>
+    <string name="EPr_manage_delete_gcal_status">Poistettu %d kanteritapahtumaa!</string>
     <string name="EPr_manage_delete_all_gcal">Poista kaikki kalenteritapahtumat tehtäville</string>
     <string name="EPr_manage_delete_all_gcal_message">Haluatko todella poistaa kaikki tapahtumat tehtävistä?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Poistettu %d kalenteritapahtumaa!</string>
     <string name="task_defaults">Tehtävän oletukset</string>
     <string name="EPr_default_importance_title">Oletusprioriteetti</string>
     <string name="EPr_default_reminders_title">Oletusmuistutukset</string>

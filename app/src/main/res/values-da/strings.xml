@@ -537,10 +537,9 @@
     <string name="EPr_default_location_radius">Standardradius</string>
     <string name="EPr_default_location_reminder_title">Standard for placeringspåmindelser</string>
     <string name="task_defaults">Standardindstillinger for opgaver</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d kalenderbegivenheder er slettet!</string>
     <string name="EPr_manage_delete_all_gcal_message">Er du sikker på, at du vil slette alle dine begivenheder for opgaver\?</string>
     <string name="EPr_manage_delete_all_gcal">Slet alle kalenderbegivenheder for opgaver</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d kalenderbegivenheder er slettet!</string>
+    <string name="EPr_manage_delete_gcal_status">%d kalenderbegivenheder er slettet!</string>
     <string name="EPr_manage_delete_completed_gcal_message">Er du sikker på, at du vil slette alle dine begivenheder for udførte opgaver\?</string>
     <string name="EPr_manage_delete_completed_gcal">Slet kalenderbegivenheder for udførte opgaver</string>
     <string name="EPr_delete_task_data_warning">Alle opgaver bliver permanent slettet</string>

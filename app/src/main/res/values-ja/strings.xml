@@ -80,10 +80,9 @@
     <string name="EPr_delete_task_data_warning">すべてのタスクが永久に削除されます</string>
     <string name="EPr_manage_delete_completed_gcal">完了したタスクのカレンダーイベントを削除</string>
     <string name="EPr_manage_delete_completed_gcal_message">完了したタスクのイベントをすべて削除してもよろしいですか?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d カレンダーイベントが削除されました!</string>
+    <string name="EPr_manage_delete_gcal_status">%d カレンダーイベントが削除されました!</string>
     <string name="EPr_manage_delete_all_gcal">タスクのカレンダーイベントをすべて削除</string>
     <string name="EPr_manage_delete_all_gcal_message">タスクのイベントをすべて削除してもよろしいですか?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d カレンダーイベントが削除されました!</string>
     <string name="task_defaults">タスクのデフォルト</string>
     <string name="EPr_default_importance_title">デフォルトの優先順位</string>
     <string name="EPr_default_reminders_title">デフォルトのリマインダー</string>

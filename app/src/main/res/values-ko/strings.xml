@@ -81,10 +81,9 @@
     <string name="EPr_delete_task_data_warning">모든 할일이 영구적으로 삭제될 것입니다</string>
     <string name="EPr_manage_delete_completed_gcal">완료한 할일의 달력 이벤트를 삭제하기</string>
     <string name="EPr_manage_delete_completed_gcal_message">완료한 할일의 모든 이벤트를 정말 삭제할까요?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
+    <string name="EPr_manage_delete_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
     <string name="EPr_manage_delete_all_gcal">할일의 모든 달력 이벤트 삭제하기</string>
     <string name="EPr_manage_delete_all_gcal_message">할일의 모든 이벤트를 정말 삭제할까요?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
     <string name="task_defaults">할일 기본값</string>
     <string name="EPr_default_importance_title">기본 우선순위</string>
     <string name="EPr_default_reminders_title">기본 알림</string>

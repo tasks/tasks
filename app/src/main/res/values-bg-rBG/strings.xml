@@ -85,10 +85,9 @@
     <string name="EPr_delete_task_data_warning">Всички задачи ще бъдат изтрити за постоянно</string>
     <string name="EPr_manage_delete_completed_gcal">Изтрий събитията в календара за приключени задачи</string>
     <string name="EPr_manage_delete_completed_gcal_message">Наистина ли искате да изтриете всичките си събития за изпълнени задачи?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Изтрити %d събития от календара!</string>
+    <string name="EPr_manage_delete_gcal_status">Изтрити %d събития от календара!</string>
     <string name="EPr_manage_delete_all_gcal">Изтрий всички събития в календара за задачи</string>
     <string name="EPr_manage_delete_all_gcal_message">Наистина ли искате да изтриете всичките си събития за задачи?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Изтрити %d събития от календара!</string>
     <string name="task_defaults">Настройки по подразбиране</string>
     <string name="EPr_default_importance_title">Приоритет по подразбиране</string>
     <string name="EPr_default_reminders_title">Напомняния по подразбиране</string>

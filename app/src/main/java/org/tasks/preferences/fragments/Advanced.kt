@@ -160,7 +160,7 @@ class Advanced : InjectingPreferenceFragment() {
             .newDialog()
             .setMessage(R.string.EPr_manage_delete_completed_gcal_message)
             .setPositiveButton(R.string.ok) { _, _ ->
-                performAction(R.string.EPr_manage_delete_completed_gcal_status) {
+                performAction(R.string.EPr_manage_delete_gcal_status) {
                     calendarEventProvider.deleteEvents(taskDao.getCompletedCalendarEvents())
                     taskDao.clearCompletedCalendarEvents()
                 }
@@ -175,7 +175,7 @@ class Advanced : InjectingPreferenceFragment() {
             .setMessage(R.string.EPr_manage_delete_all_gcal_message)
             .setPositiveButton(R.string.ok) { _, _ ->
                 performAction(
-                    R.string.EPr_manage_delete_all_gcal_status) {
+                    R.string.EPr_manage_delete_gcal_status) {
                         calendarEventProvider.deleteEvents(taskDao.getAllCalendarEvents())
                         taskDao.clearAllCalendarEvents()
                     }

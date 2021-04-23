@@ -79,10 +79,9 @@
     <string name="EPr_delete_task_data_warning">Todas as tarefas serão permanentemente apagadas</string>
     <string name="EPr_manage_delete_completed_gcal">Apagar eventos do calendário para tarefas concluídas</string>
     <string name="EPr_manage_delete_completed_gcal_message">Você quer mesmo apagar todos os seus eventos de tarefas concluídas?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">%d eventos de agenda apagados!</string>
+    <string name="EPr_manage_delete_gcal_status">%d eventos de agenda apagados!</string>
     <string name="EPr_manage_delete_all_gcal">Apagar todos os eventos de calendário das tarefas</string>
     <string name="EPr_manage_delete_all_gcal_message">Você quer mesmo apagar todos os eventos de calendário das tarefas?</string>
-    <string name="EPr_manage_delete_all_gcal_status">%d eventos de agenda apagados!</string>
     <string name="task_defaults">Padrões de tarefa</string>
     <string name="EPr_default_importance_title">Prioridade padrão</string>
     <string name="EPr_default_reminders_title">Lembretes padrões</string>

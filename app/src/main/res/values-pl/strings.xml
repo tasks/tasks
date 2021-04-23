@@ -78,10 +78,9 @@
     <string name="EPr_delete_task_data_warning">Wszystkie zadania zostaną nieodwracalnie usunięte</string>
     <string name="EPr_manage_delete_completed_gcal">Usuń wydarzenia kalendarza dla zakończonych zadań</string>
     <string name="EPr_manage_delete_completed_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zakończonych zadań?</string>
-    <string name="EPr_manage_delete_completed_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
+    <string name="EPr_manage_delete_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
     <string name="EPr_manage_delete_all_gcal">Usuń wszystkie zdarzenia kalendarza dla zadań</string>
     <string name="EPr_manage_delete_all_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zadań?</string>
-    <string name="EPr_manage_delete_all_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
     <string name="task_defaults">Domyślne ustawienia zadań</string>
     <string name="EPr_default_importance_title">Domyślny priorytet</string>
     <string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
