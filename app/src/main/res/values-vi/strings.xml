@@ -1,2 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="CRA_calendar_reminders_pref_title">Trợ lý lịch</string>
+    <string name="CRA_speech_bubble_end">Có vẻ là bạn vừa hoàn thành %s. Bạn có muốn tạo danh sách các mục hành động không\?</string>
+    <string name="CRA_speech_bubble_start">Có vẻ là %s sẽ sớm bắt đầu. Bạn có muốn tạo danh sách các mục hành động không\?</string>
+    <string name="CRA_ignore_this">Chỉ bỏ qua sự kiện này</string>
+    <string name="CRA_ignore_all">Bỏ qua tất cả sự kiện</string>
+    <string name="CRA_ignore_body">Bạn đã bỏ qua một vài sự kiện trong lịch. Tasks có nên dừng hỏi bạn về chúng không\?</string>
+    <string name="CRA_title">Cần danh sách cuộc họp không\?</string>
+    <string name="CRA_ignore">Bỏ qua</string>
+    <string name="TEA_load_more">Tải thêm…</string>
+    <string name="TEA_control_reminders">Lời nhắc</string>
+    <string name="TEA_control_files">Tệp</string>
+    <string name="TEA_control_notes">Mô tả</string>
+    <string name="TEA_control_location">Vị trí</string>
+    <string name="TEA_control_importance">Ưu tiên</string>
+    <string name="TEA_control_gcal">Lịch</string>
+    <string name="TEA_control_repeat">Lặp lại</string>
+    <string name="week_before_due">Tuần trước hạn</string>
+    <string name="day_before_due">Ngày trước hạn</string>
+    <string name="start_date">Ngày bắt đầu</string>
+    <string name="due_time">Thời gian hạn</string>
+    <string name="due_date">Ngày hạn</string>
+    <string name="TEA_timer_elap">Đã qua %s</string>
+    <string name="save">Lưu</string>
+    <string name="TEA_elapsedDuration_label">Thời gian đã tiêu tốn</string>
+    <string name="TEA_estimatedDuration_label">Sẽ mất bao lâu\?</string>
+    <string name="TEA_note_label">Mô tả</string>
+    <string name="TEA_add_subtask">Thêm công việc con</string>
+    <string name="TEA_importance_label">Sự ưu tiên</string>
+    <string name="TEA_title_hint">Tên công việc</string>
+    <string name="FLA_new_filter">Tạo bộ lọc mới</string>
+    <string name="FLA_search_filter">Khớp với \'%s\'</string>
+    <string name="sort_created">Theo thời gian tạo</string>
+    <string name="SSD_sort_modified">Theo lần sửa đổi cuối</string>
+    <string name="SSD_sort_importance">Theo sự ưu tiên</string>
+    <string name="SSD_sort_due">Theo ngày hạn</string>
+    <string name="SSD_sort_start">Theo ngày bắt đầu</string>
+    <string name="SSD_sort_alpha">Theo tiêu đề</string>
+    <string name="SSD_sort_auto">Sắp xếp thông minh</string>
+    <string name="astrid_sort_order_summary">Bật chế độ sắp xếp thủ công của Astrid đối với \'Công việc của tôi\', \'Hôm nay\', và các thẻ. Chế độ sắp xếp này sẽ được \'Thứ tự của tôi\' thay thế ở một bản cập nhật trong tương lai</string>
+    <string name="action_open">Mở</string>
+    <string name="action_call">Gọi</string>
+    <string name="manage_drawer">Quản lý ngăn</string>
+    <string name="TAd_actionEditTask">Chỉnh sửa</string>
+    <string name="TLA_menu_settings">Cài đặt</string>
+    <string name="TLA_menu_search">Tìm kiếm</string>
+    <string name="TLA_menu_sort">Sắp xếp</string>
+    <string name="TLA_no_items">Không có công việc nào ở đây.</string>
+    <string name="WID_dateButtonUnset">Nhấn để đặt</string>
+    <string name="DLG_undo">Hoàn tác</string>
+    <string name="DLG_hour_minutes">Thời gian (giờ : phút)</string>
+    <string name="DLG_delete_this_task_question">Xoá công việc này\?</string>
+    <string name="keep_editing">Tiếp tục chỉnh sửa</string>
+    <string name="discard_confirmation">Bạn có chắc bạn muốn bỏ những thay đổi của bạn không\?</string>
+    <string name="read_permission_label">Quyền Tasks</string>
+    <string name="import_progress_read">Đang đọc công việc %d…</string>
+    <string name="import_summary_message">Tệp %1$s đã chứa %2$s.
+\n
+\n%3$s đã được nhập,
+\n%4$s đã tồn tại
+\n%5$s đã có lỗi
+\n</string>
+    <string name="export_toast">Đã sao lưu %1$s vào %2$s.</string>
+    <string name="backup_BAc_import">Nhập bản sao lưu</string>
+    <string name="backup_BAc_export">Sao lưu ngay</string>
+    <string name="backup_BPr_header">Sao lưu</string>
+    <string name="TVA_add_comment">Thêm bình luận…</string>
+    <string name="actfm_picture_clear">Xoá ảnh</string>
+</resources>
