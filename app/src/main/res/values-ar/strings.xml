@@ -481,4 +481,23 @@
     <string name="CRA_speech_bubble_end">يبدو أنك انتهيت للتو من %s. هل تريد إنشاء قائمة بعناصر العمل؟</string>
     <string name="CRA_speech_bubble_start">يبدو أن %s سيبدأ قريبًا. هل تريد إنشاء قائمة بعناصر العمل؟</string>
     <string name="TEA_control_timer">ضوابط المؤقت</string>
+    <string name="more_options">خيارات أكثر</string>
+    <string name="upgrade_open_source_description">اشتراكك يدعم التطور المستمر</string>
+    <string name="upgrade_customization_icons">أيقونات قوائم</string>
+    <string name="copied_to_clipboard">تم نسخ %s إلى الحافظة</string>
+    <string name="app_password_delete_confirmation">سيسجَّل خروج أي تطبيق يستعمل كلمة السرّ هذه</string>
+    <string name="app_password_last_access">آخر استعمال: %s</string>
+    <string name="app_password_created_at">أنشأ: %s</string>
+    <string name="generate_new_password">ولّّد كلمة سرٍّ جديدة</string>
+    <string name="migrate_count">انقل %s إلى Tasks.org</string>
+    <string name="google_play_subscribers">مشتركي جوجل بلاي</string>
+    <string name="open_source">مفتوح المصدر</string>
+    <string name="social">اجتماعي</string>
+    <string name="price_per_month">$%s شهريًا</string>
+    <string name="price_per_year">$%s سنويًا</string>
+    <string name="your_subscription_expired">لقد انتهى اشتراكك. اشترك الآن لإكمال الخدمة.</string>
+    <string name="date_picker_multiple">متعدّد</string>
+    <string name="multi_select_reschedule">غيّر التاريخ</string>
+    <string name="sort_modified_group">عُدّل %s</string>
+    <string name="sort_created_group">أنشأ %s</string>
 </resources>
