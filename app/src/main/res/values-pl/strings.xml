@@ -247,7 +247,7 @@
     <string name="new_tag">Stwórz nowy tag</string>
     <string name="new_list">Utwórz nową listę</string>
     <string name="delete_tag_confirmation">Usunąć %s?</string>
-    <string name="TPl_notification">Minutnkiki aktywne przez %s!</string>
+    <string name="TPl_notification">Minutniki aktywne przez %s!</string>
     <string name="TFE_workingOn">Zadania z minutnikiem</string>
     <string name="TEA_timer_controls">Minutnik</string>
     <string name="TEA_timer_comment_started">rozpoczęto zadanie:</string>
