@@ -741,4 +741,6 @@
     <string name="social">Социальные сети</string>
     <string name="upgrade_desktop_access">Доступ к рабочему столу</string>
     <string name="next_wednesday">Следующая ср</string>
+    <string name="markdown_description">Включить Markdown в названии и описании</string>
+    <string name="markdown">Markdown</string>
 </resources>
