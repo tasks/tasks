@@ -475,8 +475,8 @@
     <string name="CRA_speech_bubble_start">Sepertinya %s akan segela dimulai. Ingin membuat sebuah daftar untuk tindakan item\?</string>
     <string name="day_before_due">Hari sebelum jatuh tempo</string>
     <string name="start_date">Tanggal mulai</string>
-    <string name="TEA_estimatedDuration_label">Berapa lama waktu yang dibutuhkan\?</string>
-    <string name="FLA_search_filter">Mencocokkan \'%s\'</string>
+    <string name="TEA_estimatedDuration_label">Berapa lama\?</string>
+    <string name="FLA_search_filter">Sesuai \'%s\'</string>
     <string name="SSD_sort_start">Berdasarkan tanggal awal</string>
     <string name="astrid_sort_order_summary">Aktifkan sortir manual Astrid untuk \'Tugas Saya\', \'Hari Ini\', dan tag. Mode sortir ini akan digantikan dengan \'Sortiran Saya\' di pembaharuan berikutnya</string>
     <string name="astrid_sort_order">Sortiran manual astrid</string>
