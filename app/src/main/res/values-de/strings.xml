@@ -568,7 +568,7 @@
     <string name="got_it">Verstanden!</string>
     <string name="no_thanks">Nein, danke</string>
     <string name="action_new_task">Neue Aufgabe</string>
-    <string name="support_development_subscribe">Schalten Sie zusätzliche Funktionen frei und unterstützen Sie Open-Source-Software</string>
+    <string name="support_development_subscribe">Schalten Sie zusätzliche Funktionen frei und unterstützen Sie quelloffene Software</string>
     <string name="yesterday_lowercase">gestern</string>
     <string name="tomorrow_lowercase">morgen</string>
     <string name="today_lowercase">heute</string>
@@ -674,7 +674,7 @@
     <string name="get_tasks_org_account">Erstelle dir ein Task.org-Konto</string>
     <string name="tomorrow_abbrev_lowercase">mrgn</string>
     <string name="yesterday_abbrev_lowercase">gestern</string>
-    <string name="open_source">Open source</string>
+    <string name="open_source">Quelloffen</string>
     <string name="issue_tracker">Issue Tracker</string>
     <string name="support">Support</string>
     <string name="social">Sozial</string>
