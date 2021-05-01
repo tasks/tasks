@@ -332,7 +332,7 @@
     <string name="take_a_picture">Зробити фото</string>
     <string name="pick_from_gallery">Обрати з галереї</string>
     <string name="pick_from_storage">Обрати зі сховища</string>
-    <string name="privacy_policy">Політика приватности</string>
+    <string name="privacy_policy">Політика приватності</string>
     <string name="send_anonymous_statistics">Поліпшити Tasks</string>
     <string name="send_anonymous_statistics_summary">Надсилати анонімну статистику використання та звіти про помилки щоб вдосконалити Tasks. Жодних персональних даних не буде зібрано.</string>
     <string name="tag_already_exists">Мітка вже існує</string>
