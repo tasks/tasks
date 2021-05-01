@@ -6,11 +6,13 @@
     <string name="backup_BAc_import">Εισαγωγή εργασιών</string>
     <string name="backup_BAc_export">Εξαγωγή εργασιών</string>
     <string name="export_toast">Αποθηκεύση ασφαλείας %1$s στο %2$s.</string>
-    <string name="import_summary_title">Σύνοψη επαναφοράς</string>
-    <string name="import_summary_message">Αρχείο %1$s περιέχεται %2$s.\n\n
-%3$s καταχωρήθηκε,\n
-%4$s υπάρχει ήδηt\n
-%5$s έχει σφάλματα\n</string>
+    <string name="import_summary_title">Επαναφορά σύνοψης</string>
+    <string name="import_summary_message">Αρχείο %1$s περιέχεται %2$s.
+\n
+\n %3$s καταχωρήθηκε,
+\n %4$s υπάρχει ήδη
+\n %5$s έχει σφάλματα
+\n</string>
     <string name="import_progress_read">Ανάγνωση εργασίας %d…</string>
     <string name="read_permission_label">Άδεια εργασιών</string>
     <string name="DLG_delete_this_task_question">Διαγραφή εργασίας;</string>
