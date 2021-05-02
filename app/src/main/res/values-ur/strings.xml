@@ -517,4 +517,21 @@
     <string name="button_unsubscribe">سبسکرپسن کینسل کریں</string>
     <string name="button_upgrade">سبسکرپسن اپ گریڈ کریں</string>
     <string name="manage_drawer">ڈریئر مینیج کریں</string>
+    <string name="improve_performance">کارکردگی کوبہتر بنائیں</string>
+    <string name="enter_title_hint">عنوان لکھیں</string>
+    <string name="subtasks_multilevel_google_task">کثیر الدرجی ذیلی ٹاسکس کو گوگل ٹاسکس سپورٹ نہیں کرتا</string>
+    <string name="collapse_subtasks">ذیلی ٹاسکس کو بند کریں</string>
+    <string name="expand_subtasks">ذیلی ٹاسکس کو کھولیں</string>
+    <string name="caldav_account_repeating_tasks">بار بار واقع ہونے والے ٹاسکس کو سرور چلاتا ہے</string>
+    <string name="name_your_price">اپنی قیمت بتائیں</string>
+    <string name="google_tasks_add_to_top">نئے ٹاسکس اوپر رکھیں</string>
+    <string name="invalid_backup_file">غلط بیک اپ فائل</string>
+    <string name="version_string">%s ورژن</string>
+    <string name="whats_new">نیا کیا ہے</string>
+    <string name="third_party_licenses">تھرڈ پارٹی لائسنسز</string>
+    <string name="choose_new_location">نئی لوکیشن منتخب کریں</string>
+    <string name="open_map">نقشہ کھولیں</string>
+    <string name="location_permission_required_location">آپ کی موجودہ لوکیشن معلوم کرنےکیلے لوکیشن کی اجازت مطلوب ہے</string>
+    <string name="background_location_permission_required">ٹاسکس لوکیسشن بیسڈ یاد دہانی کے لئے لوکیشن ڈیٹا جمع کرتا ہے،اگر ایپ بند بھی ہو تو</string>
+    <string name="or_choose_a_location">یا کوئی جگہ منتخب کریں</string>
 </resources>
