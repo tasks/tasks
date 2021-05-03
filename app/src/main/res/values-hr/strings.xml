@@ -30,7 +30,7 @@
     <string name="action_open">Otvori</string>
     <string name="TLA_menu_search">Pretraži</string>
     <string name="TLA_menu_settings">Postavke</string>
-    <string name="TLA_menu_sort">Poredaj</string>
+    <string name="TLA_menu_sort">Poredak</string>
     <string name="TLA_no_items">Ovdje nema zadataka.</string>
     <string name="DLG_undo">Poništi</string>
     <string name="discard_confirmation">Odbaci promjene\?</string>
@@ -43,8 +43,8 @@
     <string name="display_name">Naziv</string>
     <string name="DLG_delete_this_task_question">Želite li izbrisati ovaj zadatak\?</string>
     <string name="create_new_tag">Stvori oznaku \"%s\"</string>
-    <string name="new_tag">Stvori novu oznaku</string>
-    <string name="new_list">Stvori novi popis</string>
+    <string name="new_tag">Stvori oznaku</string>
+    <string name="new_list">Stvori popis</string>
     <string name="TLA_menu_donate">Donirajte</string>
     <string name="help_and_feedback">Pomoć i povratne informacije</string>
     <string name="action_new_task">Novi zadatak</string>
@@ -62,7 +62,7 @@
     <string name="no_time">Neodređeno vrijeme</string>
     <string name="TEA_timer_elap">Proteklo vrijeme %s</string>
     <string name="no_date">Bez datuma</string>
-    <string name="FLA_new_filter">Stvori novi filtar</string>
+    <string name="FLA_new_filter">Stvori filtar</string>
     <string name="FLA_search_filter">Pretraga za \'%s\'</string>
     <string name="action_call">Nazovi</string>
     <string name="CRA_ignore">Zanemari</string>
@@ -94,7 +94,7 @@
     <string name="hide_unused_tags">Sakrij neiskorištene oznake</string>
     <string name="default_tags">Zadane oznake</string>
     <string name="tags">Oznake</string>
-    <string name="filters">Filteri</string>
+    <string name="filters">Filtri</string>
     <string name="discard_changes">Odbaci promjene\?</string>
     <string name="discard">Odbaci</string>
     <string name="menu_discard_changes">Odbaci promjene</string>
@@ -158,4 +158,9 @@
     <string name="tomorrow">sutra</string>
     <string name="tomorrow_abbrev_lowercase">sutra</string>
     <string name="email">E-pošta</string>
+    <string name="local_lists">Popisi na uređaju</string>
+    <string name="help">Pomoć</string>
+    <string name="choose_synchronization_service">Odaberite platformu</string>
+    <string name="not_signed_in">Niste se prijavili</string>
+    <string name="contact_developer">Kontaktirajte razvojnika</string>
 </resources>
