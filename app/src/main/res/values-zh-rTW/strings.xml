@@ -13,9 +13,9 @@
 \n %4$s已存在
 \n %5$s有問題
 \n</string>
-    <string name="import_progress_read">讀取任務 %d…</string>
-    <string name="read_permission_label">Tasks權限</string>
-    <string name="DLG_delete_this_task_question">刪除這項任務？</string>
+    <string name="import_progress_read">正在讀取工作 %d…</string>
+    <string name="read_permission_label">Tasks 的權限</string>
+    <string name="DLG_delete_this_task_question">刪除這項工作？</string>
     <string name="DLG_hour_minutes">時間（小時:分鐘）</string>
     <string name="DLG_undo">復原</string>
     <string name="WID_dateButtonUnset">點選</string>
@@ -132,8 +132,8 @@
     <string name="repeat_until">重複到 %s</string>
     <string name="new_tag">新增標籤</string>
     <string name="new_list">新增清單</string>
-    <string name="TPl_notification">秒錶啟動了 %s！</string>
-    <string name="TFE_workingOn">任務工作已開始計時</string>
+    <string name="TPl_notification">%s 的碼錶啟動了！</string>
+    <string name="TFE_workingOn">有啟用碼錶的工作</string>
     <string name="TEA_timer_controls">定時器</string>
     <string name="TEA_timer_comment_started">已經開始了這項任務工作：</string>
     <string name="TEA_timer_comment_stopped">已經停止了這項任務工作：</string>
@@ -192,7 +192,7 @@
     <string name="repeats_plural">每 %s 重複</string>
     <string name="discard_confirmation">您要放棄更改嗎？</string>
     <string name="keep_editing">繼續編輯</string>
-    <string name="TLA_no_items">這裡沒有任務。</string>
+    <string name="TLA_no_items">這裡沒有工作。</string>
     <string name="action_open">開啟</string>
     <string name="save">儲存</string>
     <string name="due_time">到期時間</string>
@@ -225,7 +225,7 @@
     <string name="filter_after_today">今天之後</string>
     <string name="filter_any_due_date">任何到期日</string>
     <string name="sort_created">依照建立時間</string>
-    <string name="astrid_sort_order_summary">為 \"我的任務\" , \"今天\" 和標籤 啟用 Astrid 的手動排序模式。這種排序模式將於未來的更新後被 \"我的順序\" 來取代</string>
+    <string name="astrid_sort_order_summary">在我的工作、今天與和標籤畫面啟用來自 Astrid 的手動排序模式。這種排序模式未來將被「我的順序」取代</string>
     <string name="astrid_sort_order">Astrid 手動排序</string>
     <string name="cancel">取消</string>
     <string name="ok">確認</string>
@@ -440,7 +440,7 @@
     <string name="logout_warning">所有此帳號的資料將會自裝置移除</string>
     <string name="this_feature_requires_a_subscription">此功能需要訂閱</string>
     <string name="logout">登出</string>
-    <string name="requires_pro_subscription">要求專業版訂閱</string>
+    <string name="requires_pro_subscription">需要訂閱專業版</string>
     <string name="license_summary">Tasks 是自由開源軟體，根據GNU通用公眾授權條款v3.0許可</string>
     <string name="about">關於</string>
     <string name="button_unsubscribe">取消訂閱</string>
@@ -505,8 +505,8 @@
     <string name="theme_light">亮色</string>
     <string name="launcher_icon">啟動器圖示</string>
     <string name="icon">圖示</string>
-    <string name="opacity_footer">註腳不透明</string>
-    <string name="opacity_header">標頭不透明</string>
+    <string name="opacity_footer">註腳透明度</string>
+    <string name="opacity_header">標頭透明度</string>
     <string name="filter">過濾器</string>
     <string name="default_recurrence">預設循環</string>
     <string name="default_tags">預設標籤</string>
@@ -579,4 +579,18 @@
     <string name="start_date">起始日期</string>
     <string name="SSD_sort_start">根據起始日期</string>
     <string name="email">電子郵件</string>
+    <string name="repeats_from">重複開始</string>
+    <string name="list">清單</string>
+    <string name="map_theme">地圖主題</string>
+    <string name="opacity_row">行列透明度</string>
+    <string name="next_saturday">下週六</string>
+    <string name="next_friday">下週五</string>
+    <string name="next_thursday">下週四</string>
+    <string name="next_wednesday">下週三</string>
+    <string name="next_tuesday">下週二</string>
+    <string name="next_monday">下週一</string>
+    <string name="next_sunday">下週日</string>
+    <string name="CFC_startBefore_name">起始…</string>
+    <string name="CFC_startBefore_text">起始: \?</string>
+    <string name="manage_drawer">管理側邊欄</string>
 </resources>
