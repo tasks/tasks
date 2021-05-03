@@ -4,7 +4,7 @@
     <string name="TVA_add_comment">Adicionar um comentário…</string>
     <string name="backup_BAc_import">Importar cópia de segurança</string>
     <string name="backup_BAc_export">Fazer cópia de segurança</string>
-    <string name="export_toast">Copia de segurança feita de %1$s para %2$s.</string>
+    <string name="export_toast">Cópia de segurança feita de %1$s para %2$s.</string>
     <string name="import_summary_title">Resumo de restauro</string>
     <string name="import_summary_message">Ficheiro %1$s continha %2$s.\n\n
 %3$s importadas,\n
