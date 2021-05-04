@@ -215,8 +215,8 @@ dependencies {
     }
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
     implementation("com.google.apis:google-api-services-tasks:v1-rev20210109-1.31.0")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20210315-1.31.0")
-    implementation("com.google.auth:google-auth-library-oauth2-http:0.25.4")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20210419-1.31.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:0.25.5")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("androidx.work:work-runtime-ktx:${Versions.work}")
     implementation("com.etesync:journalmanager:1.1.1")
@@ -229,7 +229,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
-    implementation("com.google.android.material:compose-theme-adapter:1.0.0-beta04")
+    implementation("com.google.android.material:compose-theme-adapter:${Versions.compose}")
     implementation("androidx.activity:activity-compose:1.3.0-alpha07")
     releaseCompileOnly("androidx.compose.ui:ui-tooling:${Versions.compose}")
 
@@ -239,7 +239,7 @@ dependencies {
     }
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
     googleplayImplementation("com.google.android.gms:play-services-location:18.0.0")
-    googleplayImplementation("com.google.android.gms:play-services-maps:17.0.0")
+    googleplayImplementation("com.google.android.gms:play-services-maps:17.0.1")
     googleplayImplementation("com.android.billingclient:billing-ktx:3.0.3")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
