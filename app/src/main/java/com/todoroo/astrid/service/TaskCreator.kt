@@ -37,9 +37,7 @@ class TaskCreator @Inject constructor(
         private val locationDao: LocationDao) {
 
     suspend fun basicQuickAddTask(title: String): Task {
-        var title = title
-        title = title.trim { it <= ' ' }
-        val task = createWithValues(title)
+        val task = createWithValues(title.trim { it <= ' ' })
         taskDao.createNew(task)
         val gcalCreateEventEnabled = preferences.isDefaultCalendarSet && task.hasDueDate() // $NON-NLS-1$
         if (!isNullOrEmpty(task.title)
