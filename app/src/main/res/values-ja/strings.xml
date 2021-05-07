@@ -521,4 +521,17 @@
     <string name="encryption_password">暗号化パスワード</string>
     <string name="tasks_org_account">Tasks.org アカウント</string>
     <string name="copied_to_clipboard">%sをクリップボードにコピーしました</string>
+    <string name="add_place">場所を追加</string>
+    <string name="hide_unused_places">使われていない場所を隠す</string>
+    <string name="place_settings">場所の設定</string>
+    <string name="places">場所</string>
+    <string name="upgrade_automation_description">Tasker、AutomateとLocaleのプラグイン</string>
+    <string name="local_lists">ローカルリスト</string>
+    <string name="sort_created_group">作成: %s</string>
+    <string name="app_password_created_at">作成: %s</string>
+    <string name="calendar_event_created">%s のカレンダーイベントを作成しました</string>
+    <string name="sign_in_with_github">GitHubでサインイン</string>
+    <string name="sign_in_with_google">Googleでサインイン</string>
+    <string name="share">共有</string>
+    <string name="tasks_org_share">リストを他のユーザーと共有</string>
 </resources>
