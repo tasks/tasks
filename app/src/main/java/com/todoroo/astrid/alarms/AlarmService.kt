@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.alarms
 
-import kotlinx.coroutines.runBlocking
 import org.tasks.data.Alarm
 import org.tasks.data.AlarmDao
 import org.tasks.jobs.AlarmEntry
@@ -37,9 +36,7 @@ class AlarmService @Inject constructor(
         }
     }
 
-    suspend fun getAlarms(taskId: Long): List<Alarm> {
-        return alarmDao.getAlarms(taskId)
-    }
+    private suspend fun getAlarms(taskId: Long): List<Alarm> = alarmDao.getAlarms(taskId)
 
     /**
      * Save the given array of alarms into the database
@@ -65,15 +62,11 @@ class AlarmService @Inject constructor(
         return changed
     }
 
-    private suspend fun getActiveAlarmsForTask(taskId: Long): List<Alarm> {
-        return alarmDao.getActiveAlarms(taskId)
-    }
+    private suspend fun getActiveAlarmsForTask(taskId: Long): List<Alarm> =
+            alarmDao.getActiveAlarms(taskId)
 
-    // TODO: remove runBlocking
-    fun scheduleAllAlarms() = runBlocking {
-        for (alarm in alarmDao.getActiveAlarms()) {
-            scheduleAlarm(alarm)
-        }
+    suspend fun scheduleAllAlarms() {
+        alarmDao.getActiveAlarms().forEach(::scheduleAlarm)
     }
 
     suspend fun cancelAlarms(taskId: Long) {
@@ -84,9 +77,7 @@ class AlarmService @Inject constructor(
 
     /** Schedules alarms for a single task  */
     private suspend fun scheduleAlarms(taskId: Long) {
-        for (alarm in getActiveAlarmsForTask(taskId)) {
-            scheduleAlarm(alarm)
-        }
+        getActiveAlarmsForTask(taskId).forEach(::scheduleAlarm)
     }
 
     /** Schedules alarms for a single task  */
