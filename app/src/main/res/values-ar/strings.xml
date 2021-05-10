@@ -500,4 +500,27 @@
     <string name="multi_select_reschedule">غيّر التاريخ</string>
     <string name="sort_modified_group">عُدّل %s</string>
     <string name="sort_created_group">أنشأ %s</string>
+    <string name="EPr_manage_delete_gcal_status">تم حذف %d من أحداث التقويم!</string>
+    <string name="import_summary_message">الملف %1$s احتوى على %2$s.
+\n
+\nتم استيراد %3$s،
+\n%4$s موجود مسبقًا
+\nمشاكل في %5$s
+\n</string>
+    <string name="support_development_subscribe">‪افتح ميّزات إضافيّة وادعم البرامج مفتوحة المصدر</string>
+    <string name="invalid_backup_file">ملف نسخة احتياطيّة غير صالح</string>
+    <string name="location_remind_departure">تذكير عند الرحيل</string>
+    <string name="location_remind_arrival">تذكير عند الوصول</string>
+    <string name="refresh_purchases">تحديث الشرائات</string>
+    <string name="manage_subscription">عدّل الاشتراك</string>
+    <string name="delete_multiple_tasks_confirmation">%s حذفت</string>
+    <string name="copy_multiple_tasks_confirmation">%s نسخت</string>
+    <string name="launcher_icon">أيقونة المشغّل</string>
+    <string name="tag_already_exists">العلامة موجودة مسبقًا</string>
+    <string name="gtasks_error_accountNotFound">لم يتم العثور على الحساب %s، الرجاء تسجيل الخروج ثم تسجيل الدخول من إعدادات Google Tasks.</string>
+    <string name="CFC_startBefore_name">بدأ عند…</string>
+    <string name="CFC_startBefore_text">بدأ عند: \?</string>
+    <string name="CRA_ignore_body">لقد تجاهلت بضعاً من أحداث التقويم. هل يجب أن يتوقف تاسكس عن سؤالك عنها؟</string>
+    <string name="astrid_sort_order_summary">تشغيل وضع ترتيب Astrid اليدوي لـ\"مهامي\" و\"اليوم\" والعلامات. وضع الترتيب هذا سيستبدل بـ\"ترتيبي\" في تحديثٍ مستقبلي</string>
+    <string name="manage_drawer">إدارة الدرج</string>
 </resources>
