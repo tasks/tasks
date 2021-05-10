@@ -415,7 +415,7 @@
     <string name="help">Nápověda</string>
     <string name="network_error">Nepodařilo se připojit</string>
     <string name="upgrade_to_pro">Získat PRO verzi</string>
-    <string name="manage_subscription">Spravovat předplatné</string>
+    <string name="manage_subscription">Změnit předplatné</string>
     <string name="refresh_purchases">Obnovit nákupy</string>
     <string name="button_subscribe">Předplatit</string>
     <string name="about">O aplikaci</string>
@@ -608,4 +608,14 @@
     <string name="repeat_type_completion_capitalized">Okamžik dokončení</string>
     <string name="cancel">Zrušit</string>
     <string name="email">E-mail</string>
+    <string name="location_arrived">Příchod v %s</string>
+    <string name="subscription">Předplatné</string>
+    <string name="map_theme">Vzhled mapy</string>
+    <string name="next_saturday">Příští sobota</string>
+    <string name="next_friday">Příští pátek</string>
+    <string name="next_thursday">Příští čtvrtek</string>
+    <string name="next_wednesday">Příští středa</string>
+    <string name="next_tuesday">Příští úterý</string>
+    <string name="next_monday">Příští pondělí</string>
+    <string name="next_sunday">Příští neděle</string>
 </resources>
