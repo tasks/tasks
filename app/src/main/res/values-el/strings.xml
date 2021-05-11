@@ -151,4 +151,8 @@
     <string name="email">Ηλε. ταχυδρομείο</string>
     <string name="repeat_option_does_not_repeat">Δεν επαναλαμβάνεται</string>
     <string name="repeat_every">Κάθε</string>
+    <string name="astrid_sort_order">Μη αυτόματη ταξινόμηση Astrid</string>
+    <string name="SSD_sort_my_order">Η παραγγελία μου</string>
+    <string name="action_open">Ανοίξτε το</string>
+    <string name="action_call">Καλέστε</string>
 </resources>
