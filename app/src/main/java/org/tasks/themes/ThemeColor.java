@@ -165,7 +165,6 @@ public class ThemeColor implements Pickable {
   private final int colorOnPrimary;
   private final int hintOnPrimary;
   private final int colorPrimary;
-  private final int colorPrimaryVariant;
   private final boolean isDark;
 
   public ThemeColor(Context context, int color) {
@@ -180,7 +179,6 @@ public class ThemeColor implements Pickable {
       color |= 0xFF000000; // remove alpha
     }
     colorPrimary = color;
-    colorPrimaryVariant = ColorUtil.darken(colorPrimary, 6);
 
     double contrast = ColorUtils.calculateContrast(WHITE, colorPrimary);
     isDark = contrast < 3;
@@ -196,7 +194,6 @@ public class ThemeColor implements Pickable {
   private ThemeColor(Parcel source) {
     colorOnPrimary = source.readInt();
     colorPrimary = source.readInt();
-    colorPrimaryVariant = source.readInt();
     isDark = ParcelCompat.readBoolean(source);
     original = source.readInt();
     hintOnPrimary = source.readInt();
@@ -240,18 +237,18 @@ public class ThemeColor implements Pickable {
   }
 
   public void setStatusBarColor(Activity activity) {
-    activity.getWindow().setStatusBarColor(colorPrimaryVariant);
+    activity.getWindow().setStatusBarColor(colorPrimary);
   }
 
   public void setStatusBarColor(DrawerLayout drawerLayout) {
-    drawerLayout.setStatusBarBackgroundColor(colorPrimaryVariant);
+    drawerLayout.setStatusBarBackgroundColor(colorPrimary);
     int systemUiVisibility = applyLightStatusBarFlag(drawerLayout.getSystemUiVisibility());
     drawerLayout.setSystemUiVisibility(systemUiVisibility);
   }
 
   public void setStatusBarColor(CollapsingToolbarLayout layout) {
     layout.setContentScrimColor(colorPrimary);
-    layout.setStatusBarScrimColor(colorPrimaryVariant);
+    layout.setStatusBarScrimColor(colorPrimary);
   }
 
   public void apply(CollapsingToolbarLayout layout, Toolbar toolbar) {
@@ -355,7 +352,6 @@ public class ThemeColor implements Pickable {
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeInt(colorOnPrimary);
     dest.writeInt(colorPrimary);
-    dest.writeInt(colorPrimaryVariant);
     ParcelCompat.writeBoolean(dest, isDark);
     dest.writeInt(original);
     dest.writeInt(hintOnPrimary);
