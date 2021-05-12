@@ -14,7 +14,7 @@ Before opening an issue, please make sure that your issue:
 
 #### To get started with development:
 1. [Fork](https://help.github.com/articles/fork-a-repo/) and [clone](https://help.github.com/articles/cloning-a-repository/) the repository
-2. Install and launch [Android Studio](https://developer.android.com/studio/index.html)
+2. Install and launch [Android Studio's canary build](https://developer.android.com/studio/preview) (Tasks depends on some bleeding-edge features of the canary build, but in the future when those features are stabilized, you will be able to use the stable release of Android Studio)
 3. Select `File > Open`, select the Tasks directory, and accept prompts to install missing SDK components
 
 #### Set up Mapbox
