@@ -705,4 +705,24 @@
     <string name="widget_show_title">මාතෘකාව පෙන්වන්න</string>
     <string name="widget_show_settings">සැකසුම් පෙන්වන්න</string>
     <string name="widget_show_header">ශීර්ෂකය පෙන්වන්න</string>
+    <string name="repeats_single_on">%1$s, %2$s පුනරාවර්තනය වේ</string>
+    <string name="markdown_description">මාතෘකාව සහ විස්තරය තුළ ලකුණු කිරීම සක්‍රිය කරන්න</string>
+    <string name="markdown">ලකුණු කිරීම</string>
+    <string name="upgrade_customization_icons">ලැයිස්තු අයිකන</string>
+    <string name="upgrade_customization_colors">දියත් කිරීමේ අයිකන, වර්ණාලේප සහ වර්ණ රෝදය</string>
+    <string name="picker_mode_time">කාලය තෝරාගැනීම් මාදිලිය</string>
+    <string name="invite_awaiting_response">ප්‍රතිචාරයක් බලාපොරොත්තුවෙන් ඇති ආරාධන</string>
+    <string name="list_members">සාමාජික ලැයිස්තුව</string>
+    <string name="migrating_tasks">සංක්‍රමණික කාර්යයන්</string>
+    <string name="migrate">සංක්‍රමණය</string>
+    <string name="social">සමාජ මාධ්‍ය</string>
+    <string name="background_location">පසුබිම් ස්ථානය</string>
+    <string name="foreground_location">පෙරබිම ස්ථානය</string>
+    <string name="navigation_drawer">මෙනුව</string>
+    <string name="place_settings">ස්ථාන සැකසුම්</string>
+    <string name="desaturate_colors_summary_on">අඳුරු තේමාවන් වලදී වර්ණ අසංතෘප්ත වේ</string>
+    <string name="chip_style_outlined">භාහිර රේඛාවන් ඇති</string>
+    <string name="TFE_workingOn">ක්‍රියාත්මකව පවතින කාර්යයන්</string>
+    <string name="repeat_snackbar">%1$s, %2$s සඳහා නැවත සකස් කරන ලදි</string>
+    <string name="CFC_importance_text">අවම වශයෙන් ප්‍රමුඛතාවය \?</string>
 </resources>
