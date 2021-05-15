@@ -12,7 +12,7 @@
     <string name="read_permission_label">Permissions de Tasks</string>
     <string name="discard_confirmation">Êtes-vous sûr(e) de vouloir annuler vos modifications \?</string>
     <string name="keep_editing">Continuer l\'édition</string>
-    <string name="DLG_delete_this_task_question">Supprimer cette tâche ?</string>
+    <string name="DLG_delete_this_task_question">Supprimer cette tâche \?</string>
     <string name="DLG_hour_minutes">Temps (heures : minutes)</string>
     <string name="DLG_undo">Annuler l\'action</string>
     <string name="WID_dateButtonUnset">Cliquez pour définir</string>
