@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -30,25 +31,25 @@ import org.tasks.compose.ShareInvite.ShareInvite
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
 private fun Invite() = MaterialTheme {
-    ShareInvite(true, mutableStateOf(""))
+    ShareInvite(true, remember { mutableStateOf("") })
 }
 
 @Preview(showBackground = true, backgroundColor = 0x202124)
 @Composable
 private fun InviteDark() = MaterialTheme(darkColors()) {
-    ShareInvite(false, mutableStateOf(""))
+    ShareInvite(false, remember { mutableStateOf("") })
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
 private fun InviteFilled() = MaterialTheme {
-    ShareInvite(true, mutableStateOf("user@example.com"))
+    ShareInvite(true, remember { mutableStateOf("user@example.com") })
 }
 
 @Preview(showBackground = true, backgroundColor = 0x202124)
 @Composable
 private fun InviteDarkFilled() = MaterialTheme(darkColors()) {
-    ShareInvite(false, mutableStateOf("user@example.com"))
+    ShareInvite(false, remember { mutableStateOf("user@example.com") })
 }
 
 object ShareInvite {
