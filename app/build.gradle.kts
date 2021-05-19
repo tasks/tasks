@@ -229,8 +229,8 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
-    implementation("com.google.android.material:compose-theme-adapter:1.0.0-beta05")
-    implementation("androidx.activity:activity-compose:1.3.0-alpha07")
+    implementation("com.google.android.material:compose-theme-adapter:${Versions.compose}")
+    implementation("androidx.activity:activity-compose:1.3.0-alpha08")
     releaseCompileOnly("androidx.compose.ui:ui-tooling:${Versions.compose}")
 
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
