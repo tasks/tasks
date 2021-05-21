@@ -523,4 +523,5 @@
     <string name="CRA_ignore_body">لقد تجاهلت بضعاً من أحداث التقويم. هل يجب أن يتوقف تاسكس عن سؤالك عنها؟</string>
     <string name="astrid_sort_order_summary">تشغيل وضع ترتيب Astrid اليدوي لـ\"مهامي\" و\"اليوم\" والعلامات. وضع الترتيب هذا سيستبدل بـ\"ترتيبي\" في تحديثٍ مستقبلي</string>
     <string name="manage_drawer">إدارة الدرج</string>
+    <string name="markdown_description">تشغيل الماركداون في العنوان والوصف</string>
 </resources>
