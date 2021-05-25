@@ -1,3 +1,30 @@
+### 11.10.1 (2021-05-25)
+
+* Improve Android 12 compatibility
+* Update status bar styles
+* Update translations
+  * Arabic - @mhmdanas
+  * Basque - Sergio Varela
+  * Catalan - @toram
+  * Chinese (Traditional) - @kisaragi-hiu
+  * Croatian - @ggdorman
+  * Czech - @vitSkalicky
+  * Esperanto - @J053Fabi0, @jakubfabijan
+  * French - K. Herbert, J. Lavoie
+  * German - K. Herbert
+  * Greek - Eugenia Russell
+  * Hungarian - @gthrepwood
+  * Indonesian - @andhikapangestu29
+  * Korean - Sunjae Choi
+  * Portuguese (Brazil) - @laralem
+  * Portuguese - @SantosSi, @laralem
+  * Russian - Nikita Epifanov
+  * Sinhala - @Dilshan-H
+  * Spanish - @fitojb
+  * Ukrainian - @IhorHordiichuk
+  * Urdu - Maaz
+  * Vietnamese - bruh
+
 ### 11.10 (2021-04-19)
 
 * Markdown support ([Documentation](https://tasks.org/docs/markdown))

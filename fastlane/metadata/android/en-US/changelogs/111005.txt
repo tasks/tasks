@@ -1,0 +1,3 @@
+* Improve Android 12 compatibility
+* Update status bar styles
+* Update translations
