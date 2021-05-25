@@ -5,7 +5,6 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/drawer_color"
-  android:fitsSystemWindows="true"
   app:insetForeground="#4000">
 
   <androidx.recyclerview.widget.RecyclerView
@@ -13,7 +12,6 @@
     android:scrollbarStyle="outsideOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false"
     android:scrollbars="vertical"
     tools:context=".NavigationDrawerFragment"/>
 
