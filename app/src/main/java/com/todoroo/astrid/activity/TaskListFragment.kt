@@ -131,7 +131,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private lateinit var search: MenuItem
     private var searchQuery: String? = null
     private var mode: ActionMode? = null
-    private lateinit var themeColor: ThemeColor
+    lateinit var themeColor: ThemeColor
     private lateinit var callbacks: TaskListFragmentCallbackHandler
 
     override fun onRefresh() {

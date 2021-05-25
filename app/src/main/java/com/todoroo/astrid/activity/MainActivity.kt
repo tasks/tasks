@@ -97,6 +97,10 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                     override fun onDrawerStateChanged(newState: Int) {
                         finishActionMode()
                     }
+
+                    override fun onDrawerClosed(drawerView: View) {
+                        taskListFragment?.themeColor?.setStatusBarColor(binding.drawerLayout)
+                    }
                 })
         handleIntent()
     }

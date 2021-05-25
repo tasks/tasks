@@ -242,8 +242,7 @@ public class ThemeColor implements Pickable {
 
   public void setStatusBarColor(DrawerLayout drawerLayout) {
     drawerLayout.setStatusBarBackgroundColor(colorPrimary);
-    int systemUiVisibility = applyLightStatusBarFlag(drawerLayout.getSystemUiVisibility());
-    drawerLayout.setSystemUiVisibility(systemUiVisibility);
+    org.tasks.extensions.View.INSTANCE.lightStatusBar(drawerLayout, isDark);
   }
 
   public void setStatusBarColor(CollapsingToolbarLayout layout) {
@@ -261,9 +260,7 @@ public class ThemeColor implements Pickable {
   }
 
   public void applyToStatusBarIcons(Activity activity) {
-    View decorView = activity.getWindow().getDecorView();
-    int systemUiVisibility = applyLightStatusBarFlag(decorView.getSystemUiVisibility());
-    decorView.setSystemUiVisibility(systemUiVisibility);
+    org.tasks.extensions.View.INSTANCE.lightStatusBar(activity.getWindow().getDecorView(), isDark);
   }
 
   public void applyToNavigationBar(Activity activity) {
@@ -274,12 +271,6 @@ public class ThemeColor implements Pickable {
       int systemUiVisibility = applyLightNavigationBar(decorView.getSystemUiVisibility());
       decorView.setSystemUiVisibility(systemUiVisibility);
     }
-  }
-
-  private int applyLightStatusBarFlag(int flag) {
-    return isDark
-        ? flag | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        : flag & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
   }
 
   @RequiresApi(api = VERSION_CODES.O)

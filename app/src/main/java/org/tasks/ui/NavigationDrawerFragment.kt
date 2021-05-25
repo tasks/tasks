@@ -27,6 +27,7 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.data.TaskDao
 import org.tasks.dialogs.NewFilterDialog.Companion.newFilterDialog
 import org.tasks.extensions.Context.openUri
+import org.tasks.extensions.View.lightStatusBar
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerAction
 import org.tasks.intents.TaskIntents
@@ -106,6 +107,11 @@ class NavigationDrawerFragment : Fragment() {
     fun setUp(drawerLayout: DrawerLayout) {
         mFragmentContainerView = requireActivity().findViewById(FRAGMENT_NAVIGATION_DRAWER)
         mDrawerLayout = drawerLayout
+        mDrawerLayout.addDrawerListener(object : SimpleDrawerListener() {
+            override fun onDrawerOpened(drawerView: View) {
+                setStatusBarColors()
+            }
+        })
     }
 
     fun setSelected(selected: Filter?) = adapter.setSelected(selected)
@@ -127,12 +133,20 @@ class NavigationDrawerFragment : Fragment() {
 
     private fun close() = mDrawerLayout.closeDrawer(mFragmentContainerView!!)
 
-    fun openDrawer() = mDrawerLayout.openDrawer(mFragmentContainerView!!)
+    fun openDrawer() {
+        setStatusBarColors()
+        mDrawerLayout.openDrawer(mFragmentContainerView!!)
+    }
+
+    private fun setStatusBarColors() = mDrawerLayout.lightStatusBar(false)
 
     override fun onResume() {
         super.onResume()
         localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
         updateFilters()
+        if (isDrawerOpen) {
+            setStatusBarColors()
+        }
     }
 
     private fun updateFilters() = lifecycleScope.launch {
