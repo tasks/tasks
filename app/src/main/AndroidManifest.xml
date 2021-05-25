@@ -169,6 +169,7 @@
 
     <activity
       android:name="net.openid.appauth.RedirectUriReceiverActivity"
+      android:exported="true"
       tools:node="replace">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
@@ -234,7 +235,9 @@
       android:name=".activities.CameraActivity"
       android:theme="@style/TranslucentDialog"/>
 
-    <activity android:name=".activities.UriHandler">
+    <activity
+        android:name=".activities.UriHandler"
+        android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
@@ -253,6 +256,7 @@
     <activity
       android:label="@string/FSA_label"
       android:name=".widget.ShortcutConfigActivity"
+      android:exported="true"
       android:theme="@style/Tasks">
       <intent-filter>
         <action android:name="android.intent.action.CREATE_SHORTCUT"/>
@@ -268,6 +272,7 @@
       android:name="com.todoroo.astrid.activity.ShareLinkActivity"
       android:taskAffinity=":share"
       android:excludeFromRecents="true"
+      android:exported="true"
       android:roundIcon="@mipmap/ic_launcher_blue">
       <intent-filter>
         <action android:name="android.intent.action.PROCESS_TEXT"/>
@@ -311,7 +316,8 @@
     <!-- widgets -->
     <receiver
       android:label="@string/app_name"
-      android:name=".widget.TasksWidget">
+      android:name=".widget.TasksWidget"
+      android:exported="true">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
       </intent-filter>
@@ -450,6 +456,7 @@
       android:theme="@style/TranslucentDialog"
       android:taskAffinity=""
       android:excludeFromRecents="true"
+      android:exported="true"
       android:permission="com.google.android.gm.permission.AUTO_SEND">
       <intent-filter>
         <action android:name="com.google.android.gm.action.AUTO_SEND"/>
@@ -459,7 +466,9 @@
       </intent-filter>
     </activity>
 
-    <receiver android:name=".receivers.BootCompletedReceiver">
+    <receiver
+        android:name=".receivers.BootCompletedReceiver"
+        android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED"/>
         <category android:name="android.intent.category.DEFAULT"/>
@@ -468,7 +477,9 @@
 
     <receiver android:name=".receivers.CompleteTaskReceiver"/>
 
-    <receiver android:name=".receivers.MyPackageReplacedReceiver">
+    <receiver
+        android:name=".receivers.MyPackageReplacedReceiver"
+        android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
       </intent-filter>
@@ -509,6 +520,7 @@
       android:icon="@drawable/ic_check_white_24dp"
       android:label="@string/app_name"
       android:name=".dashclock.DashClockExtension"
+      android:exported="true"
       android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
       <intent-filter>
         <action android:name="com.google.android.apps.dashclock.Extension"/>
@@ -541,6 +553,7 @@
       android:name=".widget.TileService"
       android:icon="@drawable/ic_check_black_24dp"
       android:label="@string/action_new_task"
+      android:exported="true"
       android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
       <intent-filter>
         <action
@@ -599,6 +612,7 @@
 
     <activity
       android:launchMode="singleTask"
+      android:exported="true"
       android:name="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -634,6 +648,7 @@
 
     <activity
       android:name=".preferences.NotificationPreferences"
+      android:exported="true"
       android:theme="@style/Tasks">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -652,6 +667,7 @@
       android:icon="@mipmap/ic_launcher_blue"
       android:name="com.todoroo.astrid.activity.TaskListActivity"
       android:roundIcon="@mipmap/ic_launcher_blue"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -668,6 +684,7 @@
       android:icon="@mipmap/ic_launcher_blue_grey"
       android:name="com.todoroo.astrid.activity.TaskListActivity.BlueGrey"
       android:roundIcon="@mipmap/ic_launcher_blue_grey"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -684,6 +701,7 @@
       android:icon="@mipmap/ic_launcher_dark_grey"
       android:name="com.todoroo.astrid.activity.TaskListActivity.DarkGrey"
       android:roundIcon="@mipmap/ic_launcher_dark_grey"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -700,6 +718,7 @@
       android:icon="@mipmap/ic_launcher_red"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Red"
       android:roundIcon="@mipmap/ic_launcher_red"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -716,6 +735,7 @@
       android:icon="@mipmap/ic_launcher_pink"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Pink"
       android:roundIcon="@mipmap/ic_launcher_pink"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -732,6 +752,7 @@
       android:icon="@mipmap/ic_launcher_purple"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Purple"
       android:roundIcon="@mipmap/ic_launcher_purple"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -748,6 +769,7 @@
       android:icon="@mipmap/ic_launcher_deep_purple"
       android:name="com.todoroo.astrid.activity.TaskListActivity.DeepPurple"
       android:roundIcon="@mipmap/ic_launcher_deep_purple"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -764,6 +786,7 @@
       android:icon="@mipmap/ic_launcher_indigo"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Indigo"
       android:roundIcon="@mipmap/ic_launcher_indigo"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -780,6 +803,7 @@
       android:icon="@mipmap/ic_launcher_light_blue"
       android:name="com.todoroo.astrid.activity.TaskListActivity.LightBlue"
       android:roundIcon="@mipmap/ic_launcher_light_blue"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -796,6 +820,7 @@
       android:icon="@mipmap/ic_launcher_cyan"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Cyan"
       android:roundIcon="@mipmap/ic_launcher_cyan"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -812,6 +837,7 @@
       android:icon="@mipmap/ic_launcher_teal"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Teal"
       android:roundIcon="@mipmap/ic_launcher_teal"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -828,6 +854,7 @@
       android:icon="@mipmap/ic_launcher_green"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Green"
       android:roundIcon="@mipmap/ic_launcher_green"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -844,6 +871,7 @@
       android:icon="@mipmap/ic_launcher_light_green"
       android:name="com.todoroo.astrid.activity.TaskListActivity.LightGreen"
       android:roundIcon="@mipmap/ic_launcher_light_green"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -860,6 +888,7 @@
       android:icon="@mipmap/ic_launcher_lime"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Lime"
       android:roundIcon="@mipmap/ic_launcher_lime"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -876,6 +905,7 @@
       android:icon="@mipmap/ic_launcher_yellow"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Yellow"
       android:roundIcon="@mipmap/ic_launcher_yellow"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -892,6 +922,7 @@
       android:icon="@mipmap/ic_launcher_amber"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Amber"
       android:roundIcon="@mipmap/ic_launcher_amber"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -908,6 +939,7 @@
       android:icon="@mipmap/ic_launcher_orange"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Orange"
       android:roundIcon="@mipmap/ic_launcher_orange"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -924,6 +956,7 @@
       android:icon="@mipmap/ic_launcher_deep_orange"
       android:name="com.todoroo.astrid.activity.TaskListActivity.DeepOrange"
       android:roundIcon="@mipmap/ic_launcher_deep_orange"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -940,6 +973,7 @@
       android:icon="@mipmap/ic_launcher_brown"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Brown"
       android:roundIcon="@mipmap/ic_launcher_brown"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -956,6 +990,7 @@
       android:icon="@mipmap/ic_launcher_grey"
       android:name="com.todoroo.astrid.activity.TaskListActivity.Grey"
       android:roundIcon="@mipmap/ic_launcher_grey"
+      android:exported="true"
       android:targetActivity="com.todoroo.astrid.activity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
