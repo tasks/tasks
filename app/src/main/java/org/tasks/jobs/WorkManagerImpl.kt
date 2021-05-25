@@ -279,9 +279,19 @@ class WorkManagerImpl constructor(
     private val notificationPendingIntent: PendingIntent
         get() {
             return if (AndroidUtilities.atLeastOreo()) {
-                PendingIntent.getForegroundService(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                PendingIntent.getForegroundService(
+                    context,
+                    0,
+                    notificationIntent,
+                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                )
             } else {
-                PendingIntent.getService(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                PendingIntent.getService(
+                    context,
+                    0,
+                    notificationIntent,
+                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                )
             }
         }
 }

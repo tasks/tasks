@@ -37,14 +37,16 @@ class LocationServiceGooglePlay @Inject constructor(
     @SuppressLint("MissingPermission")
     override fun addGeofences(geofence: MergedGeofence) {
         LocationServices
-                .getGeofencingClient(context)
-                .addGeofences(
+            .getGeofencingClient(context)
+            .addGeofences(
                 GeofencingRequest.Builder().addGeofence(toGoogleGeofence(geofence)).build(),
                 PendingIntent.getBroadcast(
-                        context,
-                        0,
-                        Intent(context, GoogleGeofenceTransitionIntentService.Broadcast::class.java),
-                        PendingIntent.FLAG_UPDATE_CURRENT))
+                    context,
+                    0,
+                    Intent(context, GoogleGeofenceTransitionIntentService.Broadcast::class.java),
+                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
     }
 
     override fun removeGeofences(place: Place) {

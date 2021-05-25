@@ -43,7 +43,11 @@ class Notifier @Inject constructor(
         }
         val intent = TaskIntents.getTaskListIntent(context, filter)
         val pendingIntent = PendingIntent.getActivity(
-                context, filter.listingTitle.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            context,
+            filter.listingTitle.hashCode(),
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
         val summaryTitle = context.resources.getQuantityString(R.plurals.task_count, count, count)
         val style = NotificationCompat.InboxStyle().setBigContentTitle(summaryTitle)
         var maxPriority = 3

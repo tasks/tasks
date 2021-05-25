@@ -152,18 +152,32 @@ class TasksWidget : AppWidgetProvider() {
 
     private fun getPendingIntentTemplate(context: Context): PendingIntent =
             PendingIntent.getActivity(
-                    context, 0, Intent(context, WidgetClickActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
+                    context,
+                0,
+                Intent(context, WidgetClickActivity::class.java),
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
 
     private fun getOpenListIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
         val intent = TaskIntents.getTaskListIntent(context, filter)
         intent.action = "open_list"
-        return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(
+            context,
+            widgetId,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
     }
 
     private fun getNewTaskIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
         val intent = TaskIntents.getNewTaskIntent(context, filter)
         intent.action = "new_task"
-        return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(
+            context,
+            widgetId,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
     }
 
     private fun getWidgetConfigIntent(context: Context, widgetId: Int): PendingIntent {
@@ -171,7 +185,12 @@ class TasksWidget : AppWidgetProvider() {
         intent.flags = flags
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
         intent.action = "widget_settings"
-        return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(
+            context,
+            widgetId,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
     }
 
     private fun getChooseListIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
@@ -180,7 +199,12 @@ class TasksWidget : AppWidgetProvider() {
         intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, filter)
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
         intent.action = "choose_list"
-        return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(
+            context,
+            widgetId,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
     }
 
     companion object {

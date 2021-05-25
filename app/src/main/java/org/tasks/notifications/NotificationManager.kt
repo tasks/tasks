@@ -199,7 +199,11 @@ class NotificationManager @Inject constructor(
         val deleteIntent = Intent(context, NotificationClearedReceiver::class.java)
         deleteIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId)
         notification.deleteIntent = PendingIntent.getBroadcast(
-                context, notificationId.toInt(), deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            context,
+            notificationId.toInt(),
+            deleteIntent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
         val evicted = queue.add(notificationId)
         if (evicted.size > 0) {
             cancel(evicted)
@@ -249,7 +253,9 @@ class NotificationManager @Inject constructor(
                                 context,
                                 0,
                                 TaskIntents.getTaskListIntent(context, NotificationsFilter(context)),
-                                PendingIntent.FLAG_UPDATE_CURRENT))
+                            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                        )
+                )
                 .setGroupSummary(true)
                 .setGroup(GROUP_KEY)
                 .setTicker(
@@ -261,7 +267,13 @@ class NotificationManager @Inject constructor(
         builder.addAction(
                 R.drawable.ic_snooze_white_24dp,
                 context.getString(R.string.snooze_all),
-                PendingIntent.getActivity(context, 0, snoozeIntent, PendingIntent.FLAG_CANCEL_CURRENT))
+                PendingIntent.getActivity(
+                    context,
+                    0,
+                    snoozeIntent,
+                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_CANCEL_CURRENT
+                )
+        )
         notify(SUMMARY_NOTIFICATION_ID.toLong(), builder, notify, nonStop, fiveTimes)
     }
 
@@ -316,7 +328,13 @@ class NotificationManager @Inject constructor(
                 .setTicker(taskTitle)
         val intent = NotificationActivity.newIntent(context, taskTitle.toString(), id)
         builder.setContentIntent(
-                PendingIntent.getActivity(context, id.toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT))
+                PendingIntent.getActivity(
+                    context,
+                    id.toInt(),
+                    intent,
+                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                )
+        )
         if (type == ReminderService.TYPE_GEOFENCE_ENTER || type == ReminderService.TYPE_GEOFENCE_EXIT) {
             val place = locationDao.getPlace(notification.location!!)
             if (place != null) {
@@ -333,7 +351,11 @@ class NotificationManager @Inject constructor(
         val completeIntent = Intent(context, CompleteTaskReceiver::class.java)
         completeIntent.putExtra(CompleteTaskReceiver.TASK_ID, id)
         val completePendingIntent = PendingIntent.getBroadcast(
-                context, id.toInt(), completeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            context,
+            id.toInt(),
+            completeIntent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
         val completeAction = NotificationCompat.Action.Builder(
                 R.drawable.ic_check_white_24dp,
                 context.getString(R.string.rmd_NoA_done),
@@ -341,7 +363,11 @@ class NotificationManager @Inject constructor(
                 .build()
         val snoozeIntent = SnoozeActivity.newIntent(context, id)
         val snoozePendingIntent = PendingIntent.getActivity(
-                context, id.toInt(), snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            context,
+            id.toInt(),
+            snoozeIntent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
         val wearableExtender = NotificationCompat.WearableExtender()
         wearableExtender.addAction(completeAction)
         for (snoozeOption in SnoozeDialog.getSnoozeOptions(preferences)) {
@@ -350,7 +376,11 @@ class NotificationManager @Inject constructor(
             wearableIntent.action = String.format("snooze-%s-%s", id, timestamp)
             wearableIntent.putExtra(SnoozeActivity.EXTRA_SNOOZE_TIME, timestamp)
             val wearablePendingIntent = PendingIntent.getActivity(
-                    context, id.toInt(), wearableIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+                context,
+                id.toInt(),
+                wearableIntent,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
             wearableExtender.addAction(
                     NotificationCompat.Action.Builder(
                             R.drawable.ic_snooze_white_24dp,

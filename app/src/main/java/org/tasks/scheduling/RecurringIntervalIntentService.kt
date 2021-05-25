@@ -22,7 +22,11 @@ abstract class RecurringIntervalIntentService : InjectingJobIntentService() {
         Timber.d("running now [nextRun=${DateTimeUtils.printTimestamp(nextRun)}]")
         run()
         val pendingIntent = PendingIntent.getBroadcast(
-                this, 0, Intent(this, broadcastClass), PendingIntent.FLAG_UPDATE_CURRENT)
+            this,
+            0,
+            Intent(this, broadcastClass),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
         alarmManager.wakeup(nextRun, pendingIntent)
     }
 

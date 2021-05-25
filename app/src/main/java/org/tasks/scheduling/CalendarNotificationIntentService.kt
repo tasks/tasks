@@ -35,7 +35,8 @@ class CalendarNotificationIntentService : RecurringIntervalIntentService() {
                     context,
                     CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER,
                     eventAlarm,
-                    PendingIntent.FLAG_UPDATE_CURRENT)
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
             val reminderTime = event.start - FIFTEEN_MINUTES
             alarmManager.wakeup(reminderTime, pendingIntent)
             Timber.d("Scheduled reminder for %s at %s", event, reminderTime)
