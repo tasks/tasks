@@ -1,4 +1,4 @@
-### 11.10.1 (2021-05-25)
+### 11.10.1 (2021-05-26)
 
 * Improve Android 12 compatibility
 * Update status bar styles
