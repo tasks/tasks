@@ -91,7 +91,7 @@
     <string name="documentation">Dokumentacija</string>
     <string name="BFE_Active">Moji zadaci</string>
     <string name="lists">Popisi</string>
-    <string name="hide_unused_tags">Sakrij neiskorištene oznake</string>
+    <string name="hide_unused_tags">Sakrij nekorištene oznake</string>
     <string name="default_tags">Zadane oznake</string>
     <string name="tags">Oznake</string>
     <string name="filters">Filtri</string>
@@ -163,4 +163,21 @@
     <string name="choose_synchronization_service">Odaberite platformu</string>
     <string name="not_signed_in">Niste se prijavili</string>
     <string name="contact_developer">Kontaktirajte razvojnika</string>
+    <string name="add_place">Dodaj mjesto</string>
+    <string name="hide_unused_places">Sakrij nekorištena mjesta</string>
+    <string name="manage_drawer">Upravljaj ladicom</string>
+    <string name="place_settings">Postavke mjesta</string>
+    <string name="places">Mjesta</string>
+    <string name="desaturate_colors_summary_off">Isključi nezasićene boje u tamnim temama</string>
+    <string name="desaturate_colors_summary_on">Koristi nezasićene boje u tamnim temama</string>
+    <string name="desaturate_colors">Nezasićene boje</string>
+    <string name="color_wheel">Krug boja</string>
+    <string name="chip_appearance_icon_only">Samo ikona</string>
+    <string name="chip_appearance_text_only">Samo tekst</string>
+    <string name="chip_appearance_text_and_icon">Tekst i ikona</string>
+    <string name="chip_appearance">Prikaz značke</string>
+    <string name="chips">Značke</string>
+    <string name="chip_style_filled">Ispunjeno</string>
+    <string name="chip_style_outlined">Konturno</string>
+    <string name="chip_style">Stil značke</string>
 </resources>
