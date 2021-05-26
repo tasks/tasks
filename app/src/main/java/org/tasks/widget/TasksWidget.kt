@@ -155,7 +155,7 @@ class TasksWidget : AppWidgetProvider() {
                     context,
                 0,
                 Intent(context, WidgetClickActivity::class.java),
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                /*PendingIntent.FLAG_MUTABLE or */PendingIntent.FLAG_UPDATE_CURRENT
             )
 
     private fun getOpenListIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
