@@ -85,7 +85,7 @@
     <string name="preferences_look_and_feel">Izgled i dojam</string>
     <string name="privacy_policy">Politika privatnosti</string>
     <string name="whats_new">Nedavne promjene</string>
-    <string name="follow_reddit">Pretplatite se na reddit forum r/tasks</string>
+    <string name="follow_reddit">Pridruži se forumu r/tasks</string>
     <string name="source_code">Izvorni kod</string>
     <string name="third_party_licenses">Licence trećih strana</string>
     <string name="documentation">Dokumentacija</string>
@@ -180,4 +180,11 @@
     <string name="chip_style_filled">Ispunjeno</string>
     <string name="chip_style_outlined">Konturno</string>
     <string name="chip_style">Stil značke</string>
+    <string name="next_saturday">Sljedeća subota</string>
+    <string name="next_friday">Sljedeći petak</string>
+    <string name="next_thursday">Sljedeći četvrtak</string>
+    <string name="next_wednesday">Sljedeća srijeda</string>
+    <string name="next_tuesday">Sljedeći utorak</string>
+    <string name="next_monday">Sljedeći ponedjeljak</string>
+    <string name="next_sunday">Sljedeća nedjelja</string>
 </resources>
