@@ -679,7 +679,6 @@
     <string name="map_theme">Kartdrakt</string>
     <string name="list_members">Liste over medlemmer</string>
     <string name="social">Sosialt</string>
-    <string name="chat_freenode">Ta del i #tasks på freenode</string>
     <string name="remove_user_confirmation">%1$s vil ikke lenger ha tilgang til %2$s</string>
     <string name="remove_user">Fjern bruker\?</string>
     <string name="privacy">Personvern</string>

@@ -680,7 +680,6 @@
     <string name="issue_tracker">Hibakövető</string>
     <string name="support">Támogatás</string>
     <string name="social">Közösségi</string>
-    <string name="chat_freenode">Csatlakozás a #tasks-hoz a Freenode-on</string>
     <string name="follow_twitter">\@tasks_org követése</string>
     <string name="remove_user_confirmation">%1$s nem fog hozzáférni ehhez: %2$s</string>
     <string name="remove_user">Felhasználó eltávolítása\?</string>

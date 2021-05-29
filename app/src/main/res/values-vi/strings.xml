@@ -130,7 +130,6 @@
     <string name="issue_tracker">Trình theo dõi vấn đề</string>
     <string name="support">Hỗ trợ</string>
     <string name="social">Xã hội</string>
-    <string name="chat_freenode">Tham gia #tasks trên Freenode</string>
     <string name="follow_twitter">Theo dõi @tasks_org</string>
     <string name="follow_reddit">Tham gia r/tasks</string>
     <string name="current_subscription">Đăng ký hiện tại: %s</string>

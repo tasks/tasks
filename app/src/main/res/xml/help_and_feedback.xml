@@ -46,12 +46,12 @@
         app:icon="@drawable/ic_twitter_logo_black" />
 
     <Preference
-        android:key="@string/chat_freenode"
-        android:title="@string/chat_freenode"
+        android:key="@string/chat_libera"
+        android:title="@string/chat_libera"
         app:icon="@drawable/ic_outline_forum_24">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="@string/url_freenode" />
+          android:data="@string/url_libera_chat" />
     </Preference>
 
   </PreferenceCategory>

@@ -673,7 +673,6 @@
     <string name="issue_tracker">Relatos de problemas</string>
     <string name="support">Suporte</string>
     <string name="social">Social</string>
-    <string name="chat_freenode">Entrar no canal #tasks no Freenode</string>
     <string name="follow_twitter">Seguir @tasks_org</string>
     <string name="no_google_play_subscription">Não foi encontrada nenhuma subscrição elegível do Google Play</string>
     <string name="insufficient_sponsorship">Não foi encontrado nenhum patrocínio GitHub elegível</string>

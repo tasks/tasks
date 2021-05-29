@@ -682,7 +682,6 @@
     <string name="issue_tracker">Sorun izleyicisi</string>
     <string name="support">Destek</string>
     <string name="social">Sosyal</string>
-    <string name="chat_freenode">Freenode üzerinde #tasks kanalına katıl</string>
     <string name="follow_twitter">\@tasks_org hesabını takip et</string>
     <string name="remove_user_confirmation">%1$s, artık %2$s erişimini yitirecek</string>
     <string name="remove_user">Kullanıcıyı kaldır\?</string>

@@ -677,7 +677,6 @@
     <string name="open_source">Open source</string>
     <string name="issue_tracker">Probleem tracker</string>
     <string name="social">Sociaal</string>
-    <string name="chat_freenode">Bezoek #tasks op Freenode</string>
     <string name="follow_twitter">Volg @tasks_org</string>
     <string name="list_members">Lijstdeelnemers</string>
     <string name="remove_user_confirmation">%1$s zal geen toegang meer hebben tot %2$s</string>

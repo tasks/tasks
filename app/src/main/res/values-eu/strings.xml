@@ -682,7 +682,6 @@
     <string name="issue_tracker">Gorabeheren arakatzailea</string>
     <string name="support">Euskarria</string>
     <string name="social">Soziala</string>
-    <string name="chat_freenode">Batu #tasks -ekin Freenode-n</string>
     <string name="follow_twitter">Jarraitu @tasks_org</string>
     <string name="remove_user_confirmation">%1$s jada ez du sarbiderik izango %2$s</string>
     <string name="remove_user">Erabiltzailea ezabatu\?</string>
