@@ -695,7 +695,6 @@
     <string name="map_theme_use_app_theme">Использовать тему приложения</string>
     <string name="tasks_org_account_required">Требуется учетная запись Tasks.org</string>
     <string name="map_theme">Тема карты</string>
-    <string name="chat_freenode">Посетить #tasks на Freenode</string>
     <string name="follow_twitter">Следить за @task_org</string>
     <string name="privacy">Конфиденциальность</string>
     <string name="open_source">Открытый исходный код</string>

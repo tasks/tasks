@@ -696,7 +696,6 @@
     <string name="issue_tracker">Rastreador de problemas</string>
     <string name="support">Suporte</string>
     <string name="social">Social</string>
-    <string name="chat_freenode">Entre #tasks no Freenode</string>
     <string name="follow_twitter">Siga @tasks_org</string>
     <string name="follow_reddit">Entre r/tasks</string>
     <string name="header_spacing">Espaçamento</string>

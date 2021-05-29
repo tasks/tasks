@@ -697,7 +697,6 @@
     <string name="issue_tracker">이슈 트래커</string>
     <string name="support">지원</string>
     <string name="social">소셜 미디어</string>
-    <string name="chat_freenode">Freenode에서 #tasks 참가</string>
     <string name="follow_twitter">\@tasks_org 팔로우</string>
     <string name="local_lists">로컬 목록</string>
     <string name="tasks_needs_your_support">Tasks가 여러분의 지원을 필요로 합니다!</string>

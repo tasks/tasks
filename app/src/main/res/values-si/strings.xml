@@ -117,7 +117,6 @@
     <string name="privacy">පෞද්ගලිකත්වය</string>
     <string name="open_source">විවෘත මූලාශ්‍රය</string>
     <string name="support">සහාය</string>
-    <string name="chat_freenode">Freenode හි #tasks සමඟ සම්බන්ධ වන්න</string>
     <string name="follow_twitter">\@tasks_org අනුගමනය කරන්න</string>
     <string name="follow_reddit">r/tasks හා සම්බන්ධ වන්න</string>
     <string name="current_subscription">වත්මන් දායකත්වය: %s</string>
