@@ -23,7 +23,7 @@ Contributions are always welcome! Whether translations, code changes, bug report
 
 ### Communication
 
-Join the #tasks channel on Freenode to chat with the Tasks team and other people. [Link to webchat](https://webchat.freenode.net/?channels=tasks)
+Join the #tasks channel on Libera Chat to chat with the Tasks team and other people. [Link to webchat](https://web.libera.chat/#tasks)
 
 You can also use [GitHub Discussions](https://github.com/tasks/tasks/discussions).
 
