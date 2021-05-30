@@ -119,7 +119,7 @@
     <string name="gcal_completed_title">%s (voltooid)</string>
     <string name="CFC_gtasks_list_text">In lijst: ?</string>
     <string name="CFC_gtasks_list_name">In GTaken lijst…</string>
-    <string name="gtasks_GTA_clear_completed">Verwijderen Voltooid</string>
+    <string name="gtasks_GTA_clear_completed">Voltooide Verwijderen</string>
     <string name="gtasks_GLA_authenticating">Verifiëren…</string>
     <string name="gtasks_GLA_errorIOAuth">Sorry, we konden geen verbinding maken met de servers van Google. Probeer het later opnieuw.</string>
     <string name="gtasks_GPr_header">Google Taken</string>
