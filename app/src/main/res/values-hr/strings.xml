@@ -249,7 +249,6 @@
     <string name="issue_tracker">Sustav za praćenja grešaka</string>
     <string name="support">Podrška</string>
     <string name="social">Društvene mreže</string>
-    <string name="chat_freenode">Pridruži se #tasks na Freenode</string>
     <string name="follow_twitter">Slijedi @tasks_org</string>
     <string name="current_subscription">Trenutačna pretplata: %s</string>
     <string name="price_per_month">$%s/mjesec</string>

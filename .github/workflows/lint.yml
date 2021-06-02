@@ -17,3 +17,9 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew :app:lintGenericRelease :app:lintGoogleplayRelease
+    - name: Archive lint reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: lint-reports
+        if: ${{ always() }}
+        path: app/build/reports/*.html
