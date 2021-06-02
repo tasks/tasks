@@ -719,4 +719,5 @@
     <string name="next_monday">Lundi suivant</string>
     <string name="markdown_description">Activer le format Markdown dans le titre et la description</string>
     <string name="markdown">Markdown</string>
+    <string name="chat_libera">Rejoignez #tasks sur Libera Chat</string>
 </resources>
