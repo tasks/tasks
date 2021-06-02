@@ -21,5 +21,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: lint-reports
-        if: ${{ always() }}
+        if: always()
         path: app/build/reports/*.html
