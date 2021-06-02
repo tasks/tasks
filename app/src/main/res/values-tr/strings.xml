@@ -724,4 +724,5 @@
     <string name="next_sunday">Sonraki Pzr</string>
     <string name="markdown_description">Başlık ve açıklamada Markdown\'ı etkinleştir</string>
     <string name="markdown">Markdown</string>
+    <string name="chat_libera">Libera Chat üzerinde #tasks kanalına katıl</string>
 </resources>
