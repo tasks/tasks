@@ -741,4 +741,5 @@
         <item quantity="few">%d podzadatka</item>
         <item quantity="other">%d podzadataka</item>
     </plurals>
+    <string name="chat_libera">Pridruži se #tasks na Libera Chat</string>
 </resources>
