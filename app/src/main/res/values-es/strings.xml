@@ -724,4 +724,5 @@
     <string name="next_sunday">Próximo domingo</string>
     <string name="markdown_description">Activar Markdown en el título y la descripción</string>
     <string name="markdown">Markdown</string>
+    <string name="chat_libera">Únete a #tasks en Libera Chat</string>
 </resources>
