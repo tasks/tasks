@@ -5,7 +5,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.cookpad.android.plugin.license-tools") version "1.2.6"
-    id("com.github.ben-manes.versions") version "0.38.0"
+    id("com.github.ben-manes.versions") version "0.39.0"
     id("com.vanniktech.android.junit.jacoco") version "0.16.0"
     id("dagger.hilt.android.plugin")
 }
@@ -175,12 +175,12 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:${Versions.hilt_androidx}")
     implementation("androidx.hilt:hilt-work:${Versions.hilt_androidx}")
 
-    implementation("androidx.fragment:fragment-ktx:1.3.2")
+    implementation("androidx.fragment:fragment-ktx:1.3.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
     implementation("androidx.room:room-ktx:${Versions.room}")
     kapt("androidx.room:room-compiler:${Versions.room}")
-    implementation("androidx.appcompat:appcompat:1.3.0-rc01")
+    implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
     implementation("androidx.paging:paging-runtime:2.1.2")
     implementation("io.noties.markwon:core:${Versions.markwon}")
@@ -200,9 +200,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.4")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
-    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.google.code.gson:gson:2.8.7")
     implementation("com.google.android.material:material:1.3.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0-beta01")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0-beta02")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.preference:preference:1.1.1")
     implementation("com.jakewharton.timber:timber:4.7.1")
@@ -215,8 +215,8 @@ dependencies {
     }
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
     implementation("com.google.apis:google-api-services-tasks:v1-rev20210109-1.31.0")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20210419-1.31.0")
-    implementation("com.google.auth:google-auth-library-oauth2-http:0.25.5")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20210524-1.31.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:0.26.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("androidx.work:work-runtime-ktx:${Versions.work}")
     implementation("com.etesync:journalmanager:1.1.1")
@@ -230,7 +230,7 @@ dependencies {
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
     implementation("com.google.android.material:compose-theme-adapter:${Versions.compose}")
-    implementation("androidx.activity:activity-compose:1.3.0-alpha08")
+    implementation("androidx.activity:activity-compose:1.3.0-beta01")
     releaseCompileOnly("androidx.compose.ui:ui-tooling:${Versions.compose}")
 
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
@@ -253,7 +253,7 @@ dependencies {
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:${Versions.okhttp}")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
     testImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
     testImplementation("androidx.test:core:${Versions.androidx_test}")
     testImplementation("org.mockito:mockito-core:${Versions.mockito}")
