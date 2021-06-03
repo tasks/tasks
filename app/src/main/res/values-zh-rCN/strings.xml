@@ -487,7 +487,7 @@
     <string name="chip_style">流式布局样式</string>
     <string name="chip_style_outlined">描边</string>
     <string name="chip_style_filled">填充</string>
-    <string name="chips">Chips</string>
+    <string name="chips">薄片</string>
     <string name="chip_appearance">Chip外观</string>
     <string name="desaturate_colors">饱和色</string>
     <string name="desaturate_colors_summary_on">颜色饱和度会在深色主题下降低</string>
@@ -714,4 +714,5 @@
     <string name="next_sunday">下周日</string>
     <string name="markdown_description">在标题和描述中启用 Markdown</string>
     <string name="markdown">Markdown</string>
+    <string name="chat_libera">加入 Libera Chat 上的 #tasks</string>
 </resources>
