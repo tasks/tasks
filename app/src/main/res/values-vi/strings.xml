@@ -707,4 +707,5 @@
     <string name="SSD_sort_my_order">Thứ tự của tôi</string>
     <string name="markdown_description">Bật Markdown trong tiêu đề và mô tả</string>
     <string name="import_summary_title">Tóm tắt khôi phục</string>
+    <string name="chat_libera">Tham gia #tasks trên Libera Chat</string>
 </resources>
