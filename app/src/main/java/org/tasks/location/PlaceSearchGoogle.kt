@@ -28,7 +28,7 @@ class PlaceSearchGoogle @Inject constructor(
     private var token: String? = null
 
     override fun restoreState(savedInstanceState: Bundle?) {
-        token = savedInstanceState?.getParcelable(EXTRA_SESSION_TOKEN)
+        token = savedInstanceState?.getString(EXTRA_SESSION_TOKEN)
     }
 
     override fun saveState(outState: Bundle) {
