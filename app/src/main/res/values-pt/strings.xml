@@ -724,4 +724,5 @@
     <string name="start_date">Data inicial</string>
     <string name="SSD_sort_start">Por data inicial</string>
     <string name="manage_drawer">Gerir secções</string>
+    <string name="chat_libera">Junte-se a #tasks no Libera Chat</string>
 </resources>
