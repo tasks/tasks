@@ -5,4 +5,16 @@
     <string name="keep_editing">Sequer le edition</string>
     <string name="DLG_undo">Disfacer</string>
     <string name="display_name">Monstrar le nomine</string>
+    <string name="action_open">Aperir</string>
+    <string name="action_call">Appellar</string>
+    <string name="manage_drawer">Gerer le tiratorio</string>
+    <string name="TAd_actionEditTask">Editar</string>
+    <string name="TLA_menu_settings">Parametros</string>
+    <string name="TLA_menu_search">Cercar</string>
+    <string name="TLA_menu_sort">Ordinar</string>
+    <string name="TLA_no_items">Nulle carga hic.</string>
+    <string name="WID_dateButtonUnset">Cliccar pro definir</string>
+    <string name="DLG_hour_minutes">Tempore (horas : minutas)</string>
+    <string name="cancel">Cancellar</string>
+    <string name="ok">OK</string>
 </resources>
