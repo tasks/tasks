@@ -651,4 +651,5 @@
     <string name="chip_appearance">Vzhled známek</string>
     <string name="chips">Známky</string>
     <string name="chip_style">Styl známek</string>
+    <string name="your_subscription_expired">Vaše předplatné vypršelo. Pokud chcete službu dále využivat, obnovte ho.</string>
 </resources>
