@@ -332,7 +332,7 @@
     <string name="pick_from_gallery">Выбрать изображение из галереи</string>
     <string name="pick_from_storage">Выбрать файл с диска</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
-    <string name="send_anonymous_statistics">Содействовать улучшению Tasks</string>
+    <string name="send_anonymous_statistics">Содейств. улучш. Tasks</string>
     <string name="send_anonymous_statistics_summary">Отправлять анонимную статистику и отчёты об ошибках для содействия улучшению программы. Персональная информация не собирается.</string>
     <string name="tag_already_exists">Тег уже существует</string>
     <string name="name_cannot_be_empty">Необходимо задать имя</string>
@@ -597,7 +597,7 @@
     <string name="on_launch">При запуске</string>
     <string name="disable_sort_groups">Отключить группы сортировки</string>
     <string name="improve_performance_summary">Отключить группы сортировки и сворачиваемые подзадачи для улучшения производительности</string>
-    <string name="improve_performance">Улучшить производительность</string>
+    <string name="improve_performance">Улучшить производ-сть</string>
     <string name="date_shortcut_tomorrow_night">Завтра ночью</string>
     <string name="date_shortcut_tomorrow_evening">Завтра вечером</string>
     <string name="CFC_list_name">В списке…</string>
@@ -742,4 +742,5 @@
     <string name="next_wednesday">Следующая ср</string>
     <string name="markdown_description">Включить Markdown в названии и описании</string>
     <string name="markdown">Markdown</string>
+    <string name="chat_libera">Присоединяйтесь к #tasks в Libera Chat</string>
 </resources>
