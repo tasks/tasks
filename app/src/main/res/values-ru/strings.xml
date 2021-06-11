@@ -4,7 +4,7 @@
     <string name="TVA_add_comment">Добавить комментарий…</string>
     <string name="backup_BPr_header">Резервные копии</string>
     <string name="backup_BAc_import">Импортировать резервную копию</string>
-    <string name="backup_BAc_export">Сделать резервную копию сейчас</string>
+    <string name="backup_BAc_export">Создать резервную копию сейчас</string>
     <string name="export_toast">Сохранено %1$s в %2$s.</string>
     <string name="import_summary_title">Восстановить сводку</string>
     <string name="import_summary_message">Файл %1$s содержал %2$s.
