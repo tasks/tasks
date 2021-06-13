@@ -739,4 +739,5 @@
         <item quantity="many">%d ساعة</item>
         <item quantity="other">%d ساعة</item>
     </plurals>
+    <string name="repeat_occurs">يحدث</string>
 </resources>
