@@ -533,11 +533,11 @@
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="zero">%d دقيقة</item>
-        <item quantity="one"></item>
-        <item quantity="two"></item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="one"/>
+        <item quantity="two"/>
+        <item quantity="few"/>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <string name="widget_row_settings">إعدادات شريط الصف</string>
     <string name="widget_header_settings">إعدادات شريط العنوان</string>
@@ -698,4 +698,5 @@
     <string name="auto_dismiss_datetime_list">قائمة المهمة</string>
     <string name="auto_dismiss_datetime">الإغلاق التلقائي لمنتقي التاريخ والوقت</string>
     <string name="chip_appearance_text_only">نص فقط</string>
+    <string name="persistent_notifications">الاشعارات المستمرة</string>
 </resources>
