@@ -2,14 +2,14 @@
 <resources>
     <string name="actfm_picture_clear">إزالة الصورة</string>
     <string name="TVA_add_comment">إضافة تعليق…</string>
-    <string name="backup_BPr_header">النسخ الإحتياطي</string>
+    <string name="backup_BPr_header">النّسَخ الاحتياطية</string>
     <string name="backup_BAc_import">إستيراد نسخة احتياطية</string>
     <string name="import_summary_title"> إستعادة المُلخَّص</string>
     <string name="read_permission_label">إذن المهام</string>
-    <string name="DLG_delete_this_task_question">حذف هذه المهمه؟</string>
+    <string name="DLG_delete_this_task_question">حذف هذه المهمة؟</string>
     <string name="DLG_hour_minutes">الوقت (ساعة : دقيقة)</string>
     <string name="DLG_undo">تراجع</string>
-    <string name="WID_dateButtonUnset">اضغط لتعيين</string>
+    <string name="WID_dateButtonUnset">اضغط للتعيين</string>
     <string name="TLA_menu_sort">رتب</string>
     <string name="TLA_menu_search">ابحث</string>
     <string name="TLA_menu_settings">إعدادات</string>
@@ -33,21 +33,21 @@
     <string name="TEA_control_importance">الأولوية</string>
     <string name="TEA_control_notes">وصف</string>
     <string name="TEA_control_files">الملفات</string>
-    <string name="TEA_control_reminders">مذكرات المهام</string>
-    <string name="TEA_control_hidden_section">---إخفاء دائما---</string>
+    <string name="TEA_control_reminders">مذكرات</string>
+    <string name="TEA_control_hidden_section">---إخفاء دائمًا---</string>
     <string name="CRA_ignore">تجاهل</string>
     <string name="CRA_title">تريد قائمة للمقابلات؟</string>
     <string name="CRA_ignore_all">تجاهل جميع الأحداث</string>
     <string name="CRA_ignore_this">تجاهل هذا الحدث فقط</string>
     <string name="CRA_postpone">ربَّما لاحقًا</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">المهام سوف تذكرك في الاحداث القادمة وسوف تحثك لتكون جاهزاً</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">تاسكس سوف يذكرك في أحداث التقويم القادمة وسوف يحثك لتكون جاهزاً</string>
     <string name="EPr_edit_screen_options">تعديل خيارات الشاشة</string>
     <string name="EPr_beastMode_reset">إعادة التعيين إلى الإعدادات الافتراضية</string>
     <string name="EPr_fullTask_title">إظهار عنوان المهمة الكامل</string>
     <string name="task_list_options">خيارات قائمة المهام</string>
     <string name="EPr_manage_delete_completed_gcal">حذف أحداث التقويم للمهام المُتَممه</string>
     <string name="EPr_manage_delete_all_gcal">حذف جميع نشاطات التقويم للمهام</string>
-    <string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام ؟</string>
+    <string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام؟</string>
     <string name="task_defaults">افتراضيات المهام</string>
     <string name="EPr_default_reminders_title">منبهات افتراضية</string>
     <string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
@@ -59,26 +59,26 @@
     <string name="custom_filter_not">ليس</string>
     <string name="custom_filter_and">أيضا</string>
     <string name="CFA_button_add">إضافة معايير</string>
-    <string name="CFC_dueBefore_text">مستحق بحسب :?</string>
+    <string name="CFC_dueBefore_text">مستحق بحسب: \?</string>
     <string name="next_month">الشهر القادم</string>
     <string name="CFC_title_contains_name">العنوان يحتوي على…</string>
-    <string name="CFC_title_contains_text">العنوان يحتوي على :?</string>
-    <string name="gcal_TEA_showCalendar_label">إفتح أحداث التقويم</string>
-    <string name="CFC_gtasks_list_text">في القائمة :?</string>
-    <string name="gtasks_GTA_clear_completed">انتهاء الحذف</string>
-    <string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع مزود الخدمة جوجل. أعد المحاولة مرة أخرى لاحقا.</string>
+    <string name="CFC_title_contains_text">العنوان يحتوي على: \?</string>
+    <string name="gcal_TEA_showCalendar_label">افتح أحداث التقويم</string>
+    <string name="CFC_gtasks_list_text">في القائمة: \?</string>
+    <string name="gtasks_GTA_clear_completed">حذف المتمم</string>
+    <string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع مزود الخدمة جوجل. أعد المحاولة مرة أخرى لاحقًًا.</string>
     <string name="gtasks_GPr_header">مهام قوقل</string>
     <string name="premium_record_audio">تسجيل ملاحظة</string>
-    <string name="premium_remove_file_confirm">هل أنت متأكد؟ لن تستطيع العودة</string>
+    <string name="premium_remove_file_confirm">هل أنت متأكد؟ لا يمكن التراجع</string>
     <string name="audio_recording_title">تسجيل صوت</string>
     <string name="audio_stop_recording">توقف عن التسجيل</string>
-    <string name="random_reminder_hour">ساعه</string>
+    <string name="random_reminder_hour">ساعة</string>
     <string name="random_reminder_day">يوم</string>
-    <string name="random_reminder_week">اسبوع</string>
-    <string name="random_reminder_two_weeks">خلال إسبوعين</string>
+    <string name="random_reminder_week">أسبوع</string>
+    <string name="random_reminder_two_weeks">خلال أسبوعين</string>
     <string name="random_reminder_month">شهر</string>
     <string name="random_reminder_two_months">خلال شهرين</string>
-    <string name="rmd_NoA_done">اكمل</string>
+    <string name="rmd_NoA_done">أكمل</string>
     <string name="rmd_NoA_snooze">غفوة</string>
     <string name="rmd_EPr_quiet_hours_start_title">ابتداء ساعات الهدوء</string>
     <string name="rmd_EPr_quiet_hours_end_title">إنتهاء ساعات الهدوء</string>
@@ -161,7 +161,7 @@
     <string name="EPr_delete_task_data_warning">سيتم حذف جميع المهام بشكل دائم</string>
     <string name="EPr_temp_completed_tasks_not_showing">ستختفي المهام فورًا من القائمة بعد الانتهاء</string>
     <string name="EPr_temp_completed_tasks_showing">ستظل المهام مرئية مؤقتًا في القائمة بعد الانتهاء</string>
-    <string name="EPr_temp_show_completed_tasks">عرض المهام مؤقتاً عند الانتهاء</string>
+    <string name="EPr_temp_show_completed_tasks">عرض المهام مؤقتًا عند الانتهاء</string>
     <string name="linkify_description">أضف روابط لمواقع، عناوين، أو أرقام هواتف</string>
     <string name="show_advanced_settings">عرض الإعدادات المتقدمة</string>
     <string name="linkify">عرض الروابط</string>
@@ -259,7 +259,7 @@
     <string name="filter_any_start_date">أيّ تاريخ بدأ</string>
     <string name="no_start_date">لا تاريخ بدأ</string>
     <string name="default_start_date">تاريخ البدأ الافتراضي</string>
-    <string name="EPr_delete_task_data">حذف معلومات المهمة</string>
+    <string name="EPr_delete_task_data">حذف معلومات المهام</string>
     <string name="EPr_reset_preferences">إعادة ضبط الإعدادات</string>
     <string name="CRA_calendar_reminders_pref_title">مساعد التقويم</string>
     <string name="TEA_timer_est">تقريبًا %s</string>
@@ -502,9 +502,9 @@
     <string name="EPr_manage_delete_gcal_status">تم حذف %d من أحداث التقويم!</string>
     <string name="import_summary_message">الملف %1$s احتوى على %2$s.
 \n
-\nتم استيراد %3$s،
-\n%4$s موجود مسبقًا
-\nمشاكل في %5$s
+\n تم استيراد %3$s،
+\n %4$s موجود مسبقًا
+\n مشاكل في %5$s
 \n</string>
     <string name="support_development_subscribe">‪افتح ميّزات إضافيّة وادعم البرامج مفتوحة المصدر</string>
     <string name="invalid_backup_file">ملف نسخة احتياطيّة غير صالح</string>
@@ -520,7 +520,7 @@
     <string name="CFC_startBefore_name">بدأ عند…</string>
     <string name="CFC_startBefore_text">بدأ عند: \?</string>
     <string name="CRA_ignore_body">لقد تجاهلت بضعاً من أحداث التقويم. هل يجب أن يتوقف تاسكس عن سؤالك عنها؟</string>
-    <string name="astrid_sort_order_summary">تشغيل وضع ترتيب Astrid اليدوي ل\'مهامي\',\'اليوم\', والعلامات. وضع الترتيب هذا سيستبدل بـ\'ترتيبي\' في تحديثٍ مستقبلي</string>
+    <string name="astrid_sort_order_summary">تشغيل وضع ترتيب Astrid اليدوي ل\'مهامي\'، و\'اليوم\'، والعلامات. وضع الترتيب هذا سيستبدل بـ\'ترتيبي\' في تحديثٍ مستقبلي</string>
     <string name="manage_drawer">إدارة الدرج</string>
     <string name="markdown_description">تشغيل الماركداون في العنوان والوصف</string>
     <plurals name="repeat_minutes">
@@ -660,16 +660,16 @@
     <string name="repeat_type_due">تأريخ الاستحقاق</string>
     <string name="repeat_option_custom">تعديل…</string>
     <string name="persistent_notifications_description">الاشعارات المستمرة لايمكن محوها</string>
-    <string name="rmd_EPr_rmd_time_desc">اشعارات ل المهام بدون وقت استحقاق ستظهر عند %s</string>
+    <string name="rmd_EPr_rmd_time_desc">اشعارات لمهام بدون وقت استحقاق ستظهر عند %s</string>
     <string name="gtasks_GLA_authenticating">قيد المصادقة…</string>
     <string name="CFC_gtasks_list_name">في قوائم مهام كوكل…</string>
     <string name="no_due_date">لا تاريخ استحقاق</string>
     <string name="at_deadline_or_overdue">في الموعد النهائي أو المتأخر</string>
-    <string name="EPr_default_location_reminder_title">تذكير الموقع الافتراضي</string>
+    <string name="EPr_default_location_reminder_title">مذكرات الموقع الافتراضية</string>
     <string name="default_due_date">وقت الاستحقاق الافتراضي</string>
-    <string name="EPr_cal_start_at_due_time">بدء احداث التقويم عند الوقت المحدد</string>
-    <string name="EPr_cal_end_at_due_time">انهاء احداث التقويم عند الوقت المحدد</string>
-    <string name="none">لا شيئ</string>
+    <string name="EPr_cal_start_at_due_time">بدء أحداث التقويم عند الوقت المحدد</string>
+    <string name="EPr_cal_end_at_due_time">إنهاء أحداث التقويم عند الوقت المحدد</string>
+    <string name="none">لا شيء</string>
     <string name="insufficient_sponsorship">لم يتم العثور على رعاية من GitHub</string>
     <string name="insufficient_subscription">مستوى الاشتراك غير كافٍ. يرجى ترقية اشتراكك لاستئناف الخدمة.</string>
     <string name="custom_filter_is_subtask">هي مهمة فرعية</string>
