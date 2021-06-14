@@ -444,7 +444,7 @@
     <string name="button_upgrade">Abonnement hochstufen</string>
     <string name="button_unsubscribe">Abonnement kündigen</string>
     <string name="name_your_price">Nennen Sie Ihren Preis</string>
-    <string name="SSD_sort_my_order">Manuelle Sortierung</string>
+    <string name="SSD_sort_my_order">Eigene Sortierung</string>
     <string name="caldav_account_repeating_tasks">Server behandelt wiederkehrende Aufgaben</string>
     <string name="EPr_temp_show_completed_tasks">Aufgaben nach Erledigung noch vorübergehend anzeigen</string>
     <string name="EPr_temp_completed_tasks_showing">Aufgaben bleiben nach Erledigung noch für eine kurze Zeit sichtbar</string>
