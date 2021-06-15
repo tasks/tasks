@@ -74,8 +74,8 @@
     <string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen</string>
     <string name="task_list_options">Aufgabenlisten-Optionen</string>
     <string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt für Kalendereintrag</string>
-    <string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeitsuhrzeit</string>
-    <string name="EPr_cal_start_at_due_time">Kalendereintrag startet zur Fälligkeitsuhrzeit</string>
+    <string name="EPr_cal_end_at_due_time">Kalendereintrag endet bei Fälligkeit</string>
+    <string name="EPr_cal_start_at_due_time">Kalendereintrag startet mit Fälligkeit</string>
     <string name="EPr_reset_preferences">Auf Voreinstellungen zurücksetzen</string>
     <string name="EPr_reset_preferences_warning">Die Voreinstellungen werden auf Standardwerte zurückgesetzt</string>
     <string name="EPr_delete_task_data">Aufgabendaten löschen</string>
@@ -85,12 +85,12 @@
     <string name="EPr_manage_delete_gcal_status">%d Kalendereinträge gelöscht!</string>
     <string name="EPr_manage_delete_all_gcal">Alle Kalendereinträge für Aufgaben löschen</string>
     <string name="EPr_manage_delete_all_gcal_message">Möchten Sie wirklich alle Kalendereinträge für Aufgaben löschen\?</string>
-    <string name="task_defaults">Standardwerte für Aufgaben</string>
+    <string name="task_defaults">Aufgabenstandardwerte</string>
     <string name="EPr_default_importance_title">Dringlichkeitsvorgabe</string>
     <string name="EPr_default_reminders_title">Vorgaben für Erinnerungen</string>
     <string name="EPr_default_location_reminder_title">Ortsbasierte Standarderinnerungen</string>
-    <string name="EPr_default_location_radius">Standardradius</string>
-    <string name="EPr_default_reminders_mode_title">Alarm/Vibrationssignalvorgabe</string>
+    <string name="EPr_default_location_radius">Standardbereich</string>
+    <string name="EPr_default_reminders_mode_title">Alarm/Vibrationssignal</string>
     <string name="priority_high">Hoch</string>
     <string name="priority_medium">Mittel</string>
     <string name="priority_low">Niedrig</string>
@@ -107,7 +107,7 @@
     <string name="CFA_button_add">Kriterium hinzufügen</string>
     <string name="CFC_dueBefore_text">Fällig: \?</string>
     <string name="CFC_dueBefore_name">Fällig …</string>
-    <string name="no_due_date">Ohne Fälligkeitsdatum</string>
+    <string name="no_due_date">Ohne Fälligkeitstag</string>
     <string name="next_month">Nächster Monat</string>
     <string name="CFC_importance_text">Mindestdringlichkeit\?</string>
     <string name="CFC_importance_name">Dringlichkeit …</string>
@@ -176,8 +176,8 @@
         <item quantity="other">%d Aufgaben</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="one">Mal</item>
-        <item quantity="other">Mal</item>
+        <item quantity="one">-mal</item>
+        <item quantity="other">-mal</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">Minute</item>
@@ -446,7 +446,7 @@
     <string name="name_your_price">Nennen Sie Ihren Preis</string>
     <string name="SSD_sort_my_order">Eigene Sortierung</string>
     <string name="caldav_account_repeating_tasks">Server behandelt wiederkehrende Aufgaben</string>
-    <string name="EPr_temp_show_completed_tasks">Aufgaben nach Erledigung noch vorübergehend anzeigen</string>
+    <string name="EPr_temp_show_completed_tasks">Erledigte Aufgaben noch vorübergehend anzeigen</string>
     <string name="EPr_temp_completed_tasks_showing">Aufgaben bleiben nach Erledigung noch für eine kurze Zeit sichtbar</string>
     <string name="EPr_temp_completed_tasks_not_showing">Aufgaben verschwinden sofort nach Erledigung</string>
     <string name="always_display_full_date">Datum ganz anzeigen</string>
@@ -669,7 +669,7 @@
     <string name="CFC_startBefore_text">Startet: \?</string>
     <string name="default_due_date">Standardfälligkeitsdatum</string>
     <string name="default_start_date">Standardstartdatum</string>
-    <string name="start_date">Startdatum</string>
+    <string name="start_date">Starttermin</string>
     <string name="SSD_sort_start">Nach Startdatum</string>
     <string name="get_tasks_org_account">Erstelle dir ein Task.org-Konto</string>
     <string name="tomorrow_abbrev_lowercase">mrgn</string>
