@@ -57,7 +57,7 @@
     <string name="CRA_ignore_all">忽略所有事件</string>
     <string name="CRA_ignore_this">只忽略该事件</string>
     <string name="CRA_speech_bubble_start">看起来 %s 即将开始。 想要为这个行动项目创建一个列表吗？</string>
-    <string name="CRA_speech_bubble_end">看起来你刚完成了 %s 。 想要为这个行动项目创建一个列表吗？</string>
+    <string name="CRA_speech_bubble_end">看起来你刚完成了 %s 。想要为这个行动项目创建一个列表吗？</string>
     <string name="CRA_postpone">也许以后</string>
     <string name="CRA_calendar_reminders_pref_title">日历助手</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks将会提醒你即将到来的日历事件，并提示你为他们做准备</string>
@@ -602,7 +602,7 @@
     <string name="multi_select_reschedule">重新计划</string>
     <string name="always_display_full_date">显示完整日期</string>
     <string name="cancel">取消</string>
-    <string name="ok">好</string>
+    <string name="ok">确认</string>
     <string name="custom_filter_is_subtask">是子任务</string>
     <string name="custom_filter_has_subtask">有子任务</string>
     <string name="current_subscription">当前订阅：%s</string>
