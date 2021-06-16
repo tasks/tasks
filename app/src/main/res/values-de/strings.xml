@@ -111,7 +111,7 @@
     <string name="next_month">Nächster Monat</string>
     <string name="CFC_importance_text">Mindestdringlichkeit\?</string>
     <string name="CFC_importance_name">Dringlichkeit …</string>
-    <string name="CFC_tag_text">Schlagwort: ?</string>
+    <string name="CFC_tag_text">Kategorie: \?</string>
     <string name="CFC_tag_name">Schlagwort …</string>
     <string name="CFC_tag_contains_name">Schlagwort enthält …</string>
     <string name="CFC_tag_contains_text">Schlagwort enthält: ?</string>
