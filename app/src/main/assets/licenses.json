@@ -2269,6 +2269,48 @@
       "license": "BSD 2-Clause",
       "normalizedLicense": "bsd_2_clauses",
       "libraryName": "commonmark-ext-gfm-tables"
+    },
+    {
+      "artifactId": {
+        "name": "lifecycle-common-java8",
+        "group": "androidx.lifecycle",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/lifecycle#2.3.0",
+      "libraryName": "lifecycle-common-java8"
+    },
+    {
+      "artifactId": {
+        "name": "profileinstaller",
+        "group": "androidx.profileinstaller",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/profileinstaller#1.0.0-beta01",
+      "libraryName": "profileinstaller"
+    },
+    {
+      "artifactId": {
+        "name": "startup-runtime",
+        "group": "androidx.startup",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/startup#1.0.0",
+      "libraryName": "startup-runtime"
     }
   ]
 }
