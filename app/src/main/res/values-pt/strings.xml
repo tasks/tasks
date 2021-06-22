@@ -544,7 +544,7 @@
     <string name="google_tasks_selection_description">Serviço básico que sincroniza com a sua conta Google</string>
     <string name="choose_synchronization_service">Selecione uma plataforma</string>
     <string name="this_feature_requires_a_subscription">Este recurso necessita de uma subscrição</string>
-    <string name="display_name">Mostrar o nome</string>
+    <string name="display_name">Mostrar nome</string>
     <string name="encryption_password">Palavra-passe de encriptação</string>
     <string name="encryption_password_required">É necessária uma palavra-passe de encriptação</string>
     <string name="create_new_tag">Criar \"%s\"</string>
@@ -599,7 +599,7 @@
     <string name="current_subscription">Subscrição atual: %s</string>
     <string name="price_per_month">%s$/mês</string>
     <string name="price_per_year">%s$/ano</string>
-    <string name="custom_filter_is_subtask">É</string>
+    <string name="custom_filter_is_subtask">É uma subtarefa</string>
     <string name="delete_comment">Eliminar este comentário\?</string>
     <string name="backup_location_warning">AVISO: os ficheiros localizados em %s serão eliminados se o Tasks for desinstalado! Por favor, escolha outra localização para impedir que o Android elimine os seus ficheiros.</string>
     <string name="backups_ignore_warnings">Ignorar avisos</string>
