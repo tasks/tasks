@@ -346,7 +346,7 @@ internal class ScrollableViewsFactory(
         textColorPrimary = context.getColor(if (isDark) R.color.white_87 else R.color.black_87)
         textColorSecondary = context.getColor(if (isDark) R.color.white_60 else R.color.black_60)
         val dueDatePosition = widgetPreferences.dueDatePosition
-        showDueDates = dueDatePosition != 2
+        showDueDates = dueDatePosition != 2 && widgetPreferences.showDueDate()
         endDueDate = dueDatePosition != 1
         showCheckboxes = widgetPreferences.showCheckboxes()
         textSize = widgetPreferences.fontSize.toFloat()

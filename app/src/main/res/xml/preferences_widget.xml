@@ -169,6 +169,11 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="true"
+      android:key="@string/p_widget_show_due_date"
+      android:title="@string/due_date" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
       android:key="@string/p_widget_show_places"
       android:title="@string/places" />
 

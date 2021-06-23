@@ -68,6 +68,10 @@ public class WidgetPreferences implements QueryPreferences {
     return getBoolean(R.string.p_widget_show_start_dates, true);
   }
 
+  boolean showDueDate() {
+    return getBoolean(R.string.p_widget_show_due_date, true);
+  }
+
   boolean disableGroups() {
     return getBoolean(R.string.p_widget_disable_groups, false);
   }
@@ -239,8 +243,7 @@ public class WidgetPreferences implements QueryPreferences {
     int rowOpacity = getInt(R.string.p_widget_opacity, 100);
     setInt(R.string.p_widget_header_opacity, rowOpacity);
     setInt(R.string.p_widget_footer_opacity, rowOpacity);
-    boolean showDueDate = getBoolean(R.string.p_widget_show_due_date, true);
-    setString(R.string.p_widget_due_date_position, showDueDate ? "1" : "2"); // below or hidden
+    setString(R.string.p_widget_due_date_position, showDueDate() ? "1" : "2"); // below or hidden
     setBoolean(R.string.p_widget_show_dividers, false); // no dividers
     setBoolean(R.string.p_widget_show_menu, false); // no menu
     setString(R.string.p_widget_spacing, "1"); // compact
