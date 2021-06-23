@@ -179,7 +179,8 @@ class FilterCriteriaProvider @Inject constructor(
                     PermaSql.VALUE_EOD_TOMORROW,
                     PermaSql.VALUE_EOD_DAY_AFTER,
                     PermaSql.VALUE_EOD_NEXT_WEEK,
-                    PermaSql.VALUE_EOD_NEXT_MONTH)
+                    PermaSql.VALUE_EOD_NEXT_MONTH,
+                    PermaSql.VALUE_NOW)
             val values: MutableMap<String?, Any> = HashMap()
             values[Task.DUE_DATE.name] = "?"
             return MultipleSelectCriterion(
@@ -208,7 +209,8 @@ class FilterCriteriaProvider @Inject constructor(
                     PermaSql.VALUE_EOD_TOMORROW,
                     PermaSql.VALUE_EOD_DAY_AFTER,
                     PermaSql.VALUE_EOD_NEXT_WEEK,
-                    PermaSql.VALUE_EOD_NEXT_MONTH)
+                    PermaSql.VALUE_EOD_NEXT_MONTH,
+                    PermaSql.VALUE_NOW)
             val values: MutableMap<String?, Any> = HashMap()
             values[Task.HIDE_UNTIL.name] = "?"
             return MultipleSelectCriterion(
