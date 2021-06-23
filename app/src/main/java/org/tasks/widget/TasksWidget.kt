@@ -12,6 +12,7 @@ import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import androidx.core.graphics.ColorUtils
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.core.BuiltInFilterExposer
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
@@ -123,10 +124,12 @@ class TasksWidget : AppWidgetProvider() {
         remoteViews.setOnClickPendingIntent(R.id.widget_change_list, getChooseListIntent(context, filter, id))
         remoteViews.setOnClickPendingIntent(
                 R.id.widget_reconfigure, getWidgetConfigIntent(context, id))
-        if (widgetPreferences.openOnFooterClick()) {
-            remoteViews.setOnClickPendingIntent(R.id.empty_view, getOpenListIntent(context, filter, id))
-        } else {
-            remoteViews.setOnClickPendingIntent(R.id.empty_view, null)
+        when (widgetPreferences.openOnFooterClick()) {
+            OPEN_WIDGET_TASK_LIST -> remoteViews.setOnClickPendingIntent(R.id.empty_view,
+                getOpenListIntent(context, filter, id))
+            OPEN_TODAY_TASKS -> remoteViews.setOnClickPendingIntent(R.id.empty_view,
+                getOpenListIntent(context, BuiltInFilterExposer.getTodayFilter(context.resources), id))
+            else -> remoteViews.setOnClickPendingIntent(R.id.empty_view, null)
         }
         remoteViews.setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context))
         return remoteViews
@@ -213,5 +216,7 @@ class TasksWidget : AppWidgetProvider() {
         private val buttons = intArrayOf(
                 R.id.widget_change_list, R.id.widget_button, R.id.widget_reconfigure
         )
+        const val OPEN_WIDGET_TASK_LIST = 1
+        const val OPEN_TODAY_TASKS = 2
     }
 }

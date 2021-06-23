@@ -174,8 +174,8 @@ public class WidgetPreferences implements QueryPreferences {
     return getAlphaValue(R.string.p_widget_opacity);
   }
 
-  boolean openOnFooterClick() {
-    return getIntegerFromString(R.string.p_widget_footer_click, 0) == 1;
+  int openOnFooterClick() {
+    return getIntegerFromString(R.string.p_widget_footer_click, 0);
   }
 
   boolean rescheduleOnDueDateClick() {

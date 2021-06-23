@@ -422,6 +422,7 @@ File %1$s contained %2$s.\n\n
   <string name="widget_on_click">On click</string>
   <string name="widget_do_nothing">Do nothing</string>
   <string name="widget_open_list">Open list</string>
+  <string name="widget_open_today">Open today\'s tasks</string>
   <string name="widget_due_date_reschedule">Reschedule task</string>
   <string name="widget_due_date_after_title">After title</string>
   <string name="widget_due_date_below_title">Below title</string>

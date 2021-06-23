@@ -152,11 +152,13 @@
   <string-array name="widget_empty_click_titles">
     <item>@string/widget_do_nothing</item>
     <item>@string/widget_open_list</item>
+    <item>@string/widget_open_today</item>
   </string-array>
 
   <string-array name="widget_empty_click_values">
     <item>0</item>
     <item>1</item>
+    <item>2</item>
   </string-array>
 
   <string-array name="widget_due_date_click_titles">
