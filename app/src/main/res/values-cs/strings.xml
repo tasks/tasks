@@ -209,7 +209,7 @@
     <string name="theme_wallpaper">Tapeta</string>
     <string name="theme_day_night">Den/Noc</string>
     <string name="language">Jazyk</string>
-    <string name="restart_required">Restartujte Tasks, aby se tato změna projevila</string>
+    <string name="restart_required">Restartujte aplikaci, aby se tato změna projevila</string>
     <string name="restart_now">Restartovat nyní</string>
     <string name="restart_later">Později</string>
     <string name="settings_localization">Překlad</string>
@@ -415,7 +415,7 @@
     <string name="help">Nápověda</string>
     <string name="network_error">Nepodařilo se připojit</string>
     <string name="upgrade_to_pro">Získat PRO verzi</string>
-    <string name="manage_subscription">Změnit předplatné</string>
+    <string name="manage_subscription">Upravit předplatné</string>
     <string name="refresh_purchases">Obnovit nákupy</string>
     <string name="button_subscribe">Předplatit</string>
     <string name="about">O aplikaci</string>
@@ -573,7 +573,7 @@
     <string name="filter_high_priority">Vysoká důležitost</string>
     <string name="add_tags">Přidat štítky</string>
     <string name="filter_no_tags">Bez štítků</string>
-    <string name="filter_after_today">Po dnešku</string>
+    <string name="filter_after_today">Kdykoliv po dnešku</string>
     <string name="filter_any_due_date">Jakýkoliv termín</string>
     <string name="filter_today_only">Pouze dnešní</string>
     <string name="filter_overdue">Po termínu</string>
@@ -692,4 +692,5 @@
     <string name="current_subscription">Současné předplatné: %s</string>
     <string name="no_google_play_subscription">Žádné Google Play předplatné nenalezeno</string>
     <string name="insufficient_subscription">Nedostatečná úroveň předplatného. Pokud chcete službu dále využívat, prosím zvyšte své předplatné.</string>
+    <string name="insufficient_sponsorship">Žádné platné GitHub sponzorování nenalezeno</string>
 </resources>
