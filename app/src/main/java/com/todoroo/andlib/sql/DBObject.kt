@@ -2,8 +2,8 @@ package com.todoroo.andlib.sql
 
 import java.util.*
 
-abstract class DBObject<T : DBObject<T>> internal constructor(@JvmField val expression: String) : Cloneable {
-    @JvmField var alias: String? = null
+abstract class DBObject<T : DBObject<T>> internal constructor(val expression: String) : Cloneable {
+    var alias: String? = null
 
     open fun `as`(newAlias: String): T {
         return try {
