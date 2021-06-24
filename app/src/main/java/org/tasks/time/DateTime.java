@@ -429,6 +429,6 @@ public class DateTime {
 
   @Override
   public String toString() {
-    return toString("yyyy-MM-dd HH:mm:ss.SSSZ");
+    return toString("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
   }
 }
