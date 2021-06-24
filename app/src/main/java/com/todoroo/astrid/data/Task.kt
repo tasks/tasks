@@ -576,9 +576,7 @@ class Task : Parcelable {
             }
             var dueDate = DateTimeUtils.newDateTime(date).withMillisOfSecond(0)
             dueDate = if (setting != URGENCY_SPECIFIC_DAY_TIME) {
-                dueDate
-                        .withHourOfDay(12)
-                        .withMinuteOfHour(0)
+                dueDate.startOfDay()
                         .withSecondOfMinute(0) // Seconds == 0 means no due time
             } else {
                 dueDate.withSecondOfMinute(1) // Seconds > 0 means due time exists

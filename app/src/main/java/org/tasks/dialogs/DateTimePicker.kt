@@ -189,7 +189,7 @@ class DateTimePicker : BaseDateTimePicker() {
     fun pickTime() {
         val time = if (selectedTime == MULTIPLE_TIMES
                 || !Task.hasDueTime(today.withMillisOfDay(selectedTime).millis)) {
-            today.noon().millisOfDay
+            today.startOfDay().millisOfDay
         } else {
             selectedTime
         }
