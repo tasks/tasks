@@ -294,8 +294,8 @@
     <string name="date_shortcut_afternoon">Nachmittag</string>
     <string name="date_shortcut_evening">Abend</string>
     <string name="date_shortcut_night">Nacht</string>
-    <string name="date_shortcut_tomorrow_morning">morgen Früh</string>
-    <string name="date_shortcut_tomorrow_afternoon">morgen Nachmittag</string>
+    <string name="date_shortcut_tomorrow_morning">Morgen Früh</string>
+    <string name="date_shortcut_tomorrow_afternoon">Morgen Nachmittag</string>
     <string name="date_shortcut_must_come_before">%1$s muss vor %2$s kommen</string>
     <string name="date_shortcut_must_come_after">%1$s muss nach %2$s kommen</string>
     <string name="discard_changes">Änderungen verwerfen?</string>
@@ -583,8 +583,8 @@
     <string name="astrid_sort_order">Manuelle Sortierung nach Astrid</string>
     <string name="sort_modified_group">%s bearbeitet</string>
     <string name="sort_created_group">%s erstellt</string>
-    <string name="date_shortcut_tomorrow_night">morgen Nacht</string>
-    <string name="date_shortcut_tomorrow_evening">morgen Abend</string>
+    <string name="date_shortcut_tomorrow_night">Morgen Nacht</string>
+    <string name="date_shortcut_tomorrow_evening">Morgen Abend</string>
     <string name="reset_sort_order">Sortierung zurücksetzen</string>
     <string name="permission_read_tasks">Vollzugriff auf die Tasks-Datenbank</string>
     <string name="tell_me_how_im_doing">Erzählen Sie mir bitte, wie gut ich das mache</string>
