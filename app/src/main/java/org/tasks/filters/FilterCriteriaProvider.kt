@@ -192,7 +192,13 @@ class FilterCriteriaProvider @Inject constructor(
                                     and(
                                             activeAndVisible(),
                                             or(field("?").eq(0), Task.DUE_DATE.gt(0)),
-                                            Task.DUE_DATE.lte("?")))
+                                            // find tasks that have due dates before the specified
+                                            // date, or all-day tasks that have due dates before
+                                            // EOD today if the specified date is NOW
+                                            or(Task.DUE_DATE.lte("?"),
+                                                and(field("${Task.DUE_DATE} / 1000 % 60").eq(0),
+                                                    field("?").eq(field("${PermaSql.VALUE_NOW}")),
+                                                    Task.DUE_DATE.lte("${PermaSql.VALUE_EOD}")))))
                             .toString(),
                     values,
                     r.getStringArray(R.array.CFC_dueBefore_entries),
