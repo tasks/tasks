@@ -16,7 +16,7 @@
     <string name="DLG_hour_minutes">Laikas (valandos : minutės)</string>
     <string name="DLG_undo">Atstatyti</string>
     <string name="WID_dateButtonUnset">Spustelėti, kad nustatyti</string>
-    <string name="TLA_no_items">Čia užduočių nėra</string>
+    <string name="TLA_no_items">Čia užduočių nėra.</string>
     <string name="TLA_menu_sort">Eiliškumas</string>
     <string name="TLA_menu_search">Ieškoti</string>
     <string name="TLA_menu_settings">Nustatymai</string>
@@ -118,7 +118,7 @@
     <string name="CFC_tag_contains_text">Etiketės pavadinimas turi: ?</string>
     <string name="CFC_title_contains_name">Pavadinimas turi…</string>
     <string name="CFC_title_contains_text">Pavadinimas turi: ?</string>
-    <string name="gcal_TEA_error">Klaida pridedant užduotį prie kalendoriaus</string>
+    <string name="gcal_TEA_error">Klaida pridedant užduotį prie kalendoriaus!</string>
     <string name="gcal_TEA_showCalendar_label">Atidaryti kalendoriaus įvykį</string>
     <string name="delete_calendar_event_confirmation">Ištrinti kalendoriau įvykį?</string>
     <string name="calendar_event_not_found">Kalendoriaus įvykis nerastas</string>
@@ -128,7 +128,7 @@
     <string name="gtasks_GTA_clear_completed">Išvalyti užbaigtus</string>
     <string name="gtasks_GLA_authenticating">Autorizuojama…</string>
     <string name="gtasks_GLA_errorIOAuth">Atsiprašome, turime bėdų susisiekiant su Google serveriais. Prašome pabandyti vėliau.</string>
-    <string name="gtasks_error_accountNotFound">Paskyra %s nerasta - prašome atsijungti ir prisijungti Google Tasks nustatymų skyriuje</string>
+    <string name="gtasks_error_accountNotFound">Paskyra %s nerasta - prašome atsijungti ir prisijungti iš Google Tasks nustatymų.</string>
     <string name="premium_record_audio">Įrašyti pastabą</string>
     <string name="premium_remove_file_confirm">Ar tikrai? Nebegalės būti atstatyta</string>
     <string name="audio_recording_title">Įrašyti garsą</string>
@@ -173,8 +173,9 @@
     <string name="repeat_monthly">KARTOTI KAS MĖNESĮ</string>
     <string name="repeat_yearly">KARTOTI KAS METUS</string>
     <plurals name="task_count">
-        <item quantity="one">%d užduotis(-ys)</item>
-        <item quantity="other">%d užduotis(-ys)</item>
+        <item quantity="one">%d užduotis</item>
+        <item quantity="few">%d užduotys</item>
+        <item quantity="other"></item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">laikas</item>
