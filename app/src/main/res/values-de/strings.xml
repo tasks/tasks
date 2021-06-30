@@ -85,7 +85,7 @@
     <string name="EPr_manage_delete_gcal_status">%d Kalendereinträge gelöscht!</string>
     <string name="EPr_manage_delete_all_gcal">Alle Kalendereinträge für Aufgaben löschen</string>
     <string name="EPr_manage_delete_all_gcal_message">Möchten Sie wirklich alle Kalendereinträge für Aufgaben löschen\?</string>
-    <string name="task_defaults">Aufgabenstandardwerte</string>
+    <string name="task_defaults">Vorgaben für Aufgaben</string>
     <string name="EPr_default_importance_title">Dringlichkeitsvorgabe</string>
     <string name="EPr_default_reminders_title">Standard-Erinnerungen</string>
     <string name="EPr_default_location_reminder_title">Standard-Standort-Erinnerungen</string>
@@ -147,7 +147,7 @@
     <string name="rmd_EPr_quiet_hours_start_title">Beginn der Ruhezeit</string>
     <string name="rmd_EPr_quiet_hours_end_title">Ende der Ruhezeit</string>
     <string name="rmd_EPr_rmd_time_title">Standarderinnerung</string>
-    <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeitsdatum erscheinen bei %s</string>
+    <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Uhrzeit werden um %s angezeigt</string>
     <string name="persistent_notifications">Hartnäckige Benachrichtigungen</string>
     <string name="persistent_notifications_description">Hartnäckige Benachrichtigungen können nicht einfach gelöscht werden</string>
     <string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
