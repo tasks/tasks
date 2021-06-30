@@ -111,7 +111,7 @@
     <string name="next_month">Nächster Monat</string>
     <string name="CFC_importance_text">Mindestdringlichkeit\?</string>
     <string name="CFC_importance_name">Dringlichkeit …</string>
-    <string name="CFC_tag_text">Kategorie: \?</string>
+    <string name="CFC_tag_text">Schlagwort: \?</string>
     <string name="CFC_tag_name">Schlagwort …</string>
     <string name="CFC_tag_contains_name">Schlagwort enthält …</string>
     <string name="CFC_tag_contains_text">Schlagwort enthält: ?</string>
@@ -667,7 +667,7 @@
     <string name="no_start_date">Kein Startdatum</string>
     <string name="CFC_startBefore_name">Beginnt am…</string>
     <string name="CFC_startBefore_text">Beginnt: \?</string>
-    <string name="default_due_date">Standard Fälligkeitsdatum</string>
+    <string name="default_due_date">Standard-Fälligkeitsdatum</string>
     <string name="default_start_date">Standard Startdatum</string>
     <string name="start_date">Starttermin</string>
     <string name="SSD_sort_start">Nach Startdatum</string>
