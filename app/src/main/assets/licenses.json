@@ -2311,6 +2311,20 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/jetpack/androidx/releases/startup#1.0.0",
       "libraryName": "startup-runtime"
+    },
+    {
+      "artifactId": {
+        "name": "ui-tooling-preview",
+        "group": "androidx.compose.ui",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-rc01",
+      "libraryName": "ui-tooling-preview"
     }
   ]
 }
