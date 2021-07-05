@@ -534,4 +534,16 @@
     <string name="location_permission_required_location">آپ کی موجودہ لوکیشن معلوم کرنےکیلے لوکیشن کی اجازت مطلوب ہے</string>
     <string name="background_location_permission_required">ٹاسکس لوکیسشن بیسڈ یاد دہانی کے لئے لوکیشن ڈیٹا جمع کرتا ہے،اگر ایپ بند بھی ہو تو</string>
     <string name="or_choose_a_location">یا کوئی جگہ منتخب کریں</string>
+    <string name="decsync_selection_description">فائل بیسڈ سنکرونائزیشن</string>
+    <string name="etesync_selection_description">اینڈ ٹو اینڈ انکرپٹڈ سنکرونائزیشن</string>
+    <string name="caldav_selection_description">اوپن انٹرنیٹ میعارات پر مبنی سنکرونائزیشن</string>
+    <string name="google_tasks_selection_description">بنیادی سروس جو آپ کے گوگل اکاؤنٹ کے ساتھ سنکرونائز ہوتی</string>
+    <string name="tasks_org_share">دوسرے صارفین کے ساتھ فہرست کا اشتراک کریں</string>
+    <string name="tasks_org_description">اپنے ٹاسکس کو Tasks.org کے ساتھ سنکرونائز کریں</string>
+    <string name="choose_synchronization_service">پلیٹ فارم منتخب کریں</string>
+    <string name="create_new_tag">\"%s\" بنائیں</string>
+    <string name="enter_tag_name">ٹیگ کا نام درج کریں</string>
+    <string name="disable_sort_groups">گروپس کی ترتیب ختم کریں</string>
+    <string name="improve_performance_summary">گروپس کی ترتیب اور سب ٹاسکس کو ختم کر کے ایپ کی کارکردگی کو بہتر بنائیں</string>
+    <string name="missing_permissions">حذف شدہ اجازتیں</string>
 </resources>
