@@ -50,8 +50,8 @@
     <string name="repeat_number_of_times">කිහිප වතාවක් නැවත කරන්න</string>
     <string name="repeat_until">%s තෙක් නැවත කරන්න</string>
     <plurals name="repeat_minutes">
-        <item quantity="one">මිනිත්තුවකට</item>
-        <item quantity="other">මිනිත්තු</item>
+        <item quantity="one">විනාඩි</item>
+        <item quantity="other">විනාඩි</item>
     </plurals>
     <string name="snooze_all">සියල්ල මඳකට මගහරින්න</string>
     <string name="rmd_NoA_snooze">මඳකට මගහරින්න</string>
@@ -328,8 +328,8 @@
         <item quantity="other">පැය</item>
     </plurals>
     <plurals name="repeat_n_minutes">
-        <item quantity="one">මිනිත්තු %dක්</item>
-        <item quantity="other">මිනිත්තු %d</item>
+        <item quantity="one">විනාඩි %d</item>
+        <item quantity="other">විනාඩි %d</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">වරක්</item>
