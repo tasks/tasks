@@ -3,8 +3,8 @@
     <string name="actfm_picture_clear">Išvalyti paveiksliuką</string>
     <string name="TVA_add_comment">Pridėti komentarą…</string>
     <string name="backup_BPr_header">Atsarginės kopijos</string>
-    <string name="backup_BAc_import">Importuoti užduotis</string>
-    <string name="backup_BAc_export">Eksportuoti užduotis</string>
+    <string name="backup_BAc_import">Importuoti atsarginę kopiją</string>
+    <string name="backup_BAc_export">Kurti atsarginę kopiją dabar</string>
     <string name="export_toast">Rezervinė kopija padaryta %1$s iki %2$s.</string>
     <string name="import_summary_title">Atstatyti suvestinę</string>
     <string name="import_summary_message">Failas %1$s turėjo %2$s.\n\n %3$s suimportuota,\n %4$s jau egzistavo\n %5$s turėjo klaidų\n</string>
@@ -515,4 +515,20 @@
     <string name="more_options">Daugiau pasirinkimų</string>
     <string name="markdown">Markdown</string>
     <string name="markdown_description">Įgalinti Markdown pavadinime ir aprašyme</string>
+    <string name="upgrade_more_customization_description">Atrakinkite visas temas, spalvas ir piktogramas</string>
+    <string name="upgrade_customization_colors">Paleidimo programos piktogramos, spalvų paletės ir spalvų ratas</string>
+    <string name="upgrade_customization_icons">Sąrašo piktogramos</string>
+    <string name="CFC_list_name">Sąraše…</string>
+    <string name="no_start_date">Nėra pradžios datos</string>
+    <string name="CFC_startBefore_name">Pradėti nuo…</string>
+    <string name="CFC_startBefore_text">Pradėti nuo: \?</string>
+    <string name="default_location">Numatytoji vieta</string>
+    <string name="default_start_date">Numatytoji pradžios data</string>
+    <string name="EPr_temp_completed_tasks_not_showing">Užduotys iš karto išnyks iš sąrašo jas užbaigus</string>
+    <string name="EPr_temp_completed_tasks_showing">Užduotys laikinai išliks matomos sąraše po užbaigimo</string>
+    <string name="EPr_temp_show_completed_tasks">Laikinai rodyti užduotis, kai jos bus baigtos</string>
+    <string name="TEA_add_subtask">Pridėti antrinę užduotį</string>
+    <string name="astrid_sort_order">Astrid rankinis rūšiavimas</string>
+    <string name="cancel">ATMESTI</string>
+    <string name="ok">GERAI</string>
 </resources>
