@@ -585,7 +585,7 @@
     <string name="sort_modified_group">Promijenjeno %s</string>
     <string name="sort_created_group">Stvoreno %s</string>
     <string name="sort_due_group">Rok %s</string>
-    <string name="sort_start_group">Početak %s</string>
+    <string name="sort_start_group">Počni %s</string>
     <string name="got_it">Razumijem!</string>
     <string name="no_thanks">Ne hvala</string>
     <string name="support_development_subscribe">Otključaj dodatne funkcije i podrži softver otvorenog koda</string>
@@ -641,7 +641,7 @@
     <string name="widget_show_header">Pokaži zaglavlje</string>
     <string name="widget_show_checkboxes">Pokaži potvrdne okvire</string>
     <plurals name="Ntasks">
-        <item quantity="one">1 zadatak</item>
+        <item quantity="one">%d zadatak</item>
         <item quantity="few">%d zadatka</item>
         <item quantity="other">%d zadataka</item>
     </plurals>
