@@ -722,4 +722,5 @@
     <string name="next_tuesday">Köv. K</string>
     <string name="markdown_description">Markdown engedélyezése címben és leírásban</string>
     <string name="markdown">Markdown</string>
+    <string name="chat_libera">Csatlakozzon #tasks a Libera Chat-en</string>
 </resources>
