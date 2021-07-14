@@ -717,4 +717,7 @@
     <string name="next_tuesday">다음 화요일</string>
     <string name="next_monday">다음 월요일</string>
     <string name="next_sunday">다음 일요일</string>
+    <string name="list_members">회원 나열</string>
+    <string name="chat_libera">Libera 채팅에서 #tasks에 참여하세요</string>
+    <string name="foreground_location">전경 위치</string>
 </resources>
