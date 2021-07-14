@@ -720,4 +720,7 @@
     <string name="CFC_startBefore_text">Iniciar por:\?</string>
     <string name="default_location">Localização padrão</string>
     <string name="default_due_date">Data de vencimento padrão</string>
+    <string name="markdown_description">Habilitar Markdown no título e descrição</string>
+    <string name="markdown">Markdown</string>
+    <string name="chat_libera">Junte-se a #tasks Tarefas no Libera Chat</string>
 </resources>
