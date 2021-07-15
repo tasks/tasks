@@ -1,0 +1,3 @@
+* Fix location-based reminders
+* Fix preference backup
+* Update translations

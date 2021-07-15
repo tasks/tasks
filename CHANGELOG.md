@@ -1,3 +1,30 @@
+### 11.10.2 (2021-07-15)
+
+* Fix location-based reminders
+* Fix preference backup
+* Update translations
+  * Arabic - git ty, @mhmdanas
+  * Basque - Sergio Varela
+  * Croatian - @milotype
+  * Czech - @vitSkalicky, @p-bo
+  * Dutch - Beardhatcode, @fvbommel
+  * French - @FlorianLeChat
+  * German - K. Herbert, @franconian, @ecxod, @bluedeepimpact
+  * Indonesian - when we were sober
+  * Interlingua - @softinterlingua
+  * Italian - J. Lavoie
+  * Lithuanian - @70h
+  * Norwegian Bokmål - @Jerome2103
+  * Portuguese - @laralem
+  * Russian - @KovalevArtem, @Blueberryy
+  * Simplified Chinese - @sr093906, @Geeyun-JY3
+  * Sinhala - HelaBasa
+  * Spanish - @FlorianLeChat, @fitojb
+  * Turkish - Oğuz Ersen, @emintufan
+  * Ukrainian - @IhorHordiichuk
+  * Urdu - Maaz
+  * Vietnamese - bruh
+
 ### 11.10.1 (2021-05-26)
 
 * Improve Android 12 compatibility
