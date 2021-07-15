@@ -56,7 +56,7 @@ class LocationServiceAndroid @Inject constructor(
                     0,
                     Intent(context, AndroidGeofenceTransitionIntentService.Broadcast::class.java)
                             .setData(Uri.parse("tasks://geofence/$place")),
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                /*PendingIntent.FLAG_MUTABLE or */PendingIntent.FLAG_UPDATE_CURRENT
             )
 
     companion object {
