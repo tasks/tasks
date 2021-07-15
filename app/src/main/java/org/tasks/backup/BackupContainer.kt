@@ -14,10 +14,10 @@ class BackupContainer(
         val caldavAccounts: List<CaldavAccount>?,
         val caldavCalendars: List<CaldavCalendar>?,
         val taskListMetadata: List<TaskListMetadata>?,
-        val intPrefs: Map<String, Int>?,
-        val longPrefs: Map<String, Long>?,
+        val intPrefs: Map<String, Integer>?,
+        val longPrefs: Map<String, java.lang.Long>?,
         val stringPrefs: Map<String, String>?,
-        val boolPrefs: Map<String, Boolean>?) {
+        val boolPrefs: Map<String, java.lang.Boolean>?) {
 
     class TaskBackup(
             val task: Task,

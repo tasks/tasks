@@ -422,14 +422,8 @@ class Preferences @JvmOverloads constructor(
             syncFlags.forEach { setBoolean(it, value) }
         }
 
-    fun <T> getPrefs(c: Class<T>): Map<String, T> {
-        val result: MutableMap<String, T> = HashMap()
-        val entries: Iterable<Map.Entry<String, *>> = prefs.all.entries.filter { e: Map.Entry<String?, Any?> -> c.isInstance(e.value) }
-        for ((key, value) in entries) {
-            result[key] = value as T
-        }
-        return result
-    }
+    fun <T> getPrefs(c: Class<T>): Map<String, T> =
+        prefs.all.filter { (_, value) -> c.isInstance(value) } as Map<String, T>
 
     val isFlipperEnabled: Boolean
         get() = BuildConfig.DEBUG && getBoolean(R.string.p_flipper, false)

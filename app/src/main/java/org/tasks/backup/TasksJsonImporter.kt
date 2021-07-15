@@ -52,8 +52,7 @@ class TasksJsonImporter @Inject constructor(
     suspend fun importTasks(context: Context, backupFile: Uri?, progressDialog: ProgressDialog?): ImportResult {
         val handler = Handler(context.mainLooper)
         val gson = Gson()
-        val `is`: InputStream?
-        `is` = try {
+        val `is`: InputStream? = try {
             context.contentResolver.openInputStream(backupFile!!)
         } catch (e: FileNotFoundException) {
             throw IllegalStateException(e)
@@ -195,11 +194,11 @@ class TasksJsonImporter @Inject constructor(
             backupContainer
                     .intPrefs
                     ?.filterNot { (key, _) -> ignoreKeys.contains(key) }
-                    ?.forEach { (key, value) -> preferences.setInt(key, value) }
+                    ?.forEach { (key, value) -> preferences.setInt(key, value as Int) }
             backupContainer
                     .longPrefs
                     ?.filterNot { (key, _) -> ignoreKeys.contains(key) }
-                    ?.forEach { (key, value) -> preferences.setLong(key, value) }
+                    ?.forEach { (key, value) -> preferences.setLong(key, value as Long) }
             backupContainer
                     .stringPrefs
                     ?.filterNot { (key, _) -> ignoreKeys.contains(key) }
@@ -207,7 +206,7 @@ class TasksJsonImporter @Inject constructor(
             backupContainer
                     .boolPrefs
                     ?.filterNot { (key, _) -> ignoreKeys.contains(key) }
-                    ?.forEach { (key, value) -> preferences.setBoolean(key, value) }
+                    ?.forEach { (key, value) -> preferences.setBoolean(key, value as Boolean) }
             if (version < Upgrader.V8_2) {
                 val themeIndex = preferences.getInt(R.string.p_theme_color, 7)
                 preferences.setInt(
