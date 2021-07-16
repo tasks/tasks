@@ -531,4 +531,21 @@
     <string name="astrid_sort_order">Astrid rankinis rūšiavimas</string>
     <string name="cancel">ATMESTI</string>
     <string name="ok">GERAI</string>
+    <string name="map_theme_use_app_theme">Naudoti programėlės temą</string>
+    <string name="list_members">Sąrašo nariai</string>
+    <string name="remove_user">Pašalinti vartotoją\?</string>
+    <string name="remove_user_confirmation">%1$s nebeturės prieigos prie %2$s</string>
+    <string name="share_list">Bendrinti sąrašą</string>
+    <string name="invite">Pakviesti</string>
+    <string name="invite_declined">Kvietimas atmestas</string>
+    <string name="invite_awaiting_response">Kvietimas laukia atsakymo</string>
+    <string name="invite_invalid">Kvietimas negalioja</string>
+    <string name="picker_mode_calendar">Kalendorius</string>
+    <string name="picker_mode_clock">Laikrodis</string>
+    <string name="picker_mode_text">Tekstas</string>
+    <string name="pro_free_trial">Naujiems prenumeratoriams suteikiamas 7 dienų nemokamas bandomasis laikotarpis. Atšaukite bet kuriuo metu</string>
+    <string name="upgrade_more_customization">Daugiau tinkinimo</string>
+    <string name="upgrade_customization_themes">Užsklanda ir dienos/nakties temos</string>
+    <string name="upgrade_google_tasks">Sinchronizuoti kelias paskyras</string>
+    <string name="upgrade_tasks_org_account_description">Sinchronizuokite su Tasks.org ir bendradarbiaukite su kitais naudotojais</string>
 </resources>
