@@ -292,6 +292,7 @@
     saver mode)
   * Removed Google Tasks 'Custom order synchronization fix' (automatically
     performing full sync if 'My order' enabled)
+* Remove support for legacy XML backup format ([more info](https://github.com/tasks/tasks/issues/1565))
 * Bug fixes
 
 ### 11.2.2 (2021-01-07)
