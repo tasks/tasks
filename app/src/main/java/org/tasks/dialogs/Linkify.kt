@@ -10,6 +10,7 @@ import android.text.style.URLSpan
 import android.text.util.Linkify
 import android.view.View
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.core.text.util.LinkifyCompat
 import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
@@ -30,10 +31,14 @@ class Linkify @Inject constructor(
         setMovementMethod(tv)
     }
 
-    fun setMovementMethod(tv: TextView, handle: (() -> Unit)? = null) {
+    fun setMovementMethod(
+        tv: TextView,
+        linkClickHandler: ((url: String) -> Boolean) = { false },
+        rowClickHandler: (() -> Unit) = {}
+    ) {
         tv.setOnClickListener {
             if (!tv.hasSelection()) {
-                handle?.invoke()
+                rowClickHandler()
             }
         }
         val text = tv.text
@@ -45,7 +50,7 @@ class Linkify @Inject constructor(
                 val end = spannable.getSpanEnd(span)
                 spannable.removeSpan(span)
                 spannable.setSpan(
-                    ClickHandlingURLSpan(span.url, handle),
+                    ClickHandlingURLSpan(span.url, linkClickHandler, rowClickHandler),
                     start,
                     end,
                     0
@@ -57,48 +62,39 @@ class Linkify @Inject constructor(
 
     private inner class ClickHandlingURLSpan constructor(
         url: String?,
-        private val onEdit: (() -> Unit)? = null
+        private val linkClickHandler: ((String) -> Boolean),
+        private val rowClickHandler: (() -> Unit),
     ) : URLSpan(url) {
         override fun onClick(widget: View) {
-            var title: String?
-            val edit = context.getString(R.string.TAd_actionEditTask)
-            val action: String
-            val uri = Uri.parse(url).let {
-                if (it.scheme.isNullOrBlank()) {
-                    Uri.parse("https://$url")
-                } else {
-                    it
-                }
+            if (linkClickHandler(url)) {
+                return
             }
-            when (uri.scheme) {
-                "tel" -> {
-                    title = uri.encodedSchemeSpecificPart
-                    action = context.getString(R.string.action_call)
-                }
-                "mailto" -> {
-                    title = uri.encodedSchemeSpecificPart
-                    action = context.getString(R.string.action_open)
-                }
+            val uri = url.toUri().takeUnless { it.scheme.isNullOrBlank() } ?: "https://$url".toUri()
+            val title = when (uri.scheme) {
+                "tel", "mailto" -> uri.encodedSchemeSpecificPart
                 "geo" -> {
-                    title = uri.encodedQuery!!.replaceFirst("q=".toRegex(), "")
-                    try {
-                        title = URLDecoder.decode(title, "utf-8")
-                    } catch (ignored: UnsupportedEncodingException) {
-                    }
-                    action = context.getString(R.string.action_open)
+                    uri
+                        .encodedQuery
+                        ?.replaceFirst("q=".toRegex(), "")
+                        ?.let {
+                            try {
+                                URLDecoder.decode(it, "utf-8")
+                            } catch (ignored: UnsupportedEncodingException) {
+                                it
+                            }
+                        }
                 }
-                else -> {
-                    title = url
-                    action = context.getString(R.string.action_open)
-                }
+                else -> url
             }
             dialogBuilder
                 .newDialog(title)
-                .setItems(listOf(action, edit)) { _, selected ->
+                .setItems(
+                    listOf(uri.action, R.string.TAd_actionEditTask).map { context.getString(it) }
+                ) { _, selected ->
                     if (selected == 0) {
                         context.startActivity(Intent(Intent.ACTION_VIEW, uri))
                     } else {
-                        onEdit?.invoke()
+                        rowClickHandler()
                     }
                 }
                 .show()
@@ -113,5 +109,8 @@ class Linkify @Inject constructor(
                 Timber.e(e)
             }
         }
+
+        val Uri.action: Int
+            get() = if (scheme == "tel") R.string.action_call else R.string.action_open
     }
 }

@@ -785,6 +785,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
     }
 
+    override fun onLinkClicked(vh: TaskViewHolder, url: String) =
+        if (isActionModeActive) {
+            recyclerAdapter?.toggle(vh)
+            true
+        } else {
+            false
+        }
+
     override fun onClick(taskViewHolder: TaskViewHolder) {
         if (isActionModeActive) {
             recyclerAdapter?.toggle(taskViewHolder)

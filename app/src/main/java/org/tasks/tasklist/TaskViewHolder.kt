@@ -52,8 +52,8 @@ class TaskViewHolder internal constructor(
         setOnClickListener { changeDueDate() }
     }
     private val rowBody: ViewGroup = binding.rowBody.apply {
-        setOnClickListener { onRowBodyClick() }
-        setOnLongClickListener { onRowBodyLongClick() }
+        setOnClickListener { callback.onClick(this@TaskViewHolder) }
+        setOnLongClickListener { callback.onLongPress(this@TaskViewHolder) }
     }
     private val nameView: TextView = binding.title
     private val description: TextView = binding.description
@@ -139,14 +139,22 @@ class TaskViewHolder internal constructor(
             description.visibility = if (task.hasNotes()) View.VISIBLE else View.GONE
         }
         if (markdown.enabled || preferences.getBoolean(R.string.p_linkify_task_list, false)) {
-            linkify.setMovementMethod(nameView) { onRowBodyClick() }
-            linkify.setMovementMethod(description) { onRowBodyClick() }
+            linkify.setMovementMethod(
+                nameView,
+                linkClickHandler = { url -> callback.onLinkClicked(this, url) },
+                rowClickHandler = { callback.onClick(this) }
+            )
+            linkify.setMovementMethod(
+                description,
+                linkClickHandler = { url -> callback.onLinkClicked(this, url) },
+                rowClickHandler = { callback.onClick(this) }
+            )
             if (!markdown.enabled) {
                 Linkify.safeLinkify(nameView)
                 Linkify.safeLinkify(description)
             }
-            nameView.setOnLongClickListener { onRowBodyLongClick() }
-            description.setOnLongClickListener { onRowBodyLongClick() }
+            nameView.setOnLongClickListener { callback.onLongPress(this) }
+            description.setOnLongClickListener { callback.onLongPress(this) }
         }
         when {
             chipGroup.visibility == View.VISIBLE -> {
@@ -223,10 +231,6 @@ class TaskViewHolder internal constructor(
         }
     }
 
-    private fun onRowBodyClick() = callback.onClick(this)
-
-    private fun onRowBodyLongClick(): Boolean = callback.onLongPress(this)
-
     private fun onCompleteBoxClick() {
         val newState = completeBox.isChecked
         if (newState != task.isCompleted) {
@@ -243,6 +247,7 @@ class TaskViewHolder internal constructor(
 
     interface ViewHolderCallbacks {
         fun onCompletedTask(task: TaskContainer, newState: Boolean)
+        fun onLinkClicked(vh: TaskViewHolder, url: String): Boolean
         fun onClick(taskViewHolder: TaskViewHolder)
         fun onClick(filter: Filter)
         fun toggleSubtasks(task: TaskContainer, collapsed: Boolean)
