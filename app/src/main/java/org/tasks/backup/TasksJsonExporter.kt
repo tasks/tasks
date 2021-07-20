@@ -169,6 +169,6 @@ class TasksJsonExporter @Inject constructor(
         private const val MIME = "application/json"
         private const val EXTENSION = ".json"
         private val dateForExport: String
-            get() = newDateTime().toString("yyMMdd-HHmm")
+            get() = newDateTime().toString("yyyyMMdd'T'HHmm")
     }
 }
