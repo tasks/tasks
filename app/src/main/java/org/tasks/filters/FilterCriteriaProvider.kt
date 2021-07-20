@@ -179,7 +179,8 @@ class FilterCriteriaProvider @Inject constructor(
                     PermaSql.VALUE_EOD_TOMORROW,
                     PermaSql.VALUE_EOD_DAY_AFTER,
                     PermaSql.VALUE_EOD_NEXT_WEEK,
-                    PermaSql.VALUE_EOD_NEXT_MONTH)
+                    PermaSql.VALUE_EOD_NEXT_MONTH,
+                    PermaSql.VALUE_NOW)
             val values: MutableMap<String?, Any> = HashMap()
             values[Task.DUE_DATE.name] = "?"
             return MultipleSelectCriterion(
@@ -191,7 +192,13 @@ class FilterCriteriaProvider @Inject constructor(
                                     and(
                                             activeAndVisible(),
                                             or(field("?").eq(0), Task.DUE_DATE.gt(0)),
-                                            Task.DUE_DATE.lte("?")))
+                                            // find tasks that have due dates before the specified
+                                            // date, or all-day tasks that have due dates before
+                                            // EOD today if the specified date is NOW
+                                            or(Task.DUE_DATE.lte("?"),
+                                                and(field("${Task.DUE_DATE} / 1000 % 60").eq(0),
+                                                    field("?").eq(field("${PermaSql.VALUE_NOW}")),
+                                                    Task.DUE_DATE.lte("${PermaSql.VALUE_EOD}")))))
                             .toString(),
                     values,
                     r.getStringArray(R.array.CFC_dueBefore_entries),
@@ -208,7 +215,8 @@ class FilterCriteriaProvider @Inject constructor(
                     PermaSql.VALUE_EOD_TOMORROW,
                     PermaSql.VALUE_EOD_DAY_AFTER,
                     PermaSql.VALUE_EOD_NEXT_WEEK,
-                    PermaSql.VALUE_EOD_NEXT_MONTH)
+                    PermaSql.VALUE_EOD_NEXT_MONTH,
+                    PermaSql.VALUE_NOW)
             val values: MutableMap<String?, Any> = HashMap()
             values[Task.HIDE_UNTIL.name] = "?"
             return MultipleSelectCriterion(

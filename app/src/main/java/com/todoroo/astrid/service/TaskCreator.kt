@@ -111,7 +111,8 @@ class TaskCreator @Inject constructor(
             when (key) {
                 Tag.KEY -> tags.add(value as String)
                 GoogleTask.KEY, CaldavTask.KEY, Place.KEY -> task.putTransitory(key, value)
-                DUE_DATE.name -> value.substitute()?.toLongOrNull()?.let { task.dueDate = it }
+                DUE_DATE.name -> value.substitute()?.toLongOrNull()?.let { task.dueDate =
+                    createDueDate(Task.URGENCY_SPECIFIC_DAY, it) }
                 IMPORTANCE.name -> value.substitute()?.toIntOrNull()?.let { task.priority = it }
                 HIDE_UNTIL.name ->
                     value.substitute()?.toLongOrNull()?.let { task.hideUntil = it.startOfDay() }

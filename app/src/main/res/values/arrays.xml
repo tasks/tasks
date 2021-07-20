@@ -106,6 +106,7 @@
     <item>@string/day_after_tomorrow</item>
     <item>@string/next_week</item>
     <item>@string/next_month</item>
+    <item>@string/now</item>
   </string-array>
 
   <string-array name="CFC_startBefore_entries">
@@ -116,6 +117,7 @@
     <item>@string/day_after_tomorrow</item>
     <item>@string/next_week</item>
     <item>@string/next_month</item>
+    <item>@string/now</item>
   </string-array>
 
   <string-array name="TEA_reminder_random">
