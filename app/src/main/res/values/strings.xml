@@ -287,6 +287,7 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">1 task</item>
     <item quantity="other">%d tasks</item>
   </plurals>
+  <string name="now">Now</string>
   <string name="today">Today</string>
   <string name="today_lowercase">today</string>
   <string name="tomorrow">Tomorrow</string>

@@ -61,7 +61,7 @@ class NewFilterDialog : DialogFragment() {
         val list = ArrayList<CriterionInstance>()
         when (title) {
             R.string.filter_overdue ->
-                list.add(newMultiSelect(provider.dueDateFilter, 1, TYPE_INTERSECT))
+                list.add(newMultiSelect(provider.dueDateFilter, 7, TYPE_INTERSECT))
             R.string.filter_today_only -> {
                 list.add(newMultiSelect(provider.dueDateFilter, 1, TYPE_SUBTRACT))
                 list.add(newMultiSelect(provider.dueDateFilter, 2, TYPE_INTERSECT))
