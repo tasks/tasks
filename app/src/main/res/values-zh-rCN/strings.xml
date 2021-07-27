@@ -715,4 +715,5 @@
     <string name="markdown_description">在标题和描述中启用 Markdown</string>
     <string name="markdown">Markdown</string>
     <string name="chat_libera">加入 Libera Chat 上的 #tasks</string>
+    <string name="now">现在</string>
 </resources>
