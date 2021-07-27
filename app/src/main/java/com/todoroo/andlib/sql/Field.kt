@@ -1,10 +1,20 @@
 package com.todoroo.andlib.sql
 
-open class Field(expression: String) : DBObject<Field>(expression) {
+open class Field(expression: String) : DBObject(expression) {
     fun eq(value: Any?): Criterion = if (value == null) {
         UnaryCriterion.isNull(this)
     } else {
         UnaryCriterion.eq(this, value)
+    }
+
+    override fun `as`(newAlias: String): Field {
+        return try {
+            val clone = clone() as Field
+            clone.alias = newAlias
+            clone
+        } catch (e: CloneNotSupportedException) {
+            throw RuntimeException(e)
+        }
     }
 
     fun gt(value: Any?): Criterion = UnaryCriterion.gt(this, value)
