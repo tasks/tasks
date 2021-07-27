@@ -745,4 +745,5 @@
     <string name="markdown_description">Увімкнути Markdown у заголовку та описі</string>
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Долучайтеся до #tasks у чаті Libera</string>
+    <string name="now">Зараз</string>
 </resources>
