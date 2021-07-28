@@ -725,4 +725,5 @@
     <string name="next_tuesday">Neste tir</string>
     <string name="next_monday">Neste man</string>
     <string name="next_sunday">Neste sol</string>
+    <string name="now">Nå</string>
 </resources>
