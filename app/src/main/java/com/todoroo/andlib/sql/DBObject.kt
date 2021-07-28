@@ -2,7 +2,7 @@ package com.todoroo.andlib.sql
 
 import java.util.*
 
-abstract class DBObject internal constructor(val expression: String) : Cloneable {
+abstract class DBObject internal constructor(val expression: String) {
     var alias: String? = null
 
     abstract fun `as`(newAlias: String): DBObject

@@ -8,13 +8,9 @@ open class Field(expression: String) : DBObject(expression) {
     }
 
     override fun `as`(newAlias: String): Field {
-        return try {
-            val clone = clone() as Field
-            clone.alias = newAlias
-            clone
-        } catch (e: CloneNotSupportedException) {
-            throw RuntimeException(e)
-        }
+        val clone = Field(expression)
+        clone.alias = newAlias
+        return clone
     }
 
     fun gt(value: Any?): Criterion = UnaryCriterion.gt(this, value)
