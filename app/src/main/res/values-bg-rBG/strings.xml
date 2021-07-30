@@ -56,7 +56,7 @@
     <string name="TEA_control_notes">Описание</string>
     <string name="TEA_control_files">Файлове</string>
     <string name="TEA_control_reminders">Напомняния</string>
-    <string name="TEA_control_timer">Управление на таймера</string>
+    <string name="TEA_control_timer">Управление на хронометър</string>
     <string name="TEA_control_hidden_section">----Винаги скрито----</string>
     <string name="TEA_load_more">Зареждане повече…</string>
     <string name="CRA_ignore">Пренебрегване</string>
