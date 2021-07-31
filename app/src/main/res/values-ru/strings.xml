@@ -736,11 +736,12 @@
     <string name="next_monday">Следующий Пн</string>
     <string name="next_sunday">Следующий Пн</string>
     <string name="next_tuesday">Следующий Вт</string>
-    <string name="manage_drawer">Управление черновиками</string>
+    <string name="manage_drawer">Изменить панель</string>
     <string name="social">Социальные сети</string>
     <string name="upgrade_desktop_access">Доступ к рабочему столу</string>
     <string name="next_wednesday">Следующая ср</string>
     <string name="markdown_description">Включить Markdown в названии и описании</string>
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Присоединяйтесь к #tasks в Libera Chat</string>
+    <string name="now">Сейчас</string>
 </resources>
