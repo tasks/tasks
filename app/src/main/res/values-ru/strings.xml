@@ -524,8 +524,8 @@
     <string name="chip_appearance_text_only">Только текст</string>
     <string name="chip_appearance_text_and_icon">Текст и иконка</string>
     <string name="add_place">Добавить место</string>
-    <string name="hide_unused_places">Спрятать неиспользуемые места</string>
-    <string name="hide_unused_tags">Спрятать неиспользуемые теги</string>
+    <string name="hide_unused_places">Скрыть неиспользуемые места</string>
+    <string name="hide_unused_tags">Скрыть неиспользуемые теги</string>
     <string name="navigation_drawer">Панель навигации</string>
     <string name="place_settings">Настройки места</string>
     <string name="places">Места</string>
@@ -571,8 +571,8 @@
     <string name="filter_no_tags">Без тегов</string>
     <string name="filter_after_today">После сегодняшнего дня</string>
     <string name="filter_any_due_date">Любая дата выполнения</string>
-    <string name="filter_today_only">Только сегодняшние</string>
-    <string name="filter_overdue">Просроченные</string>
+    <string name="filter_today_only">Только сегодняшнее</string>
+    <string name="filter_overdue">Просроченное</string>
     <string name="custom_filter_not">НЕ</string>
     <string name="custom_filter_or">ИЛИ</string>
     <string name="custom_filter_and">И</string>
@@ -674,7 +674,7 @@
     <string name="local_lists">Локальные списки</string>
     <string name="default_due_date">Дата выполнения по умолчанию</string>
     <string name="start_date">Дата начала</string>
-    <string name="filter_criteria_unstarted">Не начавшиеся</string>
+    <string name="filter_criteria_unstarted">Не начавшееся</string>
     <string name="show_unstarted">Показать не начавшиеся</string>
     <string name="no_start_date">Нет даты начала</string>
     <string name="default_start_date">Дата начала по умолчанию</string>
