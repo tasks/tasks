@@ -135,7 +135,7 @@
     <string name="audio_stop_recording">Остановить запись</string>
     <string name="ring_once">1 раз</string>
     <string name="ring_five_times">5 раз</string>
-    <string name="ring_nonstop">Пока не выкл.</string>
+    <string name="ring_nonstop">Звучать безостановочно</string>
     <string name="random_reminder_hour">час</string>
     <string name="random_reminder_day">день</string>
     <string name="random_reminder_week">неделя</string>
