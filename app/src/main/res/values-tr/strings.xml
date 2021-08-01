@@ -725,4 +725,5 @@
     <string name="markdown_description">Başlık ve açıklamada Markdown\'ı etkinleştir</string>
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Libera Chat\'te #tasks kanalına katıl</string>
+    <string name="now">Şimdi</string>
 </resources>
