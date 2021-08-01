@@ -3,8 +3,8 @@
     <string name="actfm_picture_clear">Καθαρή εικόνα</string>
     <string name="TVA_add_comment">Προσθήκη σχόλιου…</string>
     <string name="backup_BPr_header">Αντίγραφα ασφαλείας</string>
-    <string name="backup_BAc_import">Εισαγωγή εργασιών</string>
-    <string name="backup_BAc_export">Εξαγωγή εργασιών</string>
+    <string name="backup_BAc_import">Εισαγωγή backup</string>
+    <string name="backup_BAc_export">Δημιουργία backup</string>
     <string name="export_toast">Αποθηκεύση ασφαλείας %1$s στο %2$s.</string>
     <string name="import_summary_title">Επαναφορά σύνοψης</string>
     <string name="import_summary_message">Αρχείο %1$s περιέχεται %2$s.
@@ -58,7 +58,7 @@
     <string name="CRA_speech_bubble_end">Φαίνεται ότι τελείωσες με το %s.Θέλεις να δημιουργήσω μια λίστα με τα ενεργά αντικείμενα;</string>
     <string name="CRA_postpone">Ίσως αργότερα</string>
     <string name="CRA_calendar_reminders_pref_title">Βοηθός ημερολογίου</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Η εφαρμογή θα σας υπενθυμίσει για επερχόμενα γεγονότα ημερολογίου και θα σας ειδοποιήσουν για να προετοιμαστείτε για αυτα</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">Η εφαρμογή θα σας υπενθυμίσει για επερχόμενα γεγονότα ημερολογίου και θα σας ειδοποιήσουν για να προετοιμαστείτε για αυτά</string>
     <string name="CRA_default_list_name">Αντικείμενα ενεργειών: %s</string>
     <string name="EPr_edit_screen_options">Επεξεργασία επιλογών εμφάνισης</string>
     <string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>
@@ -87,7 +87,7 @@
     <string name="CFC_dueBefore_name">Λήγει στίς…</string>
     <string name="no_due_date">Χωρίς ημερομηνία λήξης</string>
     <string name="next_month">Τον επόμενο μήνα</string>
-    <string name="CFC_importance_text">Προτεραιότητα τουλάχιστον ?</string>
+    <string name="CFC_importance_text">Προτεραιότητα τουλάχιστον \?</string>
     <string name="CFC_importance_name">Προτεραιότητα…</string>
     <string name="CFC_title_contains_name">Ο τίτλος περιέχει…</string>
     <string name="CFC_title_contains_text">Ο τίτλος περιέχει: ?</string>
@@ -155,4 +155,9 @@
     <string name="SSD_sort_my_order">Η παραγγελία μου</string>
     <string name="action_open">Ανοίξτε το</string>
     <string name="action_call">Καλέστε</string>
+    <string name="TLA_no_items">Δεν υπάρχουν καθήκοντα.</string>
+    <string name="keep_editing">Συνέχεια επεξεργασίας</string>
+    <string name="discard_confirmation">Θέλετε σίγουρα να απορρίψετε τις αλλαγές;</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="ok">OK</string>
 </resources>
