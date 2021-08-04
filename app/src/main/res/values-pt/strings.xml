@@ -458,7 +458,7 @@
     <string name="action_new_task">Nova tarefa</string>
     <string name="no_thanks">Não obrigado</string>
     <string name="whats_new">Novidades</string>
-    <string name="sort_created">Por data de criação</string>
+    <string name="sort_created">Pela data da criação</string>
     <string name="filter_no_priority">Sem prioridade</string>
     <string name="filter_low_priority">Baixa prioridade</string>
     <string name="filter_medium_priority">Prioridade média</string>
@@ -725,4 +725,5 @@
     <string name="SSD_sort_start">Por data inicial</string>
     <string name="manage_drawer">Gerir secções</string>
     <string name="chat_libera">Junte-se a #tasks no Libera Chat</string>
+    <string name="now">Agora</string>
 </resources>
