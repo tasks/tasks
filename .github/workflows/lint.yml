@@ -1,6 +1,20 @@
 name: Lint
 
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - CODE_OF_CONDUCT.md
+      - CONTRIBUTING.md
+      - README.md
+      - 'fastlane/**'
+      - .github/FUNDING.yml
+  pull_request:
+    paths-ignore:
+      - CODE_OF_CONDUCT.md
+      - CONTRIBUTING.md
+      - README.md
+      - 'fastlane/**'
+      - .github/FUNDING.yml
 
 jobs:
   build:
