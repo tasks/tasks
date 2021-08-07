@@ -548,4 +548,10 @@
     <string name="upgrade_customization_themes">Užsklanda ir dienos/nakties temos</string>
     <string name="upgrade_google_tasks">Sinchronizuoti kelias paskyras</string>
     <string name="upgrade_tasks_org_account_description">Sinchronizuokite su Tasks.org ir bendradarbiaukite su kitais naudotojais</string>
+    <string name="account">Paskyra</string>
+    <string name="last_backup_never">niekada</string>
+    <string name="lists">Sąrašai</string>
+    <string name="places">Vietos</string>
+    <string name="troubleshooting">Trikčių šalinimas</string>
+    <string name="copied_to_clipboard">%s nukopijuota į iškarpinę</string>
 </resources>
