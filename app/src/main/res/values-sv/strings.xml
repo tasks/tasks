@@ -720,4 +720,5 @@
     <string name="display_name">Visningsnamn</string>
     <string name="cancel">\@android:string/cancel</string>
     <string name="ok">\@android:string/ok</string>
+    <string name="now">Nu</string>
 </resources>
