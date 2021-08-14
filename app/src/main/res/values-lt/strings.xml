@@ -554,4 +554,5 @@
     <string name="places">Vietos</string>
     <string name="troubleshooting">Trikčių šalinimas</string>
     <string name="copied_to_clipboard">%s nukopijuota į iškarpinę</string>
+    <string name="now">Dabar</string>
 </resources>
