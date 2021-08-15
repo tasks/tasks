@@ -6,7 +6,7 @@
     <string name="backup_BAc_export">Cadangkan Sekarang</string>
     <string name="export_toast">Cadangkan %1$s ke %2$s.</string>
     <string name="import_summary_title">Pulihkan ringkasan</string>
-    <string name="import_progress_read">Membaca %d tugas…</string>
+    <string name="import_progress_read">Membaca tugas %d …</string>
     <string name="discard_confirmation">Apakah anda yakin ingin membatalkan perubahan yang anda buat\?</string>
     <string name="keep_editing">Tetap menyunting</string>
     <string name="DLG_delete_this_task_question">Hapus tugas ini\?</string>
@@ -89,7 +89,7 @@
     <string name="CFC_gtasks_list_name">Dalam Daftar GTasks…</string>
     <string name="gtasks_GLA_authenticating">Mengotentikasi…</string>
     <string name="gtasks_GLA_errorIOAuth">Maaf, terjadi kesalahan komunikasi dengan server Google. Silakan coba lagi nanti.</string>
-    <string name="gtasks_GPr_header">Google Tugas</string>
+    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Akun %s tidak ditemukan—silakan keluar dan masuk kembali dari pengaturan Google Tasks.</string>
     <string name="premium_record_audio">Rekam catatan</string>
     <string name="premium_remove_file_confirm">Apakah anda yakin\? Ini tidak dapat dibatalkan</string>
@@ -309,7 +309,7 @@
 \n %4$s sudah ada
 \n %5$s memiliki kesalahan
 \n</string>
-    <string name="read_permission_label">Perizinan Tasks</string>
+    <string name="read_permission_label">Perizinan Tugas</string>
     <string name="CRA_title">Membutuhkan daftar pertemuan\?</string>
     <string name="EPr_cal_end_at_due_time">Akhiri acara kelender pada waktu jatuh tempo</string>
     <string name="EPr_cal_start_at_due_time">Mulai acara kalender pada waktu jatuh tempo</string>
@@ -637,14 +637,14 @@
     <string name="rmd_EPr_quiet_hours_start_title">Jam tenang mulai</string>
     <string name="gtasks_GTA_clear_completed">Hapus Telah Selesai</string>
     <string name="CFC_list_name">Dalam daftar…</string>
-    <string name="CFC_title_contains_text">Judul mempuat: \?</string>
+    <string name="CFC_title_contains_text">Judul mengandung: \?</string>
     <string name="CFC_title_contains_name">Judul berisi …</string>
     <string name="CFC_importance_text">Prioritas setidaknya \?</string>
     <string name="filter_any_start_date">Tanggal mulai kapanpun</string>
     <string name="no_start_date">Tidak ada tanggal mulai</string>
     <string name="CFC_startBefore_name">Mulai pada…</string>
     <string name="CFC_startBefore_text">Mulai pada: \?</string>
-    <string name="CFC_dueBefore_text">Karena:\?</string>
+    <string name="CFC_dueBefore_text">Jatuh tempo pada:\?</string>
     <string name="default_location_reminder_on_departure">Saat keberangkatan</string>
     <string name="default_location_reminder_on_arrival">Pada kedatangan</string>
     <string name="EPr_default_reminders_mode_title">Tipe dering/getar bawaan</string>
@@ -708,4 +708,5 @@
     <string name="markdown_description">Aktifkan Markdown di judul dan keterangan</string>
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Gabung #tasks di Libera Chat</string>
+    <string name="now">Sekarang</string>
 </resources>
