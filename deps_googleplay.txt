@@ -456,8 +456,8 @@
 ++--- com.twofortyfouram:android-plugin-api-for-locale:1.0.2
 ++--- com.rubiconproject.oss:jchronic:0.2.6
 ++--- me.leolin:ShortcutBadger:1.1.22
-++--- com.google.apis:google-api-services-tasks:v1-rev20210109-1.31.0
-+|    \--- com.google.api-client:google-api-client:1.31.1 -> 1.31.5
+++--- com.google.apis:google-api-services-tasks:v1-rev20210709-1.32.1
++|    \--- com.google.api-client:google-api-client:1.32.1
 +|         +--- com.google.oauth-client:google-oauth-client:1.31.5
 +|         |    +--- com.google.http-client:google-http-client:1.39.2
 +|         |    |    +--- com.google.guava:guava:30.1.1-android
@@ -474,8 +474,8 @@
 +|         |    \--- com.google.code.gson:gson:2.8.6 -> 2.8.7
 +|         +--- com.google.guava:guava:30.1.1-android (*)
 +|         \--- com.google.http-client:google-http-client:1.39.2 (*)
-++--- com.google.apis:google-api-services-drive:v3-rev20210524-1.31.0
-+|    \--- com.google.api-client:google-api-client:1.31.5 (*)
+++--- com.google.apis:google-api-services-drive:v3-rev20210725-1.32.1
++|    \--- com.google.api-client:google-api-client:1.32.1 (*)
 ++--- com.google.auth:google-auth-library-oauth2-http:0.26.0
 +|    +--- com.google.auto.value:auto-value-annotations:1.8.1
 +|    +--- com.google.auth:google-auth-library-credentials:0.26.0

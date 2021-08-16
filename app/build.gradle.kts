@@ -214,8 +214,8 @@ dependencies {
         isTransitive = false
     }
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
-    implementation("com.google.apis:google-api-services-tasks:v1-rev20210109-1.31.0")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20210524-1.31.0")
+    implementation("com.google.apis:google-api-services-tasks:v1-rev20210709-1.32.1")
+    implementation("com.google.apis:google-api-services-drive:v3-rev20210725-1.32.1")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.26.0")
     implementation("androidx.work:work-runtime:${Versions.work}")
     implementation("androidx.work:work-runtime-ktx:${Versions.work}")
