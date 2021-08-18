@@ -616,7 +616,7 @@
     <string name="cannot_access_account">لا يمكن الوصول الى الحساب</string>
     <string name="requires_pro_subscription">يتطلب اشتراك متقدم</string>
     <string name="license_summary">التطبيق \"مهامي\" هي برنامج مفتوح المصدر حر ، ومرخص بموجب رخصة جنو العمومية العامة v3.0</string>
-    <string name="about">عن</string>
+    <string name="about">حول</string>
     <string name="button_upgrade">تحديث الاشتراك</string>
     <string name="upgrade_to_pro">طور لاصدار متقدم</string>
     <string name="help_and_feedback">مساعدة وتبليغات</string>
