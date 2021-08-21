@@ -179,6 +179,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
     implementation("androidx.room:room-ktx:${Versions.room}")
+    kapt("org.xerial:sqlite-jdbc:3.34.0")
     kapt("androidx.room:room-compiler:${Versions.room}")
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
