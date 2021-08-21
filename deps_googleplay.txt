@@ -24,7 +24,7 @@
 +|    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.0
 +|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0 -> 1.5.21
 +|    |    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21
-+|    |    |         |    |    +--- org.jetbrains:annotations:13.0 -> 16.0.1
++|    |    |         |    |    +--- org.jetbrains:annotations:13.0 -> 20.1.0
 +|    |    |         |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21
 +|    |    |         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.21
 +|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 (*)
@@ -450,8 +450,9 @@
 +|    +--- androidx.recyclerview:recyclerview:1.0.0 -> 1.1.0 (*)
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
 +|    \--- androidx.collection:collection:1.0.0 -> 1.1.0 (*)
-++--- com.jakewharton.timber:timber:4.7.1
-+|    \--- org.jetbrains:annotations:16.0.1
+++--- com.jakewharton.timber:timber:5.0.1
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 (*)
++|    \--- org.jetbrains:annotations:20.1.0
 ++--- com.google.android.apps.dashclock:dashclock-api:2.0.0
 ++--- com.twofortyfouram:android-plugin-api-for-locale:1.0.2
 ++--- com.rubiconproject.oss:jchronic:0.2.6
