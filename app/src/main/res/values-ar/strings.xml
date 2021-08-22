@@ -746,12 +746,12 @@
     <string name="compact">المدمج</string>
     <string name="chip_appearance">مظهر رقاقة</string>
     <plurals name="repeat_years">
-        <item quantity="zero">عام</item>
-        <item quantity="one">عام</item>
-        <item quantity="two">عام</item>
-        <item quantity="few">عام</item>
-        <item quantity="many">عام</item>
-        <item quantity="other">عام</item>
+        <item quantity="zero">سنة</item>
+        <item quantity="one">سنة</item>
+        <item quantity="two">سنة</item>
+        <item quantity="few">سنة</item>
+        <item quantity="many">سنة</item>
+        <item quantity="other">سنة</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="zero">شهر</item>
@@ -786,11 +786,11 @@
         <item quantity="other">ساعة</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="zero">الوقت</item>
-        <item quantity="one">الوقت</item>
-        <item quantity="two">الوقت</item>
-        <item quantity="few">الوقت</item>
-        <item quantity="many">الوقت</item>
-        <item quantity="other">الوقت</item>
+        <item quantity="zero"></item>
+        <item quantity="one"></item>
+        <item quantity="two"></item>
+        <item quantity="few"></item>
+        <item quantity="many"></item>
+        <item quantity="other"></item>
     </plurals>
 </resources>
