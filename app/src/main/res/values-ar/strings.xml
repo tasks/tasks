@@ -527,9 +527,9 @@
         <item quantity="zero">صفر دقيقة</item>
         <item quantity="one">دقيقة واحدة</item>
         <item quantity="two">دقيقتان</item>
-        <item quantity="few">قليل من الدقائق</item>
-        <item quantity="many">بعض الدقائق</item>
-        <item quantity="other">دقائق اُخر</item>
+        <item quantity="few">دقائق</item>
+        <item quantity="many">دقائق</item>
+        <item quantity="other">دقائق</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="zero">%d دقيقة</item>
@@ -744,53 +744,54 @@
     <string name="foreground_location">موقع المقدمة</string>
     <string name="sort_due_group">مستحق %s</string>
     <string name="compact">المدمج</string>
-    <string name="chip_appearance">مظهر رقاقة</string>
+    <string name="chip_appearance">مظهر الرقاقة</string>
     <plurals name="repeat_years">
         <item quantity="zero">سنة</item>
         <item quantity="one">سنة</item>
-        <item quantity="two">سنة</item>
-        <item quantity="few">سنة</item>
-        <item quantity="many">سنة</item>
-        <item quantity="other">سنة</item>
+        <item quantity="two">سنتين</item>
+        <item quantity="few">سنوات</item>
+        <item quantity="many">سنوات</item>
+        <item quantity="other">سنوات</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="zero">شهر</item>
         <item quantity="one">شهر</item>
-        <item quantity="two">شهر</item>
-        <item quantity="few">شهر</item>
-        <item quantity="many">شهر</item>
-        <item quantity="other">شهر</item>
+        <item quantity="two">شهرين</item>
+        <item quantity="few">أشهر</item>
+        <item quantity="many">أشهر</item>
+        <item quantity="other">أشهر</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="zero">أسبوع</item>
         <item quantity="one">أسبوع</item>
-        <item quantity="two">أسبوع</item>
-        <item quantity="few">أسبوع</item>
-        <item quantity="many">أسبوع</item>
-        <item quantity="other">أسبوع</item>
+        <item quantity="two">أسبوعين</item>
+        <item quantity="few">أسابيع</item>
+        <item quantity="many">أسابيع</item>
+        <item quantity="other">أسابيع</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="zero">يوم</item>
         <item quantity="one">يوم</item>
-        <item quantity="two">يوم</item>
-        <item quantity="few">يوم</item>
-        <item quantity="many">يوم</item>
-        <item quantity="other">يوم</item>
+        <item quantity="two">يومين</item>
+        <item quantity="few">أيام</item>
+        <item quantity="many">أيام</item>
+        <item quantity="other">أيام</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="zero">ساعة</item>
-        <item quantity="one">ساعة</item>
-        <item quantity="two">ساعة</item>
-        <item quantity="few">ساعة</item>
-        <item quantity="many">ساعة</item>
-        <item quantity="other">ساعة</item>
+        <item quantity="one">‪‫ساعة</item>
+        <item quantity="two">ساعتين</item>
+        <item quantity="few">ساعات</item>
+        <item quantity="many">ساعات</item>
+        <item quantity="other">ساعات</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="zero"></item>
-        <item quantity="one"></item>
-        <item quantity="two"></item>
-        <item quantity="few"></item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="zero">مرة</item>
+        <item quantity="one">مرة</item>
+        <item quantity="two">مرات</item>
+        <item quantity="few">مرات</item>
+        <item quantity="many">مرات</item>
+        <item quantity="other">مرات</item>
     </plurals>
+    <string name="now">اﻵن</string>
 </resources>
