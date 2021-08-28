@@ -725,4 +725,5 @@
     <string name="markdown_description">Markdown in Titel und Beschreibung aktivieren</string>
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Nehmen Sie an #tasks auf Libera Chat teil</string>
+    <string name="now">Jetzt</string>
 </resources>
