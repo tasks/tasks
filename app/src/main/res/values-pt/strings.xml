@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="actfm_picture_clear">Limpar imagem</string>
+    <string name="actfm_picture_clear">Eliminar imagem</string>
     <string name="TVA_add_comment">Adicionar um comentário…</string>
     <string name="backup_BAc_import">Importar cópia de segurança</string>
     <string name="backup_BAc_export">Fazer cópia de segurança</string>
@@ -74,7 +74,7 @@
     <string name="EPr_cal_start_at_due_time">Iniciar eventos de calendário na hora de fim</string>
     <string name="EPr_reset_preferences">Restaurar as preferências</string>
     <string name="EPr_reset_preferences_warning">As preferências serão restauradas para os valores originais</string>
-    <string name="EPr_delete_task_data">Eliminar dados da tarefa</string>
+    <string name="EPr_delete_task_data">Eliminar todas as tarefas</string>
     <string name="EPr_delete_task_data_warning">Todas as tarefas serão eliminadas permanentemente</string>
     <string name="EPr_manage_delete_completed_gcal">Eliminar eventos das tarefas terminadas do calendário</string>
     <string name="EPr_manage_delete_completed_gcal_message">Quer mesmo eliminar os eventos das tarefas terminadas?</string>
@@ -97,7 +97,7 @@
     <string name="CFA_button_add">Adicionar critério</string>
     <string name="CFC_dueBefore_text">Data de fim: \?</string>
     <string name="CFC_dueBefore_name">Data de fim…</string>
-    <string name="no_due_date">Sem data de vencimento</string>
+    <string name="no_due_date">Sem data de fim</string>
     <string name="next_month">Próximo mês</string>
     <string name="CFC_importance_text">Prioridade mínima\?</string>
     <string name="CFC_importance_name">Importância…</string>
@@ -114,7 +114,7 @@
     <string name="gcal_completed_title">%s (terminada)</string>
     <string name="CFC_gtasks_list_text">Na lista: ?</string>
     <string name="CFC_gtasks_list_name">Na lista da GTasks…</string>
-    <string name="gtasks_GTA_clear_completed">Remoção terminada</string>
+    <string name="gtasks_GTA_clear_completed">Eliminar terminadas</string>
     <string name="gtasks_GLA_authenticating">Autenticação…</string>
     <string name="gtasks_GLA_errorIOAuth">Ocorreu um erro ao comunicar com os servidores do Google. Tente mais tarde.</string>
     <string name="gtasks_GPr_header">Tarefas Google</string>
@@ -139,15 +139,15 @@
     <string name="rmd_EPr_rmd_time_title">Lembrete predefinido</string>
     <string name="rmd_EPr_rmd_time_desc">As notificações para tarefas sem data de fim aparecerão às %s</string>
     <string name="persistent_notifications">Notificações persistentes</string>
-    <string name="persistent_notifications_description">As notificações persistentes não podem ser removidas</string>
+    <string name="persistent_notifications_description">As notificações persistentes não podem ser eliminadas</string>
     <string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
-    <string name="default_random_reminder_disabled">desativado</string>
+    <string name="default_random_reminder_disabled">Desativado</string>
     <string name="default_random_reminder_hourly">A cada hora</string>
-    <string name="default_random_reminder_daily">diário</string>
-    <string name="default_random_reminder_weekly">semanal</string>
-    <string name="default_random_reminder_bi_weekly">bissemanal</string>
-    <string name="default_random_reminder_monthly">mensal</string>
-    <string name="default_random_reminder_bi_monthly">bimensal</string>
+    <string name="default_random_reminder_daily">Diariamente</string>
+    <string name="default_random_reminder_weekly">Semanalmente</string>
+    <string name="default_random_reminder_bi_weekly">A cada 2 semanas</string>
+    <string name="default_random_reminder_monthly">Mensalmente</string>
+    <string name="default_random_reminder_bi_monthly">A cada 2 meses</string>
     <string name="repeat_every">A cada</string>
     <string name="repeat_option_does_not_repeat">Não repetir</string>
     <string name="repeat_option_every_day">Todos os dias</string>
@@ -268,7 +268,7 @@
     <string name="contact_developer">Contactar o programador</string>
     <string name="rate_tasks">Avaliar o Tasks</string>
     <string name="quiet_hours_summary">Sem lembretes nas horas de silêncio</string>
-    <string name="TLA_menu_donate">Donativos</string>
+    <string name="TLA_menu_donate">Fazer um donativo</string>
     <string name="add_reminder">Adicionar lembrete</string>
     <string name="remove">Remover</string>
     <string name="randomly_once">Uma vez aleatória</string>
@@ -298,7 +298,7 @@
     <string name="reverse">Reverter</string>
     <string name="add_attachment">Adicionar anexo</string>
     <string name="take_a_picture">Tirar uma fotografia</string>
-    <string name="pick_from_gallery">Escolher da galeria</string>
+    <string name="pick_from_gallery">Escolher da galeria de imagens</string>
     <string name="pick_from_storage">Escolher do armazenamento</string>
     <string name="privacy_policy">Política de privacidade</string>
     <string name="send_anonymous_statistics">Melhorar o Tasks</string>
@@ -307,7 +307,7 @@
     <string name="name_cannot_be_empty">O nome não pode estar vazio</string>
     <string name="no_title">(sem título)</string>
     <string name="back_button_saves_task">Botão \'voltar\' guarda a tarefa</string>
-    <string name="default_list">Lista padrão</string>
+    <string name="default_list">Lista predefinida</string>
     <string name="filter">Filtro</string>
     <string name="opacity">Opacidade</string>
     <string name="theme">Tema</string>
@@ -328,14 +328,14 @@
     <string name="widget_settings">Definições do widget</string>
     <string name="widget_header_settings">Definições de cabeçalho</string>
     <string name="widget_row_settings">Definições de linhas</string>
-    <string name="clear_completed_tasks_confirmation">Remover tarefas concluídas?</string>
+    <string name="clear_completed_tasks_confirmation">Eliminar tarefas concluídas\?</string>
     <string name="copy_multiple_tasks_confirmation">%s copiadas</string>
     <string name="delete_multiple_tasks_confirmation">%s eliminadas</string>
     <string name="delete_selected_tasks">Eliminar as tarefas selecionadas\?</string>
     <string name="copy_selected_tasks">Copiar as tarefas selecionadas?</string>
     <string name="date_and_time">Data e hora</string>
     <string name="start_of_week">Início da semana</string>
-    <string name="use_locale_default">Usar o idioma padrão</string>
+    <string name="use_locale_default">Usar o idioma predefinido</string>
     <string name="notification_disable_battery_optimizations_description">As otimizações da bateria podem atrasar as notificações</string>
     <string name="bundle_notifications">Agrupar notificações</string>
     <string name="list">Lista</string>
@@ -359,7 +359,7 @@
     <string name="repeats_plural_on_until">Repetir a cada %1$s em %2$s até %3$s</string>
     <string name="repeats_plural_on_number_of_times">Repetir a cada %1$s em %2$s, ocorre %3$d %4$s</string>
     <string name="dont_add_to_calendar">Não adicionar ao calendário</string>
-    <string name="default_calendar">Calendário padrão</string>
+    <string name="default_calendar">Calendário predefinido</string>
     <string name="bundle_notifications_summary">Combinar várias notificações numa só notificação</string>
     <string name="repeat_monthly_same_day_each_month">cada mês no mesmo dia</string>
     <string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
@@ -395,7 +395,7 @@
     <string name="visit_website">Visitar site web</string>
     <string name="location_remind_departure">Lembrar ao sair</string>
     <string name="location_remind_arrival">Lembrar ao chegar</string>
-    <string name="linkify_description">Adicionar hiperligações para sites na Internet, endereços e números de telefone</string>
+    <string name="linkify_description">Adicionar hiperligações para sites na Internet, moradas e números de telefone</string>
     <string name="linkify">Mostrar hiperligações</string>
     <string name="show_full_description">Mostrar descrição completa</string>
     <string name="show_description">Mostrar descrição</string>
@@ -424,7 +424,7 @@
     <string name="password">Palavra-passe</string>
     <string name="user">Utilizador</string>
     <string name="add_account">Adicionar conta</string>
-    <string name="hardware_support_required">É necessário o suporte de hardware</string>
+    <string name="hardware_support_required">É necessário que o dispositivo tenha esta funcionalidade</string>
     <string name="launcher_icon">Ícone do lançador</string>
     <string name="url_invalid_scheme">Deve iniciar com http(s)://</string>
     <string name="url_host_name_required">É necessário o nome do host</string>
@@ -432,7 +432,7 @@
     <string name="password_required">É necessária a palavra-passe</string>
     <string name="username_required">É necessário o nome de utilizador</string>
     <string name="move">Mover</string>
-    <string name="geofence_radius">Raio</string>
+    <string name="geofence_radius">Alcance</string>
     <string name="add_location">Adicionar localização</string>
     <string name="google_drive_backup">Cópia de segurança no Google Drive</string>
     <string name="rmd_NoA_snooze">Adiar</string>
@@ -440,13 +440,13 @@
     <string name="default_location_reminder_on_departure">Ao sair</string>
     <string name="default_location_reminder_on_arrival">Ao chegar</string>
     <string name="no_reminders">Sem lembretes</string>
-    <string name="EPr_default_location_radius">Raio padrão</string>
-    <string name="EPr_default_location_reminder_title">Lembretes de localização padrão</string>
+    <string name="EPr_default_location_radius">Alcance predefinido</string>
+    <string name="EPr_default_location_reminder_title">Lembretes de localização predefinidos</string>
     <string name="TEA_control_location">Localização</string>
     <string name="date_shortcut_tomorrow_night">Amanhã à noite</string>
     <string name="date_shortcut_tomorrow_evening">Amanhã ao fim do dia</string>
     <string name="CFC_list_name">Na lista…</string>
-    <string name="disable_sort_groups">Desativar ordenar grupos</string>
+    <string name="disable_sort_groups">Ordenar grupos desativado</string>
     <string name="lists">Listas</string>
     <string name="astrid_sort_order_summary">Ativar ordenação manual do Astrid para \'Minhas tarefas\', \'Hoje\' e etiquetas. Este modo de ordenação eventualmente será substituído por \'Minha ordenação\' numa futura atualização</string>
     <string name="astrid_sort_order">Ordenação manual do Astrid</string>
@@ -476,7 +476,7 @@
     <string name="auto_dismiss_datetime_list">Lista de tarefas</string>
     <string name="widget_due_date_reschedule">Reagendar tarefa</string>
     <string name="widget_footer">Rodapé</string>
-    <string name="widget_open_list">Abrir a lista</string>
+    <string name="widget_open_list">Abrir lista</string>
     <string name="widget_do_nothing">Não fazer nada</string>
     <string name="widget_on_click">Quando clicado</string>
     <string name="widget_due_date_hidden">Escondido</string>
@@ -540,7 +540,7 @@
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
     <string name="reenter_encryption_password">Confirme a palavra-passe de encriptação</string>
     <string name="passwords_do_not_match">As palavras-passe não coincidem</string>
-    <string name="etesync_selection_description">Sincronização de encriptação ponta-a-ponta</string>
+    <string name="etesync_selection_description">Sincronização com encriptação ponta-a-ponta</string>
     <string name="google_tasks_selection_description">Serviço básico que sincroniza com a sua conta Google</string>
     <string name="choose_synchronization_service">Selecione uma plataforma</string>
     <string name="this_feature_requires_a_subscription">Este recurso necessita de uma subscrição</string>
@@ -568,10 +568,10 @@
     <string name="button_upgrade">Atualizar subscrição</string>
     <string name="network_error">Não foi possível conectar</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="davx5_selection_description">Sincronize a suas tarefas com a aplicação DAVx⁵</string>
+    <string name="davx5_selection_description">Sincronize as suas tarefas com a aplicação DAVx⁵</string>
     <string name="permission_read_tasks">Acesso completo à base de dados do Tasks</string>
     <string name="reset_sort_order">Repor ordenação</string>
-    <string name="open_last_viewed_list">Abrir a última lista visualizada</string>
+    <string name="open_last_viewed_list">Abrir a última lista vista</string>
     <string name="got_it">Entendi!</string>
     <string name="support_development_subscribe">Desbloqueie funcionalidades adicionais e apoie programas de código-fonte aberto</string>
     <string name="tell_me_how_im_doing">Por favor, conte-me a sua opinião</string>
@@ -585,7 +585,7 @@
     <string name="custom_filter_or">OU</string>
     <string name="custom_filter_and">E</string>
     <string name="custom_filter_criteria">Critérios de filtro</string>
-    <string name="auto_dismiss_datetime_widget_summary">Encerrar automaticamente ao selecionar o widget</string>
+    <string name="auto_dismiss_datetime_widget_summary">Fechar automaticamente ao selecionar o widget</string>
     <string name="compact">Compacto</string>
     <string name="caldav_selection_description">Sincronização baseada em padrões abertos da Internet</string>
     <string name="cancel">Cancelar</string>
@@ -601,9 +601,9 @@
     <string name="price_per_year">%s$/ano</string>
     <string name="custom_filter_is_subtask">É uma subtarefa</string>
     <string name="delete_comment">Eliminar este comentário\?</string>
-    <string name="backup_location_warning">AVISO: os ficheiros localizados em %s serão eliminados se o Tasks for desinstalado! Por favor, escolha outra localização para impedir que o Android elimine os seus ficheiros.</string>
+    <string name="backup_location_warning">AVISO: os ficheiros localizados em \"%s\" serão eliminados se o Tasks for desinstalado! Escolha outra localização para impedir que o Android elimine os seus ficheiros.</string>
     <string name="backups_ignore_warnings">Ignorar avisos</string>
-    <string name="device_settings">Definições do telemóvel</string>
+    <string name="device_settings">Definições do dispositivo</string>
     <string name="last_backup_never">nunca</string>
     <string name="background_location_permission_required">O Tarefas recolhe dados de localização para permitir lembretes baseados em localização, mesmo quando a aplicação está fechada ou não estiver a ser usada.</string>
     <string name="default_tags">Etiquetas predefinidas</string>
@@ -616,8 +616,8 @@
         <item quantity="other">%d listas</item>
     </plurals>
     <string name="email">Correio eletrónico</string>
-    <string name="markdown_description">Ativar Markdown no título e descrição</string>
-    <string name="markdown">Markdown</string>
+    <string name="markdown_description">Ativar código Markdown no título e descrição</string>
+    <string name="markdown">Código Markdown</string>
     <string name="more_options">Mais opções</string>
     <string name="upgrade_automation_description">Plug-ins para Tasker, Automate e Locale</string>
     <string name="upgrade_automation">Automação</string>
@@ -670,7 +670,7 @@
     <string name="not_signed_in">Não autenticado</string>
     <string name="privacy">Privacidade</string>
     <string name="open_source">Código-fonte aberto</string>
-    <string name="issue_tracker">Relatos de problemas</string>
+    <string name="issue_tracker">Reportar problemas</string>
     <string name="support">Suporte</string>
     <string name="social">Social</string>
     <string name="follow_twitter">Seguir @tasks_org</string>
@@ -700,7 +700,7 @@
     <string name="subscription">Subscrição</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="map_theme">Tema do mapa</string>
-    <string name="default_recurrence">Recorrência padrão</string>
+    <string name="default_recurrence">Recorrência predefinida</string>
     <string name="no_app_found">Nenhuma aplicação pode manipular este pedido</string>
     <string name="filter_criteria_unstarted">Sem estrela</string>
     <string name="show_unstarted">Mostrar sem estrela</string>
@@ -718,11 +718,11 @@
     <string name="no_start_date">Sem data de início</string>
     <string name="CFC_startBefore_name">Iniciar por…</string>
     <string name="CFC_startBefore_text">Iniciar por: \?</string>
-    <string name="default_location">Localização padrão</string>
-    <string name="default_due_date">Data de vencimento padrão</string>
-    <string name="default_start_date">Data de início padrão</string>
-    <string name="start_date">Data inicial</string>
-    <string name="SSD_sort_start">Por data inicial</string>
+    <string name="default_location">Localização predefinida</string>
+    <string name="default_due_date">Data de fim predefinida</string>
+    <string name="default_start_date">Data de início predefinida</string>
+    <string name="start_date">Data de início</string>
+    <string name="SSD_sort_start">Por data de início</string>
     <string name="manage_drawer">Gerir secções</string>
     <string name="chat_libera">Junte-se a #tasks no Libera Chat</string>
     <string name="now">Agora</string>
