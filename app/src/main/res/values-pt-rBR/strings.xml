@@ -150,11 +150,11 @@
     <string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
     <string name="default_random_reminder_disabled">Desabilitado</string>
     <string name="default_random_reminder_hourly">de hora em hora</string>
-    <string name="default_random_reminder_daily">diariamente</string>
-    <string name="default_random_reminder_weekly">semanalmente</string>
-    <string name="default_random_reminder_bi_weekly">a cada duas semanas</string>
-    <string name="default_random_reminder_monthly">mensalmente</string>
-    <string name="default_random_reminder_bi_monthly">a cada dois meses</string>
+    <string name="default_random_reminder_daily">Diariamente</string>
+    <string name="default_random_reminder_weekly">Semanalmente</string>
+    <string name="default_random_reminder_bi_weekly">A cada duas semanas</string>
+    <string name="default_random_reminder_monthly">Mensalmente</string>
+    <string name="default_random_reminder_bi_monthly">A cada dois meses</string>
     <string name="repeat_every">Todo</string>
     <string name="repeat_option_does_not_repeat">Não repete</string>
     <string name="repeat_option_every_day">Todos os dias</string>
@@ -723,4 +723,5 @@
     <string name="markdown_description">Habilitar Markdown no título e descrição</string>
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Junte-se a #tasks Tarefas no Libera Chat</string>
+    <string name="now">Agora</string>
 </resources>
