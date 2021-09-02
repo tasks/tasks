@@ -17,5 +17,5 @@ object Versions {
     const val hilt_androidx = "1.0.0"
     const val lifecycle = "2.3.0"
     const val markwon = "4.6.2"
-    const val compose = "1.0.1"
+    const val compose = "1.0.2"
 }
