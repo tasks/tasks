@@ -73,7 +73,8 @@
     <SwitchPreferenceCompat
       android:defaultValue="false"
       android:key="@string/p_fullTaskTitle"
-      android:title="@string/EPr_fullTask_title" />
+      android:title="@string/EPr_fullTask_title"
+      app:singleLineTitle="false" />
 
     <SwitchPreferenceCompat
       android:defaultValue="true"
@@ -197,7 +198,8 @@
     <SwitchPreferenceCompat
       android:defaultValue="false"
       android:key="@string/p_show_task_edit_comments"
-      android:title="@string/EPr_show_task_edit_comments" />
+      android:title="@string/EPr_show_task_edit_comments"
+      app:singleLineTitle="false" />
 
   </PreferenceCategory>
 

@@ -107,7 +107,8 @@
     android:entryValues="@array/EPR_default_location_reminder_values"
     android:key="@string/p_default_location_reminder_key"
     android:summary="%s"
-    android:title="@string/EPr_default_location_reminder_title" />
+    android:title="@string/EPr_default_location_reminder_title"
+    app:singleLineTitle="false" />
 
   <SeekBarPreference
     android:defaultValue="250"
