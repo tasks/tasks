@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">写真を削除</string>
-    <string name="TVA_add_comment">コメントする</string>
+    <string name="TVA_add_comment">コメントを追加…</string>
     <string name="backup_BPr_header">バックアップ</string>
     <string name="backup_BAc_import">バックアップをインポート</string>
     <string name="backup_BAc_export">タスクをバックアップ</string>
     <string name="export_toast">%1$s を %2$s にバックアップしました。</string>
     <string name="import_summary_title">復元の概要</string>
     <string name="import_summary_message">ファイル %1$s の %2$s 中、\n\n成功: %3$s\n既に存在: %4$s\n失敗: %5$s\n</string>
-    <string name="import_progress_read">タスク %d を読み込み中</string>
+    <string name="import_progress_read">タスク %d を読み込み中…</string>
     <string name="read_permission_label">タスクの読み込み</string>
     <string name="discard_confirmation">変更を破棄してもよろしいですか?</string>
     <string name="keep_editing">編集を続ける</string>
@@ -118,7 +118,7 @@
     <string name="CFC_tag_contains_text">タグ名に含む: ?</string>
     <string name="CFC_title_contains_name">タイトルに含む…</string>
     <string name="CFC_title_contains_text">タイトルに含む: \?</string>
-    <string name="gcal_TEA_error">カレンダーへの登録に失敗しました</string>
+    <string name="gcal_TEA_error">カレンダーへの登録に失敗しました!</string>
     <string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
     <string name="delete_calendar_event_confirmation">カレンダーイベントを削除しますか?</string>
     <string name="calendar_event_not_found">カレンダーイベントが見つかりません</string>
@@ -239,7 +239,7 @@
     <string name="new_tag">新しいタグを作成</string>
     <string name="new_list">新しいリストを作成</string>
     <string name="delete_tag_confirmation">%s を削除しますか?</string>
-    <string name="TPl_notification">%s のタイマーがアクティブです</string>
+    <string name="TPl_notification">%s のタイマーがアクティブです!</string>
     <string name="TFE_workingOn">タスクの予定時間です</string>
     <string name="TEA_timer_controls">タイマー</string>
     <string name="TEA_timer_comment_started">このタスクを開始しました:</string>
@@ -252,7 +252,6 @@
     <string name="delete_task">タスクを削除</string>
     <string name="voice_command_added_task">追加されたタスク</string>
     <plurals name="Ntasks">
-        <item quantity="one">タスク 1 件</item>
         <item quantity="other">タスク %d 件</item>
     </plurals>
     <string name="today">今日</string>
@@ -320,7 +319,7 @@
     <string name="send_anonymous_statistics">Tasks を改善</string>
     <string name="send_anonymous_statistics_summary">Tasks を改善するために、匿名で使用状況データとクラッシュレポートを送信します。個人情報は収集されません。</string>
     <string name="tag_already_exists">タグは既に存在します</string>
-    <string name="name_cannot_be_empty">名前は空にできません。</string>
+    <string name="name_cannot_be_empty">名前は空にできません</string>
     <string name="username_required">ユーザー名が必要です</string>
     <string name="password_required">パスワードが必要です</string>
     <string name="url_required">URL が必要です</string>
@@ -445,7 +444,7 @@
     <string name="name_your_price">価格はあなた次第</string>
     <string name="cancel">キャンセル</string>
     <string name="email">電子メール</string>
-    <string name="no_thanks">いいえ</string>
+    <string name="no_thanks">いいえ、結構です</string>
     <string name="got_it">わかった！</string>
     <string name="add_filter">フィルターを追加</string>
     <string name="add_tags">タグを追加</string>
@@ -534,4 +533,6 @@
     <string name="sign_in_with_google">Googleでサインイン</string>
     <string name="share">共有</string>
     <string name="tasks_org_share">リストを他のユーザーと共有</string>
+    <string name="astrid_sort_order">アストリッド手動順</string>
+    <string name="SSD_sort_my_order">任意順</string>
 </resources>
