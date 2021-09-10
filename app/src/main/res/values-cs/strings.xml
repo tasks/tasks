@@ -737,4 +737,5 @@
     <string name="list_members">Členové seznamu</string>
     <string name="price_per_month">$%s/měsíc</string>
     <string name="price_per_year">$%s/rok</string>
+    <string name="now">Nyní</string>
 </resources>
