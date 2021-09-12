@@ -675,7 +675,7 @@
     <string name="tomorrow_abbrev_lowercase">mrgn</string>
     <string name="yesterday_abbrev_lowercase">gestern</string>
     <string name="open_source">Quelloffen</string>
-    <string name="issue_tracker">Issue Tracker</string>
+    <string name="issue_tracker">Fehlerverwaltungssystem</string>
     <string name="support">Support</string>
     <string name="social">Sozial</string>
     <string name="follow_twitter">Folgen Sie @tasks_org</string>
