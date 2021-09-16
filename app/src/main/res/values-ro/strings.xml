@@ -742,4 +742,5 @@
     <string name="EPr_reset_preferences_warning">Preferințele vor fi reinitializate la valorile implicite</string>
     <string name="EPr_reset_preferences">Reinițializarea preferințelor</string>
     <string name="always_display_full_date">Afișează data completă</string>
+    <string name="now">Acum</string>
 </resources>
