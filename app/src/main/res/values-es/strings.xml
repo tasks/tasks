@@ -28,7 +28,7 @@
     <string name="TAd_actionEditTask">Editar</string>
     <string name="action_call">Llamar</string>
     <string name="action_open">Abrir</string>
-    <string name="SSD_sort_auto">Ordenación inteligente</string>
+    <string name="SSD_sort_auto">Orden inteligente</string>
     <string name="SSD_sort_alpha">Por título</string>
     <string name="SSD_sort_due">Por fecha límite</string>
     <string name="SSD_sort_importance">Por prioridad</string>
