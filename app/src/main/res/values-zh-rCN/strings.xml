@@ -494,7 +494,7 @@
     <string name="desaturate_colors_summary_off">在深色主题中颜色饱和度不会降低</string>
     <string name="places">地点</string>
     <string name="place_settings">地点设置</string>
-    <string name="navigation_drawer">导航抽屉</string>
+    <string name="navigation_drawer">抽屉式导航栏</string>
     <string name="hide_unused_tags">隐藏不用的标签</string>
     <string name="hide_unused_places">隐藏不用的地点</string>
     <string name="add_place">添加地点</string>
