@@ -235,9 +235,14 @@
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
 +|    +--- androidx.hilt:hilt-common:1.0.0
 +|    |    \--- com.google.dagger:hilt-core:2.35 -> 2.37 (*)
-+|    +--- androidx.work:work-runtime:2.3.4 -> 2.5.0
++|    +--- androidx.work:work-runtime:2.3.4 -> 2.7.0-beta01
++|    |    +--- androidx.annotation:annotation-experimental:1.0.0 -> 1.1.0
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.1.0 -> 2.2.0 (*)
++|    |    +--- androidx.startup:startup-runtime:1.0.0
++|    |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
++|    |    |    \--- androidx.tracing:tracing:1.0.0 (*)
++|    |    +--- androidx.core:core:1.5.0-beta01 -> 1.5.0 (*)
 +|    |    +--- androidx.room:room-runtime:2.2.5 -> 2.3.0
 +|    |    |    +--- androidx.room:room-common:2.3.0
 +|    |    |    |    \--- androidx.annotation:annotation:1.1.0 -> 1.2.0
@@ -364,11 +369,11 @@
 +|    +--- com.google.http-client:google-http-client:1.39.2 (*)
 +|    +--- com.google.http-client:google-http-client-gson:1.39.2 (*)
 +|    \--- com.google.guava:guava:30.1.1-android (*)
-++--- androidx.work:work-runtime:2.5.0 (*)
-++--- androidx.work:work-runtime-ktx:2.5.0
-+|    +--- androidx.work:work-runtime:2.5.0 (*)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.21 -> 1.5.21 (*)
-+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1 -> 1.5.0 (*)
+++--- androidx.work:work-runtime:2.7.0-beta01 (*)
+++--- androidx.work:work-runtime-ktx:2.7.0-beta01
++|    +--- androidx.work:work-runtime:2.7.0-beta01 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 (*)
++|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0 (*)
 ++--- com.etesync:journalmanager:1.1.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71 -> 1.5.21 (*)
 +|    +--- com.madgag.spongycastle:core:1.54.0.0
@@ -451,9 +456,7 @@
 +|    +--- androidx.lifecycle:lifecycle-viewmodel:2.3.0 -> 2.3.1 (*)
 +|    \--- androidx.profileinstaller:profileinstaller:1.0.2
 +|         +--- androidx.annotation:annotation:1.2.0
-+|         \--- androidx.startup:startup-runtime:1.0.0
-+|              +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
-+|              \--- androidx.tracing:tracing:1.0.0 (*)
++|         \--- androidx.startup:startup-runtime:1.0.0 (*)
 ++--- androidx.compose.foundation:foundation:1.0.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
 +|    +--- androidx.compose.animation:animation:1.0.2
