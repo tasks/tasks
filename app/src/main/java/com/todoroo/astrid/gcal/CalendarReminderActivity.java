@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.MainActivity;
-import dagger.hilt.android.AndroidEntryPoint;
-import javax.inject.Inject;
+
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
@@ -19,6 +19,10 @@ import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.AlarmManager;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 import org.tasks.themes.ThemeAccent;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
@@ -152,8 +156,12 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
         Uri.parse(CalendarNotificationIntentService.URI_PREFIX_POSTPONE + "://" + eventId));
 
     PendingIntent pendingIntent =
-        PendingIntent.getBroadcast(
-            this, CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, 0);
+            PendingIntent.getBroadcast(
+                    this,
+                    CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER,
+                    eventAlarm,
+                    PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
+            );
 
     alarmManager.cancel(pendingIntent);
 

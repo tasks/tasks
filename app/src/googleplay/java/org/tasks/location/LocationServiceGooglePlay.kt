@@ -44,7 +44,10 @@ class LocationServiceGooglePlay @Inject constructor(
                     context,
                     0,
                     Intent(context, GoogleGeofenceTransitionIntentService.Broadcast::class.java),
-                    /*PendingIntent.FLAG_MUTABLE or */PendingIntent.FLAG_UPDATE_CURRENT
+                    if (atLeastS())
+                        PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                    else
+                        PendingIntent.FLAG_UPDATE_CURRENT
                 )
             )
     }

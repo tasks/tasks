@@ -159,6 +159,10 @@ public class AndroidUtilities {
     return VERSION.SDK_INT >= VERSION_CODES.R;
   }
 
+  public static boolean atLeastS() {
+    return VERSION.SDK_INT >= VERSION_CODES.S;
+  }
+
   public static void assertMainThread() {
     if (BuildConfig.DEBUG && !isMainThread()) {
       throw new IllegalStateException("Should be called from main thread");

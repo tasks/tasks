@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import androidx.core.graphics.ColorUtils
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -151,12 +152,15 @@ class TasksWidget : AppWidgetProvider() {
     }
 
     private fun getPendingIntentTemplate(context: Context): PendingIntent =
-            PendingIntent.getActivity(
-                    context,
-                0,
-                Intent(context, WidgetClickActivity::class.java),
-                /*PendingIntent.FLAG_MUTABLE or */PendingIntent.FLAG_UPDATE_CURRENT
-            )
+        PendingIntent.getActivity(
+            context,
+            0,
+            Intent(context, WidgetClickActivity::class.java),
+            if (atLeastS())
+                PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            else
+                PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
     private fun getOpenListIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
         val intent = TaskIntents.getTaskListIntent(context, filter)

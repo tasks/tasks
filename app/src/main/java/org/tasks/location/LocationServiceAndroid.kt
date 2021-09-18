@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.net.Uri
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.data.MergedGeofence
 import org.tasks.data.Place
@@ -51,13 +52,16 @@ class LocationServiceAndroid @Inject constructor(
     }
 
     private fun createPendingIntent(place: Long) =
-            PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    Intent(context, AndroidGeofenceTransitionIntentService.Broadcast::class.java)
-                            .setData(Uri.parse("tasks://geofence/$place")),
-                /*PendingIntent.FLAG_MUTABLE or */PendingIntent.FLAG_UPDATE_CURRENT
-            )
+        PendingIntent.getBroadcast(
+            context,
+            0,
+            Intent(context, AndroidGeofenceTransitionIntentService.Broadcast::class.java)
+                .setData(Uri.parse("tasks://geofence/$place")),
+            if (atLeastS())
+                PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            else
+                PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
     companion object {
         private val TWO_MINUTES = TimeUnit.MINUTES.toMillis(2)

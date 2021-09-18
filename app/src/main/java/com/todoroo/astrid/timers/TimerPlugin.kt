@@ -65,7 +65,12 @@ class TimerPlugin @Inject constructor(
         } else {
             val filter = createFilter(context)
             val notifyIntent = TaskIntents.getTaskListIntent(context, filter)
-            val pendingIntent = PendingIntent.getActivity(context, Constants.NOTIFICATION_TIMER, notifyIntent, 0)
+            val pendingIntent = PendingIntent.getActivity(
+                context,
+                Constants.NOTIFICATION_TIMER,
+                notifyIntent,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
             val r = context.resources
             val appName = r.getString(R.string.app_name)
             val text = r.getString(

@@ -60,8 +60,8 @@ android {
         applicationId = "org.tasks"
         versionCode = 111007
         versionName = "11.10.2"
-        targetSdkVersion(Versions.targetSdk)
-        minSdkVersion(Versions.minSdk)
+        targetSdk = Versions.targetSdk
+        minSdk = Versions.minSdk
         testInstrumentationRunner = "org.tasks.TestRunner"
 
         kapt {
