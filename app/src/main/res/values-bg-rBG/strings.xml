@@ -308,7 +308,7 @@
     <string name="date_shortcut_must_come_before">%1$s трябва да дойде преди %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s трябва да дойде след %2$s</string>
     <string name="discard_changes">Отказ от промените\?</string>
-    <string name="discard">Откажи</string>
+    <string name="discard">Отказ</string>
     <string name="tag_settings">Настройки на етикети</string>
     <string name="list_settings">Настройки на списъка</string>
     <string name="delete">Изтрий</string>
