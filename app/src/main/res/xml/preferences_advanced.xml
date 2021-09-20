@@ -26,7 +26,8 @@
     android:summaryOff="@string/EPr_cal_end_at_due_time"
     android:summaryOn="@string/EPr_cal_start_at_due_time"
     android:title="@string/EPr_cal_end_or_start_at_due_time"
-    app:allowDividerAbove="true" />
+    app:allowDividerAbove="true"
+    app:singleLineTitle="false" />
 
   <SwitchPreferenceCompat
     android:defaultValue="false"
