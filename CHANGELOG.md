@@ -1,3 +1,37 @@
+### 11.11 (2021-09-20)
+
+* Add 'Due now' filter criteria - Thanks @tkterris!
+* Fix crash on Android 12 - Thanks @tkterris!
+* Fix preference display issue - Thanks @Groctel!
+* Target Android 12
+* Ignore link clicks during multi-select
+* Update translations
+  * Arabic - @mhmdanas, @machiav3lli
+  * Basque - @Thadah
+  * Brazilian Portuguese - @laralem
+  * Bulgarian - @StoyanDimitrov
+  * Croatian - @milotype
+  * Czech - @vitSkalicky
+  * Danish - @Tntdruid
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - @machiav3lli, J. Lavoie
+  * Greek - @giorgio93p
+  * Indonesian - @erigmac
+  * Italian - J. Lavoie, @Fs00
+  * Japanese - さとうまこと
+  * Lithuanian - @70h
+  * Norwegian Bokmål - @comradekingu
+  * Portuguese - @laralem
+  * Romanian - Simona Iacob
+  * Russian - @tolstovka, @zhelemysh, @ToxesFoxes
+  * Simplified Chinese - @sr093906, @Geeyun-JY3
+  * Spanish - @FlorianLeChat, @Groctel, @berman00
+  * Swedish - @bittin
+  * Turkish - @ersen0
+  * Ukrainian - @IhorHordiichuk
+  * Vietnamese - bruh
+
 ### 11.10.2 (2021-07-15)
 
 * Fix location-based reminders
