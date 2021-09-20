@@ -1,10 +1,13 @@
+import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
+
 plugins {
     id("com.android.application")
     id("checkstyle")
+    id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     kotlin("android")
     kotlin("kapt")
-    id("com.cookpad.android.plugin.license-tools") version "1.2.6"
+    id("com.cookpad.android.plugin.license-tools") version "1.2.8"
     id("com.github.ben-manes.versions") version "0.39.0"
     id("com.vanniktech.android.junit.jacoco") version "0.16.0"
     id("dagger.hilt.android.plugin")
@@ -103,7 +106,7 @@ android {
     @Suppress("LocalVariableName")
     buildTypes {
         getByName("debug") {
-            firebaseCrashlytics {
+            configure<CrashlyticsExtension> {
                 mappingFileUploadEnabled = false
             }
             val tasks_mapbox_key_debug: String? by project
@@ -201,7 +204,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.4")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
-    implementation("com.google.code.gson:gson:2.8.7")
+    implementation("com.google.code.gson:gson:2.8.8")
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
@@ -224,7 +227,7 @@ dependencies {
     implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("net.openid:appauth:0.8.1")
-    implementation("org.osmdroid:osmdroid-android:6.1.10@aar")
+    implementation("org.osmdroid:osmdroid-android:6.1.11@aar")
 
     implementation("androidx.compose.ui:ui:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation:${Versions.compose}")
@@ -254,11 +257,9 @@ dependencies {
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:${Versions.okhttp}")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
     testImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
     testImplementation("androidx.test:core:${Versions.androidx_test}")
     testImplementation("org.mockito:mockito-core:${Versions.mockito}")
     testImplementation("org.ogce:xpp3:1.1.6")
 }
-
-apply(mapOf("plugin" to "com.google.gms.google-services"))
