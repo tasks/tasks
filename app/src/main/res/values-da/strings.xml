@@ -723,7 +723,5 @@
     <string name="CFC_startBefore_text">Start af: \?</string>
     <string name="SSD_sort_start">Efter startdato</string>
     <string name="manage_drawer">Administrer skuffe</string>
-    <string name="cancel">\@android:string/cancel</string>
-    <string name="ok">\@android:string/ok</string>
     <string name="now">Nu</string>
 </resources>

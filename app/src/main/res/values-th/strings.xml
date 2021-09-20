@@ -706,6 +706,4 @@
     <string name="backup_BAc_export">สํารองข้อมูลเดี๋ยวนี้</string>
     <string name="display_name">ชื่อที่ใช้แสดง</string>
     <string name="TVA_add_comment">เพิ่มข้อคิดเห็น…</string>
-    <string name="cancel">\@android:string/cancel</string>
-    <string name="ok">\@android:string/ok</string>
 </resources>

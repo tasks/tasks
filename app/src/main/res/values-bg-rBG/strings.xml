@@ -494,8 +494,6 @@
     <string name="astrid_sort_order">Ръчно сортиране на Astrid</string>
     <string name="SSD_sort_my_order">Моя подредба</string>
     <string name="manage_drawer">Управление на чекмеджето</string>
-    <string name="cancel">\@android:string/cancel</string>
-    <string name="ok">\@android:string/ok</string>
     <string name="picker_mode_clock">Часовник</string>
     <string name="invite">Покана</string>
     <string name="picker_mode_calendar">Календар</string>
