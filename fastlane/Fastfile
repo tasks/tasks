@@ -35,4 +35,9 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
+
+  desc "Lint"
+  lane :lint do
+    gradle(task: ":app:lintGoogleplayRelease :app:lintGenericRelease")
+  end
 end
