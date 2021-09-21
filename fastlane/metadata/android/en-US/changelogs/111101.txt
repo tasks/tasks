@@ -1,0 +1,6 @@
+* Add 'Due now' filter criteria - Thanks @tkterris!
+* Fix crash on Android 12 - Thanks @tkterris!
+* Fix preference display issue - Thanks @Groctel!
+* Target Android 12
+* Ignore link clicks during multi-select
+* Update translations

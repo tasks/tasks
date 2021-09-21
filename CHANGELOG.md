@@ -1,4 +1,4 @@
-### 11.11 (2021-09-20)
+### 11.11 (2021-09-21)
 
 * Add 'Due now' filter criteria - Thanks @tkterris!
 * Fix crash on Android 12 - Thanks @tkterris!
@@ -26,6 +26,7 @@
   * Romanian - Simona Iacob
   * Russian - @tolstovka, @zhelemysh, @ToxesFoxes
   * Simplified Chinese - @sr093906, @Geeyun-JY3
+  * Sinhala - @Dilshan-H
   * Spanish - @FlorianLeChat, @Groctel, @berman00
   * Swedish - @bittin
   * Turkish - @ersen0
