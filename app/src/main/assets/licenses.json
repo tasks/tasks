@@ -1542,7 +1542,7 @@
     {
       "artifactId": {
         "name": "opentasks-provider",
-        "group": "com.github.dmfs.opentasks",
+        "group": "com.github.tasks.opentasks",
         "version": "+"
       },
       "copyrightHolder": "dmfs GmbH",
