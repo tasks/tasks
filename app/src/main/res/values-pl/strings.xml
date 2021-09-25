@@ -697,7 +697,7 @@
     <string name="support">Wsparcie</string>
     <string name="email">Poczta elektroniczna</string>
     <string name="markdown_description">Włącz Markdown w tytule i opisie</string>
-    <string name="markdown">Obniżka cen</string>
+    <string name="markdown">Markdown</string>
     <string name="more_options">Więcej możliwości</string>
     <string name="upgrade_automation_description">Wtyczki do Tasker, Automate i Ustawienia regionalne</string>
     <string name="upgrade_automation">Automatyka</string>
