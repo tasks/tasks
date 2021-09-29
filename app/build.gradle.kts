@@ -233,7 +233,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
-    implementation("com.google.android.material:compose-theme-adapter:${Versions.compose}")
+    implementation("com.google.android.material:compose-theme-adapter:${Versions.compose_theme_adapter}")
     implementation("androidx.activity:activity-compose:1.3.1")
     releaseCompileOnly("androidx.compose.ui:ui-tooling:${Versions.compose}")
 
