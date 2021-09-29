@@ -4,7 +4,7 @@
     <string name="TVA_add_comment">添加一个注释…</string>
     <string name="backup_BPr_header">备份</string>
     <string name="backup_BAc_import">导入备份</string>
-    <string name="backup_BAc_export">现在备份</string>
+    <string name="backup_BAc_export">立即备份</string>
     <string name="export_toast">已将 %1$s 备份至 %2$s。</string>
     <string name="import_summary_title">还原摘要</string>
     <string name="import_summary_message">文件 %1$s 包含 %2$s 个任务。\n\n %3$s 个已导入,\n %4$s 个已存在\n %5$s 个存在错误\n</string>
@@ -23,7 +23,7 @@
     <string name="TAd_actionEditTask">编辑</string>
     <string name="action_call">通话</string>
     <string name="action_open">打开</string>
-    <string name="SSD_sort_auto">清单小助理智能排序</string>
+    <string name="SSD_sort_auto">智能排序</string>
     <string name="SSD_sort_alpha">按标题</string>
     <string name="SSD_sort_due">按截止日期</string>
     <string name="SSD_sort_importance">按优先级</string>
@@ -53,7 +53,7 @@
     <string name="TEA_load_more">加载更多……</string>
     <string name="CRA_ignore">忽略</string>
     <string name="CRA_title">需要会议列表？</string>
-    <string name="CRA_ignore_body">您已经忽略了几个日历事件。对于这些事件，清单小助理是否应该不再询问您呢？</string>
+    <string name="CRA_ignore_body">您已经忽略了几个日历事件。Tasks 是否应该停止向你询问这些事件？</string>
     <string name="CRA_ignore_all">忽略所有事件</string>
     <string name="CRA_ignore_this">只忽略该事件</string>
     <string name="CRA_speech_bubble_start">看起来 %s 即将开始。 想要为这个行动项目创建一个列表吗？</string>
