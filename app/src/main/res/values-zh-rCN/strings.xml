@@ -9,8 +9,8 @@
     <string name="import_summary_title">还原摘要</string>
     <string name="import_summary_message">文件 %1$s 包含 %2$s 个任务。\n\n %3$s 个已导入,\n %4$s 个已存在\n %5$s 个存在错误\n</string>
     <string name="import_progress_read">读取任务中 %d…</string>
-    <string name="read_permission_label">清单小助理权限</string>
-    <string name="discard_confirmation">确定放弃你的改变吗？</string>
+    <string name="read_permission_label">Tasks 权限</string>
+    <string name="discard_confirmation">确定要放弃你的修改吗？</string>
     <string name="keep_editing">继续编辑</string>
     <string name="DLG_delete_this_task_question">确认删除？</string>
     <string name="DLG_hour_minutes">时间（小时:分钟）</string>
@@ -441,14 +441,13 @@
     <string name="EPr_temp_completed_tasks_showing">任务完成后将暂时展示在列表中</string>
     <string name="EPr_temp_completed_tasks_not_showing">任务完成后将立刻从列表中消失</string>
     <plurals name="subtask_count">
-        <item quantity="one">%d个子任务</item>
-        <item quantity="other"/>
+        <item quantity="other">%d 个子任务</item>
     </plurals>
-    <string name="expand_subtasks">扩展子任务</string>
-    <string name="collapse_subtasks">缩回子任务列表</string>
+    <string name="expand_subtasks">展开子任务</string>
+    <string name="collapse_subtasks">收起子任务</string>
     <string name="TEA_add_subtask">添加子任务</string>
     <string name="subtasks">子任务</string>
-    <string name="subtasks_multilevel_google_task">Google Tasks不支持多层子任务</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks 不支持多层级子任务</string>
     <string name="enter_title_hint">输入标题</string>
     <string name="enter_tag_name">输入标签名称</string>
     <string name="create_new_tag">创建\"%s\"</string>
