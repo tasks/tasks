@@ -16,7 +16,7 @@
     <string name="import_progress_read">Прочитане на задача %d…</string>
     <string name="read_permission_label">Разрешения за Tasks</string>
     <string name="discard_confirmation">Сигурни ли сте че искате да отхвърлите промените си\?</string>
-    <string name="keep_editing">Продължаване на редактиране</string>
+    <string name="keep_editing">Редактиране</string>
     <string name="DLG_delete_this_task_question">Изтриване на задачата\?</string>
     <string name="DLG_hour_minutes">Време (час : минута)</string>
     <string name="DLG_undo">Отменяне</string>
@@ -89,11 +89,11 @@
     <string name="EPr_manage_delete_all_gcal">Изтриване на всички събития от календара за задачи</string>
     <string name="EPr_manage_delete_all_gcal_message">Наистина ли желаете всички събития за задачи да бъдат премахнати\?</string>
     <string name="task_defaults">Настройки по подразбиране</string>
-    <string name="EPr_default_importance_title">Подразбиран приоритет</string>
-    <string name="EPr_default_reminders_title">Подразбирани напомняния</string>
-    <string name="EPr_default_location_reminder_title">Подразбирани напомняния за място</string>
-    <string name="EPr_default_location_radius">Подразбиран радиус</string>
-    <string name="EPr_default_reminders_mode_title">Подразбиран тон на звънене/вибрация</string>
+    <string name="EPr_default_importance_title">Приоритет по подразбиране</string>
+    <string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
+    <string name="EPr_default_location_reminder_title">Напомняния за място по подразбиране</string>
+    <string name="EPr_default_location_radius">Радиус по подразбиране</string>
+    <string name="EPr_default_reminders_mode_title">Тон на звънене/вибрация по подразбиране</string>
     <string name="priority_high">Висок</string>
     <string name="priority_medium">Среден</string>
     <string name="priority_low">Нисък</string>
@@ -132,7 +132,7 @@
     <string name="CFC_gtasks_list_name">В списъка GTasks…</string>
     <string name="gtasks_GTA_clear_completed">Изчистване завършени</string>
     <string name="gtasks_GLA_authenticating">Удостоверяване…</string>
-    <string name="gtasks_GLA_errorIOAuth">Съжаляваме, но имаше проблем с връзката до сървърите на Google. Опитайте отново по-късно.</string>
+    <string name="gtasks_GLA_errorIOAuth">Има проблем с връзката до сървърите на Google. Опитайте отново по-късно.</string>
     <string name="gtasks_error_accountNotFound">Акаунт %s не е намерен-моля да излезнете и да влязнете отново от настройките на Google Tasks.</string>
     <string name="premium_record_audio">Записване на бележка</string>
     <string name="premium_remove_file_confirm">Сигурни ли сте? Не може да бъде отменено</string>
@@ -152,7 +152,7 @@
     <string name="snooze_all">Отлагане всички</string>
     <string name="rmd_EPr_quiet_hours_start_title">Начало на тихи часове</string>
     <string name="rmd_EPr_quiet_hours_end_title">Край на тихи часове</string>
-    <string name="rmd_EPr_rmd_time_title">Подразбирано напомняне</string>
+    <string name="rmd_EPr_rmd_time_title">Напомняне по подразбиране</string>
     <string name="rmd_EPr_rmd_time_desc">Известията за задачи без краен срок ще се появяват на %s</string>
     <string name="persistent_notifications">Постоянни известия</string>
     <string name="persistent_notifications_description">Постоянните известия не могат да бъдат изчиствани</string>
@@ -311,8 +311,8 @@
     <string name="discard">Отказ</string>
     <string name="tag_settings">Настройки на етикети</string>
     <string name="list_settings">Настройки на списъка</string>
-    <string name="delete">Изтрий</string>
-    <string name="copy">Копирай</string>
+    <string name="delete">Премахване</string>
+    <string name="copy">Копиране</string>
     <string name="move">Преместване</string>
     <string name="filter_settings">Настройки на филтър</string>
     <string name="show_completed">Завършени</string>
@@ -347,7 +347,7 @@
     <string name="theme_day_night">Ден/Нощ</string>
     <string name="language">Език</string>
     <string name="restart_required">Tasks трябва да бъде рестартиран за да влязат промените в сила</string>
-    <string name="restart_now">Рестартирай сега</string>
+    <string name="restart_now">Рестартиране</string>
     <string name="restart_later">По-късно</string>
     <string name="settings_localization">Локализация</string>
     <string name="led_notification">LED нотификация</string>
@@ -392,8 +392,8 @@
     <string name="repeats_plural_on_number_of_times">Повтаря се всеки %1$s на %2$s, възниква %3$d %4$s</string>
     <string name="dont_add_to_calendar">Без добавяне към календара</string>
     <string name="default_calendar">Календар по подразбиране</string>
-    <string name="badges_description">Показвай броя задачи върху икона на Tasks в лаунчера. Не всички лаунчери поддържат значки.</string>
-    <string name="bundle_notifications_summary">Комбинирай множество нотификации в една</string>
+    <string name="badges_description">Броят на задачите е видим върху иконата на Tasks. Не всички начални екрани поддържат значки.</string>
+    <string name="bundle_notifications_summary">Няколко известия се обединяват в едно</string>
     <string name="repeat_monthly_same_day_each_month">на един и същ ден всеки месец</string>
     <string name="repeat_monthly_every_day_of_nth_week">всеки %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">на всеки %1$s %2$s</string>
@@ -418,14 +418,14 @@
     <string name="logout_warning">Всички данни за този акаунт ще бъдат изтрити от Вашето устройство</string>
     <string name="cannot_access_account">Няма достъп до акаунт</string>
     <string name="reinitialize_account">Реинициализиране</string>
-    <string name="action_create_new_task">Създай нова задача</string>
+    <string name="action_create_new_task">Създаване на задача</string>
     <string name="show_description">Описание</string>
     <string name="show_full_description">Пълно описание</string>
     <string name="linkify">Препратки</string>
-    <string name="linkify_description">Добавете връзки към уебсайтове, адреси и телефонни номера</string>
+    <string name="linkify_description">Добавете връзки към страници, адреси и телефонни номера</string>
     <string name="location_remind_arrival">Напомни при пристигане</string>
     <string name="location_remind_departure">Напомни при заминаване</string>
-    <string name="visit_website">Посетете уебсайта</string>
+    <string name="visit_website">Посещаване на страницата</string>
     <string name="location_arrived">Пристигнал на %s</string>
     <string name="location_departed">Заминал %s</string>
     <string name="building_notifications">Създаване на известия</string>
@@ -459,7 +459,7 @@
     <string name="theme_system_default">По подразбиране от системата</string>
     <string name="today_lowercase">днес</string>
     <string name="yesterday_lowercase">вчера</string>
-    <string name="default_location">Подразбирано място</string>
+    <string name="default_location">Място по подразбиране</string>
     <string name="enter_tag_name">Въведете име на етикета</string>
     <string name="create_new_tag">Добавяне на „%s“</string>
     <string name="add_filter">Добавяне на филтър</string>
@@ -490,7 +490,7 @@
     <string name="start_date">Начална дата</string>
     <string name="sort_created">По време на създаване</string>
     <string name="SSD_sort_start">По начална дата</string>
-    <string name="astrid_sort_order_summary">Използвайте ръчния режим на сортиране на Astrid за „Моите задачи“, „Днес“ и етикетите. Този режим на сортиране ще бъде заменен с „Моя подредба“ в бъдещо издание</string>
+    <string name="astrid_sort_order_summary">Използвайте режима за ръчно сортиране на Astrid за „Моите задачи“, „Днес“ и етикетите. Този режим на сортиране ще бъде заменен с „Моя подредба“ в бъдещо издание</string>
     <string name="astrid_sort_order">Ръчно сортиране на Astrid</string>
     <string name="SSD_sort_my_order">Моя подредба</string>
     <string name="manage_drawer">Управление на чекмеджето</string>
@@ -530,6 +530,14 @@
     <string name="filter_any_start_date">Всяка начална дата</string>
     <string name="CFC_startBefore_name">Начало…</string>
     <string name="CFC_startBefore_text">Начало от: \?</string>
-    <string name="default_due_date">Подразбирана крайна дата</string>
-    <string name="default_start_date">Подразбирана начална дата</string>
+    <string name="default_due_date">Крайна дата по подразбиране</string>
+    <string name="default_start_date">Начална дата по подразбиране</string>
+    <string name="cancel">\@android:string/cancel</string>
+    <string name="default_tags">Етикети по подразбиране</string>
+    <string name="default_recurrence">Повторение по подразбиране</string>
+    <string name="ok">\@android:string/ok</string>
+    <string name="display_name">Показвано име</string>
+    <string name="share">Споделяне</string>
+    <string name="tasks_org_share">Споделяне на списъци с други потребители</string>
+    <string name="settings_default">По подразбиране</string>
 </resources>
