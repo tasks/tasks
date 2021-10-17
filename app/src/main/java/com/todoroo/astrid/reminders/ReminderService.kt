@@ -119,7 +119,7 @@ class ReminderService internal constructor(
     private fun calculateStartDateReminder(task: Task): Long {
         if (task.hasStartDate() && task.isNotifyAtStart) {
             val startDate = task.hideUntil
-            val startDateAlarm = if (task.hasDueTime()) {
+            val startDateAlarm = if (task.hasStartTime()) {
                 startDate
             } else {
                 DateTime(startDate).withMillisOfDay(preferences.defaultDueTime).millis
