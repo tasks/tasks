@@ -340,6 +340,7 @@ File %1$s contained %2$s.\n\n
   <string name="pick_a_date_and_time">Pick a date and time</string>
   <string name="when_overdue">When overdue</string>
   <string name="when_due">When due</string>
+  <string name="when_started">When started</string>
   <string name="geofence_radius">Radius</string>
   <string name="location_radius_meters">%s m</string>
   <string name="tags">Tags</string>

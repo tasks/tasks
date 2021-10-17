@@ -251,6 +251,9 @@ class Task : Parcelable {
     val isNotifyAfterDeadline: Boolean
         get() = isReminderFlagSet(NOTIFY_AFTER_DEADLINE)
 
+    val isNotifyAtStart: Boolean
+        get() = isReminderFlagSet(NOTIFY_AT_START)
+
     val isNotifyAtDeadline: Boolean
         get() = isReminderFlagSet(NOTIFY_AT_DEADLINE)
 
@@ -516,6 +519,9 @@ class Task : Parcelable {
 
         /** reminder mode five times (exclusive with non-stop)  */
         const val NOTIFY_MODE_FIVE = 1 shl 4
+
+        const val NOTIFY_AT_START = 1 shl 5
+
         @JvmField val CREATOR: Parcelable.Creator<Task> = object : Parcelable.Creator<Task> {
             override fun createFromParcel(source: Parcel): Task? {
                 return Task(source)

@@ -66,6 +66,8 @@ class ReminderService internal constructor(
         // random reminders
         val whenRandom = calculateNextRandomReminder(task)
 
+        val whenStartDate = calculateStartDateReminder(task)
+
         // notifications at due date
         val whenDueDate = calculateNextDueDateReminder(task)
 
@@ -75,8 +77,14 @@ class ReminderService internal constructor(
         // snooze trumps all
         if (whenSnooze != NO_ALARM) {
             return ReminderEntry(taskId, whenSnooze, TYPE_SNOOZE)
-        } else if (whenRandom < whenDueDate && whenRandom < whenOverdue) {
+        } else if (
+            whenRandom < whenDueDate &&
+            whenRandom < whenOverdue &&
+            whenRandom < whenStartDate
+        ) {
             return ReminderEntry(taskId, whenRandom, TYPE_RANDOM)
+        } else if (whenStartDate < whenDueDate) {
+            return ReminderEntry(taskId, whenStartDate, TYPE_START)
         } else if (whenDueDate < whenOverdue) {
             return ReminderEntry(taskId, whenDueDate, TYPE_DUE)
         } else if (whenOverdue != NO_ALARM) {
@@ -108,6 +116,21 @@ class ReminderService internal constructor(
         return NO_ALARM
     }
 
+    private fun calculateStartDateReminder(task: Task): Long {
+        if (task.hasStartDate() && task.isNotifyAtStart) {
+            val startDate = task.hideUntil
+            val startDateAlarm = if (task.hasDueTime()) {
+                startDate
+            } else {
+                DateTime(startDate).withMillisOfDay(preferences.defaultDueTime).millis
+            }
+            if (task.reminderLast < startDateAlarm) {
+                return startDateAlarm
+            }
+        }
+        return NO_ALARM
+    }
+
     /**
      * Calculate the next alarm time for due date reminders.
      *
@@ -122,14 +145,14 @@ class ReminderService internal constructor(
     private fun calculateNextDueDateReminder(task: Task): Long {
         if (task.hasDueDate() && task.isNotifyAtDeadline) {
             val dueDate = task.dueDate
-            val lastReminder = task.reminderLast
-            val dueDateAlarm: Long
-            dueDateAlarm = if (task.hasDueTime()) {
+            val dueDateAlarm = if (task.hasDueTime()) {
                 dueDate
             } else {
                 DateTime(dueDate).withMillisOfDay(preferences.defaultDueTime).millis
             }
-            return if (lastReminder < dueDateAlarm) dueDateAlarm else NO_ALARM
+            if (task.reminderLast < dueDateAlarm) {
+                return dueDateAlarm
+            }
         }
         return NO_ALARM
     }
@@ -165,6 +188,7 @@ class ReminderService internal constructor(
         const val TYPE_ALARM = 4
         const val TYPE_GEOFENCE_ENTER = 5
         const val TYPE_GEOFENCE_EXIT = 6
+        const val TYPE_START = 7
         private const val NO_ALARM = Long.MAX_VALUE
     }
 }

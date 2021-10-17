@@ -236,6 +236,9 @@ class TaskEditViewModel @Inject constructor(
 
     var selectedAlarms: HashSet<Long>? = null
 
+    var whenStart: Boolean? = null
+        get() = field ?: (task?.reminderFlags?.and(Task.NOTIFY_AT_START) ?: 0 > 0)
+
     var whenDue: Boolean? = null
         get() = field ?: (task?.reminderFlags?.and(Task.NOTIFY_AT_DEADLINE) ?: 0 > 0)
 
@@ -416,6 +419,9 @@ class TaskEditViewModel @Inject constructor(
 
     private fun getReminderFlags(): Int {
         var value = 0
+        if (whenStart == true) {
+            value = value or Task.NOTIFY_AT_START
+        }
         if (whenDue == true) {
             value = value or Task.NOTIFY_AT_DEADLINE
         }

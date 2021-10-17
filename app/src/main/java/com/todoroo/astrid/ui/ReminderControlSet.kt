@@ -52,6 +52,9 @@ class ReminderControlSet : TaskEditControlFragment() {
             viewModel.ringFiveTimes!! -> setRingMode(1)
             else -> setRingMode(0)
         }
+        if (viewModel.whenStart!!) {
+            addStart()
+        }
         if (viewModel.whenDue!!) {
             addDue()
         }
@@ -97,6 +100,7 @@ class ReminderControlSet : TaskEditControlFragment() {
 
     private fun addAlarm(selected: String) {
         when (selected) {
+            getString(R.string.when_started) -> addStart()
             getString(R.string.when_due) -> addDue()
             getString(R.string.when_overdue) -> addOverdue()
             getString(R.string.randomly) -> addRandomReminder(TimeUnit.DAYS.toMillis(14))
@@ -147,9 +151,9 @@ class ReminderControlSet : TaskEditControlFragment() {
     }
 
     private fun addAlarmRow(timestamp: Long) {
-        addAlarmRow(
-                DateUtilities.getLongDateStringWithTime(timestamp, locale.locale),
-                View.OnClickListener { viewModel.selectedAlarms?.remove(timestamp) })
+        addAlarmRow(DateUtilities.getLongDateStringWithTime(timestamp, locale.locale)) {
+            viewModel.selectedAlarms?.remove(timestamp)
+        }
     }
 
     private fun addNewAlarm() {
@@ -180,6 +184,9 @@ class ReminderControlSet : TaskEditControlFragment() {
     private val options: List<String>
         get() {
             val options: MutableList<String> = ArrayList()
+            if (viewModel.whenStart != true) {
+                options.add(getString(R.string.when_started))
+            }
             if (viewModel.whenDue != true) {
                 options.add(getString(R.string.when_due))
             }
@@ -193,25 +200,32 @@ class ReminderControlSet : TaskEditControlFragment() {
             return options
         }
 
+    private fun addStart() {
+        viewModel.whenStart = true
+        addAlarmRow(getString(R.string.when_started)) {
+            viewModel.whenStart = false
+        }
+    }
+
     private fun addDue() {
         viewModel.whenDue = true
-        addAlarmRow(getString(R.string.when_due), View.OnClickListener {
+        addAlarmRow(getString(R.string.when_due)) {
             viewModel.whenDue = false
-        })
+        }
     }
 
     private fun addOverdue() {
         viewModel.whenOverdue = true
-        addAlarmRow(getString(R.string.when_overdue), View.OnClickListener {
+        addAlarmRow(getString(R.string.when_overdue)) {
             viewModel.whenOverdue = false
-        })
+        }
     }
 
     private fun addRandomReminder(reminderPeriod: Long) {
-        val alarmRow = addAlarmRow(getString(R.string.randomly_once) + " ", View.OnClickListener {
+        val alarmRow = addAlarmRow(getString(R.string.randomly_once) + " ") {
             viewModel.reminderPeriod = 0
             randomControlSet = null
-        })
+        }
         randomControlSet = RandomReminderControlSet(activity, alarmRow, reminderPeriod, viewModel)
     }
 

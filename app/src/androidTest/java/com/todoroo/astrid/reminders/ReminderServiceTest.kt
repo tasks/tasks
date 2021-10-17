@@ -3,6 +3,7 @@ package com.todoroo.astrid.reminders
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_DUE
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
@@ -22,6 +23,7 @@ import org.tasks.makers.TaskMaker.CREATION_TIME
 import org.tasks.makers.TaskMaker.DELETION_TIME
 import org.tasks.makers.TaskMaker.DUE_DATE
 import org.tasks.makers.TaskMaker.DUE_TIME
+import org.tasks.makers.TaskMaker.HIDE_TYPE
 import org.tasks.makers.TaskMaker.ID
 import org.tasks.makers.TaskMaker.RANDOM_REMINDER_PERIOD
 import org.tasks.makers.TaskMaker.REMINDERS
@@ -53,6 +55,19 @@ class ReminderServiceTest : InjectingTestCase() {
     }
 
     @Test
+    fun dontScheduleStartDateReminderWhenFlagNotSet() {
+        service.scheduleAlarm(
+            newTask(
+                with(ID, 1L),
+                with(HIDE_TYPE, Task.HIDE_UNTIL_DUE),
+                with(DUE_TIME, DateTimeUtils.newDateTime())
+            )
+        )
+
+        assertTrue(jobs.isEmpty())
+    }
+
+    @Test
     fun dontScheduleDueDateReminderWhenFlagNotSet() {
         service.scheduleAlarm(newTask(with(ID, 1L), with(DUE_TIME, DateTimeUtils.newDateTime())))
 
@@ -66,6 +81,34 @@ class ReminderServiceTest : InjectingTestCase() {
         assertTrue(jobs.isEmpty())
     }
 
+    @Test
+    fun schedulePastStartDate() {
+        val task = newTask(
+            with(ID, 1L),
+            with(DUE_TIME, DateTimeUtils.newDateTime().minusDays(1)),
+            with(HIDE_TYPE, HIDE_UNTIL_DUE),
+            with(REMINDERS, Task.NOTIFY_AT_START)
+        )
+
+        service.scheduleAlarm(task)
+
+        verify(ReminderEntry(1, task.hideUntil, ReminderService.TYPE_START))
+    }
+
+    @Test
+    fun scheduleFutureStartDate() {
+        val task = newTask(
+            with(ID, 1L),
+            with(DUE_TIME, DateTimeUtils.newDateTime().plusDays(1)),
+            with(HIDE_TYPE, HIDE_UNTIL_DUE),
+            with(REMINDERS, Task.NOTIFY_AT_START)
+        )
+
+        service.scheduleAlarm(task)
+
+        verify(ReminderEntry(1, task.hideUntil, ReminderService.TYPE_START))
+    }
+    
     @Test
     fun schedulePastDueDate() {
         val task = newTask(
