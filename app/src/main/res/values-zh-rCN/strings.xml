@@ -713,4 +713,5 @@
     <string name="markdown">Markdown</string>
     <string name="chat_libera">加入 Libera Chat 上的 #tasks</string>
     <string name="now">现在</string>
+    <string name="when_started">启动时</string>
 </resources>
