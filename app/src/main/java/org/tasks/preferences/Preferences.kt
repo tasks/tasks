@@ -197,7 +197,7 @@ class Preferences @JvmOverloads constructor(
     val defaultRemindersSet: Set<String>
         get() = getStringSet(
             R.string.p_default_reminders_key,
-            listOf(NOTIFY_AT_DEADLINE, NOTIFY_AFTER_DEADLINE).map { it.toString() }.toSet()
+            hashSetOf(NOTIFY_AT_DEADLINE.toString(), NOTIFY_AFTER_DEADLINE.toString())
         )
 
     val defaultReminders: Int
@@ -252,7 +252,7 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
-    fun getStringSet(key: Int, defaultValue: Set<String> = emptySet()) =
+    private fun getStringSet(key: Int, defaultValue: Set<String> = emptySet()) =
         getStringSet(context.getString(key), defaultValue)
 
     private fun getStringSet(key: String, defaultValue: Set<String> = emptySet()): Set<String> =
