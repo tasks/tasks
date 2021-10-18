@@ -458,8 +458,6 @@
     <string name="BFE_Active">Sarcinile mele</string>
     <string name="default_location_reminder_on_arrival_or_departure">La sosire și la plecare</string>
     <string name="no_reminders">Fără reamintiri</string>
-    <string name="at_deadline_or_overdue">La termen sau cu întârziere</string>
-    <string name="at_deadline">La termen</string>
     <string name="next_week">Săptămâna viitoare</string>
     <string name="day_after_tomorrow">Poimâine</string>
     <string name="priority_low">Redus</string>

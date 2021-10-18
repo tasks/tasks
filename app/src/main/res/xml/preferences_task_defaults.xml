@@ -68,13 +68,13 @@
     android:entryValues="@array/repeat_type_values"
     android:summary="%s" />
 
-  <ListPreference
-    android:defaultValue="6"
+  <MultiSelectListPreference
     android:entries="@array/EPr_default_reminders"
     android:entryValues="@array/EPr_default_reminders_values"
     android:icon="@drawable/ic_outline_notifications_24px"
     android:key="@string/p_default_reminders_key"
     android:summary="%s"
+    android:defaultValue="@array/EPr_default_reminders_default"
     android:title="@string/EPr_default_reminders_title"
     app:allowDividerAbove="true" />
 

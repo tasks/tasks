@@ -90,8 +90,6 @@
     <string name="priority_low">Faible</string>
     <string name="day_after_tomorrow">Après-demain</string>
     <string name="next_week">La semaine prochaine</string>
-    <string name="at_deadline">À la date limite</string>
-    <string name="at_deadline_or_overdue">À la date limite ou après</string>
     <string name="no_reminders">Aucun rappel</string>
     <string name="default_location_reminder_on_arrival">A l\'arrivée</string>
     <string name="default_location_reminder_on_departure">Au départ</string>

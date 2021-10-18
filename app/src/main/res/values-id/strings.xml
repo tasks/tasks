@@ -68,8 +68,6 @@
     <string name="priority_low">Rendah</string>
     <string name="day_after_tomorrow">Lusa</string>
     <string name="next_week">Minggu depan</string>
-    <string name="at_deadline">Saat batas waktu</string>
-    <string name="at_deadline_or_overdue">Saat batas waktu atau saat lewat jatuh tempo</string>
     <string name="no_reminders">Tidak ada pengingat</string>
     <string name="BFE_Active">Tugas Saya</string>
     <string name="BFE_Recent">Baru-baru ini diubah</string>

@@ -88,8 +88,6 @@
     <string name="priority_low">Baja</string>
     <string name="day_after_tomorrow">Pasado mañana</string>
     <string name="next_week">Semana siguiente</string>
-    <string name="at_deadline">En la fecha de vencimiento</string>
-    <string name="at_deadline_or_overdue">En la fecha de vencimiento o ya vencida</string>
     <string name="BFE_Active">Mis Tareas</string>
     <string name="BFE_Recent">Recién modificadas</string>
     <string name="custom_filter_or">ou</string>

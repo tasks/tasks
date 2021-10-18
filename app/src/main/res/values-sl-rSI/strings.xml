@@ -75,8 +75,6 @@
     <string name="EPr_default_reminders_mode_title">Privzeti način zvonenja/vibriranja</string>
     <string name="day_after_tomorrow">Pojutrišnjem</string>
     <string name="next_week">Naslednji teden</string>
-    <string name="at_deadline">Ob dospelosti</string>
-    <string name="at_deadline_or_overdue">Ob dospelosti ali potem</string>
     <string name="BFE_Active">Moji Opravki</string>
     <string name="BFE_Recent">Nedavno spremenjeno</string>
     <string name="custom_filter_or">na dan</string>

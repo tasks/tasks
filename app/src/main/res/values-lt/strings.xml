@@ -99,8 +99,6 @@
     <string name="priority_low">Žemas</string>
     <string name="day_after_tomorrow">Poryt</string>
     <string name="next_week">Kitą savaitę</string>
-    <string name="at_deadline">Atėjus terminui</string>
-    <string name="at_deadline_or_overdue">Atėjus terminui arba pavėluotai</string>
     <string name="no_reminders">Jokių priminimų</string>
     <string name="default_location_reminder_on_arrival">Atvykus</string>
     <string name="default_location_reminder_on_departure">Išvykstant</string>

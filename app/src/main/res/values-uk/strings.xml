@@ -97,8 +97,6 @@
     <string name="priority_low">Низький</string>
     <string name="day_after_tomorrow">Післязавтра</string>
     <string name="next_week">Наступного тижня</string>
-    <string name="at_deadline">У дедлайн</string>
-    <string name="at_deadline_or_overdue">У дедлайн чи після построчення</string>
     <string name="no_reminders">Без нагадувань</string>
     <string name="default_location_reminder_on_arrival">Після прибуття</string>
     <string name="default_location_reminder_on_departure">Під час покиданні місця</string>

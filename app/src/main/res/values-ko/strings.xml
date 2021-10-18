@@ -95,8 +95,6 @@
     <string name="priority_low">낮음</string>
     <string name="day_after_tomorrow">모레</string>
     <string name="next_week">다음 주</string>
-    <string name="at_deadline">완료일에</string>
-    <string name="at_deadline_or_overdue">마감일이나 그 이후</string>
     <string name="no_reminders">알림 없음</string>
     <string name="default_location_reminder_on_arrival">도착 시</string>
     <string name="default_location_reminder_on_departure">출발 시</string>

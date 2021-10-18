@@ -564,8 +564,6 @@
     <string name="default_location_reminder_on_departure">เมื่อออกเดินทาง</string>
     <string name="default_location_reminder_on_arrival">เมื่อมาถึง</string>
     <string name="no_reminders">ไม่มีตัวเตือน</string>
-    <string name="at_deadline_or_overdue">เมื่อถึงกําหนดเวลาหรือพ้นกําหนด</string>
-    <string name="at_deadline">เมื่อถึงกําหนดเวลา</string>
     <string name="next_week">อาทิตย์หน้า</string>
     <string name="day_after_tomorrow">วันหลังจากวันพรุ่งนี้</string>
     <string name="priority_low">ต่ํา</string>

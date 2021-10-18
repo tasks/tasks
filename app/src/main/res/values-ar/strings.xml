@@ -407,7 +407,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">عند الوصول والمغادرة</string>
     <string name="default_location_reminder_on_departure">عند المغادرة</string>
     <string name="default_location_reminder_on_arrival">عند الوصول</string>
-    <string name="at_deadline">عند الموعد النهائي</string>
     <string name="EPr_manage_delete_completed_gcal_message">هل حقًّا تريد حذف كل أحداثك للمهام المتمّمة؟</string>
     <string name="TEA_add_subtask">أضف مهمّة فرعيّة</string>
     <string name="invite_invalid">الدعوة غير صالحة</string>
@@ -664,7 +663,6 @@
     <string name="gtasks_GLA_authenticating">قيد المصادقة…</string>
     <string name="CFC_gtasks_list_name">في قوائم مهام كوكل…</string>
     <string name="no_due_date">لا تاريخ استحقاق</string>
-    <string name="at_deadline_or_overdue">في الموعد النهائي أو المتأخر</string>
     <string name="EPr_default_location_reminder_title">مذكرات الموقع الافتراضية</string>
     <string name="default_due_date">وقت الاستحقاق الافتراضي</string>
     <string name="EPr_cal_start_at_due_time">بدء أحداث التقويم عند الوقت المحدد</string>

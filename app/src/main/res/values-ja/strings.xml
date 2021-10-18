@@ -94,8 +94,6 @@
     <string name="priority_low">低</string>
     <string name="day_after_tomorrow">明後日</string>
     <string name="next_week">来週</string>
-    <string name="at_deadline">期限に</string>
-    <string name="at_deadline_or_overdue">期限または期限を過ぎて</string>
     <string name="no_reminders">リマインダーはありません</string>
     <string name="default_location_reminder_on_arrival">到着時</string>
     <string name="default_location_reminder_on_departure">出発時</string>

@@ -96,8 +96,6 @@
     <string name="priority_low">Baja</string>
     <string name="day_after_tomorrow">Pasado mañana</string>
     <string name="next_week">Semana siguiente</string>
-    <string name="at_deadline">En la fecha límite</string>
-    <string name="at_deadline_or_overdue">En la fecha límite o atrasada</string>
     <string name="no_reminders">Sin recordatorio</string>
     <string name="default_location_reminder_on_arrival">A la llegada</string>
     <string name="default_location_reminder_on_departure">A la salida</string>

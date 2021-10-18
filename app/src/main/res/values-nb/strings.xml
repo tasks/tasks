@@ -204,8 +204,6 @@
     <string name="priority_low">Lav</string>
     <string name="day_after_tomorrow">I overimorgen</string>
     <string name="next_week">Neste uke</string>
-    <string name="at_deadline">Ved tidsfrist</string>
-    <string name="at_deadline_or_overdue">Ved tidsfrist eller forfall</string>
     <string name="no_reminders">Ingen påminnelser</string>
     <string name="default_location_reminder_on_arrival">Ved ankomst</string>
     <string name="default_location_reminder_on_departure">Ved avgang</string>

@@ -87,8 +87,6 @@
     <string name="priority_low">Låg</string>
     <string name="day_after_tomorrow">I övermorgon</string>
     <string name="next_week">Nästa vecka</string>
-    <string name="at_deadline">Vid förfallodagen</string>
-    <string name="at_deadline_or_overdue">Vid eller efter förfallodagen</string>
     <string name="BFE_Active">Mina Uppgifter</string>
     <string name="BFE_Recent">Nyligen ändrade</string>
     <string name="custom_filter_or">eller</string>

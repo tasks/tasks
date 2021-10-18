@@ -92,8 +92,6 @@
     <string name="priority_low">Mało ważne</string>
     <string name="day_after_tomorrow">Pojutrze</string>
     <string name="next_week">Przyszły tydzień</string>
-    <string name="at_deadline">W dniu terminu nieprzekraczalnego</string>
-    <string name="at_deadline_or_overdue">W nieprzekraczalnym terminie lub gdy zaległe</string>
     <string name="no_reminders">Brak przypomnień</string>
     <string name="default_location_reminder_on_arrival">Po przybyciu</string>
     <string name="default_location_reminder_on_departure">Przy wyruszaniu</string>

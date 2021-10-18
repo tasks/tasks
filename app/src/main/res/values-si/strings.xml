@@ -403,8 +403,6 @@
     <string name="BFE_Recent">මෑතකදී වෙනස් කරන ලදි</string>
     <string name="BFE_Active">මගේ කාර්යයන්</string>
     <string name="no_reminders">මතක් කිරීම් නොමැත</string>
-    <string name="at_deadline_or_overdue">නියමිත දිනට හෝ ඊට පසුව</string>
-    <string name="at_deadline">නියමිත දිනට</string>
     <string name="next_week">ලබන සතිය</string>
     <string name="day_after_tomorrow">අනිද්දා</string>
     <string name="priority_low">අවම</string>

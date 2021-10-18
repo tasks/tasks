@@ -9,6 +9,9 @@ import androidx.preference.Preference
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
@@ -108,6 +111,11 @@ class TaskDefaults : InjectingPreferenceFragment() {
                     false
                 }
 
+        findPreference(R.string.p_default_reminders_key).setOnPreferenceChangeListener { _, newValue ->
+            updateDefaultReminders(newValue as Collection<String>)
+            true
+        }
+
         updateRemoteListSummary()
         updateRecurrence()
         updateDefaultLocation()
@@ -168,6 +176,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
         updateRecurrence()
         updateDefaultLocation()
         updateTags()
+        updateDefaultReminders()
     }
 
     private fun getDefaultCalendarName(): String? {
@@ -212,6 +221,23 @@ class TaskDefaults : InjectingPreferenceFragment() {
                         .takeIf { it.isNotEmpty() }
                         ?.joinToString(", ")
                         ?: requireContext().getString(R.string.none)
+    }
+
+    private fun updateDefaultReminders(prefs: Collection<String> = preferences.defaultRemindersSet) {
+        findPreference(R.string.p_default_reminders_key).summary =
+            if (prefs.isEmpty()) {
+                getString(R.string.no_reminders)
+            } else {
+                prefs.mapNotNull {
+                    when (1 shl it.toInt()) {
+                        NOTIFY_AT_DEADLINE -> getString(R.string.when_due)
+                        NOTIFY_AFTER_DEADLINE -> getString(R.string.when_overdue)
+                        NOTIFY_AT_START -> getString(R.string.when_started)
+                        else -> null
+                    }
+                }
+                    .joinToString("\n")
+            }
     }
 
     private fun updateRecurrence() {

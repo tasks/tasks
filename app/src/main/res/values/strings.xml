@@ -115,8 +115,6 @@ File %1$s contained %2$s.\n\n
   <string name="priority_low">Low</string>
   <string name="day_after_tomorrow">Day after tomorrow</string>
   <string name="next_week">Next week</string>
-  <string name="at_deadline">At deadline</string>
-  <string name="at_deadline_or_overdue">At deadline or overdue</string>
   <string name="no_reminders">No reminders</string>
   <string name="default_location_reminder_on_arrival">On arrival</string>
   <string name="default_location_reminder_on_departure">On departure</string>

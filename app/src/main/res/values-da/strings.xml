@@ -526,8 +526,6 @@
     <string name="default_location_reminder_on_departure">Ved afgang</string>
     <string name="default_location_reminder_on_arrival">Ved ankomst</string>
     <string name="no_reminders">Ingen påmindelser</string>
-    <string name="at_deadline_or_overdue">Ved frist eller overskredet</string>
-    <string name="at_deadline">Ved frist</string>
     <string name="next_week">Næste uge</string>
     <string name="day_after_tomorrow">I overmorgen</string>
     <string name="priority_low">Lav</string>

@@ -96,8 +96,6 @@
     <string name="priority_low">Niedrig</string>
     <string name="day_after_tomorrow">Übermorgen</string>
     <string name="next_week">Nächste Woche</string>
-    <string name="at_deadline">Zum Termin</string>
-    <string name="at_deadline_or_overdue">Zum Termin oder wenn überfällig</string>
     <string name="no_reminders">Keine Erinnerungen</string>
     <string name="default_location_reminder_on_arrival">Bei Ankunft</string>
     <string name="default_location_reminder_on_departure">Bei Abreise</string>

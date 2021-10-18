@@ -202,10 +202,14 @@
 
   <string-array name="EPr_default_reminders_values">
     <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
-    <item>0</item>
-    <item>2</item>
-    <item>4</item>
-    <item>6</item>
+    <item>5</item> <!-- when started -->
+    <item>1</item> <!-- when due -->
+    <item>2</item> <!-- when overdue -->
+  </string-array>
+
+  <string-array name="EPr_default_reminders_default">
+    <item>1</item> <!-- when due -->
+    <item>2</item> <!-- when overdue -->
   </string-array>
 
   <string-array name="EPr_default_reminders_mode_values">
@@ -222,7 +226,7 @@
   <string name="p_default_hideUntil_key">p_def_hide</string>
 
   <!-- default reminders setting (corresponds to reminder flags) -->
-  <string name="p_default_reminders_key">p_def_reminders</string>
+  <string name="p_default_reminders_key">p_def_reminders_v2</string>
   <string name="p_default_location_reminder_key">p_def_location_reminders</string>
   <string name="p_default_location_radius">p_def_location_radius</string>
 

@@ -95,8 +95,6 @@
     <string name="priority_low">Alacsony</string>
     <string name="day_after_tomorrow">Holnapután</string>
     <string name="next_week">Következő hét</string>
-    <string name="at_deadline">Határidő bekövetkeztekor</string>
-    <string name="at_deadline_or_overdue">Határidő bekövetkeztekor vagy túllépésekor</string>
     <string name="no_reminders">Nincs emlékeztető</string>
     <string name="default_location_reminder_on_arrival">Megérkezéskor</string>
     <string name="default_location_reminder_on_departure">Elinduláskor</string>

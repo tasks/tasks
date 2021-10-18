@@ -91,8 +91,6 @@
     <string name="priority_low">Laag</string>
     <string name="day_after_tomorrow">Overmorgen</string>
     <string name="next_week">Volgende week</string>
-    <string name="at_deadline">Op de einddatum</string>
-    <string name="at_deadline_or_overdue">Op of na de einddatum</string>
     <string name="no_reminders">Geen herinneringen</string>
     <string name="default_location_reminder_on_arrival">Bij aankomst</string>
     <string name="default_location_reminder_on_departure">Bij vertrek</string>

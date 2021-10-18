@@ -97,8 +97,6 @@
     <string name="priority_low">Baxua</string>
     <string name="day_after_tomorrow">Etzi</string>
     <string name="next_week">Datorren astean</string>
-    <string name="at_deadline">Epemugan</string>
-    <string name="at_deadline_or_overdue">Epemugan edo hau gaindituta dagoenean</string>
     <string name="no_reminders">Oroigarririk ez</string>
     <string name="default_location_reminder_on_arrival">Heltzean</string>
     <string name="default_location_reminder_on_departure">Ateratzean</string>

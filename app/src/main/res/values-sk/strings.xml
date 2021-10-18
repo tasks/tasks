@@ -94,8 +94,6 @@
     <string name="priority_low">Nízka</string>
     <string name="day_after_tomorrow">Pozajtra</string>
     <string name="next_week">Nasledujúci týždeň</string>
-    <string name="at_deadline">V termíne</string>
-    <string name="at_deadline_or_overdue">V termíne alebo po termíne</string>
     <string name="no_reminders">Žiadne upozornenia</string>
     <string name="default_location_reminder_on_arrival">Pri príchode</string>
     <string name="default_location_reminder_on_departure">Pri odchode</string>

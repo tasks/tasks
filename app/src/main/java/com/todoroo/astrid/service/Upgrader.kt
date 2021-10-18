@@ -43,7 +43,9 @@ class Upgrader @Inject constructor(
         private val widgetManager: AppWidgetManager,
         private val taskMover: TaskMover,
         private val upgraderDao: UpgraderDao,
-        private val upgrade_11_3: Lazy<Upgrade_11_3>) {
+        private val upgrade_11_3: Lazy<Upgrade_11_3>,
+        private val upgrade_11_12: Lazy<Upgrade_11_12>,
+) {
 
     fun upgrade(from: Int, to: Int) {
         if (from > 0) {
@@ -76,6 +78,11 @@ class Upgrader @Inject constructor(
                 with(upgrade_11_3.get()) {
                     applyiCalendarStartDates()
                     applyOpenTaskStartDates()
+                }
+            }
+            run(from, Upgrade_11_12.VERSION) {
+                with(upgrade_11_12.get()) {
+                    migrateDefaultReminderPreference()
                 }
             }
             preferences.setBoolean(R.string.p_just_updated, true)

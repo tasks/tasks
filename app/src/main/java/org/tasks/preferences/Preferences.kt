@@ -18,6 +18,8 @@ import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.api.AstridApiConstants
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -104,21 +106,19 @@ class Preferences @JvmOverloads constructor(
 
     val purchases: List<Purchase>
         get() = try {
-            prefs.getStringSet(context.getString(R.string.p_purchases), emptySet())!!.map(::Purchase)
+            getStringSet(R.string.p_purchases).map(::Purchase)
         } catch (e: Exception) {
             Timber.e(e)
             emptyList()
         }
 
     fun setPurchases(purchases: Collection<Purchase>) {
-        setPurchases(purchases.mapNotNull(Purchase::toJson).toHashSet())
+        setPurchases(purchases.map(Purchase::toJson).toHashSet())
     }
 
-    fun setPurchases(set: HashSet<String>) {
+    private fun setPurchases(set: HashSet<String>) {
         try {
-            val editor = prefs.edit()
-            editor.putStringSet(context.getString(R.string.p_purchases), set)
-            editor.apply()
+            setStringSet(R.string.p_purchases, set)
         } catch (e: Exception) {
             Timber.e(e)
         }
@@ -194,9 +194,16 @@ class Preferences @JvmOverloads constructor(
         null
     }
 
+    val defaultRemindersSet: Set<String>
+        get() = getStringSet(
+            R.string.p_default_reminders_key,
+            listOf(NOTIFY_AT_DEADLINE, NOTIFY_AFTER_DEADLINE).map { it.toString() }.toSet()
+        )
+
     val defaultReminders: Int
-        get() = getIntegerFromString(
-                R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE or Task.NOTIFY_AFTER_DEADLINE)
+        get() = defaultRemindersSet
+            .mapNotNull { it.toIntOrNull() }
+            .fold(0) { v, e -> v + (1 shl e) }
 
     val defaultRingMode: Int
         get() = getIntegerFromString(R.string.p_default_reminders_mode_key, 0)
@@ -235,6 +242,21 @@ class Preferences @JvmOverloads constructor(
         editor.putString(key, newValue)
         editor.apply()
     }
+
+    fun setStringSet(key: Int, newValue: HashSet<String>) =
+        setStringSet(context.getString(key), newValue)
+
+    private fun setStringSet(key: String, newValue: HashSet<String>) {
+        val editor = prefs.edit()
+        editor.putStringSet(key, newValue)
+        editor.apply()
+    }
+
+    fun getStringSet(key: Int, defaultValue: Set<String> = emptySet()) =
+        getStringSet(context.getString(key), defaultValue)
+
+    private fun getStringSet(key: String, defaultValue: Set<String> = emptySet()): Set<String> =
+        prefs.getStringSet(key, defaultValue)!!
 
     fun setStringFromInteger(keyResource: Int, newValue: Int) {
         val editor = prefs.edit()

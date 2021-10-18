@@ -547,8 +547,6 @@
     <string name="default_location_reminder_on_departure">Pri odlasku</string>
     <string name="default_location_reminder_on_arrival">Pri dolasku</string>
     <string name="no_reminders">Bez podsjetnika</string>
-    <string name="at_deadline_or_overdue">Krajnji rok ili nakon roka</string>
-    <string name="at_deadline">Krajnji rok</string>
     <string name="day_after_tomorrow">Prekosutra</string>
     <string name="priority_low">Niski</string>
     <string name="priority_medium">Srednji</string>

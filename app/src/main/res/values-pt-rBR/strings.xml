@@ -93,8 +93,6 @@
     <string name="priority_low">Baixa</string>
     <string name="day_after_tomorrow">Depois de amanhã</string>
     <string name="next_week">Próxima semana</string>
-    <string name="at_deadline">No vencimento</string>
-    <string name="at_deadline_or_overdue">No prazo ou vencidas</string>
     <string name="no_reminders">Sem lembretes</string>
     <string name="default_location_reminder_on_arrival">Ao chegar</string>
     <string name="default_location_reminder_on_departure">Ao sair</string>

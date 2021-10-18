@@ -83,8 +83,6 @@
     <string name="priority_low">Nízká</string>
     <string name="day_after_tomorrow">Pozítří</string>
     <string name="next_week">Příští týden</string>
-    <string name="at_deadline">V termínu</string>
-    <string name="at_deadline_or_overdue">V termínu nebo po něm</string>
     <string name="BFE_Active">Moje úkoly</string>
     <string name="BFE_Recent">Nedávno upravené</string>
     <string name="CFA_button_add">Přidat podmínku</string>

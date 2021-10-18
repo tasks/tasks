@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="no_reminders">நினைவூட்டல்கள் இல்லை</string>
-    <string name="at_deadline_or_overdue">காலக்கெடு அல்லது தாமதமாக</string>
-    <string name="at_deadline">காலக்கெடுவில்</string>
     <string name="next_week">அடுத்த வாரம்</string>
     <string name="day_after_tomorrow">நாளை மறுநாள்</string>
     <string name="priority_low">குறைந்த</string>

@@ -77,8 +77,6 @@
     <string name="EPr_default_reminders_mode_title">Προκαθορισμένος ήχος/τύπος δόνησης</string>
     <string name="day_after_tomorrow">Μεθαύριο</string>
     <string name="next_week">Επόμενη εβδομάδα</string>
-    <string name="at_deadline">Στην προθεσμία</string>
-    <string name="at_deadline_or_overdue">Στην λήξη η και μετά</string>
     <string name="custom_filter_or">ή</string>
     <string name="custom_filter_not">μή</string>
     <string name="custom_filter_and">επίσης</string>

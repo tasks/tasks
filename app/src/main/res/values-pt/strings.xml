@@ -90,8 +90,6 @@
     <string name="priority_low">Baixa</string>
     <string name="day_after_tomorrow">Depois de amanhã</string>
     <string name="next_week">Próxima semana</string>
-    <string name="at_deadline">Na data de fim</string>
-    <string name="at_deadline_or_overdue">Na data de fim ou ultrapassada</string>
     <string name="BFE_Active">Minhas tarefas</string>
     <string name="BFE_Recent">Alteradas recentemente</string>
     <string name="CFA_button_add">Adicionar critério</string>

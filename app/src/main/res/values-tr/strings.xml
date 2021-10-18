@@ -97,8 +97,6 @@
     <string name="priority_low">Düşük</string>
     <string name="day_after_tomorrow">Yarından Sonra</string>
     <string name="next_week">Gelecek Hafta</string>
-    <string name="at_deadline">Son tarihte</string>
-    <string name="at_deadline_or_overdue">Son tarihte ya da geciktiğinde</string>
     <string name="no_reminders">Hatırlatma yok</string>
     <string name="default_location_reminder_on_arrival">Varışta</string>
     <string name="default_location_reminder_on_departure">Kalkışta</string>

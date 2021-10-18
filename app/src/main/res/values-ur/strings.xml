@@ -68,8 +68,6 @@
     <string name="default_location_reminder_on_departure">روانگی پر</string>
     <string name="default_location_reminder_on_arrival">آمد پر</string>
     <string name="no_reminders">کوئی یاددہانی نہیں</string>
-    <string name="at_deadline_or_overdue">آخری تاریخ یا زائد المیعاد پر</string>
-    <string name="at_deadline">مقررہ تاریخ پر</string>
     <string name="next_week">اگلے ہفتے</string>
     <string name="day_after_tomorrow">پرسوں</string>
     <string name="priority_low">کم</string>

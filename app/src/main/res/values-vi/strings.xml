@@ -654,8 +654,6 @@
     <string name="default_location_reminder_on_departure">Khi khởi hành</string>
     <string name="default_location_reminder_on_arrival">Khi đến</string>
     <string name="no_reminders">Không có lời nhắc</string>
-    <string name="at_deadline_or_overdue">Tại hạn chót hoặc quá hạn</string>
-    <string name="at_deadline">Tại hạn chót</string>
     <string name="preferences_advanced">Nâng cao</string>
     <string name="preferences_look_and_feel">Ngoại hình</string>
     <string name="etesync_encryption_description">Hãy nhớ mật khẩu mã hoá mà bạn chọn, nó không thể được phục hồi!</string>

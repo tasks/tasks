@@ -97,8 +97,6 @@
     <string name="priority_low">נמוך</string>
     <string name="day_after_tomorrow">מחרתיים</string>
     <string name="next_week">בשבוע הבא</string>
-    <string name="at_deadline">במועד הסף</string>
-    <string name="at_deadline_or_overdue">במועד היעד או לאחריו</string>
     <string name="no_reminders">אין תזכורות</string>
     <string name="default_location_reminder_on_arrival">ברגע ההגעה</string>
     <string name="default_location_reminder_on_departure">ברגע העזיבה</string>

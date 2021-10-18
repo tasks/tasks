@@ -97,8 +97,6 @@
     <string name="priority_low">Bassa</string>
     <string name="day_after_tomorrow">Dopodomani</string>
     <string name="next_week">Settimana prossima</string>
-    <string name="at_deadline">Alla scadenza</string>
-    <string name="at_deadline_or_overdue">Alla scadenza o già scaduta</string>
     <string name="no_reminders">Nessun promemoria</string>
     <string name="default_location_reminder_on_arrival">All\'arrivo</string>
     <string name="default_location_reminder_on_departure">Alla partenza</string>

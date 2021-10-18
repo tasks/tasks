@@ -92,10 +92,9 @@
   </string-array>
 
   <string-array name="EPr_default_reminders">
-    <item>@string/no_reminders</item>
-    <item>@string/at_deadline</item>
+    <item>@string/when_started</item>
+    <item>@string/when_due</item>
     <item>@string/when_overdue</item>
-    <item>@string/at_deadline_or_overdue</item>
   </string-array>
 
   <string-array name="CFC_dueBefore_entries">

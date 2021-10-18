@@ -97,8 +97,6 @@
     <string name="priority_low">Низкий</string>
     <string name="day_after_tomorrow">Послезавтра</string>
     <string name="next_week">Следующая неделя</string>
-    <string name="at_deadline">В срок</string>
-    <string name="at_deadline_or_overdue">Вовремя или просрочена</string>
     <string name="no_reminders">Без напоминаний</string>
     <string name="default_location_reminder_on_arrival">По прибытии</string>
     <string name="default_location_reminder_on_departure">Покинув место</string>

@@ -89,8 +89,6 @@
     <string name="priority_low">低</string>
     <string name="day_after_tomorrow">后天</string>
     <string name="next_week">下周</string>
-    <string name="at_deadline">截止期限时</string>
-    <string name="at_deadline_or_overdue">截止期限或过期时</string>
     <string name="BFE_Active">我的任务</string>
     <string name="BFE_Recent">最近修改过的</string>
     <string name="CFA_button_add">添加条件</string>

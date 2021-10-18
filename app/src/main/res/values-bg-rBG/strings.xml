@@ -99,8 +99,6 @@
     <string name="priority_low">Нисък</string>
     <string name="day_after_tomorrow">Вдругиден</string>
     <string name="next_week">Следваща седмица</string>
-    <string name="at_deadline">В крайния срок</string>
-    <string name="at_deadline_or_overdue">В крайния срок или при просрочие</string>
     <string name="no_reminders">Без напомняния</string>
     <string name="default_location_reminder_on_arrival">При пристигане</string>
     <string name="default_location_reminder_on_departure">При отпътуване</string>

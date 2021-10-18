@@ -90,8 +90,6 @@
     <string name="priority_low">Matala</string>
     <string name="day_after_tomorrow">Ylihuomenna</string>
     <string name="next_week">Ensi viikko</string>
-    <string name="at_deadline">Määräaikana</string>
-    <string name="at_deadline_or_overdue">Määräpäivänä tai yliajalla</string>
     <string name="BFE_Active">Omat tehtävät</string>
     <string name="BFE_Recent">Äskettäin muokattu</string>
     <string name="CFA_button_add">Lisää kriteeri</string>

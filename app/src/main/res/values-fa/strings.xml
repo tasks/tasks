@@ -66,8 +66,6 @@
     <string name="priority_low">کم</string>
     <string name="day_after_tomorrow">پس فردا</string>
     <string name="next_week">هفته بعد</string>
-    <string name="at_deadline">روز موعود</string>
-    <string name="at_deadline_or_overdue">در روز موعد یا پس از موعود</string>
     <string name="BFE_Active">وظایف من</string>
     <string name="BFE_Recent">اخیرا ویرایش شده</string>
     <string name="custom_filter_or">يا</string>
