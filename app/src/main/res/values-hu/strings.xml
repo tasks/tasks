@@ -721,4 +721,6 @@
     <string name="markdown_description">Markdown engedélyezése címben és leírásban</string>
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Csatlakozzon #tasks a Libera Chat-en</string>
+    <string name="now">Most</string>
+    <string name="when_started">A kezdetekor</string>
 </resources>
