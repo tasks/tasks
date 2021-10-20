@@ -724,4 +724,5 @@
     <string name="manage_drawer">Gerir secções</string>
     <string name="chat_libera">Junte-se a #tasks no Libera Chat</string>
     <string name="now">Agora</string>
+    <string name="when_started">Quando iniciado</string>
 </resources>
