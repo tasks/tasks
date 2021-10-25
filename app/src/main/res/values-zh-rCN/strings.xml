@@ -295,8 +295,8 @@
     <string name="pick_from_gallery">从相册选一张</string>
     <string name="pick_from_storage">从存储中挑选</string>
     <string name="privacy_policy">隐私政策</string>
-    <string name="send_anonymous_statistics">改进Tasks</string>
-    <string name="send_anonymous_statistics_summary">发送匿名使用情况统计信息和崩溃报告，以帮助改进Tasks。不会收集个人资料。</string>
+    <string name="send_anonymous_statistics">改进 Tasks</string>
+    <string name="send_anonymous_statistics_summary">发送匿名使用情况统计信息和崩溃报告，以帮助改进 Tasks。不会收集任何个人数据。</string>
     <string name="tag_already_exists">标签已存在</string>
     <string name="name_cannot_be_empty">名字不能为空</string>
     <string name="username_required">请填用户名</string>
