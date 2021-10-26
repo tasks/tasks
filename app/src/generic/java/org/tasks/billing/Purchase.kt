@@ -4,7 +4,7 @@ package org.tasks.billing
 class Purchase(json: String?) {
     val sku: String = ""
 
-    fun toJson(): String? = null
+    fun toJson(): String = ""
 
     val isCanceled = false
 
