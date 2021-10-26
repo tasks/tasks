@@ -1,3 +1,24 @@
+### 11.12 (2021-10-26)
+
+* Add option to notify at start date
+* Widget tweaks for Android 12
+* Fix crash when deleting tasks (Thanks @fschrempf!)
+* Fix truncated calendar picker
+* Update translations
+  * Basque - Sergio Varela
+  * Brazilian Portuguese - @laralem
+  * Bulgarian - @StoyanDimitrov
+  * Catalan - @Solatec
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - @qwerty287
+  * Hungarian - kaciokos
+  * Lithuanian - @70h
+  * Polish - @dominik-korsa
+  * Simplified Chinese - @sr093906, @Geeyun-JY3
+  * Ukrainian - @IhorHordiichuk
+  * Vietnamese - bruh
+
 ### 11.11 (2021-09-21)
 
 * Add 'Due now' filter criteria - Thanks @tkterris!

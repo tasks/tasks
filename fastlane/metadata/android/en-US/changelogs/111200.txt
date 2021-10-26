@@ -1,0 +1,5 @@
+* Add option to notify at start date
+* Widget tweaks for Android 12
+* Fix crash when deleting tasks (Thanks @fschrempf!)
+* Fix truncated calendar picker
+* Update translations
