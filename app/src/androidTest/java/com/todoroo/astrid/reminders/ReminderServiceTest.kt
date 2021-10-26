@@ -10,10 +10,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.tasks.Freeze
+import org.tasks.Freeze.Companion.freezeClock
 import org.tasks.R
 import org.tasks.data.TaskDao
-import org.tasks.date.DateTimeUtils
+import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.jobs.NotificationQueue
@@ -60,7 +60,7 @@ class ReminderServiceTest : InjectingTestCase() {
             newTask(
                 with(ID, 1L),
                 with(HIDE_TYPE, Task.HIDE_UNTIL_DUE),
-                with(DUE_TIME, DateTimeUtils.newDateTime())
+                with(DUE_TIME, newDateTime())
             )
         )
 
@@ -69,7 +69,7 @@ class ReminderServiceTest : InjectingTestCase() {
 
     @Test
     fun dontScheduleDueDateReminderWhenFlagNotSet() {
-        service.scheduleAlarm(newTask(with(ID, 1L), with(DUE_TIME, DateTimeUtils.newDateTime())))
+        service.scheduleAlarm(newTask(with(ID, 1L), with(DUE_TIME, newDateTime())))
 
         assertTrue(jobs.isEmpty())
     }
@@ -83,37 +83,53 @@ class ReminderServiceTest : InjectingTestCase() {
 
     @Test
     fun schedulePastStartDate() {
-        val task = newTask(
-            with(ID, 1L),
-            with(DUE_TIME, DateTimeUtils.newDateTime().minusDays(1)),
-            with(HIDE_TYPE, HIDE_UNTIL_DUE),
-            with(REMINDERS, Task.NOTIFY_AT_START)
-        )
+        freezeClock {
+            val dueDate = newDateTime().minusDays(1)
+            val task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, dueDate),
+                with(HIDE_TYPE, HIDE_UNTIL_DUE),
+                with(REMINDERS, Task.NOTIFY_AT_START)
+            )
 
-        service.scheduleAlarm(task)
+            service.scheduleAlarm(task)
 
-        verify(ReminderEntry(1, task.hideUntil, ReminderService.TYPE_START))
+            verify(
+                ReminderEntry(
+                    1,
+                    dueDate.startOfDay().withHourOfDay(18).millis,
+                    ReminderService.TYPE_START
+                )
+            )
+        }
     }
 
     @Test
     fun scheduleFutureStartDate() {
+        val dueDate = newDateTime().plusDays(1)
         val task = newTask(
             with(ID, 1L),
-            with(DUE_TIME, DateTimeUtils.newDateTime().plusDays(1)),
+            with(DUE_TIME, dueDate),
             with(HIDE_TYPE, HIDE_UNTIL_DUE),
             with(REMINDERS, Task.NOTIFY_AT_START)
         )
 
         service.scheduleAlarm(task)
 
-        verify(ReminderEntry(1, task.hideUntil, ReminderService.TYPE_START))
+        verify(
+            ReminderEntry(
+                1,
+                dueDate.startOfDay().withHourOfDay(18).millis,
+                ReminderService.TYPE_START
+            )
+        )
     }
     
     @Test
     fun schedulePastDueDate() {
         val task = newTask(
                 with(ID, 1L),
-                with(DUE_TIME, DateTimeUtils.newDateTime().minusDays(1)),
+                with(DUE_TIME, newDateTime().minusDays(1)),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
 
         service.scheduleAlarm(task)
@@ -125,7 +141,7 @@ class ReminderServiceTest : InjectingTestCase() {
     fun scheduleFutureDueDate() {
         val task = newTask(
                 with(ID, 1L),
-                with(DUE_TIME, DateTimeUtils.newDateTime().plusDays(1)),
+                with(DUE_TIME, newDateTime().plusDays(1)),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
 
         service.scheduleAlarm(task)
@@ -135,7 +151,7 @@ class ReminderServiceTest : InjectingTestCase() {
 
     @Test
     fun scheduleReminderAtDefaultDueTime() {
-        val now = DateTimeUtils.newDateTime()
+        val now = newDateTime()
         val task = newTask(with(ID, 1L), with(DUE_DATE, now), with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
 
         service.scheduleAlarm(task)
@@ -147,8 +163,8 @@ class ReminderServiceTest : InjectingTestCase() {
     fun dontScheduleReminderForCompletedTask() {
         val task = newTask(
                 with(ID, 1L),
-                with(DUE_TIME, DateTimeUtils.newDateTime().plusDays(1)),
-                with(COMPLETION_TIME, DateTimeUtils.newDateTime()),
+                with(DUE_TIME, newDateTime().plusDays(1)),
+                with(COMPLETION_TIME, newDateTime()),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
 
         service.scheduleAlarm(task)
@@ -160,8 +176,8 @@ class ReminderServiceTest : InjectingTestCase() {
     fun dontScheduleReminderForDeletedTask() {
         val task = newTask(
                 with(ID, 1L),
-                with(DUE_TIME, DateTimeUtils.newDateTime().plusDays(1)),
-                with(DELETION_TIME, DateTimeUtils.newDateTime()),
+                with(DUE_TIME, newDateTime().plusDays(1)),
+                with(DELETION_TIME, newDateTime()),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
 
         service.scheduleAlarm(task)
@@ -171,7 +187,7 @@ class ReminderServiceTest : InjectingTestCase() {
 
     @Test
     fun dontScheduleDueDateReminderWhenAlreadyReminded() {
-        val now = DateTimeUtils.newDateTime()
+        val now = newDateTime()
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, now),
@@ -187,9 +203,9 @@ class ReminderServiceTest : InjectingTestCase() {
     fun ignoreStaleSnoozeTime() {
         val task = newTask(
                 with(ID, 1L),
-                with(DUE_TIME, DateTimeUtils.newDateTime()),
-                with(SNOOZE_TIME, DateTimeUtils.newDateTime().minusMinutes(5)),
-                with(REMINDER_LAST, DateTimeUtils.newDateTime().minusMinutes(4)),
+                with(DUE_TIME, newDateTime()),
+                with(SNOOZE_TIME, newDateTime().minusMinutes(5)),
+                with(REMINDER_LAST, newDateTime().minusMinutes(4)),
                 with(REMINDERS, Task.NOTIFY_AT_DEADLINE))
 
         service.scheduleAlarm(task)
@@ -199,7 +215,7 @@ class ReminderServiceTest : InjectingTestCase() {
 
     @Test
     fun dontIgnoreMissedSnoozeTime() {
-        val dueDate = DateTimeUtils.newDateTime()
+        val dueDate = newDateTime()
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, dueDate),
@@ -216,8 +232,8 @@ class ReminderServiceTest : InjectingTestCase() {
     fun scheduleInitialRandomReminder() {
         random.seed = 0.3865f
 
-        Freeze.freezeClock {
-            val now = DateTimeUtils.newDateTime()
+        freezeClock {
+            val now = newDateTime()
             val task = newTask(
                     with(ID, 1L),
                     with(REMINDER_LAST, null as DateTime?),
@@ -234,8 +250,8 @@ class ReminderServiceTest : InjectingTestCase() {
     fun scheduleNextRandomReminder() {
         random.seed = 0.3865f
 
-        Freeze.freezeClock {
-            val now = DateTimeUtils.newDateTime()
+        freezeClock {
+            val now = newDateTime()
             val task = newTask(
                     with(ID, 1L),
                     with(REMINDER_LAST, now.minusDays(1)),
@@ -252,8 +268,8 @@ class ReminderServiceTest : InjectingTestCase() {
     fun scheduleOverdueRandomReminder() {
         random.seed = 0.3865f
 
-        Freeze.freezeClock {
-            val now = DateTimeUtils.newDateTime()
+        freezeClock {
+            val now = newDateTime()
             val task = newTask(
                     with(ID, 1L),
                     with(REMINDER_LAST, now.minusDays(14)),
@@ -347,7 +363,7 @@ class ReminderServiceTest : InjectingTestCase() {
 
     @Test
     fun snoozeOverridesAll() {
-        val now = DateTimeUtils.newDateTime()
+        val now = newDateTime()
         val task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, now),

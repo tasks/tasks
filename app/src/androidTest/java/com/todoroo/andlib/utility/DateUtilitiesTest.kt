@@ -451,5 +451,6 @@ class DateUtilitiesTest {
         }
     }
 
-    private fun assertMatches(regex: String, actual: String) = assertTrue(actual.matches(Regex(regex)))
+    private fun assertMatches(regex: String, actual: String) =
+        assertTrue("expected=$regex\nactual=$actual", actual.matches(Regex(regex)))
 }
