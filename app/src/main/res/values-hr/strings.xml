@@ -741,4 +741,5 @@
     </plurals>
     <string name="chat_libera">Pridruži se #tasks na Libera Chat</string>
     <string name="now">Sada</string>
+    <string name="when_started">Kad se pokrene</string>
 </resources>
