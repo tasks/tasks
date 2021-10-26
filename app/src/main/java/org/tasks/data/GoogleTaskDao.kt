@@ -93,7 +93,7 @@ abstract class GoogleTaskDao {
     abstract suspend fun getChildren(ids: List<Long>): List<Long>
 
     suspend fun hasRecurringParent(ids: List<Long>): List<Long> =
-            ids.chunkedMap { internalHasRecurringParent(ids) }
+            ids.chunkedMap { internalHasRecurringParent(it) }
 
     @Query("""
 SELECT gt_task
