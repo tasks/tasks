@@ -742,4 +742,5 @@
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Присоединяйтесь к #tasks в Libera Chat</string>
     <string name="now">Сейчас</string>
+    <string name="when_started">После запуска</string>
 </resources>
