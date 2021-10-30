@@ -741,4 +741,5 @@
     <string name="EPr_reset_preferences">Reinițializarea preferințelor</string>
     <string name="always_display_full_date">Afișează data completă</string>
     <string name="now">Acum</string>
+    <string name="when_started">Când a început</string>
 </resources>
