@@ -75,7 +75,7 @@
     <string name="EPr_beastMode_reset">Подразбирани настройки</string>
     <string name="EPr_fullTask_title">Пълно заглавие на задачата</string>
     <string name="EPr_show_task_edit_comments">Коментари при редакция на задача</string>
-    <string name="task_list_options">Списък с опции към задача</string>
+    <string name="task_list_options">Настройки на списъка със задачи</string>
     <string name="EPr_cal_end_or_start_at_due_time">Час на събитието в календара</string>
     <string name="EPr_cal_end_at_due_time">Прекратяване на събитията от календара в определеното време</string>
     <string name="EPr_cal_start_at_due_time">Започване на събитията от календара в определеното време</string>
@@ -610,4 +610,8 @@
     <string name="tasks_needs_your_support">Tasks се нуждае от подкрепа!</string>
     <string name="no_thanks">Не, благодаря</string>
     <string name="local_lists">Местни списъци</string>
+    <string name="background_location_permission_required">Tasks събира данни за местоположението, за да прави напомняния на негова основа, дори и приложението да е затворено или не се използва.</string>
+    <string name="when_started">Когато започне</string>
+    <string name="map_theme">Тема на картата</string>
+    <string name="widget_do_nothing">Без действие</string>
 </resources>
