@@ -724,4 +724,5 @@
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Libera Chat\'te #tasks kanalına katıl</string>
     <string name="now">Şimdi</string>
+    <string name="when_started">Başladığında</string>
 </resources>
