@@ -86,8 +86,8 @@
     <string name="DLG_hour_minutes">நேரம் (மணி : நிமிடங்கள்)</string>
     <string name="DLG_delete_this_task_question">இந்த வேலையை நீக்கலாமா\?</string>
     <string name="read_permission_label">வேலைகள் அனுமதி</string>
-    <string name="backup_BAc_export">வேலைகளை ஏற்றுமதி செய்</string>
-    <string name="backup_BAc_import">வேலைகளை இறக்குமதி செய்</string>
+    <string name="backup_BAc_export">இப்போதே நகல் எடு</string>
+    <string name="backup_BAc_import">நகலை இறக்குமதி செய்</string>
     <string name="display_name">பெயர்</string>
     <string name="repeat_yearly">வருடந்தோறும் மீண்டும் செய்யவும்</string>
     <string name="repeat_monthly">மாதந்தோறும் செய்யவும்</string>
@@ -149,7 +149,7 @@
     <string name="CFC_importance_name">முன்னுரிமை…</string>
     <string name="CFC_importance_text">குறைந்தபட்சம் முன்னுரிமை\?</string>
     <string name="next_month">அடுத்த மாதம்</string>
-    <string name="no_due_date">உரிய தேதி இல்லை</string>
+    <string name="no_due_date">முடிக்கப்பட வேண்டிய தேதி இல்லை</string>
     <string name="CFC_dueBefore_name">காரணமாக…</string>
     <string name="CFC_dueBefore_text">காரணமாக :\?</string>
     <string name="CFA_button_add">அளவுகோல்களைச் சேர்க்கவும்</string>
@@ -436,7 +436,7 @@
     <string name="enabled">இயக்கப்பட்டது</string>
     <string name="subtasks">துணை பணிகள்</string>
     <string name="miscellaneous">இதர</string>
-    <string name="google_drive_backup">Google இயக்கத்தில் நகலெடுக்கவும்</string>
+    <string name="google_drive_backup">Google Driveல் நகலெடுக்கவும்</string>
     <string name="backup_directory">காப்பு கோப்புறை</string>
     <string name="attachment_directory">இணைப்பு கோப்புறை</string>
     <string name="quiet_hours">அமைதியான நேரம்</string>
@@ -557,4 +557,26 @@
     <string name="ring_five_times">ஐந்து முறை ஒலி</string>
     <string name="ring_once">ஒரு முறை ஒலி</string>
     <string name="email">மின்னஞ்சல்</string>
+    <string name="filter_any_start_date">ஏதேனும் தொடங்கும் தேதி</string>
+    <string name="now">இப்போது</string>
+    <string name="start_date">தொடங்கும் நாள்</string>
+    <string name="no_start_date">தொடங்கும் தேதி இல்லை</string>
+    <string name="always_display_full_date">முழு தேதியை காண்பி</string>
+    <string name="widget_show_title">தலைப்பு காட்டு</string>
+    <plurals name="list_count">
+        <item quantity="one">%d பட்டியல்</item>
+        <item quantity="other">%d பட்டியல்கள்</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">முடியும் தேதி</string>
+    <string name="export_toast">%1$s முதல் %2$s வரை நகல் எடுக்கப்பட்டது.</string>
+    <string name="SSD_sort_start">தொடங்கும் நாள் கொண்டு</string>
+    <string name="next_sunday">அடுத்த ஞாயிறு</string>
+    <string name="next_tuesday">அடுத்த செவ்வாய்</string>
+    <string name="next_friday">அடுத்த வெள்ளி</string>
+    <string name="show_unstarted">தொடங்காதவற்றை காட்டு</string>
+    <string name="filter_criteria_unstarted">தொடங்கப்படவில்லை</string>
+    <string name="next_monday">அடுத்த திங்கள்</string>
+    <string name="next_wednesday">அடுத்த புதன்</string>
+    <string name="next_thursday">அடுத்த வியாழன்</string>
+    <string name="next_saturday">அடுத்த சனி</string>
 </resources>
