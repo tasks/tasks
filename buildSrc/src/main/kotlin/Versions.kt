@@ -18,6 +18,6 @@ object Versions {
     const val hilt_androidx = "1.0.0"
     const val lifecycle = "2.3.0"
     const val markwon = "4.6.2"
-    const val compose = "1.0.4"
-    const val compose_theme_adapter = "1.0.3"
+    const val compose = "1.0.5"
+    const val compose_theme_adapter = compose
 }
