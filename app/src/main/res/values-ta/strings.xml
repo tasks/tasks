@@ -289,7 +289,7 @@
     <string name="button_upgrade">சந்தாவை மேம்படுத்தவும்</string>
     <string name="button_subscribe">பதிவு</string>
     <string name="refresh_purchases">வாங்குதல்களைப் புதுப்பிக்கவும்</string>
-    <string name="manage_subscription">சந்தாவை நிர்வகிக்கவும்</string>
+    <string name="manage_subscription">சந்தாவை மாற்றவும்</string>
     <string name="upgrade_to_pro">சார்புக்கு மேம்படுத்தவும்</string>
     <string name="network_error">இணைக்க முடியவில்லை</string>
     <string name="caldav_home_set_not_found">முகப்பு தொகுப்பு கிடைக்கவில்லை</string>
@@ -579,4 +579,8 @@
     <string name="next_wednesday">அடுத்த புதன்</string>
     <string name="next_thursday">அடுத்த வியாழன்</string>
     <string name="next_saturday">அடுத்த சனி</string>
+    <string name="repeat_monthly_fifth_week">ஐந்தாவது</string>
+    <string name="tasks_org_share">பட்டியலை மற்ற பயணர்களிடம் பகிரவும்</string>
+    <string name="subscription_benefits">சந்தா பலன்கள்</string>
+    <string name="chips">Chips</string>
 </resources>
