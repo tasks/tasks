@@ -1,3 +1,15 @@
+### 11.12.1 (2021-11-05)
+
+* Fix reminders
+* Update translations
+  * Bulgarian - @StoyanDimitrov
+  * Croatian - @milotype
+  * Norwegian Bokmål - @HumanNr4584093104
+  * Romanian - Simona Iacob
+  * Russian - @NikGreens
+  * Tamil - @balogic
+  * Turkish - @ersen0
+
 ### 11.12 (2021-10-26)
 
 * Add option to notify at start date
