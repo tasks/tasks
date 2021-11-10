@@ -207,6 +207,10 @@ class TasksJsonImporter @Inject constructor(
                     .boolPrefs
                     ?.filterNot { (key, _) -> ignoreKeys.contains(key) }
                     ?.forEach { (key, value) -> preferences.setBoolean(key, value as Boolean) }
+            backupContainer
+                    .setPrefs
+                    ?.filterNot { (key, _) -> ignoreKeys.contains(key) }
+                    ?.forEach { (key, value) -> preferences.setStringSet(key, value as HashSet<String>)}
             if (version < Upgrader.V8_2) {
                 val themeIndex = preferences.getInt(R.string.p_theme_color, 7)
                 preferences.setInt(

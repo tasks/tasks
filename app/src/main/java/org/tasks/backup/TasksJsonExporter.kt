@@ -135,7 +135,9 @@ class TasksJsonExporter @Inject constructor(
                 preferences.getPrefs(Integer::class.java),
                 preferences.getPrefs(java.lang.Long::class.java),
                 preferences.getPrefs(String::class.java),
-                preferences.getPrefs(java.lang.Boolean::class.java))
+                preferences.getPrefs(java.lang.Boolean::class.java),
+                preferences.getPrefs(java.util.Set::class.java),
+        )
         val out = OutputStreamWriter(os, UTF_8)
         val gson = if (BuildConfig.DEBUG) GsonBuilder().setPrettyPrinting().create() else Gson()
         out.write(gson.toJson(data))

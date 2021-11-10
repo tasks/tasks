@@ -17,8 +17,9 @@ class BackupContainer(
         val intPrefs: Map<String, Integer>?,
         val longPrefs: Map<String, java.lang.Long>?,
         val stringPrefs: Map<String, String>?,
-        val boolPrefs: Map<String, java.lang.Boolean>?) {
-
+        val boolPrefs: Map<String, java.lang.Boolean>?,
+        val setPrefs: Map<String, java.util.Set<*>>?,
+) {
     class TaskBackup(
             val task: Task,
             val alarms: List<Alarm>,

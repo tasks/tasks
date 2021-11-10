@@ -243,10 +243,10 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
-    fun setStringSet(key: Int, newValue: HashSet<String>) =
+    fun setStringSet(key: Int, newValue: Set<String>) =
         setStringSet(context.getString(key), newValue)
 
-    private fun setStringSet(key: String, newValue: HashSet<String>) {
+    fun setStringSet(key: String, newValue: Set<String>) {
         val editor = prefs.edit()
         editor.putStringSet(key, newValue)
         editor.apply()
