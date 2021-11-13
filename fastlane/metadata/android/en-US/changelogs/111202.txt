@@ -1,0 +1,3 @@
+* Fix reminders
+* Fix reminder preference backup
+* Update translations

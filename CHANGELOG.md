@@ -1,3 +1,11 @@
+### 11.12.2 (2021-11-13)
+
+* Fix reminders
+* Fix reminder preference backup
+* Update translations
+  * Interlingua - @softinterlingua
+  * Tamil - @balogic
+
 ### 11.12.1 (2021-11-05)
 
 * Fix reminders
