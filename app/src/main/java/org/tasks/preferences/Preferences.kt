@@ -203,7 +203,7 @@ class Preferences @JvmOverloads constructor(
     val defaultReminders: Int
         get() = defaultRemindersSet
             .mapNotNull { it.toIntOrNull() }
-            .sum()
+            .fold(0) { v, e -> v or (1 shl e) }
 
     val defaultRingMode: Int
         get() = getIntegerFromString(R.string.p_default_reminders_mode_key, 0)

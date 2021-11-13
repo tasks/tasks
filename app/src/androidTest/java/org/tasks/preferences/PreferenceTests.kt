@@ -116,12 +116,30 @@ class PreferenceTests {
         assertEquals(dueDate, preferences.adjustForQuietHours(dueDate))
     }
 
+    @Test
+    fun testDefaultReminders() {
+        assertEquals(0, defaultReminders())
+        assertEquals(2, defaultReminders(1))
+        assertEquals(4, defaultReminders(2))
+        assertEquals(6, defaultReminders(1, 2))
+        assertEquals(32, defaultReminders(5))
+        assertEquals(38, defaultReminders(1, 2, 5))
+    }
+
     private fun setQuietHoursStart(hour: Int) {
         preferences.setInt(R.string.p_rmd_quietStart, hour * MILLIS_PER_HOUR)
     }
 
     private fun setQuietHoursEnd(hour: Int) {
         preferences.setInt(R.string.p_rmd_quietEnd, hour * MILLIS_PER_HOUR)
+    }
+
+    private fun defaultReminders(vararg values: Int): Int {
+        preferences.setStringSet(
+            R.string.p_default_reminders_key,
+            values.map { it.toString() }.toSet()
+        )
+        return preferences.defaultReminders
     }
 
     companion object {
