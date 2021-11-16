@@ -18,8 +18,8 @@
     <string name="TEA_control_gcal">calendar</string>
     <string name="export_toast">Ați salvat %1$s la %2$s.</string>
     <string name="actfm_picture_clear">Șterge poza</string>
-    <string name="cancel">\@android: șir de caractere/anulare</string>
-    <string name="ok">\@android:șir/ok</string>
+    <string name="cancel">\@android:string/cancel</string>
+    <string name="ok">\@android:string/ok</string>
     <string name="markdown_description">Activați Markdown în titlu și descriere</string>
     <string name="markdown">Marcați în jos</string>
     <string name="more_options">Mai multe opțiuni</string>
