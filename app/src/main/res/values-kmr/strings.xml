@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="ok">Baş e</string>
+    <string name="cancel">Têk bibe</string>
+    <string name="actfm_picture_clear">Wêneyê rake</string>
+    <string name="TVA_add_comment">Şîroveyekê tevlî bike…</string>
+    <string name="display_name">Navê xuyanê</string>
+    <string name="backup_BPr_header">Hilanîn</string>
+    <string name="backup_BAc_export">Niha hilîne</string>
+    <string name="backup_BAc_import">Hilanînê têxe</string>
+    <string name="export_toast">Hilanîn ji %1$s bo %2$s qediya.</string>
+    <string name="TLA_menu_sort">Rêz bike</string>
+    <string name="TLA_menu_search">Bigere</string>
+    <string name="TLA_menu_settings">Sazkarî</string>
+    <string name="TAd_actionEditTask">Serrast bike</string>
+    <string name="action_open">Veke</string>
+</resources>
