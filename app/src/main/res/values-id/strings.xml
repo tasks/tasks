@@ -707,4 +707,5 @@
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Gabung #tasks di Libera Chat</string>
     <string name="now">Sekarang</string>
+    <string name="when_started">Ketika dimulai</string>
 </resources>
