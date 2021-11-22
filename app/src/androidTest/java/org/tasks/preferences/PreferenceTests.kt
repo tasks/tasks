@@ -3,6 +3,9 @@ package org.tasks.preferences
 import android.annotation.SuppressLint
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -119,11 +122,11 @@ class PreferenceTests {
     @Test
     fun testDefaultReminders() {
         assertEquals(0, defaultReminders())
-        assertEquals(2, defaultReminders(1))
-        assertEquals(4, defaultReminders(2))
-        assertEquals(6, defaultReminders(1, 2))
-        assertEquals(32, defaultReminders(5))
-        assertEquals(38, defaultReminders(1, 2, 5))
+        assertEquals(2, defaultReminders(NOTIFY_AT_DEADLINE))
+        assertEquals(4, defaultReminders(NOTIFY_AFTER_DEADLINE))
+        assertEquals(6, defaultReminders(NOTIFY_AT_DEADLINE, NOTIFY_AFTER_DEADLINE))
+        assertEquals(32, defaultReminders(NOTIFY_AT_START))
+        assertEquals(38, defaultReminders(NOTIFY_AT_START, NOTIFY_AT_DEADLINE, NOTIFY_AFTER_DEADLINE))
     }
 
     private fun setQuietHoursStart(hour: Int) {

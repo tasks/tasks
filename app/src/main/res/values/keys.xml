@@ -202,9 +202,9 @@
 
   <string-array name="EPr_default_reminders_values">
     <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
-    <item>5</item> <!-- when started -->
-    <item>1</item> <!-- when due -->
-    <item>2</item> <!-- when overdue -->
+    <item>32</item> <!-- when started -->
+    <item>2</item> <!-- when due -->
+    <item>4</item> <!-- when overdue -->
   </string-array>
 
   <string-array name="EPr_default_reminders_default">

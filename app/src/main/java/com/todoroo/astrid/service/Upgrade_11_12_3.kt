@@ -8,7 +8,7 @@ import org.tasks.R
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-class Upgrade_11_12 @Inject constructor(
+class Upgrade_11_12_3 @Inject constructor(
     private val preferences: Preferences
 ) {
     internal fun migrateDefaultReminderPreference() {
@@ -26,7 +26,7 @@ class Upgrade_11_12 @Inject constructor(
     }
 
     companion object {
-        const val VERSION = 111200
+        const val VERSION = 111203
         private const val LEGACY_PREFERENCE = "p_def_reminders"
     }
 }
