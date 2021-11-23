@@ -1,3 +1,11 @@
+### 11.12.3 (2021-11-22)
+
+* Fix reminders
+* Update translations
+  * Indonesian - when we were sober
+  * Kurdish (Northern) - Pêşeroja paşerojê
+  * Romanian - @Steinhagen
+
 ### 11.12.2 (2021-11-13)
 
 * Fix reminders
