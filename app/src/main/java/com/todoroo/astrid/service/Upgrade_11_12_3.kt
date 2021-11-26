@@ -27,6 +27,6 @@ class Upgrade_11_12_3 @Inject constructor(
 
     companion object {
         const val VERSION = 111203
-        private const val LEGACY_PREFERENCE = "p_def_reminders"
+        internal const val LEGACY_PREFERENCE = "p_def_reminders"
     }
 }
