@@ -229,7 +229,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
                 getString(R.string.no_reminders)
             } else {
                 prefs.mapNotNull {
-                    when (1 shl it.toInt()) {
+                    when (it.toInt()) {
                         NOTIFY_AT_DEADLINE -> getString(R.string.when_due)
                         NOTIFY_AFTER_DEADLINE -> getString(R.string.when_overdue)
                         NOTIFY_AT_START -> getString(R.string.when_started)
