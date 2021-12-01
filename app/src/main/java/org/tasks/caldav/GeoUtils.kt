@@ -20,7 +20,7 @@ object GeoUtils {
 
     fun BigDecimal.toLikeString(): String {
         val string = truncate()
-        return if (string.numDecimalPlaces() < 4) string else "${string}%"
+        return if (string.numDecimalPlaces() < PLACE_ACCURACY) string else "${string}%"
     }
 
     fun Geo.equalish(other: Geo?): Boolean =
@@ -35,6 +35,8 @@ object GeoUtils {
     private fun BigDecimal.truncate(): String {
         val string = stripTrailingZeros().toPlainString()
         val index = string.indexOf(".")
-        return if (index < 0) string else string.substring(0.until(min(string.length, index + 5)))
+        return if (index < 0) string else string.substring(0.rangeTo(min(string.length, index + PLACE_ACCURACY)))
     }
+
+    private const val PLACE_ACCURACY = 4
 }
