@@ -56,6 +56,30 @@ class RepeatMonthlyTests : RepeatTests() {
         assertEquals(newDayTime(2017, 2, 28, 13, 30), next)
     }
 
+    @Test
+    fun repeatMonthlyNoInterval() {
+        val task = newFromDue(
+            "FREQ=MONTHLY",
+            newDayTime(2017, 11, 1, 13, 30)
+        )
+
+        val next = calculateNextDueDate(task)
+
+        assertEquals(newDayTime(2017, 12, 1, 13, 30), next)
+    }
+
+    @Test
+    fun repeatMonthlyEndOfMonthNoInterval() {
+        val task = newFromDue(
+            "FREQ=MONTHLY",
+            newDayTime(2017, 11, 30, 13, 30)
+        )
+
+        val next = calculateNextDueDate(task)
+
+        assertEquals(newDayTime(2017, 12, 31, 13, 30), next)
+    }
+
     /* https://tools.ietf.org/html/rfc5545#section-3.3.10
      * Recurrence rules may generate recurrence instances with an invalid
      * date (e.g., February 30) or nonexistent local time (e.g., 1:30 AM

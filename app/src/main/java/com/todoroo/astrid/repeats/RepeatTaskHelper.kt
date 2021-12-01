@@ -125,7 +125,7 @@ class RepeatTaskHelper @Inject constructor(
         private fun handleMonthlyRepeat(
                 original: DateTime, startDateAsDV: Date, hasDueTime: Boolean, recur: Recur): Long {
             return if (original.isLastDayOfMonth) {
-                val interval = recur.interval
+                val interval = recur.interval.coerceAtLeast(1)
                 val newDateTime = original.plusMonths(interval)
                 val time = newDateTime.withDayOfMonth(newDateTime.numberOfDaysInMonth).millis
                 if (hasDueTime) {
