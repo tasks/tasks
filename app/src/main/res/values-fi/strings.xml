@@ -450,7 +450,7 @@
     <string name="error_adding_account">Virhe: %s</string>
     <string name="url">URL</string>
     <string name="reenter_encryption_password">Vahvista salauksen salasana</string>
-    <string name="encryption_password">Salaus-salasana</string>
+    <string name="encryption_password">Salauksen salasana</string>
     <string name="password">Salasana</string>
     <string name="user">Käyttäjä</string>
     <string name="add_account">Lisää tili</string>
@@ -581,7 +581,7 @@
         <item quantity="other">%d lista</item>
     </plurals>
     <string name="astrid_sort_order_summary">Ota käyttöön Astridin manuaalinen lajittelutila \'Omat tehtävät\', \'Tänään\' ja tunnisteet. Tämä lajittelutila korvataan \'Oma järjestys\'-tilalla tulevassa päivityksessä</string>
-    <string name="url_host_name_required">Pakollinen isäntänimi</string>
+    <string name="url_host_name_required">Palvelimen nimi vaaditaan</string>
     <string name="date_shortcut_tomorrow_evening">Huomenna illalla</string>
     <string name="markdown_description">Ota Markdown käyttöön otsikossa ja kuvauksessa</string>
     <string name="markdown">Markdown</string>
