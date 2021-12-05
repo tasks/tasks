@@ -724,4 +724,5 @@
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Partecipa a #tasks su Libera Chat</string>
     <string name="now">Ora</string>
+    <string name="when_started">Quando avviato</string>
 </resources>
