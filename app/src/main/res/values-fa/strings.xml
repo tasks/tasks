@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">پاک کردن عکس</string>
     <string name="TVA_add_comment">اضافه کردن نظر</string>
@@ -226,4 +226,8 @@
     <string name="repeats_monthly">ماهانه</string>
     <string name="repeats_yearly">سالانه</string>
     <string name="default_calendar">تقویم پیش فرض</string>
+    <string name="ok">تأیید</string>
+    <string name="cancel">لغو</string>
+    <string name="read_permission_label">مجوز وظایف</string>
+    <string name="display_name">نام نمایشی</string>
 </resources>
