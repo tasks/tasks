@@ -135,12 +135,12 @@
     <string name="ring_once">Suona una volta</string>
     <string name="ring_five_times">Suona cinque volte</string>
     <string name="ring_nonstop">Suona ininterrottamente</string>
-    <string name="random_reminder_hour">un\'ora</string>
+    <string name="random_reminder_hour">ogni ora</string>
     <string name="random_reminder_day">ogni giorno</string>
-    <string name="random_reminder_week">una settimana</string>
-    <string name="random_reminder_two_weeks">in due settimane</string>
+    <string name="random_reminder_week">ogni settimana</string>
+    <string name="random_reminder_two_weeks">ogni due settimane</string>
     <string name="random_reminder_month">ogni mese</string>
-    <string name="random_reminder_two_months">in due mesi</string>
+    <string name="random_reminder_two_months">ogni due mesi</string>
     <string name="rmd_NoA_done">Completata</string>
     <string name="rmd_NoA_snooze">Rimanda</string>
     <string name="snooze_all">Posticipa tutti</string>
@@ -285,7 +285,7 @@
     <string name="randomly_once">In modo casuale</string>
     <string name="randomly">Casualmente</string>
     <string name="pick_a_date_and_time">Scegli data e ora</string>
-    <string name="when_overdue">Quando scaduta</string>
+    <string name="when_overdue">Una volta scaduta</string>
     <string name="when_due">Alla scadenza</string>
     <string name="geofence_radius">Raggio</string>
     <string name="tags">Etichette</string>
@@ -724,5 +724,5 @@
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Partecipa a #tasks su Libera Chat</string>
     <string name="now">Ora</string>
-    <string name="when_started">Quando avviato</string>
+    <string name="when_started">Alla data di inizio</string>
 </resources>
