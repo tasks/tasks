@@ -10,11 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.utility.Flags
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.data.TaskContainer
@@ -40,13 +39,12 @@ class DragAndDropRecyclerAdapter(
     private val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback()).apply {
         attachToRecyclerView(recyclerView)
     }
-    override val publishSubject = PublishSubject.create<SectionedDataSource>()
-    override val disposables = CompositeDisposable()
+    override val flow = MutableSharedFlow<SectionedDataSource>()
     override val updates: Queue<Pair<SectionedDataSource, DiffUtil.DiffResult?>> = LinkedList()
     override var dragging = false
-    override var items = initializeDiffer(tasks)
     override val scope: CoroutineScope =
             CoroutineScope(Executors.newSingleThreadExecutor().asCoroutineDispatcher() + Job())
+    override var items = initializeDiffer(tasks)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(position)

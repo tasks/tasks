@@ -457,20 +457,6 @@
     },
     {
       "artifactId": {
-        "name": "rxandroid",
-        "group": "io.reactivex.rxjava2",
-        "version": "+"
-      },
-      "copyrightHolder": "The RxAndroid authors",
-      "copyrightStatement": "Copyright &copy; The RxAndroid authors. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/ReactiveX/RxAndroid",
-      "libraryName": "RxAndroid"
-    },
-    {
-      "artifactId": {
         "name": "swiperefreshlayout",
         "group": "androidx.swiperefreshlayout",
         "version": "+"
@@ -653,20 +639,6 @@
     },
     {
       "artifactId": {
-        "name": "reactive-streams",
-        "group": "org.reactivestreams",
-        "version": "+"
-      },
-      "copyrightHolder": "Public domain",
-      "copyrightStatement": "Copyright &copy; Public domain. All rights reserved.",
-      "license": "CC0",
-      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/",
-      "normalizedLicense": "cc0",
-      "url": "http://www.reactive-streams.org/",
-      "libraryName": "reactive-streams"
-    },
-    {
-      "artifactId": {
         "name": "work-runtime",
         "group": "androidx.work",
         "version": "+"
@@ -789,20 +761,6 @@
       "normalizedLicense": "apache2",
       "url": "http://developer.android.com/tools/extras/support-library.html",
       "libraryName": "Android Support Library Drawer Layout"
-    },
-    {
-      "artifactId": {
-        "name": "rxjava",
-        "group": "io.reactivex.rxjava2",
-        "version": "+"
-      },
-      "copyrightHolder": "RxJava Contributors",
-      "copyrightStatement": "Copyright &copy; RxJava Contributors. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
-      "normalizedLicense": "apache2",
-      "url": "https://github.com/ReactiveX/RxJava",
-      "libraryName": "RxJava"
     },
     {
       "artifactId": {

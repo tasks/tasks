@@ -14,11 +14,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.flow.MutableSharedFlow
 import org.tasks.LocalBroadcastManager
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.billing.Inventory
@@ -46,13 +45,12 @@ class NavigationDrawerAdapter @Inject constructor(
 
     private lateinit var onClick: (FilterListItem?) -> Unit
     private var selected: Filter? = null
-    override val disposables = CompositeDisposable()
-    override val publishSubject = PublishSubject.create<MutableList<FilterListItem>>()
+    override val flow = MutableSharedFlow<MutableList<FilterListItem>>()
     override val updates: Queue<Pair<MutableList<FilterListItem>, DiffUtil.DiffResult?>> = LinkedList()
+    override val scope: CoroutineScope =
+        CoroutineScope(Executors.newSingleThreadExecutor().asCoroutineDispatcher() + Job())
     override var items = initializeDiffer(ArrayList())
     override var dragging = false
-    override val scope: CoroutineScope =
-            CoroutineScope(Executors.newSingleThreadExecutor().asCoroutineDispatcher() + Job())
 
     fun setOnClick(onClick: (FilterListItem?) -> Unit) {
         this.onClick = onClick

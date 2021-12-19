@@ -3,19 +3,14 @@ package org.tasks.activities
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.todoroo.andlib.utility.AndroidUtilities
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import java.util.*
+import java.util.concurrent.Executors
 
 interface DragAndDropDiffer<T, R> : ListUpdateCallback {
-    val publishSubject: PublishSubject<R>
+    val flow: MutableSharedFlow<R>
     val updates: Queue<Pair<R, DiffUtil.DiffResult?>>
-    val disposables: CompositeDisposable
     var items: R
     var dragging: Boolean
     val scope: CoroutineScope
@@ -23,7 +18,7 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
     fun submitList(list: List<T>) {
         scope.launch {
             val transform = transform(list)
-            publishSubject.onNext(transform)
+            flow.emit(transform)
         }
     }
 
@@ -50,16 +45,18 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
         }
     }
 
+    @ExperimentalCoroutinesApi
     fun initializeDiffer(list: List<T>): R {
         val initial = transform(list)
-        disposables.add(publishSubject
-                .observeOn(Schedulers.single())
+        scope.launch(Dispatchers.Main) {
+            flow
                 .scan(Pair(initial, null), { last: Pair<R, DiffUtil.DiffResult?>, next: R ->
                     calculateDiff(last, next)
                 })
-                .skip(1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::applyDiff))
+                .drop(1)
+                .flowOn(Executors.newSingleThreadExecutor().asCoroutineDispatcher())
+                .collect { applyDiff(it) }
+        }
         return initial
     }
 
@@ -68,7 +65,6 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
     fun diff(last: R, next: R): DiffUtil.DiffResult
 
     fun dispose() {
-        disposables.dispose()
         scope.cancel()
     }
 }

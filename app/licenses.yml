@@ -189,12 +189,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
-- artifact: io.reactivex.rxjava2:rxandroid:+
-  name: RxAndroid
-  copyrightHolder: The RxAndroid authors
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/ReactiveX/RxAndroid
 - artifact: androidx.swiperefreshlayout:swiperefreshlayout:+
   name: Android Support Library Custom View
   copyrightHolder: Android Open Source Project
@@ -274,12 +268,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
-- artifact: org.reactivestreams:reactive-streams:+
-  name: reactive-streams
-  copyrightHolder: Public domain
-  license: CC0
-  licenseUrl: http://creativecommons.org/publicdomain/zero/1.0/
-  url: http://www.reactive-streams.org/
 - artifact: androidx.work:work-runtime:+
   name: Android WorkManager Runtime
   copyrightHolder: Android Open Source Project
@@ -333,12 +321,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://developer.android.com/tools/extras/support-library.html
-- artifact: io.reactivex.rxjava2:rxjava:+
-  name: RxJava
-  copyrightHolder: RxJava Contributors
-  license: The Apache Software License, Version 2.0
-  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-  url: https://github.com/ReactiveX/RxJava
 - artifact: com.google.apis:google-api-services-tasks:+
   name: Tasks API v1-rev55-1.25.0
   copyrightHolder: Google Inc.
