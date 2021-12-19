@@ -12,7 +12,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.ContentLoadingProgressBar
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,9 +21,8 @@ import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.tasks.Event
 import org.tasks.PermissionUtil.verifyPermissions
@@ -52,7 +50,6 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -80,14 +77,13 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var preferences: Preferences
 
-    private var disposables: CompositeDisposable? = null
     private var mapPosition: MapPosition? = null
     private var recentsAdapter: LocationPickerAdapter? = null
     private var searchAdapter: LocationSearchAdapter? = null
     private var places: List<PlaceUsage> = emptyList()
     private var offset = 0
     private lateinit var search: MenuItem
-    private val searchSubject = PublishSubject.create<String>()
+    private var searchJob: Job? = null
     private val viewModel: PlaceSearchViewModel by viewModels()
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -290,12 +286,12 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     override fun onResume() {
         super.onResume()
         map.onResume()
-        viewModel.observe(this, Observer { list: List<PlaceSearchResult?>? -> searchAdapter!!.submitList(list) }, Observer { place: Place? -> returnPlace(place) }, Observer { error: Event<String> -> handleError(error) })
-        disposables = CompositeDisposable(
-                searchSubject
-                        .debounce(SEARCH_DEBOUNCE_TIMEOUT.toLong(), TimeUnit.MILLISECONDS)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { query: String? -> viewModel.query(query, map.mapPosition) })
+        viewModel.observe(
+            this,
+            { searchAdapter!!.submitList(it) },
+            { returnPlace(it) },
+            { handleError(it) }
+        )
     }
 
     override fun onDestroy() {
@@ -341,7 +337,6 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     override fun onPause() {
         super.onPause()
         map.onPause()
-        disposables!!.dispose()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -370,7 +365,11 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     override fun onQueryTextSubmit(query: String): Boolean = false
 
     override fun onQueryTextChange(query: String): Boolean {
-        searchSubject.onNext(query)
+        searchJob?.cancel()
+        searchJob = lifecycleScope.launch {
+            delay(SEARCH_DEBOUNCE_TIMEOUT)
+            viewModel.query(query, map.mapPosition)
+        }
         return true
     }
 
@@ -396,6 +395,6 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         const val EXTRA_PLACE = "extra_place"
         private const val EXTRA_MAP_POSITION = "extra_map_position"
         private const val EXTRA_APPBAR_OFFSET = "extra_appbar_offset"
-        private const val SEARCH_DEBOUNCE_TIMEOUT = 300
+        private const val SEARCH_DEBOUNCE_TIMEOUT = 300L
     }
 }
