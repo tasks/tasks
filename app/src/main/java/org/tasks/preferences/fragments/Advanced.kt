@@ -8,7 +8,6 @@ import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.dao.Database
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.PermissionUtil
@@ -39,7 +38,6 @@ class Advanced : InjectingPreferenceFragment() {
     @Inject lateinit var permissionChecker: PermissionChecker
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private lateinit var disposables: CompositeDisposable
     private lateinit var calendarReminderPreference: SwitchPreferenceCompat
 
     override fun getPreferenceXml() = R.xml.preferences_advanced
@@ -118,18 +116,6 @@ class Advanced : InjectingPreferenceFragment() {
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        disposables = CompositeDisposable()
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        disposables.dispose()
     }
 
     private fun initializeCalendarReminderPreference() {

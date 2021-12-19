@@ -1,13 +1,14 @@
 package org.tasks.ui
 
-import androidx.lifecycle.*
-import io.reactivex.disposables.CompositeDisposable
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
 open class ActionViewModel : ViewModel() {
     private val completed = MutableLiveData<Boolean>()
     private val error = MutableLiveData<Throwable>()
-    private val disposables = CompositeDisposable()
 
     var inProgress = false
         private set
@@ -36,6 +37,4 @@ open class ActionViewModel : ViewModel() {
             inProgress = false
         }
     }
-
-    override fun onCleared() = disposables.clear()
 }
