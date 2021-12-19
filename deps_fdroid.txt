@@ -1,11 +1,11 @@
-++--- androidx.databinding:viewbinding:7.0.3
+++--- androidx.databinding:viewbinding:7.0.4
 +|    \--- androidx.annotation:annotation:1.0.0 -> 1.2.0
-++--- androidx.databinding:databinding-common:7.0.3
-++--- androidx.databinding:databinding-runtime:7.0.3
+++--- androidx.databinding:databinding-common:7.0.4
+++--- androidx.databinding:databinding-runtime:7.0.4
 +|    +--- androidx.collection:collection:1.0.0 -> 1.1.0
 +|    |    \--- androidx.annotation:annotation:1.1.0 -> 1.2.0
-+|    +--- androidx.databinding:databinding-common:7.0.3
-+|    +--- androidx.databinding:viewbinding:7.0.3 (*)
++|    +--- androidx.databinding:databinding-common:7.0.4
++|    +--- androidx.databinding:viewbinding:7.0.4 (*)
 +|    \--- androidx.lifecycle:lifecycle-runtime:2.2.0 -> 2.3.1
 +|         +--- androidx.arch.core:core-runtime:2.1.0
 +|         |    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
@@ -15,10 +15,10 @@
 +|         |    \--- androidx.annotation:annotation:1.1.0 -> 1.2.0
 +|         +--- androidx.arch.core:core-common:2.1.0 (*)
 +|         \--- androidx.annotation:annotation:1.1.0 -> 1.2.0
-++--- androidx.databinding:databinding-adapters:7.0.3
-+|    +--- androidx.databinding:databinding-runtime:7.0.3 (*)
-+|    \--- androidx.databinding:databinding-common:7.0.3
-++--- androidx.databinding:databinding-ktx:7.0.3
+++--- androidx.databinding:databinding-adapters:7.0.4
++|    +--- androidx.databinding:databinding-runtime:7.0.4 (*)
++|    \--- androidx.databinding:databinding-common:7.0.4
+++--- androidx.databinding:databinding-ktx:7.0.4
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1 -> 1.5.2
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2
 +|    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2
@@ -98,7 +98,7 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.20 -> 1.5.31 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1 -> 1.5.2 (*)
 +|    |    \--- androidx.annotation:annotation:1.0.0 -> 1.2.0
-+|    +--- androidx.databinding:databinding-runtime:7.0.3 (*)
++|    +--- androidx.databinding:databinding-runtime:7.0.4 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.32 -> 1.5.31 (*)
 ++--- com.gitlab.abaker:dav4jvm:deb2c9aef8
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.10 -> 1.5.31 (*)
@@ -120,9 +120,9 @@
 +|         +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
 +|         \--- androidx.core:core:1.3.2 -> 1.6.0 (*)
 ++--- com.gitlab.bitfireAT:cert4android:26a91a729f
-+|    +--- androidx.databinding:databinding-common:4.1.1 -> 7.0.3
-+|    +--- androidx.databinding:databinding-runtime:4.1.1 -> 7.0.3 (*)
-+|    +--- androidx.databinding:databinding-adapters:4.1.1 -> 7.0.3 (*)
++|    +--- androidx.databinding:databinding-common:4.1.1 -> 7.0.4
++|    +--- androidx.databinding:databinding-runtime:4.1.1 -> 7.0.4 (*)
++|    +--- androidx.databinding:databinding-adapters:4.1.1 -> 7.0.4 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.21 -> 1.5.31 (*)
 +|    +--- androidx.appcompat:appcompat:1.2.0 -> 1.3.1
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
@@ -288,9 +288,6 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.31 (*)
 +|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2 (*)
 ++--- androidx.appcompat:appcompat:1.3.1 (*)
-++--- io.reactivex.rxjava2:rxandroid:2.1.1
-+|    \--- io.reactivex.rxjava2:rxjava:2.2.6
-+|         \--- org.reactivestreams:reactive-streams:1.0.2
 ++--- androidx.paging:paging-runtime:2.1.2
 +|    +--- androidx.paging:paging-common:2.1.2
 +|    |    +--- androidx.annotation:annotation:1.0.0 -> 1.2.0
