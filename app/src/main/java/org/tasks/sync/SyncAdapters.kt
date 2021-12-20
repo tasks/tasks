@@ -7,7 +7,6 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
-import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
@@ -17,7 +16,6 @@ import org.tasks.data.OpenTaskDao
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETEBASE
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETESYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_GOOGLE_TASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_OPENTASK
 import org.tasks.preferences.Preferences
@@ -38,7 +36,6 @@ class SyncAdapters @Inject constructor(
     private val scope = CoroutineScope(newSingleThreadExecutor().asCoroutineDispatcher() + SupervisorJob())
     private val googleTasks = Debouncer(TAG_SYNC_GOOGLE_TASKS) { workManager.googleTaskSync(it) }
     private val caldav = Debouncer(TAG_SYNC_CALDAV) { workManager.caldavSync(it) }
-    @Deprecated("use etebase") private val eteSync = Debouncer(TAG_SYNC_ETESYNC) { workManager.eteSync(it) }
     private val eteBaseSync = Debouncer(TAG_SYNC_ETEBASE) { workManager.eteBaseSync(it) }
     private val opentasks = Debouncer(TAG_SYNC_OPENTASK) { workManager.openTaskSync(it) }
     private val syncStatus = Debouncer("sync_status") {
@@ -61,9 +58,6 @@ class SyncAdapters @Inject constructor(
             if (caldavDao.isAccountType(task.id, TYPE_CALDAV)
                     || caldavDao.isAccountType(task.id, TYPE_TASKS)) {
                 caldav.sync(false)
-            }
-            if (caldavDao.isAccountType(task.id, TYPE_ETESYNC)) {
-                eteSync.sync(false)
             }
             if (caldavDao.isAccountType(task.id, TYPE_ETEBASE)) {
                 eteBaseSync.sync(false)
@@ -89,7 +83,6 @@ class SyncAdapters @Inject constructor(
     fun sync(immediate: Boolean) = scope.launch {
         val googleTasksEnabled = async { isGoogleTaskSyncEnabled() }
         val caldavEnabled = async { isCaldavSyncEnabled() }
-        val eteSyncEnabled = async { isEteSyncEnabled() }
         val eteBaseEnabled = async { isEtebaseEnabled() }
         val opentasksEnabled = async { isOpenTaskSyncEnabled() }
 
@@ -99,10 +92,6 @@ class SyncAdapters @Inject constructor(
 
         if (caldavEnabled.await()) {
             caldav.sync(immediate)
-        }
-
-        if (eteSyncEnabled.await()) {
-            eteSync.sync(immediate)
         }
 
         if (eteBaseEnabled.await()) {
@@ -118,9 +107,6 @@ class SyncAdapters @Inject constructor(
 
     private suspend fun isCaldavSyncEnabled() =
             caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).isNotEmpty()
-
-    @Deprecated("use etebase")
-    private suspend fun isEteSyncEnabled() = caldavDao.getAccounts(TYPE_ETESYNC).isNotEmpty()
 
     private suspend fun isEtebaseEnabled() = caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty()
 

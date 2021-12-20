@@ -1188,48 +1188,6 @@
     },
     {
       "artifactId": {
-        "name": "core",
-        "group": "com.madgag.spongycastle",
-        "version": "+"
-      },
-      "copyrightHolder": "The Legion of the Bouncy Castle Inc.",
-      "copyrightStatement": "Copyright &copy; The Legion of the Bouncy Castle Inc. All rights reserved.",
-      "license": "Bouncy Castle Licence",
-      "licenseUrl": "http://www.bouncycastle.org/licence.html",
-      "normalizedLicense": "Bouncy Castle Licence",
-      "url": "http://rtyley.github.io/spongycastle/",
-      "libraryName": "Spongy Castle Core"
-    },
-    {
-      "artifactId": {
-        "name": "journalmanager",
-        "group": "com.etesync",
-        "version": "+"
-      },
-      "copyrightHolder": "Tom Hacohen",
-      "copyrightStatement": "Copyright &copy; Tom Hacohen. All rights reserved.",
-      "license": "LGPL-3.0-only",
-      "licenseUrl": "https://spdx.org/licenses/LGPL-3.0-only.html",
-      "normalizedLicense": "lgpl3",
-      "url": "https://www.etesync.com",
-      "libraryName": "EteSync JVM"
-    },
-    {
-      "artifactId": {
-        "name": "prov",
-        "group": "com.madgag.spongycastle",
-        "version": "+"
-      },
-      "copyrightHolder": "The Legion of the Bouncy Castle Inc.",
-      "copyrightStatement": "Copyright &copy; The Legion of the Bouncy Castle Inc. All rights reserved.",
-      "license": "Bouncy Castle Licence",
-      "licenseUrl": "http://www.bouncycastle.org/licence.html",
-      "normalizedLicense": "Bouncy Castle Licence",
-      "url": "http://rtyley.github.io/spongycastle/",
-      "libraryName": "Spongy Castle"
-    },
-    {
-      "artifactId": {
         "name": "preference",
         "group": "androidx.preference",
         "version": "+"

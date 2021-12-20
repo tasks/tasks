@@ -487,7 +487,6 @@
     <string name="more_settings">Papildomi nustatymai</string>
     <string name="disable_battery_optimizations">Išjungti baterijos optimizaciją</string>
     <string name="preferences_look_and_feel">Išvaizda</string>
-    <string name="passwords_do_not_match">Slaptažodžiai nesutampa</string>
     <string name="this_feature_requires_a_subscription">Šiai funkcijai reikalinga prenumerata</string>
     <string name="icon">Piktograma</string>
     <string name="chip_appearance_icon_only">Tik piktograma</string>
@@ -620,13 +619,9 @@
     <string name="button_upgrade">Atnaujinti prenumeratą</string>
     <string name="help_and_feedback">Pagalba ir atsiliepimai</string>
     <string name="error_adding_account">Klaida: %s</string>
-    <string name="reenter_encryption_password">Patvirtinkite šifravimo slaptažodį</string>
-    <string name="encryption_password">Šifravimo slaptažodis</string>
     <string name="widget_due_date_reschedule">Perplanuoti užduotį</string>
     <string name="widget_on_click">Paspaudus</string>
     <string name="default_tags">Numatytosios etiketės</string>
-    <string name="encryption_password_wrong">Neteisingas šifravimo slaptažodis</string>
-    <string name="encryption_password_required">Reikalingas šifravimo slaptažodis</string>
     <string name="location_radius_meters">%s m.</string>
     <string name="subtasks">Antrinės užduotys</string>
     <string name="widget_show_dividers">Rodyti skirtukus</string>
@@ -724,7 +719,6 @@
     <string name="wearable_notifications">Dėvimo įrenginio pranešimai</string>
     <string name="google_tasks_selection_description">Paprasta paslauga, kuri atlieka sinchronizaciją su jūsų Google paskyra</string>
     <string name="notification_troubleshooting_summary">Bakstelėkite čia, jei kyla problemų dėl pranešimų</string>
-    <string name="etesync_encryption_description">Prisiminkite pasirinktą šifravimo slaptažodį, jo negalima bus atkurti!</string>
     <string name="etesync_account_description">Reikia paskyros EteSync.com arba asmeninis serveris</string>
     <string name="caldav_account_description">Reikia paskyros pas CalDAV paslaugų teikėją arba turėti asmeninį serverį. Paslaugų teikėją raskite apsilankę tasks.org/caldav</string>
     <string name="decsync_selection_description">Failais paremta sinchronizacija</string>

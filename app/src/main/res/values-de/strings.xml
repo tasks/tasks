@@ -458,13 +458,8 @@
     <string name="subtasks">Teilaufgaben</string>
     <string name="subtasks_multilevel_google_task">Mehrstufige Teilaufgaben werden von Google Tasks nicht unterstützt</string>
     <string name="enter_title_hint">Titel eingeben</string>
-    <string name="encryption_password_required">Passwort zur Verschlüsselung erforderlich</string>
-    <string name="encryption_password">Verschlüsselungspasswort</string>
     <string name="display_name">Anzeigename</string>
     <string name="this_feature_requires_a_subscription">Diese Funktion benötigt ein Abonnement</string>
-    <string name="passwords_do_not_match">Passwörter stimmen nicht überein</string>
-    <string name="reenter_encryption_password">Verschlüsselungspasswort bestätigen</string>
-    <string name="encryption_password_wrong">Falsches Passwort zur Verschlüsselung</string>
     <string name="help_and_feedback">Hilfe und Rückmeldung</string>
     <string name="theme_system_default">Systemstandard</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
@@ -476,7 +471,6 @@
     <string name="show_advanced_settings">Erweiterte Einstellungen anzeigen</string>
     <string name="caldav_account_description">Erfordert ein Konto bei einem CalDAV-Dienstanbieter oder einem selbst gehosteten Server. Finden Sie einen Dienstanbieter, indem Sie tasks.org/caldav besuchen</string>
     <string name="etesync_account_description">Erfordert ein Konto bei EteSync.com oder einen selbst gehosteten Server</string>
-    <string name="etesync_encryption_description">Merken Sie sich das von Ihnen gewählte Passwort! Es kann nicht wiederhergestellt werden.</string>
     <string name="preferences_look_and_feel">Erscheinungsbild</string>
     <string name="preferences_advanced">Erweitert</string>
     <string name="documentation">Dokumentation</string>

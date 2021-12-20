@@ -233,7 +233,6 @@
     <string name="documentation">ஆவணம்</string>
     <string name="preferences_advanced">மேம்படுத்தபட்ட</string>
     <string name="preferences_look_and_feel">பார்க்கவும் உணரவும்</string>
-    <string name="etesync_encryption_description">நீங்கள் தேர்ந்தெடுத்த குறியாக்க கடவுச்சொல்லை நினைவில் கொள்ளுங்கள், அதை மீட்டெடுக்க முடியாது!</string>
     <string name="etesync_account_description">EteSync.com அல்லது சுய ஹோஸ்ட் செய்த சேவையகத்துடன் கணக்கு தேவை</string>
     <string name="caldav_account_description">CalDAV சேவை வழங்குநர் அல்லது சுய ஹோஸ்ட் செய்த சேவையகத்துடன் கணக்கு தேவை. Tasks.org/caldav ஐப் பார்வையிடுவதன் மூலம் ஒரு சேவை வழங்குநரைக் கண்டறியவும்</string>
     <string name="show_advanced_settings">மேம்பட்ட அமைப்புகளைக் காட்டு</string>
@@ -324,8 +323,6 @@
     <string name="notification_disable_battery_optimizations_description">பேட்டரி மேம்படுத்தல்கள் அறிவிப்புகளை தாமதப்படுத்தக்கூடும்</string>
     <string name="error_adding_account">பிழை: %s</string>
     <string name="url">URL</string>
-    <string name="reenter_encryption_password">குறியாக்க கடவுச்சொல்லை உறுதிப்படுத்தவும்</string>
-    <string name="encryption_password">குறியாக்க கடவுச்சொல்</string>
     <string name="password">கடவுச்சொல்</string>
     <string name="user">பயனர்</string>
     <string name="add_account">கணக்கு சேர்க்க</string>
@@ -377,9 +374,6 @@
     <string name="url_invalid_scheme">Http (கள்) உடன் தொடங்க வேண்டும்: //</string>
     <string name="url_host_name_required">ஹோஸ்ட்பெயர் தேவை</string>
     <string name="url_required">URL தேவை</string>
-    <string name="passwords_do_not_match">கடவுச்சொற்கள் பொருந்தவில்லை</string>
-    <string name="encryption_password_wrong">தவறான குறியாக்க கடவுச்சொல்</string>
-    <string name="encryption_password_required">குறியாக்க கடவுச்சொல் தேவை</string>
     <string name="password_required">கடவுச்சொல் தேவை</string>
     <string name="username_required">பயனர்பெயர் தேவை</string>
     <string name="name_cannot_be_empty">பெயர் காலியாக இருக்க முடியாது</string>

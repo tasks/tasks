@@ -174,7 +174,6 @@
     <string name="documentation">Dokumentation</string>
     <string name="preferences_advanced">Avanceret</string>
     <string name="preferences_look_and_feel">Udseende</string>
-    <string name="etesync_encryption_description">Husk det krypteringskodeord, du vælger. Det kan ikke gendannes!</string>
     <string name="etesync_account_description">Det kræver en konto hos EteSync.com eller en selv-hostet server</string>
     <string name="caldav_account_description">Det kræver en konto hos en CalDAV-tjenesteudbyder eller en selv-hostet server. Find en tjenesteudbyder ved at gå til tasks.org/caldav</string>
     <string name="show_advanced_settings">Vis avancerede indstillinger</string>
@@ -264,8 +263,6 @@
     <string name="notification_disable_battery_optimizations_description">Strømsparetilstand kan forsinke notifikationer</string>
     <string name="error_adding_account">Fejl: %s</string>
     <string name="url">URL</string>
-    <string name="reenter_encryption_password">Bekræft krypteringskodeord</string>
-    <string name="encryption_password">Krypteringskodeord</string>
     <string name="password">Kodeord</string>
     <string name="user">Bruger</string>
     <string name="add_account">Tilføj konto</string>
@@ -316,11 +313,8 @@
     <string name="url_invalid_scheme">Skal begynde med http(s)://</string>
     <string name="url_host_name_required">Hostname er nødvendigt</string>
     <string name="url_required">URL er nødvendig</string>
-    <string name="passwords_do_not_match">Kodeordene er ikke ens</string>
-    <string name="encryption_password_wrong">Forkert krypteringskodeord</string>
     <string name="username_required">Brugernavn er nødvendigt</string>
     <string name="password_required">Kodeord er nødvendigt</string>
-    <string name="encryption_password_required">Krypteringskodeord er nødvendigt</string>
     <string name="name_cannot_be_empty">Navnet må ikke være tomt</string>
     <string name="tag_already_exists">Tagget findes allerede</string>
     <string name="send_anonymous_statistics_summary">Send anonymiseret brugerstatistik og fejlrapporter for at hjælpe med at forbedre Tasks. Ingen personlig data bliver indsamlet.</string>

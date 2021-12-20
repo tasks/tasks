@@ -39,7 +39,6 @@ import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETEBASE
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETESYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_GOOGLE_TASKS
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_OPENTASK
 import org.tasks.jobs.WorkManager.Companion.TAG_UPDATE_PURCHASES
@@ -102,9 +101,6 @@ class WorkManagerImpl constructor(
 
     override suspend fun caldavSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_CALDAV, SyncCaldavWork::class.java)
-
-    override suspend fun eteSync(immediate: Boolean) =
-            sync(immediate, TAG_SYNC_ETESYNC, SyncEteSyncWork::class.java)
 
     override suspend fun eteBaseSync(immediate: Boolean) =
             sync(immediate, TAG_SYNC_ETEBASE, SyncEtebaseWork::class.java)

@@ -471,7 +471,6 @@
     <string name="documentation">Documentação</string>
     <string name="preferences_advanced">Avançado</string>
     <string name="preferences_look_and_feel">Interface e experiência do usuário</string>
-    <string name="etesync_encryption_description">Lembre-se da senha de encriptação que você escolheu, ela não pode ser recuperada!</string>
     <string name="etesync_account_description">Precisa de uma conta com EteSync.com ou uma instância desse serviço auto-hospedada</string>
     <string name="caldav_account_description">Precisa de uma conta com um provedor CalDAV. Encontre um provedor visitando tasks.org/caldav</string>
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
@@ -503,8 +502,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="error_adding_account">Erro: %s</string>
     <string name="url">URL</string>
-    <string name="reenter_encryption_password">Confirme a senha de criptografia</string>
-    <string name="encryption_password">Senha de criptografia</string>
     <string name="widget_due_date_hidden">Escondido</string>
     <string name="widget_due_date_below_title">Abaixo do título</string>
     <string name="widget_due_date_after_title">Depois do título</string>
@@ -520,9 +517,6 @@
     <string name="opacity_footer">Opacidade do rodapé</string>
     <string name="opacity_row">Opacidade da Linha</string>
     <string name="opacity_header">Opacidade do Cabeçalho</string>
-    <string name="passwords_do_not_match">Senhas não conferem</string>
-    <string name="encryption_password_wrong">Senha de encriptação errada</string>
-    <string name="encryption_password_required">Senha de encriptação necessária</string>
     <string name="date_shortcut_tomorrow_night">Amanhã à noite</string>
     <string name="date_shortcut_tomorrow_evening">Amanhã à tardinha</string>
     <string name="location_radius_meters">%s m</string>

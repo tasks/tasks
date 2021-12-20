@@ -544,12 +544,10 @@
     <string name="upgrade_blurb_2">Прекарах хиляди часове в работа по Tasks и публикувам целия изходен код безплатно. За да поддържам работата си, някои възможности изискват абонамент</string>
     <string name="widget_due_date_hidden">Скрито</string>
     <string name="icon">Икона</string>
-    <string name="reenter_encryption_password">Потвърждаване на паролата за криптиране</string>
     <string name="got_it">Добре</string>
     <string name="select_all">Избор на всички</string>
     <string name="name_your_price">Посочете своя цена</string>
     <string name="decsync_selection_description">Синхронизация чрез файлове</string>
-    <string name="encryption_password">Парола за криптиране</string>
     <string name="lists">Списъци</string>
     <string name="filter_low_priority">Нисък приоритет</string>
     <string name="filter_after_today">След днес</string>
@@ -576,16 +574,13 @@
     <string name="widget_on_click">При щракване</string>
     <string name="whats_new">Какво е новото</string>
     <string name="no_app_found">Няма приложение, което да обработи тази заявка</string>
-    <string name="encryption_password_wrong">Грешна парола за криптиране</string>
     <string name="etesync_selection_description">Синхронизация, шифрована от край до край</string>
-    <string name="etesync_encryption_description">Запомнете паролата за шифроване, защото не може да бъде възстановена!</string>
     <string name="preferences_look_and_feel">Външен вид и усещане</string>
     <string name="troubleshooting">Отстраняване на неизправности</string>
     <string name="subscription_benefits">Ползи за абонамент</string>
     <string name="back">Назад</string>
     <string name="now">Сега</string>
     <string name="filter_criteria_unstarted">Незапочнати</string>
-    <string name="encryption_password_required">Изисква се парола за криптиране</string>
     <string name="opacity_row">Непрозрачност на реда</string>
     <string name="widget_footer">Долен колонтитул</string>
     <string name="widget_due_date_below_title">Под заглавието</string>
@@ -596,7 +591,6 @@
     <string name="opacity_header">Непрозрачност на заглавието</string>
     <string name="widget_due_date_reschedule">Пренасрочване на задачата</string>
     <string name="widget_due_date_after_title">След заглавието</string>
-    <string name="passwords_do_not_match">Паролите не съвпадат</string>
     <string name="widget_open_list">Отваряне на списък</string>
     <string name="url">Адрес</string>
     <string name="upgrade_customization_themes">Тапети и теми за ден/нощ</string>

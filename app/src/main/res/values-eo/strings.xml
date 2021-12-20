@@ -260,7 +260,6 @@
     <string name="default_list">Defaŭlta listo</string>
     <string name="no_title">(Sen titolo)</string>
     <string name="url_required">Ligilo bezonata</string>
-    <string name="passwords_do_not_match">Pasvortoj ne samas</string>
     <string name="password_required">Pasvorto bezonata</string>
     <string name="username_required">Uzantnomo bezonata</string>
     <string name="name_cannot_be_empty">Nomo ne povas malpleni</string>

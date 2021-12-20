@@ -379,9 +379,6 @@ File %1$s contained %2$s.\n\n
   <string name="name_cannot_be_empty">Name cannot be empty</string>
   <string name="username_required">Username required</string>
   <string name="password_required">Password required</string>
-  <string name="encryption_password_required">Encryption password required</string>
-  <string name="encryption_password_wrong">Wrong encryption password</string>
-  <string name="passwords_do_not_match">Passwords do not match</string>
   <string name="url_required">URL required</string>
   <string name="url_host_name_required">Hostname required</string>
   <string name="url_invalid_scheme">Must begin with http(s)://</string>
@@ -437,8 +434,6 @@ File %1$s contained %2$s.\n\n
   <string name="add_account">Add account</string>
   <string name="user">User</string>
   <string name="password">Password</string>
-  <string name="encryption_password">Encryption password</string>
-  <string name="reenter_encryption_password">Confirm encryption password</string>
   <string name="url">URL</string>
   <string name="error_adding_account">Error: %s</string>
   <string name="notification_disable_battery_optimizations_description">Battery optimizations may delay notifications</string>
@@ -547,7 +542,6 @@ File %1$s contained %2$s.\n\n
   <string name="show_advanced_settings">Show advanced settings</string>
   <string name="caldav_account_description">Requires an account with a CalDAV service provider or a self-hosted server. Find a service provider by visiting tasks.org/caldav</string>
   <string name="etesync_account_description">Requires an account with EteSync.com or a self-hosted server</string>
-  <string name="etesync_encryption_description">Remember the encryption password you pick, it cannot be recovered!</string>
   <string name="preferences_look_and_feel">Look and feel</string>
   <string name="preferences_advanced">Advanced</string>
   <string name="documentation">Documentation</string>

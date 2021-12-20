@@ -51,11 +51,8 @@ internal class SubheaderViewHolder(
         this.subheader = subheader
         text.text = subheader.listingTitle
         when {
-            subheader.error -> with(errorIcon) {
-                setColorFilter(ContextCompat.getColor(activity, R.color.overdue))
-                visibility = View.VISIBLE
-            }
-            subheader.subheaderType == SubheaderType.ETESYNC -> with(errorIcon) {
+            subheader.error || subheader.subheaderType == SubheaderType.ETESYNC ->
+                with(errorIcon) {
                 setColorFilter(ContextCompat.getColor(activity, R.color.overdue))
                 visibility = View.VISIBLE
             }

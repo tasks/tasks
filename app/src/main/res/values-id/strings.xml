@@ -299,8 +299,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Jangan tambahkan ke kalender</string>
     <string name="default_calendar">Bawaan kalender</string>
-    <string name="encryption_password_required">Kata sandi enkripsi diperlukan</string>
-    <string name="encryption_password">Kata sandi enkripsi</string>
     <string name="import_summary_message">Berkas %1$s berisi %2$s.
 \n
 \n %3$s diimpor,
@@ -375,13 +373,9 @@
     <string name="caldav_selection_description">Sinkronisasi yang berdasarkan pada standar internet terbuka</string>
     <string name="etesync_selection_description">Enkripsi klien-ke-klien bersumber terbuka</string>
     <string name="theme_wallpaper">Latar</string>
-    <string name="passwords_do_not_match">Sandi tidak sama</string>
-    <string name="reenter_encryption_password">Konfirmasi sandi enkripsi</string>
     <string name="show_advanced_settings">Tampilkan pengaturan lanjutan</string>
     <string name="caldav_account_description">Membutuhkan akun penyedia layanan CalDAV atau server host-mandiri. Temukan penyedia layanan dengan mengunjungi tasks.org/caldav</string>
     <string name="etesync_account_description">Membutuhkan akun EteSync.com atau server hosting-mandiri</string>
-    <string name="etesync_encryption_description">Ingat kata sandi enkripsi yang Anda pilih, sandi tidak akan dapat dipulihkan!</string>
-    <string name="encryption_password_wrong">Sandi enkripsi salah</string>
     <string name="help_and_feedback">Bantuan &amp; umpanbalik</string>
     <string name="documentation">Dokumentasi</string>
     <string name="preferences_look_and_feel">Tampilan dan gaya</string>

@@ -155,8 +155,6 @@
     <string name="notification_disable_battery_optimizations_description">Optimizările bateriei pot întârzia notificările</string>
     <string name="error_adding_account">Eroare: %s</string>
     <string name="url">URL</string>
-    <string name="reenter_encryption_password">Confirmați parola de criptare</string>
-    <string name="encryption_password">Parola de criptare</string>
     <string name="password">Parola</string>
     <string name="user">Utilizator</string>
     <string name="add_account">Adăugați un cont</string>
@@ -211,8 +209,6 @@
     <string name="url_invalid_scheme">Trebuie să înceapă cu http(s)://</string>
     <string name="url_host_name_required">Numele de gazdă necesar</string>
     <string name="url_required">URL necesar</string>
-    <string name="encryption_password_wrong">Parolă de criptare greșită</string>
-    <string name="encryption_password_required">Parolă de criptare necesară</string>
     <string name="password_required">Parolă necesară</string>
     <string name="username_required">Nume de utilizator necesar</string>
     <string name="name_cannot_be_empty">Numele nu poate fi gol</string>
@@ -644,7 +640,6 @@
     <string name="documentation">Documentație</string>
     <string name="preferences_advanced">Avansat</string>
     <string name="preferences_look_and_feel">Aspect și senzație</string>
-    <string name="etesync_encryption_description">Țineți minte parola de criptare pe care o alegeți, aceasta nu poate fi recuperată!</string>
     <string name="etesync_account_description">Necesită un cont cu EteSync.com sau un server auto-găzduit</string>
     <string name="caldav_account_description">Necesită un cont la un furnizor de servicii CalDAV sau un server găzduit de sine stătător. Găsiți un furnizor de servicii vizitând tasks.org/caldav</string>
     <string name="show_advanced_settings">Afișați setările avansate</string>
@@ -700,7 +695,6 @@
     <string name="requires_pro_subscription">Necesită un abonament pro</string>
     <string name="pro_dashclock_extension">Extinderea ceasului de bord</string>
     <string name="license_summary">Tasks este un software libre open-source, licențiat sub licența GNU General Public License v3.0</string>
-    <string name="passwords_do_not_match">Parolele nu se potrivesc</string>
     <string name="TPl_notification">Cronometre active pentru %s!</string>
     <string name="delete_tag_confirmation">Ștergeți %s\?</string>
     <string name="new_list">Creați o nouă listă</string>

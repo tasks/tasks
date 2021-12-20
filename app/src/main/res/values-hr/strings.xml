@@ -364,8 +364,6 @@
     <string name="notification_disable_battery_optimizations_description">Optimiranje baterije može odgoditi obavijesti</string>
     <string name="error_adding_account">Greška: %s</string>
     <string name="url">URL</string>
-    <string name="reenter_encryption_password">Potvrdi lozinku za šifriranje</string>
-    <string name="encryption_password">Lozinka za šifriranje</string>
     <string name="password">Lozinka</string>
     <string name="user">Korisnik</string>
     <string name="add_account">Dodaj račun</string>
@@ -417,9 +415,6 @@
     <string name="url_invalid_scheme">Mora početi s http(s)://</string>
     <string name="url_host_name_required">Naziv računala je obavezno</string>
     <string name="url_required">URL-adresa je obavezna</string>
-    <string name="passwords_do_not_match">Lozinke se ne poklapaju</string>
-    <string name="encryption_password_wrong">Kriva lozinka za šifriranje</string>
-    <string name="encryption_password_required">Lozinka za šifriranje je obavezna</string>
     <string name="password_required">Lozinka je obavezna</string>
     <string name="username_required">Korisničko ime je obavezno</string>
     <string name="name_cannot_be_empty">Ime ne smije biti prazno</string>
@@ -634,7 +629,6 @@
     <string name="troubleshooting">Rješavanje problema</string>
     <string name="wearable_notifications_summary">Prikaži obavijesti na nosivim uređajima</string>
     <string name="wearable_notifications">Obavijesti nosivih uređaja</string>
-    <string name="etesync_encryption_description">Zapamti odabranu lozinku za šifriranje, ne može se obnoviti!</string>
     <string name="etesync_account_description">Zahtijeva račun na EteSync.com ili vlastiti poslužitelj</string>
     <string name="widget_show_header">Pokaži zaglavlje</string>
     <string name="widget_show_checkboxes">Pokaži potvrdne okvire</string>

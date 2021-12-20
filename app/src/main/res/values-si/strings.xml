@@ -186,8 +186,6 @@
     <string name="badges">ලාංඡන</string>
     <string name="notification_disable_battery_optimizations_description">බැටරි ප්‍රශස්තිකරණය මඟින් දැනුම්දීම් ප්‍රමාද විය හැක</string>
     <string name="url">URL</string>
-    <string name="reenter_encryption_password">සංකේතන මුරපදය තහවුරු කරන්න</string>
-    <string name="encryption_password">සංකේතන මුරපදය</string>
     <string name="password">මුරපදය</string>
     <string name="user">පරිශීලක</string>
     <string name="add_account">ගිණුම එක් කරන්න</string>
@@ -241,7 +239,6 @@
     <string name="documentation">ප්‍රලේඛනය</string>
     <string name="preferences_advanced">උසස්</string>
     <string name="preferences_look_and_feel">පෙනුම හා පහසුව</string>
-    <string name="etesync_encryption_description">ඔබ තෝරාගත් සංකේතාත්මක මුරපදය මතක තබා ගන්න, එය නැවත ලබා ගත නොහැක!</string>
     <string name="etesync_account_description">EteSync.com හෝ ස්වයං සත්කාරක සේවාදායකයක් සමඟ ගිණුමක් අවශ්‍ය වේ</string>
     <string name="caldav_account_description">CalDAV සේවා සැපයුම්කරුවෙකු හෝ ස්වයං සත්කාරක සේවාදායකයක් සමඟ ගිණුමක් අවශ්‍ය වේ. tasks.org/caldav වෙත පිවිසීමෙන් සේවා සපයන්නෙකු සොයා ගන්න</string>
     <string name="show_advanced_settings">උසස් සැකසුම් පෙන්වන්න</string>
@@ -629,9 +626,6 @@
     <string name="url_invalid_scheme">http(s):// වලින් ආරම්භවිය යුතුය</string>
     <string name="url_host_name_required">ධාරක නාමය (Hostname) අවශ්‍යයි</string>
     <string name="url_required">URL අවශ්‍යයි</string>
-    <string name="passwords_do_not_match">මුර පද නොගැලපේ</string>
-    <string name="encryption_password_wrong">වැරදි සංකේතාත්මක මුරපදයකි</string>
-    <string name="encryption_password_required">සංකේතාත්මක මුරපදය අවශ්‍යයි</string>
     <string name="password_required">මුරපදය අවශ්‍යයි</string>
     <string name="username_required">පරිශීලක නාමය අවශ්‍යයි</string>
     <string name="name_cannot_be_empty">නම හිස්ව තැබිය නොහැකිය</string>

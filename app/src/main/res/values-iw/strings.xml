@@ -493,8 +493,6 @@
     <string name="this_feature_requires_a_subscription">תכונה זו דורשת מנוי</string>
     <string name="help_and_feedback">עזרה ומשוב</string>
     <string name="error_adding_account">שגיאה: %s</string>
-    <string name="reenter_encryption_password">אשר את סיסמת ההצפנה</string>
-    <string name="encryption_password">סיסמת הצפנה</string>
     <string name="widget_due_date_hidden">מוסתר</string>
     <string name="widget_due_date_below_title">מתחת לכותרת</string>
     <string name="widget_due_date_after_title">לאחר הכותרת</string>
@@ -525,8 +523,6 @@
     <string name="auto_dismiss_datetime_widget">יישומון</string>
     <string name="shortcut_pick_time">בחירת זמן</string>
     <string name="chip_appearance_text_and_icon">טקסט וסמל</string>
-    <string name="encryption_password_wrong">סיסמת הצפנה שגויה</string>
-    <string name="encryption_password_required">דרושה סיסמת הצפנה</string>
     <string name="menu_discard_changes">בטל שינויים</string>
     <string name="subtasks">תתי משימות</string>
     <string name="widget_show_dividers">הצג חוצצים</string>
@@ -557,7 +553,6 @@
     <string name="opacity_footer">אטימות הכותרת התחתונה</string>
     <string name="opacity_header">אטימות כותרת</string>
     <string name="opacity_row">אטימות שורה</string>
-    <string name="passwords_do_not_match">הססמאות אינן תואמות</string>
     <string name="date_shortcut_tomorrow_night">מחר בלילה</string>
     <string name="date_shortcut_tomorrow_evening">מחר בערב</string>
     <string name="yesterday_lowercase">אתמול</string>
@@ -580,7 +575,6 @@
     <string name="wearable_notifications_summary">הצגת התראות על המחשוב הלביש שלך</string>
     <string name="wearable_notifications">התראות על מחשוב לביש</string>
     <string name="documentation">תיעוד</string>
-    <string name="etesync_encryption_description">עליך לזכור את ססמת ההצפנה שבחרת, אי אפשר לשחזר אותה!</string>
     <string name="etesync_account_description">דורש חשבון אצל EteSync.com או שרת באירוח עצמי</string>
     <string name="caldav_account_description">דורש חשבון עם ספק שירות CalDAV או שרת באירוח עצמי. ניתן למצוא ספק שירות תחת tasks.org/caldav</string>
     <string name="tell_me_how_im_doing">נשמח לשמוע איך החוויה שלך</string>

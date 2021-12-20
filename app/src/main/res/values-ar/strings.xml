@@ -310,13 +310,11 @@
     <string name="gcal_completed_title">%s (تم)</string>
     <string name="CFC_importance_name">الأولوية…</string>
     <string name="list">قائمة</string>
-    <string name="encryption_password">كلمة سرّ التشفير</string>
     <string name="widget_due_date_below_title">تحت العنوان</string>
     <string name="widget_due_date_after_title">بعد العنوان</string>
     <string name="default_recurrence">التكرار الافتراضي</string>
     <string name="default_tags">العلامات الافتراضيّة</string>
     <string name="no_title">(لا عنوان)</string>
-    <string name="encryption_password_required">كلمة سرّ التشفير مطلوبة</string>
     <string name="password_required">كلمة السرّ مطلوبة</string>
     <string name="username_required">اسم المستعمل مطلوب</string>
     <string name="pick_from_storage">انتقِ من التخزين</string>
@@ -376,13 +374,10 @@
     <string name="troubleshooting">استكشاف الأخطاء وإصلاحها</string>
     <string name="documentation">التوثيق</string>
     <string name="preferences_advanced">متقدم</string>
-    <string name="etesync_encryption_description">تذكّر كلمة سرّ التشفير التي تختارها، لا يمكن استرجاعها!</string>
     <string name="choose_synchronization_service">اختر منصّة</string>
     <string name="create_new_tag">أنشأ \"%s\"</string>
     <string name="no_calendars_found">لم يوجد أيّ تقويم</string>
     <string name="filter">تصفية</string>
-    <string name="passwords_do_not_match">كلمات السرّ لا تتّفق</string>
-    <string name="encryption_password_wrong">كلمة سر تشفير خاطئة</string>
     <string name="move">انقل</string>
     <string name="subtasks">مهام فرعيّة</string>
     <plurals name="list_count">
@@ -453,7 +448,6 @@
     <string name="badges">الشارات</string>
     <string name="error_adding_account">خطأ: %s</string>
     <string name="url">رابط</string>
-    <string name="reenter_encryption_password">أكّد كلمة سرّ التشفير</string>
     <string name="widget_due_date_hidden">مخفي</string>
     <string name="widget_footer">تذييل</string>
     <string name="reverse">عكس</string>

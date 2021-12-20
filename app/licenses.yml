@@ -497,24 +497,6 @@
   copyrightHolder: Android Open Source Project
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
-- artifact: com.madgag.spongycastle:core:+
-  name: Spongy Castle Core
-  copyrightHolder: The Legion of the Bouncy Castle Inc.
-  license: Bouncy Castle Licence
-  licenseUrl: http://www.bouncycastle.org/licence.html
-  url: http://rtyley.github.io/spongycastle/
-- artifact: com.etesync:journalmanager:+
-  name: EteSync JVM
-  copyrightHolder: Tom Hacohen
-  license: LGPL-3.0-only
-  licenseUrl: https://spdx.org/licenses/LGPL-3.0-only.html
-  url: https://www.etesync.com
-- artifact: com.madgag.spongycastle:prov:+
-  name: Spongy Castle
-  copyrightHolder: The Legion of the Bouncy Castle Inc.
-  license: Bouncy Castle Licence
-  licenseUrl: http://www.bouncycastle.org/licence.html
-  url: http://rtyley.github.io/spongycastle/
 - artifact: androidx.preference:preference:+
   name: AndroidX Preference
   copyrightHolder: Android Open Source Project

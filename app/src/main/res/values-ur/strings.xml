@@ -404,9 +404,6 @@
     <string name="url_invalid_scheme">http(s):// کے ساتھ شروع ہونا ضروری ہے</string>
     <string name="url_host_name_required">ہوسٹ کا نام مطلوب ہے</string>
     <string name="url_required">یو آر ایل مطلوب ہے</string>
-    <string name="passwords_do_not_match">پاسورڈز ایک جیسے نہیں ہیں</string>
-    <string name="encryption_password_wrong">غلط انکرپشن پاسورڈ</string>
-    <string name="encryption_password_required">انکرپشن پاسورڈ مطلوب ہے</string>
     <string name="password_required">پاسورڈ مطلوب ہے</string>
     <string name="username_required">صارف کا نام مطلوب ہے</string>
     <string name="name_cannot_be_empty">نام خالی نہیں ہو سکتا</string>
@@ -418,8 +415,6 @@
     <string name="notification_disable_battery_optimizations_description">بیٹری کی بچت نوٹیفیکیشنز کو ملتوی کر سکتی ہے</string>
     <string name="error_adding_account">ایرر:%s</string>
     <string name="url">یو آر ایل</string>
-    <string name="reenter_encryption_password">انکرپشن پاسورڈ کی تصدیق کریں</string>
-    <string name="encryption_password">انکرپشن پاسورڈٖ</string>
     <string name="password">پاسورڈ</string>
     <string name="user">صارف</string>
     <string name="add_account">اکاؤنٹ داخل کریں</string>

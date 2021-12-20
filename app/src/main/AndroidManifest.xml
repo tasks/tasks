@@ -639,10 +639,6 @@
     <activity android:name=".tags.TagPickerActivity" />
 
     <activity
-      android:name=".etesync.EncryptionSettingsActivity"
-      android:theme="@style/Tasks" />
-
-    <activity
       android:name=".etebase.EtebaseCalendarSettingsActivity"
       android:theme="@style/Tasks" />
 

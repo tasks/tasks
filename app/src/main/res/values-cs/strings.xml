@@ -421,11 +421,6 @@
     <string name="icon">Ikona</string>
     <string name="button_upgrade">Zvýšit předplatné</string>
     <string name="button_unsubscribe">Zrušit předplatné</string>
-    <string name="encryption_password_required">Zadejte heslo pro šifrování</string>
-    <string name="encryption_password">Heslo pro šifrování</string>
-    <string name="passwords_do_not_match">Zadání hesla se neshodují</string>
-    <string name="reenter_encryption_password">Zopakujte heslo pro šifrování</string>
-    <string name="encryption_password_wrong">Nesprávné heslo pro šifrování</string>
     <string name="help_and_feedback">Nápověda a zpětná vazba</string>
     <string name="pro_dashclock_extension">Dashclock rozšíření</string>
     <string name="requires_pro_subscription">Vyžaduje PRO předplatné</string>
@@ -472,7 +467,6 @@
     <string name="show_advanced_settings">Zobrazit pokročilé možnosti</string>
     <string name="caldav_account_description">Vyžaduje účet u poskytovatele s CalDAV službou nebo vlastní server. Vhodné poskytovatele najdete na tasks.org/caldav</string>
     <string name="etesync_account_description">Vyžaduje účet na EteSync.com nebo vlastní server</string>
-    <string name="etesync_encryption_description">Dobře si zapamatujte své šifrovací heslo, protože jej není možné obnovit!</string>
     <string name="preferences_look_and_feel">Vzhled a chování</string>
     <string name="documentation">Dokumentace</string>
     <string name="preferences_advanced">Pokročilé možnosti</string>

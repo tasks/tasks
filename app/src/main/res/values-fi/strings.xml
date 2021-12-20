@@ -403,7 +403,6 @@
     <string name="notification_troubleshooting_summary">Paina tästä jos ilmoitusten kanssa on ongelmia</string>
     <string name="documentation">Dokumentaatio</string>
     <string name="preferences_look_and_feel">Ulkonäkö ja tunnelma</string>
-    <string name="etesync_encryption_description">Painathan salaukselle asettamasti salasanan muistiin, sillä sitä ei voi palauttaa tai nollata!</string>
     <string name="etesync_selection_description">End-to-end-salattu synkronointi</string>
     <string name="caldav_selection_description">Avoimiin verkkostandardeihin pohjautuva synkronointi</string>
     <string name="choose_synchronization_service">Valitse alusta</string>
@@ -449,8 +448,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="error_adding_account">Virhe: %s</string>
     <string name="url">URL</string>
-    <string name="reenter_encryption_password">Vahvista salauksen salasana</string>
-    <string name="encryption_password">Salauksen salasana</string>
     <string name="password">Salasana</string>
     <string name="user">Käyttäjä</string>
     <string name="add_account">Lisää tili</string>
@@ -459,9 +456,6 @@
     <string name="icon">Kuvake</string>
     <string name="url_invalid_scheme">On alettava http(s)://</string>
     <string name="url_required">URL vaaditaan</string>
-    <string name="passwords_do_not_match">Salasanat eivät täsmää</string>
-    <string name="encryption_password_wrong">Väärä salauksen salasana</string>
-    <string name="encryption_password_required">Salauksen salasana vaaditaan</string>
     <string name="password_required">Salasana vaaditaan</string>
     <string name="username_required">Käyttäjänimi vaaditaan</string>
     <string name="move">Siirrä</string>

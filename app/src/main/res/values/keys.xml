@@ -15,7 +15,7 @@
   <string name="decsync">DecSync CC</string>
   <string name="tasks_org">Tasks.org</string>
   <string name="etesync_url">https://api.etesync.com</string>
-  <string name="etesync_deprecated">Native EteSync v1 support is deprecated and will be removed soon! Please switch to the EteSync client to continue synchronizing your EteSync v1 account, or migrate to EteSync v2</string>
+  <string name="etesync_deprecated">Native EteSync v1 support has been removed. Please switch to the EteSync client to continue synchronizing your EteSync v1 account, or migrate to EteSync v2</string>
   <string name="etebase_url">https://api.etebase.com/partner/tasksorg/</string>
   <string name="help_url_sync">https://tasks.org/sync</string>
 
@@ -384,7 +384,6 @@
   <string name="p_crash_main_queries">debug_crash_main_queries</string>
   <string name="p_sync_ongoing_google_tasks">sync_ongoing_google_tasks</string>
   <string name="p_sync_ongoing_caldav">sync_ongoing_caldav</string>
-  <string name="p_sync_ongoing_etesync">sync_ongoing_etesync</string>
   <string name="p_sync_ongoing_etebase">sync_ongoing_etebase</string>
   <string name="p_sync_ongoing_opentasks">sync_ongoing_opentasks</string>
   <string name="p_sync_ongoing_android">sync_ongoing_android</string>
@@ -443,7 +442,6 @@
   <string name="event_astrid2taskprovider">cp_astrid2taskprovider</string>
   <string name="event_sync_add_account">sync_add_account</string>
   <string name="event_sync_unknown_access">sync_unknown_access</string>
-  <string name="legacy_etesync">legacy_etesync</string>
   <string name="param_type">type</string>
   <string name="p_map_theme">map_theme</string>
   <string name="p_picker_mode_date">picker_mode_date</string>

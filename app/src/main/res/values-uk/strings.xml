@@ -455,7 +455,6 @@
     <string name="error_adding_account">Помилка: %s</string>
     <string name="url">URL</string>
     <string name="icon">Піктограма</string>
-    <string name="passwords_do_not_match">Паролі не співпадають</string>
     <string name="menu_discard_changes">Скасувати зміни</string>
     <string name="subtasks">Підзадачі</string>
     <string name="EPr_temp_completed_tasks_not_showing">Завдання негайно зникатимуть зі списку після їх завершення</string>
@@ -478,14 +477,9 @@
         <item quantity="other">%d підзавдань</item>
     </plurals>
     <string name="gtasks_GPr_header">Google Tasks</string>
-    <string name="reenter_encryption_password">Підтвердіть пароль шифрування</string>
-    <string name="encryption_password">Пароль шифрування</string>
-    <string name="encryption_password_required">Потрібен пароль шифрування</string>
-    <string name="encryption_password_wrong">Невірний пароль шифрування</string>
     <string name="wearable_notifications_summary">Показувати повідомлення на натільних пристроях</string>
     <string name="wearable_notifications">Повідомлення на натільні пристрої</string>
     <string name="documentation">Документація</string>
-    <string name="etesync_encryption_description">Запам\'ятайте свій пароль шифрування. Його неможливо відновити!</string>
     <string name="etesync_account_description">Потрібний обліковий запис у EteSync.com або власний сервер</string>
     <string name="caldav_account_description">Потрібний обліковий запис у провайдера сервісу CalDAV або власний сервер. Відвідайте tasks.org/caldav, щоб переглянути список провайдерів</string>
     <string name="etesync_selection_description">Захищена наскрізним шифруванням синхронізація</string>

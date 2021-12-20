@@ -493,20 +493,10 @@
 +|    +--- androidx.work:work-runtime:2.7.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.30 -> 1.5.31 (*)
 +|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0 -> 1.5.2 (*)
-++--- com.etesync:journalmanager:1.1.1
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71 -> 1.5.31 (*)
-+|    +--- com.madgag.spongycastle:core:1.54.0.0
-+|    +--- com.madgag.spongycastle:prov:1.54.0.0
-+|    |    \--- com.madgag.spongycastle:core:1.54.0.0
-+|    +--- com.squareup.okhttp3:logging-interceptor:3.12.1
-+|    |    \--- com.squareup.okhttp3:okhttp:3.12.1 -> 4.8.1 (*)
-+|    +--- com.google.code.gson:gson:1.7.2 -> 2.8.8
-+|    +--- org.apache.commons:commons-collections4:4.1
-+|    +--- org.apache.commons:commons-lang3:3.8.1
-+|    \--- commons-codec:commons-codec:1.7 -> 1.11
 ++--- com.etebase:client:2.3.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.2.0
-+|    \--- com.squareup.okhttp3:logging-interceptor:3.12.1 (*)
++|    \--- com.squareup.okhttp3:logging-interceptor:3.12.1
++|         \--- com.squareup.okhttp3:okhttp:3.12.1 -> 4.8.1 (*)
 ++--- com.github.QuadFlask:colorpicker:0.0.15
 +|    \--- androidx.appcompat:appcompat:1.1.0 -> 1.3.1 (*)
 ++--- net.openid:appauth:0.8.1

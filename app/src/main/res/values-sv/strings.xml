@@ -632,7 +632,6 @@
     <string name="wearable_notifications_summary">Visa meddelanden på din wearable</string>
     <string name="wearable_notifications">Meddelanden som kan bäras</string>
     <string name="preferences_look_and_feel">Utseende</string>
-    <string name="etesync_encryption_description">Kom ihåg krypteringslösenordet du väljer, det kan inte återställas!</string>
     <string name="davx5_selection_description">Synkronisera dina uppgifter med DAVx⁵-appen</string>
     <string name="decsync_selection_description">Filbaserad synkronisering</string>
     <string name="etesync_selection_description">Krypterad synkronisering från slut till slut</string>
@@ -649,8 +648,6 @@
     <string name="whats_new">Vad är nytt</string>
     <string name="this_feature_requires_a_subscription">Denna funktion kräver en prenumeration</string>
     <string name="subscription">Prenumeration</string>
-    <string name="reenter_encryption_password">Bekräfta krypteringslösenordet</string>
-    <string name="encryption_password">Krypteringslösenord</string>
     <string name="widget_due_date_below_title">Under rubriken</string>
     <string name="widget_due_date_after_title">Efter titeln</string>
     <string name="widget_due_date_reschedule">Omplanera uppgiften</string>
@@ -663,9 +660,6 @@
     <string name="opacity_header">Opacitet för rubriken</string>
     <string name="default_recurrence">Standardåterkomst</string>
     <string name="default_tags">Standardtaggar</string>
-    <string name="passwords_do_not_match">Lösenorden stämmer inte överens</string>
-    <string name="encryption_password_wrong">Felaktigt krypteringslösenord</string>
-    <string name="encryption_password_required">Krypteringslösenord krävs</string>
     <string name="no_app_found">Ingen app kunde hantera den här begäran</string>
     <string name="filter_criteria_unstarted">Ej påbörjad</string>
     <string name="show_unstarted">Visa ostartat</string>

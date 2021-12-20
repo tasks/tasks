@@ -177,7 +177,6 @@
     <string name="documentation">เอกสาร</string>
     <string name="preferences_advanced">ดึก</string>
     <string name="preferences_look_and_feel">ลักษณะและความรู้สึก</string>
-    <string name="etesync_encryption_description">จํารหัสผ่านการเข้ารหัสที่คุณเลือกมันไม่สามารถกู้คืนได้!</string>
     <string name="etesync_account_description">ต้องการบัญชีผู้ใช้ที่มี EteSync.com หรือเซิร์ฟเวอร์ที่โฮสต์ด้วยตนเอง</string>
     <string name="caldav_account_description">จําเป็นต้องมีบัญชีผู้ใช้กับผู้ให้บริการ CalDAV หรือเซิร์ฟเวอร์ที่โฮสต์ด้วยตนเอง ค้นหาผู้ให้บริการโดยไปที่ tasks.org/caldav</string>
     <string name="show_advanced_settings">แสดงการตั้งค่าขั้นสูง</string>
@@ -287,8 +286,6 @@
     <string name="notification_disable_battery_optimizations_description">การเพิ่มประสิทธิภาพแบตเตอรี่อาจทําให้การแจ้งเตือนล่าช้า</string>
     <string name="error_adding_account">ข้อผิดพลาด: %s</string>
     <string name="url">URL</string>
-    <string name="reenter_encryption_password">ยืนยันรหัสผ่านการเข้ารหัส</string>
-    <string name="encryption_password">รหัสผ่านการเข้ารหัสลับ</string>
     <string name="password">รหัสผ่าน</string>
     <string name="user">ผู้ใช้</string>
     <string name="add_account">เพิ่มบัญชี</string>
@@ -344,9 +341,6 @@
     <string name="url_invalid_scheme">ต้องเริ่มต้นด้วย http(s)://</string>
     <string name="url_host_name_required">ต้องการชื่อโฮสต์</string>
     <string name="url_required">URL ที่ต้องการ</string>
-    <string name="passwords_do_not_match">รหัสผ่านไม่ตรงกัน</string>
-    <string name="encryption_password_wrong">รหัสผ่านการเข้ารหัสลับไม่ถูกต้อง</string>
-    <string name="encryption_password_required">ต้องใช้รหัสผ่านการเข้ารหัส</string>
     <string name="password_required">ต้องใช้รหัสผ่าน</string>
     <string name="username_required">ต้องการชื่อผู้ใช้</string>
     <string name="name_cannot_be_empty">ชื่อไม่สามารถปล่อยให้ว่างได้</string>
