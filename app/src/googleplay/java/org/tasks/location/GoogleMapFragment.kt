@@ -58,16 +58,12 @@ class GoogleMapFragment @Inject constructor(
         if (map == null) {
             return
         }
-        for (marker in markers) {
-            marker.remove()
-        }
-        markers.clear()
-        for (place in places) {
-            val marker = map!!.addMarker(
-                    MarkerOptions().position(LatLng(place.latitude, place.longitude)))
-            marker.tag = place
-            markers.add(marker)
-        }
+        markers
+            .onEach { it.remove() }
+            .clear()
+        places
+            .mapNotNull { map?.addMarker(it) }
+            .let { markers.addAll(it) }
     }
 
     override fun disableGestures() {
@@ -104,5 +100,10 @@ class GoogleMapFragment @Inject constructor(
 
     companion object {
         private const val FRAG_TAG_MAP = "frag_tag_map"
+
+        private fun GoogleMap.addMarker(place: Place) =
+            addMarker(MarkerOptions().position(LatLng(place.latitude, place.longitude)))?.apply {
+                tag = place
+            }
     }
 }

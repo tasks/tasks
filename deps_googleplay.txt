@@ -220,10 +220,10 @@
 +|    +--- com.google.android.gms:play-services-places-placereport:17.0.0
 +|    |    \--- com.google.android.gms:play-services-basement:17.0.0 -> 18.0.0 (*)
 +|    \--- com.google.android.gms:play-services-tasks:18.0.0 (*)
-++--- com.google.android.gms:play-services-maps:17.0.1
+++--- com.google.android.gms:play-services-maps:18.0.1
 +|    +--- androidx.fragment:fragment:1.0.0 -> 1.3.6 (*)
-+|    +--- com.google.android.gms:play-services-base:17.0.0 -> 18.0.0 (*)
-+|    \--- com.google.android.gms:play-services-basement:17.0.0 -> 18.0.0 (*)
++|    +--- com.google.android.gms:play-services-base:18.0.0 (*)
++|    \--- com.google.android.gms:play-services-basement:18.0.0 (*)
 ++--- com.android.billingclient:billing-ktx:3.0.3
 +|    +--- com.android.billingclient:billing:3.0.3
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.0 -> 1.5.31 (*)
