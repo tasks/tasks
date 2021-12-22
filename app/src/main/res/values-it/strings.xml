@@ -434,7 +434,6 @@
     <string name="SSD_sort_my_order">Personalizzato</string>
     <string name="EPr_temp_completed_tasks_not_showing">Le attività spariranno immediatamente dalla lista dopo il completamento</string>
     <string name="desaturate_colors">Riduci saturazione colori</string>
-    <string name="button_upgrade">Passa alla versione premium</string>
     <string name="share">Condividi</string>
     <string name="select_all">Seleziona tutto</string>
     <string name="calendar_event_created">Creato evento nel calendario per %s</string>
@@ -659,7 +658,6 @@
     <string name="account_not_included">Non incluso negli abbonamenti con prezzo a scelta</string>
     <string name="tasks_org_account">Account Tasks.org</string>
     <string name="subscription">Abbonamento</string>
-    <string name="get_tasks_org_account">Crea un account Tasks.org</string>
     <string name="CFC_startBefore_text">Inizia: \?</string>
     <string name="CFC_startBefore_name">Inizia…</string>
     <string name="app_passwords">Password delle app</string>
@@ -696,17 +694,12 @@
     <string name="upgrade_desktop_access">Accesso desktop</string>
     <string name="upgrade_tasks_org_account_description">Sincronizza con Tasks.org e collabora con altri utenti</string>
     <string name="upgrade_google_tasks">Sincronizza più account</string>
-    <string name="upgrade_customization_icons">Icone della lista</string>
-    <string name="upgrade_customization_colors">Icone del launcher, combinazioni di colori e selettore avanzato dei colori</string>
-    <string name="upgrade_customization_themes">Sfondo e temi giorno/notte</string>
     <string name="upgrade_more_customization_description">Sblocca tutti i temi, i colori e le icone</string>
     <string name="upgrade_more_customization">Maggiore personalizzazione</string>
     <string name="pro_free_trial">I nuovi abbonati ricevono 7 giorni di prova gratuita. Puoi recedere in qualsiasi momento</string>
     <string name="list_members">Elenco dei membri</string>
     <string name="sort_due_group">Scadenza %s</string>
     <string name="sort_start_group">Inizio %s</string>
-    <string name="subscription_benefits">Vantaggi dell\'abbonamento</string>
-    <string name="tasks_org_share">Condividi le liste con altri utenti</string>
     <string name="next_saturday">Sabato prossimo</string>
     <string name="next_friday">Venerdì prossimo</string>
     <string name="next_thursday">Giovedì prossimo</string>

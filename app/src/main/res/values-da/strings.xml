@@ -379,7 +379,6 @@
     <string name="disable_battery_optimizations">Deaktiver strømsparetilstand</string>
     <string name="wearable_notifications_summary">Vis notifikationer på din wearable-enhed</string>
     <string name="license_summary">Tasks er gratis, open-source software udgivet under GNU General Public License v3.0</string>
-    <string name="button_upgrade">Opgrader abonnement</string>
     <string name="upgrade_to_pro">Opgrader til pro</string>
     <string name="refresh_purchases">Opdater køb</string>
     <string name="manage_subscription">Administrer abonnement</string>
@@ -580,7 +579,6 @@
     <string name="DLG_undo">Fortryd</string>
     <string name="keep_editing">Rediger videre</string>
     <string name="discard_confirmation">Er du sikker på, at du vil kassere dine ændringer\?</string>
-    <string name="get_tasks_org_account">Få en Tasks.org konto</string>
     <string name="tasks_org_account">Tasks.org konto</string>
     <string name="copied_to_clipboard">%s kopieret til udklipsholderen</string>
     <string name="app_password_save">Brug disse legitimationsoplysninger til at konfigurere en tredjepartsapp. De har fuld adgang til din Tasks.org-konto, skriv dem ikke ned eller del dem med nogen!</string>
@@ -645,9 +643,6 @@
     <string name="upgrade_desktop_access">Adgang til skrivebordet</string>
     <string name="upgrade_tasks_org_account_description">Synkroniser med Tasks.org, og samarbejd med andre brugere</string>
     <string name="upgrade_google_tasks">Synkroniser flere konti</string>
-    <string name="upgrade_customization_icons">Liste over ikoner</string>
-    <string name="upgrade_customization_colors">Lanceringsikoner, farvepaletter og farvehjul</string>
-    <string name="upgrade_customization_themes">Tapet og temaer for dag/nat</string>
     <string name="upgrade_more_customization_description">Låse alle temaer, farver og ikoner op</string>
     <string name="upgrade_more_customization">Mere tilpasning</string>
     <string name="pro_free_trial">Nye abonnenter får en gratis prøveperiode på 7 dage. Du kan til enhver tid annullere</string>
@@ -682,9 +677,7 @@
     <string name="sort_due_group">Forfalder %s</string>
     <string name="sort_start_group">Start %s</string>
     <string name="tasks_needs_your_support">Tasks har brug for din støtte!</string>
-    <string name="subscription_benefits">Abonnementsfordele</string>
     <string name="decsync_selection_description">Filbaseret synkronisering</string>
-    <string name="tasks_org_share">Del lister med andre brugere</string>
     <string name="tasks_org_description">Synkroniser dine opgaver med Tasks.org</string>
     <string name="background_location_permission_required">Opgaver indsamler placeringsdata for at muliggøre placeringsbaserede påmindelser, selv når appen er lukket eller ikke er i brug.</string>
     <string name="subscription">Abonnement</string>

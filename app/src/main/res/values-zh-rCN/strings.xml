@@ -428,7 +428,6 @@
     <string name="invalid_backup_file">无效的备份文件</string>
     <string name="google_tasks_add_to_top">新任务显示在顶部</string>
     <string name="icon">图标</string>
-    <string name="button_upgrade">升级订阅</string>
     <string name="button_unsubscribe">取消订阅</string>
     <string name="name_your_price">您愿意支付多少费用</string>
     <string name="list_separator_with_space">"， "</string>
@@ -651,7 +650,6 @@
     <string name="yesterday_abbrev_lowercase">昨天</string>
     <string name="tomorrow_abbrev_lowercase">明天</string>
     <string name="account_not_included">不包含于“您愿意支付多少费用”订阅</string>
-    <string name="get_tasks_org_account">获取 Tasks.org 账户</string>
     <string name="tasks_org_account">Tasks.org 账户</string>
     <string name="subscription">订阅</string>
     <string name="widget_show_title">显示标题</string>
@@ -674,7 +672,6 @@
     <string name="invite">邀请</string>
     <string name="email">电子邮件</string>
     <string name="share_list">分享列表</string>
-    <string name="tasks_org_share">与其他用户分享列表</string>
     <string name="picker_mode_calendar">日历</string>
     <string name="picker_mode_text">文本</string>
     <string name="picker_mode_clock">时钟</string>
@@ -688,14 +685,10 @@
     <string name="upgrade_desktop_access">桌面访问</string>
     <string name="upgrade_tasks_org_account_description">与 Tasks.org 同步并与其他用户协作</string>
     <string name="upgrade_google_tasks">同步多个账户</string>
-    <string name="upgrade_customization_icons">列表图标</string>
-    <string name="upgrade_customization_colors">启动器图标、调色盘和色轮</string>
-    <string name="upgrade_customization_themes">壁纸和日/夜主题</string>
     <string name="upgrade_more_customization_description">解锁所有主题、颜色和图标</string>
     <string name="upgrade_more_customization">更多自定义</string>
     <string name="pro_free_trial">新订户将获得 7 天的免费试用期。可随时取消订阅</string>
     <string name="tasks_needs_your_support">Tasks 需要你的支持！</string>
-    <string name="subscription_benefits">订阅好处</string>
     <string name="next_saturday">下周六</string>
     <string name="next_friday">下周五</string>
     <string name="next_thursday">下周四</string>

@@ -518,7 +518,6 @@
     <string name="filter_medium_priority">Vidutinis prioritetas</string>
     <string name="preferences_advanced">Išplėstiniai</string>
     <string name="show_advanced_settings">Rodyti išplėstinius nustatymus</string>
-    <string name="tasks_org_share">Bendrinti sąrašus su kitais vartotojais</string>
     <string name="widget_open_list">Atidaryti sąrašą</string>
     <string name="map_theme">Žemėlapio tema</string>
     <string name="start_date">Pradžios data</string>
@@ -532,8 +531,6 @@
     <string name="markdown">Markdown</string>
     <string name="markdown_description">Įgalinti Markdown pavadinime ir aprašyme</string>
     <string name="upgrade_more_customization_description">Atrakinkite visas temas, spalvas ir piktogramas</string>
-    <string name="upgrade_customization_colors">Paleidimo programos piktogramos, spalvų paletės ir spalvų ratas</string>
-    <string name="upgrade_customization_icons">Sąrašo piktogramos</string>
     <string name="CFC_list_name">Sąraše…</string>
     <string name="no_start_date">Be pradžios datos</string>
     <string name="CFC_startBefore_name">Pradėti iki…</string>
@@ -561,7 +558,6 @@
     <string name="picker_mode_text">Tekstas</string>
     <string name="pro_free_trial">Naujiems prenumeratoriams suteikiamas 7 dienų nemokamas bandomasis laikotarpis. Atšaukite bet kuriuo metu</string>
     <string name="upgrade_more_customization">Daugiau tinkinimo</string>
-    <string name="upgrade_customization_themes">Užsklanda ir dienos/nakties temos</string>
     <string name="upgrade_google_tasks">Sinchronizuoti kelias paskyras</string>
     <string name="upgrade_tasks_org_account_description">Sinchronizuokite su Tasks.org ir bendradarbiaukite su kitais naudotojais</string>
     <string name="account">Paskyra</string>
@@ -616,7 +612,6 @@
     <string name="generate_new_password">Generuoti naują slaptažodį</string>
     <string name="name_your_price">Nustatykite savo kainą</string>
     <string name="background_location_permission_required">Tasks renka vietovės duomenis, kad įgalintų priminimus pagal vietovę, net kai programa uždaryta arba nenaudojama.</string>
-    <string name="button_upgrade">Atnaujinti prenumeratą</string>
     <string name="help_and_feedback">Pagalba ir atsiliepimai</string>
     <string name="error_adding_account">Klaida: %s</string>
     <string name="widget_due_date_reschedule">Perplanuoti užduotį</string>
@@ -657,7 +652,6 @@
     <string name="support">Pagalba</string>
     <string name="social">Socialiniai tinklai</string>
     <string name="tasks_org_account_required">Būtina Tasks.org paskyra</string>
-    <string name="get_tasks_org_account">Gauti Tasks.org paskyrą</string>
     <string name="tasks_org_account">Tasks.org paskyra</string>
     <string name="insufficient_subscription">Nepakankamas prenumeratos lygis. Atnaujinkite savo prenumeratą, kad būtų tęsiama paslauga.</string>
     <string name="your_subscription_expired">Jūsų prenumeratos galiojimo laikas baigėsi. Prenumeruokite dabar, norėdami tęsti paslaugą.</string>
@@ -711,7 +705,6 @@
     <string name="add_place">Pridėti vietą</string>
     <string name="hide_unused_places">Slėpti nenaudojamas vietas</string>
     <string name="hide_unused_tags">Slėpti nenaudojamas etiketes</string>
-    <string name="subscription_benefits">Prenumeratos pranašumai</string>
     <string name="upgrade_blurb_2">Aš praleidau tūkstančius valandų dirbdamas su Tasks ir nemokamai skelbiu visą pirminį kodą internete. Kad galėčiau palaikyti savo darbą, kai kurioms funkcijoms reikalinga prenumerata</string>
     <string name="upgrade_blurb_1">Sveiki! Mano vardas Aleksas. Esu nepriklausomas Tasks kūrėjas</string>
     <string name="place_settings">Vietos nustatymai</string>

@@ -468,7 +468,6 @@
     <string name="google_tasks_add_to_top">משימות חדשות בראש הרשימה</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">סמל</string>
-    <string name="button_upgrade">שדרוג מינוי</string>
     <string name="button_unsubscribe">ביטול מינוי</string>
     <string name="name_your_price">מה המחיר שלך</string>
     <string name="places">מיקומים</string>
@@ -695,9 +694,6 @@
     <string name="upgrade_desktop_access">גישה לשולחן העבודה</string>
     <string name="upgrade_tasks_org_account_description">סינכרון עם Tasks.org ושיתוף פעולה עם משתמשים אחרים</string>
     <string name="upgrade_google_tasks">סינכרון חשבונות מרובים</string>
-    <string name="upgrade_customization_icons">סמלי רשימה</string>
-    <string name="upgrade_customization_colors">סמלי מפעיל, לוחות צבעים וגלגל צבעים</string>
-    <string name="upgrade_customization_themes">טפטים וערכות נושא של יום/לילה</string>
     <string name="upgrade_more_customization_description">ביטול נעילה של כל ערכות הנושא, הצבעים והסמלים</string>
     <string name="upgrade_more_customization">התאמה אישית נוספת</string>
     <string name="pro_free_trial">מנויים חדשים מקבלים תקופת ניסיון ללא תשלום למשך 7 ימים. ביטול בכל עת</string>
@@ -717,7 +713,6 @@
     <string name="map_theme_use_app_theme">שימוש בערכת נושא של אפליקציה</string>
     <string name="account_not_included">לא כלול במנויי \'תן שם למחיר שלך\'</string>
     <string name="tasks_org_account_required">Tasks.org נדרש חשבון</string>
-    <string name="get_tasks_org_account">קבל חשבון Tasks.org</string>
     <string name="tasks_org_account">חשבון Tasks.org</string>
     <string name="privacy">פרטיות</string>
     <string name="open_source">קוד פתוח</string>
@@ -729,8 +724,6 @@
     <string name="sort_due_group">תאריך היעד הוא %s</string>
     <string name="sort_start_group">התחל %s</string>
     <string name="tasks_needs_your_support">המשימות זקוקות לתמיכתך!</string>
-    <string name="subscription_benefits">הטבות מנוי</string>
-    <string name="tasks_org_share">שתף רשימות עם משתמשים אחרים</string>
     <string name="tasks_org_description">סנכרן את המשימות שלך עם Tasks.org</string>
     <string name="subscription">מנוי</string>
     <string name="map_theme">נושא המפה</string>

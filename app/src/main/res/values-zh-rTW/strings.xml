@@ -318,7 +318,6 @@
     <string name="EPr_default_location_radius">默認半徑</string>
     <string name="EPr_default_location_reminder_title">默認位置提醒</string>
     <string name="always_display_full_date">顯示完整日期</string>
-    <string name="get_tasks_org_account">取得Tasks.org 帳號</string>
     <string name="tasks_org_account">Tasks.org 帳號</string>
     <string name="copied_to_clipboard">%s 已複製至剪貼簿</string>
     <string name="app_password_delete_confirmation">任何使用此密碼的應用程式將會被登出</string>
@@ -442,7 +441,6 @@
     <string name="license_summary">Tasks 是自由開源軟體，根據GNU通用公眾授權條款v3.0許可</string>
     <string name="about">關於</string>
     <string name="button_unsubscribe">取消訂閱</string>
-    <string name="button_upgrade">升級訂閱</string>
     <string name="button_subscribe">訂閱</string>
     <string name="refresh_purchases">刷新付款</string>
     <string name="manage_subscription">變更訂閱</string>

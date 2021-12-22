@@ -369,7 +369,6 @@
     <string name="chip_appearance_icon_only">الأيقونة فقط</string>
     <string name="add_place">أضف مكانًا</string>
     <string name="hide_unused_places">أخفِ الأماكن الغير مستخدمة</string>
-    <string name="subscription_benefits">فوائد الاشتراك</string>
     <string name="color_wheel">عجلة الألوان</string>
     <string name="troubleshooting">استكشاف الأخطاء وإصلاحها</string>
     <string name="documentation">التوثيق</string>
@@ -411,7 +410,6 @@
     <string name="remove_user">إزالة المستعمل؟</string>
     <string name="list_members">أعضاء القائمة</string>
     <string name="tasks_org_account_required">حساب Tasks.org مطلوب</string>
-    <string name="get_tasks_org_account">احصل على حساب Tasks.org</string>
     <string name="tasks_org_account">حساب Tasks.org</string>
     <string name="sign_in_to_tasks">تسجيل الدخول إلى Tasks.org</string>
     <string name="support">دعم</string>
@@ -427,7 +425,6 @@
     <string name="hide_unused_tags">أخفِ العلامات الغير مستعملة</string>
     <string name="place_settings">إعدادات الأماكن</string>
     <string name="upgrade_blurb_1">أهلًا! أنا أليكس (Alex). أنا المطور المستقل وراء Tasks</string>
-    <string name="tasks_org_share">شارك القائمة مع مستعملين آخرين</string>
     <string name="enter_tag_name">أدخل اسم العلامة</string>
     <string name="enter_title_hint">أدخل العنوان</string>
     <string name="version_string">نسخة %s</string>
@@ -475,7 +472,6 @@
     <string name="TEA_control_timer">ضوابط المؤقت</string>
     <string name="more_options">خيارات أكثر</string>
     <string name="upgrade_open_source_description">اشتراكك يدعم التطور المستمر</string>
-    <string name="upgrade_customization_icons">أيقونات قوائم</string>
     <string name="copied_to_clipboard">تم نسخ %s إلى الحافظة</string>
     <string name="app_password_delete_confirmation">سيسجَّل خروج أي تطبيق يستعمل كلمة السرّ هذه</string>
     <string name="app_password_last_access">آخر استعمال: %s</string>
@@ -553,8 +549,6 @@
     <string name="upgrade_desktop_access">الوصول إلى سطح المكتب</string>
     <string name="upgrade_tasks_org_account_description">قم بالمزامنة مع Tasks.org وتعاون مع مستخدمين آخرين</string>
     <string name="upgrade_google_tasks">مزامنة حسابات متعددة</string>
-    <string name="upgrade_customization_colors">ايقونات المشغل ولوحات الألوان وعجلة الألوان</string>
-    <string name="upgrade_customization_themes">خلفيات وثيمات النهار / الليل</string>
     <string name="upgrade_more_customization_description">افتح جميع الثيمات والألوان والرموز</string>
     <string name="upgrade_more_customization">المزيد من التخصيص</string>
     <string name="pro_free_trial">يحصل المشتركون الجدد على نسخة تجريبية مجانية مدتها 7 أيام. تلغى في أي وقت</string>
@@ -610,7 +604,6 @@
     <string name="requires_pro_subscription">يتطلب اشتراك متقدم</string>
     <string name="license_summary">التطبيق \"مهامي\" هي برنامج مفتوح المصدر حر ، ومرخص بموجب رخصة جنو العمومية العامة v3.0</string>
     <string name="about">حول</string>
-    <string name="button_upgrade">تحديث الاشتراك</string>
     <string name="upgrade_to_pro">طور لاصدار متقدم</string>
     <string name="help_and_feedback">مساعدة وتبليغات</string>
     <string name="tasker_list_notification">قائمة الاشعارات</string>

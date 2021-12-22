@@ -76,9 +76,6 @@
     <string name="upgrade_desktop_access">Truy cập từ máy tính</string>
     <string name="upgrade_tasks_org_account_description">Đồng bộ bằng Tasks.org và hợp tác với những người dùng khác</string>
     <string name="upgrade_google_tasks">Đồng bộ hoá nhiều tài khoản</string>
-    <string name="upgrade_customization_icons">Biểu tượng danh sách</string>
-    <string name="upgrade_customization_colors">Biểu tượng trên launcher và bảng màu</string>
-    <string name="upgrade_customization_themes">Hình nền và chủ đề ngày/đêm</string>
     <string name="upgrade_more_customization_description">Mở khoá tất cả chủ đề, màu sắc, và biểu tượng</string>
     <string name="upgrade_more_customization">Nhiều tuỳ biến hơn</string>
     <string name="pro_free_trial">Những người đăng ký mới sẽ nhận khoảng thời gian dùng thử 7 ngày miễn phí. Huỷ vào bất kỳ lúc nào</string>
@@ -99,7 +96,6 @@
     <string name="map_theme_use_app_theme">Sử dụng chủ đề ứng dụng</string>
     <string name="account_not_included">Không được bao gồm với các gói đăng ký \'Đặt giá của bạn\'</string>
     <string name="tasks_org_account_required">Yêu cầu tài khoản Tasks.org</string>
-    <string name="get_tasks_org_account">Lấy tài khoản Tasks.org</string>
     <string name="tasks_org_account">Tài khoản Tasks.org</string>
     <string name="copied_to_clipboard">Đã sao chép %s vào bộ nhớ tạm</string>
     <string name="app_password_save">Sử dụng thông tin này để thiết lập một ứng dụng bên thứ ba. Chúng cấp quyền truy cập toàn bộ vào tài khoản Tasks.org của bạn, đừng viết chúng ra hoặc chia sẻ chúng với bất kỳ ai!</string>
@@ -229,7 +225,6 @@
     <string name="chip_style_outlined">Tô đường viền</string>
     <string name="chip_style">Kiểu nhãn</string>
     <string name="back">Quay lại</string>
-    <string name="subscription_benefits">Lợi ích của việc đăng ký</string>
     <string name="upgrade_blurb_2">Tôi đã dành hàng nghìn tiếng cho việc hoàn thiện Tasks, và tôi xuất bản tất cả mã nguồn trên mạng miễn phí. Để hỗ trợ công sức của tôi, một số tính năng yêu cầu đăng ký</string>
     <string name="upgrade_blurb_1">Xin chào! Tên tôi là Alex. Tôi là nhà phát triển độc lập đứng sau Tasks</string>
     <string name="color_wheel">Bảng màu</string>
@@ -248,7 +243,6 @@
     <string name="etesync_selection_description">Đồng bộ hoá được mã hoá đầu cuối</string>
     <string name="caldav_selection_description">Đồng bộ hoá dựa trên các tiêu chuẩn internet mở</string>
     <string name="google_tasks_selection_description">Dịch vụ cơ bản đồng bộ hoá với tài khoản Google của bạn</string>
-    <string name="tasks_org_share">Chia sẻ các danh sách với những người dùng khác</string>
     <string name="tasks_org_description">Đồng bộ hoá các công việc của bạn bằng Tasks.org</string>
     <string name="choose_synchronization_service">Chọn nền tảng</string>
     <string name="create_new_tag">Tạo \"%s\"</string>
@@ -297,7 +291,6 @@
     <string name="license_summary">Tasks là phần mềm tự do và mã nguồn mở, được cấp phép dưới GNU General Public License v3.0</string>
     <string name="about">Giới thiệu</string>
     <string name="button_unsubscribe">Huỷ đăng ký</string>
-    <string name="button_upgrade">Nâng cấp đăng ký</string>
     <string name="button_subscribe">Đăng ký</string>
     <string name="refresh_purchases">Làm mới các giao dịch</string>
     <string name="manage_subscription">Sửa đổi đăng ký</string>

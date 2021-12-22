@@ -439,7 +439,6 @@
     <string name="version_string">Version %s</string>
     <string name="error_adding_account">Fehler: %s</string>
     <string name="icon">Symbol</string>
-    <string name="button_upgrade">Abonnement hochstufen</string>
     <string name="button_unsubscribe">Abonnement kündigen</string>
     <string name="name_your_price">Nennen Sie Ihren Preis</string>
     <string name="SSD_sort_my_order">Eigene Sortierung</string>
@@ -663,7 +662,6 @@
     <string name="default_start_date">Standard Startdatum</string>
     <string name="start_date">Starttermin</string>
     <string name="SSD_sort_start">Nach Startdatum</string>
-    <string name="get_tasks_org_account">Erstelle dir ein Task.org-Konto</string>
     <string name="tomorrow_abbrev_lowercase">mrgn</string>
     <string name="yesterday_abbrev_lowercase">gestern</string>
     <string name="open_source">Quelloffen</string>
@@ -685,7 +683,6 @@
     <string name="invite">Einladen</string>
     <string name="email">E-Mail</string>
     <string name="share_list">Listen teilen</string>
-    <string name="tasks_org_share">Listen mit anderen Nutzern teilen</string>
     <string name="more_options">Weitere Optionen</string>
     <string name="upgrade_automation_description">Erweiterungen für Tasker, Automate und Locale</string>
     <string name="upgrade_automation">Automatisierung</string>
@@ -694,9 +691,6 @@
     <string name="upgrade_desktop_access">Zugriff zur Arbeitoberfläche</string>
     <string name="upgrade_tasks_org_account_description">Synchronisiere mit Tasks.org und arbeite mit anderen Benutzern zusammen</string>
     <string name="upgrade_google_tasks">Synchronisiere mehrere Konten</string>
-    <string name="upgrade_customization_icons">Symbolenliste</string>
-    <string name="upgrade_customization_colors">Startprogramm-Symbole, Farbpaletten und Farbrad</string>
-    <string name="upgrade_customization_themes">Hintergrundbild und Tag/Nacht-Themen</string>
     <string name="upgrade_more_customization_description">Schalte alle Themen, Farben und Symbole frei</string>
     <string name="upgrade_more_customization">Mehr Anpassungsmöglichkeiten</string>
     <string name="pro_free_trial">Neue Abonnenten erhalten eine 7-tägige kostenlose Testversion. Jederzeit abbrechen</string>
@@ -706,7 +700,6 @@
     <string name="picker_mode_time">Zeitauswahlmodus</string>
     <string name="picker_mode_date">Datumsauswahlmodus</string>
     <string name="tasks_needs_your_support">Tasks braucht deine Unterstützung!</string>
-    <string name="subscription_benefits">Abonnementvorteile</string>
     <string name="next_saturday">Nächsten Samstag</string>
     <string name="next_friday">Nächsten Freitag</string>
     <string name="next_thursday">Nächsten Donnerstag</string>

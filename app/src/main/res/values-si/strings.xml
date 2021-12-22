@@ -77,7 +77,6 @@
     <string name="upgrade_desktop_access">ඩෙස්ක්ටොප් ප්‍රවේශය</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org සමඟ සමමුහුර්ත කර අනෙකුත් පරිශීලකයින් සමඟ සහයෝගයෙන් කටයුතු කරන්න</string>
     <string name="upgrade_google_tasks">ගිණුම් කිහිපයක් සමමුහුර්ත කරන්න</string>
-    <string name="upgrade_customization_themes">බිතුපත සහ දිවා / රාත්‍රී තේමාවන්</string>
     <string name="upgrade_more_customization_description">සියලුම තේමාවන්, වර්ණ සහ අයිකන අගුළු ඇරීම</string>
     <string name="upgrade_more_customization">තවත් අභිරුචිකරණය</string>
     <string name="pro_free_trial">නව ග්‍රාහකයින්ට දින 7 ක නොමිලේ අත්හදා බැලීම් කාලයක් ලැබේ. ඕනෑම වේලාවක අවලංගු කරන්න</string>
@@ -91,7 +90,6 @@
     <string name="remove_user">පරිශීලකයා ඉවත් කරන්නද\?</string>
     <string name="account_not_included">\'ඔබේ මිල නම් කරන්න\' (\'Name your price\') දායකත්වයන් සමඟ ඇතුළත් නොවේ</string>
     <string name="tasks_org_account_required">Tasks.org ගිණුම අවශ්‍යයි</string>
-    <string name="get_tasks_org_account">Tasks.org ගිණුම ලබා ගන්න</string>
     <string name="tasks_org_account">Tasks.org ගිණුම</string>
     <string name="copied_to_clipboard">%s ක්ලිප් පුවරුවට පිටපත් කරන ලදි</string>
     <string name="app_password_save">තෙවන පාර්ශවීය යෙදුමක් වින්‍යාස කිරීමට මෙම අක්තපත්‍ර භාවිතා කරන්න. ඒවා ඔබේ Tasks.org ගිණුමට සම්පූර්ණ ප්‍රවේශය ලබා දෙයි. එමනිසා ඒවා ලියා තැබීම හෝ කිසිවෙකු සමඟ බෙදා ගැනීමෙන් වළකින්න!</string>
@@ -227,7 +225,6 @@
     <string name="hide_unused_tags">භාවිතයට නොගත් ටැග් සඟවන්න</string>
     <string name="places">ස්ථාන</string>
     <string name="back">ආපසු</string>
-    <string name="subscription_benefits">දායකත්ව ප්‍රතිලාභ</string>
     <string name="upgrade_blurb_2">මම Tasks සඳහා පැය දහස් ගණනක් වැඩ කර ඇති අතර, මම සියලු ප්‍රභව කේත නොමිලේ මාර්ගගතව ප්‍රකාශයට පත් කරමි. මගේ කාර්යයට සහාය වීම සඳහා සමහර විශේෂාංග සඳහා දායකත්වයක් අවශ්‍ය වේ</string>
     <string name="upgrade_blurb_1">හායි! මගෙ නම ඇලෙක්ස්. Tasks පිටුපස සිටින ස්වාධීන සංවර්ධකයා මමයි</string>
     <string name="invalid_username_or_password">අවලංගු පරිශීලක නාමයක් හෝ මුරපදයකි</string>
@@ -244,7 +241,6 @@
     <string name="show_advanced_settings">උසස් සැකසුම් පෙන්වන්න</string>
     <string name="davx5_selection_description">DAVx⁵ යෙදුම සමඟ ඔබගේ කාර්යයන් සමමුහුර්ත කරන්න</string>
     <string name="decsync_selection_description">ගොනු මත පදනම් වූ සමමුහුර්තකරණය</string>
-    <string name="tasks_org_share">වෙනත් පරිශීලකයින් සමඟ ලැයිස්තු බෙදා ගන්න</string>
     <string name="tasks_org_description">Tasks.org සමඟ ඔබේ කාර්යයන් සමමුහුර්ත කරන්න</string>
     <string name="repeat_every">සෑම</string>
     <string name="widget_show_checkboxes">පිරික්සුම් කොටු පෙන්වන්න</string>
@@ -592,7 +588,6 @@
     <string name="license_summary">Tasks යනු GNU පොදු මහජන බලපත්‍රය v3.0 යටතේ බලපත්‍ර ලබා දී ඇති විවෘත මෘදුකාංගයකි</string>
     <string name="about">පිළිබඳව</string>
     <string name="button_unsubscribe">දායකත්වය අවලංගු කරන්න</string>
-    <string name="button_upgrade">දායකත්වය වැඩි දියුණු කරන්න</string>
     <string name="button_subscribe">දායක වන්න</string>
     <string name="refresh_purchases">මිලදී ගැනීම් නැවුම් කරන්න</string>
     <string name="manage_subscription">දායකත්වය වෙනස් කරන්න</string>
@@ -699,8 +694,6 @@
     <string name="repeats_single_on">%1$s, %2$s පුනරාවර්තනය වේ</string>
     <string name="markdown_description">මාතෘකාව සහ විස්තරය තුළ ලකුණු කිරීම සක්‍රිය කරන්න</string>
     <string name="markdown">ලකුණු කිරීම</string>
-    <string name="upgrade_customization_icons">ලැයිස්තු අයිකන</string>
-    <string name="upgrade_customization_colors">දියත් කිරීමේ අයිකන, වර්ණාලේප සහ වර්ණ රෝදය</string>
     <string name="picker_mode_time">කාලය තෝරාගැනීම් මාදිලිය</string>
     <string name="invite_awaiting_response">ප්‍රතිචාරයක් බලාපොරොත්තුවෙන් ඇති ආරාධන</string>
     <string name="list_members">සාමාජික ලැයිස්තුව</string>

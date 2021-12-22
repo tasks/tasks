@@ -436,7 +436,6 @@
     <string name="invalid_backup_file">Ogiltig säkerhetskopia</string>
     <string name="google_tasks_add_to_top">Nya uppgifter överst</string>
     <string name="icon">Ikon</string>
-    <string name="button_upgrade">Uppgradera prenumerationen</string>
     <string name="button_unsubscribe">Avbryt prenumeration</string>
     <string name="name_your_price">Namnge ditt pris</string>
     <string name="SSD_sort_my_order">Min ordning</string>
@@ -505,9 +504,6 @@
     <string name="upgrade_desktop_access">Tillgång till skrivbordet</string>
     <string name="upgrade_tasks_org_account_description">Synkronisera med Tasks.org och samarbeta med andra användare</string>
     <string name="upgrade_google_tasks">Synkronisera flera konton</string>
-    <string name="upgrade_customization_icons">Förteckning över ikoner</string>
-    <string name="upgrade_customization_colors">Ikoner, färgpaletter och färghjul för startfältet</string>
-    <string name="upgrade_customization_themes">Bakgrundsbilder och teman för dag/natt</string>
     <string name="upgrade_more_customization_description">Lås upp alla teman, färger och ikoner</string>
     <string name="upgrade_more_customization">Mer anpassning</string>
     <string name="pro_free_trial">Nya prenumeranter får en gratis provperiod på 7 dagar. Avbryt när som helst</string>
@@ -527,7 +523,6 @@
     <string name="map_theme_use_app_theme">Använd app-tema</string>
     <string name="account_not_included">Ingår inte i prenumerationer med \"Säg ditt pris\"</string>
     <string name="tasks_org_account_required">Tasks.org-konto krävs</string>
-    <string name="get_tasks_org_account">Skaffa ett konto på Tasks.org</string>
     <string name="app_password_delete_confirmation">Alla appar som använder det här lösenordet kommer att stängas av</string>
     <string name="app_password_last_access">Senast använt: %s</string>
     <string name="app_password_created_at">Skapad: %s</string>
@@ -637,7 +632,6 @@
     <string name="etesync_selection_description">Krypterad synkronisering från slut till slut</string>
     <string name="caldav_selection_description">Synkronisering baserad på öppna internetstandarder</string>
     <string name="google_tasks_selection_description">Bastjänst som synkroniseras med ditt Google-konto</string>
-    <string name="tasks_org_share">Dela listor med andra användare</string>
     <string name="tasks_org_description">Synkronisera dina uppgifter med Tasks.org</string>
     <string name="choose_synchronization_service">Välj en plattform</string>
     <string name="enter_tag_name">Ange namn på taggen</string>
@@ -668,7 +662,6 @@
     <string name="tasks_org_account">Konto på Tasks.org</string>
     <string name="copied_to_clipboard">%s kopieras till urklipp</string>
     <string name="app_password_save">Använd dessa autentiseringsuppgifter för att konfigurera en app från en tredje part. De ger fullständig åtkomst till ditt konto på Tasks.org, skriv inte ner dem och dela dem inte med någon!</string>
-    <string name="subscription_benefits">Fördelar med abonnemanget</string>
     <string name="disable_sort_groups">Inaktivera sorteringsgrupper</string>
     <string name="improve_performance_summary">Inaktivera sorteringsgrupper och hopfällbara deluppgifter för att förbättra appens prestanda</string>
     <string name="background_location_permission_required">Tasks samlar in platsdata för att möjliggöra platsbaserade påminnelser, även när appen är stängd eller inte används.</string>

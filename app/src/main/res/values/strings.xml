@@ -484,7 +484,6 @@ File %1$s contained %2$s.\n\n
   <string name="manage_subscription">Modify subscription</string>
   <string name="refresh_purchases">Refresh purchases</string>
   <string name="button_subscribe">Subscribe</string>
-  <string name="button_upgrade">Upgrade subscription</string>
   <string name="button_unsubscribe">Cancel subscription</string>
   <string name="about">About</string>
   <string name="license_summary">Tasks is libre open-source software, licensed under the GNU General Public License v3.0</string>
@@ -533,7 +532,6 @@ File %1$s contained %2$s.\n\n
   <string name="create_new_tag">Create \"%s\"</string>
   <string name="choose_synchronization_service">Select a platform</string>
   <string name="tasks_org_description">Synchronize your tasks with Tasks.org</string>
-  <string name="tasks_org_share">Share lists with other users</string>
   <string name="google_tasks_selection_description">Basic service that synchronizes with your Google account</string>
   <string name="caldav_selection_description">Synchronization based on open internet standards</string>
   <string name="etesync_selection_description">End-to-end encrypted synchronization</string>
@@ -556,7 +554,6 @@ File %1$s contained %2$s.\n\n
   <string name="color_wheel">Color wheel</string>
   <string name="upgrade_blurb_1">Hi! My name is Alex. I am the independent developer behind Tasks</string>
   <string name="upgrade_blurb_2">I have spent thousands of hours working on Tasks, and I publish all of the source code online for free. In order to support my work some features require a subscription</string>
-  <string name="subscription_benefits">Subscription benefits</string>
   <string name="back">Back</string>
   <string name="chip_style">Chip style</string>
   <string name="chip_style_outlined">Outlined</string>
@@ -685,7 +682,6 @@ File %1$s contained %2$s.\n\n
   <string name="app_password_save">Use these credentials to configure a third-party app. They grant complete access to your Tasks.org account, don\'t write them down or share them with anyone!</string>
   <string name="copied_to_clipboard">%s copied to clipboard</string>
   <string name="tasks_org_account">Tasks.org account</string>
-  <string name="get_tasks_org_account">Get Tasks.org account</string>
   <string name="tasks_org_account_required">Tasks.org account required</string>
   <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
   <string name="map_theme_use_app_theme">Use app theme</string>
@@ -706,9 +702,6 @@ File %1$s contained %2$s.\n\n
   <string name="pro_free_trial">New subscribers receive a 7-day free trial. Cancel at any time</string>
   <string name="upgrade_more_customization">More customization</string>
   <string name="upgrade_more_customization_description">Unlock all themes, colors, and icons</string>
-  <string name="upgrade_customization_themes">Wallpaper and day/night themes</string>
-  <string name="upgrade_customization_colors">Launcher icons, color palettes, and color wheel</string>
-  <string name="upgrade_customization_icons">List icons</string>
   <string name="upgrade_google_tasks">Synchronize multiple accounts</string>
   <string name="upgrade_tasks_org_account_description">Sync with Tasks.org and collaborate with other users</string>
   <string name="upgrade_desktop_access">Desktop access</string>

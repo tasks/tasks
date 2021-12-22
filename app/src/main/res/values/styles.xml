@@ -186,10 +186,6 @@
     <item name="strokeColor">@color/button_selected_accent_stroke</item>
   </style>
 
-  <style name="RedText" parent="TextAppearance.MaterialComponents.Body1">
-    <item name="android:textColor">@color/overdue</item>
-  </style>
-
   <style name="AlertButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
     <item name="android:textColor">?attr/colorSecondary</item>
   </style>

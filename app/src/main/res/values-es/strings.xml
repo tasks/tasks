@@ -439,7 +439,6 @@
     <string name="error_adding_account">Error : %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Icono</string>
-    <string name="button_upgrade">Suscripción de actualización</string>
     <string name="button_unsubscribe">Cancelar la suscripción</string>
     <string name="name_your_price">Precio flexible</string>
     <string name="SSD_sort_my_order">Mi orden</string>
@@ -662,7 +661,6 @@
     <string name="yesterday_abbrev_lowercase">ayer</string>
     <string name="tomorrow_abbrev_lowercase">mñna</string>
     <string name="account_not_included">No incluido con las suscripciones de precio flexible</string>
-    <string name="get_tasks_org_account">Obtener una cuenta de Tasks.org</string>
     <string name="tasks_org_account">Cuenta de Tasks.org</string>
     <string name="subscription">Suscripción</string>
     <string name="widget_show_title">Mostrar título</string>
@@ -685,7 +683,6 @@
     <string name="invite">Invitar</string>
     <string name="email">Correo electrónico</string>
     <string name="share_list">Compartir lista</string>
-    <string name="tasks_org_share">Compartir listas con otros usuarios</string>
     <string name="picker_mode_text">Texto</string>
     <string name="picker_mode_clock">Reloj</string>
     <string name="picker_mode_calendar">Calendario</string>
@@ -699,14 +696,10 @@
     <string name="upgrade_desktop_access">Acceso al escritorio</string>
     <string name="upgrade_tasks_org_account_description">Sincronizar con Tasks.org y colaborar con otros usuarios</string>
     <string name="upgrade_google_tasks">Sincronizar varias cuentas</string>
-    <string name="upgrade_customization_icons">Lista de iconos</string>
-    <string name="upgrade_customization_colors">Iconos del iniciador, paletas de colores y rueda de colores</string>
-    <string name="upgrade_customization_themes">Fondos de pantalla y temas de día/noche</string>
     <string name="upgrade_more_customization_description">Desbloquea todos los temas, colores e iconos</string>
     <string name="upgrade_more_customization">Más personalización</string>
     <string name="pro_free_trial">Los suscriptores nuevos reciben una prueba gratuita de 7 días, cancelable en cualquier momento</string>
     <string name="tasks_needs_your_support">¡Tasks necesita su apoyo!</string>
-    <string name="subscription_benefits">Beneficios de suscripción</string>
     <string name="next_saturday">Próximo sábado</string>
     <string name="next_friday">Próximo viernes</string>
     <string name="next_thursday">Próximo jueves</string>

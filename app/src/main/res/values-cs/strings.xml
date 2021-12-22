@@ -419,7 +419,6 @@
     <string name="about">O aplikaci</string>
     <string name="license_summary">Aplikace Tasks je svobodný software s otevřeným zdrojovým kódem licencovaný pod GNU General Public License v3.0</string>
     <string name="icon">Ikona</string>
-    <string name="button_upgrade">Zvýšit předplatné</string>
     <string name="button_unsubscribe">Zrušit předplatné</string>
     <string name="help_and_feedback">Nápověda a zpětná vazba</string>
     <string name="pro_dashclock_extension">Dashclock rozšíření</string>
@@ -630,8 +629,6 @@
     <string name="sort_due_group">Termín %s</string>
     <string name="tell_me_how_im_doing">Prosím, řekněte mi, jak se mi to daří</string>
     <string name="tasks_needs_your_support">Tato aplikace potřebuje Vaši podporu!</string>
-    <string name="subscription_benefits">Výhody předplatného</string>
-    <string name="tasks_org_share">Sdílejte seznamy s ostatními uživateli</string>
     <string name="tasks_org_description">Synchronizujte své úkoly pomocí Tasks.org</string>
     <string name="background_location_permission_required">Tato aplikace sbírá údaje o Vaší poloze, aby fungovala upozornění podle polohy i když aplikaci zrovna nepoužíváte.</string>
     <string name="reinitialize_account">Znovu inicializovat</string>
@@ -647,7 +644,6 @@
     <string name="map_theme_use_app_theme">Stejný vzhled jako aplikace</string>
     <string name="account_not_included">Nezahrnuto v předplatném typu „Zaplaťte kolik chcete“</string>
     <string name="tasks_org_account_required">Je vyžadován účet na Tasks.org</string>
-    <string name="get_tasks_org_account">Založit účet na Tasks.org</string>
     <string name="tasks_org_account">Účet na Tasks.org</string>
     <string name="copied_to_clipboard">%s zkopírováno do schránky</string>
     <string name="app_password_save">Tímto jménem a heslem se můžete přihlásit k Vašemu Tasks.org účtu i v aplikacích třetích stran. Udělují k němu neomezený přistup - uchovávejte je v tajnosti a nikomu je nesdělujte!</string>
@@ -708,9 +704,6 @@
     <string name="upgrade_desktop_access">Přístup z počítače</string>
     <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatními uživateli</string>
     <string name="upgrade_google_tasks">Synchronizovat vícero účtů</string>
-    <string name="upgrade_customization_icons">Ikony seznamu</string>
-    <string name="upgrade_customization_colors">Ikony spouštěče, barevné palety a kruhový volič barev</string>
-    <string name="upgrade_customization_themes">Tapeta a vzhledy pro den/noc</string>
     <string name="upgrade_more_customization_description">Odemknout všechny vzhledy, barvy a ikony</string>
     <string name="upgrade_more_customization">Další přizpůsobení</string>
     <string name="pro_free_trial">Noví předplatitelé dostanou 7 dnů na vyzkoušení zdarma. Předplatné je možné kdykoli zrušit</string>

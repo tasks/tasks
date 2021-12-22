@@ -497,7 +497,6 @@
     <string name="action_new_task">Nova tarefa</string>
     <string name="this_feature_requires_a_subscription">Precisa estar atrelado a um plano</string>
     <string name="button_unsubscribe">Cancelar plano</string>
-    <string name="button_upgrade">Atualizar plano</string>
     <string name="help_and_feedback">Ajuda e Comentários</string>
     <string name="list_separator_with_space">", "</string>
     <string name="error_adding_account">Erro: %s</string>
@@ -612,9 +611,7 @@
     <string name="sort_due_group">Vencimento %s</string>
     <string name="sort_start_group">Começar %s</string>
     <string name="tasks_needs_your_support">Tasks precisa da sua ajuda!</string>
-    <string name="subscription_benefits">Benefícios de assinante</string>
     <string name="decsync_selection_description">Sincronização baseada em arquivo</string>
-    <string name="tasks_org_share">Compartilhe listas com outros usuários</string>
     <string name="tasks_org_description">Sincronize suas tarefas com Tasks.org</string>
     <string name="background_location_permission_required">O Tarefas coleta dados de localização para permitir lembretes baseados em localização, mesmo quando o aplicativo está fechado ou não estiver sendo usado.</string>
     <string name="subscription">Assinatura</string>
@@ -635,9 +632,6 @@
     <string name="upgrade_desktop_access">Acesso desktop</string>
     <string name="upgrade_tasks_org_account_description">Sincronize com Tasks.org e colabore com outros usuários</string>
     <string name="upgrade_google_tasks">Sincronize múltiplas contas</string>
-    <string name="upgrade_customization_icons">Lista de ícones</string>
-    <string name="upgrade_customization_colors">Ícones de lançador, paletas de cores e roda de cores</string>
-    <string name="upgrade_customization_themes">Papel de parede e temas dia/noite</string>
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
     <string name="upgrade_more_customization">Mais customização</string>
     <string name="pro_free_trial">Novos assinantes recebem 7 dias de teste grátis. Cancele a qualquer momento</string>
@@ -657,7 +651,6 @@
     <string name="map_theme_use_app_theme">Usar tema do aplicativo</string>
     <string name="account_not_included">Não incluído nas assinaturas de \'Dê seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta em Tasks.org</string>
-    <string name="get_tasks_org_account">Obtenha uma conta em Tasks.org</string>
     <string name="tasks_org_account">Conta em Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
     <string name="app_password_save">Use essas credenciais para configurar um aplicativo de terceiros. Ela garante acesso completo a sua conta Task.org, não os escreva ou compartilhe com ninguém!</string>

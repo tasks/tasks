@@ -453,7 +453,6 @@
     <string name="error_adding_account">Ошибка: %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="building_notifications">Генерация уведомлений</string>
-    <string name="button_upgrade">Повысить уровень подписки</string>
     <string name="SSD_sort_my_order">Мой порядок</string>
     <string name="EPr_temp_show_completed_tasks">Временно показывать задачи после завершения</string>
     <string name="EPr_temp_completed_tasks_showing">Задачи будут временно видны в списке после завершения</string>
@@ -680,7 +679,6 @@
     <string name="yesterday_abbrev_lowercase">вчера</string>
     <string name="tomorrow_abbrev_lowercase">завтра</string>
     <string name="account_not_included">Не включено в подписку \'Назовите свою цену\'</string>
-    <string name="get_tasks_org_account">Получить аккаунт Tasks.org</string>
     <string name="tasks_org_account">Аккаунт Tasks.org</string>
     <string name="subscription">Подписка</string>
     <string name="widget_show_title">Показать заголовок</string>
@@ -701,9 +699,6 @@
     <string name="upgrade_desktop_access_description">Синхронизация с сторонними клиентами, такими как Outlook и Apple Reminders</string>
     <string name="upgrade_tasks_org_account_description">Синхронизируйтесь с Tasks.org и сотрудничайте с другими пользователями</string>
     <string name="upgrade_google_tasks">Синхронизировать несколько аккаунтов</string>
-    <string name="upgrade_customization_icons">Список иконок</string>
-    <string name="upgrade_customization_colors">Иконки запуска, цветовые палитры и цветовое колесо</string>
-    <string name="upgrade_customization_themes">Обои и дневные/ночные темы</string>
     <string name="upgrade_more_customization_description">Разблокировать все темы, цвета и иконки</string>
     <string name="upgrade_more_customization">Больше настроек</string>
     <string name="pro_free_trial">Новые абоненты получают 7-дневный бесплатный пробный период. Отмена в любое время</string>
@@ -720,8 +715,6 @@
     <string name="remove_user">Удалить пользователя\?</string>
     <string name="list_members">Список участников</string>
     <string name="tasks_needs_your_support">Tasks требуют вашей поддержки!</string>
-    <string name="subscription_benefits">Преимущества подписки</string>
-    <string name="tasks_org_share">Поделиться списками с другими пользователями</string>
     <string name="next_saturday">Следующая Сб</string>
     <string name="next_friday">Следующая Пт</string>
     <string name="next_thursday">Следующий Чт</string>

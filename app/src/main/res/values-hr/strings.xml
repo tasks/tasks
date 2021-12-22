@@ -197,9 +197,6 @@
     <string name="upgrade_desktop_access">Desktop pristup</string>
     <string name="upgrade_tasks_org_account_description">Sinkroniziraj s Tasks.org i surađuj s drugim korisnicima</string>
     <string name="upgrade_google_tasks">Sinkroniziraj višebrojne račune</string>
-    <string name="upgrade_customization_icons">Ikone popisa</string>
-    <string name="upgrade_customization_colors">Ikone pokretača, palete boja i krug boja</string>
-    <string name="upgrade_customization_themes">Pozadinska slika i teme dan/noć</string>
     <string name="upgrade_more_customization_description">Otključaj sve teme, boje i ikone</string>
     <string name="upgrade_more_customization">Više prilagođavanja</string>
     <string name="pro_free_trial">Novi pretplatnici dobivaju 7-dnevno besplatno probno razdoblje. Otkaži bilo kada</string>
@@ -219,7 +216,6 @@
     <string name="map_theme_use_app_theme">Koristi temu programa</string>
     <string name="account_not_included">Nije uključeno s pretplatama „Odredi tvoju cijenu”</string>
     <string name="tasks_org_account_required">Tasks.org račun je obavezan</string>
-    <string name="get_tasks_org_account">Nabavi Tasks.org račun</string>
     <string name="tasks_org_account">Tasks.org račun</string>
     <string name="copied_to_clipboard">%s kopirano u međuspremnik</string>
     <string name="app_password_save">Koristi ove podatke za prijavu za konfiguriranje programa treće strane. Oni odobravaju potpuni pristup tvom Tasks.org računu, nemoj ih zapisivati niti dijeliti s bilo kime!</string>
@@ -283,7 +279,6 @@
     <string name="etesync_selection_description">Obostrana šifrirana sinkronizacija</string>
     <string name="caldav_selection_description">Sinkronizacija temeljena na otvorenim internetskim standardima</string>
     <string name="google_tasks_selection_description">Osnovna usluga koja sinkronizira s tvojim Google računom</string>
-    <string name="tasks_org_share">Dijeli popis s drugim korisnicima</string>
     <string name="tasks_org_description">Sinkroniziraj tvoje zadatke s Tasks.org</string>
     <string name="enter_tag_name">Upiši ime oznake</string>
     <string name="disable_sort_groups">Onemogući razvrstavanje po grupama</string>
@@ -315,7 +310,6 @@
     <string name="requires_pro_subscription">Zahtijeva pretplatu na Pro verziju</string>
     <string name="pro_dashclock_extension">Proširenje sata na preglednoj ploči</string>
     <string name="button_unsubscribe">Otkaži pretplatu</string>
-    <string name="button_upgrade">Nadogradi pretplatu</string>
     <string name="button_subscribe">Pretplati se</string>
     <string name="refresh_purchases">Osvježi kupnje</string>
     <string name="manage_subscription">Promijeni pretplatu</string>
@@ -618,7 +612,6 @@
     <string name="auto_dismiss_datetime_list">Popis zadataka</string>
     <string name="auto_dismiss_datetime">Automatski zatvori birač datuma i vremena</string>
     <string name="back">Natrag</string>
-    <string name="subscription_benefits">Pogodnosti pretplate</string>
     <string name="upgrade_blurb_2">Proveo sam tisuće sati radeći na programu Tasks, a sav izvorni kod objavljujem na mreži besplatno. U svrhu podržavanja mog rada, neke funkcije zahtijevaju pretplatu</string>
     <string name="upgrade_blurb_1">Bok! Moje ime je Alex. Ja sam neovisan programer programa Tasks</string>
     <string name="invalid_username_or_password">Neispravno korisničko ime ili lozinka</string>

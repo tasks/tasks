@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <bool name="two_pane_layout">false</bool>
-  <bool name="default_bundle_notifications">false</bool>
+  <bool name="default_bundle_notifications">true</bool>
   <bool name="is_dark">false</bool>
   <bool name="whats_new_action">false</bool>
-  <bool name="width_constrained">true</bool>
 </resources>

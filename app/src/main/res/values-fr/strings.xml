@@ -433,7 +433,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="version_string">Version %s</string>
     <string name="icon">Icône</string>
-    <string name="button_upgrade">Augmenter l\'abonnement</string>
     <string name="button_unsubscribe">Annuler l\'abonnement</string>
     <string name="name_your_price">Donnez votre prix</string>
     <string name="error_adding_account">Erreur : %s</string>
@@ -657,7 +656,6 @@
     <string name="tasks_org_description">Synchronisez vos tâches avec Tasks.org</string>
     <string name="yesterday_abbrev_lowercase">hier</string>
     <string name="account_not_included">Non inclus avec les abonnements « Donnez votre prix »</string>
-    <string name="get_tasks_org_account">Créez un compte Tasks.org</string>
     <string name="tasks_org_account">Compte Tasks.org</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Afficher le titre</string>
@@ -680,7 +678,6 @@
     <string name="invite">Inviter</string>
     <string name="email">Courriel</string>
     <string name="share_list">Partager la liste</string>
-    <string name="tasks_org_share">Partager des listes avec d’autres utilisateurs</string>
     <string name="picker_mode_text">Texte</string>
     <string name="picker_mode_clock">Horloge</string>
     <string name="picker_mode_calendar">Calendrier</string>
@@ -695,13 +692,9 @@
     <string name="upgrade_tasks_org_account_description">Synchronisez avec Tasks.org et collaborez avec d\'autres utilisateurs</string>
     <string name="upgrade_more_customization_description">Déverrouillez tous les thèmes, couleurs et icônes</string>
     <string name="upgrade_google_tasks">Synchronisez plusieurs comptes</string>
-    <string name="upgrade_customization_icons">Liste des icônes</string>
-    <string name="upgrade_customization_colors">Icônes du lanceur, palettes de couleurs et roue des couleurs</string>
-    <string name="upgrade_customization_themes">Fonds d\'écran et thèmes jour/nuit</string>
     <string name="upgrade_more_customization">Plus de personnalisation</string>
     <string name="pro_free_trial">Les nouveaux abonnés bénéficient d\'un essai gratuit de 7 jours. Annulez à tout moment</string>
     <string name="tasks_needs_your_support">Tasks a besoin de votre soutien !</string>
-    <string name="subscription_benefits">Avantages de l\'abonnement</string>
     <string name="next_sunday">Dimanche suivant</string>
     <string name="next_saturday">Samedi suivant</string>
     <string name="next_friday">Vendredi suivant</string>

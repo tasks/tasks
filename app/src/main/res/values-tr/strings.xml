@@ -439,7 +439,6 @@
     <string name="error_adding_account">Hata: %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Simge</string>
-    <string name="button_upgrade">Aboneliği yükselt</string>
     <string name="button_unsubscribe">Aboneliği iptal et</string>
     <string name="name_your_price">Fiyat belirle</string>
     <string name="SSD_sort_my_order">Düzenim</string>
@@ -662,7 +661,6 @@
     <string name="yesterday_abbrev_lowercase">dün</string>
     <string name="tomorrow_abbrev_lowercase">yarın</string>
     <string name="account_not_included">\'Fiyat belirle\' aboneliklerini içermez</string>
-    <string name="get_tasks_org_account">Tasks.org hesabı edin</string>
     <string name="tasks_org_account">Tasks.org hesabı</string>
     <string name="subscription">Abonelik</string>
     <string name="widget_show_title">Başlığı göster</string>
@@ -690,13 +688,10 @@
     <string name="upgrade_automation">Otomasyon</string>
     <string name="upgrade_open_source_description">Aboneliğiniz geliştirmenin sürekliliğini destekler</string>
     <string name="upgrade_desktop_access_description">Outlook ve Apple Anımsatıcılar gibi üçüncü taraf istemcilerle eşzamanlama</string>
-    <string name="upgrade_customization_themes">Duvar kağıdı ve gündüz/gece gövdeleri</string>
     <string name="upgrade_more_customization_description">Tüm gövdeler, renkler ve simgeler kullanılabilir</string>
     <string name="upgrade_desktop_access">Masaüstü erişimi</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org ile eşzamanla ve diğer kullanıcılarla ortak çalış</string>
     <string name="upgrade_google_tasks">Çoklu hesapları eşzamanla</string>
-    <string name="upgrade_customization_icons">Liste simgeleri</string>
-    <string name="upgrade_customization_colors">Başlatıcı simgeleri, renk paletleri ve renk tekeri</string>
     <string name="upgrade_more_customization">Daha çok özelleştirme</string>
     <string name="pro_free_trial">Yeni aboneler 7 günlük sınama süresi kazanır. İstendiğinde iptal edilir</string>
     <string name="picker_mode_text">Metin</string>
@@ -705,8 +700,6 @@
     <string name="picker_mode_time">Zaman seçici kipi</string>
     <string name="picker_mode_date">Tarih seçici kipi</string>
     <string name="tasks_needs_your_support">Tasks, desteğinize gereksiniyor!</string>
-    <string name="subscription_benefits">Abonelik yararları</string>
-    <string name="tasks_org_share">Listeleri diğer kullanıcılarla paylaş</string>
     <string name="next_friday">Sonraki Cma</string>
     <string name="next_saturday">Sonraki Cts</string>
     <string name="next_thursday">Sonraki Per</string>

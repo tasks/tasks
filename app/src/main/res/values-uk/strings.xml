@@ -483,7 +483,6 @@
     <string name="etesync_account_description">Потрібний обліковий запис у EteSync.com або власний сервер</string>
     <string name="caldav_account_description">Потрібний обліковий запис у провайдера сервісу CalDAV або власний сервер. Відвідайте tasks.org/caldav, щоб переглянути список провайдерів</string>
     <string name="etesync_selection_description">Захищена наскрізним шифруванням синхронізація</string>
-    <string name="button_upgrade">Підвищити клас підписки</string>
     <string name="caldav_selection_description">Синхронізація на основі стандартів відкритого інтернету</string>
     <string name="google_tasks_selection_description">Базовий сервіс, що синхронізується з вашим обліковим записом Google</string>
     <string name="choose_synchronization_service">Обрати платформу</string>
@@ -680,7 +679,6 @@
     <string name="yesterday_abbrev_lowercase">вчора</string>
     <string name="tomorrow_abbrev_lowercase">завтра</string>
     <string name="account_not_included">Не входить до передплати \"Назвіть свою ціну\"</string>
-    <string name="get_tasks_org_account">Створити обліковий запис Tasks.org</string>
     <string name="tasks_org_account">Обліковий запис Tasks.org</string>
     <string name="subscription">Підписка</string>
     <string name="widget_show_title">Показати заголовок</string>
@@ -705,7 +703,6 @@
     <string name="invite">Запросити</string>
     <string name="email">Е-пошта</string>
     <string name="share_list">Поділитися списком</string>
-    <string name="tasks_org_share">Поділіться списками з іншими користувачами</string>
     <string name="picker_mode_text">Текст</string>
     <string name="picker_mode_clock">Годинник</string>
     <string name="picker_mode_calendar">Календар</string>
@@ -719,14 +716,10 @@
     <string name="upgrade_desktop_access">Доступ до комп\'ютера</string>
     <string name="upgrade_tasks_org_account_description">Синхронізація з Tasks.org та співпраця з іншими користувачами</string>
     <string name="upgrade_google_tasks">Синхронізація кількох облікових записів</string>
-    <string name="upgrade_customization_icons">Піктограми списків</string>
-    <string name="upgrade_customization_colors">Значки панелі запуску, кольорові палітри та кольорове коло</string>
-    <string name="upgrade_customization_themes">Тло та денні/нічні теми</string>
     <string name="upgrade_more_customization_description">Розблокування всіх тем, кольорів і піктограм</string>
     <string name="upgrade_more_customization">Більше налаштувань</string>
     <string name="pro_free_trial">Нові передплатники отримують 7-денну безплатну пробну версію. Скасувати її можна в будь-який час</string>
     <string name="tasks_needs_your_support">Tasks потребує вашої підтримки!</string>
-    <string name="subscription_benefits">Переваги передплати</string>
     <string name="next_saturday">Наступної Сб</string>
     <string name="next_friday">Наступної Пт</string>
     <string name="next_thursday">Наступного Чт</string>

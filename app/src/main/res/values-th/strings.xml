@@ -44,9 +44,6 @@
     <string name="upgrade_desktop_access">การเข้าถึงเดสก์ท็อป</string>
     <string name="upgrade_tasks_org_account_description">ซิงค์กับ Tasks.org และทํางานร่วมกับผู้ใช้รายอื่น</string>
     <string name="upgrade_google_tasks">ประสานหลายบัญชี</string>
-    <string name="upgrade_customization_icons">ไอคอนรายการ</string>
-    <string name="upgrade_customization_colors">ไอคอนตัวเปิดใช้ จานสี และวงล้อสี</string>
-    <string name="upgrade_customization_themes">วอลล์เปเปอร์และธีมวัน / คืน</string>
     <string name="picker_mode_text">ข้อความ</string>
     <string name="picker_mode_clock">นาฬิกา</string>
     <string name="picker_mode_calendar">ปฏิทิน</string>
@@ -63,7 +60,6 @@
     <string name="list_members">รายชื่อสมาชิก</string>
     <string name="map_theme_use_app_theme">ใช้ธีมแอป</string>
     <string name="tasks_org_account_required">Tasks.org บัญชีลูกค้า</string>
-    <string name="get_tasks_org_account">รับ Tasks.org บัญชี</string>
     <string name="tasks_org_account">Tasks.org บัญชี</string>
     <string name="copied_to_clipboard">%s คัดลอกไปยังคลิปบอร์ดแล้ว</string>
     <string name="app_password_save">ใช้ข้อมูลรับรองเหล่านี้เพื่อกําหนดค่าแอปของบริษัทอื่น พวกเขาให้สิทธิ์การเข้าถึงบัญชี Tasks.org ของคุณอย่างสมบูรณ์อย่าจดหรือแบ่งปันกับใคร!</string>
@@ -162,7 +158,6 @@
     <string name="chip_style_outlined">เค้าร่าง</string>
     <string name="chip_style">สไตล์ชิป</string>
     <string name="back">กลับ</string>
-    <string name="subscription_benefits">ประโยชน์ของการสมัครสมาชิก</string>
     <string name="upgrade_blurb_2">ฉันใช้เวลาหลายพันชั่วโมงในการทํางานและฉันเผยแพร่ซอร์สโค้ดทั้งหมดออนไลน์ฟรี เพื่อสนับสนุนงานของฉันคุณสมบัติบางอย่างต้องมีการสมัครสมาชิก</string>
     <string name="upgrade_blurb_1">สวัสดี! ฉันชื่ออเล็กซ์ ฉันเป็นนักพัฒนาอิสระที่อยู่เบื้องหลังงาน</string>
     <string name="color_wheel">วงล้อสี</string>
@@ -185,7 +180,6 @@
     <string name="etesync_selection_description">การทําข้อมูลให้ตรงกันที่เข้ารหัสตั้งแต่ต้นจนจบ</string>
     <string name="caldav_selection_description">การซิงโครไนซ์ตามมาตรฐานอินเทอร์เน็ตแบบเปิด</string>
     <string name="google_tasks_selection_description">บริการพื้นฐานที่ซิงโครไนซ์กับบัญชี Google ของคุณ</string>
-    <string name="tasks_org_share">ใช้รายการร่วมกันกับผู้ใช้อื่น</string>
     <string name="tasks_org_description">ซิงโครไนซ์งานของคุณกับ Tasks.org</string>
     <string name="choose_synchronization_service">เลือกแพลตฟอร์ม</string>
     <string name="create_new_tag">สร้าง \"%s\"</string>
@@ -230,7 +224,6 @@
     <string name="license_summary">งานคือซอฟต์แวร์โอลามไลซอร์ส libre ที่ได้รับอนุญาตภายใต้ใบอนุญาตสาธารณะทั่วไป GNU v3.0</string>
     <string name="about">เกี่ยวกับ</string>
     <string name="button_unsubscribe">ยกเลิกการบอกรับเป็นสมาชิก</string>
-    <string name="button_upgrade">อัพเกรดการบอกรับเป็นสมาชิก</string>
     <string name="button_subscribe">ติดตาม</string>
     <string name="manage_subscription">ปรับเปลี่ยนการบอกรับเป็นสมาชิก</string>
     <string name="subscription">การบอกรับสมาชิก</string>

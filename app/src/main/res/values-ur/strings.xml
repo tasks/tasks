@@ -508,7 +508,6 @@
     <string name="license_summary">ٹاسکس ایک لیبرے اوپن سورس سافٹ وئیر ہےجو کہ جی این یو لائسنس v3.0 کے تحت لائسنس شدہ ہے</string>
     <string name="about">متعلق</string>
     <string name="button_unsubscribe">سبسکرپسن کینسل کریں</string>
-    <string name="button_upgrade">سبسکرپسن اپ گریڈ کریں</string>
     <string name="manage_drawer">ڈریئر مینیج کریں</string>
     <string name="improve_performance">کارکردگی کوبہتر بنائیں</string>
     <string name="enter_title_hint">عنوان لکھیں</string>
@@ -531,7 +530,6 @@
     <string name="etesync_selection_description">اینڈ ٹو اینڈ انکرپٹڈ سنکرونائزیشن</string>
     <string name="caldav_selection_description">اوپن انٹرنیٹ میعارات پر مبنی سنکرونائزیشن</string>
     <string name="google_tasks_selection_description">بنیادی سروس جو آپ کے گوگل اکاؤنٹ کے ساتھ سنکرونائز ہوتی</string>
-    <string name="tasks_org_share">دوسرے صارفین کے ساتھ فہرست کا اشتراک کریں</string>
     <string name="tasks_org_description">اپنے ٹاسکس کو Tasks.org کے ساتھ سنکرونائز کریں</string>
     <string name="choose_synchronization_service">پلیٹ فارم منتخب کریں</string>
     <string name="create_new_tag">\"%s\" بنائیں</string>

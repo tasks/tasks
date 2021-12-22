@@ -428,7 +428,6 @@
     <string name="filters">Filters</string>
     <string name="filter">Filter</string>
     <string name="accent">Accent</string>
-    <string name="button_upgrade">Abonnement upgraden</string>
     <string name="button_unsubscribe">Abonnement annuleren</string>
     <string name="name_your_price">Bepaal je eigen prijs</string>
     <string name="restart_later">Later</string>
@@ -656,7 +655,6 @@
     <string name="yesterday_abbrev_lowercase">gist</string>
     <string name="tomorrow_abbrev_lowercase">mrgn</string>
     <string name="tasks_org_description">Synchroniseer je taken met Tasks.org</string>
-    <string name="get_tasks_org_account">Krijg een Tasks.org account</string>
     <string name="account_not_included">Niet inbegrepen bij \"Bepaal je eigen prijs\" abonnementen</string>
     <string name="tasks_org_account">Tasks.org account</string>
     <string name="subscription">Abonnement</string>
@@ -680,7 +678,6 @@
     <string name="invite_awaiting_response">Uitnodiging wacht op reactie</string>
     <string name="invite_declined">Uitnodiging afgewezen</string>
     <string name="email">E-mail</string>
-    <string name="tasks_org_share">Deel lijsten met andere gebruikers</string>
     <string name="picker_mode_text">Tekst</string>
     <string name="picker_mode_clock">Klok</string>
     <string name="picker_mode_calendar">Kalender</string>
@@ -696,12 +693,8 @@
     <string name="upgrade_desktop_access">Desktop-toegang</string>
     <string name="upgrade_tasks_org_account_description">Synchroniseer met Tasks.org en werk samen met andere gebruikers</string>
     <string name="upgrade_google_tasks">Synchroniseer meerdere accounts</string>
-    <string name="upgrade_customization_icons">Lijst iconen</string>
-    <string name="upgrade_customization_colors">Start iconen, kleurenpaletten en kleurenwiel</string>
-    <string name="upgrade_customization_themes">Achtergrond en dag/nacht thema\'s</string>
     <string name="pro_free_trial">Nieuwe abonnees krijgen een gratis proefperiode van 7 dagen. Je kunt ieder moment annuleren</string>
     <string name="tasks_needs_your_support">Tasks heeft jouw steun nodig!</string>
-    <string name="subscription_benefits">Voordelen van abonnement</string>
     <string name="next_saturday">Volgende zaterdag</string>
     <string name="next_friday">Volgende vrijdag</string>
     <string name="next_thursday">Volgende donderdag</string>

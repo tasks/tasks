@@ -30,9 +30,6 @@
     <string name="upgrade_desktop_access">Acces la desktop</string>
     <string name="upgrade_tasks_org_account_description">Sincronizați cu Tasks.org și colaborați cu alți utilizatori</string>
     <string name="upgrade_google_tasks">Sincronizarea mai multor conturi</string>
-    <string name="upgrade_customization_icons">Lista de pictograme</string>
-    <string name="upgrade_customization_colors">Pictogramele lansatorului, paletele de culori și roata de culori</string>
-    <string name="upgrade_customization_themes">Imagini de fundal și teme de zi/noapte</string>
     <string name="upgrade_more_customization_description">Deblocați toate temele, culorile și pictogramele</string>
     <string name="upgrade_more_customization">Mai multă personalizare</string>
     <string name="pro_free_trial">Noii abonați beneficiază de o perioadă de încercare gratuită de 7 zile. Anulați în orice moment</string>
@@ -51,7 +48,6 @@
     <string name="map_theme_use_app_theme">Utilizați tema aplicației</string>
     <string name="account_not_included">Nu este inclus în abonamentele \'Name your price\'</string>
     <string name="tasks_org_account_required">Cont Tasks.org necesar</string>
-    <string name="get_tasks_org_account">Obțineți un cont Tasks.org</string>
     <string name="tasks_org_account">Tasks.org cont</string>
     <string name="copied_to_clipboard">%s copiat în clipboard</string>
     <string name="app_password_save">Utilizați aceste acreditări pentru a configura o aplicație terță. Acestea acordă acces complet la contul dvs. Tasks.org, nu le notați și nu le împărtășiți cu nimeni!</string>
@@ -104,7 +100,6 @@
     <string name="foreground_location">Locația de prim-plan</string>
     <string name="about">Despre</string>
     <string name="button_unsubscribe">Anulare abonament</string>
-    <string name="button_upgrade">Actualizare abonament</string>
     <string name="button_subscribe">Abonează-te la</string>
     <string name="refresh_purchases">Reîmprospătați achizițiile</string>
     <string name="manage_subscription">Modificarea abonamentului</string>
@@ -625,7 +620,6 @@
     <string name="chip_style_outlined">Conturat</string>
     <string name="chip_style">Stil fragmentat</string>
     <string name="back">Înapoi</string>
-    <string name="subscription_benefits">Beneficiile abonamentului</string>
     <string name="upgrade_blurb_2">Am petrecut mii de ore lucrând la Tasks și am publicat tot codul sursă online gratuit. Pentru a-mi susține munca, unele caracteristici necesită un abonament</string>
     <string name="upgrade_blurb_1">Bună, mă numesc Alex. Sunt dezvoltatorul independent din spatele Tasks</string>
     <string name="color_wheel">Roata de culori</string>
@@ -648,7 +642,6 @@
     <string name="etesync_selection_description">Sincronizare criptată end-to-end</string>
     <string name="caldav_selection_description">Sincronizare bazată pe standarde deschise de internet</string>
     <string name="google_tasks_selection_description">Serviciu de bază care se sincronizează cu contul Google</string>
-    <string name="tasks_org_share">Partajați listele cu alți utilizatori</string>
     <string name="tasks_org_description">Sincronizează-ți sarcinile cu Tasks.org</string>
     <string name="choose_synchronization_service">Selectați o platformă</string>
     <string name="create_new_tag">Creați \"%s\"</string>

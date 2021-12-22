@@ -437,7 +437,6 @@
     <string name="url">URL</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">アイコン</string>
-    <string name="button_upgrade">サブスクリプションのアップグレード</string>
     <string name="button_unsubscribe">サブスクリプションのキャンセル</string>
     <string name="name_your_price">価格はあなた次第</string>
     <string name="cancel">キャンセル</string>
@@ -527,7 +526,6 @@
     <string name="sign_in_with_github">GitHubでサインイン</string>
     <string name="sign_in_with_google">Googleでサインイン</string>
     <string name="share">共有</string>
-    <string name="tasks_org_share">リストを他のユーザーと共有</string>
     <string name="astrid_sort_order">アストリッド手動順</string>
     <string name="SSD_sort_my_order">任意順</string>
 </resources>

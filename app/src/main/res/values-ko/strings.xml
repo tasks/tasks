@@ -435,7 +435,6 @@
     <string name="invalid_backup_file">부적합한 백업 파일</string>
     <string name="google_tasks_add_to_top">새 할일을 가장 위로</string>
     <string name="icon">아이콘</string>
-    <string name="button_upgrade">구독 업그레이드</string>
     <string name="button_unsubscribe">구독 취소</string>
     <string name="name_your_price">구독 금액 정하기</string>
     <string name="SSD_sort_my_order">순서 직접 정렬</string>
@@ -651,9 +650,6 @@
     <string name="upgrade_desktop_access">데스크탑 접속</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org와 동기화 및 다른 사용자와 협업</string>
     <string name="upgrade_google_tasks">여러 계정 동기화</string>
-    <string name="upgrade_customization_icons">아이콘 목록</string>
-    <string name="upgrade_customization_themes">바탕화면 및 주간/야간 테마</string>
-    <string name="upgrade_customization_colors">런처 아이콘, 색채 팔레트, 색상환</string>
     <string name="upgrade_more_customization_description">모든 테마, 색상, 아이콘 사용</string>
     <string name="upgrade_more_customization">더 다양한 맞춤설정</string>
     <string name="pro_free_trial">새 구독자는 7일간 무료 체험이 가능합니다. 언제라도 취소할 수 있습니다</string>
@@ -672,7 +668,6 @@
     <string name="remove_user">사용자를 삭제할까요\?</string>
     <string name="map_theme_use_app_theme">앱 테마 사용</string>
     <string name="tasks_org_account_required">Tasks.org 계정 필요</string>
-    <string name="get_tasks_org_account">Tasks.org 계정 만들기</string>
     <string name="tasks_org_account">Tasks.org 계정</string>
     <string name="copied_to_clipboard">클립보드로 %s 건 복사</string>
     <string name="app_password_delete_confirmation">이 비밀번호를 사용하는 모든 앱에서 로그아웃 됩니다</string>
@@ -693,9 +688,7 @@
     <string name="local_lists">로컬 목록</string>
     <string name="tasks_needs_your_support">Tasks가 여러분의 지원을 필요로 합니다!</string>
     <string name="back">이전</string>
-    <string name="subscription_benefits">구독 혜택</string>
     <string name="decsync_selection_description">파일 기반 동기화</string>
-    <string name="tasks_org_share">다른 사용자와 목록 공유</string>
     <string name="tasks_org_description">Tasks.org에 할일 동기화</string>
     <string name="subscription">구독</string>
     <string name="map_theme">지도 테마</string>

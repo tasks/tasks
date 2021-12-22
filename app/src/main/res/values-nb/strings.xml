@@ -438,7 +438,6 @@
     <string name="invalid_backup_file">Ugyldig sikkerhetskopifil</string>
     <string name="google_tasks_add_to_top">Nye gjøremål øverst</string>
     <string name="icon">Ikon</string>
-    <string name="button_upgrade">Oppgrader abonnement</string>
     <string name="button_unsubscribe">Avbryt abonnement</string>
     <string name="name_your_price">Betal det du vil</string>
     <string name="error_adding_account">Feil: %s</string>
@@ -663,7 +662,6 @@
     <string name="start_date">Startdato</string>
     <string name="sort_start_group">Start %s</string>
     <string name="sort_due_group">Frist %s</string>
-    <string name="get_tasks_org_account">Skaff Tasks.org-konto</string>
     <string name="tasks_org_account">Tasks.org-konto</string>
     <string name="widget_show_title">Vis tittel</string>
     <string name="map_theme_use_app_theme">Bruk programdrakt</string>
@@ -690,9 +688,6 @@
     <string name="upgrade_desktop_access">Tilgang til skrivebordet</string>
     <string name="upgrade_tasks_org_account_description">Synkronisere med Tasks.org og samarbeide med andre brukere</string>
     <string name="upgrade_google_tasks">Synkronisere flere kontoer</string>
-    <string name="upgrade_customization_icons">Vis ikoner</string>
-    <string name="upgrade_customization_colors">Launcher-ikoner, fargepaletter og fargehjul</string>
-    <string name="upgrade_customization_themes">Temaer for bakgrunn og dag/natt</string>
     <string name="upgrade_more_customization_description">Lås opp alle temaer, farger og ikoner</string>
     <string name="upgrade_more_customization">Mer tilpasning</string>
     <string name="pro_free_trial">Nye abonnenter får en 7-dagers gratis prøveperiode. Avbryt når som helst</string>
@@ -708,8 +703,6 @@
     <string name="share_list">Dele liste</string>
     <string name="chat_libera">Bli med #tasks på Libera Chat</string>
     <string name="tasks_needs_your_support">Oppgaver trenger din støtte!</string>
-    <string name="subscription_benefits">Fordeler med abonnement</string>
-    <string name="tasks_org_share">Dele lister med andre brukere</string>
     <string name="next_saturday">Neste lør</string>
     <string name="next_friday">Neste fre</string>
     <string name="next_thursday">Neste tor</string>

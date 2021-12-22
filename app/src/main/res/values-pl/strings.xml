@@ -449,7 +449,6 @@
     <string name="invalid_backup_file">Nieprawidłowy plik kopii zapasowej</string>
     <string name="google_tasks_add_to_top">Nowe zadania na górze</string>
     <string name="icon">Ikona</string>
-    <string name="button_upgrade">Podwyższyć poziom subskrypcji</string>
     <string name="button_unsubscribe">Anuluj subskrypcję</string>
     <string name="name_your_price">Nazwij swoją cenę</string>
     <string name="SSD_sort_my_order">Ręczne</string>
@@ -674,7 +673,6 @@
     <string name="default_start_date">Domyślna data rozpoczęcia</string>
     <string name="start_date">Data rozpoczęcia</string>
     <string name="SSD_sort_start">Wg daty rozpoczęcia</string>
-    <string name="get_tasks_org_account">Załóż konto Tasks.org</string>
     <string name="tasks_org_account">Konto Tasks.org</string>
     <string name="subscription">Subskrypcja</string>
     <string name="account_not_included">Nie obejmuje subskrypcji \"Podaj swoją cenę\"</string>
@@ -698,9 +696,6 @@
     <string name="upgrade_desktop_access">Dostęp do pulpitu</string>
     <string name="upgrade_tasks_org_account_description">Synchronizowanie z Tasks.org i współpraca z innymi użytkownikami</string>
     <string name="upgrade_google_tasks">Synchronizacja wielu kont</string>
-    <string name="upgrade_customization_icons">Ikony listy</string>
-    <string name="upgrade_customization_colors">Ikony programu uruchamiającego, palety kolorów i koło kolorów</string>
-    <string name="upgrade_customization_themes">Motywy tapet i dzień/noc</string>
     <string name="upgrade_more_customization_description">Odblokowywanie wszystkich motywów, kolorów i ikon</string>
     <string name="upgrade_more_customization">Więcej możliwości dostosowania</string>
     <string name="pro_free_trial">Nowi subskrybenci otrzymują 7-dniowy bezpłatny okres próbny. Anuluj w dowolnym momencie</string>
@@ -720,8 +715,6 @@
     <string name="issue_tracker">Śledzenie problemów</string>
     <string name="chat_libera">Dołącz do #tasks na Czacie Libera</string>
     <string name="tasks_needs_your_support">Tasks potrzebuje Twojego wsparcia!</string>
-    <string name="subscription_benefits">Korzyści z subskrypcji</string>
-    <string name="tasks_org_share">Udostępniaj listy innym użytkownikom</string>
     <string name="next_saturday">Następny Sat</string>
     <string name="next_friday">Następny pt</string>
     <string name="next_thursday">Następny Thu</string>

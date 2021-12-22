@@ -436,7 +436,6 @@
     <string name="location_radius_meters">%s m</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Ikon</string>
-    <string name="button_upgrade">Előfizetés upgrade-je</string>
     <string name="button_unsubscribe">Előfizetés lemondása</string>
     <string name="name_your_price">Nevezd meg az árat</string>
     <string name="SSD_sort_my_order">Egyéni sorrend</string>
@@ -647,7 +646,6 @@
     <string name="default_due_date">Alapértelmezett határidő</string>
     <string name="start_date">Kezdő dátum</string>
     <string name="account_not_included">A \"Nevezd meg az árat\" előfizetés nem tartalmazza</string>
-    <string name="get_tasks_org_account">Tasks.org fiók létrehozása</string>
     <string name="tasks_org_account">Tasks.org fiók</string>
     <string name="sort_due_group">Határidő %s</string>
     <string name="sort_start_group">Kezdés %s</string>
@@ -683,14 +681,12 @@
     <string name="invite">Meghívás</string>
     <string name="email">E-mail</string>
     <string name="share_list">Lista megosztása</string>
-    <string name="tasks_org_share">Lista megosztása más felhasználókkal</string>
     <string name="picker_mode_text">Szöveg</string>
     <string name="picker_mode_clock">Óra</string>
     <string name="picker_mode_calendar">Naptár</string>
     <string name="picker_mode_time">Időválasztó mód</string>
     <string name="picker_mode_date">Dátumválasztó mód</string>
     <string name="tasks_needs_your_support">A Tasks-nak szüksége van a támogatásodra!</string>
-    <string name="subscription_benefits">Az előfizetés előnyei</string>
     <string name="more_options">Több opció</string>
     <string name="upgrade_automation_description">Tasker, Automate és Locate beépülő modulok</string>
     <string name="upgrade_automation">Automatizálás</string>
@@ -699,9 +695,6 @@
     <string name="upgrade_desktop_access">Desktop hozzáférés</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org szinkronizáció és együttműködés más felhasználókkal</string>
     <string name="upgrade_google_tasks">Több fiók szinkronizálása</string>
-    <string name="upgrade_customization_icons">Lista ikonok</string>
-    <string name="upgrade_customization_colors">Launcher ikonok, színpaletták és színkör</string>
-    <string name="upgrade_customization_themes">Háttérkép és nappali/éjszakai téma</string>
     <string name="upgrade_more_customization_description">Az összes téma, szín és ikon feloldása</string>
     <string name="upgrade_more_customization">Még nagyobb testreszabhatóság</string>
     <string name="pro_free_trial">Az új előfizetők 7 napos ingyenes kipróbálási lehetőséget kapnak. Az előfizetés bármikor lemondható</string>

@@ -336,7 +336,6 @@
     <string name="manage_subscription">Ubah/perbarui langganan</string>
     <string name="refresh_purchases">Segarkan pembelian</string>
     <string name="button_subscribe">Langganan</string>
-    <string name="button_upgrade">Tingkatkan langganan</string>
     <string name="button_unsubscribe">Batalkan langganan</string>
     <string name="about">Tentang</string>
     <string name="license_summary">Tasks adalah perangkat lunak bebas bersumber terbuka, dilindungi Lisensi Publik Umum GNU v3.0</string>
@@ -484,7 +483,6 @@
         <item quantity="other">daftar %d</item>
     </plurals>
     <string name="account_not_included">Tidak termasuk dalam langganan \'Berikan penawaran harga Anda\'</string>
-    <string name="get_tasks_org_account">Dapatkan akun Tasks.org</string>
     <string name="tasks_org_account">Akun Tasks.org</string>
     <string name="copied_to_clipboard">%s disalin ke papan klip</string>
     <string name="app_password_save">Gunakan kredensial ini untuk mengkonfigurasi aplikasi pihak ketiga. Mereka memberikan akses penuh ke akun Tasks.org Anda, jangan tuliskan ataupun berbagi dengan orang lain!</string>
@@ -666,7 +664,6 @@
     <string name="invite">Undang</string>
     <string name="email">Surel</string>
     <string name="share_list">Bagikan daftar</string>
-    <string name="tasks_org_share">Bagikan daftar dengan pengguna lain</string>
     <string name="more_options">Opsi lebih banyak</string>
     <string name="upgrade_automation_description">Plugin untuk Tasker, Automate, and Locale</string>
     <string name="upgrade_automation">Automasi</string>
@@ -675,9 +672,6 @@
     <string name="upgrade_desktop_access">Akses dekstop</string>
     <string name="upgrade_tasks_org_account_description">Sinkronkan dengan Tasks.org dan kolaborasi dengan pengguna lain</string>
     <string name="upgrade_google_tasks">Sinkronisasikan berbagai akun secara bersamaan</string>
-    <string name="upgrade_customization_icons">Daftar ikon</string>
-    <string name="upgrade_customization_colors">Ikon peluncur, palet warna, dan pencari warna/color wheel</string>
-    <string name="upgrade_customization_themes">Wallpaper dan tema siang/malam</string>
     <string name="upgrade_more_customization_description">Buka semua tema, warna, dan ikon</string>
     <string name="upgrade_more_customization">Lebih banyak kostumisasi</string>
     <string name="pro_free_trial">Pelanggan baru menerima percobaan aplikasi gratis selama 7-hari. Batalkan kapan saja</string>
@@ -687,7 +681,6 @@
     <string name="picker_mode_time">Mode pengambil waktu</string>
     <string name="picker_mode_date">Mode pengambil tanggal</string>
     <string name="tasks_needs_your_support">Tasks memerlukan dukungan Anda!</string>
-    <string name="subscription_benefits">Keuntungan berlangganan</string>
     <string name="upgrade_blurb_2">Saya telah menghabiskan ribuan jam bekerja pada Tasks, dan saya mempublikasikan semua kode sumber online secara gratis. Untuk mendukung pekerjaan saya, beberapa fitur memerlukan berlangganan</string>
     <string name="upgrade_blurb_1">Hi. Nama saya Alex. Saya adalah pengembang independen dibelakang aplikasi Tasks</string>
     <string name="next_saturday">Sabtu Depan</string>

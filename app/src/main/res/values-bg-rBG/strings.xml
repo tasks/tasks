@@ -500,7 +500,6 @@
     <string name="license_summary">Tasks е софтуер с отворен код, лицензиран под GNU General Public License v3.0</string>
     <string name="this_feature_requires_a_subscription">Тази възможност изисква абонамент</string>
     <string name="button_unsubscribe">Прекратяване на абонамент</string>
-    <string name="button_upgrade">Надграждане на абонамент</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeat_monthly_fifth_week">пети</string>
     <string name="subscription">Абонамент</string>
@@ -536,7 +535,6 @@
     <string name="ok">\@android:string/ok</string>
     <string name="display_name">Показвано име</string>
     <string name="share">Споделяне</string>
-    <string name="tasks_org_share">Споделяне на списъци с други потребители</string>
     <string name="settings_default">По подразбиране</string>
     <string name="opacity_footer">Непрозрачност на долния колонтитул</string>
     <string name="google_tasks_selection_description">Обикновена услуга за синхронизиране чрез профила ви в Google</string>
@@ -577,7 +575,6 @@
     <string name="etesync_selection_description">Синхронизация, шифрована от край до край</string>
     <string name="preferences_look_and_feel">Външен вид и усещане</string>
     <string name="troubleshooting">Отстраняване на неизправности</string>
-    <string name="subscription_benefits">Ползи за абонамент</string>
     <string name="back">Назад</string>
     <string name="now">Сега</string>
     <string name="filter_criteria_unstarted">Незапочнати</string>
@@ -593,7 +590,6 @@
     <string name="widget_due_date_after_title">След заглавието</string>
     <string name="widget_open_list">Отваряне на списък</string>
     <string name="url">Адрес</string>
-    <string name="upgrade_customization_themes">Тапети и теми за ден/нощ</string>
     <string name="tasks_org_description">Синхронизирайте задачите си чрез Tasks.org</string>
     <string name="davx5_selection_description">Синхронизирайте задачите си с приложението DAVx⁵</string>
     <string name="upgrade_blurb_1">Здравейте! Казвам се Алекс. Аз съм независимият разработчик, който стои зад Tasks</string>

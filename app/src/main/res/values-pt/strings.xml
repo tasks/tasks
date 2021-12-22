@@ -557,7 +557,6 @@
     <string name="caldav_account_repeating_tasks">O servidor lida com tarefas recorrentes</string>
     <string name="SSD_sort_my_order">Minha ordem</string>
     <string name="name_your_price">Dê o seu valor</string>
-    <string name="button_upgrade">Atualizar subscrição</string>
     <string name="network_error">Não foi possível conectar</string>
     <string name="location_radius_meters">%s m</string>
     <string name="davx5_selection_description">Sincronize as suas tarefas com a aplicação DAVx⁵</string>
@@ -618,9 +617,6 @@
     <string name="upgrade_desktop_access">Acesso desktop</string>
     <string name="upgrade_tasks_org_account_description">Sincronize com o Tasks.org e colabore com outros utilizadores</string>
     <string name="upgrade_google_tasks">Sincronize várias contas</string>
-    <string name="upgrade_customization_icons">Lista de ícones</string>
-    <string name="upgrade_customization_colors">Ícones de lançador, paletas de cores e roda de cores</string>
-    <string name="upgrade_customization_themes">Papel de parede e temas dia/noite</string>
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
     <string name="upgrade_more_customization">Mais personalizações</string>
     <string name="pro_free_trial">Os novos subscritores recebem 7 dias de teste grátis. Cancele a qualquer momento</string>
@@ -640,7 +636,6 @@
     <string name="map_theme_use_app_theme">Usar tema da aplicação</string>
     <string name="account_not_included">Não incluído nas subscrições de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta no Tasks.org</string>
-    <string name="get_tasks_org_account">Obtenha uma conta Tasks.org</string>
     <string name="tasks_org_account">Conta Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
     <string name="app_password_save">Use estas credenciais para configurar uma aplicação de terceiros. Elas garantem o acesso completo à sua conta em Task.org, não as escreva nem as partilhe com ninguém!</string>
@@ -685,9 +680,7 @@
     <string name="sort_due_group">Vencimento %s</string>
     <string name="sort_start_group">Começar %s</string>
     <string name="tasks_needs_your_support">O Tasks precisa da sua ajuda!</string>
-    <string name="subscription_benefits">Benefícios da subscrição</string>
     <string name="decsync_selection_description">Sincronização baseada em ficheiro</string>
-    <string name="tasks_org_share">Partilhe listas com outros utilizadores</string>
     <string name="tasks_org_description">Sincronize as suas tarefas com o Tasks.org</string>
     <string name="subscription">Subscrição</string>
     <string name="repeat_monthly_fifth_week">quinto</string>

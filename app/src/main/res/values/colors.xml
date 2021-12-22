@@ -150,7 +150,5 @@
   <color name="default_chip_background">@color/grey_300</color>
   <color name="default_chip_text_color">@color/black_87</color>
 
-  <color name="github_sponsor">#eb52ae</color>
-
 </resources>
 

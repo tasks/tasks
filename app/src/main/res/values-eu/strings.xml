@@ -438,7 +438,6 @@
     <string name="invalid_backup_file">Baliogabeko babes-kopia fitxategia</string>
     <string name="google_tasks_add_to_top">Zeregin berriak goialdean</string>
     <string name="icon">Ikonoa</string>
-    <string name="button_upgrade">Handiagotu harpidetza</string>
     <string name="button_unsubscribe">Ezeztatu harpidetza</string>
     <string name="name_your_price">Jarri zuk prezioa</string>
     <string name="error_adding_account">Errorea: %s</string>
@@ -621,7 +620,6 @@
     <string name="github_sponsor">Babeslea</string>
     <string name="github_sponsors">GitHub babesleak</string>
     <string name="account_not_included">Ez dago \"hautatu zure prezioa\" harpidetzetan barne</string>
-    <string name="get_tasks_org_account">Eskuratu Tasks.org kontua</string>
     <string name="tasks_org_account">Tasks.org kontua</string>
     <string name="copied_to_clipboard">%s arbelera kopiatuta</string>
     <string name="app_password_save">Erabili kredentzial hauek hirugarrengoen aplikazio bat konfiguratzeko. Zure Tasks.org kontura sarbide osoa ematen dute, ez idatzi inon eta ez partekatu inorekin!</string>
@@ -684,7 +682,6 @@
     <string name="invite">Gonbidatu</string>
     <string name="email">Posta elektronikoa</string>
     <string name="share_list">Zerrenda partekatu</string>
-    <string name="tasks_org_share">Zerrendak beste erabiltzaile batzuekin partekatu</string>
     <string name="manage_drawer">Tiradera kudeatu</string>
     <string name="markdown_description">Markdown gaitu izenburuan eta deskribapenean</string>
     <string name="markdown">Markdown</string>
@@ -696,9 +693,6 @@
     <string name="upgrade_desktop_access">Mahaigaineko sarbidea</string>
     <string name="upgrade_tasks_org_account_description">Sinkronizatu Tasks.org-ekin eta lankidetu beste erabiltzaile batzuekin</string>
     <string name="upgrade_google_tasks">Hainbat kontu sinkronizatu</string>
-    <string name="upgrade_customization_icons">Ikonoen zerrenda</string>
-    <string name="upgrade_customization_colors">Jaurtigailuaren ikonoak, koloretako paletak eta koloretako gurpila</string>
-    <string name="upgrade_customization_themes">Pantaila-hondoa eta gauaren/egunaren gaiak</string>
     <string name="upgrade_more_customization_description">Desblokeatu gai, kolore eta ikono guztiak</string>
     <string name="upgrade_more_customization">Pertsonalizazio gehiago</string>
     <string name="pro_free_trial">Harpidedun berriek 7 eguneko doako proba jasotzen dute. Ezeztatu edozein unetan</string>
@@ -708,7 +702,6 @@
     <string name="picker_mode_time">Denbora hautatzeko modua</string>
     <string name="picker_mode_date">Data hautatzeko modua</string>
     <string name="tasks_needs_your_support">Tasksek zure laguntza behar du!</string>
-    <string name="subscription_benefits">Harpidetzaren abantailak</string>
     <string name="next_saturday">Hurrengo larunbata</string>
     <string name="next_friday">Hurrengo ostirala</string>
     <string name="next_thursday">Hurrengo osteguna</string>
