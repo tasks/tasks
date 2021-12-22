@@ -27,8 +27,7 @@ class LocationServiceGooglePlay @Inject constructor(
                     .lastLocation
                     .addOnSuccessListener {
                         cont.resumeWith(
-                                it?.let { Result.success(MapPosition(it.latitude, it.longitude)) }
-                                        ?: Result.failure(NullPointerException())
+                                it.let { Result.success(MapPosition(it.latitude, it.longitude)) }
                         )
                     }
                     .addOnFailureListener { cont.resumeWith(Result.failure(it)) }
@@ -69,7 +68,7 @@ class LocationServiceGooglePlay @Inject constructor(
         }
         return Geofence.Builder()
                 .setCircularRegion(geofence.latitude, geofence.longitude, geofence.radius.toFloat())
-                .setRequestId(geofence.uid)
+                .setRequestId(geofence.uid!!)
                 .setTransitionTypes(transitionTypes)
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 .build()
