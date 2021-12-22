@@ -2241,6 +2241,48 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/jetpack/androidx/releases/compose-ui#1.0.0-rc01",
       "libraryName": "ui-tooling-preview"
+    },
+    {
+      "artifactId": {
+        "name": "emoji2-views-helper",
+        "group": "androidx.emoji2",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/emoji2#1.0.0",
+      "libraryName": "emoji2-views-helper"
+    },
+    {
+      "artifactId": {
+        "name": "emoji2",
+        "group": "androidx.emoji2",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/emoji2#1.0.0",
+      "libraryName": "emoji2"
+    },
+    {
+      "artifactId": {
+        "name": "resourceinspection-annotation",
+        "group": "androidx.resourceinspection",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/resourceinspection#1.0.0",
+      "libraryName": "resourceinspection-annotation"
     }
   ]
 }
