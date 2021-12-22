@@ -35,7 +35,7 @@ object GeoUtils {
     private fun BigDecimal.truncate(): String {
         val string = stripTrailingZeros().toPlainString()
         val index = string.indexOf(".")
-        return if (index < 0) string else string.substring(0.rangeTo(min(string.length, index + PLACE_ACCURACY)))
+        return if (index < 0) string else string.substring(0.until(min(string.length, index + PLACE_ACCURACY + 1)))
     }
 
     private const val PLACE_ACCURACY = 4
