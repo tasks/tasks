@@ -180,7 +180,7 @@
     <string name="restart_now">馬上重新啟動</string>
     <string name="restart_later">稍後</string>
     <string name="no_calendars_found">找不到日曆</string>
-    <string name="repeats_single">重複 %s</string>
+    <string name="repeats_single">%s重複</string>
     <string name="repeats_minutely">每分鐘</string>
     <string name="repeats_hourly">每小時</string>
     <string name="repeats_daily">每天</string>
@@ -586,4 +586,18 @@
     <string name="manage_drawer">管理側邊欄</string>
     <string name="now">現在</string>
     <string name="when_started">開始后</string>
+    <string name="bundle_notifications">捆綁通知</string>
+    <string name="repeats_plural_on_number_of_times">每%1$s的%2$s重複，總共 %3$d %4$s</string>
+    <string name="repeats_single_until">%1$s重複，直至%2$s</string>
+    <string name="tasker_list_notification">列表通知</string>
+    <string name="repeats_plural_on">每%1$s的%2$s重複</string>
+    <string name="repeats_plural_number_of_times">每%1$s重複，總共%2$d %3$s</string>
+    <string name="badges">徽章</string>
+    <string name="repeats_plural_until">每%1$s重複，直至%2$s</string>
+    <string name="repeats_plural_on_until">每%1$s的%2$s重複，直至 %3$s</string>
+    <string name="repeats_single_on">%1$s的%2$s重複</string>
+    <string name="repeats_single_number_of_times">%1$s重複，總共%2$d %3$s</string>
+    <string name="repeats_single_on_until">%1$s的%2$s重複，直至%3$s</string>
+    <string name="repeats_single_on_number_of_times">%1$s的%2$s重複，總共%3$d %4$s</string>
+    <string name="badges_description">在Tasks啓動圖標上顯示任務數，不是所有啓動器都支持。</string>
 </resources>
