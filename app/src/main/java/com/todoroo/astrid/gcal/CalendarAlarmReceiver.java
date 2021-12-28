@@ -2,6 +2,7 @@ package com.todoroo.astrid.gcal;
 
 import static com.google.common.collect.Iterables.any;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,13 +16,12 @@ import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.AndroidCalendarEventAttendee;
 import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.gtasks.GoogleAccountManager;
-import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 import timber.log.Timber;
 
 @AndroidEntryPoint
-public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
+public class CalendarAlarmReceiver extends BroadcastReceiver {
 
   public static final int REQUEST_CODE_CAL_REMINDER = 100;
   public static final String BROADCAST_CALENDAR_REMINDER =
@@ -33,8 +33,6 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
   @Override
   public void onReceive(Context context, Intent intent) {
-    super.onReceive(context, intent);
-
     if (!preferences.getBoolean(R.string.p_calendar_reminders, true)) {
       return;
     }
