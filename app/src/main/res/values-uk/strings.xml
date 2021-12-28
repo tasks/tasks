@@ -17,10 +17,10 @@
     <string name="read_permission_label">Дозволи Tasks</string>
     <string name="discard_confirmation">Дійсно хочете скасувати ваші зміни?</string>
     <string name="keep_editing">Продовжити редагування</string>
-    <string name="DLG_delete_this_task_question">Видалити цю задачу?</string>
+    <string name="DLG_delete_this_task_question">Видалити це завдання\?</string>
     <string name="DLG_hour_minutes">Час (години : хвилини)</string>
     <string name="DLG_undo">Повернути</string>
-    <string name="WID_dateButtonUnset">Натисніть для установки</string>
+    <string name="WID_dateButtonUnset">Натисніть для встановлення</string>
     <string name="TLA_no_items">Тут немає завдань.</string>
     <string name="TLA_menu_sort">Сортувати</string>
     <string name="TLA_menu_search">Пошук</string>
@@ -69,7 +69,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks буде нагадувати вам про майбутні події у календарі та пропонувати приготуватися до них</string>
     <string name="CRA_default_list_name">Список дій: %s</string>
     <string name="none">Немає</string>
-    <string name="EPr_edit_screen_options">Налаштування екрану редагування</string>
+    <string name="EPr_edit_screen_options">Налаштування екрана редагування</string>
     <string name="EPr_beastMode_reset">Скинути налаштування</string>
     <string name="EPr_fullTask_title">Показувати повну назву завдання</string>
     <string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
@@ -147,7 +147,7 @@
     <string name="rmd_EPr_quiet_hours_end_title">Тихий час закінчується</string>
     <string name="rmd_EPr_rmd_time_title">Типове нагадування</string>
     <string name="rmd_EPr_rmd_time_desc">Сповіщення для завдань без часу виконання будут з’являтися о %s</string>
-    <string name="persistent_notifications">Не зникаючі сповіщення</string>
+    <string name="persistent_notifications">Постійні сповіщення</string>
     <string name="persistent_notifications_description">Постійні сповіщення не можна прибрати</string>
     <string name="rmd_EPr_defaultRemind_title">Випадкові нагадування</string>
     <string name="default_random_reminder_disabled">Вимкнено</string>
@@ -300,9 +300,9 @@
     <string name="remove">Вилучити</string>
     <string name="randomly_once">Випадково раз</string>
     <string name="randomly">Випадково</string>
-    <string name="pick_a_date_and_time">Обрати дату та час</string>
+    <string name="pick_a_date_and_time">Обрати дату й час</string>
     <string name="when_overdue">Коли прострочено</string>
-    <string name="when_due">В призначений час</string>
+    <string name="when_due">У призначений час</string>
     <string name="geofence_radius">Радіус</string>
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Мітки</string>
@@ -370,7 +370,7 @@
     <string name="delete_multiple_tasks_confirmation">%s видалено</string>
     <string name="delete_selected_tasks">Видалити вибрані завдання?</string>
     <string name="copy_selected_tasks">Копіювати вибрані завдання?</string>
-    <string name="date_and_time">Дата та час</string>
+    <string name="date_and_time">Дата й час</string>
     <string name="start_of_week">Початок тижня</string>
     <string name="use_locale_default">Типово для локалі</string>
     <string name="add_account">Додати обліковий запис</string>
@@ -401,7 +401,7 @@
     <string name="repeats_plural_on_number_of_times">Повторювати що %1$s по %2$s, станеться %3$d %4$s</string>
     <string name="dont_add_to_calendar">Не додавати до календаря</string>
     <string name="default_calendar">Типовий календар</string>
-    <string name="badges_description">Показувати кількість задач на піктограмі запуску Tasks. Не всі лаунчери підтримують такі значки.</string>
+    <string name="badges_description">Показувати кількість завдань на піктограмі запуску Tasks. Не всі лаунчери підтримують такі значки.</string>
     <string name="bundle_notifications_summary">Групувати кілька сповіщень в одне</string>
     <string name="repeat_monthly_same_day_each_month">того ж дня щомісяця</string>
     <string name="repeat_monthly_every_day_of_nth_week">що %1$s %2$s</string>
@@ -413,7 +413,7 @@
     <string name="repeat_monthly_last_week">останній</string>
     <string name="tasker_create_task">Створити завдання</string>
     <string name="tasker_list_notification">Список повідомлень</string>
-    <string name="help">Допомога</string>
+    <string name="help">Довідка</string>
     <string name="caldav_home_set_not_found">Домашній список не знайдено</string>
     <string name="network_error">Не вдалося з’єднатися</string>
     <string name="upgrade_to_pro">Покращити до Преміум</string>
@@ -450,13 +450,13 @@
     <string name="version_string">Версія %s</string>
     <string name="invalid_backup_file">Невірний формат файлу резервної копії</string>
     <string name="google_tasks_add_to_top">Нові завдання зверху</string>
-    <string name="help_and_feedback">Допомога і зворотний зв\'язок</string>
+    <string name="help_and_feedback">Довідка і зворотний зв\'язок</string>
     <string name="list_separator_with_space">", "</string>
     <string name="error_adding_account">Помилка: %s</string>
     <string name="url">URL</string>
     <string name="icon">Піктограма</string>
     <string name="menu_discard_changes">Скасувати зміни</string>
-    <string name="subtasks">Підзадачі</string>
+    <string name="subtasks">Підзавдання</string>
     <string name="EPr_temp_completed_tasks_not_showing">Завдання негайно зникатимуть зі списку після їх завершення</string>
     <string name="EPr_temp_completed_tasks_showing">Завдання тимчасово залишатимуться видимими у списку після їх завершення</string>
     <string name="EPr_temp_show_completed_tasks">Тимчасово показувати завдання після їх завершення</string>
@@ -489,7 +489,7 @@
     <string name="create_new_tag">Створити \"%s\"</string>
     <string name="enter_tag_name">Введіть назву мітки</string>
     <string name="enter_title_hint">Введіть назву</string>
-    <string name="subtasks_multilevel_google_task">Багаторівневі підзадачі не підтримуються Google Tasks</string>
+    <string name="subtasks_multilevel_google_task">Багаторівневі підзавдання не підтримуються Google Tasks</string>
     <string name="collapse_subtasks">Згорнути підзавдання</string>
     <string name="expand_subtasks">Розгорнути підзавдання</string>
     <string name="caldav_account_repeating_tasks">Сервер обробляє повторювані завдання</string>
@@ -499,8 +499,8 @@
     <string name="share">Поділитися</string>
     <string name="select_all">Обрати всі</string>
     <string name="calendar_event_created">В календарі створено подію для %s</string>
-    <string name="auto_dismiss_datetime_summary">Закривати вибір дати та часу після встановлення дати чи часу</string>
-    <string name="auto_dismiss_datetime">Автоматично закривати вибір дати та часу</string>
+    <string name="auto_dismiss_datetime_summary">Закривати вибір дати й часу після встановлення дати або часу</string>
+    <string name="auto_dismiss_datetime">Автоматично закривати вибір дати й часу</string>
     <string name="shortcut_pick_time">Оберіть час</string>
     <string name="no_time">Без часу</string>
     <string name="no_date">Без дати</string>
