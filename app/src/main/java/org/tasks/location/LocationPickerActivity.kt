@@ -39,6 +39,7 @@ import org.tasks.data.PlaceUsage
 import org.tasks.databinding.ActivityLocationPickerBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.toast
+import org.tasks.extensions.setOnQueryTextListener
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.location.LocationPickerAdapter.OnLocationPicked
 import org.tasks.location.LocationSearchAdapter.OnPredictionPicked
@@ -120,7 +121,6 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         val menu = toolbar.menu
         search = menu.findItem(R.id.menu_search)
         search.setOnActionExpandListener(this)
-        (search.actionView as SearchView).setOnQueryTextListener(this)
         toolbar.setOnMenuItemClickListener(this)
         val themeColor = theme.themeColor
         themeColor.applyToStatusBarIcons(this)
@@ -378,12 +378,14 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     }
 
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+        search.setOnQueryTextListener(this)
         searchAdapter!!.submitList(emptyList())
         recyclerView.adapter = searchAdapter
         return true
     }
 
     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+        search.setOnQueryTextListener(null)
         recyclerView.adapter = recentsAdapter
         if (places.isEmpty()) {
             collapseToolbar()

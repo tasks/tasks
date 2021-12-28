@@ -60,6 +60,7 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.SortDialog
 import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
+import org.tasks.extensions.setOnQueryTextListener
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents
 import org.tasks.locale.Locale
@@ -267,7 +268,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
         menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable()
         search = menu.findItem(R.id.menu_search).setOnActionExpandListener(this)
-        (search.actionView as SearchView).setOnQueryTextListener(this)
         themeColor.apply(toolbar)
     }
 
@@ -559,6 +559,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+        search.setOnQueryTextListener(this)
         if (searchQuery == null) {
             searchByQuery("")
         }
@@ -570,6 +571,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+        search.setOnQueryTextListener(null)
         listViewModel.searchByFilter(filter)
         searchJob?.cancel()
         searchQuery = null
