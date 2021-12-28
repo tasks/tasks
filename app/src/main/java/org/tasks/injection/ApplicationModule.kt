@@ -7,6 +7,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
@@ -103,4 +106,11 @@ class ApplicationModule {
         firebase: Firebase,
         workManager: WorkManager,
     ): BillingClient = BillingClientImpl(context, inventory, firebase, workManager)
+
+    @Singleton
+    @ApplicationScope
+    @Provides
+    fun providesCoroutineScope(
+        @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
+    ): CoroutineScope = CoroutineScope(SupervisorJob() + defaultDispatcher)
 }
