@@ -48,15 +48,18 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
     @ExperimentalCoroutinesApi
     fun initializeDiffer(list: List<T>): R {
         val initial = transform(list)
-        scope.launch(Dispatchers.Main) {
-            flow
-                .scan(Pair(initial, null), { last: Pair<R, DiffUtil.DiffResult?>, next: R ->
-                    calculateDiff(last, next)
-                })
-                .drop(1)
-                .flowOn(Executors.newSingleThreadExecutor().asCoroutineDispatcher())
-                .collect { applyDiff(it) }
-        }
+        flow
+            .scan(Pair(initial, null), { last: Pair<R, DiffUtil.DiffResult?>, next: R ->
+                calculateDiff(last, next)
+            })
+            .drop(1)
+            .flowOn(Executors.newSingleThreadExecutor().asCoroutineDispatcher())
+            .onEach {
+                withContext(Dispatchers.Main) {
+                    applyDiff(it)
+                }
+            }
+            .launchIn(scope)
         return initial
     }
 
