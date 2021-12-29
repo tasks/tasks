@@ -60,6 +60,11 @@
     android:key="@string/p_rmd_ringtone"
     android:title="@string/sound" />
 
+  <Preference
+      android:defaultValue="content://settings/system/notification_sound"
+      android:key="@string/p_completion_ringtone"
+      android:title="@string/completion_sound" />
+
   <SwitchPreferenceCompat
     android:defaultValue="true"
     android:dependency="@string/p_rmd_enabled"

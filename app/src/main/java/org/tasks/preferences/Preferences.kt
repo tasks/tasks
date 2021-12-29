@@ -10,6 +10,7 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Binder
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import androidx.preference.PreferenceManager
 import com.todoroo.andlib.utility.DateUtilities
@@ -25,6 +26,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Purchase
 import org.tasks.data.TaskAttachment
+import org.tasks.extensions.Context.getResourceUri
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeBase
 import org.tasks.time.DateTime
@@ -141,13 +143,25 @@ class Preferences @JvmOverloads constructor(
         }
 
     val ringtone: Uri?
-        get() {
-            val ringtone = getStringValue(R.string.p_rmd_ringtone)
-                    ?: return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-            return if ("" == ringtone) {
-                null
-            } else Uri.parse(ringtone)
+        get() = getRingtone(
+            R.string.p_rmd_ringtone,
+            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        )
+
+    val completionSound: Uri?
+        get() = getRingtone(
+            R.string.p_completion_ringtone,
+            context.getResourceUri(R.raw.long_rising_tone)
+        )
+
+    private fun getRingtone(pref: Int, default: Uri): Uri? {
+        val ringtone = getStringValue(pref)
+        return when {
+            ringtone == null -> default
+            ringtone.isNotBlank() -> ringtone.toUri()
+            else -> null
         }
+    }
 
     val isTrackingEnabled: Boolean
         get() = getBoolean(R.string.p_collect_statistics, true)

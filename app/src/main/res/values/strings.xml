@@ -712,4 +712,5 @@ File %1$s contained %2$s.\n\n
   <string name="more_options">More options</string>
   <string name="markdown">Markdown</string>
   <string name="markdown_description">Enable Markdown in title and description</string>
+  <string name="completion_sound">Play completion sound</string>
 </resources>

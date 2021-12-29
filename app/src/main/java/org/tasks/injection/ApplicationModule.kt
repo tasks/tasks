@@ -1,5 +1,6 @@
 package org.tasks.injection
 
+import android.app.NotificationManager
 import android.content.Context
 import com.todoroo.astrid.dao.Database
 import dagger.Module
@@ -113,4 +114,8 @@ class ApplicationModule {
     fun providesCoroutineScope(
         @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
     ): CoroutineScope = CoroutineScope(SupervisorJob() + defaultDispatcher)
+
+    @Provides
+    fun providesNotificationManager(@ApplicationContext context: Context) =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }

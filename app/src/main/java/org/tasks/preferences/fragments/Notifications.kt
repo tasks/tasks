@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
+import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
@@ -21,6 +22,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
+import org.tasks.extensions.Context.getResourceUri
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -37,6 +39,7 @@ private const val REQUEST_DEFAULT_REMIND = 10003
 private const val REQUEST_BADGE_LIST = 10004
 private const val REQUEST_CODE_ALERT_RINGTONE = 10005
 private const val REQUEST_CODE_TTS_CHECK = 10006
+private const val REQUEST_CODE_COMPLETION_SOUND = 10007
 
 @AndroidEntryPoint
 class Notifications : InjectingPreferenceFragment() {
@@ -59,6 +62,7 @@ class Notifications : InjectingPreferenceFragment() {
         rescheduleNotificationsOnChange(true, R.string.p_bundle_notifications)
 
         initializeRingtonePreference()
+        initializeCompletionSoundPreference()
         initializeTimePreference(getDefaultRemindTimePreference()!!, REQUEST_DEFAULT_REMIND)
         initializeTimePreference(getQuietStartPreference()!!, REQUEST_QUIET_START)
         initializeTimePreference(getQuietEndPreference()!!, REQUEST_QUIET_END)
@@ -175,19 +179,27 @@ class Notifications : InjectingPreferenceFragment() {
     }
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean =
-            if (preference!!.key == getString(R.string.p_rmd_ringtone)) {
+        when (preference!!.key) {
+            getString(R.string.p_rmd_ringtone),
+            getString(R.string.p_completion_ringtone) -> {
                 val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
+                intent.putExtra(
+                    RingtoneManager.EXTRA_RINGTONE_TYPE,
+                    RingtoneManager.TYPE_NOTIFICATION
+                )
                 intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
                 intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
                 intent.putExtra(
                     RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI,
                     Settings.System.DEFAULT_NOTIFICATION_URI
                 )
-                val existingValue: String? = preferences.getStringValue(R.string.p_rmd_ringtone)
+                val existingValue: String? = preferences.getStringValue(preference.key)
                 if (existingValue != null) {
                     if (existingValue.isEmpty()) {
-                        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, null as Uri?)
+                        intent.putExtra(
+                            RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
+                            null as Uri?
+                        )
                     } else {
                         intent.putExtra(
                             RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
@@ -200,11 +212,20 @@ class Notifications : InjectingPreferenceFragment() {
                         Settings.System.DEFAULT_NOTIFICATION_URI
                     )
                 }
-                startActivityForResult(intent, REQUEST_CODE_ALERT_RINGTONE)
+                startActivityForResult(
+                    intent,
+                    if (preference.key == getString(R.string.p_rmd_ringtone)) {
+                        REQUEST_CODE_ALERT_RINGTONE
+                    } else {
+                        REQUEST_CODE_COMPLETION_SOUND
+                    }
+                )
                 true
-            } else {
+            }
+            else -> {
                 super.onPreferenceTreeClick(preference)
             }
+        }
 
     private fun getQuietStartPreference(): TimePreference? =
             getTimePreference(R.string.p_rmd_quietStart)
@@ -227,29 +248,41 @@ class Notifications : InjectingPreferenceFragment() {
         }
     }
 
-    private fun initializeRingtonePreference() {
+    private fun initializeRingtonePreference() =
+        initializeRingtonePreference(
+            R.string.p_rmd_ringtone,
+            R.string.silent,
+        )
+
+    private fun initializeCompletionSoundPreference() =
+        initializeRingtonePreference(
+            R.string.p_completion_ringtone,
+            R.string.none,
+            requireContext().getResourceUri(R.raw.long_rising_tone)
+        )
+
+    private fun initializeRingtonePreference(pref: Int, noneRes: Int, default: Uri? = null) {
         val ringtoneChangedListener =
             Preference.OnPreferenceChangeListener { preference: Preference, value: Any? ->
                 if ("" == value) {
-                    preference.setSummary(R.string.silent)
+                    preference.setSummary(noneRes)
                 } else {
-                    val ringtone = RingtoneManager.getRingtone(
-                        context,
-                        if (value == null) Settings.System.DEFAULT_NOTIFICATION_URI else Uri.parse(
-                            value as String?
-                        )
-                    )
-                    preference.summary = if (ringtone == null) "" else ringtone.getTitle(context)
+                    val uri =
+                        (value as? String?)?.toUri()
+                            ?: default
+                            ?: Settings.System.DEFAULT_RINGTONE_URI
+                    preference.summary = if (uri == default) {
+                        getString(R.string.settings_default)
+                    } else {
+                        RingtoneManager.getRingtone(context, uri).getTitle(context)
+                    }
                 }
                 true
             }
-        val ringtoneKey = R.string.p_rmd_ringtone
-        val ringtonePreference: Preference = findPreference(ringtoneKey)
+        val ringtonePreference = findPreference(pref)
         ringtonePreference.onPreferenceChangeListener = ringtoneChangedListener
-        ringtoneChangedListener.onPreferenceChange(
-            ringtonePreference,
-            preferences.getStringValue(ringtoneKey)
-        )
+        ringtoneChangedListener
+            .onPreferenceChange(ringtonePreference, preferences.getStringValue(pref))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -263,6 +296,16 @@ class Notifications : InjectingPreferenceFragment() {
                     preferences.setString(R.string.p_rmd_ringtone, "")
                 }
                 initializeRingtonePreference()
+            }
+            REQUEST_CODE_COMPLETION_SOUND -> if (resultCode == RESULT_OK && data != null) {
+                val ringtone: Uri? =
+                    data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+                if (ringtone != null) {
+                    preferences.setString(R.string.p_completion_ringtone, ringtone.toString())
+                } else {
+                    preferences.setString(R.string.p_completion_ringtone, "")
+                }
+                initializeCompletionSoundPreference()
             }
             REQUEST_QUIET_START -> if (resultCode == RESULT_OK) {
                 getQuietStartPreference()!!.handleTimePickerActivityIntent(data)

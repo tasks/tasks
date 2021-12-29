@@ -1,11 +1,13 @@
 package org.tasks.extensions
 
 import android.content.ActivityNotFoundException
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.widget.Toast
+import androidx.annotation.AnyRes
 import androidx.browser.customtabs.CustomTabsIntent
 import org.tasks.R
 
@@ -46,4 +48,11 @@ object Context {
 
     fun Context.toast(text: String?, duration: Int = Toast.LENGTH_LONG) =
         text?.let { Toast.makeText(this, it, duration).show() }
+
+    fun Context.getResourceUri(@AnyRes res: Int) =
+        Uri.Builder()
+            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+            .authority(packageName)
+            .path(res.toString())
+            .build()
 }
