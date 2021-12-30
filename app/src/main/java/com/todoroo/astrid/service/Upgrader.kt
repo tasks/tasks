@@ -85,6 +85,9 @@ class Upgrader @Inject constructor(
                     migrateDefaultReminderPreference()
                 }
             }
+            run(from, V11_13) {
+                preferences.setString(R.string.p_completion_ringtone, "")
+            }
             preferences.setBoolean(R.string.p_just_updated, true)
         }
         preferences.setCurrentVersion(to)
@@ -333,6 +336,7 @@ class Upgrader @Inject constructor(
         const val V9_7 = 90700
         const val V9_7_3 = 90704
         const val V10_0_2 = 100012
+        const val V11_13 = 111300
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

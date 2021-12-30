@@ -1,3 +1,19 @@
+### 11.13 (2021-12-31)
+
+* Play a sound when a task is completed
+* Accept audio attachments shared from other apps
+* Removed native EteSync v1 support
+  * EteSync v1 accounts can still be synchronized with the EteSync app
+* Bug fixes
+* Translation updates
+  * Bulgarian - @StoyanDimitrov
+  * Chinese (Traditional) - @dixon777
+  * Finnish - @CSharpest, Rami Lehtinen
+  * Italian - J. Lavoie, @Fs00
+  * Persian - @Ahmadhosseinbor
+  * Spanish - @aplopez
+  * Ukrainian - @IhorHordiichuk
+
 ### 11.12.3 (2021-11-22)
 
 * Fix reminders

@@ -1,0 +1,6 @@
+* Play a sound when a task is completed
+* Accept audio attachments shared from other apps
+* Removed native EteSync v1 support
+  * EteSync v1 accounts can still be synchronized with the EteSync app
+* Bug fixes
+* Translation updates
