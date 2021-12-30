@@ -28,32 +28,25 @@ class TaskCompleter @Inject internal constructor(
 
     suspend fun setComplete(item: Task, completed: Boolean) {
         val completionDate = if (completed) DateUtilities.now() else 0L
-        completeChildren(item.id, completionDate)
-        setComplete(listOf(item), completionDate)
-    }
-
-    suspend fun completeChildren(id: Long, completionDate: Long) {
         googleTaskDao
-                .getChildTasks(id)
-                .plus(taskDao.getChildren(id)
-                        .takeIf { it.isNotEmpty() }
-                        ?.let { taskDao.fetch(it) }
-                        ?: emptyList()
-                )
-                .filter { it.isCompleted != completionDate > 0 }
-                .let { setComplete(it, completionDate)}
+            .getChildTasks(item.id)
+            .plus(taskDao.getChildren(item.id)
+                .takeIf { it.isNotEmpty() }
+                ?.let { taskDao.fetch(it) }
+                ?: emptyList()
+            )
+            .plus(listOf(item))
+            .filter { it.isCompleted != completionDate > 0 }
+            .let { setComplete(it, completionDate) }
     }
 
     private suspend fun setComplete(tasks: List<Task>, completionDate: Long) {
+        taskDao.setCompletionDate(tasks.mapNotNull { it.remoteId }, completionDate)
         tasks.forEachIndexed { i, task ->
-            task.completionDate = completionDate
-            if (i < tasks.size - 1) {
-                task.suppressRefresh()
-            }
-            taskDao.save(task)
+            taskDao.saved(task, i < tasks.size - 1)
         }
         if (
-            tasks.size == 1 &&
+            tasks.isNotEmpty() &&
             completionDate > 0 &&
             notificationManager.currentInterruptionFilter == INTERRUPTION_FILTER_ALL
         ) {

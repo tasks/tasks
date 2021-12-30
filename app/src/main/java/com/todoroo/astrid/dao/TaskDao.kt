@@ -48,7 +48,10 @@ class TaskDao @Inject constructor(
             taskDao.getRecurringTasks(remoteIds)
 
     suspend fun setCompletionDate(remoteId: String, completionDate: Long) =
-            taskDao.setCompletionDate(remoteId, completionDate)
+        setCompletionDate(listOf(remoteId), completionDate)
+
+    suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long) =
+        taskDao.setCompletionDate(remoteIds, completionDate)
 
     suspend fun snooze(taskIds: List<Long>, snoozeTime: Long, updateTime: Long = now()) {
         taskDao.snooze(taskIds, snoozeTime, updateTime)
@@ -93,44 +96,55 @@ class TaskDao @Inject constructor(
      * Saves the given task to the database.getDatabase(). Task must already exist. Returns true on
      * success.
      */
-
     suspend fun save(task: Task) = save(task, fetch(task.id))
+
+    suspend fun saved(original: Task, suppressRefresh: Boolean) =
+        fetch(original.id)?.let {
+            afterUpdate(
+                it.apply { if (suppressRefresh) suppressRefresh() },
+                original
+            )
+        }
 
     suspend fun save(task: Task, original: Task?) {
         if (taskDao.update(task, original)) {
-            val completionDateModified = task.completionDate != original?.completionDate ?: 0
-            val deletionDateModified = task.deletionDate != original?.deletionDate ?: 0
-            val justCompleted = completionDateModified && task.isCompleted
-            val justDeleted = deletionDateModified && task.isDeleted
-            if (justCompleted && task.isRecurring) {
-                workManager.scheduleRepeat(task)
-            } else if (!task.calendarURI.isNullOrBlank()) {
-                workManager.updateCalendar(task)
-            }
-            coroutineScope {
-                launch(Dispatchers.Default) {
-                    if (justCompleted || justDeleted) {
-                        notificationManager.cancel(task.id)
-                        if (task.timerStart > 0) {
-                            timerPlugin.stopTimer(task)
-                        }
+            afterUpdate(task, original)
+        }
+    }
+
+    private suspend fun afterUpdate(task: Task, original: Task?) {
+        val completionDateModified = task.completionDate != original?.completionDate ?: 0
+        val deletionDateModified = task.deletionDate != original?.deletionDate ?: 0
+        val justCompleted = completionDateModified && task.isCompleted
+        val justDeleted = deletionDateModified && task.isDeleted
+        if (justCompleted && task.isRecurring) {
+            workManager.scheduleRepeat(task)
+        } else if (!task.calendarURI.isNullOrBlank()) {
+            workManager.updateCalendar(task)
+        }
+        coroutineScope {
+            launch(Dispatchers.Default) {
+                if (justCompleted || justDeleted) {
+                    notificationManager.cancel(task.id)
+                    if (task.timerStart > 0) {
+                        timerPlugin.stopTimer(task)
                     }
-                    if (task.reminderSnooze.isAfterNow()) {
-                        notificationManager.cancel(task.id)
-                    }
-                    if (task.dueDate != original?.dueDate && task.dueDate.isAfterNow()) {
-                        notificationManager.cancel(task.id)
-                    }
-                    if (completionDateModified || deletionDateModified) {
-                        geofenceApi.update(task.id)
-                    }
-                    reminderService.scheduleAlarm(task)
-                    refreshScheduler.scheduleRefresh(task)
-                    if (!task.checkTransitory(Task.TRANS_SUPPRESS_REFRESH)) {
-                        localBroadcastManager.broadcastRefresh()
-                    }
-                    syncAdapters.sync(task, original)
                 }
+                if (task.reminderSnooze.isAfterNow()) {
+                    notificationManager.cancel(task.id)
+                }
+                if (task.dueDate != original?.dueDate && task.dueDate.isAfterNow()) {
+                    notificationManager.cancel(task.id)
+                }
+                if (completionDateModified || deletionDateModified) {
+                    geofenceApi.update(task.id)
+                }
+                reminderService.scheduleAlarm(task)
+                refreshScheduler.scheduleRefresh(task)
+                if (!task.checkTransitory(Task.TRANS_SUPPRESS_REFRESH)) {
+                    localBroadcastManager.broadcastRefresh()
+                }
+                syncAdapters.sync(task, original)
             }
         }
     }

@@ -73,7 +73,7 @@ class RepeatTaskHelper @Inject constructor(
                         .takeIf { it > 0 }
                         ?: newDueDate - (computeNextDueDate(task, recurrence, repeatAfterCompletion) - newDueDate)
         alarmService.rescheduleAlarms(task.id, previousDueDate, newDueDate)
-        taskCompleter.completeChildren(task.id, 0L)
+        taskCompleter.setComplete(task, false)
         localBroadcastManager.broadcastRepeat(task.id, previousDueDate, newDueDate)
     }
 

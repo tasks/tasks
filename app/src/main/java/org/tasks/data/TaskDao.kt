@@ -1,7 +1,12 @@
 package org.tasks.data
 
 import androidx.paging.DataSource
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.room.Update
+import androidx.room.withTransaction
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field
@@ -50,8 +55,8 @@ abstract class TaskDao(private val database: Database) {
             + "AND recurrence IS NOT NULL AND LENGTH(recurrence) > 0")
     abstract suspend fun getRecurringTasks(remoteIds: List<String>): List<Task>
 
-    @Query("UPDATE tasks SET completed = :completionDate " + "WHERE remoteId = :remoteId")
-    abstract suspend fun setCompletionDate(remoteId: String, completionDate: Long)
+    @Query("UPDATE tasks SET completed = :completionDate, modified = :updateTime WHERE remoteId IN (:remoteIds)")
+    abstract suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = now())
 
     @Query("UPDATE tasks SET snoozeTime = :snoozeTime, modified = :updateTime WHERE _id in (:taskIds)")
     internal abstract suspend fun snooze(taskIds: List<Long>, snoozeTime: Long, updateTime: Long = now())
