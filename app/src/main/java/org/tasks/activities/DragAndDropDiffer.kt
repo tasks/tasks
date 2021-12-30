@@ -3,23 +3,30 @@ package org.tasks.activities
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.todoroo.andlib.utility.AndroidUtilities
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.scan
 import java.util.*
-import java.util.concurrent.Executors
 
 interface DragAndDropDiffer<T, R> : ListUpdateCallback {
-    val flow: MutableSharedFlow<R>
+    val channel: Channel<List<T>>
     val updates: Queue<Pair<R, DiffUtil.DiffResult?>>
     var items: R
     var dragging: Boolean
     val scope: CoroutineScope
 
     fun submitList(list: List<T>) {
-        scope.launch {
-            val transform = transform(list)
-            flow.emit(transform)
-        }
+        channel.trySend(list)
     }
 
     fun calculateDiff(last: Pair<R, DiffUtil.DiffResult?>, next: R): Pair<R, DiffUtil.DiffResult?> {
@@ -48,18 +55,16 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
     @ExperimentalCoroutinesApi
     fun initializeDiffer(list: List<T>): R {
         val initial = transform(list)
-        flow
+        channel
+            .consumeAsFlow()
+            .map { transform(it) }
             .scan(Pair(initial, null), { last: Pair<R, DiffUtil.DiffResult?>, next: R ->
                 calculateDiff(last, next)
             })
             .drop(1)
-            .flowOn(Executors.newSingleThreadExecutor().asCoroutineDispatcher())
-            .onEach {
-                withContext(Dispatchers.Main) {
-                    applyDiff(it)
-                }
-            }
-            .launchIn(scope)
+            .flowOn(Dispatchers.Default)
+            .onEach { applyDiff(it) }
+            .launchIn(CoroutineScope(Dispatchers.Main + Job()))
         return initial
     }
 

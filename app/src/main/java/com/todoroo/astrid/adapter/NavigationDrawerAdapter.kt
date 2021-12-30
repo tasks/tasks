@@ -17,7 +17,7 @@ import com.todoroo.astrid.api.FilterListItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.channels.Channel
 import org.tasks.LocalBroadcastManager
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.billing.Inventory
@@ -45,7 +45,7 @@ class NavigationDrawerAdapter @Inject constructor(
 
     private lateinit var onClick: (FilterListItem?) -> Unit
     private var selected: Filter? = null
-    override val flow = MutableSharedFlow<MutableList<FilterListItem>>()
+    override val channel = Channel<List<FilterListItem>>(Channel.UNLIMITED)
     override val updates: Queue<Pair<MutableList<FilterListItem>, DiffUtil.DiffResult?>> = LinkedList()
     override val scope: CoroutineScope =
         CoroutineScope(Executors.newSingleThreadExecutor().asCoroutineDispatcher() + Job())

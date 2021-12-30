@@ -13,7 +13,7 @@ import com.todoroo.astrid.utility.Flags
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.runBlocking
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.data.TaskContainer
@@ -39,7 +39,7 @@ class DragAndDropRecyclerAdapter(
     private val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback()).apply {
         attachToRecyclerView(recyclerView)
     }
-    override val flow = MutableSharedFlow<SectionedDataSource>()
+    override val channel = Channel<List<TaskContainer>>(Channel.UNLIMITED)
     override val updates: Queue<Pair<SectionedDataSource, DiffUtil.DiffResult?>> = LinkedList()
     override var dragging = false
     override val scope: CoroutineScope =
