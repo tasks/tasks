@@ -103,8 +103,10 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
         return result
     }
 
-    private fun hasAttachments(intent: Intent): Boolean {
-        val type = intent.type
-        return type != null && (type.startsWith("image/") || type.startsWith("application/"))
+    private fun hasAttachments(intent: Intent) =
+        intent.type?.let { type -> ATTACHMENT_TYPES.any { type.startsWith(it) } } ?: false
+
+    companion object {
+        private val ATTACHMENT_TYPES = listOf("image/", "application/", "audio/")
     }
 }
