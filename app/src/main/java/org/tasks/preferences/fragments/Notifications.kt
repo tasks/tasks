@@ -274,7 +274,7 @@ class Notifications : InjectingPreferenceFragment() {
                     preference.summary = if (uri == default) {
                         getString(R.string.settings_default)
                     } else {
-                        RingtoneManager.getRingtone(context, uri).getTitle(context)
+                        RingtoneManager.getRingtone(context, uri)?.getTitle(context)
                     }
                 }
                 true
