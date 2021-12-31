@@ -51,7 +51,6 @@
   <string name="p_google_drive_backup">p_google_drive_backup</string>
   <string name="p_google_drive_backup_account">p_google_drive_backup_account</string>
   <string name="p_google_drive_backup_folder">p_google_drive_backup_folder</string>
-  <string name="p_rmd_enabled">notif_enabled</string>
   <!-- boolean : whether to enable quiet hours or not -->
   <string name="p_rmd_enable_quiet">enable_qhours</string>
 

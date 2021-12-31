@@ -173,9 +173,6 @@ class NotificationManager @Inject constructor(
             alert: Boolean,
             nonstop: Boolean,
             fiveTimes: Boolean) {
-        if (!preferences.getBoolean(R.string.p_rmd_enabled, true)) {
-            return
-        }
         builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true))
         if (AndroidUtilities.preOreo()) {
             if (alert) {

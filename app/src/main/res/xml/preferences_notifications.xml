@@ -19,15 +19,8 @@
 
   </Preference>
 
-  <SwitchPreferenceCompat
-    android:defaultValue="true"
-    android:key="@string/p_rmd_enabled"
-    android:title="@string/enabled"
-    app:allowDividerAbove="true" />
-
   <org.tasks.ui.TimePreference
     android:defaultValue="@integer/default_remind_time"
-    android:dependency="@string/p_rmd_enabled"
     android:key="@string/p_rmd_time"
     android:title="@string/rmd_EPr_rmd_time_title"
     app:allowDividerAbove="true"
@@ -35,28 +28,24 @@
 
   <SwitchPreferenceCompat
     android:defaultValue="true"
-    android:dependency="@string/p_rmd_enabled"
     android:key="@string/p_rmd_persistent"
     android:summary="@string/persistent_notifications_description"
     android:title="@string/persistent_notifications" />
 
   <SwitchPreferenceCompat
     android:defaultValue="true"
-    android:dependency="@string/p_rmd_enabled"
     android:key="@string/p_wearable_notifications"
     android:summary="@string/wearable_notifications_summary"
     android:title="@string/wearable_notifications" />
 
   <SwitchPreferenceCompat
     android:defaultValue="@bool/default_bundle_notifications"
-    android:dependency="@string/p_rmd_enabled"
     android:key="@string/p_bundle_notifications"
     android:summary="@string/bundle_notifications_summary"
     android:title="@string/bundle_notifications" />
 
   <Preference
     android:defaultValue="content://settings/system/notification_sound"
-    android:dependency="@string/p_rmd_enabled"
     android:key="@string/p_rmd_ringtone"
     android:title="@string/sound" />
 
@@ -67,26 +56,22 @@
 
   <SwitchPreferenceCompat
     android:defaultValue="true"
-    android:dependency="@string/p_rmd_enabled"
     android:key="@string/p_rmd_vibrate"
     android:title="@string/vibrations" />
 
   <SwitchPreferenceCompat
     android:defaultValue="true"
-    android:dependency="@string/p_rmd_enabled"
     android:key="@string/p_led_notification"
     android:summary="@string/hardware_support_required"
     android:title="@string/led_notification" />
 
   <SwitchPreferenceCompat
     android:defaultValue="false"
-    android:dependency="@string/p_rmd_enabled"
     android:key="@string/p_voiceRemindersEnabled"
     android:summary="@string/EPr_voiceRemindersEnabled_desc_enabled"
     android:title="@string/EPr_voiceRemindersEnabled_title" />
 
   <Preference
-    android:dependency="@string/p_rmd_enabled"
     android:title="@string/more_settings"
     android:key="@string/more_settings"
     android:summary="@string/more_notification_settings_summary"
@@ -120,7 +105,6 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="false"
-      android:dependency="@string/p_rmd_enabled"
       android:key="@string/p_rmd_enable_quiet"
       android:summary="@string/quiet_hours_summary"
       android:title="@string/enabled" />
