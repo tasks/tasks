@@ -38,6 +38,7 @@
   <string name="url_backups">https://tasks.org/backups</string>
   <string name="url_translations">https://tasks.org/translations</string>
   <string name="url_notifications">https://tasks.org/notifications</string>
+  <string name="url_troubleshoot_intents">https://tasks.org/intents</string>
 
   <string name="p_date_shortcut_morning">date_shortcut_morning</string>
   <string name="p_date_shortcut_afternoon">date_shortcut_afternoon</string>

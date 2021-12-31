@@ -130,8 +130,6 @@
     <string name="gtasks_error_accountNotFound">Účet %s sa nenašiel—prosím, odhlás sa a znovu prihlás v nastaveniach Úlohy Google.</string>
     <string name="premium_record_audio">Nahrať poznámku</string>
     <string name="premium_remove_file_confirm">Naozaj? Nedá sa vrátiť</string>
-    <string name="audio_recording_title">Nahrávanie zvuku</string>
-    <string name="audio_stop_recording">Zastaviť nahrávanie</string>
     <string name="ring_once">Zvoniť raz</string>
     <string name="ring_five_times">Zvoniť päť krát</string>
     <string name="ring_nonstop">Zvoniť neustále</string>

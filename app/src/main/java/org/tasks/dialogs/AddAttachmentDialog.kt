@@ -27,16 +27,16 @@ class AddAttachmentDialog : DialogFragment() {
         val actions: MutableList<Runnable> = ArrayList()
         if (device.hasCamera()) {
             entries.add(getString(R.string.take_a_picture))
-            actions.add(Runnable { takePicture() })
+            actions.add { takePicture() }
         }
         if (device.hasMicrophone()) {
             entries.add(getString(R.string.premium_record_audio))
-            actions.add(Runnable { recordNote() })
+            actions.add { recordNote() }
         }
         entries.add(getString(R.string.pick_from_gallery))
-        actions.add(Runnable { pickFromGallery() })
+        actions.add { pickFromGallery() }
         entries.add(getString(R.string.pick_from_storage))
-        actions.add(Runnable { pickFromStorage() })
+        actions.add { pickFromStorage() }
         return dialogBuilder
                 .newDialog()
                 .setItems(entries) { _, which -> actions[which].run() }
@@ -51,8 +51,10 @@ class AddAttachmentDialog : DialogFragment() {
     }
 
     private fun recordNote() {
-        RecordAudioDialog.newRecordAudioDialog(targetFragment, REQUEST_AUDIO)
-                .show(parentFragmentManager, FRAG_TAG_RECORD_AUDIO)
+        targetFragment?.safeStartActivityForResult(
+            Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION),
+            REQUEST_AUDIO
+        )
     }
 
     private fun pickFromGallery() {
@@ -76,7 +78,6 @@ class AddAttachmentDialog : DialogFragment() {
         const val REQUEST_GALLERY = 12121
         const val REQUEST_STORAGE = 12122
         const val REQUEST_AUDIO = 12123
-        private const val FRAG_TAG_RECORD_AUDIO = "frag_tag_record_audio"
 
         fun newAddAttachmentDialog(target: FilesControlSet?): AddAttachmentDialog =
                 AddAttachmentDialog().apply {

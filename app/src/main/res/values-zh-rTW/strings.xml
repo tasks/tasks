@@ -97,8 +97,6 @@
     <string name="gtasks_error_accountNotFound">找不到帳戶%s——請退出，然後從Google 工作表設置中重新登錄。</string>
     <string name="premium_record_audio">錄製一條便箋</string>
     <string name="premium_remove_file_confirm">您確定嗎？無法恢復的喔</string>
-    <string name="audio_recording_title">正在錄製音頻</string>
-    <string name="audio_stop_recording">停止錄製</string>
     <string name="ring_once">響鈴一次</string>
     <string name="ring_five_times">響鈴五次</string>
     <string name="ring_nonstop">不斷響鈴</string>

@@ -91,8 +91,6 @@
     <string name="gtasks_error_accountNotFound">Akun %s tidak ditemukan—silakan keluar dan masuk kembali dari pengaturan Google Tasks.</string>
     <string name="premium_record_audio">Rekam catatan</string>
     <string name="premium_remove_file_confirm">Apakah anda yakin\? Ini tidak dapat dibatalkan</string>
-    <string name="audio_recording_title">Merekam Audio</string>
-    <string name="audio_stop_recording">Hentikan Merekam</string>
     <string name="ring_once">Dering sekali</string>
     <string name="ring_five_times">Dering lima kali</string>
     <string name="ring_nonstop">Dering nonstop</string>

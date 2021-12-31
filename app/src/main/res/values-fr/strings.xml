@@ -121,8 +121,6 @@
     <string name="gtasks_error_accountNotFound">Le compte %s est introuvable – veuillez vous déconnecter puis vous reconnecter depuis les préférences Google Tasks.</string>
     <string name="premium_record_audio">Enregistrer un commentaire</string>
     <string name="premium_remove_file_confirm">Êtes-vous sûr(e) \? Cette opération est irréversible</string>
-    <string name="audio_recording_title">Enregistrement audio</string>
-    <string name="audio_stop_recording">Arrêter l\'enregistrement</string>
     <string name="ring_once">Sonner une fois</string>
     <string name="ring_five_times">Sonner cinq fois</string>
     <string name="ring_nonstop">Sonner en continu</string>

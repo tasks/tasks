@@ -56,14 +56,6 @@
   <!-- ******************************************* -->
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
-  <!-- ********************* -->
-  <!-- recording voice notes -->
-  <!-- ********************* -->
-  <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-  <uses-feature
-    android:name="android.hardware.microphone"
-    android:required="false"/>
-
   <!-- *********************************** -->
   <!-- keep device awake for notifications -->
   <!-- *********************************** -->

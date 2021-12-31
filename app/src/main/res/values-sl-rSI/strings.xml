@@ -101,8 +101,6 @@
     <string name="gtasks_error_accountNotFound">Račun %s ni najden—prosimo odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
     <string name="premium_record_audio">Posnemi opombo</string>
     <string name="premium_remove_file_confirm">Ste prepričani? Tega ni mogoče razveljaviti</string>
-    <string name="audio_recording_title">Snemam zvok</string>
-    <string name="audio_stop_recording">Prekini snemanje</string>
     <string name="random_reminder_hour">na uro</string>
     <string name="random_reminder_day">dan</string>
     <string name="random_reminder_week">na teden</string>

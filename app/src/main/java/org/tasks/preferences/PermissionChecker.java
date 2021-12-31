@@ -6,8 +6,10 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastQ;
 import android.Manifest.permission;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import dagger.hilt.android.qualifiers.ApplicationContext;
+
 import javax.inject.Inject;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import timber.log.Timber;
 
 public class PermissionChecker {
@@ -35,10 +37,6 @@ public class PermissionChecker {
     return atLeastQ()
         ? canAccessForegroundLocation() && checkPermissions(permission.ACCESS_BACKGROUND_LOCATION)
         : canAccessForegroundLocation();
-  }
-
-  public boolean canAccessMic() {
-    return checkPermissions(permission.RECORD_AUDIO);
   }
 
   private boolean checkPermissions(String... permissions) {

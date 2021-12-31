@@ -124,8 +124,6 @@
     <string name="gtasks_error_accountNotFound">Nie znaleziono konta %s —proszę wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
     <string name="premium_record_audio">Nagraj notatkę</string>
     <string name="premium_remove_file_confirm">Jesteś pewny\? Tych zmian nie można cofnąć</string>
-    <string name="audio_recording_title">Nagrywanie dźwięku</string>
-    <string name="audio_stop_recording">Zakończ nagrywanie</string>
     <string name="ring_once">Dzwoń raz</string>
     <string name="ring_five_times">Dzwoń pięć razy</string>
     <string name="ring_nonstop">Dzwoń nonstop</string>

@@ -127,8 +127,6 @@
     <string name="gtasks_error_accountNotFound">%s fiók nem található — kérlek, jelentkezz ki, és vissza a Google Tasks beállításokban.</string>
     <string name="premium_record_audio">Jegyzet rögzítése</string>
     <string name="premium_remove_file_confirm">Biztos benne? A művelet nem visszavonható</string>
-    <string name="audio_recording_title">Hang rögzítése</string>
-    <string name="audio_stop_recording">Hangrögzítés leállítása</string>
     <string name="ring_once">Egy csengés</string>
     <string name="ring_five_times">Öt csengés</string>
     <string name="ring_nonstop">Folyamatos csengés</string>

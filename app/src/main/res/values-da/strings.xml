@@ -498,9 +498,7 @@
     <string name="ring_nonstop">Ring uafbrudt</string>
     <string name="ring_five_times">Ring fem gange</string>
     <string name="ring_once">Ring én gang</string>
-    <string name="audio_stop_recording">Stop optagelse</string>
     <string name="premium_record_audio">Optag en note</string>
-    <string name="audio_recording_title">Optager lyd</string>
     <string name="premium_remove_file_confirm">Er du sikker\? Det kan ikke fortrydes</string>
     <string name="gtasks_GLA_errorIOAuth">Beklager, noget gik galt i kommunikationen med Googles servere. Prøv igen senere.</string>
     <string name="gtasks_GLA_authenticating">Godkender…</string>

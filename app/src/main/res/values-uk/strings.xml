@@ -129,8 +129,6 @@
     <string name="gtasks_error_accountNotFound">Обліковий запис %s не знайдено — будь ласка, вийдіть і увійдіть знову через налаштування Google Tasks.</string>
     <string name="premium_record_audio">Записати голосову замітку</string>
     <string name="premium_remove_file_confirm">Ви впевнені\? Це не можна буде скасувати</string>
-    <string name="audio_recording_title">Запис звуку</string>
-    <string name="audio_stop_recording">Зупинити запис</string>
     <string name="ring_once">Звучати один раз</string>
     <string name="ring_five_times">Звучати п’ять разів</string>
     <string name="ring_nonstop">Звучати безперервно</string>

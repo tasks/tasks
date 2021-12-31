@@ -173,8 +173,6 @@
     <string name="ring_nonstop">بغیر رکے رنگ بجنا</string>
     <string name="ring_five_times">پانچ بار رنگ بجنا</string>
     <string name="ring_once">ایک بار رنگ بجنا</string>
-    <string name="audio_stop_recording">ریکارڈنگ روکیں</string>
-    <string name="audio_recording_title">آڈیو ریکارڈ ہو رہی</string>
     <string name="premium_remove_file_confirm">کیا آپ تیار ہیں؟ یہ واپس نہیں ہو گا</string>
     <string name="premium_record_audio">ایک نوٹ ریکارڈ کریں</string>
     <string name="repeat_weekly">ہفتہ وار دہرانا</string>

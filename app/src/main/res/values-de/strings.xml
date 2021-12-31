@@ -128,8 +128,6 @@
     <string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte abmelden und erneut über die Einstellungen von Google Tasks anmelden.</string>
     <string name="premium_record_audio">Notiz aufzeichnen</string>
     <string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
-    <string name="audio_recording_title">Audio aufnehmen</string>
-    <string name="audio_stop_recording">Aufnahme stoppen</string>
     <string name="ring_once">Einmal klingeln</string>
     <string name="ring_five_times">Fünfmal klingeln</string>
     <string name="ring_nonstop">Ununterbrochen klingeln</string>

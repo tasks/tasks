@@ -70,8 +70,6 @@
     <string name="gtasks_GPr_header">مهام قوقل</string>
     <string name="premium_record_audio">تسجيل ملاحظة</string>
     <string name="premium_remove_file_confirm">هل أنت متأكد؟ لا يمكن التراجع</string>
-    <string name="audio_recording_title">تسجيل صوت</string>
-    <string name="audio_stop_recording">توقف عن التسجيل</string>
     <string name="random_reminder_hour">ساعة</string>
     <string name="random_reminder_day">يوم</string>
     <string name="random_reminder_week">أسبوع</string>

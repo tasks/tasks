@@ -349,8 +349,6 @@
     <string name="snooze_all">Paŭzigi ĉiujn</string>
     <string name="rmd_NoA_snooze">Paŭzigi</string>
     <string name="rmd_NoA_done">Finite</string>
-    <string name="audio_stop_recording">Halti registradon</string>
-    <string name="audio_recording_title">Sonregistrado</string>
     <string name="premium_record_audio">Registri noton</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_GLA_authenticating">Aŭtentigado…</string>

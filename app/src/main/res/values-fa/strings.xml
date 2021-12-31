@@ -87,8 +87,6 @@
     <string name="gtasks_GPr_header">وظایف گوگل</string>
     <string name="premium_record_audio">ذخیره یادداشت</string>
     <string name="premium_remove_file_confirm">آیا مطمن هستید؟ قادر به برگرداندن نخواهید بود</string>
-    <string name="audio_recording_title">ضبط صدا</string>
-    <string name="audio_stop_recording">توقف ضبط</string>
     <string name="ring_once">یک بار زنگ بزن</string>
     <string name="ring_five_times">پنج بار زنگ بزن</string>
     <string name="ring_nonstop">بدون توقف زنگ بزن</string>

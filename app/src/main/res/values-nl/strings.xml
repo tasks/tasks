@@ -124,8 +124,6 @@
     <string name="gtasks_error_accountNotFound">Account %s niet gevonden—probeer opnieuw in te loggen vanuit de instellingen van Google Taken.</string>
     <string name="premium_record_audio">Een notitie opnemen</string>
     <string name="premium_remove_file_confirm">Weet je het zeker? Dit kan niet ongedaan gemaakt worden</string>
-    <string name="audio_recording_title">Bezig met opname</string>
-    <string name="audio_stop_recording">Opname stoppen</string>
     <string name="ring_once">Ring eenmalig</string>
     <string name="ring_five_times">Ring vijf keer</string>
     <string name="ring_nonstop">Ring continue</string>

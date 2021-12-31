@@ -130,8 +130,6 @@
     <string name="gtasks_error_accountNotFound">%s hesabı bulunamadı—lütfen çıkış yapıp Google Görevler ayarlarından yeniden oturum açın.</string>
     <string name="premium_record_audio">Bir not kaydet</string>
     <string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>
-    <string name="audio_recording_title">Ses Kaydediliyor</string>
-    <string name="audio_stop_recording">Kaydı Durdur</string>
     <string name="ring_once">Bir kez çal</string>
     <string name="ring_five_times">Beş kez çal</string>
     <string name="ring_nonstop">Durmadan çal</string>

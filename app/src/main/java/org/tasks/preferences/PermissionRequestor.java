@@ -8,7 +8,6 @@ import android.Manifest.permission;
 public abstract class PermissionRequestor {
 
   public static final int REQUEST_CALENDAR = 51;
-  public static final int REQUEST_MIC = 52;
   public static final int REQUEST_GOOGLE_ACCOUNTS = 53;
   public static final int REQUEST_BACKGROUND_LOCATION = 54;
   public static final int REQUEST_FOREGROUND_LOCATION = 55;
@@ -17,12 +16,6 @@ public abstract class PermissionRequestor {
 
   PermissionRequestor(PermissionChecker permissionChecker) {
     this.permissionChecker = permissionChecker;
-  }
-
-  public void requestMic() {
-    if (!permissionChecker.canAccessMic()) {
-      requestPermissions(REQUEST_MIC, permission.RECORD_AUDIO);
-    }
   }
 
   public boolean requestCalendarPermissions() {

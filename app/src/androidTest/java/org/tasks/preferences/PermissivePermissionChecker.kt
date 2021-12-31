@@ -11,6 +11,4 @@ class PermissivePermissionChecker(@ApplicationContext context: Context) : Permis
     override fun canAccessForegroundLocation() = true
 
     override fun canAccessBackgroundLocation() = true
-
-    override fun canAccessMic() = true
 }
