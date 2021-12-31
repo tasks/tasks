@@ -712,4 +712,5 @@
     <string name="next_sunday">Neste sol</string>
     <string name="now">Nå</string>
     <string name="when_started">Når startet</string>
+    <string name="completion_sound">Spill fullførelseslyd</string>
 </resources>
