@@ -707,4 +707,5 @@
     <string name="chat_libera">Rejoignez #tasks sur Libera Chat</string>
     <string name="now">Maintenant</string>
     <string name="when_started">Au démarrage</string>
+    <string name="completion_sound">Jouer le son d\'achèvement</string>
 </resources>
