@@ -26,6 +26,11 @@
     app:allowDividerAbove="true"
     app:time_summary="@string/rmd_EPr_rmd_time_desc" />
 
+  <Preference
+      android:defaultValue="content://settings/system/notification_sound"
+      android:key="@string/p_completion_ringtone"
+      android:title="@string/completion_sound" />
+
   <SwitchPreferenceCompat
     android:defaultValue="true"
     android:key="@string/p_rmd_persistent"
@@ -48,11 +53,6 @@
     android:defaultValue="content://settings/system/notification_sound"
     android:key="@string/p_rmd_ringtone"
     android:title="@string/sound" />
-
-  <Preference
-      android:defaultValue="content://settings/system/notification_sound"
-      android:key="@string/p_completion_ringtone"
-      android:title="@string/completion_sound" />
 
   <SwitchPreferenceCompat
     android:defaultValue="true"
