@@ -705,4 +705,5 @@
     <string name="chat_libera">Bezoek #tasks op Libera Chat</string>
     <string name="now">Nu</string>
     <string name="when_started">Op de starttijd</string>
+    <string name="completion_sound">Spreek geluid bij voltooien</string>
 </resources>
