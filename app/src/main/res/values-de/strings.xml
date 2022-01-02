@@ -710,4 +710,5 @@
     <string name="chat_libera">Nehmen Sie an #tasks auf Libera Chat teil</string>
     <string name="now">Jetzt</string>
     <string name="when_started">Wenn begonnen</string>
+    <string name="completion_sound">Abschlusston abspielen</string>
 </resources>
