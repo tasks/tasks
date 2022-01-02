@@ -681,7 +681,7 @@
     <string name="tasks_org_account_required">È richiesto un account Tasks.org</string>
     <string name="privacy">Privacy</string>
     <string name="open_source">Open source</string>
-    <string name="issue_tracker">Issue tracker</string>
+    <string name="issue_tracker">Gestione problemi</string>
     <string name="social">Social</string>
     <string name="follow_twitter">Segui @tasks_org</string>
     <string name="tasks_needs_your_support">Tasks ha bisogno del tuo supporto!</string>
@@ -710,4 +710,5 @@
     <string name="chat_libera">Partecipa a #tasks su Libera Chat</string>
     <string name="now">Ora</string>
     <string name="when_started">Alla data di inizio</string>
+    <string name="completion_sound">Suono di completamento</string>
 </resources>
