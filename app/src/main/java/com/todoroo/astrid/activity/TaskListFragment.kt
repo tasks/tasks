@@ -19,6 +19,7 @@ import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -688,14 +689,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     private fun send(tasks: List<TaskContainer>) {
-        val intent = Intent(Intent.ACTION_SEND)
         val output = tasks.joinToString("\n") { t -> Task
             "${(if (t.isCompleted) "☑" else "☐").padStart(1 + t.getIndent() * 3, ' ')} ${t.title}"
         }
-        intent.putExtra(Intent.EXTRA_SUBJECT, filter.listingTitle)
-        intent.putExtra(Intent.EXTRA_TEXT, output)
-        intent.type = "text/plain"
-        startActivity(Intent.createChooser(intent, null))
+        val intent = ShareCompat
+            .IntentBuilder(requireContext())
+            .setType("text/plain")
+            .setSubject(filter.listingTitle)
+            .setText(output)
+            .createChooserIntent()
+        startActivity(intent)
         finishActionMode()
     }
 
