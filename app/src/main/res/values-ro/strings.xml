@@ -727,4 +727,5 @@
     <string name="always_display_full_date">Afișează data completă</string>
     <string name="now">Acum</string>
     <string name="when_started">Când a început</string>
+    <string name="completion_sound">Redă sunetul de completare</string>
 </resources>
