@@ -172,4 +172,5 @@
     <string name="no_reminders">Sense recordatoris</string>
     <string name="default_location_reminder_on_departure">A la sortida</string>
     <string name="default_location_reminder_on_arrival_or_departure">A l’arribada i sortida</string>
+    <string name="CFC_gtasks_list_name">A la llista GTasks…</string>
 </resources>
