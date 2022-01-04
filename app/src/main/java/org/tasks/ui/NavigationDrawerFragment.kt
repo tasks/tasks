@@ -58,9 +58,11 @@ class NavigationDrawerFragment : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         dialog.setOnShowListener {
+            val bottomSheet = dialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
+            val behavior = BottomSheetBehavior.from(bottomSheet!!)
+            behavior.skipCollapsed = true
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                val bottomSheet = dialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
-                BottomSheetBehavior.from(bottomSheet!!).state = BottomSheetBehavior.STATE_HALF_EXPANDED
+                behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
             }
         }
         return dialog
