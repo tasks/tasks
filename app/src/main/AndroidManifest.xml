@@ -87,6 +87,8 @@
   <permission-group android:name="org.dmfs.tasks.permissiongroup.Tasks" tools:node="remove"/>
   <permission android:name="org.dmfs.permission.READ_TASKS" tools:node="remove"/>
   <permission android:name="org.dmfs.permission.WRITE_TASKS" tools:node="remove"/>
+  <uses-permission android:name="${applicationId}.permission.READ_TASKS" tools:node="remove"/>
+  <uses-permission android:name="${applicationId}.permission.WRITE_TASKS" tools:node="remove"/>
 
   <!-- ============================================== Exported Permissions = -->
 
