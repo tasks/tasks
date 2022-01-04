@@ -35,6 +35,8 @@
     <item name="toolbarNavigationButtonStyle">@style/BlackNavigation</item>
     <item name="iconTint">@color/text_primary</item>
     <item name="android:actionOverflowButtonStyle">@style/BlackOverflow</item>
+    <item name="android:editTextColor">@color/text_primary</item>
+    <item name="android:textColorHint">@color/text_secondary</item>
   </style>
 
   <style name="WhiteToolbarTheme">

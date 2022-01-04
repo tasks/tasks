@@ -11,6 +11,8 @@
     <item name="toolbarNavigationButtonStyle">@style/WhiteNavigation</item>
     <item name="iconTint">@color/text_primary</item>
     <item name="android:actionOverflowButtonStyle">@style/WhiteOverflow</item>
+    <item name="android:editTextColor">@color/text_primary</item>
+    <item name="android:textColorHint">@color/text_secondary</item>
   </style>
 
 </resources>
