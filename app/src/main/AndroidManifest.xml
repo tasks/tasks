@@ -42,15 +42,6 @@
   <!-- ****************** -->
   <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
 
-  <!-- **************************************** -->
-  <!-- this permission is no longer used, but   -->
-  <!-- remains for legacy compatibility reasons -->
-  <!-- **************************************** -->
-  <uses-permission
-    android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-    android:maxSdkVersion="28"
-    tools:ignore="ScopedStorage" />
-
   <!-- ******************************************* -->
   <!-- scheduling reminders after rebooting device -->
   <!-- ******************************************* -->

@@ -3,6 +3,7 @@
 * New bottom app bar
 * Improve privacy and security by removing RECORD_AUDIO permission
   * Attaching an audio note will launch your device's audio recorder
+* Remove WRITE_EXTERNAL_STORAGE permission
 * Translation updates
   * Dutch - @mm4c
   * German - @qwerty287
