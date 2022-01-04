@@ -527,10 +527,8 @@
     <string name="CFC_startBefore_text">Начало от: \?</string>
     <string name="default_due_date">Крайна дата по подразбиране</string>
     <string name="default_start_date">Начална дата по подразбиране</string>
-    <string name="cancel">\@android:string/cancel</string>
     <string name="default_tags">Етикети по подразбиране</string>
     <string name="default_recurrence">Повторение по подразбиране</string>
-    <string name="ok">\@android:string/ok</string>
     <string name="display_name">Показвано име</string>
     <string name="share">Споделяне</string>
     <string name="settings_default">По подразбиране</string>
