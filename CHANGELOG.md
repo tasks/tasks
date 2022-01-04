@@ -1,3 +1,16 @@
+### 12.0 (2022-01-04)
+
+* New bottom app bar
+* Improve privacy and security by removing RECORD_AUDIO permission
+  * Attaching an audio note will launch your device's audio recorder
+* Translation updates
+  * Dutch - @mm4c
+  * German - @qwerty287
+  * Italian - @ppasserini
+  * Portuguese - @SantosSi
+  * Romanian - @simonaiacob
+  * Ukrainian - @IhorHordiichuk
+
 ### 11.13 (2021-12-31)
 
 * Add option to play a sound when a task is completed
