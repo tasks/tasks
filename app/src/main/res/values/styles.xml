@@ -31,18 +31,28 @@
     <item name="android:textSize">@dimen/task_edit_text_size</item>
   </style>
 
+  <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Light">
+    <item name="toolbarNavigationButtonStyle">@style/BlackNavigation</item>
+    <item name="iconTint">@color/text_primary</item>
+    <item name="android:actionOverflowButtonStyle">@style/BlackOverflow</item>
+  </style>
+
   <style name="WhiteToolbarTheme">
     <item name="overlay_theme">@style/WhiteToolbarOverlay</item>
+    <item name="iconTint">@color/white_100</item>
     <item name="colorOnPrimary">@color/white_100</item>
     <item name="colorOnPrimaryHint">@color/white_60</item>
     <item name="android:actionOverflowButtonStyle">@style/WhiteOverflow</item>
+    <item name="toolbarNavigationButtonStyle">@style/WhiteNavigation</item>
   </style>
 
   <style name="BlackToolbarTheme">
     <item name="overlay_theme">@style/BlackToolbarOverlay</item>
+    <item name="iconTint">@color/black_87</item>
     <item name="colorOnPrimary">@color/black_87</item>
     <item name="colorOnPrimaryHint">@color/black_60</item>
     <item name="android:actionOverflowButtonStyle">@style/BlackOverflow</item>
+    <item name="toolbarNavigationButtonStyle">@style/BlackNavigation</item>
   </style>
 
   <style name="WhiteTint">
@@ -53,8 +63,38 @@
     <item name="colorOnSecondary">@color/black_87</item>
   </style>
 
+  <style name="WhiteNavigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+    <item name="android:tint">@color/white_100</item>
+  </style>
+
   <style name="WhiteOverflow" parent="Widget.AppCompat.Light.ActionButton.Overflow">
     <item name="android:tint">@color/white_100</item>
+  </style>
+
+  <style name="ActionModeStyle" parent="Widget.AppCompat.ActionMode">
+    <item name="background">@color/content_background</item>
+    <item name="titleTextStyle">@style/ActionModeTitleTextStyle</item>
+  </style>
+
+  <style name="ActionModeTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionMode.Title">
+    <item name="android:textColor">@color/text_primary</item>
+  </style>
+
+  <style name="ActionModeTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="iconTint">@color/text_primary</item>
+    <item name="android:actionOverflowButtonStyle">@style/ActionModeOverflowButton</item>
+  </style>
+
+  <style name="ActionModeOverflowButton" parent="Widget.AppCompat.Light.ActionButton.Overflow">
+    <item name="android:tint">@color/text_primary</item>
+  </style>
+
+  <style name="ActionModeCloseButton" parent="Widget.AppCompat.ActionButton.CloseMode">
+    <item name="android:tint">@color/text_primary</item>
+  </style>
+
+  <style name="BlackNavigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+    <item name="android:tint">@color/black_100</item>
   </style>
 
   <style name="BlackOverflow" parent="Widget.AppCompat.Light.ActionButton.Overflow">

@@ -19,7 +19,7 @@ class Theme @Inject constructor(
 
     fun applyThemeAndStatusBarColor(activity: Activity) {
         applyTheme(activity)
-        themeColor.applyToSystemBars(activity)
+        themeColor.applyToNavigationBar(activity)
         themeColor.applyTaskDescription(activity, activity.getString(R.string.app_name))
     }
 

@@ -95,7 +95,6 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     toolbar.setNavigationOnClickListener(v -> finish());
     toolbar.inflateMenu(R.menu.beast_mode);
     toolbar.setOnMenuItemClickListener(this);
-    themeColor.apply(toolbar);
 
     adapter = new BeastModeRecyclerAdapter(this, constructOrderedControlList(preferences, this));
     recyclerView.setHasFixedSize(true);

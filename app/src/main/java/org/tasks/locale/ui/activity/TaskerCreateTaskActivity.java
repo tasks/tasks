@@ -44,7 +44,6 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
     toolbar.setNavigationOnClickListener(v -> save());
     toolbar.setOnMenuItemClickListener(this);
     toolbar.inflateMenu(R.menu.menu_help);
-    themeColor.apply(toolbar);
 
     if (savedInstanceState != null) {
       previousBundle = savedInstanceState.getParcelable(TaskCreationBundle.EXTRA_BUNDLE);

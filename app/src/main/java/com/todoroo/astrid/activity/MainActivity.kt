@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -14,7 +13,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.view.ActionMode
-import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
@@ -45,7 +43,6 @@ import org.tasks.intents.TaskIntents.getTaskListIntent
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
-import org.tasks.tasklist.ActionUtils
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
@@ -53,6 +50,7 @@ import org.tasks.ui.DeadlineControlSet.DueDateChangeListener
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
 import org.tasks.ui.ListFragment.OnListChanged
 import org.tasks.ui.NavigationDrawerFragment
+import org.tasks.ui.NavigationDrawerFragment.Companion.newNavigationDrawer
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -70,7 +68,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var alarmDao: AlarmDao
 
-    private lateinit var navigationDrawer: NavigationDrawerFragment
     private var currentNightMode = 0
     private var currentPro = false
     private var filter: Filter? = null
@@ -90,18 +87,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             filter = savedInstanceState.getParcelable(EXTRA_FILTER)
             applyTheme()
         }
-        navigationDrawer = navigationDrawerFragment
-        navigationDrawer.setUp(binding.drawerLayout)
-        binding.drawerLayout.addDrawerListener(
-                object : SimpleDrawerListener() {
-                    override fun onDrawerStateChanged(newState: Int) {
-                        finishActionMode()
-                    }
-
-                    override fun onDrawerClosed(drawerView: View) {
-                        taskListFragment?.themeColor?.setStatusBarColor(binding.drawerLayout)
-                    }
-                })
         handleIntent()
     }
 
@@ -138,7 +123,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     private fun clearUi() {
         finishActionMode()
-        navigationDrawer.closeDrawer()
+        navigationDrawer?.closeDrawer()
     }
 
     private suspend fun getTaskToLoad(filter: Filter?): Task? {
@@ -262,18 +247,16 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     }
 
     private fun hideDetailFragment() {
-        filter?.let {
-            supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.detail, newEmptyTaskEditFragment(it))
-                    .runOnCommit {
-                        if (isSinglePaneLayout) {
-                            binding.master.visibility = View.VISIBLE
-                            binding.detail.visibility = View.GONE
-                        }
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.detail, newEmptyTaskEditFragment())
+                .runOnCommit {
+                    if (isSinglePaneLayout) {
+                        binding.master.visibility = View.VISIBLE
+                        binding.detail.visibility = View.GONE
                     }
-                    .commit()
-        }
+                }
+                .commit()
     }
 
     private fun setFilter(newFilter: Filter?) {
@@ -298,7 +281,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             return
         }
         filter = newFilter
-        navigationDrawer.setSelected(filter)
         defaultFilterProvider.lastViewedFilter = newFilter
         applyTheme()
         supportFragmentManager
@@ -309,7 +291,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     private fun applyTheme() {
         val filterColor = filterColor
-        filterColor.setStatusBarColor(binding.drawerLayout)
         filterColor.applyToNavigationBar(this)
         filterColor.applyTaskDescription(this, filter?.listingTitle ?: getString(R.string.app_name))
         theme.withThemeColor(filterColor).applyToContext(this)
@@ -318,9 +299,8 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     private val filterColor: ThemeColor
         get() = if (filter != null && filter!!.tint != 0) colorProvider.getThemeColor(filter!!.tint, true) else theme.themeColor
 
-    private val navigationDrawerFragment: NavigationDrawerFragment
-        get() = supportFragmentManager
-                .findFragmentById(NavigationDrawerFragment.FRAGMENT_NAVIGATION_DRAWER) as NavigationDrawerFragment
+    private val navigationDrawer: NavigationDrawerFragment?
+        get() = supportFragmentManager.findFragmentByTag(FRAG_TAG_NAV_DRAWER) as? NavigationDrawerFragment
 
     override fun onResume() {
         super.onResume()
@@ -365,7 +345,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                         location.await(),
                         tags.await(),
                         alarms.await(),
-                        filterColor)
+                )
             }
             supportFragmentManager.beginTransaction()
                     .replace(R.id.detail, fragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
@@ -377,14 +357,10 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     override fun onNavigationIconClicked() {
         hideKeyboard()
-        navigationDrawer.openDrawer()
+        newNavigationDrawer(filter).show(supportFragmentManager, FRAG_TAG_NAV_DRAWER)
     }
 
     override fun onBackPressed() {
-        if (navigationDrawer.isDrawerOpen) {
-            navigationDrawer.closeDrawer()
-            return
-        }
         taskEditFragment?.let {
             if (preferences.backButtonSavesTask()) {
                 lifecycleScope.launch {
@@ -460,15 +436,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     override fun onSupportActionModeStarted(mode: ActionMode) {
         super.onSupportActionModeStarted(mode)
         actionMode = mode
-        val filterColor = filterColor
-        ActionUtils.applySupportActionModeColor(filterColor, mode)
-        filterColor.setStatusBarColor(this)
-    }
-
-    @SuppressLint("NewApi")
-    override fun onSupportActionModeFinished(mode: ActionMode) {
-        super.onSupportActionModeFinished(mode)
-        window.statusBarColor = 0
     }
 
     private fun finishActionMode() {
@@ -495,6 +462,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         const val FINISH_AFFINITY = "finish_affinity"
         private const val FRAG_TAG_TASK_LIST = "frag_tag_task_list"
         private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
+        private const val FRAG_TAG_NAV_DRAWER = "frag_tag_nav_drawer"
         private const val EXTRA_FILTER = "extra_filter"
         private const val FLAG_FROM_HISTORY
                 = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY

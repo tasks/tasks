@@ -8,7 +8,6 @@ package com.todoroo.astrid.activity
 import android.app.Activity
 import android.content.Context
 import android.graphics.Paint
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.format.DateUtils
@@ -22,7 +21,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
@@ -40,11 +38,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.tasks.Event
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.data.*
+import org.tasks.data.Alarm
+import org.tasks.data.Location
+import org.tasks.data.TagData
+import org.tasks.data.UserActivity
+import org.tasks.data.UserActivityDao
 import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DialogBuilder
@@ -55,7 +56,6 @@ import org.tasks.fragments.TaskEditControlSetFragmentManager
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
-import org.tasks.themes.ThemeColor
 import org.tasks.ui.SubtaskControlSet
 import org.tasks.ui.TaskEditControlFragment
 import org.tasks.ui.TaskEditViewModel
@@ -95,9 +95,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 args.getParcelableArrayList(EXTRA_TAGS)!!,
                 args.getLongArray(EXTRA_ALARMS)!!)
         val activity = requireActivity() as MainActivity
-        editViewModel.cleared.observe(activity, Observer<Event<Boolean>> {
+        editViewModel.cleared.observe(activity) {
             activity.removeTaskEditFragment()
-        })
+        }
     }
 
     override fun onCreateView(
@@ -105,7 +105,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         binding = FragmentTaskEditBinding.inflate(inflater)
         val view: View = binding.root
         val model = editViewModel.task!!
-        val themeColor: ThemeColor = requireArguments().getParcelable(EXTRA_THEME)!!
         val toolbar = binding.toolbar
         toolbar.navigationIcon = context.getDrawable(R.drawable.ic_outline_save_24px)
         toolbar.setNavigationOnClickListener {
@@ -141,7 +140,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             }
         })
         toolbar.setOnMenuItemClickListener(this)
-        themeColor.apply(binding.collapsingtoolbarlayout, toolbar)
         val title = binding.title
         val textWatcher = markdownProvider.markdown(linkifyEnabled).textWatcher(title)
         title.addTextChangedListener(
@@ -154,8 +152,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         )
         title.setText(model.title)
         title.setHorizontallyScrolling(false)
-        title.setTextColor(themeColor.colorOnPrimary)
-        title.setHintTextColor(themeColor.hintOnPrimary)
         title.maxLines = 5
         if (model.isNew || preferences.getBoolean(R.string.p_hide_check_button, false)) {
             binding.fab.visibility = View.INVISIBLE
@@ -174,9 +170,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                     save()
                 }
             }
-        }
-        if (AndroidUtilities.atLeastQ()) {
-            title.verticalScrollbarThumbDrawable = ColorDrawable(themeColor.hintOnPrimary)
         }
         binding.appbarlayout.addOnOffsetChangedListener(
                 OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
@@ -376,7 +369,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         private const val EXTRA_LOCATION = "extra_location"
         private const val EXTRA_TAGS = "extra_tags"
         private const val EXTRA_ALARMS = "extra_alarms"
-        private const val EXTRA_THEME = "extra_theme"
 
         fun newTaskEditFragment(
                 task: Task,
@@ -384,7 +376,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 location: Location?,
                 tags: ArrayList<TagData>,
                 alarms: ArrayList<Alarm>,
-                themeColor: ThemeColor?): TaskEditFragment {
+        ): TaskEditFragment {
             val taskEditFragment = TaskEditFragment()
             val arguments = Bundle()
             arguments.putParcelable(EXTRA_TASK, task)
@@ -392,7 +384,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             arguments.putParcelable(EXTRA_LOCATION, location)
             arguments.putParcelableArrayList(EXTRA_TAGS, tags)
             arguments.putLongArray(EXTRA_ALARMS, alarms.map { it.time }.toLongArray())
-            arguments.putParcelable(EXTRA_THEME, themeColor)
             taskEditFragment.arguments = arguments
             return taskEditFragment
         }

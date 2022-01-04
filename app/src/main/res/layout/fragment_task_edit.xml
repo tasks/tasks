@@ -18,6 +18,7 @@
           android:id="@+id/collapsingtoolbarlayout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:background="@color/content_background"
           app:collapsedTitleTextAppearance="?attr/textAppearanceHeadline6"
           app:expandedTitleGravity="top"
           app:expandedTitleMarginTop="?attr/actionBarSize"
@@ -49,11 +50,11 @@
               android:layout_width="match_parent"
               android:layout_height="?attr/actionBarSize"
               android:elevation="@dimen/elevation_toolbar"
+              android:theme="@style/ToolbarTheme"
               app:layout_collapseMode="pin"
-              android:theme="?attr/overlay_theme"
-              app:popupTheme="@style/popup_overlay"
-              app:titleTextColor="?attr/colorOnPrimary"
+              app:navigationIconTint="@color/text_primary"
               app:toolbarStyle="@style/Widget.MaterialComponents.Toolbar"
+              app:popupTheme="@style/popup_overlay"
               tools:ignore="UnusedAttribute" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

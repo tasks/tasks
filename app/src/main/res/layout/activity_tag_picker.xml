@@ -11,12 +11,11 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
     android:elevation="@dimen/elevation_toolbar"
-    android:theme="?attr/overlay_theme"
+    android:theme="@style/ToolbarTheme"
+    android:background="@color/content_background"
     app:popupTheme="@style/popup_overlay"
-    app:titleTextColor="?attr/colorOnPrimary"
-    app:toolbarStyle="@style/Widget.MaterialComponents.Toolbar"
+    app:titleTextColor="@color/text_primary"
     tools:ignore="UnusedAttribute">
 
     <EditText
@@ -30,8 +29,8 @@
       android:lines="1"
       android:maxLines="1"
       android:scrollbars="vertical"
-      android:textColor="?attr/colorOnPrimary"
-      android:textColorHint="?attr/colorOnPrimaryHint" />
+      android:textColor="@color/text_primary"
+      android:textColorHint="@color/text_secondary" />
 
   </androidx.appcompat.widget.Toolbar>
 

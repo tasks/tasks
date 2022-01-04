@@ -121,8 +121,7 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
         val color = ThemeColor.getLauncherColor(this, themeIndex)
         DrawableUtil.setLeftDrawable(this, colorIcon, R.drawable.color_picker)
         DrawableUtil.setTint(DrawableUtil.getLeftDrawable(colorIcon), color.primaryColor)
-        color.apply(toolbar)
-        color.applyToSystemBars(this)
+        color.applyToNavigationBar(this)
     }
 
     private val themeIndex: Int

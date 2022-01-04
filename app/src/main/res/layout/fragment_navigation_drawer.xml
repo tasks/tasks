@@ -1,7 +1,6 @@
-<org.tasks.ui.ScrimInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/scrim_layout"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/drawer_color"
@@ -15,4 +14,4 @@
     android:scrollbars="vertical"
     tools:context=".NavigationDrawerFragment"/>
 
-</org.tasks.ui.ScrimInsetsFrameLayout>
+</FrameLayout>

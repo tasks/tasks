@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
@@ -114,7 +115,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var emptyRefreshLayout: SwipeRefreshLayout
-    private lateinit var toolbar: Toolbar
     private lateinit var coordinatorLayout: CoordinatorLayout
     private lateinit var recyclerView: RecyclerView
     
@@ -128,6 +128,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private var mode: ActionMode? = null
     lateinit var themeColor: ThemeColor
     private lateinit var callbacks: TaskListFragmentCallbackHandler
+    private lateinit var binding: FragmentTaskListBinding
 
     override fun onRefresh() {
         syncAdapters.sync(true)
@@ -170,14 +171,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentTaskListBinding.inflate(inflater, container, false)
+        binding = FragmentTaskListBinding.inflate(inflater, container, false)
         with (binding) {
             swipeRefreshLayout = bodyStandard.swipeLayout
             emptyRefreshLayout = bodyEmpty.swipeLayoutEmpty
-            this@TaskListFragment.toolbar = toolbar.toolbar
             coordinatorLayout = taskListCoordinator
             recyclerView = bodyStandard.recyclerView
             fab.setOnClickListener { createNewTask() }
+            bottomAppBar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
         }
         filter = getFilter()
         themeColor = if (filter.tint != 0) colorProvider.getThemeColor(filter.tint, true) else defaultThemeColor
@@ -204,11 +205,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
         setupRefresh(swipeRefreshLayout)
         setupRefresh(emptyRefreshLayout)
-        toolbar.title = filter.listingTitle
-        toolbar.setNavigationIcon(R.drawable.ic_outline_menu_24px)
-        toolbar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
-        toolbar.setOnMenuItemClickListener(this)
-        setupMenu()
+        binding.toolbar.title = filter.listingTitle
+        binding.toolbar.navigationIcon = null
+        binding.bottomAppBar.setOnMenuItemClickListener(this)
+        binding.appbarlayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+            if (verticalOffset == 0 && binding.bottomAppBar.isScrolledDown) {
+                binding.bottomAppBar.performShow()
+            }
+        })
+        setupBottomMenu()
+        search = binding.toolbar.menu.findItem(R.id.menu_search).setOnActionExpandListener(this)
         return binding.root
     }
 
@@ -235,15 +241,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         taskAdapter.setDataSource(adapter)
     }
 
-    private fun setupMenu() {
-        val menu = toolbar.menu
+    private fun setupBottomMenu() {
+        val menu = binding.bottomAppBar.menu
+        val bottomAppBar = binding.bottomAppBar
         menu.clear()
         if (filter.hasBeginningMenu()) {
-            toolbar.inflateMenu(filter.beginningMenu)
+            bottomAppBar.inflateMenu(filter.beginningMenu)
         }
-        toolbar.inflateMenu(R.menu.menu_task_list_fragment)
+        bottomAppBar.inflateMenu(R.menu.menu_task_list_fragment_bottom)
         if (filter.hasMenu()) {
-            toolbar.inflateMenu(filter.menu)
+            bottomAppBar.inflateMenu(filter.menu)
         }
         val hidden = menu.findItem(R.id.menu_show_unstarted)
         val completed = menu.findItem(R.id.menu_show_completed)
@@ -268,8 +275,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }
         menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable()
-        search = menu.findItem(R.id.menu_search).setOnActionExpandListener(this)
-        themeColor.apply(toolbar)
+        themeColor.apply(bottomAppBar)
     }
 
     private fun openFilter(filter: Filter?) {
@@ -564,10 +570,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         if (searchQuery == null) {
             searchByQuery("")
         }
-        val menu = toolbar.menu
-        for (i in 0 until menu.size()) {
-            menu.getItem(i).isVisible = false
-        }
         return true
     }
 
@@ -576,7 +578,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         listViewModel.searchByFilter(filter)
         searchJob?.cancel()
         searchQuery = null
-        setupMenu()
+        setupBottomMenu()
         return true
     }
 
@@ -598,7 +600,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onCreateActionMode(actionMode: ActionMode, menu: Menu): Boolean {
         val inflater = actionMode.menuInflater
         inflater.inflate(R.menu.menu_multi_select, menu)
-        themeColor.colorMenu(menu)
         return true
     }
 

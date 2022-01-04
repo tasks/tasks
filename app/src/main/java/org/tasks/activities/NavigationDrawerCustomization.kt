@@ -67,8 +67,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
             inflateMenu(R.menu.menu_nav_drawer_customization)
         }
 
-        themeColor.apply(toolbar)
-        themeColor.applyToSystemBars(this)
+        themeColor.applyToNavigationBar(this)
 
         adapter.setOnClick(this::onClick)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)

@@ -5,6 +5,7 @@
 -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/task_list_coordinator"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
@@ -13,14 +14,30 @@
   android:focusableInTouchMode="true"
   android:orientation="vertical">
 
+  <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/appbarlayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:elevation="@dimen/elevation_app_bar">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/content_background"
+        android:theme="@style/ToolbarTheme"
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:menu="@menu/menu_task_list_fragment_top"
+        tools:ignore="UnusedAttribute" />
+  </com.google.android.material.appbar.AppBarLayout>
+
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -49,16 +66,27 @@
 
   </LinearLayout>
 
+  <com.google.android.material.bottomappbar.BottomAppBar
+      android:id="@+id/bottomAppBar"
+      style="@style/Widget.MaterialComponents.BottomAppBar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:theme="?attr/overlay_theme"
+      app:popupTheme="@style/popup_overlay"
+      app:hideOnScroll="true"
+      app:layout_scrollFlags="scroll|enterAlways"
+      app:navigationIcon="@drawable/ic_outline_menu_24px" />
+
   <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/fab"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/keyline_first"
-    android:layout_gravity="end|bottom"
-    android:padding="0dp"
-    android:src="@drawable/ic_outline_add_24px"
-    android:contentDescription="@string/action_create_new_task"
-    app:backgroundTint="?attr/colorAccent"
-    app:borderWidth="0dp"/>
+      android:id="@+id/fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@string/action_create_new_task"
+      app:backgroundTint="?attr/colorAccent"
+      app:layout_anchor="@id/bottomAppBar"
+      app:hideOnScroll="true"
+      app:layout_scrollFlags="scroll|enterAlways"
+      app:srcCompat="@drawable/ic_outline_add_24px" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

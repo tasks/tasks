@@ -46,7 +46,6 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
             getDrawable(R.drawable.ic_outline_arrow_back_24px)
         toolbar.setNavigationOnClickListener { onBackPressed() }
         toolbar.setOnMenuItemClickListener(this)
-        themeColor.apply(toolbar)
     }
 
     private fun setupMenu() = setupMenu(supportFragmentManager.findFragmentById(R.id.settings))

@@ -5,8 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="?attr/actionBarSize"
   android:elevation="@dimen/elevation_toolbar"
-  android:theme="?attr/overlay_theme"
-  app:popupTheme="@style/popup_overlay"
-  app:titleTextColor="?attr/colorOnPrimary"
-  app:toolbarStyle="@style/Widget.MaterialComponents.Toolbar"
+  android:theme="@style/ToolbarTheme"
+  android:background="@color/content_background"
+  app:titleTextColor="?attr/colorOnSurface"
   tools:ignore="UnusedAttribute" />

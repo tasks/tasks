@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -90,6 +91,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme.applyTheme(this)
+        window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         val binding = ActivityLocationPickerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         toolbar = binding.toolbar
@@ -123,10 +125,7 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         search.setOnActionExpandListener(this)
         toolbar.setOnMenuItemClickListener(this)
         val themeColor = theme.themeColor
-        themeColor.applyToStatusBarIcons(this)
         themeColor.applyToNavigationBar(this)
-        themeColor.setStatusBarColor(toolbarLayout)
-        themeColor.apply(toolbar)
         val dark = preferences.mapTheme == 2
                 || preferences.mapTheme == 0 && theme.themeBase.isDarkTheme(this)
         map.init(this, this, dark)

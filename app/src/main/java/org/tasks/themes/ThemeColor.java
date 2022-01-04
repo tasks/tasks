@@ -5,23 +5,20 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION_CODES;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.os.ParcelCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
+
+import com.google.android.material.bottomappbar.BottomAppBar;
+
 import org.tasks.R;
 import org.tasks.dialogs.ColorPalettePicker.Pickable;
 
@@ -163,7 +160,6 @@ public class ThemeColor implements Pickable {
 
   private final int original;
   private final int colorOnPrimary;
-  private final int hintOnPrimary;
   private final int colorPrimary;
   private final boolean isDark;
 
@@ -184,10 +180,8 @@ public class ThemeColor implements Pickable {
     isDark = contrast < 3;
     if (isDark) {
       colorOnPrimary = context.getColor(R.color.black_87);
-      hintOnPrimary = context.getColor(R.color.black_60);
     } else {
       colorOnPrimary = WHITE;
-      hintOnPrimary = context.getColor(R.color.white_60);
     }
   }
 
@@ -196,71 +190,10 @@ public class ThemeColor implements Pickable {
     colorPrimary = source.readInt();
     isDark = ParcelCompat.readBoolean(source);
     original = source.readInt();
-    hintOnPrimary = source.readInt();
   }
 
   public static ThemeColor getLauncherColor(Context context, int index) {
     return new ThemeColor(context, context.getColor(LAUNCHER_COLORS[index]));
-  }
-
-  private static void colorMenu(Menu menu, int color) {
-    for (int i = 0, size = menu.size(); i < size; i++) {
-      final MenuItem menuItem = menu.getItem(i);
-      colorMenuItem(menuItem, color);
-      if (menuItem.hasSubMenu()) {
-        final SubMenu subMenu = menuItem.getSubMenu();
-        for (int j = 0; j < subMenu.size(); j++) {
-          colorMenuItem(subMenu.getItem(j), color);
-        }
-      }
-    }
-  }
-
-  private static void colorMenuItem(final MenuItem menuItem, final int color) {
-    colorDrawable(menuItem.getIcon(), color);
-  }
-
-  private static Drawable colorDrawable(Drawable drawable, int color) {
-    if (drawable != null) {
-      drawable.mutate();
-      drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-    }
-    return drawable;
-  }
-
-  public void applyToSystemBars(Activity activity) {
-    setStatusBarColor(activity);
-
-    applyToStatusBarIcons(activity);
-
-    applyToNavigationBar(activity);
-  }
-
-  public void setStatusBarColor(Activity activity) {
-    activity.getWindow().setStatusBarColor(colorPrimary);
-  }
-
-  public void setStatusBarColor(DrawerLayout drawerLayout) {
-    drawerLayout.setStatusBarBackgroundColor(colorPrimary);
-    org.tasks.extensions.View.INSTANCE.lightStatusBar(drawerLayout, isDark);
-  }
-
-  public void setStatusBarColor(CollapsingToolbarLayout layout) {
-    layout.setContentScrimColor(colorPrimary);
-    layout.setStatusBarScrimColor(colorPrimary);
-  }
-
-  public void apply(CollapsingToolbarLayout layout, Toolbar toolbar) {
-    setStatusBarColor(layout);
-    layout.setBackgroundColor(colorPrimary);
-    layout.setCollapsedTitleTextColor(colorOnPrimary);
-    layout.setExpandedTitleColor(colorOnPrimary);
-    toolbar.setNavigationIcon(colorDrawable(toolbar.getNavigationIcon(), colorOnPrimary));
-    colorMenu(toolbar.getMenu(), colorOnPrimary);
-  }
-
-  public void applyToStatusBarIcons(Activity activity) {
-    org.tasks.extensions.View.INSTANCE.lightStatusBar(activity.getWindow().getDecorView(), isDark);
   }
 
   public void applyToNavigationBar(Activity activity) {
@@ -319,19 +252,12 @@ public class ThemeColor implements Pickable {
     return colorOnPrimary;
   }
 
-  public int getHintOnPrimary() {
-    return hintOnPrimary;
-  }
-
   public boolean isDark() {
     return isDark;
   }
 
-  public void apply(Toolbar toolbar) {
-    toolbar.setBackgroundColor(getPrimaryColor());
-    toolbar.setNavigationIcon(colorDrawable(toolbar.getNavigationIcon(), colorOnPrimary));
-    toolbar.setTitleTextColor(colorOnPrimary);
-    colorMenu(toolbar.getMenu(), colorOnPrimary);
+  public void apply(BottomAppBar bottomAppBar) {
+    bottomAppBar.setBackgroundTint(ColorStateList.valueOf(getPrimaryColor()));
   }
 
   @Override
@@ -345,11 +271,6 @@ public class ThemeColor implements Pickable {
     dest.writeInt(colorPrimary);
     ParcelCompat.writeBoolean(dest, isDark);
     dest.writeInt(original);
-    dest.writeInt(hintOnPrimary);
-  }
-
-  public void colorMenu(Menu menu) {
-    colorMenu(menu, colorOnPrimary);
   }
 
   @Override

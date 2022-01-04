@@ -148,8 +148,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
                     .setTint(themeColor.primaryColor)
             clear.visibility = View.VISIBLE
         }
-        themeColor.apply(toolbar)
-        themeColor.applyToSystemBars(this)
+        themeColor.applyToNavigationBar(this)
         var icon = getIconResId(selectedIcon)
         if (icon == null) {
             icon = getIconResId(CustomIcons.LIST)

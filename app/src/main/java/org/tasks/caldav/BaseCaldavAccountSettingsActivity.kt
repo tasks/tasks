@@ -89,7 +89,6 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         toolbar.inflateMenu(menuRes)
         toolbar.setOnMenuItemClickListener(this)
         toolbar.showOverflowMenu()
-        themeColor.apply(toolbar)
         if (caldavAccount == null) {
             toolbar.menu.findItem(R.id.remove).isVisible = false
             binding.name.requestFocus()

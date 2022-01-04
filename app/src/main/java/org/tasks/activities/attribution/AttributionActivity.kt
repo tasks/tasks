@@ -21,7 +21,6 @@ class AttributionActivity : ThemedInjectingAppCompatActivity() {
             setTitle(R.string.third_party_licenses)
             setNavigationIcon(R.drawable.ic_outline_arrow_back_24px)
             setNavigationOnClickListener { finish() }
-            themeColor.apply(this)
         }
         viewModel.attributions.observe(this) {
             binding.compose.setContent {

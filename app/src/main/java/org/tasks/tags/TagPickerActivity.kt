@@ -55,9 +55,7 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
         toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24px)
         toolbar.setNavigationOnClickListener { onBackPressed() }
         val themeColor = theme.themeColor
-        themeColor.applyToStatusBarIcons(this)
         themeColor.applyToNavigationBar(this)
-        themeColor.apply(toolbar)
         val recyclerAdapter = TagRecyclerAdapter(this, viewModel, inventory, colorProvider) { tagData, vh ->
             onToggle(tagData, vh)
         }

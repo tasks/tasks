@@ -11,6 +11,10 @@
     <item name="android:windowBackground">@color/window_background</item>
     <item name="android:colorBackground">@color/content_background</item>
     <item name="windowActionModeOverlay">true</item>
+    <item name="actionModeStyle">@style/ActionModeStyle</item>
+    <item name="actionBarTheme">@style/ActionModeTheme</item>
+    <item name="actionModeCloseButtonStyle">@style/ActionModeCloseButton</item>
+    <item name="actionModeCloseDrawable">@drawable/ic_outline_arrow_back_24px</item>
     <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
     <item name="dialogTheme">@style/TasksDialog</item>
     <item name="android:dialogTheme">@style/TasksDialog</item>
@@ -28,7 +32,8 @@
 
   <style name="Tasks" parent="TasksBase">
     <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:windowLightStatusBar">@bool/light_status_bar</item>
+    <item name="android:statusBarColor">@color/content_background</item>
   </style>
 
   <style name="TasksDialogAlert" parent="DayNightAlert">

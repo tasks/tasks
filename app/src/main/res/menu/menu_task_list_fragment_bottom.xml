@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_clear_completed"
+        android:title="@string/gtasks_GTA_clear_completed"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_collapse_subtasks"
+        android:title="@string/collapse_subtasks"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_expand_subtasks"
+        android:title="@string/expand_subtasks"
+        app:showAsAction="never" />
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/menu_show_completed"
+            android:checkable="true"
+            android:title="@string/show_completed" />
+        <item
+            android:id="@+id/menu_show_unstarted"
+            android:checkable="true"
+            android:title="@string/show_unstarted" />
+    </group>
+    <item
+        android:id="@+id/menu_share"
+        android:icon="@drawable/ic_outline_send_24px"
+        android:title="@string/share" />
+    <item
+        android:id="@+id/menu_voice_add"
+        android:icon="@drawable/ic_outline_mic_none_24px"
+        android:title="@string/EPr_voiceInputEnabled_title"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_sort"
+        android:icon="@drawable/ic_outline_sort_24px"
+        android:title="@string/TLA_menu_sort"
+        app:showAsAction="ifRoom" />
+</menu>

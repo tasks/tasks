@@ -15,8 +15,4 @@
     <attr format="string" name="time_summary"/>
   </declare-styleable>
 
-  <declare-styleable name="ScrimInsetsFrameLayout">
-    <attr format="reference|color" name="insetForeground"/>
-  </declare-styleable>
-
 </resources>
