@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/header"
-  style="@style/TextAppearance"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?attr/selectableItemBackground"
-  android:padding="@dimen/keyline_first"
-  android:gravity="start|center_vertical"
-  android:textColor="@color/text_secondary"
-  android:textSize="@dimen/sku_details_row_text_size"
-  android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_18dp"
-  android:drawableTint="@color/text_tertiary"
-  app:fontFamily="sans-serif-medium" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/header_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground">
 
+    <TextView
+        android:id="@+id/header"
+        style="@style/TextAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/chevron"
+        android:gravity="start|center_vertical"
+        android:padding="@dimen/keyline_first"
+        android:textColor="@color/text_secondary"
+        android:textSize="@dimen/sku_details_row_text_size"
+        app:fontFamily="sans-serif-medium" />
+
+    <ImageView
+        android:id="@+id/chevron"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/keyline_first"
+        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+        app:tint="@color/text_tertiary" />
+
+</RelativeLayout>
