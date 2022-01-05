@@ -461,7 +461,6 @@
     <string name="add_filter">Добавяне на филтър</string>
     <string name="add_tags">Добавяне на етикети</string>
     <string name="error_adding_account">Грешка: %s</string>
-    <string name="add_place">Добавяне на място</string>
     <string name="place_settings">Настройки на местата</string>
     <string name="places">Места</string>
     <string name="no_start_date">Без начална дата</string>

@@ -443,7 +443,6 @@
     <string name="chip_appearance_icon_only">Solo icona</string>
     <string name="chip_appearance_text_only">Solo testo</string>
     <string name="chip_appearance_text_and_icon">Testo e icona</string>
-    <string name="add_place">Aggiungi luogo</string>
     <string name="hide_unused_places">Nascondi luoghi non usati</string>
     <string name="hide_unused_tags">Nascondi etichette non usate</string>
     <string name="navigation_drawer">Menù laterale</string>

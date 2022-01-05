@@ -385,7 +385,6 @@
     <string name="chip_appearance_text_and_icon">文字與圖示</string>
     <string name="chip_appearance_icon_only">僅圖示</string>
     <string name="chip_appearance_text_only">僅文字</string>
-    <string name="add_place">新增地點</string>
     <string name="hide_unused_places">隱藏未使用地點</string>
     <string name="hide_unused_tags">隱藏未使用標籤</string>
     <string name="desaturate_colors_summary_off">暗色主題中顏色將不飽和</string>

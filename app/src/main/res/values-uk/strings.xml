@@ -505,7 +505,6 @@
     <string name="chip_appearance_icon_only">Лише піктограми</string>
     <string name="chip_appearance_text_only">Лише текст</string>
     <string name="chip_appearance_text_and_icon">Текст та піктограма</string>
-    <string name="add_place">Додати місце</string>
     <string name="hide_unused_places">Сховати місця, що не використовуються</string>
     <string name="hide_unused_tags">Сховати не використовувані мітки</string>
     <string name="navigation_drawer">Панель навігації</string>

@@ -440,7 +440,6 @@
     <string name="chip_appearance_icon_only">Ícone apenas</string>
     <string name="chip_appearance_text_only">Apenas texto</string>
     <string name="chip_appearance_text_and_icon">Texto e ícone</string>
-    <string name="add_place">Adicionar um lugar</string>
     <string name="hide_unused_places">Esconder lugares não usados</string>
     <string name="hide_unused_tags">Esconder etiquetas não usadas</string>
     <string name="navigation_drawer">Gaveta de navegação</string>

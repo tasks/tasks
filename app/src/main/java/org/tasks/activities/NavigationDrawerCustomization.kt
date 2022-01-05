@@ -24,13 +24,10 @@ import org.tasks.R
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.*
 import org.tasks.databinding.ActivityTagOrganizerBinding
-import org.tasks.dialogs.NewFilterDialog.Companion.newFilterDialog
 import org.tasks.filters.FilterProvider
-import org.tasks.filters.NavigationDrawerAction
 import org.tasks.filters.PlaceFilter
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.preferences.Preferences
-import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_NEW_FILTER
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -96,39 +93,31 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     }
 
     private fun onClick(item: FilterListItem?) {
-        if (item is NavigationDrawerAction) {
-            when (item.requestCode) {
-                REQUEST_NEW_FILTER ->
-                    newFilterDialog().show(supportFragmentManager, FRAG_TAG_NEW_FILTER)
-                else -> startActivity(item.intent)
-            }
-        } else {
-            when (item) {
-                is GtasksFilter ->
-                    Intent(this, GoogleTaskListSettingsActivity::class.java)
-                            .putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, item.list)
-                            .apply(this::startActivity)
-                is CaldavFilter ->
-                    lifecycleScope.launch {
-                        caldavDao.getAccountByUuid(item.account)?.let {
-                            Intent(this@NavigationDrawerCustomization, it.listSettingsClass())
-                                    .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, item.calendar)
-                                    .apply { startActivity(this) }
-                        }
+        when (item) {
+            is GtasksFilter ->
+                Intent(this, GoogleTaskListSettingsActivity::class.java)
+                        .putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, item.list)
+                        .apply(this::startActivity)
+            is CaldavFilter ->
+                lifecycleScope.launch {
+                    caldavDao.getAccountByUuid(item.account)?.let {
+                        Intent(this@NavigationDrawerCustomization, it.listSettingsClass())
+                                .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, item.calendar)
+                                .apply { startActivity(this) }
                     }
-                is CustomFilter ->
-                    Intent(this, FilterSettingsActivity::class.java)
-                            .putExtra(FilterSettingsActivity.TOKEN_FILTER, item)
-                            .apply(this::startActivity)
-                is TagFilter ->
-                    Intent(this, TagSettingsActivity::class.java)
-                            .putExtra(TagSettingsActivity.EXTRA_TAG_DATA, item.tagData)
-                            .apply(this::startActivity)
-                is PlaceFilter ->
-                    Intent(this, PlaceSettingsActivity::class.java)
-                            .putExtra(PlaceSettingsActivity.EXTRA_PLACE, item.place as Parcelable)
-                            .apply(this::startActivity)
-            }
+                }
+            is CustomFilter ->
+                Intent(this, FilterSettingsActivity::class.java)
+                        .putExtra(FilterSettingsActivity.TOKEN_FILTER, item)
+                        .apply(this::startActivity)
+            is TagFilter ->
+                Intent(this, TagSettingsActivity::class.java)
+                        .putExtra(TagSettingsActivity.EXTRA_TAG_DATA, item.tagData)
+                        .apply(this::startActivity)
+            is PlaceFilter ->
+                Intent(this, PlaceSettingsActivity::class.java)
+                        .putExtra(PlaceSettingsActivity.EXTRA_PLACE, item.place as Parcelable)
+                        .apply(this::startActivity)
         }
     }
 
@@ -251,6 +240,5 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     companion object {
         private val NO_MOVEMENT = makeMovementFlags(0, 0)
         private val ALLOW_DRAGGING = makeMovementFlags(UP or DOWN, 0)
-        private const val FRAG_TAG_NEW_FILTER = "frag_tag_new_filter"
     }
 }

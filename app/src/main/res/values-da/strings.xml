@@ -147,7 +147,6 @@
     <string name="chip_appearance_icon_only">Kun ikon</string>
     <string name="chip_appearance_text_only">Kun tekst</string>
     <string name="chip_appearance_text_and_icon">Tekst og ikon</string>
-    <string name="add_place">Tilføj sted</string>
     <string name="hide_unused_places">Skjul ubrugte steder</string>
     <string name="hide_unused_tags">Skjul ubrugte tags</string>
     <string name="navigation_drawer">Navigationsmenu</string>

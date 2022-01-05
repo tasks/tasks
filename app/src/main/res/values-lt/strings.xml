@@ -700,7 +700,6 @@
     <string name="add_filter">Pridėti filtrą</string>
     <string name="add_tags">Pridėti etiketes</string>
     <string name="auto_dismiss_datetime">Automatiškai uždaryti datos ir laiko parinkiklį</string>
-    <string name="add_place">Pridėti vietą</string>
     <string name="hide_unused_places">Slėpti nenaudojamas vietas</string>
     <string name="hide_unused_tags">Slėpti nenaudojamas etiketes</string>
     <string name="upgrade_blurb_2">Aš praleidau tūkstančius valandų dirbdamas su Tasks ir nemokamai skelbiu visą pirminį kodą internete. Kad galėčiau palaikyti savo darbą, kai kurioms funkcijoms reikalinga prenumerata</string>

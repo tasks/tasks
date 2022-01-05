@@ -536,7 +536,6 @@
     <string name="auto_dismiss_datetime_edit">할일 수정</string>
     <string name="auto_dismiss_datetime_list">할일 목록</string>
     <string name="auto_dismiss_datetime">일시 선택상자 닫기</string>
-    <string name="add_place">위치 추가하기</string>
     <string name="whats_new">새 기능</string>
     <string name="building_notifications">알림 생성하기</string>
     <string name="widget_due_date_after_title">제목 다음</string>

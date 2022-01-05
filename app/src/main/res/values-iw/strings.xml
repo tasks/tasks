@@ -587,7 +587,6 @@
     <string name="navigation_drawer">מגירת ניווט</string>
     <string name="hide_unused_tags">הסתרת תגיות שאינן בשימוש</string>
     <string name="hide_unused_places">הסתרת מיקומים שאינם בשימוש</string>
-    <string name="add_place">הוספת מיקום</string>
     <string name="auto_dismiss_datetime_summary">לסגור את בוחר התאריך והשעה לאחר בחירת תאריך או שעה</string>
     <string name="auto_dismiss_datetime_widget_summary">לסגור אוטומטית בעת בחירה מווידג׳ט</string>
     <string name="auto_dismiss_datetime_edit">עריכת משימה</string>

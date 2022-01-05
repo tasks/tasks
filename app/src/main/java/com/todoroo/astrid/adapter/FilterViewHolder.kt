@@ -1,6 +1,6 @@
 package com.todoroo.astrid.adapter
 
-import android.app.Activity
+import android.content.Context
 import android.view.View
 import android.widget.CheckedTextView
 import android.widget.ImageView
@@ -22,13 +22,14 @@ import org.tasks.themes.CustomIcons.getIconResId
 import org.tasks.themes.DrawableUtil
 
 class FilterViewHolder internal constructor(
-        itemView: View,
-        private val navigationDrawer: Boolean,
-        private val locale: Locale,
-        private val activity: Activity,
-        private val inventory: Inventory,
-        private val colorProvider: ColorProvider,
-        private val onClick: ((FilterListItem?) -> Unit)?) : RecyclerView.ViewHolder(itemView) {
+    itemView: View,
+    private val navigationDrawer: Boolean,
+    private val locale: Locale,
+    private val context: Context,
+    private val inventory: Inventory,
+    private val colorProvider: ColorProvider,
+    private val onClick: ((FilterListItem?) -> Unit)?
+) : RecyclerView.ViewHolder(itemView) {
 
     private val row: View
     private val text: CheckedTextView
@@ -63,7 +64,7 @@ class FilterViewHolder internal constructor(
             text.isChecked = selected
         }
         val icon = getIcon(filter)
-        this.icon.setImageDrawable(DrawableUtil.getWrapped(activity, icon))
+        this.icon.setImageDrawable(DrawableUtil.getWrapped(context, icon))
         this.icon.drawable.setTint(getColor(filter))
         text.text = filter.listingTitle
         if (count == null || count == 0) {
@@ -94,7 +95,7 @@ class FilterViewHolder internal constructor(
                 return color.primaryColor
             }
         }
-        return activity.getColor(R.color.text_primary)
+        return context.getColor(R.color.text_primary)
     }
 
     private fun getIcon(filter: FilterListItem): Int {

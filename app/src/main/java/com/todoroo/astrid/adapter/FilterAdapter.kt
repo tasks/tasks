@@ -11,19 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.api.FilterListItem.Type.*
-import org.tasks.LocalBroadcastManager
 import org.tasks.billing.Inventory
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.locale.Locale
-import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import java.util.*
 import javax.inject.Inject
@@ -33,10 +28,8 @@ class FilterAdapter @Inject constructor(
         private val locale: Locale,
         private val inventory: Inventory,
         private val colorProvider: ColorProvider,
-        private val preferences: Preferences,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
-        private val localBroadcastManager: LocalBroadcastManager) : BaseAdapter() {
+        private val subheaderClickHandler: SubheaderClickHandler,
+) : BaseAdapter() {
     private var selected: Filter? = null
     private var items: List<FilterListItem> = ArrayList()
 
@@ -80,13 +73,7 @@ class FilterAdapter @Inject constructor(
                         newView, false, locale, activity, inventory, colorProvider, null)
                 ACTION -> ActionViewHolder(activity, newView, null)
                 SEPARATOR -> SeparatorViewHolder(newView)
-                SUBHEADER -> SubheaderViewHolder(
-                        newView,
-                        activity as AppCompatActivity,
-                        preferences,
-                        googleTaskDao,
-                        caldavDao,
-                        localBroadcastManager)
+                SUBHEADER -> SubheaderViewHolder(newView, subheaderClickHandler)
             }
             newView
         }
@@ -104,7 +91,8 @@ class FilterAdapter @Inject constructor(
         when (item.itemType) {
             ITEM -> (viewHolder as FilterViewHolder).bind(item, item == selected, 0)
             ACTION -> (viewHolder as ActionViewHolder).bind(item)
-            SUBHEADER -> (viewHolder as SubheaderViewHolder).bind((item as NavigationDrawerSubheader))
+            SUBHEADER ->
+                (viewHolder as SubheaderViewHolder).bind((item as NavigationDrawerSubheader))
             else -> {}
         }
         return view

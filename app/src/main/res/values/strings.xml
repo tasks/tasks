@@ -566,7 +566,6 @@ File %1$s contained %2$s.\n\n
   <string name="navigation_drawer">Navigation drawer</string>
   <string name="hide_unused_tags">Hide unused tags</string>
   <string name="hide_unused_places">Hide unused places</string>
-  <string name="add_place">Add place</string>
   <string name="chip_appearance_text_and_icon">Text and icon</string>
   <string name="chip_appearance_text_only">Text only</string>
   <string name="chip_appearance_icon_only">Icon only</string>

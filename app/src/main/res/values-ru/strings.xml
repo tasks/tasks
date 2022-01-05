@@ -512,7 +512,6 @@
     <string name="chip_appearance_icon_only">Только иконка</string>
     <string name="chip_appearance_text_only">Только текст</string>
     <string name="chip_appearance_text_and_icon">Текст и иконка</string>
-    <string name="add_place">Добавить место</string>
     <string name="hide_unused_places">Скрыть неиспользуемые места</string>
     <string name="hide_unused_tags">Скрыть неиспользуемые теги</string>
     <string name="navigation_drawer">Панель навигации</string>

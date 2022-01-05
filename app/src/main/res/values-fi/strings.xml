@@ -372,7 +372,6 @@
     <string name="tasker_create_task">Luo tehtävä</string>
     <string name="tasker_list_notification">Ilmoituslista</string>
     <string name="help">Apua</string>
-    <string name="add_place">Lisää paikka</string>
     <string name="hide_unused_places">Piilota käyttämättömät paikat</string>
     <string name="hide_unused_tags">Piilota käyttämättömät tunnistimet</string>
     <string name="reinitialize_account">Uudelleenalustus</string>

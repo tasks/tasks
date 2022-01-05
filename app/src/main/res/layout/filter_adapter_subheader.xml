@@ -7,6 +7,8 @@
   android:id="@+id/subheader_row"
   android:background="?attr/selectableItemBackground"
   android:focusable="true"
+  android:paddingStart="0dp"
+  android:paddingEnd="@dimen/half_keyline_first"
   android:layout_height="wrap_content">
 
     <View
@@ -16,41 +18,64 @@
       android:layout_gravity="top" />
 
     <ImageView
-      android:id="@+id/icon_error"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentEnd="true"
-      android:layout_alignBottom="@id/text"
-      android:layout_below="@id/divider"
-      android:paddingTop="8dp"
-      android:paddingBottom="8dp"
-      android:paddingStart="0dp"
-      android:background="@null"
-      android:paddingEnd="@dimen/keyline_first"
-      android:alpha="@dimen/alpha_secondary"
-      android:clickable="true"
-      android:focusable="true"
-      android:scaleType="center"
-      android:src="@drawable/ic_outline_sync_problem_24px"
-      app:tint="@color/overdue"
-      android:visibility="gone" />
+        android:id="@+id/chevron"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/half_keyline_first"
+        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+        app:tint="@color/icon_tint_with_alpha"
+        android:layout_toStartOf="@id/add_item"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_alignBottom="@id/text"
+        android:layout_below="@id/divider" />
+
+    <ImageView
+        android:id="@+id/add_item"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/half_keyline_first"
+        android:layout_alignParentEnd="true"
+        app:tint="@color/icon_tint_with_alpha"
+        android:layout_toStartOf="@id/icon_error"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_alignBottom="@id/text"
+        android:layout_below="@id/divider"
+        android:src="@drawable/ic_outline_add_24px" />
+
+    <ImageView
+        android:id="@+id/icon_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@id/text"
+        android:layout_below="@id/divider"
+        android:padding="@dimen/half_keyline_first"
+        android:background="@null"
+        android:alpha="@dimen/alpha_secondary"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="center"
+        android:src="@drawable/ic_outline_sync_problem_24px"
+        app:tint="@color/overdue"
+        android:visibility="gone" />
 
     <TextView
-      android:id="@+id/text"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:ellipsize="end"
-      android:background="@null"
-      android:textColor="@color/text_secondary"
-      android:fontFamily="@string/font_fontFamily_medium"
-      android:layout_alignParentStart="true"
-      android:layout_below="@id/divider"
-      android:gravity="start|center_vertical"
-      android:drawableTint="@color/icon_tint_with_alpha"
-      android:singleLine="true"
-      android:textAlignment="viewStart"
-      android:textSize="14sp"
-      android:padding="@dimen/keyline_first"
-      tools:ignore="UnusedAttribute" />
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:background="@null"
+        android:textColor="@color/text_secondary"
+        android:fontFamily="@string/font_fontFamily_medium"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/divider"
+        android:layout_toStartOf="@id/chevron"
+        android:gravity="start|center_vertical"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        android:textSize="14sp"
+        android:padding="@dimen/keyline_first"
+        tools:ignore="UnusedAttribute" />
 
 </RelativeLayout>

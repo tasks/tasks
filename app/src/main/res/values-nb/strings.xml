@@ -495,7 +495,6 @@
     <string name="chip_appearance_icon_only">Kun ikon</string>
     <string name="chip_appearance_text_only">Kun tekst</string>
     <string name="chip_appearance_text_and_icon">Tekst og ikon</string>
-    <string name="add_place">Legg til sted</string>
     <string name="more_notification_settings_summary">Ringetone, vibrering, og mer</string>
     <string name="disable_battery_optimizations">Skru av batterisparing</string>
     <string name="notification_troubleshooting_summary">Trykk her hvis du har problemer med merknader</string>

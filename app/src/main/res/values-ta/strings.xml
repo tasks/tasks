@@ -205,7 +205,6 @@
     <string name="chip_appearance_icon_only">ஐகான் மட்டுமே</string>
     <string name="chip_appearance_text_only">உரை மட்டும்</string>
     <string name="chip_appearance_text_and_icon">உரை மற்றும் ஐகான்</string>
-    <string name="add_place">இடத்தைச் சேர்க்கவும்</string>
     <string name="hide_unused_places">பயன்படுத்தப்படாத இடங்களை மறைக்கவும்</string>
     <string name="hide_unused_tags">பயன்படுத்தப்படாத குறிச்சொற்களை மறைக்கவும்</string>
     <string name="place_settings">அமைப்புகளை வைக்கவும்</string>

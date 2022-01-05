@@ -458,7 +458,6 @@
     <string name="chip_appearance_icon_only">Ikon endast</string>
     <string name="chip_appearance_text_only">Text endast</string>
     <string name="chip_appearance_text_and_icon">Text och ikon</string>
-    <string name="add_place">Lägg till plats</string>
     <string name="place_settings">Plats inställningar</string>
     <string name="places">Platser</string>
     <string name="chip_style_filled">Fylld</string>

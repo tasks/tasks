@@ -210,7 +210,6 @@
     <string name="chip_appearance_icon_only">Chỉ biểu tượng</string>
     <string name="chip_appearance_text_only">Chỉ văn bản</string>
     <string name="chip_appearance_text_and_icon">Văn bản và biểu tượng</string>
-    <string name="add_place">Thêm địa điểm</string>
     <string name="hide_unused_places">Ẩn các địa điểm chưa sử dụng</string>
     <string name="hide_unused_tags">Ẩn các thẻ chưa sử dụng</string>
     <string name="navigation_drawer">Ngăn điều hướng</string>

@@ -9,7 +9,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.api.Filter
@@ -18,14 +17,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
-import org.tasks.LocalBroadcastManager
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.billing.Inventory
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.locale.Locale
-import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import java.util.*
 import java.util.concurrent.Executors
@@ -33,15 +28,13 @@ import javax.inject.Inject
 import kotlin.math.max
 
 class NavigationDrawerAdapter @Inject constructor(
-        private val activity: Activity,
-        private val locale: Locale,
-        private val inventory: Inventory,
-        private val colorProvider: ColorProvider,
-        private val preferences: Preferences,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
-        private val localBroadcastManager: LocalBroadcastManager)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), DragAndDropDiffer<FilterListItem, MutableList<FilterListItem>> {
+    private val activity: Activity,
+    private val locale: Locale,
+    private val inventory: Inventory,
+    private val colorProvider: ColorProvider,
+    private val subheaderClickHandler: SubheaderClickHandler,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+    DragAndDropDiffer<FilterListItem, MutableList<FilterListItem>> {
 
     private lateinit var onClick: (FilterListItem?) -> Unit
     private var selected: Filter? = null
@@ -83,19 +76,14 @@ class NavigationDrawerAdapter @Inject constructor(
         return when (type) {
             FilterListItem.Type.ITEM -> FilterViewHolder(
                         view, true, locale, activity, inventory, colorProvider) { onClickFilter(it) }
-            FilterListItem.Type.SUBHEADER -> SubheaderViewHolder(
-                    view,
-                    activity as AppCompatActivity,
-                    preferences,
-                    googleTaskDao,
-                    caldavDao,
-                    localBroadcastManager)
+            FilterListItem.Type.SUBHEADER -> SubheaderViewHolder(view, subheaderClickHandler)
             FilterListItem.Type.ACTION -> ActionViewHolder(activity, view) { onClickFilter(it) }
             else -> SeparatorViewHolder(view)
         }
     }
 
-    private fun onClickFilter(filter: FilterListItem?) = onClick(if (filter == selected) null else filter)
+    private fun onClickFilter(filter: FilterListItem?) =
+        onClick(if (filter == selected) null else filter)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)

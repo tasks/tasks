@@ -495,7 +495,6 @@
     <string name="navigation_drawer">Nabigazio tiradera</string>
     <string name="hide_unused_tags">Ezkutatu erabili gabeko etiketak</string>
     <string name="hide_unused_places">Ezkutatu erabili gabeko tokiak</string>
-    <string name="add_place">Gehitu tokia</string>
     <string name="menu_discard_changes">Baztertu aldaketak</string>
     <string name="chip_appearance_text_and_icon">Testua eta ikonoa</string>
     <string name="chip_appearance_text_only">Testua soilik</string>

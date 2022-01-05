@@ -512,7 +512,6 @@
     <string name="error_adding_account">エラー：%s</string>
     <string name="tasks_org_account">Tasks.org アカウント</string>
     <string name="copied_to_clipboard">%sをクリップボードにコピーしました</string>
-    <string name="add_place">場所を追加</string>
     <string name="hide_unused_places">使われていない場所を隠す</string>
     <string name="place_settings">場所の設定</string>
     <string name="places">場所</string>

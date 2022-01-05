@@ -485,7 +485,6 @@
     <string name="navigation_drawer">抽屉式导航栏</string>
     <string name="hide_unused_tags">隐藏不用的标签</string>
     <string name="hide_unused_places">隐藏不用的地点</string>
-    <string name="add_place">添加地点</string>
     <string name="auto_dismiss_datetime_summary">在选择一个日期或时间后关闭日期时间选择器</string>
     <string name="auto_dismiss_datetime">自动关闭日期时间选择器</string>
     <string name="shortcut_pick_time">挑选时间</string>

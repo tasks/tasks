@@ -1,77 +1,68 @@
 package com.todoroo.astrid.adapter
 
-import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
 import org.tasks.databinding.FilterAdapterSubheaderBinding
 import org.tasks.filters.NavigationDrawerSubheader
-import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
-import org.tasks.preferences.MainPreferences
-import org.tasks.preferences.Preferences
-import org.tasks.themes.DrawableUtil
+import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.ETESYNC
 
 internal class SubheaderViewHolder(
-        itemView: View,
-        private val activity: AppCompatActivity,
-        private val preferences: Preferences,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
-        private val localBroadcastManager: LocalBroadcastManager)
-    : RecyclerView.ViewHolder(itemView) {
+    itemView: View,
+    private val clickHandler: ClickHandler,
+): RecyclerView.ViewHolder(itemView) {
+
+    interface ClickHandler {
+        fun onClick(subheader: NavigationDrawerSubheader)
+        fun onAdd(subheader: NavigationDrawerSubheader)
+        fun showError()
+    }
 
     private val text: TextView
+    private val chevron: ImageView
+    private val add: ImageView
     private val errorIcon: ImageView
+    private var rotation = 0f
 
     private lateinit var subheader: NavigationDrawerSubheader
 
-    private fun onClick() {
-        activity.lifecycleScope.launch {
-            val collapsed = !subheader.isCollapsed
-            when (subheader.subheaderType) {
-                SubheaderType.PREFERENCE -> preferences.setBoolean(subheader.id.toInt(), collapsed)
-                SubheaderType.GOOGLE_TASKS -> googleTaskDao.setCollapsed(subheader.id, collapsed)
-                SubheaderType.CALDAV, SubheaderType.TASKS, SubheaderType.ETESYNC ->
-                    caldavDao.setCollapsed(subheader.id, collapsed)
-            }
-            localBroadcastManager.broadcastRefreshList()
-        }
-    }
-
     fun bind(subheader: NavigationDrawerSubheader) {
+        add.isVisible = subheader.addIntent != null
         this.subheader = subheader
         text.text = subheader.listingTitle
         when {
-            subheader.error || subheader.subheaderType == SubheaderType.ETESYNC ->
+            subheader.error || subheader.subheaderType == ETESYNC ->
                 with(errorIcon) {
-                setColorFilter(ContextCompat.getColor(activity, R.color.overdue))
+                setColorFilter(ContextCompat.getColor(itemView.context, R.color.overdue))
                 visibility = View.VISIBLE
             }
             else -> errorIcon.visibility = View.GONE
         }
-        DrawableUtil.setRightDrawable(
-                itemView.context,
-                text,
-                if (subheader.isCollapsed) R.drawable.ic_keyboard_arrow_down_black_18dp else R.drawable.ic_keyboard_arrow_up_black_18dp)
+        rotation = if (subheader.isCollapsed) 180f else 0f
+        chevron.rotation = rotation
+    }
+
+    private fun rotate() {
+        rotation = if (rotation == 0f) 180f else 0f
+        chevron.animate().rotation(rotation).setDuration(250).start()
     }
 
     init {
         FilterAdapterSubheaderBinding.bind(itemView).let {
             text = it.text
             errorIcon = it.iconError
-            it.subheaderRow.setOnClickListener { onClick() }
+            chevron = it.chevron
+            add = it.addItem
+            it.subheaderRow.setOnClickListener {
+                rotate()
+                clickHandler.onClick(subheader)
+            }
         }
-        errorIcon.setOnClickListener {
-            activity.startActivity(Intent(activity, MainPreferences::class.java))
-        }
+        errorIcon.setOnClickListener { clickHandler.showError() }
+        add.setOnClickListener { clickHandler.onAdd(subheader) }
     }
 }

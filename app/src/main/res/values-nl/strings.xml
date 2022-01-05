@@ -490,7 +490,6 @@
     <string name="navigation_drawer">Navigatie la</string>
     <string name="hide_unused_tags">Verberg ongebruikte labels</string>
     <string name="hide_unused_places">Verberg ongebruikte plaatsen</string>
-    <string name="add_place">Voeg plaats toe</string>
     <string name="menu_discard_changes">Negeer veranderingen</string>
     <string name="chip_appearance_text_and_icon">Tekst en icon</string>
     <string name="chip_appearance_text_only">Alleen tekst</string>

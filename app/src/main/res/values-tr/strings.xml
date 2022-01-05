@@ -495,7 +495,6 @@
     <string name="navigation_drawer">Gezinim çekmecesi</string>
     <string name="hide_unused_tags">Kullanılmayan etiketleri gizle</string>
     <string name="hide_unused_places">Kullanılmayan yerleri gizle</string>
-    <string name="add_place">Yer ekle</string>
     <string name="auto_dismiss_datetime_summary">Tarih veya zaman seçince tarih zaman seçiciyi kapat</string>
     <string name="auto_dismiss_datetime">Tarih zaman seçiciyi kendiliğinden kapat</string>
     <string name="shortcut_pick_time">Zaman seç</string>

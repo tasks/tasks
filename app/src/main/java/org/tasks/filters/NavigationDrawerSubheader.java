@@ -1,8 +1,10 @@
 package org.tasks.filters;
 
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.os.ParcelCompat;
 import com.todoroo.astrid.api.FilterListItem;
 
@@ -29,15 +31,27 @@ public class NavigationDrawerSubheader extends FilterListItem {
   private boolean collapsed;
   private SubheaderType subheaderType;
   private long id;
+  @Nullable
+  private Intent addIntent;
+  private int addIntentRc;
 
   private NavigationDrawerSubheader() {}
 
   public NavigationDrawerSubheader(
-      String listingTitle, boolean error, boolean collapsed, SubheaderType subheaderType, long id) {
+          String listingTitle,
+          boolean error,
+          boolean collapsed,
+          SubheaderType subheaderType,
+          long id,
+          int addIntentRc,
+          @Nullable Intent addIntent
+  ) {
     this.error = error;
     this.collapsed = collapsed;
     this.subheaderType = subheaderType;
     this.id = id;
+    this.addIntent = addIntent;
+    this.addIntentRc = addIntentRc;
     this.listingTitle = listingTitle;
   }
 
@@ -47,6 +61,15 @@ public class NavigationDrawerSubheader extends FilterListItem {
 
   public boolean isCollapsed() {
     return collapsed;
+  }
+
+  @Nullable
+  public Intent getAddIntent() {
+    return addIntent;
+  }
+
+  public int getAddIntentRc() {
+    return addIntentRc;
   }
 
   public SubheaderType getSubheaderType() {
@@ -60,13 +83,15 @@ public class NavigationDrawerSubheader extends FilterListItem {
     collapsed = ParcelCompat.readBoolean(source);
     subheaderType = (SubheaderType) source.readSerializable();
     id = source.readLong();
+    addIntent = source.readParcelable(getClass().getClassLoader());
+    addIntentRc = source.readInt();
   }
 
   @Override
   public boolean areItemsTheSame(@NonNull FilterListItem other) {
     return other instanceof NavigationDrawerSubheader
         && subheaderType == ((NavigationDrawerSubheader) other).getSubheaderType()
-        && id == ((NavigationDrawerSubheader) other).getId();
+        && id == other.getId();
   }
 
   @Override
@@ -113,6 +138,8 @@ public class NavigationDrawerSubheader extends FilterListItem {
     ParcelCompat.writeBoolean(dest, collapsed);
     dest.writeSerializable(subheaderType);
     dest.writeLong(id);
+    dest.writeParcelable(addIntent, 0);
+    dest.writeInt(addIntentRc);
   }
 
   @Override

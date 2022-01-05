@@ -219,7 +219,6 @@
     <string name="theme">තේමාව</string>
     <string name="opacity_footer">පාදකයේ පාරාන්ධතාව</string>
     <string name="chip_appearance_text_and_icon">පෙළ සහ නිරූපකය</string>
-    <string name="add_place">ස්ථානය එක් කරන්න</string>
     <string name="hide_unused_places">භාවිතයට නොගත් ස්ථාන සඟවන්න</string>
     <string name="hide_unused_tags">භාවිතයට නොගත් ටැග් සඟවන්න</string>
     <string name="places">ස්ථාන</string>

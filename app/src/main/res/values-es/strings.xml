@@ -495,7 +495,6 @@
     <string name="navigation_drawer">Cajón de navegación</string>
     <string name="hide_unused_tags">Ocultar etiquetas no utilizadas</string>
     <string name="hide_unused_places">Ocultar lugares inusuales</string>
-    <string name="add_place">Añadir lugar</string>
     <string name="menu_discard_changes">Descartar los cambios</string>
     <string name="chip_appearance_text_and_icon">Texto e icono</string>
     <string name="chip_appearance_text_only">Sólo texto</string>

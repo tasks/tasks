@@ -492,7 +492,6 @@
     <string name="place_settings">Hely beállítások</string>
     <string name="hide_unused_tags">Használaton kívüli címkék elrejtése</string>
     <string name="hide_unused_places">Használaton kívüli helyek elrejtése</string>
-    <string name="add_place">Hely hozzáadása</string>
     <string name="navigation_drawer">Hamburger menü</string>
     <string name="menu_discard_changes">Módosítások elvetése</string>
     <string name="chip_appearance_text_and_icon">Szöveg és ikon</string>

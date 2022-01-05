@@ -1,6 +1,6 @@
 package com.todoroo.astrid.adapter
 
-import android.app.Activity
+import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,9 +10,9 @@ import org.tasks.databinding.FilterAdapterActionBinding
 import org.tasks.themes.DrawableUtil
 
 class ActionViewHolder internal constructor(
-        private val activity: Activity,
-        itemView: View,
-        private val onClick: ((FilterListItem?) -> Unit)?) : RecyclerView.ViewHolder(itemView) {
+    private val context: Context,
+    itemView: View,
+    private val onClick: ((FilterListItem?) -> Unit)?) : RecyclerView.ViewHolder(itemView) {
 
     private val row: View
     private val text: TextView
@@ -28,7 +28,7 @@ class ActionViewHolder internal constructor(
 
     fun bind(filter: FilterListItem) {
         text.text = filter.listingTitle
-        icon.setImageDrawable(DrawableUtil.getWrapped(activity, filter.icon))
+        icon.setImageDrawable(DrawableUtil.getWrapped(context, filter.icon))
         if (onClick != null) {
             row.setOnClickListener {
                 onClick.invoke(filter)

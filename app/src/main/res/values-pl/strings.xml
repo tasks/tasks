@@ -507,7 +507,6 @@
     <string name="chip_appearance_icon_only">Tylko ikona</string>
     <string name="chip_appearance_text_only">Tylko tekst</string>
     <string name="chip_appearance_text_and_icon">Tekst i ikona</string>
-    <string name="add_place">Dodaj miejsce</string>
     <string name="hide_unused_places">Ukryj nieużywane miejsca</string>
     <string name="hide_unused_tags">Ukryj nieużywane tagi</string>
     <string name="navigation_drawer">Panel nawigacji</string>

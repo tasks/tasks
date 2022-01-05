@@ -64,7 +64,10 @@ class FilterProvider @Inject constructor(
                         false,
                         collapsed,
                         SubheaderType.PREFERENCE,
-                        R.string.p_collapse_debug.toLong()))
+                        R.string.p_collapse_debug.toLong(),
+                        0,
+                        null,
+                ))
                         .apply { if (collapsed) return this }
                         .plus(listOf(
                                 BuiltInFilterExposer.getNoListFilter(),
@@ -91,18 +94,14 @@ class FilterProvider @Inject constructor(
                                 false,
                                 collapsed,
                                 SubheaderType.PREFERENCE,
-                                R.string.p_collapse_filters.toLong()))
+                                R.string.p_collapse_filters.toLong(),
+                                NavigationDrawerFragment.REQUEST_NEW_FILTER,
+                                if (showCreate) Intent() else null))
                         .apply { if (collapsed) return this }
                         .plusAllIf(showBuiltIn) {
                             builtInFilterExposer.filters()
                         }
                         .plus(filterDao.getFilters().map(::CustomFilter).sort())
-                        .plusIf(showCreate) {
-                            NavigationDrawerAction(
-                                    context.getString(R.string.add_filter),
-                                    R.drawable.ic_outline_add_24px,
-                                    NavigationDrawerFragment.REQUEST_NEW_FILTER)
-                        }
             }
 
     private suspend fun addTags(showCreate: Boolean): List<FilterListItem> =
@@ -116,7 +115,13 @@ class FilterProvider @Inject constructor(
                                 false,
                                 collapsed,
                                 SubheaderType.PREFERENCE,
-                                R.string.p_collapse_tags.toLong()))
+                                R.string.p_collapse_tags.toLong(),
+                                NavigationDrawerFragment.REQUEST_NEW_LIST,
+                                if (showCreate) {
+                                    Intent(context, TagSettingsActivity::class.java)
+                                } else {
+                                    null
+                                }))
                         .apply { if (collapsed) return this }
                         .plus(tagDataDao.getTagFilters()
                                     .filterIf(preferences.getBoolean(R.string.p_tags_hide_unused, false)) {
@@ -124,13 +129,6 @@ class FilterProvider @Inject constructor(
                                     }
                                     .map(TagFilters::toTagFilter)
                                     .sort())
-                        .plusIf(showCreate) {
-                            NavigationDrawerAction(
-                                    context.getString(R.string.new_tag),
-                                    R.drawable.ic_outline_add_24px,
-                                    Intent(context, TagSettingsActivity::class.java),
-                                    NavigationDrawerFragment.REQUEST_NEW_LIST)
-                        }
             }
 
     private suspend fun addPlaces(showCreate: Boolean): List<FilterListItem> =
@@ -144,7 +142,13 @@ class FilterProvider @Inject constructor(
                                 false,
                                 collapsed,
                                 SubheaderType.PREFERENCE,
-                                R.string.p_collapse_locations.toLong()))
+                                R.string.p_collapse_locations.toLong(),
+                                NavigationDrawerFragment.REQUEST_NEW_PLACE,
+                                if (showCreate) {
+                                    Intent(context, LocationPickerActivity::class.java)
+                                } else {
+                                    null
+                                }))
                         .apply { if (collapsed) return this }
                         .plus(locationDao.getPlaceFilters()
                                     .filterIf(preferences.getBoolean(R.string.p_places_hide_unused, false)) {
@@ -152,13 +156,6 @@ class FilterProvider @Inject constructor(
                                     }
                                     .map(LocationFilters::toLocationFilter)
                                     .sort())
-                        .plusIf(showCreate) {
-                            NavigationDrawerAction(
-                                    context.getString(R.string.add_place),
-                                    R.drawable.ic_outline_add_24px,
-                                    Intent(context, LocationPickerActivity::class.java),
-                                    NavigationDrawerFragment.REQUEST_NEW_PLACE)
-                        }
             }
 
     private suspend fun getAllFilters(showCreate: Boolean = true, showBuiltIn: Boolean = true): List<FilterListItem> =
@@ -216,20 +213,19 @@ class FilterProvider @Inject constructor(
                             account.error?.isNotBlank() ?: false,
                             account.isCollapsed,
                             SubheaderType.GOOGLE_TASKS,
-                            account.id))
+                            account.id,
+                            NavigationDrawerFragment.REQUEST_NEW_LIST,
+                            if (showCreate) {
+                                Intent(context, GoogleTaskListSettingsActivity::class.java)
+                                    .putExtra(GoogleTaskListSettingsActivity.EXTRA_ACCOUNT, account)
+                            } else {
+                                null
+                            }))
                     .apply { if (account.isCollapsed) return this }
                     .plus(googleTaskListDao
                                 .getGoogleTaskFilters(account.account!!)
                                 .map(GoogleTaskFilters::toGtasksFilter)
                                 .sort())
-                    .plusIf(showCreate) {
-                        NavigationDrawerAction(
-                                context.getString(R.string.new_list),
-                                R.drawable.ic_outline_add_24px,
-                                Intent(context, GoogleTaskListSettingsActivity::class.java)
-                                        .putExtra(GoogleTaskListSettingsActivity.EXTRA_ACCOUNT, account),
-                                NavigationDrawerFragment.REQUEST_NEW_LIST)
-                    }
 
     private suspend fun caldavFilters(showCreate: Boolean = true): List<FilterListItem> =
             caldavDao.getAccounts()
@@ -252,20 +248,23 @@ class FilterProvider @Inject constructor(
                                 account.isEteSyncAccount -> SubheaderType.ETESYNC
                                 else -> SubheaderType.CALDAV
                             },
-                            account.id))
+                            account.id,
+                            NavigationDrawerFragment.REQUEST_NEW_LIST,
+                            if (showCreate) {
+                                Intent(context, account.listSettingsClass())
+                                    .putExtra(
+                                        BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT,
+                                        account
+                                    )
+                            } else {
+                                null
+                            }
+                    ))
                     .apply { if (account.isCollapsed) return this }
                     .plus(caldavDao
                                 .getCaldavFilters(account.uuid!!)
                                 .map(CaldavFilters::toCaldavFilter)
                                 .sort())
-                    .plusIf(showCreate) {
-                        NavigationDrawerAction(
-                                context.getString(R.string.new_list),
-                                R.drawable.ic_outline_add_24px,
-                                Intent(context, account.listSettingsClass())
-                                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account),
-                                NavigationDrawerFragment.REQUEST_NEW_LIST)
-                    }
 
     companion object {
         private val COMPARATOR = Comparator<Filter> { f1, f2 ->

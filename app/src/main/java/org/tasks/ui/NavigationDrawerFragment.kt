@@ -27,7 +27,6 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.PurchaseActivity
 import org.tasks.data.TaskDao
-import org.tasks.dialogs.NewFilterDialog
 import org.tasks.extensions.Context.openUri
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerAction
@@ -96,8 +95,6 @@ class NavigationDrawerFragment : BottomSheetDialogFragment() {
                 REQUEST_PURCHASE ->
                     startActivity(Intent(context, PurchaseActivity::class.java))
                 REQUEST_DONATE -> context?.openUri(R.string.url_donate)
-                REQUEST_NEW_FILTER -> NewFilterDialog.newFilterDialog()
-                    .show(parentFragmentManager, FRAG_TAG_NEW_FILTER)
                 else -> activity?.startActivityForResult(item.intent, item.requestCode)
             }
         }
@@ -154,7 +151,6 @@ class NavigationDrawerFragment : BottomSheetDialogFragment() {
         const val REQUEST_DONATE = 10103
         const val REQUEST_NEW_PLACE = 10104
         const val REQUEST_NEW_FILTER = 101015
-        private const val FRAG_TAG_NEW_FILTER = "frag_tag_new_filter"
         private const val EXTRA_SELECTED = "extra_selected"
 
         fun newNavigationDrawer(selected: Filter?): NavigationDrawerFragment {

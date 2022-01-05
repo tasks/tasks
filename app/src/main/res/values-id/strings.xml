@@ -571,7 +571,6 @@
     <string name="auto_dismiss_datetime_edit_summary">Tutup otomatis ketika mengambil dari tugas suntingan</string>
     <string name="auto_dismiss_datetime_list_summary">Tutup otomatis ketika mengambil dari daftar tugas</string>
     <string name="auto_dismiss_datetime">Tutup otomatis tabel tanggal dan waktu</string>
-    <string name="add_place">Tambah tempat</string>
     <string name="hide_unused_places">Sembunyikan tempat yang tidak digunakan</string>
     <string name="place_settings">Pengaturan tempat</string>
     <string name="places">Tempat</string>
