@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="window_background">@color/md_background_dark</color>
-  <color name="content_background">#303030</color>
+  <color name="content_background">@color/md_background_dark</color>
   <color name="dialog_background">@color/md_background_dark</color>
   <color name="icon_tint">@color/icon_tint_dark</color>
   <color name="icon_tint_with_alpha">@color/icon_tint_dark_alpha</color>
