@@ -681,7 +681,7 @@
     <string name="tasks_org_account_required">È richiesto un account Tasks.org</string>
     <string name="privacy">Privacy</string>
     <string name="open_source">Open source</string>
-    <string name="issue_tracker">Gestione problemi</string>
+    <string name="issue_tracker">Segnalazione problemi</string>
     <string name="social">Social</string>
     <string name="follow_twitter">Segui @tasks_org</string>
     <string name="tasks_needs_your_support">Tasks ha bisogno del tuo supporto!</string>
