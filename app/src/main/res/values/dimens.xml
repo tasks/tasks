@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <dimen name="navigation_drawer_width">260dp</dimen>
   <dimen name="half_keyline_first">8dp</dimen>
   <dimen name="quarter_keyline_first">4dp</dimen>
   <dimen name="keyline_first">16dp</dimen>
