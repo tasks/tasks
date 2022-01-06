@@ -1,0 +1,6 @@
+* New bottom app bar
+* Miscellaneous design updates
+* Improve privacy and security by removing RECORD_AUDIO and
+  WRITE_EXTERNAL_STORAGE permissions
+  * Attaching an audio note will launch your device's audio recorder
+* Translation updates

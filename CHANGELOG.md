@@ -1,13 +1,15 @@
-### 12.0 (2022-01-04)
+### 12.0 (2022-01-06)
 
 * New bottom app bar
-* Improve privacy and security by removing RECORD_AUDIO permission
+* Miscellaneous design updates
+* Improve privacy and security by removing RECORD_AUDIO and
+  WRITE_EXTERNAL_STORAGE permissions
   * Attaching an audio note will launch your device's audio recorder
-* Remove WRITE_EXTERNAL_STORAGE permission
 * Translation updates
+  * Catalan - @Solatec
   * Dutch - @mm4c
   * German - @qwerty287
-  * Italian - @ppasserini
+  * Italian - @ppasserini, @Fs00
   * Portuguese - @SantosSi
   * Romanian - @simonaiacob
   * Ukrainian - @IhorHordiichuk
