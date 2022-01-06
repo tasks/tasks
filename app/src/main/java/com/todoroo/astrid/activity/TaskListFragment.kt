@@ -456,6 +456,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     private fun makeSnackbar(text: String): Snackbar? = activity?.let {
         Snackbar.make(coordinatorLayout, text, 8000)
+                .setAnchorView(R.id.fab)
                 .setTextColor(it.getColor(R.color.snackbar_text_color))
                 .setActionTextColor(it.getColor(R.color.snackbar_action_color))
                 .apply {
