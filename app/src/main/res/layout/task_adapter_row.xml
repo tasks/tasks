@@ -23,7 +23,7 @@
           android:layout_alignParentTop="true"
           android:layout_alignParentStart="true"
           android:paddingStart="@dimen/keyline_first"
-          android:paddingEnd="@dimen/keyline_second"
+          android:paddingEnd="@dimen/keyline_first"
           tools:src="@drawable/ic_outline_check_box_outline_blank_24px" />
 
         <TextView

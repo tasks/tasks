@@ -5,7 +5,7 @@
   <dimen name="task_edit_spacing">20dp</dimen>
   <dimen name="keyline_first">16dp</dimen>
   <dimen name="keyline_second">32dp</dimen>
-  <dimen name="keyline_content_inset">72dp</dimen>
+  <dimen name="keyline_content_inset">56dp</dimen>
   <dimen name="priority_button_width">40dp</dimen>
 
   <dimen name="task_list_footer_height">88dp</dimen>
