@@ -3,7 +3,6 @@ package org.tasks.dialogs
 import android.app.Activity
 import android.app.Dialog
 import android.content.DialogInterface
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -62,12 +61,14 @@ abstract class BaseDateTimePicker : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         dialog.setOnShowListener {
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                dialog.behavior.halfExpandedRatio = .75f
-                val bottomSheet = dialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
-                BottomSheetBehavior.from(bottomSheet!!).state = BottomSheetBehavior.STATE_HALF_EXPANDED
-                dialog.behavior.peekHeight = bottomSheet.height
-            }
+            dialog
+                .findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
+                ?.let { bottomSheet ->
+                    with (BottomSheetBehavior.from(bottomSheet)) {
+                        state = BottomSheetBehavior.STATE_EXPANDED
+                        skipCollapsed = true
+                    }
+                }
 
             if (!closeAutomatically()) {
                 addButtons(dialog)
