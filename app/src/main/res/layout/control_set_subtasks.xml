@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:gravity="center_vertical">
-
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler_view"
@@ -12,8 +10,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
     android:overScrollMode="never"
-    android:scrollbars="none"
-    app:elevation="@dimen/elevation_task_list" />
+    android:scrollbars="none" />
 
   <LinearLayout
     android:id="@+id/new_subtasks"

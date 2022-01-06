@@ -5,6 +5,5 @@
     <item name="android:elevation" tools:ignore="NewApi">@dimen/elevation_refresh_indicator</item>
     <item name="android:clipToPadding">false</item>
     <item name="android:paddingStart">0dp</item>
-    <item name="android:paddingEnd">@dimen/elevation_padding</item>
   </style>
 </resources>

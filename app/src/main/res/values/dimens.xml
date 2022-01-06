@@ -18,9 +18,7 @@
 
   <dimen name="elevation_toolbar">8dp</dimen>
   <dimen name="elevation_app_bar">4dp</dimen>
-  <dimen name="elevation_task_list">2dp</dimen>
   <dimen name="elevation_refresh_indicator">3dp</dimen>
-  <dimen name="elevation_padding">3dp</dimen>
 
   <dimen name="widget_padding_compact">6dp</dimen>
   <dimen name="widget_padding">12dp</dimen>
