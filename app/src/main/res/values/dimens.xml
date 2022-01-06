@@ -2,6 +2,7 @@
 <resources>
   <dimen name="half_keyline_first">8dp</dimen>
   <dimen name="quarter_keyline_first">4dp</dimen>
+  <dimen name="task_edit_spacing">20dp</dimen>
   <dimen name="keyline_first">16dp</dimen>
   <dimen name="keyline_second">32dp</dimen>
   <dimen name="keyline_content_inset">72dp</dimen>
