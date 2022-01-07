@@ -1,17 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@color/drawer_color"
-  app:insetForeground="#4000">
-
-  <androidx.recyclerview.widget.RecyclerView
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recycler_view"
-    android:scrollbarStyle="outsideOverlay"
+    android:paddingTop="@dimen/bottom_sheet_corners"
+    android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical"
-    tools:context=".NavigationDrawerFragment"/>
-
-</FrameLayout>
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbars="vertical"/>

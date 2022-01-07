@@ -7,7 +7,7 @@
   <dimen name="keyline_second">32dp</dimen>
   <dimen name="keyline_content_inset">56dp</dimen>
   <dimen name="priority_button_width">40dp</dimen>
-
+  <dimen name="bottom_sheet_corners">12dp</dimen>
   <dimen name="task_list_footer_height">88dp</dimen>
 
   <dimen name="task_edit_text_size">16sp</dimen>

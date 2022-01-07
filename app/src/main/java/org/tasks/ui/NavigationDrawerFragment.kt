@@ -42,6 +42,8 @@ class NavigationDrawerFragment : BottomSheetDialogFragment() {
     @Inject lateinit var filterProvider: FilterProvider
     @Inject lateinit var taskDao: TaskDao
 
+    override fun getTheme() = R.style.CustomBottomSheetDialog
+
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
