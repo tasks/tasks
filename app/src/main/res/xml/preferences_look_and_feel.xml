@@ -54,6 +54,14 @@
     android:key="@string/task_list_options"
     android:title="@string/task_list_options">
 
+    <ListPreference
+      android:defaultValue="@integer/default_app_bar_position"
+      android:key="@string/p_app_bar_position"
+      android:entries="@array/app_bar_position"
+      android:summary="%s"
+      android:entryValues="@array/two_values"
+      android:title="@string/app_bar_position" />
+
     <SeekBarPreference
       android:defaultValue="16"
       android:key="@string/p_fontSize"

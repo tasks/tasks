@@ -84,8 +84,6 @@
       android:contentDescription="@string/action_create_new_task"
       app:backgroundTint="?attr/colorAccent"
       app:layout_anchor="@id/bottomAppBar"
-      app:hideOnScroll="true"
-      app:layout_scrollFlags="scroll|enterAlways"
       app:srcCompat="@drawable/ic_outline_add_24px" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

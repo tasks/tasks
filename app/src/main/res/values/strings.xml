@@ -710,4 +710,7 @@ File %1$s contained %2$s.\n\n
   <string name="markdown">Markdown</string>
   <string name="markdown_description">Enable Markdown in title and description</string>
   <string name="completion_sound">Play completion sound</string>
+  <string name="app_bar_position">App bar position</string>
+  <string name="top">Top</string>
+  <string name="bottom">Bottom</string>
 </resources>

@@ -519,6 +519,9 @@ class Preferences @JvmOverloads constructor(
     val markdown: Boolean
         get() = getBoolean(R.string.p_markdown, false)
 
+    val isTopAppBar: Boolean
+        get() = getIntegerFromString(R.string.p_app_bar_position, 1) == 0
+
     companion object {
         private const val PREF_SORT_SORT = "sort_sort" // $NON-NLS-1$
 

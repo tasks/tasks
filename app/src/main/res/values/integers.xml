@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <integer name="default_app_bar_position">0</integer>
   <integer name="default_quiet_hours_start">79200000</integer> <!-- 22:00 -->
   <integer name="default_quiet_hours_end">36000000</integer> <!-- 10:00 -->
   <integer name="default_remind_time">64800000</integer> <!-- 18:00 -->

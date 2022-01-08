@@ -20,6 +20,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
+import androidx.core.view.forEach
+import androidx.core.view.isVisible
+import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -30,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
@@ -178,7 +182,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             coordinatorLayout = taskListCoordinator
             recyclerView = bodyStandard.recyclerView
             fab.setOnClickListener { createNewTask() }
-            bottomAppBar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
         }
         filter = getFilter()
         themeColor = if (filter.tint != 0) colorProvider.getThemeColor(filter.tint, true) else defaultThemeColor
@@ -206,14 +209,31 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         setupRefresh(swipeRefreshLayout)
         setupRefresh(emptyRefreshLayout)
         binding.toolbar.title = filter.listingTitle
-        binding.toolbar.navigationIcon = null
-        binding.bottomAppBar.setOnMenuItemClickListener(this)
         binding.appbarlayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             if (verticalOffset == 0 && binding.bottomAppBar.isScrolledDown) {
                 binding.bottomAppBar.performShow()
             }
         })
-        setupBottomMenu()
+        val toolbar = if (preferences.isTopAppBar) {
+            binding.bottomAppBar.isVisible = false
+            with (binding.fab) {
+                layoutParams = (layoutParams as CoordinatorLayout.LayoutParams).apply {
+                    setMargins(resources.getDimensionPixelSize(R.dimen.keyline_first))
+                    anchorId = View.NO_ID
+                    gravity = Gravity.BOTTOM or Gravity.END
+                }
+            }
+            binding.toolbar.setNavigationIcon(R.drawable.ic_outline_menu_24px)
+            binding.toolbar
+        } else {
+            themeColor.apply(binding.bottomAppBar)
+            binding.bottomAppBar.isVisible = true
+            binding.toolbar.navigationIcon = null
+            binding.bottomAppBar
+        }
+        toolbar.setOnMenuItemClickListener(this)
+        toolbar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
+        setupMenu(toolbar)
         search = binding.toolbar.menu.findItem(R.id.menu_search).setOnActionExpandListener(this)
         return binding.root
     }
@@ -241,16 +261,18 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         taskAdapter.setDataSource(adapter)
     }
 
-    private fun setupBottomMenu() {
-        val menu = binding.bottomAppBar.menu
-        val bottomAppBar = binding.bottomAppBar
+    private fun setupMenu(appBar: Toolbar) {
+        val menu = appBar.menu
         menu.clear()
         if (filter.hasBeginningMenu()) {
-            bottomAppBar.inflateMenu(filter.beginningMenu)
+            appBar.inflateMenu(filter.beginningMenu)
         }
-        bottomAppBar.inflateMenu(R.menu.menu_task_list_fragment_bottom)
+        appBar.inflateMenu(R.menu.menu_task_list_fragment_bottom)
         if (filter.hasMenu()) {
-            bottomAppBar.inflateMenu(filter.menu)
+            appBar.inflateMenu(filter.menu)
+        }
+        if (appBar is BottomAppBar) {
+            menu.removeItem(R.id.menu_search)
         }
         val hidden = menu.findItem(R.id.menu_show_unstarted)
         val completed = menu.findItem(R.id.menu_show_completed)
@@ -275,7 +297,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }
         menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable()
-        themeColor.apply(bottomAppBar)
     }
 
     private fun openFilter(filter: Filter?) {
@@ -571,6 +592,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         if (searchQuery == null) {
             searchByQuery("")
         }
+        if (preferences.isTopAppBar) {
+            binding.toolbar.menu.forEach { it.isVisible = false }
+        }
         return true
     }
 
@@ -579,7 +603,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         listViewModel.searchByFilter(filter)
         searchJob?.cancel()
         searchQuery = null
-        setupBottomMenu()
+        if (preferences.isTopAppBar) {
+            setupMenu(binding.toolbar)
+        }
         return true
     }
 
