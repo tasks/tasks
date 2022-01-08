@@ -709,4 +709,8 @@
     <string name="chat_libera">Egin bat #tasks Libera Chat-en</string>
     <string name="now">Orain</string>
     <string name="when_started">Hasten denean</string>
+    <string name="completion_sound">Amaierako soinua erreproduzitu</string>
+    <string name="app_bar_position">Aplikazioaren barraren posizioa</string>
+    <string name="top">Goi-mailakoa</string>
+    <string name="bottom">Behekoa</string>
 </resources>
