@@ -1,6 +1,7 @@
-### 12.0 (2022-01-06)
+### 12.0 (2022-01-08)
 
 * New bottom app bar
+  * Choose top or bottom app bar in settings
 * Miscellaneous design updates
 * Improve privacy and security by removing RECORD_AUDIO and
   WRITE_EXTERNAL_STORAGE permissions
@@ -12,6 +13,7 @@
   * Italian - @ppasserini, @Fs00
   * Portuguese - @SantosSi
   * Romanian - @simonaiacob
+  * Russian - Nikita Epifanov
   * Ukrainian - @IhorHordiichuk
 
 ### 11.13 (2021-12-31)
