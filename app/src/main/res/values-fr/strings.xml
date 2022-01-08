@@ -35,16 +35,16 @@
     <string name="TEA_estimatedDuration_label">Combien de temps cela va-t-il prendre ?</string>
     <string name="TEA_elapsedDuration_label">Temps déjà passé sur la tâche</string>
     <string name="save">Sauvegarder</string>
-    <string name="TEA_timer_est">Restant %s</string>
-    <string name="TEA_timer_elap">Passé %s</string>
+    <string name="TEA_timer_est">%s Restant</string>
+    <string name="TEA_timer_elap">%s Passé</string>
     <string name="due_date">Date d\'échéance</string>
-    <string name="due_time">Heure d\'échéance</string>
+    <string name="due_time">Échéance</string>
     <string name="day_before_due">Jour avant échéance</string>
     <string name="week_before_due">Semaine avant échéance</string>
     <string name="TEA_control_repeat">Répéter</string>
     <string name="TEA_control_gcal">Calendrier</string>
     <string name="TEA_control_importance">Priorité</string>
-    <string name="TEA_control_location">Localisation</string>
+    <string name="TEA_control_location">Endroit</string>
     <string name="TEA_control_files">Fichiers</string>
     <string name="TEA_control_reminders">Rappels</string>
     <string name="TEA_control_timer">Contrôles de rappel</string>
@@ -562,7 +562,7 @@
     <string name="open_last_viewed_list">Ouvrir la dernière liste consultée</string>
     <string name="on_launch">Au lancement</string>
     <string name="lists">Listes</string>
-    <string name="astrid_sort_order_summary">Activez le mode de tri manuel d’Astrid pour « Mes tâches », « Aujourd\'hui », et les étiquettes. Ce mode tri sera remplacé par « Mon ordre » dans une future mise à jour</string>
+    <string name="astrid_sort_order_summary">Activez le mode de tri manuel d’Astrid pour « Mes tâches », « Aujourd\'hui », et les étiquettes. Ce mode de tri sera remplacé par « Mon ordre » dans une future mise à jour</string>
     <string name="astrid_sort_order">Tri manuel Astrid</string>
     <string name="disable_sort_groups">Désactiver les groupes de tri</string>
     <string name="CFC_list_name">Dans la liste…</string>
@@ -638,7 +638,7 @@
     <string name="app_password">Mot de passe de l\'application</string>
     <string name="local_lists">Listes locales</string>
     <string name="default_due_date">Date d’échéance par défaut</string>
-    <string name="start_date">Date de début</string>
+    <string name="start_date">Date de départ</string>
     <string name="filter_criteria_unstarted">Pas commencé</string>
     <string name="show_unstarted">Afficher les tâches à venir</string>
     <string name="no_start_date">Pas de date de début</string>
@@ -705,4 +705,7 @@
     <string name="now">Maintenant</string>
     <string name="when_started">Au démarrage</string>
     <string name="completion_sound">Jouer le son d\'achèvement</string>
+    <string name="top">Haut</string>
+    <string name="app_bar_position">Position de la barre de l’application</string>
+    <string name="bottom">Bas</string>
 </resources>
