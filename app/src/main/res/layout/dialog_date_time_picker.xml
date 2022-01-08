@@ -8,6 +8,7 @@
     <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:background="@color/dialog_background"
       android:paddingBottom="@dimen/keyline_first">
 
         <include
