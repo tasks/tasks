@@ -730,4 +730,7 @@
     <string name="now">Зараз</string>
     <string name="when_started">Після запуску</string>
     <string name="completion_sound">Відтворювати звук завершення</string>
+    <string name="bottom">Унизу</string>
+    <string name="top">Угорі</string>
+    <string name="app_bar_position">Розташування панелі застосунку</string>
 </resources>
