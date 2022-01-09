@@ -1,3 +1,14 @@
+### 12.1 (2021-01-09)
+
+* Group overdue tasks when sorting by due date
+* Update translations
+  * Basque - Sergio Varela
+  * Chinese (Simplified) - Eric
+  * French - @FlorianLeChat
+  * Norwegian Bokmål - @comradekingu
+  * Spanish - @FlorianLeChat
+  * Vietnamese - @unbaseduser
+
 ### 12.0 (2022-01-08)
 
 * New bottom app bar
