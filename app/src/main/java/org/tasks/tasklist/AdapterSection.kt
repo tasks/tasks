@@ -18,7 +18,7 @@ data class AdapterSection(
 ) {
     fun headerColor(context: Context, sortMode: Int, textColor: Int = R.color.text_secondary) =
             ContextCompat.getColor(context, if ((sortMode == SORT_DUE || sortMode == SORT_START)
-                    && value > 0
+                    && (value > 0 || value == -1L)
                     && value.toDateTime().plusDays(1).startOfDay().isBeforeNow) {
                 R.color.overdue
             } else {
@@ -35,6 +35,7 @@ data class AdapterSection(
     ): String =
             when {
                 sortMode == SORT_IMPORTANCE -> context.getString(priorityToString())
+                value == -1L -> context.getString(R.string.filter_overdue)
                 value == 0L -> context.getString(when (sortMode) {
                     SORT_DUE -> R.string.no_due_date
                     SORT_START -> R.string.no_start_date

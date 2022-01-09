@@ -2,9 +2,9 @@ package org.tasks.tasklist
 
 import android.util.SparseArray
 import androidx.core.util.forEach
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.TaskContainer
-import org.tasks.date.DateTimeUtils
 import org.tasks.time.DateTimeUtils.startOfDay
 import java.util.*
 
@@ -58,11 +58,18 @@ class SectionedDataSource constructor(
 
     private fun getSections(): SparseArray<AdapterSection> {
         val sections = ArrayList<AdapterSection>()
+        val startOfToday = now().startOfDay()
         for (i in tasks.indices) {
             val task = tasks[i]
             val sortGroup = task.sortGroup ?: continue
             val header = if (sortMode == SortHelper.SORT_IMPORTANCE || sortGroup == 0L) {
                 sortGroup
+            } else if (sortMode == SortHelper.SORT_DUE) {
+                when {
+                    sortGroup == 0L -> 0
+                    sortGroup < startOfToday -> -1
+                    else -> sortGroup.startOfDay()
+                }
             } else {
                 sortGroup.startOfDay()
             }
@@ -75,7 +82,17 @@ class SectionedDataSource constructor(
                     SortHelper.SORT_IMPORTANCE -> if (header != previous) {
                         sections.add(AdapterSection(i, header, 0, isCollapsed))
                     }
-                    else -> if (previous > 0 && header != DateTimeUtils.newDateTime(previous).startOfDay().millis) {
+                    SortHelper.SORT_DUE -> {
+                        val previousOverdue = previous < startOfToday
+                        val currentOverdue = header == -1L
+                        if (previous > 0 &&
+                            ((currentOverdue != previousOverdue) ||
+                                    (!currentOverdue && header != previous.startOfDay()))
+                        ) {
+                            sections.add(AdapterSection(i, header, 0, isCollapsed))
+                        }
+                    }
+                    else -> if (previous > 0 && header != previous.startOfDay()) {
                         sections.add(AdapterSection(i, header, 0, isCollapsed))
                     }
                 }

@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_START
@@ -193,8 +194,9 @@ class TaskViewHolder internal constructor(
                 dueDate.setTextColor(textColorSecondary)
             }
             val dateValue: String? = if (sortByDueDate
-                    && task.sortGroup?.startOfDay() == task.dueDate.startOfDay()
-                    && preferences.showGroupHeaders()) {
+                    && task.sortGroup >= now().startOfDay()
+                    && preferences.showGroupHeaders()
+            ) {
                 task.takeIf { it.hasDueTime() }?.let {
                     DateUtilities.getTimeString(context, newDateTime(task.dueDate))
                 }
