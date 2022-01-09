@@ -699,4 +699,7 @@
     <string name="now">现在</string>
     <string name="when_started">启动时</string>
     <string name="completion_sound">播放完成声音</string>
+    <string name="app_bar_position">应用栏位置</string>
+    <string name="bottom">底部</string>
+    <string name="top">顶部</string>
 </resources>
