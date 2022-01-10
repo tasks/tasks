@@ -338,6 +338,9 @@ File %1$s contained %2$s.\n\n
   <string name="location_radius_meters">%s m</string>
   <string name="tags">Tags</string>
   <string name="filters">Filters</string>
+  <string name="date_shortcut_five_minutes">For 5 min</string>
+  <string name="date_shortcut_fifteen_minutes">For 15 min</string>
+  <string name="date_shortcut_thirty_minutes">For 30 min</string>
   <string name="date_shortcut_hour">For an hour</string>
   <string name="date_shortcut_morning">Morning</string>
   <string name="date_shortcut_afternoon">Afternoon</string>

@@ -43,8 +43,15 @@ public class SnoozeDialog extends DialogFragment {
 
     List<SnoozeOption> snoozeOptions = new ArrayList<>();
 
+    DateTime fiveMinutes = now.plusMinutes(5);
+    snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_five_minutes, fiveMinutes));
+    DateTime fifteenMinutes = now.plusMinutes(15);
+    snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_fifteen_minutes, fifteenMinutes));
+    DateTime thirtyMinutes = now.plusMinutes(30);
+    snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_thirty_minutes, thirtyMinutes));
     DateTime oneHour = now.plusHours(1).withSecondOfMinute(0).withMillisOfSecond(0);
     snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_hour, oneHour));
+
 
     if (morning.isAfter(hourCutoff)) {
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_morning, morning));
