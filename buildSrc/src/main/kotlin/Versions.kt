@@ -4,7 +4,7 @@ object Versions {
     const val targetSdk = 31
     const val minSdk = 24
     const val work = "2.7.0"
-    const val leakcanary = "2.8"
+    const val leakcanary = "2.8.1"
     const val room = "2.4.0-beta01"
     const val crashlytics = "18.2.1"
     const val analytics = "19.0.1"
