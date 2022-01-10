@@ -728,4 +728,7 @@
     <string name="now">Сейчас</string>
     <string name="when_started">После запуска</string>
     <string name="completion_sound">Воспроизводить звук завершения</string>
+    <string name="app_bar_position">Расположение панели приложения</string>
+    <string name="top">Вверху</string>
+    <string name="bottom">Внизу</string>
 </resources>
