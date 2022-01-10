@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/half_keyline_first"
-        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+        android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
         app:tint="@color/icon_tint_with_alpha"
         android:layout_toStartOf="@id/add_item"
         android:layout_alignWithParentIfMissing="true"

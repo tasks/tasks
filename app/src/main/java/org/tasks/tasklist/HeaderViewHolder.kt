@@ -35,13 +35,13 @@ class HeaderViewHolder(
             row.visibility = View.VISIBLE
             this.title.text = header
             this.title.setTextColor(section.headerColor(context, sortMode))
-            rotation = if (section.collapsed) 180f else 0f
+            rotation = if (section.collapsed) -180f else 0f
             chevron.rotation = rotation
         }
     }
 
     private fun rotate() {
-        rotation = if (rotation == 0f) 180f else 0f
+        rotation = if (rotation == 0f) -180f else 0f
         chevron.animate().rotation(rotation).setDuration(250).start()
     }
 

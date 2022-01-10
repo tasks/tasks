@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/keyline_first"
-        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+        android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
         app:tint="@color/text_tertiary" />
 
 </RelativeLayout>

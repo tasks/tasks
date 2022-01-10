@@ -42,12 +42,12 @@ internal class SubheaderViewHolder(
             }
             else -> errorIcon.visibility = View.GONE
         }
-        rotation = if (subheader.isCollapsed) 180f else 0f
+        rotation = if (subheader.isCollapsed) -180f else 0f
         chevron.rotation = rotation
     }
 
     private fun rotate() {
-        rotation = if (rotation == 0f) 180f else 0f
+        rotation = if (rotation == 0f) -180f else 0f
         chevron.animate().rotation(rotation).setDuration(250).start()
     }
 
