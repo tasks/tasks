@@ -693,4 +693,7 @@
     <string name="now">Bây giờ</string>
     <string name="when_started">Khi bắt đầu</string>
     <string name="completion_sound">Phát âm thanh hoàn tất</string>
+    <string name="bottom">Dưới</string>
+    <string name="app_bar_position">Vị trí thanh ứng dụng</string>
+    <string name="top">Trên</string>
 </resources>
