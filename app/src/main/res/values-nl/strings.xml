@@ -705,4 +705,7 @@
     <string name="now">Nu</string>
     <string name="when_started">Op de starttijd</string>
     <string name="completion_sound">Spreek geluid bij voltooien</string>
+    <string name="app_bar_position">Positie van de app balk</string>
+    <string name="top">Bovenaan</string>
+    <string name="bottom">Onderaan</string>
 </resources>
