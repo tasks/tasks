@@ -16,6 +16,7 @@
     android:layout_alignParentTop="true"
     android:padding="@dimen/widget_padding"
     android:background="@drawable/widget_ripple_circle_dark"
+    android:soundEffectsEnabled="false"
     tools:src="@drawable/ic_outline_check_box_outline_blank_24px"
     tools:tint="@color/grey_500"/>
 
