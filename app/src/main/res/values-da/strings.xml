@@ -706,4 +706,10 @@
     <string name="SSD_sort_start">Efter startdato</string>
     <string name="manage_drawer">Administrer skuffe</string>
     <string name="now">Nu</string>
+    <string name="cancel">Annuller</string>
+    <string name="ok">Ok</string>
+    <string name="app_bar_position">App meny position</string>
+    <string name="top">Top</string>
+    <string name="bottom">Bund</string>
+    <string name="when_started">Hvornår startede</string>
 </resources>
