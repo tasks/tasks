@@ -710,4 +710,7 @@
     <string name="now">Jetzt</string>
     <string name="when_started">Wenn begonnen</string>
     <string name="completion_sound">Abschlusston abspielen</string>
+    <string name="app_bar_position">Position der Appbar</string>
+    <string name="top">Oben</string>
+    <string name="bottom">Unten</string>
 </resources>
