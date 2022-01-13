@@ -169,6 +169,7 @@
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/keyline_first"
       android:src="@drawable/ic_outline_check_box_24px"
+      android:soundEffectsEnabled="false"
       app:layout_anchor="@id/appbarlayout"
       app:layout_anchorGravity="bottom|end" />
 
