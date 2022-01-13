@@ -23,11 +23,7 @@ repositories {
             includeModule("com.gitlab.bitfireAT", "cert4android")
             includeModule("com.github.tasks.opentasks", "opentasks-provider")
             includeModule("com.github.QuadFlask", "colorpicker")
-        }
-    }
-    jcenter {
-        content {
-            includeModule("com.twofortyfouram", "android-plugin-api-for-locale")
+            includeModule("com.github.twofortyfouram", "android-plugin-api-for-locale")
         }
     }
 }
@@ -209,7 +205,7 @@ dependencies {
     implementation("androidx.preference:preference:1.1.1")
     implementation("com.jakewharton.timber:timber:5.0.1")
     implementation("com.google.android.apps.dashclock:dashclock-api:2.0.0")
-    implementation("com.twofortyfouram:android-plugin-api-for-locale:1.0.2") {
+    implementation("com.github.twofortyfouram:android-plugin-api-for-locale:1.0.2") {
         isTransitive = false
     }
     implementation("com.rubiconproject.oss:jchronic:0.2.6") {

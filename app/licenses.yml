@@ -131,10 +131,11 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: http://code.google.com/p/atinject/
-- artifact: com.twofortyfouram:android-plugin-api-for-locale:+
+- artifact: com.github.twofortyfouram:android-plugin-api-for-locale:+
   name: android-plugin-api-for-locale
   copyrightHolder: two forty four a.m. LLC.
   license: The Apache Software License, Version 2.0
+  forceGenerate: true
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: androidx.lifecycle:lifecycle-viewmodel:+
   name: Android Lifecycle ViewModel

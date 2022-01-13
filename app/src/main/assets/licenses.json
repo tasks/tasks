@@ -320,7 +320,7 @@
     {
       "artifactId": {
         "name": "android-plugin-api-for-locale",
-        "group": "com.twofortyfouram",
+        "group": "com.github.twofortyfouram",
         "version": "+"
       },
       "copyrightHolder": "two forty four a.m. LLC.",
