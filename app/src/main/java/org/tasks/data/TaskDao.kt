@@ -101,10 +101,10 @@ abstract class TaskDao(private val database: Database) {
     abstract suspend fun clearCompletedCalendarEvents(): Int
 
     open suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>): List<TaskContainer> {
-        return fetchTasks(callback, getSubtaskInfo())
+        return fetchTasks(getSubtaskInfo(), callback)
     }
 
-    open suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>, subtasks: SubtaskInfo): List<TaskContainer> =
+    open suspend fun fetchTasks(subtasks: SubtaskInfo, callback: suspend (SubtaskInfo) -> List<String>): List<TaskContainer> =
             database.withTransaction {
                 val start = if (BuildConfig.DEBUG) now() else 0
                 val queries = callback(subtasks)

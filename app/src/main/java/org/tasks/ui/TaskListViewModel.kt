@@ -1,6 +1,11 @@
 package org.tasks.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.sqlite.db.SimpleSQLiteQuery
@@ -70,10 +75,7 @@ class TaskListViewModel @Inject constructor(
     }
 
     private suspend fun performNonPagedQuery(subtasks: SubtaskInfo) {
-        tasks.value =
-                taskDao.fetchTasks(
-                        { s: SubtaskInfo -> getQuery(preferences, filter!!, s) },
-                        subtasks)
+        tasks.value = taskDao.fetchTasks(subtasks) { getQuery(preferences, filter!!, it) }
     }
 
     private fun performPagedListQuery() {
