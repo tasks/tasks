@@ -317,9 +317,6 @@
         <item quantity="few">%d roky</item>
         <item quantity="other">%d let</item>
     </plurals>
-    <string name="EPr_temp_show_completed_tasks">Dočasně zobrazit dokončené úkoly</string>
-    <string name="EPr_temp_completed_tasks_showing">Po dokončení zůstanou úkoly dočasně viditelné</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Úkoly po dokončení okamžitě zmizí ze seznamu</string>
     <plurals name="subtask_count">
         <item quantity="one">%d podúkol</item>
         <item quantity="few">%d podúkoly</item>

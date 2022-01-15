@@ -437,9 +437,6 @@
     <string name="name_your_price">구독 금액 정하기</string>
     <string name="SSD_sort_my_order">순서 직접 정렬</string>
     <string name="caldav_account_repeating_tasks">서버가 반복 할일 처리</string>
-    <string name="EPr_temp_show_completed_tasks">할일 완료 시 잠깐 표시</string>
-    <string name="EPr_temp_completed_tasks_showing">할일을 완료 처리하는 순간 목록에서 바로 사라지지 않고 잠깐 남아있습니다</string>
-    <string name="EPr_temp_completed_tasks_not_showing">할일을 완료 처리하는 순간 목록에서 바로 사라집니다</string>
     <plurals name="subtask_count">
         <item quantity="other">%d 하위할일</item>
     </plurals>

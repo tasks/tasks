@@ -548,9 +548,6 @@
         <item quantity="one">%d subtarefa</item>
         <item quantity="other">%d subtarefas</item>
     </plurals>
-    <string name="EPr_temp_completed_tasks_not_showing">Quando terminadas, as tarefas desaparecerão imediatamente da lista</string>
-    <string name="EPr_temp_completed_tasks_showing">As tarefas terminadas continuarão temporariamente visíveis na lista</string>
-    <string name="EPr_temp_show_completed_tasks">Mostrar temporariamente as tarefas terminadas</string>
     <string name="caldav_account_repeating_tasks">O servidor lida com tarefas recorrentes</string>
     <string name="SSD_sort_my_order">Minha ordem</string>
     <string name="name_your_price">Dê o seu valor</string>

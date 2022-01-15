@@ -547,9 +547,6 @@
     <string name="EPr_default_importance_title">Standardni prioritet</string>
     <string name="EPr_manage_delete_all_gcal_message">Stvarno želiš izbrisati sve tvoje događaje za zadatke\?</string>
     <string name="EPr_manage_delete_all_gcal">Izbriši kalendarske događaje za zadatke</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Zadaci će odmah nestati iz popisa nakon što se obave</string>
-    <string name="EPr_temp_completed_tasks_showing">Zadaci će privremeno biti vidljivi u popisu nakon što se obave</string>
-    <string name="EPr_temp_show_completed_tasks">Privremeno pokaži zadatke nakon što se obave</string>
     <string name="EPr_cal_start_at_due_time">Počni kalendarske događaje u vrijeme roka</string>
     <string name="EPr_cal_end_at_due_time">Završi kalendarske događaje u vrijeme roka</string>
     <string name="EPr_cal_end_or_start_at_due_time">Vrijeme kalendarskog događaja</string>

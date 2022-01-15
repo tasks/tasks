@@ -441,9 +441,6 @@
     <string name="name_your_price">Precio flexible</string>
     <string name="SSD_sort_my_order">Mi orden</string>
     <string name="caldav_account_repeating_tasks">El servidor se encarga de las tareas recurrentes</string>
-    <string name="EPr_temp_show_completed_tasks">Mostrar temporalmente las tareas ya completadas</string>
-    <string name="EPr_temp_completed_tasks_showing">Las tareas permanecerán temporalmente visibles en la lista una vez completadas</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Las tareas desaparecerán inmediatamente de la lista una vez completadas</string>
     <plurals name="subtask_count">
         <item quantity="one">%d subtarea</item>
         <item quantity="other">%d subtareas</item>

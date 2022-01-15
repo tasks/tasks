@@ -455,9 +455,6 @@
     <string name="icon">Піктограма</string>
     <string name="menu_discard_changes">Скасувати зміни</string>
     <string name="subtasks">Підзавдання</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Завдання негайно зникатимуть зі списку після їх завершення</string>
-    <string name="EPr_temp_completed_tasks_showing">Завдання тимчасово залишатимуться видимими у списку після їх завершення</string>
-    <string name="EPr_temp_show_completed_tasks">Тимчасово показувати завдання після їх завершення</string>
     <string name="TEA_add_subtask">Додати підзавдання</string>
     <string name="SSD_sort_my_order">Мій порядок</string>
     <string name="display_name">Показувана назва</string>

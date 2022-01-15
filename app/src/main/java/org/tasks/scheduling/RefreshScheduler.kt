@@ -1,12 +1,9 @@
 package org.tasks.scheduling
 
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import kotlinx.collections.immutable.toImmutableList
-import org.tasks.R
 import org.tasks.data.TaskDao
 import org.tasks.jobs.WorkManager
-import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils
 import java.util.*
 import javax.inject.Inject
@@ -14,9 +11,9 @@ import javax.inject.Singleton
 
 @Singleton
 class RefreshScheduler @Inject internal constructor(
-        private val preferences: Preferences,
         private val workManager: WorkManager,
-        private val taskDao: TaskDao) {
+        private val taskDao: TaskDao,
+) {
 
     private val jobs: SortedSet<Long> = TreeSet()
 
@@ -28,11 +25,8 @@ class RefreshScheduler @Inject internal constructor(
     }
 
     @Synchronized
-    suspend fun scheduleRefresh(task: Task) {
-        if (task.isCompleted
-                && preferences.getBoolean(R.string.p_temporarily_show_completed_tasks, false)) {
-            scheduleRefresh(task.completionDate + DateUtilities.ONE_MINUTE)
-        } else if (task.hasDueDate()) {
+    fun scheduleRefresh(task: Task) {
+        if (task.hasDueDate()) {
             scheduleRefresh(task.dueDate)
         }
         if (task.hasStartDate()) {
@@ -41,7 +35,7 @@ class RefreshScheduler @Inject internal constructor(
     }
 
     @Synchronized
-    suspend fun scheduleNext() {
+    fun scheduleNext() {
         val lapsed = jobs.headSet(DateTimeUtils.currentTimeMillis() + 1).toImmutableList()
         jobs.removeAll(lapsed)
         if (!jobs.isEmpty()) {
@@ -49,7 +43,7 @@ class RefreshScheduler @Inject internal constructor(
         }
     }
 
-    private suspend fun scheduleRefresh(timestamp: Long) {
+    private fun scheduleRefresh(timestamp: Long) {
         val now = DateTimeUtils.currentTimeMillis()
         if (now < timestamp) {
             val upcoming = jobs.tailSet(now)

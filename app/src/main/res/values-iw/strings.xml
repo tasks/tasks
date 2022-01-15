@@ -524,8 +524,6 @@
     <string name="subtasks">תתי משימות</string>
     <string name="widget_show_dividers">הצג חוצצים</string>
     <string name="widget_show_menu">הצג תפריט</string>
-    <string name="EPr_temp_completed_tasks_showing">המשימות יישארו גלויות ברשימה, באופן זמני, לאחר השלמתן</string>
-    <string name="EPr_temp_show_completed_tasks">הצג באופן זמני משימות עם השלמתם</string>
     <string name="TEA_add_subtask">הוסף משימת משנה</string>
     <string name="sort_created">לפי זמן היצירה</string>
     <string name="SSD_sort_my_order">ההזמנה שלי</string>
@@ -556,7 +554,6 @@
     <string name="tomorrow_lowercase">מחר</string>
     <string name="today_lowercase">היום</string>
     <string name="CFC_list_name">ברשימה…</string>
-    <string name="EPr_temp_completed_tasks_not_showing">המשימות תיעלמנה מיידית מהרשימה עם השלמתן</string>
     <string name="display_name">שם תצוגה</string>
     <string name="lists">רשימות</string>
     <string name="open_last_viewed_list">פתיחת הרשימה האחרונה שנצפתה</string>

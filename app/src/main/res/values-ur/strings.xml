@@ -97,9 +97,6 @@
     <string name="EPr_reset_preferences_warning">ترجیحات کو ڈیفالٹ پر دوبارہ ترتیب دیا جائے گا</string>
     <string name="EPr_reset_preferences">ترجیحات کو دوبارہ ترتیب دیں</string>
     <string name="always_display_full_date">پوری تاریخ دکھائیں</string>
-    <string name="EPr_temp_completed_tasks_not_showing">کام مکمل ہونے کے بعد فورا. فہرست سے غائب ہوجائیں گے</string>
-    <string name="EPr_temp_completed_tasks_showing">ٹاسک مکمل ہونے کے بعد فہرست میں عارضی طور پر نظر آئیں گے</string>
-    <string name="EPr_temp_show_completed_tasks">تکمیل کے بعد عارضی طور پر ٹاسک دکھائیں</string>
     <string name="EPr_cal_start_at_due_time">مقررہ وقت پر کیلنڈر ایونٹس شروع کریں</string>
     <string name="EPr_cal_end_at_due_time">مقررہ وقت پر کیلنڈر ایونٹس ختم کریں</string>
     <string name="EPr_cal_end_or_start_at_due_time">کیلنڈر ایونٹ کا وقت</string>

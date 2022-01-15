@@ -489,7 +489,6 @@
     <string name="etesync_account_description">Kräver ett konto hos EteSync.com eller en egen värdserver</string>
     <string name="caldav_account_description">Kräver ett konto hos en CalDAV-tjänsteleverantör eller en egen server. Hitta en tjänsteleverantör genom att besöka tasks.org/caldav</string>
     <string name="menu_discard_changes">Ta bort ändringar</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Uppgifterna försvinner omedelbart från listan när de är slutförda</string>
     <string name="astrid_sort_order_summary">Aktivera Astrids manuella sorteringsläge för \"Mina uppgifter\", \"Idag\" och taggar. Detta sorteringsläge kommer att ersättas av \"Min ordning\" i en framtida uppdatering</string>
     <string name="markdown_description">Aktivera Markdown i titel och beskrivning</string>
     <string name="markdown">Prissänkning</string>
@@ -691,8 +690,6 @@
     <string name="default_due_date">Standardförfallodag</string>
     <string name="default_start_date">Standard startdatum</string>
     <string name="always_display_full_date">Visa hela datumet</string>
-    <string name="EPr_temp_completed_tasks_showing">Aktiviteter visas tillfälligt i listan när de har slutförts</string>
-    <string name="EPr_temp_show_completed_tasks">Visa uppgifter tillfälligt när de är färdiga</string>
     <string name="start_date">Startdatum</string>
     <string name="TEA_add_subtask">Lägg till deluppgift</string>
     <string name="sort_created">Vid skapelsetidpunkten</string>

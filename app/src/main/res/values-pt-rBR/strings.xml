@@ -527,9 +527,6 @@
         <item quantity="other">%d sub-tarefas</item>
     </plurals>
     <string name="CFC_list_name">Na lista…</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Tarefas desaparecerão da listagem imediatamente após serem concluídas</string>
-    <string name="EPr_temp_completed_tasks_showing">Tarefas continuarão temporariamente visíveis na listagem após serem completas</string>
-    <string name="EPr_temp_show_completed_tasks">Temporariamente mostrar tarefas quando completas</string>
     <string name="TEA_timer_est">Est. %s</string>
     <string name="TEA_add_subtask">Adicionar subtarefa</string>
     <string name="sort_created">Por hora de criação</string>

@@ -103,14 +103,6 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="false"
-      android:key="@string/p_temporarily_show_completed_tasks"
-      android:summaryOff="@string/EPr_temp_completed_tasks_not_showing"
-      android:summaryOn="@string/EPr_temp_completed_tasks_showing"
-      android:title="@string/EPr_temp_show_completed_tasks"
-      app:singleLineTitle="false" />
-
-    <SwitchPreferenceCompat
-      android:defaultValue="false"
       app:allowDividerAbove="true"
       android:key="@string/p_use_paged_queries"
       android:disableDependentsState="true"

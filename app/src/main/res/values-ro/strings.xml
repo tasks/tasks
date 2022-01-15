@@ -459,9 +459,6 @@
     <string name="default_start_date">Data de începere implicită</string>
     <string name="EPr_default_importance_title">Prioritate implicită</string>
     <string name="EPr_manage_delete_all_gcal">Eliminați toate evenimentele din calendar pentru aceste sarcini</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Sarcinile vor dispărea imediat din listă după finalizare</string>
-    <string name="EPr_temp_completed_tasks_showing">Sarcinile vor rămâne temporar vizibile în listă după finalizare</string>
-    <string name="EPr_temp_show_completed_tasks">Afișați temporar sarcinile la finalizare</string>
     <string name="EPr_cal_start_at_due_time">Începeți evenimentele din calendar la timpul util</string>
     <string name="EPr_cal_end_at_due_time">Încheiați evenimentele din calendar la timpul util</string>
     <string name="EPr_cal_end_or_start_at_due_time">Ora evenimentului din calendar</string>

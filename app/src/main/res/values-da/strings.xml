@@ -92,7 +92,6 @@
     <string name="repeat_occurs">Stopper efter</string>
     <string name="CFC_gtasks_list_name">På Google Huskelisten…</string>
     <string name="gtasks_error_accountNotFound">Kontoen %s ikke fundet. Prøv at logge ud og logge ind igen gennem Google Huskeliste-indstillingerne.</string>
-    <string name="EPr_temp_show_completed_tasks">Vis udførte opgaver midlertidigt</string>
     <string name="EPr_show_task_edit_comments">Vis kommentarer i opgaveredigering</string>
     <string name="EPr_fullTask_title">Vis hele opgavetitlen</string>
     <string name="astrid_sort_order">Astrids manuelle sortering</string>
@@ -534,8 +533,6 @@
     <string name="EPr_delete_task_data">Slet opgavedata</string>
     <string name="EPr_reset_preferences_warning">Dine præferencer vil blive nulstillet til standardindstillingerne</string>
     <string name="EPr_reset_preferences">Gendan standardindstillinger</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Opgaver forsvinder fra listen, umiddelbart efter de er udført</string>
-    <string name="EPr_temp_completed_tasks_showing">Opgaver forbliver midlertidigt synlige på listen, efter de er udført</string>
     <string name="EPr_cal_start_at_due_time">Kalenderbegivenhed starter ved frist-tid</string>
     <string name="EPr_cal_end_at_due_time">Kalenderbegivenhed slutter ved frist-tid</string>
     <string name="EPr_cal_end_or_start_at_due_time">Tid for kalenderbegivenhed</string>

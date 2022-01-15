@@ -275,7 +275,6 @@
   <string name="TEA_ctrl_google_task_list">TEA_ctrl_gtask</string>
   <string name="p_show_hidden_tasks">show_hidden_tasks</string>
   <string name="p_show_completed_tasks">show_completed_tasks</string>
-  <string name="p_temporarily_show_completed_tasks">temporarily_show_completed_tasks</string>
   <string name="p_reverse_sort">reverse_sort</string>
   <string name="p_manual_sort">manual_sort</string>
   <string name="p_astrid_sort">astrid_sort</string>

@@ -19,9 +19,6 @@
     <string name="EPr_delete_task_data">பணி தரவை நீக்கு</string>
     <string name="EPr_reset_preferences_warning">முன்னுரிமைகள் இயல்புநிலை மதிப்புகளுக்கு மீட்டமைக்கப்படும்</string>
     <string name="EPr_reset_preferences">விருப்பங்களை மீட்டமைக்கவும்</string>
-    <string name="EPr_temp_completed_tasks_not_showing">பணிகள் முடிந்ததும் பட்டியலில் இருந்து உடனடியாக மறைந்துவிடும்</string>
-    <string name="EPr_temp_completed_tasks_showing">பணிகள் முடிந்தபின் பட்டியலில் தற்காலிகமாகத் தெரியும்</string>
-    <string name="EPr_temp_show_completed_tasks">பணிகள் முடிந்ததும் தற்காலிகமாகக் காட்டு</string>
     <string name="EPr_cal_start_at_due_time">சரியான நேரத்தில் நாள்காட்டி நிகழ்வுகளைத் தொடங்கவும்</string>
     <string name="EPr_cal_end_at_due_time">நாள்காட்டி நிகழ்வுகளை உரிய நேரத்தில் முடிக்கவும்</string>
     <string name="EPr_cal_end_or_start_at_due_time">நாள்காட்டி நிகழ்வு நேரம்</string>

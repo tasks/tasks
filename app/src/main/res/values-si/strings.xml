@@ -464,9 +464,6 @@
     <string name="CFC_dueBefore_name">අවසාන වනුයේ…</string>
     <string name="CFC_dueBefore_text">අවසාන වනුයේ: \?</string>
     <string name="always_display_full_date">සම්පූර්ණ දිනය පෙන්වන්න</string>
-    <string name="EPr_temp_completed_tasks_not_showing">කාර්යයන් අවසන් වූ වහාම ලැයිස්තුවෙන් ඉවත් වේ</string>
-    <string name="EPr_temp_completed_tasks_showing">කාර්යයන් අවසන් වූ පසු ලැයිස්තුවේ තාවකාලිකව දැකිය හැකිය</string>
-    <string name="EPr_temp_show_completed_tasks">කාර්යයන් අවසන් වූ පසු තාවකාලිකව ඒ ගැන පෙන්වන්න</string>
     <string name="EPr_cal_end_at_due_time">කැලැන්ඩරයේ සිදුවීම් නියමිත වේලාවට අවසන් කරන්න</string>
     <string name="EPr_cal_end_or_start_at_due_time">දින දර්ශන සිදුවීම් වේලාව</string>
     <string name="task_list_options">කාර්ය ලැයිස්තු විකල්ප</string>

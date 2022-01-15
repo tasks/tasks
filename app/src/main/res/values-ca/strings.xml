@@ -137,9 +137,6 @@
     <string name="EPr_reset_preferences_warning">Les preferències es restabliran als valors predeterminats</string>
     <string name="EPr_reset_preferences">Reinicia les preferències</string>
     <string name="always_display_full_date">Mostra la data completa</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Les tasques desapareixeran immediatament de la llista després de completar-les</string>
-    <string name="EPr_temp_completed_tasks_showing">Les tasques continuaran essent visibles temporalment a la llista després de completar-les</string>
-    <string name="EPr_temp_show_completed_tasks">Mostra temporalment les tasques en finalitzar</string>
     <string name="EPr_cal_start_at_due_time">Inicia els esdeveniments del calendari en el moment oportú</string>
     <string name="EPr_cal_end_at_due_time">Finalitza els esdeveniments del calendari a la data de venciment</string>
     <string name="EPr_cal_end_or_start_at_due_time">Hora d\'esdeveniment del calendari</string>

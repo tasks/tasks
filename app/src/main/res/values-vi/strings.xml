@@ -667,9 +667,6 @@
     <string name="EPr_reset_preferences_warning">Các cài đặt sẽ được đặt lại về giá trị mặc định</string>
     <string name="EPr_reset_preferences">Đặt lại các cài đặt</string>
     <string name="always_display_full_date">Hiện ngày tháng đầy đủ</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Các công việc sẽ biến mất ngay lập tức khỏi danh sách sau khi hoàn thành</string>
-    <string name="EPr_temp_completed_tasks_showing">Các công việc vẫn sẽ còn tạm thời nhìn thấy được trong danh sách sau khi hoàn thành</string>
-    <string name="EPr_temp_show_completed_tasks">Tạm thời hiện các công việc khi hoàn thành</string>
     <string name="EPr_cal_start_at_due_time">Bắt đầu các sự kiện trong lịch khi đến hạn</string>
     <string name="EPr_cal_end_at_due_time">Kết thúc các sự kiện trong lịch khi đến hạn</string>
     <string name="EPr_cal_end_or_start_at_due_time">Thời gian sự kiện trong lịch</string>

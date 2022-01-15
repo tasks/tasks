@@ -205,9 +205,6 @@
     <string name="EPr_delete_task_data">刪除工作數據</string>
     <string name="EPr_delete_task_data_warning">所有工作將永久刪除</string>
     <string name="SSD_sort_my_order">我的排序</string>
-    <string name="EPr_temp_show_completed_tasks">工作完成後短暫顯示工作表</string>
-    <string name="EPr_temp_completed_tasks_showing">工作完成後短暫留在工作表</string>
-    <string name="EPr_temp_completed_tasks_not_showing">工作完成後立刻從工作表刪除</string>
     <string name="TEA_add_subtask">加入副工作</string>
     <string name="action_call">通話</string>
     <string name="display_name">顯示名稱</string>

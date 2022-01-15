@@ -355,9 +355,6 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_show_completed_tasks, false)
         set(value) { setBoolean(R.string.p_show_completed_tasks, value) }
 
-    override val showCompletedTemporarily: Boolean
-        get() = getBoolean(R.string.p_temporarily_show_completed_tasks, false)
-
     override var alwaysDisplayFullDate: Boolean
         get() = getBoolean(R.string.p_always_display_full_date, false)
         set(value) { setBoolean(R.string.p_always_display_full_date, value)}

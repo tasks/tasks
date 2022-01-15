@@ -494,9 +494,6 @@
     <string name="default_start_date">デフォルトの開始日</string>
     <string name="default_location">デフォルトの場所</string>
     <string name="default_due_date">デフォルトの期限</string>
-    <string name="EPr_temp_completed_tasks_showing">タスクが完了しても一時的にリストに表示されます</string>
-    <string name="EPr_temp_completed_tasks_not_showing">タスクが完了するとすぐにリストから消えます</string>
-    <string name="EPr_temp_show_completed_tasks">完了したタスクを一時的に表示する</string>
     <string name="custom_filter_is_subtask">サブタスクである</string>
     <string name="custom_filter_has_subtask">サブタスクの有無</string>
     <string name="collapse_subtasks">サブタスクを折りたたむ</string>

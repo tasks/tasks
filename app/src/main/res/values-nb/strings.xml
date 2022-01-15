@@ -441,9 +441,6 @@
     <string name="error_adding_account">Feil: %s</string>
     <string name="SSD_sort_my_order">Min bestilling</string>
     <string name="caldav_account_repeating_tasks">Tjeneren håndterer gjentagende gjøremål</string>
-    <string name="EPr_temp_show_completed_tasks">Vis gjøremål midlertidig ved fullførelse</string>
-    <string name="EPr_temp_completed_tasks_showing">Gjøremål vil midlertidig forbli synlige i listen etter fullførelse</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Gjøremål vil fjernes umiddelbart fra listen etter fullførelse</string>
     <plurals name="subtask_count">
         <item quantity="one">%d gjøremålssteg</item>
         <item quantity="other">%d gjøremålssteg</item>

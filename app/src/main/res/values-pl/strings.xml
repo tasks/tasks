@@ -451,9 +451,6 @@
     <string name="name_your_price">Nazwij swoją cenę</string>
     <string name="SSD_sort_my_order">Ręczne</string>
     <string name="caldav_account_repeating_tasks">Serwer obsługuje powtarzające się zadania</string>
-    <string name="EPr_temp_show_completed_tasks">Tymczasowo pokazuj zadania po zakończeniu</string>
-    <string name="EPr_temp_completed_tasks_showing">Zadania będą tymczasowo widoczne na liście po zakończeniu</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Zadania natychmiast znikną z listy po zakończeniu</string>
     <plurals name="subtask_count">
         <item quantity="one">%d podzadanie</item>
         <item quantity="few">%d podzadania</item>

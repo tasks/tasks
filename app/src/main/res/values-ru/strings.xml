@@ -452,9 +452,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="building_notifications">Генерация уведомлений</string>
     <string name="SSD_sort_my_order">Мой порядок</string>
-    <string name="EPr_temp_show_completed_tasks">Временно показывать задачи после завершения</string>
-    <string name="EPr_temp_completed_tasks_showing">Задачи будут временно видны в списке после завершения</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Задачи сразу же исчезнут из списка после завершения</string>
     <plurals name="subtask_count">
         <item quantity="one">%d подзадача</item>
         <item quantity="few">%d подзадачи</item>

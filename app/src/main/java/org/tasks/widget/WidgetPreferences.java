@@ -1,15 +1,19 @@
 package org.tasks.widget;
 
 import android.content.Context;
+
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.service.Upgrader;
-import java.util.HashSet;
+
 import org.tasks.R;
 import org.tasks.Strings;
-import org.tasks.preferences.QueryPreferences;
 import org.tasks.preferences.Preferences;
+import org.tasks.preferences.QueryPreferences;
+
+import java.util.HashSet;
+
 import timber.log.Timber;
 
 public class WidgetPreferences implements QueryPreferences {
@@ -275,11 +279,6 @@ public class WidgetPreferences implements QueryPreferences {
   @Override
   public boolean getShowCompleted() {
     return getBoolean(R.string.p_widget_show_completed, false);
-  }
-
-  @Override
-  public boolean getShowCompletedTemporarily() {
-    return preferences.getShowCompletedTemporarily();
   }
 
   @Override

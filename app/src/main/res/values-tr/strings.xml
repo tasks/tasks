@@ -441,9 +441,6 @@
     <string name="name_your_price">Fiyat belirle</string>
     <string name="SSD_sort_my_order">Düzenim</string>
     <string name="caldav_account_repeating_tasks">Sunucu, yineleyen görevleri halleder</string>
-    <string name="EPr_temp_show_completed_tasks">Tamamlandıklarında görevleri geçici olarak göster</string>
-    <string name="EPr_temp_completed_tasks_showing">Görevler, tamamlandıktan sonra listede geçici olarak görünecek</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Görevler, tamamlandıktan sonra listeden hemen kaybolacak</string>
     <plurals name="subtask_count">
         <item quantity="one">%d alt görev</item>
         <item quantity="other">%d alt görev</item>

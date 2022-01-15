@@ -472,9 +472,6 @@
     <string name="no_reminders">Ei muistutuksia</string>
     <string name="EPr_default_location_radius">Oletusetäisyys</string>
     <string name="EPr_default_location_reminder_title">Oletussijaintimuistutukset</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Tehtävät häviävät listata välittömästi valmistuttuaan</string>
-    <string name="EPr_temp_completed_tasks_showing">Tehtävät jäävät listaan näkyviin vielä hetkeksi valmistuttuaankin</string>
-    <string name="EPr_temp_show_completed_tasks">Näytä tehtävät hetkellisesti valmistuttuaan</string>
     <string name="TEA_control_location">Sijainti</string>
     <string name="TEA_add_subtask">Lisää alitehtävä</string>
     <string name="SSD_sort_my_order">Oma järjestys</string>

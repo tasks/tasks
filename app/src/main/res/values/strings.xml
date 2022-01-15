@@ -88,9 +88,6 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
-  <string name="EPr_temp_show_completed_tasks">Temporarily show tasks upon completion</string>
-  <string name="EPr_temp_completed_tasks_showing">Tasks will remain temporarily visible in the list after completion</string>
-  <string name="EPr_temp_completed_tasks_not_showing">Tasks will immediately disappear from the list after completion</string>
   <string name="always_display_full_date">Show full date</string>
   <string name="EPr_reset_preferences">Reset preferences</string>
   <string name="EPr_reset_preferences_warning">Preferences will be reset to default values</string>

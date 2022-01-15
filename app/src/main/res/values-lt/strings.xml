@@ -535,9 +535,6 @@
     <string name="CFC_startBefore_text">Pradėti iki: \?</string>
     <string name="default_location">Numatytoji vieta</string>
     <string name="default_start_date">Numatytoji pradžios data</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Užduotys iš karto išnyks iš sąrašo jas užbaigus</string>
-    <string name="EPr_temp_completed_tasks_showing">Užduotys laikinai išliks matomos sąraše po užbaigimo</string>
-    <string name="EPr_temp_show_completed_tasks">Laikinai rodyti užduotis, po jų pabaigos</string>
     <string name="TEA_add_subtask">Pridėti antrinę užduotį</string>
     <string name="astrid_sort_order">Astrid rankinis rūšiavimas</string>
     <string name="cancel">Atšaukti</string>

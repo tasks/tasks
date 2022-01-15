@@ -441,9 +441,6 @@
     <string name="error_adding_account">Errorea: %s</string>
     <string name="SSD_sort_my_order">Nire eskaria</string>
     <string name="caldav_account_repeating_tasks">Zerbitzariari kudeatzen ditu zeregin errepikakorrak</string>
-    <string name="EPr_temp_show_completed_tasks">Erakutsi denbora batez zereginak burutu eta gero</string>
-    <string name="EPr_temp_completed_tasks_showing">Zereginak denbora batez zerrendan ikusgai geratuko dira burutu eta gero</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Zereginak berehala desagertuko dira zerrendatik behin burututa</string>
     <plurals name="subtask_count">
         <item quantity="one">Azpi-zeregin %d</item>
         <item quantity="other">%d azpi-zeregin</item>

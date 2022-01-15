@@ -606,9 +606,6 @@
     <string name="EPr_reset_preferences_warning">การกําหนดลักษณะจะถูกรีเซ็ตเป็นค่าเริ่มต้น</string>
     <string name="EPr_reset_preferences">รีเซ็ตการกําหนดลักษณะ</string>
     <string name="always_display_full_date">แสดงวันที่เต็ม</string>
-    <string name="EPr_temp_completed_tasks_not_showing">งานจะหายไปจากรายการทันทีหลังจากเสร็จสิ้น</string>
-    <string name="EPr_temp_completed_tasks_showing">งานจะยังคงปรากฏอยู่ในรายการชั่วคราวหลังจากเสร็จสิ้น</string>
-    <string name="EPr_temp_show_completed_tasks">แสดงงานชั่วคราวเมื่อเสร็จสมบูรณ์</string>
     <string name="EPr_cal_start_at_due_time">เริ่มกิจกรรมในปฏิทินเมื่อถึงกําหนด</string>
     <string name="EPr_cal_end_at_due_time">สิ้นสุดกิจกรรมในปฏิทินเมื่อถึงกําหนด</string>
     <string name="EPr_cal_end_or_start_at_due_time">เวลากิจกรรมในปฏิทิน</string>

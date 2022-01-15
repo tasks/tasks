@@ -8,13 +8,15 @@ package com.todoroo.astrid.core;
 
 import static org.tasks.db.QueryUtils.showCompleted;
 import static org.tasks.db.QueryUtils.showHidden;
-import static org.tasks.db.QueryUtils.showRecentlyCompleted;
 
 import android.annotation.SuppressLint;
+
 import androidx.annotation.Nullable;
+
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.astrid.data.Task;
+
 import org.tasks.preferences.QueryPreferences;
 
 /**
@@ -70,8 +72,6 @@ public class SortHelper {
     // flags
     if (preferences.getShowCompleted()) {
       adjustedSql = showCompleted(adjustedSql);
-    } else if (preferences.getShowCompletedTemporarily()) {
-      adjustedSql = showRecentlyCompleted(adjustedSql);
     }
     if (preferences.getShowHidden()) {
       adjustedSql = showHidden(adjustedSql);

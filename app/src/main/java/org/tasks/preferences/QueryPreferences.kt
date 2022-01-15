@@ -13,8 +13,6 @@ interface QueryPreferences {
 
     val showCompleted: Boolean
 
-    val showCompletedTemporarily: Boolean
-
     var alwaysDisplayFullDate: Boolean
 
     fun usePagedQueries(): Boolean

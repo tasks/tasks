@@ -479,9 +479,6 @@
     <string name="automatic_backups">Автоматични резервни копия</string>
     <string name="email">Е-поща</string>
     <string name="always_display_full_date">Цяла дата</string>
-    <string name="EPr_temp_completed_tasks_showing">Задачите остават временно видими след завършването им</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Задачите изчезват веднага след завършването им</string>
-    <string name="EPr_temp_show_completed_tasks">Временно показване на задачите при завършване</string>
     <string name="start_date">Начална дата</string>
     <string name="sort_created">По време на създаване</string>
     <string name="SSD_sort_start">По начална дата</string>

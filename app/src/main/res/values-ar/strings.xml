@@ -157,9 +157,6 @@
     <string name="color">اللون</string>
     <string name="import_progress_read">قراءة المهمة %d…</string>
     <string name="EPr_delete_task_data_warning">سيتم حذف جميع المهام بشكل دائم</string>
-    <string name="EPr_temp_completed_tasks_not_showing">ستختفي المهام فورًا من القائمة بعد الانتهاء</string>
-    <string name="EPr_temp_completed_tasks_showing">ستظل المهام مرئية مؤقتًا في القائمة بعد الانتهاء</string>
-    <string name="EPr_temp_show_completed_tasks">عرض المهام مؤقتًا عند الانتهاء</string>
     <string name="linkify_description">أضف روابط لمواقع، عناوين، أو أرقام هواتف</string>
     <string name="show_advanced_settings">عرض الإعدادات المتقدمة</string>
     <string name="linkify">عرض الروابط</string>

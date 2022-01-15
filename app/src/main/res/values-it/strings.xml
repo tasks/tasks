@@ -427,10 +427,8 @@
     <string name="open_map">Apri mappa</string>
     <string name="choose_new_location">Scegli nuova posizione</string>
     <string name="display_name">Nome visualizzato</string>
-    <string name="EPr_temp_completed_tasks_showing">Le attività rimarranno temporaneamente visibili nella lista dopo il completamento</string>
     <string name="TEA_add_subtask">Aggiungi attività secondaria</string>
     <string name="SSD_sort_my_order">Personalizzato</string>
-    <string name="EPr_temp_completed_tasks_not_showing">Le attività spariranno immediatamente dalla lista dopo il completamento</string>
     <string name="desaturate_colors">Riduci saturazione colori</string>
     <string name="share">Condividi</string>
     <string name="select_all">Seleziona tutto</string>
@@ -491,7 +489,6 @@
         <item quantity="one">%d attività secondaria</item>
         <item quantity="other">%d attività secondarie</item>
     </plurals>
-    <string name="EPr_temp_show_completed_tasks">Mostra temporaneamente le attività dopo il completamento</string>
     <string name="create_new_tag">Crea «%s»</string>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>

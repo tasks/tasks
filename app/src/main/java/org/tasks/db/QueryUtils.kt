@@ -1,8 +1,5 @@
 package org.tasks.db
 
-import com.todoroo.andlib.sql.Criterion.Companion.or
-import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.data.Task
 import java.util.regex.Pattern
 
 object QueryUtils {
@@ -18,15 +15,6 @@ object QueryUtils {
 
     @JvmStatic
     fun showHiddenAndCompleted(query: String): String = showCompleted(showHidden(query))
-
-    @JvmStatic
-    fun showRecentlyCompleted(query: String): String = UNCOMPLETED
-            .matcher(query)
-            .replaceAll(
-                    or(
-                            Task.COMPLETION_DATE.lte(0),
-                            Task.COMPLETION_DATE.gte(DateUtilities.now() - 59999))
-                            .toString())
 
     fun removeOrder(query: String): String = ORDER.matcher(query).replaceAll("")
 }
