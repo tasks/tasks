@@ -549,8 +549,8 @@
     <string name="tell_me_how_im_doing">Vertel me a.u.b. of ik het goed doe</string>
     <string name="enjoying_tasks">Gebruik je Tasks graag\?</string>
     <string name="action_new_task">Nieuwe taak</string>
-    <string name="sort_created_group">Aangemaakt: %s</string>
-    <string name="sort_modified_group">Gewijzigd: %s</string>
+    <string name="sort_created_group">Gemaakt %s</string>
+    <string name="sort_modified_group">Bewerkt %s</string>
     <string name="yesterday_lowercase">gisteren</string>
     <string name="tomorrow_lowercase">morgen</string>
     <string name="today_lowercase">vandaag</string>
@@ -579,7 +579,7 @@
     <string name="background_location">Achtergrond locatie</string>
     <string name="foreground_location">Voorgrond locatie</string>
     <string name="backup_location_warning">WAARSCHUWING: Bestanden die zich in %s bevinden zullen worden verwijderd als Tasks verwijderd wordt! Kies a.u.b. een aangepaste locatie om te voorkomen dat Android je bestanden verwijdert.</string>
-    <string name="backups_ignore_warnings_summary">Negeer back-up waarschuwingen als je geen back-ups nodig hebt of je je eigen back-up oplossing hebt</string>
+    <string name="backups_ignore_warnings_summary">Negeer waarschuwingen over back-ups als je geen back-ups nodig hebt of een eigen back-up oplossing gebruikt</string>
     <string name="backups_ignore_warnings">Negeer waarschuwingen</string>
     <string name="header_spacing">Ruimte</string>
     <string name="default_recurrence">Standaard herhaling</string>
