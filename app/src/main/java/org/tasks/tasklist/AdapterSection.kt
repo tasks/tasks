@@ -7,6 +7,8 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.core.SortHelper.*
 import org.tasks.R
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
+import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_OVERDUE
 import java.time.format.FormatStyle
 import java.util.*
 
@@ -34,8 +36,9 @@ data class AdapterSection(
             compact: Boolean = false
     ): String =
             when {
+                value == HEADER_COMPLETED -> context.getString(R.string.completed)
                 sortMode == SORT_IMPORTANCE -> context.getString(priorityToString())
-                value == -1L -> context.getString(R.string.filter_overdue)
+                value == HEADER_OVERDUE -> context.getString(R.string.filter_overdue)
                 value == 0L -> context.getString(when (sortMode) {
                     SORT_DUE -> R.string.no_due_date
                     SORT_START -> R.string.no_start_date

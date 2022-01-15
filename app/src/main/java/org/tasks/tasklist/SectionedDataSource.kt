@@ -62,12 +62,14 @@ class SectionedDataSource constructor(
         for (i in tasks.indices) {
             val task = tasks[i]
             val sortGroup = task.sortGroup ?: continue
-            val header = if (sortMode == SortHelper.SORT_IMPORTANCE || sortGroup == 0L) {
+            val header = if (task.isCompleted && !task.hasParent()) {
+                HEADER_COMPLETED
+            } else if (sortMode == SortHelper.SORT_IMPORTANCE || sortGroup == 0L) {
                 sortGroup
             } else if (sortMode == SortHelper.SORT_DUE) {
                 when {
                     sortGroup == 0L -> 0
-                    sortGroup < startOfToday -> -1
+                    sortGroup < startOfToday -> HEADER_OVERDUE
                     else -> sortGroup.startOfDay()
                 }
             } else {
@@ -77,14 +79,21 @@ class SectionedDataSource constructor(
             if (i == 0) {
                 sections.add(AdapterSection(i, header, 0, isCollapsed))
             } else {
-                val previous = tasks[i - 1].sortGroup
-                when (sortMode) {
-                    SortHelper.SORT_IMPORTANCE -> if (header != previous) {
-                        sections.add(AdapterSection(i, header, 0, isCollapsed))
+                val previousTask = tasks[i - 1]
+                val previous = previousTask.sortGroup
+                when {
+                    task.isCompleted && !task.hasParent() -> {
+                        if (!previousTask.isCompleted) {
+                            sections.add(AdapterSection(i, header, 0, isCollapsed))
+                        }
                     }
-                    SortHelper.SORT_DUE -> {
+                    sortMode == SortHelper.SORT_IMPORTANCE ->
+                        if (header != previous) {
+                            sections.add(AdapterSection(i, header, 0, isCollapsed))
+                        }
+                    sortMode == SortHelper.SORT_DUE -> {
                         val previousOverdue = previous < startOfToday
-                        val currentOverdue = header == -1L
+                        val currentOverdue = header == HEADER_OVERDUE
                         if (previous > 0 &&
                             ((currentOverdue != previousOverdue) ||
                                     (!currentOverdue && header != previous.startOfDay()))
@@ -142,5 +151,10 @@ class SectionedDataSource constructor(
         val values = ArrayList<Long>()
         sections.forEach { _, header -> values.add(header.value) }
         return values
+    }
+
+    companion object {
+        const val HEADER_OVERDUE = -1L
+        const val HEADER_COMPLETED = -2L
     }
 }

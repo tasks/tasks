@@ -8,6 +8,7 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.data.Task
+import org.tasks.filters.RecentlyModifiedFilter
 import org.tasks.preferences.QueryPreferences
 
 internal object TaskListQueryNonRecursive {
@@ -19,17 +20,22 @@ internal object TaskListQueryNonRecursive {
     private val TAGS =
             field("group_concat(distinct(${TaskListFragment.TAGS_METADATA_JOIN}.tag_uid))")
                     .`as`("tags")
-    private val FIELDS = TaskListQuery.FIELDS.plus(TAGS).toTypedArray()
+    private val IS_COMPLETE = field("tasks.completed > 0").`as`("is_complete")
+    private const val ORDER_BY = "ORDER BY is_complete ASC, tasks.completed DESC"
+    private val FIELDS = TaskListQuery.FIELDS.plus(TAGS).plus(IS_COMPLETE).toTypedArray()
 
     fun getNonRecursiveQuery(filter: Filter, preferences: QueryPreferences): MutableList<String> {
         val joinedQuery = JOINS + filter.getSqlQuery()
         val sortMode = preferences.sortMode
         val sortGroup = field(SortHelper.getSortGroup(sortMode) ?: "NULL").`as`("sortGroup")
         val query = SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, sortMode)
-        val groupedQuery = if (query.contains("ORDER BY")) {
-            query.replace("ORDER BY", "GROUP BY ${Task.ID} ORDER BY")
-        } else {
-            "$query GROUP BY ${Task.ID}"
+        val groupedQuery = when {
+            filter is RecentlyModifiedFilter ->
+                query.replace("ORDER BY", "GROUP BY ${Task.ID} ORDER BY")
+            query.contains("ORDER BY") ->
+                query.replace("ORDER BY", "GROUP BY ${Task.ID} $ORDER_BY,")
+            else ->
+                "$query GROUP BY ${Task.ID} $ORDER_BY"
         }
         return mutableListOf(
                 Query.select(*FIELDS.plus(sortGroup))
