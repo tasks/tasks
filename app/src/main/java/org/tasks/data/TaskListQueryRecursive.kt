@@ -25,7 +25,9 @@ internal object TaskListQueryRecursive {
                     field("sort_group").`as`("sortGroup"),
                     field("children"),
                     field("primary_sort").`as`("primarySort"),
-                    field("secondary_sort").`as`("secondarySort"))).toTypedArray()
+                    field("secondary_sort").`as`("secondarySort"),
+                    field("parent_complete").`as`("parentComplete"),
+            )).toTypedArray()
     private val JOINS = """
         ${Join.inner(RECURSIVE, Task.ID.eq(RECURSIVE_TASK))}
         LEFT JOIN (SELECT parent, count(distinct recursive_tasks.task) AS children FROM recursive_tasks GROUP BY parent) AS recursive_children ON recursive_children.parent = tasks._id

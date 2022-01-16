@@ -10,6 +10,7 @@ public class TaskContainer {
   @Embedded public SubsetGoogleTask googletask;
   @Embedded public SubsetCaldav caldavTask;
   @Embedded public Location location;
+  public Boolean parentComplete;
   public String tags;
   public int children;
   public Long sortGroup;

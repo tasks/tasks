@@ -62,7 +62,7 @@ class SectionedDataSource constructor(
         for (i in tasks.indices) {
             val task = tasks[i]
             val sortGroup = task.sortGroup ?: continue
-            val header = if (task.isCompleted && !task.hasParent()) {
+            val header = if (task.parentComplete) {
                 HEADER_COMPLETED
             } else if (sortMode == SortHelper.SORT_IMPORTANCE || sortGroup == 0L) {
                 sortGroup
@@ -82,8 +82,8 @@ class SectionedDataSource constructor(
                 val previousTask = tasks[i - 1]
                 val previous = previousTask.sortGroup
                 when {
-                    task.isCompleted && !task.hasParent() -> {
-                        if (!previousTask.isCompleted) {
+                    task.parentComplete -> {
+                        if (!previousTask.parentComplete) {
                             sections.add(AdapterSection(i, header, 0, isCollapsed))
                         }
                     }
