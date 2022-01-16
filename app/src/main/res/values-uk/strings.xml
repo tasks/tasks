@@ -730,4 +730,5 @@
     <string name="bottom">Унизу</string>
     <string name="top">Угорі</string>
     <string name="app_bar_position">Розташування панелі застосунку</string>
+    <string name="completed">Виконано</string>
 </resources>
