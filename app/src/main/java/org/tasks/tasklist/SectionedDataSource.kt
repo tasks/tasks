@@ -61,9 +61,11 @@ class SectionedDataSource constructor(
         val startOfToday = now().startOfDay()
         for (i in tasks.indices) {
             val task = tasks[i]
-            val sortGroup = task.sortGroup ?: continue
+            val sortGroup = task.sortGroup
             val header = if (task.parentComplete) {
                 HEADER_COMPLETED
+            } else if (sortGroup == null) {
+                continue
             } else if (sortMode == SortHelper.SORT_IMPORTANCE || sortGroup == 0L) {
                 sortGroup
             } else if (sortMode == SortHelper.SORT_DUE) {
