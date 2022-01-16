@@ -1,3 +1,21 @@
+### 12.2 (2021-01-16)
+
+* Move completed tasks to bottom
+* Add option to disable collapsing app bars
+* Uncheck parent tasks when subtask is unchecked
+* Fix crash on completion sound
+* Update translations
+  * Chinese (Simplified) - Eric
+  * Danish - @Tntdruid
+  * Dutch - @fvbommel, @mm4c
+  * French - @FlorianLeChat
+  * German - @qwerty287
+  * Russian - @NikGreens
+  * Spanish - @FlorianLeChat
+  * Turkish - @ersen0
+  * Ukrainian - @IhorHordiichuk
+  * Vietnamese - @unbaseduser
+
 ### 12.1 (2021-01-09)
 
 * Group overdue tasks when sorting by due date

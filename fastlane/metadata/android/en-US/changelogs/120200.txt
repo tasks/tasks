@@ -1,0 +1,5 @@
+* Move completed tasks to bottom
+* Add option to disable collapsing app bars
+* Uncheck parent tasks when subtask is unchecked
+* Fix crash on completion sound
+* Update translations
