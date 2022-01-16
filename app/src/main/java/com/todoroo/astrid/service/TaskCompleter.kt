@@ -3,7 +3,7 @@ package com.todoroo.astrid.service
 import android.app.NotificationManager
 import android.app.NotificationManager.INTERRUPTION_FILTER_ALL
 import android.content.Context
-import android.media.MediaPlayer
+import android.media.RingtoneManager
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -64,7 +64,7 @@ class TaskCompleter @Inject internal constructor(
             preferences
                 .completionSound
                 ?.takeUnless { preferences.isCurrentlyQuietHours }
-                ?.let { MediaPlayer.create(context, it).start() }
+                ?.let { RingtoneManager.getRingtone(context, it).play() }
         }
     }
 }
