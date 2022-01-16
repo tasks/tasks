@@ -710,4 +710,5 @@
     <string name="app_bar_position">Posición de la barra de la aplicación</string>
     <string name="bottom">Inferior</string>
     <string name="top">Superior</string>
+    <string name="completed">Terminado</string>
 </resources>
