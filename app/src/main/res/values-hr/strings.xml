@@ -723,4 +723,10 @@
     <string name="chat_libera">Pridruži se #tasks na Libera Chat</string>
     <string name="now">Sada</string>
     <string name="when_started">Kad se pokrene</string>
+    <string name="completion_sound">Odsviraj zvuk završetka</string>
+    <string name="app_bar_position">Mjesto programske trake</string>
+    <string name="top">Gore</string>
+    <string name="bottom">Dolje</string>
+    <string name="completed">Završeno</string>
+    <string name="app_bar_collapse">Sklopi programske trake</string>
 </resources>
