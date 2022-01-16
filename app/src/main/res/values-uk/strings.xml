@@ -731,4 +731,5 @@
     <string name="top">Угорі</string>
     <string name="app_bar_position">Розташування панелі застосунку</string>
     <string name="completed">Виконано</string>
+    <string name="app_bar_collapse">Згорнути панелі застосунку</string>
 </resources>
