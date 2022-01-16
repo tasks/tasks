@@ -31,6 +31,7 @@ import org.tasks.extensions.Context.openUri
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerAction
 import org.tasks.intents.TaskIntents
+import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,6 +42,7 @@ class NavigationDrawerFragment : BottomSheetDialogFragment() {
     @Inject lateinit var adapter: NavigationDrawerAdapter
     @Inject lateinit var filterProvider: FilterProvider
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var preferences: Preferences
 
     override fun getTheme() = R.style.CustomBottomSheetDialog
 
@@ -62,7 +64,9 @@ class NavigationDrawerFragment : BottomSheetDialogFragment() {
             val bottomSheet = dialog.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
             val behavior = BottomSheetBehavior.from(bottomSheet!!)
             behavior.skipCollapsed = true
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (preferences.isTopAppBar) {
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            } else if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
             }
         }
