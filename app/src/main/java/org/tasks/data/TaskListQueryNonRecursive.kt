@@ -20,9 +20,12 @@ internal object TaskListQueryNonRecursive {
     private val TAGS =
             field("group_concat(distinct(${TaskListFragment.TAGS_METADATA_JOIN}.tag_uid))")
                     .`as`("tags")
-    private val IS_COMPLETE = field("tasks.completed > 0").`as`("is_complete")
-    private const val ORDER_BY = "ORDER BY is_complete ASC, tasks.completed DESC"
-    private val FIELDS = TaskListQuery.FIELDS.plus(TAGS).plus(IS_COMPLETE).toTypedArray()
+    private const val ORDER_BY = "ORDER BY parentComplete ASC, tasks.completed DESC"
+    private val FIELDS =
+        TaskListQuery.FIELDS.plus(listOf(
+            TAGS,
+            field("tasks.completed > 0").`as`("parentComplete")
+        )).toTypedArray()
 
     fun getNonRecursiveQuery(filter: Filter, preferences: QueryPreferences): MutableList<String> {
         val joinedQuery = JOINS + filter.getSqlQuery()
