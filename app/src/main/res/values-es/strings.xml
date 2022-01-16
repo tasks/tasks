@@ -711,4 +711,5 @@
     <string name="bottom">Inferior</string>
     <string name="top">Superior</string>
     <string name="completed">Terminado</string>
+    <string name="app_bar_collapse">Contraer las barras de la aplicación</string>
 </resources>
