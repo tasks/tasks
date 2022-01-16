@@ -174,6 +174,19 @@ FROM recursive_tasks
     """)
     abstract suspend fun getChildren(ids: List<Long>): List<Long>
 
+    @Query("""
+WITH RECURSIVE recursive_tasks (task, parent) AS (
+    SELECT _id, parent FROM tasks WHERE _id = :parent
+    UNION ALL
+    SELECT _id, tasks.parent FROM tasks
+        INNER JOIN recursive_tasks ON recursive_tasks.parent = tasks._id
+    WHERE tasks.deleted = 0
+)
+SELECT task
+FROM recursive_tasks
+""")
+    abstract suspend fun getParents(parent: Long): List<Long>
+
     internal suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
         fetchTasks(preferences, filter)
                 .filter(TaskContainer::hasChildren)

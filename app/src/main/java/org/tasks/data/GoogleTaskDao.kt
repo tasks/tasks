@@ -1,6 +1,12 @@
 package org.tasks.data
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.RoomWarnings
+import androidx.room.Transaction
+import androidx.room.Update
 import com.todoroo.astrid.data.Task
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.time.DateTimeUtils.currentTimeMillis
@@ -109,6 +115,9 @@ WHERE gt_task IN (:ids)
 
     @Query("SELECT tasks.* FROM tasks JOIN google_tasks ON tasks._id = gt_task WHERE gt_parent = :taskId")
     abstract suspend fun getChildTasks(taskId: Long): List<Task>
+
+    @Query("SELECT tasks.* FROM tasks JOIN google_tasks ON tasks._id = gt_parent WHERE gt_task = :taskId")
+    abstract suspend fun getParentTask(taskId: Long): Task?
 
     @Query("SELECT * FROM google_tasks WHERE gt_parent = :id AND gt_deleted = 0")
     abstract suspend fun getChildren(id: Long): List<GoogleTask>

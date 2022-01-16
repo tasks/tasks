@@ -80,6 +80,8 @@ class TaskDao @Inject constructor(
 
     suspend fun getChildren(id: Long): List<Long> = taskDao.getChildren(id)
 
+    suspend fun getParents(parent: Long): List<Long> = taskDao.getParents(parent)
+
     suspend fun setCollapsed(id: Long, collapsed: Boolean) {
         taskDao.setCollapsed(listOf(id), collapsed)
         syncAdapters.sync()
