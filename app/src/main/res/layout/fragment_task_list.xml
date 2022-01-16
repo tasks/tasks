@@ -74,7 +74,6 @@
       android:theme="?attr/overlay_theme"
       app:popupTheme="@style/popup_overlay"
       app:hideOnScroll="true"
-      app:layout_scrollFlags="scroll|enterAlways"
       app:navigationIcon="@drawable/ic_outline_menu_24px" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton

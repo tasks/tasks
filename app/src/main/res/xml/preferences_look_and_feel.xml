@@ -62,6 +62,11 @@
       android:entryValues="@array/two_values"
       android:title="@string/app_bar_position" />
 
+    <SwitchPreference
+      android:defaultValue="true"
+      android:key="@string/p_app_bar_collapse"
+      android:title="@string/app_bar_collapse" />
+
     <SeekBarPreference
       android:defaultValue="16"
       android:key="@string/p_fontSize"

@@ -231,6 +231,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             binding.toolbar.navigationIcon = null
             binding.bottomAppBar
         }
+        if (!preferences.getBoolean(R.string.p_app_bar_collapse, true)) {
+            binding.bottomAppBar.hideOnScroll = false
+            (binding.toolbar.layoutParams as AppBarLayout.LayoutParams).scrollFlags = 0
+        }
         toolbar.setOnMenuItemClickListener(this)
         toolbar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
         setupMenu(toolbar)

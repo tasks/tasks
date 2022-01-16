@@ -446,4 +446,5 @@
   <string name="p_picker_mode_time">picker_mode_time</string>
   <string name="p_markdown">markdown</string>
   <string name="p_app_bar_position">app_bar_position</string>
+  <string name="p_app_bar_collapse">app_bar_collapse</string>
 </resources>
