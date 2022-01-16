@@ -418,7 +418,7 @@
     <string name="third_party_licenses">Licenties van derden</string>
     <string name="version_string">Versie %s</string>
     <string name="invalid_backup_file">Ongeldig backup bestand</string>
-    <string name="google_tasks_add_to_top">Nieuwe taken bovenaan</string>
+    <string name="google_tasks_add_to_top">Nieuwe taken boven</string>
     <string name="action_open">Open</string>
     <string name="TEA_timer_controls">Timer</string>
     <string name="backup_directory">Backup map</string>
@@ -662,7 +662,7 @@
     <string name="issue_tracker">Probleem tracker</string>
     <string name="social">Sociaal</string>
     <string name="follow_twitter">Volg @tasks_org</string>
-    <string name="list_members">Lijstdeelnemers</string>
+    <string name="list_members">Leden op de lijst</string>
     <string name="remove_user_confirmation">%1$s zal geen toegang meer hebben tot %2$s</string>
     <string name="remove_user">Gebruiker verwijderen\?</string>
     <string name="manage_drawer">La beheren</string>
@@ -677,17 +677,17 @@
     <string name="picker_mode_calendar">Kalender</string>
     <string name="picker_mode_time">Tijdkiezer-modus</string>
     <string name="picker_mode_date">Datumkiezer-modus</string>
-    <string name="upgrade_more_customization">Meer aan kunnen passen</string>
+    <string name="upgrade_more_customization">Meer maatwerk</string>
     <string name="upgrade_more_customization_description">Ontgrendel alle thema\'s, kleuren en iconen</string>
     <string name="more_options">Meer opties</string>
     <string name="upgrade_automation_description">Plugins voor Tasker, Automate en Locale</string>
     <string name="upgrade_automation">Automatisering</string>
     <string name="upgrade_open_source_description">Jouw abonnement ondersteunt verdere ontwikkeling</string>
-    <string name="upgrade_desktop_access_description">Synchroniseer met andere applicaties zoals Outlook en Apple Herinneringen</string>
+    <string name="upgrade_desktop_access_description">Synchroniseer met toepassingen van derden als Outlook en Apple Herinneringen</string>
     <string name="upgrade_desktop_access">Desktop-toegang</string>
     <string name="upgrade_tasks_org_account_description">Synchroniseer met Tasks.org en werk samen met andere gebruikers</string>
     <string name="upgrade_google_tasks">Synchroniseer meerdere accounts</string>
-    <string name="pro_free_trial">Nieuwe abonnees krijgen een gratis proefperiode van 7 dagen. Je kunt ieder moment annuleren</string>
+    <string name="pro_free_trial">Nieuwe abonnees krijgen een gratis proefperiode van 7 dagen. Annuleren op elk moment</string>
     <string name="tasks_needs_your_support">Tasks heeft jouw steun nodig!</string>
     <string name="next_saturday">Volgende zaterdag</string>
     <string name="next_friday">Volgende vrijdag</string>
@@ -701,8 +701,9 @@
     <string name="chat_libera">Bezoek #tasks op Libera Chat</string>
     <string name="now">Nu</string>
     <string name="when_started">Op de starttijd</string>
-    <string name="completion_sound">Spreek geluid bij voltooien</string>
+    <string name="completion_sound">Geluid afspelen bij afronden</string>
     <string name="app_bar_position">Positie van de app balk</string>
-    <string name="top">Bovenaan</string>
-    <string name="bottom">Onderaan</string>
+    <string name="top">Boven</string>
+    <string name="bottom">Onder</string>
+    <string name="completed">Voltooid</string>
 </resources>
