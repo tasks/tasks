@@ -728,4 +728,6 @@
     <string name="app_bar_position">Расположение панели приложения</string>
     <string name="top">Вверху</string>
     <string name="bottom">Внизу</string>
+    <string name="app_bar_collapse">Свернуть панели приложения</string>
+    <string name="completed">Завершено</string>
 </resources>
