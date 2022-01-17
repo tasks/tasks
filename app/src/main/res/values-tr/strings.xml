@@ -710,4 +710,6 @@
     <string name="bottom">Alt</string>
     <string name="app_bar_position">Uygulama çubuğu konumu</string>
     <string name="completion_sound">Tamamlandığında ses çal</string>
+    <string name="completed">Tamamlandı</string>
+    <string name="app_bar_collapse">Uygulama çubuklarını daralt</string>
 </resources>
