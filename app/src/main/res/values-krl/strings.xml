@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="actfm_picture_clear">Puhastua Kuvan</string>
+    <string name="ok">\@android:string/ok</string>
+    <string name="cancel">\@android:string/cancel</string>
+    <string name="read_permission_label">Tehtävien Luba</string>
+    <string name="discard_confirmation">Ihan ku tahot hüllätä sinun vaitamizet\?</string>
+    <string name="keep_editing">Jata korjata</string>
+    <string name="DLG_hour_minutes">Aiga (tunnet : minutit)</string>
+    <string name="DLG_undo">Hällätä</string>
+    <string name="WID_dateButtonUnset">Pane, azeta</string>
+    <string name="TLA_no_items">Täs ei ole tehtäviä.</string>
+    <string name="TLA_menu_settings">Azettamizet</string>
+    <string name="TAd_actionEditTask">Korjata</string>
+    <string name="action_call">Kučču</string>
+    <string name="TVA_add_comment">Ližätä selitüxen</string>
+    <string name="import_progress_read">Lugemine tehtävä %d…</string>
+    <string name="DLG_delete_this_task_question">Hävittiägö tämän tehtävän\?</string>
+    <string name="TLA_menu_search">Eččo</string>
+</resources>
