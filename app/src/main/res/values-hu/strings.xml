@@ -705,4 +705,9 @@
     <string name="now">Most</string>
     <string name="when_started">A kezdetekor</string>
     <string name="completion_sound">Hang lejátszása készre állításkor</string>
+    <string name="app_bar_position">Kezelősáv helyzete</string>
+    <string name="top">Felül</string>
+    <string name="completed">Elvégzett</string>
+    <string name="app_bar_collapse">Kezelősáv összecsukása</string>
+    <string name="bottom">Alul</string>
 </resources>
