@@ -710,4 +710,6 @@
     <string name="app_bar_position">Aplikazioaren barraren posizioa</string>
     <string name="top">Goi-mailakoa</string>
     <string name="bottom">Behekoa</string>
+    <string name="app_bar_collapse">Aplikazioaren barrak uzkurtu</string>
+    <string name="completed">Amaituta</string>
 </resources>
