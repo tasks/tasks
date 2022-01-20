@@ -722,4 +722,11 @@
     <string name="now">Acum</string>
     <string name="when_started">Când a început</string>
     <string name="completion_sound">Redă sunetul de completare</string>
+    <string name="completed">Completat</string>
+    <string name="app_bar_collapse">Reducerea barelor de aplicații</string>
+    <string name="ok">\@android:string/ok</string>
+    <string name="app_bar_position">Poziția barei de aplicații</string>
+    <string name="top">Top</string>
+    <string name="bottom">Partea de jos</string>
+    <string name="cancel">\@android:șir/anulare</string>
 </resources>
