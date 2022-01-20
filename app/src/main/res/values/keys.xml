@@ -390,6 +390,7 @@
   <string name="p_show_description">show_description</string>
   <string name="p_show_full_description">show_full_description</string>
   <string name="p_always_display_full_date">always_display_full_date</string>
+  <string name="p_display_date_as_countdown">display_date_as_countdown</string>
   <string name="p_linkify_task_list">linkify_task_list</string>
   <string name="p_linkify_task_edit">linkify_task_edit</string>
   <string name="preference_screen">preference_screen</string>

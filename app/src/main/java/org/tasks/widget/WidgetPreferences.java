@@ -285,6 +285,9 @@ public class WidgetPreferences implements QueryPreferences {
   public boolean getAlwaysDisplayFullDate() { return preferences.getAlwaysDisplayFullDate(); }
 
   @Override
+  public boolean getDisplayDateAsCountdown() { return preferences.getDisplayDateAsCountdown(); }
+
+  @Override
   public boolean usePagedQueries() {
     return preferences.usePagedQueries();
   }
@@ -312,5 +315,10 @@ public class WidgetPreferences implements QueryPreferences {
   @Override
   public void setAlwaysDisplayFullDate(boolean noWeekday) {
     preferences.setAlwaysDisplayFullDate(noWeekday);
+  }
+
+  @Override
+  public void setDisplayDateAsCountdown(boolean countdown) {
+    preferences.setDisplayDateAsCountdown(countdown);
   }
 }

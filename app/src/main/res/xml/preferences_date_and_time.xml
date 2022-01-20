@@ -14,6 +14,11 @@
       android:key="@string/p_always_display_full_date"
       android:title="@string/always_display_full_date" />
 
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_display_date_as_countdown"
+        android:title="@string/display_date_as_countdown" />
+
     <ListPreference
         android:defaultValue="0"
         android:key="@string/p_picker_mode_date"

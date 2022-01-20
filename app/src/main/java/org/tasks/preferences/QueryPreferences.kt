@@ -15,5 +15,7 @@ interface QueryPreferences {
 
     var alwaysDisplayFullDate: Boolean
 
+    var displayDateAsCountdown: Boolean
+
     fun usePagedQueries(): Boolean
 }
