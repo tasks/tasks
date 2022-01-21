@@ -153,7 +153,7 @@ public class DateUtilities {
    * @return
    *  A formatted string of the time until date
    */
-  public static String getTimeUntil(long date) {
+  public static String getTimeUntil(long date, java.util.Locale locale) {
     DateTime startOfToday = newDateTime();
     DateTime startOfDate = newDateTime(date);
 
@@ -174,7 +174,7 @@ public class DateUtilities {
       unit = "M";
     }
 
-    return num + unit;
+    return String.format(locale, "%d%s", num, unit);
   }
 
   private static String getFullDate(DateTime date, java.util.Locale locale, FormatStyle style) {

@@ -204,7 +204,7 @@ class TaskViewHolder internal constructor(
                 DateUtilities.getRelativeDateTime(context, task.dueDate, locale, FormatStyle.MEDIUM, preferences.alwaysDisplayFullDate, false)
             }
             if(preferences.displayDateAsCountdown && !task.isCompleted) {
-                dueDate.text = DateUtilities.getTimeUntil(task.dueDate)
+                dueDate.text = DateUtilities.getTimeUntil(task.dueDate, locale)
             } else {
                 dueDate.text = dateValue
             }
