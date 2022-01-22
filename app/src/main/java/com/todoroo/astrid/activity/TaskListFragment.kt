@@ -43,6 +43,7 @@ import com.todoroo.astrid.api.*
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.service.*
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
@@ -73,15 +74,12 @@ import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
-import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerActivity
 import org.tasks.tasklist.*
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
 import org.tasks.ui.TaskListViewModel
-import timber.log.Timber
-import java.text.ParseException
 import java.time.format.FormatStyle
 import java.util.*
 import javax.inject.Inject
@@ -116,6 +114,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var locale: Locale
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var repeatTaskHelper: RepeatTaskHelper
     
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var emptyRefreshLayout: SwipeRefreshLayout
@@ -865,26 +864,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 val oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0)
                 val newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0)
                 lifecycleScope.launch {
-                    val task = taskDao.fetch(taskId)
+                    val task = taskDao.fetch(taskId) ?: return@launch
                     try {
                         val dueDateString = DateUtilities.getRelativeDateTime(
                                 context, newDueDate, locale.locale, FormatStyle.LONG, true)
-                        makeSnackbar(R.string.repeat_snackbar, task!!.title, dueDateString)
+                        makeSnackbar(R.string.repeat_snackbar, task.title, dueDateString)
                                 ?.setAction(R.string.DLG_undo) {
-                                    task.setDueDateAdjustingHideUntil(oldDueDate)
-                                    task.completionDate = 0L
-                                    try {
-                                        val recur = newRecur(task.recurrence!!)
-                                        val count = recur.count
-                                        if (count > 0) {
-                                            recur.count = count + 1
-                                        }
-                                        task.setRecurrence(recur.toString(), task.repeatAfterCompletion())
-                                    } catch (e: ParseException) {
-                                        Timber.e(e)
-                                    }
                                     lifecycleScope.launch(NonCancellable) {
-                                        taskDao.save(task)
+                                        repeatTaskHelper.undoRepeat(task, oldDueDate, newDueDate)
                                     }
                                 }
                                 ?.show()

@@ -77,6 +77,23 @@ class RepeatTaskHelper @Inject constructor(
         localBroadcastManager.broadcastRepeat(task.id, previousDueDate, newDueDate)
     }
 
+    suspend fun undoRepeat(task: Task, oldDueDate: Long, newDueDate: Long) {
+        task.setDueDateAdjustingHideUntil(oldDueDate)
+        task.completionDate = 0L
+        try {
+            val recur = newRecur(task.recurrence!!)
+            val count = recur.count
+            if (count > 0) {
+                recur.count = count + 1
+            }
+            task.setRecurrence(recur.toString(), task.repeatAfterCompletion())
+        } catch (e: ParseException) {
+            Timber.e(e)
+        }
+        alarmService.rescheduleAlarms(task.id, newDueDate, oldDueDate)
+        taskDao.save(task)
+    }
+
     companion object {
         private val weekdayCompare = Comparator { object1: WeekDay, object2: WeekDay -> WeekDay.getCalendarDay(object1) - WeekDay.getCalendarDay(object2) }
         private fun repeatFinished(newDueDate: Long, repeatUntil: Long): Boolean {

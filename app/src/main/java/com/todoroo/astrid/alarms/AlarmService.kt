@@ -24,7 +24,7 @@ class AlarmService @Inject constructor(
         private val jobs: NotificationQueue) {
 
     suspend fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) {
-        if (oldDueDate <= 0 || newDueDate <= 0 || newDueDate <= oldDueDate) {
+        if (oldDueDate <= 0 || newDueDate <= 0) {
             return
         }
         val alarms: MutableSet<Long> = LinkedHashSet()
