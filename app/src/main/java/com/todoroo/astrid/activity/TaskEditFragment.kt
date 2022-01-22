@@ -87,13 +87,15 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val args = requireArguments()
-        editViewModel.setup(
+        if (savedInstanceState == null) {
+            val args = requireArguments()
+            editViewModel.setup(
                 args.getParcelable(EXTRA_TASK)!!,
                 args.getParcelable(EXTRA_LIST)!!,
                 args.getParcelable(EXTRA_LOCATION),
                 args.getParcelableArrayList(EXTRA_TAGS)!!,
                 args.getLongArray(EXTRA_ALARMS)!!)
+        }
         val activity = requireActivity() as MainActivity
         editViewModel.cleared.observe(activity) {
             activity.removeTaskEditFragment()
