@@ -9,7 +9,6 @@ import org.tasks.data.Alarm
 import org.tasks.data.AlarmDao
 import org.tasks.jobs.AlarmEntry
 import org.tasks.jobs.NotificationQueue
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,13 +26,10 @@ class AlarmService @Inject constructor(
         if (oldDueDate <= 0 || newDueDate <= 0) {
             return
         }
-        val alarms: MutableSet<Long> = LinkedHashSet()
-        for (alarm in getAlarms(taskId)) {
-            alarms.add(alarm.time + (newDueDate - oldDueDate))
-        }
-        if (alarms.isNotEmpty()) {
-            synchronizeAlarms(taskId, alarms)
-        }
+        getAlarms(taskId)
+            .takeIf { it.isNotEmpty() }
+            ?.onEach { it.time += newDueDate - oldDueDate }
+            ?.let { synchronizeAlarms(taskId, it.toMutableSet()) }
     }
 
     private suspend fun getAlarms(taskId: Long): List<Alarm> = alarmDao.getAlarms(taskId)
@@ -43,17 +39,18 @@ class AlarmService @Inject constructor(
      *
      * @return true if data was changed
      */
-    suspend fun synchronizeAlarms(taskId: Long, timestamps: MutableSet<Long>): Boolean {
+    suspend fun synchronizeAlarms(taskId: Long, alarms: MutableSet<Alarm>): Boolean {
         var changed = false
-        for (item in alarmDao.getAlarms(taskId)) {
-            if (!timestamps.remove(item.time)) {
-                jobs.cancelAlarm(item.id)
-                alarmDao.delete(item)
+        for (existing in alarmDao.getAlarms(taskId)) {
+            if (!alarms.removeIf { it.time == existing.time }) {
+                jobs.cancelAlarm(existing.id)
+                alarmDao.delete(existing)
                 changed = true
             }
         }
-        for (timestamp in timestamps) {
-            alarmDao.insert(Alarm(taskId, timestamp))
+        for (alarm in alarms) {
+            alarm.task = taskId
+            alarmDao.insert(alarm)
             changed = true
         }
         if (changed) {

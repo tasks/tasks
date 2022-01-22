@@ -19,6 +19,7 @@ import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
+import org.tasks.data.Alarm
 import org.tasks.databinding.ControlSetRemindersBinding
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
@@ -141,8 +142,10 @@ class ReminderControlSet : TaskEditControlFragment() {
         if (requestCode == REQUEST_NEW_ALARM) {
             if (resultCode == Activity.RESULT_OK) {
                 val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-                if (viewModel.selectedAlarms?.add(timestamp) == true) {
-                    addAlarmRow(timestamp)
+                if (viewModel.selectedAlarms?.any { timestamp == it.time } == false) {
+                    val alarm = Alarm(viewModel.task?.id ?: 0, timestamp)
+                    viewModel.selectedAlarms?.add(alarm)
+                    addAlarmRow(alarm)
                 }
             }
         } else {
@@ -150,9 +153,9 @@ class ReminderControlSet : TaskEditControlFragment() {
         }
     }
 
-    private fun addAlarmRow(timestamp: Long) {
-        addAlarmRow(DateUtilities.getLongDateStringWithTime(timestamp, locale.locale)) {
-            viewModel.selectedAlarms?.remove(timestamp)
+    private fun addAlarmRow(alarm: Alarm) {
+        addAlarmRow(DateUtilities.getLongDateStringWithTime(alarm.time, locale.locale)) {
+            viewModel.selectedAlarms?.removeIf { it.time == alarm.time }
         }
     }
 

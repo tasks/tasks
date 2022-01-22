@@ -94,7 +94,8 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 args.getParcelable(EXTRA_LIST)!!,
                 args.getParcelable(EXTRA_LOCATION),
                 args.getParcelableArrayList(EXTRA_TAGS)!!,
-                args.getLongArray(EXTRA_ALARMS)!!)
+                args.getParcelableArrayList(EXTRA_ALARMS)!!
+            )
         }
         val activity = requireActivity() as MainActivity
         editViewModel.cleared.observe(activity) {
@@ -385,7 +386,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             arguments.putParcelable(EXTRA_LIST, list)
             arguments.putParcelable(EXTRA_LOCATION, location)
             arguments.putParcelableArrayList(EXTRA_TAGS, tags)
-            arguments.putLongArray(EXTRA_ALARMS, alarms.map { it.time }.toLongArray())
+            arguments.putParcelableArrayList(EXTRA_ALARMS, alarms)
             taskEditFragment.arguments = arguments
             return taskEditFragment
         }

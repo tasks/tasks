@@ -34,7 +34,16 @@ import org.tasks.Event
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.calendars.CalendarEventProvider
-import org.tasks.data.*
+import org.tasks.data.Alarm
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.GoogleTask
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.Location
+import org.tasks.data.LocationDao
+import org.tasks.data.TagDao
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
@@ -70,7 +79,12 @@ class TaskEditViewModel @Inject constructor(
     val cleared = MutableLiveData<Event<Boolean>>()
 
     fun setup(
-            task: Task, list: Filter, location: Location?, tags: List<TagData>, alarms: LongArray) {
+            task: Task,
+            list: Filter,
+            location: Location?,
+            tags: List<TagData>,
+            alarms: List<Alarm>,
+    ) {
         this.task = task
         isNew = task.isNew
         originalList = list
@@ -228,13 +242,13 @@ class TaskEditViewModel @Inject constructor(
     var reminderPeriod: Long? = null
         get() = field ?: task?.reminderPeriod ?: 0
 
-    var originalAlarms: ImmutableSet<Long>? = null
+    var originalAlarms: ImmutableSet<Alarm>? = null
         private set(value) {
             field = value
             selectedAlarms = value?.let { HashSet(it) }
         }
 
-    var selectedAlarms: HashSet<Long>? = null
+    var selectedAlarms: HashSet<Alarm>? = null
 
     var whenStart: Boolean? = null
         get() = field ?: (task?.reminderFlags?.and(Task.NOTIFY_AT_START) ?: 0 > 0)

@@ -1,12 +1,14 @@
 package org.tasks.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "alarms")
-class Alarm {
+class Alarm : Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     @Transient
@@ -20,6 +22,13 @@ class Alarm {
     var time: Long = 0
 
     constructor()
+
+    @Ignore
+    constructor(parcel: Parcel) {
+        id = parcel.readLong()
+        task = parcel.readLong()
+        time = parcel.readLong()
+    }
 
     @Ignore
     constructor(task: Long, time: Long) {
@@ -47,5 +56,19 @@ class Alarm {
         result = 31 * result + task.hashCode()
         result = 31 * result + time.hashCode()
         return result
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(id)
+        parcel.writeLong(task)
+        parcel.writeLong(time)
+    }
+
+    override fun describeContents() = 0
+
+    companion object CREATOR : Parcelable.Creator<Alarm> {
+        override fun createFromParcel(parcel: Parcel) = Alarm(parcel)
+
+        override fun newArray(size: Int): Array<Alarm?> = arrayOfNulls(size)
     }
 }
