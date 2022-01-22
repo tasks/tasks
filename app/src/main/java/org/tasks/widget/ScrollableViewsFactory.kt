@@ -319,7 +319,8 @@ internal class ScrollableViewsFactory(
                         context, task.dueDate, locale.locale, FormatStyle.MEDIUM, showFullDate, false)
             }
             if (widgetPreferences.displayDateAsCountdown && !task.isCompleted) {
-                row.setTextViewText(dueDateRes, DateUtilities.getTimeUntil(task.dueDate, locale.locale))
+                row.setTextViewText(dueDateRes, DateUtilities.getTimeUntil(context, task.dueDate,
+                    locale.locale, widgetPreferences.alwaysDisplayFullDate, false))
             } else {
                 row.setTextViewText(dueDateRes, text)
             }

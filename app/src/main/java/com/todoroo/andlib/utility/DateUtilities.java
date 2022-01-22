@@ -153,24 +153,26 @@ public class DateUtilities {
    * @return
    *  A formatted string of the time until date
    */
-  public static String getTimeUntil(long date, java.util.Locale locale) {
+  public static String getTimeUntil(Context context, long date, java.util.Locale locale, boolean abbreviated, boolean lowercase) {
     DateTime startOfToday = newDateTime();
     DateTime startOfDate = newDateTime(date);
 
     //difference in milliseconds between dates
-    long diff = Math.abs(startOfDate.getMillis()-startOfToday.getMillis());
+    long diff = startOfDate.getMillis()-startOfToday.getMillis();
 
     int num;
     String unit;
 
     if (diff >= DateUtilities.ONE_DAY) {
-      num = (int) (diff / DateUtilities.ONE_DAY);
+      num = (int) (Math.abs(diff) / DateUtilities.ONE_DAY);
       unit = "D";
-    } else if (diff >= DateUtilities.ONE_HOUR) {
-      num = (int) (diff / DateUtilities.ONE_HOUR);
+    } else if (!Task.hasDueTime(date) && diff > 0) {
+      return getRelativeDay(context, date, locale, abbreviated, lowercase);
+    } else if (Math.abs(diff) >= DateUtilities.ONE_HOUR) {
+      num = (int) (Math.abs(diff) / DateUtilities.ONE_HOUR);
       unit = "H";
     } else {
-      num = (int) (diff / DateUtilities.ONE_MINUTE);
+      num = (int) (Math.abs(diff) / DateUtilities.ONE_MINUTE);
       unit = "M";
     }
 
