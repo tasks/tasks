@@ -11,8 +11,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class NotificationQueue @Inject constructor(private val preferences: Preferences, private val workManager: WorkManager) {
-    private val jobs = TreeMultimap.create(Ordering.natural<Long>(), Comparator { l: NotificationQueueEntry, r: NotificationQueueEntry -> Ints.compare(l.hashCode(), r.hashCode()) })
+class NotificationQueue @Inject constructor(
+    private val preferences: Preferences,
+    private val workManager: WorkManager
+) {
+    private val jobs =
+        TreeMultimap.create<Long, NotificationQueueEntry>(Ordering.natural()) { l, r ->
+            Ints.compare(l.hashCode(), r.hashCode())
+        }
 
     @Synchronized
     fun <T : NotificationQueueEntry> add(entry: T) = add(listOf(entry))

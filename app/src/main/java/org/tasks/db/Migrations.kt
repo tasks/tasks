@@ -4,8 +4,14 @@ import android.database.sqlite.SQLiteException
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
+import org.tasks.data.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
 import timber.log.Timber
+import java.util.concurrent.TimeUnit.HOURS
 
 object Migrations {
     private val MIGRATION_35_36: Migration = object : Migration(35, 36) {
@@ -404,6 +410,26 @@ object Migrations {
         }
     }
 
+    private val MIGRATION_80_81 = object : Migration(80, 81) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE `alarms` ADD COLUMN `type` INTEGER NOT NULL DEFAULT 0")
+            database.execSQL("ALTER TABLE `alarms` ADD COLUMN `repeat` INTEGER NOT NULL DEFAULT 0")
+            database.execSQL("ALTER TABLE `alarms` ADD COLUMN `interval` INTEGER NOT NULL DEFAULT 0")
+            database.execSQL(
+                "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, 0, $TYPE_REL_START FROM `tasks` WHERE `hideUntil` > 0 AND `notificationFlags` | $NOTIFY_AT_START"
+            )
+            database.execSQL(
+                "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, 0, $TYPE_REL_END FROM `tasks` WHERE `dueDate` > 0 AND `notificationFlags` | $NOTIFY_AT_DEADLINE"
+            )
+            database.execSQL(
+                "INSERT INTO `alarms` (`task`, `time`, `type`, `repeat`, `interval`) SELECT `_id`, ${HOURS.toMillis(24)}, $TYPE_REL_END, 6, ${HOURS.toMillis(24)} FROM `tasks` WHERE `dueDate` > 0 AND `notificationFlags` | $NOTIFY_AFTER_DEADLINE"
+            )
+            database.execSQL(
+                "UPDATE `tasks` SET `notificationFlags` = `notificationFlags` & ~$NOTIFY_AT_START & ~$NOTIFY_AT_DEADLINE & ~$NOTIFY_AFTER_DEADLINE"
+            )
+        }
+    }
+
     val MIGRATIONS = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
@@ -441,6 +467,7 @@ object Migrations {
             MIGRATION_77_78,
             MIGRATION_78_79,
             MIGRATION_79_80,
+            MIGRATION_80_81,
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {

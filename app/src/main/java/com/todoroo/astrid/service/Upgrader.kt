@@ -16,13 +16,27 @@ import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
-import org.tasks.data.*
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.CaldavTaskContainer
+import org.tasks.data.FilterDao
+import org.tasks.data.GoogleTaskAccount
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.Location
+import org.tasks.data.LocationDao
+import org.tasks.data.Tag
+import org.tasks.data.TagDao
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
+import org.tasks.data.TaskAttachmentDao
+import org.tasks.data.UpgraderDao
+import org.tasks.data.UserActivityDao
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.widget.AppWidgetManager
 import org.tasks.widget.WidgetPreferences
 import java.io.File
-import java.util.*
 import javax.inject.Inject
 
 class Upgrader @Inject constructor(
@@ -322,7 +336,7 @@ class Upgrader @Inject constructor(
         private const val V5_3_0 = 491
         private const val V6_0_beta_1 = 522
         private const val V6_0_beta_2 = 523
-        private const val V6_4 = 546
+        const val V6_4 = 546
         private const val V6_7 = 585
         private const val V6_8_1 = 607
         private const val V6_9 = 608
@@ -337,6 +351,7 @@ class Upgrader @Inject constructor(
         const val V9_7_3 = 90704
         const val V10_0_2 = 100012
         const val V11_13 = 111300
+        const val V12_3 = 120300
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

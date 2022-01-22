@@ -1,8 +1,10 @@
 package org.tasks.jobs;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 import com.todoroo.astrid.reminders.ReminderService;
+
 import org.tasks.notifications.Notification;
 
 public class AlarmEntry implements NotificationQueueEntry {
@@ -10,10 +12,6 @@ public class AlarmEntry implements NotificationQueueEntry {
   private final long alarmId;
   private final long taskId;
   private final long time;
-
-  public AlarmEntry(org.tasks.data.Alarm alarm) {
-    this(alarm.getId(), alarm.getTask(), alarm.getTime());
-  }
 
   public AlarmEntry(long alarmId, long taskId, Long time) {
     this.alarmId = alarmId;
@@ -70,6 +68,6 @@ public class AlarmEntry implements NotificationQueueEntry {
 
   @Override
   public String toString() {
-    return "AlarmEntry{" + "alarmId=" + alarmId + ", taskId=" + taskId + ", time=" + time + '}';
+    return "AlarmEntry{" + "alarmId=" + alarmId + ", taskId=" + taskId + ", time=" + printTimestamp(time) + '}';
   }
 }

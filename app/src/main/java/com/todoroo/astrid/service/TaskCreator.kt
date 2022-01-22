@@ -17,12 +17,26 @@ import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.utility.TitleParser.parse
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.*
+import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.whenDue
+import org.tasks.data.Alarm.Companion.whenOverdue
+import org.tasks.data.Alarm.Companion.whenStarted
+import org.tasks.data.AlarmDao
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.Geofence
+import org.tasks.data.GoogleTask
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.LocationDao
+import org.tasks.data.Place
+import org.tasks.data.Tag
+import org.tasks.data.TagDao
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class TaskCreator @Inject constructor(
@@ -34,7 +48,9 @@ class TaskCreator @Inject constructor(
         private val googleTaskDao: GoogleTaskDao,
         private val defaultFilterProvider: DefaultFilterProvider,
         private val caldavDao: CaldavDao,
-        private val locationDao: LocationDao) {
+        private val locationDao: LocationDao,
+        private val alarmDao: AlarmDao,
+) {
 
     suspend fun basicQuickAddTask(title: String): Task {
         val task = createWithValues(title.trim { it <= ' ' })
@@ -71,6 +87,7 @@ class TaskCreator @Inject constructor(
             }
         }
         taskDao.save(task, null)
+        alarmDao.insert(task.getDefaultAlarms())
         return task
     }
 
@@ -161,10 +178,25 @@ class TaskCreator @Inject constructor(
         private fun setDefaultReminders(preferences: Preferences, task: Task) {
             task.reminderPeriod = (DateUtilities.ONE_HOUR
                     * preferences.getIntegerFromString(R.string.p_rmd_default_random_hours, 0))
-            task.reminderFlags = preferences.defaultReminders or preferences.defaultRingMode
+            task.defaultReminders(preferences.defaultReminders)
+            task.ringFlags = preferences.defaultRingMode
         }
 
         private fun Any?.substitute(): String? =
             (this as? String)?.let { PermaSql.replacePlaceholdersForNewTask(it) }
+
+        fun Task.getDefaultAlarms(): List<Alarm> = ArrayList<Alarm>().apply {
+            if (hasStartDate() && isNotifyAtStart) {
+                add(whenStarted(id))
+            }
+            if (hasDueDate()) {
+                if (isNotifyAtDeadline) {
+                    add(whenDue(id))
+                }
+                if (isNotifyAfterDeadline) {
+                    add(whenOverdue(id))
+                }
+            }
+        }
     }
 }

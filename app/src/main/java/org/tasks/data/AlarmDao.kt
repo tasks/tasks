@@ -8,17 +8,26 @@ import com.todoroo.astrid.data.Task
 
 @Dao
 interface AlarmDao {
-    @Query("SELECT alarms.* FROM alarms INNER JOIN tasks ON tasks._id = alarms.task "
-            + "WHERE tasks.completed = 0 AND tasks.deleted = 0 AND tasks.lastNotified < alarms.time "
-            + "ORDER BY time ASC")
+    @Query("""
+SELECT alarms.*
+FROM alarms
+         INNER JOIN tasks ON tasks._id = alarms.task
+WHERE tasks.completed = 0
+  AND tasks.deleted = 0
+""")
     suspend fun getActiveAlarms(): List<Alarm>
 
-    @Query("SELECT alarms.* FROM alarms INNER JOIN tasks ON tasks._id = alarms.task "
-            + "WHERE tasks._id = :taskId AND tasks.completed = 0 AND tasks.deleted = 0 AND tasks.lastNotified < alarms.time "
-            + "ORDER BY time ASC")
+    @Query("""
+SELECT alarms.*
+FROM alarms
+         INNER JOIN tasks ON tasks._id = alarms.task
+WHERE tasks._id = :taskId
+  AND tasks.completed = 0
+  AND tasks.deleted = 0
+""")
     suspend fun getActiveAlarms(taskId: Long): List<Alarm>
 
-    @Query("SELECT * FROM alarms WHERE task = :taskId ORDER BY time ASC")
+    @Query("SELECT * FROM alarms WHERE task = :taskId")
     suspend fun getAlarms(taskId: Long): List<Alarm>
 
     @Delete

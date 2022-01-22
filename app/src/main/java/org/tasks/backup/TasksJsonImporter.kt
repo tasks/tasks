@@ -7,13 +7,30 @@ import android.os.Handler
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.service.Upgrader
+import com.todoroo.astrid.service.Upgrader.Companion.V12_3
+import com.todoroo.astrid.service.Upgrader.Companion.V6_4
 import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.*
+import org.tasks.data.AlarmDao
+import org.tasks.data.CaldavDao
+import org.tasks.data.FilterDao
+import org.tasks.data.Geofence
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.LocationDao
 import org.tasks.data.Place.Companion.newPlace
+import org.tasks.data.Tag
+import org.tasks.data.TagDao
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
+import org.tasks.data.TaskAttachmentDao
+import org.tasks.data.TaskListMetadataDao
+import org.tasks.data.UserActivityDao
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.io.FileNotFoundException
@@ -136,9 +153,19 @@ class TasksJsonImporter @Inject constructor(
                     alarm.task = taskId
                     alarmDao.insert(alarm)
                 }
+                if (version < V12_3) {
+                    task.defaultReminders(task.ringFlags)
+                    alarmDao.insert(task.getDefaultAlarms())
+                    task.ringFlags = when {
+                        task.isNotifyModeFive -> Task.NOTIFY_MODE_FIVE
+                        task.isNotifyModeNonstop -> Task.NOTIFY_MODE_NONSTOP
+                        else -> 0
+                    }
+                    taskDao.save(task)
+                }
                 for (comment in backup.comments) {
                     comment.targetId = taskUuid
-                    if (version < 546) {
+                    if (version < V6_4) {
                         comment.convertPictureUri()
                     }
                     userActivityDao.createNew(comment)
@@ -177,7 +204,7 @@ class TasksJsonImporter @Inject constructor(
                 }
                 backup.attachments?.forEach { attachment ->
                     attachment.taskId = taskUuid
-                    if (version < 546) {
+                    if (version < V6_4) {
                         attachment.convertPathUri()
                     }
                     taskAttachmentDao.insert(attachment)

@@ -716,4 +716,8 @@ File %1$s contained %2$s.\n\n
   <string name="completed_tasks_at_bottom">Move completed tasks to bottom</string>
   <string name="completed_tasks_sort">Sort by completion date</string>
   <string name="snackbar_tasks_completed">%d tasks completed</string>
+  <string name="alarm_before_start">%s before start</string>
+  <string name="alarm_after_start">%s after start</string>
+  <string name="alarm_before_due">%s before due</string>
+  <string name="alarm_after_due">%s after due</string>
 </resources>

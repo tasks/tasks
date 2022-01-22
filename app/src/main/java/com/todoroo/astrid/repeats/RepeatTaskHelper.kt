@@ -16,6 +16,7 @@ import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
 import org.tasks.LocalBroadcastManager
+import org.tasks.data.Alarm
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
@@ -116,7 +117,11 @@ class RepeatTaskHelper @Inject constructor(
         }
         alarmService.getAlarms(taskId)
             .takeIf { it.isNotEmpty() }
-            ?.onEach { it.time += newDueDate - oldDueDate }
+            ?.onEach {
+                if (it.type == Alarm.TYPE_DATE_TIME) {
+                    it.time += newDueDate - oldDueDate
+                }
+            }
             ?.let { alarmService.synchronizeAlarms(taskId, it.toMutableSet()) }
     }
 

@@ -6,6 +6,7 @@
 package com.todoroo.astrid.dao
 
 import com.todoroo.andlib.utility.DateUtilities.now
+import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.reminders.ReminderService
@@ -34,7 +35,9 @@ class TaskDao @Inject constructor(
         private val notificationManager: NotificationManager,
         private val geofenceApi: GeofenceApi,
         private val timerPlugin: TimerPlugin,
-        private val syncAdapters: SyncAdapters) {
+        private val syncAdapters: SyncAdapters,
+        private val alarmService: AlarmService,
+) {
 
     suspend fun fetch(id: Long): Task? = taskDao.fetch(id)
 
@@ -135,6 +138,7 @@ class TaskDao @Inject constructor(
                     geofenceApi.update(task.id)
                 }
                 reminderService.scheduleAlarm(task)
+                alarmService.scheduleAlarms(task)
                 refreshScheduler.scheduleRefresh(task)
                 if (!task.isSuppressRefresh()) {
                     localBroadcastManager.broadcastRefresh()

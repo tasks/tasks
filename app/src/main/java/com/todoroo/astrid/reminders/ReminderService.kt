@@ -10,25 +10,22 @@ import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskDao
 import org.tasks.jobs.NotificationQueue
 import org.tasks.jobs.ReminderEntry
-import org.tasks.preferences.Preferences
 import org.tasks.reminders.Random
-import org.tasks.time.DateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class ReminderService internal constructor(
-        private val preferences: Preferences,
         private val jobs: NotificationQueue,
         private val random: Random,
-        private val taskDao: TaskDao) {
+        private val taskDao: TaskDao,
+) {
 
     @Inject
     internal constructor(
-            preferences: Preferences,
             notificationQueue: NotificationQueue,
             taskDao: TaskDao
-    ) : this(preferences, notificationQueue, Random(), taskDao)
+    ) : this(notificationQueue, Random(), taskDao)
 
     suspend fun scheduleAlarm(id: Long) = scheduleAllAlarms(listOf(id))
 
@@ -66,95 +63,18 @@ class ReminderService internal constructor(
         // random reminders
         val whenRandom = calculateNextRandomReminder(task)
 
-        val whenStartDate = calculateStartDateReminder(task)
-
-        // notifications at due date
-        val whenDueDate = calculateNextDueDateReminder(task)
-
-        // notifications after due date
-        val whenOverdue = calculateNextOverdueReminder(task)
-
         // snooze trumps all
-        if (whenSnooze != NO_ALARM) {
-            return ReminderEntry(taskId, whenSnooze, TYPE_SNOOZE)
-        } else if (
-            whenRandom < whenDueDate &&
-            whenRandom < whenOverdue &&
-            whenRandom < whenStartDate
-        ) {
-            return ReminderEntry(taskId, whenRandom, TYPE_RANDOM)
-        } else if (whenStartDate < whenDueDate) {
-            return ReminderEntry(taskId, whenStartDate, TYPE_START)
-        } else if (whenDueDate < whenOverdue) {
-            return ReminderEntry(taskId, whenDueDate, TYPE_DUE)
-        } else if (whenOverdue != NO_ALARM) {
-            return ReminderEntry(taskId, whenOverdue, TYPE_OVERDUE)
+        return when {
+            whenSnooze != NO_ALARM -> ReminderEntry(taskId, whenSnooze, TYPE_SNOOZE)
+            whenRandom != NO_ALARM -> ReminderEntry(taskId, whenRandom, TYPE_RANDOM)
+            else -> null
         }
-        return null
     }
 
     private fun calculateNextSnoozeReminder(task: Task): Long {
         return if (task.reminderSnooze > task.reminderLast) {
             task.reminderSnooze
         } else NO_ALARM
-    }
-
-    private fun calculateNextOverdueReminder(task: Task): Long {
-        // Uses getNowValue() instead of DateUtilities.now()
-        if (task.hasDueDate() && task.isNotifyAfterDeadline) {
-            var overdueDate = DateTime(task.dueDate).plusDays(1)
-            if (!task.hasDueTime()) {
-                overdueDate = overdueDate.withMillisOfDay(preferences.defaultDueTime)
-            }
-            val lastReminder = DateTime(task.reminderLast)
-            if (overdueDate.isAfter(lastReminder)) {
-                return overdueDate.millis
-            }
-            overdueDate = lastReminder.withMillisOfDay(overdueDate.millisOfDay)
-            return if (overdueDate.isAfter(lastReminder)) overdueDate.millis else overdueDate.plusDays(1).millis
-        }
-        return NO_ALARM
-    }
-
-    private fun calculateStartDateReminder(task: Task): Long {
-        if (task.hasStartDate() && task.isNotifyAtStart) {
-            val startDate = task.hideUntil
-            val startDateAlarm = if (task.hasStartTime()) {
-                startDate
-            } else {
-                DateTime(startDate).withMillisOfDay(preferences.defaultDueTime).millis
-            }
-            if (task.reminderLast < startDateAlarm) {
-                return startDateAlarm
-            }
-        }
-        return NO_ALARM
-    }
-
-    /**
-     * Calculate the next alarm time for due date reminders.
-     *
-     *
-     * This alarm always returns the due date, and is triggered if the last reminder time occurred
-     * before the due date. This means it is possible to return due dates in the past.
-     *
-     *
-     * If the date was indicated to not have a due time, we read from preferences and assign a
-     * time.
-     */
-    private fun calculateNextDueDateReminder(task: Task): Long {
-        if (task.hasDueDate() && task.isNotifyAtDeadline) {
-            val dueDate = task.dueDate
-            val dueDateAlarm = if (task.hasDueTime()) {
-                dueDate
-            } else {
-                DateTime(dueDate).withMillisOfDay(preferences.defaultDueTime).millis
-            }
-            if (task.reminderLast < dueDateAlarm) {
-                return dueDateAlarm
-            }
-        }
-        return NO_ALARM
     }
 
     /**

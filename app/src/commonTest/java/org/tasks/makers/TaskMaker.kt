@@ -73,7 +73,7 @@ object TaskMaker {
         }
         val reminderFlags = lookup.valueOf(REMINDERS, -1)
         if (reminderFlags >= 0) {
-            task.reminderFlags = reminderFlags
+            task.ringFlags = reminderFlags
         }
         val reminderLast = lookup.valueOf(REMINDER_LAST, null as DateTime?)
         if (reminderLast != null) {

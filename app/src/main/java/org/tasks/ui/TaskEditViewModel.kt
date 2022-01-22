@@ -35,6 +35,11 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.Alarm.Companion.whenDue
+import org.tasks.data.Alarm.Companion.whenOverdue
+import org.tasks.data.Alarm.Companion.whenStarted
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
 import org.tasks.data.GoogleTask
@@ -74,7 +79,8 @@ class TaskEditViewModel @Inject constructor(
         private val googleTaskDao: GoogleTaskDao,
         private val caldavDao: CaldavDao,
         private val taskCompleter: TaskCompleter,
-        private val alarmService: AlarmService) : ViewModel() {
+        private val alarmService: AlarmService
+) : ViewModel() {
 
     val cleared = MutableLiveData<Event<Boolean>>()
 
@@ -90,7 +96,22 @@ class TaskEditViewModel @Inject constructor(
         originalList = list
         originalLocation = location
         originalTags = tags.toImmutableList()
-        originalAlarms = alarms.toList().toImmutableSet()
+        originalAlarms =
+            if (isNew) {
+                ArrayList<Alarm>().apply {
+                    if (task.isNotifyAtStart) {
+                        add(whenStarted(0))
+                    }
+                    if (task.isNotifyAtDeadline) {
+                        add(whenDue(0))
+                    }
+                    if (task.isNotifyAfterDeadline) {
+                        add(whenOverdue(0))
+                    }
+                }
+            } else {
+                alarms
+            }.toImmutableSet()
         if (isNew && permissionChecker.canAccessCalendars()) {
             originalCalendar = preferences.defaultCalendar
         }
@@ -250,17 +271,8 @@ class TaskEditViewModel @Inject constructor(
 
     var selectedAlarms: HashSet<Alarm>? = null
 
-    var whenStart: Boolean? = null
-        get() = field ?: (task?.reminderFlags?.and(Task.NOTIFY_AT_START) ?: 0 > 0)
-
-    var whenDue: Boolean? = null
-        get() = field ?: (task?.reminderFlags?.and(Task.NOTIFY_AT_DEADLINE) ?: 0 > 0)
-
-    var whenOverdue: Boolean? = null
-        get() = field ?: (task?.reminderFlags?.and(Task.NOTIFY_AFTER_DEADLINE) ?: 0 > 0)
-
     var ringNonstop: Boolean? = null
-        get() = field ?: (task?.reminderFlags?.and(Task.NOTIFY_MODE_NONSTOP) ?: 0 > 0)
+        get() = field ?: (task?.ringFlags?.and(Task.NOTIFY_MODE_NONSTOP) ?: 0 > 0)
         set(value) {
             field = value
             if (value == true) {
@@ -269,7 +281,7 @@ class TaskEditViewModel @Inject constructor(
         }
 
     var ringFiveTimes:Boolean? = null
-        get() = field ?: (task?.reminderFlags?.and(Task.NOTIFY_MODE_FIVE) ?: 0 > 0)
+        get() = field ?: (task?.ringFlags?.and(Task.NOTIFY_MODE_FIVE) ?: 0 > 0)
         set(value) {
             field = value
             if (value == true) {
@@ -304,7 +316,7 @@ class TaskEditViewModel @Inject constructor(
                 originalTags?.toHashSet() != selectedTags?.toHashSet() ||
                 newSubtasks.isNotEmpty() ||
                 it.reminderPeriod != reminderPeriod ||
-                it.reminderFlags != getReminderFlags() ||
+                it.ringFlags != getRingFlags() ||
                 originalAlarms != selectedAlarms
     } ?: false
 
@@ -329,7 +341,7 @@ class TaskEditViewModel @Inject constructor(
         it.repeatUntil = repeatUntil!!
         it.elapsedSeconds = elapsedSeconds!!
         it.estimatedSeconds = estimatedSeconds!!
-        it.reminderFlags = getReminderFlags()
+        it.ringFlags = getRingFlags()
         it.reminderPeriod = reminderPeriod!!
 
         applyCalendarChanges()
@@ -398,12 +410,22 @@ class TaskEditViewModel @Inject constructor(
             }
         }
 
-        if (selectedAlarms != originalAlarms) {
-            alarmService.synchronizeAlarms(it.id, selectedAlarms!!)
-            it.modificationDate = now()
+        if (!it.hasStartDate()) {
+            selectedAlarms?.removeIf { a -> a.type == TYPE_REL_START }
+        }
+        if (!it.hasDueDate()) {
+            selectedAlarms?.removeIf { a -> a.type == TYPE_REL_END }
         }
 
         taskDao.save(it, null)
+
+        if (
+            selectedAlarms != originalAlarms ||
+            (isNew && selectedAlarms?.isNotEmpty() == true)
+        ) {
+            alarmService.synchronizeAlarms(it.id, selectedAlarms!!)
+            it.modificationDate = now()
+        }
 
         if (it.isCompleted != completed!!) {
             taskCompleter.setComplete(it, completed!!)
@@ -431,17 +453,8 @@ class TaskEditViewModel @Inject constructor(
         }
     }
 
-    private fun getReminderFlags(): Int {
+    private fun getRingFlags(): Int {
         var value = 0
-        if (whenStart == true) {
-            value = value or Task.NOTIFY_AT_START
-        }
-        if (whenDue == true) {
-            value = value or Task.NOTIFY_AT_DEADLINE
-        }
-        if (whenOverdue == true) {
-            value = value or Task.NOTIFY_AFTER_DEADLINE
-        }
         value = value and (Task.NOTIFY_MODE_FIVE or Task.NOTIFY_MODE_NONSTOP).inv()
         if (ringNonstop == true) {
             value = value or Task.NOTIFY_MODE_NONSTOP

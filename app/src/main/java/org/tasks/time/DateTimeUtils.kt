@@ -24,6 +24,7 @@ object DateTimeUtils {
         MILLIS_PROVIDER = SYSTEM_MILLIS_PROVIDER
     }
 
+    @JvmStatic
     fun printTimestamp(timestamp: Long): String =
             if (BuildConfig.DEBUG) Date(timestamp).toString() else timestamp.toString()
 
@@ -42,4 +43,7 @@ object DateTimeUtils {
     fun Long.millisOfDay(): Int = if (this > 0) toDateTime().millisOfDay else 0
 
     fun Long.toDate(): net.fortuna.ical4j.model.Date? = this.toDateTime().toDate()
+
+    fun Long.withMillisOfDay(millisOfDay: Int): Long =
+        if (this > 0) toDateTime().withMillisOfDay(millisOfDay).millis else 0
 }

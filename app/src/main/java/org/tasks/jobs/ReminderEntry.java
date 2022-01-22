@@ -1,6 +1,7 @@
 package org.tasks.jobs;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 import org.tasks.notifications.Notification;
 
@@ -65,6 +66,6 @@ public class ReminderEntry implements NotificationQueueEntry {
 
   @Override
   public String toString() {
-    return "ReminderEntry{" + "taskId=" + taskId + ", time=" + time + ", type=" + type + '}';
+    return "ReminderEntry{" + "taskId=" + taskId + ", time=" + printTimestamp(time) + ", type=" + type + '}';
   }
 }

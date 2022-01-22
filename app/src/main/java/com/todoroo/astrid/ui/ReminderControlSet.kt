@@ -15,18 +15,23 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.StringRes
-import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
+import org.tasks.data.Alarm.Companion.TYPE_RANDOM
+import org.tasks.data.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.Alarm.Companion.whenDue
+import org.tasks.data.Alarm.Companion.whenOverdue
+import org.tasks.data.Alarm.Companion.whenStarted
 import org.tasks.databinding.ControlSetRemindersBinding
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
-import org.tasks.locale.Locale
+import org.tasks.reminders.AlarmToString
 import org.tasks.ui.TaskEditControlFragment
-import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -38,9 +43,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ReminderControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
-    @Inject lateinit var locale: Locale
     @Inject lateinit var dialogBuilder: DialogBuilder
-    
+    @Inject lateinit var alarmToString: AlarmToString
+
     private lateinit var alertContainer: LinearLayout
     private lateinit var mode: TextView
     
@@ -52,15 +57,6 @@ class ReminderControlSet : TaskEditControlFragment() {
             viewModel.ringNonstop!! -> setRingMode(2)
             viewModel.ringFiveTimes!! -> setRingMode(1)
             else -> setRingMode(0)
-        }
-        if (viewModel.whenStart!!) {
-            addStart()
-        }
-        if (viewModel.whenDue!!) {
-            addDue()
-        }
-        if (viewModel.whenOverdue!!) {
-            addOverdue()
         }
         if (viewModel.reminderPeriod!! > 0) {
             addRandomReminder(viewModel.reminderPeriod!!)
@@ -101,11 +97,16 @@ class ReminderControlSet : TaskEditControlFragment() {
 
     private fun addAlarm(selected: String) {
         when (selected) {
-            getString(R.string.when_started) -> addStart()
-            getString(R.string.when_due) -> addDue()
-            getString(R.string.when_overdue) -> addOverdue()
-            getString(R.string.randomly) -> addRandomReminder(TimeUnit.DAYS.toMillis(14))
-            getString(R.string.pick_a_date_and_time) -> addNewAlarm()
+            getString(R.string.when_started) ->
+                addAlarmRow(whenStarted(viewModel.task?.id ?: 0))
+            getString(R.string.when_due) ->
+                addAlarmRow(whenDue(viewModel.task?.id ?: 0))
+            getString(R.string.when_overdue) ->
+                addAlarmRow(whenOverdue(viewModel.task?.id ?: 0))
+            getString(R.string.randomly) ->
+                addRandomReminder(TimeUnit.DAYS.toMillis(14))
+            getString(R.string.pick_a_date_and_time) ->
+                addNewAlarm()
         }
     }
 
@@ -142,7 +143,7 @@ class ReminderControlSet : TaskEditControlFragment() {
         if (requestCode == REQUEST_NEW_ALARM) {
             if (resultCode == Activity.RESULT_OK) {
                 val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-                if (viewModel.selectedAlarms?.any { timestamp == it.time } == false) {
+                if (viewModel.selectedAlarms?.any { it.type == TYPE_DATE_TIME && timestamp == it.time } == false) {
                     val alarm = Alarm(viewModel.task?.id ?: 0, timestamp)
                     viewModel.selectedAlarms?.add(alarm)
                     addAlarmRow(alarm)
@@ -154,8 +155,13 @@ class ReminderControlSet : TaskEditControlFragment() {
     }
 
     private fun addAlarmRow(alarm: Alarm) {
-        addAlarmRow(DateUtilities.getLongDateStringWithTime(alarm.time, locale.locale)) {
-            viewModel.selectedAlarms?.removeIf { it.time == alarm.time }
+        addAlarmRow(alarm) {
+            viewModel.selectedAlarms?.removeIf {
+                it.type == alarm.type &&
+                        it.time == alarm.time &&
+                        it.repeat == alarm.repeat &&
+                        it.interval == alarm.interval
+            }
         }
     }
 
@@ -166,16 +172,17 @@ class ReminderControlSet : TaskEditControlFragment() {
         startActivityForResult(intent, REQUEST_NEW_ALARM)
     }
 
-    private fun addAlarmRow(text: String, onRemove: View.OnClickListener): View {
+    private fun addAlarmRow(alarm: Alarm, onRemove: View.OnClickListener): View {
         val alertItem = requireActivity().layoutInflater.inflate(R.layout.alarm_edit_row, null)
         alertContainer.addView(alertItem)
-        addAlarmRow(alertItem, text, onRemove)
+        addAlarmRow(alertItem, alarm, onRemove)
         return alertItem
     }
 
-    private fun addAlarmRow(alertItem: View, text: String, onRemove: View.OnClickListener?) {
+    private fun addAlarmRow(alertItem: View, alarm: Alarm, onRemove: View.OnClickListener?) {
         val display = alertItem.findViewById<TextView>(R.id.alarm_string)
-        display.text = text
+        viewModel.selectedAlarms?.add(alarm)
+        display.text = alarmToString.toString(alarm)
         alertItem
                 .findViewById<View>(R.id.clear)
                 .setOnClickListener { v: View? ->
@@ -187,13 +194,13 @@ class ReminderControlSet : TaskEditControlFragment() {
     private val options: List<String>
         get() {
             val options: MutableList<String> = ArrayList()
-            if (viewModel.whenStart != true) {
+            if (viewModel.selectedAlarms?.find { it.type == TYPE_REL_START && it.time == 0L } == null) {
                 options.add(getString(R.string.when_started))
             }
-            if (viewModel.whenDue != true) {
+            if (viewModel.selectedAlarms?.find { it.type == TYPE_REL_END && it.time == 0L } == null) {
                 options.add(getString(R.string.when_due))
             }
-            if (viewModel.whenOverdue != true) {
+            if (viewModel.selectedAlarms?.find { it.type == TYPE_REL_END && it.time == TimeUnit.HOURS.toMillis(24) } == null) {
                 options.add(getString(R.string.when_overdue))
             }
             if (randomControlSet == null) {
@@ -203,29 +210,8 @@ class ReminderControlSet : TaskEditControlFragment() {
             return options
         }
 
-    private fun addStart() {
-        viewModel.whenStart = true
-        addAlarmRow(getString(R.string.when_started)) {
-            viewModel.whenStart = false
-        }
-    }
-
-    private fun addDue() {
-        viewModel.whenDue = true
-        addAlarmRow(getString(R.string.when_due)) {
-            viewModel.whenDue = false
-        }
-    }
-
-    private fun addOverdue() {
-        viewModel.whenOverdue = true
-        addAlarmRow(getString(R.string.when_overdue)) {
-            viewModel.whenOverdue = false
-        }
-    }
-
     private fun addRandomReminder(reminderPeriod: Long) {
-        val alarmRow = addAlarmRow(getString(R.string.randomly_once) + " ") {
+        val alarmRow = addAlarmRow(Alarm(viewModel.task?.id ?: 0, 0, TYPE_RANDOM)) {
             viewModel.reminderPeriod = 0
             randomControlSet = null
         }
