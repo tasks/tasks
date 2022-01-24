@@ -710,4 +710,6 @@
     <string name="app_bar_position">Position der Appbar</string>
     <string name="top">Oben</string>
     <string name="bottom">Unten</string>
+    <string name="app_bar_collapse">Appbars einklappen</string>
+    <string name="completed">Abgeschlossen</string>
 </resources>
