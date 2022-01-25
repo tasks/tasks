@@ -163,7 +163,7 @@ public class DateUtilities {
     int num;
     String unit;
 
-    if (diff >= DateUtilities.ONE_DAY) {
+    if (Math.abs(diff) >= DateUtilities.ONE_DAY) {
       num = (int) (Math.abs(diff) / DateUtilities.ONE_DAY);
       unit = "D";
     } else if (!Task.hasDueTime(date) && diff > 0) {
