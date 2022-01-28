@@ -693,4 +693,6 @@
     <string name="bottom">Dưới</string>
     <string name="app_bar_position">Vị trí thanh ứng dụng</string>
     <string name="top">Trên</string>
+    <string name="completed">Hoàn tất</string>
+    <string name="app_bar_collapse">Thu gọn thanh ứng dụng</string>
 </resources>
