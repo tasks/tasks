@@ -1,6 +1,5 @@
 package org.tasks.ui.editviewmodel
 
-import android.content.Context
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
@@ -10,7 +9,6 @@ import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -74,7 +72,7 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
                 defaultFilterProvider.getList(task),
                 locationDao.getLocation(task, preferences),
                 tagDataDao.getTags(task),
-                alarmDao.getAlarms(task).map { it.time }.toLongArray()
+                alarmDao.getAlarms(task)
         )
     }
 
