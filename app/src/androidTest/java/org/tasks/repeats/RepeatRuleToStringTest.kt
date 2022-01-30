@@ -4,11 +4,13 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.tasks.Freeze
 import org.tasks.TestUtilities.withTZ
 import org.tasks.analytics.Firebase
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.locale.Locale
+import org.tasks.time.DateTime
 import java.text.ParseException
 import java.util.*
 import javax.inject.Inject
@@ -80,31 +82,37 @@ class RepeatRuleToStringTest : InjectingTestCase() {
 
     @Test
     fun repeatUntilPositiveOffset() {
-        withTZ(BERLIN) {
-            assertEquals(
+        Freeze.freezeAt(DateTime(2021, 1, 4)) {
+            withTZ(BERLIN) {
+                assertEquals(
                     "Repeats daily until February 23",
                     toString("RRULE:FREQ=DAILY;UNTIL=20210223;INTERVAL=1")
-            )
+                )
+            }
         }
     }
 
     @Test
     fun repeatUntilNoOffset() {
-        withTZ(LONDON) {
-            assertEquals(
+        Freeze.freezeAt(DateTime(2021, 1, 4)) {
+            withTZ(LONDON) {
+                assertEquals(
                     "Repeats daily until February 23",
                     toString("RRULE:FREQ=DAILY;UNTIL=20210223;INTERVAL=1")
-            )
+                )
+            }
         }
     }
 
     @Test
     fun repeatUntilNegativeOffset() {
-        withTZ(NEW_YORK) {
-            assertEquals(
+        Freeze.freezeAt(DateTime(2021, 1, 4)) {
+            withTZ(NEW_YORK) {
+                assertEquals(
                     "Repeats daily until February 23",
                     toString("RRULE:FREQ=DAILY;UNTIL=20210223;INTERVAL=1")
-            )
+                )
+            }
         }
     }
 
