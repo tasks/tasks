@@ -89,6 +89,7 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
   <string name="always_display_full_date">Show full date</string>
+  <string name="display_date_as_countdown">Show date as countdown</string>
   <string name="EPr_reset_preferences">Reset preferences</string>
   <string name="EPr_reset_preferences_warning">Preferences will be reset to default values</string>
   <string name="EPr_delete_task_data">Delete task data</string>

@@ -142,6 +142,43 @@ public class DateUtilities {
         : getFullDate(newDateTime(date), locale, style);
   }
 
+  /**
+   * returns a String with the amount of time until date in the format:
+   *    nD, nH, nM where n is the number of days, months, or years
+   * "3D" for 3 days, "6H" for six hours, "52M" for 50 minutes
+   *  Minutes is the lowest denominator, Days is the highest
+   *
+   * @param date
+   *  The date we want to find the time difference of
+   * @return
+   *  A formatted string of the time until date
+   */
+  public static String getTimeUntil(Context context, long date, java.util.Locale locale, boolean abbreviated, boolean lowercase) {
+    DateTime startOfToday = newDateTime();
+    DateTime startOfDate = newDateTime(date);
+
+    //difference in milliseconds between dates
+    long diff = startOfDate.getMillis()-startOfToday.getMillis();
+
+    int num;
+    String unit;
+
+    if (Math.abs(diff) >= DateUtilities.ONE_DAY) {
+      num = (int) (Math.abs(diff) / DateUtilities.ONE_DAY);
+      unit = "D";
+    } else if (!Task.hasDueTime(date) && diff > 0) {
+      return getRelativeDay(context, date, locale, abbreviated, lowercase);
+    } else if (Math.abs(diff) >= DateUtilities.ONE_HOUR) {
+      num = (int) (Math.abs(diff) / DateUtilities.ONE_HOUR);
+      unit = "H";
+    } else {
+      num = (int) (Math.abs(diff) / DateUtilities.ONE_MINUTE);
+      unit = "M";
+    }
+
+    return String.format(locale, "%d%s", num, unit);
+  }
+
   private static String getFullDate(DateTime date, java.util.Locale locale, FormatStyle style) {
     return stripYear(
         DateTimeFormatter.ofLocalizedDate(style)

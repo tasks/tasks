@@ -113,7 +113,7 @@ class TaskViewHolder internal constructor(
             v.setPaddingRelative(v.paddingStart, v.paddingTop, v.paddingEnd, padding)
         }
     }
-    
+
     private fun updateBackground() {
         if (selected || moving) {
             rowBody.setBackgroundColor(selectedColor)
@@ -203,7 +203,12 @@ class TaskViewHolder internal constructor(
             } else {
                 DateUtilities.getRelativeDateTime(context, task.dueDate, locale, FormatStyle.MEDIUM, preferences.alwaysDisplayFullDate, false)
             }
-            dueDate.text = dateValue
+            if(preferences.displayDateAsCountdown && !task.isCompleted) {
+                dueDate.text = DateUtilities.getTimeUntil(context, task.dueDate,
+                    locale, preferences.alwaysDisplayFullDate, false)
+            } else {
+                dueDate.text = dateValue
+            }
             dueDate.visibility = View.VISIBLE
         } else {
             dueDate.visibility = View.GONE

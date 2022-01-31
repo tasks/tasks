@@ -76,6 +76,7 @@ internal class ScrollableViewsFactory(
     private val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
     private var isDark = checkIfDark
     private var showFullDate = false
+    private var showDateAsCountDown = false
     private var compact = false
 
     private val checkIfDark: Boolean
@@ -317,7 +318,12 @@ internal class ScrollableViewsFactory(
                 DateUtilities.getRelativeDateTime(
                         context, task.dueDate, locale.locale, FormatStyle.MEDIUM, showFullDate, false)
             }
-            row.setTextViewText(dueDateRes, text)
+            if (widgetPreferences.displayDateAsCountdown && !task.isCompleted) {
+                row.setTextViewText(dueDateRes, DateUtilities.getTimeUntil(context, task.dueDate,
+                    locale.locale, widgetPreferences.alwaysDisplayFullDate, false))
+            } else {
+                row.setTextViewText(dueDateRes, text)
+            }
             row.setTextColor(
                     dueDateRes,
                     if (task.isOverdue) context.getColor(R.color.overdue) else textColorSecondary)
@@ -364,6 +370,7 @@ internal class ScrollableViewsFactory(
         showLists = widgetPreferences.showLists()
         showTags = widgetPreferences.showTags()
         showFullDate = widgetPreferences.alwaysDisplayFullDate
+        showDateAsCountDown = widgetPreferences.displayDateAsCountdown
         widgetPreferences.sortMode.takeIf { it != sortMode }
                 ?.let {
                     if (sortMode >= 0) {
