@@ -707,4 +707,5 @@
     <string name="bottom">Bas</string>
     <string name="completed">Terminé</string>
     <string name="app_bar_collapse">Réduire les barres d\'applications</string>
+    <string name="snackbar_task_completed">Tâche terminée</string>
 </resources>
