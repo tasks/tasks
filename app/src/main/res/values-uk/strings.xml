@@ -732,4 +732,5 @@
     <string name="app_bar_position">Розташування панелі застосунку</string>
     <string name="completed">Виконано</string>
     <string name="app_bar_collapse">Згорнути панелі застосунку</string>
+    <string name="snackbar_task_completed">Завдання виконано</string>
 </resources>
