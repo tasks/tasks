@@ -253,7 +253,7 @@
     <string name="tomorrow">Morgen</string>
     <string name="yesterday">Gisteren</string>
     <string name="tmrw">Morgen</string>
-    <string name="yest">Gster</string>
+    <string name="yest">Gister</string>
     <string name="widget_show_checkboxes">Selectievakjes weergeven</string>
     <string name="widget_show_header">Koptekst tonen</string>
     <string name="widget_show_settings">Instellingen tonen</string>
@@ -712,4 +712,5 @@
     <string name="bottom">Onder</string>
     <string name="completed">Voltooid</string>
     <string name="app_bar_collapse">App-balken samenvouwen</string>
+    <string name="snackbar_task_completed">Taak voltooid</string>
 </resources>
