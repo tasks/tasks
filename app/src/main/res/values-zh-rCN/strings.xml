@@ -701,4 +701,5 @@
     <string name="top">顶部</string>
     <string name="completed">已完成</string>
     <string name="app_bar_collapse">折叠应用栏</string>
+    <string name="snackbar_task_completed">任务已完成</string>
 </resources>
