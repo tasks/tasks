@@ -470,7 +470,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onResume() {
         super.onResume()
         localBroadcastManager.registerRefreshReceiver(refreshReceiver)
-        localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver)
+        localBroadcastManager.registerTaskCompletedReceiver(repeatConfirmationReceiver)
         refresh()
     }
 
@@ -479,7 +479,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     private fun makeSnackbar(text: String): Snackbar? = activity?.let {
-        Snackbar.make(coordinatorLayout, text, 8000)
+        Snackbar.make(coordinatorLayout, text, 4000)
                 .setAnchorView(R.id.fab)
                 .setTextColor(it.getColor(R.color.snackbar_text_color))
                 .setActionTextColor(it.getColor(R.color.snackbar_action_color))
@@ -861,20 +861,30 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         override fun onReceive(context: Context, intent: Intent) {
             val taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, 0)
             if (taskId > 0) {
-                val oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0)
-                val newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0)
                 lifecycleScope.launch {
                     val task = taskDao.fetch(taskId) ?: return@launch
                     try {
-                        val dueDateString = DateUtilities.getRelativeDateTime(
+                        if (task.isRecurring && !task.isCompleted) {
+                            val oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0)
+                            val newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0)
+                            val dueDateString = DateUtilities.getRelativeDateTime(
                                 context, newDueDate, locale.locale, FormatStyle.LONG, true)
-                        makeSnackbar(R.string.repeat_snackbar, task.title, dueDateString)
+                            makeSnackbar(R.string.repeat_snackbar, task.title, dueDateString)
                                 ?.setAction(R.string.DLG_undo) {
                                     lifecycleScope.launch(NonCancellable) {
                                         repeatTaskHelper.undoRepeat(task, oldDueDate, newDueDate)
                                     }
                                 }
                                 ?.show()
+                        } else {
+                            makeSnackbar(R.string.snackbar_task_completed)
+                                ?.setAction(R.string.DLG_undo) {
+                                    lifecycleScope.launch(NonCancellable) {
+                                        taskCompleter.setComplete(task, false)
+                                    }
+                                }
+                                ?.show()
+                        }
                     } catch (e: Exception) {
                         firebase.reportException(e)
                     }

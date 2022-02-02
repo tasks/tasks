@@ -39,8 +39,14 @@ class RepeatTaskHelper @Inject constructor(
         val repeatAfterCompletion = task.repeatAfterCompletion()
         val newDueDate: Long
         val rrule: Recur
+        val count: Int
         try {
             rrule = initRRule(recurrence)
+            count = rrule.count
+            if (count == 1) {
+                localBroadcastManager.broadcastTaskCompleted(task.id, 0, 0)
+                return
+            }
             newDueDate = computeNextDueDate(task, recurrence, repeatAfterCompletion)
             if (newDueDate == -1L) {
                 return
@@ -52,10 +58,7 @@ class RepeatTaskHelper @Inject constructor(
         val oldDueDate = task.dueDate
         val repeatUntil = task.repeatUntil
         if (repeatFinished(newDueDate, repeatUntil)) {
-            return
-        }
-        val count = rrule.count
-        if (count == 1) {
+            localBroadcastManager.broadcastTaskCompleted(task.id, 0, 0)
             return
         }
         if (count > 1) {
@@ -74,7 +77,7 @@ class RepeatTaskHelper @Inject constructor(
                         ?: newDueDate - (computeNextDueDate(task, recurrence, repeatAfterCompletion) - newDueDate)
         alarmService.rescheduleAlarms(task.id, previousDueDate, newDueDate)
         taskCompleter.setComplete(task, false)
-        localBroadcastManager.broadcastRepeat(task.id, previousDueDate, newDueDate)
+        localBroadcastManager.broadcastTaskCompleted(task.id, previousDueDate, newDueDate)
     }
 
     suspend fun undoRepeat(task: Task, oldDueDate: Long, newDueDate: Long) {

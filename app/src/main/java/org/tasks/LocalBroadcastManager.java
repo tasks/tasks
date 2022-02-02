@@ -13,7 +13,7 @@ public class LocalBroadcastManager {
 
   public static final String REFRESH = BuildConfig.APPLICATION_ID + ".REFRESH";
   public static final String REFRESH_LIST = BuildConfig.APPLICATION_ID + ".REFRESH_LIST";
-  private static final String REPEAT = BuildConfig.APPLICATION_ID + ".REPEAT";
+  private static final String TASK_COMPLETED = BuildConfig.APPLICATION_ID + ".REPEAT";
   private static final String REFRESH_PURCHASES = BuildConfig.APPLICATION_ID + ".REFRESH_PURCHASES";
   private static final String REFRESH_PREFERENCES = BuildConfig.APPLICATION_ID + ".REFRESH_PREFERENCES";
 
@@ -38,8 +38,8 @@ public class LocalBroadcastManager {
     localBroadcastManager.registerReceiver(broadcastReceiver, intentFilter);
   }
 
-  public void registerRepeatReceiver(BroadcastReceiver broadcastReceiver) {
-    localBroadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(REPEAT));
+  public void registerTaskCompletedReceiver(BroadcastReceiver broadcastReceiver) {
+    localBroadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(TASK_COMPLETED));
   }
 
   public void registerPurchaseReceiver(BroadcastReceiver broadcastReceiver) {
@@ -63,14 +63,8 @@ public class LocalBroadcastManager {
     localBroadcastManager.sendBroadcast(new Intent(REFRESH_PREFERENCES));
   }
 
-  /**
-   * Action name for broadcast intent notifying that task was created from repeating template
-   * <li>EXTRAS_TASK_ID id of the task
-   * <li>EXTRAS_OLD_DUE_DATE task old due date (could be 0)
-   * <li>EXTRAS_NEW_DUE_DATE task new due date (will not be 0)
-   */
-  public void broadcastRepeat(long id, long oldDueDate, long newDueDate) {
-    Intent intent = new Intent(REPEAT);
+  public void broadcastTaskCompleted(long id, long oldDueDate, long newDueDate) {
+    Intent intent = new Intent(TASK_COMPLETED);
     intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, id);
     intent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
     intent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);

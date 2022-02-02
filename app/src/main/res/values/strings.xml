@@ -712,4 +712,5 @@ File %1$s contained %2$s.\n\n
   <string name="top">Top</string>
   <string name="bottom">Bottom</string>
   <string name="completed">Completed</string>
+  <string name="snackbar_task_completed">Task completed</string>
 </resources>

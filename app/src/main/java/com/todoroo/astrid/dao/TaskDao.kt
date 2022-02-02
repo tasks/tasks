@@ -147,6 +147,9 @@ class TaskDao @Inject constructor(
                     localBroadcastManager.broadcastRefresh()
                 }
                 syncAdapters.sync(task, original)
+                if (justCompleted && !task.isRecurring) {
+                    localBroadcastManager.broadcastTaskCompleted(task.id, 0L, 0L)
+                }
             }
         }
     }
