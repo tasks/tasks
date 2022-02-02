@@ -22,17 +22,7 @@ class AlarmService @Inject constructor(
         private val alarmDao: AlarmDao,
         private val jobs: NotificationQueue) {
 
-    suspend fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) {
-        if (oldDueDate <= 0 || newDueDate <= 0) {
-            return
-        }
-        getAlarms(taskId)
-            .takeIf { it.isNotEmpty() }
-            ?.onEach { it.time += newDueDate - oldDueDate }
-            ?.let { synchronizeAlarms(taskId, it.toMutableSet()) }
-    }
-
-    private suspend fun getAlarms(taskId: Long): List<Alarm> = alarmDao.getAlarms(taskId)
+    suspend fun getAlarms(taskId: Long): List<Alarm> = alarmDao.getAlarms(taskId)
 
     /**
      * Save the given array of alarms into the database

@@ -19,7 +19,6 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.date.DateTimeUtils.isAfterNow
 import org.tasks.db.SuspendDbUtils.eachChunk
-import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
@@ -28,7 +27,6 @@ import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
 class TaskDao @Inject constructor(
-        private val workManager: WorkManager,
         private val taskDao: TaskDao,
         private val reminderService: ReminderService,
         private val refreshScheduler: RefreshScheduler,
@@ -100,10 +98,10 @@ class TaskDao @Inject constructor(
      */
     suspend fun save(task: Task) = save(task, fetch(task.id))
 
-    suspend fun saved(original: Task, suppressRefresh: Boolean) =
+    suspend fun saved(original: Task) =
         fetch(original.id)?.let {
             afterUpdate(
-                it.apply { if (suppressRefresh) suppressRefresh() },
+                it.apply { if (original.isSuppressRefresh()) suppressRefresh() },
                 original
             )
         }
@@ -119,11 +117,6 @@ class TaskDao @Inject constructor(
         val deletionDateModified = task.deletionDate != original?.deletionDate ?: 0
         val justCompleted = completionDateModified && task.isCompleted
         val justDeleted = deletionDateModified && task.isDeleted
-        if (justCompleted && task.isRecurring) {
-            workManager.scheduleRepeat(task)
-        } else if (!task.calendarURI.isNullOrBlank()) {
-            workManager.updateCalendar(task)
-        }
         coroutineScope {
             launch(Dispatchers.Default) {
                 if (justCompleted || justDeleted) {
@@ -143,13 +136,10 @@ class TaskDao @Inject constructor(
                 }
                 reminderService.scheduleAlarm(task)
                 refreshScheduler.scheduleRefresh(task)
-                if (!task.checkTransitory(Task.TRANS_SUPPRESS_REFRESH)) {
+                if (!task.isSuppressRefresh()) {
                     localBroadcastManager.broadcastRefresh()
                 }
                 syncAdapters.sync(task, original)
-                if (justCompleted && !task.isRecurring) {
-                    localBroadcastManager.broadcastTaskCompleted(task.id, 0L, 0L)
-                }
             }
         }
     }

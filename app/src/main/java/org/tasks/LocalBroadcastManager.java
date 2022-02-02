@@ -1,13 +1,21 @@
 package org.tasks;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+
 import com.todoroo.astrid.api.AstridApiConstants;
-import dagger.hilt.android.qualifiers.ApplicationContext;
-import javax.inject.Inject;
+
 import org.tasks.widget.AppWidgetManager;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 public class LocalBroadcastManager {
 
@@ -63,11 +71,18 @@ public class LocalBroadcastManager {
     localBroadcastManager.sendBroadcast(new Intent(REFRESH_PREFERENCES));
   }
 
-  public void broadcastTaskCompleted(long id, long oldDueDate, long newDueDate) {
+  public void broadcastTaskCompleted(long id, long oldDueDate) {
+    broadcastTaskCompleted(newArrayList(id), oldDueDate);
+  }
+
+  public void broadcastTaskCompleted(ArrayList<Long> id) {
+    broadcastTaskCompleted(id, 0);
+  }
+
+  private void broadcastTaskCompleted(ArrayList<Long> id, long oldDueDate) {
     Intent intent = new Intent(TASK_COMPLETED);
     intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, id);
     intent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
-    intent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
     localBroadcastManager.sendBroadcast(intent);
   }
 

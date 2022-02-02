@@ -370,6 +370,8 @@ class Task : Parcelable {
         putTransitory(TRANS_SUPPRESS_REFRESH, true)
     }
 
+    fun isSuppressRefresh() = checkTransitory(TRANS_SUPPRESS_REFRESH)
+
     @Synchronized
     fun putTransitory(key: String, value: Any) {
         if (transitoryData == null) {
@@ -555,7 +557,7 @@ class Task : Parcelable {
         const val URGENCY_NEXT_WEEK = 4
         const val URGENCY_IN_TWO_WEEKS = 5
 
-        const val TRANS_SUPPRESS_REFRESH = "suppress-refresh"
+        private const val TRANS_SUPPRESS_REFRESH = "suppress-refresh"
 
         private val INVALID_COUNT = ";?COUNT=-1".toRegex()
 

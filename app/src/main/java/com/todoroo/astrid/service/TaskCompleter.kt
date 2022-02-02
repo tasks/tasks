@@ -8,7 +8,9 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.tasks.LocalBroadcastManager
 import org.tasks.data.GoogleTaskDao
+import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,6 +21,8 @@ class TaskCompleter @Inject internal constructor(
     private val googleTaskDao: GoogleTaskDao,
     private val preferences: Preferences,
     private val notificationManager: NotificationManager,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val workManager: WorkManager,
 ) {
     suspend fun setComplete(taskId: Long) =
             taskDao
@@ -26,41 +30,50 @@ class TaskCompleter @Inject internal constructor(
                     ?.let { setComplete(it, true) }
                     ?: Timber.e("Could not find task $taskId")
 
-    suspend fun setComplete(item: Task, completed: Boolean) {
+    suspend fun setComplete(item: Task, completed: Boolean, includeChildren: Boolean = true) {
         val completionDate = if (completed) DateUtilities.now() else 0L
-        googleTaskDao
-            .getChildTasks(item.id)
-            .let {
-                if (completed) {
-                    it
-                } else {
-                    it
-                        .plus(googleTaskDao.getParentTask(item.id))
-                        .plus(taskDao.getParents(item.id).mapNotNull { ids -> taskDao.fetch(ids) })
+        ArrayList<Task?>()
+            .apply {
+                if (includeChildren) {
+                    addAll(googleTaskDao.getChildTasks(item.id))
+                    addAll(taskDao.getChildren(item.id).let { taskDao.fetch(it) })
                 }
+                if (!completed) {
+                    add(googleTaskDao.getParentTask(item.id))
+                    addAll(taskDao.getParents(item.id).let { taskDao.fetch(it) })
+                }
+                add(item)
             }
-            .plus(
-                taskDao.getChildren(item.id)
-                    .takeIf { it.isNotEmpty() }
-                    ?.let { taskDao.fetch(it) }
-                    ?: emptyList()
-            )
-            .plus(listOf(item))
             .filterNotNull()
             .filter { it.isCompleted != completionDate > 0 }
-            .let { setComplete(it, completionDate) }
+            .let {
+                setComplete(it, completionDate)
+                if (completed && !item.isRecurring) {
+                    localBroadcastManager.broadcastTaskCompleted(ArrayList(it.map(Task::id)))
+                }
+            }
     }
 
-    private suspend fun setComplete(tasks: List<Task>, completionDate: Long) {
-        taskDao.setCompletionDate(tasks.mapNotNull { it.remoteId }, completionDate)
-        tasks.forEachIndexed { i, task ->
-            taskDao.saved(task, i < tasks.size - 1)
+    suspend fun setComplete(tasks: List<Task>, completionDate: Long) {
+        if (tasks.isEmpty()) {
+            return
         }
-        if (
-            tasks.isNotEmpty() &&
-            completionDate > 0 &&
-            notificationManager.currentInterruptionFilter == INTERRUPTION_FILTER_ALL
-        ) {
+        val completed = completionDate > 0
+        taskDao.setCompletionDate(tasks.mapNotNull { it.remoteId }, completionDate)
+        tasks.forEachIndexed { i, original ->
+            if (i < tasks.size - 1) {
+                original.suppressRefresh()
+            }
+            taskDao.saved(original)
+        }
+        tasks.forEach {
+            if (completed && it.isRecurring) {
+                workManager.scheduleRepeat(it)
+            } else if (!it.calendarURI.isNullOrBlank()) {
+                workManager.updateCalendar(it)
+            }
+        }
+        if (completed && notificationManager.currentInterruptionFilter == INTERRUPTION_FILTER_ALL) {
             preferences
                 .completionSound
                 ?.takeUnless { preferences.isCurrentlyQuietHours }

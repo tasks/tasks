@@ -44,7 +44,7 @@ class RepeatTaskHelper @Inject constructor(
             rrule = initRRule(recurrence)
             count = rrule.count
             if (count == 1) {
-                localBroadcastManager.broadcastTaskCompleted(task.id, 0, 0)
+                broadcastCompletion(task)
                 return
             }
             newDueDate = computeNextDueDate(task, recurrence, repeatAfterCompletion)
@@ -58,7 +58,7 @@ class RepeatTaskHelper @Inject constructor(
         val oldDueDate = task.dueDate
         val repeatUntil = task.repeatUntil
         if (repeatFinished(newDueDate, repeatUntil)) {
-            localBroadcastManager.broadcastTaskCompleted(task.id, 0, 0)
+            broadcastCompletion(task)
             return
         }
         if (count > 1) {
@@ -75,13 +75,18 @@ class RepeatTaskHelper @Inject constructor(
                 oldDueDate
                         .takeIf { it > 0 }
                         ?: newDueDate - (computeNextDueDate(task, recurrence, repeatAfterCompletion) - newDueDate)
-        alarmService.rescheduleAlarms(task.id, previousDueDate, newDueDate)
+        rescheduleAlarms(task.id, previousDueDate, newDueDate)
         taskCompleter.setComplete(task, false)
-        localBroadcastManager.broadcastTaskCompleted(task.id, previousDueDate, newDueDate)
+        broadcastCompletion(task, previousDueDate)
     }
 
-    suspend fun undoRepeat(task: Task, oldDueDate: Long, newDueDate: Long) {
-        task.setDueDateAdjustingHideUntil(oldDueDate)
+    private fun broadcastCompletion(task: Task, oldDueDate: Long = 0L) {
+        if (!task.isSuppressRefresh()) {
+            localBroadcastManager.broadcastTaskCompleted(task.id, oldDueDate)
+        }
+    }
+
+    suspend fun undoRepeat(task: Task, oldDueDate: Long) {
         task.completionDate = 0L
         try {
             val recur = newRecur(task.recurrence!!)
@@ -90,11 +95,29 @@ class RepeatTaskHelper @Inject constructor(
                 recur.count = count + 1
             }
             task.setRecurrence(recur.toString(), task.repeatAfterCompletion())
+            val newDueDate = task.dueDate
+            task.setDueDateAdjustingHideUntil(
+                if (oldDueDate > 0) {
+                    oldDueDate
+                } else {
+                    newDueDate - (computeNextDueDate(task, task.recurrence!!, false) - newDueDate)
+                }
+            )
+            rescheduleAlarms(task.id, newDueDate, task.dueDate)
         } catch (e: ParseException) {
             Timber.e(e)
         }
-        alarmService.rescheduleAlarms(task.id, newDueDate, oldDueDate)
         taskDao.save(task)
+    }
+
+    private suspend fun rescheduleAlarms(taskId: Long, oldDueDate: Long, newDueDate: Long) {
+        if (oldDueDate <= 0 || newDueDate <= 0) {
+            return
+        }
+        alarmService.getAlarms(taskId)
+            .takeIf { it.isNotEmpty() }
+            ?.onEach { it.time += newDueDate - oldDueDate }
+            ?.let { alarmService.synchronizeAlarms(taskId, it.toMutableSet()) }
     }
 
     companion object {

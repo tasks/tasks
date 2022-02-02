@@ -12,7 +12,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.speech.RecognizerIntent
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
@@ -39,22 +44,40 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
-import com.todoroo.astrid.api.*
+import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
+import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
+import com.todoroo.astrid.api.CaldavFilter
+import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.api.IdListFilter
+import com.todoroo.astrid.api.SearchFilter
+import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.repeats.RepeatTaskHelper
-import com.todoroo.astrid.service.*
+import com.todoroo.astrid.service.TaskCompleter
+import com.todoroo.astrid.service.TaskCreator
+import com.todoroo.astrid.service.TaskDeleter
+import com.todoroo.astrid.service.TaskDuplicator
+import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
-import org.tasks.activities.*
+import org.tasks.activities.FilterSettingsActivity
+import org.tasks.activities.GoogleTaskListSettingsActivity
+import org.tasks.activities.ListPicker
 import org.tasks.activities.ListPicker.Companion.newListPicker
+import org.tasks.activities.PlaceSettingsActivity
+import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.CaldavDao
@@ -76,12 +99,15 @@ import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerActivity
-import org.tasks.tasklist.*
+import org.tasks.tasklist.DragAndDropRecyclerAdapter
+import org.tasks.tasklist.PagedListRecyclerAdapter
+import org.tasks.tasklist.TaskListRecyclerAdapter
+import org.tasks.tasklist.TaskViewHolder
+import org.tasks.tasklist.ViewHolderFactory
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
 import org.tasks.ui.TaskListViewModel
 import java.time.format.FormatStyle
-import java.util.*
 import javax.inject.Inject
 import kotlin.math.max
 
@@ -859,35 +885,46 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     private inner class RepeatConfirmationReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            val taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, 0)
-            if (taskId > 0) {
-                lifecycleScope.launch {
-                    val task = taskDao.fetch(taskId) ?: return@launch
-                    try {
-                        if (task.isRecurring && !task.isCompleted) {
-                            val oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0)
-                            val newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0)
-                            val dueDateString = DateUtilities.getRelativeDateTime(
-                                context, newDueDate, locale.locale, FormatStyle.LONG, true)
-                            makeSnackbar(R.string.repeat_snackbar, task.title, dueDateString)
-                                ?.setAction(R.string.DLG_undo) {
-                                    lifecycleScope.launch(NonCancellable) {
-                                        repeatTaskHelper.undoRepeat(task, oldDueDate, newDueDate)
-                                    }
-                                }
-                                ?.show()
-                        } else {
-                            makeSnackbar(R.string.snackbar_task_completed)
-                                ?.setAction(R.string.DLG_undo) {
-                                    lifecycleScope.launch(NonCancellable) {
-                                        taskCompleter.setComplete(task, false)
-                                    }
-                                }
-                                ?.show()
-                        }
-                    } catch (e: Exception) {
-                        firebase.reportException(e)
+            lifecycleScope.launch {
+                val tasks =
+                    (intent.getSerializableExtra(EXTRAS_TASK_ID) as? ArrayList<Long>)
+                        ?.let { taskDao.fetch(it) }
+                        ?.takeIf { it.isNotEmpty() }
+                        ?: return@launch
+                val isRecurringCompletion =
+                    tasks.size == 1 && tasks.first().let { it.isRecurring && !it.isCompleted }
+                val oldDueDate = if (isRecurringCompletion) {
+                    intent.getLongExtra(EXTRAS_OLD_DUE_DATE, 0)
+                } else {
+                    0
+                }
+                val undoCompletion = View.OnClickListener {
+                    lifecycleScope.launch {
+                        tasks
+                            .partition { it.isRecurring }
+                            .let { (recurring, notRecurring) ->
+                                recurring.forEach { repeatTaskHelper.undoRepeat(it, oldDueDate) }
+                                taskCompleter.setComplete(notRecurring, 0L)
+                            }
                     }
+                }
+                if (isRecurringCompletion) {
+                    val task = tasks.first()
+                    val text = getString(
+                        R.string.repeat_snackbar,
+                        task.title,
+                        DateUtilities.getRelativeDateTime(
+                            context, task.dueDate, locale.locale, FormatStyle.LONG, true
+                        )
+                    )
+                    makeSnackbar(text)?.setAction(R.string.DLG_undo, undoCompletion)?.show()
+                } else {
+                    val text = if (tasks.size == 1) {
+                        context.getString(R.string.snackbar_task_completed)
+                    } else {
+                        context.getString(R.string.snackbar_tasks_completed, tasks.size)
+                    }
+                    makeSnackbar(text)?.setAction(R.string.DLG_undo, undoCompletion)?.show()
                 }
             }
         }

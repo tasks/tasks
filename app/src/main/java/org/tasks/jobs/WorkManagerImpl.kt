@@ -6,9 +6,18 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.work.*
+import androidx.work.Constraints
+import androidx.work.Data
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy.APPEND_OR_REPLACE
 import androidx.work.ExistingWorkPolicy.REPLACE
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequest
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkContinuation
+import androidx.work.WorkInfo
+import androidx.work.WorkRequest
+import androidx.work.Worker
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
@@ -16,11 +25,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.data.*
+import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.OpenTaskDao
+import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.jobs.MigrateLocalWork.Companion.EXTRA_ACCOUNT
@@ -66,6 +79,10 @@ class WorkManagerImpl constructor(
                 OneTimeWorkRequest.Builder(AfterSaveWork::class.java)
                         .setInputData(Data.Builder()
                                 .putLong(AfterSaveWork.EXTRA_ID, task.id)
+                                .putBoolean(
+                                    AfterSaveWork.EXTRA_SUPPRESS_COMPLETION_SNACKBAR,
+                                    task.isSuppressRefresh()
+                                )
                                 .build()))
     }
 

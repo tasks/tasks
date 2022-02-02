@@ -26,7 +26,9 @@ class AfterSaveWork @AssistedInject constructor(
     override suspend fun run(): Result {
         val taskId = inputData.getLong(EXTRA_ID, -1)
         val task = taskDao.fetch(taskId) ?: return Result.failure()
-
+        if (inputData.getBoolean(EXTRA_SUPPRESS_COMPLETION_SNACKBAR, false)) {
+            task.suppressRefresh()
+        }
         gCalHelper.updateEvent(task)
 
         if (caldavDao.getAccountForTask(taskId)?.isSuppressRepeatingTasks != true) {
@@ -37,5 +39,6 @@ class AfterSaveWork @AssistedInject constructor(
 
     companion object {
         const val EXTRA_ID = "extra_id"
+        const val EXTRA_SUPPRESS_COMPLETION_SNACKBAR = "extra_suppress_snackbar"
     }
 }
