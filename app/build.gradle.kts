@@ -235,8 +235,8 @@ dependencies {
         exclude("com.google.android.gms", "play-services-ads-identifier")
     }
     googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
-    googleplayImplementation("com.google.android.gms:play-services-location:19.0.0")
-    googleplayImplementation("com.google.android.gms:play-services-maps:18.0.1")
+    googleplayImplementation("com.google.android.gms:play-services-location:19.0.1")
+    googleplayImplementation("com.google.android.gms:play-services-maps:18.0.2")
     googleplayImplementation("com.android.billingclient:billing-ktx:3.0.3")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
