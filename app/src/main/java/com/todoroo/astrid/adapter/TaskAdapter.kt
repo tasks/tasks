@@ -11,12 +11,17 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.*
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.GoogleTask
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.SubsetCaldav
+import org.tasks.data.SubsetGoogleTask
+import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
 import org.tasks.time.DateTimeUtils.millisOfDay
-import java.util.*
-import kotlin.collections.HashSet
 
 open class TaskAdapter(
         private val newTasksOnTop: Boolean,
@@ -26,7 +31,7 @@ open class TaskAdapter(
         private val localBroadcastManager: LocalBroadcastManager) {
 
     private val selected = HashSet<Long>()
-    private val collapsed = HashSet<Long>()
+    private val collapsed = mutableSetOf(HEADER_COMPLETED)
     private lateinit var dataSource: TaskAdapterDataSource
 
     val count: Int
@@ -48,14 +53,14 @@ open class TaskAdapter(
 
     fun clearSelections() = selected.clear()
 
-    fun getCollapsed(): MutableSet<Long> = HashSet(collapsed)
+    fun getCollapsed() = HashSet(collapsed)
 
     fun setCollapsed(groups: LongArray?) {
         clearCollapsed()
         groups?.toList()?.let(collapsed::addAll)
     }
 
-    fun clearCollapsed() = collapsed.clear()
+    fun clearCollapsed() = collapsed.retainAll(listOf(HEADER_COMPLETED))
 
     open fun getIndent(task: TaskContainer): Int = task.getIndent()
 

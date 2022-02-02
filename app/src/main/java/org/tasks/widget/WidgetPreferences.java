@@ -92,7 +92,7 @@ public class WidgetPreferences implements QueryPreferences {
     return getIntegerFromString(R.string.p_widget_due_date_position, 0);
   }
 
-  public void setCollapsed(HashSet<Long> collapsed) {
+  public void setCollapsed(Iterable<Long> collapsed) {
     setString(R.string.p_widget_collapsed, Joiner.on(",").join(collapsed));
   }
 

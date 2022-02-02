@@ -28,6 +28,7 @@ import org.tasks.markdown.Markdown
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource
+import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import timber.log.Timber
@@ -70,7 +71,7 @@ internal class ScrollableViewsFactory(
     private var showLists = false
     private var showTags = false
     private var isRtl = false
-    private var collapsed = HashSet<Long>()
+    private var collapsed = mutableSetOf(HEADER_COMPLETED)
     private var sortMode = -1
     private var tasks = SectionedDataSource(emptyList(), false, 0, collapsed)
     private val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
@@ -97,7 +98,7 @@ internal class ScrollableViewsFactory(
                     collapsed
             )
             if (collapsed.retainAll(tasks.getSectionValues())) {
-                widgetPreferences.collapsed = collapsed
+                widgetPreferences.setCollapsed(collapsed)
             }
         }
     }
@@ -368,7 +369,7 @@ internal class ScrollableViewsFactory(
         widgetPreferences.sortMode.takeIf { it != sortMode }
                 ?.let {
                     if (sortMode >= 0) {
-                        widgetPreferences.collapsed = HashSet()
+                        widgetPreferences.setCollapsed(mutableSetOf(HEADER_COMPLETED))
                     }
                     sortMode = it
                 }

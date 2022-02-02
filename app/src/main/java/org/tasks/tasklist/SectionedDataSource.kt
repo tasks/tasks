@@ -6,13 +6,12 @@ import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.TaskContainer
 import org.tasks.time.DateTimeUtils.startOfDay
-import java.util.*
 
 class SectionedDataSource constructor(
         tasks: List<TaskContainer>,
         disableHeaders: Boolean,
         val sortMode: Int,
-        private val collapsed: MutableSet<Long>
+        private val collapsed: Set<Long>
 ) {
     private val tasks = tasks.toMutableList()
 
