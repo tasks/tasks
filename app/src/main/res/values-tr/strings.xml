@@ -712,4 +712,5 @@
     <string name="completion_sound">Tamamlandığında ses çal</string>
     <string name="completed">Tamamlandı</string>
     <string name="app_bar_collapse">Uygulama çubuklarını daralt</string>
+    <string name="snackbar_task_completed">Görev tamamlandı</string>
 </resources>
