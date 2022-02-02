@@ -359,6 +359,9 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_always_display_full_date, false)
         set(value) { setBoolean(R.string.p_always_display_full_date, value)}
 
+    override val completedTasksAtBottom: Boolean
+        get() = getBoolean(R.string.p_completed_tasks_at_bottom, true)
+
     private fun setPublicPref(key: String, value: Int) {
         val edit = publicPrefs.edit()
         edit?.putInt(key, value)?.apply()

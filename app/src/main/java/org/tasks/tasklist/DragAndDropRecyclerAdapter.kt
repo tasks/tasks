@@ -85,7 +85,13 @@ class DragAndDropRecyclerAdapter(
     override fun getItem(position: Int) = items.getItem(position)
 
     override fun transform(list: List<TaskContainer>): SectionedDataSource =
-            SectionedDataSource(list, disableHeaders, preferences.sortMode, adapter.getCollapsed())
+            SectionedDataSource(
+                list,
+                disableHeaders,
+                preferences.sortMode,
+                adapter.getCollapsed(),
+                preferences.completedTasksAtBottom,
+            )
 
     override fun diff(last: SectionedDataSource, next: SectionedDataSource) =
             DiffUtil.calculateDiff(DiffCallback(last, next, adapter), next.size < LONG_LIST_SIZE)

@@ -8,10 +8,11 @@ import org.tasks.data.TaskContainer
 import org.tasks.time.DateTimeUtils.startOfDay
 
 class SectionedDataSource constructor(
-        tasks: List<TaskContainer>,
-        disableHeaders: Boolean,
-        val sortMode: Int,
-        private val collapsed: Set<Long>
+    tasks: List<TaskContainer>,
+    disableHeaders: Boolean,
+    val sortMode: Int,
+    private val collapsed: Set<Long>,
+    private val completedAtBottom: Boolean,
 ) {
     private val tasks = tasks.toMutableList()
 
@@ -61,7 +62,7 @@ class SectionedDataSource constructor(
         for (i in tasks.indices) {
             val task = tasks[i]
             val sortGroup = task.sortGroup
-            val header = if (task.parentComplete) {
+            val header = if (completedAtBottom && task.parentComplete) {
                 HEADER_COMPLETED
             } else if (sortGroup == null) {
                 continue
@@ -83,7 +84,7 @@ class SectionedDataSource constructor(
                 val previousTask = tasks[i - 1]
                 val previous = previousTask.sortGroup
                 when {
-                    task.parentComplete -> {
+                    completedAtBottom && task.parentComplete -> {
                         if (!previousTask.parentComplete) {
                             sections.add(AdapterSection(i, header, 0, isCollapsed))
                         }

@@ -107,6 +107,11 @@
       android:title="@string/linkify" />
 
     <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_completed_tasks_at_bottom"
+      android:title="@string/completed_tasks_at_bottom" />
+
+    <SwitchPreferenceCompat
       android:defaultValue="false"
       app:allowDividerAbove="true"
       android:key="@string/p_use_paged_queries"

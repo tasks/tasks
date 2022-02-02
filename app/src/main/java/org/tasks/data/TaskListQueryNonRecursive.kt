@@ -20,7 +20,7 @@ internal object TaskListQueryNonRecursive {
     private val TAGS =
             field("group_concat(distinct(${TaskListFragment.TAGS_METADATA_JOIN}.tag_uid))")
                     .`as`("tags")
-    private const val ORDER_BY = "ORDER BY parentComplete ASC, tasks.completed DESC"
+    private const val COMPLETION_SORT = "parentComplete ASC, tasks.completed DESC, "
     private val FIELDS =
         TaskListQuery.FIELDS.plus(listOf(
             TAGS,
@@ -32,13 +32,20 @@ internal object TaskListQueryNonRecursive {
         val sortMode = preferences.sortMode
         val sortGroup = field(SortHelper.getSortGroup(sortMode) ?: "NULL").`as`("sortGroup")
         val query = SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, sortMode)
+        val completionSort = if (preferences.completedTasksAtBottom) {
+            COMPLETION_SORT
+        } else {
+            ""
+        }
         val groupedQuery = when {
             filter is RecentlyModifiedFilter ->
                 query.replace("ORDER BY", "GROUP BY ${Task.ID} ORDER BY")
             query.contains("ORDER BY") ->
-                query.replace("ORDER BY", "GROUP BY ${Task.ID} $ORDER_BY,")
+                query.replace("ORDER BY", "GROUP BY ${Task.ID} ORDER BY $completionSort")
+            preferences.completedTasksAtBottom ->
+                "$query GROUP BY ${Task.ID} ORDER BY $completionSort"
             else ->
-                "$query GROUP BY ${Task.ID} $ORDER_BY"
+                "$query GROUP BY ${Task.ID}"
         }
         return mutableListOf(
                 Query.select(*FIELDS.plus(sortGroup))

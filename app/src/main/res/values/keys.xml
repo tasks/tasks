@@ -447,4 +447,5 @@
   <string name="p_markdown">markdown</string>
   <string name="p_app_bar_position">app_bar_position</string>
   <string name="p_app_bar_collapse">app_bar_collapse</string>
+  <string name="p_completed_tasks_at_bottom">completed_tasks_at_bottom</string>
 </resources>

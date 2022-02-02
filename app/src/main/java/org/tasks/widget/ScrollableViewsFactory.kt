@@ -73,7 +73,13 @@ internal class ScrollableViewsFactory(
     private var isRtl = false
     private var collapsed = mutableSetOf(HEADER_COMPLETED)
     private var sortMode = -1
-    private var tasks = SectionedDataSource(emptyList(), false, 0, collapsed)
+    private var tasks = SectionedDataSource(
+        emptyList(),
+        disableHeaders = false,
+        sortMode = 0,
+        collapsed,
+        preferences.completedTasksAtBottom,
+    )
     private val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
     private var isDark = checkIfDark
     private var showFullDate = false
@@ -95,7 +101,8 @@ internal class ScrollableViewsFactory(
                     taskDao.fetchTasks { getQuery(filter, it) },
                     disableGroups,
                     sortMode,
-                    collapsed
+                    collapsed,
+                    widgetPreferences.completedTasksAtBottom,
             )
             if (collapsed.retainAll(tasks.getSectionValues())) {
                 widgetPreferences.setCollapsed(collapsed)

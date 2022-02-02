@@ -285,6 +285,11 @@ public class WidgetPreferences implements QueryPreferences {
   public boolean getAlwaysDisplayFullDate() { return preferences.getAlwaysDisplayFullDate(); }
 
   @Override
+  public boolean getCompletedTasksAtBottom() {
+    return preferences.getCompletedTasksAtBottom();
+  }
+
+  @Override
   public boolean usePagedQueries() {
     return preferences.usePagedQueries();
   }
