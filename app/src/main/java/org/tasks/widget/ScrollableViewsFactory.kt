@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService.RemoteViewsFactory
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.data.Task
@@ -31,7 +32,6 @@ import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import timber.log.Timber
 import java.time.format.FormatStyle
-import java.util.*
 import kotlin.math.max
 
 internal class ScrollableViewsFactory(
@@ -308,8 +308,9 @@ internal class ScrollableViewsFactory(
             }
             row.setViewVisibility(dueDateRes, View.VISIBLE)
             val text = if (sortMode == SortHelper.SORT_DUE
-                    && !disableGroups
-                    && task.sortGroup?.startOfDay() == task.dueDate.startOfDay()) {
+                && task.sortGroup >= now().startOfDay()
+                && !disableGroups
+            ) {
                 task.takeIf { it.hasDueTime() }?.let {
                     DateUtilities.getTimeString(context, DateTimeUtils.newDateTime(task.dueDate))
                 }
