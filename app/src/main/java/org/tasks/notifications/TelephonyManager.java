@@ -1,8 +1,12 @@
 package org.tasks.notifications;
 
 import android.content.Context;
-import dagger.hilt.android.qualifiers.ApplicationContext;
+
+import com.todoroo.andlib.utility.AndroidUtilities;
+
 import javax.inject.Inject;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 public class TelephonyManager {
 
@@ -15,6 +19,6 @@ public class TelephonyManager {
   }
 
   public boolean callStateIdle() {
-    return telephonyManager.getCallState() == android.telephony.TelephonyManager.CALL_STATE_IDLE;
+    return AndroidUtilities.atLeastS() || telephonyManager.getCallState() == android.telephony.TelephonyManager.CALL_STATE_IDLE;
   }
 }
