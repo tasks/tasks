@@ -713,4 +713,5 @@
     <string name="completed">Voltooid</string>
     <string name="app_bar_collapse">App-balken samenvouwen</string>
     <string name="snackbar_task_completed">Taak voltooid</string>
+    <string name="completed_tasks_at_bottom">Plaats voltooide taken onderaan</string>
 </resources>
