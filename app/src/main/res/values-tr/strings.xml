@@ -713,4 +713,5 @@
     <string name="completed">Tamamlandı</string>
     <string name="app_bar_collapse">Uygulama çubuklarını daralt</string>
     <string name="snackbar_task_completed">Görev tamamlandı</string>
+    <string name="completed_tasks_at_bottom">Tamamlanan görevleri alta taşı</string>
 </resources>
