@@ -33,7 +33,6 @@ import org.tasks.time.DateTime
 import timber.log.Timber
 import java.io.File
 import java.net.URI
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 class Preferences @JvmOverloads constructor(
@@ -352,7 +351,7 @@ class Preferences @JvmOverloads constructor(
         set(value) { setBoolean(R.string.p_show_hidden_tasks, value) }
 
     override var showCompleted: Boolean
-        get() = getBoolean(R.string.p_show_completed_tasks, false)
+        get() = getBoolean(R.string.p_show_completed_tasks, true)
         set(value) { setBoolean(R.string.p_show_completed_tasks, value) }
 
     override var alwaysDisplayFullDate: Boolean
