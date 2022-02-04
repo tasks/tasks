@@ -1,3 +1,27 @@
+### 12.3 (2021-02-03)
+
+* Add option to disable moving completed tasks to bottom
+* Add undo snackbar for task completion
+* Fix crash when location lookup fails
+* Fix voice reminders on Android 12
+* Fix widget due dates in overdue sort group
+* Add Karelian translations - Olexii Ondrei
+* Update translations
+  * Basque - Sergio Varela
+  * Catalan - @ivangjxyz
+  * Chinese (Simplified) - Eric
+  * Croatian - @milotype
+  * Dutch - @mm4c
+  * French - @FlorianLeChat
+  * German - @qwerty287
+  * Hungarian - kaciokos
+  * Romanian - @simonaiacob
+  * Russian - @NikGreens
+  * Spanish - @FlorianLeChat
+  * Swedish - @reportxx
+  * Turkish - @emintufan, @ersen0
+  * Vietnamese - @unbaseduser
+
 ### 12.2 (2021-01-16)
 
 * Move completed tasks to bottom
