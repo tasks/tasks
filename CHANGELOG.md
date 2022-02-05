@@ -1,6 +1,7 @@
-### 12.3 (2021-02-03)
+### 12.3 (2021-02-04)
 
 * Add option to disable moving completed tasks to bottom
+* Add option to disable sorting completed by completion date
 * Add undo snackbar for task completion
 * Fix crash when location lookup fails
 * Fix voice reminders on Android 12
