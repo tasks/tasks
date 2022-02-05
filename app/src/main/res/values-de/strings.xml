@@ -712,4 +712,5 @@
     <string name="bottom">Unten</string>
     <string name="app_bar_collapse">Appbars einklappen</string>
     <string name="completed">Abgeschlossen</string>
+    <string name="snackbar_task_completed">Aufgabe abgeschlossen</string>
 </resources>
