@@ -108,8 +108,15 @@
 
     <SwitchPreferenceCompat
       android:defaultValue="true"
+      app:allowDividerAbove="true"
       android:key="@string/p_completed_tasks_at_bottom"
       android:title="@string/completed_tasks_at_bottom" />
+
+    <SwitchPreferenceCompat
+      android:defaultValue="true"
+      android:key="@string/p_completed_tasks_sort"
+      android:dependency="@string/p_completed_tasks_at_bottom"
+      android:title="@string/completed_tasks_sort" />
 
     <SwitchPreferenceCompat
       android:defaultValue="false"

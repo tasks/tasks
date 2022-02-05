@@ -361,6 +361,9 @@ class Preferences @JvmOverloads constructor(
     override val completedTasksAtBottom: Boolean
         get() = getBoolean(R.string.p_completed_tasks_at_bottom, true)
 
+    override val sortCompletedByCompletionDate: Boolean
+        get() = getBoolean(R.string.p_completed_tasks_sort, true)
+
     private fun setPublicPref(key: String, value: Int) {
         val edit = publicPrefs.edit()
         edit?.putInt(key, value)?.apply()

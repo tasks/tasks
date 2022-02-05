@@ -290,6 +290,11 @@ public class WidgetPreferences implements QueryPreferences {
   }
 
   @Override
+  public boolean getSortCompletedByCompletionDate() {
+    return preferences.getSortCompletedByCompletionDate();
+  }
+
+  @Override
   public boolean usePagedQueries() {
     return preferences.usePagedQueries();
   }

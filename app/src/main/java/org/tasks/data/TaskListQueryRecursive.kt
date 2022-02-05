@@ -98,16 +98,13 @@ internal object TaskListQueryRecursive {
         }
         val reverseSort = preferences.isReverseSort && sortMode != SortHelper.SORT_GTASKS && sortMode != SortHelper.SORT_CALDAV
         val sortSelect = SortHelper.orderSelectForSortTypeRecursive(sortMode)
-        val parentCompleted = if (preferences.completedTasksAtBottom) {
-            "tasks.completed > 0"
-        } else {
-            "0"
-        }
-        val completionSort = if (preferences.completedTasksAtBottom) {
-            "tasks.completed"
-        } else {
-            "0"
-        }
+        val parentCompleted = if (preferences.completedTasksAtBottom) "tasks.completed > 0" else "0"
+        val completionSort =
+            if (preferences.completedTasksAtBottom && preferences.sortCompletedByCompletionDate) {
+                "tasks.completed"
+            } else {
+                "0"
+            }
         val withClause ="""
             CREATE TEMPORARY TABLE `recursive_tasks` AS
             WITH RECURSIVE recursive_tasks (task, parent_complete, subtask_complete, completion_sort, parent, collapsed, hidden, indent, title, sortField, primary_sort, secondary_sort, sort_group) AS (
