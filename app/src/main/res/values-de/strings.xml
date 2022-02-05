@@ -713,4 +713,11 @@
     <string name="app_bar_collapse">Appbars einklappen</string>
     <string name="completed">Abgeschlossen</string>
     <string name="snackbar_task_completed">Aufgabe abgeschlossen</string>
+    <string name="completed_tasks_at_bottom">Erledigte Aufgaben nach unten verschieben</string>
+    <string name="completed_tasks_sort">Nach Fertigstellungsdatum sortieren</string>
+    <string name="snackbar_tasks_completed">%d Aufgaben erledigt</string>
+    <string name="alarm_before_start">%s vor dem Start</string>
+    <string name="alarm_after_start">%s nach dem Start</string>
+    <string name="alarm_before_due">%s vor der Fälligkeit</string>
+    <string name="alarm_after_due">%s nach Fälligkeit</string>
 </resources>
