@@ -74,8 +74,8 @@
     <string name="EPr_show_task_edit_comments">Commentaar in taakbewerking tonen</string>
     <string name="task_list_options">Takenlijst opties</string>
     <string name="EPr_cal_end_or_start_at_due_time">Tijdstip voor kalender-item</string>
-    <string name="EPr_cal_end_at_due_time">Kalender-item op vervaltijd afronden</string>
-    <string name="EPr_cal_start_at_due_time">Start kalender-items op vervaltijd</string>
+    <string name="EPr_cal_end_at_due_time">Kalender-item op vervaltijd eindigen</string>
+    <string name="EPr_cal_start_at_due_time">Begin kalender-items op vervaltijd</string>
     <string name="EPr_reset_preferences">Instellingen terugzetten</string>
     <string name="EPr_reset_preferences_warning">Voorkeuren worden teruggezet naar standaardwaarden</string>
     <string name="EPr_delete_task_data">Taakgegevens wissen</string>
@@ -281,7 +281,7 @@
     <string name="randomly_once">Willekeurig eenmaal</string>
     <string name="randomly">Willekeurig</string>
     <string name="pick_a_date_and_time">Datum en tijd kiezen</string>
-    <string name="when_overdue">Na vervallen</string>
+    <string name="when_overdue">Bij vervallen</string>
     <string name="when_due">Bij vervallen</string>
     <string name="geofence_radius">Straal</string>
     <string name="tags">Labels</string>
@@ -645,7 +645,7 @@
     <string name="show_unstarted">Niet-gestarte weergeven</string>
     <string name="filter_criteria_unstarted">Niet-gestarte</string>
     <string name="no_start_date">Geen begindatum</string>
-    <string name="SSD_sort_start">Op aanvangsdatum</string>
+    <string name="SSD_sort_start">Op begindatum</string>
     <string name="filter_any_start_date">Elke begindatum</string>
     <string name="CFC_startBefore_name">Begint op…</string>
     <string name="CFC_startBefore_text">Begindatum: \?</string>
@@ -715,4 +715,9 @@
     <string name="snackbar_task_completed">Taak voltooid</string>
     <string name="completed_tasks_at_bottom">Plaats voltooide taken onderaan</string>
     <string name="snackbar_tasks_completed">%d taken voltooid</string>
+    <string name="completed_tasks_sort">Sorteren op datum voltooien</string>
+    <string name="alarm_before_due">%s voor verval</string>
+    <string name="alarm_after_due">%s na verval</string>
+    <string name="alarm_before_start">%s voor begin</string>
+    <string name="alarm_after_start">%s na begin</string>
 </resources>
