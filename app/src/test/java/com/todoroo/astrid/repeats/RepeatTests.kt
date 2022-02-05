@@ -8,19 +8,30 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
 import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.anyLong
 import org.tasks.LocalBroadcastManager
 import org.tasks.makers.TaskMaker
 import org.tasks.time.DateTime
 
 abstract class RepeatTests {
+    private val alarmService = Mockito.mock(AlarmService::class.java)
     private val helper = RepeatTaskHelper(
             Mockito.mock(GCalHelper::class.java),
-            Mockito.mock(AlarmService::class.java),
+            alarmService,
             Mockito.mock(TaskDao::class.java),
             Mockito.mock(LocalBroadcastManager::class.java),
             Mockito.mock(TaskCompleter::class.java)
     )
+
+    @Before
+    fun before() {
+        runBlocking {
+            `when`(alarmService.getAlarms(anyLong())).thenReturn(emptyList())
+        }
+    }
 
     protected fun newDay(year: Int, month: Int, day: Int) =
             DateTime(
