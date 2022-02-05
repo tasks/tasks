@@ -710,4 +710,9 @@
     <string name="snackbar_task_completed">Tâche terminée</string>
     <string name="completed_tasks_at_bottom">Déplacer les tâches terminées vers le bas</string>
     <string name="snackbar_tasks_completed">%d tâches terminées</string>
+    <string name="completed_tasks_sort">Trier par date d\'achèvement</string>
+    <string name="alarm_before_start">%s avant le début</string>
+    <string name="alarm_after_start">%s après le début</string>
+    <string name="alarm_before_due">%s avant échéance</string>
+    <string name="alarm_after_due">%s après échéance</string>
 </resources>
