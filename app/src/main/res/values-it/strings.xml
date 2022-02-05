@@ -707,4 +707,17 @@
     <string name="now">Ora</string>
     <string name="when_started">Alla data di inizio</string>
     <string name="completion_sound">Suono di completamento</string>
+    <string name="app_bar_collapse">Comprimi le barre dell\'app</string>
+    <string name="completed">Completato</string>
+    <string name="app_bar_position">Posizione della barra dell\'app</string>
+    <string name="top">In alto</string>
+    <string name="bottom">In basso</string>
+    <string name="snackbar_task_completed">Attività completata</string>
+    <string name="completed_tasks_at_bottom">Sposta le attività completate in basso</string>
+    <string name="completed_tasks_sort">Ordina per data di completamento</string>
+    <string name="snackbar_tasks_completed">%d attività completate</string>
+    <string name="alarm_after_due">%s dopo la scadenza</string>
+    <string name="alarm_before_start">%s prima di iniziare</string>
+    <string name="alarm_after_start">%s dopo l\'inizio</string>
+    <string name="alarm_before_due">%s prima della scadenza</string>
 </resources>
