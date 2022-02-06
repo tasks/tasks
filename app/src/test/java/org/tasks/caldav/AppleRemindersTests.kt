@@ -3,9 +3,12 @@ package org.tasks.caldav
 import com.todoroo.astrid.data.Task
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.tasks.TestUtilities.alarms
 import org.tasks.TestUtilities.vtodo
+import org.tasks.data.Alarm
 import org.tasks.time.DateTime
 import java.util.*
 
@@ -76,5 +79,18 @@ class AppleRemindersTests {
     @Test
     fun highPriority() {
         assertEquals(Task.Priority.HIGH, vtodo("apple/priority_high.txt").priority)
+    }
+
+    @Test
+    fun dateTimeReminder() {
+        assertEquals(
+            listOf(Alarm(0, 1642568400000)),
+            "apple/date_time_reminder.txt".alarms
+        )
+    }
+
+    @Test
+    fun ignoreLocationReminders() {
+        assertTrue("apple/geofence_arrival.txt".alarms.isEmpty())
     }
 }

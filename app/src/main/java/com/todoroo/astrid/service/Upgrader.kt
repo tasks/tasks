@@ -59,6 +59,7 @@ class Upgrader @Inject constructor(
         private val upgraderDao: UpgraderDao,
         private val upgrade_11_3: Lazy<Upgrade_11_3>,
         private val upgrade_11_12_3: Lazy<Upgrade_11_12_3>,
+        private val upgrade_12_4: Lazy<Upgrade_12_4>,
 ) {
 
     fun upgrade(from: Int, to: Int) {
@@ -95,12 +96,13 @@ class Upgrader @Inject constructor(
                 }
             }
             run(from, Upgrade_11_12_3.VERSION) {
-                with(upgrade_11_12_3.get()) {
-                    migrateDefaultReminderPreference()
-                }
+                upgrade_11_12_3.get().migrateDefaultReminderPreference()
             }
             run(from, V11_13) {
                 preferences.setString(R.string.p_completion_ringtone, "")
+            }
+            run(from, Upgrade_12_4.VERSION) {
+                upgrade_12_4.get().syncExistingAlarms()
             }
             preferences.setBoolean(R.string.p_just_updated, true)
         }

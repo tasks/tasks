@@ -12,9 +12,17 @@ import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
 import at.bitfire.dav4jvm.exception.ServiceUnavailableException
 import at.bitfire.dav4jvm.exception.UnauthorizedException
-import at.bitfire.dav4jvm.property.*
+import at.bitfire.dav4jvm.property.CalendarColor
+import at.bitfire.dav4jvm.property.CalendarData
+import at.bitfire.dav4jvm.property.CurrentUserPrincipal
+import at.bitfire.dav4jvm.property.CurrentUserPrivilegeSet
+import at.bitfire.dav4jvm.property.DisplayName
+import at.bitfire.dav4jvm.property.GetCTag
+import at.bitfire.dav4jvm.property.GetETag
 import at.bitfire.dav4jvm.property.GetETag.Companion.fromResponse
+import at.bitfire.dav4jvm.property.SyncToken
 import at.bitfire.ical4android.ICalendar.Companion.prodId
+import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
@@ -32,18 +40,26 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
-import org.tasks.caldav.property.*
+import org.tasks.caldav.iCalendar.Companion.reminders
+import org.tasks.caldav.property.Invite
+import org.tasks.caldav.property.OCAccess
+import org.tasks.caldav.property.OCInvite
+import org.tasks.caldav.property.OCOwnerPrincipal
+import org.tasks.caldav.property.OCUser
 import org.tasks.caldav.property.PropertyUtils.register
+import org.tasks.caldav.property.ShareAccess
 import org.tasks.caldav.property.ShareAccess.Companion.READ
 import org.tasks.caldav.property.ShareAccess.Companion.READ_WRITE
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
-import org.tasks.data.*
+import org.tasks.caldav.property.Sharee
+import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.ERROR_UNAUTHORIZED
 import org.tasks.data.CaldavAccount.Companion.SERVER_OPEN_XCHANGE
 import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
+import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
@@ -53,6 +69,10 @@ import org.tasks.data.CaldavCalendar.Companion.INVITE_DECLINED
 import org.tasks.data.CaldavCalendar.Companion.INVITE_INVALID
 import org.tasks.data.CaldavCalendar.Companion.INVITE_NO_RESPONSE
 import org.tasks.data.CaldavCalendar.Companion.INVITE_UNKNOWN
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.PrincipalAccess
+import org.tasks.data.PrincipalDao
 import timber.log.Timber
 import java.io.IOException
 import java.net.ConnectException
@@ -60,7 +80,6 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
-import java.util.*
 import javax.inject.Inject
 import javax.net.ssl.SSLException
 
@@ -75,6 +94,7 @@ class CaldavSynchronizer @Inject constructor(
         private val provider: CaldavClientProvider,
         private val iCal: iCalendar,
         private val principalDao: PrincipalDao,
+        private val alarmService: AlarmService,
 ) {
     suspend fun sync(account: CaldavAccount) {
         Thread.currentThread().contextClassLoader = context.classLoader
@@ -254,8 +274,11 @@ class CaldavSynchronizer @Inject constructor(
                     Timber.e("Invalid VCALENDAR: %s", fileName)
                     return
                 }
-                val caldavTask = caldavDao.getTask(caldavCalendar.uuid!!, fileName)
+                var caldavTask = caldavDao.getTask(caldavCalendar.uuid!!, fileName)
                 iCal.fromVtodo(caldavCalendar, caldavTask, remote, vtodo, fileName, eTag)
+                caldavTask = caldavTask ?: caldavDao.getTask(caldavCalendar.uuid!!, fileName)
+                        ?: continue
+                alarmService.synchronizeAlarms(caldavTask.task, remote.reminders.toMutableSet())
             }
         }
         caldavDao

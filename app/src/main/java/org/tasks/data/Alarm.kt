@@ -65,7 +65,8 @@ class Alarm : Parcelable {
     override fun describeContents() = 0
 
     override fun toString(): String {
-        return "Alarm(id=$id, task=$task, time=${printTimestamp(time)}, type=$type, repeat=$repeat, interval=$interval)"
+        val timestamp = if (type == TYPE_DATE_TIME) printTimestamp(time) else time
+        return "Alarm(id=$id, task=$task, time=$timestamp, type=$type, repeat=$repeat, interval=$interval)"
     }
 
     override fun equals(other: Any?): Boolean {

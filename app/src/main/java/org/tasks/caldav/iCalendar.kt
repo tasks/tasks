@@ -3,6 +3,7 @@ package org.tasks.caldav
 import at.bitfire.ical4android.DateUtils.ical4jTimeZone
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
+import at.bitfire.ical4android.util.TimeApiExtensions.toDuration
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
@@ -11,17 +12,44 @@ import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
-import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.DateTime
 import net.fortuna.ical4j.model.Parameter
+import net.fortuna.ical4j.model.ParameterList
 import net.fortuna.ical4j.model.Property
+import net.fortuna.ical4j.model.component.VAlarm
 import net.fortuna.ical4j.model.parameter.RelType
-import net.fortuna.ical4j.model.property.*
+import net.fortuna.ical4j.model.parameter.Related
+import net.fortuna.ical4j.model.parameter.Related.*
+import net.fortuna.ical4j.model.property.Action
+import net.fortuna.ical4j.model.property.Completed
+import net.fortuna.ical4j.model.property.DateProperty
+import net.fortuna.ical4j.model.property.Description
+import net.fortuna.ical4j.model.property.DtStart
+import net.fortuna.ical4j.model.property.Due
+import net.fortuna.ical4j.model.property.Geo
+import net.fortuna.ical4j.model.property.RelatedTo
+import net.fortuna.ical4j.model.property.Repeat
+import net.fortuna.ical4j.model.property.Status
+import net.fortuna.ical4j.model.property.Trigger
+import net.fortuna.ical4j.model.property.XProperty
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
-import org.tasks.data.*
+import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
+import org.tasks.data.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.AlarmDao
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.Geofence
+import org.tasks.data.LocationDao
+import org.tasks.data.Place
+import org.tasks.data.TagDao
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.jobs.WorkManager
@@ -37,6 +65,9 @@ import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
 import java.text.ParseException
+import java.time.Duration
+import java.time.Instant
+import java.time.temporal.TemporalAmount
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.max
@@ -52,7 +83,9 @@ class iCalendar @Inject constructor(
         private val taskCreator: TaskCreator,
         private val tagDao: TagDao,
         private val taskDao: TaskDao,
-        private val caldavDao: CaldavDao) {
+        private val caldavDao: CaldavDao,
+        private val alarmDao: AlarmDao,
+) {
 
     suspend fun setPlace(taskId: Long, geo: Geo?) {
         if (geo == null) {
@@ -136,6 +169,42 @@ class iCalendar @Inject constructor(
         if (localGeo == null || !localGeo.equalish(remoteModel.geoPosition)) {
             remoteModel.geoPosition = localGeo
         }
+        remoteModel.alarms.removeAll(remoteModel.alarms.filtered)
+        remoteModel.alarms.addAll(
+            alarmDao
+                .getAlarms(task.id)
+                .mapNotNull {
+                    val trigger = when (it.type) {
+                        TYPE_DATE_TIME ->
+                            Trigger(getDateTime(it.time))
+                        TYPE_REL_START,
+                        TYPE_REL_END ->
+                            Trigger(
+                                ParameterList().apply {
+                                    add(if (it.type == TYPE_REL_END) END else START)
+                                },
+                                Duration.ofMillis(it.time)
+                            )
+                        else -> return@mapNotNull null
+                    }
+                    VAlarm().apply {
+                        with(properties) {
+                            add(trigger)
+                            add(Action.DISPLAY)
+                            add(Description("Default Tasks.org description"))
+                            if (it.repeat > 0) {
+                                add(Repeat(it.repeat))
+                                add(
+                                    net.fortuna.ical4j.model.property.Duration(
+                                        Duration.ofMillis(it.interval)
+                                    )
+                                )
+
+                            }
+                        }
+                    }
+                }
+        )
     }
 
     suspend fun fromVtodo(
@@ -177,6 +246,8 @@ class iCalendar @Inject constructor(
         private const val MOZ_SNOOZE_TIME = "X-MOZ-SNOOZE-TIME"
         private const val MOZ_LASTACK = "X-MOZ-LASTACK"
         private const val HIDE_SUBTASKS = "1"
+        // VALARM extensions: https://datatracker.ietf.org/doc/html/rfc9074
+        private val IGNORE_ALARM = DateTime("19760401T005545Z")
         private val IS_PARENT = { r: RelatedTo ->
             r.parameters.getParameter<RelType>(Parameter.RELTYPE).let {
                 it === RelType.PARENT || it == null || it.value.isNullOrBlank()
@@ -210,8 +281,7 @@ class iCalendar @Inject constructor(
             }
         }
 
-        @JvmStatic
-        fun getLocal(property: DateProperty): Long =
+        private fun getLocal(property: DateProperty): Long =
                 org.tasks.time.DateTime.from(property.date)?.toLocal()?.millis ?: 0
 
         fun fromVtodo(vtodo: String): Task? {
@@ -389,11 +459,41 @@ class iCalendar @Inject constructor(
             snooze = task.reminderSnooze
         }
 
+        val List<VAlarm>.filtered: List<VAlarm>
+            get() =
+                filter { it.action == Action.DISPLAY || it.action == Action.AUDIO }
+                    .filterNot { it.trigger.dateTime == IGNORE_ALARM }
+
+        val Task.reminders: List<Alarm>
+            get() = alarms.filtered.mapNotNull {
+                val (type, time) = when {
+                    it.trigger.date != null ->
+                        Pair(TYPE_DATE_TIME, getLocal(it.trigger))
+                    it.trigger.duration != null ->
+                        Pair(
+                            if (it.trigger.parameters.getParameter<Related>(RELATED) == END) {
+                                TYPE_REL_END
+                            } else {
+                                TYPE_REL_START
+                            },
+                            it.trigger.duration.toMillis()
+                        )
+                    else -> return@mapNotNull null
+                }
+                Alarm(0L, time, type, it.repeat?.count ?: 0, it.duration?.toMillis() ?: 0)
+            }
+
         private fun getDateTime(timestamp: Long): DateTime {
             val tz = ical4jTimeZone(TimeZone.getDefault().id)
             val dateTime = DateTime(if (tz != null) timestamp else org.tasks.time.DateTime(timestamp).toUTC().millis)
             dateTime.timeZone = tz
             return dateTime
         }
+
+        private fun net.fortuna.ical4j.model.property.Duration.toMillis() =
+            duration.toMillis()
+
+        private fun TemporalAmount.toMillis(): Long =
+            toDuration(Instant.EPOCH).toSeconds() * 1_000
     }
 }

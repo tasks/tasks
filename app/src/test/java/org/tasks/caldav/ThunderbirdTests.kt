@@ -6,11 +6,18 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
+import org.tasks.TestUtilities.alarms
 import org.tasks.TestUtilities.setup
 import org.tasks.TestUtilities.vtodo
 import org.tasks.caldav.iCalendar.Companion.applyLocal
+import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
+import org.tasks.data.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.time.DateTime
 import java.util.*
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit.MINUTES
 
 class ThunderbirdTests {
     private val defaultTimeZone = TimeZone.getDefault()
@@ -108,6 +115,62 @@ class ThunderbirdTests {
         assertEquals(
                 DateTime(2021, 1, 12, 11, 0, 1).millis,
                 vtodo("thunderbird/start_date_time.txt").hideUntil)
+    }
+
+    @Test
+    fun dateTimeReminder() {
+        assertEquals(
+            listOf(Alarm(task = 0, time = 1642791600000, type = TYPE_DATE_TIME)),
+            "thunderbird/date_time_reminder.txt".alarms
+        )
+    }
+
+    @Test
+    fun reminderBeforeStart() {
+        assertEquals(
+            listOf(Alarm(task = 0, time = -TimeUnit.HOURS.toMillis(1), type = TYPE_REL_START)),
+            "thunderbird/reminder_before_start.txt".alarms
+        )
+    }
+
+    @Test
+    fun reminderAfterStart() {
+        assertEquals(
+            listOf(Alarm(task = 0, time = MINUTES.toMillis(15), type = TYPE_REL_START)),
+            "thunderbird/reminder_after_start.txt".alarms
+        )
+    }
+
+    @Test
+    fun reminderBeforeEnd() {
+        assertEquals(
+            listOf(Alarm(task = 0, time = -MINUTES.toMillis(15), type = TYPE_REL_END)),
+            "thunderbird/reminder_before_end.txt".alarms
+        )
+    }
+
+    @Test
+    fun reminderAfterEnd() {
+        assertEquals(
+            listOf(Alarm(task = 0, time = MINUTES.toMillis(15), type = TYPE_REL_END)),
+            "thunderbird/reminder_after_end.txt".alarms
+        )
+    }
+
+    @Test
+    fun reminderAtStart() {
+        assertEquals(
+            listOf(Alarm(task = 0, time = 0, type = TYPE_REL_START)),
+            "thunderbird/reminder_at_start.txt".alarms
+        )
+    }
+
+    @Test
+    fun reminder50Days() {
+        assertEquals(
+            listOf(Alarm(task = 0, time = -TimeUnit.DAYS.toMillis(50), type = TYPE_REL_START)),
+            "thunderbird/reminder_50_days.txt".alarms
+        )
     }
 
     @Test

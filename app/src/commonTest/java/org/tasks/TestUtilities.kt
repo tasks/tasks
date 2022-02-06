@@ -5,6 +5,8 @@ import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.runBlocking
 import org.tasks.caldav.iCalendar.Companion.applyRemote
+import org.tasks.caldav.iCalendar.Companion.reminders
+import org.tasks.data.Alarm
 import org.tasks.data.CaldavTask
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
@@ -43,6 +45,9 @@ object TestUtilities {
         task.applyRemote(fromResource(path))
         return task
     }
+
+    val String.alarms: List<Alarm>
+        get() = fromResource(this).reminders
 
     fun setup(path: String): Triple<Task, CaldavTask, at.bitfire.ical4android.Task> {
         val task = Task()
