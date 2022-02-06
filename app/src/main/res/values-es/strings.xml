@@ -713,6 +713,11 @@
     <string name="completed">Terminado</string>
     <string name="app_bar_collapse">Contraer las barras de la aplicación</string>
     <string name="snackbar_task_completed">Tarea terminada</string>
-    <string name="completed_tasks_at_bottom">El movimiento completó tareas a fondo</string>
+    <string name="completed_tasks_at_bottom">Mover las tareas completadas a la parte inferior</string>
     <string name="snackbar_tasks_completed">%d tareas completadas</string>
+    <string name="alarm_after_due">%s después de la fecha límite</string>
+    <string name="completed_tasks_sort">Ordenar por fecha de finalización</string>
+    <string name="alarm_before_start">%s antes de empezar</string>
+    <string name="alarm_after_start">%s tras el inicio</string>
+    <string name="alarm_before_due">%s antes de la fecha límite</string>
 </resources>
