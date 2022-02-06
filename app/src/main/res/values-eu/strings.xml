@@ -607,8 +607,8 @@
     <string name="repeat_type_completion_capitalized">Burutze-data</string>
     <string name="default_location">Lehenetsitako kokalekua</string>
     <string name="always_display_full_date">Erakutsi data osoa</string>
-    <string name="cancel">Utzi</string>
-    <string name="ok">Ados</string>
+    <string name="cancel">\@android:string/ezeztatu</string>
+    <string name="ok">\@android:string/Adoz</string>
     <string name="start_date">Hasiera data</string>
     <string name="SSD_sort_start">Hasiera dataren arabera</string>
     <string name="github_sponsor">Babeslea</string>
@@ -712,4 +712,12 @@
     <string name="bottom">Behekoa</string>
     <string name="app_bar_collapse">Aplikazioaren barrak uzkurtu</string>
     <string name="completed">Amaituta</string>
+    <string name="snackbar_task_completed">Amaitutako zereginak</string>
+    <string name="completed_tasks_at_bottom">Betetako atazak behealdera mugitu</string>
+    <string name="completed_tasks_sort">Ordenatu amaiera-dataren arabera</string>
+    <string name="snackbar_tasks_completed">%d atazak osatuta</string>
+    <string name="alarm_before_start">%s hasi aurretik</string>
+    <string name="alarm_after_start">%s hasi ondoren</string>
+    <string name="alarm_before_due">%s muga-eguna baino lehen</string>
+    <string name="alarm_after_due">%s muga-egunaren ondoren</string>
 </resources>
