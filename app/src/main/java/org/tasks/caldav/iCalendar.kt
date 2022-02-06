@@ -36,6 +36,8 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
+import org.tasks.caldav.extensions.toAlarms
+import org.tasks.caldav.extensions.toVAlarms
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
@@ -170,41 +172,7 @@ class iCalendar @Inject constructor(
             remoteModel.geoPosition = localGeo
         }
         remoteModel.alarms.removeAll(remoteModel.alarms.filtered)
-        remoteModel.alarms.addAll(
-            alarmDao
-                .getAlarms(task.id)
-                .mapNotNull {
-                    val trigger = when (it.type) {
-                        TYPE_DATE_TIME ->
-                            Trigger(getDateTime(it.time))
-                        TYPE_REL_START,
-                        TYPE_REL_END ->
-                            Trigger(
-                                ParameterList().apply {
-                                    add(if (it.type == TYPE_REL_END) END else START)
-                                },
-                                Duration.ofMillis(it.time)
-                            )
-                        else -> return@mapNotNull null
-                    }
-                    VAlarm().apply {
-                        with(properties) {
-                            add(trigger)
-                            add(Action.DISPLAY)
-                            add(Description("Default Tasks.org description"))
-                            if (it.repeat > 0) {
-                                add(Repeat(it.repeat))
-                                add(
-                                    net.fortuna.ical4j.model.property.Duration(
-                                        Duration.ofMillis(it.interval)
-                                    )
-                                )
-
-                            }
-                        }
-                    }
-                }
-        )
+        remoteModel.alarms.addAll(alarmDao.getAlarms(task.id).toVAlarms())
     }
 
     suspend fun fromVtodo(
@@ -281,7 +249,7 @@ class iCalendar @Inject constructor(
             }
         }
 
-        private fun getLocal(property: DateProperty): Long =
+        internal fun getLocal(property: DateProperty): Long =
                 org.tasks.time.DateTime.from(property.date)?.toLocal()?.millis ?: 0
 
         fun fromVtodo(vtodo: String): Task? {
@@ -465,35 +433,13 @@ class iCalendar @Inject constructor(
                     .filterNot { it.trigger.dateTime == IGNORE_ALARM }
 
         val Task.reminders: List<Alarm>
-            get() = alarms.filtered.mapNotNull {
-                val (type, time) = when {
-                    it.trigger.date != null ->
-                        Pair(TYPE_DATE_TIME, getLocal(it.trigger))
-                    it.trigger.duration != null ->
-                        Pair(
-                            if (it.trigger.parameters.getParameter<Related>(RELATED) == END) {
-                                TYPE_REL_END
-                            } else {
-                                TYPE_REL_START
-                            },
-                            it.trigger.duration.toMillis()
-                        )
-                    else -> return@mapNotNull null
-                }
-                Alarm(0L, time, type, it.repeat?.count ?: 0, it.duration?.toMillis() ?: 0)
-            }
+            get() = alarms.filtered.toAlarms()
 
-        private fun getDateTime(timestamp: Long): DateTime {
+        internal fun getDateTime(timestamp: Long): DateTime {
             val tz = ical4jTimeZone(TimeZone.getDefault().id)
             val dateTime = DateTime(if (tz != null) timestamp else org.tasks.time.DateTime(timestamp).toUTC().millis)
             dateTime.timeZone = tz
             return dateTime
         }
-
-        private fun net.fortuna.ical4j.model.property.Duration.toMillis() =
-            duration.toMillis()
-
-        private fun TemporalAmount.toMillis(): Long =
-            toDuration(Instant.EPOCH).toSeconds() * 1_000
     }
 }
