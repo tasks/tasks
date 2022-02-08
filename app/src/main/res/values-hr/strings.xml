@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="read_permission_label">Tasks dozvole</string>
+    <string name="read_permission_label">Dozvole zadataka</string>
     <string name="import_summary_title">Obnovi sažetak</string>
     <string name="export_toast">Sigurnosna kopija za %1$s spremljena je u %2$s.</string>
     <string name="backup_BAc_export">Spremi sigurnosnu kopiju sada</string>
@@ -20,7 +20,7 @@
     <string name="TEA_note_label">Opis</string>
     <string name="TEA_add_subtask">Dodaj podzadatak</string>
     <string name="TEA_importance_label">Prioritet</string>
-    <string name="TEA_title_hint">Naziv zadatka</string>
+    <string name="TEA_title_hint">Ime zadatka</string>
     <string name="sort_created">Po vremenu stvaranja</string>
     <string name="SSD_sort_due">Po datumu roka</string>
     <string name="SSD_sort_alpha">Po naslovu</string>
@@ -195,7 +195,7 @@
     <string name="upgrade_desktop_access_description">Sinkroniziraj s klijentima trećih strana poput Outlook i Apple Reminders</string>
     <string name="upgrade_desktop_access">Desktop pristup</string>
     <string name="upgrade_tasks_org_account_description">Sinkroniziraj s Tasks.org i surađuj s drugim korisnicima</string>
-    <string name="upgrade_google_tasks">Sinkroniziraj višebrojne račune</string>
+    <string name="upgrade_google_tasks">Sinkroniziraj račune</string>
     <string name="upgrade_more_customization_description">Otključaj sve teme, boje i ikone</string>
     <string name="upgrade_more_customization">Više prilagođavanja</string>
     <string name="pro_free_trial">Novi pretplatnici dobivaju 7-dnevno besplatno probno razdoblje. Otkaži bilo kada</string>
@@ -289,7 +289,7 @@
     <string name="expand_subtasks">Rasklopi podzadatke</string>
     <string name="caldav_account_repeating_tasks">Poslužitelj obrađuje ponavljajuće zadatke</string>
     <string name="name_your_price">Odredi tvoju cijenu</string>
-    <string name="google_tasks_add_to_top">Novi zadaci na vrh</string>
+    <string name="google_tasks_add_to_top">Novi zadaci na vrh popisa</string>
     <string name="invalid_backup_file">Neispravna datoteka sigurnosne kopije</string>
     <string name="version_string">Verzija %s</string>
     <string name="choose_new_location">Odaberi novu lokaciju</string>
@@ -626,7 +626,7 @@
     </plurals>
     <string name="voice_command_added_task">Dodan zadatak</string>
     <string name="delete_task">Izbriši zadatak</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks će izgovarati nazive zadataka tijekom podsjetnika zadataka</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks će izgovarati imena zadataka tijekom podsjetnika zadataka</string>
     <string name="EPr_voiceRemindersEnabled_title">Govorni podsjetnici</string>
     <string name="EPr_voiceInputEnabled_title">Govorni unos</string>
     <string name="voice_create_prompt">Govori za izradu zadatka</string>
@@ -642,8 +642,8 @@
     <string name="repeat_number_of_times">Ponavljaj x-puta</string>
     <string name="repeat_until">Ponavljaj do %s</string>
     <string name="repeat_forever">Ponavljaj zauvijek</string>
-    <string name="repeat_type_completion_capitalized">Datum obavljana</string>
-    <string name="repeat_type_completion">datum obavljana</string>
+    <string name="repeat_type_completion_capitalized">Datum obavljanja</string>
+    <string name="repeat_type_completion">datum obavljanja</string>
     <string name="repeat_type_due">datum roka</string>
     <plurals name="repeat_n_years">
         <item quantity="one">%d godina</item>
@@ -706,7 +706,7 @@
         <item quantity="other">minuta</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="one">puta</item>
+        <item quantity="one">put</item>
         <item quantity="few">puta</item>
         <item quantity="other">puta</item>
     </plurals>
@@ -723,10 +723,18 @@
     <string name="chat_libera">Pridruži se #tasks na Libera Chat</string>
     <string name="now">Sada</string>
     <string name="when_started">Kad se pokrene</string>
-    <string name="completion_sound">Odsviraj zvuk završetka</string>
+    <string name="completion_sound">Odsviraj zvuk obavljanja</string>
     <string name="app_bar_position">Mjesto programske trake</string>
     <string name="top">Gore</string>
     <string name="bottom">Dolje</string>
-    <string name="completed">Završeno</string>
+    <string name="completed">Obavljeno</string>
     <string name="app_bar_collapse">Sklopi programske trake</string>
+    <string name="snackbar_task_completed">Zadatak obavljen</string>
+    <string name="completed_tasks_at_bottom">Premjesti obavljene zadatke na kraj</string>
+    <string name="completed_tasks_sort">Razvrtaj prema datumu obavljanja</string>
+    <string name="snackbar_tasks_completed">%d zadaci obavljeni</string>
+    <string name="alarm_before_start">%s prije početka</string>
+    <string name="alarm_after_start">%s nakon početka</string>
+    <string name="alarm_before_due">%s prije roka</string>
+    <string name="alarm_after_due">%s nakon roka</string>
 </resources>
