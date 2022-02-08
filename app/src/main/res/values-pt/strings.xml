@@ -707,4 +707,17 @@
     <string name="now">Agora</string>
     <string name="when_started">Quando iniciado</string>
     <string name="completion_sound">Reproduzir som de conclusão</string>
+    <string name="completed">Terminado</string>
+    <string name="app_bar_collapse">Contrair barras da aplicação</string>
+    <string name="app_bar_position">Posição da barra da aplicação</string>
+    <string name="top">Superior</string>
+    <string name="bottom">Inferior</string>
+    <string name="snackbar_task_completed">Tarefa terminada</string>
+    <string name="completed_tasks_at_bottom">Mover as tarefas terminadas para o fundo</string>
+    <string name="snackbar_tasks_completed">%d tarefas terminadas</string>
+    <string name="completed_tasks_sort">Ordenar por data de finalização</string>
+    <string name="alarm_before_start">%s antes de começar</string>
+    <string name="alarm_after_start">%s após o início</string>
+    <string name="alarm_before_due">%s antes do término</string>
+    <string name="alarm_after_due">%s após o término</string>
 </resources>
