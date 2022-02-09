@@ -720,4 +720,5 @@
     <string name="alarm_after_start">%s após o início</string>
     <string name="alarm_before_due">%s antes do término</string>
     <string name="alarm_after_due">%s após o término</string>
+    <string name="custom_filter_has_reminder">Tem lembrete</string>
 </resources>
