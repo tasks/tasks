@@ -174,7 +174,7 @@ class FilterCriteriaProvider @Inject constructor(
         get() {
             return BooleanCriterion(
                 IDENTIFIER_REMINDERS,
-                context.getString(R.string.custom_filter_has_reminders),
+                context.getString(R.string.custom_filter_has_reminder),
                 select(Task.ID)
                     .from(Task.TABLE)
                     .where(exists(select(ONE).from(Alarm.TABLE).where(Alarm.TASK.eq(Task.ID))))

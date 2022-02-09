@@ -636,7 +636,7 @@ File %1$s contained %2$s.\n\n
   <string name="delete_comment">Delete this comment?</string>
   <string name="custom_filter_has_subtask">Has subtasks</string>
   <string name="custom_filter_is_subtask">Is subtask</string>
-  <string name="custom_filter_has_reminders">Has reminders</string>
+  <string name="custom_filter_has_reminder">Has reminder</string>
   <string name="your_subscription_expired">Your subscription has expired. Subscribe now to resume service.</string>
   <string name="insufficient_subscription">Insufficient subscription level. Please upgrade your subscription to resume service.</string>
   <string name="insufficient_sponsorship">No eligible GitHub sponsorship found</string>
