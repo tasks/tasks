@@ -12,6 +12,7 @@ class Operator private constructor(private val operator: String) {
         val not = Operator("NOT")
         val like = Operator("LIKE")
         val `in` = Operator("IN")
+        val exists = Operator("EXISTS")
         val gt = Operator(">")
         val gte = Operator(">=")
         val lt = Operator("<")

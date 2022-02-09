@@ -6,10 +6,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.todoroo.andlib.data.Table
 import org.tasks.time.DateTimeUtils.printTimestamp
 import java.util.concurrent.TimeUnit
 
-@Entity(tableName = "alarms")
+@Entity(tableName = Alarm.TABLE_NAME)
 class Alarm : Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -96,6 +97,9 @@ class Alarm : Parcelable {
     }
 
     companion object {
+        const val TABLE_NAME = "alarms"
+        val TABLE = Table(TABLE_NAME)
+        val TASK = TABLE.column("task")
         const val TYPE_DATE_TIME = 0
         const val TYPE_REL_START = 1
         const val TYPE_REL_END = 2

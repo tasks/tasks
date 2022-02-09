@@ -19,6 +19,12 @@ abstract class Criterion(val operator: Operator) {
             }
         }
 
+        fun exists(query: Query): Criterion {
+            return object : Criterion(Operator.exists) {
+                override fun populate() = "EXISTS ($query)"
+            }
+        }
+
         operator fun <T> T.plus(tail: Array<out T>): List<T> {
             val list = ArrayList<T>(1 + tail.size)
 

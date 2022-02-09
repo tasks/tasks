@@ -2,19 +2,30 @@ package org.tasks.filters
 
 import android.content.Context
 import com.todoroo.andlib.sql.Criterion.Companion.and
+import com.todoroo.andlib.sql.Criterion.Companion.exists
 import com.todoroo.andlib.sql.Criterion.Companion.or
 import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join.Companion.inner
 import com.todoroo.andlib.sql.Join.Companion.left
 import com.todoroo.andlib.sql.Query.Companion.select
 import com.todoroo.andlib.sql.UnaryCriterion.Companion.isNotNull
-import com.todoroo.astrid.api.*
+import com.todoroo.astrid.api.BooleanCriterion
+import com.todoroo.astrid.api.CustomFilterCriterion
+import com.todoroo.astrid.api.MultipleSelectCriterion
+import com.todoroo.astrid.api.PermaSql
+import com.todoroo.astrid.api.TextInputCriterion
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.data.*
+import org.tasks.data.Alarm
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.GoogleTask
+import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.Tag
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
-import java.util.*
 import javax.inject.Inject
 
 class FilterCriteriaProvider @Inject constructor(
@@ -39,6 +50,7 @@ class FilterCriteriaProvider @Inject constructor(
         IDENTIFIER_HIDDEN -> hiddenFilter
         IDENTIFIER_PARENT -> parentFilter
         IDENTIFIER_SUBTASK -> subtaskFilter
+        IDENTIFIER_REMINDERS -> reminderFilter
         else -> throw RuntimeException("Unknown identifier: $identifier")
     }
 
@@ -70,6 +82,7 @@ class FilterCriteriaProvider @Inject constructor(
             add(hiddenFilter)
             add(parentFilter)
             add(subtaskFilter)
+            add(reminderFilter)
         }
         return result
     }
@@ -156,6 +169,18 @@ class FilterCriteriaProvider @Inject constructor(
                         ))
                         .toString()
         )
+
+    private val reminderFilter: CustomFilterCriterion
+        get() {
+            return BooleanCriterion(
+                IDENTIFIER_REMINDERS,
+                context.getString(R.string.custom_filter_has_reminders),
+                select(Task.ID)
+                    .from(Task.TABLE)
+                    .where(exists(select(ONE).from(Alarm.TABLE).where(Alarm.TASK.eq(Task.ID))))
+                    .toString()
+            )
+        }
 
     val tagNameContainsFilter: CustomFilterCriterion
         get() = TextInputCriterion(
@@ -342,5 +367,8 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_HIDDEN = "hidden"
         private const val IDENTIFIER_PARENT = "parent"
         private const val IDENTIFIER_SUBTASK = "subtask"
+        private const val IDENTIFIER_REMINDERS = "reminders"
+
+        private val ONE = field("1")
     }
 }
