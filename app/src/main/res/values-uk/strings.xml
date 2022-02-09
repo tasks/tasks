@@ -740,4 +740,5 @@
     <string name="snackbar_tasks_completed">%d завдань виконано</string>
     <string name="alarm_before_due">%s до</string>
     <string name="alarm_after_due">%s після</string>
+    <string name="custom_filter_has_reminder">З нагадуванням</string>
 </resources>
