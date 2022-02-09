@@ -1,5 +1,6 @@
 package org.tasks.compose
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,7 +16,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Text
-import androidx.compose.material.darkColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,21 +49,17 @@ private val principals = listOf(
     )
 )
 
-@Preview(showBackground = true, backgroundColor = 0xFFFFFF)
+@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0x202124, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun Owner() = MaterialTheme {
     ListSettingsComposables.PrincipalList(principals) {}
 }
 
-@Preview(showBackground = true, backgroundColor = 0x202124)
+@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0x202124, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-private fun OwnerDark() = MaterialTheme(darkColors()) {
-    ListSettingsComposables.PrincipalList(principals) {}
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFFFFFF)
-@Composable
-private fun NotOwner() = MaterialTheme {
+private fun NotOwner() = MaterialTheme() {
     ListSettingsComposables.PrincipalList(principals, null)
 }
 

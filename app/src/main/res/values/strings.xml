@@ -209,6 +209,10 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">minute</item>
     <item quantity="other">minutes</item>
   </plurals>
+  <plurals name="reminder_minutes">
+    <item quantity="one">Minute</item>
+    <item quantity="other">Minutes</item>
+  </plurals>
   <plurals name="repeat_n_minutes">
     <item quantity="one">%d minute</item>
     <item quantity="other">%d minutes</item>
@@ -216,6 +220,10 @@ File %1$s contained %2$s.\n\n
   <plurals name="repeat_hours">
     <item quantity="one">hour</item>
     <item quantity="other">hours</item>
+  </plurals>
+  <plurals name="reminder_hours">
+    <item quantity="one">Hour</item>
+    <item quantity="other">Hours</item>
   </plurals>
   <plurals name="repeat_n_hours">
     <item quantity="one">%d hour</item>
@@ -225,6 +233,10 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">day</item>
     <item quantity="other">days</item>
   </plurals>
+  <plurals name="reminder_days">
+    <item quantity="one">Day</item>
+    <item quantity="other">Days</item>
+  </plurals>
   <plurals name="repeat_n_days">
     <item quantity="one">%d day</item>
     <item quantity="other">%d days</item>
@@ -232,6 +244,10 @@ File %1$s contained %2$s.\n\n
   <plurals name="repeat_weeks">
     <item quantity="one">week</item>
     <item quantity="other">weeks</item>
+  </plurals>
+  <plurals name="reminder_week">
+    <item quantity="one">Week</item>
+    <item quantity="other">Weeks</item>
   </plurals>
   <plurals name="repeat_n_weeks">
     <item quantity="one">%d week</item>
@@ -722,4 +738,5 @@ File %1$s contained %2$s.\n\n
   <string name="alarm_before_due">%s before due</string>
   <string name="alarm_after_due">%s after due</string>
   <string name="snoozed_until">Snoozed until %s</string>
+  <string name="custom_notification">Custom notification</string>
 </resources>

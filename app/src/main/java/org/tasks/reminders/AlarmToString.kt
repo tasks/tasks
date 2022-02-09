@@ -62,13 +62,24 @@ class AlarmToString @Inject constructor(
 
     private fun getDurationString(duration: Long): String {
         val seconds = duration.absoluteValue
-        val day = TimeUnit.MILLISECONDS.toDays(seconds)
-        val hours = TimeUnit.MILLISECONDS.toHours(seconds) - day * 24
+        val days = TimeUnit.MILLISECONDS.toDays(seconds)
+        val weeks = days / 7
+        val hours = TimeUnit.MILLISECONDS.toHours(seconds) - days * 24
         val minute =
             TimeUnit.MILLISECONDS.toMinutes(seconds) - TimeUnit.MILLISECONDS.toHours(seconds) * 60
         val result = ArrayList<String>()
-        if (day > 0) {
-            result.add(resources.getQuantityString(R.plurals.repeat_n_days, day.toInt(), day.toInt()))
+        if (weeks > 0) {
+            result.add(resources.getQuantityString(R.plurals.repeat_n_weeks, weeks.toInt(), weeks.toInt()))
+        }
+        val leftoverDays = days - weeks * 7
+        if (leftoverDays > 0) {
+            result.add(
+                resources.getQuantityString(
+                    R.plurals.repeat_n_days,
+                    leftoverDays.toInt(),
+                    leftoverDays.toInt()
+                )
+            )
         }
         if (hours > 0) {
             result.add(resources.getQuantityString(R.plurals.repeat_n_hours, hours.toInt(), hours.toInt()))

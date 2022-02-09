@@ -31,4 +31,9 @@
       android:layout_height="wrap_content"
       android:hint="@string/add_reminder" />
 
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/dialog_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

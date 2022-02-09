@@ -15,9 +15,18 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.compose.material.AlertDialog
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.ExperimentalComposeUiApi
+import com.google.android.material.composethemeadapter.MdcTheme
+import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
+import org.tasks.compose.AddReminderDialog
+import org.tasks.compose.Constants
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
@@ -35,6 +44,7 @@ import org.tasks.ui.TaskEditControlFragment
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+
 /**
  * Control set dealing with reminder settings
  *
@@ -50,8 +60,10 @@ class ReminderControlSet : TaskEditControlFragment() {
     private lateinit var mode: TextView
     
     private var randomControlSet: RandomReminderControlSet? = null
+    private val showDialog = mutableStateOf(false)
 
     override fun createView(savedInstanceState: Bundle?) {
+        showDialog.value = savedInstanceState?.getBoolean(DIALOG_VISIBLE) ?: false
         mode.paintFlags = mode.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         when {
             viewModel.ringNonstop!! -> setRingMode(2)
@@ -59,6 +71,12 @@ class ReminderControlSet : TaskEditControlFragment() {
             else -> setRingMode(0)
         }
         viewModel.selectedAlarms?.forEach(this::addAlarmRow)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putBoolean(DIALOG_VISIBLE, showDialog.value)
     }
 
     private fun onClickRingType() {
@@ -105,6 +123,8 @@ class ReminderControlSet : TaskEditControlFragment() {
                 addAlarmRow(Alarm(id, TimeUnit.DAYS.toMillis(14), TYPE_RANDOM))
             getString(R.string.pick_a_date_and_time) ->
                 addNewAlarm()
+            getString(R.string.repeat_option_custom) ->
+                addCustomAlarm()
         }
     }
 
@@ -123,6 +143,7 @@ class ReminderControlSet : TaskEditControlFragment() {
         }
     }
 
+    @OptIn(ExperimentalComposeUiApi::class)
     override fun bind(parent: ViewGroup?) =
         ControlSetRemindersBinding.inflate(layoutInflater, parent, true).let {
             alertContainer = it.alertContainer
@@ -130,6 +151,61 @@ class ReminderControlSet : TaskEditControlFragment() {
                 setOnClickListener { onClickRingType() }
             }
             it.alarmsAdd.setOnClickListener { addAlarm() }
+            it.dialogView.setContent {
+                MdcTheme {
+                    val openDialog = remember { showDialog }
+                    val selectedInterval = rememberSaveable { mutableStateOf(15L as Long?) }
+                    val selectedMultiplier = rememberSaveable { mutableStateOf(0) }
+                    if (openDialog.value) {
+                        AlertDialog(
+                            onDismissRequest = {
+                                openDialog.value = false
+                                AndroidUtilities.hideKeyboard(activity)
+                            },
+                            text = {
+                                AddReminderDialog.AddReminderDialog(
+                                    openDialog,
+                                    selectedInterval,
+                                    selectedMultiplier,
+                                )
+                            },
+                            confirmButton = {
+                                Constants.TextButton(text = R.string.ok, onClick = {
+                                    val multiplier = -1 * when (selectedMultiplier.value) {
+                                            1 -> TimeUnit.HOURS.toMillis(1)
+                                            2 -> TimeUnit.DAYS.toMillis(1)
+                                            3 -> TimeUnit.DAYS.toMillis(7)
+                                            else -> TimeUnit.MINUTES.toMillis(1)
+                                    }
+
+                                    selectedInterval.value?.let { i ->
+                                        addAlarmRow(
+                                            Alarm(
+                                                viewModel.task?.id ?: 0L,
+                                                i * multiplier,
+                                                TYPE_REL_END
+                                            )
+                                        )
+                                        openDialog.value = false
+                                        AndroidUtilities.hideKeyboard(activity)
+                                    }
+                                })
+                            },
+                            dismissButton = {
+                                Constants.TextButton(
+                                    text = R.string.cancel,
+                                    onClick = {
+                                        openDialog.value = false
+                                        AndroidUtilities.hideKeyboard(activity)
+                                    })
+                            },
+                        )
+                    } else {
+                        selectedInterval.value = 15
+                        selectedMultiplier.value = 0
+                    }
+                }
+            }
             it.root
         }
 
@@ -178,6 +254,10 @@ class ReminderControlSet : TaskEditControlFragment() {
         startActivityForResult(intent, REQUEST_NEW_ALARM)
     }
 
+    private fun addCustomAlarm() {
+        showDialog.value = true
+    }
+
     private fun addAlarmRow(alarm: Alarm, onRemove: View.OnClickListener): View {
         val alertItem = requireActivity().layoutInflater.inflate(R.layout.alarm_edit_row, null)
         alertContainer.addView(alertItem)
@@ -213,11 +293,14 @@ class ReminderControlSet : TaskEditControlFragment() {
                 options.add(getString(R.string.randomly))
             }
             options.add(getString(R.string.pick_a_date_and_time))
+            options.add(getString(R.string.repeat_option_custom))
             return options
         }
 
     companion object {
         const val TAG = R.string.TEA_ctrl_reminders_pref
         private const val REQUEST_NEW_ALARM = 12152
+        private const val DIALOG_VISIBLE = "dialog_visible"
     }
 }
+
