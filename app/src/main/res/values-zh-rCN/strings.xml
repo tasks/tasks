@@ -710,4 +710,5 @@
     <string name="alarm_before_due">到期前 %s</string>
     <string name="alarm_after_due">到期后 %s</string>
     <string name="custom_filter_has_reminders">有提醒</string>
+    <string name="custom_filter_has_reminder">有提醒</string>
 </resources>
