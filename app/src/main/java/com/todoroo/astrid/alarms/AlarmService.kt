@@ -6,6 +6,7 @@
 package com.todoroo.astrid.alarms
 
 import com.todoroo.astrid.data.Task
+import org.tasks.LocalBroadcastManager
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
@@ -26,10 +27,11 @@ import javax.inject.Singleton
  */
 @Singleton
 class AlarmService @Inject constructor(
-        private val alarmDao: AlarmDao,
-        private val jobs: NotificationQueue,
-        private val taskDao: TaskDao,
-        private val preferences: Preferences,
+    private val alarmDao: AlarmDao,
+    private val jobs: NotificationQueue,
+    private val taskDao: TaskDao,
+    private val preferences: Preferences,
+    private val localBroadcastManager: LocalBroadcastManager,
 ) {
 
     suspend fun getAlarms(taskId: Long): List<Alarm> = alarmDao.getAlarms(taskId)
@@ -61,6 +63,7 @@ class AlarmService @Inject constructor(
         }
         if (changed) {
             scheduleAlarms(task)
+            localBroadcastManager.broadcastRefresh()
         }
         return changed
     }
