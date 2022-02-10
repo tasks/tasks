@@ -6,7 +6,7 @@
     <string name="backup_BAc_import">Backup importeren</string>
     <string name="backup_BAc_export">Backup nu maken</string>
     <string name="export_toast">%1$s naar %2$s gebackupt.</string>
-    <string name="import_summary_title">Samenvatting terugzetten</string>
+    <string name="import_summary_title">Hersteloverzicht</string>
     <string name="import_summary_message">Bestand %1$s bevat %2$s.
 \n
 \n %3$s geïmporteerd,
@@ -83,14 +83,14 @@
     <string name="EPr_manage_delete_completed_gcal">Kalender-items voor voltooide taken wissen</string>
     <string name="EPr_manage_delete_completed_gcal_message">Alle items voor voltooide taken onherroepelijk wissen\?</string>
     <string name="EPr_manage_delete_gcal_status">%d kalender-items gewist!</string>
-    <string name="EPr_manage_delete_all_gcal">Alle kalender-items voor taken wissen</string>
+    <string name="EPr_manage_delete_all_gcal">Verwijder alle kalender-items voor taken</string>
     <string name="EPr_manage_delete_all_gcal_message">Alle items voor taken onherroepelijk wissen\?</string>
-    <string name="task_defaults">Standaardwaarden voor taken</string>
-    <string name="EPr_default_importance_title">Standaard prioriteit</string>
-    <string name="EPr_default_reminders_title">Standaard herinneringen</string>
-    <string name="EPr_default_location_reminder_title">Standaard locatie herinneringen</string>
-    <string name="EPr_default_location_radius">Standaard straal</string>
-    <string name="EPr_default_reminders_mode_title">Standaard toon/tril signaal</string>
+    <string name="task_defaults">Taak standaardwaarden</string>
+    <string name="EPr_default_importance_title">Prioriteit</string>
+    <string name="EPr_default_reminders_title">Herinneringen</string>
+    <string name="EPr_default_location_reminder_title">Locatie herinneringen</string>
+    <string name="EPr_default_location_radius">Locatie actieradius</string>
+    <string name="EPr_default_reminders_mode_title">Beltoon/trillen</string>
     <string name="priority_high">Hoog</string>
     <string name="priority_medium">Gemiddeld</string>
     <string name="priority_low">Laag</string>
@@ -320,7 +320,7 @@
     <string name="url_invalid_scheme">Moet beginnen met http(s)://</string>
     <string name="no_title">(geen titel)</string>
     <string name="back_button_saves_task">Terug-knop slaat taak op</string>
-    <string name="default_list">Standaard lijst</string>
+    <string name="default_list">Lijst</string>
     <string name="opacity">Transparantie</string>
     <string name="theme">Thema</string>
     <string name="color">Kleur</string>
@@ -331,7 +331,7 @@
     <string name="theme_wallpaper">Achtergrond</string>
     <string name="theme_day_night">Dag/Nacht</string>
     <string name="language">Taal</string>
-    <string name="restart_required">Herstart Tasks om deze wijzigingen te activeren</string>
+    <string name="restart_required">Start Tasks opnieuw om wijzigingen door te voeren</string>
     <string name="restart_now">Herstart nu</string>
     <string name="settings_localization">Localisatie</string>
     <string name="led_notification">LED melding</string>
@@ -392,7 +392,7 @@
     <string name="network_error">Verbinding niet gelukt</string>
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
     <string name="manage_subscription">Abonnement wijzigen</string>
-    <string name="refresh_purchases">Aankopen vernieuwen</string>
+    <string name="refresh_purchases">Aankopen bijwerken</string>
     <string name="button_subscribe">Abonneren</string>
     <string name="about">Over</string>
     <string name="license_summary">Tasks is vrije open-source software, onder de GNU General Public License v3.0</string>
@@ -406,7 +406,7 @@
     <string name="show_description">Beschrijving tonen</string>
     <string name="show_full_description">Volledige beschrijving tonen</string>
     <string name="linkify">Links weergeven</string>
-    <string name="linkify_description">Links naar websites, adressen en telefoonnummers toevoegen</string>
+    <string name="linkify_description">Voeg links naar websites, adressen en telefoonnummers toe</string>
     <string name="location_remind_arrival">Herinnering bij aankomst</string>
     <string name="location_remind_departure">Herinnering bij vertrek</string>
     <string name="visit_website">Website bezoeken</string>
@@ -463,7 +463,7 @@
     <string name="caldav_account_description">Vereist een account bij een CalDAV dienstverlener of een eigen server. Vind een dienstverlener op www.tasks.org/caldav</string>
     <string name="etesync_account_description">Vereist een account op EteSync.com of een eigen server</string>
     <string name="help_and_feedback">Hulp &amp; feedback</string>
-    <string name="documentation">Documentatie</string>
+    <string name="documentation">Documentatie (website)</string>
     <string name="preferences_look_and_feel">Uiterlijk</string>
     <string name="preferences_advanced">Geavanceerd</string>
     <string name="wearable_notifications">Meldingen op \'Wearables\'</string>
@@ -559,7 +559,7 @@
     <string name="yesterday_lowercase">gisteren</string>
     <string name="tomorrow_lowercase">morgen</string>
     <string name="today_lowercase">vandaag</string>
-    <string name="improve_performance_summary">Sorteergroepen en inklapbare subtaken uitzetten om de prestaties van de app te verbeteren</string>
+    <string name="improve_performance_summary">Schakel sorteergroepen en inklapbare subtaken uit om de prestaties van de app te verbeteren</string>
     <string name="improve_performance">Prestaties verbeteren</string>
     <string name="astrid_sort_order_summary">Pas Astrid\'s handmatige sorteermodus toe op \'Mijn taken\', \'Vandaag\', en Labels. Deze modus wordt in een komende versie vervangen door \'Mijn volgorde\'</string>
     <string name="astrid_sort_order">Astrid\'s handmatig sorteren</string>
@@ -578,18 +578,18 @@
     <string name="last_backup_never">nooit</string>
     <string name="last_backup">Laatste backup: %s</string>
     <string name="android_auto_backup">Android backup-service</string>
-    <string name="android_auto_backup_device_summary">Je moet de backup-service ook aanzetten in je toestel-instellingen. Niet alle toestellen bieden de backup-service.</string>
+    <string name="android_auto_backup_device_summary">Schakel ook de backup-service in je toestel-instellingen in. Niet alle toestellen bieden de backup-service.</string>
     <string name="automatic_backups">Automatische backups</string>
     <string name="no_app_found">Geen app kon dit verzoek verwerken</string>
     <string name="background_location">Achtergrond locatie</string>
     <string name="foreground_location">Voorgrond locatie</string>
     <string name="backup_location_warning">WAARSCHUWING: Bestanden die zich in %s bevinden worden verwijderd bij verwijderen van Tasks! Kies een aangepaste locatie opdat Android je bestanden niet verwijdert.</string>
-    <string name="backups_ignore_warnings_summary">Negeer backup waarschuwingen als je geen nodig hebt of een eigen backup oplossing gebruikt</string>
+    <string name="backups_ignore_warnings_summary">Negeer backup-waarschuwingen als er geen backup nodig is of bij gebruik van eigen backup-oplossing</string>
     <string name="backups_ignore_warnings">Negeer waarschuwingen</string>
     <string name="header_spacing">Tussenruimte</string>
     <string name="default_recurrence">Standaard herhaling</string>
     <string name="repeat_type_completion_capitalized">Voltooiingsdatum</string>
-    <string name="default_location">Standaard locatie</string>
+    <string name="default_location">Locatie</string>
     <string name="default_tags">Standaard labels</string>
     <string name="multi_select_reschedule">Opnieuw inplannen</string>
     <string name="delete_comment">Deze opmerking wissen\?</string>
@@ -639,9 +639,9 @@
     <string name="app_passwords">App wachtwoorden</string>
     <string name="app_password">App wachtwoord</string>
     <string name="local_lists">Lokale lijsten</string>
-    <string name="default_due_date">Standaard vervaldatum</string>
+    <string name="default_due_date">Vervaldatum</string>
     <string name="start_date">Begindatum</string>
-    <string name="default_start_date">Standaard begindatum</string>
+    <string name="default_start_date">Begindatum</string>
     <string name="show_unstarted">Niet-gestarte weergeven</string>
     <string name="filter_criteria_unstarted">Niet-gestarte</string>
     <string name="no_start_date">Geen begindatum</string>
@@ -716,8 +716,9 @@
     <string name="completed_tasks_at_bottom">Plaats voltooide taken onderaan</string>
     <string name="snackbar_tasks_completed">%d taken voltooid</string>
     <string name="completed_tasks_sort">Sorteren op datum voltooien</string>
-    <string name="alarm_before_due">%s voor verval</string>
-    <string name="alarm_after_due">%s na verval</string>
+    <string name="alarm_before_due">%s voor vervallen</string>
+    <string name="alarm_after_due">%s na vervallen</string>
     <string name="alarm_before_start">%s voor begin</string>
     <string name="alarm_after_start">%s na begin</string>
+    <string name="custom_filter_has_reminder">Bevat herinnering</string>
 </resources>
