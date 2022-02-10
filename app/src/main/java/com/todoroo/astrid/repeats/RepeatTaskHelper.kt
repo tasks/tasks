@@ -17,6 +17,7 @@ import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
@@ -67,7 +68,6 @@ class RepeatTaskHelper @Inject constructor(
             task.setRecurrence(rrule.toString(), repeatAfterCompletion)
         }
         task.reminderLast = 0L
-        task.reminderSnooze = 0L
         task.completionDate = 0L
         task.setDueDateAdjustingHideUntil(newDueDate)
         gcalHelper.rescheduleRepeatingTask(task)
@@ -116,13 +116,13 @@ class RepeatTaskHelper @Inject constructor(
             return
         }
         alarmService.getAlarms(taskId)
-            .takeIf { it.isNotEmpty() }
-            ?.onEach {
+            .filter { it.type != TYPE_SNOOZE }
+            .onEach {
                 if (it.type == Alarm.TYPE_DATE_TIME) {
                     it.time += newDueDate - oldDueDate
                 }
             }
-            ?.let { alarmService.synchronizeAlarms(taskId, it.toMutableSet()) }
+            .let { alarmService.synchronizeAlarms(taskId, it.toMutableSet()) }
     }
 
     companion object {

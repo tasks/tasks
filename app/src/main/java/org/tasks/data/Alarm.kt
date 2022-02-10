@@ -46,7 +46,7 @@ class Alarm : Parcelable {
     }
 
     @Ignore
-    constructor(task: Long, time: Long, type: Int = 0, repeat: Int = 0, interval: Long = 0) {
+    constructor(task: Long, time: Long, type: Int, repeat: Int = 0, interval: Long = 0) {
         this.task = task
         this.time = time
         this.type = type
@@ -104,6 +104,9 @@ class Alarm : Parcelable {
         const val TYPE_REL_START = 1
         const val TYPE_REL_END = 2
         const val TYPE_RANDOM = 3
+        const val TYPE_SNOOZE = 4
+        const val TYPE_GEO_ENTER = 5
+        const val TYPE_GEO_EXIT = 6
 
         fun whenStarted(task: Long) = Alarm(task, 0, TYPE_REL_START)
 

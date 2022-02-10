@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -28,7 +27,6 @@ class CleanupWork @AssistedInject constructor(
         private val notificationManager: NotificationManager,
         private val geofenceApi: GeofenceApi,
         private val timerPlugin: TimerPlugin,
-        private val reminderService: ReminderService,
         private val alarmService: AlarmService,
         private val taskAttachmentDao: TaskAttachmentDao,
         private val userActivityDao: UserActivityDao,
@@ -45,7 +43,6 @@ class CleanupWork @AssistedInject constructor(
             runBlocking {
                 alarmService.cancelAlarms(task)
             }
-            reminderService.cancelReminder(task)
             notificationManager.cancel(task)
             locationDao.getGeofencesForTask(task).forEach {
                 locationDao.delete(it)

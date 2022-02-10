@@ -7,8 +7,10 @@ import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
+import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
 import timber.log.Timber
 import java.util.concurrent.TimeUnit.HOURS
@@ -423,6 +425,12 @@ object Migrations {
             )
             database.execSQL(
                 "INSERT INTO `alarms` (`task`, `time`, `type`, `repeat`, `interval`) SELECT `_id`, ${HOURS.toMillis(24)}, $TYPE_REL_END, 6, ${HOURS.toMillis(24)} FROM `tasks` WHERE `dueDate` > 0 AND `notificationFlags` | $NOTIFY_AFTER_DEADLINE"
+            )
+            database.execSQL(
+                "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, `task.notifications`, $TYPE_RANDOM FROM `tasks` WHERE `notifications` > 0"
+            )
+            database.execSQL(
+                "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, `snoozeTime`, $TYPE_SNOOZE FROM `tasks` WHERE `snoozeTime` > 0"
             )
             database.execSQL(
                 "UPDATE `tasks` SET `notificationFlags` = `notificationFlags` & ~$NOTIFY_AT_START & ~$NOTIFY_AT_DEADLINE & ~$NOTIFY_AFTER_DEADLINE"

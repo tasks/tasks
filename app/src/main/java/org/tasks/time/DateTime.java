@@ -270,6 +270,10 @@ public class DateTime {
     return add(Calendar.SECOND, seconds);
   }
 
+  public DateTime plusMillis(int millis) {
+    return add(Calendar.MILLISECOND, millis);
+  }
+
   public DateTime minusSeconds(int seconds) {
     return subtract(Calendar.SECOND, seconds);
   }

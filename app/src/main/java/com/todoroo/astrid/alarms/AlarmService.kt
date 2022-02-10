@@ -8,15 +8,11 @@ package com.todoroo.astrid.alarms
 import com.todoroo.astrid.data.Task
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
-import org.tasks.data.Alarm.Companion.TYPE_REL_END
-import org.tasks.data.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.AlarmDao
 import org.tasks.data.TaskDao
-import org.tasks.jobs.AlarmEntry
 import org.tasks.jobs.NotificationQueue
-import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils.withMillisOfDay
+import org.tasks.notifications.NotificationManager
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -30,10 +26,10 @@ class AlarmService @Inject constructor(
     private val alarmDao: AlarmDao,
     private val jobs: NotificationQueue,
     private val taskDao: TaskDao,
-    private val preferences: Preferences,
     private val localBroadcastManager: LocalBroadcastManager,
+    private val notificationManager: NotificationManager,
+    private val alarmCalculator: AlarmCalculator,
 ) {
-
     suspend fun getAlarms(taskId: Long): List<Alarm> = alarmDao.getAlarms(taskId)
 
     /**
@@ -50,8 +46,7 @@ class AlarmService @Inject constructor(
                             it.time == existing.time &&
                             it.repeat == existing.repeat &&
                             it.interval == existing.interval
-            }) {
-                jobs.cancelAlarm(existing.id)
+                }) {
                 alarmDao.delete(existing)
                 changed = true
             }
@@ -68,75 +63,48 @@ class AlarmService @Inject constructor(
         return changed
     }
 
-    private suspend fun getActiveAlarmsForTask(taskId: Long): List<Alarm> =
-            alarmDao.getActiveAlarms(taskId)
-
     suspend fun scheduleAllAlarms() {
         alarmDao
             .getActiveAlarms()
             .groupBy { it.task }
             .forEach { (taskId, alarms) ->
                 val task = taskDao.fetch(taskId) ?: return@forEach
-                alarms.forEach { scheduleAlarm(task, it) }
+                scheduleAlarms(task, alarms)
             }
     }
 
-    suspend fun cancelAlarms(taskId: Long) {
-        for (alarm in getActiveAlarmsForTask(taskId)) {
-            jobs.cancelAlarm(alarm.id)
-        }
+    fun cancelAlarms(taskId: Long) {
+        jobs.cancelForTask(taskId)
+    }
+
+    suspend fun snooze(time: Long, taskIds: List<Long>) {
+        notificationManager.cancel(taskIds)
+        alarmDao.getSnoozed(taskIds).let { alarmDao.delete(it) }
+        taskIds.map { Alarm(it, time, TYPE_SNOOZE) }.let { alarmDao.insert(it) }
+        taskDao.touch(taskIds)
+        scheduleAlarms(taskIds)
+    }
+
+    suspend fun scheduleAlarms(taskIds: List<Long>) {
+        taskDao.fetch(taskIds).forEach { scheduleAlarms(it) }
     }
 
     /** Schedules alarms for a single task  */
     suspend fun scheduleAlarms(task: Task) {
-        getActiveAlarmsForTask(task.id).forEach { scheduleAlarm(task, it) }
+        scheduleAlarms(task, alarmDao.getActiveAlarms(task.id))
     }
 
-    /** Schedules alarms for a single task  */
-    private fun scheduleAlarm(task: Task, alarm: Alarm?) {
-        if (alarm == null) {
-            return
+    private fun scheduleAlarms(task: Task, alarms: List<Alarm>) {
+        jobs.cancelForTask(task.id)
+        val alarmEntries = alarms.mapNotNull {
+            alarmCalculator.toAlarmEntry(task, it)
         }
-        val trigger = when (alarm.type) {
-            TYPE_DATE_TIME ->
-                alarm.time
-            TYPE_REL_START ->
-                when {
-                    task.hasStartTime() ->
-                        task.hideUntil + alarm.time
-                    task.hasStartDate() ->
-                        task.hideUntil.withMillisOfDay(preferences.defaultDueTime) + alarm.time
-                    else ->
-                        NO_ALARM
-                }
-            TYPE_REL_END ->
-                when {
-                    task.hasDueTime() ->
-                        task.dueDate + alarm.time
-                    task.hasDueDate() ->
-                        task.dueDate.withMillisOfDay(preferences.defaultDueTime) + alarm.time
-                    else ->
-                        NO_ALARM
-                }
-            else -> NO_ALARM
-        }
-        jobs.cancelAlarm(alarm.id)
-        when {
-            trigger <= NO_ALARM ->
-                {}
-            trigger > task.reminderLast ->
-                jobs.add(AlarmEntry(alarm.id, alarm.task, trigger))
-            alarm.repeat > 0 -> {
-                val past = (task.reminderLast - trigger) / alarm.interval
-                val next = trigger + (past + 1) * alarm.interval
-                if (past < alarm.repeat && next > task.reminderLast) {
-                    jobs.add(AlarmEntry(alarm.id, alarm.task, next))
-                }
-            }
-        }
+        val next =
+            alarmEntries.find { it.type == TYPE_SNOOZE } ?: alarmEntries.minByOrNull { it.time }
+        next?.let { jobs.add(it) }
     }
 
     companion object {
-        private const val NO_ALARM = 0L
+        internal const val NO_ALARM = 0L
     }
 }

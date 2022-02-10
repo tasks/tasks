@@ -3,71 +3,63 @@ package org.tasks.jobs;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
-import com.todoroo.astrid.reminders.ReminderService;
-
 import org.tasks.notifications.Notification;
 
-public class AlarmEntry implements NotificationQueueEntry {
+import java.util.Objects;
+
+public class AlarmEntry {
 
   private final long alarmId;
   private final long taskId;
   private final long time;
+  private final int type;
 
-  public AlarmEntry(long alarmId, long taskId, Long time) {
+  public AlarmEntry(long alarmId, long taskId, Long time, int type) {
     this.alarmId = alarmId;
     this.taskId = taskId;
     this.time = time;
+    this.type = type;
   }
 
-  @Override
   public long getId() {
     return alarmId;
   }
 
-  @Override
   public long getTime() {
     return time;
   }
 
-  @Override
+  public long getTaskId() {
+    return taskId;
+  }
+
+  public int getType() {
+    return type;
+  }
+
   public Notification toNotification() {
     Notification notification = new Notification();
     notification.setTaskId(taskId);
-    notification.setType(ReminderService.TYPE_ALARM);
+    notification.setType(type);
     notification.setTimestamp(currentTimeMillis());
     return notification;
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    AlarmEntry alarmEntry = (AlarmEntry) o;
-
-    if (alarmId != alarmEntry.alarmId) {
-      return false;
-    }
-    if (taskId != alarmEntry.taskId) {
-      return false;
-    }
-    return time == alarmEntry.time;
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AlarmEntry that = (AlarmEntry) o;
+    return alarmId == that.alarmId && taskId == that.taskId && time == that.time && type == that.type;
   }
 
   @Override
   public int hashCode() {
-    int result = (int) (alarmId ^ (alarmId >>> 32));
-    result = 31 * result + (int) (taskId ^ (taskId >>> 32));
-    result = 31 * result + (int) (time ^ (time >>> 32));
-    return result;
+    return Objects.hash(alarmId, taskId, time, type);
   }
 
   @Override
   public String toString() {
-    return "AlarmEntry{" + "alarmId=" + alarmId + ", taskId=" + taskId + ", time=" + printTimestamp(time) + '}';
+    return "AlarmEntry{alarmId=" + alarmId + ", taskId=" + taskId + ", time=" + printTimestamp(time) + ", type=" + type + '}';
   }
 }

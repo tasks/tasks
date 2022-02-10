@@ -17,14 +17,12 @@ object TaskMaker {
     val DUE_DATE: Property<Task, DateTime?> = newProperty()
     val DUE_TIME: Property<Task, DateTime?> = newProperty()
     val REMINDER_LAST: Property<Task, DateTime?> = newProperty()
-    val RANDOM_REMINDER_PERIOD: Property<Task, Long> = newProperty()
     val HIDE_TYPE: Property<Task, Int> = newProperty()
     val REMINDERS: Property<Task, Int> = newProperty()
     val MODIFICATION_TIME: Property<Task, DateTime> = newProperty()
     val CREATION_TIME: Property<Task, DateTime> = newProperty()
     val COMPLETION_TIME: Property<Task, DateTime> = newProperty()
     val DELETION_TIME: Property<Task, DateTime?> = newProperty()
-    val SNOOZE_TIME: Property<Task, DateTime?> = newProperty()
     val RECUR: Property<Task, String?> = newProperty()
     val AFTER_COMPLETE: Property<Task, Boolean> = newProperty()
     val TITLE: Property<Task, String?> = newProperty()
@@ -63,10 +61,6 @@ object TaskMaker {
         if (deletedTime != null) {
             task.deletionDate = deletedTime.millis
         }
-        val snoozeTime = lookup.valueOf(SNOOZE_TIME, null as DateTime?)
-        if (snoozeTime != null) {
-            task.reminderSnooze = snoozeTime.millis
-        }
         val hideType = lookup.valueOf(HIDE_TYPE, -1)
         if (hideType >= 0) {
             task.hideUntil = task.createHideUntil(hideType, 0)
@@ -78,10 +72,6 @@ object TaskMaker {
         val reminderLast = lookup.valueOf(REMINDER_LAST, null as DateTime?)
         if (reminderLast != null) {
             task.reminderLast = reminderLast.millis
-        }
-        val randomReminderPeriod = lookup.valueOf(RANDOM_REMINDER_PERIOD, 0L)
-        if (randomReminderPeriod > 0) {
-            task.reminderPeriod = randomReminderPeriod
         }
         lookup.valueOf(RECUR, null as String?)?.let {
             task.setRecurrence(it, lookup.valueOf(AFTER_COMPLETE, false))

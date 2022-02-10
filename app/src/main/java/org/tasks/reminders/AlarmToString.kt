@@ -42,6 +42,11 @@ class AlarmToString @Inject constructor(
                 }
             Alarm.TYPE_RANDOM ->
                 resources.getString(R.string.randomly_once) + " "
+            Alarm.TYPE_SNOOZE ->
+                resources.getString(
+                    R.string.snoozed_until,
+                    DateUtilities.getLongDateStringWithTime(alarm.time, locale.locale)
+                )
             else ->
                 DateUtilities.getLongDateStringWithTime(alarm.time, locale.locale)
         }

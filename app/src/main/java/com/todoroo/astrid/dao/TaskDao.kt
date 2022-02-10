@@ -5,11 +5,9 @@
  */
 package com.todoroo.astrid.dao
 
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.reminders.ReminderService
 import com.todoroo.astrid.timers.TimerPlugin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -29,7 +27,6 @@ import javax.inject.Inject
 
 class TaskDao @Inject constructor(
         private val taskDao: TaskDao,
-        private val reminderService: ReminderService,
         private val refreshScheduler: RefreshScheduler,
         private val localBroadcastManager: LocalBroadcastManager,
         private val notificationManager: NotificationManager,
@@ -53,11 +50,6 @@ class TaskDao @Inject constructor(
 
     suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long) =
         taskDao.setCompletionDate(remoteIds, completionDate)
-
-    suspend fun snooze(taskIds: List<Long>, snoozeTime: Long, updateTime: Long = now()) {
-        taskDao.snooze(taskIds, snoozeTime, updateTime)
-        syncAdapters.sync()
-    }
 
     suspend fun getGoogleTasksToPush(account: String): List<Task> =
             taskDao.getGoogleTasksToPush(account)
@@ -128,16 +120,12 @@ class TaskDao @Inject constructor(
                         timerPlugin.stopTimer(task)
                     }
                 }
-                if (task.reminderSnooze.isAfterNow()) {
-                    notificationManager.cancel(task.id)
-                }
                 if (task.dueDate != original?.dueDate && task.dueDate.isAfterNow()) {
                     notificationManager.cancel(task.id)
                 }
                 if (completionDateModified || deletionDateModified) {
                     geofenceApi.update(task.id)
                 }
-                reminderService.scheduleAlarm(task)
                 alarmService.scheduleAlarms(task)
                 refreshScheduler.scheduleRefresh(task)
                 if (!task.isSuppressRefresh()) {

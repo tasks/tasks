@@ -58,9 +58,6 @@ abstract class TaskDao(private val database: Database) {
     @Query("UPDATE tasks SET completed = :completionDate, modified = :updateTime WHERE remoteId IN (:remoteIds)")
     abstract suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = now())
 
-    @Query("UPDATE tasks SET snoozeTime = :snoozeTime, modified = :updateTime WHERE _id in (:taskIds)")
-    internal abstract suspend fun snooze(taskIds: List<Long>, snoozeTime: Long, updateTime: Long = now())
-
     @Query("SELECT tasks.* FROM tasks "
             + "LEFT JOIN google_tasks ON tasks._id = google_tasks.gt_task "
             + "WHERE gt_list_id IN (SELECT gtl_remote_id FROM google_task_lists WHERE gtl_account = :account)"
@@ -77,10 +74,6 @@ abstract class TaskDao(private val database: Database) {
           AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0)
         ORDER BY created""")
     abstract suspend fun getCaldavTasksToPush(calendar: String): List<Task>
-
-    @Query("SELECT * FROM TASKS "
-            + "WHERE completed = 0 AND deleted = 0 AND (notificationFlags > 0 OR notifications > 0)")
-    abstract suspend fun getTasksWithReminders(): List<Task>
 
     // --- SQL clause generators
     @Query("SELECT * FROM tasks")
@@ -155,7 +148,7 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     internal abstract suspend fun setParentInternal(parent: Long, children: List<Long>)
 
     @Query("UPDATE tasks SET lastNotified = :timestamp WHERE _id = :id AND lastNotified != :timestamp")
-    abstract suspend fun setLastNotified(id: Long, timestamp: Long): Int
+    abstract suspend fun setLastNotified(id: Long, timestamp: Long)
 
     suspend fun getChildren(id: Long): List<Long> = getChildren(listOf(id))
 

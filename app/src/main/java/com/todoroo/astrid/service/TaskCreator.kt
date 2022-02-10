@@ -18,6 +18,7 @@ import com.todoroo.astrid.utility.TitleParser.parse
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.whenDue
 import org.tasks.data.Alarm.Companion.whenOverdue
 import org.tasks.data.Alarm.Companion.whenStarted
@@ -176,8 +177,10 @@ class TaskCreator @Inject constructor(
 
     companion object {
         private fun setDefaultReminders(preferences: Preferences, task: Task) {
-            task.reminderPeriod = (DateUtilities.ONE_HOUR
-                    * preferences.getIntegerFromString(R.string.p_rmd_default_random_hours, 0))
+            task.randomReminder = DateUtilities.ONE_HOUR * preferences.getIntegerFromString(
+                R.string.p_rmd_default_random_hours,
+                0
+            )
             task.defaultReminders(preferences.defaultReminders)
             task.ringFlags = preferences.defaultRingMode
         }
@@ -196,6 +199,9 @@ class TaskCreator @Inject constructor(
                 if (isNotifyAfterDeadline) {
                     add(whenOverdue(id))
                 }
+            }
+            if (randomReminder > 0) {
+                add(Alarm(id, randomReminder, TYPE_RANDOM))
             }
         }
     }

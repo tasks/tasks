@@ -6,12 +6,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.reminders.ReminderService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.data.Alarm
 import org.tasks.data.LocationDao
 import org.tasks.data.TaskDao
 import org.tasks.filters.NotificationsFilter
@@ -25,7 +24,6 @@ import org.tasks.reminders.SnoozeDialog
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTime
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.min
@@ -38,7 +36,6 @@ class NotificationManager @Inject constructor(
         private val taskDao: TaskDao,
         private val locationDao: LocationDao,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val reminderService: ReminderService,
         private val notificationManager: ThrottledNotificationManager,
         private val markdownProvider: MarkdownProvider,
 ) {
@@ -159,9 +156,7 @@ class NotificationManager @Inject constructor(
                                 if (alert) NotificationCompat.GROUP_ALERT_CHILDREN else NotificationCompat.GROUP_ALERT_SUMMARY)
                 notify(notification.taskId, builder, alert, nonstop, fiveTimes)
                 val reminderTime = DateTime(notification.timestamp).endOfMinute().millis
-                if (taskDao.setLastNotified(notification.taskId, reminderTime) == 1) {
-                    reminderService.scheduleAlarm(notification.taskId)
-                }
+                taskDao.setLastNotified(notification.taskId, reminderTime)
                 alert = false
             }
         }
@@ -295,17 +290,7 @@ class NotificationManager @Inject constructor(
         }
 
         // it's hidden - don't sound, don't delete
-        if (task.isHidden && type == ReminderService.TYPE_RANDOM) {
-            return null
-        }
-
-        // task due date was changed, but alarm wasn't rescheduled
-        val dueInFuture = (task.hasDueTime()
-                && DateTime(task.dueDate).startOfMinute().millis > DateUtilities.now()
-                || !task.hasDueTime()
-                && task.dueDate - DateUtilities.now() > DateUtilities.ONE_DAY)
-        if ((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE)
-                && (!task.hasDueDate() || dueInFuture)) {
+        if (task.isHidden && type == Alarm.TYPE_RANDOM) {
             return null
         }
 
@@ -332,12 +317,12 @@ class NotificationManager @Inject constructor(
                     PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                 )
         )
-        if (type == ReminderService.TYPE_GEOFENCE_ENTER || type == ReminderService.TYPE_GEOFENCE_EXIT) {
+        if (type == Alarm.TYPE_GEO_ENTER || type == Alarm.TYPE_GEO_EXIT) {
             val place = locationDao.getPlace(notification.location!!)
             if (place != null) {
                 builder.setContentText(
                         context.getString(
-                                if (type == ReminderService.TYPE_GEOFENCE_ENTER) R.string.location_arrived else R.string.location_departed,
+                                if (type == Alarm.TYPE_GEO_ENTER) R.string.location_arrived else R.string.location_departed,
                                 place.displayName))
             }
         } else if (taskDescription?.isNotBlank() == true) {

@@ -40,7 +40,6 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
-import org.tasks.caldav.iCalendar.Companion.reminders
 import org.tasks.caldav.property.Invite
 import org.tasks.caldav.property.OCAccess
 import org.tasks.caldav.property.OCInvite
@@ -274,11 +273,8 @@ class CaldavSynchronizer @Inject constructor(
                     Timber.e("Invalid VCALENDAR: %s", fileName)
                     return
                 }
-                var caldavTask = caldavDao.getTask(caldavCalendar.uuid!!, fileName)
+                val caldavTask = caldavDao.getTask(caldavCalendar.uuid!!, fileName)
                 iCal.fromVtodo(caldavCalendar, caldavTask, remote, vtodo, fileName, eTag)
-                caldavTask = caldavTask ?: caldavDao.getTask(caldavCalendar.uuid!!, fileName)
-                        ?: continue
-                alarmService.synchronizeAlarms(caldavTask.task, remote.reminders.toMutableSet())
             }
         }
         caldavDao

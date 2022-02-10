@@ -9,6 +9,7 @@ import org.junit.Test
 import org.tasks.TestUtilities.alarms
 import org.tasks.TestUtilities.vtodo
 import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.time.DateTime
 import java.util.*
 
@@ -84,7 +85,7 @@ class AppleRemindersTests {
     @Test
     fun dateTimeReminder() {
         assertEquals(
-            listOf(Alarm(0, 1642568400000)),
+            listOf(Alarm(0, 1642568400000, TYPE_DATE_TIME)),
             "apple/date_time_reminder.txt".alarms
         )
     }

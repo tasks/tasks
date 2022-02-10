@@ -260,9 +260,6 @@ class TaskEditViewModel @Inject constructor(
 
     var newSubtasks = ArrayList<Task>()
 
-    var reminderPeriod: Long? = null
-        get() = field ?: task?.reminderPeriod ?: 0
-
     var originalAlarms: ImmutableSet<Alarm>? = null
         private set(value) {
             field = value
@@ -315,7 +312,6 @@ class TaskEditViewModel @Inject constructor(
                 originalLocation != selectedLocation ||
                 originalTags?.toHashSet() != selectedTags?.toHashSet() ||
                 newSubtasks.isNotEmpty() ||
-                it.reminderPeriod != reminderPeriod ||
                 it.ringFlags != getRingFlags() ||
                 originalAlarms != selectedAlarms
     } ?: false
@@ -342,7 +338,6 @@ class TaskEditViewModel @Inject constructor(
         it.elapsedSeconds = elapsedSeconds!!
         it.estimatedSeconds = estimatedSeconds!!
         it.ringFlags = getRingFlags()
-        it.reminderPeriod = reminderPeriod!!
 
         applyCalendarChanges()
 

@@ -84,7 +84,7 @@ class Task : Parcelable {
     @SerializedName("ringFlags", alternate = ["reminderFlags"])
     var ringFlags = 0
 
-    /** Reminder period, in milliseconds. 0 means disabled  */
+    @Deprecated("old random reminders")
     @ColumnInfo(name = "notifications")
     var reminderPeriod = 0L
 
@@ -92,7 +92,7 @@ class Task : Parcelable {
     @ColumnInfo(name = "lastNotified")
     var reminderLast = 0L
 
-    /** Unixtime snooze is set (0 -> no snooze)  */
+    @Deprecated("old snooze reminders")
     @ColumnInfo(name = "snoozeTime")
     var reminderSnooze = 0L
 
@@ -143,8 +143,6 @@ class Task : Parcelable {
         recurrence = parcel.readString()
         ringFlags = parcel.readInt()
         reminderLast = parcel.readLong()
-        reminderPeriod = parcel.readLong()
-        reminderSnooze = parcel.readLong()
         repeatUntil = parcel.readLong()
         timerStart = parcel.readLong()
         title = parcel.readString()
@@ -293,8 +291,6 @@ class Task : Parcelable {
         dest.writeString(recurrence)
         dest.writeInt(ringFlags)
         dest.writeLong(reminderLast)
-        dest.writeLong(reminderPeriod)
-        dest.writeLong(reminderSnooze)
         dest.writeLong(repeatUntil)
         dest.writeLong(timerStart)
         dest.writeString(title)
@@ -323,13 +319,11 @@ class Task : Parcelable {
                 && estimatedSeconds == task.estimatedSeconds
                 && elapsedSeconds == task.elapsedSeconds
                 && ringFlags == task.ringFlags
-                && reminderPeriod == task.reminderPeriod
                 && recurrence == task.recurrence
                 && repeatUntil == task.repeatUntil
                 && calendarURI == task.calendarURI
                 && parent == task.parent
                 && remoteId == task.remoteId
-                && reminderSnooze == task.reminderSnooze
     }
 
     fun googleTaskUpToDate(original: Task?): Boolean {
@@ -363,7 +357,6 @@ class Task : Parcelable {
                 && parent == original.parent
                 && repeatUntil == original.repeatUntil
                 && isCollapsed == original.isCollapsed
-                && reminderSnooze == original.reminderSnooze
     }
 
     val isSaved: Boolean
@@ -384,6 +377,10 @@ class Task : Parcelable {
     fun defaultReminders(flags: Int) {
         putTransitory(TRANS_REMINDERS, flags)
     }
+
+    var randomReminder: Long
+        get() = getTransitory(TRANS_RANDOM) ?: 0L
+        set(value) = putTransitory(TRANS_RANDOM, value)
 
     @Synchronized
     fun putTransitory(key: String, value: Any) {
@@ -439,9 +436,7 @@ class Task : Parcelable {
         if (elapsedSeconds != other.elapsedSeconds) return false
         if (timerStart != other.timerStart) return false
         if (ringFlags != other.ringFlags) return false
-        if (reminderPeriod != other.reminderPeriod) return false
         if (reminderLast != other.reminderLast) return false
-        if (reminderSnooze != other.reminderSnooze) return false
         if (recurrence != other.recurrence) return false
         if (repeatUntil != other.repeatUntil) return false
         if (calendarURI != other.calendarURI) return false
@@ -468,9 +463,7 @@ class Task : Parcelable {
         result = 31 * result + elapsedSeconds
         result = 31 * result + timerStart.hashCode()
         result = 31 * result + ringFlags
-        result = 31 * result + reminderPeriod.hashCode()
         result = 31 * result + reminderLast.hashCode()
-        result = 31 * result + reminderSnooze.hashCode()
         result = 31 * result + (recurrence?.hashCode() ?: 0)
         result = 31 * result + repeatUntil.hashCode()
         result = 31 * result + (calendarURI?.hashCode() ?: 0)
@@ -482,7 +475,7 @@ class Task : Parcelable {
     }
 
     override fun toString(): String {
-        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, ringFlags=$ringFlags, reminderPeriod=$reminderPeriod, reminderLast=$reminderLast, reminderSnooze=$reminderSnooze, recurrence=$recurrence, repeatUntil=$repeatUntil, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, transitoryData=$transitoryData)"
+        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, ringFlags=$ringFlags, reminderLast=$reminderLast, recurrence=$recurrence, repeatUntil=$repeatUntil, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, transitoryData=$transitoryData)"
     }
 
     @Retention(AnnotationRetention.SOURCE)
@@ -572,6 +565,7 @@ class Task : Parcelable {
 
         private const val TRANS_SUPPRESS_REFRESH = "suppress-refresh"
         const val TRANS_REMINDERS = "reminders"
+        const val TRANS_RANDOM = "random"
 
         private val INVALID_COUNT = ";?COUNT=-1".toRegex()
 

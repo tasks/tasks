@@ -11,6 +11,7 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.caldav.GeoUtils.toLikeString
+import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
@@ -27,7 +28,6 @@ import org.tasks.makers.TaskMaker.DELETION_TIME
 import org.tasks.makers.TaskMaker.DUE_TIME
 import org.tasks.makers.TaskMaker.HIDE_TYPE
 import org.tasks.makers.TaskMaker.ID
-import org.tasks.makers.TaskMaker.SNOOZE_TIME
 import org.tasks.makers.TaskMaker.newTask
 import javax.inject.Inject
 
@@ -36,6 +36,7 @@ import javax.inject.Inject
 class LocationDaoTest : InjectingTestCase() {
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var alarmDao: AlarmDao
 
     @Test
     fun getExistingPlace() = runBlocking {
@@ -123,8 +124,9 @@ class LocationDaoTest : InjectingTestCase() {
         freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
-            taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().plusMinutes(15))))
-            locationDao.insert(newGeofence(with(TASK, 1), with(PLACE, place.uid), with(ARRIVAL, true)))
+            val task = taskDao.createNew(newTask())
+            alarmDao.insert(Alarm(task, newDateTime().plusMinutes(15).millis, TYPE_SNOOZE))
+            locationDao.insert(newGeofence(with(TASK, task), with(PLACE, place.uid), with(ARRIVAL, true)))
 
             assertTrue(locationDao.getArrivalGeofences(place.uid!!, now()).isEmpty())
         }
@@ -135,8 +137,9 @@ class LocationDaoTest : InjectingTestCase() {
         freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
-            taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().plusMinutes(15))))
-            locationDao.insert(newGeofence(with(TASK, 1), with(PLACE, place.uid), with(DEPARTURE, true)))
+            val task = taskDao.createNew(newTask())
+            alarmDao.insert(Alarm(task, newDateTime().plusMinutes(15).millis, TYPE_SNOOZE))
+            locationDao.insert(newGeofence(with(TASK, task), with(PLACE, place.uid), with(DEPARTURE, true)))
 
             assertTrue(locationDao.getDepartureGeofences(place.uid!!, now()).isEmpty())
         }
@@ -147,8 +150,9 @@ class LocationDaoTest : InjectingTestCase() {
         freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
-            taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().minusMinutes(15))))
-            val geofence = newGeofence(with(TASK, 1), with(PLACE, place.uid), with(ARRIVAL, true))
+            val task = taskDao.createNew(newTask())
+            alarmDao.insert(Alarm(task, newDateTime().minusMinutes(15).millis, TYPE_SNOOZE))
+            val geofence = newGeofence(with(TASK, task), with(PLACE, place.uid), with(ARRIVAL, true))
             geofence.id = locationDao.insert(geofence)
 
             assertEquals(listOf(geofence), locationDao.getArrivalGeofences(place.uid!!, now()))
@@ -160,8 +164,9 @@ class LocationDaoTest : InjectingTestCase() {
         freezeAt(now()).thawAfter {
             val place = newPlace()
             locationDao.insert(place)
-            taskDao.createNew(newTask(with(ID, 1), with(SNOOZE_TIME, newDateTime().minusMinutes(15))))
-            val geofence = newGeofence(with(TASK, 1), with(PLACE, place.uid), with(DEPARTURE, true))
+            val task = taskDao.createNew(newTask())
+            alarmDao.insert(Alarm(task, newDateTime().minusMinutes(15).millis, TYPE_SNOOZE))
+            val geofence = newGeofence(with(TASK, task), with(PLACE, place.uid), with(DEPARTURE, true))
             geofence.id = locationDao.insert(geofence)
 
             assertEquals(listOf(geofence), locationDao.getDepartureGeofences(place.uid!!, now()))

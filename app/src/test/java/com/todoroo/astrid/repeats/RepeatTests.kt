@@ -10,8 +10,7 @@ import com.todoroo.astrid.service.TaskCompleter
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.anyLong
+import org.mockito.Mockito.*
 import org.tasks.LocalBroadcastManager
 import org.tasks.makers.TaskMaker
 import org.tasks.time.DateTime
@@ -30,6 +29,7 @@ abstract class RepeatTests {
     fun before() {
         runBlocking {
             `when`(alarmService.getAlarms(anyLong())).thenReturn(emptyList())
+            `when`(alarmService.synchronizeAlarms(anyLong(), anySet())).thenReturn(false)
         }
     }
 

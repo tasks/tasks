@@ -58,9 +58,6 @@ class ReminderControlSet : TaskEditControlFragment() {
             viewModel.ringFiveTimes!! -> setRingMode(1)
             else -> setRingMode(0)
         }
-        if (viewModel.reminderPeriod!! > 0) {
-            addRandomReminder(viewModel.reminderPeriod!!)
-        }
         viewModel.selectedAlarms?.forEach(this::addAlarmRow)
     }
 
@@ -96,15 +93,16 @@ class ReminderControlSet : TaskEditControlFragment() {
     }
 
     private fun addAlarm(selected: String) {
+        val id = viewModel.task?.id ?: 0
         when (selected) {
             getString(R.string.when_started) ->
-                addAlarmRow(whenStarted(viewModel.task?.id ?: 0))
+                addAlarmRow(whenStarted(id))
             getString(R.string.when_due) ->
-                addAlarmRow(whenDue(viewModel.task?.id ?: 0))
+                addAlarmRow(whenDue(id))
             getString(R.string.when_overdue) ->
-                addAlarmRow(whenOverdue(viewModel.task?.id ?: 0))
+                addAlarmRow(whenOverdue(id))
             getString(R.string.randomly) ->
-                addRandomReminder(TimeUnit.DAYS.toMillis(14))
+                addAlarmRow(Alarm(id, TimeUnit.DAYS.toMillis(14), TYPE_RANDOM))
             getString(R.string.pick_a_date_and_time) ->
                 addNewAlarm()
         }
@@ -144,7 +142,7 @@ class ReminderControlSet : TaskEditControlFragment() {
             if (resultCode == Activity.RESULT_OK) {
                 val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
                 if (viewModel.selectedAlarms?.any { it.type == TYPE_DATE_TIME && timestamp == it.time } == false) {
-                    val alarm = Alarm(viewModel.task?.id ?: 0, timestamp)
+                    val alarm = Alarm(viewModel.task?.id ?: 0, timestamp, TYPE_DATE_TIME)
                     viewModel.selectedAlarms?.add(alarm)
                     addAlarmRow(alarm)
                 }
@@ -155,13 +153,21 @@ class ReminderControlSet : TaskEditControlFragment() {
     }
 
     private fun addAlarmRow(alarm: Alarm) {
-        addAlarmRow(alarm) {
-            viewModel.selectedAlarms?.removeIf {
-                it.type == alarm.type &&
-                        it.time == alarm.time &&
-                        it.repeat == alarm.repeat &&
-                        it.interval == alarm.interval
+        val alarmRow = addAlarmRow(alarm) {
+            if (alarm.type == TYPE_RANDOM) {
+                viewModel.selectedAlarms?.removeIf { it.type == TYPE_RANDOM }
+                randomControlSet = null
+            } else {
+                viewModel.selectedAlarms?.removeIf {
+                    it.type == alarm.type &&
+                            it.time == alarm.time &&
+                            it.repeat == alarm.repeat &&
+                            it.interval == alarm.interval
+                }
             }
+        }
+        if (alarm.type == TYPE_RANDOM) {
+            randomControlSet = RandomReminderControlSet(activity, alarmRow, alarm.time, viewModel)
         }
     }
 
@@ -209,14 +215,6 @@ class ReminderControlSet : TaskEditControlFragment() {
             options.add(getString(R.string.pick_a_date_and_time))
             return options
         }
-
-    private fun addRandomReminder(reminderPeriod: Long) {
-        val alarmRow = addAlarmRow(Alarm(viewModel.task?.id ?: 0, 0, TYPE_RANDOM)) {
-            viewModel.reminderPeriod = 0
-            randomControlSet = null
-        }
-        randomControlSet = RandomReminderControlSet(activity, alarmRow, reminderPeriod, viewModel)
-    }
 
     companion object {
         const val TAG = R.string.TEA_ctrl_reminders_pref

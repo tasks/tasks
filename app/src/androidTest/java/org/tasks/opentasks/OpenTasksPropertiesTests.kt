@@ -13,6 +13,9 @@ import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.caldav.iCalendar.Companion.snooze
+import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.AlarmDao
 import org.tasks.data.TagDao
 import org.tasks.data.TagDataDao
 import org.tasks.injection.ProductionModule
@@ -28,7 +31,6 @@ import org.tasks.makers.TagMaker.TASK
 import org.tasks.makers.TagMaker.newTag
 import org.tasks.makers.TaskMaker
 import org.tasks.makers.TaskMaker.COLLAPSED
-import org.tasks.makers.TaskMaker.SNOOZE_TIME
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import java.util.*
@@ -40,6 +42,7 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
 
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var tagDao: TagDao
+    @Inject lateinit var alarmDao: AlarmDao
 
     @Test
     fun loadRemoteParentInfo() = runBlocking {
@@ -211,15 +214,17 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
                 .getTaskByRemoteId(list.uuid!!, "4CBBC669-70E3-474D-A0A3-0FC42A14A5A5")
                 ?.let { taskDao.fetch(it.task) }
 
-        assertEquals(1612972355000, task!!.reminderSnooze)
+        assertEquals(
+            listOf(Alarm(task!!.id, 1612972355000, TYPE_SNOOZE).apply { id = 1 }),
+            alarmDao.getAlarms(task.id)
+        )
     }
 
     @Test
     fun pushSnoozeTime() = withTZ(CHICAGO) {
         val (listId, list) = openTaskDao.insertList()
-        val taskId = taskDao.createNew(newTask(
-                with(SNOOZE_TIME, DateTime(2021, 2, 4, 13, 30))
-        ))
+        val taskId = taskDao.createNew(newTask())
+        alarmDao.insert(Alarm(taskId, DateTime(2021, 2, 4, 13, 30).millis, TYPE_SNOOZE))
 
         caldavDao.insert(newCaldavTask(
                 with(CALENDAR, list.uuid),
@@ -237,9 +242,8 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
     @Test
     fun dontPushLapsedSnoozeTime() = withTZ(CHICAGO) {
         val (listId, list) = openTaskDao.insertList()
-        val taskId = taskDao.createNew(newTask(
-                with(SNOOZE_TIME, DateTime(2021, 2, 4, 13, 30))
-        ))
+        val taskId = taskDao.createNew(newTask())
+        alarmDao.insert(Alarm(taskId, DateTime(2021, 2, 4, 13, 30).millis, TYPE_SNOOZE))
 
         caldavDao.insert(newCaldavTask(
                 with(CALENDAR, list.uuid),
@@ -261,8 +265,12 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
         synchronizer.sync()
 
         val task = caldavDao.getTaskByRemoteId(list.uuid!!, "4CBBC669-70E3-474D-A0A3-0FC42A14A5A5")
-
-        taskDao.snooze(listOf(task!!.task), 0L)
+            ?: throw IllegalStateException("Missing task")
+        val snooze = alarmDao.getSnoozed(listOf(task.task))
+        assertEquals(1, snooze.size)
+        alarmDao.delete(snooze.first())
+        assertTrue(alarmDao.getSnoozed(listOf(task.task)).isEmpty())
+        taskDao.touch(task.task)
 
         synchronizer.sync()
 

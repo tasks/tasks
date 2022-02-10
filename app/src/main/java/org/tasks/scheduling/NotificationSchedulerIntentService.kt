@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Build
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.reminders.ReminderService
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
@@ -21,7 +20,6 @@ import javax.inject.Inject
 class NotificationSchedulerIntentService : InjectingJobIntentService() {
     @Inject @ApplicationContext lateinit var context: Context
     @Inject lateinit var alarmService: AlarmService
-    @Inject lateinit var reminderService: ReminderService
     @Inject lateinit var notificationQueue: NotificationQueue
     @Inject lateinit var notificationManager: NotificationManager
 
@@ -31,7 +29,6 @@ class NotificationSchedulerIntentService : InjectingJobIntentService() {
         notificationQueue.clear()
         val cancelExistingNotifications = intent.getBooleanExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, false)
         notificationManager.restoreNotifications(cancelExistingNotifications)
-        reminderService.scheduleAllAlarms()
         alarmService.scheduleAllAlarms()
     }
 

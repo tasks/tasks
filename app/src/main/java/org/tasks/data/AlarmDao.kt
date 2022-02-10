@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.todoroo.astrid.data.Task
+import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 
 @Dao
 interface AlarmDao {
@@ -27,11 +28,20 @@ WHERE tasks._id = :taskId
 """)
     suspend fun getActiveAlarms(taskId: Long): List<Alarm>
 
+    @Query("SELECT * FROM alarms WHERE type = $TYPE_SNOOZE AND task IN (:taskIds)")
+    suspend fun getSnoozed(taskIds: List<Long>): List<Alarm>
+
     @Query("SELECT * FROM alarms WHERE task = :taskId")
     suspend fun getAlarms(taskId: Long): List<Alarm>
 
+    @Query("DELETE FROM alarms WHERE _id IN(:alarmIds)")
+    suspend fun deleteByIds(alarmIds: List<Long>)
+
     @Delete
     suspend fun delete(alarm: Alarm)
+
+    @Delete
+    suspend fun delete(alarms: List<Alarm>)
 
     @Insert
     suspend fun insert(alarm: Alarm): Long

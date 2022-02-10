@@ -4,12 +4,12 @@ import android.app.PendingIntent
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.reminders.ReminderService
-import com.todoroo.astrid.reminders.ReminderService.Companion.TYPE_GEOFENCE_ENTER
-import com.todoroo.astrid.reminders.ReminderService.Companion.TYPE_GEOFENCE_EXIT
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
+import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_GEO_ENTER
+import org.tasks.data.Alarm.Companion.TYPE_GEO_EXIT
 import org.tasks.data.Geofence
 import org.tasks.data.TaskDao
 import org.tasks.intents.TaskIntents
@@ -78,7 +78,7 @@ class Notifier @Inject constructor(
                     .map {
                         Notification().apply {
                             taskId = it.task
-                            type = if (arrival) TYPE_GEOFENCE_ENTER else TYPE_GEOFENCE_EXIT
+                            type = if (arrival) TYPE_GEO_ENTER else TYPE_GEO_EXIT
                             timestamp = DateTimeUtils.currentTimeMillis()
                             location = place
                         }
@@ -92,7 +92,7 @@ class Notifier @Inject constructor(
                 .filter {
                     taskDao.fetch(it.taskId)
                             ?.let { task ->
-                                if (it.type != ReminderService.TYPE_RANDOM) {
+                                if (it.type != Alarm.TYPE_RANDOM) {
                                     ringFiveTimes = ringFiveTimes or task.isNotifyModeFive
                                     ringNonstop = ringNonstop or task.isNotifyModeNonstop
                                 }

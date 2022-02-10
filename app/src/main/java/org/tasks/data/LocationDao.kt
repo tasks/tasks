@@ -1,10 +1,16 @@
 package org.tasks.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.data.Task
+import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.filters.LocationFilters
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.currentTimeMillis
@@ -37,14 +43,16 @@ interface LocationDao {
 
     @Query("SELECT geofences.* FROM geofences"
             + " INNER JOIN tasks ON tasks._id = geofences.task"
+            + " LEFT JOIN alarms ON tasks._id = alarms.task AND alarms.type == $TYPE_SNOOZE"
             + " WHERE place = :place AND arrival = 1 AND tasks.completed = 0"
-            + " AND tasks.deleted = 0 AND tasks.snoozeTime < :now AND tasks.hideUntil < :now")
+            + " AND tasks.deleted = 0 AND (alarms._id IS NULL OR alarms.time < :now) AND tasks.hideUntil < :now")
     suspend fun getArrivalGeofences(place: String, now: Long = now()): List<Geofence>
 
     @Query("SELECT geofences.* FROM geofences"
             + " INNER JOIN tasks ON tasks._id = geofences.task"
+            + " LEFT JOIN alarms ON tasks._id = alarms.task AND alarms.type == $TYPE_SNOOZE"
             + " WHERE place = :place AND departure = 1 AND tasks.completed = 0"
-            + " AND tasks.deleted = 0 AND tasks.snoozeTime < :now AND tasks.hideUntil < :now")
+            + " AND tasks.deleted = 0 AND (alarms._id IS NULL OR alarms.time < :now) AND tasks.hideUntil < :now")
     suspend fun getDepartureGeofences(place: String, now: Long = now()): List<Geofence>
 
     @Query("SELECT * FROM geofences"

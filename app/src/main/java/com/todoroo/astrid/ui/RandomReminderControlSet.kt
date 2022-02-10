@@ -13,6 +13,8 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.R
+import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.ui.TaskEditViewModel
 
 /**
@@ -39,7 +41,10 @@ internal class RandomReminderControlSet(context: Context, parentView: View, remi
         periodSpinner.adapter = adapter
         periodSpinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                vm.reminderPeriod = hours[position] * DateUtilities.ONE_HOUR
+                vm.selectedAlarms?.removeIf { it.type == TYPE_RANDOM }
+                vm.selectedAlarms?.add(
+                    Alarm(vm.task?.id ?: 0, hours[position] * DateUtilities.ONE_HOUR, TYPE_RANDOM)
+                )
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

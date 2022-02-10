@@ -6,7 +6,6 @@ import com.google.common.primitives.Ints
 import kotlinx.collections.immutable.toImmutableList
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,15 +15,15 @@ class NotificationQueue @Inject constructor(
     private val workManager: WorkManager
 ) {
     private val jobs =
-        TreeMultimap.create<Long, NotificationQueueEntry>(Ordering.natural()) { l, r ->
+        TreeMultimap.create<Long, AlarmEntry>(Ordering.natural()) { l, r ->
             Ints.compare(l.hashCode(), r.hashCode())
         }
 
     @Synchronized
-    fun <T : NotificationQueueEntry> add(entry: T) = add(listOf(entry))
+    fun add(entry: AlarmEntry) = add(listOf(entry))
 
     @Synchronized
-    fun <T : NotificationQueueEntry> add(entries: Iterable<T>) {
+    fun add(entries: Iterable<AlarmEntry>) {
         val originalFirstTime = firstTime()
         entries.forEach { jobs.put(it.time, it) }
         if (originalFirstTime != firstTime()) {
@@ -38,27 +37,19 @@ class NotificationQueue @Inject constructor(
         workManager.cancelNotifications()
     }
 
-    @Synchronized
-    fun cancelAlarm(alarmId: Long) = cancel(AlarmEntry::class.java, alarmId)
-
-    @Synchronized
-    fun cancelReminder(taskId: Long) = cancel(ReminderEntry::class.java, taskId)
-
-    private fun cancel(c: Class<out NotificationQueueEntry>, id: Long) {
+    fun cancelForTask(taskId: Long) {
         val firstTime = firstTime()
-        jobs.values()
-                .filter { it.javaClass == c && it.id == id }
-                .forEach { remove(listOf(it)) }
+        jobs.values().filter { it.taskId == taskId }.forEach { remove(listOf(it)) }
         if (firstTime != firstTime()) {
             scheduleNext(true)
         }
     }
 
     @get:Synchronized
-    val overdueJobs: List<NotificationQueueEntry>
+    val overdueJobs: List<AlarmEntry>
         get() = jobs.keySet()
-                .headSet(DateTime().startOfMinute().plusMinutes(1).millis)
-                .flatMap { jobs[it] }
+            .headSet(DateTime().startOfMinute().plusMinutes(1).millis)
+            .flatMap { jobs[it] }
 
     @Synchronized
     fun scheduleNext() = scheduleNext(false)
@@ -87,10 +78,13 @@ class NotificationQueue @Inject constructor(
     fun isEmpty() = jobs.isEmpty
 
     @Synchronized
-    fun remove(entries: List<NotificationQueueEntry>): Boolean {
+    fun remove(entries: List<AlarmEntry>): Boolean {
         var success = true
         for (entry in entries) {
-            success = success and (!jobs.containsEntry(entry.time, entry) || jobs.remove(entry.time, entry))
+            success = success and (!jobs.containsEntry(entry.time, entry) || jobs.remove(
+                entry.time,
+                entry
+            ))
         }
         return success
     }

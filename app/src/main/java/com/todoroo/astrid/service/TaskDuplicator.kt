@@ -5,10 +5,19 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.*
+import org.tasks.data.Alarm
+import org.tasks.data.AlarmDao
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.Geofence
+import org.tasks.data.GoogleTask
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.LocationDao
+import org.tasks.data.Tag
+import org.tasks.data.TagDao
+import org.tasks.data.TagDataDao
 import org.tasks.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
-import java.util.*
 import javax.inject.Inject
 
 class TaskDuplicator @Inject constructor(
@@ -70,7 +79,7 @@ class TaskDuplicator @Inject constructor(
         }
         val alarms = alarmDao.getAlarms(originalId)
         if (alarms.isNotEmpty()) {
-            alarmDao.insert(alarms.map { Alarm(clone.id, it.time) })
+            alarmDao.insert(alarms.map { Alarm(clone.id, it.time, it.type) })
         }
         gcalHelper.createTaskEventIfEnabled(clone)
         taskDao.save(clone, null) // TODO: delete me
