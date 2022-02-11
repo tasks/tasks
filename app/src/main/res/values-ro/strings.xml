@@ -737,4 +737,5 @@
     <string name="alarm_after_start">%s după pornire</string>
     <string name="alarm_after_due">%s după scadență</string>
     <string name="alarm_before_due">%s înainte de scadență</string>
+    <string name="custom_filter_has_reminder">Are reminder</string>
 </resources>
