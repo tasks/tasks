@@ -721,4 +721,5 @@
     <string name="alarm_after_start">%s tras el inicio</string>
     <string name="alarm_before_due">%s antes de la fecha límite</string>
     <string name="custom_filter_has_reminder">Tiene recordatorio</string>
+    <string name="snoozed_until">Pospuesto hasta %s</string>
 </resources>
