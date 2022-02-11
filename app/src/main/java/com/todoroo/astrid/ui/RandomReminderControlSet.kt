@@ -41,10 +41,15 @@ internal class RandomReminderControlSet(context: Context, parentView: View, remi
         periodSpinner.adapter = adapter
         periodSpinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                vm.selectedAlarms?.removeIf { it.type == TYPE_RANDOM }
-                vm.selectedAlarms?.add(
+                val newAlarm =
                     Alarm(vm.task?.id ?: 0, hours[position] * DateUtilities.ONE_HOUR, TYPE_RANDOM)
-                )
+                vm.selectedAlarms?.apply {
+                    find { it.type == TYPE_RANDOM }?.let {
+                        newAlarm.id = it.id
+                        remove(it)
+                    }
+                    add(newAlarm)
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

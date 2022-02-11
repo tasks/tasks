@@ -35,6 +35,7 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.whenDue
@@ -107,6 +108,9 @@ class TaskEditViewModel @Inject constructor(
                     }
                     if (task.isNotifyAfterDeadline) {
                         add(whenOverdue(0))
+                    }
+                    if (task.randomReminder > 0) {
+                        add(Alarm(0, task.randomReminder, TYPE_RANDOM))
                     }
                 }
             } else {
