@@ -720,4 +720,5 @@
     <string name="alarm_after_start">%s nach dem Start</string>
     <string name="alarm_before_due">%s vor der Fälligkeit</string>
     <string name="alarm_after_due">%s nach Fälligkeit</string>
+    <string name="custom_filter_has_reminder">Hat Erinnerung</string>
 </resources>
