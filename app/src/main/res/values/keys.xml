@@ -18,6 +18,7 @@
   <string name="etesync_deprecated">Native EteSync v1 support has been removed. Please switch to the EteSync client to continue synchronizing your EteSync v1 account, or migrate to EteSync v2</string>
   <string name="etebase_url">https://api.etebase.com/partner/tasksorg/</string>
   <string name="help_url_sync">https://tasks.org/sync</string>
+  <string name="back_pressed_text">Tap back again to exit</string>
 
   <string name="url_davx5">https://tasks.org/davx5</string>
   <string name="url_caldav">https://tasks.org/caldav</string>

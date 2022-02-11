@@ -14,6 +14,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.view.ActionMode
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
@@ -73,6 +74,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     private var filter: Filter? = null
     private var actionMode: ActionMode? = null
     private lateinit var binding: TaskListActivityBinding
+    private var backPressedTime: Long = 0
 
     /** @see android.app.Activity.onCreate
      */
@@ -374,7 +376,20 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         if (taskListFragment?.collapseSearchView() == true) {
             return
         }
-        finish()
+
+        val backPressedTimeout = 3000
+        if (backPressedTime + backPressedTimeout> System.currentTimeMillis()) {
+            super.onBackPressed()
+            finish()
+        } else {
+            Snackbar.make(binding.master, R.string.back_pressed_text, backPressedTimeout)
+                    .setAnchorView(R.id.fab)
+                    .setTextColor(getResources().getColor(R.color.snackbar_text_color))
+                    .setActionTextColor(getResources().getColor(R.color.snackbar_action_color))
+                    .setBackgroundTint(getResources().getColor(R.color.snackbar_background))
+                    .show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 
     val taskListFragment: TaskListFragment?
