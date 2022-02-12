@@ -423,6 +423,7 @@ class TaskEditViewModel @Inject constructor(
             (isNew && selectedAlarms?.isNotEmpty() == true)
         ) {
             alarmService.synchronizeAlarms(it.id, selectedAlarms!!)
+            it.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)
             it.modificationDate = now()
         }
 
