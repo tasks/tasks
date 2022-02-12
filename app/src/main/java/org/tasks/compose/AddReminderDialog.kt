@@ -47,7 +47,7 @@ import org.tasks.R
 object AddReminderDialog {
     @Composable
     fun AddReminderDialog(
-        visible: MutableState<Boolean> = mutableStateOf(true),
+        visible: MutableState<Boolean>,
         interval: MutableState<Long?>,
         selected: MutableState<Int>,
     ) {
@@ -168,8 +168,9 @@ fun RadioRow(index: Int, option: Int, interval: MutableState<Long?>, selected: M
 fun AddReminderOne() =
     MaterialTheme(if (isSystemInDarkTheme()) darkColors() else lightColors()) {
         AddReminderDialog.AddReminderDialog(
-            interval = mutableStateOf(1L),
-            selected = mutableStateOf(0)
+            visible = remember { mutableStateOf(true) },
+            interval = remember { mutableStateOf(1L) },
+            selected = remember { mutableStateOf(0) }
         )
     }
 
@@ -180,7 +181,8 @@ fun AddReminderOne() =
 fun AddReminderMultiple() =
     MaterialTheme(if (isSystemInDarkTheme()) darkColors() else lightColors()) {
         AddReminderDialog.AddReminderDialog(
-            interval = mutableStateOf(15L),
-            selected = mutableStateOf(1)
+            visible = remember { mutableStateOf(true) },
+            interval = remember { mutableStateOf(15L) },
+            selected = remember { mutableStateOf(1) }
         )
     }
