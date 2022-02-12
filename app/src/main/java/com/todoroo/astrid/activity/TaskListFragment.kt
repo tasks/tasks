@@ -263,7 +263,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         toolbar.setOnMenuItemClickListener(this)
         toolbar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
         setupMenu(toolbar)
-        search = binding.toolbar.menu.findItem(R.id.menu_search).setOnActionExpandListener(this)
         return binding.root
     }
 
@@ -326,6 +325,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }
         menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable()
+        search = binding.toolbar.menu.findItem(R.id.menu_search).setOnActionExpandListener(this)
     }
 
     private fun openFilter(filter: Filter?) {
