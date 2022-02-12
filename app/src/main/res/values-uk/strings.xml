@@ -742,4 +742,29 @@
     <string name="alarm_after_due">%s після</string>
     <string name="custom_filter_has_reminder">З нагадуванням</string>
     <string name="snoozed_until">Відкладено до %s</string>
+    <plurals name="reminder_hours">
+        <item quantity="one">Година</item>
+        <item quantity="few">Години</item>
+        <item quantity="many">Годин</item>
+        <item quantity="other">Годин</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Тиждень</item>
+        <item quantity="few">Тижні</item>
+        <item quantity="many">Тижнів</item>
+        <item quantity="other">Тижнів</item>
+    </plurals>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Хвилина</item>
+        <item quantity="few">Хвилини</item>
+        <item quantity="many">Хвилин</item>
+        <item quantity="other">Хвилин</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">День</item>
+        <item quantity="few">Дні</item>
+        <item quantity="many">Днів</item>
+        <item quantity="other">Днів</item>
+    </plurals>
+    <string name="custom_notification">Користувацькі сповіщення</string>
 </resources>
