@@ -353,7 +353,7 @@ class Upgrader @Inject constructor(
         const val V9_7_3 = 90704
         const val V10_0_2 = 100012
         const val V11_13 = 111300
-        const val V12_3 = 120300
+        const val V12_4 = 120400
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

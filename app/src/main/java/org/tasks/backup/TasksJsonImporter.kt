@@ -11,11 +11,13 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.service.Upgrader
-import com.todoroo.astrid.service.Upgrader.Companion.V12_3
+import com.todoroo.astrid.service.Upgrader.Companion.V12_4
 import com.todoroo.astrid.service.Upgrader.Companion.V6_4
 import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.AlarmDao
 import org.tasks.data.CaldavDao
 import org.tasks.data.FilterDao
@@ -153,9 +155,13 @@ class TasksJsonImporter @Inject constructor(
                     alarm.task = taskId
                     alarmDao.insert(alarm)
                 }
-                if (version < V12_3) {
+                if (version < V12_4) {
                     task.defaultReminders(task.ringFlags)
+                    task.randomReminder = task.reminderPeriod
                     alarmDao.insert(task.getDefaultAlarms())
+                    task.reminderSnooze.takeIf { it > 0 }?.let {
+                        alarmDao.insert(Alarm(task.id, it, TYPE_SNOOZE))
+                    }
                     task.ringFlags = when {
                         task.isNotifyModeFive -> Task.NOTIFY_MODE_FIVE
                         task.isNotifyModeNonstop -> Task.NOTIFY_MODE_NONSTOP
