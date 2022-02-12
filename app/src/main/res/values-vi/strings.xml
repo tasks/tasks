@@ -695,4 +695,14 @@
     <string name="top">Trên</string>
     <string name="completed">Hoàn tất</string>
     <string name="app_bar_collapse">Thu gọn thanh ứng dụng</string>
+    <string name="custom_filter_has_reminder">Có lời nhắc</string>
+    <string name="snoozed_until">Đã đặt báo lại cho đến %s</string>
+    <string name="snackbar_task_completed">Công việc đã hoàn tất</string>
+    <string name="completed_tasks_at_bottom">Di chuyển công việc đã hoàn tất xuống dưới</string>
+    <string name="completed_tasks_sort">Sắp xếp theo ngày hoàn thành</string>
+    <string name="snackbar_tasks_completed">%d công việc đã hoàn tất</string>
+    <string name="alarm_before_start">%s trước bắt đầu</string>
+    <string name="alarm_after_start">%s sau bắt đầu</string>
+    <string name="alarm_before_due">%s trước hạn</string>
+    <string name="alarm_after_due">%s sau hạn</string>
 </resources>
