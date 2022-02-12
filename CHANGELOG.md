@@ -1,3 +1,40 @@
+### 12.4 (2021-02-12)
+
+🚨 Major internal reminder changes! Please report any issues to
+support@tasks.org! 🚨
+
+* Relative reminder support
+  * Quickly add reminders minutes, hours, days, or weeks before due
+* Sync reminders with Tasks.org, DAVx5, CalDAV, EteSync, and DecSync CC
+  * Synchronize relative and absolute reminders
+* Tasks.org, CalDAV, and native EteSync sync improvements
+  * Merge remote changes before pushing local changes
+  * Not applicable to DAVx5, EteSync app, or DecSync CC
+* View and cancel snoozed reminders in task edit screen
+* Add 'Has reminder' custom filter criteria
+* Fix updating calendar entries after editing task
+* Fix search when using top app bar
+* Fix task deletion when adding from two devices simultaneously
+* Update translations
+  * Arabic - @mhmdanas
+  * Basque - Sergio Varela
+  * Brazilian Portuguese - @Luiz-bro
+  * Bulgarian - @StoyanDimitrov
+  * Chinese (Simplified) - Eric
+  * Croatian - @milotype
+  * Dutch - @mm4c
+  * French - @FlorianLeChat, J. Lavoie
+  * German - J. Lavoie, @qwerty287
+  * Hungarian - kaciokos
+  * Italian - @ppasserini, J. Lavoie, @andrearosso
+  * Portuguese - @laralem
+  * Romanian - @simonaiacob
+  * Russian - @NikGreens
+  * Spanish - @FlorianLeChat, Sergio Varela
+  * Turkish - @ersen0, @emintufan
+  * Ukrainian - @IhorHordiichuk
+  * Vietnamese - bruh, @unbaseduser
+
 ### 12.3 (2021-02-04)
 
 * Add option to disable moving completed tasks to bottom

@@ -1,0 +1,16 @@
+🚨 Major internal reminder changes! Please report any issues to
+support@tasks.org! 🚨
+
+* Relative reminder support
+  * Quickly add reminders minutes, hours, days, or weeks before due
+* Sync reminders with Tasks.org, DAVx5, CalDAV, EteSync, and DecSync CC
+  * Synchronize relative and absolute reminders
+* Tasks.org, CalDAV, and native EteSync sync improvements
+  * Merge remote changes before pushing local changes
+  * Not applicable to DAVx5, EteSync app, or DecSync CC
+* View and cancel snoozed reminders in task edit screen
+* Add 'Has reminder' custom filter criteria
+* Fix updating calendar entries after editing task
+* Fix search when using top app bar
+* Fix task deletion when adding from two devices simultaneously
+* Update translations
