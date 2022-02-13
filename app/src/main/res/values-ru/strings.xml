@@ -733,4 +733,36 @@
     <string name="snackbar_task_completed">Задача выполнена</string>
     <string name="completed_tasks_at_bottom">Переместить выполненные задачи вниз</string>
     <string name="snackbar_tasks_completed">%d задач выполнено</string>
+    <string name="custom_filter_has_reminder">С напоминанием</string>
+    <string name="snoozed_until">Отложено до %s</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Минута</item>
+        <item quantity="few">Минуты</item>
+        <item quantity="many">Минут</item>
+        <item quantity="other">Минут</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Неделя</item>
+        <item quantity="few">Недели</item>
+        <item quantity="many">Недель</item>
+        <item quantity="other">Недель</item>
+    </plurals>
+    <string name="custom_notification">Пользовательское уведомление</string>
+    <plurals name="reminder_days">
+        <item quantity="one">День</item>
+        <item quantity="few">Дня</item>
+        <item quantity="many">Дней</item>
+        <item quantity="other">Дней</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Час</item>
+        <item quantity="few">Часа</item>
+        <item quantity="many">Часов</item>
+        <item quantity="other">Часов</item>
+    </plurals>
+    <string name="alarm_before_start">%s перед началом</string>
+    <string name="alarm_before_due">%s до</string>
+    <string name="alarm_after_due">%s после</string>
+    <string name="alarm_after_start">%s после начала</string>
+    <string name="completed_tasks_sort">Сортировать по дате завершения</string>
 </resources>
