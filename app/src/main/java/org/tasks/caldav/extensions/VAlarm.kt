@@ -72,5 +72,5 @@ internal fun VAlarm.toAlarm(): Alarm? {
 
 private fun net.fortuna.ical4j.model.property.Duration.toMillis() = duration.toMillis()
 
-private fun TemporalAmount.toMillis() = toDuration(Instant.EPOCH).toSeconds() * 1_000
+private fun TemporalAmount.toMillis() = toDuration(Instant.EPOCH).toMillis()
 

@@ -427,7 +427,7 @@ object Migrations {
                 "INSERT INTO `alarms` (`task`, `time`, `type`, `repeat`, `interval`) SELECT `_id`, ${HOURS.toMillis(24)}, $TYPE_REL_END, 6, ${HOURS.toMillis(24)} FROM `tasks` WHERE `dueDate` > 0 AND `notificationFlags` | $NOTIFY_AFTER_DEADLINE"
             )
             database.execSQL(
-                "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, `task.notifications`, $TYPE_RANDOM FROM `tasks` WHERE `notifications` > 0"
+                "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, `notifications`, $TYPE_RANDOM FROM `tasks` WHERE `notifications` > 0"
             )
             database.execSQL(
                 "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, `snoozeTime`, $TYPE_SNOOZE FROM `tasks` WHERE `snoozeTime` > 0"

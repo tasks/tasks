@@ -22,7 +22,6 @@ import at.bitfire.dav4jvm.property.GetETag
 import at.bitfire.dav4jvm.property.GetETag.Companion.fromResponse
 import at.bitfire.dav4jvm.property.SyncToken
 import at.bitfire.ical4android.ICalendar.Companion.prodId
-import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
@@ -93,7 +92,6 @@ class CaldavSynchronizer @Inject constructor(
         private val provider: CaldavClientProvider,
         private val iCal: iCalendar,
         private val principalDao: PrincipalDao,
-        private val alarmService: AlarmService,
 ) {
     suspend fun sync(account: CaldavAccount) {
         Thread.currentThread().contextClassLoader = context.classLoader
