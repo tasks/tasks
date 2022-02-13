@@ -711,4 +711,17 @@
     <string name="alarm_after_due">到期后 %s</string>
     <string name="custom_filter_has_reminder">有提醒</string>
     <string name="snoozed_until">在 %s 前不显示通知</string>
+    <string name="custom_notification">自定义通知</string>
+    <plurals name="reminder_days">
+        <item quantity="other">天</item>
+    </plurals>
+    <plurals name="reminder_minutes">
+        <item quantity="other">分钟</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="other">小时</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="other">周</item>
+    </plurals>
 </resources>
