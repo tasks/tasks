@@ -722,4 +722,21 @@
     <string name="alarm_after_start">%s na begin</string>
     <string name="custom_filter_has_reminder">Bevat herinnering</string>
     <string name="snoozed_until">Pauzeren tot: %s</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuut</item>
+        <item quantity="other">Minuten</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Uur</item>
+        <item quantity="other">Uren</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Dag</item>
+        <item quantity="other">Dagen</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Week</item>
+        <item quantity="other">Weken</item>
+    </plurals>
+    <string name="custom_notification">Aangepaste melding</string>
 </resources>
