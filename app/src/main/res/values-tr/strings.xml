@@ -53,7 +53,7 @@
     <string name="TEA_control_location">Konum</string>
     <string name="TEA_control_notes">Açıklama</string>
     <string name="TEA_control_files">Dosyalar</string>
-    <string name="TEA_control_reminders">Hatırlatmalar</string>
+    <string name="TEA_control_reminders">Anımsatıcılar</string>
     <string name="TEA_control_timer">Kronometre Denetimleri</string>
     <string name="TEA_control_hidden_section">----Sürekli Gizle----</string>
     <string name="TEA_load_more">Daha yükle…</string>
@@ -88,8 +88,8 @@
     <string name="EPr_manage_delete_all_gcal_message">Görevlerdeki tüm olayları silmek istediğinize emin misiniz?</string>
     <string name="task_defaults">Görev öntanımlıları</string>
     <string name="EPr_default_importance_title">Öntanımlı öncelik</string>
-    <string name="EPr_default_reminders_title">Öntanımlı hatırlatmalar</string>
-    <string name="EPr_default_location_reminder_title">Öntanımlı konum hatırlatmalar</string>
+    <string name="EPr_default_reminders_title">Öntanımlı anımsatıcılar</string>
+    <string name="EPr_default_location_reminder_title">Öntanımlı konum anımsatıcılar</string>
     <string name="EPr_default_location_radius">Öntanımlı yarıçap</string>
     <string name="EPr_default_reminders_mode_title">Öntanımlı zil/titreşim türü</string>
     <string name="priority_high">Yüksek</string>
@@ -97,7 +97,7 @@
     <string name="priority_low">Düşük</string>
     <string name="day_after_tomorrow">Yarından Sonra</string>
     <string name="next_week">Gelecek Hafta</string>
-    <string name="no_reminders">Hatırlatma yok</string>
+    <string name="no_reminders">Anımsatıcı yok</string>
     <string name="default_location_reminder_on_arrival">Varışta</string>
     <string name="default_location_reminder_on_departure">Kalkışta</string>
     <string name="default_location_reminder_on_arrival_or_departure">Varışta ve kalkışta</string>
@@ -144,11 +144,11 @@
     <string name="snooze_all">Tümünü ertele</string>
     <string name="rmd_EPr_quiet_hours_start_title">Sessiz saatlerin başlangıcı</string>
     <string name="rmd_EPr_quiet_hours_end_title">Sessiz saatlerin sonu</string>
-    <string name="rmd_EPr_rmd_time_title">Öntanımlı hatırlatma</string>
+    <string name="rmd_EPr_rmd_time_title">Öntanımlı anımsatıcı</string>
     <string name="rmd_EPr_rmd_time_desc">Bitiş zamanı olmayan görevler için bildirimler şunda gösterilecek: %s</string>
     <string name="persistent_notifications">Kalıcı bildirimler</string>
     <string name="persistent_notifications_description">Kalıcı bildirimler temizlenemez</string>
-    <string name="rmd_EPr_defaultRemind_title">Rastgele hatırlatmalar</string>
+    <string name="rmd_EPr_defaultRemind_title">Rastgele anımsatıcılar</string>
     <string name="default_random_reminder_disabled">devre dışı</string>
     <string name="default_random_reminder_hourly">saat başı</string>
     <string name="default_random_reminder_daily">her gün</string>
@@ -243,8 +243,8 @@
     <string name="TEA_timer_comment_spent">Harcanan zaman:</string>
     <string name="voice_create_prompt">Yeni görev için konuş</string>
     <string name="EPr_voiceInputEnabled_title">Ses Girişi</string>
-    <string name="EPr_voiceRemindersEnabled_title">Sesli Hatırlatmalar</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks, görev adlarını görev hatırlatmaları sırasında söyleyecek</string>
+    <string name="EPr_voiceRemindersEnabled_title">Sesli anımsatıcılar</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks, görevler anımsatılırken adlarını seslendirecek</string>
     <string name="delete_task">Görevi sil</string>
     <string name="voice_command_added_task">Görev eklendi</string>
     <plurals name="Ntasks">
@@ -276,9 +276,9 @@
     <string name="translations">Çeviri katkıları</string>
     <string name="contact_developer">Geliştiriciyle iletişime geç</string>
     <string name="rate_tasks">Tasks\'i oyla</string>
-    <string name="quiet_hours_summary">Sessiz saatlerde hatırlatıcı yok</string>
+    <string name="quiet_hours_summary">Sessiz saatlerde anımsatıcı yok</string>
     <string name="TLA_menu_donate">Bağış yap</string>
-    <string name="add_reminder">Hatırlatıcı ekle</string>
+    <string name="add_reminder">Anımsatıcı ekle</string>
     <string name="add_location">Konum ekle</string>
     <string name="remove">Kaldır</string>
     <string name="randomly_once">Şunda rastgele bir kez</string>
@@ -415,8 +415,8 @@
     <string name="show_full_description">Tam açıklamayı göster</string>
     <string name="linkify">Bağlantıları göster</string>
     <string name="linkify_description">Web sitelerine, adreslere ve telefon numaralarına bağlantı ekle</string>
-    <string name="location_remind_arrival">Varışta hatırlat</string>
-    <string name="location_remind_departure">Kalkışta hatırlat</string>
+    <string name="location_remind_arrival">Varışta anımsat</string>
+    <string name="location_remind_departure">Kalkışta anımsat</string>
     <string name="visit_website">Web siteyi ziyaret et</string>
     <string name="location_arrived">Varıldı: %s</string>
     <string name="location_departed">Kalkıldı: %s</string>
@@ -716,4 +716,27 @@
     <string name="completed_tasks_at_bottom">Tamamlanan görevleri alta taşı</string>
     <string name="snackbar_tasks_completed">%d görev tamamlandı</string>
     <string name="completed_tasks_sort">Tamamlanma tarihine göre sırala</string>
+    <string name="custom_filter_has_reminder">Anımsatıcılı</string>
+    <plurals name="reminder_hours">
+        <item quantity="one">Saat</item>
+        <item quantity="other">Saat</item>
+    </plurals>
+    <string name="custom_notification">Özel bildirim</string>
+    <string name="snoozed_until">Şuna dek ertelendi: %s</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Dakika</item>
+        <item quantity="other">Dakika</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Gün</item>
+        <item quantity="other">Gün</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Hafta</item>
+        <item quantity="other">Hafta</item>
+    </plurals>
+    <string name="alarm_after_start">Başladıktan sonra %s</string>
+    <string name="alarm_before_due">Bitişten önce %s</string>
+    <string name="alarm_after_due">Bitişten sonra %s</string>
+    <string name="alarm_before_start">Başlamadan önce %s</string>
 </resources>
