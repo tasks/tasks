@@ -673,7 +673,7 @@
     <plurals name="repeat_weeks">
         <item quantity="one">tjedan</item>
         <item quantity="few">tjedna</item>
-        <item quantity="other">tjedna</item>
+        <item quantity="other">tjedana</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d dan</item>
@@ -737,4 +737,27 @@
     <string name="alarm_after_start">%s nakon početka</string>
     <string name="alarm_before_due">%s prije roka</string>
     <string name="alarm_after_due">%s nakon roka</string>
+    <string name="custom_filter_has_reminder">Ima podsjetnik</string>
+    <plurals name="reminder_hours">
+        <item quantity="one">Sat</item>
+        <item quantity="few">Sata</item>
+        <item quantity="other">Sati</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Dan</item>
+        <item quantity="few">Dana</item>
+        <item quantity="other">Dana</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Tjedan</item>
+        <item quantity="few">Tjedna</item>
+        <item quantity="other">Tjedana</item>
+    </plurals>
+    <string name="snoozed_until">Odgođeno do %s</string>
+    <string name="custom_notification">Prilagođena obavijest</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuta</item>
+        <item quantity="few">Minute</item>
+        <item quantity="other">Minuta</item>
+    </plurals>
 </resources>
