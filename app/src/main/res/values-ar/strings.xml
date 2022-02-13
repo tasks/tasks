@@ -17,10 +17,10 @@
     <string name="SSD_sort_auto">ترتيب ذكي</string>
     <string name="SSD_sort_alpha">بالعنوان</string>
     <string name="SSD_sort_due">بتاريخ الإستحقاق</string>
-    <string name="SSD_sort_importance">بالأولوية</string>
+    <string name="SSD_sort_importance">بالأولويّة</string>
     <string name="SSD_sort_modified">بوقت آخر تعديل</string>
     <string name="TEA_title_hint">اسم المهمة</string>
-    <string name="TEA_importance_label">الأولوية</string>
+    <string name="TEA_importance_label">الأولويّة</string>
     <string name="TEA_note_label">وصف</string>
     <string name="TEA_estimatedDuration_label">كم من الوقت ستأخذ؟</string>
     <string name="TEA_elapsedDuration_label">الوقت المنقضي</string>
@@ -30,7 +30,7 @@
     <string name="week_before_due">أسبوع قبل الموعد</string>
     <string name="TEA_control_repeat">إعادة</string>
     <string name="TEA_control_gcal">تقويم</string>
-    <string name="TEA_control_importance">الأولوية</string>
+    <string name="TEA_control_importance">الأولويّة</string>
     <string name="TEA_control_notes">وصف</string>
     <string name="TEA_control_files">الملفات</string>
     <string name="TEA_control_reminders">مذكرات</string>
@@ -54,7 +54,7 @@
     <string name="day_after_tomorrow">بعد غد</string>
     <string name="next_week">الأسبوع القادم</string>
     <string name="BFE_Active">مهامي</string>
-    <string name="BFE_Recent">ما تم تعديله مؤخرا</string>
+    <string name="BFE_Recent">ما تم تعديله مؤخرًا</string>
     <string name="custom_filter_or">أو</string>
     <string name="custom_filter_not">ليس</string>
     <string name="custom_filter_and">أيضا</string>
@@ -129,7 +129,7 @@
     <string name="add_reminder">أضف منبه</string>
     <string name="remove">حذف</string>
     <string name="randomly">عشوائياً</string>
-    <string name="pick_a_date_and_time">اختر التاريخ و الوقت</string>
+    <string name="pick_a_date_and_time">اختر التاريخ والوقت</string>
     <string name="filters">تصفيات</string>
     <string name="filter_settings">إعدادات التصفية</string>
     <string name="show_completed">إظهار المهام المكتملة</string>
@@ -208,7 +208,7 @@
     <string name="priority_low">منخفض</string>
     <string name="priority_medium">متوسط</string>
     <string name="priority_high">عال</string>
-    <string name="date_and_time">التاريخ و الوقت</string>
+    <string name="date_and_time">التاريخ والوقت</string>
     <string name="repeat_until">كرِّر حتَّى %s</string>
     <plurals name="task_count">
         <item quantity="zero">لا مهام</item>
@@ -303,7 +303,7 @@
     <string name="ring_five_times">الرنّ خمس مرات</string>
     <string name="ring_once">الرنّ مرة واحدة</string>
     <string name="gcal_completed_title">%s (تم)</string>
-    <string name="CFC_importance_name">الأولوية…</string>
+    <string name="CFC_importance_name">الأولويّة…</string>
     <string name="list">قائمة</string>
     <string name="widget_due_date_below_title">تحت العنوان</string>
     <string name="widget_due_date_after_title">بعد العنوان</string>
@@ -354,7 +354,7 @@
     <string name="filter_eisenhower_box_1">مهم ومستعجل</string>
     <string name="filter_no_priority">لا أولويّة</string>
     <string name="filter_low_priority">أولويّة منخفضة</string>
-    <string name="filter_high_priority">أولوّية عالية</string>
+    <string name="filter_high_priority">أولويّة عالية</string>
     <string name="filter_medium_priority">أولويّة متوسّطة</string>
     <string name="add_filter">أضف تصفية</string>
     <string name="filter_after_today">بعد اليوم</string>
@@ -442,7 +442,7 @@
     <string name="widget_due_date_hidden">مخفي</string>
     <string name="widget_footer">تذييل</string>
     <string name="reverse">عكس</string>
-    <string name="show_unstarted">أظهر الغير مبدوء</string>
+    <string name="show_unstarted">إظهار الغير مبدوء</string>
     <string name="discard">رمي</string>
     <string name="menu_discard_changes">رمي التغييرات</string>
     <string name="discard_changes">رمي التغييرات؟</string>
