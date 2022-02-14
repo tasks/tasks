@@ -196,7 +196,10 @@ class CaldavSynchronizer @Inject constructor(
             resource
                 .principals(account, calendar)
                 .let { principalDao.deleteRemoved(calendar.id, it.map(PrincipalAccess::id)) }
-            sync(calendar, resource, caldavClient.httpClient)
+            fetchChanges(calendar, resource, caldavClient.httpClient)
+            if (calendar.access != ACCESS_READ_ONLY) {
+                pushLocalChanges(calendar, caldavClient.httpClient, resource.href)
+            }
         }
         setError(account, "")
     }
@@ -218,20 +221,17 @@ class CaldavSynchronizer @Inject constructor(
         }
     }
 
-    private suspend fun sync(
+    private suspend fun fetchChanges(
             caldavCalendar: CaldavCalendar,
             resource: Response,
             httpClient: OkHttpClient) {
-        Timber.d("sync(%s)", caldavCalendar)
         val httpUrl = resource.href
-        if (caldavCalendar.access != ACCESS_READ_ONLY) {
-            pushLocalChanges(caldavCalendar, httpClient, httpUrl)
-        }
         val remoteCtag = resource.ctag
         if (caldavCalendar.ctag?.equals(remoteCtag) == true) {
             Timber.d("%s up to date", caldavCalendar.name)
             return
         }
+        Timber.d("updating $caldavCalendar")
         val davCalendar = DavCalendar(httpClient, httpUrl)
         val members = ArrayList<Response>()
         davCalendar.calendarQuery("VTODO", null, null) { response, relation ->

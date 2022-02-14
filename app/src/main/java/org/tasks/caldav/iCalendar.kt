@@ -3,7 +3,6 @@ package org.tasks.caldav
 import at.bitfire.ical4android.DateUtils.ical4jTimeZone
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
@@ -17,7 +16,6 @@ import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.Property
 import net.fortuna.ical4j.model.component.VAlarm
 import net.fortuna.ical4j.model.parameter.RelType
-import net.fortuna.ical4j.model.parameter.Related.*
 import net.fortuna.ical4j.model.property.Action
 import net.fortuna.ical4j.model.property.Completed
 import net.fortuna.ical4j.model.property.DateProperty
@@ -53,7 +51,6 @@ import org.tasks.location.GeofenceApi
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRRule
 import org.tasks.repeats.RecurrenceUtils.newRecur
-import org.tasks.time.DateTime.UTC
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils.startOfMinute
 import org.tasks.time.DateTimeUtils.toDate
@@ -139,14 +136,10 @@ class iCalendar @Inject constructor(
             remoteModel = Task()
         }
 
-        toVtodo(caldavTask, task, remoteModel)
-
-        val os = ByteArrayOutputStream()
-        remoteModel.write(os)
-        return os.toByteArray()
+        return toVtodo(caldavTask, task, remoteModel)
     }
 
-    suspend fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task, remoteModel: Task) {
+    suspend fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task, remoteModel: Task): ByteArray {
         remoteModel.applyLocal(caldavTask, task)
         val categories = remoteModel.categories
         categories.clear()
@@ -167,6 +160,9 @@ class iCalendar @Inject constructor(
         val alarms = alarmDao.getAlarms(task.id)
         remoteModel.snooze = alarms.find { it.type == TYPE_SNOOZE }?.time
         remoteModel.alarms.addAll(alarms.toVAlarms())
+        val os = ByteArrayOutputStream()
+        remoteModel.write(os)
+        return os.toByteArray()
     }
 
     suspend fun fromVtodo(
@@ -175,29 +171,47 @@ class iCalendar @Inject constructor(
             remote: Task,
             vtodo: String?,
             obj: String? = null,
-            eTag: String? = null) {
+            eTag: String? = null
+    ) {
         val task = existing?.task?.let { taskDao.fetch(it) }
                 ?: taskCreator.createWithValues("").apply {
                     taskDao.createNew(this)
                     existing?.task = id
                 }
         val caldavTask = existing ?: CaldavTask(task.id, calendar.uuid, remote.uid, obj)
-        task.applyRemote(remote)
-        setPlace(task.id, remote.geoPosition)
-        tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
-        val randomReminders = alarmDao.getAlarms(task.id).filter { it.type == TYPE_RANDOM }
-        alarmService.synchronizeAlarms(
-            caldavTask.task,
-            remote.reminders.plus(randomReminders).toMutableSet()
-        )
+        val dirty = task.modificationDate > caldavTask.lastSync || caldavTask.lastSync == 0L
+        val local = caldavTask.vtodo?.let { fromVtodo(it) }
+        task.applyRemote(remote, local)
+        caldavTask.applyRemote(remote, local)
+
+        val place = locationDao.getPlaceForTask(task.id)
+        if (place?.toGeo() == local?.geoPosition) {
+            setPlace(task.id, remote.geoPosition)
+        }
+
+        val tags = tagDataDao.getTagDataForTask(task.id)
+        val localTags = getTags(local?.categories ?: emptyList())
+        if (tags.toSet() == localTags.toSet()) {
+            tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
+        }
+
+        val alarms = alarmDao.getAlarms(task.id)
+        val randomReminders = alarms.filter { it.type == TYPE_RANDOM }
+        val localReminders =
+            local?.reminders?.plus(randomReminders) ?: randomReminders
+        if (alarms.toSet() == localReminders.toSet()) {
+            val remoteReminders = remote.reminders.plus(randomReminders)
+            alarmService.synchronizeAlarms(caldavTask.task, remoteReminders.toMutableSet())
+        }
+
         task.suppressSync()
         task.suppressRefresh()
         taskDao.save(task)
         caldavTask.vtodo = vtodo
         caldavTask.etag = eTag
-        caldavTask.lastSync = task.modificationDate
-        caldavTask.remoteParent = remote.parent
-        caldavTask.order = remote.order
+        if (!dirty) {
+            caldavTask.lastSync = task.modificationDate
+        }
         if (caldavTask.id == com.todoroo.astrid.data.Task.NO_ID) {
             caldavTask.id = caldavDao.insert(caldavTask)
             Timber.d("NEW %s", caldavTask)
@@ -227,26 +241,32 @@ class iCalendar @Inject constructor(
         private val IS_MOZ_LASTACK = { x: Property? -> x?.name.equals(MOZ_LASTACK, true) }
 
         fun Due?.apply(task: com.todoroo.astrid.data.Task) {
-            task.dueDate = when (this?.date) {
-                null -> 0
-                is DateTime -> com.todoroo.astrid.data.Task.createDueDate(
-                        URGENCY_SPECIFIC_DAY_TIME,
-                        getLocal(this)
-                )
-                else -> com.todoroo.astrid.data.Task.createDueDate(
-                        URGENCY_SPECIFIC_DAY,
-                        getLocal(this)
-                )
-            }
+            task.dueDate = toMillis()
         }
 
+        fun Due?.toMillis() =
+            when (this?.date) {
+                null -> 0
+                is DateTime -> com.todoroo.astrid.data.Task.createDueDate(
+                    URGENCY_SPECIFIC_DAY_TIME,
+                    getLocal(this)
+                )
+                else -> com.todoroo.astrid.data.Task.createDueDate(
+                    URGENCY_SPECIFIC_DAY,
+                    getLocal(this)
+                )
+            }
+
         fun DtStart?.apply(task: com.todoroo.astrid.data.Task) {
-            task.hideUntil = when (this?.date) {
+            task.hideUntil = toMillis(task)
+        }
+
+        fun DtStart?.toMillis(task: com.todoroo.astrid.data.Task) =
+            when (this?.date) {
                 null -> 0
                 is DateTime -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, getLocal(this))
                 else -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, getLocal(this))
             }
-        }
 
         internal fun getLocal(property: DateProperty): Long =
                 org.tasks.time.DateTime.from(property.date)?.toLocal()?.millis ?: 0
@@ -333,35 +353,6 @@ class iCalendar @Inject constructor(
                         }
                         ?: unknownProperties.removeIf(IS_MOZ_SNOOZE_TIME)
             }
-
-        fun com.todoroo.astrid.data.Task.applyRemote(remote: Task) {
-            val completedAt = remote.completedAt
-            if (completedAt != null) {
-                completionDate = getLocal(completedAt)
-            } else if (remote.status === Status.VTODO_COMPLETED) {
-                if (!isCompleted) {
-                    completionDate = DateUtilities.now()
-                }
-            } else {
-                completionDate = 0L
-            }
-            remote.createdAt?.let {
-                creationDate = newDateTime(it, UTC).toLocal().millis
-            }
-            title = remote.summary
-            notes = remote.description
-            priority = when (remote.priority) {
-                // https://tools.ietf.org/html/rfc5545#section-3.8.1.9
-                in 1..4 -> com.todoroo.astrid.data.Task.Priority.HIGH
-                5 -> com.todoroo.astrid.data.Task.Priority.MEDIUM
-                in 6..9 -> com.todoroo.astrid.data.Task.Priority.LOW
-                else -> com.todoroo.astrid.data.Task.Priority.NONE
-            }
-            setRecurrence(remote.rRule?.recur)
-            remote.due.apply(this)
-            remote.dtStart.apply(this)
-            isCollapsed = remote.collapsed
-        }
 
         fun Task.applyLocal(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task) {
             createdAt = newDateTime(task.creationDate).toUTC().millis

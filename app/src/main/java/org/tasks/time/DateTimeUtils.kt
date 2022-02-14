@@ -40,6 +40,8 @@ object DateTimeUtils {
 
     fun Long.startOfMinute(): Long = if (this > 0) toDateTime().startOfMinute().millis else 0
 
+    fun Long.startOfSecond(): Long = if (this > 0) toDateTime().startOfSecond().millis else 0
+
     fun Long.millisOfDay(): Int = if (this > 0) toDateTime().millisOfDay else 0
 
     fun Long.toDate(): net.fortuna.ical4j.model.Date? = this.toDateTime().toDate()

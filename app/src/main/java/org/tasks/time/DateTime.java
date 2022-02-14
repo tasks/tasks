@@ -134,6 +134,12 @@ public class DateTime {
     return new DateTime(calendar);
   }
 
+  public DateTime startOfSecond() {
+    Calendar calendar = getCalendar();
+    calendar.set(Calendar.MILLISECOND, 0);
+    return new DateTime(calendar);
+  }
+
   public DateTime endOfMinute() {
     Calendar calendar = getCalendar();
     calendar.set(Calendar.SECOND, 59);

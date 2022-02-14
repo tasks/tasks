@@ -6,6 +6,7 @@ import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.NO_UUID
 import org.tasks.Strings
 import org.tasks.date.DateTimeUtils
@@ -16,6 +17,7 @@ object TaskMaker {
     val ID: Property<Task, Long> = newProperty()
     val DUE_DATE: Property<Task, DateTime?> = newProperty()
     val DUE_TIME: Property<Task, DateTime?> = newProperty()
+    val START_DATE: Property<Task, DateTime?> = newProperty()
     val REMINDER_LAST: Property<Task, DateTime?> = newProperty()
     val HIDE_TYPE: Property<Task, Int> = newProperty()
     val REMINDERS: Property<Task, Int> = newProperty()
@@ -30,6 +32,7 @@ object TaskMaker {
     val PARENT: Property<Task, Long> = newProperty()
     val UUID: Property<Task, String> = newProperty()
     val COLLAPSED: Property<Task, Boolean> = newProperty()
+    val DESCRIPTION: Property<Task, String?> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<Task> ->
         val task = Task()
@@ -61,6 +64,9 @@ object TaskMaker {
         if (deletedTime != null) {
             task.deletionDate = deletedTime.millis
         }
+        lookup.valueOf(START_DATE, null as DateTime?)?.let {
+            task.hideUntil = task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, it.millis)
+        }
         val hideType = lookup.valueOf(HIDE_TYPE, -1)
         if (hideType >= 0) {
             task.hideUntil = task.createHideUntil(hideType, 0)
@@ -76,6 +82,7 @@ object TaskMaker {
         lookup.valueOf(RECUR, null as String?)?.let {
             task.setRecurrence(it, lookup.valueOf(AFTER_COMPLETE, false))
         }
+        task.notes = lookup.valueOf(DESCRIPTION, null as String?)
         task.isCollapsed = lookup.valueOf(COLLAPSED, false)
         task.uuid = lookup.valueOf(UUID, NO_UUID)
         val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())

@@ -15,14 +15,18 @@ import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar
-import org.tasks.data.*
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.MyAndroidTask
+import org.tasks.data.OpenTaskDao
 import org.tasks.data.OpenTaskDao.Companion.isDavx5
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
 import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.OpenTaskDao.Companion.newAccounts
 import org.tasks.data.OpenTaskDao.Companion.toLocalCalendar
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -86,7 +90,9 @@ class OpenTasksSynchronizer @Inject constructor(
                 .forEach { taskDeleter.delete(it) }
         lists.forEach {
             val calendar = toLocalCalendar(it)
-            sync(account, calendar, it.ctag, it.id)
+            val isEteSync = account.uuid?.isEteSync() == true
+            pushChanges(isEteSync, calendar, it.id)
+            fetchChanges(isEteSync, calendar, it.ctag, it.id)
         }
     }
 
@@ -107,37 +113,35 @@ class OpenTasksSynchronizer @Inject constructor(
         return local
     }
 
-    private suspend fun sync(
-            account: CaldavAccount,
-            calendar: CaldavCalendar,
-            ctag: String?,
-            listId: Long
-    ) {
-        Timber.d("SYNC $calendar")
-        val isEteSync = account.uuid?.isEteSync() == true
-
+    private suspend fun pushChanges(isEteSync: Boolean, calendar: CaldavCalendar, listId: Long) {
         val moved = caldavDao.getMoved(calendar.uuid!!)
         val (deleted, updated) = taskDao
-                .getCaldavTasksToPush(calendar.uuid!!)
-                .partition { it.isDeleted }
+            .getCaldavTasksToPush(calendar.uuid!!)
+            .partition { it.isDeleted }
 
         (moved + deleted.map(Task::id).let { caldavDao.getTasks(it) })
-                .mapNotNull { it.remoteId }
-                .map { openTaskDao.delete(listId, it) }
-                .let { openTaskDao.batch(it) }
+            .mapNotNull { it.remoteId }
+            .map { openTaskDao.delete(listId, it) }
+            .let { openTaskDao.batch(it) }
         caldavDao.delete(moved)
         taskDeleter.delete(deleted.map { it.id })
 
         updated.forEach {
             push(it, listId, isEteSync)
         }
+    }
 
-        ctag?.let {
-            if (ctag == calendar.ctag) {
-                Timber.d("UP TO DATE: $calendar")
-                return@sync
-            }
+    private suspend fun fetchChanges(
+        isEteSync: Boolean,
+        calendar: CaldavCalendar,
+        ctag: String?,
+        listId: Long
+    ) {
+        if (calendar.ctag?.equals(ctag) == true) {
+            Timber.d("UP TO DATE: $calendar")
+            return
         }
+        Timber.d("SYNC $calendar")
 
         val etags = openTaskDao.getEtags(listId)
         etags.forEach { (uid, sync1, version) ->

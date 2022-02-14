@@ -2,15 +2,14 @@ package org.tasks.caldav
 
 import net.fortuna.ical4j.model.property.Geo
 import org.tasks.data.Location
+import org.tasks.data.Place
 import java.math.BigDecimal
 import kotlin.math.min
 
 object GeoUtils {
-    fun toGeo(location: Location?) = if (location == null) {
-        null
-    } else {
-        Geo("${location.latitude};${location.longitude}")
-    }
+    fun toGeo(location: Location?) = location?.place?.toGeo()
+
+    fun Place.toGeo() = Geo("$latitude;$longitude")
 
     fun Geo.latitudeLike() = latitude.toLikeString()
 

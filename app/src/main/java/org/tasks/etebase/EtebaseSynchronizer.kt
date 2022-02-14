@@ -5,7 +5,11 @@ import android.graphics.Color
 import at.bitfire.ical4android.ICalendar.Companion.prodId
 import com.etebase.client.Collection
 import com.etebase.client.Item
-import com.etebase.client.exceptions.*
+import com.etebase.client.exceptions.ConnectionException
+import com.etebase.client.exceptions.PermissionDeniedException
+import com.etebase.client.exceptions.ServerErrorException
+import com.etebase.client.exceptions.TemporaryServerErrorException
+import com.etebase.client.exceptions.UnauthorizedException
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -22,7 +26,6 @@ import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class EtebaseSynchronizer @Inject constructor(
@@ -92,7 +95,8 @@ class EtebaseSynchronizer @Inject constructor(
                 caldavDao.update(calendar)
                 localBroadcastManager.broadcastRefreshList()
             }
-            sync(client, calendar, collection)
+            fetchChanges(client, calendar, collection)
+            pushLocalChanges(client, calendar, collection)
         }
         setError(account, "")
     }
@@ -109,18 +113,16 @@ class EtebaseSynchronizer @Inject constructor(
         }
     }
 
-    private suspend fun sync(
+    private suspend fun fetchChanges(
             client: EtebaseClient,
             caldavCalendar: CaldavCalendar,
             collection: Collection
     ) {
-        Timber.d("sync(%s)", caldavCalendar)
-        pushLocalChanges(client, caldavCalendar, collection)
-        val localCtag = caldavCalendar.ctag
-        if (localCtag != null && localCtag == collection.stoken) {
+        if (caldavCalendar.ctag?.equals(collection.stoken) == true) {
             Timber.d("${caldavCalendar.name} up to date")
             return
         }
+        Timber.d("updating $caldavCalendar")
         client.fetchItems(collection, caldavCalendar) { (stoken, items) ->
             applyEntries(caldavCalendar, items, stoken)
             client.updateCache(collection, items)
