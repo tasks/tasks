@@ -332,7 +332,7 @@
     <string name="theme_wallpaper">Plano de fundo</string>
     <string name="theme_day_night">Dia/Noite</string>
     <string name="language">Idioma</string>
-    <string name="restart_required">Reinicie o aplicativo para que as alterações sejam aplicadas.</string>
+    <string name="restart_required">Reinicie Tasks para que essa alteração seja aplicada</string>
     <string name="restart_now">Reiniciar agora</string>
     <string name="restart_later">Depois</string>
     <string name="settings_localization">Localização</string>
@@ -533,7 +533,7 @@
     <string name="astrid_sort_order_summary">Habilitar Ordenação Manual do Astrid para \'Minhas Tarefas\', \'Hoje\', e etiquetas. Esse modo de ordenação eventualmente sera substituito em uma atualização futura para \'Minha ordenação\'</string>
     <string name="astrid_sort_order">Ordenação Manual do Astrid</string>
     <string name="SSD_sort_my_order">Minha compra</string>
-    <string name="backup_BPr_header">Backups</string>
+    <string name="backup_BPr_header">Cópias de segurança</string>
     <string name="display_name">Exibir nome</string>
     <string name="permission_read_tasks">Acesso completo ao base de dados do Tasks</string>
     <string name="reset_sort_order">Resetar ordenação</string>
@@ -703,4 +703,38 @@
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Junte-se a #tasks Tarefas no Libera Chat</string>
     <string name="now">Agora</string>
+    <string name="completed_tasks_at_bottom">Mover tarefas concluídas para baixo</string>
+    <string name="app_bar_collapse">Recolher barras do aplicativo</string>
+    <string name="completed">Concluído</string>
+    <string name="completion_sound">Tocar som de conclusão</string>
+    <string name="app_bar_position">Posição da barra de aplicativos</string>
+    <string name="top">Principal</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuto</item>
+        <item quantity="other">Minutos</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Hora</item>
+        <item quantity="other">Horas</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Dia</item>
+        <item quantity="other">Dias</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Semana</item>
+        <item quantity="other">Semanas</item>
+    </plurals>
+    <string name="when_started">Quando começar</string>
+    <string name="custom_filter_has_reminder">Tem lembrete</string>
+    <string name="bottom">Fundo</string>
+    <string name="snoozed_until">Adiado até %s</string>
+    <string name="custom_notification">Notificação personalizada</string>
+    <string name="snackbar_task_completed">Tarefa completa</string>
+    <string name="snackbar_tasks_completed">%d tarefas concluídas</string>
+    <string name="completed_tasks_sort">Classificar por data de conclusão</string>
+    <string name="alarm_before_start">%s antes de começar</string>
+    <string name="alarm_after_start">%s após o início</string>
+    <string name="alarm_before_due">%s antes do vencimento</string>
+    <string name="alarm_after_due">%s após o vencimento</string>
 </resources>
