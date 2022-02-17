@@ -722,4 +722,21 @@
     <string name="alarm_before_due">%s prima della scadenza</string>
     <string name="custom_filter_has_reminder">Ha un promemoria</string>
     <string name="snoozed_until">In attesa fino a %s</string>
+    <plurals name="reminder_hours">
+        <item quantity="one">Ora</item>
+        <item quantity="other">Ore</item>
+    </plurals>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuto</item>
+        <item quantity="other">Minuti</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Giorno</item>
+        <item quantity="other">Giorni</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Settimana</item>
+        <item quantity="other">Settimane</item>
+    </plurals>
+    <string name="custom_notification">Notifica personalizzata</string>
 </resources>
