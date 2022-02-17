@@ -69,8 +69,6 @@ class TaskCompleter @Inject internal constructor(
         tasks.forEach {
             if (completed && it.isRecurring) {
                 workManager.scheduleRepeat(it)
-            } else if (!it.calendarURI.isNullOrBlank()) {
-                workManager.updateCalendar(it)
             }
         }
         if (completed && notificationManager.currentInterruptionFilter == INTERRUPTION_FILTER_ALL) {

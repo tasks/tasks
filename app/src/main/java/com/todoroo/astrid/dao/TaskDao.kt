@@ -18,6 +18,7 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.date.DateTimeUtils.isAfterNow
 import org.tasks.db.SuspendDbUtils.eachChunk
+import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
@@ -34,6 +35,7 @@ class TaskDao @Inject constructor(
         private val timerPlugin: TimerPlugin,
         private val syncAdapters: SyncAdapters,
         private val alarmService: AlarmService,
+        private val workManager: WorkManager,
 ) {
 
     suspend fun fetch(id: Long): Task? = taskDao.fetch(id)
@@ -112,6 +114,9 @@ class TaskDao @Inject constructor(
         val deletionDateModified = task.deletionDate != original?.deletionDate ?: 0
         val justCompleted = completionDateModified && task.isCompleted
         val justDeleted = deletionDateModified && task.isDeleted
+        if (task.calendarURI?.isNotBlank() == true) {
+            workManager.updateCalendar(task)
+        }
         coroutineScope {
             launch(Dispatchers.Default) {
                 if (justCompleted || justDeleted) {
