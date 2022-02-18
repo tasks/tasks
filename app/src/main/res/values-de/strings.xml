@@ -722,4 +722,21 @@
     <string name="alarm_after_due">%s nach Fälligkeit</string>
     <string name="custom_filter_has_reminder">Hat Erinnerung</string>
     <string name="snoozed_until">Pausiert bis %s</string>
+    <string name="custom_notification">Angepasste Benachrichtigung</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minute</item>
+        <item quantity="other">Minuten</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Stunde</item>
+        <item quantity="other">Stunden</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Tag</item>
+        <item quantity="other">Tage</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Woche</item>
+        <item quantity="other">Wochen</item>
+    </plurals>
 </resources>
