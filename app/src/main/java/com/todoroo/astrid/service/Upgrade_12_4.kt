@@ -15,15 +15,16 @@ class Upgrade_12_4 @Inject constructor(
     private val upgraderDao: UpgraderDao,
 ) {
     internal suspend fun syncExistingAlarms() {
-        val existingAlarms = alarmDao.getActiveAlarms().map { it.task }
+        val existingAlarms = alarmDao.getActiveAlarms()
         upgraderDao.tasksWithVtodos().forEach { caldav ->
             val remoteTask = caldav.vtodo?.let(iCalendar::fromVtodo) ?: return@forEach
             remoteTask
                 .reminders
-                .onEach { alarm -> alarm.task = caldav.id }
-                .let { alarms -> alarmDao.insert(alarms) }
+                .filter { existingAlarms.find { e -> e.task == caldav.id && e.same(it) } == null }
+                .onEach { it.task = caldav.id }
+                .let { alarmDao.insert(it) }
         }
-        taskDao.touch(existingAlarms)
+        taskDao.touch(existingAlarms.map { it.task }.toSet().toList())
     }
 
     companion object {

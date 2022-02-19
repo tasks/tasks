@@ -420,13 +420,13 @@ object Migrations {
             database.execSQL("ALTER TABLE `alarms` ADD COLUMN `repeat` INTEGER NOT NULL DEFAULT 0")
             database.execSQL("ALTER TABLE `alarms` ADD COLUMN `interval` INTEGER NOT NULL DEFAULT 0")
             database.execSQL(
-                "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, 0, $TYPE_REL_START FROM `tasks` WHERE `hideUntil` > 0 AND `notificationFlags` | $NOTIFY_AT_START"
+                "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, 0, $TYPE_REL_START FROM `tasks` WHERE `hideUntil` > 0 AND `notificationFlags` & $NOTIFY_AT_START = $NOTIFY_AT_START"
             )
             database.execSQL(
-                "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, 0, $TYPE_REL_END FROM `tasks` WHERE `dueDate` > 0 AND `notificationFlags` | $NOTIFY_AT_DEADLINE"
+                "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, 0, $TYPE_REL_END FROM `tasks` WHERE `dueDate` > 0 AND `notificationFlags` & $NOTIFY_AT_DEADLINE = $NOTIFY_AT_DEADLINE"
             )
             database.execSQL(
-                "INSERT INTO `alarms` (`task`, `time`, `type`, `repeat`, `interval`) SELECT `_id`, ${HOURS.toMillis(24)}, $TYPE_REL_END, 6, ${HOURS.toMillis(24)} FROM `tasks` WHERE `dueDate` > 0 AND `notificationFlags` | $NOTIFY_AFTER_DEADLINE"
+                "INSERT INTO `alarms` (`task`, `time`, `type`, `repeat`, `interval`) SELECT `_id`, ${HOURS.toMillis(24)}, $TYPE_REL_END, 6, ${HOURS.toMillis(24)} FROM `tasks` WHERE `dueDate` > 0 AND `notificationFlags` & $NOTIFY_AFTER_DEADLINE = $NOTIFY_AFTER_DEADLINE"
             )
             database.execSQL(
                 "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, `notifications`, $TYPE_RANDOM FROM `tasks` WHERE `notifications` > 0"

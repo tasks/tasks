@@ -70,6 +70,12 @@ class Alarm : Parcelable {
         return "Alarm(id=$id, task=$task, time=$timestamp, type=$type, repeat=$repeat, interval=$interval)"
     }
 
+    fun same(other: Alarm) =
+        type == other.type &&
+                time == other.time &&
+                repeat == other.repeat &&
+                interval == other.interval
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
