@@ -276,7 +276,7 @@ class CaldavSynchronizer @Inject constructor(
             }
         }
         caldavDao
-                .getObjects(caldavCalendar.uuid!!)
+                .getRemoteObjects(caldavCalendar.uuid!!)
                 .subtract(members.map { it.hrefName() })
                 .takeIf { it.isNotEmpty() }
                 ?.let {

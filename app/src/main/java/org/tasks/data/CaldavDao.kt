@@ -209,10 +209,10 @@ SELECT EXISTS(SELECT 1
     @Query("SELECT * FROM caldav_lists WHERE cdl_uuid = :uuid LIMIT 1")
     abstract suspend fun getCalendar(uuid: String): CaldavCalendar?
 
-    @Query("SELECT cd_object FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0")
-    abstract suspend fun getObjects(calendar: String): List<String>
+    @Query("SELECT cd_object FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0 AND cd_last_sync > 0")
+    abstract suspend fun getRemoteObjects(calendar: String): List<String>
 
-    @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0")
+    @Query("SELECT cd_remote_id FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0 AND cd_last_sync > 0")
     abstract suspend fun getRemoteIds(calendar: String): List<String>
 
     suspend fun getTasksByRemoteId(calendar: String, remoteIds: List<String>): List<Long> =
