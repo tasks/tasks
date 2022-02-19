@@ -12,6 +12,8 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.SyncFlags
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_FIVE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_NONSTOP
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.data.Task.Companion.hasDueTime
 import com.todoroo.astrid.data.Task.Companion.isRepeatAfterCompletion
@@ -453,15 +455,10 @@ class TaskEditViewModel @Inject constructor(
         }
     }
 
-    private fun getRingFlags(): Int {
-        var value = 0
-        value = value and (Task.NOTIFY_MODE_FIVE or Task.NOTIFY_MODE_NONSTOP).inv()
-        if (ringNonstop == true) {
-            value = value or Task.NOTIFY_MODE_NONSTOP
-        } else if (ringFiveTimes == true) {
-            value = value or Task.NOTIFY_MODE_FIVE
-        }
-        return value
+    private fun getRingFlags() = when {
+        ringNonstop == true -> NOTIFY_MODE_NONSTOP
+        ringFiveTimes == true -> NOTIFY_MODE_FIVE
+        else -> 0
     }
 
     suspend fun delete() {

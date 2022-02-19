@@ -246,10 +246,10 @@ class Task : Parcelable {
     }
 
     val isNotifyModeNonstop: Boolean
-        get() = isRingSet(NOTIFY_MODE_NONSTOP)
+        get() = ringFlags == NOTIFY_MODE_NONSTOP
 
     val isNotifyModeFive: Boolean
-        get() = isRingSet(NOTIFY_MODE_FIVE)
+        get() = ringFlags == NOTIFY_MODE_FIVE
 
     val isNotifyAfterDeadline: Boolean
         get() = isReminderSet(NOTIFY_AFTER_DEADLINE)
@@ -262,10 +262,6 @@ class Task : Parcelable {
 
     private fun isReminderSet(flag: Int): Boolean {
         return ((transitoryData?.get(TRANS_REMINDERS) as? Int) ?: 0) and flag > 0
-    }
-
-    private fun isRingSet(flag: Int): Boolean {
-        return ringFlags and flag > 0
     }
 
     val isNew: Boolean

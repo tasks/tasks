@@ -7,6 +7,8 @@ import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_FIVE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_NONSTOP
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
@@ -433,7 +435,10 @@ object Migrations {
                 "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, `snoozeTime`, $TYPE_SNOOZE FROM `tasks` WHERE `snoozeTime` > 0"
             )
             database.execSQL(
-                "UPDATE `tasks` SET `notificationFlags` = `notificationFlags` & ~$NOTIFY_AT_START & ~$NOTIFY_AT_DEADLINE & ~$NOTIFY_AFTER_DEADLINE"
+                "UPDATE `tasks` SET `notificationFlags` = $NOTIFY_MODE_FIVE WHERE `notificationFlags` & $NOTIFY_MODE_FIVE = $NOTIFY_MODE_FIVE"
+            )
+            database.execSQL(
+                "UPDATE `tasks` SET `notificationFlags` = $NOTIFY_MODE_NONSTOP WHERE `notificationFlags` & $NOTIFY_MODE_NONSTOP = $NOTIFY_MODE_NONSTOP"
             )
         }
     }
