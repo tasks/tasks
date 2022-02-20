@@ -70,7 +70,7 @@ class ReminderControlSet : TaskEditControlFragment() {
             viewModel.ringFiveTimes!! -> setRingMode(1)
             else -> setRingMode(0)
         }
-        viewModel.selectedAlarms?.forEach(this::addAlarmRow)
+        viewModel.selectedAlarms.value.forEach(this::addAlarmRow)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -217,9 +217,9 @@ class ReminderControlSet : TaskEditControlFragment() {
         if (requestCode == REQUEST_NEW_ALARM) {
             if (resultCode == Activity.RESULT_OK) {
                 val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-                if (viewModel.selectedAlarms?.any { it.type == TYPE_DATE_TIME && timestamp == it.time } == false) {
+                if (viewModel.selectedAlarms.value.none { it.type == TYPE_DATE_TIME && timestamp == it.time }) {
                     val alarm = Alarm(viewModel.task?.id ?: 0, timestamp, TYPE_DATE_TIME)
-                    viewModel.selectedAlarms?.add(alarm)
+                    viewModel.selectedAlarms.value = viewModel.selectedAlarms.value.plus(alarm)
                     addAlarmRow(alarm)
                 }
             }
@@ -231,15 +231,12 @@ class ReminderControlSet : TaskEditControlFragment() {
     private fun addAlarmRow(alarm: Alarm) {
         val alarmRow = addAlarmRow(alarm) {
             if (alarm.type == TYPE_RANDOM) {
-                viewModel.selectedAlarms?.removeIf { it.type == TYPE_RANDOM }
+                viewModel.selectedAlarms.value =
+                    viewModel.selectedAlarms.value.filterNot { it.type == TYPE_RANDOM }
                 randomControlSet = null
             } else {
-                viewModel.selectedAlarms?.removeIf {
-                    it.type == alarm.type &&
-                            it.time == alarm.time &&
-                            it.repeat == alarm.repeat &&
-                            it.interval == alarm.interval
-                }
+                viewModel.selectedAlarms.value =
+                    viewModel.selectedAlarms.value.filterNot { it.same(alarm) }
             }
         }
         if (alarm.type == TYPE_RANDOM) {
@@ -267,7 +264,7 @@ class ReminderControlSet : TaskEditControlFragment() {
 
     private fun addAlarmRow(alertItem: View, alarm: Alarm, onRemove: View.OnClickListener?) {
         val display = alertItem.findViewById<TextView>(R.id.alarm_string)
-        viewModel.selectedAlarms?.add(alarm)
+        viewModel.selectedAlarms.value = viewModel.selectedAlarms.value.plus(alarm)
         display.text = alarmToString.toString(alarm)
         alertItem
                 .findViewById<View>(R.id.clear)
@@ -280,13 +277,13 @@ class ReminderControlSet : TaskEditControlFragment() {
     private val options: List<String>
         get() {
             val options: MutableList<String> = ArrayList()
-            if (viewModel.selectedAlarms?.find { it.type == TYPE_REL_START && it.time == 0L } == null) {
+            if (viewModel.selectedAlarms.value.find { it.type == TYPE_REL_START && it.time == 0L } == null) {
                 options.add(getString(R.string.when_started))
             }
-            if (viewModel.selectedAlarms?.find { it.type == TYPE_REL_END && it.time == 0L } == null) {
+            if (viewModel.selectedAlarms.value.find { it.type == TYPE_REL_END && it.time == 0L } == null) {
                 options.add(getString(R.string.when_due))
             }
-            if (viewModel.selectedAlarms?.find { it.type == TYPE_REL_END && it.time == TimeUnit.HOURS.toMillis(24) } == null) {
+            if (viewModel.selectedAlarms.value.find { it.type == TYPE_REL_END && it.time == TimeUnit.HOURS.toMillis(24) } == null) {
                 options.add(getString(R.string.when_overdue))
             }
             if (randomControlSet == null) {

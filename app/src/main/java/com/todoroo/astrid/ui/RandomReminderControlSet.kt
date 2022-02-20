@@ -43,13 +43,14 @@ internal class RandomReminderControlSet(context: Context, parentView: View, remi
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val newAlarm =
                     Alarm(vm.task?.id ?: 0, hours[position] * DateUtilities.ONE_HOUR, TYPE_RANDOM)
-                vm.selectedAlarms?.apply {
-                    find { it.type == TYPE_RANDOM }?.let {
-                        newAlarm.id = it.id
-                        remove(it)
+                vm.selectedAlarms.value =
+                    vm.selectedAlarms.value.toMutableList().apply {
+                        find { it.type == TYPE_RANDOM }?.let {
+                            newAlarm.id = it.id
+                            remove(it)
+                        }
+                        add(newAlarm)
                     }
-                    add(newAlarm)
-                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

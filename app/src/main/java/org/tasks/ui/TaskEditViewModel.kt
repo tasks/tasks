@@ -26,10 +26,9 @@ import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import net.fortuna.ical4j.model.Recur
 import org.tasks.Event
@@ -117,7 +116,7 @@ class TaskEditViewModel @Inject constructor(
                 }
             } else {
                 alarms
-            }.toImmutableSet()
+            }
         if (isNew && permissionChecker.canAccessCalendars()) {
             originalCalendar = preferences.defaultCalendar
         }
@@ -266,13 +265,13 @@ class TaskEditViewModel @Inject constructor(
 
     var newSubtasks = ArrayList<Task>()
 
-    var originalAlarms: ImmutableSet<Alarm>? = null
+    private var originalAlarms = emptyList<Alarm>()
         private set(value) {
             field = value
-            selectedAlarms = value?.let { HashSet(it) }
+            selectedAlarms.value = value
         }
 
-    var selectedAlarms: HashSet<Alarm>? = null
+    var selectedAlarms = MutableStateFlow(emptyList<Alarm>())
 
     var ringNonstop: Boolean? = null
         get() = field ?: task?.isNotifyModeNonstop
@@ -319,7 +318,7 @@ class TaskEditViewModel @Inject constructor(
                 originalTags?.toHashSet() != selectedTags?.toHashSet() ||
                 newSubtasks.isNotEmpty() ||
                 it.ringFlags != getRingFlags() ||
-                originalAlarms != selectedAlarms
+                originalAlarms.toHashSet() != selectedAlarms.value.toHashSet()
     } ?: false
 
     fun cleared() = cleared.value?.value == true
@@ -412,19 +411,19 @@ class TaskEditViewModel @Inject constructor(
         }
 
         if (!it.hasStartDate()) {
-            selectedAlarms?.removeIf { a -> a.type == TYPE_REL_START }
+            selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_START }
         }
         if (!it.hasDueDate()) {
-            selectedAlarms?.removeIf { a -> a.type == TYPE_REL_END }
+            selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_END }
         }
 
         taskDao.save(it, null)
 
         if (
-            selectedAlarms != originalAlarms ||
-            (isNew && selectedAlarms?.isNotEmpty() == true)
+            selectedAlarms.value.toHashSet() != originalAlarms.toHashSet() ||
+            (isNew && selectedAlarms.value.isNotEmpty())
         ) {
-            alarmService.synchronizeAlarms(it.id, selectedAlarms!!)
+            alarmService.synchronizeAlarms(it.id, selectedAlarms.value.toMutableSet())
             it.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)
             it.modificationDate = now()
         }
