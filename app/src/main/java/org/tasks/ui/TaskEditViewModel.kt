@@ -209,7 +209,7 @@ class TaskEditViewModel @Inject constructor(
                 copy.until = null
             }
             var result = copy.toString()
-            if (repeatAfterCompletion!! && !result.isNullOrBlank()) {
+            if (repeatAfterCompletion!! && result.isNotBlank()) {
                 result += ";FROM=COMPLETION"
             }
             recurrence = result
@@ -275,7 +275,7 @@ class TaskEditViewModel @Inject constructor(
     var selectedAlarms: HashSet<Alarm>? = null
 
     var ringNonstop: Boolean? = null
-        get() = field ?: (task?.ringFlags?.and(Task.NOTIFY_MODE_NONSTOP) ?: 0 > 0)
+        get() = field ?: task?.isNotifyModeNonstop
         set(value) {
             field = value
             if (value == true) {
@@ -284,7 +284,7 @@ class TaskEditViewModel @Inject constructor(
         }
 
     var ringFiveTimes:Boolean? = null
-        get() = field ?: (task?.ringFlags?.and(Task.NOTIFY_MODE_FIVE) ?: 0 > 0)
+        get() = field ?: task?.isNotifyModeFive
         set(value) {
             field = value
             if (value == true) {
