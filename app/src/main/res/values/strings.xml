@@ -153,12 +153,6 @@ File %1$s contained %2$s.\n\n
   <string name="ring_once">Ring once</string>
   <string name="ring_five_times">Ring five times</string>
   <string name="ring_nonstop">Ring nonstop</string>
-  <string name="random_reminder_hour">an hour</string>
-  <string name="random_reminder_day">a day</string>
-  <string name="random_reminder_week">a week</string>
-  <string name="random_reminder_two_weeks">in two weeks</string>
-  <string name="random_reminder_month">a month</string>
-  <string name="random_reminder_two_months">in two months</string>
   <string name="rmd_NoA_done">Complete</string>
   <string name="rmd_NoA_snooze">Snooze</string>
   <string name="snooze_all">Snooze all</string>
@@ -344,7 +338,7 @@ File %1$s contained %2$s.\n\n
   <string name="add_reminder">Add reminder</string>
   <string name="add_location">Add location</string>
   <string name="remove">Remove</string>
-  <string name="randomly_once">Randomly once</string>
+  <string name="randomly_every">Randomly every %s</string>
   <string name="randomly">Randomly</string>
   <string name="pick_a_date_and_time">Pick a date and time</string>
   <string name="when_overdue">When overdue</string>

@@ -94,12 +94,6 @@
     <string name="ring_once">Dering sekali</string>
     <string name="ring_five_times">Dering lima kali</string>
     <string name="ring_nonstop">Dering nonstop</string>
-    <string name="random_reminder_hour">satu jam</string>
-    <string name="random_reminder_day">satu hari</string>
-    <string name="random_reminder_week">satu minggu</string>
-    <string name="random_reminder_two_weeks">dalam dua minggu</string>
-    <string name="random_reminder_month">satu bulan</string>
-    <string name="random_reminder_two_months">dalam dua bulan</string>
     <string name="rmd_NoA_done">Selesai</string>
     <string name="rmd_NoA_snooze">Tunda</string>
     <string name="snooze_all">Tunda semua</string>
@@ -606,7 +600,6 @@
     <string name="show_unstarted">Tampilkan yang belum dimulai</string>
     <string name="date_shortcut_must_come_after">%1$s harus datang setelah %2$s</string>
     <string name="geofence_radius">Radius</string>
-    <string name="randomly_once">Secara acak satu kali</string>
     <string name="widget_show_dividers">Tunjukan Batas Waktu</string>
     <string name="yesterday_abbrev_lowercase">kmrn</string>
     <string name="tomorrow_abbrev_lowercase">bsk</string>

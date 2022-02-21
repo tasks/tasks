@@ -1,35 +1,38 @@
-/*
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
 package com.todoroo.astrid.ui
 
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Paint
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.annotation.StringRes
-import androidx.compose.material.AlertDialog
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.compose.AddReminderDialog
-import org.tasks.compose.Constants
+import org.tasks.compose.AlarmRow
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
-import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.whenDue
@@ -44,39 +47,31 @@ import org.tasks.ui.TaskEditControlFragment
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-
-/**
- * Control set dealing with reminder settings
- *
- * @author Tim Su <tim></tim>@todoroo.com>
- */
 @AndroidEntryPoint
 class ReminderControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var alarmToString: AlarmToString
 
-    private lateinit var alertContainer: LinearLayout
-    private lateinit var mode: TextView
-    
-    private var randomControlSet: RandomReminderControlSet? = null
-    private val showDialog = mutableStateOf(false)
+    private val showCustomDialog = mutableStateOf(false)
+    private val showRandomDialog = mutableStateOf(false)
+    private val ringMode = mutableStateOf(0)
 
     override fun createView(savedInstanceState: Bundle?) {
-        showDialog.value = savedInstanceState?.getBoolean(DIALOG_VISIBLE) ?: false
-        mode.paintFlags = mode.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        showCustomDialog.value = savedInstanceState?.getBoolean(CUSTOM_DIALOG_VISIBLE) ?: false
+        showRandomDialog.value = savedInstanceState?.getBoolean(RANDOM_DIALOG_VISIBLE) ?: false
         when {
             viewModel.ringNonstop!! -> setRingMode(2)
             viewModel.ringFiveTimes!! -> setRingMode(1)
             else -> setRingMode(0)
         }
-        viewModel.selectedAlarms.value.forEach(this::addAlarmRow)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putBoolean(DIALOG_VISIBLE, showDialog.value)
+        outState.putBoolean(CUSTOM_DIALOG_VISIBLE, showCustomDialog.value)
+        outState.putBoolean(RANDOM_DIALOG_VISIBLE, showRandomDialog.value)
     }
 
     private fun onClickRingType() {
@@ -98,16 +93,7 @@ class ReminderControlSet : TaskEditControlFragment() {
     private fun setRingMode(ringMode: Int) {
         viewModel.ringNonstop = ringMode == 2
         viewModel.ringFiveTimes = ringMode == 1
-        mode.setText(getRingModeString(ringMode))
-    }
-
-    @StringRes
-    private fun getRingModeString(ringMode: Int): Int {
-        return when (ringMode) {
-            2 -> R.string.ring_nonstop
-            1 -> R.string.ring_five_times
-            else -> R.string.ring_once
-        }
+        this.ringMode.value = ringMode
     }
 
     private fun addAlarm(selected: String) {
@@ -120,7 +106,7 @@ class ReminderControlSet : TaskEditControlFragment() {
             getString(R.string.when_overdue) ->
                 addAlarmRow(whenOverdue(id))
             getString(R.string.randomly) ->
-                addAlarmRow(Alarm(id, TimeUnit.DAYS.toMillis(14), TYPE_RANDOM))
+                addRandomAlarm()
             getString(R.string.pick_a_date_and_time) ->
                 addNewAlarm()
             getString(R.string.repeat_option_custom) ->
@@ -146,66 +132,80 @@ class ReminderControlSet : TaskEditControlFragment() {
     @OptIn(ExperimentalComposeUiApi::class)
     override fun bind(parent: ViewGroup?) =
         ControlSetRemindersBinding.inflate(layoutInflater, parent, true).let {
-            alertContainer = it.alertContainer
-            mode = it.reminderAlarm.apply {
-                setOnClickListener { onClickRingType() }
-            }
-            it.alarmsAdd.setOnClickListener { addAlarm() }
-            it.dialogView.setContent {
+            
+            it.alertContainer.setContent {
                 MdcTheme {
-                    val openDialog = remember { showDialog }
-                    val selectedInterval = rememberSaveable { mutableStateOf(15L as Long?) }
-                    val selectedMultiplier = rememberSaveable { mutableStateOf(0) }
-                    if (openDialog.value) {
-                        AlertDialog(
-                            onDismissRequest = {
-                                openDialog.value = false
-                                AndroidUtilities.hideKeyboard(activity)
-                            },
-                            text = {
-                                AddReminderDialog.AddReminderDialog(
-                                    openDialog,
-                                    selectedInterval,
-                                    selectedMultiplier,
-                                )
-                            },
-                            confirmButton = {
-                                Constants.TextButton(text = R.string.ok, onClick = {
-                                    val multiplier = -1 * when (selectedMultiplier.value) {
-                                            1 -> TimeUnit.HOURS.toMillis(1)
-                                            2 -> TimeUnit.DAYS.toMillis(1)
-                                            3 -> TimeUnit.DAYS.toMillis(7)
-                                            else -> TimeUnit.MINUTES.toMillis(1)
-                                    }
-
-                                    selectedInterval.value?.let { i ->
-                                        addAlarmRow(
-                                            Alarm(
-                                                viewModel.task?.id ?: 0L,
-                                                i * multiplier,
-                                                TYPE_REL_END
-                                            )
+                    val alarms = viewModel.selectedAlarms.collectAsState()
+                    Column {
+                        alarms.value.forEach { alarm ->
+                            AlarmRow(alarmToString.toString(alarm)) {
+                                viewModel.selectedAlarms.value =
+                                    viewModel.selectedAlarms.value.minus(alarm)
+                            }
+                        }
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                text = stringResource(id = R.string.add_reminder),
+                                style = MaterialTheme.typography.body1,
+                                modifier = Modifier
+                                    .clickable(
+                                        interactionSource = remember { MutableInteractionSource() },
+                                        indication = rememberRipple(bounded = false),
+                                        onClick = { addAlarm() }
+                                    )
+                                    .alpha(
+                                        ResourcesCompat.getFloat(
+                                            LocalContext.current.resources,
+                                            R.dimen.alpha_disabled
                                         )
-                                        openDialog.value = false
-                                        AndroidUtilities.hideKeyboard(activity)
-                                    }
-                                })
-                            },
-                            dismissButton = {
-                                Constants.TextButton(
-                                    text = R.string.cancel,
-                                    onClick = {
-                                        openDialog.value = false
-                                        AndroidUtilities.hideKeyboard(activity)
-                                    })
-                            },
-                        )
-                    } else {
-                        selectedInterval.value = 15
-                        selectedMultiplier.value = 0
+                                    )
+                            )
+                            Spacer(modifier = Modifier.weight(1f))
+                            val ringMode = remember { this@ReminderControlSet.ringMode }
+                            if (alarms.value.isNotEmpty()) {
+                                Text(
+                                    text = stringResource(
+                                        id = when (ringMode.value) {
+                                            2 -> R.string.ring_nonstop
+                                            1 -> R.string.ring_five_times
+                                            else -> R.string.ring_once
+                                        }
+                                    ),
+                                    style = MaterialTheme.typography.body1.copy(
+                                        textDecoration = TextDecoration.Underline
+                                    ),
+                                    modifier = Modifier.clickable(
+                                        interactionSource = remember { MutableInteractionSource() },
+                                        indication = rememberRipple(bounded = false),
+                                        onClick = { onClickRingType() }
+                                    )
+                                )
+                            }
+                        }
                     }
+
+                    val openCustomDialog = remember { showCustomDialog }
+                    AddReminderDialog.AddCustomReminderDialog(
+                        openCustomDialog,
+                        addAlarm = this::addAlarmRow,
+                        closeDialog = {
+                            openCustomDialog.value = false
+                            AndroidUtilities.hideKeyboard(activity)
+                        }
+                    )
+
+                    val openRandomDialog = remember { showRandomDialog }
+                    AddReminderDialog.AddRandomReminderDialog(
+                        openRandomDialog,
+                        addAlarm = this::addAlarmRow,
+                        closeDialog = {
+                            openRandomDialog.value = false
+                            AndroidUtilities.hideKeyboard(activity)
+                        }
+                    )
                 }
             }
+            
             it.root
         }
 
@@ -217,11 +217,7 @@ class ReminderControlSet : TaskEditControlFragment() {
         if (requestCode == REQUEST_NEW_ALARM) {
             if (resultCode == Activity.RESULT_OK) {
                 val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-                if (viewModel.selectedAlarms.value.none { it.type == TYPE_DATE_TIME && timestamp == it.time }) {
-                    val alarm = Alarm(viewModel.task?.id ?: 0, timestamp, TYPE_DATE_TIME)
-                    viewModel.selectedAlarms.value = viewModel.selectedAlarms.value.plus(alarm)
-                    addAlarmRow(alarm)
-                }
+                addAlarmRow(Alarm(0, timestamp, TYPE_DATE_TIME))
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -229,49 +225,28 @@ class ReminderControlSet : TaskEditControlFragment() {
     }
 
     private fun addAlarmRow(alarm: Alarm) {
-        val alarmRow = addAlarmRow(alarm) {
-            if (alarm.type == TYPE_RANDOM) {
-                viewModel.selectedAlarms.value =
-                    viewModel.selectedAlarms.value.filterNot { it.type == TYPE_RANDOM }
-                randomControlSet = null
-            } else {
-                viewModel.selectedAlarms.value =
-                    viewModel.selectedAlarms.value.filterNot { it.same(alarm) }
+        with (viewModel.selectedAlarms) {
+            if (value.none { it.same(alarm) }) {
+                value = value.plus(alarm)
             }
-        }
-        if (alarm.type == TYPE_RANDOM) {
-            randomControlSet = RandomReminderControlSet(activity, alarmRow, alarm.time, viewModel)
         }
     }
 
     private fun addNewAlarm() {
         val intent = Intent(activity, DateAndTimePickerActivity::class.java)
-        intent.putExtra(
-                DateAndTimePickerActivity.EXTRA_TIMESTAMP, DateTimeUtils.newDateTime().noon().millis)
+            .putExtra(
+                DateAndTimePickerActivity.EXTRA_TIMESTAMP,
+                DateTimeUtils.newDateTime().noon().millis
+            )
         startActivityForResult(intent, REQUEST_NEW_ALARM)
     }
 
     private fun addCustomAlarm() {
-        showDialog.value = true
+        showCustomDialog.value = true
     }
 
-    private fun addAlarmRow(alarm: Alarm, onRemove: View.OnClickListener): View {
-        val alertItem = requireActivity().layoutInflater.inflate(R.layout.alarm_edit_row, null)
-        alertContainer.addView(alertItem)
-        addAlarmRow(alertItem, alarm, onRemove)
-        return alertItem
-    }
-
-    private fun addAlarmRow(alertItem: View, alarm: Alarm, onRemove: View.OnClickListener?) {
-        val display = alertItem.findViewById<TextView>(R.id.alarm_string)
-        viewModel.selectedAlarms.value = viewModel.selectedAlarms.value.plus(alarm)
-        display.text = alarmToString.toString(alarm)
-        alertItem
-                .findViewById<View>(R.id.clear)
-                .setOnClickListener { v: View? ->
-                    alertContainer.removeView(alertItem)
-                    onRemove?.onClick(v)
-                }
+    private fun addRandomAlarm() {
+        showRandomDialog.value = true
     }
 
     private val options: List<String>
@@ -286,9 +261,7 @@ class ReminderControlSet : TaskEditControlFragment() {
             if (viewModel.selectedAlarms.value.find { it.type == TYPE_REL_END && it.time == TimeUnit.HOURS.toMillis(24) } == null) {
                 options.add(getString(R.string.when_overdue))
             }
-            if (randomControlSet == null) {
-                options.add(getString(R.string.randomly))
-            }
+            options.add(getString(R.string.randomly))
             options.add(getString(R.string.pick_a_date_and_time))
             options.add(getString(R.string.repeat_option_custom))
             return options
@@ -297,7 +270,8 @@ class ReminderControlSet : TaskEditControlFragment() {
     companion object {
         const val TAG = R.string.TEA_ctrl_reminders_pref
         private const val REQUEST_NEW_ALARM = 12152
-        private const val DIALOG_VISIBLE = "dialog_visible"
+        private const val CUSTOM_DIALOG_VISIBLE = "custom_dialog_visible"
+        private const val RANDOM_DIALOG_VISIBLE = "random_dialog_visible"
     }
 }
 

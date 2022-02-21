@@ -122,12 +122,6 @@
     <string name="ring_once">Ring en gång</string>
     <string name="ring_five_times">Ring fem gånger</string>
     <string name="ring_nonstop">Ring konstant</string>
-    <string name="random_reminder_hour">en timme</string>
-    <string name="random_reminder_day">ett dygn</string>
-    <string name="random_reminder_week">en vecka</string>
-    <string name="random_reminder_two_weeks">två veckor</string>
-    <string name="random_reminder_month">en månad</string>
-    <string name="random_reminder_two_months">två månader</string>
     <string name="rmd_NoA_done">Slutförd</string>
     <string name="rmd_NoA_snooze">Skjut upp</string>
     <string name="rmd_EPr_quiet_hours_start_title">Tyst period börjar</string>
@@ -192,7 +186,6 @@
     <string name="TLA_menu_donate">Donera</string>
     <string name="add_reminder">Lägg till en påminnelse</string>
     <string name="remove">Ta bort</string>
-    <string name="randomly_once">En gång slumpmässigt</string>
     <string name="randomly">Slumpmässigt</string>
     <string name="pick_a_date_and_time">Ställ in datum och tid</string>
     <string name="when_overdue">Efter förfallotid</string>

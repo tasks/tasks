@@ -357,12 +357,6 @@
     <string name="persistent_notifications_description">නිරන්තර දැනුම්දීම් ඉවත් කළ නොහැක</string>
     <string name="persistent_notifications">නිරන්තර දැනුම්දීම්</string>
     <string name="rmd_EPr_rmd_time_title">පෙරනිමි මතක් කිරීම</string>
-    <string name="random_reminder_two_months">මාස දෙකකට වතාවක්</string>
-    <string name="random_reminder_month">මසකට වතාවක්</string>
-    <string name="random_reminder_two_weeks">සති දෙකකට වතාවක්</string>
-    <string name="random_reminder_week">සතියකට වතාවක්</string>
-    <string name="random_reminder_day">දිනකට වතාවක්</string>
-    <string name="random_reminder_hour">පැයකට වතාවක්</string>
     <string name="ring_nonstop">නොනවත්වාම නාද කරන්න</string>
     <string name="ring_once">එක් වරක් නාද කරන්න</string>
     <string name="ring_five_times">පස් වතාවක් නාද කරන්න</string>
@@ -655,7 +649,6 @@
     <string name="when_overdue">කල් ඉකුත් වූ විට</string>
     <string name="pick_a_date_and_time">දිනයක් සහ වේලාවක් තෝරන්න</string>
     <string name="randomly">අහඹු ලෙස</string>
-    <string name="randomly_once">අහඹු ලෙස වරක්</string>
     <string name="remove">ඉවත් කරන්න</string>
     <string name="add_location">ස්ථානය එක් කරන්න</string>
     <string name="add_reminder">මතක් කිරීමක් එක් කරන්න</string>

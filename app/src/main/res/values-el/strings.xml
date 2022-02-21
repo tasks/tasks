@@ -101,12 +101,6 @@
     <string name="gtasks_error_accountNotFound">Λογαριασμός %s δεν βρέθηκε - παρακαλώ αποσυνδεθείτε και συνδεθείτε πάλι απο τις ρυθμίσεις του Google Tasks.</string>
     <string name="premium_record_audio">Ηχογράφηση σημείωσης</string>
     <string name="premium_remove_file_confirm">Είστε σίγουρος; Δεν μπορεί να ακυρωθεί</string>
-    <string name="random_reminder_hour">μια ώρα</string>
-    <string name="random_reminder_day">μια μέρα</string>
-    <string name="random_reminder_week">μια εβδομάδα</string>
-    <string name="random_reminder_two_weeks">σε δύο εβδομάδες</string>
-    <string name="random_reminder_month">ένα μήνα</string>
-    <string name="random_reminder_two_months">σε δύο μήνες</string>
     <string name="rmd_NoA_done">Ολοκληρωμένο</string>
     <string name="rmd_NoA_snooze">Αναβολή</string>
     <string name="rmd_EPr_quiet_hours_start_title">Ξεκίνησε η ώρα ησυχίας </string>

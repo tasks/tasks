@@ -94,16 +94,6 @@
   <!-- show comments in task edit -->
   <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
 
-  <string-array name="TEA_reminder_random_hours">
-    <!-- values (in hours) associated with items above. -->
-    <item>1</item>
-    <item>24</item>
-    <item>168</item>
-    <item>336</item>
-    <item>730</item>
-    <item>1460</item>
-  </string-array>
-
   <string-array name="EPr_reminder_random_hours">
     <!-- values (in hours) associated with random reminders above. -->
     <item>0</item>

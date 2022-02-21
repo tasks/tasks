@@ -245,7 +245,6 @@
     <string name="when_overdue">În caz de întârziere</string>
     <string name="pick_a_date_and_time">Alegeți o dată și o oră</string>
     <string name="randomly">Aleatoriu</string>
-    <string name="randomly_once">Aleatoriu o dată</string>
     <string name="remove">Eliminați</string>
     <string name="add_location">Adăugați locația</string>
     <string name="add_reminder">Adăugați un memento</string>
@@ -400,12 +399,6 @@
     <string name="snooze_all">Amânați tot</string>
     <string name="rmd_NoA_snooze">Amână</string>
     <string name="rmd_NoA_done">Complet</string>
-    <string name="random_reminder_two_months">în două luni</string>
-    <string name="random_reminder_month">o lună</string>
-    <string name="random_reminder_two_weeks">în două săptămâni</string>
-    <string name="random_reminder_week">o săptămână</string>
-    <string name="random_reminder_day">o zi</string>
-    <string name="random_reminder_hour">o oră</string>
     <string name="ring_nonstop">Sună non-stop</string>
     <string name="ring_five_times">Sună de cinci ori</string>
     <string name="ring_once">Sună o dată</string>

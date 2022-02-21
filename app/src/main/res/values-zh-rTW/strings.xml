@@ -100,12 +100,6 @@
     <string name="ring_once">響鈴一次</string>
     <string name="ring_five_times">響鈴五次</string>
     <string name="ring_nonstop">不斷響鈴</string>
-    <string name="random_reminder_hour">一個小時</string>
-    <string name="random_reminder_day">一天</string>
-    <string name="random_reminder_week">一個星期</string>
-    <string name="random_reminder_two_weeks">兩星期內</string>
-    <string name="random_reminder_month">一個月</string>
-    <string name="random_reminder_two_months">兩個月內</string>
     <string name="rmd_NoA_done">已完成</string>
     <string name="rmd_NoA_snooze">晚點提醒</string>
     <string name="rmd_EPr_quiet_hours_start_title">無聲開始時間</string>
@@ -254,7 +248,6 @@
     <string name="when_overdue">當過期時</string>
     <string name="pick_a_date_and_time">選擇時間和日期</string>
     <string name="randomly">隨機地</string>
-    <string name="randomly_once">隨機一次</string>
     <string name="remove">移除</string>
     <string name="add_location">新增地點</string>
     <string name="add_reminder">新增提醒</string>

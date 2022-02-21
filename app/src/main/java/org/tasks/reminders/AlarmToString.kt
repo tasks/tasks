@@ -41,7 +41,7 @@ class AlarmToString @Inject constructor(
                     resources.getString(res, getDurationString(alarm.time))
                 }
             Alarm.TYPE_RANDOM ->
-                resources.getString(R.string.randomly_once) + " "
+                resources.getString(R.string.randomly_every, getDurationString(alarm.time))
             Alarm.TYPE_SNOOZE ->
                 resources.getString(
                     R.string.snoozed_until,

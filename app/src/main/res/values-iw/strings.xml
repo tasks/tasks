@@ -133,12 +133,6 @@
     <string name="ring_once">צלצל פעם אחת</string>
     <string name="ring_five_times">צלצל חמש פעמים</string>
     <string name="ring_nonstop">צלצל ללא הפסקה</string>
-    <string name="random_reminder_hour">שעה</string>
-    <string name="random_reminder_day">יום</string>
-    <string name="random_reminder_week">שבוע</string>
-    <string name="random_reminder_two_weeks">שבועיים</string>
-    <string name="random_reminder_month">חודש</string>
-    <string name="random_reminder_two_months">חדשיים</string>
     <string name="rmd_NoA_done">בוצעה</string>
     <string name="rmd_NoA_snooze">נודניק</string>
     <string name="snooze_all">נדנד על כולם</string>
@@ -311,7 +305,6 @@
     <string name="add_reminder">הוסף תזכורת</string>
     <string name="add_location">הוסף מיקום</string>
     <string name="remove">הסר</string>
-    <string name="randomly_once">אקראי יחיד</string>
     <string name="randomly">אקראי</string>
     <string name="pick_a_date_and_time">בחר תאריך ושעה</string>
     <string name="when_overdue">לאחר מועד היעד</string>

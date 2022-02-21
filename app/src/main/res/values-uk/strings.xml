@@ -132,12 +132,6 @@
     <string name="ring_once">Звучати один раз</string>
     <string name="ring_five_times">Звучати п’ять разів</string>
     <string name="ring_nonstop">Звучати безперервно</string>
-    <string name="random_reminder_hour">година</string>
-    <string name="random_reminder_day">дня</string>
-    <string name="random_reminder_week">тижня</string>
-    <string name="random_reminder_two_weeks">у два тижні</string>
-    <string name="random_reminder_month">місяця</string>
-    <string name="random_reminder_two_months">у два місяці</string>
     <string name="rmd_NoA_done">Виконано</string>
     <string name="rmd_NoA_snooze">Відкласти</string>
     <string name="snooze_all">Відкласти все</string>
@@ -296,7 +290,6 @@
     <string name="add_reminder">Додати нагадування</string>
     <string name="add_location">Додати місце</string>
     <string name="remove">Вилучити</string>
-    <string name="randomly_once">Випадково раз</string>
     <string name="randomly">Випадково</string>
     <string name="pick_a_date_and_time">Обрати дату й час</string>
     <string name="when_overdue">Коли прострочено</string>

@@ -90,12 +90,6 @@
     <string name="ring_once">یک بار زنگ بزن</string>
     <string name="ring_five_times">پنج بار زنگ بزن</string>
     <string name="ring_nonstop">بدون توقف زنگ بزن</string>
-    <string name="random_reminder_hour">یک ساعت</string>
-    <string name="random_reminder_day">یک روز</string>
-    <string name="random_reminder_week">یک هفته</string>
-    <string name="random_reminder_two_weeks">دو هفته آینده</string>
-    <string name="random_reminder_month">یک ماه</string>
-    <string name="random_reminder_two_months">در دو ماه</string>
     <string name="rmd_NoA_done">کامل</string>
     <string name="rmd_EPr_quiet_hours_start_title">شروع ساعات خلوتی</string>
     <string name="rmd_EPr_quiet_hours_end_title">پایان ساعات خلوتی</string>
@@ -179,7 +173,6 @@
     <string name="TLA_menu_donate">کمک مالی</string>
     <string name="add_reminder">اضافه کردن یادآورد</string>
     <string name="remove">حذف</string>
-    <string name="randomly_once">به طور تصادفی یک دفعه</string>
     <string name="randomly">به طور تصادفی</string>
     <string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
     <string name="when_overdue">پس از موعود</string>

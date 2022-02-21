@@ -132,12 +132,6 @@
     <string name="ring_once">Een keer bellen</string>
     <string name="ring_five_times">Vijf keer bellen</string>
     <string name="ring_nonstop">Blijven bellen</string>
-    <string name="random_reminder_hour">per uur</string>
-    <string name="random_reminder_day">per dag</string>
-    <string name="random_reminder_week">per week</string>
-    <string name="random_reminder_two_weeks">per twee weken</string>
-    <string name="random_reminder_month">per maand</string>
-    <string name="random_reminder_two_months">per twee maanden</string>
     <string name="rmd_NoA_done">Voltooid</string>
     <string name="rmd_NoA_snooze">Sluimeren</string>
     <string name="snooze_all">Alle sluimeren</string>
@@ -278,7 +272,6 @@
     <string name="add_reminder">Herinnering toevoegen</string>
     <string name="add_location">Locatie toevoegen</string>
     <string name="remove">Verwijderen</string>
-    <string name="randomly_once">Willekeurig eenmaal</string>
     <string name="randomly">Willekeurig</string>
     <string name="pick_a_date_and_time">Datum en tijd kiezen</string>
     <string name="when_overdue">Bij vervallen</string>

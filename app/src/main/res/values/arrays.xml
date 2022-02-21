@@ -120,15 +120,6 @@
     <item>@string/now</item>
   </string-array>
 
-  <string-array name="TEA_reminder_random">
-    <item>@string/random_reminder_hour</item>
-    <item>@string/random_reminder_day</item>
-    <item>@string/random_reminder_week</item>
-    <item>@string/random_reminder_two_weeks</item>
-    <item>@string/random_reminder_month</item>
-    <item>@string/random_reminder_two_months</item>
-  </string-array>
-
   <string-array name="EPr_reminder_random">
     <item>@string/default_random_reminder_disabled</item>
     <item>@string/default_random_reminder_hourly</item>

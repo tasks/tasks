@@ -368,7 +368,6 @@
     <string name="when_overdue">เมื่อพ้นกําหนด</string>
     <string name="pick_a_date_and_time">เลือกวันที่และเวลา</string>
     <string name="randomly">คว้าง</string>
-    <string name="randomly_once">สุ่มหนึ่งครั้ง</string>
     <string name="remove">ลบ</string>
     <string name="add_location">เพิ่มตําแหน่งที่ตั้ง</string>
     <string name="add_reminder">เพิ่มตัวเตือน</string>
@@ -513,12 +512,6 @@
     <string name="rmd_EPr_quiet_hours_end_title">สิ้นสุดชั่วโมงเงียบ</string>
     <string name="rmd_EPr_quiet_hours_start_title">ชั่วโมงที่เงียบสงบเริ่มต้น</string>
     <string name="snooze_all">ปิดเสียงเตือนทั้งหมด</string>
-    <string name="random_reminder_two_months">ในสองเดือน</string>
-    <string name="random_reminder_month">เดือน</string>
-    <string name="random_reminder_two_weeks">ในสองสัปดาห์</string>
-    <string name="random_reminder_week">สัปดาห์</string>
-    <string name="random_reminder_day">หนึ่งวัน</string>
-    <string name="random_reminder_hour">หนึ่งชั่วโมง</string>
     <string name="ring_nonstop">แหวนไม่หยุดนิ่ง</string>
     <string name="ring_five_times">แหวนห้าครั้ง</string>
     <string name="ring_once">เรียกหนึ่งครั้ง</string>

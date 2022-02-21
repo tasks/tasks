@@ -217,12 +217,6 @@
     <string name="premium_record_audio">Grava una nota de veu</string>
     <string name="ring_five_times">Sona cinc cops</string>
     <string name="ring_nonstop">Sona ininterrompudament</string>
-    <string name="random_reminder_hour">una hora</string>
-    <string name="random_reminder_day">un dia</string>
-    <string name="random_reminder_week">una setmana</string>
-    <string name="random_reminder_two_weeks">en dues setmanes</string>
-    <string name="random_reminder_month">un mes</string>
-    <string name="random_reminder_two_months">en dos mesos</string>
     <string name="snooze_all">Posposa tot</string>
     <string name="repeat_every">Cada</string>
 </resources>

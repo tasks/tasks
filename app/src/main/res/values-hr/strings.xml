@@ -442,7 +442,6 @@
     <string name="geofence_radius">Radijus</string>
     <string name="pick_a_date_and_time">Odaberi datum i vrijeme</string>
     <string name="randomly">Slučajno</string>
-    <string name="randomly_once">Slučajno jednom</string>
     <string name="remove">Ukloni</string>
     <string name="quiet_hours_summary">Bez podsjetnika tijekom vremena neobavještavanja</string>
     <string name="rate_tasks">Ocijeni Tasks</string>
@@ -490,12 +489,6 @@
     <string name="snooze_all">Odgodi sve</string>
     <string name="rmd_NoA_snooze">Odgodi</string>
     <string name="rmd_NoA_done">Obavljeno</string>
-    <string name="random_reminder_two_months">u dva mjeseca</string>
-    <string name="random_reminder_month">na mjesec</string>
-    <string name="random_reminder_two_weeks">u dva tjedna</string>
-    <string name="random_reminder_week">na tjedan</string>
-    <string name="random_reminder_day">na dan</string>
-    <string name="random_reminder_hour">na sat</string>
     <string name="ring_nonstop">Zvoni neprekidno</string>
     <string name="ring_five_times">Zvoni pet puta</string>
     <string name="ring_once">Zvoni jednom</string>

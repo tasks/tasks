@@ -131,12 +131,6 @@
     <string name="ring_once">한번 울림</string>
     <string name="ring_five_times">다섯번 울림</string>
     <string name="ring_nonstop">계속 울림</string>
-    <string name="random_reminder_hour">한 시간</string>
-    <string name="random_reminder_day">하루</string>
-    <string name="random_reminder_week">일주일</string>
-    <string name="random_reminder_two_weeks">2주일</string>
-    <string name="random_reminder_month">한달</string>
-    <string name="random_reminder_two_months">두달</string>
     <string name="rmd_NoA_done">완료</string>
     <string name="rmd_NoA_snooze">알림 잠시 미루기</string>
     <string name="snooze_all">모든 알람 잠시 미루기</string>
@@ -277,7 +271,6 @@
     <string name="add_reminder">알림 추가</string>
     <string name="add_location">위치 추가</string>
     <string name="remove">지우기</string>
-    <string name="randomly_once">무작위로 한 번</string>
     <string name="randomly">무작위로</string>
     <string name="pick_a_date_and_time">날짜와 시간 선택</string>
     <string name="when_overdue">마감일이 지났을 때</string>

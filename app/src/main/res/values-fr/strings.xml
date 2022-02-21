@@ -124,12 +124,6 @@
     <string name="ring_once">Sonner une fois</string>
     <string name="ring_five_times">Sonner cinq fois</string>
     <string name="ring_nonstop">Sonner en continu</string>
-    <string name="random_reminder_hour">une heure</string>
-    <string name="random_reminder_day">un jour</string>
-    <string name="random_reminder_week">une semaine</string>
-    <string name="random_reminder_two_weeks">dans deux semaines</string>
-    <string name="random_reminder_month">un mois</string>
-    <string name="random_reminder_two_months">dans deux mois</string>
     <string name="rmd_NoA_done">Déjà fait</string>
     <string name="rmd_NoA_snooze">Rappeler plus tard</string>
     <string name="snooze_all">Tout rappeler</string>
@@ -262,7 +256,6 @@
     <string name="add_reminder">Ajouter un rappel</string>
     <string name="add_location">Ajouter une localisation</string>
     <string name="remove">Retirer</string>
-    <string name="randomly_once">Une fois aléatoirement</string>
     <string name="randomly">Aléatoirement</string>
     <string name="pick_a_date_and_time">Choisir date et heure</string>
     <string name="when_overdue">En cas de retard</string>

@@ -55,9 +55,6 @@
     <string name="gcal_TEA_showCalendar_label">Åbn kalenderbegivenhed</string>
     <string name="gcal_completed_title">%s (udført)</string>
     <string name="gtasks_GPr_header">Google Huskeliste</string>
-    <string name="random_reminder_hour">en time</string>
-    <string name="random_reminder_day">en dag</string>
-    <string name="random_reminder_week">en uge</string>
     <string name="rmd_NoA_done">Udført</string>
     <string name="rmd_NoA_snooze">Slumre</string>
     <string name="rmd_EPr_quiet_hours_start_title">Hviletid begynder</string>
@@ -345,7 +342,6 @@
     <string name="when_due">Når der er frist</string>
     <string name="pick_a_date_and_time">Vælg dato og tidspunkt</string>
     <string name="randomly">Tilfældigt</string>
-    <string name="randomly_once">Tilfældigt én gang</string>
     <string name="remove">Fjern</string>
     <string name="add_location">Tilføj sted</string>
     <string name="add_reminder">Tilføj påmindelse</string>
@@ -490,9 +486,6 @@
     <string name="rmd_EPr_rmd_time_desc">Notifikationer for opgaver uden frist-tid dukker op kl. %s</string>
     <string name="rmd_EPr_rmd_time_title">Standardpåmindelse</string>
     <string name="snooze_all">Udsæt alle</string>
-    <string name="random_reminder_two_months">om to måneder</string>
-    <string name="random_reminder_month">en måned</string>
-    <string name="random_reminder_two_weeks">om to uger</string>
     <string name="ring_nonstop">Ring uafbrudt</string>
     <string name="ring_five_times">Ring fem gange</string>
     <string name="ring_once">Ring én gang</string>

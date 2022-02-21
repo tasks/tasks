@@ -137,12 +137,6 @@
     <string name="ring_once">Suskambėti vieną kartą</string>
     <string name="ring_five_times">Suskambėti penkis kartus</string>
     <string name="ring_nonstop">Skambėti nepaliaujant</string>
-    <string name="random_reminder_hour">valandą</string>
-    <string name="random_reminder_day">dieną</string>
-    <string name="random_reminder_week">savaitę</string>
-    <string name="random_reminder_two_weeks">dvi savaites</string>
-    <string name="random_reminder_month">mėnesį</string>
-    <string name="random_reminder_two_months">per du mėnesius</string>
     <string name="rmd_NoA_done">Užbaigta</string>
     <string name="rmd_NoA_snooze">Užmigdyti</string>
     <string name="snooze_all">Užmigdyti visus</string>
@@ -300,7 +294,6 @@
     <string name="add_reminder">Pridėti priminimą</string>
     <string name="add_location">Pridėti vietą</string>
     <string name="remove">Išmesti</string>
-    <string name="randomly_once">Atsitiktinai vieną kartą</string>
     <string name="randomly">Atsitiktinai</string>
     <string name="pick_a_date_and_time">Pasirinkti datą ir laiką</string>
     <string name="when_overdue">Kai vėluojama</string>

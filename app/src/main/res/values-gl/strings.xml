@@ -123,12 +123,6 @@
     <string name="ring_once">Sonar una vez</string>
     <string name="ring_five_times">Sonar cinco veces</string>
     <string name="ring_nonstop">Sonar sin parar</string>
-    <string name="random_reminder_hour">una hora</string>
-    <string name="random_reminder_day">un día</string>
-    <string name="random_reminder_week">una semana</string>
-    <string name="random_reminder_two_weeks">en dos semanas</string>
-    <string name="random_reminder_month">un mes</string>
-    <string name="random_reminder_two_months">en dos meses</string>
     <string name="rmd_NoA_done">Terminada</string>
     <string name="rmd_NoA_snooze">Posponer</string>
     <string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
@@ -195,7 +189,6 @@
     <string name="TLA_menu_donate">Donar</string>
     <string name="add_reminder">Añadir recordatorio</string>
     <string name="remove">Eliminar</string>
-    <string name="randomly_once">Aleatorio, una sola vez</string>
     <string name="randomly">Aleatoriamente</string>
     <string name="pick_a_date_and_time">Elegir fecha y hora</string>
     <string name="when_overdue">Si está atrasada</string>

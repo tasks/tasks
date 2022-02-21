@@ -105,11 +105,6 @@
     <string name="ring_once">Helista üks kord</string>
     <string name="ring_five_times">Helista 5 korda</string>
     <string name="ring_nonstop">Helista lõputult</string>
-    <string name="random_reminder_hour">tund</string>
-    <string name="random_reminder_day">päev</string>
-    <string name="random_reminder_week">nädal</string>
-    <string name="random_reminder_two_weeks">kahe nädala pärast</string>
-    <string name="random_reminder_two_months">kahe kuu pärast</string>
     <string name="rmd_NoA_done">Valmis</string>
     <string name="rmd_NoA_snooze">Lükka edasi</string>
     <string name="snooze_all">Lükka kõik edasi</string>

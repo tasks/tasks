@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.RadioButton
@@ -42,11 +43,102 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.android.awaitFrame
 import org.tasks.R
+import org.tasks.data.Alarm
+import java.util.concurrent.TimeUnit
 
 @ExperimentalComposeUiApi
 object AddReminderDialog {
     @Composable
-    fun AddReminderDialog(
+    fun AddRandomReminderDialog(
+        openDialog: MutableState<Boolean>,
+        addAlarm: (Alarm) -> Unit,
+        closeDialog: () -> Unit,
+    ) {
+        val interval = rememberSaveable { mutableStateOf(15L as Long?) }
+        val multiplier = rememberSaveable { mutableStateOf(0) }
+        if (openDialog.value) {
+            AlertDialog(
+                onDismissRequest = closeDialog,
+                text = { AddRandomReminder(openDialog, interval, multiplier) },
+                confirmButton = {
+                    Constants.TextButton(text = R.string.ok, onClick = {
+                        interval.value?.let { i ->
+                            addAlarm(Alarm(0, i * multiplier.millis, Alarm.TYPE_RANDOM))
+                            closeDialog()
+                        }
+                    })
+                },
+                dismissButton = {
+                    Constants.TextButton(
+                        text = R.string.cancel,
+                        onClick = closeDialog
+                    )
+                },
+            )
+        } else {
+            interval.value = 15
+            multiplier.value = 0
+        }
+    }
+
+    @Composable
+    fun AddCustomReminderDialog(
+        openDialog: MutableState<Boolean>,
+        addAlarm: (Alarm) -> Unit,
+        closeDialog: () -> Unit,
+    ) {
+        val interval = rememberSaveable { mutableStateOf(15L as Long?) }
+        val multiplier = rememberSaveable { mutableStateOf(0) }
+        if (openDialog.value) {
+            AlertDialog(
+                onDismissRequest = closeDialog,
+                text = { AddCustomReminder(openDialog, interval, multiplier) },
+                confirmButton = {
+                    Constants.TextButton(text = R.string.ok, onClick = {
+                        interval.value?.let { i ->
+                            addAlarm(Alarm(0, -1 * i * multiplier.millis, Alarm.TYPE_REL_END))
+                            closeDialog()
+                        }
+                    })
+                },
+                dismissButton = {
+                    Constants.TextButton(
+                        text = R.string.cancel,
+                        onClick = closeDialog
+                    )
+                },
+            )
+        } else {
+            interval.value = 15
+            multiplier.value = 0
+        }
+    }
+
+    @Composable
+    fun AddRandomReminder(
+        visible: MutableState<Boolean>,
+        interval: MutableState<Long?>,
+        selected: MutableState<Int>
+    ) {
+        val scrollState = rememberScrollState()
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(scrollState)
+        ) {
+            CenteredH6(text = stringResource(id = R.string.randomly_every, "").trim())
+            val focusRequester = remember { FocusRequester() }
+            OutlinedLongInput(interval, focusRequester)
+            Spacer(modifier = Modifier.height(16.dp))
+            options.forEachIndexed { index, option ->
+                RadioRow(index, option, interval, selected)
+            }
+            ShowKeyboard(visible, focusRequester)
+        }
+    }
+
+    @Composable
+    fun AddCustomReminder(
         visible: MutableState<Boolean>,
         interval: MutableState<Long?>,
         selected: MutableState<Int>,
@@ -61,18 +153,27 @@ object AddReminderDialog {
             val focusRequester = remember { FocusRequester() }
             OutlinedLongInput(interval, focusRequester)
             Spacer(modifier = Modifier.height(16.dp))
-            val options = listOf(
-                R.plurals.reminder_minutes,
-                R.plurals.reminder_hours,
-                R.plurals.reminder_days,
-                R.plurals.reminder_week,
-            )
             options.forEachIndexed { index, option ->
-                RadioRow(index, option, interval, selected)
+                RadioRow(index, option, interval, selected, R.string.alarm_before_due)
             }
             ShowKeyboard(visible, focusRequester)
         }
     }
+
+    private val options = listOf(
+        R.plurals.reminder_minutes,
+        R.plurals.reminder_hours,
+        R.plurals.reminder_days,
+        R.plurals.reminder_week,
+    )
+
+    private val MutableState<Int>.millis: Long
+        get() = when (value) {
+            1 -> TimeUnit.HOURS.toMillis(1)
+            2 -> TimeUnit.DAYS.toMillis(1)
+            3 -> TimeUnit.DAYS.toMillis(7)
+            else -> TimeUnit.MINUTES.toMillis(1)
+        }
 }
 
 @ExperimentalComposeUiApi
@@ -117,8 +218,13 @@ fun OutlinedLongInput(
 
 @Composable
 fun CenteredH6(@StringRes resId: Int) {
+    CenteredH6(text = stringResource(id = resId))
+}
+
+@Composable
+fun CenteredH6(text: String) {
     Text(
-        text = stringResource(id = resId),
+        text = text,
         textAlign = TextAlign.Center,
         modifier = Modifier
             .fillMaxWidth()
@@ -129,7 +235,13 @@ fun CenteredH6(@StringRes resId: Int) {
 }
 
 @Composable
-fun RadioRow(index: Int, option: Int, interval: MutableState<Long?>, selected: MutableState<Int>) {
+fun RadioRow(
+    index: Int,
+    option: Int,
+    interval: MutableState<Long?>,
+    selected: MutableState<Int>,
+    formatString: Int? = null,
+) {
     val number = interval.value?.toInt() ?: 1
     val optionString = LocalContext.current.resources.getQuantityString(option, number)
     Row(
@@ -150,7 +262,10 @@ fun RadioRow(index: Int, option: Int, interval: MutableState<Long?>, selected: M
         )
         Text(
             text = if (index == selected.value) {
-                stringResource(id = R.string.alarm_before_due, optionString)
+                formatString
+                    ?.let { stringResource(id = formatString, optionString) }
+                    ?: optionString
+
             } else {
                 optionString
             },
@@ -165,9 +280,9 @@ fun RadioRow(index: Int, option: Int, interval: MutableState<Long?>, selected: M
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun AddReminderOne() =
+fun AddCustomReminderOne() =
     MaterialTheme(if (isSystemInDarkTheme()) darkColors() else lightColors()) {
-        AddReminderDialog.AddReminderDialog(
+        AddReminderDialog.AddCustomReminder(
             visible = remember { mutableStateOf(true) },
             interval = remember { mutableStateOf(1L) },
             selected = remember { mutableStateOf(0) }
@@ -178,9 +293,35 @@ fun AddReminderOne() =
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun AddReminderMultiple() =
+fun AddCustomReminder() =
     MaterialTheme(if (isSystemInDarkTheme()) darkColors() else lightColors()) {
-        AddReminderDialog.AddReminderDialog(
+        AddReminderDialog.AddCustomReminder(
+            visible = remember { mutableStateOf(true) },
+            interval = remember { mutableStateOf(15L) },
+            selected = remember { mutableStateOf(1) }
+        )
+    }
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AddRandomReminderOne() =
+    MaterialTheme(if (isSystemInDarkTheme()) darkColors() else lightColors()) {
+        AddReminderDialog.AddRandomReminder(
+            visible = remember { mutableStateOf(true) },
+            interval = remember { mutableStateOf(1L) },
+            selected = remember { mutableStateOf(0) }
+        )
+    }
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AddRandomReminder() =
+    MaterialTheme(if (isSystemInDarkTheme()) darkColors() else lightColors()) {
+        AddReminderDialog.AddRandomReminder(
             visible = remember { mutableStateOf(true) },
             interval = remember { mutableStateOf(15L) },
             selected = remember { mutableStateOf(1) }

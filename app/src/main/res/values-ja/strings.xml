@@ -133,12 +133,6 @@
     <string name="ring_once">1回通知音を鳴らす</string>
     <string name="ring_five_times">5回通知音を鳴らす</string>
     <string name="ring_nonstop">通知音を鳴らし続ける</string>
-    <string name="random_reminder_hour">1時間</string>
-    <string name="random_reminder_day">1日</string>
-    <string name="random_reminder_week">1週間</string>
-    <string name="random_reminder_two_weeks">2週間以内</string>
-    <string name="random_reminder_month">1か月</string>
-    <string name="random_reminder_two_months">2か月以内</string>
     <string name="rmd_NoA_done">完了しました</string>
     <string name="rmd_NoA_snooze">スヌーズ</string>
     <string name="snooze_all">すべてスヌーズ</string>
@@ -280,7 +274,6 @@
     <string name="add_reminder">リマインダーを追加</string>
     <string name="add_location">場所を追加</string>
     <string name="remove">削除</string>
-    <string name="randomly_once">1回ランダムに</string>
     <string name="randomly">ランダムに</string>
     <string name="pick_a_date_and_time">日付と時間を選択</string>
     <string name="when_overdue">期限を過ぎたとき</string>

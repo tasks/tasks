@@ -120,12 +120,6 @@
     <string name="ring_once">响铃一次</string>
     <string name="ring_five_times">响铃五次</string>
     <string name="ring_nonstop">响个不停</string>
-    <string name="random_reminder_hour">一个小时</string>
-    <string name="random_reminder_day">一天</string>
-    <string name="random_reminder_week">一个星期</string>
-    <string name="random_reminder_two_weeks">两星期内</string>
-    <string name="random_reminder_month">一个月</string>
-    <string name="random_reminder_two_months">两个月内</string>
     <string name="rmd_NoA_done">已完成</string>
     <string name="rmd_NoA_snooze">延后</string>
     <string name="snooze_all">全都稍后提醒</string>
@@ -262,7 +256,6 @@
     <string name="TLA_menu_donate">捐献</string>
     <string name="add_reminder">添加提醒</string>
     <string name="remove">移除</string>
-    <string name="randomly_once">随机一次</string>
     <string name="randomly">随机</string>
     <string name="pick_a_date_and_time">选个日期和时间</string>
     <string name="when_overdue">过期时</string>

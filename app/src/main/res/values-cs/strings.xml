@@ -108,12 +108,6 @@
     <string name="gtasks_error_accountNotFound">Účet %s nebyl nalezen — přes nastavení Google Tasks se odhlaste a znovu přihlaste.</string>
     <string name="premium_record_audio">Nahrát poznámku</string>
     <string name="premium_remove_file_confirm">Opravdu\? Nelze vrátit zpět</string>
-    <string name="random_reminder_hour">hodina</string>
-    <string name="random_reminder_day">den</string>
-    <string name="random_reminder_week">týden</string>
-    <string name="random_reminder_two_weeks">za dva týdny</string>
-    <string name="random_reminder_month">měsíc</string>
-    <string name="random_reminder_two_months">za dva měsíce</string>
     <string name="rmd_NoA_done">Dokončeno</string>
     <string name="rmd_NoA_snooze">Odložit</string>
     <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
@@ -334,7 +328,6 @@
     <string name="customize_edit_screen">Přizpůsobit obrazovku úprav</string>
     <string name="add_reminder">Přidat upomínku</string>
     <string name="add_location">Přidat místo</string>
-    <string name="randomly_once">Náhodně jednou</string>
     <string name="pick_a_date_and_time">Vybrat datum a čas</string>
     <string name="when_due">S termínem</string>
     <string name="geofence_radius">Okruh</string>

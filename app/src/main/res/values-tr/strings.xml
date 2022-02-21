@@ -133,12 +133,6 @@
     <string name="ring_once">Bir kez çal</string>
     <string name="ring_five_times">Beş kez çal</string>
     <string name="ring_nonstop">Durmadan çal</string>
-    <string name="random_reminder_hour">bir saat</string>
-    <string name="random_reminder_day">bir gün</string>
-    <string name="random_reminder_week">bir hafta</string>
-    <string name="random_reminder_two_weeks">iki hafta içinde</string>
-    <string name="random_reminder_month">bir ay</string>
-    <string name="random_reminder_two_months">iki ay içinde</string>
     <string name="rmd_NoA_done">Tamamlandı</string>
     <string name="rmd_NoA_snooze">Ertele</string>
     <string name="snooze_all">Tümünü ertele</string>
@@ -281,7 +275,6 @@
     <string name="add_reminder">Anımsatıcı ekle</string>
     <string name="add_location">Konum ekle</string>
     <string name="remove">Kaldır</string>
-    <string name="randomly_once">Şunda rastgele bir kez</string>
     <string name="randomly">Gelişigüzel</string>
     <string name="pick_a_date_and_time">Bir tarih ve zaman seç</string>
     <string name="when_overdue">Geciktiğinde</string>

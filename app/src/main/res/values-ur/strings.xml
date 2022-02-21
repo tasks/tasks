@@ -161,12 +161,6 @@
     <string name="snooze_all">سارا اسنوز کریں</string>
     <string name="rmd_NoA_snooze">اسنوز کریں</string>
     <string name="rmd_NoA_done">مکمل</string>
-    <string name="random_reminder_two_months">دو مہینوں میں</string>
-    <string name="random_reminder_month">ایک مہینہ</string>
-    <string name="random_reminder_two_weeks">دو ہفتوں میں</string>
-    <string name="random_reminder_week">ایک ہفتہ</string>
-    <string name="random_reminder_day">ایک دن</string>
-    <string name="random_reminder_hour">ایک گھنٹہ</string>
     <string name="ring_nonstop">بغیر رکے رنگ بجنا</string>
     <string name="ring_five_times">پانچ بار رنگ بجنا</string>
     <string name="ring_once">ایک بار رنگ بجنا</string>
@@ -307,7 +301,6 @@
     <string name="when_overdue">جب واجب الادا ہو</string>
     <string name="pick_a_date_and_time">تاریخ اور وقت مقرر کریں</string>
     <string name="randomly">بے ترتیب</string>
-    <string name="randomly_once">بلاترتیب ایک دفعہ</string>
     <string name="remove">ختم کریں</string>
     <string name="add_location">لوکیشن لگائیں</string>
     <string name="add_reminder">ہاد دہانی لگائیں</string>

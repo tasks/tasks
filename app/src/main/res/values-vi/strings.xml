@@ -439,7 +439,6 @@
     <string name="when_overdue">Khi quá hạn</string>
     <string name="pick_a_date_and_time">Chọn ngày và thời gian</string>
     <string name="randomly">Ngẫu nhiên</string>
-    <string name="randomly_once">Ngẫu nhiên một lần</string>
     <string name="remove">Xoá</string>
     <string name="add_location">Thêm vị trí</string>
     <string name="add_reminder">Thêm lời nhắc</string>
@@ -591,17 +590,11 @@
     <string name="snooze_all">Báo lại tất cả</string>
     <string name="rmd_NoA_snooze">Báo lại</string>
     <string name="rmd_NoA_done">Hoàn thành</string>
-    <string name="random_reminder_two_months">hai tháng sau</string>
-    <string name="random_reminder_month">một tháng</string>
-    <string name="random_reminder_two_weeks">hai tuần sau</string>
     <string name="CFC_startBefore_name">Bắt đầu trước…</string>
     <string name="CFC_startBefore_text">Bắt đầu trước: \?</string>
     <string name="CFC_dueBefore_name">Hạn trước…</string>
     <string name="CFC_dueBefore_text">Hạn trước: \?</string>
     <string name="display_name">Tên hiển thị</string>
-    <string name="random_reminder_week">một tuần</string>
-    <string name="random_reminder_day">một ngày</string>
-    <string name="random_reminder_hour">một tiếng</string>
     <string name="ring_nonstop">Đổ chuông không ngừng</string>
     <string name="ring_five_times">Đổ chuông năm lần</string>
     <string name="ring_once">Đổ chuông một lần</string>

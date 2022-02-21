@@ -137,12 +137,6 @@
     <string name="ring_once">Звънене веднъж</string>
     <string name="ring_five_times">Звънене пет пъти</string>
     <string name="ring_nonstop">Звънене без прекъсване</string>
-    <string name="random_reminder_hour">на час</string>
-    <string name="random_reminder_day">на ден</string>
-    <string name="random_reminder_week">в седмицата</string>
-    <string name="random_reminder_two_weeks">на две седмици</string>
-    <string name="random_reminder_month">в месеца</string>
-    <string name="random_reminder_two_months">на два месеца</string>
     <string name="rmd_NoA_done">Завършен</string>
     <string name="rmd_NoA_snooze">Отлагане</string>
     <string name="snooze_all">Отлагане всички</string>
@@ -285,7 +279,6 @@
     <string name="add_reminder">Добавяне на напомняне</string>
     <string name="add_location">Добавяне на място</string>
     <string name="remove">Премахване</string>
-    <string name="randomly_once">Произволно веднъж</string>
     <string name="randomly">Произволно</string>
     <string name="pick_a_date_and_time">Избиране на дата и час</string>
     <string name="when_overdue">След крайния срок</string>

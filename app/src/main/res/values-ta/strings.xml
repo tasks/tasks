@@ -115,12 +115,6 @@
     <string name="snooze_all">அனைத்தையும் உறக்கநிலையில் வைக்கவும்</string>
     <string name="rmd_NoA_snooze">உறக்கநிலை</string>
     <string name="rmd_NoA_done">முழுமை</string>
-    <string name="random_reminder_two_months">இரண்டு மாதங்களில்</string>
-    <string name="random_reminder_month">ஒரு மாதம்</string>
-    <string name="random_reminder_two_weeks">இரண்டு வாரங்களில்</string>
-    <string name="random_reminder_week">ஒரு வாரம்</string>
-    <string name="random_reminder_day">ஒரு நாள்</string>
-    <string name="random_reminder_hour">ஒரு மணி நேரம்</string>
     <string name="premium_remove_file_confirm">நீ சொல்வது உறுதியா\? செயல்தவிர்க்க முடியாது</string>
     <string name="premium_record_audio">ஒரு குறிப்பைப் பதிவுசெய்க</string>
     <string name="gtasks_error_accountNotFound">கணக்கு %s காணப்படவில்லை - தயவுசெய்து வெளியேறி, Google பணிகள் அமைப்புகளிலிருந்து மீண்டும் உள்நுழைக.</string>
@@ -407,7 +401,6 @@
     <string name="when_overdue">தாமதமாகும்போது</string>
     <string name="pick_a_date_and_time">தேதி மற்றும் நேரத்தைத் தேர்ந்தெடுங்கள்</string>
     <string name="randomly">சீரற்ற</string>
-    <string name="randomly_once">சீரற்ற ஒரு முறை</string>
     <string name="remove">அகற்று</string>
     <string name="add_location">இருப்பிடத்தைச் சேர்க்கவும்</string>
     <string name="add_reminder">நினைவூட்டலைச் சேர்க்கவும்</string>

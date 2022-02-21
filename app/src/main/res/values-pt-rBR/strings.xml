@@ -128,12 +128,6 @@
     <string name="ring_once">Tocar uma vez</string>
     <string name="ring_five_times">Tocar cinco vezes</string>
     <string name="ring_nonstop">Tocar continuamente</string>
-    <string name="random_reminder_hour">por hora</string>
-    <string name="random_reminder_day">por dia</string>
-    <string name="random_reminder_week">por semana</string>
-    <string name="random_reminder_two_weeks">a cada duas semanas</string>
-    <string name="random_reminder_month">a cada mês</string>
-    <string name="random_reminder_two_months">a cada dois meses</string>
     <string name="rmd_NoA_done">Concluída</string>
     <string name="rmd_NoA_snooze">Adiar</string>
     <string name="snooze_all">Adiar todos</string>
@@ -276,7 +270,6 @@
     <string name="add_reminder">Adicionar lembrete</string>
     <string name="add_location">Adicionar localização</string>
     <string name="remove">Remover</string>
-    <string name="randomly_once">Aleatoriamente uma vez</string>
     <string name="randomly">Aleatoriamente</string>
     <string name="pick_a_date_and_time">Escolha data e horário</string>
     <string name="when_overdue">Quando vencida</string>

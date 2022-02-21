@@ -127,12 +127,6 @@
     <string name="ring_once">Dzwoń raz</string>
     <string name="ring_five_times">Dzwoń pięć razy</string>
     <string name="ring_nonstop">Dzwoń nonstop</string>
-    <string name="random_reminder_hour">na godzinę</string>
-    <string name="random_reminder_day">dziennie</string>
-    <string name="random_reminder_week">na tydzień</string>
-    <string name="random_reminder_two_weeks">na dwa tygodnie</string>
-    <string name="random_reminder_month">na miesiąc</string>
-    <string name="random_reminder_two_months">na dwa miesiące</string>
     <string name="rmd_NoA_done">Gotowe</string>
     <string name="rmd_NoA_snooze">Drzemka</string>
     <string name="snooze_all">Uśpij wszystkie</string>
@@ -290,7 +284,6 @@
     <string name="add_reminder">Dodaj przypomnienie</string>
     <string name="add_location">Dodaj lokalizację</string>
     <string name="remove">Usuń</string>
-    <string name="randomly_once">Losowo raz</string>
     <string name="randomly">Losowo</string>
     <string name="pick_a_date_and_time">Wybierz datę i czas</string>
     <string name="when_overdue">Gdy zaległe</string>

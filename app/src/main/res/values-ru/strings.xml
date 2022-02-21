@@ -132,12 +132,6 @@
     <string name="ring_once">1 раз</string>
     <string name="ring_five_times">5 раз</string>
     <string name="ring_nonstop">Звучать безостановочно</string>
-    <string name="random_reminder_hour">час</string>
-    <string name="random_reminder_day">день</string>
-    <string name="random_reminder_week">неделя</string>
-    <string name="random_reminder_two_weeks">через две недели</string>
-    <string name="random_reminder_month">месяц</string>
-    <string name="random_reminder_two_months">в два месяца</string>
     <string name="rmd_NoA_done">Завершено</string>
     <string name="rmd_NoA_snooze">Отложить</string>
     <string name="snooze_all">Отложить все</string>
@@ -295,7 +289,6 @@
     <string name="add_reminder">Добавить напоминание</string>
     <string name="add_location">Добавить место</string>
     <string name="remove">Удалить</string>
-    <string name="randomly_once">Случайно один раз</string>
     <string name="randomly">Случайно</string>
     <string name="pick_a_date_and_time">Дата и время</string>
     <string name="when_overdue">Когда просрочено</string>

@@ -130,12 +130,6 @@
     <string name="ring_once">Egy csengés</string>
     <string name="ring_five_times">Öt csengés</string>
     <string name="ring_nonstop">Folyamatos csengés</string>
-    <string name="random_reminder_hour">egy óra</string>
-    <string name="random_reminder_day">egy nap</string>
-    <string name="random_reminder_week">egy hét</string>
-    <string name="random_reminder_two_weeks">két héten belül</string>
-    <string name="random_reminder_month">egy hónap</string>
-    <string name="random_reminder_two_months">két hónapon belül</string>
     <string name="rmd_NoA_done">Befejezve</string>
     <string name="rmd_NoA_snooze">Szundi</string>
     <string name="snooze_all">Szundi mind</string>
@@ -278,7 +272,6 @@
     <string name="add_reminder">Emlékeztető hozzáadása</string>
     <string name="add_location">Hely hozzáadása</string>
     <string name="remove">Eltávolítás</string>
-    <string name="randomly_once">Véletlenszerűen egyszer</string>
     <string name="randomly">Véletlenszerűen</string>
     <string name="pick_a_date_and_time">Válasszon dátumot és időpontot</string>
     <string name="when_overdue">Határidő lejárta után</string>

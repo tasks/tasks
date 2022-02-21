@@ -225,12 +225,6 @@
     <string name="ring_once">Ring én gang</string>
     <string name="ring_five_times">Ring fem ganger</string>
     <string name="ring_nonstop">Ring konstant</string>
-    <string name="random_reminder_hour">én time</string>
-    <string name="random_reminder_day">én dag</string>
-    <string name="random_reminder_week">én uke</string>
-    <string name="random_reminder_two_weeks">om to uker</string>
-    <string name="random_reminder_month">én måned</string>
-    <string name="random_reminder_two_months">om to måneder</string>
     <string name="snooze_all">Slumre alle</string>
     <string name="rmd_EPr_rmd_time_title">Forvalgt påminnelse</string>
     <string name="rmd_EPr_rmd_time_desc">Merknader for gjøremål uten tidsfrister vil vises %s.</string>
@@ -311,7 +305,6 @@
     <string name="add_reminder">Legg til påminnelse</string>
     <string name="add_location">Legg til sted</string>
     <string name="remove">Fjern</string>
-    <string name="randomly_once">Tilfeldig én gang</string>
     <string name="randomly">Tilfeldig</string>
     <string name="pick_a_date_and_time">Velg dato og tid</string>
     <string name="when_overdue">Når forfalt</string>

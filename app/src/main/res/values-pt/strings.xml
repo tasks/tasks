@@ -122,12 +122,6 @@
     <string name="ring_once">Tocar uma vez</string>
     <string name="ring_five_times">Tocar 5 vezes</string>
     <string name="ring_nonstop">Tocar sem parar</string>
-    <string name="random_reminder_hour">uma hora</string>
-    <string name="random_reminder_day">um dia</string>
-    <string name="random_reminder_week">uma semana</string>
-    <string name="random_reminder_two_weeks">em duas semanas</string>
-    <string name="random_reminder_month">um mês</string>
-    <string name="random_reminder_two_months">em dois meses</string>
     <string name="rmd_NoA_done">Terminada</string>
     <string name="snooze_all">Suspender todos</string>
     <string name="rmd_EPr_quiet_hours_start_title">Início da hora de silêncio</string>
@@ -267,7 +261,6 @@
     <string name="TLA_menu_donate">Fazer um donativo</string>
     <string name="add_reminder">Adicionar lembrete</string>
     <string name="remove">Remover</string>
-    <string name="randomly_once">Uma vez aleatória</string>
     <string name="randomly">Aleatoriamente</string>
     <string name="pick_a_date_and_time">Escolher a data e a hora</string>
     <string name="when_overdue">Quando ultrapassado</string>

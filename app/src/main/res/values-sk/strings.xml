@@ -133,12 +133,6 @@
     <string name="ring_once">Zvoniť raz</string>
     <string name="ring_five_times">Zvoniť päť krát</string>
     <string name="ring_nonstop">Zvoniť neustále</string>
-    <string name="random_reminder_hour">hodina</string>
-    <string name="random_reminder_day">deň</string>
-    <string name="random_reminder_week">týždeň</string>
-    <string name="random_reminder_two_weeks">v dvoch týždňoch</string>
-    <string name="random_reminder_month">mesiac</string>
-    <string name="random_reminder_two_months">v dvoch mesiacoch</string>
     <string name="rmd_NoA_done">Dokončené</string>
     <string name="rmd_NoA_snooze">Odložiť</string>
     <string name="snooze_all">Uspi všetko</string>
@@ -281,7 +275,6 @@
     <string name="add_reminder">Pridať pripomienku</string>
     <string name="add_location">Pridaj polohu</string>
     <string name="remove">Odstrániť</string>
-    <string name="randomly_once">Raz náhodne</string>
     <string name="randomly">Náhodne</string>
     <string name="pick_a_date_and_time">Vybrať dátum a čas</string>
     <string name="when_overdue">Keď po termíne</string>

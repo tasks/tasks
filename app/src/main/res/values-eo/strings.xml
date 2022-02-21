@@ -57,7 +57,6 @@
         <item quantity="other">%d taskoj</item>
     </plurals>
     <string name="repeat_option_custom">Propra…</string>
-    <string name="random_reminder_day">tage</string>
     <string name="no_start_date">Sen komencdato</string>
     <string name="custom_filter_and">KAJ</string>
     <string name="custom_filter_not">NE</string>
@@ -121,7 +120,6 @@
     <string name="repeat_monthly_every_day_of_nth_week">ĉia %1$s %2$s</string>
     <string name="filter_today_only">Nur hodiaŭ</string>
     <string name="chip_appearance_text_only">Nur teksto</string>
-    <string name="randomly_once">Hazarde unufoje</string>
     <string name="repeat_yearly">RIPETI ĈIUJARE</string>
     <string name="repeat_monthly">RIPETI ĈIUMONATE</string>
     <string name="repeat_weekly">RIPETI ĈIUSEMAJNE</string>
@@ -150,11 +148,6 @@
     <string name="default_random_reminder_disabled">Malŝaltitaj</string>
     <string name="rmd_EPr_defaultRemind_title">Hazardaj memorigiloj</string>
     <string name="rmd_EPr_rmd_time_title">Defaŭlta memorigilo</string>
-    <string name="random_reminder_two_months">du monate</string>
-    <string name="random_reminder_month">monate</string>
-    <string name="random_reminder_two_weeks">du semajne</string>
-    <string name="random_reminder_week">semajne</string>
-    <string name="random_reminder_hour">hore</string>
     <string name="premium_remove_file_confirm">Ĉu vi certas\? Ne povos malfari</string>
     <string name="CFC_list_name">En listo…</string>
     <string name="CFC_gtasks_list_name">En GTasks Listo…</string>

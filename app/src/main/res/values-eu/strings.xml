@@ -133,12 +133,6 @@
     <string name="ring_once">Doinua behin</string>
     <string name="ring_five_times">Doinua bost aldiz</string>
     <string name="ring_nonstop">Doinua etengabe</string>
-    <string name="random_reminder_hour">ordubete</string>
-    <string name="random_reminder_day">egun bat</string>
-    <string name="random_reminder_week">astebete</string>
-    <string name="random_reminder_two_weeks">bi aste</string>
-    <string name="random_reminder_month">hilabete</string>
-    <string name="random_reminder_two_months">bi hilabete</string>
     <string name="rmd_NoA_done">Burututa</string>
     <string name="rmd_NoA_snooze">Atzeratu</string>
     <string name="snooze_all">Atzeratu denak</string>
@@ -281,7 +275,6 @@
     <string name="add_reminder">Gehitu oroigarria</string>
     <string name="add_location">Gehitu kokalekua</string>
     <string name="remove">Kendu</string>
-    <string name="randomly_once">Ausaz behin</string>
     <string name="randomly">Ausaz</string>
     <string name="pick_a_date_and_time">Hautatu data eta ordua</string>
     <string name="when_overdue">Epemuga gaindituta badago</string>

@@ -122,12 +122,6 @@
     <string name="ring_once">Soi kerran</string>
     <string name="ring_five_times">Soi viisi kertaa</string>
     <string name="ring_nonstop">Soi jatkuvasti</string>
-    <string name="random_reminder_hour">tunti</string>
-    <string name="random_reminder_day">päivä</string>
-    <string name="random_reminder_week">viikko</string>
-    <string name="random_reminder_two_weeks">kahden viikon kuluessa</string>
-    <string name="random_reminder_month">kuukausi</string>
-    <string name="random_reminder_two_months">kahden kuukauden kuluessa</string>
     <string name="rmd_NoA_done">Täydennä</string>
     <string name="rmd_NoA_snooze">Torkku</string>
     <string name="snooze_all">Torkuta kaikki</string>
@@ -268,7 +262,6 @@
     <string name="TLA_menu_donate">Lahjoita</string>
     <string name="add_reminder">Lisää muistutus</string>
     <string name="remove">Poista</string>
-    <string name="randomly_once">Satunnaisesti kerran</string>
     <string name="randomly">Satunnaisesti</string>
     <string name="pick_a_date_and_time">Valitse päivä ja aika</string>
     <string name="when_overdue">Kun myöhässä</string>

@@ -131,12 +131,6 @@
     <string name="ring_once">Einmal klingeln</string>
     <string name="ring_five_times">Fünfmal klingeln</string>
     <string name="ring_nonstop">Ununterbrochen klingeln</string>
-    <string name="random_reminder_hour">in der Stunde</string>
-    <string name="random_reminder_day">am Tag</string>
-    <string name="random_reminder_week">in der Woche</string>
-    <string name="random_reminder_two_weeks">in zwei Wochen</string>
-    <string name="random_reminder_month">im Monat</string>
-    <string name="random_reminder_two_months">in 2 Monaten</string>
     <string name="rmd_NoA_done">Abgeschlossen</string>
     <string name="rmd_NoA_snooze">Schlummern</string>
     <string name="snooze_all">Alle schlummern</string>
@@ -278,7 +272,6 @@
     <string name="add_reminder">Erinnerung hinzufügen</string>
     <string name="add_location">Ort hinzufügen</string>
     <string name="remove">Entfernen</string>
-    <string name="randomly_once">Zufällig einmal</string>
     <string name="randomly">Zufällig</string>
     <string name="pick_a_date_and_time">Tag und Uhrzeit auswählen</string>
     <string name="when_overdue">Wenn überfällig</string>
