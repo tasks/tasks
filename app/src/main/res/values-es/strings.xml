@@ -15,8 +15,8 @@
 \n</string>
     <string name="import_progress_read">Leyendo tarea %d…</string>
     <string name="read_permission_label">Permisos de Tasks</string>
-    <string name="discard_confirmation">¿Confirma que quiere descartar los cambios\?</string>
-    <string name="keep_editing">Seguir editando</string>
+    <string name="discard_confirmation">¿Confirme que desea descartar los cambios\?</string>
+    <string name="keep_editing">Continuar editando</string>
     <string name="DLG_delete_this_task_question">¿Desea eliminar esta tarea\?</string>
     <string name="DLG_hour_minutes">Tiempo (horas : minutos)</string>
     <string name="DLG_undo">Deshacer</string>
