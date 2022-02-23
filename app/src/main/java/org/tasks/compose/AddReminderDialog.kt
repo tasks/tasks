@@ -256,9 +256,7 @@ fun RadioRow(
             onClick = {
                 selected.value = index
             },
-            modifier = Modifier
-                .padding(16.dp, 8.dp)
-                .align(CenterVertically)
+            modifier = Modifier.align(CenterVertically)
         )
         Text(
             text = if (index == selected.value) {
