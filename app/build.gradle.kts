@@ -190,7 +190,7 @@ dependencies {
 
     debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${Versions.flipper}")
-    debugImplementation("com.facebook.soloader:soloader:0.10.1")
+    debugImplementation("com.facebook.soloader:soloader:0.10.3")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
     debugImplementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
     debugImplementation("org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}")
