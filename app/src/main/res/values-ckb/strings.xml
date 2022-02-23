@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="actfm_picture_clear">وێنە بسڕەوە</string>
+    <string name="TVA_add_comment">لێدوانێک زیاد بکە…</string>
+    <string name="import_progress_read">ئەرکی %d دەخوێنرێتەوە…</string>
+    <string name="keep_editing">بەردەوام بە لە دەستکاریکردن</string>
+    <string name="DLG_delete_this_task_question">دەتەوێت ئەم ئەرکە بسڕیتەوە؟</string>
+    <string name="DLG_hour_minutes">کات (کاتژمێر : خولەک)</string>
+    <string name="TLA_no_items">هیچ ئەرکێک لێرە نییە.</string>
+    <string name="TLA_menu_sort">ڕیزی بکە</string>
+    <string name="TLA_menu_search">بگەڕێ</string>
+    <string name="TAd_actionEditTask">دەستکاری</string>
+    <string name="action_call">پەیوەندی</string>
+    <string name="action_open">بکەوە</string>
+    <string name="SSD_sort_auto">ڕیزکردنی ژیرانە</string>
+    <string name="SSD_sort_alpha">بە ناونیشان</string>
+    <string name="SSD_sort_start">بە بەرواری دەستپێکردن</string>
+    <string name="SSD_sort_due">بە بەرواری جێبەجێکردن</string>
+    <string name="sort_created">بە کاتی دروستکردن</string>
+    <string name="FLA_new_filter">پاڵاوتنێک دروست بکە</string>
+    <string name="TEA_importance_label">گرنگی</string>
+    <string name="TEA_estimatedDuration_label">چەندێک دەخایەنێت؟</string>
+    <string name="save">هەڵیبگرە</string>
+    <string name="due_date">بەرواری جێبەجێکردن</string>
+    <string name="due_time">کاتی جێبەجێکردن</string>
+    <string name="import_summary_title">پوختە وەک خۆی لێ بکەرەوە</string>
+    <string name="discard_confirmation">دڵنیایت دەتەوێت گۆڕانکارییەکانت هەڵوەشێنیتەوە؟</string>
+    <string name="TLA_menu_settings">ڕێکخستنەکان</string>
+    <string name="TEA_title_hint">ناوی ئەرک</string>
+    <string name="SSD_sort_importance">بە گرنگی</string>
+    <string name="SSD_sort_modified">بە کۆتا دەستکاری</string>
+</resources>
