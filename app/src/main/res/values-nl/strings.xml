@@ -14,7 +14,7 @@
 \n %5$s bevatten fouten
 \n</string>
     <string name="import_progress_read">Taak %d lezen…</string>
-    <string name="read_permission_label">Toegangsrecht Taken</string>
+    <string name="read_permission_label">App-recht Taken</string>
     <string name="discard_confirmation">Weet je zeker dat je de wijzigingen wilt negeren\?</string>
     <string name="keep_editing">Meer bewerken</string>
     <string name="DLG_delete_this_task_question">Deze taak wissen\?</string>
@@ -409,8 +409,8 @@
     <string name="choose_a_location">Locatie kiezen</string>
     <string name="pick_this_location">Deze locatie kiezen</string>
     <string name="or_choose_a_location">Of een locatie kiezen</string>
-    <string name="missing_permissions">Ontbrekende toegangsrechten</string>
-    <string name="location_permission_required_location">Locatie-toegangsrecht is nodig om de actuele locatie te vinden</string>
+    <string name="missing_permissions">Ontbrekende App-rechten</string>
+    <string name="location_permission_required_location">App-recht Locatie is vereist voor de actuele locatie</string>
     <string name="open_map">Kaart openen</string>
     <string name="choose_new_location">Nieuwe locatie kiezen</string>
     <string name="third_party_licenses">Licenties van derden</string>
@@ -564,7 +564,7 @@
     <string name="date_shortcut_tomorrow_night">Morgennacht</string>
     <string name="date_shortcut_tomorrow_evening">Morgenavond</string>
     <string name="reset_sort_order">Sorteervolgorde terugzetten</string>
-    <string name="permission_read_tasks">Volledige toegang tot Tasks database</string>
+    <string name="permission_read_tasks">Toegang verlenen tot Tasks-database</string>
     <string name="davx5_selection_description">Taken met de DAVx⁵ toepassing synchroniseren</string>
     <string name="account">Account</string>
     <string name="device_settings">Toestel instellingen</string>
@@ -598,7 +598,7 @@
     <string name="insufficient_subscription">Onvoldoende abonnementsniveau. Upgrade je abonnement om de service te hervatten.</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer nu om deze dienst te hervatten.</string>
     <string name="follow_reddit">Sluit je aan bij r/tasks</string>
-    <string name="background_location_permission_required">Tasks verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de applicatie gesloten is of niet gebruikt wordt.</string>
+    <string name="background_location_permission_required">Tasks verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de app gesloten is of niet gebruikt wordt.</string>
     <string name="repeat_monthly_fifth_week">vijfde</string>
     <string name="authorization_cancelled">Verificatie geannuleerd</string>
     <string name="sign_in_with_google">Log in met Google</string>
@@ -732,4 +732,5 @@
         <item quantity="other">Weken</item>
     </plurals>
     <string name="custom_notification">Aangepaste melding</string>
+    <string name="randomly_every">Willekeurig elke %s</string>
 </resources>
