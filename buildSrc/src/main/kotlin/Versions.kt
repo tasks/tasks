@@ -5,7 +5,7 @@ object Versions {
     const val minSdk = 24
     const val work = "2.7.0"
     const val leakcanary = "2.8.1"
-    const val room = "2.4.0-beta01"
+    const val room = "2.4.2"
     const val crashlytics = "18.2.6"
     const val analytics = "20.0.2"
     const val remote_config = "21.0.1"
