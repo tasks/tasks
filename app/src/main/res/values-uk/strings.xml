@@ -760,4 +760,5 @@
         <item quantity="other">Днів</item>
     </plurals>
     <string name="custom_notification">Користувацькі сповіщення</string>
+    <string name="randomly_every">Випадково кожні %s</string>
 </resources>
