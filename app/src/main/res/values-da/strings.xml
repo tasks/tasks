@@ -474,8 +474,6 @@
     <string name="repeat_option_every_day">Hver dag</string>
     <string name="repeat_option_does_not_repeat">Gentages ikke</string>
     <string name="repeat_every">Hver</string>
-    <string name="default_random_reminder_bi_monthly">Hver anden måned</string>
-    <string name="default_random_reminder_monthly">Månedligt</string>
     <string name="default_random_reminder_bi_weekly">Hver anden uge</string>
     <string name="default_random_reminder_weekly">Ugentligt</string>
     <string name="default_random_reminder_daily">Dagligt</string>

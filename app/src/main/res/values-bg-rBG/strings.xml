@@ -152,8 +152,6 @@
     <string name="default_random_reminder_daily">ежедневно</string>
     <string name="default_random_reminder_weekly">ежеседмично</string>
     <string name="default_random_reminder_bi_weekly">на две седмици</string>
-    <string name="default_random_reminder_monthly">ежемесечно</string>
-    <string name="default_random_reminder_bi_monthly">на два месеца</string>
     <string name="repeat_every">Всеки</string>
     <string name="repeat_option_does_not_repeat">не се повтаря</string>
     <string name="repeat_option_every_day">всеки ден</string>

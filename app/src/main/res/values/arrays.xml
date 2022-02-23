@@ -126,8 +126,6 @@
     <item>@string/default_random_reminder_daily</item>
     <item>@string/default_random_reminder_weekly</item>
     <item>@string/default_random_reminder_bi_weekly</item>
-    <item>@string/default_random_reminder_monthly</item>
-    <item>@string/default_random_reminder_bi_monthly</item>
   </string-array>
 
   <string-array name="repeat_options">

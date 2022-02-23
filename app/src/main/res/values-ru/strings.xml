@@ -147,8 +147,6 @@
     <string name="default_random_reminder_daily">ежедневно</string>
     <string name="default_random_reminder_weekly">еженедельно</string>
     <string name="default_random_reminder_bi_weekly">каждые две недели</string>
-    <string name="default_random_reminder_monthly">ежемесячно</string>
-    <string name="default_random_reminder_bi_monthly">каждые два месяца</string>
     <string name="repeat_every">Каждую(ые)</string>
     <string name="repeat_option_does_not_repeat">Не повторять</string>
     <string name="repeat_option_every_day">Ежедневно</string>

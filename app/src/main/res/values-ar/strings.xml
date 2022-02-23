@@ -80,8 +80,6 @@
     <string name="default_random_reminder_daily">يومي</string>
     <string name="default_random_reminder_weekly">أسبوعي</string>
     <string name="default_random_reminder_bi_weekly">مرتين في الأسبوع</string>
-    <string name="default_random_reminder_monthly">شهري</string>
-    <string name="default_random_reminder_bi_monthly">مرتين في الشهر</string>
     <string name="repeat_forever">كرِّر للأبد</string>
     <string name="TEA_timer_controls">مؤقت</string>
     <string name="TEA_timer_comment_started">بدء هذه المهمة:</string>

@@ -148,8 +148,6 @@
     <string name="default_random_reminder_daily">her gün</string>
     <string name="default_random_reminder_weekly">her hafta</string>
     <string name="default_random_reminder_bi_weekly">haftada 2 kez</string>
-    <string name="default_random_reminder_monthly">ayda bir</string>
-    <string name="default_random_reminder_bi_monthly">ayda 2 kez</string>
     <string name="repeat_every">Her</string>
     <string name="repeat_option_does_not_repeat">Yinelemez</string>
     <string name="repeat_option_every_day">Her gün</string>

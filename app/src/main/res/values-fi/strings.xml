@@ -137,8 +137,6 @@
     <string name="default_random_reminder_daily">Päivittäin</string>
     <string name="default_random_reminder_weekly">Viikoittain</string>
     <string name="default_random_reminder_bi_weekly">Jokatoinen viikko</string>
-    <string name="default_random_reminder_monthly">Kuukausittain</string>
-    <string name="default_random_reminder_bi_monthly">Jokatoinen kuukausi</string>
     <string name="repeat_every">Joka</string>
     <string name="repeat_option_does_not_repeat">Älä toista</string>
     <string name="repeat_option_every_day">Joka päivä</string>

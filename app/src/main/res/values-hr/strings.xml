@@ -472,8 +472,6 @@
     <string name="repeat_hourly">PONAVLJAJ SVAKI SAT</string>
     <string name="repeat_minutely">PONAVLJAJ SVAKE MINUTE</string>
     <string name="repeat_every">Svakih</string>
-    <string name="default_random_reminder_bi_monthly">Dvomjesečno</string>
-    <string name="default_random_reminder_monthly">Mjesečno</string>
     <string name="default_random_reminder_bi_weekly">Dvotjedno</string>
     <string name="default_random_reminder_weekly">Tjedno</string>
     <string name="default_random_reminder_daily">Dnevno</string>

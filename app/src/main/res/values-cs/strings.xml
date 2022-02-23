@@ -120,8 +120,6 @@
     <string name="default_random_reminder_daily">Denně</string>
     <string name="default_random_reminder_weekly">Týdně</string>
     <string name="default_random_reminder_bi_weekly">Každých čtrnáct dní</string>
-    <string name="default_random_reminder_monthly">Měsíčně</string>
-    <string name="default_random_reminder_bi_monthly">Každý druhý měsíc</string>
     <string name="repeat_forever">Opakovat stále</string>
     <string name="repeat_until">Opakovat až do %s</string>
     <string name="new_tag">Vytvořit nový štítek</string>

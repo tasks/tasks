@@ -136,8 +136,6 @@
     <string name="default_random_reminder_daily">varje dag</string>
     <string name="default_random_reminder_weekly">varje vecka</string>
     <string name="default_random_reminder_bi_weekly">varannan vecka</string>
-    <string name="default_random_reminder_monthly">varje månad</string>
-    <string name="default_random_reminder_bi_monthly">varannan månad</string>
     <string name="repeat_forever">Upprepa för alltid</string>
     <string name="repeat_until">Repetera till %s</string>
     <string name="repeat_snackbar">%1$s omplanerat till %2$s</string>

@@ -137,8 +137,6 @@
     <string name="default_random_reminder_daily">diariamente</string>
     <string name="default_random_reminder_weekly">semanalmente</string>
     <string name="default_random_reminder_bi_weekly">quincenalmente</string>
-    <string name="default_random_reminder_monthly">mensualmente</string>
-    <string name="default_random_reminder_bi_monthly">bimensualmente</string>
     <string name="repeat_forever">Repetir por siempre</string>
     <string name="repeat_until">Repetir hasta %s</string>
     <string name="repeat_snackbar">%1$s He reprogramado esta tarea recurrente para %2$s</string>

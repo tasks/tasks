@@ -112,8 +112,6 @@
     <string name="default_random_reminder_daily">每天</string>
     <string name="default_random_reminder_weekly">每週</string>
     <string name="default_random_reminder_bi_weekly">每2週</string>
-    <string name="default_random_reminder_monthly">每月</string>
-    <string name="default_random_reminder_bi_monthly">每2個月</string>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d 分鐘</item>
         <item quantity="other">%d 分鐘</item>

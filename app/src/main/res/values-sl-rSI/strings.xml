@@ -113,8 +113,6 @@
     <string name="default_random_reminder_daily">dnevno</string>
     <string name="default_random_reminder_weekly">tedensko</string>
     <string name="default_random_reminder_bi_weekly">vsake dva tedna</string>
-    <string name="default_random_reminder_monthly">mesečno</string>
-    <string name="default_random_reminder_bi_monthly">vsake dva meseca</string>
     <string name="repeat_forever">Ponavljaj do preklica</string>
     <string name="repeat_until">Ponavljaj do %s</string>
     <string name="TPl_notification">Merilniki časa aktivni za %s!</string>

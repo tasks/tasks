@@ -497,8 +497,6 @@
     <string name="repeat_option_every_day">ทุกวัน</string>
     <string name="repeat_option_does_not_repeat">ไม่ซ้ำ</string>
     <string name="repeat_every">ทุกๆ</string>
-    <string name="default_random_reminder_bi_monthly">สองรายเดือน</string>
-    <string name="default_random_reminder_monthly">รายเดือน</string>
     <string name="default_random_reminder_bi_weekly">รายปักษ์</string>
     <string name="default_random_reminder_weekly">รายสัปดาห์</string>
     <string name="default_random_reminder_daily">ทุกวัน</string>

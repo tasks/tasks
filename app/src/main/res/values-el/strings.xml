@@ -113,8 +113,6 @@
     <string name="default_random_reminder_daily">Ημερήσια</string>
     <string name="default_random_reminder_weekly">Εβδομαδιαία</string>
     <string name="default_random_reminder_bi_weekly">κάθε δυο εβδομάδες</string>
-    <string name="default_random_reminder_monthly">Μηνιαία</string>
-    <string name="default_random_reminder_bi_monthly">Διμηνιαία</string>
     <string name="repeat_forever">Επανάληψη επ\'αορίστου</string>
     <string name="repeat_until">Επανάληψη μέχρι %s</string>
     <string name="TPl_notification">Χρονοδιακόπτες ενεργοί για %s!</string>

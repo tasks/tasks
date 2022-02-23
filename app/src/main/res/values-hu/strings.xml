@@ -145,8 +145,6 @@
     <string name="default_random_reminder_daily">Naponta</string>
     <string name="default_random_reminder_weekly">Hetente</string>
     <string name="default_random_reminder_bi_weekly">Kéthetente</string>
-    <string name="default_random_reminder_monthly">Havonta</string>
-    <string name="default_random_reminder_bi_monthly">Kéthavonta</string>
     <string name="repeat_every">Minden</string>
     <string name="repeat_option_does_not_repeat">Nincs ismétlés</string>
     <string name="repeat_option_every_day">Minden nap</string>

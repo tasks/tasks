@@ -144,8 +144,6 @@
     <string name="gcal_TEA_showCalendar_label">کیلنڈر ایونٹ کھولیں</string>
     <string name="gcal_TEA_error">کیلنڈر میں کام شامل کرنے میں خرابی!</string>
     <string name="repeat_every">ہر ایک</string>
-    <string name="default_random_reminder_bi_monthly">مہینے میں دو بار</string>
-    <string name="default_random_reminder_monthly">مہینہ وار</string>
     <string name="default_random_reminder_bi_weekly">ہفتے میں دو بار</string>
     <string name="default_random_reminder_weekly">ہفتہ وار</string>
     <string name="default_random_reminder_daily">روزانہ</string>

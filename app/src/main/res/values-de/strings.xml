@@ -146,8 +146,6 @@
     <string name="default_random_reminder_daily">täglich</string>
     <string name="default_random_reminder_weekly">wöchentlich</string>
     <string name="default_random_reminder_bi_weekly">vierzehntägig</string>
-    <string name="default_random_reminder_monthly">monatlich</string>
-    <string name="default_random_reminder_bi_monthly">alle zwei Monate</string>
     <string name="repeat_every">Jede(n, -s)</string>
     <string name="repeat_option_does_not_repeat">Nicht wiederholen</string>
     <string name="repeat_option_every_day">Jeden Tag</string>

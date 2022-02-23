@@ -346,8 +346,6 @@
     <string name="repeat_option_every_month">සෑම මාසයකම</string>
     <string name="repeat_option_every_week">සෑම සතියකම</string>
     <string name="repeat_option_every_day">සෑම දිනම</string>
-    <string name="default_random_reminder_bi_monthly">ද්වි-මාසික</string>
-    <string name="default_random_reminder_monthly">මාසිකව</string>
     <string name="default_random_reminder_bi_weekly">ද්වි-සතිපතා</string>
     <string name="default_random_reminder_weekly">සතිපතා</string>
     <string name="default_random_reminder_daily">දිනපතා</string>

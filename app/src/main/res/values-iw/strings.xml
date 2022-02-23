@@ -148,8 +148,6 @@
     <string name="default_random_reminder_daily">יומי</string>
     <string name="default_random_reminder_weekly">שבועי</string>
     <string name="default_random_reminder_bi_weekly">דו שבועי</string>
-    <string name="default_random_reminder_monthly">חודשי</string>
-    <string name="default_random_reminder_bi_monthly">דו חודשי</string>
     <string name="repeat_every">כל</string>
     <string name="repeat_option_does_not_repeat">לא חוזר</string>
     <string name="repeat_option_every_day">כל יום</string>

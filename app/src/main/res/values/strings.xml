@@ -168,8 +168,6 @@ File %1$s contained %2$s.\n\n
   <string name="default_random_reminder_daily">Daily</string>
   <string name="default_random_reminder_weekly">Weekly</string>
   <string name="default_random_reminder_bi_weekly">Bi-weekly</string>
-  <string name="default_random_reminder_monthly">Monthly</string>
-  <string name="default_random_reminder_bi_monthly">Bi-monthly</string>
   <string name="repeat_every">Every</string>
   <string name="repeat_option_does_not_repeat">Does not repeat</string>
   <string name="repeat_option_every_day">Every day</string>

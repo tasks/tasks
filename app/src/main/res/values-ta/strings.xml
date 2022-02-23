@@ -98,8 +98,6 @@
     <string name="repeat_option_every_day">தினமும்</string>
     <string name="repeat_option_does_not_repeat">மீண்டும் செய்யாது</string>
     <string name="repeat_every">ஒவ்வொரு</string>
-    <string name="default_random_reminder_bi_monthly">இரு மாத</string>
-    <string name="default_random_reminder_monthly">மாதாந்திர</string>
     <string name="default_random_reminder_bi_weekly">இரு வாராந்திர</string>
     <string name="default_random_reminder_weekly">வாராந்திர</string>
     <string name="default_random_reminder_daily">தினசரி</string>

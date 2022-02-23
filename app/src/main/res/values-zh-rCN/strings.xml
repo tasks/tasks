@@ -135,8 +135,6 @@
     <string name="default_random_reminder_daily">每天</string>
     <string name="default_random_reminder_weekly">每周</string>
     <string name="default_random_reminder_bi_weekly">每两周</string>
-    <string name="default_random_reminder_monthly">每月</string>
-    <string name="default_random_reminder_bi_monthly">每两个月</string>
     <string name="repeat_every">每</string>
     <string name="repeat_option_does_not_repeat">不要重复</string>
     <string name="repeat_option_every_day">每天</string>

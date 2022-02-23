@@ -193,8 +193,6 @@
     <string name="persistent_notifications_description">Les notificacions persistents no es poden esborrar</string>
     <string name="default_random_reminder_daily">A diari</string>
     <string name="default_random_reminder_weekly">Setmanalment</string>
-    <string name="default_random_reminder_monthly">Mensualment</string>
-    <string name="default_random_reminder_bi_monthly">Cada dos mesos</string>
     <string name="repeat_option_custom">Personalitza…</string>
     <string name="repeat_minutely">REPETEIX CADA MINUT</string>
     <string name="repeat_hourly">REPETEIX CADA HORA</string>

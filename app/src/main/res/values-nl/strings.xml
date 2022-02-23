@@ -147,8 +147,6 @@
     <string name="default_random_reminder_daily">Dagelijks</string>
     <string name="default_random_reminder_weekly">Wekelijks</string>
     <string name="default_random_reminder_bi_weekly">Elke twee weken</string>
-    <string name="default_random_reminder_monthly">Maandelijks</string>
-    <string name="default_random_reminder_bi_monthly">Elke twee maanden</string>
     <string name="repeat_every">Elke</string>
     <string name="repeat_option_does_not_repeat">Herhaalt niet</string>
     <string name="repeat_option_every_day">Elke dag</string>

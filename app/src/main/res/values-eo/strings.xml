@@ -139,8 +139,6 @@
     <string name="repeats_hourly">ĉiuhore</string>
     <string name="repeats_minutely">ĉiuminute</string>
     <string name="randomly">Hazarde</string>
-    <string name="default_random_reminder_bi_monthly">Ĉiudumonate</string>
-    <string name="default_random_reminder_monthly">Ĉiumonate</string>
     <string name="default_random_reminder_bi_weekly">Ĉiudusemajne</string>
     <string name="default_random_reminder_weekly">Ĉiusemajne</string>
     <string name="default_random_reminder_daily">Ĉiutage</string>

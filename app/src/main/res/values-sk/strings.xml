@@ -148,8 +148,6 @@
     <string name="default_random_reminder_daily">denne</string>
     <string name="default_random_reminder_weekly">Týždenne</string>
     <string name="default_random_reminder_bi_weekly">Každý druhý týždeň</string>
-    <string name="default_random_reminder_monthly">Mesačne</string>
-    <string name="default_random_reminder_bi_monthly">Každý druhý mesiac</string>
     <string name="repeat_every">Každý</string>
     <string name="repeat_option_does_not_repeat">Neopakovať</string>
     <string name="repeat_option_every_day">Každý deň</string>

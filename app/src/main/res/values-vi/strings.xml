@@ -573,8 +573,6 @@
     <string name="repeat_option_every_day">Mỗi ngày</string>
     <string name="repeat_option_does_not_repeat">Không lặp lại</string>
     <string name="repeat_every">Mỗi</string>
-    <string name="default_random_reminder_bi_monthly">Mỗi hai tháng</string>
-    <string name="default_random_reminder_monthly">Hàng tháng</string>
     <string name="default_random_reminder_bi_weekly">Mỗi hai tuần</string>
     <string name="default_random_reminder_weekly">Hàng tuần</string>
     <string name="default_random_reminder_daily">Hàng ngày</string>

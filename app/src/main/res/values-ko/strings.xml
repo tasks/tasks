@@ -146,8 +146,6 @@
     <string name="default_random_reminder_daily">매일</string>
     <string name="default_random_reminder_weekly">매주</string>
     <string name="default_random_reminder_bi_weekly">격주로</string>
-    <string name="default_random_reminder_monthly">매월</string>
-    <string name="default_random_reminder_bi_monthly">격월로</string>
     <string name="repeat_every">매</string>
     <string name="repeat_option_does_not_repeat">반복하지 않기</string>
     <string name="repeat_option_every_day">매일</string>

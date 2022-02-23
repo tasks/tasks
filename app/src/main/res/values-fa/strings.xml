@@ -100,8 +100,6 @@
     <string name="default_random_reminder_daily">هر روز</string>
     <string name="default_random_reminder_weekly">هر هفته</string>
     <string name="default_random_reminder_bi_weekly">یک هفته در میان</string>
-    <string name="default_random_reminder_monthly">هر ماه</string>
-    <string name="default_random_reminder_bi_monthly">یک ماه درمیان</string>
     <plurals name="repeat_minutes">
         <item quantity="one">دقیقه(ها)</item>
         <item quantity="other">دقیقه ها</item>
