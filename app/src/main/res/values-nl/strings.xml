@@ -482,7 +482,7 @@
     <string name="desaturate_colors_summary_off">Niet minder verzadigde kleuren in donkere thema\'s</string>
     <string name="places">Locaties</string>
     <string name="place_settings">Locatie instellingen</string>
-    <string name="navigation_drawer">Lade navigatie (\'drawer\')</string>
+    <string name="navigation_drawer">Navigatielade</string>
     <string name="hide_unused_tags">Verberg ongebruikte labels</string>
     <string name="hide_unused_places">Verberg ongebruikte locaties</string>
     <string name="menu_discard_changes">Veranderingen negeren</string>
@@ -663,7 +663,7 @@
     <string name="list_members">Leden op de lijst</string>
     <string name="remove_user_confirmation">%1$s krijgt geen toegang meer tot %2$s</string>
     <string name="remove_user">Gebruiker verwijderen\?</string>
-    <string name="manage_drawer">Lade (\'drawer\') beheren</string>
+    <string name="manage_drawer">Navigatielade beheren</string>
     <string name="share_list">Lijst delen</string>
     <string name="invite">Uitnodigen</string>
     <string name="invite_invalid">Uitnodiging ongeldig</string>
