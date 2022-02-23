@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -31,6 +30,7 @@ import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.compose.AddReminderDialog
 import org.tasks.compose.AlarmRow
+import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
@@ -135,7 +135,7 @@ class ReminderControlSet : TaskEditControlFragment() {
             
             it.alertContainer.setContent {
                 MdcTheme {
-                    val alarms = viewModel.selectedAlarms.collectAsState()
+                    val alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware()
                     Column {
                         alarms.value.forEach { alarm ->
                             AlarmRow(alarmToString.toString(alarm)) {
