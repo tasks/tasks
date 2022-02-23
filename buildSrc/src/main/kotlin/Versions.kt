@@ -16,7 +16,7 @@ object Versions {
     const val make_it_easy = "4.0.1"
     const val hilt = "2.41"
     const val hilt_androidx = "1.0.0"
-    const val lifecycle = "2.3.0"
+    const val lifecycle = "2.4.1"
     const val markwon = "4.6.2"
     const val compose = "1.1.1"
     const val compose_theme_adapter = compose
