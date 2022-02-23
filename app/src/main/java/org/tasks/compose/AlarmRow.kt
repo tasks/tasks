@@ -3,7 +3,6 @@ package org.tasks.compose
 import android.content.res.Configuration
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -33,9 +32,8 @@ fun AlarmRow(text: String, remove: () -> Unit = {}) {
     ) {
         Text(
             text = text,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(bottom = 16.dp).weight(weight = 1f),
         )
-        Spacer(modifier = Modifier.weight(1f))
         IconButton(
             onClick = remove,
             modifier = Modifier
