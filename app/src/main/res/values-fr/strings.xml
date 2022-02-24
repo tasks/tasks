@@ -725,4 +725,5 @@
         <item quantity="other">Heures</item>
     </plurals>
     <string name="custom_notification">Notification personnalisée</string>
+    <string name="randomly_every">Aléatoirement tous les %s</string>
 </resources>
