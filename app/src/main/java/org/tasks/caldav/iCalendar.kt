@@ -76,6 +76,7 @@ class iCalendar @Inject constructor(
         private val caldavDao: CaldavDao,
         private val alarmDao: AlarmDao,
         private val alarmService: AlarmService,
+        private val vtodoCache: VtodoCache,
 ) {
 
     suspend fun setPlace(taskId: Long, geo: Geo?) {
@@ -123,11 +124,16 @@ class iCalendar @Inject constructor(
         return tags
     }
 
-    suspend fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task): ByteArray {
+    suspend fun toVtodo(
+        calendar: CaldavCalendar,
+        caldavTask: CaldavTask,
+        task: com.todoroo.astrid.data.Task
+    ): ByteArray {
         var remoteModel: Task? = null
         try {
-            if (!isNullOrEmpty(caldavTask.vtodo)) {
-                remoteModel = fromVtodo(caldavTask.vtodo!!)
+            val vtodo = vtodoCache.getVtodo(calendar, caldavTask)
+            if (vtodo?.isNotBlank() == true) {
+                remoteModel = fromVtodo(vtodo)
             }
         } catch (e: java.lang.Exception) {
             Timber.e(e)
@@ -180,7 +186,7 @@ class iCalendar @Inject constructor(
                 }
         val caldavTask = existing ?: CaldavTask(task.id, calendar.uuid, remote.uid, obj)
         val dirty = task.modificationDate > caldavTask.lastSync || caldavTask.lastSync == 0L
-        val local = caldavTask.vtodo?.let { fromVtodo(it) }
+        val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
         task.applyRemote(remote, local)
         caldavTask.applyRemote(remote, local)
 
@@ -207,7 +213,7 @@ class iCalendar @Inject constructor(
         task.suppressSync()
         task.suppressRefresh()
         taskDao.save(task)
-        caldavTask.vtodo = vtodo
+        vtodoCache.putVtodo(calendar, caldavTask, vtodo)
         caldavTask.etag = eTag
         if (!dirty) {
             caldavTask.lastSync = task.modificationDate

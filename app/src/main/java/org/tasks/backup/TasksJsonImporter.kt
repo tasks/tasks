@@ -16,6 +16,7 @@ import com.todoroo.astrid.service.Upgrader.Companion.V6_4
 import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.caldav.VtodoCache
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.AlarmDao
@@ -56,7 +57,9 @@ class TasksJsonImporter @Inject constructor(
         private val caldavDao: CaldavDao,
         private val preferences: Preferences,
         private val taskMover: TaskMover,
-        private val taskListMetadataDao: TaskListMetadataDao) {
+        private val taskListMetadataDao: TaskListMetadataDao,
+        private val vtodoCache: VtodoCache,
+    ) {
 
     private val result = ImportResult()
 
@@ -218,6 +221,12 @@ class TasksJsonImporter @Inject constructor(
                 backup.caldavTasks?.forEach { caldavTask ->
                     caldavTask.task = taskId
                     caldavDao.insert(caldavTask)
+                }
+                backup.vtodo?.let {
+                    val caldavTask =
+                        backup.caldavTasks?.firstOrNull { t -> !t.isDeleted() } ?: return@let
+                    val caldavCalendar = caldavDao.getCalendar(caldavTask.calendar!!) ?: return@let
+                    vtodoCache.putVtodo(caldavCalendar, caldavTask, it)
                 }
                 result.importCount++
             }

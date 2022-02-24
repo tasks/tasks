@@ -17,9 +17,6 @@ class CaldavTaskContainer {
     val isDeleted: Boolean
         get() = task.isDeleted
 
-    val vtodo: String?
-        get() = caldavTask.vtodo
-
     val sortOrder: Long
         get() = caldavTask.order ?: DateTime(task.creationDate).toAppleEpoch()
 

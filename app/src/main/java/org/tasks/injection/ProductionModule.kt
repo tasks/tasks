@@ -10,6 +10,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.caldav.FileStorage
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.OpenTaskDao
@@ -26,9 +27,13 @@ import javax.inject.Singleton
 internal class ProductionModule {
     @Provides
     @Singleton
-    fun getAppDatabase(@ApplicationContext context: Context, preferences: Preferences): Database {
+    fun getAppDatabase(
+        @ApplicationContext context: Context,
+        preferences: Preferences,
+        fileStorage: FileStorage,
+    ): Database {
         val builder = Room.databaseBuilder(context, Database::class.java, Database.NAME)
-                .addMigrations(*Migrations.MIGRATIONS)
+                .addMigrations(*Migrations.migrations(fileStorage))
         if (!BuildConfig.DEBUG || !preferences.getBoolean(R.string.p_crash_main_queries, false)) {
             builder.allowMainThreadQueries()
         }

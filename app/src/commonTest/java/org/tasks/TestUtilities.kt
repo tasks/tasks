@@ -54,7 +54,7 @@ object TestUtilities {
         val vtodo = readFile(path)
         val remote = fromString(vtodo)
         task.applyRemote(remote, null)
-        return Triple(task, CaldavTask().apply { this.vtodo = vtodo }, remote)
+        return Triple(task, CaldavTask(), remote)
     }
 
     private fun fromResource(path: String): at.bitfire.ical4android.Task =

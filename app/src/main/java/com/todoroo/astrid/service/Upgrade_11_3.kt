@@ -2,6 +2,7 @@
 
 package com.todoroo.astrid.service
 
+import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.apply
 import org.tasks.data.OpenTaskDao
@@ -12,16 +13,21 @@ import javax.inject.Inject
 class Upgrade_11_3 @Inject constructor(
         private val upgraderDao: UpgraderDao,
         private val openTaskDao: OpenTaskDao,
-        private val taskDao: TaskDao
+        private val taskDao: TaskDao,
+        private val vtodoCache: VtodoCache,
 ) {
     internal suspend fun applyiCalendarStartDates() {
         val (hasStartDate, noStartDate) =
                 upgraderDao.tasksWithVtodos().partition { it.startDate > 0 }
         for (task in noStartDate) {
-            task.vtodo?.let { iCalendar.fromVtodo(it) }?.dtStart?.let {
-                it.apply(task.task)
-                upgraderDao.setStartDate(task.id, task.startDate)
-            }
+            vtodoCache
+                .getVtodo(task.caldavTask)
+                ?.let { iCalendar.fromVtodo(it) }
+                ?.dtStart
+                ?.let {
+                    it.apply(task.task)
+                    upgraderDao.setStartDate(task.id, task.startDate)
+                }
         }
         hasStartDate
                 .map { it.id }

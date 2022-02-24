@@ -12,6 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.iCalendar.Companion.order
@@ -57,6 +58,7 @@ class Upgrader @Inject constructor(
         private val widgetManager: AppWidgetManager,
         private val taskMover: TaskMover,
         private val upgraderDao: UpgraderDao,
+        private val vtodoCache: VtodoCache,
         private val upgrade_11_3: Lazy<Upgrade_11_3>,
         private val upgrade_11_12_3: Lazy<Upgrade_11_12_3>,
         private val upgrade_12_4: Lazy<Upgrade_12_4>,
@@ -150,10 +152,9 @@ class Upgrader @Inject constructor(
         return getAndroidColor(context, index)
     }
 
-
     private suspend fun applyCaldavOrder() {
         for (task in upgraderDao.tasksWithVtodos().map(CaldavTaskContainer::caldavTask)) {
-            val remoteTask = fromVtodo(task.vtodo!!) ?: continue
+            val remoteTask = vtodoCache.getVtodo(task)?.let { fromVtodo(it) } ?: continue
             val order: Long? = remoteTask.order
             if (order != null) {
                 task.order = order
@@ -169,7 +170,7 @@ class Upgrader @Inject constructor(
             if (tasksWithLocations.contains(taskId)) {
                 continue
             }
-            val remoteTask = fromVtodo(task.vtodo!!) ?: continue
+            val remoteTask = vtodoCache.getVtodo(task)?.let { fromVtodo(it) } ?: continue
             val geo = remoteTask.geoPosition ?: continue
             iCal.setPlace(taskId, geo)
         }
@@ -179,7 +180,7 @@ class Upgrader @Inject constructor(
     private suspend fun applyCaldavSubtasks() {
         val updated: MutableList<CaldavTask> = ArrayList()
         for (task in upgraderDao.tasksWithVtodos().map(CaldavTaskContainer::caldavTask)) {
-            val remoteTask = fromVtodo(task.vtodo!!) ?: continue
+            val remoteTask = vtodoCache.getVtodo(task)?.let { fromVtodo(it) } ?: continue
             task.remoteParent = remoteTask.parent
             if (!isNullOrEmpty(task.remoteParent)) {
                 updated.add(task)
@@ -192,10 +193,9 @@ class Upgrader @Inject constructor(
     private suspend fun applyCaldavCategories() {
         val tasksWithTags: List<Long> = upgraderDao.tasksWithTags()
         for (container in upgraderDao.tasksWithVtodos()) {
-            val remoteTask = fromVtodo(container.vtodo!!)
-            if (remoteTask != null) {
-                tagDao.insert(container.task, iCal.getTags(remoteTask.categories))
-            }
+            val remoteTask =
+                vtodoCache.getVtodo(container.caldavTask)?.let { fromVtodo(it) } ?: continue
+            tagDao.insert(container.task, iCal.getTags(remoteTask.categories))
         }
         taskDao.touch(tasksWithTags)
     }

@@ -7,7 +7,6 @@ import androidx.room.Transaction
 import org.tasks.data.CaldavDao.Companion.LOCAL
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.db.SuspendDbUtils.eachChunk
-import java.util.*
 
 @Dao
 abstract class DeletionDao {

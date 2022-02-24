@@ -9,11 +9,13 @@ import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_FIVE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_NONSTOP
+import org.tasks.caldav.FileStorage
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
+import org.tasks.extensions.getString
 import timber.log.Timber
 import java.util.concurrent.TimeUnit.HOURS
 
@@ -443,7 +445,35 @@ object Migrations {
         }
     }
 
-    val MIGRATIONS = arrayOf(
+    @Suppress("FunctionName")
+    private fun migration_81_82(fileStorage: FileStorage) = object : Migration(81, 82) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database
+                .query("SELECT `cdl_account`, `cd_calendar`, `cd_object`, `cd_vtodo` FROM `caldav_tasks` INNER JOIN `caldav_lists` ON `cdl_uuid` = `cd_calendar`")
+                .use {
+                    while (it.moveToNext()) {
+                        val file = fileStorage.getFile(
+                            it.getString("cdl_account"),
+                            it.getString("cd_calendar"),
+                            it.getString("cd_object"),
+                        ) ?: continue
+                        fileStorage.write(file, it.getString("cd_vtodo"))
+                    }
+                }
+            database.execSQL("ALTER TABLE `caldav_tasks` RENAME TO `caldav_tasks-temp`")
+            database.execSQL(
+                "CREATE TABLE IF NOT EXISTS `caldav_tasks` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `cd_order` INTEGER)"
+            )
+            database.execSQL("DROP INDEX `cd_task`")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `cd_task` ON `caldav_tasks` (`cd_task`)")
+            database.execSQL(
+                "INSERT INTO `caldav_tasks` (`cd_id`, `cd_task`, `cd_calendar`, `cd_object`, `cd_remote_id`, `cd_etag`, `cd_last_sync`, `cd_deleted`, `cd_remote_parent`, `cd_order`) SELECT `cd_id`, `cd_task`, `cd_calendar`, `cd_object`, `cd_remote_id`, `cd_etag`, `cd_last_sync`, `cd_deleted`, `cd_remote_parent`, `cd_order` FROM `caldav_tasks-temp`"
+            )
+            database.execSQL("DROP TABLE `caldav_tasks-temp`")
+        }
+    }
+
+    fun migrations(fileStorage: FileStorage) = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
             MIGRATION_37_38,
@@ -481,6 +511,7 @@ object Migrations {
             MIGRATION_78_79,
             MIGRATION_79_80,
             MIGRATION_80_81,
+            migration_81_82(fileStorage),
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {

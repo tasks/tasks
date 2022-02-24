@@ -19,6 +19,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Inventory
+import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.data.CaldavAccount
@@ -35,7 +36,9 @@ class EtebaseSynchronizer @Inject constructor(
         private val taskDeleter: TaskDeleter,
         private val inventory: Inventory,
         private val clientProvider: EtebaseClientProvider,
-        private val iCal: iCalendar) {
+        private val iCal: iCalendar,
+        private val vtodoCache: VtodoCache,
+) {
     companion object {
         init {
             prodId = ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN")
@@ -142,7 +145,10 @@ class EtebaseSynchronizer @Inject constructor(
         for (caldavTask in caldavDao.getMoved(caldavCalendar.uuid!!)) {
             client.deleteItem(collection, caldavTask)
                     ?.let { changes.add(it) }
-                    ?: caldavDao.delete(caldavTask)
+                    ?: run {
+                        vtodoCache.delete(caldavCalendar, caldavTask)
+                        caldavDao.delete(caldavTask)
+                    }
         }
         for (change in caldavDao.getCaldavTasksToPush(caldavCalendar.uuid!!)) {
             val task = change.task
@@ -154,7 +160,11 @@ class EtebaseSynchronizer @Inject constructor(
                         ?: taskDeleter.delete(task)
             } else {
                 changes.add(
-                        client.updateItem(collection, caldavTask, iCal.toVtodo(caldavTask, task))
+                        client.updateItem(
+                            collection,
+                            caldavTask,
+                            iCal.toVtodo(caldavCalendar, caldavTask, task)
+                        )
                 )
             }
         }
@@ -178,6 +188,7 @@ class EtebaseSynchronizer @Inject constructor(
             if (item.isDeleted) {
                 if (caldavTask != null) {
                     if (caldavTask.isDeleted()) {
+                        vtodoCache.delete(caldavCalendar, caldavTask)
                         caldavDao.delete(caldavTask)
                     } else {
                         taskDeleter.delete(caldavTask.task)
@@ -185,7 +196,7 @@ class EtebaseSynchronizer @Inject constructor(
                 }
             } else if (isLocalChange) {
                 caldavTask?.let {
-                    it.vtodo = vtodo
+                    vtodoCache.putVtodo(caldavCalendar, it, vtodo)
                     it.lastSync = item.meta.mtime ?: currentTimeMillis()
                     caldavDao.update(it)
                 }

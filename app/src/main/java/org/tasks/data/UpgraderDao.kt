@@ -10,8 +10,6 @@ SELECT task.*, caldav_task.*
 FROM tasks AS task
          INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task
 WHERE cd_deleted = 0
-  AND cd_vtodo IS NOT NULL
-  AND cd_vtodo != ''
     """)
     suspend fun tasksWithVtodos(): List<CaldavTaskContainer>
 

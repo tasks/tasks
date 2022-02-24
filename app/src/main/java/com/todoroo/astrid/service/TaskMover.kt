@@ -9,11 +9,16 @@ import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.*
+import org.tasks.caldav.VtodoCache
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.GoogleTask
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.TaskDao
 import org.tasks.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
-import java.util.*
 import javax.inject.Inject
 
 class TaskMover @Inject constructor(
@@ -24,7 +29,9 @@ class TaskMover @Inject constructor(
         private val googleTaskListDao: GoogleTaskListDao,
         private val preferences: Preferences,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val syncAdapters: SyncAdapters) {
+        private val syncAdapters: SyncAdapters,
+        private val vtodoCache: VtodoCache,
+) {
 
     suspend fun getSingleFilter(tasks: List<Long>): Filter? {
         val caldavCalendars = caldavDao.getCalendars(tasks)
@@ -129,15 +136,16 @@ class TaskMover @Inject constructor(
         caldavDao.markDeleted(toDelete, DateUtilities.now())
         when (selected) {
             is CaldavFilter -> {
+                val from = caldavDao.getCalendar(caldavTask.calendar!!)
                 val id1 = caldavTask.task
                 val listId = selected.uuid
                 val newParent = CaldavTask(id1, listId, caldavTask.remoteId, caldavTask.`object`)
-                newParent.vtodo = caldavTask.vtodo
+                vtodoCache.move(from!!, selected.calendar, caldavTask)
                 caldavDao.insert(task, newParent, preferences.addTasksToTop())
                 children.takeIf { it.isNotEmpty() }
                         ?.map {
                             val newChild = CaldavTask(it.task, listId, it.remoteId, it.`object`)
-                            newChild.vtodo = it.vtodo
+                            vtodoCache.move(from, selected.calendar, it)
                             newChild.remoteParent = it.remoteParent
                             newChild
                         }

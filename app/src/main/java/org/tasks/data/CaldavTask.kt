@@ -1,6 +1,10 @@
 package org.tasks.data
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.helper.UUIDHelper
 
@@ -34,9 +38,6 @@ class CaldavTask {
     @ColumnInfo(name = "cd_deleted")
     var deleted: Long = 0
 
-    @ColumnInfo(name = "cd_vtodo")
-    var vtodo: String? = null
-
     @ColumnInfo(name = "cd_remote_parent")
     var remoteParent: String? = null
 
@@ -65,7 +66,7 @@ class CaldavTask {
     fun isDeleted() = deleted > 0
 
     override fun toString(): String =
-            "CaldavTask(id=$id, task=$task, calendar=$calendar, `object`=$`object`, remoteId=$remoteId, etag=$etag, lastSync=$lastSync, deleted=$deleted, vtodo=$vtodo, remoteParent=$remoteParent, order=$order)"
+            "CaldavTask(id=$id, task=$task, calendar=$calendar, `object`=$`object`, remoteId=$remoteId, etag=$etag, lastSync=$lastSync, deleted=$deleted, remoteParent=$remoteParent, order=$order)"
 
     companion object {
         const val KEY = "caldav"

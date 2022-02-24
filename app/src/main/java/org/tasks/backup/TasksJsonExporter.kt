@@ -14,7 +14,19 @@ import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.backup.BackupContainer.TaskBackup
-import org.tasks.data.*
+import org.tasks.caldav.VtodoCache
+import org.tasks.data.AlarmDao
+import org.tasks.data.CaldavDao
+import org.tasks.data.FilterDao
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.LocationDao
+import org.tasks.data.TagDao
+import org.tasks.data.TagDataDao
+import org.tasks.data.TaskAttachmentDao
+import org.tasks.data.TaskDao
+import org.tasks.data.TaskListMetadataDao
+import org.tasks.data.UserActivityDao
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
@@ -26,7 +38,6 @@ import java.io.IOException
 import java.io.OutputStream
 import java.io.OutputStreamWriter
 import java.nio.charset.Charset
-import java.util.*
 import javax.inject.Inject
 
 class TasksJsonExporter @Inject constructor(
@@ -43,7 +54,9 @@ class TasksJsonExporter @Inject constructor(
         private val taskAttachmentDao: TaskAttachmentDao,
         private val caldavDao: CaldavDao,
         private val workManager: WorkManager,
-        private val taskListMetadataDao: TaskListMetadataDao) {
+        private val taskListMetadataDao: TaskListMetadataDao,
+        private val vtodoCache: VtodoCache,
+    ) {
 
     private var context: Context? = null
     private var exportCount = 0
@@ -108,16 +121,19 @@ class TasksJsonExporter @Inject constructor(
         for (task in tasks) {
             setProgress(taskBackups.size, tasks.size)
             val taskId = task.id
+            val caldavTasks = caldavDao.getTasks(taskId)
             taskBackups.add(
                     TaskBackup(
-                            task,
-                            alarmDao.getAlarms(taskId),
-                            locationDao.getGeofencesForTask(taskId),
-                            tagDao.getTagsForTask(taskId),
-                            googleTaskDao.getAllByTaskId(taskId),
-                            userActivityDao.getCommentsForTask(task.uuid),
-                            taskAttachmentDao.getAttachments(task.uuid),
-                            caldavDao.getTasks(taskId)))
+                        task,
+                        alarmDao.getAlarms(taskId),
+                        locationDao.getGeofencesForTask(taskId),
+                        tagDao.getTagsForTask(taskId),
+                        googleTaskDao.getAllByTaskId(taskId),
+                        userActivityDao.getCommentsForTask(task.uuid),
+                        taskAttachmentDao.getAttachments(task.uuid),
+                        caldavTasks,
+                        vtodoCache.getVtodo( caldavTasks.firstOrNull { !it.isDeleted() })
+                    ))
         }
         val data: MutableMap<String, Any> = HashMap()
         data["version"] = BuildConfig.VERSION_CODE

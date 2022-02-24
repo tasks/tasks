@@ -7,17 +7,20 @@ import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.TestUtilities.assertEquals
+import org.tasks.caldav.VtodoCache
+import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.data.TaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
+import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.TASK
-import org.tasks.makers.CaldavTaskMaker.VTODO
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker.DUE_DATE
 import org.tasks.makers.TaskMaker.HIDE_TYPE
@@ -34,11 +37,26 @@ class Upgrade_11_3_Test : InjectingTestCase() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var openTaskDao: TestOpenTaskDao
     @Inject lateinit var upgrader: Upgrade_11_3
+    @Inject lateinit var vtodoCache: VtodoCache
+
+    private lateinit var calendar: CaldavCalendar
+
+    @Before
+    override fun setUp() {
+        super.setUp()
+        calendar = newCaldavCalendar()
+        runBlocking {
+            caldavDao.insert(calendar)
+        }
+    }
 
     @Test
     fun applyRemoteiCalendarStartDate() = runBlocking {
         val taskId = taskDao.insert(newTask())
-        caldavDao.insert(newCaldavTask(with(TASK, taskId), with(VTODO, VTODO_WITH_START_DATE)))
+        val caldavTask = newCaldavTask(with(TASK, taskId), with(CALENDAR, calendar.uuid))
+        caldavDao.insert(caldavTask)
+        vtodoCache.putVtodo(calendar, caldavTask, VTODO_WITH_START_DATE)
+
         upgrader.applyiCalendarStartDates()
 
         assertEquals(DateTime(2021, 1, 21), taskDao.fetch(taskId)?.hideUntil)
@@ -50,7 +68,10 @@ class Upgrade_11_3_Test : InjectingTestCase() {
                 with(DUE_DATE, DateTime(2021, 1, 20)),
                 with(HIDE_TYPE, Task.HIDE_UNTIL_DUE)
         ))
-        caldavDao.insert(newCaldavTask(with(TASK, taskId), with(VTODO, VTODO_WITH_START_DATE)))
+        val caldavTask = newCaldavTask(with(TASK, taskId), with(CALENDAR, calendar.uuid))
+        caldavDao.insert(caldavTask)
+        vtodoCache.putVtodo(calendar, caldavTask, VTODO_WITH_START_DATE)
+
         upgrader.applyiCalendarStartDates()
 
         assertEquals(DateTime(2021, 1, 20), taskDao.fetch(taskId)?.hideUntil)
@@ -64,7 +85,9 @@ class Upgrade_11_3_Test : InjectingTestCase() {
                 with(HIDE_TYPE, Task.HIDE_UNTIL_DUE),
                 with(MODIFICATION_TIME, DateTime(2021, 1, 21, 9, 50, 4, 348))
         ))
-        caldavDao.insert(newCaldavTask(with(TASK, taskId), with(VTODO, VTODO_WITH_START_DATE)))
+        val caldavTask = newCaldavTask(with(TASK, taskId), with(CALENDAR, calendar.uuid))
+        caldavDao.insert(caldavTask)
+        vtodoCache.putVtodo(calendar, caldavTask, VTODO_WITH_START_DATE)
 
         freezeAt(upgradeTime) {
             upgrader.applyiCalendarStartDates()
@@ -77,7 +100,9 @@ class Upgrade_11_3_Test : InjectingTestCase() {
     fun dontTouchWhenNoiCalendarStartDate() = runBlocking {
         val modificationTime = DateTime(2021, 1, 21, 9, 50, 4, 348)
         val taskId = taskDao.insert(newTask(with(MODIFICATION_TIME, modificationTime)))
-        caldavDao.insert(newCaldavTask(with(TASK, taskId), with(VTODO, VTODO_NO_START_DATE)))
+        val caldavTask = newCaldavTask(with(TASK, taskId), with(CALENDAR, calendar.uuid))
+        caldavDao.insert(caldavTask)
+        vtodoCache.putVtodo(calendar, caldavTask, VTODO_NO_START_DATE)
 
         upgrader.applyiCalendarStartDates()
 

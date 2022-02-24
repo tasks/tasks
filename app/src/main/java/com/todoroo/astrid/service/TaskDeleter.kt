@@ -5,13 +5,20 @@ import com.todoroo.astrid.data.Task
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.*
+import org.tasks.caldav.VtodoCache
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.DeletionDao
+import org.tasks.data.GoogleTaskAccount
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.GoogleTaskList
+import org.tasks.data.TaskContainer
+import org.tasks.data.TaskDao
 import org.tasks.db.QueryUtils
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
-import java.util.*
 import javax.inject.Inject
 
 class TaskDeleter @Inject constructor(
@@ -21,7 +28,9 @@ class TaskDeleter @Inject constructor(
         private val localBroadcastManager: LocalBroadcastManager,
         private val googleTaskDao: GoogleTaskDao,
         private val preferences: Preferences,
-        private val syncAdapters: SyncAdapters) {
+        private val syncAdapters: SyncAdapters,
+        private val vtodoCache: VtodoCache,
+    ) {
 
     suspend fun markDeleted(item: Task) = markDeleted(persistentListOf(item.id))
 
@@ -73,12 +82,14 @@ class TaskDeleter @Inject constructor(
     }
 
     suspend fun delete(list: CaldavCalendar) {
+        vtodoCache.delete(list)
         val tasks = deletionDao.delete(list)
         delete(tasks)
         localBroadcastManager.broadcastRefreshList()
     }
 
     suspend fun delete(list: CaldavAccount) {
+        vtodoCache.delete(list)
         val tasks = deletionDao.delete(list)
         delete(tasks)
         localBroadcastManager.broadcastRefreshList()

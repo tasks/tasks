@@ -16,6 +16,8 @@ import org.tasks.data.GoogleTaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.jobs.WorkManager
+import org.tasks.makers.CaldavCalendarMaker.UUID
+import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
 import org.tasks.makers.CaldavTaskMaker
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
@@ -79,6 +81,7 @@ class TaskMoverTest : InjectingTestCase() {
     @Test
     fun moveBetweenCaldavList() = runBlocking {
         createTasks(1)
+        caldavDao.insert(newCaldavCalendar(with(UUID, "1")))
         caldavDao.insert(newCaldavTask(with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1")))
         moveToCaldavList("2", 1)
         assertEquals("2", caldavDao.getTask(1)!!.calendar)
@@ -87,6 +90,7 @@ class TaskMoverTest : InjectingTestCase() {
     @Test
     fun deleteCaldavTaskAfterMove() = runBlocking {
         createTasks(1)
+        caldavDao.insert(newCaldavCalendar(with(UUID, "1")))
         caldavDao.insert(newCaldavTask(with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1")))
         moveToCaldavList("2", 1)
         val deleted = caldavDao.getMoved("1")
@@ -100,6 +104,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         createSubtask(2, 1)
         createSubtask(3, 2)
+        caldavDao.insert(newCaldavCalendar(with(UUID, "1")))
         caldavDao.insert(
                 listOf(
                         newCaldavTask(
@@ -196,6 +201,7 @@ class TaskMoverTest : InjectingTestCase() {
     fun moveCaldavChildWithoutParent() = runBlocking {
         createTasks(1)
         createSubtask(2, 1)
+        caldavDao.insert(newCaldavCalendar(with(UUID, "1")))
         caldavDao.insert(
                 listOf(
                         newCaldavTask(
@@ -266,6 +272,7 @@ class TaskMoverTest : InjectingTestCase() {
     fun dontDuplicateWhenParentAndChildCaldavMoved() = runBlocking {
         createTasks(1)
         createSubtask(2, 1)
+        caldavDao.insert(newCaldavCalendar(with(UUID, "1")))
         caldavDao.insert(
                 listOf(
                         newCaldavTask(

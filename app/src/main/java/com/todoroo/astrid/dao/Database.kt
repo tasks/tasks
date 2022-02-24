@@ -61,7 +61,7 @@ import org.tasks.notifications.NotificationDao
             Principal::class,
             PrincipalAccess::class
         ],
-        version = 81
+        version = 82
 )
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao
