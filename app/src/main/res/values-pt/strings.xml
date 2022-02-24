@@ -712,4 +712,23 @@
     <string name="alarm_before_due">%s antes do término</string>
     <string name="alarm_after_due">%s após o término</string>
     <string name="custom_filter_has_reminder">Tem lembrete</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuto</item>
+        <item quantity="other">Minutos</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Hora</item>
+        <item quantity="other">Horas</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Dia</item>
+        <item quantity="other">Dias</item>
+    </plurals>
+    <string name="randomly_every">Aleatório a cada %s</string>
+    <string name="snoozed_until">Adiado até %s</string>
+    <plurals name="reminder_week">
+        <item quantity="one">Semana</item>
+        <item quantity="other">Semanas</item>
+    </plurals>
+    <string name="custom_notification">Notificação personalizada</string>
 </resources>
