@@ -751,4 +751,5 @@
         <item quantity="few">Minute</item>
         <item quantity="other">Minuta</item>
     </plurals>
+    <string name="randomly_every">Slučajno svakih %s</string>
 </resources>
