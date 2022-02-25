@@ -715,4 +715,5 @@
     <plurals name="reminder_week">
         <item quantity="other">周</item>
     </plurals>
+    <string name="randomly_every">每 %s 随机执行</string>
 </resources>
