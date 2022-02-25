@@ -231,7 +231,7 @@
     <string name="new_tag">Създаване на етикет</string>
     <string name="new_list">Създаване на списък</string>
     <string name="delete_tag_confirmation">Изтриване на %s\?</string>
-    <string name="TPl_notification">Таймерите са Активни за %s!</string>
+    <string name="TPl_notification">За %s има отброяване!</string>
     <string name="TFE_workingOn">Задачи, за които се отмерва време</string>
     <string name="TEA_timer_controls">Отброяване</string>
     <string name="TEA_timer_comment_started">задачата е започната на:</string>
@@ -399,7 +399,7 @@
     <string name="refresh_purchases">Обнови покупки</string>
     <string name="button_subscribe">Абониране</string>
     <string name="about">Относно</string>
-    <string name="pro_dashclock_extension">Dashclock разширение</string>
+    <string name="pro_dashclock_extension">Разширение за Dashclock</string>
     <string name="requires_pro_subscription">Изисква pro абонамент</string>
     <string name="logout">Изход</string>
     <string name="logout_warning">Всички данни за този акаунт ще бъдат изтрити от Вашето устройство</string>
@@ -609,4 +609,5 @@
         <item quantity="one">Минута</item>
         <item quantity="other">Минути</item>
     </plurals>
+    <string name="randomly_every">Случайно на всеки %s</string>
 </resources>
