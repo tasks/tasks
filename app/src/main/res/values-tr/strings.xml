@@ -730,4 +730,5 @@
     <string name="alarm_before_due">Bitişten önce %s</string>
     <string name="alarm_after_due">Bitişten sonra %s</string>
     <string name="alarm_before_start">Başlamadan önce %s</string>
+    <string name="randomly_every">Rastgele her %s</string>
 </resources>
