@@ -17,6 +17,7 @@ import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
 import org.tasks.extensions.getString
 import timber.log.Timber
+import java.io.File
 import java.util.concurrent.TimeUnit.HOURS
 
 object Migrations {
@@ -455,9 +456,11 @@ object Migrations {
                         val file = fileStorage.getFile(
                             it.getString("cdl_account"),
                             it.getString("cd_calendar"),
-                            it.getString("cd_object"),
-                        ) ?: continue
-                        fileStorage.write(file, it.getString("cd_vtodo"))
+                        )
+                            ?.apply { mkdirs() }
+                            ?: continue
+                        val `object` = it.getString("cd_object") ?: continue
+                        fileStorage.write(File(file, `object`), it.getString("cd_vtodo"))
                     }
                 }
             database.execSQL("ALTER TABLE `caldav_tasks` RENAME TO `caldav_tasks-temp`")
