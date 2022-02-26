@@ -126,7 +126,7 @@ WHERE recurring = 1
     @Delete
     internal abstract suspend fun deleteCaldavAccount(caldavAccount: CaldavAccount)
 
-    @Query("DELETE FROM tasks WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task INNER JOIN caldav_lists ON cdl_uuid = cd_calendar WHERE cdl_account = '$LOCAL' AND deleted > 0)")
+    @Query("DELETE FROM tasks WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task INNER JOIN caldav_lists ON cdl_uuid = cd_calendar WHERE cdl_account = '$LOCAL' AND deleted > 0 AND cd_deleted = 0)")
     abstract suspend fun purgeDeleted()
 
     @Transaction
