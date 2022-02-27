@@ -1,7 +1,21 @@
-### 12.4 (2021-02-12)
+### 12.5 (2021-02-27)
 
-🚨 Major internal reminder changes! Please report any issues to
-support@tasks.org! 🚨
+* Choose custom random reminder period
+* Add multiple random reminders
+* Fix sync crash for Tasks.org, CalDAV, and native EteSync
+* Add Kurdish (Central) translations - @roj1512
+* Update translations
+  * Bulgarian - @StoyanDimitrov
+  * Chinese (Simplified) - Eric
+  * Croatian - @milotype
+  * Dutch - @mm4c
+  * French - @FlorianLeChat
+  * Portuguese - @laralem
+  * Spanish - @Romerolweb, Jeffree Romero
+  * Turkish - @ersen0
+  * Ukrainian - @IhorHordiichuk
+
+### 12.4 (2021-02-19)
 
 * Relative reminder support
   * Quickly add reminders minutes, hours, days, or weeks before due

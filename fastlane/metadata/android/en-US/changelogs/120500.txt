@@ -1,0 +1,5 @@
+* Choose custom random reminder period
+* Add multiple random reminders
+* Fix sync crash for Tasks.org, CalDAV, and native EteSync
+* Add Kurdish (Central) translations - @roj1512
+* Update translations
