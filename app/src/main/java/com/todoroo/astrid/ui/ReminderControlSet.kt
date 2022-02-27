@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
@@ -22,6 +24,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
@@ -137,6 +140,7 @@ class ReminderControlSet : TaskEditControlFragment() {
                 MdcTheme {
                     val alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware()
                     Column {
+                        Spacer(modifier = Modifier.height(8.dp))
                         alarms.value.forEach { alarm ->
                             AlarmRow(alarmToString.toString(alarm)) {
                                 viewModel.selectedAlarms.value =
@@ -148,6 +152,7 @@ class ReminderControlSet : TaskEditControlFragment() {
                                 text = stringResource(id = R.string.add_reminder),
                                 style = MaterialTheme.typography.body1,
                                 modifier = Modifier
+                                    .padding(vertical = 12.dp)
                                     .clickable(
                                         interactionSource = remember { MutableInteractionSource() },
                                         indication = rememberRipple(bounded = false),
@@ -174,14 +179,17 @@ class ReminderControlSet : TaskEditControlFragment() {
                                     style = MaterialTheme.typography.body1.copy(
                                         textDecoration = TextDecoration.Underline
                                     ),
-                                    modifier = Modifier.clickable(
-                                        interactionSource = remember { MutableInteractionSource() },
-                                        indication = rememberRipple(bounded = false),
-                                        onClick = { onClickRingType() }
-                                    )
+                                    modifier = Modifier
+                                        .padding(vertical = 12.dp, horizontal = 16.dp)
+                                        .clickable(
+                                            interactionSource = remember { MutableInteractionSource() },
+                                            indication = rememberRipple(bounded = false),
+                                            onClick = { onClickRingType() }
+                                        )
                                 )
                             }
                         }
+                        Spacer(modifier = Modifier.height(8.dp))
                     }
 
                     val openCustomDialog = remember { showCustomDialog }
@@ -212,6 +220,8 @@ class ReminderControlSet : TaskEditControlFragment() {
     override val icon = R.drawable.ic_outline_notifications_24px
 
     override fun controlId() = TAG
+
+    override val rootLayout = R.layout.control_set_template_no_padding
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_NEW_ALARM) {

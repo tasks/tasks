@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.tasks.R
@@ -15,9 +14,9 @@ abstract class TaskEditControlFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.control_set_template, null)
-        viewModel = ViewModelProvider(requireParentFragment()).get(TaskEditViewModel::class.java)
-        val content = view.findViewById<LinearLayout>(R.id.content)
+        val view = inflater.inflate(rootLayout, null)
+        viewModel = ViewModelProvider(requireParentFragment())[TaskEditViewModel::class.java]
+        val content = view.findViewById<ViewGroup>(R.id.content)
         bind(content)
         val icon = view.findViewById<ImageView>(R.id.icon)
         icon.setImageResource(this.icon)
@@ -39,4 +38,6 @@ abstract class TaskEditControlFragment : Fragment() {
     protected abstract val icon: Int
     abstract fun controlId(): Int
     protected abstract fun bind(parent: ViewGroup?): View
+
+    protected open val rootLayout = R.layout.control_set_template
 }
