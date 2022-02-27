@@ -73,4 +73,7 @@ class VtodoCache @Inject constructor(
 
     fun delete(account: CaldavAccount) =
         fileStorage.getFile(account.uuid!!)?.deleteRecursively()
+
+    fun clear() =
+        fileStorage.getFile()?.deleteRecursively()
 }

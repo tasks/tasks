@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.PermissionUtil
 import org.tasks.R
+import org.tasks.caldav.VtodoCache
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.TaskDao
 import org.tasks.etebase.EtebaseLocalCache
@@ -37,6 +38,7 @@ class Advanced : InjectingPreferenceFragment() {
     @Inject lateinit var permissionRequester: FragmentPermissionRequestor
     @Inject lateinit var permissionChecker: PermissionChecker
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var vtodoCache: VtodoCache
 
     private lateinit var calendarReminderPreference: SwitchPreferenceCompat
 
@@ -193,6 +195,7 @@ class Advanced : InjectingPreferenceFragment() {
             .setPositiveButton(R.string.EPr_delete_task_data) { _, _ ->
                 val context = requireContext()
                 context.deleteDatabase(database.name)
+                vtodoCache.clear()
                 EtebaseLocalCache.clear(context)
                 restart()
             }
