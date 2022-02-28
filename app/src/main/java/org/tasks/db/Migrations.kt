@@ -1,6 +1,8 @@
 package org.tasks.db
 
 import android.database.sqlite.SQLiteException
+import androidx.room.DeleteColumn
+import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
@@ -21,6 +23,12 @@ import java.io.File
 import java.util.concurrent.TimeUnit.HOURS
 
 object Migrations {
+
+    @DeleteColumn.Entries(
+        DeleteColumn(tableName = "geofences", columnName = "radius"),
+    )
+    class AutoMigrate82to83: AutoMigrationSpec
+
     private val MIGRATION_35_36: Migration = object : Migration(35, 36) {
         override fun migrate(database: SupportSQLiteDatabase) {
             database.execSQL("ALTER TABLE `tagdata` ADD COLUMN `color` INTEGER DEFAULT -1")

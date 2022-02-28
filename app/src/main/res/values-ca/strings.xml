@@ -164,7 +164,6 @@
     <string name="EPr_default_reminders_mode_title">So / vibració predeterminat</string>
     <string name="priority_medium">Mig</string>
     <string name="default_location_reminder_on_arrival">En arribar</string>
-    <string name="EPr_default_location_radius">Radi predeterminat</string>
     <string name="priority_low">Baix</string>
     <string name="no_reminders">Sense recordatoris</string>
     <string name="default_location_reminder_on_departure">A la sortida</string>

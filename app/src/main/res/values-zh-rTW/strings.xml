@@ -301,7 +301,6 @@
     <string name="default_location_reminder_on_arrival">到達時</string>
     <string name="no_reminders">沒有提醒</string>
     <string name="default_location">默認位置</string>
-    <string name="EPr_default_location_radius">默認半徑</string>
     <string name="EPr_default_location_reminder_title">默認位置提醒</string>
     <string name="always_display_full_date">顯示完整日期</string>
     <string name="tasks_org_account">Tasks.org 帳號</string>

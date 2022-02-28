@@ -92,7 +92,6 @@
     <string name="EPr_default_importance_title">Numatytasis prioritetas</string>
     <string name="EPr_default_reminders_title">Numatytieji priminimai</string>
     <string name="EPr_default_location_reminder_title">Numatytieji vietų priminimai</string>
-    <string name="EPr_default_location_radius">Numatytasis spindulys</string>
     <string name="EPr_default_reminders_mode_title">Numatytasis skambučio/vibracijos tipas</string>
     <string name="priority_high">Aukštas</string>
     <string name="priority_medium">Vidutinis</string>

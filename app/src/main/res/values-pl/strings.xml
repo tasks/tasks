@@ -85,7 +85,6 @@
     <string name="EPr_default_importance_title">Domyślny priorytet</string>
     <string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
     <string name="EPr_default_location_reminder_title">Domyślne powiadomienia o lokalizacji</string>
-    <string name="EPr_default_location_radius">Domyślny promień</string>
     <string name="EPr_default_reminders_mode_title">Domyślny dzwonek/wibracja</string>
     <string name="priority_high">Ważne</string>
     <string name="priority_medium">Średnio ważne</string>

@@ -318,7 +318,6 @@
     <string name="CFC_tag_contains_name">اسم العلامة يحتوي…</string>
     <string name="CFC_tag_name">علامة…</string>
     <string name="default_location">الموقع الافتراضي</string>
-    <string name="EPr_default_location_radius">نصف القطر الافتراضي</string>
     <string name="EPr_default_importance_title">الأولويّة الافتراضيّة</string>
     <string name="FLA_new_filter">أنشأ تصفيةً جديدة</string>
     <string name="sort_created">بتاريخ الإنشاء</string>

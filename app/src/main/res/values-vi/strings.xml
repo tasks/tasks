@@ -641,7 +641,6 @@
     <string name="priority_high">Cao</string>
     <string name="default_location">Vị trí mặc định</string>
     <string name="EPr_default_reminders_mode_title">Loại đổ chuông/rung mặc định</string>
-    <string name="EPr_default_location_radius">Bán kính mặc định</string>
     <string name="EPr_default_location_reminder_title">Lời nhắc vị trí mặc định</string>
     <string name="EPr_default_reminders_title">Lời nhắc mặc định</string>
     <string name="default_due_date">Ngày hạn mặc định</string>

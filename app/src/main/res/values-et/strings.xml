@@ -66,7 +66,6 @@
     <string name="EPr_default_importance_title">Vaikimisi tähtsus</string>
     <string name="EPr_default_reminders_title">Vaikimisi meeldetuletused</string>
     <string name="EPr_default_location_reminder_title">Vaikimisi asukoha-põhised meeldetuletused</string>
-    <string name="EPr_default_location_radius">Vaikimisi raadius</string>
     <string name="priority_high">Kõrge</string>
     <string name="priority_medium">Keskmine</string>
     <string name="priority_low">Madal</string>

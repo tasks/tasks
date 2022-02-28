@@ -92,7 +92,6 @@
     <string name="EPr_default_importance_title">Приоритет по подразбиране</string>
     <string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
     <string name="EPr_default_location_reminder_title">Напомняния за място по подразбиране</string>
-    <string name="EPr_default_location_radius">Радиус по подразбиране</string>
     <string name="EPr_default_reminders_mode_title">Тон на звънене/вибрация по подразбиране</string>
     <string name="priority_high">Висок</string>
     <string name="priority_medium">Среден</string>

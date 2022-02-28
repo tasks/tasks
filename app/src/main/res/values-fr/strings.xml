@@ -83,7 +83,6 @@
     <string name="EPr_default_importance_title">Priorité par défaut</string>
     <string name="EPr_default_reminders_title">Rappels par défaut</string>
     <string name="EPr_default_location_reminder_title">Rappels d\'emplacement par défaut</string>
-    <string name="EPr_default_location_radius">Rayon par défaut</string>
     <string name="EPr_default_reminders_mode_title">Type de sonnerie/vibration par défaut</string>
     <string name="priority_high">Haute</string>
     <string name="priority_medium">Moyenne</string>

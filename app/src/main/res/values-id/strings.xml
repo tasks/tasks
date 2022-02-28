@@ -625,7 +625,6 @@
     <string name="default_location_reminder_on_departure">Saat keberangkatan</string>
     <string name="default_location_reminder_on_arrival">Pada kedatangan</string>
     <string name="EPr_default_reminders_mode_title">Tipe dering/getar bawaan</string>
-    <string name="EPr_default_location_radius">Radius bawaan</string>
     <string name="default_due_date">Tanggal jatuh tempo bawaan</string>
     <string name="default_start_date">Tanggal mulai bawaan</string>
     <string name="always_display_full_date">Tampilkan tanggal penuh</string>

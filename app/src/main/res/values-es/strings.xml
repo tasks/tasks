@@ -89,7 +89,6 @@
     <string name="EPr_default_importance_title">Prioridad predeterminada</string>
     <string name="EPr_default_reminders_title">Recordatorios por defecto</string>
     <string name="EPr_default_location_reminder_title">Recordatorios de ubicación predeterminados</string>
-    <string name="EPr_default_location_radius">Radio predeterminado</string>
     <string name="EPr_default_reminders_mode_title">Tipo predeterminado de timbre/vibración</string>
     <string name="priority_high">Alta</string>
     <string name="priority_medium">Media</string>

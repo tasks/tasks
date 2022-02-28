@@ -87,7 +87,6 @@
     <string name="EPr_default_importance_title">Predvolená dôležitosť</string>
     <string name="EPr_default_reminders_title">Predvolené pripomienky</string>
     <string name="EPr_default_location_reminder_title">Východzie upozornenia podľa polohy</string>
-    <string name="EPr_default_location_radius">Predvolený polomer</string>
     <string name="EPr_default_reminders_mode_title">Východzie vyzváňanie/vybrovanie</string>
     <string name="priority_high">Vysoká</string>
     <string name="priority_medium">Stredná</string>

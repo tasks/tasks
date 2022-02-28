@@ -90,7 +90,6 @@
     <string name="EPr_default_importance_title">Типовий пріоритет</string>
     <string name="EPr_default_reminders_title">Типові нагадування</string>
     <string name="EPr_default_location_reminder_title">Типові нагадування про розташування</string>
-    <string name="EPr_default_location_radius">Типовий радіус</string>
     <string name="EPr_default_reminders_mode_title">Типовий звук/вібраця</string>
     <string name="priority_high">Високий</string>
     <string name="priority_medium">Середній</string>

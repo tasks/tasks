@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.slider.Slider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
@@ -15,23 +16,30 @@ import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.databinding.ActivityLocationSettingsBinding
 import org.tasks.filters.PlaceFilter
+import org.tasks.locale.Locale
 import org.tasks.location.MapFragment
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmentCallback {
 
     companion object {
         const val EXTRA_PLACE = "extra_place"
+        private const val MIN_RADIUS = 75
+        private const val MAX_RADIUS = 1000
+        private const val STEP = 25.0
     }
 
     private lateinit var name: TextInputEditText
     private lateinit var nameLayout: TextInputLayout
+    private lateinit var slider: Slider
 
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var map: MapFragment
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var locale: Locale
 
     private lateinit var place: Place
 
@@ -53,7 +61,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         if (savedInstanceState == null) {
             name.setText(place.displayName)
             selectedColor = place.color
-            selectedIcon = place.getIcon()!!
+            selectedIcon = place.getIcon()
         }
 
         val dark = preferences.mapTheme == 2
@@ -71,12 +79,25 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
             )
         }
         nameLayout = it.nameLayout
+        slider = it.slider.apply {
+            setLabelFormatter { value ->
+                getString(
+                    R.string.location_radius_meters,
+                    locale.formatNumber(value.toInt())
+                )
+            }
+            valueTo = MAX_RADIUS.toFloat()
+            valueFrom = MIN_RADIUS.toFloat()
+            stepSize = STEP.toFloat()
+            haloRadius = 0
+            value = (place.radius / STEP * STEP).roundToInt().toFloat()
+        }
         it.root
     }
 
     override fun hasChanges() = name.text.toString() != place.displayName
                     || selectedColor != place.color
-                    || selectedIcon != place.getIcon()!!
+                    || selectedIcon != place.getIcon()
 
     override suspend fun save() {
         val newName: String = name.text.toString()
@@ -89,6 +110,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         place.name = newName
         place.color = selectedColor
         place.setIcon(selectedIcon)
+        place.radius = slider.value.toInt()
         locationDao.update(place)
         setResult(
                 Activity.RESULT_OK,

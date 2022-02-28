@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  android:layout_height="wrap_content">
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -24,25 +23,5 @@
       android:gravity="center_vertical"
       android:text="@string/location_remind_departure"
       android:textAppearance="?attr/textAppearanceListItemSmall"/>
-
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="?android:attr/listPreferredItemHeightSmall"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:text="@string/geofence_radius"
-        android:textAppearance="?attr/textAppearanceListItem"/>
-
-      <com.google.android.material.slider.Slider
-        android:id="@+id/slider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:trackColorActive="?attr/colorSecondary"
-        app:thumbColor="?attr/colorSecondary"
-        app:tickColorActive="?attr/colorOnSecondary"
-        app:tickColorInactive="?attr/colorSecondary"
-        app:tickColor="@android:color/transparent"
-        app:trackColorInactive="@color/text_tertiary"/>
-
   </LinearLayout>
 </ScrollView>

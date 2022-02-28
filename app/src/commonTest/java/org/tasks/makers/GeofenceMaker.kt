@@ -11,7 +11,6 @@ object GeofenceMaker {
     val TASK: Property<Geofence, Long> = Property.newProperty()
     val ARRIVAL: Property<Geofence, Boolean> = Property.newProperty()
     val DEPARTURE: Property<Geofence, Boolean> = Property.newProperty()
-    val RADIUS: Property<Geofence, Int> = Property.newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<Geofence> ->
         val geofence = Geofence()
@@ -19,7 +18,6 @@ object GeofenceMaker {
         geofence.task = lookup.valueOf(TASK, 1)
         geofence.isArrival = lookup.valueOf(ARRIVAL, false)
         geofence.isDeparture = lookup.valueOf(DEPARTURE, false)
-        geofence.radius = lookup.valueOf(RADIUS, 250)
         geofence
     }
 

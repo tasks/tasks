@@ -90,7 +90,6 @@
     <string name="EPr_default_importance_title">Lehenetsitako lehentasuna</string>
     <string name="EPr_default_reminders_title">Lehenetsitako oroigarriak</string>
     <string name="EPr_default_location_reminder_title">Lehenetsitako kokaleku-oroigarriak</string>
-    <string name="EPr_default_location_radius">Lehenetsitako erradioa</string>
     <string name="EPr_default_reminders_mode_title">Lehenetsitako doinua/bibrazio mota</string>
     <string name="priority_high">Altua</string>
     <string name="priority_medium">Ertaina</string>

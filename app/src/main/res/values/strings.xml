@@ -104,7 +104,6 @@ File %1$s contained %2$s.\n\n
   <string name="default_due_date">Default due date</string>
   <string name="EPr_default_reminders_title">Default reminders</string>
   <string name="EPr_default_location_reminder_title">Default location reminders</string>
-  <string name="EPr_default_location_radius">Default radius</string>
   <string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
   <string name="default_location">Default location</string>
   <string name="priority_high">High</string>

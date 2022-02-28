@@ -6,7 +6,6 @@ class MergedGeofence {
     @Embedded lateinit var place: Place
     var arrival = false
     var departure = false
-    var radius = 0
 
     val uid: String?
         get() = place.uid
@@ -17,6 +16,9 @@ class MergedGeofence {
     val longitude: Double
         get() = place.longitude
 
+    val radius: Int
+        get() = place.radius
+
     override fun toString(): String =
-            "MergedGeofence(place=$place, arrival=$arrival, departure=$departure, radius=$radius)"
+            "MergedGeofence(place=$place, arrival=$arrival, departure=$departure)"
 }

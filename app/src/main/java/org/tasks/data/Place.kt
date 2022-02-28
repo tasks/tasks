@@ -5,7 +5,11 @@ import android.location.Location
 import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.helper.UUIDHelper
@@ -55,6 +59,9 @@ class Place : Serializable, Parcelable {
     @ColumnInfo(name = "place_order")
     var order = NO_ORDER
 
+    @ColumnInfo(name = "radius", defaultValue = "250")
+    var radius = 250
+
     constructor()
 
     @Ignore
@@ -70,6 +77,7 @@ class Place : Serializable, Parcelable {
         color = o.color
         icon = o.icon
         order = o.order
+        radius = o.radius
     }
 
     @Ignore
@@ -85,6 +93,7 @@ class Place : Serializable, Parcelable {
         color = parcel.readInt()
         icon = parcel.readInt()
         order = parcel.readInt()
+        radius = parcel.readInt()
     }
 
     fun getIcon(): Int = if (icon == -1) PLACE else icon
@@ -129,12 +138,15 @@ class Place : Serializable, Parcelable {
             writeInt(color)
             writeInt(icon)
             writeInt(order)
+            writeInt(radius)
         }
     }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is Place) return false
+        if (javaClass != other?.javaClass) return false
+
+        other as Place
 
         if (id != other.id) return false
         if (uid != other.uid) return false
@@ -147,6 +159,7 @@ class Place : Serializable, Parcelable {
         if (color != other.color) return false
         if (icon != other.icon) return false
         if (order != other.order) return false
+        if (radius != other.radius) return false
 
         return true
     }
@@ -163,11 +176,13 @@ class Place : Serializable, Parcelable {
         result = 31 * result + color
         result = 31 * result + icon
         result = 31 * result + order
+        result = 31 * result + radius
         return result
     }
 
-    override fun toString(): String =
-            "Place(id=$id, uid=$uid, name=$name, address=$address, phone=$phone, url=$url, latitude=$latitude, longitude=$longitude, color=$color, icon=$icon, order=$order)"
+    override fun toString(): String {
+        return "Place(id=$id, uid=$uid, name=$name, address=$address, phone=$phone, url=$url, latitude=$latitude, longitude=$longitude, color=$color, icon=$icon, order=$order, radius=$radius)"
+    }
 
     companion object {
         const val KEY = "place"

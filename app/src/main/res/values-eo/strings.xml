@@ -348,7 +348,6 @@
     <string name="gcal_TEA_error">Eraro dum aldonado de tasko al kalendaro!</string>
     <string name="default_location">Defaŭlta loko</string>
     <string name="EPr_default_reminders_mode_title">Defaŭlta vokosono/vibrado</string>
-    <string name="EPr_default_location_radius">Defaŭlta radiuso</string>
     <string name="EPr_default_importance_title">Defaŭlta prioritato</string>
     <string name="EPr_manage_delete_all_gcal_message">Ĉu vi certe volas forigi viajn ĉiujn eventojn por taskoj\?</string>
     <string name="EPr_manage_delete_all_gcal">Forigi ĉiujn kalendarajn eventojn por taskoj</string>

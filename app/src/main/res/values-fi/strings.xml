@@ -461,7 +461,6 @@
     <string name="default_location_reminder_on_departure">Lähdettäessä</string>
     <string name="default_location_reminder_on_arrival">Saavuttaessa</string>
     <string name="no_reminders">Ei muistutuksia</string>
-    <string name="EPr_default_location_radius">Oletusetäisyys</string>
     <string name="EPr_default_location_reminder_title">Oletussijaintimuistutukset</string>
     <string name="TEA_control_location">Sijainti</string>
     <string name="TEA_add_subtask">Lisää alitehtävä</string>

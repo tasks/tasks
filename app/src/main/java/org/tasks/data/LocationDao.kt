@@ -28,8 +28,7 @@ interface LocationDao {
 
     @Query("SELECT places.*,"
             + " max(geofences.arrival) as arrival,"
-            + " max(geofences.departure) as departure,"
-            + " min(geofences.radius) as radius"
+            + " max(geofences.departure) as departure"
             + " FROM places"
             + " INNER JOIN geofences ON geofences.place = places.uid"
             + " INNER JOIN tasks ON tasks._id = geofences.task"

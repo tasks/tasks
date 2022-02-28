@@ -110,13 +110,4 @@
     android:title="@string/EPr_default_location_reminder_title"
     app:singleLineTitle="false" />
 
-  <SeekBarPreference
-    android:defaultValue="250"
-    android:key="@string/p_default_location_radius"
-    android:max="1000"
-    android:title="@string/EPr_default_location_radius"
-    app:min="75"
-    app:seekBarIncrement="25"
-    app:showSeekBarValue="true" />
-
 </PreferenceScreen>

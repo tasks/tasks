@@ -87,7 +87,6 @@
     <string name="EPr_default_importance_title">デフォルトの優先順位</string>
     <string name="EPr_default_reminders_title">デフォルトのリマインダー</string>
     <string name="EPr_default_location_reminder_title">デフォルトの場所リマインダー</string>
-    <string name="EPr_default_location_radius">デフォルトの半径</string>
     <string name="EPr_default_reminders_mode_title">デフォルトの通知音、振動種類</string>
     <string name="priority_high">高</string>
     <string name="priority_medium">中</string>

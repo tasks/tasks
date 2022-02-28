@@ -197,7 +197,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Ønsker du virkelig å slette alle dine hendelser for gjøremål\?</string>
     <string name="task_defaults">Gjøremålsforvalg</string>
     <string name="EPr_default_location_reminder_title">Forvalgte stedspåminnelser</string>
-    <string name="EPr_default_location_radius">Forvalgt radius</string>
     <string name="EPr_default_reminders_mode_title">Forvalgt ringe/vibrasjonstype</string>
     <string name="priority_high">Høy</string>
     <string name="priority_medium">Middels</string>

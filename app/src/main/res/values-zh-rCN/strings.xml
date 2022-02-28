@@ -388,7 +388,6 @@
     <string name="linkify_description">增加链接至网站，地址，电话号码</string>
     <string name="TEA_control_location">位置</string>
     <string name="EPr_default_location_reminder_title">默认位置提醒</string>
-    <string name="EPr_default_location_radius">默认半径</string>
     <string name="no_reminders">无提醒</string>
     <string name="default_location_reminder_on_arrival">抵达时</string>
     <string name="default_location_reminder_on_departure">出发时</string>

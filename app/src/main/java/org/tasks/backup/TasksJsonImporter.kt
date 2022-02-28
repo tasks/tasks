@@ -195,7 +195,6 @@ class TasksJsonImporter @Inject constructor(
                     val geofence = Geofence()
                     geofence.task = taskId
                     geofence.place = place.uid
-                    geofence.radius = location.radius
                     geofence.isArrival = location.arrival
                     geofence.isDeparture = location.departure
                     locationDao.insert(geofence)

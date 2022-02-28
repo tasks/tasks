@@ -6,7 +6,6 @@
     <string name="priority_low">குறைந்த</string>
     <string name="priority_medium">நடுத்தரமான</string>
     <string name="priority_high">உயரமான</string>
-    <string name="EPr_default_location_radius">இயல்புநிலை ஆரம்</string>
     <string name="EPr_default_location_reminder_title">இயல்புநிலை இருப்பிட நினைவூட்டல்கள்</string>
     <string name="EPr_default_reminders_title">இயல்புநிலை நினைவூட்டல்கள்</string>
     <string name="EPr_default_importance_title">இயல்புநிலை முன்னுரிமை</string>

@@ -14,14 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.google.android.material.slider.Slider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import org.tasks.R;
 import org.tasks.data.Geofence;
 import org.tasks.data.Location;
 import org.tasks.databinding.LocationDetailsBinding;
-import org.tasks.locale.Locale;
 import org.tasks.preferences.PermissionChecker;
 
 import javax.inject.Inject;
@@ -33,18 +31,13 @@ public class GeofenceDialog extends DialogFragment {
 
   public static final String EXTRA_GEOFENCE = "extra_geofence";
   private static final String EXTRA_ORIGINAL = "extra_original";
-  private static final int MIN_RADIUS = 75;
-  private static final int MAX_RADIUS = 1000;
-  private static final int STEP = 25;
 
   @Inject DialogBuilder dialogBuilder;
   @Inject Activity context;
-  @Inject Locale locale;
   @Inject PermissionChecker permissionChecker;
 
   private SwitchMaterial arrivalView;
   private SwitchMaterial departureView;
-  private Slider slider;
 
   public static GeofenceDialog newGeofenceDialog(Location location) {
     GeofenceDialog dialog = new GeofenceDialog();
@@ -67,16 +60,8 @@ public class GeofenceDialog extends DialogFragment {
     LocationDetailsBinding binding = LocationDetailsBinding.inflate(layoutInflater);
     arrivalView = binding.locationArrival;
     departureView = binding.locationDeparture;
-    slider = binding.slider;
     arrivalView.setChecked(geofence.isArrival());
     departureView.setChecked(geofence.isDeparture());
-    slider.setLabelFormatter(
-        value -> getString(R.string.location_radius_meters, locale.formatNumber(value)));
-    slider.setValueTo(MAX_RADIUS);
-    slider.setValueFrom(MIN_RADIUS);
-    slider.setStepSize(STEP);
-    slider.setHaloRadius(0);
-    slider.setValue(Math.round((geofence.getRadius() / STEP) * STEP));
     return dialogBuilder
         .newDialog(original.getDisplayName())
         .setView(binding.getRoot())
@@ -95,7 +80,6 @@ public class GeofenceDialog extends DialogFragment {
     Geofence geofence = new Geofence();
     geofence.setArrival(arrivalView.isChecked());
     geofence.setDeparture(departureView.isChecked());
-    geofence.setRadius((int) slider.getValue());
     return geofence;
   }
 

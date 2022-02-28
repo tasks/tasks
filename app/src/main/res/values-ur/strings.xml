@@ -75,7 +75,6 @@
     <string name="priority_high">ہائی</string>
     <string name="default_location">ڈیفالٹ لوکیشن</string>
     <string name="EPr_default_reminders_mode_title">ڈیفالٹ رنگ ٹون / وائبریشن ٹائپ</string>
-    <string name="EPr_default_location_radius">ڈیفالٹ رداس</string>
     <string name="EPr_default_location_reminder_title">ڈیفالٹ لوکیشن کی یاد دہانیاں</string>
     <string name="EPr_default_reminders_title">ڈیفالٹ یاددہانی</string>
     <string name="EPr_default_importance_title">ڈیفالٹ ترجیح</string>

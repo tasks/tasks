@@ -63,7 +63,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">පැමිණිවිට සහ පිටත්වනවිට</string>
     <string name="default_location_reminder_on_departure">පිටත්ව යන විට</string>
     <string name="default_location_reminder_on_arrival">පැමිණි විට</string>
-    <string name="EPr_default_location_radius">පෙරනිමි අරය</string>
     <string name="EPr_cal_start_at_due_time">නියමිත වේලාවට දින දර්ශන සිදුවීම් ආරම්භ කරන්න</string>
     <string name="TEA_control_timer">ටයිමර් පාලනය</string>
     <string name="action_call">අමතන්න</string>

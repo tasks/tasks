@@ -28,7 +28,6 @@ import org.tasks.preferences.Device
 import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -175,8 +174,8 @@ class LocationControlSet : TaskEditControlFragment() {
                     Geofence(
                             place.uid,
                             existing.isArrival,
-                            existing.isDeparture,
-                            existing.radius)
+                            existing.isDeparture
+                    )
                 }
                 setLocation(Location(geofence, place))
             }

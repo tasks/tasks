@@ -1,5 +1,6 @@
 package com.todoroo.astrid.dao
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.todoroo.astrid.data.Task
@@ -36,32 +37,36 @@ import org.tasks.data.TaskListMetadataDao
 import org.tasks.data.UpgraderDao
 import org.tasks.data.UserActivity
 import org.tasks.data.UserActivityDao
+import org.tasks.db.Migrations
 import org.tasks.notifications.Notification
 import org.tasks.notifications.NotificationDao
 
 @Database(
-        entities = [
-            Notification::class,
-            TagData::class,
-            UserActivity::class,
-            TaskAttachment::class,
-            TaskListMetadata::class,
-            Task::class,
-            Alarm::class,
-            Place::class,
-            Geofence::class,
-            Tag::class,
-            GoogleTask::class,
-            Filter::class,
-            GoogleTaskList::class,
-            CaldavCalendar::class,
-            CaldavTask::class,
-            CaldavAccount::class,
-            GoogleTaskAccount::class,
-            Principal::class,
-            PrincipalAccess::class
-        ],
-        version = 82
+    entities = [
+        Notification::class,
+        TagData::class,
+        UserActivity::class,
+        TaskAttachment::class,
+        TaskListMetadata::class,
+        Task::class,
+        Alarm::class,
+        Place::class,
+        Geofence::class,
+        Tag::class,
+        GoogleTask::class,
+        Filter::class,
+        GoogleTaskList::class,
+        CaldavCalendar::class,
+        CaldavTask::class,
+        CaldavAccount::class,
+        GoogleTaskAccount::class,
+        Principal::class,
+        PrincipalAccess::class
+    ],
+    autoMigrations = [
+        AutoMigration(from = 82, to = 83, spec = Migrations.AutoMigrate82to83::class),
+    ],
+    version = 83
 )
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao

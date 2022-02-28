@@ -22,9 +22,6 @@ class Geofence : Serializable, Parcelable {
     @ColumnInfo(name = "place")
     var place: String? = null
 
-    @ColumnInfo(name = "radius")
-    var radius = 0
-
     @ColumnInfo(name = "arrival")
     var isArrival = false
 
@@ -34,7 +31,7 @@ class Geofence : Serializable, Parcelable {
     constructor()
 
     @Ignore
-    constructor(task: Long, place: String?, arrival: Boolean, departure: Boolean, radius: Int) : this(place, arrival, departure, radius) {
+    constructor(task: Long, place: String?, arrival: Boolean, departure: Boolean) : this(place, arrival, departure) {
         this.task = task
     }
 
@@ -44,15 +41,13 @@ class Geofence : Serializable, Parcelable {
         val defaultReminders = preferences.getIntegerFromString(R.string.p_default_location_reminder_key, 1)
         isArrival = defaultReminders == 1 || defaultReminders == 3
         isDeparture = defaultReminders == 2 || defaultReminders == 3
-        radius = preferences.getInt(R.string.p_default_location_radius, 250)
     }
 
     @Ignore
-    constructor(place: String?, arrival: Boolean, departure: Boolean, radius: Int) {
+    constructor(place: String?, arrival: Boolean, departure: Boolean) {
         this.place = place
         isArrival = arrival
         isDeparture = departure
-        this.radius = radius
     }
 
     @Ignore
@@ -60,7 +55,6 @@ class Geofence : Serializable, Parcelable {
         id = o.id
         task = o.task
         place = o.place
-        radius = o.radius
         isArrival = o.isArrival
         isDeparture = o.isDeparture
     }
@@ -70,7 +64,6 @@ class Geofence : Serializable, Parcelable {
         id = parcel.readLong()
         task = parcel.readLong()
         place = parcel.readString()
-        radius = parcel.readInt()
         isArrival = parcel.readInt() == 1
         isDeparture = parcel.readInt() == 1
     }
@@ -82,7 +75,6 @@ class Geofence : Serializable, Parcelable {
             writeLong(id)
             writeLong(task)
             writeString(place)
-            writeInt(radius)
             writeInt(if (isArrival) 1 else 0)
             writeInt(if (isDeparture) 1 else 0)
         }
@@ -95,7 +87,6 @@ class Geofence : Serializable, Parcelable {
         if (id != other.id) return false
         if (task != other.task) return false
         if (place != other.place) return false
-        if (radius != other.radius) return false
         if (isArrival != other.isArrival) return false
         if (isDeparture != other.isDeparture) return false
 
@@ -106,14 +97,13 @@ class Geofence : Serializable, Parcelable {
         var result = id.hashCode()
         result = 31 * result + task.hashCode()
         result = 31 * result + (place?.hashCode() ?: 0)
-        result = 31 * result + radius
         result = 31 * result + isArrival.hashCode()
         result = 31 * result + isDeparture.hashCode()
         return result
     }
 
     override fun toString(): String =
-            "Geofence(id=$id, task=$task, place=$place, radius=$radius, isArrival=$isArrival, isDeparture=$isDeparture)"
+            "Geofence(id=$id, task=$task, place=$place, isArrival=$isArrival, isDeparture=$isDeparture)"
 
     companion object {
         const val TABLE_NAME = "geofences"

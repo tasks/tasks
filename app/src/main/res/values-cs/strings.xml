@@ -213,7 +213,6 @@
     <string name="SSD_sort_my_order">Vlastní pořadí</string>
     <string name="TEA_add_subtask">Přidat podúkol</string>
     <string name="EPr_default_location_reminder_title">Výchozí upomínky podle polohy</string>
-    <string name="EPr_default_location_radius">Výchozí přesnost</string>
     <string name="default_location_reminder_on_arrival">Při příchodu</string>
     <string name="default_location_reminder_on_departure">Při odchodu</string>
     <string name="default_location_reminder_on_arrival_or_departure">Při příchodu a odchodu</string>

@@ -35,7 +35,7 @@ class Location : Serializable, Parcelable {
         get() = place.longitude
 
     val radius: Int
-        get() = geofence.radius
+        get() = place.radius
 
     val phone: String?
         get() = place.phone

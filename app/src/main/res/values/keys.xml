@@ -216,7 +216,6 @@
   <!-- default reminders setting (corresponds to reminder flags) -->
   <string name="p_default_reminders_key">p_def_reminders_v2</string>
   <string name="p_default_location_reminder_key">p_def_location_reminders</string>
-  <string name="p_default_location_radius">p_def_location_radius</string>
 
   <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
   <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>

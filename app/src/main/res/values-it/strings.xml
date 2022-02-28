@@ -90,7 +90,6 @@
     <string name="EPr_default_importance_title">Priorità predefinita</string>
     <string name="EPr_default_reminders_title">Promemoria predefiniti</string>
     <string name="EPr_default_location_reminder_title">Posizione promemoria predefinita</string>
-    <string name="EPr_default_location_radius">Raggio predefinito</string>
     <string name="EPr_default_reminders_mode_title">Tipo di squillo/vibrazione predefinito</string>
     <string name="priority_high">Alta</string>
     <string name="priority_medium">Media</string>

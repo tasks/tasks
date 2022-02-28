@@ -545,7 +545,6 @@
     <string name="priority_low">ต่ํา</string>
     <string name="priority_medium">ปานกลาง</string>
     <string name="priority_high">สูง</string>
-    <string name="EPr_default_location_radius">รัศมีเริ่มต้น</string>
     <string name="EPr_default_reminders_title">ตัวเตือนเริ่มต้น</string>
     <string name="default_start_date">วันที่เริ่มต้นเริ่มต้น</string>
     <string name="account_not_included">ไม่รวมอยู่ในการสมัครสมาชิก \'ตั้งชื่อราคาของคุณ\'</string>
