@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="import_progress_read">"%d ٹاسک  پڑھا جا رہا ہے…"</string>
+    <string name="import_progress_read">%d ٹاسک پڑھا جا رہا ہے…</string>
     <string name="export_toast">%1$s سے %2$s بیک اپ ہو گیا۔</string>
     <string name="TEA_load_more">مزید لوڈ کریں…</string>
     <string name="TEA_control_hidden_section">----ہمیشہ چھپائیں----</string>
