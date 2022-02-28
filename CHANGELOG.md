@@ -1,4 +1,4 @@
-### 12.5 (2021-02-27)
+### 12.5 (2022-02-27)
 
 * Choose custom random reminder period
 * Add multiple random reminders
@@ -15,7 +15,7 @@
   * Turkish - @ersen0
   * Ukrainian - @IhorHordiichuk
 
-### 12.4 (2021-02-19)
+### 12.4 (2022-02-19)
 
 * Relative reminder support
   * Quickly add reminders minutes, hours, days, or weeks before due
@@ -49,7 +49,7 @@
   * Ukrainian - @IhorHordiichuk
   * Vietnamese - bruh, @unbaseduser
 
-### 12.3 (2021-02-04)
+### 12.3 (2022-02-04)
 
 * Add option to disable moving completed tasks to bottom
 * Add option to disable sorting completed by completion date
@@ -74,7 +74,7 @@
   * Turkish - @emintufan, @ersen0
   * Vietnamese - @unbaseduser
 
-### 12.2 (2021-01-16)
+### 12.2 (2022-01-16)
 
 * Move completed tasks to bottom
 * Add option to disable collapsing app bars
@@ -92,7 +92,7 @@
   * Ukrainian - @IhorHordiichuk
   * Vietnamese - @unbaseduser
 
-### 12.1 (2021-01-09)
+### 12.1 (2022-01-09)
 
 * Group overdue tasks when sorting by due date
 * Update translations
