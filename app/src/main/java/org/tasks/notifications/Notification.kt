@@ -2,11 +2,26 @@ package org.tasks.notifications
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
+import com.todoroo.astrid.data.Task
 
-@Entity(tableName = Notification.TABLE_NAME, indices = [Index(value = ["task"], unique = true)])
+@Entity(
+    tableName = Notification.TABLE_NAME,
+    indices = [
+        Index(value = ["task"], unique = true)
+    ],
+    foreignKeys = [
+        ForeignKey(
+            entity = Task::class,
+            parentColumns = ["_id"],
+            childColumns = ["task"],
+            onDelete = ForeignKey.CASCADE,
+        )
+    ]
+)
 class Notification {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "uid")

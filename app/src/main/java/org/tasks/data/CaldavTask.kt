@@ -2,20 +2,31 @@ package org.tasks.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Ignore
-import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
+import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
 
-@Entity(tableName = "caldav_tasks", indices = [Index(name = "cd_task", value = ["cd_task"])])
+@Entity(
+    tableName = "caldav_tasks",
+    foreignKeys = [
+        ForeignKey(
+            entity = Task::class,
+            parentColumns = ["_id"],
+            childColumns = ["cd_task"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ]
+)
 class CaldavTask {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cd_id")
     @Transient
     var id: Long = 0
 
-    @ColumnInfo(name = "cd_task")
+    @ColumnInfo(name = "cd_task", index = true)
     @Transient
     var task: Long = 0
 

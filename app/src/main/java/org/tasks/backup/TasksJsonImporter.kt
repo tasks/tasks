@@ -17,8 +17,6 @@ import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.AlarmDao
 import org.tasks.data.CaldavDao
 import org.tasks.data.FilterDao
@@ -160,11 +158,7 @@ class TasksJsonImporter @Inject constructor(
                 }
                 if (version < V12_4) {
                     task.defaultReminders(task.ringFlags)
-                    task.randomReminder = task.reminderPeriod
                     alarmDao.insert(task.getDefaultAlarms())
-                    task.reminderSnooze.takeIf { it > 0 }?.let {
-                        alarmDao.insert(Alarm(task.id, it, TYPE_SNOOZE))
-                    }
                     task.ringFlags = when {
                         task.isNotifyModeFive -> Task.NOTIFY_MODE_FIVE
                         task.isNotifyModeNonstop -> Task.NOTIFY_MODE_NONSTOP

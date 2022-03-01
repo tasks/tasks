@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 83,
-    "identityHash": "63f86a7965511d8f19651de927905a5f",
+    "identityHash": "cf081f859d693597f29288a63f13bbf7",
     "entities": [
       {
         "tableName": "notification",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `type` INTEGER NOT NULL, `location` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `type` INTEGER NOT NULL, `location` INTEGER, FOREIGN KEY(`task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "uid",
@@ -56,7 +56,19 @@
             "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_notification_task` ON `${TABLE_NAME}` (`task`)"
           }
         ],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "tasks",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "task"
+            ],
+            "referencedColumns": [
+              "_id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "tagdata",
@@ -216,18 +228,12 @@
       },
       {
         "tableName": "task_list_metadata",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `tag_uuid` TEXT, `filter` TEXT, `task_ids` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `tag_uuid` TEXT, `filter` TEXT, `task_ids` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "_id",
             "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "remoteId",
-            "columnName": "remoteId",
-            "affinity": "TEXT",
             "notNull": false
           },
           {
@@ -260,7 +266,7 @@
       },
       {
         "tableName": "tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `importance` INTEGER NOT NULL, `dueDate` INTEGER NOT NULL, `hideUntil` INTEGER NOT NULL, `created` INTEGER NOT NULL, `modified` INTEGER NOT NULL, `completed` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `notes` TEXT, `estimatedSeconds` INTEGER NOT NULL, `elapsedSeconds` INTEGER NOT NULL, `timerStart` INTEGER NOT NULL, `notificationFlags` INTEGER NOT NULL, `notifications` INTEGER NOT NULL, `lastNotified` INTEGER NOT NULL, `snoozeTime` INTEGER NOT NULL, `recurrence` TEXT, `repeatUntil` INTEGER NOT NULL, `calendarUri` TEXT, `remoteId` TEXT, `collapsed` INTEGER NOT NULL, `parent` INTEGER NOT NULL, `parent_uuid` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `importance` INTEGER NOT NULL, `dueDate` INTEGER NOT NULL, `hideUntil` INTEGER NOT NULL, `created` INTEGER NOT NULL, `modified` INTEGER NOT NULL, `completed` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `notes` TEXT, `estimatedSeconds` INTEGER NOT NULL, `elapsedSeconds` INTEGER NOT NULL, `timerStart` INTEGER NOT NULL, `notificationFlags` INTEGER NOT NULL, `lastNotified` INTEGER NOT NULL, `recurrence` TEXT, `repeatUntil` INTEGER NOT NULL, `calendarUri` TEXT, `remoteId` TEXT, `collapsed` INTEGER NOT NULL, `parent` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -347,20 +353,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "reminderPeriod",
-            "columnName": "notifications",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
             "fieldPath": "reminderLast",
             "columnName": "lastNotified",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "reminderSnooze",
-            "columnName": "snoozeTime",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -399,12 +393,6 @@
             "columnName": "parent",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "parentUuid",
-            "columnName": "parent_uuid",
-            "affinity": "TEXT",
-            "notNull": false
           }
         ],
         "primaryKey": {
@@ -439,7 +427,7 @@
       },
       {
         "tableName": "alarms",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `time` INTEGER NOT NULL, `type` INTEGER NOT NULL DEFAULT 0, `repeat` INTEGER NOT NULL DEFAULT 0, `interval` INTEGER NOT NULL DEFAULT 0)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `time` INTEGER NOT NULL, `type` INTEGER NOT NULL DEFAULT 0, `repeat` INTEGER NOT NULL DEFAULT 0, `interval` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -487,8 +475,30 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
-        "foreignKeys": []
+        "indices": [
+          {
+            "name": "index_alarms_task",
+            "unique": false,
+            "columnNames": [
+              "task"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_alarms_task` ON `${TABLE_NAME}` (`task`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tasks",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "task"
+            ],
+            "referencedColumns": [
+              "_id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "places",
@@ -589,7 +599,7 @@
       },
       {
         "tableName": "geofences",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geofence_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `place` TEXT, `arrival` INTEGER NOT NULL, `departure` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`geofence_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `place` TEXT, `arrival` INTEGER NOT NULL, `departure` INTEGER NOT NULL, FOREIGN KEY(`task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -630,20 +640,32 @@
         },
         "indices": [
           {
-            "name": "geo_task",
+            "name": "index_geofences_task",
             "unique": false,
             "columnNames": [
               "task"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `geo_task` ON `${TABLE_NAME}` (`task`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_geofences_task` ON `${TABLE_NAME}` (`task`)"
           }
         ],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "tasks",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "task"
+            ],
+            "referencedColumns": [
+              "_id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "tags",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `name` TEXT, `tag_uid` TEXT, `task_uid` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `name` TEXT, `tag_uid` TEXT, `task_uid` TEXT, FOREIGN KEY(`task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -684,20 +706,32 @@
         },
         "indices": [
           {
-            "name": "tag_task",
+            "name": "index_tags_task",
             "unique": false,
             "columnNames": [
               "task"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `tag_task` ON `${TABLE_NAME}` (`task`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tags_task` ON `${TABLE_NAME}` (`task`)"
           }
         ],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "tasks",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "task"
+            ],
+            "referencedColumns": [
+              "_id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "google_tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gt_task` INTEGER NOT NULL, `gt_remote_id` TEXT, `gt_list_id` TEXT, `gt_parent` INTEGER NOT NULL, `gt_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_order` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, `gt_last_sync` INTEGER NOT NULL, `gt_deleted` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gt_task` INTEGER NOT NULL, `gt_remote_id` TEXT, `gt_list_id` TEXT, `gt_parent` INTEGER NOT NULL, `gt_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_order` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, `gt_last_sync` INTEGER NOT NULL, `gt_deleted` INTEGER NOT NULL, FOREIGN KEY(`gt_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -774,15 +808,6 @@
         },
         "indices": [
           {
-            "name": "gt_task",
-            "unique": false,
-            "columnNames": [
-              "gt_task"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `gt_task` ON `${TABLE_NAME}` (`gt_task`)"
-          },
-          {
             "name": "gt_list_parent",
             "unique": false,
             "columnNames": [
@@ -791,9 +816,30 @@
             ],
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `gt_list_parent` ON `${TABLE_NAME}` (`gt_list_id`, `gt_parent`)"
+          },
+          {
+            "name": "index_google_tasks_gt_task",
+            "unique": false,
+            "columnNames": [
+              "gt_task"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_google_tasks_gt_task` ON `${TABLE_NAME}` (`gt_task`)"
           }
         ],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "tasks",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "gt_task"
+            ],
+            "referencedColumns": [
+              "_id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "filters",
@@ -995,7 +1041,7 @@
       },
       {
         "tableName": "caldav_tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `cd_order` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `cd_order` INTEGER, FOREIGN KEY(`cd_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -1066,16 +1112,28 @@
         },
         "indices": [
           {
-            "name": "cd_task",
+            "name": "index_caldav_tasks_cd_task",
             "unique": false,
             "columnNames": [
               "cd_task"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `cd_task` ON `${TABLE_NAME}` (`cd_task`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_task` ON `${TABLE_NAME}` (`cd_task`)"
           }
         ],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "tasks",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "cd_task"
+            ],
+            "referencedColumns": [
+              "_id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "caldav_accounts",
@@ -1365,7 +1423,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '63f86a7965511d8f19651de927905a5f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cf081f859d693597f29288a63f13bbf7')"
     ]
   }
 }

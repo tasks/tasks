@@ -26,6 +26,10 @@ object Migrations {
 
     @DeleteColumn.Entries(
         DeleteColumn(tableName = "geofences", columnName = "radius"),
+        DeleteColumn(tableName = "task_list_metadata", columnName = "remoteId"),
+        DeleteColumn(tableName = "tasks", columnName = "snoozeTime"),
+        DeleteColumn(tableName = "tasks", columnName = "parent_uuid"),
+        DeleteColumn(tableName = "tasks", columnName = "notifications"),
     )
     class AutoMigrate82to83: AutoMigrationSpec
 

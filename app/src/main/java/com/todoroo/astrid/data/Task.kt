@@ -84,17 +84,9 @@ class Task : Parcelable {
     @SerializedName("ringFlags", alternate = ["reminderFlags"])
     var ringFlags = 0
 
-    @Deprecated("old random reminders")
-    @ColumnInfo(name = "notifications")
-    var reminderPeriod = 0L
-
     /** Unixtime the last reminder was triggered  */
     @ColumnInfo(name = "lastNotified")
     var reminderLast = 0L
-
-    @Deprecated("old snooze reminders")
-    @ColumnInfo(name = "snoozeTime")
-    var reminderSnooze = 0L
 
     @ColumnInfo(name = "recurrence")
     var recurrence: String? = null
@@ -115,10 +107,6 @@ class Task : Parcelable {
     @ColumnInfo(name = "parent")
     @Transient
     var parent = 0L
-
-    @Deprecated(message = "no longer used")
-    @ColumnInfo(name = "parent_uuid")
-    var parentUuid: String? = null
 
     @Ignore
     @Transient

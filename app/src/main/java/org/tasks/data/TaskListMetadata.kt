@@ -17,10 +17,6 @@ class TaskListMetadata {
     @Transient
     var id: Long? = null
 
-    @Deprecated("not used")
-    @ColumnInfo(name = "remoteId")
-    var remoteId: String? = Task.NO_UUID
-
     @ColumnInfo(name = "tag_uuid")
     var tagUuid: String? = Task.NO_UUID
 

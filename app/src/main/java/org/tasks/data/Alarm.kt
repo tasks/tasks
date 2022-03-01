@@ -4,20 +4,32 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
+import com.todoroo.astrid.data.Task
 import org.tasks.time.DateTimeUtils.printTimestamp
 import java.util.concurrent.TimeUnit
 
-@Entity(tableName = Alarm.TABLE_NAME)
+@Entity(
+    tableName = Alarm.TABLE_NAME,
+    foreignKeys = [
+        ForeignKey(
+            entity = Task::class,
+            parentColumns = ["_id"],
+            childColumns = ["task"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
+)
 class Alarm : Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     @Transient
     var id: Long = 0
 
-    @ColumnInfo(name = "task")
+    @ColumnInfo(name = "task", index = true)
     @Transient
     var task: Long = 0
 

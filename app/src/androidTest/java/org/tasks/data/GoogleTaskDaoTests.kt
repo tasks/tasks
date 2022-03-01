@@ -58,7 +58,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun getPreviousIsNullForTopTask() = runBlocking {
-        googleTaskDao.insertAndShift(newGoogleTask(), true)
+        insert(newGoogleTask())
         assertNull(googleTaskDao.getPrevious("1", 0, 0))
     }
 
@@ -93,21 +93,21 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun getTaskFromRemoteId() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(REMOTE_ID, "1234"), with(TASK, 4)))
-        assertEquals(4L, googleTaskDao.getTask("1234"))
+        insert(newGoogleTask(with(REMOTE_ID, "1234")))
+        assertEquals(1L, googleTaskDao.getTask("1234"))
     }
 
     @Test
     fun getRemoteIdForTask() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(REMOTE_ID, "1234"), with(TASK, 4)))
-        assertEquals("1234", googleTaskDao.getRemoteId(4L))
+        insert(newGoogleTask(with(REMOTE_ID, "1234")))
+        assertEquals("1234", googleTaskDao.getRemoteId(1L))
     }
 
     @Test
     fun moveDownInList() = runBlocking {
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "1")), false)
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "2")), false)
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false)
+        insert(newGoogleTask(with(REMOTE_ID, "1")))
+        insert(newGoogleTask(with(REMOTE_ID, "2")))
+        insert(newGoogleTask(with(REMOTE_ID, "3")))
         val two = getByRemoteId("2")
         googleTaskDao.move(two, 0, 0)
         assertEquals(0, googleTaskDao.getByRemoteId("2")!!.order)
@@ -117,9 +117,9 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun moveUpInList() = runBlocking {
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "1")), false)
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "2")), false)
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false)
+        insert(newGoogleTask(with(REMOTE_ID, "1")))
+        insert(newGoogleTask(with(REMOTE_ID, "2")))
+        insert(newGoogleTask(with(REMOTE_ID, "3")))
         val one = getByRemoteId("1")
         googleTaskDao.move(one, 0, 1)
         assertEquals(0, googleTaskDao.getByRemoteId("2")!!.order)
@@ -129,9 +129,9 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun moveToTop() = runBlocking {
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "1")), false)
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "2")), false)
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false)
+        insert(newGoogleTask(with(REMOTE_ID, "1")))
+        insert(newGoogleTask(with(REMOTE_ID, "2")))
+        insert(newGoogleTask(with(REMOTE_ID, "3")))
         val three = getByRemoteId("3")
         googleTaskDao.move(three, 0, 0)
         assertEquals(0, googleTaskDao.getByRemoteId("3")!!.order)
@@ -141,9 +141,9 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun moveToBottom() = runBlocking {
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "1")), false)
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "2")), false)
-        googleTaskDao.insertAndShift(newGoogleTask(with(REMOTE_ID, "3")), false)
+        insert(newGoogleTask(with(REMOTE_ID, "1")))
+        insert(newGoogleTask(with(REMOTE_ID, "2")))
+        insert(newGoogleTask(with(REMOTE_ID, "3")))
         val one = getByRemoteId("1")
         googleTaskDao.move(one, 0, 2)
         assertEquals(0, googleTaskDao.getByRemoteId("2")!!.order)
@@ -153,14 +153,14 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun findChildrenInList() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)))
+        insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
+        insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)))
         assertEquals(listOf(2L), googleTaskDao.getChildren(listOf(1L, 2L)))
     }
 
     @Test
     fun dontAllowEmptyParent() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
+        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
 
         googleTaskDao.updatePosition("1234", "", "0")
 
@@ -169,7 +169,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     
     @Test
     fun updatePositionWithNullParent() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
+        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
 
         googleTaskDao.updatePosition("1234", null, "0")
 
@@ -178,7 +178,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun updatePosition() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
+        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
 
         googleTaskDao.updatePosition("1234", "abcd", "0")
 
@@ -187,8 +187,8 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun updateParents() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_PARENT, "123")))
+        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
+        insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_PARENT, "123")))
 
         googleTaskDao.updateParents()
 
@@ -197,8 +197,8 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun updateParentsByList() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_PARENT, "123")))
+        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
+        insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_PARENT, "123")))
 
         googleTaskDao.updateParents("1")
 
@@ -207,8 +207,8 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun updateParentsMustMatchList() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "2"), with(REMOTE_PARENT, "123")))
+        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
+        insert(newGoogleTask(with(TASK, 2), with(LIST, "2"), with(REMOTE_PARENT, "123")))
 
         googleTaskDao.updateParents()
 
@@ -217,8 +217,8 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun updateParentsByListMustMatchList() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "2"), with(REMOTE_PARENT, "123")))
+        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
+        insert(newGoogleTask(with(TASK, 2), with(LIST, "2"), with(REMOTE_PARENT, "123")))
 
         googleTaskDao.updateParents("2")
 
@@ -227,8 +227,8 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun ignoreEmptyStringWhenUpdatingParents() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_ID, ""), with(REMOTE_PARENT, "")))
+        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "")))
+        insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_ID, ""), with(REMOTE_PARENT, "")))
 
         googleTaskDao.updateParents()
 
@@ -237,8 +237,8 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun ignoreEmptyStringWhenUpdatingParentsForList() = runBlocking {
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_ID, ""), with(REMOTE_PARENT, "")))
+        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "")))
+        insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_ID, ""), with(REMOTE_PARENT, "")))
 
         googleTaskDao.updateParents("1")
 
@@ -253,7 +253,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
         insert(googleTask, false)
     }
 
-    private suspend fun insert(googleTask: GoogleTask, top: Boolean) {
+    private suspend fun insert(googleTask: GoogleTask, top: Boolean = false) {
         val task = newTask()
         taskDao.createNew(task)
         googleTask.task = task.id

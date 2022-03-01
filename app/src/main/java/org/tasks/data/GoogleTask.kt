@@ -1,19 +1,35 @@
 package org.tasks.data
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Ignore
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
+import com.todoroo.astrid.data.Task
 
-@Entity(tableName = "google_tasks",
-        indices = [
-            Index(name = "gt_task", value = ["gt_task"]),
-            Index(name = "gt_list_parent", value = ["gt_list_id", "gt_parent"])])
+@Entity(
+    tableName = "google_tasks",
+    indices = [
+        Index(name = "gt_list_parent", value = ["gt_list_id", "gt_parent"])
+    ],
+    foreignKeys = [
+        ForeignKey(
+            entity = Task::class,
+            parentColumns = ["_id"],
+            childColumns = ["gt_task"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ]
+)
 class GoogleTask {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "gt_id")
     @Transient
     var id: Long = 0
 
-    @ColumnInfo(name = "gt_task")
+    @ColumnInfo(name = "gt_task", index = true)
     @Transient
     var task: Long = 0
 

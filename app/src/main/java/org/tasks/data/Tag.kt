@@ -1,17 +1,32 @@
 package org.tasks.data
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Ignore
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
 
-@Entity(tableName = "tags", indices = [Index(name = "tag_task", value = ["task"])])
+@Entity(
+    tableName = "tags",
+    foreignKeys = [
+        ForeignKey(
+            entity = Task::class,
+            parentColumns = ["_id"],
+            childColumns = ["task"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ]
+)
 class Tag {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     @Transient
     var id: Long = 0
 
-    @ColumnInfo(name = "task")
+    @ColumnInfo(name = "task", index = true)
     @Transient
     var task: Long = 0
 

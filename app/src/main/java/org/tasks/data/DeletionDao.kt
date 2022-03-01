@@ -10,21 +10,6 @@ import org.tasks.db.SuspendDbUtils.eachChunk
 
 @Dao
 abstract class DeletionDao {
-    @Query("DELETE FROM caldav_tasks WHERE cd_task IN(:ids)")
-    internal abstract suspend fun deleteCaldavTasks(ids: List<Long>)
-
-    @Query("DELETE FROM google_tasks WHERE gt_task IN(:ids)")
-    internal abstract suspend fun deleteGoogleTasks(ids: List<Long>)
-
-    @Query("DELETE FROM tags WHERE task IN(:ids)")
-    internal abstract suspend fun deleteTags(ids: List<Long>)
-
-    @Query("DELETE FROM geofences WHERE task IN(:ids)")
-    internal abstract suspend fun deleteGeofences(ids: List<Long>)
-
-    @Query("DELETE FROM alarms WHERE task IN(:ids)")
-    internal abstract suspend fun deleteAlarms(ids: List<Long>)
-
     @Query("DELETE FROM tasks WHERE _id IN(:ids)")
     internal abstract suspend fun deleteTasks(ids: List<Long>)
 
@@ -57,11 +42,6 @@ WHERE recurring = 1
     @Transaction
     open suspend fun delete(ids: List<Long>) {
         ids.eachChunk {
-            deleteAlarms(it)
-            deleteGeofences(it)
-            deleteTags(it)
-            deleteGoogleTasks(it)
-            deleteCaldavTasks(it)
             deleteTasks(it)
         }
     }

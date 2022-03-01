@@ -5,7 +5,7 @@ import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.tasks.data.CaldavAccount
@@ -14,7 +14,9 @@ import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.ETAG
 import org.tasks.makers.CaldavTaskMaker.OBJECT
+import org.tasks.makers.CaldavTaskMaker.TASK
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
+import org.tasks.makers.TaskMaker.newTask
 
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
@@ -62,9 +64,10 @@ class CaldavSynchronizerTest : CaldavTest() {
             caldavDao.insert(this)
         }
         caldavDao.insert(newCaldavTask(
-                with(OBJECT, "3164728546640386952.ics"),
-                with(ETAG, "43b3ffaac5131880e4dd07a79adba82a"),
-                with(CALENDAR, calendar.uuid)
+            with(TASK, taskDao.insert(newTask())),
+            with(OBJECT, "3164728546640386952.ics"),
+            with(ETAG, "43b3ffaac5131880e4dd07a79adba82a"),
+            with(CALENDAR, calendar.uuid)
         ))
         enqueue(OC_SHARE_PROPFIND, OC_SHARE_REPORT)
 
