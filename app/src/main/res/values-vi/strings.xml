@@ -695,4 +695,18 @@
     <string name="alarm_after_start">%s sau bắt đầu</string>
     <string name="alarm_before_due">%s trước hạn</string>
     <string name="alarm_after_due">%s sau hạn</string>
+    <plurals name="reminder_days">
+        <item quantity="other">Ngày</item>
+    </plurals>
+    <string name="custom_notification">Thông báo tùy chỉnh</string>
+    <plurals name="reminder_minutes">
+        <item quantity="other">Phút</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="other">Tiếng</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="other">Tuần</item>
+    </plurals>
+    <string name="randomly_every">Ngẫu nhiên mỗi %s</string>
 </resources>
