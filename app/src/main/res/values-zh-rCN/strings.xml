@@ -327,7 +327,7 @@
     <string name="start_of_week">每周始于</string>
     <string name="use_locale_default">设备默认值</string>
     <string name="add_account">添加帐号</string>
-    <string name="user">用</string>
+    <string name="user">用户名</string>
     <string name="password">密码</string>
     <string name="url">网址</string>
     <string name="notification_disable_battery_optimizations_description">电池优化可能会延迟通知</string>
@@ -374,7 +374,7 @@
     <string name="refresh_purchases">刷新购买</string>
     <string name="button_subscribe">订购</string>
     <string name="about">关于</string>
-    <string name="license_summary">Tasks是遵循 GNU 通用公共许可证 v3.0 的开源软件</string>
+    <string name="license_summary">Tasks 是遵循 GNU 通用公共许可证 v3.0 的自由开源软件</string>
     <string name="pro_dashclock_extension">Dashclock 扩展</string>
     <string name="requires_pro_subscription">需要订阅专业版</string>
     <string name="logout">登出</string>
