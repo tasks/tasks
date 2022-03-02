@@ -13,11 +13,11 @@ import org.dmfs.tasks.contract.TaskContract.*
 import org.dmfs.tasks.contract.TaskContract.Properties
 import org.json.JSONObject
 import org.tasks.R
+import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.openTaskType
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 open class OpenTaskDao @Inject constructor(
         @ApplicationContext context: Context,
@@ -29,7 +29,9 @@ open class OpenTaskDao @Inject constructor(
     val taskLists: Uri = TaskLists.getContentUri(authority)
     val properties: Uri = Properties.getContentUri(authority)
 
-    suspend fun newAccounts(): List<String> = getListsByAccount().newAccounts(caldavDao)
+    suspend fun shouldSync() =
+        caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty() ||
+                getListsByAccount().filterActive(caldavDao).isNotEmpty()
 
     suspend fun getListsByAccount(): Map<String, List<CaldavCalendar>> =
             getLists().groupBy { it.account!! }
@@ -143,10 +145,8 @@ open class OpenTaskDao @Inject constructor(
         )
         val SUPPORTED_TYPE_FILTER = SUPPORTED_TYPES.joinToString(" OR ") { "ACCOUNT_TYPE = '$it'" }
 
-        suspend fun Map<String, List<CaldavCalendar>>.newAccounts(caldavDao: CaldavDao) =
+        suspend fun Map<String, List<CaldavCalendar>>.filterActive(caldavDao: CaldavDao) =
                 filterNot { (_, lists) -> caldavDao.anyExist(lists.map { it.url!! }) }
-                        .map { it.key }
-                        .distinct()
 
         fun String?.isDavx5(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVx5) == true
 

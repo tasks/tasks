@@ -21,10 +21,10 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
+import org.tasks.data.OpenTaskDao.Companion.filterActive
 import org.tasks.data.OpenTaskDao.Companion.isDavx5
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
 import org.tasks.data.OpenTaskDao.Companion.isEteSync
-import org.tasks.data.OpenTaskDao.Companion.newAccounts
 import org.tasks.data.OpenTaskDao.Companion.toLocalCalendar
 import timber.log.Timber
 import javax.inject.Inject
@@ -43,28 +43,28 @@ class OpenTasksSynchronizer @Inject constructor(
         private val inventory: Inventory) {
 
     suspend fun sync() {
-        val lists = openTaskDao.getListsByAccount()
-        lists.newAccounts(caldavDao)
-                .filter { caldavDao.getAccountByUuid(it) == null }
-                .map {
-                    CaldavAccount().apply {
-                        name = it.split(":")[1]
-                        uuid = it
-                        accountType = CaldavAccount.TYPE_OPENTASKS
+        val lists = openTaskDao.getListsByAccount().filterActive(caldavDao)
+        lists.keys
+            .filter { caldavDao.getAccountByUuid(it) == null }
+            .map {
+                CaldavAccount().apply {
+                    name = it.split(":")[1]
+                    uuid = it
+                    accountType = CaldavAccount.TYPE_OPENTASKS
+                }
+            }
+            .onEach { caldavDao.insert(it) }
+            .forEach {
+                firebase.logEvent(
+                    R.string.event_sync_add_account,
+                    R.string.param_type to when {
+                        it.uuid.isDavx5() -> Constants.SYNC_TYPE_DAVX5
+                        it.uuid.isEteSync() -> Constants.SYNC_TYPE_ETESYNC_OT
+                        it.uuid.isDecSync() -> Constants.SYNC_TYPE_DECSYNC
+                        else -> throw IllegalArgumentException()
                     }
-                }
-                .onEach { caldavDao.insert(it) }
-                .forEach {
-                    firebase.logEvent(
-                            R.string.event_sync_add_account,
-                            R.string.param_type to when {
-                                it.uuid.isDavx5() -> Constants.SYNC_TYPE_DAVX5
-                                it.uuid.isEteSync() -> Constants.SYNC_TYPE_ETESYNC_OT
-                                it.uuid.isDecSync() -> Constants.SYNC_TYPE_DECSYNC
-                                else -> throw IllegalArgumentException()
-                            }
-                    )
-                }
+                )
+            }
         caldavDao.getAccounts(CaldavAccount.TYPE_OPENTASKS).forEach { account ->
             val entries = lists[account.uuid!!]
             if (entries == null) {

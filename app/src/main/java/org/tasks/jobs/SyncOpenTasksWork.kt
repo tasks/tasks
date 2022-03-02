@@ -11,8 +11,6 @@ import dagger.assisted.AssistedInject
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.analytics.Firebase
-import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
-import org.tasks.data.CaldavDao
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.OpenTaskDao.Companion.SUPPORTED_TYPES
 import org.tasks.opentasks.OpenTasksSynchronizer
@@ -26,14 +24,11 @@ class SyncOpenTasksWork @AssistedInject constructor(
         localBroadcastManager: LocalBroadcastManager,
         preferences: Preferences,
         private val openTasksSynchronizer: OpenTasksSynchronizer,
-        private val caldavDao: CaldavDao,
         private val openTaskDao: OpenTaskDao
 ) : SyncWork(context, workerParams, firebase, localBroadcastManager, preferences) {
     override val syncStatus = R.string.p_sync_ongoing_opentasks
 
-    override suspend fun enabled() =
-            caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty()
-                    || openTaskDao.newAccounts().isNotEmpty()
+    override suspend fun enabled() = openTaskDao.shouldSync()
 
     override suspend fun doSync() {
         openTasksSynchronizer.sync()

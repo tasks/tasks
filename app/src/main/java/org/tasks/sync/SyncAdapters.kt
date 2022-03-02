@@ -2,7 +2,11 @@ package org.tasks.sync
 
 import com.todoroo.astrid.data.SyncFlags
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
@@ -110,7 +114,5 @@ class SyncAdapters @Inject constructor(
 
     private suspend fun isEtebaseEnabled() = caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty()
 
-    private suspend fun isOpenTaskSyncEnabled() =
-            caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty()
-                    || openTaskDao.newAccounts().isNotEmpty()
+    private suspend fun isOpenTaskSyncEnabled() = openTaskDao.shouldSync()
 }

@@ -28,7 +28,6 @@ import org.tasks.R
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
-import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
@@ -179,8 +178,8 @@ class WorkManagerImpl constructor(
             scheduleBackgroundSync(
                     TAG_BACKGROUND_SYNC_OPENTASKS,
                     SyncOpenTasksWork::class.java,
-                    caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty()
-                            || openTaskDao.newAccounts().isNotEmpty())
+                    openTaskDao.shouldSync()
+            )
         }
     }
 
