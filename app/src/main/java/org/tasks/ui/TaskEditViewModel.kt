@@ -94,8 +94,10 @@ class TaskEditViewModel @Inject constructor(
         this.task = task
         isNew = task.isNew
         originalList = list
+        selectedList = list
         originalLocation = location
         originalTags = tags.toList()
+        selectedTags = ArrayList(tags)
         originalAlarms =
             if (isNew) {
                 ArrayList<Alarm>().apply {
@@ -115,23 +117,24 @@ class TaskEditViewModel @Inject constructor(
             } else {
                 alarms
             }
+        selectedAlarms.value = originalAlarms
         if (isNew && permissionChecker.canAccessCalendars()) {
             originalCalendar = preferences.defaultCalendar
         }
         eventUri = task.calendarURI
     }
 
-    var task: Task? = null
+    lateinit var task: Task
         private set
 
     var title: String? = null
-        get() = field ?: task?.title
+        get() = field ?: task.title
 
     var completed: Boolean? = null
-        get() = field ?: task?.isCompleted ?: false
+        get() = field ?: task.isCompleted
 
     var dueDate: Long? = null
-        get() = field ?: task?.dueDate ?: 0
+        get() = field ?: task.dueDate
         set(value) {
             field = when {
                 value == null -> null
@@ -142,13 +145,13 @@ class TaskEditViewModel @Inject constructor(
         }
 
     var priority: Int? = null
-        get() = field ?: task?.priority ?: 0
+        get() = field ?: task.priority
 
     var description: String? = null
-        get() = field ?: task?.notes.stripCarriageReturns()
+        get() = field ?: task.notes.stripCarriageReturns()
 
     var hideUntil: Long? = null
-        get() = field ?: task?.hideUntil ?: 0
+        get() = field ?: task.hideUntil
         set(value) {
             field = when {
                 value == null -> null
@@ -160,13 +163,13 @@ class TaskEditViewModel @Inject constructor(
         }
 
     var recurrence: String? = null
-        get() = field ?: task?.recurrence
+        get() = field ?: task.recurrence
 
     var repeatUntil: Long? = null
-        get() = field ?: task?.repeatUntil ?: 0
+        get() = field ?: task.repeatUntil
 
     var repeatAfterCompletion: Boolean? = null
-        get() = field ?: task?.repeatAfterCompletion() ?: false
+        get() = field ?: task.repeatAfterCompletion()
         set(value) {
             field = value
             if (value == true) {
@@ -226,22 +229,18 @@ class TaskEditViewModel @Inject constructor(
         private set
 
     var timerStarted: Long
-        get() = task?.timerStart ?: 0
+        get() = task.timerStart
         set(value) {
-            task?.timerStart = value
+            task.timerStart = value
         }
 
     var estimatedSeconds: Int? = null
-        get() = field ?: task?.estimatedSeconds ?: 0
+        get() = field ?: task.estimatedSeconds
 
     var elapsedSeconds: Int? = null
-        get() = field ?: task?.elapsedSeconds ?: 0
+        get() = field ?: task.elapsedSeconds
 
-    var originalList: Filter? = null
-        private set(value) {
-            field = value
-            selectedList = value
-        }
+    private lateinit var originalList: Filter
 
     var selectedList: Filter? = null
 
@@ -253,26 +252,18 @@ class TaskEditViewModel @Inject constructor(
 
     var selectedLocation: Location? = null
 
-    var originalTags: List<TagData>? = null
-        private set(value) {
-            field = value
-            selectedTags = value?.let { ArrayList(it) }
-        }
+    private lateinit var originalTags: List<TagData>
 
-    var selectedTags: ArrayList<TagData>? = null
+    lateinit var selectedTags: ArrayList<TagData>
 
     var newSubtasks = ArrayList<Task>()
 
-    private var originalAlarms = emptyList<Alarm>()
-        private set(value) {
-            field = value
-            selectedAlarms.value = value
-        }
+    private lateinit var originalAlarms: List<Alarm>
 
     var selectedAlarms = MutableStateFlow(emptyList<Alarm>())
 
     var ringNonstop: Boolean? = null
-        get() = field ?: task?.isNotifyModeNonstop
+        get() = field ?: task.isNotifyModeNonstop
         set(value) {
             field = value
             if (value == true) {
@@ -281,7 +272,7 @@ class TaskEditViewModel @Inject constructor(
         }
 
     var ringFiveTimes:Boolean? = null
-        get() = field ?: task?.isNotifyModeFive
+        get() = field ?: task.isNotifyModeFive
         set(value) {
             field = value
             if (value == true) {
@@ -289,40 +280,43 @@ class TaskEditViewModel @Inject constructor(
             }
         }
 
-    fun hasChanges(): Boolean = task?.let {
-        (it.title != title || (isNew && title?.isNotBlank() == true)) ||
-                it.isCompleted != completed ||
-                it.dueDate != dueDate ||
-                it.priority != priority ||
-                it.notes != description ||
-                it.hideUntil != hideUntil ||
-                if (it.recurrence.isNullOrBlank()) {
+    fun hasChanges(): Boolean =
+        (task.title != title || (isNew && title?.isNotBlank() == true)) ||
+                task.isCompleted != completed ||
+                task.dueDate != dueDate ||
+                task.priority != priority ||
+                if (task.notes.isNullOrBlank()) {
+                    !description.isNullOrBlank()
+                } else {
+                    task.notes != description
+                } ||
+                task.hideUntil != hideUntil ||
+                if (task.recurrence.isNullOrBlank()) {
                     !recurrence.isNullOrBlank()
                 } else {
-                    it.recurrence != recurrence
+                    task.recurrence != recurrence
                 } ||
-                it.repeatAfterCompletion() != repeatAfterCompletion ||
-                it.repeatUntil != repeatUntil ||
+                task.repeatAfterCompletion() != repeatAfterCompletion ||
+                task.repeatUntil != repeatUntil ||
                 originalCalendar != selectedCalendar ||
-                if (it.calendarURI.isNullOrBlank()) {
+                if (task.calendarURI.isNullOrBlank()) {
                     !eventUri.isNullOrBlank()
                 } else {
-                    it.calendarURI != eventUri
+                    task.calendarURI != eventUri
                 } ||
-                it.elapsedSeconds != elapsedSeconds ||
-                it.estimatedSeconds != estimatedSeconds ||
+                task.elapsedSeconds != elapsedSeconds ||
+                task.estimatedSeconds != estimatedSeconds ||
                 originalList != selectedList ||
                 originalLocation != selectedLocation ||
-                originalTags?.toHashSet() != selectedTags?.toHashSet() ||
+                originalTags.toHashSet() != selectedTags.toHashSet() ||
                 newSubtasks.isNotEmpty() ||
-                it.ringFlags != getRingFlags() ||
+                task.ringFlags != getRingFlags() ||
                 originalAlarms.toHashSet() != selectedAlarms.value.toHashSet()
-    } ?: false
 
     fun cleared() = cleared.value?.value == true
 
     @MainThread
-    suspend fun save(): Boolean = task?.let {
+    suspend fun save(): Boolean {
         if (cleared()) {
             return false
         }
@@ -331,28 +325,28 @@ class TaskEditViewModel @Inject constructor(
             return false
         }
         clear()
-        it.title = if (title.isNullOrBlank()) context.getString(R.string.no_title) else title
-        it.dueDate = dueDate!!
-        it.priority = priority!!
-        it.notes = description
-        it.hideUntil = hideUntil!!
-        it.recurrence = recurrence
-        it.repeatUntil = repeatUntil!!
-        it.elapsedSeconds = elapsedSeconds!!
-        it.estimatedSeconds = estimatedSeconds!!
-        it.ringFlags = getRingFlags()
+        task.title = if (title.isNullOrBlank()) context.getString(R.string.no_title) else title
+        task.dueDate = dueDate!!
+        task.priority = priority!!
+        task.notes = description
+        task.hideUntil = hideUntil!!
+        task.recurrence = recurrence
+        task.repeatUntil = repeatUntil!!
+        task.elapsedSeconds = elapsedSeconds!!
+        task.estimatedSeconds = estimatedSeconds!!
+        task.ringFlags = getRingFlags()
 
         applyCalendarChanges()
 
-        val isNew = it.isNew
+        val isNew = task.isNew
 
         if (isNew) {
-            taskDao.createNew(it)
+            taskDao.createNew(task)
         }
 
         if (isNew || originalList != selectedList) {
-            it.parent = 0
-            taskMover.move(listOf(it.id), selectedList!!)
+            task.parent = 0
+            taskMover.move(listOf(task.id), selectedList!!)
         }
 
         if ((isNew && selectedLocation != null) || originalLocation != selectedLocation) {
@@ -365,18 +359,18 @@ class TaskEditViewModel @Inject constructor(
             selectedLocation?.let { location ->
                 val place = location.place
                 val geofence = location.geofence
-                geofence.task = it.id
+                geofence.task = task.id
                 geofence.place = place.uid
                 geofence.id = locationDao.insert(geofence)
                 geofenceApi.update(place)
             }
-            it.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)
-            it.modificationDate = currentTimeMillis()
+            task.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)
+            task.modificationDate = currentTimeMillis()
         }
 
-        if ((isNew && selectedTags?.isNotEmpty() == true) || originalTags?.toHashSet() != selectedTags?.toHashSet()) {
-            tagDao.applyTags(it, tagDataDao, selectedTags!!)
-            it.modificationDate = currentTimeMillis()
+        if ((isNew && selectedTags.isNotEmpty()) || originalTags.toHashSet() != selectedTags.toHashSet()) {
+            tagDao.applyTags(task, tagDataDao, selectedTags)
+            task.modificationDate = currentTimeMillis()
         }
 
         for (subtask in newSubtasks) {
@@ -384,54 +378,54 @@ class TaskEditViewModel @Inject constructor(
                 continue
             }
             if (!subtask.isCompleted) {
-                subtask.completionDate = it.completionDate
+                subtask.completionDate = task.completionDate
             }
             taskDao.createNew(subtask)
             when (selectedList) {
                 is GtasksFilter -> {
                     val googleTask = GoogleTask(subtask.id, (selectedList as GtasksFilter).remoteId)
-                    googleTask.parent = it.id
+                    googleTask.parent = task.id
                     googleTask.isMoved = true
                     googleTaskDao.insertAndShift(googleTask, false)
                 }
                 is CaldavFilter -> {
                     val caldavTask = CaldavTask(subtask.id, (selectedList as CaldavFilter).uuid)
-                    subtask.parent = it.id
-                    caldavTask.remoteParent = caldavDao.getRemoteIdForTask(it.id)
+                    subtask.parent = task.id
+                    caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
                     taskDao.save(subtask)
                     caldavDao.insert(subtask, caldavTask, false)
                 }
                 else -> {
-                    subtask.parent = it.id
+                    subtask.parent = task.id
                     taskDao.save(subtask)
                 }
             }
         }
 
-        if (!it.hasStartDate()) {
+        if (!task.hasStartDate()) {
             selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_START }
         }
-        if (!it.hasDueDate()) {
+        if (!task.hasDueDate()) {
             selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_END }
         }
 
-        taskDao.save(it, null)
+        taskDao.save(task, null)
 
         if (
             selectedAlarms.value.toHashSet() != originalAlarms.toHashSet() ||
             (isNew && selectedAlarms.value.isNotEmpty())
         ) {
-            alarmService.synchronizeAlarms(it.id, selectedAlarms.value.toMutableSet())
-            it.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)
-            it.modificationDate = now()
+            alarmService.synchronizeAlarms(task.id, selectedAlarms.value.toMutableSet())
+            task.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)
+            task.modificationDate = now()
         }
 
-        if (it.isCompleted != completed!!) {
-            taskCompleter.setComplete(it, completed!!)
+        if (task.isCompleted != completed!!) {
+            taskCompleter.setComplete(task, completed!!)
         }
 
-        true
-    } ?: false
+        return true
+    }
 
     private suspend fun applyCalendarChanges() {
         if (!permissionChecker.canAccessCalendars()) {
@@ -440,12 +434,12 @@ class TaskEditViewModel @Inject constructor(
         if (eventUri == null) {
             calendarEventProvider.deleteEvent(task)
         }
-        if (task?.hasDueDate() != true) {
+        if (!task.hasDueDate()) {
             return
         }
         selectedCalendar?.let {
             try {
-                task?.calendarURI = gCalHelper.createTaskEvent(task!!, it)?.toString()
+                task.calendarURI = gCalHelper.createTaskEvent(task, it)?.toString()
             } catch (e: Exception) {
                 Timber.e(e)
             }
@@ -459,15 +453,13 @@ class TaskEditViewModel @Inject constructor(
     }
 
     suspend fun delete() {
-        task?.let { taskDeleter.markDeleted(it) }
+        taskDeleter.markDeleted(task)
         discard()
     }
 
     suspend fun discard() {
-        task?.let {
-            if (it.isNew) {
-                timerPlugin.stopTimer(it)
-            }
+        if (task.isNew) {
+            timerPlugin.stopTimer(task)
         }
         clear()
     }

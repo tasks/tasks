@@ -83,7 +83,8 @@ class TagsControlSet : TaskEditControlFragment() {
         if (requestCode == REQUEST_TAG_PICKER_ACTIVITY) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 viewModel.selectedTags =
-                        data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)
+                    data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)
+                        ?: ArrayList()
                 refreshDisplayView()
             }
         } else {
