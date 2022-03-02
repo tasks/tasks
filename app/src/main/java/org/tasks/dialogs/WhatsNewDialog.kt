@@ -45,7 +45,6 @@ class WhatsNewDialog : DialogFragment() {
 
         val begForSubscription = !inventory.hasPro
         val begForRating = !preferences.getBoolean(R.string.p_clicked_rate, false)
-                && (inventory.purchasedThemes() || firebase.noChurn())
                 && (!begForSubscription || Random.nextBoolean())
 
         when {
@@ -120,6 +119,6 @@ class WhatsNewDialog : DialogFragment() {
                 Pair(R.string.param_whats_new_display_rate, displayedRate),
                 Pair(R.string.param_whats_new_display_subscribe, displayedSubscribe),
                 Pair(R.string.param_user_pro, inventory.hasPro),
-                Pair(R.string.param_user_no_churn, firebase.noChurn()))
+        )
     }
 }

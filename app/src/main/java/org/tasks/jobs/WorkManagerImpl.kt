@@ -40,7 +40,6 @@ import org.tasks.jobs.MigrateLocalWork.Companion.EXTRA_ACCOUNT
 import org.tasks.jobs.SyncWork.Companion.EXTRA_BACKGROUND
 import org.tasks.jobs.SyncWork.Companion.EXTRA_IMMEDIATE
 import org.tasks.jobs.WorkManager.Companion.MAX_CLEANUP_LENGTH
-import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_CALDAV
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_ETEBASE
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_GOOGLE_TASKS
@@ -49,7 +48,6 @@ import org.tasks.jobs.WorkManager.Companion.TAG_BACKUP
 import org.tasks.jobs.WorkManager.Companion.TAG_MIDNIGHT_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_MIGRATE_LOCAL
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
-import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETEBASE
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_GOOGLE_TASKS
@@ -227,18 +225,6 @@ class WorkManagerImpl constructor(
                             .plusDays(1)
                             .millis
                             .coerceAtMost(midnight()))
-
-    override fun scheduleConfigRefresh() {
-        throttle.run {
-            workManager.enqueueUniquePeriodicWork(
-                    TAG_REMOTE_CONFIG,
-                    ExistingPeriodicWorkPolicy.KEEP,
-                    PeriodicWorkRequest.Builder(
-                            RemoteConfigWork::class.java, REMOTE_CONFIG_INTERVAL_HOURS, TimeUnit.HOURS)
-                            .setConstraints(networkConstraints)
-                            .build())
-        }
-    }
 
     override fun scheduleDriveUpload(uri: Uri, purge: Boolean) {
         if (!preferences.getBoolean(R.string.p_google_drive_backup, false)) {

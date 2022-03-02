@@ -58,8 +58,6 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
                 R.string.p_collect_statistics,
                 R.string.rate_tasks,
             )
-        } else if (!firebase.noChurn()) {
-            remove(R.string.rate_tasks)
         } else {
             openUrl(R.string.rate_tasks, R.string.market_url)
         }
