@@ -400,7 +400,7 @@
     <string name="location_remind_arrival">Herinnering bij aankomst</string>
     <string name="location_remind_departure">Herinnering bij vertrek</string>
     <string name="visit_website">Website bezoeken</string>
-    <string name="location_arrived">Aangekomen om %s</string>
+    <string name="location_arrived">Aangekomen op %s</string>
     <string name="location_departed">Vertrokken om %s</string>
     <string name="building_notifications">Meldingen aanmaken</string>
     <string name="choose_a_location">Locatie kiezen</string>
