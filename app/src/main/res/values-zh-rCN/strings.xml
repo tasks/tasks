@@ -92,7 +92,7 @@
     <string name="BFE_Active">我的任务</string>
     <string name="BFE_Recent">最近修改过的</string>
     <string name="CFA_button_add">添加条件</string>
-    <string name="CFC_dueBefore_text">截止于：？</string>
+    <string name="CFC_dueBefore_text">截止于：?</string>
     <string name="CFC_dueBefore_name">截止于…</string>
     <string name="no_due_date">无截止日期</string>
     <string name="next_month">下个月</string>
@@ -103,13 +103,13 @@
     <string name="CFC_tag_contains_name">标签名包含…</string>
     <string name="CFC_tag_contains_text">标签名称包含：?</string>
     <string name="CFC_title_contains_name">标题含…</string>
-    <string name="CFC_title_contains_text">标题含：？</string>
+    <string name="CFC_title_contains_text">标题含：?</string>
     <string name="gcal_TEA_error">将任务添加到日历时发生错误！</string>
     <string name="gcal_TEA_showCalendar_label">打开日程表事件</string>
     <string name="delete_calendar_event_confirmation">是否删除日历事件？</string>
     <string name="calendar_event_not_found">找不到日历事件</string>
     <string name="gcal_completed_title">%s (已完成)</string>
-    <string name="CFC_gtasks_list_text">列表内容：？</string>
+    <string name="CFC_gtasks_list_text">列表内容：?</string>
     <string name="CFC_gtasks_list_name">在 GTasks 列表中…</string>
     <string name="gtasks_GTA_clear_completed">清除已完成项</string>
     <string name="gtasks_GLA_authenticating">正在认证…</string>
