@@ -196,7 +196,6 @@ dependencies {
     debugImplementation("org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}")
-    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.4")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.code.gson:gson:2.8.8")
     implementation("com.google.android.material:material:1.5.0-rc01")

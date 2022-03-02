@@ -3,7 +3,6 @@ package org.tasks.jobs
 import com.google.common.collect.Ordering
 import com.google.common.collect.TreeMultimap
 import com.google.common.primitives.Ints
-import kotlinx.collections.immutable.toImmutableList
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import javax.inject.Inject
@@ -73,7 +72,7 @@ class NotificationQueue @Inject constructor(
 
     fun size() = jobs.size()
 
-    fun getJobs() = jobs.values().toImmutableList()
+    fun getJobs() = jobs.values().toList()
 
     fun isEmpty() = jobs.isEmpty
 

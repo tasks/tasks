@@ -2,7 +2,6 @@ package com.todoroo.astrid.service
 
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
@@ -32,7 +31,7 @@ class TaskDeleter @Inject constructor(
         private val vtodoCache: VtodoCache,
     ) {
 
-    suspend fun markDeleted(item: Task) = markDeleted(persistentListOf(item.id))
+    suspend fun markDeleted(item: Task) = markDeleted(listOf(item.id))
 
     suspend fun markDeleted(taskIds: List<Long>): List<Task> {
         val ids: MutableSet<Long> = HashSet(taskIds)
@@ -61,7 +60,7 @@ class TaskDeleter @Inject constructor(
 
     suspend fun delete(task: Task) = delete(task.id)
 
-    suspend fun delete(task: Long) = delete(persistentListOf(task))
+    suspend fun delete(task: Long) = delete(listOf(task))
 
     suspend fun delete(tasks: List<Long>) {
         deletionDao.delete(tasks)

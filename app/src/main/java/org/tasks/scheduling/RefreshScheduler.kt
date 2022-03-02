@@ -1,7 +1,6 @@
 package org.tasks.scheduling
 
 import com.todoroo.astrid.data.Task
-import kotlinx.collections.immutable.toImmutableList
 import org.tasks.data.TaskDao
 import org.tasks.jobs.WorkManager
 import org.tasks.time.DateTimeUtils
@@ -36,7 +35,7 @@ class RefreshScheduler @Inject internal constructor(
 
     @Synchronized
     fun scheduleNext() {
-        val lapsed = jobs.headSet(DateTimeUtils.currentTimeMillis() + 1).toImmutableList()
+        val lapsed = jobs.headSet(DateTimeUtils.currentTimeMillis() + 1).toList()
         jobs.removeAll(lapsed)
         if (!jobs.isEmpty()) {
             workManager.scheduleRefresh(jobs.first())

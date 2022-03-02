@@ -1527,18 +1527,6 @@
     },
     {
       "artifactId": {
-        "name": "kotlinx-collections-immutable-jvm",
-        "group": "org.jetbrains.kotlinx",
-        "version": "+"
-      },
-      "copyrightHolder": "JetBrains s.r.o.",
-      "copyrightStatement": "Copyright &copy; JetBrains s.r.o. All rights reserved.",
-      "license": "The Apache Software License, Version 2.0",
-      "normalizedLicense": "apache2",
-      "libraryName": "kotlinx-collections-immutable-jvm"
-    },
-    {
-      "artifactId": {
         "name": "okio",
         "group": "com.squareup.okio",
         "version": "+"

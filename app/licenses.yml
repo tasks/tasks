@@ -638,10 +638,6 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/license/LICENSE-2.0.txt
   url: https://github.com/dmfs/jems
-- artifact: org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:+
-  name: kotlinx-collections-immutable-jvm
-  copyrightHolder: JetBrains s.r.o.
-  license: The Apache Software License, Version 2.0
 - artifact: com.squareup.okio:okio:+
   name: okio
   copyrightHolder: Square, Inc.

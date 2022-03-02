@@ -25,8 +25,6 @@ import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
@@ -97,7 +95,7 @@ class TaskEditViewModel @Inject constructor(
         isNew = task.isNew
         originalList = list
         originalLocation = location
-        originalTags = tags.toImmutableList()
+        originalTags = tags.toList()
         originalAlarms =
             if (isNew) {
                 ArrayList<Alarm>().apply {
@@ -255,7 +253,7 @@ class TaskEditViewModel @Inject constructor(
 
     var selectedLocation: Location? = null
 
-    var originalTags: ImmutableList<TagData>? = null
+    var originalTags: List<TagData>? = null
         private set(value) {
             field = value
             selectedTags = value?.let { ArrayList(it) }

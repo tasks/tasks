@@ -6,7 +6,6 @@ import com.todoroo.andlib.sql.Join
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
-import kotlinx.collections.immutable.persistentListOf
 import org.tasks.data.TaskListQueryNonRecursive.getNonRecursiveQuery
 import org.tasks.data.TaskListQueryRecursive.getRecursiveQuery
 import org.tasks.preferences.QueryPreferences
@@ -24,7 +23,7 @@ object TaskListQuery {
         ${Join.left(Geofence.TABLE, Geofence.TASK.eq(Task.ID))}
         ${Join.left(Place.TABLE, Place.UID.eq(Geofence.PLACE))}
     """.trimIndent()
-    val FIELDS = persistentListOf(
+    val FIELDS = listOf(
             field("tasks.*"),
             field("${TaskListFragment.GTASK_METADATA_JOIN}.*"),
             field("${TaskListFragment.CALDAV_METADATA_JOIN}.*"),
