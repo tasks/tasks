@@ -522,7 +522,7 @@
     <string name="sort_created">Por hora de criação</string>
     <string name="astrid_sort_order_summary">Habilitar Ordenação Manual do Astrid para \'Minhas Tarefas\', \'Hoje\', e etiquetas. Esse modo de ordenação eventualmente sera substituito em uma atualização futura para \'Minha ordenação\'</string>
     <string name="astrid_sort_order">Ordenação Manual do Astrid</string>
-    <string name="SSD_sort_my_order">Minha compra</string>
+    <string name="SSD_sort_my_order">Minha ordem</string>
     <string name="backup_BPr_header">Cópias de segurança</string>
     <string name="display_name">Exibir nome</string>
     <string name="permission_read_tasks">Acesso completo ao base de dados do Tasks</string>
