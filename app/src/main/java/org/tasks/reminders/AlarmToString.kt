@@ -1,6 +1,7 @@
 package org.tasks.reminders
 
 import android.content.Context
+import android.content.res.Resources
 import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
@@ -27,7 +28,7 @@ class AlarmToString @Inject constructor(
                     } else {
                         R.string.alarm_after_start
                     }
-                    resources.getString(res, getDurationString(alarm.time))
+                    resources.getString(res, resources.getDurationString(alarm.time))
                 }
             Alarm.TYPE_REL_END ->
                 if (alarm.time == 0L) {
@@ -38,10 +39,10 @@ class AlarmToString @Inject constructor(
                     } else {
                         R.string.alarm_after_due
                     }
-                    resources.getString(res, getDurationString(alarm.time))
+                    resources.getString(res, resources.getDurationString(alarm.time))
                 }
             Alarm.TYPE_RANDOM ->
-                resources.getString(R.string.randomly_every, getDurationString(alarm.time))
+                resources.getString(R.string.randomly_every, resources.getDurationString(alarm.time))
             Alarm.TYPE_SNOOZE ->
                 resources.getString(
                     R.string.snoozed_until,
@@ -51,42 +52,49 @@ class AlarmToString @Inject constructor(
                 DateUtilities.getLongDateStringWithTime(alarm.time, locale.locale)
         }
         return if (alarm.repeat > 0) {
-            val frequencyPlural = getDurationString(alarm.interval)
-            val count = alarm.repeat
-            val countString = resources.getQuantityString(R.plurals.repeat_times, count)
-            reminder + "\n" + resources.getString(R.string.repeats_plural_number_of_times, frequencyPlural, count, countString)
+            reminder + "\n" + resources.getRepeatString(alarm.repeat, alarm.interval)
         } else {
             reminder
         }
     }
 
-    private fun getDurationString(duration: Long): String {
-        val seconds = duration.absoluteValue
-        val days = TimeUnit.MILLISECONDS.toDays(seconds)
-        val weeks = days / 7
-        val hours = TimeUnit.MILLISECONDS.toHours(seconds) - days * 24
-        val minute =
-            TimeUnit.MILLISECONDS.toMinutes(seconds) - TimeUnit.MILLISECONDS.toHours(seconds) * 60
-        val result = ArrayList<String>()
-        if (weeks > 0) {
-            result.add(resources.getQuantityString(R.plurals.repeat_n_weeks, weeks.toInt(), weeks.toInt()))
-        }
-        val leftoverDays = days - weeks * 7
-        if (leftoverDays > 0) {
-            result.add(
-                resources.getQuantityString(
-                    R.plurals.repeat_n_days,
-                    leftoverDays.toInt(),
-                    leftoverDays.toInt()
-                )
+    companion object {
+        fun Resources.getRepeatString(repeat: Int, interval: Long): String =
+            getString(
+                R.string.repeats_plural_number_of_times,
+                getDurationString(interval),
+                repeat,
+                getQuantityString(R.plurals.repeat_times, repeat)
             )
+
+        fun Resources.getDurationString(duration: Long): String {
+            val seconds = duration.absoluteValue
+            val days = TimeUnit.MILLISECONDS.toDays(seconds)
+            val weeks = days / 7
+            val hours = TimeUnit.MILLISECONDS.toHours(seconds) - days * 24
+            val minute =
+                TimeUnit.MILLISECONDS.toMinutes(seconds) - TimeUnit.MILLISECONDS.toHours(seconds) * 60
+            val result = ArrayList<String>()
+            if (weeks > 0) {
+                result.add(getQuantityString(R.plurals.repeat_n_weeks, weeks.toInt(), weeks.toInt()))
+            }
+            val leftoverDays = days - weeks * 7
+            if (leftoverDays > 0) {
+                result.add(
+                    getQuantityString(
+                        R.plurals.repeat_n_days,
+                        leftoverDays.toInt(),
+                        leftoverDays.toInt()
+                    )
+                )
+            }
+            if (hours > 0) {
+                result.add(getQuantityString(R.plurals.repeat_n_hours, hours.toInt(), hours.toInt()))
+            }
+            if (minute > 0) {
+                result.add(getQuantityString(R.plurals.repeat_n_minutes, minute.toInt(), minute.toInt()))
+            }
+            return result.joinToString(" ")
         }
-        if (hours > 0) {
-            result.add(resources.getQuantityString(R.plurals.repeat_n_hours, hours.toInt(), hours.toInt()))
-        }
-        if (minute > 0) {
-            result.add(resources.getQuantityString(R.plurals.repeat_n_minutes, minute.toInt(), minute.toInt()))
-        }
-        return result.joinToString(" ")
     }
 }
