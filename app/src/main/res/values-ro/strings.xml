@@ -728,4 +728,27 @@
     <string name="alarm_after_due">%s după scadență</string>
     <string name="alarm_before_due">%s înainte de scadență</string>
     <string name="custom_filter_has_reminder">Are reminder</string>
+    <string name="snoozed_until">A dormit până la %s</string>
+    <string name="custom_notification">Notificare personalizată</string>
+    <plurals name="reminder_hours">
+        <item quantity="one">Oră</item>
+        <item quantity="few">De ore</item>
+        <item quantity="other">Ore</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Zi</item>
+        <item quantity="few">De zile</item>
+        <item quantity="other">Zile</item>
+    </plurals>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minut</item>
+        <item quantity="few">De minute</item>
+        <item quantity="other">Minute</item>
+    </plurals>
+    <string name="randomly_every">Aleatoriu la fiecare %s</string>
+    <plurals name="reminder_week">
+        <item quantity="one">Săptămână</item>
+        <item quantity="few">De săptămâni</item>
+        <item quantity="other">Săptămâni</item>
+    </plurals>
 </resources>
