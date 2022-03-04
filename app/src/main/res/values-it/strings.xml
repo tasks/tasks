@@ -729,4 +729,5 @@
         <item quantity="other">Settimane</item>
     </plurals>
     <string name="custom_notification">Notifica personalizzata</string>
+    <string name="randomly_every">Casualmente ogni %s</string>
 </resources>
