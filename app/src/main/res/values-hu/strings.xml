@@ -708,4 +708,24 @@
     <string name="alarm_after_start">%s kezdés után</string>
     <string name="alarm_before_due">%s határidő előtt</string>
     <string name="alarm_after_due">%s határidő után</string>
+    <string name="custom_filter_has_reminder">Emlékeztetővel rendelkezik</string>
+    <string name="custom_notification">Egyedi értesítés</string>
+    <plurals name="reminder_days">
+        <item quantity="one">Nap</item>
+        <item quantity="other">Nap</item>
+    </plurals>
+    <string name="snoozed_until">Elhalasztva eddig: %s</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Perc</item>
+        <item quantity="other">Perc</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Óra</item>
+        <item quantity="other">Óra</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Hét</item>
+        <item quantity="other">Hét</item>
+    </plurals>
+    <string name="randomly_every">Véletlenszerűen minden %s</string>
 </resources>
