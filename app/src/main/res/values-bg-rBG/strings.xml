@@ -44,7 +44,7 @@
     <string name="save">Запазване</string>
     <string name="TEA_timer_est">Прибл. %s</string>
     <string name="TEA_timer_elap">Изминали %s</string>
-    <string name="no_time">Без време</string>
+    <string name="no_time">Без час</string>
     <string name="due_date">Крайна дата</string>
     <string name="due_time">Краен час</string>
     <string name="day_before_due">Ден преди крайния срок</string>
@@ -56,7 +56,7 @@
     <string name="TEA_control_notes">Описание</string>
     <string name="TEA_control_files">Файлове</string>
     <string name="TEA_control_reminders">Напомняне</string>
-    <string name="TEA_control_timer">Управление на отчитането на време</string>
+    <string name="TEA_control_timer">Отчитане на времето</string>
     <string name="TEA_control_hidden_section">----Винаги скрито----</string>
     <string name="TEA_load_more">Зареждане…</string>
     <string name="CRA_ignore">Пренебрегване</string>
@@ -77,8 +77,8 @@
     <string name="EPr_show_task_edit_comments">Коментари при редакция на задача</string>
     <string name="task_list_options">Настройки на списъка със задачи</string>
     <string name="EPr_cal_end_or_start_at_due_time">Час на събитието в календара</string>
-    <string name="EPr_cal_end_at_due_time">Прекратяване на събитията от календара в определеното време</string>
-    <string name="EPr_cal_start_at_due_time">Започване на събитията от календара в определеното време</string>
+    <string name="EPr_cal_end_at_due_time">Прекратяване на събитията в календара в определеното време</string>
+    <string name="EPr_cal_start_at_due_time">Започване на събитията в календара в определеното време</string>
     <string name="EPr_reset_preferences">Нулиране на настройки</string>
     <string name="EPr_reset_preferences_warning">Настройките ще бъдат възстановени до стойностите им по подразбиране</string>
     <string name="EPr_delete_task_data">Изтриване на задачите</string>
@@ -506,7 +506,7 @@
         <item quantity="one">%d списък</item>
         <item quantity="other">%d списъка</item>
     </plurals>
-    <string name="gtasks_GPr_header"></string>
+    <string name="gtasks_GPr_header"/>
     <string name="CFC_list_name">В списъка…</string>
     <string name="filter_any_start_date">Всяка начална дата</string>
     <string name="CFC_startBefore_name">Начало…</string>
@@ -616,10 +616,12 @@
     <string name="more_options">Допълнителни настройки</string>
     <string name="improve_performance_summary">За по-добра произвидителност се изключва сортирането на групи и се свиват задачите</string>
     <string name="auto_dismiss_datetime_list_summary">Затваряне след избор от списъка със задачи</string>
-    <string name="shortcut_pick_time">Време по избор</string>
+    <string name="shortcut_pick_time">Час по избор</string>
     <string name="wearable_notifications">Известия на носими устройства</string>
     <string name="auto_dismiss_datetime_edit_summary">Затваряне след избор от списъка за промяна на задача</string>
-    <string name="auto_dismiss_datetime_widget_summary">Затваряне след избор от джаджата</string>
+    <string name="auto_dismiss_datetime_widget_summary">Затваряне след избор от приспособлението</string>
     <string name="auto_dismiss_datetime_summary">Затваряне на екрана за дата и час след избора им</string>
     <string name="custom_filter_is_subtask">Задача</string>
+    <string name="widget_id">Идентификатор на приспособление: %d</string>
+    <string name="pro_free_trial">Новите абонати получават седемдневен безплатен пробен период. Отказ по всяко време</string>
 </resources>
