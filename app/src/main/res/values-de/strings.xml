@@ -729,4 +729,5 @@
         <item quantity="one">Woche</item>
         <item quantity="other">Wochen</item>
     </plurals>
+    <string name="randomly_every">Zufällig alle %s</string>
 </resources>
