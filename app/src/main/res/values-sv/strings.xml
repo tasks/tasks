@@ -38,8 +38,8 @@
     <string name="TEA_timer_elap">Förfluten %s</string>
     <string name="due_date">Förfallodatum</string>
     <string name="due_time">Förfallotid</string>
-    <string name="day_before_due">Dagen innan förfallodatum</string>
-    <string name="week_before_due">Vecka innan förfallodatum</string>
+    <string name="day_before_due">Dag före förfallodatum</string>
+    <string name="week_before_due">Vecka före förfallodatum</string>
     <string name="TEA_control_repeat">Upprepa</string>
     <string name="TEA_control_gcal">Kalender</string>
     <string name="TEA_control_importance">Prioritet</string>
@@ -93,8 +93,8 @@
     <string name="custom_filter_not">INTE</string>
     <string name="custom_filter_and">OCH</string>
     <string name="CFA_button_add">Lägg till kriterium</string>
-    <string name="CFC_dueBefore_text">Förfaller innan: ?</string>
-    <string name="CFC_dueBefore_name">Förfaller innan…</string>
+    <string name="CFC_dueBefore_text">Förfaller av: \?</string>
+    <string name="CFC_dueBefore_name">Förfaller av…</string>
     <string name="no_due_date">Inget förfallodatum</string>
     <string name="next_month">Nästa månad</string>
     <string name="CFC_importance_text">Prioritet åtminstone ?</string>
@@ -463,7 +463,7 @@
     <string name="create_new_tag">Skapa \"%s\"</string>
     <string name="enter_title_hint">Ange titel</string>
     <string name="action_new_task">Ny uppgift</string>
-    <string name="help_and_feedback">Hjälp &amp; feedback</string>
+    <string name="help_and_feedback">Hjälp &amp; återkoppling</string>
     <string name="widget_due_date_hidden">Dold</string>
     <string name="widget_open_list">Öppna lista</string>
     <string name="widget_do_nothing">Gör ingenting</string>
@@ -693,6 +693,33 @@
     <string name="top">Överst</string>
     <string name="bottom">Nederst</string>
     <string name="completed">Slutförd</string>
-    <string name="when_started">När startade</string>
+    <string name="when_started">Vid start</string>
     <string name="completion_sound">Spela färdigställande ljud</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minut</item>
+        <item quantity="other">Minuter</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Timme</item>
+        <item quantity="other">Timmar</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Vecka</item>
+        <item quantity="other">Veckor</item>
+    </plurals>
+    <string name="randomly_every">Slumpmässigt varje %s</string>
+    <string name="alarm_before_start">%s före start</string>
+    <string name="alarm_after_start">%s efter start</string>
+    <string name="custom_notification">Anpassad avisering</string>
+    <string name="snoozed_until">Snoozar till %s</string>
+    <string name="alarm_after_due">%s efter förfallodatum</string>
+    <string name="alarm_before_due">%s före förfallodatum</string>
+    <plurals name="reminder_days">
+        <item quantity="one">Dag</item>
+        <item quantity="other">Dagar</item>
+    </plurals>
+    <string name="snackbar_task_completed">Uppgiften slutförd</string>
+    <string name="completed_tasks_at_bottom">Flytta slutförda uppgifter till botten</string>
+    <string name="snackbar_tasks_completed">%d uppgifter slutförda</string>
+    <string name="completed_tasks_sort">Sortera efter färdigdatum</string>
 </resources>
