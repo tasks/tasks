@@ -3,7 +3,6 @@ package org.tasks.compose
 import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,13 +13,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.AlertDialog
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Autorenew
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -30,6 +32,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
@@ -41,9 +44,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.res.ResourcesCompat
+import com.google.android.material.composethemeadapter.MdcTheme
 import kotlinx.coroutines.android.awaitFrame
 import org.tasks.R
 import org.tasks.data.Alarm
+import org.tasks.reminders.AlarmToString.Companion.getRepeatString
 import java.util.concurrent.TimeUnit
 
 @ExperimentalComposeUiApi
@@ -54,16 +60,16 @@ object AddReminderDialog {
         addAlarm: (Alarm) -> Unit,
         closeDialog: () -> Unit,
     ) {
-        val interval = rememberSaveable { mutableStateOf(15L as Long?) }
-        val multiplier = rememberSaveable { mutableStateOf(0) }
+        val time = rememberSaveable { mutableStateOf(15) }
+        val units = rememberSaveable { mutableStateOf(0) }
         if (openDialog.value) {
             AlertDialog(
                 onDismissRequest = closeDialog,
-                text = { AddRandomReminder(openDialog, interval, multiplier) },
+                text = { AddRandomReminder(openDialog, time, units) },
                 confirmButton = {
                     Constants.TextButton(text = R.string.ok, onClick = {
-                        interval.value?.let { i ->
-                            addAlarm(Alarm(0, i * multiplier.millis, Alarm.TYPE_RANDOM))
+                        time.value.takeIf { it > 0 }?.let { i ->
+                            addAlarm(Alarm(0, i * units.millis, Alarm.TYPE_RANDOM))
                             closeDialog()
                         }
                     })
@@ -76,8 +82,8 @@ object AddReminderDialog {
                 },
             )
         } else {
-            interval.value = 15
-            multiplier.value = 0
+            time.value = 15
+            units.value = 0
         }
     }
 
@@ -87,16 +93,45 @@ object AddReminderDialog {
         addAlarm: (Alarm) -> Unit,
         closeDialog: () -> Unit,
     ) {
-        val interval = rememberSaveable { mutableStateOf(15L as Long?) }
-        val multiplier = rememberSaveable { mutableStateOf(0) }
-        if (openDialog.value) {
+        val time = rememberSaveable { mutableStateOf(15) }
+        val units = rememberSaveable { mutableStateOf(0) }
+        val openRecurringDialog = rememberSaveable { mutableStateOf(false) }
+        val interval = rememberSaveable { mutableStateOf(0) }
+        val recurringUnits = rememberSaveable { mutableStateOf(0) }
+        val repeat = rememberSaveable { mutableStateOf(0) }
+        if (openDialog.value && !openRecurringDialog.value) {
             AlertDialog(
                 onDismissRequest = closeDialog,
-                text = { AddCustomReminder(openDialog, interval, multiplier) },
+                text = {
+                    AddCustomReminder(
+                        openDialog,
+                        time,
+                        units,
+                        interval,
+                        recurringUnits,
+                        repeat,
+                        showRecurring = {
+                            if (interval.value == 0 && repeat.value == 0) {
+                                interval.value = 15
+                                recurringUnits.value = 0
+                                repeat.value = 4
+                            }
+                            openRecurringDialog.value = true
+                        }
+                    )
+                },
                 confirmButton = {
                     Constants.TextButton(text = R.string.ok, onClick = {
-                        interval.value?.let { i ->
-                            addAlarm(Alarm(0, -1 * i * multiplier.millis, Alarm.TYPE_REL_END))
+                        time.value.takeIf { it >= 0 }?.let { i ->
+                            addAlarm(
+                                Alarm(
+                                    0,
+                                    -1 * i * units.millis,
+                                    Alarm.TYPE_REL_END,
+                                    repeat.value,
+                                    interval.value * recurringUnits.millis
+                                )
+                            )
                             closeDialog()
                         }
                     })
@@ -108,17 +143,75 @@ object AddReminderDialog {
                     )
                 },
             )
+        } else if (openRecurringDialog.value) {
+            AddRepeatReminderDialog(
+                openDialog = openRecurringDialog,
+                initialInterval = interval.value,
+                initialUnits = recurringUnits.value,
+                initialRepeat = repeat.value,
+                selected = { i, u, r ->
+                    interval.value = i
+                    recurringUnits.value = u
+                    repeat.value = r
+                }
+            )
         } else {
-            interval.value = 15
-            multiplier.value = 0
+            time.value = 15
+            units.value = 0
+            interval.value = 0
+            recurringUnits.value = 0
+            repeat.value = 0
         }
+    }
+
+    @Composable
+    fun AddRepeatReminderDialog(
+        openDialog: MutableState<Boolean>,
+        initialInterval: Int,
+        initialUnits: Int,
+        initialRepeat: Int,
+        selected: (Int, Int, Int) -> Unit,
+    ) {
+        val interval = rememberSaveable { mutableStateOf(initialInterval) }
+        val units = rememberSaveable { mutableStateOf(initialUnits) }
+        val repeat = rememberSaveable { mutableStateOf(initialRepeat) }
+        val closeDialog = {
+            openDialog.value = false
+            interval.value = initialInterval
+            units.value = initialUnits
+            repeat.value = initialRepeat
+        }
+        AlertDialog(
+            onDismissRequest = closeDialog,
+            text = {
+                AddRecurringReminder(
+                    openDialog,
+                    interval,
+                    units,
+                    repeat,
+                ) },
+            confirmButton = {
+                Constants.TextButton(text = R.string.ok, onClick = {
+                    if (interval.value > 0 && repeat.value > 0) {
+                        selected(interval.value, units.value, repeat.value)
+                        openDialog.value = false
+                    }
+                })
+            },
+            dismissButton = {
+                Constants.TextButton(
+                    text = R.string.cancel,
+                    onClick = closeDialog
+                )
+            },
+        )
     }
 
     @Composable
     fun AddRandomReminder(
         visible: MutableState<Boolean>,
-        interval: MutableState<Long?>,
-        selected: MutableState<Int>
+        time: MutableState<Int>,
+        units: MutableState<Int>,
     ) {
         val scrollState = rememberScrollState()
         Column(
@@ -128,10 +221,15 @@ object AddReminderDialog {
         ) {
             CenteredH6(text = stringResource(id = R.string.randomly_every, "").trim())
             val focusRequester = remember { FocusRequester() }
-            OutlinedLongInput(interval, focusRequester)
+            OutlinedIntInput(
+                time,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(focusRequester)
+            )
             Spacer(modifier = Modifier.height(16.dp))
             options.forEachIndexed { index, option ->
-                RadioRow(index, option, interval, selected)
+                RadioRow(index, option, time, units)
             }
             ShowKeyboard(visible, focusRequester)
         }
@@ -140,8 +238,12 @@ object AddReminderDialog {
     @Composable
     fun AddCustomReminder(
         visible: MutableState<Boolean>,
-        interval: MutableState<Long?>,
-        selected: MutableState<Int>,
+        time: MutableState<Int>,
+        units: MutableState<Int>,
+        interval: MutableState<Int>,
+        recurringUnits: MutableState<Int>,
+        repeat: MutableState<Int>,
+        showRecurring: () -> Unit,
     ) {
         val scrollState = rememberScrollState()
         Column(
@@ -151,12 +253,106 @@ object AddReminderDialog {
         ) {
             CenteredH6(resId = R.string.custom_notification)
             val focusRequester = remember { FocusRequester() }
-            OutlinedLongInput(interval, focusRequester)
+            OutlinedIntInput(
+                time,
+                minValue = 0,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(focusRequester)
+            )
             Spacer(modifier = Modifier.height(16.dp))
             options.forEachIndexed { index, option ->
-                RadioRow(index, option, interval, selected, R.string.alarm_before_due)
+                RadioRow(index, option, time, units, R.string.alarm_before_due)
+            }
+            Divider(modifier = Modifier.padding(vertical = 4.dp), thickness = 1.dp)
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .clickable { showRecurring() })
+            {
+                IconButton(onClick = showRecurring) {
+                    Icon(
+                        imageVector = Icons.Outlined.Autorenew,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .align(CenterVertically)
+                            .alpha(
+                                ResourcesCompat.getFloat(
+                                    LocalContext.current.resources,
+                                    R.dimen.alpha_secondary
+                                )
+                            ),
+                    )
+                }
+                val repeating = repeat.value > 0 && interval.value > 0
+                val text = if (repeating) {
+                    LocalContext.current.resources.getRepeatString(
+                        repeat.value,
+                        interval.value * recurringUnits.millis
+                    )
+                } else {
+                    stringResource(id = R.string.repeat_option_does_not_repeat)
+                }
+                BodyText(
+                    text = text,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .align(CenterVertically)
+                )
+                if (repeating) {
+                    ClearButton {
+                        repeat.value = 0
+                        interval.value = 0
+                        recurringUnits.value = 0
+                    }
+                }
             }
             ShowKeyboard(visible, focusRequester)
+        }
+    }
+
+    @Composable
+    fun AddRecurringReminder(
+        openDialog: MutableState<Boolean>,
+        interval: MutableState<Int>,
+        units: MutableState<Int>,
+        repeat: MutableState<Int>
+    ) {
+        val scrollState = rememberScrollState()
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(scrollState)
+        ) {
+            CenteredH6(text = stringResource(id = R.string.repeats_plural, "").trim())
+            val focusRequester = remember { FocusRequester() }
+            OutlinedIntInput(
+                time = interval,
+                modifier = Modifier.focusRequester(focusRequester),
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            options.forEachIndexed { index, option ->
+                RadioRow(index, option, interval, units)
+            }
+            Divider(modifier = Modifier.padding(vertical = 4.dp), thickness = 1.dp)
+            Row(modifier = Modifier.fillMaxWidth()) {
+                OutlinedIntInput(
+                    time = repeat,
+                    modifier = Modifier.weight(0.5f),
+                    autoSelect = false,
+                )
+                BodyText(
+                    text = LocalContext.current.resources.getQuantityString(
+                        R.plurals.repeat_times,
+                        repeat.value
+                    ),
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .align(CenterVertically)
+                )
+            }
+
+            ShowKeyboard(openDialog, focusRequester)
         }
     }
 
@@ -189,30 +385,34 @@ fun ShowKeyboard(visible: MutableState<Boolean>, focusRequester: FocusRequester)
 }
 
 @Composable
-fun OutlinedLongInput(
-    interval: MutableState<Long?>,
-    focusRequester: FocusRequester
+fun OutlinedIntInput(
+    time: MutableState<Int>,
+    modifier: Modifier = Modifier,
+    minValue: Int = 1,
+    autoSelect: Boolean = true,
 ) {
     val value = rememberSaveable(stateSaver = TextFieldValue.Saver) {
-        val text = interval.value.toString()
-        mutableStateOf(TextFieldValue(text = text, selection = TextRange(0, text.length)))
+        val text = time.value.toString()
+        mutableStateOf(
+            TextFieldValue(
+                text = text,
+                selection = TextRange(0, if (autoSelect) text.length else 0)
+            )
+        )
     }
     OutlinedTextField(
         value = value.value,
         onValueChange = {
             value.value = it.copy(text = it.text.filter { t -> t.isDigit() })
-            interval.value = value.value.text.toLongOrNull()
+            time.value = value.value.text.toIntOrNull() ?: 0
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .focusRequester(focusRequester),
+        modifier = modifier.padding(horizontal = 16.dp),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = MaterialTheme.colors.onSurface,
             focusedBorderColor = MaterialTheme.colors.onSurface
         ),
-        isError = value.value.text.toLongOrNull() == null,
+        isError = value.value.text.toIntOrNull()?.let { it < minValue } ?: true,
     )
 }
 
@@ -238,28 +438,23 @@ fun CenteredH6(text: String) {
 fun RadioRow(
     index: Int,
     option: Int,
-    interval: MutableState<Long?>,
-    selected: MutableState<Int>,
+    time: MutableState<Int>,
+    units: MutableState<Int>,
     formatString: Int? = null,
 ) {
-    val number = interval.value?.toInt() ?: 1
-    val optionString = LocalContext.current.resources.getQuantityString(option, number)
+    val optionString = LocalContext.current.resources.getQuantityString(option, time.value)
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                selected.value = index
-            }
+            .clickable { units.value = index }
     ) {
         RadioButton(
-            selected = index == selected.value,
-            onClick = {
-                selected.value = index
-            },
+            selected = index == units.value,
+            onClick = { units.value = index },
             modifier = Modifier.align(CenterVertically)
         )
-        Text(
-            text = if (index == selected.value) {
+        BodyText(
+            text = if (index == units.value) {
                 formatString
                     ?.let { stringResource(id = formatString, optionString) }
                     ?: optionString
@@ -268,10 +463,18 @@ fun RadioRow(
                 optionString
             },
             modifier = Modifier.align(CenterVertically),
-            color = MaterialTheme.colors.onSurface,
-            style = MaterialTheme.typography.body1,
         )
     }
+}
+
+@Composable
+fun BodyText(modifier: Modifier = Modifier, text: String) {
+    Text(
+        text = text,
+        modifier = modifier,
+        color = MaterialTheme.colors.onSurface,
+        style = MaterialTheme.typography.body1,
+    )
 }
 
 @ExperimentalComposeUiApi
@@ -279,11 +482,15 @@ fun RadioRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun AddCustomReminderOne() =
-    MaterialTheme(if (isSystemInDarkTheme()) darkColors() else lightColors()) {
+    MdcTheme {
         AddReminderDialog.AddCustomReminder(
             visible = remember { mutableStateOf(true) },
-            interval = remember { mutableStateOf(1L) },
-            selected = remember { mutableStateOf(0) }
+            time = remember { mutableStateOf(1) },
+            units = remember { mutableStateOf(0) },
+            interval = remember { mutableStateOf(0) },
+            recurringUnits = remember { mutableStateOf(0) },
+            repeat = remember { mutableStateOf(0) },
+            showRecurring = {},
         )
     }
 
@@ -292,11 +499,43 @@ fun AddCustomReminderOne() =
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun AddCustomReminder() =
-    MaterialTheme(if (isSystemInDarkTheme()) darkColors() else lightColors()) {
+    MdcTheme {
         AddReminderDialog.AddCustomReminder(
             visible = remember { mutableStateOf(true) },
-            interval = remember { mutableStateOf(15L) },
-            selected = remember { mutableStateOf(1) }
+            time = remember { mutableStateOf(15) },
+            units = remember { mutableStateOf(1) },
+            interval = remember { mutableStateOf(0) },
+            recurringUnits = remember { mutableStateOf(0) },
+            repeat = remember { mutableStateOf(0) },
+            showRecurring = {},
+        )
+    }
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AddRepeatingReminderOne() =
+    MdcTheme {
+        AddReminderDialog.AddRecurringReminder(
+            openDialog = remember { mutableStateOf(true) },
+            interval = remember { mutableStateOf(1) },
+            units = remember { mutableStateOf(0) },
+            repeat = remember { mutableStateOf(1) },
+        )
+    }
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AddRepeatingReminder() =
+    MdcTheme {
+        AddReminderDialog.AddRecurringReminder(
+            openDialog = remember { mutableStateOf(true) },
+            interval = remember { mutableStateOf(15) },
+            units = remember { mutableStateOf(1) },
+            repeat = remember { mutableStateOf(4) },
         )
     }
 
@@ -305,11 +544,11 @@ fun AddCustomReminder() =
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun AddRandomReminderOne() =
-    MaterialTheme(if (isSystemInDarkTheme()) darkColors() else lightColors()) {
+    MdcTheme {
         AddReminderDialog.AddRandomReminder(
             visible = remember { mutableStateOf(true) },
-            interval = remember { mutableStateOf(1L) },
-            selected = remember { mutableStateOf(0) }
+            time = remember { mutableStateOf(1) },
+            units = remember { mutableStateOf(0) }
         )
     }
 
@@ -318,10 +557,10 @@ fun AddRandomReminderOne() =
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun AddRandomReminder() =
-    MaterialTheme(if (isSystemInDarkTheme()) darkColors() else lightColors()) {
+    MdcTheme {
         AddReminderDialog.AddRandomReminder(
             visible = remember { mutableStateOf(true) },
-            interval = remember { mutableStateOf(15L) },
-            selected = remember { mutableStateOf(1) }
+            time = remember { mutableStateOf(15) },
+            units = remember { mutableStateOf(1) }
         )
     }
