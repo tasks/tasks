@@ -2271,6 +2271,20 @@
       "normalizedLicense": "apache2",
       "url": "https://developer.android.com/jetpack/androidx/releases/resourceinspection#1.0.0",
       "libraryName": "resourceinspection-annotation"
+    },
+    {
+      "artifactId": {
+        "name": "material-icons-extended",
+        "group": "androidx.compose.material",
+        "version": "+"
+      },
+      "copyrightHolder": "Android Open Source Project",
+      "copyrightStatement": "Copyright &copy; Android Open Source Project. All rights reserved.",
+      "license": "The Apache Software License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "normalizedLicense": "apache2",
+      "url": "https://developer.android.com/jetpack/androidx/releases/compose-material#1.1.1",
+      "libraryName": "material-icons-extended"
     }
   ]
 }
