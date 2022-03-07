@@ -529,9 +529,13 @@
 +|    +--- androidx.compose.material:material:1.1.0-beta04 -> 1.1.1 (*)
 +|    +--- com.google.android.material:material:1.6.0-alpha01 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.0 -> 1.6.10 (*)
-+\--- androidx.activity:activity-compose:1.4.0
-+     +--- androidx.compose.runtime:runtime:1.0.1 -> 1.1.1 (*)
-+     +--- androidx.compose.runtime:runtime-saveable:1.0.1 -> 1.1.1 (*)
-+     +--- androidx.activity:activity-ktx:1.4.0 (*)
-+     +--- androidx.compose.ui:ui:1.0.1 -> 1.1.1 (*)
-+     \--- org.jetbrains.kotlin:kotlin-stdlib:1.5.31 -> 1.6.10 (*)
+++--- androidx.activity:activity-compose:1.4.0
++|    +--- androidx.compose.runtime:runtime:1.0.1 -> 1.1.1 (*)
++|    +--- androidx.compose.runtime:runtime-saveable:1.0.1 -> 1.1.1 (*)
++|    +--- androidx.activity:activity-ktx:1.4.0 (*)
++|    +--- androidx.compose.ui:ui:1.0.1 -> 1.1.1 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.5.31 -> 1.6.10 (*)
++\--- androidx.compose.material:material-icons-extended:1.1.1
++     +--- androidx.compose.material:material-icons-core:1.1.1 (*)
++     +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.6.10
++     \--- androidx.compose.runtime:runtime:1.1.1 (*)
