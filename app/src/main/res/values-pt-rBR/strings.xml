@@ -474,7 +474,6 @@
     <string name="subtasks_multilevel_google_task">Sub-tarefas em múltiplos níveis não suportado pelo Google Tasks</string>
     <string name="collapse_subtasks">Recolher sub-tarefas</string>
     <string name="expand_subtasks">Expandir sub-tarefas</string>
-    <string name="caldav_account_repeating_tasks">Servidor lida com tarefas recorrentes</string>
     <string name="name_your_price">Dê seu valor</string>
     <string name="google_tasks_add_to_top">Novas tarefas ao topo</string>
     <string name="invalid_backup_file">Arquivo de backup inválido</string>

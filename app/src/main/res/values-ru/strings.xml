@@ -452,7 +452,6 @@
     <string name="location_permission_required_location">Доступ к данным геолокации нужен, чтобы определить ваше текущее местоположение</string>
     <string name="third_party_licenses">Сторонние лицензии</string>
     <string name="google_tasks_add_to_top">Новые задачи наверху</string>
-    <string name="caldav_account_repeating_tasks">Сервер обрабатывает повторяющиеся задачи</string>
     <string name="expand_subtasks">Развернуть подзадачи</string>
     <string name="collapse_subtasks">Свернуть подзадачи</string>
     <string name="subtasks_multilevel_google_task">Многоуровневые подзадачи не поддерживаются Google Tasks</string>

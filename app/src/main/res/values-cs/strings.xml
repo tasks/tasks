@@ -437,7 +437,6 @@
     <string name="invalid_backup_file">Zvolený soubor neobsahuje zálohu</string>
     <string name="google_tasks_add_to_top">Nové úkoly nahoře</string>
     <string name="name_your_price">Zaplaťte libovolnou částku</string>
-    <string name="caldav_account_repeating_tasks">Povolit serveru plánovat opakující se úkoly</string>
     <string name="expand_subtasks">Rozbalit podúkoly</string>
     <string name="collapse_subtasks">Sbalit podúkoly</string>
     <string name="subtasks_multilevel_google_task">Úkoly Google nepodporují víceúrovňové podúkoly</string>

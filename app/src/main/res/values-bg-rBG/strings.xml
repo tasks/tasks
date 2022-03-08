@@ -550,7 +550,6 @@
     <string name="choose_synchronization_service">Избор на услуга</string>
     <string name="enter_title_hint">Въведете заглавие</string>
     <string name="subtasks_multilevel_google_task">Вложени задачи не се поддържат от Google Tasks</string>
-    <string name="caldav_account_repeating_tasks">Сървърът се грижи за повтарящите се задачи</string>
     <string name="widget_on_click">При щракване</string>
     <string name="whats_new">Какво е новото</string>
     <string name="no_app_found">Няма приложение, което да обработи тази заявка</string>

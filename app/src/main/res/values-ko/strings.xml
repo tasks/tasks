@@ -426,7 +426,6 @@
     <string name="button_unsubscribe">구독 취소</string>
     <string name="name_your_price">구독 금액 정하기</string>
     <string name="SSD_sort_my_order">순서 직접 정렬</string>
-    <string name="caldav_account_repeating_tasks">서버가 반복 할일 처리</string>
     <plurals name="subtask_count">
         <item quantity="other">%d 하위할일</item>
     </plurals>

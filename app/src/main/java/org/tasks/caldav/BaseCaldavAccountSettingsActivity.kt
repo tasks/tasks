@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -79,12 +80,11 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
                 if (!isNullOrEmpty(it.password)) {
                     binding.password.setText(PASSWORD_MASK)
                 }
-                binding.repeat.isChecked = it.isSuppressRepeatingTasks
             }
         }
         val toolbar = binding.toolbar.toolbar
         toolbar.title = if (caldavAccount == null) getString(R.string.add_account) else caldavAccount!!.name
-        toolbar.navigationIcon = getDrawable(R.drawable.ic_outline_save_24px)
+        toolbar.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.ic_outline_save_24px)
         toolbar.setNavigationOnClickListener { save() }
         toolbar.inflateMenu(menuRes)
         toolbar.setOnMenuItemClickListener(this)
@@ -283,11 +283,8 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             (!isNullOrEmpty(binding.name.text.toString().trim { it <= ' ' })
                     || !isNullOrEmpty(newPassword)
                     || !isNullOrEmpty(binding.url.text.toString().trim { it <= ' ' })
-                    || !isNullOrEmpty(newUsername)
-                    || binding.repeat.isChecked)
-        } else needsValidation()
-                || newName != caldavAccount!!.name
-                || binding.repeat.isChecked != caldavAccount!!.isSuppressRepeatingTasks
+                    || !isNullOrEmpty(newUsername))
+        } else needsValidation() || newName != caldavAccount!!.name
     }
 
     protected open fun needsValidation(): Boolean =

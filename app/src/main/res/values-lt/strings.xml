@@ -711,6 +711,5 @@
     <string name="subtasks_multilevel_google_task">„Google Tasks“ nepalaiko kelių lygių antrinių užduočių</string>
     <string name="collapse_subtasks">Sutraukti antrines užduotis</string>
     <string name="expand_subtasks">Išplėsti antrines užduotis</string>
-    <string name="caldav_account_repeating_tasks">Serveris tvarko pasikartojančias užduotis</string>
     <string name="when_started">Kai pradedama</string>
 </resources>

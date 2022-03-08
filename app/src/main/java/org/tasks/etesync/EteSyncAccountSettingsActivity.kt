@@ -14,7 +14,6 @@ import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.repeat.visibility = View.GONE
         binding.showAdvanced.visibility = View.GONE
         binding.description.visibility = View.VISIBLE
         binding.description.setTextColor(ContextCompat.getColor(this, R.color.overdue))

@@ -635,7 +635,6 @@
     <string name="subtasks_multilevel_google_task">Subactivitățile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>
     <string name="collapse_subtasks">Colapsarea subactivităților</string>
     <string name="expand_subtasks">Extindeți subactivitățile</string>
-    <string name="caldav_account_repeating_tasks">Serverul se ocupă de sarcinile recurente</string>
     <string name="name_your_price">Spuneți-vă prețul</string>
     <string name="google_tasks_add_to_top">Sarcini noi în partea de sus</string>
     <string name="invalid_backup_file">Fișier de backup invalid</string>

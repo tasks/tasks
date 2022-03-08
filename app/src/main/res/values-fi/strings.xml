@@ -400,7 +400,6 @@
     <string name="subtasks_multilevel_google_task">Google Tasks ei tue monitasoisia alitehtäviä</string>
     <string name="collapse_subtasks">Pienennä alitehtävät</string>
     <string name="expand_subtasks">Laajenna alitehtävät</string>
-    <string name="caldav_account_repeating_tasks">Palvelin käsittelee toistuvia tehtäviä</string>
     <string name="name_your_price">Nimeä hintasi</string>
     <string name="google_tasks_add_to_top">Uudet tehtävät huipulla</string>
     <string name="invalid_backup_file">Epäsopiva varmuuskopiotiedosto</string>

@@ -9,7 +9,6 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Constants
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
@@ -25,7 +24,6 @@ class EtebaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.repeat.visibility = View.GONE
         binding.showAdvanced.visibility = View.VISIBLE
         binding.showAdvanced.setOnCheckedChangeListener { _, _ ->
             updateUrlVisibility()
@@ -76,9 +74,6 @@ class EtebaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     private fun updateUrlVisibility() {
         binding.urlLayout.visibility = if (binding.showAdvanced.isChecked) View.VISIBLE else View.GONE
     }
-
-    override fun needsValidation(): Boolean =
-            super.needsValidation() || isNullOrEmpty(caldavAccount!!.encryptionKey)
 
     override suspend fun addAccount(url: String, username: String, password: String) =
         addAccountViewModel.addAccount(url, username, password)

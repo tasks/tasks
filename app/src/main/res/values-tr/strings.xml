@@ -430,7 +430,6 @@
     <string name="button_unsubscribe">Aboneliği iptal et</string>
     <string name="name_your_price">Fiyat belirle</string>
     <string name="SSD_sort_my_order">Düzenim</string>
-    <string name="caldav_account_repeating_tasks">Sunucu, yineleyen görevleri halleder</string>
     <plurals name="subtask_count">
         <item quantity="one">%d alt görev</item>
         <item quantity="other">%d alt görev</item>

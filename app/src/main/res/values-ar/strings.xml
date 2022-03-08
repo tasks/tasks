@@ -516,7 +516,6 @@
     <string name="widget_header_settings">إعدادات شريط العنوان</string>
     <string name="badges_description">عرض عداد المهمة على مشغل ايقونة التطبيق. ليس جميع المشغلات تدعم الشارات(العداد).</string>
     <string name="gcal_TEA_error">خطأ في إضافة المهمة للتقويم!</string>
-    <string name="caldav_account_repeating_tasks">يعالج الخادم المهام المتكررة</string>
     <string name="name_your_price">سمي سعرك</string>
     <string name="pro_dashclock_extension">الاضافة داشكلوك</string>
     <string name="caldav_home_set_not_found">لم يتم العثور على المجموعة الرئيسية</string>

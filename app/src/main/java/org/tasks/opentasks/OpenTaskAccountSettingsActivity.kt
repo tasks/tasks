@@ -9,7 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
-import org.tasks.data.OpenTaskDao.Companion.isDavx5
 
 @AndroidEntryPoint
 class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolbar.OnMenuItemClickListener {
@@ -20,10 +19,6 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
         binding.userLayout.visibility = View.GONE
         binding.passwordLayout.visibility = View.GONE
         binding.urlLayout.visibility = View.GONE
-
-        if (caldavAccount?.uuid?.isDavx5() != true) {
-            binding.repeat.visibility = View.GONE
-        }
     }
 
     override val newPassword = ""
@@ -37,15 +32,12 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
         if (passwordChanged()) {
             caldavAccount!!.password = encryption.encrypt(newPassword)
         }
-        caldavAccount!!.isSuppressRepeatingTasks = binding.repeat.isChecked
         caldavDao.update(caldavAccount!!)
         setResult(Activity.RESULT_OK)
         finish()
     }
 
-    override fun hasChanges() =
-            newName != caldavAccount!!.name
-                    || binding.repeat.isChecked != caldavAccount!!.isSuppressRepeatingTasks
+    override fun hasChanges() = newName != caldavAccount!!.name
 
     override fun save() = lifecycleScope.launch {
         if (newName.isBlank()) {

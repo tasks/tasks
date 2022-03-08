@@ -253,7 +253,6 @@
     <string name="subtasks_multilevel_google_task">Các công việc con có nhiều cấp không được Google Tasks hỗ trợ</string>
     <string name="collapse_subtasks">Thu gọn các công việc con</string>
     <string name="expand_subtasks">Mở rộng các công việc con</string>
-    <string name="caldav_account_repeating_tasks">Máy chủ xử lý các công việc lặp lại</string>
     <string name="name_your_price">Đặt giá của bạn</string>
     <string name="google_tasks_add_to_top">Công việc mới ở trên đầu</string>
     <string name="invalid_backup_file">Tệp sao lưu không hợp lệ</string>

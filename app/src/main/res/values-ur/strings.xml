@@ -499,7 +499,6 @@
     <string name="subtasks_multilevel_google_task">کثیر الدرجی ذیلی ٹاسکس کو گوگل ٹاسکس سپورٹ نہیں کرتا</string>
     <string name="collapse_subtasks">ذیلی ٹاسکس کو بند کریں</string>
     <string name="expand_subtasks">ذیلی ٹاسکس کو کھولیں</string>
-    <string name="caldav_account_repeating_tasks">بار بار واقع ہونے والے ٹاسکس کو سرور چلاتا ہے</string>
     <string name="name_your_price">اپنی قیمت بتائیں</string>
     <string name="google_tasks_add_to_top">نئے ٹاسکس اوپر رکھیں</string>
     <string name="invalid_backup_file">غلط بیک اپ فائل</string>

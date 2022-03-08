@@ -54,14 +54,6 @@ class CaldavAccount : Parcelable {
     @Transient
     var error: String? = ""
 
-    @ColumnInfo(name = "cda_repeat")
-    var isSuppressRepeatingTasks = false
-
-    @Deprecated("use etebase")
-    @ColumnInfo(name = "cda_encryption_key")
-    @Transient
-    var encryptionKey: String? = null
-
     @ColumnInfo(name = "cda_account_type")
     var accountType = TYPE_CALDAV
 
@@ -82,20 +74,13 @@ class CaldavAccount : Parcelable {
         username = source.readString()
         password = source.readString()
         error = source.readString()
-        isSuppressRepeatingTasks = ParcelCompat.readBoolean(source)
         accountType = source.readInt()
-        encryptionKey = source.readString()
         isCollapsed = ParcelCompat.readBoolean(source)
         serverType = source.readInt()
     }
 
     fun getPassword(encryption: KeyStoreEncryption): String {
         return encryption.decrypt(password) ?: ""
-    }
-
-    @Deprecated("use etebase")
-    fun getEncryptionPassword(encryption: KeyStoreEncryption): String {
-        return encryption.decrypt(encryptionKey) ?: ""
     }
 
     val isCaldavAccount: Boolean
@@ -105,10 +90,10 @@ class CaldavAccount : Parcelable {
     val isEteSyncAccount: Boolean
         get() = accountType == TYPE_ETESYNC
 
-    val isEtebaseAccount: Boolean
+    private val isEtebaseAccount: Boolean
         get() = accountType == TYPE_ETEBASE
 
-    val isOpenTasks: Boolean
+    private val isOpenTasks: Boolean
         get() = accountType == TYPE_OPENTASKS
 
     val isTasksOrg: Boolean
@@ -130,6 +115,9 @@ class CaldavAccount : Parcelable {
             else -> throw IllegalArgumentException("Unexpected account type: $this")
         }
 
+    val isSuppressRepeatingTasks: Boolean
+        get() = serverType == SERVER_OPEN_XCHANGE
+
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -141,9 +129,7 @@ class CaldavAccount : Parcelable {
             writeString(username)
             writeString(password)
             writeString(error)
-            ParcelCompat.writeBoolean(this, isSuppressRepeatingTasks)
             writeInt(accountType)
-            writeString(encryptionKey)
             ParcelCompat.writeBoolean(this, isCollapsed)
             writeInt(serverType)
         }
@@ -162,8 +148,6 @@ class CaldavAccount : Parcelable {
         if (username != other.username) return false
         if (password != other.password) return false
         if (error != other.error) return false
-        if (isSuppressRepeatingTasks != other.isSuppressRepeatingTasks) return false
-        if (encryptionKey != other.encryptionKey) return false
         if (accountType != other.accountType) return false
         if (isCollapsed != other.isCollapsed) return false
         if (serverType != other.serverType) return false
@@ -179,8 +163,6 @@ class CaldavAccount : Parcelable {
         result = 31 * result + (username?.hashCode() ?: 0)
         result = 31 * result + (password?.hashCode() ?: 0)
         result = 31 * result + (error?.hashCode() ?: 0)
-        result = 31 * result + isSuppressRepeatingTasks.hashCode()
-        result = 31 * result + (encryptionKey?.hashCode() ?: 0)
         result = 31 * result + accountType
         result = 31 * result + isCollapsed.hashCode()
         result = 31 * result + serverType
@@ -188,7 +170,7 @@ class CaldavAccount : Parcelable {
     }
 
     override fun toString(): String {
-        return "CaldavAccount(id=$id, uuid=$uuid, name=$name, url=$url, username=$username, password=$password, error=$error, isSuppressRepeatingTasks=$isSuppressRepeatingTasks, encryptionKey=$encryptionKey, accountType=$accountType, isCollapsed=$isCollapsed, serverType=$serverType)"
+        return "CaldavAccount(id=$id, uuid=$uuid, name=$name, url=$url, username=$username, password=$password, error=$error, accountType=$accountType, isCollapsed=$isCollapsed, serverType=$serverType)"
     }
 
     fun isTasksSubscription(context: Context): Boolean {

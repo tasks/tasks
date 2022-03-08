@@ -430,7 +430,6 @@
     <string name="icon">Pictogram</string>
     <string name="SSD_sort_my_order">Mijn volgorde</string>
     <string name="error_adding_account">Fout: %s</string>
-    <string name="caldav_account_repeating_tasks">Server handelt terugkerende taken af</string>
     <plurals name="subtask_count">
         <item quantity="one">%d subtaak</item>
         <item quantity="other">%d subtaken</item>

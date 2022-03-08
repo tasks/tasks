@@ -421,7 +421,6 @@
     <string name="list_separator_with_space">"， "</string>
     <string name="error_adding_account">错误：%s</string>
     <string name="SSD_sort_my_order">我的顺序</string>
-    <string name="caldav_account_repeating_tasks">服务器处理重复任务</string>
     <plurals name="subtask_count">
         <item quantity="other">%d 个子任务</item>
     </plurals>

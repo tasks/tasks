@@ -440,7 +440,6 @@
     <string name="button_unsubscribe">Anuluj subskrypcję</string>
     <string name="name_your_price">Nazwij swoją cenę</string>
     <string name="SSD_sort_my_order">Ręczne</string>
-    <string name="caldav_account_repeating_tasks">Serwer obsługuje powtarzające się zadania</string>
     <plurals name="subtask_count">
         <item quantity="one">%d podzadanie</item>
         <item quantity="few">%d podzadania</item>

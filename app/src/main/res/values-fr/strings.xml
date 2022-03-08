@@ -425,7 +425,6 @@
     <string name="name_your_price">Donnez votre prix</string>
     <string name="error_adding_account">Erreur : %s</string>
     <string name="SSD_sort_my_order">Mon tri</string>
-    <string name="caldav_account_repeating_tasks">Le serveur gère les tâches récurrentes</string>
     <plurals name="subtask_count">
         <item quantity="one">%d sous-tâche</item>
         <item quantity="other">%d sous-tâches</item>

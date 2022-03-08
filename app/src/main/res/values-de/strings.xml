@@ -430,7 +430,6 @@
     <string name="button_unsubscribe">Abonnement kündigen</string>
     <string name="name_your_price">Nennen Sie Ihren Preis</string>
     <string name="SSD_sort_my_order">Eigene Sortierung</string>
-    <string name="caldav_account_repeating_tasks">Server behandelt wiederkehrende Aufgaben</string>
     <string name="always_display_full_date">Datum ganz anzeigen</string>
     <plurals name="subtask_count">
         <item quantity="one">%d Teilaufgabe</item>

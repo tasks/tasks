@@ -9,8 +9,6 @@ import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
-import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_FIVE
-import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_NONSTOP
 import org.tasks.caldav.FileStorage
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
@@ -32,6 +30,12 @@ object Migrations {
         DeleteColumn(tableName = "tasks", columnName = "notifications"),
     )
     class AutoMigrate82to83: AutoMigrationSpec
+
+    @DeleteColumn.Entries(
+        DeleteColumn(tableName = "caldav_accounts", columnName = "cda_encryption_key"),
+        DeleteColumn(tableName = "caldav_accounts", columnName = "cda_repeat"),
+    )
+    class AutoMigrate83to84: AutoMigrationSpec
 
     private val MIGRATION_35_36: Migration = object : Migration(35, 36) {
         override fun migrate(database: SupportSQLiteDatabase) {

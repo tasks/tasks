@@ -234,7 +234,6 @@
     <string name="subtasks_multilevel_google_task">கூகிள் பணிகளால் பல நிலை துணை பணிகள் ஆதரிக்கப்படவில்லை</string>
     <string name="collapse_subtasks">துணை பணிகளைச் சுருக்கவும்</string>
     <string name="expand_subtasks">துணை பணிகளை விரிவாக்குங்கள்</string>
-    <string name="caldav_account_repeating_tasks">தொடர்ச்சியான பணிகளை சேவையாக அட்டவணைப்படுத்தட்டும்</string>
     <string name="name_your_price">உங்கள் விலைக்கு பெயரிடுங்கள்</string>
     <string name="google_tasks_add_to_top">மேலே புதிய பணிகள்</string>
     <string name="invalid_backup_file">தவறான காப்பு கோப்பு</string>

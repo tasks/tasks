@@ -482,7 +482,6 @@
     <string name="create_new_tag">Crea «%s»</string>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
-    <string name="caldav_account_repeating_tasks">Il server gestisce le attività ricorrenti</string>
     <string name="google_tasks_add_to_top">Nuove attività in cima alla lista</string>
     <string name="invalid_backup_file">File di backup non valido</string>
     <string name="version_string">Versione %s</string>

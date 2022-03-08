@@ -287,7 +287,6 @@
     <string name="subtasks_multilevel_google_task">Google Tasks ne podržava višerazinske podzadatke</string>
     <string name="collapse_subtasks">Sklopi podzadatke</string>
     <string name="expand_subtasks">Rasklopi podzadatke</string>
-    <string name="caldav_account_repeating_tasks">Poslužitelj obrađuje ponavljajuće zadatke</string>
     <string name="name_your_price">Odredi tvoju cijenu</string>
     <string name="google_tasks_add_to_top">Novi zadaci na vrh popisa</string>
     <string name="invalid_backup_file">Neispravna datoteka sigurnosne kopije</string>

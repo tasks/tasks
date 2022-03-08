@@ -186,7 +186,6 @@
     <string name="subtasks_multilevel_google_task">Flere niveauer af underopgaver understøttes ikke af Google Tasks</string>
     <string name="collapse_subtasks">Skjul underopgaver</string>
     <string name="expand_subtasks">Udvid underopgaver</string>
-    <string name="caldav_account_repeating_tasks">Server håndterer tilbagevendende opgaver</string>
     <string name="name_your_price">Betal, hvad du vil</string>
     <string name="google_tasks_add_to_top">Nye opgaver øverst</string>
     <string name="invalid_backup_file">Ugyldig sikkerhedskopi-fil</string>

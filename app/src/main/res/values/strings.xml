@@ -522,7 +522,6 @@ File %1$s contained %2$s.\n\n
   <string name="invalid_backup_file">Invalid backup file</string>
   <string name="google_tasks_add_to_top">New tasks on top</string>
   <string name="name_your_price">Name your price</string>
-  <string name="caldav_account_repeating_tasks">Server handles recurring tasks</string>
   <string name="expand_subtasks">Expand subtasks</string>
   <string name="collapse_subtasks">Collapse subtasks</string>
   <string name="subtasks_multilevel_google_task">Multi-level subtasks not supported by Google Tasks</string>

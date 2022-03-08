@@ -63,7 +63,6 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
         if (passwordChanged()) {
             caldavAccount!!.password = encryption.encrypt(newPassword!!)
         }
-        caldavAccount!!.isSuppressRepeatingTasks = binding.repeat.isChecked
         caldavDao.update(caldavAccount!!)
         setResult(Activity.RESULT_OK)
         finish()

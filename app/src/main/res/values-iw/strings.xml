@@ -528,7 +528,6 @@
     <string name="improve_performance_summary">השבתת מיון קבוצות ותת־משימות מצטמצמות כדי לשפר את ביצועי היישומון</string>
     <string name="improve_performance">שיפור הביצועים</string>
     <string name="subtasks_multilevel_google_task">תת־משימות מקוננות אינן נתמכות על ידי Google Tasks</string>
-    <string name="caldav_account_repeating_tasks">השרת מטפל במשימות חוזרות</string>
     <string name="widget_due_date_reschedule">לתזמן משימה מחדש</string>
     <string name="widget_open_list">לפתוח רשימה</string>
     <string name="widget_do_nothing">לא לעשות כלום</string>

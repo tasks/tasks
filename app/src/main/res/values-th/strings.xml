@@ -191,7 +191,6 @@
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
     <string name="collapse_subtasks">ยุบงานย่อย</string>
     <string name="expand_subtasks">ขยายงานย่อย</string>
-    <string name="caldav_account_repeating_tasks">เซิร์ฟเวอร์จัดการงานที่เกิดประจํา</string>
     <string name="name_your_price">ตั้งชื่อราคาของคุณ</string>
     <string name="google_tasks_add_to_top">งานใหม่อยู่บนสุด</string>
     <string name="invalid_backup_file">แฟ้มสํารองข้อมูลไม่ถูกต้อง</string>

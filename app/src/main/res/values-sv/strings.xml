@@ -428,7 +428,6 @@
     <string name="name_your_price">Namnge ditt pris</string>
     <string name="SSD_sort_my_order">Min ordning</string>
     <string name="error_adding_account">Fel: %s</string>
-    <string name="caldav_account_repeating_tasks">Server hanterar återkommande uppgifter</string>
     <string name="lists">Listor</string>
     <string name="sort_modified_group">Modifierad %s</string>
     <string name="sort_created_group">Skapad %s</string>

@@ -92,11 +92,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.SwitchCompat
-          android:id="@+id/repeat"
-          style="@style/TagSettingsRow"
-          android:text="@string/caldav_account_repeating_tasks" />
-
       </LinearLayout>
 
     </ScrollView>

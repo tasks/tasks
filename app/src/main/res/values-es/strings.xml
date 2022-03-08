@@ -430,7 +430,6 @@
     <string name="button_unsubscribe">Cancelar la suscripción</string>
     <string name="name_your_price">Precio flexible</string>
     <string name="SSD_sort_my_order">Mi orden</string>
-    <string name="caldav_account_repeating_tasks">El servidor se encarga de las tareas recurrentes</string>
     <plurals name="subtask_count">
         <item quantity="one">%d subtarea</item>
         <item quantity="other">%d subtareas</item>

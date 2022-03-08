@@ -538,7 +538,6 @@
         <item quantity="one">%d subtarefa</item>
         <item quantity="other">%d subtarefas</item>
     </plurals>
-    <string name="caldav_account_repeating_tasks">O servidor lida com tarefas recorrentes</string>
     <string name="SSD_sort_my_order">Minha ordem</string>
     <string name="name_your_price">Dê o seu valor</string>
     <string name="network_error">Não foi possível conectar</string>

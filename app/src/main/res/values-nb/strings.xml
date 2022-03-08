@@ -430,7 +430,6 @@
     <string name="name_your_price">Betal det du vil</string>
     <string name="error_adding_account">Feil: %s</string>
     <string name="SSD_sort_my_order">Min bestilling</string>
-    <string name="caldav_account_repeating_tasks">Tjeneren håndterer gjentagende gjøremål</string>
     <plurals name="subtask_count">
         <item quantity="one">%d gjøremålssteg</item>
         <item quantity="other">%d gjøremålssteg</item>

@@ -415,7 +415,6 @@
     <string name="etesync_selection_description">End-to-end encrypted සමමුහුර්තකරණය</string>
     <string name="caldav_selection_description">විවෘත අන්තර්ජාල ප්‍රමිතීන් මත පදනම් වූ සමමුහුර්තකරණය</string>
     <string name="google_tasks_selection_description">ඔබගේ Google ගිණුම සමඟ සමමුහුර්ත කරන මූලික සේවාව</string>
-    <string name="caldav_account_repeating_tasks">සේවාදායකය පුනරාවර්තන කාර්යයන් හසුරුවයි</string>
     <string name="name_your_price">මිලක් නියම කරන්න</string>
     <string name="missing_permissions">අවසරය ලැබී නොමැත</string>
     <string name="location_arrived">%s වෙත පැමිණියේය</string>
