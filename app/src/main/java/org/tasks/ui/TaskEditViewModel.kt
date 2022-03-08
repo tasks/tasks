@@ -310,7 +310,11 @@ class TaskEditViewModel @Inject constructor(
                 originalLocation != selectedLocation ||
                 originalTags.toHashSet() != selectedTags.toHashSet() ||
                 newSubtasks.isNotEmpty() ||
-                task.ringFlags != getRingFlags() ||
+                getRingFlags() != when {
+                    task.isNotifyModeFive -> NOTIFY_MODE_FIVE
+                    task.isNotifyModeNonstop -> NOTIFY_MODE_NONSTOP
+                    else -> 0
+                } ||
                 originalAlarms.toHashSet() != selectedAlarms.value.toHashSet()
 
     fun cleared() = cleared.value?.value == true

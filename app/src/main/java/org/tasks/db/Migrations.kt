@@ -449,12 +449,6 @@ object Migrations {
             database.execSQL(
                 "INSERT INTO `alarms` (`task`, `time`, `type`) SELECT `_id`, `snoozeTime`, $TYPE_SNOOZE FROM `tasks` WHERE `snoozeTime` > 0"
             )
-            database.execSQL(
-                "UPDATE `tasks` SET `notificationFlags` = $NOTIFY_MODE_FIVE WHERE `notificationFlags` & $NOTIFY_MODE_FIVE = $NOTIFY_MODE_FIVE"
-            )
-            database.execSQL(
-                "UPDATE `tasks` SET `notificationFlags` = $NOTIFY_MODE_NONSTOP WHERE `notificationFlags` & $NOTIFY_MODE_NONSTOP = $NOTIFY_MODE_NONSTOP"
-            )
         }
     }
 
