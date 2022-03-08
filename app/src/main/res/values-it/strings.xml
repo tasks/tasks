@@ -391,7 +391,7 @@
     <string name="refresh_purchases">Aggiorna acquisti</string>
     <string name="button_subscribe">Abbonati</string>
     <string name="about">Informazioni</string>
-    <string name="license_summary">Tasks è un software libero ed open-source, rilasciato sotto licenza GNU General Public License v3.0</string>
+    <string name="license_summary">Tasks è un software libero, rilasciato sotto licenza GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Estensione Dashclock</string>
     <string name="requires_pro_subscription">Richiede la versione Pro</string>
     <string name="logout">Esci</string>
@@ -544,7 +544,7 @@
     <string name="sort_created_group">Creato %s</string>
     <string name="got_it">Capito!</string>
     <string name="no_thanks">No grazie</string>
-    <string name="support_development_subscribe">Sblocca funzionalità aggiuntive e supporta il software open source</string>
+    <string name="support_development_subscribe">Sblocca funzionalità aggiuntive e supporta il software libero</string>
     <string name="tell_me_how_im_doing">Per favore, dimmi come me la cavo</string>
     <string name="enjoying_tasks">Ti piace Tasks\?</string>
     <string name="filter_no_priority">Senza priorità</string>
