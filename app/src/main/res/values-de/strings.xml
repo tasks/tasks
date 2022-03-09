@@ -43,7 +43,7 @@
     <string name="TEA_timer_est">Geschätzt %s</string>
     <string name="TEA_timer_elap">%s verstrichen</string>
     <string name="due_date">Fälligkeitsdatum</string>
-    <string name="due_time">Termin</string>
+    <string name="due_time">Fälligkeitszeitpunkt</string>
     <string name="day_before_due">Tag vor Fälligkeit</string>
     <string name="week_before_due">Woche vor Fälligkeit</string>
     <string name="TEA_control_repeat">Wiederholen</string>
