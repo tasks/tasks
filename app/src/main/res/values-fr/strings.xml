@@ -724,4 +724,8 @@
     </plurals>
     <string name="custom_notification">Notification personnalisée</string>
     <string name="randomly_every">Aléatoirement tous les %s</string>
+    <string name="caldav_server_unknown">Inconnu</string>
+    <string name="filter_snoozed">En attente</string>
+    <string name="caldav_server_other">Autre</string>
+    <string name="caldav_server_type">Type de serveur</string>
 </resources>
