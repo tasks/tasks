@@ -58,7 +58,7 @@ class AlarmService @Inject constructor(
         }
         if (changed) {
             scheduleAlarms(task)
-            localBroadcastManager.broadcastRefresh()
+            localBroadcastManager.broadcastRefreshList()
         }
         return changed
     }

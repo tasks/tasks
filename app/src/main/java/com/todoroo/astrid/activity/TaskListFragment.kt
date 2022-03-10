@@ -495,7 +495,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onResume() {
         super.onResume()
-        localBroadcastManager.registerRefreshReceiver(refreshReceiver)
+        localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
         localBroadcastManager.registerTaskCompletedReceiver(repeatConfirmationReceiver)
         refresh()
     }
