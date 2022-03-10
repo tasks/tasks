@@ -757,4 +757,8 @@
     </plurals>
     <string name="custom_notification">Користувацькі сповіщення</string>
     <string name="randomly_every">Випадково кожні %s</string>
+    <string name="caldav_server_unknown">Невідомий</string>
+    <string name="caldav_server_other">Інший</string>
+    <string name="caldav_server_type">Тип сервера</string>
+    <string name="filter_snoozed">Відкладені</string>
 </resources>
