@@ -351,9 +351,10 @@ class CaldavSynchronizer @Inject constructor(
             val remote = DavResource(
                     httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.`object`!!).build())
             remote.put(requestBody) {
-                val getETag = fromResponse(it)
-                if (getETag != null && !isNullOrEmpty(getETag.eTag)) {
-                    caldavTask.etag = getETag.eTag
+                if (it.isSuccessful) {
+                    fromResponse(it)?.eTag?.takeIf(String::isNotBlank)?.let { etag ->
+                        caldavTask.etag = etag
+                    }
                     vtodoCache.putVtodo(calendar, caldavTask, String(data))
                 }
             }
