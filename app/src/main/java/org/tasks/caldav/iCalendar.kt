@@ -3,6 +3,7 @@ package org.tasks.caldav
 import at.bitfire.ical4android.DateUtils.ical4jTimeZone
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
+import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
@@ -216,7 +217,10 @@ class iCalendar @Inject constructor(
             local?.reminders?.plus(randomReminders) ?: randomReminders
         if (alarms.toSet() == localReminders.toSet()) {
             val remoteReminders = remote.reminders.plus(randomReminders)
-            alarmService.synchronizeAlarms(caldavTask.task, remoteReminders.toMutableSet())
+            val changed = alarmService.synchronizeAlarms(caldavTask.task, remoteReminders.toMutableSet())
+            if (changed) {
+                task.modificationDate = DateUtilities.now()
+            }
         }
 
         task.suppressSync()
