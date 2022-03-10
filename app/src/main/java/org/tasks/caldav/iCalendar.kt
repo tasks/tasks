@@ -201,7 +201,10 @@ class iCalendar @Inject constructor(
             tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
         }
 
-        val alarms = alarmDao.getAlarms(task.id)
+        val alarms = alarmDao.getAlarms(task.id).onEach {
+            it.id = 0
+            it.task = 0
+        }
         val randomReminders = alarms.filter { it.type == TYPE_RANDOM }
         val localReminders =
             local?.reminders?.plus(randomReminders) ?: randomReminders
