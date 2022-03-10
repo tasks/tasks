@@ -1,6 +1,7 @@
 package org.tasks.date
 
 import org.tasks.time.DateTime
+import org.tasks.time.DateTime.UTC
 import java.util.*
 
 object DateTimeUtils {
@@ -29,4 +30,6 @@ object DateTimeUtils {
     fun Long.toDateTime(): DateTime = DateTime(this)
 
     fun Long.isAfterNow(): Boolean = DateTime(this).isAfterNow
+
+    fun Long.toLocal(): Long = DateTime(this, UTC).toLocal().millis
 }

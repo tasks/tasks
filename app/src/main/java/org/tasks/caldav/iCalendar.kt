@@ -47,6 +47,7 @@ import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.date.DateTimeUtils.toLocal
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
@@ -381,7 +382,7 @@ class iCalendar @Inject constructor(
                                     ?: unknownProperties.add(
                                             XProperty(MOZ_SNOOZE_TIME, utc.toString())
                                     )
-                            lastAck = lastModified
+                            lastAck = lastModified?.toLocal()
                         }
                         ?: unknownProperties.removeIf(IS_MOZ_SNOOZE_TIME)
             }
