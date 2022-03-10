@@ -142,6 +142,7 @@ class DefaultFilterProvider @Inject constructor(
         FILTER_TODAY -> BuiltInFilterExposer.getTodayFilter(context.resources)
         FILTER_RECENTLY_MODIFIED -> BuiltInFilterExposer.getRecentlyModifiedFilter(context.resources)
         FILTER_SNOOZED -> BuiltInFilterExposer.getSnoozedFilter(context.resources)
+        FILTER_NOTIFICATIONS -> BuiltInFilterExposer.getNotificationsFilter(context)
         else -> getMyTasksFilter(context.resources)
     }
 
@@ -150,6 +151,7 @@ class DefaultFilterProvider @Inject constructor(
             isToday() -> FILTER_TODAY
             isRecentlyModified() -> FILTER_RECENTLY_MODIFIED
             isSnoozed() -> FILTER_SNOOZED
+            isNotifications() -> FILTER_NOTIFICATIONS
             else -> FILTER_MY_TASKS
         }
     }
@@ -196,6 +198,9 @@ class DefaultFilterProvider @Inject constructor(
     private fun Filter.isSnoozed() =
         BuiltInFilterExposer.isSnoozedFilter(context, this)
 
+    private fun Filter.isNotifications() =
+        BuiltInFilterExposer.isNotificationsFilter(context, this)
+
     companion object {
         private const val TYPE_FILTER = 0
         private const val TYPE_CUSTOM_FILTER = 1
@@ -208,5 +213,6 @@ class DefaultFilterProvider @Inject constructor(
         @Suppress("unused") private const val FILTER_UNCATEGORIZED = 2
         private const val FILTER_RECENTLY_MODIFIED = 3
         private const val FILTER_SNOOZED = 4
+        private const val FILTER_NOTIFICATIONS = 5
     }
 }

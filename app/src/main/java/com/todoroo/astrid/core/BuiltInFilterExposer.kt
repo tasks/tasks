@@ -66,6 +66,11 @@ class BuiltInFilterExposer @Inject constructor(
         if (taskDao.activeTimers() > 0) {
             filters.add(TimerPlugin.createFilter(context))
         }
+        if (taskDao.hasNotifications() > 0) {
+            val element = NotificationsFilter(context)
+            element.icon = R.drawable.ic_outline_notifications_24px
+            filters.add(element)
+        }
         return filters
     }
 
@@ -160,6 +165,8 @@ class BuiltInFilterExposer @Inject constructor(
 
         fun getSnoozedFilter(r: Resources) = SnoozedFilter(r.getString(R.string.filter_snoozed))
 
+        fun getNotificationsFilter(context: Context) = NotificationsFilter(context)
+
         @JvmStatic
         fun isInbox(context: Context, filter: Filter?) =
                 filter == getMyTasksFilter(context.resources)
@@ -173,5 +180,8 @@ class BuiltInFilterExposer @Inject constructor(
 
         fun isSnoozedFilter(context: Context, filter: Filter?) =
                 filter == getSnoozedFilter(context.resources)
+
+        fun isNotificationsFilter(context: Context, filter: Filter?) =
+            filter == getNotificationsFilter(context)
     }
 }
