@@ -728,4 +728,9 @@
         <item quantity="other">Minutos</item>
     </plurals>
     <string name="custom_notification">Notificación personalizada</string>
+    <string name="caldav_server_type">Tipo de servidor</string>
+    <string name="filter_snoozed">Dormitado</string>
+    <string name="randomly_every">Aleatoriamente cada %s</string>
+    <string name="caldav_server_unknown">Desconocido</string>
+    <string name="caldav_server_other">Otro</string>
 </resources>
