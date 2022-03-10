@@ -20,7 +20,7 @@
     <string name="DLG_delete_this_task_question">¿Desea eliminar esta tarea\?</string>
     <string name="DLG_hour_minutes">Tiempo (horas : minutos)</string>
     <string name="DLG_undo">Deshacer</string>
-    <string name="WID_dateButtonUnset">Haga clic para configurar</string>
+    <string name="WID_dateButtonUnset">Hacer clic para establecer</string>
     <string name="TLA_no_items">No hay tareas aquí.</string>
     <string name="TLA_menu_sort">Ordenar</string>
     <string name="TLA_menu_search">Buscar</string>
