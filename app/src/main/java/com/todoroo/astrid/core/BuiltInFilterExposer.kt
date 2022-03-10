@@ -20,6 +20,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.data.*
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.filters.NotificationsFilter
 import org.tasks.filters.RecentlyModifiedFilter
 import org.tasks.filters.SnoozedFilter
 import org.tasks.filters.SortableFilter
