@@ -48,6 +48,7 @@ import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
+import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRRule
 import org.tasks.repeats.RecurrenceUtils.newRecur
@@ -77,6 +78,7 @@ class iCalendar @Inject constructor(
         private val alarmDao: AlarmDao,
         private val alarmService: AlarmService,
         private val vtodoCache: VtodoCache,
+        private val notificationManager: NotificationManager,
 ) {
 
     suspend fun setPlace(taskId: Long, geo: Geo?) {
@@ -189,6 +191,10 @@ class iCalendar @Inject constructor(
         val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
         task.applyRemote(remote, local)
         caldavTask.applyRemote(remote, local)
+
+        if (remote.lastAck ?: 0 > task.reminderLast) {
+            notificationManager.cancel(task.id)
+        }
 
         val place = locationDao.getPlaceForTask(task.id)
         if (place?.toGeo() == local?.geoPosition) {
@@ -337,6 +343,24 @@ class iCalendar @Inject constructor(
                 }
             }
 
+        var Task.lastAck: Long?
+            get() = unknownProperties.find(IS_MOZ_LASTACK)?.value?.let {
+                org.tasks.time.DateTime.from(DateTime(it)).toLocal().millis
+            }
+            set(value) {
+                value
+                    ?.toDateTime()
+                    ?.toUTC()
+                    ?.let { DateTime(true).apply { time = it.millis } }
+                    ?.let { utc ->
+                        unknownProperties.find(IS_MOZ_LASTACK)
+                            ?.let { it.value = utc.toString() }
+                            ?: unknownProperties.add(
+                                XProperty(MOZ_LASTACK, utc.toString())
+                            )
+                    }
+            }
+
         var Task.snooze: Long?
             get() = unknownProperties.find(IS_MOZ_SNOOZE_TIME)?.value?.let {
                 org.tasks.time.DateTime.from(DateTime(it)).toLocal().millis
@@ -353,12 +377,7 @@ class iCalendar @Inject constructor(
                                     ?: unknownProperties.add(
                                             XProperty(MOZ_SNOOZE_TIME, utc.toString())
                                     )
-                            val lastAck = DateTime(true).apply { time = lastModified!! }
-                            unknownProperties.find(IS_MOZ_LASTACK)
-                                    ?.let { it.value = lastAck.toString() }
-                                    ?: unknownProperties.add(
-                                            XProperty(MOZ_LASTACK, lastAck.toString())
-                                    )
+                            lastAck = lastModified
                         }
                         ?: unknownProperties.removeIf(IS_MOZ_SNOOZE_TIME)
             }
