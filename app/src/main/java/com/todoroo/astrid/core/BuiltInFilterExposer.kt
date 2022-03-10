@@ -59,7 +59,7 @@ class BuiltInFilterExposer @Inject constructor(
             filters.add(recentlyModifiedFilter)
         }
         if (taskDao.snoozedReminders() > 0) {
-            val snoozedFilter = SnoozedFilter(r.getString(R.string.filter_snoozed))
+            val snoozedFilter = getSnoozedFilter(r)
             snoozedFilter.icon = R.drawable.ic_snooze_white_24dp
             filters.add(snoozedFilter)
         }
@@ -158,15 +158,20 @@ class BuiltInFilterExposer @Inject constructor(
         fun getRecentlyModifiedFilter(r: Resources) =
                 RecentlyModifiedFilter(r.getString(R.string.BFE_Recent))
 
+        fun getSnoozedFilter(r: Resources) = SnoozedFilter(r.getString(R.string.filter_snoozed))
+
         @JvmStatic
         fun isInbox(context: Context, filter: Filter?) =
-                filter != null && filter == getMyTasksFilter(context.resources)
+                filter == getMyTasksFilter(context.resources)
 
         @JvmStatic
         fun isTodayFilter(context: Context, filter: Filter?) =
-                filter != null && filter == getTodayFilter(context.resources)
+                filter == getTodayFilter(context.resources)
 
         fun isRecentlyModifiedFilter(context: Context, filter: Filter?) =
-                filter != null && filter == getRecentlyModifiedFilter(context.resources)
+                filter == getRecentlyModifiedFilter(context.resources)
+
+        fun isSnoozedFilter(context: Context, filter: Filter?) =
+                filter == getSnoozedFilter(context.resources)
     }
 }
