@@ -730,4 +730,5 @@ File %1$s contained %2$s.\n\n
   <string name="alarm_after_due">%s after due</string>
   <string name="snoozed_until">Snoozed until %s</string>
   <string name="custom_notification">Custom notification</string>
+  <string name="filter_snoozed">Snoozed</string>
 </resources>

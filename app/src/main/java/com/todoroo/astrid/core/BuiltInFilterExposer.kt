@@ -21,6 +21,7 @@ import org.tasks.R
 import org.tasks.data.*
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.filters.RecentlyModifiedFilter
+import org.tasks.filters.SnoozedFilter
 import org.tasks.filters.SortableFilter
 import org.tasks.preferences.Preferences
 import org.tasks.themes.CustomIcons
@@ -56,6 +57,11 @@ class BuiltInFilterExposer @Inject constructor(
             val recentlyModifiedFilter = getRecentlyModifiedFilter(r)
             recentlyModifiedFilter.icon = CustomIcons.HISTORY
             filters.add(recentlyModifiedFilter)
+        }
+        if (taskDao.snoozedReminders() > 0) {
+            val snoozedFilter = SnoozedFilter(r.getString(R.string.filter_snoozed))
+            snoozedFilter.icon = R.drawable.ic_snooze_white_24dp
+            filters.add(snoozedFilter)
         }
         if (taskDao.activeTimers() > 0) {
             filters.add(TimerPlugin.createFilter(context))

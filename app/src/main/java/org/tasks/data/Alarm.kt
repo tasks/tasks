@@ -116,8 +116,10 @@ class Alarm : Parcelable {
 
     companion object {
         const val TABLE_NAME = "alarms"
-        val TABLE = Table(TABLE_NAME)
-        val TASK = TABLE.column("task")
+        @JvmField val TABLE = Table(TABLE_NAME)
+        @JvmField val TASK = TABLE.column("task")
+        @JvmField val TYPE = TABLE.column("type")
+
         const val TYPE_DATE_TIME = 0
         const val TYPE_REL_START = 1
         const val TYPE_REL_END = 2
