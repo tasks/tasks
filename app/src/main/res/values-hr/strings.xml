@@ -750,4 +750,7 @@
         <item quantity="other">Minuta</item>
     </plurals>
     <string name="randomly_every">Slučajno svakih %s</string>
+    <string name="caldav_server_unknown">Nepoznato</string>
+    <string name="caldav_server_other">Drugi</string>
+    <string name="caldav_server_type">Vrsta poslužitelja</string>
 </resources>
