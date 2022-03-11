@@ -729,4 +729,8 @@
     </plurals>
     <string name="custom_notification">Notifica personalizzata</string>
     <string name="randomly_every">Casualmente ogni %s</string>
+    <string name="caldav_server_other">Altro</string>
+    <string name="filter_snoozed">Posticipato</string>
+    <string name="caldav_server_unknown">Sconosciuto</string>
+    <string name="caldav_server_type">Tipo di server</string>
 </resources>
