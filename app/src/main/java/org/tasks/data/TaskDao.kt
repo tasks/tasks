@@ -145,8 +145,11 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     @RawQuery(observedEntities = [Place::class])
     abstract fun getTaskFactory(query: SimpleSQLiteQuery): DataSource.Factory<Int, TaskContainer>
 
+    suspend fun touch(ids: List<Long>, now: Long = currentTimeMillis()) =
+        ids.eachChunk { internalTouch(it, now) }
+
     @Query("UPDATE tasks SET modified = :now WHERE _id in (:ids)")
-    abstract suspend fun touch(ids: List<Long>, now: Long = currentTimeMillis())
+    internal abstract suspend fun internalTouch(ids: List<Long>, now: Long = currentTimeMillis())
 
     suspend fun setParent(parent: Long, tasks: List<Long>) =
             tasks.eachChunk { setParentInternal(parent, it) }
