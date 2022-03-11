@@ -714,4 +714,8 @@
         <item quantity="other">周</item>
     </plurals>
     <string name="randomly_every">每 %s 随机执行</string>
+    <string name="caldav_server_type">服务器类型</string>
+    <string name="filter_snoozed">已推迟</string>
+    <string name="caldav_server_other">其他</string>
+    <string name="caldav_server_unknown">未知</string>
 </resources>
