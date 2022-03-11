@@ -60,6 +60,7 @@ class CaldavAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Toolb
         caldavAccount!!.url = principal
         caldavAccount!!.username = newUsername
         caldavAccount!!.error = ""
+        caldavAccount!!.serverType = serverType.value
         if (passwordChanged()) {
             caldavAccount!!.password = encryption.encrypt(newPassword!!)
         }

@@ -116,7 +116,11 @@ class CaldavAccount : Parcelable {
         }
 
     val isSuppressRepeatingTasks: Boolean
-        get() = serverType == SERVER_OPEN_XCHANGE
+        get() = when (serverType) {
+            SERVER_OPEN_XCHANGE,
+            SERVER_MAILBOX_ORG -> true
+            else -> false
+        }
 
     override fun describeContents() = 0
 
@@ -224,6 +228,10 @@ class CaldavAccount : Parcelable {
         const val SERVER_OWNCLOUD = 1
         const val SERVER_SABREDAV = 2
         const val SERVER_OPEN_XCHANGE = 3
+        const val SERVER_NEXTCLOUD = 4
+        const val SERVER_SYNOLOGY_CALENDAR = 5
+        const val SERVER_MAILBOX_ORG = 6
+        const val SERVER_OTHER = 99
 
         const val ERROR_UNAUTHORIZED = "HTTP ${HttpURLConnection.HTTP_UNAUTHORIZED}"
         const val ERROR_PAYMENT_REQUIRED = "HTTP ${HttpURLConnection.HTTP_PAYMENT_REQUIRED}"

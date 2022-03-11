@@ -15,6 +15,7 @@ class EteSyncAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.showAdvanced.visibility = View.GONE
+        binding.serverSelector.visibility = View.GONE
         binding.description.visibility = View.VISIBLE
         binding.description.setTextColor(ContextCompat.getColor(this, R.color.overdue))
         binding.description.setText(description)

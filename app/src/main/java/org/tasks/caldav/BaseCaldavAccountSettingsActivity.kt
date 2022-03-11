@@ -12,10 +12,16 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.astrid.data.Task
@@ -26,7 +32,9 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.compose.ServerSelector
 import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
 import org.tasks.data.CaldavDao
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding
 import org.tasks.dialogs.DialogBuilder
@@ -52,17 +60,24 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
 
     protected var caldavAccount: CaldavAccount? = null
     protected lateinit var binding: ActivityCaldavAccountSettingsBinding
+    protected lateinit var serverType: MutableState<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCaldavAccountSettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         caldavAccount = if (savedInstanceState == null) intent.getParcelableExtra(EXTRA_CALDAV_DATA) else savedInstanceState.getParcelable(EXTRA_CALDAV_DATA)
+        serverType = mutableStateOf(
+            savedInstanceState?.getInt(EXTRA_SERVER_TYPE, SERVER_UNKNOWN)
+                ?: caldavAccount?.serverType
+                ?: SERVER_UNKNOWN
+        )
         if (caldavAccount == null || caldavAccount!!.id == Task.NO_ID) {
             binding.nameLayout.visibility = View.GONE
             binding.description.visibility = View.VISIBLE
             binding.description.setText(description)
             Linkify.safeLinkify(binding.description, android.text.util.Linkify.WEB_URLS)
+            serverType.value = SERVER_UNKNOWN
         } else {
             binding.nameLayout.visibility = View.VISIBLE
             binding.description.visibility = View.GONE
@@ -80,6 +95,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
                 if (!isNullOrEmpty(it.password)) {
                     binding.password.setText(PASSWORD_MASK)
                 }
+                serverType.value = it.serverType
             }
         }
         val toolbar = binding.toolbar.toolbar
@@ -116,6 +132,15 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             onTextChanged = { _, _, _, _ -> binding.passwordLayout.error = null }
         )
         binding.password.setOnFocusChangeListener { _, hasFocus -> onPasswordFocused(hasFocus) }
+        binding.serverSelector.setContent {
+            MdcTheme {
+                var selected by rememberSaveable { serverType }
+                ServerSelector(selected) {
+                    serverType.value = it
+                    selected = it
+                }
+            }
+        }
     }
 
     @get:StringRes
@@ -126,6 +151,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(EXTRA_CALDAV_DATA, caldavAccount)
+        outState.putInt(EXTRA_SERVER_TYPE, serverType.value)
     }
 
     private fun showProgressIndicator() {
@@ -283,8 +309,12 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             (!isNullOrEmpty(binding.name.text.toString().trim { it <= ' ' })
                     || !isNullOrEmpty(newPassword)
                     || !isNullOrEmpty(binding.url.text.toString().trim { it <= ' ' })
-                    || !isNullOrEmpty(newUsername))
-        } else needsValidation() || newName != caldavAccount!!.name
+                    || !isNullOrEmpty(newUsername)
+                    || serverType.value != SERVER_UNKNOWN
+            )
+        } else needsValidation() ||
+                newName != caldavAccount!!.name ||
+                serverType.value != caldavAccount!!.serverType
     }
 
     protected open fun needsValidation(): Boolean =
@@ -347,6 +377,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
 
     companion object {
         const val EXTRA_CALDAV_DATA = "caldavData" // $NON-NLS-1$
+        const val EXTRA_SERVER_TYPE = "serverType"
         const val PASSWORD_MASK = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
     }
 }

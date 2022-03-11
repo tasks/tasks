@@ -24,6 +24,7 @@ class EtebaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.serverSelector.visibility = View.GONE
         binding.showAdvanced.visibility = View.VISIBLE
         binding.showAdvanced.setOnCheckedChangeListener { _, _ ->
             updateUrlVisibility()

@@ -18,6 +18,7 @@ import org.tasks.R
 import org.tasks.compose.ListSettingsComposables.PrincipalList
 import org.tasks.compose.ShareInvite.ShareInviteDialog
 import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.SERVER_NEXTCLOUD
 import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
@@ -145,13 +146,13 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
     companion object {
         val CaldavAccount.canRemovePrincipal: Boolean
             get() = when (serverType) {
-                SERVER_TASKS, SERVER_OWNCLOUD, SERVER_SABREDAV -> true
+                SERVER_TASKS, SERVER_OWNCLOUD, SERVER_SABREDAV, SERVER_NEXTCLOUD -> true
                 else -> false
             }
 
         val CaldavAccount.canShare: Boolean
             get() = when (serverType) {
-                SERVER_TASKS, SERVER_OWNCLOUD, SERVER_SABREDAV -> true
+                SERVER_TASKS, SERVER_OWNCLOUD, SERVER_SABREDAV, SERVER_NEXTCLOUD -> true
                 else -> false
             }
     }

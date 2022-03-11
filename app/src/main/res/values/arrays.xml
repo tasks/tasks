@@ -282,4 +282,26 @@
     <item>@string/bottom</item>
   </string-array>
 
+  <string-array name="caldav_servers">
+    <item>@string/caldav_server_mailbox_org</item>
+    <item>@string/caldav_server_nextcloud</item>
+    <item>@string/caldav_server_openxchange</item>
+    <item>@string/caldav_server_owncloud</item>
+    <item>@string/caldav_server_sabredav</item>
+    <item>@string/caldav_server_synology_calendar</item>
+    <item>@string/caldav_server_other</item>
+    <item>@string/caldav_server_unknown</item>
+  </string-array>
+
+  <integer-array name="caldav_server_values">
+    <item>6</item>
+    <item>4</item>
+    <item>3</item>
+    <item>1</item>
+    <item>2</item>
+    <item>5</item>
+    <item>99</item>
+    <item>-1</item>
+  </integer-array>
+
 </resources>

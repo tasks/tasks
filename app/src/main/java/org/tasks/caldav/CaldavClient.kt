@@ -39,6 +39,7 @@ import org.tasks.caldav.property.OCOwnerPrincipal
 import org.tasks.caldav.property.PropertyUtils.NS_OWNCLOUD
 import org.tasks.caldav.property.ShareAccess
 import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.SERVER_NEXTCLOUD
 import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
@@ -52,7 +53,6 @@ import java.io.IOException
 import java.io.StringWriter
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
-import java.util.*
 import kotlin.coroutines.suspendCoroutine
 
 open class CaldavClient(
@@ -239,7 +239,7 @@ open class CaldavClient(
         href: String,
     ) {
         when (account.serverType) {
-            SERVER_TASKS, SERVER_SABREDAV -> shareSabredav(href)
+            SERVER_TASKS, SERVER_SABREDAV, SERVER_NEXTCLOUD -> shareSabredav(href)
             SERVER_OWNCLOUD -> shareOwncloud(href)
             else -> throw IllegalArgumentException()
         }
@@ -279,7 +279,7 @@ open class CaldavClient(
         href: String,
     ) {
         when (account.serverType) {
-            SERVER_TASKS, SERVER_SABREDAV -> removeSabrePrincipal(calendar, href)
+            SERVER_TASKS, SERVER_SABREDAV, SERVER_NEXTCLOUD -> removeSabrePrincipal(calendar, href)
             SERVER_OWNCLOUD -> removeOwncloudPrincipal(calendar, href)
             else -> throw IllegalArgumentException()
         }

@@ -32,6 +32,7 @@ class OpenTaskAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Too
         if (passwordChanged()) {
             caldavAccount!!.password = encryption.encrypt(newPassword)
         }
+        caldavAccount!!.serverType = serverType.value
         caldavDao.update(caldavAccount!!)
         setResult(Activity.RESULT_OK)
         finish()
