@@ -5,6 +5,7 @@ import androidx.annotation.ColorRes
 import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import dagger.Lazy
@@ -106,9 +107,19 @@ class Upgrader @Inject constructor(
             run(from, Upgrade_12_4.VERSION) {
                 upgrade_12_4.get().syncExistingAlarms()
             }
+            run(from, V12_6) {
+                setInstallDetails(from)
+            }
             preferences.setBoolean(R.string.p_just_updated, true)
+        } else {
+            setInstallDetails(to)
         }
         preferences.setCurrentVersion(to)
+    }
+
+    private fun setInstallDetails(version: Int) {
+        preferences.installVersion = version
+        preferences.installDate = now()
     }
 
     private fun run(from: Int, version: Int, runnable: suspend () -> Unit) {
@@ -354,6 +365,7 @@ class Upgrader @Inject constructor(
         const val V10_0_2 = 100012
         const val V11_13 = 111300
         const val V12_4 = 120400
+        const val V12_6 = 120601
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {
