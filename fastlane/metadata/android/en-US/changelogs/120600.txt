@@ -1,0 +1,17 @@
+* Configure notifications to repeat at custom intervals
+  * Notifications can repeat by minute, hour, day, or weekly intervals
+* Add 'Snoozed' filter
+* Add 'Notifications' filter
+* CalDAV/DAVx5 server selection setting
+  * This replaces 'Let server schedule recurring tasks'
+  * Synology Calendar users must set this to fix sync
+  * Mailbox.org/Open-Xchange users must set this to prevent duplicate repeating
+    tasks
+* Set geofence radius in place settings
+* Remove DAVx5/EteSync app accounts when native CalDAV/EteSync enabled
+* Clear reminders when they are dismissed in Thunderbird
+* Fix reminder synchronization
+* Fix crash in task edit screen
+* Fix prompt to discard changes
+* Fix crash during 12.4 upgrade
+* Update translations

@@ -1,3 +1,42 @@
+### 12.6 (2022-03-11)
+
+* Configure notifications to repeat at custom intervals
+  ([#3](https://github.com/tasks/tasks/issues/3))
+  * Notifications can repeat by minute, hour, day, or weekly intervals
+* Add 'Snoozed' filter ([#1633](https://github.com/tasks/tasks/issues/1633))
+* Add 'Notifications' filter
+* CalDAV/DAVx5 server selection setting
+  * This replaces 'Let server schedule recurring tasks'
+  * Synology Calendar users must set this to fix sync
+    ([#1802](https://github.com/tasks/tasks/issues/1802))
+  * Mailbox.org and Open-Xchange users must set this to prevent duplicate
+    repeating tasks
+* Set geofence radius in place settings
+* Remove DAVx5/EteSync app accounts when native CalDAV/EteSync enabled
+* Clear reminders when they are dismissed in Thunderbird
+* Fix reminder synchronization
+* Fix crash in task edit screen
+* Fix prompt to discard changes
+* Fix crash during 12.4 upgrade
+* Update translations
+  * Bulgarian - @StoyanDimitrov
+  * Chinese (Simplified) - @Crystal-RainSlide, @Geeyun-JY3, Eric
+  * Croatian - @milotype
+  * Dutch - @mm4c, @fvbommel
+  * French - J. Lavoie, @FlorianLeChat
+  * German - @eldiep, J. Lavoie
+  * Hungarian - kaciokos
+  * Italian - @ppasserini, J. Lavoie
+  * Portuguese (Brazilian) - @hugomg
+  * Romanian - @simonaiacob
+  * Russian - @Allineer
+  * Spanish - @toni-em, @FlorianLeChat, @Romerolweb
+  * Swedish - @reportxx
+  * Turkish - @ersen0
+  * Ukrainian - @IhorHordiichuk
+  * Urdue - @Crystal-RainSlide
+  * Vietnamese - @unbaseduser
+
 ### 12.5 (2022-02-27)
 
 * Choose custom random reminder period
