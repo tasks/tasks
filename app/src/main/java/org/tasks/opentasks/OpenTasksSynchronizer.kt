@@ -90,9 +90,8 @@ class OpenTasksSynchronizer @Inject constructor(
                 .forEach { taskDeleter.delete(it) }
         lists.forEach {
             val calendar = toLocalCalendar(it)
-            val isEteSync = account.uuid?.isEteSync() == true
-            pushChanges(isEteSync, calendar, it.id)
-            fetchChanges(isEteSync, calendar, it.ctag, it.id)
+            pushChanges(account, calendar, it.id)
+            fetchChanges(account, calendar, it.ctag, it.id)
         }
     }
 
@@ -113,7 +112,11 @@ class OpenTasksSynchronizer @Inject constructor(
         return local
     }
 
-    private suspend fun pushChanges(isEteSync: Boolean, calendar: CaldavCalendar, listId: Long) {
+    private suspend fun pushChanges(
+        account: CaldavAccount,
+        calendar: CaldavCalendar,
+        listId: Long
+    ) {
         val moved = caldavDao.getMoved(calendar.uuid!!)
         val (deleted, updated) = taskDao
             .getCaldavTasksToPush(calendar.uuid!!)
@@ -127,12 +130,12 @@ class OpenTasksSynchronizer @Inject constructor(
         taskDeleter.delete(deleted.map { it.id })
 
         updated.forEach {
-            push(it, listId, isEteSync)
+            push(account, it, listId)
         }
     }
 
     private suspend fun fetchChanges(
-        isEteSync: Boolean,
+        account: CaldavAccount,
         calendar: CaldavCalendar,
         ctag: String?,
         listId: Long
@@ -146,9 +149,9 @@ class OpenTasksSynchronizer @Inject constructor(
         val etags = openTaskDao.getEtags(listId)
         etags.forEach { (uid, sync1, version) ->
             val caldavTask = caldavDao.getTaskByRemoteId(calendar.uuid!!, uid)
-            val etag = if (isEteSync) version else sync1
+            val etag = if (account.isEteSync) version else sync1
             if (caldavTask?.etag == null || caldavTask.etag != etag) {
-                applyChanges(calendar, listId, uid, etag, caldavTask)
+                applyChanges(account, calendar, listId, uid, etag, caldavTask)
             }
         }
         removeDeleted(calendar.uuid!!, etags.map { it.first })
@@ -180,16 +183,16 @@ class OpenTasksSynchronizer @Inject constructor(
         }
     }
 
-    private suspend fun push(task: Task, listId: Long, isEteSync: Boolean) {
+    private suspend fun push(account: CaldavAccount, task: Task, listId: Long) {
         val caldavTask = caldavDao.getTask(task.id) ?: return
         val uid = caldavTask.remoteId!!
         val androidTask = openTaskDao.getTask(listId, uid)
                 ?: MyAndroidTask(at.bitfire.ical4android.Task())
-        iCalendar.toVtodo(caldavTask, task, androidTask.task!!)
+        iCalendar.toVtodo(account, caldavTask, task, androidTask.task!!)
         val operations = ArrayList<BatchOperation.CpoBuilder>()
         val builder = androidTask.toBuilder(openTaskDao.tasks)
         val idxTask = if (androidTask.isNew) {
-            if (isEteSync) {
+            if (account.isEteSync) {
                 builder.withValue(Tasks.SYNC2, uid)
             }
             builder.withValue(Tasks.LIST_ID, listId)
@@ -216,14 +219,20 @@ class OpenTasksSynchronizer @Inject constructor(
     }
 
     private suspend fun applyChanges(
-            calendar: CaldavCalendar,
-            listId: Long,
-            uid: String,
-            etag: String?,
-            existing: CaldavTask?
+        account: CaldavAccount,
+        calendar: CaldavCalendar,
+        listId: Long,
+        uid: String,
+        etag: String?,
+        existing: CaldavTask?
     ) {
         openTaskDao.getTask(listId, uid)?.let {
-            iCalendar.fromVtodo(calendar, existing, it.task!!, null, null, etag)
+            iCalendar.fromVtodo(account, calendar, existing, it.task!!, null, null, etag)
         }
+    }
+
+    companion object {
+        private val CaldavAccount.isEteSync: Boolean
+            get() = uuid?.isEteSync() == true
     }
 }

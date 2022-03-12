@@ -122,6 +122,9 @@ class CaldavAccount : Parcelable {
             else -> false
         }
 
+    val reminderSync: Boolean
+        get() = serverType != SERVER_SYNOLOGY_CALENDAR
+
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {

@@ -36,6 +36,8 @@ import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.AlarmDao
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.SERVER_SYNOLOGY_CALENDAR
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
@@ -129,6 +131,7 @@ class iCalendar @Inject constructor(
     }
 
     suspend fun toVtodo(
+        account: CaldavAccount,
         calendar: CaldavCalendar,
         caldavTask: CaldavTask,
         task: com.todoroo.astrid.data.Task
@@ -146,10 +149,15 @@ class iCalendar @Inject constructor(
             remoteModel = Task()
         }
 
-        return toVtodo(caldavTask, task, remoteModel)
+        return toVtodo(account, caldavTask, task, remoteModel)
     }
 
-    suspend fun toVtodo(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task, remoteModel: Task): ByteArray {
+    suspend fun toVtodo(
+        account: CaldavAccount,
+        caldavTask: CaldavTask,
+        task: com.todoroo.astrid.data.Task,
+        remoteModel: Task
+    ): ByteArray {
         remoteModel.applyLocal(caldavTask, task)
         val categories = remoteModel.categories
         categories.clear()
@@ -166,22 +174,25 @@ class iCalendar @Inject constructor(
         if (localGeo == null || !localGeo.equalish(remoteModel.geoPosition)) {
             remoteModel.geoPosition = localGeo
         }
-        remoteModel.alarms.removeAll(remoteModel.alarms.filtered)
-        val alarms = alarmDao.getAlarms(task.id)
-        remoteModel.snooze = alarms.find { it.type == TYPE_SNOOZE }?.time
-        remoteModel.alarms.addAll(alarms.toVAlarms())
+        if (account.reminderSync) {
+            remoteModel.alarms.removeAll(remoteModel.alarms.filtered)
+            val alarms = alarmDao.getAlarms(task.id)
+            remoteModel.snooze = alarms.find { it.type == TYPE_SNOOZE }?.time
+            remoteModel.alarms.addAll(alarms.toVAlarms())
+        }
         val os = ByteArrayOutputStream()
         remoteModel.write(os)
         return os.toByteArray()
     }
 
     suspend fun fromVtodo(
-            calendar: CaldavCalendar,
-            existing: CaldavTask?,
-            remote: Task,
-            vtodo: String?,
-            obj: String? = null,
-            eTag: String? = null
+        account: CaldavAccount,
+        calendar: CaldavCalendar,
+        existing: CaldavTask?,
+        remote: Task,
+        vtodo: String?,
+        obj: String? = null,
+        eTag: String? = null
     ) {
         val task = existing?.task?.let { taskDao.fetch(it) }
                 ?: taskCreator.createWithValues("").apply {
@@ -209,18 +220,21 @@ class iCalendar @Inject constructor(
             tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
         }
 
-        val alarms = alarmDao.getAlarms(task.id).onEach {
-            it.id = 0
-            it.task = 0
-        }
-        val randomReminders = alarms.filter { it.type == TYPE_RANDOM }
-        val localReminders =
-            local?.reminders?.plus(randomReminders) ?: randomReminders
-        if (alarms.toSet() == localReminders.toSet()) {
-            val remoteReminders = remote.reminders.plus(randomReminders)
-            val changed = alarmService.synchronizeAlarms(caldavTask.task, remoteReminders.toMutableSet())
-            if (changed) {
-                task.modificationDate = DateUtilities.now()
+        if (account.reminderSync) {
+            val alarms = alarmDao.getAlarms(task.id).onEach {
+                it.id = 0
+                it.task = 0
+            }
+            val randomReminders = alarms.filter { it.type == TYPE_RANDOM }
+            val localReminders =
+                local?.reminders?.plus(randomReminders) ?: randomReminders
+            if (alarms.toSet() == localReminders.toSet()) {
+                val remoteReminders = remote.reminders.plus(randomReminders)
+                val changed =
+                    alarmService.synchronizeAlarms(caldavTask.task, remoteReminders.toMutableSet())
+                if (changed) {
+                    task.modificationDate = DateUtilities.now()
+                }
             }
         }
 

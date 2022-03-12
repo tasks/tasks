@@ -199,9 +199,9 @@ class CaldavSynchronizer @Inject constructor(
             resource
                 .principals(account, calendar)
                 .let { principalDao.deleteRemoved(calendar.id, it.map(PrincipalAccess::id)) }
-            fetchChanges(calendar, resource, caldavClient.httpClient)
+            fetchChanges(account, calendar, resource, caldavClient.httpClient)
             if (calendar.access != ACCESS_READ_ONLY) {
-                pushLocalChanges(calendar, caldavClient.httpClient, resource.href)
+                pushLocalChanges(account, calendar, caldavClient.httpClient, resource.href)
             }
         }
         setError(account, "")
@@ -225,9 +225,11 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     private suspend fun fetchChanges(
-            caldavCalendar: CaldavCalendar,
-            resource: Response,
-            httpClient: OkHttpClient) {
+        account: CaldavAccount,
+        caldavCalendar: CaldavCalendar,
+        resource: Response,
+        httpClient: OkHttpClient
+    ) {
         val httpUrl = resource.href
         val remoteCtag = resource.ctag
         if (caldavCalendar.ctag?.equals(remoteCtag) == true) {
@@ -275,7 +277,7 @@ class CaldavSynchronizer @Inject constructor(
                     return
                 }
                 val caldavTask = caldavDao.getTask(caldavCalendar.uuid!!, fileName)
-                iCal.fromVtodo(caldavCalendar, caldavTask, remote, vtodo, fileName, eTag)
+                iCal.fromVtodo(account, caldavCalendar, caldavTask, remote, vtodo, fileName, eTag)
             }
         }
         caldavDao
@@ -294,13 +296,17 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     private suspend fun pushLocalChanges(
-            caldavCalendar: CaldavCalendar, httpClient: OkHttpClient, httpUrl: HttpUrl) {
+            account: CaldavAccount,
+            caldavCalendar: CaldavCalendar,
+            httpClient: OkHttpClient,
+            httpUrl: HttpUrl
+    ) {
         for (task in caldavDao.getMoved(caldavCalendar.uuid!!)) {
             deleteRemoteResource(httpClient, httpUrl, caldavCalendar, task)
         }
         for (task in taskDao.getCaldavTasksToPush(caldavCalendar.uuid!!)) {
             try {
-                pushTask(caldavCalendar, task, httpClient, httpUrl)
+                pushTask(account, caldavCalendar, task, httpClient, httpUrl)
             } catch (e: IOException) {
                 Timber.e(e)
             }
@@ -334,6 +340,7 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     private suspend fun pushTask(
+        account: CaldavAccount,
         calendar: CaldavCalendar,
         task: Task,
         httpClient: OkHttpClient,
@@ -347,7 +354,7 @@ class CaldavSynchronizer @Inject constructor(
             }
             return
         }
-        val data = iCal.toVtodo(calendar, caldavTask, task)
+        val data = iCal.toVtodo(account, calendar, caldavTask, task)
         val requestBody = RequestBody.create(MIME_ICALENDAR, data)
         try {
             val remote = DavResource(

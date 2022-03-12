@@ -98,8 +98,8 @@ class EtebaseSynchronizer @Inject constructor(
                 caldavDao.update(calendar)
                 localBroadcastManager.broadcastRefreshList()
             }
-            fetchChanges(client, calendar, collection)
-            pushLocalChanges(client, calendar, collection)
+            fetchChanges(account, client, calendar, collection)
+            pushLocalChanges(account, client, calendar, collection)
         }
         setError(account, "")
     }
@@ -117,9 +117,10 @@ class EtebaseSynchronizer @Inject constructor(
     }
 
     private suspend fun fetchChanges(
-            client: EtebaseClient,
-            caldavCalendar: CaldavCalendar,
-            collection: Collection
+        account: CaldavAccount,
+        client: EtebaseClient,
+        caldavCalendar: CaldavCalendar,
+        collection: Collection
     ) {
         if (caldavCalendar.ctag?.equals(collection.stoken) == true) {
             Timber.d("${caldavCalendar.name} up to date")
@@ -127,7 +128,7 @@ class EtebaseSynchronizer @Inject constructor(
         }
         Timber.d("updating $caldavCalendar")
         client.fetchItems(collection, caldavCalendar) { (stoken, items) ->
-            applyEntries(caldavCalendar, items, stoken)
+            applyEntries(account, caldavCalendar, items, stoken)
             client.updateCache(collection, items)
         }
         Timber.d("UPDATE %s", caldavCalendar)
@@ -137,9 +138,10 @@ class EtebaseSynchronizer @Inject constructor(
     }
 
     private suspend fun pushLocalChanges(
-            client: EtebaseClient,
-            caldavCalendar: CaldavCalendar,
-            collection: Collection
+        account: CaldavAccount,
+        client: EtebaseClient,
+        caldavCalendar: CaldavCalendar,
+        collection: Collection
     ) {
         val changes = ArrayList<Item>()
         for (caldavTask in caldavDao.getMoved(caldavCalendar.uuid!!)) {
@@ -163,23 +165,25 @@ class EtebaseSynchronizer @Inject constructor(
                         client.updateItem(
                             collection,
                             caldavTask,
-                            iCal.toVtodo(caldavCalendar, caldavTask, task)
+                            iCal.toVtodo(account, caldavCalendar, caldavTask, task)
                         )
                 )
             }
         }
         if (changes.isNotEmpty()) {
             client.uploadChanges(collection, changes)
-            applyEntries(caldavCalendar, changes, isLocalChange = true)
+            applyEntries(account, caldavCalendar, changes, isLocalChange = true)
             client.updateCache(collection, changes)
         }
     }
 
     private suspend fun applyEntries(
-            caldavCalendar: CaldavCalendar,
-            items: List<Item>,
-            stoken: String? = null,
-            isLocalChange: Boolean = false) {
+        account: CaldavAccount,
+        caldavCalendar: CaldavCalendar,
+        items: List<Item>,
+        stoken: String? = null,
+        isLocalChange: Boolean = false
+    ) {
         for (item in items) {
             val vtodo = item.contentString
             val task = fromVtodo(vtodo) ?: continue
@@ -202,7 +206,7 @@ class EtebaseSynchronizer @Inject constructor(
                 }
             } else {
                 caldavTask?.`object` = item.uid
-                iCal.fromVtodo(caldavCalendar, caldavTask, task, vtodo, item.uid, null)
+                iCal.fromVtodo(account, caldavCalendar, caldavTask, task, vtodo, item.uid, null)
             }
         }
         stoken?.let {
