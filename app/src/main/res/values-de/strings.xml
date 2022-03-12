@@ -729,4 +729,8 @@
         <item quantity="other">Wochen</item>
     </plurals>
     <string name="randomly_every">Zufällig alle %s</string>
+    <string name="caldav_server_type">Servertyp</string>
+    <string name="filter_snoozed">Zurückgestellt</string>
+    <string name="caldav_server_unknown">Unbekannt</string>
+    <string name="caldav_server_other">Andere</string>
 </resources>
