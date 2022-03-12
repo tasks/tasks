@@ -1,4 +1,4 @@
-### 12.6 (2022-03-11)
+### 12.6 (2022-03-12)
 
 * Configure notifications to repeat at custom intervals
   ([#3](https://github.com/tasks/tasks/issues/3))
@@ -24,7 +24,7 @@
   * Croatian - @milotype
   * Dutch - @mm4c, @fvbommel
   * French - J. Lavoie, @FlorianLeChat
-  * German - @eldiep, J. Lavoie
+  * German - @eldiep, J. Lavoie, @qwerty287
   * Hungarian - kaciokos
   * Italian - @ppasserini, J. Lavoie
   * Portuguese (Brazilian) - @hugomg
