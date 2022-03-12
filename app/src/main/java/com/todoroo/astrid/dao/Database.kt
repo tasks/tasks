@@ -64,7 +64,6 @@ import org.tasks.notifications.NotificationDao
         PrincipalAccess::class
     ],
     autoMigrations = [
-        AutoMigration(from = 82, to = 83, spec = Migrations.AutoMigrate82to83::class),
         AutoMigration(from = 83, to = 84, spec = Migrations.AutoMigrate83to84::class),
     ],
     version = 84

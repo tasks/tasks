@@ -23,15 +23,6 @@ import java.util.concurrent.TimeUnit.HOURS
 object Migrations {
 
     @DeleteColumn.Entries(
-        DeleteColumn(tableName = "geofences", columnName = "radius"),
-        DeleteColumn(tableName = "task_list_metadata", columnName = "remoteId"),
-        DeleteColumn(tableName = "tasks", columnName = "snoozeTime"),
-        DeleteColumn(tableName = "tasks", columnName = "parent_uuid"),
-        DeleteColumn(tableName = "tasks", columnName = "notifications"),
-    )
-    class AutoMigrate82to83: AutoMigrationSpec
-
-    @DeleteColumn.Entries(
         DeleteColumn(tableName = "caldav_accounts", columnName = "cda_encryption_key"),
         DeleteColumn(tableName = "caldav_accounts", columnName = "cda_repeat"),
     )
@@ -486,6 +477,59 @@ object Migrations {
         }
     }
 
+    private val MIGRATION_82_83 = object : Migration(82, 83) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE `places` ADD COLUMN `radius` INTEGER NOT NULL DEFAULT 250")
+            database.execSQL("CREATE TABLE IF NOT EXISTS `_new_alarms` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `time` INTEGER NOT NULL, `type` INTEGER NOT NULL DEFAULT 0, `repeat` INTEGER NOT NULL DEFAULT 0, `interval` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
+            database.execSQL("INSERT INTO `_new_alarms` (`task`,`repeat`,`interval`,`_id`,`time`,`type`) SELECT `task`,`repeat`,`interval`,`alarms`.`_id`,`time`,`type` FROM `alarms` INNER JOIN `tasks` ON `tasks`.`_id` = `task`")
+            database.execSQL("DROP TABLE `alarms`")
+            database.execSQL("ALTER TABLE `_new_alarms` RENAME TO `alarms`")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_alarms_task` ON `alarms` (`task`)")
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `_new_google_tasks` (`gt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gt_task` INTEGER NOT NULL, `gt_remote_id` TEXT, `gt_list_id` TEXT, `gt_parent` INTEGER NOT NULL, `gt_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_order` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, `gt_last_sync` INTEGER NOT NULL, `gt_deleted` INTEGER NOT NULL, FOREIGN KEY(`gt_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
+            database.execSQL("INSERT INTO `_new_google_tasks` (`gt_parent`,`gt_task`,`gt_remote_parent`,`gt_order`,`gt_last_sync`,`gt_id`,`gt_remote_id`,`gt_list_id`,`gt_moved`,`gt_remote_order`,`gt_deleted`) SELECT `gt_parent`,`gt_task`,`gt_remote_parent`,`gt_order`,`gt_last_sync`,`gt_id`,`gt_remote_id`,`gt_list_id`,`gt_moved`,`gt_remote_order`,`gt_deleted` FROM `google_tasks` INNER JOIN `tasks` ON `tasks`.`_id` = `gt_task`")
+            database.execSQL("DROP TABLE `google_tasks`")
+            database.execSQL("ALTER TABLE `_new_google_tasks` RENAME TO `google_tasks`")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `gt_list_parent` ON `google_tasks` (`gt_list_id`, `gt_parent`)")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_google_tasks_gt_task` ON `google_tasks` (`gt_task`)")
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `_new_tags` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `name` TEXT, `tag_uid` TEXT, `task_uid` TEXT, FOREIGN KEY(`task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
+            database.execSQL("INSERT INTO `_new_tags` (`task`,`task_uid`,`name`,`tag_uid`,`_id`) SELECT `task`,`task_uid`,`name`,`tag_uid`,`tags`.`_id` FROM `tags` INNER JOIN `tasks` ON `tasks`.`_id` = `task`")
+            database.execSQL("DROP TABLE `tags`")
+            database.execSQL("ALTER TABLE `_new_tags` RENAME TO `tags`")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_tags_task` ON `tags` (`task`)")
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `_new_notification` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `type` INTEGER NOT NULL, `location` INTEGER, FOREIGN KEY(`task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
+            database.execSQL("INSERT INTO `_new_notification` (`uid`,`task`,`location`,`type`,`timestamp`) SELECT `uid`,`task`,`location`,`type`,`timestamp` FROM `notification` INNER JOIN `tasks` ON `tasks`.`_id` = `task`")
+            database.execSQL("DROP TABLE `notification`")
+            database.execSQL("ALTER TABLE `_new_notification` RENAME TO `notification`")
+            database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_notification_task` ON `notification` (`task`)")
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `_new_caldav_tasks` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `cd_order` INTEGER, FOREIGN KEY(`cd_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
+            database.execSQL("INSERT INTO `_new_caldav_tasks` (`cd_object`,`cd_deleted`,`cd_order`,`cd_remote_parent`,`cd_etag`,`cd_id`,`cd_calendar`,`cd_remote_id`,`cd_last_sync`,`cd_task`) SELECT `cd_object`,`cd_deleted`,`cd_order`,`cd_remote_parent`,`cd_etag`,`cd_id`,`cd_calendar`,`cd_remote_id`,`cd_last_sync`,`cd_task` FROM `caldav_tasks` INNER JOIN `tasks` ON `tasks`.`_id` = `cd_task`")
+            database.execSQL("DROP TABLE `caldav_tasks`")
+            database.execSQL("ALTER TABLE `_new_caldav_tasks` RENAME TO `caldav_tasks`")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_task` ON `caldav_tasks` (`cd_task`)")
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `_new_geofences` (`geofence_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `place` TEXT, `arrival` INTEGER NOT NULL, `departure` INTEGER NOT NULL, FOREIGN KEY(`task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
+            database.execSQL("INSERT INTO `_new_geofences` (`task`,`geofence_id`,`arrival`,`place`,`departure`) SELECT `task`,`geofence_id`,`arrival`,`place`,`departure` FROM `geofences` INNER JOIN `tasks` ON `tasks`.`_id` = `task`")
+            database.execSQL("DROP TABLE `geofences`")
+            database.execSQL("ALTER TABLE `_new_geofences` RENAME TO `geofences`")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_geofences_task` ON `geofences` (`task`)")
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `_new_task_list_metadata` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `tag_uuid` TEXT, `filter` TEXT, `task_ids` TEXT)")
+            database.execSQL("INSERT INTO `_new_task_list_metadata` (`filter`,`tag_uuid`,`_id`,`task_ids`) SELECT `filter`,`tag_uuid`,`_id`,`task_ids` FROM `task_list_metadata`")
+            database.execSQL("DROP TABLE `task_list_metadata`")
+            database.execSQL("ALTER TABLE `_new_task_list_metadata` RENAME TO `task_list_metadata`")
+            database.execSQL("CREATE TABLE IF NOT EXISTS `_new_tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `importance` INTEGER NOT NULL, `dueDate` INTEGER NOT NULL, `hideUntil` INTEGER NOT NULL, `created` INTEGER NOT NULL, `modified` INTEGER NOT NULL, `completed` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `notes` TEXT, `estimatedSeconds` INTEGER NOT NULL, `elapsedSeconds` INTEGER NOT NULL, `timerStart` INTEGER NOT NULL, `notificationFlags` INTEGER NOT NULL, `lastNotified` INTEGER NOT NULL, `recurrence` TEXT, `repeatUntil` INTEGER NOT NULL, `calendarUri` TEXT, `remoteId` TEXT, `collapsed` INTEGER NOT NULL, `parent` INTEGER NOT NULL)")
+            database.execSQL("INSERT INTO `_new_tasks` (`parent`,`notes`,`timerStart`,`estimatedSeconds`,`importance`,`created`,`collapsed`,`dueDate`,`completed`,`repeatUntil`,`title`,`hideUntil`,`remoteId`,`recurrence`,`deleted`,`notificationFlags`,`calendarUri`,`modified`,`_id`,`lastNotified`,`elapsedSeconds`) SELECT `parent`,`notes`,`timerStart`,`estimatedSeconds`,`importance`,`created`,`collapsed`,`dueDate`,`completed`,`repeatUntil`,`title`,`hideUntil`,`remoteId`,`recurrence`,`deleted`,`notificationFlags`,`calendarUri`,`modified`,`_id`,`lastNotified`,`elapsedSeconds` FROM `tasks`")
+            database.execSQL("DROP TABLE `tasks`")
+            database.execSQL("ALTER TABLE `_new_tasks` RENAME TO `tasks`")
+            database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `t_rid` ON `tasks` (`remoteId`)")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `active_and_visible` ON `tasks` (`completed`, `deleted`, `hideUntil`)")
+        }
+    }
+
     fun migrations(fileStorage: FileStorage) = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
@@ -525,6 +569,7 @@ object Migrations {
             MIGRATION_79_80,
             MIGRATION_80_81,
             migration_81_82(fileStorage),
+            MIGRATION_82_83,
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {
