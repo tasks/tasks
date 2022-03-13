@@ -50,7 +50,6 @@ import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
-import org.tasks.extensions.Context.openUri
 import org.tasks.files.FileHelper
 import org.tasks.fragments.TaskEditControlSetFragmentManager
 import org.tasks.markdown.MarkdownProvider
@@ -265,22 +264,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         return model
     }
 
-    /** Save task model from values in UI components  */
-    suspend fun save() = withContext(NonCancellable) {
-        val tlf = (activity as MainActivity?)?.taskListFragment
-        val saved = editViewModel.save()
-        if (saved && editViewModel.isNew) {
-            tlf?.let { taskListFragment ->
-                val model = editViewModel.task!!
-                taskListFragment.onTaskCreated(model.uuid)
-                if (!isNullOrEmpty(model.calendarURI)) {
-                    taskListFragment.makeSnackbar(R.string.calendar_event_created, model.title)
-                            ?.setAction(R.string.action_open) { context.openUri(model.calendarURI) }
-                            ?.show()
-                }
-            }
-        }
-    }
+    suspend fun save() = editViewModel.save()
 
     /*
    * ======================================================================

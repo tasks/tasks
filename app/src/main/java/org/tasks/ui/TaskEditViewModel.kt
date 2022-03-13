@@ -28,6 +28,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import net.fortuna.ical4j.model.Recur
 import org.tasks.Event
 import org.tasks.R
@@ -79,7 +80,8 @@ class TaskEditViewModel @Inject constructor(
         private val googleTaskDao: GoogleTaskDao,
         private val caldavDao: CaldavDao,
         private val taskCompleter: TaskCompleter,
-        private val alarmService: AlarmService
+        private val alarmService: AlarmService,
+        private val taskListEvents: TaskListEventBus,
 ) : ViewModel() {
 
     val cleared = MutableLiveData<Event<Boolean>>()
@@ -320,13 +322,13 @@ class TaskEditViewModel @Inject constructor(
     fun cleared() = cleared.value?.value == true
 
     @MainThread
-    suspend fun save(): Boolean {
+    suspend fun save() = withContext(NonCancellable) {
         if (cleared()) {
-            return false
+            return@withContext
         }
         if (!hasChanges()) {
             discard()
-            return false
+            return@withContext
         }
         clear()
         task.title = if (title.isNullOrBlank()) context.getString(R.string.no_title) else title
@@ -428,7 +430,13 @@ class TaskEditViewModel @Inject constructor(
             taskCompleter.setComplete(task, completed!!)
         }
 
-        return true
+        if (isNew) {
+            val model = task
+            taskListEvents.emit(TaskListEvent.TaskCreated(model.uuid))
+            model.calendarURI?.takeIf { it.isNotBlank() }?.let {
+                taskListEvents.emit(TaskListEvent.CalendarEventCreated(model.title, it))
+            }
+        }
     }
 
     private suspend fun applyCalendarChanges() {
@@ -478,7 +486,7 @@ class TaskEditViewModel @Inject constructor(
     override fun onCleared() {
         cleared.value.let {
             if (it == null || !it.value) {
-                runBlocking(NonCancellable) {
+                runBlocking {
                     save()
                 }
             }

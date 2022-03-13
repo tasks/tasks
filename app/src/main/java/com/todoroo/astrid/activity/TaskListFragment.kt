@@ -30,7 +30,9 @@ import androidx.core.view.isVisible
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -67,6 +69,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
@@ -88,6 +91,7 @@ import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.SortDialog
+import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
 import org.tasks.extensions.setOnQueryTextListener
@@ -106,6 +110,8 @@ import org.tasks.tasklist.TaskViewHolder
 import org.tasks.tasklist.ViewHolderFactory
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
+import org.tasks.ui.TaskListEventBus
+import org.tasks.ui.TaskListEvent
 import org.tasks.ui.TaskListViewModel
 import java.time.format.FormatStyle
 import javax.inject.Inject
@@ -141,6 +147,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var locale: Locale
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var repeatTaskHelper: RepeatTaskHelper
+    @Inject lateinit var eventBus: TaskListEventBus
     
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var emptyRefreshLayout: SwipeRefreshLayout
@@ -158,6 +165,15 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     lateinit var themeColor: ThemeColor
     private lateinit var callbacks: TaskListFragmentCallbackHandler
     private lateinit var binding: FragmentTaskListBinding
+
+    private fun process(event: TaskListEvent) = when (event) {
+        is TaskListEvent.TaskCreated ->
+            onTaskCreated(event.uuid)
+        is TaskListEvent.CalendarEventCreated ->
+            makeSnackbar(R.string.calendar_event_created, event.title)
+                ?.setAction(R.string.action_open) { context?.openUri(event.uri) }
+                ?.show()
+    }
 
     override fun onRefresh() {
         syncAdapters.sync(true)
@@ -263,6 +279,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         toolbar.setOnMenuItemClickListener(this)
         toolbar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
         setupMenu(toolbar)
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                eventBus.collect(this@TaskListFragment::process)
+            }
+        }
+
         return binding.root
     }
 
@@ -500,7 +523,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         refresh()
     }
 
-    fun makeSnackbar(@StringRes res: Int, vararg args: Any?): Snackbar? {
+    private fun makeSnackbar(@StringRes res: Int, vararg args: Any?): Snackbar? {
         return makeSnackbar(getString(res, *args))
     }
 

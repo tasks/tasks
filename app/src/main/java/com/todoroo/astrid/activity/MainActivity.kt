@@ -13,7 +13,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.view.ActionMode
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
@@ -23,7 +25,12 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -49,6 +56,8 @@ import org.tasks.themes.ThemeColor
 import org.tasks.ui.DeadlineControlSet.DueDateChangeListener
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
 import org.tasks.ui.ListFragment.OnListChanged
+import org.tasks.ui.MainActivityEventBus
+import org.tasks.ui.MainActivityEvent
 import org.tasks.ui.NavigationDrawerFragment
 import org.tasks.ui.NavigationDrawerFragment.Companion.newNavigationDrawer
 import timber.log.Timber
@@ -67,6 +76,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var alarmDao: AlarmDao
+    @Inject lateinit var eventBus: MainActivityEventBus
 
     private var currentNightMode = 0
     private var currentPro = false
@@ -88,6 +98,17 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             applyTheme()
         }
         handleIntent()
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                eventBus.collect(this@MainActivity::process)
+            }
+        }
+    }
+
+    private suspend fun process(event: MainActivityEvent) = when (event) {
+        is MainActivityEvent.OpenTask ->
+            onTaskListItemClicked(event.task)
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -377,7 +398,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         finish()
     }
 
-    val taskListFragment: TaskListFragment?
+    private val taskListFragment: TaskListFragment?
         get() = supportFragmentManager.findFragmentByTag(FRAG_TAG_TASK_LIST) as TaskListFragment?
 
     val taskEditFragment: TaskEditFragment?

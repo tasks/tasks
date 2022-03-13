@@ -24,7 +24,6 @@ import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.DateUtilities.now
-import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
@@ -60,6 +59,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     @Inject lateinit var locale: Locale
     @Inject lateinit var checkBoxProvider: CheckBoxProvider
     @Inject lateinit var chipProvider: ChipProvider
+    @Inject lateinit var eventBus: MainActivityEventBus
     
     private val listViewModel: TaskListViewModel by viewModels()
     private val refreshReceiver = RefreshReceiver()
@@ -197,7 +197,9 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     }
 
     override fun openSubtask(task: Task) {
-        (activity as MainActivity).taskListFragment?.onTaskListItemClicked(task)
+        lifecycleScope.launch {
+            eventBus.emit(MainActivityEvent.OpenTask(task))
+        }
     }
 
     override fun toggleSubtask(taskId: Long, collapsed: Boolean) {
