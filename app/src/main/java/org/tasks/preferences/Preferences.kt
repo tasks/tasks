@@ -532,6 +532,10 @@ class Preferences @JvmOverloads constructor(
     val isTopAppBar: Boolean
         get() = getIntegerFromString(R.string.p_app_bar_position, 1) == 0
 
+    var lastReviewRequest: Long
+        get() = getLong(R.string.p_last_review_request, 0L)
+        set(value) = setLong(R.string.p_last_review_request, value)
+
     companion object {
         private const val PREF_SORT_SORT = "sort_sort" // $NON-NLS-1$
 

@@ -16,21 +16,17 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.databinding.DialogWhatsNewBinding
 import org.tasks.extensions.Context.openUri
 import org.tasks.markdown.MarkdownProvider
-import org.tasks.preferences.Preferences
 import java.io.BufferedReader
 import javax.inject.Inject
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class WhatsNewDialog : DialogFragment() {
 
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var firebase: Firebase
-    @Inject lateinit var preferences: Preferences
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var markdownProvider: MarkdownProvider
 
-    private var displayedRate = false
     private var displayedSubscribe = false
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -43,10 +39,6 @@ class WhatsNewDialog : DialogFragment() {
             .markdown(linkify = true, force = true)
             .setMarkdown(binding.changelog, text)
 
-        val begForSubscription = !inventory.hasPro
-        val begForRating = !preferences.getBoolean(R.string.p_clicked_rate, false)
-                && (!begForSubscription || Random.nextBoolean())
-
         when {
             IS_GENERIC -> {
                 binding.actionQuestion.setText(R.string.enjoying_tasks)
@@ -54,13 +46,7 @@ class WhatsNewDialog : DialogFragment() {
                 binding.actionButton.text = getString(R.string.TLA_menu_donate)
                 binding.actionButton.setOnClickListener { onDonateClick() }
             }
-            begForRating -> {
-                displayedRate = true
-                binding.actionQuestion.setText(R.string.enjoying_tasks)
-                binding.actionButton.setText(R.string.rate_tasks)
-                binding.actionButton.setOnClickListener { onRateClick() }
-            }
-            begForSubscription -> {
+            !inventory.hasPro -> {
                 displayedSubscribe = true
                 binding.actionQuestion.setText(R.string.tasks_needs_your_support)
                 binding.actionText.setText(R.string.support_development_subscribe)
@@ -95,13 +81,6 @@ class WhatsNewDialog : DialogFragment() {
         startActivity(Intent(context, PurchaseActivity::class.java))
     }
 
-    private fun onRateClick() {
-        logClick(true)
-        preferences.setBoolean(R.string.p_clicked_rate, true)
-        dismiss()
-        context?.openUri(R.string.market_url)
-    }
-
     private fun onDonateClick() {
         dismiss()
         context?.openUri(R.string.url_donate)
@@ -116,7 +95,6 @@ class WhatsNewDialog : DialogFragment() {
         firebase.logEvent(
                 R.string.event_whats_new,
                 Pair(R.string.param_click, click),
-                Pair(R.string.param_whats_new_display_rate, displayedRate),
                 Pair(R.string.param_whats_new_display_subscribe, displayedSubscribe),
                 Pair(R.string.param_user_pro, inventory.hasPro),
         )

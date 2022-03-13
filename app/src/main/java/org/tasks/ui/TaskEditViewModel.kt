@@ -82,6 +82,7 @@ class TaskEditViewModel @Inject constructor(
         private val taskCompleter: TaskCompleter,
         private val alarmService: AlarmService,
         private val taskListEvents: TaskListEventBus,
+        private val mainActivityEvents: MainActivityEventBus,
 ) : ViewModel() {
 
     val cleared = MutableLiveData<Event<Boolean>>()
@@ -436,6 +437,7 @@ class TaskEditViewModel @Inject constructor(
             model.calendarURI?.takeIf { it.isNotBlank() }?.let {
                 taskListEvents.emit(TaskListEvent.CalendarEventCreated(model.title, it))
             }
+            mainActivityEvents.emit(MainActivityEvent.RequestRating)
         }
     }
 

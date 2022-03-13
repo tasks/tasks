@@ -48,6 +48,7 @@ import org.tasks.fragments.CommentBarFragment.CommentBarFragmentCallback
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents.getTaskListIntent
 import org.tasks.location.LocationPickerActivity
+import org.tasks.play.PlayServices
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
@@ -56,8 +57,8 @@ import org.tasks.themes.ThemeColor
 import org.tasks.ui.DeadlineControlSet.DueDateChangeListener
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
 import org.tasks.ui.ListFragment.OnListChanged
-import org.tasks.ui.MainActivityEventBus
 import org.tasks.ui.MainActivityEvent
+import org.tasks.ui.MainActivityEventBus
 import org.tasks.ui.NavigationDrawerFragment
 import org.tasks.ui.NavigationDrawerFragment.Companion.newNavigationDrawer
 import timber.log.Timber
@@ -77,6 +78,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var alarmDao: AlarmDao
     @Inject lateinit var eventBus: MainActivityEventBus
+    @Inject lateinit var playServices: PlayServices
 
     private var currentNightMode = 0
     private var currentPro = false
@@ -109,6 +111,8 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     private suspend fun process(event: MainActivityEvent) = when (event) {
         is MainActivityEvent.OpenTask ->
             onTaskListItemClicked(event.task)
+        is MainActivityEvent.RequestRating ->
+            playServices.requestReview(this)
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

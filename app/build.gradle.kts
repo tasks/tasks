@@ -237,6 +237,8 @@ dependencies {
     googleplayImplementation("com.google.android.gms:play-services-location:19.0.1")
     googleplayImplementation("com.google.android.gms:play-services-maps:18.0.2")
     googleplayImplementation("com.android.billingclient:billing-ktx:3.0.3")
+    googleplayImplementation("com.google.android.play:core:1.10.3")
+    googleplayImplementation("com.google.android.play:core-ktx:1.8.1")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
     kaptAndroidTest("com.google.dagger:hilt-compiler:${Versions.hilt}")
