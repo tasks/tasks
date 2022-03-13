@@ -479,7 +479,7 @@
     <string name="invalid_backup_file">Arquivo de backup inválido</string>
     <string name="version_string">Versão %s</string>
     <string name="whats_new">Novidades</string>
-    <string name="third_party_licenses">Liçensas de Terceiros</string>
+    <string name="third_party_licenses">Licenças de Terceiros</string>
     <string name="action_new_task">Nova tarefa</string>
     <string name="this_feature_requires_a_subscription">Precisa estar atrelado a um plano</string>
     <string name="button_unsubscribe">Cancelar plano</string>
