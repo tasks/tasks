@@ -88,7 +88,7 @@
     <string name="invite">Lời mời</string>
     <string name="invite_awaiting_response">Lời mời đang chờ phản hồi</string>
     <string name="invite_declined">Lời mời bị từ chối</string>
-    <string name="email">Email</string>
+    <string name="email">Thư điện tử</string>
     <string name="share_list">Chia sẻ danh sách</string>
     <string name="remove_user_confirmation">%1$s sẽ không còn quyền truy cập vào %2$s nữa</string>
     <string name="remove_user">Xoá người dùng\?</string>
