@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">Borrar imagen</string>
     <string name="TVA_add_comment">Añadir un comentario…</string>
@@ -249,4 +249,5 @@
     <string name="delete_multiple_tasks_confirmation">%s borradas</string>
     <string name="delete_selected_tasks">¿Borrar tareas seleccionadas?</string>
     <string name="copy_selected_tasks">¿Copiar tareas seleccionadas?</string>
+    <string name="email">Correo electrónico</string>
 </resources>
