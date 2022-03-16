@@ -85,7 +85,7 @@
     <string name="EPr_manage_delete_gcal_status">%d kalender-items gewist!</string>
     <string name="EPr_manage_delete_all_gcal">Verwijder alle kalender-items voor taken</string>
     <string name="EPr_manage_delete_all_gcal_message">Alle items voor taken onherroepelijk wissen\?</string>
-    <string name="task_defaults">Taak standaardwaarden</string>
+    <string name="task_defaults">Specificaties</string>
     <string name="EPr_default_importance_title">Prioriteit</string>
     <string name="EPr_default_reminders_title">Herinneringen</string>
     <string name="EPr_default_location_reminder_title">Locatie herinneringen</string>
@@ -147,7 +147,7 @@
     <string name="default_random_reminder_weekly">Wekelijks</string>
     <string name="default_random_reminder_bi_weekly">Elke twee weken</string>
     <string name="repeat_every">Elke</string>
-    <string name="repeat_option_does_not_repeat">Herhaalt niet</string>
+    <string name="repeat_option_does_not_repeat">Niet herhalen</string>
     <string name="repeat_option_every_day">Elke dag</string>
     <string name="repeat_option_every_week">Elke week</string>
     <string name="repeat_option_every_month">Elke maand</string>
@@ -271,7 +271,7 @@
     <string name="remove">Verwijderen</string>
     <string name="randomly">Willekeurig</string>
     <string name="pick_a_date_and_time">Datum en tijd kiezen</string>
-    <string name="when_overdue">Bij vervallen</string>
+    <string name="when_overdue">Bij overtijd</string>
     <string name="when_due">Bij vervallen</string>
     <string name="geofence_radius">Straal</string>
     <string name="tags">Labels</string>
@@ -287,7 +287,7 @@
     <string name="discard_changes">Veranderingen negeren\?</string>
     <string name="discard">Negeren</string>
     <string name="tag_settings">Label instellingen</string>
-    <string name="list_settings">Lijst instellingen</string>
+    <string name="list_settings">Lijst instellen</string>
     <string name="delete">Wissen</string>
     <string name="copy">Kopiëren</string>
     <string name="move">Verplaatsen</string>
@@ -314,7 +314,7 @@
     <string name="opacity">Transparantie</string>
     <string name="theme">Thema</string>
     <string name="color">Kleur</string>
-    <string name="launcher_icon">Opstart-pictogram</string>
+    <string name="launcher_icon">Startpictogram</string>
     <string name="theme_black">Zwart</string>
     <string name="theme_light">Licht</string>
     <string name="theme_dark">Donker</string>
@@ -341,7 +341,7 @@
     <string name="add_account">Account toevoegen</string>
     <string name="user">Gebruiker</string>
     <string name="password">Wachtwoord</string>
-    <string name="notification_disable_battery_optimizations_description">Batterij optimalisatie kan meldingen vertragen</string>
+    <string name="notification_disable_battery_optimizations_description">Optimalisatie kan meldingen vertragen</string>
     <string name="bundle_notifications">Meldingen samenvoegen</string>
     <string name="badges">Badges</string>
     <string name="list">Lijst</string>
@@ -366,7 +366,7 @@
     <string name="repeats_plural_on_number_of_times">Herhaalt elke %1$s op %2$s, gebeurt %3$d %4$s</string>
     <string name="dont_add_to_calendar">Niet aan kalender toevoegen</string>
     <string name="default_calendar">Standaardkalender</string>
-    <string name="badges_description">Toon taken-teller bij start-icoon van Tasks. Niet alle launchers ondersteunen badges.</string>
+    <string name="badges_description">Toon taken teller bij pictogram van Tasks. Niet alle launchers ondersteunen badges.</string>
     <string name="bundle_notifications_summary">Combineer meerdere meldingen samen in één</string>
     <string name="repeat_monthly_same_day_each_month">elke maand op dezelfde dag</string>
     <string name="repeat_monthly_every_day_of_nth_week">elke %1$s %2$s</string>
@@ -459,7 +459,7 @@
     <string name="wearable_notifications_summary">Laat meldingen zien op \'Wearables\'</string>
     <string name="troubleshooting">Problemen oplossen</string>
     <string name="notification_troubleshooting_summary">Tik hier bij problemen met meldingen</string>
-    <string name="disable_battery_optimizations">Zet batterijoptimalisatie uit</string>
+    <string name="disable_battery_optimizations">Batterij optimalisatie uitzetten</string>
     <string name="more_settings">Meer instellingen</string>
     <string name="more_notification_settings_summary">Beltoon, trillen en meer</string>
     <string name="invalid_username_or_password">Ongeldige gebruikersnaam of wachtwoord</string>
@@ -479,8 +479,8 @@
     <string name="places">Locaties</string>
     <string name="place_settings">Locatie-instellingen</string>
     <string name="navigation_drawer">Navigatiemenu</string>
-    <string name="hide_unused_tags">Verberg ongebruikte labels</string>
-    <string name="hide_unused_places">Verberg ongebruikte locaties</string>
+    <string name="hide_unused_tags">Ongebruikte labels verbergen</string>
+    <string name="hide_unused_places">Ongebruikte locaties verbergen</string>
     <string name="menu_discard_changes">Veranderingen negeren</string>
     <string name="chip_appearance_text_and_icon">Tekst en pictogram</string>
     <string name="chip_appearance_text_only">Alleen tekst</string>
@@ -647,7 +647,7 @@
     <string name="tasks_org_account">Tasks.org account</string>
     <string name="subscription">Abonnement</string>
     <string name="widget_show_title">Titel tonen</string>
-    <string name="map_theme">Kaart-thema</string>
+    <string name="map_theme">Kaart thema</string>
     <string name="map_theme_use_app_theme">Gebruik app-thema</string>
     <string name="tasks_org_account_required">Een Tasks.org account vereist</string>
     <string name="support">Ondersteuning</string>
