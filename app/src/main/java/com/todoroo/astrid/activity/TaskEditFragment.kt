@@ -36,6 +36,8 @@ import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
@@ -57,6 +59,8 @@ import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.ui.SubtaskControlSet
 import org.tasks.ui.TaskEditControlFragment
+import org.tasks.ui.TaskEditEvent
+import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskEditViewModel
 import javax.inject.Inject
 import kotlin.math.abs
@@ -75,6 +79,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var timerPlugin: TimerPlugin
     @Inject lateinit var linkify: Linkify
     @Inject lateinit var markdownProvider: MarkdownProvider
+    @Inject lateinit var taskEditEventBus: TaskEditEventBus
 
     private val linkifyEnabled: Boolean
         get() = preferences.getBoolean(R.string.p_linkify_task_edit, false)
@@ -210,7 +215,23 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         for (i in visibleSize - 1 downTo 1) {
             binding.controlSets.addView(inflater.inflate(R.layout.task_edit_row_divider, binding.controlSets, false), i)
         }
+
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        taskEditEventBus
+            .onEach(this::process)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private suspend fun process(event: TaskEditEvent) {
+        when (event) {
+            is TaskEditEvent.Discard ->
+                if (event.id == editViewModel.task.id) {
+                    editViewModel.discard()
+                }
+        }
     }
 
     override fun onResume() {

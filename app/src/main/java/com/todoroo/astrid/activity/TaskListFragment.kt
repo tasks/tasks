@@ -110,8 +110,10 @@ import org.tasks.tasklist.TaskViewHolder
 import org.tasks.tasklist.ViewHolderFactory
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
-import org.tasks.ui.TaskListEventBus
+import org.tasks.ui.TaskEditEvent
+import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskListEvent
+import org.tasks.ui.TaskListEventBus
 import org.tasks.ui.TaskListViewModel
 import java.time.format.FormatStyle
 import javax.inject.Inject
@@ -147,7 +149,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var locale: Locale
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var repeatTaskHelper: RepeatTaskHelper
-    @Inject lateinit var eventBus: TaskListEventBus
+    @Inject lateinit var taskListEventBus: TaskListEventBus
+    @Inject lateinit var taskEditEventBus: TaskEditEventBus
     
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var emptyRefreshLayout: SwipeRefreshLayout
@@ -282,7 +285,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                eventBus.collect(this@TaskListFragment::process)
+                taskListEventBus.collect(this@TaskListFragment::process)
             }
         }
 
@@ -569,18 +572,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         loadTaskListContent()
     }
 
-    fun onTaskCreated(uuid: String) {
+    private fun onTaskCreated(uuid: String) {
         lifecycleScope.launch {
             taskAdapter.onTaskCreated(uuid)
         }
     }
 
     private suspend fun onTaskDelete(task: Task) {
-        (activity as MainActivity?)?.taskEditFragment?.let {
-            if (task.id == it.editViewModel.task?.id) {
-                it.editViewModel.discard()
-            }
-        }
+        taskEditEventBus.emit(TaskEditEvent.Discard(task.id))
         timerPlugin.stopTimer(task)
         taskAdapter.onTaskDeleted(task)
         loadTaskListContent()
