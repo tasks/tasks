@@ -82,6 +82,7 @@ class Tasks : Application(), Configuration.Provider {
             updateBackgroundSync()
             scheduleMidnightRefresh()
             scheduleBackup()
+            scheduleConfigRefresh()
             OpenTaskContentObserver.registerObserver(context, contentObserver.get())
             updatePurchases()
         }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap xmlns:tools="http://schemas.android.com/tools"
+  tools:ignore="MissingDefaultResource">
+    <entry>
+        <key>review_cooldown</key>
+        <value>14</value>
+    </entry>
+</defaultsMap>

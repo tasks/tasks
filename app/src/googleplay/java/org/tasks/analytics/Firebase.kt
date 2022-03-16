@@ -5,10 +5,14 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
+import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -20,6 +24,7 @@ class Firebase @Inject constructor(
 
     private var crashlytics: FirebaseCrashlytics? = null
     private var analytics: FirebaseAnalytics? = null
+    private var remoteConfig: FirebaseRemoteConfig? = null
 
     fun reportException(t: Throwable) {
         Timber.e(t)
@@ -35,6 +40,12 @@ class Firebase @Inject constructor(
         )
     }
 
+    fun updateRemoteConfig() {
+        remoteConfig?.fetchAndActivate()?.addOnSuccessListener {
+            Timber.d(it.toString())
+        }
+    }
+
     fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {
         analytics?.logEvent(context.getString(event), Bundle().apply {
             p.forEach {
@@ -48,6 +59,9 @@ class Firebase @Inject constructor(
         })
     }
 
+    val reviewCooldown: Long
+        get() = remoteConfig?.getLong("review_cooldown") ?: 14L
+
     init {
         if (preferences.isTrackingEnabled) {
             analytics = FirebaseAnalytics.getInstance(context).apply {
@@ -55,6 +69,13 @@ class Firebase @Inject constructor(
             }
             crashlytics = FirebaseCrashlytics.getInstance().apply {
                 setCrashlyticsCollectionEnabled(true)
+            }
+            remoteConfig = FirebaseRemoteConfig.getInstance().apply {
+                setConfigSettingsAsync(remoteConfigSettings {
+                    minimumFetchIntervalInSeconds =
+                            TimeUnit.HOURS.toSeconds(WorkManager.REMOTE_CONFIG_INTERVAL_HOURS)
+                })
+                setDefaultsAsync(R.xml.remote_config_defaults)
             }
         }
     }
