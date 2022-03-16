@@ -113,6 +113,8 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             onTaskListItemClicked(event.task)
         is MainActivityEvent.RequestRating ->
             playServices.requestReview(this)
+        is MainActivityEvent.ClearTaskEditFragment ->
+            removeTaskEditFragment()
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -353,7 +355,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             return
         }
         taskEditFragment?.let {
-            it.editViewModel.cleared.removeObservers(this@MainActivity)
             it.save()
         }
         clearUi()
@@ -419,7 +420,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     private val isSinglePaneLayout: Boolean
         get() = !resources.getBoolean(R.bool.two_pane_layout)
 
-    fun removeTaskEditFragment() {
+    private fun removeTaskEditFragment() {
         val removeTask = intent.removeTask
         val finishAffinity = intent.finishAffinity
         if (finishAffinity || taskListFragment == null) {

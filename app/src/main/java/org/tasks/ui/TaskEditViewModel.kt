@@ -2,7 +2,6 @@ package org.tasks.ui
 
 import android.content.Context
 import androidx.annotation.MainThread
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.alarms.AlarmService
@@ -30,7 +29,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import net.fortuna.ical4j.model.Recur
-import org.tasks.Event
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.calendars.CalendarEventProvider
@@ -85,7 +83,7 @@ class TaskEditViewModel @Inject constructor(
         private val mainActivityEvents: MainActivityEventBus,
 ) : ViewModel() {
 
-    val cleared = MutableLiveData<Event<Boolean>>()
+    private var cleared = false
 
     fun setup(
             task: Task,
@@ -320,11 +318,9 @@ class TaskEditViewModel @Inject constructor(
                 } ||
                 originalAlarms.toHashSet() != selectedAlarms.value.toHashSet()
 
-    fun cleared() = cleared.value?.value == true
-
     @MainThread
     suspend fun save() = withContext(NonCancellable) {
-        if (cleared()) {
+        if (cleared) {
             return@withContext
         }
         if (!hasChanges()) {
@@ -479,18 +475,17 @@ class TaskEditViewModel @Inject constructor(
     }
 
     @MainThread
-    fun clear() {
-        if (!cleared()) {
-            cleared.value = Event(true)
+    suspend fun clear() {
+        if (!cleared) {
+            cleared = true
+            mainActivityEvents.emit(MainActivityEvent.ClearTaskEditFragment)
         }
     }
 
     override fun onCleared() {
-        cleared.value.let {
-            if (it == null || !it.value) {
-                runBlocking {
-                    save()
-                }
+        if (!cleared) {
+            runBlocking {
+                save()
             }
         }
     }

@@ -96,10 +96,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 args.getParcelableArrayList(EXTRA_ALARMS)!!
             )
         }
-        val activity = requireActivity() as MainActivity
-        editViewModel.cleared.observe(activity) {
-            activity.removeTaskEditFragment()
-        }
     }
 
     override fun onCreateView(
