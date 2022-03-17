@@ -81,9 +81,9 @@
     <string name="EPr_cal_start_at_due_time">Започване на събитията в календара в определеното време</string>
     <string name="EPr_reset_preferences">Нулиране на настройки</string>
     <string name="EPr_reset_preferences_warning">Настройките ще бъдат възстановени до стойностите им по подразбиране</string>
-    <string name="EPr_delete_task_data">Изтриване на задачите</string>
+    <string name="EPr_delete_task_data">Премахване на задачите</string>
     <string name="EPr_delete_task_data_warning">Всички задачи ще бъдат безвъзвратно премахнати</string>
-    <string name="EPr_manage_delete_completed_gcal">Изтриване от календара на събития към изпълнени задачи</string>
+    <string name="EPr_manage_delete_completed_gcal">Премахване от календара на събития от изпълнени задачи</string>
     <string name="EPr_manage_delete_completed_gcal_message">Наистина ли желаете всички събития към изпълнени задачи да бъдат премахнати\?</string>
     <string name="EPr_manage_delete_gcal_status">От календара са премахнати %d събития!</string>
     <string name="EPr_manage_delete_all_gcal">Премахвне от календара на всички събития към задачи</string>
@@ -239,7 +239,7 @@
     <string name="voice_create_prompt">Говорете, за да създадете задача</string>
     <string name="EPr_voiceInputEnabled_title">Гласово въвеждане</string>
     <string name="EPr_voiceRemindersEnabled_title">Гласови напомняния</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изговаря имената на задачите по време на напомняне на задача</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изговаря имената на задачите при напомняне</string>
     <string name="delete_task">Изтриване на задача</string>
     <string name="voice_command_added_task">Добавена задача</string>
     <plurals name="Ntasks">
@@ -325,7 +325,7 @@
     <string name="theme">Тема</string>
     <string name="color">Цвят</string>
     <string name="accent">Акцент</string>
-    <string name="launcher_icon">Иконка на лаунчера</string>
+    <string name="launcher_icon">Икона за стартиране</string>
     <string name="theme_black">Черна</string>
     <string name="theme_light">Светла</string>
     <string name="theme_dark">Тъмна</string>
@@ -506,7 +506,7 @@
         <item quantity="one">%d списък</item>
         <item quantity="other">%d списъка</item>
     </plurals>
-    <string name="gtasks_GPr_header"/>
+    <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="CFC_list_name">В списъка…</string>
     <string name="filter_any_start_date">Всяка начална дата</string>
     <string name="CFC_startBefore_name">Начало…</string>
@@ -543,8 +543,8 @@
     <string name="more_notification_settings_summary">Звънене, вибрация и други</string>
     <string name="disable_battery_optimizations">Изключване на оптимизацията на батерията</string>
     <string name="preferences_advanced">Разширени</string>
-    <string name="etesync_account_description">Необходима е сметка при доставчик на услуга за EteSync.com или самостоятелно хостван сървър</string>
-    <string name="caldav_account_description">Необходима е сметка при доставчик на услуга за CalDAV или самостоятелно хостван сървър. Намерете доставчик на услуга, като посетите tasks.org/caldav</string>
+    <string name="etesync_account_description">Необходим е профил при доставчик на услуга за EteSync.com или собствен сървър</string>
+    <string name="caldav_account_description">Необходим е профил при доставчик на услуга за CalDAV или собствен сървър. Намерете доставчик на услуга, като посетите tasks.org/caldav</string>
     <string name="show_advanced_settings">Разширени настройки</string>
     <string name="caldav_selection_description">Синхронизиране въз основа на отворени стандарти</string>
     <string name="choose_synchronization_service">Избор на услуга</string>
@@ -588,7 +588,7 @@
     <string name="wearable_notifications_summary">Показване на известия на носимото устройство</string>
     <string name="chip_style_outlined">Очертан</string>
     <string name="color_wheel">Цветно колело</string>
-    <string name="chip_style">Стил на чипа</string>
+    <string name="chip_style">Стил на индикаторите в списъка</string>
     <string name="notification_troubleshooting_summary">Докоснете тук, ако имате проблеми с известията</string>
     <string name="chip_style_filled">Запълнен</string>
     <plurals name="reminder_hours">
@@ -623,4 +623,22 @@
     <string name="custom_filter_is_subtask">Задача</string>
     <string name="widget_id">Идентификатор на приспособление: %d</string>
     <string name="pro_free_trial">Новите абонати получават седемдневен безплатен пробен период. Отказ по всяко време</string>
+    <string name="account">Профил</string>
+    <string name="cancel">\@android:string/cancel</string>
+    <string name="ok">\@android:string/ok</string>
+    <string name="chips">Индикатори в списъка</string>
+    <string name="chip_appearance">Външен вид на индикаторите в списъка</string>
+    <string name="desaturate_colors">Намаляване на наситеността на цветовете</string>
+    <string name="filter_any_due_date">Всяка крайна дата</string>
+    <string name="android_auto_backup">Услуга за резервни копия на Android</string>
+    <string name="device_settings">Настройки на устройството</string>
+    <string name="support_development_subscribe">Отключване на допълнителни възможности и подкрепяне на софтуера с отворен код</string>
+    <string name="sort_start_group">Започната %s</string>
+    <string name="sort_due_group">Завършена %s</string>
+    <string name="on_launch">При стартиране</string>
+    <string name="desaturate_colors_summary_on">При тъмите теми цветовете ще бъдат с намалена наситеност</string>
+    <string name="sort_created_group">Създадена %s</string>
+    <string name="desaturate_colors_summary_off">При тъмите теми цветовете няма да бъдат променяни</string>
+    <string name="hide_check_button">Скриване на бутона за отмятане</string>
+    <string name="sort_modified_group">Променена %s</string>
 </resources>
