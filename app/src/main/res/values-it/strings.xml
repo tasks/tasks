@@ -391,7 +391,7 @@
     <string name="refresh_purchases">Aggiorna acquisti</string>
     <string name="button_subscribe">Abbonati</string>
     <string name="about">Informazioni</string>
-    <string name="license_summary">Tasks è un software libero, rilasciato sotto licenza GNU General Public License v3.0</string>
+    <string name="license_summary">Tasks è un software libero ed open-source, rilasciato sotto licenza GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Estensione Dashclock</string>
     <string name="requires_pro_subscription">Richiede la versione Pro</string>
     <string name="logout">Esci</string>
@@ -543,7 +543,7 @@
     <string name="sort_created_group">Creato %s</string>
     <string name="got_it">Capito!</string>
     <string name="no_thanks">No grazie</string>
-    <string name="support_development_subscribe">Sblocca funzionalità aggiuntive e supporta il software libero</string>
+    <string name="support_development_subscribe">Sblocca funzionalità aggiuntive e supporta il software open source</string>
     <string name="tell_me_how_im_doing">Per favore, dimmi come me la cavo</string>
     <string name="enjoying_tasks">Ti piace Tasks\?</string>
     <string name="filter_no_priority">Senza priorità</string>
@@ -662,7 +662,7 @@
     <string name="map_theme_use_app_theme">Usa il tema dell\'app</string>
     <string name="support">Supporto</string>
     <string name="more_options">Altre opzioni</string>
-    <string name="manage_drawer">Gestisci menù laterale</string>
+    <string name="manage_drawer">Gestisci menù</string>
     <string name="tasks_org_account_required">È richiesto un account Tasks.org</string>
     <string name="privacy">Privacy</string>
     <string name="open_source">Open source</string>
@@ -697,7 +697,7 @@
     <string name="when_started">Alla data di inizio</string>
     <string name="completion_sound">Suono di completamento</string>
     <string name="app_bar_collapse">Comprimi le barre dell\'app</string>
-    <string name="completed">Completato</string>
+    <string name="completed">Completate</string>
     <string name="app_bar_position">Posizione della barra dell\'app</string>
     <string name="top">In alto</string>
     <string name="bottom">In basso</string>
