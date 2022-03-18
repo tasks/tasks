@@ -721,4 +721,9 @@
     <string name="completed_tasks_at_bottom">Flytta slutförda uppgifter till botten</string>
     <string name="snackbar_tasks_completed">%d uppgifter slutförda</string>
     <string name="completed_tasks_sort">Sortera efter färdigdatum</string>
+    <string name="custom_filter_has_reminder">Har påminnelse</string>
+    <string name="caldav_server_unknown">Okänd</string>
+    <string name="caldav_server_other">Övrig</string>
+    <string name="caldav_server_type">Servertyp</string>
+    <string name="filter_snoozed">Slumrad</string>
 </resources>
