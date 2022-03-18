@@ -693,4 +693,25 @@
     <string name="when_started">Kun aloitettu</string>
     <string name="now">Nyt</string>
     <string name="cancel">Peruuta</string>
+    <string name="top">Ylös</string>
+    <string name="custom_filter_has_reminder">On muistutus</string>
+    <string name="randomly_every">Satunnaisesti joka %s</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuutti</item>
+        <item quantity="other">Minuuttia</item>
+    </plurals>
+    <string name="app_bar_position">Sovelluspalkin sijainti</string>
+    <plurals name="reminder_hours">
+        <item quantity="one">Tunti</item>
+        <item quantity="other">Tuntia</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Päivä</item>
+        <item quantity="other">Päivää</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Viikko</item>
+        <item quantity="other">Viikkoa</item>
+    </plurals>
+    <string name="completion_sound">Toista valmistumisääni</string>
 </resources>
