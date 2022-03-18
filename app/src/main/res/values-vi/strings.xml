@@ -708,4 +708,8 @@
         <item quantity="other">Tuần</item>
     </plurals>
     <string name="randomly_every">Ngẫu nhiên mỗi %s</string>
+    <string name="caldav_server_unknown">Không xác định</string>
+    <string name="caldav_server_type">Loại máy chủ</string>
+    <string name="caldav_server_other">Khác</string>
+    <string name="filter_snoozed">Đã đặt báo lại</string>
 </resources>
