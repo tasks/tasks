@@ -733,4 +733,5 @@ File %1$s contained %2$s.\n\n
   <string name="caldav_server_other">Other</string>
   <string name="caldav_server_type">Server type</string>
   <string name="filter_snoozed">Snoozed</string>
+  <string name="dismiss">Dismiss</string>
 </resources>

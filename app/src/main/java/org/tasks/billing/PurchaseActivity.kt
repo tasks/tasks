@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.composethemeadapter.MdcTheme
+import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -16,6 +17,7 @@ import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.compose.PurchaseText.PurchaseText
 import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingAppCompatActivity
+import org.tasks.preferences.Preferences
 import org.tasks.themes.Theme
 import javax.inject.Inject
 
@@ -25,6 +27,7 @@ class PurchaseActivity : InjectingAppCompatActivity(), OnPurchasesUpdated {
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var inventory: Inventory
+    @Inject lateinit var preferences: Preferences
 
     private var currentSubscription: Purchase? = null
     private val purchaseReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -37,6 +40,8 @@ class PurchaseActivity : InjectingAppCompatActivity(), OnPurchasesUpdated {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        preferences.lastSubscribeRequest = DateUtilities.now()
 
         val github = intent?.extras?.getBoolean(EXTRA_GITHUB) ?: false
 

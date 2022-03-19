@@ -38,6 +38,10 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
       android:layout_width="match_parent"

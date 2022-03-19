@@ -9,4 +9,8 @@
         <key>install_cooldown</key>
         <value>14</value>
     </entry>
+    <entry>
+        <key>subscribe_cooldown</key>
+        <value>30</value>
+    </entry>
 </defaultsMap>

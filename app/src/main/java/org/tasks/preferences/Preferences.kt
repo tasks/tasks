@@ -536,6 +536,10 @@ class Preferences @JvmOverloads constructor(
         get() = getLong(R.string.p_last_review_request, 0L)
         set(value) = setLong(R.string.p_last_review_request, value)
 
+    var lastSubscribeRequest: Long
+        get() = getLong(R.string.p_last_subscribe_request, 0L)
+        set(value) = setLong(R.string.p_last_subscribe_request, value)
+
     companion object {
         private const val PREF_SORT_SORT = "sort_sort" // $NON-NLS-1$
 

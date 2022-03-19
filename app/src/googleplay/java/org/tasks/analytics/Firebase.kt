@@ -66,6 +66,9 @@ class Firebase @Inject constructor(
     val reviewCooldown: Boolean
         get() = preferences.lastReviewRequest + days("review_cooldown", 30L) > now()
 
+    val subscribeCooldown: Boolean
+        get() = preferences.lastSubscribeRequest + days("subscribe_cooldown", 30L) > now()
+
     private fun days(key: String, default: Long): Long =
             TimeUnit.DAYS.toMillis(remoteConfig?.getLong(key) ?: default)
 

@@ -23,6 +23,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
 import androidx.core.view.forEach
@@ -30,9 +33,7 @@ import androidx.core.view.isVisible
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,9 +42,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
@@ -69,12 +72,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
+import org.tasks.Tasks.Companion.IS_GOOGLE_PLAY
 import org.tasks.activities.FilterSettingsActivity
 import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.ListPicker
@@ -82,7 +87,9 @@ import org.tasks.activities.ListPicker.Companion.newListPicker
 import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
+import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
+import org.tasks.compose.AnimatedBanner
 import org.tasks.data.CaldavDao
 import org.tasks.data.TagDataDao
 import org.tasks.data.TaskContainer
@@ -169,6 +176,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private lateinit var callbacks: TaskListFragmentCallbackHandler
     private lateinit var binding: FragmentTaskListBinding
 
+    @OptIn(ExperimentalAnimationApi::class)
     private fun process(event: TaskListEvent) = when (event) {
         is TaskListEvent.TaskCreated ->
             onTaskCreated(event.uuid)
@@ -176,6 +184,33 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             makeSnackbar(R.string.calendar_event_created, event.title)
                 ?.setAction(R.string.action_open) { context?.openUri(event.uri) }
                 ?.show()
+        is TaskListEvent.BegForSubscription -> {
+            binding.banner.setContent {
+                val showBanner = rememberSaveable { mutableStateOf(true) }
+                MdcTheme {
+                    AnimatedBanner(
+                        isVisible = showBanner,
+                        dismiss = {
+                            preferences.lastSubscribeRequest = now()
+                            showBanner.value = false
+                        },
+                        subscribe = {
+                            purchase()
+                            showBanner.value = false
+                        },
+                    )
+                }
+            }
+        }
+    }
+
+    private fun purchase() {
+        if (IS_GOOGLE_PLAY) {
+            startActivity(Intent(context, PurchaseActivity::class.java))
+        } else {
+            preferences.lastSubscribeRequest = now()
+            context?.openUri(R.string.url_donate)
+        }
     }
 
     override fun onRefresh() {
@@ -217,8 +252,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         outState.putLongArray(EXTRA_COLLAPSED, taskAdapter.getCollapsed().toLongArray())
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        taskListEventBus
+            .onEach(this::process)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTaskListBinding.inflate(inflater, container, false)
         with (binding) {
             swipeRefreshLayout = bodyStandard.swipeLayout
@@ -282,12 +325,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         toolbar.setOnMenuItemClickListener(this)
         toolbar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
         setupMenu(toolbar)
-
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                taskListEventBus.collect(this@TaskListFragment::process)
-            }
-        }
 
         return binding.root
     }

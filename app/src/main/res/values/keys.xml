@@ -411,6 +411,7 @@
   <string name="p_show_whats_new">show_whats_new</string>
   <string name="p_just_updated">just_updated</string>
   <string name="p_last_review_request">last_review_request</string>
+  <string name="p_last_subscribe_request">last_subscribe_request</string>
   <string name="p_backups_enabled">backups_enabled</string>
   <string name="p_backups_ignore_warnings">backups_ignore_warnings</string>
   <string name="p_backups_android_backup_enabled">backups_android_backup_enabled</string>

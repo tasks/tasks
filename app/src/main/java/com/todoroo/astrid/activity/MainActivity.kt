@@ -13,9 +13,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.view.ActionMode
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
@@ -28,13 +26,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
+import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.data.AlarmDao
 import org.tasks.data.LocationDao
@@ -61,6 +61,8 @@ import org.tasks.ui.MainActivityEvent
 import org.tasks.ui.MainActivityEventBus
 import org.tasks.ui.NavigationDrawerFragment
 import org.tasks.ui.NavigationDrawerFragment.Companion.newNavigationDrawer
+import org.tasks.ui.TaskListEvent
+import org.tasks.ui.TaskListEventBus
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -78,7 +80,9 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var alarmDao: AlarmDao
     @Inject lateinit var eventBus: MainActivityEventBus
+    @Inject lateinit var taskListEventBus: TaskListEventBus
     @Inject lateinit var playServices: PlayServices
+    @Inject lateinit var firebase: Firebase
 
     private var currentNightMode = 0
     private var currentPro = false
@@ -101,11 +105,9 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         }
         handleIntent()
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                eventBus.collect(this@MainActivity::process)
-            }
-        }
+        eventBus
+            .onEach(this::process)
+            .launchIn(lifecycleScope)
     }
 
     private suspend fun process(event: MainActivityEvent) = when (event) {
@@ -475,6 +477,16 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     override fun onListChanged(filter: Filter?) {
         taskEditFragment!!.onRemoteListChanged(filter)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        lifecycleScope.launch {
+            if (!inventory.hasPro && !firebase.subscribeCooldown) {
+                taskListEventBus.tryEmit(TaskListEvent.BegForSubscription)
+            }
+        }
     }
 
     companion object {

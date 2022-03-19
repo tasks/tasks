@@ -114,6 +114,7 @@ class Upgrader @Inject constructor(
         } else {
             setInstallDetails(to)
         }
+        preferences.lastSubscribeRequest = 0L
         preferences.setCurrentVersion(to)
     }
 
