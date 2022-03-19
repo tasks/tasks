@@ -25,7 +25,7 @@
     <string name="action_open">Otwórz</string>
     <string name="SSD_sort_auto">Automatyczne</string>
     <string name="SSD_sort_alpha">Wg tytułu</string>
-    <string name="SSD_sort_due">Wg daty</string>
+    <string name="SSD_sort_due">Według daty</string>
     <string name="SSD_sort_importance">Wg priorytetów</string>
     <string name="SSD_sort_modified">Wg. ostatniej modyfikacji</string>
     <string name="FLA_search_filter">Pasujących do: %s</string>
@@ -36,7 +36,7 @@
     <string name="TEA_estimatedDuration_label">Jak długo to zajmie?</string>
     <string name="TEA_elapsedDuration_label">Czas dotychczas spędzony nad tym zadaniem</string>
     <string name="save">Zapisz</string>
-    <string name="TEA_timer_est">zał. %s</string>
+    <string name="TEA_timer_est">Szac. %s</string>
     <string name="TEA_timer_elap">Minęło %s</string>
     <string name="due_date">W dniu terminu</string>
     <string name="due_time">Dokładnie w terminie</string>
@@ -119,7 +119,7 @@
     <string name="gtasks_GTA_clear_completed">Wyczyść zakończone</string>
     <string name="gtasks_GLA_authenticating">Uwierzytelnianie…</string>
     <string name="gtasks_GLA_errorIOAuth">Przepraszamy, mieliśmy problem z porozumieniem się z serwerami Google. Prosimy spróbować ponownie.</string>
-    <string name="gtasks_GPr_header">Google Tasks</string>
+    <string name="gtasks_GPr_header">Zadania Google</string>
     <string name="gtasks_error_accountNotFound">Nie znaleziono konta %s —proszę wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
     <string name="premium_record_audio">Nagraj notatkę</string>
     <string name="premium_remove_file_confirm">Jesteś pewny\? Tych zmian nie można cofnąć</string>
@@ -546,7 +546,7 @@
     <string name="custom_filter_or">LUB</string>
     <string name="custom_filter_and">ORAZ</string>
     <string name="custom_filter_criteria">Kryteria filtrowania</string>
-    <string name="sort_created">Wg. czasu stworzenia</string>
+    <string name="sort_created">Według czasu stworzenia</string>
     <string name="got_it">Rozumiem!</string>
     <string name="no_thanks">Nie, dziękuję</string>
     <string name="support_development_subscribe">Odblokuj dodatkowe funkcje i wesprzyj oprogramowanie open source</string>
@@ -706,4 +706,52 @@
     <string name="next_monday">Następny poniedziałek</string>
     <string name="next_sunday">Następne niedziele</string>
     <string name="manage_drawer">Zarządzaj szufladą</string>
+    <string name="completed">Zakończone</string>
+    <string name="app_bar_collapse">Zwiń pasek aplikacji</string>
+    <string name="caldav_server_unknown">Nieznane</string>
+    <plurals name="reminder_week">
+        <item quantity="one">Tydzień</item>
+        <item quantity="few">Tygodnie</item>
+        <item quantity="many">Tygodni</item>
+        <item quantity="other">Tygodni</item>
+    </plurals>
+    <string name="when_started">Gdy się rozpocznie</string>
+    <string name="completion_sound">Odtwórz dźwięk zakończenia</string>
+    <plurals name="reminder_days">
+        <item quantity="one">Dzień</item>
+        <item quantity="few">Dni</item>
+        <item quantity="many">Dni</item>
+        <item quantity="other">Dni</item>
+    </plurals>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuta</item>
+        <item quantity="few">Minuty</item>
+        <item quantity="many">Minut</item>
+        <item quantity="other">Minut</item>
+    </plurals>
+    <string name="caldav_server_other">Inne</string>
+    <string name="caldav_server_type">Typ serwera</string>
+    <string name="filter_snoozed">Uśpione</string>
+    <string name="now">Teraz</string>
+    <string name="custom_filter_has_reminder">Ma przypomnienie</string>
+    <string name="snoozed_until">Uśpione do %s</string>
+    <string name="bottom">Dół</string>
+    <string name="completed_tasks_at_bottom">Przenieś zakończone zadania na dół</string>
+    <plurals name="reminder_hours">
+        <item quantity="one">Godzina</item>
+        <item quantity="few">Godziny</item>
+        <item quantity="many">Godzin</item>
+        <item quantity="other">Godzin</item>
+    </plurals>
+    <string name="randomly_every">Losowo co %s</string>
+    <string name="app_bar_position">Pozycja paska aplikacji</string>
+    <string name="top">Góra</string>
+    <string name="custom_notification">Własne powiadomienie</string>
+    <string name="snackbar_task_completed">Zadanie zakończone</string>
+    <string name="completed_tasks_sort">Posortuj po dacie zakończenia</string>
+    <string name="snackbar_tasks_completed">%d zadań zakończonych</string>
+    <string name="alarm_before_start">%s przed startem</string>
+    <string name="alarm_after_start">%s po rozpoczęciu</string>
+    <string name="alarm_before_due">%s przed zakończeniem</string>
+    <string name="alarm_after_due">%s po zakończeniu</string>
 </resources>
