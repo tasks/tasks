@@ -7,6 +7,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.todoroo.andlib.utility.DateUtilities.now
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.jobs.WorkManager
@@ -19,7 +20,7 @@ import javax.inject.Singleton
 @Singleton
 class Firebase @Inject constructor(
         @param:ApplicationContext val context: Context,
-        preferences: Preferences
+        private val preferences: Preferences
 ) {
 
     private var crashlytics: FirebaseCrashlytics? = null
@@ -59,8 +60,14 @@ class Firebase @Inject constructor(
         })
     }
 
-    val reviewCooldown: Long
-        get() = remoteConfig?.getLong("review_cooldown") ?: 14L
+    val installCooldown: Boolean
+        get() = preferences.installDate + days("install_cooldown", 14L) > now()
+
+    val reviewCooldown: Boolean
+        get() = preferences.lastReviewRequest + days("review_cooldown", 30L) > now()
+
+    private fun days(key: String, default: Long): Long =
+            TimeUnit.DAYS.toMillis(remoteConfig?.getLong(key) ?: default)
 
     init {
         if (preferences.isTrackingEnabled) {
