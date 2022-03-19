@@ -421,11 +421,6 @@
   <string name="p_install_date">install_date</string>
   <string name="p_default_location">default_location</string>
 
-  <string name="event_whats_new">whats_new</string>
-  <string name="param_whats_new_display_rate">display_rate</string>
-  <string name="param_whats_new_display_subscribe">display_subscribe</string>
-  <string name="param_user_pro">user_pro</string>
-  <string name="param_click">click</string>
   <string name="event_purchase_result">billing_flow_result</string>
   <string name="param_sku">sku</string>
   <string name="param_result">result</string>

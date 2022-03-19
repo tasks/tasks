@@ -30,39 +30,6 @@
 
         <View style="@style/horizontal_divider" />
 
-        <TextView
-          android:id="@+id/action_question"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_horizontal"
-          android:layout_marginTop="@dimen/keyline_first"
-          android:text="@string/enjoying_tasks"
-          android:textAlignment="center"
-          android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-
-        <TextView
-          android:id="@+id/action_text"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_horizontal"
-          android:paddingTop="@dimen/half_keyline_first"
-          android:paddingStart="@dimen/keyline_first"
-          android:paddingEnd="@dimen/keyline_first"
-          android:text="@string/tell_me_how_im_doing"
-          android:textAlignment="center"
-          android:textAppearance="@style/TextAppearance" />
-
-        <com.google.android.material.button.MaterialButton
-          android:id="@+id/action_button"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/keyline_first"
-          android:layout_marginStart="@dimen/keyline_first"
-          android:layout_marginEnd="@dimen/keyline_first"
-          android:textColor="?attr/colorOnSecondary"
-          app:backgroundTint="?attr/colorSecondary"
-          tools:text="@string/rate_tasks" />
-
         <com.google.android.material.button.MaterialButton
           android:id="@+id/dismiss_button"
           style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -70,7 +37,7 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/keyline_first"
           android:layout_marginEnd="@dimen/keyline_first"
-          android:text="@string/no_thanks"
+          android:text="@string/got_it"
           android:textColor="@color/text_secondary" />
 
     </LinearLayout>
