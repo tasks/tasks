@@ -754,4 +754,9 @@
     <string name="alarm_after_due">%s после</string>
     <string name="alarm_after_start">%s после начала</string>
     <string name="completed_tasks_sort">Сортировать по дате завершения</string>
+    <string name="filter_snoozed">Отложенные</string>
+    <string name="caldav_server_unknown">Неизвестный</string>
+    <string name="caldav_server_other">Другой</string>
+    <string name="randomly_every">Случайно каждые %s</string>
+    <string name="caldav_server_type">Тип сервера</string>
 </resources>
