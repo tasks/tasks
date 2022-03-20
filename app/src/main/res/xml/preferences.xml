@@ -20,8 +20,18 @@
 
   <Preference
     app:fragment="org.tasks.preferences.fragments.TaskDefaults"
-    app:icon="@drawable/ic_outline_edit_24px"
+    app:icon="@drawable/ic_outline_add_24px"
     app:title="@string/task_defaults" />
+
+  <Preference
+    app:fragment="org.tasks.preferences.fragments.TaskListPreferences"
+    app:icon="@drawable/ic_list_24px"
+    app:title="@string/task_list_options" />
+
+  <Preference
+    app:fragment="org.tasks.preferences.fragments.TaskEditPreferences"
+    app:icon="@drawable/ic_outline_edit_24px"
+    app:title="@string/EPr_edit_screen_options" />
 
   <Preference
     app:fragment="org.tasks.preferences.fragments.DateAndTime"

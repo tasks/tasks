@@ -326,6 +326,7 @@ File %1$s contained %2$s.\n\n
   <string name="header_spacing">Spacing</string>
   <string name="row_spacing">Row spacing</string>
   <string name="customize_edit_screen">Customize edit screen</string>
+  <string name="customize_edit_screen_summary">Rearrange or remove fields</string>
   <string name="source_code">Source code</string>
   <string name="translations">Contribute translations</string>
   <string name="contact_developer">Contact developer</string>

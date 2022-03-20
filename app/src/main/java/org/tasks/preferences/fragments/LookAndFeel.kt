@@ -10,7 +10,6 @@ import android.os.Handler
 import androidx.annotation.StringRes
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
-import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -37,7 +36,6 @@ import org.tasks.themes.ThemeBase.DEFAULT_BASE_THEME
 import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import org.tasks.themes.ThemeColor
 import org.tasks.themes.ThemeColor.getLauncherColor
-import org.tasks.ui.ChipProvider
 import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
 import javax.inject.Inject
 
@@ -62,7 +60,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
     @Inject lateinit var locale: Locale
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var inventory: Inventory
-    @Inject lateinit var chipProvider: ChipProvider
 
     override fun getPreferenceXml() = R.xml.preferences_look_and_feel
 
@@ -76,27 +73,10 @@ class LookAndFeel : InjectingPreferenceFragment() {
             false
         }
 
-        findPreference(R.string.p_chip_style).setOnPreferenceChangeListener { _, newValue ->
-            chipProvider.setStyle(Integer.parseInt(newValue as String))
-            true
-        }
-
-        findPreference(R.string.p_chip_appearance).setOnPreferenceChangeListener { _, newValue ->
-            chipProvider.setAppearance(Integer.parseInt(newValue as String))
-            true
-        }
-
         findPreference(R.string.p_desaturate_colors).setOnPreferenceChangeListener { _, _ ->
             if (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
                 activity?.recreate()
             }
-            true
-        }
-
-        val sortGroups = findPreference(R.string.p_disable_sort_groups) as SwitchPreferenceCompat
-        sortGroups.isChecked = sortGroups.isChecked || preferences.usePagedQueries()
-        findPreference(R.string.p_use_paged_queries).setOnPreferenceChangeListener { _, value ->
-            sortGroups.isChecked = value as Boolean
             true
         }
 

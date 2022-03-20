@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="@string/preference_screen">
+
+    <org.tasks.preferences.IconPreference
+        android:key="@string/customize_edit_screen"
+        android:title="@string/customize_edit_screen"
+        android:layout="@layout/preference_icon"
+        android:summary="@string/customize_edit_screen_summary">
+        <intent
+            android:targetClass="com.todoroo.astrid.activity.BeastModePreferences"
+            android:targetPackage="@string/app_package" />
+    </org.tasks.preferences.IconPreference>
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_linkify_task_edit"
+        android:summary="@string/linkify_description"
+        android:title="@string/linkify" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_back_button_saves_task"
+        android:title="@string/back_button_saves_task" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_hide_check_button"
+        android:title="@string/hide_check_button" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_show_task_edit_comments"
+        android:title="@string/EPr_show_task_edit_comments"
+        app:singleLineTitle="false" />
+
+</PreferenceScreen>

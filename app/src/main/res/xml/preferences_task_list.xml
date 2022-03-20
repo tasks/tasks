@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="@string/preference_screen">
+
+    <ListPreference
+        android:defaultValue="@integer/default_app_bar_position"
+        android:entries="@array/app_bar_position"
+        android:entryValues="@array/two_values"
+        android:key="@string/p_app_bar_position"
+        android:summary="%s"
+        android:title="@string/app_bar_position" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/p_app_bar_collapse"
+        android:title="@string/app_bar_collapse" />
+
+    <SeekBarPreference
+        android:defaultValue="16"
+        android:key="@string/p_fontSize"
+        android:max="48"
+        android:title="@string/font_size"
+        app:min="10"
+        app:showSeekBarValue="true" />
+
+    <SeekBarPreference
+        android:defaultValue="16"
+        android:key="@string/p_rowPadding"
+        android:max="16"
+        android:title="@string/row_spacing"
+        app:min="0"
+        app:showSeekBarValue="true" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_fullTaskTitle"
+        android:title="@string/EPr_fullTask_title"
+        app:singleLineTitle="false" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/p_show_description"
+        android:title="@string/show_description" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:dependency="@string/p_show_description"
+        android:key="@string/p_show_full_description"
+        android:title="@string/show_full_description" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_linkify_task_list"
+        android:summary="@string/linkify_description"
+        android:title="@string/linkify" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/p_completed_tasks_at_bottom"
+        android:title="@string/completed_tasks_at_bottom"
+        app:allowDividerAbove="true" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:dependency="@string/p_completed_tasks_at_bottom"
+        android:key="@string/p_completed_tasks_sort"
+        android:title="@string/completed_tasks_sort" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:disableDependentsState="true"
+        android:key="@string/p_use_paged_queries"
+        android:summary="@string/improve_performance_summary"
+        android:title="@string/improve_performance"
+        app:allowDividerAbove="true" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:dependency="@string/p_use_paged_queries"
+        android:key="@string/p_disable_sort_groups"
+        android:title="@string/disable_sort_groups" />
+
+    <PreferenceCategory android:title="@string/chips">
+
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/chip_styles"
+            android:entryValues="@array/chip_style_values"
+            android:key="@string/p_chip_style"
+            android:summary="%s"
+            android:title="@string/chip_style" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/chip_appearance"
+            android:entryValues="@array/chip_appearance_values"
+            android:key="@string/p_chip_appearance"
+            android:summary="%s"
+            android:title="@string/chip_appearance" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="@string/p_subtask_chips"
+            android:title="@string/subtasks" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="@string/p_start_date_chip"
+            android:title="@string/start_date" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="@string/p_place_chips"
+            android:title="@string/places" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="@string/p_list_chips"
+            android:title="@string/lists" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="@string/p_tag_chips"
+            android:title="@string/tags" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
