@@ -61,8 +61,10 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
         kotlin.system.exitProcess(0)
     }
 
-    protected fun tintColorPreference(resId: Int, tint: Int) {
-        val pref = findPreference(resId)
+    protected fun tintColorPreference(resId: Int, tint: Int) =
+        tintColorPreference(findPreference(resId), tint)
+
+    protected fun tintColorPreference(pref: Preference, tint: Int) {
         pref.icon = DrawableUtil.getWrapped(requireContext(), R.drawable.color_picker)
         DrawableUtil.setTint(pref.icon, tint)
     }
