@@ -728,4 +728,6 @@
     <string name="filter_snoozed">En attente</string>
     <string name="caldav_server_other">Autre</string>
     <string name="caldav_server_type">Type de serveur</string>
+    <string name="dismiss">Rejeter</string>
+    <string name="customize_edit_screen_summary">Réorganiser ou supprimer des champs</string>
 </resources>
