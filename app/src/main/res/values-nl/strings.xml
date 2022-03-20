@@ -733,4 +733,6 @@
     <string name="filter_snoozed">Gepauzeerd</string>
     <string name="caldav_server_unknown">Onbekend</string>
     <string name="caldav_server_other">Andere</string>
+    <string name="customize_edit_screen_summary">Velden verplaatsen of verwijderen</string>
+    <string name="dismiss">Sluiten</string>
 </resources>
