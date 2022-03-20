@@ -761,4 +761,6 @@
     <string name="caldav_server_other">Інший</string>
     <string name="caldav_server_type">Тип сервера</string>
     <string name="filter_snoozed">Відкладені</string>
+    <string name="customize_edit_screen_summary">Перевпорядкувати або вилучити поля</string>
+    <string name="dismiss">Відхилити</string>
 </resources>
