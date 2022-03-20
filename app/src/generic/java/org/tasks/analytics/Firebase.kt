@@ -10,4 +10,6 @@ class Firebase @Inject constructor() {
     fun updateRemoteConfig() {}
 
     fun logEvent(event: Int, vararg params: Pair<Int, Any>) {}
+
+    val subscribeCooldown = false
 }
