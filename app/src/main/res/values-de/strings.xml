@@ -733,4 +733,6 @@
     <string name="filter_snoozed">Zurückgestellt</string>
     <string name="caldav_server_unknown">Unbekannt</string>
     <string name="caldav_server_other">Andere</string>
+    <string name="customize_edit_screen_summary">Felder neu anordnen oder entfernen</string>
+    <string name="dismiss">Schließen</string>
 </resources>
