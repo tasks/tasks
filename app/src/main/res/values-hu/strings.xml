@@ -727,4 +727,10 @@
         <item quantity="other">Hét</item>
     </plurals>
     <string name="randomly_every">Véletlenszerűen minden %s</string>
+    <string name="caldav_server_unknown">Ismeretlen</string>
+    <string name="caldav_server_other">Egyéb</string>
+    <string name="filter_snoozed">Elhalasztva</string>
+    <string name="dismiss">Nyugtáz</string>
+    <string name="caldav_server_type">Szerver típusa</string>
+    <string name="customize_edit_screen_summary">Mezők átrendezése vagy törlése</string>
 </resources>
