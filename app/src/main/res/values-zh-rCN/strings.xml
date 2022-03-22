@@ -718,6 +718,6 @@
     <string name="filter_snoozed">已推迟</string>
     <string name="caldav_server_other">其他</string>
     <string name="caldav_server_unknown">未知</string>
-    <string name="dismiss">放弃</string>
+    <string name="dismiss">关闭</string>
     <string name="customize_edit_screen_summary">重新安排或删除字段</string>
 </resources>
