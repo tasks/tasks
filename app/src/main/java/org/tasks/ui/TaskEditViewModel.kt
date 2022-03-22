@@ -319,13 +319,13 @@ class TaskEditViewModel @Inject constructor(
                 originalAlarms.toHashSet() != selectedAlarms.value.toHashSet()
 
     @MainThread
-    suspend fun save() = withContext(NonCancellable) {
+    suspend fun save(): Boolean = withContext(NonCancellable) {
         if (cleared) {
-            return@withContext
+            return@withContext false
         }
         if (!hasChanges()) {
             discard()
-            return@withContext
+            return@withContext false
         }
         clear()
         task.title = if (title.isNullOrBlank()) context.getString(R.string.no_title) else title
@@ -435,6 +435,7 @@ class TaskEditViewModel @Inject constructor(
             }
             mainActivityEvents.emit(MainActivityEvent.RequestRating)
         }
+        true
     }
 
     private suspend fun applyCalendarChanges() {

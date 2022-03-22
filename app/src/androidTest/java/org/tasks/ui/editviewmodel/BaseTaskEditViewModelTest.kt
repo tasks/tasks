@@ -10,6 +10,7 @@ import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.tasks.calendars.CalendarEventProvider
@@ -63,7 +64,10 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
                 db.googleTaskDao,
                 db.caldavDao,
                 taskCompleter,
-                alarmService)
+                alarmService,
+            MutableSharedFlow(),
+            MutableSharedFlow(),
+        )
     }
 
     protected fun setup(task: Task) = runBlocking {
