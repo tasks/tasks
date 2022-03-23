@@ -7,6 +7,7 @@ package com.todoroo.astrid.activity
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
@@ -16,7 +17,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -25,6 +33,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
@@ -43,6 +52,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
+import org.tasks.compose.BeastModeBanner
 import org.tasks.data.Alarm
 import org.tasks.data.Location
 import org.tasks.data.TagData
@@ -225,12 +235,44 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    @OptIn(ExperimentalAnimationApi::class)
     private suspend fun process(event: TaskEditEvent) {
         when (event) {
             is TaskEditEvent.Discard ->
                 if (event.id == editViewModel.task.id) {
                     editViewModel.discard()
                 }
+        }
+    }
+
+    private val beastMode = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        val transaction = childFragmentManager.beginTransaction()
+        taskEditControlSetFragmentManager.getOrCreateFragments(childFragmentManager).forEach {
+            transaction.remove(it)
+        }
+        transaction.commit()
+        activity?.recreate()
+    }
+
+    @OptIn(ExperimentalAnimationApi::class)
+    private fun showBeastModeHint() {
+        binding.banner.setContent {
+            var visible by rememberSaveable { mutableStateOf(true) }
+            val context = LocalContext.current
+            MdcTheme {
+                BeastModeBanner(
+                    visible,
+                    showSettings = {
+                        visible = false
+                        preferences.shownBeastModeHint = true
+                        beastMode.launch(Intent(context, BeastModePreferences::class.java))
+                    },
+                    dismiss = {
+                        visible = false
+                        preferences.shownBeastModeHint = true
+                    }
+                )
+            }
         }
     }
 
@@ -241,6 +283,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             binding.title.requestFocus()
             val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.title, InputMethodManager.SHOW_IMPLICIT)
+        }
+        if (!preferences.shownBeastModeHint) {
+            showBeastModeHint()
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import at.bitfire.cert4android.CustomCertManager.Companion.resetCertificates
+import com.todoroo.andlib.utility.DateUtilities.now
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
@@ -12,13 +13,17 @@ import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
 import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingPreferenceFragment
+import org.tasks.preferences.Preferences
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.math.min
 
 @AndroidEntryPoint
 class Debug : InjectingPreferenceFragment() {
 
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var billingClient: BillingClient
+    @Inject lateinit var preferences: Preferences
 
     override fun getPreferenceXml() = R.xml.preferences_debug
 
@@ -53,6 +58,15 @@ class Debug : InjectingPreferenceFragment() {
 
         findPreference(R.string.debug_crash_app).setOnPreferenceClickListener {
             throw RuntimeException("Crashed app from debug preferences")
+        }
+
+        findPreference(R.string.debug_clear_hints).setOnPreferenceClickListener {
+            preferences.installDate =
+                min(preferences.installDate, now() - TimeUnit.DAYS.toMillis(14))
+            preferences.lastSubscribeRequest = 0L
+            preferences.lastReviewRequest = 0L
+            preferences.shownBeastModeHint = false
+            true
         }
     }
 

@@ -24,8 +24,10 @@ import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
 import androidx.core.view.forEach
@@ -89,7 +91,7 @@ import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.compose.AnimatedBanner
+import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.data.CaldavDao
 import org.tasks.data.TagDataDao
 import org.tasks.data.TaskContainer
@@ -186,17 +188,17 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 ?.show()
         is TaskListEvent.BegForSubscription -> {
             binding.banner.setContent {
-                val showBanner = rememberSaveable { mutableStateOf(true) }
+                var showBanner by rememberSaveable { mutableStateOf(true) }
                 MdcTheme {
-                    AnimatedBanner(
-                        isVisible = showBanner,
-                        dismiss = {
-                            preferences.lastSubscribeRequest = now()
-                            showBanner.value = false
-                        },
+                    SubscriptionNagBanner(
+                        visible = showBanner,
                         subscribe = {
+                            showBanner = false
                             purchase()
-                            showBanner.value = false
+                        },
+                        dismiss = {
+                            showBanner = false
+                            preferences.lastSubscribeRequest = now()
                         },
                     )
                 }
