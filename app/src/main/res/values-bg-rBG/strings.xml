@@ -378,7 +378,7 @@
     <string name="repeats_plural_on_number_of_times">Да се повтаря всеки %1$s на %2$s, възниква %3$d %4$s</string>
     <string name="dont_add_to_calendar">Без добавяне към календара</string>
     <string name="default_calendar">Календар по подразбиране</string>
-    <string name="badges_description">Броя на задачите е видим върху иконата на Tasks. Не всички начални екрани поддържат значки.</string>
+    <string name="badges_description">Броят на задачите е видим върху иконата на Tasks. Не всички начални екрани го поддържат.</string>
     <string name="bundle_notifications_summary">Няколко известия се обединяват в едно</string>
     <string name="repeat_monthly_same_day_each_month">на един и същи ден всеки месец</string>
     <string name="repeat_monthly_every_day_of_nth_week">всеки %1$s %2$s</string>
@@ -572,7 +572,7 @@
     <string name="widget_open_list">Отваряне на списък</string>
     <string name="url">Адрес</string>
     <string name="tasks_org_description">Синхронизирайте задачите си чрез Tasks.org</string>
-    <string name="davx5_selection_description">Синхронизирайте задачите си с приложението DAVx⁵</string>
+    <string name="davx5_selection_description">Синхронизирайте задачите си с DAVx⁵</string>
     <string name="upgrade_blurb_1">Здравейте! Казвам се Алекс. Аз съм независимият разработчик, който стои зад Tasks</string>
     <string name="custom_filter_criteria">Критерии за филтриране</string>
     <string name="filter_high_priority">Висок приоритет</string>
@@ -613,7 +613,7 @@
     <string name="auto_dismiss_datetime">Автоматично затваряне след избор на дата и час</string>
     <string name="picker_mode_time">Режим на избор на час</string>
     <string name="more_options">Допълнителни настройки</string>
-    <string name="improve_performance_summary">За по-добра произвидителност се изключва сортирането на групи и се свиват задачите</string>
+    <string name="improve_performance_summary">За по-добра производителност сортирането на групи се изключва, а задачите се свиват</string>
     <string name="auto_dismiss_datetime_list_summary">Затваряне след избор от списъка със задачи</string>
     <string name="shortcut_pick_time">Час по избор</string>
     <string name="wearable_notifications">Известия на носими устройства</string>
