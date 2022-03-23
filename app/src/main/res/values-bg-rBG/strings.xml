@@ -701,4 +701,17 @@
     <string name="snackbar_task_completed">Задачата е завършена</string>
     <string name="share_list">Споделяне на списък</string>
     <string name="completed_tasks_sort">Сортиране по дата на завършване</string>
+    <string name="app_bar_collapse">Свиване на лентата на приложението</string>
+    <string name="insufficient_sponsorship">Не е намерен подходящо спонсорство в GitHub</string>
+    <string name="upgrade_automation_description">Приставки за Tasker, Automate и Locale</string>
+    <string name="app_bar_position">Разположение на лентата на приложението</string>
+    <string name="alarm_before_start">%s преди началото</string>
+    <string name="completed">Завършена</string>
+    <string name="customize_edit_screen_summary">Преподреждат се или се премахват полета</string>
+    <string name="compact">Компактен</string>
+    <string name="no_google_play_subscription">Не е намерен подходящ абонамент от Google Play</string>
+    <string name="authentication_required">Необходимо е удостоверяване</string>
+    <string name="upgrade_tasks_org_account_description">Синхронизирайте с Tasks.org и си сътрудничете с други потребители</string>
+    <string name="alarm_after_start">%s след началото</string>
+    <string name="snackbar_tasks_completed">Задачата %d е завършена</string>
 </resources>
