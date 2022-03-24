@@ -754,4 +754,6 @@
     <string name="alarm_after_start">%s po rozpoczęciu</string>
     <string name="alarm_before_due">%s przed zakończeniem</string>
     <string name="alarm_after_due">%s po zakończeniu</string>
+    <string name="dismiss">Odrzuć</string>
+    <string name="customize_edit_screen_summary">Zmień kolejność lub usuń pola</string>
 </resources>
