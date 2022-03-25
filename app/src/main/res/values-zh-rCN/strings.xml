@@ -562,7 +562,7 @@
     <string name="foreground_location">前台位置</string>
     <string name="background_location">后台位置</string>
     <string name="no_app_found">没有应用能够处理这一请求</string>
-    <string name="backup_location_warning">警告:如果 Tasks 被卸载，位于 %s 的文件将被删除！请选择一个自定义位置，以防止 Android 删除您的文件。</string>
+    <string name="backup_location_warning">警告：如果 Tasks 被卸载，位于 %s 的文件将被删除！请选择一个自定义位置，以防止 Android 删除您的文件。</string>
     <string name="backups_ignore_warnings_summary">如果不需要备份或有自己的备份解决方案，请忽略备份警告</string>
     <string name="backups_ignore_warnings">忽略警告</string>
     <string name="header_spacing">间距</string>
