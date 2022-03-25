@@ -4,7 +4,7 @@
     <string name="TVA_add_comment">Voeg een opmerking toe…</string>
     <string name="backup_BPr_header">Backups</string>
     <string name="backup_BAc_import">Backup importeren</string>
-    <string name="backup_BAc_export">Backup nu maken</string>
+    <string name="backup_BAc_export">Nu een backup maken</string>
     <string name="export_toast">%1$s naar %2$s gebackupt.</string>
     <string name="import_summary_title">Hersteloverzicht</string>
     <string name="import_summary_message">Bestand %1$s bevat %2$s.
@@ -735,4 +735,6 @@
     <string name="caldav_server_other">Andere</string>
     <string name="customize_edit_screen_summary">Velden verplaatsen of verwijderen</string>
     <string name="dismiss">Sluiten</string>
+    <string name="hint_customize_edit_title">Teveel informatie\?</string>
+    <string name="hint_customize_edit_body">Je kunt dit scherm aanpassen door velden te verplaatsen of verwijderen</string>
 </resources>
