@@ -763,4 +763,6 @@
     <string name="filter_snoozed">Відкладені</string>
     <string name="customize_edit_screen_summary">Перевпорядкувати або вилучити поля</string>
     <string name="dismiss">Відхилити</string>
+    <string name="hint_customize_edit_title">Забагато інформації\?</string>
+    <string name="hint_customize_edit_body">Ви можете налаштувати цей екран, змінивши порядок або прибравши поля</string>
 </resources>
