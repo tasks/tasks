@@ -93,17 +93,13 @@ fun SubscriptionNagBanner(
             )
         },
         buttons = {
-            TextButton(onClick = subscribe) {
-                Text(text = stringResource(id = R.string.dismiss))
+            BannerTextButton(text = R.string.dismiss, dismiss)
+            val res = if (Tasks.IS_GENERIC) {
+                R.string.TLA_menu_donate
+            } else {
+                R.string.button_subscribe
             }
-            TextButton(onClick = dismiss) {
-                val res = if (Tasks.IS_GENERIC) {
-                    R.string.TLA_menu_donate
-                } else {
-                    R.string.button_subscribe
-                }
-                Text(text = stringResource(id = res))
-            }
+            BannerTextButton(text = res, subscribe)
         }
     )
 }
@@ -131,14 +127,22 @@ fun BeastModeBanner(
             )
         },
         buttons = {
-            TextButton(onClick = dismiss) {
-                Text(text = stringResource(id = R.string.dismiss))
-            }
-            TextButton(onClick = showSettings) {
-                Text(text = stringResource(id = R.string.TLA_menu_settings))
-            }
+            BannerTextButton(text = R.string.dismiss, onClick = dismiss)
+            BannerTextButton(text = R.string.TLA_menu_settings, onClick = showSettings)
         }
     )
+}
+
+@Composable
+fun BannerTextButton(text: Int, onClick: () -> Unit) {
+    TextButton(onClick = onClick) {
+        Text(
+            text = stringResource(id = text),
+            style = MaterialTheme.typography.button.copy(
+                color = MaterialTheme.colors.secondary
+            ),
+        )
+    }
 }
 
 @ExperimentalAnimationApi
