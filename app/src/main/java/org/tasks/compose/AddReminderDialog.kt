@@ -99,51 +99,47 @@ object AddReminderDialog {
         val interval = rememberSaveable { mutableStateOf(0) }
         val recurringUnits = rememberSaveable { mutableStateOf(0) }
         val repeat = rememberSaveable { mutableStateOf(0) }
-        if (openDialog.value && !openRecurringDialog.value) {
-            AlertDialog(
-                onDismissRequest = closeDialog,
-                text = {
-                    AddCustomReminder(
-                        openDialog,
-                        time,
-                        units,
-                        interval,
-                        recurringUnits,
-                        repeat,
-                        showRecurring = {
-                            if (interval.value == 0 && repeat.value == 0) {
-                                interval.value = 15
-                                recurringUnits.value = 0
-                                repeat.value = 4
+        if (openDialog.value) {
+            if (!openRecurringDialog.value) {
+                AlertDialog(
+                    onDismissRequest = closeDialog,
+                    text = {
+                        AddCustomReminder(
+                            openDialog,
+                            time,
+                            units,
+                            interval,
+                            recurringUnits,
+                            repeat,
+                            showRecurring = {
+                                openRecurringDialog.value = true
                             }
-                            openRecurringDialog.value = true
-                        }
-                    )
-                },
-                confirmButton = {
-                    Constants.TextButton(text = R.string.ok, onClick = {
-                        time.value.takeIf { it >= 0 }?.let { i ->
-                            addAlarm(
-                                Alarm(
-                                    0,
-                                    -1 * i * units.millis,
-                                    Alarm.TYPE_REL_END,
-                                    repeat.value,
-                                    interval.value * recurringUnits.millis
+                        )
+                    },
+                    confirmButton = {
+                        Constants.TextButton(text = R.string.ok, onClick = {
+                            time.value.takeIf { it >= 0 }?.let { i ->
+                                addAlarm(
+                                    Alarm(
+                                        0,
+                                        -1 * i * units.millis,
+                                        Alarm.TYPE_REL_END,
+                                        repeat.value,
+                                        interval.value * recurringUnits.millis
+                                    )
                                 )
-                            )
-                            closeDialog()
-                        }
-                    })
-                },
-                dismissButton = {
-                    Constants.TextButton(
-                        text = R.string.cancel,
-                        onClick = closeDialog
-                    )
-                },
-            )
-        } else if (openRecurringDialog.value) {
+                                closeDialog()
+                            }
+                        })
+                    },
+                    dismissButton = {
+                        Constants.TextButton(
+                            text = R.string.cancel,
+                            onClick = closeDialog
+                        )
+                    },
+                )
+            }
             AddRepeatReminderDialog(
                 openDialog = openRecurringDialog,
                 initialInterval = interval.value,
@@ -177,34 +173,38 @@ object AddReminderDialog {
         val repeat = rememberSaveable { mutableStateOf(initialRepeat) }
         val closeDialog = {
             openDialog.value = false
-            interval.value = initialInterval
-            units.value = initialUnits
-            repeat.value = initialRepeat
         }
-        AlertDialog(
-            onDismissRequest = closeDialog,
-            text = {
-                AddRecurringReminder(
-                    openDialog,
-                    interval,
-                    units,
-                    repeat,
-                ) },
-            confirmButton = {
-                Constants.TextButton(text = R.string.ok, onClick = {
-                    if (interval.value > 0 && repeat.value > 0) {
-                        selected(interval.value, units.value, repeat.value)
-                        openDialog.value = false
-                    }
-                })
-            },
-            dismissButton = {
-                Constants.TextButton(
-                    text = R.string.cancel,
-                    onClick = closeDialog
-                )
-            },
-        )
+        if (openDialog.value) {
+            AlertDialog(
+                onDismissRequest = closeDialog,
+                text = {
+                    AddRecurringReminder(
+                        openDialog,
+                        interval,
+                        units,
+                        repeat,
+                    )
+                },
+                confirmButton = {
+                    Constants.TextButton(text = R.string.ok, onClick = {
+                        if (interval.value > 0 && repeat.value > 0) {
+                            selected(interval.value, units.value, repeat.value)
+                            openDialog.value = false
+                        }
+                    })
+                },
+                dismissButton = {
+                    Constants.TextButton(
+                        text = R.string.cancel,
+                        onClick = closeDialog
+                    )
+                },
+            )
+        } else {
+            interval.value = initialInterval.takeIf { it > 0 } ?: 15
+            units.value = initialUnits
+            repeat.value = initialRepeat.takeIf { it > 0 } ?: 4
+        }
     }
 
     @Composable
