@@ -37,10 +37,10 @@
     <string name="TEA_title_hint">Taaknaam</string>
     <string name="TEA_importance_label">Prioriteit</string>
     <string name="TEA_note_label">Beschrijving</string>
-    <string name="TEA_estimatedDuration_label">Hoe lang duurt het\?</string>
-    <string name="TEA_elapsedDuration_label">Reeds bestede tijd</string>
+    <string name="TEA_estimatedDuration_label">Hoeveel tijd beschikbaar\?</string>
+    <string name="TEA_elapsedDuration_label">Reeds verstreken tijd</string>
     <string name="save">Opslaan</string>
-    <string name="TEA_timer_est">Ong. %s</string>
+    <string name="TEA_timer_est">Verwacht %s</string>
     <string name="TEA_timer_elap">Verstreken %s</string>
     <string name="due_date">Vervaldatum</string>
     <string name="due_time">Vervaltijd</string>
