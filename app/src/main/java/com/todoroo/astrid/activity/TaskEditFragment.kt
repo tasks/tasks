@@ -266,10 +266,12 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                         visible = false
                         preferences.shownBeastModeHint = true
                         beastMode.launch(Intent(context, BeastModePreferences::class.java))
+                        firebase.logEvent(R.string.event_banner_beast, R.string.param_click to true)
                     },
                     dismiss = {
                         visible = false
                         preferences.shownBeastModeHint = true
+                        firebase.logEvent(R.string.event_banner_beast, R.string.param_click to false)
                     }
                 )
             }

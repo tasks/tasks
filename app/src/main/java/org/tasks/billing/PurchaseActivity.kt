@@ -9,7 +9,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.composethemeadapter.MdcTheme
-import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -40,8 +39,6 @@ class PurchaseActivity : InjectingAppCompatActivity(), OnPurchasesUpdated {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        preferences.lastSubscribeRequest = DateUtilities.now()
 
         val github = intent?.extras?.getBoolean(EXTRA_GITHUB) ?: false
 

@@ -194,11 +194,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         visible = showBanner,
                         subscribe = {
                             showBanner = false
+                            preferences.lastSubscribeRequest = now()
                             purchase()
+                            firebase.logEvent(R.string.event_banner_sub, R.string.param_click to true)
                         },
                         dismiss = {
                             showBanner = false
                             preferences.lastSubscribeRequest = now()
+                            firebase.logEvent(R.string.event_banner_sub, R.string.param_click to false)
                         },
                     )
                 }
