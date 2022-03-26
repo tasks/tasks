@@ -10,7 +10,7 @@
     <string name="import_summary_message">Файл %1$s содержал %2$s.
 \n
 \n %3$s импортировано,
-\n %4$s уже существовало,
+\n %4$s уже существовуют,
 \n %5$s с ошибками
 \n</string>
     <string name="import_progress_read">Чтение задачи %d…</string>
@@ -30,7 +30,7 @@
     <string name="action_open">Открыть</string>
     <string name="SSD_sort_auto">Умная сортировка</string>
     <string name="SSD_sort_alpha">По названию</string>
-    <string name="SSD_sort_due">По дате выполнения</string>
+    <string name="SSD_sort_due">По дате окончания</string>
     <string name="SSD_sort_importance">По приоритету</string>
     <string name="SSD_sort_modified">По дате последнего изменения</string>
     <string name="FLA_search_filter">Соответствия с «%s»</string>
@@ -43,10 +43,10 @@
     <string name="save">Сохранить </string>
     <string name="TEA_timer_est">Прибл. %s</string>
     <string name="TEA_timer_elap">Прошло %s</string>
-    <string name="due_date">Дата выполнения</string>
-    <string name="due_time">Время выполнения</string>
-    <string name="day_before_due">Сутки до даты выполнения</string>
-    <string name="week_before_due">Неделя до даты выполнения</string>
+    <string name="due_date">Дата окончания</string>
+    <string name="due_time">Время окончания</string>
+    <string name="day_before_due">Сутки до даты окончания</string>
+    <string name="week_before_due">Неделя до даты окончания</string>
     <string name="TEA_control_repeat">Повтор</string>
     <string name="TEA_control_gcal">Календарь</string>
     <string name="TEA_control_importance">Приоритет</string>
@@ -105,8 +105,8 @@
     <string name="CFA_button_add">Добавить условие</string>
     <string name="CFC_dueBefore_text">Конечный срок: ?</string>
     <string name="CFC_dueBefore_name">Конечный срок…</string>
-    <string name="no_due_date">Нет даты выполнения задания</string>
-    <string name="next_month">Ближайшие 30 дней</string>
+    <string name="no_due_date">Нет даты окончания задания</string>
+    <string name="next_month">Следующий месяц</string>
     <string name="CFC_importance_text">Приоритет как минимум ?</string>
     <string name="CFC_importance_name">Приоритет…</string>
     <string name="CFC_tag_text">Тег: ? </string>
@@ -123,7 +123,7 @@
     <string name="CFC_gtasks_list_text">В списке: \?</string>
     <string name="CFC_gtasks_list_name">В списке GTasks…</string>
     <string name="gtasks_GTA_clear_completed">Очистить завершенные</string>
-    <string name="gtasks_GLA_authenticating">Авторизация…</string>
+    <string name="gtasks_GLA_authenticating">Аутентификация…</string>
     <string name="gtasks_GLA_errorIOAuth">При обращении к серверам Google возникли проблемы. Пожалуйста, попробуйте позже.</string>
     <string name="gtasks_error_accountNotFound">Учетная запись %s не найдена — пожалуйста, выйдите и войдите снова через настройки Google Tasks.</string>
     <string name="premium_record_audio">Записать заметку</string>
@@ -137,15 +137,15 @@
     <string name="rmd_EPr_quiet_hours_start_title">Начало тихих часов</string>
     <string name="rmd_EPr_quiet_hours_end_title">Конец тихих часов</string>
     <string name="rmd_EPr_rmd_time_title">Напоминание по умолчанию</string>
-    <string name="rmd_EPr_rmd_time_desc">Уведомления для задач без срока выполнения появятся в %s</string>
+    <string name="rmd_EPr_rmd_time_desc">Уведомления для задач без срока окончания появятся в %s</string>
     <string name="persistent_notifications">Постоянные напоминания</string>
     <string name="persistent_notifications_description">Постоянные уведомления нельзя убрать</string>
     <string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
-    <string name="default_random_reminder_disabled">отключено</string>
-    <string name="default_random_reminder_hourly">ежечасно</string>
-    <string name="default_random_reminder_daily">ежедневно</string>
-    <string name="default_random_reminder_weekly">еженедельно</string>
-    <string name="default_random_reminder_bi_weekly">каждые две недели</string>
+    <string name="default_random_reminder_disabled">Отключено</string>
+    <string name="default_random_reminder_hourly">Ежечасно</string>
+    <string name="default_random_reminder_daily">Ежедневно</string>
+    <string name="default_random_reminder_weekly">Еженедельно</string>
+    <string name="default_random_reminder_bi_weekly">Каждые две недели</string>
     <string name="repeat_every">Каждую(ые)</string>
     <string name="repeat_option_does_not_repeat">Не повторять</string>
     <string name="repeat_option_every_day">Ежедневно</string>
@@ -235,7 +235,7 @@
     <string name="repeat_until">Повторять до %s</string>
     <string name="repeat_number_of_times">Повторять несколько раз</string>
     <string name="repeat_occurs">Повторять</string>
-    <string name="repeat_snackbar">«%1$s» перенесено на %2$s</string>
+    <string name="repeat_snackbar">%1$s перенесено на %2$s</string>
     <string name="new_tag">Создать новый тег</string>
     <string name="new_list">Создать новый список</string>
     <string name="delete_tag_confirmation">Удалить %s?</string>
@@ -261,7 +261,7 @@
     <string name="yesterday">Вчера</string>
     <string name="tmrw">Завтра</string>
     <string name="yest">Вчера</string>
-    <string name="widget_show_checkboxes">Показать кнопки для галочек</string>
+    <string name="widget_show_checkboxes">Показать флажки</string>
     <string name="widget_show_header">Показать заголовок</string>
     <string name="widget_show_settings">Показать настройки</string>
     <string name="notifications">Уведомления</string>
@@ -273,23 +273,23 @@
     <string name="backup_directory">Папка резервных копий</string>
     <string name="google_drive_backup">Резервное копирование в Google Drive</string>
     <string name="miscellaneous">Прочие настройки</string>
-    <string name="enabled">Включить режим</string>
+    <string name="enabled">Включено</string>
     <string name="font_size">Размер шрифта</string>
     <string name="row_spacing">Межстрочный интервал</string>
     <string name="customize_edit_screen">Настроить экран редактирования</string>
     <string name="source_code">Исходный код</string>
     <string name="translations">Участвовать в переводе программы</string>
     <string name="contact_developer">Связь с разработчиком</string>
-    <string name="rate_tasks">Оставить отзыв</string>
+    <string name="rate_tasks">Оцените Tasks</string>
     <string name="quiet_hours_summary">Выкл. напоминания в тихие часы</string>
     <string name="TLA_menu_donate">Поддержать разработку</string>
     <string name="add_reminder">Добавить напоминание</string>
     <string name="add_location">Добавить место</string>
     <string name="remove">Удалить</string>
     <string name="randomly">Случайно</string>
-    <string name="pick_a_date_and_time">Дата и время</string>
+    <string name="pick_a_date_and_time">Выберите дату и время</string>
     <string name="when_overdue">Когда просрочено</string>
-    <string name="when_due">В срок</string>
+    <string name="when_due">Когда закончится</string>
     <string name="geofence_radius">Радиус</string>
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Теги</string>
@@ -315,7 +315,7 @@
     <string name="reverse">Наоборот</string>
     <string name="add_attachment">Прикрепить файл</string>
     <string name="take_a_picture">Сделать снимок</string>
-    <string name="pick_from_gallery">Выбрать изображение из галереи</string>
+    <string name="pick_from_gallery">Выбрать из галереи</string>
     <string name="pick_from_storage">Выбрать файл с диска</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="send_anonymous_statistics">Содейств. улучш. Tasks</string>
@@ -363,7 +363,7 @@
     <string name="add_account">Добавить учётную запись</string>
     <string name="user">Пользователь</string>
     <string name="password">Пароль</string>
-    <string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>
+    <string name="notification_disable_battery_optimizations_description">Оптимизация расхода батареи может задерживать уведомления</string>
     <string name="bundle_notifications">Группировать уведомления</string>
     <string name="badges">Ярлыки</string>
     <string name="list">Список</string>
@@ -374,7 +374,7 @@
     <string name="repeats_single_number_of_times">Повторять %1$s, %2$d %3$s</string>
     <string name="repeats_single_on_until">Повторять %1$s в %2$s до %3$s</string>
     <string name="repeats_single_on_number_of_times">Повторять %1$s в %2$s, %3$d %4$s</string>
-    <string name="repeats_minutely">Ежеминутно</string>
+    <string name="repeats_minutely">ежеминутно</string>
     <string name="repeats_hourly">ежечасно</string>
     <string name="repeats_daily">ежедневно</string>
     <string name="repeats_weekly">еженедельно</string>
@@ -389,7 +389,7 @@
     <string name="dont_add_to_calendar">Не добавлять в календарь</string>
     <string name="default_calendar">Календарь по умолчанию</string>
     <string name="badges_description">Отображать количество задач на иконке приложения. Не все лаунчеры это поддерживают.</string>
-    <string name="bundle_notifications_summary">Группировать несколько уведомлений в одно общее</string>
+    <string name="bundle_notifications_summary">Группировать несколько уведомлений в одно</string>
     <string name="repeat_monthly_same_day_each_month">в тот же день ежемесячно</string>
     <string name="repeat_monthly_every_day_of_nth_week">каждый %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">в каждый %1$s %2$s</string>
@@ -463,7 +463,7 @@
     <string name="choose_synchronization_service">Выберите платформу</string>
     <string name="google_tasks_selection_description">Простой сервис, который синхронизируется с Вашим аккаунтом Google</string>
     <string name="caldav_selection_description">Синхронизация, основанная на открытых стандартах</string>
-    <string name="etesync_selection_description">Сквозная зашифрованная синхронизация</string>
+    <string name="etesync_selection_description">Синхронизация с использованием сквозного шифрования</string>
     <string name="show_advanced_settings">Показать расширенные настройки</string>
     <string name="caldav_account_description">Требует аккаунта у провайдера CalDAV или собственного сервера. Список провайдеров можно найти на tasks.org/caldav</string>
     <string name="etesync_account_description">Требует аккаунта на EteSync.com или собственного сервера</string>
@@ -477,18 +477,18 @@
     <string name="notification_troubleshooting_summary">Нажмите здесь в случае проблем с уведомлениями</string>
     <string name="disable_battery_optimizations">Выключить оптимизацию энергопотребления</string>
     <string name="more_settings">Прочие настройки</string>
-    <string name="more_notification_settings_summary">Рингтон, вибровызов и прочее</string>
+    <string name="more_notification_settings_summary">Рингтон, вибрация и прочее</string>
     <string name="invalid_username_or_password">Неверное имя пользователя или пароль</string>
-    <string name="theme_system_default">Системная по умолчанию</string>
+    <string name="theme_system_default">Как в системе</string>
     <string name="color_wheel">Палитра</string>
     <string name="upgrade_blurb_1">Привет! Меня зовут Алекс. Я - независимый разработчик, стоящий за программой Tasks</string>
     <string name="upgrade_blurb_2">Я потратил тысячи часов, работая над Tasks, и я публикую весь исходный код онлайн, бесплатно. Для того, чтобы поддержать мою работу, некоторые функциональности требуют подписки</string>
     <string name="back">Назад</string>
-    <string name="chip_style">Стиль индикаторов списков</string>
-    <string name="chip_style_outlined">Контурный</string>
+    <string name="chip_style">Стиль индикаторов</string>
+    <string name="chip_style_outlined">Оконтуренный</string>
     <string name="chip_style_filled">Заполненный</string>
-    <string name="chips">Индикаторы списков</string>
-    <string name="chip_appearance">Внешний вид индикаторов списков</string>
+    <string name="chips">Индикаторы</string>
+    <string name="chip_appearance">Внешний вид индикаторов</string>
     <string name="desaturate_colors">Уменьшить насыщенность цветов</string>
     <string name="desaturate_colors_summary_on">Цвета будут менее насыщенными в темных темах</string>
     <string name="desaturate_colors_summary_off">Цвета не будут менее насыщенными в темных темах</string>
@@ -571,7 +571,7 @@
     <string name="on_launch">При запуске</string>
     <string name="disable_sort_groups">Отключить группы сортировки</string>
     <string name="improve_performance_summary">Отключить группы сортировки и сворачиваемые подзадачи для улучшения производительности</string>
-    <string name="improve_performance">Улучшить производ-сть</string>
+    <string name="improve_performance">Улучшить производительность</string>
     <string name="date_shortcut_tomorrow_night">Завтра ночью</string>
     <string name="date_shortcut_tomorrow_evening">Завтра вечером</string>
     <string name="CFC_list_name">В списке…</string>
@@ -633,7 +633,7 @@
     <string name="repeat_monthly_fifth_week">Пятая</string>
     <string name="above_average">Выше среднего</string>
     <string name="save_percent">Сохранить %d%%</string>
-    <string name="decsync_selection_description">Файловая синхронизация</string>
+    <string name="decsync_selection_description">Синхронизация с использованием локального файла</string>
     <string name="copied_to_clipboard">%s скопировано в буфер обмена</string>
     <string name="app_password_save">Используйте эти учетные данные для настройки стороннего приложения. Они предоставляют полный доступ к Вашей учетной записи Tasks.org, не записывайте их и не делитесь ими с кем-либо!</string>
     <string name="app_password_delete_confirmation">Любое приложение, использующее этот пароль, выйдет из системы</string>
@@ -646,9 +646,9 @@
     <string name="app_password">Пароль приложения</string>
     <string name="sign_in_to_tasks">Войти в Tasks.org</string>
     <string name="local_lists">Локальные списки</string>
-    <string name="default_due_date">Дата выполнения по умолчанию</string>
+    <string name="default_due_date">Дата окончания по умолчанию</string>
     <string name="start_date">Дата начала</string>
-    <string name="filter_criteria_unstarted">Не начавшееся</string>
+    <string name="filter_criteria_unstarted">Не начавшиеся</string>
     <string name="show_unstarted">Показать не начавшиеся</string>
     <string name="no_start_date">Нет даты начала</string>
     <string name="default_start_date">Дата начала по умолчанию</string>
@@ -668,7 +668,7 @@
     <string name="map_theme_use_app_theme">Использовать тему приложения</string>
     <string name="tasks_org_account_required">Требуется учетная запись Tasks.org</string>
     <string name="map_theme">Тема карты</string>
-    <string name="follow_twitter">Следить за @task_org</string>
+    <string name="follow_twitter">Следите за @task_org</string>
     <string name="privacy">Конфиденциальность</string>
     <string name="open_source">Открытый исходный код</string>
     <string name="issue_tracker">Отслеживание ошибок</string>
@@ -679,12 +679,12 @@
     <string name="upgrade_automation_description">Плагины для задач, автоматизации и локализации</string>
     <string name="upgrade_automation">Автоматизация</string>
     <string name="upgrade_open_source_description">Ваша подписка поддерживает непрерывное развитие</string>
-    <string name="upgrade_desktop_access_description">Синхронизация с сторонними клиентами, такими как Outlook и Apple Reminders</string>
+    <string name="upgrade_desktop_access_description">Синхронизация со сторонними клиентами, такими как Outlook и Apple Reminders</string>
     <string name="upgrade_tasks_org_account_description">Синхронизируйтесь с Tasks.org и сотрудничайте с другими пользователями</string>
     <string name="upgrade_google_tasks">Синхронизировать несколько аккаунтов</string>
     <string name="upgrade_more_customization_description">Разблокировать все темы, цвета и иконки</string>
     <string name="upgrade_more_customization">Больше настроек</string>
-    <string name="pro_free_trial">Новые абоненты получают 7-дневный бесплатный пробный период. Отмена в любое время</string>
+    <string name="pro_free_trial">Новые подписчики получают 7-дневный бесплатный пробный период. Отмена возможна в любое время</string>
     <string name="picker_mode_text">Текст</string>
     <string name="picker_mode_clock">Часы</string>
     <string name="picker_mode_calendar">Календарь</string>
@@ -702,17 +702,17 @@
     <string name="next_friday">Следующая Пт</string>
     <string name="next_thursday">Следующий Чт</string>
     <string name="next_monday">Следующий Пн</string>
-    <string name="next_sunday">Следующий Пн</string>
+    <string name="next_sunday">Следующее Вс</string>
     <string name="next_tuesday">Следующий Вт</string>
     <string name="manage_drawer">Изменить панель</string>
     <string name="social">Социальные сети</string>
     <string name="upgrade_desktop_access">Доступ к рабочему столу</string>
-    <string name="next_wednesday">Следующая ср</string>
+    <string name="next_wednesday">Следующая Ср</string>
     <string name="markdown_description">Включить Markdown в названии и описании</string>
     <string name="markdown">Markdown</string>
     <string name="chat_libera">Присоединяйтесь к #tasks в Libera Chat</string>
     <string name="now">Сейчас</string>
-    <string name="when_started">После запуска</string>
+    <string name="when_started">После начала</string>
     <string name="completion_sound">Воспроизводить звук завершения</string>
     <string name="app_bar_position">Расположение панели приложения</string>
     <string name="top">Вверху</string>
@@ -761,4 +761,6 @@
     <string name="caldav_server_type">Тип сервера</string>
     <string name="customize_edit_screen_summary">Переупорядочить или удалить поля</string>
     <string name="dismiss">Отклонить</string>
+    <string name="hint_customize_edit_title">Слишком много информации\?</string>
+    <string name="hint_customize_edit_body">Вы можете настроить этот экран, переставляя или удаляя поля</string>
 </resources>
