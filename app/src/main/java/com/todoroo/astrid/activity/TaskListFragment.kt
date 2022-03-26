@@ -673,7 +673,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         return onOptionsItemSelected(item)
     }
 
-    fun onTaskListItemClicked(task: Task?) = lifecycleScope.launch {
+    private fun onTaskListItemClicked(task: Task?) = lifecycleScope.launch {
         callbacks.onTaskListItemClicked(task)
     }
 

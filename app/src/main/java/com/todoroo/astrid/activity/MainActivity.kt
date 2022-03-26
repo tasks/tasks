@@ -356,9 +356,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         if (task == null) {
             return
         }
-        taskEditFragment?.let {
-            it.save()
-        }
+        taskEditFragment?.save(remove = false)
         clearUi()
         coroutineScope {
             val freshTask = async { if (task.isNew) task else taskDao.fetch(task.id) ?: task }

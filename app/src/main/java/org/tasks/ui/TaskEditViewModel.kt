@@ -319,15 +319,15 @@ class TaskEditViewModel @Inject constructor(
                 originalAlarms.toHashSet() != selectedAlarms.value.toHashSet()
 
     @MainThread
-    suspend fun save(): Boolean = withContext(NonCancellable) {
+    suspend fun save(remove: Boolean = true): Boolean = withContext(NonCancellable) {
         if (cleared) {
             return@withContext false
         }
         if (!hasChanges()) {
-            discard()
+            discard(remove)
             return@withContext false
         }
-        clear()
+        clear(remove)
         task.title = if (title.isNullOrBlank()) context.getString(R.string.no_title) else title
         task.dueDate = dueDate!!
         task.priority = priority!!
@@ -468,17 +468,20 @@ class TaskEditViewModel @Inject constructor(
         discard()
     }
 
-    suspend fun discard() {
+    suspend fun discard(remove: Boolean = true) {
         if (task.isNew) {
             timerPlugin.stopTimer(task)
         }
-        clear()
+        clear(remove)
     }
 
     @MainThread
-    suspend fun clear() {
-        if (!cleared) {
-            cleared = true
+    suspend fun clear(remove: Boolean = true) {
+        if (cleared) {
+            return
+        }
+        cleared = true
+        if (remove) {
             mainActivityEvents.emit(MainActivityEvent.ClearTaskEditFragment)
         }
     }
@@ -486,7 +489,7 @@ class TaskEditViewModel @Inject constructor(
     override fun onCleared() {
         if (!cleared) {
             runBlocking {
-                save()
+                save(remove = false)
             }
         }
     }

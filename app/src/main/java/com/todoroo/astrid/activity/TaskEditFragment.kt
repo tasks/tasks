@@ -326,7 +326,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         return model
     }
 
-    suspend fun save() = editViewModel.save()
+    suspend fun save(remove: Boolean = true) = editViewModel.save(remove)
 
     /*
    * ======================================================================
