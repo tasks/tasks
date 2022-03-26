@@ -1,3 +1,30 @@
+### 12.6.1 (2022-03-26)
+
+* Move task list and edit screen options to top level settings
+* Prompt users to customize edit screen
+* Fix cancel button for recurring reminder dialog
+* Update translations
+  * Bulgarian - @StoyanDimitrov
+  * Chinese (Simplified) - Eric, @Geeyun-JY3
+  * Croatian - @milotype
+  * Dutch - @mm4c, @fvbommel
+  * Finnish - J. Lavoie
+  * French - @FlorianLeChat
+  * Galician - @mglbranco, J. Lavoie
+  * German - @qwerty287
+  * Hungarian - kaciokos
+  * Italian - @Fs00
+  * Norwegian Bokmål - @comradekingu
+  * Polish - @wiktor-k
+  * Portuguese (Brazilian) - @tsunamistonefly
+  * Romanian - @simonaiacob
+  * Russian - Nikita Epifanov
+  * Spanish - @FlorianLeChat
+  * Swedish - @reportxx
+  * Turkish - @ersen0, @emintufan
+  * Ukrainian - @IhorHordiichuk
+  * Vietnamese - @unbiaseduser, J. Lavoie
+
 ### 12.6 (2022-03-12)
 
 * Configure notifications to repeat at custom intervals

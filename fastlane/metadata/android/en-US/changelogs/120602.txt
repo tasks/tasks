@@ -1,0 +1,4 @@
+* Move task list and edit screen options to top level settings
+* Prompt users to customize edit screen
+* Fix cancel button for recurring reminder dialog
+* Update translations
