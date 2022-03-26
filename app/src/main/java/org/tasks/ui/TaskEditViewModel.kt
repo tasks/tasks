@@ -82,7 +82,7 @@ class TaskEditViewModel @Inject constructor(
         private val alarmService: AlarmService,
         private val taskListEvents: TaskListEventBus,
         private val mainActivityEvents: MainActivityEventBus,
-        private val firebase: Firebase,
+        private val firebase: Firebase? = null,
 ) : ViewModel() {
 
     private var cleared = false
@@ -386,7 +386,7 @@ class TaskEditViewModel @Inject constructor(
                 subtask.completionDate = task.completionDate
             }
             taskDao.createNew(subtask)
-            firebase.addTask("subtasks")
+            firebase?.addTask("subtasks")
             when (selectedList) {
                 is GtasksFilter -> {
                     val googleTask = GoogleTask(subtask.id, (selectedList as GtasksFilter).remoteId)
