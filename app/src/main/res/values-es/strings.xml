@@ -735,4 +735,6 @@
     <string name="caldav_server_other">Otro</string>
     <string name="dismiss">Despedir</string>
     <string name="customize_edit_screen_summary">Reorganizar o quitar campos</string>
+    <string name="hint_customize_edit_title">¿Demasiada información\?</string>
+    <string name="hint_customize_edit_body">Puede personalizar esta pantalla reorganizando o eliminando campos</string>
 </resources>
