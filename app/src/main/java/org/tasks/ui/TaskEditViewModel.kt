@@ -31,6 +31,7 @@ import kotlinx.coroutines.withContext
 import net.fortuna.ical4j.model.Recur
 import org.tasks.R
 import org.tasks.Strings
+import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
@@ -81,6 +82,7 @@ class TaskEditViewModel @Inject constructor(
         private val alarmService: AlarmService,
         private val taskListEvents: TaskListEventBus,
         private val mainActivityEvents: MainActivityEventBus,
+        private val firebase: Firebase,
 ) : ViewModel() {
 
     private var cleared = false
@@ -384,6 +386,7 @@ class TaskEditViewModel @Inject constructor(
                 subtask.completionDate = task.completionDate
             }
             taskDao.createNew(subtask)
+            firebase.addTask("subtasks")
             when (selectedList) {
                 is GtasksFilter -> {
                     val googleTask = GoogleTask(subtask.id, (selectedList as GtasksFilter).remoteId)

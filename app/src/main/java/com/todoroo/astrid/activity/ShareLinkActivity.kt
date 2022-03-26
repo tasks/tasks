@@ -10,13 +10,13 @@ import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Firebase
 import org.tasks.data.TaskAttachment
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Preferences
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 import kotlin.math.min
 
@@ -29,6 +29,7 @@ import kotlin.math.min
 class ShareLinkActivity : InjectingAppCompatActivity() {
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var firebase: Firebase
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,7 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
                 if (text != null) {
                     val task = taskCreator.createWithValues(text.toString())
                     editTask(task)
+                    firebase.addTask("clipboard")
                 }
                 finish()
             }
@@ -49,6 +51,9 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
                 task.notes = intent.getStringExtra(Intent.EXTRA_TEXT)
                 if (hasAttachments(intent)) {
                     task.putTransitory(TaskAttachment.KEY, copyAttachment(intent))
+                    firebase.addTask("share_attachment")
+                } else {
+                    firebase.addTask("share_text")
                 }
                 editTask(task)
                 finish()
@@ -58,12 +63,16 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
                 task.notes = intent.getStringExtra(Intent.EXTRA_TEXT)
                 if (hasAttachments(intent)) {
                     task.putTransitory(TaskAttachment.KEY, copyMultipleAttachments(intent))
+                    firebase.addTask("share_multiple_attachments")
+                } else {
+                    firebase.addTask("share_multiple_text")
                 }
                 editTask(task)
                 finish()
             }
             Intent.ACTION_VIEW == action -> lifecycleScope.launch {
                 editTask(taskCreator.createWithValues(""))
+                firebase.addTask("action_view")
                 finish()
             }
             else -> {

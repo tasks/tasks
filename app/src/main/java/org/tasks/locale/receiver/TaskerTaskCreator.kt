@@ -5,6 +5,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.service.TaskCreator
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.Firebase
 import org.tasks.locale.bundle.TaskCreationBundle
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils
@@ -18,8 +19,9 @@ import kotlin.math.min
 
 class TaskerTaskCreator @Inject internal constructor(
         private val taskCreator: TaskCreator,
-        private val taskDao: TaskDao) {
-
+        private val taskDao: TaskDao,
+        private val firebase: Firebase,
+) {
     suspend fun handle(bundle: TaskCreationBundle) {
         val task = taskCreator.basicQuickAddTask(bundle.title)
         val dueDateString = bundle.dueDate
@@ -58,6 +60,7 @@ class TaskerTaskCreator @Inject internal constructor(
         task.notes = bundle.description
         taskDao.save(task)
         taskCreator.createTags(task)
+        firebase.addTask("tasker")
     }
 
     companion object {

@@ -161,7 +161,10 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             return null
         }
         if (intent.hasExtra(CREATE_TASK)) {
+            val source = intent.getStringExtra(CREATE_SOURCE)
+            firebase.addTask(source ?: "unknown")
             intent.removeExtra(CREATE_TASK)
+            intent.removeExtra(CREATE_SOURCE)
             return taskCreator.createWithValues(filter, "")
         }
         if (intent.hasExtra(OPEN_TASK)) {
@@ -493,6 +496,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         const val OPEN_FILTER = "open_filter" // $NON-NLS-1$
         const val LOAD_FILTER = "load_filter"
         const val CREATE_TASK = "open_task" // $NON-NLS-1$
+        const val CREATE_SOURCE = "create_source"
         const val OPEN_TASK = "open_new_task" // $NON-NLS-1$
         const val REMOVE_TASK = "remove_task"
         const val FINISH_AFFINITY = "finish_affinity"

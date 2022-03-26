@@ -174,7 +174,7 @@ class TasksWidget : AppWidgetProvider() {
     }
 
     private fun getNewTaskIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
-        val intent = TaskIntents.getNewTaskIntent(context, filter)
+        val intent = TaskIntents.getNewTaskIntent(context, filter, "widget")
         intent.action = "new_task"
         return PendingIntent.getActivity(
             context,

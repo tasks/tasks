@@ -12,12 +12,17 @@ public class TaskIntents {
 
   public static final int FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
-  public static Intent getNewTaskIntent(Context context, @Nullable Filter filter) {
+  public static Intent getNewTaskIntent(
+          Context context,
+          @Nullable Filter filter,
+          String createSource
+  ) {
     Intent intent = new Intent(context, MainActivity.class);
     if (filter != null) {
       intent.putExtra(MainActivity.OPEN_FILTER, filter);
     }
     intent.putExtra(MainActivity.CREATE_TASK, 0L);
+    intent.putExtra(MainActivity.CREATE_SOURCE, createSource);
     intent.putExtra(MainActivity.REMOVE_TASK, true);
     return intent;
   }

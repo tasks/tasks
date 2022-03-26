@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingAppCompatActivity
 import javax.inject.Inject
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class VoiceCommandActivity : InjectingAppCompatActivity() {
     @Inject lateinit var taskCreator: TaskCreator
     @Inject @ApplicationContext lateinit var context: Context
+    @Inject lateinit var firebase: Firebase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,7 @@ class VoiceCommandActivity : InjectingAppCompatActivity() {
                         ?.let {
                             taskCreator.basicQuickAddTask(it)
                             toast(R.string.voice_command_added_task)
+                            firebase.addTask("note_to_self")
                         }
                 finish()
             }

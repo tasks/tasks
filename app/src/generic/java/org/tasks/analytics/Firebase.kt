@@ -11,5 +11,7 @@ class Firebase @Inject constructor() {
 
     fun logEvent(event: Int, vararg params: Pair<Int, Any>) {}
 
+    fun addTask(source: String) {}
+
     val subscribeCooldown = false
 }

@@ -49,7 +49,7 @@ class UriHandler : AppCompatActivity() {
     }
 
     private fun newTask() {
-        val intent = TaskIntents.getNewTaskIntent(this@UriHandler, null)
+        val intent = TaskIntents.getNewTaskIntent(this@UriHandler, null, "content_provider")
         intent.flags = TaskIntents.FLAGS
         startActivity(intent)
         finish()

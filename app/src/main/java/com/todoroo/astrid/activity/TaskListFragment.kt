@@ -545,6 +545,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         lifecycleScope.launch {
             shortcutManager.reportShortcutUsed(ShortcutManager.SHORTCUT_NEW_TASK)
             onTaskListItemClicked(addTask(""))
+            firebase.addTask("fab")
         }
     }
 
@@ -637,6 +638,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         recognizedSpeech = (recognizedSpeech.substring(0, 1).toUpperCase()
                                 + recognizedSpeech.substring(1).toLowerCase())
                         onTaskListItemClicked(addTask(recognizedSpeech))
+                        firebase.addTask("voice")
                     }
                 }
             }
