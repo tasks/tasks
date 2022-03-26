@@ -754,4 +754,8 @@
     <string name="caldav_server_other">Drugi</string>
     <string name="caldav_server_type">Vrsta poslužitelja</string>
     <string name="filter_snoozed">Odgođeno</string>
+    <string name="dismiss">Odbaci</string>
+    <string name="hint_customize_edit_body">Ovaj ekran možeš prilagoditi mijenjanjem rasporeda polja ili uklanjanjem polja</string>
+    <string name="customize_edit_screen_summary">Prerasporedi ili ukloni polja</string>
+    <string name="hint_customize_edit_title">Previše informacija\?</string>
 </resources>
