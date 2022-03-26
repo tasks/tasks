@@ -286,12 +286,12 @@
     <string name="date_shortcut_must_come_after">%1$s moet na %2$s komen</string>
     <string name="discard_changes">Veranderingen negeren\?</string>
     <string name="discard">Negeren</string>
-    <string name="tag_settings">Label instellingen</string>
+    <string name="tag_settings">Label instellen</string>
     <string name="list_settings">Lijst instellen</string>
     <string name="delete">Wissen</string>
     <string name="copy">Kopiëren</string>
     <string name="move">Verplaatsen</string>
-    <string name="filter_settings">Filter instellingen</string>
+    <string name="filter_settings">Filter instellen</string>
     <string name="show_completed">Voltooide tonen</string>
     <string name="reverse">Omkeren</string>
     <string name="add_attachment">Bijlage toevoegen</string>
