@@ -23,6 +23,7 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV

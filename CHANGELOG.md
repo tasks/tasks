@@ -1,4 +1,4 @@
-### 12.6.1 (2022-03-26)
+### 12.6.1 (2022-03-27)
 
 * Move task list and edit screen options to top level settings
 * Prompt users to customize edit screen
