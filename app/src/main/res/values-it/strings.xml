@@ -733,4 +733,8 @@
     <string name="filter_snoozed">Posticipato</string>
     <string name="caldav_server_unknown">Sconosciuto</string>
     <string name="caldav_server_type">Tipo di server</string>
+    <string name="dismiss">Ignora</string>
+    <string name="hint_customize_edit_title">Troppe informazioni\?</string>
+    <string name="customize_edit_screen_summary">Riordina o rimuovi i campi</string>
+    <string name="hint_customize_edit_body">Puoi personalizzare questa schermata riorganizzando o rimuovendo i campi</string>
 </resources>
