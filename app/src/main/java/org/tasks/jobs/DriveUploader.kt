@@ -3,7 +3,6 @@ package org.tasks.jobs
 import android.content.Context
 import android.net.Uri
 import androidx.hilt.work.HiltWorker
-import androidx.work.Data
 import androidx.work.WorkerParameters
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
 import com.google.api.services.drive.model.File
@@ -107,13 +106,7 @@ class DriveUploader @AssistedInject constructor(
 
     companion object {
         private const val FOLDER_NAME = "Tasks Backups"
-        private const val EXTRA_URI = "extra_uri"
-        private const val EXTRA_PURGE = "extra_purge"
-
-        fun getInputData(uri: Uri, purge: Boolean) =
-                Data.Builder()
-                    .putString(EXTRA_URI, uri.toString())
-                    .putBoolean(EXTRA_PURGE, purge)
-                    .build()
+        const val EXTRA_URI = "extra_uri"
+        const val EXTRA_PURGE = "extra_purge"
     }
 }

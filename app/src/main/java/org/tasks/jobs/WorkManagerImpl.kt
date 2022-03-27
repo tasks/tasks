@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.work.Constraints
-import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy.APPEND_OR_REPLACE
 import androidx.work.ExistingWorkPolicy.REPLACE
@@ -18,12 +17,12 @@ import androidx.work.WorkContinuation
 import androidx.work.WorkInfo
 import androidx.work.WorkRequest
 import androidx.work.Worker
+import androidx.work.workDataOf
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
@@ -35,6 +34,8 @@ import org.tasks.data.OpenTaskDao
 import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.jobs.DriveUploader.Companion.EXTRA_PURGE
+import org.tasks.jobs.DriveUploader.Companion.EXTRA_URI
 import org.tasks.jobs.MigrateLocalWork.Companion.EXTRA_ACCOUNT
 import org.tasks.jobs.SyncWork.Companion.EXTRA_BACKGROUND
 import org.tasks.jobs.SyncWork.Companion.EXTRA_IMMEDIATE
@@ -75,28 +76,25 @@ class WorkManagerImpl constructor(
 
     override fun scheduleRepeat(task: Task) {
         enqueue(
-                OneTimeWorkRequest.Builder(AfterSaveWork::class.java)
-                        .setInputData(Data.Builder()
-                                .putLong(AfterSaveWork.EXTRA_ID, task.id)
-                                .putBoolean(
-                                    AfterSaveWork.EXTRA_SUPPRESS_COMPLETION_SNACKBAR,
-                                    task.isSuppressRefresh()
-                                )
-                                .build()))
+            OneTimeWorkRequest.Builder(AfterSaveWork::class.java)
+                .setInputData(
+                    AfterSaveWork.EXTRA_ID to task.id,
+                    AfterSaveWork.EXTRA_SUPPRESS_COMPLETION_SNACKBAR to task.isSuppressRefresh()
+                )
+        )
     }
 
     override fun updateCalendar(task: Task) {
         enqueue(
-                OneTimeWorkRequest.Builder(UpdateCalendarWork::class.java)
-                        .setInputData(Data.Builder()
-                                .putLong(UpdateCalendarWork.EXTRA_ID, task.id)
-                                .build()))
+            OneTimeWorkRequest.Builder(UpdateCalendarWork::class.java)
+                .setInputData(UpdateCalendarWork.EXTRA_ID to task.id)
+        )
     }
 
     @SuppressLint("EnqueueWork")
     override fun migrateLocalTasks(caldavAccount: CaldavAccount) {
         val builder = OneTimeWorkRequest.Builder(MigrateLocalWork::class.java)
-                .setInputData(Data.Builder().putString(EXTRA_ACCOUNT, caldavAccount.uuid).build())
+                .setInputData(EXTRA_ACCOUNT to caldavAccount.uuid)
                 .setConstraints(networkConstraints)
         enqueue(workManager.beginUniqueWork(TAG_MIGRATE_LOCAL, APPEND_OR_REPLACE, builder.build()))
     }
@@ -104,11 +102,9 @@ class WorkManagerImpl constructor(
     override fun cleanup(ids: Iterable<Long>) {
         ids.chunked(MAX_CLEANUP_LENGTH) {
             enqueue(
-                    OneTimeWorkRequest.Builder(CleanupWork::class.java)
-                            .setInputData(
-                                    Data.Builder()
-                                            .putLongArray(CleanupWork.EXTRA_TASK_IDS, it.toLongArray())
-                                            .build()))
+                OneTimeWorkRequest.Builder(CleanupWork::class.java)
+                    .setInputData(CleanupWork.EXTRA_TASK_IDS to it.toLongArray())
+            )
         }
     }
 
@@ -128,7 +124,7 @@ class WorkManagerImpl constructor(
     private suspend fun sync(immediate: Boolean, tag: String, c: Class<out SyncWork>, requireNetwork: Boolean = true) {
         Timber.d("sync(immediate = $immediate, $tag, $c, requireNetwork = $requireNetwork)")
         val builder = OneTimeWorkRequest.Builder(c)
-                .setInputData(Data.Builder().putBoolean(EXTRA_IMMEDIATE, immediate).build())
+                .setInputData(EXTRA_IMMEDIATE to immediate)
         if (requireNetwork) {
             builder.setConstraints(networkConstraints)
         }
@@ -153,7 +149,7 @@ class WorkManagerImpl constructor(
         }
         enqueue(
                 OneTimeWorkRequest.Builder(ReverseGeocodeWork::class.java)
-                        .setInputData(Data.Builder().putLong(ReverseGeocodeWork.PLACE_ID, place.id).build())
+                        .setInputData(ReverseGeocodeWork.PLACE_ID to place.id)
                         .setConstraints(networkConstraints))
     }
 
@@ -189,7 +185,7 @@ class WorkManagerImpl constructor(
         Timber.d("scheduleBackgroundSync($tag, $c, enabled = $enabled)")
         if (enabled) {
             val builder = PeriodicWorkRequest.Builder(c, 1, TimeUnit.HOURS)
-                    .setInputData(Data.Builder().putBoolean(EXTRA_BACKGROUND, true).build())
+                    .setInputData(EXTRA_BACKGROUND to true)
                     .setConstraints(networkConstraints)
             workManager.enqueueUniquePeriodicWork(
                     tag, ExistingPeriodicWorkPolicy.KEEP, builder.build())
@@ -244,8 +240,11 @@ class WorkManagerImpl constructor(
             return
         }
         val builder = OneTimeWorkRequest.Builder(DriveUploader::class.java)
-                .setInputData(DriveUploader.getInputData(uri, purge))
-                .setConstraints(networkConstraints)
+            .setInputData(
+                EXTRA_URI to uri.toString(),
+                EXTRA_PURGE to purge,
+            )
+            .setConstraints(networkConstraints)
         if (purge) {
             builder.setInitialDelay(Random().nextInt(3600).toLong(), TimeUnit.SECONDS)
         }
@@ -307,3 +306,7 @@ class WorkManagerImpl constructor(
             }
         }
 }
+
+private fun <B : WorkRequest.Builder<*, *>, W : WorkRequest> WorkRequest.Builder<B, W>.setInputData(
+    vararg pairs: Pair<String, Any?>
+): B = setInputData(workDataOf(*pairs))
