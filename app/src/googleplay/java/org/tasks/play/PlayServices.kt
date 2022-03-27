@@ -9,9 +9,9 @@ import com.google.android.play.core.ktx.requestReview
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.todoroo.andlib.utility.DateUtilities.now
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.preferences.Preferences
-import timber.log.Timber
 import javax.inject.Inject
 
 class PlayServices @Inject constructor(
@@ -24,11 +24,6 @@ class PlayServices @Inject constructor(
 
     suspend fun requestReview(activity: Activity) {
         if (firebase.reviewCooldown) {
-            Timber.d("review cooldown")
-            return
-        }
-        if (firebase.installCooldown) {
-            Timber.d("install cooldown")
             return
         }
         try {
@@ -36,9 +31,10 @@ class PlayServices @Inject constructor(
                 val request = requestReview()
                 launchReview(activity, request)
                 preferences.lastReviewRequest = now()
+                firebase.logEvent(R.string.event_request_review)
             }
         } catch (e: Exception) {
-            Timber.e(e)
+            firebase.reportException(e)
         }
     }
 }
