@@ -20,7 +20,7 @@
     <string name="DLG_delete_this_task_question">Deze taak wissen\?</string>
     <string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
     <string name="DLG_undo">Terugzetten</string>
-    <string name="WID_dateButtonUnset">Klik om te bevestigen</string>
+    <string name="WID_dateButtonUnset">Vastleggen</string>
     <string name="TLA_no_items">Hier zijn geen taken.</string>
     <string name="TLA_menu_sort">Sorteren</string>
     <string name="TLA_menu_search">Zoeken</string>
@@ -477,7 +477,7 @@
     <string name="desaturate_colors_summary_on">Minder verzadigde kleuren in donkere thema\'s</string>
     <string name="desaturate_colors_summary_off">Niet minder verzadigde kleuren in donkere thema\'s</string>
     <string name="places">Locaties</string>
-    <string name="place_settings">Locatie-instellingen</string>
+    <string name="place_settings">Locatie instellen</string>
     <string name="navigation_drawer">Menu</string>
     <string name="hide_unused_tags">Ongebruikte labels verbergen</string>
     <string name="hide_unused_places">Ongebruikte locaties verbergen</string>
