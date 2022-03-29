@@ -714,4 +714,10 @@
     <string name="upgrade_tasks_org_account_description">Синхронизирайте с Tasks.org и си сътрудничете с други потребители</string>
     <string name="alarm_after_start">%s след началото</string>
     <string name="snackbar_tasks_completed">Задачата %d е завършена</string>
+    <string name="alarm_before_due">%s до</string>
+    <string name="date_picker_multiple">Няколко</string>
+    <string name="alarm_after_due">%s след</string>
+    <string name="dismiss">Отхвърляне</string>
+    <string name="hint_customize_edit_title">Информацията много ли е\?</string>
+    <string name="hint_customize_edit_body">Можете да подредите екрана като премествате или премахвате полета</string>
 </resources>
