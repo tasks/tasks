@@ -48,7 +48,7 @@ class FilterProvider @Inject constructor(
             googleTaskFilters(false).plus(caldavFilters(false))
 
     suspend fun navDrawerItems(): List<FilterListItem> =
-            getAllFilters().plus(navDrawerFooter)
+            getAllFilters(hideUnused = true).plus(navDrawerFooter)
 
     suspend fun filterPickerItems(): List<FilterListItem> =
             getAllFilters(showCreate = false)
@@ -104,7 +104,7 @@ class FilterProvider @Inject constructor(
                         .plus(filterDao.getFilters().map(::CustomFilter).sort())
             }
 
-    private suspend fun addTags(showCreate: Boolean): List<FilterListItem> =
+    private suspend fun addTags(showCreate: Boolean, hideUnused: Boolean): List<FilterListItem> =
             if (!preferences.getBoolean(R.string.p_tags_enabled, true)) {
                 emptyList()
             } else {
@@ -124,14 +124,14 @@ class FilterProvider @Inject constructor(
                                 }))
                         .apply { if (collapsed) return this }
                         .plus(tagDataDao.getTagFilters()
-                                    .filterIf(preferences.getBoolean(R.string.p_tags_hide_unused, false)) {
+                                    .filterIf(hideUnused && preferences.getBoolean(R.string.p_tags_hide_unused, false)) {
                                         it.count > 0
                                     }
                                     .map(TagFilters::toTagFilter)
                                     .sort())
             }
 
-    private suspend fun addPlaces(showCreate: Boolean): List<FilterListItem> =
+    private suspend fun addPlaces(showCreate: Boolean, hideUnused: Boolean): List<FilterListItem> =
             if (!preferences.getBoolean(R.string.p_places_enabled, true)) {
                 emptyList()
             } else {
@@ -151,14 +151,18 @@ class FilterProvider @Inject constructor(
                                 }))
                         .apply { if (collapsed) return this }
                         .plus(locationDao.getPlaceFilters()
-                                    .filterIf(preferences.getBoolean(R.string.p_places_hide_unused, false)) {
+                                    .filterIf(hideUnused && preferences.getBoolean(R.string.p_places_hide_unused, false)) {
                                         it.count > 0
                                     }
                                     .map(LocationFilters::toLocationFilter)
                                     .sort())
             }
 
-    private suspend fun getAllFilters(showCreate: Boolean = true, showBuiltIn: Boolean = true): List<FilterListItem> =
+    private suspend fun getAllFilters(
+        showCreate: Boolean = true,
+        showBuiltIn: Boolean = true,
+        hideUnused: Boolean = false,
+    ): List<FilterListItem> =
             if (showBuiltIn) {
                 arrayListOf(builtInFilterExposer.myTasksFilter)
             } else {
@@ -166,8 +170,8 @@ class FilterProvider @Inject constructor(
             }
                     .asSequence()
                     .plus(addFilters(showCreate, showBuiltIn))
-                    .plus(addTags(showCreate))
-                    .plus(addPlaces(showCreate))
+                    .plus(addTags(showCreate, hideUnused))
+                    .plus(addPlaces(showCreate, hideUnused))
                     .plus(googleTaskFilters(showCreate))
                     .plus(caldavFilters(showCreate))
                     .toList()
@@ -288,10 +292,10 @@ class FilterProvider @Inject constructor(
         private suspend fun <T> Collection<T>.plusAllIf(predicate: Boolean, item: suspend () -> Iterable<T>): List<T> =
                 plus(if (predicate) item() else emptyList())
 
-        private fun <T> Iterable<T>.plusIf(predicate: Boolean, item: () -> T): List<T> =
-                if (predicate) plus(item()) else toList()
+        private fun <T> Iterable<T>.plusIf(predicate: Boolean, item: () -> T): Iterable<T> =
+                if (predicate) plus(item()) else this
 
-        private fun <T> Iterable<T>.filterIf(predicate: Boolean, predicate2: (T) -> Boolean): List<T> =
-                if (predicate) filter(predicate2) else toList()
+        private fun <T> Iterable<T>.filterIf(predicate: Boolean, predicate2: (T) -> Boolean): Iterable<T> =
+                if (predicate) filter(predicate2) else this
     }
 }
