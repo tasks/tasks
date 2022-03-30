@@ -698,4 +698,43 @@
     <string name="top">Top</string>
     <string name="bottom">Bund</string>
     <string name="when_started">Hvornår startede</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minut</item>
+        <item quantity="other">Minuter</item>
+    </plurals>
+    <string name="randomly_every">Tilfældigt hver %s</string>
+    <string name="snackbar_task_completed">Opgave udført</string>
+    <string name="completed_tasks_sort">Sorter efter færdiggørelsesdato</string>
+    <plurals name="reminder_hours">
+        <item quantity="one">Time</item>
+        <item quantity="other">Timer</item>
+    </plurals>
+    <string name="snackbar_tasks_completed">%d opgaver udført</string>
+    <string name="snoozed_until">Udsat indtil %s</string>
+    <string name="custom_notification">Brugerdefineret meddelelse</string>
+    <string name="custom_filter_has_reminder">Har påmindelse</string>
+    <string name="completion_sound">Afspil færdiggørelseslyd</string>
+    <string name="customize_edit_screen_summary">Omarranger eller fjern felter</string>
+    <string name="app_bar_collapse">Skjul appbjælker</string>
+    <string name="completed">Færdiggjort</string>
+    <string name="completed_tasks_at_bottom">Flyt afsluttede opgaver til bunden</string>
+    <string name="caldav_server_unknown">Ukendt</string>
+    <string name="caldav_server_other">Andet</string>
+    <string name="caldav_server_type">Server type</string>
+    <string name="filter_snoozed">Udsat</string>
+    <string name="dismiss">Afvis</string>
+    <plurals name="reminder_days">
+        <item quantity="one">Dag</item>
+        <item quantity="other">Dage</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Uge</item>
+        <item quantity="other">Uger</item>
+    </plurals>
+    <string name="hint_customize_edit_title">For meget information\?</string>
+    <string name="hint_customize_edit_body">Du kan tilpasse denne skærm ved at omarrangere eller fjerne felter</string>
+    <string name="alarm_before_start">%s før start</string>
+    <string name="alarm_after_start">%s efter start</string>
+    <string name="alarm_before_due">%s inden forfald</string>
+    <string name="alarm_after_due">%s efter forfald</string>
 </resources>
