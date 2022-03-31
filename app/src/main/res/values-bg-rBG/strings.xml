@@ -720,4 +720,7 @@
     <string name="dismiss">Отхвърляне</string>
     <string name="hint_customize_edit_title">Информацията много ли е\?</string>
     <string name="hint_customize_edit_body">Можете да подредите екрана като премествате или премахвате полета</string>
+    <string name="account_not_included">Не е включено в абонамента „Посочете своя цена“</string>
+    <string name="upgrade_desktop_access_description">Синхронизиране с други клиенти като Outlook и Apple Reminders</string>
+    <string name="map_theme_use_app_theme">С темата на приложението</string>
 </resources>
