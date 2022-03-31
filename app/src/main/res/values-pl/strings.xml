@@ -756,4 +756,6 @@
     <string name="alarm_after_due">%s po zakończeniu</string>
     <string name="dismiss">Odrzuć</string>
     <string name="customize_edit_screen_summary">Zmień kolejność lub usuń pola</string>
+    <string name="hint_customize_edit_title">Za dużo informacji\?</string>
+    <string name="hint_customize_edit_body">Możesz dostosować ten ekran przez przesuwanie lub usuwanie pól</string>
 </resources>
