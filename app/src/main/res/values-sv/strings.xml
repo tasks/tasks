@@ -46,8 +46,8 @@
     <string name="TEA_control_notes">Beskrivning</string>
     <string name="TEA_control_files">Filer</string>
     <string name="TEA_control_reminders">Påminnelser</string>
-    <string name="TEA_control_timer">TidtagarInställningar</string>
-    <string name="TEA_control_hidden_section">----Göm alltid----</string>
+    <string name="TEA_control_timer">Tidtagarinställningar</string>
+    <string name="TEA_control_hidden_section">----Dölj alltid----</string>
     <string name="TEA_load_more">Ladda mer…</string>
     <string name="CRA_ignore">Ignorera</string>
     <string name="CRA_title">Behöver du en lista över möten?</string>
@@ -726,4 +726,8 @@
     <string name="caldav_server_other">Övrig</string>
     <string name="caldav_server_type">Servertyp</string>
     <string name="filter_snoozed">Slumrad</string>
+    <string name="dismiss">Avfärda</string>
+    <string name="customize_edit_screen_summary">Ordna om eller ta bort fält</string>
+    <string name="hint_customize_edit_title">För mycket information\?</string>
+    <string name="hint_customize_edit_body">Du kan anpassa den här skärmen genom att ordna om eller ta bort fält</string>
 </resources>
