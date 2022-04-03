@@ -4,7 +4,7 @@
     <string name="TVA_add_comment">Добавяне на коментар…</string>
     <string name="backup_BPr_header">Резервни копия</string>
     <string name="backup_BAc_import">Внасяне от резервно копие</string>
-    <string name="backup_BAc_export">Правене на резервно копие</string>
+    <string name="backup_BAc_export">Създаване на резервно копие</string>
     <string name="export_toast">Създадено е резервно копие %1$s на %2$s.</string>
     <string name="import_summary_title">Резюме на възстановяването</string>
     <string name="import_summary_message">Файлът %1$s съдържа %2$s.
@@ -110,7 +110,7 @@
     <string name="CFA_button_add">Добавяне на критерии</string>
     <string name="CFC_dueBefore_text">Краен срок: ?</string>
     <string name="CFC_dueBefore_name">Краен срок…</string>
-    <string name="no_due_date">Без краен срок</string>
+    <string name="no_due_date">Без крайна дата</string>
     <string name="next_month">Следващият месец</string>
     <string name="CFC_importance_text">С приоритет поне ?</string>
     <string name="CFC_importance_name">Приоритет…</string>
@@ -220,7 +220,7 @@
         <item quantity="one">%d година</item>
         <item quantity="other">%d години</item>
     </plurals>
-    <string name="repeat_type_due">краен срок</string>
+    <string name="repeat_type_due">крайна дата</string>
     <string name="repeat_type_completion">дата на завършване</string>
     <string name="repeat_forever">Повтаряне завинаги</string>
     <string name="repeat_until">Повтаряне до %s</string>
@@ -624,8 +624,8 @@
     <string name="widget_id">Идентификатор на приспособление: %d</string>
     <string name="pro_free_trial">Новите абонати получават седемдневен безплатен пробен период. Отказ по всяко време</string>
     <string name="account">Профил</string>
-    <string name="cancel">\@android:string/cancel</string>
-    <string name="ok">\@android:string/ok</string>
+    <string name="cancel">Отказ</string>
+    <string name="ok">Добре</string>
     <string name="chips">Индикатори в списъка</string>
     <string name="chip_appearance">Външен вид на индикаторите в списъка</string>
     <string name="desaturate_colors">Намаляване на наситеността на цветовете</string>
@@ -718,9 +718,14 @@
     <string name="date_picker_multiple">Няколко</string>
     <string name="alarm_after_due">%s след</string>
     <string name="dismiss">Отхвърляне</string>
-    <string name="hint_customize_edit_title">Информацията много ли е\?</string>
-    <string name="hint_customize_edit_body">Можете да подредите екрана като премествате или премахвате полета</string>
+    <string name="hint_customize_edit_title">Твърде много информация\?</string>
+    <string name="hint_customize_edit_body">Можете да настроите екрана като преместите или премахнете полета</string>
     <string name="account_not_included">Не е включено в абонамента „Посочете своя цена“</string>
     <string name="upgrade_desktop_access_description">Синхронизиране с други клиенти като Outlook и Apple Reminders</string>
     <string name="map_theme_use_app_theme">С темата на приложението</string>
+    <string name="app_password_enter_description">Дайте име на паролата (по избор)</string>
+    <string name="android_auto_backup_device_summary">Трябва да изберете услуга за резервни копия в настройките на устройството. Не всички устройства предлагат такава услуга.</string>
+    <string name="copied_to_clipboard">%s копирано в междинната памет</string>
+    <string name="backup_location_warning">ВНИМАНИЕ: Файловете, намиращи се в %s ще бъдат загубени с премахване на приложението. Изберете друго място, така че Android да не може да ги премахне.</string>
+    <string name="backups_ignore_warnings_summary">Пренебрегнете предупреждението за резервно копие ако не ви е необходимо или имате собствено решение за резервни копия</string>
 </resources>
