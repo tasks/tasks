@@ -19,9 +19,13 @@ class CreationDateControlSet : TaskEditControlFragment() {
 
     override fun bind(parent: ViewGroup?) =
         ControlSetDeadlineBinding.inflate(layoutInflater, parent, true).let {
-            var formatter: SimpleDateFormat = SimpleDateFormat( "yyyy-MM-dd HH:mm")
+            val formatter: SimpleDateFormat = SimpleDateFormat( "yyyy-MM-dd HH:mm")
             date = it.dueDate
-            date.text = formatter.format( viewModel.creationDate!!);
+            var dateRecords = context?.getString( R.string.sort_created_group, formatter.format( viewModel.creationDate!!)) + "\n" +
+                    context?.getString( R.string.sort_modified_group, formatter.format( viewModel.modificationDate!!))
+            if (viewModel.completionDate!! != 0L)
+                dateRecords += "\n" + context?.getString( R.string.sort_completion_group, formatter.format( viewModel.completionDate!!))
+            date.text = dateRecords
             it.root
         }
 

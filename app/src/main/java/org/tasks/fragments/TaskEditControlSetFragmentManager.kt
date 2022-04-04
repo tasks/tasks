@@ -55,8 +55,6 @@ class TaskEditControlSetFragmentManager @Inject constructor(
         ListFragment.TAG -> ListFragment()
         SubtaskControlSet.TAG -> SubtaskControlSet()
         CreationDateControlSet.TAG -> CreationDateControlSet()
-        CompletionDateControlSet.TAG -> CompletionDateControlSet()
-        ModificationDateControlSet.TAG -> ModificationDateControlSet()
         else -> throw RuntimeException("Unsupported fragment")
     }
 
@@ -93,9 +91,7 @@ class TaskEditControlSetFragmentManager @Inject constructor(
                 R.id.row_11,
                 R.id.row_12,
                 R.id.row_13,
-                R.id.row_14,
-                R.id.row_15,
-                R.id.row_16
+                R.id.row_14
         )
         private val TASK_EDIT_CONTROL_SET_FRAGMENTS = intArrayOf(
                 DeadlineControlSet.TAG,
@@ -110,8 +106,6 @@ class TaskEditControlSetFragmentManager @Inject constructor(
                 TagsControlSet.TAG,
                 RepeatControlSet.TAG,
                 CreationDateControlSet.TAG,
-                ModificationDateControlSet.TAG,
-                CompletionDateControlSet.TAG,
                 CommentBarFragment.TAG,
                 ListFragment.TAG,
                 SubtaskControlSet.TAG

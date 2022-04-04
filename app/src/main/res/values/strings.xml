@@ -68,8 +68,6 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_hidden_section">----Hide Always----</string>
   <string name="TEA_creation_date">Creation date</string>
-  <string name="TEA_completion_date">Completion date</string>
-  <string name="TEA_modification_date">Modification date</string>
   <string name="TEA_load_more">Load more…</string>
   <string name="CRA_ignore">Ignore</string>
   <string name="CRA_title">Need a meeting list?</string>
@@ -623,6 +621,7 @@ File %1$s contained %2$s.\n\n
   <string name="sort_due_group">Due %s</string>
   <string name="sort_created_group">Created %s</string>
   <string name="sort_modified_group">Modified %s</string>
+  <string name="sort_completion_group">Completion %s</string>
   <string name="on_launch">On launch</string>
   <string name="open_last_viewed_list">Open last viewed list</string>
   <string name="local_lists">Local lists</string>
