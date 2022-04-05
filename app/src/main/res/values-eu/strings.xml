@@ -707,4 +707,26 @@
     <string name="alarm_after_start">%s hasi ondoren</string>
     <string name="alarm_before_due">%s muga-eguna baino lehen</string>
     <string name="alarm_after_due">%s muga-egunaren ondoren</string>
+    <string name="caldav_server_unknown">Ezezaguna</string>
+    <string name="caldav_server_other">Bestelakoa</string>
+    <string name="caldav_server_type">Zerbitzari-mota</string>
+    <string name="filter_snoozed">Lo</string>
+    <string name="dismiss">Baztertu</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minutu</item>
+        <item quantity="other">Minutu</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Ordu</item>
+        <item quantity="other">Ordu</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Egun</item>
+        <item quantity="other">Egun</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Aste</item>
+        <item quantity="other">Aste</item>
+    </plurals>
+    <string name="hint_customize_edit_title">Informazio gehiegi\?</string>
 </resources>
