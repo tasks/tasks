@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="TVA_add_comment">Дадаць каментар…</string>
+    <string name="display_name">Адлюстраванае імя</string>
+    <string name="backup_BAc_export">Стварыць рэзервовую копію зараз</string>
+    <string name="export_toast">Захавана %1$s у %2$s.</string>
+    <string name="import_summary_title">Аднавіць зводку</string>
+    <string name="import_progress_read">Чытанне задачы %d…</string>
+    <string name="backup_BPr_header">Рэзервовыя копіі</string>
+    <string name="actfm_picture_clear">Ачысціць карцінку</string>
+    <string name="backup_BAc_import">Імпартаваць рэзервовую копію</string>
+    <string name="import_summary_message">Файл %1$s утрымліваў %2$s.
+\n
+\n %3$s імпартавана,
+\n %4$s ужо існуюць,
+\n %5$s з памылкамі
+\n</string>
+</resources>
