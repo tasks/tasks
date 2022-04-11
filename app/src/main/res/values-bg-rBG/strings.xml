@@ -729,4 +729,5 @@
     <string name="backup_location_warning">ВНИМАНИЕ: Файловете, намиращи се в %s ще бъдат загубени с премахване на приложението. Изберете друго място, така че Android да не може да ги премахне.</string>
     <string name="backups_ignore_warnings_summary">Пренебрегнете предупреждението за резервно копие ако не ви е необходимо или имате собствено решение за резервни копия</string>
     <string name="issue_tracker">Управление на дефекти</string>
+    <string name="app_password_delete_confirmation">Всички приложения, които използват паролата ще бъдат отписани</string>
 </resources>
