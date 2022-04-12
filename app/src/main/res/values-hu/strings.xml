@@ -733,4 +733,6 @@
     <string name="dismiss">Nyugtáz</string>
     <string name="caldav_server_type">Szerver típusa</string>
     <string name="customize_edit_screen_summary">Mezők átrendezése vagy törlése</string>
+    <string name="hint_customize_edit_title">Túl sok információ\?</string>
+    <string name="hint_customize_edit_body">Ez a képernyő a mezők átrendezésével vagy eltávolításával testre szabható</string>
 </resources>
