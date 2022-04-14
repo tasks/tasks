@@ -730,4 +730,8 @@
     <string name="backups_ignore_warnings_summary">Пренебрегнете предупреждението за резервно копие ако не ви е необходимо или имате собствено решение за резервни копия</string>
     <string name="issue_tracker">Управление на дефекти</string>
     <string name="app_password_delete_confirmation">Всички приложения, които използват паролата ще бъдат отписани</string>
+    <string name="app_password_save">Използвайте тези данни за вход за настройка на друго приложение. Те дават пълен достъп до профила ви в Tasks.org за това не ги записвайте никъде и не ги споделяйте с никого!</string>
+    <string name="app_passwords_more_info">Синхронизирайте задачите и календарите си с други настолни и мобилни приложения. Докоснете за повече информация</string>
+    <string name="not_signed_in">Не се вписани</string>
+    <string name="insufficient_subscription">Недостатъчно ниво на абонамент. За да бъде възстановена услугата надстройте своя абонамент.</string>
 </resources>
