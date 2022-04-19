@@ -706,4 +706,26 @@
     <string name="price_per_month">$%s/měsíc</string>
     <string name="price_per_year">$%s/rok</string>
     <string name="now">Nyní</string>
+    <string name="customize_edit_screen_summary">Přeuspořádejte nebo odstraňte pole</string>
+    <string name="randomly_every">Náhodně každých %s</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuta</item>
+        <item quantity="few">Minuty</item>
+        <item quantity="other">Minut</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Hodina</item>
+        <item quantity="few">Hodiny</item>
+        <item quantity="other">Hodin</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Den</item>
+        <item quantity="few">Dny</item>
+        <item quantity="other">Dní</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Týden</item>
+        <item quantity="few">Týdny</item>
+        <item quantity="other">Týdnů</item>
+    </plurals>
 </resources>
