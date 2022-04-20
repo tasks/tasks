@@ -732,6 +732,7 @@
     <string name="app_password_delete_confirmation">Всички приложения, които използват паролата ще бъдат отписани</string>
     <string name="app_password_save">Използвайте тези данни за вход за настройка на друго приложение. Те дават пълен достъп до профила ви в Tasks.org за това не ги записвайте никъде и не ги споделяйте с никого!</string>
     <string name="app_passwords_more_info">Синхронизирайте задачите и календарите си с други настолни и мобилни приложения. Докоснете за повече информация</string>
-    <string name="not_signed_in">Не се вписани</string>
+    <string name="not_signed_in">Не сте вписани</string>
     <string name="insufficient_subscription">Недостатъчно ниво на абонамент. За да бъде възстановена услугата надстройте своя абонамент.</string>
+    <string name="authorization_cancelled">Удостоверяването е спряно</string>
 </resources>
