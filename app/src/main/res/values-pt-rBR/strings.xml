@@ -5,7 +5,7 @@
     <string name="backup_BAc_import">Importar backup</string>
     <string name="backup_BAc_export">Fazer backup agora</string>
     <string name="export_toast">Feito backup de %1$s para %2$s.</string>
-    <string name="import_summary_title">Sumário da restauração</string>
+    <string name="import_summary_title">Resumo da restauração</string>
     <string name="import_summary_message">Arquivo %1$s continha %2$s.\n\n
 %3$s importadas,\n
 %4$s já existiam\n
@@ -75,7 +75,7 @@
     <string name="EPr_cal_start_at_due_time">Iniciar eventos do calendário no horário de vencimento</string>
     <string name="EPr_reset_preferences">Restaurar preferências</string>
     <string name="EPr_reset_preferences_warning">As preferências serão restauradas para os valores padrões</string>
-    <string name="EPr_delete_task_data">Limpar todos os dados</string>
+    <string name="EPr_delete_task_data">Limpar dados da tarefa</string>
     <string name="EPr_delete_task_data_warning">Todas as tarefas serão permanentemente apagadas</string>
     <string name="EPr_manage_delete_completed_gcal">Apagar eventos do calendário para tarefas concluídas</string>
     <string name="EPr_manage_delete_completed_gcal_message">Você quer mesmo apagar todos os seus eventos de tarefas concluídas?</string>
@@ -441,10 +441,10 @@
     <string name="chip_appearance">Aparência da Pastilha</string>
     <string name="chips">Pastilha</string>
     <string name="chip_style_filled">Preenchido</string>
-    <string name="chip_style_outlined">Delineado</string>
-    <string name="chip_style">Estilo de notificação</string>
+    <string name="chip_style_outlined">Contornado</string>
+    <string name="chip_style">Estilo da pastilha</string>
     <string name="back">Voltar</string>
-    <string name="upgrade_blurb_2">Eu investi centenas de horas trabalhando no Tasks, e eu publico todo o código-fonte online de graça. Para apoiar meu trabalho, algumas funcionalidades precisam de um plano de subscrição</string>
+    <string name="upgrade_blurb_2">Eu investi centenas de horas trabalhando no Tasks, e eu publico todo o código-fonte online de graça. Para apoiar meu trabalho, algumas funcionalidades precisam de um plano de assinatura</string>
     <string name="upgrade_blurb_1">Olá! Meu nome é Alex e eu sou o desenvolvedor independente por trás do Tasks</string>
     <string name="color_wheel">Roda de cores</string>
     <string name="invalid_username_or_password">Nome de usuário ou senha inválido</string>
@@ -519,11 +519,11 @@
     <string name="TEA_timer_est">Est. %s</string>
     <string name="TEA_add_subtask">Adicionar subtarefa</string>
     <string name="sort_created">Por hora de criação</string>
-    <string name="astrid_sort_order_summary">Habilitar Ordenação Manual do Astrid para \'Minhas Tarefas\', \'Hoje\', e etiquetas. Esse modo de ordenação eventualmente sera substituito em uma atualização futura para \'Minha ordenação\'</string>
+    <string name="astrid_sort_order_summary">Habilitar Ordenação Manual do Astrid para \'Minhas Tarefas\', \'Hoje\', e etiquetas. Esse modo de ordenação será substituído por \'Minha ordenação\' em uma atualização futura</string>
     <string name="astrid_sort_order">Ordenação Manual do Astrid</string>
     <string name="SSD_sort_my_order">Minha ordem</string>
     <string name="backup_BPr_header">Cópias de segurança</string>
-    <string name="display_name">Exibir nome</string>
+    <string name="display_name">Nome de exibição</string>
     <string name="permission_read_tasks">Acesso completo ao base de dados do Tasks</string>
     <string name="reset_sort_order">Resetar ordenação</string>
     <string name="lists">Listas</string>
@@ -564,7 +564,7 @@
     <string name="start_date">Data inicial</string>
     <string name="SSD_sort_start">Por data inicial</string>
     <string name="cancel">cancelar</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="upgrade_automation_description">Plug-ins para Tasker, Automate e Locale</string>
     <string name="current_subscription">Assinatura atual: %s</string>
     <string name="price_per_month">$%s/mês</string>
@@ -697,7 +697,7 @@
     <string name="completed">Concluído</string>
     <string name="completion_sound">Tocar som de conclusão</string>
     <string name="app_bar_position">Posição da barra de aplicativos</string>
-    <string name="top">Principal</string>
+    <string name="top">Superior</string>
     <plurals name="reminder_minutes">
         <item quantity="one">Minuto</item>
         <item quantity="other">Minutos</item>
@@ -716,7 +716,7 @@
     </plurals>
     <string name="when_started">Quando começar</string>
     <string name="custom_filter_has_reminder">Tem lembrete</string>
-    <string name="bottom">Fundo</string>
+    <string name="bottom">Inferior</string>
     <string name="snoozed_until">Adiado até %s</string>
     <string name="custom_notification">Notificação personalizada</string>
     <string name="snackbar_task_completed">Tarefa completa</string>
@@ -726,4 +726,13 @@
     <string name="alarm_after_start">%s após o início</string>
     <string name="alarm_before_due">%s antes do vencimento</string>
     <string name="alarm_after_due">%s após o vencimento</string>
+    <string name="caldav_server_unknown">Desconhecido</string>
+    <string name="filter_snoozed">Adiada</string>
+    <string name="caldav_server_type">Tipo de servidor</string>
+    <string name="customize_edit_screen_summary">Reordenar ou remover campos</string>
+    <string name="randomly_every">Aleatoriamente todo %s</string>
+    <string name="caldav_server_other">Outro</string>
+    <string name="dismiss">Dispensar</string>
+    <string name="hint_customize_edit_title">Informação demais\?</string>
+    <string name="hint_customize_edit_body">Você pode personalizar esta tela reordenamento ou removendo campos</string>
 </resources>
