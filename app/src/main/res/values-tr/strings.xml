@@ -735,6 +735,6 @@
     <string name="filter_snoozed">Ertelendi</string>
     <string name="customize_edit_screen_summary">Alanları yeniden düzenle veya kaldır</string>
     <string name="dismiss">Kapat</string>
-    <string name="hint_customize_edit_title">Çok fazla bilgi mi var\?</string>
+    <string name="hint_customize_edit_title">Çok bilgi mi var\?</string>
     <string name="hint_customize_edit_body">Alanları yeniden düzenleyerek veya kaldırarak bu ekranı özelleştirebilirsiniz</string>
 </resources>
