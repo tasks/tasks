@@ -678,4 +678,36 @@
     <string name="chat_libera">Gabung #tasks di Libera Chat</string>
     <string name="now">Sekarang</string>
     <string name="when_started">Ketika dimulai</string>
+    <string name="completed">Selesai</string>
+    <string name="custom_filter_has_reminder">Berpengingat</string>
+    <string name="bottom">Bawah</string>
+    <string name="app_bar_position">Posisi bar aplikasi</string>
+    <string name="completion_sound">Mainkan suara selesai</string>
+    <string name="top">Atas</string>
+    <string name="caldav_server_unknown">Tidak diketahui</string>
+    <string name="caldav_server_other">Lainnya</string>
+    <string name="caldav_server_type">Tipe server</string>
+    <string name="filter_snoozed">Tunda</string>
+    <string name="snoozed_until">Tunda sampai %s</string>
+    <plurals name="reminder_week">
+        <item quantity="other">Minggu</item>
+    </plurals>
+    <string name="dismiss">Lewati</string>
+    <string name="completed_tasks_at_bottom">Pindahkan tugas selesai ke bawah</string>
+    <plurals name="reminder_minutes">
+        <item quantity="other">Menit</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="other">Jam</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="other">Hari</item>
+    </plurals>
+    <string name="randomly_every">Acak setiap detik</string>
+    <string name="snackbar_task_completed">Tugas selesai</string>
+    <string name="custom_notification">Notifikasi kustom</string>
+    <string name="hint_customize_edit_body">Kamu dapat mengubah bagian ini dengan mengurutkan atau menghapus kolom</string>
+    <string name="completed_tasks_sort">Urutkan berdasarkan tanggal selesai</string>
+    <string name="alarm_before_start">Detik sebelum mulai</string>
+    <string name="alarm_after_start">Detik setelah mulai</string>
 </resources>
