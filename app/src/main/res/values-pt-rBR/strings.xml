@@ -40,7 +40,7 @@
     <string name="save">Salvar</string>
     <string name="TEA_timer_elap">Decorrido %s</string>
     <string name="due_date">Data de vencimento</string>
-    <string name="due_time">No tempo devido</string>
+    <string name="due_time">Na hora de vencimento</string>
     <string name="day_before_due">Dias antes do vencimento</string>
     <string name="week_before_due">Semanas antes do vencimento</string>
     <string name="TEA_control_repeat">Repetir</string>
@@ -133,7 +133,7 @@
     <string name="rmd_EPr_quiet_hours_start_title">Começo das horas quietas</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fim das horas quietas</string>
     <string name="rmd_EPr_rmd_time_title">Lembrete padrão</string>
-    <string name="rmd_EPr_rmd_time_desc">Notificações de tarefas sem tempo de vencimento vão aparecer em %s</string>
+    <string name="rmd_EPr_rmd_time_desc">Notificações de tarefas sem tempo de vencimento vão aparecer à(s) %s</string>
     <string name="persistent_notifications">Notificações persistentes</string>
     <string name="persistent_notifications_description">Notificações persistentes não podem ser removidas</string>
     <string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
@@ -262,7 +262,7 @@
     <string name="translations">Ajude com as traduções</string>
     <string name="contact_developer">Contatar desenvolvedor</string>
     <string name="rate_tasks">Avaliar o Tasks</string>
-    <string name="quiet_hours_summary">Sem lembretes durante as horas calmas</string>
+    <string name="quiet_hours_summary">Sem lembretes durante as horas calmas quietas</string>
     <string name="TLA_menu_donate">Doar</string>
     <string name="add_reminder">Adicionar lembrete</string>
     <string name="add_location">Adicionar localização</string>
@@ -414,7 +414,7 @@
     <string name="open_map">Abrir mapa</string>
     <string name="choose_new_location">Escolher nova localização</string>
     <string name="widget_id">ID de Widget: %d</string>
-    <string name="hide_check_button">Esconder botão de marcar</string>
+    <string name="hide_check_button">Esconder botão de concluir</string>
     <string name="share">Compartilhar</string>
     <string name="select_all">Selecionar todos</string>
     <string name="calendar_event_created">Evento de calendário criado para %s</string>
@@ -475,7 +475,7 @@
     <string name="collapse_subtasks">Recolher sub-tarefas</string>
     <string name="expand_subtasks">Expandir sub-tarefas</string>
     <string name="name_your_price">Dê seu valor</string>
-    <string name="google_tasks_add_to_top">Novas tarefas ao topo</string>
+    <string name="google_tasks_add_to_top">Novas tarefas no topo</string>
     <string name="invalid_backup_file">Arquivo de backup inválido</string>
     <string name="version_string">Versão %s</string>
     <string name="whats_new">Novidades</string>
@@ -601,10 +601,10 @@
     <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="map_theme">Tema do mapa</string>
     <string name="default_recurrence">Recorrência padrão</string>
-    <string name="default_tags">Tags padrão</string>
+    <string name="default_tags">Etiquetas padrões</string>
     <string name="no_app_found">Nenhum aplicativo pode atender a esta solicitação</string>
-    <string name="filter_criteria_unstarted">Sem estrela</string>
-    <string name="show_unstarted">Mostrar sem estrela</string>
+    <string name="filter_criteria_unstarted">Não iniciadas</string>
+    <string name="show_unstarted">Mostrar não iniciadas</string>
     <string name="default_start_date">Data de início padrão</string>
     <string name="always_display_full_date">Mostrar data completa</string>
     <string name="manage_drawer">Gerenciar seções</string>
