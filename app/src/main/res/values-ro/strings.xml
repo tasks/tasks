@@ -713,11 +713,9 @@
     <string name="completion_sound">Redă sunetul de completare</string>
     <string name="completed">Completat</string>
     <string name="app_bar_collapse">Reducerea barelor de aplicații</string>
-    <string name="ok">\@android:string/ok</string>
     <string name="app_bar_position">Poziția barei de aplicații</string>
     <string name="top">Top</string>
     <string name="bottom">Partea de jos</string>
-    <string name="cancel">\@android:șir/anulare</string>
     <string name="snackbar_task_completed">Sarcină îndeplinită</string>
     <string name="completed_tasks_at_bottom">Mutați sarcinile finalizate în partea de jos</string>
     <string name="snackbar_tasks_completed">%d sarcini finalizate</string>

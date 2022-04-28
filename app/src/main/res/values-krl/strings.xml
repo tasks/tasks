@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actfm_picture_clear">Puhastua Kuvan</string>
-    <string name="ok">\@android:string/ok</string>
-    <string name="cancel">\@android:string/cancel</string>
     <string name="read_permission_label">Tehtävien Luba</string>
     <string name="discard_confirmation">Ihan ku tahot hüllätä sinun vaitamizet\?</string>
     <string name="keep_editing">Jata korjata</string>
