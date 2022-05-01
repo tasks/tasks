@@ -728,4 +728,29 @@
         <item quantity="few">Týdny</item>
         <item quantity="other">Týdnů</item>
     </plurals>
+    <string name="when_started">Když začne</string>
+    <string name="custom_filter_has_reminder">Má upomínku</string>
+    <string name="snoozed_until">Odloženo do %s</string>
+    <string name="alarm_after_start">%s po začátku</string>
+    <string name="alarm_before_start">%s před začátkem</string>
+    <string name="alarm_before_due">%s před termínem</string>
+    <string name="alarm_after_due">%s po termínu</string>
+    <string name="custom_notification">Vlastní oznámení</string>
+    <string name="completion_sound">Přehrát zvuk dokončení</string>
+    <string name="caldav_server_unknown">Neznámý</string>
+    <string name="caldav_server_other">Další</string>
+    <string name="app_bar_position">Umístění lišty aplikace</string>
+    <string name="bottom">Spodní</string>
+    <string name="snackbar_task_completed">Úkol splněn</string>
+    <string name="app_bar_collapse">Sbalit lišty aplikací</string>
+    <string name="top">Horní</string>
+    <string name="completed">Splněný</string>
+    <string name="completed_tasks_at_bottom">Přesunout splněné úkoly naspod</string>
+    <string name="completed_tasks_sort">Seřadit podle data splnění</string>
+    <string name="snackbar_tasks_completed">%d úkolů splněno</string>
+    <string name="caldav_server_type">Typ serveru</string>
+    <string name="filter_snoozed">Odloženo</string>
+    <string name="dismiss">Odmítnout</string>
+    <string name="hint_customize_edit_title">Příliš mnoho informací\?</string>
+    <string name="hint_customize_edit_body">Tuto obrazovku si můžete přizpůsobit přeskupením nebo odebráním polí</string>
 </resources>
