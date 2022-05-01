@@ -729,4 +729,10 @@
         <item quantity="other">Semanas</item>
     </plurals>
     <string name="custom_notification">Notificação personalizada</string>
+    <string name="caldav_server_unknown">Desconhecido</string>
+    <string name="caldav_server_other">Outro</string>
+    <string name="caldav_server_type">Tipo de servidor</string>
+    <string name="customize_edit_screen_summary">Rearrange ou remova campos</string>
+    <string name="hint_customize_edit_title">Demasiada informação\?</string>
+    <string name="hint_customize_edit_body">Pode costumizar este ecrã rearranjando ou removendo campos</string>
 </resources>
