@@ -735,4 +735,6 @@
     <string name="customize_edit_screen_summary">Rearrange ou remova campos</string>
     <string name="hint_customize_edit_title">Demasiada informação\?</string>
     <string name="hint_customize_edit_body">Pode costumizar este ecrã rearranjando ou removendo campos</string>
+    <string name="filter_snoozed">Adiado</string>
+    <string name="dismiss">Dispensar</string>
 </resources>
