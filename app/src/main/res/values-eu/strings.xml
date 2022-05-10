@@ -729,4 +729,12 @@
         <item quantity="other">Aste</item>
     </plurals>
     <string name="hint_customize_edit_title">Informazio gehiegi\?</string>
+    <string name="cancel">Ezeztatu</string>
+    <string name="ok">Ados</string>
+    <string name="custom_filter_has_reminder">Oroigarria dauka</string>
+    <string name="custom_notification">Jakinarazpen pertsonalizatua</string>
+    <string name="snoozed_until">%s-rainora atzeratuta</string>
+    <string name="randomly_every">Ausaz, %s bakoitza</string>
+    <string name="hint_customize_edit_body">Pantaila pertsonaliza dezakezu, eremuak berrantolatzen edo ezabatzen</string>
+    <string name="customize_edit_screen_summary">Eremuak berrantolatu edo kendu</string>
 </resources>
