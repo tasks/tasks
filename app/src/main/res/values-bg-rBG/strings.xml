@@ -376,7 +376,7 @@
     <string name="repeats_plural_number_of_times">Да се повтаря всеки %1$s, възниква %2$d %3$s</string>
     <string name="repeats_plural_on_until">Да се повтаря всеки %1$s на %2$s до %3$s</string>
     <string name="repeats_plural_on_number_of_times">Да се повтаря всеки %1$s на %2$s, възниква %3$d %4$s</string>
-    <string name="dont_add_to_calendar">Без добавяне към календара</string>
+    <string name="dont_add_to_calendar">Не се добавя в календар</string>
     <string name="default_calendar">Календар по подразбиране</string>
     <string name="badges_description">Броят на задачите е видим върху иконата на Tasks. Не всички начални екрани го поддържат.</string>
     <string name="bundle_notifications_summary">Няколко известия се обединяват в едно</string>
@@ -713,7 +713,7 @@
     <string name="authentication_required">Необходимо е удостоверяване</string>
     <string name="upgrade_tasks_org_account_description">Синхронизирайте с Tasks.org и си сътрудничете с други потребители</string>
     <string name="alarm_after_start">%s след началото</string>
-    <string name="snackbar_tasks_completed">Задачата %d е завършена</string>
+    <string name="snackbar_tasks_completed">%d задачи са завършени</string>
     <string name="alarm_before_due">%s до</string>
     <string name="date_picker_multiple">Няколко</string>
     <string name="alarm_after_due">%s след</string>
