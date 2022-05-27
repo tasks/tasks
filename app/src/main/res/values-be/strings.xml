@@ -15,4 +15,6 @@
 \n %4$s ужо існуюць,
 \n %5$s з памылкамі
 \n</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Адмена</string>
 </resources>
