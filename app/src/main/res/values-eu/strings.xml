@@ -466,7 +466,7 @@
     <string name="theme_system_default">Sisteman lehenetsia</string>
     <string name="color_wheel">Kolore-gurpila</string>
     <string name="upgrade_blurb_1">Kaixo! Nire izana Alex da. Ni naiz Tasks aplikazioaren garatzaile independentea</string>
-    <string name="upgrade_blurb_2">Milaka ordu eman ditut Tsks aplikazioan lanean, eta kode guztia argitaratzen dut doan. Nire lana babesteko ezaugarri batzuk harpidetza eskatzen dute</string>
+    <string name="upgrade_blurb_2">Milaka ordu eman ditut Tasks aplikazioan lanean, eta kode guztia argitaratzen dut doan. Nire lana babesteko ezaugarri batzuk harpidetza eskatzen dute</string>
     <string name="back">Atzera</string>
     <string name="chip_style">Txip estiloa</string>
     <string name="chip_style_outlined">Ingerada</string>
@@ -705,8 +705,8 @@
     <string name="snackbar_tasks_completed">%d atazak osatuta</string>
     <string name="alarm_before_start">%s hasi aurretik</string>
     <string name="alarm_after_start">%s hasi ondoren</string>
-    <string name="alarm_before_due">%s muga-eguna baino lehen</string>
-    <string name="alarm_after_due">%s muga-egunaren ondoren</string>
+    <string name="alarm_before_due">%s epemuga baino lehen</string>
+    <string name="alarm_after_due">%s epemuga ondoren</string>
     <string name="caldav_server_unknown">Ezezaguna</string>
     <string name="caldav_server_other">Bestelakoa</string>
     <string name="caldav_server_type">Zerbitzari-mota</string>
