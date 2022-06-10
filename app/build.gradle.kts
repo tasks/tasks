@@ -19,8 +19,8 @@ repositories {
     maven {
         url = uri("https://jitpack.io")
         content {
-            includeGroup("com.gitlab.abaker")
-            includeModule("com.gitlab.bitfireAT", "cert4android")
+            includeGroup("com.github.tasks")
+            includeModule("com.github.bitfireAT", "cert4android")
             includeModule("com.github.tasks.opentasks", "opentasks-provider")
             includeModule("com.github.QuadFlask", "colorpicker")
             includeModule("com.github.twofortyfouram", "android-plugin-api-for-locale")
@@ -162,9 +162,11 @@ val googleplayImplementation by configurations
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
-    implementation("com.gitlab.abaker:dav4jvm:deb2c9aef8")
-    implementation("com.gitlab.abaker:ical4android:0e928b567c")
-    implementation("com.gitlab.bitfireAT:cert4android:26a91a729f")
+    implementation("com.github.tasks:dav4jvm:deb2c9aef8")
+    implementation("com.github.tasks:ical4android:0e928b567c") {
+        exclude(group = "com.sun.mail", module = "javax.mail")
+    }
+    implementation("com.github.bitfireAT:cert4android:26a91a729f")
     implementation("com.github.tasks.opentasks:opentasks-provider:a1faa1b") {
         exclude("com.github.tasks.opentasks", "opentasks-contract")
     }
