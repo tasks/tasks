@@ -2,8 +2,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  package="org.tasks"
-  android:installLocation="internalOnly">
+    android:installLocation="internalOnly">
 
   <!-- ================================================== Used Permissions = -->
 

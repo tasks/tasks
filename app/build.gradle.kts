@@ -46,9 +46,8 @@ android {
     }
 
     lint {
-        disable("InvalidPeriodicWorkRequestInterval")
         lintConfig = file("lint.xml")
-        textOutput("stdout")
+        textOutput = File("stdout")
         textReport = true
     }
 
@@ -98,6 +97,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    flavorDimensions += listOf("store")
 
     @Suppress("LocalVariableName")
     buildTypes {
@@ -126,8 +126,6 @@ android {
         }
     }
 
-    flavorDimensions("store")
-
     productFlavors {
         create("generic") {
             dimension = "store"
@@ -136,10 +134,13 @@ android {
             dimension = "store"
         }
     }
-
     packagingOptions {
-        exclude("META-INF/*.kotlin_module")
+        resources {
+            excludes += setOf("META-INF/*.kotlin_module")
+        }
     }
+
+    namespace = "org.tasks"
 }
 
 configure<CheckstyleExtension> {
