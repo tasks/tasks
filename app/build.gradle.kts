@@ -166,7 +166,7 @@ dependencies {
     implementation("com.github.tasks:ical4android:0e928b567c") {
         exclude(group = "com.sun.mail", module = "javax.mail")
     }
-    implementation("com.github.bitfireAT:cert4android:26a91a729f")
+    implementation("com.github.bitfireAT:cert4android:7814052")
     implementation("com.github.tasks.opentasks:opentasks-provider:a1faa1b") {
         exclude("com.github.tasks.opentasks", "opentasks-contract")
     }
