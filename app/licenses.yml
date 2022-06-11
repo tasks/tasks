@@ -1,14 +1,14 @@
-- artifact: com.gitlab.abaker:dav4jvm:+
+- artifact: com.github.tasks:dav4jvm:+
   name: dav4jvm
   copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
   license: Mozilla Public License, Version 2.0
   licenseUrl: https://www.mozilla.org/en-US/MPL/2.0/
-- artifact: com.gitlab.abaker:ical4android:+
+- artifact: com.github.tasks:ical4android:+
   name: ical4android
   copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
   license: GNU General Public License, Version 3.0
   licenseUrl: https://www.gnu.org/licenses/gpl.txt
-- artifact: com.gitlab.bitfireAT:cert4android:+
+- artifact: com.github.bitfireAT:cert4android:+
   name: cert4android
   copyrightHolder: bitfire web engineering (Ricki Hirner, Bernhard Stockmann)
   licenseUrl: https://www.gnu.org/licenses/gpl.txt

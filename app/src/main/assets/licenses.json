@@ -3,7 +3,7 @@
     {
       "artifactId": {
         "name": "dav4jvm",
-        "group": "com.gitlab.abaker",
+        "group": "com.github.tasks",
         "version": "+"
       },
       "copyrightHolder": "bitfire web engineering (Ricki Hirner, Bernhard Stockmann)",
@@ -16,7 +16,7 @@
     {
       "artifactId": {
         "name": "ical4android",
-        "group": "com.gitlab.abaker",
+        "group": "com.github.tasks",
         "version": "+"
       },
       "copyrightHolder": "bitfire web engineering (Ricki Hirner, Bernhard Stockmann)",
@@ -29,7 +29,7 @@
     {
       "artifactId": {
         "name": "cert4android",
-        "group": "com.gitlab.bitfireAT",
+        "group": "com.github.bitfireAT",
         "version": "+"
       },
       "copyrightHolder": "bitfire web engineering (Ricki Hirner, Bernhard Stockmann)",

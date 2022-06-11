@@ -703,7 +703,7 @@
     <plurals name="reminder_days">
         <item quantity="other">Hari</item>
     </plurals>
-    <string name="randomly_every">Acak setiap detik</string>
+    <string name="randomly_every">Acak setiap %s</string>
     <string name="snackbar_task_completed">Tugas selesai</string>
     <string name="custom_notification">Notifikasi kustom</string>
     <string name="hint_customize_edit_body">Kamu dapat mengubah bagian ini dengan mengurutkan atau menghapus kolom</string>
