@@ -727,7 +727,7 @@
     <string name="alarm_before_due">%s antes do vencimento</string>
     <string name="alarm_after_due">%s após o vencimento</string>
     <string name="caldav_server_unknown">Desconhecido</string>
-    <string name="filter_snoozed">Adiada</string>
+    <string name="filter_snoozed">Adiadas</string>
     <string name="caldav_server_type">Tipo de servidor</string>
     <string name="customize_edit_screen_summary">Reordenar ou remover campos</string>
     <string name="randomly_every">Aleatoriamente todo %s</string>
