@@ -6,7 +6,7 @@ object Versions {
     const val work = "2.7.1"
     const val leakcanary = "2.9.1"
     const val room = "2.4.2"
-    const val crashlytics = "18.2.8"
+    const val crashlytics = "18.2.11"
     const val analytics = "20.1.0"
     const val remote_config = "21.0.1"
     const val okhttp = "4.9.3"
