@@ -1,3 +1,26 @@
+### 12.7 (2022-06-18)
+
+* Android 13 themed icon - Thanks @hanthor!
+* Fix self-signed SSL certificates on Android 12+
+* Don't hide empty tags and places in pickers
+* Update translations
+  * Basque - @Txopi, Sergio Varela, @osoitz
+  * Belarusian - @Prominence, Андрей
+  * Bulgarian - @StoyanDimitrov
+  * Czech - Shimon
+  * Danish - Tntdruid
+  * Dutch - @mm4c
+  * German - @3ole
+  * Hungarian - kaciokos
+  * Indonesian - Cyua Pyua
+  * Italian - @ppasserini
+  * Polish - @wiktor-k
+  * Portuguese (Brazilian) - @LevyMarCiS, @sunflowerskater
+  * Portuguese - @laralem, @alvar0liveira
+  * Swedish - @reportxx
+  * Turkish - @emintufan
+  * Vietnamese - @unbiaseduser
+
 ### 12.6.1 (2022-03-27)
 
 * Move task list and edit screen options to top level settings

@@ -1,0 +1,4 @@
+* Android 13 themed icon - Thanks @hanthor!
+* Fix self-signed SSL certificates on Android 12+
+* Don't hide empty tags and places in pickers
+* Update translations
