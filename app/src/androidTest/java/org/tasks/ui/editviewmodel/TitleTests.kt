@@ -29,7 +29,7 @@ class TitleTests : BaseTaskEditViewModelTest() {
         val task = newTask()
         setup(task)
 
-        viewModel.priority = HIGH
+        viewModel.priority.value = HIGH
 
         save()
 

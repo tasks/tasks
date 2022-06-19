@@ -1,5 +1,6 @@
 package org.tasks.ui
 
+import android.content.res.Configuration
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -9,11 +10,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.data.Task
@@ -67,10 +70,9 @@ fun PriorityRow(
             style = MaterialTheme.typography.body1,
         )
         Spacer(modifier = Modifier.weight(1f))
-        PriorityButton(priority = Task.Priority.HIGH, selected = selected, onClick = onClick)
-        PriorityButton(priority = Task.Priority.MEDIUM, selected = selected, onClick = onClick)
-        PriorityButton(priority = Task.Priority.LOW, selected = selected, onClick = onClick)
-        PriorityButton(priority = Task.Priority.NONE, selected = selected, onClick = onClick)
+        for (i in Task.Priority.HIGH..Task.Priority.NONE) {
+            PriorityButton(priority = i, selected = selected, onClick = onClick)
+        }
     }
 }
 
@@ -94,4 +96,14 @@ fun PriorityButton(
             unselectedColor = color,
         ),
     )
+}
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PriorityPreview() {
+    MdcTheme {
+        PriorityRow(selected = Task.Priority.MEDIUM)
+    }
 }

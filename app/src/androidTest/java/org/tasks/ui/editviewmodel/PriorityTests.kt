@@ -16,7 +16,7 @@ class PriorityTests : BaseTaskEditViewModelTest() {
     fun changePriorityCausesChange() {
         setup(TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH)))
 
-        viewModel.priority = Task.Priority.MEDIUM
+        viewModel.priority.value = Task.Priority.MEDIUM
 
         Assert.assertTrue(viewModel.hasChanges())
     }
@@ -25,7 +25,7 @@ class PriorityTests : BaseTaskEditViewModelTest() {
     fun applyPriorityChange() {
         val task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH))
         setup(task)
-        viewModel.priority = Task.Priority.MEDIUM
+        viewModel.priority.value = Task.Priority.MEDIUM
 
         save()
 
@@ -36,8 +36,8 @@ class PriorityTests : BaseTaskEditViewModelTest() {
     fun noChangeWhenRevertingPriority() {
         setup(TaskMaker.newTask(MakeItEasy.with(TaskMaker.PRIORITY, Task.Priority.HIGH)))
 
-        viewModel.priority = Task.Priority.MEDIUM
-        viewModel.priority = Task.Priority.HIGH
+        viewModel.priority.value = Task.Priority.MEDIUM
+        viewModel.priority.value = Task.Priority.HIGH
 
         Assert.assertFalse(viewModel.hasChanges())
     }

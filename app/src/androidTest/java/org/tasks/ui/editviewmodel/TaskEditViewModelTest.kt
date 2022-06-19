@@ -33,7 +33,7 @@ class TaskEditViewModelTest : BaseTaskEditViewModelTest() {
     fun dontSaveTaskTwice() = runBlocking {
         setup(newTask())
 
-        viewModel.priority = Task.Priority.HIGH
+        viewModel.priority.value = Task.Priority.HIGH
 
         assertTrue(save())
 
