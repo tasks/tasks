@@ -74,7 +74,7 @@
     <string name="EPr_edit_screen_options">Редактиране настройки на екрана</string>
     <string name="EPr_beastMode_reset">Подразбирани настройки</string>
     <string name="EPr_fullTask_title">Пълно заглавие на задачата</string>
-    <string name="EPr_show_task_edit_comments">Коментари при редакция на задача</string>
+    <string name="EPr_show_task_edit_comments">Показване на коментари при редакция на задачи</string>
     <string name="task_list_options">Настройки на списъка със задачи</string>
     <string name="EPr_cal_end_or_start_at_due_time">Час на събитието в календара</string>
     <string name="EPr_cal_end_at_due_time">Прекратяване на събитията в календара в определеното време</string>
@@ -233,8 +233,8 @@
     <string name="TPl_notification">За %s се отчита време!</string>
     <string name="TFE_workingOn">Задачи, за които се отчита време</string>
     <string name="TEA_timer_controls">Отчитане на време</string>
-    <string name="TEA_timer_comment_started">задачата е започната на:</string>
-    <string name="TEA_timer_comment_stopped">задачата е завършена на:</string>
+    <string name="TEA_timer_comment_started">Задачата е започната на:</string>
+    <string name="TEA_timer_comment_stopped">Задачата е завършена на:</string>
     <string name="TEA_timer_comment_spent">Отделено време:</string>
     <string name="voice_create_prompt">Говорете, за да създадете задача</string>
     <string name="EPr_voiceInputEnabled_title">Гласово въвеждане</string>
@@ -735,4 +735,6 @@
     <string name="not_signed_in">Не сте вписани</string>
     <string name="insufficient_subscription">Недостатъчно ниво на абонамент. За да бъде възстановена услугата надстройте своя абонамент.</string>
     <string name="authorization_cancelled">Удостоверяването е спряно</string>
+    <string name="background_location">Местоположение във фонов режим</string>
+    <string name="foreground_location">Местоположение на преден план</string>
 </resources>
