@@ -66,10 +66,11 @@
         app:icon="@drawable/ic_octocat" />
 
     <Preference
+        android:key="@string/third_party_licenses"
         android:title="@string/third_party_licenses"
         app:icon="@drawable/ic_outline_gavel_24px">
       <intent
-          android:targetClass="org.tasks.activities.attribution.AttributionActivity"
+          android:targetClass="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
           android:targetPackage="@string/app_package" />
     </Preference>
 

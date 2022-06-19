@@ -57,6 +57,7 @@ class HelpAndFeedback : InjectingPreferenceFragment() {
             remove(
                 R.string.p_collect_statistics,
                 R.string.rate_tasks,
+                R.string.third_party_licenses,
             )
         } else {
             openUrl(R.string.rate_tasks, R.string.market_url)

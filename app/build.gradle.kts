@@ -7,10 +7,10 @@ plugins {
     id("com.google.firebase.crashlytics")
     kotlin("android")
     kotlin("kapt")
-    id("com.cookpad.android.plugin.license-tools") version "1.2.8"
     id("com.github.ben-manes.versions") version "0.42.0"
     id("com.vanniktech.android.junit.jacoco") version "0.16.0"
     id("dagger.hilt.android.plugin")
+    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 repositories {
@@ -243,6 +243,7 @@ dependencies {
     googleplayImplementation("com.android.billingclient:billing-ktx:3.0.3")
     googleplayImplementation("com.google.android.play:core:1.10.3")
     googleplayImplementation("com.google.android.play:core-ktx:1.8.1")
+    googleplayImplementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
 
     androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
     kaptAndroidTest("com.google.dagger:hilt-compiler:${Versions.hilt}")

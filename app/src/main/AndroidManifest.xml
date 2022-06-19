@@ -619,8 +619,6 @@
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
 
-    <activity android:name=".activities.attribution.AttributionActivity"/>
-
     <activity android:name=".tags.TagPickerActivity" />
 
     <activity
