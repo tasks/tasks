@@ -1,77 +1,97 @@
 package org.tasks.ui
 
-import android.content.res.ColorStateList
-import android.os.Bundle
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatRadioButton
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.RadioButton
+import androidx.compose.material.RadioButtonDefaults
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.databinding.ControlSetPriorityBinding
-import org.tasks.themes.ColorProvider
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class PriorityControlSet : TaskEditControlFragment() {
-    @Inject lateinit var colorProvider: ColorProvider
-
-    private lateinit var priorityHigh: AppCompatRadioButton
-    private lateinit var priorityMedium: AppCompatRadioButton
-    private lateinit var priorityLow: AppCompatRadioButton
-    private lateinit var priorityNone: AppCompatRadioButton
-
-    private fun onPriorityChanged() {
-        viewModel.priority = getPriority()
-    }
-
-    override fun createView(savedInstanceState: Bundle?) {
-        when (viewModel.priority) {
-            0 -> priorityHigh.isChecked = true
-            1 -> priorityMedium.isChecked = true
-            2 -> priorityLow.isChecked = true
-            else -> priorityNone.isChecked = true
-        }
-        tintRadioButton(priorityHigh, 0)
-        tintRadioButton(priorityMedium, 1)
-        tintRadioButton(priorityLow, 2)
-        tintRadioButton(priorityNone, 3)
-    }
 
     override fun bind(parent: ViewGroup?) =
-        ControlSetPriorityBinding.inflate(layoutInflater, parent, true).let {
-            priorityHigh = it.priorityHigh.apply {
-                setOnClickListener { onPriorityChanged() }
+        (parent?.findViewById(R.id.compose_view) as ComposeView).apply {
+            setContent {
+                MdcTheme {
+                    val priority = viewModel.priority.collectAsState()
+                    PriorityRow(
+                        selected = priority.value,
+                        onClick = { viewModel.priority.value = it })
+                }
             }
-            priorityMedium = it.priorityMedium.apply {
-                setOnClickListener { onPriorityChanged() }
-            }
-            priorityLow = it.priorityLow.apply {
-                setOnClickListener { onPriorityChanged() }
-            }
-            priorityNone = it.priorityNone.apply {
-                setOnClickListener { onPriorityChanged() }
-            }
-            it.root
         }
 
     override val icon = R.drawable.ic_outline_flag_24px
 
+    override val rootLayout = R.layout.control_set_template_compose
+
     override fun controlId() = TAG
-
-    private fun tintRadioButton(radioButton: AppCompatRadioButton, priority: Int) {
-        val color = colorProvider.getPriorityColor(priority, true)
-        radioButton.buttonTintList = ColorStateList(arrayOf(intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked)), intArrayOf(color, color))
-    }
-
-    @Task.Priority
-    private fun getPriority() = when {
-        priorityHigh.isChecked -> Task.Priority.HIGH
-        priorityMedium.isChecked -> Task.Priority.MEDIUM
-        priorityLow.isChecked -> Task.Priority.LOW
-        else -> Task.Priority.NONE
-    }
 
     companion object {
         const val TAG = R.string.TEA_ctrl_importance_pref
     }
+}
+
+@Composable
+fun PriorityRow(
+    selected: Int,
+    onClick: (Int) -> Unit = {}
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(
+                top = dimensionResource(id = R.dimen.half_keyline_first),
+                bottom = dimensionResource(id = R.dimen.half_keyline_first),
+                end = 16.dp
+            ),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.TEA_importance_label),
+            style = MaterialTheme.typography.body1,
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        PriorityButton(priority = Task.Priority.HIGH, selected = selected, onClick = onClick)
+        PriorityButton(priority = Task.Priority.MEDIUM, selected = selected, onClick = onClick)
+        PriorityButton(priority = Task.Priority.LOW, selected = selected, onClick = onClick)
+        PriorityButton(priority = Task.Priority.NONE, selected = selected, onClick = onClick)
+    }
+}
+
+@Composable
+fun PriorityButton(
+    @Task.Priority priority: Int,
+    selected: Int,
+    onClick: (Int) -> Unit,
+) {
+    val color = when (priority) {
+        in Int.MIN_VALUE..Task.Priority.HIGH -> colorResource(id = R.color.red_500)
+        Task.Priority.MEDIUM -> colorResource(id = R.color.amber_500)
+        Task.Priority.LOW -> colorResource(id = R.color.blue_500)
+        else -> colorResource(R.color.grey_500)
+    }
+    RadioButton(
+        selected = priority == selected,
+        onClick = { onClick(priority) },
+        colors = RadioButtonDefaults.colors(
+            selectedColor = color,
+            unselectedColor = color,
+        ),
+    )
 }

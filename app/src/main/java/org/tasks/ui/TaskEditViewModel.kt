@@ -33,22 +33,13 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarEventProvider
-import org.tasks.data.Alarm
+import org.tasks.data.*
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.whenDue
 import org.tasks.data.Alarm.Companion.whenOverdue
 import org.tasks.data.Alarm.Companion.whenStarted
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.Location
-import org.tasks.data.LocationDao
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
@@ -125,6 +116,8 @@ class TaskEditViewModel @Inject constructor(
             originalCalendar = preferences.defaultCalendar
         }
         eventUri = task.calendarURI
+
+        priority.value = task.priority
     }
 
     lateinit var task: Task
@@ -147,8 +140,7 @@ class TaskEditViewModel @Inject constructor(
             }
         }
 
-    var priority: Int? = null
-        get() = field ?: task.priority
+    var priority = MutableStateFlow(Task.Priority.NONE)
 
     var description: String? = null
         get() = field ?: task.notes.stripCarriageReturns()
@@ -287,7 +279,7 @@ class TaskEditViewModel @Inject constructor(
         (task.title != title || (isNew && title?.isNotBlank() == true)) ||
                 task.isCompleted != completed ||
                 task.dueDate != dueDate ||
-                task.priority != priority ||
+                task.priority != priority.value ||
                 if (task.notes.isNullOrBlank()) {
                     !description.isNullOrBlank()
                 } else {
@@ -332,7 +324,7 @@ class TaskEditViewModel @Inject constructor(
         clear(remove)
         task.title = if (title.isNullOrBlank()) context.getString(R.string.no_title) else title
         task.dueDate = dueDate!!
-        task.priority = priority!!
+        task.priority = priority.value
         task.notes = description
         task.hideUntil = hideUntil!!
         task.recurrence = recurrence
