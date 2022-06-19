@@ -458,9 +458,6 @@
     <string name="upgrade_blurb_1">你好！我叫 Alex，是 Tasks 背后的独立开发者</string>
     <string name="upgrade_blurb_2">我已经花了数千个小时用于开发 Tasks，并且在网上免费发布了所有源代码。 为了支持我的工作，某些功能需要订阅</string>
     <string name="back">返回</string>
-    <string name="chip_style">纸片样式</string>
-    <string name="chip_style_outlined">描边</string>
-    <string name="chip_style_filled">填充</string>
     <string name="chips">纸片</string>
     <string name="chip_appearance">纸片外观</string>
     <string name="desaturate_colors">降低颜色饱和度</string>

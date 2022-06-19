@@ -557,9 +557,6 @@
     <string name="chip_appearance_text_and_icon">النص والايقونة</string>
     <string name="navigation_drawer">درج التنقل</string>
     <string name="chips">رقائق</string>
-    <string name="chip_style_filled">ممتلئ</string>
-    <string name="chip_style_outlined">مخطط</string>
-    <string name="chip_style">نمط الرقاقة</string>
     <string name="back">عودة</string>
     <string name="upgrade_blurb_2">لقد أمضيت آلاف الساعات في العمل على \"مهام\" ، وأنا أنشر جميع التعليمات البرمجية المصدر عبر الإنترنت مجانًا. من أجل دعم عملي ، ولذلك تتطلب بعض الميزات اشتراكًا</string>
     <string name="invalid_username_or_password">خطأ في اسم المستخدم أو كلمة مرور</string>

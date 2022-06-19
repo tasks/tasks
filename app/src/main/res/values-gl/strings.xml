@@ -554,8 +554,6 @@
     <string name="troubleshooting">Soporte técnico</string>
     <string name="more_settings">Máis opcións</string>
     <string name="color_wheel">Roda de cores</string>
-    <string name="chip_style_outlined">Marcado</string>
-    <string name="chip_style_filled">Cuberto</string>
     <string name="navigation_drawer">Xestionar a navegación</string>
     <string name="chip_appearance_text_and_icon">Texto e iconas</string>
     <string name="chip_appearance_text_only">Só texto</string>

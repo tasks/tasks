@@ -463,9 +463,6 @@
     <string name="upgrade_blurb_1">Salut ! Je m\'appelle Alex. Je suis le développeur indépendant à l\'origine de Tasks</string>
     <string name="upgrade_blurb_2">J\'ai passé des milliers d\'heures à travailler sur Tasks, et je publie gratuitement tout le code source en ligne. Afin de soutenir mon travail, certaines fonctionnalités nécessitent un abonnement</string>
     <string name="back">Retour</string>
-    <string name="chip_style">Style d\'étiquette</string>
-    <string name="chip_style_outlined">Entouré</string>
-    <string name="chip_style_filled">Rempli</string>
     <string name="chips">Étiquettes</string>
     <string name="chip_appearance">Apparence de l\'étiquette</string>
     <string name="desaturate_colors">Désaturer les couleurs</string>

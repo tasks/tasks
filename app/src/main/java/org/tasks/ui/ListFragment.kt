@@ -77,12 +77,11 @@ class ListFragment : TaskEditControlFragment() {
 
     private fun refreshView() {
         chipGroup.removeAllViews()
-        val chip = chipProvider.newChip(
+        val chip = chipProvider.newListChip(
                 viewModel.selectedList!!,
                 R.drawable.ic_list_24px,
-                showText = true,
-                showIcon = true)!!
-        chip.setOnClickListener { openPicker() }
+                this::openPicker
+        )
         chipGroup.addView(chip)
     }
 

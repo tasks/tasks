@@ -220,9 +220,6 @@
     <string name="desaturate_colors">Khử bão hoà màu sắc</string>
     <string name="chip_appearance">Ngoại hình nhãn</string>
     <string name="chips">Nhãn</string>
-    <string name="chip_style_filled">Lấp đầy</string>
-    <string name="chip_style_outlined">Tô đường viền</string>
-    <string name="chip_style">Kiểu nhãn</string>
     <string name="back">Quay lại</string>
     <string name="upgrade_blurb_2">Tôi đã dành hàng nghìn tiếng cho việc hoàn thiện Tasks, và tôi xuất bản tất cả mã nguồn trên mạng miễn phí. Để hỗ trợ công sức của tôi, một số tính năng yêu cầu đăng ký</string>
     <string name="upgrade_blurb_1">Xin chào! Tên tôi là Alex. Tôi là nhà phát triển độc lập đứng sau Tasks</string>

@@ -468,9 +468,6 @@
     <string name="upgrade_blurb_1">Hey! Ben Alex. Tasks\'ın arkasındaki bağımsız geliştiriciyim</string>
     <string name="upgrade_blurb_2">Binlerce saatimi Tasks\'ta çalışarak geçirdim, kaynak kodun tümünü çevrim içi olarak ücretsiz yayımladım. Çalışmamı desteklemek için bazı özellikler abonelik gerektirir</string>
     <string name="back">Geri</string>
-    <string name="chip_style">Yonga biçimi</string>
-    <string name="chip_style_outlined">Dış çizgi</string>
-    <string name="chip_style_filled">Tok</string>
     <string name="chips">Yongalar</string>
     <string name="chip_appearance">Yonga görünümü</string>
     <string name="desaturate_colors">Renkleri solgunlaştır</string>

@@ -586,11 +586,8 @@
     <string name="map_theme">Тема на картата</string>
     <string name="widget_do_nothing">Без действие</string>
     <string name="wearable_notifications_summary">Показване на известия на носимото устройство</string>
-    <string name="chip_style_outlined">Очертан</string>
     <string name="color_wheel">Цветно колело</string>
-    <string name="chip_style">Стил на индикаторите в списъка</string>
     <string name="notification_troubleshooting_summary">Докоснете тук, ако имате проблеми с известията</string>
-    <string name="chip_style_filled">Запълнен</string>
     <plurals name="reminder_hours">
         <item quantity="one">Час</item>
         <item quantity="other">Часове</item>

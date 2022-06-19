@@ -484,9 +484,6 @@
     <string name="upgrade_blurb_1">Привет! Меня зовут Алекс. Я - независимый разработчик, стоящий за программой Tasks</string>
     <string name="upgrade_blurb_2">Я потратил тысячи часов, работая над Tasks, и я публикую весь исходный код онлайн, бесплатно. Для того, чтобы поддержать мою работу, некоторые функциональности требуют подписки</string>
     <string name="back">Назад</string>
-    <string name="chip_style">Стиль индикаторов</string>
-    <string name="chip_style_outlined">Оконтуренный</string>
-    <string name="chip_style_filled">Заполненный</string>
     <string name="chips">Индикаторы</string>
     <string name="chip_appearance">Внешний вид индикаторов</string>
     <string name="desaturate_colors">Уменьшить насыщенность цветов</string>

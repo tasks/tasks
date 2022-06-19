@@ -233,6 +233,8 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:${Versions.compose}")
     releaseCompileOnly("androidx.compose.ui:ui-tooling:${Versions.compose}")
 
+    implementation("com.google.accompanist:accompanist-flowlayout:0.24.11-rc")
+
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}") {
         exclude("com.google.android.gms", "play-services-ads-identifier")

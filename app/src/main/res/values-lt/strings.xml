@@ -680,9 +680,6 @@
     <string name="desaturate_colors">Blankios spalvos</string>
     <string name="chip_appearance">Skrituliuko išvaizda</string>
     <string name="chips">Skrituliukai</string>
-    <string name="chip_style_filled">Užpildytas</string>
-    <string name="chip_style_outlined">Tuščiaviduris</string>
-    <string name="chip_style">Skrituliuko stilius</string>
     <string name="widget_id">Valdiklio ID: %d</string>
     <string name="add_filter">Pridėti filtrą</string>
     <string name="add_tags">Pridėti etiketes</string>

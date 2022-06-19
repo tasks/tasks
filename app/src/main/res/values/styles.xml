@@ -188,39 +188,6 @@
     <item name="android:layout_height">24dp</item>
   </style>
 
-  <style name="ChipStyle" parent="Base.Widget.MaterialComponents.Chip">
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:maxLines">1</item>
-    <item name="android:ellipsize">end</item>
-    <item name="chipIconSize">@dimen/chip_icon_size</item>
-    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
-    <item name="chipMinHeight">@dimen/chip_min_height</item>
-    <item name="closeIconVisible">false</item>
-    <item name="ensureMinTouchTargetSize">false</item>
-    <item name="chipSurfaceColor">@android:color/transparent</item>
-    <item name="iconStartPadding">5dp</item>
-    <item name="iconEndPadding">2dp</item>
-    <item name="closeIconEndPadding">5dp</item>
-    <item name="chipEndPadding">4dp</item>
-  </style>
-
-  <style name="ChipStyle.Outlined">
-    <item name="chipStrokeWidth">@dimen/chip_stroke</item>
-    <item name="chipBackgroundColor">@android:color/transparent</item>
-    <item name="android:textColor">@color/chip_text</item>
-    <item name="chipIconTint">@color/chip_text</item>
-    <item name="closeIconTint">@color/chip_text</item>
-    <item name="chipStrokeColor">@color/text_secondary</item>
-  </style>
-
-  <style name="ChipStyle.Filled">
-    <item name="chipBackgroundColor">@color/default_chip_background</item>
-    <item name="android:textColor">@color/default_chip_text_color</item>
-    <item name="chipIconTint">@color/default_chip_text_color</item>
-    <item name="closeIconTint">@color/default_chip_text_color</item>
-  </style>
-
   <style name="OutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
     <item name="android:textColor">@color/button_accent_text</item>
     <item name="backgroundTint">@color/button_accent_background</item>

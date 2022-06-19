@@ -85,14 +85,6 @@
 
         <ListPreference
             android:defaultValue="0"
-            android:entries="@array/chip_styles"
-            android:entryValues="@array/chip_style_values"
-            android:key="@string/p_chip_style"
-            android:summary="%s"
-            android:title="@string/chip_style" />
-
-        <ListPreference
-            android:defaultValue="0"
             android:entries="@array/chip_appearance"
             android:entryValues="@array/chip_appearance_values"
             android:key="@string/p_chip_appearance"

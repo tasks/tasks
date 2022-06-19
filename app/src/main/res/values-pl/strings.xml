@@ -479,9 +479,6 @@
     <string name="upgrade_blurb_1">Cześć! Mam na imię Alex. Jestem niezależnym deweloperem stojącym za Tasks</string>
     <string name="upgrade_blurb_2">Spędziłem tysiące godzin pracując nad Tasks i publikuję cały kod źródłowy online za darmo. Aby wesprzeć moją pracę, niektóre funkcję wymagają subskrypcji</string>
     <string name="back">Wstecz</string>
-    <string name="chip_style">Styl chipa</string>
-    <string name="chip_style_outlined">Obrysowany</string>
-    <string name="chip_style_filled">Wypełniony</string>
     <string name="chips">Chipy</string>
     <string name="chip_appearance">Wygląd chipów</string>
     <string name="desaturate_colors">Desaturuj kolory</string>

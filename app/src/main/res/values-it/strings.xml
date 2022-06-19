@@ -438,8 +438,6 @@
     <string name="places">Luoghi</string>
     <string name="desaturate_colors_summary_on">I colori perderanno saturazione nei temi scuri</string>
     <string name="desaturate_colors_summary_off">I colori non perderanno saturazione nei temi scuri</string>
-    <string name="chip_style_filled">Pieno</string>
-    <string name="chip_style_outlined">Contornato</string>
     <string name="back">Indietro</string>
     <string name="upgrade_blurb_2">Ho dedicato a Tasks migliaia di ore di lavoro, pubblicando tutto il codice sorgente online, gratuitamente. Per supportare il mio lavoro alcune funzioni richiedono un abbonamento</string>
     <string name="upgrade_blurb_1">Ciao! Mi chiamo Alex. Sono lo sviluppatore indipendente di Tasks.</string>
@@ -491,7 +489,6 @@
     <string name="subtasks">Attività secondaria</string>
     <string name="TEA_timer_controls">Timer</string>
     <string name="chip_appearance">Aspetto icona</string>
-    <string name="chip_style">Stile icona</string>
     <string name="chips">Icone</string>
     <string name="custom_filter_not">NON</string>
     <string name="custom_filter_or">O</string>

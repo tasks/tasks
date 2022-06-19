@@ -407,8 +407,6 @@
     <string name="EPr_reset_preferences_warning">මනාපයන් පෙරනිමි අගයන් වෙත යළි පිහිටුවනු ඇත</string>
     <string name="EPr_reset_preferences">මනාපයන් යළි පිහිටුවන්න</string>
     <string name="chips">චිප්ස්</string>
-    <string name="chip_style_filled">පුරවා ඇති</string>
-    <string name="chip_style">චිප් විලාසය</string>
     <string name="color_wheel">වර්ණ රෝදය</string>
     <string name="wearable_notifications_summary">ඔබගේ පැළඳිය හැකි උපාංගයන්හි දැනුම්දීම් පෙන්වන්න</string>
     <string name="wearable_notifications">පැළඳිය හැකි උපාංග දැනුම්දීම්</string>
@@ -688,7 +686,6 @@
     <string name="navigation_drawer">මෙනුව</string>
     <string name="place_settings">ස්ථාන සැකසුම්</string>
     <string name="desaturate_colors_summary_on">අඳුරු තේමාවන් වලදී වර්ණ අසංතෘප්ත වේ</string>
-    <string name="chip_style_outlined">භාහිර රේඛාවන් ඇති</string>
     <string name="TFE_workingOn">ක්‍රියාත්මකව පවතින කාර්යයන්</string>
     <string name="repeat_snackbar">%1$s, %2$s සඳහා නැවත සකස් කරන ලදි</string>
     <string name="CFC_importance_text">අවම වශයෙන් ප්‍රමුඛතාවය \?</string>

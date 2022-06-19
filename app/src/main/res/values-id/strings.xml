@@ -392,8 +392,6 @@
     <string name="hide_unused_tags">Sembunyikan tag yang tidak digunakan</string>
     <string name="navigation_drawer">Panel navigasi</string>
     <string name="chip_appearance">Penampilan chip</string>
-    <string name="chip_style_filled">Dipenuhi</string>
-    <string name="chip_style_outlined">Skematik</string>
     <string name="back">Kembali</string>
     <string name="invalid_username_or_password">Nama pengguna dan kata sandi salah</string>
     <string name="davx5_selection_description">Sinkronkan tugas Anda dengan aplikasi DAVx⁵</string>
@@ -568,7 +566,6 @@
     <string name="desaturate_colors_summary_on">Warna akan dikurangi/desaturasi dalam tema gelap</string>
     <string name="desaturate_colors">Pengurangan/desaturasi warna</string>
     <string name="chips">Chip</string>
-    <string name="chip_style">Gaya chip</string>
     <string name="color_wheel">Roda warna</string>
     <string name="wearable_notifications_summary">Tampilkan notifikasi pada alat wearable Anda</string>
     <string name="wearable_notifications">Notifikasi pada alat wearable</string>

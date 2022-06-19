@@ -201,9 +201,6 @@
     <string name="desaturate_colors_summary_on">இருண்ட கருப்பொருள்களில் நிறங்கள் தேய்மானம் செய்யப்படும்</string>
     <string name="desaturate_colors">தேய்மான நிறங்கள்</string>
     <string name="chip_appearance">சிப் தோற்றம்</string>
-    <string name="chip_style_filled">நிரப்ப</string>
-    <string name="chip_style_outlined">கோடிட்டுக் காட்டப்பட்டுள்ளது</string>
-    <string name="chip_style">சிப் பாணி</string>
     <string name="back">மீண்டும்</string>
     <string name="upgrade_blurb_2">நான் பணிகளில் ஆயிரக்கணக்கான மணிநேரங்களை செலவிட்டேன், மேலும் மூலக் குறியீடு அனைத்தையும் ஆன்லைனில் இலவசமாக வெளியிடுகிறேன். எனது பணியை ஆதரிக்க சில அம்சங்களுக்கு சந்தா தேவை</string>
     <string name="upgrade_blurb_1">வணக்கம்! என் பெயர் அலெக்ஸ். பணிகளுக்குப் பின்னால் உள்ள சுயாதீன டெவலப்பர் நான்</string>

@@ -392,7 +392,6 @@
   <string name="p_disable_sort_groups">disable_sort_groups</string>
   <string name="p_wearable_notifications">wearable_notifications</string>
   <string name="p_notified_oauth_error">notified_oauth_error_%1$s_%2$s</string>
-  <string name="p_chip_style">chip_style</string>
   <string name="p_chip_appearance">chip_appearance</string>
   <string name="p_subtask_chips">chips_subtask</string>
   <string name="p_start_date_chip">chips_start_date</string>

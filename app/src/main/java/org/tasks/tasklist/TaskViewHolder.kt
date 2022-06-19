@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.TextView
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.chip.ChipGroup
+import com.google.accompanist.flowlayout.FlowRow
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.Filter
@@ -61,7 +64,7 @@ class TaskViewHolder internal constructor(
     private val completeBox: CheckableImageView = binding.completeBox.apply {
         setOnClickListener { onCompleteBoxClick() }
     }
-    private val chipGroup: ChipGroup = binding.chipGroup
+    private val chipGroup: ComposeView = binding.chipGroup
 
     lateinit var task: TaskContainer
 
@@ -211,21 +214,25 @@ class TaskViewHolder internal constructor(
     }
 
     private fun setupChips(filter: Filter, sortByStartDate: Boolean) {
-        val chips = chipProvider.getChips(filter, indent > 0, task, sortByStartDate)
-        if (chips.isEmpty()) {
-            chipGroup.visibility = View.GONE
-        } else {
-            chipGroup.removeAllViews()
-            for (chip in chips) {
-                chip.setOnClickListener { v: View -> onChipClick(v) }
-                chipGroup.addView(chip)
+        chipGroup.setContent {
+            MdcTheme {
+                FlowRow(
+                    mainAxisSpacing = 4.dp,
+                    crossAxisSpacing = 4.dp,
+                ) {
+                    chipProvider.Chips(
+                        filter = filter,
+                        isSubtask = indent > 0,
+                        task = task,
+                        sortByStartDate = sortByStartDate,
+                        onClick = this::onChipClick
+                    )
+                }
             }
-            chipGroup.visibility = View.VISIBLE
         }
     }
 
-    private fun onChipClick(v: View) {
-        val tag = v.tag
+    private fun onChipClick(tag: Any) {
         if (tag is Filter) {
             callback.onClick(tag)
         } else if (tag is TaskContainer) {

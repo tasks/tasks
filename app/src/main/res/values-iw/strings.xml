@@ -591,9 +591,6 @@
     <string name="desaturate_colors">האפרת צבעים</string>
     <string name="chip_appearance">מראה הצ׳יפ</string>
     <string name="chips">צ׳יפים</string>
-    <string name="chip_style">סגנון צ׳יפ</string>
-    <string name="chip_style_filled">מלא</string>
-    <string name="chip_style_outlined">עם קו מתאר</string>
     <string name="account">חשבון</string>
     <string name="device_settings">הגדרות המכשיר</string>
     <string name="last_backup_never">אף פעם</string>

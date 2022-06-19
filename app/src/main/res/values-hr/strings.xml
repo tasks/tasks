@@ -176,9 +176,6 @@
     <string name="chip_appearance_text_and_icon">Tekst i ikona</string>
     <string name="chip_appearance">Izgled čipa</string>
     <string name="chips">Čipovi</string>
-    <string name="chip_style_filled">Ispunjeno</string>
-    <string name="chip_style_outlined">Konturno</string>
-    <string name="chip_style">Stil čipa</string>
     <string name="next_saturday">Sljedeća subota</string>
     <string name="next_friday">Sljedeći petak</string>
     <string name="next_thursday">Sljedeći četvrtak</string>

@@ -485,8 +485,6 @@
     <string name="desaturate_colors_summary_off">Barvy nebudou jemnější u tmavých motivů vzhledu</string>
     <string name="desaturate_colors_summary_on">Barvy budou jemnější u tmavých motivů vzhledu</string>
     <string name="desaturate_colors">Zjemnit barvy</string>
-    <string name="chip_style_filled">Vyplněný</string>
-    <string name="chip_style_outlined">Jen obrys</string>
     <string name="action_new_task">Nový úkol</string>
     <string name="caldav_home_set_not_found">Domovská sada nenalezena</string>
     <string name="list_separator_with_space">", "</string>
@@ -622,7 +620,6 @@
     <string name="date_picker_multiple">Vícenásobné</string>
     <string name="chip_appearance">Vzhled známek</string>
     <string name="chips">Známky</string>
-    <string name="chip_style">Styl známek</string>
     <string name="your_subscription_expired">Platnost vašeho předplatného skončila. Pokud chcete službu dále využívat, obnovte ho.</string>
     <string name="map_theme_use_app_theme">Stejný vzhled jako aplikace</string>
     <string name="account_not_included">Nezahrnuto v předplatném typu „Zaplaťte kolik chcete“</string>

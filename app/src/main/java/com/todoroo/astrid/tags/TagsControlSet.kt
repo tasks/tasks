@@ -57,7 +57,7 @@ class TagsControlSet : TaskEditControlFragment() {
     override fun controlId() = TAG
 
     private fun refreshDisplayView() {
-        viewModel.selectedTags?.let { selectedTags ->
+        viewModel.selectedTags.let { selectedTags ->
             if (selectedTags.isEmpty()) {
                 chipGroup.visibility = View.GONE
                 tagsDisplay.visibility = View.VISIBLE
@@ -66,13 +66,7 @@ class TagsControlSet : TaskEditControlFragment() {
                 chipGroup.visibility = View.VISIBLE
                 chipGroup.removeAllViews()
                 for (tagData in selectedTags.sortedBy(TagData::name)) {
-                    val chip = chipProvider.newClosableChip(tagData)
-                    chipProvider.apply(chip, tagData)
-                    chip.setOnClickListener { onRowClick() }
-                    chip.setOnCloseIconClickListener {
-                        selectedTags.remove(tagData)
-                        refreshDisplayView()
-                    }
+                    val chip = chipProvider.newTagChip(tagData, onClick = this::onRowClick)
                     chipGroup.addView(chip)
                 }
             }

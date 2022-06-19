@@ -498,9 +498,6 @@
     <string name="desaturate_colors">Dessaturar cores</string>
     <string name="chip_appearance">Aparência da ficha</string>
     <string name="chips">Fichas</string>
-    <string name="chip_style_filled">Preenchida</string>
-    <string name="chip_style_outlined">Linha de contorno</string>
-    <string name="chip_style">Estilo de ficha</string>
     <string name="back">Voltar</string>
     <string name="upgrade_blurb_2">Eu investi centenas de horas a trabalhar no Tasks e publico todo o código-fonte na Internet gratuitamente. Para apoiar o meu trabalho, algumas funcionalidades precisam de uma subscrição</string>
     <string name="upgrade_blurb_1">Olá! O meu nome é Alex e sou o programador independente por trás do Tasks</string>

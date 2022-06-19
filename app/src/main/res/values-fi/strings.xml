@@ -378,10 +378,7 @@
     <string name="desaturate_colors_summary_off">Värejä ei muuteta tummiin teemoihin</string>
     <string name="desaturate_colors_summary_on">Värit näytetään harmaampina tummissa teemoissa</string>
     <string name="chip_appearance">Lappujen sisältö</string>
-    <string name="chip_style">Lappujen ulkoasu</string>
     <string name="chips">Lisätietolaput</string>
-    <string name="chip_style_filled">Yksivärinen</string>
-    <string name="chip_style_outlined">Ympäröity</string>
     <string name="back">Takaisin</string>
     <string name="color_wheel">Väriympyrä</string>
     <string name="invalid_username_or_password">Virheellinen käyttäjätunnus tai salasana</string>

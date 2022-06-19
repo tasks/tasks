@@ -78,17 +78,14 @@
           android:visibility="gone"
           tools:text="Task description" />
 
-        <com.google.android.material.chip.ChipGroup
-          android:id="@+id/chip_group"
-          android:layout_below="@id/description"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/task_list_item_spacing"
-          android:layout_marginStart="@dimen/keyline_content_inset"
-          android:layout_marginEnd="@dimen/keyline_first"
-          android:visibility="gone"
-          app:chipSpacingHorizontal="@dimen/chip_spacing"
-          app:chipSpacingVertical="@dimen/chip_spacing" />
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description"
+            android:layout_marginTop="@dimen/task_list_item_spacing"
+            android:layout_marginStart="@dimen/keyline_content_inset"
+            android:layout_marginEnd="@dimen/keyline_first" />
 
     </RelativeLayout>
 

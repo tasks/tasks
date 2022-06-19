@@ -1,11 +1,24 @@
 package org.tasks.ui
 
 import android.app.Activity
-import android.content.res.ColorStateList
+import android.content.res.Configuration
+import android.view.View
 import androidx.annotation.DrawableRes
-import androidx.core.content.res.ResourcesCompat
-import com.google.android.material.chip.Chip
-import com.todoroo.andlib.utility.AndroidUtilities
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
@@ -22,92 +35,133 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
+import org.tasks.themes.CustomIcons
 import org.tasks.themes.CustomIcons.getIconResId
 import org.tasks.themes.ThemeColor
 import org.tasks.time.DateTimeUtils.startOfDay
 import java.time.format.FormatStyle
-import java.util.*
 import javax.inject.Inject
 
 class ChipProvider @Inject constructor(
-        private val activity: Activity,
-        private val inventory: Inventory,
-        private val lists: ChipListCache,
-        private val preferences: Preferences,
-        private val colorProvider: ColorProvider,
-        private val locale: Locale) {
+    private val activity: Activity,
+    private val inventory: Inventory,
+    private val lists: ChipListCache,
+    private val preferences: Preferences,
+    private val colorProvider: ColorProvider,
+    private val locale: Locale
+) {
+    private val showIcon: Boolean
+    private val showText: Boolean
 
-    private val iconAlpha: Int = (255 * ResourcesCompat.getFloat(activity.resources, R.dimen.alpha_secondary)).toInt()
-    private var filled = false
-    private var showIcon = false
-    private var showText = false
-
-    fun setStyle(style: Int) {
-        filled = style == 1
-    }
-
-    fun setAppearance(appearance: Int) {
+    init {
+        val appearance = preferences.getIntegerFromString(R.string.p_chip_appearance, 0)
         showText = appearance != 2
         showIcon = appearance != 1
     }
 
-    private fun newStartDateChip(task: TaskContainer, compact: Boolean, timeOnly: Boolean): Chip? {
-        val chip = newChip(task)
+    @Composable
+    private fun StartDateChip(task: TaskContainer, compact: Boolean, timeOnly: Boolean) {
         val text = if (timeOnly
-                && task.sortGroup?.startOfDay() == task.startDate.startOfDay()
-                && preferences.showGroupHeaders()
+            && task.sortGroup?.startOfDay() == task.startDate.startOfDay()
+            && preferences.showGroupHeaders()
         ) {
             task.startDate
-                    .takeIf { Task.hasDueTime(it) }
-                    ?.let { DateUtilities.getTimeString(activity, it.toDateTime()) }
-                    ?: return null
+                .takeIf { Task.hasDueTime(it) }
+                ?.let { DateUtilities.getTimeString(activity, it.toDateTime()) }
+                ?: return
         } else {
             DateUtilities.getRelativeDateTime(
-                    activity,
-                    task.startDate,
-                    locale.locale,
-                    if (compact) FormatStyle.SHORT else FormatStyle.MEDIUM,
-                    false,
-                    false
+                activity,
+                task.startDate,
+                locale.locale,
+                if (compact) FormatStyle.SHORT else FormatStyle.MEDIUM,
+                false,
+                false
             )
         }
-        apply(chip, R.drawable.ic_pending_actions_24px, text, 0, showText = true, showIcon = true)
-        return chip
+        TasksChip(
+            R.drawable.ic_pending_actions_24px,
+            text,
+            0,
+            showText = true,
+            showIcon = true,
+            onClick = {},
+        )
     }
 
-    fun newSubtaskChip(task: TaskContainer, compact: Boolean): Chip {
-        val chip = newChip(task)
-        apply(
-                chip,
-                if (task.isCollapsed) R.drawable.ic_keyboard_arrow_down_black_24dp else R.drawable.ic_keyboard_arrow_up_black_24dp,
-                if (compact) locale.formatNumber(task.children) else activity
-                        .resources
-                        .getQuantityString(R.plurals.subtask_count, task.children, task.children),
-                0,
-                showText = true,
-                showIcon = true)
-        return chip
+    @Composable
+    fun SubtaskChip(
+        task: TaskContainer,
+        compact: Boolean,
+        onClick: () -> Unit,
+    ) {
+        TasksChip(
+            if (task.isCollapsed) R.drawable.ic_keyboard_arrow_down_black_24dp else R.drawable.ic_keyboard_arrow_up_black_24dp,
+            if (compact) locale.formatNumber(task.children) else activity
+                .resources
+                .getQuantityString(R.plurals.subtask_count, task.children, task.children),
+            0,
+            showText = true,
+            showIcon = true,
+            onClick = onClick,
+        )
     }
 
-    fun getChips(filter: Filter?, isSubtask: Boolean, task: TaskContainer, sortByStartDate: Boolean): List<Chip> {
-        AndroidUtilities.assertMainThread()
-        val chips = ArrayList<Chip>()
+    @Composable
+    fun FilterChip(
+        filter: Filter,
+        defaultIcon: Int,
+        onClick: (Any) -> Unit,
+    ) {
+        TasksChip(
+            getIcon(filter.icon, defaultIcon),
+            filter.listingTitle,
+            filter.tint,
+            showText,
+            showIcon,
+            onClick = { onClick(filter) },
+        )
+    }
+
+    @Composable
+    fun Chips(
+        filter: Filter?,
+        isSubtask: Boolean,
+        task: TaskContainer,
+        sortByStartDate: Boolean,
+        onClick: (Any) -> Unit,
+    ) {
         if (task.hasChildren() && preferences.showSubtaskChip) {
-            chips.add(newSubtaskChip(task, !showText))
+            SubtaskChip(task, !showText, onClick = { onClick(task) })
         }
         if (task.isHidden && preferences.showStartDateChip) {
-            newStartDateChip(task, !showText, sortByStartDate)?.let(chips::add)
+            StartDateChip(task, !showText, sortByStartDate)
         }
         if (task.hasLocation() && filter !is PlaceFilter && preferences.showPlaceChip) {
             val location = task.getLocation()
-            newChip(PlaceFilter(location.place), R.drawable.ic_outline_place_24px)?.let(chips::add)
+            FilterChip(
+                filter = PlaceFilter(location.place),
+                defaultIcon = R.drawable.ic_outline_place_24px,
+                onClick = onClick
+            )
         }
         if (!isSubtask && preferences.showListChip) {
             if (!isNullOrEmpty(task.googleTaskList) && filter !is GtasksFilter) {
-                newChip(lists.getGoogleTaskList(task.googleTaskList), R.drawable.ic_list_24px)
-                        ?.let(chips::add)
+                lists.getGoogleTaskList(task.googleTaskList)?.let { list ->
+                    FilterChip(
+                        filter = list,
+                        defaultIcon = R.drawable.ic_list_24px,
+                        onClick = onClick
+                    )
+                }
             } else if (!isNullOrEmpty(task.caldav) && filter !is CaldavFilter) {
-                newChip(lists.getCaldavList(task.caldav), R.drawable.ic_list_24px)?.let(chips::add)
+                lists.getCaldavList(task.caldav)?.let { list ->
+                    FilterChip(
+                        filter = list,
+                        defaultIcon = R.drawable.ic_list_24px,
+                        onClick = onClick
+                    )
+                }
             }
         }
         val tagString = task.tagsString
@@ -117,91 +171,66 @@ class ChipProvider @Inject constructor(
                 tags.remove(filter.uuid)
             }
             tags.mapNotNull(lists::getTag)
-                    .sortedBy(TagFilter::listingTitle)
-                    .map { newChip(it, R.drawable.ic_outline_label_24px)!! }
-                    .let(chips::addAll)
+                .sortedBy(TagFilter::listingTitle)
+                .forEach {
+                    FilterChip(
+                        filter = it,
+                        defaultIcon = R.drawable.ic_outline_label_24px,
+                        onClick = onClick
+                    )
+                }
         }
-        return chips
     }
 
-    fun apply(chip: Chip, tagData: TagData) {
-        apply(
-                chip,
-                getIcon(tagData.getIcon()!!, R.drawable.ic_outline_label_24px),
-                tagData.name,
-                tagData.getColor()!!,
+    fun newListChip(filter: Filter, defIcon: Int, onClick: () -> Unit) = newView {
+        TasksChip(
+            getIcon(filter.icon, defIcon),
+            filter.listingTitle,
+            filter.tint,
+            showText = true,
+            showIcon = true,
+            onClick = onClick,
+        )
+    }
+
+    fun newTagChip(tag: TagData, onClick: () -> Unit): View {
+        return newView {
+            TasksChip(
+                getIcon(tag.getIcon()!!, R.drawable.ic_outline_label_24px),
+                tag.name,
+                tag.getColor()!!,
                 showText = true,
-                showIcon = true)
-    }
-
-    private fun newChip(filter: Filter?, defIcon: Int): Chip? =
-            newChip(filter, defIcon, showText, showIcon)
-
-    fun newChip(filter: Filter?, defIcon: Int, showText: Boolean, showIcon: Boolean): Chip? {
-        if (filter == null) {
-            return null
+                showIcon = true,
+                onClick = onClick,
+            )
         }
-        val chip = newChip(filter)
-        apply(chip, getIcon(filter.icon, defIcon), filter.listingTitle, filter.tint, showText, showIcon)
-        return chip
     }
 
-    fun newClosableChip(tag: Any?): Chip {
-        val chip = chip
-        chip.isCloseIconVisible = true
-        chip.tag = tag
-        return chip
-    }
-
-    private fun newChip(tag: Any?): Chip {
-        val chip = chip
-        chip.tag = tag
-        return chip
-    }
-
-    private val chip: Chip
-        get() = activity
-                .layoutInflater
-                .inflate(if (filled) R.layout.chip_filled else R.layout.chip_outlined, null) as Chip
-
-    private fun apply(
-            chip: Chip,
-            @DrawableRes icon: Int?,
-            name: String?,
-            theme: Int,
-            showText: Boolean,
-            showIcon: Boolean) {
-        if (showText) {
-            chip.text = name
-            chip.iconEndPadding = 0f
-        } else {
-            chip.text = null
-            chip.contentDescription = name
-            chip.textStartPadding = 0f
-            chip.chipEndPadding = 0f
-        }
-        val themeColor = getColor(theme)
-        if (themeColor != null) {
-            val primaryColor = themeColor.primaryColor
-            val primaryColorSL = ColorStateList(arrayOf(intArrayOf()), intArrayOf(primaryColor))
-            if (filled) {
-                val colorOnPrimary = themeColor.colorOnPrimary
-                val colorOnPrimarySL = ColorStateList(arrayOf(intArrayOf()), intArrayOf(colorOnPrimary))
-                chip.chipBackgroundColor = primaryColorSL
-                chip.setTextColor(colorOnPrimary)
-                chip.closeIconTint = colorOnPrimarySL
-                chip.chipIconTint = colorOnPrimarySL
-            } else {
-                chip.setTextColor(primaryColor)
-                chip.closeIconTint = primaryColorSL
-                chip.chipIconTint = primaryColorSL
-                chip.chipStrokeColor = primaryColorSL
+    private fun newView(content: @Composable () -> Unit): View = ComposeView(activity).apply {
+        setContent {
+            MdcTheme {
+                content()
             }
         }
-        if (showIcon && icon != null) {
-            chip.setChipIconResource(icon)
-            chip.chipDrawable.alpha = iconAlpha
-        }
+    }
+
+    @Composable
+    fun TasksChip(
+        @DrawableRes icon: Int?,
+        name: String?,
+        theme: Int,
+        showText: Boolean,
+        showIcon: Boolean,
+        onClick: () -> Unit,
+    ) {
+        val color =
+            getColor(theme)?.primaryColor ?: activity.getColor(R.color.default_chip_background)
+        TasksChip(
+            color = Color(color),
+            text = if (showText) name else null,
+            icon = if (showIcon && icon != null) icon else null,
+            onClick = onClick,
+        )
     }
 
     @DrawableRes
@@ -216,9 +245,97 @@ class ChipProvider @Inject constructor(
         }
         return null
     }
+}
 
-    init {
-        setStyle(preferences.getIntegerFromString(R.string.p_chip_style, 0))
-        setAppearance(preferences.getIntegerFromString(R.string.p_chip_appearance, 0))
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun TasksChip(
+    text: String? = null,
+    icon: Int? = null,
+    color: Color,
+    onClick: () -> Unit = {},
+) {
+    CompositionLocalProvider(
+        LocalMinimumTouchTargetEnforcement provides false
+    ) {
+        Chip(
+            onClick = onClick,
+            border = BorderStroke(1.dp, color = color),
+            leadingIcon = {
+                if (text != null) {
+                    ChipIcon(iconRes = icon)
+                }
+            },
+            modifier = Modifier.defaultMinSize(minHeight = 26.dp),
+            colors = ChipDefaults.chipColors(
+                backgroundColor = color.copy(alpha = .1f),
+                contentColor = MaterialTheme.colors.onSurface
+            ),
+        ) {
+            if (text == null) {
+                ChipIcon(iconRes = icon)
+            }
+            text?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.caption,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun ChipIcon(iconRes: Int?) {
+    iconRes?.let {
+        Icon(
+            painter = painterResource(id = iconRes),
+            contentDescription = null,
+            modifier = Modifier.size(18.dp)
+        )
+    }
+}
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun TasksChipIconAndTextPreview() {
+    MdcTheme {
+        TasksChip(
+            text = "Home",
+            icon = getIconResId(CustomIcons.LABEL),
+            color = Color.Red,
+        )
+    }
+}
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun TasksChipIconPreview() {
+    MdcTheme {
+        TasksChip(
+            text = null,
+            icon = getIconResId(CustomIcons.LABEL),
+            color = Color.Red,
+        )
+    }
+}
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun TasksChipTextPreview() {
+    MdcTheme {
+        TasksChip(
+            text = "Home",
+            icon = null,
+            color = Color.Red,
+        )
     }
 }

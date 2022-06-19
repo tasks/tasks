@@ -70,7 +70,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     override fun createView(savedInstanceState: Bundle?) {
         viewModel.newSubtasks.forEach { addSubtask(it) }
         recyclerAdapter = SubtasksRecyclerAdapter(activity, chipProvider, checkBoxProvider, this)
-        viewModel.task?.let {
+        viewModel.task.let {
             if (it.id > 0) {
                 recyclerAdapter.submitList(listViewModel.value)
                 listViewModel.setFilter(Filter("subtasks", getQueryTemplate(it)))

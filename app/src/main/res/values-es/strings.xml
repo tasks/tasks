@@ -468,9 +468,6 @@
     <string name="upgrade_blurb_1">¡Hola! Me llamo Alex. Soy el desarrollador independiente detrás de Tasks</string>
     <string name="upgrade_blurb_2">He invertido miles de horas en trabajar en Tasks, y todo el código fuente lo publico gratuitamente en internet. Para apoyar mi trabajo, determinadas funciones necesita suscripción</string>
     <string name="back">Volver</string>
-    <string name="chip_style">Estilo de los distintivos</string>
-    <string name="chip_style_outlined">Contorneado</string>
-    <string name="chip_style_filled">Lleno</string>
     <string name="chips">Distintivos</string>
     <string name="chip_appearance">Apariencia de los distintivos</string>
     <string name="desaturate_colors">Colores desaturados</string>

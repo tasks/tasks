@@ -449,7 +449,6 @@
     <string name="chip_appearance_text_and_icon">Text och ikon</string>
     <string name="place_settings">Plats inställningar</string>
     <string name="places">Platser</string>
-    <string name="chip_style_filled">Fylld</string>
     <string name="back">Tillbaka</string>
     <string name="color_wheel">Färghjul</string>
     <string name="invalid_username_or_password">Ogiltigt användarnamn eller lösenord</string>
@@ -604,8 +603,6 @@
     <string name="desaturate_colors">Avmatta färger</string>
     <string name="chip_appearance">Utseende av flis</string>
     <string name="chips">Pommes frites</string>
-    <string name="chip_style_outlined">Beskrivs på</string>
-    <string name="chip_style">Chip stil</string>
     <string name="upgrade_blurb_1">Hej! Jag heter Alex. Jag är den oberoende utvecklaren bakom Tasks</string>
     <string name="disable_battery_optimizations">Inaktivera batterioptimeringar</string>
     <string name="notification_troubleshooting_summary">Tryck här om du har problem med aviseringar</string>

@@ -466,9 +466,6 @@
     <string name="upgrade_blurb_1">Szia! Alexnek hívnak. Én vagyok a Tasks mögött álló független fejlesztő</string>
     <string name="upgrade_blurb_2">Több ezer órát dolgoztam a Tasks appon, és a teljes forráskódot ingyenesen elérhetővé tettem. A munkám támogatása érdekében néhány funkció eléréséhez előfizetés szükséges</string>
     <string name="back">Vissza</string>
-    <string name="chip_style">Jelölő stílusa</string>
-    <string name="chip_style_outlined">Körvonal</string>
-    <string name="chip_style_filled">Tele</string>
     <string name="chips">Jelölő</string>
     <string name="chip_appearance">Jelölő kinézete</string>
     <string name="desaturate_colors">Fakó színek</string>

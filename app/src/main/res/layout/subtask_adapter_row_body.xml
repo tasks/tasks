@@ -13,7 +13,7 @@
     android:paddingStart="0dp"
     android:paddingEnd="@dimen/keyline_first" />
 
-  <com.google.android.material.chip.ChipGroup
+  <androidx.compose.ui.platform.ComposeView
     android:id="@+id/chip_group"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

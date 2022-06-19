@@ -468,9 +468,6 @@
     <string name="upgrade_blurb_1">Hallo! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks</string>
     <string name="upgrade_blurb_2">Ik heb duizenden uren gewerkt aan Tasks en publiceer alle broncode gratis online. Om mijn werk te steunen, is voor sommige functies een abonnement nodig</string>
     <string name="back">Terug</string>
-    <string name="chip_style">Merkstijl</string>
-    <string name="chip_style_outlined">Omlijnd</string>
-    <string name="chip_style_filled">Gevuld</string>
     <string name="chips">Vormgeving</string>
     <string name="chip_appearance">Uiterlijk van chip</string>
     <string name="desaturate_colors">Minder verzadigde kleuren</string>

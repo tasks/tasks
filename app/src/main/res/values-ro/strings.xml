@@ -598,9 +598,6 @@
     <string name="desaturate_colors">Desaturați culorile</string>
     <string name="chip_appearance">Aspect fragmentat</string>
     <string name="chips">Fragmente</string>
-    <string name="chip_style_filled">Încărcat</string>
-    <string name="chip_style_outlined">Conturat</string>
-    <string name="chip_style">Stil fragmentat</string>
     <string name="back">Înapoi</string>
     <string name="upgrade_blurb_2">Am petrecut mii de ore lucrând la Tasks și am publicat tot codul sursă online gratuit. Pentru a-mi susține munca, unele caracteristici necesită un abonament</string>
     <string name="upgrade_blurb_1">Bună, mă numesc Alex. Sunt dezvoltatorul independent din spatele Tasks</string>

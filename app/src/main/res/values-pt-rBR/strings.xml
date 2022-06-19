@@ -440,9 +440,6 @@
     <string name="desaturate_colors">Dessaturar cores</string>
     <string name="chip_appearance">Aparência da Pastilha</string>
     <string name="chips">Pastilha</string>
-    <string name="chip_style_filled">Preenchido</string>
-    <string name="chip_style_outlined">Contornado</string>
-    <string name="chip_style">Estilo da pastilha</string>
     <string name="back">Voltar</string>
     <string name="upgrade_blurb_2">Eu investi centenas de horas trabalhando no Tasks, e eu publico todo o código-fonte online de graça. Para apoiar meu trabalho, algumas funcionalidades precisam de um plano de assinatura</string>
     <string name="upgrade_blurb_1">Olá! Meu nome é Alex e eu sou o desenvolvedor independente por trás do Tasks</string>

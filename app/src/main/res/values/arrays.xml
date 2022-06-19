@@ -213,16 +213,6 @@
     <item>@drawable/ic_decsync</item>
   </array>
 
-  <string-array name="chip_styles">
-    <item>@string/chip_style_outlined</item>
-    <item>@string/chip_style_filled</item>
-  </string-array>
-
-  <string-array name="chip_style_values">
-    <item>0</item>
-    <item>1</item>
-  </string-array>
-
   <string-array name="chip_appearance">
     <item>@string/chip_appearance_text_and_icon</item>
     <item>@string/chip_appearance_text_only</item>
