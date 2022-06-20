@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.TextView
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.RecyclerView
-import com.google.accompanist.flowlayout.FlowRow
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.now
@@ -27,6 +28,7 @@ import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
+import org.tasks.ui.ChipGroup
 import org.tasks.ui.ChipProvider
 import java.time.format.FormatStyle
 import java.util.*
@@ -216,10 +218,7 @@ class TaskViewHolder internal constructor(
     private fun setupChips(filter: Filter, sortByStartDate: Boolean) {
         chipGroup.setContent {
             MdcTheme {
-                FlowRow(
-                    mainAxisSpacing = 4.dp,
-                    crossAxisSpacing = 4.dp,
-                ) {
+                ChipGroup(modifier = Modifier.padding(end = 16.dp)) {
                     chipProvider.Chips(
                         filter = filter,
                         isSubtask = indent > 0,

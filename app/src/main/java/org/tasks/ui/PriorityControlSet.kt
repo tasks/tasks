@@ -1,7 +1,6 @@
 package org.tasks.ui
 
 import android.content.res.Configuration
-import android.view.ViewGroup
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
@@ -12,7 +11,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -24,23 +22,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 
 @AndroidEntryPoint
-class PriorityControlSet : TaskEditControlFragment() {
+class PriorityControlSet : TaskEditControlComposeFragment() {
 
-    override fun bind(parent: ViewGroup?) =
-        (parent?.findViewById(R.id.compose_view) as ComposeView).apply {
-            setContent {
-                MdcTheme {
-                    val priority = viewModel.priority.collectAsState()
-                    PriorityRow(
-                        selected = priority.value,
-                        onClick = { viewModel.priority.value = it })
-                }
-            }
-        }
+    @Composable
+    override fun Body() {
+        val priority = viewModel.priority.collectAsState()
+        PriorityRow(
+            selected = priority.value,
+            onClick = { viewModel.priority.value = it })
+    }
 
     override val icon = R.drawable.ic_outline_flag_24px
-
-    override val rootLayout = R.layout.control_set_template_compose
 
     override fun controlId() = TAG
 

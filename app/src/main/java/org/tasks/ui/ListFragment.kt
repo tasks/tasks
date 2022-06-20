@@ -2,14 +2,11 @@ package org.tasks.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.view.ViewGroup
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.flowlayout.FlowRow
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
@@ -19,27 +16,23 @@ import org.tasks.activities.ListPicker
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ListFragment : TaskEditControlFragment() {
+class ListFragment : TaskEditControlComposeFragment() {
     @Inject lateinit var chipProvider: ChipProvider
 
-    override fun bind(parent: ViewGroup?) =
-        (parent?.findViewById(R.id.compose_view) as ComposeView).apply {
-            setContent {
-                MdcTheme {
-                    val list = viewModel.selectedList.collectAsState()
-                    val selectedList = list.value ?: return@MdcTheme
-                    FlowRow(modifier = Modifier.padding(vertical = 20.dp)) {
-                        chipProvider.FilterChip(
-                            filter = selectedList,
-                            defaultIcon = R.drawable.ic_list_24px,
-                            showText = true,
-                            showIcon = true,
-                            onClick = { openPicker() }
-                        )
-                    }
-                }
-            }
+    @Composable
+    override fun Body() {
+        val list = viewModel.selectedList.collectAsState()
+        val selectedList = list.value ?: return
+        ChipGroup(modifier = Modifier.padding(vertical = 20.dp)) {
+            chipProvider.FilterChip(
+                filter = selectedList,
+                defaultIcon = R.drawable.ic_list_24px,
+                showText = true,
+                showIcon = true,
+                onClick = { openPicker() }
+            )
         }
+    }
 
     override val icon = R.drawable.ic_list_24px
 
@@ -48,8 +41,6 @@ class ListFragment : TaskEditControlFragment() {
     override fun onRowClick() = openPicker()
 
     override val isClickable = true
-
-    override val rootLayout = R.layout.control_set_template_compose
 
     private fun openPicker() =
             ListPicker.newListPicker(viewModel.selectedList.value!!, this, REQUEST_CODE_SELECT_LIST)

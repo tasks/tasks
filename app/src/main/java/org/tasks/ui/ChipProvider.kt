@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.flowlayout.FlowRow
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
@@ -264,6 +265,17 @@ fun TasksChip(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun ChipGroup(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    FlowRow(
+        mainAxisSpacing = 4.dp,
+        crossAxisSpacing = 4.dp,
+        modifier = modifier,
+    ) {
+        content()
     }
 }
 
