@@ -4,18 +4,13 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -26,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -41,17 +35,16 @@ import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.whenDue
 import org.tasks.data.Alarm.Companion.whenOverdue
 import org.tasks.data.Alarm.Companion.whenStarted
-import org.tasks.databinding.ControlSetRemindersBinding
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.reminders.AlarmToString
-import org.tasks.ui.TaskEditControlFragment
+import org.tasks.ui.TaskEditControlComposeFragment
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ReminderControlSet : TaskEditControlFragment() {
+class ReminderControlSet : TaskEditControlComposeFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var alarmToString: AlarmToString
@@ -133,95 +126,86 @@ class ReminderControlSet : TaskEditControlFragment() {
     }
 
     @OptIn(ExperimentalComposeUiApi::class)
-    override fun bind(parent: ViewGroup?) =
-        ControlSetRemindersBinding.inflate(layoutInflater, parent, true).let {
-            
-            it.alertContainer.setContent {
-                MdcTheme {
-                    val alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware()
-                    Column {
-                        Spacer(modifier = Modifier.height(8.dp))
-                        alarms.value.forEach { alarm ->
-                            AlarmRow(alarmToString.toString(alarm)) {
-                                viewModel.selectedAlarms.value =
-                                    viewModel.selectedAlarms.value.minus(alarm)
-                            }
-                        }
-                        Row(modifier = Modifier.fillMaxWidth()) {
-                            Text(
-                                text = stringResource(id = R.string.add_reminder),
-                                style = MaterialTheme.typography.body1,
-                                modifier = Modifier
-                                    .padding(vertical = 12.dp)
-                                    .clickable(
-                                        interactionSource = remember { MutableInteractionSource() },
-                                        indication = rememberRipple(bounded = false),
-                                        onClick = { addAlarm() }
-                                    )
-                                    .alpha(
-                                        ResourcesCompat.getFloat(
-                                            LocalContext.current.resources,
-                                            R.dimen.alpha_disabled
-                                        )
-                                    )
+    @Composable
+    override fun Body() {
+        val alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware()
+        Column {
+            Spacer(modifier = Modifier.height(8.dp))
+            alarms.value.forEach { alarm ->
+                AlarmRow(alarmToString.toString(alarm)) {
+                    viewModel.selectedAlarms.value =
+                        viewModel.selectedAlarms.value.minus(alarm)
+                }
+            }
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = stringResource(id = R.string.add_reminder),
+                    style = MaterialTheme.typography.body1,
+                    modifier = Modifier
+                        .padding(vertical = 12.dp)
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = rememberRipple(bounded = false),
+                            onClick = { addAlarm() }
+                        )
+                        .alpha(
+                            ResourcesCompat.getFloat(
+                                LocalContext.current.resources,
+                                R.dimen.alpha_disabled
                             )
-                            Spacer(modifier = Modifier.weight(1f))
-                            val ringMode = remember { this@ReminderControlSet.ringMode }
-                            if (alarms.value.isNotEmpty()) {
-                                Text(
-                                    text = stringResource(
-                                        id = when (ringMode.value) {
-                                            2 -> R.string.ring_nonstop
-                                            1 -> R.string.ring_five_times
-                                            else -> R.string.ring_once
-                                        }
-                                    ),
-                                    style = MaterialTheme.typography.body1.copy(
-                                        textDecoration = TextDecoration.Underline
-                                    ),
-                                    modifier = Modifier
-                                        .padding(vertical = 12.dp, horizontal = 16.dp)
-                                        .clickable(
-                                            interactionSource = remember { MutableInteractionSource() },
-                                            indication = rememberRipple(bounded = false),
-                                            onClick = { onClickRingType() }
-                                        )
-                                )
+                        )
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                val ringMode = remember { this@ReminderControlSet.ringMode }
+                if (alarms.value.isNotEmpty()) {
+                    Text(
+                        text = stringResource(
+                            id = when (ringMode.value) {
+                                2 -> R.string.ring_nonstop
+                                1 -> R.string.ring_five_times
+                                else -> R.string.ring_once
                             }
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
-
-                    val openCustomDialog = remember { showCustomDialog }
-                    AddReminderDialog.AddCustomReminderDialog(
-                        openCustomDialog,
-                        addAlarm = this::addAlarmRow,
-                        closeDialog = {
-                            openCustomDialog.value = false
-                            AndroidUtilities.hideKeyboard(activity)
-                        }
-                    )
-
-                    val openRandomDialog = remember { showRandomDialog }
-                    AddReminderDialog.AddRandomReminderDialog(
-                        openRandomDialog,
-                        addAlarm = this::addAlarmRow,
-                        closeDialog = {
-                            openRandomDialog.value = false
-                            AndroidUtilities.hideKeyboard(activity)
-                        }
+                        ),
+                        style = MaterialTheme.typography.body1.copy(
+                            textDecoration = TextDecoration.Underline
+                        ),
+                        modifier = Modifier
+                            .padding(vertical = 12.dp, horizontal = 16.dp)
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = rememberRipple(bounded = false),
+                                onClick = { onClickRingType() }
+                            )
                     )
                 }
             }
-            
-            it.root
+            Spacer(modifier = Modifier.height(8.dp))
         }
+
+        val openCustomDialog = remember { showCustomDialog }
+        AddReminderDialog.AddCustomReminderDialog(
+            openCustomDialog,
+            addAlarm = this::addAlarmRow,
+            closeDialog = {
+                openCustomDialog.value = false
+                AndroidUtilities.hideKeyboard(activity)
+            }
+        )
+
+        val openRandomDialog = remember { showRandomDialog }
+        AddReminderDialog.AddRandomReminderDialog(
+            openRandomDialog,
+            addAlarm = this::addAlarmRow,
+            closeDialog = {
+                openRandomDialog.value = false
+                AndroidUtilities.hideKeyboard(activity)
+            }
+        )
+    }
 
     override val icon = R.drawable.ic_outline_notifications_24px
 
     override fun controlId() = TAG
-
-    override val rootLayout = R.layout.control_set_template_no_padding
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_NEW_ALARM) {
