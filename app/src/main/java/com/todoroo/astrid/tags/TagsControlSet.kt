@@ -6,13 +6,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.TagData
 import org.tasks.tags.TagPickerActivity
 import org.tasks.ui.ChipGroup
@@ -32,7 +32,7 @@ class TagsControlSet : TaskEditControlComposeFragment() {
 
     @Composable
     override fun Body() {
-        val tags = viewModel.selectedTags.collectAsState()
+        val tags = viewModel.selectedTags.collectAsStateLifecycleAware()
         ChipGroup(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, end = 16.dp)) {
             if (tags.value.isEmpty()) {
                 Text(

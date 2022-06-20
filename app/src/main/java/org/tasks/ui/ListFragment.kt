@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.todoroo.astrid.api.CaldavFilter
@@ -13,6 +12,7 @@ import com.todoroo.astrid.api.GtasksFilter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.ListPicker
+import org.tasks.compose.collectAsStateLifecycleAware
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -21,7 +21,7 @@ class ListFragment : TaskEditControlComposeFragment() {
 
     @Composable
     override fun Body() {
-        val list = viewModel.selectedList.collectAsState()
+        val list = viewModel.selectedList.collectAsStateLifecycleAware()
         val selectedList = list.value ?: return
         ChipGroup(modifier = Modifier.padding(vertical = 20.dp)) {
             chipProvider.FilterChip(

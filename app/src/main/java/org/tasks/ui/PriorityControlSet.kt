@@ -7,7 +7,6 @@ import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -20,13 +19,14 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.compose.collectAsStateLifecycleAware
 
 @AndroidEntryPoint
 class PriorityControlSet : TaskEditControlComposeFragment() {
 
     @Composable
     override fun Body() {
-        val priority = viewModel.priority.collectAsState()
+        val priority = viewModel.priority.collectAsStateLifecycleAware()
         PriorityRow(
             selected = priority.value,
             onClick = { viewModel.priority.value = it })
