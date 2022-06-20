@@ -88,7 +88,7 @@ class TaskEditViewModel @Inject constructor(
         this.task = task
         isNew = task.isNew
         originalList = list
-        selectedList = list
+        selectedList.value = list
         originalLocation = location
         originalTags = tags.toList()
         selectedTags = ArrayList(tags)
@@ -237,7 +237,7 @@ class TaskEditViewModel @Inject constructor(
 
     private lateinit var originalList: Filter
 
-    var selectedList: Filter? = null
+    var selectedList = MutableStateFlow(null as Filter?)
 
     var originalLocation: Location? = null
         private set(value) {
@@ -301,7 +301,7 @@ class TaskEditViewModel @Inject constructor(
                 } ||
                 task.elapsedSeconds != elapsedSeconds ||
                 task.estimatedSeconds != estimatedSeconds ||
-                originalList != selectedList ||
+                originalList != selectedList.value ||
                 originalLocation != selectedLocation ||
                 originalTags.toHashSet() != selectedTags.toHashSet() ||
                 newSubtasks.isNotEmpty() ||
@@ -341,9 +341,9 @@ class TaskEditViewModel @Inject constructor(
             taskDao.createNew(task)
         }
 
-        if (isNew || originalList != selectedList) {
+        if (isNew || originalList != selectedList.value) {
             task.parent = 0
-            taskMover.move(listOf(task.id), selectedList!!)
+            taskMover.move(listOf(task.id), selectedList.value!!)
         }
 
         if ((isNew && selectedLocation != null) || originalLocation != selectedLocation) {
@@ -379,15 +379,15 @@ class TaskEditViewModel @Inject constructor(
             }
             taskDao.createNew(subtask)
             firebase?.addTask("subtasks")
-            when (selectedList) {
+            when (selectedList.value) {
                 is GtasksFilter -> {
-                    val googleTask = GoogleTask(subtask.id, (selectedList as GtasksFilter).remoteId)
+                    val googleTask = GoogleTask(subtask.id, (selectedList.value as GtasksFilter).remoteId)
                     googleTask.parent = task.id
                     googleTask.isMoved = true
                     googleTaskDao.insertAndShift(googleTask, false)
                 }
                 is CaldavFilter -> {
-                    val caldavTask = CaldavTask(subtask.id, (selectedList as CaldavFilter).uuid)
+                    val caldavTask = CaldavTask(subtask.id, (selectedList.value as CaldavFilter).uuid)
                     subtask.parent = task.id
                     caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
                     taskDao.save(subtask)

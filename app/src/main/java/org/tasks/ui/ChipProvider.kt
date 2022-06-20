@@ -111,6 +111,8 @@ class ChipProvider @Inject constructor(
     fun FilterChip(
         filter: Filter,
         defaultIcon: Int,
+        showText: Boolean = this@ChipProvider.showText,
+        showIcon: Boolean = this@ChipProvider.showIcon,
         onClick: (Any) -> Unit,
     ) {
         TasksChip(
@@ -180,17 +182,6 @@ class ChipProvider @Inject constructor(
                     )
                 }
         }
-    }
-
-    fun newListChip(filter: Filter, defIcon: Int, onClick: () -> Unit) = newView {
-        TasksChip(
-            getIcon(filter.icon, defIcon),
-            filter.listingTitle,
-            filter.tint,
-            showText = true,
-            showIcon = true,
-            onClick = onClick,
-        )
     }
 
     fun newTagChip(tag: TagData, onClick: () -> Unit): View {

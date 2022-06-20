@@ -2,22 +2,24 @@ package org.tasks.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.view.ViewGroup
-import com.google.android.material.chip.ChipGroup
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
+import com.google.accompanist.flowlayout.FlowRow
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.ListPicker
-import org.tasks.databinding.ControlSetRemoteListBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ListFragment : TaskEditControlFragment() {
-    private lateinit var chipGroup: ChipGroup
-
     @Inject lateinit var chipProvider: ChipProvider
     
     private lateinit var callback: OnListChanged
@@ -31,20 +33,28 @@ class ListFragment : TaskEditControlFragment() {
         callback = activity as OnListChanged
     }
 
-    override fun createView(savedInstanceState: Bundle?) {
-        refreshView()
-    }
-
     private fun setSelected(filter: Filter) {
-        viewModel.selectedList = filter
-        refreshView()
+        viewModel.selectedList.value = filter
         callback.onListChanged(filter)
     }
 
     override fun bind(parent: ViewGroup?) =
-        ControlSetRemoteListBinding.inflate(layoutInflater, parent, true).let {
-            chipGroup = it.chipGroup
-            it.root
+        (parent?.findViewById(R.id.compose_view) as ComposeView).apply {
+            setContent {
+                MdcTheme {
+                    val list = viewModel.selectedList.collectAsState()
+                    val selectedList = list.value ?: return@MdcTheme
+                    FlowRow(modifier = Modifier.padding(vertical = 20.dp)) {
+                        chipProvider.FilterChip(
+                            filter = selectedList,
+                            defaultIcon = R.drawable.ic_list_24px,
+                            showText = true,
+                            showIcon = true,
+                            onClick = { openPicker() }
+                        )
+                    }
+                }
+            }
         }
 
     override val icon = R.drawable.ic_list_24px
@@ -55,8 +65,10 @@ class ListFragment : TaskEditControlFragment() {
 
     override val isClickable = true
 
+    override val rootLayout = R.layout.control_set_template_compose
+
     private fun openPicker() =
-            ListPicker.newListPicker(viewModel.selectedList!!, this, REQUEST_CODE_SELECT_LIST)
+            ListPicker.newListPicker(viewModel.selectedList.value!!, this, REQUEST_CODE_SELECT_LIST)
                     .show(parentFragmentManager, FRAG_TAG_GOOGLE_TASK_LIST_SELECTION)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,16 +85,6 @@ class ListFragment : TaskEditControlFragment() {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }
-
-    private fun refreshView() {
-        chipGroup.removeAllViews()
-        val chip = chipProvider.newListChip(
-                viewModel.selectedList!!,
-                R.drawable.ic_list_24px,
-                this::openPicker
-        )
-        chipGroup.addView(chip)
     }
 
     companion object {
