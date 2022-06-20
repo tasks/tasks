@@ -56,7 +56,6 @@ import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
 import org.tasks.ui.DeadlineControlSet.DueDateChangeListener
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
-import org.tasks.ui.ListFragment.OnListChanged
 import org.tasks.ui.MainActivityEvent
 import org.tasks.ui.MainActivityEventBus
 import org.tasks.ui.NavigationDrawerFragment
@@ -67,7 +66,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, OnListChanged, TimerControlSetCallback, DueDateChangeListener, CommentBarFragmentCallback, SortDialogCallback {
+class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, TimerControlSetCallback, DueDateChangeListener, CommentBarFragmentCallback, SortDialogCallback {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
@@ -474,10 +473,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     override fun dueDateChanged() {
         taskEditFragment!!.onDueDateChanged()
-    }
-
-    override fun onListChanged(filter: Filter?) {
-        taskEditFragment!!.onRemoteListChanged(filter)
     }
 
     override fun onStart() {

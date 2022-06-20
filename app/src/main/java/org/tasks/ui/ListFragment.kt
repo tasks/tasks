@@ -21,22 +21,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ListFragment : TaskEditControlFragment() {
     @Inject lateinit var chipProvider: ChipProvider
-    
-    private lateinit var callback: OnListChanged
-
-    interface OnListChanged {
-        fun onListChanged(filter: Filter?)
-    }
-
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        callback = activity as OnListChanged
-    }
-
-    private fun setSelected(filter: Filter) {
-        viewModel.selectedList.value = filter
-        callback.onListChanged(filter)
-    }
 
     override fun bind(parent: ViewGroup?) =
         (parent?.findViewById(R.id.compose_view) as ComposeView).apply {
@@ -76,7 +60,7 @@ class ListFragment : TaskEditControlFragment() {
             if (resultCode == Activity.RESULT_OK) {
                 data?.getParcelableExtra<Filter>(ListPicker.EXTRA_SELECTED_FILTER)?.let {
                     if (it is GtasksFilter || it is CaldavFilter) {
-                        setSelected(it)
+                        viewModel.selectedList.value = it
                     } else {
                         throw RuntimeException("Unhandled filter type")
                     }

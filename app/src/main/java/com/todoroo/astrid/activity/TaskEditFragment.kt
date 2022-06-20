@@ -53,11 +53,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.compose.BeastModeBanner
-import org.tasks.data.Alarm
-import org.tasks.data.Location
-import org.tasks.data.TagData
-import org.tasks.data.UserActivity
-import org.tasks.data.UserActivityDao
+import org.tasks.data.*
 import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DialogBuilder
@@ -67,7 +63,6 @@ import org.tasks.fragments.TaskEditControlSetFragmentManager
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
-import org.tasks.ui.SubtaskControlSet
 import org.tasks.ui.TaskEditControlFragment
 import org.tasks.ui.TaskEditEvent
 import org.tasks.ui.TaskEditEventBus
@@ -338,9 +333,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     private val repeatControlSet: RepeatControlSet?
         get() = getFragment<RepeatControlSet>(RepeatControlSet.TAG)
 
-    private val subtaskControlSet: SubtaskControlSet?
-        get() = getFragment<SubtaskControlSet>(SubtaskControlSet.TAG)
-
     private val startDateControlSet: StartDateControlSet?
         get() = getFragment<StartDateControlSet>(StartDateControlSet.TAG)
 
@@ -389,10 +381,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     fun onDueDateChanged() {
         repeatControlSet?.onDueDateChanged()
         startDateControlSet?.onDueDateChanged()
-    }
-
-    fun onRemoteListChanged(filter: Filter?) {
-        subtaskControlSet?.onRemoteListChanged(filter)
     }
 
     fun addComment(message: String?, picture: Uri?) {

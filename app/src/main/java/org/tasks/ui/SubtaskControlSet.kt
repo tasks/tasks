@@ -16,7 +16,9 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +37,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.*
+import org.tasks.data.CaldavDao
+import org.tasks.data.GoogleTask
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.databinding.ControlSetSubtasksBinding
 import org.tasks.extensions.Context.toast
@@ -66,7 +71,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     private var remoteList: Filter? = null
     private var googleTask: GoogleTask? = null
     private lateinit var recyclerAdapter: SubtasksRecyclerAdapter
-    
+
     override fun createView(savedInstanceState: Bundle?) {
         viewModel.newSubtasks.forEach { addSubtask(it) }
         recyclerAdapter = SubtasksRecyclerAdapter(activity, chipProvider, checkBoxProvider, this)
@@ -81,6 +86,15 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
                     list: List<TaskContainer?>? -> recyclerAdapter.submitList(list)
                 }
                 recyclerView.adapter = recyclerAdapter
+            }
+        }
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.selectedList.collect {
+                    remoteList = it
+                    updateUI()
+                }
             }
         }
     }
@@ -101,7 +115,7 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
         super.onResume()
         localBroadcastManager.registerRefreshReceiver(refreshReceiver)
         lifecycleScope.launch {
-            viewModel.task?.let {
+            viewModel.task.let {
                 googleTask = googleTaskDao.getByTaskId(it.id)
                 updateUI()
             }
@@ -185,11 +199,6 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
             recyclerAdapter.setMultiLevelSubtasksEnabled(remoteList !is GtasksFilter)
             refresh()
         }
-    }
-
-    fun onRemoteListChanged(filter: Filter?) {
-        remoteList = filter
-        updateUI()
     }
 
     private fun refresh() {
