@@ -2,7 +2,6 @@ package org.tasks.ui
 
 import android.app.Activity
 import android.content.res.Configuration
-import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.defaultMinSize
@@ -13,7 +12,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -184,25 +182,16 @@ class ChipProvider @Inject constructor(
         }
     }
 
-    fun newTagChip(tag: TagData, onClick: () -> Unit): View {
-        return newView {
-            TasksChip(
-                getIcon(tag.getIcon()!!, R.drawable.ic_outline_label_24px),
-                tag.name,
-                tag.getColor()!!,
-                showText = true,
-                showIcon = true,
-                onClick = onClick,
-            )
-        }
-    }
-
-    private fun newView(content: @Composable () -> Unit): View = ComposeView(activity).apply {
-        setContent {
-            MdcTheme {
-                content()
-            }
-        }
+    @Composable
+    fun TagChip(tag: TagData, onClick: () -> Unit) {
+        TasksChip(
+            getIcon(tag.getIcon()!!, R.drawable.ic_outline_label_24px),
+            tag.name,
+            tag.getColor()!!,
+            showText = true,
+            showIcon = true,
+            onClick = onClick,
+        )
     }
 
     @Composable

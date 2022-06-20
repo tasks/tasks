@@ -91,7 +91,7 @@ class TaskEditViewModel @Inject constructor(
         selectedList.value = list
         originalLocation = location
         originalTags = tags.toList()
-        selectedTags = ArrayList(tags)
+        selectedTags.value = ArrayList(tags)
         originalAlarms =
             if (isNew) {
                 ArrayList<Alarm>().apply {
@@ -249,7 +249,7 @@ class TaskEditViewModel @Inject constructor(
 
     private lateinit var originalTags: List<TagData>
 
-    lateinit var selectedTags: ArrayList<TagData>
+    val selectedTags = MutableStateFlow(ArrayList<TagData>())
 
     var newSubtasks = ArrayList<Task>()
 
@@ -303,7 +303,7 @@ class TaskEditViewModel @Inject constructor(
                 task.estimatedSeconds != estimatedSeconds ||
                 originalList != selectedList.value ||
                 originalLocation != selectedLocation ||
-                originalTags.toHashSet() != selectedTags.toHashSet() ||
+                originalTags.toHashSet() != selectedTags.value.toHashSet() ||
                 newSubtasks.isNotEmpty() ||
                 getRingFlags() != when {
                     task.isNotifyModeFive -> NOTIFY_MODE_FIVE
@@ -365,8 +365,8 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = currentTimeMillis()
         }
 
-        if ((isNew && selectedTags.isNotEmpty()) || originalTags.toHashSet() != selectedTags.toHashSet()) {
-            tagDao.applyTags(task, tagDataDao, selectedTags)
+        if ((isNew && selectedTags.value.isNotEmpty()) || originalTags.toHashSet() != selectedTags.value.toHashSet()) {
+            tagDao.applyTags(task, tagDataDao, selectedTags.value)
             task.modificationDate = currentTimeMillis()
         }
 
