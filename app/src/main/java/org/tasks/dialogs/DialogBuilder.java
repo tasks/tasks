@@ -2,22 +2,20 @@ package org.tasks.dialogs;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+
 import javax.inject.Inject;
-import org.tasks.locale.Locale;
 
 public class DialogBuilder {
 
   private final Activity activity;
-  private final Locale locale;
 
   @Inject
-  public DialogBuilder(Activity activity, Locale locale) {
+  public DialogBuilder(Activity activity) {
     this.activity = activity;
-    this.locale = locale;
   }
 
   public AlertDialogBuilder newDialog() {
-    return new AlertDialogBuilder(activity, locale);
+    return new AlertDialogBuilder(activity);
   }
 
   public AlertDialogBuilder newDialog(int title) {

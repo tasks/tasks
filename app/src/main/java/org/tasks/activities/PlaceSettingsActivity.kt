@@ -15,10 +15,11 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.databinding.ActivityLocationSettingsBinding
+import org.tasks.extensions.formatNumber
 import org.tasks.filters.PlaceFilter
-import org.tasks.locale.Locale
 import org.tasks.location.MapFragment
 import org.tasks.preferences.Preferences
+import java.util.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
 

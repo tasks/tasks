@@ -23,7 +23,6 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.date.DateTimeUtils
-import org.tasks.locale.Locale
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -33,20 +32,21 @@ import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import timber.log.Timber
 import java.time.format.FormatStyle
+import java.util.*
 import kotlin.math.max
 
 internal class ScrollableViewsFactory(
-        private val subtasksHelper: SubtasksHelper,
-        preferences: Preferences,
-        private val context: Context,
-        private val widgetId: Int,
-        private val taskDao: TaskDao,
-        private val defaultFilterProvider: DefaultFilterProvider,
-        private val checkBoxProvider: CheckBoxProvider,
-        private val locale: Locale,
-        private val chipProvider: ChipProvider,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val markdown: Markdown
+    private val subtasksHelper: SubtasksHelper,
+    preferences: Preferences,
+    private val context: Context,
+    private val widgetId: Int,
+    private val taskDao: TaskDao,
+    private val defaultFilterProvider: DefaultFilterProvider,
+    private val checkBoxProvider: CheckBoxProvider,
+    private val locale: Locale,
+    private val chipProvider: ChipProvider,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val markdown: Markdown
 ) : RemoteViewsFactory {
     private val indentPadding: Int
     private var showDueDates = false
@@ -70,7 +70,6 @@ internal class ScrollableViewsFactory(
     private var showPlaces = false
     private var showLists = false
     private var showTags = false
-    private var isRtl = false
     private var collapsed = mutableSetOf(HEADER_COMPLETED)
     private var sortMode = -1
     private var tasks = SectionedDataSource(
@@ -148,7 +147,7 @@ internal class ScrollableViewsFactory(
         val header: String? = if (filter?.supportsSorting() == true) {
             section.headerString(
                     context,
-                    locale.locale,
+                    locale,
                     sortMode,
                     showFullDate,
                     FormatStyle.MEDIUM,
@@ -284,9 +283,8 @@ internal class ScrollableViewsFactory(
                         .getTagChips(filter, taskContainer)
                         .forEach { row.addView(R.id.chips, it) }
             }
-            row.setInt(R.id.widget_row, "setLayoutDirection", locale.directionality)
             val startPad = taskContainer.getIndent() * indentPadding
-            row.setViewPadding(R.id.widget_row, if (isRtl) 0 else startPad, 0, if (isRtl) startPad else 0, 0)
+            row.setViewPadding(R.id.widget_row, startPad, 0, 0, 0)
             return row
         } catch (e: Exception) {
             Timber.e(e)
@@ -309,7 +307,7 @@ internal class ScrollableViewsFactory(
         row.setViewVisibility(if (endDueDate) R.id.widget_due_bottom else R.id.widget_due_end, View.GONE)
         val hasDueDate = task.hasDueDate()
         val endPad = if (hasDueDate && endDueDate) 0 else hPad
-        row.setViewPadding(R.id.widget_text, if (isRtl) endPad else 0, 0, if (isRtl) 0 else endPad, 0)
+        row.setViewPadding(R.id.widget_text, 0, 0, endPad, 0)
         if (hasDueDate) {
             if (endDueDate) {
                 row.setViewPadding(R.id.widget_due_end, hPad, vPad, hPad, vPad)
@@ -324,7 +322,7 @@ internal class ScrollableViewsFactory(
                 }
             } else {
                 DateUtilities.getRelativeDateTime(
-                        context, task.dueDate, locale.locale, FormatStyle.MEDIUM, showFullDate, false)
+                        context, task.dueDate, locale, FormatStyle.MEDIUM, showFullDate, false)
             }
             row.setTextViewText(dueDateRes, text)
             row.setTextColor(
@@ -381,7 +379,6 @@ internal class ScrollableViewsFactory(
                     sortMode = it
                 }
         collapsed = widgetPreferences.collapsed
-        isRtl = locale.directionality == View.LAYOUT_DIRECTION_RTL
         compact = widgetPreferences.compact
     }
 

@@ -8,23 +8,25 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.speech.RecognizerIntent;
+
 import com.google.common.base.Joiner;
-import dagger.hilt.android.qualifiers.ApplicationContext;
-import java.util.List;
-import javax.inject.Inject;
+
 import org.tasks.BuildConfig;
-import org.tasks.locale.Locale;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import timber.log.Timber;
 
 public class Device {
 
   private final Context context;
-  private final Locale locale;
 
   @Inject
-  public Device(@ApplicationContext Context context, Locale locale) {
+  public Device(@ApplicationContext Context context) {
     this.context = context;
-    this.locale = locale;
   }
 
   public boolean hasCamera() {
@@ -44,8 +46,6 @@ public class Device {
 
   public String getDebugInfo() {
     try {
-      java.util.Locale appLocale = locale.getLocale();
-      java.util.Locale deviceLocale = locale.getDeviceLocale();
       return Joiner.on("\n")
           .join(
               asList(
@@ -59,9 +59,7 @@ public class Device {
                       + BuildConfig.VERSION_CODE
                       + ")",
                   "Android: " + Build.VERSION.RELEASE + " (" + Build.DISPLAY + ")",
-                  "Locale: "
-                      + deviceLocale
-                      + (!deviceLocale.equals(appLocale) ? " (" + appLocale + ")" : ""),
+                  "Locale: " + java.util.Locale.getDefault(),
                   "Model: " + Build.MANUFACTURER + " " + Build.MODEL,
                   "Product: " + Build.PRODUCT + " (" + Build.DEVICE + ")",
                   "Kernel: "

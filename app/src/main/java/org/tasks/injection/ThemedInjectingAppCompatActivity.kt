@@ -2,7 +2,6 @@ package org.tasks.injection
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.tasks.locale.Locale
 import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
@@ -15,9 +14,5 @@ abstract class ThemedInjectingAppCompatActivity protected constructor() : AppCom
         super.onCreate(savedInstanceState)
         tasksTheme.applyThemeAndStatusBarColor(this)
         title = null
-    }
-
-    init {
-        Locale.getInstance(this).applyOverrideConfiguration(this)
     }
 }

@@ -5,20 +5,20 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.view.View;
 import android.widget.ListAdapter;
+
 import androidx.appcompat.app.AlertDialog;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import java.util.List;
-import org.tasks.locale.Locale;
 
 public class AlertDialogBuilder {
 
   private final AlertDialog.Builder builder;
   private final Context context;
-  private final Locale locale;
 
-  AlertDialogBuilder(Context context, Locale locale) {
+  AlertDialogBuilder(Context context) {
     this.context = context;
-    this.locale = locale;
     builder = new MaterialAlertDialogBuilder(context);
   }
 
@@ -60,7 +60,7 @@ public class AlertDialogBuilder {
 
   public AlertDialogBuilder setItems(
       String[] strings, DialogInterface.OnClickListener onClickListener) {
-    builder.setItems(addDirectionality(strings.clone()), onClickListener);
+    builder.setItems(strings.clone(), onClickListener);
     return this;
   }
 
@@ -87,19 +87,8 @@ public class AlertDialogBuilder {
 
   public AlertDialogBuilder setSingleChoiceItems(
       String[] strings, int selectedIndex, OnClickListener onClickListener) {
-    builder.setSingleChoiceItems(addDirectionality(strings), selectedIndex, onClickListener);
+    builder.setSingleChoiceItems(strings, selectedIndex, onClickListener);
     return this;
-  }
-
-  private String[] addDirectionality(String[] strings) {
-    for (int i = 0; i < strings.length; i++) {
-      strings[i] = withDirectionality(strings[i]);
-    }
-    return strings;
-  }
-
-  private String withDirectionality(String string) {
-    return locale.getDirectionalityMark() + string;
   }
 
   public AlertDialogBuilder setSingleChoiceItems(
@@ -137,7 +126,6 @@ public class AlertDialogBuilder {
   public AlertDialog show() {
     AlertDialog dialog = create();
     dialog.show();
-    locale.applyDirectionality(dialog);
     return dialog;
   }
 }

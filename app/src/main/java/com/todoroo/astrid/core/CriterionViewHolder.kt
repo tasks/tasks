@@ -7,15 +7,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.tasks.R
 import org.tasks.databinding.CustomFilterRowBinding
-import org.tasks.locale.Locale
+import org.tasks.extensions.formatNumber
 import org.tasks.preferences.ResourceResolver
+import java.util.*
 
 class CriterionViewHolder(
-        private val context: Context,
-        itemView: View,
-        private val locale: Locale,
-        private val onClick: (String) -> Unit)
-    : RecyclerView.ViewHolder(itemView) {
+    private val context: Context,
+    itemView: View,
+    private val locale: Locale,
+    private val onClick: (String) -> Unit
+) : RecyclerView.ViewHolder(itemView) {
 
     private val divider: View
     private val icon: ImageView

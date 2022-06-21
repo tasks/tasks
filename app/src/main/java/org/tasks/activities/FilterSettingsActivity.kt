@@ -24,12 +24,7 @@ import com.todoroo.andlib.sql.UnaryCriterion
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.api.BooleanCriterion
-import com.todoroo.astrid.api.CustomFilter
-import com.todoroo.astrid.api.CustomFilterCriterion
-import com.todoroo.astrid.api.MultipleSelectCriterion
-import com.todoroo.astrid.api.PermaSql
-import com.todoroo.astrid.api.TextInputCriterion
+import com.todoroo.astrid.api.*
 import com.todoroo.astrid.core.CriterionInstance
 import com.todoroo.astrid.core.CustomFilterAdapter
 import com.todoroo.astrid.core.CustomFilterItemTouchHelper
@@ -46,7 +41,6 @@ import org.tasks.databinding.FilterSettingsActivityBinding
 import org.tasks.db.QueryUtils
 import org.tasks.extensions.Context.openUri
 import org.tasks.filters.FilterCriteriaProvider
-import org.tasks.locale.Locale
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.max

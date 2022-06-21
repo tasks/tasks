@@ -182,7 +182,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
     implementation("androidx.room:room-ktx:${Versions.room}")
     kapt("androidx.room:room-compiler:${Versions.room}")
-    implementation("androidx.appcompat:appcompat:1.4.0")
+    implementation("androidx.appcompat:appcompat:1.6.0-alpha05")
     implementation("androidx.paging:paging-runtime:2.1.2")
     implementation("io.noties.markwon:core:${Versions.markwon}")
     implementation("io.noties.markwon:editor:${Versions.markwon}")

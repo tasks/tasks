@@ -7,19 +7,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.todoroo.astrid.api.CaldavFilter
-import com.todoroo.astrid.api.CustomFilter
-import com.todoroo.astrid.api.FilterListItem
-import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.api.TagFilter
+import com.todoroo.astrid.api.*
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.databinding.FilterAdapterRowBinding
+import org.tasks.extensions.formatNumber
 import org.tasks.filters.PlaceFilter
-import org.tasks.locale.Locale
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons.getIconResId
 import org.tasks.themes.DrawableUtil
+import java.util.*
 
 class FilterViewHolder internal constructor(
     itemView: View,

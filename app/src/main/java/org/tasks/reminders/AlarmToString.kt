@@ -6,7 +6,7 @@ import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.data.Alarm
-import org.tasks.locale.Locale
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.math.absoluteValue
@@ -46,10 +46,10 @@ class AlarmToString @Inject constructor(
             Alarm.TYPE_SNOOZE ->
                 resources.getString(
                     R.string.snoozed_until,
-                    DateUtilities.getLongDateStringWithTime(alarm.time, locale.locale)
+                    DateUtilities.getLongDateStringWithTime(alarm.time, locale)
                 )
             else ->
-                DateUtilities.getLongDateStringWithTime(alarm.time, locale.locale)
+                DateUtilities.getLongDateStringWithTime(alarm.time, locale)
         }
         return if (alarm.repeat > 0) {
             reminder + "\n" + resources.getRepeatString(alarm.repeat, alarm.interval)

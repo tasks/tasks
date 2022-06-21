@@ -8,6 +8,8 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import com.todoroo.astrid.api.Filter
@@ -15,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
@@ -26,7 +27,6 @@ import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.injection.InjectingPreferenceFragment
-import org.tasks.locale.Locale
 import org.tasks.locale.LocalePickerDialog
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -37,7 +37,9 @@ import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import org.tasks.themes.ThemeColor
 import org.tasks.themes.ThemeColor.getLauncherColor
 import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
+import java.util.*
 import javax.inject.Inject
+
 
 private const val REQUEST_THEME_PICKER = 10001
 private const val REQUEST_COLOR_PICKER = 10002
@@ -57,7 +59,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
     @Inject lateinit var themeAccent: ThemeAccent
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var locale: Locale
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var inventory: Inventory
 
@@ -97,7 +98,9 @@ class LookAndFeel : InjectingPreferenceFragment() {
         }
 
         val languagePreference = findPreference(R.string.p_language)
-        updateLocale()
+        val locale =
+            Locale.forLanguageTag(AppCompatDelegate.getApplicationLocales().toLanguageTags())
+        languagePreference.summary = locale.getDisplayName(locale)
         languagePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val dialog = LocalePickerDialog.newLocalePickerDialog()
             dialog.setTargetFragment(this, REQUEST_LOCALE)
@@ -213,30 +216,16 @@ class LookAndFeel : InjectingPreferenceFragment() {
             }
             REQUEST_LOCALE -> {
                 if (resultCode == RESULT_OK) {
-                    val newValue: Locale =
-                            data!!.getSerializableExtra(LocalePickerDialog.EXTRA_LOCALE) as Locale
-                    val override: String? = newValue.languageOverride
-                    if (isNullOrEmpty(override)) {
-                        preferences.remove(R.string.p_language)
-                    } else {
-                        preferences.setString(R.string.p_language, override)
-                    }
-                    updateLocale()
-                    if (locale != newValue) {
-                        showRestartDialog()
-                    }
+                    val languageTag = data!!.getStringExtra(LocalePickerDialog.EXTRA_LOCALE)
+                    AppCompatDelegate.setApplicationLocales(
+                        LocaleListCompat.forLanguageTags(languageTag)
+                    )
                 }
             }
             else -> {
                 super.onActivityResult(requestCode, resultCode, data)
             }
         }
-    }
-
-    private fun updateLocale() {
-        val languagePreference = findPreference(R.string.p_language)
-        val preference = preferences.getStringValue(R.string.p_language)
-        languagePreference.summary = locale.withLanguage(preference).displayName
     }
 
     private fun setLauncherIcon(index: Int) {

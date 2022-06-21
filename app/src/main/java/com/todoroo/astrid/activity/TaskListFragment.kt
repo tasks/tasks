@@ -12,12 +12,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.speech.RecognizerIntent
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
@@ -51,43 +46,26 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
+import com.todoroo.astrid.api.*
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
-import com.todoroo.astrid.api.CaldavFilter
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.api.IdListFilter
-import com.todoroo.astrid.api.SearchFilter
-import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.repeats.RepeatTaskHelper
-import com.todoroo.astrid.service.TaskCompleter
-import com.todoroo.astrid.service.TaskCreator
-import com.todoroo.astrid.service.TaskDeleter
-import com.todoroo.astrid.service.TaskDuplicator
-import com.todoroo.astrid.service.TaskMover
+import com.todoroo.astrid.service.*
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
 import org.tasks.Tasks.Companion.IS_GOOGLE_PLAY
-import org.tasks.activities.FilterSettingsActivity
-import org.tasks.activities.GoogleTaskListSettingsActivity
-import org.tasks.activities.ListPicker
+import org.tasks.activities.*
 import org.tasks.activities.ListPicker.Companion.newListPicker
-import org.tasks.activities.PlaceSettingsActivity
-import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
@@ -103,28 +81,21 @@ import org.tasks.dialogs.SortDialog
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
+import org.tasks.extensions.formatNumber
 import org.tasks.extensions.setOnQueryTextListener
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents
-import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerActivity
-import org.tasks.tasklist.DragAndDropRecyclerAdapter
-import org.tasks.tasklist.PagedListRecyclerAdapter
-import org.tasks.tasklist.TaskListRecyclerAdapter
-import org.tasks.tasklist.TaskViewHolder
-import org.tasks.tasklist.ViewHolderFactory
+import org.tasks.tasklist.*
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
-import org.tasks.ui.TaskEditEvent
-import org.tasks.ui.TaskEditEventBus
-import org.tasks.ui.TaskListEvent
-import org.tasks.ui.TaskListEventBus
-import org.tasks.ui.TaskListViewModel
+import org.tasks.ui.*
 import java.time.format.FormatStyle
+import java.util.*
 import javax.inject.Inject
 import kotlin.math.max
 
@@ -428,9 +399,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             R.id.menu_voice_add -> {
                 safeStartActivityForResult(
                         Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-                            locale.languageOverride?.let {
-                                putExtra(RecognizerIntent.EXTRA_LANGUAGE, it)
-                            }
                             putExtra(
                                     RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                                     RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
@@ -980,7 +948,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         R.string.repeat_snackbar,
                         task.title,
                         DateUtilities.getRelativeDateTime(
-                            context, task.dueDate, locale.locale, FormatStyle.LONG, true
+                            context, task.dueDate, locale, FormatStyle.LONG, true
                         )
                     )
                     makeSnackbar(text)?.setAction(R.string.DLG_undo, undoCompletion)?.show()

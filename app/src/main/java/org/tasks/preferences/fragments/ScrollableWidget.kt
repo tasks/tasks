@@ -20,7 +20,6 @@ import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.SortDialog.newSortDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.injection.InjectingPreferenceFragment
-import org.tasks.locale.Locale
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.widget.WidgetPreferences
@@ -51,7 +50,6 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var preferences: Preferences
-    @Inject lateinit var locale: Locale
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var widgetPreferences: WidgetPreferences

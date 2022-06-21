@@ -17,8 +17,8 @@ import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
 import org.tasks.data.*
 import org.tasks.jobs.WorkManager
-import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationDao
+import java.util.*
 import javax.inject.Singleton
 
 @Module
@@ -26,11 +26,7 @@ import javax.inject.Singleton
 class ApplicationModule {
 
     @Provides
-    fun getLocale(@ApplicationContext context: Context): Locale = Locale.getInstance(context)
-
-    @Provides
-    @Singleton
-    fun getJavaLocale(locale: Locale): java.util.Locale = locale.locale
+    fun getLocale(): Locale = Locale.getDefault()
 
     @Provides
     @Singleton

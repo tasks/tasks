@@ -6,18 +6,23 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.common.collect.ImmutableList;
+
+import org.tasks.R;
+
 import java.util.List;
+import java.util.Locale;
+
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
-import org.tasks.R;
-import org.tasks.locale.Locale;
 
 public class CustomFilterAdapter extends RecyclerView.Adapter<CriterionViewHolder> implements
     ListUpdateCallback {
@@ -27,7 +32,7 @@ public class CustomFilterAdapter extends RecyclerView.Adapter<CriterionViewHolde
   private final AsyncListDiffer<CriterionInstance> differ;
 
   public CustomFilterAdapter(
-      List<CriterionInstance> objects, Locale locale, Function1<String, Unit> onClick) {
+          List<CriterionInstance> objects, Locale locale, Function1<String, Unit> onClick) {
     this.locale = locale;
     this.onClick = onClick;
     differ = new AsyncListDiffer<>(this, new AsyncDifferConfig.Builder<>(new CriterionDiffCallback()).build());

@@ -10,7 +10,6 @@ import net.fortuna.ical4j.model.WeekDay.Day
 import net.fortuna.ical4j.model.WeekDay.Day.*
 import org.tasks.R
 import org.tasks.analytics.Firebase
-import org.tasks.locale.Locale
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import java.text.DateFormatSymbols
@@ -50,7 +49,7 @@ class RepeatRuleToString @Inject constructor(
                             R.string.repeats_single_on_until,
                             frequencyString,
                             dayString,
-                            DateUtilities.getLongDateString(repeatUntil, locale.locale)
+                            DateUtilities.getLongDateString(repeatUntil, locale)
                     )
                 }
             } else if (count > 0) {
@@ -62,7 +61,7 @@ class RepeatRuleToString @Inject constructor(
                 context.getString(
                         R.string.repeats_single_until,
                         frequencyString,
-                        DateUtilities.getLongDateString(repeatUntil, locale.locale))
+                        DateUtilities.getLongDateString(repeatUntil, locale))
             }
         } else {
             val plural = getFrequencyPlural(frequency)
@@ -83,7 +82,7 @@ class RepeatRuleToString @Inject constructor(
                             R.string.repeats_plural_on_until,
                             frequencyPlural,
                             dayString,
-                            DateUtilities.getLongDateString(repeatUntil, locale.locale)
+                            DateUtilities.getLongDateString(repeatUntil, locale)
                     )
                 }
             } else if (count > 0) {
@@ -95,7 +94,7 @@ class RepeatRuleToString @Inject constructor(
                 context.getString(
                         R.string.repeats_plural_until,
                         frequencyPlural,
-                        DateUtilities.getLongDateString(repeatUntil, locale.locale))
+                        DateUtilities.getLongDateString(repeatUntil, locale))
             }
         }
     } catch (e: Exception) {
@@ -104,7 +103,7 @@ class RepeatRuleToString @Inject constructor(
     }
 
     private fun getDayString(rrule: Recur): String {
-        val dfs = DateFormatSymbols(locale.locale)
+        val dfs = DateFormatSymbols(locale)
         return if (rrule.frequency == WEEKLY) {
             val shortWeekdays = dfs.shortWeekdays
             val days: MutableList<String?> = ArrayList()
@@ -116,7 +115,7 @@ class RepeatRuleToString @Inject constructor(
             val longWeekdays = dfs.weekdays
             val weekdayNum = rrule.dayList[0]
             val weekday: String
-            val dayOfWeekCalendar = Calendar.getInstance(locale.locale)
+            val dayOfWeekCalendar = Calendar.getInstance(locale)
             dayOfWeekCalendar[Calendar.DAY_OF_WEEK] = weekdayToCalendarDay(weekdayNum.day)
             weekday = longWeekdays[dayOfWeekCalendar[Calendar.DAY_OF_WEEK]]
             if (weekdayNum.offset == -1) {

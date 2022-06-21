@@ -16,10 +16,10 @@ import org.tasks.R
 import org.tasks.databinding.DialogStartDatePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
-import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
 import org.tasks.time.DateTime
 import java.time.format.FormatStyle
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -112,7 +112,7 @@ class StartDatePicker : BaseDateTimePicker() {
                 binding.shortcuts.dateGroup.check(R.id.current_date_selection)
                 binding.shortcuts.currentDateSelection.visibility = View.VISIBLE
                 binding.shortcuts.currentDateSelection.text =
-                        DateUtilities.getRelativeDay(context, selectedDay, locale.locale, FormatStyle.MEDIUM)
+                        DateUtilities.getRelativeDay(context, selectedDay, locale, FormatStyle.MEDIUM)
             }
         }
         if (Task.hasDueTime(selectedTime.toLong())) {

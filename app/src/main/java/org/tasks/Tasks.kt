@@ -20,7 +20,6 @@ import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
-import org.tasks.locale.Locale
 import org.tasks.location.GeofenceApi
 import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.Preferences
@@ -57,7 +56,6 @@ class Tasks : Application(), Configuration.Provider {
         preferences.setBoolean(R.string.p_sync_ongoing_opentasks, false)
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
-        Locale.getInstance(this).createConfigurationContext(applicationContext)
         backgroundWork()
     }
 

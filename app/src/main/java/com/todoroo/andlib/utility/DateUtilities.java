@@ -11,15 +11,19 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+
 import androidx.annotation.Nullable;
+
 import com.todoroo.astrid.data.Task;
+
+import org.tasks.BuildConfig;
+import org.tasks.R;
+import org.tasks.time.DateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
-import org.tasks.BuildConfig;
-import org.tasks.R;
-import org.tasks.locale.Locale;
-import org.tasks.time.DateTime;
+import java.util.Locale;
 
 public class DateUtilities {
 
@@ -71,7 +75,7 @@ public class DateUtilities {
    */
   public static String getDateString(Context context, DateTime date) {
     return getRelativeDay(
-        context, date.getMillis(), Locale.getInstance().getLocale(), FormatStyle.MEDIUM);
+        context, date.getMillis(), Locale.getDefault(), FormatStyle.MEDIUM);
   }
 
   static String getWeekday(DateTime date, java.util.Locale locale) {

@@ -1,20 +1,7 @@
 package org.tasks.time;
 
-import net.fortuna.ical4j.model.WeekDay;
-
-import org.tasks.locale.Locale;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Objects;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
-
 import static com.todoroo.astrid.core.SortHelper.APPLE_EPOCH;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static java.util.Calendar.FRIDAY;
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
@@ -22,7 +9,19 @@ import static java.util.Calendar.SUNDAY;
 import static java.util.Calendar.THURSDAY;
 import static java.util.Calendar.TUESDAY;
 import static java.util.Calendar.WEDNESDAY;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+
+import net.fortuna.ical4j.model.WeekDay;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class DateTime {
 
@@ -432,7 +431,7 @@ public class DateTime {
   public String toString(String format) {
     Calendar calendar = getCalendar();
     SimpleDateFormat simpleDateFormat =
-        new SimpleDateFormat(format, Locale.getInstance().getLocale());
+        new SimpleDateFormat(format, Locale.getDefault());
     simpleDateFormat.setCalendar(calendar);
     return simpleDateFormat.format(calendar.getTime());
   }

@@ -18,7 +18,6 @@ import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.api.FilterListItem.Type.*
 import org.tasks.billing.Inventory
 import org.tasks.filters.NavigationDrawerSubheader
-import org.tasks.locale.Locale
 import org.tasks.themes.ColorProvider
 import java.util.*
 import javax.inject.Inject

@@ -20,12 +20,12 @@ import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
-import org.tasks.locale.Locale
 import org.tasks.notifications.NotificationManager
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.millisOfDay
 import org.tasks.time.DateTimeUtils.startOfDay
 import java.time.format.FormatStyle
+import java.util.*
 import java.util.Calendar.*
 import javax.inject.Inject
 
@@ -145,7 +145,7 @@ class DateTimePicker : BaseDateTimePicker() {
                 binding.shortcuts.currentDateSelection.text = if (customDate == MULTIPLE_DAYS) {
                     requireContext().getString(R.string.date_picker_multiple)
                 } else {
-                    DateUtilities.getRelativeDay(context, selectedDay, locale.locale, FormatStyle.MEDIUM)
+                    DateUtilities.getRelativeDay(context, selectedDay, locale, FormatStyle.MEDIUM)
                 }
             }
         }

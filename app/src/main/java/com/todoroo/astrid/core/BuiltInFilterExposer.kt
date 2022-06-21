@@ -16,7 +16,7 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.timers.TimerPlugin
-import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
 import org.tasks.data.*
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
@@ -26,7 +26,6 @@ import org.tasks.filters.SnoozedFilter
 import org.tasks.filters.SortableFilter
 import org.tasks.preferences.Preferences
 import org.tasks.themes.CustomIcons
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -35,7 +34,7 @@ import javax.inject.Inject
  * @author Tim Su <tim></tim>@todoroo.com>
  */
 class BuiltInFilterExposer @Inject constructor(
-        @param:ApplicationContext private val context: Context,
+        @param:ActivityContext private val context: Context,
         private val preferences: Preferences,
         private val taskDao: TaskDao) {
 

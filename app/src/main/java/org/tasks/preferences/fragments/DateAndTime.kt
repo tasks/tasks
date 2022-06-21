@@ -10,12 +10,12 @@ import org.tasks.R
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingPreferenceFragment
-import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import org.tasks.ui.TimePreference
 import java.time.DayOfWeek
 import java.time.format.TextStyle
+import java.util.*
 import javax.inject.Inject
 
 private const val REQUEST_MORNING = 10007
@@ -134,7 +134,7 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
             findPreference(R.string.p_start_of_week) as ListPreference
 
     private fun getWeekdayDisplayName(dayOfWeek: DayOfWeek): String =
-            dayOfWeek.getDisplayName(TextStyle.FULL, locale.locale)
+            dayOfWeek.getDisplayName(TextStyle.FULL, locale)
 
     private fun getMorningPreference(): TimePreference =
             getTimePreference(R.string.p_date_shortcut_morning)

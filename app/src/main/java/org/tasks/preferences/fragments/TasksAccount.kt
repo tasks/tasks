@@ -29,10 +29,10 @@ import org.tasks.data.CaldavDao
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
-import org.tasks.locale.Locale
 import org.tasks.preferences.IconPreference
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
 import java.time.format.FormatStyle
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -255,7 +255,7 @@ class TasksAccount : BaseAccountPreference() {
         DateUtilities.getRelativeDay(
                 requireContext(),
                 date,
-                locale.locale,
+                locale,
                 FormatStyle.FULL,
                 false,
                 true

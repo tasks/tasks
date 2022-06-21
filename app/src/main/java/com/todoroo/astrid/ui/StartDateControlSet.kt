@@ -22,12 +22,12 @@ import org.tasks.dialogs.StartDatePicker.Companion.EXTRA_TIME
 import org.tasks.dialogs.StartDatePicker.Companion.NO_DAY
 import org.tasks.dialogs.StartDatePicker.Companion.NO_TIME
 import org.tasks.dialogs.StartDatePicker.Companion.WEEK_BEFORE_DUE
-import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.millisOfDay
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.TaskEditControlFragment
 import java.time.format.FormatStyle
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -140,7 +140,7 @@ class StartDateControlSet : TaskEditControlFragment() {
             in 1..Long.MAX_VALUE -> DateUtilities.getRelativeDateTime(
                     activity,
                     selectedDay + selectedTime,
-                    locale.locale,
+                    locale,
                     FormatStyle.FULL,
                     preferences.alwaysDisplayFullDate,
                     false

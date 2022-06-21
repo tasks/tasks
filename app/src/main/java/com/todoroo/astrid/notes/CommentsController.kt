@@ -28,7 +28,6 @@ import org.tasks.data.UserActivityDao
 import org.tasks.dialogs.Linkify
 import org.tasks.files.FileHelper
 import org.tasks.files.ImageHelper
-import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import java.util.*
 import javax.inject.Inject
@@ -91,7 +90,7 @@ class CommentsController @Inject constructor(
 
         // date
         val date = view.findViewById<TextView>(R.id.date)
-        date.text = DateUtilities.getLongDateStringWithTime(item.created!!, locale.locale)
+        date.text = DateUtilities.getLongDateStringWithTime(item.created!!, locale)
 
         // picture
         val commentPictureView = view.findViewById<ImageView>(R.id.comment_picture)

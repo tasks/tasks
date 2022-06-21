@@ -10,12 +10,13 @@ import com.todoroo.astrid.subtasks.SubtasksHelper;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.TaskDao;
-import org.tasks.locale.Locale;
 import org.tasks.markdown.MarkdownProvider;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ColorProvider;
 import org.tasks.ui.CheckBoxProvider;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -52,7 +53,7 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
     }
 
     int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-    Context context = locale.createConfigurationContext(getApplicationContext());
+    Context context = getApplicationContext();
     return new ScrollableViewsFactory(
         subtasksHelper,
         preferences,

@@ -57,7 +57,7 @@ import org.tasks.databinding.ControlSetRepeatBinding;
 import org.tasks.databinding.WeekButtonsBinding;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.MyDatePickerDialog;
-import org.tasks.locale.Locale;
+import org.tasks.extensions.LocaleKt;
 import org.tasks.preferences.ResourceResolver;
 import org.tasks.time.DateTime;
 import org.tasks.ui.OnItemSelected;
@@ -68,6 +68,7 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -142,7 +143,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
       rrule.setFrequency(WEEKLY.name());
     }
 
-    DateFormatSymbols dfs = new DateFormatSymbols(locale.getLocale());
+    DateFormatSymbols dfs = new DateFormatSymbols(locale);
     String[] shortWeekdays = dfs.getShortWeekdays();
 
     weekGroup1 = weekBinding.weekGroup;
@@ -185,7 +186,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
       }
     });
 
-    Calendar dayOfMonthCalendar = Calendar.getInstance(locale.getLocale());
+    Calendar dayOfMonthCalendar = Calendar.getInstance(locale);
     dayOfMonthCalendar.setTimeInMillis(dueDate);
     int dayOfWeekInMonth = dayOfMonthCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
     int maxDayOfWeekInMonth = dayOfMonthCalendar.getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH);
@@ -242,7 +243,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     frequency.setAdapter(frequencyAdapter);
     frequency.setSelection(FREQUENCIES.indexOf(rrule.getFrequency()));
 
-    intervalEditText.setText(locale.formatNumber(rrule.getInterval()));
+    intervalEditText.setText(LocaleKt.formatNumber(locale, rrule.getInterval()));
 
     repeatUntilAdapter =
         new ArrayAdapter<String>(context, 0, repeatUntilOptions) {
@@ -284,7 +285,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
     };
 
     // set up days of week
-    Calendar dayOfWeekCalendar = Calendar.getInstance(locale.getLocale());
+    Calendar dayOfWeekCalendar = Calendar.getInstance(locale);
     dayOfWeekCalendar.set(Calendar.DAY_OF_WEEK, dayOfWeekCalendar.getFirstDayOfWeek());
 
     WeekDay todayWeekday = new WeekDay(new DateTime(dueDate).getWeekDay(), 0);
@@ -413,7 +414,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
   private void setInterval(int interval, boolean updateEditText) {
     rrule.setInterval(interval);
     if (updateEditText) {
-      intervalEditText.setText(locale.formatNumber(interval));
+      intervalEditText.setText(LocaleKt.formatNumber(locale, interval));
     }
     updateIntervalTextView();
   }
@@ -427,7 +428,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
   private void setCount(int count, boolean updateEditText) {
     rrule.setCount(count);
     if (updateEditText) {
-      intervalEditText.setText(locale.formatNumber(count));
+      intervalEditText.setText(LocaleKt.formatNumber(locale, count));
     }
     updateCountText();
   }
@@ -486,7 +487,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
   }
 
   private void onRepeatValueChanged(CharSequence text) {
-    Integer value = locale.parseInteger(text.toString());
+    Integer value = LocaleKt.parseInteger(locale, text.toString());
     if (value == null) {
       return;
     }
@@ -498,7 +499,7 @@ public class CustomRecurrenceDialog extends DialogFragment {
   }
 
   private void onRepeatTimesValueChanged(CharSequence text) {
-    Integer value = locale.parseInteger(text.toString());
+    Integer value = LocaleKt.parseInteger(locale, text.toString());
     if (value == null) {
       return;
     }
@@ -526,12 +527,12 @@ public class CustomRecurrenceDialog extends DialogFragment {
           getString(
               R.string.repeat_until,
               DateUtilities.getRelativeDateTime(
-                  context, repeatUntil, locale.getLocale(), FormatStyle.MEDIUM, true)));
+                  context, repeatUntil, locale, FormatStyle.MEDIUM, true)));
       repeatTimes.setVisibility(View.GONE);
       repeatTimesText.setVisibility(View.GONE);
     } else if (count > 0) {
       repeatUntilOptions.add(getString(R.string.repeat_occurs));
-      repeatTimes.setText(locale.formatNumber(count));
+      repeatTimes.setText(LocaleKt.formatNumber(locale, count));
       repeatTimes.setVisibility(View.VISIBLE);
       updateCountText();
       repeatTimesText.setVisibility(View.VISIBLE);

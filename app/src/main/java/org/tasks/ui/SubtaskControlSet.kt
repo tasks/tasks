@@ -44,7 +44,6 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.databinding.ControlSetSubtasksBinding
 import org.tasks.extensions.Context.toast
-import org.tasks.locale.Locale
 import org.tasks.tasklist.SubtaskViewHolder
 import org.tasks.tasklist.SubtasksRecyclerAdapter
 import javax.inject.Inject
@@ -61,7 +60,6 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var locale: Locale
     @Inject lateinit var checkBoxProvider: CheckBoxProvider
     @Inject lateinit var chipProvider: ChipProvider
     @Inject lateinit var eventBus: MainActivityEventBus

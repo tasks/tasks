@@ -7,7 +7,7 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.activities.GoogleTaskListSettingsActivity
@@ -15,16 +15,10 @@ import org.tasks.activities.NavigationDrawerCustomization
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.billing.Inventory
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.data.CaldavAccount
+import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
-import org.tasks.data.CaldavDao
-import org.tasks.data.FilterDao
-import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.LocationDao
-import org.tasks.data.TagDataDao
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.HelpAndFeedback
@@ -34,7 +28,7 @@ import org.tasks.ui.NavigationDrawerFragment
 import javax.inject.Inject
 
 class FilterProvider @Inject constructor(
-        @param:ApplicationContext private val context: Context,
+        @param:ActivityContext private val context: Context,
         private val inventory: Inventory,
         private val builtInFilterExposer: BuiltInFilterExposer,
         private val filterDao: FilterDao,

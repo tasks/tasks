@@ -19,7 +19,6 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.activities.FilterSelectionActivity
 import org.tasks.intents.TaskIntents
-import org.tasks.locale.Locale
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeColor
@@ -31,7 +30,6 @@ import javax.inject.Inject
 class TasksWidget : AppWidgetProvider() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var locale: Locale
     @Inject @ApplicationContext lateinit var context: Context
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
@@ -64,7 +62,6 @@ class TasksWidget : AppWidgetProvider() {
         val filterId = widgetPreferences.filterId
         val color = ThemeColor(context, widgetPreferences.color)
         val remoteViews = RemoteViews(context.packageName, R.layout.scrollable_widget)
-        remoteViews.setInt(R.id.widget, "setLayoutDirection", locale.directionality)
         if (widgetPreferences.showHeader()) {
             remoteViews.setViewVisibility(R.id.widget_header, View.VISIBLE)
             remoteViews.setViewVisibility(

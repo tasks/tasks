@@ -20,7 +20,6 @@ import kotlinx.coroutines.channels.Channel
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.billing.Inventory
 import org.tasks.filters.NavigationDrawerSubheader
-import org.tasks.locale.Locale
 import org.tasks.themes.ColorProvider
 import java.util.*
 import java.util.concurrent.Executors

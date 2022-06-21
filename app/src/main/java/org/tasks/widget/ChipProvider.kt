@@ -14,21 +14,18 @@ import org.tasks.R
 import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.filters.PlaceFilter
-import org.tasks.locale.Locale
-import org.tasks.preferences.Preferences
 import org.tasks.themes.CustomIcons
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.ChipListCache
 import java.time.format.FormatStyle
+import java.util.*
 import javax.inject.Inject
 
 class ChipProvider @Inject constructor(
-        @ApplicationContext private val context: Context,
-        private val chipListCache: ChipListCache,
-        private val locale: Locale,
-        private val preferences: Preferences,
+    @ApplicationContext private val context: Context,
+    private val chipListCache: ChipListCache,
+    private val locale: Locale,
 ) {
-
     var isDark = false
 
     fun getSubtaskChip(task: TaskContainer): RemoteViews {
@@ -62,7 +59,7 @@ class ChipProvider @Inject constructor(
                 DateUtilities.getRelativeDateTime(
                         context,
                         task.startDate,
-                        locale.locale,
+                        locale,
                         FormatStyle.MEDIUM,
                         showFullDate,
                         false

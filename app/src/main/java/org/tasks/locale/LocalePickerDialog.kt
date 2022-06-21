@@ -4,32 +4,45 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.DialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
-import java.util.*
+import org.xmlpull.v1.XmlPullParser
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LocalePickerDialog : DialogFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
-    @Inject lateinit var locale: Locale
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val locales = ArrayList<Locale>()
-        locales.add(locale.withLanguage(null)) // device locale
-        for (override in resources.getStringArray(R.array.localization)) {
-            locales.add(locale.withLanguage(override))
+
+        val locales = ArrayList<java.util.Locale>()
+        val selected =
+            AppCompatDelegate.getApplicationLocales().let { java.util.Locale.forLanguageTag(it.toLanguageTags()) }
+        val default = java.util.Locale.getDefault()
+        locales.add(default) // device locale
+        val tags = ArrayList<String>()
+        val xrp = resources.getXml(R.xml.locales_config)
+        var event = xrp.eventType
+        while (event != XmlPullParser.END_DOCUMENT) {
+            if (event == XmlPullParser.START_TAG && xrp.name == "locale") {
+                tags.add(xrp.getAttributeValue(0))
+            }
+            event = xrp.next()
         }
-        val display = locales.map(Locale::getDisplayName)
+        for (override in tags) {
+            locales.add(java.util.Locale.forLanguageTag(override))
+        }
+        val display = locales.map { it.getDisplayName(it) }
         return dialogBuilder
                 .newDialog()
-                .setSingleChoiceItems(display, display.indexOf(locale.displayName)) { dialog, which ->
-                    val locale = locales[which]
+                .setSingleChoiceItems(display, display.indexOf(selected.getDisplayName(selected))) { dialog, which ->
+                    val locale = locales[which].toLanguageTag()
                     val data = Intent().putExtra(EXTRA_LOCALE, locale)
-                    targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK, data)
                     dialog.dismiss()
+                    targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK, data)
                 }
                 .setNegativeButton(R.string.cancel, null)
                 .show()

@@ -9,7 +9,6 @@ import org.tasks.TestUtilities.withTZ
 import org.tasks.analytics.Firebase
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.locale.Locale
 import org.tasks.time.DateTime
 import java.text.ParseException
 import java.util.*
@@ -123,7 +122,7 @@ class RepeatRuleToStringTest : InjectingTestCase() {
     private fun toString(language: String?, rrule: String): String? {
         return try {
             val locale = Locale(java.util.Locale.getDefault(), language)
-            RepeatRuleToString(locale.createConfigurationContext(context), locale, firebase)
+            RepeatRuleToString(context, locale, firebase)
                     .toString(rrule)
         } catch (e: ParseException) {
             throw RuntimeException(e)

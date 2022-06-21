@@ -13,9 +13,9 @@ import org.tasks.databinding.ControlSetDeadlineBinding
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
-import org.tasks.locale.Locale
 import org.tasks.preferences.Preferences
 import java.time.format.FormatStyle
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -81,7 +81,7 @@ class DeadlineControlSet : TaskEditControlFragment() {
             dueDate.text = DateUtilities.getRelativeDateTime(
                     activity,
                     date,
-                    locale.locale,
+                    locale,
                     FormatStyle.FULL,
                     preferences.alwaysDisplayFullDate,
                     false
