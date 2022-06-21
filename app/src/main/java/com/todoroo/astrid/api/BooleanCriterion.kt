@@ -14,7 +14,7 @@ class BooleanCriterion constructor() : CustomFilterCriterion(), Parcelable {
 
     override fun describeContents() = 0
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
+    override fun writeToParcel(dest: Parcel, flags: Int) {
         writeToParcel(dest)
     }
 
