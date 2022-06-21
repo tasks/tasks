@@ -2,6 +2,7 @@ package org.tasks.injection
 
 import android.app.NotificationManager
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import com.todoroo.astrid.dao.Database
 import dagger.Module
 import dagger.Provides
@@ -24,9 +25,15 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
-
     @Provides
-    fun getLocale(): Locale = Locale.getDefault()
+    fun getLocale(): Locale {
+        return AppCompatDelegate.getApplicationLocales()
+            .toLanguageTags()
+            .split(",")
+            .firstOrNull()
+            ?.let { Locale.forLanguageTag(it) }
+            ?: Locale.getDefault()
+    }
 
     @Provides
     @Singleton

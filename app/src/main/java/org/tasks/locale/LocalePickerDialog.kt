@@ -4,41 +4,33 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.DialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
 import org.xmlpull.v1.XmlPullParser
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LocalePickerDialog : DialogFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
+    @Inject lateinit var locale: Locale
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
-        val locales = ArrayList<java.util.Locale>()
-        val selected =
-            AppCompatDelegate.getApplicationLocales().let { java.util.Locale.forLanguageTag(it.toLanguageTags()) }
-        val default = java.util.Locale.getDefault()
-        locales.add(default) // device locale
-        val tags = ArrayList<String>()
+        val locales = ArrayList<Locale>()
         val xrp = resources.getXml(R.xml.locales_config)
         var event = xrp.eventType
         while (event != XmlPullParser.END_DOCUMENT) {
             if (event == XmlPullParser.START_TAG && xrp.name == "locale") {
-                tags.add(xrp.getAttributeValue(0))
+                locales.add(Locale.forLanguageTag(xrp.getAttributeValue(0)))
             }
             event = xrp.next()
-        }
-        for (override in tags) {
-            locales.add(java.util.Locale.forLanguageTag(override))
         }
         val display = locales.map { it.getDisplayName(it) }
         return dialogBuilder
                 .newDialog()
-                .setSingleChoiceItems(display, display.indexOf(selected.getDisplayName(selected))) { dialog, which ->
+                .setSingleChoiceItems(display, display.indexOf(locale.getDisplayName(locale))) { dialog, which ->
                     val locale = locales[which].toLanguageTag()
                     val data = Intent().putExtra(EXTRA_LOCALE, locale)
                     dialog.dismiss()

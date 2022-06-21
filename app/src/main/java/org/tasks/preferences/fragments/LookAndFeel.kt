@@ -61,6 +61,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var inventory: Inventory
+    @Inject lateinit var locale: Locale
 
     override fun getPreferenceXml() = R.xml.preferences_look_and_feel
 
@@ -98,8 +99,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
         }
 
         val languagePreference = findPreference(R.string.p_language)
-        val locale =
-            Locale.forLanguageTag(AppCompatDelegate.getApplicationLocales().toLanguageTags())
         languagePreference.summary = locale.getDisplayName(locale)
         languagePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val dialog = LocalePickerDialog.newLocalePickerDialog()
