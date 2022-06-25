@@ -719,4 +719,6 @@
     <string name="customize_edit_screen_summary">重新安排或删除字段</string>
     <string name="hint_customize_edit_title">信息太多？</string>
     <string name="hint_customize_edit_body">你可以重新安排或删除字段来定制此屏幕</string>
+    <string name="enable_reminders">启用提醒</string>
+    <string name="enable_reminders_description">提醒在 Android 设置中被禁用</string>
 </resources>
