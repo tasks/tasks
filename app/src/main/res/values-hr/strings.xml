@@ -755,4 +755,6 @@
     <string name="hint_customize_edit_body">Ovaj ekran možeš prilagoditi mijenjanjem rasporeda polja ili uklanjanjem polja</string>
     <string name="customize_edit_screen_summary">Prerasporedi ili ukloni polja</string>
     <string name="hint_customize_edit_title">Previše informacija\?</string>
+    <string name="enable_reminders">Aktiviraj podsjetnike</string>
+    <string name="enable_reminders_description">Podsjetnici su deaktivirani u Android postavkama</string>
 </resources>
