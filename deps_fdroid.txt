@@ -556,16 +556,25 @@
 +|    +--- androidx.compose.material:material:1.2.0-beta03 -> 1.2.0-rc02 (*)
 +|    +--- com.google.android.material:material:1.7.0-alpha02 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.21 (*)
-++--- androidx.activity:activity-compose:1.4.0
+++--- androidx.activity:activity-compose:1.4.0 -> 1.5.0-rc01
++|    +--- androidx.activity:activity-ktx:1.5.0-rc01 -> 1.6.0-alpha05 (*)
 +|    +--- androidx.compose.runtime:runtime:1.0.1 -> 1.2.0-rc02 (*)
 +|    +--- androidx.compose.runtime:runtime-saveable:1.0.1 -> 1.2.0-rc02 (*)
-+|    +--- androidx.activity:activity-ktx:1.4.0 -> 1.6.0-alpha05 (*)
 +|    +--- androidx.compose.ui:ui:1.0.1 -> 1.2.0-rc02 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.5.31 -> 1.6.21 (*)
++|    +--- androidx.lifecycle:lifecycle-common-java8:2.5.0-rc01 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.21 (*)
 ++--- androidx.compose.material:material-icons-extended:1.2.0-rc02
 +|    +--- androidx.compose.material:material-icons-core:1.2.0-rc02 (*)
 +|    +--- androidx.compose.runtime:runtime:1.2.0-rc02 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21
-+\--- com.google.accompanist:accompanist-flowlayout:0.24.11-rc
-+     +--- androidx.compose.foundation:foundation:1.2.0-rc01 -> 1.2.0-rc02 (*)
-+     \--- androidx.compose.ui:ui-util:1.2.0-rc01 -> 1.2.0-rc02 (*)
+++--- com.google.accompanist:accompanist-flowlayout:0.24.12-rc
++|    +--- androidx.compose.foundation:foundation:1.2.0-rc02 (*)
++|    \--- androidx.compose.ui:ui-util:1.2.0-rc02 (*)
++\--- com.google.accompanist:accompanist-permissions:0.24.12-rc
++     +--- androidx.activity:activity-compose:1.5.0-rc01 (*)
++     +--- androidx.compose.foundation:foundation:1.2.0-rc02 (*)
++     +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0 -> 1.6.1 (*)
++     \--- io.github.aakira:napier:1.4.1
++          \--- io.github.aakira:napier-android:1.4.1
++               +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.32 -> 1.6.21 (*)
++               \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.32 -> 1.6.21

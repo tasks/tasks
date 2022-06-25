@@ -3,31 +3,14 @@ package org.tasks.compose
 import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Autorenew
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -56,13 +39,13 @@ import java.util.concurrent.TimeUnit
 object AddReminderDialog {
     @Composable
     fun AddRandomReminderDialog(
-        openDialog: MutableState<Boolean>,
+        openDialog: Boolean,
         addAlarm: (Alarm) -> Unit,
         closeDialog: () -> Unit,
     ) {
         val time = rememberSaveable { mutableStateOf(15) }
         val units = rememberSaveable { mutableStateOf(0) }
-        if (openDialog.value) {
+        if (openDialog) {
             AlertDialog(
                 onDismissRequest = closeDialog,
                 text = { AddRandomReminder(openDialog, time, units) },
@@ -89,7 +72,7 @@ object AddReminderDialog {
 
     @Composable
     fun AddCustomReminderDialog(
-        openDialog: MutableState<Boolean>,
+        openDialog: Boolean,
         addAlarm: (Alarm) -> Unit,
         closeDialog: () -> Unit,
     ) {
@@ -99,7 +82,7 @@ object AddReminderDialog {
         val interval = rememberSaveable { mutableStateOf(0) }
         val recurringUnits = rememberSaveable { mutableStateOf(0) }
         val repeat = rememberSaveable { mutableStateOf(0) }
-        if (openDialog.value) {
+        if (openDialog) {
             if (!openRecurringDialog.value) {
                 AlertDialog(
                     onDismissRequest = closeDialog,
@@ -179,7 +162,7 @@ object AddReminderDialog {
                 onDismissRequest = closeDialog,
                 text = {
                     AddRecurringReminder(
-                        openDialog,
+                        openDialog.value,
                         interval,
                         units,
                         repeat,
@@ -209,7 +192,7 @@ object AddReminderDialog {
 
     @Composable
     fun AddRandomReminder(
-        visible: MutableState<Boolean>,
+        visible: Boolean,
         time: MutableState<Int>,
         units: MutableState<Int>,
     ) {
@@ -237,7 +220,7 @@ object AddReminderDialog {
 
     @Composable
     fun AddCustomReminder(
-        visible: MutableState<Boolean>,
+        visible: Boolean,
         time: MutableState<Int>,
         units: MutableState<Int>,
         interval: MutableState<Int>,
@@ -313,7 +296,7 @@ object AddReminderDialog {
 
     @Composable
     fun AddRecurringReminder(
-        openDialog: MutableState<Boolean>,
+        openDialog: Boolean,
         interval: MutableState<Int>,
         units: MutableState<Int>,
         repeat: MutableState<Int>
@@ -374,7 +357,7 @@ object AddReminderDialog {
 
 @ExperimentalComposeUiApi
 @Composable
-fun ShowKeyboard(visible: MutableState<Boolean>, focusRequester: FocusRequester) {
+fun ShowKeyboard(visible: Boolean, focusRequester: FocusRequester) {
     val keyboardController = LocalSoftwareKeyboardController.current
     LaunchedEffect(visible) {
         focusRequester.freeFocus()
@@ -484,7 +467,7 @@ fun BodyText(modifier: Modifier = Modifier, text: String) {
 fun AddCustomReminderOne() =
     MdcTheme {
         AddReminderDialog.AddCustomReminder(
-            visible = remember { mutableStateOf(true) },
+            visible = true,
             time = remember { mutableStateOf(1) },
             units = remember { mutableStateOf(0) },
             interval = remember { mutableStateOf(0) },
@@ -501,7 +484,7 @@ fun AddCustomReminderOne() =
 fun AddCustomReminder() =
     MdcTheme {
         AddReminderDialog.AddCustomReminder(
-            visible = remember { mutableStateOf(true) },
+            visible = true,
             time = remember { mutableStateOf(15) },
             units = remember { mutableStateOf(1) },
             interval = remember { mutableStateOf(0) },
@@ -518,7 +501,7 @@ fun AddCustomReminder() =
 fun AddRepeatingReminderOne() =
     MdcTheme {
         AddReminderDialog.AddRecurringReminder(
-            openDialog = remember { mutableStateOf(true) },
+            openDialog = true,
             interval = remember { mutableStateOf(1) },
             units = remember { mutableStateOf(0) },
             repeat = remember { mutableStateOf(1) },
@@ -532,7 +515,7 @@ fun AddRepeatingReminderOne() =
 fun AddRepeatingReminder() =
     MdcTheme {
         AddReminderDialog.AddRecurringReminder(
-            openDialog = remember { mutableStateOf(true) },
+            openDialog = true,
             interval = remember { mutableStateOf(15) },
             units = remember { mutableStateOf(1) },
             repeat = remember { mutableStateOf(4) },
@@ -546,7 +529,7 @@ fun AddRepeatingReminder() =
 fun AddRandomReminderOne() =
     MdcTheme {
         AddReminderDialog.AddRandomReminder(
-            visible = remember { mutableStateOf(true) },
+            visible = true,
             time = remember { mutableStateOf(1) },
             units = remember { mutableStateOf(0) }
         )
@@ -559,7 +542,7 @@ fun AddRandomReminderOne() =
 fun AddRandomReminder() =
     MdcTheme {
         AddReminderDialog.AddRandomReminder(
-            visible = remember { mutableStateOf(true) },
+            visible = true,
             time = remember { mutableStateOf(15) },
             units = remember { mutableStateOf(1) }
         )

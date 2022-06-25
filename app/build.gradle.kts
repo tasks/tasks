@@ -233,7 +233,8 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:${Versions.compose}")
     releaseCompileOnly("androidx.compose.ui:ui-tooling:${Versions.compose}")
 
-    implementation("com.google.accompanist:accompanist-flowlayout:0.24.11-rc")
+    implementation("com.google.accompanist:accompanist-flowlayout:${Versions.accompanist}")
+    implementation("com.google.accompanist:accompanist-permissions:${Versions.accompanist}")
 
     googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
     googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}") {

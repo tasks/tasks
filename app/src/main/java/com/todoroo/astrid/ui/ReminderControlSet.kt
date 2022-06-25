@@ -17,11 +17,17 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.viewModels
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionStatus
+import com.google.accompanist.permissions.rememberPermissionState
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
@@ -49,25 +55,20 @@ class ReminderControlSet : TaskEditControlComposeFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var alarmToString: AlarmToString
 
-    private val showCustomDialog = mutableStateOf(false)
-    private val showRandomDialog = mutableStateOf(false)
+    data class ViewState(
+        val showCustomDialog: Boolean = false,
+        val showRandomDialog: Boolean = false,
+    )
+
     private val ringMode = mutableStateOf(0)
+    private val vm: ReminderControlSetViewModel by viewModels()
 
     override fun createView(savedInstanceState: Bundle?) {
-        showCustomDialog.value = savedInstanceState?.getBoolean(CUSTOM_DIALOG_VISIBLE) ?: false
-        showRandomDialog.value = savedInstanceState?.getBoolean(RANDOM_DIALOG_VISIBLE) ?: false
         when {
             viewModel.ringNonstop!! -> setRingMode(2)
             viewModel.ringFiveTimes!! -> setRingMode(1)
             else -> setRingMode(0)
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.putBoolean(CUSTOM_DIALOG_VISIBLE, showCustomDialog.value)
-        outState.putBoolean(RANDOM_DIALOG_VISIBLE, showRandomDialog.value)
     }
 
     private fun onClickRingType() {
@@ -102,11 +103,11 @@ class ReminderControlSet : TaskEditControlComposeFragment() {
             getString(R.string.when_overdue) ->
                 addAlarmRow(whenOverdue(id))
             getString(R.string.randomly) ->
-                addRandomAlarm()
+                vm.showRandomDialog(visible = true)
             getString(R.string.pick_a_date_and_time) ->
                 addNewAlarm()
             getString(R.string.repeat_option_custom) ->
-                addCustomAlarm()
+                vm.showCustomDialog(visible = true)
         }
     }
 
@@ -125,11 +126,65 @@ class ReminderControlSet : TaskEditControlComposeFragment() {
         }
     }
 
-    @OptIn(ExperimentalComposeUiApi::class)
+    @OptIn(ExperimentalComposeUiApi::class, ExperimentalPermissionsApi::class)
     @Composable
     override fun Body() {
-        val alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware()
+        val viewState = vm.viewState.collectAsStateLifecycleAware()
+        val current: ViewState = viewState.value
+        val notificationPermissions = if (atLeastTiramisu()) {
+            rememberPermissionState(
+                android.Manifest.permission.POST_NOTIFICATIONS
+            )
+        } else {
+            null
+        }
+        when (notificationPermissions?.status ?: PermissionStatus.Granted) {
+            PermissionStatus.Granted ->
+                Alarms()
+            is PermissionStatus.Denied -> {
+                Column(
+                    modifier = Modifier.clickable {
+                        notificationPermissions?.launchPermissionRequest()
+                    }
+                ) {
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        text = stringResource(id = R.string.enable_reminders),
+                        color = colorResource(id = R.color.red_500),
+                    )
+                    Text(
+                        text = stringResource(id = R.string.enable_reminders_description),
+                        style = MaterialTheme.typography.caption,
+                        color = colorResource(id = R.color.red_500),
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                }
+            }
+        }
+
+        AddReminderDialog.AddCustomReminderDialog(
+            openDialog = current.showCustomDialog,
+            addAlarm = this::addAlarmRow,
+            closeDialog = {
+                vm.showCustomDialog(visible = false)
+                AndroidUtilities.hideKeyboard(activity)
+            }
+        )
+
+        AddReminderDialog.AddRandomReminderDialog(
+            openDialog = current.showRandomDialog,
+            addAlarm = this::addAlarmRow,
+            closeDialog = {
+                vm.showRandomDialog(visible = false)
+                AndroidUtilities.hideKeyboard(activity)
+            }
+        )
+    }
+
+    @Composable
+    fun Alarms() {
         Column {
+            val alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware()
             Spacer(modifier = Modifier.height(8.dp))
             alarms.value.forEach { alarm ->
                 AlarmRow(alarmToString.toString(alarm)) {
@@ -181,26 +236,6 @@ class ReminderControlSet : TaskEditControlComposeFragment() {
             }
             Spacer(modifier = Modifier.height(8.dp))
         }
-
-        val openCustomDialog = remember { showCustomDialog }
-        AddReminderDialog.AddCustomReminderDialog(
-            openCustomDialog,
-            addAlarm = this::addAlarmRow,
-            closeDialog = {
-                openCustomDialog.value = false
-                AndroidUtilities.hideKeyboard(activity)
-            }
-        )
-
-        val openRandomDialog = remember { showRandomDialog }
-        AddReminderDialog.AddRandomReminderDialog(
-            openRandomDialog,
-            addAlarm = this::addAlarmRow,
-            closeDialog = {
-                openRandomDialog.value = false
-                AndroidUtilities.hideKeyboard(activity)
-            }
-        )
     }
 
     override val icon = R.drawable.ic_outline_notifications_24px
@@ -235,14 +270,6 @@ class ReminderControlSet : TaskEditControlComposeFragment() {
         startActivityForResult(intent, REQUEST_NEW_ALARM)
     }
 
-    private fun addCustomAlarm() {
-        showCustomDialog.value = true
-    }
-
-    private fun addRandomAlarm() {
-        showRandomDialog.value = true
-    }
-
     private val options: List<String>
         get() {
             val options: MutableList<String> = ArrayList()
@@ -264,8 +291,6 @@ class ReminderControlSet : TaskEditControlComposeFragment() {
     companion object {
         const val TAG = R.string.TEA_ctrl_reminders_pref
         private const val REQUEST_NEW_ALARM = 12152
-        private const val CUSTOM_DIALOG_VISIBLE = "custom_dialog_visible"
-        private const val RANDOM_DIALOG_VISIBLE = "random_dialog_visible"
     }
 }
 

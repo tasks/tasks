@@ -163,6 +163,10 @@ public class AndroidUtilities {
     return VERSION.SDK_INT >= VERSION_CODES.S;
   }
 
+  public static boolean atLeastTiramisu() {
+    return VERSION.SDK_INT >= VERSION_CODES.TIRAMISU;
+  }
+
   public static void assertMainThread() {
     if (BuildConfig.DEBUG && !isMainThread()) {
       throw new IllegalStateException("Should be called from main thread");

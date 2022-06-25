@@ -20,4 +20,5 @@ object Versions {
     const val markwon = "4.6.2"
     const val compose = "1.2.0-rc02"
     const val compose_theme_adapter = "1.1.11"
+    const val accompanist = "0.24.12-rc"
 }

@@ -6,6 +6,8 @@
 
   <!-- ================================================== Used Permissions = -->
 
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
   <!-- ********************* -->
   <!-- maps and place search -->
   <!-- ********************* -->
