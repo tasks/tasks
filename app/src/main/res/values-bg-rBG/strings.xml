@@ -734,4 +734,6 @@
     <string name="authorization_cancelled">Удостоверяването е спряно</string>
     <string name="background_location">Местоположение във фонов режим</string>
     <string name="foreground_location">Местоположение на преден план</string>
+    <string name="enable_reminders">Включване на напомнянията</string>
+    <string name="enable_reminders_description">Напомнянията са изключени в настройките на Андроид</string>
 </resources>
