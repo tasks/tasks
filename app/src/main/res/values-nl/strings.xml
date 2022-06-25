@@ -734,4 +734,6 @@
     <string name="dismiss">Sluiten</string>
     <string name="hint_customize_edit_title">Teveel informatie\?</string>
     <string name="hint_customize_edit_body">Taakscherm aanpassen door velden te verschuiven of onderaan te verbergen</string>
+    <string name="enable_reminders">Herinneringen aanzetten</string>
+    <string name="enable_reminders_description">Herinneringen staan uit in Android Instellingen</string>
 </resources>
