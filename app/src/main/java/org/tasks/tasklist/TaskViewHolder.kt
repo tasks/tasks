@@ -48,7 +48,8 @@ class TaskViewHolder internal constructor(
     private val metrics: DisplayMetrics,
     private val background: Int,
     private val selectedColor: Int,
-    private val rowPadding: Int,
+    private val rowPaddingDp: Int,
+    private val rowPaddingPx: Int,
     private val linkify: Linkify,
     private val locale: Locale,
     private val markdown: Markdown
@@ -164,15 +165,14 @@ class TaskViewHolder internal constructor(
         }
         when {
             chipGroup.visibility == View.VISIBLE -> {
-                setBottomPadding(rowPadding, chipGroup)
                 setBottomPadding(0, description, nameView)
             }
             description.visibility == View.VISIBLE -> {
-                setBottomPadding(rowPadding, description)
+                setBottomPadding(rowPaddingPx, description)
                 setBottomPadding(0, nameView)
             }
             else -> {
-                setBottomPadding(rowPadding, nameView)
+                setBottomPadding(rowPaddingPx, nameView)
             }
         }
     }
@@ -218,7 +218,12 @@ class TaskViewHolder internal constructor(
     private fun setupChips(filter: Filter, sortByStartDate: Boolean) {
         chipGroup.setContent {
             MdcTheme {
-                ChipGroup(modifier = Modifier.padding(end = 16.dp)) {
+                ChipGroup(
+                    modifier = Modifier.padding(
+                        end = 16.dp,
+                        bottom = rowPaddingDp.dp
+                    )
+                ) {
                     chipProvider.Chips(
                         filter = filter,
                         isSubtask = indent > 0,
@@ -274,8 +279,8 @@ class TaskViewHolder internal constructor(
             description.isSingleLine = false
             description.ellipsize = null
         }
-        setTopPadding(rowPadding, nameView, completeBox, dueDate)
-        setBottomPadding(rowPadding, completeBox, dueDate)
+        setTopPadding(rowPaddingPx, nameView, completeBox, dueDate)
+        setBottomPadding(rowPaddingPx, completeBox, dueDate)
         nameView.textSize = fontSize.toFloat()
         description.textSize = fontSize.toFloat()
         val fontSizeDetails = max(10, fontSize - 2)
