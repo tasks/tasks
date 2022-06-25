@@ -734,4 +734,6 @@
     <string name="dismiss">Kapat</string>
     <string name="hint_customize_edit_title">Çok bilgi mi var\?</string>
     <string name="hint_customize_edit_body">Alanları yeniden düzenleyerek veya kaldırarak bu ekranı özelleştirebilirsiniz</string>
+    <string name="enable_reminders">Anımsatıcıları etkinleştir</string>
+    <string name="enable_reminders_description">Anımsatıcılar Android ayarlarında devre dışı bırakıldı</string>
 </resources>
