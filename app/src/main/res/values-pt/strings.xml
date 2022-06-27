@@ -420,7 +420,7 @@
     <string name="username_required">É necessário o nome de utilizador</string>
     <string name="move">Mover</string>
     <string name="geofence_radius">Alcance</string>
-    <string name="add_location">Adicionar localização</string>
+    <string name="add_location">Adicionar local</string>
     <string name="google_drive_backup">Cópia de segurança no Google Drive</string>
     <string name="rmd_NoA_snooze">Adiar</string>
     <string name="default_location_reminder_on_arrival_or_departure">Ao chegar e ao sair</string>
@@ -734,4 +734,6 @@
     <string name="hint_customize_edit_body">Pode costumizar este ecrã rearranjando ou removendo campos</string>
     <string name="filter_snoozed">Adiado</string>
     <string name="dismiss">Dispensar</string>
+    <string name="enable_reminders">Ativar lembretes</string>
+    <string name="enable_reminders_description">Os lembretes estão desativados nas configurações do Android</string>
 </resources>
