@@ -15,8 +15,8 @@
 \n</string>
     <string name="import_progress_read">Чтение задачи %d…</string>
     <string name="read_permission_label">Разрешения Tasks</string>
-    <string name="discard_confirmation">Вы действительно хотите отказаться от сделанных изменений?</string>
-    <string name="keep_editing">Продолжить редактирование</string>
+    <string name="discard_confirmation">Отменить сделанные изменения\?</string>
+    <string name="keep_editing">Нет</string>
     <string name="DLG_delete_this_task_question">Удалить эту задачу?</string>
     <string name="DLG_hour_minutes">Время (часы : минуты)</string>
     <string name="DLG_undo">Отменить</string>
@@ -29,10 +29,10 @@
     <string name="action_call">Позвонить</string>
     <string name="action_open">Открыть</string>
     <string name="SSD_sort_auto">Умная сортировка</string>
-    <string name="SSD_sort_alpha">По названию</string>
-    <string name="SSD_sort_due">По дате окончания</string>
-    <string name="SSD_sort_importance">По приоритету</string>
-    <string name="SSD_sort_modified">По дате последнего изменения</string>
+    <string name="SSD_sort_alpha">Название</string>
+    <string name="SSD_sort_due">Дата завершения</string>
+    <string name="SSD_sort_importance">Приоритет</string>
+    <string name="SSD_sort_modified">Дата изменения</string>
     <string name="FLA_search_filter">Соответствия с «%s»</string>
     <string name="FLA_new_filter">Создать новый фильтр</string>
     <string name="TEA_title_hint">Название задачи</string>
@@ -43,10 +43,10 @@
     <string name="save">Сохранить </string>
     <string name="TEA_timer_est">Прибл. %s</string>
     <string name="TEA_timer_elap">Прошло %s</string>
-    <string name="due_date">Дата окончания</string>
-    <string name="due_time">Время окончания</string>
-    <string name="day_before_due">Сутки до даты окончания</string>
-    <string name="week_before_due">Неделя до даты окончания</string>
+    <string name="due_date">Дата завершения</string>
+    <string name="due_time">Время завершения</string>
+    <string name="day_before_due">Сутки до даты завершения</string>
+    <string name="week_before_due">Неделя до даты завершения</string>
     <string name="TEA_control_repeat">Повтор</string>
     <string name="TEA_control_gcal">Календарь</string>
     <string name="TEA_control_importance">Приоритет</string>
@@ -54,7 +54,7 @@
     <string name="TEA_control_notes">Описание</string>
     <string name="TEA_control_files">Файлы</string>
     <string name="TEA_control_reminders">Напоминания</string>
-    <string name="TEA_control_timer">Управление таймером</string>
+    <string name="TEA_control_timer">Таймер</string>
     <string name="TEA_control_hidden_section">----Всегда скрывать----</string>
     <string name="TEA_load_more">Загрузить больше…</string>
     <string name="CRA_ignore">Игнорировать</string>
@@ -103,9 +103,9 @@
     <string name="BFE_Active">Мои задачи</string>
     <string name="BFE_Recent">Недавно изменённые</string>
     <string name="CFA_button_add">Добавить условие</string>
-    <string name="CFC_dueBefore_text">Конечный срок: ?</string>
-    <string name="CFC_dueBefore_name">Конечный срок…</string>
-    <string name="no_due_date">Нет даты окончания задания</string>
+    <string name="CFC_dueBefore_text">Дата завершения: \?</string>
+    <string name="CFC_dueBefore_name">Дата завершения…</string>
+    <string name="no_due_date">Нет даты завершения</string>
     <string name="next_month">Следующий месяц</string>
     <string name="CFC_importance_text">Приоритет как минимум ?</string>
     <string name="CFC_importance_name">Приоритет…</string>
@@ -117,12 +117,12 @@
     <string name="CFC_title_contains_text">Название содержит: ?</string>
     <string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>
     <string name="gcal_TEA_showCalendar_label">Открыть событие календаря</string>
-    <string name="delete_calendar_event_confirmation">Удалить событие в календаре?</string>
-    <string name="calendar_event_not_found">Событие в календаре не найдено</string>
+    <string name="delete_calendar_event_confirmation">Удалить событие календаря\?</string>
+    <string name="calendar_event_not_found">Событие календаря не найдено</string>
     <string name="gcal_completed_title">%s (выполнено)</string>
     <string name="CFC_gtasks_list_text">В списке: \?</string>
     <string name="CFC_gtasks_list_name">В списке GTasks…</string>
-    <string name="gtasks_GTA_clear_completed">Очистить завершенные</string>
+    <string name="gtasks_GTA_clear_completed">Удалить завершенные</string>
     <string name="gtasks_GLA_authenticating">Аутентификация…</string>
     <string name="gtasks_GLA_errorIOAuth">При обращении к серверам Google возникли проблемы. Пожалуйста, попробуйте позже.</string>
     <string name="gtasks_error_accountNotFound">Учетная запись %s не найдена — пожалуйста, выйдите и войдите снова через настройки Google Tasks.</string>
@@ -300,12 +300,12 @@
     <string name="date_shortcut_evening">Вечер</string>
     <string name="date_shortcut_night">Ночь</string>
     <string name="date_shortcut_tomorrow_morning">Завтра утром</string>
-    <string name="date_shortcut_tomorrow_afternoon">Завтра после обеда</string>
+    <string name="date_shortcut_tomorrow_afternoon">Завтра в обед</string>
     <string name="date_shortcut_must_come_before">%1$s должно идти перед %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s должно идти после %2$s</string>
-    <string name="discard_changes">Отменить изменения?</string>
+    <string name="discard_changes">Отменить изменения\?</string>
     <string name="discard">Отменить</string>
-    <string name="tag_settings">Настройки тегов</string>
+    <string name="tag_settings">Настройки тега</string>
     <string name="list_settings">Настройки списка</string>
     <string name="delete">Удалить</string>
     <string name="copy">Копировать</string>
@@ -318,7 +318,7 @@
     <string name="pick_from_gallery">Выбрать из галереи</string>
     <string name="pick_from_storage">Выбрать файл с диска</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
-    <string name="send_anonymous_statistics">Содейств. улучш. Tasks</string>
+    <string name="send_anonymous_statistics">Отправлять статистику</string>
     <string name="send_anonymous_statistics_summary">Отправлять анонимную статистику и отчёты об ошибках для содействия улучшению программы. Персональная информация не собирается.</string>
     <string name="tag_already_exists">Тег уже существует</string>
     <string name="name_cannot_be_empty">Необходимо задать имя</string>
@@ -541,14 +541,14 @@
     <string name="add_tags">Добавить теги</string>
     <string name="filter_no_tags">Без тегов</string>
     <string name="filter_after_today">После сегодняшнего дня</string>
-    <string name="filter_any_due_date">Любая дата выполнения</string>
+    <string name="filter_any_due_date">Любая дата завершения</string>
     <string name="filter_today_only">Только сегодняшнее</string>
     <string name="filter_overdue">Просроченное</string>
     <string name="custom_filter_not">НЕ</string>
     <string name="custom_filter_or">ИЛИ</string>
     <string name="custom_filter_and">И</string>
     <string name="custom_filter_criteria">Критерии фильтрации</string>
-    <string name="sort_created">По времени создания</string>
+    <string name="sort_created">Дата создания</string>
     <string name="got_it">Понятно!</string>
     <string name="no_thanks">Нет, спасибо</string>
     <string name="support_development_subscribe">Разблокировать дополнительные функции и поддержать ПО с открытым исходным кодом</string>
@@ -627,7 +627,7 @@
         <item quantity="many">%d списков</item>
         <item quantity="other">%d списков</item>
     </plurals>
-    <string name="repeat_monthly_fifth_week">Пятая</string>
+    <string name="repeat_monthly_fifth_week">пятая</string>
     <string name="above_average">Выше среднего</string>
     <string name="save_percent">Сохранить %d%%</string>
     <string name="decsync_selection_description">Синхронизация с использованием локального файла</string>
@@ -649,7 +649,7 @@
     <string name="show_unstarted">Показать не начавшиеся</string>
     <string name="no_start_date">Нет даты начала</string>
     <string name="default_start_date">Дата начала по умолчанию</string>
-    <string name="SSD_sort_start">По дате начала</string>
+    <string name="SSD_sort_start">Дата начала</string>
     <string name="CFC_startBefore_name">Дата начала…</string>
     <string name="CFC_startBefore_text">Дата начала: \?</string>
     <string name="filter_any_start_date">Любая дата начала</string>
@@ -760,4 +760,6 @@
     <string name="dismiss">Отклонить</string>
     <string name="hint_customize_edit_title">Слишком много информации\?</string>
     <string name="hint_customize_edit_body">Вы можете настроить этот экран, переставляя или удаляя поля</string>
+    <string name="enable_reminders">Включить напоминания</string>
+    <string name="enable_reminders_description">Напоминания отключены в настройках Android</string>
 </resources>
