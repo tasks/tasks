@@ -734,4 +734,6 @@
     <string name="hint_customize_edit_title">Troppe informazioni\?</string>
     <string name="customize_edit_screen_summary">Riordina o rimuovi i campi</string>
     <string name="hint_customize_edit_body">Puoi personalizzare questa schermata riorganizzando o rimuovendo i campi</string>
+    <string name="enable_reminders">Abilitare i promemoria</string>
+    <string name="enable_reminders_description">I promemoria sono disattivati nelle impostazioni di Android</string>
 </resources>
