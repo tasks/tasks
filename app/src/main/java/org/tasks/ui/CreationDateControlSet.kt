@@ -29,7 +29,7 @@ class CreationDateControlSet : TaskEditControlFragment() {
             it.root
         }
 
-    override val icon = R.drawable.ic_outline_schedule_24px
+    override val icon = R.drawable.ic_outline_info_24px
 
     override fun controlId() = TAG
 
