@@ -38,6 +38,6 @@ platform :android do
 
   desc "Lint"
   lane :lint do
-    gradle(task: ":app:lintGoogleplayRelease :app:lintGenericRelease")
+    gradle(task: ":app:lintGoogleplayRelease :app:lintGenericRelease --no-configuration-cache")
   end
 end
