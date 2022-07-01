@@ -248,6 +248,7 @@
     <item>@string/TEA_control_notes</item>
     <item>@string/TEA_control_gcal</item>
     <item>@string/TEA_control_timer</item>
+    <item>@string/TEA_creation_date</item>
     <item>@string/TEA_control_hidden_section</item>
   </string-array>
 
@@ -266,6 +267,7 @@
   <string name="TEA_ctrl_comments">TEA_ctrl_comments</string>
   <string name="TEA_ctrl_gcal">TEA_ctrl_gcal</string>
   <string name="TEA_ctrl_google_task_list">TEA_ctrl_gtask</string>
+  <string name="TEA_ctrl_creation_date">TEA_ctrl_creation_date</string>
   <string name="p_show_hidden_tasks">show_hidden_tasks</string>
   <string name="p_show_completed_tasks">show_completed_tasks</string>
   <string name="p_reverse_sort">reverse_sort</string>
@@ -287,6 +289,7 @@
     <item>@string/TEA_ctrl_notes_pref</item>
     <item>@string/TEA_ctrl_gcal</item>
     <item>@string/TEA_ctrl_timer_pref</item>
+    <item>@string/TEA_ctrl_creation_date</item>
     <item>@string/TEA_ctrl_hide_section_pref</item>
   </string-array>
 

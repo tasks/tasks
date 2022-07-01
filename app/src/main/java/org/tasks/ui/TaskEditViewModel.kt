@@ -123,6 +123,15 @@ class TaskEditViewModel @Inject constructor(
     lateinit var task: Task
         private set
 
+    var creationDate: Long? = null
+        get() = field ?: task.creationDate
+
+    var modificationDate: Long? = null
+        get() = field ?: task.modificationDate
+
+    var completionDate: Long? = null
+        get() = field ?: task.completionDate
+
     var title: String? = null
         get() = field ?: task.title
 
