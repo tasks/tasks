@@ -736,4 +736,6 @@
     <string name="hint_customize_edit_body">Taakscherm aanpassen door velden te verschuiven of onderaan te verbergen</string>
     <string name="enable_reminders">Herinneringen aanzetten</string>
     <string name="enable_reminders_description">Herinneringen staan uit in Android Instellingen</string>
+    <string name="TEA_creation_date">Aanmaakdatum</string>
+    <string name="sort_completion_group">Voltooid %s</string>
 </resources>
