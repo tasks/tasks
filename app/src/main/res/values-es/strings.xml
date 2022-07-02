@@ -736,4 +736,6 @@
     <string name="hint_customize_edit_body">Puede personalizar esta pantalla reorganizando o eliminando campos</string>
     <string name="enable_reminders">Activar los recordatorios</string>
     <string name="enable_reminders_description">Los recordatorios están deshabilitados en la configuración de Android</string>
+    <string name="sort_completion_group">Completar %s</string>
+    <string name="TEA_creation_date">Fecha de creación</string>
 </resources>
