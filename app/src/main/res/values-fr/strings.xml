@@ -731,4 +731,6 @@
     <string name="hint_customize_edit_title">Trop d\'informations \?</string>
     <string name="enable_reminders_description">Les rappels sont désactivés dans les paramètres Android</string>
     <string name="enable_reminders">Activer les rappels</string>
+    <string name="TEA_creation_date">Date de création</string>
+    <string name="sort_completion_group">Achèvement %s</string>
 </resources>
