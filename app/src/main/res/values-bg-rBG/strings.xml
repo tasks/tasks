@@ -736,4 +736,6 @@
     <string name="foreground_location">Местоположение на преден план</string>
     <string name="enable_reminders">Включване на напомнянията</string>
     <string name="enable_reminders_description">Напомнянията са изключени в настройките на Андроид</string>
+    <string name="TEA_creation_date">Дата на създаване</string>
+    <string name="sort_completion_group">Завършена %s</string>
 </resources>
