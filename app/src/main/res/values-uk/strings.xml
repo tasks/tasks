@@ -764,4 +764,6 @@
     <string name="hint_customize_edit_body">Ви можете налаштувати цей екран, змінивши порядок або прибравши поля</string>
     <string name="enable_reminders">Увімкнути нагадування</string>
     <string name="enable_reminders_description">Нагадування вимкнено в налаштуваннях Android</string>
+    <string name="TEA_creation_date">Дата створення</string>
+    <string name="sort_completion_group">Завершення %s</string>
 </resources>
