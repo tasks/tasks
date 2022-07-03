@@ -734,4 +734,8 @@
     <string name="dismiss">Schließen</string>
     <string name="hint_customize_edit_title">Zu viele Informationen\?</string>
     <string name="hint_customize_edit_body">Du kannst diese Ansicht anpassen, indem du Felder neu anordnest oder verschiebst</string>
+    <string name="sort_completion_group">Vervollständigung %s</string>
+    <string name="TEA_creation_date">Erstellungsdatum</string>
+    <string name="enable_reminders">Erinnerungen aktivieren</string>
+    <string name="enable_reminders_description">Erinnerungen sind in den Android-Einstellungen deaktiviert</string>
 </resources>
