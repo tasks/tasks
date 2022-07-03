@@ -721,4 +721,6 @@
     <string name="hint_customize_edit_body">你可以重新安排或删除字段来定制此屏幕</string>
     <string name="enable_reminders">启用提醒</string>
     <string name="enable_reminders_description">提醒在 Android 设置中被禁用</string>
+    <string name="TEA_creation_date">创建日期</string>
+    <string name="sort_completion_group">完成 %s</string>
 </resources>
