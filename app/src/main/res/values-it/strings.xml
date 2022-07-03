@@ -736,4 +736,6 @@
     <string name="hint_customize_edit_body">Puoi personalizzare questa schermata riorganizzando o rimuovendo i campi</string>
     <string name="enable_reminders">Abilitare i promemoria</string>
     <string name="enable_reminders_description">I promemoria sono disattivati nelle impostazioni di Android</string>
+    <string name="TEA_creation_date">Data di creazione</string>
+    <string name="sort_completion_group">Completamento %s</string>
 </resources>
