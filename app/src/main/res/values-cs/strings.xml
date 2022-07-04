@@ -750,4 +750,8 @@
     <string name="dismiss">Odmítnout</string>
     <string name="hint_customize_edit_title">Příliš mnoho informací\?</string>
     <string name="hint_customize_edit_body">Tuto obrazovku si můžete přizpůsobit přeskupením nebo odebráním polí</string>
+    <string name="TEA_creation_date">Datum vytvoření</string>
+    <string name="sort_completion_group">Dokončeno %s</string>
+    <string name="enable_reminders">Povolit připomínky</string>
+    <string name="enable_reminders_description">Připomínky jsou zakázány v nastavení Android</string>
 </resources>
