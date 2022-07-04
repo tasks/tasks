@@ -27,7 +27,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class DeadlineControlSet : TaskEditControlComposeFragment() {
-    @Inject lateinit var activity: Activity
     @Inject lateinit var locale: Locale
     @Inject lateinit var preferences: Preferences
 
@@ -47,28 +46,25 @@ class DeadlineControlSet : TaskEditControlComposeFragment() {
 
     @Composable
     override fun Body() {
-        val context = LocalContext.current
         val dueDate = viewModel.dueDate.collectAsStateLifecycleAware().value
-        val text = if (dueDate == 0L) {
-            stringResource(id = R.string.no_due_date)
-        } else {
-            DateUtilities.getRelativeDateTime(
-                context,
-                dueDate,
-                locale,
-                FormatStyle.FULL,
-                preferences.alwaysDisplayFullDate,
-                false
-            )
-        }
-        val color = when {
-            dueDate == 0L -> MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
-            dueDate.isOverdue -> colorResource(id = R.color.overdue)
-            else -> MaterialTheme.colors.onSurface
-        }
         Text(
-            text = text,
-            color = color,
+            text = if (dueDate == 0L) {
+                stringResource(id = R.string.no_due_date)
+            } else {
+                DateUtilities.getRelativeDateTime(
+                    LocalContext.current,
+                    dueDate,
+                    locale,
+                    FormatStyle.FULL,
+                    preferences.alwaysDisplayFullDate,
+                    false
+                )
+            },
+            color = when {
+                dueDate == 0L -> MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
+                dueDate.isOverdue -> colorResource(id = R.color.overdue)
+                else -> MaterialTheme.colors.onSurface
+            },
             modifier = Modifier.padding(vertical = 20.dp)
         )
     }
