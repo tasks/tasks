@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.databinding.ControlSetDeadlineBinding
+import org.tasks.databinding.ControlSetCreationDateBinding
 import org.tasks.preferences.Preferences
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,9 +18,9 @@ class CreationDateControlSet : TaskEditControlFragment() {
     private lateinit var date: TextView
 
     override fun bind(parent: ViewGroup?) =
-        ControlSetDeadlineBinding.inflate(layoutInflater, parent, true).let {
+        ControlSetCreationDateBinding.inflate(layoutInflater, parent, true).let {
             val formatter = SimpleDateFormat( "yyyy-MM-dd HH:mm", locale)
-            date = it.dueDate
+            date = it.creationDate
             var dateRecords = context?.getString( R.string.sort_created_group, formatter.format( viewModel.creationDate!!)) + "\n" +
                     context?.getString( R.string.sort_modified_group, formatter.format( viewModel.modificationDate!!))
             if (viewModel.completionDate!! != 0L)
