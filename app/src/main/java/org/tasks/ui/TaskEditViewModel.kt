@@ -86,6 +86,7 @@ class TaskEditViewModel @Inject constructor(
             alarms: List<Alarm>,
     ) {
         this.task = task
+        dueDate.value = task.dueDate
         isNew = task.isNew
         originalList = list
         selectedList.value = list
@@ -138,16 +139,15 @@ class TaskEditViewModel @Inject constructor(
     var completed: Boolean? = null
         get() = field ?: task.isCompleted
 
-    var dueDate: Long? = null
-        get() = field ?: task.dueDate
-        set(value) {
-            field = when {
-                value == null -> null
-                value == 0L -> 0
-                hasDueTime(value) -> createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, value)
-                else -> createDueDate(Task.URGENCY_SPECIFIC_DAY, value)
-            }
+    val dueDate = MutableStateFlow(0L)
+
+    fun setDueDate(value: Long) {
+        dueDate.value = when {
+            value == 0L -> 0
+            hasDueTime(value) -> createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, value)
+            else -> createDueDate(Task.URGENCY_SPECIFIC_DAY, value)
         }
+    }
 
     var priority = MutableStateFlow(Task.Priority.NONE)
 
@@ -287,7 +287,7 @@ class TaskEditViewModel @Inject constructor(
     fun hasChanges(): Boolean =
         (task.title != title || (isNew && title?.isNotBlank() == true)) ||
                 task.isCompleted != completed ||
-                task.dueDate != dueDate ||
+                task.dueDate != dueDate.value ||
                 task.priority != priority.value ||
                 if (task.notes.isNullOrBlank()) {
                     !description.isNullOrBlank()
@@ -332,7 +332,7 @@ class TaskEditViewModel @Inject constructor(
         }
         clear(remove)
         task.title = if (title.isNullOrBlank()) context.getString(R.string.no_title) else title
-        task.dueDate = dueDate!!
+        task.dueDate = dueDate.value
         task.priority = priority.value
         task.notes = description
         task.hideUntil = hideUntil!!

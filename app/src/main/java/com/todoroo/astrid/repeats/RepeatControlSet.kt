@@ -15,6 +15,7 @@ import android.widget.AdapterView
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
@@ -31,7 +32,6 @@ import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.ui.HiddenTopArrayAdapter
 import org.tasks.ui.OnItemSelected
 import org.tasks.ui.TaskEditControlFragment
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -68,7 +68,7 @@ class RepeatControlSet : TaskEditControlFragment() {
         }
     }
 
-    fun onDueDateChanged() {
+    private fun onDueDateChanged() {
         viewModel.recur?.let { recur ->
             if (recur.frequency == Recur.Frequency.MONTHLY && recur.dayList.isNotEmpty()) {
                 val weekdayNum = recur.dayList[0]
@@ -111,6 +111,12 @@ class RepeatControlSet : TaskEditControlFragment() {
         typeSpinner.adapter = typeAdapter
         typeSpinner.setSelection(if (viewModel.repeatAfterCompletion!!) TYPE_COMPLETION_DATE else TYPE_DUE_DATE)
         refreshDisplayView()
+
+        lifecycleScope.launchWhenResumed {
+            viewModel.dueDate.collect {
+                onDueDateChanged()
+            }
+        }
     }
 
     private fun onRepeatTypeChanged(position: Int) {
@@ -120,7 +126,7 @@ class RepeatControlSet : TaskEditControlFragment() {
     }
 
     private val dueDate: Long
-        get() = viewModel.dueDate!!.let { if (it > 0) it else currentTimeMillis() }
+        get() = viewModel.dueDate.value.let { if (it > 0) it else currentTimeMillis() }
 
     override fun onRowClick() {
         BasicRecurrenceDialog.newBasicRecurrenceDialog(

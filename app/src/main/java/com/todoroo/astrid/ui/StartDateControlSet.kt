@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.data.Task
@@ -39,7 +40,7 @@ class StartDateControlSet : TaskEditControlFragment() {
     private lateinit var startDate: TextView
 
     private val dueDateTime
-        get() = viewModel.dueDate!!
+        get() = viewModel.dueDate.value
 
     private var selectedDay = NO_DAY
     private var selectedTime = NO_TIME
@@ -92,7 +93,11 @@ class StartDateControlSet : TaskEditControlFragment() {
             selectedDay = savedInstanceState.getLong(EXTRA_DAY)
             selectedTime = savedInstanceState.getInt(EXTRA_TIME)
         }
-        applySelectionToHideUntil()
+        lifecycleScope.launchWhenResumed {
+            viewModel.dueDate.collect {
+                applySelectionToHideUntil()
+            }
+        }
     }
 
     override fun bind(parent: ViewGroup?) =
@@ -152,8 +157,6 @@ class StartDateControlSet : TaskEditControlFragment() {
                 activity.getColor(if (started) R.color.overdue else R.color.text_primary)
         )
     }
-
-    fun onDueDateChanged() = applySelectionToHideUntil()
 
     private fun applySelectionToHideUntil() {
         val due = dueDateTime.takeIf { it > 0 }?.toDateTime()

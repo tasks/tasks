@@ -23,13 +23,9 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -54,19 +50,14 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
-import org.tasks.ui.DeadlineControlSet.DueDateChangeListener
+import org.tasks.ui.*
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
-import org.tasks.ui.MainActivityEvent
-import org.tasks.ui.MainActivityEventBus
-import org.tasks.ui.NavigationDrawerFragment
 import org.tasks.ui.NavigationDrawerFragment.Companion.newNavigationDrawer
-import org.tasks.ui.TaskListEvent
-import org.tasks.ui.TaskListEventBus
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, TimerControlSetCallback, DueDateChangeListener, CommentBarFragmentCallback, SortDialogCallback {
+class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, TimerControlSetCallback, CommentBarFragmentCallback, SortDialogCallback {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
@@ -469,10 +460,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     private fun finishActionMode() {
         actionMode?.finish()
         actionMode = null
-    }
-
-    override fun dueDateChanged() {
-        taskEditFragment!!.onDueDateChanged()
     }
 
     override fun onStart() {

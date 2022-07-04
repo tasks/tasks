@@ -25,12 +25,6 @@ class DeadlineControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
 
     private lateinit var dueDate: TextView
-    private lateinit var callback: DueDateChangeListener
-
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        callback = activity as DueDateChangeListener
-    }
 
     override fun createView(savedInstanceState: Bundle?) {
         refreshDisplayView()
@@ -42,7 +36,7 @@ class DeadlineControlSet : TaskEditControlFragment() {
             newDateTimePicker(
                     this,
                     REQUEST_DATE,
-                    viewModel.dueDate!!,
+                    viewModel.dueDate.value,
                     preferences.getBoolean(R.string.p_auto_dismiss_datetime_edit_screen, false))
                     .show(fragmentManager, FRAG_TAG_DATE_PICKER)
         }
@@ -63,8 +57,7 @@ class DeadlineControlSet : TaskEditControlFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_DATE) {
             if (resultCode == Activity.RESULT_OK) {
-                viewModel.dueDate = data!!.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L)
-                callback.dueDateChanged()
+                viewModel.setDueDate(data!!.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L))
             }
             refreshDisplayView()
         } else {
@@ -73,7 +66,7 @@ class DeadlineControlSet : TaskEditControlFragment() {
     }
 
     private fun refreshDisplayView() {
-        val date = viewModel.dueDate!!
+        val date = viewModel.dueDate.value
         if (date == 0L) {
             dueDate.text = ""
             setTextColor(false)
@@ -97,10 +90,6 @@ class DeadlineControlSet : TaskEditControlFragment() {
     private fun setTextColor(overdue: Boolean) {
         dueDate.setTextColor(
                 activity.getColor(if (overdue) R.color.overdue else R.color.text_primary))
-    }
-
-    interface DueDateChangeListener {
-        fun dueDateChanged()
     }
 
     companion object {

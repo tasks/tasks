@@ -40,9 +40,7 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.notes.CommentsController
-import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.timers.TimerPlugin
-import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.launchIn
@@ -63,7 +61,6 @@ import org.tasks.fragments.TaskEditControlSetFragmentManager
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
-import org.tasks.ui.TaskEditControlFragment
 import org.tasks.ui.TaskEditEvent
 import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskEditViewModel
@@ -325,21 +322,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     suspend fun save(remove: Boolean = true) = editViewModel.save(remove)
 
-    /*
-   * ======================================================================
-   * =============================================== model reading / saving
-   * ======================================================================
-   */
-    private val repeatControlSet: RepeatControlSet?
-        get() = getFragment<RepeatControlSet>(RepeatControlSet.TAG)
-
-    private val startDateControlSet: StartDateControlSet?
-        get() = getFragment<StartDateControlSet>(StartDateControlSet.TAG)
-
-    private fun <T : TaskEditControlFragment?> getFragment(tag: Int): T? {
-        return childFragmentManager.findFragmentByTag(getString(tag)) as T?
-    }
-
    /*
    * ======================================================================
    * ======================================================= event handlers
@@ -378,10 +360,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
    * ========================================== UI component helper classes
    * ======================================================================
    */
-    fun onDueDateChanged() {
-        repeatControlSet?.onDueDateChanged()
-        startDateControlSet?.onDueDateChanged()
-    }
 
     fun addComment(message: String?, picture: Uri?) {
         val model = editViewModel.task!!
