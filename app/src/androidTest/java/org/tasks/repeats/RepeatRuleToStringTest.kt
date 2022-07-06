@@ -121,7 +121,7 @@ class RepeatRuleToStringTest : InjectingTestCase() {
 
     private fun toString(language: String?, rrule: String): String? {
         return try {
-            val locale = Locale(java.util.Locale.getDefault(), language)
+            val locale = language?.let { Locale.forLanguageTag(it) } ?: Locale.getDefault()
             RepeatRuleToString(context, locale, firebase)
                     .toString(rrule)
         } catch (e: ParseException) {

@@ -37,7 +37,12 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         task.defaultReminders(Task.NOTIFY_AT_DEADLINE)
         setup(task)
 
-        viewModel.dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, currentTimeMillis())
+        viewModel.setDueDate(
+            Task.createDueDate(
+                Task.URGENCY_SPECIFIC_DAY_TIME,
+                currentTimeMillis()
+            )
+        )
 
         save()
 
@@ -53,7 +58,12 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         task.defaultReminders(Task.NOTIFY_AFTER_DEADLINE)
         setup(task)
 
-        viewModel.dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, currentTimeMillis())
+        viewModel.setDueDate(
+            Task.createDueDate(
+                Task.URGENCY_SPECIFIC_DAY_TIME,
+                currentTimeMillis()
+            )
+        )
 
         save()
 
