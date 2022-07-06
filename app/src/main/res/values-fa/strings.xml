@@ -219,4 +219,10 @@
     <string name="cancel">لغو</string>
     <string name="read_permission_label">مجوز وظایف</string>
     <string name="display_name">نام نمایشی</string>
+    <string name="discard_confirmation">آیا مطمئن هستید که می خواهید تغییرات خود را حذف کنید؟</string>
+    <string name="DLG_hour_minutes">وقت</string>
+    <string name="astrid_sort_order">راهنمای خودی آسترید</string>
+    <string name="SSD_sort_my_order">خرید من</string>
+    <string name="action_call">زنگ</string>
+    <string name="action_open">باز</string>
 </resources>
