@@ -251,10 +251,10 @@ class TaskEditViewModel @Inject constructor(
     var originalLocation: Location? = null
         private set(value) {
             field = value
-            selectedLocation = value
+            selectedLocation.value = value
         }
 
-    var selectedLocation: Location? = null
+    var selectedLocation = MutableStateFlow<Location?>(null)
 
     private lateinit var originalTags: List<TagData>
 
@@ -311,7 +311,7 @@ class TaskEditViewModel @Inject constructor(
                 task.elapsedSeconds != elapsedSeconds ||
                 task.estimatedSeconds != estimatedSeconds ||
                 originalList != selectedList.value ||
-                originalLocation != selectedLocation ||
+                originalLocation != selectedLocation.value ||
                 originalTags.toHashSet() != selectedTags.value.toHashSet() ||
                 newSubtasks.isNotEmpty() ||
                 getRingFlags() != when {
@@ -355,14 +355,14 @@ class TaskEditViewModel @Inject constructor(
             taskMover.move(listOf(task.id), selectedList.value!!)
         }
 
-        if ((isNew && selectedLocation != null) || originalLocation != selectedLocation) {
+        if ((isNew && selectedLocation.value != null) || originalLocation != selectedLocation.value) {
             originalLocation?.let { location ->
                 if (location.geofence.id > 0) {
                     locationDao.delete(location.geofence)
                     geofenceApi.update(location.place)
                 }
             }
-            selectedLocation?.let { location ->
+            selectedLocation.value?.let { location ->
                 val place = location.place
                 val geofence = location.geofence
                 geofence.task = task.id
