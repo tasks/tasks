@@ -87,6 +87,7 @@ class TaskEditViewModel @Inject constructor(
     ) {
         this.task = task
         dueDate.value = task.dueDate
+        startDate.value = task.hideUntil
         isNew = task.isNew
         originalList = list
         selectedList.value = list
@@ -154,17 +155,16 @@ class TaskEditViewModel @Inject constructor(
     var description: String? = null
         get() = field ?: task.notes.stripCarriageReturns()
 
-    var hideUntil: Long? = null
-        get() = field ?: task.hideUntil
-        set(value) {
-            field = when {
-                value == null -> null
-                value == 0L -> 0
-                hasDueTime(value) ->
-                    value.toDateTime().withSecondOfMinute(1).withMillisOfSecond(0).millis
-                else -> value.startOfDay()
-            }
+    val startDate = MutableStateFlow(0L)
+
+    fun setStartDate(value: Long) {
+        startDate.value = when {
+            value == 0L -> 0
+            hasDueTime(value) ->
+                value.toDateTime().withSecondOfMinute(1).withMillisOfSecond(0).millis
+            else -> value.startOfDay()
         }
+    }
 
     var recurrence: String? = null
         get() = field ?: task.recurrence
@@ -294,7 +294,7 @@ class TaskEditViewModel @Inject constructor(
                 } else {
                     task.notes != description
                 } ||
-                task.hideUntil != hideUntil ||
+                task.hideUntil != startDate.value ||
                 if (task.recurrence.isNullOrBlank()) {
                     !recurrence.isNullOrBlank()
                 } else {
@@ -335,7 +335,7 @@ class TaskEditViewModel @Inject constructor(
         task.dueDate = dueDate.value
         task.priority = priority.value
         task.notes = description
-        task.hideUntil = hideUntil!!
+        task.hideUntil = startDate.value
         task.recurrence = recurrence
         task.repeatUntil = repeatUntil!!
         task.elapsedSeconds = elapsedSeconds!!

@@ -1,19 +1,32 @@
 package com.todoroo.astrid.ui
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
-import android.view.ViewGroup
-import android.widget.TextView
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.andlib.utility.DateUtilities.getTimeString
 import com.todoroo.andlib.utility.DateUtilities.now
-import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.ui.StartDateControlSet.Companion.getRelativeDateString
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.databinding.ControlSetHideBinding
+import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.date.DateTimeUtils.newDateTime
-import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.dialogs.StartDatePicker
 import org.tasks.dialogs.StartDatePicker.Companion.DAY_BEFORE_DUE
 import org.tasks.dialogs.StartDatePicker.Companion.DUE_DATE
@@ -24,35 +37,26 @@ import org.tasks.dialogs.StartDatePicker.Companion.NO_DAY
 import org.tasks.dialogs.StartDatePicker.Companion.NO_TIME
 import org.tasks.dialogs.StartDatePicker.Companion.WEEK_BEFORE_DUE
 import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils.millisOfDay
-import org.tasks.time.DateTimeUtils.startOfDay
-import org.tasks.ui.TaskEditControlFragment
+import org.tasks.ui.TaskEditControlComposeFragment
 import java.time.format.FormatStyle
 import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class StartDateControlSet : TaskEditControlFragment() {
-    @Inject lateinit var activity: Activity
+class StartDateControlSet : TaskEditControlComposeFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
 
-    private lateinit var startDate: TextView
-
-    private val dueDateTime
-        get() = viewModel.dueDate.value
-
-    private var selectedDay = NO_DAY
-    private var selectedTime = NO_TIME
+    private val vm: StartDateViewModel by viewModels()
 
     override fun onRowClick() {
         val fragmentManager = parentFragmentManager
         if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
             StartDatePicker.newDateTimePicker(
                     this,
-                    REQUEST_HIDE_UNTIL,
-                    selectedDay,
-                    selectedTime,
+                    REQUEST_START_DATE,
+                    vm.selectedDay.value,
+                    vm.selectedTime.value,
                     preferences.getBoolean(R.string.p_auto_dismiss_datetime_edit_screen, false))
                     .show(fragmentManager, FRAG_TAG_DATE_PICKER)
         }
@@ -60,51 +64,25 @@ class StartDateControlSet : TaskEditControlFragment() {
 
     override fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            val dueDay = dueDateTime.startOfDay()
-            val dueTime = dueDateTime.millisOfDay()
-            val hideUntil = viewModel.hideUntil?.takeIf { it > 0 }?.toDateTime()
-            if (hideUntil == null) {
-                if (viewModel.isNew) {
-                    when (preferences.getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE)) {
-                        Task.HIDE_UNTIL_DUE -> selectedDay = DUE_DATE
-                        Task.HIDE_UNTIL_DUE_TIME -> selectedDay = DUE_TIME
-                        Task.HIDE_UNTIL_DAY_BEFORE -> selectedDay = DAY_BEFORE_DUE
-                        Task.HIDE_UNTIL_WEEK_BEFORE -> selectedDay = WEEK_BEFORE_DUE
-                    }
-                }
-            } else {
-                selectedDay = hideUntil.startOfDay().millis
-                selectedTime = hideUntil.millisOfDay
-                selectedDay = when (selectedDay) {
-                    dueDay -> if (selectedTime == dueTime) {
-                        selectedTime = NO_TIME
-                        DUE_TIME
-                    } else {
-                        DUE_DATE
-                    }
-                    dueDay.toDateTime().minusDays(1).millis ->
-                        DAY_BEFORE_DUE
-                    dueDay.toDateTime().minusDays(7).millis ->
-                        WEEK_BEFORE_DUE
-                    else -> selectedDay
-                }
-            }
-        } else {
-            selectedDay = savedInstanceState.getLong(EXTRA_DAY)
-            selectedTime = savedInstanceState.getInt(EXTRA_TIME)
+            vm.init(viewModel.dueDate.value, viewModel.startDate.value, viewModel.isNew)
         }
         lifecycleScope.launchWhenResumed {
             viewModel.dueDate.collect {
-                applySelectionToHideUntil()
+                applySelected()
             }
         }
     }
 
-    override fun bind(parent: ViewGroup?) =
-        ControlSetHideBinding.inflate(layoutInflater, parent, true).let {
-            startDate = it.startDate
-            it.root
-        }
+    @Composable
+    override fun Body() {
+        StartDate(
+            startDate = viewModel.startDate.collectAsStateLifecycleAware().value,
+            selectedDay = vm.selectedDay.collectAsStateLifecycleAware().value,
+            selectedTime = vm.selectedTime.collectAsStateLifecycleAware().value,
+            displayFullDate = preferences.alwaysDisplayFullDate,
+            locale = locale,
+        )
+    }
 
     override val icon = R.drawable.ic_pending_actions_24px
 
@@ -113,67 +91,113 @@ class StartDateControlSet : TaskEditControlFragment() {
     override val isClickable = true
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_HIDE_UNTIL) {
+        if (requestCode == REQUEST_START_DATE) {
             if (resultCode == Activity.RESULT_OK) {
-                selectedDay = data?.getLongExtra(EXTRA_DAY, 0L) ?: NO_DAY
-                selectedTime = data?.getIntExtra(EXTRA_TIME, 0) ?: NO_TIME
-                applySelectionToHideUntil()
+                vm.setSelected(
+                    selectedDay = data?.getLongExtra(EXTRA_DAY, 0L) ?: NO_DAY,
+                    selectedTime = data?.getIntExtra(EXTRA_TIME, 0) ?: NO_TIME
+                )
+                applySelected()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putLong(EXTRA_DAY, selectedDay)
-        outState.putInt(EXTRA_TIME, selectedTime)
-    }
-
-    private fun getRelativeDateString(resId: Int) = if (selectedTime == NO_TIME) {
-        getString(resId)
-    } else {
-        "${getString(resId)} ${DateUtilities.getTimeString(context, newDateTime().withMillisOfDay(selectedTime))}"
-    }
-
-    private fun refreshDisplayView() {
-        startDate.text = when (selectedDay) {
-            DUE_DATE -> getRelativeDateString(R.string.due_date)
-            DUE_TIME -> getString(R.string.due_time)
-            DAY_BEFORE_DUE -> getRelativeDateString(R.string.day_before_due)
-            WEEK_BEFORE_DUE -> getRelativeDateString(R.string.week_before_due)
-            in 1..Long.MAX_VALUE -> DateUtilities.getRelativeDateTime(
-                    activity,
-                    selectedDay + selectedTime,
-                    locale,
-                    FormatStyle.FULL,
-                    preferences.alwaysDisplayFullDate,
-                    false
-            )
-            else -> null
-        }
-        val started = viewModel.hideUntil?.takeIf { it > 0 }?.let { it < now() } ?: false
-        startDate.setTextColor(
-                activity.getColor(if (started) R.color.overdue else R.color.text_primary)
-        )
-    }
-
-    private fun applySelectionToHideUntil() {
-        val due = dueDateTime.takeIf { it > 0 }?.toDateTime()
-        val millisOfDay = selectedTime
-        viewModel.hideUntil = when (selectedDay) {
-            DUE_DATE -> due?.withMillisOfDay(millisOfDay)?.millis ?: 0
-            DUE_TIME -> due?.millis ?: 0
-            DAY_BEFORE_DUE -> due?.minusDays(1)?.withMillisOfDay(millisOfDay)?.millis ?: 0
-            WEEK_BEFORE_DUE -> due?.minusDays(7)?.withMillisOfDay(millisOfDay)?.millis ?: 0
-            else -> selectedDay + selectedTime
-        }
-        refreshDisplayView()
+    private fun applySelected() {
+        viewModel.setStartDate(vm.getSelectedValue(viewModel.dueDate.value))
     }
 
     companion object {
         const val TAG = R.string.TEA_ctrl_hide_until_pref
-        private const val REQUEST_HIDE_UNTIL = 11011
+        private const val REQUEST_START_DATE = 11011
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
+
+        internal fun Context.getRelativeDateString(resId: Int, time: Int) =
+            if (time == NO_TIME) {
+                getString(resId)
+            } else {
+                "${getString(resId)} ${getTimeString(this, newDateTime().withMillisOfDay(time))}"
+            }
+    }
+}
+
+@Composable
+fun StartDate(
+    startDate: Long,
+    selectedDay: Long,
+    selectedTime: Int,
+    displayFullDate: Boolean,
+    locale: Locale = Locale.getDefault(),
+    currentTime: Long = now(),
+) {
+    val context = LocalContext.current
+    Text(
+        text = when (selectedDay) {
+            DUE_DATE -> context.getRelativeDateString(R.string.due_date, selectedTime)
+            DUE_TIME -> context.getString(R.string.due_time)
+            DAY_BEFORE_DUE -> context.getRelativeDateString(R.string.day_before_due, selectedTime)
+            WEEK_BEFORE_DUE -> context.getRelativeDateString(R.string.week_before_due, selectedTime)
+            in 1..Long.MAX_VALUE -> DateUtilities.getRelativeDateTime(
+                LocalContext.current,
+                selectedDay + selectedTime,
+                locale,
+                FormatStyle.FULL,
+                displayFullDate,
+                false
+            )
+            else -> stringResource(id = R.string.no_start_date)
+        },
+        color = when {
+            startDate == 0L -> MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
+            startDate < currentTime -> colorResource(id = R.color.overdue)
+            else -> MaterialTheme.colors.onSurface
+        },
+        modifier = Modifier.padding(vertical = 20.dp),
+    )
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun NoStartDate() {
+    MdcTheme {
+        StartDate(
+            startDate = 0L,
+            selectedDay = NO_DAY,
+            selectedTime = NO_TIME,
+            displayFullDate = false,
+            currentTime = 1657080392000L
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun FutureStartDate() {
+    MdcTheme {
+        StartDate(
+            startDate = 1657080392000L,
+            selectedDay = DUE_DATE,
+            selectedTime = NO_TIME,
+            displayFullDate = false,
+            currentTime = 1657080392000L
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PastStartDate() {
+    MdcTheme {
+        StartDate(
+            startDate = 1657080392000L,
+            selectedDay = DUE_TIME,
+            selectedTime = NO_TIME,
+            displayFullDate = false,
+            currentTime = 1657080392001L
+        )
     }
 }

@@ -21,7 +21,12 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         task.defaultReminders(Task.NOTIFY_AT_START)
         setup(task)
 
-        viewModel.hideUntil = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, currentTimeMillis())
+        viewModel.setStartDate(
+            Task.createDueDate(
+                Task.URGENCY_SPECIFIC_DAY_TIME,
+                currentTimeMillis()
+            )
+        )
 
         save()
 

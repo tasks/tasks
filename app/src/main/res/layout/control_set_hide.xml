@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/start_date"
-  style="@style/TaskEditTextPrimary"
-  android:hint="@string/no_start_date"
-  android:layout_width="fill_parent"
-  android:layout_height="wrap_content"
-  android:textAlignment="viewStart" />
