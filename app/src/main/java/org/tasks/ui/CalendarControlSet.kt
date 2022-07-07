@@ -4,67 +4,90 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.provider.CalendarContract
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast.LENGTH_SHORT
-import com.todoroo.astrid.gcal.GCalHelper
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarProvider
-import org.tasks.databinding.ControlSetGcalDisplayBinding
-import org.tasks.dialogs.DialogBuilder
+import org.tasks.compose.DisabledText
+import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.extensions.Context.toast
-import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionChecker
-import org.tasks.preferences.Preferences
-import org.tasks.themes.ThemeBase
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CalendarControlSet : TaskEditControlFragment() {
-    private lateinit var cancelButton: View
-    private lateinit var calendar: TextView
-
+class CalendarControlSet : TaskEditControlComposeFragment() {
     @Inject lateinit var activity: Activity
-    @Inject lateinit var gcalHelper: GCalHelper
     @Inject lateinit var calendarProvider: CalendarProvider
-    @Inject lateinit var preferences: Preferences
     @Inject lateinit var permissionChecker: PermissionChecker
-    @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
-    @Inject lateinit var firebase: Firebase
-    @Inject lateinit var dialogBuilder: DialogBuilder
-    @Inject lateinit var themeBase: ThemeBase
 
     override fun onResume() {
         super.onResume()
 
         val canAccessCalendars = permissionChecker.canAccessCalendars()
-        viewModel.eventUri?.let {
+        viewModel.eventUri.value?.let {
             if (canAccessCalendars && !calendarEntryExists(it)) {
-                viewModel.eventUri = null
+                viewModel.eventUri.value = null
             }
         }
         if (!canAccessCalendars) {
-            viewModel.selectedCalendar = null
+            viewModel.selectedCalendar.value = null
         }
-
-        refreshDisplayView()
     }
 
-    override fun bind(parent: ViewGroup?) =
-        ControlSetGcalDisplayBinding.inflate(layoutInflater, parent, true).let {
-            cancelButton = it.clear.clear.apply {
-                setOnClickListener { clearCalendar() }
+    @Composable
+    override fun Body() {
+        val eventUri = viewModel.eventUri.collectAsStateLifecycleAware().value
+        val selectedCalendar =
+            viewModel.selectedCalendar.collectAsStateLifecycleAware().value?.let {
+                calendarProvider.getCalendar(it)?.name
             }
-            calendar = it.calendarDisplayWhich
-            it.root
+        if (eventUri?.isNotBlank() == true) {
+            Row {
+                Text(
+                    text = stringResource(id = R.string.gcal_TEA_showCalendar_label),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 20.dp)
+                )
+                IconButton(
+                    onClick = { clear() },
+                    Modifier.padding(vertical = 8.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Delete,
+                        contentDescription = stringResource(id = R.string.delete),
+                        modifier = Modifier.alpha(ContentAlpha.medium),
+                    )
+                }
+            }
+        } else if (selectedCalendar?.isNotBlank() == true) {
+            Text(
+                text = selectedCalendar,
+                modifier = Modifier.padding(vertical = 20.dp),
+            )
+        } else {
+            DisabledText(
+                text = stringResource(id = R.string.dont_add_to_calendar),
+                modifier = Modifier.padding(vertical = 20.dp),
+            )
         }
+    }
 
     override val icon = R.drawable.ic_outline_event_24px
 
@@ -72,40 +95,23 @@ class CalendarControlSet : TaskEditControlFragment() {
 
     override val isClickable = true
 
-    private fun clearCalendar() {
-        if (viewModel.eventUri.isNullOrBlank()) {
-            clear()
-        } else {
-            dialogBuilder
-                    .newDialog(R.string.delete_calendar_event_confirmation)
-                    .setPositiveButton(R.string.delete) { _, _ ->
-                        if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_CLEAR_EVENT)) {
-                            clear()
-                        }
-                    }
-                    .setNegativeButton(R.string.cancel, null)
-                    .show()
-        }
-    }
-
     private fun clear() {
-        viewModel.selectedCalendar = null
-        viewModel.eventUri = null
-        refreshDisplayView()
+        viewModel.selectedCalendar.value = null
+        viewModel.eventUri.value = null
     }
 
     override fun onRowClick() {
-        if (viewModel.eventUri.isNullOrBlank()) {
+        if (viewModel.eventUri.value.isNullOrBlank()) {
             CalendarPicker.newCalendarPicker(this, REQUEST_CODE_PICK_CALENDAR, calendarName)
                     .show(parentFragmentManager, FRAG_TAG_CALENDAR_PICKER)
-        } else if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_OPEN_EVENT)) {
+        } else {
             openCalendarEvent()
         }
     }
 
     private fun openCalendarEvent() {
         val cr = activity.contentResolver
-        val uri = Uri.parse(viewModel.eventUri)
+        val uri = Uri.parse(viewModel.eventUri.value)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         try {
             cr.query(
@@ -115,8 +121,7 @@ class CalendarControlSet : TaskEditControlFragment() {
                     null).use { cursor ->
                 if (cursor!!.count == 0) {
                     activity.toast(R.string.calendar_event_not_found, duration = LENGTH_SHORT)
-                    viewModel.eventUri = null
-                    refreshDisplayView()
+                    viewModel.eventUri.value = null
                 } else {
                     cursor.moveToFirst()
                     intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cursor.getLong(0))
@@ -133,8 +138,7 @@ class CalendarControlSet : TaskEditControlFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_PICK_CALENDAR) {
             if (resultCode == Activity.RESULT_OK) {
-                viewModel.selectedCalendar = data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
-                refreshDisplayView()
+                viewModel.selectedCalendar.value = data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -142,37 +146,7 @@ class CalendarControlSet : TaskEditControlFragment() {
     }
 
     private val calendarName: String?
-        get() = viewModel.selectedCalendar?.let { calendarProvider.getCalendar(it)?.name }
-
-    override fun onRequestPermissionsResult(
-            requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == REQUEST_CODE_OPEN_EVENT) {
-            if (verifyPermissions(grantResults)) {
-                openCalendarEvent()
-            }
-        } else if (requestCode == REQUEST_CODE_CLEAR_EVENT) {
-            if (verifyPermissions(grantResults)) {
-                clear()
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
-    }
-
-    private fun refreshDisplayView() = when {
-        viewModel.eventUri?.isNotBlank() == true -> {
-            calendar.setText(R.string.gcal_TEA_showCalendar_label)
-            cancelButton.visibility = View.VISIBLE
-        }
-        !viewModel.selectedCalendar.isNullOrBlank() -> {
-            calendar.text = calendarName
-            cancelButton.visibility = View.GONE
-        }
-        else -> {
-            calendar.text = null
-            cancelButton.visibility = View.GONE
-        }
-    }
+        get() = viewModel.selectedCalendar.value?.let { calendarProvider.getCalendar(it)?.name }
 
     private fun calendarEntryExists(eventUri: String?): Boolean {
         if (isNullOrEmpty(eventUri)) {
@@ -197,7 +171,5 @@ class CalendarControlSet : TaskEditControlFragment() {
         const val TAG = R.string.TEA_ctrl_gcal
         private const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
         private const val REQUEST_CODE_PICK_CALENDAR = 70
-        private const val REQUEST_CODE_OPEN_EVENT = 71
-        private const val REQUEST_CODE_CLEAR_EVENT = 72
     }
 }

@@ -122,7 +122,6 @@
     <string name="CFC_title_contains_text">Заглавието съдържа: \?</string>
     <string name="gcal_TEA_error">Грешка при добавяне на задача в календара!</string>
     <string name="gcal_TEA_showCalendar_label">Добавяне на събитие в календара</string>
-    <string name="delete_calendar_event_confirmation">Изтриване на събитие от календара\?</string>
     <string name="calendar_event_not_found">Събитието от календара не е намерено</string>
     <string name="gcal_completed_title">%s (завършено)</string>
     <string name="CFC_gtasks_list_text">В списъка: \?</string>

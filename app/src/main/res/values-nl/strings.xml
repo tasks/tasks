@@ -116,7 +116,6 @@
     <string name="CFC_title_contains_text">Naam bevat: ?</string>
     <string name="gcal_TEA_error">Fout bij toevoegen taak aan kalender!</string>
     <string name="gcal_TEA_showCalendar_label">Kalender-item openen</string>
-    <string name="delete_calendar_event_confirmation">Kalender-item wissen\?</string>
     <string name="calendar_event_not_found">Kalender-item niet gevonden</string>
     <string name="gcal_completed_title">%s (voltooid)</string>
     <string name="CFC_gtasks_list_text">In de lijst: \?</string>

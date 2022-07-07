@@ -124,7 +124,6 @@
     <string name="CFC_gtasks_list_text">பட்டியலில் :\?</string>
     <string name="gcal_completed_title">%s (முடிந்தது)</string>
     <string name="calendar_event_not_found">நாள்காட்டி நிகழ்வு கிடைக்கவில்லை</string>
-    <string name="delete_calendar_event_confirmation">நாள்காட்டி நிகழ்வை நீக்கவா\?</string>
     <string name="gcal_TEA_showCalendar_label">நாள்காட்டி நிகழ்வைத் திறக்கவும்</string>
     <string name="CFC_title_contains_text">தலைப்பில்:\?</string>
     <string name="CFC_title_contains_name">தலைப்பில்…</string>

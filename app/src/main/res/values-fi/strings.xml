@@ -107,7 +107,6 @@
     <string name="CFC_title_contains_text">Otsikko sisältää: ?</string>
     <string name="gcal_TEA_error">Virhe! Lisättäessä tehtävää kalenteriin!</string>
     <string name="gcal_TEA_showCalendar_label">Avaa kalenteritapahtuma</string>
-    <string name="delete_calendar_event_confirmation">Poista kalenteritapahtuma\?</string>
     <string name="calendar_event_not_found">Kalenteritapahtumaa ei löydy</string>
     <string name="gcal_completed_title">%s (valmistunut)</string>
     <string name="CFC_gtasks_list_text">Listalla: ?</string>

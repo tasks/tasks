@@ -117,8 +117,7 @@ class TaskEditViewModel @Inject constructor(
         if (isNew && permissionChecker.canAccessCalendars()) {
             originalCalendar = preferences.defaultCalendar
         }
-        eventUri = task.calendarURI
-
+        eventUri.value = task.calendarURI
         priority.value = task.priority
     }
 
@@ -222,12 +221,12 @@ class TaskEditViewModel @Inject constructor(
     var originalCalendar: String? = null
         private set(value) {
             field = value
-            selectedCalendar = value
+            selectedCalendar.value = value
         }
 
-    var selectedCalendar: String? = null
+    var selectedCalendar = MutableStateFlow<String?>(null)
 
-    var eventUri: String? = null
+    var eventUri = MutableStateFlow<String?>(null)
 
     var isNew: Boolean = false
         private set
@@ -302,11 +301,11 @@ class TaskEditViewModel @Inject constructor(
                 } ||
                 task.repeatAfterCompletion() != repeatAfterCompletion ||
                 task.repeatUntil != repeatUntil ||
-                originalCalendar != selectedCalendar ||
+                originalCalendar != selectedCalendar.value ||
                 if (task.calendarURI.isNullOrBlank()) {
-                    !eventUri.isNullOrBlank()
+                    !eventUri.value.isNullOrBlank()
                 } else {
-                    task.calendarURI != eventUri
+                    task.calendarURI != eventUri.value
                 } ||
                 task.elapsedSeconds != elapsedSeconds ||
                 task.estimatedSeconds != estimatedSeconds ||
@@ -446,13 +445,13 @@ class TaskEditViewModel @Inject constructor(
         if (!permissionChecker.canAccessCalendars()) {
             return
         }
-        if (eventUri == null) {
+        if (eventUri.value == null) {
             calendarEventProvider.deleteEvent(task)
         }
         if (!task.hasDueDate()) {
             return
         }
-        selectedCalendar?.let {
+        selectedCalendar.value?.let {
             try {
                 task.calendarURI = gCalHelper.createTaskEvent(task, it)?.toString()
             } catch (e: Exception) {

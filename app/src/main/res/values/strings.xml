@@ -137,7 +137,6 @@ File %1$s contained %2$s.\n\n
   <string name="CFC_title_contains_text">Title contains: ?</string>
   <string name="gcal_TEA_error">Error adding task to calendar!</string>
   <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
-  <string name="delete_calendar_event_confirmation">Delete calendar event?</string>
   <string name="calendar_event_not_found">Calendar event not found</string>
   <string name="gcal_completed_title">%s (completed)</string>
   <string name="CFC_gtasks_list_text">In List: ?</string>

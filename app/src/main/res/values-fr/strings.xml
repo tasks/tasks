@@ -109,7 +109,6 @@
     <string name="CFC_title_contains_text">Titre contient : \?</string>
     <string name="gcal_TEA_error">Erreur d\'ajout de tâche à l\'agenda !</string>
     <string name="gcal_TEA_showCalendar_label">Ouvrir l\'évènement de l\'agenda</string>
-    <string name="delete_calendar_event_confirmation">Supprimer l\'évènement \?</string>
     <string name="calendar_event_not_found">Événement non trouvé</string>
     <string name="gcal_completed_title">%s (complété)</string>
     <string name="CFC_gtasks_list_text">Dans la liste : ?</string>

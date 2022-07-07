@@ -115,7 +115,6 @@
     <string name="CFC_title_contains_text">제목이 다음을 포함: ?</string>
     <string name="gcal_TEA_error">달력에 할일 추가 실패!</string>
     <string name="gcal_TEA_showCalendar_label">달력 일정 열기</string>
-    <string name="delete_calendar_event_confirmation">달력 일정을 삭제할까요\?</string>
     <string name="calendar_event_not_found">달력 일정이 발견되지 않음</string>
     <string name="gcal_completed_title">%s (완료)</string>
     <string name="CFC_gtasks_list_text">목록에: ?</string>

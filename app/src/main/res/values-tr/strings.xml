@@ -117,7 +117,6 @@
     <string name="CFC_title_contains_text">Başlık şunu içersin: ?</string>
     <string name="gcal_TEA_error">Takvime görev eklenmesinde hata!</string>
     <string name="gcal_TEA_showCalendar_label">Takvim Olayı Aç</string>
-    <string name="delete_calendar_event_confirmation">Takvim etkinliğini sil?</string>
     <string name="calendar_event_not_found">Takvim etkinliği bulunamadı</string>
     <string name="gcal_completed_title">%s (tamamlandı)</string>
     <string name="CFC_gtasks_list_text">Liste içinde: ?</string>

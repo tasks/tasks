@@ -115,7 +115,6 @@
     <string name="CFC_title_contains_text">A név tartalmazza ezt: ?</string>
     <string name="gcal_TEA_error">Nem sikerült a feladat hozzáadása a naptárhoz!</string>
     <string name="gcal_TEA_showCalendar_label">Naptáresemény megnyitása</string>
-    <string name="delete_calendar_event_confirmation">Naptárbejegyzés törlése?</string>
     <string name="calendar_event_not_found">Naptáresemény nem található</string>
     <string name="gcal_completed_title">%s (befejezve)</string>
     <string name="CFC_gtasks_list_text">Listában: ?</string>

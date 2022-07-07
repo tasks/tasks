@@ -289,7 +289,6 @@
     <string name="snooze_all">全部延遲提醒</string>
     <string name="CFC_list_name">在清單中…</string>
     <string name="calendar_event_not_found">找不到日曆活動</string>
-    <string name="delete_calendar_event_confirmation">要刪除日曆活動嗎 \?</string>
     <string name="CFC_tag_contains_text">標註名稱包含: \?</string>
     <string name="CFC_tag_contains_name">標註名稱包含…</string>
     <string name="CFC_tag_name">標籤…</string>

@@ -117,7 +117,6 @@
     <string name="CFC_title_contains_text">Izenburuak hau du: \?</string>
     <string name="gcal_TEA_error">Errorea zeregina egutegira gehitzean!</string>
     <string name="gcal_TEA_showCalendar_label">Ireki egutegiko gertaera</string>
-    <string name="delete_calendar_event_confirmation">Ezabatu egutegiko gertaera\?</string>
     <string name="calendar_event_not_found">Ez da egutegiko gertaera aurkitu</string>
     <string name="gcal_completed_title">%s (burututa)</string>
     <string name="CFC_gtasks_list_text">Zerrendan: \?</string>

@@ -19,14 +19,10 @@ public abstract class PermissionRequestor {
   }
 
   public boolean requestCalendarPermissions() {
-    return requestCalendarPermissions(REQUEST_CALENDAR);
-  }
-
-  public boolean requestCalendarPermissions(int requestCode) {
     if (permissionChecker.canAccessCalendars()) {
       return true;
     }
-    requestPermissions(requestCode, permission.READ_CALENDAR, permission.WRITE_CALENDAR);
+    requestPermissions(REQUEST_CALENDAR, permission.READ_CALENDAR, permission.WRITE_CALENDAR);
     return false;
   }
 

@@ -116,7 +116,6 @@
     <string name="CFC_title_contains_text">Titel enthält: ?</string>
     <string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender!</string>
     <string name="gcal_TEA_showCalendar_label">Kalendereintrag öffnen</string>
-    <string name="delete_calendar_event_confirmation">Kalendereintrag löschen?</string>
     <string name="calendar_event_not_found">Kalendereintrag nicht gefunden</string>
     <string name="gcal_completed_title">%s (abgeschlossen)</string>
     <string name="CFC_gtasks_list_text">In der Liste: ?</string>

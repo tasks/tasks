@@ -117,7 +117,6 @@
     <string name="CFC_title_contains_text">Zoznam obsahuje: ?</string>
     <string name="gcal_TEA_error">Chyba pridania úlohy do kalendára!</string>
     <string name="gcal_TEA_showCalendar_label">Otvoriť udalosť kalendára</string>
-    <string name="delete_calendar_event_confirmation">Zmazať udalosť z kalendára?</string>
     <string name="calendar_event_not_found">Udalosť kalendára nenájdená</string>
     <string name="gcal_completed_title">%s (dokončené)</string>
     <string name="CFC_gtasks_list_text">V zozname: ?</string>

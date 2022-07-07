@@ -106,7 +106,6 @@
     <string name="CFC_title_contains_text">标题含：?</string>
     <string name="gcal_TEA_error">将任务添加到日历时发生错误！</string>
     <string name="gcal_TEA_showCalendar_label">打开日程表事件</string>
-    <string name="delete_calendar_event_confirmation">是否删除日历事件？</string>
     <string name="calendar_event_not_found">找不到日历事件</string>
     <string name="gcal_completed_title">%s (已完成)</string>
     <string name="CFC_gtasks_list_text">列表内容：?</string>

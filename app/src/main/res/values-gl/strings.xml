@@ -113,7 +113,6 @@
     <string name="CFC_title_contains_text">O título contén: \?</string>
     <string name="gcal_TEA_error">Erro ao engadir a tarefa ao calendario!</string>
     <string name="gcal_TEA_showCalendar_label">Abrir evento de calendario</string>
-    <string name="delete_calendar_event_confirmation">Borrar evento do calendario\?</string>
     <string name="calendar_event_not_found">Evento de calendario non atopado</string>
     <string name="gcal_completed_title">%s (finalizado)</string>
     <string name="CFC_gtasks_list_text">Na lista: \?</string>

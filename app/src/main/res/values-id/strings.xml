@@ -80,7 +80,6 @@
     <string name="CFC_tag_contains_text">Nama tag memuat: \?</string>
     <string name="gcal_TEA_error">Terjadi kesalahan saat menambahkan tugas ke kalender!</string>
     <string name="gcal_TEA_showCalendar_label">Buka Acara Kalender</string>
-    <string name="delete_calendar_event_confirmation">Hapus acara kalender\?</string>
     <string name="calendar_event_not_found">Acara kalender tidak ditemukan</string>
     <string name="gcal_completed_title">%s (selesai)</string>
     <string name="CFC_gtasks_list_text">Dalam Daftar: \?</string>

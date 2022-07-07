@@ -7,6 +7,7 @@ import android.os.Parcelable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.util.Pair
@@ -207,7 +209,8 @@ fun LocationRow(
                 } else {
                     Icons.Outlined.NotificationsOff
                 },
-                contentDescription = null
+                contentDescription = null,
+                modifier = Modifier.alpha(ContentAlpha.medium),
             )
         }
     }

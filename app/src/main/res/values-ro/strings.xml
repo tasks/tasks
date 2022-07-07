@@ -412,7 +412,6 @@
     <string name="CFC_gtasks_list_text">În listă: \?</string>
     <string name="gcal_completed_title">%s (finalizat)</string>
     <string name="calendar_event_not_found">Evenimentul din calendar nu a fost găsit</string>
-    <string name="delete_calendar_event_confirmation">Eliminare eveniment calendaristic\?</string>
     <string name="gcal_TEA_showCalendar_label">Deschidere eveniment calendaristic</string>
     <string name="gcal_TEA_error">Eroare la adăugarea sarcinii în calendar!</string>
     <string name="CFC_title_contains_text">Titlul conține: \?</string>

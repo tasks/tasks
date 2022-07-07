@@ -122,7 +122,6 @@
     <string name="CFC_title_contains_text">Pavadinimas turi: ?</string>
     <string name="gcal_TEA_error">Klaida pridedant užduotį prie kalendoriaus!</string>
     <string name="gcal_TEA_showCalendar_label">Atidaryti kalendoriaus įvykį</string>
-    <string name="delete_calendar_event_confirmation">Ištrinti kalendoriau įvykį?</string>
     <string name="calendar_event_not_found">Kalendoriaus įvykis nerastas</string>
     <string name="gcal_completed_title">%s (užbaigta)</string>
     <string name="CFC_gtasks_list_text">Yra sąraše ?</string>

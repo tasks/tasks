@@ -213,7 +213,6 @@
     <string name="CFC_tag_name">Etikett…</string>
     <string name="CFC_tag_contains_name">Etikettnavn inneholder…</string>
     <string name="CFC_tag_contains_text">Etikettnavn inneholder: \?</string>
-    <string name="delete_calendar_event_confirmation">Slett kalenderhendelse\?</string>
     <string name="calendar_event_not_found">Fant ikke kalenderhendelsen</string>
     <string name="CFC_gtasks_list_name">I GTasks-listen…</string>
     <string name="gtasks_GLA_authenticating">Identitetsbekrefter…</string>

@@ -117,7 +117,6 @@
     <string name="CFC_title_contains_text">כותרת מכילה: ?</string>
     <string name="gcal_TEA_error">שגיאה בהוספת המשימה ליומן!</string>
     <string name="gcal_TEA_showCalendar_label">פתח אירוע ביומן</string>
-    <string name="delete_calendar_event_confirmation">למחוק אירוע ?</string>
     <string name="calendar_event_not_found">אירוע לא נמצא</string>
     <string name="gcal_completed_title">%s (בוצעה)</string>
     <string name="CFC_gtasks_list_text">ברשימה: ?</string>

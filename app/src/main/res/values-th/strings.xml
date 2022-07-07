@@ -518,7 +518,6 @@
     <string name="CFC_gtasks_list_name">ในรายการ GTasks…</string>
     <string name="CFC_gtasks_list_text">ในรายการ: \?</string>
     <string name="calendar_event_not_found">ไม่พบเหตุการณ์ในปฏิทิน</string>
-    <string name="delete_calendar_event_confirmation">ลบเหตุการณ์ในปฏิทินหรือไม่\?</string>
     <string name="gcal_TEA_error">เกิดข้อผิดพลาดในการเพิ่มงานในปฏิทิน!</string>
     <string name="CFC_tag_contains_text">ชื่อแท็กประกอบด้วย: \?</string>
     <string name="CFC_tag_contains_name">ชื่อแท็กมี…</string>

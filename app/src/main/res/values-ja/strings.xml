@@ -117,7 +117,6 @@
     <string name="CFC_title_contains_text">タイトルに含む: \?</string>
     <string name="gcal_TEA_error">カレンダーへの登録に失敗しました!</string>
     <string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
-    <string name="delete_calendar_event_confirmation">カレンダーイベントを削除しますか?</string>
     <string name="calendar_event_not_found">カレンダーイベントが見つかりません</string>
     <string name="gcal_completed_title">%s（完了）</string>
     <string name="CFC_gtasks_list_text">リストにある: \?</string>

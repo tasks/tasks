@@ -111,7 +111,6 @@
     <string name="CFC_title_contains_text">Tytuł zawiera: ?</string>
     <string name="gcal_TEA_error">Błąd podczas dodawania zadania do kalendarza!</string>
     <string name="gcal_TEA_showCalendar_label">Otwórz zdarzenie kalendarza</string>
-    <string name="delete_calendar_event_confirmation">Usunąć zdarzenie kalendarza?</string>
     <string name="calendar_event_not_found">Zdarzenie kalendarza nie odnazlezione</string>
     <string name="gcal_completed_title">%s (ukończono)</string>
     <string name="CFC_gtasks_list_text">Na liście: ?</string>

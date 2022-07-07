@@ -97,7 +97,6 @@
     <string name="CFC_title_contains_text">Název obsahuje: \?</string>
     <string name="gcal_TEA_error">Chyba při přidávání úkolu do kalendáře!</string>
     <string name="gcal_TEA_showCalendar_label">Otevřít událost v kalendáři</string>
-    <string name="delete_calendar_event_confirmation">Smazat událost v kalendáři?</string>
     <string name="gcal_completed_title">%s (dokončeno)</string>
     <string name="CFC_gtasks_list_text">V seznamu: ?</string>
     <string name="CFC_gtasks_list_name">V seznamu Google úkolů…</string>

@@ -314,7 +314,6 @@
     <string name="new_list">أنشأ قائمةً جديدة</string>
     <string name="new_tag">أنشأ علامةً جديدة</string>
     <string name="snooze_all">غفو الكل</string>
-    <string name="delete_calendar_event_confirmation">حذف حدث التقويم؟</string>
     <string name="CFC_tag_contains_name">اسم العلامة يحتوي…</string>
     <string name="CFC_tag_name">علامة…</string>
     <string name="default_location">الموقع الافتراضي</string>

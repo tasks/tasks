@@ -372,7 +372,6 @@
     <string name="gtasks_GLA_authenticating">සත්‍යාපනය…</string>
     <string name="gcal_completed_title">%s (සම්පූර්ණයි)</string>
     <string name="calendar_event_not_found">දින දර්ශන සිදුවීම සොයාගැනීමට නොහැකිවිය</string>
-    <string name="delete_calendar_event_confirmation">දින දර්ශන සිදුවීම මකා දමන්නද\?</string>
     <string name="gcal_TEA_showCalendar_label">දින දර්ශන කාර්යය විවෘත කරන්න</string>
     <string name="gcal_TEA_error">දින දර්ශනයට කාර්යය එකතු කිරීමේදී දෝෂයක් ඇති විය!</string>
     <string name="CFC_importance_name">ප්‍රමුඛතාවය…</string>

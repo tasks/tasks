@@ -498,7 +498,6 @@
     <string name="CFC_gtasks_list_text">U popisu: \?</string>
     <string name="gcal_completed_title">%s (obavljeno)</string>
     <string name="calendar_event_not_found">Kalendarski događaj nije pronađen</string>
-    <string name="delete_calendar_event_confirmation">Izbrisati kalendarski događaj\?</string>
     <string name="gcal_TEA_showCalendar_label">Otvori kalendarski događaj</string>
     <string name="CFC_title_contains_text">Naslov sadrži: \?</string>
     <string name="CFC_title_contains_name">Naslov sadrži …</string>

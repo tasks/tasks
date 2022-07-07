@@ -139,7 +139,6 @@
     <string name="CFC_gtasks_list_text">لسٹ میں:?</string>
     <string name="gcal_completed_title">%s مکمل ہو گیا</string>
     <string name="calendar_event_not_found">کیلنڈر ایونٹ نہیں مل سکا</string>
-    <string name="delete_calendar_event_confirmation">کیلنڈر ایونٹ ڈیلیٹ کریں؟</string>
     <string name="gcal_TEA_showCalendar_label">کیلنڈر ایونٹ کھولیں</string>
     <string name="gcal_TEA_error">کیلنڈر میں کام شامل کرنے میں خرابی!</string>
     <string name="repeat_every">ہر ایک</string>

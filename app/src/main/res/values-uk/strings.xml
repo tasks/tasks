@@ -117,7 +117,6 @@
     <string name="CFC_title_contains_text">Заголовок містить: ?</string>
     <string name="gcal_TEA_error">Помилка додавання завдання до календаря!</string>
     <string name="gcal_TEA_showCalendar_label">Відкрити подію у календарі</string>
-    <string name="delete_calendar_event_confirmation">Видалити подію з календаря\?</string>
     <string name="calendar_event_not_found">Подію у календарі не знайдено</string>
     <string name="gcal_completed_title">%s (завершено)</string>
     <string name="CFC_gtasks_list_text">У списку: \?</string>

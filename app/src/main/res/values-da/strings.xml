@@ -491,7 +491,6 @@
     <string name="CFC_list_name">På listen…</string>
     <string name="CFC_gtasks_list_text">På listen: \?</string>
     <string name="calendar_event_not_found">Kalenderbegivenhed ikke fundet</string>
-    <string name="delete_calendar_event_confirmation">Slet kalenderbegivenhed\?</string>
     <string name="CFC_tag_contains_text">Tag indeholder: \?</string>
     <string name="CFC_tag_contains_name">Tag indeholder…</string>
     <string name="CFC_tag_name">Tag…</string>
