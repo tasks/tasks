@@ -7,29 +7,38 @@ package com.todoroo.astrid.timers
 
 import android.app.Activity
 import android.os.Bundle
-import android.os.SystemClock
-import android.text.format.DateFormat
 import android.text.format.DateUtils
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Chronometer
-import android.widget.Chronometer.OnChronometerTickListener
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Pause
+import androidx.compose.material.icons.outlined.PlayArrow
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.ui.TimeDurationControlSet
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
-import org.tasks.databinding.ControlSetTimersBinding
+import org.tasks.compose.DisabledText
+import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.themes.Theme
-import org.tasks.ui.TaskEditControlFragment
+import org.tasks.ui.TaskEditControlComposeFragment
+import java.lang.System.currentTimeMillis
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Control Set for managing repeats
@@ -37,14 +46,10 @@ import javax.inject.Inject
  * @author Tim Su <tim></tim>@todoroo.com>
  */
 @AndroidEntryPoint
-class TimerControlSet : TaskEditControlFragment() {
+class TimerControlSet : TaskEditControlComposeFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var theme: Theme
-    
-    private lateinit var displayEdit: TextView
-    private lateinit var chronometer: Chronometer
-    private lateinit var timerButton: ImageView
     
     private lateinit var estimated: TimeDurationControlSet
     private lateinit var elapsed: TimeDurationControlSet
@@ -56,9 +61,8 @@ class TimerControlSet : TaskEditControlFragment() {
         dialogView = activity.layoutInflater.inflate(R.layout.control_set_timers_dialog, null)
         estimated = TimeDurationControlSet(activity, dialogView, R.id.estimatedDuration, theme)
         elapsed = TimeDurationControlSet(activity, dialogView, R.id.elapsedDuration, theme)
-        estimated.setTimeDuration(viewModel.estimatedSeconds!!)
-        elapsed.setTimeDuration(viewModel.elapsedSeconds!!)
-        refresh()
+        estimated.setTimeDuration(viewModel.estimatedSeconds.value)
+        elapsed.setTimeDuration(viewModel.elapsedSeconds.value)
     }
 
     override fun onAttach(activity: Activity) {
@@ -77,8 +81,11 @@ class TimerControlSet : TaskEditControlFragment() {
         return dialogBuilder
                 .newDialog()
                 .setView(dialogView)
-                .setPositiveButton(R.string.ok) { _, _ -> refreshDisplayView() }
-                .setOnCancelListener { refreshDisplayView() }
+                .setPositiveButton(R.string.ok) { _, _ ->
+                    viewModel.estimatedSeconds.value = estimated.timeDurationInSeconds
+                    viewModel.elapsedSeconds.value = elapsed.timeDurationInSeconds
+                }
+                .setOnCancelListener {}
                 .create()
     }
 
@@ -86,27 +93,78 @@ class TimerControlSet : TaskEditControlFragment() {
         lifecycleScope.launch {
             if (timerActive()) {
                 val task = callback.stopTimer()
+                viewModel.elapsedSeconds.value = task.elapsedSeconds
                 elapsed.setTimeDuration(task.elapsedSeconds)
-                viewModel.timerStarted = 0
-                chronometer.stop()
-                refreshDisplayView()
+                viewModel.timerStarted.value = 0
             } else {
                 val task = callback.startTimer()
-                viewModel.timerStarted = task.timerStart
-                chronometer.start()
+                viewModel.timerStarted.value = task.timerStart
             }
-            updateChronometer()
         }
     }
 
-    override fun bind(parent: ViewGroup?) =
-        ControlSetTimersBinding.inflate(layoutInflater, parent, true).let {
-            displayEdit = it.displayRowEdit
-            chronometer = it.timer
-            timerButton = it.timerButton
-            it.timerContainer.setOnClickListener { timerClicked() }
-            it.root
+    @Composable
+    override fun Body() {
+        var now by remember { mutableStateOf(currentTimeMillis()) }
+        val started = viewModel.timerStarted.collectAsStateLifecycleAware().value
+        val newElapsed = if (started > 0) (now - started) / 1000L else 0
+        val estimated =
+            viewModel.estimatedSeconds.collectAsStateLifecycleAware().value.takeIf { it > 0 }
+                ?.let {
+                    stringResource(id = R.string.TEA_timer_est, DateUtils.formatElapsedTime(it.toLong()))
+                }
+        val elapsed =
+            viewModel.elapsedSeconds.collectAsStateLifecycleAware().value.takeIf { it > 0 }
+                ?.let {
+                    stringResource(id = R.string.TEA_timer_elap, DateUtils.formatElapsedTime(it + newElapsed))
+                }
+        val text = when {
+            estimated != null && elapsed != null -> "$estimated, $elapsed"
+            estimated != null -> estimated
+            elapsed != null -> elapsed
+            else -> null
         }
+        Row {
+            if (text == null) {
+                DisabledText(
+                    text = stringResource(id = R.string.TEA_timer_controls),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 20.dp),
+                )
+            } else {
+                Text(
+                    text = text,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 20.dp),
+                )
+            }
+            IconButton(
+                onClick = {
+                    now = currentTimeMillis()
+                    timerClicked()
+                },
+                modifier = Modifier.padding(vertical = 8.dp),
+            ) {
+                Icon(
+                    imageVector = if (started > 0) {
+                        Icons.Outlined.Pause
+                    } else {
+                        Icons.Outlined.PlayArrow
+                    },
+                    modifier = Modifier.alpha(ContentAlpha.medium),
+                    contentDescription = null
+                )
+            }
+        }
+        LaunchedEffect(key1 = started) {
+            while (started > 0) {
+                delay(1.seconds)
+                now = currentTimeMillis()
+            }
+        }
+    }
 
     override val icon = R.drawable.ic_outline_timer_24px
 
@@ -114,61 +172,7 @@ class TimerControlSet : TaskEditControlFragment() {
 
     override val isClickable = true
 
-    private fun refresh() {
-        refreshDisplayView()
-        updateChronometer()
-    }
-
-    private fun refreshDisplayView() {
-        var est: String? = null
-        viewModel.estimatedSeconds = estimated.timeDurationInSeconds
-        if (viewModel.estimatedSeconds!! > 0) {
-            est = getString(
-                    R.string.TEA_timer_est,
-                    DateUtils.formatElapsedTime(viewModel.estimatedSeconds!!.toLong()))
-        }
-        var elap: String? = null
-        viewModel.elapsedSeconds = elapsed.timeDurationInSeconds
-        if (viewModel.elapsedSeconds!! > 0) {
-            elap = getString(
-                    R.string.TEA_timer_elap,
-                    DateUtils.formatElapsedTime(viewModel.elapsedSeconds!!.toLong()))
-        }
-        val toDisplay: String?
-        toDisplay = if (!isNullOrEmpty(est) && !isNullOrEmpty(elap)) {
-            "$est, $elap" // $NON-NLS-1$
-        } else if (!isNullOrEmpty(est)) {
-            est
-        } else if (!isNullOrEmpty(elap)) {
-            elap
-        } else {
-            null
-        }
-        displayEdit.text = toDisplay
-    }
-
-    private fun updateChronometer() {
-        timerButton.setImageResource(
-                if (timerActive()) R.drawable.ic_outline_pause_24px else R.drawable.ic_outline_play_arrow_24px)
-        var elapsed = elapsed.timeDurationInSeconds * 1000L
-        if (timerActive()) {
-            chronometer.visibility = View.VISIBLE
-            elapsed += DateUtilities.now() - viewModel.timerStarted
-            chronometer.base = SystemClock.elapsedRealtime() - elapsed
-            if (elapsed > DateUtilities.ONE_DAY) {
-                chronometer.onChronometerTickListener = OnChronometerTickListener { cArg: Chronometer ->
-                    val t = SystemClock.elapsedRealtime() - cArg.base
-                    cArg.text = DateFormat.format("d'd' h:mm", t) // $NON-NLS-1$
-                }
-            }
-            chronometer.start()
-        } else {
-            chronometer.visibility = View.GONE
-            chronometer.stop()
-        }
-    }
-
-    private fun timerActive() = viewModel.timerStarted > 0
+    private fun timerActive() = viewModel.timerStarted.value > 0
 
     interface TimerControlSetCallback {
         suspend fun stopTimer(): Task

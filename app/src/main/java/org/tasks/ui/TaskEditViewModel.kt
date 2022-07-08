@@ -119,6 +119,9 @@ class TaskEditViewModel @Inject constructor(
         }
         eventUri.value = task.calendarURI
         priority.value = task.priority
+        elapsedSeconds.value = task.elapsedSeconds
+        estimatedSeconds.value = task.estimatedSeconds
+        timerStarted.value = task.timerStart
     }
 
     lateinit var task: Task
@@ -231,17 +234,9 @@ class TaskEditViewModel @Inject constructor(
     var isNew: Boolean = false
         private set
 
-    var timerStarted: Long
-        get() = task.timerStart
-        set(value) {
-            task.timerStart = value
-        }
-
-    var estimatedSeconds: Int? = null
-        get() = field ?: task.estimatedSeconds
-
-    var elapsedSeconds: Int? = null
-        get() = field ?: task.elapsedSeconds
+    val timerStarted = MutableStateFlow(0L)
+    val estimatedSeconds = MutableStateFlow(0)
+    val elapsedSeconds = MutableStateFlow(0)
 
     private lateinit var originalList: Filter
 
@@ -307,8 +302,8 @@ class TaskEditViewModel @Inject constructor(
                 } else {
                     task.calendarURI != eventUri.value
                 } ||
-                task.elapsedSeconds != elapsedSeconds ||
-                task.estimatedSeconds != estimatedSeconds ||
+                task.elapsedSeconds != elapsedSeconds.value ||
+                task.estimatedSeconds != estimatedSeconds.value ||
                 originalList != selectedList.value ||
                 originalLocation != selectedLocation.value ||
                 originalTags.toHashSet() != selectedTags.value.toHashSet() ||
@@ -337,8 +332,8 @@ class TaskEditViewModel @Inject constructor(
         task.hideUntil = startDate.value
         task.recurrence = recurrence
         task.repeatUntil = repeatUntil!!
-        task.elapsedSeconds = elapsedSeconds!!
-        task.estimatedSeconds = estimatedSeconds!!
+        task.elapsedSeconds = elapsedSeconds.value
+        task.estimatedSeconds = estimatedSeconds.value
         task.ringFlags = getRingFlags()
 
         applyCalendarChanges()
