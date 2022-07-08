@@ -114,9 +114,10 @@ class TimerControlSet : TaskEditControlComposeFragment() {
                     stringResource(id = R.string.TEA_timer_est, DateUtils.formatElapsedTime(it.toLong()))
                 }
         val elapsed =
-            viewModel.elapsedSeconds.collectAsStateLifecycleAware().value.takeIf { it > 0 }
+            (newElapsed + viewModel.elapsedSeconds.collectAsStateLifecycleAware().value)
+                .takeIf { it > 0 }
                 ?.let {
-                    stringResource(id = R.string.TEA_timer_elap, DateUtils.formatElapsedTime(it + newElapsed))
+                    stringResource(id = R.string.TEA_timer_elap, DateUtils.formatElapsedTime(it))
                 }
         val text = when {
             estimated != null && elapsed != null -> "$estimated, $elapsed"
