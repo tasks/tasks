@@ -3,6 +3,7 @@ package org.tasks.data
 import androidx.room.*
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 abstract class TaskAttachmentDao {
@@ -14,6 +15,9 @@ abstract class TaskAttachmentDao {
 
     @Query("SELECT * FROM task_attachments")
     abstract suspend fun getAttachments(): List<TaskAttachment>
+
+    @Query("SELECT * FROM task_attachments WHERE task_id = :taskUuid")
+    abstract fun watchAttachments(taskUuid: String): Flow<List<TaskAttachment>>
 
     @Delete
     abstract suspend fun delete(taskAttachment: TaskAttachment)

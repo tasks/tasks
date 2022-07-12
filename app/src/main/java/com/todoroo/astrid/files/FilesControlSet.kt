@@ -10,39 +10,46 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
+import org.tasks.compose.DisabledText
+import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.TaskAttachment
 import org.tasks.data.TaskAttachmentDao
-import org.tasks.databinding.ControlSetFilesBinding
 import org.tasks.dialogs.AddAttachmentDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.files.FileHelper
 import org.tasks.preferences.Preferences
-import org.tasks.ui.TaskEditControlFragment
-import java.util.*
+import org.tasks.ui.TaskEditControlComposeFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FilesControlSet : TaskEditControlFragment() {
-    @Inject lateinit var activity: Activity
+class FilesControlSet : TaskEditControlComposeFragment() {
     @Inject lateinit var taskAttachmentDao: TaskAttachmentDao
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var preferences: Preferences
     
-    private lateinit var attachmentContainer: LinearLayout
-    private lateinit var addAttachment: TextView
-    
     override fun createView(savedInstanceState: Bundle?) {
-        val task = viewModel.task!!
+        val task = viewModel.task
         if (savedInstanceState == null) {
             if (task.hasTransitory(TaskAttachment.KEY)) {
                 for (uri in (task.getTransitory<ArrayList<Uri>>(TaskAttachment.KEY))!!) {
@@ -50,26 +57,53 @@ class FilesControlSet : TaskEditControlFragment() {
                 }
             }
         }
-
-        lifecycleScope.launch {
-            taskAttachmentDao
-                    .getAttachments(task.uuid)
-                    .forEach { addAttachment(it) }
-        }
     }
 
     private fun addAttachment() {
-        AddAttachmentDialog.newAddAttachmentDialog(this).show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
+        AddAttachmentDialog.newAddAttachmentDialog(this)
+            .show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
     }
 
-    override fun bind(parent: ViewGroup?) =
-        ControlSetFilesBinding.inflate(layoutInflater, parent, true).let {
-            attachmentContainer = it.attachmentContainer
-            addAttachment = it.addAttachment.apply {
-                setOnClickListener { addAttachment() }
+    @Composable
+    override fun Body() {
+        val attachments =
+            taskAttachmentDao.watchAttachments(viewModel.task.uuid)
+                .collectAsStateLifecycleAware(initial = emptyList()).value
+        Column(
+            modifier = Modifier.padding(top = if (attachments.isEmpty()) 0.dp else 8.dp),
+        ) {
+            attachments.forEach {
+                Row(
+                    modifier = Modifier
+                        .clickable { showFile(it) },
+                    verticalAlignment = CenterVertically,
+                ) {
+                    Text(
+                        text = it.name!!,
+                        modifier = Modifier.weight(1f),
+                    )
+                    IconButton(onClick = { deleteAttachment(it) }) {
+                        Icon(
+                            imageVector = Icons.Outlined.Delete,
+                            contentDescription = stringResource(
+                                id = R.string.delete
+                            )
+                        )
+                    }
+                }
             }
-            it.root
+            DisabledText(
+                text = stringResource(id = R.string.add_attachment),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { addAttachment() }
+                    .padding(
+                        top = if (attachments.isEmpty()) 20.dp else 8.dp,
+                        bottom = 20.dp,
+                    )
+            )
         }
+    }
 
     override val icon = R.drawable.ic_outline_attachment_24px
 
@@ -80,7 +114,7 @@ class FilesControlSet : TaskEditControlFragment() {
             if (resultCode == Activity.RESULT_OK) {
                 val uri = data!!.data
                 copyToAttachmentDirectory(uri)
-                FileHelper.delete(activity, uri)
+                FileHelper.delete(requireContext(), uri)
             }
         } else if (requestCode == AddAttachmentDialog.REQUEST_STORAGE || requestCode == AddAttachmentDialog.REQUEST_GALLERY) {
             if (resultCode == Activity.RESULT_OK) {
@@ -99,34 +133,19 @@ class FilesControlSet : TaskEditControlFragment() {
         }
     }
 
-    private fun addAttachment(taskAttachment: TaskAttachment) {
-        val fileRow = requireActivity().layoutInflater.inflate(R.layout.file_row, attachmentContainer, false)
-        fileRow.tag = taskAttachment
-        attachmentContainer.addView(fileRow)
-        addAttachment(taskAttachment, fileRow)
-    }
-
-    private fun addAttachment(taskAttachment: TaskAttachment, fileRow: View) {
-        val nameView = fileRow.findViewById<TextView>(R.id.file_text)
-        val name = LEFT_TO_RIGHT_MARK.toString() + taskAttachment.name
-        nameView.text = name
-        nameView.setOnClickListener { showFile(taskAttachment) }
-        val clearFile = fileRow.findViewById<View>(R.id.clear)
-        clearFile.setOnClickListener {
-            dialogBuilder
-                    .newDialog(R.string.premium_remove_file_confirm)
-                    .setPositiveButton(R.string.ok) { _, _ ->
-                        lifecycleScope.launch {
-                            withContext(NonCancellable) {
-                                taskAttachmentDao.delete(taskAttachment)
-                                FileHelper.delete(context, taskAttachment.parseUri())
-                            }
-                            attachmentContainer.removeView(fileRow)
-                        }
+    private fun deleteAttachment(attachment: TaskAttachment) {
+        dialogBuilder
+            .newDialog(R.string.premium_remove_file_confirm)
+            .setPositiveButton(R.string.ok) { _, _ ->
+                lifecycleScope.launch {
+                    withContext(NonCancellable) {
+                        taskAttachmentDao.delete(attachment)
+                        FileHelper.delete(context, attachment.parseUri())
                     }
-                    .setNegativeButton(R.string.cancel, null)
-                    .show()
-        }
+                }
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
     }
 
     @SuppressLint("NewApi")
@@ -140,18 +159,16 @@ class FilesControlSet : TaskEditControlFragment() {
 
     private fun newAttachment(output: Uri) {
         val attachment = TaskAttachment(
-                viewModel.task!!.uuid,
+                viewModel.task.uuid,
                 output,
                 FileHelper.getFilename(requireContext(), output)!!)
         lifecycleScope.launch {
             taskAttachmentDao.createNew(attachment)
-            addAttachment(attachment)
         }
     }
 
     companion object {
         const val TAG = R.string.TEA_ctrl_files_pref
         private const val FRAG_TAG_ADD_ATTACHMENT_DIALOG = "frag_tag_add_attachment_dialog"
-        private const val LEFT_TO_RIGHT_MARK = '\u200e'
     }
 }
