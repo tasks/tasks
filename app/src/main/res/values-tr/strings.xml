@@ -735,4 +735,6 @@
     <string name="hint_customize_edit_body">Alanları yeniden düzenleyerek veya kaldırarak bu ekranı özelleştirebilirsiniz</string>
     <string name="enable_reminders">Anımsatıcıları etkinleştir</string>
     <string name="enable_reminders_description">Anımsatıcılar Android ayarlarında devre dışı bırakıldı</string>
+    <string name="sort_completion_group">Tamamlanma %s</string>
+    <string name="TEA_creation_date">Oluşturulma zamanı</string>
 </resources>
