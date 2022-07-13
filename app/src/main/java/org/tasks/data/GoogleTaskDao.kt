@@ -1,13 +1,8 @@
 package org.tasks.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.RoomWarnings
-import androidx.room.Transaction
-import androidx.room.Update
+import androidx.room.*
 import com.todoroo.astrid.data.Task
+import kotlinx.coroutines.flow.Flow
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 
@@ -66,6 +61,9 @@ abstract class GoogleTaskDao {
 
     @Query("SELECT * FROM google_tasks WHERE gt_task = :taskId AND gt_deleted = 0 LIMIT 1")
     abstract suspend fun getByTaskId(taskId: Long): GoogleTask?
+
+    @Query("SELECT * FROM google_tasks WHERE gt_task = :taskId AND gt_deleted = 0 LIMIT 1")
+    abstract fun watchGoogleTask(taskId: Long): Flow<GoogleTask?>
 
     @Update
     abstract suspend fun update(googleTask: GoogleTask)

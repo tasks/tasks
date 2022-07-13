@@ -29,7 +29,9 @@ class TaskListViewModel @Inject constructor(
         private val preferences: Preferences,
         private val taskDao: TaskDao) : ViewModel(), Observer<PagedList<TaskContainer>> {
 
-    private var tasks = MutableLiveData<List<TaskContainer>>()
+    private var _tasks = MutableLiveData<List<TaskContainer>>()
+    val tasks: LiveData<List<TaskContainer>>
+        get() = _tasks
     private var filter: Filter? = null
     private var manualSortFilter = false
     private var internal: LiveData<PagedList<TaskContainer>>? = null
@@ -39,13 +41,13 @@ class TaskListViewModel @Inject constructor(
                 || filter.supportsAstridSorting() && preferences.isAstridSort)
         if (filter != this.filter || filter.getSqlQuery() != this.filter!!.getSqlQuery()) {
             this.filter = filter
-            tasks = MutableLiveData()
+            _tasks = MutableLiveData()
             invalidate()
         }
     }
 
     fun observe(owner: LifecycleOwner, observer: (List<TaskContainer>) -> Unit) =
-            tasks.observe(owner, observer)
+            _tasks.observe(owner, observer)
 
     fun searchByFilter(filter: Filter?) {
         this.filter = filter
@@ -75,7 +77,7 @@ class TaskListViewModel @Inject constructor(
     }
 
     private suspend fun performNonPagedQuery(subtasks: SubtaskInfo) {
-        tasks.value = taskDao.fetchTasks(subtasks) { getQuery(preferences, filter!!, it) }
+        _tasks.value = taskDao.fetchTasks(subtasks) { getQuery(preferences, filter!!, it) }
     }
 
     private fun performPagedListQuery() {
@@ -87,7 +89,7 @@ class TaskListViewModel @Inject constructor(
         Timber.d("paged query: %s", query.sql)
         val factory = taskDao.getTaskFactory(query)
         val builder = LivePagedListBuilder(factory, PAGED_LIST_CONFIG)
-        val current = tasks.value
+        val current = _tasks.value
         if (current is PagedList<*>) {
             val lastKey = (current as PagedList<TaskContainer>).lastKey
             if (lastKey is Int) {
@@ -112,10 +114,10 @@ class TaskListViewModel @Inject constructor(
     }
 
     val value: List<TaskContainer>
-        get() = tasks.value ?: emptyList()
+        get() = _tasks.value ?: emptyList()
 
     override fun onChanged(taskContainers: PagedList<TaskContainer>) {
-        tasks.value = taskContainers
+        _tasks.value = taskContainers
     }
 
     companion object {

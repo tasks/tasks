@@ -4,24 +4,31 @@ import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.graphics.Paint
 import android.os.Bundle
-import android.text.Editable
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.LinearLayout
-import androidx.core.widget.addTextChangedListener
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.style.TextDecoration.Companion.LineThrough
+import androidx.compose.ui.text.style.TextDecoration.Companion.None
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.QueryTemplate
@@ -32,78 +39,86 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
-import com.todoroo.astrid.ui.CheckableImageView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.CaldavDao
+import org.tasks.compose.ClearButton
+import org.tasks.compose.DisabledText
+import org.tasks.compose.TaskEditIcon
+import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.GoogleTask
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
-import org.tasks.databinding.ControlSetSubtasksBinding
-import org.tasks.extensions.Context.toast
-import org.tasks.tasklist.SubtaskViewHolder
-import org.tasks.tasklist.SubtasksRecyclerAdapter
+import org.tasks.themes.ColorProvider
+import org.tasks.ui.CheckBoxProvider.Companion.getCheckboxRes
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var newSubtaskContainer: LinearLayout
-
+class SubtaskControlSet : TaskEditControlComposeFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskCreator: TaskCreator
-    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var checkBoxProvider: CheckBoxProvider
     @Inject lateinit var chipProvider: ChipProvider
     @Inject lateinit var eventBus: MainActivityEventBus
-    
+    @Inject lateinit var colorProvider: ColorProvider
+
     private val listViewModel: TaskListViewModel by viewModels()
     private val refreshReceiver = RefreshReceiver()
-    private var remoteList: Filter? = null
-    private var googleTask: GoogleTask? = null
-    private lateinit var recyclerAdapter: SubtasksRecyclerAdapter
 
     override fun createView(savedInstanceState: Bundle?) {
-        viewModel.newSubtasks.forEach { addSubtask(it) }
-        recyclerAdapter = SubtasksRecyclerAdapter(activity, chipProvider, checkBoxProvider, this)
-        viewModel.task.let {
-            if (it.id > 0) {
-                recyclerAdapter.submitList(listViewModel.value)
-                listViewModel.setFilter(Filter("subtasks", getQueryTemplate(it)))
-                (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
-                recyclerView.layoutManager = LinearLayoutManager(activity)
-                recyclerView.isNestedScrollingEnabled = false
-                listViewModel.observe(this) {
-                    list: List<TaskContainer?>? -> recyclerAdapter.submitList(list)
-                }
-                recyclerView.adapter = recyclerAdapter
-            }
-        }
-
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.selectedList.collect {
-                    remoteList = it
-                    updateUI()
-                }
-            }
+        viewModel.task.takeIf { it.id > 0 }?.let {
+            listViewModel.setFilter(Filter("subtasks", getQueryTemplate(it)))
         }
     }
 
-    override fun bind(parent: ViewGroup?) =
-        ControlSetSubtasksBinding.inflate(layoutInflater, parent, true).let {
-            recyclerView = it.recyclerView
-            newSubtaskContainer = it.newSubtasks
-            it.addSubtask.setOnClickListener { addSubtask() }
-            it.root
+    @Composable
+    override fun Body() {
+        Column {
+            val filter = viewModel.selectedList.collectAsStateLifecycleAware().value
+            val googleTask = googleTaskDao.watchGoogleTask(viewModel.task.id)
+                .collectAsStateLifecycleAware(initial = null).value
+            val isGoogleTaskChild =
+                filter is GtasksFilter && googleTask != null && googleTask.parent > 0 && googleTask.listId == filter.remoteId
+            if (isGoogleTaskChild) {
+                DisabledText(
+                    text = stringResource(id = R.string.subtasks_multilevel_google_task),
+                    modifier = Modifier.padding(vertical = 20.dp)
+                )
+            } else {
+                val subtasks = listViewModel.tasks.observeAsState(initial = emptyList()).value
+                val newSubtasks = viewModel.newSubtasks.collectAsStateLifecycleAware().value
+                Spacer(modifier = Modifier.height(height = 8.dp))
+                ExistingSubtasks(subtasks = subtasks, multiLevelSubtasks = filter !is GtasksFilter)
+                NewSubtasks(
+                    subtasks = newSubtasks,
+                    onComplete = {
+                        val copy = ArrayList(viewModel.newSubtasks.value)
+                        copy[copy.indexOf(it)] =
+                            it.clone().apply { completionDate = if (isCompleted) 0 else now() }
+                        viewModel.newSubtasks.value = copy
+                    },
+                    onDelete = {
+                        val copy = ArrayList(viewModel.newSubtasks.value)
+                        copy.remove(it)
+                        viewModel.newSubtasks.value = copy
+                    }
+                )
+                DisabledText(
+                    text = stringResource(id = R.string.TEA_add_subtask),
+                    modifier = Modifier
+                        .clickable { addSubtask() }
+                        .padding(12.dp)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
         }
+    }
 
     override val icon = R.drawable.ic_subdirectory_arrow_right_black_24dp
 
@@ -112,12 +127,6 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
     override fun onResume() {
         super.onResume()
         localBroadcastManager.registerRefreshReceiver(refreshReceiver)
-        lifecycleScope.launch {
-            viewModel.task.let {
-                googleTask = googleTaskDao.getByTaskId(it.id)
-                updateUI()
-            }
-        }
     }
 
     override fun onPause() {
@@ -125,122 +134,187 @@ class SubtaskControlSet : TaskEditControlFragment(), SubtaskViewHolder.Callbacks
         localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
 
-    private fun addSubtask() {
-        if (isGoogleTaskChild) {
-            context?.toast(R.string.subtasks_multilevel_google_task)
-        } else {
-            lifecycleScope.launch {
-                val task = taskCreator.createWithValues("")
-                viewModel.newSubtasks.add(task)
-                val editText = addSubtask(task)
-                editText.requestFocus()
-                val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
-            }
-        }
+    private fun addSubtask() = lifecycleScope.launch {
+        val task = taskCreator.createWithValues("")
+        viewModel.newSubtasks.value = viewModel.newSubtasks.value.plus(task)
     }
 
-    private fun addSubtask(task: Task): EditText {
-        val view = LayoutInflater.from(activity)
-                .inflate(R.layout.editable_subtask_adapter_row_body, newSubtaskContainer, false) as ViewGroup
-        view.findViewById<View>(R.id.clear).setOnClickListener { newSubtaskContainer.removeView(view) }
-        val editText = view.getChildAt(2) as EditText
-        editText.setText(task.title)
-        editText.setHorizontallyScrolling(false)
-        editText.setLines(1)
-        editText.maxLines = Int.MAX_VALUE
-        editText.isFocusable = true
-        editText.isEnabled = true
-        editText.addTextChangedListener { text: Editable? ->
-            task.title = text?.toString()
-        }
-        editText.setOnEditorActionListener { _, actionId: Int, _ ->
-            if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                if (editText.text.isNotEmpty()) {
-                    addSubtask()
-                }
-                return@setOnEditorActionListener true
-            }
-            false
-        }
-        val completeBox: CheckableImageView = view.findViewById(R.id.completeBox)
-        completeBox.isChecked = task.isCompleted
-        updateCompleteBox(task, completeBox, editText)
-        completeBox.setOnClickListener { updateCompleteBox(task, completeBox, editText) }
-        newSubtaskContainer.addView(view)
-        return editText
+    private fun openSubtask(task: Task) = lifecycleScope.launch {
+        eventBus.emit(MainActivityEvent.OpenTask(task))
     }
 
-    private fun updateCompleteBox(task: Task, completeBox: CheckableImageView, editText: EditText) {
-        val isComplete = completeBox.isChecked
-        task.completionDate = if (isComplete) now() else 0
-        completeBox.setImageDrawable(
-                checkBoxProvider.getCheckBox(isComplete, false, task.priority))
-        editText.paintFlags = if (isComplete) {
-            editText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        } else {
-            editText.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-        }
+    private fun toggleSubtask(taskId: Long, collapsed: Boolean) = lifecycleScope.launch {
+        taskDao.setCollapsed(taskId, collapsed)
+        localBroadcastManager.broadcastRefresh()
     }
 
-    private val isGoogleTaskChild: Boolean
-        get() = (remoteList is GtasksFilter
-                && googleTask != null && googleTask!!.parent > 0 && googleTask!!.listId == (remoteList as GtasksFilter).remoteId)
-
-    private fun updateUI() {
-        if (isGoogleTaskChild) {
-            recyclerView.visibility = View.GONE
-            newSubtaskContainer.visibility = View.GONE
-        } else {
-            recyclerView.visibility = View.VISIBLE
-            newSubtaskContainer.visibility = View.VISIBLE
-            recyclerAdapter.setMultiLevelSubtasksEnabled(remoteList !is GtasksFilter)
-            refresh()
-        }
-    }
-
-    private fun refresh() {
-        listViewModel.invalidate()
-    }
-
-    override fun openSubtask(task: Task) {
-        lifecycleScope.launch {
-            eventBus.emit(MainActivityEvent.OpenTask(task))
-        }
-    }
-
-    override fun toggleSubtask(taskId: Long, collapsed: Boolean) {
-        lifecycleScope.launch {
-            taskDao.setCollapsed(taskId, collapsed)
-            localBroadcastManager.broadcastRefresh()
-        }
-    }
-
-    override fun complete(task: Task, completed: Boolean) {
-        lifecycleScope.launch {
-            taskCompleter.setComplete(task, completed)
-        }
+    private fun complete(task: Task, completed: Boolean) = lifecycleScope.launch {
+        taskCompleter.setComplete(task, completed)
     }
 
     private inner class RefreshReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            refresh()
+            listViewModel.invalidate()
+        }
+    }
+
+    @Composable
+    override fun Icon() {
+        TaskEditIcon(
+            id = icon,
+            modifier = Modifier.padding(start = 16.dp, top = 20.dp, end = 20.dp, bottom = 20.dp),
+        )
+    }
+
+    @Composable
+    fun NewSubtasks(
+        subtasks: List<Task>,
+        onComplete: (Task) -> Unit,
+        onDelete: (Task) -> Unit,
+    ) {
+        subtasks.forEach { subtask ->
+            NewSubtaskRow(
+                subtask = subtask,
+                onComplete = onComplete,
+                onDelete = onDelete,
+            )
+        }
+    }
+
+    @Composable
+    fun ExistingSubtasks(subtasks: List<TaskContainer>, multiLevelSubtasks: Boolean) {
+        subtasks.forEach { task ->
+            SubtaskRow(
+                task = task,
+                indent = if (multiLevelSubtasks) task.indent else 0,
+                onRowClick = { openSubtask(task.task) },
+                onCompleteClick = { complete(task.task, !task.isCompleted) },
+                onToggleSubtaskClick = { toggleSubtask(task.id, !task.isCollapsed) }
+            )
+        }
+    }
+
+    @Composable
+    fun NewSubtaskRow(
+        subtask: Task,
+        onComplete: (Task) -> Unit,
+        onDelete: (Task) -> Unit,
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            CheckBox(
+                task = subtask,
+                onCompleteClick = { onComplete(subtask) },
+                modifier = Modifier.align(Alignment.Top)
+            )
+            var text by remember { mutableStateOf(subtask.title ?: "") }
+            val focusRequester = remember { FocusRequester() }
+            BasicTextField(
+                value = text,
+                onValueChange = {
+                    text = it
+                    subtask.title = it
+                },
+                modifier = Modifier
+                    .weight(1f)
+                    .focusable(enabled = true)
+                    .focusRequester(focusRequester)
+                    .alpha(if (subtask.isCompleted) ContentAlpha.disabled else ContentAlpha.high),
+                textStyle = MaterialTheme.typography.body1.copy(
+                    textDecoration = if (subtask.isCompleted) LineThrough else None
+                ),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    capitalization = KeyboardCapitalization.Sentences,
+                    imeAction = ImeAction.Done,
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        if (text.isNotBlank()) {
+                            addSubtask()
+                        }
+                    }
+                ),
+                singleLine = true,
+                maxLines = Int.MAX_VALUE,
+            )
+            ClearButton { onDelete(subtask) }
+            LaunchedEffect(Unit) {
+                focusRequester.requestFocus()
+            }
+        }
+    }
+
+    @Composable
+    fun SubtaskRow(
+        task: TaskContainer, indent: Int,
+        onRowClick: () -> Unit,
+        onCompleteClick: () -> Unit,
+        onToggleSubtaskClick: () -> Unit,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .clickable { onRowClick() }
+                .padding(end = 16.dp)
+        ) {
+            Spacer(modifier = Modifier.width((indent * 20).dp))
+            CheckBox(task = task.task, onCompleteClick = onCompleteClick)
+            Text(
+                text = task.title,
+                modifier = Modifier
+                    .weight(1f)
+                    .alpha(if (task.isCompleted || task.isHidden) ContentAlpha.disabled else ContentAlpha.high),
+                style = MaterialTheme.typography.body1.copy(
+                    textDecoration = if (task.isCompleted) LineThrough else None
+                )
+            )
+            if (task.hasChildren()) {
+                chipProvider.SubtaskChip(
+                    task = task,
+                    compact = true,
+                    onClick = onToggleSubtaskClick,
+                )
+            }
+        }
+    }
+
+    @Composable
+    fun CheckBox(
+        task: Task,
+        onCompleteClick: () -> Unit,
+        modifier: Modifier = Modifier,
+    ) {
+        IconButton(onClick = onCompleteClick, modifier = modifier) {
+            Icon(
+                painter = painterResource(id = task.getCheckboxRes()),
+                tint = Color(
+                    colorProvider.getPriorityColor(
+                        priority = task.priority,
+                        adjust = false
+                    )
+                ),
+                contentDescription = null
+            )
         }
     }
 
     companion object {
         const val TAG = R.string.TEA_ctrl_subtask_pref
         private fun getQueryTemplate(task: Task): QueryTemplate = QueryTemplate()
-                .join(
-                        Join.left(
-                                GoogleTask.TABLE,
-                                Criterion.and(
-                                        GoogleTask.PARENT.eq(task.id),
-                                        GoogleTask.TASK.eq(Task.ID),
-                                        GoogleTask.DELETED.eq(0))))
-                .where(
-                        Criterion.and(
-                                activeAndVisible(),
-                                Criterion.or(Task.PARENT.eq(task.id), GoogleTask.TASK.gt(0))))
+            .join(
+                Join.left(
+                    GoogleTask.TABLE,
+                    Criterion.and(
+                        GoogleTask.PARENT.eq(task.id),
+                        GoogleTask.TASK.eq(Task.ID),
+                        GoogleTask.DELETED.eq(0)
+                    )
+                )
+            )
+            .where(
+                Criterion.and(
+                    activeAndVisible(),
+                    Criterion.or(Task.PARENT.eq(task.id), GoogleTask.TASK.gt(0))
+                )
+            )
     }
 }

@@ -5,11 +5,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.IntDef
 import androidx.core.os.ParcelCompat
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.google.gson.annotations.SerializedName
 import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Field
@@ -471,6 +467,15 @@ class Task : Parcelable {
             const val LOW = 2
             const val NONE = 3
         }
+    }
+
+    fun clone(): Task {
+        val parcel = Parcel.obtain()
+        writeToParcel(parcel, 0)
+        parcel.setDataPosition(0)
+        val task = Task(parcel)
+        parcel.recycle()
+        return task
     }
 
     companion object {

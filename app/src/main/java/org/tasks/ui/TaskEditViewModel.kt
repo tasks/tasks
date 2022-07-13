@@ -254,7 +254,7 @@ class TaskEditViewModel @Inject constructor(
 
     val selectedTags = MutableStateFlow(ArrayList<TagData>())
 
-    var newSubtasks = ArrayList<Task>()
+    var newSubtasks = MutableStateFlow(emptyList<Task>())
 
     private lateinit var originalAlarms: List<Alarm>
 
@@ -307,7 +307,7 @@ class TaskEditViewModel @Inject constructor(
                 originalList != selectedList.value ||
                 originalLocation != selectedLocation.value ||
                 originalTags.toHashSet() != selectedTags.value.toHashSet() ||
-                newSubtasks.isNotEmpty() ||
+                newSubtasks.value.isNotEmpty() ||
                 getRingFlags() != when {
                     task.isNotifyModeFive -> NOTIFY_MODE_FIVE
                     task.isNotifyModeNonstop -> NOTIFY_MODE_NONSTOP
@@ -373,7 +373,7 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = currentTimeMillis()
         }
 
-        for (subtask in newSubtasks) {
+        for (subtask in newSubtasks.value) {
             if (Strings.isNullOrEmpty(subtask.title)) {
                 continue
             }
