@@ -14,7 +14,7 @@ abstract class TaskEditControlFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(rootLayout, null)
+        val view = inflater.inflate(R.layout.control_set_template, null)
         viewModel = ViewModelProvider(requireParentFragment())[TaskEditViewModel::class.java]
         val content = view.findViewById<ViewGroup>(R.id.content)
         bind(content)
@@ -32,12 +32,11 @@ abstract class TaskEditControlFragment : Fragment() {
     protected open fun createView(savedInstanceState: Bundle?) {}
 
     protected open fun onRowClick() {}
+
     protected open val isClickable: Boolean
         get() = false
 
     protected abstract val icon: Int
     abstract fun controlId(): Int
     protected abstract fun bind(parent: ViewGroup?): View
-
-    protected open val rootLayout = R.layout.control_set_template
 }

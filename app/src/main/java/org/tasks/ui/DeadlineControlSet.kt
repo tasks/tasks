@@ -3,7 +3,6 @@ package org.tasks.ui
 import android.app.Activity
 import android.content.Intent
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +15,7 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task.Companion.hasDueTime
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.compose.DisabledText
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DateTimePicker
@@ -47,26 +47,29 @@ class DeadlineControlSet : TaskEditControlComposeFragment() {
     @Composable
     override fun Body() {
         val dueDate = viewModel.dueDate.collectAsStateLifecycleAware().value
-        Text(
-            text = if (dueDate == 0L) {
-                stringResource(id = R.string.no_due_date)
-            } else {
-                DateUtilities.getRelativeDateTime(
+        if (dueDate == 0L) {
+            DisabledText(
+                text = stringResource(id = R.string.no_due_date),
+                modifier = Modifier.padding(vertical = 20.dp)
+            )
+        } else {
+            Text(
+                text = DateUtilities.getRelativeDateTime(
                     LocalContext.current,
                     dueDate,
                     locale,
                     FormatStyle.FULL,
                     preferences.alwaysDisplayFullDate,
                     false
-                )
-            },
-            color = when {
-                dueDate == 0L -> MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
-                dueDate.isOverdue -> colorResource(id = R.color.overdue)
-                else -> MaterialTheme.colors.onSurface
-            },
-            modifier = Modifier.padding(vertical = 20.dp)
-        )
+                ),
+                color = if (dueDate.isOverdue) {
+                    colorResource(id = R.color.overdue)
+                } else {
+                    MaterialTheme.colors.onSurface
+                },
+                modifier = Modifier.padding(vertical = 20.dp)
+            )
+        }
     }
 
     override val icon = R.drawable.ic_outline_schedule_24px

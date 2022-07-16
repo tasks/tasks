@@ -3,15 +3,13 @@ package com.todoroo.astrid.tags
 import android.app.Activity
 import android.content.Intent
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.compose.DisabledText
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.TagData
 import org.tasks.tags.TagPickerActivity
@@ -35,11 +33,7 @@ class TagsControlSet : TaskEditControlComposeFragment() {
         val tags = viewModel.selectedTags.collectAsStateLifecycleAware()
         ChipGroup(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, end = 16.dp)) {
             if (tags.value.isEmpty()) {
-                Text(
-                    text = stringResource(id = R.string.add_tags),
-                    style = MaterialTheme.typography.body1,
-                    color = colorResource(id = R.color.text_tertiary),
-                )
+                DisabledText(text = stringResource(id = R.string.add_tags))
             } else {
                 tags.value.sortedBy(TagData::name).forEach { tag ->
                     chipProvider.TagChip(tag, this@TagsControlSet::onRowClick)

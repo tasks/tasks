@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
@@ -153,7 +154,7 @@ fun StartDate(
             startDate < currentTime -> colorResource(id = R.color.overdue)
             else -> MaterialTheme.colors.onSurface
         },
-        modifier = Modifier.padding(vertical = 20.dp),
+        modifier = Modifier.padding(vertical = 20.dp).height(24.dp),
     )
 }
 

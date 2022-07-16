@@ -15,13 +15,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
@@ -33,6 +30,7 @@ import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.compose.AddReminderDialog
 import org.tasks.compose.AlarmRow
+import org.tasks.compose.DisabledText
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
@@ -193,21 +191,14 @@ class ReminderControlSet : TaskEditControlComposeFragment() {
                 }
             }
             Row(modifier = Modifier.fillMaxWidth()) {
-                Text(
+                DisabledText(
                     text = stringResource(id = R.string.add_reminder),
-                    style = MaterialTheme.typography.body1,
                     modifier = Modifier
                         .padding(vertical = 12.dp)
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = rememberRipple(bounded = false),
                             onClick = { addAlarm() }
-                        )
-                        .alpha(
-                            ResourcesCompat.getFloat(
-                                LocalContext.current.resources,
-                                R.dimen.alpha_disabled
-                            )
                         )
                 )
                 Spacer(modifier = Modifier.weight(1f))
