@@ -712,4 +712,8 @@
     <string name="dismiss">Bỏ qua</string>
     <string name="hint_customize_edit_title">Quá nhiều thông tin\?</string>
     <string name="hint_customize_edit_body">Bạn có thể tùy biến màn hình này bằng cách sắp xếp lại hoặc xóa các trường</string>
+    <string name="sort_completion_group">Hoàn thành %s</string>
+    <string name="enable_reminders_description">Lời nhắc bị tắt trong cài đặt Android</string>
+    <string name="enable_reminders">Bật lời nhắc</string>
+    <string name="TEA_creation_date">Ngày tạo</string>
 </resources>
