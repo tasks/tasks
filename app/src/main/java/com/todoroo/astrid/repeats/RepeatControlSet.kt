@@ -31,7 +31,7 @@ import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.ui.HiddenTopArrayAdapter
 import org.tasks.ui.OnItemSelected
-import org.tasks.ui.TaskEditControlFragment
+import org.tasks.ui.TaskEditControlViewFragment
 import javax.inject.Inject
 
 /**
@@ -40,7 +40,7 @@ import javax.inject.Inject
  * @author Tim Su <tim></tim>@todoroo.com>
  */
 @AndroidEntryPoint
-class RepeatControlSet : TaskEditControlFragment() {
+class RepeatControlSet : TaskEditControlViewFragment() {
     private val repeatTypes: MutableList<String> = ArrayList()
 
     @Inject lateinit var activity: Activity

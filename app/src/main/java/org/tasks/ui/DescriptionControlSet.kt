@@ -13,7 +13,7 @@ import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DescriptionControlSet : TaskEditControlFragment() {
+class DescriptionControlSet : TaskEditControlViewFragment() {
     @Inject lateinit var linkify: Linkify
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var markdownProvider: MarkdownProvider

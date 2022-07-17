@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ContentAlpha
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
@@ -49,7 +51,8 @@ abstract class TaskEditControlComposeFragment : TaskEditControlFragment() {
         TaskEditIcon(
             id = icon,
             modifier = Modifier
-                .padding(start = 16.dp, top = 20.dp, end = 32.dp, bottom = 20.dp),
+                .padding(start = 16.dp, top = 20.dp, end = 32.dp, bottom = 20.dp)
+                .alpha(ContentAlpha.medium),
         )
     }
 

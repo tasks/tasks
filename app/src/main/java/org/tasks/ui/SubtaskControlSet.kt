@@ -162,7 +162,9 @@ class SubtaskControlSet : TaskEditControlComposeFragment() {
     override fun Icon() {
         TaskEditIcon(
             id = icon,
-            modifier = Modifier.padding(start = 16.dp, top = 20.dp, end = 20.dp, bottom = 20.dp),
+            modifier = Modifier
+                .padding(start = 16.dp, top = 20.dp, end = 20.dp, bottom = 20.dp)
+                .alpha(ContentAlpha.medium),
         )
     }
 
