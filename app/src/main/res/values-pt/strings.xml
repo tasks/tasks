@@ -735,4 +735,6 @@
     <string name="dismiss">Dispensar</string>
     <string name="enable_reminders">Ativar lembretes</string>
     <string name="enable_reminders_description">Os lembretes estão desativados nas configurações do Android</string>
+    <string name="sort_completion_group">Concluído %s</string>
+    <string name="TEA_creation_date">Data de criação</string>
 </resources>
