@@ -17,6 +17,7 @@ import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
 import org.tasks.data.OpenTaskDao.Companion.getLong
+import org.tasks.extensions.getLongOrNull
 import org.tasks.extensions.getString
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
@@ -538,20 +539,17 @@ object Migrations {
         override fun migrate(database: SupportSQLiteDatabase) {
             database.execSQL("ALTER TABLE `tasks` ADD COLUMN `repeat_from` INTEGER NOT NULL DEFAULT ${Task.RepeatFrom.DUE_DATE}")
             database
-                .query("SELECT `_id`, `repeatUntil`, `recurrence` FROM `tasks` WHERE `repeatUntil` > 0")
-                .use {
-                    while (it.moveToNext()) {
-                        val id = it.getLong("_id")
-                        val repeatUntil = it.getLong("repeatUntil")
-                        val recurrence = it.getString("recurrence") ?: continue
-                        val recur = newRecur(recurrence.withoutFrom()!!).apply {
-                            until = DateTime(repeatUntil).toDate()
-                        }
-                        val repeatFrom = if (recurrence.isRepeatAfterCompletion()) {
-                            Task.RepeatFrom.COMPLETION_DATE
-                        } else {
-                            Task.RepeatFrom.DUE_DATE
-                        }
+                .query("SELECT `_id`, `repeatUntil`, `recurrence` FROM `tasks` WHERE `recurrence` IS NOT NULL AND `recurrence` != ''")
+                .use { cursor ->
+                    while (cursor.moveToNext()) {
+                        val id = cursor.getLong("_id")
+                        val recurrence =
+                            cursor.getString("recurrence")?.takeIf { it.isNotBlank() } ?: continue
+                        val recur = newRecur(recurrence.withoutFrom()!!)
+                        cursor.getLongOrNull("repeatUntil")
+                            ?.takeIf { it > 0 }
+                            ?.let { recur.until = DateTime(it).toDate() }
+                        val repeatFrom = recurrence.repeatFrom()
                         database.execSQL("UPDATE `tasks` SET `repeat_from` = $repeatFrom, `recurrence` = '$recur' WHERE `_id` = $id")
                     }
                 }
@@ -611,7 +609,11 @@ object Migrations {
         override fun migrate(database: SupportSQLiteDatabase) {}
     }
 
-    fun String?.isRepeatAfterCompletion() = this?.contains("FROM=COMPLETION") ?: false
+    fun String?.repeatFrom() = if (this?.contains("FROM=COMPLETION") == true) {
+        Task.RepeatFrom.COMPLETION_DATE
+    } else {
+        Task.RepeatFrom.DUE_DATE
+    }
 
     fun String?.withoutFrom(): String? = this?.replace(";?FROM=[^;]*".toRegex(), "")
 }

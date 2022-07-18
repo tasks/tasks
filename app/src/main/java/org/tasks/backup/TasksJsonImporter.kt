@@ -20,7 +20,7 @@ import org.tasks.R
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.*
 import org.tasks.data.Place.Companion.newPlace
-import org.tasks.db.Migrations.isRepeatAfterCompletion
+import org.tasks.db.Migrations.repeatFrom
 import org.tasks.db.Migrations.withoutFrom
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -157,11 +157,7 @@ class TasksJsonImporter @Inject constructor(
                     taskDao.save(task)
                 }
                 if (version < V12_8) {
-                    task.repeatFrom = if (task.recurrence.isRepeatAfterCompletion()) {
-                        Task.RepeatFrom.COMPLETION_DATE
-                    } else {
-                        Task.RepeatFrom.DUE_DATE
-                    }
+                    task.repeatFrom = task.recurrence.repeatFrom()
                     task.recurrence = task.recurrence.withoutFrom()
                 }
                 for (comment in backup.comments) {
