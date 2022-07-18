@@ -6,6 +6,7 @@ import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
@@ -15,7 +16,10 @@ import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
+import org.tasks.data.OpenTaskDao.Companion.getLong
 import org.tasks.extensions.getString
+import org.tasks.repeats.RecurrenceUtils.newRecur
+import org.tasks.time.DateTime
 import timber.log.Timber
 import java.io.File
 import java.util.concurrent.TimeUnit.HOURS
@@ -530,6 +534,36 @@ object Migrations {
         }
     }
 
+    private val MIGRATION_84_85 = object : Migration(84, 85) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE `tasks` ADD COLUMN `repeat_from` INTEGER NOT NULL DEFAULT ${Task.RepeatFrom.DUE_DATE}")
+            database
+                .query("SELECT `_id`, `repeatUntil`, `recurrence` FROM `tasks` WHERE `repeatUntil` > 0")
+                .use {
+                    while (it.moveToNext()) {
+                        val id = it.getLong("_id")
+                        val repeatUntil = it.getLong("repeatUntil")
+                        val recurrence = it.getString("recurrence") ?: continue
+                        val recur = newRecur(recurrence.withoutFrom()!!).apply {
+                            until = DateTime(repeatUntil).toDate()
+                        }
+                        val repeatFrom = if (recurrence.isRepeatAfterCompletion()) {
+                            Task.RepeatFrom.COMPLETION_DATE
+                        } else {
+                            Task.RepeatFrom.DUE_DATE
+                        }
+                        database.execSQL("UPDATE `tasks` SET `repeat_from` = $repeatFrom, `recurrence` = '$recur' WHERE `_id` = $id")
+                    }
+                }
+            database.execSQL("CREATE TABLE IF NOT EXISTS `_new_tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `importance` INTEGER NOT NULL, `dueDate` INTEGER NOT NULL, `hideUntil` INTEGER NOT NULL, `created` INTEGER NOT NULL, `modified` INTEGER NOT NULL, `completed` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `notes` TEXT, `estimatedSeconds` INTEGER NOT NULL, `elapsedSeconds` INTEGER NOT NULL, `timerStart` INTEGER NOT NULL, `notificationFlags` INTEGER NOT NULL, `lastNotified` INTEGER NOT NULL, `recurrence` TEXT, `repeat_from` INTEGER NOT NULL DEFAULT 0, `calendarUri` TEXT, `remoteId` TEXT, `collapsed` INTEGER NOT NULL, `parent` INTEGER NOT NULL)")
+            database.execSQL("INSERT INTO `_new_tasks` (`parent`,`notes`,`timerStart`,`estimatedSeconds`,`importance`,`created`,`collapsed`,`dueDate`,`completed`,`title`,`hideUntil`,`remoteId`,`recurrence`,`deleted`,`notificationFlags`,`calendarUri`,`modified`,`_id`,`lastNotified`,`elapsedSeconds`,`repeat_from`) SELECT `parent`,`notes`,`timerStart`,`estimatedSeconds`,`importance`,`created`,`collapsed`,`dueDate`,`completed`,`title`,`hideUntil`,`remoteId`,`recurrence`,`deleted`,`notificationFlags`,`calendarUri`,`modified`,`_id`,`lastNotified`,`elapsedSeconds`,`repeat_from` FROM `tasks`")
+            database.execSQL("DROP TABLE `tasks`")
+            database.execSQL("ALTER TABLE `_new_tasks` RENAME TO `tasks`")
+            database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `t_rid` ON `tasks` (`remoteId`)")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `active_and_visible` ON `tasks` (`completed`, `deleted`, `hideUntil`)")
+        }
+    }
+
     fun migrations(fileStorage: FileStorage) = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
@@ -570,9 +604,14 @@ object Migrations {
             MIGRATION_80_81,
             migration_81_82(fileStorage),
             MIGRATION_82_83,
+            MIGRATION_84_85,
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {
         override fun migrate(database: SupportSQLiteDatabase) {}
     }
+
+    fun String?.isRepeatAfterCompletion() = this?.contains("FROM=COMPLETION") ?: false
+
+    fun String?.withoutFrom(): String? = this?.replace(";?FROM=[^;]*".toRegex(), "")
 }

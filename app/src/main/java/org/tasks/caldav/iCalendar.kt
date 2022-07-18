@@ -17,36 +17,16 @@ import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.Property
 import net.fortuna.ical4j.model.component.VAlarm
 import net.fortuna.ical4j.model.parameter.RelType
-import net.fortuna.ical4j.model.property.Action
-import net.fortuna.ical4j.model.property.Completed
-import net.fortuna.ical4j.model.property.DateProperty
-import net.fortuna.ical4j.model.property.DtStart
-import net.fortuna.ical4j.model.property.Due
-import net.fortuna.ical4j.model.property.Geo
-import net.fortuna.ical4j.model.property.RelatedTo
-import net.fortuna.ical4j.model.property.Status
-import net.fortuna.ical4j.model.property.XProperty
+import net.fortuna.ical4j.model.property.*
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.caldav.extensions.toAlarms
 import org.tasks.caldav.extensions.toVAlarms
-import org.tasks.data.Alarm
+import org.tasks.data.*
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
-import org.tasks.data.AlarmDao
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.SERVER_SYNOLOGY_CALENDAR
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.Geofence
-import org.tasks.data.LocationDao
-import org.tasks.data.Place
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.date.DateTimeUtils.toLocal
@@ -55,7 +35,6 @@ import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRRule
-import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils.startOfMinute
 import org.tasks.time.DateTimeUtils.toDate
@@ -434,14 +413,7 @@ class iCalendar @Inject constructor(
             }
             rRule = if (task.isRecurring) {
                 try {
-                    val recur = newRecur(task.recurrence!!)
-                    val repeatUntil = task.repeatUntil
-                    recur.until = if (repeatUntil > 0) {
-                        DateTime(newDateTime(repeatUntil).toUTC().millis)
-                    } else {
-                        null
-                    }
-                    newRRule(recur.toString())
+                    newRRule(task.recurrence!!)
                 } catch (e: ParseException) {
                     Timber.e(e)
                     null

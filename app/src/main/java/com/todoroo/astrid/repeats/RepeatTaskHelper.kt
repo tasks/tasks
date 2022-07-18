@@ -65,7 +65,7 @@ class RepeatTaskHelper @Inject constructor(
         }
         if (count > 1) {
             rrule.count = count - 1
-            task.setRecurrence(rrule.toString(), repeatAfterCompletion)
+            task.setRecurrence(rrule)
         }
         task.reminderLast = 0L
         task.completionDate = 0L
@@ -95,7 +95,7 @@ class RepeatTaskHelper @Inject constructor(
             if (count > 0) {
                 recur.count = count + 1
             }
-            task.setRecurrence(recur.toString(), task.repeatAfterCompletion())
+            task.setRecurrence(recur)
             val newDueDate = task.dueDate
             task.setDueDateAdjustingHideUntil(
                 if (oldDueDate > 0) {
@@ -128,8 +128,7 @@ class RepeatTaskHelper @Inject constructor(
     companion object {
         private val weekdayCompare = Comparator { object1: WeekDay, object2: WeekDay -> WeekDay.getCalendarDay(object1) - WeekDay.getCalendarDay(object2) }
         private fun repeatFinished(newDueDate: Long, repeatUntil: Long): Boolean {
-            return (repeatUntil > 0
-                    && newDateTime(newDueDate).startOfDay().isAfter(newDateTime(repeatUntil).startOfDay()))
+            return repeatUntil > 0 && newDateTime(newDueDate).startOfDay().millis > repeatUntil
         }
 
         /** Compute next due date  */
@@ -267,5 +266,14 @@ class RepeatTaskHelper @Inject constructor(
             val newDueDate = startDate.millis + millis * recur.interval
             return createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDueDate)
         }
+
+        private val Task.repeatUntil: Long
+            get() = recurrence
+                ?.takeIf { it.isNotBlank() }
+                ?.let { newRecur(it) }
+                ?.until
+                ?.let { DateTime.from(it) }
+                ?.millis
+                ?: 0L
     }
 }

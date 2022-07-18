@@ -18,22 +18,7 @@ import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.CaldavTaskContainer
-import org.tasks.data.FilterDao
-import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.Location
-import org.tasks.data.LocationDao
-import org.tasks.data.Tag
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
-import org.tasks.data.TaskAttachmentDao
-import org.tasks.data.UpgraderDao
-import org.tasks.data.UserActivityDao
+import org.tasks.data.*
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.widget.AppWidgetManager
@@ -367,6 +352,7 @@ class Upgrader @Inject constructor(
         const val V11_13 = 111300
         const val V12_4 = 120400
         const val V12_6 = 120601
+        const val V12_8 = 120800
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

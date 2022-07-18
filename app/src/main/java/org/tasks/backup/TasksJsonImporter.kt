@@ -12,26 +12,16 @@ import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.service.Upgrader
 import com.todoroo.astrid.service.Upgrader.Companion.V12_4
+import com.todoroo.astrid.service.Upgrader.Companion.V12_8
 import com.todoroo.astrid.service.Upgrader.Companion.V6_4
 import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.AlarmDao
-import org.tasks.data.CaldavDao
-import org.tasks.data.FilterDao
-import org.tasks.data.Geofence
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.LocationDao
+import org.tasks.data.*
 import org.tasks.data.Place.Companion.newPlace
-import org.tasks.data.Tag
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
-import org.tasks.data.TaskAttachmentDao
-import org.tasks.data.TaskListMetadataDao
-import org.tasks.data.UserActivityDao
+import org.tasks.db.Migrations.isRepeatAfterCompletion
+import org.tasks.db.Migrations.withoutFrom
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.io.FileNotFoundException
@@ -165,6 +155,14 @@ class TasksJsonImporter @Inject constructor(
                         else -> 0
                     }
                     taskDao.save(task)
+                }
+                if (version < V12_8) {
+                    task.repeatFrom = if (task.recurrence.isRepeatAfterCompletion()) {
+                        Task.RepeatFrom.COMPLETION_DATE
+                    } else {
+                        Task.RepeatFrom.DUE_DATE
+                    }
+                    task.recurrence = task.recurrence.withoutFrom()
                 }
                 for (comment in backup.comments) {
                     comment.targetId = taskUuid

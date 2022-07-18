@@ -15,8 +15,6 @@ import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_FIVE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_NONSTOP
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.data.Task.Companion.hasDueTime
-import com.todoroo.astrid.data.Task.Companion.isRepeatAfterCompletion
-import com.todoroo.astrid.data.Task.Companion.withoutFrom
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskDeleter
@@ -45,7 +43,6 @@ import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRecur
-import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
@@ -171,54 +168,27 @@ class TaskEditViewModel @Inject constructor(
     var recurrence: String? = null
         get() = field ?: task.recurrence
 
-    var repeatUntil: Long? = null
-        get() = field ?: task.repeatUntil
-
     var repeatAfterCompletion: Boolean? = null
         get() = field ?: task.repeatAfterCompletion()
-        set(value) {
-            field = value
-            if (value == true) {
-                if (!recurrence.isRepeatAfterCompletion()) {
-                    recurrence += ";FROM=COMPLETION"
-                }
-            } else if (recurrence.isRepeatAfterCompletion()) {
-                recurrence = recurrence.withoutFrom()
-            }
-        }
 
     var recur: Recur?
         get() = if (recurrence.isNullOrBlank()) {
             null
         } else {
-            val rrule = newRecur(recurrence!!)
-            repeatUntil?.takeIf { it > 0 }?.let {
-                rrule.until = DateTime(it).toDate()
-            }
-            rrule
+            newRecur(recurrence!!)
         }
         set(value) {
             if (value == null) {
                 recurrence = ""
-                repeatUntil = 0
                 return
             }
             val copy = try {
                 newRecur(value.toString())
             } catch (e: ParseException) {
                 recurrence = ""
-                repeatUntil = 0
                 return
             }
-            repeatUntil = DateTime.from(copy.until).millis
-            if (repeatUntil ?: 0 > 0) {
-                copy.until = null
-            }
-            var result = copy.toString()
-            if (repeatAfterCompletion!! && result.isNotBlank()) {
-                result += ";FROM=COMPLETION"
-            }
-            recurrence = result
+            recurrence = copy.toString()
         }
 
     var originalCalendar: String? = null
@@ -295,7 +265,6 @@ class TaskEditViewModel @Inject constructor(
                     task.recurrence != recurrence
                 } ||
                 task.repeatAfterCompletion() != repeatAfterCompletion ||
-                task.repeatUntil != repeatUntil ||
                 originalCalendar != selectedCalendar.value ||
                 if (task.calendarURI.isNullOrBlank()) {
                     !eventUri.value.isNullOrBlank()
@@ -331,7 +300,11 @@ class TaskEditViewModel @Inject constructor(
         task.notes = description
         task.hideUntil = startDate.value
         task.recurrence = recurrence
-        task.repeatUntil = repeatUntil!!
+        task.repeatFrom = if (repeatAfterCompletion == true) {
+            Task.RepeatFrom.COMPLETION_DATE
+        } else {
+            Task.RepeatFrom.DUE_DATE
+        }
         task.elapsedSeconds = elapsedSeconds.value
         task.estimatedSeconds = estimatedSeconds.value
         task.ringFlags = getRingFlags()

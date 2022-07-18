@@ -104,10 +104,6 @@ public class DateTime {
     }
   }
 
-  public DateTime(Date date) {
-    this(date.getTime());
-  }
-
   private DateTime setTime(int hours, int minutes, int seconds, int milliseconds) {
     Calendar calendar = getCalendar();
     calendar.set(Calendar.HOUR_OF_DAY, hours);

@@ -17,23 +17,11 @@ import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.utility.TitleParser.parse
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.Alarm
+import org.tasks.data.*
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.whenDue
 import org.tasks.data.Alarm.Companion.whenOverdue
 import org.tasks.data.Alarm.Companion.whenStarted
-import org.tasks.data.AlarmDao
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.Geofence
-import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.LocationDao
-import org.tasks.data.Place
-import org.tasks.data.Tag
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
@@ -116,9 +104,12 @@ class TaskCreator @Inject constructor(
         preferences.getStringValue(R.string.p_default_recurrence)
                 ?.takeIf { it.isNotBlank() }
                 ?.let {
-                    task.setRecurrence(
-                            it,
-                            preferences.getIntegerFromString(R.string.p_default_recurrence_from, 0) == 1)
+                    task.recurrence = it
+                    task.repeatFrom = if (preferences.getIntegerFromString(R.string.p_default_recurrence_from, 0) == 1) {
+                        Task.RepeatFrom.COMPLETION_DATE
+                    } else {
+                        Task.RepeatFrom.DUE_DATE
+                    }
                 }
         preferences.getStringValue(R.string.p_default_location)
                 ?.takeIf { it.isNotBlank() }

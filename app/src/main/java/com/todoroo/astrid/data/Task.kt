@@ -15,7 +15,6 @@ import org.tasks.Strings
 import org.tasks.data.Tag
 import org.tasks.date.DateTimeUtils
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
 
@@ -87,8 +86,8 @@ class Task : Parcelable {
     @ColumnInfo(name = "recurrence")
     var recurrence: String? = null
 
-    @ColumnInfo(name = "repeatUntil")
-    var repeatUntil = 0L
+    @ColumnInfo(name = "repeat_from", defaultValue = RepeatFrom.DUE_DATE.toString())
+    var repeatFrom: Int = RepeatFrom.DUE_DATE
 
     @ColumnInfo(name = "calendarUri")
     var calendarURI: String? = null
@@ -127,7 +126,6 @@ class Task : Parcelable {
         recurrence = parcel.readString()
         ringFlags = parcel.readInt()
         reminderLast = parcel.readLong()
-        repeatUntil = parcel.readLong()
         timerStart = parcel.readLong()
         title = parcel.readString()
         remoteId = parcel.readString() ?: NO_UUID
@@ -197,7 +195,7 @@ class Task : Parcelable {
             return dueDate < compareTo && !isCompleted
         }
 
-    fun repeatAfterCompletion(): Boolean = recurrence.isRepeatAfterCompletion()
+    fun repeatAfterCompletion(): Boolean = repeatFrom == RepeatFrom.COMPLETION_DATE
 
     fun setDueDateAdjustingHideUntil(newDueDate: Long) {
         if (dueDate > 0) {
@@ -211,18 +209,8 @@ class Task : Parcelable {
     val isRecurring: Boolean
         get() = !Strings.isNullOrEmpty(recurrence)
 
-    fun setRecurrence(rrule: String, afterCompletion: Boolean) {
-        recurrence = rrule + if (afterCompletion) ";FROM=COMPLETION" else ""
-    }
-
     fun setRecurrence(rrule: Recur?) {
-        if (rrule == null) {
-            repeatUntil = 0
-            recurrence = null
-        } else {
-            repeatUntil = rrule.until?.let { DateTime(it).millis } ?: 0
-            recurrence = rrule.toString() + if (repeatAfterCompletion()) ";FROM=COMPLETION" else ""
-        }
+        recurrence = rrule?.toString()
     }
 
     fun hasNotes(): Boolean {
@@ -271,7 +259,6 @@ class Task : Parcelable {
         dest.writeString(recurrence)
         dest.writeInt(ringFlags)
         dest.writeLong(reminderLast)
-        dest.writeLong(repeatUntil)
         dest.writeLong(timerStart)
         dest.writeString(title)
         dest.writeString(remoteId)
@@ -300,7 +287,6 @@ class Task : Parcelable {
                 && elapsedSeconds == task.elapsedSeconds
                 && ringFlags == task.ringFlags
                 && recurrence == task.recurrence
-                && repeatUntil == task.repeatUntil
                 && calendarURI == task.calendarURI
                 && parent == task.parent
                 && remoteId == task.remoteId
@@ -335,7 +321,6 @@ class Task : Parcelable {
                 && notes == original.notes
                 && recurrence == original.recurrence
                 && parent == original.parent
-                && repeatUntil == original.repeatUntil
                 && isCollapsed == original.isCollapsed
     }
 
@@ -418,7 +403,6 @@ class Task : Parcelable {
         if (ringFlags != other.ringFlags) return false
         if (reminderLast != other.reminderLast) return false
         if (recurrence != other.recurrence) return false
-        if (repeatUntil != other.repeatUntil) return false
         if (calendarURI != other.calendarURI) return false
         if (remoteId != other.remoteId) return false
         if (isCollapsed != other.isCollapsed) return false
@@ -445,7 +429,6 @@ class Task : Parcelable {
         result = 31 * result + ringFlags
         result = 31 * result + reminderLast.hashCode()
         result = 31 * result + (recurrence?.hashCode() ?: 0)
-        result = 31 * result + repeatUntil.hashCode()
         result = 31 * result + (calendarURI?.hashCode() ?: 0)
         result = 31 * result + remoteId.hashCode()
         result = 31 * result + isCollapsed.hashCode()
@@ -455,7 +438,7 @@ class Task : Parcelable {
     }
 
     override fun toString(): String {
-        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, ringFlags=$ringFlags, reminderLast=$reminderLast, recurrence=$recurrence, repeatUntil=$repeatUntil, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, transitoryData=$transitoryData)"
+        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, ringFlags=$ringFlags, reminderLast=$reminderLast, recurrence=$recurrence, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, transitoryData=$transitoryData)"
     }
 
     @Retention(AnnotationRetention.SOURCE)
@@ -466,6 +449,15 @@ class Task : Parcelable {
             const val MEDIUM = 1
             const val LOW = 2
             const val NONE = 3
+        }
+    }
+
+    @Retention(AnnotationRetention.SOURCE)
+    @IntDef(RepeatFrom.DUE_DATE, RepeatFrom.COMPLETION_DATE)
+    annotation class RepeatFrom {
+        companion object {
+            const val DUE_DATE = 0
+            const val COMPLETION_DATE = 1
         }
     }
 
@@ -615,8 +607,5 @@ class Task : Parcelable {
             return NO_UUID == uuid || Strings.isNullOrEmpty(uuid)
         }
 
-        fun String?.isRepeatAfterCompletion() = this?.contains("FROM=COMPLETION") ?: false
-
-        fun String?.withoutFrom(): String? = this?.replace(";?FROM=[^;]*".toRegex(), "")
     }
 }

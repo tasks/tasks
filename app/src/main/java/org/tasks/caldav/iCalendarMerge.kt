@@ -2,7 +2,6 @@ package org.tasks.caldav
 
 import at.bitfire.ical4android.Task
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.data.Task.Companion.withoutFrom
 import com.todoroo.astrid.data.Task.Priority.Companion.HIGH
 import com.todoroo.astrid.data.Task.Priority.Companion.LOW
 import com.todoroo.astrid.data.Task.Priority.Companion.MEDIUM
@@ -16,7 +15,6 @@ import org.tasks.caldav.iCalendar.Companion.toMillis
 import org.tasks.data.CaldavTask
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.time.DateTime.UTC
-import org.tasks.time.DateTimeUtils.startOfMinute
 import org.tasks.time.DateTimeUtils.startOfSecond
 
 fun com.todoroo.astrid.data.Task.applyRemote(
@@ -87,7 +85,7 @@ private fun com.todoroo.astrid.data.Task.applyPriority(remote: Task, local: Task
 }
 
 private fun com.todoroo.astrid.data.Task.applyRecurrence(remote: Task, local: Task?) {
-    if (local == null || local.rRule?.recur?.toString() == recurrence.withoutFrom()) {
+    if (local == null || local.rRule?.recur?.toString() == recurrence) {
         setRecurrence(remote.rRule?.recur)
     }
 }
