@@ -25,7 +25,7 @@ class RepeatRuleToString @Inject constructor(
 
     fun toString(rrule: String?): String? = rrule?.let { toString(newRecur(it)) }
 
-    fun toString(rrule: Recur): String = try {
+    private fun toString(rrule: Recur): String = try {
         val interval = rrule.interval
         val frequency = rrule.frequency
         val repeatUntil = if (rrule.until == null) null else DateTime.from(rrule.until)

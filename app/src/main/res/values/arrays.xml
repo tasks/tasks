@@ -91,11 +91,6 @@
     <item>@string/repeat_yearly</item>
   </string-array>
 
-  <string-array name="repeat_type">
-    <item>@string/repeat_type_due</item>
-    <item>@string/repeat_type_completion</item>
-  </string-array>
-
   <string-array name="repeat_type_capitalized">
     <item>@string/due_date</item>
     <item>@string/repeat_type_completion_capitalized</item>

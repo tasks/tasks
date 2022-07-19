@@ -26,7 +26,6 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import net.fortuna.ical4j.model.Recur
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.analytics.Firebase
@@ -42,11 +41,9 @@ import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
-import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.time.DateTimeUtils.startOfDay
 import timber.log.Timber
-import java.text.ParseException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -119,6 +116,8 @@ class TaskEditViewModel @Inject constructor(
         elapsedSeconds.value = task.elapsedSeconds
         estimatedSeconds.value = task.estimatedSeconds
         timerStarted.value = task.timerStart
+        recurrence.value = task.recurrence
+        repeatAfterCompletion.value = task.repeatAfterCompletion()
     }
 
     lateinit var task: Task
@@ -165,33 +164,10 @@ class TaskEditViewModel @Inject constructor(
         }
     }
 
-    var recurrence: String? = null
-        get() = field ?: task.recurrence
+    val recurrence = MutableStateFlow<String?>(null)
+    val repeatAfterCompletion = MutableStateFlow(false)
 
-    var repeatAfterCompletion: Boolean? = null
-        get() = field ?: task.repeatAfterCompletion()
-
-    var recur: Recur?
-        get() = if (recurrence.isNullOrBlank()) {
-            null
-        } else {
-            newRecur(recurrence!!)
-        }
-        set(value) {
-            if (value == null) {
-                recurrence = ""
-                return
-            }
-            val copy = try {
-                newRecur(value.toString())
-            } catch (e: ParseException) {
-                recurrence = ""
-                return
-            }
-            recurrence = copy.toString()
-        }
-
-    var originalCalendar: String? = null
+    private var originalCalendar: String? = null
         private set(value) {
             field = value
             selectedCalendar.value = value
@@ -260,11 +236,11 @@ class TaskEditViewModel @Inject constructor(
                 } ||
                 task.hideUntil != startDate.value ||
                 if (task.recurrence.isNullOrBlank()) {
-                    !recurrence.isNullOrBlank()
+                    !recurrence.value.isNullOrBlank()
                 } else {
-                    task.recurrence != recurrence
+                    task.recurrence != recurrence.value
                 } ||
-                task.repeatAfterCompletion() != repeatAfterCompletion ||
+                task.repeatAfterCompletion() != repeatAfterCompletion.value ||
                 originalCalendar != selectedCalendar.value ||
                 if (task.calendarURI.isNullOrBlank()) {
                     !eventUri.value.isNullOrBlank()
@@ -299,8 +275,8 @@ class TaskEditViewModel @Inject constructor(
         task.priority = priority.value
         task.notes = description
         task.hideUntil = startDate.value
-        task.recurrence = recurrence
-        task.repeatFrom = if (repeatAfterCompletion == true) {
+        task.recurrence = recurrence.value
+        task.repeatFrom = if (repeatAfterCompletion.value) {
             Task.RepeatFrom.COMPLETION_DATE
         } else {
             Task.RepeatFrom.DUE_DATE
