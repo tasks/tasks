@@ -26,11 +26,11 @@ import org.tasks.files.ImageHelper
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeColor
-import org.tasks.ui.TaskEditControlViewFragment
+import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CommentBarFragment : TaskEditControlViewFragment() {
+class CommentBarFragment : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var device: Device

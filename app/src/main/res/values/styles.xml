@@ -25,12 +25,6 @@
     <item name="textInputStyle">@style/OutlinedBox</item>
   </style>
 
-  <style name="TaskEditTextPrimary">
-    <item name="android:textColor">?android:attr/textColorPrimary</item>
-    <item name="android:textColorHint">?android:attr/textColorTertiary</item>
-    <item name="android:textSize">@dimen/task_edit_text_size</item>
-  </style>
-
   <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Light">
     <item name="toolbarNavigationButtonStyle">@style/BlackNavigation</item>
     <item name="iconTint">@color/text_primary</item>
