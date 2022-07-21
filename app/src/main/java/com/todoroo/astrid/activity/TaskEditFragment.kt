@@ -57,6 +57,7 @@ import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
 import org.tasks.files.FileHelper
+import org.tasks.fragments.CommentBarFragment
 import org.tasks.fragments.TaskEditControlSetFragmentManager
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
@@ -213,6 +214,11 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 fragmentTransaction.hide(taskEditControlFragment)
             }
         }
+        fragmentTransaction.replace(
+            R.id.comment_bar,
+            fragmentManager.findFragmentByTag(FRAG_TAG_COMMENT_BAR) ?: CommentBarFragment(),
+            FRAG_TAG_COMMENT_BAR
+        )
         fragmentTransaction.commit()
         for (i in visibleSize - 1 downTo 1) {
             binding.controlSets.addView(inflater.inflate(R.layout.task_edit_row_divider, binding.controlSets, false), i)
@@ -381,6 +387,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     companion object {
         const val TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"
+        private const val FRAG_TAG_COMMENT_BAR = "comment_bar"
         private const val EXTRA_TASK = "extra_task"
         private const val EXTRA_LIST = "extra_list"
         private const val EXTRA_LOCATION = "extra_location"

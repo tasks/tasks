@@ -7,14 +7,13 @@ import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.tags.TagsControlSet
 import com.todoroo.astrid.timers.TimerControlSet
-import com.todoroo.astrid.ui.StartDateControlSet
 import com.todoroo.astrid.ui.ReminderControlSet
+import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.preferences.Preferences
 import org.tasks.ui.*
-import java.util.*
 import javax.inject.Inject
 
 class TaskEditControlSetFragmentManager @Inject constructor(
@@ -51,7 +50,6 @@ class TaskEditControlSetFragmentManager @Inject constructor(
         TimerControlSet.TAG -> TimerControlSet()
         TagsControlSet.TAG -> TagsControlSet()
         RepeatControlSet.TAG -> RepeatControlSet()
-        CommentBarFragment.TAG -> CommentBarFragment()
         ListFragment.TAG -> ListFragment()
         SubtaskControlSet.TAG -> SubtaskControlSet()
         CreationDateControlSet.TAG -> CreationDateControlSet()
@@ -60,7 +58,6 @@ class TaskEditControlSetFragmentManager @Inject constructor(
 
     init {
         displayOrder = BeastModePreferences.constructOrderedControlList(preferences, context)
-        displayOrder.add(0, context.getString(CommentBarFragment.TAG))
         val hideAlwaysTrigger = context.getString(R.string.TEA_ctrl_hide_section_pref)
         visibleSize = 0
         while (visibleSize < displayOrder.size) {
@@ -77,7 +74,6 @@ class TaskEditControlSetFragmentManager @Inject constructor(
 
     companion object {
         val TASK_EDIT_CONTROL_FRAGMENT_ROWS = intArrayOf(
-                R.id.comment_bar,
                 R.id.row_1,
                 R.id.row_2,
                 R.id.row_3,
@@ -106,7 +102,6 @@ class TaskEditControlSetFragmentManager @Inject constructor(
                 TagsControlSet.TAG,
                 RepeatControlSet.TAG,
                 CreationDateControlSet.TAG,
-                CommentBarFragment.TAG,
                 ListFragment.TAG,
                 SubtaskControlSet.TAG
         )

@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -26,11 +27,10 @@ import org.tasks.files.ImageHelper
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeColor
-import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CommentBarFragment : TaskEditControlFragment() {
+class CommentBarFragment : Fragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var device: Device
@@ -56,7 +56,7 @@ class CommentBarFragment : TaskEditControlFragment() {
         return view
     }
 
-    override fun createView(savedInstanceState: Bundle?) {
+    private fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             val uri = savedInstanceState.getString(EXTRA_PICTURE)
             if (uri != null) {
@@ -74,7 +74,7 @@ class CommentBarFragment : TaskEditControlFragment() {
         resetPictureButton()
     }
 
-    override fun bind(parent: ViewGroup?) =
+    private fun bind(parent: ViewGroup?) =
         FragmentCommentBarBinding.inflate(layoutInflater, parent, false).let {
             commentButton = it.commentButton.apply {
                 setOnClickListener { addClicked() }
@@ -91,10 +91,6 @@ class CommentBarFragment : TaskEditControlFragment() {
             commentBar = it.updatesFooter
             it.root
         }
-
-    override val icon = 0
-
-    override fun controlId() = TAG
 
     private fun onTextChanged(s: String?) {
         commentButton.visibility = if (pendingCommentPicture == null && isNullOrEmpty(s.toString())) View.GONE else View.VISIBLE
@@ -210,7 +206,6 @@ class CommentBarFragment : TaskEditControlFragment() {
     }
 
     companion object {
-        const val TAG = R.string.TEA_ctrl_comments
         private const val REQUEST_CODE_CAMERA = 60
         private const val EXTRA_TEXT = "extra_text"
         private const val EXTRA_PICTURE = "extra_picture"
