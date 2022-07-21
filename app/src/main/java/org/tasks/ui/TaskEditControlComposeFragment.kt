@@ -57,5 +57,5 @@ abstract class TaskEditControlComposeFragment : TaskEditControlFragment() {
     }
 
     @Composable
-    protected abstract fun Body()
+    protected open fun Body() {}
 }

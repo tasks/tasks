@@ -13,6 +13,6 @@ fun TaskEditIcon(@DrawableRes id: Int, modifier: Modifier = Modifier) {
     Icon(
         painter = painterResource(id = id),
         contentDescription = null,
-        modifier = modifier.alpha(ContentAlpha.high),
+        modifier = modifier.alpha(ContentAlpha.medium),
     )
 }

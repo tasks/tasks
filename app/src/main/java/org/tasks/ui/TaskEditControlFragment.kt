@@ -15,7 +15,7 @@ abstract class TaskEditControlFragment : Fragment() {
     protected open val isClickable: Boolean
         get() = false
 
-    protected abstract val icon: Int
+    protected open val icon = 0
     abstract fun controlId(): Int
     protected abstract fun bind(parent: ViewGroup?): View
 }

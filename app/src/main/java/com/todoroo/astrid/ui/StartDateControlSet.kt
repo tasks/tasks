@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
@@ -12,6 +13,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -26,6 +28,8 @@ import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.ui.StartDateControlSet.Companion.getRelativeDateString
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.compose.TaskEditIcon
+import org.tasks.compose.TaskEditRow
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.StartDatePicker
@@ -39,6 +43,7 @@ import org.tasks.dialogs.StartDatePicker.Companion.NO_TIME
 import org.tasks.dialogs.StartDatePicker.Companion.WEEK_BEFORE_DUE
 import org.tasks.preferences.Preferences
 import org.tasks.ui.TaskEditControlComposeFragment
+import org.tasks.ui.TaskEditViewModel
 import java.time.format.FormatStyle
 import java.util.*
 import javax.inject.Inject
@@ -49,19 +54,6 @@ class StartDateControlSet : TaskEditControlComposeFragment() {
     @Inject lateinit var locale: Locale
 
     private val vm: StartDateViewModel by viewModels()
-
-    override fun onRowClick() {
-        val fragmentManager = parentFragmentManager
-        if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
-            StartDatePicker.newDateTimePicker(
-                    this,
-                    REQUEST_START_DATE,
-                    vm.selectedDay.value,
-                    vm.selectedTime.value,
-                    preferences.getBoolean(R.string.p_auto_dismiss_datetime_edit_screen, false))
-                    .show(fragmentManager, FRAG_TAG_DATE_PICKER)
-        }
-    }
 
     override fun createView(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
@@ -74,23 +66,39 @@ class StartDateControlSet : TaskEditControlComposeFragment() {
         }
     }
 
-    @Composable
-    override fun Body() {
-        StartDate(
-            startDate = viewModel.startDate.collectAsStateLifecycleAware().value,
-            selectedDay = vm.selectedDay.collectAsStateLifecycleAware().value,
-            selectedTime = vm.selectedTime.collectAsStateLifecycleAware().value,
-            displayFullDate = preferences.alwaysDisplayFullDate,
-            locale = locale,
-        )
-    }
-
-    override val icon = R.drawable.ic_pending_actions_24px
+    override fun bind(parent: ViewGroup?) =
+        (parent as ComposeView).apply {
+            setContent {
+                MdcTheme {
+                    StartDateRow(
+                        viewModel = viewModel,
+                        vm = vm,
+                        preferences = preferences,
+                        locale = locale,
+                        onClick = {
+                            val fragmentManager = parentFragmentManager
+                            if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
+                                StartDatePicker.newDateTimePicker(
+                                    this@StartDateControlSet,
+                                    REQUEST_START_DATE,
+                                    vm.selectedDay.value,
+                                    vm.selectedTime.value,
+                                    preferences.getBoolean(
+                                        R.string.p_auto_dismiss_datetime_edit_screen,
+                                        false
+                                    )
+                                )
+                                    .show(fragmentManager, FRAG_TAG_DATE_PICKER)
+                            }
+                        }
+                    )
+                }
+            }
+        }
 
     override fun controlId() = TAG
 
-    override val isClickable = true
-
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_START_DATE) {
             if (resultCode == Activity.RESULT_OK) {
@@ -124,6 +132,41 @@ class StartDateControlSet : TaskEditControlComposeFragment() {
 }
 
 @Composable
+fun StartDateRow(
+    viewModel: TaskEditViewModel,
+    vm: StartDateViewModel,
+    preferences: Preferences,
+    locale: Locale,
+    onClick: () -> Unit,
+) {
+    TaskEditRow(
+        icon = {
+            TaskEditIcon(
+                id = R.drawable.ic_pending_actions_24px,
+                modifier = Modifier
+                    .padding(
+                        start = 16.dp,
+                        top = 20.dp,
+                        end = 32.dp,
+                        bottom = 20.dp
+                    )
+            )
+        },
+        content = {
+            StartDate(
+                startDate = viewModel.startDate.collectAsStateLifecycleAware().value,
+                selectedDay = vm.selectedDay.collectAsStateLifecycleAware().value,
+                selectedTime = vm.selectedTime.collectAsStateLifecycleAware().value,
+                displayFullDate = preferences.alwaysDisplayFullDate,
+                locale = locale,
+                hasDueDate = viewModel.dueDate.collectAsStateLifecycleAware().value > 0
+            )
+        },
+        onClick = onClick
+    )
+}
+
+@Composable
 fun StartDate(
     startDate: Long,
     selectedDay: Long,
@@ -131,6 +174,7 @@ fun StartDate(
     displayFullDate: Boolean,
     locale: Locale = Locale.getDefault(),
     currentTime: Long = now(),
+    hasDueDate: Boolean,
 ) {
     val context = LocalContext.current
     Text(
@@ -150,11 +194,14 @@ fun StartDate(
             else -> stringResource(id = R.string.no_start_date)
         },
         color = when {
+            selectedDay < 0 && !hasDueDate -> colorResource(id = R.color.overdue)
             startDate == 0L -> MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
             startDate < currentTime -> colorResource(id = R.color.overdue)
             else -> MaterialTheme.colors.onSurface
         },
-        modifier = Modifier.padding(vertical = 20.dp).height(24.dp),
+        modifier = Modifier
+            .padding(vertical = 20.dp)
+            .height(24.dp),
     )
 }
 
@@ -168,7 +215,8 @@ fun NoStartDate() {
             selectedDay = NO_DAY,
             selectedTime = NO_TIME,
             displayFullDate = false,
-            currentTime = 1657080392000L
+            currentTime = 1657080392000L,
+            hasDueDate = false,
         )
     }
 }
@@ -183,7 +231,8 @@ fun FutureStartDate() {
             selectedDay = DUE_DATE,
             selectedTime = NO_TIME,
             displayFullDate = false,
-            currentTime = 1657080392000L
+            currentTime = 1657080392000L,
+            hasDueDate = false,
         )
     }
 }
@@ -198,7 +247,8 @@ fun PastStartDate() {
             selectedDay = DUE_TIME,
             selectedTime = NO_TIME,
             displayFullDate = false,
-            currentTime = 1657080392001L
+            currentTime = 1657080392001L,
+            hasDueDate = false,
         )
     }
 }
