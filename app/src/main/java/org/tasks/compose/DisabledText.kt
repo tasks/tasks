@@ -1,6 +1,7 @@
 package org.tasks.compose
 
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -19,6 +20,7 @@ fun DisabledText(
         style = MaterialTheme.typography.body1,
         modifier = modifier
             .alpha(alpha = ContentAlpha.disabled)
-            .height(24.dp),
+            .padding(end = 16.dp)
+            .defaultMinSize(minHeight = 24.dp),
     )
 }

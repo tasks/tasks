@@ -4,29 +4,18 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Parcelable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.NotificationsOff
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.util.Pair
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.compose.DisabledText
 import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.compose.edit.LocationRow
 import org.tasks.data.Geofence
 import org.tasks.data.Location
 import org.tasks.data.Place
@@ -35,8 +24,6 @@ import org.tasks.dialogs.GeofenceDialog
 import org.tasks.extensions.Context.openUri
 import org.tasks.location.LocationPermissionDialog.Companion.newLocationPermissionDialog
 import org.tasks.location.LocationPickerActivity
-import org.tasks.preferences.Device
-import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.PermissionChecker.backgroundPermissions
 import org.tasks.preferences.Preferences
@@ -46,8 +33,6 @@ import javax.inject.Inject
 class LocationControlSet : TaskEditControlComposeFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var dialogBuilder: DialogBuilder
-    @Inject lateinit var device: Device
-    @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
     @Inject lateinit var permissionChecker: PermissionChecker
 
     private fun setLocation(location: Location?) {
@@ -94,39 +79,34 @@ class LocationControlSet : TaskEditControlComposeFragment() {
     }
 
     @OptIn(ExperimentalPermissionsApi::class)
-    @Composable
-    override fun Body() {
-        val location = viewModel.selectedLocation.collectAsStateLifecycleAware().value
-        val hasPermissions =
-            rememberMultiplePermissionsState(permissions = backgroundPermissions())
-                .allPermissionsGranted
-        if (location == null) {
-            DisabledText(
-                text = stringResource(id = R.string.add_location),
-                modifier = Modifier.padding(vertical = 20.dp)
-            )
-        } else {
-            LocationRow(
-                name = location.displayName,
-                address = location.displayAddress,
-                onClick = {
-                    if (hasPermissions) {
-                        showGeofenceOptions()
-                    } else {
-                        newLocationPermissionDialog(this, REQUEST_LOCATION_PERMISSIONS)
-                            .show(parentFragmentManager, FRAG_TAG_REQUEST_LOCATION)
-                    }
-                },
-                geofenceOn = hasPermissions && (location.isArrival || location.isDeparture)
-            )
+    override fun bind(parent: ViewGroup?): View =
+        (parent as ComposeView).apply {
+            setContent {
+                MdcTheme {
+                    val hasPermissions =
+                        rememberMultiplePermissionsState(permissions = backgroundPermissions())
+                            .allPermissionsGranted
+                    LocationRow(
+                        location = viewModel.selectedLocation.collectAsStateLifecycleAware().value,
+                        hasPermissions = hasPermissions,
+                        onClick = this@LocationControlSet::onRowClick,
+                        openGeofenceOptions = {
+                            if (hasPermissions) {
+                                showGeofenceOptions()
+                            } else {
+                                newLocationPermissionDialog(
+                                    this@LocationControlSet,
+                                    REQUEST_LOCATION_PERMISSIONS
+                                )
+                                    .show(parentFragmentManager, FRAG_TAG_REQUEST_LOCATION)
+                            }
+                        }
+                    )
+                }
+            }
         }
-    }
-
-    override val icon = R.drawable.ic_outline_place_24px
 
     override fun controlId() = TAG
-
-    override val isClickable = true
 
     private fun openWebsite() {
         viewModel.selectedLocation.value?.let { context?.openUri(it.url) }
@@ -180,39 +160,3 @@ class LocationControlSet : TaskEditControlComposeFragment() {
         private const val FRAG_TAG_REQUEST_LOCATION = "request_location"
     }
 }
-
-@Composable
-fun LocationRow(
-    name: String,
-    address: String?,
-    geofenceOn: Boolean,
-    onClick: () -> Unit,
-) {
-    Row {
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(vertical = 20.dp)
-        ) {
-            Text(text = name)
-            address?.takeIf { it.isNotBlank() && it != name }?.let {
-                Text(text = address)
-            }
-        }
-        IconButton(
-            onClick = onClick,
-            modifier = Modifier.padding(top = 8.dp /* + 12dp from icon */)
-        ) {
-            Icon(
-                imageVector = if (geofenceOn) {
-                    Icons.Outlined.Notifications
-                } else {
-                    Icons.Outlined.NotificationsOff
-                },
-                contentDescription = null,
-                modifier = Modifier.alpha(ContentAlpha.medium),
-            )
-        }
-    }
-}
-
