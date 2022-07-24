@@ -2,10 +2,10 @@ package org.tasks.ui
 
 import android.app.Activity
 import android.content.Intent
-import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
@@ -13,38 +13,35 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.ListPicker
 import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.compose.edit.ListRow
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ListFragment : TaskEditControlComposeFragment() {
     @Inject lateinit var chipProvider: ChipProvider
 
-    @Composable
-    override fun Body() {
-        val list = viewModel.selectedList.collectAsStateLifecycleAware()
-        val selectedList = list.value ?: return
-        ChipGroup(modifier = Modifier.padding(vertical = 20.dp)) {
-            chipProvider.FilterChip(
-                filter = selectedList,
-                defaultIcon = R.drawable.ic_list_24px,
-                showText = true,
-                showIcon = true,
-                onClick = { openPicker() }
-            )
+    override fun bind(parent: ViewGroup?): View =
+        (parent as ComposeView).apply {
+            setContent {
+                MdcTheme {
+                    ListRow(
+                        list = viewModel.selectedList.collectAsStateLifecycleAware().value,
+                        colorProvider = { chipProvider.getColor(it) },
+                        onClick = {
+                            ListPicker.newListPicker(
+                                viewModel.selectedList.value!!,
+                                this@ListFragment,
+                                REQUEST_CODE_SELECT_LIST
+                            )
+                                .show(parentFragmentManager, FRAG_TAG_GOOGLE_TASK_LIST_SELECTION)
+                        }
+                    )
+                }
+            }
         }
-    }
 
-    override val icon = R.drawable.ic_list_24px
 
     override fun controlId() = TAG
-
-    override fun onRowClick() = openPicker()
-
-    override val isClickable = true
-
-    private fun openPicker() =
-            ListPicker.newListPicker(viewModel.selectedList.value!!, this, REQUEST_CODE_SELECT_LIST)
-                    .show(parentFragmentManager, FRAG_TAG_GOOGLE_TASK_LIST_SELECTION)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_SELECT_LIST) {

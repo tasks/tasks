@@ -20,6 +20,7 @@ import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.ui.CheckableImageView
 import org.tasks.R
+import org.tasks.compose.ChipGroup
 import org.tasks.data.TaskContainer
 import org.tasks.databinding.TaskAdapterRowBinding
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -28,7 +29,6 @@ import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
-import org.tasks.ui.ChipGroup
 import org.tasks.ui.ChipProvider
 import java.time.format.FormatStyle
 import java.util.*

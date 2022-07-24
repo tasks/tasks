@@ -1,23 +1,7 @@
 package org.tasks.ui
 
 import android.app.Activity
-import android.content.res.Configuration
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.google.accompanist.flowlayout.FlowRow
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
@@ -27,16 +11,14 @@ import com.todoroo.astrid.data.Task
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Inventory
-import org.tasks.data.TagData
+import org.tasks.compose.Chip
+import org.tasks.compose.FilterChip
 import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.extensions.formatNumber
 import org.tasks.filters.PlaceFilter
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.CustomIcons
-import org.tasks.themes.CustomIcons.getIconResId
-import org.tasks.themes.ThemeColor
 import org.tasks.time.DateTimeUtils.startOfDay
 import java.time.format.FormatStyle
 import java.util.*
@@ -79,13 +61,14 @@ class ChipProvider @Inject constructor(
                 false
             )
         }
-        TasksChip(
+        Chip(
             R.drawable.ic_pending_actions_24px,
             text,
             0,
             showText = true,
             showIcon = true,
             onClick = {},
+            colorProvider = this::getColor,
         )
     }
 
@@ -95,7 +78,7 @@ class ChipProvider @Inject constructor(
         compact: Boolean,
         onClick: () -> Unit,
     ) {
-        TasksChip(
+        Chip(
             if (task.isCollapsed) R.drawable.ic_keyboard_arrow_down_black_24dp else R.drawable.ic_keyboard_arrow_up_black_24dp,
             if (compact) locale.formatNumber(task.children) else activity
                 .resources
@@ -104,24 +87,7 @@ class ChipProvider @Inject constructor(
             showText = true,
             showIcon = true,
             onClick = onClick,
-        )
-    }
-
-    @Composable
-    fun FilterChip(
-        filter: Filter,
-        defaultIcon: Int,
-        showText: Boolean = this@ChipProvider.showText,
-        showIcon: Boolean = this@ChipProvider.showIcon,
-        onClick: (Any) -> Unit,
-    ) {
-        TasksChip(
-            getIcon(filter.icon, defaultIcon),
-            filter.listingTitle,
-            filter.tint,
-            showText,
-            showIcon,
-            onClick = { onClick(filter) },
+            colorProvider = this::getColor,
         )
     }
 
@@ -144,7 +110,10 @@ class ChipProvider @Inject constructor(
             FilterChip(
                 filter = PlaceFilter(location.place),
                 defaultIcon = R.drawable.ic_outline_place_24px,
-                onClick = onClick
+                onClick = onClick,
+                showText = showText,
+                showIcon = showIcon,
+                colorProvider = this::getColor,
             )
         }
         if (!isSubtask && preferences.showListChip) {
@@ -153,7 +122,10 @@ class ChipProvider @Inject constructor(
                     FilterChip(
                         filter = list,
                         defaultIcon = R.drawable.ic_list_24px,
-                        onClick = onClick
+                        onClick = onClick,
+                        showText = showText,
+                        showIcon = showIcon,
+                        colorProvider = this::getColor,
                     )
                 }
             } else if (!isNullOrEmpty(task.caldav) && filter !is CaldavFilter) {
@@ -161,7 +133,10 @@ class ChipProvider @Inject constructor(
                     FilterChip(
                         filter = list,
                         defaultIcon = R.drawable.ic_list_24px,
-                        onClick = onClick
+                        onClick = onClick,
+                        showText = showText,
+                        showIcon = showIcon,
+                        colorProvider = this::getColor,
                     )
                 }
             }
@@ -178,157 +153,22 @@ class ChipProvider @Inject constructor(
                     FilterChip(
                         filter = it,
                         defaultIcon = R.drawable.ic_outline_label_24px,
-                        onClick = onClick
+                        onClick = onClick,
+                        showText = showText,
+                        showIcon = showIcon,
+                        colorProvider = this::getColor,
                     )
                 }
         }
     }
 
-    @Composable
-    fun TagChip(tag: TagData, onClick: () -> Unit) {
-        TasksChip(
-            getIcon(tag.getIcon()!!, R.drawable.ic_outline_label_24px),
-            tag.name,
-            tag.getColor()!!,
-            showText = true,
-            showIcon = true,
-            onClick = onClick,
-        )
-    }
-
-    @Composable
-    fun TasksChip(
-        @DrawableRes icon: Int?,
-        name: String?,
-        theme: Int,
-        showText: Boolean,
-        showIcon: Boolean,
-        onClick: () -> Unit,
-    ) {
-        val color =
-            getColor(theme)?.primaryColor ?: activity.getColor(R.color.default_chip_background)
-        TasksChip(
-            color = Color(color),
-            text = if (showText) name else null,
-            icon = if (showIcon && icon != null) icon else null,
-            onClick = onClick,
-        )
-    }
-
-    @DrawableRes
-    private fun getIcon(index: Int, def: Int) = getIconResId(index) ?: def
-
-    private fun getColor(theme: Int): ThemeColor? {
+    fun getColor(theme: Int): Int {
         if (theme != 0) {
             val color = colorProvider.getThemeColor(theme, true)
             if (color.isFree || inventory.purchasedThemes()) {
-                return color
+                return color.primaryColor
             }
         }
-        return null
-    }
-}
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun TasksChip(
-    text: String? = null,
-    icon: Int? = null,
-    color: Color,
-    onClick: () -> Unit = {},
-) {
-    CompositionLocalProvider(
-        LocalMinimumTouchTargetEnforcement provides false
-    ) {
-        Chip(
-            onClick = onClick,
-            border = BorderStroke(1.dp, color = color),
-            leadingIcon = {
-                if (text != null) {
-                    ChipIcon(iconRes = icon)
-                }
-            },
-            modifier = Modifier.defaultMinSize(minHeight = 26.dp),
-            colors = ChipDefaults.chipColors(
-                backgroundColor = color.copy(alpha = .1f),
-                contentColor = MaterialTheme.colors.onSurface
-            ),
-        ) {
-            if (text == null) {
-                ChipIcon(iconRes = icon)
-            }
-            text?.let {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.caption,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun ChipGroup(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    FlowRow(
-        mainAxisSpacing = 4.dp,
-        crossAxisSpacing = 4.dp,
-        modifier = modifier,
-    ) {
-        content()
-    }
-}
-
-@Composable
-fun ChipIcon(iconRes: Int?) {
-    iconRes?.let {
-        Icon(
-            painter = painterResource(id = iconRes),
-            contentDescription = null,
-            modifier = Modifier.size(18.dp)
-        )
-    }
-}
-
-@ExperimentalComposeUiApi
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun TasksChipIconAndTextPreview() {
-    MdcTheme {
-        TasksChip(
-            text = "Home",
-            icon = getIconResId(CustomIcons.LABEL),
-            color = Color.Red,
-        )
-    }
-}
-
-@ExperimentalComposeUiApi
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun TasksChipIconPreview() {
-    MdcTheme {
-        TasksChip(
-            text = null,
-            icon = getIconResId(CustomIcons.LABEL),
-            color = Color.Red,
-        )
-    }
-}
-
-@ExperimentalComposeUiApi
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun TasksChipTextPreview() {
-    MdcTheme {
-        TasksChip(
-            text = "Home",
-            icon = null,
-            color = Color.Red,
-        )
+        return activity.getColor(R.color.default_chip_background)
     }
 }

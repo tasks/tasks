@@ -2,18 +2,15 @@ package com.todoroo.astrid.tags
 
 import android.app.Activity
 import android.content.Intent
-import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.compose.DisabledText
 import org.tasks.compose.collectAsStateLifecycleAware
-import org.tasks.data.TagData
+import org.tasks.compose.edit.TagsRow
 import org.tasks.tags.TagPickerActivity
-import org.tasks.ui.ChipGroup
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.TaskEditControlComposeFragment
 import javax.inject.Inject
@@ -28,23 +25,18 @@ class TagsControlSet : TaskEditControlComposeFragment() {
         startActivityForResult(intent, REQUEST_TAG_PICKER_ACTIVITY)
     }
 
-    @Composable
-    override fun Body() {
-        val tags = viewModel.selectedTags.collectAsStateLifecycleAware()
-        ChipGroup(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, end = 16.dp)) {
-            if (tags.value.isEmpty()) {
-                DisabledText(text = stringResource(id = R.string.add_tags))
-            } else {
-                tags.value.sortedBy(TagData::name).forEach { tag ->
-                    chipProvider.TagChip(tag, this@TagsControlSet::onRowClick)
+    override fun bind(parent: ViewGroup?): View =
+        (parent as ComposeView).apply {
+            setContent {
+                MdcTheme {
+                    TagsRow(
+                        tags = viewModel.selectedTags.collectAsStateLifecycleAware().value,
+                        colorProvider = { chipProvider.getColor(it) },
+                        onClick = this@TagsControlSet::onRowClick
+                    )
                 }
             }
         }
-    }
-
-    override val isClickable = true
-
-    override val icon = R.drawable.ic_outline_label_24px
 
     override fun controlId() = TAG
 

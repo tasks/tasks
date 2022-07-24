@@ -1,5 +1,6 @@
 package org.tasks.themes
 
+import androidx.annotation.DrawableRes
 import org.tasks.R
 
 object CustomIcons {
@@ -218,4 +219,7 @@ object CustomIcons {
 
     @JvmStatic
     fun getIndex(position: Int) = getIconList()[position]
+
+    @DrawableRes
+    fun getIcon(index: Int, def: Int) = getIconResId(index) ?: def
 }
