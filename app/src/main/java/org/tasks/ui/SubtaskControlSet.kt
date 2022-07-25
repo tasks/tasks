@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -215,13 +216,15 @@ class SubtaskControlSet : TaskEditControlComposeFragment() {
                     text = it
                     subtask.title = it
                 },
+                cursorBrush = SolidColor(MaterialTheme.colors.onSurface),
                 modifier = Modifier
                     .weight(1f)
                     .focusable(enabled = true)
                     .focusRequester(focusRequester)
                     .alpha(if (subtask.isCompleted) ContentAlpha.disabled else ContentAlpha.high),
                 textStyle = MaterialTheme.typography.body1.copy(
-                    textDecoration = if (subtask.isCompleted) LineThrough else None
+                    textDecoration = if (subtask.isCompleted) LineThrough else None,
+                    color = MaterialTheme.colors.onSurface,
                 ),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     capitalization = KeyboardCapitalization.Sentences,
