@@ -13,9 +13,9 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Inventory
 import org.tasks.compose.Chip
 import org.tasks.compose.FilterChip
+import org.tasks.compose.SubtaskChip
 import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.extensions.formatNumber
 import org.tasks.filters.PlaceFilter
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
@@ -68,25 +68,6 @@ class ChipProvider @Inject constructor(
             showText = true,
             showIcon = true,
             onClick = {},
-            colorProvider = this::getColor,
-        )
-    }
-
-    @Composable
-    fun SubtaskChip(
-        task: TaskContainer,
-        compact: Boolean,
-        onClick: () -> Unit,
-    ) {
-        Chip(
-            if (task.isCollapsed) R.drawable.ic_keyboard_arrow_down_black_24dp else R.drawable.ic_keyboard_arrow_up_black_24dp,
-            if (compact) locale.formatNumber(task.children) else activity
-                .resources
-                .getQuantityString(R.plurals.subtask_count, task.children, task.children),
-            0,
-            showText = true,
-            showIcon = true,
-            onClick = onClick,
             colorProvider = this::getColor,
         )
     }

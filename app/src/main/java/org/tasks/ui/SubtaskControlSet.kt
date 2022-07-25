@@ -7,12 +7,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -20,8 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -44,18 +43,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.compose.ClearButton
-import org.tasks.compose.DisabledText
-import org.tasks.compose.TaskEditIcon
-import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.compose.*
 import org.tasks.data.GoogleTask
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.ColorProvider.Companion.priorityColor
-import org.tasks.ui.CheckBoxProvider.Companion.getCheckboxRes
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -210,7 +204,8 @@ class SubtaskControlSet : TaskEditControlComposeFragment() {
             CheckBox(
                 task = subtask,
                 onCompleteClick = { onComplete(subtask) },
-                modifier = Modifier.align(Alignment.Top)
+                modifier = Modifier.align(Alignment.Top),
+                desaturate = preferences.desaturateDarkMode,
             )
             var text by remember { mutableStateOf(subtask.title ?: "") }
             val focusRequester = remember { FocusRequester() }
@@ -263,7 +258,11 @@ class SubtaskControlSet : TaskEditControlComposeFragment() {
                 .padding(end = 16.dp)
         ) {
             Spacer(modifier = Modifier.width((indent * 20).dp))
-            CheckBox(task = task.task, onCompleteClick = onCompleteClick)
+            CheckBox(
+                task = task.task,
+                onCompleteClick = onCompleteClick,
+                desaturate = preferences.desaturateDarkMode
+            )
             Text(
                 text = task.title,
                 modifier = Modifier
@@ -274,33 +273,12 @@ class SubtaskControlSet : TaskEditControlComposeFragment() {
                 )
             )
             if (task.hasChildren()) {
-                chipProvider.SubtaskChip(
+                SubtaskChip(
                     task = task,
                     compact = true,
                     onClick = onToggleSubtaskClick,
                 )
             }
-        }
-    }
-
-    @Composable
-    fun CheckBox(
-        task: Task,
-        onCompleteClick: () -> Unit,
-        modifier: Modifier = Modifier,
-    ) {
-        IconButton(onClick = onCompleteClick, modifier = modifier) {
-            Icon(
-                painter = painterResource(id = task.getCheckboxRes()),
-                tint = Color(
-                    priorityColor(
-                        priority = task.priority,
-                        isDarkMode = isSystemInDarkTheme(),
-                        desaturate = preferences.desaturateDarkMode,
-                    )
-                ),
-                contentDescription = null,
-            )
         }
     }
 
@@ -325,3 +303,4 @@ class SubtaskControlSet : TaskEditControlComposeFragment() {
             )
     }
 }
+
