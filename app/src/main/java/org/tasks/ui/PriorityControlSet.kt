@@ -8,9 +8,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.PriorityRow
+import org.tasks.preferences.Preferences
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PriorityControlSet : TaskEditControlComposeFragment() {
+    @Inject lateinit var preferences: Preferences
 
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
@@ -18,7 +21,8 @@ class PriorityControlSet : TaskEditControlComposeFragment() {
                 MdcTheme {
                     PriorityRow(
                         priority = viewModel.priority.collectAsStateLifecycleAware().value,
-                        onChangePriority = { viewModel.priority.value = it }
+                        onChangePriority = { viewModel.priority.value = it },
+                        desaturate = preferences.desaturateDarkMode,
                     )
                 }
             }

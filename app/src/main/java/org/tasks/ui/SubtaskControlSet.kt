@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -51,7 +52,9 @@ import org.tasks.data.GoogleTask
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
+import org.tasks.themes.ColorProvider.Companion.priorityColor
 import org.tasks.ui.CheckBoxProvider.Companion.getCheckboxRes
 import javax.inject.Inject
 
@@ -67,6 +70,7 @@ class SubtaskControlSet : TaskEditControlComposeFragment() {
     @Inject lateinit var chipProvider: ChipProvider
     @Inject lateinit var eventBus: MainActivityEventBus
     @Inject lateinit var colorProvider: ColorProvider
+    @Inject lateinit var preferences: Preferences
 
     private val listViewModel: TaskListViewModel by viewModels()
     private val refreshReceiver = RefreshReceiver()
@@ -289,12 +293,13 @@ class SubtaskControlSet : TaskEditControlComposeFragment() {
             Icon(
                 painter = painterResource(id = task.getCheckboxRes()),
                 tint = Color(
-                    colorProvider.getPriorityColor(
+                    priorityColor(
                         priority = task.priority,
-                        adjust = false
+                        isDarkMode = isSystemInDarkTheme(),
+                        desaturate = preferences.desaturateDarkMode,
                     )
                 ),
-                contentDescription = null
+                contentDescription = null,
             )
         }
     }

@@ -2,6 +2,7 @@ package org.tasks.themes
 
 import android.content.Context
 import androidx.annotation.ColorInt
+import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ActivityContext
 import org.tasks.R
 import org.tasks.preferences.Preferences
@@ -66,10 +67,24 @@ class ColorProvider @Inject constructor(@param:ActivityContext private val conte
                 -10395295 to -7895161, // graphite
                 -5792882 to -5135210 // birch
         )
+
+        fun priorityColor(priority: Int, isDarkMode: Boolean, desaturate: Boolean): Int {
+            val color = when (priority) {
+                in Int.MIN_VALUE..Task.Priority.HIGH -> RED_500
+                Task.Priority.MEDIUM -> AMBER_500
+                Task.Priority.LOW -> BLUE_500
+                else -> GREY_500
+            }
+            return if (isDarkMode && desaturate) {
+                saturated[color] ?: color
+            } else {
+                color
+            }
+        }
     }
 
     private val isDark = context.resources.getBoolean(R.bool.is_dark)
-    private val desaturate = preferences.getBoolean(R.string.p_desaturate_colors, true)
+    private val desaturate = preferences.desaturateDarkMode
 
     private fun getColor(@ColorInt color: Int, adjust: Boolean) =
             if (adjust && isDark && desaturate) {
@@ -81,12 +96,11 @@ class ColorProvider @Inject constructor(@param:ActivityContext private val conte
     fun getThemeColor(@ColorInt color: Int, adjust: Boolean = true) =
             ThemeColor(context, color, getColor(color, adjust))
 
-    fun getPriorityColor(priority: Int, adjust: Boolean = true) = when (priority) {
-        in Int.MIN_VALUE..0 -> getColor(RED_500, adjust)
-        1 -> getColor(AMBER_500, adjust)
-        2 -> getColor(BLUE_500, adjust)
-        else -> GREY_500
-    }
+    fun getPriorityColor(priority: Int, adjust: Boolean = true) = priorityColor(
+        priority = priority,
+        isDarkMode = isDark,
+        desaturate = adjust && desaturate,
+    )
 
     fun getThemeAccent(index: Int) = ThemeAccent(context, if (isDark && desaturate) {
         ThemeAccent.ACCENTS_DESATURATED[index]

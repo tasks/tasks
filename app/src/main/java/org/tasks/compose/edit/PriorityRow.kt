@@ -1,6 +1,7 @@
 package org.tasks.compose.edit
 
 import android.content.res.Configuration
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
@@ -10,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,18 +20,21 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.data.Task
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
+import org.tasks.themes.ColorProvider.Companion.priorityColor
 
 @Composable
 fun PriorityRow(
     priority: Int,
     onChangePriority: (Int) -> Unit,
+    desaturate: Boolean,
 ) {
     TaskEditRow(
         iconRes = R.drawable.ic_outline_flag_24px,
         content = {
             Priority(
                 selected = priority,
-                onClick = { onChangePriority(it) }
+                onClick = { onChangePriority(it) },
+                desaturate = desaturate,
             )
         },
     )
@@ -39,7 +43,8 @@ fun PriorityRow(
 @Composable
 fun Priority(
     selected: Int,
-    onClick: (Int) -> Unit = {}
+    onClick: (Int) -> Unit = {},
+    desaturate: Boolean,
 ) {
     Row(
         modifier = Modifier
@@ -58,7 +63,12 @@ fun Priority(
         )
         Spacer(modifier = Modifier.weight(1f))
         for (i in Task.Priority.HIGH..Task.Priority.NONE) {
-            PriorityButton(priority = i, selected = selected, onClick = onClick)
+            PriorityButton(
+                priority = i,
+                selected = selected,
+                onClick = onClick,
+                desaturate = desaturate,
+            )
         }
     }
 }
@@ -67,14 +77,16 @@ fun Priority(
 fun PriorityButton(
     @Task.Priority priority: Int,
     selected: Int,
+    desaturate: Boolean,
     onClick: (Int) -> Unit,
 ) {
-    val color = when (priority) {
-        in Int.MIN_VALUE..Task.Priority.HIGH -> colorResource(id = R.color.red_500)
-        Task.Priority.MEDIUM -> colorResource(id = R.color.amber_500)
-        Task.Priority.LOW -> colorResource(id = R.color.blue_500)
-        else -> colorResource(R.color.grey_500)
-    }
+    val color = Color(
+        priorityColor(
+            priority = priority,
+            isDarkMode = isSystemInDarkTheme(),
+            desaturate = desaturate,
+        )
+    )
     RadioButton(
         selected = priority == selected,
         onClick = { onClick(priority) },
@@ -91,6 +103,23 @@ fun PriorityButton(
 @Composable
 fun PriorityPreview() {
     MdcTheme {
-        PriorityRow(priority = Task.Priority.MEDIUM) {}
+        PriorityRow(
+            priority = Task.Priority.MEDIUM,
+            onChangePriority = {},
+            desaturate = true,
+        )
+    }
+}
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PriorityPreviewNoDesaturate() {
+    MdcTheme {
+        PriorityRow(
+            priority = Task.Priority.MEDIUM,
+            onChangePriority = {},
+            desaturate = false,
+        )
     }
 }

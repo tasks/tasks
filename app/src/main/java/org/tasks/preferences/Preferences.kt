@@ -544,6 +544,9 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_shown_beast_mode_hint, false)
         set(value) = setBoolean(R.string.p_shown_beast_mode_hint, value)
 
+    val desaturateDarkMode: Boolean
+        get() = getBoolean(R.string.p_desaturate_colors, true)
+
     companion object {
         private const val PREF_SORT_SORT = "sort_sort" // $NON-NLS-1$
 
