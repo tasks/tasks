@@ -12,11 +12,11 @@ import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.TagsRow
 import org.tasks.tags.TagPickerActivity
 import org.tasks.ui.ChipProvider
-import org.tasks.ui.TaskEditControlComposeFragment
+import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TagsControlSet : TaskEditControlComposeFragment() {
+class TagsControlSet : TaskEditControlFragment() {
     @Inject lateinit var chipProvider: ChipProvider
     
     override fun onRowClick() {

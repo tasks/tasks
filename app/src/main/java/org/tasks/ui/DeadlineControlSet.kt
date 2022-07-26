@@ -20,7 +20,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DeadlineControlSet : TaskEditControlComposeFragment() {
+class DeadlineControlSet : TaskEditControlFragment() {
     @Inject lateinit var locale: Locale
     @Inject lateinit var preferences: Preferences
 

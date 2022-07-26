@@ -54,7 +54,7 @@ import org.tasks.themes.ColorProvider
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SubtaskControlSet : TaskEditControlComposeFragment() {
+class SubtaskControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager

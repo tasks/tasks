@@ -14,7 +14,7 @@ import org.tasks.ui.TaskEditViewModel.Companion.stripCarriageReturns
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DescriptionControlSet : TaskEditControlComposeFragment() {
+class DescriptionControlSet : TaskEditControlFragment() {
     @Inject lateinit var linkify: Linkify
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var markdownProvider: MarkdownProvider

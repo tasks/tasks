@@ -12,7 +12,7 @@ import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PriorityControlSet : TaskEditControlComposeFragment() {
+class PriorityControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
 
     override fun bind(parent: ViewGroup?): View =

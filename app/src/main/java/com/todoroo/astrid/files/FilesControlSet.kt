@@ -5,45 +5,33 @@
  */
 package com.todoroo.astrid.files
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.CenterVertically
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
-import org.tasks.compose.DisabledText
 import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.compose.edit.AttachmentRow
 import org.tasks.data.TaskAttachment
 import org.tasks.data.TaskAttachmentDao
 import org.tasks.dialogs.AddAttachmentDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.files.FileHelper
 import org.tasks.preferences.Preferences
-import org.tasks.ui.TaskEditControlComposeFragment
+import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FilesControlSet : TaskEditControlComposeFragment() {
+class FilesControlSet : TaskEditControlFragment() {
     @Inject lateinit var taskAttachmentDao: TaskAttachmentDao
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var preferences: Preferences
@@ -59,53 +47,25 @@ class FilesControlSet : TaskEditControlComposeFragment() {
         }
     }
 
-    private fun addAttachment() {
-        AddAttachmentDialog.newAddAttachmentDialog(this)
-            .show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
-    }
-
-    @Composable
-    override fun Body() {
-        val attachments =
-            taskAttachmentDao.watchAttachments(viewModel.task.uuid)
-                .collectAsStateLifecycleAware(initial = emptyList()).value
-        Column(
-            modifier = Modifier.padding(top = if (attachments.isEmpty()) 0.dp else 8.dp),
-        ) {
-            attachments.forEach {
-                Row(
-                    modifier = Modifier
-                        .clickable { showFile(it) },
-                    verticalAlignment = CenterVertically,
-                ) {
-                    Text(
-                        text = it.name!!,
-                        modifier = Modifier.weight(1f),
+    override fun bind(parent: ViewGroup?): View =
+        (parent as ComposeView).apply {
+            setContent {
+                MdcTheme {
+                    AttachmentRow(
+                        attachments = taskAttachmentDao.watchAttachments(viewModel.task.uuid)
+                            .collectAsStateLifecycleAware(initial = emptyList()).value,
+                        openAttachment = {
+                            FileHelper.startActionView(requireActivity(), it.parseUri())
+                        },
+                        deleteAttachment = this@FilesControlSet::deleteAttachment,
+                        addAttachment = {
+                            AddAttachmentDialog.newAddAttachmentDialog(this@FilesControlSet)
+                                .show(parentFragmentManager, FRAG_TAG_ADD_ATTACHMENT_DIALOG)
+                        },
                     )
-                    IconButton(onClick = { deleteAttachment(it) }) {
-                        Icon(
-                            imageVector = Icons.Outlined.Delete,
-                            contentDescription = stringResource(
-                                id = R.string.delete
-                            )
-                        )
-                    }
                 }
             }
-            DisabledText(
-                text = stringResource(id = R.string.add_attachment),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { addAttachment() }
-                    .padding(
-                        top = if (attachments.isEmpty()) 20.dp else 8.dp,
-                        bottom = 20.dp,
-                    )
-            )
         }
-    }
-
-    override val icon = R.drawable.ic_outline_attachment_24px
 
     override fun controlId() = TAG
 
@@ -146,11 +106,6 @@ class FilesControlSet : TaskEditControlComposeFragment() {
             }
             .setNegativeButton(R.string.cancel, null)
             .show()
-    }
-
-    @SuppressLint("NewApi")
-    private fun showFile(m: TaskAttachment) {
-        FileHelper.startActionView(requireActivity(), m.parseUri())
     }
 
     private fun copyToAttachmentDirectory(input: Uri?) {

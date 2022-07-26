@@ -30,7 +30,7 @@ import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LocationControlSet : TaskEditControlComposeFragment() {
+class LocationControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var permissionChecker: PermissionChecker

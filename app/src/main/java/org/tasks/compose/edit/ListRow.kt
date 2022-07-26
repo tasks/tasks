@@ -1,9 +1,14 @@
 package org.tasks.compose.edit
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.android.material.composethemeadapter.MdcTheme
+import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
 import org.tasks.R
 import org.tasks.compose.ChipGroup
@@ -34,4 +39,18 @@ fun ListRow(
         },
         onClick = onClick
     )
+}
+
+@ExperimentalComposeUiApi
+@Preview(showBackground = true, widthDp = 320)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
+@Composable
+fun ListPreview() {
+    MdcTheme {
+        ListRow(
+            list = Filter("Default list", QueryTemplate()),
+            colorProvider = { -769226 },
+            onClick = {},
+        )
+    }
 }

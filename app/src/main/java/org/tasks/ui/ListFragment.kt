@@ -17,7 +17,7 @@ import org.tasks.compose.edit.ListRow
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ListFragment : TaskEditControlComposeFragment() {
+class ListFragment : TaskEditControlFragment() {
     @Inject lateinit var chipProvider: ChipProvider
 
     override fun bind(parent: ViewGroup?): View =

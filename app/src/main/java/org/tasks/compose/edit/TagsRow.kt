@@ -1,16 +1,20 @@
 package org.tasks.compose.edit
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.compose.Chip
 import org.tasks.compose.ChipGroup
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.TagData
+import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons
 
 @Composable
@@ -45,4 +49,70 @@ fun TagsRow(
         },
         onClick = onClick
     )
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
+@Composable
+fun NoTags() {
+    MdcTheme {
+        TagsRow(
+            tags = emptyList(),
+            colorProvider = { 0 },
+            onClick = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
+@Composable
+fun SingleTag() {
+    MdcTheme {
+        TagsRow(
+            tags = listOf(
+                TagData("Home").apply {
+                    setIcon(1062)
+                    setColor(ColorProvider.BLUE_500)
+                }
+            ),
+            colorProvider = { it },
+            onClick = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun BunchOfTags() {
+    MdcTheme {
+        TagsRow(
+            tags = listOf(
+                TagData("One"),
+                TagData("Two"),
+                TagData("Three"),
+                TagData("Four"),
+                TagData("Five"),
+            ),
+            colorProvider = { it },
+            onClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun TagWithReallyLongName() {
+    MdcTheme {
+        TagsRow(
+            tags = listOf(
+                TagData("This is a tag with a really really long name").apply {
+                    setIcon(1062)
+                    setColor(ColorProvider.BLUE_500)
+                }
+            ),
+            colorProvider = { it },
+            onClick = {},
+        )
+    }
 }

@@ -22,13 +22,13 @@ import org.tasks.dialogs.StartDatePicker.Companion.EXTRA_TIME
 import org.tasks.dialogs.StartDatePicker.Companion.NO_DAY
 import org.tasks.dialogs.StartDatePicker.Companion.NO_TIME
 import org.tasks.preferences.Preferences
-import org.tasks.ui.TaskEditControlComposeFragment
+import org.tasks.ui.TaskEditControlFragment
 import java.time.format.FormatStyle
 import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class StartDateControlSet : TaskEditControlComposeFragment() {
+class StartDateControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
 

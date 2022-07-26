@@ -43,12 +43,12 @@ import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.reminders.AlarmToString
-import org.tasks.ui.TaskEditControlComposeFragment
+import org.tasks.ui.TaskEditControlFragment
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ReminderControlSet : TaskEditControlComposeFragment() {
+class ReminderControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var alarmToString: AlarmToString

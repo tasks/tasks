@@ -24,11 +24,11 @@ import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.currentTimeMillis
-import org.tasks.ui.TaskEditControlComposeFragment
+import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RepeatControlSet : TaskEditControlComposeFragment() {
+class RepeatControlSet : TaskEditControlFragment() {
     @Inject lateinit var repeatRuleToString: RepeatRuleToString
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

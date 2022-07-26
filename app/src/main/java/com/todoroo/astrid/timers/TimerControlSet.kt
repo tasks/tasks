@@ -7,38 +7,23 @@ package com.todoroo.astrid.timers
 
 import android.app.Activity
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Pause
-import androidx.compose.material.icons.outlined.PlayArrow
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.ui.TimeDurationControlSet
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.compose.DisabledText
 import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.compose.edit.TimerRow
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.themes.Theme
-import org.tasks.ui.TaskEditControlComposeFragment
-import java.lang.System.currentTimeMillis
+import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * Control Set for managing repeats
@@ -46,7 +31,7 @@ import kotlin.time.Duration.Companion.seconds
  * @author Tim Su <tim></tim>@todoroo.com>
  */
 @AndroidEntryPoint
-class TimerControlSet : TaskEditControlComposeFragment() {
+class TimerControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var theme: Theme
@@ -103,75 +88,22 @@ class TimerControlSet : TaskEditControlComposeFragment() {
         }
     }
 
-    @Composable
-    override fun Body() {
-        var now by remember { mutableStateOf(currentTimeMillis()) }
-        val started = viewModel.timerStarted.collectAsStateLifecycleAware().value
-        val newElapsed = if (started > 0) (now - started) / 1000L else 0
-        val estimated =
-            viewModel.estimatedSeconds.collectAsStateLifecycleAware().value.takeIf { it > 0 }
-                ?.let {
-                    stringResource(id = R.string.TEA_timer_est, DateUtils.formatElapsedTime(it.toLong()))
+    override fun bind(parent: ViewGroup?): View =
+        (parent as ComposeView).apply {
+            setContent {
+                MdcTheme {
+                    TimerRow(
+                        started = viewModel.timerStarted.collectAsStateLifecycleAware().value,
+                        estimated = viewModel.estimatedSeconds.collectAsStateLifecycleAware().value,
+                        elapsed = viewModel.elapsedSeconds.collectAsStateLifecycleAware().value,
+                        timerClicked = this@TimerControlSet::timerClicked,
+                        onClick = this@TimerControlSet::onRowClick,
+                    )
                 }
-        val elapsed =
-            (newElapsed + viewModel.elapsedSeconds.collectAsStateLifecycleAware().value)
-                .takeIf { it > 0 }
-                ?.let {
-                    stringResource(id = R.string.TEA_timer_elap, DateUtils.formatElapsedTime(it))
-                }
-        val text = when {
-            estimated != null && elapsed != null -> "$estimated, $elapsed"
-            estimated != null -> estimated
-            elapsed != null -> elapsed
-            else -> null
-        }
-        Row {
-            if (text == null) {
-                DisabledText(
-                    text = stringResource(id = R.string.TEA_timer_controls),
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(vertical = 20.dp),
-                )
-            } else {
-                Text(
-                    text = text,
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(vertical = 20.dp),
-                )
-            }
-            IconButton(
-                onClick = {
-                    now = currentTimeMillis()
-                    timerClicked()
-                },
-                modifier = Modifier.padding(vertical = 8.dp),
-            ) {
-                Icon(
-                    imageVector = if (started > 0) {
-                        Icons.Outlined.Pause
-                    } else {
-                        Icons.Outlined.PlayArrow
-                    },
-                    modifier = Modifier.alpha(ContentAlpha.medium),
-                    contentDescription = null
-                )
             }
         }
-        LaunchedEffect(key1 = started) {
-            while (started > 0) {
-                delay(1.seconds)
-                now = currentTimeMillis()
-            }
-        }
-    }
-
-    override val icon = R.drawable.ic_outline_timer_24px
 
     override fun controlId() = TAG
-
-    override val isClickable = true
 
     private fun timerActive() = viewModel.timerStarted.value > 0
 
