@@ -231,6 +231,7 @@ dependencies {
     implementation("com.google.android.material:compose-theme-adapter:${Versions.compose_theme_adapter}")
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("androidx.compose.material:material-icons-extended:${Versions.compose}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
     releaseCompileOnly("androidx.compose.ui:ui-tooling:${Versions.compose}")
 
     implementation("com.google.accompanist:accompanist-flowlayout:${Versions.accompanist}")

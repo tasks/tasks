@@ -1,37 +1,27 @@
 package com.todoroo.astrid.ui
 
+import android.Manifest
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.runtime.Composable
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
-import org.tasks.compose.AddReminderDialog
-import org.tasks.compose.AlarmRow
-import org.tasks.compose.DisabledText
 import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.compose.edit.AlarmRow
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
@@ -42,8 +32,8 @@ import org.tasks.data.Alarm.Companion.whenStarted
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
-import org.tasks.reminders.AlarmToString
 import org.tasks.ui.TaskEditControlFragment
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -51,7 +41,7 @@ import javax.inject.Inject
 class ReminderControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
-    @Inject lateinit var alarmToString: AlarmToString
+    @Inject lateinit var locale: Locale
 
     data class ViewState(
         val showCustomDialog: Boolean = false,
@@ -92,7 +82,7 @@ class ReminderControlSet : TaskEditControlFragment() {
     }
 
     private fun addAlarm(selected: String) {
-        val id = viewModel.task?.id ?: 0
+        val id = viewModel.task.id
         when (selected) {
             getString(R.string.when_started) ->
                 addAlarmRow(whenStarted(id))
@@ -124,112 +114,38 @@ class ReminderControlSet : TaskEditControlFragment() {
         }
     }
 
-    @OptIn(ExperimentalComposeUiApi::class, ExperimentalPermissionsApi::class)
-    @Composable
-    override fun Body() {
-        val viewState = vm.viewState.collectAsStateLifecycleAware()
-        val current: ViewState = viewState.value
-        val notificationPermissions = if (atLeastTiramisu()) {
-            rememberPermissionState(
-                android.Manifest.permission.POST_NOTIFICATIONS
-            )
-        } else {
-            null
-        }
-        when (notificationPermissions?.status ?: PermissionStatus.Granted) {
-            PermissionStatus.Granted ->
-                Alarms()
-            is PermissionStatus.Denied -> {
-                Column(
-                    modifier = Modifier.clickable {
-                        notificationPermissions?.launchPermissionRequest()
-                    }
-                ) {
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Text(
-                        text = stringResource(id = R.string.enable_reminders),
-                        color = colorResource(id = R.color.red_500),
-                    )
-                    Text(
-                        text = stringResource(id = R.string.enable_reminders_description),
-                        style = MaterialTheme.typography.caption,
-                        color = colorResource(id = R.color.red_500),
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-                }
-            }
-        }
-
-        AddReminderDialog.AddCustomReminderDialog(
-            openDialog = current.showCustomDialog,
-            addAlarm = this::addAlarmRow,
-            closeDialog = {
-                vm.showCustomDialog(visible = false)
-                AndroidUtilities.hideKeyboard(activity)
-            }
-        )
-
-        AddReminderDialog.AddRandomReminderDialog(
-            openDialog = current.showRandomDialog,
-            addAlarm = this::addAlarmRow,
-            closeDialog = {
-                vm.showRandomDialog(visible = false)
-                AndroidUtilities.hideKeyboard(activity)
-            }
-        )
-    }
-
-    @Composable
-    fun Alarms() {
-        Column {
-            val alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware()
-            Spacer(modifier = Modifier.height(8.dp))
-            alarms.value.forEach { alarm ->
-                AlarmRow(alarmToString.toString(alarm)) {
-                    viewModel.selectedAlarms.value =
-                        viewModel.selectedAlarms.value.minus(alarm)
-                }
-            }
-            Row(modifier = Modifier.fillMaxWidth()) {
-                DisabledText(
-                    text = stringResource(id = R.string.add_reminder),
-                    modifier = Modifier
-                        .padding(vertical = 12.dp)
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = rememberRipple(bounded = false),
-                            onClick = { addAlarm() }
+    @OptIn(ExperimentalPermissionsApi::class)
+    override fun bind(parent: ViewGroup?): View =
+        (parent as ComposeView).apply {
+            setContent {
+                MdcTheme {
+                    val ringMode by remember { this@ReminderControlSet.ringMode }
+                    val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
+                        rememberPermissionState(
+                            Manifest.permission.POST_NOTIFICATIONS
                         )
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                val ringMode = remember { this@ReminderControlSet.ringMode }
-                if (alarms.value.isNotEmpty()) {
-                    Text(
-                        text = stringResource(
-                            id = when (ringMode.value) {
-                                2 -> R.string.ring_nonstop
-                                1 -> R.string.ring_five_times
-                                else -> R.string.ring_once
-                            }
-                        ),
-                        style = MaterialTheme.typography.body1.copy(
-                            textDecoration = TextDecoration.Underline
-                        ),
-                        modifier = Modifier
-                            .padding(vertical = 12.dp, horizontal = 16.dp)
-                            .clickable(
-                                interactionSource = remember { MutableInteractionSource() },
-                                indication = rememberRipple(bounded = false),
-                                onClick = { onClickRingType() }
-                            )
+                    } else {
+                        null
+                    }
+                    AlarmRow(
+                        locale = locale,
+                        alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware().value,
+                        permissionStatus = notificationPermissions?.status
+                            ?: PermissionStatus.Granted,
+                        launchPermissionRequest = {
+                            notificationPermissions?.launchPermissionRequest()
+                        },
+                        ringMode = ringMode,
+                        newAlarm = this@ReminderControlSet::addAlarm,
+                        addAlarm = this@ReminderControlSet::addAlarmRow,
+                        openRingType = this@ReminderControlSet::onClickRingType,
+                        deleteAlarm = {
+                            viewModel.selectedAlarms.value = viewModel.selectedAlarms.value.minus(it)
+                        }
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(8.dp))
         }
-    }
-
-    override val icon = R.drawable.ic_outline_notifications_24px
 
     override fun controlId() = TAG
 
@@ -284,4 +200,3 @@ class ReminderControlSet : TaskEditControlFragment() {
         private const val REQUEST_NEW_ALARM = 12152
     }
 }
-

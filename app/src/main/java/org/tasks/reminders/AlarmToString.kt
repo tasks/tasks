@@ -3,18 +3,13 @@ package org.tasks.reminders
 import android.content.Context
 import android.content.res.Resources
 import com.todoroo.andlib.utility.DateUtilities
-import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.data.Alarm
 import java.util.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 import kotlin.math.absoluteValue
 
-class AlarmToString @Inject constructor(
-    @ApplicationContext context: Context,
-    var locale: Locale,
-) {
+class AlarmToString constructor(context: Context, var locale: Locale) {
     private val resources = context.resources
 
     fun toString(alarm: Alarm): String {

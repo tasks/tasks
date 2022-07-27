@@ -567,6 +567,11 @@
 +|    +--- androidx.compose.material:material-icons-core:1.2.0-rc02 (*)
 +|    +--- androidx.compose.runtime:runtime:1.2.0-rc02 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21
+++--- androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1
++|    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0 -> 2.5.0-rc01 (*)
++|    +--- androidx.compose.runtime:runtime:1.0.1 -> 1.2.0-rc02 (*)
++|    +--- androidx.compose.ui:ui:1.0.1 -> 1.2.0-rc02 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.5.30 -> 1.6.21 (*)
 ++--- com.google.accompanist:accompanist-flowlayout:0.24.12-rc
 +|    +--- androidx.compose.foundation:foundation:1.2.0-rc02 (*)
 +|    \--- androidx.compose.ui:ui-util:1.2.0-rc02 (*)
