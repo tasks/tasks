@@ -2,8 +2,10 @@ package org.tasks.ui
 
 import android.content.Context
 import androidx.annotation.MainThread
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.todoroo.andlib.utility.DateUtilities.now
+import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
@@ -31,12 +33,8 @@ import org.tasks.Strings
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.*
-import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
-import org.tasks.data.Alarm.Companion.whenDue
-import org.tasks.data.Alarm.Companion.whenOverdue
-import org.tasks.data.Alarm.Companion.whenStarted
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
@@ -48,7 +46,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskEditViewModel @Inject constructor(
-        @ApplicationContext private val context: Context,
+        @ApplicationContext context: Context,
+        savedStateHandle: SavedStateHandle,
         private val taskDao: TaskDao,
         private val taskDeleter: TaskDeleter,
         private val timerPlugin: TimerPlugin,
@@ -60,7 +59,7 @@ class TaskEditViewModel @Inject constructor(
         private val geofenceApi: GeofenceApi,
         private val tagDao: TagDao,
         private val tagDataDao: TagDataDao,
-        private val preferences: Preferences,
+        preferences: Preferences,
         private val googleTaskDao: GoogleTaskDao,
         private val caldavDao: CaldavDao,
         private val taskCompleter: TaskCompleter,
@@ -69,76 +68,29 @@ class TaskEditViewModel @Inject constructor(
         private val mainActivityEvents: MainActivityEventBus,
         private val firebase: Firebase? = null,
 ) : ViewModel() {
-
+    private val resources = context.resources
     private var cleared = false
 
-    fun setup(
-            task: Task,
-            list: Filter,
-            location: Location?,
-            tags: List<TagData>,
-            alarms: List<Alarm>,
-    ) {
-        this.task = task
-        dueDate.value = task.dueDate
-        startDate.value = task.hideUntil
-        isNew = task.isNew
-        originalList = list
-        selectedList.value = list
-        originalLocation = location
-        originalTags = tags.toList()
-        selectedTags.value = ArrayList(tags)
-        originalAlarms =
-            if (isNew) {
-                ArrayList<Alarm>().apply {
-                    if (task.isNotifyAtStart) {
-                        add(whenStarted(0))
-                    }
-                    if (task.isNotifyAtDeadline) {
-                        add(whenDue(0))
-                    }
-                    if (task.isNotifyAfterDeadline) {
-                        add(whenOverdue(0))
-                    }
-                    if (task.randomReminder > 0) {
-                        add(Alarm(0, task.randomReminder, TYPE_RANDOM))
-                    }
-                }
-            } else {
-                alarms
-            }
-        selectedAlarms.value = originalAlarms
-        if (isNew && permissionChecker.canAccessCalendars()) {
-            originalCalendar = preferences.defaultCalendar
-        }
-        eventUri.value = task.calendarURI
-        priority.value = task.priority
-        elapsedSeconds.value = task.elapsedSeconds
-        estimatedSeconds.value = task.estimatedSeconds
-        timerStarted.value = task.timerStart
-        recurrence.value = task.recurrence
-        repeatAfterCompletion.value = task.repeatAfterCompletion()
-    }
+    val task: Task = savedStateHandle[TaskEditFragment.EXTRA_TASK]!!
 
-    lateinit var task: Task
-        private set
+    val isNew = task.isNew
 
-    var creationDate: Long? = null
-        get() = field ?: task.creationDate
+    var creationDate: Long = task.creationDate
+    var modificationDate: Long = task.modificationDate
+    var completionDate: Long = task.completionDate
+    var title: String? = task.title
+    var completed: Boolean = task.isCompleted
+    var priority = MutableStateFlow(task.priority)
+    var description: String? = task.notes.stripCarriageReturns()
+    val recurrence = MutableStateFlow(task.recurrence)
+    val repeatAfterCompletion = MutableStateFlow(task.repeatAfterCompletion())
+    var eventUri = MutableStateFlow(task.calendarURI)
+    val timerStarted = MutableStateFlow(task.timerStart)
+    val estimatedSeconds = MutableStateFlow(task.estimatedSeconds)
+    val elapsedSeconds = MutableStateFlow(task.elapsedSeconds)
+    var newSubtasks = MutableStateFlow(emptyList<Task>())
 
-    var modificationDate: Long? = null
-        get() = field ?: task.modificationDate
-
-    var completionDate: Long? = null
-        get() = field ?: task.completionDate
-
-    var title: String? = null
-        get() = field ?: task.title
-
-    var completed: Boolean? = null
-        get() = field ?: task.isCompleted
-
-    val dueDate = MutableStateFlow(0L)
+    val dueDate = MutableStateFlow(task.dueDate)
 
     fun setDueDate(value: Long) {
         dueDate.value = when {
@@ -148,12 +100,7 @@ class TaskEditViewModel @Inject constructor(
         }
     }
 
-    var priority = MutableStateFlow(Task.Priority.NONE)
-
-    var description: String? = null
-        get() = field ?: task.notes.stripCarriageReturns()
-
-    val startDate = MutableStateFlow(0L)
+    val startDate = MutableStateFlow(task.hideUntil)
 
     fun setStartDate(value: Long) {
         startDate.value = when {
@@ -164,62 +111,56 @@ class TaskEditViewModel @Inject constructor(
         }
     }
 
-    val recurrence = MutableStateFlow<String?>(null)
-    val repeatAfterCompletion = MutableStateFlow(false)
+    private var originalCalendar: String? = if (isNew && permissionChecker.canAccessCalendars()) {
+        preferences.defaultCalendar
+    } else {
+        null
+    }
+    var selectedCalendar = MutableStateFlow(originalCalendar)
 
-    private var originalCalendar: String? = null
-        private set(value) {
-            field = value
-            selectedCalendar.value = value
+    private val originalList: Filter = savedStateHandle[TaskEditFragment.EXTRA_LIST]!!
+    var selectedList = MutableStateFlow(originalList)
+
+    private var originalLocation: Location? = savedStateHandle[TaskEditFragment.EXTRA_LOCATION]
+    var selectedLocation = MutableStateFlow(originalLocation)
+
+    private val originalTags: List<TagData> =
+        savedStateHandle.get<ArrayList<TagData>>(TaskEditFragment.EXTRA_TAGS) ?: emptyList()
+    val selectedTags = MutableStateFlow(ArrayList(originalTags))
+
+    private val originalAlarms: List<Alarm> = if (isNew) {
+        ArrayList<Alarm>().apply {
+            if (task.isNotifyAtStart) {
+                add(Alarm.whenStarted(0))
+            }
+            if (task.isNotifyAtDeadline) {
+                add(Alarm.whenDue(0))
+            }
+            if (task.isNotifyAfterDeadline) {
+                add(Alarm.whenOverdue(0))
+            }
+            if (task.randomReminder > 0) {
+                add(Alarm(0, task.randomReminder, Alarm.TYPE_RANDOM))
+            }
         }
+    } else {
+        savedStateHandle[TaskEditFragment.EXTRA_ALARMS]!!
+    }
 
-    var selectedCalendar = MutableStateFlow<String?>(null)
+    var selectedAlarms = MutableStateFlow(originalAlarms)
 
-    var eventUri = MutableStateFlow<String?>(null)
-
-    var isNew: Boolean = false
-        private set
-
-    val timerStarted = MutableStateFlow(0L)
-    val estimatedSeconds = MutableStateFlow(0)
-    val elapsedSeconds = MutableStateFlow(0)
-
-    private lateinit var originalList: Filter
-
-    var selectedList = MutableStateFlow(null as Filter?)
-
-    var originalLocation: Location? = null
-        private set(value) {
-            field = value
-            selectedLocation.value = value
-        }
-
-    var selectedLocation = MutableStateFlow<Location?>(null)
-
-    private lateinit var originalTags: List<TagData>
-
-    val selectedTags = MutableStateFlow(ArrayList<TagData>())
-
-    var newSubtasks = MutableStateFlow(emptyList<Task>())
-
-    private lateinit var originalAlarms: List<Alarm>
-
-    var selectedAlarms = MutableStateFlow(emptyList<Alarm>())
-
-    var ringNonstop: Boolean? = null
-        get() = field ?: task.isNotifyModeNonstop
+    var ringNonstop: Boolean = task.isNotifyModeNonstop
         set(value) {
             field = value
-            if (value == true) {
+            if (value) {
                 ringFiveTimes = false
             }
         }
 
-    var ringFiveTimes:Boolean? = null
-        get() = field ?: task.isNotifyModeFive
+    var ringFiveTimes:Boolean = task.isNotifyModeFive
         set(value) {
             field = value
-            if (value == true) {
+            if (value) {
                 ringNonstop = false
             }
         }
@@ -270,7 +211,7 @@ class TaskEditViewModel @Inject constructor(
             return@withContext false
         }
         clear(remove)
-        task.title = if (title.isNullOrBlank()) context.getString(R.string.no_title) else title
+        task.title = if (title.isNullOrBlank()) resources.getString(R.string.no_title) else title
         task.dueDate = dueDate.value
         task.priority = priority.value
         task.notes = description
@@ -287,15 +228,13 @@ class TaskEditViewModel @Inject constructor(
 
         applyCalendarChanges()
 
-        val isNew = task.isNew
-
         if (isNew) {
             taskDao.createNew(task)
         }
 
         if (isNew || originalList != selectedList.value) {
             task.parent = 0
-            taskMover.move(listOf(task.id), selectedList.value!!)
+            taskMover.move(listOf(task.id), selectedList.value)
         }
 
         if ((isNew && selectedLocation.value != null) || originalLocation != selectedLocation.value) {
@@ -370,8 +309,8 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = now()
         }
 
-        if (task.isCompleted != completed!!) {
-            taskCompleter.setComplete(task, completed!!)
+        if (task.isCompleted != completed) {
+            taskCompleter.setComplete(task, completed)
         }
 
         if (isNew) {
@@ -405,8 +344,8 @@ class TaskEditViewModel @Inject constructor(
     }
 
     private fun getRingFlags() = when {
-        ringNonstop == true -> NOTIFY_MODE_NONSTOP
-        ringFiveTimes == true -> NOTIFY_MODE_FIVE
+        ringNonstop -> NOTIFY_MODE_NONSTOP
+        ringFiveTimes -> NOTIFY_MODE_FIVE
         else -> 0
     }
 
@@ -416,7 +355,7 @@ class TaskEditViewModel @Inject constructor(
     }
 
     suspend fun discard(remove: Boolean = true) {
-        if (task.isNew) {
+        if (isNew) {
             timerPlugin.stopTimer(task)
         }
         clear(remove)

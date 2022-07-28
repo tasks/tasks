@@ -32,7 +32,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
-import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
@@ -91,26 +90,11 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     lateinit var binding: FragmentTaskEditBinding
     private var showKeyboard = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        if (savedInstanceState == null) {
-            val args = requireArguments()
-            editViewModel.setup(
-                args.getParcelable(EXTRA_TASK)!!,
-                args.getParcelable(EXTRA_LIST)!!,
-                args.getParcelable(EXTRA_LOCATION),
-                args.getParcelableArrayList(EXTRA_TAGS)!!,
-                args.getParcelableArrayList(EXTRA_ALARMS)!!
-            )
-        }
-    }
-
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTaskEditBinding.inflate(inflater)
         val view: View = binding.root
-        val model = editViewModel.task!!
+        val model = editViewModel.task
         val toolbar = binding.toolbar
         toolbar.navigationIcon = context.getDrawable(R.drawable.ic_outline_save_24px)
         toolbar.setNavigationOnClickListener {
@@ -161,12 +145,12 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         title.maxLines = 5
         if (model.isNew || preferences.getBoolean(R.string.p_hide_check_button, false)) {
             binding.fab.visibility = View.INVISIBLE
-        } else if (editViewModel.completed!!) {
+        } else if (editViewModel.completed) {
             title.paintFlags = title.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             binding.fab.setImageResource(R.drawable.ic_outline_check_box_outline_blank_24px)
         }
         binding.fab.setOnClickListener {
-            if (editViewModel.completed!!) {
+            if (editViewModel.completed) {
                 editViewModel.completed = false
                 title.paintFlags = title.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
                 binding.fab.setImageResource(R.drawable.ic_outline_check_box_24px)
@@ -177,17 +161,16 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 }
             }
         }
-        binding.appbarlayout.addOnOffsetChangedListener(
-                OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
-                    if (verticalOffset == 0) {
-                        title.visibility = View.VISIBLE
-                        binding.collapsingtoolbarlayout.isTitleEnabled = false
-                    } else if (abs(verticalOffset) < appBarLayout.totalScrollRange) {
-                        title.visibility = View.INVISIBLE
-                        binding.collapsingtoolbarlayout.title = title.text
-                        binding.collapsingtoolbarlayout.isTitleEnabled = true
-                    }
-                })
+        binding.appbarlayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (verticalOffset == 0) {
+                title.visibility = View.VISIBLE
+                binding.collapsingtoolbarlayout.isTitleEnabled = false
+            } else if (abs(verticalOffset) < appBarLayout.totalScrollRange) {
+                title.visibility = View.INVISIBLE
+                binding.collapsingtoolbarlayout.title = title.text
+                binding.collapsingtoolbarlayout.isTitleEnabled = true
+            }
+        }
         if (!model.isNew) {
             lifecycleScope.launch {
                 notificationManager.cancel(model.id)
@@ -233,7 +216,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    @OptIn(ExperimentalAnimationApi::class)
     private suspend fun process(event: TaskEditEvent) {
         when (event) {
             is TaskEditEvent.Discard ->
@@ -302,7 +284,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     }
 
     suspend fun stopTimer(): Task {
-        val model = editViewModel.task!!
+        val model = editViewModel.task
         timerPlugin.stopTimer(model)
         val elapsedTime = DateUtils.formatElapsedTime(model.elapsedSeconds.toLong())
         addComment(String.format(
@@ -316,7 +298,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     }
 
     suspend fun startTimer(): Task {
-        val model = editViewModel.task!!
+        val model = editViewModel.task
         timerPlugin.startTimer(model)
         addComment(String.format(
                 "%s %s",
@@ -368,7 +350,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
    */
 
     fun addComment(message: String?, picture: Uri?) {
-        val model = editViewModel.task!!
+        val model = editViewModel.task
         val userActivity = UserActivity()
         if (picture != null) {
             val output = FileHelper.copyToUri(context, preferences.attachmentsDirectory!!, picture)
@@ -388,11 +370,11 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     companion object {
         const val TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"
         private const val FRAG_TAG_COMMENT_BAR = "comment_bar"
-        private const val EXTRA_TASK = "extra_task"
-        private const val EXTRA_LIST = "extra_list"
-        private const val EXTRA_LOCATION = "extra_location"
-        private const val EXTRA_TAGS = "extra_tags"
-        private const val EXTRA_ALARMS = "extra_alarms"
+        const val EXTRA_TASK = "extra_task"
+        const val EXTRA_LIST = "extra_list"
+        const val EXTRA_LOCATION = "extra_location"
+        const val EXTRA_TAGS = "extra_tags"
+        const val EXTRA_ALARMS = "extra_alarms"
 
         fun newTaskEditFragment(
                 task: Task,
