@@ -19,9 +19,6 @@ class DescriptionControlSet : TaskEditControlFragment() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var markdownProvider: MarkdownProvider
 
-    private val linkifyEnabled: Boolean
-        get() = preferences.getBoolean(R.string.p_linkify_task_edit, false)
-
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
@@ -29,7 +26,7 @@ class DescriptionControlSet : TaskEditControlFragment() {
                     DescriptionRow(
                         text = viewModel.description.stripCarriageReturns(),
                         onChanged = { text -> viewModel.description = text.toString().trim { it <= ' ' } },
-                        linkify = if (linkifyEnabled) linkify else null,
+                        linkify = if (preferences.linkify) linkify else null,
                         markdownProvider = markdownProvider,
                     )
                 }

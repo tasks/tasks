@@ -87,9 +87,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var taskEditEventBus: TaskEditEventBus
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private val linkifyEnabled: Boolean
-        get() = preferences.getBoolean(R.string.p_linkify_task_edit, false)
-
     val editViewModel: TaskEditViewModel by viewModels()
     val subtaskViewModel: TaskListViewModel by viewModels()
     lateinit var binding: FragmentTaskEditBinding
@@ -137,7 +134,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         })
         toolbar.setOnMenuItemClickListener(this)
         val title = binding.title
-        val textWatcher = markdownProvider.markdown(linkifyEnabled).textWatcher(title)
+        val textWatcher = markdownProvider.markdown(preferences.linkify).textWatcher(title)
         title.addTextChangedListener(
             onTextChanged = { _, _, _, _ ->
                 editViewModel.title = title.text.toString().trim { it <= ' ' }
@@ -181,7 +178,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             lifecycleScope.launch {
                 notificationManager.cancel(model.id)
             }
-            if (linkifyEnabled) {
+            if (preferences.linkify) {
                 linkify.linkify(title)
             }
         }

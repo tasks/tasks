@@ -547,6 +547,9 @@ class Preferences @JvmOverloads constructor(
     val desaturateDarkMode: Boolean
         get() = getBoolean(R.string.p_desaturate_colors, true)
 
+    val linkify: Boolean
+        get() = getBoolean(R.string.p_linkify_task_edit, false)
+
     companion object {
         private const val PREF_SORT_SORT = "sort_sort" // $NON-NLS-1$
 
