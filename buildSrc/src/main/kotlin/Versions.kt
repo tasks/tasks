@@ -1,5 +1,5 @@
 object Versions {
-    const val kotlin = "1.6.21"
+    const val kotlin = "1.7.0"
     const val compileSdk = 33
     const val targetSdk = 33
     const val minSdk = 24
@@ -18,7 +18,7 @@ object Versions {
     const val hilt_androidx = "1.0.0"
     const val lifecycle = "2.4.1"
     const val markwon = "4.6.2"
-    const val compose = "1.2.0-rc02"
+    const val compose = "1.2.0"
     const val compose_theme_adapter = "1.1.11"
     const val accompanist = "0.24.12-rc"
 }
