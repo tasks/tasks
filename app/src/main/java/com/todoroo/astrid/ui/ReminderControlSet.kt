@@ -80,11 +80,11 @@ class ReminderControlSet : TaskEditControlFragment() {
         val id = viewModel.task.id
         when (selected) {
             getString(R.string.when_started) ->
-                addAlarmRow(whenStarted(id))
+                viewModel.addAlarm(whenStarted(id))
             getString(R.string.when_due) ->
-                addAlarmRow(whenDue(id))
+                viewModel.addAlarm(whenDue(id))
             getString(R.string.when_overdue) ->
-                addAlarmRow(whenOverdue(id))
+                viewModel.addAlarm(whenOverdue(id))
             getString(R.string.randomly) ->
                 vm.showRandomDialog(visible = true)
             getString(R.string.pick_a_date_and_time) ->
@@ -132,7 +132,7 @@ class ReminderControlSet : TaskEditControlFragment() {
                         },
                         ringMode = ringMode,
                         newAlarm = this@ReminderControlSet::addAlarm,
-                        addAlarm = this@ReminderControlSet::addAlarmRow,
+                        addAlarm = viewModel::addAlarm,
                         openRingType = this@ReminderControlSet::onClickRingType,
                         deleteAlarm = {
                             viewModel.selectedAlarms.value = viewModel.selectedAlarms.value.minus(it)
@@ -148,18 +148,10 @@ class ReminderControlSet : TaskEditControlFragment() {
         if (requestCode == REQUEST_NEW_ALARM) {
             if (resultCode == Activity.RESULT_OK) {
                 val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-                addAlarmRow(Alarm(0, timestamp, TYPE_DATE_TIME))
+                viewModel.addAlarm(Alarm(0, timestamp, TYPE_DATE_TIME))
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
-    private fun addAlarmRow(alarm: Alarm) {
-        with (viewModel.selectedAlarms) {
-            if (value.none { it.same(alarm) }) {
-                value = value.plus(alarm)
-            }
         }
     }
 

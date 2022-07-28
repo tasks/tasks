@@ -380,6 +380,14 @@ class TaskEditViewModel @Inject constructor(
         }
     }
 
+    fun addAlarm(alarm: Alarm) {
+        with (selectedAlarms) {
+            if (value.none { it.same(alarm) }) {
+                value = value.plus(alarm)
+            }
+        }
+    }
+
     companion object {
         fun String?.stripCarriageReturns(): String? = this?.replace("\\r\\n?".toRegex(), "\n")
     }
