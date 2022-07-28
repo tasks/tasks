@@ -146,7 +146,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
         }
     }
 
-    private inner class ItemTouchHelperCallback : ItemTouchHelper.Callback() {
+    private inner class ItemTouchHelperCallback : Callback() {
         private var from = -1
         private var to = -1
 

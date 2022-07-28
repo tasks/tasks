@@ -98,7 +98,7 @@ class CommentsController @Inject constructor(
 
         // delete button
         val deleteBtn = view.findViewById<ImageView>(R.id.clear)
-        deleteBtn.setOnClickListener(){
+        deleteBtn.setOnClickListener {
             val builder = AlertDialog.Builder(commentsContainer!!.context)
 
             // Display a message on alert dialog

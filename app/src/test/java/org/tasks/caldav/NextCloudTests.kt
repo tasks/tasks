@@ -36,7 +36,8 @@ class NextCloudTests {
     fun readCreationDate() {
         assertEquals(
                 DateTime(2018, 4, 17, 11, 32, 3).millis,
-                vtodo("nextcloud/basic_no_due_date.txt").creationDate as Long)
+            vtodo("nextcloud/basic_no_due_date.txt").creationDate
+        )
     }
 
     @Test

@@ -336,7 +336,7 @@ GROUP BY caldav_lists.cdl_uuid
     }
 
     private suspend fun getLocalAccount() = getAccountByUuid(LOCAL) ?: CaldavAccount().apply {
-        accountType = CaldavAccount.TYPE_LOCAL
+        accountType = TYPE_LOCAL
         uuid = LOCAL
         id = insert(this)
     }

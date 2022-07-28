@@ -111,7 +111,7 @@ class CriterionInstance {
         result = 31 * result + end
         result = 31 * result + start
         result = 31 * result + max
-        result = 31 * result + (id.hashCode() ?: 0)
+        result = 31 * result + id.hashCode()
         return result
     }
 

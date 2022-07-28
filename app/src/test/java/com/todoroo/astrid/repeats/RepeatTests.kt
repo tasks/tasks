@@ -16,13 +16,13 @@ import org.tasks.makers.TaskMaker
 import org.tasks.time.DateTime
 
 abstract class RepeatTests {
-    private val alarmService = Mockito.mock(AlarmService::class.java)
+    private val alarmService = mock(AlarmService::class.java)
     private val helper = RepeatTaskHelper(
-            Mockito.mock(GCalHelper::class.java),
+            mock(GCalHelper::class.java),
             alarmService,
-            Mockito.mock(TaskDao::class.java),
-            Mockito.mock(LocalBroadcastManager::class.java),
-            Mockito.mock(TaskCompleter::class.java)
+            mock(TaskDao::class.java),
+            mock(LocalBroadcastManager::class.java),
+            mock(TaskCompleter::class.java)
     )
 
     @Before

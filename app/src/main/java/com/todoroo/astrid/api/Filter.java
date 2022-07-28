@@ -150,13 +150,8 @@ public class Filter extends FilterListItem {
       return false;
     }
     if (listingTitle == null) {
-      if (other.listingTitle != null) {
-        return false;
-      }
-    } else if (!listingTitle.equals(other.listingTitle)) {
-      return false;
-    }
-    return true;
+      return other.listingTitle == null;
+    } else return listingTitle.equals(other.listingTitle);
   }
 
   @Override

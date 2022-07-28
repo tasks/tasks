@@ -59,7 +59,7 @@ private fun Owner() = MaterialTheme {
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-private fun NotOwner() = MaterialTheme() {
+private fun NotOwner() = MaterialTheme {
     ListSettingsComposables.PrincipalList(principals, null)
 }
 
@@ -117,7 +117,7 @@ object ListSettingsComposables {
             ) {
                 Column {
                     Text(
-                        principal.name!!,
+                        principal.name,
                         style = MaterialTheme.typography.body1,
                         color = colors.onBackground,
                     )

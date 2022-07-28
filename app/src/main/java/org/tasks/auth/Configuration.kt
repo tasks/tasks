@@ -62,7 +62,6 @@ class Configuration constructor(
     var userInfoEndpointUri: Uri? = null
         private set
     private var isHttpsRequired = false
-        private set
 
     /**
      * Indicates whether the configuration has changed from the last known valid state.
@@ -203,8 +202,8 @@ class Configuration constructor(
         }
 
     class InvalidConfigurationException : Exception {
-        internal constructor(reason: String?) : super(reason) {}
-        internal constructor(reason: String?, cause: Throwable?) : super(reason, cause) {}
+        internal constructor(reason: String?) : super(reason)
+        internal constructor(reason: String?, cause: Throwable?) : super(reason, cause)
     }
 
     companion object {

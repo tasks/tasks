@@ -78,7 +78,7 @@ object TitleParser {
     }
 
     private fun strToPriority(priorityStr: String?): Int {
-        priorityStr?.toLowerCase()?.trim { it <= ' ' }
+        priorityStr?.lowercase(Locale.getDefault())?.trim { it <= ' ' }
         var priority = Task.Priority.HIGH
         if ("0" == priorityStr || "!0" == priorityStr || "least" == priorityStr || "lowest" == priorityStr) {
             priority = Task.Priority.NONE
@@ -124,7 +124,7 @@ object TitleParser {
         if (amPmString == null) {
             return time
         }
-        val text = amPmString.toLowerCase().trim { it <= ' ' }
+        val text = amPmString.lowercase(Locale.getDefault()).trim { it <= ' ' }
         if (text == "am" || text == "a.m" || text == "a") {
             time = Calendar.AM
         }

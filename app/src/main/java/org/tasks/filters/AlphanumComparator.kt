@@ -41,7 +41,7 @@ import java.util.*
  * Collections.sort(your list, new AlphanumComparator());
  */
 class AlphanumComparator<T>(private val getTitle: (T) -> String?) : Comparator<T> {
-    private fun isDigit(ch: Char): Boolean = ch.toInt() in 48..57
+    private fun isDigit(ch: Char): Boolean = ch.code in 48..57
 
     /** Length of string is passed in for improved efficiency (only need to calculate it once) *  */
     private fun getChunk(s: String, slength: Int, marker: Int): String {

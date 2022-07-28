@@ -603,8 +603,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     val match: List<String>? = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     if (match != null && match.isNotEmpty() && match[0].isNotEmpty()) {
                         var recognizedSpeech = match[0]
-                        recognizedSpeech = (recognizedSpeech.substring(0, 1).toUpperCase()
-                                + recognizedSpeech.substring(1).toLowerCase())
+                        recognizedSpeech = (recognizedSpeech.substring(0, 1)
+                            .uppercase(Locale.getDefault())
+                                + recognizedSpeech.substring(1).lowercase(Locale.getDefault()))
                         onTaskListItemClicked(addTask(recognizedSpeech))
                         firebase.addTask("voice")
                     }

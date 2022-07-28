@@ -31,7 +31,7 @@ import net.fortuna.ical4j.model.property.ProdId
 import okhttp3.Headers
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -355,7 +355,7 @@ class CaldavSynchronizer @Inject constructor(
             return
         }
         val data = iCal.toVtodo(account, calendar, caldavTask, task)
-        val requestBody = RequestBody.create(MIME_ICALENDAR, data)
+        val requestBody = data.toRequestBody(contentType = MIME_ICALENDAR)
         try {
             val remote = DavResource(
                     httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.`object`!!).build())

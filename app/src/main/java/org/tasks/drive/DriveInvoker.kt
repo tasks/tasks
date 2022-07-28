@@ -74,7 +74,7 @@ class DriveInvoker(
                 .setParents(listOf(folderId))
                 .setMimeType(mime)
                 .setName(FileHelper.getFilename(context, uri))
-        val content = InputStreamContent(mime, context.contentResolver.openInputStream(uri!!))
+        val content = InputStreamContent(mime, context.contentResolver.openInputStream(uri))
         return execute(service.files().create(metadata, content))
     }
 

@@ -23,7 +23,7 @@ object Constants {
             colors = textButtonColors()
         ) {
             Text(
-                stringResource(text).toUpperCase(Locale.getDefault()),
+                stringResource(text).uppercase(Locale.getDefault()),
                 style = MaterialTheme.typography.button
             )
         }

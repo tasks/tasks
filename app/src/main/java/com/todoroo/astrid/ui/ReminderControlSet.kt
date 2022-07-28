@@ -48,8 +48,8 @@ class ReminderControlSet : TaskEditControlFragment() {
 
     override fun createView(savedInstanceState: Bundle?) {
         when {
-            viewModel.ringNonstop!! -> setRingMode(2)
-            viewModel.ringFiveTimes!! -> setRingMode(1)
+            viewModel.ringNonstop -> setRingMode(2)
+            viewModel.ringFiveTimes -> setRingMode(1)
             else -> setRingMode(0)
         }
     }
@@ -57,8 +57,8 @@ class ReminderControlSet : TaskEditControlFragment() {
     private fun onClickRingType() {
         val modes = resources.getStringArray(R.array.reminder_ring_modes)
         val ringMode = when {
-            viewModel.ringNonstop == true -> 2
-            viewModel.ringFiveTimes == true -> 1
+            viewModel.ringNonstop -> 2
+            viewModel.ringFiveTimes -> 1
             else -> 0
         }
         dialogBuilder

@@ -29,7 +29,7 @@ class ListFragment : TaskEditControlFragment() {
                         colorProvider = { chipProvider.getColor(it) },
                         onClick = {
                             ListPicker.newListPicker(
-                                viewModel.selectedList.value!!,
+                                viewModel.selectedList.value,
                                 this@ListFragment,
                                 REQUEST_CODE_SELECT_LIST
                             )
