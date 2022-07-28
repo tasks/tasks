@@ -21,7 +21,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.android.material.composethemeadapter.MdcTheme
-import com.todoroo.astrid.ui.ReminderControlSet
 import com.todoroo.astrid.ui.ReminderControlSetViewModel
 import org.tasks.R
 import org.tasks.compose.AddReminderDialog
@@ -49,9 +48,7 @@ fun AlarmRow(
     TaskEditRow(
         iconRes = R.drawable.ic_outline_notifications_24px,
         content = {
-            val viewState = vm.viewState.collectAsStateLifecycleAware()
-            val current: ReminderControlSet.ViewState = viewState.value
-
+            val viewState = vm.viewState.collectAsStateLifecycleAware().value
             when (permissionStatus) {
                 PermissionStatus.Granted -> {
                     Alarms(
@@ -87,13 +84,13 @@ fun AlarmRow(
             }
 
             AddReminderDialog.AddCustomReminderDialog(
-                openDialog = current.showCustomDialog,
+                openDialog = viewState.showCustomDialog,
                 addAlarm = addAlarm,
                 closeDialog = { vm.showCustomDialog(visible = false) }
             )
 
             AddReminderDialog.AddRandomReminderDialog(
-                openDialog = current.showRandomDialog,
+                openDialog = viewState.showRandomDialog,
                 addAlarm = addAlarm,
                 closeDialog = { vm.showRandomDialog(visible = false) }
             )

@@ -6,9 +6,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class ReminderControlSetViewModel : ViewModel() {
-    private val _viewState = MutableStateFlow(ReminderControlSet.ViewState())
 
-    val viewState: StateFlow<ReminderControlSet.ViewState>
+    data class ViewState(
+        val showCustomDialog: Boolean = false,
+        val showRandomDialog: Boolean = false,
+    )
+
+    private val _viewState = MutableStateFlow(ViewState())
+
+    val viewState: StateFlow<ViewState>
         get() = _viewState.asStateFlow()
 
     fun showCustomDialog(visible: Boolean) {

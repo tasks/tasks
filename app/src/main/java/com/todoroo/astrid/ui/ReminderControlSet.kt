@@ -43,11 +43,6 @@ class ReminderControlSet : TaskEditControlFragment() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var locale: Locale
 
-    data class ViewState(
-        val showCustomDialog: Boolean = false,
-        val showRandomDialog: Boolean = false,
-    )
-
     private val ringMode = mutableStateOf(0)
     private val vm: ReminderControlSetViewModel by viewModels()
 
