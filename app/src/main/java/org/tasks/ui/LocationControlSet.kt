@@ -39,7 +39,7 @@ class LocationControlSet : TaskEditControlFragment() {
         viewModel.selectedLocation.value = location
     }
 
-    override fun onRowClick() {
+    private fun onRowClick() {
         val location = viewModel.selectedLocation.value
         if (location == null) {
             chooseLocation()

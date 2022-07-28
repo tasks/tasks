@@ -55,7 +55,7 @@ class TimerControlSet : TaskEditControlFragment() {
         callback = activity as TimerControlSetCallback
     }
 
-    override fun onRowClick() {
+    private fun onRowClick() {
         if (dialog == null) {
             dialog = buildDialog()
         }

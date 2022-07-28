@@ -19,7 +19,7 @@ import javax.inject.Inject
 class TagsControlSet : TaskEditControlFragment() {
     @Inject lateinit var chipProvider: ChipProvider
     
-    override fun onRowClick() {
+    private fun onRowClick() {
         val intent = Intent(context, TagPickerActivity::class.java)
         intent.putParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED, viewModel.selectedTags.value)
         startActivityForResult(intent, REQUEST_TAG_PICKER_ACTIVITY)
