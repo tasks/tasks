@@ -49,7 +49,6 @@ class WidgetClickActivity : InjectingAppCompatActivity(), OnDismissHandler {
             TOGGLE_SUBTASKS -> {
                 lifecycleScope.launch(NonCancellable) {
                     taskDao.setCollapsed(task.id, intent.getBooleanExtra(EXTRA_COLLAPSED, false))
-                    localBroadcastManager.broadcastRefresh()
                 }
                 finish()
             }

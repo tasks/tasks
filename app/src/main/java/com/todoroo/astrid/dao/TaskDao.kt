@@ -80,6 +80,7 @@ class TaskDao @Inject constructor(
     suspend fun setCollapsed(id: Long, collapsed: Boolean) {
         taskDao.setCollapsed(listOf(id), collapsed)
         syncAdapters.sync()
+        localBroadcastManager.broadcastRefresh()
     }
 
     suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {

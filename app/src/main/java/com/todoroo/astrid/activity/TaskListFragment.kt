@@ -907,7 +907,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun toggleSubtasks(task: TaskContainer, collapsed: Boolean) {
         lifecycleScope.launch {
             taskDao.setCollapsed(task.id, collapsed)
-            broadcastRefresh()
         }
     }
 

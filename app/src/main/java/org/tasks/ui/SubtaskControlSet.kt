@@ -1,15 +1,12 @@
 package org.tasks.ui
 
 import android.app.Activity
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.sql.Criterion
@@ -23,7 +20,6 @@ import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.SubtaskRow
@@ -38,7 +34,6 @@ import javax.inject.Inject
 class SubtaskControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var taskCompleter: TaskCompleter
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var taskDao: TaskDao
@@ -48,8 +43,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var preferences: Preferences
 
-    private val listViewModel: TaskListViewModel by viewModels()
-    private val refreshReceiver = RefreshReceiver()
+    lateinit var listViewModel: TaskListViewModel
 
     override fun createView(savedInstanceState: Bundle?) {
         viewModel.task.takeIf { it.id > 0 }?.let {
@@ -59,6 +53,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
 
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
+            listViewModel = ViewModelProvider(requireParentFragment())[TaskListViewModel::class.java]
             setContent {
                 MdcTheme {
                     SubtaskRow(
@@ -94,16 +89,6 @@ class SubtaskControlSet : TaskEditControlFragment() {
 
     override fun controlId() = TAG
 
-    override fun onResume() {
-        super.onResume()
-        localBroadcastManager.registerRefreshReceiver(refreshReceiver)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        localBroadcastManager.unregisterReceiver(refreshReceiver)
-    }
-
     private fun addSubtask() = lifecycleScope.launch {
         val task = taskCreator.createWithValues("")
         viewModel.newSubtasks.value = viewModel.newSubtasks.value.plus(task)
@@ -115,17 +100,10 @@ class SubtaskControlSet : TaskEditControlFragment() {
 
     private fun toggleSubtask(taskId: Long, collapsed: Boolean) = lifecycleScope.launch {
         taskDao.setCollapsed(taskId, collapsed)
-        localBroadcastManager.broadcastRefresh()
     }
 
     private fun complete(task: Task, completed: Boolean) = lifecycleScope.launch {
         taskCompleter.setComplete(task, completed)
-    }
-
-    private inner class RefreshReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            listViewModel.invalidate()
-        }
     }
 
     companion object {

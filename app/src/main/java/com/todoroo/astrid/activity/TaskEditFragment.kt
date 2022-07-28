@@ -6,6 +6,7 @@
 package com.todoroo.astrid.activity
 
 import android.app.Activity
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
@@ -46,6 +47,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
@@ -64,6 +66,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.ui.TaskEditEvent
 import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskEditViewModel
+import org.tasks.ui.TaskListViewModel
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -82,13 +85,16 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var linkify: Linkify
     @Inject lateinit var markdownProvider: MarkdownProvider
     @Inject lateinit var taskEditEventBus: TaskEditEventBus
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private val linkifyEnabled: Boolean
         get() = preferences.getBoolean(R.string.p_linkify_task_edit, false)
 
     val editViewModel: TaskEditViewModel by viewModels()
+    val subtaskViewModel: TaskListViewModel by viewModels()
     lateinit var binding: FragmentTaskEditBinding
     private var showKeyboard = false
+    private val refreshReceiver = RefreshReceiver()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -260,7 +266,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     override fun onResume() {
         super.onResume()
-
+        localBroadcastManager.registerRefreshReceiver(refreshReceiver)
         if (showKeyboard) {
             binding.title.requestFocus()
             val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -269,6 +275,11 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         if (!preferences.shownBeastModeHint) {
             showBeastModeHint()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -364,6 +375,12 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 userActivityDao.createNew(userActivity)
             }
             commentsController.reloadView()
+        }
+    }
+
+    private inner class RefreshReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            subtaskViewModel.invalidate()
         }
     }
 
