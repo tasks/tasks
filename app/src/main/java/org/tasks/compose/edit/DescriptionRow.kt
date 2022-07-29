@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.composethemeadapter.MdcTheme
+import com.todoroo.andlib.utility.AndroidUtilities
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
 import org.tasks.dialogs.Linkify
@@ -56,7 +57,9 @@ fun DescriptionRow(
                                         InputType.TYPE_TEXT_FLAG_AUTO_CORRECT
                             isSingleLine = false
                             maxLines = Int.MAX_VALUE
-                            importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO
+                            if (AndroidUtilities.atLeastOreo()) {
+                                importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO
+                            }
                             isVerticalScrollBarEnabled = true
                             freezesText = true
                             setHorizontallyScrolling(false)
