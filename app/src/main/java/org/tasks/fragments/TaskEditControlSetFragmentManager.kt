@@ -1,7 +1,6 @@
 package org.tasks.fragments
 
 import android.content.Context
-import androidx.fragment.app.FragmentManager
 import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.repeats.RepeatControlSet
@@ -10,51 +9,20 @@ import com.todoroo.astrid.timers.TimerControlSet
 import com.todoroo.astrid.ui.ReminderControlSet
 import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.qualifiers.ActivityContext
-import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.preferences.Preferences
-import org.tasks.ui.*
+import org.tasks.ui.CalendarControlSet
+import org.tasks.ui.LocationControlSet
+import org.tasks.ui.SubtaskControlSet
 import javax.inject.Inject
 
 class TaskEditControlSetFragmentManager @Inject constructor(
-        @ActivityContext context: Context,
-        preferences: Preferences?) {
-
-    private val controlSetFragments: MutableMap<String, Int> = LinkedHashMap()
-    private val displayOrder: List<String>
+    @ActivityContext context: Context,
+    preferences: Preferences?
+) {
+    val controlSetFragments: MutableMap<String, Int> = LinkedHashMap()
+    val displayOrder: List<String>
     var visibleSize = 0
-
-    fun getOrCreateFragments(fragmentManager: FragmentManager): List<TaskEditControlFragment> {
-        val fragments: MutableList<TaskEditControlFragment> = ArrayList()
-        for (i in displayOrder.indices) {
-            val tag = displayOrder[i]
-            var fragment = fragmentManager.findFragmentByTag(tag) as TaskEditControlFragment?
-            if (fragment == null) {
-                val resId = controlSetFragments[tag]
-                fragment = createFragment(resId!!)
-            }
-            fragments.add(fragment)
-        }
-        return fragments
-    }
-
-    private fun createFragment(fragmentId: Int): TaskEditControlFragment = when (fragmentId) {
-        DeadlineControlSet.TAG -> DeadlineControlSet()
-        PriorityControlSet.TAG -> PriorityControlSet()
-        DescriptionControlSet.TAG -> DescriptionControlSet()
-        CalendarControlSet.TAG -> CalendarControlSet()
-        StartDateControlSet.TAG -> StartDateControlSet()
-        ReminderControlSet.TAG -> ReminderControlSet()
-        LocationControlSet.TAG -> LocationControlSet()
-        FilesControlSet.TAG -> FilesControlSet()
-        TimerControlSet.TAG -> TimerControlSet()
-        TagsControlSet.TAG -> TagsControlSet()
-        RepeatControlSet.TAG -> RepeatControlSet()
-        ListFragment.TAG -> ListFragment()
-        SubtaskControlSet.TAG -> SubtaskControlSet()
-        CreationDateControlSet.TAG -> CreationDateControlSet()
-        else -> throw RuntimeException("Unsupported fragment")
-    }
 
     init {
         displayOrder = BeastModePreferences.constructOrderedControlList(preferences, context)
@@ -73,44 +41,27 @@ class TaskEditControlSetFragmentManager @Inject constructor(
     }
 
     companion object {
-        val TASK_EDIT_CONTROL_FRAGMENT_ROWS = intArrayOf(
-                R.id.row_1,
-                R.id.row_2,
-                R.id.row_3,
-                R.id.row_4,
-                R.id.row_5,
-                R.id.row_6,
-                R.id.row_7,
-                R.id.row_8,
-                R.id.row_9,
-                R.id.row_10,
-                R.id.row_11,
-                R.id.row_12,
-                R.id.row_13,
-                R.id.row_14
-        )
-        private val TASK_EDIT_CONTROL_SET_FRAGMENTS = intArrayOf(
-                DeadlineControlSet.TAG,
-                TimerControlSet.TAG,
-                DescriptionControlSet.TAG,
-                CalendarControlSet.TAG,
-                PriorityControlSet.TAG,
-                StartDateControlSet.TAG,
-                ReminderControlSet.TAG,
-                LocationControlSet.TAG,
-                FilesControlSet.TAG,
-                TagsControlSet.TAG,
-                RepeatControlSet.TAG,
-                CreationDateControlSet.TAG,
-                ListFragment.TAG,
-                SubtaskControlSet.TAG
-        )
+        const val TAG_DESCRIPTION = R.string.TEA_ctrl_notes_pref
+        const val TAG_CREATION = R.string.TEA_ctrl_creation_date
+        const val TAG_LIST = R.string.TEA_ctrl_google_task_list
+        const val TAG_PRIORITY = R.string.TEA_ctrl_importance_pref
+        const val TAG_DUE_DATE = R.string.TEA_ctrl_when_pref
 
-        init {
-            if (BuildConfig.DEBUG
-                    && TASK_EDIT_CONTROL_FRAGMENT_ROWS.size != TASK_EDIT_CONTROL_SET_FRAGMENTS.size) {
-                throw AssertionError()
-            }
-        }
+        private val TASK_EDIT_CONTROL_SET_FRAGMENTS = intArrayOf(
+            TAG_DUE_DATE,
+            TimerControlSet.TAG,
+            TAG_DESCRIPTION,
+            CalendarControlSet.TAG,
+            TAG_PRIORITY,
+            StartDateControlSet.TAG,
+            ReminderControlSet.TAG,
+            LocationControlSet.TAG,
+            FilesControlSet.TAG,
+            TagsControlSet.TAG,
+            RepeatControlSet.TAG,
+            TAG_CREATION,
+            TAG_LIST,
+            SubtaskControlSet.TAG
+        )
     }
 }

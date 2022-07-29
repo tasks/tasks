@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast.LENGTH_SHORT
 import androidx.compose.ui.platform.ComposeView
 import com.google.android.material.composethemeadapter.MdcTheme
+import com.todoroo.astrid.activity.TaskEditFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -52,8 +53,16 @@ class CalendarControlSet : TaskEditControlFragment() {
                         },
                         onClick = {
                             if (viewModel.eventUri.value.isNullOrBlank()) {
-                                CalendarPicker.newCalendarPicker(this@CalendarControlSet, REQUEST_CODE_PICK_CALENDAR, calendarName)
-                                    .show(parentFragmentManager, FRAG_TAG_CALENDAR_PICKER)
+                                CalendarPicker
+                                    .newCalendarPicker(
+                                        requireParentFragment(),
+                                        TaskEditFragment.REQUEST_CODE_PICK_CALENDAR,
+                                        calendarName
+                                    )
+                                    .show(
+                                        requireParentFragment().parentFragmentManager,
+                                        TaskEditFragment.FRAG_TAG_CALENDAR_PICKER
+                                    )
                             } else {
                                 openCalendarEvent()
                             }
@@ -95,16 +104,6 @@ class CalendarControlSet : TaskEditControlFragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CODE_PICK_CALENDAR) {
-            if (resultCode == Activity.RESULT_OK) {
-                viewModel.selectedCalendar.value = data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     private val calendarName: String?
         get() = viewModel.selectedCalendar.value?.let { calendarProvider.getCalendar(it)?.name }
 
@@ -129,7 +128,5 @@ class CalendarControlSet : TaskEditControlFragment() {
 
     companion object {
         const val TAG = R.string.TEA_ctrl_gcal
-        private const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
-        private const val REQUEST_CODE_PICK_CALENDAR = 70
     }
 }

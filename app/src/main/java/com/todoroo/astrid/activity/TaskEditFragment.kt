@@ -21,11 +21,17 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Divider
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -36,11 +42,19 @@ import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.notes.CommentsController
+import com.todoroo.astrid.repeats.RepeatControlSet
+import com.todoroo.astrid.tags.TagsControlSet
+import com.todoroo.astrid.timers.TimerControlSet
 import com.todoroo.astrid.timers.TimerPlugin
+import com.todoroo.astrid.ui.ReminderControlSet
+import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.launchIn
@@ -50,23 +64,32 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.activities.ListPicker
 import org.tasks.analytics.Firebase
+import org.tasks.calendars.CalendarPicker
 import org.tasks.compose.BeastModeBanner
+import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.compose.edit.*
 import org.tasks.data.*
-import org.tasks.databinding.FragmentTaskEditBinding
+import org.tasks.databinding.*
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
 import org.tasks.files.FileHelper
-import org.tasks.fragments.CommentBarFragment
 import org.tasks.fragments.TaskEditControlSetFragmentManager
+import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_CREATION
+import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_DESCRIPTION
+import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_DUE_DATE
+import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_LIST
+import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_PRIORITY
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
-import org.tasks.ui.TaskEditEvent
-import org.tasks.ui.TaskEditEventBus
-import org.tasks.ui.TaskEditViewModel
-import org.tasks.ui.TaskListViewModel
+import org.tasks.ui.*
+import org.tasks.ui.TaskEditViewModel.Companion.stripCarriageReturns
+import java.time.format.FormatStyle
+import java.util.*
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -86,6 +109,8 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var markdownProvider: MarkdownProvider
     @Inject lateinit var taskEditEventBus: TaskEditEventBus
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var locale: Locale
+    @Inject lateinit var chipProvider: ChipProvider
 
     val editViewModel: TaskEditViewModel by viewModels()
     val subtaskViewModel: TaskListViewModel by viewModels()
@@ -184,32 +209,35 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         }
         commentsController.initialize(model, binding.comments)
         commentsController.reloadView()
-        val fragmentManager = childFragmentManager
-        val taskEditControlFragments =
-                taskEditControlSetFragmentManager.getOrCreateFragments(fragmentManager)
-        val visibleSize = taskEditControlSetFragmentManager.visibleSize
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        for (i in taskEditControlFragments.indices) {
-            val taskEditControlFragment = taskEditControlFragments[i]
-            val tag = getString(taskEditControlFragment.controlId())
-            fragmentTransaction.replace(
-                    TaskEditControlSetFragmentManager.TASK_EDIT_CONTROL_FRAGMENT_ROWS[i],
-                    taskEditControlFragment,
-                    tag)
-            if (i >= visibleSize) {
-                fragmentTransaction.hide(taskEditControlFragment)
+        binding.composeView.setContent {
+            MdcTheme {
+                Column {
+                    taskEditControlSetFragmentManager.displayOrder.forEachIndexed { index, tag ->
+                        if (index < taskEditControlSetFragmentManager.visibleSize) {
+                            // TODO: remove ui-viewbinding library when these are all migrated
+                            when (taskEditControlSetFragmentManager.controlSetFragments[tag]) {
+                                TAG_DUE_DATE -> DueDateRow()
+                                TAG_PRIORITY -> PriorityRow()
+                                TAG_DESCRIPTION -> DescriptionRow()
+                                TAG_LIST -> ListRow()
+                                TAG_CREATION -> CreationRow()
+                                CalendarControlSet.TAG -> AndroidViewBinding(TaskEditCalendarBinding::inflate)
+                                StartDateControlSet.TAG -> AndroidViewBinding(TaskEditStartDateBinding::inflate)
+                                ReminderControlSet.TAG -> AndroidViewBinding(TaskEditRemindersBinding::inflate)
+                                LocationControlSet.TAG -> AndroidViewBinding(TaskEditLocationBinding::inflate)
+                                FilesControlSet.TAG -> AndroidViewBinding(TaskEditFilesBinding::inflate)
+                                TimerControlSet.TAG -> AndroidViewBinding(TaskEditTimerBinding::inflate)
+                                TagsControlSet.TAG -> AndroidViewBinding(TaskEditTagsBinding::inflate)
+                                RepeatControlSet.TAG -> AndroidViewBinding(TaskEditRepeatBinding::inflate)
+                                SubtaskControlSet.TAG -> AndroidViewBinding(TaskEditSubtasksBinding::inflate)
+                                else -> throw IllegalArgumentException("Unknown row: $tag")
+                            }
+                            Divider(modifier = Modifier.fillMaxWidth())
+                        }
+                    }
+                }
             }
         }
-        fragmentTransaction.replace(
-            R.id.comment_bar,
-            fragmentManager.findFragmentByTag(FRAG_TAG_COMMENT_BAR) ?: CommentBarFragment(),
-            FRAG_TAG_COMMENT_BAR
-        )
-        fragmentTransaction.commit()
-        for (i in visibleSize - 1 downTo 1) {
-            binding.controlSets.addView(inflater.inflate(R.layout.task_edit_row_divider, binding.controlSets, false), i)
-        }
-
         return view
     }
 
@@ -228,15 +256,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         }
     }
 
-    private val beastMode = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        val transaction = childFragmentManager.beginTransaction()
-        taskEditControlSetFragmentManager.getOrCreateFragments(childFragmentManager).forEach {
-            transaction.remove(it)
-        }
-        transaction.commit()
-        activity?.recreate()
-    }
-
     @OptIn(ExperimentalAnimationApi::class)
     private fun showBeastModeHint() {
         binding.banner.setContent {
@@ -248,7 +267,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                     showSettings = {
                         visible = false
                         preferences.shownBeastModeHint = true
-                        beastMode.launch(Intent(context, BeastModePreferences::class.java))
+                        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                            activity?.recreate()
+                        }.launch(Intent(context, BeastModePreferences::class.java))
                         firebase.logEvent(R.string.event_banner_beast, R.string.param_click to true)
                     },
                     dismiss = {
@@ -318,11 +339,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     suspend fun save(remove: Boolean = true) = editViewModel.save(remove)
 
-   /*
-   * ======================================================================
-   * ======================================================= event handlers
-   * ======================================================================
-   */
     fun discardButtonClick() {
        if (editViewModel.hasChanges()) {
            dialogBuilder
@@ -351,12 +367,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         editViewModel.delete()
     }
 
-    /*
-   * ======================================================================
-   * ========================================== UI component helper classes
-   * ======================================================================
-   */
-
     fun addComment(message: String?, picture: Uri?) {
         val model = editViewModel.task
         val userActivity = UserActivity()
@@ -375,20 +385,143 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQUEST_DATE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    editViewModel.setDueDate(data!!.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L))
+                }
+            }
+            REQUEST_CODE_SELECT_LIST -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.getParcelableExtra<Filter>(ListPicker.EXTRA_SELECTED_FILTER)?.let {
+                        if (it is GtasksFilter || it is CaldavFilter) {
+                            editViewModel.selectedList.value = it
+                        } else {
+                            throw RuntimeException("Unhandled filter type")
+                        }
+                    }
+                }
+            }
+            REQUEST_CODE_PICK_CALENDAR -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    editViewModel.selectedCalendar.value =
+                        data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
+                }
+            }
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
     private inner class RefreshReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             subtaskViewModel.invalidate()
         }
     }
 
+    @Composable
+    private fun DueDateRow() {
+        val dueDate = editViewModel.dueDate.collectAsStateLifecycleAware().value
+        DueDateRow(
+            dueDate = if (dueDate == 0L) {
+                null
+            } else {
+                DateUtilities.getRelativeDateTime(
+                    LocalContext.current,
+                    dueDate,
+                    locale,
+                    FormatStyle.FULL,
+                    preferences.alwaysDisplayFullDate,
+                    false
+                )
+            },
+            overdue = dueDate.isOverdue,
+            onClick = {
+                DateTimePicker
+                    .newDateTimePicker(
+                        this@TaskEditFragment,
+                        REQUEST_DATE,
+                        editViewModel.dueDate.value,
+                        preferences.getBoolean(
+                            R.string.p_auto_dismiss_datetime_edit_screen,
+                            false
+                        )
+                    )
+                    .show(parentFragmentManager, FRAG_TAG_DATE_PICKER)
+            }
+        )
+    }
+
+    @Composable
+    private fun PriorityRow() {
+        PriorityRow(
+            priority = editViewModel.priority.collectAsStateLifecycleAware().value,
+            onChangePriority = { editViewModel.priority.value = it },
+            desaturate = preferences.desaturateDarkMode,
+        )
+    }
+
+    @Composable
+    private fun DescriptionRow() {
+        DescriptionRow(
+            text = editViewModel.description.stripCarriageReturns(),
+            onChanged = { text -> editViewModel.description = text.toString().trim { it <= ' ' } },
+            linkify = if (preferences.linkify) linkify else null,
+            markdownProvider = markdownProvider,
+        )
+    }
+
+    @Composable
+    private fun ListRow() {
+        ListRow(
+            list = editViewModel.selectedList.collectAsStateLifecycleAware().value,
+            colorProvider = { chipProvider.getColor(it) },
+            onClick = {
+                ListPicker
+                    .newListPicker(
+                        editViewModel.selectedList.value,
+                        this@TaskEditFragment,
+                        REQUEST_CODE_SELECT_LIST
+                    )
+                    .show(
+                        parentFragmentManager,
+                        FRAG_TAG_GOOGLE_TASK_LIST_SELECTION
+                    )
+            }
+        )
+    }
+
+    @Composable
+    fun CreationRow() {
+        InfoRow(
+            creationDate = editViewModel.creationDate,
+            modificationDate = editViewModel.modificationDate,
+            completionDate = editViewModel.completionDate,
+            locale = locale,
+        )
+    }
+
     companion object {
         const val TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"
-        private const val FRAG_TAG_COMMENT_BAR = "comment_bar"
         const val EXTRA_TASK = "extra_task"
         const val EXTRA_LIST = "extra_list"
         const val EXTRA_LOCATION = "extra_location"
         const val EXTRA_TAGS = "extra_tags"
         const val EXTRA_ALARMS = "extra_alarms"
+
+        private const val FRAG_TAG_GOOGLE_TASK_LIST_SELECTION = "frag_tag_google_task_list_selection"
+        const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
+        private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
+        private const val REQUEST_CODE_SELECT_LIST = 10101
+        const val REQUEST_CODE_PICK_CALENDAR = 70
+        private const val REQUEST_DATE = 504
+
+        val Long.isOverdue: Boolean
+            get() = if (Task.hasDueTime(this)) {
+                newDateTime(this).isBeforeNow
+            } else {
+                newDateTime(this).endOfDay().isBeforeNow
+            }
 
         fun newTaskEditFragment(
                 task: Task,

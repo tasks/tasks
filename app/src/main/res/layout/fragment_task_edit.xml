@@ -86,75 +86,10 @@
               android:gravity="center_horizontal"
               android:orientation="vertical">
 
-                <FrameLayout
-                  android:id="@+id/row_1"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_2"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_3"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_4"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_5"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_6"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_7"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_8"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_9"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_10"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_11"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_12"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_13"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-                <FrameLayout
-                  android:id="@+id/row_14"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
+                <androidx.compose.ui.platform.ComposeView
+                    android:id="@+id/compose_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
                   android:id="@+id/comments"
@@ -165,11 +100,12 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <FrameLayout
-          android:id="@+id/comment_bar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:elevation="@dimen/elevation_toolbar" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/comment_bar"
+            android:name="org.tasks.fragments.CommentBarFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"/>
 
     </LinearLayout>
 
