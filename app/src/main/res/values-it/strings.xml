@@ -56,7 +56,6 @@
     <string name="TEA_control_reminders">Promemoria</string>
     <string name="TEA_control_timer">Regolazione timer</string>
     <string name="TEA_control_hidden_section">----Nascondi sempre----</string>
-    <string name="TEA_load_more">Caricane altre…</string>
     <string name="CRA_ignore">Ignora</string>
     <string name="CRA_title">Hai bisogno di una lista per le riunioni?</string>
     <string name="CRA_ignore_body">Hai ignorato numerosi eventi del calendario. Vuoi che Tasks smetta di notificarteli\?</string>

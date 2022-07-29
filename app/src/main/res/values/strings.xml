@@ -68,7 +68,6 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_hidden_section">----Hide Always----</string>
   <string name="TEA_creation_date">Creation date</string>
-  <string name="TEA_load_more">Load more…</string>
   <string name="CRA_ignore">Ignore</string>
   <string name="CRA_title">Need a meeting list?</string>
   <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Tasks stop asking you about them?</string>

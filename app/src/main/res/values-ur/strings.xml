@@ -2,7 +2,6 @@
 <resources>
     <string name="import_progress_read">%d ٹاسک پڑھا جا رہا ہے…</string>
     <string name="export_toast">%1$s سے %2$s بیک اپ ہو گیا۔</string>
-    <string name="TEA_load_more">مزید لوڈ کریں…</string>
     <string name="TEA_control_hidden_section">----ہمیشہ چھپائیں----</string>
     <string name="TEA_control_timer">ٹائمر کنٹرول</string>
     <string name="TEA_control_reminders">یاد دہانی</string>

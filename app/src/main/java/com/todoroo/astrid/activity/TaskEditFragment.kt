@@ -10,7 +10,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
-import android.net.Uri
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.LayoutInflater
@@ -48,7 +47,6 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.files.FilesControlSet
-import com.todoroo.astrid.notes.CommentsController
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.tags.TagsControlSet
 import com.todoroo.astrid.timers.TimerControlSet
@@ -56,11 +54,9 @@ import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.ui.ReminderControlSet
 import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -70,7 +66,10 @@ import org.tasks.calendars.CalendarPicker
 import org.tasks.compose.BeastModeBanner
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.*
-import org.tasks.data.*
+import org.tasks.data.Alarm
+import org.tasks.data.Location
+import org.tasks.data.TagData
+import org.tasks.data.UserActivityDao
 import org.tasks.databinding.*
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DateTimePicker
@@ -101,7 +100,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var context: Activity
     @Inject lateinit var taskEditControlSetFragmentManager: TaskEditControlSetFragmentManager
-    @Inject lateinit var commentsController: CommentsController
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var timerPlugin: TimerPlugin
@@ -207,8 +205,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 linkify.linkify(title)
             }
         }
-        commentsController.initialize(model, binding.comments)
-        commentsController.reloadView()
         binding.composeView.setContent {
             MdcTheme {
                 Column {
@@ -234,6 +230,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                             }
                             Divider(modifier = Modifier.fillMaxWidth())
                         }
+                    }
+                    if (preferences.getBoolean(R.string.p_show_task_edit_comments, true)) {
+                        Comments()
                     }
                 }
             }
@@ -316,7 +315,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         val model = editViewModel.task
         timerPlugin.stopTimer(model)
         val elapsedTime = DateUtils.formatElapsedTime(model.elapsedSeconds.toLong())
-        addComment(String.format(
+        editViewModel.addComment(String.format(
                 "%s %s\n%s %s",  // $NON-NLS-1$
                 getString(R.string.TEA_timer_comment_stopped),
                 DateUtilities.getTimeString(context, newDateTime()),
@@ -329,7 +328,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     suspend fun startTimer(): Task {
         val model = editViewModel.task
         timerPlugin.startTimer(model)
-        addComment(String.format(
+        editViewModel.addComment(String.format(
                 "%s %s",
                 getString(R.string.TEA_timer_comment_started),
                 DateUtilities.getTimeString(context, newDateTime())),
@@ -365,24 +364,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     private fun delete() = lifecycleScope.launch {
         editViewModel.delete()
-    }
-
-    fun addComment(message: String?, picture: Uri?) {
-        val model = editViewModel.task
-        val userActivity = UserActivity()
-        if (picture != null) {
-            val output = FileHelper.copyToUri(context, preferences.attachmentsDirectory!!, picture)
-            userActivity.setPicture(output)
-        }
-        userActivity.message = message
-        userActivity.targetId = model.uuid
-        userActivity.created = DateUtilities.now()
-        lifecycleScope.launch {
-            withContext(NonCancellable) {
-                userActivityDao.createNew(userActivity)
-            }
-            commentsController.reloadView()
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -498,6 +479,22 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             modificationDate = editViewModel.modificationDate,
             completionDate = editViewModel.completionDate,
             locale = locale,
+        )
+    }
+
+    @Composable
+    fun Comments() {
+        CommentsRow(
+            comments = userActivityDao
+                .watchComments(editViewModel.task.uuid)
+                .collectAsStateLifecycleAware(emptyList())
+                .value,
+            deleteComment = {
+                lifecycleScope.launch {
+                    userActivityDao.delete(it)
+                }
+            },
+            openImage = { FileHelper.startActionView(requireActivity(), it) }
         )
     }
 

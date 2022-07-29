@@ -55,7 +55,6 @@
     <string name="TEA_control_reminders">Erinnerungen</string>
     <string name="TEA_control_timer">Timer-Einstellungen</string>
     <string name="TEA_control_hidden_section">----Immer Ausblenden----</string>
-    <string name="TEA_load_more">Weitere laden …</string>
     <string name="CRA_ignore">Ablehnen</string>
     <string name="CRA_title">Wollen Sie eine Besprechungsliste erstellen\?</string>
     <string name="CRA_ignore_body">Sie haben mehrere Kalendereinträge ignoriert. Soll Tasks nicht mehr danach fragen\?</string>

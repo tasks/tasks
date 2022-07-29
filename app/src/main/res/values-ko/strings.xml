@@ -54,7 +54,6 @@
     <string name="TEA_control_reminders">일정 알림</string>
     <string name="TEA_control_timer">타이머 조절</string>
     <string name="TEA_control_hidden_section">----항상 숨김----</string>
-    <string name="TEA_load_more">더 불러오기…</string>
     <string name="CRA_ignore">무시하기</string>
     <string name="CRA_title">모임 목록이 필요하세요?</string>
     <string name="CRA_ignore_body">여러번 달력 일정을 무시하셨습니다. Tasks가 일정을 그만 물어볼까요\?</string>

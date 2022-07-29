@@ -51,7 +51,6 @@
     <string name="TEA_control_reminders">Muistutukset</string>
     <string name="TEA_control_timer">Ajastuksen säätimet</string>
     <string name="TEA_control_hidden_section">----Piilota aina----</string>
-    <string name="TEA_load_more">Lataa lisää…</string>
     <string name="CRA_ignore">Ohita</string>
     <string name="CRA_title">Tarvitaanko listaa tapaamisista?</string>
     <string name="CRA_ignore_body">Olet ohittanut useita kalenteritapahtumia. Lopettaako Tasks niistä kyselemisen?</string>

@@ -34,7 +34,6 @@
     <string name="CRA_ignore_body">பல காலண்டர் நிகழ்வுகளை நீங்கள் புறக்கணித்துவிட்டீர்கள். பணிகள் அவற்றைப் பற்றி உங்களிடம் கேட்பதை நிறுத்த வேண்டுமா\?</string>
     <string name="CRA_title">சந்திப்பு பட்டியல் வேண்டுமா\?</string>
     <string name="CRA_ignore">புறக்கணிக்கவும்</string>
-    <string name="TEA_load_more">அதிகமாய் ஏற்று…</string>
     <string name="TEA_control_hidden_section">---- எப்போதும் மறை ----</string>
     <string name="TEA_control_timer">டைமர் கட்டுப்பாடுகள்</string>
     <string name="TEA_control_reminders">நினைவூட்டல்கள்</string>

@@ -55,7 +55,6 @@
     <string name="TEA_control_reminders">Recordatorios</string>
     <string name="TEA_control_timer">Controles de tiempo</string>
     <string name="TEA_control_hidden_section">---Ocultar siempre---</string>
-    <string name="TEA_load_more">Cargar más…</string>
     <string name="CRA_ignore">Ignorar</string>
     <string name="CRA_title">¿Necesita una lista de reuniones?</string>
     <string name="CRA_ignore_body">Ha ignorado varios eventos de calendario. ¿Debe Tasks dejar de preguntarle sobre ellos?</string>

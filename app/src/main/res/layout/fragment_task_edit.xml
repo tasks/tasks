@@ -79,25 +79,11 @@
           android:elevation="0dp"
           android:overScrollMode="never">
 
-            <LinearLayout
-              android:id="@+id/control_sets"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_horizontal"
-              android:orientation="vertical">
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/compose_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                <androidx.compose.ui.platform.ComposeView
-                    android:id="@+id/compose_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                  android:id="@+id/comments"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical" />
-
-            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <androidx.fragment.app.FragmentContainerView

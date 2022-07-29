@@ -468,7 +468,6 @@
     <string name="CRA_ignore_body">Ați ignorat mai multe evenimente din calendar. Doriți ca Tasks să nu vă mai întrebe despre ele\?</string>
     <string name="CRA_title">Aveți nevoie de o listă de întâlniri\?</string>
     <string name="CRA_ignore">Ignoră</string>
-    <string name="TEA_load_more">Încarcă mai mult…</string>
     <string name="TEA_control_hidden_section">----Ascundeți mereu----</string>
     <string name="TEA_control_timer">Comenzi de temporizare</string>
     <string name="TEA_control_reminders">Reamintire</string>

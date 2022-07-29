@@ -56,7 +56,6 @@
     <string name="TEA_control_reminders">Oroigarriak</string>
     <string name="TEA_control_timer">Kronometroaren kontrolak</string>
     <string name="TEA_control_hidden_section">----Ezkutatu beti----</string>
-    <string name="TEA_load_more">Kargatu gehiago…</string>
     <string name="CRA_ignore">Ezikusi</string>
     <string name="CRA_title">Batzarren zerrenda bat behar duzu\?</string>
     <string name="CRA_ignore_body">Egutegiko gertaera batzuk ezikusi dituzu. Nahiago zenuke Tasks aplikazioak horiei buruz galdetuko ez balu\?</string>

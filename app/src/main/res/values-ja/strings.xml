@@ -53,7 +53,6 @@
     <string name="TEA_control_reminders">リマインダー</string>
     <string name="TEA_control_timer">タイマーコントロール</string>
     <string name="TEA_control_hidden_section">----常に隠す----</string>
-    <string name="TEA_load_more">さらに読み込む…</string>
     <string name="CRA_ignore">無視する</string>
     <string name="CRA_title">ミーティングリストが必要ですか?</string>
     <string name="CRA_ignore_body">いくつかのカレンダーイベントを無視しました. その報告を停止しますか?</string>

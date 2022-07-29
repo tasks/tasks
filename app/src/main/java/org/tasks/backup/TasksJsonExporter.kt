@@ -129,7 +129,7 @@ class TasksJsonExporter @Inject constructor(
                         locationDao.getGeofencesForTask(taskId),
                         tagDao.getTagsForTask(taskId),
                         googleTaskDao.getAllByTaskId(taskId),
-                        userActivityDao.getCommentsForTask(task.uuid),
+                        userActivityDao.getComments(taskId),
                         taskAttachmentDao.getAttachments(task.uuid),
                         caldavTasks,
                         vtodoCache.getVtodo( caldavTasks.firstOrNull { !it.isDeleted() })

@@ -43,7 +43,6 @@
     <string name="TEA_control_files">Failid</string>
     <string name="TEA_control_reminders">Meelespead</string>
     <string name="TEA_control_hidden_section">----Peida alati----</string>
-    <string name="TEA_load_more">Laadi lisa…</string>
     <string name="CRA_ignore">Ignoreeri</string>
     <string name="CRA_ignore_this">Ignoreeri ainult seda sündmust</string>
     <string name="CRA_postpone">Võib-olla hiljem</string>

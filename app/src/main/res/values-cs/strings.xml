@@ -46,7 +46,6 @@
     <string name="TEA_control_reminders">Upomínky</string>
     <string name="TEA_control_timer">Ovladač časovače</string>
     <string name="TEA_control_hidden_section">-----Vždy skrývat----</string>
-    <string name="TEA_load_more">Načíst více…</string>
     <string name="CRA_ignore">Ignorovat</string>
     <string name="CRA_title">Potřebujete seznam schůze?</string>
     <string name="CRA_ignore_body">Ignorovali jste několik událostí v kalendáři. Má vás Tasks přestat o nich informovat\?</string>

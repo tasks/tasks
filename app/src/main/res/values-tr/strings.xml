@@ -56,7 +56,6 @@
     <string name="TEA_control_reminders">Anımsatıcılar</string>
     <string name="TEA_control_timer">Kronometre Denetimleri</string>
     <string name="TEA_control_hidden_section">----Sürekli Gizle----</string>
-    <string name="TEA_load_more">Daha yükle…</string>
     <string name="CRA_ignore">Yok say</string>
     <string name="CRA_title">Toplantı listesine mi gereksiniyorsunuz\?</string>
     <string name="CRA_ignore_body">Bir kaç tane takvim etkinliğini yok saydınız. Tasks\'in size bunlar hakkında sormayı kesmesini ister misiniz?</string>

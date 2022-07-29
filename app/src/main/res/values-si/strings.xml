@@ -468,7 +468,6 @@
     <string name="CRA_ignore_body">ඔබ දින දර්ශන කාර්යයන් කිහිපයක් නොසලකා හැර ඇත. Tasks ඵ්වා ගැන ඔබෙන් විමසීම නතර කළ යුතුද\?</string>
     <string name="CRA_title">රැස්වීම් ලැයිස්තුවක් අවශ්‍යද\?</string>
     <string name="CRA_ignore">නොසලකා හරින්න</string>
-    <string name="TEA_load_more">තවත් පූරණය කරන්න…</string>
     <string name="TEA_control_hidden_section">---- සැමවිටම සඟවන්න ----</string>
     <string name="TEA_control_reminders">මතක් කිරීම්</string>
     <string name="TEA_control_files">ගොනු</string>

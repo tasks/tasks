@@ -37,7 +37,6 @@
     <string name="TEA_control_files">ഫയലുകൾ</string>
     <string name="TEA_control_reminders">ഓർമ്മപ്പെടുത്തലുകൾ</string>
     <string name="TEA_control_hidden_section">---- എല്ലായ്പ്പോഴും മറയ്‌ക്കുക ----</string>
-    <string name="TEA_load_more">കൂടുതൽ ലോഡുചെയ്യുക…</string>
     <string name="CRA_ignore">അവഗണിക്കുക</string>
     <string name="CRA_title">ഒരു മീറ്റിംഗ് ലിസ്റ്റ് ആവശ്യമുണ്ടോ\?</string>
 </resources>

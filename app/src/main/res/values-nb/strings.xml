@@ -165,7 +165,6 @@
     <string name="TEA_control_gcal">Kalneder</string>
     <string name="TEA_control_location">Sted</string>
     <string name="TEA_control_timer">Tidtakingskontroller</string>
-    <string name="TEA_load_more">Last inn mer…</string>
     <string name="CRA_ignore">Ignorer</string>
     <string name="CRA_title">Trenger du en møteliste\?</string>
     <string name="CRA_ignore_body">Du har ignorert flere kalenderhendelser. Skal Tasks slutte å påminne deg om dem\?</string>

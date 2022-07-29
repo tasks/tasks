@@ -55,7 +55,6 @@
     <string name="TEA_control_reminders">Herinneringen</string>
     <string name="TEA_control_timer">Instellingen tijdklok</string>
     <string name="TEA_control_hidden_section">----Onzichtbaar----</string>
-    <string name="TEA_load_more">Meer laden…</string>
     <string name="CRA_ignore">Negeren</string>
     <string name="CRA_title">Een vergaderagenda maken\?</string>
     <string name="CRA_ignore_body">Je hebt meerdere kalender-items genegeerd. Moet Tasks er niet meer naar vragen\?</string>

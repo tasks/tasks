@@ -1,9 +1,11 @@
 package org.tasks.ui
 
 import android.content.Context
+import android.net.Uri
 import androidx.annotation.MainThread
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
@@ -26,6 +28,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.tasks.R
@@ -36,6 +39,7 @@ import org.tasks.data.*
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
@@ -46,7 +50,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskEditViewModel @Inject constructor(
-        @ApplicationContext context: Context,
+        @ApplicationContext private val context: Context,
         savedStateHandle: SavedStateHandle,
         private val taskDao: TaskDao,
         private val taskDeleter: TaskDeleter,
@@ -59,7 +63,7 @@ class TaskEditViewModel @Inject constructor(
         private val geofenceApi: GeofenceApi,
         private val tagDao: TagDao,
         private val tagDataDao: TagDataDao,
-        preferences: Preferences,
+        private val preferences: Preferences,
         private val googleTaskDao: GoogleTaskDao,
         private val caldavDao: CaldavDao,
         private val taskCompleter: TaskCompleter,
@@ -67,6 +71,7 @@ class TaskEditViewModel @Inject constructor(
         private val taskListEvents: TaskListEventBus,
         private val mainActivityEvents: MainActivityEventBus,
         private val firebase: Firebase? = null,
+        private val userActivityDao: UserActivityDao,
 ) : ViewModel() {
     private val resources = context.resources
     private var cleared = false
@@ -384,6 +389,22 @@ class TaskEditViewModel @Inject constructor(
         with (selectedAlarms) {
             if (value.none { it.same(alarm) }) {
                 value = value.plus(alarm)
+            }
+        }
+    }
+
+    fun addComment(message: String?, picture: Uri?) {
+        val userActivity = UserActivity()
+        if (picture != null) {
+            val output = FileHelper.copyToUri(context, preferences.attachmentsDirectory!!, picture)
+            userActivity.setPicture(output)
+        }
+        userActivity.message = message
+        userActivity.targetId = task.uuid
+        userActivity.created = now()
+        viewModelScope.launch {
+            withContext(NonCancellable) {
+                userActivityDao.createNew(userActivity)
             }
         }
     }

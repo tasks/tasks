@@ -4,6 +4,7 @@ import androidx.room.*
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 abstract class UserActivityDao {
@@ -17,7 +18,7 @@ abstract class UserActivityDao {
     abstract suspend fun delete(userActivity: UserActivity)
 
     @Query("SELECT * FROM userActivity WHERE target_id = :taskUuid ORDER BY created_at DESC ")
-    abstract suspend fun getCommentsForTask(taskUuid: String): List<UserActivity>
+    abstract fun watchComments(taskUuid: String): Flow<List<UserActivity>>
 
     @Query("SELECT userActivity.* FROM userActivity INNER JOIN tasks ON tasks._id = :task WHERE target_id = tasks.remoteId")
     abstract suspend fun getComments(task: Long): List<UserActivity>

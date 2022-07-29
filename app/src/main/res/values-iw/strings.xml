@@ -56,7 +56,6 @@
     <string name="TEA_control_reminders">תזכורות</string>
     <string name="TEA_control_timer">הערכת זמן</string>
     <string name="TEA_control_hidden_section">----להסתיר תמיד----</string>
-    <string name="TEA_load_more">לטעון עוד…</string>
     <string name="CRA_ignore">התעלם</string>
     <string name="CRA_title">צריך רשימה לפגישה?</string>
     <string name="CRA_ignore_body">התעלמת ממספר אירועי יומן. האם עלי לחדול מלהזכיר לך אירועי יומן?</string>

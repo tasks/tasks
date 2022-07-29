@@ -37,7 +37,6 @@
     <string name="TEA_control_files">Filer</string>
     <string name="TEA_control_reminders">Påmindelser</string>
     <string name="TEA_control_hidden_section">----Skjul altid----</string>
-    <string name="TEA_load_more">Indlæs flere…</string>
     <string name="CRA_ignore_all">Ignorér alle begivenheder</string>
     <string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
     <string name="EPr_default_importance_title">Standardprioritet</string>

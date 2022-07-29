@@ -8,7 +8,6 @@
     <string name="CRA_ignore_body">Bạn đã bỏ qua một vài sự kiện trong lịch. Tasks có nên dừng hỏi bạn về chúng không\?</string>
     <string name="CRA_title">Cần danh sách cuộc họp không\?</string>
     <string name="CRA_ignore">Bỏ qua</string>
-    <string name="TEA_load_more">Tải thêm…</string>
     <string name="TEA_control_reminders">Lời nhắc</string>
     <string name="TEA_control_files">Tệp</string>
     <string name="TEA_control_notes">Mô tả</string>

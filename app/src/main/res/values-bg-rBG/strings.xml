@@ -58,7 +58,6 @@
     <string name="TEA_control_reminders">Напомняне</string>
     <string name="TEA_control_timer">Отчитане на времето</string>
     <string name="TEA_control_hidden_section">----Винаги скрито----</string>
-    <string name="TEA_load_more">Зареждане…</string>
     <string name="CRA_ignore">Пренебрегване</string>
     <string name="CRA_title">Нуждаете се от списък със срещите\?</string>
     <string name="CRA_ignore_body">Пренебрегнали сте няколко събития от календара. Трябва ли Tasks да спрe да пита за тях\?</string>

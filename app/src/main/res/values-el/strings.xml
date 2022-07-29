@@ -48,7 +48,6 @@
     <string name="TEA_control_reminders">Υπενθυμίσεις</string>
     <string name="TEA_control_timer">Χειριστήρια χρονοδιακόπτη</string>
     <string name="TEA_control_hidden_section">-----Απόκρυψη πάντα-----</string>
-    <string name="TEA_load_more">Φόρτωση περισσότερων…</string>
     <string name="CRA_ignore">Αγνοήστε</string>
     <string name="CRA_title">Χρειάζεστε λίστα για συνάντηση?</string>
     <string name="CRA_ignore_body">Αγνοήσατε αρκετές κλήσεις. Να σταματήσουμε να ρωτάμε για αυτές;</string>

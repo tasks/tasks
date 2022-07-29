@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -27,6 +28,7 @@ import org.tasks.files.ImageHelper
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeColor
+import org.tasks.ui.TaskEditViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,16 +43,12 @@ class CommentBarFragment : Fragment() {
     private lateinit var commentField: EditText
     private lateinit var pictureButton: ImageView
     private lateinit var commentBar: LinearLayout
-    private lateinit var callback: CommentBarFragmentCallback
     private var pendingCommentPicture: Uri? = null
-    
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        callback = activity as CommentBarFragmentCallback
-    }
+    lateinit var viewModel: TaskEditViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewModel = ViewModelProvider(requireParentFragment())[TaskEditViewModel::class.java]
         val view = bind(container)
         createView(savedInstanceState)
         return view
@@ -162,7 +160,7 @@ class CommentBarFragment : Fragment() {
         commentField.setText("")
         pendingCommentPicture = null
         resetPictureButton()
-        callback.addComment(if (isNullOrEmpty(message)) " " else message, picture)
+        viewModel.addComment(if (isNullOrEmpty(message)) " " else message, picture)
     }
 
     private fun resetPictureButton() {
@@ -199,10 +197,6 @@ class CommentBarFragment : Fragment() {
             // show a menu of available options
             dialogBuilder.newDialog().setItems(options, listener).show().setOwnerActivity(activity)
         }
-    }
-
-    interface CommentBarFragmentCallback {
-        fun addComment(message: String?, picture: Uri?)
     }
 
     companion object {

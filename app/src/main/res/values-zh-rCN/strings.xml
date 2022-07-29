@@ -50,7 +50,6 @@
     <string name="TEA_control_reminders">提醒</string>
     <string name="TEA_control_timer">定时器控件</string>
     <string name="TEA_control_hidden_section">----始终隐藏----</string>
-    <string name="TEA_load_more">加载更多…</string>
     <string name="CRA_ignore">忽略</string>
     <string name="CRA_title">是否需要会议列表？</string>
     <string name="CRA_ignore_body">您已经忽略了几个日历事件。Tasks 是否应该停止向你询问这些事件？</string>

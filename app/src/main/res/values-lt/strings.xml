@@ -58,7 +58,6 @@
     <string name="TEA_control_reminders">Priminimai</string>
     <string name="TEA_control_timer">Laikmačio nustatymai</string>
     <string name="TEA_control_hidden_section">----Visada slėpti----</string>
-    <string name="TEA_load_more">Įkelti daugiau…</string>
     <string name="CRA_ignore">Ignoruoti</string>
     <string name="CRA_title">Reikia susitikimų sąrašo?</string>
     <string name="CRA_ignore_body">Jūs ignoravote kelis kalendoriaus įvykius. Ar Tasks turėtų nustoti apie juos klausti?</string>

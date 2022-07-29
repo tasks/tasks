@@ -45,7 +45,6 @@
     <string name="TEA_control_reminders">提醒</string>
     <string name="TEA_control_timer">定時器設定</string>
     <string name="TEA_control_hidden_section">----永遠隱藏----</string>
-    <string name="TEA_load_more">繼續載入…</string>
     <string name="CRA_ignore">忽略</string>
     <string name="CRA_title">需要會議列表嗎？</string>
     <string name="CRA_ignore_body">您忽略了幾個活動，Tasks應否不再就該活動詢問您呢？</string>

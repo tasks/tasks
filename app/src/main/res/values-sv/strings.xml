@@ -48,7 +48,6 @@
     <string name="TEA_control_reminders">Påminnelser</string>
     <string name="TEA_control_timer">Tidtagarinställningar</string>
     <string name="TEA_control_hidden_section">----Dölj alltid----</string>
-    <string name="TEA_load_more">Ladda mer…</string>
     <string name="CRA_ignore">Ignorera</string>
     <string name="CRA_title">Behöver du en lista över möten?</string>
     <string name="CRA_ignore_body">Du har ignorerat flera kalenderhändelser. Vill du att Tasks slutar fråga dig om dem?</string>

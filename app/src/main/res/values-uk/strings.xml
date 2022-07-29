@@ -56,7 +56,6 @@
     <string name="TEA_control_reminders">Нагадування</string>
     <string name="TEA_control_timer">Управління таймером</string>
     <string name="TEA_control_hidden_section">----Завжди ховати----</string>
-    <string name="TEA_load_more">Завантажити більше…</string>
     <string name="CRA_ignore">Ігнорувати</string>
     <string name="CRA_title">Потрібен список зустрічей\?</string>
     <string name="CRA_ignore_body">Ви знехтували кількома подіями в календарі. Припинити запитувати про них\?</string>

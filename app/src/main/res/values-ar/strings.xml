@@ -235,7 +235,6 @@
     <string name="SSD_sort_my_order">ترتيبي</string>
     <string name="cancel">إلغاء</string>
     <string name="ok">حسنًا</string>
-    <string name="TEA_load_more">حمّل المزيد…</string>
     <string name="start_date">تاريخ البدأ</string>
     <string name="SSD_sort_start">بتاريخ البدأ</string>
     <string name="export_toast">تم تصدير %1$s إلى %2$s.</string>

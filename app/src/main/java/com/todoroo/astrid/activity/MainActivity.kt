@@ -8,7 +8,6 @@ package com.todoroo.astrid.activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -40,7 +39,6 @@ import org.tasks.databinding.TaskListActivityBinding
 import org.tasks.dialogs.SortDialog.SortDialogCallback
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.filters.PlaceFilter
-import org.tasks.fragments.CommentBarFragment.CommentBarFragmentCallback
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents.getTaskListIntent
 import org.tasks.location.LocationPickerActivity
@@ -57,7 +55,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, TimerControlSetCallback, CommentBarFragmentCallback, SortDialogCallback {
+class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, TimerControlSetCallback, SortDialogCallback {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
@@ -399,7 +397,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
     private val taskListFragment: TaskListFragment?
         get() = supportFragmentManager.findFragmentByTag(FRAG_TAG_TASK_LIST) as TaskListFragment?
 
-    val taskEditFragment: TaskEditFragment?
+    private val taskEditFragment: TaskEditFragment?
         get() = supportFragmentManager.findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT) as TaskEditFragment?
 
     override suspend fun stopTimer(): Task {
@@ -437,11 +435,6 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
-    }
-
-    override fun addComment(message: String?, picture: Uri?) {
-        val taskEditFragment = taskEditFragment
-        taskEditFragment?.addComment(message, picture)
     }
 
     override fun sortChanged(reload: Boolean) {

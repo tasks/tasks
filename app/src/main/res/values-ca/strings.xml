@@ -38,7 +38,6 @@
     <string name="TEA_control_reminders">Recordatoris</string>
     <string name="TEA_control_timer">Controls de temporització</string>
     <string name="TEA_control_hidden_section">----Oculta-ho sempre----</string>
-    <string name="TEA_load_more">Carrega\'n més…</string>
     <string name="EPr_beastMode_reset">Restableix els valors predeterminats</string>
     <string name="EPr_fullTask_title">Mostra el títol sencer de la tasca</string>
     <string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>

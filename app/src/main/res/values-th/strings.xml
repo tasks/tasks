@@ -621,7 +621,6 @@
     <string name="date_shortcut_morning">เช้า</string>
     <string name="date_shortcut_hour">เป็นเวลาหนึ่งชั่วโมง</string>
     <string name="filters">ตัวกรอง</string>
-    <string name="TEA_load_more">โหลดเพิ่ม…</string>
     <string name="TEA_control_hidden_section">----ไฮด์----</string>
     <string name="TEA_control_timer">การควบคุมตัวจับเวลา</string>
     <string name="TEA_control_reminders">จดหมายเตือนชําระเงิน</string>

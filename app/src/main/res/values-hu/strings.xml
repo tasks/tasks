@@ -54,7 +54,6 @@
     <string name="TEA_control_reminders">Emlékeztetők</string>
     <string name="TEA_control_timer">Időzítő Beállítása</string>
     <string name="TEA_control_hidden_section">---Elrejtve---</string>
-    <string name="TEA_load_more">Továbbiak betöltése…</string>
     <string name="CRA_ignore">Kihagy</string>
     <string name="CRA_title">Szeretne egy listát a találkozókról?</string>
     <string name="CRA_ignore_body">Kihagytál jónéhány naptáreseményt. Ne kérdezzen rá többet a Tasks?</string>
