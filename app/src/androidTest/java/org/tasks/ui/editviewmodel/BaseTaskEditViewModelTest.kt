@@ -1,5 +1,7 @@
 package org.tasks.ui.editviewmodel
 
+import androidx.lifecycle.SavedStateHandle
+import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
@@ -12,11 +14,11 @@ import com.todoroo.astrid.timers.TimerPlugin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
-import org.junit.Before
 import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.AlarmDao
 import org.tasks.data.LocationDao
 import org.tasks.data.TagDataDao
+import org.tasks.data.UserActivityDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.DefaultFilterProvider
@@ -41,42 +43,39 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var alarmDao: AlarmDao
+    @Inject lateinit var userActivityDao: UserActivityDao
 
     protected lateinit var viewModel: TaskEditViewModel
 
-    @Before
-    override fun setUp() {
-        super.setUp()
-        viewModel = TaskEditViewModel(
-                context,
-                taskDao,
-                taskDeleter,
-                timerPlugin,
-                PermissivePermissionChecker(context),
-                calendarEventProvider,
-                gCalHelper,
-                taskMover,
-                db.locationDao,
-                geofenceApi,
-                db.tagDao,
-                db.tagDataDao,
-                preferences,
-                db.googleTaskDao,
-                db.caldavDao,
-                taskCompleter,
-                alarmService,
-            MutableSharedFlow(),
-            MutableSharedFlow(),
-        )
-    }
-
     protected fun setup(task: Task) = runBlocking {
-        viewModel.setup(
-                task,
-                defaultFilterProvider.getList(task),
-                locationDao.getLocation(task, preferences),
-                tagDataDao.getTags(task),
-                alarmDao.getAlarms(task)
+        viewModel = TaskEditViewModel(
+            context,
+            SavedStateHandle().apply {
+                set(TaskEditFragment.EXTRA_TASK, task)
+                set(TaskEditFragment.EXTRA_LIST, defaultFilterProvider.getList(task))
+                set(TaskEditFragment.EXTRA_LOCATION, locationDao.getLocation(task, preferences))
+                set(TaskEditFragment.EXTRA_TAGS, tagDataDao.getTags(task))
+                set(TaskEditFragment.EXTRA_ALARMS, alarmDao.getAlarms(task))
+            },
+            taskDao,
+            taskDeleter,
+            timerPlugin,
+            PermissivePermissionChecker(context),
+            calendarEventProvider,
+            gCalHelper,
+            taskMover,
+            db.locationDao,
+            geofenceApi,
+            db.tagDao,
+            db.tagDataDao,
+            preferences,
+            db.googleTaskDao,
+            db.caldavDao,
+            taskCompleter,
+            alarmService,
+            MutableSharedFlow(),
+            MutableSharedFlow(),
+            userActivityDao = userActivityDao,
         )
     }
 

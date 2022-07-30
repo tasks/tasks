@@ -95,13 +95,6 @@ class ThunderbirdTests {
     }
 
     @Test
-    fun getRepeatUntil() {
-        assertEquals(
-                DateTime(2020, 7, 31, 11, 0, 0, 0).millis,
-                vtodo("thunderbird/repeat_until_date_time.txt").repeatUntil)
-    }
-
-    @Test
     fun dontTruncateTimeFromUntil() {
         val (task, caldavTask, remote) = setup("thunderbird/repeat_until_date_time.txt")
         remote.applyLocal(caldavTask, task)

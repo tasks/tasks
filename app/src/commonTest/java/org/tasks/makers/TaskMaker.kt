@@ -11,6 +11,7 @@ import com.todoroo.astrid.data.Task.Companion.NO_UUID
 import org.tasks.Strings
 import org.tasks.date.DateTimeUtils
 import org.tasks.makers.Maker.make
+import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 
 object TaskMaker {
@@ -80,7 +81,12 @@ object TaskMaker {
             task.reminderLast = reminderLast.millis
         }
         lookup.valueOf(RECUR, null as String?)?.let {
-            task.setRecurrence(it, lookup.valueOf(AFTER_COMPLETE, false))
+            task.setRecurrence(newRecur(it))
+        }
+        task.repeatFrom = if (lookup.valueOf(AFTER_COMPLETE, false)) {
+            Task.RepeatFrom.COMPLETION_DATE
+        } else {
+            Task.RepeatFrom.DUE_DATE
         }
         task.notes = lookup.valueOf(DESCRIPTION, null as String?)
         task.isCollapsed = lookup.valueOf(COLLAPSED, false)
