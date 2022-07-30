@@ -732,4 +732,8 @@
     <string name="randomly_every">Ausaz, %s bakoitza</string>
     <string name="hint_customize_edit_body">Pantaila pertsonaliza dezakezu, eremuak berrantolatzen edo ezabatzen</string>
     <string name="customize_edit_screen_summary">Eremuak berrantolatu edo kendu</string>
+    <string name="enable_reminders_description">Oroigarriak desgaituta daude Androiden ezarpenetan</string>
+    <string name="enable_reminders">Aktibatu oroigarriak</string>
+    <string name="sort_completion_group">Osatu %s</string>
+    <string name="TEA_creation_date">Sortze-data</string>
 </resources>
