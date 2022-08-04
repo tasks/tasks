@@ -747,4 +747,14 @@
     <string name="caldav_server_type">Tip de server</string>
     <string name="filter_snoozed">Adormit</string>
     <string name="caldav_server_other">Altele</string>
+    <string name="customize_edit_screen_summary">Rearanjarea sau eliminarea câmpurilor</string>
+    <string name="sort_completion_group">Finalizare %s</string>
+    <string name="hint_customize_edit_title">Prea multe informații\?</string>
+    <string name="hint_customize_edit_body">Puteți personaliza acest ecran prin rearanjarea sau eliminarea câmpurilor</string>
+    <string name="dismiss">Respingeți</string>
+    <string name="enable_reminders">Activați memento-uri</string>
+    <string name="enable_reminders_description">Reamintirile sunt dezactivate în Setări Android</string>
+    <string name="ok">\@android:string/ok</string>
+    <string name="cancel">\@android:string/anulează</string>
+    <string name="TEA_creation_date">Data creării</string>
 </resources>
