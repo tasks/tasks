@@ -23,10 +23,7 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.ui.ReminderControlSetViewModel
 import org.tasks.R
-import org.tasks.compose.AddReminderDialog
-import org.tasks.compose.DisabledText
-import org.tasks.compose.TaskEditRow
-import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.compose.*
 import org.tasks.data.Alarm
 import org.tasks.reminders.AlarmToString
 import java.util.*
@@ -110,7 +107,7 @@ fun Alarms(
     Column {
         Spacer(modifier = Modifier.height(8.dp))
         alarms.forEach { alarm ->
-            org.tasks.compose.AlarmRow(AlarmToString(LocalContext.current, locale).toString(alarm)) {
+            AlarmRow(AlarmToString(LocalContext.current, locale).toString(alarm)) {
                 deleteAlarm(alarm)
             }
         }
@@ -149,6 +146,22 @@ fun Alarms(
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
+    }
+}
+
+@Composable
+private fun AlarmRow(text: String, remove: () -> Unit = {}) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier
+                .padding(vertical = 12.dp)
+                .weight(weight = 1f),
+        )
+        ClearButton(onClick = remove)
     }
 }
 
