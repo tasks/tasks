@@ -131,7 +131,9 @@ fun NewSubtaskRow(
                 .weight(1f)
                 .focusable(enabled = true)
                 .focusRequester(focusRequester)
-                .alpha(if (subtask.isCompleted) ContentAlpha.disabled else ContentAlpha.high),
+                .alpha(if (subtask.isCompleted) ContentAlpha.disabled else ContentAlpha.high)
+                .align(Alignment.Top)
+                .padding(top = 12.dp),
             textStyle = MaterialTheme.typography.body1.copy(
                 textDecoration = if (subtask.isCompleted) TextDecoration.LineThrough else TextDecoration.None,
                 color = MaterialTheme.colors.onSurface,
@@ -147,7 +149,7 @@ fun NewSubtaskRow(
                     }
                 }
             ),
-            singleLine = true,
+            singleLine = false,
             maxLines = Int.MAX_VALUE,
         )
         ClearButton { onDelete(subtask) }
@@ -175,13 +177,16 @@ fun ExistingSubtaskRow(
         CheckBox(
             task = task.task,
             onCompleteClick = onCompleteClick,
-            desaturate = desaturate
+            desaturate = desaturate,
+            modifier = Modifier.align(Alignment.Top),
         )
         Text(
             text = task.title,
             modifier = Modifier
                 .weight(1f)
-                .alpha(if (task.isCompleted || task.isHidden) ContentAlpha.disabled else ContentAlpha.high),
+                .alpha(if (task.isCompleted || task.isHidden) ContentAlpha.disabled else ContentAlpha.high)
+                .align(Alignment.Top)
+                .padding(top = 12.dp),
             style = MaterialTheme.typography.body1.copy(
                 textDecoration = if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None
             )
@@ -236,7 +241,7 @@ fun SubtasksPreview() {
                 },
                 TaskContainer().apply {
                     task = Task().apply {
-                        title = "Existing subtask 2"
+                        title = "Existing subtask 2 with a really long title"
                         priority = Task.Priority.LOW
                     }
                     indent = 1
@@ -247,7 +252,7 @@ fun SubtasksPreview() {
                     title = "New subtask 1"
                 },
                 Task().apply {
-                    title = "New subtask 2"
+                    title = "New subtask 2 with a really long title"
                 },
                 Task(),
             ),
