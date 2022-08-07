@@ -28,6 +28,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -383,6 +384,10 @@ class TaskEditViewModel @Inject constructor(
                 save(remove = false)
             }
         }
+    }
+
+    fun removeAlarm(alarm: Alarm) {
+        selectedAlarms.update { it.minus(alarm) }
     }
 
     fun addAlarm(alarm: Alarm) {

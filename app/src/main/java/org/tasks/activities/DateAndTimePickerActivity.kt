@@ -79,6 +79,7 @@ class DateAndTimePickerActivity : InjectingAppCompatActivity() {
             }
             addOnPositiveButtonClickListener {
                 val data = Intent()
+                data.putExtras(intent)
                 data.putExtra(
                     MyTimePickerDialog.EXTRA_TIMESTAMP,
                     DateTime(

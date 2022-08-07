@@ -32,6 +32,9 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import kotlinx.coroutines.android.awaitFrame
 import org.tasks.R
 import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.Alarm.Companion.whenStarted
 import org.tasks.reminders.AlarmToString.Companion.getRepeatString
 import java.util.concurrent.TimeUnit
 
@@ -104,11 +107,11 @@ object AddReminderDialog {
                             time.value.takeIf { it >= 0 }?.let { i ->
                                 addAlarm(
                                     Alarm(
-                                        0,
-                                        -1 * i * units.millis,
-                                        Alarm.TYPE_REL_END,
-                                        repeat.value,
-                                        interval.value * recurringUnits.millis
+                                        task = 0,
+                                        time = -1 * i * units.millis,
+                                        type = TYPE_REL_END,
+                                        repeat = repeat.value,
+                                        interval = interval.value * recurringUnits.millis
                                     )
                                 )
                                 closeDialog()
@@ -460,6 +463,54 @@ fun BodyText(modifier: Modifier = Modifier, text: String) {
     )
 }
 
+@Composable
+fun AlarmDropDown(
+    visible: Boolean,
+    existingAlarms: List<Alarm>,
+    addAlarm: (Alarm) -> Unit,
+    addRandom: () -> Unit,
+    addCustom: () -> Unit,
+    pickDateAndTime: () -> Unit,
+    dismiss: () -> Unit,
+) {
+    CustomDialog(visible = visible, onDismiss = dismiss) {
+        Column(modifier = Modifier.padding(vertical = 4.dp)) {
+            if (existingAlarms.none { it.type == TYPE_REL_START && it.time == 0L }) {
+                DialogRow(text = R.string.when_started) {
+                    addAlarm(whenStarted(0))
+                    dismiss()
+                }
+            }
+            if (existingAlarms.none { it.type == TYPE_REL_END && it.time == 0L }) {
+                DialogRow(text = R.string.when_due) {
+                    addAlarm(Alarm.whenDue(0))
+                    dismiss()
+                }
+            }
+            if (existingAlarms.none {
+                    it.type == TYPE_REL_END && it.time == TimeUnit.HOURS.toMillis(24)
+                }) {
+                DialogRow(text = R.string.when_overdue) {
+                    addAlarm(Alarm.whenOverdue(0))
+                    dismiss()
+                }
+            }
+            DialogRow(text = R.string.randomly) {
+                addRandom()
+                dismiss()
+            }
+            DialogRow(text = R.string.pick_a_date_and_time) {
+                pickDateAndTime()
+                dismiss()
+            }
+            DialogRow(text = R.string.repeat_option_custom) {
+                addCustom()
+                dismiss()
+            }
+        }
+    }
+}
+
 @ExperimentalComposeUiApi
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -545,5 +596,21 @@ fun AddRandomReminder() =
             visible = true,
             time = remember { mutableStateOf(15) },
             units = remember { mutableStateOf(1) }
+        )
+    }
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AddReminderDialog() =
+    MdcTheme {
+        AlarmDropDown(
+            visible = true,
+            existingAlarms = emptyList(),
+            addAlarm = {},
+            addRandom = {},
+            addCustom = {},
+            pickDateAndTime = {},
+            dismiss = {},
         )
     }

@@ -2,16 +2,18 @@ package com.todoroo.astrid.ui
 
 import android.Manifest
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.viewModels
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
@@ -24,17 +26,11 @@ import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.AlarmRow
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
-import org.tasks.data.Alarm.Companion.TYPE_REL_END
-import org.tasks.data.Alarm.Companion.TYPE_REL_START
-import org.tasks.data.Alarm.Companion.whenDue
-import org.tasks.data.Alarm.Companion.whenOverdue
-import org.tasks.data.Alarm.Companion.whenStarted
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.ui.TaskEditControlFragment
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,7 +40,6 @@ class ReminderControlSet : TaskEditControlFragment() {
     @Inject lateinit var locale: Locale
 
     private val ringMode = mutableStateOf(0)
-    private val vm: ReminderControlSetViewModel by viewModels()
 
     override fun createView(savedInstanceState: Bundle?) {
         when {
@@ -76,39 +71,6 @@ class ReminderControlSet : TaskEditControlFragment() {
         this.ringMode.value = ringMode
     }
 
-    private fun addAlarm(selected: String) {
-        val id = viewModel.task.id
-        when (selected) {
-            getString(R.string.when_started) ->
-                viewModel.addAlarm(whenStarted(id))
-            getString(R.string.when_due) ->
-                viewModel.addAlarm(whenDue(id))
-            getString(R.string.when_overdue) ->
-                viewModel.addAlarm(whenOverdue(id))
-            getString(R.string.randomly) ->
-                vm.showRandomDialog(visible = true)
-            getString(R.string.pick_a_date_and_time) ->
-                addNewAlarm()
-            getString(R.string.repeat_option_custom) ->
-                vm.showCustomDialog(visible = true)
-        }
-    }
-
-    private fun addAlarm() {
-        val options = options
-        if (options.size == 1) {
-            addNewAlarm()
-        } else {
-            dialogBuilder
-                    .newDialog()
-                    .setItems(options) { dialog: DialogInterface, which: Int ->
-                        addAlarm(options[which])
-                        dialog.dismiss()
-                    }
-                    .show()
-        }
-    }
-
     @OptIn(ExperimentalPermissionsApi::class)
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
@@ -122,6 +84,16 @@ class ReminderControlSet : TaskEditControlFragment() {
                     } else {
                         null
                     }
+                    val pickDateAndTime =
+                        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                            if (result.resultCode != RESULT_OK) return@rememberLauncherForActivityResult
+                            val data = result.data ?: return@rememberLauncherForActivityResult
+                            val timestamp =
+                                data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
+                            val replace: Alarm? = data.getParcelableExtra(EXTRA_REPLACE)
+                            replace?.let { viewModel.removeAlarm(it) }
+                            viewModel.addAlarm(Alarm(0, timestamp, TYPE_DATE_TIME))
+                        }
                     AlarmRow(
                         locale = locale,
                         alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware().value,
@@ -131,11 +103,18 @@ class ReminderControlSet : TaskEditControlFragment() {
                             notificationPermissions?.launchPermissionRequest()
                         },
                         ringMode = ringMode,
-                        newAlarm = this@ReminderControlSet::addAlarm,
                         addAlarm = viewModel::addAlarm,
                         openRingType = this@ReminderControlSet::onClickRingType,
-                        deleteAlarm = {
-                            viewModel.selectedAlarms.value = viewModel.selectedAlarms.value.minus(it)
+                        deleteAlarm = viewModel::removeAlarm,
+                        pickDateAndTime = { replace ->
+                            pickDateAndTime.launch(
+                                Intent(activity, DateAndTimePickerActivity::class.java)
+                                    .putExtra(
+                                        DateAndTimePickerActivity.EXTRA_TIMESTAMP,
+                                        DateTimeUtils.newDateTime().noon().millis
+                                    )
+                                    .putExtra(EXTRA_REPLACE, replace)
+                            )
                         }
                     )
                 }
@@ -144,46 +123,8 @@ class ReminderControlSet : TaskEditControlFragment() {
 
     override fun controlId() = TAG
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_NEW_ALARM) {
-            if (resultCode == Activity.RESULT_OK) {
-                val timestamp = data!!.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-                viewModel.addAlarm(Alarm(0, timestamp, TYPE_DATE_TIME))
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
-    private fun addNewAlarm() {
-        val intent = Intent(activity, DateAndTimePickerActivity::class.java)
-            .putExtra(
-                DateAndTimePickerActivity.EXTRA_TIMESTAMP,
-                DateTimeUtils.newDateTime().noon().millis
-            )
-        startActivityForResult(intent, REQUEST_NEW_ALARM)
-    }
-
-    private val options: List<String>
-        get() {
-            val options: MutableList<String> = ArrayList()
-            if (viewModel.selectedAlarms.value.find { it.type == TYPE_REL_START && it.time == 0L } == null) {
-                options.add(getString(R.string.when_started))
-            }
-            if (viewModel.selectedAlarms.value.find { it.type == TYPE_REL_END && it.time == 0L } == null) {
-                options.add(getString(R.string.when_due))
-            }
-            if (viewModel.selectedAlarms.value.find { it.type == TYPE_REL_END && it.time == TimeUnit.HOURS.toMillis(24) } == null) {
-                options.add(getString(R.string.when_overdue))
-            }
-            options.add(getString(R.string.randomly))
-            options.add(getString(R.string.pick_a_date_and_time))
-            options.add(getString(R.string.repeat_option_custom))
-            return options
-        }
-
     companion object {
         const val TAG = R.string.TEA_ctrl_reminders_pref
-        private const val REQUEST_NEW_ALARM = 12152
+        private const val EXTRA_REPLACE = "extra_replace"
     }
 }

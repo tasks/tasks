@@ -37,10 +37,10 @@ fun AlarmRow(
     alarms: List<Alarm>,
     ringMode: Int,
     locale: Locale,
-    newAlarm: () -> Unit,
     addAlarm: (Alarm) -> Unit,
     deleteAlarm: (Alarm) -> Unit,
     openRingType: () -> Unit,
+    pickDateAndTime: (replace: Alarm?) -> Unit,
 ) {
     TaskEditRow(
         iconRes = R.drawable.ic_outline_notifications_24px,
@@ -52,7 +52,11 @@ fun AlarmRow(
                         alarms = alarms,
                         ringMode = ringMode,
                         locale = locale,
-                        addAlarm = newAlarm,
+                        replaceAlarm = {
+                            vm.setReplace(it)
+                            vm.showAddAlarm(visible = true)
+                        },
+                        addAlarm = { vm.showAddAlarm(visible = true) },
                         deleteAlarm = deleteAlarm,
                         openRingType = openRingType,
                     )
@@ -62,8 +66,8 @@ fun AlarmRow(
                         modifier = Modifier
                             .padding(end = 16.dp)
                             .clickable {
-                            launchPermissionRequest()
-                        }
+                                launchPermissionRequest()
+                            }
                     ) {
                         Spacer(modifier = Modifier.height(20.dp))
                         Text(
@@ -80,15 +84,34 @@ fun AlarmRow(
                 }
             }
 
+            AlarmDropDown(
+                visible = viewState.showAddAlarm,
+                existingAlarms = alarms,
+                addAlarm = {
+                    viewState.replace?.let(deleteAlarm)
+                    addAlarm(it)
+                },
+                addRandom = { vm.showRandomDialog(visible = true) },
+                addCustom = { vm.showCustomDialog(visible = true) },
+                pickDateAndTime = { pickDateAndTime(viewState.replace) },
+                dismiss = { vm.showAddAlarm(visible = false) },
+            )
+
             AddReminderDialog.AddCustomReminderDialog(
                 openDialog = viewState.showCustomDialog,
-                addAlarm = addAlarm,
+                addAlarm = {
+                    viewState.replace?.let(deleteAlarm)
+                    addAlarm(it)
+                },
                 closeDialog = { vm.showCustomDialog(visible = false) }
             )
 
             AddReminderDialog.AddRandomReminderDialog(
                 openDialog = viewState.showRandomDialog,
-                addAlarm = addAlarm,
+                addAlarm = {
+                    viewState.replace?.let(deleteAlarm)
+                    addAlarm(it)
+                },
                 closeDialog = { vm.showRandomDialog(visible = false) }
             )
         },
@@ -100,6 +123,7 @@ fun Alarms(
     alarms: List<Alarm>,
     ringMode: Int,
     locale: Locale,
+    replaceAlarm: (Alarm) -> Unit,
     addAlarm: () -> Unit,
     deleteAlarm: (Alarm) -> Unit,
     openRingType: () -> Unit,
@@ -107,9 +131,11 @@ fun Alarms(
     Column {
         Spacer(modifier = Modifier.height(8.dp))
         alarms.forEach { alarm ->
-            AlarmRow(AlarmToString(LocalContext.current, locale).toString(alarm)) {
-                deleteAlarm(alarm)
-            }
+            AlarmRow(
+                text = AlarmToString(LocalContext.current, locale).toString(alarm),
+                onClick = { replaceAlarm(alarm) },
+                remove = { deleteAlarm(alarm) }
+            )
         }
         Row(modifier = Modifier.fillMaxWidth()) {
             DisabledText(
@@ -119,7 +145,7 @@ fun Alarms(
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(bounded = false),
-                        onClick = { addAlarm() }
+                        onClick = addAlarm,
                     )
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -150,10 +176,15 @@ fun Alarms(
 }
 
 @Composable
-private fun AlarmRow(text: String, remove: () -> Unit = {}) {
+private fun AlarmRow(
+    text: String,
+    onClick: () -> Unit,
+    remove: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onClick() }
     ) {
         Text(
             text = text,
@@ -175,12 +206,12 @@ fun NoAlarms() {
             alarms = emptyList(),
             ringMode = 0,
             locale = Locale.getDefault(),
-            newAlarm = {},
             addAlarm = {},
             deleteAlarm = {},
             openRingType = {},
             permissionStatus = PermissionStatus.Granted,
-            launchPermissionRequest = {}
+            launchPermissionRequest = {},
+            pickDateAndTime = {},
         )
     }
 }
@@ -195,12 +226,12 @@ fun PermissionDenied() {
             alarms = emptyList(),
             ringMode = 0,
             locale = Locale.getDefault(),
-            newAlarm = {},
             addAlarm = {},
             deleteAlarm = {},
             openRingType = {},
             permissionStatus = PermissionStatus.Denied(true),
-            launchPermissionRequest = {}
+            launchPermissionRequest = {},
+            pickDateAndTime = {},
         )
     }
 }
