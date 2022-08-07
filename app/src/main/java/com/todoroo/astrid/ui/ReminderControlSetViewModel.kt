@@ -37,10 +37,20 @@ class ReminderControlSetViewModel : ViewModel() {
     }
 
     fun showCustomDialog(visible: Boolean) {
-        _viewState.update { it.copy(showCustomDialog = visible) }
+        _viewState.update { state ->
+            state.copy(
+                showCustomDialog = visible,
+                replace = state.replace?.takeIf { visible }
+            )
+        }
     }
 
     fun showRandomDialog(visible: Boolean) {
-        _viewState.update { it.copy(showRandomDialog = visible) }
+        _viewState.update { state ->
+            state.copy(
+                showRandomDialog = visible,
+                replace = state.replace?.takeIf { visible }
+            )
+        }
     }
 }

@@ -29,9 +29,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.composethemeadapter.MdcTheme
+import com.todoroo.astrid.ui.ReminderControlSetViewModel.ViewState
 import kotlinx.coroutines.android.awaitFrame
 import org.tasks.R
 import org.tasks.data.Alarm
+import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
+import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.whenStarted
@@ -42,20 +45,20 @@ import java.util.concurrent.TimeUnit
 object AddReminderDialog {
     @Composable
     fun AddRandomReminderDialog(
-        openDialog: Boolean,
+        viewState: ViewState,
         addAlarm: (Alarm) -> Unit,
         closeDialog: () -> Unit,
     ) {
         val time = rememberSaveable { mutableStateOf(15) }
         val units = rememberSaveable { mutableStateOf(0) }
-        if (openDialog) {
+        if (viewState.showRandomDialog) {
             AlertDialog(
                 onDismissRequest = closeDialog,
-                text = { AddRandomReminder(openDialog, time, units) },
+                text = { AddRandomReminder(time, units) },
                 confirmButton = {
                     Constants.TextButton(text = R.string.ok, onClick = {
                         time.value.takeIf { it > 0 }?.let { i ->
-                            addAlarm(Alarm(0, i * units.millis, Alarm.TYPE_RANDOM))
+                            addAlarm(Alarm(0, i * units.millis, TYPE_RANDOM))
                             closeDialog()
                         }
                     })
@@ -75,10 +78,11 @@ object AddReminderDialog {
 
     @Composable
     fun AddCustomReminderDialog(
-        openDialog: Boolean,
+        viewState: ViewState,
         addAlarm: (Alarm) -> Unit,
         closeDialog: () -> Unit,
     ) {
+        val openDialog = viewState.showCustomDialog
         val time = rememberSaveable { mutableStateOf(15) }
         val units = rememberSaveable { mutableStateOf(0) }
         val openRecurringDialog = rememberSaveable { mutableStateOf(false) }
@@ -91,7 +95,6 @@ object AddReminderDialog {
                     onDismissRequest = closeDialog,
                     text = {
                         AddCustomReminder(
-                            openDialog,
                             time,
                             units,
                             interval,
@@ -195,7 +198,6 @@ object AddReminderDialog {
 
     @Composable
     fun AddRandomReminder(
-        visible: Boolean,
         time: MutableState<Int>,
         units: MutableState<Int>,
     ) {
@@ -217,13 +219,12 @@ object AddReminderDialog {
             options.forEachIndexed { index, option ->
                 RadioRow(index, option, time, units)
             }
-            ShowKeyboard(visible, focusRequester)
+            ShowKeyboard(true, focusRequester)
         }
     }
 
     @Composable
     fun AddCustomReminder(
-        visible: Boolean,
         time: MutableState<Int>,
         units: MutableState<Int>,
         interval: MutableState<Int>,
@@ -293,7 +294,7 @@ object AddReminderDialog {
                     }
                 }
             }
-            ShowKeyboard(visible, focusRequester)
+            ShowKeyboard(true, focusRequester)
         }
     }
 
@@ -464,8 +465,8 @@ fun BodyText(modifier: Modifier = Modifier, text: String) {
 }
 
 @Composable
-fun AlarmDropDown(
-    visible: Boolean,
+fun AddAlarmDialog(
+    viewState: ViewState,
     existingAlarms: List<Alarm>,
     addAlarm: (Alarm) -> Unit,
     addRandom: () -> Unit,
@@ -473,7 +474,23 @@ fun AlarmDropDown(
     pickDateAndTime: () -> Unit,
     dismiss: () -> Unit,
 ) {
-    CustomDialog(visible = visible, onDismiss = dismiss) {
+    if (viewState.showAddAlarm) {
+        when (viewState.replace?.type) {
+            TYPE_RANDOM -> {
+                addRandom()
+                dismiss()
+                return
+            }
+            TYPE_DATE_TIME -> {
+                pickDateAndTime()
+                dismiss()
+                return
+            }
+            // TODO: if replacing custom alarm show custom picker
+            // TODO: prepopulate pickers with existing values
+        }
+    }
+    CustomDialog(visible = viewState.showAddAlarm, onDismiss = dismiss) {
         Column(modifier = Modifier.padding(vertical = 4.dp)) {
             if (existingAlarms.none { it.type == TYPE_REL_START && it.time == 0L }) {
                 DialogRow(text = R.string.when_started) {
@@ -518,7 +535,6 @@ fun AlarmDropDown(
 fun AddCustomReminderOne() =
     MdcTheme {
         AddReminderDialog.AddCustomReminder(
-            visible = true,
             time = remember { mutableStateOf(1) },
             units = remember { mutableStateOf(0) },
             interval = remember { mutableStateOf(0) },
@@ -535,7 +551,6 @@ fun AddCustomReminderOne() =
 fun AddCustomReminder() =
     MdcTheme {
         AddReminderDialog.AddCustomReminder(
-            visible = true,
             time = remember { mutableStateOf(15) },
             units = remember { mutableStateOf(1) },
             interval = remember { mutableStateOf(0) },
@@ -580,7 +595,6 @@ fun AddRepeatingReminder() =
 fun AddRandomReminderOne() =
     MdcTheme {
         AddReminderDialog.AddRandomReminder(
-            visible = true,
             time = remember { mutableStateOf(1) },
             units = remember { mutableStateOf(0) }
         )
@@ -593,7 +607,6 @@ fun AddRandomReminderOne() =
 fun AddRandomReminder() =
     MdcTheme {
         AddReminderDialog.AddRandomReminder(
-            visible = true,
             time = remember { mutableStateOf(15) },
             units = remember { mutableStateOf(1) }
         )
@@ -604,8 +617,8 @@ fun AddRandomReminder() =
 @Composable
 fun AddReminderDialog() =
     MdcTheme {
-        AlarmDropDown(
-            visible = true,
+        AddAlarmDialog(
+            viewState = ViewState(showAddAlarm = true),
             existingAlarms = emptyList(),
             addAlarm = {},
             addRandom = {},

@@ -56,7 +56,9 @@ fun AlarmRow(
                             vm.setReplace(it)
                             vm.showAddAlarm(visible = true)
                         },
-                        addAlarm = { vm.showAddAlarm(visible = true) },
+                        addAlarm = {
+                            vm.showAddAlarm(visible = true)
+                        },
                         deleteAlarm = deleteAlarm,
                         openRingType = openRingType,
                     )
@@ -84,8 +86,8 @@ fun AlarmRow(
                 }
             }
 
-            AlarmDropDown(
-                visible = viewState.showAddAlarm,
+            AddAlarmDialog(
+                viewState = viewState,
                 existingAlarms = alarms,
                 addAlarm = {
                     viewState.replace?.let(deleteAlarm)
@@ -98,7 +100,7 @@ fun AlarmRow(
             )
 
             AddReminderDialog.AddCustomReminderDialog(
-                openDialog = viewState.showCustomDialog,
+                viewState = viewState,
                 addAlarm = {
                     viewState.replace?.let(deleteAlarm)
                     addAlarm(it)
@@ -107,7 +109,7 @@ fun AlarmRow(
             )
 
             AddReminderDialog.AddRandomReminderDialog(
-                openDialog = viewState.showRandomDialog,
+                viewState = viewState,
                 addAlarm = {
                     viewState.replace?.let(deleteAlarm)
                     addAlarm(it)

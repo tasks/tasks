@@ -107,12 +107,11 @@ class ReminderControlSet : TaskEditControlFragment() {
                         openRingType = this@ReminderControlSet::onClickRingType,
                         deleteAlarm = viewModel::removeAlarm,
                         pickDateAndTime = { replace ->
+                            val timestamp = replace?.takeIf { it.type == TYPE_DATE_TIME }?.time
+                                ?: DateTimeUtils.newDateTime().noon().millis
                             pickDateAndTime.launch(
                                 Intent(activity, DateAndTimePickerActivity::class.java)
-                                    .putExtra(
-                                        DateAndTimePickerActivity.EXTRA_TIMESTAMP,
-                                        DateTimeUtils.newDateTime().noon().millis
-                                    )
+                                    .putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, timestamp)
                                     .putExtra(EXTRA_REPLACE, replace)
                             )
                         }
