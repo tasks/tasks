@@ -140,7 +140,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
 
     private fun clearUi() {
         finishActionMode()
-        navigationDrawer?.closeDrawer()
+        navigationDrawer?.dismiss()
     }
 
     private suspend fun getTaskToLoad(filter: Filter?): Task? {

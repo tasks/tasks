@@ -6,7 +6,6 @@
 package com.todoroo.astrid.adapter
 
 import android.app.Activity
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -46,14 +45,6 @@ class NavigationDrawerAdapter @Inject constructor(
 
     fun setOnClick(onClick: (FilterListItem?) -> Unit) {
         this.onClick = onClick
-    }
-
-    fun save(outState: Bundle) {
-        outState.putParcelable(TOKEN_SELECTED, selected)
-    }
-
-    fun restore(savedInstanceState: Bundle) {
-        selected = savedInstanceState.getParcelable(TOKEN_SELECTED)
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
@@ -115,10 +106,6 @@ class NavigationDrawerAdapter @Inject constructor(
 
         override fun areContentsTheSame(oldPosition: Int, newPosition: Int) =
             old[oldPosition].areContentsTheSame(new[newPosition])
-    }
-
-    companion object {
-        private const val TOKEN_SELECTED = "token_selected"
     }
 
     override fun onChanged(position: Int, count: Int, payload: Any?) =

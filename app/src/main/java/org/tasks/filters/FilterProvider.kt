@@ -7,7 +7,7 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.activities.GoogleTaskListSettingsActivity
@@ -28,7 +28,7 @@ import org.tasks.ui.NavigationDrawerFragment
 import javax.inject.Inject
 
 class FilterProvider @Inject constructor(
-        @param:ActivityContext private val context: Context,
+        @param:ApplicationContext private val context: Context,
         private val inventory: Inventory,
         private val builtInFilterExposer: BuiltInFilterExposer,
         private val filterDao: FilterDao,
