@@ -350,7 +350,6 @@
     <string name="settings_localization">Lokalizacija</string>
     <string name="led_notification">LED pranešimai</string>
     <string name="hardware_support_required">Reikalingas techninės įrangos palaikymas</string>
-    <string name="no_calendars_found">Kalendorių nerasta</string>
     <string name="widget_settings">Valdiklio nustatymai</string>
     <string name="widget_header_settings">Antraščių nustatymai</string>
     <string name="widget_row_settings">Eilutės nustatymai</string>

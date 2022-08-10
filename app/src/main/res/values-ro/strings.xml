@@ -170,7 +170,6 @@
     <string name="widget_row_settings">Setări de rânduri</string>
     <string name="widget_header_settings">Setări de antet</string>
     <string name="widget_settings">Setări Widget</string>
-    <string name="no_calendars_found">Nu s-au găsit calendare</string>
     <string name="hardware_support_required">Suport hardware necesar</string>
     <string name="led_notification">Notificare cu LED-uri</string>
     <string name="settings_localization">Localizare</string>

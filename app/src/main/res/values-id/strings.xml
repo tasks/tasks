@@ -252,7 +252,6 @@
     <string name="settings_localization">Pelokalan bahasa</string>
     <string name="led_notification">Notifikasi LED</string>
     <string name="hardware_support_required">Dukungan perangkat keras diperlukan</string>
-    <string name="no_calendars_found">Tidak ada kalender yang ditemukan</string>
     <string name="widget_settings">Pengaturan wisaya</string>
     <string name="widget_header_settings">Pengaturan tajuk</string>
     <string name="widget_row_settings">Pengaturan baris</string>

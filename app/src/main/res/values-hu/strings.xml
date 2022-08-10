@@ -328,7 +328,6 @@
     <string name="settings_localization">Lokalizáció</string>
     <string name="led_notification">LED értesítés</string>
     <string name="hardware_support_required">Hardveres támogatás szükséges</string>
-    <string name="no_calendars_found">Naptár nem található</string>
     <string name="widget_settings">Widget beállításai</string>
     <string name="widget_header_settings">Fejléc beállításai</string>
     <string name="widget_row_settings">Sorok beállíátsai</string>

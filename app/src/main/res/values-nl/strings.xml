@@ -324,7 +324,6 @@
     <string name="settings_localization">Localisatie</string>
     <string name="led_notification">LED melding</string>
     <string name="hardware_support_required">Hardware ondersteuning vereist</string>
-    <string name="no_calendars_found">Geen kalenders gevonden</string>
     <string name="widget_settings">Widget instellingen</string>
     <string name="widget_header_settings">Koptekst instellingen</string>
     <string name="widget_row_settings">Regel instellingen</string>

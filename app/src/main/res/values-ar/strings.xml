@@ -357,7 +357,6 @@
     <string name="preferences_advanced">متقدم</string>
     <string name="choose_synchronization_service">اختر منصّة</string>
     <string name="create_new_tag">أنشأ \"%s\"</string>
-    <string name="no_calendars_found">لم يوجد أيّ تقويم</string>
     <string name="filter">تصفية</string>
     <string name="move">انقل</string>
     <string name="subtasks">مهام فرعيّة</string>

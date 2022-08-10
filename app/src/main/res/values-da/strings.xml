@@ -275,7 +275,6 @@
     <string name="widget_row_settings">Rækkeindstillinger</string>
     <string name="widget_header_settings">Topbjælkeindstillinger</string>
     <string name="widget_settings">Widget-indstillinger</string>
-    <string name="no_calendars_found">Der blev ikke fundet nogen kalendre</string>
     <string name="hardware_support_required">Skal understøttes af hardware</string>
     <string name="led_notification">LED-påmindelse</string>
     <string name="settings_localization">Oversættelse</string>

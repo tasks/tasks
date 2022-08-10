@@ -232,7 +232,6 @@
     <string name="settings_localization">Språk</string>
     <string name="led_notification">LED Notifiering</string>
     <string name="hardware_support_required">Hårdvarustöd krävs</string>
-    <string name="no_calendars_found">Inga kalendrar hittades</string>
     <string name="widget_settings">Inställningar för widget</string>
     <string name="clear_completed_tasks_confirmation">Rensa bort slutförda uppgifter?</string>
     <string name="action_call">Ring</string>

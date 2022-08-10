@@ -371,7 +371,6 @@
     <string name="widget_footer">Podnožje</string>
     <string name="widget_row_settings">Postavke redaka</string>
     <string name="widget_header_settings">Postavke zaglavlja</string>
-    <string name="no_calendars_found">Nema kalendara</string>
     <string name="hardware_support_required">Podrška za hardver je obavezna</string>
     <string name="led_notification">LED obavijest</string>
     <string name="settings_localization">Lokalizacija</string>

@@ -336,7 +336,6 @@
     <string name="settings_localization">Локализация</string>
     <string name="led_notification">Известия с LED</string>
     <string name="hardware_support_required">Необходима е апаратна поддръжка</string>
-    <string name="no_calendars_found">Не са намерени календари</string>
     <string name="widget_settings">Настройки на приспособления</string>
     <string name="widget_header_settings">Настройки на заглавието</string>
     <string name="widget_row_settings">Настройки на реда</string>

@@ -199,7 +199,6 @@
     <string name="restart_now">Restartovat nyní</string>
     <string name="restart_later">Později</string>
     <string name="settings_localization">Překlad</string>
-    <string name="no_calendars_found">Nenalezeny žádné kalendáře</string>
     <string name="widget_settings">Nastavení ovládacího prvku</string>
     <string name="discard_confirmation">Opravdu chcete provedené změny zahodit\?</string>
     <string name="keep_editing">Pokračovat v úpravách</string>

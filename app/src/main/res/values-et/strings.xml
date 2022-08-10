@@ -211,7 +211,6 @@
     <string name="restart_later">Hiljem</string>
     <string name="led_notification">LED-i teavitused</string>
     <string name="hardware_support_required">Riistvara tugi on nõutud</string>
-    <string name="no_calendars_found">Ühtegi kalendrit ei leitud</string>
     <string name="widget_settings">Vidina seaded</string>
     <string name="widget_header_settings">Päise seaded</string>
     <string name="widget_row_settings">Rea seaded</string>

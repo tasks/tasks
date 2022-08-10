@@ -327,7 +327,6 @@
     <string name="settings_localization">현지화</string>
     <string name="led_notification">LED 알림</string>
     <string name="hardware_support_required">하드웨어 지원을 필요로 합니다</string>
-    <string name="no_calendars_found">달력 없음</string>
     <string name="widget_settings">위젯 설정</string>
     <string name="widget_header_settings">헤더 설정</string>
     <string name="widget_row_settings">줄 설정</string>

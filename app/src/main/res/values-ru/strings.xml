@@ -346,7 +346,6 @@
     <string name="settings_localization">Локализация</string>
     <string name="led_notification">LED уведомления</string>
     <string name="hardware_support_required">Необходима аппаратная поддержка</string>
-    <string name="no_calendars_found">Календарей не найдено</string>
     <string name="widget_settings">Настройки виджета</string>
     <string name="widget_header_settings">Настройки заголовка</string>
     <string name="widget_row_settings">Настройки строк</string>

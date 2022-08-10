@@ -357,7 +357,6 @@
     <string name="widget_row_settings">Cài đặt hàng</string>
     <string name="widget_header_settings">Cài đặt tiêu đề</string>
     <string name="widget_settings">Cài đặt tiện ích</string>
-    <string name="no_calendars_found">Không tìm thấy lịch nào</string>
     <string name="hardware_support_required">Yêu cầu sự hỗ trợ của phần cứng</string>
     <string name="led_notification">Thông báo LED</string>
     <string name="settings_localization">Ngôn ngữ</string>

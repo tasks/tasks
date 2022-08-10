@@ -330,7 +330,6 @@
     <string name="settings_localization">ローカライズ</string>
     <string name="led_notification">LED 通知</string>
     <string name="hardware_support_required">ハードウェア サポートが必要です</string>
-    <string name="no_calendars_found">カレンダーが見つかりません</string>
     <string name="widget_settings">ウィジェット設定</string>
     <string name="widget_header_settings">ヘッダー設定</string>
     <string name="widget_row_settings">行設定</string>

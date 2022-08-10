@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.activities.ListPicker
 import org.tasks.calendars.CalendarPicker
-import org.tasks.calendars.CalendarPicker.newCalendarPicker
+import org.tasks.calendars.CalendarPicker.Companion.newCalendarPicker
 import org.tasks.calendars.CalendarProvider
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
@@ -140,6 +140,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
                 )
                 defaultCalendarPref.summary =
                         data.getStringExtra(CalendarPicker.EXTRA_CALENDAR_NAME)
+                            ?: getString(R.string.dont_add_to_calendar)
             }
             REQUEST_RECURRENCE -> if (resultCode == RESULT_OK) {
                 preferences.setString(

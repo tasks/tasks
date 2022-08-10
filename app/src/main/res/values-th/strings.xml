@@ -297,7 +297,6 @@
     <string name="widget_row_settings">การตั้งค่าแถว</string>
     <string name="widget_header_settings">การตั้งค่าส่วนหัว</string>
     <string name="widget_settings">การตั้งค่าวิดเจ็ต</string>
-    <string name="no_calendars_found">ไม่พบปฏิทิน</string>
     <string name="hardware_support_required">ต้องการการสนับสนุนฮาร์ดแวร์</string>
     <string name="led_notification">การแจ้งเตือน LED</string>
     <string name="settings_localization">แปล</string>

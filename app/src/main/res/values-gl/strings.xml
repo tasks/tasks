@@ -242,7 +242,6 @@
     <string name="settings_localization">Localización</string>
     <string name="led_notification">Notificación LED</string>
     <string name="hardware_support_required">Precísase de soporte con hardware</string>
-    <string name="no_calendars_found">Non se atoparon calendarios</string>
     <string name="widget_settings">Configuración de widgets</string>
     <string name="widget_header_settings">Configuración de cabeceiras</string>
     <string name="widget_row_settings">Configuración de filas</string>

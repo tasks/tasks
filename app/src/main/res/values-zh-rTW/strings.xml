@@ -168,7 +168,6 @@
     <string name="restart_required">重新啟動 Tasks以使變更生效</string>
     <string name="restart_now">馬上重新啟動</string>
     <string name="restart_later">稍後</string>
-    <string name="no_calendars_found">找不到日曆</string>
     <string name="repeats_single">%s重複</string>
     <string name="repeats_minutely">每分鐘</string>
     <string name="repeats_hourly">每小時</string>

@@ -331,7 +331,6 @@
     <string name="settings_localization">Yerelleştirme</string>
     <string name="led_notification">LED bildirimi</string>
     <string name="hardware_support_required">Donanım desteği gerekiyor</string>
-    <string name="no_calendars_found">Takvim bulunamadı</string>
     <string name="widget_settings">Widget ayarları</string>
     <string name="widget_header_settings">Başlık ayarları</string>
     <string name="widget_row_settings">Satır ayarları</string>

@@ -325,7 +325,6 @@
     <string name="settings_localization">Übersetzung</string>
     <string name="led_notification">Benachrichtigungs-LED</string>
     <string name="hardware_support_required">Hardware-Unterstützung benötigt</string>
-    <string name="no_calendars_found">Es wurden keine Kalender gefunden</string>
     <string name="widget_settings">Widget-Einstellungen</string>
     <string name="widget_header_settings">Kopfleisteneinstellungen</string>
     <string name="widget_row_settings">Zeileneinstellungen</string>

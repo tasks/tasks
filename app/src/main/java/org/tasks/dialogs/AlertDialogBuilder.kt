@@ -5,6 +5,8 @@ import android.content.DialogInterface
 import android.view.View
 import android.widget.ListAdapter
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.ComposeView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AlertDialogBuilder internal constructor(private val context: Context) {
@@ -69,6 +71,11 @@ class AlertDialogBuilder internal constructor(private val context: Context) {
 
     fun setView(dialogView: View?): AlertDialogBuilder {
         builder.setView(dialogView)
+        return this
+    }
+
+    fun setContent(content: @Composable () -> Unit): AlertDialogBuilder {
+        builder.setView(ComposeView(context).apply { setContent(content) })
         return this
     }
 

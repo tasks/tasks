@@ -330,7 +330,6 @@
     <string name="settings_localization">Localizzazione</string>
     <string name="led_notification">LED di notifica</string>
     <string name="hardware_support_required">È richiesto il supporto hardware</string>
-    <string name="no_calendars_found">Nessun calendario</string>
     <string name="widget_settings">Impostazioni widget</string>
     <string name="widget_header_settings">Impostazioni intestazione</string>
     <string name="widget_row_settings">Impostazioni riga</string>

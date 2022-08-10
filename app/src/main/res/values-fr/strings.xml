@@ -310,7 +310,6 @@
     <string name="settings_localization">Localisation</string>
     <string name="led_notification">Notification de la LED</string>
     <string name="hardware_support_required">Support matériel requis</string>
-    <string name="no_calendars_found">Pas de calendrier trouvé</string>
     <string name="widget_settings">Paramètres du widget</string>
     <string name="widget_header_settings">Paramètres de l\'en-tête</string>
     <string name="widget_row_settings">Paramètres de la colonne</string>

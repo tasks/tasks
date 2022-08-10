@@ -309,7 +309,6 @@
     <string name="restart_later">Mais tarde</string>
     <string name="settings_localization">Tradução</string>
     <string name="led_notification">Notificação no LED</string>
-    <string name="no_calendars_found">Não foi encontrado nenhum calendário</string>
     <string name="widget_settings">Definições do widget</string>
     <string name="widget_header_settings">Definições de cabeçalho</string>
     <string name="widget_row_settings">Definições de linhas</string>

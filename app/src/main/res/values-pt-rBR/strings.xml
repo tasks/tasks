@@ -326,7 +326,6 @@
     <string name="settings_localization">Localização</string>
     <string name="led_notification">LED de notificações</string>
     <string name="hardware_support_required">Suporte de hardware necessário</string>
-    <string name="no_calendars_found">Não foi encontrado nenhum calendário</string>
     <string name="widget_settings">Configurações de Widget</string>
     <string name="widget_header_settings">Config. cabeçalho</string>
     <string name="widget_row_settings">Congif. entrada</string>

@@ -312,7 +312,6 @@
     <string name="settings_localization">本地化</string>
     <string name="led_notification">LED 提醒</string>
     <string name="hardware_support_required">需要硬件支持</string>
-    <string name="no_calendars_found">没有找到日历</string>
     <string name="widget_settings">插件设置</string>
     <string name="widget_header_settings">标题设置</string>
     <string name="widget_row_settings">行设置</string>

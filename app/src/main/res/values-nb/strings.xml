@@ -350,7 +350,6 @@
     <string name="theme_wallpaper">Bakgrunnsbilde</string>
     <string name="theme_day_night">Dag/natt</string>
     <string name="hardware_support_required">Maskinvarestøtte kreves</string>
-    <string name="no_calendars_found">Fant ingen kalendre</string>
     <string name="widget_settings">Miniprogramsinnstillinger</string>
     <string name="widget_header_settings">Hodeinnstillinger</string>
     <string name="widget_row_settings">Radinnstillinger</string>

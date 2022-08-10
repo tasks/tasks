@@ -328,7 +328,6 @@
     <string name="settings_localization">Configuración regional</string>
     <string name="led_notification">Notificación de LED</string>
     <string name="hardware_support_required">Se necesita compatibilidad de hárdwer</string>
-    <string name="no_calendars_found">No se han encontrado calendarios</string>
     <string name="widget_settings">Configuración de widget</string>
     <string name="widget_header_settings">Configuración de cabecera</string>
     <string name="widget_row_settings">Configuración de fila</string>

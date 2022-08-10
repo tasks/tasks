@@ -323,7 +323,6 @@
     <string name="widget_row_settings">வரிசை அமைப்புகள்</string>
     <string name="widget_header_settings">தலைப்பு அமைப்புகள்</string>
     <string name="widget_settings">விட்ஜெட் அமைப்புகள்</string>
-    <string name="no_calendars_found">காலெண்டர்கள் எதுவும் கிடைக்கவில்லை</string>
     <string name="hardware_support_required">வன்பொருள் ஆதரவு தேவை</string>
     <string name="led_notification">LED அறிவிப்பு</string>
     <string name="settings_localization">உள்ளூர்மயமாக்கல்</string>

@@ -330,7 +330,6 @@
     <string name="settings_localization">Určovanie polohy</string>
     <string name="led_notification">LED oznámenia</string>
     <string name="hardware_support_required">Vyžaduje sa podpora zariadenia</string>
-    <string name="no_calendars_found">Kalendár nenájdený</string>
     <string name="widget_settings">Widget - nastavenia</string>
     <string name="widget_header_settings">Nastavenie záhlavia </string>
     <string name="widget_row_settings">Nastavenie riadka</string>

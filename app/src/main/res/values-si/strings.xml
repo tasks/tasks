@@ -198,7 +198,6 @@
     <string name="widget_footer">පාදකය</string>
     <string name="widget_row_settings">පේළි සැකසුම්</string>
     <string name="widget_header_settings">ශීර්ෂ සැකසුම්</string>
-    <string name="no_calendars_found">දින දර්ශන කිසිවක් හමු නොවීය</string>
     <string name="hardware_support_required">දෘඩාංග සහාය අවශ්‍යයි</string>
     <string name="led_notification">LED දැනුම්දීම</string>
     <string name="settings_localization">ප්‍රාදේශීයකරණය</string>

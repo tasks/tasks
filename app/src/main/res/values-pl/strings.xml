@@ -340,7 +340,6 @@
     <string name="settings_localization">Ustawienia regionalne</string>
     <string name="led_notification">Powiadomienie LED</string>
     <string name="hardware_support_required">Wymagane wsparcie sprzętowe</string>
-    <string name="no_calendars_found">Nie znaleziono kalendzarzy</string>
     <string name="widget_settings">Ustawienie widgetu</string>
     <string name="widget_header_settings">Ustawienia nagłówka</string>
     <string name="widget_row_settings">Ustawienia rzędu</string>
