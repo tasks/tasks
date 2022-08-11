@@ -58,7 +58,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         defaultCalendarPref = findPreference(R.string.gcal_p_default)
         defaultCalendarPref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            newCalendarPicker(this, REQUEST_CALENDAR_SELECTION, getDefaultCalendarName())
+            newCalendarPicker(this, REQUEST_CALENDAR_SELECTION, preferences.defaultCalendar)
                 .show(parentFragmentManager, FRAG_TAG_CALENDAR_PICKER)
             false
         }
@@ -181,7 +181,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
     }
 
     private fun getDefaultCalendarName(): String? {
-        val calendarId = preferences.getStringValue(R.string.gcal_p_default)
+        val calendarId = preferences.defaultCalendar
         return calendarProvider.getCalendar(calendarId)?.name
     }
 

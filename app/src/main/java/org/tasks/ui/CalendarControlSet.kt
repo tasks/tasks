@@ -57,7 +57,7 @@ class CalendarControlSet : TaskEditControlFragment() {
                                     .newCalendarPicker(
                                         requireParentFragment(),
                                         TaskEditFragment.REQUEST_CODE_PICK_CALENDAR,
-                                        calendarName
+                                        viewModel.selectedCalendar.value,
                                     )
                                     .show(
                                         requireParentFragment().parentFragmentManager,
@@ -103,9 +103,6 @@ class CalendarControlSet : TaskEditControlFragment() {
             activity.toast(R.string.gcal_TEA_error)
         }
     }
-
-    private val calendarName: String?
-        get() = viewModel.selectedCalendar.value?.let { calendarProvider.getCalendar(it)?.name }
 
     private fun calendarEntryExists(eventUri: String?): Boolean {
         if (isNullOrEmpty(eventUri)) {
