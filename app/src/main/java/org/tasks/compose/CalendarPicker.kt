@@ -1,5 +1,6 @@
 package org.tasks.compose
 
+import android.Manifest
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -10,20 +11,54 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Block
 import androidx.compose.material.icons.outlined.Event
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.calendars.AndroidCalendar
+import org.tasks.calendars.CalendarPickerViewModel
+
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun CalendarPicker(
+    viewModel: CalendarPickerViewModel = viewModel(),
+    selected: String?,
+    onSelected: (AndroidCalendar?) -> Unit,
+) {
+    val hasPermissions = rememberMultiplePermissionsState(
+        permissions = listOf(Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR),
+        onPermissionsResult = { result ->
+            if (result.values.all { it }) {
+                viewModel.loadCalendars()
+            }
+        }
+    )
+    if (hasPermissions.allPermissionsGranted) {
+        CalendarPickerList(
+            calendars = viewModel.viewState.collectAsStateLifecycleAware().value.calendars,
+            selected = selected,
+            onSelected = onSelected,
+        )
+    }
+    LaunchedEffect(hasPermissions) {
+        if (!hasPermissions.allPermissionsGranted) {
+            hasPermissions.launchMultiplePermissionRequest()
+        }
+    }
+}
 
 @Composable
 fun CalendarPickerList(
     calendars: List<AndroidCalendar>,
     selected: String?,
-    onClick: (AndroidCalendar?) -> Unit,
+    onSelected: (AndroidCalendar?) -> Unit,
 ) {
     val selectedCalendar = calendars.find { it.id == selected }
     MdcTheme {
@@ -37,7 +72,7 @@ fun CalendarPickerList(
                 tint = MaterialTheme.colors.onSurface,
                 text = stringResource(id = R.string.dont_add_to_calendar),
                 selected = selectedCalendar == null,
-                onClick = { onClick(null) },
+                onClick = { onSelected(null) },
             )
             calendars.forEach {
                 CheckableIconRow(
@@ -45,7 +80,7 @@ fun CalendarPickerList(
                     tint = Color(it.color),
                     text = it.name,
                     selected = selectedCalendar == it,
-                    onClick = { onClick(it) }
+                    onClick = { onSelected(it) }
                 )
             }
         }
@@ -55,7 +90,7 @@ fun CalendarPickerList(
 @Preview(showBackground = true, widthDp = 320)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
-fun CalendarPicker() {
+fun CalendarPickerPreview() {
     MdcTheme {
         CalendarPickerList(
             calendars = listOf(
@@ -64,7 +99,7 @@ fun CalendarPicker() {
                 AndroidCalendar("3", "Personal", -10395295),
             ),
             selected = "2",
-            onClick = {},
+            onSelected = {},
         )
     }
 }
@@ -81,7 +116,7 @@ fun CalendarPickerNoneSelected() {
                 AndroidCalendar("3", "Personal", -10395295),
             ),
             selected = null,
-            onClick = {},
+            onSelected = {},
         )
     }
 }

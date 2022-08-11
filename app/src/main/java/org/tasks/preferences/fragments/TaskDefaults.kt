@@ -62,9 +62,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
                 .show(parentFragmentManager, FRAG_TAG_CALENDAR_PICKER)
             false
         }
-        val defaultCalendarName: String? = getDefaultCalendarName()
-        defaultCalendarPref.summary = defaultCalendarName
-            ?: getString(R.string.dont_add_to_calendar)
+        updateCalendarName()
 
         findPreference(R.string.p_default_list)
             .setOnPreferenceClickListener {
@@ -138,9 +136,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
                         R.string.gcal_p_default,
                         data!!.getStringExtra(CalendarPicker.EXTRA_CALENDAR_ID)
                 )
-                defaultCalendarPref.summary =
-                        data.getStringExtra(CalendarPicker.EXTRA_CALENDAR_NAME)
-                            ?: getString(R.string.dont_add_to_calendar)
+                updateCalendarName()
             }
             REQUEST_RECURRENCE -> if (resultCode == RESULT_OK) {
                 preferences.setString(
@@ -170,6 +166,12 @@ class TaskDefaults : InjectingPreferenceFragment() {
         updateDefaultLocation()
     }
 
+    private fun updateCalendarName() {
+        val calendarId = preferences.defaultCalendar
+        val name = calendarProvider.getCalendar(calendarId)?.name
+        defaultCalendarPref.summary = name ?: getString(R.string.dont_add_to_calendar)
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -178,11 +180,6 @@ class TaskDefaults : InjectingPreferenceFragment() {
         updateDefaultLocation()
         updateTags()
         updateDefaultReminders()
-    }
-
-    private fun getDefaultCalendarName(): String? {
-        val calendarId = preferences.defaultCalendar
-        return calendarProvider.getCalendar(calendarId)?.name
     }
 
     private fun updateRemoteListSummary() = lifecycleScope.launch {
