@@ -1,4 +1,4 @@
-package org.tasks.compose
+package org.tasks.compose.pickers
 
 import android.Manifest
 import android.content.res.Configuration
@@ -7,13 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Block
-import androidx.compose.material.icons.outlined.Event
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,6 +22,7 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.calendars.AndroidCalendar
 import org.tasks.calendars.CalendarPickerViewModel
+import org.tasks.compose.collectAsStateLifecycleAware
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -61,28 +60,26 @@ fun CalendarPickerList(
     onSelected: (AndroidCalendar?) -> Unit,
 ) {
     val selectedCalendar = calendars.find { it.id == selected }
-    MdcTheme {
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(vertical = 12.dp)
-        ) {
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(vertical = 12.dp)
+    ) {
+        CheckableIconRow(
+            icon = painterResource(id = R.drawable.ic_outline_block_24),
+            tint = MaterialTheme.colors.onSurface,
+            text = stringResource(id = R.string.dont_add_to_calendar),
+            selected = selectedCalendar == null,
+            onClick = { onSelected(null) },
+        )
+        calendars.forEach {
             CheckableIconRow(
-                icon = Icons.Outlined.Block,
-                tint = MaterialTheme.colors.onSurface,
-                text = stringResource(id = R.string.dont_add_to_calendar),
-                selected = selectedCalendar == null,
-                onClick = { onSelected(null) },
+                icon = painterResource(id = R.drawable.ic_outline_event_24px),
+                tint = Color(it.color),
+                text = it.name,
+                selected = selectedCalendar == it,
+                onClick = { onSelected(it) }
             )
-            calendars.forEach {
-                CheckableIconRow(
-                    icon = Icons.Outlined.Event,
-                    tint = Color(it.color),
-                    text = it.name,
-                    selected = selectedCalendar == it,
-                    onClick = { onSelected(it) }
-                )
-            }
         }
     }
 }

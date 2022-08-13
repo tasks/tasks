@@ -7,6 +7,7 @@ import android.widget.ListAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AlertDialogBuilder internal constructor(private val context: Context) {
@@ -75,7 +76,15 @@ class AlertDialogBuilder internal constructor(private val context: Context) {
     }
 
     fun setContent(content: @Composable () -> Unit): AlertDialogBuilder {
-        builder.setView(ComposeView(context).apply { setContent(content) })
+        builder.setView(ComposeView(context)
+            .apply {
+                setContent {
+                    MdcTheme {
+                        content()
+                    }
+                }
+            }
+        )
         return this
     }
 

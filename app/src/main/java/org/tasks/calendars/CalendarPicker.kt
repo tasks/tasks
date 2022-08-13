@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.compose.CalendarPicker
+import org.tasks.compose.pickers.CalendarPicker
 import org.tasks.dialogs.DialogBuilder
 import javax.inject.Inject
 

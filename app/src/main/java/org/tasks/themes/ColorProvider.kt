@@ -3,12 +3,15 @@ package org.tasks.themes
 import android.content.Context
 import androidx.annotation.ColorInt
 import com.todoroo.astrid.data.Task
-import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-class ColorProvider @Inject constructor(@param:ActivityContext private val context: Context, preferences: Preferences) {
+class ColorProvider @Inject constructor(
+    @param:ApplicationContext private val context: Context,
+    preferences: Preferences
+) {
 
     companion object {
         const val BLUE_500 = -14575885

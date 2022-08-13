@@ -718,11 +718,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             R.id.move_tasks -> {
                 lifecycleScope.launch {
                     val singleFilter = taskMover.getSingleFilter(selected)
-                    val fragment = if (singleFilter == null) {
-                        newListPicker(this@TaskListFragment, REQUEST_MOVE_TASKS)
-                    } else {
-                        newListPicker(singleFilter, this@TaskListFragment, REQUEST_MOVE_TASKS)
-                    }
+                    val fragment = newListPicker(
+                        selected = singleFilter,
+                        targetFragment = this@TaskListFragment,
+                        requestCode = REQUEST_MOVE_TASKS
+                    )
                     fragment.show(parentFragmentManager, FRAG_TAG_REMOTE_LIST_PICKER)
                 }
                 true
