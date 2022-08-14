@@ -9,13 +9,13 @@
     <string name="import_summary_title">Riepilogo del ripristino</string>
     <string name="import_summary_message">Il file %1$s contiene %2$s.
 \n
-\n %3$s importati
-\n %4$s esiste già
-\n %5$s contiene errori
+\n %3$s importate
+\n %4$s già esistenti
+\n %5$s con errori
 \n</string>
     <string name="import_progress_read">Lettura attività %d…</string>
-    <string name="read_permission_label">Permessi attività</string>
-    <string name="discard_confirmation">Sei sicuro/a di voler annullare tutte le modifiche\?</string>
+    <string name="read_permission_label">Permessi di Tasks</string>
+    <string name="discard_confirmation">Vuoi davvero annullare tutte le modifiche\?</string>
     <string name="keep_editing">No, continua la modifica</string>
     <string name="DLG_delete_this_task_question">Eliminare questa attività\?</string>
     <string name="DLG_hour_minutes">Tempo (ore : minuti)</string>
