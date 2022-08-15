@@ -20,7 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.activities.FilterSelectionActivity
+import org.tasks.activities.FilterPicker
+import org.tasks.activities.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.extensions.Context.getResourceUri
 import org.tasks.injection.InjectingPreferenceFragment
@@ -33,14 +34,6 @@ import org.tasks.ui.TimePreference
 import timber.log.Timber
 import javax.inject.Inject
 
-private const val REQUEST_QUIET_START = 10001
-private const val REQUEST_QUIET_END = 10002
-private const val REQUEST_DEFAULT_REMIND = 10003
-private const val REQUEST_BADGE_LIST = 10004
-private const val REQUEST_CODE_ALERT_RINGTONE = 10005
-private const val REQUEST_CODE_TTS_CHECK = 10006
-private const val REQUEST_CODE_COMPLETION_SOUND = 10007
-
 @AndroidEntryPoint
 class Notifications : InjectingPreferenceFragment() {
 
@@ -50,6 +43,19 @@ class Notifications : InjectingPreferenceFragment() {
     @Inject lateinit var voiceOutputAssistant: VoiceOutputAssistant
 
     override fun getPreferenceXml() = R.xml.preferences_notifications
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setFragmentResultListener(
+            FilterPicker.SELECT_FILTER,
+            this
+        ) { _, data ->
+            val filter: Filter = data.getParcelable(FilterPicker.EXTRA_FILTER)!!
+            defaultFilterProvider.setBadgeFilter(filter)
+            findPreference(R.string.p_badge_list).summary = filter.listingTitle
+            localBroadcastManager.broadcastRefresh()
+        }
+    }
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         rescheduleNotificationsOnChange(
@@ -86,12 +92,8 @@ class Notifications : InjectingPreferenceFragment() {
         badgePreference.summary = filter.listingTitle
         badgePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             lifecycleScope.launch {
-                val intent = Intent(context, FilterSelectionActivity::class.java)
-                intent.putExtra(
-                        FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.getBadgeFilter()
-                )
-                intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
-                startActivityForResult(intent, REQUEST_BADGE_LIST)
+                newFilterPicker(defaultFilterProvider.getBadgeFilter())
+                    .show(childFragmentManager, FRAG_TAG_FILTER_PICKER)
             }
             true
         }
@@ -316,13 +318,6 @@ class Notifications : InjectingPreferenceFragment() {
             REQUEST_DEFAULT_REMIND -> if (resultCode == RESULT_OK) {
                 getDefaultRemindTimePreference()!!.handleTimePickerActivityIntent(data)
             }
-            REQUEST_BADGE_LIST -> if (resultCode == RESULT_OK) {
-                val filter: Filter =
-                        data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
-                defaultFilterProvider.setBadgeFilter(filter)
-                findPreference(R.string.p_badge_list).summary = filter.listingTitle
-                localBroadcastManager.broadcastRefresh()
-            }
             REQUEST_CODE_TTS_CHECK -> if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) { // success, create the TTS instance
                 voiceOutputAssistant.initTTS()
             } else { // missing data, install it
@@ -332,5 +327,15 @@ class Notifications : InjectingPreferenceFragment() {
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    companion object {
+        private const val REQUEST_QUIET_START = 10001
+        private const val REQUEST_QUIET_END = 10002
+        private const val REQUEST_DEFAULT_REMIND = 10003
+        private const val REQUEST_CODE_ALERT_RINGTONE = 10005
+        private const val REQUEST_CODE_TTS_CHECK = 10006
+        private const val REQUEST_CODE_COMPLETION_SOUND = 10007
+        private const val FRAG_TAG_FILTER_PICKER = "frag_tag_filter_picker"
     }
 }

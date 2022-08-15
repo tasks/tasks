@@ -12,7 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.activities.FilterSelectionActivity
+import org.tasks.activities.FilterPicker
+import org.tasks.activities.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
@@ -25,19 +26,19 @@ import org.tasks.preferences.Preferences
 import org.tasks.widget.WidgetPreferences
 import javax.inject.Inject
 
-private const val REQUEST_FILTER = 1005
-private const val REQUEST_THEME_SELECTION = 1006
-private const val REQUEST_COLOR_SELECTION = 1007
-private const val REQUEST_SORT = 1008
-
-const val EXTRA_WIDGET_ID = "extra_widget_id"
 
 @AndroidEntryPoint
 class ScrollableWidget : InjectingPreferenceFragment() {
 
     companion object {
+        private const val REQUEST_THEME_SELECTION = 1006
+        private const val REQUEST_COLOR_SELECTION = 1007
+        private const val REQUEST_SORT = 1008
+
+        const val EXTRA_WIDGET_ID = "extra_widget_id"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
         private const val FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog"
+        private const val FRAG_TAG_FILTER_PICKER = "frag_tag_filter_picker"
 
         fun newScrollableWidget(appWidgetId: Int): ScrollableWidget {
             val widget = ScrollableWidget()
@@ -56,6 +57,18 @@ class ScrollableWidget : InjectingPreferenceFragment() {
     private var appWidgetId = 0
 
     override fun getPreferenceXml() = R.xml.preferences_widget
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setFragmentResultListener(
+            FilterPicker.SELECT_FILTER,
+            this
+        ) { _, data ->
+            val filter: Filter = data.getParcelable(FilterPicker.EXTRA_FILTER)!!
+            widgetPreferences.setFilter(defaultFilterProvider.getFilterPreferenceValue(filter))
+            updateFilter()
+        }
+    }
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         appWidgetId = requireArguments().getInt(EXTRA_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
@@ -116,10 +129,8 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         findPreference(R.string.p_widget_filter)
             .setOnPreferenceClickListener {
                 lifecycleScope.launch {
-                    val intent = Intent(context, FilterSelectionActivity::class.java)
-                    intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, getFilter())
-                    intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
-                    startActivityForResult(intent, REQUEST_FILTER)
+                    newFilterPicker(getFilter())
+                        .show(childFragmentManager, FRAG_TAG_FILTER_PICKER)
                 }
                 false
             }
@@ -146,12 +157,6 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            REQUEST_FILTER -> if (resultCode == Activity.RESULT_OK) {
-                val filter: Filter =
-                        data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
-                widgetPreferences.setFilter(defaultFilterProvider.getFilterPreferenceValue(filter))
-                updateFilter()
-            }
             REQUEST_THEME_SELECTION -> if (resultCode == Activity.RESULT_OK) {
                 widgetPreferences.setTheme(
                         data?.getIntExtra(

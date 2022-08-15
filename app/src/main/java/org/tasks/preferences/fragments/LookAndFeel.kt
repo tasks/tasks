@@ -17,7 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.activities.FilterSelectionActivity
+import org.tasks.activities.FilterPicker
+import org.tasks.activities.FilterPicker.Companion.newFilterPicker
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.dialogs.ColorPalettePicker
@@ -40,17 +41,6 @@ import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
 import java.util.*
 import javax.inject.Inject
 
-
-private const val REQUEST_THEME_PICKER = 10001
-private const val REQUEST_COLOR_PICKER = 10002
-private const val REQUEST_ACCENT_PICKER = 10003
-private const val REQUEST_LAUNCHER_PICKER = 10004
-private const val REQUEST_DEFAULT_LIST = 10005
-private const val REQUEST_LOCALE = 10006
-private const val FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker"
-private const val FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker"
-private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
-
 @AndroidEntryPoint
 class LookAndFeel : InjectingPreferenceFragment() {
 
@@ -64,6 +54,19 @@ class LookAndFeel : InjectingPreferenceFragment() {
     @Inject lateinit var locale: Locale
 
     override fun getPreferenceXml() = R.xml.preferences_look_and_feel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setFragmentResultListener(
+            FilterPicker.SELECT_FILTER,
+            this
+        ) { _, data ->
+            val filter: Filter = data.getParcelable(FilterPicker.EXTRA_FILTER)!!
+            defaultFilterProvider.setDefaultOpenFilter(filter)
+            findPreference(R.string.p_default_open_filter).summary = filter.listingTitle
+            localBroadcastManager.broadcastRefresh()
+        }
+    }
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         val themePref = findPreference(R.string.p_theme)
@@ -87,13 +90,8 @@ class LookAndFeel : InjectingPreferenceFragment() {
         defaultList.summary = filter.listingTitle
         defaultList.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             lifecycleScope.launch {
-                val intent = Intent(context, FilterSelectionActivity::class.java)
-                intent.putExtra(
-                        FilterSelectionActivity.EXTRA_FILTER,
-                        defaultFilterProvider.getDefaultOpenFilter()
-                )
-                intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
-                startActivityForResult(intent, REQUEST_DEFAULT_LIST)
+                newFilterPicker(defaultFilterProvider.getDefaultOpenFilter())
+                    .show(childFragmentManager, FRAG_TAG_FILTER_PICKER)
             }
             true
         }
@@ -204,15 +202,6 @@ class LookAndFeel : InjectingPreferenceFragment() {
                     updateLauncherPreference()
                 }
             }
-            REQUEST_DEFAULT_LIST -> {
-                if (resultCode == RESULT_OK) {
-                    val filter: Filter =
-                            data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
-                    defaultFilterProvider.setDefaultOpenFilter(filter)
-                    findPreference(R.string.p_default_open_filter).summary = filter.listingTitle
-                    localBroadcastManager.broadcastRefresh()
-                }
-            }
             REQUEST_LOCALE -> {
                 if (resultCode == RESULT_OK) {
                     val languageTag = data!!.getStringExtra(LocalePickerDialog.EXTRA_LOCALE)
@@ -254,5 +243,17 @@ class LookAndFeel : InjectingPreferenceFragment() {
                 .show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
             false
         }
+    }
+
+    companion object {
+        private const val REQUEST_THEME_PICKER = 10001
+        private const val REQUEST_COLOR_PICKER = 10002
+        private const val REQUEST_ACCENT_PICKER = 10003
+        private const val REQUEST_LAUNCHER_PICKER = 10004
+        private const val REQUEST_LOCALE = 10006
+        private const val FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker"
+        private const val FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker"
+        private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
+        private const val FRAG_TAG_FILTER_PICKER = "frag_tag_filter_picker"
     }
 }

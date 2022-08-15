@@ -13,7 +13,8 @@ import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.activities.FilterSelectionActivity
+import org.tasks.activities.FilterPicker
+import org.tasks.activities.FilterPicker.Companion.newFilterPicker
 import org.tasks.databinding.ActivityWidgetShortcutLayoutBinding
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
@@ -65,19 +66,16 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
             selectedTheme = savedInstanceState.getInt(EXTRA_THEME)
         }
         updateFilterAndTheme()
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_FILTER) {
-            if (resultCode == Activity.RESULT_OK) {
-                if (selectedFilter != null && selectedFilter!!.listingTitle == getShortcutName()) {
-                    shortcutName.text = null
-                }
-                selectedFilter = data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)
-                updateFilterAndTheme()
+        supportFragmentManager.setFragmentResultListener(
+            FilterPicker.SELECT_FILTER,
+            this
+        ) { _, data ->
+            if (selectedFilter != null && selectedFilter!!.listingTitle == getShortcutName()) {
+                shortcutName.text = null
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            selectedFilter = data.getParcelable(FilterPicker.EXTRA_FILTER)
+            updateFilterAndTheme()
         }
     }
 
@@ -95,10 +93,8 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
     }
 
     private fun showListPicker() {
-        val intent = Intent(this, FilterSelectionActivity::class.java)
-        intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, selectedFilter)
-        intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
-        startActivityForResult(intent, REQUEST_FILTER)
+        newFilterPicker(selectedFilter)
+            .show(supportFragmentManager, FRAG_TAG_FILTER_PICKER)
     }
 
     private fun showThemePicker() {
@@ -150,6 +146,6 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
         private const val EXTRA_FILTER = "extra_filter"
         private const val EXTRA_THEME = "extra_theme"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
-        private const val REQUEST_FILTER = 1019
+        private const val FRAG_TAG_FILTER_PICKER = "frag_tag_filter_picker"
     }
 }

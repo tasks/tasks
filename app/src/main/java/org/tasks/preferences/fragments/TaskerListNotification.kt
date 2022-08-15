@@ -1,12 +1,12 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.activities.FilterSelectionActivity
+import org.tasks.activities.FilterPicker
+import org.tasks.activities.FilterPicker.Companion.newFilterPicker
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.injection.InjectingPreferenceFragment
@@ -14,14 +14,14 @@ import org.tasks.locale.bundle.ListNotificationBundle
 import org.tasks.preferences.DefaultFilterProvider
 import javax.inject.Inject
 
-const val EXTRA_FILTER = "extra_filter"
-private const val REQUEST_SELECT_FILTER = 10124
-private const val REQUEST_SUBSCRIPTION = 10125
-
 @AndroidEntryPoint
 class TaskerListNotification : InjectingPreferenceFragment() {
 
     companion object {
+        const val EXTRA_FILTER = "extra_filter"
+        private const val REQUEST_SUBSCRIPTION = 10125
+        private const val FRAG_TAG_FILTER_PICKER = "frag_tag_filter_picker"
+
         fun newTaskerListNotification(filter: String?): TaskerListNotification {
             val fragment = TaskerListNotification()
             val args = Bundle()
@@ -39,6 +39,17 @@ class TaskerListNotification : InjectingPreferenceFragment() {
 
     override fun getPreferenceXml() = R.xml.preferences_tasker
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setFragmentResultListener(
+            FilterPicker.SELECT_FILTER,
+            this
+        ) { _, data ->
+            filter = data.getParcelable(FilterPicker.EXTRA_FILTER)!!
+            refreshPreferences()
+        }
+    }
+
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         filter = if (savedInstanceState == null) {
             defaultFilterProvider.getFilterFromPreferenceBlocking(arguments?.getString(EXTRA_FILTER))
@@ -49,10 +60,8 @@ class TaskerListNotification : InjectingPreferenceFragment() {
         refreshPreferences()
 
         findPreference(R.string.filter).setOnPreferenceClickListener {
-            val intent = Intent(context, FilterSelectionActivity::class.java)
-            intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, filter)
-            intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true)
-            startActivityForResult(intent, REQUEST_SELECT_FILTER)
+            newFilterPicker(filter)
+                .show(childFragmentManager, FRAG_TAG_FILTER_PICKER)
             false
         }
 
@@ -66,10 +75,6 @@ class TaskerListNotification : InjectingPreferenceFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            REQUEST_SELECT_FILTER -> if (resultCode == RESULT_OK) {
-                filter = data!!.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER)!!
-                refreshPreferences()
-            }
             REQUEST_SUBSCRIPTION -> if (!inventory.purchasedTasker()) {
                 cancelled = true
                 requireActivity().finish()
