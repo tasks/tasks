@@ -6,9 +6,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.activities.FilterPicker
-import org.tasks.activities.FilterPicker.Companion.SELECT_FILTER
-import org.tasks.activities.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
 import javax.inject.Inject
@@ -23,11 +22,8 @@ class DashClock : InjectingPreferenceFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(
-            SELECT_FILTER,
-            this
-        ) { _, data ->
-            defaultFilterProvider.dashclockFilter = data.getParcelable(FilterPicker.EXTRA_FILTER)!!
+        childFragmentManager.setFilterPickerResultListener(this) {
+            defaultFilterProvider.dashclockFilter = it
             lifecycleScope.launch {
                 refreshPreferences()
             }

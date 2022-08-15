@@ -14,14 +14,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.activities.FilterPicker
-import org.tasks.activities.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.extensions.Context.getResourceUri
 import org.tasks.injection.InjectingPreferenceFragment
@@ -46,13 +45,9 @@ class Notifications : InjectingPreferenceFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(
-            FilterPicker.SELECT_FILTER,
-            this
-        ) { _, data ->
-            val filter: Filter = data.getParcelable(FilterPicker.EXTRA_FILTER)!!
-            defaultFilterProvider.setBadgeFilter(filter)
-            findPreference(R.string.p_badge_list).summary = filter.listingTitle
+        childFragmentManager.setFilterPickerResultListener(this) {
+            defaultFilterProvider.setBadgeFilter(it)
+            findPreference(R.string.p_badge_list).summary = it.listingTitle
             localBroadcastManager.broadcastRefresh()
         }
     }

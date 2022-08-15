@@ -41,9 +41,7 @@ import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.files.FilesControlSet
@@ -56,11 +54,11 @@ import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.activities.ListPicker
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarPicker
 import org.tasks.compose.BeastModeBanner
@@ -74,6 +72,8 @@ import org.tasks.databinding.*
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.Linkify
 import org.tasks.files.FileHelper
 import org.tasks.fragments.TaskEditControlSetFragmentManager
@@ -237,6 +237,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 }
             }
         }
+        childFragmentManager.setFilterPickerResultListener(this) {
+            editViewModel.selectedList.update { it }
+        }
         return view
     }
 
@@ -373,17 +376,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                     editViewModel.setDueDate(data!!.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L))
                 }
             }
-            REQUEST_CODE_SELECT_LIST -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.getParcelableExtra<Filter>(ListPicker.EXTRA_SELECTED_FILTER)?.let {
-                        if (it is GtasksFilter || it is CaldavFilter) {
-                            editViewModel.selectedList.value = it
-                        } else {
-                            throw RuntimeException("Unhandled filter type")
-                        }
-                    }
-                }
-            }
             REQUEST_CODE_PICK_CALENDAR -> {
                 if (resultCode == Activity.RESULT_OK) {
                     editViewModel.selectedCalendar.value =
@@ -458,14 +450,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             list = editViewModel.selectedList.collectAsStateLifecycleAware().value,
             colorProvider = { chipProvider.getColor(it) },
             onClick = {
-                ListPicker
-                    .newListPicker(
-                        editViewModel.selectedList.value,
-                        this@TaskEditFragment,
-                        REQUEST_CODE_SELECT_LIST
-                    )
+                newFilterPicker(editViewModel.selectedList.value, true)
                     .show(
-                        parentFragmentManager,
+                        childFragmentManager,
                         FRAG_TAG_GOOGLE_TASK_LIST_SELECTION
                     )
             }
@@ -509,7 +496,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         private const val FRAG_TAG_GOOGLE_TASK_LIST_SELECTION = "frag_tag_google_task_list_selection"
         const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
-        private const val REQUEST_CODE_SELECT_LIST = 10101
         const val REQUEST_CODE_PICK_CALENDAR = 70
         private const val REQUEST_DATE = 504
 

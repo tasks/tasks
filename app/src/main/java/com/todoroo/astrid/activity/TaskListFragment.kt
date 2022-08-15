@@ -64,8 +64,10 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
 import org.tasks.Tasks.Companion.IS_GOOGLE_PLAY
-import org.tasks.activities.*
-import org.tasks.activities.ListPicker.Companion.newListPicker
+import org.tasks.activities.FilterSettingsActivity
+import org.tasks.activities.GoogleTaskListSettingsActivity
+import org.tasks.activities.PlaceSettingsActivity
+import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
@@ -77,6 +79,8 @@ import org.tasks.databinding.FragmentTaskListBinding
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.SortDialog
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
@@ -301,7 +305,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         toolbar.setOnMenuItemClickListener(this)
         toolbar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
         setupMenu(toolbar)
-
+        childFragmentManager.setFilterPickerResultListener(this) {
+            val selected = taskAdapter.getSelected()
+            lifecycleScope.launch {
+                taskMover.move(selected, it)
+            }
+            finishActionMode()
+        }
         return binding.root
     }
 
@@ -611,15 +621,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     }
                 }
             }
-            REQUEST_MOVE_TASKS -> if (resultCode == Activity.RESULT_OK) {
-                data?.getParcelableExtra<Filter>(ListPicker.EXTRA_SELECTED_FILTER)?.let {
-                    val selected = taskAdapter.getSelected()
-                    lifecycleScope.launch {
-                        taskMover.move(selected, it)
-                    }
-                }
-                finishActionMode()
-            }
             REQUEST_LIST_SETTINGS -> if (resultCode == Activity.RESULT_OK) {
                 val action = data!!.action
                 if (ACTION_DELETED == action) {
@@ -718,12 +719,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             R.id.move_tasks -> {
                 lifecycleScope.launch {
                     val singleFilter = taskMover.getSingleFilter(selected)
-                    val fragment = newListPicker(
-                        selected = singleFilter,
-                        targetFragment = this@TaskListFragment,
-                        requestCode = REQUEST_MOVE_TASKS
-                    )
-                    fragment.show(parentFragmentManager, FRAG_TAG_REMOTE_LIST_PICKER)
+                    newFilterPicker(singleFilter, true)
+                        .show(childFragmentManager, FRAG_TAG_REMOTE_LIST_PICKER)
                 }
                 true
             }
@@ -979,7 +976,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
         private const val REQUEST_LIST_SETTINGS = 10101
-        private const val REQUEST_MOVE_TASKS = 10103
         private const val REQUEST_TAG_TASKS = 10106
         private const val SEARCH_DEBOUNCE_TIMEOUT = 300L
         fun newTaskListFragment(context: Context, filter: Filter?): TaskListFragment {

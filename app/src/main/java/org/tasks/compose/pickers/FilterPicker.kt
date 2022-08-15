@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.todoroo.astrid.api.Filter
 import org.tasks.R
-import org.tasks.activities.FilterPickerViewModel
 import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.dialogs.FilterPickerViewModel
 import org.tasks.filters.NavigationDrawerSubheader
 
 @Composable

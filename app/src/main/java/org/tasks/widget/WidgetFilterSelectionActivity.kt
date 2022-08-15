@@ -6,9 +6,9 @@ import android.os.Bundle
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
-import org.tasks.activities.FilterPicker.Companion.EXTRA_FILTER
-import org.tasks.activities.FilterPicker.Companion.SELECT_FILTER
-import org.tasks.activities.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.EXTRA_FILTER
+import org.tasks.dialogs.FilterPicker.Companion.SELECT_FILTER
+import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -28,15 +28,14 @@ class WidgetFilterSelectionActivity : InjectingAppCompatActivity() {
         }
         supportFragmentManager
             .setFragmentResultListener(SELECT_FILTER, this) { _, result ->
-                if (result.isEmpty) {
+                val filter: Filter? = result.getParcelable(EXTRA_FILTER)
+                if (filter == null) {
                     finish()
                     return@setFragmentResultListener
                 }
-                result.getParcelable<Filter>(EXTRA_FILTER)?.let { filter ->
-                    WidgetPreferences(this, preferences, widgetId)
-                        .setFilter(defaultFilterProvider.getFilterPreferenceValue(filter))
-                    localBroadcastManager.reconfigureWidget(widgetId)
-                }
+                WidgetPreferences(this, preferences, widgetId)
+                    .setFilter(defaultFilterProvider.getFilterPreferenceValue(filter))
+                localBroadcastManager.reconfigureWidget(widgetId)
                 setResult(RESULT_OK, Intent().putExtras(result))
                 finish()
             }

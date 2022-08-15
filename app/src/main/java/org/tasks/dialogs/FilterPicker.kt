@@ -1,16 +1,17 @@
-package org.tasks.activities
+package org.tasks.dialogs
 
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
+import androidx.lifecycle.LifecycleOwner
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.compose.pickers.FilterPicker
-import org.tasks.dialogs.DialogBuilder
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,15 +50,27 @@ class FilterPicker : DialogFragment() {
         const val SELECT_FILTER = "select_filter"
         const val EXTRA_FILTER = "extra_filter"
         const val EXTRA_FILTER_VALUES = "extra_filter_values"
+        const val EXTRA_LISTS_ONLY = "extra_lists_only"
 
         fun newFilterPicker(
             selected: Filter?,
+            listsOnly: Boolean = false,
         ): FilterPicker {
             val dialog = FilterPicker()
             val arguments = Bundle()
             arguments.putParcelable(EXTRA_FILTER, selected)
+            arguments.putBoolean(EXTRA_LISTS_ONLY, listsOnly)
             dialog.arguments = arguments
             return dialog
+        }
+
+        fun FragmentManager.setFilterPickerResultListener(
+            lifecycleOwner: LifecycleOwner,
+            callback: (Filter) -> Unit
+        ) {
+            setFragmentResultListener(SELECT_FILTER, lifecycleOwner) { _, data ->
+                data.getParcelable<Filter>(EXTRA_FILTER)?.let(callback)
+            }
         }
     }
 }

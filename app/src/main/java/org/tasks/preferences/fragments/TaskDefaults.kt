@@ -6,16 +6,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
-import com.todoroo.astrid.api.CaldavFilter
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.activities.ListPicker
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarPicker.Companion.newCalendarPicker
 import org.tasks.calendars.CalendarProvider
@@ -23,6 +19,8 @@ import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
+import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.location.LocationPickerActivity
 import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
@@ -38,7 +36,6 @@ import javax.inject.Inject
 
 private const val FRAG_TAG_DEFAULT_LIST_SELECTION = "frag_tag_default_list_selection"
 private const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
-private const val REQUEST_DEFAULT_LIST = 10010
 private const val REQUEST_CALENDAR_SELECTION = 10011
 
 @AndroidEntryPoint
@@ -52,6 +49,14 @@ class TaskDefaults : InjectingPreferenceFragment() {
     @Inject lateinit var tagDataDao: TagDataDao
 
     private lateinit var defaultCalendarPref: Preference
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setFilterPickerResultListener(this) {
+            defaultFilterProvider.defaultList = it
+            updateRemoteListSummary()
+        }
+    }
 
     override fun getPreferenceXml() = R.xml.preferences_task_defaults
 
@@ -67,11 +72,8 @@ class TaskDefaults : InjectingPreferenceFragment() {
         findPreference(R.string.p_default_list)
             .setOnPreferenceClickListener {
                 lifecycleScope.launch {
-                    ListPicker.newListPicker(
-                            defaultFilterProvider.getDefaultList(),
-                            this@TaskDefaults,
-                            REQUEST_DEFAULT_LIST)
-                            .show(parentFragmentManager, FRAG_TAG_DEFAULT_LIST_SELECTION)
+                    newFilterPicker(defaultFilterProvider.getDefaultList(), true)
+                        .show(childFragmentManager, FRAG_TAG_DEFAULT_LIST_SELECTION)
                 }
                 false
             }
@@ -122,15 +124,6 @@ class TaskDefaults : InjectingPreferenceFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            REQUEST_DEFAULT_LIST -> {
-                val list: Filter? = data!!.getParcelableExtra(ListPicker.EXTRA_SELECTED_FILTER)
-                if (list is GtasksFilter || list is CaldavFilter) {
-                    defaultFilterProvider.defaultList = list
-                } else {
-                    throw RuntimeException("Unhandled filter type")
-                }
-                updateRemoteListSummary()
-            }
             REQUEST_CALENDAR_SELECTION -> if (resultCode == RESULT_OK) {
                 preferences.setString(
                         R.string.gcal_p_default,

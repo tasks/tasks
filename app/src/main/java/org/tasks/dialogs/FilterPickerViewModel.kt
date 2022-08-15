@@ -1,8 +1,9 @@
-package org.tasks.activities
+package org.tasks.dialogs
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.api.Filter
@@ -19,6 +20,7 @@ import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
+import org.tasks.dialogs.FilterPicker.Companion.EXTRA_LISTS_ONLY
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.preferences.Preferences
@@ -27,7 +29,8 @@ import org.tasks.themes.CustomIcons
 import javax.inject.Inject
 
 @HiltViewModel
-class ListPickerViewModel @Inject constructor(
+class FilterPickerViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     @ApplicationContext private val context: Context,
     private val filterProvider: FilterProvider,
     private val localBroadcastManager: LocalBroadcastManager,
@@ -37,9 +40,15 @@ class ListPickerViewModel @Inject constructor(
     private val googleTaskDao: GoogleTaskDao,
     private val caldavDao: CaldavDao,
 ) : ViewModel() {
+    private val listsOnly = savedStateHandle[EXTRA_LISTS_ONLY] ?: false
+
     data class ViewState(
         val filters: List<FilterListItem> = emptyList(),
     )
+
+    private val _viewState = MutableStateFlow(ViewState())
+    val viewState: StateFlow<ViewState>
+        get() = _viewState.asStateFlow()
 
     private val refreshReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -47,9 +56,14 @@ class ListPickerViewModel @Inject constructor(
         }
     }
 
-    private val _viewState = MutableStateFlow(ViewState())
-    val viewState: StateFlow<ViewState>
-        get() = _viewState.asStateFlow()
+    private fun refresh() = viewModelScope.launch {
+        val items = if (listsOnly) {
+            filterProvider.listPickerItems()
+        } else {
+            filterProvider.filterPickerItems()
+        }
+        _viewState.update { it.copy(filters = items) }
+    }
 
     fun onClick(subheader: NavigationDrawerSubheader) = viewModelScope.launch {
         val collapsed = !subheader.isCollapsed
@@ -64,15 +78,6 @@ class ListPickerViewModel @Inject constructor(
                 caldavDao.setCollapsed(subheader.id, collapsed)
         }
         localBroadcastManager.broadcastRefreshList()
-    }
-
-    private fun refresh() {
-        viewModelScope.launch {
-            val items = filterProvider.listPickerItems()
-            _viewState.update {
-                it.copy(filters = items)
-            }
-        }
     }
 
     fun getIcon(filter: Filter): Int {

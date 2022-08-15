@@ -12,12 +12,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.activities.FilterPicker
-import org.tasks.activities.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker
+import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.SortDialog.newSortDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.injection.InjectingPreferenceFragment
@@ -60,12 +60,8 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(
-            FilterPicker.SELECT_FILTER,
-            this
-        ) { _, data ->
-            val filter: Filter = data.getParcelable(FilterPicker.EXTRA_FILTER)!!
-            widgetPreferences.setFilter(defaultFilterProvider.getFilterPreferenceValue(filter))
+        childFragmentManager.setFilterPickerResultListener(this) {
+            widgetPreferences.setFilter(defaultFilterProvider.getFilterPreferenceValue(it))
             updateFilter()
         }
     }

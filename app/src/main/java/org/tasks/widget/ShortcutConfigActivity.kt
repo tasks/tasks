@@ -13,12 +13,12 @@ import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.activities.FilterPicker
-import org.tasks.activities.FilterPicker.Companion.newFilterPicker
 import org.tasks.databinding.ActivityWidgetShortcutLayoutBinding
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
+import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
@@ -67,14 +67,11 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
         }
         updateFilterAndTheme()
 
-        supportFragmentManager.setFragmentResultListener(
-            FilterPicker.SELECT_FILTER,
-            this
-        ) { _, data ->
+        supportFragmentManager.setFilterPickerResultListener(this) {
             if (selectedFilter != null && selectedFilter!!.listingTitle == getShortcutName()) {
                 shortcutName.text = null
             }
-            selectedFilter = data.getParcelable(FilterPicker.EXTRA_FILTER)
+            selectedFilter = it
             updateFilterAndTheme()
         }
     }

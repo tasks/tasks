@@ -5,10 +5,10 @@ import android.os.Bundle
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.activities.FilterPicker
-import org.tasks.activities.FilterPicker.Companion.newFilterPicker
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.bundle.ListNotificationBundle
 import org.tasks.preferences.DefaultFilterProvider
@@ -41,11 +41,8 @@ class TaskerListNotification : InjectingPreferenceFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(
-            FilterPicker.SELECT_FILTER,
-            this
-        ) { _, data ->
-            filter = data.getParcelable(FilterPicker.EXTRA_FILTER)!!
+        childFragmentManager.setFilterPickerResultListener(this) {
+            filter = it
             refreshPreferences()
         }
     }

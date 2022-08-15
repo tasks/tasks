@@ -12,19 +12,18 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
-import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.activities.FilterPicker
-import org.tasks.activities.FilterPicker.Companion.newFilterPicker
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter
 import org.tasks.dialogs.ColorWheelPicker
+import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
+import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.injection.InjectingPreferenceFragment
@@ -57,13 +56,9 @@ class LookAndFeel : InjectingPreferenceFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(
-            FilterPicker.SELECT_FILTER,
-            this
-        ) { _, data ->
-            val filter: Filter = data.getParcelable(FilterPicker.EXTRA_FILTER)!!
-            defaultFilterProvider.setDefaultOpenFilter(filter)
-            findPreference(R.string.p_default_open_filter).summary = filter.listingTitle
+        childFragmentManager.setFilterPickerResultListener(this) {
+            defaultFilterProvider.setDefaultOpenFilter(it)
+            findPreference(R.string.p_default_open_filter).summary = it.listingTitle
             localBroadcastManager.broadcastRefresh()
         }
     }

@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
-import org.tasks.activities.FilterPicker
+import org.tasks.dialogs.FilterPicker
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
