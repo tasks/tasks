@@ -79,8 +79,13 @@
   <permission-group android:name="org.dmfs.tasks.permissiongroup.Tasks" tools:node="remove"/>
   <permission android:name="org.dmfs.permission.READ_TASKS" tools:node="remove"/>
   <permission android:name="org.dmfs.permission.WRITE_TASKS" tools:node="remove"/>
-  <uses-permission android:name="${applicationId}.permission.READ_TASKS" tools:node="remove"/>
-  <uses-permission android:name="${applicationId}.permission.WRITE_TASKS" tools:node="remove"/>
+  <uses-permission
+      android:name="${applicationId}.permission.READ_TASKS"
+      tools:ignore="SystemPermissionTypo"
+      tools:node="remove" />
+  <uses-permission
+      android:name="${applicationId}.permission.WRITE_TASKS"
+      tools:node="remove" />
 
   <!-- ============================================== Exported Permissions = -->
 
@@ -412,6 +417,7 @@
       android:name=".caldav.CaldavAccountSettingsActivity"
       android:theme="@style/Tasks"/>
 
+    <!--suppress DeprecatedClassUsageInspection -->
     <activity
       android:name=".etesync.EteSyncAccountSettingsActivity"
       android:theme="@style/Tasks" />
@@ -551,7 +557,6 @@
 
     <activity
       android:exported="true"
-      android:label="@string/app_name"
       android:name=".dashclock.DashClockSettings"/>
 
     <service
