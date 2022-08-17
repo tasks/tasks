@@ -237,8 +237,8 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 }
             }
         }
-        childFragmentManager.setFilterPickerResultListener(this) {
-            editViewModel.selectedList.update { it }
+        childFragmentManager.setFilterPickerResultListener(this) { filter ->
+            editViewModel.selectedList.update { filter }
         }
         return view
     }
@@ -446,11 +446,12 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     @Composable
     private fun ListRow() {
+        val list = editViewModel.selectedList.collectAsStateLifecycleAware().value
         ListRow(
-            list = editViewModel.selectedList.collectAsStateLifecycleAware().value,
+            list = list,
             colorProvider = { chipProvider.getColor(it) },
             onClick = {
-                newFilterPicker(editViewModel.selectedList.value, true)
+                newFilterPicker(list, true)
                     .show(
                         childFragmentManager,
                         FRAG_TAG_GOOGLE_TASK_LIST_SELECTION
