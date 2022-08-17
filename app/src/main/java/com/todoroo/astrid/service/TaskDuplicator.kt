@@ -71,7 +71,13 @@ class TaskDuplicator @Inject constructor(
         }
         val caldavTask = caldavDao.getTask(originalId)
         if (caldavTask != null) {
-            caldavDao.insert(clone, CaldavTask(clone.id, caldavTask.calendar), addToTop)
+            val newDavTask = CaldavTask(clone.id, caldavTask.calendar)
+            if (parentId != 0L)
+            {
+                val remoteParent = caldavDao.getRemoteIdForTask(parentId)
+                newDavTask.remoteParent = remoteParent
+            }
+            caldavDao.insert(clone, newDavTask, addToTop)
         }
         for (g in locationDao.getGeofencesForTask(originalId)) {
             locationDao.insert(
