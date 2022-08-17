@@ -3,6 +3,7 @@ package org.tasks.ui
 import android.content.Context
 import android.net.Uri
 import androidx.annotation.MainThread
+import androidx.core.net.toUri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -75,6 +76,7 @@ class TaskEditViewModel @Inject constructor(
         private val firebase: Firebase? = null,
         private val userActivityDao: UserActivityDao,
         private val alarmDao: AlarmDao,
+        private val taskAttachmentDao: TaskAttachmentDao,
 ) : ViewModel() {
     private val resources = context.resources
     private var cleared = false
@@ -135,6 +137,9 @@ class TaskEditViewModel @Inject constructor(
     private val originalTags: List<TagData> =
         savedStateHandle.get<ArrayList<TagData>>(TaskEditFragment.EXTRA_TAGS) ?: emptyList()
     val selectedTags = MutableStateFlow(ArrayList(originalTags))
+
+    private lateinit var originalAttachments: List<TaskAttachment>
+    val selectedAttachments = MutableStateFlow(emptyList<TaskAttachment>())
 
     private val originalAlarms: List<Alarm> = if (isNew) {
         ArrayList<Alarm>().apply {
@@ -201,6 +206,7 @@ class TaskEditViewModel @Inject constructor(
                 originalList != selectedList.value ||
                 originalLocation != selectedLocation.value ||
                 originalTags.toHashSet() != selectedTags.value.toHashSet() ||
+                originalAttachments.toHashSet() != selectedAttachments.value.toHashSet() ||
                 newSubtasks.value.isNotEmpty() ||
                 getRingFlags() != when {
                     task.isNotifyModeFive -> NOTIFY_MODE_FIVE
@@ -318,6 +324,23 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = now()
         }
 
+        if (selectedAttachments.value.toHashSet() != originalAttachments.toHashSet()) {
+            originalAttachments
+                .minus(selectedAttachments.value.toSet())
+                .map { it.remoteId }
+                .let { taskAttachmentDao.delete(task.id, it) }
+            selectedAttachments.value
+                .minus(originalAttachments.toSet())
+                .map {
+                    Attachment(
+                        task = task.id,
+                        fileId = it.id!!,
+                        attachmentUid = it.remoteId,
+                    )
+                }
+                .let { taskAttachmentDao.insert(it) }
+        }
+
         if (task.isCompleted != completed) {
             taskCompleter.setComplete(task, completed)
         }
@@ -366,6 +389,9 @@ class TaskEditViewModel @Inject constructor(
     suspend fun discard(remove: Boolean = true) {
         if (isNew) {
             timerPlugin.stopTimer(task)
+            originalAttachments.plus(selectedAttachments.value).toSet().takeIf { it.isNotEmpty() }
+                ?.onEach { FileHelper.delete(context, it.uri.toUri()) }
+                ?.let { taskAttachmentDao.delete(it.toList()) }
         }
         clear(remove)
     }
@@ -414,6 +440,13 @@ class TaskEditViewModel @Inject constructor(
             withContext(NonCancellable) {
                 userActivityDao.createNew(userActivity)
             }
+        }
+    }
+
+    init {
+        viewModelScope.launch {
+            originalAttachments = taskAttachmentDao.getAttachments(task.id)
+            selectedAttachments.update { originalAttachments }
         }
     }
 

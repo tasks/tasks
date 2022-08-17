@@ -562,6 +562,24 @@ object Migrations {
         }
     }
 
+    private val MIGRATION_85_86 = object : Migration(85, 86) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `attachment_file` (`file_id` INTEGER PRIMARY KEY AUTOINCREMENT, `file_uuid` TEXT NOT NULL, `filename` TEXT NOT NULL, `uri` TEXT NOT NULL)")
+            database.execSQL("INSERT INTO `attachment_file` (`file_id`, `uri`,`filename`,`file_id`,`file_uuid`) SELECT `_id`, `path`,`name`,`_id`,`remoteId` FROM `task_attachments`")
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `attachment` (`attachment_id` INTEGER PRIMARY KEY AUTOINCREMENT, `task` INTEGER NOT NULL, `file` INTEGER NOT NULL, `file_uuid` TEXT NOT NULL, FOREIGN KEY(`task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`file`) REFERENCES `attachment_file`(`file_id`) ON UPDATE NO ACTION ON DELETE CASCADE)")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_attachment_task` ON `attachment` (`task`)")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_attachment_file` ON `attachment` (`file`)")
+            database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_attachment_task_file` ON `attachment` (`task`, `file`)")
+
+            database.execSQL(
+                "INSERT INTO `attachment` (`task`, `file`, `file_uuid`) SELECT `tasks`.`_id`, `task_attachments`.`_id`, `task_attachments`.`remoteId` FROM `task_attachments` JOIN `tasks` ON `tasks`.`remoteId` = `task_attachments`.`task_id`"
+            )
+
+            database.execSQL("DROP TABLE `task_attachments`")
+        }
+    }
+
     fun migrations(fileStorage: FileStorage) = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
@@ -603,6 +621,7 @@ object Migrations {
             migration_81_82(fileStorage),
             MIGRATION_82_83,
             MIGRATION_84_85,
+            MIGRATION_85_86,
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {

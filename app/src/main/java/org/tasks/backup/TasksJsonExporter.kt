@@ -15,18 +15,7 @@ import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.backup.BackupContainer.TaskBackup
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.AlarmDao
-import org.tasks.data.CaldavDao
-import org.tasks.data.FilterDao
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.LocationDao
-import org.tasks.data.TagDao
-import org.tasks.data.TagDataDao
-import org.tasks.data.TaskAttachmentDao
-import org.tasks.data.TaskDao
-import org.tasks.data.TaskListMetadataDao
-import org.tasks.data.UserActivityDao
+import org.tasks.data.*
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
@@ -130,7 +119,7 @@ class TasksJsonExporter @Inject constructor(
                         tagDao.getTagsForTask(taskId),
                         googleTaskDao.getAllByTaskId(taskId),
                         userActivityDao.getComments(taskId),
-                        taskAttachmentDao.getAttachments(task.uuid),
+                        taskAttachmentDao.getAttachmentsForTask(taskId),
                         caldavTasks,
                         vtodoCache.getVtodo( caldavTasks.firstOrNull { !it.isDeleted() })
                     ))
@@ -148,6 +137,7 @@ class TasksJsonExporter @Inject constructor(
                 caldavDao.getAccounts(),
                 caldavDao.getCalendars(),
                 taskListMetadataDao.getAll(),
+                taskAttachmentDao.getAttachments(),
                 preferences.getPrefs(Integer::class.java),
                 preferences.getPrefs(java.lang.Long::class.java),
                 preferences.getPrefs(String::class.java),

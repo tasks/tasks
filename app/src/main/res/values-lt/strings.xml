@@ -130,7 +130,6 @@
     <string name="gtasks_GLA_errorIOAuth">Atsiprašome, turime bėdų susisiekiant su Google serveriais. Prašome pabandyti vėliau.</string>
     <string name="gtasks_error_accountNotFound">Paskyra %s nerasta - prašome atsijungti ir prisijungti iš Google Tasks nustatymų.</string>
     <string name="premium_record_audio">Įrašyti pastabą</string>
-    <string name="premium_remove_file_confirm">Ar tikrai? Nebegalės būti atstatyta</string>
     <string name="ring_once">Suskambėti vieną kartą</string>
     <string name="ring_five_times">Suskambėti penkis kartus</string>
     <string name="ring_nonstop">Skambėti nepaliaujant</string>

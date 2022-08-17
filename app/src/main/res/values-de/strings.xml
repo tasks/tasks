@@ -124,7 +124,6 @@
     <string name="gtasks_GLA_errorIOAuth">Leider ist während der Kommunikation mit den Google-Servern ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
     <string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte abmelden und erneut über die Einstellungen von Google Tasks anmelden.</string>
     <string name="premium_record_audio">Notiz aufzeichnen</string>
-    <string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
     <string name="ring_once">Einmal klingeln</string>
     <string name="ring_five_times">Fünfmal klingeln</string>
     <string name="ring_nonstop">Ununterbrochen klingeln</string>

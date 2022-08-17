@@ -119,6 +119,11 @@ class TasksJsonImporter @Inject constructor(
                     taskListMetadataDao.insert(tlm)
                 }
             }
+            backupContainer.taskAttachments.forEach { attachment ->
+                if (taskAttachmentDao.getAttachment(attachment.remoteId) == null) {
+                    taskAttachmentDao.insert(attachment)
+                }
+            }
             backupContainer.tasks?.forEach { backup ->
                 result.taskCount++
                 setProgressMessage(
@@ -198,13 +203,16 @@ class TasksJsonImporter @Inject constructor(
                     geofence.task = taskId
                     locationDao.insert(geofence)
                 }
-                backup.attachments?.forEach { attachment ->
-                    attachment.taskId = taskUuid
-                    if (version < V6_4) {
-                        attachment.convertPathUri()
+                backup.attachments
+                    ?.mapNotNull { taskAttachmentDao.getAttachment(it.attachmentUid) }
+                    ?.map {
+                        Attachment(
+                            task = taskId,
+                            fileId = it.id!!,
+                            attachmentUid = it.remoteId,
+                        )
                     }
-                    taskAttachmentDao.insert(attachment)
-                }
+                    ?.let { taskAttachmentDao.insert(it) }
                 backup.caldavTasks?.forEach { caldavTask ->
                     caldavTask.task = taskId
                     caldavDao.insert(caldavTask)

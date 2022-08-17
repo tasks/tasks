@@ -116,7 +116,6 @@
     <string name="gtasks_GPr_header">Tarefas Google</string>
     <string name="gtasks_error_accountNotFound">Não foi encontrada a conta %s. Termine a sessão e inicie-a novamente nas definições das tarefas Google.</string>
     <string name="premium_record_audio">Gravar uma nota áudio</string>
-    <string name="premium_remove_file_confirm">Tem certeza\? A ação não pode ser anulada</string>
     <string name="ring_once">Tocar uma vez</string>
     <string name="ring_five_times">Tocar 5 vezes</string>
     <string name="ring_nonstop">Tocar sem parar</string>

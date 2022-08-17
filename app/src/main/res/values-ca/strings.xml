@@ -172,7 +172,6 @@
     <string name="repeat_option_every_day">Cada dia</string>
     <string name="filter_any_start_date">Qualsevol data d\'inici</string>
     <string name="CFC_tag_name">Etiqueta…</string>
-    <string name="premium_remove_file_confirm">Estàs segur\? No pot ser desfet</string>
     <string name="default_random_reminder_hourly">Cada hora</string>
     <string name="repeat_option_every_month">Mensualment</string>
     <string name="default_random_reminder_disabled">Deshabilitada</string>

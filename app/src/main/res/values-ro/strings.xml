@@ -399,7 +399,6 @@
     <string name="ring_nonstop">Sună non-stop</string>
     <string name="ring_five_times">Sună de cinci ori</string>
     <string name="ring_once">Sună o dată</string>
-    <string name="premium_remove_file_confirm">Ești sigur\? Nu poate fi anulat</string>
     <string name="premium_record_audio">Înregistrați o notă</string>
     <string name="gtasks_error_accountNotFound">Contul %s nu a fost găsit - vă rugăm să vă deconectați și să vă conectați din nou din setările Google Tasks.</string>
     <string name="gtasks_GPr_header">Sarcini Google</string>

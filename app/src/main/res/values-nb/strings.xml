@@ -218,7 +218,6 @@
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Kontoen %s ble ikke funnet. Logg ut og inn igjen fra Google Tasks-innstillingene.</string>
     <string name="premium_record_audio">Spill inn en anmerkning</string>
-    <string name="premium_remove_file_confirm">Er du sikker\? Dette kan ikke reverseres</string>
     <string name="ring_once">Ring én gang</string>
     <string name="ring_five_times">Ring fem ganger</string>
     <string name="ring_nonstop">Ring konstant</string>

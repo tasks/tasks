@@ -126,7 +126,6 @@
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">アカウント %s が見つかりません—ログアウトして再度 Google Tasks 設定からログインしてください.</string>
     <string name="premium_record_audio">注釈を記録</string>
-    <string name="premium_remove_file_confirm">よろしいですか? 取り消しできません</string>
     <string name="ring_once">1回通知音を鳴らす</string>
     <string name="ring_five_times">5回通知音を鳴らす</string>
     <string name="ring_nonstop">通知音を鳴らし続ける</string>

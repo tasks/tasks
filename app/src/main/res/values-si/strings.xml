@@ -363,7 +363,6 @@
     <string name="SSD_sort_modified">අවසන් වරට වෙනස් කරන ලද දිනය අනුව</string>
     <string name="astrid_sort_order">Astrid අතින් වර්ග කිරීම</string>
     <string name="TVA_add_comment">අදහස දක්වන්න…</string>
-    <string name="premium_remove_file_confirm">ඔබට විශ්වාසද\? අහෝසි කළ නොහැක</string>
     <string name="premium_record_audio">සටහනක් පටිගත කරන්න</string>
     <string name="gtasks_error_accountNotFound">%s ගිණුම සොයාගත නොහැකිවිය - කරුණාකර Log out වී Google Tasks සැකසුම් වලින් නැවත ලොග් වන්න.</string>
     <string name="gtasks_GPr_header">Google කාර්යයන්</string>

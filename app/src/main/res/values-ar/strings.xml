@@ -69,7 +69,6 @@
     <string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع مزود الخدمة جوجل. أعد المحاولة مرة أخرى لاحقًًا.</string>
     <string name="gtasks_GPr_header">مهام قوقل</string>
     <string name="premium_record_audio">تسجيل ملاحظة</string>
-    <string name="premium_remove_file_confirm">هل أنت متأكد؟ لا يمكن التراجع</string>
     <string name="rmd_NoA_done">أكمل</string>
     <string name="rmd_NoA_snooze">غفوة</string>
     <string name="rmd_EPr_quiet_hours_start_title">ابتداء ساعات الهدوء</string>

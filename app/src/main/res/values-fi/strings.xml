@@ -116,7 +116,6 @@
     <string name="gtasks_GPr_header">Google tehtävät</string>
     <string name="gtasks_error_accountNotFound">Tiliä %s ei löydy – kirjaudu ulos ja kirjaudu uudelleen Google Tehtävien asetuksiin.</string>
     <string name="premium_record_audio">Tallenna muistiinpano</string>
-    <string name="premium_remove_file_confirm">Oletko varma? Ei voi peruuttaa</string>
     <string name="ring_once">Soi kerran</string>
     <string name="ring_five_times">Soi viisi kertaa</string>
     <string name="ring_nonstop">Soi jatkuvasti</string>

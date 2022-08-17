@@ -130,7 +130,6 @@
     <string name="gtasks_GLA_errorIOAuth">Има проблем с връзката до сървърите на Google. Опитайте отново по-късно.</string>
     <string name="gtasks_error_accountNotFound">Профилът %s не е намерен. Излезте и влезте отново от настройките на Google Tasks.</string>
     <string name="premium_record_audio">Записване на бележка</string>
-    <string name="premium_remove_file_confirm">Сигурни ли сте? Не може да бъде отменено</string>
     <string name="ring_once">Звънене веднъж</string>
     <string name="ring_five_times">Звънене пет пъти</string>
     <string name="ring_nonstop">Звънене без прекъсване</string>

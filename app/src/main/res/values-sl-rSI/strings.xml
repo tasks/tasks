@@ -99,7 +99,6 @@
     <string name="gtasks_GPr_header">Google Naloge</string>
     <string name="gtasks_error_accountNotFound">Račun %s ni najden—prosimo odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
     <string name="premium_record_audio">Posnemi opombo</string>
-    <string name="premium_remove_file_confirm">Ste prepričani? Tega ni mogoče razveljaviti</string>
     <string name="rmd_NoA_done">Končano</string>
     <string name="rmd_NoA_snooze">Dremež</string>
     <string name="rmd_EPr_quiet_hours_start_title">Tihe ure se začnejo ob</string>

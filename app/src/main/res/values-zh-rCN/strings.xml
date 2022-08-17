@@ -114,7 +114,6 @@
     <string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
     <string name="gtasks_error_accountNotFound">找不到帐户 %s —请先退出，再从 Google Tasks 设置中重新登录。</string>
     <string name="premium_record_audio">录制一条便笺</string>
-    <string name="premium_remove_file_confirm">您确定吗？此操作无法恢复喔</string>
     <string name="ring_once">响铃一次</string>
     <string name="ring_five_times">响铃五次</string>
     <string name="ring_nonstop">响个不停</string>

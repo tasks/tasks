@@ -11,7 +11,6 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Firebase
 import org.tasks.data.DeletionDao
 import org.tasks.data.LocationDao
-import org.tasks.data.TaskAttachmentDao
 import org.tasks.data.UserActivityDao
 import org.tasks.files.FileHelper
 import org.tasks.injection.BaseWorker
@@ -28,7 +27,6 @@ class CleanupWork @AssistedInject constructor(
         private val geofenceApi: GeofenceApi,
         private val timerPlugin: TimerPlugin,
         private val alarmService: AlarmService,
-        private val taskAttachmentDao: TaskAttachmentDao,
         private val userActivityDao: UserActivityDao,
         private val locationDao: LocationDao,
         private val deletionDao: DeletionDao) : BaseWorker(context, workerParams, firebase) {
@@ -47,10 +45,6 @@ class CleanupWork @AssistedInject constructor(
             locationDao.getGeofencesForTask(task).forEach {
                 locationDao.delete(it)
                 geofenceApi.update(it.place!!)
-            }
-            taskAttachmentDao.getAttachments(task).forEach {
-                FileHelper.delete(context, it.parseUri())
-                taskAttachmentDao.delete(it)
             }
             userActivityDao.getComments(task).forEach {
                 FileHelper.delete(context, it.pictureUri)

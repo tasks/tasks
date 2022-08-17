@@ -105,7 +105,6 @@
     <string name="gtasks_GPr_header">Google Úkoly</string>
     <string name="gtasks_error_accountNotFound">Účet %s nebyl nalezen — přes nastavení Google Tasks se odhlaste a znovu přihlaste.</string>
     <string name="premium_record_audio">Nahrát poznámku</string>
-    <string name="premium_remove_file_confirm">Opravdu\? Nelze vrátit zpět</string>
     <string name="rmd_NoA_done">Dokončeno</string>
     <string name="rmd_NoA_snooze">Odložit</string>
     <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>

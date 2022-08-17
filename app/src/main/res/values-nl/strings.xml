@@ -125,7 +125,6 @@
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Account %s niet gevonden—probeer opnieuw in te loggen via de instellingen van Google Tasks.</string>
     <string name="premium_record_audio">Notitie opnemen</string>
-    <string name="premium_remove_file_confirm">Doorgaan\? Kan niet teruggezet worden</string>
     <string name="ring_once">Een keer bellen</string>
     <string name="ring_five_times">Vijf keer bellen</string>
     <string name="ring_nonstop">Blijven bellen</string>

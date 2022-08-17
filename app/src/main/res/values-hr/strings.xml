@@ -484,7 +484,6 @@
     <string name="ring_nonstop">Zvoni neprekidno</string>
     <string name="ring_five_times">Zvoni pet puta</string>
     <string name="ring_once">Zvoni jednom</string>
-    <string name="premium_remove_file_confirm">Sigurno\? Ne može se poništiti</string>
     <string name="premium_record_audio">Snimi bilješku</string>
     <string name="gtasks_error_accountNotFound">Račun %s nije pronađen – odjavi se i ponovo se prijavi putem Google Tasks postavki.</string>
     <string name="gtasks_GPr_header">Google Tasks</string>

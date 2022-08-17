@@ -20,7 +20,9 @@ class TaskDuplicator @Inject constructor(
         private val caldavDao: CaldavDao,
         private val locationDao: LocationDao,
         private val alarmDao: AlarmDao,
-        private val preferences: Preferences) {
+        private val preferences: Preferences,
+        private val taskAttachmentDao: TaskAttachmentDao,
+) {
 
     suspend fun duplicate(taskIds: List<Long>): List<Task> {
         val result: MutableList<Task> = ArrayList()
@@ -79,6 +81,16 @@ class TaskDuplicator @Inject constructor(
         }
         gcalHelper.createTaskEventIfEnabled(clone)
         taskDao.save(clone, null) // TODO: delete me
+        taskAttachmentDao
+            .getAttachmentsForTask(originalId)
+            .map {
+                Attachment(
+                    task = clone.id,
+                    fileId = it.fileId,
+                    attachmentUid = it.attachmentUid
+                )
+            }
+            .let { taskAttachmentDao.insert(it) }
         getDirectChildren(originalId).forEach { subtask ->
             clone(subtask, newId)
         }

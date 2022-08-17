@@ -124,7 +124,6 @@
     <string name="gtasks_GLA_errorIOAuth">Perdón, hubo un problema al comunicarse con los servidores de Google. Por favor inténtalo mas tarde.</string>
     <string name="gtasks_error_accountNotFound">No se ha encontrado la cuenta %s — por favor, cierra sesión y vuelve a iniciarla desde la configuración de Google Tasks.</string>
     <string name="premium_record_audio">Grabar una nota</string>
-    <string name="premium_remove_file_confirm">Está seguro? No se puede deshacer</string>
     <string name="ring_once">Sonar una vez</string>
     <string name="ring_five_times">Sonar cinco veces</string>
     <string name="ring_nonstop">Sonar sin parar</string>

@@ -590,7 +590,6 @@
     <string name="ring_nonstop">Đổ chuông không ngừng</string>
     <string name="ring_five_times">Đổ chuông năm lần</string>
     <string name="ring_once">Đổ chuông một lần</string>
-    <string name="premium_remove_file_confirm">Bạn có chắc không\? Không thể hoàn tác</string>
     <string name="premium_record_audio">Ghi lại một bản ghi chú</string>
     <string name="gtasks_error_accountNotFound">Không tìm thấy tài khoản %s—vui lòng đăng xuất và đăng nhập lại trong cài đặt của Google Tasks.</string>
     <string name="gtasks_GPr_header">Google Tasks</string>

@@ -1,61 +1,50 @@
 package org.tasks.data
 
-import android.net.Uri
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.todoroo.astrid.data.Task
-import org.tasks.Strings
-import java.io.File
+import com.todoroo.astrid.helper.UUIDHelper
 
-@Entity(tableName = "task_attachments")
-class TaskAttachment {
+@Entity(tableName = "attachment_file")
+data class TaskAttachment(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "_id")
+    @ColumnInfo(name = "file_id")
     @Transient
-    var id: Long? = null
-
-    @ColumnInfo(name = "remoteId")
-    var remoteId: String? = Task.NO_UUID
-
-    // -- Constants
-    @ColumnInfo(name = "task_id")
-    var taskId: String? = Task.NO_UUID
-
-    @ColumnInfo(name = "name")
-    var name: String? = ""
-
-    @ColumnInfo(name = "path")
-    var uri: String? = ""
-        private set
-
-    @ColumnInfo(name = "content_type")
-    var contentType: String? = ""
-
-    constructor()
-
+    val id: Long? = null,
+    @ColumnInfo(name = "file_uuid")
+    val remoteId: String = UUIDHelper.newUUID(),
+    @ColumnInfo(name = "filename")
+    val name: String,
+    @ColumnInfo(name = "uri")
+    val uri: String,
+) : Parcelable {
     @Ignore
-    constructor(taskUuid: String, uri: Uri?, fileName: String) {
-        taskId = taskUuid
-        name = fileName
-        setUri(uri?.toString())
-    }
+    constructor(parcel: Parcel) : this(
+        remoteId = parcel.readString()!!,
+        name = parcel.readString()!!,
+        uri = parcel.readString()!!,
+    )
 
-    fun setUri(uri: String?) {
-        this.uri = uri
-    }
+    override fun describeContents() = 0
 
-    fun convertPathUri() {
-        setUri(Uri.fromFile(File(uri!!)).toString())
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(remoteId)
+        parcel.writeString(name)
+        parcel.writeString(uri)
     }
-
-    fun parseUri(): Uri? = if (Strings.isNullOrEmpty(uri)) null else Uri.parse(uri)
 
     companion object {
         const val KEY = "attachment"
+        const val FILES_DIRECTORY_DEFAULT = "attachments"
 
-        /** default directory for files on external storage  */
-        const val FILES_DIRECTORY_DEFAULT = "attachments" // $NON-NLS-1$
+        @JvmField
+        val CREATOR = object : Parcelable.Creator<TaskAttachment> {
+            override fun createFromParcel(parcel: Parcel) = TaskAttachment(parcel)
+
+            override fun newArray(size: Int): Array<TaskAttachment?> = arrayOfNulls(size)
+        }
     }
 }

@@ -126,7 +126,6 @@
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Ez da %s kontua aurkitu, amaitu saioa eta hasi saioa berriro Google Tasks ezarpenetatik.</string>
     <string name="premium_record_audio">Grabatu ohar bat</string>
-    <string name="premium_remove_file_confirm">Ziur al zaude\? Hau ezin da desegin</string>
     <string name="ring_once">Doinua behin</string>
     <string name="ring_five_times">Doinua bost aldiz</string>
     <string name="ring_nonstop">Doinua etengabe</string>

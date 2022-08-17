@@ -30,12 +30,13 @@ import org.tasks.notifications.NotificationDao
         CaldavAccount::class,
         GoogleTaskAccount::class,
         Principal::class,
-        PrincipalAccess::class
+        PrincipalAccess::class,
+        Attachment::class,
     ],
     autoMigrations = [
         AutoMigration(from = 83, to = 84, spec = Migrations.AutoMigrate83to84::class),
     ],
-    version = 85
+    version = 86
 )
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao

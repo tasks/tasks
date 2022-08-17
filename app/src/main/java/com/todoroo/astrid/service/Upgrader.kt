@@ -1,6 +1,7 @@
 package com.todoroo.astrid.service
 
 import android.content.Context
+import android.net.Uri
 import androidx.annotation.ColorRes
 import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
@@ -266,8 +267,11 @@ class Upgrader @Inject constructor(
             userActivityDao.update(userActivity)
         }
         for (attachment in taskAttachmentDao.getAttachments()) {
-            attachment.convertPathUri()
-            taskAttachmentDao.update(attachment)
+            taskAttachmentDao.update(
+                attachment.copy(
+                    uri = Uri.fromFile(File(attachment.uri)).toString()
+                )
+            )
         }
     }
 

@@ -508,7 +508,6 @@
     <string name="ring_nonstop">แหวนไม่หยุดนิ่ง</string>
     <string name="ring_five_times">แหวนห้าครั้ง</string>
     <string name="ring_once">เรียกหนึ่งครั้ง</string>
-    <string name="premium_remove_file_confirm">เธอแน่ใจหรือ ไม่สามารถเลิกทําได้</string>
     <string name="premium_record_audio">การบันทึกบันทึกย่อ</string>
     <string name="gtasks_GPr_header">งานของ Google</string>
     <string name="gtasks_GLA_authenticating">กําลังรับรองความถูกต้อง…</string>

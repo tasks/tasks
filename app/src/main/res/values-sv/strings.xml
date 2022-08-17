@@ -116,7 +116,6 @@
     <string name="gtasks_GPr_header">Google Uppgifter</string>
     <string name="gtasks_error_accountNotFound">Kontot %s hittades inte— vänligen logga ut och in igen från inställningarna för Google Tasks.</string>
     <string name="premium_record_audio">Spela in en anteckning</string>
-    <string name="premium_remove_file_confirm">Är du säker? Detta kan inte ångras</string>
     <string name="ring_once">Ring en gång</string>
     <string name="ring_five_times">Ring fem gånger</string>
     <string name="ring_nonstop">Ring konstant</string>
