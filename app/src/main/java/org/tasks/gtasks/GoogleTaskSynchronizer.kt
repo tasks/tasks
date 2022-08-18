@@ -15,6 +15,7 @@ import com.todoroo.astrid.gtasks.api.GtasksApiUtilities
 import com.todoroo.astrid.gtasks.api.GtasksInvoker
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException
 import com.todoroo.astrid.service.TaskCreator
+import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
@@ -55,8 +56,9 @@ class GoogleTaskSynchronizer @Inject constructor(
         private val localBroadcastManager: LocalBroadcastManager,
         private val inventory: Inventory,
         private val taskDeleter: TaskDeleter,
-        private val invokers: InvokerFactory) {
-
+        private val invokers: InvokerFactory,
+        private val alarmDao: AlarmDao,
+) {
     suspend fun sync(account: GoogleTaskAccount, i: Int) {
         Timber.d("%s: start sync", account)
         try {
@@ -357,6 +359,7 @@ class GoogleTaskSynchronizer @Inject constructor(
         task.suppressRefresh()
         if (task.isNew) {
             taskDao.createNew(task)
+            alarmDao.insert(task.getDefaultAlarms())
         }
         taskDao.save(task)
         googleTask.lastSync = task.modificationDate
