@@ -21,6 +21,7 @@ import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.data.Task.Companion.hasDueTime
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
+import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
@@ -73,6 +74,7 @@ class TaskEditViewModel @Inject constructor(
         private val mainActivityEvents: MainActivityEventBus,
         private val firebase: Firebase? = null,
         private val userActivityDao: UserActivityDao,
+        private val alarmDao: AlarmDao,
 ) : ViewModel() {
     private val resources = context.resources
     private var cleared = false
@@ -275,6 +277,7 @@ class TaskEditViewModel @Inject constructor(
                 subtask.completionDate = task.completionDate
             }
             taskDao.createNew(subtask)
+            alarmDao.insert(subtask.getDefaultAlarms())
             firebase?.addTask("subtasks")
             when (selectedList.value) {
                 is GtasksFilter -> {
