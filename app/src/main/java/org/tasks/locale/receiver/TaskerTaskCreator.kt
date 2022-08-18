@@ -4,8 +4,10 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.service.TaskCreator
+import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
+import org.tasks.data.AlarmDao
 import org.tasks.locale.bundle.TaskCreationBundle
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils
@@ -21,6 +23,7 @@ class TaskerTaskCreator @Inject internal constructor(
         private val taskCreator: TaskCreator,
         private val taskDao: TaskDao,
         private val firebase: Firebase,
+        private val alarmDao: AlarmDao,
 ) {
     suspend fun handle(bundle: TaskCreationBundle) {
         val task = taskCreator.basicQuickAddTask(bundle.title)
@@ -59,6 +62,7 @@ class TaskerTaskCreator @Inject internal constructor(
         }
         task.notes = bundle.description
         taskDao.save(task)
+        alarmDao.insert(task.getDefaultAlarms())
         taskCreator.createTags(task)
         firebase.addTask("tasker")
     }
