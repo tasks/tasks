@@ -1,6 +1,7 @@
 package org.tasks.jobs
 
 import android.content.Context
+import android.location.Location
 import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
@@ -8,6 +9,7 @@ import dagger.assisted.AssistedInject
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.data.LocationDao
+import org.tasks.data.Place
 import org.tasks.injection.BaseWorker
 import org.tasks.location.Geocoder
 import timber.log.Timber
@@ -20,10 +22,6 @@ class ReverseGeocodeWork @AssistedInject constructor(
         private val localBroadcastManager: LocalBroadcastManager,
         private val geocoder: Geocoder,
         private val locationDao: LocationDao) : BaseWorker(context, workerParams, firebase) {
-
-    companion object {
-        const val PLACE_ID = "place_id"
-    }
 
     override suspend fun run(): Result {
         val id = inputData.getLong(PLACE_ID, 0)
@@ -38,15 +36,35 @@ class ReverseGeocodeWork @AssistedInject constructor(
         }
         return try {
             val result = geocoder.reverseGeocode(place.mapPosition) ?: return Result.failure()
-            result.id = place.id
-            result.uid = place.uid
-            locationDao.update(result)
+            val distanceBetween = place.distanceTo(result)
+            if (distanceBetween > 100) {
+                Timber.d("Ignoring $result - ${distanceBetween}m away")
+                return Result.failure()
+            }
+            place.name = result.name
+            place.address = result.address
+            place.phone = result.phone
+            place.url = result.url
+            locationDao.update(place)
             localBroadcastManager.broadcastRefresh()
             Timber.d("found $result")
             Result.success()
         } catch (e: Exception) {
             firebase.reportException(e)
             Result.failure()
+        }
+    }
+
+    companion object {
+        const val PLACE_ID = "place_id"
+
+        private fun Place.distanceTo(other: Place) = toLocation().distanceTo(other.toLocation())
+
+        private fun Place.toLocation(): Location {
+            return Location(null).apply {
+                latitude = this@toLocation.latitude
+                longitude = this@toLocation.longitude
+            }
         }
     }
 }
