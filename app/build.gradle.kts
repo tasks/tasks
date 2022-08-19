@@ -233,7 +233,10 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:${Versions.compose}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
     implementation("androidx.compose.ui:ui-viewbinding:${Versions.compose}")
-    implementation("io.coil-kt:coil-compose:2.1.0")
+    implementation("io.coil-kt:coil-compose:${Versions.coil}")
+    implementation("io.coil-kt:coil-video:${Versions.coil}")
+    implementation("io.coil-kt:coil-svg:${Versions.coil}")
+    implementation("io.coil-kt:coil-gif:${Versions.coil}")
     releaseCompileOnly("androidx.compose.ui:ui-tooling:${Versions.compose}")
 
     implementation("com.google.accompanist:accompanist-flowlayout:${Versions.accompanist}")

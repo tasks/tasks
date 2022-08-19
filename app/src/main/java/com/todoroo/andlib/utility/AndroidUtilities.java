@@ -151,6 +151,10 @@ public class AndroidUtilities {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
   }
 
+  public static boolean atLeastP() {
+    return VERSION.SDK_INT >= Build.VERSION_CODES.P;
+  }
+
   public static boolean atLeastQ() {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
   }

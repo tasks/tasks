@@ -22,4 +22,5 @@ object Versions {
     const val compose = "1.2.1"
     const val compose_theme_adapter = "1.1.11"
     const val accompanist = "0.24.12-rc"
+    const val coil = "2.2.0"
 }

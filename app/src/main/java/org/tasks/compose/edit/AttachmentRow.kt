@@ -1,29 +1,48 @@
 package org.tasks.compose.edit
 
 import android.content.res.Configuration
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.outlined.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
+import coil.ImageLoader
+import coil.compose.AsyncImage
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
+import coil.decode.SvgDecoder
+import coil.decode.VideoFrameDecoder
+import coil.request.CachePolicy
+import coil.request.ImageRequest
+import com.google.accompanist.flowlayout.FlowRow
 import com.google.android.material.composethemeadapter.MdcTheme
+import com.todoroo.andlib.utility.AndroidUtilities
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.TaskAttachment
+import org.tasks.files.FileHelper
+
+private val SIZE = 128.dp
 
 @Composable
 fun AttachmentRow(
@@ -32,45 +51,187 @@ fun AttachmentRow(
     deleteAttachment: (TaskAttachment) -> Unit,
     addAttachment: () -> Unit,
 ) {
+    val context = LocalContext.current
+    val imageLoader = remember {
+        ImageLoader.Builder(context)
+            .components {
+                add(VideoFrameDecoder.Factory())
+                if (AndroidUtilities.atLeastP()) {
+                    add(ImageDecoderDecoder.Factory(true))
+                } else {
+                    add(GifDecoder.Factory(true))
+                }
+                add(SvgDecoder.Factory())
+            }
+            .build()
+    }
+    val thumbnailSize = with(LocalDensity.current) { SIZE.toPx().toInt() }
     TaskEditRow(
         iconRes = R.drawable.ic_outline_attachment_24px,
         content = {
-            Column(
-                modifier = Modifier.padding(top = if (attachments.isEmpty()) 0.dp else 8.dp),
-            ) {
-                attachments.forEach {
-                    Row(
-                        modifier = Modifier
-                            .clickable { openAttachment(it) },
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = it.name,
-                            modifier = Modifier.weight(1f),
-                        )
-                        IconButton(onClick = { deleteAttachment(it) }) {
-                            Icon(
-                                imageVector = Icons.Outlined.Clear,
-                                contentDescription = stringResource(
-                                    id = R.string.delete
-                                ),
-                                modifier = Modifier.alpha(ContentAlpha.medium),
-                            )
+            if (attachments.isNotEmpty()) {
+                FlowRow(
+                    mainAxisSpacing = 8.dp,
+                    crossAxisSpacing = 8.dp,
+                    modifier = Modifier.padding(top = 24.dp, bottom = 24.dp, end = 16.dp)
+                ) {
+                    attachments.forEach {
+                        val mimeType = FileHelper.getMimeType(LocalContext.current, it.uri.toUri())
+                        when {
+                            mimeType?.startsWith("image/") == true ||
+                                    mimeType?.startsWith("video/") == true -> {
+                                Box {
+                                    var failed by remember { mutableStateOf(false) }
+                                    AsyncImage(
+                                        model = ImageRequest.Builder(LocalContext.current)
+                                            .memoryCachePolicy(CachePolicy.ENABLED)
+                                            .data(it.uri)
+                                            .crossfade(true)
+                                            .size(thumbnailSize)
+                                            .build(),
+                                        imageLoader = imageLoader,
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .clip(RoundedCornerShape(8.dp))
+                                            .clickable { openAttachment(it) },
+                                        onError = { failed = true }
+                                    )
+                                    if (failed) {
+                                        NoThumbnail(
+                                            filename = it.name,
+                                            mimeType = mimeType,
+                                            open = { openAttachment(it) },
+                                            delete = { deleteAttachment(it) }
+                                        )
+                                    } else {
+                                        if (mimeType.startsWith("video/")) {
+                                            Icon(
+                                                imageVector = Icons.Outlined.PlayCircle,
+                                                contentDescription = null,
+                                                tint = Color.White.copy(
+                                                    alpha = ContentAlpha.medium
+                                                ),
+                                                modifier = Modifier.align(Alignment.Center),
+                                            )
+                                        }
+                                        DeleteAttachment(
+                                            onClick = { deleteAttachment(it) },
+                                            color = Color.White,
+                                        )
+                                    }
+                                }
+                            }
+                            else ->
+                                NoThumbnail(
+                                    filename = it.name,
+                                    mimeType = mimeType,
+                                    open = { openAttachment(it) },
+                                    delete = { deleteAttachment(it) },
+                                )
                         }
                     }
+                    Box(
+                        modifier = Modifier
+                            .height(SIZE)
+                            .clickable { addAttachment() }
+                            .border(
+                                width = 1.dp,
+                                color = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
+                                shape = RoundedCornerShape(8.dp),
+                            ),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Add,
+                            contentDescription = stringResource(id = R.string.add_attachment),
+                            modifier = Modifier
+                                .size(48.dp)
+                                .align(Alignment.Center),
+                            tint = MaterialTheme.colors.onSurface.copy(
+                                alpha = ContentAlpha.medium
+                            ),
+                        )
+                    }
                 }
+            } else {
                 DisabledText(
                     text = stringResource(id = R.string.add_attachment),
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable { addAttachment() }
-                        .padding(
-                            top = if (attachments.isEmpty()) 20.dp else 8.dp,
-                            bottom = 20.dp,
-                        )
+                        .padding(vertical = 20.dp),
                 )
             }
         },
+    )
+}
+
+@Composable
+fun NoThumbnail(
+    filename: String,
+    mimeType: String?,
+    open: () -> Unit,
+    delete: () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .size(width = 100.dp, height = SIZE)
+            .clickable { open() }
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
+                shape = RoundedCornerShape(8.dp),
+            ),
+    ) {
+        Column(modifier = Modifier.align(Alignment.Center)) {
+            Icon(
+                imageVector = when {
+                    mimeType?.startsWith("image/") == true -> Icons.Outlined.Image
+                    mimeType?.startsWith("video/") == true -> Icons.Outlined.Movie
+                    mimeType?.startsWith("audio/") == true -> Icons.Outlined.MusicNote
+                    else -> Icons.Outlined.Description
+                },
+                contentDescription = null,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .alpha(ContentAlpha.medium),
+                tint = MaterialTheme.colors.onSurface.copy(
+                    alpha = ContentAlpha.medium
+                ),
+            )
+            Text(
+                text = filename,
+                style = MaterialTheme.typography.caption.copy(
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colors.onSurface,
+                ),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(8.dp),
+            )
+        }
+        DeleteAttachment(
+            onClick = { delete() },
+            color = MaterialTheme.colors.onSurface,
+        )
+    }
+}
+
+@Composable
+fun BoxScope.DeleteAttachment(
+    onClick: () -> Unit,
+    color: Color,
+) {
+    Icon(
+        imageVector = Icons.Outlined.Cancel,
+        contentDescription = null,
+        modifier = Modifier
+            .alpha(ContentAlpha.medium)
+            .align(Alignment.TopEnd)
+            .padding(vertical = 4.dp, horizontal = 4.dp)
+            .clickable { onClick() },
+        tint = color.copy(alpha = ContentAlpha.medium),
     )
 }
 
