@@ -10,6 +10,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.LocationDao
@@ -41,6 +42,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
     @Inject lateinit var map: MapFragment
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var locale: Locale
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var place: Place
 
@@ -130,6 +132,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         locationDao.deleteGeofencesByPlace(place.uid!!)
         locationDao.delete(place)
         setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
+        localBroadcastManager.broadcastRefreshList()
         finish()
     }
 
