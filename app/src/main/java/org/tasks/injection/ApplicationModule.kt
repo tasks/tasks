@@ -30,7 +30,7 @@ class ApplicationModule {
         return AppCompatDelegate.getApplicationLocales()
             .toLanguageTags()
             .split(",")
-            .firstOrNull()
+            .firstOrNull { it.isNotBlank() }
             ?.let { Locale.forLanguageTag(it) }
             ?: Locale.getDefault()
     }
