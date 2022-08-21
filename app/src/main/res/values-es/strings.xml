@@ -271,7 +271,7 @@
     <string name="pick_a_date_and_time">Elegir fecha y hora</string>
     <string name="when_overdue">Si está atrasada</string>
     <string name="when_due">En la fecha límite</string>
-    <string name="geofence_radius">Radio</string>
+    <string name="geofence_radius">Radio de la geocerca</string>
     <string name="tags">Etiquetas</string>
     <string name="filters">Filtros</string>
     <string name="date_shortcut_hour">Por una hora</string>
@@ -722,11 +722,11 @@
     </plurals>
     <string name="custom_notification">Notificación personalizada</string>
     <string name="caldav_server_type">Tipo de servidor</string>
-    <string name="filter_snoozed">Dormitado</string>
+    <string name="filter_snoozed">Aplazado</string>
     <string name="randomly_every">Aleatoriamente cada %s</string>
     <string name="caldav_server_unknown">Desconocido</string>
     <string name="caldav_server_other">Otro</string>
-    <string name="dismiss">Despedir</string>
+    <string name="dismiss">Descartar</string>
     <string name="customize_edit_screen_summary">Reorganizar o quitar campos</string>
     <string name="hint_customize_edit_title">¿Demasiada información\?</string>
     <string name="hint_customize_edit_body">Puede personalizar esta pantalla reorganizando o eliminando campos</string>
