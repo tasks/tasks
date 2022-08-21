@@ -272,7 +272,7 @@
     <string name="pick_a_date_and_time">Scegli data e ora</string>
     <string name="when_overdue">Una volta scaduta</string>
     <string name="when_due">Alla scadenza</string>
-    <string name="geofence_radius">Raggio</string>
+    <string name="geofence_radius">Raggio area geografica</string>
     <string name="tags">Etichette</string>
     <string name="filters">Filtri</string>
     <string name="date_shortcut_hour">Per un\'ora</string>
