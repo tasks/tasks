@@ -270,7 +270,7 @@
     <string name="pick_a_date_and_time">Datum en tijd kiezen</string>
     <string name="when_overdue">Bij overtijd</string>
     <string name="when_due">Bij vervallen</string>
-    <string name="geofence_radius">Straal</string>
+    <string name="geofence_radius">Geofence-straal</string>
     <string name="tags">Labels</string>
     <string name="date_shortcut_hour">Voor een uur</string>
     <string name="date_shortcut_morning">Ochtend</string>
