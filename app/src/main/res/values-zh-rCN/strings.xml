@@ -391,7 +391,7 @@
     <string name="gtasks_GPr_header">谷歌任务</string>
     <string name="google_drive_backup">备份到 Google Drive</string>
     <string name="add_location">添加位置</string>
-    <string name="geofence_radius">半径</string>
+    <string name="geofence_radius">地理围栏半径</string>
     <string name="location_radius_meters">%s 米</string>
     <string name="manage_subscription">修改订阅</string>
     <string name="location_remind_arrival">到达时提醒</string>
