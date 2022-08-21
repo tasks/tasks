@@ -254,7 +254,7 @@
     <string name="pick_a_date_and_time">Choisir date et heure</string>
     <string name="when_overdue">En cas de retard</string>
     <string name="when_due">À l\'échéance</string>
-    <string name="geofence_radius">Rayon</string>
+    <string name="geofence_radius">Rayon du géorepérage</string>
     <string name="filters">Filtres</string>
     <string name="date_shortcut_hour">Dans une heure</string>
     <string name="date_shortcut_morning">Matin</string>
