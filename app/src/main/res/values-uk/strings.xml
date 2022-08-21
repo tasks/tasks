@@ -288,7 +288,7 @@
     <string name="pick_a_date_and_time">Обрати дату й час</string>
     <string name="when_overdue">Коли прострочено</string>
     <string name="when_due">У призначений час</string>
-    <string name="geofence_radius">Радіус</string>
+    <string name="geofence_radius">Радіус геозони</string>
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Мітки</string>
     <string name="filters">Фільтри</string>
