@@ -16,6 +16,8 @@ interface MapFragment {
 
     fun showMyLocation()
 
+    fun showCircle(radius: Double, latitude: Double, longitude: Double)
+
     fun onPause()
 
     fun onResume()

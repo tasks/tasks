@@ -14,6 +14,7 @@ import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.CopyrightOverlay
 import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.Polygon
 import org.osmdroid.views.overlay.TilesOverlay
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
@@ -28,6 +29,7 @@ class OsmMapFragment @Inject constructor(
     private lateinit var callback: MapFragmentCallback
     private lateinit var map: MapView
     private var locationOverlay: MyLocationNewOverlay? = null
+    private var circle: Polygon? = null
 
     override fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean) {
         this.callback = callback
@@ -92,6 +94,17 @@ class OsmMapFragment @Inject constructor(
             enableAutoStop = false
         }
         map.overlays.add(locationOverlay)
+    }
+
+    override fun showCircle(radius: Double, latitude: Double, longitude: Double) {
+        circle?.let { map.overlays.remove(it) }
+        circle = Polygon(map).apply {
+            points = Polygon.pointsAsCircle(GeoPoint(latitude, longitude), radius)
+            fillPaint.color = context.getColor(R.color.map_circle_fill)
+            outlinePaint.color = context.getColor(R.color.map_circle_stroke)
+            map.overlays.add(0, this)
+        }
+        map.invalidate()
     }
 
     override fun onPause() {

@@ -25,7 +25,8 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmentCallback {
+class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmentCallback,
+    Slider.OnChangeListener {
 
     companion object {
         const val EXTRA_PLACE = "extra_place"
@@ -95,6 +96,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
             haloRadius = 0
             value = (place.radius / STEP * STEP).roundToInt().toFloat()
         }
+        slider.addOnChangeListener(this)
         it.root
     }
 
@@ -125,7 +127,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
     override val isNew: Boolean
         get() = false
 
-    override val toolbarTitle: String?
+    override val toolbarTitle: String
         get() = place.address ?: place.displayName
 
     override suspend fun delete() {
@@ -141,7 +143,27 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         map.setMarkers(listOf(place))
         map.disableGestures()
         map.movePosition(place.mapPosition, false)
+        updateGeofenceCircle()
     }
 
     override fun onPlaceSelected(place: Place) {}
+    override fun onValueChange(slider: Slider, value: Float, fromUser: Boolean) {
+        updateGeofenceCircle()
+    }
+
+    private fun updateGeofenceCircle() {
+        val radius = slider.value.toDouble()
+        val zoom = when (radius) {
+            in 0f..300f -> 15f
+            in 300f..500f -> 14.5f
+            in 500f..700f -> 14.25f
+            in 700f..900f -> 14f
+            else -> 13.75f
+        }
+        map.showCircle(radius, place.latitude, place.longitude)
+        map.movePosition(
+            mapPosition = place.mapPosition.copy(zoom = zoom),
+            animate = true,
+        )
+    }
 }

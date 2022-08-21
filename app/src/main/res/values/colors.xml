@@ -147,6 +147,8 @@
   <color name="text_tertiary">@color/black_38</color>
   <color name="divider">@color/black_12</color>
   <color name="default_chip_background">@color/grey_300</color>
+  <color name="map_circle_stroke">#2196f3</color>
+  <color name="map_circle_fill">#332196f3</color>
 
 </resources>
 

@@ -12,7 +12,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.data.Place
 import org.tasks.location.MapFragment.MapFragmentCallback
-import java.util.*
 import javax.inject.Inject
 
 class GoogleMapFragment @Inject constructor(
@@ -22,6 +21,7 @@ class GoogleMapFragment @Inject constructor(
     private lateinit var callback: MapFragmentCallback
     private var dark = false
     private var map: GoogleMap? = null
+    private var circle: Circle? = null
 
     override fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean) {
         this.callback = callback
@@ -73,6 +73,17 @@ class GoogleMapFragment @Inject constructor(
     @SuppressLint("MissingPermission")
     override fun showMyLocation() {
         map?.isMyLocationEnabled = true
+    }
+
+    override fun showCircle(radius: Double, latitude: Double, longitude: Double) {
+        circle?.remove()
+        circle = map?.addCircle(
+            CircleOptions()
+                .radius(radius)
+                .center(LatLng(latitude, longitude))
+                .strokeColor(context.getColor(R.color.map_circle_stroke))
+                .fillColor(context.getColor(R.color.map_circle_fill))
+        )
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
