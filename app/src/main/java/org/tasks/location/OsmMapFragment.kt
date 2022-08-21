@@ -72,7 +72,7 @@ class OsmMapFragment @Inject constructor(
         for (place in places) {
             overlays.add(Marker(map).apply {
                 position = GeoPoint(place.latitude, place.longitude)
-                setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_TOP)
+                setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
                 icon = ContextCompat.getDrawable(context, R.drawable.ic_map_marker_select_red_48dp)!!.mutate()
                 setOnMarkerClickListener { _, _ ->
                     callback.onPlaceSelected(place)
