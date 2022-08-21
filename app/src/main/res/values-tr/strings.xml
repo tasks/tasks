@@ -273,7 +273,7 @@
     <string name="pick_a_date_and_time">Bir tarih ve zaman seç</string>
     <string name="when_overdue">Geciktiğinde</string>
     <string name="when_due">Zamanı geldiğinde</string>
-    <string name="geofence_radius">Yarıçap</string>
+    <string name="geofence_radius">Coğrafi sınır yarıçapı</string>
     <string name="tags">Etiketler</string>
     <string name="filters">Süzgeçler</string>
     <string name="date_shortcut_hour">Bir saatliğine</string>
