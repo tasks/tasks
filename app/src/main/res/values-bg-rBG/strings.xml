@@ -277,7 +277,7 @@
     <string name="pick_a_date_and_time">Избиране на дата и час</string>
     <string name="when_overdue">След крайния срок</string>
     <string name="when_due">При краен срок</string>
-    <string name="geofence_radius">Радиус</string>
+    <string name="geofence_radius">Радиус на геозащита</string>
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Етикети</string>
     <string name="filters">Филтри</string>
