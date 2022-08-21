@@ -21,7 +21,7 @@ class FilterPicker : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return dialogBuilder
             .newDialog()
-            .setNegativeButton(R.string.cancel, null)
+            .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.cancel() }
             .setContent {
                 FilterPicker(
                     selected = arguments?.getParcelable(EXTRA_FILTER),
