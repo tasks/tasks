@@ -6,7 +6,6 @@ import com.google.api.client.util.DateTime
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.Tasks
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task.Companion.createDueDate
@@ -334,7 +333,6 @@ class GoogleTaskSynchronizer @Inject constructor(
                 task = taskCreator.createWithValues("")
             }
             task.title = getTruncatedValue(task.title, gtask.title, MAX_TITLE_LENGTH)
-            task.creationDate = DateUtilities.now()
             task.completionDate = GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtask.completed?.let(::DateTime))
             val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due?.let(::DateTime))
             mergeDates(createDueDate(com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY, dueDate), task)

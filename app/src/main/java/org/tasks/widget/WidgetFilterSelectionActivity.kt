@@ -12,6 +12,7 @@ import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
