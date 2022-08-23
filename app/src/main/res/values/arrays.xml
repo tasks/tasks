@@ -126,33 +126,6 @@
     <item>3</item>
   </string-array>
 
-  <string-array name="synchronization_services">
-    <item>@string/tasks_org</item>
-    <item>@string/gtasks_GPr_header</item>
-    <item>@string/davx5</item>
-    <item>@string/caldav</item>
-    <item>@string/etesync</item>
-    <item>@string/decsync</item>
-  </string-array>
-
-  <string-array name="synchronization_services_description">
-    <item>@string/tasks_org_description</item>
-    <item>@string/google_tasks_selection_description</item>
-    <item>@string/davx5_selection_description</item>
-    <item>@string/caldav_selection_description</item>
-    <item>@string/etesync_selection_description</item>
-    <item>@string/decsync_selection_description</item>
-  </string-array>
-
-  <array name="synchronization_services_icons">
-    <item>@drawable/ic_round_icon</item>
-    <item>@drawable/ic_google</item>
-    <item>@drawable/ic_davx5_icon_green_bg</item>
-    <item>@drawable/ic_webdav_logo</item>
-    <item>@drawable/ic_etesync</item>
-    <item>@drawable/ic_decsync</item>
-  </array>
-
   <string-array name="chip_appearance">
     <item>@string/chip_appearance_text_and_icon</item>
     <item>@string/chip_appearance_text_only</item>
