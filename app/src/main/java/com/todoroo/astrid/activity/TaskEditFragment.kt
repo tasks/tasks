@@ -115,6 +115,10 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     lateinit var binding: FragmentTaskEditBinding
     private var showKeyboard = false
     private val refreshReceiver = RefreshReceiver()
+    private val beastMode =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            activity?.recreate()
+        }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -269,9 +273,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                     showSettings = {
                         visible = false
                         preferences.shownBeastModeHint = true
-                        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                            activity?.recreate()
-                        }.launch(Intent(context, BeastModePreferences::class.java))
+                        beastMode.launch(Intent(context, BeastModePreferences::class.java))
                         firebase.logEvent(R.string.event_banner_beast, R.string.param_click to true)
                     },
                     dismiss = {
