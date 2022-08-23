@@ -23,7 +23,8 @@ class RepeatRuleToString @Inject constructor(
 ) {
     private val weekdays = listOf(*Day.values())
 
-    fun toString(rrule: String?): String? = rrule?.let { toString(newRecur(it)) }
+    fun toString(rrule: String?): String? =
+        rrule?.takeIf { it.isNotBlank() }?.let { toString(newRecur(it)) }
 
     private fun toString(rrule: Recur): String = try {
         val interval = rrule.interval
