@@ -24,7 +24,8 @@ class WidgetFilterSelectionActivity : InjectingAppCompatActivity() {
         super.onCreate(savedInstanceState)
         val widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
         if (widgetId == -1) {
-            throw RuntimeException("Missing ${AppWidgetManager.EXTRA_APPWIDGET_ID}")
+            Timber.e("Missing ${AppWidgetManager.EXTRA_APPWIDGET_ID}")
+            finish()
         }
         supportFragmentManager
             .setFragmentResultListener(SELECT_FILTER, this) { _, result ->
