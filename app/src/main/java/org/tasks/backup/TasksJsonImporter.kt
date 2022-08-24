@@ -119,7 +119,7 @@ class TasksJsonImporter @Inject constructor(
                     taskListMetadataDao.insert(tlm)
                 }
             }
-            backupContainer.taskAttachments.forEach { attachment ->
+            backupContainer.taskAttachments?.forEach { attachment ->
                 if (taskAttachmentDao.getAttachment(attachment.remoteId) == null) {
                     taskAttachmentDao.insert(attachment)
                 }

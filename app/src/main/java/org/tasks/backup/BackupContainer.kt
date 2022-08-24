@@ -14,7 +14,7 @@ class BackupContainer(
         val caldavAccounts: List<CaldavAccount>?,
         val caldavCalendars: List<CaldavCalendar>?,
         val taskListMetadata: List<TaskListMetadata>?,
-        val taskAttachments: List<TaskAttachment>,
+        val taskAttachments: List<TaskAttachment>?,
         val intPrefs: Map<String, Integer>?,
         val longPrefs: Map<String, java.lang.Long>?,
         val stringPrefs: Map<String, String>?,
