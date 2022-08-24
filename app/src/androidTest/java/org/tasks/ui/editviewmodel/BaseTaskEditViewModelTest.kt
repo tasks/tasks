@@ -77,6 +77,7 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
             MutableSharedFlow(),
             userActivityDao = userActivityDao,
             taskAttachmentDao = db.taskAttachmentDao,
+            alarmDao = db.alarmDao,
         )
     }
 

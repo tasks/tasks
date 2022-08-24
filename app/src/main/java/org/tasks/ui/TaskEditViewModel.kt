@@ -206,7 +206,8 @@ class TaskEditViewModel @Inject constructor(
                 originalList != selectedList.value ||
                 originalLocation != selectedLocation.value ||
                 originalTags.toHashSet() != selectedTags.value.toHashSet() ||
-                originalAttachments.toHashSet() != selectedAttachments.value.toHashSet() ||
+                (::originalAttachments.isInitialized &&
+                        originalAttachments.toHashSet() != selectedAttachments.value.toHashSet()) ||
                 newSubtasks.value.isNotEmpty() ||
                 getRingFlags() != when {
                     task.isNotifyModeFive -> NOTIFY_MODE_FIVE
@@ -324,7 +325,10 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = now()
         }
 
-        if (selectedAttachments.value.toHashSet() != originalAttachments.toHashSet()) {
+        if (
+            this@TaskEditViewModel::originalAttachments.isInitialized &&
+            selectedAttachments.value.toHashSet() != originalAttachments.toHashSet()
+        ) {
             originalAttachments
                 .minus(selectedAttachments.value.toSet())
                 .map { it.remoteId }
@@ -445,8 +449,10 @@ class TaskEditViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            originalAttachments = taskAttachmentDao.getAttachments(task.id)
-            selectedAttachments.update { originalAttachments }
+            taskAttachmentDao.getAttachments(task.id).let { attachments ->
+                selectedAttachments.update { attachments }
+                originalAttachments = attachments
+            }
         }
     }
 
