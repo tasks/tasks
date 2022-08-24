@@ -1,11 +1,13 @@
 * Show thumbnails for attachments
 * Tap on existing alarms to replace them
 * Add task info row to edit screen
+* Show geofence circle in place settings
 * Updated chip style
 * Major internal changes to task edit screen. Please report any bugs!
 * Android 13 support
 * Improvements to copying tasks
 * Fix some missing reminders
+* Fix Google Task creation time
 * Fix EteSync stops synchronizing
 * Don't overwrite coordinates when synchronizing locations
 * Update translations

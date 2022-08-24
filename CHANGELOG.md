@@ -1,10 +1,11 @@
-### 13.0 (2022-08-20)
+### 13.0 (2022-08-24)
 
 * 🚨 Major internal changes to task edit screen. Please report any bugs! 🚨
 * Show thumbnails for attachments
 * Tap on existing alarms to replace them
 * Add task info row to edit screen [#1839](https://github.com/tasks/tasks/pull/1839)
 * Updated chip style
+* Show geofence circle in place settings
 * Android 13 support
   * Runtime notification permissions
   * Language preference
@@ -16,6 +17,7 @@
   * Incoming Google Tasks
   * Tasker tasks [#1937](https://github.com/tasks/tasks/issues/1937)
   * New subtasks [#1914](https://github.com/tasks/tasks/issues/1914)
+* Fix Google Task creation time
 * Fix EteSync stops synchronizing [#1893](https://github.com/tasks/tasks/issues/1893)
 * Don't overwrite coordinates when synchronizing locations [#1667](https://github.com/tasks/tasks/issues/1667)
 * Update translations
