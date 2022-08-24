@@ -16,6 +16,9 @@ on:
       - 'fastlane/**'
       - .github/FUNDING.yml
 
+permissions:
+  contents: read
+
 jobs:
   build:
 
