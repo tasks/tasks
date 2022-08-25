@@ -415,7 +415,7 @@
     <string name="password_required">É necessária a palavra-passe</string>
     <string name="username_required">É necessário o nome de utilizador</string>
     <string name="move">Mover</string>
-    <string name="geofence_radius">Alcance</string>
+    <string name="geofence_radius">Raio da cerca geográfica</string>
     <string name="add_location">Adicionar local</string>
     <string name="google_drive_backup">Cópia de segurança no Google Drive</string>
     <string name="rmd_NoA_snooze">Adiar</string>
