@@ -239,7 +239,7 @@
     <string name="date_shortcut_hour">Pentru o oră</string>
     <string name="tags">Etichete</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="geofence_radius">Raza de acțiune</string>
+    <string name="geofence_radius">Raza geofence</string>
     <string name="when_due">La scadență</string>
     <string name="when_overdue">În caz de întârziere</string>
     <string name="pick_a_date_and_time">Alegeți o dată și o oră</string>
