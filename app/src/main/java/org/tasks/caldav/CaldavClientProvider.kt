@@ -15,6 +15,7 @@ import org.tasks.DebugNetworkInterceptor
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.data.CaldavAccount
+import org.tasks.http.UserAgentInterceptor
 import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption
 import java.util.concurrent.TimeUnit
@@ -95,6 +96,7 @@ class CaldavClientProvider @Inject constructor(
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS)
+                .addNetworkInterceptor(UserAgentInterceptor)
         auth?.let {
             builder.addNetworkInterceptor(it)
             if (it is Authenticator) {
