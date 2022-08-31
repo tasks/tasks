@@ -7,7 +7,6 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
 import org.tasks.tags.CheckBoxTriStates.State
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -46,10 +45,23 @@ class TagPickerViewModel @Inject constructor(
     }
 
     private fun onUpdate(results: MutableList<TagData>) {
+        val sorted = results
+            .sortedWith { l, r ->
+                val lSelected = selected.contains(l) || partiallySelected.contains(r)
+                val rSelected = selected.contains(r) || partiallySelected.contains(r)
+                if (lSelected && !rSelected) {
+                    -1
+                } else if (rSelected) {
+                    1
+                } else {
+                    0
+                }
+            }
+            .toMutableList()
         if (!isNullOrEmpty(text) && !results.any { text.equals(it.name, ignoreCase = true) }) {
-            results.add(0, TagData(text))
+            sorted.add(0, TagData(text))
         }
-        tags.value = results
+        tags.value = sorted
     }
 
     fun getState(tagData: TagData): State {
