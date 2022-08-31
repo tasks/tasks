@@ -37,9 +37,9 @@ class CaldavClientProvider @Inject constructor(
     ): CaldavClient {
         val auth = getAuthInterceptor(username, password, url)
         val customCertManager = newCertManager()
+        customCertManager.appInForeground = true
         return CaldavClient(
                 this,
-                customCertManager,
                 createHttpClient(auth, customCertManager),
                 url?.toHttpUrlOrNull()
         )
@@ -61,9 +61,9 @@ class CaldavClientProvider @Inject constructor(
         val customCertManager = newCertManager()
         val client = createHttpClient(auth, customCertManager)
         return if (account.isTasksOrg) {
-            TasksClient(this, customCertManager, client, url?.toHttpUrlOrNull())
+            TasksClient(this, client, url?.toHttpUrlOrNull())
         } else {
-            CaldavClient(this, customCertManager, client, url?.toHttpUrlOrNull())
+            CaldavClient(this, client, url?.toHttpUrlOrNull())
         }
     }
 

@@ -14,7 +14,6 @@ class CaldavAccountViewModel @Inject constructor(
             withContext(Dispatchers.IO) {
                 provider
                     .forUrl(url, username, password)
-                    .setForeground()
                     .homeSet(username, password)
             }
         }

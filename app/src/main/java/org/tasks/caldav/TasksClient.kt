@@ -1,18 +1,19 @@
 package org.tasks.caldav
 
-import at.bitfire.cert4android.CustomCertManager
 import at.bitfire.dav4jvm.exception.HttpException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.*
+import okhttp3.FormBody
+import okhttp3.HttpUrl
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.json.JSONObject
 
 class TasksClient constructor(
         provider: CaldavClientProvider,
-        certManager: CustomCertManager,
         httpClient: OkHttpClient,
         private val httpUrl: HttpUrl?
-) : CaldavClient(provider, certManager, httpClient, httpUrl) {
+) : CaldavClient(provider, httpClient, httpUrl) {
     suspend fun generateNewPassword(description: String?): JSONObject? = withContext(Dispatchers.IO) {
         val url = httpUrl?.resolve(ENDPOINT_PASSWORDS) ?: return@withContext null
         httpClient

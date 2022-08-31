@@ -1,6 +1,5 @@
 package org.tasks.caldav
 
-import at.bitfire.cert4android.CustomCertManager
 import at.bitfire.dav4jvm.DavCollection
 import at.bitfire.dav4jvm.DavResource
 import at.bitfire.dav4jvm.DavResource.Companion.MIME_XML
@@ -12,16 +11,8 @@ import at.bitfire.dav4jvm.XmlUtils.NS_CALDAV
 import at.bitfire.dav4jvm.XmlUtils.NS_WEBDAV
 import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
-import at.bitfire.dav4jvm.property.CalendarColor
-import at.bitfire.dav4jvm.property.CalendarHomeSet
-import at.bitfire.dav4jvm.property.CurrentUserPrincipal
-import at.bitfire.dav4jvm.property.CurrentUserPrivilegeSet
-import at.bitfire.dav4jvm.property.DisplayName
-import at.bitfire.dav4jvm.property.GetCTag
-import at.bitfire.dav4jvm.property.ResourceType
+import at.bitfire.dav4jvm.property.*
 import at.bitfire.dav4jvm.property.ResourceType.Companion.CALENDAR
-import at.bitfire.dav4jvm.property.SupportedCalendarComponentSet
-import at.bitfire.dav4jvm.property.SyncToken
 import com.todoroo.astrid.helper.UUIDHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -57,7 +48,6 @@ import kotlin.coroutines.suspendCoroutine
 
 open class CaldavClient(
         private val provider: CaldavClientProvider,
-        private val customCertManager: CustomCertManager,
         val httpClient: OkHttpClient,
         private val httpUrl: HttpUrl?
 ) {
@@ -227,11 +217,6 @@ open class CaldavClient(
         xml.startTag(NS_APPLE_ICAL, "calendar-color")
         xml.text(String.format("#%06X%02X", color and 0xFFFFFF, color ushr 24))
         xml.endTag(NS_APPLE_ICAL, "calendar-color")
-    }
-
-    fun setForeground(): CaldavClient {
-        customCertManager.appInForeground = true
-        return this
     }
 
     suspend fun share(

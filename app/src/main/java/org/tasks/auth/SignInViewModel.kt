@@ -73,7 +73,6 @@ class SignInViewModel @Inject constructor(
                             username,
                             tokenString
                     )
-                    .setForeground()
                     .homeSet(username, tokenString)
             val password = encryption.encrypt(tokenString)
             return caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
