@@ -12,10 +12,12 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import okhttp3.CookieJar
 import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
+import org.tasks.caldav.MemoryCookieStore
 import org.tasks.data.*
 import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationDao
@@ -121,4 +123,8 @@ class ApplicationModule {
     @Provides
     fun providesNotificationManager(@ApplicationContext context: Context) =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+    @Provides
+    @Singleton
+    fun cookieJar(): CookieJar = MemoryCookieStore()
 }

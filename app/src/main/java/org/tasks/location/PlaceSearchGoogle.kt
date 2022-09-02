@@ -68,12 +68,11 @@ class PlaceSearchGoogle @Inject constructor(
                         context.getString(R.string.tasks_org_account_required)
                 )
         val client = httpClientFactory
-                .newBuilder(
+                .newClient(
                         foreground = true,
                         username = account.username,
                         encryptedPassword = account.password
                 )
-                .build()
         val response = client.newCall(Request.Builder().get().url(url).build()).execute()
         if (response.isSuccessful) {
             response.body?.string()?.toJson()?.apply { checkResult(this) }
