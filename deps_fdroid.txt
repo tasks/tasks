@@ -361,6 +361,8 @@
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.20 -> 1.7.10 (*)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.6.20 -> 1.7.10
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.20 -> 1.7.10 (*)
+++--- com.github.franmontiel:PersistentCookieJar:v1.0.1
++|    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 4.10.0 (*)
 ++--- com.google.code.gson:gson:2.8.8
 ++--- com.google.android.material:material:1.8.0-alpha01 (*)
 ++--- androidx.constraintlayout:constraintlayout:2.1.2 (*)

@@ -24,6 +24,7 @@ repositories {
             includeModule("com.github.tasks.opentasks", "opentasks-provider")
             includeModule("com.github.QuadFlask", "colorpicker")
             includeModule("com.github.twofortyfouram", "android-plugin-api-for-locale")
+            includeModule("com.github.franmontiel", "PersistentCookieJar")
         }
     }
 }
@@ -200,6 +201,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
+    implementation("com.github.franmontiel:PersistentCookieJar:v1.0.1")
     implementation("com.google.code.gson:gson:2.8.8")
     implementation("com.google.android.material:material:1.8.0-alpha01")
     implementation("androidx.constraintlayout:constraintlayout:2.1.2")

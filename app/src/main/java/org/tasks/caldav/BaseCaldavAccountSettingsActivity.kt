@@ -21,12 +21,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
+import com.franmontiel.persistentcookiejar.persistence.CookiePersistor
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskDeleter
 import kotlinx.coroutines.launch
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
@@ -57,6 +59,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var cookiePersistor: CookiePersistor
 
     protected var caldavAccount: CaldavAccount? = null
     protected lateinit var binding: ActivityCaldavAccountSettingsBinding
@@ -347,6 +350,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     }
 
     protected open suspend fun removeAccount() {
+        cookiePersistor.clearSession(caldavAccount?.url)
         taskDeleter.delete(caldavAccount!!)
         setResult(Activity.RESULT_OK)
         finish()
@@ -379,5 +383,10 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         const val EXTRA_CALDAV_DATA = "caldavData" // $NON-NLS-1$
         const val EXTRA_SERVER_TYPE = "serverType"
         const val PASSWORD_MASK = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
+
+        fun CookiePersistor.clearSession(url: String?) {
+            val httpUrl = url?.toHttpUrlOrNull() ?: return
+            removeAll(loadAll().filter { it.matches(httpUrl) })
+        }
     }
 }

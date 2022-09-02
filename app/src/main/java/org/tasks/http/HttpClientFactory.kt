@@ -3,24 +3,25 @@ package org.tasks.http
 import android.content.Context
 import at.bitfire.cert4android.CustomCertManager
 import at.bitfire.dav4jvm.BasicDigestAuthHandler
+import com.franmontiel.persistentcookiejar.persistence.CookiePersistor
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.CookieJar
 import okhttp3.OkHttpClient
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.DebugNetworkInterceptor
+import org.tasks.caldav.TasksCookieJar
 import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption
 import javax.inject.Inject
 import javax.net.ssl.SSLContext
 
 class HttpClientFactory @Inject constructor(
-        @ApplicationContext private val context: Context,
-        private val preferences: Preferences,
-        private val interceptor: DebugNetworkInterceptor,
-        private val encryption: KeyStoreEncryption,
-        private val cookieJar: CookieJar,
+    @ApplicationContext private val context: Context,
+    private val preferences: Preferences,
+    private val interceptor: DebugNetworkInterceptor,
+    private val encryption: KeyStoreEncryption,
+    private val cookiePersistor: CookiePersistor,
 ) {
     suspend fun newClient(
         foreground: Boolean = false,
@@ -55,7 +56,7 @@ class HttpClientFactory @Inject constructor(
             .sslSocketFactory(sslContext.socketFactory, customCertManager)
             .hostnameVerifier(hostnameVerifier)
             .addInterceptor(UserAgentInterceptor)
-            .cookieJar(cookieJar)
+            .cookieJar(TasksCookieJar(persistor = cookiePersistor))
 
         block(builder)
 
