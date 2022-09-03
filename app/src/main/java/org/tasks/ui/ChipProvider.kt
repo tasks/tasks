@@ -88,14 +88,16 @@ class ChipProvider @Inject constructor(
         }
         if (task.hasLocation() && filter !is PlaceFilter && preferences.showPlaceChip) {
             val location = task.getLocation()
-            FilterChip(
-                filter = PlaceFilter(location.place),
-                defaultIcon = R.drawable.ic_outline_place_24px,
-                onClick = onClick,
-                showText = showText,
-                showIcon = showIcon,
-                colorProvider = this::getColor,
-            )
+            if (location != null) {
+                FilterChip(
+                    filter = PlaceFilter(location.place),
+                    defaultIcon = R.drawable.ic_outline_place_24px,
+                    onClick = onClick,
+                    showText = showText,
+                    showIcon = showIcon,
+                    colorProvider = this::getColor,
+                )
+            }
         }
         if (!isSubtask && preferences.showListChip) {
             if (!isNullOrEmpty(task.googleTaskList) && filter !is GtasksFilter) {
