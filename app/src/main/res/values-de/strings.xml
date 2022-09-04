@@ -414,7 +414,7 @@
     <string name="backup_BPr_header">Sicherungen</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="TEA_timer_controls">Stoppuhr</string>
-    <string name="geofence_radius">Radius</string>
+    <string name="geofence_radius">Geofence-Radius</string>
     <string name="location_radius_meters">%s m</string>
     <string name="filter">Filter</string>
     <string name="theme">Design</string>
