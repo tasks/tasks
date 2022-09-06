@@ -433,7 +433,7 @@
     <string name="date_shortcut_morning">Jutro</string>
     <string name="date_shortcut_hour">Sat vremena</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="geofence_radius">Radijus</string>
+    <string name="geofence_radius">Radijus geografskog područja</string>
     <string name="pick_a_date_and_time">Odaberi datum i vrijeme</string>
     <string name="randomly">Slučajno</string>
     <string name="remove">Ukloni</string>
