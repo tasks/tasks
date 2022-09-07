@@ -755,4 +755,5 @@
     <string name="enable_reminders_description">Podsjetnici su deaktivirani u Android postavkama</string>
     <string name="sort_completion_group">Završeno %s</string>
     <string name="TEA_creation_date">Datum stvaranja</string>
+    <string name="microsoft_selection_description">Sinkroniziraj s tvojim osobnim Microsoft računom</string>
 </resources>
