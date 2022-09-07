@@ -750,4 +750,5 @@
     <string name="enable_reminders">Activer les rappels</string>
     <string name="TEA_creation_date">Date de création</string>
     <string name="sort_completion_group">Achèvement %s</string>
+    <string name="microsoft_selection_description">Synchroniser avec votre compte Microsoft personnel</string>
 </resources>
