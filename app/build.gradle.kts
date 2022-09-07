@@ -223,7 +223,7 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:${Versions.work}")
     implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
-    implementation("net.openid:appauth:0.8.1")
+    implementation("net.openid:appauth:0.11.1")
     implementation("org.osmdroid:osmdroid-android:6.1.11@aar")
 
     implementation("androidx.compose.ui:ui:${Versions.compose}")
