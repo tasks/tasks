@@ -734,4 +734,5 @@
     <string name="enable_reminders_description">Напомнянията са изключени в настройките на Андроид</string>
     <string name="TEA_creation_date">Дата на създаване</string>
     <string name="sort_completion_group">Завършена %s</string>
+    <string name="microsoft_selection_description">Синхронизирайте задачите си с личния профил в Microsoft</string>
 </resources>
