@@ -719,4 +719,5 @@
     <string name="enable_reminders_description">提醒在 Android 设置中被禁用</string>
     <string name="TEA_creation_date">创建日期</string>
     <string name="sort_completion_group">完成 %s</string>
+    <string name="microsoft_selection_description">与您的个人 Microsoft 账户同步</string>
 </resources>
