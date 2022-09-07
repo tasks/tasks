@@ -25,7 +25,6 @@ import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_CALDAV_SETTINGS
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_GOOGLE_TASKS
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -69,6 +68,16 @@ class AddAccountDialog : DialogFragment() {
                                 dismiss()
                             }
                         )
+                        if (BuildConfig.DEBUG) {
+                            SyncAccount(
+                                title = R.string.microsoft,
+                                description = R.string.microsoft_selection_description,
+                                icon = R.drawable.ic_microsoft_tasks,
+                                onClick = {
+                                    dismiss()
+                                }
+                            )
+                        }
                         SyncAccount(
                             title = R.string.davx5,
                             description = R.string.davx5_selection_description,
