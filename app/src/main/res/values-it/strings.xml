@@ -734,4 +734,5 @@
     <string name="enable_reminders_description">I promemoria sono disattivati nelle impostazioni di Android</string>
     <string name="TEA_creation_date">Data di creazione</string>
     <string name="sort_completion_group">Completamento %s</string>
+    <string name="microsoft_selection_description">Sincronizzazione con l\'account personale Microsoft</string>
 </resources>
