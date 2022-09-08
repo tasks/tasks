@@ -1,7 +1,6 @@
 package org.tasks.sync
 
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
@@ -9,22 +8,16 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.Modifier
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import com.google.android.material.composethemeadapter.MdcTheme
-import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.auth.SignInActivity
-import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.compose.SyncAccount
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.extensions.Context.openUri
-import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_CALDAV_SETTINGS
-import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_GOOGLE_TASKS
-import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,6 +27,16 @@ class AddAccountDialog : DialogFragment() {
 
     private val hasTasksAccount: Boolean
         get() = arguments?.getBoolean(EXTRA_HAS_TASKS_ACCOUNT) ?: false
+
+    enum class Platform {
+        TASKS_ORG,
+        GOOGLE_TASKS,
+        MICROSOFT,
+        DAVX5,
+        CALDAV,
+        ETESYNC,
+        DECSYNC_CC
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return dialogBuilder
@@ -47,45 +50,28 @@ class AddAccountDialog : DialogFragment() {
                                 title = R.string.tasks_org,
                                 description = R.string.tasks_org_description,
                                 icon = R.drawable.ic_round_icon,
-                                onClick = {
-                                    activity?.startActivityForResult(
-                                        Intent(activity, SignInActivity::class.java),
-                                        REQUEST_TASKS_ORG
-                                    )
-                                    dismiss()
-                                }
+                                onClick = { selected(Platform.TASKS_ORG) }
                             )
                         }
                         SyncAccount(
                             title = R.string.gtasks_GPr_header,
                             description = R.string.google_tasks_selection_description,
                             icon = R.drawable.ic_google,
-                            onClick = {
-                                activity?.startActivityForResult(
-                                    Intent(activity, GtasksLoginActivity::class.java),
-                                    REQUEST_GOOGLE_TASKS
-                                )
-                                dismiss()
-                            }
+                            onClick = { selected(Platform.GOOGLE_TASKS) }
                         )
                         if (BuildConfig.DEBUG) {
                             SyncAccount(
                                 title = R.string.microsoft,
                                 description = R.string.microsoft_selection_description,
                                 icon = R.drawable.ic_microsoft_tasks,
-                                onClick = {
-                                    dismiss()
-                                }
+                                onClick = { selected(Platform.MICROSOFT) }
                             )
                         }
                         SyncAccount(
                             title = R.string.davx5,
                             description = R.string.davx5_selection_description,
                             icon = R.drawable.ic_davx5_icon_green_bg,
-                            onClick = {
-                                activity?.openUri(R.string.url_davx5)
-                                dismiss()
-                            }
+                            onClick = { selected(Platform.DAVX5) }
                         )
                         SyncAccount(
                             title = R.string.caldav,
@@ -94,37 +80,19 @@ class AddAccountDialog : DialogFragment() {
                             tint = MaterialTheme.colors.onSurface.copy(
                                 alpha = ContentAlpha.medium
                             ),
-                            onClick = {
-                                activity?.startActivityForResult(
-                                    Intent(activity, CaldavAccountSettingsActivity::class.java),
-                                    REQUEST_CALDAV_SETTINGS
-                                )
-                                dismiss()
-                            }
+                            onClick = { selected(Platform.CALDAV) }
                         )
                         SyncAccount(
                             title = R.string.etesync,
                             description = R.string.etesync_selection_description,
                             icon = R.drawable.ic_etesync,
-                            onClick = {
-                                activity?.startActivityForResult(
-                                    Intent(
-                                        activity,
-                                        EtebaseAccountSettingsActivity::class.java
-                                    ),
-                                    REQUEST_CALDAV_SETTINGS
-                                )
-                                dismiss()
-                            }
+                            onClick = { selected(Platform.ETESYNC) }
                         )
                         SyncAccount(
                             title = R.string.decsync,
                             description = R.string.decsync_selection_description,
                             icon = R.drawable.ic_decsync,
-                            onClick = {
-                                activity?.openUri(R.string.url_decsync)
-                                dismiss()
-                            }
+                            onClick = { selected(Platform.DECSYNC_CC) }
                         )
                     }
                 }
@@ -134,20 +102,19 @@ class AddAccountDialog : DialogFragment() {
             .show()
     }
 
+    private fun selected(platform: Platform) {
+        setFragmentResult(ADD_ACCOUNT, bundleOf(EXTRA_SELECTED to platform))
+        dismiss()
+    }
+
     companion object {
+        const val ADD_ACCOUNT = "add_account"
+        const val EXTRA_SELECTED = "selected"
         private const val EXTRA_HAS_TASKS_ACCOUNT = "extra_has_tasks_account"
 
-        fun newAccountDialog(
-            targetFragment: Fragment,
-            rc: Int,
-            hasTasksAccount: Boolean
-        ): AddAccountDialog {
-            val dialog = AddAccountDialog()
-            dialog.arguments = Bundle().apply {
-                putBoolean(EXTRA_HAS_TASKS_ACCOUNT, hasTasksAccount)
+        fun newAccountDialog(hasTasksAccount: Boolean) =
+            AddAccountDialog().apply {
+                arguments = bundleOf(EXTRA_HAS_TASKS_ACCOUNT to hasTasksAccount)
             }
-            dialog.setTargetFragment(targetFragment, rc)
-            return dialog
-        }
     }
 }
