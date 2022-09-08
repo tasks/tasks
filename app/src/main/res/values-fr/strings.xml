@@ -150,50 +150,62 @@
     <string name="repeat_yearly">Répéter tous les ans</string>
     <plurals name="task_count">
         <item quantity="one">%d tâche</item>
+        <item quantity="many">%d tâches</item>
         <item quantity="other">%d tâches</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">fois</item>
+        <item quantity="many">fois</item>
         <item quantity="other">fois</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">heure</item>
+        <item quantity="many">heures</item>
         <item quantity="other">heures</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d heure</item>
+        <item quantity="many">%d heures</item>
         <item quantity="other">%d heures</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">jour</item>
+        <item quantity="many">jours</item>
         <item quantity="other">jours</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d jour</item>
+        <item quantity="many">%d jours</item>
         <item quantity="other">%d jours</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">semaine</item>
+        <item quantity="many">semaines</item>
         <item quantity="other">semaines</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d semaine</item>
+        <item quantity="many">%d semaines</item>
         <item quantity="other">%d semaines</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">mois</item>
+        <item quantity="many">mois</item>
         <item quantity="other">mois</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d mois</item>
+        <item quantity="many">%d mois</item>
         <item quantity="other">%d mois</item>
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">an</item>
+        <item quantity="many">ans</item>
         <item quantity="other">ans</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d an</item>
+        <item quantity="many">%d ans</item>
         <item quantity="other">%d ans</item>
     </plurals>
     <string name="repeat_type_due">date d\'échéance</string>
@@ -220,6 +232,7 @@
     <string name="voice_command_added_task">Tâche ajoutée</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tâche</item>
+        <item quantity="many">%d tâches</item>
         <item quantity="other">%d tâches</item>
     </plurals>
     <string name="today">Aujourd\'hui</string>
@@ -402,10 +415,12 @@
     <string name="gtasks_GPr_header">Google Tasks</string>
     <plurals name="repeat_minutes">
         <item quantity="one">minute</item>
+        <item quantity="many">minutes</item>
         <item quantity="other">minutes</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minute</item>
+        <item quantity="many">%d minutes</item>
         <item quantity="other">%d minutes</item>
     </plurals>
     <string name="notifications">Notifications</string>
@@ -423,6 +438,7 @@
     <string name="SSD_sort_my_order">Mon tri</string>
     <plurals name="subtask_count">
         <item quantity="one">%d sous-tâche</item>
+        <item quantity="many">%d sous-tâches</item>
         <item quantity="other">%d sous-tâches</item>
     </plurals>
     <string name="expand_subtasks">Développer les sous-tâches</string>
@@ -593,6 +609,7 @@
     <string name="migrate">Migrer</string>
     <plurals name="list_count">
         <item quantity="one">%d liste</item>
+        <item quantity="many">%d listes</item>
         <item quantity="other">%d listes</item>
     </plurals>
     <string name="sign_in_with_github">Connectez-vous avec GitHub</string>
@@ -701,18 +718,22 @@
     <string name="snoozed_until">En attente jusqu\'au %s</string>
     <plurals name="reminder_days">
         <item quantity="one">Jour</item>
+        <item quantity="many">Jours</item>
         <item quantity="other">Jours</item>
     </plurals>
     <plurals name="reminder_week">
         <item quantity="one">Semaine</item>
+        <item quantity="many">Semaines</item>
         <item quantity="other">Semaines</item>
     </plurals>
     <plurals name="reminder_minutes">
         <item quantity="one">Minute</item>
+        <item quantity="many">Minutes</item>
         <item quantity="other">Minutes</item>
     </plurals>
     <plurals name="reminder_hours">
         <item quantity="one">Heure</item>
+        <item quantity="many">Heures</item>
         <item quantity="other">Heures</item>
     </plurals>
     <string name="custom_notification">Notification personnalisée</string>
