@@ -99,6 +99,9 @@ class CaldavAccount : Parcelable {
     val isTasksOrg: Boolean
         get() = accountType == TYPE_TASKS
 
+    val isMicrosoft: Boolean
+        get() = accountType == TYPE_MICROSOFT
+
     fun listSettingsClass(): Class<out BaseListSettingsActivity> = when(accountType) {
         TYPE_LOCAL -> LocalListSettingsActivity::class.java
         TYPE_ETESYNC, TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
@@ -202,6 +205,7 @@ class CaldavAccount : Parcelable {
             isEteSyncAccount -> R.string.etesync_v1
             uuid.isDavx5() -> R.string.davx5
             uuid.isDecSync() -> R.string.decsync
+            isMicrosoft -> R.string.microsoft
             else -> 0
         }
 
@@ -212,6 +216,7 @@ class CaldavAccount : Parcelable {
             isEtebaseAccount || isEteSyncAccount || uuid.isEteSync() -> R.drawable.ic_etesync
             uuid.isDavx5() -> R.drawable.ic_davx5_icon_green_bg
             uuid.isDecSync() -> R.drawable.ic_decsync
+            isMicrosoft -> R.drawable.ic_microsoft_tasks
             else -> 0
         }
 
@@ -225,6 +230,7 @@ class CaldavAccount : Parcelable {
         const val TYPE_OPENTASKS = 3
         const val TYPE_TASKS = 4
         const val TYPE_ETEBASE = 5
+        const val TYPE_MICROSOFT = 6
 
         const val SERVER_UNKNOWN = -1
         const val SERVER_TASKS = 0

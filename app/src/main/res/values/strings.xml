@@ -735,4 +735,7 @@ File %1$s contained %2$s.\n\n
   <string name="hint_customize_edit_body">You can customize this screen by rearranging or removing fields</string>
   <string name="enable_reminders">Enable reminders</string>
   <string name="enable_reminders_description">Reminders are disabled in Android Settings</string>
+  <string name="sign_in">Sign in</string>
+  <string name="sign_in_microsoft_personal_account">Sign in with a personal Microsoft account</string>
+  <string name="sign_in_email_or_phone">Email or phone number</string>
 </resources>

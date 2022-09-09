@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceScreen
@@ -31,11 +32,13 @@ import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.PreferencesViewModel
 import org.tasks.preferences.fragments.GoogleTasksAccount.Companion.newGoogleTasksAccountPreference
+import org.tasks.preferences.fragments.MicrosoftAccount.Companion.newMicrosoftAccountPreference
 import org.tasks.preferences.fragments.TasksAccount.Companion.newTasksAccountPreference
 import org.tasks.sync.AddAccountDialog
 import org.tasks.sync.AddAccountDialog.Companion.EXTRA_SELECTED
 import org.tasks.sync.AddAccountDialog.Companion.newAccountDialog
 import org.tasks.sync.AddAccountDialog.Platform
+import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import org.tasks.widget.AppWidgetManager
 import javax.inject.Inject
 
@@ -49,6 +52,7 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
     @Inject lateinit var billingClient: BillingClient
 
     private val viewModel: PreferencesViewModel by activityViewModels()
+    private val microsoftVM: MicrosoftSignInViewModel by viewModels()
 
     override fun getPreferenceXml() = R.xml.preferences
 
@@ -109,9 +113,8 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
                         Intent(requireContext(), GtasksLoginActivity::class.java),
                         REQUEST_GOOGLE_TASKS
                     )
-                Platform.MICROSOFT -> {
-
-                }
+                Platform.MICROSOFT ->
+                    microsoftVM.signIn(requireActivity())
                 Platform.DAVX5 ->
                     context?.openUri(R.string.url_davx5)
                 Platform.CALDAV ->
@@ -203,9 +206,15 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         pref.setOnPreferenceClickListener {
             if (account.isTasksOrg) {
                 (activity as MainPreferences).startPreference(
-                        this,
-                        newTasksAccountPreference(account),
-                        getString(R.string.tasks_org)
+                    this,
+                    newTasksAccountPreference(account),
+                    getString(R.string.tasks_org)
+                )
+            } else if (account.isMicrosoft) {
+                (activity as MainPreferences).startPreference(
+                    this,
+                    newMicrosoftAccountPreference(account),
+                    getString(R.string.microsoft)
                 )
             } else {
                 val intent = Intent(context, account.accountSettingsClass).apply {
