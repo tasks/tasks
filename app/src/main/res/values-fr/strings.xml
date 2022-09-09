@@ -751,4 +751,7 @@
     <string name="TEA_creation_date">Date de création</string>
     <string name="sort_completion_group">Achèvement %s</string>
     <string name="microsoft_selection_description">Synchroniser avec votre compte Microsoft personnel</string>
+    <string name="sign_in">Se connecter</string>
+    <string name="sign_in_microsoft_personal_account">Se connecter avec un compte Microsoft personnel</string>
+    <string name="sign_in_email_or_phone">Courriel ou numéro de téléphone</string>
 </resources>
