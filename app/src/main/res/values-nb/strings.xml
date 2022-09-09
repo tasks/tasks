@@ -692,4 +692,50 @@
     <string name="top">Topp</string>
     <string name="app_bar_position">Programfeltposisjon</string>
     <string name="bottom">Bunn</string>
+    <string name="snackbar_task_completed">Gjøremål fullført</string>
+    <string name="completed_tasks_at_bottom">Flytt fullførte gjøremål til bunnen</string>
+    <string name="caldav_server_other">Annet</string>
+    <string name="caldav_server_type">Tjenertype</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minutt</item>
+        <item quantity="other">Minutter</item>
+    </plurals>
+    <string name="app_bar_collapse">Fold sammen programfelter</string>
+    <plurals name="reminder_hours">
+        <item quantity="one">Time</item>
+        <item quantity="other">Timer</item>
+    </plurals>
+    <string name="customize_edit_screen_summary">Endre rekkefølgen på eller fjern felter</string>
+    <string name="caldav_server_unknown">Ukjent</string>
+    <string name="completed">Fullført</string>
+    <string name="TEA_creation_date">Opprettelsesdato</string>
+    <string name="microsoft_selection_description">Synkroniser med din personlige Microsoft-konto</string>
+    <string name="sort_completion_group">Fullføring %s</string>
+    <string name="completed_tasks_sort">Sorter etter fullførelsesdato</string>
+    <string name="snackbar_tasks_completed">%d gjøremål fullført</string>
+    <string name="sign_in">Logg inn</string>
+    <string name="sign_in_microsoft_personal_account">Logg inn med en personlig Microsoft-konto</string>
+    <string name="sign_in_email_or_phone">E-post eller telefonnummer</string>
+    <string name="custom_filter_has_reminder">Har påminnelse</string>
+    <plurals name="reminder_days">
+        <item quantity="one">Dag</item>
+        <item quantity="other">Dager</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Uke</item>
+        <item quantity="other">Uker</item>
+    </plurals>
+    <string name="randomly_every">Tilfeldig hver/t %s</string>
+    <string name="filter_snoozed">Slumret</string>
+    <string name="alarm_before_start">%s før start</string>
+    <string name="alarm_after_start">%s etter start</string>
+    <string name="alarm_before_due">%s før frist</string>
+    <string name="snoozed_until">Slumret til %s</string>
+    <string name="alarm_after_due">%s etter frist</string>
+    <string name="custom_notification">Egendefinert merknad</string>
+    <string name="hint_customize_edit_title">For mye info\?</string>
+    <string name="hint_customize_edit_body">Du kan tilpasse skjermen ved å endre rekkefølgen på eller fjerne felter</string>
+    <string name="enable_reminders_description">Påminnelser er avskrudd i Android-innstillingene</string>
+    <string name="dismiss">Avvis</string>
+    <string name="enable_reminders">Skru på påminnelser</string>
 </resources>
