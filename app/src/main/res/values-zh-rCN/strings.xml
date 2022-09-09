@@ -720,4 +720,7 @@
     <string name="TEA_creation_date">创建日期</string>
     <string name="sort_completion_group">完成 %s</string>
     <string name="microsoft_selection_description">与您的个人 Microsoft 账户同步</string>
+    <string name="sign_in_email_or_phone">电子邮箱或电话号码</string>
+    <string name="sign_in">登录</string>
+    <string name="sign_in_microsoft_personal_account">用个人微软账户登录</string>
 </resources>
