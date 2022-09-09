@@ -763,4 +763,5 @@
     <string name="TEA_creation_date">Дата створення</string>
     <string name="sort_completion_group">Завершення %s</string>
     <string name="microsoft_selection_description">Синхронізація з особистим обліковим записом Microsoft</string>
+    <string name="sign_in">Увійти</string>
 </resources>
