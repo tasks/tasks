@@ -735,4 +735,7 @@
     <string name="TEA_creation_date">Aanmaakdatum</string>
     <string name="sort_completion_group">Voltooid %s</string>
     <string name="microsoft_selection_description">Synchroniseer met je persoonlijke Microsoft-account</string>
+    <string name="sign_in">Log in</string>
+    <string name="sign_in_microsoft_personal_account">Log in met een persoonlijke Microsoft-account</string>
+    <string name="sign_in_email_or_phone">E-mail of telefoonnummer</string>
 </resources>
