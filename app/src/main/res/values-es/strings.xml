@@ -736,6 +736,4 @@
     <string name="TEA_creation_date">Fecha de creación</string>
     <string name="microsoft_selection_description">Sincronizar con su cuenta personal de Microsoft</string>
     <string name="sign_in">Iniciar sesión</string>
-    <string name="sign_in_microsoft_personal_account">Iniciar sesión con una cuenta personal de Microsoft</string>
-    <string name="sign_in_email_or_phone">Email o número de teléfono</string>
 </resources>

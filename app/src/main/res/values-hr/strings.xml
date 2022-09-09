@@ -757,6 +757,4 @@
     <string name="TEA_creation_date">Datum stvaranja</string>
     <string name="microsoft_selection_description">Sinkroniziraj s tvojim osobnim Microsoft računom</string>
     <string name="sign_in">Prijavi se</string>
-    <string name="sign_in_microsoft_personal_account">Prijavi se s osobnim Microsoft računom</string>
-    <string name="sign_in_email_or_phone">E-mail adresa ili telefonski broj</string>
 </resources>
