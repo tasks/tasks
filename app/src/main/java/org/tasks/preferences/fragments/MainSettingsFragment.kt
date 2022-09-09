@@ -100,7 +100,7 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
             this
         ) { _, result ->
             val platform =
-                result.getSerializable(EXTRA_SELECTED, Platform::class.java)
+                result.getSerializable(EXTRA_SELECTED) as? Platform
                     ?: return@setFragmentResultListener
             when (platform) {
                 Platform.TASKS_ORG ->
