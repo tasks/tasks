@@ -735,4 +735,5 @@
     <string name="TEA_creation_date">Дата на създаване</string>
     <string name="sort_completion_group">Завършена %s</string>
     <string name="microsoft_selection_description">Синхронизирайте задачите си с личния профил в Microsoft</string>
+    <string name="sign_in">Вход</string>
 </resources>
