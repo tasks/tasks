@@ -23,4 +23,5 @@ object Versions {
     const val compose_theme_adapter = "1.1.11"
     const val accompanist = "0.24.12-rc"
     const val coil = "2.2.0"
+    const val retrofit = "2.9.0"
 }

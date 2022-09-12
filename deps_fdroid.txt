@@ -432,6 +432,12 @@
 +|         +--- androidx.annotation:annotation:1.1.0 -> 1.4.0 (*)
 +|         \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 ++--- org.osmdroid:osmdroid-android:6.1.11
+++--- com.squareup.retrofit2:retrofit:2.9.0
++|    \--- com.squareup.okhttp3:okhttp:3.14.9 -> 4.10.0 (*)
+++--- com.squareup.retrofit2:converter-moshi:2.9.0
++|    +--- com.squareup.retrofit2:retrofit:2.9.0 (*)
++|    \--- com.squareup.moshi:moshi:1.8.0
++|         \--- com.squareup.okio:okio:1.16.0 -> 3.2.0 (*)
 ++--- androidx.compose.ui:ui:1.2.1
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.4.0 (*)
 +|    +--- androidx.autofill:autofill:1.0.0

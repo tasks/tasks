@@ -225,6 +225,8 @@ dependencies {
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("net.openid:appauth:0.11.1")
     implementation("org.osmdroid:osmdroid-android:6.1.11@aar")
+    implementation("com.squareup.retrofit2:retrofit:${Versions.retrofit}")
+    implementation("com.squareup.retrofit2:converter-moshi:${Versions.retrofit}")
 
     implementation("androidx.compose.ui:ui:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation:${Versions.compose}")
