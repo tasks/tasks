@@ -32,6 +32,9 @@ import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationServiceDiscovery
 import okhttp3.Request
 import org.json.JSONObject
+import org.tasks.R
+import org.tasks.analytics.Constants
+import org.tasks.analytics.Firebase
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.CaldavDao
@@ -46,6 +49,7 @@ class MicrosoftAuthenticationActivity : ComponentActivity() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var encryption: KeyStoreEncryption
     @Inject lateinit var httpClientFactory: HttpClientFactory
+    @Inject lateinit var firebase: Firebase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,15 +75,22 @@ class MicrosoftAuthenticationActivity : ComponentActivity() {
                         it.password = encryption.encrypt(authState.jsonSerializeString())
                         caldavDao.update(it)
                     }
-                    ?: caldavDao.insert(
-                        CaldavAccount().apply {
-                            uuid = UUIDHelper.newUUID()
-                            name = email
-                            username = email
-                            password = encryption.encrypt(authState.jsonSerializeString())
-                            accountType = TYPE_MICROSOFT
+                    ?: caldavDao
+                        .insert(
+                            CaldavAccount().apply {
+                                uuid = UUIDHelper.newUUID()
+                                name = email
+                                username = email
+                                password = encryption.encrypt(authState.jsonSerializeString())
+                                accountType = TYPE_MICROSOFT
+                            }
+                        )
+                        .also {
+                            firebase.logEvent(
+                                R.string.event_sync_add_account,
+                                R.string.param_type to Constants.SYNC_TYPE_MICROSOFT
+                            )
                         }
-                    )
                 finish()
             } else {
                 error(ex?.message ?: "Token exchange failed")
