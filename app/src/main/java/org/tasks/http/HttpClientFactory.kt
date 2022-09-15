@@ -7,12 +7,19 @@ import com.franmontiel.persistentcookiejar.persistence.CookiePersistor
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import net.openid.appauth.AuthState
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.caldav.TasksCookieJar
+import org.tasks.data.CaldavAccount
 import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.sync.microsoft.MicrosoftService
+import org.tasks.sync.microsoft.requestTokenRefresh
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
 import javax.net.ssl.SSLContext
 
@@ -64,5 +71,40 @@ class HttpClientFactory @Inject constructor(
             interceptor.apply(builder)
         }
         return builder.build()
+    }
+
+    suspend fun getMicrosoftService(account: CaldavAccount): MicrosoftService {
+        val authState = encryption.decrypt(account.password)?.let { AuthState.jsonDeserialize(it) }
+            ?: throw RuntimeException("Missing credentials")
+        if (authState.needsTokenRefresh) {
+            val (token, ex) = context.requestTokenRefresh(authState)
+            authState.update(token, ex)
+            if (authState.isAuthorized) {
+                account.password = encryption.encrypt(authState.jsonSerializeString())
+            }
+        }
+        if (!authState.isAuthorized) {
+            throw RuntimeException("Needs authentication")
+        }
+        val client = newClient {
+            it.addInterceptor { chain ->
+                chain.proceed(
+                    chain.request().newBuilder()
+                        .header("Authorization", "Bearer ${authState.accessToken}")
+                        .build()
+                )
+            }
+        }
+        val retrofit = Retrofit.Builder()
+            .baseUrl(URL_MICROSOFT)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(MicrosoftService::class.java)
+    }
+
+    companion object {
+        const val URL_MICROSOFT = "https://graph.microsoft.com"
+        val MEDIA_TYPE_JSON = "application/json".toMediaType()
     }
 }

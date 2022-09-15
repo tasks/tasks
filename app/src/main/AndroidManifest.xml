@@ -673,6 +673,7 @@
     <activity
       android:name=".preferences.ManageSpaceActivity"
       android:theme="@style/Tasks" />
+      <activity android:name="org.tasks.sync.microsoft.MicrosoftListSettingsActivity" />
 
     <!-- launcher icons -->
 

@@ -22,7 +22,7 @@ interface MicrosoftService {
     ): Response<TaskLists.TaskList>
 
     @DELETE("/v1.0/me/todo/lists/{listId}")
-    suspend fun deleteList(@Path("listId") listId: String)
+    suspend fun deleteList(@Path("listId") listId: String): Response<ResponseBody>
 
     @GET("/v1.0/me/todo/lists/{listId}/tasks/delta")
     suspend fun getTasks(@Path("listId") listId: String): Response<Tasks>

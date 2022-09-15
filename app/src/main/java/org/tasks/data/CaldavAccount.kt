@@ -1,5 +1,6 @@
 package org.tasks.data
 
+import android.app.Activity
 import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
@@ -11,7 +12,6 @@ import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
 import org.tasks.R
-import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
@@ -25,6 +25,7 @@ import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.opentasks.OpenTaskAccountSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.sync.microsoft.MicrosoftListSettingsActivity
 import java.net.HttpURLConnection
 
 @Entity(tableName = "caldav_accounts")
@@ -102,10 +103,11 @@ class CaldavAccount : Parcelable {
     val isMicrosoft: Boolean
         get() = accountType == TYPE_MICROSOFT
 
-    fun listSettingsClass(): Class<out BaseListSettingsActivity> = when(accountType) {
+    fun listSettingsClass(): Class<out Activity> = when(accountType) {
         TYPE_LOCAL -> LocalListSettingsActivity::class.java
         TYPE_ETESYNC, TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
         TYPE_ETEBASE -> EtebaseCalendarSettingsActivity::class.java
+        TYPE_MICROSOFT -> MicrosoftListSettingsActivity::class.java
         else -> CaldavCalendarSettingsActivity::class.java
     }
 

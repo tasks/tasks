@@ -19,6 +19,9 @@ suspend fun IdentityProvider.retrieveConfig(): AuthorizationServiceConfiguration
     }
 }
 
+suspend fun Context.requestTokenRefresh(state: AuthState) =
+    requestToken(state.createTokenRefreshRequest())
+
 suspend fun Context.requestTokenExchange(response: AuthorizationResponse) =
     requestToken(response.createTokenExchangeRequest())
 

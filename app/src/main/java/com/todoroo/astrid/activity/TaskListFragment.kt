@@ -461,7 +461,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 lifecycleScope.launch {
                     val account = caldavDao.getAccountByUuid(calendar.account!!)
                     val caldavSettings = Intent(activity, account!!.listSettingsClass())
-                    caldavSettings.putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, calendar)
+                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account)
+                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, calendar)
                     startActivityForResult(caldavSettings, REQUEST_LIST_SETTINGS)
                 }
                 true
