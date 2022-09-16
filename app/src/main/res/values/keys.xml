@@ -378,10 +378,7 @@
   <string name="p_flipper">p_flipper</string>
   <string name="p_debug_pro">debug_pro</string>
   <string name="p_crash_main_queries">debug_crash_main_queries</string>
-  <string name="p_sync_ongoing_google_tasks">sync_ongoing_google_tasks</string>
-  <string name="p_sync_ongoing_caldav">sync_ongoing_caldav</string>
-  <string name="p_sync_ongoing_etebase">sync_ongoing_etebase</string>
-  <string name="p_sync_ongoing_opentasks">sync_ongoing_opentasks</string>
+  <string name="p_sync_ongoing">sync_ongoing</string>
   <string name="p_sync_ongoing_android">sync_ongoing_android</string>
   <string name="p_last_backup">last_backup</string>
   <string name="p_show_description">show_description</string>

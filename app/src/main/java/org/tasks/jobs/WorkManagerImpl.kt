@@ -6,18 +6,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.work.Constraints
-import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.*
 import androidx.work.ExistingWorkPolicy.APPEND_OR_REPLACE
 import androidx.work.ExistingWorkPolicy.REPLACE
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequest
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkContinuation
-import androidx.work.WorkInfo
-import androidx.work.WorkRequest
-import androidx.work.Worker
-import androidx.work.workDataOf
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
@@ -25,14 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.data.CaldavAccount
+import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.OpenTaskDao
-import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.jobs.DriveUploader.Companion.EXTRA_PURGE
@@ -42,19 +29,13 @@ import org.tasks.jobs.SyncWork.Companion.EXTRA_BACKGROUND
 import org.tasks.jobs.SyncWork.Companion.EXTRA_IMMEDIATE
 import org.tasks.jobs.WorkManager.Companion.MAX_CLEANUP_LENGTH
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
-import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_CALDAV
-import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_ETEBASE
-import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_GOOGLE_TASKS
-import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC_OPENTASKS
+import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKUP
 import org.tasks.jobs.WorkManager.Companion.TAG_MIDNIGHT_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_MIGRATE_LOCAL
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETEBASE
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_GOOGLE_TASKS
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_OPENTASK
+import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_UPDATE_PURCHASES
 import org.tasks.notifications.Throttle
 import org.tasks.preferences.Preferences
@@ -109,36 +90,21 @@ class WorkManagerImpl constructor(
         }
     }
 
-    override suspend fun googleTaskSync(immediate: Boolean) =
-            sync(immediate, TAG_SYNC_GOOGLE_TASKS, SyncGoogleTasksWork::class.java)
-
-    override suspend fun caldavSync(immediate: Boolean) =
-            sync(immediate, TAG_SYNC_CALDAV, SyncCaldavWork::class.java)
-
-    override suspend fun eteBaseSync(immediate: Boolean) =
-            sync(immediate, TAG_SYNC_ETEBASE, SyncEtebaseWork::class.java)
-
-    override suspend fun openTaskSync(immediate: Boolean) =
-            sync(immediate, TAG_SYNC_OPENTASK, SyncOpenTasksWork::class.java, false)
-
-    @SuppressLint("EnqueueWork")
-    private suspend fun sync(immediate: Boolean, tag: String, c: Class<out SyncWork>, requireNetwork: Boolean = true) {
-        Timber.d("sync(immediate = $immediate, $tag, $c, requireNetwork = $requireNetwork)")
-        val builder = OneTimeWorkRequest.Builder(c)
+    override suspend fun sync(immediate: Boolean) {
+        Timber.d("sync(immediate = $immediate)")
+        val builder = OneTimeWorkRequest.Builder(SyncWork::class.java)
                 .setInputData(EXTRA_IMMEDIATE to immediate)
-        if (requireNetwork) {
-            builder.setConstraints(networkConstraints)
-        }
+                .setConstraints(networkConstraints)
         if (!immediate) {
             builder.setInitialDelay(1, TimeUnit.MINUTES)
         }
         val append = withContext(Dispatchers.IO) {
-            workManager.getWorkInfosByTag(tag).get().any {
+            workManager.getWorkInfosByTag(TAG_SYNC).get().any {
                 it.state == WorkInfo.State.RUNNING
             }
         }
         enqueue(workManager.beginUniqueWork(
-                tag,
+                TAG_SYNC,
                 if (append) APPEND_OR_REPLACE else REPLACE,
                 builder.build())
         )
@@ -156,42 +122,23 @@ class WorkManagerImpl constructor(
 
     override fun updateBackgroundSync() {
         throttle.run {
-            scheduleBackgroundSync(
-                    TAG_BACKGROUND_SYNC_GOOGLE_TASKS,
-                    SyncGoogleTasksWork::class.java,
-                    googleTaskListDao.accountCount() > 0)
-        }
-        throttle.run {
-            scheduleBackgroundSync(
-                    TAG_BACKGROUND_SYNC_CALDAV,
-                    SyncCaldavWork::class.java,
-                    caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).isNotEmpty())
-        }
-        throttle.run {
-            scheduleBackgroundSync(
-                    TAG_BACKGROUND_SYNC_ETEBASE,
-                    SyncEtebaseWork::class.java,
-                    caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty())
-        }
-        throttle.run {
-            scheduleBackgroundSync(
-                    TAG_BACKGROUND_SYNC_OPENTASKS,
-                    SyncOpenTasksWork::class.java,
+            val enabled = googleTaskListDao.accountCount() > 0 ||
+                    caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE).isNotEmpty() ||
                     openTaskDao.shouldSync()
-            )
-        }
-    }
-
-    private fun scheduleBackgroundSync(tag: String, c: Class<out SyncWork>, enabled: Boolean) {
-        Timber.d("scheduleBackgroundSync($tag, $c, enabled = $enabled)")
-        if (enabled) {
-            val builder = PeriodicWorkRequest.Builder(c, 1, TimeUnit.HOURS)
+            if (enabled) {
+                Timber.d("Enabling background sync")
+                val builder = PeriodicWorkRequest.Builder(SyncWork::class.java, 1, TimeUnit.HOURS)
                     .setInputData(EXTRA_BACKGROUND to true)
                     .setConstraints(networkConstraints)
-            workManager.enqueueUniquePeriodicWork(
-                    tag, ExistingPeriodicWorkPolicy.KEEP, builder.build())
-        } else {
-            workManager.cancelUniqueWork(tag)
+                workManager.enqueueUniquePeriodicWork(
+                    TAG_BACKGROUND_SYNC,
+                    ExistingPeriodicWorkPolicy.KEEP,
+                    builder.build()
+                )
+            } else {
+                Timber.d("Disabling background sync")
+                workManager.cancelUniqueWork(TAG_BACKGROUND_SYNC)
+            }
         }
     }
 

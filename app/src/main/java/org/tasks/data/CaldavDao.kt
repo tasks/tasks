@@ -2,12 +2,7 @@ package org.tasks.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
-import androidx.room.Update
+import androidx.room.*
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.core.SortHelper.APPLE_EPOCH
@@ -176,9 +171,9 @@ SELECT EXISTS(SELECT 1
                        INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
                        INNER JOIN caldav_accounts ON cda_uuid = cdl_account
               WHERE cd_task = :id
-                AND cda_account_type = :type)
+                AND cda_account_type IN (:types))
 """)
-    abstract suspend fun isAccountType(id: Long, type: Int): Boolean
+    abstract suspend fun isAccountType(id: Long, types: List<Int>): Boolean
 
     suspend fun getTasks(taskIds: List<Long>): List<CaldavTask> =
             taskIds.chunkedMap { getTasksInternal(it) }

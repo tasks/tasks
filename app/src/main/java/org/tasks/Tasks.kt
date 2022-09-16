@@ -53,7 +53,6 @@ class Tasks : Application(), Configuration.Provider {
         buildSetup.setup()
         upgrade()
         preferences.isSyncOngoing = false
-        preferences.setBoolean(R.string.p_sync_ongoing_opentasks, false)
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
         backgroundWork()

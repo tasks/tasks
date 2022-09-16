@@ -1,12 +1,9 @@
 package org.tasks.sync
 
 import com.todoroo.astrid.data.SyncFlags
+import com.todoroo.astrid.data.SyncFlags.FORCE_CALDAV_SYNC
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
@@ -18,10 +15,7 @@ import org.tasks.data.GoogleTaskDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.OpenTaskDao
 import org.tasks.jobs.WorkManager
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_CALDAV
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_ETEBASE
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_GOOGLE_TASKS
-import org.tasks.jobs.WorkManager.Companion.TAG_SYNC_OPENTASK
+import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
 import org.tasks.preferences.Preferences
 import java.util.concurrent.Executors.newSingleThreadExecutor
 import javax.inject.Inject
@@ -38,14 +32,11 @@ class SyncAdapters @Inject constructor(
         private val localBroadcastManager: LocalBroadcastManager
 ) {
     private val scope = CoroutineScope(newSingleThreadExecutor().asCoroutineDispatcher() + SupervisorJob())
-    private val googleTasks = Debouncer(TAG_SYNC_GOOGLE_TASKS) { workManager.googleTaskSync(it) }
-    private val caldav = Debouncer(TAG_SYNC_CALDAV) { workManager.caldavSync(it) }
-    private val eteBaseSync = Debouncer(TAG_SYNC_ETEBASE) { workManager.eteBaseSync(it) }
-    private val opentasks = Debouncer(TAG_SYNC_OPENTASK) { workManager.openTaskSync(it) }
-    private val syncStatus = Debouncer("sync_status") {
-        if (preferences.getBoolean(R.string.p_sync_ongoing_android, false) != it
-                && isOpenTaskSyncEnabled()) {
-            preferences.setBoolean(R.string.p_sync_ongoing_android, it)
+    private val sync = Debouncer(TAG_SYNC) { workManager.sync(it) }
+    private val syncStatus = Debouncer("sync_status") { newState ->
+        val currentState = preferences.getBoolean(R.string.p_sync_ongoing_android, false)
+        if (currentState != newState && isOpenTaskSyncEnabled()) {
+            preferences.setBoolean(R.string.p_sync_ongoing_android, newState)
             localBroadcastManager.broadcastRefresh()
         }
     }
@@ -54,21 +45,12 @@ class SyncAdapters @Inject constructor(
         if (task.checkTransitory(SyncFlags.SUPPRESS_SYNC)) {
             return@launch
         }
-        if (!task.googleTaskUpToDate(original)
-                && googleTaskDao.getAllByTaskId(task.id).isNotEmpty()) {
-            googleTasks.sync(false)
-        }
-        if (task.checkTransitory(SyncFlags.FORCE_CALDAV_SYNC) || !task.caldavUpToDate(original)) {
-            if (caldavDao.isAccountType(task.id, TYPE_CALDAV)
-                    || caldavDao.isAccountType(task.id, TYPE_TASKS)) {
-                caldav.sync(false)
-            }
-            if (caldavDao.isAccountType(task.id, TYPE_ETEBASE)) {
-                eteBaseSync.sync(false)
-            }
-            if (caldavDao.isAccountType(task.id, TYPE_OPENTASKS)) {
-                opentasks.sync(false)
-            }
+        val needsGoogleTaskSync = !task.googleTaskUpToDate(original)
+                && googleTaskDao.getAllByTaskId(task.id).isNotEmpty()
+        val needsIcalendarSync = (task.checkTransitory(FORCE_CALDAV_SYNC) || !task.caldavUpToDate(original))
+            && caldavDao.isAccountType(task.id, TYPE_ICALENDAR)
+        if (needsGoogleTaskSync || needsIcalendarSync) {
+            sync.sync(false)
         }
     }
 
@@ -77,7 +59,7 @@ class SyncAdapters @Inject constructor(
     }
 
     fun syncOpenTasks() = scope.launch {
-        opentasks.sync(true)
+        sync.sync(true)
     }
 
     fun sync() {
@@ -86,33 +68,27 @@ class SyncAdapters @Inject constructor(
 
     fun sync(immediate: Boolean) = scope.launch {
         val googleTasksEnabled = async { isGoogleTaskSyncEnabled() }
-        val caldavEnabled = async { isCaldavSyncEnabled() }
-        val eteBaseEnabled = async { isEtebaseEnabled() }
+        val caldavEnabled = async { isSyncEnabled() }
         val opentasksEnabled = async { isOpenTaskSyncEnabled() }
 
-        if (googleTasksEnabled.await()) {
-            googleTasks.sync(immediate)
-        }
-
-        if (caldavEnabled.await()) {
-            caldav.sync(immediate)
-        }
-
-        if (eteBaseEnabled.await()) {
-            eteBaseSync.sync(immediate)
-        }
-
-        if (opentasksEnabled.await()) {
-            opentasks.sync(immediate)
+        if (googleTasksEnabled.await() || caldavEnabled.await() || opentasksEnabled.await()) {
+            sync.sync(immediate)
         }
     }
 
     private suspend fun isGoogleTaskSyncEnabled() = googleTaskListDao.getAccounts().isNotEmpty()
 
-    private suspend fun isCaldavSyncEnabled() =
-            caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).isNotEmpty()
-
-    private suspend fun isEtebaseEnabled() = caldavDao.getAccounts(TYPE_ETEBASE).isNotEmpty()
+    private suspend fun isSyncEnabled() =
+            caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE).isNotEmpty()
 
     private suspend fun isOpenTaskSyncEnabled() = openTaskDao.shouldSync()
+
+    companion object {
+        private val TYPE_ICALENDAR = listOf(
+            TYPE_CALDAV,
+            TYPE_TASKS,
+            TYPE_ETEBASE,
+            TYPE_OPENTASKS
+        )
+    }
 }

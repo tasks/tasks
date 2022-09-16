@@ -16,13 +16,7 @@ interface WorkManager {
 
     fun migrateLocalTasks(caldavAccount: CaldavAccount)
 
-    suspend fun googleTaskSync(immediate: Boolean)
-
-    suspend fun caldavSync(immediate: Boolean)
-
-    suspend fun eteBaseSync(immediate: Boolean)
-
-    suspend fun openTaskSync(immediate: Boolean)
+    suspend fun sync(immediate: Boolean)
 
     fun reverseGeocode(place: Place)
 
@@ -50,14 +44,8 @@ interface WorkManager {
         const val TAG_BACKUP = "tag_backup"
         const val TAG_REFRESH = "tag_refresh"
         const val TAG_MIDNIGHT_REFRESH = "tag_midnight_refresh"
-        const val TAG_SYNC_GOOGLE_TASKS = "tag_sync_google_tasks"
-        const val TAG_SYNC_CALDAV = "tag_sync_caldav"
-        const val TAG_SYNC_ETEBASE = "tag_sync_etebase"
-        const val TAG_SYNC_OPENTASK = "tag_sync_opentask"
-        const val TAG_BACKGROUND_SYNC_GOOGLE_TASKS = "tag_background_sync_google_tasks"
-        const val TAG_BACKGROUND_SYNC_CALDAV = "tag_background_sync_caldav"
-        const val TAG_BACKGROUND_SYNC_ETEBASE = "tag_background_sync_etebase"
-        const val TAG_BACKGROUND_SYNC_OPENTASKS = "tag_background_sync_opentasks"
+        const val TAG_SYNC = "tag_sync"
+        const val TAG_BACKGROUND_SYNC = "tag_background_sync"
         const val TAG_REMOTE_CONFIG = "tag_remote_config"
         const val TAG_MIGRATE_LOCAL = "tag_migrate_local"
         const val TAG_UPDATE_PURCHASES = "tag_update_purchases"
