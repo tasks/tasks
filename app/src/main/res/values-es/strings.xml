@@ -157,58 +157,72 @@
     <string name="repeat_yearly">REPETIR ANUALMENTE</string>
     <plurals name="task_count">
         <item quantity="one">%d tarea</item>
+        <item quantity="many">%d tareas</item>
         <item quantity="other">%d tareas</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">vez</item>
+        <item quantity="many">veces</item>
         <item quantity="other">veces</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">minuto</item>
+        <item quantity="many">minutos</item>
         <item quantity="other">minutos</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minuto</item>
+        <item quantity="many">%d minutos</item>
         <item quantity="other">%d minutos</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">hora</item>
+        <item quantity="many">horas</item>
         <item quantity="other">horas</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d hora</item>
+        <item quantity="many">%d horas</item>
         <item quantity="other">%d horas</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">día</item>
+        <item quantity="many">días</item>
         <item quantity="other">días</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d día</item>
+        <item quantity="many">%d días</item>
         <item quantity="other">%d días</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">semana</item>
+        <item quantity="many">semanas</item>
         <item quantity="other">semanas</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d semana</item>
+        <item quantity="many">%d semanas</item>
         <item quantity="other">%d semanas</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">mes</item>
+        <item quantity="many">meses</item>
         <item quantity="other">meses</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d mes</item>
+        <item quantity="many">%d meses</item>
         <item quantity="other">%d meses</item>
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">año</item>
+        <item quantity="many">años</item>
         <item quantity="other">años</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d año</item>
+        <item quantity="many">%d años</item>
         <item quantity="other">%d años</item>
     </plurals>
     <string name="repeat_type_due">fecha límite</string>
@@ -235,6 +249,7 @@
     <string name="voice_command_added_task">Tarea agregada</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tarea</item>
+        <item quantity="many">%d tareas</item>
         <item quantity="other">%d tareas</item>
     </plurals>
     <string name="today">Hoy</string>
@@ -428,6 +443,7 @@
     <string name="SSD_sort_my_order">Mi orden</string>
     <plurals name="subtask_count">
         <item quantity="one">%d subtarea</item>
+        <item quantity="many">%d subtareas</item>
         <item quantity="other">%d subtareas</item>
     </plurals>
     <string name="expand_subtasks">Expandir subtareas</string>
@@ -598,6 +614,7 @@
     <string name="migrate">Migrar</string>
     <plurals name="list_count">
         <item quantity="one">%d lista</item>
+        <item quantity="many">%d listas</item>
         <item quantity="other">%d listas</item>
     </plurals>
     <string name="sign_in_with_github">Acceder con GitHub</string>
@@ -706,18 +723,22 @@
     <string name="snoozed_until">Pospuesto hasta %s</string>
     <plurals name="reminder_week">
         <item quantity="one">Semana</item>
+        <item quantity="many">Semanas</item>
         <item quantity="other">Semanas</item>
     </plurals>
     <plurals name="reminder_hours">
         <item quantity="one">Hora</item>
+        <item quantity="many">Horas</item>
         <item quantity="other">Horas</item>
     </plurals>
     <plurals name="reminder_days">
         <item quantity="one">Día</item>
+        <item quantity="many">Días</item>
         <item quantity="other">Días</item>
     </plurals>
     <plurals name="reminder_minutes">
         <item quantity="one">Minuto</item>
+        <item quantity="many">Minutos</item>
         <item quantity="other">Minutos</item>
     </plurals>
     <string name="custom_notification">Notificación personalizada</string>
@@ -736,4 +757,7 @@
     <string name="TEA_creation_date">Fecha de creación</string>
     <string name="microsoft_selection_description">Sincronizar con su cuenta personal de Microsoft</string>
     <string name="sign_in">Iniciar sesión</string>
+    <string name="sign_in_to_tasks_disclosure">Tu dirección de correo electrónico y el ID de tu cuenta serán transmitidos y almacenados por Tasks.org. Esta información se utilizará para la autenticación y para proporcionarle anuncios importantes relacionados con el servicio. Esta información no se compartirá con nadie.</string>
+    <string name="consent_agree">De acuerdo</string>
+    <string name="consent_deny">No ahora</string>
 </resources>
