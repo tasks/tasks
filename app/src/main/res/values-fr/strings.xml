@@ -752,4 +752,7 @@
     <string name="sort_completion_group">Achèvement %s</string>
     <string name="microsoft_selection_description">Synchroniser avec votre compte Microsoft personnel</string>
     <string name="sign_in">Se connecter</string>
+    <string name="consent_deny">Pas maintenant</string>
+    <string name="sign_in_to_tasks_disclosure">Votre adresse électronique et votre identifiant de compte seront transmis et stockés par Tasks.org. Ces informations seront utilisées pour l\'authentification et pour vous fournir des annonces importantes relatives au service. Ces informations ne seront pas partagées avec qui que ce soit.</string>
+    <string name="consent_agree">D\'accord</string>
 </resources>
