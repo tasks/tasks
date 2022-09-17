@@ -69,6 +69,7 @@
   <string name="p_rmd_quietEnd">notif_qend_new</string>
 
   <!-- reminder time when task doesn't have a due time (hour of day) -->
+  <string name="p_rmd_time_enabled">reminder_time_new_enabled</string>
   <string name="p_rmd_time">reminder_time_new</string>
 
   <!-- whether "clear all notifications" clears astrid notifications -->

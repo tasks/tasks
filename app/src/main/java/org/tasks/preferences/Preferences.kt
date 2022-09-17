@@ -87,6 +87,9 @@ class Preferences @JvmOverloads constructor(
 
     private fun quietHoursEnabled(): Boolean = getBoolean(R.string.p_rmd_enable_quiet, false)
 
+    val isDefaultDueTimeEnabled: Boolean
+        get() = getBoolean(R.string.p_rmd_time_enabled, true)
+
     val defaultDueTime: Int
         get() = getInt(R.string.p_rmd_time, TimeUnit.HOURS.toMillis(18).toInt())
 

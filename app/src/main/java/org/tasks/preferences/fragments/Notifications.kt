@@ -55,6 +55,7 @@ class Notifications : InjectingPreferenceFragment() {
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         rescheduleNotificationsOnChange(
             false,
+            R.string.p_rmd_time_enabled,
             R.string.p_rmd_time,
             R.string.p_rmd_enable_quiet,
             R.string.p_rmd_quietStart,
