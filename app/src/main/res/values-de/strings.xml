@@ -734,4 +734,9 @@
     <string name="TEA_creation_date">Erstellungsdatum</string>
     <string name="enable_reminders">Erinnerungen aktivieren</string>
     <string name="enable_reminders_description">Erinnerungen sind in den Android-Einstellungen deaktiviert</string>
+    <string name="consent_agree">Zustimmen</string>
+    <string name="consent_deny">Nicht jetzt</string>
+    <string name="sign_in_to_tasks_disclosure">Ihre E-Mail-Adresse und Account-ID werden an Tasks.org übertragen und dort gespeichert. Diese Information werden verwedet, um Sie zu authentifizieren und mit wichtigen Nachrichten zu diesem Service zu versorgen. Die Informationen werden mit niemandem geteilt.</string>
+    <string name="microsoft_selection_description">Mit persönlichem Microsoft-Konto synchronisieren</string>
+    <string name="sign_in">Anmelden</string>
 </resources>
