@@ -736,4 +736,7 @@
     <string name="sort_completion_group">Завършена %s</string>
     <string name="microsoft_selection_description">Синхронизирайте задачите си с личния профил в Microsoft</string>
     <string name="sign_in">Вход</string>
+    <string name="sign_in_to_tasks_disclosure">Адресът на електронната поща и идентификаторът на профила ще бъдат изпратени и съхранени от Tasks.org. Информацията ще бъде използвана за удостоверяване и за предоставяне на важни съобщения, свързани с услугата. Тази информация няма да бъде споделяна с никого.</string>
+    <string name="consent_agree">Съгласявам се</string>
+    <string name="consent_deny">Не сега</string>
 </resources>
