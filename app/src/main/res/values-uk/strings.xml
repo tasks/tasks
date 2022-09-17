@@ -764,4 +764,7 @@
     <string name="sort_completion_group">Завершення %s</string>
     <string name="microsoft_selection_description">Синхронізація з особистим обліковим записом Microsoft</string>
     <string name="sign_in">Увійти</string>
+    <string name="consent_deny">Не зараз</string>
+    <string name="sign_in_to_tasks_disclosure">Ваша адреса електронної пошти та ID облікового запису будуть передані та збережені Tasks.org. Ці дані використовуватимуться для автентифікації та надання вам важливих оголошень, пов\'язаних з обслуговуванням. Ці дані нікому не будуть передані.</string>
+    <string name="consent_agree">Погоджуюся</string>
 </resources>
