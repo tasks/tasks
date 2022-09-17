@@ -669,6 +669,7 @@ File %1$s contained %2$s.\n\n
   <string name="above_average">Above average</string>
   <string name="save_percent">Save %d%%</string>
   <string name="sign_in_to_tasks">Sign in to Tasks.org</string>
+  <string name="sign_in_to_tasks_disclosure">Your e-mail address and account ID will be transmitted and stored by Tasks.org. This information will be used for authentication and to provide you with important service related announcements. This information will not be shared with anyone.</string>
   <string name="app_password">App password</string>
   <string name="app_passwords">App passwords</string>
   <string name="app_passwords_more_info">Synchronize your tasks and calendars with third-party desktop and mobile apps. Tap here for more info</string>
@@ -736,4 +737,6 @@ File %1$s contained %2$s.\n\n
   <string name="enable_reminders">Enable reminders</string>
   <string name="enable_reminders_description">Reminders are disabled in Android Settings</string>
   <string name="sign_in">Sign in</string>
+  <string name="consent_agree">Agree</string>
+  <string name="consent_deny">Not now</string>
 </resources>

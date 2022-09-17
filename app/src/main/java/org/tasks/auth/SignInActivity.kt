@@ -15,36 +15,33 @@ package org.tasks.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import net.openid.appauth.AuthState
-import net.openid.appauth.AuthorizationException
-import net.openid.appauth.AuthorizationRequest
-import net.openid.appauth.AuthorizationServiceConfiguration
-import net.openid.appauth.ClientSecretBasic
-import net.openid.appauth.RegistrationRequest
-import net.openid.appauth.RegistrationResponse
-import net.openid.appauth.ResponseTypeValues
+import net.openid.appauth.*
 import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivity.Companion.EXTRA_GITHUB
+import org.tasks.compose.ConsentDialog
+import org.tasks.compose.SignInDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.openUri
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.themes.ThemeColor
 import timber.log.Timber
 import java.util.concurrent.CountDownLatch
@@ -63,7 +60,7 @@ import javax.inject.Inject
  * - Initiate the authorization request using the built-in heuristics or a user-selected browser.
  */
 @AndroidEntryPoint
-class SignInActivity : InjectingAppCompatActivity() {
+class SignInActivity : ComponentActivity() {
     @Inject lateinit var themeColor: ThemeColor
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var dialogBuilder: DialogBuilder
@@ -86,62 +83,52 @@ class SignInActivity : InjectingAppCompatActivity() {
     private val authStateManager: AuthStateManager
         get() = authService.authStateManager
 
+    enum class Platform {
+        GOOGLE,
+        GITHUB,
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel.error.observe(this, this::handleError)
 
-        val titles = resources.getStringArray(R.array.sign_in_titles)
-        val summaries = resources.getStringArray(R.array.sign_in_summaries)
-        val typedArray = resources.obtainTypedArray(R.array.sign_in_icons)
-        val icons = IntArray(typedArray.length())
-        for (i in icons.indices) {
-            icons[i] = typedArray.getResourceId(i, 0)
-        }
-        typedArray.recycle()
-        val adapter = object : BaseAdapter() {
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = layoutInflater.inflate(R.layout.simple_list_item_2_themed, null)
-                val icon = view.findViewById<ImageView>(R.id.image_view)
-                icon.setImageResource(icons[position])
-                view.findViewById<TextView>(R.id.text2).text = titles[position]
-                view.findViewById<TextView>(R.id.text1).text = summaries[position]
-                if (position == 1) {
-                    icon.drawable.setTint(getColor(R.color.icon_tint))
-                }
-                return view
+        val autoSelect = intent.getSerializableExtra(EXTRA_SELECT_SERVICE) as Platform?
+        setContent {
+            var selectedPlatform by rememberSaveable {
+                mutableStateOf(autoSelect)
             }
-
-            override fun getCount() = titles.size
-
-            override fun getItem(position: Int) = titles[position]
-
-            override fun getItemId(position: Int): Long = position.toLong()
-        }
-        val autoSelect = intent.getIntExtra(EXTRA_SELECT_SERVICE, -1)
-        if (autoSelect >= 0 && autoSelect < titles.size) {
-            selectService(autoSelect)
-        } else {
-            dialogBuilder.newDialog()
-                    .setTitle(R.string.sign_in_to_tasks)
-                    .setNeutralButton(R.string.help) { _, _ ->
-                        openUri(R.string.help_url_sync)
-                        finish()
+            MdcTheme {
+                selectedPlatform
+                    ?.let {
+                        Dialog(onDismissRequest = { finish() }) {
+                            ConsentDialog { agree ->
+                                if (agree) {
+                                    selectService(it)
+                                } else {
+                                    finish()
+                                }
+                            }
+                        }
                     }
-                    .setNegativeButton(R.string.cancel) { _, _ ->
-                        finish()
+                    ?: Dialog(onDismissRequest = { finish() }) {
+                        SignInDialog(
+                            selected = { selectedPlatform = it },
+                            help = {
+                                openUri(R.string.help_url_sync)
+                                finish()
+                            },
+                            cancel = { finish() }
+                        )
                     }
-                    .setAdapter(adapter) { _, which -> selectService(which) }
-                    .setOnCancelListener { finish() }
-                    .show()
+            }
         }
     }
 
-    private fun selectService(which: Int) {
+    private fun selectService(which: Platform) {
         viewModel.initializeAuthService(when (which) {
-            0 -> AuthorizationService.ISS_GOOGLE
-            1 -> AuthorizationService.ISS_GITHUB
-            else -> throw IllegalArgumentException()
+            Platform.GOOGLE -> AuthorizationService.ISS_GOOGLE
+            Platform.GITHUB -> AuthorizationService.ISS_GITHUB
         })
         startAuthorization()
     }
