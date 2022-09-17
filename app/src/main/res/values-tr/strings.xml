@@ -736,4 +736,7 @@
     <string name="TEA_creation_date">Oluşturulma zamanı</string>
     <string name="microsoft_selection_description">Kişisel Microsoft hesabınızla eşzamanlayın</string>
     <string name="sign_in">Oturum aç</string>
+    <string name="consent_agree">Kabul et</string>
+    <string name="consent_deny">Şimdi değil</string>
+    <string name="sign_in_to_tasks_disclosure">E-posta adresiniz ve hesap kimliğiniz Tasks.org tarafından iletilecek ve saklanacaktır. Bu bilgiler kimlik doğrulama ve hizmetle ilgili önemli duyuruları size sağlamak için kullanılacaktır. Bu bilgiler hiç kimse ile paylaşılmayacaktır.</string>
 </resources>
