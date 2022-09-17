@@ -721,4 +721,7 @@
     <string name="sort_completion_group">完成 %s</string>
     <string name="microsoft_selection_description">与您的个人 Microsoft 账户同步</string>
     <string name="sign_in">登录</string>
+    <string name="sign_in_to_tasks_disclosure">Tasks.org 将传输和存储您的电子邮箱地址和账户 ID。 此信息将用于身份验证并向您提供与服务相关的重要公告。 此信息不会与任何人共享。</string>
+    <string name="consent_agree">同意</string>
+    <string name="consent_deny">再想想</string>
 </resources>
