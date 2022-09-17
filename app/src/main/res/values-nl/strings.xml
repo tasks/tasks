@@ -736,4 +736,7 @@
     <string name="sort_completion_group">Voltooid %s</string>
     <string name="microsoft_selection_description">Synchroniseer met je persoonlijke Microsoft-account</string>
     <string name="sign_in">Log in</string>
+    <string name="consent_agree">Akkoord</string>
+    <string name="consent_deny">Niet nu</string>
+    <string name="sign_in_to_tasks_disclosure">Uw e-mailadres en account-ID worden verzonden naar Tasks.org en opgeslagen. Deze informatie wordt gebruikt voor authenticatie en om u te voorzien van belangrijke servicegerelateerde aankondigingen. Deze informatie wordt met niemand gedeeld.</string>
 </resources>
