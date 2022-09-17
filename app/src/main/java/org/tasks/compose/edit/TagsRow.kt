@@ -22,6 +22,7 @@ fun TagsRow(
     tags: List<TagData>,
     colorProvider: (Int) -> Int,
     onClick: () -> Unit,
+    onClear: (TagData) -> Unit,
 ) {
     TaskEditRow(
         iconRes = R.drawable.ic_outline_label_24px,
@@ -42,6 +43,7 @@ fun TagsRow(
                             showIcon = true,
                             onClick = onClick,
                             colorProvider = colorProvider,
+                            clear = { onClear(tag) },
                         )
                     }
                 }
@@ -60,6 +62,7 @@ fun NoTags() {
             tags = emptyList(),
             colorProvider = { 0 },
             onClick = {},
+            onClear = {},
         )
     }
 }
@@ -78,6 +81,7 @@ fun SingleTag() {
             ),
             colorProvider = { it },
             onClick = {},
+            onClear = {},
         )
     }
 }
@@ -95,7 +99,8 @@ fun BunchOfTags() {
                 TagData("Five"),
             ),
             colorProvider = { it },
-            onClick = {}
+            onClick = {},
+            onClear = {},
         )
     }
 }
@@ -113,6 +118,7 @@ fun TagWithReallyLongName() {
             ),
             colorProvider = { it },
             onClick = {},
+            onClear = {},
         )
     }
 }
