@@ -273,7 +273,7 @@
     <string name="pick_a_date_and_time">Hautatu data eta ordua</string>
     <string name="when_overdue">Epemuga gaindituta badago</string>
     <string name="when_due">Epemugan</string>
-    <string name="geofence_radius">Erradioa</string>
+    <string name="geofence_radius">Geoesparruaren erradioa</string>
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Etiketak</string>
     <string name="filters">Iragazkiak</string>
@@ -734,4 +734,9 @@
     <string name="enable_reminders">Aktibatu oroigarriak</string>
     <string name="sort_completion_group">Osatu %s</string>
     <string name="TEA_creation_date">Sortze-data</string>
+    <string name="sign_in_to_tasks_disclosure">Zure helbide elektronikoa eta kontuaren IDa Tasks.org-era transmititu eta biltegiratuko da. Informazio hau autentifikazio eta zerbitzuari erlazionatutako iragarki garrantzitsuak emateko erabiliko da. Informazio hau ez da inorekin partekatuko.</string>
+    <string name="consent_agree">Onartu</string>
+    <string name="consent_deny">Orain ez</string>
+    <string name="microsoft_selection_description">Sinkronizatu zure Microsoft kontu pertsonalarekin</string>
+    <string name="sign_in">Saioa hasi</string>
 </resources>
