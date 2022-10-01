@@ -757,4 +757,7 @@
     <string name="TEA_creation_date">Datum stvaranja</string>
     <string name="microsoft_selection_description">Sinkroniziraj s tvojim osobnim Microsoft računom</string>
     <string name="sign_in">Prijavi se</string>
+    <string name="sign_in_to_tasks_disclosure">Tvoja e-mail adresa i ID računa će se poslati i spremiti na Tasks.org . Ovi će se podaci koristiti za provjeru autentifikacije i za slanje važnih najava vezanih uz uslugu. Ovi podaci se neće dijeliti ni s kim.</string>
+    <string name="consent_agree">Prihvati</string>
+    <string name="consent_deny">Ne sada</string>
 </resources>
