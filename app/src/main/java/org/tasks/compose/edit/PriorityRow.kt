@@ -123,3 +123,16 @@ fun PriorityPreviewNoDesaturate() {
         )
     }
 }
+
+@ExperimentalComposeUiApi
+@Preview(locale = "de", widthDp = 320, showBackground = true)
+@Composable
+fun PriorityNarrowWidth() {
+    MdcTheme {
+        PriorityRow(
+            priority = Task.Priority.MEDIUM,
+            onChangePriority = {},
+            desaturate = false,
+        )
+    }
+}
