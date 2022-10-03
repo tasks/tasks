@@ -248,7 +248,7 @@ class iCalendar @Inject constructor(
             }
         }
 
-        private val IS_APPLE_SORT_ORDER = { x: Property? -> x?.name.equals(APPLE_SORT_ORDER, true) }
+        internal val IS_APPLE_SORT_ORDER = { x: Property? -> x?.name.equals(APPLE_SORT_ORDER, true) }
         private val IS_OC_HIDESUBTASKS = { x: Property? -> x?.name.equals(OC_HIDESUBTASKS, true) }
         private val IS_MOZ_SNOOZE_TIME = { x: Property? -> x?.name.equals(MOZ_SNOOZE_TIME, true) }
         private val IS_MOZ_LASTACK = { x: Property? -> x?.name.equals(MOZ_LASTACK, true) }
