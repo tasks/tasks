@@ -1,15 +1,15 @@
 package com.todoroo.astrid.activity
 
+import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.google.common.io.Files
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
+import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.data.TaskAttachment
 import org.tasks.files.FileHelper
@@ -18,7 +18,6 @@ import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.math.min
 
 /**
  * @author joshuagross
@@ -88,29 +87,24 @@ class ShareLinkActivity : InjectingAppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun copyAttachment(intent: Intent): ArrayList<Uri> {
-        val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM) ?: return ArrayList()
-        var filename = FileHelper.getFilename(this, uri)
-        if (isNullOrEmpty(filename)) {
-            filename = intent.getStringExtra(Intent.EXTRA_SUBJECT)
-                    ?.takeIf { it.isNotBlank() }
-                    ?.let { it.substring(0, min(it.length, FileHelper.MAX_FILENAME_LENGTH)) }
-                    ?: uri.lastPathSegment
-        }
-        val basename = Files.getNameWithoutExtension(filename!!)
-        return arrayListOf(FileHelper.copyToUri(this, preferences.attachmentsDirectory!!, uri, basename))
-    }
+    private fun copyAttachment(intent: Intent): ArrayList<Uri> =
+        intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+            ?.let { copyAttachments(listOf(it)) }
+            ?: arrayListOf()
 
-    private fun copyMultipleAttachments(intent: Intent): ArrayList<Uri> {
-        val result = ArrayList<Uri>()
-        val uris = intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
-        if (uris != null) {
-            for (uri in uris) {
-                result.add(FileHelper.copyToUri(this, preferences.attachmentsDirectory!!, uri))
+    private fun copyMultipleAttachments(intent: Intent): ArrayList<Uri> =
+        intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
+            ?.let { copyAttachments(it) }
+            ?: arrayListOf()
+
+    private fun copyAttachments(uris: List<Uri>) =
+        uris
+            .filter {
+                it.scheme == ContentResolver.SCHEME_CONTENT
+                        && it.authority != Constants.FILE_PROVIDER_AUTHORITY
             }
-        }
-        return result
-    }
+            .map { FileHelper.copyToUri(this, preferences.attachmentsDirectory!!, it) }
+            .let { ArrayList(it) }
 
     private fun hasAttachments(intent: Intent) =
         intent.type?.let { type -> ATTACHMENT_TYPES.any { type.startsWith(it) } } ?: false

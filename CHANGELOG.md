@@ -1,3 +1,7 @@
+### 12.7.1 (2022-10-04)
+
+* Bug fix
+
 ### 12.7 (2022-06-18)
 
 * Android 13 themed icon - Thanks @hanthor!

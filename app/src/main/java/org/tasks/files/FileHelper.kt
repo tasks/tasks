@@ -26,7 +26,6 @@ import java.io.IOException
 import java.util.*
 
 object FileHelper {
-    const val MAX_FILENAME_LENGTH = 40
     fun newFilePickerIntent(activity: Activity?, initial: Uri?, vararg mimeTypes: String?): Intent =
             Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 putExtra("android.content.extra.SHOW_ADVANCED", true)
@@ -178,20 +177,20 @@ object FileHelper {
 
     fun copyToUri(context: Context, destination: Uri, input: Uri): Uri {
         val filename = getFilename(context, input)
-        return copyToUri(context, destination, input, Files.getNameWithoutExtension(filename!!))
-    }
-
-    fun copyToUri(context: Context, destination: Uri, input: Uri, basename: String): Uri = try {
-        val output = newFile(
+        val basename = Files.getNameWithoutExtension(filename!!)
+        try {
+            val output = newFile(
                 context,
                 destination,
                 getMimeType(context, input),
                 basename,
-                getExtension(context, input))
-        copyStream(context, input, output)
-        output
-    } catch (e: IOException) {
-        throw IllegalStateException(e)
+                getExtension(context, input)
+            )
+            copyStream(context, input, output)
+            return output
+        } catch (e: IOException) {
+            throw IllegalStateException(e)
+        }
     }
 
     fun copyStream(context: Context, input: Uri?, output: Uri?) {
