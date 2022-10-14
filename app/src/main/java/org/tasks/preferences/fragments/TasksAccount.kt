@@ -21,6 +21,7 @@ import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.auth.SignInActivity
+import org.tasks.auth.SignInActivity.Platform
 import org.tasks.billing.Inventory
 import org.tasks.billing.Purchase
 import org.tasks.data.CaldavAccount
@@ -149,7 +150,7 @@ class TasksAccount : BaseAccountPreference() {
         localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
 
-    private val isGitHubAccount: Boolean
+    private val isGithub: Boolean
         get() = caldavAccount.username?.startsWith("github") == true
 
     private fun refreshUi(account: CaldavAccount) {
@@ -162,9 +163,10 @@ class TasksAccount : BaseAccountPreference() {
             when {
                 account.isPaymentRequired() -> {
                     val subscription = inventory.subscription.value
-                    if (isGitHubAccount) {
+                    if (isGithub) {
                         title = null
                         setSummary(R.string.insufficient_sponsorship)
+                        @Suppress("KotlinConstantConditions")
                         if (BuildConfig.FLAVOR == "googleplay") {
                             onPreferenceClickListener = null
                         } else {
@@ -185,7 +187,7 @@ class TasksAccount : BaseAccountPreference() {
                     }
                 }
                 account.isLoggedOut() -> {
-                    setTitle(if (isGitHubAccount) {
+                    setTitle(if (isGithub) {
                         R.string.sign_in_with_github
                     } else {
                         R.string.sign_in_with_google
@@ -195,8 +197,8 @@ class TasksAccount : BaseAccountPreference() {
                         activity?.startActivityForResult(
                                 Intent(activity, SignInActivity::class.java)
                                         .putExtra(
-                                                SignInActivity.EXTRA_SELECT_SERVICE,
-                                                if (isGitHubAccount) 1 else 0
+                                            SignInActivity.EXTRA_SELECT_SERVICE,
+                                            if (isGithub) Platform.GITHUB else Platform.GOOGLE
                                         ),
                                 REQUEST_TASKS_ORG)
                         false
