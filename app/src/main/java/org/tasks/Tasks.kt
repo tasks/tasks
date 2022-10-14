@@ -72,7 +72,7 @@ class Tasks : Application(), Configuration.Provider {
 
     private fun backgroundWork() = CoroutineScope(Dispatchers.Default).launch {
         inventory.updateTasksAccount()
-        NotificationSchedulerIntentService.enqueueWork(context, false)
+        NotificationSchedulerIntentService.enqueueWork(context)
         CalendarNotificationIntentService.enqueueWork(context)
         refreshScheduler.get().scheduleAll()
         workManager.get().apply {

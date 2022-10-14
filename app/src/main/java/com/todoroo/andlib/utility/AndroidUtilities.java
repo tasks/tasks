@@ -143,6 +143,10 @@ public class AndroidUtilities {
     return !atLeastOreo();
   }
 
+  public static boolean preTiramisu() {
+    return VERSION.SDK_INT < VERSION_CODES.TIRAMISU;
+  }
+
   public static boolean atLeastNougatMR1() {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
   }

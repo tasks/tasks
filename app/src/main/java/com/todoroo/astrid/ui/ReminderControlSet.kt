@@ -29,6 +29,7 @@ import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
+import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.ui.TaskEditControlFragment
 import java.util.*
 import javax.inject.Inject
@@ -79,7 +80,12 @@ class ReminderControlSet : TaskEditControlFragment() {
                     val ringMode by remember { this@ReminderControlSet.ringMode }
                     val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
                         rememberPermissionState(
-                            Manifest.permission.POST_NOTIFICATIONS
+                            Manifest.permission.POST_NOTIFICATIONS,
+                            onPermissionResult = { success ->
+                                if (success) {
+                                    NotificationSchedulerIntentService.enqueueWork(context)
+                                }
+                            }
                         )
                     } else {
                         null

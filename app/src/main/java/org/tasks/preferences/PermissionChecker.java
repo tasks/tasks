@@ -2,7 +2,7 @@ package org.tasks.preferences;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastQ;
-
+import static com.todoroo.andlib.utility.AndroidUtilities.preTiramisu;
 import static java.util.Arrays.asList;
 
 import android.Manifest.permission;
@@ -40,6 +40,10 @@ public class PermissionChecker {
 
   public boolean canAccessBackgroundLocation() {
     return checkPermissions(backgroundPermissions().toArray(new String[0]));
+  }
+
+  public boolean canNotify() {
+    return preTiramisu() || checkPermissions(permission.POST_NOTIFICATIONS);
   }
 
   private boolean checkPermissions(String... permissions) {

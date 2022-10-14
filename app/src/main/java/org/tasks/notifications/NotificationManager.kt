@@ -16,6 +16,7 @@ import org.tasks.data.TaskDao
 import org.tasks.filters.NotificationsFilter
 import org.tasks.intents.TaskIntents
 import org.tasks.markdown.MarkdownProvider
+import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.CompleteTaskReceiver
 import org.tasks.reminders.NotificationActivity
@@ -38,6 +39,7 @@ class NotificationManager @Inject constructor(
         private val localBroadcastManager: LocalBroadcastManager,
         private val notificationManager: ThrottledNotificationManager,
         private val markdownProvider: MarkdownProvider,
+        private val permissionChecker: PermissionChecker,
 ) {
     private val colorProvider = ColorProvider(context, preferences)
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
@@ -142,7 +144,12 @@ class NotificationManager @Inject constructor(
             alert: Boolean,
             nonstop: Boolean,
             fiveTimes: Boolean,
-            useGroupKey: Boolean) {
+            useGroupKey: Boolean
+    ) {
+        if (!permissionChecker.canNotify()) {
+            Timber.w("Notifications disabled")
+            return
+        }
         var alert = alert
         for (notification in notifications) {
             val builder = getTaskNotification(notification)

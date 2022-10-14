@@ -63,7 +63,7 @@ class NotificationSchedulerIntentService : InjectingJobIntentService() {
 
     companion object {
         private const val EXTRA_CANCEL_EXISTING_NOTIFICATIONS = "extra_cancel_existing_notifications"
-        fun enqueueWork(context: Context?, cancelNotifications: Boolean) {
+        fun enqueueWork(context: Context?, cancelNotifications: Boolean = false) {
             val intent = Intent(context, NotificationSchedulerIntentService::class.java)
             intent.putExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, cancelNotifications)
             enqueueWork(
