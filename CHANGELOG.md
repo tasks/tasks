@@ -1,4 +1,4 @@
-### 13.0 (2022-09-17)
+### 13.0.1 (2022-10-15)
 
 * 🚨 Major internal changes to task edit screen. Please report any bugs! 🚨
 * Show thumbnails for attachments
