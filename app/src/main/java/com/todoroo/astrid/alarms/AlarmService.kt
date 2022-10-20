@@ -14,14 +14,12 @@ import org.tasks.data.TaskDao
 import org.tasks.jobs.NotificationQueue
 import org.tasks.notifications.NotificationManager
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Provides operations for working with alerts
  *
  * @author Tim Su <tim></tim>@todoroo.com>
  */
-@Singleton
 class AlarmService @Inject constructor(
     private val alarmDao: AlarmDao,
     private val jobs: NotificationQueue,

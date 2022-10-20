@@ -46,9 +46,11 @@ class AlarmCalculatorTest {
     @Before
     fun setUp() {
         random = RandomStub()
-        alarmCalculator = AlarmCalculator(random) {
-            TimeUnit.HOURS.toMillis(13).toInt()
-        }
+        alarmCalculator = AlarmCalculator(
+            isDefaultDueTimeEnabled = true,
+            random = random,
+            defaultDueTime = TimeUnit.HOURS.toMillis(13).toInt(),
+        )
     }
 
     @Test
