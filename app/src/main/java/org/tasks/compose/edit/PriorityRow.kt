@@ -3,11 +3,9 @@ package org.tasks.compose.edit
 import android.content.res.Configuration
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.RadioButton
-import androidx.compose.material.RadioButtonDefaults
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -51,30 +49,32 @@ fun Priority(
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(
-                top = dimensionResource(id = R.dimen.half_keyline_first),
-                bottom = dimensionResource(id = R.dimen.half_keyline_first),
-                end = 16.dp
+                end = dimensionResource(id = R.dimen.keyline_first)
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = stringResource(id = R.string.TEA_importance_label),
             style = MaterialTheme.typography.body1,
+            modifier = Modifier.padding(end = 16.dp)
         )
         Spacer(modifier = Modifier.weight(1f))
-        for (i in Task.Priority.HIGH..Task.Priority.NONE) {
-            PriorityButton(
-                priority = i,
-                selected = selected,
-                onClick = onClick,
-                desaturate = desaturate,
-            )
+        Row(horizontalArrangement = Arrangement.SpaceBetween) {
+            for (i in Task.Priority.HIGH..Task.Priority.NONE) {
+                PriorityButton(
+                    priority = i,
+                    selected = selected,
+                    onClick = onClick,
+                    desaturate = desaturate,
+                )
+            }
         }
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun PriorityButton(
+fun RowScope.PriorityButton(
     @Task.Priority priority: Int,
     selected: Int,
     desaturate: Boolean,
@@ -87,14 +87,21 @@ fun PriorityButton(
             desaturate = desaturate,
         )
     )
-    RadioButton(
-        selected = priority == selected,
-        onClick = { onClick(priority) },
-        colors = RadioButtonDefaults.colors(
-            selectedColor = color,
-            unselectedColor = color,
-        ),
-    )
+    CompositionLocalProvider(
+        LocalMinimumTouchTargetEnforcement provides false,
+    ) {
+        RadioButton(
+            selected = priority == selected,
+            onClick = { onClick(priority) },
+            colors = RadioButtonDefaults.colors(
+                selectedColor = color,
+                unselectedColor = color,
+            ),
+            modifier = Modifier
+                .weight(1f)
+                .padding(vertical = 20.dp)
+        )
+    }
 }
 
 @ExperimentalComposeUiApi
