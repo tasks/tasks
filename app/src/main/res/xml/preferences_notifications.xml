@@ -19,17 +19,11 @@
 
   </Preference>
 
-  <org.tasks.ui.TimePreference
-    android:defaultValue="@integer/default_remind_time"
-    android:key="@string/p_rmd_time"
-    android:title="@string/rmd_EPr_rmd_time_title"
-    app:allowDividerAbove="true"
-    app:time_summary="@string/rmd_EPr_rmd_time_desc" />
-
   <Preference
       android:defaultValue="content://settings/system/notification_sound"
       android:key="@string/p_completion_ringtone"
-      android:title="@string/completion_sound" />
+      android:title="@string/completion_sound"
+      app:allowDividerAbove="true" />
 
   <SwitchPreferenceCompat
     android:defaultValue="true"
@@ -85,6 +79,23 @@
     </intent>
 
   </Preference>
+
+  <PreferenceCategory android:title="@string/default_reminder">
+
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/p_rmd_time_enabled"
+        android:summary="@string/rmd_time_description"
+        android:title="@string/enabled" />
+
+    <org.tasks.ui.TimePreference
+        android:dependency="@string/p_rmd_time_enabled"
+        android:defaultValue="@integer/default_remind_time"
+        android:key="@string/p_rmd_time"
+        android:title="@string/rmd_EPr_rmd_time_title"
+        app:time_summary="@string/rmd_EPr_rmd_time_desc" />
+
+  </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/badges">
 

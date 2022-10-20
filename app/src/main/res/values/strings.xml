@@ -155,7 +155,7 @@ File %1$s contained %2$s.\n\n
   <string name="snooze_all">Snooze all</string>
   <string name="rmd_EPr_quiet_hours_start_title">Quiet hours start</string>
   <string name="rmd_EPr_quiet_hours_end_title">Quiet hours end</string>
-  <string name="rmd_EPr_rmd_time_title">Default reminder</string>
+  <string name="rmd_EPr_rmd_time_title">Reminder time</string>
   <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without due times will appear at %s</string>
   <string name="persistent_notifications">Persistent notifications</string>
   <string name="persistent_notifications_description">Persistent notifications cannot be cleared</string>
@@ -438,6 +438,7 @@ File %1$s contained %2$s.\n\n
   <string name="error_adding_account">Error: %s</string>
   <string name="notification_disable_battery_optimizations_description">Battery optimizations may delay notifications</string>
   <string name="bundle_notifications">Bundle notifications</string>
+  <string name="default_reminder">Default Reminder</string>
   <string name="badges">Badges</string>
   <string name="list">List</string>
   <string name="repeats_from">Repeats from</string>
@@ -462,6 +463,7 @@ File %1$s contained %2$s.\n\n
   <string name="list_separator_with_space">,\u0020</string>
   <string name="dont_add_to_calendar">Don\'t add to calendar</string>
   <string name="default_calendar">Default calendar</string>
+  <string name="rmd_time_description">Show notifications for tasks without due times</string>
   <string name="badges_description">Display a task count on Tasks\' launcher icon. Not all launchers support badges.</string>
   <string name="bundle_notifications_summary">Combine multiple notifications into one</string>
   <string name="repeat_monthly_same_day_each_month">on the same day each month</string>

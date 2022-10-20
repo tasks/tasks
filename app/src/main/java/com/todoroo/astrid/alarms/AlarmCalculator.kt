@@ -10,13 +10,14 @@ import org.tasks.time.DateTimeUtils.withMillisOfDay
 import javax.inject.Inject
 
 class AlarmCalculator(
+    private val preferences: Preferences,
     private val random: Random,
     private val defaultTimeProvider: () -> Int,
 ){
     @Inject
     internal constructor(
         preferences: Preferences
-    ) : this(Random(), { preferences.defaultDueTime })
+    ) : this(preferences, Random(), { preferences.defaultDueTime })
 
     fun toAlarmEntry(task: Task, alarm: Alarm): AlarmEntry? {
         val trigger = when (alarm.type) {
@@ -36,7 +37,7 @@ class AlarmCalculator(
                 when {
                     task.hasDueTime() ->
                         task.dueDate + alarm.time
-                    task.hasDueDate() ->
+                    task.hasDueDate() && preferences.isDefaultDueTimeEnabled ->
                         task.dueDate.withMillisOfDay(defaultTimeProvider()) + alarm.time
                     else ->
                         AlarmService.NO_ALARM
