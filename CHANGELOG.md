@@ -1,9 +1,10 @@
-### 13.0.1 (2022-10-15)
+### 13.0.1 (2022-10-20)
 
 * 🚨 Major internal changes to task edit screen. Please report any bugs! 🚨
 * Show thumbnails for attachments
 * Tap on existing alarms to replace them
 * Add task info row to edit screen [#1839](https://github.com/tasks/tasks/pull/1839)
+* Add option to disable reminders for all-day tasks [#2003](https://github.com/tasks/tasks/pull/2003)
 * Updated chip style
 * Show geofence circle in place settings
 * Fix removing preferences [#1981](https://github.com/tasks/tasks/pull/1981)
