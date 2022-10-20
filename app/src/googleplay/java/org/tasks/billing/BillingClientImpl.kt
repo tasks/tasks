@@ -2,19 +2,12 @@ package org.tasks.billing
 
 import android.app.Activity
 import android.content.Context
-import com.android.billingclient.api.AcknowledgePurchaseParams
+import com.android.billingclient.api.*
 import com.android.billingclient.api.BillingClient.*
-import com.android.billingclient.api.BillingClientStateListener
-import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingFlowParams.ProrationMode
-import com.android.billingclient.api.BillingResult
-import com.android.billingclient.api.ConsumeParams
+import com.android.billingclient.api.BillingFlowParams.SubscriptionUpdateParams
 import com.android.billingclient.api.Purchase.PurchaseState
 import com.android.billingclient.api.Purchase.PurchasesResult
-import com.android.billingclient.api.PurchasesUpdatedListener
-import com.android.billingclient.api.SkuDetailsParams
-import com.android.billingclient.api.querySkuDetails
-import com.android.billingclient.api.consumePurchase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -77,7 +70,7 @@ class BillingClientImpl(
         purchases?.forEach {
             firebase.reportIabResult(
                 result.responseCodeString,
-                it.sku,
+                it.skus.joinToString(","),
                 it.purchaseState.purchaseStateString
             )
         }
@@ -112,9 +105,12 @@ class BillingClientImpl(
                     ?: throw IllegalStateException("Sku $sku not found")
             val params = BillingFlowParams.newBuilder().setSkuDetails(skuDetails)
             oldPurchase?.let {
-                params
-                    .setOldSku(it.sku, it.purchaseToken)
-                    .setReplaceSkusProrationMode(ProrationMode.IMMEDIATE_WITH_TIME_PRORATION)
+                params.setSubscriptionUpdateParams(
+                    SubscriptionUpdateParams.newBuilder()
+                        .setOldSkuPurchaseToken(it.purchaseToken)
+                        .setReplaceSkusProrationMode(ProrationMode.IMMEDIATE_WITH_TIME_PRORATION)
+                        .build()
+                )
             }
             if (activity is OnPurchasesUpdated) {
                 onPurchasesUpdated = activity

@@ -250,8 +250,8 @@
 +|    +--- androidx.fragment:fragment:1.0.0 -> 1.4.0 (*)
 +|    +--- com.google.android.gms:play-services-base:18.0.1 (*)
 +|    \--- com.google.android.gms:play-services-basement:18.0.0 (*)
-++--- com.android.billingclient:billing-ktx:3.0.3
-+|    +--- com.android.billingclient:billing:3.0.3
+++--- com.android.billingclient:billing-ktx:4.0.0
++|    +--- com.android.billingclient:billing:4.0.0
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.0 -> 1.7.20 (*)
 +|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9 -> 1.6.4 (*)
 ++--- com.google.android.play:core:1.10.3

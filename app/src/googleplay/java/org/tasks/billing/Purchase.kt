@@ -24,7 +24,7 @@ class Purchase(private val purchase: Purchase) {
         get() = purchase.signature
 
     val sku: String
-        get() = purchase.sku
+        get() = purchase.skus.first()
 
     val purchaseToken: String
         get() = purchase.purchaseToken
