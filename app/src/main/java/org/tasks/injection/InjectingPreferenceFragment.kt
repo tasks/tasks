@@ -27,9 +27,8 @@ abstract class InjectingPreferenceFragment : PreferenceFragmentCompat() {
                     tintIcons(pref.getPreference(i), color)
                 }
             } else {
-                if (pref.icon != null) {
-                    pref.icon = pref.icon.mutate()
-                    pref.icon.setTint(color)
+                pref.icon?.let { d ->
+                    pref.icon = d.mutate().also { it.setTint(color) }
                 }
             }
         }

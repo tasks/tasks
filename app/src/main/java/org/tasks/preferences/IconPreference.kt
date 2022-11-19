@@ -9,14 +9,14 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import org.tasks.R
 
-class IconPreference(context: Context?, attrs: AttributeSet? = null) : Preference(context, attrs) {
+class IconPreference(context: Context, attrs: AttributeSet? = null) : Preference(context, attrs) {
 
     private var imageView: ImageView? = null
 
-    override fun onBindViewHolder(holder: PreferenceViewHolder?) {
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
 
-        imageView = holder?.findViewById(R.id.preference_icon) as ImageView?
+        imageView = holder.findViewById(R.id.preference_icon) as ImageView?
         updateIcon()
     }
 

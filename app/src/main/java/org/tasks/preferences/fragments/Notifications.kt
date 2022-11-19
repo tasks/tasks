@@ -176,8 +176,8 @@ class Notifications : InjectingPreferenceFragment() {
         return true
     }
 
-    override fun onPreferenceTreeClick(preference: Preference?): Boolean =
-        when (preference!!.key) {
+    override fun onPreferenceTreeClick(preference: Preference): Boolean =
+        when (preference.key) {
             getString(R.string.p_rmd_ringtone),
             getString(R.string.p_completion_ringtone) -> {
                 val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)

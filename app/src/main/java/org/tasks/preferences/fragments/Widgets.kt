@@ -34,7 +34,7 @@ class Widgets : InjectingPreferenceFragment() {
             preferenceScreen.removeAll()
             appWidgetManager.widgetIds.forEach {
                 val widgetPrefs = WidgetPreferences(context, preferences, it)
-                val pref = IconPreference(context)
+                val pref = IconPreference(requireContext())
                 tintColorPreference(pref, widgetPrefs.color)
                 pref.drawable = AppCompatResources.getDrawable(
                     requireContext(),

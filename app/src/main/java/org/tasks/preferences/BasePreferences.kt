@@ -82,9 +82,9 @@ abstract class BasePreferences : ThemedInjectingAppCompatActivity(),
             caller,
             supportFragmentManager
                     .fragmentFactory
-                    .instantiate(classLoader, pref.fragment)
+                    .instantiate(classLoader, pref.fragment!!)
                     .apply { arguments = pref.extras },
-            pref.title
+            pref.title!!
     )
 
     fun startPreference(

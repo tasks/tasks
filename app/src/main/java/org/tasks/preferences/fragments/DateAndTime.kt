@@ -76,7 +76,7 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
         }
     }
 
-    override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
+    override fun onPreferenceChange(preference: Preference, newValue: Any?): Boolean {
         if (preference == getStartOfWeekPreference()) {
             updateStartOfWeek(newValue.toString())
         } else {

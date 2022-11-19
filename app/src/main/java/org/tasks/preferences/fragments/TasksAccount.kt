@@ -228,7 +228,7 @@ class TasksAccount : BaseAccountPreference() {
         category.removeAll()
         passwords.forEach {
             val description = it.description ?: getString(R.string.app_password)
-            category.addPreference(IconPreference(context).apply {
+            category.addPreference(IconPreference(requireContext()).apply {
                 layoutResource = R.layout.preference_icon
                 iconVisible = true
                 drawable = context?.getDrawable(R.drawable.ic_outline_delete_24px)
