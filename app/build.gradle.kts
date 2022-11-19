@@ -165,9 +165,12 @@ dependencies {
         exclude(group = "com.sun.mail", module = "javax.mail")
     }
     implementation("com.github.bitfireAT:cert4android:7814052")
-    implementation("com.github.tasks.opentasks:opentasks-provider:a1faa1b") {
+    implementation("com.github.tasks.opentasks:opentasks-provider:562fec5") {
         exclude("com.github.tasks.opentasks", "opentasks-contract")
     }
+    implementation("org.dmfs:rfc5545-datetime:0.2.4")
+    implementation("org.dmfs:lib-recur:0.11.4")
+    implementation("org.dmfs:jems:1.33")
 
     implementation("com.google.dagger:hilt-android:${Versions.hilt}")
     kapt("com.google.dagger:hilt-compiler:${Versions.hilt}")

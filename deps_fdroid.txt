@@ -260,11 +260,11 @@
 +|    |         +--- androidx.core:core:1.1.0 -> 1.9.0 (*)
 +|    |         \--- androidx.collection:collection:1.1.0 -> 1.2.0 (*)
 +|    \--- org.conscrypt:conscrypt-android:2.5.2
-++--- com.github.tasks.opentasks:opentasks-provider:a1faa1b
-+|    +--- org.dmfs:rfc5545-datetime:0.2.4
-+|    +--- org.dmfs:lib-recur:0.11.4
-+|    |    \--- org.dmfs:rfc5545-datetime:0.2.4
-+|    \--- org.dmfs:jems:1.33
+++--- com.github.tasks.opentasks:opentasks-provider:562fec5
+++--- org.dmfs:rfc5545-datetime:0.2.4
+++--- org.dmfs:lib-recur:0.11.4
++|    \--- org.dmfs:rfc5545-datetime:0.2.4
+++--- org.dmfs:jems:1.33
 ++--- com.google.dagger:hilt-android:2.44.2
 +|    +--- com.google.dagger:dagger:2.44.2
 +|    |    \--- javax.inject:javax.inject:1
