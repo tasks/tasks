@@ -30,10 +30,6 @@ repositories {
 }
 
 android {
-    val commonTest = "src/commonTest/java"
-    sourceSets["test"].java.srcDir(commonTest)
-    sourceSets["androidTest"].java.srcDirs("src/androidTest/java", commonTest)
-
     bundle {
         language {
             enableSplit = false
