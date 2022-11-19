@@ -1,0 +1,27 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#Collection(todoTask)",
+  "@odata.deltaLink": "https://graph.microsoft.com/v1.0/me/todo/lists/AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoALgAAA8dKmrSa60tBjeiKoPukmoQBAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAA==/tasks/delta?$deltatoken=l7WI41swwioT5csv4k99nj_e6d30OPWG40P_OyQlkkny185Z38qUU3jLaP2oRC5tqLCV4OXibNfHoYNFTO2TnftnvrLwkmDPtGMUcu3SygY.rtzLcPg02xeQVyGPsoU5bQ8c2Nt8tY8ZhjhN1OUfJdQ",
+  "value": [
+    {
+      "@odata.type": "#microsoft.graph.todoTask",
+      "@odata.etag": "W/\"SRPGnpbHYES1XW8UlYrtsgAFlRV2eQ==\"",
+      "importance": "normal",
+      "isReminderOn": false,
+      "status": "completed",
+      "title": "Basic task",
+      "createdDateTime": "2022-09-18T05:25:19.778574Z",
+      "lastModifiedDateTime": "2022-09-18T06:25:27.6073845Z",
+      "hasAttachments": false,
+      "categories": [],
+      "id": "AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoARgAAA8dKmrSa60tBjeiKoPukmoQHAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAEkTxp6Wx2BEtV1vFJWK7bIABZUEdtwAAAA=",
+      "body": {
+        "content": "",
+        "contentType": "text"
+      },
+      "completedDateTime": {
+        "dateTime": "2022-09-18T05:00:00.0000000",
+        "timeZone": "UTC"
+      }
+    }
+  ]
+}
