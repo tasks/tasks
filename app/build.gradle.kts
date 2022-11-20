@@ -21,6 +21,7 @@ repositories {
         content {
             includeGroup("com.github.tasks")
             includeModule("com.github.bitfireAT", "cert4android")
+            includeModule("com.github.bitfireAT", "dav4jvm")
             includeModule("com.github.tasks.opentasks", "opentasks-provider")
             includeModule("com.github.QuadFlask", "colorpicker")
             includeModule("com.github.twofortyfouram", "android-plugin-api-for-locale")
@@ -160,7 +161,9 @@ val googleplayImplementation by configurations
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
-    implementation("com.github.tasks:dav4jvm:deb2c9aef8")
+    implementation("com.github.bitfireAT:dav4jvm:2.2") {
+        exclude(group = "junit")
+    }
     implementation("com.github.tasks:ical4android:2fb465b") {
         exclude(group = "commons-logging")
         exclude(group = "org.json", module = "json")

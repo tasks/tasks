@@ -9,7 +9,7 @@ object Versions {
     const val crashlytics = "18.2.11"
     const val analytics = "20.1.0"
     const val remote_config = "21.0.1"
-    const val okhttp = "4.9.3"
+    const val okhttp = "4.10.0"
     const val flipper = "0.149.0"
     const val mockito = "3.9.0"
     const val androidx_test = "1.3.0"

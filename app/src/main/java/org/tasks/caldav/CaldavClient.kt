@@ -128,45 +128,24 @@ open class CaldavClient(
     }
 
     @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
-    suspend fun updateCollection(displayName: String, color: Int): String = withContext(Dispatchers.IO) {
-        val davResource = DavResource(httpClient, httpUrl!!)
-        davResource.proppatch(getPropPatchString(displayName, color)) { _, _ -> }
-        davResource.location.toString()
-    }
-
-    @Throws(IOException::class, XmlPullParserException::class)
-    private fun getPropPatchString(displayName: String, color: Int): String {
-        val xmlPullParserFactory = XmlPullParserFactory.newInstance()
-        val xml = xmlPullParserFactory.newSerializer()
-        val stringWriter = StringWriter()
-        with(xml) {
-            setOutput(stringWriter)
-            startDocument("UTF-8", null)
-            setPrefix("", NS_WEBDAV)
-            setPrefix("CAL", NS_CALDAV)
-            startTag(NS_WEBDAV, "propertyupdate")
-            startTag(NS_WEBDAV, "set")
-            startTag(NS_WEBDAV, "prop")
-            setDisplayName(this, displayName)
-            if (color != 0) {
-                setColor(xml, color)
+    suspend fun updateCollection(displayName: String, color: Int): String =
+        withContext(Dispatchers.IO) {
+            with(DavResource(httpClient, httpUrl!!)) {
+                proppatch(
+                    setProperties = mutableMapOf(DisplayName.NAME to displayName).apply {
+                        if (color != 0) {
+                            put(
+                                CalendarColor.NAME,
+                                String.format("#%06X%02X", color and 0xFFFFFF, color ushr 24)
+                            )
+                        }
+                    },
+                    removeProperties = if (color == 0) listOf(CalendarColor.NAME) else emptyList(),
+                    callback = { _, _ -> },
+                )
+                location.toString()
             }
-            endTag(NS_WEBDAV, "prop")
-            endTag(NS_WEBDAV, "set")
-            if (color == 0) {
-                startTag(NS_WEBDAV, "remove")
-                startTag(NS_WEBDAV, "prop")
-                startTag(NS_APPLE_ICAL, "calendar-color")
-                endTag(NS_APPLE_ICAL, "calendar-color")
-                endTag(NS_WEBDAV, "prop")
-                endTag(NS_WEBDAV, "remove")
-            }
-            endTag(NS_WEBDAV, "propertyupdate")
-            endDocument()
-            flush()
         }
-        return stringWriter.toString()
-    }
 
     @Throws(IOException::class, XmlPullParserException::class)
     private fun getMkcolString(displayName: String, color: Int): String {

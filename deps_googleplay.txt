@@ -311,9 +311,17 @@
 +|    +--- com.google.android.gms:play-services-base:17.0.0 -> 18.0.1 (*)
 +|    +--- com.google.android.gms:play-services-basement:17.0.0 -> 18.0.0 (*)
 +|    \--- com.google.android.gms:play-services-tasks:17.0.0 -> 18.0.1 (*)
-++--- com.github.tasks:dav4jvm:deb2c9aef8
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.10 -> 1.7.20 (*)
-+|    \--- org.apache.commons:commons-lang3:3.8.1 -> 3.12.0
+++--- com.github.bitfireAT:dav4jvm:2.2
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 (*)
++|    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.12.0
++|    +--- com.squareup.okhttp3:okhttp:4.10.0
++|    |    +--- com.squareup.okio:okio:3.0.0 -> 3.2.0
++|    |    |    \--- com.squareup.okio:okio-jvm:3.2.0
++|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.20 -> 1.7.20 (*)
++|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.6.20 -> 1.7.20
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.20 -> 1.7.20 (*)
++|    \--- org.ogce:xpp3:1.1.6
++|         \--- jakarta-regexp:jakarta-regexp:1.4
 ++--- com.github.tasks:ical4android:2fb465b
 +|    +--- org.mnode.ical4j:ical4j:3.2.5
 +|    |    +--- javax.cache:cache-api:1.1.1
@@ -516,12 +524,7 @@
 ++--- io.noties.markwon:linkify:4.6.2
 +|    \--- io.noties.markwon:core:4.6.2 (*)
 ++--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20 (*)
-++--- com.squareup.okhttp3:okhttp:4.9.3 -> 4.10.0
-+|    +--- com.squareup.okio:okio:3.0.0 -> 3.2.0
-+|    |    \--- com.squareup.okio:okio-jvm:3.2.0
-+|    |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.20 -> 1.7.20 (*)
-+|    |         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.6.20 -> 1.7.20
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.20 -> 1.7.20 (*)
+++--- com.squareup.okhttp3:okhttp:4.10.0 (*)
 ++--- com.github.franmontiel:PersistentCookieJar:v1.0.1
 +|    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 4.10.0 (*)
 ++--- com.google.code.gson:gson:2.9.0
