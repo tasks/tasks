@@ -6,7 +6,7 @@ import android.net.Uri
 import at.bitfire.ical4android.*
 import at.bitfire.ical4android.BatchOperation.CpoBuilder.Companion.newInsert
 import at.bitfire.ical4android.BatchOperation.CpoBuilder.Companion.newUpdate
-import at.bitfire.ical4android.MiscUtils.CursorHelper.toValues
+import at.bitfire.ical4android.util.MiscUtils.CursorHelper.toValues
 import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.parameter.RelType
 import net.fortuna.ical4j.model.parameter.Related

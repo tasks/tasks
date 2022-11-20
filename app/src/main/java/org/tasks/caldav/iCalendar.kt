@@ -1,8 +1,8 @@
 package org.tasks.caldav
 
-import at.bitfire.ical4android.DateUtils.ical4jTimeZone
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
+import at.bitfire.ical4android.util.DateUtils.ical4jTimeZone
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
