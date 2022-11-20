@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:7.3.1")
+        classpath("com.android.tools.build:gradle:7.4.0-beta05")
         classpath("com.google.gms:google-services:4.3.14")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
@@ -15,6 +15,6 @@ buildscript {
 }
 
 tasks.getByName<Wrapper>("wrapper") {
-    gradleVersion = "7.4.2"
+    gradleVersion = "7.5"
     distributionType = Wrapper.DistributionType.ALL
 }

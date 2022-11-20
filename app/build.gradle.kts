@@ -160,7 +160,7 @@ val genericImplementation by configurations
 val googleplayImplementation by configurations
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.0")
     implementation("com.github.bitfireAT:dav4jvm:2.2") {
         exclude(group = "junit")
     }

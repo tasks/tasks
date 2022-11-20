@@ -1,14 +1,14 @@
-++--- androidx.databinding:viewbinding:7.3.1
+++--- androidx.databinding:viewbinding:7.4.0-beta05
 +|    \--- androidx.annotation:annotation:1.0.0 -> 1.5.0
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.10 -> 1.7.20
 +|              +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.7.20
 +|              \--- org.jetbrains:annotations:13.0 -> 20.1.0
-++--- androidx.databinding:databinding-common:7.3.1
-++--- androidx.databinding:databinding-runtime:7.3.1
+++--- androidx.databinding:databinding-common:7.4.0-beta05
+++--- androidx.databinding:databinding-runtime:7.4.0-beta05
 +|    +--- androidx.collection:collection:1.0.0 -> 1.2.0
 +|    |    \--- androidx.annotation:annotation:1.1.0 -> 1.5.0 (*)
-+|    +--- androidx.databinding:databinding-common:7.3.1
-+|    +--- androidx.databinding:viewbinding:7.3.1 (*)
++|    +--- androidx.databinding:databinding-common:7.4.0-beta05
++|    +--- androidx.databinding:viewbinding:7.4.0-beta05 (*)
 +|    \--- androidx.lifecycle:lifecycle-runtime:2.4.0 -> 2.5.1
 +|         +--- androidx.annotation:annotation:1.1.0 -> 1.5.0 (*)
 +|         +--- androidx.arch.core:core-common:2.1.0
@@ -19,10 +19,10 @@
 +|         \--- androidx.lifecycle:lifecycle-common:2.5.1
 +|              +--- androidx.annotation:annotation:1.1.0 -> 1.5.0 (*)
 +|              \--- androidx.lifecycle:lifecycle-common-java8:2.5.1 (c)
-++--- androidx.databinding:databinding-adapters:7.3.1
-+|    +--- androidx.databinding:databinding-runtime:7.3.1 (*)
-+|    \--- androidx.databinding:databinding-common:7.3.1
-++--- androidx.databinding:databinding-ktx:7.3.1
+++--- androidx.databinding:databinding-adapters:7.4.0-beta05
++|    +--- androidx.databinding:databinding-runtime:7.4.0-beta05 (*)
++|    \--- androidx.databinding:databinding-common:7.4.0-beta05
+++--- androidx.databinding:databinding-ktx:7.4.0-beta05
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1 -> 1.6.4
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4
 +|    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4
@@ -62,8 +62,8 @@
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.5.0 (*)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.6.21 -> 1.7.20 (*)
 +|    |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1 (c)
-+|    +--- androidx.databinding:databinding-runtime:7.3.1 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31 -> 1.7.20 (*)
++|    +--- androidx.databinding:databinding-runtime:7.4.0-beta05 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.7.20 (*)
 ++--- com.github.bitfireAT:dav4jvm:2.2
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 (*)
 +|    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.12.0
@@ -118,10 +118,10 @@
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.10 -> 1.7.20 (*)
 +|         \--- androidx.core:core:1.9.0 (c)
 ++--- com.github.bitfireAT:cert4android:7814052
-+|    +--- androidx.databinding:databinding-common:7.2.0 -> 7.3.1
-+|    +--- androidx.databinding:databinding-runtime:7.2.0 -> 7.3.1 (*)
-+|    +--- androidx.databinding:databinding-adapters:7.2.0 -> 7.3.1 (*)
-+|    +--- androidx.databinding:databinding-ktx:7.2.0 -> 7.3.1 (*)
++|    +--- androidx.databinding:databinding-common:7.2.0 -> 7.4.0-beta05
++|    +--- androidx.databinding:databinding-runtime:7.2.0 -> 7.4.0-beta05 (*)
++|    +--- androidx.databinding:databinding-adapters:7.2.0 -> 7.4.0-beta05 (*)
++|    +--- androidx.databinding:databinding-ktx:7.2.0 -> 7.4.0-beta05 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21 -> 1.7.20 (*)
 +|    +--- androidx.appcompat:appcompat:1.4.1 -> 1.6.0-rc01
 +|    |    +--- androidx.activity:activity:1.6.0-rc02 -> 1.6.1
@@ -629,7 +629,7 @@
 ++--- androidx.compose.ui:ui-viewbinding:1.3.1
 +|    +--- androidx.compose.ui:ui:1.3.1 (*)
 +|    +--- androidx.compose.ui:ui-util:1.3.1 (*)
-+|    +--- androidx.databinding:viewbinding:4.1.2 -> 7.3.1 (*)
++|    +--- androidx.databinding:viewbinding:4.1.2 -> 7.4.0-beta05 (*)
 +|    +--- androidx.fragment:fragment-ktx:1.3.2 -> 1.5.4 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.10 -> 1.7.20 (*)
 ++--- io.coil-kt:coil-compose:2.2.0
