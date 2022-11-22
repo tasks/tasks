@@ -1,0 +1,5 @@
+* Fix persistent notifications on Android 13
+* Fix Samsung crash on too many reminders (DAVx5, EteSync, DecSync CC)
+* Fix crash on too many tasks for Astrid Manual Sorting
+* Fix RTL text in task edit customization screen
+* Fix priority button order

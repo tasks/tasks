@@ -1,3 +1,11 @@
+### 13.0.2 (2022-11-22)
+
+* Fix persistent notifications on Android 13
+* Fix Samsung crash on too many reminders (DAVx5, EteSync, DecSync CC)
+* Fix crash on too many tasks for Astrid Manual Sorting
+* Fix RTL text in task edit customization screen
+* Fix priority button order
+
 ### 13.0.1 (2022-10-20)
 
 * 🚨 Major internal changes to task edit screen. Please report any bugs! 🚨
