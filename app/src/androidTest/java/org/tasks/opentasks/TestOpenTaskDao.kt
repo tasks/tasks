@@ -7,7 +7,7 @@ import at.bitfire.ical4android.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
-import org.tasks.TestUtilities
+import org.tasks.caldav.iCalendar
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.data.MyAndroidTask
@@ -46,7 +46,7 @@ class TestOpenTaskDao @Inject constructor(
 
     fun insertTask(listId: Long, vtodo: String) {
         val ops = ArrayList<BatchOperation.CpoBuilder>()
-        val task = MyAndroidTask(TestUtilities.fromString(vtodo))
+        val task = MyAndroidTask(iCalendar.fromVtodo(vtodo)!!)
         ops.add(task.toBuilder(tasks).withValue(TaskContract.TaskColumns.LIST_ID, listId))
         task.enqueueProperties(properties, ops, 0)
         applyOperation(*ops.toTypedArray())

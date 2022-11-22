@@ -73,6 +73,12 @@ class Firebase @Inject constructor(
         get() = installCooldown
                 || preferences.lastSubscribeRequest + days("subscribe_cooldown", 30L) > now()
 
+    val moreOptionsBadge: Boolean
+        get() = remoteConfig?.getBoolean("more_options_badge") ?: false
+
+    val moreOptionsSolid: Boolean
+        get() = remoteConfig?.getBoolean("more_options_solid") ?: false
+
     private fun days(key: String, default: Long): Long =
             TimeUnit.DAYS.toMillis(remoteConfig?.getLong(key) ?: default)
 

@@ -12,7 +12,8 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
-import org.tasks.Tasks.Companion.IS_GENERIC
+import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.compose.PurchaseText.PurchaseText
 import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingAppCompatActivity
@@ -27,6 +28,7 @@ class PurchaseActivity : InjectingAppCompatActivity(), OnPurchasesUpdated {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var firebase: Firebase
 
     private var currentSubscription: Purchase? = null
     private val purchaseReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -53,11 +55,14 @@ class PurchaseActivity : InjectingAppCompatActivity(), OnPurchasesUpdated {
             MdcTheme {
                 Dialog(onDismissRequest = { finish() }) {
                     PurchaseText(
-                        nameYourPrice,
-                        sliderPosition,
-                        github,
-                        IS_GENERIC,
-                        this::purchase)
+                        nameYourPrice = nameYourPrice,
+                        sliderPosition = sliderPosition,
+                        github = github,
+                        solidButton = firebase.moreOptionsSolid,
+                        badge = firebase.moreOptionsBadge,
+                        onDisplayed = { firebase.logEvent(R.string.event_showed_purchase_dialog) },
+                        subscribe = this::purchase,
+                    )
                 }
             }
         }

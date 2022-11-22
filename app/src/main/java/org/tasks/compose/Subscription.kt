@@ -1,31 +1,13 @@
 package org.tasks.compose
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Slider
-import androidx.compose.material.SliderDefaults
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,24 +22,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
-import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.KEYLINE_FIRST
 import org.tasks.compose.PurchaseText.PurchaseText
 import org.tasks.extensions.Context.openUri
-
-@Preview(showBackground = true, backgroundColor = 0xFFFFFF)
-@Composable
-private fun LightPreview() {
-    PurchaseText { _, _ -> }
-}
-
-@Preview(showBackground = true, backgroundColor = 0x202124)
-@Composable
-private fun DarkPreview() {
-    PurchaseText { _, _ -> }
-}
 
 object PurchaseText {
     private const val POPPER = "\uD83C\uDF89"
@@ -133,7 +103,9 @@ object PurchaseText {
         nameYourPrice: MutableState<Boolean> = mutableStateOf(false),
         sliderPosition: MutableState<Float> = mutableStateOf(0f),
         github: Boolean = false,
-        fdroid: Boolean = IS_GENERIC,
+        solidButton: Boolean = false,
+        badge: Boolean = false,
+        onDisplayed: () -> Unit = {},
         subscribe: (Int, Boolean) -> Unit
     ) {
         Column(
@@ -149,14 +121,29 @@ object PurchaseText {
             val pagerState = remember {
                 PagerState(maxPage = (featureList.size - 1).coerceAtLeast(0))
             }
-            Pager(state = pagerState, modifier = Modifier.fillMaxWidth().height(200.dp)) {
+            Pager(
+                state = pagerState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+            ) {
                 PagerItem(featureList[page], nameYourPrice.value && page == 0)
             }
             if (github) {
                 SponsorButton()
             } else {
-                GooglePlayButtons(nameYourPrice, sliderPosition, pagerState, subscribe)
+                GooglePlayButtons(
+                    nameYourPrice = nameYourPrice,
+                    sliderPosition = sliderPosition,
+                    pagerState = pagerState,
+                    subscribe = subscribe,
+                    solidButton = solidButton,
+                    badge = badge,
+                )
             }
+        }
+        LaunchedEffect(key1 = Unit) {
+            onDisplayed()
         }
     }
 
@@ -202,6 +189,8 @@ object PurchaseText {
         sliderPosition: MutableState<Float>,
         pagerState: PagerState,
         subscribe: (Int, Boolean) -> Unit,
+        solidButton: Boolean,
+        badge: Boolean,
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -221,19 +210,31 @@ object PurchaseText {
                     pagerState.currentPage = 0
                 },
                 colors = ButtonDefaults.textButtonColors(
-                    backgroundColor = Color.Transparent
+                    backgroundColor = if (solidButton)
+                        MaterialTheme.colors.secondary
+                    else
+                        Color.Transparent
                 )
             ) {
-                Text(
-                    text = stringResource(
-                        if (nameYourPrice.value)
-                            R.string.back
+                BadgedBox(badge = {
+                    if (!nameYourPrice.value && badge) {
+                        Badge()
+                    }
+                }) {
+                    Text(
+                        text = stringResource(
+                            if (nameYourPrice.value)
+                                R.string.back
+                            else
+                                R.string.more_options
+                        ),
+                        color = if (solidButton)
+                            MaterialTheme.colors.onSecondary
                         else
-                            R.string.more_options
-                    ),
-                    color = MaterialTheme.colors.secondary,
-                    style = MaterialTheme.typography.body1
-                )
+                            MaterialTheme.colors.secondary,
+                        style = MaterialTheme.typography.body1
+                    )
+                }
             }
             Text(
                 text = stringResource(R.string.pro_free_trial),
@@ -339,7 +340,7 @@ object PurchaseText {
         onClick: (Int, Boolean) -> Unit
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            OutlinedButton(
+            Button(
                 onClick = { onClick(price, monthly) },
                 colors = ButtonDefaults.textButtonColors(
                     backgroundColor = MaterialTheme.colors.secondary
@@ -407,5 +408,32 @@ object PurchaseText {
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+private fun PurchaseDialogPreview() {
+    MdcTheme {
+        PurchaseText { _, _ -> }
+    }
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+private fun PurchaseDialogPreviewSolid() {
+    MdcTheme {
+        PurchaseText(solidButton = true) { _, _ -> }
+    }
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+private fun PurchaseDialogPreviewBadge() {
+    MdcTheme {
+        PurchaseText(badge = true) { _, _ -> }
     }
 }
