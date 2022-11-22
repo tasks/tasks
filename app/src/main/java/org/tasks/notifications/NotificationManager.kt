@@ -193,7 +193,9 @@ class NotificationManager @Inject constructor(
             ringTimes = 1
         }
         if (preferences.usePersistentReminders()) {
-            notification.flags = notification.flags or NotificationCompat.FLAG_NO_CLEAR
+            notification.flags = notification.flags or
+                    NotificationCompat.FLAG_NO_CLEAR or
+                    NotificationCompat.FLAG_ONGOING_EVENT
         }
         val deleteIntent = Intent(context, NotificationClearedReceiver::class.java)
         deleteIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId)
