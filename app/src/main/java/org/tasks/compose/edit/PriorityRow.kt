@@ -60,7 +60,7 @@ fun Priority(
         )
         Spacer(modifier = Modifier.weight(1f))
         Row(horizontalArrangement = Arrangement.SpaceBetween) {
-            for (i in Task.Priority.HIGH..Task.Priority.NONE) {
+            for (i in Task.Priority.NONE downTo Task.Priority.HIGH) {
                 PriorityButton(
                     priority = i,
                     selected = selected,
