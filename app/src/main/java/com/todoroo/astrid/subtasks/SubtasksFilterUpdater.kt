@@ -111,11 +111,11 @@ class SubtasksFilterUpdater @Inject constructor(
         return idToNode[taskId]
     }
 
-    private val orderedIds: Array<String>
+    private val orderedIds: List<String>
         get() {
             val ids = ArrayList<String>()
             orderedIdHelper(treeRoot, ids)
-            return ids.toTypedArray()
+            return ids
         }
 
     private val orderString: String
@@ -320,15 +320,17 @@ class SubtasksFilterUpdater @Inject constructor(
     companion object {
         const val ACTIVE_TASKS_ORDER = "active_tasks_order" // $NON-NLS-1$
         const val TODAY_TASKS_ORDER = "today_tasks_order" // $NON-NLS-1$
+        private const val MAX_ORDERED_TASKS = 900
 
-        fun buildOrderString(ids: Array<String>): String {
+        fun buildOrderString(ids: List<String>): String {
             val builder = StringBuilder()
             if (ids.isEmpty()) {
                 return "(1)" // $NON-NLS-1$
             }
-            for (i in ids.indices.reversed()) {
+            val indices = ids.indices.reversed().take(MAX_ORDERED_TASKS)
+            indices.forEach { i ->
                 builder.append(Task.UUID.eq(ids[i]).toString())
-                if (i > 0) {
+                if (i != indices.last()) {
                     builder.append(", ") // $NON-NLS-1$
                 }
             }

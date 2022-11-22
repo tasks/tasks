@@ -79,7 +79,7 @@ class SubtasksHelper @Inject constructor(
             return ids
         }
 
-        fun getStringIdArray(serializedTree: String?): Array<String> {
+        fun getStringIdArray(serializedTree: String?): List<String> {
             val ids = ArrayList<String>()
             val values = serializedTree!!.split("""[\[\],"\s]""".toRegex()).toTypedArray() // Split on [ ] , or whitespace chars
             for (idString in values) {
@@ -87,7 +87,7 @@ class SubtasksHelper @Inject constructor(
                     ids.add(idString)
                 }
             }
-            return ids.toTypedArray()
+            return ids
         }
 
         /** Takes a subtasks string containing local ids and remaps it to one containing UUIDs  */
