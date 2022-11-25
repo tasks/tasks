@@ -131,7 +131,7 @@
     <string name="snooze_all">Szundi mind</string>
     <string name="rmd_EPr_quiet_hours_start_title">Csendes órák kezdete</string>
     <string name="rmd_EPr_quiet_hours_end_title">Csendes órák vége</string>
-    <string name="rmd_EPr_rmd_time_title">Alapértelmezett emlékeztető</string>
+    <string name="rmd_EPr_rmd_time_title">Emlékeztető időpontja</string>
     <string name="rmd_EPr_rmd_time_desc">Esedékességi idő nélküli feladatok értesítése %s-kor jelenik meg</string>
     <string name="persistent_notifications">Állandó értesítések</string>
     <string name="persistent_notifications_description">Az állandó értesítések nem törölhetőek</string>
@@ -728,4 +728,9 @@
     <string name="customize_edit_screen_summary">Mezők átrendezése vagy törlése</string>
     <string name="hint_customize_edit_title">Túl sok információ\?</string>
     <string name="hint_customize_edit_body">Ez a képernyő a mezők átrendezésével vagy eltávolításával testre szabható</string>
+    <string name="rmd_time_description">Határidő nélküli feladatok emlékeztetőinek megjelenítése</string>
+    <string name="default_reminder">Alapértelmezett emlékeztető</string>
+    <string name="TEA_creation_date">Létrehozás dátuma</string>
+    <string name="microsoft_selection_description">Szinkronizálás személyes Microsoft fiókkal</string>
+    <string name="sort_completion_group">Elkészültség %s</string>
 </resources>
