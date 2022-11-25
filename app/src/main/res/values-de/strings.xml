@@ -132,7 +132,7 @@
     <string name="snooze_all">Alle schlummern</string>
     <string name="rmd_EPr_quiet_hours_start_title">Beginn der Ruhezeit</string>
     <string name="rmd_EPr_quiet_hours_end_title">Ende der Ruhezeit</string>
-    <string name="rmd_EPr_rmd_time_title">Standarderinnerung</string>
+    <string name="rmd_EPr_rmd_time_title">Erinnerungszeit</string>
     <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Uhrzeit werden um %s angezeigt</string>
     <string name="persistent_notifications">Hartnäckige Benachrichtigungen</string>
     <string name="persistent_notifications_description">Hartnäckige Benachrichtigungen können nicht einfach gelöscht werden</string>
@@ -739,4 +739,6 @@
     <string name="sign_in_to_tasks_disclosure">Ihre E-Mail-Adresse und Account-ID werden an Tasks.org übertragen und dort gespeichert. Diese Information werden verwedet, um Sie zu authentifizieren und mit wichtigen Nachrichten zu diesem Service zu versorgen. Die Informationen werden mit niemandem geteilt.</string>
     <string name="microsoft_selection_description">Mit persönlichem Microsoft-Konto synchronisieren</string>
     <string name="sign_in">Anmelden</string>
+    <string name="rmd_time_description">Benachrichtigungen für Aufgaben ohne Fälligkeitsdatum anzeigen</string>
+    <string name="default_reminder">Standarderinnerung</string>
 </resources>
