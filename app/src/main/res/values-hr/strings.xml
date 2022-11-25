@@ -474,8 +474,8 @@
     <string name="rmd_EPr_defaultRemind_title">Slučajni podsjetnici</string>
     <string name="persistent_notifications_description">Ustrajuća upozorenja se ne mogu izbrisati</string>
     <string name="persistent_notifications">Ustrajuća upozorenja</string>
-    <string name="rmd_EPr_rmd_time_desc">Obavijesti za zadatke bez vremena roka pojavit će se na %s</string>
-    <string name="rmd_EPr_rmd_time_title">Standardni podsjetnik</string>
+    <string name="rmd_EPr_rmd_time_desc">Obavijesti za zadatke bez rokova pojavit će se na %s</string>
+    <string name="rmd_EPr_rmd_time_title">Vremenski podsjetnik</string>
     <string name="rmd_EPr_quiet_hours_end_title">Kraj vremena neobavještavanja</string>
     <string name="rmd_EPr_quiet_hours_start_title">Početak vremena neobavještavanja</string>
     <string name="snooze_all">Odgodi sve</string>
@@ -760,4 +760,6 @@
     <string name="sign_in_to_tasks_disclosure">Tvoja e-mail adresa i ID računa će se poslati i spremiti na Tasks.org . Ovi će se podaci koristiti za provjeru autentifikacije i za slanje važnih najava vezanih uz uslugu. Ovi podaci se neće dijeliti ni s kim.</string>
     <string name="consent_agree">Prihvati</string>
     <string name="consent_deny">Ne sada</string>
+    <string name="default_reminder">Standardni podsjetitelj</string>
+    <string name="rmd_time_description">Prikaži obavijesti za zadatke bez rokova</string>
 </resources>
