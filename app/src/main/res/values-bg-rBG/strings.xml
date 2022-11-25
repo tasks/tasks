@@ -138,7 +138,7 @@
     <string name="snooze_all">Отлагане на всички</string>
     <string name="rmd_EPr_quiet_hours_start_title">Начало на тихи часове</string>
     <string name="rmd_EPr_quiet_hours_end_title">Край на тихи часове</string>
-    <string name="rmd_EPr_rmd_time_title">Напомняне по подразбиране</string>
+    <string name="rmd_EPr_rmd_time_title">Време на напомняне</string>
     <string name="rmd_EPr_rmd_time_desc">Известията за задачи без краен срок ще се появяват на %s</string>
     <string name="persistent_notifications">Постоянни известия</string>
     <string name="persistent_notifications_description">Постоянните известия не могат да бъдат изчиствани</string>
@@ -739,4 +739,6 @@
     <string name="sign_in_to_tasks_disclosure">Адресът на електронната поща и идентификаторът на профила ще бъдат изпратени и съхранени от Tasks.org. Информацията ще бъде използвана за удостоверяване и за предоставяне на важни съобщения, свързани с услугата. Тази информация няма да бъде споделяна с никого.</string>
     <string name="consent_agree">Съгласявам се</string>
     <string name="consent_deny">Не сега</string>
+    <string name="default_reminder">Напомняне по подразбиране</string>
+    <string name="rmd_time_description">Показват се известия за задачите без краен час</string>
 </resources>
