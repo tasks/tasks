@@ -338,8 +338,11 @@ GROUP BY caldav_lists.cdl_uuid
 
     private suspend fun getLocalList(context: Context, account: CaldavAccount): CaldavCalendar =
             getCalendarsByAccount(account.uuid!!).getOrNull(0)
-                    ?: CaldavCalendar(context.getString(R.string.default_list), UUIDHelper.newUUID()).apply {
-                        this.account = account.uuid
+                    ?: CaldavCalendar(
+                        name = context.getString(R.string.default_list),
+                        uuid = UUIDHelper.newUUID(),
+                        account = account.uuid,
+                    ).apply {
                         insert(this)
                     }
 

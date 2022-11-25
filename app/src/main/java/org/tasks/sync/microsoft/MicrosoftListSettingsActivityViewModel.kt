@@ -49,8 +49,9 @@ class MicrosoftListSettingsActivityViewModel @Inject constructor(
         val body = Gson().toJson(taskList).toRequestBody(MEDIA_TYPE_JSON)
         val result = microsoftService.createList(body)
         if (result.isSuccessful) {
-            val list = CaldavCalendar().apply {
+            val list = CaldavCalendar(
                 account = this@MicrosoftListSettingsActivityViewModel.account.uuid
+            ).apply {
                 result.body()?.applyTo(this)
             }
             caldavDao.insert(list)

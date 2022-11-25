@@ -155,13 +155,14 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
     }
 
     protected suspend fun createSuccessful(url: String?) {
-        val caldavCalendar = CaldavCalendar()
-        caldavCalendar.uuid = UUIDHelper.newUUID()
-        caldavCalendar.account = caldavAccount.uuid
-        caldavCalendar.url = url
-        caldavCalendar.name = newName
-        caldavCalendar.color = selectedColor
-        caldavCalendar.setIcon(selectedIcon)
+        val caldavCalendar = CaldavCalendar(
+            uuid = UUIDHelper.newUUID(),
+            account = caldavAccount.uuid,
+            url = url,
+            name = newName,
+            color = selectedColor,
+            icon = selectedIcon,
+        )
         caldavDao.insert(caldavCalendar)
         setResult(
                 Activity.RESULT_OK,

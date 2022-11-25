@@ -9,13 +9,9 @@ import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.*
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
 import org.tasks.data.CaldavCalendar.Companion.INVITE_UNKNOWN
-import org.tasks.data.CaldavDao
-import org.tasks.data.PrincipalDao
-import org.tasks.data.PrincipalWithAccess
 import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
@@ -39,13 +35,14 @@ class CaldavCalendarViewModel @Inject constructor(
             val url = withContext(Dispatchers.IO) {
                 provider.forAccount(caldavAccount).makeCollection(name, color)
             }
-            val calendar = CaldavCalendar().apply {
-                uuid = UUIDHelper.newUUID()
-                account = caldavAccount.uuid
-                this.url = url
-                this.name = name
-                this.color = color
-                setIcon(icon)
+            val calendar = CaldavCalendar(
+                uuid = UUIDHelper.newUUID(),
+                account = caldavAccount.uuid,
+                url = url,
+                name = name,
+                color = color,
+                icon = icon,
+            ).apply {
                 caldavDao.insert(this)
             }
             if (!ignoreFinish) {

@@ -109,8 +109,9 @@ class TasksJsonImporter @Inject constructor(
             }
             backupContainer.caldavCalendars?.forEach { calendar ->
                 if (caldavDao.getCalendarByUuid(calendar.uuid!!) == null) {
-                    calendar.color = themeToColor(context, version, calendar.color)
-                    caldavDao.insert(calendar)
+                    caldavDao.insert(
+                        calendar.copy(color = themeToColor(context, version, calendar.color))
+                    )
                 }
             }
             backupContainer.taskListMetadata?.forEach { tlm ->

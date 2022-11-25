@@ -300,6 +300,6 @@ class TaskMoverTest : InjectingTestCase() {
     }
 
     private suspend fun moveToCaldavList(calendar: String, vararg tasks: Long) {
-        taskMover.move(tasks.toList(), CaldavFilter(CaldavCalendar("", calendar)))
+        taskMover.move(tasks.toList(), CaldavFilter(CaldavCalendar(name = "", uuid = calendar)))
     }
 }

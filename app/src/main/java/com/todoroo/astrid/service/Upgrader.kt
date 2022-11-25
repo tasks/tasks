@@ -129,8 +129,9 @@ class Upgrader @Inject constructor(
         preferences.setInt(
                 R.string.p_theme_color, getAndroidColor(preferences.getInt(R.string.p_theme_color, 7)))
         for (calendar in caldavDao.getCalendars()) {
-            calendar.color = getAndroidColor(calendar.color)
-            caldavDao.update(calendar)
+            caldavDao.update(
+                calendar.copy(color = getAndroidColor(calendar.color))
+            )
         }
         for (list in googleTaskListDao.getAllLists()) {
             list.setColor(getAndroidColor(list.getColor()!!))

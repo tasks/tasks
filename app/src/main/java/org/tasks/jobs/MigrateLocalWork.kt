@@ -28,9 +28,12 @@ class MigrateLocalWork @AssistedInject constructor(
         val caldavAccount = caldavDao.getAccountByUuid(uuid) ?: return Result.failure()
         val caldavClient = clientProvider.forAccount(caldavAccount)
         caldavDao.getCalendarsByAccount(CaldavDao.LOCAL).forEach {
-            it.url = caldavClient.makeCollection(it.name!!, it.color)
-            it.account = caldavAccount.uuid
-            caldavDao.update(it)
+            caldavDao.update(
+                it.copy(
+                    url = caldavClient.makeCollection(it.name!!, it.color),
+                    account = caldavAccount.uuid,
+                )
+            )
         }
         preferences.setBoolean(R.string.p_lists_enabled, false)
         syncAdapters.sync()

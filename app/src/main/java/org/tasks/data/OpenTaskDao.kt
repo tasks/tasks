@@ -47,16 +47,18 @@ open class OpenTaskDao @Inject constructor(
             while (it.moveToNext()) {
                 val accountType = it.getString(TaskLists.ACCOUNT_TYPE)
                 val accountName = it.getString(TaskLists.ACCOUNT_NAME)
-                calendars.add(CaldavCalendar().apply {
-                    id = it.getLong(TaskLists._ID)
-                    account = "$accountType:$accountName"
-                    name = it.getString(TaskLists.LIST_NAME)
-                    color = it.getInt(TaskLists.LIST_COLOR)
-                    url = it.getString(CommonSyncColumns._SYNC_ID)
-                    ctag = it.getString(TaskLists.SYNC_VERSION)
+                calendars.add(
+                    CaldavCalendar(
+                        id = it.getLong(TaskLists._ID),
+                        account = "$accountType:$accountName",
+                        name = it.getString(TaskLists.LIST_NAME),
+                        color = it.getInt(TaskLists.LIST_COLOR),
+                        url = it.getString(CommonSyncColumns._SYNC_ID),
+                        ctag = it.getString(TaskLists.SYNC_VERSION)
                             ?.let(::JSONObject)
                             ?.getString("value")
-                })
+                    )
+                )
             }
         }
         calendars
@@ -164,16 +166,15 @@ open class OpenTaskDao @Inject constructor(
                 getLong(getColumnIndexOrThrow(columnName))
 
         fun CaldavCalendar.toLocalCalendar(): CaldavCalendar {
-            val remote = this
-            return CaldavCalendar().apply {
+            return CaldavCalendar(
                 uuid = UUID
-                        .nameUUIDFromBytes("${account.openTaskType()}${remote.url}".toByteArray())
-                        .toString()
-                url = remote.url
-                color = remote.color
-                name = remote.name
-                account = remote.account
-            }
+                    .nameUUIDFromBytes("${account.openTaskType()}$url".toByteArray())
+                    .toString(),
+                url = url,
+                color = color,
+                name = name,
+                account = account,
+            )
         }
     }
 }

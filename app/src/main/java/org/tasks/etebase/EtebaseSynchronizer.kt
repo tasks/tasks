@@ -85,12 +85,13 @@ class EtebaseSynchronizer @Inject constructor(
             val meta = collection.meta
             val color = meta.color?.let { Color.parseColor(it) } ?: 0
             if (calendar == null) {
-                calendar = CaldavCalendar()
-                calendar.name = meta.name
-                calendar.account = account.uuid
-                calendar.url = collection.uid
-                calendar.uuid = UUIDHelper.newUUID()
-                calendar.color = color
+                calendar = CaldavCalendar(
+                    name = meta.name,
+                    account = account.uuid,
+                    url = collection.uid,
+                    uuid = UUIDHelper.newUUID(),
+                    color = color,
+                )
                 caldavDao.insert(calendar)
             } else if (calendar.name != meta.name || calendar.color != color) {
                 calendar.name = meta.name

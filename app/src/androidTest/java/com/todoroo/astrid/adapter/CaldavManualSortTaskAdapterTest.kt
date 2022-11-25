@@ -43,7 +43,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
 
     private lateinit var adapter: CaldavManualSortTaskAdapter
     private val tasks = ArrayList<TaskContainer>()
-    private val filter = CaldavFilter(CaldavCalendar("calendar", "1234"))
+    private val filter = CaldavFilter(CaldavCalendar(name = "calendar", uuid = "1234"))
     private val dataSource = object : TaskAdapterDataSource {
         override fun getItem(position: Int) = tasks[position]
 

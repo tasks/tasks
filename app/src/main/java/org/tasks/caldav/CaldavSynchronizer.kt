@@ -1,26 +1,15 @@
 package org.tasks.caldav
 
 import android.content.Context
-import at.bitfire.dav4jvm.DavCalendar
+import at.bitfire.dav4jvm.*
 import at.bitfire.dav4jvm.DavCalendar.Companion.MIME_ICALENDAR
-import at.bitfire.dav4jvm.DavResource
-import at.bitfire.dav4jvm.Property
-import at.bitfire.dav4jvm.PropertyRegistry
-import at.bitfire.dav4jvm.Response
 import at.bitfire.dav4jvm.Response.HrefRelation
 import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
 import at.bitfire.dav4jvm.exception.ServiceUnavailableException
 import at.bitfire.dav4jvm.exception.UnauthorizedException
-import at.bitfire.dav4jvm.property.CalendarColor
-import at.bitfire.dav4jvm.property.CalendarData
-import at.bitfire.dav4jvm.property.CurrentUserPrincipal
-import at.bitfire.dav4jvm.property.CurrentUserPrivilegeSet
-import at.bitfire.dav4jvm.property.DisplayName
-import at.bitfire.dav4jvm.property.GetCTag
-import at.bitfire.dav4jvm.property.GetETag
+import at.bitfire.dav4jvm.property.*
 import at.bitfire.dav4jvm.property.GetETag.Companion.fromResponse
-import at.bitfire.dav4jvm.property.SyncToken
 import at.bitfire.ical4android.ICalendar.Companion.prodId
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -39,25 +28,18 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
-import org.tasks.caldav.property.Invite
-import org.tasks.caldav.property.OCAccess
-import org.tasks.caldav.property.OCInvite
-import org.tasks.caldav.property.OCOwnerPrincipal
-import org.tasks.caldav.property.OCUser
+import org.tasks.caldav.property.*
 import org.tasks.caldav.property.PropertyUtils.register
-import org.tasks.caldav.property.ShareAccess
 import org.tasks.caldav.property.ShareAccess.Companion.READ
 import org.tasks.caldav.property.ShareAccess.Companion.READ_WRITE
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
-import org.tasks.caldav.property.Sharee
-import org.tasks.data.CaldavAccount
+import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.ERROR_UNAUTHORIZED
 import org.tasks.data.CaldavAccount.Companion.SERVER_OPEN_XCHANGE
 import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
-import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
@@ -67,10 +49,6 @@ import org.tasks.data.CaldavCalendar.Companion.INVITE_DECLINED
 import org.tasks.data.CaldavCalendar.Companion.INVITE_INVALID
 import org.tasks.data.CaldavCalendar.Companion.INVITE_NO_RESPONSE
 import org.tasks.data.CaldavCalendar.Companion.INVITE_UNKNOWN
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.PrincipalAccess
-import org.tasks.data.PrincipalDao
 import timber.log.Timber
 import java.io.IOException
 import java.net.ConnectException
@@ -178,13 +156,14 @@ class CaldavSynchronizer @Inject constructor(
             }
             val color = calendarColor?.color ?: 0
             if (calendar == null) {
-                calendar = CaldavCalendar()
-                calendar.name = remoteName
-                calendar.account = account.uuid
-                calendar.url = url
-                calendar.uuid = UUIDHelper.newUUID()
-                calendar.color = color
-                calendar.access = access
+                calendar = CaldavCalendar(
+                    name = remoteName,
+                    account = account.uuid,
+                    url = url,
+                    uuid = UUIDHelper.newUUID(),
+                    color = color,
+                    access = access,
+                )
                 caldavDao.insert(calendar)
             } else if (calendar.name != remoteName
                     || calendar.color != color
