@@ -53,7 +53,7 @@ public class GeofenceDialog extends DialogFragment {
     Location original = getArguments().getParcelable(EXTRA_ORIGINAL);
     Geofence geofence =
         savedInstanceState == null
-            ? original.geofence
+            ? original.getGeofence()
             : savedInstanceState.getParcelable(EXTRA_GEOFENCE);
 
     LayoutInflater layoutInflater = LayoutInflater.from(context);

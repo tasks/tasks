@@ -7,23 +7,16 @@ import androidx.room.Embedded
 import androidx.room.Ignore
 import java.io.Serializable
 
-class Location : Serializable, Parcelable {
-    @Embedded lateinit var geofence: Geofence
-    @Embedded lateinit var place: Place
-
-    constructor()
-
-    @Ignore
-    constructor(geofence: Geofence, place: Place) {
-        this.geofence = geofence
-        this.place = place
-    }
+data class Location(
+    @Embedded val geofence: Geofence,
+    @Embedded val place: Place,
+) : Serializable, Parcelable {
 
     @Ignore
-    private constructor(parcel: Parcel) {
-        geofence = parcel.readParcelable(Geofence::class.java.classLoader)!!
-        place = parcel.readParcelable(Place::class.java.classLoader)!!
-    }
+    private constructor(parcel: Parcel): this(
+        geofence = parcel.readParcelable(Geofence::class.java.classLoader)!!,
+        place = parcel.readParcelable(Place::class.java.classLoader)!!,
+    )
 
     val task: Long
         get() = geofence.task
@@ -65,24 +58,6 @@ class Location : Serializable, Parcelable {
         dest.writeParcelable(geofence, flags)
         dest.writeParcelable(place, flags)
     }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is Location) return false
-
-        if (geofence != other.geofence) return false
-        if (place != other.place) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = geofence.hashCode()
-        result = 31 * result + place.hashCode()
-        return result
-    }
-
-    override fun toString(): String = "Location(geofence=$geofence, place=$place)"
 
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<Location> = object : Parcelable.Creator<Location> {
