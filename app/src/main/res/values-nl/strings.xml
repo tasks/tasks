@@ -133,7 +133,7 @@
     <string name="snooze_all">Alle sluimeren</string>
     <string name="rmd_EPr_quiet_hours_start_title">Begin rusttijd</string>
     <string name="rmd_EPr_quiet_hours_end_title">Einde rusttijd</string>
-    <string name="rmd_EPr_rmd_time_title">Standaard herinnering</string>
+    <string name="rmd_EPr_rmd_time_title">Herinneringstijd</string>
     <string name="rmd_EPr_rmd_time_desc">Meldingen voor taken zonder vervaltijd verschijnen om %s</string>
     <string name="persistent_notifications">Permanente meldingen</string>
     <string name="persistent_notifications_description">Permanente meldingen kunnen niet gewist worden</string>
@@ -739,4 +739,6 @@
     <string name="consent_agree">Akkoord</string>
     <string name="consent_deny">Niet nu</string>
     <string name="sign_in_to_tasks_disclosure">Uw e-mailadres en account-ID worden verzonden naar Tasks.org en opgeslagen. Deze informatie wordt gebruikt voor authenticatie en om u te voorzien van belangrijke servicegerelateerde aankondigingen. Deze informatie wordt met niemand gedeeld.</string>
+    <string name="default_reminder">Standaard Herinnering</string>
+    <string name="rmd_time_description">Toon meldingen voor taken zonder vervaltijd</string>
 </resources>
