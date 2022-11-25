@@ -133,7 +133,7 @@
     <string name="snooze_all">Відкласти все</string>
     <string name="rmd_EPr_quiet_hours_start_title">Тихий час починається</string>
     <string name="rmd_EPr_quiet_hours_end_title">Тихий час закінчується</string>
-    <string name="rmd_EPr_rmd_time_title">Типове нагадування</string>
+    <string name="rmd_EPr_rmd_time_title">Час нагадування</string>
     <string name="rmd_EPr_rmd_time_desc">Сповіщення для завдань без часу виконання будут з’являтися о %s</string>
     <string name="persistent_notifications">Постійні сповіщення</string>
     <string name="persistent_notifications_description">Постійні сповіщення не можна прибрати</string>
@@ -767,4 +767,6 @@
     <string name="consent_deny">Не зараз</string>
     <string name="sign_in_to_tasks_disclosure">Ваша адреса електронної пошти та ID облікового запису будуть передані та збережені Tasks.org. Ці дані використовуватимуться для автентифікації та надання вам важливих оголошень, пов\'язаних з обслуговуванням. Ці дані нікому не будуть передані.</string>
     <string name="consent_agree">Погоджуюся</string>
+    <string name="rmd_time_description">Показувати сповіщення про завдання без запланованого часу</string>
+    <string name="default_reminder">Типове нагадування</string>
 </resources>
