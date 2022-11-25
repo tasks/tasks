@@ -322,7 +322,7 @@
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.20 -> 1.7.20 (*)
 +|    \--- org.ogce:xpp3:1.1.6
 +|         \--- jakarta-regexp:jakarta-regexp:1.4
-++--- com.github.tasks:ical4android:2fb465b
+++--- com.github.tasks:ical4android:ce7919d
 +|    +--- org.mnode.ical4j:ical4j:3.2.5
 +|    |    +--- javax.cache:cache-api:1.1.1
 +|    |    +--- org.threeten:threeten-extra:1.7.0

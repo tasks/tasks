@@ -103,6 +103,9 @@ class Task : Parcelable {
     @Transient
     var parent = 0L
 
+    @ColumnInfo(name = "read_only", defaultValue = "0")
+    var readOnly: Boolean = false
+
     @Ignore
     @Transient
     private var transitoryData: HashMap<String, Any>? = null
@@ -132,6 +135,7 @@ class Task : Parcelable {
         transitoryData = parcel.readHashMap(ContentValues::class.java.classLoader) as HashMap<String, Any>?
         isCollapsed = ParcelCompat.readBoolean(parcel)
         parent = parcel.readLong()
+        readOnly = ParcelCompat.readBoolean(parcel)
     }
 
     var uuid: String
@@ -265,6 +269,7 @@ class Task : Parcelable {
         dest.writeMap(transitoryData as Map<*, *>?)
         ParcelCompat.writeBoolean(dest, isCollapsed)
         dest.writeLong(parent)
+        ParcelCompat.writeBoolean(dest, readOnly)
     }
 
     fun insignificantChange(task: Task?): Boolean {
@@ -408,6 +413,7 @@ class Task : Parcelable {
         if (isCollapsed != other.isCollapsed) return false
         if (parent != other.parent) return false
         if (transitoryData != other.transitoryData) return false
+        if (readOnly != other.readOnly) return false
 
         return true
     }
@@ -434,11 +440,12 @@ class Task : Parcelable {
         result = 31 * result + isCollapsed.hashCode()
         result = 31 * result + parent.hashCode()
         result = 31 * result + (transitoryData?.hashCode() ?: 0)
+        result = 31 * result + readOnly.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, ringFlags=$ringFlags, reminderLast=$reminderLast, recurrence=$recurrence, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, transitoryData=$transitoryData)"
+        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, ringFlags=$ringFlags, reminderLast=$reminderLast, recurrence=$recurrence, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, transitoryData=$transitoryData, readOnly=$readOnly)"
     }
 
     @Retention(AnnotationRetention.SOURCE)

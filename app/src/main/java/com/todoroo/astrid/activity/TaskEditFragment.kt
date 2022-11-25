@@ -18,17 +18,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -126,26 +125,34 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         val view: View = binding.root
         val model = editViewModel.task
         val toolbar = binding.toolbar
-        toolbar.navigationIcon = context.getDrawable(R.drawable.ic_outline_save_24px)
+        toolbar.navigationIcon = AppCompatResources.getDrawable(
+            context,
+            if (editViewModel.isReadOnly)
+                R.drawable.ic_outline_arrow_back_24px
+            else
+                R.drawable.ic_outline_save_24px
+        )
         toolbar.setNavigationOnClickListener {
             lifecycleScope.launch {
                 save()
             }
         }
         val backButtonSavesTask = preferences.backButtonSavesTask()
-        toolbar.setNavigationContentDescription(if (backButtonSavesTask) {
-            R.string.discard
-        } else {
-            R.string.save
-        })
+        toolbar.setNavigationContentDescription(
+            when {
+                editViewModel.isReadOnly -> R.string.back
+                backButtonSavesTask -> R.string.discard
+                else -> R.string.save
+            }
+        )
         toolbar.inflateMenu(R.menu.menu_task_edit_fragment)
         val menu = toolbar.menu
         val delete = menu.findItem(R.id.menu_delete)
-        delete.isVisible = !model.isNew
+        delete.isVisible = !model.isNew && editViewModel.isWritable
         delete.setShowAsAction(
                 if (backButtonSavesTask) MenuItem.SHOW_AS_ACTION_NEVER else MenuItem.SHOW_AS_ACTION_IF_ROOM)
         val discard = menu.findItem(R.id.menu_discard)
-        discard.isVisible = backButtonSavesTask
+        discard.isVisible = backButtonSavesTask && editViewModel.isWritable
         discard.setShowAsAction(
                 if (model.isNew) MenuItem.SHOW_AS_ACTION_IF_ROOM else MenuItem.SHOW_AS_ACTION_NEVER)
         if (savedInstanceState == null) {
@@ -173,7 +180,11 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         title.setText(model.title)
         title.setHorizontallyScrolling(false)
         title.maxLines = 5
-        if (model.isNew || preferences.getBoolean(R.string.p_hide_check_button, false)) {
+        if (
+            model.isNew ||
+            preferences.getBoolean(R.string.p_hide_check_button, false) ||
+            editViewModel.isReadOnly
+        ) {
             binding.fab.visibility = View.INVISIBLE
         } else if (editViewModel.completed) {
             title.paintFlags = title.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -211,7 +222,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         }
         binding.composeView.setContent {
             MdcTheme {
-                Column {
+                Column(modifier = Modifier.gesturesDisabled(editViewModel.isReadOnly)) {
                     taskEditControlSetFragmentManager.displayOrder.forEachIndexed { index, tag ->
                         if (index < taskEditControlSetFragmentManager.visibleSize) {
                             // TODO: remove ui-viewbinding library when these are all migrated
@@ -222,8 +233,12 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                                 TAG_LIST -> ListRow()
                                 TAG_CREATION -> CreationRow()
                                 CalendarControlSet.TAG -> AndroidViewBinding(TaskEditCalendarBinding::inflate)
-                                StartDateControlSet.TAG -> AndroidViewBinding(TaskEditStartDateBinding::inflate)
-                                ReminderControlSet.TAG -> AndroidViewBinding(TaskEditRemindersBinding::inflate)
+                                StartDateControlSet.TAG -> AndroidViewBinding(
+                                    TaskEditStartDateBinding::inflate
+                                )
+                                ReminderControlSet.TAG -> AndroidViewBinding(
+                                    TaskEditRemindersBinding::inflate
+                                )
                                 LocationControlSet.TAG -> AndroidViewBinding(TaskEditLocationBinding::inflate)
                                 FilesControlSet.TAG -> AndroidViewBinding(TaskEditFilesBinding::inflate)
                                 TimerControlSet.TAG -> AndroidViewBinding(TaskEditTimerBinding::inflate)
@@ -496,7 +511,8 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         const val EXTRA_TAGS = "extra_tags"
         const val EXTRA_ALARMS = "extra_alarms"
 
-        private const val FRAG_TAG_GOOGLE_TASK_LIST_SELECTION = "frag_tag_google_task_list_selection"
+        private const val FRAG_TAG_GOOGLE_TASK_LIST_SELECTION =
+            "frag_tag_google_task_list_selection"
         const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
         const val REQUEST_CODE_PICK_CALENDAR = 70
@@ -510,11 +526,11 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             }
 
         fun newTaskEditFragment(
-                task: Task,
-                list: Filter,
-                location: Location?,
-                tags: ArrayList<TagData>,
-                alarms: ArrayList<Alarm>,
+            task: Task,
+            list: Filter,
+            location: Location?,
+            tags: ArrayList<TagData>,
+            alarms: ArrayList<Alarm>,
         ): TaskEditFragment {
             val taskEditFragment = TaskEditFragment()
             val arguments = Bundle()
@@ -526,5 +542,21 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             taskEditFragment.arguments = arguments
             return taskEditFragment
         }
+
+        fun Modifier.gesturesDisabled(disabled: Boolean = true) =
+            if (disabled) {
+                pointerInput(Unit) {
+                    awaitPointerEventScope {
+                        while (true) {
+                            awaitPointerEvent(pass = PointerEventPass.Initial)
+                                .changes
+                                .filter { it.position == it.previousPosition }
+                                .forEach { it.consume() }
+                        }
+                    }
+                }
+            } else {
+                this
+            }
     }
 }

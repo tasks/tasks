@@ -5,14 +5,7 @@ import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.DeletionDao
-import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.GoogleTaskList
-import org.tasks.data.TaskContainer
-import org.tasks.data.TaskDao
+import org.tasks.data.*
 import org.tasks.db.QueryUtils
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.jobs.WorkManager
@@ -34,14 +27,18 @@ class TaskDeleter @Inject constructor(
     suspend fun markDeleted(item: Task) = markDeleted(listOf(item.id))
 
     suspend fun markDeleted(taskIds: List<Long>): List<Task> {
-        val ids: MutableSet<Long> = HashSet(taskIds)
-        ids.addAll(taskIds.chunkedMap(googleTaskDao::getChildren))
-        ids.addAll(taskIds.chunkedMap(taskDao::getChildren))
+        val ids = taskIds
+            .toSet()
+            .plus(taskIds.chunkedMap(googleTaskDao::getChildren))
+            .plus(taskIds.chunkedMap(taskDao::getChildren))
+            .let { taskDao.fetch(it.toList()) }
+            .filterNot { it.readOnly }
+            .map { it.id }
         deletionDao.markDeleted(ids)
         workManager.cleanup(ids)
         syncAdapters.sync()
         localBroadcastManager.broadcastRefresh()
-        return ids.chunkedMap(taskDao::fetch)
+        return taskDao.fetch(ids)
     }
 
     suspend fun clearCompleted(filter: Filter): Int {
@@ -50,6 +47,7 @@ class TaskDeleter @Inject constructor(
                 QueryUtils.removeOrder(QueryUtils.showHiddenAndCompleted(filter.originalSqlQuery)))
         val completed = taskDao.fetchTasks(preferences, deleteFilter)
                 .filter(TaskContainer::isCompleted)
+                .filterNot(TaskContainer::isReadOnly)
                 .map(TaskContainer::getId)
                 .toMutableList()
         completed.removeAll(deletionDao.hasRecurringAncestors(completed))

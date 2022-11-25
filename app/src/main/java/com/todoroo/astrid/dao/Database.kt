@@ -36,7 +36,7 @@ import org.tasks.notifications.NotificationDao
     autoMigrations = [
         AutoMigration(from = 83, to = 84, spec = Migrations.AutoMigrate83to84::class),
     ],
-    version = 86
+    version = 87
 )
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao

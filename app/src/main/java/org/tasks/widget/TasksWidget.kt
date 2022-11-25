@@ -117,6 +117,10 @@ class TasksWidget : AppWidgetProvider() {
         setRipple(
                 remoteViews, color, R.id.widget_button, R.id.widget_change_list, R.id.widget_reconfigure)
         remoteViews.setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filter, id))
+        remoteViews.setViewVisibility(
+            R.id.widget_button,
+            if (filter.isWritable) View.VISIBLE else View.GONE
+        )
         remoteViews.setOnClickPendingIntent(R.id.widget_button, getNewTaskIntent(context, filter, id))
         remoteViews.setOnClickPendingIntent(R.id.widget_change_list, getChooseListIntent(context, filter, id))
         remoteViews.setOnClickPendingIntent(

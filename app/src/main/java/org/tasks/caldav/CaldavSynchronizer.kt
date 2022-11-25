@@ -30,6 +30,8 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.property.*
 import org.tasks.caldav.property.PropertyUtils.register
+import org.tasks.caldav.property.ShareAccess.Companion.NOT_SHARED
+import org.tasks.caldav.property.ShareAccess.Companion.NO_ACCESS
 import org.tasks.caldav.property.ShareAccess.Companion.READ
 import org.tasks.caldav.property.ShareAccess.Companion.READ_WRITE
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
@@ -427,9 +429,9 @@ class CaldavSynchronizer @Inject constructor(
             get() {
                 this[ShareAccess::class.java]?.let {
                     return when (it.access) {
-                        SHARED_OWNER -> ACCESS_OWNER
+                        NOT_SHARED, SHARED_OWNER -> ACCESS_OWNER
                         READ_WRITE -> ACCESS_READ_WRITE
-                        READ -> ACCESS_READ_ONLY
+                        NO_ACCESS, READ -> ACCESS_READ_ONLY
                         else -> ACCESS_UNKNOWN
                     }
                 }

@@ -46,6 +46,7 @@ class TaskCompleter @Inject internal constructor(
             }
             .filterNotNull()
             .filter { it.isCompleted != completionDate > 0 }
+            .filterNot { it.readOnly }
             .let {
                 setComplete(it, completionDate)
                 if (completed && !item.isRecurring) {

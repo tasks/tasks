@@ -7,6 +7,7 @@ import at.bitfire.ical4android.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
+import org.dmfs.tasks.contract.TaskContract.TaskListColumns.ACCESS_LEVEL_OWNER
 import org.tasks.caldav.iCalendar
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
@@ -23,6 +24,7 @@ class TestOpenTaskDao @Inject constructor(
             type: String = DEFAULT_TYPE,
             account: String = DEFAULT_ACCOUNT,
             url: String = UUIDHelper.newUUID(),
+            accessLevel: Int = ACCESS_LEVEL_OWNER,
     ): Pair<Long, CaldavCalendar> {
         val uri = taskLists.buildUpon()
                 .appendQueryParameter(TaskContract.CALLER_IS_SYNCADAPTER, "true")
@@ -34,6 +36,7 @@ class TestOpenTaskDao @Inject constructor(
                         .withValue(TaskContract.CommonSyncColumns._SYNC_ID, url)
                         .withValue(TaskContract.TaskListColumns.LIST_NAME, name)
                         .withValue(TaskContract.TaskLists.SYNC_ENABLED, "1")
+                        .withValue(TaskContract.TaskLists.ACCESS_LEVEL, accessLevel)
         )
         val calendar = CaldavCalendar(
             uuid = UUIDHelper.newUUID(),

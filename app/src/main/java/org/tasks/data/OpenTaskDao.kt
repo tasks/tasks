@@ -56,7 +56,12 @@ open class OpenTaskDao @Inject constructor(
                         url = it.getString(CommonSyncColumns._SYNC_ID),
                         ctag = it.getString(TaskLists.SYNC_VERSION)
                             ?.let(::JSONObject)
-                            ?.getString("value")
+                            ?.getString("value"),
+                        access = when (it.getInt(TaskLists.ACCESS_LEVEL)) {
+                            TaskLists.ACCESS_LEVEL_OWNER -> CaldavCalendar.ACCESS_OWNER
+                            TaskLists.ACCESS_LEVEL_READ -> CaldavCalendar.ACCESS_READ_ONLY
+                            else -> CaldavCalendar.ACCESS_READ_WRITE
+                        },
                     )
                 )
             }
@@ -174,6 +179,7 @@ open class OpenTaskDao @Inject constructor(
                 color = color,
                 name = name,
                 account = account,
+                access = access,
             )
         }
     }

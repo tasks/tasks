@@ -196,6 +196,14 @@ public class Filter extends FilterListItem {
     return true;
   }
 
+  public boolean isWritable() {
+    return !isReadOnly();
+  }
+
+  public boolean isReadOnly() {
+    return false;
+  }
+
   public boolean hasBeginningMenu() {
     return getBeginningMenu() != 0;
   }

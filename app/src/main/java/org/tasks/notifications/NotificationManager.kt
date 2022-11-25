@@ -317,7 +317,7 @@ class NotificationManager @Inject constructor(
                 .setOnlyAlertOnce(false)
                 .setShowWhen(true)
                 .setTicker(taskTitle)
-        val intent = NotificationActivity.newIntent(context, taskTitle.toString(), id)
+        val intent = NotificationActivity.newIntent(context, taskTitle.toString(), id, task.readOnly)
         builder.setContentIntent(
                 PendingIntent.getActivity(
                     context,
@@ -360,7 +360,9 @@ class NotificationManager @Inject constructor(
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
         val wearableExtender = NotificationCompat.WearableExtender()
-        wearableExtender.addAction(completeAction)
+        if (!task.readOnly) {
+            wearableExtender.addAction(completeAction)
+        }
         for (snoozeOption in SnoozeDialog.getSnoozeOptions(preferences)) {
             val timestamp = snoozeOption.dateTime.millis
             val wearableIntent = SnoozeActivity.newIntent(context, id)
@@ -379,8 +381,10 @@ class NotificationManager @Inject constructor(
                             wearablePendingIntent)
                             .build())
         }
+        if (!task.readOnly) {
+            builder.addAction(completeAction)
+        }
         return builder
-                .addAction(completeAction)
                 .addAction(
                         R.drawable.ic_snooze_white_24dp,
                         context.getString(R.string.rmd_NoA_snooze),

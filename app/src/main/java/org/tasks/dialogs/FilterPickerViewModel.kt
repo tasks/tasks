@@ -58,7 +58,7 @@ class FilterPickerViewModel @Inject constructor(
 
     private fun refresh() = viewModelScope.launch {
         val items = if (listsOnly) {
-            filterProvider.listPickerItems()
+            filterProvider.listPickerItems().filterNot { it is Filter && it.isReadOnly }
         } else {
             filterProvider.filterPickerItems()
         }

@@ -243,14 +243,15 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTaskListBinding.inflate(inflater, container, false)
+        filter = getFilter()
         with (binding) {
             swipeRefreshLayout = bodyStandard.swipeLayout
             emptyRefreshLayout = bodyEmpty.swipeLayoutEmpty
             coordinatorLayout = taskListCoordinator
             recyclerView = bodyStandard.recyclerView
             fab.setOnClickListener { createNewTask() }
+            fab.isVisible = filter.isWritable
         }
-        filter = getFilter()
         themeColor = if (filter.tint != 0) colorProvider.getThemeColor(filter.tint, true) else defaultThemeColor
         filter.setFilterQueryOverride(null)
 
@@ -373,8 +374,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             menu.findItem(R.id.menu_collapse_subtasks).isVisible = false
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }
-        menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable()
+        menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable() && filter.isWritable
         search = binding.toolbar.menu.findItem(R.id.menu_search).setOnActionExpandListener(this)
+        menu.findItem(R.id.menu_clear_completed).isVisible = filter.isWritable
     }
 
     private fun openFilter(filter: Filter?) {
@@ -633,10 +635,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             REQUEST_TAG_TASKS -> if (resultCode == Activity.RESULT_OK) {
                 lifecycleScope.launch {
                     val modified = tagDataDao.applyTags(
-                            taskDao.fetch(
-                                    data!!.getSerializableExtra(TagPickerActivity.EXTRA_TASKS) as ArrayList<Long>),
+                            taskDao
+                                .fetch(data!!.getSerializableExtra(TagPickerActivity.EXTRA_TASKS) as ArrayList<Long>)
+                                .filterNot { it.readOnly },
                             data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED)!!,
-                            data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)!!)
+                            data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)!!
+                    )
                     taskDao.touch(modified)
                 }
                 finishActionMode()
@@ -693,6 +697,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onCreateActionMode(actionMode: ActionMode, menu: Menu): Boolean {
         val inflater = actionMode.menuInflater
         inflater.inflate(R.menu.menu_multi_select, menu)
+        if (filter.isReadOnly) {
+            listOf(R.id.edit_tags, R.id.move_tasks, R.id.reschedule, R.id.copy_tasks, R.id.delete)
+                .forEach { menu.findItem(it).isVisible = false }
+        }
         return true
     }
 
@@ -729,6 +737,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 lifecycleScope.launch {
                     taskDao
                             .fetch(selected)
+                            .filterNot { it.readOnly }
                             .takeIf { it.isNotEmpty() }
                             ?.let {
                                 newDateTimePicker(
@@ -800,7 +809,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
     }
 
-    fun showDateTimePicker(task: TaskContainer) {
+    private fun showDateTimePicker(task: TaskContainer) {
         val fragmentManager = parentFragmentManager
         if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_TIME_PICKER) == null) {
             newDateTimePicker(
@@ -859,6 +868,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     fun clearCollapsed() = taskAdapter.clearCollapsed()
 
     override fun onCompletedTask(task: TaskContainer, newState: Boolean) {
+        if (task.isReadOnly) {
+            return
+        }
         lifecycleScope.launch {
             taskCompleter.setComplete(task.getTask(), newState)
             taskAdapter.onCompletedTask(task, newState)
@@ -900,6 +912,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onChangeDueDate(task: TaskContainer) {
+        if (task.isReadOnly) {
+            return
+        }
         showDateTimePicker(task)
     }
 
@@ -921,6 +936,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 val tasks =
                     (intent.getSerializableExtra(EXTRAS_TASK_ID) as? ArrayList<Long>)
                         ?.let { taskDao.fetch(it) }
+                        ?.filterNot { it.readOnly }
                         ?.takeIf { it.isNotEmpty() }
                         ?: return@launch
                 val isRecurringCompletion =

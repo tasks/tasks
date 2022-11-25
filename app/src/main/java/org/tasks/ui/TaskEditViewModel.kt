@@ -178,6 +178,10 @@ class TaskEditViewModel @Inject constructor(
             }
         }
 
+    val isReadOnly = task.readOnly
+
+    val isWritable = !isReadOnly
+
     fun hasChanges(): Boolean =
         (task.title != title || (isNew && title?.isNotBlank() == true)) ||
                 task.isCompleted != completed ||
@@ -221,7 +225,7 @@ class TaskEditViewModel @Inject constructor(
         if (cleared) {
             return@withContext false
         }
-        if (!hasChanges()) {
+        if (!hasChanges() || isReadOnly) {
             discard(remove)
             return@withContext false
         }

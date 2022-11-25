@@ -16,6 +16,7 @@ data class ShareAccess(val access: Property.Name): Property {
         val SHARED_OWNER = Property.Name(XmlUtils.NS_WEBDAV, "shared-owner")
         val READ_WRITE = Property.Name(XmlUtils.NS_WEBDAV, "read-write")
         val NOT_SHARED = Property.Name(XmlUtils.NS_WEBDAV, "not-shared")
+        val NO_ACCESS = Property.Name(XmlUtils.NS_WEBDAV, "no-access")
         val READ = Property.Name(XmlUtils.NS_WEBDAV, "read")
     }
 

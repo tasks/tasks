@@ -16,6 +16,7 @@ import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.OpenTaskDao.Companion.getLong
 import org.tasks.extensions.getLongOrNull
 import org.tasks.extensions.getString
@@ -580,6 +581,13 @@ object Migrations {
         }
     }
 
+    private val MIGRATION_86_87 = object : Migration(86, 87) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE `tasks` ADD COLUMN `read_only` INTEGER NOT NULL DEFAULT 0")
+            database.execSQL("UPDATE `tasks` SET `read_only` = 1 WHERE `_id` IN (SELECT `cd_task` FROM `caldav_tasks` INNER JOIN `caldav_lists` ON `caldav_tasks`.`cd_calendar` = `caldav_lists`.`cdl_uuid` WHERE `cdl_access` = $ACCESS_READ_ONLY)")
+        }
+    }
+
     fun migrations(fileStorage: FileStorage) = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
@@ -622,6 +630,7 @@ object Migrations {
             MIGRATION_82_83,
             MIGRATION_84_85,
             MIGRATION_85_86,
+            MIGRATION_86_87,
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {

@@ -32,6 +32,9 @@ class NotificationActivity : InjectingAppCompatActivity(), NotificationDialog.No
         var fragment = fragmentManager.findFragmentByTag(FRAG_TAG_NOTIFICATION_FRAGMENT) as NotificationDialog?
         if (fragment == null) {
             fragment = NotificationDialog()
+            fragment.arguments = Bundle().apply {
+                putBoolean(EXTRA_READ_ONLY, intent.getBooleanExtra(EXTRA_READ_ONLY, false))
+            }
             fragment.show(fragmentManager, FRAG_TAG_NOTIFICATION_FRAGMENT)
         }
         fragment.setTitle(intent.getStringExtra(EXTRA_TITLE))
@@ -69,12 +72,14 @@ class NotificationActivity : InjectingAppCompatActivity(), NotificationDialog.No
     companion object {
         const val EXTRA_TITLE = "extra_title"
         const val EXTRA_TASK_ID = "extra_task_id"
+        const val EXTRA_READ_ONLY = "extra_read_only"
         private const val FRAG_TAG_NOTIFICATION_FRAGMENT = "frag_tag_notification_fragment"
-        fun newIntent(context: Context?, title: String?, id: Long): Intent {
+        fun newIntent(context: Context?, title: String?, id: Long, readOnly: Boolean): Intent {
             val intent = Intent(context, NotificationActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             intent.putExtra(EXTRA_TASK_ID, id)
             intent.putExtra(EXTRA_TITLE, title)
+            intent.putExtra(EXTRA_READ_ONLY, readOnly)
             return intent
         }
     }

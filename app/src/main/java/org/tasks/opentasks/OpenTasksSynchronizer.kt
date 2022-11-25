@@ -15,12 +15,7 @@ import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.MyAndroidTask
-import org.tasks.data.OpenTaskDao
+import org.tasks.data.*
 import org.tasks.data.OpenTaskDao.Companion.filterActive
 import org.tasks.data.OpenTaskDao.Companion.isDavx5
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
@@ -90,7 +85,9 @@ class OpenTasksSynchronizer @Inject constructor(
                 .forEach { taskDeleter.delete(it) }
         lists.forEach {
             val calendar = toLocalCalendar(it)
-            pushChanges(account, calendar, it.id)
+            if (calendar.access != CaldavCalendar.ACCESS_READ_ONLY) {
+                pushChanges(account, calendar, it.id)
+            }
             fetchChanges(account, calendar, it.ctag, it.id)
         }
     }
@@ -102,9 +99,14 @@ class OpenTasksSynchronizer @Inject constructor(
             caldavDao.insert(local)
             Timber.d("Created calendar: $local")
             localBroadcastManager.broadcastRefreshList()
-        } else if (local.name != remote.name || local.color != remote.color) {
+        } else if (
+            local.name != remote.name ||
+            local.color != remote.color ||
+            local.access != remote.access
+        ) {
             local.color = remote.color
             local.name = remote.name
+            local.access = remote.access
             caldavDao.update(local)
             Timber.d("Updated calendar: $local")
             localBroadcastManager.broadcastRefreshList()

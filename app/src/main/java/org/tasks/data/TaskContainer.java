@@ -108,6 +108,10 @@ public class TaskContainer {
     targetIndent = indent;
   }
 
+  public boolean isReadOnly() {
+    return task.getReadOnly();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

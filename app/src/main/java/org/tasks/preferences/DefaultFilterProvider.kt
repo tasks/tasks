@@ -11,6 +11,7 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.*
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.filters.PlaceFilter
 import timber.log.Timber
 import javax.inject.Inject
@@ -48,6 +49,7 @@ class DefaultFilterProvider @Inject constructor(
 
     suspend fun getDefaultList() =
             getFilterFromPreference(preferences.getStringValue(R.string.p_default_list), null)
+                    ?.takeIf { it.isWritable }
                     ?: getAnyList()
 
     suspend fun getLastViewedFilter() = getFilterFromPreference(R.string.p_last_viewed_list)
@@ -77,7 +79,7 @@ class DefaultFilterProvider @Inject constructor(
 
     private suspend fun getAnyList(): Filter {
         val filter = googleTaskListDao.getAllLists().getOrNull(0)?.let(::GtasksFilter)
-                ?: caldavDao.getCalendars().getOrElse(0) { caldavDao.getLocalList(context) }.let(::CaldavFilter)
+                ?: caldavDao.getCalendars().filterNot { it.access == ACCESS_READ_ONLY }.getOrElse(0) { caldavDao.getLocalList(context) }.let(::CaldavFilter)
         defaultList = filter
         return filter
     }
@@ -158,6 +160,7 @@ class DefaultFilterProvider @Inject constructor(
                 }
             } else if (task.hasTransitory(CaldavTask.KEY)) {
                 val caldav = caldavDao.getCalendarByUuid(task.getTransitory(CaldavTask.KEY)!!)
+                    ?.takeIf { it.access != ACCESS_READ_ONLY }
                 if (caldav != null) {
                     originalList = CaldavFilter(caldav)
                 }

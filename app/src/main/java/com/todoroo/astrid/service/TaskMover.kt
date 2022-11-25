@@ -10,12 +10,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.TaskDao
+import org.tasks.data.*
 import org.tasks.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
@@ -49,19 +44,21 @@ class TaskMover @Inject constructor(
     }
 
     suspend fun move(ids: List<Long>, selectedList: Filter) {
-        val tasks = ArrayList(ids)
-        ids.dbchunk().forEach {
-            tasks.removeAll(googleTaskDao.getChildren(it))
-            tasks.removeAll(taskDao.getChildren(it))
-        }
-        taskDao.setParent(0, tasks)
-        for (task in taskDao.fetch(tasks)) {
-            performMove(task, selectedList)
-        }
+        val tasks = ids
+            .dbchunk()
+            .flatMap {
+                it.minus(googleTaskDao.getChildren(it).toSet())
+                    .minus(taskDao.getChildren(it).toSet())
+            }
+            .let { taskDao.fetch(it) }
+            .filterNot { it.readOnly }
+        val taskIds = tasks.map { it.id }
+        taskDao.setParent(0, ids.intersect(taskIds.toSet()).toList())
+        tasks.forEach { performMove(it, selectedList) }
         if (selectedList is CaldavFilter) {
             caldavDao.updateParents(selectedList.uuid)
         }
-        tasks.dbchunk().forEach {
+        taskIds.dbchunk().forEach {
             taskDao.touch(it)
         }
         localBroadcastManager.broadcastRefresh()

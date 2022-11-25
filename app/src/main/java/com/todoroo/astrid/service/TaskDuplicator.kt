@@ -25,17 +25,16 @@ class TaskDuplicator @Inject constructor(
 ) {
 
     suspend fun duplicate(taskIds: List<Long>): List<Task> {
-        val result: MutableList<Task> = ArrayList()
-        val tasks = ArrayList(taskIds)
-        taskIds.dbchunk().forEach {
-            tasks.removeAll(googleTaskDao.getChildren(it))
-            tasks.removeAll(taskDao.getChildren(it))
-        }
-        for (task in taskDao.fetch(tasks)) {
-            result.add(clone(task, task.parent))
-        }
-        localBroadcastManager.broadcastRefresh()
-        return result
+        return taskIds
+            .dbchunk()
+            .flatMap {
+                it.minus(googleTaskDao.getChildren(it).toSet())
+                    .minus(taskDao.getChildren(it).toSet())
+            }
+            .let { taskDao.fetch(it) }
+            .filterNot { it.readOnly }
+            .map { clone(it, it.parent) }
+            .also { localBroadcastManager.broadcastRefresh() }
     }
 
     private suspend fun clone(clone: Task, parentId: Long): Task {

@@ -65,7 +65,10 @@ class CommentBarFragment : Fragment() {
         }
         commentField.setHorizontallyScrolling(false)
         commentField.maxLines = Int.MAX_VALUE
-        if (preferences.getBoolean(R.string.p_show_task_edit_comments, true)) {
+        if (
+            preferences.getBoolean(R.string.p_show_task_edit_comments, true) &&
+            viewModel.isWritable
+        ) {
             commentBar.visibility = View.VISIBLE
         }
         commentBar.setBackgroundColor(themeColor.primaryColor)
