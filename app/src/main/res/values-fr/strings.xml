@@ -125,7 +125,7 @@
     <string name="snooze_all">Tout rappeler</string>
     <string name="rmd_EPr_quiet_hours_start_title">Début des heures de repos</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fin des heures de repos</string>
-    <string name="rmd_EPr_rmd_time_title">Rappel par défaut</string>
+    <string name="rmd_EPr_rmd_time_title">Heure de rappel</string>
     <string name="rmd_EPr_rmd_time_desc">Les notifications pour les tâches sans échéances apparaîtront à %s</string>
     <string name="persistent_notifications">Notifications persistantes</string>
     <string name="persistent_notifications_description">Les notifications persistantes ne peuvent pas être supprimées</string>
@@ -755,4 +755,6 @@
     <string name="consent_deny">Pas maintenant</string>
     <string name="sign_in_to_tasks_disclosure">Votre adresse électronique et votre identifiant de compte seront transmis et stockés par Tasks.org. Ces informations seront utilisées pour l\'authentification et pour vous fournir des annonces importantes relatives au service. Ces informations ne seront pas partagées avec qui que ce soit.</string>
     <string name="consent_agree">D\'accord</string>
+    <string name="default_reminder">Rappel par défaut</string>
+    <string name="rmd_time_description">Afficher les notifications pour les tâches sans échéance</string>
 </resources>
