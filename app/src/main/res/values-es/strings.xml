@@ -132,7 +132,7 @@
     <string name="snooze_all">Posponer todo</string>
     <string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
     <string name="rmd_EPr_quiet_hours_end_title">El horario en silencio termina</string>
-    <string name="rmd_EPr_rmd_time_title">Recordatorio predeterminado</string>
+    <string name="rmd_EPr_rmd_time_title">Tiempo de recordatorio</string>
     <string name="rmd_EPr_rmd_time_desc">Las notificaciones de tareas sin fecha límite aparecerán a las %s</string>
     <string name="persistent_notifications">Notificaciones persistentes</string>
     <string name="persistent_notifications_description">Las notificaciones persistentes no se pueden borrar</string>
@@ -760,4 +760,6 @@
     <string name="sign_in_to_tasks_disclosure">Tu dirección de correo electrónico y el ID de tu cuenta serán transmitidos y almacenados por Tasks.org. Esta información se utilizará para la autenticación y para proporcionarle anuncios importantes relacionados con el servicio. Esta información no se compartirá con nadie.</string>
     <string name="consent_agree">De acuerdo</string>
     <string name="consent_deny">No ahora</string>
+    <string name="default_reminder">Aviso por defecto</string>
+    <string name="rmd_time_description">Mostrar notificaciones de tareas sin fecha de vencimiento</string>
 </resources>
