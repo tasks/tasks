@@ -122,7 +122,7 @@
     <string name="snooze_all">全都稍后提醒</string>
     <string name="rmd_EPr_quiet_hours_start_title">静音开始时间</string>
     <string name="rmd_EPr_quiet_hours_end_title">静音结束时间</string>
-    <string name="rmd_EPr_rmd_time_title">默认提示</string>
+    <string name="rmd_EPr_rmd_time_title">提醒时间</string>
     <string name="rmd_EPr_rmd_time_desc">没有设定截止时间的任务将在 %s 出现通知</string>
     <string name="persistent_notifications">在通知栏固定通知</string>
     <string name="persistent_notifications_description">在通知栏固定通知后将无法被清除</string>
@@ -724,4 +724,6 @@
     <string name="sign_in_to_tasks_disclosure">Tasks.org 将传输和存储您的电子邮箱地址和账户 ID。 此信息将用于身份验证并向您提供与服务相关的重要公告。 此信息不会与任何人共享。</string>
     <string name="consent_agree">同意</string>
     <string name="consent_deny">再想想</string>
+    <string name="default_reminder">默认提醒</string>
+    <string name="rmd_time_description">显示没有到期时间的任务的通知</string>
 </resources>
