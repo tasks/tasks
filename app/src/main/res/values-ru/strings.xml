@@ -133,7 +133,7 @@
     <string name="snooze_all">Отложить все</string>
     <string name="rmd_EPr_quiet_hours_start_title">Начало тихих часов</string>
     <string name="rmd_EPr_quiet_hours_end_title">Конец тихих часов</string>
-    <string name="rmd_EPr_rmd_time_title">Напоминание по умолчанию</string>
+    <string name="rmd_EPr_rmd_time_title">Время напоминания</string>
     <string name="rmd_EPr_rmd_time_desc">Уведомления для задач без срока окончания появятся в %s</string>
     <string name="persistent_notifications">Постоянные напоминания</string>
     <string name="persistent_notifications_description">Постоянные уведомления нельзя убрать</string>
@@ -287,7 +287,7 @@
     <string name="pick_a_date_and_time">Выберите дату и время</string>
     <string name="when_overdue">Когда просрочено</string>
     <string name="when_due">Когда закончится</string>
-    <string name="geofence_radius">Радиус</string>
+    <string name="geofence_radius">Радиус геозоны</string>
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Теги</string>
     <string name="filters">Фильтры</string>
@@ -765,4 +765,6 @@
     <string name="sort_completion_group">Завершение %s</string>
     <string name="microsoft_selection_description">Синхронизация с личной учетной записью Microsoft</string>
     <string name="sign_in">Войти</string>
+    <string name="default_reminder">Напоминание по умолчанию</string>
+    <string name="rmd_time_description">Показывать уведомления для задач без срока выполнения</string>
 </resources>
