@@ -733,4 +733,10 @@
     <string name="TEA_creation_date">Létrehozás dátuma</string>
     <string name="microsoft_selection_description">Szinkronizálás személyes Microsoft fiókkal</string>
     <string name="sort_completion_group">Elkészültség %s</string>
+    <string name="enable_reminders_description">Az emlékeztetők az Android beállításaiban ki vannak kapcsolva</string>
+    <string name="sign_in">Bejelentkezés</string>
+    <string name="consent_agree">Beleegyezés</string>
+    <string name="consent_deny">Most nem</string>
+    <string name="sign_in_to_tasks_disclosure">Az Ön e-mail címét és azonodítóját a Tasks.org tárolja. Ezek az információk azonosításra és fontos, a szolgáltatással kapcsolatos információk eljuttatásának céljából kerülnek felhasználásra. Ez az információ senkivel sem kerül megosztásra.</string>
+    <string name="enable_reminders">Emlékeztetők engedélyezése</string>
 </resources>
