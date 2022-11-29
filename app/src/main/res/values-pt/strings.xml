@@ -123,7 +123,7 @@
     <string name="snooze_all">Suspender todos</string>
     <string name="rmd_EPr_quiet_hours_start_title">Início da hora de silêncio</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fim das horas de silêncio</string>
-    <string name="rmd_EPr_rmd_time_title">Lembrete predefinido</string>
+    <string name="rmd_EPr_rmd_time_title">Hora do lembrete</string>
     <string name="rmd_EPr_rmd_time_desc">As notificações para tarefas sem data de fim aparecerão às %s</string>
     <string name="persistent_notifications">Notificações persistentes</string>
     <string name="persistent_notifications_description">As notificações persistentes não podem ser eliminadas</string>
@@ -421,7 +421,7 @@
     <string name="rmd_NoA_snooze">Adiar</string>
     <string name="default_location_reminder_on_arrival_or_departure">Ao chegar e ao sair</string>
     <string name="default_location_reminder_on_departure">Ao sair</string>
-    <string name="default_location_reminder_on_arrival">Ao chegar</string>
+    <string name="default_location_reminder_on_arrival">À chegada</string>
     <string name="no_reminders">Sem lembretes</string>
     <string name="EPr_default_location_reminder_title">Lembretes de localização predefinidos</string>
     <string name="TEA_control_location">Localização</string>
@@ -739,4 +739,6 @@
     <string name="consent_deny">Agora não</string>
     <string name="microsoft_selection_description">Sincronize com a sua conta pessoal Microsoft</string>
     <string name="sign_in">Iniciar sessão</string>
+    <string name="default_reminder">Lembrete predefinido</string>
+    <string name="rmd_time_description">Mostrar notificações para tarefas sem fecho</string>
 </resources>
