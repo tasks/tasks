@@ -35,13 +35,14 @@ class TestOpenTaskDao @Inject constructor(
                         .withValue(TaskContract.TaskListColumns.LIST_NAME, name)
                         .withValue(TaskContract.TaskLists.SYNC_ENABLED, "1")
         )
-        return Pair(result.uri!!.lastPathSegment!!.toLong(), CaldavCalendar().apply {
-            uuid = UUIDHelper.newUUID()
-            this.name = name
-            this.account = "$type:$account"
-            this.url = url
-            caldavDao.insert(this)
-        })
+        val calendar = CaldavCalendar(
+            uuid = UUIDHelper.newUUID(),
+            name = name,
+            account = "$type:$account",
+            url = url,
+        )
+        caldavDao.insert(calendar)
+        return Pair(result.uri!!.lastPathSegment!!.toLong(), calendar)
     }
 
     fun insertTask(listId: Long, vtodo: String) {

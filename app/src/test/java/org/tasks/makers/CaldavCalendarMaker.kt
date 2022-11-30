@@ -11,11 +11,11 @@ object CaldavCalendarMaker {
     val ACCOUNT: Property<CaldavCalendar, String> = newProperty()
     val UUID: Property<CaldavCalendar, String> = newProperty()
 
-    private val instantiator = Instantiator<CaldavCalendar> { lookup ->
-        val calendar = CaldavCalendar()
-        calendar.account = lookup.valueOf(ACCOUNT, "account")
-        calendar.uuid = lookup.valueOf(UUID, "uuid")
-        calendar
+    private val instantiator = Instantiator { lookup ->
+        CaldavCalendar(
+            account = lookup.valueOf(ACCOUNT, "account"),
+            uuid = lookup.valueOf(UUID, "uuid"),
+        )
     }
 
     fun newCaldavCalendar(vararg properties: PropertyValue<in CaldavCalendar?, *>): CaldavCalendar {

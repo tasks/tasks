@@ -45,11 +45,11 @@ class CaldavSynchronizerTest : CaldavTest() {
 
     @Test
     fun dontFetchCalendarIfCtagMatches() = runBlocking {
-        caldavDao.insert(CaldavCalendar().apply {
-            account = this@CaldavSynchronizerTest.account.uuid
-            ctag = "http://sabre.io/ns/sync/1"
-            url = "${this@CaldavSynchronizerTest.account.url}test-shared/"
-        })
+        caldavDao.insert(CaldavCalendar(
+            account = this@CaldavSynchronizerTest.account.uuid,
+            ctag = "http://sabre.io/ns/sync/1",
+            url = "${this@CaldavSynchronizerTest.account.url}test-shared/",
+        ))
         enqueue(OC_SHARE_PROPFIND)
 
         sync()
@@ -57,12 +57,12 @@ class CaldavSynchronizerTest : CaldavTest() {
 
     @Test
     fun dontFetchTaskIfEtagMatches() = runBlocking {
-        val calendar = CaldavCalendar().apply {
-            account = this@CaldavSynchronizerTest.account.uuid
-            uuid = UUIDHelper.newUUID()
-            url = "${this@CaldavSynchronizerTest.account.url}test-shared/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@CaldavSynchronizerTest.account.uuid,
+            uuid = UUIDHelper.newUUID(),
+            url = "${this@CaldavSynchronizerTest.account.url}test-shared/",
+        )
+        caldavDao.insert(calendar)
         caldavDao.insert(newCaldavTask(
             with(TASK, taskDao.insert(newTask())),
             with(OBJECT, "3164728546640386952.ics"),

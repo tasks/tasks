@@ -64,10 +64,12 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
     @Test
     fun removeMissingLists() = runBlocking {
         val (_, list) = openTaskDao.insertList(url = "url1")
-        caldavDao.insert(CaldavCalendar().apply {
-            account = list.account
-            url = "url2"
-        })
+        caldavDao.insert(
+            CaldavCalendar(
+                account = list.account,
+                url = "url2",
+            )
+        )
 
         synchronizer.sync()
 

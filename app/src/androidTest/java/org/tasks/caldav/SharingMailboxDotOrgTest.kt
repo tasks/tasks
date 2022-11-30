@@ -29,12 +29,12 @@ class SharingMailboxDotOrgTest : CaldavTest() {
             url = server.url("/caldav/").toString()
             id = caldavDao.insert(this)
         }
-        val calendar = CaldavCalendar().apply {
-            account = this@SharingMailboxDotOrgTest.account.uuid
-            ctag = "1614876450015"
-            url = "${this@SharingMailboxDotOrgTest.account.url}MzM/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@SharingMailboxDotOrgTest.account.uuid,
+            ctag = "1614876450015",
+            url = "${this@SharingMailboxDotOrgTest.account.url}MzM/",
+        )
+        caldavDao.insert(calendar)
         enqueue(SHARE_OWNER)
 
         sync()
@@ -52,12 +52,12 @@ class SharingMailboxDotOrgTest : CaldavTest() {
             url = server.url("/caldav/").toString()
             id = caldavDao.insert(this)
         }
-        val calendar = CaldavCalendar().apply {
-            account = this@SharingMailboxDotOrgTest.account.uuid
-            ctag = "1614876450015"
-            url = "${this@SharingMailboxDotOrgTest.account.url}MzM/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@SharingMailboxDotOrgTest.account.uuid,
+            ctag = "1614876450015",
+            url = "${this@SharingMailboxDotOrgTest.account.url}MzM/",
+        )
+        caldavDao.insert(calendar)
         enqueue(SHARE_OWNER)
 
         sync()

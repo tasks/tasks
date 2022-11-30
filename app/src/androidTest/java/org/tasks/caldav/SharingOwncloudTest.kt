@@ -33,12 +33,12 @@ class SharingOwncloudTest : CaldavTest() {
     @Test
     fun calendarOwner() = runBlocking {
         setupAccount("user1")
-        val calendar = CaldavCalendar().apply {
-            account = this@SharingOwncloudTest.account.uuid
-            ctag = "http://sabre.io/ns/sync/1"
-            url = "${this@SharingOwncloudTest.account.url}test-shared/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@SharingOwncloudTest.account.uuid,
+            ctag = "http://sabre.io/ns/sync/1",
+            url = "${this@SharingOwncloudTest.account.url}test-shared/",
+        )
+        caldavDao.insert(calendar)
         enqueue(OC_OWNER)
 
         sync()
@@ -49,12 +49,12 @@ class SharingOwncloudTest : CaldavTest() {
     @Test
     fun readOnly() = runBlocking {
         setupAccount("user2")
-        val calendar = CaldavCalendar().apply {
-            account = this@SharingOwncloudTest.account.uuid
-            ctag = "http://sabre.io/ns/sync/2"
-            url = "${this@SharingOwncloudTest.account.url}test-shared_shared_by_user1/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@SharingOwncloudTest.account.uuid,
+            ctag = "http://sabre.io/ns/sync/2",
+            url = "${this@SharingOwncloudTest.account.url}test-shared_shared_by_user1/",
+        )
+        caldavDao.insert(calendar)
         enqueue(OC_READ_ONLY)
 
         sync()
@@ -65,12 +65,12 @@ class SharingOwncloudTest : CaldavTest() {
     @Test
     fun principalForSharee() = runBlocking {
         setupAccount("user1")
-        val calendar = CaldavCalendar().apply {
-            account = this@SharingOwncloudTest.account.uuid
-            ctag = "http://sabre.io/ns/sync/1"
-            url = "${this@SharingOwncloudTest.account.url}test-shared/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@SharingOwncloudTest.account.uuid,
+            ctag = "http://sabre.io/ns/sync/1",
+            url = "${this@SharingOwncloudTest.account.url}test-shared/",
+        )
+        caldavDao.insert(calendar)
         enqueue(OC_OWNER)
 
         sync()
@@ -89,12 +89,12 @@ class SharingOwncloudTest : CaldavTest() {
     @Test
     fun principalForOwner() = runBlocking {
         setupAccount("user2")
-        val calendar = CaldavCalendar().apply {
-            account = this@SharingOwncloudTest.account.uuid
-            ctag = "http://sabre.io/ns/sync/2"
-            url = "${this@SharingOwncloudTest.account.url}test-shared_shared_by_user1/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@SharingOwncloudTest.account.uuid,
+            ctag = "http://sabre.io/ns/sync/2",
+            url = "${this@SharingOwncloudTest.account.url}test-shared_shared_by_user1/",
+        )
+        caldavDao.insert(calendar)
         enqueue(OC_READ_ONLY)
 
         sync()

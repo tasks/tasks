@@ -35,12 +35,12 @@ class SharingSabredavTest : CaldavTest() {
     @Test
     fun calendarOwner() = runBlocking {
         setupAccount("user1")
-        val calendar = CaldavCalendar().apply {
-            account = this@SharingSabredavTest.account.uuid
-            ctag = "http://sabre.io/ns/sync/1"
-            url = "${this@SharingSabredavTest.account.url}940468858232147861/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@SharingSabredavTest.account.uuid,
+            ctag = "http://sabre.io/ns/sync/1",
+            url = "${this@SharingSabredavTest.account.url}940468858232147861/",
+        )
+        caldavDao.insert(calendar)
         enqueue(SD_OWNER)
 
         sync()
@@ -54,12 +54,12 @@ class SharingSabredavTest : CaldavTest() {
     @Test
     fun calendarSharee() = runBlocking {
         setupAccount("user2")
-        val calendar = CaldavCalendar().apply {
-            account = this@SharingSabredavTest.account.uuid
-            ctag = "http://sabre.io/ns/sync/1"
-            url = "${this@SharingSabredavTest.account.url}c3853d69-cb7a-476c-a23b-30ffd70f110b/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@SharingSabredavTest.account.uuid,
+            ctag = "http://sabre.io/ns/sync/1",
+            url = "${this@SharingSabredavTest.account.url}c3853d69-cb7a-476c-a23b-30ffd70f110b/",
+        )
+        caldavDao.insert(calendar)
         enqueue(SD_SHAREE)
 
         sync()
@@ -73,12 +73,13 @@ class SharingSabredavTest : CaldavTest() {
     @Test
     fun excludeCurrentUserPrincipalFromSharees() = runBlocking {
         setupAccount("user1")
-        CaldavCalendar().apply {
-            account = this@SharingSabredavTest.account.uuid
-            ctag = "http://sabre.io/ns/sync/1"
-            url = "${this@SharingSabredavTest.account.url}940468858232147861/"
-            caldavDao.insert(this)
-        }
+        caldavDao.insert(
+            CaldavCalendar(
+                account = account.uuid,
+                ctag = "http://sabre.io/ns/sync/1",
+                url = "${account.url}940468858232147861/",
+            )
+        )
         enqueue(SD_OWNER)
 
         sync()
@@ -89,12 +90,12 @@ class SharingSabredavTest : CaldavTest() {
     @Test
     fun principalForSharee() = runBlocking {
         setupAccount("user1")
-        val calendar = CaldavCalendar().apply {
-            account = this@SharingSabredavTest.account.uuid
-            ctag = "http://sabre.io/ns/sync/1"
-            url = "${this@SharingSabredavTest.account.url}940468858232147861/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@SharingSabredavTest.account.uuid,
+            ctag = "http://sabre.io/ns/sync/1",
+            url = "${this@SharingSabredavTest.account.url}940468858232147861/",
+        )
+        caldavDao.insert(calendar)
         enqueue(SD_OWNER)
 
         sync()
@@ -111,12 +112,12 @@ class SharingSabredavTest : CaldavTest() {
     @Test
     fun principalForOwner() = runBlocking {
         setupAccount("user2")
-        val calendar = CaldavCalendar().apply {
-            account = this@SharingSabredavTest.account.uuid
-            ctag = "http://sabre.io/ns/sync/1"
-            url = "${this@SharingSabredavTest.account.url}c3853d69-cb7a-476c-a23b-30ffd70f110b/"
-            caldavDao.insert(this)
-        }
+        val calendar = CaldavCalendar(
+            account = this@SharingSabredavTest.account.uuid,
+            ctag = "http://sabre.io/ns/sync/1",
+            url = "${this@SharingSabredavTest.account.url}c3853d69-cb7a-476c-a23b-30ffd70f110b/",
+        )
+        caldavDao.insert(calendar)
         enqueue(SD_SHAREE)
 
         sync()
