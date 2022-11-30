@@ -180,6 +180,11 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         title.setText(model.title)
         title.setHorizontallyScrolling(false)
         title.maxLines = 5
+        if (editViewModel.isReadOnly) {
+            title.isFocusable = false
+            title.isFocusableInTouchMode = false
+            title.isCursorVisible = false
+        }
         if (
             model.isNew ||
             preferences.getBoolean(R.string.p_hide_check_button, false) ||
