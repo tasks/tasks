@@ -1,3 +1,23 @@
+### 13.1.0 (2022-11-30)
+
+* Support for DAVx5 and CalDAV read-only lists [#931](https://github.com/tasks/tasks/issues/931)
+* Use default Android network security configuration
+* Update translations
+  * Bulgarian - @StoyanDimitrov
+  * Chinese (Simplified) - Eric
+  * Croatian - @milotype
+  * Dutch - @fvbommel
+  * Finnish - @millerii
+  * French - @FlorianLeChat
+  * German - @helloworldtest123
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Lithuanian - @70h
+  * Russian - Nikita Epifanov
+  * Spanish - @FlorianLeChat
+  * Turkish - @ersen0
+  * Ukrainian - @IhorHordiichuk
+
 ### 13.0.2 (2022-11-22)
 
 * Fix persistent notifications on Android 13
