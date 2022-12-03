@@ -457,7 +457,7 @@
     <string name="more_notification_settings_summary">Suoneria, vibrazione ed altro</string>
     <string name="more_settings">Altre impostazioni</string>
     <string name="disable_battery_optimizations">Disabilita ottimizzazione batteria</string>
-    <string name="notification_troubleshooting_summary">Selezione qui se stai riscontrando problemi con le notifiche</string>
+    <string name="notification_troubleshooting_summary">Tocca qui se stai riscontrando problemi con le notifiche</string>
     <string name="troubleshooting">Risoluzione problemi</string>
     <string name="wearable_notifications_summary">Mostra notifiche sul tuo dispositivo indossabile</string>
     <string name="wearable_notifications">Notifiche dispositivi indossabili</string>
