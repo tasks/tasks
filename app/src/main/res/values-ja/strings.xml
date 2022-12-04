@@ -4,7 +4,7 @@
     <string name="TVA_add_comment">コメントを追加…</string>
     <string name="backup_BPr_header">バックアップ</string>
     <string name="backup_BAc_import">バックアップをインポート</string>
-    <string name="backup_BAc_export">タスクをバックアップ</string>
+    <string name="backup_BAc_export">今すぐバックアップ</string>
     <string name="export_toast">%1$s を %2$s にバックアップしました。</string>
     <string name="import_summary_title">復元の概要</string>
     <string name="import_summary_message">ファイル %1$s の %2$s 中、\n\n成功: %3$s\n既に存在: %4$s\n失敗: %5$s\n</string>
@@ -508,4 +508,5 @@
     <string name="share">共有</string>
     <string name="astrid_sort_order">アストリッド手動順</string>
     <string name="SSD_sort_my_order">任意順</string>
+    <string name="ok">OK</string>
 </resources>
