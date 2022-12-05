@@ -109,7 +109,7 @@
     <string name="rmd_NoA_snooze">Odložit</string>
     <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
     <string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
-    <string name="rmd_EPr_rmd_time_title">Výchozí upomínka</string>
+    <string name="rmd_EPr_rmd_time_title">Čas upomínky</string>
     <string name="rmd_EPr_rmd_time_desc">Upozornění na úkoly bez času dokončení se objeví v %s</string>
     <string name="rmd_EPr_defaultRemind_title">Náhodné upomínky</string>
     <string name="default_random_reminder_disabled">Zakázáno</string>
@@ -323,7 +323,7 @@
     <string name="add_location">Přidat místo</string>
     <string name="pick_a_date_and_time">Vybrat datum a čas</string>
     <string name="when_due">S termínem</string>
-    <string name="geofence_radius">Okruh</string>
+    <string name="geofence_radius">Poloměr geofence</string>
     <string name="location_radius_meters">%s m</string>
     <string name="date_shortcut_must_come_before">%1$s musí být před %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s musí být po %2$s</string>
@@ -750,4 +750,11 @@
     <string name="sort_completion_group">Dokončeno %s</string>
     <string name="enable_reminders">Povolit připomínky</string>
     <string name="enable_reminders_description">Připomínky jsou zakázány v nastavení Android</string>
+    <string name="default_reminder">Výchozí upomínka</string>
+    <string name="rmd_time_description">Zobrazovat upozornění na úkoly bez termínů</string>
+    <string name="microsoft_selection_description">Synchronizovat se svým osobním účtem Microsoft</string>
+    <string name="sign_in_to_tasks_disclosure">Vaše e-mailová adresa a ID účtu budou přeneseny a uloženy na Tasks.org. Tyto informace budou použity pro ověření a pro poskytování důležitých oznámení souvisejících se službami. Tyto informace nebudou s nikým sdíleny.</string>
+    <string name="consent_agree">Souhlasím</string>
+    <string name="consent_deny">Teď ne</string>
+    <string name="sign_in">Přihlásit se</string>
 </resources>
