@@ -19,6 +19,7 @@ import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.preferences.Preferences
 import org.tasks.themes.Theme
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -98,7 +99,7 @@ class PurchaseActivity : InjectingAppCompatActivity(), OnPurchasesUpdated {
     }
 
     private fun purchase(price: Int, monthly: Boolean) = lifecycleScope.launch {
-        val newSku = String.format("%s_%02d", if (monthly) "monthly" else "annual", price)
+        val newSku = String.format(Locale.US, "%s_%02d", if (monthly) "monthly" else "annual", price)
         try {
             billingClient.initiatePurchaseFlow(
                 this@PurchaseActivity,
