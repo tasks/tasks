@@ -1,0 +1,3 @@
+* Fix crash when opening notification settings
+* Fix IAP errors in some locales
+* Update translations

@@ -1,3 +1,11 @@
+### 13.1.1 (2022-12-06)
+
+* Fix crash when opening notification settings
+* Fix IAP errors in some locales
+* Update translations
+  * Italian - @ppasserini
+  * Japanese - Kazushi Hayama
+
 ### 13.1.0 (2022-11-30)
 
 * Support for DAVx5 and CalDAV read-only lists [#931](https://github.com/tasks/tasks/issues/931)
