@@ -272,7 +272,11 @@ class Notifications : InjectingPreferenceFragment() {
                     preference.summary = if (uri == default) {
                         getString(R.string.settings_default)
                     } else {
-                        RingtoneManager.getRingtone(context, uri)?.getTitle(context)
+                        try {
+                            RingtoneManager.getRingtone(context, uri)?.getTitle(context)
+                        } catch (e: SecurityException) {
+                            uri.toString()
+                        }
                     }
                 }
                 true
