@@ -681,4 +681,5 @@
     <string name="list_members">회원 나열</string>
     <string name="chat_libera">Libera 채팅에서 #tasks에 참여하세요</string>
     <string name="foreground_location">전경 위치</string>
+    <string name="TEA_creation_date">생성일</string>
 </resources>
