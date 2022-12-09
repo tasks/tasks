@@ -3,7 +3,7 @@
     <string name="actfm_picture_clear">إزالة الصورة</string>
     <string name="TVA_add_comment">إضافة تعليق…</string>
     <string name="backup_BPr_header">النّسَخ الاحتياطية</string>
-    <string name="backup_BAc_import">إستيراد نسخة احتياطية</string>
+    <string name="backup_BAc_import">استعادة نسخة احتياطية</string>
     <string name="import_summary_title"> إستعادة المُلخَّص</string>
     <string name="read_permission_label">إذن المهام</string>
     <string name="DLG_delete_this_task_question">حذف هذه المهمة؟</string>
@@ -73,7 +73,7 @@
     <string name="rmd_NoA_snooze">غفوة</string>
     <string name="rmd_EPr_quiet_hours_start_title">ابتداء ساعات الهدوء</string>
     <string name="rmd_EPr_quiet_hours_end_title">إنتهاء ساعات الهدوء</string>
-    <string name="rmd_EPr_rmd_time_title">منبه افتراضي</string>
+    <string name="rmd_EPr_rmd_time_title">وقت التنبيه الإفتراضي</string>
     <string name="rmd_EPr_defaultRemind_title">منبهات عشوائية</string>
     <string name="default_random_reminder_disabled">معطل</string>
     <string name="default_random_reminder_daily">يومي</string>
@@ -126,7 +126,7 @@
     <string name="show_completed">إظهار المهام المكتملة</string>
     <string name="opacity">التعتيم</string>
     <string name="settings_localization">تخصيص اللغة و الجهة</string>
-    <string name="backup_BAc_export">تصدير الآن</string>
+    <string name="backup_BAc_export">نسخ احتياطي الآن</string>
     <string name="desaturate_colors">ألوان غير مشبعة</string>
     <string name="accent">اللون الثانوي</string>
     <string name="theme_system_default">افتراضيات النظام</string>
@@ -755,4 +755,27 @@
         <item quantity="other">مرات</item>
     </plurals>
     <string name="now">اﻵن</string>
+    <string name="TEA_creation_date">تاريخ الإنشاء</string>
+    <string name="sign_in_to_tasks_disclosure">سيتم إرسال عنوان البريد الإلكتروني ومعرف الحساب الخاصان بك وتخزينهما من قبل Tasks.org. هذه المعلومات سيتم استخدامها من أجل المصادقة ومن أجل تزويدك بالإعلانات المهمة المتعلقة بالخدمة. لن يتم مشاركة هذه المعلومات مع أحد</string>
+    <string name="default_reminder">تذكير افتراضي</string>
+    <string name="rmd_time_description">أظهر الإشعارات من أجل المهام بدون أوقات محددة</string>
+    <string name="app_bar_collapse">تصغير أشرطة التطبيق</string>
+    <string name="completed">مكتمل</string>
+    <string name="snackbar_task_completed">اكتملت المهمة</string>
+    <string name="customize_edit_screen_summary">أعد ترتيب أو أزل الحقول</string>
+    <string name="randomly_every">عشوائياً كل %s</string>
+    <string name="sort_completion_group">إكمال %s</string>
+    <string name="custom_filter_has_reminder">لديه تذكير</string>
+    <string name="bottom">أسفل</string>
+    <string name="app_bar_position">موقع شريط التطبيق</string>
+    <string name="alarm_after_start">%s بعد البدئ</string>
+    <string name="alarm_before_due">%s حتى موعد الإنتهاء</string>
+    <string name="completed_tasks_sort">فرز حسب تاريخ الإكتمال</string>
+    <string name="completed_tasks_at_bottom">انقل المهام المكتملة إلى الأسفل</string>
+    <string name="snackbar_tasks_completed">%d مهمة اكتملت</string>
+    <string name="alarm_before_start">%s قبل البدئ</string>
+    <string name="alarm_after_due">%s بعد موعد الإنتهاء</string>
+    <string name="when_started">عند البدئ</string>
+    <string name="microsoft_selection_description">مزامنة مع حساب مايكروسوفت الخاص بك</string>
+    <string name="completion_sound">تشغيل صوت الإكتمال</string>
 </resources>
