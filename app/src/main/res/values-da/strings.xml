@@ -476,7 +476,7 @@
     <string name="persistent_notifications_description">Insisterende notifikationer kan ikke ryddes</string>
     <string name="persistent_notifications">Insisterende notifikationer</string>
     <string name="rmd_EPr_rmd_time_desc">Notifikationer for opgaver uden frist-tid dukker op kl. %s</string>
-    <string name="rmd_EPr_rmd_time_title">Standardpåmindelse</string>
+    <string name="rmd_EPr_rmd_time_title">Påmindelsestid</string>
     <string name="snooze_all">Udsæt alle</string>
     <string name="ring_nonstop">Ring uafbrudt</string>
     <string name="ring_five_times">Ring fem gange</string>
@@ -730,4 +730,14 @@
     <string name="alarm_after_start">%s efter start</string>
     <string name="alarm_before_due">%s inden forfald</string>
     <string name="alarm_after_due">%s efter forfald</string>
+    <string name="sort_completion_group">Færdiggørelse %s</string>
+    <string name="default_reminder">Standard Påmindelse</string>
+    <string name="rmd_time_description">Vis meddelelser for opgaver uden forfaldstid</string>
+    <string name="microsoft_selection_description">Synkroniser med din personlige Microsoft konto</string>
+    <string name="enable_reminders">Aktiver påmindelser</string>
+    <string name="enable_reminders_description">Påmindelser er deaktiveret i Android indstillinger</string>
+    <string name="consent_agree">Enig</string>
+    <string name="consent_deny">Ikke nu</string>
+    <string name="TEA_creation_date">Oprettelsesdato</string>
+    <string name="sign_in">Log ind</string>
 </resources>
