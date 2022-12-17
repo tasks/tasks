@@ -61,11 +61,6 @@ class SearchFilter : Filter {
                                                             .from(CaldavTask.TABLE)
                                                             .join(Join.inner(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)))
                                                             .where(CaldavCalendar.NAME.like(matcher))),
-                                            Task.ID.`in`(
-                                                    Query.select(GoogleTask.TASK)
-                                                            .from(GoogleTask.TABLE)
-                                                            .join(Join.inner(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(GoogleTask.LIST)))
-                                                            .where(CaldavCalendar.NAME.like(matcher)))
                                     )))
         }
     }

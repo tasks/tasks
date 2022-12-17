@@ -137,10 +137,10 @@ class FilterCriteriaProvider @Inject constructor(
             select(Task.ID)
                     .from(Task.TABLE)
                     .join(left(Task.TABLE.`as`("children"), Task.ID.eq(field("children.parent"))))
-                    .join(left(GoogleTask.TABLE, GoogleTask.PARENT.eq(Task.ID)))
+                    .join(left(CaldavTask.TABLE, CaldavTask.PARENT.eq(Task.ID)))
                     .where(or(
                             isNotNull(field("children._id")),
-                            isNotNull(GoogleTask.ID)
+                            isNotNull(CaldavTask.ID)
                     ))
                     .toString()
     )
@@ -151,10 +151,10 @@ class FilterCriteriaProvider @Inject constructor(
                 context.getString(R.string.custom_filter_is_subtask),
                 select(Task.ID)
                         .from(Task.TABLE)
-                        .join(left(GoogleTask.TABLE, GoogleTask.TASK.eq(Task.ID)))
+                        .join(left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
                         .where(or(
                                 field("${Task.PARENT}>0").eq(1),
-                                field("${GoogleTask.PARENT}>0").eq(1)
+                                field("${CaldavTask.PARENT}>0").eq(1)
                         ))
                         .toString()
         )
@@ -298,14 +298,14 @@ class FilterCriteriaProvider @Inject constructor(
         return MultipleSelectCriterion(
                 IDENTIFIER_GTASKS,
                 context.getString(R.string.CFC_gtasks_list_text),
-                select(GoogleTask.TASK)
-                        .from(GoogleTask.TABLE)
-                        .join(inner(Task.TABLE, GoogleTask.TASK.eq(Task.ID)))
+                select(CaldavTask.TASK)
+                        .from(CaldavTask.TABLE)
+                        .join(inner(Task.TABLE, CaldavTask.TASK.eq(Task.ID)))
                         .where(
                                 and(
                                         activeAndVisible(),
-                                        GoogleTask.DELETED.eq(0),
-                                        GoogleTask.LIST.eq("?")))
+                                        CaldavTask.DELETED.eq(0),
+                                        CaldavTask.CALENDAR.eq("?")))
                         .toString(),
                 values,
                 listNames,

@@ -53,7 +53,7 @@ class GtasksListService @Inject constructor(
 
         // check for lists that aren't on remote server
         for (listId in previousLists) {
-            taskDeleter.deleteGoogleTaskList(googleTaskListDao.getById(listId)!!)
+            taskDeleter.delete(googleTaskListDao.getById(listId)!!)
         }
         localBroadcastManager.broadcastRefreshList()
     }

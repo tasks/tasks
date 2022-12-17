@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity
@@ -15,6 +16,9 @@ import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.CaldavAccount
@@ -177,9 +181,13 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
 
     private fun onListDeleted(deleted: Boolean) {
         if (deleted) {
-            taskDeleter.deleteGoogleTaskList(gtasksList)
-            setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
-            finish()
+            lifecycleScope.launch {
+                withContext(NonCancellable) {
+                    taskDeleter.delete(gtasksList)
+                }
+                setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
+                finish()
+            }
         }
     }
 

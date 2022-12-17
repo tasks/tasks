@@ -264,7 +264,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
         val googleTask = googleTaskDao.getByRemoteId(remoteId)!!
         val result = SubsetGoogleTask()
         result.gt_id = googleTask.id
-        result.gt_list_id = googleTask.listId
+        result.gt_list_id = googleTask.calendar
         result.gt_order = googleTask.order
         result.gt_parent = googleTask.parent
         return result

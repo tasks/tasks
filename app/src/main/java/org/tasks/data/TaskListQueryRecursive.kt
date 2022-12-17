@@ -35,13 +35,13 @@ internal object TaskListQueryRecursive {
     """.trimIndent()
     private val GOOGLE_SUBTASKS =
             QueryTemplate()
-                    .join(Join.inner(RECURSIVE, GoogleTask.PARENT.eq(RECURSIVE_TASK)))
-                    .join(Join.inner(GoogleTask.TABLE, Criterion.and(GoogleTask.TASK.eq(Task.ID), GoogleTask.DELETED.eq(0))))
+                    .join(Join.inner(RECURSIVE, CaldavTask.PARENT.eq(RECURSIVE_TASK)))
+                    .join(Join.inner(CaldavTask.TABLE, Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
                     .where(activeAndVisible())
     private val ALL_SUBTASKS =
             QueryTemplate()
-                    .join(Join.inner(RECURSIVE, Criterion.or(GoogleTask.PARENT.eq(RECURSIVE_TASK), Task.PARENT.eq(RECURSIVE_TASK))))
-                    .join(Join.left(GoogleTask.TABLE, Criterion.and(GoogleTask.TASK.eq(Task.ID), GoogleTask.DELETED.eq(0))))
+                    .join(Join.inner(RECURSIVE, Criterion.or(CaldavTask.PARENT.eq(RECURSIVE_TASK), Task.PARENT.eq(RECURSIVE_TASK))))
+                    .join(Join.left(CaldavTask.TABLE, Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
                     .where(activeAndVisible())
 
     fun getRecursiveQuery(
@@ -85,7 +85,7 @@ internal object TaskListQueryRecursive {
         when {
             manualSort && filter is GtasksFilter -> {
                 sortMode = SortHelper.SORT_GTASKS
-                sortField = "google_tasks.gt_order"
+                sortField = "caldav_tasks.cd_order"
             }
             manualSort && filter is CaldavFilter -> {
                 sortMode = SortHelper.SORT_CALDAV
@@ -141,12 +141,12 @@ internal object TaskListQueryRecursive {
     private fun newGoogleTaskQuery(filter: GtasksFilter) =
             QueryTemplate()
                     .join(Join.inner(
-                            GoogleTask.TABLE,
+                            CaldavTask.TABLE,
                             Criterion.and(
-                                    GoogleTask.LIST.eq(filter.remoteId),
-                                    GoogleTask.PARENT.eq(0),
-                                    GoogleTask.TASK.eq(Task.ID),
-                                    GoogleTask.DELETED.eq(0))))
+                                    CaldavTask.CALENDAR.eq(filter.remoteId),
+                                    CaldavTask.PARENT.eq(0),
+                                    CaldavTask.TASK.eq(Task.ID),
+                                    CaldavTask.DELETED.eq(0))))
                     .where(activeAndVisible())
                     .toString()
 }

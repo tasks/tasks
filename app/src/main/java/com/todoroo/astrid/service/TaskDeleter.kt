@@ -2,7 +2,6 @@ package com.todoroo.astrid.service
 
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.*
@@ -64,12 +63,6 @@ class TaskDeleter @Inject constructor(
         deletionDao.delete(tasks)
         workManager.cleanup(tasks)
         localBroadcastManager.broadcastRefresh()
-    }
-
-    fun deleteGoogleTaskList(list: CaldavCalendar) = runBlocking {
-        val tasks = deletionDao.deleteGoogleTaskList(list)
-        delete(tasks)
-        localBroadcastManager.broadcastRefreshList()
     }
 
     suspend fun delete(list: CaldavCalendar) {

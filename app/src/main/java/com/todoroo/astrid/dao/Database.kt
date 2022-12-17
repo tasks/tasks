@@ -22,7 +22,6 @@ import org.tasks.notifications.NotificationDao
         Place::class,
         Geofence::class,
         Tag::class,
-        GoogleTask::class,
         Filter::class,
         CaldavCalendar::class,
         CaldavTask::class,

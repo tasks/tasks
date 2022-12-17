@@ -30,8 +30,8 @@ interface GoogleTaskListDao {
 
     @Query("SELECT caldav_lists.*, COUNT(tasks._id) AS count"
             + " FROM caldav_lists "
-            + " LEFT JOIN google_tasks ON google_tasks.gt_list_id = caldav_lists.cdl_uuid"
-            + " LEFT JOIN tasks ON google_tasks.gt_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now AND gt_deleted = 0"
+            + " LEFT JOIN caldav_tasks ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid"
+            + " LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND tasks.hideUntil < :now AND cd_deleted = 0"
             + " WHERE caldav_lists.cdl_account = :account"
             + " GROUP BY caldav_lists.cdl_uuid")
     suspend fun getGoogleTaskFilters(account: String, now: Long = currentTimeMillis()): List<GoogleTaskFilters>

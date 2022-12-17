@@ -176,7 +176,7 @@ public class SortHelper {
         select = "tasks.created AS sort_created";
         break;
       case SORT_GTASKS:
-        select = "google_tasks.gt_order AS sort_manual";
+        select = "caldav_tasks.cd_order AS sort_manual";
         break;
       case SORT_CALDAV:
         select = CALDAV_ORDER_COLUMN + " AS sort_manual";

@@ -101,9 +101,8 @@ class BuiltInFilterExposer @Inject constructor(
                 Filter(
                         "No list",
                         QueryTemplate()
-                                .join(Join.left(GoogleTask.TABLE, GoogleTask.TASK.eq(Task.ID)))
                                 .join(Join.left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
-                                .where(and(GoogleTask.ID.eq(null), CaldavTask.ID.eq(null)))
+                                .where(CaldavTask.ID.eq(null))
                 ).apply {
                     icon = R.drawable.ic_outline_cloud_off_24px
                 }
@@ -116,13 +115,9 @@ class BuiltInFilterExposer @Inject constructor(
                 Filter(
                         "Missing list",
                         QueryTemplate()
-                                .join(Join.left(GoogleTask.TABLE, GoogleTask.TASK.eq(Task.ID)))
                                 .join(Join.left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
-                                .join(Join.left(CaldavCalendar.TABLE.`as`("google_task_lists"), CaldavCalendar.TABLE.`as`("google_task_lists").column("cdl_uuid").eq(GoogleTask.LIST)))
                                 .join(Join.left(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)))
-                                .where(or(
-                                        and(GoogleTask.ID.gt(0), CaldavCalendar.TABLE.`as`("google_task_lists").column("cdl_uuid").eq(null)),
-                                        and(CaldavTask.ID.gt(0), CaldavCalendar.UUID.eq(null))))
+                                .where(and(CaldavTask.ID.gt(0), CaldavCalendar.UUID.eq(null)))
                 ).apply {
                     icon = R.drawable.ic_outline_cloud_off_24px
                 }
@@ -131,14 +126,10 @@ class BuiltInFilterExposer @Inject constructor(
                 Filter(
                         "Missing account",
                         QueryTemplate()
-                                .join(Join.left(GoogleTask.TABLE, and(GoogleTask.TASK.eq(Task.ID))))
                                 .join(Join.left(CaldavTask.TABLE, and(CaldavTask.TASK.eq(Task.ID))))
-                                .join(Join.left(CaldavCalendar.TABLE.`as`("google_task_lists"), CaldavCalendar.TABLE.`as`("google_task_lists").column("cdl_uuid").eq(GoogleTask.LIST)))
                                 .join(Join.left(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)))
                                 .join(Join.left(CaldavAccount.TABLE, CaldavAccount.UUID.eq(CaldavCalendar.ACCOUNT)))
-                                .where(or(
-                                        and(GoogleTask.ID.gt(0), CaldavCalendar.TABLE.`as`("google_task_lists").column("cdl_uuid").eq(null)),
-                                        and(CaldavTask.ID.gt(0), CaldavAccount.UUID.eq(null))))
+                                .where(and(CaldavTask.ID.gt(0), CaldavAccount.UUID.eq(null)))
                 ).apply {
                     icon = R.drawable.ic_outline_cloud_off_24px
                 }

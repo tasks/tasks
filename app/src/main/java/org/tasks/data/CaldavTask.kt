@@ -52,8 +52,18 @@ class CaldavTask {
     @ColumnInfo(name = "cd_remote_parent")
     var remoteParent: String? = null
 
-    @ColumnInfo(name = "cd_order")
+    @ColumnInfo(name = "gt_moved")
+    var isMoved: Boolean = false
+
+    @ColumnInfo(name = "gt_remote_order")
+    var remoteOrder: Long = 0
+
+    @ColumnInfo(name = "gt_parent")
+    var parent: Long = 0
+
     @Transient
+    @Deprecated("For google tasks and importing old backup files")
+    @ColumnInfo(name = "cd_order")
     var order: Long? = null
 
     constructor()
@@ -83,6 +93,7 @@ class CaldavTask {
         const val KEY = "caldav"
         @JvmField val TABLE = Table("caldav_tasks")
         val ID = TABLE.column("cd_id")
+        val PARENT = TABLE.column("gt_parent")
         @JvmField val TASK = TABLE.column("cd_task")
         @JvmField val DELETED = TABLE.column("cd_deleted")
         @JvmField val CALENDAR = TABLE.column("cd_calendar")

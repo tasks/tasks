@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 88,
-    "identityHash": "d9d2cc4048325dbde272d8d4f8e3880f",
+    "identityHash": "8ddd120bc22139ab9c9d69dbc727df37",
     "entities": [
       {
         "tableName": "notification",
@@ -726,118 +726,6 @@
         ]
       },
       {
-        "tableName": "google_tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gt_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gt_task` INTEGER NOT NULL, `gt_remote_id` TEXT, `gt_list_id` TEXT, `gt_parent` INTEGER NOT NULL, `gt_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_order` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, `gt_last_sync` INTEGER NOT NULL, `gt_deleted` INTEGER NOT NULL, FOREIGN KEY(`gt_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "gt_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "task",
-            "columnName": "gt_task",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "remoteId",
-            "columnName": "gt_remote_id",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "listId",
-            "columnName": "gt_list_id",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "parent",
-            "columnName": "gt_parent",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "remoteParent",
-            "columnName": "gt_remote_parent",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "isMoved",
-            "columnName": "gt_moved",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "order",
-            "columnName": "gt_order",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "remoteOrder",
-            "columnName": "gt_remote_order",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastSync",
-            "columnName": "gt_last_sync",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "deleted",
-            "columnName": "gt_deleted",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "gt_id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [
-          {
-            "name": "gt_list_parent",
-            "unique": false,
-            "columnNames": [
-              "gt_list_id",
-              "gt_parent"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `gt_list_parent` ON `${TABLE_NAME}` (`gt_list_id`, `gt_parent`)"
-          },
-          {
-            "name": "index_google_tasks_gt_task",
-            "unique": false,
-            "columnNames": [
-              "gt_task"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_google_tasks_gt_task` ON `${TABLE_NAME}` (`gt_task`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "tasks",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "gt_task"
-            ],
-            "referencedColumns": [
-              "_id"
-            ]
-          }
-        ]
-      },
-      {
         "tableName": "filters",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `sql` TEXT, `values` TEXT, `criterion` TEXT, `f_color` INTEGER, `f_icon` INTEGER, `f_order` INTEGER NOT NULL)",
         "fields": [
@@ -981,7 +869,7 @@
       },
       {
         "tableName": "caldav_tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `cd_order` INTEGER, FOREIGN KEY(`cd_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, `gt_parent` INTEGER NOT NULL, `cd_order` INTEGER, FOREIGN KEY(`cd_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -1036,6 +924,24 @@
             "columnName": "cd_remote_parent",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "isMoved",
+            "columnName": "gt_moved",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteOrder",
+            "columnName": "gt_remote_order",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "parent",
+            "columnName": "gt_parent",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "order",
@@ -1397,7 +1303,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd9d2cc4048325dbde272d8d4f8e3880f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8ddd120bc22139ab9c9d69dbc727df37')"
     ]
   }
 }

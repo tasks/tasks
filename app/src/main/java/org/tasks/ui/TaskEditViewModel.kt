@@ -292,7 +292,7 @@ class TaskEditViewModel @Inject constructor(
             firebase?.addTask("subtasks")
             when (selectedList.value) {
                 is GtasksFilter -> {
-                    val googleTask = GoogleTask(subtask.id, (selectedList.value as GtasksFilter).remoteId)
+                    val googleTask = CaldavTask(subtask.id, (selectedList.value as GtasksFilter).remoteId)
                     googleTask.parent = task.id
                     googleTask.isMoved = true
                     googleTaskDao.insertAndShift(googleTask, false)

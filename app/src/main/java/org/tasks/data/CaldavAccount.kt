@@ -230,6 +230,7 @@ class CaldavAccount : Parcelable {
     companion object {
         val TABLE = Table("caldav_accounts")
         val UUID = TABLE.column("cda_uuid")
+        val ACCOUNT_TYPE = TABLE.column("cda_account_type")
 
         const val TYPE_CALDAV = 0
         @Deprecated("use etebase") const val TYPE_ETESYNC = 1

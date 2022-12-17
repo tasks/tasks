@@ -5,7 +5,6 @@ import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.helper.UUIDHelper
-import org.tasks.data.GoogleTask
 import org.tasks.makers.Maker.make
 
 object GoogleTaskMaker {
@@ -18,7 +17,7 @@ object GoogleTaskMaker {
 
     private val instantiator = Instantiator<GoogleTask> {
         val task = GoogleTask()
-        task.listId = it.valueOf(LIST, "1")
+        task.calendar = it.valueOf(LIST, "1")
         task.order = it.valueOf(ORDER, 0)
         task.remoteId = it.valueOf(REMOTE_ID, UUIDHelper.newUUID())
         task.task = it.valueOf(TASK, 1)

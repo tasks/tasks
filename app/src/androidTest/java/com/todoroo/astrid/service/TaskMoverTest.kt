@@ -49,7 +49,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
         moveToGoogleTasks("2", 1)
-        assertEquals("2", googleTaskDao.getByTaskId(1)!!.listId)
+        assertEquals("2", googleTaskDao.getByTaskId(1)!!.calendar)
     }
 
     @Test
@@ -75,7 +75,7 @@ class TaskMoverTest : InjectingTestCase() {
         assertTrue(deleted[0].deleted > 0)
         val task = googleTaskDao.getByTaskId(2)!!
         assertEquals(1, task.parent)
-        assertEquals("2", task.listId)
+        assertEquals("2", task.calendar)
     }
 
     @Test
@@ -194,7 +194,7 @@ class TaskMoverTest : InjectingTestCase() {
         moveToGoogleTasks("2", 2)
         val task = googleTaskDao.getByTaskId(2)!!
         assertEquals(0L, task.parent)
-        assertEquals("2", task.listId)
+        assertEquals("2", task.calendar)
     }
 
     @Test
@@ -228,7 +228,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         caldavDao.insert(newCaldavTask(with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1")))
         moveToGoogleTasks("2", 1)
-        assertEquals("2", googleTaskDao.getByTaskId(1L)!!.listId)
+        assertEquals("2", googleTaskDao.getByTaskId(1L)!!.calendar)
     }
 
     @Test

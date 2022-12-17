@@ -26,11 +26,11 @@ class BackupContainer(
             val alarms: List<Alarm>,
             val geofences: List<Geofence>?,
             val tags: List<Tag>,
-            val google: List<GoogleTask>,
             val comments: List<UserActivity>,
             val attachments: List<Attachment>?,
             val caldavTasks: List<CaldavTask>?,
             val vtodo: String?,
+            val google: List<GoogleTask> = emptyList(),
     ) {
         val locations: List<LegacyLocation> = emptyList()
     }

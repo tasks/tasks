@@ -28,13 +28,13 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.data.Task
 import org.tasks.compose.*
-import org.tasks.data.GoogleTask
+import org.tasks.data.CaldavTask
 import org.tasks.data.TaskContainer
 
 @Composable
 fun SubtaskRow(
     filter: Filter?,
-    googleTask: GoogleTask?,
+    googleTask: CaldavTask?,
     desaturate: Boolean,
     existingSubtasks: List<TaskContainer>,
     newSubtasks: List<Task>,
@@ -63,7 +63,7 @@ fun SubtaskRow(
             Column {
 
                 val isGoogleTaskChild =
-                    filter is GtasksFilter && googleTask != null && googleTask.parent > 0 && googleTask.listId == filter.remoteId
+                    filter is GtasksFilter && googleTask != null && googleTask.parent > 0 && googleTask.calendar == filter.remoteId
                 if (isGoogleTaskChild) {
                     DisabledText(
                         text = stringResource(id = org.tasks.R.string.subtasks_multilevel_google_task),

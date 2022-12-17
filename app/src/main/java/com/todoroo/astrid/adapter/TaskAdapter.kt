@@ -135,21 +135,15 @@ open class TaskAdapter(
     open suspend fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val newParent = findParent(indent, to)
-        if (newParent?.id ?: 0 == task.parent) {
+        if ((newParent?.id ?: 0) == task.parent) {
             if (indent == 0) {
                 changeSortGroup(task, if (from < to) to - 1 else to)
             }
             return
         } else if (newParent != null) {
-            when {
-                task.isGoogleTask -> if (task.googleTaskList != newParent.googleTaskList) {
-                    googleTaskDao.markDeleted(task.id)
-                    task.googletask = null
-                }
-                task.isCaldavTask -> if (task.caldav != newParent.caldav) {
-                    caldavDao.markDeleted(listOf(task.id))
-                    task.caldavTask = null
-                }
+            if (task.caldav != newParent.caldav) {
+                caldavDao.markDeleted(listOf(task.id))
+                task.caldavTask = null
             }
         }
         when {
@@ -250,20 +244,21 @@ open class TaskAdapter(
     }
 
     private suspend fun changeGoogleTaskParent(task: TaskContainer, newParent: TaskContainer?) {
-        val list = newParent?.googleTaskList ?: task.googleTaskList!!
-        if (newParent == null || task.googleTaskList == newParent.googleTaskList) {
+        val list = newParent?.caldav ?: task.caldav!!
+        if (newParent == null || task.caldav == newParent.caldav) {
             googleTaskDao.move(
-                    task.googleTask,
-                    newParent?.id ?: 0,
-                    if (newTasksOnTop) 0 else googleTaskDao.getBottom(list, newParent?.id ?: 0))
+                task.caldavTask,
+                newParent?.id ?: 0,
+                if (newTasksOnTop) 0 else googleTaskDao.getBottom(list, newParent?.id ?: 0)
+            )
         } else {
-            val googleTask = GoogleTask(task.id, list)
+            val googleTask = CaldavTask(task.id, list)
             googleTask.parent = newParent.id
             googleTaskDao.insertAndShift(googleTask, newTasksOnTop)
-            task.googletask = SubsetGoogleTask().apply {
-                gt_id = googleTask.id
-                gt_list_id = googleTask.listId
-                gt_order = googleTask.order
+            task.caldavTask = SubsetCaldav().apply {
+                cd_id = googleTask.id
+                cd_calendar = googleTask.calendar
+                cd_order = googleTask.order ?: 0
                 gt_parent = googleTask.parent
             }
         }

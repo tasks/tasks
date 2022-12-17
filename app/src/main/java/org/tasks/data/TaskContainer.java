@@ -7,9 +7,9 @@ import java.util.Objects;
 
 public class TaskContainer {
   @Embedded public Task task;
-  @Embedded public SubsetGoogleTask googletask;
   @Embedded public SubsetCaldav caldavTask;
   @Embedded public Location location;
+  public boolean isGoogleTask;
   public boolean parentComplete;
   public String tags;
   public int children;
@@ -23,16 +23,8 @@ public class TaskContainer {
     return tags;
   }
 
-  public @Nullable String getGoogleTaskList() {
-    return isGoogleTask() ? googletask.getListId() : null;
-  }
-
-  public boolean isGoogleTask() {
-    return googletask != null;
-  }
-
   public @Nullable String getCaldav() {
-    return isCaldavTask() ? caldavTask.getCd_calendar() : null;
+    return caldavTask.getCd_calendar();
   }
 
   public boolean isCaldavTask() {
@@ -127,7 +119,6 @@ public class TaskContainer {
         && indent == that.indent
         && targetIndent == that.targetIndent
         && Objects.equals(task, that.task)
-        && Objects.equals(googletask, that.googletask)
         && Objects.equals(caldavTask, that.caldavTask)
         && Objects.equals(location, that.location)
         && Objects.equals(tags, that.tags)
@@ -138,7 +129,6 @@ public class TaskContainer {
   public int hashCode() {
     return Objects.hash(
         task,
-        googletask,
         caldavTask,
         location,
         tags,
@@ -155,8 +145,6 @@ public class TaskContainer {
     return "TaskContainer{"
         + "task="
         + task
-        + ", googletask="
-        + googletask
         + ", caldavTask="
         + caldavTask
         + ", location="
@@ -184,17 +172,16 @@ public class TaskContainer {
   }
 
   public long getParent() {
-    if (googletask != null) {
-      return googletask.getParent();
+    if (isGoogleTask) {
+      return caldavTask.getGt_parent();
     } else {
       return task.getParent();
     }
   }
 
   public void setParent(long parent) {
-    if (googletask != null) {
-      task.setParent(0);
-      googletask.setParent(parent);
+    if (isGoogleTask) {
+      caldavTask.setGt_parent(parent);
     } else {
       task.setParent(parent);
     }
@@ -206,10 +193,6 @@ public class TaskContainer {
 
   public boolean hasChildren() {
     return children > 0;
-  }
-
-  public SubsetGoogleTask getGoogleTask() {
-    return googletask;
   }
 
   public SubsetCaldav getCaldavTask() {

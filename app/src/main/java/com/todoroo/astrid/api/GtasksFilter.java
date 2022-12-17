@@ -12,6 +12,7 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
 import org.tasks.data.CaldavCalendar;
+import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.TaskDao;
 
@@ -57,12 +58,12 @@ public class GtasksFilter extends Filter {
 
   private static QueryTemplate getQueryTemplate(CaldavCalendar list) {
     return new QueryTemplate()
-        .join(Join.left(GoogleTask.TABLE, Task.ID.eq(GoogleTask.TASK)))
+        .join(Join.left(CaldavTask.TABLE, Task.ID.eq(CaldavTask.TASK)))
         .where(
             Criterion.and(
                 TaskDao.TaskCriteria.activeAndVisible(),
-                GoogleTask.DELETED.eq(0),
-                GoogleTask.LIST.eq(list.getUuid())));
+                CaldavTask.DELETED.eq(0),
+                CaldavTask.CALENDAR.eq(list.getUuid())));
   }
 
   private static Map<String, Object> getValuesForNewTasks(CaldavCalendar list) {

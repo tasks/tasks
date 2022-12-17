@@ -82,21 +82,21 @@ class TaskMover @Inject constructor(
         moveLocalTask(task, selectedList)
     }
 
-    private suspend fun moveGoogleTask(task: Task, googleTask: GoogleTask, selected: Filter) {
-        if (selected is GtasksFilter && googleTask.listId == selected.remoteId) {
+    private suspend fun moveGoogleTask(task: Task, googleTask: CaldavTask, selected: Filter) {
+        if (selected is GtasksFilter && googleTask.calendar == selected.remoteId) {
             return
         }
         val id = googleTask.task
         val children = googleTaskDao.getChildren(id)
-        val childIds = children.map(GoogleTask::task)
+        val childIds = children.map(CaldavTask::task)
         googleTaskDao.markDeleted(id, DateUtilities.now())
         when(selected) {
             is GtasksFilter -> {
                 val listId = selected.remoteId
-                googleTaskDao.insertAndShift(GoogleTask(id, listId), preferences.addTasksToTop())
+                googleTaskDao.insertAndShift(CaldavTask(id, listId), preferences.addTasksToTop())
                 children.takeIf { it.isNotEmpty() }
                         ?.map {
-                            val newChild = GoogleTask(it.task, listId)
+                            val newChild = CaldavTask(it.task, listId)
                             newChild.order = it.order
                             newChild.parent = id
                             newChild
@@ -178,10 +178,10 @@ class TaskMover @Inject constructor(
     private suspend fun moveToGoogleTasks(id: Long, children: List<Long>, filter: GtasksFilter) {
         taskDao.setParent(0, children)
         val listId = filter.remoteId
-        googleTaskDao.insertAndShift(GoogleTask(id, listId), preferences.addTasksToTop())
+        googleTaskDao.insertAndShift(CaldavTask(id, listId), preferences.addTasksToTop())
         children.takeIf { it.isNotEmpty() }
                 ?.mapIndexed { index, task ->
-                    val newChild = GoogleTask(task, listId)
+                    val newChild = CaldavTask(task, listId)
                     newChild.order = index.toLong()
                     newChild.parent = id
                     newChild

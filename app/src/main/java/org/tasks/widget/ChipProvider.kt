@@ -5,7 +5,6 @@ import android.widget.RemoteViews
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -74,10 +73,6 @@ class ChipProvider @Inject constructor(
     }
 
     fun getListChip(filter: Filter?, task: TaskContainer): RemoteViews? {
-        task.googleTaskList
-                ?.takeIf { filter !is GtasksFilter }
-                ?.let { newChip(GtasksFilter(chipListCache.getCaldavList(it)), R.drawable.ic_list_24px) }
-                ?.let { return it }
         task.caldav
                 ?.takeIf { filter !is CaldavFilter }
                 ?.let { newChip(CaldavFilter(chipListCache.getCaldavList(it)), R.drawable.ic_list_24px) }

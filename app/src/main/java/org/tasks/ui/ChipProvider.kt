@@ -99,29 +99,16 @@ class ChipProvider @Inject constructor(
                 )
             }
         }
-        if (!isSubtask && preferences.showListChip) {
-            if (!isNullOrEmpty(task.googleTaskList) && filter !is GtasksFilter) {
-                lists.getCaldavList(task.googleTaskList)?.let { list ->
-                    FilterChip(
-                        filter = GtasksFilter(list),
-                        defaultIcon = R.drawable.ic_list_24px,
-                        onClick = onClick,
-                        showText = showText,
-                        showIcon = showIcon,
-                        colorProvider = this::getColor,
-                    )
-                }
-            } else if (!isNullOrEmpty(task.caldav) && filter !is CaldavFilter) {
-                lists.getCaldavList(task.caldav)?.let { list ->
-                    FilterChip(
-                        filter = CaldavFilter(list),
-                        defaultIcon = R.drawable.ic_list_24px,
-                        onClick = onClick,
-                        showText = showText,
-                        showIcon = showIcon,
-                        colorProvider = this::getColor,
-                    )
-                }
+        if (!isSubtask && preferences.showListChip && filter !is CaldavFilter) {
+            lists.getCaldavList(task.caldav)?.let { list ->
+                FilterChip(
+                    filter = if (task.isGoogleTask) GtasksFilter(list) else CaldavFilter(list),
+                    defaultIcon = R.drawable.ic_list_24px,
+                    onClick = onClick,
+                    showText = showText,
+                    showIcon = showIcon,
+                    colorProvider = this::getColor,
+                )
             }
         }
         val tagString = task.tagsString

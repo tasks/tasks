@@ -179,7 +179,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     @Throws(IOException::class)
     private suspend fun pushTask(task: com.todoroo.astrid.data.Task, gtasksInvoker: GtasksInvoker) {
         for (deleted in googleTaskDao.getDeletedByTaskId(task.id)) {
-            gtasksInvoker.deleteGtask(deleted.listId, deleted.remoteId)
+            gtasksInvoker.deleteGtask(deleted.calendar, deleted.remoteId)
             googleTaskDao.delete(deleted)
         }
         val gtasksMetadata = googleTaskDao.getByTaskId(task.id) ?: return
@@ -189,14 +189,14 @@ class GoogleTaskSynchronizer @Inject constructor(
         val defaultRemoteList = defaultFilterProvider.defaultList
         var listId = if (defaultRemoteList is GtasksFilter) defaultRemoteList.remoteId else DEFAULT_LIST
         if (isNullOrEmpty(gtasksMetadata.remoteId)) { // Create case
-            val selectedList = gtasksMetadata.listId
+            val selectedList = gtasksMetadata.calendar
             if (!isNullOrEmpty(selectedList)) {
                 listId = selectedList
             }
             newlyCreated = true
         } else { // update case
             remoteId = gtasksMetadata.remoteId
-            listId = gtasksMetadata.listId
+            listId = gtasksMetadata.calendar
             remoteModel.id = remoteId
         }
 
@@ -227,7 +227,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             val parent = gtasksMetadata.parent
             val localParent = if (parent > 0) googleTaskDao.getRemoteId(parent) else null
             val previous = googleTaskDao.getPrevious(
-                    listId!!, if (isNullOrEmpty(localParent)) 0 else parent, gtasksMetadata.order)
+                    listId!!, if (isNullOrEmpty(localParent)) 0 else parent, gtasksMetadata.order ?: 0)
             val created: Task?
             created = try {
                 gtasksInvoker.createGtask(listId, remoteModel, localParent, previous)
@@ -237,7 +237,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             if (created != null) {
                 // Update the metadata for the newly created task
                 gtasksMetadata.remoteId = created.id
-                gtasksMetadata.listId = listId
+                gtasksMetadata.calendar = listId
                 setOrderAndParent(gtasksMetadata, created)
             } else {
                 return
@@ -251,7 +251,7 @@ class GoogleTaskSynchronizer @Inject constructor(
                         val previous = googleTaskDao.getPrevious(
                                 listId!!,
                                 if (isNullOrEmpty(localParent)) 0 else parent,
-                                gtasksMetadata.order)
+                                gtasksMetadata.order ?: 0)
                         gtasksInvoker
                                 .moveGtask(listId, remoteModel.id, localParent, previous)
                                 ?.let { setOrderAndParent(gtasksMetadata, it) }
@@ -303,7 +303,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             var googleTask = googleTaskDao.getByRemoteId(remoteId)
             var task: com.todoroo.astrid.data.Task? = null
             if (googleTask == null) {
-                googleTask = GoogleTask(0, "")
+                googleTask = CaldavTask(0, "")
             } else if (googleTask.task > 0) {
                 task = taskDao.fetch(googleTask.task)
             }
@@ -339,7 +339,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due?.let(::DateTime))
             mergeDates(createDueDate(com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
             task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
-            googleTask.listId = listId
+            googleTask.calendar = listId
             if (task.title?.isNotBlank() == true || task.notes?.isNotBlank() == true) {
                 write(task, googleTask)
             }
@@ -351,13 +351,13 @@ class GoogleTaskSynchronizer @Inject constructor(
         )
     }
 
-    private suspend fun setOrderAndParent(googleTask: GoogleTask, task: Task) {
+    private suspend fun setOrderAndParent(googleTask: CaldavTask, task: Task) {
         task.position?.toLongOrNull()?.let { googleTask.remoteOrder = it }
         googleTask.remoteParent = task.parent?.takeIf { it.isNotBlank() }
         googleTask.parent = googleTask.remoteParent?.let { googleTaskDao.getTask(it) } ?: 0L
     }
 
-    private suspend fun write(task: com.todoroo.astrid.data.Task, googleTask: GoogleTask) {
+    private suspend fun write(task: com.todoroo.astrid.data.Task, googleTask: CaldavTask) {
         task.suppressSync()
         task.suppressRefresh()
         if (task.isNew) {
@@ -367,7 +367,7 @@ class GoogleTaskSynchronizer @Inject constructor(
         taskDao.save(task)
         googleTask.lastSync = task.modificationDate
         googleTask.task = task.id
-        if (googleTask.isNew) {
+        if (googleTask.id == 0L) {
             googleTaskDao.insert(googleTask)
         } else {
             googleTaskDao.update(googleTask)

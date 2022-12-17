@@ -187,8 +187,14 @@ class TasksJsonImporter @Inject constructor(
                     userActivityDao.createNew(comment)
                 }
                 for (googleTask in backup.google) {
-                    googleTask.task = taskId
-                    googleTaskDao.insert(googleTask)
+                    googleTaskDao.insert(
+                        CaldavTask(
+                            task = taskId,
+                            calendar = googleTask.listId,
+                            remoteId = googleTask.remoteId,
+                            `object` = null,
+                        )
+                    )
                 }
                 for (location in backup.locations) {
                     val place = newPlace()

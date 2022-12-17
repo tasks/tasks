@@ -58,7 +58,7 @@ class TaskDuplicator @Inject constructor(
         val googleTask = googleTaskDao.getByTaskId(originalId)
         val addToTop = preferences.addTasksToTop()
         if (googleTask != null) {
-            googleTaskDao.insertAndShift(GoogleTask(clone.id, googleTask.listId!!), addToTop)
+            googleTaskDao.insertAndShift(CaldavTask(clone.id, googleTask.calendar!!), addToTop)
         }
         val caldavTask = caldavDao.getTask(originalId)
         if (caldavTask != null) {

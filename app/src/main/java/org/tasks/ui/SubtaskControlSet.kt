@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.SubtaskRow
-import org.tasks.data.GoogleTask
+import org.tasks.data.CaldavTask
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.preferences.Preferences
@@ -111,18 +111,18 @@ class SubtaskControlSet : TaskEditControlFragment() {
         private fun getQueryTemplate(task: Task): QueryTemplate = QueryTemplate()
             .join(
                 Join.left(
-                    GoogleTask.TABLE,
+                    CaldavTask.TABLE,
                     Criterion.and(
-                        GoogleTask.PARENT.eq(task.id),
-                        GoogleTask.TASK.eq(Task.ID),
-                        GoogleTask.DELETED.eq(0)
+                        CaldavTask.PARENT.eq(task.id),
+                        CaldavTask.TASK.eq(Task.ID),
+                        CaldavTask.DELETED.eq(0)
                     )
                 )
             )
             .where(
                 Criterion.and(
                     activeAndVisible(),
-                    Criterion.or(Task.PARENT.eq(task.id), GoogleTask.TASK.gt(0))
+                    Criterion.or(Task.PARENT.eq(task.id), CaldavTask.TASK.gt(0))
                 )
             )
     }

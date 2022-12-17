@@ -61,11 +61,11 @@ abstract class TaskDao(private val database: Database) {
     abstract suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = now())
 
     @Query("SELECT tasks.* FROM tasks "
-            + "LEFT JOIN google_tasks ON tasks._id = google_tasks.gt_task "
-            + "LEFT JOIN caldav_lists ON google_tasks.gt_list_id = caldav_lists.cdl_uuid "
+            + "LEFT JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task "
+            + "LEFT JOIN caldav_lists ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid "
             + "WHERE cdl_account = :account "
-            + "AND (tasks.modified > google_tasks.gt_last_sync OR google_tasks.gt_remote_id = '' OR google_tasks.gt_deleted > 0) "
-            + "ORDER BY CASE WHEN gt_parent = 0 THEN 0 ELSE 1 END, gt_order ASC")
+            + "AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_remote_id = '' OR caldav_tasks.cd_deleted > 0) "
+            + "ORDER BY CASE WHEN parent = 0 THEN 0 ELSE 1 END, `order` ASC")
     abstract suspend fun getGoogleTasksToPush(account: String): List<Task>
 
     @Query("""
@@ -130,11 +130,11 @@ abstract class TaskDao(private val database: Database) {
     @Query("""
 SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtasks,
        EXISTS(SELECT 1
-              FROM google_tasks
-                       INNER JOIN tasks ON gt_task = _id
+              FROM caldav_tasks
+                       INNER JOIN tasks ON cd_task = _id
               WHERE deleted = 0
                 AND gt_parent > 0
-                AND gt_deleted = 0)                                 AS hasGoogleSubtasks
+                AND cd_deleted = 0)                                 AS hasGoogleSubtasks
     """)
     abstract suspend fun getSubtaskInfo(): SubtaskInfo
 
@@ -246,10 +246,8 @@ FROM recursive_tasks
     @Query("""
 SELECT _id
 FROM tasks
-         LEFT JOIN google_tasks ON _id = gt_task AND gt_deleted = 0
          LEFT JOIN caldav_tasks ON _id = cd_task AND cd_deleted = 0
-WHERE gt_id IS NULL
-  AND cd_id IS NULL
+WHERE cd_id IS NULL
   AND parent = 0
     """)
     abstract suspend fun getLocalTasks(): List<Long>

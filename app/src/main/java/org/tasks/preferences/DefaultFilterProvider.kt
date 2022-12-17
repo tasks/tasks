@@ -170,7 +170,7 @@ class DefaultFilterProvider @Inject constructor(
             val googleTask = googleTaskDao.getByTaskId(task.id)
             val caldavTask = caldavDao.getTask(task.id)
             if (googleTask != null) {
-                val googleTaskList = googleTaskListDao.getByRemoteId(googleTask.listId!!)
+                val googleTaskList = googleTaskListDao.getByRemoteId(googleTask.calendar!!)
                 if (googleTaskList != null) {
                     originalList = GtasksFilter(googleTaskList)
                 }

@@ -108,10 +108,26 @@ ORDER BY CASE cda_account_type
         return insert(caldavTask)
     }
 
-    @Query("SELECT MIN(IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000)) FROM caldav_tasks INNER JOIN tasks ON _id = cd_task WHERE cd_calendar = :calendar AND cd_deleted = 0 AND deleted = 0 AND parent = :parent")
+    @Query("""
+SELECT MIN(IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000))
+FROM caldav_tasks
+         INNER JOIN tasks ON _id = cd_task
+WHERE cd_calendar = :calendar
+  AND cd_deleted = 0
+  AND deleted = 0
+  AND parent = :parent
+    """)
     internal abstract suspend fun findFirstTask(calendar: String, parent: Long): Long?
 
-    @Query("SELECT MAX(IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000)) FROM caldav_tasks INNER JOIN tasks ON _id = cd_task WHERE cd_calendar = :calendar AND cd_deleted = 0 AND deleted = 0 AND parent = :parent")
+    @Query("""
+SELECT MAX(IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000))
+FROM caldav_tasks
+         INNER JOIN tasks ON _id = cd_task
+WHERE cd_calendar = :calendar
+  AND cd_deleted = 0
+  AND deleted = 0
+  AND parent = :parent
+    """)
     internal abstract suspend fun findLastTask(calendar: String, parent: Long): Long?
 
     @Insert
@@ -250,12 +266,16 @@ SELECT EXISTS(SELECT 1
     @Query("""
 SELECT caldav_lists.*, COUNT(DISTINCT(tasks._id)) AS count, COUNT(DISTINCT(principal_access.id)) AS principals
 FROM caldav_lists
-         LEFT JOIN caldav_tasks
-                   ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid
-         LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND
-                            tasks.hideUntil < :now AND cd_deleted = 0
+         LEFT JOIN caldav_tasks ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid
+         LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND 
+                            tasks.deleted = 0 AND 
+                            tasks.completed = 0 AND
+                            tasks.hideUntil < :now AND 
+                            cd_deleted = 0
          LEFT JOIN principal_access ON caldav_lists.cdl_id = principal_access.list
+         INNER JOIN caldav_accounts ON caldav_accounts.cda_uuid = caldav_lists.cdl_account
 WHERE caldav_lists.cdl_account = :uuid
+AND caldav_accounts.cda_account_type != $TYPE_GOOGLE_TASKS 
 GROUP BY caldav_lists.cdl_uuid
     """)
     abstract suspend fun getCaldavFilters(uuid: String, now: Long = currentTimeMillis()): List<CaldavFilters>
@@ -321,7 +341,18 @@ GROUP BY caldav_lists.cdl_uuid
     @Query("UPDATE tasks SET modified = :modificationTime WHERE _id in (:ids)")
     internal abstract suspend fun touchInternal(ids: List<Long>, modificationTime: Long = now())
 
-    @Query("SELECT task.*, caldav_task.*, IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000) AS primary_sort FROM caldav_tasks AS caldav_task INNER JOIN tasks AS task ON _id = cd_task WHERE cd_calendar = :calendar AND parent = :parent AND cd_deleted = 0 AND deleted = 0 AND primary_sort >= :from AND primary_sort < IFNULL(:to, ${Long.MAX_VALUE}) ORDER BY primary_sort")
+    @Query("""
+SELECT task.*, caldav_task.*, IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000) AS primary_sort
+FROM caldav_tasks AS caldav_task
+         INNER JOIN tasks AS task ON _id = cd_task
+WHERE cd_calendar = :calendar
+  AND parent = :parent
+  AND cd_deleted = 0
+  AND deleted = 0
+  AND primary_sort >= :from
+  AND primary_sort < IFNULL(:to, ${Long.MAX_VALUE})
+ORDER BY primary_sort
+    """)
     internal abstract suspend fun getTasksToShift(calendar: String, parent: Long, from: Long, to: Long?): List<CaldavTaskContainer>
 
     @Query("UPDATE caldav_lists SET cdl_order = $NO_ORDER")
