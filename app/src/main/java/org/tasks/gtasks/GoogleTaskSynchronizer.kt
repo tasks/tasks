@@ -43,6 +43,7 @@ import kotlin.math.max
 class GoogleTaskSynchronizer @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val googleTaskListDao: GoogleTaskListDao,
+        private val caldavDao: CaldavDao,
         private val gtasksListService: GtasksListService,
         private val preferences: Preferences,
         private val taskDao: TaskDao,
@@ -58,7 +59,7 @@ class GoogleTaskSynchronizer @Inject constructor(
         private val invokers: InvokerFactory,
         private val alarmDao: AlarmDao,
 ) {
-    suspend fun sync(account: GoogleTaskAccount, i: Int) {
+    suspend fun sync(account: CaldavAccount, i: Int) {
         Timber.d("%s: start sync", account)
         try {
             if (i == 0 || inventory.hasPro) {
@@ -94,20 +95,20 @@ class GoogleTaskSynchronizer @Inject constructor(
             account.error = e.message
             firebase.reportException(e)
         } finally {
-            googleTaskListDao.update(account)
+            caldavDao.update(account)
             localBroadcastManager.broadcastRefreshList()
             Timber.d("%s: end sync", account)
         }
     }
 
     @Throws(IOException::class)
-    private suspend fun synchronize(account: GoogleTaskAccount) {
+    private suspend fun synchronize(account: CaldavAccount) {
         if (!permissionChecker.canAccessAccounts()
-                || googleAccountManager.getAccount(account.account) == null) {
+                || googleAccountManager.getAccount(account.username) == null) {
             account.error = context.getString(R.string.cannot_access_account)
             return
         }
-        val gtasksInvoker = invokers.getGtasksInvoker(account.account!!)
+        val gtasksInvoker = invokers.getGtasksInvoker(account.username!!)
         pushLocalChanges(account, gtasksInvoker)
         val gtaskLists: MutableList<TaskList> = ArrayList()
         var nextPageToken: String? = null
@@ -148,7 +149,7 @@ class GoogleTaskSynchronizer @Inject constructor(
                 googleTaskDao.reposition(list.id)
             }
         }
-        account.etag = eTag
+//        account.etag = eTag
         account.error = ""
     }
 
@@ -168,8 +169,8 @@ class GoogleTaskSynchronizer @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private suspend fun pushLocalChanges(account: GoogleTaskAccount, gtasksInvoker: GtasksInvoker) {
-        val tasks = taskDao.getGoogleTasksToPush(account.account!!)
+    private suspend fun pushLocalChanges(account: CaldavAccount, gtasksInvoker: GtasksInvoker) {
+        val tasks = taskDao.getGoogleTasksToPush(account.username!!)
         for (task in tasks) {
             pushTask(task, gtasksInvoker)
         }

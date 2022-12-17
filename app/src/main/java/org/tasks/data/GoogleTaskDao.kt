@@ -56,9 +56,6 @@ abstract class GoogleTaskDao {
         update(task)
     }
 
-    @Query("UPDATE google_task_accounts SET gta_collapsed = :collapsed WHERE gta_id = :id")
-    abstract suspend fun setCollapsed(id: Long, collapsed: Boolean)
-
     @Query("SELECT * FROM google_tasks WHERE gt_task = :taskId AND gt_deleted = 0 LIMIT 1")
     abstract suspend fun getByTaskId(taskId: Long): GoogleTask?
 

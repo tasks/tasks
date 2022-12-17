@@ -19,6 +19,7 @@ import org.tasks.R
 import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
+import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -122,8 +123,8 @@ class WorkManagerImpl constructor(
 
     override fun updateBackgroundSync() {
         throttle.run {
-            val enabled = googleTaskListDao.accountCount() > 0 ||
-                    caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE).isNotEmpty() ||
+            val enabled =
+                    caldavDao.getAccounts(TYPE_GOOGLE_TASKS, TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE).isNotEmpty() ||
                     openTaskDao.shouldSync()
             if (enabled) {
                 Timber.d("Enabling background sync")

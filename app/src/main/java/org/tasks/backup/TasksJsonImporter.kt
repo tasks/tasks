@@ -19,6 +19,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.*
+import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.Place.Companion.newPlace
 import org.tasks.db.Migrations.repeatFrom
 import org.tasks.db.Migrations.withoutFrom
@@ -81,8 +82,15 @@ class TasksJsonImporter @Inject constructor(
                 tagDataDao.createNew(tagData)
             }
             backupContainer.googleTaskAccounts?.forEach { googleTaskAccount ->
-                if (googleTaskListDao.getAccount(googleTaskAccount.account!!) == null) {
-                    googleTaskListDao.insert(googleTaskAccount)
+                if (caldavDao.getAccount(TYPE_GOOGLE_TASKS, googleTaskAccount.account!!) == null) {
+                    caldavDao.insert(
+                        CaldavAccount().apply {
+                            accountType = TYPE_GOOGLE_TASKS
+                            uuid = googleTaskAccount.account
+                            name = googleTaskAccount.account
+                            username = googleTaskAccount.account
+                        }
+                    )
                 }
             }
             backupContainer.places?.forEach { place ->

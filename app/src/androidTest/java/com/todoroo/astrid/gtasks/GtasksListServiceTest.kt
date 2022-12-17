@@ -11,7 +11,8 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.GoogleTaskAccount
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
@@ -29,6 +30,7 @@ class GtasksListServiceTest : InjectingTestCase() {
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var caldavDao: CaldavDao
 
     private lateinit var gtasksListService: GtasksListService
 
@@ -87,8 +89,11 @@ class GtasksListServiceTest : InjectingTestCase() {
     }
 
     private suspend fun setLists(vararg list: TaskList) {
-        val account = GoogleTaskAccount("account")
-        googleTaskListDao.insert(account)
+        val account = CaldavAccount().apply {
+            username = "account"
+            uuid = "account"
+        }
+        caldavDao.insert(account)
         gtasksListService.updateLists(account, listOf(*list))
     }
 }

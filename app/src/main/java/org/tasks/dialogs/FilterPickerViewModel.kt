@@ -19,7 +19,6 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
 import org.tasks.dialogs.FilterPicker.Companion.EXTRA_LISTS_ONLY
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
@@ -37,7 +36,6 @@ class FilterPickerViewModel @Inject constructor(
     private val inventory: Inventory,
     private val colorProvider: ColorProvider,
     private val preferences: Preferences,
-    private val googleTaskDao: GoogleTaskDao,
     private val caldavDao: CaldavDao,
 ) : ViewModel() {
     private val listsOnly = savedStateHandle[EXTRA_LISTS_ONLY] ?: false
@@ -70,8 +68,7 @@ class FilterPickerViewModel @Inject constructor(
         when (subheader.subheaderType) {
             NavigationDrawerSubheader.SubheaderType.PREFERENCE ->
                 preferences.setBoolean(subheader.id.toInt(), collapsed)
-            NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS ->
-                googleTaskDao.setCollapsed(subheader.id, collapsed)
+            NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS,
             NavigationDrawerSubheader.SubheaderType.CALDAV,
             NavigationDrawerSubheader.SubheaderType.TASKS,
             NavigationDrawerSubheader.SubheaderType.ETESYNC ->

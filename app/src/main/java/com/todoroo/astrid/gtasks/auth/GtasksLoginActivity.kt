@@ -20,7 +20,9 @@ import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
-import org.tasks.data.GoogleTaskAccount
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.gtasks.GoogleAccountManager
@@ -39,6 +41,7 @@ import javax.inject.Inject
 class GtasksLoginActivity : InjectingAppCompatActivity() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var googleAccountManager: GoogleAccountManager
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var permissionRequestor: ActivityPermissionRequestor
     @Inject lateinit var firebase: Firebase
@@ -71,18 +74,21 @@ class GtasksLoginActivity : InjectingAppCompatActivity() {
                             startActivity(intent)
                         } else {
                             withContext(NonCancellable) {
-                                var account = googleTaskListDao.getAccount(accountName)
+                                var account = caldavDao.getAccount(TYPE_GOOGLE_TASKS, accountName)
                                 if (account == null) {
-                                    account = GoogleTaskAccount()
-                                    account.account = accountName
-                                    googleTaskListDao.insert(account)
+                                    account = CaldavAccount()
+                                    account.accountType = TYPE_GOOGLE_TASKS
+                                    account.uuid = accountName
+                                    account.name = accountName
+                                    account.username = accountName
+                                    caldavDao.insert(account)
                                     firebase.logEvent(
                                             R.string.event_sync_add_account,
                                             R.string.param_type to Constants.SYNC_TYPE_GOOGLE_TASKS
                                     )
                                 } else {
                                     account.error = ""
-                                    googleTaskListDao.update(account)
+                                    caldavDao.update(account)
                                     googleTaskListDao.resetLastSync(accountName)
                                 }
                             }

@@ -8,11 +8,10 @@ package com.todoroo.astrid.gtasks
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.service.TaskDeleter
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.GoogleTaskAccount
+import org.tasks.data.CaldavAccount
 import org.tasks.data.GoogleTaskList
 import org.tasks.data.GoogleTaskListDao
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class GtasksListService @Inject constructor(
@@ -25,8 +24,8 @@ class GtasksListService @Inject constructor(
      *
      * @param remoteLists remote information about your lists
      */
-    suspend fun updateLists(account: GoogleTaskAccount, remoteLists: List<TaskList>) {
-        val lists = googleTaskListDao.getLists(account.account!!)
+    suspend fun updateLists(account: CaldavAccount, remoteLists: List<TaskList>) {
+        val lists = googleTaskListDao.getLists(account.uuid!!)
         val previousLists: MutableSet<Long> = HashSet()
         for (list in lists) {
             previousLists.add(list.id)
@@ -45,12 +44,12 @@ class GtasksListService @Inject constructor(
             if (local == null) {
                 val byRemoteId = googleTaskListDao.findExistingList(id)
                 if (byRemoteId != null) {
-                    byRemoteId.account = account.account
+                    byRemoteId.account = account.uuid
                     local = byRemoteId
                 } else {
                     Timber.d("Adding new gtask list %s", title)
                     local = GoogleTaskList()
-                    local.account = account.account
+                    local.account = account.uuid
                     local.remoteId = id
                 }
             }

@@ -14,7 +14,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.backup.BackupConstants
-import org.tasks.data.*
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavDao
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.googleapis.InvokerFactory
 import org.tasks.gtasks.GoogleAccountManager
@@ -29,13 +30,11 @@ class PreferencesViewModel @Inject constructor(
         invokers: InvokerFactory,
         private val googleAccountManager: GoogleAccountManager,
         caldavDao: CaldavDao,
-        googleTaskListDao: GoogleTaskListDao,
 ) : ViewModel() {
     private val driveInvoker = invokers.getDriveInvoker()
     val lastBackup = MutableLiveData<Long?>()
     val lastDriveBackup = MutableLiveData<Long?>()
     val lastAndroidBackup = MutableLiveData<Long>()
-    var googleTaskAccounts = googleTaskListDao.watchAccounts()
     var caldavAccounts = caldavDao.watchAccounts()
 
     private fun isStale(timestamp: Long?) =

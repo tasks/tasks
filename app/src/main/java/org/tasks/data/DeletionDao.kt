@@ -69,21 +69,8 @@ WHERE recurring = 1
         return tasks
     }
 
-    @Delete
-    internal abstract suspend fun deleteGoogleTaskAccount(googleTaskAccount: GoogleTaskAccount)
-
     @Query("SELECT * FROM google_task_lists WHERE gtl_account = :account ORDER BY gtl_title ASC")
     abstract suspend fun getLists(account: String): List<GoogleTaskList>
-
-    @Transaction
-    open suspend fun delete(googleTaskAccount: GoogleTaskAccount): List<Long> {
-        val deleted = ArrayList<Long>()
-        for (list in getLists(googleTaskAccount.account!!)) {
-            deleted.addAll(delete(list))
-        }
-        deleteGoogleTaskAccount(googleTaskAccount)
-        return deleted
-    }
 
     @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0")
     internal abstract suspend fun getActiveCaldavTasks(calendar: String): List<Long>
@@ -111,8 +98,14 @@ WHERE recurring = 1
     @Transaction
     open suspend fun delete(caldavAccount: CaldavAccount): List<Long> {
         val deleted = ArrayList<Long>()
-        for (calendar in getCalendars(caldavAccount.uuid!!)) {
-            deleted.addAll(delete(calendar))
+        if (caldavAccount.isGoogleTasks) {
+            for (list in getLists(caldavAccount.uuid!!)) {
+                deleted.addAll(delete(list))
+            }
+        } else {
+            for (calendar in getCalendars(caldavAccount.uuid!!)) {
+                deleted.addAll(delete(calendar))
+            }
         }
         deleteCaldavAccount(caldavAccount)
         return deleted

@@ -16,6 +16,7 @@ import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
+import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.OpenTaskDao.Companion.getLong
 import org.tasks.extensions.getLongOrNull
@@ -588,6 +589,13 @@ object Migrations {
         }
     }
 
+    private val MIGRATION_87_88 = object : Migration(87, 88) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("INSERT INTO `caldav_accounts` (`cda_account_type`, `cda_server_type`, `cda_uuid`, `cda_name`, `cda_username`, `cda_collapsed`) SELECT $TYPE_GOOGLE_TASKS, $SERVER_UNKNOWN, `gta_account`, `gta_account`, `gta_account`, `gta_collapsed` FROM `google_task_accounts`")
+            database.execSQL("DROP TABLE `google_task_accounts`")
+        }
+    }
+
     fun migrations(fileStorage: FileStorage) = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
@@ -631,6 +639,7 @@ object Migrations {
             MIGRATION_84_85,
             MIGRATION_85_86,
             MIGRATION_86_87,
+            MIGRATION_87_88,
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {

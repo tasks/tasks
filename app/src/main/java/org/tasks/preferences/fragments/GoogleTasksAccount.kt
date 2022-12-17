@@ -1,6 +1,8 @@
 package org.tasks.preferences.fragments
 
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
@@ -11,9 +13,9 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.Inventory
+import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.isPaymentRequired
-import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.CaldavDao
 import org.tasks.preferences.IconPreference
 import javax.inject.Inject
 
@@ -23,11 +25,11 @@ class GoogleTasksAccount : BaseAccountPreference() {
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var caldavDao: CaldavDao
 
-    private lateinit var googleTaskAccountLiveData: LiveData<GoogleTaskAccount>
+    private lateinit var googleTaskAccountLiveData: LiveData<CaldavAccount>
 
-    val googleTaskAccount: GoogleTaskAccount
+    val googleTaskAccount: CaldavAccount
         get() = googleTaskAccountLiveData.value ?: requireArguments().getParcelable(EXTRA_ACCOUNT)!!
 
     private val purchaseReceiver = object : BroadcastReceiver() {
@@ -36,7 +38,7 @@ class GoogleTasksAccount : BaseAccountPreference() {
                 googleTaskAccount.let {
                     if (inventory.subscription.value != null && it.error.isPaymentRequired()) {
                         it.error = null
-                        googleTaskListDao.update(it)
+                        caldavDao.update(it)
                     }
                     refreshUi(it)
                 }
@@ -49,8 +51,8 @@ class GoogleTasksAccount : BaseAccountPreference() {
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         super.setupPreferences(savedInstanceState)
 
-        googleTaskAccountLiveData = googleTaskListDao.watchAccount(
-                arguments?.getParcelable<GoogleTaskAccount>(EXTRA_ACCOUNT)?.id ?: 0
+        googleTaskAccountLiveData = caldavDao.watchAccount(
+                arguments?.getParcelable<CaldavAccount>(EXTRA_ACCOUNT)?.id ?: 0
         )
         googleTaskAccountLiveData.observe(this) { refreshUi(it) }
 
@@ -74,7 +76,7 @@ class GoogleTasksAccount : BaseAccountPreference() {
         localBroadcastManager.unregisterReceiver(purchaseReceiver)
     }
 
-    private fun refreshUi(account: GoogleTaskAccount?) {
+    private fun refreshUi(account: CaldavAccount?) {
         if (account == null) {
             return
         }
@@ -119,7 +121,7 @@ class GoogleTasksAccount : BaseAccountPreference() {
         fun String?.isUnauthorized(): Boolean =
                 this?.startsWith("401 Unauthorized", ignoreCase = true) == true
 
-        fun newGoogleTasksAccountPreference(account: GoogleTaskAccount) =
+        fun newGoogleTasksAccountPreference(account: CaldavAccount) =
                 GoogleTasksAccount().apply {
                     arguments = Bundle().apply {
                         putParcelable(EXTRA_ACCOUNT, account)

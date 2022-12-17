@@ -135,10 +135,9 @@ class BuiltInFilterExposer @Inject constructor(
                                 .join(Join.left(CaldavTask.TABLE, and(CaldavTask.TASK.eq(Task.ID))))
                                 .join(Join.left(GoogleTaskList.TABLE, GoogleTaskList.REMOTE_ID.eq(GoogleTask.LIST)))
                                 .join(Join.left(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)))
-                                .join(Join.left(GoogleTaskAccount.TABLE, GoogleTaskAccount.ACCOUNT.eq(GoogleTaskList.ACCOUNT)))
                                 .join(Join.left(CaldavAccount.TABLE, CaldavAccount.UUID.eq(CaldavCalendar.ACCOUNT)))
                                 .where(or(
-                                        and(GoogleTask.ID.gt(0), GoogleTaskAccount.ACCOUNT.eq(null)),
+                                        and(GoogleTask.ID.gt(0), CaldavAccount.UUID.eq(null)),
                                         and(CaldavTask.ID.gt(0), CaldavAccount.UUID.eq(null))))
                 ).apply {
                     icon = R.drawable.ic_outline_cloud_off_24px

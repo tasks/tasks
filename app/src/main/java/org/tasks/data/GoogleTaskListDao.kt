@@ -3,25 +3,14 @@ package org.tasks.data
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.filters.GoogleTaskFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 
 @Dao
 interface GoogleTaskListDao {
-    @Query("SELECT * FROM google_task_accounts WHERE gta_id = :id")
-    fun watchAccount(id: Long): LiveData<GoogleTaskAccount>
-
-    @Query("SELECT COUNT(*) FROM google_task_accounts")
-    suspend fun accountCount(): Int
-
-    @Query("SELECT * FROM google_task_accounts")
-    suspend fun getAccounts(): List<GoogleTaskAccount>
-
-    @Query("SELECT * FROM google_task_accounts")
-    fun watchAccounts(): LiveData<List<GoogleTaskAccount>>
-
-    @Query("SELECT * FROM google_task_accounts WHERE gta_account = :account COLLATE NOCASE LIMIT 1")
-    suspend fun getAccount(account: String): GoogleTaskAccount?
+    @Query("SELECT * FROM caldav_accounts WHERE cda_account_type = $TYPE_GOOGLE_TASKS")
+    suspend fun getAccounts(): List<CaldavAccount>
 
     @Query("SELECT * FROM google_task_lists WHERE gtl_id = :id")
     suspend fun getById(id: Long): GoogleTaskList?
@@ -52,12 +41,6 @@ interface GoogleTaskListDao {
 
     @Insert
     suspend fun insert(googleTaskList: GoogleTaskList): Long
-
-    @Insert
-    suspend fun insert(googleTaskAccount: GoogleTaskAccount)
-
-    @Update
-    suspend fun update(account: GoogleTaskAccount)
 
     @Update
     suspend fun update(list: GoogleTaskList)

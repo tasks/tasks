@@ -17,14 +17,17 @@ import javax.inject.Inject
 @HiltAndroidTest
 class GoogleTaskListDaoTest : InjectingTestCase() {
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var caldavDao: CaldavDao
 
     @Test
     fun noResultsForEmptyAccount() = runBlocking {
-        val account = GoogleTaskAccount()
-        account.account = "user@gmail.com"
-        googleTaskListDao.insert(account)
+        val account = CaldavAccount().apply {
+            uuid = "user@gmail.com"
+            username = "user@gmail.com"
+        }
+        caldavDao.insert(account)
 
-        assertTrue(googleTaskListDao.getGoogleTaskFilters(account.account!!).isEmpty())
+        assertTrue(googleTaskListDao.getGoogleTaskFilters(account.username!!).isEmpty())
     }
 
     @Test

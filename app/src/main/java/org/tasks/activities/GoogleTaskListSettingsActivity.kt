@@ -17,7 +17,7 @@ import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.GoogleTaskAccount
+import org.tasks.data.CaldavAccount
 import org.tasks.data.GoogleTaskList
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.databinding.ActivityGoogleTaskListSettingsBinding
@@ -43,7 +43,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         gtasksList = intent.getParcelableExtra(EXTRA_STORE_DATA)
                 ?: GoogleTaskList().apply {
                     isNewList = true
-                    account = intent.getParcelableExtra<GoogleTaskAccount>(EXTRA_ACCOUNT)!!.account
+                    account = intent.getParcelableExtra<CaldavAccount>(EXTRA_ACCOUNT)!!.username
                 }
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {

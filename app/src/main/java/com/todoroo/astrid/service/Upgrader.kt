@@ -250,9 +250,11 @@ class Upgrader @Inject constructor(
     private suspend fun migrateGoogleTaskAccount() {
         val account = preferences.getStringValue("gtasks_user")
         if (!isNullOrEmpty(account)) {
-            val googleTaskAccount = GoogleTaskAccount()
-            googleTaskAccount.account = account
-            googleTaskListDao.insert(googleTaskAccount)
+            val caldavAccount = CaldavAccount()
+            caldavAccount.uuid = account
+            caldavAccount.name = account
+            caldavAccount.username = account
+            caldavDao.insert(caldavAccount)
             for (list in googleTaskListDao.getAllLists()) {
                 list.account = account
                 googleTaskListDao.insertOrReplace(list)
