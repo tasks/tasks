@@ -3,7 +3,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
 
-  <application tools:ignore="GoogleAppIndexingWarning">
+  <application
+      android:networkSecurityConfig="@xml/network_security_config"
+      tools:ignore="GoogleAppIndexingWarning">
 
     <activity
       android:exported="true"
