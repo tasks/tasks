@@ -131,13 +131,13 @@ class GoogleTaskSynchronizer @Inject constructor(
             }
         }
         for (list in googleTaskListDao.getByRemoteId(gtaskLists.map { it.id })) {
-            if (isNullOrEmpty(list.remoteId)) {
+            if (isNullOrEmpty(list.uuid)) {
                 firebase.reportException(RuntimeException("Empty remote id"))
                 continue
             }
             fetchAndApplyRemoteChanges(gtasksInvoker, list)
             if (!preferences.isPositionHackEnabled) {
-                googleTaskDao.reposition(list.remoteId!!)
+                googleTaskDao.reposition(list.uuid!!)
             }
         }
         if (preferences.isPositionHackEnabled) {
@@ -276,8 +276,10 @@ class GoogleTaskSynchronizer @Inject constructor(
 
     @Throws(IOException::class)
     private suspend fun fetchAndApplyRemoteChanges(
-            gtasksInvoker: GtasksInvoker, list: GoogleTaskList) {
-        val listId = list.remoteId
+        gtasksInvoker: GtasksInvoker,
+        list: CaldavCalendar
+    ) {
+        val listId = list.uuid
         var lastSyncDate = list.lastSync
         val tasks: MutableList<Task> = ArrayList()
         var nextPageToken: String? = null
@@ -342,8 +344,11 @@ class GoogleTaskSynchronizer @Inject constructor(
                 write(task, googleTask)
             }
         }
-        list.lastSync = lastSyncDate
-        googleTaskListDao.insertOrReplace(list)
+        googleTaskListDao.insertOrReplace(
+            list.copy(
+                lastSync = lastSyncDate
+            )
+        )
     }
 
     private suspend fun setOrderAndParent(googleTask: GoogleTask, task: Task) {

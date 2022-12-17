@@ -9,15 +9,15 @@ import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.service.TaskDeleter
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.CaldavAccount
-import org.tasks.data.GoogleTaskList
+import org.tasks.data.CaldavCalendar
 import org.tasks.data.GoogleTaskListDao
-import timber.log.Timber
 import javax.inject.Inject
 
 class GtasksListService @Inject constructor(
         private val googleTaskListDao: GoogleTaskListDao,
         private val taskDeleter: TaskDeleter,
-        private val localBroadcastManager: LocalBroadcastManager) {
+        private val localBroadcastManager: LocalBroadcastManager,
+) {
 
     /**
      * Reads in remote list information and updates local list objects.
@@ -33,34 +33,27 @@ class GtasksListService @Inject constructor(
         for (i in remoteLists.indices) {
             val remote = remoteLists[i]
             val id = remote.id
-            var local: GoogleTaskList? = null
+            var local: CaldavCalendar? = null
             for (list in lists) {
-                if (list.remoteId == id) {
+                if (list.uuid == id) {
                     local = list
                     break
                 }
             }
-            val title = remote.title
             if (local == null) {
-                val byRemoteId = googleTaskListDao.findExistingList(id)
-                if (byRemoteId != null) {
-                    byRemoteId.account = account.uuid
-                    local = byRemoteId
-                } else {
-                    Timber.d("Adding new gtask list %s", title)
-                    local = GoogleTaskList()
-                    local.account = account.uuid
-                    local.remoteId = id
-                }
+                local = CaldavCalendar(
+                    account = account.uuid,
+                    uuid = id,
+                )
             }
-            local.title = title
+            local.name = remote.title
             googleTaskListDao.insertOrReplace(local)
             previousLists.remove(local.id)
         }
 
         // check for lists that aren't on remote server
         for (listId in previousLists) {
-            taskDeleter.delete(googleTaskListDao.getById(listId)!!)
+            taskDeleter.deleteGoogleTaskList(googleTaskListDao.getById(listId)!!)
         }
         localBroadcastManager.broadcastRefreshList()
     }

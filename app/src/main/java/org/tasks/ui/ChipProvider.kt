@@ -101,9 +101,9 @@ class ChipProvider @Inject constructor(
         }
         if (!isSubtask && preferences.showListChip) {
             if (!isNullOrEmpty(task.googleTaskList) && filter !is GtasksFilter) {
-                lists.getGoogleTaskList(task.googleTaskList)?.let { list ->
+                lists.getCaldavList(task.googleTaskList)?.let { list ->
                     FilterChip(
-                        filter = list,
+                        filter = GtasksFilter(list),
                         defaultIcon = R.drawable.ic_list_24px,
                         onClick = onClick,
                         showText = showText,
@@ -114,7 +114,7 @@ class ChipProvider @Inject constructor(
             } else if (!isNullOrEmpty(task.caldav) && filter !is CaldavFilter) {
                 lists.getCaldavList(task.caldav)?.let { list ->
                     FilterChip(
-                        filter = list,
+                        filter = CaldavFilter(list),
                         defaultIcon = R.drawable.ic_list_24px,
                         onClick = onClick,
                         showText = showText,

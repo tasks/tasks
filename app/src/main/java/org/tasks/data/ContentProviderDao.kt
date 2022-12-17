@@ -39,9 +39,6 @@ interface ContentProviderDao {
           INNER JOIN caldav_accounts ON cdl_account = cda_uuid""")
     fun getLists(): Cursor
 
-    @Query("SELECT * FROM google_task_lists")
-    fun getGoogleTaskLists(): Cursor
-
     @RawQuery
     fun rawQuery(query: SupportSQLiteQuery): Cursor
 }

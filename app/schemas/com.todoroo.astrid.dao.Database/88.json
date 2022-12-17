@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 88,
-    "identityHash": "e6a358a252e68fc5fe426504801c1d0c",
+    "identityHash": "d9d2cc4048325dbde272d8d4f8e3880f",
     "entities": [
       {
         "tableName": "notification",
@@ -900,70 +900,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "google_task_lists",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gtl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gtl_account` TEXT, `gtl_remote_id` TEXT, `gtl_title` TEXT, `gtl_remote_order` INTEGER NOT NULL, `gtl_last_sync` INTEGER NOT NULL, `gtl_color` INTEGER, `gtl_icon` INTEGER)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "gtl_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "account",
-            "columnName": "gtl_account",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "remoteId",
-            "columnName": "gtl_remote_id",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "title",
-            "columnName": "gtl_title",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "order",
-            "columnName": "gtl_remote_order",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastSync",
-            "columnName": "gtl_last_sync",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "color",
-            "columnName": "gtl_color",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "icon",
-            "columnName": "gtl_icon",
-            "affinity": "INTEGER",
-            "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "gtl_id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
         "tableName": "caldav_lists",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cdl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cdl_account` TEXT, `cdl_uuid` TEXT, `cdl_name` TEXT, `cdl_color` INTEGER NOT NULL, `cdl_ctag` TEXT, `cdl_url` TEXT, `cdl_icon` INTEGER, `cdl_order` INTEGER NOT NULL, `cdl_access` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cdl_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cdl_account` TEXT, `cdl_uuid` TEXT, `cdl_name` TEXT, `cdl_color` INTEGER NOT NULL, `cdl_ctag` TEXT, `cdl_url` TEXT, `cdl_icon` INTEGER, `cdl_order` INTEGER NOT NULL, `cdl_access` INTEGER NOT NULL, `cdl_last_sync` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -1022,6 +960,12 @@
           {
             "fieldPath": "access",
             "columnName": "cdl_access",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSync",
+            "columnName": "cdl_last_sync",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -1453,7 +1397,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e6a358a252e68fc5fe426504801c1d0c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd9d2cc4048325dbde272d8d4f8e3880f')"
     ]
   }
 }

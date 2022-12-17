@@ -79,7 +79,7 @@ class GtasksListServiceTest : InjectingTestCase() {
         setLists(
                 newRemoteList(
                         with(RemoteGtaskListMaker.REMOTE_ID, "1"), with(RemoteGtaskListMaker.NAME, "newName")))
-        assertEquals("newName", googleTaskListDao.getById(1)!!.title)
+        assertEquals("newName", googleTaskListDao.getById(1)!!.name)
     }
 
     @Test

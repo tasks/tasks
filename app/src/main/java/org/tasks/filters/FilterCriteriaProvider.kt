@@ -9,22 +9,11 @@ import com.todoroo.andlib.sql.Join.Companion.inner
 import com.todoroo.andlib.sql.Join.Companion.left
 import com.todoroo.andlib.sql.Query.Companion.select
 import com.todoroo.andlib.sql.UnaryCriterion.Companion.isNotNull
-import com.todoroo.astrid.api.BooleanCriterion
-import com.todoroo.astrid.api.CustomFilterCriterion
-import com.todoroo.astrid.api.MultipleSelectCriterion
-import com.todoroo.astrid.api.PermaSql
-import com.todoroo.astrid.api.TextInputCriterion
+import com.todoroo.astrid.api.*
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.data.Alarm
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.Tag
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
+import org.tasks.data.*
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import javax.inject.Inject
 
@@ -297,12 +286,12 @@ class FilterCriteriaProvider @Inject constructor(
                 r.getString(R.string.CFC_title_contains_name))
 
     private suspend fun gtasksFilterCriteria(): CustomFilterCriterion {
-        val lists = googleTaskListDao.getAllLists()
+        val lists = caldavDao.getGoogleTaskLists()
         val listNames = arrayOfNulls<String>(lists.size)
         val listIds = arrayOfNulls<String>(lists.size)
         for (i in lists.indices) {
-            listNames[i] = lists[i].title
-            listIds[i] = lists[i].remoteId
+            listNames[i] = lists[i].name
+            listIds[i] = lists[i].uuid
         }
         val values: MutableMap<String, Any> = HashMap()
         values[GoogleTask.KEY] = "?"

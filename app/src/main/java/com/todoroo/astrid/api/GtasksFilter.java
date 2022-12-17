@@ -2,18 +2,22 @@ package com.todoroo.astrid.api;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
+
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.data.Task;
+
+import org.tasks.R;
+import org.tasks.data.CaldavCalendar;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.TaskDao;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import org.tasks.R;
-import org.tasks.data.GoogleTask;
-import org.tasks.data.GoogleTaskList;
-import org.tasks.data.TaskDao;
 
 public class GtasksFilter extends Filter {
 
@@ -36,14 +40,14 @@ public class GtasksFilter extends Filter {
         }
       };
 
-  private GoogleTaskList list;
+  private CaldavCalendar list;
 
   private GtasksFilter() {
     super();
   }
 
-  public GtasksFilter(GoogleTaskList list) {
-    super(list.getTitle(), getQueryTemplate(list), getValuesForNewTasks(list));
+  public GtasksFilter(CaldavCalendar list) {
+    super(list.getName(), getQueryTemplate(list), getValuesForNewTasks(list));
     this.list = list;
     id = list.getId();
     tint = list.getColor();
@@ -51,19 +55,19 @@ public class GtasksFilter extends Filter {
     order = list.getOrder();
   }
 
-  private static QueryTemplate getQueryTemplate(GoogleTaskList list) {
+  private static QueryTemplate getQueryTemplate(CaldavCalendar list) {
     return new QueryTemplate()
         .join(Join.left(GoogleTask.TABLE, Task.ID.eq(GoogleTask.TASK)))
         .where(
             Criterion.and(
                 TaskDao.TaskCriteria.activeAndVisible(),
                 GoogleTask.DELETED.eq(0),
-                GoogleTask.LIST.eq(list.getRemoteId())));
+                GoogleTask.LIST.eq(list.getUuid())));
   }
 
-  private static Map<String, Object> getValuesForNewTasks(GoogleTaskList list) {
+  private static Map<String, Object> getValuesForNewTasks(CaldavCalendar list) {
     Map<String, Object> values = new HashMap<>();
-    values.put(GoogleTask.KEY, list.getRemoteId());
+    values.put(GoogleTask.KEY, list.getUuid());
     return values;
   }
 
@@ -75,7 +79,7 @@ public class GtasksFilter extends Filter {
     return list.getAccount();
   }
 
-  public GoogleTaskList getList() {
+  public CaldavCalendar getList() {
     return list;
   }
 
@@ -98,7 +102,7 @@ public class GtasksFilter extends Filter {
   }
 
   public String getRemoteId() {
-    return list.getRemoteId();
+    return list.getUuid();
   }
 
   @Override

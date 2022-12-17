@@ -25,6 +25,7 @@ data class CaldavCalendar(
     @ColumnInfo(name = "cdl_icon") private var icon: Int? = -1,
     @ColumnInfo(name = "cdl_order") val order: Int = NO_ORDER,
     @ColumnInfo(name = "cdl_access") var access: Int = ACCESS_OWNER,
+    @ColumnInfo(name = "cdl_last_sync") val lastSync: Long = 0,
 ) : Parcelable {
     @Ignore
     constructor(source: Parcel): this(
@@ -38,6 +39,7 @@ data class CaldavCalendar(
         icon = source.readInt(),
         order = source.readInt(),
         access = source.readInt(),
+        lastSync = source.readLong(),
     )
 
     @Suppress("RedundantNullableReturnType")
@@ -63,6 +65,7 @@ data class CaldavCalendar(
             writeInt(getIcon()!!)
             writeInt(order)
             writeInt(access)
+            writeLong(lastSync)
         }
     }
 

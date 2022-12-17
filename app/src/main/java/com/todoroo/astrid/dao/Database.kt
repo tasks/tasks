@@ -24,7 +24,6 @@ import org.tasks.notifications.NotificationDao
         Tag::class,
         GoogleTask::class,
         Filter::class,
-        GoogleTaskList::class,
         CaldavCalendar::class,
         CaldavTask::class,
         CaldavAccount::class,

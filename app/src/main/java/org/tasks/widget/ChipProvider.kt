@@ -76,11 +76,11 @@ class ChipProvider @Inject constructor(
     fun getListChip(filter: Filter?, task: TaskContainer): RemoteViews? {
         task.googleTaskList
                 ?.takeIf { filter !is GtasksFilter }
-                ?.let { newChip(chipListCache.getGoogleTaskList(it), R.drawable.ic_list_24px) }
+                ?.let { newChip(GtasksFilter(chipListCache.getCaldavList(it)), R.drawable.ic_list_24px) }
                 ?.let { return it }
         task.caldav
                 ?.takeIf { filter !is CaldavFilter }
-                ?.let { newChip(chipListCache.getCaldavList(it), R.drawable.ic_list_24px) }
+                ?.let { newChip(CaldavFilter(chipListCache.getCaldavList(it)), R.drawable.ic_list_24px) }
                 ?.let { return it }
         return null
     }

@@ -101,7 +101,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
 
     private suspend fun newTask(id: Long, order: Long, parent: Long = 0) {
         taskDao.insert(TaskMaker.newTask(with(ID, id), with(UUID, UUIDHelper.newUUID())))
-        googleTaskDao.insert(newGoogleTask(with(LIST, filter.list.remoteId), with(TASK, id), with(PARENT, parent), with(ORDER, order)))
+        googleTaskDao.insert(newGoogleTask(with(LIST, filter.list.uuid), with(TASK, id), with(PARENT, parent), with(ORDER, order)))
     }
 
     private suspend fun query(): List<TaskContainer> = taskDao.fetchTasks {

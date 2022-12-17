@@ -591,8 +591,11 @@ object Migrations {
 
     private val MIGRATION_87_88 = object : Migration(87, 88) {
         override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE `caldav_lists` ADD COLUMN `cdl_last_sync` INTEGER NOT NULL DEFAULT 0")
             database.execSQL("INSERT INTO `caldav_accounts` (`cda_account_type`, `cda_server_type`, `cda_uuid`, `cda_name`, `cda_username`, `cda_collapsed`) SELECT $TYPE_GOOGLE_TASKS, $SERVER_UNKNOWN, `gta_account`, `gta_account`, `gta_account`, `gta_collapsed` FROM `google_task_accounts`")
+            database.execSQL("INSERT INTO `caldav_lists` (`cdl_account`, `cdl_uuid`, `cdl_name`, `cdl_color`, `cdl_icon`, `cdl_order`, `cdl_last_sync`) SELECT `gtl_account`, `gtl_remote_id`, `gtl_title`, `gtl_color`, `gtl_icon`, `gtl_remote_order`, `gtl_last_sync` FROM `google_task_lists`")
             database.execSQL("DROP TABLE `google_task_accounts`")
+            database.execSQL("DROP TABLE `google_task_lists`")
         }
     }
 

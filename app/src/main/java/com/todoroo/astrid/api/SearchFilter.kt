@@ -64,8 +64,8 @@ class SearchFilter : Filter {
                                             Task.ID.`in`(
                                                     Query.select(GoogleTask.TASK)
                                                             .from(GoogleTask.TABLE)
-                                                            .join(Join.inner(GoogleTaskList.TABLE, GoogleTaskList.REMOTE_ID.eq(GoogleTask.LIST)))
-                                                            .where(GoogleTaskList.NAME.like(matcher)))
+                                                            .join(Join.inner(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(GoogleTask.LIST)))
+                                                            .where(CaldavCalendar.NAME.like(matcher)))
                                     )))
         }
     }

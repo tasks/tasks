@@ -24,7 +24,5 @@ class ContentProviderDaoBlocking @Inject constructor(private val dao: ContentPro
 
     fun getLists(): Cursor = dao.getLists()
 
-    fun getGoogleTaskLists(): Cursor = dao.getGoogleTaskLists()
-
     fun rawQuery(query: SupportSQLiteQuery): Cursor = dao.rawQuery(query)
 }

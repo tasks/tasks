@@ -45,7 +45,7 @@ class TasksContentProvider : ContentProvider() {
             }
             URI_TASKS -> hilt.contentProviderDao.getTasks()
             URI_LISTS -> hilt.contentProviderDao.getLists()
-            URI_GOOGLE_TASK_LISTS -> hilt.contentProviderDao.getGoogleTaskLists()
+            URI_GOOGLE_TASK_LISTS -> null
             else -> throw IllegalStateException("Unrecognized URI: $uri")
         }
     }

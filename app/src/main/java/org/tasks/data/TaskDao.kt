@@ -1,12 +1,7 @@
 package org.tasks.data
 
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.RawQuery
-import androidx.room.Update
-import androidx.room.withTransaction
+import androidx.room.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field
@@ -67,7 +62,8 @@ abstract class TaskDao(private val database: Database) {
 
     @Query("SELECT tasks.* FROM tasks "
             + "LEFT JOIN google_tasks ON tasks._id = google_tasks.gt_task "
-            + "WHERE gt_list_id IN (SELECT gtl_remote_id FROM google_task_lists WHERE gtl_account = :account)"
+            + "LEFT JOIN caldav_lists ON google_tasks.gt_list_id = caldav_lists.cdl_uuid "
+            + "WHERE cdl_account = :account "
             + "AND (tasks.modified > google_tasks.gt_last_sync OR google_tasks.gt_remote_id = '' OR google_tasks.gt_deleted > 0) "
             + "ORDER BY CASE WHEN gt_parent = 0 THEN 0 ELSE 1 END, gt_order ASC")
     abstract suspend fun getGoogleTasksToPush(account: String): List<Task>

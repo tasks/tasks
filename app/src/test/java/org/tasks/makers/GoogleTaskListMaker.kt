@@ -12,7 +12,7 @@ object GoogleTaskListMaker {
 
     private val instantiator = Instantiator { lookup: PropertyLookup<GoogleTaskList> ->
         val list = GoogleTaskList()
-        list.remoteId = lookup.valueOf(REMOTE_ID, "1234")
+        list.uuid = lookup.valueOf(REMOTE_ID, "1234")
         list.account = lookup.valueOf(ACCOUNT, null as String?)
         list.setColor(0)
         list

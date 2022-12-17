@@ -40,7 +40,6 @@ class TasksJsonImporter @Inject constructor(
         private val alarmDao: AlarmDao,
         private val tagDao: TagDao,
         private val googleTaskDao: GoogleTaskDao,
-        private val googleTaskListDao: GoogleTaskListDao,
         private val filterDao: FilterDao,
         private val taskAttachmentDao: TaskAttachmentDao,
         private val caldavDao: CaldavDao,
@@ -99,9 +98,15 @@ class TasksJsonImporter @Inject constructor(
                 }
             }
             backupContainer.googleTaskLists?.forEach { googleTaskList ->
-                googleTaskList.setColor(themeToColor(context, version, googleTaskList.getColor()!!))
-                if (googleTaskListDao.getByRemoteId(googleTaskList.remoteId!!) == null) {
-                    googleTaskListDao.insert(googleTaskList)
+                if (caldavDao.getCalendar(googleTaskList.remoteId!!) == null) {
+                    caldavDao.insert(
+                        CaldavCalendar(
+                            account = googleTaskList.account,
+                            uuid = googleTaskList.remoteId,
+                            color = themeToColor(context, version, googleTaskList.color ?: 0),
+
+                        )
+                    )
                 }
             }
             backupContainer.filters?.forEach { filter ->

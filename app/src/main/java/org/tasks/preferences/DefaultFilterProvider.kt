@@ -78,7 +78,7 @@ class DefaultFilterProvider @Inject constructor(
             getFilterFromPreference(prefString, getMyTasksFilter(context.resources))!!
 
     private suspend fun getAnyList(): Filter {
-        val filter = googleTaskListDao.getAllLists().getOrNull(0)?.let(::GtasksFilter)
+        val filter = caldavDao.getGoogleTaskLists().getOrNull(0)?.let(::GtasksFilter)
                 ?: caldavDao.getCalendars().filterNot { it.access == ACCESS_READ_ONLY }.getOrElse(0) { caldavDao.getLocalList(context) }.let(::CaldavFilter)
         defaultList = filter
         return filter
@@ -100,7 +100,8 @@ class DefaultFilterProvider @Inject constructor(
                 val tag = tagDataDao.getByUuid(split[1])
                 if (tag == null || isNullOrEmpty(tag.name)) null else TagFilter(tag)
             }
-            TYPE_GOOGLE_TASKS -> googleTaskListDao.getById(split[1].toLong())?.let { GtasksFilter(it) }
+            // TODO: convert filters from old ID to uuid
+            TYPE_GOOGLE_TASKS -> caldavDao.getCalendarByUuid(split[1])?.let { GtasksFilter(it) }
             TYPE_CALDAV -> caldavDao.getCalendarByUuid(split[1])?.let { CaldavFilter(it) }
             TYPE_LOCATION -> locationDao.getPlace(split[1])?.let { PlaceFilter(it) }
             else -> null

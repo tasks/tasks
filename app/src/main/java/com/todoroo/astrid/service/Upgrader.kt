@@ -71,7 +71,7 @@ class Upgrader @Inject constructor(
                 preferences.setBoolean(R.string.p_astrid_sort_enabled, true)
                 taskMover.migrateLocalTasks()
             }
-            run(from, V9_7) { googleTaskListDao.resetOrders() }
+            run(from, V9_7) { caldavDao.resetOrders() }
             run(from, V9_7_3) { googleTaskDao.updateParents() }
             run(from, V10_0_2) {
                 filterDao.getFilters()
@@ -132,10 +132,6 @@ class Upgrader @Inject constructor(
             caldavDao.update(
                 calendar.copy(color = getAndroidColor(calendar.color))
             )
-        }
-        for (list in googleTaskListDao.getAllLists()) {
-            list.setColor(getAndroidColor(list.getColor()!!))
-            googleTaskListDao.update(list)
         }
         for (tagData in tagDataDao.getAll()) {
             tagData.setColor(getAndroidColor(tagData.getColor()!!))
@@ -248,18 +244,19 @@ class Upgrader @Inject constructor(
     }
 
     private suspend fun migrateGoogleTaskAccount() {
-        val account = preferences.getStringValue("gtasks_user")
-        if (!isNullOrEmpty(account)) {
-            val caldavAccount = CaldavAccount()
-            caldavAccount.uuid = account
-            caldavAccount.name = account
-            caldavAccount.username = account
-            caldavDao.insert(caldavAccount)
-            for (list in googleTaskListDao.getAllLists()) {
-                list.account = account
-                googleTaskListDao.insertOrReplace(list)
-            }
-        }
+        // TODO: migrate google task accounts?
+//        val account = preferences.getStringValue("gtasks_user")
+//        if (!isNullOrEmpty(account)) {
+//            val caldavAccount = CaldavAccount()
+//            caldavAccount.uuid = account
+//            caldavAccount.name = account
+//            caldavAccount.username = account
+//            caldavDao.insert(caldavAccount)
+//            for (list in googleTaskListDao.getAllLists()) {
+//                list.account = account
+//                googleTaskListDao.insertOrReplace(list)
+//            }
+//        }
     }
 
     private suspend fun migrateUris() {
