@@ -438,7 +438,7 @@ class iCalendar @Inject constructor(
                 else -> if (priority > 5) min(9, priority) else 9
             }
             parent = if (task.parent == 0L) null else caldavTask.remoteParent
-            order = caldavTask.order
+            order = task.order
             collapsed = task.isCollapsed
         }
 

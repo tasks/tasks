@@ -18,7 +18,7 @@ class CaldavTaskContainer {
         get() = task.isDeleted
 
     val sortOrder: Long
-        get() = caldavTask.order ?: DateTime(task.creationDate).toAppleEpoch()
+        get() = task.order ?: DateTime(task.creationDate).toAppleEpoch()
 
     val startDate: Long
         get() = task.hideUntil

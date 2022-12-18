@@ -152,8 +152,7 @@ class Upgrader @Inject constructor(
             val remoteTask = vtodoCache.getVtodo(task)?.let { fromVtodo(it) } ?: continue
             val order: Long? = remoteTask.order
             if (order != null) {
-                task.order = order
-                caldavDao.update(task)
+                taskDao.setOrder(task.task, order)
             }
         }
     }

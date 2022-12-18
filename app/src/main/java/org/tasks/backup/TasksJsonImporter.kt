@@ -235,6 +235,7 @@ class TasksJsonImporter @Inject constructor(
                     ?.let { taskAttachmentDao.insert(it) }
                 backup.caldavTasks?.forEach { caldavTask ->
                     caldavTask.task = taskId
+                    caldavTask.order?.let { task.order = it }
                     caldavDao.insert(caldavTask)
                 }
                 backup.vtodo?.let {

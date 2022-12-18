@@ -93,15 +93,15 @@ ORDER BY CASE cda_account_type
 
     @Transaction
     open suspend fun insert(task: Task, caldavTask: CaldavTask, addToTop: Boolean): Long {
-        if (caldavTask.order != null) {
+        if (task.order != null) {
             return insert(caldavTask)
         }
         if (addToTop) {
-            caldavTask.order = findFirstTask(caldavTask.calendar!!, task.parent)
+            task.order = findFirstTask(caldavTask.calendar!!, task.parent)
                     ?.takeIf { task.creationDate.toAppleEpoch() >= it }
                     ?.minus(1)
         } else {
-            caldavTask.order = findLastTask(caldavTask.calendar!!, task.parent)
+            task.order = findLastTask(caldavTask.calendar!!, task.parent)
                     ?.takeIf { task.creationDate.toAppleEpoch() <= it }
                     ?.plus(1)
         }
@@ -109,7 +109,7 @@ ORDER BY CASE cda_account_type
     }
 
     @Query("""
-SELECT MIN(IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000))
+SELECT MIN(IFNULL(`order`, (created - $APPLE_EPOCH) / 1000))
 FROM caldav_tasks
          INNER JOIN tasks ON _id = cd_task
 WHERE cd_calendar = :calendar
@@ -120,7 +120,7 @@ WHERE cd_calendar = :calendar
     internal abstract suspend fun findFirstTask(calendar: String, parent: Long): Long?
 
     @Query("""
-SELECT MAX(IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000))
+SELECT MAX(IFNULL(`order`, (created - $APPLE_EPOCH) / 1000))
 FROM caldav_tasks
          INNER JOIN tasks ON _id = cd_task
 WHERE cd_calendar = :calendar
@@ -139,15 +139,12 @@ WHERE cd_calendar = :calendar
     @Update
     abstract suspend fun update(caldavTask: CaldavTask)
 
+    @Update
+    abstract suspend fun updateTasks(tasks: Iterable<Task>)
+
     suspend fun update(caldavTask: SubsetCaldav) {
-        update(caldavTask.cd_id, caldavTask.cd_order, caldavTask.cd_remote_parent)
+        update(caldavTask.cd_id, caldavTask.cd_remote_parent)
     }
-
-    @Query("UPDATE caldav_tasks SET cd_order = :position, cd_remote_parent = :parent WHERE cd_id = :id")
-    internal abstract suspend fun update(id: Long, position: Long?, parent: String?)
-
-    @Query("UPDATE caldav_tasks SET cd_order = :position WHERE cd_id = :id")
-    internal abstract suspend fun update(id: Long, position: Long?)
 
     @Query("UPDATE caldav_tasks SET cd_remote_parent = :remoteParent WHERE cd_id = :id")
     internal abstract suspend fun update(id: Long, remoteParent: String?)
@@ -303,7 +300,6 @@ GROUP BY caldav_lists.cdl_uuid
     @Transaction
     open suspend fun move(task: TaskContainer, newParent: Long, newPosition: Long?) {
         val previousParent = task.parent
-        val caldavTask = task.caldavTask
         val previousPosition = task.caldavSortOrder
         if (newPosition != null) {
             if (newParent == previousParent && newPosition < previousPosition) {
@@ -312,28 +308,28 @@ GROUP BY caldav_lists.cdl_uuid
                 shiftDown(task.caldav!!, newParent, newPosition)
             }
         }
-        caldavTask.cd_order = newPosition
-        update(caldavTask.cd_id, caldavTask.cd_order)
+        task.task.order = newPosition
+        setTaskOrder(task.id, newPosition)
     }
 
     @Transaction
     open suspend fun shiftDown(calendar: String, parent: Long, from: Long, to: Long? = null) {
-        val updated = ArrayList<CaldavTask>()
+        val updated = ArrayList<Task>()
         val tasks = getTasksToShift(calendar, parent, from, to)
         for (i in tasks.indices) {
             val task = tasks[i]
             val current = from + i
             if (task.sortOrder == current) {
-                val caldavTask = task.caldavTask
-                caldavTask.order = current + 1
-                updated.add(caldavTask)
+                val task = task.task
+                task.order = current + 1
+                updated.add(task)
             } else if (task.sortOrder > current) {
                 break
             }
         }
-        update(updated)
+        updateTasks(updated)
         updated
-                .map(CaldavTask::task)
+                .map(Task::id)
                 .dbchunk()
                 .forEach { touchInternal(it) }
     }
@@ -342,7 +338,7 @@ GROUP BY caldav_lists.cdl_uuid
     internal abstract suspend fun touchInternal(ids: List<Long>, modificationTime: Long = now())
 
     @Query("""
-SELECT task.*, caldav_task.*, IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000) AS primary_sort
+SELECT task.*, caldav_task.*, IFNULL(`order`, (created - $APPLE_EPOCH) / 1000) AS primary_sort
 FROM caldav_tasks AS caldav_task
          INNER JOIN tasks AS task ON _id = cd_task
 WHERE cd_calendar = :calendar
@@ -360,6 +356,9 @@ ORDER BY primary_sort
 
     @Query("UPDATE caldav_lists SET cdl_order = :order WHERE cdl_id = :id")
     abstract suspend fun setOrder(id: Long, order: Int)
+
+    @Query("UPDATE tasks SET `order` = :order WHERE _id = :id")
+    abstract suspend fun setTaskOrder(id: Long, order: Long?)
 
     suspend fun setupLocalAccount(context: Context): CaldavAccount = mutex.withLock {
         val account = getLocalAccount()

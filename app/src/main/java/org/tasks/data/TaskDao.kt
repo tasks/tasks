@@ -147,6 +147,9 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
     @Query("UPDATE tasks SET modified = :now WHERE _id in (:ids)")
     internal abstract suspend fun internalTouch(ids: List<Long>, now: Long = currentTimeMillis())
 
+    @Query("UPDATE tasks SET `order` = :order WHERE _id = :id")
+    internal abstract suspend fun setOrder(id: Long, order: Long?)
+
     suspend fun setParent(parent: Long, tasks: List<Long>) =
             tasks.eachChunk { setParentInternal(parent, it) }
 

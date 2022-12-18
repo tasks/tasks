@@ -11,13 +11,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.SubsetCaldav
-import org.tasks.data.SubsetGoogleTask
-import org.tasks.data.TaskContainer
+import org.tasks.data.*
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
@@ -279,7 +273,7 @@ open class TaskAdapter(
             caldavTask.cd_calendar = list
             caldavTask.cd_remote_parent = parentTask.remoteId
         }
-        caldavTask.cd_order = if (newTasksOnTop) {
+        task.task.order = if (newTasksOnTop) {
             caldavDao.findFirstTask(list, newParentId)
                     ?.takeIf { task.creationDate.toAppleEpoch() >= it}
                     ?.minus(1)
@@ -290,13 +284,13 @@ open class TaskAdapter(
         }
         if (caldavTask.cd_id == 0L) {
             val newTask = CaldavTask(task.id, list)
-            newTask.order = caldavTask.cd_order
             newTask.remoteParent = caldavTask.cd_remote_parent
             caldavTask.cd_id = caldavDao.insert(newTask)
             task.caldavTask = caldavTask
         } else {
             caldavDao.update(caldavTask)
         }
+        taskDao.setOrder(task.id, task.task.order)
         taskDao.setParent(newParentId, listOf(task.id))
         taskDao.touch(task.id)
         localBroadcastManager.broadcastRefresh()
