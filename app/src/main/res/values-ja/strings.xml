@@ -202,8 +202,7 @@
         <item quantity="other">%d 週間</item>
     </plurals>
     <plurals name="repeat_months">
-        <item quantity="one">ヶ月</item>
-        <item quantity="other">ヶ月</item>
+        <item quantity="other">か月</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="other">%d か月</item>
@@ -517,10 +516,16 @@
     <string name="CFC_startBefore_name">...に着手</string>
     <string name="widget_due_date_reschedule">タスクを再計画</string>
     <plurals name="reminder_minutes">
-        <item quantity="other">秒</item>
+        <item quantity="other">分</item>
     </plurals>
     <plurals name="reminder_hours">
         <item quantity="other">時間</item>
     </plurals>
     <string name="TEA_creation_date">作成日時</string>
+    <plurals name="reminder_week">
+        <item quantity="other">週間</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="other">日</item>
+    </plurals>
 </resources>
