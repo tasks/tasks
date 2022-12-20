@@ -142,10 +142,6 @@ WHERE cd_calendar = :calendar
     @Update
     abstract suspend fun updateTasks(tasks: Iterable<Task>)
 
-    suspend fun update(caldavTask: SubsetCaldav) {
-        update(caldavTask.cd_id, caldavTask.cd_remote_parent)
-    }
-
     @Query("UPDATE caldav_tasks SET cd_remote_parent = :remoteParent WHERE cd_id = :id")
     internal abstract suspend fun update(id: Long, remoteParent: String?)
 

@@ -48,14 +48,14 @@ class CaldavManualSortTaskAdapter internal constructor(
     private suspend fun changeParent(task: TaskContainer, newParent: Long) {
         val caldavTask = task.getCaldavTask()
         if (newParent == 0L) {
-            caldavTask.cd_remote_parent = ""
+            caldavTask.remoteParent = ""
             task.parent = 0
         } else {
             val parentTask = caldavDao.getTask(newParent) ?: return
-            caldavTask.cd_remote_parent = parentTask.remoteId
+            caldavTask.remoteParent = parentTask.remoteId
             task.parent = newParent
         }
-        caldavDao.update(caldavTask.cd_id, caldavTask.cd_remote_parent)
+        caldavDao.update(caldavTask.id, caldavTask.remoteParent)
         taskDao.save(task.getTask(), null)
     }
 }

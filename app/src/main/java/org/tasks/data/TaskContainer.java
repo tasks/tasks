@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class TaskContainer {
   @Embedded public Task task;
-  @Embedded public SubsetCaldav caldavTask;
+  @Embedded public CaldavTask caldavTask;
   @Embedded public Location location;
   public boolean isGoogleTask;
   public boolean parentComplete;
@@ -24,7 +24,10 @@ public class TaskContainer {
   }
 
   public @Nullable String getCaldav() {
-    return caldavTask.getCd_calendar();
+    if (caldavTask != null) {
+      return caldavTask.getCalendar();
+    }
+    return null;
   }
 
   public boolean isCaldavTask() {
@@ -173,7 +176,7 @@ public class TaskContainer {
 
   public long getParent() {
     if (isGoogleTask) {
-      return caldavTask.getGt_parent();
+      return caldavTask.getParent();
     } else {
       return task.getParent();
     }
@@ -181,7 +184,7 @@ public class TaskContainer {
 
   public void setParent(long parent) {
     if (isGoogleTask) {
-      caldavTask.setGt_parent(parent);
+      caldavTask.setParent(parent);
     } else {
       task.setParent(parent);
     }
@@ -195,7 +198,7 @@ public class TaskContainer {
     return children > 0;
   }
 
-  public SubsetCaldav getCaldavTask() {
+  public CaldavTask getCaldavTask() {
     return caldavTask;
   }
 

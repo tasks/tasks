@@ -246,15 +246,10 @@ open class TaskAdapter(
                 if (newTasksOnTop) 0 else googleTaskDao.getBottom(list, newParent?.id ?: 0)
             )
         } else {
-            val googleTask = CaldavTask(task.id, list)
-            googleTask.parent = newParent.id
-            googleTaskDao.insertAndShift(googleTask, newTasksOnTop)
-            task.caldavTask = SubsetCaldav().apply {
-                cd_id = googleTask.id
-                cd_calendar = googleTask.calendar
-                cd_order = googleTask.order ?: 0
-                gt_parent = googleTask.parent
+            task.caldavTask = CaldavTask(task.id, list).apply {
+                parent = newParent.id
             }
+            googleTaskDao.insertAndShift(task.caldavTask, newTasksOnTop)
         }
         taskDao.touch(task.id)
         if (BuildConfig.DEBUG) {
@@ -264,14 +259,17 @@ open class TaskAdapter(
 
     private suspend fun changeCaldavParent(task: TaskContainer, newParent: TaskContainer?) {
         val list = newParent?.caldav ?: task.caldav!!
-        val caldavTask = task.getCaldavTask() ?: SubsetCaldav()
+        val caldavTask = task.getCaldavTask() ?: CaldavTask(
+            task.id,
+            list,
+        )
         val newParentId = newParent?.id ?: 0
         if (newParentId == 0L) {
-            caldavTask.cd_remote_parent = ""
+            caldavTask.remoteParent = ""
         } else {
             val parentTask = caldavDao.getTask(newParentId) ?: return
-            caldavTask.cd_calendar = list
-            caldavTask.cd_remote_parent = parentTask.remoteId
+            caldavTask.calendar = list
+            caldavTask.remoteParent = parentTask.remoteId
         }
         task.task.order = if (newTasksOnTop) {
             caldavDao.findFirstTask(list, newParentId)
@@ -282,10 +280,10 @@ open class TaskAdapter(
                     ?.takeIf { task.creationDate.toAppleEpoch() <= it }
                     ?.plus(1)
         }
-        if (caldavTask.cd_id == 0L) {
+        if (caldavTask.id == 0L) {
             val newTask = CaldavTask(task.id, list)
-            newTask.remoteParent = caldavTask.cd_remote_parent
-            caldavTask.cd_id = caldavDao.insert(newTask)
+            newTask.remoteParent = caldavTask.remoteParent
+            caldavTask.id = caldavDao.insert(newTask)
             task.caldavTask = caldavTask
         } else {
             caldavDao.update(caldavTask)

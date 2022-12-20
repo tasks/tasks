@@ -38,21 +38,21 @@ abstract class GoogleTaskDao {
     internal abstract suspend fun shiftUp(listId: String, parent: Long, position: Long)
 
     @Transaction
-    open suspend fun move(task: SubsetCaldav, newParent: Long, newPosition: Long) {
-        val previousParent = task.gt_parent
-        val previousPosition = task.cd_order!!
+    open suspend fun move(task: CaldavTask, newParent: Long, newPosition: Long) {
+        val previousParent = task.parent
+        val previousPosition = task.order!!
         if (newParent == previousParent) {
             if (previousPosition < newPosition) {
-                shiftUp(task.cd_calendar!!, newParent, previousPosition, newPosition)
+                shiftUp(task.calendar!!, newParent, previousPosition, newPosition)
             } else {
-                shiftDown(task.cd_calendar!!, newParent, previousPosition, newPosition)
+                shiftDown(task.calendar!!, newParent, previousPosition, newPosition)
             }
         } else {
-            shiftUp(task.cd_calendar!!, previousParent, previousPosition)
-            shiftDown(task.cd_calendar!!, newParent, newPosition)
+            shiftUp(task.calendar!!, previousParent, previousPosition)
+            shiftDown(task.calendar!!, newParent, newPosition)
         }
-        task.gt_parent = newParent
-        task.cd_order = newPosition
+        task.parent = newParent
+        task.order = newPosition
         update(task)
     }
 
@@ -64,10 +64,6 @@ abstract class GoogleTaskDao {
 
     @Update
     abstract suspend fun update(googleTask: CaldavTask)
-
-    private suspend fun update(googleTask: SubsetCaldav) {
-        update(googleTask.cd_id, googleTask.gt_parent, googleTask.cd_order!!)
-    }
 
     @Query("UPDATE caldav_tasks SET cd_order = :order, gt_parent = :parent, gt_moved = 1 WHERE cd_id = :id")
     abstract suspend fun update(id: Long, parent: Long, order: Long)
