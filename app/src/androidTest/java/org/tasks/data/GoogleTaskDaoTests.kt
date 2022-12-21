@@ -152,13 +152,6 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     }
 
     @Test
-    fun findChildrenInList() = runBlocking {
-        insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
-        insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)))
-        assertEquals(listOf(2L), googleTaskDao.getChildren(listOf(1L, 2L)))
-    }
-
-    @Test
     fun dontAllowEmptyParent() = runBlocking {
         insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
 

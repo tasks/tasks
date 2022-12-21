@@ -64,7 +64,7 @@ abstract class TaskDao(private val database: Database) {
             + "LEFT JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task "
             + "LEFT JOIN caldav_lists ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid "
             + "WHERE cdl_account = :account "
-            + "AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_remote_id = '' OR caldav_tasks.cd_deleted > 0) "
+            + "AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_remote_id = '' OR caldav_tasks.cd_remote_id IS NULL OR caldav_tasks.cd_deleted > 0) "
             + "ORDER BY CASE WHEN parent = 0 THEN 0 ELSE 1 END, `order` ASC")
     abstract suspend fun getGoogleTasksToPush(account: String): List<Task>
 
@@ -127,15 +127,7 @@ abstract class TaskDao(private val database: Database) {
     @RawQuery
     abstract suspend fun count(query: SimpleSQLiteQuery): Int
 
-    @Query("""
-SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtasks,
-       EXISTS(SELECT 1
-              FROM caldav_tasks
-                       INNER JOIN tasks ON cd_task = _id
-              WHERE deleted = 0
-                AND gt_parent > 0
-                AND cd_deleted = 0)                                 AS hasGoogleSubtasks
-    """)
+    @Query("SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtasks")
     abstract suspend fun getSubtaskInfo(): SubtaskInfo
 
     @RawQuery(observedEntities = [Place::class])

@@ -35,6 +35,7 @@ import org.tasks.data.TaskContainer
 fun SubtaskRow(
     filter: Filter?,
     googleTask: CaldavTask?,
+    hasParent: Boolean,
     desaturate: Boolean,
     existingSubtasks: List<TaskContainer>,
     newSubtasks: List<Task>,
@@ -63,7 +64,7 @@ fun SubtaskRow(
             Column {
 
                 val isGoogleTaskChild =
-                    filter is GtasksFilter && googleTask != null && googleTask.parent > 0 && googleTask.calendar == filter.remoteId
+                    filter is GtasksFilter && hasParent && googleTask?.calendar == filter.remoteId
                 if (isGoogleTaskChild) {
                     DisabledText(
                         text = stringResource(id = org.tasks.R.string.subtasks_multilevel_google_task),
@@ -209,6 +210,7 @@ fun NoSubtasks() {
         SubtaskRow(
             filter = null,
             googleTask = null,
+            hasParent = false,
             desaturate = true,
             existingSubtasks = emptyList(),
             newSubtasks = emptyList(),
@@ -230,6 +232,7 @@ fun SubtasksPreview() {
         SubtaskRow(
             filter = null,
             googleTask = null,
+            hasParent = false,
             desaturate = true,
             existingSubtasks = listOf(
                 TaskContainer().apply {

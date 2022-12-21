@@ -11,7 +11,10 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.*
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
@@ -241,15 +244,15 @@ open class TaskAdapter(
         val list = newParent?.caldav ?: task.caldav!!
         if (newParent == null || task.caldav == newParent.caldav) {
             googleTaskDao.move(
-                task.caldavTask,
+                task.task,
+                list,
                 newParent?.id ?: 0,
                 if (newTasksOnTop) 0 else googleTaskDao.getBottom(list, newParent?.id ?: 0)
             )
         } else {
-            task.caldavTask = CaldavTask(task.id, list).apply {
-                parent = newParent.id
-            }
-            googleTaskDao.insertAndShift(task.caldavTask, newTasksOnTop)
+            task.parent = newParent.id
+            task.caldavTask = CaldavTask(task.id, list)
+            googleTaskDao.insertAndShift(task.task, task.caldavTask, newTasksOnTop)
         }
         taskDao.touch(task.id)
         if (BuildConfig.DEBUG) {

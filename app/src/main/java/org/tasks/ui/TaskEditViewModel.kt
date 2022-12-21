@@ -99,6 +99,8 @@ class TaskEditViewModel @Inject constructor(
     val estimatedSeconds = MutableStateFlow(task.estimatedSeconds)
     val elapsedSeconds = MutableStateFlow(task.elapsedSeconds)
     var newSubtasks = MutableStateFlow(emptyList<Task>())
+    val hasParent: Boolean
+        get() = task.parent > 0
 
     val dueDate = MutableStateFlow(task.dueDate)
 
@@ -293,9 +295,9 @@ class TaskEditViewModel @Inject constructor(
             when (selectedList.value) {
                 is GtasksFilter -> {
                     val googleTask = CaldavTask(subtask.id, (selectedList.value as GtasksFilter).remoteId)
-                    googleTask.parent = task.id
+                    subtask.parent = task.id
                     googleTask.isMoved = true
-                    googleTaskDao.insertAndShift(googleTask, false)
+                    googleTaskDao.insertAndShift(subtask, googleTask, false)
                 }
                 is CaldavFilter -> {
                     val caldavTask = CaldavTask(subtask.id, (selectedList.value as CaldavFilter).uuid)

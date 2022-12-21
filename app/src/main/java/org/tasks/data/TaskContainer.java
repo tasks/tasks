@@ -175,19 +175,11 @@ public class TaskContainer {
   }
 
   public long getParent() {
-    if (isGoogleTask) {
-      return caldavTask.getParent();
-    } else {
-      return task.getParent();
-    }
+    return task.getParent();
   }
 
   public void setParent(long parent) {
-    if (isGoogleTask) {
-      caldavTask.setParent(parent);
-    } else {
-      task.setParent(parent);
-    }
+    task.setParent(parent);
   }
 
   public boolean hasParent() {

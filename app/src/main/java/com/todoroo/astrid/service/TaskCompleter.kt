@@ -35,11 +35,9 @@ class TaskCompleter @Inject internal constructor(
         ArrayList<Task?>()
             .apply {
                 if (includeChildren) {
-                    addAll(googleTaskDao.getChildTasks(item.id))
                     addAll(taskDao.getChildren(item.id).let { taskDao.fetch(it) })
                 }
                 if (!completed) {
-                    add(googleTaskDao.getParentTask(item.id))
                     addAll(taskDao.getParents(item.id).let { taskDao.fetch(it) })
                 }
                 add(item)

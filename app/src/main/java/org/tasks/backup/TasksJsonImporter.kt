@@ -39,7 +39,6 @@ class TasksJsonImporter @Inject constructor(
         private val localBroadcastManager: LocalBroadcastManager,
         private val alarmDao: AlarmDao,
         private val tagDao: TagDao,
-        private val googleTaskDao: GoogleTaskDao,
         private val filterDao: FilterDao,
         private val taskAttachmentDao: TaskAttachmentDao,
         private val caldavDao: CaldavDao,
@@ -187,13 +186,17 @@ class TasksJsonImporter @Inject constructor(
                     userActivityDao.createNew(comment)
                 }
                 for (googleTask in backup.google) {
-                    googleTaskDao.insert(
+                    caldavDao.insert(
                         CaldavTask(
                             task = taskId,
                             calendar = googleTask.listId,
                             remoteId = googleTask.remoteId,
                             `object` = null,
-                        )
+                        ).apply {
+                            remoteOrder = googleTask.remoteOrder
+                            remoteParent = googleTask.remoteParent
+                            lastSync = googleTask.lastSync
+                        }
                     )
                 }
                 for (location in backup.locations) {
@@ -246,7 +249,6 @@ class TasksJsonImporter @Inject constructor(
                 }
                 result.importCount++
             }
-            googleTaskDao.updateParents()
             caldavDao.updateParents()
             val ignoreKeys = ignorePrefs.map { context.getString(it) }
             backupContainer

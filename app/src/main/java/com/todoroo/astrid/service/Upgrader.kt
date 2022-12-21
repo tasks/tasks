@@ -72,7 +72,7 @@ class Upgrader @Inject constructor(
                 taskMover.migrateLocalTasks()
             }
             run(from, V9_7) { caldavDao.resetOrders() }
-            run(from, V9_7_3) { googleTaskDao.updateParents() }
+            run(from, V9_7_3) { caldavDao.updateParents() }
             run(from, V10_0_2) {
                 filterDao.getFilters()
                         .filter { it.getSql().trim() == "WHERE" }

@@ -72,8 +72,8 @@ public class GtasksFilter extends Filter {
     return values;
   }
 
-  public long getStoreId() {
-    return list.getId();
+  public String getListId() {
+    return list.getUuid();
   }
 
   public String getAccount() {

@@ -6,7 +6,6 @@ import com.todoroo.andlib.sql.Criterion.Companion.exists
 import com.todoroo.andlib.sql.Criterion.Companion.or
 import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join.Companion.inner
-import com.todoroo.andlib.sql.Join.Companion.left
 import com.todoroo.andlib.sql.Query.Companion.select
 import com.todoroo.andlib.sql.UnaryCriterion.Companion.isNotNull
 import com.todoroo.astrid.api.*
@@ -136,12 +135,8 @@ class FilterCriteriaProvider @Inject constructor(
             context.getString(R.string.custom_filter_has_subtask),
             select(Task.ID)
                     .from(Task.TABLE)
-                    .join(left(Task.TABLE.`as`("children"), Task.ID.eq(field("children.parent"))))
-                    .join(left(CaldavTask.TABLE, CaldavTask.PARENT.eq(Task.ID)))
-                    .where(or(
-                            isNotNull(field("children._id")),
-                            isNotNull(CaldavTask.ID)
-                    ))
+                    .join(inner(Task.TABLE.`as`("children"), Task.ID.eq(field("children.parent"))))
+                    .where(isNotNull(field("children._id")))
                     .toString()
     )
 
@@ -151,11 +146,8 @@ class FilterCriteriaProvider @Inject constructor(
                 context.getString(R.string.custom_filter_is_subtask),
                 select(Task.ID)
                         .from(Task.TABLE)
-                        .join(left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
-                        .where(or(
-                                field("${Task.PARENT}>0").eq(1),
-                                field("${CaldavTask.PARENT}>0").eq(1)
-                        ))
+                        .join(inner(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
+                        .where(field("${Task.PARENT}>0").eq(1))
                         .toString()
         )
 

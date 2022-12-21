@@ -33,21 +33,15 @@ internal object TaskListQueryRecursive {
         LEFT JOIN (SELECT parent, count(distinct recursive_tasks.task) AS children FROM recursive_tasks GROUP BY parent) AS recursive_children ON recursive_children.parent = tasks._id
         ${TaskListQuery.JOINS}
     """.trimIndent()
-    private val GOOGLE_SUBTASKS =
+    private val SUBTASK_QUERY =
             QueryTemplate()
-                    .join(Join.inner(RECURSIVE, CaldavTask.PARENT.eq(RECURSIVE_TASK)))
-                    .join(Join.inner(CaldavTask.TABLE, Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
-                    .where(activeAndVisible())
-    private val ALL_SUBTASKS =
-            QueryTemplate()
-                    .join(Join.inner(RECURSIVE, Criterion.or(CaldavTask.PARENT.eq(RECURSIVE_TASK), Task.PARENT.eq(RECURSIVE_TASK))))
-                    .join(Join.left(CaldavTask.TABLE, Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
+                    .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
+//                    .join(Join.left(CaldavTask.TABLE, Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
                     .where(activeAndVisible())
 
     fun getRecursiveQuery(
             filter: Filter,
             preferences: QueryPreferences,
-            subtasks: SubtaskInfo
     ): MutableList<String> {
         var joinedQuery = JOINS
         var where = " WHERE recursive_tasks.hidden = 0"
@@ -55,25 +49,16 @@ internal object TaskListQueryRecursive {
         val subtaskQuery: QueryTemplate
         when (filter) {
             is CaldavFilter -> {
-                parentQuery = newCaldavQuery(filter)
-                subtaskQuery = QueryTemplate()
-                        .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
-                        .join(Join.inner(CaldavTask.TABLE, Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
-                        .where(activeAndVisible())
+                parentQuery = newCaldavQuery(filter.uuid)
+                subtaskQuery = SUBTASK_QUERY
             }
             is GtasksFilter -> {
-                parentQuery = newGoogleTaskQuery(filter)
-                subtaskQuery = GOOGLE_SUBTASKS
+                parentQuery = newCaldavQuery(filter.list.uuid!!)
+                subtaskQuery = SUBTASK_QUERY
             }
             else -> {
                 parentQuery = PermaSql.replacePlaceholdersForQuery(filter.getSqlQuery())
-                subtaskQuery = when {
-                    subtasks.hasGoogleSubtasks && subtasks.hasSubtasks -> ALL_SUBTASKS
-                    subtasks.hasGoogleSubtasks -> GOOGLE_SUBTASKS
-                    else -> QueryTemplate()
-                            .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
-                            .where(activeAndVisible())
-                }
+                subtaskQuery = SUBTASK_QUERY
                 joinedQuery += " LEFT JOIN (SELECT task, max(indent) AS max_indent FROM recursive_tasks GROUP BY task) AS recursive_indents ON recursive_indents.task = tasks._id "
                 where += " AND indent = max_indent "
             }
@@ -85,7 +70,7 @@ internal object TaskListQueryRecursive {
         when {
             manualSort && filter is GtasksFilter -> {
                 sortMode = SortHelper.SORT_GTASKS
-                sortField = "caldav_tasks.cd_order"
+                sortField = "tasks.`order`"
             }
             manualSort && filter is CaldavFilter -> {
                 sortMode = SortHelper.SORT_CALDAV
@@ -127,26 +112,14 @@ internal object TaskListQueryRecursive {
                         .toString())
     }
 
-    private fun newCaldavQuery(filter: CaldavFilter) =
+    private fun newCaldavQuery(list: String) =
             QueryTemplate()
                     .join(Join.inner(
                             CaldavTask.TABLE,
                             Criterion.and(
-                                    CaldavTask.CALENDAR.eq(filter.uuid),
+                                    CaldavTask.CALENDAR.eq(list),
                                     CaldavTask.TASK.eq(Task.ID),
                                     CaldavTask.DELETED.eq(0))))
                     .where(Criterion.and(activeAndVisible(), Task.PARENT.eq(0)))
-                    .toString()
-
-    private fun newGoogleTaskQuery(filter: GtasksFilter) =
-            QueryTemplate()
-                    .join(Join.inner(
-                            CaldavTask.TABLE,
-                            Criterion.and(
-                                    CaldavTask.CALENDAR.eq(filter.remoteId),
-                                    CaldavTask.PARENT.eq(0),
-                                    CaldavTask.TASK.eq(Task.ID),
-                                    CaldavTask.DELETED.eq(0))))
-                    .where(activeAndVisible())
                     .toString()
 }

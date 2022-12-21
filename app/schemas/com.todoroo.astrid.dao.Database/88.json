@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 88,
-    "identityHash": "2b5bd6d7c523006b902d035f71093be2",
+    "identityHash": "a2597380bdfaeeb040d40bab2fc653c1",
     "entities": [
       {
         "tableName": "notification",
@@ -875,7 +875,7 @@
       },
       {
         "tableName": "caldav_tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, `gt_parent` INTEGER NOT NULL, `cd_order` INTEGER, FOREIGN KEY(`cd_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, FOREIGN KEY(`cd_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -942,18 +942,6 @@
             "columnName": "gt_remote_order",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "parent",
-            "columnName": "gt_parent",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "order",
-            "columnName": "cd_order",
-            "affinity": "INTEGER",
-            "notNull": false
           }
         ],
         "primaryKey": {
@@ -1309,7 +1297,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2b5bd6d7c523006b902d035f71093be2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a2597380bdfaeeb040d40bab2fc653c1')"
     ]
   }
 }

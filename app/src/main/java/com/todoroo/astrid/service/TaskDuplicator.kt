@@ -28,8 +28,7 @@ class TaskDuplicator @Inject constructor(
         return taskIds
             .dbchunk()
             .flatMap {
-                it.minus(googleTaskDao.getChildren(it).toSet())
-                    .minus(taskDao.getChildren(it).toSet())
+                it.minus(taskDao.getChildren(it).toSet())
             }
             .let { taskDao.fetch(it) }
             .filterNot { it.readOnly }
@@ -58,7 +57,7 @@ class TaskDuplicator @Inject constructor(
         val googleTask = googleTaskDao.getByTaskId(originalId)
         val addToTop = preferences.addTasksToTop()
         if (googleTask != null) {
-            googleTaskDao.insertAndShift(CaldavTask(clone.id, googleTask.calendar!!), addToTop)
+            googleTaskDao.insertAndShift(clone, CaldavTask(clone.id, googleTask.calendar!!), addToTop)
         }
         val caldavTask = caldavDao.getTask(originalId)
         if (caldavTask != null) {
