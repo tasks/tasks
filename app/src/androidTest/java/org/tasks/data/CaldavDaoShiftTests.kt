@@ -105,7 +105,7 @@ class CaldavDaoShiftTests : InjectingTestCase() {
 
         caldavDao.shiftDown("calendar", 0, created.toAppleEpoch())
 
-        assertNull(caldavDao.getTasks(tasks[0].id)[0].order)
+        assertNull(taskDao.fetch(tasks[0].id)!!.order)
     }
 
     @Test
@@ -116,7 +116,7 @@ class CaldavDaoShiftTests : InjectingTestCase() {
 
         caldavDao.shiftDown("calendar", 0, created.toAppleEpoch())
 
-        assertNull(caldavDao.getTasks(tasks[0].id)[0].order)
+        assertNull(taskDao.fetch(tasks[0].id)!!.order)
     }
 
     @Test
@@ -134,10 +134,11 @@ class CaldavDaoShiftTests : InjectingTestCase() {
     }
 
     private suspend fun checkOrder(dateTime: DateTime?, task: TaskContainer) {
+        val order = taskDao.fetch(task.id)!!.order
         if (dateTime == null) {
-            assertNull(caldavDao.getTask(task.id)!!.order)
+            assertNull(order)
         } else {
-            assertEquals(dateTime.toAppleEpoch(), caldavDao.getTask(task.id)!!.order)
+            assertEquals(dateTime.toAppleEpoch(), order)
         }
     }
 
@@ -153,14 +154,6 @@ class CaldavDaoShiftTests : InjectingTestCase() {
             caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.parent)
         }
         caldavTask.id = caldavDao.insert(caldavTask)
-        t.caldavTask = caldavTask.toSubset()
-    }
-
-    private fun CaldavTask.toSubset(): SubsetCaldav {
-        val result = SubsetCaldav()
-        result.cd_id = id
-        result.cd_calendar = calendar
-        result.cd_remote_parent = remoteParent
-        return result
+        t.caldavTask = caldavTask
     }
 }

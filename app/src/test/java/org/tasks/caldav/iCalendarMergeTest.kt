@@ -12,19 +12,18 @@ import net.fortuna.ical4j.model.property.Status
 import org.junit.Assert.*
 import org.junit.Test
 import org.tasks.date.DateTimeUtils.newDateTime
-import org.tasks.makers.CaldavTaskMaker.REMOTE_ORDER
 import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.CREATION_TIME
 import org.tasks.makers.TaskMaker.newTask
+import org.tasks.makers.iCalMaker
 import org.tasks.makers.iCalMaker.COLLAPSED
 import org.tasks.makers.iCalMaker.COMPLETED_AT
 import org.tasks.makers.iCalMaker.CREATED_AT
 import org.tasks.makers.iCalMaker.DESCRIPTION
 import org.tasks.makers.iCalMaker.DUE_DATE
-import org.tasks.makers.iCalMaker.ORDER
 import org.tasks.makers.iCalMaker.PARENT
 import org.tasks.makers.iCalMaker.PRIORITY
 import org.tasks.makers.iCalMaker.RRULE
@@ -567,9 +566,9 @@ class iCalendarMergeTest {
 
     @Test
     fun remoteSetsOrder() =
-        newCaldavTask()
+        newTask()
             .applyRemote(
-                remote = newIcal(with(ORDER, 1234)),
+                remote = newIcal(with(iCalMaker.ORDER, 1234)),
                 local = null
             )
             .let {
@@ -578,10 +577,10 @@ class iCalendarMergeTest {
 
     @Test
     fun remoteRemovesOrder() =
-        newCaldavTask(with(REMOTE_ORDER, 1234))
+        newTask(with(TaskMaker.ORDER, 1234))
             .applyRemote(
                 remote = newIcal(),
-                local = newIcal(with(ORDER, 1234))
+                local = newIcal(with(iCalMaker.ORDER, 1234))
             )
             .let {
                 assertNull(it.order)
@@ -589,10 +588,10 @@ class iCalendarMergeTest {
 
     @Test
     fun localRemovesOrder() =
-        newCaldavTask()
+        newTask()
             .applyRemote(
-                remote = newIcal(with(ORDER, 1234)),
-                local = newIcal(with(ORDER, 1234))
+                remote = newIcal(with(iCalMaker.ORDER, 1234)),
+                local = newIcal(with(iCalMaker.ORDER, 1234))
             )
             .let {
                 assertNull(it.order)
@@ -600,10 +599,10 @@ class iCalendarMergeTest {
 
     @Test
     fun localBeatsRemoteOrder() =
-        newCaldavTask(with(REMOTE_ORDER, 789))
+        newTask(with(TaskMaker.ORDER, 789L))
             .applyRemote(
-                remote = newIcal(with(ORDER, 456)),
-                local = newIcal(with(ORDER, 123))
+                remote = newIcal(with(iCalMaker.ORDER, 456L)),
+                local = newIcal(with(iCalMaker.ORDER, 123))
             )
             .let {
                 assertEquals(789L, it.order)

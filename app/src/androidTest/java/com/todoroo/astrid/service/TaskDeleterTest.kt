@@ -12,9 +12,6 @@ import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.GoogleTaskMaker
-import org.tasks.makers.GoogleTaskMaker.TASK
-import org.tasks.makers.GoogleTaskMaker.newGoogleTask
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.RECUR
@@ -90,42 +87,6 @@ class TaskDeleterTest : InjectingTestCase() {
                 with(PARENT, parent),
                 with(COMPLETION_TIME, DateTime())
         ))
-
-        clearCompleted()
-
-        assertTrue(taskDao.fetch(child)!!.isDeleted)
-    }
-
-    @Test
-    fun dontClearCompletedGoogleTaskWithRecurringParent() = runBlocking {
-        val parent = taskDao.createNew(newTask(with(RECUR, "RRULE:FREQ=DAILY;INTERVAL=1")))
-        val child = taskDao.createNew(newTask(with(COMPLETION_TIME, DateTime())))
-        googleTaskDao.insert(newGoogleTask(with(TASK, child), with(GoogleTaskMaker.PARENT, parent)))
-
-        clearCompleted()
-
-        assertFalse(taskDao.fetch(child)!!.isDeleted)
-    }
-
-    @Test
-    fun clearCompletedGoogleTaskWithNonRecurringParent() = runBlocking {
-        val parent = taskDao.createNew(newTask())
-        val child = taskDao.createNew(newTask(with(COMPLETION_TIME, DateTime())))
-        googleTaskDao.insert(newGoogleTask(with(TASK, child), with(GoogleTaskMaker.PARENT, parent)))
-
-        clearCompleted()
-
-        assertTrue(taskDao.fetch(child)!!.isDeleted)
-    }
-
-    @Test
-    fun clearCompletedGoogleTaskWithCompletedRecurringParent() = runBlocking {
-        val parent = taskDao.createNew(newTask(
-                with(RECUR, "RRULE:FREQ=DAILY;INTERVAL=1"),
-                with(COMPLETION_TIME, DateTime())
-        ))
-        val child = taskDao.createNew(newTask(with(COMPLETION_TIME, DateTime())))
-        googleTaskDao.insert(newGoogleTask(with(TASK, child), with(GoogleTaskMaker.PARENT, parent)))
 
         clearCompleted()
 

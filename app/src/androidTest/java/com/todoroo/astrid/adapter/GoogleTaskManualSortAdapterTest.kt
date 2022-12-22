@@ -19,12 +19,11 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.GoogleTaskListMaker.REMOTE_ID
-import org.tasks.makers.GoogleTaskListMaker.newGoogleTaskList
-import org.tasks.makers.GoogleTaskMaker
-import org.tasks.makers.GoogleTaskMaker.LIST
-import org.tasks.makers.GoogleTaskMaker.TASK
-import org.tasks.makers.GoogleTaskMaker.newGoogleTask
+import org.tasks.makers.CaldavCalendarMaker
+import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
+import org.tasks.makers.CaldavTaskMaker.CALENDAR
+import org.tasks.makers.CaldavTaskMaker.TASK
+import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.preferences.Preferences
@@ -41,7 +40,7 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
 
     private lateinit var adapter: GoogleTaskManualSortAdapter
     private val tasks = ArrayList<TaskContainer>()
-    private val filter = GtasksFilter(newGoogleTaskList(with(REMOTE_ID, "1234")))
+    private val filter = GtasksFilter(newCaldavCalendar(with(CaldavCalendarMaker.UUID, "1234")))
     private val dataSource = object : TaskAdapterDataSource {
         override fun getItem(position: Int) = tasks[position]
 
@@ -427,22 +426,22 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
     }
 
     private fun checkOrder(order: Long, index: Int, parent: Long = 0) = runBlocking {
-        val googleTask = googleTaskDao.getByTaskId(adapter.getTask(index).id)!!
+        val googleTask = taskDao.fetch(adapter.getTask(index).id)!!
         assertEquals(order, googleTask.order)
         assertEquals(parent, googleTask.parent)
     }
 
     private fun addTask(vararg properties: PropertyValue<in Task?, *>): Long = runBlocking {
         val task = newTask(*properties)
-        val parent = task.parent
-        task.parent = 0
         taskDao.createNew(task)
         googleTaskDao.insertAndShift(
-                newGoogleTask(
-                        with(TASK, task.id),
-                        with(LIST, "1234"),
-                        with(GoogleTaskMaker.PARENT, parent)),
-                false)
+            task,
+            newCaldavTask(
+                with(TASK, task.id),
+                with(CALENDAR, "1234"),
+            ),
+            false
+        )
         task.id
     }
 }

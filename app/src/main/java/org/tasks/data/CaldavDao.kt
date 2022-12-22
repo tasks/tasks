@@ -105,7 +105,9 @@ ORDER BY CASE cda_account_type
                     ?.takeIf { task.creationDate.toAppleEpoch() <= it }
                     ?.plus(1)
         }
-        return insert(caldavTask)
+        val id = insert(caldavTask)
+        update(task)
+        return id
     }
 
     @Query("""
@@ -138,6 +140,9 @@ WHERE cd_calendar = :calendar
 
     @Update
     abstract suspend fun update(caldavTask: CaldavTask)
+
+    @Update
+    abstract suspend fun update(task: Task)
 
     @Update
     abstract suspend fun updateTasks(tasks: Iterable<Task>)
@@ -266,7 +271,7 @@ FROM caldav_lists
                             tasks.hideUntil < :now AND 
                             cd_deleted = 0
          LEFT JOIN principal_access ON caldav_lists.cdl_id = principal_access.list
-         INNER JOIN caldav_accounts ON caldav_accounts.cda_uuid = caldav_lists.cdl_account
+         LEFT JOIN caldav_accounts ON caldav_accounts.cda_uuid = caldav_lists.cdl_account
 WHERE caldav_lists.cdl_account = :uuid
 AND caldav_accounts.cda_account_type != $TYPE_GOOGLE_TASKS 
 GROUP BY caldav_lists.cdl_uuid
@@ -278,7 +283,10 @@ GROUP BY caldav_lists.cdl_uuid
             + "  INNER JOIN caldav_tasks ON caldav_tasks.cd_task = tasks._id"
             + "  WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent"
             + "    AND p.cd_calendar = caldav_tasks.cd_calendar"
-            + "    AND p.cd_deleted = 0), 0)"
+            + "    AND p.cd_deleted = 0"
+            + "    AND caldav_tasks.cd_remote_parent IS NOT NULL"
+            + "    AND caldav_tasks.cd_remote_parent != ''"
+            + "), 0)"
             + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0)")
     abstract suspend fun updateParents()
 
@@ -289,7 +297,10 @@ GROUP BY caldav_lists.cdl_uuid
             + "    AND caldav_tasks.cd_calendar = :calendar"
             + "  WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent"
             + "    AND p.cd_calendar = caldav_tasks.cd_calendar"
-            + "    AND caldav_tasks.cd_deleted = 0), 0)"
+            + "    AND p.cd_deleted = 0"
+            + "    AND caldav_tasks.cd_remote_parent IS NOT NULL"
+            + "    AND caldav_tasks.cd_remote_parent != ''"
+            + "), 0)"
             + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0 AND cd_calendar = :calendar)")
     abstract suspend fun updateParents(calendar: String)
 

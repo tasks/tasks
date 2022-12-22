@@ -9,28 +9,29 @@ import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
+import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.jobs.WorkManager
-import org.tasks.makers.CaldavCalendarMaker.UUID
+import org.tasks.makers.CaldavAccountMaker
+import org.tasks.makers.CaldavAccountMaker.ACCOUNT_TYPE
+import org.tasks.makers.CaldavAccountMaker.newCaldavAccount
+import org.tasks.makers.CaldavCalendarMaker
+import org.tasks.makers.CaldavCalendarMaker.ACCOUNT
 import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
-import org.tasks.makers.CaldavTaskMaker
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
+import org.tasks.makers.CaldavTaskMaker.TASK
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
-import org.tasks.makers.GoogleTaskMaker.LIST
-import org.tasks.makers.GoogleTaskMaker.PARENT
-import org.tasks.makers.GoogleTaskMaker.TASK
-import org.tasks.makers.GoogleTaskMaker.newGoogleTask
-import org.tasks.makers.GtaskListMaker
-import org.tasks.makers.GtaskListMaker.newGtaskList
-import org.tasks.makers.TaskMaker
 import org.tasks.makers.TaskMaker.ID
+import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.newTask
 import javax.inject.Inject
 
@@ -44,18 +45,28 @@ class TaskMoverTest : InjectingTestCase() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskMover: TaskMover
 
+    @Before
+    fun setup() {
+        runBlocking {
+            caldavDao.insert(newCaldavCalendar(with(CaldavCalendarMaker.UUID, "1"), with(ACCOUNT, "account1")))
+            caldavDao.insert(newCaldavCalendar(with(CaldavCalendarMaker.UUID, "2"), with(ACCOUNT, "account2")))
+        }
+    }
+
     @Test
     fun moveBetweenGoogleTaskLists() = runBlocking {
+        setAccountType("account1", TYPE_GOOGLE_TASKS)
+        setAccountType("account2", TYPE_GOOGLE_TASKS)
         createTasks(1)
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
+        googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
         moveToGoogleTasks("2", 1)
-        assertEquals("2", googleTaskDao.getByTaskId(1)!!.calendar)
+        assertEquals("2", googleTaskDao.getByTaskId(1)?.calendar)
     }
 
     @Test
     fun deleteGoogleTaskAfterMove() = runBlocking {
         createTasks(1)
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
+        googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
         moveToGoogleTasks("2", 1)
         val deleted = googleTaskDao.getDeletedByTaskId(1)
         assertEquals(1, deleted.size.toLong())
@@ -65,24 +76,25 @@ class TaskMoverTest : InjectingTestCase() {
 
     @Test
     fun moveChildrenBetweenGoogleTaskLists() = runBlocking {
-        createTasks(1, 2)
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)))
+        setAccountType("account1", TYPE_GOOGLE_TASKS)
+        setAccountType("account2", TYPE_GOOGLE_TASKS)
+        createTasks(1)
+        createSubtask(2, 1)
+        googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
+        googleTaskDao.insert(newCaldavTask(with(TASK, 2), with(CALENDAR, "1")))
         moveToGoogleTasks("2", 1)
         val deleted = googleTaskDao.getDeletedByTaskId(2)
         assertEquals(1, deleted.size.toLong())
         assertEquals(2, deleted[0].task)
         assertTrue(deleted[0].deleted > 0)
-        val task = googleTaskDao.getByTaskId(2)!!
-        assertEquals(1, task.parent)
-        assertEquals("2", task.calendar)
+        assertEquals(1L, taskDao.fetch(2)?.parent)
+        assertEquals("2", googleTaskDao.getByTaskId(2)?.calendar)
     }
 
     @Test
     fun moveBetweenCaldavList() = runBlocking {
         createTasks(1)
-        caldavDao.insert(newCaldavCalendar(with(UUID, "1")))
-        caldavDao.insert(newCaldavTask(with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1")))
+        caldavDao.insert(newCaldavTask(with(TASK, 1L), with(CALENDAR, "1")))
         moveToCaldavList("2", 1)
         assertEquals("2", caldavDao.getTask(1)!!.calendar)
     }
@@ -90,8 +102,7 @@ class TaskMoverTest : InjectingTestCase() {
     @Test
     fun deleteCaldavTaskAfterMove() = runBlocking {
         createTasks(1)
-        caldavDao.insert(newCaldavCalendar(with(UUID, "1")))
-        caldavDao.insert(newCaldavTask(with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1")))
+        caldavDao.insert(newCaldavTask(with(TASK, 1L), with(CALENDAR, "1")))
         moveToCaldavList("2", 1)
         val deleted = caldavDao.getMoved("1")
         assertEquals(1, deleted.size.toLong())
@@ -104,18 +115,17 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         createSubtask(2, 1)
         createSubtask(3, 2)
-        caldavDao.insert(newCaldavCalendar(with(UUID, "1")))
         caldavDao.insert(
                 listOf(
                         newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1"), with(REMOTE_ID, "a")),
+                                with(TASK, 1L), with(CALENDAR, "1"), with(REMOTE_ID, "a")),
                         newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 2L),
+                                with(TASK, 2L),
                                 with(CALENDAR, "1"),
                                 with(REMOTE_ID, "b"),
                                 with(REMOTE_PARENT, "a")),
                         newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 3L),
+                                with(TASK, 3L),
                                 with(CALENDAR, "1"),
                                 with(REMOTE_PARENT, "b"))))
         moveToCaldavList("2", 1)
@@ -128,13 +138,16 @@ class TaskMoverTest : InjectingTestCase() {
 
     @Test
     fun moveGoogleTaskChildrenToCaldav() = runBlocking {
-        createTasks(1, 2)
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)))
+        setAccountType("account1", TYPE_GOOGLE_TASKS)
+        setAccountType("account2", TYPE_CALDAV)
+        createTasks(1)
+        createSubtask(2, 1)
+        googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
+        googleTaskDao.insert(newCaldavTask(with(TASK, 2), with(CALENDAR, "1")))
         moveToCaldavList("1", 1)
         val task = caldavDao.getTask(2)
         assertEquals("1", task!!.calendar)
-        assertEquals(1, taskDao.fetch(2)!!.parent)
+        assertEquals(1L, taskDao.fetch(2)?.parent)
     }
 
     @Test
@@ -143,8 +156,7 @@ class TaskMoverTest : InjectingTestCase() {
         createSubtask(2, 1)
         createSubtask(3, 2)
         moveToGoogleTasks("1", 1)
-        assertEquals(1, googleTaskDao.getByTaskId(3)!!.parent)
-        assertEquals(0, taskDao.fetch(3)!!.parent)
+        assertEquals(1L, taskDao.fetch(3)?.parent)
     }
 
     @Test
@@ -152,7 +164,7 @@ class TaskMoverTest : InjectingTestCase() {
         createTasks(1)
         createSubtask(2, 1)
         moveToGoogleTasks("1", 2)
-        assertEquals(0, taskDao.fetch(2)!!.parent)
+        assertEquals(0L, taskDao.fetch(2)?.parent)
     }
 
     @Test
@@ -171,43 +183,43 @@ class TaskMoverTest : InjectingTestCase() {
         caldavDao.insert(
                 listOf(
                         newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1"), with(REMOTE_ID, "a")),
+                                with(TASK, 1L), with(CALENDAR, "1"), with(REMOTE_ID, "a")),
                         newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 2L),
+                                with(TASK, 2L),
                                 with(CALENDAR, "1"),
                                 with(REMOTE_ID, "b"),
                                 with(REMOTE_PARENT, "a")),
                         newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 3L),
+                                with(TASK, 3L),
                                 with(CALENDAR, "1"),
                                 with(REMOTE_PARENT, "b"))))
         moveToGoogleTasks("1", 1)
-        val task = googleTaskDao.getByTaskId(3L)!!
-        assertEquals(1, task.parent)
+        val task = taskDao.fetch(3L)
+        assertEquals(1L, task?.parent)
     }
 
     @Test
     fun moveGoogleTaskChildWithoutParent() = runBlocking {
-        createTasks(1, 2)
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)))
+        setAccountType("account2", TYPE_GOOGLE_TASKS)
+        createTasks(1)
+        createSubtask(2, 1)
+        googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
+        googleTaskDao.insert(newCaldavTask(with(TASK, 2), with(CALENDAR, "1")))
         moveToGoogleTasks("2", 2)
-        val task = googleTaskDao.getByTaskId(2)!!
-        assertEquals(0L, task.parent)
-        assertEquals("2", task.calendar)
+        assertEquals(0L, taskDao.fetch(2)?.parent)
+        assertEquals("2", googleTaskDao.getByTaskId(2)?.calendar)
     }
 
     @Test
     fun moveCaldavChildWithoutParent() = runBlocking {
         createTasks(1)
         createSubtask(2, 1)
-        caldavDao.insert(newCaldavCalendar(with(UUID, "1")))
         caldavDao.insert(
                 listOf(
                         newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1"), with(REMOTE_ID, "a")),
+                                with(TASK, 1L), with(CALENDAR, "1"), with(REMOTE_ID, "a")),
                         newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 2L),
+                                with(TASK, 2L),
                                 with(CALENDAR, "1"),
                                 with(REMOTE_PARENT, "a"))))
         moveToCaldavList("2", 2)
@@ -218,17 +230,19 @@ class TaskMoverTest : InjectingTestCase() {
     @Test
     fun moveGoogleTaskToCaldav() = runBlocking {
         createTasks(1)
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
+        googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
         moveToCaldavList("2", 1)
         assertEquals("2", caldavDao.getTask(1)!!.calendar)
     }
 
     @Test
     fun moveCaldavToGoogleTask() = runBlocking {
+        setAccountType("account1", TYPE_CALDAV)
+        setAccountType("account2", TYPE_GOOGLE_TASKS)
         createTasks(1)
-        caldavDao.insert(newCaldavTask(with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1")))
+        caldavDao.insert(newCaldavTask(with(TASK, 1L), with(CALENDAR, "1")))
         moveToGoogleTasks("2", 1)
-        assertEquals("2", googleTaskDao.getByTaskId(1L)!!.calendar)
+        assertEquals("2", googleTaskDao.getByTaskId(1L)?.calendar)
     }
 
     @Test
@@ -237,14 +251,15 @@ class TaskMoverTest : InjectingTestCase() {
         createSubtask(2, 1)
         createSubtask(3, 2)
         moveToCaldavList("1", 1)
-        assertEquals("1", caldavDao.getTask(3)!!.calendar)
-        assertEquals(2, taskDao.fetch(3)!!.parent)
+        assertEquals("1", caldavDao.getTask(3)?.calendar)
+        assertEquals(2L, taskDao.fetch(3)?.parent)
     }
 
     @Test
     fun moveToSameGoogleTaskListIsNoop() = runBlocking {
+        setAccountType("account1", TYPE_GOOGLE_TASKS)
         createTasks(1)
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
+        googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
         moveToGoogleTasks("1", 1)
         assertTrue(googleTaskDao.getDeletedByTaskId(1).isEmpty())
         assertEquals(1, googleTaskDao.getAllByTaskId(1).size.toLong())
@@ -253,7 +268,7 @@ class TaskMoverTest : InjectingTestCase() {
     @Test
     fun moveToSameCaldavListIsNoop() = runBlocking {
         createTasks(1)
-        caldavDao.insert(newCaldavTask(with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1")))
+        caldavDao.insert(newCaldavTask(with(TASK, 1L), with(CALENDAR, "1")))
         moveToCaldavList("1", 1)
         assertTrue(caldavDao.getMoved("1").isEmpty())
         assertEquals(1, caldavDao.getTasks(1).size.toLong())
@@ -261,9 +276,10 @@ class TaskMoverTest : InjectingTestCase() {
 
     @Test
     fun dontDuplicateWhenParentAndChildGoogleTaskMoved() = runBlocking {
-        createTasks(1, 2)
-        googleTaskDao.insert(newGoogleTask(with(TASK, 1), with(LIST, "1")))
-        googleTaskDao.insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(PARENT, 1L)))
+        createTasks(1)
+        createSubtask(2, 1)
+        googleTaskDao.insert(newCaldavTask(with(TASK, 1), with(CALENDAR, "1")))
+        googleTaskDao.insert(newCaldavTask(with(TASK, 2), with(CALENDAR, "1")))
         moveToGoogleTasks("2", 1, 2)
         assertEquals(1, googleTaskDao.getAllByTaskId(2).filter { it.deleted == 0L }.size)
     }
@@ -272,13 +288,12 @@ class TaskMoverTest : InjectingTestCase() {
     fun dontDuplicateWhenParentAndChildCaldavMoved() = runBlocking {
         createTasks(1)
         createSubtask(2, 1)
-        caldavDao.insert(newCaldavCalendar(with(UUID, "1")))
         caldavDao.insert(
                 listOf(
                         newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 1L), with(CALENDAR, "1"), with(REMOTE_ID, "a")),
+                                with(TASK, 1L), with(CALENDAR, "1"), with(REMOTE_ID, "a")),
                         newCaldavTask(
-                                with(CaldavTaskMaker.TASK, 2L),
+                                with(TASK, 2L),
                                 with(CALENDAR, "1"),
                                 with(REMOTE_PARENT, "a"))))
         moveToCaldavList("2", 1, 2)
@@ -292,14 +307,18 @@ class TaskMoverTest : InjectingTestCase() {
     }
 
     private suspend fun createSubtask(id: Long, parent: Long) {
-        taskDao.createNew(newTask(with(ID, id), with(TaskMaker.PARENT, parent)))
+        taskDao.createNew(newTask(with(ID, id), with(PARENT, parent)))
     }
 
     private suspend fun moveToGoogleTasks(list: String, vararg tasks: Long) {
-        taskMover.move(tasks.toList(), GtasksFilter(newGtaskList(with(GtaskListMaker.REMOTE_ID, list))))
+        taskMover.move(tasks.toList(), GtasksFilter(newCaldavCalendar(with(CaldavCalendarMaker.UUID, list))))
     }
 
     private suspend fun moveToCaldavList(calendar: String, vararg tasks: Long) {
         taskMover.move(tasks.toList(), CaldavFilter(CaldavCalendar(name = "", uuid = calendar)))
+    }
+
+    private suspend fun setAccountType(account: String, type: Int) {
+        caldavDao.insert(newCaldavAccount(with(CaldavAccountMaker.UUID, account), with(ACCOUNT_TYPE, type)))
     }
 }

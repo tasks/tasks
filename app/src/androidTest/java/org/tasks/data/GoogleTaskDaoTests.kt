@@ -9,15 +9,17 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
+import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.GoogleTaskMaker.LIST
-import org.tasks.makers.GoogleTaskMaker.PARENT
-import org.tasks.makers.GoogleTaskMaker.REMOTE_ID
-import org.tasks.makers.GoogleTaskMaker.REMOTE_PARENT
-import org.tasks.makers.GoogleTaskMaker.TASK
-import org.tasks.makers.GoogleTaskMaker.newGoogleTask
-import org.tasks.makers.GtaskListMaker.newGtaskList
+import org.tasks.makers.CaldavAccountMaker.ACCOUNT_TYPE
+import org.tasks.makers.CaldavAccountMaker.newCaldavAccount
+import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
+import org.tasks.makers.CaldavTaskMaker.CALENDAR
+import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
+import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
+import org.tasks.makers.CaldavTaskMaker.TASK
+import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker.newTask
 import javax.inject.Inject
 
@@ -27,133 +29,135 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var caldavDao: CaldavDao
 
     @Before
     override fun setUp() {
         super.setUp()
         runBlocking {
-            googleTaskListDao.insert(newGtaskList())
+            caldavDao.insert(newCaldavAccount(with(ACCOUNT_TYPE, TYPE_GOOGLE_TASKS)))
+            caldavDao.insert(newCaldavCalendar())
         }
     }
 
     @Test
     fun insertAtTopOfEmptyList() = runBlocking {
-        insertTop(newGoogleTask(with(REMOTE_ID, "1234")))
-        val tasks = googleTaskDao.getByLocalOrder("1")
+        insertTop(newCaldavTask(with(REMOTE_ID, "1234")))
+        val tasks = googleTaskDao.getByLocalOrder("calendar")
         assertEquals(1, tasks.size.toLong())
         val task = tasks[0]
-        assertEquals("1234", task.remoteId)
-        assertEquals(0, task.order)
+        assertEquals("1234", googleTaskDao.getByTaskId(task.id)?.remoteId)
+        assertEquals(0L, task.order)
     }
 
     @Test
     fun insertAtBottomOfEmptyList() = runBlocking {
-        insertBottom(newGoogleTask(with(REMOTE_ID, "1234")))
-        val tasks = googleTaskDao.getByLocalOrder("1")
+        insertBottom(newCaldavTask(with(REMOTE_ID, "1234")))
+        val tasks = googleTaskDao.getByLocalOrder("calendar")
         assertEquals(1, tasks.size.toLong())
         val task = tasks[0]
-        assertEquals("1234", task.remoteId)
-        assertEquals(0, task.order)
+        assertEquals("1234", googleTaskDao.getByTaskId(task.id)?.remoteId)
+        assertEquals(0L, task.order)
     }
 
     @Test
     fun getPreviousIsNullForTopTask() = runBlocking {
-        insert(newGoogleTask())
+        insert(newCaldavTask())
         assertNull(googleTaskDao.getPrevious("1", 0, 0))
     }
 
     @Test
     fun getPrevious() = runBlocking {
-        insertTop(newGoogleTask())
-        insertTop(newGoogleTask(with(REMOTE_ID, "1234")))
-        assertEquals("1234", googleTaskDao.getPrevious("1", 0, 1))
+        insertTop(newCaldavTask())
+        insertTop(newCaldavTask(with(REMOTE_ID, "1234")))
+        assertEquals("1234", googleTaskDao.getPrevious("calendar", 0, 1))
     }
 
     @Test
     fun insertAtTopOfList() = runBlocking {
-        insertTop(newGoogleTask(with(REMOTE_ID, "1234")))
-        insertTop(newGoogleTask(with(REMOTE_ID, "5678")))
-        val tasks = googleTaskDao.getByLocalOrder("1")
+        insertTop(newCaldavTask(with(REMOTE_ID, "1234")))
+        insertTop(newCaldavTask(with(REMOTE_ID, "5678")))
+        val tasks = googleTaskDao.getByLocalOrder("calendar")
         assertEquals(2, tasks.size.toLong())
         val top = tasks[0]
-        assertEquals("5678", top.remoteId)
-        assertEquals(0, top.order)
+        assertEquals("5678", googleTaskDao.getByTaskId(top.id)?.remoteId)
+        assertEquals(0L, top.order)
     }
 
     @Test
     fun insertAtTopOfListShiftsExisting() = runBlocking {
-        insertTop(newGoogleTask(with(REMOTE_ID, "1234")))
-        insertTop(newGoogleTask(with(REMOTE_ID, "5678")))
-        val tasks = googleTaskDao.getByLocalOrder("1")
+        insertTop(newCaldavTask(with(REMOTE_ID, "1234")))
+        insertTop(newCaldavTask(with(REMOTE_ID, "5678")))
+        val tasks = googleTaskDao.getByLocalOrder("calendar")
         assertEquals(2, tasks.size.toLong())
         val bottom = tasks[1]
-        assertEquals("1234", bottom.remoteId)
-        assertEquals(1, bottom.order)
+        assertEquals("1234", googleTaskDao.getByTaskId(bottom.id)?.remoteId)
+        assertEquals(1L, bottom.order)
     }
 
     @Test
     fun getTaskFromRemoteId() = runBlocking {
-        insert(newGoogleTask(with(REMOTE_ID, "1234")))
+        insert(newCaldavTask(with(REMOTE_ID, "1234")))
         assertEquals(1L, googleTaskDao.getTask("1234"))
     }
 
     @Test
     fun getRemoteIdForTask() = runBlocking {
-        insert(newGoogleTask(with(REMOTE_ID, "1234")))
+        insert(newCaldavTask(with(REMOTE_ID, "1234")))
         assertEquals("1234", googleTaskDao.getRemoteId(1L))
     }
 
     @Test
     fun moveDownInList() = runBlocking {
-        insert(newGoogleTask(with(REMOTE_ID, "1")))
-        insert(newGoogleTask(with(REMOTE_ID, "2")))
-        insert(newGoogleTask(with(REMOTE_ID, "3")))
+        insert(newCaldavTask(with(REMOTE_ID, "1")))
+        insert(newCaldavTask(with(REMOTE_ID, "2")))
+        insert(newCaldavTask(with(REMOTE_ID, "3")))
         val two = getByRemoteId("2")
-        googleTaskDao.move(two, 0, 0)
-        assertEquals(0, googleTaskDao.getByRemoteId("2")!!.order)
-        assertEquals(1, googleTaskDao.getByRemoteId("1")!!.order)
-        assertEquals(2, googleTaskDao.getByRemoteId("3")!!.order)
+        googleTaskDao.move(taskDao.fetch(two.task)!!, "calendar", 0, 0)
+        assertEquals(0L, getOrder("2"))
+        assertEquals(1L, getOrder("1"))
+        assertEquals(2L, getOrder("3"))
     }
 
     @Test
     fun moveUpInList() = runBlocking {
-        insert(newGoogleTask(with(REMOTE_ID, "1")))
-        insert(newGoogleTask(with(REMOTE_ID, "2")))
-        insert(newGoogleTask(with(REMOTE_ID, "3")))
+        insert(newCaldavTask(with(REMOTE_ID, "1")))
+        insert(newCaldavTask(with(REMOTE_ID, "2")))
+        insert(newCaldavTask(with(REMOTE_ID, "3")))
         val one = getByRemoteId("1")
-        googleTaskDao.move(one, 0, 1)
-        assertEquals(0, googleTaskDao.getByRemoteId("2")!!.order)
-        assertEquals(1, googleTaskDao.getByRemoteId("1")!!.order)
-        assertEquals(2, googleTaskDao.getByRemoteId("3")!!.order)
+        googleTaskDao.move(taskDao.fetch(one.task)!!, "calendar", 0, 1)
+        assertEquals(0L, getOrder("2"))
+        assertEquals(1L, getOrder("1"))
+        assertEquals(2L, getOrder("3"))
     }
 
     @Test
     fun moveToTop() = runBlocking {
-        insert(newGoogleTask(with(REMOTE_ID, "1")))
-        insert(newGoogleTask(with(REMOTE_ID, "2")))
-        insert(newGoogleTask(with(REMOTE_ID, "3")))
+        insert(newCaldavTask(with(REMOTE_ID, "1")))
+        insert(newCaldavTask(with(REMOTE_ID, "2")))
+        insert(newCaldavTask(with(REMOTE_ID, "3")))
         val three = getByRemoteId("3")
-        googleTaskDao.move(three, 0, 0)
-        assertEquals(0, googleTaskDao.getByRemoteId("3")!!.order)
-        assertEquals(1, googleTaskDao.getByRemoteId("1")!!.order)
-        assertEquals(2, googleTaskDao.getByRemoteId("2")!!.order)
+        googleTaskDao.move(taskDao.fetch(three.task)!!, "calendar", 0, 0)
+        assertEquals(0L, getOrder("3"))
+        assertEquals(1L, getOrder("1"))
+        assertEquals(2L, getOrder("2"))
     }
 
     @Test
     fun moveToBottom() = runBlocking {
-        insert(newGoogleTask(with(REMOTE_ID, "1")))
-        insert(newGoogleTask(with(REMOTE_ID, "2")))
-        insert(newGoogleTask(with(REMOTE_ID, "3")))
+        insert(newCaldavTask(with(REMOTE_ID, "1")))
+        insert(newCaldavTask(with(REMOTE_ID, "2")))
+        insert(newCaldavTask(with(REMOTE_ID, "3")))
         val one = getByRemoteId("1")
-        googleTaskDao.move(one, 0, 2)
-        assertEquals(0, googleTaskDao.getByRemoteId("2")!!.order)
-        assertEquals(1, googleTaskDao.getByRemoteId("3")!!.order)
-        assertEquals(2, googleTaskDao.getByRemoteId("1")!!.order)
+        googleTaskDao.move(taskDao.fetch(one.task)!!, "calendar", 0, 2)
+        assertEquals(0L, getOrder("2"))
+        assertEquals(1L, getOrder("3"))
+        assertEquals(2L, getOrder("1"))
     }
 
     @Test
     fun dontAllowEmptyParent() = runBlocking {
-        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
+        insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "1234")))
 
         googleTaskDao.updatePosition("1234", "", "0")
 
@@ -162,7 +166,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     
     @Test
     fun updatePositionWithNullParent() = runBlocking {
-        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
+        insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "1234")))
 
         googleTaskDao.updatePosition("1234", null, "0")
 
@@ -171,7 +175,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun updatePosition() = runBlocking {
-        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "1234")))
+        insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "1234")))
 
         googleTaskDao.updatePosition("1234", "abcd", "0")
 
@@ -180,86 +184,84 @@ class GoogleTaskDaoTests : InjectingTestCase() {
 
     @Test
     fun updateParents() = runBlocking {
-        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
-        insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_PARENT, "123")))
+        insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "123")))
+        insert(newCaldavTask(with(TASK, 2), with(REMOTE_PARENT, "123")))
 
-        googleTaskDao.updateParents()
+        caldavDao.updateParents()
 
-        assertEquals(1, googleTaskDao.getByTaskId(2)!!.parent)
+        assertEquals(1, taskDao.fetch(2)!!.parent)
     }
 
     @Test
     fun updateParentsByList() = runBlocking {
-        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
-        insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_PARENT, "123")))
+        insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "123")))
+        insert(newCaldavTask(with(TASK, 2), with(REMOTE_PARENT, "123")))
 
-        googleTaskDao.updateParents("1")
+        caldavDao.updateParents("calendar")
 
-        assertEquals(1, googleTaskDao.getByTaskId(2)!!.parent)
+        assertEquals(1, taskDao.fetch(2)!!.parent)
     }
 
     @Test
     fun updateParentsMustMatchList() = runBlocking {
-        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
-        insert(newGoogleTask(with(TASK, 2), with(LIST, "2"), with(REMOTE_PARENT, "123")))
+        insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "123")))
+        insert(newCaldavTask(with(TASK, 2), with(CALENDAR, "2"), with(REMOTE_PARENT, "123")))
 
-        googleTaskDao.updateParents()
+        caldavDao.updateParents()
 
-        assertEquals(0, googleTaskDao.getByTaskId(2)!!.parent)
+        assertEquals(0, taskDao.fetch(2)!!.parent)
     }
 
     @Test
     fun updateParentsByListMustMatchList() = runBlocking {
-        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "123")))
-        insert(newGoogleTask(with(TASK, 2), with(LIST, "2"), with(REMOTE_PARENT, "123")))
+        insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "123")))
+        insert(newCaldavTask(with(TASK, 2), with(CALENDAR, "2"), with(REMOTE_PARENT, "123")))
 
-        googleTaskDao.updateParents("2")
+        caldavDao.updateParents("2")
 
-        assertEquals(0, googleTaskDao.getByTaskId(2)!!.parent)
+        assertEquals(0, taskDao.fetch(2)!!.parent)
     }
 
     @Test
     fun ignoreEmptyStringWhenUpdatingParents() = runBlocking {
-        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "")))
-        insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_ID, ""), with(REMOTE_PARENT, "")))
+        insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "")))
+        insert(newCaldavTask(with(TASK, 2), with(REMOTE_ID, ""), with(REMOTE_PARENT, "")))
 
-        googleTaskDao.updateParents()
+        caldavDao.updateParents()
 
-        assertEquals(0, googleTaskDao.getByTaskId(2)!!.parent)
+        assertEquals(0, taskDao.fetch(2)!!.parent)
     }
 
     @Test
     fun ignoreEmptyStringWhenUpdatingParentsForList() = runBlocking {
-        insert(newGoogleTask(with(TASK, 1), with(LIST, "1"), with(REMOTE_ID, "")))
-        insert(newGoogleTask(with(TASK, 2), with(LIST, "1"), with(REMOTE_ID, ""), with(REMOTE_PARENT, "")))
+        insert(newCaldavTask(with(TASK, 1), with(REMOTE_ID, "")))
+        insert(newCaldavTask(with(TASK, 2), with(REMOTE_ID, ""), with(REMOTE_PARENT, "")))
 
-        googleTaskDao.updateParents("1")
+        caldavDao.updateParents("1")
 
-        assertEquals(0, googleTaskDao.getByTaskId(2)!!.parent)
+        assertEquals(0, taskDao.fetch(2)!!.parent)
     }
 
-    private suspend fun insertTop(googleTask: GoogleTask) {
+    private suspend fun getOrder(remoteId: String): Long? {
+        return taskDao.fetch(googleTaskDao.getByRemoteId(remoteId)!!.task)?.order
+    }
+
+    private suspend fun insertTop(googleTask: CaldavTask) {
         insert(googleTask, true)
     }
 
-    private suspend fun insertBottom(googleTask: GoogleTask) {
+    private suspend fun insertBottom(googleTask: CaldavTask) {
         insert(googleTask, false)
     }
 
-    private suspend fun insert(googleTask: GoogleTask, top: Boolean = false) {
+    private suspend fun insert(googleTask: CaldavTask, top: Boolean = false) {
         val task = newTask()
         taskDao.createNew(task)
         googleTask.task = task.id
-        googleTaskDao.insertAndShift(googleTask, top)
+        googleTaskDao.insertAndShift(task, googleTask, top)
     }
 
-    private suspend fun getByRemoteId(remoteId: String): SubsetGoogleTask {
-        val googleTask = googleTaskDao.getByRemoteId(remoteId)!!
-        val result = SubsetGoogleTask()
-        result.gt_id = googleTask.id
-        result.gt_list_id = googleTask.calendar
-        result.gt_order = googleTask.order
-        result.gt_parent = googleTask.parent
-        return result
+    private suspend fun getByRemoteId(remoteId: String): CaldavTask {
+        return googleTaskDao.getByRemoteId(remoteId)!!
     }
 }

@@ -54,11 +54,6 @@ class CaldavTask {
     @ColumnInfo(name = "gt_remote_order")
     var remoteOrder: Long = 0
 
-    @Transient
-    @Ignore
-    @Deprecated("For importing old backup files")
-    var order: Long? = null
-
     constructor()
 
     @Ignore

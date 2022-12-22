@@ -99,7 +99,7 @@ class CaldavDaoTests : InjectingTestCase() {
     private suspend fun checkOrder(dateTime: DateTime, task: Long) = checkOrder(dateTime.toAppleEpoch(), task)
 
     private suspend fun checkOrder(order: Long?, task: Long) {
-        val sortOrder = caldavDao.getTask(task)!!.order
+        val sortOrder = taskDao.fetch(task)!!.order
         if (order == null) {
             assertNull(sortOrder)
         } else {
