@@ -170,7 +170,7 @@ class GoogleTaskSynchronizer @Inject constructor(
 
     @Throws(IOException::class)
     private suspend fun pushLocalChanges(account: CaldavAccount, gtasksInvoker: GtasksInvoker) {
-        val tasks = taskDao.getGoogleTasksToPush(account.username!!)
+        val tasks = taskDao.getGoogleTasksToPush(account.uuid!!)
         for (task in tasks) {
             pushTask(task, gtasksInvoker)
         }
@@ -302,7 +302,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             var googleTask = googleTaskDao.getByRemoteId(remoteId)
             var task: com.todoroo.astrid.data.Task? = null
             if (googleTask == null) {
-                googleTask = CaldavTask(0, "")
+                googleTask = CaldavTask(0, "", remoteId = null)
             } else if (googleTask.task > 0) {
                 task = taskDao.fetch(googleTask.task)
             }

@@ -251,7 +251,7 @@ open class TaskAdapter(
             )
         } else {
             task.parent = newParent.id
-            task.caldavTask = CaldavTask(task.id, list)
+            task.caldavTask = CaldavTask(task.id, list, remoteId = null)
             googleTaskDao.insertAndShift(task.task, task.caldavTask, newTasksOnTop)
         }
         taskDao.touch(task.id)

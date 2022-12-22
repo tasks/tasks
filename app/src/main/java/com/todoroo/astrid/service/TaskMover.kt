@@ -89,9 +89,13 @@ class TaskMover @Inject constructor(
         when(selected) {
             is GtasksFilter -> {
                 val listId = selected.remoteId
-                googleTaskDao.insertAndShift(task, CaldavTask(id, listId), preferences.addTasksToTop())
+                googleTaskDao.insertAndShift(
+                    task = task,
+                    caldavTask = CaldavTask(id, listId, remoteId = null),
+                    top = preferences.addTasksToTop()
+                )
                 children.takeIf { it.isNotEmpty() }
-                        ?.map { CaldavTask(it, listId) }
+                        ?.map { CaldavTask(task = it, calendar = listId, remoteId = null) }
                         ?.let { googleTaskDao.insert(it) }
             }
             is CaldavFilter -> {
@@ -172,11 +176,11 @@ class TaskMover @Inject constructor(
         val listId = filter.remoteId
         googleTaskDao.insertAndShift(
             task,
-            CaldavTask(id, listId, remoteId = null, `object` = null),
+            CaldavTask(id, listId, remoteId = null),
             preferences.addTasksToTop()
         )
         children.takeIf { it.isNotEmpty() }
-                ?.map { CaldavTask(it, listId, remoteId = null, `object` = null) }
+                ?.map { CaldavTask(it, listId, remoteId = null) }
                 ?.let { googleTaskDao.insert(it) }
     }
 }

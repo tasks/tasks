@@ -70,8 +70,6 @@ class TasksContentProvider : ContentProvider() {
     companion object {
         private const val TODO_AGENDA_TABLES =
                 """${Task.TABLE_NAME}
-                LEFT JOIN google_tasks ON gt_task = _id
-                LEFT JOIN google_task_lists ON gtl_remote_id = gt_list_id
                 LEFT JOIN caldav_tasks ON cd_task = _id
                 LEFT JOIN caldav_lists ON cdl_uuid = cd_calendar"""
         private const val AUTHORITY = BuildConfig.APPLICATION_ID

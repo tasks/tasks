@@ -65,7 +65,7 @@ class CaldavTask {
     }
 
     @Ignore
-    constructor(task: Long, calendar: String?, remoteId: String?, `object`: String?) {
+    constructor(task: Long, calendar: String?, remoteId: String?, `object`: String? = null) {
         this.task = task
         this.calendar = calendar
         this.remoteId = remoteId
@@ -75,7 +75,7 @@ class CaldavTask {
     fun isDeleted() = deleted > 0
 
     override fun toString(): String =
-            "CaldavTask(id=$id, task=$task, calendar=$calendar, `object`=$`object`, remoteId=$remoteId, etag=$etag, lastSync=$lastSync, deleted=$deleted, remoteParent=$remoteParent)"
+            "CaldavTask(id=$id, task=$task, calendar=$calendar, `object`=$`object`, remoteId=$remoteId, etag=$etag, lastSync=$lastSync, deleted=$deleted, remoteParent=$remoteParent, isMoved=$isMoved, remoteOrder=$remoteOrder)"
 
     companion object {
         const val KEY = "caldav"

@@ -55,8 +55,8 @@ class SubtaskControlSet : TaskEditControlFragment() {
             setContent {
                 MdcTheme {
                     SubtaskRow(
+                        originalFilter = viewModel.originalList,
                         filter = viewModel.selectedList.collectAsStateLifecycleAware().value,
-                        googleTask = googleTaskDao.watchGoogleTask(viewModel.task.id).collectAsStateLifecycleAware(initial = null).value,
                         hasParent = viewModel.hasParent,
                         desaturate = preferences.desaturateDarkMode,
                         existingSubtasks = listViewModel.tasks.observeAsState(initial = emptyList()).value,

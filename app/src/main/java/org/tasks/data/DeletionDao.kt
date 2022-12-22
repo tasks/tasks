@@ -55,9 +55,6 @@ WHERE recurring = 1
         ids.eachChunk(this::markDeletedInternal)
     }
 
-    @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account ORDER BY cdl_name ASC")
-    abstract suspend fun getLists(account: String): List<CaldavCalendar>
-
     @Query("SELECT cd_task FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_deleted = 0")
     internal abstract suspend fun getActiveCaldavTasks(calendar: String): List<Long>
 

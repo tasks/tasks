@@ -115,7 +115,7 @@ class DefaultFilterProvider @Inject constructor(
         TYPE_FILTER -> getFilterPreference(filterType, getBuiltInFilterId(filter))
         TYPE_CUSTOM_FILTER -> getFilterPreference(filterType, (filter as CustomFilter).id)
         TYPE_TAG -> getFilterPreference(filterType, (filter as TagFilter).uuid)
-        TYPE_GOOGLE_TASKS -> getFilterPreference(filterType, (filter as GtasksFilter).listId)
+        TYPE_GOOGLE_TASKS -> getFilterPreference(filterType, (filter as GtasksFilter).remoteId)
         TYPE_CALDAV -> getFilterPreference(filterType, (filter as CaldavFilter).uuid)
         TYPE_LOCATION -> getFilterPreference(filterType, (filter as PlaceFilter).uid)
         else -> null

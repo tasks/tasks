@@ -146,7 +146,6 @@ class FilterCriteriaProvider @Inject constructor(
                 context.getString(R.string.custom_filter_is_subtask),
                 select(Task.ID)
                         .from(Task.TABLE)
-                        .join(inner(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
                         .where(field("${Task.PARENT}>0").eq(1))
                         .toString()
         )

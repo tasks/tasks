@@ -191,7 +191,6 @@ class TasksJsonImporter @Inject constructor(
                             task = taskId,
                             calendar = googleTask.listId,
                             remoteId = googleTask.remoteId,
-                            `object` = null,
                         ).apply {
                             remoteOrder = googleTask.remoteOrder
                             remoteParent = googleTask.remoteParent

@@ -56,7 +56,7 @@ class TaskCreator @Inject constructor(
         if (task.hasTransitory(GoogleTask.KEY)) {
             googleTaskDao.insertAndShift(
                 task,
-                CaldavTask(task.id, task.getTransitory<String>(GoogleTask.KEY)!!),
+                CaldavTask(task.id, task.getTransitory<String>(GoogleTask.KEY)!!, remoteId = null),
                 addToTop
             )
         } else if (task.hasTransitory(CaldavTask.KEY)) {
@@ -67,7 +67,7 @@ class TaskCreator @Inject constructor(
             if (remoteList is GtasksFilter) {
                 googleTaskDao.insertAndShift(
                     task,
-                    CaldavTask(task.id, remoteList.remoteId),
+                    CaldavTask(task.id, remoteList.remoteId, remoteId = null),
                     addToTop
                 )
             } else if (remoteList is CaldavFilter) {

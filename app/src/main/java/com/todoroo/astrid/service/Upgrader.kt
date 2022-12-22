@@ -35,7 +35,6 @@ class Upgrader @Inject constructor(
         private val filterDao: FilterDao,
         private val defaultFilterProvider: DefaultFilterProvider,
         private val googleTaskListDao: GoogleTaskListDao,
-        private val googleTaskDao: GoogleTaskDao,
         private val userActivityDao: UserActivityDao,
         private val taskAttachmentDao: TaskAttachmentDao,
         private val caldavDao: CaldavDao,
@@ -56,7 +55,6 @@ class Upgrader @Inject constructor(
             run(from, V4_9_5) { removeDuplicateTags() }
             run(from, V5_3_0) { migrateFilters() }
             run(from, V6_0_beta_1) { migrateDefaultSyncList() }
-            run(from, V6_0_beta_2) { migrateGoogleTaskAccount() }
             run(from, V6_4) { migrateUris() }
             run(from, V6_7) { this.migrateGoogleTaskFilters() }
             run(from, V6_8_1) { this.migrateCaldavFilters() }
@@ -242,22 +240,6 @@ class Upgrader @Inject constructor(
         }
     }
 
-    private suspend fun migrateGoogleTaskAccount() {
-        // TODO: migrate google task accounts?
-//        val account = preferences.getStringValue("gtasks_user")
-//        if (!isNullOrEmpty(account)) {
-//            val caldavAccount = CaldavAccount()
-//            caldavAccount.uuid = account
-//            caldavAccount.name = account
-//            caldavAccount.username = account
-//            caldavDao.insert(caldavAccount)
-//            for (list in googleTaskListDao.getAllLists()) {
-//                list.account = account
-//                googleTaskListDao.insertOrReplace(list)
-//            }
-//        }
-    }
-
     private suspend fun migrateUris() {
         migrateUriPreference(R.string.p_backup_dir)
         migrateUriPreference(R.string.p_attachment_dir)
@@ -337,7 +319,6 @@ class Upgrader @Inject constructor(
         private const val V4_9_5 = 434
         private const val V5_3_0 = 491
         private const val V6_0_beta_1 = 522
-        private const val V6_0_beta_2 = 523
         const val V6_4 = 546
         private const val V6_7 = 585
         private const val V6_8_1 = 607

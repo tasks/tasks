@@ -2,7 +2,6 @@ package org.tasks.data
 
 import androidx.room.*
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.flow.Flow
 import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 
 @Dao
@@ -62,9 +61,6 @@ abstract class GoogleTaskDao {
 
     @Query("SELECT caldav_tasks.* FROM caldav_tasks INNER JOIN caldav_lists ON cdl_uuid = cd_calendar INNER JOIN caldav_accounts ON cda_uuid = cdl_account WHERE cd_task = :taskId AND cd_deleted = 0 AND cda_account_type = $TYPE_GOOGLE_TASKS LIMIT 1")
     abstract suspend fun getByTaskId(taskId: Long): CaldavTask?
-
-    @Query("SELECT caldav_tasks.* FROM caldav_tasks INNER JOIN caldav_lists ON cdl_uuid = cd_calendar INNER JOIN caldav_accounts ON cda_uuid = cdl_account WHERE cd_task = :taskId AND cd_deleted = 0 AND cda_account_type = $TYPE_GOOGLE_TASKS LIMIT 1")
-    abstract fun watchGoogleTask(taskId: Long): Flow<CaldavTask?>
 
     @Update
     abstract suspend fun update(googleTask: CaldavTask)

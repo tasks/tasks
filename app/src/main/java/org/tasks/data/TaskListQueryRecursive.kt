@@ -36,7 +36,6 @@ internal object TaskListQueryRecursive {
     private val SUBTASK_QUERY =
             QueryTemplate()
                     .join(Join.inner(RECURSIVE, Task.PARENT.eq(RECURSIVE_TASK)))
-//                    .join(Join.left(CaldavTask.TABLE, Criterion.and(CaldavTask.TASK.eq(Task.ID), CaldavTask.DELETED.eq(0))))
                     .where(activeAndVisible())
 
     fun getRecursiveQuery(
@@ -46,19 +45,15 @@ internal object TaskListQueryRecursive {
         var joinedQuery = JOINS
         var where = " WHERE recursive_tasks.hidden = 0"
         val parentQuery: String
-        val subtaskQuery: QueryTemplate
         when (filter) {
             is CaldavFilter -> {
                 parentQuery = newCaldavQuery(filter.uuid)
-                subtaskQuery = SUBTASK_QUERY
             }
             is GtasksFilter -> {
                 parentQuery = newCaldavQuery(filter.list.uuid!!)
-                subtaskQuery = SUBTASK_QUERY
             }
             else -> {
                 parentQuery = PermaSql.replacePlaceholdersForQuery(filter.getSqlQuery())
-                subtaskQuery = SUBTASK_QUERY
                 joinedQuery += " LEFT JOIN (SELECT task, max(indent) AS max_indent FROM recursive_tasks GROUP BY task) AS recursive_indents ON recursive_indents.task = tasks._id "
                 where += " AND indent = max_indent "
             }
@@ -96,7 +91,7 @@ internal object TaskListQueryRecursive {
                 SELECT tasks._id, $parentCompleted as parent_complete, 0 as subtask_complete, $completionSort as completion_sort, 0 as parent, tasks.collapsed as collapsed, 0 as hidden, 0 AS sort_indent, UPPER(tasks.title) AS sort_title, $sortSelect, $sortField as primary_sort, NULL as secondarySort, ${SortHelper.getSortGroup(sortMode)} FROM tasks
                 $parentQuery
                 UNION ALL SELECT tasks._id, recursive_tasks.parent_complete, $parentCompleted as subtask_complete, $completionSort as completion_sort, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, $sortSelect, recursive_tasks.primary_sort as primary_sort, $sortField as secondary_sort, recursive_tasks.sort_group FROM tasks
-                $subtaskQuery
+                $SUBTASK_QUERY
                 ORDER BY parent_complete ASC, sort_indent DESC, subtask_complete ASC, completion_sort DESC, ${SortHelper.orderForSortTypeRecursive(sortMode, reverseSort)}
             ) SELECT * FROM recursive_tasks
         """.trimIndent()
