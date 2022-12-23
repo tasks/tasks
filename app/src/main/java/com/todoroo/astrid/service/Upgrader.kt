@@ -94,6 +94,9 @@ class Upgrader @Inject constructor(
             run(from, V12_6) {
                 setInstallDetails(from)
             }
+            run(from, V13_2) {
+                caldavDao.updateParents()
+            }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {
             setInstallDetails(to)
@@ -337,6 +340,7 @@ class Upgrader @Inject constructor(
         const val V12_4 = 120400
         const val V12_6 = 120601
         const val V12_8 = 120800
+        const val V13_2 = 130200
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

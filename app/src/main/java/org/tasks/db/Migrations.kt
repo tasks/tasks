@@ -17,6 +17,7 @@ import org.tasks.data.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
 import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.OpenTaskDao.Companion.getLong
 import org.tasks.extensions.getLongOrNull
@@ -594,16 +595,19 @@ object Migrations {
             // migrate google task accounts and lists to caldav table
             database.execSQL("ALTER TABLE `caldav_lists` ADD COLUMN `cdl_last_sync` INTEGER NOT NULL DEFAULT 0")
             database.execSQL("INSERT INTO `caldav_accounts` (`cda_account_type`, `cda_server_type`, `cda_uuid`, `cda_name`, `cda_username`, `cda_collapsed`) SELECT $TYPE_GOOGLE_TASKS, $SERVER_UNKNOWN, `gta_account`, `gta_account`, `gta_account`, `gta_collapsed` FROM `google_task_accounts`")
-            database.execSQL("INSERT INTO `caldav_lists` (`cdl_account`, `cdl_uuid`, `cdl_name`, `cdl_color`, `cdl_icon`, `cdl_order`, `cdl_last_sync`) SELECT `gtl_account`, `gtl_remote_id`, `gtl_title`, `gtl_color`, `gtl_icon`, `gtl_remote_order`, `gtl_last_sync` FROM `google_task_lists`")
+            database.execSQL("INSERT INTO `caldav_lists` (`cdl_account`, `cdl_uuid`, `cdl_name`, `cdl_color`, `cdl_icon`, `cdl_order`, `cdl_access`, `cdl_last_sync`) SELECT `gtl_account`, `gtl_remote_id`, `gtl_title`, `gtl_color`, `gtl_icon`, `gtl_remote_order`, $ACCESS_OWNER, `gtl_last_sync` FROM `google_task_lists`")
             database.execSQL("DROP TABLE `google_task_accounts`")
             database.execSQL("DROP TABLE `google_task_lists`")
             // move cd_order to task table
             database.execSQL("ALTER TABLE `tasks` ADD COLUMN `order` INTEGER")
-            database.execSQL("UPDATE `tasks` SET `order` = (SELECT `cd_order` FROM `caldav_tasks` WHERE `cd_task` = `_id`)")
             database.execSQL("ALTER TABLE `caldav_tasks` RENAME TO `caldav-temp`")
-            database.execSQL("CREATE TABLE IF NOT EXISTS `caldav_tasks` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, FOREIGN KEY(`cd_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )")
-            database.execSQL("INSERT INTO `caldav_tasks` (`cd_id`, `cd_task`, `cd_calendar`, `cd_object`, `cd_remote_id`, `cd_etag`, `cd_last_sync`, `cd_deleted`, `cd_remote_parent`) SELECT `cd_id`, `cd_task`, `cd_calendar`, `cd_object`, `cd_remote_id`, `cd_etag`, `cd_last_sync`, `cd_deleted`, `cd_remote_parent` FROM `caldav-temp`")
+            database.execSQL("CREATE TABLE IF NOT EXISTS `caldav_tasks` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, FOREIGN KEY(`cd_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE)")
+            database.execSQL("DROP INDEX `index_caldav_tasks_cd_task`")
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_tasks_cd_task` ON `caldav_tasks` (`cd_task`)")
+            database.execSQL("INSERT INTO `caldav_tasks` (`cd_id`, `cd_task`, `cd_calendar`, `cd_object`, `cd_remote_id`, `cd_etag`, `cd_last_sync`, `cd_deleted`, `cd_remote_parent`, `gt_moved`, `gt_remote_order`) SELECT `cd_id`, `cd_task`, `cd_calendar`, `cd_object`, `cd_remote_id`, `cd_etag`, `cd_last_sync`, `cd_deleted`, `cd_remote_parent`, 0, 0 FROM `caldav-temp`")
             database.execSQL("DROP TABLE `caldav-temp`")
+            database.execSQL("INSERT INTO `caldav_tasks` (`cd_task`, `cd_calendar`, `cd_remote_id`, `cd_last_sync`, `cd_deleted`, `cd_remote_parent`, `gt_moved`, `gt_remote_order`) SELECT `gt_task`, `gt_list_id`, `gt_remote_id`, `gt_last_sync`, `gt_deleted`, `gt_remote_parent`, 0, 0 FROM google_tasks")
+            database.execSQL("DROP TABLE `google_tasks`")
         }
     }
 
