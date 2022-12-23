@@ -34,8 +34,8 @@
     <string name="TEA_title_hint">Tehtävän nimi</string>
     <string name="TEA_importance_label">Tärkeys</string>
     <string name="TEA_note_label">Kuvaus</string>
-    <string name="TEA_estimatedDuration_label">Kuinka pitkään se kestää?</string>
-    <string name="TEA_elapsedDuration_label">Aika on jo käytetty</string>
+    <string name="TEA_estimatedDuration_label">Arvioitu kesto</string>
+    <string name="TEA_elapsedDuration_label">Aikaa käytetty</string>
     <string name="save">Tallenna</string>
     <string name="TEA_timer_est">Arvio %s</string>
     <string name="TEA_timer_elap">Kulunut %s</string>
@@ -122,9 +122,9 @@
     <string name="rmd_NoA_done">Valmis</string>
     <string name="rmd_NoA_snooze">Torkku</string>
     <string name="snooze_all">Torkuta kaikki</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Hiljainen aika alku</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Hiljainen aika loppu</string>
-    <string name="rmd_EPr_rmd_time_title">Oletusmuistutus</string>
+    <string name="rmd_EPr_quiet_hours_start_title">Hiljainen aika alkaa</string>
+    <string name="rmd_EPr_quiet_hours_end_title">Hiljainen aika loppuu</string>
+    <string name="rmd_EPr_rmd_time_title">Muistutusaika</string>
     <string name="rmd_EPr_rmd_time_desc">Ilman määräaikaa olevien tehtävien ilmoitukset näkyvät %s</string>
     <string name="persistent_notifications">Jatkuvat ilmoitukset</string>
     <string name="persistent_notifications_description">Jatkuvia ilmoituksia ei voi tyhjentää</string>
@@ -394,7 +394,7 @@
     <string name="collapse_subtasks">Pienennä alitehtävät</string>
     <string name="expand_subtasks">Laajenna alitehtävät</string>
     <string name="name_your_price">Nimeä hintasi</string>
-    <string name="google_tasks_add_to_top">Uudet tehtävät huipulla</string>
+    <string name="google_tasks_add_to_top">Uudet tehtävät ylimmäisenä</string>
     <string name="invalid_backup_file">Epäsopiva varmuuskopiotiedosto</string>
     <string name="version_string">Versio %s</string>
     <string name="third_party_licenses">Kolmannen osapuolen lisenssit</string>
@@ -441,7 +441,7 @@
     <string name="move">Siirrä</string>
     <string name="menu_discard_changes">Hylkää muutokset</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="geofence_radius">Säde</string>
+    <string name="geofence_radius">Geofence-alue</string>
     <string name="add_location">Lisää sijainti</string>
     <string name="subtasks">Alitehtävät</string>
     <string name="google_drive_backup">Google Driven varmuuskopio</string>
@@ -612,8 +612,8 @@
     <string name="insufficient_sponsorship">Ei löydetty hyväksyttävää GitHub-sponsorointia</string>
     <string name="insufficient_subscription">Riittämätön tilaustaso. Päivitä tilauksesi palvelun jatkamiseksi.</string>
     <string name="your_subscription_expired">Tilauksesi on päättynyt. Tilaa nyt jatkaaksesi palvelua.</string>
-    <string name="custom_filter_is_subtask">Onko osatehtävä</string>
-    <string name="custom_filter_has_subtask">On osatehtäviä</string>
+    <string name="custom_filter_is_subtask">On alitehtävä</string>
+    <string name="custom_filter_has_subtask">Sisältää alitehtäviä</string>
     <string name="delete_comment">Poista tämä kommentti\?</string>
     <string name="date_picker_multiple">monikerta</string>
     <string name="multi_select_reschedule">Aikataulun muuttaminen</string>
@@ -686,8 +686,8 @@
     <string name="when_started">Kun aloitettu</string>
     <string name="now">Nyt</string>
     <string name="cancel">Peruuta</string>
-    <string name="top">Ylös</string>
-    <string name="custom_filter_has_reminder">On muistutus</string>
+    <string name="top">Ylhäällä</string>
+    <string name="custom_filter_has_reminder">Sisältää muistutuksen</string>
     <string name="randomly_every">Satunnaisesti joka %s</string>
     <plurals name="reminder_minutes">
         <item quantity="one">Minuutti</item>
@@ -708,4 +708,28 @@
     </plurals>
     <string name="completion_sound">Toista valmistumisääni</string>
     <string name="TEA_creation_date">Luontipäivä</string>
+    <string name="default_reminder">Oletusmuistutus</string>
+    <string name="rmd_time_description">Näytä ilmoitukset tehtäville ilman eräpäivää</string>
+    <string name="microsoft_selection_description">Synkronoi henkilökohtaisen Microsoft-tilin kanssa</string>
+    <string name="completed_tasks_at_bottom">Siirrä valmiit tehtävät alimmaiseksi</string>
+    <string name="completed_tasks_sort">Järjestä valmistumispäivän mukaan</string>
+    <string name="caldav_server_unknown">Tuntematon</string>
+    <string name="caldav_server_other">Muu</string>
+    <string name="caldav_server_type">Palvelimen tyyppi</string>
+    <string name="sign_in">Kirjaudu sisään</string>
+    <string name="consent_agree">Hyväksy</string>
+    <string name="consent_deny">Hylkää</string>
+    <string name="snackbar_tasks_completed">%d tehtävää suoritettu</string>
+    <string name="custom_notification">Mukautettu ilmoitus</string>
+    <string name="snoozed_until">Torkuta %s</string>
+    <string name="bottom">Alhaalla</string>
+    <string name="completed">Valmiit</string>
+    <string name="snackbar_task_completed">Tehtävä suoritettu</string>
+    <string name="hint_customize_edit_title">Liian paljon tietoa\?</string>
+    <string name="hint_customize_edit_body">Voit muokata tätä näkymää uudelleenjärjestelemällä tai poistamalla kenttiä</string>
+    <string name="enable_reminders">Salli muistutukset</string>
+    <string name="filter_snoozed">Torkutetut</string>
+    <string name="dismiss">Hylkää</string>
+    <string name="customize_edit_screen_summary">Uudelleenjärjestä tai poista kenttiä</string>
+    <string name="enable_reminders_description">Muistutukset on poistettu käytöstä Androidin asetuksista</string>
 </resources>
