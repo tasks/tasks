@@ -139,7 +139,7 @@ class Task : Parcelable {
         isCollapsed = ParcelCompat.readBoolean(parcel)
         parent = parcel.readLong()
         readOnly = ParcelCompat.readBoolean(parcel)
-        order = ParcelCompat.readSerializable(parcel, Long::class.java.classLoader, Long::class.java)
+        order = parcel.readLong()
     }
 
     var uuid: String
@@ -274,7 +274,7 @@ class Task : Parcelable {
         ParcelCompat.writeBoolean(dest, isCollapsed)
         dest.writeLong(parent)
         ParcelCompat.writeBoolean(dest, readOnly)
-        dest.writeSerializable(order)
+        dest.writeLong(order ?: 0)
     }
 
     fun insignificantChange(task: Task?): Boolean {
