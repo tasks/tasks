@@ -12,6 +12,8 @@ import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
+import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
+import com.todoroo.astrid.service.TaskCreator.Companion.setDefaultReminders
 import net.fortuna.ical4j.model.DateTime
 import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.Property
@@ -181,6 +183,7 @@ class iCalendar @Inject constructor(
                     existing?.task = id
                 }
         val caldavTask = existing ?: CaldavTask(task.id, calendar.uuid, remote.uid, obj)
+        val isNew = caldavTask.id == com.todoroo.astrid.data.Task.NO_ID
         val dirty = task.modificationDate > caldavTask.lastSync || caldavTask.lastSync == 0L
         val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
         task.applyRemote(remote, local)
@@ -201,7 +204,10 @@ class iCalendar @Inject constructor(
             tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
         }
 
-        if (account.reminderSync) {
+        if (isNew && remote.reminders.isEmpty()) {
+            task.setDefaultReminders(preferences)
+            alarmService.synchronizeAlarms(task.id, task.getDefaultAlarms().toMutableSet())
+        } else if (account.reminderSync) {
             val alarms = alarmDao.getAlarms(task.id).onEach {
                 it.id = 0
                 it.task = 0
@@ -227,7 +233,7 @@ class iCalendar @Inject constructor(
         if (!dirty) {
             caldavTask.lastSync = task.modificationDate
         }
-        if (caldavTask.id == com.todoroo.astrid.data.Task.NO_ID) {
+        if (isNew) {
             caldavTask.id = caldavDao.insert(caldavTask)
             Timber.d("NEW %s", caldavTask)
         } else {

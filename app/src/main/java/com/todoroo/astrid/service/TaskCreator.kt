@@ -114,7 +114,7 @@ class TaskCreator @Inject constructor(
         preferences.getStringValue(R.string.p_default_location)
                 ?.takeIf { it.isNotBlank() }
                 ?.let { task.putTransitory(Place.KEY, it) }
-        setDefaultReminders(preferences, task)
+        task.setDefaultReminders(preferences)
         val tags = ArrayList<String>()
         values?.entries?.forEach { (key, value) ->
             when (key) {
@@ -167,13 +167,13 @@ class TaskCreator @Inject constructor(
     }
 
     companion object {
-        private fun setDefaultReminders(preferences: Preferences, task: Task) {
-            task.randomReminder = DateUtilities.ONE_HOUR * preferences.getIntegerFromString(
+        fun Task.setDefaultReminders(preferences: Preferences) {
+            randomReminder = DateUtilities.ONE_HOUR * preferences.getIntegerFromString(
                 R.string.p_rmd_default_random_hours,
                 0
             )
-            task.defaultReminders(preferences.defaultReminders)
-            task.ringFlags = preferences.defaultRingMode
+            defaultReminders(preferences.defaultReminders)
+            ringFlags = preferences.defaultRingMode
         }
 
         private fun Any?.substitute(): String? =
