@@ -576,7 +576,7 @@
     <string name="persistent_notifications_description">Thông báo cố định không thể bị xoá</string>
     <string name="persistent_notifications">Thông báo cố định</string>
     <string name="rmd_EPr_rmd_time_desc">Các thông báo cho các công việc không có ngày hạn sẽ hiện lên ở %s</string>
-    <string name="rmd_EPr_rmd_time_title">Lời nhắc mặc định</string>
+    <string name="rmd_EPr_rmd_time_title">Thời gian lời nhắc</string>
     <string name="rmd_EPr_quiet_hours_end_title">Giờ im lặng kết thúc</string>
     <string name="rmd_EPr_quiet_hours_start_title">Giờ im lặng bắt đầu</string>
     <string name="snooze_all">Báo lại tất cả</string>
@@ -713,4 +713,11 @@
     <string name="enable_reminders_description">Lời nhắc bị tắt trong cài đặt Android</string>
     <string name="enable_reminders">Bật lời nhắc</string>
     <string name="TEA_creation_date">Ngày tạo</string>
+    <string name="default_reminder">Lời nhắc mặc định</string>
+    <string name="rmd_time_description">Hiện thông báo cho công việc không có hạn chót</string>
+    <string name="microsoft_selection_description">Đồng bộ với tài khoản Microsoft cá nhân</string>
+    <string name="sign_in_to_tasks_disclosure">Địa chỉ email và ID tài khoản của bạn sẽ được Tasks.org truyền đi và giữ lại. Thông tin này sẽ được sử dụng để xác thực và cung cấp các thông báo quan trọng liên quan đến dịch vụ. Thông tin này sẽ không được chia sẻ với ai.</string>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="consent_agree">Đồng ý</string>
+    <string name="consent_deny">Không phải bây giờ</string>
 </resources>
