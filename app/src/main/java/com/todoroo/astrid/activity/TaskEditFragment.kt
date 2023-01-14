@@ -90,6 +90,7 @@ import java.time.format.FormatStyle
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.abs
+import android.view.inputmethod.EditorInfo
 
 @AndroidEntryPoint
 class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
@@ -177,6 +178,14 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                 textWatcher?.invoke(it)
             }
         )
+        title.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                lifecycleScope.launch {
+                    save()
+                }
+                true
+            } else false
+        }
         title.setText(model.title)
         title.setHorizontallyScrolling(false)
         title.maxLines = 5
