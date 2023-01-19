@@ -71,7 +71,7 @@
     <string name="TEA_control_files">Dosieroj</string>
     <string name="TEA_control_notes">Priskribo</string>
     <string name="TEA_control_gcal">Kalendaro</string>
-    <string name="start_date">Komencdato</string>
+    <string name="start_date">Komencodato</string>
     <string name="save">Konservi</string>
     <string name="TEA_note_label">Priskribo</string>
     <string name="no_date">Sen dato</string>
@@ -350,5 +350,8 @@
     <string name="EPr_reset_preferences">Restarigi agordojn</string>
     <string name="EPr_cal_end_or_start_at_due_time">Tempo de kalendara evento</string>
     <string name="actfm_picture_clear">Forigi bildon</string>
-    <string name="FLA_search_filter">Koincidoj kun \'%s\'</string>
+    <string name="FLA_search_filter">Kongruante kun \'%s\'</string>
+    <string name="CRA_speech_bubble_start">Ŝajnas ke %s komenciĝos baldaŭ. Ĉu vi deziras krei liston de agoj\?</string>
+    <string name="TEA_creation_date">Kreodato</string>
+    <string name="EPr_beastMode_reset">Restarigi defaŭltojn</string>
 </resources>
