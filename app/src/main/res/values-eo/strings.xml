@@ -350,5 +350,5 @@
     <string name="EPr_reset_preferences">Restarigi agordojn</string>
     <string name="EPr_cal_end_or_start_at_due_time">Tempo de kalendara evento</string>
     <string name="actfm_picture_clear">Forigi bildon</string>
-    <string name="FLA_search_filter">Kongruante \'%s\'</string>
+    <string name="FLA_search_filter">Koincidoj kun \'%s\'</string>
 </resources>
