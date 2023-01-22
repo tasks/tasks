@@ -11,7 +11,7 @@ Please visit [tasks.org](https://tasks.org) for end user documentation and suppo
 
 ---
 
-[![Donate with Bitcoin](https://img.shields.io/badge/bitcoin-donate-yellow.svg?logo=bitcoin)](https://en.cryptobadges.io/donate/136mW34jW3cmZKhxuTDn3tHXMRwbbaRU8s)
+[![Donate with Bitcoin](https://img.shields.io/badge/bitcoin-donate-yellow.svg?logo=bitcoin)](bitcoin:136mW34jW3cmZKhxuTDn3tHXMRwbbaRU8s)
 [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg?logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=alex@tasks.org)
 [![Liberapay donate button](https://img.shields.io/liberapay/receives/tasks.svg?logo=liberapay)](https://liberapay.com/tasks/donate)
 
