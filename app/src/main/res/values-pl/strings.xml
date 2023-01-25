@@ -128,7 +128,7 @@
     <string name="snooze_all">Uśpij wszystkie</string>
     <string name="rmd_EPr_quiet_hours_start_title">Początek czasu wyciszenia</string>
     <string name="rmd_EPr_quiet_hours_end_title">Koniec czasu wyciszenia</string>
-    <string name="rmd_EPr_rmd_time_title">Domyślne przypomnienie</string>
+    <string name="rmd_EPr_rmd_time_title">Czas przypomnienia</string>
     <string name="rmd_EPr_rmd_time_desc">Powiadomienia zadań bez odpowiedniego czasu pojawi się na %s</string>
     <string name="persistent_notifications">Natarczywe powiadomienia</string>
     <string name="persistent_notifications_description">Natarczywe powiadomienia nie mogą zostać wyczyszczone</string>
@@ -755,4 +755,11 @@
     <string name="TEA_creation_date">Data utworzenia</string>
     <string name="sort_completion_group">Ukończono %s</string>
     <string name="enable_reminders_description">Przypomnienia są wyłączone w Ustawieniach Androida</string>
+    <string name="rmd_time_description">Wyświetlanie powiadomień o zadaniach bez terminów do wykonania</string>
+    <string name="microsoft_selection_description">Synchronizuj z osobistym kontem Microsoft</string>
+    <string name="sign_in_to_tasks_disclosure">Twój adres e-mail i identyfikator konta będą przekazywane i przechowywane przez Tasks.org. Informacje te będą wykorzystywane do uwierzytelniania oraz do przekazywania Ci ważnych ogłoszeń związanych z naszymi usługami. Informacje te nie będą nikomu udostępniane.</string>
+    <string name="consent_agree">Zgadzam się</string>
+    <string name="consent_deny">Nie teraz</string>
+    <string name="default_reminder">Domyślne przypomnienie</string>
+    <string name="sign_in">Zaloguj się</string>
 </resources>
