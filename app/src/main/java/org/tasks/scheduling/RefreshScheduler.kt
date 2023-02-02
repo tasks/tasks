@@ -4,7 +4,8 @@ import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskDao
 import org.tasks.jobs.WorkManager
 import org.tasks.time.DateTimeUtils
-import java.util.*
+import java.util.SortedSet
+import java.util.TreeSet
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,7 +17,6 @@ class RefreshScheduler @Inject internal constructor(
 
     private val jobs: SortedSet<Long> = TreeSet()
 
-    @Synchronized
     suspend fun scheduleAll() {
         for (task in taskDao.needsRefresh()) {
             scheduleRefresh(task)

@@ -273,7 +273,6 @@ class GoogleTaskSynchronizer @Inject constructor(
         write(task, gtasksMetadata)
     }
 
-    @Synchronized
     @Throws(IOException::class)
     private suspend fun fetchAndApplyRemoteChanges(
             gtasksInvoker: GtasksInvoker, list: GoogleTaskList) {

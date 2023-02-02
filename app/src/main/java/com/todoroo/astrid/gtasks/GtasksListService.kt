@@ -25,7 +25,6 @@ class GtasksListService @Inject constructor(
      *
      * @param remoteLists remote information about your lists
      */
-    @Synchronized
     suspend fun updateLists(account: GoogleTaskAccount, remoteLists: List<TaskList>) {
         val lists = googleTaskListDao.getLists(account.account!!)
         val previousLists: MutableSet<Long> = HashSet()

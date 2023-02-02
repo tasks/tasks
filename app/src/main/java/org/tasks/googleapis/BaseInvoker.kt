@@ -19,11 +19,9 @@ abstract class BaseInvoker(
         private val preferences: Preferences,
         private val interceptor: DebugNetworkInterceptor
 ) {
-    @Synchronized
     @Throws(IOException::class)
     protected suspend fun <T> execute(request: AbstractGoogleJsonClientRequest<T>): T? = execute(request, false)
 
-    @Synchronized
     @Throws(IOException::class)
     private suspend fun <T> execute(request: AbstractGoogleJsonClientRequest<T>, retry: Boolean): T? =
             withContext(Dispatchers.IO) {
