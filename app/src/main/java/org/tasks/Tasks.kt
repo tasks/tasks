@@ -7,7 +7,12 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.JobIntentService
 import androidx.hilt.work.HiltWorkerFactory
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.coroutineScope
 import androidx.work.Configuration
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
 import dagger.hilt.android.HiltAndroidApp
@@ -30,6 +35,7 @@ import org.tasks.scheduling.RefreshScheduler
 import org.tasks.themes.ThemeBase
 import org.tasks.widget.AppWidgetManager
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -56,6 +62,17 @@ class Tasks : Application(), Configuration.Provider {
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
         backgroundWork()
+        ProcessLifecycleOwner.get().lifecycle.addObserver(
+            object : DefaultLifecycleObserver {
+                override fun onResume(owner: LifecycleOwner) {
+                    if (now() - preferences.lastSync > TimeUnit.MINUTES.toMillis(5)) {
+                        owner.lifecycle.coroutineScope.launch {
+                            workManager.get().sync(true)
+                        }
+                    }
+                }
+            }
+        )
     }
 
     private fun upgrade() {
@@ -105,7 +122,9 @@ class Tasks : Application(), Configuration.Provider {
     }
 
     companion object {
+        @Suppress("KotlinConstantConditions")
         const val IS_GOOGLE_PLAY = BuildConfig.FLAVOR == "googleplay"
+        @Suppress("KotlinConstantConditions")
         const val IS_GENERIC = BuildConfig.FLAVOR == "generic"
     }
 }

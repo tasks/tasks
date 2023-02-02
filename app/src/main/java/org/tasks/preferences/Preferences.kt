@@ -471,6 +471,12 @@ class Preferences @JvmOverloads constructor(
             syncFlags.forEach { setBoolean(it, value) }
         }
 
+    var lastSync: Long
+        get() = getLong(R.string.p_last_sync, 0L)
+        set(value) {
+            setLong(R.string.p_last_sync, value)
+        }
+
     fun <T> getPrefs(c: Class<T>): Map<String, T> =
         prefs.all.filter { (_, value) -> c.isInstance(value) } as Map<String, T>
 

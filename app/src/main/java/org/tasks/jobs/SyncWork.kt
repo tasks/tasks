@@ -12,7 +12,11 @@ import androidx.work.WorkerParameters
 import dagger.Lazy
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -65,6 +69,7 @@ class SyncWork @AssistedInject constructor(
         localBroadcastManager.broadcastRefresh()
         try {
             doSync()
+            preferences.lastSync = System.currentTimeMillis()
         } catch (e: Exception) {
             firebase.reportException(e)
         } finally {
