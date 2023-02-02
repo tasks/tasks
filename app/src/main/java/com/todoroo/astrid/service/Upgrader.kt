@@ -35,7 +35,6 @@ class Upgrader @Inject constructor(
         private val filterDao: FilterDao,
         private val defaultFilterProvider: DefaultFilterProvider,
         private val googleTaskListDao: GoogleTaskListDao,
-        private val googleTaskDao: GoogleTaskDao,
         private val userActivityDao: UserActivityDao,
         private val taskAttachmentDao: TaskAttachmentDao,
         private val caldavDao: CaldavDao,
@@ -56,7 +55,6 @@ class Upgrader @Inject constructor(
             run(from, V4_9_5) { removeDuplicateTags() }
             run(from, V5_3_0) { migrateFilters() }
             run(from, V6_0_beta_1) { migrateDefaultSyncList() }
-            run(from, V6_0_beta_2) { migrateGoogleTaskAccount() }
             run(from, V6_4) { migrateUris() }
             run(from, V6_7) { this.migrateGoogleTaskFilters() }
             run(from, V6_8_1) { this.migrateCaldavFilters() }
@@ -71,8 +69,8 @@ class Upgrader @Inject constructor(
                 preferences.setBoolean(R.string.p_astrid_sort_enabled, true)
                 taskMover.migrateLocalTasks()
             }
-            run(from, V9_7) { googleTaskListDao.resetOrders() }
-            run(from, V9_7_3) { googleTaskDao.updateParents() }
+            run(from, V9_7) { caldavDao.resetOrders() }
+            run(from, V9_7_3) { caldavDao.updateParents() }
             run(from, V10_0_2) {
                 filterDao.getFilters()
                         .filter { it.getSql().trim() == "WHERE" }
@@ -95,6 +93,9 @@ class Upgrader @Inject constructor(
             }
             run(from, V12_6) {
                 setInstallDetails(from)
+            }
+            run(from, V13_2) {
+                caldavDao.updateParents()
             }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {
@@ -133,10 +134,6 @@ class Upgrader @Inject constructor(
                 calendar.copy(color = getAndroidColor(calendar.color))
             )
         }
-        for (list in googleTaskListDao.getAllLists()) {
-            list.setColor(getAndroidColor(list.getColor()!!))
-            googleTaskListDao.update(list)
-        }
         for (tagData in tagDataDao.getAll()) {
             tagData.setColor(getAndroidColor(tagData.getColor()!!))
             tagDataDao.update(tagData)
@@ -156,8 +153,7 @@ class Upgrader @Inject constructor(
             val remoteTask = vtodoCache.getVtodo(task)?.let { fromVtodo(it) } ?: continue
             val order: Long? = remoteTask.order
             if (order != null) {
-                task.order = order
-                caldavDao.update(task)
+                taskDao.setOrder(task.task, order)
             }
         }
     }
@@ -247,19 +243,6 @@ class Upgrader @Inject constructor(
         }
     }
 
-    private suspend fun migrateGoogleTaskAccount() {
-        val account = preferences.getStringValue("gtasks_user")
-        if (!isNullOrEmpty(account)) {
-            val googleTaskAccount = GoogleTaskAccount()
-            googleTaskAccount.account = account
-            googleTaskListDao.insert(googleTaskAccount)
-            for (list in googleTaskListDao.getAllLists()) {
-                list.account = account
-                googleTaskListDao.insertOrReplace(list)
-            }
-        }
-    }
-
     private suspend fun migrateUris() {
         migrateUriPreference(R.string.p_backup_dir)
         migrateUriPreference(R.string.p_attachment_dir)
@@ -339,7 +322,6 @@ class Upgrader @Inject constructor(
         private const val V4_9_5 = 434
         private const val V5_3_0 = 491
         private const val V6_0_beta_1 = 522
-        private const val V6_0_beta_2 = 523
         const val V6_4 = 546
         private const val V6_7 = 585
         private const val V6_8_1 = 607
@@ -358,6 +340,7 @@ class Upgrader @Inject constructor(
         const val V12_4 = 120400
         const val V12_6 = 120601
         const val V12_8 = 120800
+        const val V13_2 = 130200
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {

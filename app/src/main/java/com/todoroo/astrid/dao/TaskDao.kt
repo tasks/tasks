@@ -69,6 +69,8 @@ class TaskDao @Inject constructor(
         syncAdapters.sync()
     }
 
+    suspend fun setOrder(taskId: Long, order: Long?) = taskDao.setOrder(taskId, order)
+
     suspend fun setParent(parent: Long, tasks: List<Long>) = taskDao.setParent(parent, tasks)
 
     suspend fun getChildren(ids: List<Long>) = taskDao.getChildren(ids)

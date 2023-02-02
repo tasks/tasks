@@ -55,7 +55,10 @@ class TaskCreator @Inject constructor(
         val addToTop = preferences.addTasksToTop()
         if (task.hasTransitory(GoogleTask.KEY)) {
             googleTaskDao.insertAndShift(
-                    GoogleTask(task.id, task.getTransitory<String>(GoogleTask.KEY)!!), addToTop)
+                task,
+                CaldavTask(task.id, task.getTransitory<String>(GoogleTask.KEY)!!, remoteId = null),
+                addToTop
+            )
         } else if (task.hasTransitory(CaldavTask.KEY)) {
             caldavDao.insert(
                     task, CaldavTask(task.id, task.getTransitory<String>(CaldavTask.KEY)), addToTop)
@@ -63,7 +66,10 @@ class TaskCreator @Inject constructor(
             val remoteList = defaultFilterProvider.getDefaultList()
             if (remoteList is GtasksFilter) {
                 googleTaskDao.insertAndShift(
-                        GoogleTask(task.id, remoteList.remoteId), addToTop)
+                    task,
+                    CaldavTask(task.id, remoteList.remoteId, remoteId = null),
+                    addToTop
+                )
             } else if (remoteList is CaldavFilter) {
                 caldavDao.insert(
                         task, CaldavTask(task.id, remoteList.uuid), addToTop)

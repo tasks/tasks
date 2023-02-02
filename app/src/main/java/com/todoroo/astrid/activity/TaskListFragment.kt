@@ -980,7 +980,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     companion object {
         const val TAGS_METADATA_JOIN = "for_tags" // $NON-NLS-1$
-        const val GTASK_METADATA_JOIN = "googletask" // $NON-NLS-1$
         const val CALDAV_METADATA_JOIN = "for_caldav" // $NON-NLS-1$
         const val ACTION_RELOAD = "action_reload"
         const val ACTION_DELETED = "action_deleted"

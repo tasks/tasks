@@ -22,7 +22,6 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
-import org.tasks.data.GoogleTaskAccount
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
@@ -87,7 +86,6 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         viewModel.lastBackup.observe(this) { updateBackupWarning() }
         viewModel.lastAndroidBackup.observe(this) { updateBackupWarning() }
         viewModel.lastDriveBackup.observe(this) { updateBackupWarning() }
-        viewModel.googleTaskAccounts.observe(this) { refreshAccounts() }
         viewModel.caldavAccounts.observe(this) { refreshAccounts() }
         if (BuildConfig.FLAVOR == "generic") {
             remove(R.string.upgrade_to_pro)
@@ -142,7 +140,6 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
 
     private fun refreshAccounts() {
         val caldavAccounts = viewModel.caldavAccounts.value ?: emptyList()
-        val googleTaskAccounts = viewModel.googleTaskAccounts.value ?: emptyList()
         val addAccount = findPreference(R.string.add_account)
         val index = preferenceScreen.indexOf(addAccount)
         var current = 0
@@ -153,15 +150,8 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
                 preferenceScreen.insertAt(current++)
             })
         }
-        googleTaskAccounts.forEach {
-            setup(it, if (current < index) {
-                preferenceScreen.getPreference(current++) as IconPreference
-            } else {
-                preferenceScreen.insertAt(current++)
-            })
-        }
         preferenceScreen.removeAt(current, index - current)
-        if (caldavAccounts.isEmpty() && googleTaskAccounts.isEmpty()) {
+        if (caldavAccounts.isEmpty()) {
             addAccount.setTitle(R.string.not_signed_in)
             addAccount.setIcon(R.drawable.ic_outline_cloud_off_24px)
         } else {
@@ -216,6 +206,12 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
                     newMicrosoftAccountPreference(account),
                     getString(R.string.microsoft)
                 )
+            } else if (account.isGoogleTasks) {
+                (activity as MainPreferences).startPreference(
+                    this,
+                    newGoogleTasksAccountPreference(account),
+                    getString(R.string.gtasks_GPr_header)
+                )
             } else {
                 val intent = Intent(context, account.accountSettingsClass).apply {
                     putExtra(BaseCaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, account)
@@ -237,21 +233,6 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
             }
         }
         setupErrorIcon(pref, account.hasError, account.isEteSyncAccount)
-    }
-
-    private fun setup(account: GoogleTaskAccount, pref: IconPreference) {
-        pref.setTitle(R.string.gtasks_GPr_header)
-        pref.setIcon(R.drawable.ic_google)
-        pref.summary = account.account
-        setupErrorIcon(pref, account.hasError)
-        pref.setOnPreferenceClickListener {
-            (activity as MainPreferences).startPreference(
-                    this,
-                    newGoogleTasksAccountPreference(account),
-                    account.account!!
-            )
-            false
-        }
     }
 
     private fun setupErrorIcon(

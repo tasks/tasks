@@ -39,7 +39,7 @@ class FilterProvider @Inject constructor(
         private val locationDao: LocationDao) {
 
     suspend fun listPickerItems(): List<FilterListItem> =
-            googleTaskFilters(false).plus(caldavFilters(false))
+            caldavFilters(false)
 
     suspend fun navDrawerItems(): List<FilterListItem> =
             getAllFilters(hideUnused = true).plus(navDrawerFooter)
@@ -166,7 +166,6 @@ class FilterProvider @Inject constructor(
                     .plus(addFilters(showCreate, showBuiltIn))
                     .plus(addTags(showCreate, hideUnused))
                     .plus(addPlaces(showCreate, hideUnused))
-                    .plus(googleTaskFilters(showCreate))
                     .plus(caldavFilters(showCreate))
                     .toList()
                     .plusAllIf(BuildConfig.DEBUG) { getDebugFilters() }
@@ -201,13 +200,10 @@ class FilterProvider @Inject constructor(
                         Intent(context, HelpAndFeedback::class.java),
                         0))
 
-    private suspend fun googleTaskFilters(showCreate: Boolean = true): List<FilterListItem> =
-            googleTaskListDao.getAccounts().flatMap { googleTaskFilter(it, showCreate) }
-
-    private suspend fun googleTaskFilter(account: GoogleTaskAccount, showCreate: Boolean): List<FilterListItem> =
+    private suspend fun googleTaskFilter(account: CaldavAccount, showCreate: Boolean): List<FilterListItem> =
             listOf(
                     NavigationDrawerSubheader(
-                            account.account,
+                            account.username,
                             account.error?.isNotBlank() ?: false,
                             account.isCollapsed,
                             SubheaderType.GOOGLE_TASKS,
@@ -221,7 +217,7 @@ class FilterProvider @Inject constructor(
                             }))
                     .apply { if (account.isCollapsed) return this }
                     .plus(googleTaskListDao
-                                .getGoogleTaskFilters(account.account!!)
+                                .getGoogleTaskFilters(account.username!!)
                                 .map(GoogleTaskFilters::toGtasksFilter)
                                 .sort())
 
@@ -229,7 +225,16 @@ class FilterProvider @Inject constructor(
             caldavDao.getAccounts()
                     .ifEmpty { listOf(caldavDao.setupLocalAccount(context)) }
                     .filter { it.accountType != TYPE_LOCAL || preferences.getBoolean(R.string.p_lists_enabled, true) }
-                    .flatMap { caldavFilter(it, showCreate && it.accountType != TYPE_OPENTASKS && it.accountType != TYPE_ETESYNC) }
+                .flatMap {
+                    if (it.isGoogleTasks) {
+                        googleTaskFilter(it, showCreate)
+                    } else {
+                        caldavFilter(
+                            it,
+                            showCreate && it.accountType != TYPE_OPENTASKS && it.accountType != TYPE_ETESYNC
+                        )
+                    }
+                }
 
     private suspend fun caldavFilter(account: CaldavAccount, showCreate: Boolean): List<FilterListItem> =
             listOf(

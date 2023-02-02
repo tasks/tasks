@@ -46,11 +46,8 @@ class TaskMover @Inject constructor(
     suspend fun move(ids: List<Long>, selectedList: Filter) {
         val tasks = ids
             .dbchunk()
-            .flatMap {
-                it.minus(googleTaskDao.getChildren(it).toSet())
-                    .minus(taskDao.getChildren(it).toSet())
-            }
-            .let { taskDao.fetch(it) }
+            .flatMap { taskDao.getChildren(it) }
+            .let { taskDao.fetch(ids.minus(it.toSet())) }
             .filterNot { it.readOnly }
         val taskIds = tasks.map { it.id }
         taskDao.setParent(0, ids.intersect(taskIds.toSet()).toList())
@@ -82,32 +79,30 @@ class TaskMover @Inject constructor(
         moveLocalTask(task, selectedList)
     }
 
-    private suspend fun moveGoogleTask(task: Task, googleTask: GoogleTask, selected: Filter) {
-        if (selected is GtasksFilter && googleTask.listId == selected.remoteId) {
+    private suspend fun moveGoogleTask(task: Task, googleTask: CaldavTask, selected: Filter) {
+        if (selected is GtasksFilter && googleTask.calendar == selected.remoteId) {
             return
         }
-        val id = googleTask.task
-        val children = googleTaskDao.getChildren(id)
-        val childIds = children.map(GoogleTask::task)
-        googleTaskDao.markDeleted(id, DateUtilities.now())
+        val id = task.id
+        val children = taskDao.getChildren(id)
+        caldavDao.markDeleted(children + id, DateUtilities.now())
         when(selected) {
             is GtasksFilter -> {
                 val listId = selected.remoteId
-                googleTaskDao.insertAndShift(GoogleTask(id, listId), preferences.addTasksToTop())
+                googleTaskDao.insertAndShift(
+                    task = task,
+                    caldavTask = CaldavTask(id, listId, remoteId = null),
+                    top = preferences.addTasksToTop()
+                )
                 children.takeIf { it.isNotEmpty() }
-                        ?.map {
-                            val newChild = GoogleTask(it.task, listId)
-                            newChild.order = it.order
-                            newChild.parent = id
-                            newChild
-                        }
+                        ?.map { CaldavTask(task = it, calendar = listId, remoteId = null) }
                         ?.let { googleTaskDao.insert(it) }
             }
             is CaldavFilter -> {
                 val listId = selected.uuid
                 val newParent = CaldavTask(id, listId)
                 caldavDao.insert(task, newParent, preferences.addTasksToTop())
-                childIds.map {
+                children.map {
                     val newChild = CaldavTask(it, listId)
                     newChild.remoteParent = newParent.remoteId
                     newChild
@@ -176,16 +171,16 @@ class TaskMover @Inject constructor(
     }
 
     private suspend fun moveToGoogleTasks(id: Long, children: List<Long>, filter: GtasksFilter) {
-        taskDao.setParent(0, children)
+        val task = taskDao.fetch(id) ?: return
+        taskDao.setParent(id, children)
         val listId = filter.remoteId
-        googleTaskDao.insertAndShift(GoogleTask(id, listId), preferences.addTasksToTop())
+        googleTaskDao.insertAndShift(
+            task,
+            CaldavTask(id, listId, remoteId = null),
+            preferences.addTasksToTop()
+        )
         children.takeIf { it.isNotEmpty() }
-                ?.mapIndexed { index, task ->
-                    val newChild = GoogleTask(task, listId)
-                    newChild.order = index.toLong()
-                    newChild.parent = id
-                    newChild
-                }
+                ?.map { CaldavTask(it, listId, remoteId = null) }
                 ?.let { googleTaskDao.insert(it) }
     }
 }

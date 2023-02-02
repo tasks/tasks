@@ -126,7 +126,6 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
             lifecycleScope.launch {
                 filterDao.resetOrders()
                 caldavDao.resetOrders()
-                googleTaskListDao.resetOrders()
                 tagDataDao.resetOrders()
                 locationDao.resetOrders()
                 updateFilters()
@@ -226,7 +225,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
 
         private suspend fun setOrder(order: Int, filter: FilterListItem) {
             when (filter) {
-                is GtasksFilter -> googleTaskListDao.setOrder(filter.list.id, order)
+                is GtasksFilter -> caldavDao.setOrder(filter.list.id, order)
                 is CaldavFilter -> caldavDao.setOrder(filter.calendar.id, order)
                 is TagFilter -> tagDataDao.setOrder(filter.tagData.id!!, order)
                 is CustomFilter -> filterDao.setOrder(filter.id, order)

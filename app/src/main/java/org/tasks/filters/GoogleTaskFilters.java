@@ -1,12 +1,15 @@
 package org.tasks.filters;
 
 import androidx.room.Embedded;
+
 import com.todoroo.astrid.api.GtasksFilter;
+
+import org.tasks.data.CaldavCalendar;
+
 import java.util.Objects;
-import org.tasks.data.GoogleTaskList;
 
 public class GoogleTaskFilters {
-  @Embedded public GoogleTaskList googleTaskList;
+  @Embedded public CaldavCalendar googleTaskList;
   public int count;
 
   GtasksFilter toGtasksFilter() {

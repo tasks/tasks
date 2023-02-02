@@ -22,7 +22,6 @@ import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
-import org.tasks.makers.CaldavTaskMaker.REMOTE_ORDER
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TagDataMaker.NAME
 import org.tasks.makers.TagDataMaker.newTagData
@@ -31,6 +30,7 @@ import org.tasks.makers.TagMaker.TASK
 import org.tasks.makers.TagMaker.newTag
 import org.tasks.makers.TaskMaker
 import org.tasks.makers.TaskMaker.COLLAPSED
+import org.tasks.makers.TaskMaker.ORDER
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
 import java.util.*
@@ -129,20 +129,18 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
 
         synchronizer.sync()
 
-        assertEquals(
-                633734058L,
-                caldavDao.getTaskByRemoteId(list.uuid!!, "3076145036806467726")?.order
-        )
+        val task = caldavDao.getTaskByRemoteId(list.uuid!!, "3076145036806467726")!!.task
+        assertEquals(633734058L, taskDao.fetch(task)?.order)
     }
 
     @Test
     fun pushOrder() = runBlocking {
         val (listId, list) = openTaskDao.insertList()
-        val task = newTask().apply { taskDao.createNew(this) }
+        val task = newTask(with(ORDER, 5678L))
+        taskDao.createNew(task)
         caldavDao.insert(newCaldavTask(
                 with(CALENDAR, list.uuid),
                 with(REMOTE_ID, "1234"),
-                with(REMOTE_ORDER, 5678L),
                 with(CaldavTaskMaker.TASK, task.id)
         ))
 

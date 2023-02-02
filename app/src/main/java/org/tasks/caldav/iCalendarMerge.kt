@@ -30,12 +30,12 @@ fun com.todoroo.astrid.data.Task.applyRemote(
     applyDue(remote, local)
     applyStart(remote, local)
     applyCollapsed(remote, local)
+    applyOrder(remote, local)
     return this
 }
 
 fun CaldavTask.applyRemote(remote: Task, local: Task?): CaldavTask {
     applyParent(remote, local)
-    applyOrder(remote, local)
     return this
 }
 
@@ -108,7 +108,7 @@ private fun com.todoroo.astrid.data.Task.applyCollapsed(remote: Task, local: Tas
     }
 }
 
-private fun CaldavTask.applyOrder(remote: Task, local: Task?) {
+private fun com.todoroo.astrid.data.Task.applyOrder(remote: Task, local: Task?) {
     if (local == null || local.order == order) {
         order = remote.order
     }

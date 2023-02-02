@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity
@@ -15,10 +16,13 @@ import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.GoogleTaskAccount
-import org.tasks.data.GoogleTaskList
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavCalendar
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.databinding.ActivityGoogleTaskListSettingsBinding
 import org.tasks.extensions.Context.toast
@@ -34,20 +38,21 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     private lateinit var progressView: ProgressBar
 
     private var isNewList = false
-    private lateinit var gtasksList: GoogleTaskList
+    private lateinit var gtasksList: CaldavCalendar
     private val createListViewModel: CreateListViewModel by viewModels()
     private val renameListViewModel: RenameListViewModel by viewModels()
     private val deleteListViewModel: DeleteListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         gtasksList = intent.getParcelableExtra(EXTRA_STORE_DATA)
-                ?: GoogleTaskList().apply {
+                ?: CaldavCalendar(
+                    account = intent.getParcelableExtra<CaldavAccount>(EXTRA_ACCOUNT)!!.username
+                ).apply {
                     isNewList = true
-                    account = intent.getParcelableExtra<GoogleTaskAccount>(EXTRA_ACCOUNT)!!.account
                 }
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            selectedColor = gtasksList.getColor()!!
+            selectedColor = gtasksList.color
             selectedIcon = gtasksList.getIcon()!!
         }
         if (isNewList) {
@@ -55,7 +60,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT)
         } else {
-            name.setText(gtasksList.title)
+            name.setText(gtasksList.name)
         }
         if (createListViewModel.inProgress
                 || renameListViewModel.inProgress
@@ -72,7 +77,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         get() = isNewList
 
     override val toolbarTitle: String?
-        get() = if (isNew) getString(R.string.new_list) else gtasksList.title!!
+        get() = if (isNew) getString(R.string.new_list) else gtasksList.name!!
 
     private fun showProgressIndicator() {
         progressView.visibility = View.VISIBLE
@@ -104,7 +109,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
             }
             else -> {
                 if (colorChanged() || iconChanged()) {
-                    gtasksList.setColor(selectedColor)
+                    gtasksList.color = selectedColor
                     gtasksList.setIcon(selectedIcon)
                     googleTaskListDao.insertOrReplace(gtasksList)
                     setResult(
@@ -154,17 +159,17 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
             selectedColor >= 0 || !isNullOrEmpty(newName)
         } else colorChanged() || nameChanged() || iconChanged()
 
-    private fun colorChanged() = selectedColor != gtasksList.getColor()
+    private fun colorChanged() = selectedColor != gtasksList.color
 
     private fun iconChanged() = selectedIcon != gtasksList.getIcon()
 
-    private fun nameChanged() = newName != gtasksList.title
+    private fun nameChanged() = newName != gtasksList.name
 
     private suspend fun onListCreated(taskList: TaskList) {
         with(gtasksList) {
-            remoteId = taskList.id
-            title = taskList.title
-            setColor(selectedColor)
+            uuid = taskList.id
+            name = taskList.title
+            color = selectedColor
             setIcon(selectedIcon)
             id = googleTaskListDao.insertOrReplace(this)
         }
@@ -176,16 +181,20 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
 
     private fun onListDeleted(deleted: Boolean) {
         if (deleted) {
-            taskDeleter.delete(gtasksList)
-            setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
-            finish()
+            lifecycleScope.launch {
+                withContext(NonCancellable) {
+                    taskDeleter.delete(gtasksList)
+                }
+                setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
+                finish()
+            }
         }
     }
 
     private suspend fun onListRenamed(taskList: TaskList) {
         with(gtasksList) {
-            title = taskList.title
-            setColor(selectedColor)
+            name = taskList.title
+            color = selectedColor
             setIcon(selectedIcon)
             googleTaskListDao.insertOrReplace(this)
         }

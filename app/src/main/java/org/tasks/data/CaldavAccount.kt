@@ -103,6 +103,9 @@ class CaldavAccount : Parcelable {
     val isMicrosoft: Boolean
         get() = accountType == TYPE_MICROSOFT
 
+    val isGoogleTasks: Boolean
+        get() = accountType == TYPE_GOOGLE_TASKS
+
     fun listSettingsClass(): Class<out Activity> = when(accountType) {
         TYPE_LOCAL -> LocalListSettingsActivity::class.java
         TYPE_ETESYNC, TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
@@ -208,6 +211,7 @@ class CaldavAccount : Parcelable {
             uuid.isDavx5() -> R.string.davx5
             uuid.isDecSync() -> R.string.decsync
             isMicrosoft -> R.string.microsoft
+            isGoogleTasks -> R.string.gtasks_GPr_header
             else -> 0
         }
 
@@ -219,12 +223,14 @@ class CaldavAccount : Parcelable {
             uuid.isDavx5() -> R.drawable.ic_davx5_icon_green_bg
             uuid.isDecSync() -> R.drawable.ic_decsync
             isMicrosoft -> R.drawable.ic_microsoft_tasks
+            isGoogleTasks -> R.drawable.ic_google
             else -> 0
         }
 
     companion object {
         val TABLE = Table("caldav_accounts")
         val UUID = TABLE.column("cda_uuid")
+        val ACCOUNT_TYPE = TABLE.column("cda_account_type")
 
         const val TYPE_CALDAV = 0
         @Deprecated("use etebase") const val TYPE_ETESYNC = 1
@@ -233,6 +239,7 @@ class CaldavAccount : Parcelable {
         const val TYPE_TASKS = 4
         const val TYPE_ETEBASE = 5
         const val TYPE_MICROSOFT = 6
+        const val TYPE_GOOGLE_TASKS = 7
 
         const val SERVER_UNKNOWN = -1
         const val SERVER_TASKS = 0

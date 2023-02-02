@@ -6,25 +6,13 @@ import com.todoroo.andlib.sql.Criterion.Companion.exists
 import com.todoroo.andlib.sql.Criterion.Companion.or
 import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join.Companion.inner
-import com.todoroo.andlib.sql.Join.Companion.left
 import com.todoroo.andlib.sql.Query.Companion.select
 import com.todoroo.andlib.sql.UnaryCriterion.Companion.isNotNull
-import com.todoroo.astrid.api.BooleanCriterion
-import com.todoroo.astrid.api.CustomFilterCriterion
-import com.todoroo.astrid.api.MultipleSelectCriterion
-import com.todoroo.astrid.api.PermaSql
-import com.todoroo.astrid.api.TextInputCriterion
+import com.todoroo.astrid.api.*
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.data.Alarm
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.Tag
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
+import org.tasks.data.*
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import javax.inject.Inject
 
@@ -147,12 +135,8 @@ class FilterCriteriaProvider @Inject constructor(
             context.getString(R.string.custom_filter_has_subtask),
             select(Task.ID)
                     .from(Task.TABLE)
-                    .join(left(Task.TABLE.`as`("children"), Task.ID.eq(field("children.parent"))))
-                    .join(left(GoogleTask.TABLE, GoogleTask.PARENT.eq(Task.ID)))
-                    .where(or(
-                            isNotNull(field("children._id")),
-                            isNotNull(GoogleTask.ID)
-                    ))
+                    .join(inner(Task.TABLE.`as`("children"), Task.ID.eq(field("children.parent"))))
+                    .where(isNotNull(field("children._id")))
                     .toString()
     )
 
@@ -162,11 +146,7 @@ class FilterCriteriaProvider @Inject constructor(
                 context.getString(R.string.custom_filter_is_subtask),
                 select(Task.ID)
                         .from(Task.TABLE)
-                        .join(left(GoogleTask.TABLE, GoogleTask.TASK.eq(Task.ID)))
-                        .where(or(
-                                field("${Task.PARENT}>0").eq(1),
-                                field("${GoogleTask.PARENT}>0").eq(1)
-                        ))
+                        .where(field("${Task.PARENT}>0").eq(1))
                         .toString()
         )
 
@@ -297,26 +277,26 @@ class FilterCriteriaProvider @Inject constructor(
                 r.getString(R.string.CFC_title_contains_name))
 
     private suspend fun gtasksFilterCriteria(): CustomFilterCriterion {
-        val lists = googleTaskListDao.getAllLists()
+        val lists = caldavDao.getGoogleTaskLists()
         val listNames = arrayOfNulls<String>(lists.size)
         val listIds = arrayOfNulls<String>(lists.size)
         for (i in lists.indices) {
-            listNames[i] = lists[i].title
-            listIds[i] = lists[i].remoteId
+            listNames[i] = lists[i].name
+            listIds[i] = lists[i].uuid
         }
         val values: MutableMap<String, Any> = HashMap()
         values[GoogleTask.KEY] = "?"
         return MultipleSelectCriterion(
                 IDENTIFIER_GTASKS,
                 context.getString(R.string.CFC_gtasks_list_text),
-                select(GoogleTask.TASK)
-                        .from(GoogleTask.TABLE)
-                        .join(inner(Task.TABLE, GoogleTask.TASK.eq(Task.ID)))
+                select(CaldavTask.TASK)
+                        .from(CaldavTask.TABLE)
+                        .join(inner(Task.TABLE, CaldavTask.TASK.eq(Task.ID)))
                         .where(
                                 and(
                                         activeAndVisible(),
-                                        GoogleTask.DELETED.eq(0),
-                                        GoogleTask.LIST.eq("?")))
+                                        CaldavTask.DELETED.eq(0),
+                                        CaldavTask.CALENDAR.eq("?")))
                         .toString(),
                 values,
                 listNames,

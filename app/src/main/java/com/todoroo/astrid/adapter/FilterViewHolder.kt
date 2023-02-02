@@ -104,7 +104,7 @@ class FilterViewHolder internal constructor(
         }
         return when (filter) {
             is TagFilter -> R.drawable.ic_outline_label_24px
-            is GtasksFilter -> R.drawable.ic_list_24px
+            is GtasksFilter,
             is CaldavFilter -> R.drawable.ic_list_24px
             is CustomFilter -> R.drawable.ic_outline_filter_list_24px
             is PlaceFilter -> R.drawable.ic_outline_place_24px

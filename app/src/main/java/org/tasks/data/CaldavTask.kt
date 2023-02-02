@@ -1,10 +1,6 @@
 package org.tasks.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
@@ -52,9 +48,11 @@ class CaldavTask {
     @ColumnInfo(name = "cd_remote_parent")
     var remoteParent: String? = null
 
-    @ColumnInfo(name = "cd_order")
-    @Transient
-    var order: Long? = null
+    @ColumnInfo(name = "gt_moved")
+    var isMoved: Boolean = false
+
+    @ColumnInfo(name = "gt_remote_order")
+    var remoteOrder: Long = 0
 
     constructor()
 
@@ -67,7 +65,7 @@ class CaldavTask {
     }
 
     @Ignore
-    constructor(task: Long, calendar: String?, remoteId: String?, `object`: String?) {
+    constructor(task: Long, calendar: String?, remoteId: String?, `object`: String? = null) {
         this.task = task
         this.calendar = calendar
         this.remoteId = remoteId
@@ -77,7 +75,7 @@ class CaldavTask {
     fun isDeleted() = deleted > 0
 
     override fun toString(): String =
-            "CaldavTask(id=$id, task=$task, calendar=$calendar, `object`=$`object`, remoteId=$remoteId, etag=$etag, lastSync=$lastSync, deleted=$deleted, remoteParent=$remoteParent, order=$order)"
+            "CaldavTask(id=$id, task=$task, calendar=$calendar, `object`=$`object`, remoteId=$remoteId, etag=$etag, lastSync=$lastSync, deleted=$deleted, remoteParent=$remoteParent, isMoved=$isMoved, remoteOrder=$remoteOrder)"
 
     companion object {
         const val KEY = "caldav"

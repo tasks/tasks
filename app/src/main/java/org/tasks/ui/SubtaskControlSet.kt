@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.sql.Criterion
-import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.Filter
@@ -23,7 +22,6 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.SubtaskRow
-import org.tasks.data.GoogleTask
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.preferences.Preferences
@@ -57,8 +55,9 @@ class SubtaskControlSet : TaskEditControlFragment() {
             setContent {
                 MdcTheme {
                     SubtaskRow(
+                        originalFilter = viewModel.originalList,
                         filter = viewModel.selectedList.collectAsStateLifecycleAware().value,
-                        googleTask = googleTaskDao.watchGoogleTask(viewModel.task.id).collectAsStateLifecycleAware(initial = null).value,
+                        hasParent = viewModel.hasParent,
                         desaturate = preferences.desaturateDarkMode,
                         existingSubtasks = listViewModel.tasks.observeAsState(initial = emptyList()).value,
                         newSubtasks = viewModel.newSubtasks.collectAsStateLifecycleAware().value,
@@ -109,20 +108,10 @@ class SubtaskControlSet : TaskEditControlFragment() {
     companion object {
         const val TAG = R.string.TEA_ctrl_subtask_pref
         private fun getQueryTemplate(task: Task): QueryTemplate = QueryTemplate()
-            .join(
-                Join.left(
-                    GoogleTask.TABLE,
-                    Criterion.and(
-                        GoogleTask.PARENT.eq(task.id),
-                        GoogleTask.TASK.eq(Task.ID),
-                        GoogleTask.DELETED.eq(0)
-                    )
-                )
-            )
             .where(
                 Criterion.and(
                     activeAndVisible(),
-                    Criterion.or(Task.PARENT.eq(task.id), GoogleTask.TASK.gt(0))
+                    Task.PARENT.eq(task.id)
                 )
             )
     }

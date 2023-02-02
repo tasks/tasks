@@ -202,14 +202,6 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
             caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.parent)
         }
         caldavTask.id = caldavDao.insert(caldavTask)
-        t.caldavTask = caldavTask.toSubset()
-    }
-
-    private fun CaldavTask.toSubset(): SubsetCaldav {
-        val result = SubsetCaldav()
-        result.cd_id = id
-        result.cd_calendar = calendar
-        result.cd_remote_parent = remoteParent
-        return result
+        t.caldavTask = caldavTask
     }
 }

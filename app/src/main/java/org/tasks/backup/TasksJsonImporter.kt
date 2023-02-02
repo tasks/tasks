@@ -19,6 +19,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.*
+import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.Place.Companion.newPlace
 import org.tasks.db.Migrations.repeatFrom
 import org.tasks.db.Migrations.withoutFrom
@@ -38,8 +39,6 @@ class TasksJsonImporter @Inject constructor(
         private val localBroadcastManager: LocalBroadcastManager,
         private val alarmDao: AlarmDao,
         private val tagDao: TagDao,
-        private val googleTaskDao: GoogleTaskDao,
-        private val googleTaskListDao: GoogleTaskListDao,
         private val filterDao: FilterDao,
         private val taskAttachmentDao: TaskAttachmentDao,
         private val caldavDao: CaldavDao,
@@ -81,8 +80,15 @@ class TasksJsonImporter @Inject constructor(
                 tagDataDao.createNew(tagData)
             }
             backupContainer.googleTaskAccounts?.forEach { googleTaskAccount ->
-                if (googleTaskListDao.getAccount(googleTaskAccount.account!!) == null) {
-                    googleTaskListDao.insert(googleTaskAccount)
+                if (caldavDao.getAccount(TYPE_GOOGLE_TASKS, googleTaskAccount.account!!) == null) {
+                    caldavDao.insert(
+                        CaldavAccount().apply {
+                            accountType = TYPE_GOOGLE_TASKS
+                            uuid = googleTaskAccount.account
+                            name = googleTaskAccount.account
+                            username = googleTaskAccount.account
+                        }
+                    )
                 }
             }
             backupContainer.places?.forEach { place ->
@@ -91,9 +97,15 @@ class TasksJsonImporter @Inject constructor(
                 }
             }
             backupContainer.googleTaskLists?.forEach { googleTaskList ->
-                googleTaskList.setColor(themeToColor(context, version, googleTaskList.getColor()!!))
-                if (googleTaskListDao.getByRemoteId(googleTaskList.remoteId!!) == null) {
-                    googleTaskListDao.insert(googleTaskList)
+                if (caldavDao.getCalendar(googleTaskList.remoteId!!) == null) {
+                    caldavDao.insert(
+                        CaldavCalendar(
+                            account = googleTaskList.account,
+                            uuid = googleTaskList.remoteId,
+                            color = themeToColor(context, version, googleTaskList.color ?: 0),
+
+                        )
+                    )
                 }
             }
             backupContainer.filters?.forEach { filter ->
@@ -174,8 +186,17 @@ class TasksJsonImporter @Inject constructor(
                     userActivityDao.createNew(comment)
                 }
                 for (googleTask in backup.google) {
-                    googleTask.task = taskId
-                    googleTaskDao.insert(googleTask)
+                    caldavDao.insert(
+                        CaldavTask(
+                            task = taskId,
+                            calendar = googleTask.listId,
+                            remoteId = googleTask.remoteId,
+                        ).apply {
+                            remoteOrder = googleTask.remoteOrder
+                            remoteParent = googleTask.remoteParent
+                            lastSync = googleTask.lastSync
+                        }
+                    )
                 }
                 for (location in backup.locations) {
                     val place = newPlace()
@@ -226,7 +247,6 @@ class TasksJsonImporter @Inject constructor(
                 }
                 result.importCount++
             }
-            googleTaskDao.updateParents()
             caldavDao.updateParents()
             val ignoreKeys = ignorePrefs.map { context.getString(it) }
             backupContainer

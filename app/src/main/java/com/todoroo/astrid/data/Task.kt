@@ -103,6 +103,9 @@ class Task : Parcelable {
     @Transient
     var parent = 0L
 
+    @ColumnInfo(name = "order")
+    var order: Long? = null
+
     @ColumnInfo(name = "read_only", defaultValue = "0")
     var readOnly: Boolean = false
 
@@ -136,6 +139,7 @@ class Task : Parcelable {
         isCollapsed = ParcelCompat.readBoolean(parcel)
         parent = parcel.readLong()
         readOnly = ParcelCompat.readBoolean(parcel)
+        order = parcel.readLong()
     }
 
     var uuid: String
@@ -270,6 +274,7 @@ class Task : Parcelable {
         ParcelCompat.writeBoolean(dest, isCollapsed)
         dest.writeLong(parent)
         ParcelCompat.writeBoolean(dest, readOnly)
+        dest.writeLong(order ?: 0)
     }
 
     fun insignificantChange(task: Task?): Boolean {
@@ -295,6 +300,7 @@ class Task : Parcelable {
                 && calendarURI == task.calendarURI
                 && parent == task.parent
                 && remoteId == task.remoteId
+                && order == task.order
     }
 
     fun googleTaskUpToDate(original: Task?): Boolean {
@@ -309,6 +315,7 @@ class Task : Parcelable {
                 && deletionDate == original.deletionDate
                 && parent == original.parent
                 && notes == original.notes
+                && order == original.order
     }
 
     fun caldavUpToDate(original: Task?): Boolean {
@@ -327,6 +334,7 @@ class Task : Parcelable {
                 && recurrence == original.recurrence
                 && parent == original.parent
                 && isCollapsed == original.isCollapsed
+                && order == original.order
     }
 
     val isSaved: Boolean
@@ -414,6 +422,7 @@ class Task : Parcelable {
         if (parent != other.parent) return false
         if (transitoryData != other.transitoryData) return false
         if (readOnly != other.readOnly) return false
+        if (order != other.order) return false
 
         return true
     }
@@ -441,11 +450,12 @@ class Task : Parcelable {
         result = 31 * result + parent.hashCode()
         result = 31 * result + (transitoryData?.hashCode() ?: 0)
         result = 31 * result + readOnly.hashCode()
+        result = 31 * result + order.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, ringFlags=$ringFlags, reminderLast=$reminderLast, recurrence=$recurrence, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, transitoryData=$transitoryData, readOnly=$readOnly)"
+        return "Task(id=$id, title=$title, priority=$priority, dueDate=$dueDate, hideUntil=$hideUntil, creationDate=$creationDate, modificationDate=$modificationDate, completionDate=$completionDate, deletionDate=$deletionDate, notes=$notes, estimatedSeconds=$estimatedSeconds, elapsedSeconds=$elapsedSeconds, timerStart=$timerStart, ringFlags=$ringFlags, reminderLast=$reminderLast, recurrence=$recurrence, calendarURI=$calendarURI, remoteId='$remoteId', isCollapsed=$isCollapsed, parent=$parent, transitoryData=$transitoryData, readOnly=$readOnly, order=$order)"
     }
 
     @Retention(AnnotationRetention.SOURCE)

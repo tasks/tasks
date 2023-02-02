@@ -99,6 +99,8 @@ class TaskEditViewModel @Inject constructor(
     val estimatedSeconds = MutableStateFlow(task.estimatedSeconds)
     val elapsedSeconds = MutableStateFlow(task.elapsedSeconds)
     var newSubtasks = MutableStateFlow(emptyList<Task>())
+    val hasParent: Boolean
+        get() = task.parent > 0
 
     val dueDate = MutableStateFlow(task.dueDate)
 
@@ -128,7 +130,7 @@ class TaskEditViewModel @Inject constructor(
     }
     var selectedCalendar = MutableStateFlow(originalCalendar)
 
-    private val originalList: Filter = savedStateHandle[TaskEditFragment.EXTRA_LIST]!!
+    val originalList: Filter = savedStateHandle[TaskEditFragment.EXTRA_LIST]!!
     var selectedList = MutableStateFlow(originalList)
 
     private var originalLocation: Location? = savedStateHandle[TaskEditFragment.EXTRA_LOCATION]
@@ -292,10 +294,10 @@ class TaskEditViewModel @Inject constructor(
             firebase?.addTask("subtasks")
             when (selectedList.value) {
                 is GtasksFilter -> {
-                    val googleTask = GoogleTask(subtask.id, (selectedList.value as GtasksFilter).remoteId)
-                    googleTask.parent = task.id
+                    val googleTask = CaldavTask(subtask.id, (selectedList.value as GtasksFilter).remoteId, remoteId = null)
+                    subtask.parent = task.id
                     googleTask.isMoved = true
-                    googleTaskDao.insertAndShift(googleTask, false)
+                    googleTaskDao.insertAndShift(subtask, googleTask, false)
                 }
                 is CaldavFilter -> {
                     val caldavTask = CaldavTask(subtask.id, (selectedList.value as CaldavFilter).uuid)

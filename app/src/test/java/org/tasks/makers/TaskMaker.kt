@@ -34,6 +34,7 @@ object TaskMaker {
     val UUID: Property<Task, String> = newProperty()
     val COLLAPSED: Property<Task, Boolean> = newProperty()
     val DESCRIPTION: Property<Task, String?> = newProperty()
+    val ORDER: Property<Task, Long> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<Task> ->
         val task = Task()
@@ -95,6 +96,7 @@ object TaskMaker {
         task.creationDate = creationTime.millis
         task.modificationDate = lookup.valueOf(MODIFICATION_TIME, creationTime).millis
         task.parent = lookup.valueOf(PARENT, 0L)
+        task.order = lookup.valueOf(ORDER, null as Long?)
         task
     }
 

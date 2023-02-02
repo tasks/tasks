@@ -224,7 +224,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
     private fun checkOrder(dateTime: DateTime, index: Int) = checkOrder(dateTime.toAppleEpoch(), index)
 
     private fun checkOrder(order: Long?, index: Int) = runBlocking {
-        val sortOrder = caldavDao.getTask(adapter.getTask(index).id)!!.order
+        val sortOrder = taskDao.fetch(adapter.getTask(index).id)!!.order
         if (order == null) {
             assertNull(sortOrder)
         } else {

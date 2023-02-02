@@ -11,14 +11,15 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.GoogleTaskAccount
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.GtaskListMaker.ID
-import org.tasks.makers.GtaskListMaker.NAME
-import org.tasks.makers.GtaskListMaker.REMOTE_ID
-import org.tasks.makers.GtaskListMaker.newGtaskList
+import org.tasks.makers.CaldavCalendarMaker.ID
+import org.tasks.makers.CaldavCalendarMaker.NAME
+import org.tasks.makers.CaldavCalendarMaker.UUID
+import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
 import org.tasks.makers.RemoteGtaskListMaker
 import org.tasks.makers.RemoteGtaskListMaker.newRemoteList
 import javax.inject.Inject
@@ -29,6 +30,7 @@ class GtasksListServiceTest : InjectingTestCase() {
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var googleTaskListDao: GoogleTaskListDao
+    @Inject lateinit var caldavDao: CaldavDao
 
     private lateinit var gtasksListService: GtasksListService
 
@@ -44,13 +46,13 @@ class GtasksListServiceTest : InjectingTestCase() {
                 newRemoteList(
                         with(RemoteGtaskListMaker.REMOTE_ID, "1"), with(RemoteGtaskListMaker.NAME, "Default")))
         assertEquals(
-                newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(NAME, "Default")),
+                newCaldavCalendar(with(ID, 1L), with(UUID, "1"), with(NAME, "Default")),
                 googleTaskListDao.getById(1L))
     }
 
     @Test
     fun testGetListByRemoteId() = runBlocking {
-        val list = newGtaskList(with(REMOTE_ID, "1"))
+        val list = newCaldavCalendar(with(UUID, "1"))
         list.id = googleTaskListDao.insertOrReplace(list)
         assertEquals(list, googleTaskListDao.getByRemoteId("1"))
     }
@@ -62,22 +64,23 @@ class GtasksListServiceTest : InjectingTestCase() {
 
     @Test
     fun testDeleteMissingList() = runBlocking {
-        googleTaskListDao.insertOrReplace(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1")))
+        googleTaskListDao.insertOrReplace(newCaldavCalendar(with(ID, 1L), with(UUID, "1")))
         val taskList = newRemoteList(with(RemoteGtaskListMaker.REMOTE_ID, "2"))
         setLists(taskList)
         assertEquals(
-                listOf(newGtaskList(with(ID, 2L), with(REMOTE_ID, "2"))),
+                listOf(newCaldavCalendar(with(ID, 2L), with(UUID, "2"), with(NAME, "Default"))),
                 googleTaskListDao.getLists("account"))
     }
 
     @Test
     fun testUpdateListName() = runBlocking {
         googleTaskListDao.insertOrReplace(
-                newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(NAME, "oldName")))
+                newCaldavCalendar(with(ID, 1L), with(UUID, "1"), with(NAME, "oldName"))
+        )
         setLists(
                 newRemoteList(
                         with(RemoteGtaskListMaker.REMOTE_ID, "1"), with(RemoteGtaskListMaker.NAME, "newName")))
-        assertEquals("newName", googleTaskListDao.getById(1)!!.title)
+        assertEquals("newName", googleTaskListDao.getById(1)!!.name)
     }
 
     @Test
@@ -87,8 +90,11 @@ class GtasksListServiceTest : InjectingTestCase() {
     }
 
     private suspend fun setLists(vararg list: TaskList) {
-        val account = GoogleTaskAccount("account")
-        googleTaskListDao.insert(account)
+        val account = CaldavAccount().apply {
+            username = "account"
+            uuid = "account"
+        }
+        caldavDao.insert(account)
         gtasksListService.updateLists(account, listOf(*list))
     }
 }

@@ -9,8 +9,6 @@ class BackupContainer(
         val places: List<Place>?,
         val tags: List<TagData>?,
         val filters: List<Filter>?,
-        val googleTaskAccounts: List<GoogleTaskAccount>?,
-        val googleTaskLists: List<GoogleTaskList>?,
         val caldavAccounts: List<CaldavAccount>?,
         val caldavCalendars: List<CaldavCalendar>?,
         val taskListMetadata: List<TaskListMetadata>?,
@@ -20,17 +18,19 @@ class BackupContainer(
         val stringPrefs: Map<String, String>?,
         val boolPrefs: Map<String, java.lang.Boolean>?,
         val setPrefs: Map<String, java.util.Set<*>>?,
+        val googleTaskAccounts: List<GoogleTaskAccount>? = emptyList(),
+        val googleTaskLists: List<GoogleTaskList>? = emptyList(),
 ) {
     class TaskBackup(
             val task: Task,
             val alarms: List<Alarm>,
             val geofences: List<Geofence>?,
             val tags: List<Tag>,
-            val google: List<GoogleTask>,
             val comments: List<UserActivity>,
             val attachments: List<Attachment>?,
             val caldavTasks: List<CaldavTask>?,
             val vtodo: String?,
+            val google: List<GoogleTask> = emptyList(),
     ) {
         val locations: List<LegacyLocation> = emptyList()
     }

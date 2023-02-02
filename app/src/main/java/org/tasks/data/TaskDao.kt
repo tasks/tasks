@@ -1,12 +1,7 @@
 package org.tasks.data
 
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.RawQuery
-import androidx.room.Update
-import androidx.room.withTransaction
+import androidx.room.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field
@@ -66,10 +61,11 @@ abstract class TaskDao(private val database: Database) {
     abstract suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = now())
 
     @Query("SELECT tasks.* FROM tasks "
-            + "LEFT JOIN google_tasks ON tasks._id = google_tasks.gt_task "
-            + "WHERE gt_list_id IN (SELECT gtl_remote_id FROM google_task_lists WHERE gtl_account = :account)"
-            + "AND (tasks.modified > google_tasks.gt_last_sync OR google_tasks.gt_remote_id = '' OR google_tasks.gt_deleted > 0) "
-            + "ORDER BY CASE WHEN gt_parent = 0 THEN 0 ELSE 1 END, gt_order ASC")
+            + "LEFT JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task "
+            + "LEFT JOIN caldav_lists ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid "
+            + "WHERE cdl_account = :account "
+            + "AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_remote_id = '' OR caldav_tasks.cd_remote_id IS NULL OR caldav_tasks.cd_deleted > 0) "
+            + "ORDER BY CASE WHEN parent = 0 THEN 0 ELSE 1 END, `order` ASC")
     abstract suspend fun getGoogleTasksToPush(account: String): List<Task>
 
     @Query("""
@@ -131,15 +127,7 @@ abstract class TaskDao(private val database: Database) {
     @RawQuery
     abstract suspend fun count(query: SimpleSQLiteQuery): Int
 
-    @Query("""
-SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtasks,
-       EXISTS(SELECT 1
-              FROM google_tasks
-                       INNER JOIN tasks ON gt_task = _id
-              WHERE deleted = 0
-                AND gt_parent > 0
-                AND gt_deleted = 0)                                 AS hasGoogleSubtasks
-    """)
+    @Query("SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtasks")
     abstract suspend fun getSubtaskInfo(): SubtaskInfo
 
     @RawQuery(observedEntities = [Place::class])
@@ -150,6 +138,9 @@ SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtas
 
     @Query("UPDATE tasks SET modified = :now WHERE _id in (:ids)")
     internal abstract suspend fun internalTouch(ids: List<Long>, now: Long = currentTimeMillis())
+
+    @Query("UPDATE tasks SET `order` = :order WHERE _id = :id")
+    internal abstract suspend fun setOrder(id: Long, order: Long?)
 
     suspend fun setParent(parent: Long, tasks: List<Long>) =
             tasks.eachChunk { setParentInternal(parent, it) }
@@ -250,10 +241,8 @@ FROM recursive_tasks
     @Query("""
 SELECT _id
 FROM tasks
-         LEFT JOIN google_tasks ON _id = gt_task AND gt_deleted = 0
          LEFT JOIN caldav_tasks ON _id = cd_task AND cd_deleted = 0
-WHERE gt_id IS NULL
-  AND cd_id IS NULL
+WHERE cd_id IS NULL
   AND parent = 0
     """)
     abstract suspend fun getLocalTasks(): List<Long>

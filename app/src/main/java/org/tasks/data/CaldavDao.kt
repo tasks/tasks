@@ -12,6 +12,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
+import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
@@ -92,25 +93,43 @@ ORDER BY CASE cda_account_type
 
     @Transaction
     open suspend fun insert(task: Task, caldavTask: CaldavTask, addToTop: Boolean): Long {
-        if (caldavTask.order != null) {
+        if (task.order != null) {
             return insert(caldavTask)
         }
         if (addToTop) {
-            caldavTask.order = findFirstTask(caldavTask.calendar!!, task.parent)
+            task.order = findFirstTask(caldavTask.calendar!!, task.parent)
                     ?.takeIf { task.creationDate.toAppleEpoch() >= it }
                     ?.minus(1)
         } else {
-            caldavTask.order = findLastTask(caldavTask.calendar!!, task.parent)
+            task.order = findLastTask(caldavTask.calendar!!, task.parent)
                     ?.takeIf { task.creationDate.toAppleEpoch() <= it }
                     ?.plus(1)
         }
-        return insert(caldavTask)
+        val id = insert(caldavTask)
+        update(task)
+        return id
     }
 
-    @Query("SELECT MIN(IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000)) FROM caldav_tasks INNER JOIN tasks ON _id = cd_task WHERE cd_calendar = :calendar AND cd_deleted = 0 AND deleted = 0 AND parent = :parent")
+    @Query("""
+SELECT MIN(IFNULL(`order`, (created - $APPLE_EPOCH) / 1000))
+FROM caldav_tasks
+         INNER JOIN tasks ON _id = cd_task
+WHERE cd_calendar = :calendar
+  AND cd_deleted = 0
+  AND deleted = 0
+  AND parent = :parent
+    """)
     internal abstract suspend fun findFirstTask(calendar: String, parent: Long): Long?
 
-    @Query("SELECT MAX(IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000)) FROM caldav_tasks INNER JOIN tasks ON _id = cd_task WHERE cd_calendar = :calendar AND cd_deleted = 0 AND deleted = 0 AND parent = :parent")
+    @Query("""
+SELECT MAX(IFNULL(`order`, (created - $APPLE_EPOCH) / 1000))
+FROM caldav_tasks
+         INNER JOIN tasks ON _id = cd_task
+WHERE cd_calendar = :calendar
+  AND cd_deleted = 0
+  AND deleted = 0
+  AND parent = :parent
+    """)
     internal abstract suspend fun findLastTask(calendar: String, parent: Long): Long?
 
     @Insert
@@ -122,15 +141,11 @@ ORDER BY CASE cda_account_type
     @Update
     abstract suspend fun update(caldavTask: CaldavTask)
 
-    suspend fun update(caldavTask: SubsetCaldav) {
-        update(caldavTask.cd_id, caldavTask.cd_order, caldavTask.cd_remote_parent)
-    }
+    @Update
+    abstract suspend fun update(task: Task)
 
-    @Query("UPDATE caldav_tasks SET cd_order = :position, cd_remote_parent = :parent WHERE cd_id = :id")
-    internal abstract suspend fun update(id: Long, position: Long?, parent: String?)
-
-    @Query("UPDATE caldav_tasks SET cd_order = :position WHERE cd_id = :id")
-    internal abstract suspend fun update(id: Long, position: Long?)
+    @Update
+    abstract suspend fun updateTasks(tasks: Iterable<Task>)
 
     @Query("UPDATE caldav_tasks SET cd_remote_parent = :remoteParent WHERE cd_id = :id")
     internal abstract suspend fun update(id: Long, remoteParent: String?)
@@ -188,7 +203,16 @@ SELECT EXISTS(SELECT 1
             + "AND cd_deleted = 0")
     abstract suspend fun getCaldavTasksToPush(calendar: String): List<CaldavTaskContainer>
 
-    @Query("SELECT * FROM caldav_lists ORDER BY cdl_name COLLATE NOCASE")
+    @Query("SELECT * FROM caldav_lists " +
+            "INNER JOIN caldav_accounts ON caldav_lists.cdl_account = caldav_accounts.cda_uuid " +
+            "WHERE caldav_accounts.cda_account_type = $TYPE_GOOGLE_TASKS " +
+            "ORDER BY cdl_name COLLATE NOCASE")
+    abstract suspend fun getGoogleTaskLists(): List<CaldavCalendar>
+
+    @Query("SELECT * FROM caldav_lists " +
+            "INNER JOIN caldav_accounts ON caldav_lists.cdl_account = caldav_accounts.cda_uuid " +
+            "WHERE caldav_accounts.cda_account_type != $TYPE_GOOGLE_TASKS " +
+            "ORDER BY cdl_name COLLATE NOCASE")
     abstract suspend fun getCalendars(): List<CaldavCalendar>
 
     @Query("""
@@ -240,12 +264,16 @@ SELECT EXISTS(SELECT 1
     @Query("""
 SELECT caldav_lists.*, COUNT(DISTINCT(tasks._id)) AS count, COUNT(DISTINCT(principal_access.id)) AS principals
 FROM caldav_lists
-         LEFT JOIN caldav_tasks
-                   ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid
-         LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND tasks.deleted = 0 AND tasks.completed = 0 AND
-                            tasks.hideUntil < :now AND cd_deleted = 0
+         LEFT JOIN caldav_tasks ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid
+         LEFT JOIN tasks ON caldav_tasks.cd_task = tasks._id AND 
+                            tasks.deleted = 0 AND 
+                            tasks.completed = 0 AND
+                            tasks.hideUntil < :now AND 
+                            cd_deleted = 0
          LEFT JOIN principal_access ON caldav_lists.cdl_id = principal_access.list
+         LEFT JOIN caldav_accounts ON caldav_accounts.cda_uuid = caldav_lists.cdl_account
 WHERE caldav_lists.cdl_account = :uuid
+AND caldav_accounts.cda_account_type != $TYPE_GOOGLE_TASKS 
 GROUP BY caldav_lists.cdl_uuid
     """)
     abstract suspend fun getCaldavFilters(uuid: String, now: Long = currentTimeMillis()): List<CaldavFilters>
@@ -255,7 +283,10 @@ GROUP BY caldav_lists.cdl_uuid
             + "  INNER JOIN caldav_tasks ON caldav_tasks.cd_task = tasks._id"
             + "  WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent"
             + "    AND p.cd_calendar = caldav_tasks.cd_calendar"
-            + "    AND p.cd_deleted = 0), 0)"
+            + "    AND p.cd_deleted = 0"
+            + "    AND caldav_tasks.cd_remote_parent IS NOT NULL"
+            + "    AND caldav_tasks.cd_remote_parent != ''"
+            + "), 0)"
             + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0)")
     abstract suspend fun updateParents()
 
@@ -266,14 +297,16 @@ GROUP BY caldav_lists.cdl_uuid
             + "    AND caldav_tasks.cd_calendar = :calendar"
             + "  WHERE p.cd_remote_id = caldav_tasks.cd_remote_parent"
             + "    AND p.cd_calendar = caldav_tasks.cd_calendar"
-            + "    AND caldav_tasks.cd_deleted = 0), 0)"
+            + "    AND p.cd_deleted = 0"
+            + "    AND caldav_tasks.cd_remote_parent IS NOT NULL"
+            + "    AND caldav_tasks.cd_remote_parent != ''"
+            + "), 0)"
             + "WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task WHERE cd_deleted = 0 AND cd_calendar = :calendar)")
     abstract suspend fun updateParents(calendar: String)
 
     @Transaction
     open suspend fun move(task: TaskContainer, newParent: Long, newPosition: Long?) {
         val previousParent = task.parent
-        val caldavTask = task.caldavTask
         val previousPosition = task.caldavSortOrder
         if (newPosition != null) {
             if (newParent == previousParent && newPosition < previousPosition) {
@@ -282,28 +315,28 @@ GROUP BY caldav_lists.cdl_uuid
                 shiftDown(task.caldav!!, newParent, newPosition)
             }
         }
-        caldavTask.cd_order = newPosition
-        update(caldavTask.cd_id, caldavTask.cd_order)
+        task.task.order = newPosition
+        setTaskOrder(task.id, newPosition)
     }
 
     @Transaction
     open suspend fun shiftDown(calendar: String, parent: Long, from: Long, to: Long? = null) {
-        val updated = ArrayList<CaldavTask>()
+        val updated = ArrayList<Task>()
         val tasks = getTasksToShift(calendar, parent, from, to)
         for (i in tasks.indices) {
             val task = tasks[i]
             val current = from + i
             if (task.sortOrder == current) {
-                val caldavTask = task.caldavTask
-                caldavTask.order = current + 1
-                updated.add(caldavTask)
+                val task = task.task
+                task.order = current + 1
+                updated.add(task)
             } else if (task.sortOrder > current) {
                 break
             }
         }
-        update(updated)
+        updateTasks(updated)
         updated
-                .map(CaldavTask::task)
+                .map(Task::id)
                 .dbchunk()
                 .forEach { touchInternal(it) }
     }
@@ -311,7 +344,18 @@ GROUP BY caldav_lists.cdl_uuid
     @Query("UPDATE tasks SET modified = :modificationTime WHERE _id in (:ids)")
     internal abstract suspend fun touchInternal(ids: List<Long>, modificationTime: Long = now())
 
-    @Query("SELECT task.*, caldav_task.*, IFNULL(cd_order, (created - $APPLE_EPOCH) / 1000) AS primary_sort FROM caldav_tasks AS caldav_task INNER JOIN tasks AS task ON _id = cd_task WHERE cd_calendar = :calendar AND parent = :parent AND cd_deleted = 0 AND deleted = 0 AND primary_sort >= :from AND primary_sort < IFNULL(:to, ${Long.MAX_VALUE}) ORDER BY primary_sort")
+    @Query("""
+SELECT task.*, caldav_task.*, IFNULL(`order`, (created - $APPLE_EPOCH) / 1000) AS primary_sort
+FROM caldav_tasks AS caldav_task
+         INNER JOIN tasks AS task ON _id = cd_task
+WHERE cd_calendar = :calendar
+  AND parent = :parent
+  AND cd_deleted = 0
+  AND deleted = 0
+  AND primary_sort >= :from
+  AND primary_sort < IFNULL(:to, ${Long.MAX_VALUE})
+ORDER BY primary_sort
+    """)
     internal abstract suspend fun getTasksToShift(calendar: String, parent: Long, from: Long, to: Long?): List<CaldavTaskContainer>
 
     @Query("UPDATE caldav_lists SET cdl_order = $NO_ORDER")
@@ -319,6 +363,9 @@ GROUP BY caldav_lists.cdl_uuid
 
     @Query("UPDATE caldav_lists SET cdl_order = :order WHERE cdl_id = :id")
     abstract suspend fun setOrder(id: Long, order: Int)
+
+    @Query("UPDATE tasks SET `order` = :order WHERE _id = :id")
+    abstract suspend fun setTaskOrder(id: Long, order: Long?)
 
     suspend fun setupLocalAccount(context: Context): CaldavAccount = mutex.withLock {
         val account = getLocalAccount()

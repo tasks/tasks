@@ -14,32 +14,39 @@ import org.junit.Test
 import org.tasks.R
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.GoogleTaskListMaker.REMOTE_ID
-import org.tasks.makers.GoogleTaskListMaker.newGoogleTaskList
-import org.tasks.makers.GoogleTaskMaker.LIST
-import org.tasks.makers.GoogleTaskMaker.ORDER
-import org.tasks.makers.GoogleTaskMaker.PARENT
-import org.tasks.makers.GoogleTaskMaker.TASK
-import org.tasks.makers.GoogleTaskMaker.newGoogleTask
+import org.tasks.makers.CaldavAccountMaker.newCaldavAccount
+import org.tasks.makers.CaldavCalendarMaker.UUID
+import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
+import org.tasks.makers.CaldavTaskMaker.CALENDAR
+import org.tasks.makers.CaldavTaskMaker.TASK
+import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker
 import org.tasks.makers.TaskMaker.ID
-import org.tasks.makers.TaskMaker.UUID
+import org.tasks.makers.TaskMaker.ORDER
+import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class ManualGoogleTaskQueryTest : InjectingTestCase() {
+    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
-    private val filter: GtasksFilter = GtasksFilter(newGoogleTaskList(with(REMOTE_ID, "1234")))
+    private lateinit var filter: GtasksFilter
 
     @Before
     override fun setUp() {
         super.setUp()
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
+        val calendar = newCaldavCalendar(with(UUID, "1234"))
+        runBlocking {
+            caldavDao.insert(newCaldavAccount())
+            caldavDao.insert(calendar)
+        }
+        filter = GtasksFilter(calendar)
     }
 
     @Test
@@ -100,8 +107,13 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
     }
 
     private suspend fun newTask(id: Long, order: Long, parent: Long = 0) {
-        taskDao.insert(TaskMaker.newTask(with(ID, id), with(UUID, UUIDHelper.newUUID())))
-        googleTaskDao.insert(newGoogleTask(with(LIST, filter.list.remoteId), with(TASK, id), with(PARENT, parent), with(ORDER, order)))
+        taskDao.insert(TaskMaker.newTask(
+            with(ID, id),
+            with(TaskMaker.UUID, UUIDHelper.newUUID()),
+            with(ORDER, order),
+            with(PARENT, parent),
+        ))
+        googleTaskDao.insert(newCaldavTask(with(CALENDAR, filter.list.uuid), with(TASK, id)))
     }
 
     private suspend fun query(): List<TaskContainer> = taskDao.fetchTasks {

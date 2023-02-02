@@ -13,10 +13,7 @@ import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTask
 import org.tasks.data.GoogleTaskDao
-import org.tasks.data.SubsetCaldav
-import org.tasks.data.SubsetGoogleTask
 import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.date.DateTimeUtils.toDateTime
@@ -135,21 +132,15 @@ open class TaskAdapter(
     open suspend fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val newParent = findParent(indent, to)
-        if (newParent?.id ?: 0 == task.parent) {
+        if ((newParent?.id ?: 0) == task.parent) {
             if (indent == 0) {
                 changeSortGroup(task, if (from < to) to - 1 else to)
             }
             return
         } else if (newParent != null) {
-            when {
-                task.isGoogleTask -> if (task.googleTaskList != newParent.googleTaskList) {
-                    googleTaskDao.markDeleted(task.id)
-                    task.googletask = null
-                }
-                task.isCaldavTask -> if (task.caldav != newParent.caldav) {
-                    caldavDao.markDeleted(listOf(task.id))
-                    task.caldavTask = null
-                }
+            if (task.caldav != newParent.caldav) {
+                caldavDao.markDeleted(listOf(task.id))
+                task.caldavTask = null
             }
         }
         when {
@@ -250,22 +241,18 @@ open class TaskAdapter(
     }
 
     private suspend fun changeGoogleTaskParent(task: TaskContainer, newParent: TaskContainer?) {
-        val list = newParent?.googleTaskList ?: task.googleTaskList!!
-        if (newParent == null || task.googleTaskList == newParent.googleTaskList) {
+        val list = newParent?.caldav ?: task.caldav!!
+        if (newParent == null || task.caldav == newParent.caldav) {
             googleTaskDao.move(
-                    task.googleTask,
-                    newParent?.id ?: 0,
-                    if (newTasksOnTop) 0 else googleTaskDao.getBottom(list, newParent?.id ?: 0))
+                task.task,
+                list,
+                newParent?.id ?: 0,
+                if (newTasksOnTop) 0 else googleTaskDao.getBottom(list, newParent?.id ?: 0)
+            )
         } else {
-            val googleTask = GoogleTask(task.id, list)
-            googleTask.parent = newParent.id
-            googleTaskDao.insertAndShift(googleTask, newTasksOnTop)
-            task.googletask = SubsetGoogleTask().apply {
-                gt_id = googleTask.id
-                gt_list_id = googleTask.listId
-                gt_order = googleTask.order
-                gt_parent = googleTask.parent
-            }
+            task.parent = newParent.id
+            task.caldavTask = CaldavTask(task.id, list, remoteId = null)
+            googleTaskDao.insertAndShift(task.task, task.caldavTask, newTasksOnTop)
         }
         taskDao.touch(task.id)
         if (BuildConfig.DEBUG) {
@@ -275,16 +262,19 @@ open class TaskAdapter(
 
     private suspend fun changeCaldavParent(task: TaskContainer, newParent: TaskContainer?) {
         val list = newParent?.caldav ?: task.caldav!!
-        val caldavTask = task.getCaldavTask() ?: SubsetCaldav()
+        val caldavTask = task.getCaldavTask() ?: CaldavTask(
+            task.id,
+            list,
+        )
         val newParentId = newParent?.id ?: 0
         if (newParentId == 0L) {
-            caldavTask.cd_remote_parent = ""
+            caldavTask.remoteParent = ""
         } else {
             val parentTask = caldavDao.getTask(newParentId) ?: return
-            caldavTask.cd_calendar = list
-            caldavTask.cd_remote_parent = parentTask.remoteId
+            caldavTask.calendar = list
+            caldavTask.remoteParent = parentTask.remoteId
         }
-        caldavTask.cd_order = if (newTasksOnTop) {
+        task.task.order = if (newTasksOnTop) {
             caldavDao.findFirstTask(list, newParentId)
                     ?.takeIf { task.creationDate.toAppleEpoch() >= it}
                     ?.minus(1)
@@ -293,15 +283,15 @@ open class TaskAdapter(
                     ?.takeIf { task.creationDate.toAppleEpoch() <= it }
                     ?.plus(1)
         }
-        if (caldavTask.cd_id == 0L) {
+        if (caldavTask.id == 0L) {
             val newTask = CaldavTask(task.id, list)
-            newTask.order = caldavTask.cd_order
-            newTask.remoteParent = caldavTask.cd_remote_parent
-            caldavTask.cd_id = caldavDao.insert(newTask)
+            newTask.remoteParent = caldavTask.remoteParent
+            caldavTask.id = caldavDao.insert(newTask)
             task.caldavTask = caldavTask
         } else {
             caldavDao.update(caldavTask)
         }
+        taskDao.setOrder(task.id, task.task.order)
         taskDao.setParent(newParentId, listOf(task.id))
         taskDao.touch(task.id)
         localBroadcastManager.broadcastRefresh()

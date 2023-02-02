@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.TaskDao
 import org.tasks.filters.FilterProvider
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -51,7 +52,12 @@ class NavigationDrawerViewModel @Inject constructor(
             .navDrawerItems()
             .onEach {
                 if (it is Filter && it.count == -1) {
-                    it.count = taskDao.count(it)
+                    it.count = try {
+                        taskDao.count(it)
+                    } catch (e: Exception) {
+                        Timber.e(e)
+                        0
+                    }
                 }
             }
             .let { filters -> _viewState.update { it.copy(filters = filters) } }

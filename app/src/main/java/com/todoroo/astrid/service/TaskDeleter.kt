@@ -2,7 +2,6 @@ package com.todoroo.astrid.service
 
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.*
@@ -29,7 +28,6 @@ class TaskDeleter @Inject constructor(
     suspend fun markDeleted(taskIds: List<Long>): List<Task> {
         val ids = taskIds
             .toSet()
-            .plus(taskIds.chunkedMap(googleTaskDao::getChildren))
             .plus(taskIds.chunkedMap(taskDao::getChildren))
             .let { taskDao.fetch(it.toList()) }
             .filterNot { it.readOnly }
@@ -51,7 +49,6 @@ class TaskDeleter @Inject constructor(
                 .map(TaskContainer::getId)
                 .toMutableList()
         completed.removeAll(deletionDao.hasRecurringAncestors(completed))
-        completed.removeAll(googleTaskDao.hasRecurringParent(completed))
         markDeleted(completed)
         return completed.size
     }
@@ -64,18 +61,6 @@ class TaskDeleter @Inject constructor(
         deletionDao.delete(tasks)
         workManager.cleanup(tasks)
         localBroadcastManager.broadcastRefresh()
-    }
-
-    fun delete(list: GoogleTaskList) = runBlocking {
-        val tasks = deletionDao.delete(list)
-        delete(tasks)
-        localBroadcastManager.broadcastRefreshList()
-    }
-
-    suspend fun delete(list: GoogleTaskAccount) {
-        val tasks = deletionDao.delete(list)
-        delete(tasks)
-        localBroadcastManager.broadcastRefreshList()
     }
 
     suspend fun delete(list: CaldavCalendar) {
