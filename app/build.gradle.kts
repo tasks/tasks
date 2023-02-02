@@ -232,6 +232,7 @@ dependencies {
     implementation("org.osmdroid:osmdroid-android:6.1.11@aar")
     implementation("com.squareup.retrofit2:retrofit:${Versions.retrofit}")
     implementation("com.squareup.retrofit2:converter-moshi:${Versions.retrofit}")
+    implementation("androidx.recyclerview:recyclerview:1.3.0-rc01")
 
     implementation(platform("androidx.compose:compose-bom:${Versions.compose_bom}"))
     implementation("androidx.compose.ui:ui")
