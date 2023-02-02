@@ -1,3 +1,20 @@
+### 13.1.2 (2023-02-02)
+
+* Add default reminders to incoming iCalendar tasks [#1984](https://github.com/tasks/tasks/issues/1984)
+* Sync when brought to the foreground [#2096](https://github.com/tasks/tasks/issues/2096)
+* Update translations
+  * Arabic - haidarah esmander
+  * Czech - @SlavekB
+  * Danish - Tntdruid
+  * Esperanto - Don Zouras, @J053Fabi0
+  * Finnish - @millerii
+  * German - @franconian
+  * Italian - @ppasserini
+  * Japanese - Kazushi Hayama
+  * Korean - @o20n3
+  * Polish - @gnu-ewm
+  * Vietnamese - @unbiaseduser
+
 ### 13.1.1 (2022-12-06)
 
 * Fix crash when opening notification settings
