@@ -6,11 +6,11 @@ buildscript {
 
     dependencies {
         classpath("com.android.tools.build:gradle:7.4.0")
-        classpath("com.google.gms:google-services:4.3.14")
+        classpath("com.google.gms:google-services:4.3.15")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
         classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
-        classpath("com.google.android.gms:oss-licenses-plugin:0.10.5")
+        classpath("com.google.android.gms:oss-licenses-plugin:0.10.6")
     }
 }
 
