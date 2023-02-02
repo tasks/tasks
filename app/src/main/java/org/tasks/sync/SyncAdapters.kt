@@ -3,16 +3,20 @@ package org.tasks.sync
 import com.todoroo.astrid.data.SyncFlags
 import com.todoroo.astrid.data.SyncFlags.FORCE_CALDAV_SYNC
 import com.todoroo.astrid.data.Task
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
+import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
-import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.OpenTaskDao
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
@@ -26,7 +30,6 @@ class SyncAdapters @Inject constructor(
         workManager: WorkManager,
         private val caldavDao: CaldavDao,
         private val googleTaskDao: GoogleTaskDao,
-        private val googleTaskListDao: GoogleTaskListDao,
         private val openTaskDao: OpenTaskDao,
         private val preferences: Preferences,
         private val localBroadcastManager: LocalBroadcastManager
@@ -67,19 +70,23 @@ class SyncAdapters @Inject constructor(
     }
 
     fun sync(immediate: Boolean) = scope.launch {
-        val googleTasksEnabled = async { isGoogleTaskSyncEnabled() }
         val caldavEnabled = async { isSyncEnabled() }
         val opentasksEnabled = async { isOpenTaskSyncEnabled() }
 
-        if (googleTasksEnabled.await() || caldavEnabled.await() || opentasksEnabled.await()) {
+        if (caldavEnabled.await() || opentasksEnabled.await()) {
             sync.sync(immediate)
         }
     }
 
-    private suspend fun isGoogleTaskSyncEnabled() = googleTaskListDao.getAccounts().isNotEmpty()
-
     private suspend fun isSyncEnabled() =
-            caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE).isNotEmpty()
+            caldavDao
+                .getAccounts(
+                    TYPE_GOOGLE_TASKS,
+                    TYPE_CALDAV,
+                    TYPE_TASKS,
+                    TYPE_ETEBASE,
+                )
+                .isNotEmpty()
 
     private suspend fun isOpenTaskSyncEnabled() = openTaskDao.shouldSync()
 
