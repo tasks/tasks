@@ -762,7 +762,7 @@
     <string name="sign_in_to_tasks_disclosure">Ваш адрес электронной почты и идентификатор учетной записи будут передаваться и храниться на сайте Tasks.org. Эта информация будет использоваться для аутентификации и предоставления вам важных объявлений, связанных с сервисом. Эта информация не будет передана никому.</string>
     <string name="consent_agree">Соглашаюсь</string>
     <string name="consent_deny">Не сейчас</string>
-    <string name="sort_completion_group">Завершение %s</string>
+    <string name="sort_completion_group">Готовность %s</string>
     <string name="microsoft_selection_description">Синхронизация с личной учетной записью Microsoft</string>
     <string name="sign_in">Войти</string>
     <string name="default_reminder">Напоминание по умолчанию</string>
