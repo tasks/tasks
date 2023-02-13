@@ -268,7 +268,7 @@
     <string name="pick_a_date_and_time">Escolha data e horário</string>
     <string name="when_overdue">Quando vencida</string>
     <string name="when_due">Quando vencer</string>
-    <string name="geofence_radius">Raio</string>
+    <string name="geofence_radius">Raio de Geofence</string>
     <string name="tags">Etiquetas</string>
     <string name="filters">Filtros</string>
     <string name="date_shortcut_hour">Por uma hora</string>
@@ -728,4 +728,14 @@
     <string name="dismiss">Dispensar</string>
     <string name="hint_customize_edit_title">Informação demais\?</string>
     <string name="hint_customize_edit_body">Você pode personalizar esta tela reordenamento ou removendo campos</string>
+    <string name="default_reminder">Lembrete Padrão</string>
+    <string name="rmd_time_description">Mostrar notificações para tasks sem prazo</string>
+    <string name="consent_agree">Concordar</string>
+    <string name="consent_deny">Agora não</string>
+    <string name="sign_in_to_tasks_disclosure">Seu endereço de e-mail e ID de conta serão transmitidos e armazenados pelo Tasks.org. Estas informações serão usadas para autenticação e para fornecer-lhe anúncios importantes relacionados ao serviço. Estas informações não serão compartilhadas com ninguém.</string>
+    <string name="enable_reminders">Ativar lembretes</string>
+    <string name="microsoft_selection_description">Sincronizar com a sua conta Microsoft pessoal</string>
+    <string name="enable_reminders_description">Os lembretes estão desativados nas configurações do Android</string>
+    <string name="TEA_creation_date">Data de criação</string>
+    <string name="sign_in">Entrar</string>
 </resources>
