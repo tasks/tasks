@@ -26,7 +26,7 @@
     <string name="TAd_actionEditTask">Muokkaa</string>
     <string name="SSD_sort_auto">Älykäs järjestely</string>
     <string name="SSD_sort_alpha">Otsikoittain</string>
-    <string name="SSD_sort_due">Eräpäivään mennessä</string>
+    <string name="SSD_sort_due">Eräpäivän mukaan</string>
     <string name="SSD_sort_importance">Prioriteetin mukaan</string>
     <string name="SSD_sort_modified">Viimeisen muutoksen mukaan</string>
     <string name="FLA_search_filter">Täsmää \'%s\'</string>
@@ -204,7 +204,7 @@
         <item quantity="other">%d vuotta</item>
     </plurals>
     <string name="repeat_type_due">Määräpäivä</string>
-    <string name="repeat_type_completion">päättymispäivä</string>
+    <string name="repeat_type_completion">valmistumispäivä</string>
     <string name="repeat_forever">Toista loputtomiin</string>
     <string name="repeat_until">Toista kunnes %s</string>
     <string name="repeat_number_of_times">Toista useita kertoja</string>
@@ -517,7 +517,7 @@
     <string name="wearable_notifications">Puettavan laitteen ilmoitukset</string>
     <string name="preferences_advanced">Kehittyneet</string>
     <string name="caldav_account_description">Vaatii palveluntuottajan tai itsehallinnoidun CalDAV tilin. Tutustu palveluntarjoajiin osoitteessa tasks.org/caldav</string>
-    <string name="whats_new">Mikä on uutta</string>
+    <string name="whats_new">Mitä uutta</string>
     <string name="location_departed">Lähdit paikasta %s</string>
     <string name="location_arrived">Saavuit paikkaan %s</string>
     <string name="logout_warning">Kaikki tälle tilille tallennetut tiedot poistetaan laitteeltasi</string>
@@ -648,14 +648,14 @@
     <string name="header_spacing">Välit</string>
     <string name="widget_show_title">Näytä otsikko</string>
     <string name="yesterday_abbrev_lowercase">eilen</string>
-    <string name="tomorrow_abbrev_lowercase">tmrw</string>
+    <string name="tomorrow_abbrev_lowercase">huomenna</string>
     <string name="next_saturday">Seuraava la</string>
     <string name="next_thursday">Seuraava to</string>
     <string name="next_wednesday">Seuraava ke</string>
     <string name="next_sunday">Seuraava su</string>
     <string name="always_display_full_date">Näytä koko päivämäärä</string>
     <string name="start_date">Aloituspäivä</string>
-    <string name="SSD_sort_start">Aloituspäivämäärän mukaan</string>
+    <string name="SSD_sort_start">Aloituspäivän mukaan</string>
     <string name="astrid_sort_order">Astrid manuaalinen lajittelu</string>
     <string name="manage_drawer">Laatikon hallinta</string>
     <string name="github_sponsors">GitHubin sponsorit</string>
@@ -674,7 +674,7 @@
     <string name="next_friday">Seuraava pe</string>
     <string name="next_tuesday">Seuraava ti</string>
     <string name="next_monday">Seuraava ma</string>
-    <string name="repeat_type_completion_capitalized">päättymispäivä</string>
+    <string name="repeat_type_completion_capitalized">Valmistumispäivä</string>
     <string name="filter_any_start_date">Mikä tahansa aloituspäivä</string>
     <string name="no_start_date">Ei alkamispäivää</string>
     <string name="CFC_startBefore_name">Aloita…</string>
@@ -732,4 +732,9 @@
     <string name="dismiss">Hylkää</string>
     <string name="customize_edit_screen_summary">Uudelleenjärjestä tai poista kenttiä</string>
     <string name="enable_reminders_description">Muistutukset on poistettu käytöstä Androidin asetuksista</string>
+    <string name="app_bar_collapse">Piilota sovelluspalkki</string>
+    <string name="alarm_after_start">%s aloituksen jälkeen</string>
+    <string name="alarm_before_start">%s ennen aloitusta</string>
+    <string name="alarm_after_due">%s määräajan jälkeen</string>
+    <string name="alarm_before_due">%s ennen määräaikaa</string>
 </resources>
