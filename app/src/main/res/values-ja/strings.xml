@@ -532,4 +532,5 @@
     <string name="filter_criteria_unstarted">開始前</string>
     <string name="widget_due_date_hidden">非表示</string>
     <string name="no_app_found">使用できるアプリがありません</string>
+    <string name="background_location_permission_required">Tasks は場所に基づいたリマインダーを実現するために、アプリが閉じているときも位置情報を収集します。</string>
 </resources>
