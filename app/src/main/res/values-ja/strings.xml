@@ -125,7 +125,7 @@
     <string name="gcal_completed_title">%s (完了)</string>
     <string name="CFC_gtasks_list_text">リストに含む: \?</string>
     <string name="CFC_gtasks_list_name">GTasks リストに…</string>
-    <string name="gtasks_GTA_clear_completed">削除が完了しました</string>
+    <string name="gtasks_GTA_clear_completed">完了したタスクをクリア</string>
     <string name="gtasks_GLA_authenticating">認証中…</string>
     <string name="gtasks_GLA_errorIOAuth">すみません、Google のサーバーとの通信で問題が発生しました。しばらくしてからもう一度お試しください。</string>
     <string name="gtasks_GPr_header">Google ToDo リスト</string>
@@ -224,7 +224,7 @@
     <string name="repeat_snackbar">%1$s を %2$s にスケジュール変更しました</string>
     <string name="new_tag">新しいタグを作成</string>
     <string name="new_list">新しいリストを作成</string>
-    <string name="delete_tag_confirmation">%s を削除しますか?</string>
+    <string name="delete_tag_confirmation">%s を削除しますか？</string>
     <string name="TPl_notification">%s のタイマーがアクティブです!</string>
     <string name="TFE_workingOn">タスクの予定時間です</string>
     <string name="TEA_timer_controls">タイマー</string>
@@ -255,7 +255,7 @@
     <string name="quiet_hours">静寂モード</string>
     <string name="attachment_directory">添付フォルダ</string>
     <string name="backup_directory">フォルダをバックアップ</string>
-    <string name="google_drive_backup">Google ドライブにコピー</string>
+    <string name="google_drive_backup">Googleドライブにバックアップ</string>
     <string name="miscellaneous">その他</string>
     <string name="enabled">有効</string>
     <string name="font_size">フォントサイズ</string>
@@ -274,7 +274,7 @@
     <string name="pick_a_date_and_time">日付と時間を選択</string>
     <string name="when_overdue">期限を過ぎたとき</string>
     <string name="when_due">期限に</string>
-    <string name="geofence_radius">半径</string>
+    <string name="geofence_radius">ジオフェンスの半径</string>
     <string name="tags">タグ</string>
     <string name="filters">フィルター</string>
     <string name="date_shortcut_hour">1時間</string>
@@ -325,7 +325,7 @@
     <string name="theme_wallpaper">壁紙</string>
     <string name="theme_day_night">デイナイト</string>
     <string name="language">言語</string>
-    <string name="restart_required">Tasks は、変更を有効にするために再起動する必要があります</string>
+    <string name="restart_required">変更を反映するためにTasksを再起動します</string>
     <string name="restart_now">今すぐ再起動</string>
     <string name="restart_later">後で</string>
     <string name="settings_localization">ローカライズ</string>
@@ -334,10 +334,10 @@
     <string name="widget_settings">ウィジェット設定</string>
     <string name="widget_header_settings">ヘッダー設定</string>
     <string name="widget_row_settings">行設定</string>
-    <string name="clear_completed_tasks_confirmation">完了したタスクをクリアしますか?</string>
+    <string name="clear_completed_tasks_confirmation">完了したタスクをクリアしますか？</string>
     <string name="copy_multiple_tasks_confirmation">%s コピー済</string>
     <string name="delete_multiple_tasks_confirmation">%s 削除済</string>
-    <string name="delete_selected_tasks">選択したタスクを削除しますか?</string>
+    <string name="delete_selected_tasks">選択したタスクを削除しますか？</string>
     <string name="copy_selected_tasks">選択したタスクをコピーしますか?</string>
     <string name="date_and_time">日付と時刻</string>
     <string name="start_of_week">週の始まり</string>
@@ -370,7 +370,7 @@
     <string name="repeats_plural_on_number_of_times">%1$s を %2$s に %3$d %4$s 繰り返し</string>
     <string name="dont_add_to_calendar">カレンダーに追加しない</string>
     <string name="default_calendar">デフォルトのカレンダー</string>
-    <string name="badges_description">Tasks ランチャーアイコンにタスク数を表示します。 すべてのランチャーがバッジをサポートしているわけではありません。</string>
+    <string name="badges_description">Tasksランチャーアイコンにタスク数を表示します。すべてのランチャーがバッジをサポートしているわけではありません。</string>
     <string name="bundle_notifications_summary">複数の通知を1つの通知にまとめる</string>
     <string name="repeat_monthly_same_day_each_month">毎月同じ日に</string>
     <string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s ごと</string>
@@ -384,7 +384,7 @@
     <string name="tasker_list_notification">通知のリスト</string>
     <string name="help">ヘルプ</string>
     <string name="caldav_home_set_not_found">ホームの設定が見つかりません</string>
-    <string name="network_error">接続に失敗しました</string>
+    <string name="network_error">接続できません</string>
     <string name="upgrade_to_pro">プロ版にアップグレード</string>
     <string name="manage_subscription">サブスクリプションの管理</string>
     <string name="refresh_purchases">購入を更新</string>
@@ -528,4 +528,8 @@
     <plurals name="reminder_days">
         <item quantity="other">日</item>
     </plurals>
+    <string name="show_unstarted">開始前のタスクを表示</string>
+    <string name="filter_criteria_unstarted">開始前</string>
+    <string name="widget_due_date_hidden">非表示</string>
+    <string name="no_app_found">使用できるアプリがありません</string>
 </resources>
