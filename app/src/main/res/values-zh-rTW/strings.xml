@@ -102,7 +102,7 @@
     <string name="rmd_NoA_snooze">晚點提醒</string>
     <string name="rmd_EPr_quiet_hours_start_title">無聲開始時間</string>
     <string name="rmd_EPr_quiet_hours_end_title">無聲結束時間</string>
-    <string name="rmd_EPr_rmd_time_title">預設提醒</string>
+    <string name="rmd_EPr_rmd_time_title">提醒時間</string>
     <string name="rmd_EPr_rmd_time_desc">未設定截止日期任務工作的通知會於%s 出現</string>
     <string name="rmd_EPr_defaultRemind_title">隨機提醒</string>
     <string name="default_random_reminder_disabled">停用</string>
@@ -580,4 +580,21 @@
     <string name="repeats_single_on_until">%1$s的%2$s重複，直至%3$s</string>
     <string name="repeats_single_on_number_of_times">%1$s的%2$s重複，總共%3$d %4$s</string>
     <string name="badges_description">在Tasks啓動圖標上顯示任務數，不是所有啓動器都支持。</string>
+    <string name="randomly_every">每 %s 隨機</string>
+    <string name="default_reminder">預設提醒</string>
+    <plurals name="reminder_minutes">
+        <item quantity="other">分鐘</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="other">小時</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="other">天</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="other">週</item>
+    </plurals>
+    <string name="customize_edit_screen_summary">重新排列或移除欄位</string>
+    <string name="TEA_creation_date">建立日期</string>
+    <string name="rmd_time_description">為沒有期限的工作顯示通知</string>
 </resources>
