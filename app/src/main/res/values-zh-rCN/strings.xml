@@ -398,7 +398,7 @@
     <string name="location_remind_departure">出发时提醒</string>
     <string name="visit_website">访问网站</string>
     <string name="location_arrived">到达 %s</string>
-    <string name="location_departed">离开%s</string>
+    <string name="location_departed">离开 %s</string>
     <string name="building_notifications">生成通知</string>
     <string name="choose_a_location">选择一个位置</string>
     <string name="pick_this_location">选中这个位置</string>
