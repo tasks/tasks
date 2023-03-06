@@ -164,7 +164,7 @@
     <string name="CFC_dueBefore_name">Ĝis…</string>
     <string name="CFC_dueBefore_text">Ĝis: \?</string>
     <string name="CFA_button_add">Aldoni Kriteriojn</string>
-    <string name="BFE_Recent">Laste modifita</string>
+    <string name="BFE_Recent">Lastatempe ŝanĝitaj</string>
     <string name="default_location_reminder_on_departure">Je foriro</string>
     <string name="no_reminders">Sen memorigiloj</string>
     <string name="next_week">Sekvanta semajno</string>
@@ -384,4 +384,8 @@
     <string name="task_defaults">Taskaj defaŭltoj</string>
     <string name="task_list_options">Taskolistaj agordoj</string>
     <string name="auto_dismiss_datetime">Aŭtomate fermi datan/horan elektilon</string>
+    <string name="filters">Filtriloj</string>
+    <string name="filter_snoozed">Paŭzigitaj</string>
+    <string name="filter_after_today">Post hodiaŭ</string>
+    <string name="snoozed_until">Paŭzigite ĝis %s</string>
 </resources>
