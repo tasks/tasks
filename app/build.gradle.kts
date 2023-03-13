@@ -9,7 +9,6 @@ plugins {
     id("com.google.firebase.crashlytics")
     kotlin("android")
     kotlin("kapt")
-    id("com.github.ben-manes.versions") version "0.42.0"
     id("dagger.hilt.android.plugin")
     id("com.google.android.gms.oss-licenses-plugin")
 }
