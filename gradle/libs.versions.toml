@@ -1,7 +1,7 @@
 [versions]
 accompanist = "0.24.12-rc"
 analytics = "20.1.0"
-coil = "2.2.0"
+coil = "2.2.2"
 compose = "2023.01.00"
 compose-compiler = "1.4.0"
 compose-theme-adapter = "1.1.11"
