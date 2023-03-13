@@ -188,7 +188,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.room)
     kapt(libs.androidx.room.compiler)
-    implementation("androidx.appcompat:appcompat:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.paging:paging-runtime:3.1.1")
     implementation(libs.bundles.markwon)
 
