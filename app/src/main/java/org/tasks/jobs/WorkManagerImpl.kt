@@ -49,7 +49,6 @@ import kotlin.math.max
 class WorkManagerImpl constructor(
         private val context: Context,
         private val preferences: Preferences,
-        private val googleTaskListDao: GoogleTaskListDao,
         private val caldavDao: CaldavDao,
         private val openTaskDao: OpenTaskDao
 ): WorkManager {
@@ -256,6 +255,6 @@ class WorkManagerImpl constructor(
         }
 }
 
-private fun <B : WorkRequest.Builder<*, *>, W : WorkRequest> WorkRequest.Builder<B, W>.setInputData(
+private fun <B : WorkRequest.Builder<B, *>, W : WorkRequest> WorkRequest.Builder<B, W>.setInputData(
     vararg pairs: Pair<String, Any?>
 ): B = setInputData(workDataOf(*pairs))

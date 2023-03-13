@@ -24,8 +24,8 @@
 +|         |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4
 +|         |    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.6.4
 +|         |    |    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 (c)
-+|         |    |    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4 (c)
-+|         |    |    |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4 (c)
++|         |    |    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4 (c)
++|         |    |    |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4 (c)
 +|         |    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21 -> 1.8.0
 +|         |    |    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.0 -> 1.8.10 (*)
 +|         |    |    |         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0
@@ -77,9 +77,7 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.10 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-common:2.6.0 (c)
-+|    |    +--- androidx.lifecycle:lifecycle-common-java8:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.6.0 (c)
-+|    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata-ktx:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-process:2.6.0 (c)
@@ -88,7 +86,9 @@
 +|    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0 (c)
-+|    |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.0 (c)
++|    |    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.0 (c)
++|    |    +--- androidx.lifecycle:lifecycle-common-java8:2.6.0 (c)
++|    |    \--- androidx.lifecycle:lifecycle-livedata-core:2.6.0 (c)
 +|    +--- androidx.lifecycle:lifecycle-livedata:2.4.0 -> 2.6.0
 +|    |    +--- androidx.arch.core:core-common:2.1.0 -> 2.2.0 (*)
 +|    |    +--- androidx.arch.core:core-runtime:2.1.0 -> 2.2.0 (*)
@@ -176,7 +176,7 @@
 +|    |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.0 (c)
 +|    +--- androidx.databinding:databinding-runtime:7.4.2 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.8.0 (*)
-++--- com.github.bitfireAT:dav4jvm:2.2
+++--- com.github.bitfireAT:dav4jvm:2.2.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 1.8.0 (*)
 +|    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.12.0
 +|    +--- com.squareup.okhttp3:okhttp:4.10.0
@@ -385,9 +385,7 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.10 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-common:2.6.0 (c)
-+|    |    +--- androidx.lifecycle:lifecycle-common-java8:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.6.0 (c)
-+|    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata-ktx:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-process:2.6.0 (c)
@@ -396,7 +394,9 @@
 +|    |    +--- androidx.lifecycle:lifecycle-service:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.6.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0 (c)
-+|    |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.0 (c)
++|    |    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.0 (c)
++|    |    +--- androidx.lifecycle:lifecycle-common-java8:2.6.0 (c)
++|    |    \--- androidx.lifecycle:lifecycle-livedata-core:2.6.0 (c)
 +|    +--- com.google.android.material:material:1.6.0 -> 1.8.0
 +|    |    +--- androidx.annotation:annotation:1.2.0 -> 1.5.0 (*)
 +|    |    +--- androidx.appcompat:appcompat:1.5.0 -> 1.6.1 (*)
@@ -473,26 +473,29 @@
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.5.0 (*)
 +|    +--- androidx.hilt:hilt-common:1.0.0
 +|    |    \--- com.google.dagger:hilt-core:2.35 -> 2.45 (*)
-+|    +--- androidx.work:work-runtime:2.3.4 -> 2.7.1
++|    +--- androidx.work:work-runtime:2.3.4 -> 2.8.0
 +|    |    +--- androidx.annotation:annotation-experimental:1.0.0 -> 1.3.0 (*)
-+|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
-+|    |    +--- androidx.lifecycle:lifecycle-livedata:2.1.0 -> 2.6.0 (*)
-+|    |    +--- androidx.startup:startup-runtime:1.0.0 -> 1.1.1 (*)
-+|    |    +--- androidx.core:core:1.6.0 -> 1.9.0 (*)
-+|    |    +--- androidx.room:room-runtime:2.2.5 -> 2.4.2
-+|    |    |    +--- androidx.room:room-common:2.4.2
-+|    |    |    |    \--- androidx.annotation:annotation:1.1.0 -> 1.5.0 (*)
-+|    |    |    +--- androidx.sqlite:sqlite-framework:2.2.0
-+|    |    |    |    +--- androidx.annotation:annotation:1.0.0 -> 1.5.0 (*)
-+|    |    |    |    \--- androidx.sqlite:sqlite:2.2.0
-+|    |    |    |         \--- androidx.annotation:annotation:1.0.0 -> 1.5.0 (*)
-+|    |    |    +--- androidx.sqlite:sqlite:2.2.0 (*)
-+|    |    |    +--- androidx.arch.core:core-runtime:2.0.1 -> 2.2.0 (*)
-+|    |    |    \--- androidx.annotation:annotation-experimental:1.1.0 -> 1.3.0 (*)
-+|    |    +--- androidx.sqlite:sqlite:2.1.0 -> 2.2.0 (*)
-+|    |    +--- androidx.sqlite:sqlite-framework:2.1.0 -> 2.2.0 (*)
 +|    |    +--- androidx.core:core:1.1.0 -> 1.9.0 (*)
-+|    |    \--- androidx.lifecycle:lifecycle-service:2.1.0 -> 2.6.0 (*)
++|    |    +--- androidx.core:core:1.6.0 -> 1.9.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-livedata:2.1.0 -> 2.6.0 (*)
++|    |    +--- androidx.lifecycle:lifecycle-service:2.1.0 -> 2.6.0 (*)
++|    |    +--- androidx.room:room-runtime:2.5.0
++|    |    |    +--- androidx.annotation:annotation-experimental:1.1.0 -> 1.3.0 (*)
++|    |    |    +--- androidx.arch.core:core-runtime:2.0.1 -> 2.2.0 (*)
++|    |    |    +--- androidx.room:room-common:2.5.0
++|    |    |    |    +--- androidx.annotation:annotation:1.3.0 -> 1.5.0 (*)
++|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20 -> 1.8.0 (*)
++|    |    |    +--- androidx.sqlite:sqlite:2.3.0
++|    |    |    |    +--- androidx.annotation:annotation:1.0.0 -> 1.5.0 (*)
++|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.20 -> 1.8.10 (*)
++|    |    |    \--- androidx.sqlite:sqlite-framework:2.3.0
++|    |    |         +--- androidx.annotation:annotation:1.2.0 -> 1.5.0 (*)
++|    |    |         +--- androidx.sqlite:sqlite:2.3.0 (*)
++|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.20 -> 1.8.10 (*)
++|    |    +--- androidx.sqlite:sqlite-framework:2.3.0 (*)
++|    |    +--- androidx.startup:startup-runtime:1.0.0 -> 1.1.1 (*)
++|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.21 -> 1.8.10 (*)
 +|    \--- com.google.dagger:hilt-android:2.35 -> 2.45 (*)
 ++--- androidx.fragment:fragment-ktx:1.5.5
 +|    +--- androidx.activity:activity-ktx:1.5.1 -> 1.6.1
@@ -514,13 +517,13 @@
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1 -> 2.6.0 (*)
 +|    +--- androidx.savedstate:savedstate-ktx:1.2.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.21 -> 1.8.10 (*)
-++--- androidx.lifecycle:lifecycle-runtime-ktx:2.4.1 -> 2.6.0 (*)
-++--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1 -> 2.6.0 (*)
-++--- androidx.room:room-ktx:2.4.2
-+|    +--- androidx.room:room-common:2.4.2 (*)
-+|    +--- androidx.room:room-runtime:2.4.2 (*)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.6.10 -> 1.8.10 (*)
-+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2 -> 1.6.4 (*)
+++--- androidx.lifecycle:lifecycle-runtime-ktx:2.6.0 (*)
+++--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0 (*)
+++--- androidx.room:room-ktx:2.5.0
++|    +--- androidx.room:room-common:2.5.0 (*)
++|    +--- androidx.room:room-runtime:2.5.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.20 -> 1.8.10 (*)
++|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 (*)
 ++--- androidx.appcompat:appcompat:1.6.1 (*)
 ++--- androidx.paging:paging-runtime:3.1.1
 +|    +--- androidx.paging:paging-common:3.1.1
@@ -556,9 +559,9 @@
 +|    \--- io.noties.markwon:core:4.6.2 (*)
 ++--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 (*)
 ++--- com.squareup.okhttp3:okhttp:4.10.0 (*)
-++--- com.github.franmontiel:PersistentCookieJar:v1.0.1
+++--- com.github.franmontiel:PersistentCookieJar:1.0.1
 +|    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 4.10.0 (*)
-++--- com.google.code.gson:gson:2.9.0
+++--- com.google.code.gson:gson:2.10.1
 ++--- com.google.android.material:material:1.8.0 (*)
 ++--- androidx.constraintlayout:constraintlayout:2.1.4 (*)
 ++--- androidx.swiperefreshlayout:swiperefreshlayout:1.1.0
@@ -590,36 +593,38 @@
 ++--- com.github.twofortyfouram:android-plugin-api-for-locale:1.0.2
 ++--- com.rubiconproject.oss:jchronic:0.2.6
 ++--- me.leolin:ShortcutBadger:1.1.22
-++--- com.google.apis:google-api-services-tasks:v1-rev20210709-1.32.1
-+|    \--- com.google.api-client:google-api-client:1.32.1
-+|         +--- com.google.oauth-client:google-oauth-client:1.31.5
-+|         |    +--- com.google.http-client:google-http-client:1.39.2
-+|         |    |    +--- com.google.guava:guava:30.1.1-android
+++--- com.google.apis:google-api-services-tasks:v1-rev20210709-2.0.0
++|    \--- com.google.api-client:google-api-client:2.0.0 -> 2.2.0
++|         +--- commons-codec:commons-codec:1.15
++|         +--- com.google.oauth-client:google-oauth-client:1.34.1
++|         |    +--- com.google.http-client:google-http-client:1.42.0 -> 1.42.3
++|         |    |    +--- com.google.guava:guava:30.1.1-android -> 31.1-jre
 +|         |    |    |    +--- com.google.guava:failureaccess:1.0.1
 +|         |    |    |    \--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
-+|         |    |    +--- io.opencensus:opencensus-api:0.28.0
++|         |    |    +--- io.opencensus:opencensus-api:0.31.1
 +|         |    |    |    \--- io.grpc:grpc-context:1.27.2
-+|         |    |    \--- io.opencensus:opencensus-contrib-http-util:0.28.0
-+|         |    |         +--- io.opencensus:opencensus-api:0.28.0 (*)
-+|         |    |         \--- com.google.guava:guava:29.0-android -> 30.1.1-android (*)
-+|         |    \--- com.google.guava:guava:30.1-android -> 30.1.1-android (*)
-+|         +--- com.google.http-client:google-http-client-gson:1.39.2
-+|         |    +--- com.google.http-client:google-http-client:1.39.2 (*)
-+|         |    \--- com.google.code.gson:gson:2.8.6 -> 2.9.0
-+|         +--- com.google.guava:guava:30.1.1-android (*)
-+|         \--- com.google.http-client:google-http-client:1.39.2 (*)
-++--- com.google.apis:google-api-services-drive:v3-rev20210725-1.32.1
-+|    \--- com.google.api-client:google-api-client:1.32.1 (*)
-++--- com.google.auth:google-auth-library-oauth2-http:0.26.0
++|         |    |    \--- io.opencensus:opencensus-contrib-http-util:0.31.1
++|         |    |         +--- io.opencensus:opencensus-api:0.31.1 (*)
++|         |    |         \--- com.google.guava:guava:29.0-android -> 31.1-jre (*)
++|         |    +--- com.google.http-client:google-http-client-gson:1.42.0 -> 1.42.3
++|         |    |    +--- com.google.http-client:google-http-client:1.42.3 (*)
++|         |    |    \--- com.google.code.gson:gson:2.10 -> 2.10.1
++|         |    \--- com.google.guava:guava:31.1-android -> 31.1-jre (*)
++|         +--- com.google.http-client:google-http-client-gson:1.42.3 (*)
++|         +--- com.google.guava:guava:31.1-jre (*)
++|         \--- com.google.http-client:google-http-client:1.42.3 (*)
+++--- com.google.apis:google-api-services-drive:v3-rev20230212-2.0.0
++|    \--- com.google.api-client:google-api-client:2.2.0 (*)
+++--- com.google.auth:google-auth-library-oauth2-http:0.27.0
 +|    +--- com.google.auto.value:auto-value-annotations:1.8.1
-+|    +--- com.google.auth:google-auth-library-credentials:0.26.0
-+|    +--- com.google.http-client:google-http-client:1.39.2 (*)
-+|    +--- com.google.http-client:google-http-client-gson:1.39.2 (*)
-+|    \--- com.google.guava:guava:30.1.1-android (*)
-++--- androidx.work:work-runtime-ktx:2.7.1
-+|    +--- androidx.work:work-runtime:2.7.1 (*)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.30 -> 1.8.10 (*)
-+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0 -> 1.6.4 (*)
++|    +--- com.google.auth:google-auth-library-credentials:0.27.0
++|    +--- com.google.http-client:google-http-client:1.39.2 -> 1.42.3 (*)
++|    +--- com.google.http-client:google-http-client-gson:1.39.2 -> 1.42.3 (*)
++|    \--- com.google.guava:guava:30.1.1-android -> 31.1-jre (*)
+++--- androidx.work:work-runtime-ktx:2.8.0
++|    +--- androidx.work:work-runtime:2.8.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.21 -> 1.8.10 (*)
++|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 (*)
 ++--- com.etebase:client:2.3.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.5.0 (*)
 +|    \--- com.squareup.okhttp3:logging-interceptor:3.12.1
@@ -636,7 +641,7 @@
 +|         +--- androidx.core:core:1.1.0 -> 1.9.0 (*)
 +|         +--- androidx.annotation:annotation:1.1.0 -> 1.5.0 (*)
 +|         \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
-++--- org.osmdroid:osmdroid-android:6.1.11
+++--- org.osmdroid:osmdroid-android:6.1.14
 ++--- com.squareup.retrofit2:retrofit:2.9.0
 +|    \--- com.squareup.okhttp3:okhttp:3.14.9 -> 4.10.0 (*)
 ++--- com.squareup.retrofit2:converter-moshi:2.9.0
@@ -795,13 +800,16 @@
 +|    +--- androidx.compose.ui:ui:1.0.0 -> 1.3.3 (*)
 +|    +--- androidx.lifecycle:lifecycle-livedata:2.2.0 -> 2.6.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.10 -> 1.8.10 (*)
-++--- com.google.android.material:compose-theme-adapter:1.1.11
-+|    +--- androidx.appcompat:appcompat:1.4.1 -> 1.6.1 (*)
-+|    +--- androidx.core:core-ktx:1.8.0-rc02 -> 1.9.0 (*)
-+|    +--- androidx.compose.runtime:runtime:1.2.0-beta03 -> 1.3.3 (*)
-+|    +--- androidx.compose.material:material:1.2.0-beta03 -> 1.3.1 (*)
-+|    +--- com.google.android.material:material:1.7.0-alpha02 -> 1.8.0 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.21 -> 1.8.10 (*)
+++--- com.google.android.material:compose-theme-adapter:1.2.1
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20 -> 1.8.0 (*)
++|    +--- com.google.android.material:compose-theme-adapter-core:1.0.1
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.20 -> 1.8.10 (*)
++|    |    +--- androidx.core:core-ktx:1.9.0 (*)
++|    |    +--- androidx.appcompat:appcompat:1.5.1 -> 1.6.1 (*)
++|    |    +--- com.google.android.material:material:1.7.0 -> 1.8.0 (*)
++|    |    +--- androidx.compose.runtime:runtime:1.3.1 -> 1.3.3 (*)
++|    |    \--- androidx.compose.foundation:foundation:1.3.1 (*)
++|    \--- androidx.compose.material:material:1.3.1 (*)
 ++--- androidx.activity:activity-compose:1.6.1
 +|    +--- androidx.activity:activity-ktx:1.6.1 (*)
 +|    +--- androidx.compose.runtime:runtime:1.0.1 -> 1.3.3 (*)
@@ -871,13 +879,14 @@
 +|    +--- io.coil-kt:coil-base:2.2.2 (*)
 +|    +--- androidx.core:core-ktx:1.8.0 -> 1.9.0 (*)
 +|    \--- androidx.vectordrawable:vectordrawable-animated:1.1.0 (*)
-++--- com.google.accompanist:accompanist-flowlayout:0.24.12-rc
-+|    +--- androidx.compose.foundation:foundation:1.2.0-rc02 -> 1.3.1 (*)
-+|    \--- androidx.compose.ui:ui-util:1.2.0-rc02 -> 1.3.3 (*)
-+\--- com.google.accompanist:accompanist-permissions:0.24.12-rc
-+     +--- androidx.activity:activity-compose:1.5.0-rc01 -> 1.6.1 (*)
-+     +--- androidx.compose.foundation:foundation:1.2.0-rc02 -> 1.3.1 (*)
-+     +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0 -> 1.6.4 (*)
+++--- com.google.accompanist:accompanist-flowlayout:0.28.0
++|    +--- androidx.compose.foundation:foundation:1.3.1 (*)
++|    +--- androidx.compose.ui:ui-util:1.3.1 -> 1.3.3 (*)
++|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 (*)
++\--- com.google.accompanist:accompanist-permissions:0.28.0
++     +--- androidx.activity:activity-compose:1.5.1 -> 1.6.1 (*)
++     +--- androidx.compose.foundation:foundation:1.3.1 (*)
++     +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 (*)
 +     \--- io.github.aakira:napier:1.4.1
 +          \--- io.github.aakira:napier-android:1.4.1
 +               +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.32 -> 1.8.10 (*)
