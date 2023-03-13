@@ -199,7 +199,7 @@ dependencies {
 
     implementation(libs.kotlin.jdk8)
     implementation(libs.okhttp)
-    implementation("com.github.franmontiel:PersistentCookieJar:v1.0.1")
+    implementation("com.github.franmontiel:PersistentCookieJar:1.0.1")
     implementation("com.google.code.gson:gson:2.9.0")
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
