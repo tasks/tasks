@@ -1,5 +1,5 @@
 [versions]
-accompanist = "0.24.12-rc"
+accompanist = "0.28.0"
 analytics = "20.1.0"
 coil = "2.2.2"
 compose = "2023.01.00"
