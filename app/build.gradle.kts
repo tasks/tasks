@@ -161,7 +161,7 @@ val googleplayImplementation by configurations
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.2")
-    implementation("com.github.bitfireAT:dav4jvm:2.2") {
+    implementation("com.github.bitfireAT:dav4jvm:2.2.1") {
         exclude(group = "junit")
     }
     implementation("com.github.tasks:ical4android:27dc5bf") {
