@@ -7,6 +7,7 @@ compose-compiler = "1.4.0"
 compose-theme-adapter = "1.1.11"
 crashlytics = "18.2.11"
 dagger-hilt = "2.45"
+firebase = "31.2.3"
 flipper = "0.177.0"
 hilt = "1.0.0"
 kotlin = "1.8.0"
@@ -48,9 +49,7 @@ dagger-hilt-testing = { module = "com.google.dagger:hilt-android-testing", versi
 facebook-flipper = { module = "com.facebook.flipper:flipper", version.ref = "flipper" }
 facebook-flipper-network = { module = "com.facebook.flipper:flipper-network-plugin", version.ref = "flipper" }
 facebook-soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }
-firebase-analytics = { module = "com.google.firebase:firebase-analytics", version.ref = "analytics" }
-firebase-config = { module = "com.google.firebase:firebase-config-ktx", version.ref = "remote-config" }
-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics", version.ref = "crashlytics" }
+firebase = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 kotlin-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }

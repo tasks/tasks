@@ -241,11 +241,12 @@ dependencies {
     implementation(libs.accompanist.flowlayout)
     implementation(libs.accompanist.permissions)
 
-    googleplayImplementation(libs.firebase.crashlytics)
-    googleplayImplementation(libs.firebase.analytics) {
+    googleplayImplementation(platform(libs.firebase))
+    googleplayImplementation("com.google.firebase:firebase-crashlytics")
+    googleplayImplementation("com.google.firebase:firebase-analytics") {
         exclude("com.google.android.gms", "play-services-ads-identifier")
     }
-    googleplayImplementation(libs.firebase.config)
+    googleplayImplementation("com.google.firebase:firebase-config-ktx")
     googleplayImplementation("com.google.android.gms:play-services-location:19.0.1")
     googleplayImplementation("com.google.android.gms:play-services-maps:18.1.0")
     googleplayImplementation("com.android.billingclient:billing-ktx:4.0.0")
