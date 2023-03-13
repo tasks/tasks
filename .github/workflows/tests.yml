@@ -34,8 +34,4 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: ./gradlew -Pcoverage :app:jacocoTestReportGoogleplayDebug :app:createGoogleplayDebugAndroidTestCoverageReport
-      - name: upload coverage
-        uses: codecov/codecov-action@v3
-        with:
-          directory: ./app/build
+          script: ./gradlew -Pcoverage app:testGoogleplayDebugUnitTest app:connectedGoogleplayDebugAndroidTest

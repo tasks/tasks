@@ -8,7 +8,6 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.github.ben-manes.versions") version "0.42.0"
-    id("com.vanniktech.android.junit.jacoco") version "0.16.0"
     id("dagger.hilt.android.plugin")
     id("com.google.android.gms.oss-licenses-plugin")
 }
@@ -111,7 +110,7 @@ android {
             resValue("string", "tasks_caldav_url", tasks_caldav_url ?: "https://caldav.tasks.org")
             resValue("string", "tasks_nominatim_url", tasks_caldav_url ?: "https://nominatim.tasks.org")
             resValue("string", "tasks_places_url", tasks_caldav_url ?: "https://places.tasks.org")
-            isTestCoverageEnabled = project.hasProperty("coverage")
+            enableUnitTestCoverage = project.hasProperty("coverage")
         }
         getByName("release") {
             val tasks_mapbox_key: String? by project
