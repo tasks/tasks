@@ -221,7 +221,7 @@ dependencies {
     implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("net.openid:appauth:0.11.1")
-    implementation("org.osmdroid:osmdroid-android:6.1.11@aar")
+    implementation("org.osmdroid:osmdroid-android:6.1.14@aar")
     implementation(libs.bundles.retrofit)
     implementation("androidx.recyclerview:recyclerview:1.3.0")
 
