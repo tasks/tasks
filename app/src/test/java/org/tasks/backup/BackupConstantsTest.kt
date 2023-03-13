@@ -1,6 +1,8 @@
 package org.tasks.backup
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.time.DateTime
 
@@ -21,7 +23,7 @@ class BackupConstantsTest {
     }
 
     @Test
-    fun getTimestampFromAutoBackup() {
+    fun getTimestampFromAutoBackupTwoDigits() {
         assertEquals(
                 DateTime(2020, 9, 10, 15, 3).millis,
                 BackupConstants.getTimestampFromFilename("auto.200910-1503.json")
@@ -29,10 +31,26 @@ class BackupConstantsTest {
     }
 
     @Test
-    fun getTimestampFromUserBackup() {
+    fun getTimestampFromUserBackupTwoDigits() {
         assertEquals(
                 DateTime(2020, 9, 10, 15, 3).millis,
                 BackupConstants.getTimestampFromFilename("user.200910-1503.json")
+        )
+    }
+
+    @Test
+    fun getTimestampFromAutoBackup() {
+        assertEquals(
+                DateTime(2020, 9, 10, 15, 3).millis,
+                BackupConstants.getTimestampFromFilename("auto.20200910T1503.json")
+        )
+    }
+
+    @Test
+    fun getTimestampFromUserBackup() {
+        assertEquals(
+                DateTime(2020, 9, 10, 15, 3).millis,
+                BackupConstants.getTimestampFromFilename("user.20200910T1503.json")
         )
     }
 }
