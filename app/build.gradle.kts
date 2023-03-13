@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 
 plugins {
@@ -48,15 +50,15 @@ android {
         textReport = true
     }
 
-    compileSdk = Versions.compileSdk
+    compileSdk = 33
 
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
         versionCode = 130200
         versionName = "13.2"
-        targetSdk = Versions.targetSdk
-        minSdk = Versions.minSdk
+        targetSdk = 33
+        minSdk = 24
         testInstrumentationRunner = "org.tasks.TestRunner"
 
         kapt {
@@ -88,7 +90,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose_compiler
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
     kotlinOptions {
@@ -177,34 +179,27 @@ dependencies {
     implementation("org.dmfs:lib-recur:0.11.4")
     implementation("org.dmfs:jems:1.33")
 
-    implementation("com.google.dagger:hilt-android:${Versions.hilt}")
-    kapt("com.google.dagger:hilt-compiler:${Versions.hilt}")
-    kapt("androidx.hilt:hilt-compiler:${Versions.hilt_androidx}")
-    implementation("androidx.hilt:hilt-work:${Versions.hilt_androidx}")
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.work)
 
     implementation("androidx.fragment:fragment-ktx:1.5.5")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
-    implementation("androidx.room:room-ktx:${Versions.room}")
-    kapt("androidx.room:room-compiler:${Versions.room}")
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.room)
+    kapt(libs.androidx.room.compiler)
     implementation("androidx.appcompat:appcompat:1.6.0")
     implementation("androidx.paging:paging-runtime:3.1.1")
-    implementation("io.noties.markwon:core:${Versions.markwon}")
-    implementation("io.noties.markwon:editor:${Versions.markwon}")
-    implementation("io.noties.markwon:ext-tasklist:${Versions.markwon}")
-    implementation("io.noties.markwon:ext-strikethrough:${Versions.markwon}")
-    implementation("io.noties.markwon:ext-tables:${Versions.markwon}")
-    implementation("io.noties.markwon:linkify:${Versions.markwon}")
+    implementation(libs.bundles.markwon)
 
-    debugImplementation("com.facebook.flipper:flipper:${Versions.flipper}")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:${Versions.flipper}")
-    debugImplementation("com.facebook.soloader:soloader:0.10.5")
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:${Versions.leakcanary}")
+    debugImplementation(libs.bundles.flipper)
+    debugImplementation(libs.leakcanary)
     debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}")
+    debugImplementation(libs.kotlin.reflect)
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}")
-    implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
+    implementation(libs.kotlin.jdk8)
+    implementation(libs.okhttp)
     implementation("com.github.franmontiel:PersistentCookieJar:v1.0.1")
     implementation("com.google.code.gson:gson:2.9.0")
     implementation("com.google.android.material:material:1.8.0")
@@ -223,40 +218,35 @@ dependencies {
     implementation("com.google.apis:google-api-services-tasks:v1-rev20210709-1.32.1")
     implementation("com.google.apis:google-api-services-drive:v3-rev20210725-1.32.1")
     implementation("com.google.auth:google-auth-library-oauth2-http:0.26.0")
-    implementation("androidx.work:work-runtime:${Versions.work}")
-    implementation("androidx.work:work-runtime-ktx:${Versions.work}")
+    implementation(libs.androidx.work)
     implementation("com.etebase:client:2.3.2")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("net.openid:appauth:0.11.1")
     implementation("org.osmdroid:osmdroid-android:6.1.11@aar")
-    implementation("com.squareup.retrofit2:retrofit:${Versions.retrofit}")
-    implementation("com.squareup.retrofit2:converter-moshi:${Versions.retrofit}")
+    implementation(libs.bundles.retrofit)
     implementation("androidx.recyclerview:recyclerview:1.3.0-rc01")
 
-    implementation(platform("androidx.compose:compose-bom:${Versions.compose_bom}"))
+    implementation(platform(libs.androidx.compose))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime-livedata")
-    implementation("com.google.android.material:compose-theme-adapter:${Versions.compose_theme_adapter}")
+    implementation(libs.compose.theme.adapter)
     implementation("androidx.activity:activity-compose:1.6.1")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     implementation("androidx.compose.ui:ui-viewbinding")
-    implementation("io.coil-kt:coil-compose:${Versions.coil}")
-    implementation("io.coil-kt:coil-video:${Versions.coil}")
-    implementation("io.coil-kt:coil-svg:${Versions.coil}")
-    implementation("io.coil-kt:coil-gif:${Versions.coil}")
+    implementation(libs.bundles.coil)
     releaseCompileOnly("androidx.compose.ui:ui-tooling")
 
-    implementation("com.google.accompanist:accompanist-flowlayout:${Versions.accompanist}")
-    implementation("com.google.accompanist:accompanist-permissions:${Versions.accompanist}")
+    implementation(libs.accompanist.flowlayout)
+    implementation(libs.accompanist.permissions)
 
-    googleplayImplementation("com.google.firebase:firebase-crashlytics:${Versions.crashlytics}")
-    googleplayImplementation("com.google.firebase:firebase-analytics:${Versions.analytics}") {
+    googleplayImplementation(libs.firebase.crashlytics)
+    googleplayImplementation(libs.firebase.analytics) {
         exclude("com.google.android.gms", "play-services-ads-identifier")
     }
-    googleplayImplementation("com.google.firebase:firebase-config-ktx:${Versions.remote_config}")
+    googleplayImplementation(libs.firebase.config)
     googleplayImplementation("com.google.android.gms:play-services-location:19.0.1")
     googleplayImplementation("com.google.android.gms:play-services-maps:18.1.0")
     googleplayImplementation("com.android.billingclient:billing-ktx:4.0.0")
@@ -264,20 +254,20 @@ dependencies {
     googleplayImplementation("com.google.android.play:core-ktx:1.8.1")
     googleplayImplementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
 
-    androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.hilt}")
-    kaptAndroidTest("com.google.dagger:hilt-compiler:${Versions.hilt}")
-    kaptAndroidTest("androidx.hilt:hilt-compiler:${Versions.hilt_androidx}")
-    androidTestImplementation("org.mockito:mockito-android:${Versions.mockito}")
-    androidTestImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
-    androidTestImplementation("androidx.test:runner:${Versions.androidx_test}")
-    androidTestImplementation("androidx.test:rules:${Versions.androidx_test}")
+    androidTestImplementation(libs.dagger.hilt.testing)
+    kaptAndroidTest(libs.dagger.hilt.compiler)
+    kaptAndroidTest(libs.androidx.hilt.compiler)
+    androidTestImplementation(libs.mockito.android)
+    androidTestImplementation(libs.make.it.easy)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
-    androidTestImplementation("com.squareup.okhttp3:mockwebserver:${Versions.okhttp}")
+    androidTestImplementation(libs.okhttp.mockwebserver)
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
-    testImplementation("com.natpryce:make-it-easy:${Versions.make_it_easy}")
-    testImplementation("androidx.test:core:${Versions.androidx_test}")
-    testImplementation("org.mockito:mockito-core:${Versions.mockito}")
+    testImplementation(libs.make.it.easy)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.mockito.core)
     testImplementation("org.ogce:xpp3:1.1.6")
 }

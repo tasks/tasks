@@ -514,7 +514,7 @@
 +|    \--- com.atlassian.commonmark:commonmark:0.13.0
 ++--- io.noties.markwon:editor:4.6.2
 +|    \--- io.noties.markwon:core:4.6.2 (*)
-++--- io.noties.markwon:ext-tasklist:4.6.2
+++--- io.noties.markwon:linkify:4.6.2
 +|    \--- io.noties.markwon:core:4.6.2 (*)
 ++--- io.noties.markwon:ext-strikethrough:4.6.2
 +|    +--- io.noties.markwon:core:4.6.2 (*)
@@ -524,7 +524,7 @@
 +|    +--- io.noties.markwon:core:4.6.2 (*)
 +|    \--- com.atlassian.commonmark:commonmark-ext-gfm-tables:0.13.0
 +|         \--- com.atlassian.commonmark:commonmark:0.13.0
-++--- io.noties.markwon:linkify:4.6.2
+++--- io.noties.markwon:ext-tasklist:4.6.2
 +|    \--- io.noties.markwon:core:4.6.2 (*)
 ++--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 (*)
 ++--- com.squareup.okhttp3:okhttp:4.10.0 (*)
@@ -588,7 +588,6 @@
 +|    +--- com.google.http-client:google-http-client:1.39.2 (*)
 +|    +--- com.google.http-client:google-http-client-gson:1.39.2 (*)
 +|    \--- com.google.guava:guava:30.1.1-android (*)
-++--- androidx.work:work-runtime:2.7.1 (*)
 ++--- androidx.work:work-runtime-ktx:2.7.1
 +|    +--- androidx.work:work-runtime:2.7.1 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.30 -> 1.8.0 (*)
