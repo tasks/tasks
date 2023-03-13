@@ -260,7 +260,7 @@ dependencies {
     androidTestImplementation(libs.make.it.easy)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.rules)
-    androidTestImplementation("androidx.test.ext:junit:1.1.4")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation(libs.okhttp.mockwebserver)
 
     testImplementation("junit:junit:4.13.2")
