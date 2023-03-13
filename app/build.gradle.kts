@@ -210,7 +210,7 @@ dependencies {
     implementation("com.github.twofortyfouram:android-plugin-api-for-locale:1.0.2") {
         isTransitive = false
     }
-    implementation("com.rubiconproject.oss:jchronic:0.2.6") {
+    implementation("com.rubiconproject.oss:jchronic:0.2.8") {
         isTransitive = false
     }
     implementation("me.leolin:ShortcutBadger:1.1.22@aar")
