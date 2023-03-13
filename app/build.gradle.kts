@@ -223,7 +223,7 @@ dependencies {
     implementation("net.openid:appauth:0.11.1")
     implementation("org.osmdroid:osmdroid-android:6.1.11@aar")
     implementation(libs.bundles.retrofit)
-    implementation("androidx.recyclerview:recyclerview:1.3.0-rc01")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
 
     implementation(platform(libs.androidx.compose))
     implementation("androidx.compose.ui:ui")
