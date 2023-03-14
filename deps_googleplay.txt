@@ -27,13 +27,13 @@
 +|         |    |    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4 (c)
 +|         |    |    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4 (c)
 +|         |    |    |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4 (c)
-+|         |    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21 -> 1.8.0
-+|         |    |    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.0 -> 1.8.10 (*)
-+|         |    |    |         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0
-+|         |    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.0 -> 1.8.10 (*)
++|         |    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21 -> 1.8.10
++|         |    |    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.10 (*)
++|         |    |    |         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10
++|         |    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.10 (*)
 +|         |    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.6.21 -> 1.8.10
 +|         |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.6.4 (*)
-+|         |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21 -> 1.8.0 (*)
++|         |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21 -> 1.8.10 (*)
 +|         |    +--- androidx.lifecycle:lifecycle-common-java8:2.6.0 (c)
 +|         |    +--- androidx.lifecycle:lifecycle-runtime:2.6.0 (c)
 +|         |    +--- androidx.lifecycle:lifecycle-livedata-core:2.6.0 (c)
@@ -176,7 +176,7 @@
 +|    |    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0 (c)
 +|    |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.0 (c)
 +|    +--- androidx.databinding:databinding-runtime:7.4.2 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.8.0 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.8.10 (*)
 ++--- com.google.firebase:firebase-bom:31.2.3
 +|    +--- com.google.firebase:firebase-analytics:21.2.0 (c)
 +|    +--- com.google.firebase:firebase-config-ktx:21.2.1 (c)
@@ -363,7 +363,7 @@
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4 (*)
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.6.4 (*)
 +|    |    |    +--- com.google.android.gms:play-services-tasks:16.0.1 -> 18.0.2 (*)
-+|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21 -> 1.8.0 (*)
++|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21 -> 1.8.10 (*)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.10 -> 1.8.10 (*)
 +|    |    +--- com.google.firebase:firebase-annotations:16.2.0 (*)
 +|    |    +--- com.google.firebase:firebase-common:20.3.1 (*)
@@ -404,7 +404,7 @@
 ++--- com.google.android.play:core:1.10.3
 ++--- com.google.android.play:core-ktx:1.8.1
 +|    +--- com.google.android.play:core:1.8.0 -> 1.10.3
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72 -> 1.8.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72 -> 1.8.10 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6 -> 1.6.4 (*)
 +|    +--- androidx.core:core:1.1.0 -> 1.9.0 (*)
 +|    \--- androidx.fragment:fragment:1.1.0 -> 1.5.5 (*)
@@ -458,12 +458,12 @@
 +|    +--- com.google.android.gms:play-services-basement:17.0.0 -> 18.1.0 (*)
 +|    \--- com.google.android.gms:play-services-tasks:17.0.0 -> 18.0.2 (*)
 ++--- com.github.bitfireAT:dav4jvm:2.2.1
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 1.8.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 1.8.10 (*)
 +|    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.12.0
 +|    +--- com.squareup.okhttp3:okhttp:4.10.0
 +|    |    +--- com.squareup.okio:okio:3.0.0 -> 3.2.0
 +|    |    |    \--- com.squareup.okio:okio-jvm:3.2.0
-+|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.20 -> 1.8.0 (*)
++|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.20 -> 1.8.10 (*)
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.6.20 -> 1.8.10
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.20 -> 1.8.10 (*)
 +|    \--- org.ogce:xpp3:1.1.6
@@ -489,7 +489,7 @@
 +|    |    \--- commons-validator:commons-validator:1.7 (*)
 +|    +--- org.apache.commons:commons-collections4:4.2 -> 4.4
 +|    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.12.0
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.21 -> 1.8.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.21 -> 1.8.10 (*)
 +|    +--- commons-io:commons-io:2.6
 +|    +--- org.slf4j:slf4j-jdk14:2.0.3
 +|    |    \--- org.slf4j:slf4j-api:2.0.3
@@ -499,7 +499,7 @@
 +|    +--- androidx.databinding:databinding-runtime:7.2.0 -> 7.4.2 (*)
 +|    +--- androidx.databinding:databinding-adapters:7.2.0 -> 7.4.2 (*)
 +|    +--- androidx.databinding:databinding-ktx:7.2.0 -> 7.4.2 (*)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21 -> 1.8.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21 -> 1.8.10 (*)
 +|    +--- androidx.appcompat:appcompat:1.4.1 -> 1.6.1 (*)
 +|    +--- androidx.cardview:cardview:1.0.0
 +|    |    \--- androidx.annotation:annotation:1.0.0 -> 1.5.0 (*)
@@ -641,7 +641,7 @@
 +|    |    |    +--- androidx.arch.core:core-runtime:2.0.1 -> 2.2.0 (*)
 +|    |    |    +--- androidx.room:room-common:2.5.0
 +|    |    |    |    +--- androidx.annotation:annotation:1.3.0 -> 1.5.0 (*)
-+|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20 -> 1.8.0 (*)
++|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20 -> 1.8.10 (*)
 +|    |    |    +--- androidx.sqlite:sqlite:2.3.0
 +|    |    |    |    +--- androidx.annotation:annotation:1.0.0 -> 1.5.0 (*)
 +|    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.20 -> 1.8.10 (*)
@@ -714,7 +714,7 @@
 +|         \--- com.atlassian.commonmark:commonmark:0.13.0
 ++--- io.noties.markwon:ext-tasklist:4.6.2
 +|    \--- io.noties.markwon:core:4.6.2 (*)
-++--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 (*)
+++--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10 (*)
 ++--- com.squareup.okhttp3:okhttp:4.10.0 (*)
 ++--- com.github.franmontiel:PersistentCookieJar:1.0.1
 +|    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 4.10.0 (*)
@@ -958,7 +958,7 @@
 +|    +--- androidx.lifecycle:lifecycle-livedata:2.2.0 -> 2.6.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.10 -> 1.8.10 (*)
 ++--- com.google.android.material:compose-theme-adapter:1.2.1
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20 -> 1.8.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20 -> 1.8.10 (*)
 +|    +--- com.google.android.material:compose-theme-adapter-core:1.0.1
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.20 -> 1.8.10 (*)
 +|    |    +--- androidx.core:core-ktx:1.9.0 (*)
@@ -1010,7 +1010,7 @@
 +|    |    +--- io.coil-kt:coil-base:2.2.2
 +|    |    |    +--- androidx.lifecycle:lifecycle-runtime:2.4.1 -> 2.6.0 (*)
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 (*)
-+|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.8.0 (*)
++|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.8.10 (*)
 +|    |    |    +--- com.squareup.okhttp3:okhttp:4.10.0 (*)
 +|    |    |    +--- com.squareup.okio:okio:3.2.0 (*)
 +|    |    |    +--- androidx.annotation:annotation:1.5.0 (*)
