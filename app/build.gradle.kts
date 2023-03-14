@@ -176,7 +176,7 @@ dependencies {
     }
     implementation("org.dmfs:rfc5545-datetime:0.2.4")
     implementation("org.dmfs:lib-recur:0.11.4")
-    implementation("org.dmfs:jems:1.33")
+    implementation("org.dmfs:jems:1.44")
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
