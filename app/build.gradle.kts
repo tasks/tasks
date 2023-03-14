@@ -175,7 +175,7 @@ dependencies {
         exclude("com.github.tasks.opentasks", "opentasks-contract")
     }
     implementation("org.dmfs:rfc5545-datetime:0.2.4")
-    implementation("org.dmfs:lib-recur:0.11.4")
+    implementation("org.dmfs:lib-recur:0.15.0")
     implementation("org.dmfs:jems:1.33")
 
     implementation(libs.dagger.hilt)
