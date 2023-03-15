@@ -32,4 +32,6 @@ class AppWidgetManager @Inject constructor(
     fun updateWidgets() {
         appWidgetManager?.notifyAppWidgetViewDataChanged(widgetIds, R.id.list_view)
     }
+
+    fun exists(id: Int) = appWidgetManager?.getAppWidgetInfo(id) != null
 }

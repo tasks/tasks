@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.Preference
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
@@ -32,28 +33,34 @@ class Widgets : InjectingPreferenceFragment() {
 
         lifecycleScope.launch {
             preferenceScreen.removeAll()
-            appWidgetManager.widgetIds.forEach {
-                val widgetPrefs = WidgetPreferences(context, preferences, it)
-                val pref = IconPreference(requireContext())
-                tintColorPreference(pref, widgetPrefs.color)
-                pref.drawable = AppCompatResources.getDrawable(
-                    requireContext(),
-                    R.drawable.ic_keyboard_arrow_right_24px
-                )?.mutate()
-                pref.tint = context?.getColor(R.color.icon_tint_with_alpha)
-                pref.iconVisible = true
-                val filter = defaultFilterProvider.getFilterFromPreference(widgetPrefs.filterId)
-                pref.title = filter.listingTitle
-                pref.summary = getString(R.string.widget_id, it)
-                val intent = Intent(context, WidgetConfigActivity::class.java)
-                intent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID, it)
-                intent.action = "widget_settings"
-                pref.setOnPreferenceClickListener {
-                    startActivity(intent)
-                    false
-                }
-                preferenceScreen.addPreference(pref)
-            }
+            appWidgetManager
+                .widgetIds
+                .filter { appWidgetManager.exists(it) }
+                .map { createPreference(it) }
+                .forEach { preferenceScreen.addPreference(it) }
         }
+    }
+
+    private suspend fun createPreference(id: Int): Preference {
+        val widgetPrefs = WidgetPreferences(context, preferences, id)
+        val pref = IconPreference(requireContext())
+        tintColorPreference(pref, widgetPrefs.color)
+        pref.drawable = AppCompatResources.getDrawable(
+            requireContext(),
+            R.drawable.ic_keyboard_arrow_right_24px
+        )?.mutate()
+        pref.tint = context?.getColor(R.color.icon_tint_with_alpha)
+        pref.iconVisible = true
+        val filter = defaultFilterProvider.getFilterFromPreference(widgetPrefs.filterId)
+        pref.title = filter.listingTitle
+        pref.summary = getString(R.string.widget_id, id)
+        val intent = Intent(context, WidgetConfigActivity::class.java)
+        intent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID, id)
+        intent.action = "widget_settings"
+        pref.setOnPreferenceClickListener {
+            startActivity(intent)
+            false
+        }
+        return pref
     }
 }
