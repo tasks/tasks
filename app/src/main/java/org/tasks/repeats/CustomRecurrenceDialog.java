@@ -463,7 +463,6 @@ public class CustomRecurrenceDialog extends DialogFragment {
     }
     if (position == 0) {
       rrule.setUntil(null);
-      rrule.setCount(0);
       updateRepeatUntilOptions();
     } else if (position == 1) {
       repeatUntilClick();

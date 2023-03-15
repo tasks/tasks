@@ -565,7 +565,7 @@ class Task : Parcelable {
         const val TRANS_REMINDERS = "reminders"
         const val TRANS_RANDOM = "random"
 
-        private val INVALID_COUNT = ";?COUNT=-1".toRegex()
+        private val INVALID_COUNT = ";?COUNT=(-1|0)".toRegex()
 
         /**
          * Creates due date for this task. If this due date has no time associated, we move it to the last
