@@ -35,3 +35,8 @@ jobs:
         with:
           api-level: 29
           script: ./gradlew -Pcoverage app:testGoogleplayDebugUnitTest app:connectedGoogleplayDebugAndroidTest
+      - name: Upload test reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: app/build/reports/**
