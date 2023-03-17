@@ -39,4 +39,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-reports
+          if: always()
           path: app/build/reports/**
