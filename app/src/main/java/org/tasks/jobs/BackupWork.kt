@@ -11,12 +11,12 @@ import dagger.assisted.AssistedInject
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.backup.BackupConstants
+import org.tasks.backup.BackupConstants.BACKUP_CLEANUP_MATCHER
 import org.tasks.backup.TasksJsonExporter
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.io.File
 import java.io.FileFilter
-import java.util.*
 
 @HiltWorker
 class BackupWork @AssistedInject constructor(
@@ -78,8 +78,7 @@ class BackupWork @AssistedInject constructor(
 
     companion object {
         const val DAYS_TO_KEEP_BACKUP = 7
-        val BACKUP_FILE_NAME_REGEX = Regex("""auto\.[-\d]+\.json""")
-        private val FILENAME_FILTER = { f: String -> f.matches(BACKUP_FILE_NAME_REGEX) }
+        private val FILENAME_FILTER = { f: String -> f.matches(BACKUP_CLEANUP_MATCHER) }
         val FILE_FILTER = FileFilter { f: File -> FILENAME_FILTER(f.name) }
         private val BY_LAST_MODIFIED = { f1: File, f2: File ->
             BackupConstants.getTimestamp(f2).compareTo(BackupConstants.getTimestamp(f1))

@@ -18,6 +18,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.tasks.R
+import org.tasks.backup.BackupConstants.BACKUP_CLEANUP_MATCHER
 import org.tasks.backup.TasksJsonExporter
 import org.tasks.backup.TasksJsonExporter.ExportType
 import org.tasks.injection.InjectingTestCase
@@ -77,6 +78,6 @@ class BackupServiceTests : InjectingTestCase() {
         // assert file created
         val files = temporaryDirectory.listFiles()
         assertEquals(1, files!!.size)
-        assertTrue(files[0].name.matches(BackupWork.BACKUP_FILE_NAME_REGEX))
+        assertTrue(files[0].name.matches(BACKUP_CLEANUP_MATCHER))
     }
 }

@@ -11,6 +11,7 @@ object BackupConstants {
     const val BACKUP_FILE_NAME = "auto.%s.json"
 
     private val MATCHER = Pattern.compile("""(auto|user)\.(\d{2,4})(\d{2})(\d{2})[T-](\d{2})(\d{2})\.json""")
+    val BACKUP_CLEANUP_MATCHER = Regex("""auto\.\d{6,8}[T-]\d{4}\.json""")
 
     fun isBackupFile(name: String?) = name?.let { MATCHER.matcher(it).matches() } ?: false
 
