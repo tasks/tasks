@@ -40,7 +40,7 @@ jobs:
       run: bundle exec fastlane lint
     - name: Archive lint reports
       uses: actions/upload-artifact@v3
+      if: ${{ always() }}
       with:
         name: lint-reports
-        if: always()
         path: app/build/reports/*.html

@@ -37,7 +37,7 @@ jobs:
           script: ./gradlew -Pcoverage app:testGoogleplayDebugUnitTest app:connectedGoogleplayDebugAndroidTest
       - name: Upload test reports
         uses: actions/upload-artifact@v3
+        if: ${{ always() }}
         with:
           name: test-reports
-          if: always()
           path: app/build/reports/**
