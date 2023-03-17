@@ -5,7 +5,8 @@ import org.tasks.data.CaldavTask
 import org.tasks.data.TagData
 import org.tasks.time.DateTime
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
+import java.util.TimeZone
 
 object MicrosoftConverter {
 
@@ -26,7 +27,7 @@ object MicrosoftConverter {
         completionDate = remote.completedDateTime
             ?.let {
                 val tz = TimeZone.getTimeZone(it.timeZone)
-                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.ssssss")
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.ssssss", Locale.US)
                     .apply { timeZone = tz }
                     .parse(it.dateTime)
                     ?.time
