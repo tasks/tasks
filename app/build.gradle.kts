@@ -164,7 +164,7 @@ dependencies {
     implementation("com.github.bitfireAT:dav4jvm:2.2.1") {
         exclude(group = "junit")
     }
-    implementation("com.github.tasks:ical4android:27dc5bf") {
+    implementation("com.github.tasks:ical4android:12fe73a") {
         exclude(group = "commons-logging")
         exclude(group = "org.json", module = "json")
         exclude(group = "org.codehaus.groovy", module = "groovy")
