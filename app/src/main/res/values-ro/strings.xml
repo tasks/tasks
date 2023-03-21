@@ -390,7 +390,7 @@
     <string name="persistent_notifications_description">Notificările persistente nu pot fi șterse</string>
     <string name="persistent_notifications">Notificări persistente</string>
     <string name="rmd_EPr_rmd_time_desc">Notificările pentru sarcinile fără termen de predare vor apărea la %s</string>
-    <string name="rmd_EPr_rmd_time_title">Reamintire implicită</string>
+    <string name="rmd_EPr_rmd_time_title">Timp de reamintire</string>
     <string name="rmd_EPr_quiet_hours_end_title">Sfârșitul orelor de liniște</string>
     <string name="rmd_EPr_quiet_hours_start_title">Încep orele de liniște</string>
     <string name="snooze_all">Amânați tot</string>
@@ -755,4 +755,11 @@
     <string name="ok">\@android:string/ok</string>
     <string name="cancel">\@android:string/anulează</string>
     <string name="TEA_creation_date">Data creării</string>
+    <string name="default_reminder">Reamintire implicită</string>
+    <string name="rmd_time_description">Afișați notificări pentru sarcinile fără termene limită</string>
+    <string name="consent_agree">De acord</string>
+    <string name="consent_deny">Nu acum</string>
+    <string name="sign_in_to_tasks_disclosure">Adresa dumneavoastră de e-mail și ID-ul contului vor fi transmise și stocate de Tasks.org. Aceste informații vor fi utilizate pentru autentificare și pentru a vă furniza anunțuri importante legate de servicii. Aceste informații nu vor fi partajate cu nimeni.</string>
+    <string name="microsoft_selection_description">Sincronizarea cu contul personal Microsoft</string>
+    <string name="sign_in">Conectați-vă</string>
 </resources>
