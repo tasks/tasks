@@ -18,7 +18,7 @@ okhttp = "4.10.0"
 retrofit = "2.9.0"
 room = "2.5.1"
 soloader = "0.10.5"
-work = "2.8.0"
+work = "2.8.1"
 androidx-test = "1.5.0"
 androidx-test-runner = "1.5.2"
 
