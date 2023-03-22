@@ -183,7 +183,7 @@ dependencies {
     kapt(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.work)
 
-    implementation("androidx.fragment:fragment-ktx:1.5.5")
+    implementation("androidx.fragment:fragment-ktx:1.5.6")
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.room)
