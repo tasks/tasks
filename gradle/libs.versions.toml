@@ -1,7 +1,7 @@
 [versions]
-accompanist = "0.28.0"
+accompanist = "0.30.0"
 coil = "2.2.2"
-compose = "2023.01.00"
+compose = "2023.03.00"
 compose-compiler = "1.4.4"
 compose-theme-adapter = "1.2.1"
 dagger-hilt = "2.45"
