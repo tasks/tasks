@@ -22,7 +22,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
 import com.franmontiel.persistentcookiejar.persistence.CookiePersistor
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.astrid.data.Task
@@ -136,7 +136,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
         )
         binding.password.setOnFocusChangeListener { _, hasFocus -> onPasswordFocused(hasFocus) }
         binding.serverSelector.setContent {
-            MdcTheme {
+            AppCompatTheme {
                 var selected by rememberSaveable { serverType }
                 ServerSelector(selected) {
                     serverType.value = it

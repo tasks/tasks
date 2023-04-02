@@ -3,7 +3,6 @@ accompanist = "0.30.0"
 coil = "2.2.2"
 compose = "2023.03.00"
 compose-compiler = "1.4.4"
-compose-theme-adapter = "1.2.1"
 dagger-hilt = "2.45"
 firebase = "31.2.3"
 flipper = "0.187.0"
@@ -25,6 +24,7 @@ androidx-test-runner = "1.5.2"
 [libraries]
 accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
+accompanist-themeadapter = { module = "com.google.accompanist:accompanist-themeadapter-appcompat", version.ref = "accompanist" }
 androidx-compose = { module = "androidx.compose:compose-bom", version.ref = "compose" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt" }
@@ -41,7 +41,6 @@ coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
 coil-video = { module = "io.coil-kt:coil-video", version.ref = "coil" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
-compose-theme-adapter = { module = "com.google.android.material:compose-theme-adapter", version.ref = "compose-theme-adapter" }
 dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
 dagger-hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger-hilt" }

@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import com.todoroo.astrid.ui.ReminderControlSetViewModel
 import org.tasks.R
 import org.tasks.compose.*
@@ -203,7 +203,7 @@ private fun AlarmRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoAlarms() {
-    MdcTheme {
+    AppCompatTheme {
         AlarmRow(
             alarms = emptyList(),
             ringMode = 0,
@@ -223,7 +223,7 @@ fun NoAlarms() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun PermissionDenied() {
-    MdcTheme {
+    AppCompatTheme {
         AlarmRow(
             alarms = emptyList(),
             ringMode = 0,

@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import org.tasks.R
 import org.tasks.calendars.AndroidCalendar
 import org.tasks.calendars.CalendarPickerViewModel
@@ -88,7 +88,7 @@ fun CalendarPickerList(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun CalendarPickerPreview() {
-    MdcTheme {
+    AppCompatTheme {
         CalendarPickerList(
             calendars = listOf(
                 AndroidCalendar("1", "Home", -765666),
@@ -105,7 +105,7 @@ fun CalendarPickerPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun CalendarPickerNoneSelected() {
-    MdcTheme {
+    AppCompatTheme {
         CalendarPickerList(
             calendars = listOf(
                 AndroidCalendar("1", "Home", -765666),

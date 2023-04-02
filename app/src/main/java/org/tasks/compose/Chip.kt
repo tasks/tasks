@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import org.tasks.R
 import org.tasks.themes.CustomIcons
 
@@ -114,7 +114,7 @@ private fun ChipIcon(iconRes: Int?) {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun TasksChipIconAndTextPreview() {
-    MdcTheme {
+    AppCompatTheme {
         Chip(
             text = "Home",
             icon = CustomIcons.getIconResId(CustomIcons.LABEL),
@@ -128,7 +128,7 @@ fun TasksChipIconAndTextPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun TasksChipIconTextAndClearPreview() {
-    MdcTheme {
+    AppCompatTheme {
         Chip(
             text = "Home",
             icon = CustomIcons.getIconResId(CustomIcons.LABEL),
@@ -143,7 +143,7 @@ fun TasksChipIconTextAndClearPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun TasksChipIconPreview() {
-    MdcTheme {
+    AppCompatTheme {
         Chip(
             text = null,
             icon = CustomIcons.getIconResId(CustomIcons.LABEL),
@@ -157,7 +157,7 @@ fun TasksChipIconPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun TasksChipTextPreview() {
-    MdcTheme {
+    AppCompatTheme {
         Chip(
             text = "Home",
             icon = null,

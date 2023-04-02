@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -48,7 +48,7 @@ class FilesControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                MdcTheme {
+                AppCompatTheme {
                     AttachmentRow(
                         attachments = viewModel.selectedAttachments.collectAsStateLifecycleAware().value,
                         openAttachment = {

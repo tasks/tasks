@@ -28,10 +28,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import net.openid.appauth.*
+import net.openid.appauth.AuthState
+import net.openid.appauth.AuthorizationException
+import net.openid.appauth.AuthorizationRequest
+import net.openid.appauth.AuthorizationServiceConfiguration
+import net.openid.appauth.ClientSecretBasic
+import net.openid.appauth.RegistrationRequest
+import net.openid.appauth.RegistrationResponse
+import net.openid.appauth.ResponseTypeValues
 import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
@@ -98,7 +105,7 @@ class SignInActivity : ComponentActivity() {
             var selectedPlatform by rememberSaveable {
                 mutableStateOf(autoSelect)
             }
-            MdcTheme {
+            AppCompatTheme {
                 selectedPlatform
                     ?.let {
                         Dialog(onDismissRequest = { finish() }) {

@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import dagger.hilt.android.AndroidEntryPoint
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
@@ -75,7 +75,7 @@ class RepeatControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                MdcTheme {
+                AppCompatTheme {
                     RepeatRow(
                         recurrence = viewModel.recurrence.collectAsStateLifecycleAware().value?.let {
                             repeatRuleToString.toString(it)

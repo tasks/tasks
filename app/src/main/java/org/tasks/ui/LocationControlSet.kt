@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.core.util.Pair
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -82,7 +82,7 @@ class LocationControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                MdcTheme {
+                AppCompatTheme {
                     val hasPermissions =
                         rememberMultiplePermissionsState(permissions = backgroundPermissions())
                             .allPermissionsGranted

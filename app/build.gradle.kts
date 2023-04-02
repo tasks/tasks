@@ -230,7 +230,6 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime-livedata")
-    implementation(libs.compose.theme.adapter)
     implementation("androidx.activity:activity-compose:1.7.0")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
@@ -240,6 +239,7 @@ dependencies {
 
     implementation(libs.accompanist.flowlayout)
     implementation(libs.accompanist.permissions)
+    implementation(libs.accompanist.themeadapter)
 
     googleplayImplementation(platform(libs.firebase))
     googleplayImplementation("com.google.firebase:firebase-crashlytics")

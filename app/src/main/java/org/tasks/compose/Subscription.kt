@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import org.tasks.R
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.KEYLINE_FIRST
@@ -415,7 +415,7 @@ object PurchaseText {
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun PurchaseDialogPreview() {
-    MdcTheme {
+    AppCompatTheme {
         PurchaseText { _, _ -> }
     }
 }
@@ -424,7 +424,7 @@ private fun PurchaseDialogPreview() {
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun PurchaseDialogPreviewSolid() {
-    MdcTheme {
+    AppCompatTheme {
         PurchaseText(solidButton = true) { _, _ -> }
     }
 }
@@ -433,7 +433,7 @@ private fun PurchaseDialogPreviewSolid() {
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun PurchaseDialogPreviewBadge() {
-    MdcTheme {
+    AppCompatTheme {
         PurchaseText(badge = true) { _, _ -> }
     }
 }

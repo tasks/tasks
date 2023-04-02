@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import org.tasks.R
 import org.tasks.compose.Constants.TextButton
 import org.tasks.compose.Constants.textFieldColors
@@ -30,7 +31,7 @@ import org.tasks.compose.ShareInvite.ShareInvite
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
-private fun Invite() = MaterialTheme {
+private fun Invite() = AppCompatTheme {
     ShareInvite(true, remember { mutableStateOf("") })
 }
 
@@ -42,7 +43,7 @@ private fun InviteDark() = MaterialTheme(darkColors()) {
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
-private fun InviteFilled() = MaterialTheme {
+private fun InviteFilled() = AppCompatTheme {
     ShareInvite(true, remember { mutableStateOf("user@example.com") })
 }
 

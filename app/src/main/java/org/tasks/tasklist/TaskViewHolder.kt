@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.Filter
@@ -31,7 +31,7 @@ import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import org.tasks.ui.ChipProvider
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -217,7 +217,7 @@ class TaskViewHolder internal constructor(
 
     private fun setupChips(filter: Filter, sortByStartDate: Boolean) {
         chipGroup.setContent {
-            MdcTheme {
+            AppCompatTheme {
                 ChipGroup(
                     modifier = Modifier.padding(
                         end = 16.dp,

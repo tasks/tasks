@@ -6,7 +6,13 @@ import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -14,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
@@ -85,7 +91,7 @@ fun DescriptionRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun EmptyDescriptionPreview() {
-    MdcTheme {
+    AppCompatTheme {
         DescriptionRow(
             text = null,
             onChanged = {},
@@ -100,7 +106,7 @@ fun EmptyDescriptionPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun DescriptionPreview() {
-    MdcTheme {
+    AppCompatTheme {
         DescriptionRow(
             text = """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

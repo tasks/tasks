@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
@@ -35,9 +36,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
@@ -90,7 +91,6 @@ import java.time.format.FormatStyle
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.abs
-import android.view.inputmethod.EditorInfo
 
 @AndroidEntryPoint
 class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
@@ -235,7 +235,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             }
         }
         binding.composeView.setContent {
-            MdcTheme {
+            AppCompatTheme {
                 Column(modifier = Modifier.gesturesDisabled(editViewModel.isReadOnly)) {
                     taskEditControlSetFragmentManager.displayOrder.forEachIndexed { index, tag ->
                         if (index < taskEditControlSetFragmentManager.visibleSize) {
@@ -296,7 +296,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         binding.banner.setContent {
             var visible by rememberSaveable { mutableStateOf(true) }
             val context = LocalContext.current
-            MdcTheme {
+            AppCompatTheme {
                 BeastModeBanner(
                     visible,
                     showSettings = {
