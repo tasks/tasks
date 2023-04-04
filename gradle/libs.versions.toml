@@ -1,5 +1,5 @@
 [versions]
-accompanist = "0.30.0"
+accompanist = "0.30.1"
 coil = "2.3.0"
 compose = "2023.03.00"
 compose-compiler = "1.4.4"
