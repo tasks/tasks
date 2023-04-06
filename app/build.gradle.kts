@@ -234,8 +234,8 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     implementation("androidx.compose.ui:ui-viewbinding")
+    implementation("androidx.compose.ui:ui-tooling-preview")
     implementation(libs.bundles.coil)
-    releaseCompileOnly("androidx.compose.ui:ui-tooling")
 
     implementation(libs.accompanist.flowlayout)
     implementation(libs.accompanist.permissions)
