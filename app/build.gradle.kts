@@ -160,36 +160,36 @@ val genericImplementation by configurations
 val googleplayImplementation by configurations
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
-    implementation("com.github.bitfireAT:dav4jvm:2.2.1") {
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation(libs.bitfire.dav4jvm) {
         exclude(group = "junit")
     }
-    implementation("com.github.tasks:ical4android:12fe73a") {
+    implementation(libs.bitfire.ical4android) {
         exclude(group = "commons-logging")
         exclude(group = "org.json", module = "json")
         exclude(group = "org.codehaus.groovy", module = "groovy")
         exclude(group = "org.codehaus.groovy", module = "groovy-dateutil")
     }
-    implementation("com.github.bitfireAT:cert4android:7814052")
-    implementation("com.github.tasks.opentasks:opentasks-provider:562fec5") {
+    implementation(libs.bitfire.cert4android)
+    implementation(libs.dmfs.opentasks.provider) {
         exclude("com.github.tasks.opentasks", "opentasks-contract")
     }
-    implementation("org.dmfs:rfc5545-datetime:0.2.4")
-    implementation("org.dmfs:lib-recur:0.11.4")
-    implementation("org.dmfs:jems:1.33")
+    implementation(libs.dmfs.rfc5545.datetime)
+    implementation(libs.dmfs.recur)
+    implementation(libs.dmfs.jems)
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
     kapt(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.work)
 
-    implementation("androidx.fragment:fragment-ktx:1.5.6")
+    implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.room)
     kapt(libs.androidx.room.compiler)
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.paging:paging-runtime:3.1.1")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.paging)
     implementation(libs.bundles.markwon)
 
     debugImplementation(libs.bundles.flipper)
@@ -199,40 +199,40 @@ dependencies {
 
     implementation(libs.kotlin.jdk8)
     implementation(libs.okhttp)
-    implementation("com.github.franmontiel:PersistentCookieJar:1.0.1")
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("com.google.android.material:material:1.8.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation("androidx.preference:preference:1.2.0")
-    implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("com.google.android.apps.dashclock:dashclock-api:2.0.0")
-    implementation("com.github.twofortyfouram:android-plugin-api-for-locale:1.0.2") {
+    implementation(libs.persistent.cookiejar)
+    implementation(libs.gson)
+    implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.preference)
+    implementation(libs.timber)
+    implementation(libs.dashclock.api)
+    implementation(libs.locale) {
         isTransitive = false
     }
-    implementation("com.rubiconproject.oss:jchronic:0.2.6") {
+    implementation(libs.jchronic) {
         isTransitive = false
     }
-    implementation("me.leolin:ShortcutBadger:1.1.22@aar")
-    implementation("com.google.apis:google-api-services-tasks:v1-rev20210709-2.0.0")
-    implementation("com.google.apis:google-api-services-drive:v3-rev20230306-2.0.0")
-    implementation("com.google.auth:google-auth-library-oauth2-http:0.27.0")
+    implementation(libs.shortcut.badger)
+    implementation(libs.google.api.tasks)
+    implementation(libs.google.api.drive)
+    implementation(libs.google.oauth2)
     implementation(libs.androidx.work)
-    implementation("com.etebase:client:2.3.2")
-    implementation("com.github.QuadFlask:colorpicker:0.0.15")
-    implementation("net.openid:appauth:0.11.1")
-    implementation("org.osmdroid:osmdroid-android:6.1.16@aar")
+    implementation(libs.etebase)
+    implementation(libs.colorpicker)
+    implementation(libs.appauth)
+    implementation(libs.osmdroid)
     implementation(libs.bundles.retrofit)
-    implementation("androidx.recyclerview:recyclerview:1.3.0")
+    implementation(libs.androidx.recyclerview)
 
     implementation(platform(libs.androidx.compose))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime-livedata")
-    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation(libs.androidx.activity.compose)
     implementation("androidx.compose.material:material-icons-extended")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation("androidx.compose.ui:ui-viewbinding")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation(libs.bundles.coil)
@@ -247,12 +247,12 @@ dependencies {
         exclude("com.google.android.gms", "play-services-ads-identifier")
     }
     googleplayImplementation("com.google.firebase:firebase-config-ktx")
-    googleplayImplementation("com.google.android.gms:play-services-location:19.0.1")
-    googleplayImplementation("com.google.android.gms:play-services-maps:18.1.0")
-    googleplayImplementation("com.android.billingclient:billing-ktx:4.1.0")
-    googleplayImplementation("com.google.android.play:core:1.10.3")
-    googleplayImplementation("com.google.android.play:core-ktx:1.8.1")
-    googleplayImplementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
+    googleplayImplementation(libs.play.services.location)
+    googleplayImplementation(libs.play.services.maps)
+    googleplayImplementation(libs.play.billing.ktx)
+    googleplayImplementation(libs.play.core)
+    googleplayImplementation(libs.play.core.ktx)
+    googleplayImplementation(libs.play.services.oss.licenses)
 
     androidTestImplementation(libs.dagger.hilt.testing)
     kaptAndroidTest(libs.dagger.hilt.compiler)
@@ -261,13 +261,13 @@ dependencies {
     androidTestImplementation(libs.make.it.easy)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.rules)
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.okhttp.mockwebserver)
 
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.make.it.easy)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.mockito.core)
-    testImplementation("org.ogce:xpp3:1.1.6")
+    testImplementation(libs.xpp3)
 }

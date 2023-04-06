@@ -1,56 +1,127 @@
 [versions]
 accompanist = "0.30.1"
+activity-compose = "1.7.0"
+appauth = "0.11.1"
+appcompat = "1.6.1"
+cert4android = "7814052"
 coil = "2.3.0"
+colorpicker = "0.0.15"
 compose = "2023.04.00"
 compose-compiler = "1.4.4"
+constraintlayout = "2.1.4"
 dagger-hilt = "2.45"
+dashclock-api = "2.0.0"
+dav4jvm = "2.2.1"
+desugar_jdk_libs = "2.0.3"
+etebase = "2.3.2"
 firebase = "31.4.0"
 flipper = "0.188.0"
+fragment-ktx = "1.5.6"
+google-oauth2 = "0.27.0"
+google-api-drive = "v3-rev20230306-2.0.0"
+google-api-tasks = "v1-rev20210709-2.0.0"
+gson = "2.10.1"
 hilt = "1.0.0"
+ical4android = "12fe73a"
+jchronic = "0.2.6"
+jems = "1.33"
+junit-junit = "4.13.2"
+junit = "1.1.5"
 kotlin = "1.8.10"
+kotlinx-coroutines-test = "1.6.4"
 leakcanary = "2.10"
+lib-recur = "0.11.4"
 lifecycle = "2.6.1"
+locale = "1.0.2"
 make-it-easy = "4.0.1"
 markwon = "4.6.2"
+material = "1.8.0"
 mockito = "5.2.0"
 okhttp = "4.10.0"
+opentasks = "562fec5"
+osmdroid = "6.1.16"
+paging = "3.1.1"
+persistent-cookiejar = "1.0.1"
+play-billing-ktx = "4.1.0"
+play-core-ktx = "1.8.1"
+play-core = "1.10.3"
+play-services-maps = "18.1.0"
+play-services-location = "19.0.1"
+play-services-oss-licenses = "17.0.0"
+preference = "1.2.0"
+recyclerview = "1.3.0"
 retrofit = "2.9.0"
+rfc5545-datetime = "0.2.4"
 room = "2.5.1"
+shortcut-badger = "1.1.22"
 soloader = "0.10.5"
+timber = "5.0.1"
+swiperefreshlayout = "1.1.0"
 work = "2.8.1"
 androidx-test = "1.5.0"
 androidx-test-runner = "1.5.2"
+xpp3 = "1.1.6"
 
 [libraries]
 accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 accompanist-themeadapter = { module = "com.google.accompanist:accompanist-themeadapter-appcompat", version.ref = "accompanist" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-compose = { module = "androidx.compose:compose-bom", version.ref = "compose" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment-ktx" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+androidx-paging = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
+androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 androidx-room = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room"}
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 androidx-work = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
+appauth = { module = "net.openid:appauth", version.ref = "appauth" }
+bitfire-cert4android = { module = "com.github.bitfireAT:cert4android", version.ref = "cert4android" }
+bitfire-dav4jvm = { module = "com.github.bitfireAT:dav4jvm", version.ref = "dav4jvm"}
+bitfire-ical4android = { module = "com.github.tasks:ical4android", version.ref = "ical4android"}
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
 coil-video = { module = "io.coil-kt:coil-video", version.ref = "coil" }
+colorpicker = { module = "com.github.QuadFlask:colorpicker", version.ref = "colorpicker" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
 dagger-hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger-hilt" }
+dashclock-api = { module = "com.google.android.apps.dashclock:dashclock-api", version.ref = "dashclock-api" }
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+dmfs-jems = { module = "org.dmfs:jems", version.ref = "jems" }
+dmfs-opentasks-provider = { module = "com.github.tasks.opentasks:opentasks-provider", version.ref = "opentasks" }
+dmfs-recur = { module = "org.dmfs:lib-recur", version.ref = "lib-recur" }
+dmfs-rfc5545-datetime = { module = "org.dmfs:rfc5545-datetime", version.ref = "rfc5545-datetime" }
+etebase = { module = "com.etebase:client", version.ref = "etebase" }
 facebook-flipper = { module = "com.facebook.flipper:flipper", version.ref = "flipper" }
 facebook-flipper-network = { module = "com.facebook.flipper:flipper-network-plugin", version.ref = "flipper" }
 facebook-soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }
 firebase = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
+google-oauth2 = { module = "com.google.auth:google-auth-library-oauth2-http", version.ref = "google-oauth2" }
+google-api-drive = { module = "com.google.apis:google-api-services-drive", version.ref = "google-api-drive" }
+google-api-tasks = { module = "com.google.apis:google-api-services-tasks", version.ref = "google-api-tasks" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+jchronic = { module = "com.rubiconproject.oss:jchronic", version.ref = "jchronic" }
+junit = { module = "junit:junit", version.ref = "junit-junit" }
 kotlin-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+locale = { module = "com.github.twofortyfouram:android-plugin-api-for-locale", version.ref = "locale" }
 make-it-easy = { module = "com.natpryce:make-it-easy", version.ref = "make-it-easy" }
 markwon = { module = "io.noties.markwon:core", version.ref = "markwon" }
 markwon-editor = { module = "io.noties.markwon:editor", version.ref = "markwon" }
@@ -58,12 +129,24 @@ markwon-linkify = { module = "io.noties.markwon:linkify", version.ref = "markwon
 markwon-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.ref = "markwon" }
 markwon-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }
 markwon-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
+osmdroid = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroid" }
+persistent-cookiejar = { module = "com.github.franmontiel:PersistentCookieJar", version.ref = "persistent-cookiejar" }
+play-billing-ktx = { module = "com.android.billingclient:billing-ktx", version.ref = "play-billing-ktx" }
+play-core-ktx = { module = "com.google.android.play:core-ktx", version.ref = "play-core-ktx" }
+play-core = { module = "com.google.android.play:core", version.ref = "play-core" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "play-services-maps" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "play-services-location" }
+play-services-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "play-services-oss-licenses" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+shortcut-badger = { module = "me.leolin:ShortcutBadger", version.ref = "shortcut-badger" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }
 
 [bundles]
 coil = [
