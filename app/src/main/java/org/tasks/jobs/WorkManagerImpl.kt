@@ -10,6 +10,7 @@ import androidx.work.*
 import androidx.work.ExistingWorkPolicy.APPEND_OR_REPLACE
 import androidx.work.ExistingWorkPolicy.REPLACE
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.Dispatchers
@@ -158,7 +159,9 @@ class WorkManagerImpl constructor(
             }
         } else {
             val pendingIntent = notificationPendingIntent
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent)
+            if (!atLeastS() || alarmManager.canScheduleExactAlarms()) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent)
+            }
         }
     }
 

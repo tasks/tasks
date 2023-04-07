@@ -1,10 +1,13 @@
 package org.tasks.scheduling;
 
-import android.annotation.SuppressLint;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastS;
+
 import android.app.PendingIntent;
 import android.content.Context;
-import dagger.hilt.android.qualifiers.ApplicationContext;
+
 import javax.inject.Inject;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 public class AlarmManager {
 
@@ -19,9 +22,10 @@ public class AlarmManager {
     alarmManager.cancel(pendingIntent);
   }
 
-  @SuppressLint("NewApi")
   public void wakeup(long time, PendingIntent pendingIntent) {
-    alarmManager.setExactAndAllowWhileIdle(
-        android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
+    if (!atLeastS() || alarmManager.canScheduleExactAlarms()) {
+      alarmManager.setExactAndAllowWhileIdle(
+              android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
+    }
   }
 }
