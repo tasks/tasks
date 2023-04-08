@@ -70,7 +70,7 @@
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ще ви напомня за предстоящи събития в календара и ще ви подканва да се подготвите за тях</string>
     <string name="CRA_default_list_name">План за действие: %s</string>
     <string name="none">Няма</string>
-    <string name="EPr_edit_screen_options">Редактиране настройки на екрана</string>
+    <string name="EPr_edit_screen_options">Настройки на екрана за редактиране</string>
     <string name="EPr_beastMode_reset">Подразбирани настройки</string>
     <string name="EPr_fullTask_title">Пълно заглавие на задачата</string>
     <string name="EPr_show_task_edit_comments">Показване на коментари при редакция на задачи</string>
@@ -88,7 +88,7 @@
     <string name="EPr_manage_delete_all_gcal">Премахвне от календара на всички събития към задачи</string>
     <string name="EPr_manage_delete_all_gcal_message">Наистина ли желаете всички събития към задачи да бъдат премахнати\?</string>
     <string name="task_defaults">Стойности по подразбиране</string>
-    <string name="EPr_default_importance_title">Приоритет по подразбиране</string>
+    <string name="EPr_default_importance_title">Подразбиран приоритет</string>
     <string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
     <string name="EPr_default_location_reminder_title">Напомняния за място по подразбиране</string>
     <string name="EPr_default_reminders_mode_title">Тон на звънене/вибрация по подразбиране</string>
@@ -103,15 +103,15 @@
     <string name="default_location_reminder_on_arrival_or_departure">При пристигане и отпътуване</string>
     <string name="BFE_Active">Мои задачи</string>
     <string name="BFE_Recent">Последно променени</string>
-    <string name="custom_filter_or">или</string>
-    <string name="custom_filter_not">не</string>
-    <string name="custom_filter_and">и</string>
+    <string name="custom_filter_or">ИЛИ</string>
+    <string name="custom_filter_not">НЕ</string>
+    <string name="custom_filter_and">И</string>
     <string name="CFA_button_add">Добавяне на критерии</string>
     <string name="CFC_dueBefore_text">Краен срок: ?</string>
     <string name="CFC_dueBefore_name">Краен срок…</string>
     <string name="no_due_date">Без крайна дата</string>
-    <string name="next_month">Следващият месец</string>
-    <string name="CFC_importance_text">С приоритет поне ?</string>
+    <string name="next_month">Следващия месец</string>
+    <string name="CFC_importance_text">С приоритет най-малко \?</string>
     <string name="CFC_importance_name">Приоритет…</string>
     <string name="CFC_tag_text">Етикет: \?</string>
     <string name="CFC_tag_name">Етикет…</string>
@@ -149,18 +149,18 @@
     <string name="default_random_reminder_weekly">ежеседмично</string>
     <string name="default_random_reminder_bi_weekly">на две седмици</string>
     <string name="repeat_every">Всеки(а)</string>
-    <string name="repeat_option_does_not_repeat">Да не се повтаря</string>
+    <string name="repeat_option_does_not_repeat">Не се повтаря</string>
     <string name="repeat_option_every_day">всеки ден</string>
     <string name="repeat_option_every_week">всяка седмица</string>
     <string name="repeat_option_every_month">всеки месец</string>
     <string name="repeat_option_every_year">всяка година</string>
     <string name="repeat_option_custom">По избор…</string>
-    <string name="repeat_minutely">Повтаряне ежеминутно</string>
-    <string name="repeat_hourly">Повтаряне ежечасно</string>
-    <string name="repeat_daily">Повтаряне ежедневно</string>
-    <string name="repeat_weekly">Повтаряне ежеседмично</string>
-    <string name="repeat_monthly">Повтаряне ежемесечно</string>
-    <string name="repeat_yearly">Повтаряне ежегоднио</string>
+    <string name="repeat_minutely">Да се повтаря всяка минута</string>
+    <string name="repeat_hourly">Да се повтаря всеки час</string>
+    <string name="repeat_daily">Да се повтаря всеки ден</string>
+    <string name="repeat_weekly">Да се повтаря всяка седмица</string>
+    <string name="repeat_monthly">Да се повтаря всеки месец</string>
+    <string name="repeat_yearly">Да се повтаря всяка година</string>
     <plurals name="task_count">
         <item quantity="one">%d задача</item>
         <item quantity="other">%d задачи</item>
@@ -187,7 +187,7 @@
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">ден</item>
-        <item quantity="other">дни</item>
+        <item quantity="other">дена</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d ден</item>
@@ -203,7 +203,7 @@
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">месец</item>
-        <item quantity="other">месеци</item>
+        <item quantity="other">месеца</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d месец</item>
@@ -219,10 +219,10 @@
     </plurals>
     <string name="repeat_type_due">крайна дата</string>
     <string name="repeat_type_completion">дата на завършване</string>
-    <string name="repeat_forever">Повтаряне завинаги</string>
-    <string name="repeat_until">Повтаряне до %s</string>
-    <string name="repeat_number_of_times">Повтаряне няколко пъти</string>
-    <string name="repeat_occurs">Повтаря се</string>
+    <string name="repeat_forever">Да се повтаря винаги</string>
+    <string name="repeat_until">Да се повтаря до %s</string>
+    <string name="repeat_number_of_times">Да се повтаря няколко пъти</string>
+    <string name="repeat_occurs">Да се повтаря</string>
     <string name="repeat_snackbar">%1$s е преместена за %2$s</string>
     <string name="new_tag">Създаване на етикет</string>
     <string name="new_list">Създаване на списък</string>
@@ -249,7 +249,7 @@
     <string name="tmrw">Утре</string>
     <string name="yest">Вчера</string>
     <string name="widget_show_checkboxes">Отметки</string>
-    <string name="widget_show_header">Заглавна част</string>
+    <string name="widget_show_header">Заглавка</string>
     <string name="widget_show_settings">Настройки</string>
     <string name="notifications">Известия</string>
     <string name="silent">Безшумен</string>
@@ -263,7 +263,7 @@
     <string name="enabled">Включено</string>
     <string name="font_size">Размер на шрифта</string>
     <string name="row_spacing">Междуредие</string>
-    <string name="customize_edit_screen">Настройки на екрана за редактиране</string>
+    <string name="customize_edit_screen">Настройване на екрана за редактиране</string>
     <string name="source_code">Изходен код</string>
     <string name="translations">Допринасяне с превод</string>
     <string name="contact_developer">Връзка с разработчика</string>
@@ -336,7 +336,7 @@
     <string name="led_notification">Известия с LED</string>
     <string name="hardware_support_required">Необходима е апаратна поддръжка</string>
     <string name="widget_settings">Настройки на приспособления</string>
-    <string name="widget_header_settings">Настройки на заглавието</string>
+    <string name="widget_header_settings">Настройки на заглавката</string>
     <string name="widget_row_settings">Настройки на реда</string>
     <string name="clear_completed_tasks_confirmation">Изчистване на завършени задачи?</string>
     <string name="copy_multiple_tasks_confirmation">%s копирани</string>
@@ -353,25 +353,25 @@
     <string name="bundle_notifications">Обединяване на известия</string>
     <string name="badges">Значки</string>
     <string name="list">Списък</string>
-    <string name="repeats_from">Да се повтаря от</string>
-    <string name="repeats_single">Да се повтаря %s</string>
-    <string name="repeats_single_on">Да се повтаря %1$s на %2$s</string>
-    <string name="repeats_single_until">Да се повтаря %1$s до %2$s</string>
-    <string name="repeats_single_number_of_times">Да се повтаря %1$s, възниква %2$d %3$s</string>
-    <string name="repeats_single_on_until">Да се повтаря %1$s на %2$s до %3$s</string>
-    <string name="repeats_single_on_number_of_times">Да се повтаря %1$s на %2$s, възниква %3$d %4$s</string>
+    <string name="repeats_from">Повтаря се от</string>
+    <string name="repeats_single">Повтаря се %s</string>
+    <string name="repeats_single_on">Повтаря се %1$s в/ъв %2$s</string>
+    <string name="repeats_single_until">Повтаря се %1$s до %2$s</string>
+    <string name="repeats_single_number_of_times">Повтаря се %1$s, възниква %2$d %3$s</string>
+    <string name="repeats_single_on_until">Повтаря се %1$s в/ъв %2$s до %3$s</string>
+    <string name="repeats_single_on_number_of_times">Повтаря се %1$s в/ъв %2$s, възниква %3$d %4$s</string>
     <string name="repeats_minutely">ежеминутно</string>
     <string name="repeats_hourly">ежечасно</string>
     <string name="repeats_daily">ежедневно</string>
     <string name="repeats_weekly">ежеседмично</string>
     <string name="repeats_monthly">ежемесечно</string>
     <string name="repeats_yearly">ежегодишно</string>
-    <string name="repeats_plural">Да се повтаря всеки %s</string>
-    <string name="repeats_plural_on">Да се повтаря всеки %1$s на %2$s</string>
-    <string name="repeats_plural_until">Да се повтаря всеки %1$s до %2$s</string>
-    <string name="repeats_plural_number_of_times">Да се повтаря всеки %1$s, възниква %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Да се повтаря всеки %1$s на %2$s до %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Да се повтаря всеки %1$s на %2$s, възниква %3$d %4$s</string>
+    <string name="repeats_plural">Повтаря се всеки %s</string>
+    <string name="repeats_plural_on">Повтаря се всеки %1$s в/ъв %2$s</string>
+    <string name="repeats_plural_until">Повтаря се всеки %1$s до %2$s</string>
+    <string name="repeats_plural_number_of_times">Повтаря се всеки %1$s, възниква %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Повтаря се всеки %1$s в/ъв %2$s до %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Повтаря се всеки %1$s в/ъв %2$s, възниква %3$d %4$s</string>
     <string name="dont_add_to_calendar">Не се добавя в календар</string>
     <string name="default_calendar">Календар по подразбиране</string>
     <string name="badges_description">Броят на задачите е видим върху иконата на Tasks. Не всички начални екрани го поддържат.</string>
@@ -379,11 +379,11 @@
     <string name="repeat_monthly_same_day_each_month">на един и същи ден всеки месец</string>
     <string name="repeat_monthly_every_day_of_nth_week">всеки %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">на всеки %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">първи</string>
-    <string name="repeat_monthly_second_week">втори</string>
-    <string name="repeat_monthly_third_week">трети</string>
-    <string name="repeat_monthly_fourth_week">четвърти</string>
-    <string name="repeat_monthly_last_week">последен</string>
+    <string name="repeat_monthly_first_week">първа</string>
+    <string name="repeat_monthly_second_week">втора</string>
+    <string name="repeat_monthly_third_week">трета</string>
+    <string name="repeat_monthly_fourth_week">четвърта</string>
+    <string name="repeat_monthly_last_week">последна</string>
     <string name="tasker_create_task">Създаване на задача</string>
     <string name="tasker_list_notification">Списък с известия</string>
     <string name="help">Помощ</string>
@@ -481,7 +481,7 @@
     <string name="this_feature_requires_a_subscription">Тази възможност изисква абонамент</string>
     <string name="button_unsubscribe">Прекратяване на абонамент</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="repeat_monthly_fifth_week">пети</string>
+    <string name="repeat_monthly_fifth_week">пета</string>
     <string name="subscription">Абонамент</string>
     <string name="header_spacing">Разредка</string>
     <string name="widget_show_dividers">Разделители</string>
@@ -562,7 +562,7 @@
     <string name="date_shortcut_tomorrow_night">Утре през нощта</string>
     <string name="show_unstarted">Незапочнати</string>
     <string name="menu_discard_changes">Отхвърляне на промените</string>
-    <string name="opacity_header">Непрозрачност на заглавието</string>
+    <string name="opacity_header">Непрозрачност на заглавката</string>
     <string name="widget_due_date_reschedule">Пренасрочване на задачата</string>
     <string name="widget_due_date_after_title">След заглавието</string>
     <string name="widget_open_list">Отваряне на списък</string>
@@ -668,7 +668,7 @@
     <string name="completed_tasks_at_bottom">Преместване на завършените задачи отдолу</string>
     <string name="caldav_server_unknown">Неизвестен</string>
     <string name="caldav_server_other">Друг</string>
-    <string name="filter_snoozed">Отложено</string>
+    <string name="filter_snoozed">Отложени</string>
     <string name="app_password_created_at">Създадена: %s</string>
     <string name="upgrade_open_source_description">Вашия абонамент поддържа непрекъснатото развитие</string>
     <string name="your_subscription_expired">Абонаментът е изтекъл. Подновете го, за да се възстанови услугата.</string>
@@ -700,7 +700,7 @@
     <string name="app_bar_position">Разположение на лентата на приложението</string>
     <string name="alarm_before_start">%s преди началото</string>
     <string name="completed">Завършена</string>
-    <string name="customize_edit_screen_summary">Преподреждат се или се премахват полета</string>
+    <string name="customize_edit_screen_summary">Подреждане или премахване на полета</string>
     <string name="compact">Компактен</string>
     <string name="no_google_play_subscription">Не е намерен подходящ абонамент от Google Play</string>
     <string name="authentication_required">Необходимо е удостоверяване</string>
@@ -712,7 +712,7 @@
     <string name="alarm_after_due">%s след</string>
     <string name="dismiss">Отхвърляне</string>
     <string name="hint_customize_edit_title">Твърде много информация\?</string>
-    <string name="hint_customize_edit_body">Можете да настроите екрана като преместите или премахнете полета</string>
+    <string name="hint_customize_edit_body">Можете да настроите екрана като подреждате или премахвате полета</string>
     <string name="account_not_included">Не е включено в абонамента „Посочете своя цена“</string>
     <string name="upgrade_desktop_access_description">Синхронизиране с други клиенти като Outlook и Apple Reminders</string>
     <string name="map_theme_use_app_theme">С темата на приложението</string>
