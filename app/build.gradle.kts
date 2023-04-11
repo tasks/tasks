@@ -99,7 +99,7 @@ android {
 
     @Suppress("LocalVariableName")
     buildTypes {
-        getByName("debug") {
+        debug {
             configure<CrashlyticsExtension> {
                 mappingFileUploadEnabled = false
             }
@@ -113,7 +113,7 @@ android {
             resValue("string", "tasks_places_url", tasks_caldav_url ?: "https://places.tasks.org")
             enableUnitTestCoverage = project.hasProperty("coverage")
         }
-        getByName("release") {
+        release {
             val tasks_mapbox_key: String? by project
             val tasks_google_key: String? by project
             resValue("string", "mapbox_key", tasks_mapbox_key ?: "")
