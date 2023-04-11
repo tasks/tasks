@@ -210,7 +210,8 @@ fun ExistingSubtaskRow(
         )
         if (task.hasChildren()) {
             SubtaskChip(
-                task = task,
+                collapsed = task.isCollapsed,
+                children = task.children,
                 compact = true,
                 onClick = onToggleSubtaskClick,
             )

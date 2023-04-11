@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -36,7 +37,7 @@ fun Chip(
     clear: (() -> Unit)? = null,
 ) {
     Chip(
-        color = Color(colorProvider(theme)),
+        color = remember(theme) { Color(colorProvider(theme)) },
         text = if (showText) name else null,
         icon = if (showIcon && icon != null) icon else null,
         onClick = onClick,

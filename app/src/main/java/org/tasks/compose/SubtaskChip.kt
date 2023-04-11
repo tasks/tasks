@@ -1,27 +1,30 @@
 package org.tasks.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import org.tasks.R
-import org.tasks.data.TaskContainer
 import java.text.NumberFormat
 
 @Composable
 fun SubtaskChip(
-    task: TaskContainer,
+    collapsed: Boolean,
+    children: Int,
     compact: Boolean,
     onClick: () -> Unit,
 ) {
     val context = LocalContext.current
     Chip(
-        icon = if (task.isCollapsed)
+        icon = if (collapsed)
             R.drawable.ic_keyboard_arrow_down_black_24dp
         else
             R.drawable.ic_keyboard_arrow_up_black_24dp,
         name = if (compact)
-            NumberFormat.getInstance().format(task.children)
+            NumberFormat.getInstance().format(children)
         else
-            context.resources.getQuantityString(R.plurals.subtask_count, task.children, task.children),
+            remember(children) {
+                context.resources.getQuantityString(R.plurals.subtask_count, children, children)
+            },
         theme = 0,
         showText = true,
         showIcon = true,

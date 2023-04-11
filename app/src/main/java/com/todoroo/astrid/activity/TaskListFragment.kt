@@ -918,9 +918,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         showDateTimePicker(task)
     }
 
-    override fun toggleSubtasks(task: TaskContainer, collapsed: Boolean) {
+    override fun toggleSubtasks(task: Long, collapsed: Boolean) {
         lifecycleScope.launch {
-            taskDao.setCollapsed(task.id, collapsed)
+            taskDao.setCollapsed(task, collapsed)
         }
     }
 

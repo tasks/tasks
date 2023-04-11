@@ -226,21 +226,23 @@ class TaskViewHolder internal constructor(
                 ) {
                     chipProvider.Chips(
                         filter = filter,
-                        isSubtask = indent > 0,
-                        task = task,
+                        id = task.id,
+                        children = task.children,
+                        collapsed = task.isCollapsed,
+                        isHidden = task.isHidden,
+                        sortGroup = task.sortGroup,
+                        startDate = task.startDate,
+                        place = task.location?.place,
+                        list = task.caldav,
+                        tagsString = task.tagsString,
+                        isSubtask = task.hasParent(),
+                        isGoogleTask = task.isGoogleTask,
                         sortByStartDate = sortByStartDate,
-                        onClick = this::onChipClick
+                        toggleSubtasks = { task: Long, collapsed: Boolean -> callback.toggleSubtasks(task, collapsed) },
+                        onClick = { it: Filter -> callback.onClick(it) },
                     )
                 }
             }
-        }
-    }
-
-    private fun onChipClick(tag: Any) {
-        if (tag is Filter) {
-            callback.onClick(tag)
-        } else if (tag is TaskContainer) {
-            callback.toggleSubtasks(tag, !tag.isCollapsed)
         }
     }
 
@@ -263,7 +265,7 @@ class TaskViewHolder internal constructor(
         fun onLinkClicked(vh: TaskViewHolder, url: String): Boolean
         fun onClick(taskViewHolder: TaskViewHolder)
         fun onClick(filter: Filter)
-        fun toggleSubtasks(task: TaskContainer, collapsed: Boolean)
+        fun toggleSubtasks(task: Long, collapsed: Boolean)
         fun onLongPress(taskViewHolder: TaskViewHolder): Boolean
         fun onChangeDueDate(task: TaskContainer)
     }

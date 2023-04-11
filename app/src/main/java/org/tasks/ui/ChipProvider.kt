@@ -2,6 +2,9 @@ package org.tasks.ui
 
 import android.app.Activity
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
@@ -9,19 +12,18 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.data.Task
 import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Inventory
 import org.tasks.compose.Chip
 import org.tasks.compose.FilterChip
 import org.tasks.compose.SubtaskChip
-import org.tasks.data.TaskContainer
+import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.filters.PlaceFilter
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTimeUtils.startOfDay
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class ChipProvider @Inject constructor(
@@ -42,67 +44,95 @@ class ChipProvider @Inject constructor(
     }
 
     @Composable
-    private fun StartDateChip(task: TaskContainer, compact: Boolean, timeOnly: Boolean) {
-        val text = if (timeOnly
-            && task.sortGroup?.startOfDay() == task.startDate.startOfDay()
-            && preferences.showGroupHeaders()
-        ) {
-            task.startDate
-                .takeIf { Task.hasDueTime(it) }
-                ?.let { DateUtilities.getTimeString(activity, it.toDateTime()) }
-                ?: return
-        } else {
-            DateUtilities.getRelativeDateTime(
-                activity,
-                task.startDate,
-                locale,
-                if (compact) FormatStyle.SHORT else FormatStyle.MEDIUM,
-                false,
-                false
+    private fun StartDateChip(
+        sortGroup: Long?,
+        startDate: Long,
+        compact: Boolean,
+        timeOnly: Boolean
+    ) {
+        val text by remember(sortGroup, startDate, timeOnly, compact) {
+            derivedStateOf {
+                if (
+                    timeOnly &&
+                    sortGroup?.startOfDay() == startDate.startOfDay() &&
+                    preferences.showGroupHeaders()
+                ) {
+                    startDate
+                        .takeIf { Task.hasDueTime(it) }
+                        ?.let { DateUtilities.getTimeString(activity, it.toDateTime()) }
+                } else {
+                    DateUtilities.getRelativeDateTime(
+                        activity,
+                        startDate,
+                        locale,
+                        if (compact) FormatStyle.SHORT else FormatStyle.MEDIUM,
+                        false,
+                        false
+                    )
+                }
+            }
+        }
+        if (text != null) {
+            Chip(
+                R.drawable.ic_pending_actions_24px,
+                text,
+                0,
+                showText = true,
+                showIcon = true,
+                onClick = {},
+                colorProvider = this::getColor,
             )
         }
-        Chip(
-            R.drawable.ic_pending_actions_24px,
-            text,
-            0,
-            showText = true,
-            showIcon = true,
-            onClick = {},
-            colorProvider = this::getColor,
-        )
     }
 
     @Composable
     fun Chips(
         filter: Filter?,
-        isSubtask: Boolean,
-        task: TaskContainer,
+        id: Long,
+        children: Int,
+        collapsed: Boolean,
+        isHidden: Boolean,
+        sortGroup: Long?,
+        startDate: Long,
+        place: Place?,
+        tagsString: String?,
         sortByStartDate: Boolean,
-        onClick: (Any) -> Unit,
+        list: String?,
+        isSubtask: Boolean,
+        isGoogleTask: Boolean,
+        toggleSubtasks: (Long, Boolean) -> Unit,
+        onClick: (Filter) -> Unit,
     ) {
-        if (task.hasChildren() && preferences.showSubtaskChip) {
-            SubtaskChip(task, !showText, onClick = { onClick(task) })
+        if (children > 0 && remember { preferences.showSubtaskChip }) {
+            SubtaskChip(
+                collapsed = collapsed,
+                children = children,
+                compact = !showText,
+                onClick = { toggleSubtasks(id, !collapsed) }
+            )
         }
-        if (task.isHidden && preferences.showStartDateChip) {
-            StartDateChip(task, !showText, sortByStartDate)
+        if (isHidden && remember { preferences.showStartDateChip }) {
+            StartDateChip(sortGroup, startDate, !showText, sortByStartDate)
         }
-        if (task.hasLocation() && filter !is PlaceFilter && preferences.showPlaceChip) {
-            val location = task.getLocation()
-            if (location != null) {
-                FilterChip(
-                    filter = PlaceFilter(location.place),
-                    defaultIcon = R.drawable.ic_outline_place_24px,
-                    onClick = onClick,
-                    showText = showText,
-                    showIcon = showIcon,
-                    colorProvider = this::getColor,
-                )
-            }
+        if (place != null && filter !is PlaceFilter && remember { preferences.showPlaceChip }) {
+            FilterChip(
+                filter = PlaceFilter(place),
+                defaultIcon = R.drawable.ic_outline_place_24px,
+                onClick = onClick,
+                showText = showText,
+                showIcon = showIcon,
+                colorProvider = this::getColor,
+            )
         }
+
         if (!isSubtask && preferences.showListChip && filter !is CaldavFilter) {
-            lists.getCaldavList(task.caldav)?.let { list ->
+            remember(list, isGoogleTask) {
+                lists
+                    .getCaldavList(list)
+                    ?.let { if (isGoogleTask) GtasksFilter(it) else CaldavFilter(it) }
+            }?.let {
                 FilterChip(
-                    filter = if (task.isGoogleTask) GtasksFilter(list) else CaldavFilter(list),
+                    filter = it,
                     defaultIcon = R.drawable.ic_list_24px,
                     onClick = onClick,
                     showText = showText,
@@ -111,14 +141,15 @@ class ChipProvider @Inject constructor(
                 )
             }
         }
-        val tagString = task.tagsString
-        if (!isNullOrEmpty(tagString) && preferences.showTagChip) {
-            val tags = tagString.split(",").toHashSet()
-            if (filter is TagFilter) {
-                tags.remove(filter.uuid)
+        if (!tagsString.isNullOrBlank() && remember { preferences.showTagChip }) {
+            remember(tagsString, filter) {
+                val tags = tagsString.split(",").toHashSet()
+                if (filter is TagFilter) {
+                    tags.remove(filter.uuid)
+                }
+                tags.mapNotNull(lists::getTag)
+                    .sortedBy(TagFilter::listingTitle)
             }
-            tags.mapNotNull(lists::getTag)
-                .sortedBy(TagFilter::listingTitle)
                 .forEach {
                     FilterChip(
                         filter = it,
