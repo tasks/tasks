@@ -296,11 +296,11 @@ public class CustomRecurrenceDialog extends DialogFragment {
               new int[] {android.R.attr.state_checked}, new int[] {-android.R.attr.state_checked}
             },
             new int[] {
-              ResourceResolver.getData(context, R.attr.colorOnSecondary),
+              ResourceResolver.getData(context, com.google.android.material.R.attr.colorOnSecondary),
               context.getColor(R.color.text_primary)
             });
     int inset = (int) context.getResources().getDimension(R.dimen.week_button_inset);
-    int accentColor = ResourceResolver.getData(context, R.attr.colorAccent);
+    int accentColor = ResourceResolver.getData(context, androidx.appcompat.R.attr.colorAccent);
     int animationDuration =
         context.getResources().getInteger(android.R.integer.config_shortAnimTime);
 

@@ -30,8 +30,8 @@ class ViewHolderFactory @Inject constructor(
     private val textColorOverdue: Int = context.getColor(R.color.overdue)
     private val fontSize: Int = preferences.fontSize
     private val metrics: DisplayMetrics = context.resources.displayMetrics
-    private val background: Int = ResourceResolver.getResourceId(context, R.attr.selectableItemBackground)
-    private val selectedColor: Int = ResourceResolver.getData(context, R.attr.colorControlHighlight)
+    private val background: Int = ResourceResolver.getResourceId(context, androidx.appcompat.R.attr.selectableItemBackground)
+    private val selectedColor: Int = ResourceResolver.getData(context, androidx.appcompat.R.attr.colorControlHighlight)
     private val rowPaddingDp = preferences.getInt(R.string.p_rowPadding, 16)
     private val rowPaddingPx: Int = AndroidUtilities.convertDpToPixels(metrics, rowPaddingDp)
     private val markdown =

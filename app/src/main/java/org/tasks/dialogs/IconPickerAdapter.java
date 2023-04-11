@@ -47,7 +47,7 @@ class IconPickerAdapter extends ListAdapter<Integer, IconPickerHolder> {
     Integer icon = CustomIcons.getIconResId(index);
     if (icon != null) {
       int tint = index == current
-          ? getData(activity, R.attr.colorAccent)
+          ? getData(activity, androidx.appcompat.R.attr.colorAccent)
           : activity.getColor(R.color.icon_tint);
       boolean available = index < 1000 || inventory.getHasPro();
       float alpha =

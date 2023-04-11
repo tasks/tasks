@@ -168,7 +168,7 @@ class CommentBarFragment : Fragment() {
 
     private fun resetPictureButton() {
         val typedValue = TypedValue()
-        activity.theme.resolveAttribute(R.attr.colorOnPrimary, typedValue, true)
+        activity.theme.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typedValue, true)
         val drawable = activity.getDrawable(R.drawable.ic_outline_photo_camera_24px)!!.mutate()
         drawable.setTint(typedValue.data)
         pictureButton.setImageDrawable(drawable)

@@ -70,7 +70,7 @@ public class ThemeAccent implements Pickable {
   public ThemeAccent(Context context, int style) {
     this.style = style;
     Resources.Theme theme = new ContextThemeWrapper(context, style).getTheme();
-    this.accentColor = resolveAttribute(theme, R.attr.colorSecondary);
+    this.accentColor = resolveAttribute(theme, com.google.android.material.R.attr.colorSecondary);
   }
 
   private ThemeAccent(Parcel source) {

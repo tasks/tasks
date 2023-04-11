@@ -70,9 +70,9 @@ class CriterionViewHolder(
 
     fun setMoving(moving: Boolean) {
         if (moving) {
-            row.setBackgroundColor(ResourceResolver.getData(context, R.attr.colorControlHighlight))
+            row.setBackgroundColor(ResourceResolver.getData(context, androidx.appcompat.R.attr.colorControlHighlight))
         } else {
-            row.setBackgroundResource(ResourceResolver.getResourceId(context, R.attr.selectableItemBackground))
+            row.setBackgroundResource(ResourceResolver.getResourceId(context, androidx.appcompat.R.attr.selectableItemBackground))
             row.background.jumpToCurrentState()
         }
     }

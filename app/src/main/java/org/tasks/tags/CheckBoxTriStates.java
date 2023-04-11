@@ -116,7 +116,7 @@ public class CheckBoxTriStates extends AppCompatCheckBox {
     Drawable drawable;
     int color = state == State.UNCHECKED
         ? getContext().getColor(R.color.icon_tint)
-        : getData(getContext(), R.attr.colorAccent);
+        : getData(getContext(), androidx.appcompat.R.attr.colorAccent);
     drawable = original.mutate();
     drawable.setTint(color);
     drawable.setAlpha(alpha);
