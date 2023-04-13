@@ -20,7 +20,6 @@ import org.tasks.dialogs.IconPickerDialog
 import org.tasks.dialogs.IconPickerDialog.IconPickerCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.CustomIcons
 import org.tasks.themes.CustomIcons.getIconResId
 import org.tasks.themes.DrawableUtil
 import org.tasks.themes.ThemeColor
@@ -37,6 +36,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
     private lateinit var icon: TextView
     protected lateinit var toolbar: Toolbar
     protected lateinit var colorRow: ViewGroup
+    protected abstract val defaultIcon: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -149,10 +149,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
             clear.visibility = View.VISIBLE
         }
         themeColor.applyToNavigationBar(this)
-        var icon = getIconResId(selectedIcon)
-        if (icon == null) {
-            icon = getIconResId(CustomIcons.LIST)
-        }
+        val icon = getIconResId(selectedIcon) ?: getIconResId(defaultIcon)
         DrawableUtil.setLeftDrawable(this, this.icon, icon!!)
         DrawableUtil.getLeftDrawable(this.icon).setTint(getColor(R.color.icon_tint_with_alpha))
     }

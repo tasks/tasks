@@ -3,7 +3,9 @@ package org.tasks.filters;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
+
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -12,12 +14,15 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.data.Task;
-import java.util.HashMap;
-import java.util.Map;
+
 import org.tasks.R;
 import org.tasks.data.Geofence;
 import org.tasks.data.Place;
 import org.tasks.data.TaskDao;
+import org.tasks.themes.CustomIcons;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PlaceFilter extends Filter {
 
@@ -61,6 +66,9 @@ public class PlaceFilter extends Filter {
     id = place.getId();
     tint = place.getColor();
     icon = place.getIcon();
+    if (icon == -1) {
+      icon = CustomIcons.PLACE;
+    }
     order = place.getOrder();
   }
 

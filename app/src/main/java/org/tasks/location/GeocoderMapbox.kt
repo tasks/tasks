@@ -12,7 +12,6 @@ import okhttp3.Request
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.R
 import org.tasks.data.Place
-import org.tasks.data.Place.Companion.newPlace
 import org.tasks.extensions.JsonObject.getStringOrNull
 import org.tasks.preferences.Preferences
 import java.io.IOException
@@ -48,24 +47,23 @@ class GeocoderMapbox @Inject constructor(
                         .takeIf { it.size() > 0 }?.get(0)?.asJsonObject
                         ?.let { toPlace(it) }
 
-        internal fun toPlace(feature: JsonObject): Place =
-                newPlace().apply {
-                    val types = feature.get("place_type").asStringList
-                    val text = feature.get("text").asString
-                    name = if (types.contains("address")) {
-                        feature
-                            .getStringOrNull("address")
-                            ?.let { "$it $text" }
-                            ?: text
-                    } else {
-                        text
-                    }
-                    address = feature.get("place_name").asString
-                    feature.get("center").asCoordinates.let {
-                        longitude = it.first
-                        latitude = it.second
-                    }
-                }
+        internal fun toPlace(feature: JsonObject): Place {
+            val text = feature.get("text").asString
+            val coords = feature.get("center").asCoordinates
+            return Place(
+                name = if (feature.get("place_type").asStringList.contains("address")) {
+                    feature
+                        .getStringOrNull("address")
+                        ?.let { "$it $text" }
+                        ?: text
+                } else {
+                    text
+                },
+                address = feature.get("place_name").asString,
+                longitude = coords.first,
+                latitude = coords.second,
+            )
+        }
 
         private val JsonElement.asStringList: List<String>
             get() = asJsonArray.map { it.asString }

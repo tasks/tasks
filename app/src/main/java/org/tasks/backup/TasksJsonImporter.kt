@@ -28,7 +28,7 @@ import org.tasks.data.CaldavTask
 import org.tasks.data.FilterDao
 import org.tasks.data.Geofence
 import org.tasks.data.LocationDao
-import org.tasks.data.Place.Companion.newPlace
+import org.tasks.data.Place
 import org.tasks.data.Tag
 import org.tasks.data.TagDao
 import org.tasks.data.TagData
@@ -214,13 +214,14 @@ class TasksJsonImporter @Inject constructor(
                     )
                 }
                 for (location in backup.locations) {
-                    val place = newPlace()
-                    place.longitude = location.longitude
-                    place.latitude = location.latitude
-                    place.name = location.name
-                    place.address = location.address
-                    place.url = location.url
-                    place.phone = location.phone
+                    val place = Place(
+                        longitude = location.longitude,
+                        latitude = location.latitude,
+                        name = location.name,
+                        address = location.address,
+                        url = location.url,
+                        phone = location.phone,
+                    )
                     locationDao.insert(place)
                     locationDao.insert(
                         Geofence(

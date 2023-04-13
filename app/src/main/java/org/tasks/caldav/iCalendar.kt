@@ -77,10 +77,15 @@ class iCalendar @Inject constructor(
         }
         var place: Place? = locationDao.findPlace(
                 geo.latitude.toLikeString(),
-                geo.longitude.toLikeString())
+                geo.longitude.toLikeString()
+        )
         if (place == null) {
-            place = Place.newPlace(geo)
-            place.id = locationDao.insert(place)
+            place = Place(
+                latitude = geo.latitude.toDouble(),
+                longitude = geo.longitude.toDouble(),
+            ).let {
+                it.copy(id = locationDao.insert(it))
+            }
             workManager.reverseGeocode(place)
         }
         val existing = locationDao.getGeofences(taskId)

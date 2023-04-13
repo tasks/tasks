@@ -26,6 +26,7 @@ import org.tasks.data.CaldavCalendar
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.databinding.ActivityGoogleTaskListSettingsBinding
 import org.tasks.extensions.Context.toast
+import org.tasks.themes.CustomIcons
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -42,6 +43,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     private val createListViewModel: CreateListViewModel by viewModels()
     private val renameListViewModel: RenameListViewModel by viewModels()
     private val deleteListViewModel: DeleteListViewModel by viewModels()
+    override val defaultIcon: Int = CustomIcons.LIST
 
     override fun onCreate(savedInstanceState: Bundle?) {
         gtasksList = intent.getParcelableExtra(EXTRA_STORE_DATA)

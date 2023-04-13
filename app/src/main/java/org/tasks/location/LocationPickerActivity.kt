@@ -35,7 +35,6 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
-import org.tasks.data.Place.Companion.newPlace
 import org.tasks.data.PlaceUsage
 import org.tasks.databinding.ActivityLocationPickerBinding
 import org.tasks.dialogs.DialogBuilder
@@ -231,7 +230,13 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         loadingIndicator.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
-                returnPlace(geocoder.reverseGeocode(mapPosition) ?: newPlace(mapPosition))
+                returnPlace(
+                    geocoder.reverseGeocode(mapPosition)
+                        ?: Place(
+                            latitude = mapPosition.latitude,
+                            longitude = mapPosition.longitude,
+                        )
+                )
             } catch (e: Exception) {
                 loadingIndicator.visibility = View.GONE
                 firebase.reportException(e)
@@ -268,14 +273,12 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
         lifecycleScope.launch {
             var place = place
             if (place.id <= 0) {
-                val existing = locationDao.findPlace(
+                place = locationDao
+                    .findPlace(
                         place.latitude.toLikeString(),
-                        place.longitude.toLikeString())
-                if (existing == null) {
-                    place.id = locationDao.insert(place)
-                } else {
-                    place = existing
-                }
+                        place.longitude.toLikeString()
+                    )
+                    ?: place.copy(id = locationDao.insert(place))
             }
             setResult(Activity.RESULT_OK, Intent().putExtra(EXTRA_PLACE, place as Parcelable?))
             finish()

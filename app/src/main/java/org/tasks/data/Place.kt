@@ -13,99 +13,83 @@ import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.helper.UUIDHelper
-import net.fortuna.ical4j.model.property.Geo
 import org.tasks.Strings
 import org.tasks.extensions.Context.openUri
 import org.tasks.location.MapPosition
-import org.tasks.themes.CustomIcons.PLACE
 import java.io.Serializable
 import java.util.regex.Pattern
 import kotlin.math.abs
 
-@Entity(tableName = Place.TABLE_NAME, indices = [Index(name = "place_uid", value = ["uid"], unique = true)])
-class Place : Serializable, Parcelable {
+@Entity(
+    tableName = Place.TABLE_NAME,
+    indices = [
+        Index(name = "place_uid", value = ["uid"], unique = true)
+    ],
+)
+data class Place(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "place_id")
     @Transient
-    var id: Long = 0
-
+    val id: Long = 0,
     @ColumnInfo(name = "uid")
-    var uid: String? = null
-
+    val uid: String? = UUIDHelper.newUUID(),
     @ColumnInfo(name = "name")
-    var name: String? = null
-
+    val name: String? = null,
     @ColumnInfo(name = "address")
-    var address: String? = null
-
+    val address: String? = null,
     @ColumnInfo(name = "phone")
-    var phone: String? = null
-
+    val phone: String? = null,
     @ColumnInfo(name = "url")
-    var url: String? = null
-
+    val url: String? = null,
     @ColumnInfo(name = "latitude")
-    var latitude = 0.0
-
+    val latitude: Double = 0.0,
     @ColumnInfo(name = "longitude")
-    var longitude = 0.0
-
+    val longitude: Double = 0.0,
     @ColumnInfo(name = "place_color")
-    var color = 0
-
+    val color: Int = 0,
     @ColumnInfo(name = "place_icon")
-    private var icon = -1
-
+    val icon: Int = -1,
     @ColumnInfo(name = "place_order")
-    var order = NO_ORDER
-
+    val order: Int = NO_ORDER,
     @ColumnInfo(name = "radius", defaultValue = "250")
-    var radius = 250
-
-    constructor()
+    val radius: Int = 250,
+) : Serializable, Parcelable {
+    @Ignore
+    constructor(o: Place): this(
+        id = o.id,
+        uid = o.uid,
+        name = o.name,
+        address = o.address,
+        phone = o.phone,
+        url = o.url,
+        latitude = o.latitude,
+        longitude = o.longitude,
+        color = o.color,
+        icon = o.icon,
+        order = o.order,
+        radius = o.radius,
+    )
 
     @Ignore
-    constructor(o: Place) {
-        id = o.id
-        uid = o.uid
-        name = o.name
-        address = o.address
-        phone = o.phone
-        url = o.url
-        latitude = o.latitude
-        longitude = o.longitude
-        color = o.color
-        icon = o.icon
-        order = o.order
-        radius = o.radius
-    }
-
-    @Ignore
-    constructor(parcel: Parcel) {
-        id = parcel.readLong()
-        uid = parcel.readString()
-        name = parcel.readString()
-        address = parcel.readString()
-        phone = parcel.readString()
-        url = parcel.readString()
-        latitude = parcel.readDouble()
-        longitude = parcel.readDouble()
-        color = parcel.readInt()
-        icon = parcel.readInt()
-        order = parcel.readInt()
-        radius = parcel.readInt()
-    }
-
-    fun getIcon(): Int = if (icon == -1) PLACE else icon
-
-    fun setIcon(icon: Int) {
-        this.icon = icon
-    }
+    constructor(parcel: Parcel): this(
+        id = parcel.readLong(),
+        uid = parcel.readString(),
+        name = parcel.readString(),
+        address = parcel.readString(),
+        phone = parcel.readString(),
+        url = parcel.readString(),
+        latitude = parcel.readDouble(),
+        longitude = parcel.readDouble(),
+        color = parcel.readInt(),
+        icon = parcel.readInt(),
+        order = parcel.readInt(),
+        radius = parcel.readInt(),
+    )
 
     val displayName: String
         get() {
             if (!Strings.isNullOrEmpty(name) && !COORDS.matcher(name!!).matches()) {
-                return name!!
+                return name
             }
             return if (!Strings.isNullOrEmpty(address)) {
                 address!!
@@ -142,48 +126,6 @@ class Place : Serializable, Parcelable {
         }
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Place
-
-        if (id != other.id) return false
-        if (uid != other.uid) return false
-        if (name != other.name) return false
-        if (address != other.address) return false
-        if (phone != other.phone) return false
-        if (url != other.url) return false
-        if (latitude != other.latitude) return false
-        if (longitude != other.longitude) return false
-        if (color != other.color) return false
-        if (icon != other.icon) return false
-        if (order != other.order) return false
-        if (radius != other.radius) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = id.hashCode()
-        result = 31 * result + (uid?.hashCode() ?: 0)
-        result = 31 * result + (name?.hashCode() ?: 0)
-        result = 31 * result + (address?.hashCode() ?: 0)
-        result = 31 * result + (phone?.hashCode() ?: 0)
-        result = 31 * result + (url?.hashCode() ?: 0)
-        result = 31 * result + latitude.hashCode()
-        result = 31 * result + longitude.hashCode()
-        result = 31 * result + color
-        result = 31 * result + icon
-        result = 31 * result + order
-        result = 31 * result + radius
-        return result
-    }
-
-    override fun toString(): String {
-        return "Place(id=$id, uid=$uid, name=$name, address=$address, phone=$phone, url=$url, latitude=$latitude, longitude=$longitude, color=$color, icon=$icon, order=$order, radius=$radius)"
-    }
-
     companion object {
         const val KEY = "place"
         const val TABLE_NAME = "places"
@@ -213,16 +155,5 @@ class Place : Serializable, Parcelable {
             }
         }
 
-        @JvmStatic fun newPlace(geo: Geo): Place = newPlace().apply {
-            latitude = geo.latitude.toDouble()
-            longitude = geo.longitude.toDouble()
-        }
-
-        fun newPlace(mapPosition: MapPosition) = newPlace().apply {
-            latitude = mapPosition.latitude
-            longitude = mapPosition.longitude
-        }
-
-        @JvmStatic fun newPlace(): Place = Place().apply { uid = UUIDHelper.newUUID() }
     }
 }

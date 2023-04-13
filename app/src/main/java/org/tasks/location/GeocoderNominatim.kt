@@ -10,7 +10,6 @@ import okhttp3.Request
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.Place
-import org.tasks.data.Place.Companion.newPlace
 import org.tasks.extensions.JsonObject.getOrNull
 import org.tasks.extensions.JsonObject.getStringOrNull
 import org.tasks.http.HttpClientFactory
@@ -50,16 +49,15 @@ class GeocoderNominatim @Inject constructor(
                                     .get("properties").asJsonObject
                                     .get("geocoding").asJsonObject
                             val geometry = feature.get("geometry").asJsonObject
-                            newPlace().apply {
+                            val coords = geometry.get("coordinates").asCoordinates
+                            return Place(
                                 name = geocoding.getStringOrNull("name")
                                     ?: geocoding.getStringOrNull("housenumber")
-                                        ?.let { "$it ${geocoding.get("street").asString}" }
-                                address = geocoding.getOrNull("label")?.asString
-                                geometry.get("coordinates").asCoordinates.let {
-                                    longitude = it.first
-                                    latitude = it.second
-                                }
-                            }
+                                        ?.let { "$it ${geocoding.get("street").asString}" },
+                                address = geocoding.getOrNull("label")?.asString,
+                                longitude = coords.first,
+                                latitude = coords.second,
+                            )
                         }
 
         private val JsonElement.asCoordinates: Pair<Double, Double>

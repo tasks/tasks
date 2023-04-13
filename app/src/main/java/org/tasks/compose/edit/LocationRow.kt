@@ -110,10 +110,10 @@ fun SampleLocation() {
         LocationRow(
             location = Location(
                 Geofence(),
-                Place().apply {
-                    name = "Googleplex"
+                Place(
+                    name = "Googleplex",
                     address = "1600 Amphitheatre Pkwy, Mountain View, CA 94043"
-                },
+                ),
             ),
             hasPermissions = true,
             onClick = {},

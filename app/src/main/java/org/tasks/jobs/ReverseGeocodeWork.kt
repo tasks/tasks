@@ -41,11 +41,14 @@ class ReverseGeocodeWork @AssistedInject constructor(
                 Timber.d("Ignoring $result - ${distanceBetween}m away")
                 return Result.failure()
             }
-            place.name = result.name
-            place.address = result.address
-            place.phone = result.phone
-            place.url = result.url
-            locationDao.update(place)
+            locationDao.update(
+                place.copy(
+                    name = result.name,
+                    address = result.address,
+                    phone = result.phone,
+                    url = result.url,
+                )
+            )
             localBroadcastManager.broadcastRefresh()
             Timber.d("found $result")
             Result.success()

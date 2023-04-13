@@ -41,6 +41,7 @@ import org.tasks.databinding.FilterSettingsActivityBinding
 import org.tasks.db.QueryUtils
 import org.tasks.extensions.Context.openUri
 import org.tasks.filters.FilterCriteriaProvider
+import org.tasks.themes.CustomIcons
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.max
@@ -60,6 +61,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     private var filter: CustomFilter? = null
     private lateinit var adapter: CustomFilterAdapter
     private var criteria: MutableList<CriterionInstance> = ArrayList()
+    override val defaultIcon: Int = CustomIcons.FILTER
 
     override fun onCreate(savedInstanceState: Bundle?) {
         filter = intent.getParcelableExtra(TOKEN_FILTER)

@@ -26,6 +26,7 @@ import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.databinding.ActivityCaldavCalendarSettingsBinding
+import org.tasks.themes.CustomIcons
 import org.tasks.ui.DisplayableException
 import java.net.ConnectException
 import javax.inject.Inject
@@ -42,6 +43,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
     protected var caldavCalendar: CaldavCalendar? = null
 
     protected lateinit var caldavAccount: CaldavAccount
+    override val defaultIcon: Int = CustomIcons.LIST
 
     override fun bind() = ActivityCaldavCalendarSettingsBinding.inflate(layoutInflater).let {
         root = it.rootLayout

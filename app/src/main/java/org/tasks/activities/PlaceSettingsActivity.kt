@@ -20,7 +20,8 @@ import org.tasks.extensions.formatNumber
 import org.tasks.filters.PlaceFilter
 import org.tasks.location.MapFragment
 import org.tasks.preferences.Preferences
-import java.util.*
+import org.tasks.themes.CustomIcons
+import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -46,6 +47,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var place: Place
+    override val defaultIcon: Int = CustomIcons.PLACE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (intent?.hasExtra(EXTRA_PLACE) != true) {
@@ -65,7 +67,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         if (savedInstanceState == null) {
             name.setText(place.displayName)
             selectedColor = place.color
-            selectedIcon = place.getIcon()
+            selectedIcon = place.icon
         }
 
         val dark = preferences.mapTheme == 2
@@ -102,7 +104,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
 
     override fun hasChanges() = name.text.toString() != place.displayName
                     || selectedColor != place.color
-                    || selectedIcon != place.getIcon()
+                    || selectedIcon != place.icon
 
     override suspend fun save() {
         val newName: String = name.text.toString()
@@ -112,10 +114,12 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
             return
         }
 
-        place.name = newName
-        place.color = selectedColor
-        place.setIcon(selectedIcon)
-        place.radius = slider.value.toInt()
+        place = place.copy(
+            name = newName,
+            color = selectedColor,
+            icon = selectedIcon,
+            radius = slider.value.toInt(),
+        )
         locationDao.update(place)
         setResult(
                 Activity.RESULT_OK,

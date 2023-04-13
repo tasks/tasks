@@ -12,11 +12,10 @@ import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.Place
-import org.tasks.data.Place.Companion.newPlace
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.HttpException
 import timber.log.Timber
-import java.util.*
+import java.util.UUID
 import javax.inject.Inject
 
 class PlaceSearchGoogle @Inject constructor(
@@ -126,14 +125,14 @@ class PlaceSearchGoogle @Inject constructor(
         internal fun toPlace(json: JsonObject): Place {
             val result = json.get("result").asJsonObject
             val location = result.get("geometry").asJsonObject.get("location").asJsonObject
-            return newPlace().apply {
-                name = result.get("name").asString
-                address = result.getString("formatted_address")
-                phone = result.getString("international_phone_number")
-                url = result.getString("website")
-                latitude = location.get("lat").asDouble
-                longitude = location.get("lng").asDouble
-            }
+            return Place(
+                name = result.get("name").asString,
+                address = result.getString("formatted_address"),
+                phone = result.getString("international_phone_number"),
+                url = result.getString("website"),
+                latitude = location.get("lat").asDouble,
+                longitude = location.get("lng").asDouble,
+            )
         }
 
         private fun JsonObject.getString(field: String): String? = if (has(field)) {

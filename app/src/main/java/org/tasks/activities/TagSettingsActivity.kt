@@ -24,6 +24,7 @@ import org.tasks.data.TagDao
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
 import org.tasks.databinding.ActivityTagSettingsBinding
+import org.tasks.themes.CustomIcons
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,6 +37,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
 
     private var isNewTag = false
     private lateinit var tagData: TagData
+    override val defaultIcon: Int = CustomIcons.LABEL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         tagData = intent.getParcelableExtra(EXTRA_TAG_DATA)
