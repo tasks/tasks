@@ -38,9 +38,23 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarEventProvider
-import org.tasks.data.*
+import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.AlarmDao
+import org.tasks.data.Attachment
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.Location
+import org.tasks.data.LocationDao
+import org.tasks.data.TagDao
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
+import org.tasks.data.TaskAttachment
+import org.tasks.data.TaskAttachmentDao
+import org.tasks.data.UserActivity
+import org.tasks.data.UserActivityDao
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
@@ -267,10 +281,12 @@ class TaskEditViewModel @Inject constructor(
             }
             selectedLocation.value?.let { location ->
                 val place = location.place
-                val geofence = location.geofence
-                geofence.task = task.id
-                geofence.place = place.uid
-                geofence.id = locationDao.insert(geofence)
+                locationDao.insert(
+                    location.geofence.copy(
+                        task = task.id,
+                        place = place.uid,
+                    )
+                )
                 geofenceApi.update(place)
             }
             task.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)

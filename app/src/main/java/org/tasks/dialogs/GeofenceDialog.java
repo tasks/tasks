@@ -77,10 +77,13 @@ public class GeofenceDialog extends DialogFragment {
   }
 
   private Geofence toGeofence() {
-    Geofence geofence = new Geofence();
-    geofence.setArrival(arrivalView.isChecked());
-    geofence.setDeparture(departureView.isChecked());
-    return geofence;
+    return new Geofence(
+            0L,
+            0L,
+            null,
+            arrivalView.isChecked(),
+            departureView.isChecked()
+    );
   }
 
   private void sendResult(DialogInterface d, int... i) {

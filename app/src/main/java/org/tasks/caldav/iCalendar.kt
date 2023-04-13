@@ -85,12 +85,14 @@ class iCalendar @Inject constructor(
         }
         val existing = locationDao.getGeofences(taskId)
         if (existing == null) {
-            val geofence = Geofence(place.uid, preferences)
-            geofence.task = taskId
-            geofence.id = locationDao.insert(geofence)
+            locationDao.insert(
+                Geofence(
+                    place.uid,
+                    preferences
+                ).copy(task = taskId)
+            )
         } else if (place != existing.place) {
-            val geofence = existing.geofence
-            geofence.place = place.uid
+            val geofence = existing.geofence.copy(place = place.uid)
             locationDao.update(geofence)
             geofenceApi.update(existing.place)
         }

@@ -18,9 +18,24 @@ import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.*
+import org.tasks.data.AlarmDao
+import org.tasks.data.Attachment
+import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.FilterDao
+import org.tasks.data.Geofence
+import org.tasks.data.LocationDao
 import org.tasks.data.Place.Companion.newPlace
+import org.tasks.data.Tag
+import org.tasks.data.TagDao
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
+import org.tasks.data.TaskAttachmentDao
+import org.tasks.data.TaskListMetadataDao
+import org.tasks.data.UserActivityDao
 import org.tasks.db.Migrations.repeatFrom
 import org.tasks.db.Migrations.withoutFrom
 import org.tasks.preferences.Preferences
@@ -207,12 +222,14 @@ class TasksJsonImporter @Inject constructor(
                     place.url = location.url
                     place.phone = location.phone
                     locationDao.insert(place)
-                    val geofence = Geofence()
-                    geofence.task = taskId
-                    geofence.place = place.uid
-                    geofence.isArrival = location.arrival
-                    geofence.isDeparture = location.departure
-                    locationDao.insert(geofence)
+                    locationDao.insert(
+                        Geofence(
+                            task = taskId,
+                            place = place.uid,
+                            isArrival = location.arrival,
+                            isDeparture = location.departure,
+                        )
+                    )
                 }
                 for (tag in backup.tags) {
                     val tagData = findTagData(tag) ?: continue
@@ -222,8 +239,9 @@ class TasksJsonImporter @Inject constructor(
                     tagDao.insert(tag)
                 }
                 backup.geofences?.forEach { geofence ->
-                    geofence.task = taskId
-                    locationDao.insert(geofence)
+                    locationDao.insert(
+                        geofence.copy(task = taskId)
+                    )
                 }
                 backup.attachments
                     ?.mapNotNull { taskAttachmentDao.getAttachment(it.attachmentUid) }
