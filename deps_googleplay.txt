@@ -465,6 +465,10 @@
 +|    +--- com.google.android.gms:play-services-base:17.0.0 -> 18.0.1 (*)
 +|    +--- com.google.android.gms:play-services-basement:17.0.0 -> 18.1.0 (*)
 +|    \--- com.google.android.gms:play-services-tasks:17.0.0 -> 18.0.2 (*)
+++--- org.jetbrains.kotlin:kotlin-parcelize-runtime:1.8.20
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.20 (*)
++|    \--- org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.8.20
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.20 (*)
 ++--- com.github.bitfireAT:dav4jvm:2.2.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 1.8.20 (*)
 +|    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.12.0

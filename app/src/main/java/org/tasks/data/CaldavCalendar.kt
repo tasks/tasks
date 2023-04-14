@@ -1,16 +1,16 @@
 package org.tasks.data
 
-import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.data.Task
+import kotlinx.parcelize.Parcelize
 import org.tasks.themes.CustomIcons.LIST
 
+@Parcelize
 @Entity(tableName = "caldav_lists")
 data class CaldavCalendar(
     @PrimaryKey(autoGenerate = true)
@@ -27,21 +27,6 @@ data class CaldavCalendar(
     @ColumnInfo(name = "cdl_access") var access: Int = ACCESS_OWNER,
     @ColumnInfo(name = "cdl_last_sync") val lastSync: Long = 0,
 ) : Parcelable {
-    @Ignore
-    constructor(source: Parcel): this(
-        id = source.readLong(),
-        account = source.readString(),
-        uuid = source.readString(),
-        name = source.readString(),
-        color = source.readInt(),
-        ctag = source.readString(),
-        url = source.readString(),
-        icon = source.readInt(),
-        order = source.readInt(),
-        access = source.readInt(),
-        lastSync = source.readLong(),
-    )
-
     @Suppress("RedundantNullableReturnType")
     fun getIcon(): Int? {
         return (if (icon == null) LIST else icon!!)
@@ -49,24 +34,6 @@ data class CaldavCalendar(
 
     fun setIcon(icon: Int?) {
         this.icon = icon
-    }
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        with(dest) {
-            writeLong(id)
-            writeString(account)
-            writeString(uuid)
-            writeString(name)
-            writeInt(color)
-            writeString(ctag)
-            writeString(url)
-            writeInt(getIcon()!!)
-            writeInt(order)
-            writeInt(access)
-            writeLong(lastSync)
-        }
     }
 
     companion object {
@@ -85,10 +52,5 @@ data class CaldavCalendar(
         val ACCOUNT = TABLE.column("cdl_account")
         val UUID = TABLE.column("cdl_uuid")
         val NAME = TABLE.column("cdl_name")
-        @JvmField val CREATOR: Parcelable.Creator<CaldavCalendar> = object : Parcelable.Creator<CaldavCalendar> {
-            override fun createFromParcel(source: Parcel): CaldavCalendar = CaldavCalendar(source)
-
-            override fun newArray(size: Int): Array<CaldavCalendar?> = arrayOfNulls(size)
-        }
     }
 }

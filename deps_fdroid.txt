@@ -181,6 +181,10 @@
 +|    |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1 (c)
 +|    +--- androidx.databinding:databinding-runtime:8.0.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.8.20 (*)
+++--- org.jetbrains.kotlin:kotlin-parcelize-runtime:1.8.20
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.20 (*)
++|    \--- org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.8.20
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.20 (*)
 ++--- com.github.bitfireAT:dav4jvm:2.2.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 1.8.20 (*)
 +|    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.12.0

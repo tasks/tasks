@@ -1,6 +1,5 @@
 package org.tasks.data
 
-import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -9,10 +8,12 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
+import kotlinx.parcelize.Parcelize
 import org.tasks.R
 import org.tasks.preferences.Preferences
 import java.io.Serializable
 
+@Parcelize
 @Entity(
     tableName = Geofence.TABLE_NAME,
     foreignKeys = [
@@ -83,36 +84,10 @@ data class Geofence(
         isDeparture = o.isDeparture,
     )
 
-    @Ignore
-    constructor(parcel: Parcel): this(
-        id = parcel.readLong(),
-        task = parcel.readLong(),
-        place = parcel.readString(),
-        isArrival = parcel.readInt() == 1,
-        isDeparture = parcel.readInt() == 1,
-    )
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(out: Parcel, flags: Int) {
-        with(out) {
-            writeLong(id)
-            writeLong(task)
-            writeString(place)
-            writeInt(if (isArrival) 1 else 0)
-            writeInt(if (isDeparture) 1 else 0)
-        }
-    }
-
     companion object {
         const val TABLE_NAME = "geofences"
         @JvmField val TABLE = Table(TABLE_NAME)
         @JvmField val TASK = TABLE.column("task")
         @JvmField val PLACE = TABLE.column("place")
-        @JvmField val CREATOR: Parcelable.Creator<Geofence> = object : Parcelable.Creator<Geofence> {
-            override fun createFromParcel(source: Parcel): Geofence = Geofence(source)
-
-            override fun newArray(size: Int): Array<Geofence?> = arrayOfNulls(size)
-        }
     }
 }

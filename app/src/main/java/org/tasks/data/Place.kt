@@ -3,7 +3,6 @@ package org.tasks.data
 import android.content.Context
 import android.location.Location
 import android.net.Uri
-import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -13,6 +12,7 @@ import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.helper.UUIDHelper
+import kotlinx.parcelize.Parcelize
 import org.tasks.Strings
 import org.tasks.extensions.Context.openUri
 import org.tasks.location.MapPosition
@@ -20,6 +20,7 @@ import java.io.Serializable
 import java.util.regex.Pattern
 import kotlin.math.abs
 
+@Parcelize
 @Entity(
     tableName = Place.TABLE_NAME,
     indices = [
@@ -70,22 +71,6 @@ data class Place(
         radius = o.radius,
     )
 
-    @Ignore
-    constructor(parcel: Parcel): this(
-        id = parcel.readLong(),
-        uid = parcel.readString(),
-        name = parcel.readString(),
-        address = parcel.readString(),
-        phone = parcel.readString(),
-        url = parcel.readString(),
-        latitude = parcel.readDouble(),
-        longitude = parcel.readDouble(),
-        color = parcel.readInt(),
-        icon = parcel.readInt(),
-        order = parcel.readInt(),
-        radius = parcel.readInt(),
-    )
-
     val displayName: String
         get() {
             if (!Strings.isNullOrEmpty(name) && !COORDS.matcher(name!!).matches()) {
@@ -107,25 +92,6 @@ data class Place(
     val mapPosition: MapPosition
         get() = MapPosition(latitude, longitude)
 
-    override fun describeContents() = 0
-
-    override fun writeToParcel(out: Parcel, flags: Int) {
-        with(out) {
-            writeLong(id)
-            writeString(uid)
-            writeString(name)
-            writeString(address)
-            writeString(phone)
-            writeString(url)
-            writeDouble(latitude)
-            writeDouble(longitude)
-            writeInt(color)
-            writeInt(icon)
-            writeInt(order)
-            writeInt(radius)
-        }
-    }
-
     companion object {
         const val KEY = "place"
         const val TABLE_NAME = "places"
@@ -133,11 +99,6 @@ data class Place(
         @JvmField val UID = TABLE.column("uid")
         @JvmField val NAME = TABLE.column("name")
         @JvmField val ADDRESS = TABLE.column("address")
-        @JvmField val CREATOR: Parcelable.Creator<Place> = object : Parcelable.Creator<Place> {
-            override fun createFromParcel(source: Parcel): Place = Place(source)
-
-            override fun newArray(size: Int): Array<Place?> = arrayOfNulls(size)
-        }
         private val pattern = Pattern.compile("(\\d+):(\\d+):(\\d+\\.\\d+)")
         private val COORDS = Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$")
         private fun formatCoordinate(coordinates: Double, latitude: Boolean): String {
