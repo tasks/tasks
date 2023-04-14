@@ -362,18 +362,15 @@ public class CustomRecurrenceDialog extends DialogFragment {
       rrule.getDayList().clear();
       rrule.getDayList().addAll(checked);
     } else if (rrule.getFrequency() == MONTHLY) {
-      switch (monthGroup.getCheckedRadioButtonId()) {
-        case R.id.repeat_monthly_same_day:
-          rrule.getDayList().clear();
-          break;
-        case R.id.repeat_monthly_day_of_nth_week:
-          rrule.getDayList().clear();
-          rrule.getDayList().addAll(newArrayList((WeekDay) repeatMonthlyDayOfNthWeek.getTag()));
-          break;
-        case R.id.repeat_monthly_day_of_last_week:
-          rrule.getDayList().clear();
-          rrule.getDayList().addAll(newArrayList((WeekDay) repeatMonthlyDayOfLastWeek.getTag()));
-          break;
+      int checkedRadioButtonId = monthGroup.getCheckedRadioButtonId();
+      if (checkedRadioButtonId == R.id.repeat_monthly_same_day) {
+        rrule.getDayList().clear();
+      } else if (checkedRadioButtonId == R.id.repeat_monthly_day_of_nth_week) {
+        rrule.getDayList().clear();
+        rrule.getDayList().addAll(newArrayList((WeekDay) repeatMonthlyDayOfNthWeek.getTag()));
+      } else if (checkedRadioButtonId == R.id.repeat_monthly_day_of_last_week) {
+        rrule.getDayList().clear();
+        rrule.getDayList().addAll(newArrayList((WeekDay) repeatMonthlyDayOfLastWeek.getTag()));
       }
     } else {
       rrule.getDayList().clear();

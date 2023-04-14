@@ -129,7 +129,7 @@ class ReminderControlSet : TaskEditControlFragment() {
     override fun controlId() = TAG
 
     companion object {
-        const val TAG = R.string.TEA_ctrl_reminders_pref
+        val TAG = R.string.TEA_ctrl_reminders_pref
         private const val EXTRA_REPLACE = "extra_replace"
     }
 }

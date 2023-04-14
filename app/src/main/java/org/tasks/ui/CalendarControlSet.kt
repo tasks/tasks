@@ -124,6 +124,6 @@ class CalendarControlSet : TaskEditControlFragment() {
     }
 
     companion object {
-        const val TAG = R.string.TEA_ctrl_gcal
+        val TAG = R.string.TEA_ctrl_gcal
     }
 }

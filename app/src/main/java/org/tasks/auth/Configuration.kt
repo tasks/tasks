@@ -209,8 +209,8 @@ class Configuration constructor(
     companion object {
         private const val PREFS_NAME = "config"
         private const val KEY_LAST_HASH = "lastHash"
-        const val GOOGLE_CONFIG = R.raw.google_config
-        const val GITHUB_CONFIG = R.raw.github_config
+        val GOOGLE_CONFIG = R.raw.google_config
+        val GITHUB_CONFIG = R.raw.github_config
     }
 
     init {

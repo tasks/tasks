@@ -119,7 +119,7 @@ class FilesControlSet : TaskEditControlFragment() {
     }
 
     companion object {
-        const val TAG = R.string.TEA_ctrl_files_pref
+        val TAG = R.string.TEA_ctrl_files_pref
         private const val FRAG_TAG_ADD_ATTACHMENT_DIALOG = "frag_tag_add_attachment_dialog"
     }
 }

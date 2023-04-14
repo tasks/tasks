@@ -57,7 +57,7 @@ class TagsControlSet : TaskEditControlFragment() {
     }
 
     companion object {
-        const val TAG = R.string.TEA_ctrl_lists_pref
+        val TAG = R.string.TEA_ctrl_lists_pref
         private const val REQUEST_TAG_PICKER_ACTIVITY = 10582
     }
 }

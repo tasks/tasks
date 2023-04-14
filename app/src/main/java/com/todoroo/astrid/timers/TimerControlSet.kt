@@ -113,6 +113,6 @@ class TimerControlSet : TaskEditControlFragment() {
     }
 
     companion object {
-        const val TAG = R.string.TEA_ctrl_timer_pref
+        val TAG = R.string.TEA_ctrl_timer_pref
     }
 }

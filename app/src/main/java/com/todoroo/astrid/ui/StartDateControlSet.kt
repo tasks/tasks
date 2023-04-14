@@ -109,7 +109,7 @@ class StartDateControlSet : TaskEditControlFragment() {
     }
 
     companion object {
-        const val TAG = R.string.TEA_ctrl_hide_until_pref
+        val TAG = R.string.TEA_ctrl_hide_until_pref
         private const val REQUEST_START_DATE = 11011
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
 

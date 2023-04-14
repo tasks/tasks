@@ -152,7 +152,7 @@ class LocationControlSet : TaskEditControlFragment() {
     }
 
     companion object {
-        const val TAG = R.string.TEA_ctrl_locations_pref
+        val TAG = R.string.TEA_ctrl_locations_pref
         private const val REQUEST_LOCATION_REMINDER = 12153
         private const val REQUEST_GEOFENCE_DETAILS = 12154
         private const val REQUEST_LOCATION_PERMISSIONS = 12155

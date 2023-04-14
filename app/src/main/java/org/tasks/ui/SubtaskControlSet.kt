@@ -106,7 +106,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
     }
 
     companion object {
-        const val TAG = R.string.TEA_ctrl_subtask_pref
+        val TAG = R.string.TEA_ctrl_subtask_pref
         private fun getQueryTemplate(task: Task): QueryTemplate = QueryTemplate()
             .where(
                 Criterion.and(

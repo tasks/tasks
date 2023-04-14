@@ -95,15 +95,14 @@ public class ThemeAccent implements Pickable {
 
   @Override
   public boolean isFree() {
-    switch (style) {
-      case R.style.BlueGreyAccent:
-      case R.style.RedAccent:
-      case R.style.BlueGreyAccentDesaturated:
-      case R.style.RedAccentDesaturated:
-        return true;
-      default:
-        return false;
+    if (style == R.style.BlueGreyAccent ||
+            style == R.style.RedAccent ||
+            style == R.style.BlueGreyAccentDesaturated ||
+            style == R.style.RedAccentDesaturated
+    ) {
+      return true;
     }
+    return false;
   }
 
   @Deprecated

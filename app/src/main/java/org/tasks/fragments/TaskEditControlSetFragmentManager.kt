@@ -41,11 +41,11 @@ class TaskEditControlSetFragmentManager @Inject constructor(
     }
 
     companion object {
-        const val TAG_DESCRIPTION = R.string.TEA_ctrl_notes_pref
-        const val TAG_CREATION = R.string.TEA_ctrl_creation_date
-        const val TAG_LIST = R.string.TEA_ctrl_google_task_list
-        const val TAG_PRIORITY = R.string.TEA_ctrl_importance_pref
-        const val TAG_DUE_DATE = R.string.TEA_ctrl_when_pref
+        val TAG_DESCRIPTION = R.string.TEA_ctrl_notes_pref
+        val TAG_CREATION = R.string.TEA_ctrl_creation_date
+        val TAG_LIST = R.string.TEA_ctrl_google_task_list
+        val TAG_PRIORITY = R.string.TEA_ctrl_importance_pref
+        val TAG_DUE_DATE = R.string.TEA_ctrl_when_pref
 
         private val TASK_EDIT_CONTROL_SET_FRAGMENTS = intArrayOf(
             TAG_DUE_DATE,
