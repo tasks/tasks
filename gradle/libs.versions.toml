@@ -15,11 +15,14 @@ dav4jvm = "2.2.1"
 desugar_jdk_libs = "2.0.3"
 etebase = "2.3.2"
 firebase = "31.5.0"
+firebase-crashlytics-gradle = "2.9.5"
 flipper = "0.189.0"
 fragment-ktx = "1.5.6"
 google-oauth2 = "0.27.0"
 google-api-drive = "v3-rev20230306-2.0.0"
 google-api-tasks = "v1-rev20210709-2.0.0"
+google-services = "4.3.15"
+gradle = "8.0.0"
 gson = "2.10.1"
 hilt = "1.0.0"
 ical4android = "12fe73a"
@@ -40,6 +43,7 @@ mockito = "5.3.0"
 okhttp = "4.10.0"
 opentasks = "562fec5"
 osmdroid = "6.1.16"
+oss-licenses-plugin = "0.10.6"
 paging = "3.1.1"
 persistent-cookiejar = "1.0.1"
 play-billing-ktx = "4.1.0"
@@ -99,6 +103,7 @@ colorpicker = { module = "com.github.QuadFlask:colorpicker", version.ref = "colo
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
+dagger-hilt-gradle = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger-hilt" }
 dagger-hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger-hilt" }
 dashclock-api = { module = "com.google.android.apps.dashclock:dashclock-api", version.ref = "dashclock-api" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
@@ -111,12 +116,16 @@ facebook-flipper = { module = "com.facebook.flipper:flipper", version.ref = "fli
 facebook-flipper-network = { module = "com.facebook.flipper:flipper-network-plugin", version.ref = "flipper" }
 facebook-soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }
 firebase = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
+firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase-crashlytics-gradle" }
 google-oauth2 = { module = "com.google.auth:google-auth-library-oauth2-http", version.ref = "google-oauth2" }
 google-api-drive = { module = "com.google.apis:google-api-services-drive", version.ref = "google-api-drive" }
 google-api-tasks = { module = "com.google.apis:google-api-services-tasks", version.ref = "google-api-tasks" }
+google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jchronic = { module = "com.rubiconproject.oss:jchronic", version.ref = "jchronic" }
 junit = { module = "junit:junit", version.ref = "junit-junit" }
+kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
@@ -135,6 +144,7 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
 osmdroid = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroid" }
+oss-licenses-plugin = { module = "com.google.android.gms:oss-licenses-plugin", version.ref = "oss-licenses-plugin" }
 persistent-cookiejar = { module = "com.github.franmontiel:PersistentCookieJar", version.ref = "persistent-cookiejar" }
 play-billing-ktx = { module = "com.android.billingclient:billing-ktx", version.ref = "play-billing-ktx" }
 play-core-ktx = { module = "com.google.android.play:core-ktx", version.ref = "play-core-ktx" }
