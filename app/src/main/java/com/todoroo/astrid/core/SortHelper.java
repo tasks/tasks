@@ -152,85 +152,43 @@ public class SortHelper {
   }
 
   public static String orderSelectForSortTypeRecursive(int sortType) {
-    String select;
-    switch (sortType) {
-      case SORT_ALPHA:
+    return switch (sortType) {
+      case SORT_ALPHA ->
         // Return an empty string, providing a value to fill the WITH clause template
-        select = "''";
-        break;
-      case SORT_DUE:
-        select = "(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
-                   + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
-                   + " END)+tasks.importance AS sort_duedate";
-        break;
-      case SORT_START:
-        select = "(CASE WHEN (tasks.hideUntil=0) THEN (strftime('%s','now')*1000)*2 ELSE "
-                  + ADJUSTED_START_DATE.replace("hideUntil", "tasks.hideUntil")
-                  + " END)+tasks.importance AS sort_startdate";
-        break;
-      case SORT_IMPORTANCE:
-        select = "tasks.importance*(strftime('%s','now')*1000)+(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000) ELSE tasks.dueDate END) AS sort_importance";
-        break;
-      case SORT_MODIFIED:
-        select = "tasks.modified AS sort_modified";
-        break;
-      case SORT_CREATED:
-        select = "tasks.created AS sort_created";
-        break;
-      case SORT_GTASKS:
-        select = "tasks.`order` AS sort_manual";
-        break;
-      case SORT_CALDAV:
-        select = CALDAV_ORDER_COLUMN + " AS sort_manual";
-        break;
-      default:
-        select ="(CASE WHEN (tasks.dueDate=0) "
-                    + // if no due date
-                    "THEN (strftime('%s','now')*1000)*2 "
-                    + // then now * 2
-                    "ELSE ("
-                    + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
-                    + ") END) "
-                    + // else due time
-					  // add slightly less than 2 days * importance to give due date priority over importance in case of tie
-                    "+ 172799999 * tasks.importance AS sort_smart"; 
-    }
-
-    return select;
+              "''";
+      case SORT_DUE -> "(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+              + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
+              + " END)+tasks.importance";
+      case SORT_START -> "(CASE WHEN (tasks.hideUntil=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+              + ADJUSTED_START_DATE.replace("hideUntil", "tasks.hideUntil")
+              + " END)+tasks.importance";
+      case SORT_IMPORTANCE ->
+              "tasks.importance*(strftime('%s','now')*1000)+(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000) ELSE tasks.dueDate END)";
+      case SORT_MODIFIED -> "tasks.modified";
+      case SORT_CREATED -> "tasks.created";
+      case SORT_GTASKS -> "tasks.`order`";
+      case SORT_CALDAV -> CALDAV_ORDER_COLUMN;
+      default -> "(CASE WHEN (tasks.dueDate=0) "
+              + // if no due date
+              "THEN (strftime('%s','now')*1000)*2 "
+              + // then now * 2
+              "ELSE ("
+              + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
+              + ") END) "
+              + // else due time
+              // add slightly less than 2 days * importance to give due date priority over importance in case of tie
+              "+ 172799999 * tasks.importance";
+    };
   }
 
   public static Order orderForSortTypeRecursive(int sortMode, boolean reverse) {
-    Order order;
-    switch (sortMode) {
-      case SORT_ALPHA:
-        order = Order.asc("sort_title");
-        break;
-      case SORT_DUE:
-        order = Order.asc("sort_duedate");
-        break;
-      case SORT_START:
-        order = Order.asc("sort_startdate");
-        break;
-      case SORT_IMPORTANCE:
-        order = Order.asc("sort_importance");
-        break;
-      case SORT_MODIFIED:
-        order = Order.desc("sort_modified");
-        break;
-      case SORT_CREATED:
-        order = Order.desc("sort_created");
-        break;
-      case SORT_GTASKS:
-      case SORT_CALDAV:
-        order = Order.asc("sort_manual");
-        break;
-      default:
-        order = Order.asc("sort_smart");
-    }
+    Order order = switch (sortMode) {
+      case SORT_MODIFIED, SORT_CREATED -> Order.desc("primary_sort");
+      default -> Order.asc("primary_sort");
+    };
     if (sortMode != SORT_ALPHA) {
       order.addSecondaryExpression(Order.asc("sort_title"));
     }
-
     if (reverse) {
       order = order.reverse();
     }
