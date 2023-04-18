@@ -211,7 +211,12 @@ class iCalendar @Inject constructor(
             tagDao.applyTags(task, tagDataDao, getTags(remote.categories))
         }
 
-        if (isNew && remote.reminders.isEmpty()) {
+        if (
+            isNew &&
+            remote.reminders.isEmpty() &&
+            !calendar.ctag.isNullOrBlank() && // not initial sync
+            !remote.prodId().supportsReminders() // other client doesn't support reminder sync
+        ) {
             task.setDefaultReminders(preferences)
             alarmService.synchronizeAlarms(task.id, task.getDefaultAlarms().toMutableSet())
         } else if (account.reminderSync) {
@@ -295,6 +300,16 @@ class iCalendar @Inject constructor(
                 is DateTime -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, getLocal(this))
                 else -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, getLocal(this))
             }
+
+        // this isn't necessarily the task originator but its the best we can do
+        fun ProdId.supportsReminders(): Boolean =
+            CLIENTS_WITH_REMINDER_SYNC.any { value.contains(it) }
+
+        private val CLIENTS_WITH_REMINDER_SYNC = listOf(
+            "tasks.org",
+            "Mozilla.org",
+            "Apple Inc.",
+        )
 
         internal fun getLocal(property: DateProperty): Long =
                 org.tasks.time.DateTime.from(property.date)?.toLocal()?.millis ?: 0
