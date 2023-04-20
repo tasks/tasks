@@ -66,7 +66,11 @@ class SectionedDataSource constructor(
                 HEADER_COMPLETED
             } else if (sortGroup == null) {
                 continue
-            } else if (sortMode == SortHelper.SORT_IMPORTANCE || sortGroup == 0L) {
+            } else if (
+                sortMode == SortHelper.SORT_LIST ||
+                sortMode == SortHelper.SORT_IMPORTANCE ||
+                sortGroup == 0L
+            ) {
                 sortGroup
             } else if (sortMode == SortHelper.SORT_DUE) {
                 when {
@@ -89,6 +93,7 @@ class SectionedDataSource constructor(
                             sections.add(AdapterSection(i, header, 0, isCollapsed))
                         }
                     }
+                    sortMode == SortHelper.SORT_LIST ||
                     sortMode == SortHelper.SORT_IMPORTANCE ->
                         if (header != previous) {
                             sections.add(AdapterSection(i, header, 0, isCollapsed))

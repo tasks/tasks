@@ -16,7 +16,7 @@ import org.tasks.preferences.ResourceResolver
 import org.tasks.tasklist.TaskViewHolder.ViewHolderCallbacks
 import org.tasks.ui.CheckBoxProvider
 import org.tasks.ui.ChipProvider
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class ViewHolderFactory @Inject constructor(
@@ -25,7 +25,9 @@ class ViewHolderFactory @Inject constructor(
         private val chipProvider: ChipProvider,
         private val checkBoxProvider: CheckBoxProvider,
         private val linkify: Linkify,
-        private val locale: Locale) {
+        private val locale: Locale,
+        private val headerFormatter: HeaderFormatter,
+) {
     private val textColorSecondary: Int = ResourceResolver.getData(context, android.R.attr.textColorSecondary)
     private val textColorOverdue: Int = context.getColor(R.color.overdue)
     private val fontSize: Int = preferences.fontSize
@@ -40,9 +42,10 @@ class ViewHolderFactory @Inject constructor(
     fun newHeaderViewHolder(parent: ViewGroup?, callback: (Long) -> Unit) =
             HeaderViewHolder(
                     context,
-                    locale,
+                    headerFormatter,
                     LayoutInflater.from(context).inflate(R.layout.task_adapter_header, parent, false),
-                    callback)
+                    callback,
+            )
 
     fun newViewHolder(parent: ViewGroup?, callbacks: ViewHolderCallbacks) =
             TaskViewHolder(

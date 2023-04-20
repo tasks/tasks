@@ -7,11 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.api.Filter
 import org.tasks.R
-import java.util.*
 
 class HeaderViewHolder(
         private val context: Context,
-        private val locale: Locale,
+        private val headerFormatter: HeaderFormatter,
         view: View,
         callback: (Long) -> Unit
 ) : RecyclerView.ViewHolder(view) {
@@ -21,10 +20,10 @@ class HeaderViewHolder(
     private var sortGroup = -1L
     private var rotation = 0f
 
-    fun bind(filter: Filter, sortMode: Int, alwaysDisplayFullDate: Boolean, section: AdapterSection) {
+    fun bind(filter: Filter, sortMode: Int, section: AdapterSection) {
         sortGroup = section.value
         val header = if (filter.supportsSorting()) {
-            section.headerString(context, locale, sortMode, alwaysDisplayFullDate)
+            headerFormatter.headerStringBlocking(section.value)
         } else {
             null
         }

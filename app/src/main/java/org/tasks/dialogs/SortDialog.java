@@ -7,20 +7,26 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
-import dagger.hilt.android.AndroidEntryPoint;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
+
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 import org.tasks.preferences.QueryPreferences;
 import org.tasks.widget.WidgetPreferences;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
 
 @AndroidEntryPoint
@@ -92,6 +98,7 @@ public class SortDialog extends DialogFragment {
     items.add(getString(R.string.SSD_sort_alpha));
     items.add(getString(R.string.SSD_sort_modified));
     items.add(getString(R.string.sort_created));
+    items.add(getString(R.string.sort_list));
 
     if (manualEnabled) {
       if (preferences.isManualSort()) {
@@ -186,6 +193,8 @@ public class SortDialog extends DialogFragment {
         return 6;
       case SortHelper.SORT_CREATED:
         return 7;
+      case SortHelper.SORT_LIST:
+        return 8;
     }
 
     Timber.e("Invalid sort mode: %s", sortMode);
@@ -208,6 +217,8 @@ public class SortDialog extends DialogFragment {
         return SortHelper.SORT_MODIFIED;
       case 7:
         return SortHelper.SORT_CREATED;
+      case 8:
+        return SortHelper.SORT_LIST;
     }
 
     Timber.e("Invalid sort mode: %s", index);

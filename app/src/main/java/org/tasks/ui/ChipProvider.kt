@@ -97,6 +97,7 @@ class ChipProvider @Inject constructor(
         place: Place?,
         tagsString: String?,
         sortByStartDate: Boolean,
+        sortByList: Boolean,
         list: String?,
         isSubtask: Boolean,
         isGoogleTask: Boolean,
@@ -125,7 +126,7 @@ class ChipProvider @Inject constructor(
             )
         }
 
-        if (!isSubtask && preferences.showListChip && filter !is CaldavFilter) {
+        if (!isSubtask && !sortByList && preferences.showListChip && filter !is CaldavFilter) {
             remember(list, isGoogleTask) {
                 lists
                     .getCaldavList(list)

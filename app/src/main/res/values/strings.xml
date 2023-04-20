@@ -42,6 +42,7 @@ File %1$s contained %2$s.\n\n
   <string name="SSD_sort_importance">By priority</string>
   <string name="SSD_sort_modified">By last modified</string>
   <string name="sort_created">By creation time</string>
+  <string name="sort_list">By list</string>
   <string name="FLA_search_filter">Matching \'%s\'</string>
   <string name="FLA_new_filter">Create new filter</string>
   <string name="TEA_title_hint">Task name</string>

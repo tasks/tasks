@@ -17,6 +17,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.data.CaldavCalendar;
 import org.tasks.preferences.QueryPreferences;
 
 import java.util.Locale;
@@ -37,6 +38,7 @@ public class SortHelper {
   public static final int SORT_GTASKS = 6;
   public static final int SORT_CALDAV = 7;
   public static final int SORT_START = 8;
+  public static final int SORT_LIST = 9;
 
   public static final long APPLE_EPOCH = 978307200000L; // 1/1/2001 GMT
   @SuppressLint("DefaultLocale")
@@ -48,6 +50,7 @@ public class SortHelper {
   private static final String ADJUSTED_START_DATE =
       "(CASE WHEN (hideUntil / 1000) % 60 > 0 THEN hideUntil ELSE (hideUntil + 86399000) END)";
   private static final Order ORDER_TITLE = Order.asc(Functions.upper(Task.TITLE));
+  private static final Order ORDER_LIST = Order.asc(Functions.upper(CaldavCalendar.NAME));
 
   /** Takes a SQL query, and if there isn't already an order, creates an order. */
   public static String adjustQueryForFlagsAndSort(
@@ -113,6 +116,9 @@ public class SortHelper {
       case SORT_CREATED:
         order = Order.desc(Task.CREATION_DATE);
         break;
+      case SORT_LIST:
+        order = ORDER_LIST;
+        break;
       default:
         order =
             Order.asc(
@@ -146,6 +152,8 @@ public class SortHelper {
         return "tasks.modified";
       case SORT_CREATED:
         return "tasks.created";
+      case SORT_LIST:
+        return "cdl_id";
       default:
         return null;
     }
@@ -168,6 +176,7 @@ public class SortHelper {
       case SORT_CREATED -> "tasks.created";
       case SORT_GTASKS -> "tasks.`order`";
       case SORT_CALDAV -> CALDAV_ORDER_COLUMN;
+      case SORT_LIST -> "cdl_name";
       default -> "(CASE WHEN (tasks.dueDate=0) "
               + // if no due date
               "THEN (strftime('%s','now')*1000)*2 "

@@ -48,14 +48,22 @@ internal object TaskListQueryRecursive {
             else -> PermaSql.replacePlaceholdersForQuery(filter.getSqlQuery())
         }
         val manualSort = preferences.isManualSort
+        val sortPreference = preferences.sortMode
         val sortMode = when {
             manualSort && filter is GtasksFilter -> SortHelper.SORT_GTASKS
             manualSort && filter is CaldavFilter -> SortHelper.SORT_CALDAV
-            else -> preferences.sortMode
+            sortPreference == SortHelper.SORT_LIST && (filter is GtasksFilter || filter is CaldavFilter) ->
+                SortHelper.SORT_AUTO
+            else -> sortPreference
         }
         val reverseSort =
             preferences.isReverseSort && sortMode != SortHelper.SORT_GTASKS && sortMode != SortHelper.SORT_CALDAV
-        val sortSelect = SortHelper.orderSelectForSortTypeRecursive(sortMode)
+        val primarySortSelect = SortHelper.orderSelectForSortTypeRecursive(sortMode)
+        val secondarySortSelect = if (sortMode == SortHelper.SORT_LIST) {
+            "NULL"
+        } else {
+            primarySortSelect
+        }
         val parentCompleted = if (preferences.completedTasksAtBottom) "tasks.completed > 0" else "0"
         val completionSort =
             if (preferences.completedTasksAtBottom && preferences.sortCompletedByCompletionDate) {
@@ -66,10 +74,20 @@ internal object TaskListQueryRecursive {
         val withClause = """
             CREATE TEMPORARY TABLE `recursive_tasks` AS
             WITH RECURSIVE recursive_tasks (task, parent_complete, subtask_complete, completion_sort, parent, collapsed, hidden, indent, title, primary_sort, secondary_sort, sort_group) AS (
-                SELECT tasks._id, $parentCompleted as parent_complete, 0 as subtask_complete, $completionSort as completion_sort, 0 as parent, tasks.collapsed as collapsed, 0 as hidden, 0 AS sort_indent, UPPER(tasks.title) AS sort_title, $sortSelect as primary_sort, NULL as secondarySort, ${SortHelper.getSortGroup(sortMode)}
+                SELECT tasks._id, $parentCompleted as parent_complete, 0 as subtask_complete, $completionSort as completion_sort, 0 as parent, tasks.collapsed as collapsed, 0 as hidden, 0 AS sort_indent, UPPER(tasks.title) AS sort_title, $primarySortSelect as primary_sort, NULL as secondarySort, ${SortHelper.getSortGroup(sortMode)}
                 FROM tasks
+                ${
+                    if (sortMode == SortHelper.SORT_LIST) {
+                        """
+                            LEFT JOIN caldav_tasks on cd_task = tasks._id AND cd_deleted = 0
+                            LEFT JOIN caldav_lists on cd_calendar = cdl_uuid
+                        """.trimIndent()
+                    } else {
+                        ""
+                    }
+                }
                 $parentQuery
-                UNION ALL SELECT tasks._id, recursive_tasks.parent_complete, $parentCompleted as subtask_complete, $completionSort as completion_sort, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, recursive_tasks.primary_sort as primary_sort, $sortSelect as secondary_sort, recursive_tasks.sort_group FROM tasks
+                UNION ALL SELECT tasks._id, recursive_tasks.parent_complete, $parentCompleted as subtask_complete, $completionSort as completion_sort, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, recursive_tasks.primary_sort as primary_sort, $secondarySortSelect as secondary_sort, recursive_tasks.sort_group FROM tasks
                 $SUBTASK_QUERY
                 ORDER BY parent_complete ASC, sort_indent DESC, subtask_complete ASC, completion_sort DESC, ${SortHelper.orderForSortTypeRecursive(sortMode, reverseSort)}
             ) SELECT * FROM recursive_tasks

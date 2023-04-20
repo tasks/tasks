@@ -13,6 +13,7 @@ import org.tasks.data.TaskDao;
 import org.tasks.markdown.MarkdownProvider;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
+import org.tasks.tasklist.HeaderFormatter;
 import org.tasks.themes.ColorProvider;
 import org.tasks.ui.CheckBoxProvider;
 
@@ -33,6 +34,7 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
   @Inject ChipProvider chipProvider;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject MarkdownProvider markdownProvider;
+  @Inject HeaderFormatter headerFormatter;
 
   @Override
   public void onStart(Intent intent, int startId) {
@@ -65,6 +67,8 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
         locale,
         chipProvider,
         localBroadcastManager,
-        markdownProvider.markdown(false));
+        markdownProvider.markdown(false),
+        headerFormatter
+    );
   }
 }

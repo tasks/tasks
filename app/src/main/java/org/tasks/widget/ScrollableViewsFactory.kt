@@ -26,13 +26,14 @@ import org.tasks.date.DateTimeUtils
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
+import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import timber.log.Timber
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 import kotlin.math.max
 
 internal class ScrollableViewsFactory(
@@ -46,7 +47,8 @@ internal class ScrollableViewsFactory(
     private val locale: Locale,
     private val chipProvider: ChipProvider,
     private val localBroadcastManager: LocalBroadcastManager,
-    private val markdown: Markdown
+    private val markdown: Markdown,
+    private val headerFormatter: HeaderFormatter,
 ) : RemoteViewsFactory {
     private val indentPadding: Int
     private var showDueDates = false
@@ -145,13 +147,12 @@ internal class ScrollableViewsFactory(
         val section = tasks.getSection(position)
         val sortGroup = section.value
         val header: String? = if (filter?.supportsSorting() == true) {
-            section.headerString(
-                    context,
-                    locale,
-                    sortMode,
-                    showFullDate,
-                    FormatStyle.MEDIUM,
-                    compact
+            headerFormatter.headerStringBlocking(
+                value = section.value,
+                sortMode = sortMode,
+                alwaysDisplayFullDate = showFullDate,
+                style = FormatStyle.MEDIUM,
+                compact = compact,
             )
         } else {
             null

@@ -33,6 +33,9 @@ abstract class CaldavDao {
     @Query("SELECT * FROM caldav_lists WHERE cdl_uuid = :uuid LIMIT 1")
     abstract suspend fun getCalendarByUuid(uuid: String): CaldavCalendar?
 
+    @Query("SELECT * FROM caldav_lists WHERE cdl_id = :id LIMIT 1")
+    abstract suspend fun getCalendarById(id: Long): CaldavCalendar?
+
     @Query("SELECT * FROM caldav_lists WHERE cdl_account = :uuid")
     abstract suspend fun getCalendarsByAccount(uuid: String): List<CaldavCalendar>
 

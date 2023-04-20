@@ -4,8 +4,13 @@ import android.graphics.Canvas
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.ItemTouchHelper.*
+import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
+import androidx.recyclerview.widget.ItemTouchHelper.Callback
 import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags
+import androidx.recyclerview.widget.ItemTouchHelper.DOWN
+import androidx.recyclerview.widget.ItemTouchHelper.LEFT
+import androidx.recyclerview.widget.ItemTouchHelper.RIGHT
+import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
@@ -18,7 +23,8 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
-import java.util.*
+import java.util.LinkedList
+import java.util.Queue
 import java.util.concurrent.Executors
 import kotlin.math.max
 import kotlin.math.min
@@ -50,7 +56,7 @@ class DragAndDropRecyclerAdapter(
         val viewType = getItemViewType(position)
         if (viewType == 1) {
             val headerSection = items.getSection(position)
-            (holder as HeaderViewHolder).bind(taskList.getFilter(), preferences.sortMode, preferences.alwaysDisplayFullDate, headerSection)
+            (holder as HeaderViewHolder).bind(taskList.getFilter(), preferences.sortMode, headerSection)
         } else {
             super.onBindViewHolder(holder, position)
         }
