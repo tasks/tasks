@@ -148,11 +148,14 @@ class SectionedDataSource constructor(
         sections.append(new.sectionedPosition, new)
     }
 
-    tailrec fun getNearestHeader(sectionedPosition: Int): Long = if (isHeader(sectionedPosition)) {
-        getHeaderValue(sectionedPosition)
-    } else {
-        getNearestHeader(sectionedPosition - 1)
-    }
+    tailrec fun getNearestHeader(sectionedPosition: Int): Long =
+        if (sectionedPosition < 0) {
+            -1
+        } else if (isHeader(sectionedPosition)) {
+            getHeaderValue(sectionedPosition)
+        } else {
+            getNearestHeader(sectionedPosition - 1)
+        }
 
     fun getSectionValues(): List<Long> {
         val values = ArrayList<Long>()
