@@ -40,6 +40,6 @@ internal class DiffCallback(
         }
         val oldItem = old.getItem(oldPosition)!!
         val newItem = new.getItem(newPosition)!!
-        return !refreshDates && oldItem == newItem && oldItem.getIndent() == adapter.getIndent(newItem)
+        return !refreshDates && oldItem == newItem && oldItem.indent == adapter.getIndent(newItem)
     }
 }

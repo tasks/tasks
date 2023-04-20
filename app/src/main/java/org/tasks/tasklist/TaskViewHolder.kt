@@ -194,7 +194,7 @@ class TaskViewHolder internal constructor(
             nameView.paintFlags = nameView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
         completeBox.isChecked = task.isCompleted
-        completeBox.setImageDrawable(checkBoxProvider.getCheckBox(task.getTask()))
+        completeBox.setImageDrawable(checkBoxProvider.getCheckBox(task.task))
         completeBox.invalidate()
     }
 
@@ -206,7 +206,7 @@ class TaskViewHolder internal constructor(
                 dueDate.setTextColor(textColorSecondary)
             }
             val dateValue: String? = if (sortByDueDate
-                    && task.sortGroup >= now().startOfDay()
+                    && (task.sortGroup ?: 0) >= now().startOfDay()
                     && showGroupHeaders
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
@@ -238,7 +238,7 @@ class TaskViewHolder internal constructor(
                         collapsed = task.isCollapsed,
                         isHidden = task.isHidden,
                         sortGroup = task.sortGroup,
-                        startDate = task.startDate,
+                        startDate = task.task.hideUntil,
                         place = task.location?.place,
                         list = task.caldav,
                         tagsString = task.tagsString,

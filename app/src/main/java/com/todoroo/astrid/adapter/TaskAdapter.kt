@@ -5,7 +5,10 @@
  */
 package com.todoroo.astrid.adapter
 
-import com.todoroo.astrid.core.SortHelper.*
+import com.todoroo.astrid.core.SortHelper.SORT_DUE
+import com.todoroo.astrid.core.SortHelper.SORT_IMPORTANCE
+import com.todoroo.astrid.core.SortHelper.SORT_LIST
+import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
@@ -62,7 +65,7 @@ open class TaskAdapter(
 
     fun clearCollapsed() = collapsed.retainAll(listOf(HEADER_COMPLETED))
 
-    open fun getIndent(task: TaskContainer): Int = task.getIndent()
+    open fun getIndent(task: TaskContainer): Int = task.indent
 
     open fun canMove(source: TaskContainer, from: Int, target: TaskContainer, to: Int): Boolean {
         if (target.isGoogleTask) {
@@ -152,7 +155,7 @@ open class TaskAdapter(
                 changeSortGroup(task, if (from < to) to - 1 else to)
             }
             newParent.isGoogleTask -> changeGoogleTaskParent(task, newParent)
-            newParent.isCaldavTask -> changeCaldavParent(task, newParent)
+            newParent.isCaldavTask() -> changeCaldavParent(task, newParent)
         }
     }
 
@@ -190,7 +193,7 @@ open class TaskAdapter(
         }
         for (i in to - 1 downTo 0) {
             val previous = getTask(i)
-            if (indent > previous.getIndent()) {
+            if (indent > previous.indent) {
                 return previous
             }
         }
@@ -202,7 +205,7 @@ open class TaskAdapter(
             SORT_IMPORTANCE -> {
                 val newPriority = dataSource.nearestHeader(if (pos == 0) 1 else pos).toInt()
                 if (newPriority != task.priority) {
-                    val t = task.getTask()
+                    val t = task.task
                     t.priority = newPriority
                     taskDao.save(t)
                 }
@@ -240,7 +243,7 @@ open class TaskAdapter(
     private suspend fun moveToTopLevel(task: TaskContainer) {
         when {
             task.isGoogleTask -> changeGoogleTaskParent(task, null)
-            task.isCaldavTask -> changeCaldavParent(task, null)
+            task.isCaldavTask() -> changeCaldavParent(task, null)
         }
     }
 
@@ -256,7 +259,7 @@ open class TaskAdapter(
         } else {
             task.parent = newParent.id
             task.caldavTask = CaldavTask(task.id, list, remoteId = null)
-            googleTaskDao.insertAndShift(task.task, task.caldavTask, newTasksOnTop)
+            googleTaskDao.insertAndShift(task.task, task.caldavTask!!, newTasksOnTop)
         }
         taskDao.touch(task.id)
         if (BuildConfig.DEBUG) {
@@ -266,7 +269,7 @@ open class TaskAdapter(
 
     private suspend fun changeCaldavParent(task: TaskContainer, newParent: TaskContainer?) {
         val list = newParent?.caldav ?: task.caldav!!
-        val caldavTask = task.getCaldavTask() ?: CaldavTask(
+        val caldavTask = task.caldavTask ?: CaldavTask(
             task.id,
             list,
         )

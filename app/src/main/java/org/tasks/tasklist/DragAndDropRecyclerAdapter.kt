@@ -196,7 +196,7 @@ class DragAndDropRecyclerAdapter(
                         max((currentIndent - minIndent) * -shiftSize, dX)
                     }
                     val targetIndent = currentIndent + java.lang.Float.valueOf(dxAdjusted / shiftSize).toInt()
-                    if (targetIndent != task.getIndent()) {
+                    if (targetIndent != task.indent) {
                         if (from == -1) {
                             taskList.finishActionMode()
                             vh.selected = false
@@ -206,7 +206,7 @@ class DragAndDropRecyclerAdapter(
                         task.targetIndent = minIndent
                     } else task.targetIndent = min(targetIndent, maxIndent)
                 }
-                dX = (task.targetIndent - task.getIndent()) * shiftSize
+                dX = (task.targetIndent - task.indent) * shiftSize
             }
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
@@ -227,12 +227,14 @@ class DragAndDropRecyclerAdapter(
                     if (from < to) {
                         to++
                     }
-                    vh.task.setIndent(targetIndent)
+                    vh.task.indent = targetIndent
+                    vh.task.targetIndent = targetIndent
                     vh.indent = targetIndent
                     moved(from, to, targetIndent)
-                } else if (task.getIndent() != targetIndent) {
+                } else if (task.indent != targetIndent) {
                     val position = vh.adapterPosition
-                    vh.task.setIndent(targetIndent)
+                    vh.task.indent = targetIndent
+                    vh.task.targetIndent = targetIndent
                     vh.indent = targetIndent
                     moved(position, position, targetIndent)
                 }

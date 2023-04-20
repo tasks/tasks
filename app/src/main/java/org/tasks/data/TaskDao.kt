@@ -180,7 +180,7 @@ FROM recursive_tasks
     internal suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
         fetchTasks(preferences, filter)
                 .filter(TaskContainer::hasChildren)
-                .map(TaskContainer::getId)
+                .map(TaskContainer::id)
                 .eachChunk { setCollapsed(it, collapsed) }
     }
 
@@ -231,7 +231,7 @@ FROM recursive_tasks
         val start = if (BuildConfig.DEBUG) now() else 0
         val tasks = fetchTasks(query)
         Timber.v("%sms: %s", now() - start, query.sql)
-        return tasks.map(TaskContainer::getTask)
+        return tasks.map(TaskContainer::task)
     }
 
     @Query("""

@@ -742,7 +742,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             R.id.menu_select_all -> {
                 lifecycleScope.launch {
                     taskAdapter.setSelected(taskDao.fetchTasks(preferences, filter)
-                            .map(TaskContainer::getId))
+                            .map(TaskContainer::id))
                     updateModeTitle()
                     recyclerAdapter?.notifyDataSetChanged()
                 }
@@ -779,7 +779,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     private fun send(tasks: List<TaskContainer>) {
         val output = tasks.joinToString("\n") { t -> Task
-            "${(if (t.isCompleted) "☑" else "☐").padStart(1 + t.getIndent() * 3, ' ')} ${t.title}"
+            "${(if (t.isCompleted) "☑" else "☐").padStart(1 + t.indent * 3, ' ')} ${t.title}"
         }
         val intent = ShareCompat
             .IntentBuilder(requireContext())
@@ -803,9 +803,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         val fragmentManager = parentFragmentManager
         if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_TIME_PICKER) == null) {
             newDateTimePicker(
-                    preferences.getBoolean(R.string.p_auto_dismiss_datetime_list_screen, false),
-                    task.task)
-                    .show(fragmentManager, FRAG_TAG_DATE_TIME_PICKER)
+                preferences.getBoolean(R.string.p_auto_dismiss_datetime_list_screen, false),
+                task.task)
+                .show(fragmentManager, FRAG_TAG_DATE_TIME_PICKER)
         }
     }
 
@@ -862,7 +862,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             return
         }
         lifecycleScope.launch {
-            taskCompleter.setComplete(task.getTask(), newState)
+            taskCompleter.setComplete(task.task, newState)
             taskAdapter.onCompletedTask(task, newState)
             loadTaskListContent()
         }
@@ -880,7 +880,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         if (isActionModeActive) {
             recyclerAdapter?.toggle(taskViewHolder)
         } else {
-            onTaskListItemClicked(taskViewHolder.task.getTask())
+            onTaskListItemClicked(taskViewHolder.task.task)
         }
     }
 

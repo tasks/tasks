@@ -30,7 +30,8 @@ abstract class TaskListRecyclerAdapter internal constructor(
                     .bindView(task, filter, if (groupsEnabled) preferences.sortMode else -1)
             holder.moving = false
             val indent = adapter.getIndent(task)
-            task.setIndent(indent)
+            task.indent = indent
+            task.targetIndent = indent
             holder.indent = indent
             holder.selected = adapter.isSelected(task)
         }

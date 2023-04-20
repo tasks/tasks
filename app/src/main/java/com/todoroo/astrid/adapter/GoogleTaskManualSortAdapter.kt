@@ -17,9 +17,9 @@ class GoogleTaskManualSortAdapter internal constructor(
 
     override suspend fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
-        val googleTask = task.caldavTask
+        val googleTask = task.caldavTask ?: return
+        val list = googleTask.calendar ?: return
         val previous = if (to > 0) getTask(to - 1) else null
-        val list = googleTask.calendar!!
         if (previous == null) {
             googleTaskDao.move(
                 task = task.task,
@@ -34,21 +34,21 @@ class GoogleTaskManualSortAdapter internal constructor(
                         task = task.task,
                         list = list,
                         newParent = 0,
-                        newPosition = previous.getPrimarySort() + if (to == count) 0 else 1,
+                        newPosition = previous.primarySort + if (to == count) 0 else 1,
                     )
                 previous.hasParent() && previous.parent == task.parent ->
                     googleTaskDao.move(
                         task = task.task,
                         list = list,
                         newParent = previous.parent,
-                        newPosition = previous.getSecondarySort() + if (to == count) 0 else 1,
+                        newPosition = previous.secondarySort + if (to == count) 0 else 1,
                     )
                 previous.hasParent() ->
                     googleTaskDao.move(
                         task = task.task,
                         list = list,
                         newParent = previous.parent,
-                        newPosition = previous.getSecondarySort() + 1,
+                        newPosition = previous.secondarySort + 1,
                     )
                 else ->
                     googleTaskDao.move(
@@ -65,21 +65,21 @@ class GoogleTaskManualSortAdapter internal constructor(
                         task = task.task,
                         list = list,
                         newParent = 0,
-                        newPosition = previous.getPrimarySort() + if (task.hasParent()) 1 else 0,
+                        newPosition = previous.primarySort + if (task.hasParent()) 1 else 0,
                     )
                 previous.hasParent() && previous.parent == task.parent ->
                     googleTaskDao.move(
                         task = task.task,
                         list = list,
                         newParent = previous.parent,
-                        newPosition = previous.getSecondarySort(),
+                        newPosition = previous.secondarySort,
                     )
                 previous.hasParent() ->
                     googleTaskDao.move(
                         task = task.task,
                         list = list,
                         newParent = previous.parent,
-                        newPosition = previous.getSecondarySort() + 1,
+                        newPosition = previous.secondarySort + 1,
                     )
                 else ->
                     googleTaskDao.move(

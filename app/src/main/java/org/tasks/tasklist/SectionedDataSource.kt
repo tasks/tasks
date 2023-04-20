@@ -86,7 +86,7 @@ class SectionedDataSource constructor(
                 sections.add(AdapterSection(i, header, 0, isCollapsed))
             } else {
                 val previousTask = tasks[i - 1]
-                val previous = previousTask.sortGroup
+                val previous = previousTask.sortGroup ?: 0L
                 when {
                     completedAtBottom && task.parentComplete -> {
                         if (!previousTask.parentComplete) {

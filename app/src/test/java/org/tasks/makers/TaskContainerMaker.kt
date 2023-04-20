@@ -19,16 +19,17 @@ object TaskContainerMaker {
     val CREATED: Property<TaskContainer, DateTime> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<TaskContainer> ->
-        val container = TaskContainer()
-        val parent = lookup.valueOf(PARENT, null as TaskContainer?)
         val taskId = lookup.valueOf(ID, NO_ID)
         val created = lookup.valueOf(CREATED, newDateTime())
-        container.task = newTask(
+        val parent = lookup.valueOf(PARENT, null as TaskContainer?)
+        TaskContainer(
+            task = newTask(
                 with(TaskMaker.ID, taskId),
                 with(TaskMaker.CREATION_TIME, created),
-                with(TaskMaker.PARENT, parent?.id ?: 0L))
-        container.indent = parent?.indent?.plus(1) ?: 0
-        container
+                with(TaskMaker.PARENT, parent?.id ?: 0L)
+            ),
+            indent = parent?.indent?.plus(1) ?: 0,
+        )
     }
 
     fun newTaskContainer(vararg properties: PropertyValue<in TaskContainer?, *>): TaskContainer {

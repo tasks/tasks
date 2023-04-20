@@ -198,7 +198,7 @@ fun ExistingSubtaskRow(
             modifier = Modifier.align(Alignment.Top),
         )
         Text(
-            text = task.title,
+            text = task.title!!,
             modifier = Modifier
                 .weight(1f)
                 .alpha(if (task.isCompleted || task.isHidden) ContentAlpha.disabled else ContentAlpha.high)
@@ -252,20 +252,20 @@ fun SubtasksPreview() {
             hasParent = false,
             desaturate = true,
             existingSubtasks = listOf(
-                TaskContainer().apply {
+                TaskContainer(
                     task = Task().apply {
                         title = "Existing subtask 1"
                         priority = Task.Priority.HIGH
-                    }
+                    },
                     indent = 0
-                },
-                TaskContainer().apply {
+                ),
+                TaskContainer(
                     task = Task().apply {
                         title = "Existing subtask 2 with a really long title"
                         priority = Task.Priority.LOW
-                    }
+                    },
                     indent = 1
-                }
+                )
             ),
             newSubtasks = listOf(
                 Task().apply {

@@ -187,7 +187,7 @@ internal class ScrollableViewsFactory(
     private fun buildUpdate(position: Int): RemoteViews? {
         try {
             val taskContainer = getTask(position) ?: return null
-            val task = taskContainer.getTask()
+            val task = taskContainer.task
             var textColorTitle = textColorPrimary
             val row = newRemoteView()
             if (task.isHidden) {
@@ -279,12 +279,12 @@ internal class ScrollableViewsFactory(
                         .getListChip(filter, taskContainer)
                         ?.let { row.addView(R.id.chips, it) }
             }
-            if (showTags && taskContainer.tags?.isNotBlank() == true) {
+            if (showTags && taskContainer.tagsString?.isNotBlank() == true) {
                 chipProvider
                         .getTagChips(filter, taskContainer)
                         .forEach { row.addView(R.id.chips, it) }
             }
-            val startPad = taskContainer.getIndent() * indentPadding
+            val startPad = taskContainer.indent * indentPadding
             row.setViewPadding(R.id.widget_row, startPad, 0, 0, 0)
             return row
         } catch (e: Exception) {
@@ -315,7 +315,7 @@ internal class ScrollableViewsFactory(
             }
             row.setViewVisibility(dueDateRes, View.VISIBLE)
             val text = if (sortMode == SortHelper.SORT_DUE
-                && task.sortGroup >= now().startOfDay()
+                && (task.sortGroup ?: 0L) >= now().startOfDay()
                 && !disableGroups
             ) {
                 task.takeIf { it.hasDueTime() }?.let {

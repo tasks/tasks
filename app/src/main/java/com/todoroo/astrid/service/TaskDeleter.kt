@@ -4,7 +4,12 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.*
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.DeletionDao
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.TaskContainer
+import org.tasks.data.TaskDao
 import org.tasks.db.QueryUtils
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.jobs.WorkManager
@@ -46,7 +51,7 @@ class TaskDeleter @Inject constructor(
         val completed = taskDao.fetchTasks(preferences, deleteFilter)
                 .filter(TaskContainer::isCompleted)
                 .filterNot(TaskContainer::isReadOnly)
-                .map(TaskContainer::getId)
+                .map(TaskContainer::id)
                 .toMutableList()
         completed.removeAll(deletionDao.hasRecurringAncestors(completed))
         markDeleted(completed)

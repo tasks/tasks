@@ -17,7 +17,7 @@ import org.tasks.themes.CustomIcons
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.ChipListCache
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class ChipProvider @Inject constructor(
@@ -49,15 +49,15 @@ class ChipProvider @Inject constructor(
     fun getStartDateChip(task: TaskContainer, showFullDate: Boolean, sortByStartDate: Boolean): RemoteViews? {
         return if (task.isHidden) {
             val chip = newChip()
-            val time = if (sortByStartDate && task.sortGroup?.startOfDay() == task.startDate.startOfDay()) {
-                task.startDate
+            val time = if (sortByStartDate && task.sortGroup?.startOfDay() == task.task.hideUntil.startOfDay()) {
+                task.task.hideUntil
                         .takeIf { Task.hasDueTime(it) }
                         ?.let { DateUtilities.getTimeString(context, it.toDateTime()) }
                         ?: return null
             } else {
                 DateUtilities.getRelativeDateTime(
                         context,
-                        task.startDate,
+                        task.task.hideUntil,
                         locale,
                         FormatStyle.MEDIUM,
                         showFullDate,
@@ -88,7 +88,7 @@ class ChipProvider @Inject constructor(
     }
 
     fun getTagChips(filter: Filter?, task: TaskContainer): List<RemoteViews> {
-        val tags = task.tags?.split(",")?.toHashSet() ?: return emptyList()
+        val tags = task.tagsString?.split(",")?.toHashSet() ?: return emptyList()
         if (filter is TagFilter) {
             tags.remove(filter.uuid)
         }

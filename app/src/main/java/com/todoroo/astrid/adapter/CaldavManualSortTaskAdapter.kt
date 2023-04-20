@@ -29,9 +29,9 @@ class CaldavManualSortTaskAdapter internal constructor(
 
         val newPosition = when {
             previous == null -> next!!.caldavSortOrder - 1
-            indent > previous.getIndent() && next?.indent == indent -> next.caldavSortOrder - 1
-            indent > previous.getIndent() -> null
-            indent == previous.getIndent() -> previous.caldavSortOrder + 1
+            indent > previous.indent && next?.indent == indent -> next.caldavSortOrder - 1
+            indent > previous.indent -> null
+            indent == previous.indent -> previous.caldavSortOrder + 1
             else -> getTask((to - 1 downTo 0).find { getTask(it).indent == indent }!!).caldavSortOrder + 1
         }
         caldavDao.move(task, newParent, newPosition)
@@ -48,7 +48,7 @@ class CaldavManualSortTaskAdapter internal constructor(
     }
 
     private suspend fun changeParent(task: TaskContainer, newParent: Long) {
-        val caldavTask = task.getCaldavTask()
+        val caldavTask = task.caldavTask ?: return
         if (newParent == 0L) {
             caldavTask.remoteParent = ""
             task.parent = 0
@@ -58,6 +58,6 @@ class CaldavManualSortTaskAdapter internal constructor(
             task.parent = newParent
         }
         caldavDao.update(caldavTask.id, caldavTask.remoteParent)
-        taskDao.save(task.getTask(), null)
+        taskDao.save(task.task, null)
     }
 }
