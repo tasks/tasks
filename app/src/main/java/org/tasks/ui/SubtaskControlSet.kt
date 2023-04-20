@@ -68,10 +68,9 @@ class SubtaskControlSet : TaskEditControlFragment() {
                         completeNewSubtask = {
                             viewModel.newSubtasks.value =
                                 ArrayList(viewModel.newSubtasks.value).apply {
-                                    val modified = it.clone().apply {
-                                        completionDate =
-                                            if (isCompleted) 0 else now()
-                                    }
+                                    val modified = it.copy(
+                                        completionDate = if (it.isCompleted) 0 else now()
+                                    )
                                     set(indexOf(it), modified)
                                 }
                         },
