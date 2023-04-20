@@ -755,4 +755,5 @@
     <string name="consent_agree">D\'accord</string>
     <string name="default_reminder">Rappel par défaut</string>
     <string name="rmd_time_description">Afficher les notifications pour les tâches sans échéance</string>
+    <string name="sort_list">Par liste</string>
 </resources>
