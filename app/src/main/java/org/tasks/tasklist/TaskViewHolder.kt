@@ -69,6 +69,9 @@ class TaskViewHolder internal constructor(
         setOnClickListener { onCompleteBoxClick() }
     }
     private val chipGroup: ComposeView = binding.chipGroup
+    private val pagedQueries: Boolean = preferences.usePagedQueries()
+    private val alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate
+    private val showGroupHeaders = preferences.showGroupHeaders()
 
     lateinit var task: TaskContainer
 
@@ -141,7 +144,11 @@ class TaskViewHolder internal constructor(
         markdown.setMarkdown(nameView, task.title)
         setupTitleAndCheckbox()
         setupDueDate(sortMode == SORT_DUE)
-        setupChips(filter, sortMode == SORT_START, sortMode == SORT_LIST)
+        setupChips(
+            filter = filter,
+            sortByStartDate = sortMode == SORT_START && showGroupHeaders,
+            sortByList = sortMode == SORT_LIST && showGroupHeaders
+        )
         if (preferences.getBoolean(R.string.p_show_description, true)) {
             markdown.setMarkdown(description, task.notes)
             description.visibility = if (task.hasNotes()) View.VISIBLE else View.GONE
@@ -201,13 +208,13 @@ class TaskViewHolder internal constructor(
             }
             val dateValue: String? = if (sortByDueDate
                     && task.sortGroup >= now().startOfDay()
-                    && preferences.showGroupHeaders()
+                    && showGroupHeaders
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
                     DateUtilities.getTimeString(context, newDateTime(task.dueDate))
                 }
             } else {
-                DateUtilities.getRelativeDateTime(context, task.dueDate, locale, FormatStyle.MEDIUM, preferences.alwaysDisplayFullDate, false)
+                DateUtilities.getRelativeDateTime(context, task.dueDate, locale, FormatStyle.MEDIUM, alwaysDisplayFullDate, false)
             }
             dueDate.text = dateValue
             dueDate.visibility = View.VISIBLE
@@ -236,7 +243,7 @@ class TaskViewHolder internal constructor(
                         place = task.location?.place,
                         list = task.caldav,
                         tagsString = task.tagsString,
-                        isSubtask = task.hasParent(),
+                        isSubtask = task.hasParent() && !pagedQueries,
                         isGoogleTask = task.isGoogleTask,
                         sortByStartDate = sortByStartDate,
                         sortByList = sortByList,
