@@ -10,7 +10,12 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.*
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.TaskDao
 import org.tasks.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
@@ -41,6 +46,17 @@ class TaskMover @Inject constructor(
             }
         }
         return null
+    }
+
+    suspend fun move(task: Long, list: Long) {
+        val list = caldavDao.getCalendarById(list) ?: return
+        val account = list.account?.let { caldavDao.getAccountByUuid(it) } ?: return
+        move(
+            ids = listOf(task),
+            selectedList = if (account.accountType == CaldavAccount.TYPE_GOOGLE_TASKS)
+                GtasksFilter(list)
+            else
+                CaldavFilter(list))
     }
 
     suspend fun move(ids: List<Long>, selectedList: Filter) {

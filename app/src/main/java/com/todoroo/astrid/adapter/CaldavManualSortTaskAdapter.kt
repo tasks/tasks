@@ -1,6 +1,7 @@
 package com.todoroo.astrid.adapter
 
 import com.todoroo.astrid.dao.TaskDao
+import com.todoroo.astrid.service.TaskMover
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
@@ -10,8 +11,9 @@ class CaldavManualSortTaskAdapter internal constructor(
         googleTaskDao: GoogleTaskDao,
         private val caldavDao: CaldavDao,
         private val taskDao: TaskDao,
-        private val localBroadcastManager: LocalBroadcastManager)
-    : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager) {
+        private val localBroadcastManager: LocalBroadcastManager,
+        taskMover: TaskMover,
+) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover) {
 
     override suspend fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)

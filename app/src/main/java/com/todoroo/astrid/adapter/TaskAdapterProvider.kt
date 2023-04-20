@@ -8,6 +8,7 @@ import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task.Companion.isUuidEmpty
+import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -28,7 +29,9 @@ class TaskAdapterProvider @Inject constructor(
         private val taskDao: TaskDao,
         private val googleTaskDao: GoogleTaskDao,
         private val caldavDao: CaldavDao,
-        private val localBroadcastManager: LocalBroadcastManager) {
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val taskMover: TaskMover,
+) {
     fun createTaskAdapter(filter: Filter): TaskAdapter {
         if (filter.supportsAstridSorting() && preferences.isAstridSort) {
             when (filter) {
@@ -43,11 +46,11 @@ class TaskAdapterProvider @Inject constructor(
         }
         if (filter.supportsManualSort() && preferences.isManualSort) {
             when (filter) {
-                is GtasksFilter -> return GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager)
-                is CaldavFilter -> return CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager)
+                is GtasksFilter -> return GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
+                is CaldavFilter -> return CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
             }
         }
-        return TaskAdapter(preferences.addTasksToTop(), googleTaskDao, caldavDao, taskDao, localBroadcastManager)
+        return TaskAdapter(preferences.addTasksToTop(), googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
     }
 
     private fun createManualTagTaskAdapter(filter: TagFilter): TaskAdapter = runBlocking {
@@ -61,7 +64,7 @@ class TaskAdapterProvider @Inject constructor(
         }
         val updater = SubtasksFilterUpdater(taskListMetadataDao, taskDao)
         updater.initialize(list, filter)
-        AstridTaskAdapter(list!!, filter, updater, googleTaskDao, caldavDao, taskDao, localBroadcastManager)
+        AstridTaskAdapter(list!!, filter, updater, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
     }
 
     private fun createManualFilterTaskAdapter(filter: Filter): TaskAdapter? = runBlocking {
@@ -91,6 +94,6 @@ class TaskAdapterProvider @Inject constructor(
         }
         val updater = SubtasksFilterUpdater(taskListMetadataDao, taskDao)
         updater.initialize(list, filter)
-        AstridTaskAdapter(list, filter, updater, googleTaskDao, caldavDao, taskDao, localBroadcastManager)
+        AstridTaskAdapter(list, filter, updater, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
     }
 }

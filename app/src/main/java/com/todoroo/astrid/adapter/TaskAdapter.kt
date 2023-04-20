@@ -9,6 +9,7 @@ import com.todoroo.astrid.core.SortHelper.*
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
+import com.todoroo.astrid.service.TaskMover
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.CaldavDao
@@ -25,7 +26,9 @@ open class TaskAdapter(
         private val googleTaskDao: GoogleTaskDao,
         private val caldavDao: CaldavDao,
         private val taskDao: TaskDao,
-        private val localBroadcastManager: LocalBroadcastManager) {
+        private val localBroadcastManager: LocalBroadcastManager,
+        private val taskMover: TaskMover,
+) {
 
     private val selected = HashSet<Long>()
     private val collapsed = mutableSetOf(HEADER_COMPLETED)
@@ -204,6 +207,7 @@ open class TaskAdapter(
                     taskDao.save(t)
                 }
             }
+            SORT_LIST -> taskMover.move(task.id, dataSource.nearestHeader(if (pos == 0) 1 else pos))
             SORT_DUE -> applyDueDate(task.task, dataSource.nearestHeader(if (pos == 0) 1 else pos))
             SORT_START -> applyStartDate(task.task, dataSource.nearestHeader(if (pos == 0) 1 else pos))
         }

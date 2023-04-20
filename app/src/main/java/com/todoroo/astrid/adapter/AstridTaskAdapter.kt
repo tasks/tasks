@@ -4,6 +4,7 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
@@ -23,8 +24,9 @@ class AstridTaskAdapter internal constructor(
         googleTaskDao: GoogleTaskDao,
         caldavDao: CaldavDao,
         private val taskDao: TaskDao,
-        private val localBroadcastManager: LocalBroadcastManager)
-    : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager) {
+        private val localBroadcastManager: LocalBroadcastManager,
+        taskMover: TaskMover,
+) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover) {
 
     private val chainedCompletions = Collections.synchronizedMap(HashMap<String, ArrayList<String>>())
 
