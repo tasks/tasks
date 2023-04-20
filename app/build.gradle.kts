@@ -191,7 +191,6 @@ dependencies {
     implementation(libs.androidx.room)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.paging)
     implementation(libs.bundles.markwon)
 
     debugImplementation(libs.bundles.flipper)

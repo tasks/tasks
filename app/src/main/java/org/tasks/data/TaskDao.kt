@@ -1,6 +1,5 @@
 package org.tasks.data
 
-import androidx.paging.DataSource
 import androidx.room.*
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.sql.Criterion
@@ -129,9 +128,6 @@ abstract class TaskDao(private val database: Database) {
 
     @Query("SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtasks")
     abstract suspend fun getSubtaskInfo(): SubtaskInfo
-
-    @RawQuery(observedEntities = [Place::class])
-    abstract fun getTaskFactory(query: SimpleSQLiteQuery): DataSource.Factory<Int, TaskContainer>
 
     suspend fun touch(ids: List<Long>, now: Long = currentTimeMillis()) =
         ids.eachChunk { internalTouch(it, now) }

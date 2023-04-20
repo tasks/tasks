@@ -392,8 +392,6 @@
     <string name="invalid_username_or_password">Nama pengguna dan kata sandi salah</string>
     <string name="davx5_selection_description">Sinkronkan tugas Anda dengan aplikasi DAVx⁵</string>
     <string name="disable_sort_groups">Nonaktifkan grup sortir</string>
-    <string name="improve_performance_summary">Nonaktifkan grup sortir dan subtugas yang bisa diciutkan untuk meningkatkan kinerja aplikasi</string>
-    <string name="improve_performance">Tingkatkan kinerja</string>
     <string name="whats_new">Apa yang Baru</string>
     <string name="missing_permissions">Perizinan hilang</string>
     <string name="building_notifications">Menghasilkan notifikasi</string>

@@ -437,7 +437,6 @@
     <string name="filter_today_only">Само днес</string>
     <string name="more_settings">Повече настройки</string>
     <string name="help_and_feedback">Помощ и обратна връзка</string>
-    <string name="improve_performance">Подобряване на производителността</string>
     <string name="theme_system_default">Спрямо системата</string>
     <string name="today_lowercase">днес</string>
     <string name="yesterday_lowercase">вчера</string>
@@ -606,7 +605,6 @@
     <string name="auto_dismiss_datetime">Автоматично затваряне след избор на дата и час</string>
     <string name="picker_mode_time">Режим на избор на час</string>
     <string name="more_options">Допълнителни настройки</string>
-    <string name="improve_performance_summary">За по-добра производителност сортирането на групи се изключва, а задачите се свиват</string>
     <string name="auto_dismiss_datetime_list_summary">Затваряне след избор от списъка със задачи</string>
     <string name="shortcut_pick_time">Час по избор</string>
     <string name="wearable_notifications">Известия на носими устройства</string>

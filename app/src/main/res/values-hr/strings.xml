@@ -277,8 +277,6 @@
     <string name="tasks_org_description">Sinkroniziraj tvoje zadatke s Tasks.org</string>
     <string name="enter_tag_name">Upiši ime oznake</string>
     <string name="disable_sort_groups">Onemogući razvrstavanje po grupama</string>
-    <string name="improve_performance_summary">Onemogući razvrstavanje po grupama i sklapajuće podzadatke za poboljšavanje performance programa</string>
-    <string name="improve_performance">Poboljšaj performancu</string>
     <string name="enter_title_hint">Upiši naslov</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ne podržava višerazinske podzadatke</string>
     <string name="collapse_subtasks">Sklopi podzadatke</string>

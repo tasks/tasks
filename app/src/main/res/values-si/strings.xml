@@ -528,8 +528,6 @@
     <string name="create_new_tag">\"%s\" සාදන්න</string>
     <string name="enter_tag_name">ටැගයේ නම ඇතුළත් කරන්න</string>
     <string name="disable_sort_groups">වර්ග කිරීමේ කණ්ඩායම් අක්‍රීය කරන්න</string>
-    <string name="improve_performance_summary">යෙදුම් ක්‍රියාකාරිත්වය වැඩි දියුණු කිරීම සඳහා වර්ග කිරීමේ කණ්ඩායම් සහ හැකිලිය හැකි උප කාර්යයන් අක්‍රීය කරන්න</string>
-    <string name="improve_performance">කාර්ය සාධනය වැඩි දියුණු කරන්න</string>
     <string name="enter_title_hint">මාතෘකාව ඇතුළත් කරන්න</string>
     <string name="subtasks_multilevel_google_task">Google Tasks විසින් බහු මට්ටමේ උප කාර්යයන් සඳහා සහාය නොදක්වයි</string>
     <string name="collapse_subtasks">උප කාර්යයන් හකුළුවන්න</string>

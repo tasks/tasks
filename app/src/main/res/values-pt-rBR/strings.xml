@@ -461,8 +461,6 @@
     <string name="create_new_tag">Criar \"%s\"</string>
     <string name="enter_tag_name">Adicione nome da etiqueta</string>
     <string name="disable_sort_groups">Desabilitar ordenação em grupos</string>
-    <string name="improve_performance_summary">Desabilita ordenação em grupos e expansibilidade de sub-tarefas para melhorar a performance do aplicativo</string>
-    <string name="improve_performance">Melhore a performance</string>
     <string name="enter_title_hint">Adicione um título</string>
     <string name="subtasks_multilevel_google_task">Sub-tarefas em múltiplos níveis não suportado pelo Google Tasks</string>
     <string name="collapse_subtasks">Recolher sub-tarefas</string>

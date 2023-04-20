@@ -552,8 +552,6 @@
     <string name="today_lowercase">aujourd\'hui</string>
     <string name="sort_modified_group">Modifié %s</string>
     <string name="sort_created_group">Créé %s</string>
-    <string name="improve_performance_summary">Désactiver les groupes de tri et les sous-tâches repliables pour améliorer les performances de l\'application</string>
-    <string name="improve_performance">Améliorer les performances</string>
     <string name="open_last_viewed_list">Ouvrir la dernière liste consultée</string>
     <string name="on_launch">Au lancement</string>
     <string name="lists">Listes</string>

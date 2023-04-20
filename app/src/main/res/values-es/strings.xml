@@ -557,8 +557,6 @@
     <string name="today_lowercase">hoy</string>
     <string name="sort_modified_group">Modificado %s</string>
     <string name="sort_created_group">Creado %s</string>
-    <string name="improve_performance_summary">Deshabilitar grupos de clasificación y subtareas colapsables para mejorar el rendimiento de la aplicación</string>
-    <string name="improve_performance">Mejorar el rendimiento</string>
     <string name="open_last_viewed_list">Última lista vista abierta</string>
     <string name="on_launch">En lanzador</string>
     <string name="lists">Listas</string>

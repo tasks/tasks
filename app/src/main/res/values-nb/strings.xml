@@ -541,12 +541,10 @@
     <string name="lists">Lister</string>
     <string name="on_launch">Ved oppstart</string>
     <string name="enjoying_tasks">Liker du Tasks\?</string>
-    <string name="improve_performance">Forbedret ytelse</string>
     <string name="whats_new">Hva er nytt</string>
     <string name="CFC_list_name">På listen…</string>
     <string name="date_shortcut_tomorrow_evening">I morgen på kvelden</string>
     <string name="disable_sort_groups">Skru av sorteringsgrupper</string>
-    <string name="improve_performance_summary">Skru av sorteringsgrupper og sammenfoldbare gjøremålssteg for å forbedre programmets ytelse</string>
     <string name="action_new_task">Nytt gjøremål</string>
     <string name="permission_read_tasks">Full tilgang til Tasks-database</string>
     <string name="open_last_viewed_list">Åpne sist viste liste</string>

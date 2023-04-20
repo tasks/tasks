@@ -222,8 +222,6 @@
     <string name="create_new_tag">\"%s\" ஐ உருவாக்கவும்</string>
     <string name="enter_tag_name">குறிச்சொல் பெயரை உள்ளிடவும்</string>
     <string name="disable_sort_groups">வரிசை குழுக்களை முடக்கு</string>
-    <string name="improve_performance_summary">பயன்பாட்டு செயல்திறனை மேம்படுத்த வரிசை குழுக்கள் மற்றும் மடக்கக்கூடிய துணை பணிகளை முடக்கு</string>
-    <string name="improve_performance">செயல்திறனை மேம்படுத்தவும்</string>
     <string name="enter_title_hint">தலைப்பை உள்ளிடவும்</string>
     <string name="subtasks_multilevel_google_task">கூகிள் பணிகளால் பல நிலை துணை பணிகள் ஆதரிக்கப்படவில்லை</string>
     <string name="collapse_subtasks">துணை பணிகளைச் சுருக்கவும்</string>

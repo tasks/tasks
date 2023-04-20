@@ -622,8 +622,6 @@
     <string name="create_new_tag">Creați \"%s\"</string>
     <string name="enter_tag_name">Introduceți numele etichetei</string>
     <string name="disable_sort_groups">Dezactivați grupurile de sortare</string>
-    <string name="improve_performance_summary">Dezactivați grupurile de sortare și subactivitățile pliabile pentru a îmbunătăți performanța aplicației</string>
-    <string name="improve_performance">Îmbunătățirea performanței</string>
     <string name="enter_title_hint">Introduceți titlul</string>
     <string name="subtasks_multilevel_google_task">Subactivitățile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>
     <string name="collapse_subtasks">Colapsarea subactivităților</string>

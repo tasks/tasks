@@ -69,7 +69,6 @@ class TaskViewHolder internal constructor(
         setOnClickListener { onCompleteBoxClick() }
     }
     private val chipGroup: ComposeView = binding.chipGroup
-    private val pagedQueries: Boolean = preferences.usePagedQueries()
     private val alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate
     private val showGroupHeaders = preferences.showGroupHeaders()
 
@@ -243,7 +242,7 @@ class TaskViewHolder internal constructor(
                         place = task.location?.place,
                         list = task.caldav,
                         tagsString = task.tagsString,
-                        isSubtask = task.hasParent() && !pagedQueries,
+                        isSubtask = task.hasParent(),
                         isGoogleTask = task.isGoogleTask,
                         sortByStartDate = sortByStartDate,
                         sortByList = sortByList,

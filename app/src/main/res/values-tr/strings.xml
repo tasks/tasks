@@ -541,8 +541,6 @@
     <string name="yesterday_lowercase">dün</string>
     <string name="tomorrow_lowercase">yarın</string>
     <string name="today_lowercase">bugün</string>
-    <string name="improve_performance_summary">Sıra kümelerini ve açılır kapanır alt görevleri devre dışı bırakarak uygulama performansını iyileştir</string>
-    <string name="improve_performance">Performansı iyileştir</string>
     <string name="lists">Listeler</string>
     <string name="open_last_viewed_list">Son görülen listeyi aç</string>
     <string name="on_launch">Başlangıçta</string>

@@ -490,7 +490,6 @@
     <string name="about">متعلق</string>
     <string name="button_unsubscribe">سبسکرپسن کینسل کریں</string>
     <string name="manage_drawer">ڈریئر مینیج کریں</string>
-    <string name="improve_performance">کارکردگی کوبہتر بنائیں</string>
     <string name="enter_title_hint">عنوان لکھیں</string>
     <string name="subtasks_multilevel_google_task">کثیر الدرجی ذیلی ٹاسکس کو گوگل ٹاسکس سپورٹ نہیں کرتا</string>
     <string name="collapse_subtasks">ذیلی ٹاسکس کو بند کریں</string>
@@ -515,6 +514,5 @@
     <string name="create_new_tag">\"%s\" بنائیں</string>
     <string name="enter_tag_name">ٹیگ کا نام درج کریں</string>
     <string name="disable_sort_groups">گروپس کی ترتیب ختم کریں</string>
-    <string name="improve_performance_summary">گروپس کی ترتیب اور سب ٹاسکس کو ختم کر کے ایپ کی کارکردگی کو بہتر بنائیں</string>
     <string name="missing_permissions">حذف شدہ اجازتیں</string>
 </resources>

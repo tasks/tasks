@@ -9,7 +9,6 @@ import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.dao.Database
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.LocalBroadcastManager
 import org.tasks.PermissionUtil
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
@@ -37,7 +36,6 @@ class Advanced : InjectingPreferenceFragment() {
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
     @Inject lateinit var permissionRequester: FragmentPermissionRequestor
     @Inject lateinit var permissionChecker: PermissionChecker
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var vtodoCache: VtodoCache
 
     private lateinit var calendarReminderPreference: SwitchPreferenceCompat
@@ -45,12 +43,6 @@ class Advanced : InjectingPreferenceFragment() {
     override fun getPreferenceXml() = R.xml.preferences_advanced
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
-        findPreference(R.string.p_use_paged_queries)
-                .setOnPreferenceChangeListener { _: Preference?, _: Any? ->
-                    localBroadcastManager.broadcastRefresh()
-                    true
-                }
-
         findPreference(R.string.EPr_manage_delete_completed_gcal)
             .setOnPreferenceClickListener {
                 deleteCompletedEvents()

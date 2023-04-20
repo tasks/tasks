@@ -541,8 +541,6 @@
     <string name="yesterday_lowercase">gisteren</string>
     <string name="tomorrow_lowercase">morgen</string>
     <string name="today_lowercase">vandaag</string>
-    <string name="improve_performance_summary">Schakel sorteergroepen en inklapbare subtaken uit om de prestaties van de app te verbeteren</string>
-    <string name="improve_performance">Prestaties verbeteren</string>
     <string name="astrid_sort_order_summary">Pas Astrid\'s handmatige sorteermodus toe op \'Mijn taken\', \'Vandaag\', en Labels. Deze modus wordt in een komende versie vervangen door \'Mijn volgorde\'</string>
     <string name="astrid_sort_order">Astrid\'s handmatig sorteren</string>
     <string name="on_launch">Bij het starten</string>

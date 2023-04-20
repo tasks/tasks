@@ -558,8 +558,6 @@
     <string name="open_last_viewed_list">Otwórz ostatnio przeglądaną listę</string>
     <string name="on_launch">Przy uruchomieniu</string>
     <string name="disable_sort_groups">Wyłącz grupy sortowania</string>
-    <string name="improve_performance_summary">Wyłącz grupy sortowania oraz możliwość zwijania podzadań, aby zwiększyć wydajność aplikacji</string>
-    <string name="improve_performance">Popraw wydajność</string>
     <string name="date_shortcut_tomorrow_night">Jutro w nocy</string>
     <string name="date_shortcut_tomorrow_evening">Jutro wieczorem</string>
     <string name="CFC_list_name">Na liście…</string>

@@ -385,7 +385,6 @@
     <string name="choose_synchronization_service">選擇一個平臺</string>
     <string name="create_new_tag">建立 \"%s\"</string>
     <string name="enter_tag_name">輸入標籤名稱</string>
-    <string name="improve_performance">提升效能</string>
     <string name="enter_title_hint">輸入標題</string>
     <string name="collapse_subtasks">收起次工作</string>
     <string name="expand_subtasks">展開副工作</string>

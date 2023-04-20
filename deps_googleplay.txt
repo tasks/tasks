@@ -696,21 +696,6 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.20 -> 1.8.20 (*)
 +|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 (*)
 ++--- androidx.appcompat:appcompat:1.6.1 (*)
-++--- androidx.paging:paging-runtime:3.1.1
-+|    +--- androidx.paging:paging-common:3.1.1
-+|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.6.0 (*)
-+|    |    +--- androidx.arch.core:core-common:2.1.0 -> 2.2.0 (*)
-+|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.31 -> 1.8.20 (*)
-+|    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2 -> 1.6.4 (*)
-+|    +--- androidx.paging:paging-common-ktx:3.1.1
-+|    |    \--- androidx.paging:paging-common:3.1.1 (*)
-+|    +--- androidx.lifecycle:lifecycle-livedata-ktx:2.2.0 -> 2.6.1 (*)
-+|    +--- androidx.lifecycle:lifecycle-runtime-ktx:2.2.0 -> 2.6.1 (*)
-+|    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0 -> 2.6.1 (*)
-+|    +--- androidx.recyclerview:recyclerview:1.2.0 -> 1.3.0 (*)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.31 -> 1.8.20 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2 -> 1.6.4 (*)
-+|    \--- androidx.core:core-ktx:1.2.0 -> 1.9.0 (*)
 ++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.6.0 (*)
 +|    \--- com.atlassian.commonmark:commonmark:0.13.0

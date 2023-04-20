@@ -597,7 +597,6 @@
     <string name="now">今</string>
     <string name="choose_synchronization_service">プラットフォームを選択</string>
     <string name="enter_title_hint">タイトルを入力</string>
-    <string name="improve_performance_summary">グループの並び替えと展開式のサブタスクを無効にしてアプリのパフォーマンスを向上させます</string>
     <string name="upgrade_blurb_1">こんにちは！私は Alex です。Tasks のインディーディベロッパーです</string>
     <string name="no_google_play_subscription">対象の Google Play の定期購入がありません</string>
     <string name="price_per_year">$%s/年</string>
@@ -691,7 +690,6 @@
     <string name="more_settings">詳細設定</string>
     <string name="disable_battery_optimizations">バッテリー最適化を無効にする</string>
     <string name="disable_sort_groups">グループの並び替えを無効</string>
-    <string name="improve_performance">パフォーマンスを改善</string>
     <string name="background_location">バックグラウンド時の位置情報</string>
     <string name="above_average">平均以上</string>
     <string name="widget_on_click">クリック時</string>

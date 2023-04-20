@@ -539,11 +539,9 @@
     <string name="yesterday_lowercase">tegnap</string>
     <string name="tomorrow_lowercase">holnap</string>
     <string name="today_lowercase">ma</string>
-    <string name="improve_performance">Teljesítmény növelése</string>
     <string name="lists">Listák</string>
     <string name="open_last_viewed_list">Utoljára használt lista megnyitása</string>
     <string name="on_launch">Indításkor</string>
-    <string name="improve_performance_summary">Sorbarendezési csoportok és összecsukható alfeladatok letiltása az app teljesítményének növelése érdekében</string>
     <string name="astrid_sort_order_summary">Astrid egyéni sorbarendezés engedélyezése a \"Saját Feladatok\" és a \"Ma\" listákra illetve a címkékre. Ezt a sorbarendezési módot egy jövőbeni frissítésben fel fogja váltani a \"Saját sorrend\"</string>
     <string name="astrid_sort_order">Astrid egyéni sorbarendezés</string>
     <string name="disable_sort_groups">Sorbarendezési csoportok letiltása</string>

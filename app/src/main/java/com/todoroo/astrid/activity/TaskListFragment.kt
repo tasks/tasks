@@ -31,7 +31,6 @@ import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -143,7 +142,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     
     private val listViewModel: TaskListViewModel by viewModels()
     private lateinit var taskAdapter: TaskAdapter
-    private var recyclerAdapter: TaskListRecyclerAdapter? = null
+    private var recyclerAdapter: DragAndDropRecyclerAdapter? = null
     private lateinit var filter: Filter
     private var searchJob: Job? = null
     private lateinit var search: MenuItem
@@ -317,23 +316,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     private fun submitList(tasks: List<TaskContainer>) {
-        if (tasks is PagedList<TaskContainer>) {
-            if (recyclerAdapter !is PagedListRecyclerAdapter) {
-                setAdapter(
-                        PagedListRecyclerAdapter(
-                                taskAdapter, recyclerView, viewHolderFactory, this, tasks, preferences))
-                return
-            }
-        } else if (recyclerAdapter !is DragAndDropRecyclerAdapter) {
+        if (recyclerAdapter !is DragAndDropRecyclerAdapter) {
             setAdapter(
                     DragAndDropRecyclerAdapter(
                             taskAdapter, recyclerView, viewHolderFactory, this, tasks, preferences))
-            return
+        } else {
+            recyclerAdapter?.submitList(tasks)
         }
-        recyclerAdapter?.submitList(tasks)
     }
 
-    private fun setAdapter(adapter: TaskListRecyclerAdapter) {
+    private fun setAdapter(adapter: DragAndDropRecyclerAdapter) {
         recyclerAdapter = adapter
         recyclerView.adapter = adapter
         taskAdapter.setDataSource(adapter)
@@ -368,9 +360,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             sortMenu.isEnabled = false
             sortMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
         }
-        if (preferences.usePagedQueries()
-                || !filter.supportsSubtasks()
-                || taskAdapter.supportsAstridSorting()) {
+        if (!filter.supportsSubtasks() || taskAdapter.supportsAstridSorting()) {
             menu.findItem(R.id.menu_collapse_subtasks).isVisible = false
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }

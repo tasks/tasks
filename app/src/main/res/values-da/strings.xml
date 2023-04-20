@@ -175,9 +175,7 @@
     <string name="choose_synchronization_service">Vælg tjeneste</string>
     <string name="create_new_tag">Opret “%s”</string>
     <string name="enter_tag_name">Indtast tag</string>
-    <string name="improve_performance_summary">Slå sorteringsgrupper og sammenklappelige underopgaver fra for at forbedre appens ydeevne</string>
     <string name="disable_sort_groups">Slå sorteringsgrupper fra</string>
-    <string name="improve_performance">Forbedr ydeevne</string>
     <string name="enter_title_hint">Indtast titel</string>
     <string name="subtasks_multilevel_google_task">Flere niveauer af underopgaver understøttes ikke af Google Tasks</string>
     <string name="collapse_subtasks">Skjul underopgaver</string>

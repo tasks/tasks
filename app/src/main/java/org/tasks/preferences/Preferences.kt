@@ -530,10 +530,7 @@ class Preferences @JvmOverloads constructor(
     val defaultThemeColor: Int
         get() = getInt(R.string.p_theme_color, ColorProvider.BLUE_500)
 
-    override fun usePagedQueries(): Boolean = getBoolean(R.string.p_use_paged_queries, false)
-
-    fun showGroupHeaders(): Boolean =
-            !usePagedQueries() && !getBoolean(R.string.p_disable_sort_groups, false)
+    fun showGroupHeaders(): Boolean = !getBoolean(R.string.p_disable_sort_groups, false)
 
     val markdown: Boolean
         get() = getBoolean(R.string.p_markdown, false)

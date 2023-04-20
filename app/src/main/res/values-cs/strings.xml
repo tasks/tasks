@@ -502,7 +502,6 @@
     <string name="widget_do_nothing">Nic nedělat</string>
     <string name="widget_footer">Zápatí</string>
     <string name="widget_show_dividers">Zobrazit oddělovače</string>
-    <string name="improve_performance">Zlepšit výkon</string>
     <string name="whats_new">Co je nového</string>
     <string name="pick_this_location">Vybrat toto místo</string>
     <string name="choose_a_location">Vybrat místo</string>
@@ -525,7 +524,6 @@
     <string name="invalid_username_or_password">Neplatné uživatelské jméno nebo heslo</string>
     <string name="davx5_selection_description">Synchronizujte své úkoly pomocí aplikace DAVx⁵</string>
     <string name="disable_sort_groups">Zakázat třídící skupiny</string>
-    <string name="improve_performance_summary">Zakáže třídicí skupiny a rozbalitelné podúkoly a tím zlepší výkon aplikace</string>
     <string name="building_notifications">Vytvářejí se oznámení</string>
     <string name="got_it">Rozumím!</string>
     <string name="no_thanks">Ne, děkuji</string>

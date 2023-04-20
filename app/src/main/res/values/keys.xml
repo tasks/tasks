@@ -390,7 +390,6 @@
   <string name="preference_screen">preference_screen</string>
   <string name="p_add_to_top">google_tasks_add_to_top</string>
   <string name="p_google_tasks_position_hack">google_tasks_position_hack</string>
-  <string name="p_use_paged_queries">disable_subtasks</string>
   <string name="p_disable_sort_groups">disable_sort_groups</string>
   <string name="p_wearable_notifications">wearable_notifications</string>
   <string name="p_notified_oauth_error">notified_oauth_error_%1$s_%2$s</string>

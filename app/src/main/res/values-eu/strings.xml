@@ -544,10 +544,8 @@
     <string name="lists">Zerrendak</string>
     <string name="open_last_viewed_list">Ireki ikusitako azkenen zerrenda</string>
     <string name="on_launch">Abioan</string>
-    <string name="improve_performance">Hobetu errendimendua</string>
     <string name="astrid_sort_order">Eskuzko Astrid ordenatzea</string>
     <string name="disable_sort_groups">Desgaitu taldeak ordenatzea</string>
-    <string name="improve_performance_summary">Desgaitu taldeak ordenatzea eta azpi-zeregin tolesgarriak aplikazioaren errendimendua hobetzeko</string>
     <string name="astrid_sort_order_summary">Gaitu Astrid-eko eskuzko ordenatze modua \'Nire zereginak\', \'Gaur\', eta etiketentzako. Ordenatze modu honek \'Nire ordena\'-rekin ordezkatuko da etorkizuneko bertsio batean</string>
     <string name="reset_sort_order">Berrezarri ordenatze irizpidea</string>
     <string name="date_shortcut_tomorrow_night">Bihar gauez</string>

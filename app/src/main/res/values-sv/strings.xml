@@ -613,7 +613,6 @@
     <string name="tasks_org_description">Synkronisera dina uppgifter med Tasks.org</string>
     <string name="choose_synchronization_service">Välj en plattform</string>
     <string name="enter_tag_name">Ange taggnamn</string>
-    <string name="improve_performance">Förbättra prestanda</string>
     <string name="subtasks_multilevel_google_task">Deluppgifter på flera nivåer stöds inte av Google Tasks</string>
     <string name="collapse_subtasks">Fäll in deluppgifter</string>
     <string name="expand_subtasks">Fäll ut deluppgifter</string>
@@ -641,7 +640,6 @@
     <string name="copied_to_clipboard">%s kopierat till urklipp</string>
     <string name="app_password_save">Använd dessa uppgifter för att konfigurera en tredjepartsapp. De ger fullständig åtkomst till ditt Tasks.org-konto, skriv inte ner dem eller dela dem med någon!</string>
     <string name="disable_sort_groups">Inaktivera sorteringsgrupper</string>
-    <string name="improve_performance_summary">Inaktivera sorteringsgrupper och hopfällbara deluppgifter för att förbättra appens prestanda</string>
     <string name="background_location_permission_required">Tasks samlar in platsdata för att möjliggöra platsbaserade påminnelser, även när appen är stängd eller inte används.</string>
     <string name="repeat_monthly_fifth_week">femte</string>
     <string name="widget_show_dividers">Visa avdelare</string>

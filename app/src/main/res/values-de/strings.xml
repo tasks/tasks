@@ -541,11 +541,9 @@
     <string name="today_lowercase">heute</string>
     <string name="astrid_sort_order_summary">Astrids manuelle Sortiermethode für „Meine Aufgaben“, „Heute“ und Schlagwörter aktivieren. Diese Sortiermethode wird in einer zukünftigen Version „Meine Sortierung“ ersetzen</string>
     <string name="open_last_viewed_list">Zuletzt betrachtete Liste öffnen</string>
-    <string name="improve_performance_summary">Gruppensortierung und einklappbare Teilaufgaben deaktivieren, um die Anwendungsleistung zu verbessern</string>
     <string name="lists">Listen</string>
     <string name="on_launch">Beim Start</string>
     <string name="disable_sort_groups">Sortierung nach Gruppen deaktivieren</string>
-    <string name="improve_performance">Performance verbessern</string>
     <string name="CFC_list_name">In der Liste…</string>
     <string name="astrid_sort_order">Manuelle Sortierung nach Astrid</string>
     <string name="sort_modified_group">%s bearbeitet</string>

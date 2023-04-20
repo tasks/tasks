@@ -521,8 +521,6 @@
     <string name="choose_synchronization_service">בחירת פלטפורמה</string>
     <string name="enter_tag_name">נא למלא שם תגית</string>
     <string name="disable_sort_groups">השבתת מיון קבוצות</string>
-    <string name="improve_performance_summary">השבתת מיון קבוצות ותת־משימות מצטמצמות כדי לשפר את ביצועי היישומון</string>
-    <string name="improve_performance">שיפור הביצועים</string>
     <string name="subtasks_multilevel_google_task">תת־משימות מקוננות אינן נתמכות על ידי Google Tasks</string>
     <string name="widget_due_date_reschedule">לתזמן משימה מחדש</string>
     <string name="widget_open_list">לפתוח רשימה</string>

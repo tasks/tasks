@@ -531,8 +531,6 @@
     <string name="yesterday_lowercase">昨天</string>
     <string name="tomorrow_lowercase">明天</string>
     <string name="today_lowercase">今日</string>
-    <string name="improve_performance_summary">禁用排序组和可折叠子任务以改善应用程序性能</string>
-    <string name="improve_performance">改善性能</string>
     <string name="lists">列表</string>
     <string name="open_last_viewed_list">打开上次查看的列表</string>
     <string name="on_launch">启动时</string>

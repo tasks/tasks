@@ -368,7 +368,6 @@
     <string name="or_choose_a_location">Ou escolle unha posición</string>
     <string name="missing_permissions">Sen permisos</string>
     <string name="subtasks_multilevel_google_task">Gootle Tasks non acepta as subtarefas a múltiples niveis</string>
-    <string name="improve_performance_summary">Desactivar a ordenación dos grupos e as subtarefas encollibles para mellorar o rendemento do aplicativo</string>
     <string name="caldav_selection_description">Sincronización basada en estándares abertos de internet</string>
     <string name="tasks_org_description">Sincroniza as tarefas con Tasks.org</string>
     <string name="google_tasks_selection_description">Servizo básico que sincroniza coa túa conta de Google</string>
@@ -542,7 +541,6 @@
     <string name="google_tasks_add_to_top">Novas tarefas na cima</string>
     <string name="expand_subtasks">Desencoller as subtarefas</string>
     <string name="collapse_subtasks">Encoller as subtarefas</string>
-    <string name="improve_performance">Mellorar o rendemento</string>
     <string name="choose_synchronization_service">Escolle unha plataforma</string>
     <string name="etesync_selection_description">Sincronización con cifrado par a par</string>
     <string name="decsync_selection_description">Sincronización baseada en ficheiros</string>

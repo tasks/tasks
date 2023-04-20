@@ -182,8 +182,6 @@
     <string name="create_new_tag">สร้าง \"%s\"</string>
     <string name="enter_tag_name">ป้อนชื่อแท็ก</string>
     <string name="disable_sort_groups">ปิดใช้งานกลุ่มการเรียงลําดับ</string>
-    <string name="improve_performance_summary">ปิดใช้งานกลุ่มเรียงลําดับและงานย่อยแบบยุบได้เพื่อปรับปรุงประสิทธิภาพของแอป</string>
-    <string name="improve_performance">ปรับปรุงประสิทธิภาพ</string>
     <string name="enter_title_hint">ใส่ชื่อเรื่อง</string>
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
     <string name="collapse_subtasks">ยุบงานย่อย</string>

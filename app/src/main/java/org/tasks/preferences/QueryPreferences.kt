@@ -18,6 +18,4 @@ interface QueryPreferences {
     val completedTasksAtBottom: Boolean
 
     val sortCompletedByCompletionDate: Boolean
-
-    fun usePagedQueries(): Boolean
 }

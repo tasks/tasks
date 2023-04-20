@@ -295,11 +295,6 @@ public class WidgetPreferences implements QueryPreferences {
   }
 
   @Override
-  public boolean usePagedQueries() {
-    return preferences.usePagedQueries();
-  }
-
-  @Override
   public void setSortMode(int sortMode) {
     setInt(R.string.p_widget_sort, sortMode);
   }

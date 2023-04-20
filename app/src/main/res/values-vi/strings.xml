@@ -243,8 +243,6 @@
     <string name="create_new_tag">Tạo \"%s\"</string>
     <string name="enter_tag_name">Nhập tên thẻ</string>
     <string name="disable_sort_groups">Tắt các nhóm sắp xếp</string>
-    <string name="improve_performance_summary">Tắt các nhóm sắp xếp và công việc con có thể thu gọn để cải thiện hiệu năng ứng dụng</string>
-    <string name="improve_performance">Cải thiện hiệu năng</string>
     <string name="enter_title_hint">Nhập tiêu đề</string>
     <string name="subtasks_multilevel_google_task">Các công việc con có nhiều cấp không được Google Tasks hỗ trợ</string>
     <string name="collapse_subtasks">Thu gọn các công việc con</string>

@@ -39,7 +39,7 @@ object TaskListQuery {
             getRecursiveQuery(filter, preferences)
         filter.supportsAstridSorting() && preferences.isAstridSort ->
             getNonRecursiveQuery(filter, preferences)
-        filter.supportsSubtasks() && subtasks.usesSubtasks() && !preferences.usePagedQueries() ->
+        filter.supportsSubtasks() && subtasks.usesSubtasks() ->
             getRecursiveQuery(filter, preferences)
         else -> getNonRecursiveQuery(filter, preferences)
     }

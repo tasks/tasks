@@ -544,7 +544,6 @@
     <string name="email">Sähköposti</string>
     <string name="date_shortcut_tomorrow_night">Huomenna illalla</string>
     <string name="backups_ignore_warnings_summary">Jätä varmuuskopiointivaroitukset huomiotta, jos et tarvitse varmuuskopioita tai sinulla on oma varmuuskopiointiratkaisu</string>
-    <string name="improve_performance_summary">Poista lajitteluryhmät ja kokoontaitettavat osatehtävät käytöstä sovelluksen suorituskyvyn parantamiseksi</string>
     <plurals name="list_count">
         <item quantity="one">%d list</item>
         <item quantity="other">%d lista</item>
@@ -669,7 +668,6 @@
     <string name="social">Sosiaalinen</string>
     <string name="permission_read_tasks">Täysi pääsy Tehtävät-tietokantaan</string>
     <string name="reset_sort_order">Palauta järjestys</string>
-    <string name="improve_performance">Paranna suorituskykyä</string>
     <string name="background_location_permission_required">Tasks kerää sijaintitietoja, jotta se voi lähettää sijaintiin perustuvia muistutuksia, vaikka sovellus olisi suljettu tai sitä ei käytettäisi.</string>
     <string name="next_friday">Seuraava pe</string>
     <string name="next_tuesday">Seuraava ti</string>

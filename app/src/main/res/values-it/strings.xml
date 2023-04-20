@@ -508,7 +508,6 @@
     <string name="widget_show_menu">Mostra il menù</string>
     <string name="action_new_task">Nuova attività</string>
     <string name="add_tags">Aggiungi etichetta</string>
-    <string name="improve_performance_summary">Disabilita i gruppi di ordinamento e le attività secondarie per migliorare le prestazioni dell\'app</string>
     <string name="filter_eisenhower_box_4">Non importanti e non urgenti</string>
     <string name="filter_eisenhower_box_3">Non importanti e urgenti</string>
     <string name="filter_eisenhower_box_2">Importanti e non urgenti</string>
@@ -521,7 +520,6 @@
     <string name="auto_dismiss_datetime_list_summary">Chiudi automaticamente quando aperto dall\'elenco attività</string>
     <string name="auto_dismiss_datetime_list">Elenco attività</string>
     <string name="disable_sort_groups">Disabilita i gruppi di ordinamento</string>
-    <string name="improve_performance">Migliora le prestazioni</string>
     <string name="whats_new">Novità</string>
     <string name="widget_due_date_hidden">Nascosto</string>
     <string name="widget_due_date_below_title">Sotto il titolo</string>

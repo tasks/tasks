@@ -44,7 +44,6 @@ okhttp = "4.10.0"
 opentasks = "562fec5"
 osmdroid = "6.1.16"
 oss-licenses-plugin = "0.10.6"
-paging = "3.1.1"
 persistent-cookiejar = "1.0.1"
 play-billing-ktx = "4.1.0"
 play-core-ktx = "1.8.1"
@@ -81,7 +80,6 @@ androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
-androidx-paging = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 androidx-room = { module = "androidx.room:room-ktx", version.ref = "room" }
