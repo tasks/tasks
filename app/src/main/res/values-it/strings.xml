@@ -760,4 +760,5 @@
     <string name="consent_deny">Non ora</string>
     <string name="default_reminder">Promemoria predefinito</string>
     <string name="rmd_time_description">Mostra le notifiche per le attività senza scadenza</string>
+    <string name="sort_list">Per lista</string>
 </resources>
