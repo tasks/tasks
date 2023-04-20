@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
@@ -55,22 +54,6 @@ data class Place(
     @ColumnInfo(name = "radius", defaultValue = "250")
     val radius: Int = 250,
 ) : Serializable, Parcelable {
-    @Ignore
-    constructor(o: Place): this(
-        id = o.id,
-        uid = o.uid,
-        name = o.name,
-        address = o.address,
-        phone = o.phone,
-        url = o.url,
-        latitude = o.latitude,
-        longitude = o.longitude,
-        color = o.color,
-        icon = o.icon,
-        order = o.order,
-        radius = o.radius,
-    )
-
     val displayName: String
         get() {
             if (!Strings.isNullOrEmpty(name) && !COORDS.matcher(name!!).matches()) {
@@ -115,6 +98,5 @@ data class Place(
                 coordinates.toString()
             }
         }
-
     }
 }

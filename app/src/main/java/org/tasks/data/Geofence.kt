@@ -75,15 +75,6 @@ data class Geofence(
         isDeparture = departure,
     )
 
-    @Ignore
-    constructor(o: Geofence): this(
-        id = o.id,
-        task = o.task,
-        place = o.place,
-        isArrival = o.isArrival,
-        isDeparture = o.isDeparture,
-    )
-
     companion object {
         const val TABLE_NAME = "geofences"
         @JvmField val TABLE = Table(TABLE_NAME)
