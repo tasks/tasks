@@ -767,4 +767,5 @@
     <string name="consent_agree">Погоджуюся</string>
     <string name="rmd_time_description">Показувати сповіщення про завдання без запланованого часу</string>
     <string name="default_reminder">Типове нагадування</string>
+    <string name="sort_list">За списком</string>
 </resources>
