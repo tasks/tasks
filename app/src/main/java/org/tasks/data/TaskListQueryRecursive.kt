@@ -79,8 +79,8 @@ internal object TaskListQueryRecursive {
                 ${
                     if (sortMode == SortHelper.SORT_LIST) {
                         """
-                            LEFT JOIN caldav_tasks on cd_task = tasks._id AND cd_deleted = 0
-                            LEFT JOIN caldav_lists on cd_calendar = cdl_uuid
+                            INNER JOIN caldav_tasks on cd_task = tasks._id AND cd_deleted = 0
+                            INNER JOIN caldav_lists on cd_calendar = cdl_uuid
                         """.trimIndent()
                     } else {
                         ""
