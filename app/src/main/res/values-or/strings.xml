@@ -1,2 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <plurals name="repeat_minutes">
+        <item quantity="one">ମିନିଟ୍</item>
+        <item quantity="other">ମିନିଟ୍</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">ଘଣ୍ଟା</item>
+        <item quantity="other">ଘଣ୍ଟା</item>
+    </plurals>
+    <string name="TEA_timer_controls">ସମୟ-ନିୟାମକ</string>
+    <string name="tomorrow">ଆସନ୍ତାକାଲି</string>
+    <string name="next_monday">ଆସନ୍ତା ସୋମ</string>
+    <string name="color">ରଙ୍ଗ</string>
+    <string name="next_saturday">ଆସନ୍ତା ଶନି</string>
+    <string name="widget_show_settings">ସେଟିଂ ଦେଖାଅ</string>
+    <string name="SSD_sort_importance">ପ୍ରାଥମିକତା ଅନୁଯାୟୀ</string>
+    <string name="TLA_menu_sort">ସଜାନ୍ତୁ</string>
+    <string name="TLA_menu_search">ସନ୍ଧାନ</string>
+    <string name="TLA_menu_settings">ସେଟିଂ</string>
+    <string name="TAd_actionEditTask">ସମ୍ପାଦନା</string>
+    <string name="SSD_sort_alpha">ଆଖ୍ୟା ଅନୁଯାୟୀ</string>
+    <string name="sort_list">ତାଲିକା ଅନୁଯାୟୀ</string>
+    <string name="sort_created">ସୃଷ୍ଟି ସମୟ ଅନୁଯାୟୀ</string>
+    <string name="TEA_control_gcal">କ୍ୟାଲେଣ୍ଡର</string>
+    <string name="TEA_control_importance">ପ୍ରାଥମିକତା</string>
+    <string name="TEA_control_notes">ଵର୍ଣ୍ଣନା</string>
+    <string name="repeat_option_every_day">ପ୍ରତିଦିନ</string>
+    <string name="repeat_option_every_week">ପ୍ରତି ସପ୍ତାହ</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">ମିନିଟ୍</item>
+        <item quantity="other">ମିନିଟ୍</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">ଘଣ୍ଟା</item>
+        <item quantity="other">ଘଣ୍ଟା</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%d ମିନିଟ୍</item>
+        <item quantity="other">%d ମିନିଟ୍</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%d ଦିନ</item>
+        <item quantity="other">%d ଦିନ</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">ସପ୍ତାହ</item>
+        <item quantity="other">ସପ୍ତାହ</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">ଦିନ</item>
+        <item quantity="other">ଦିନ</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">ଦିନ</item>
+        <item quantity="other">ଦିନ</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%d ମାସ</item>
+        <item quantity="other">%d ମାସ</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">ମାସ</item>
+        <item quantity="other">ମାସ</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">ଵର୍ଷ</item>
+        <item quantity="other">ଵର୍ଷ</item>
+    </plurals>
+    <string name="now">ଏବେ</string>
+    <string name="today">ଆଜି</string>
+    <string name="today_lowercase">ଆଜି</string>
+    <string name="tomorrow_lowercase">ଆସନ୍ତାକାଲି</string>
+    <string name="yesterday">ଗତକାଲି</string>
+    <string name="yesterday_lowercase">ଗତକାଲି</string>
+    <string name="next_sunday">ଆସନ୍ତା ରଵି</string>
+    <string name="next_tuesday">ଆସନ୍ତା ମଙ୍ଗଳ</string>
+    <string name="next_wednesday">ଆସନ୍ତା ବୁଧ</string>
+    <string name="next_thursday">ଆସନ୍ତା ଗୁରୁ</string>
+    <string name="next_friday">ଆସନ୍ତା ଶୁକ୍ର</string>
+    <string name="widget_show_dividers">ଵିଭାଜକ ଦେଖାଅ</string>
+    <string name="TLA_menu_donate">ଦାନ କରନ୍ତୁ</string>
+    <string name="date_shortcut_morning">ସକାଳ</string>
+    <string name="date_shortcut_afternoon">ଅପରାହ୍ଣ</string>
+    <string name="date_shortcut_evening">ସଞ୍ଜ</string>
+    <string name="date_shortcut_night">ରାତି</string>
+    <string name="date_shortcut_tomorrow_evening">ଆସନ୍ତାକାଲି ସଞ୍ଜ</string>
+    <string name="date_shortcut_tomorrow_night">ଆସନ୍ତାକାଲି ରାତି</string>
+    <string name="date_shortcut_tomorrow_morning">ଆସନ୍ତାକାଲି ସକାଳ</string>
+    <string name="filters">ଶୋଧକ</string>
+    <string name="name_cannot_be_empty">ନାମ ଖାଲି ଛଡ଼ା ଯାଇପାରିବ ନାହିଁ</string>
+    <string name="password_required">ପାସ୍‍ୱର୍ଡ଼ ଆଵଶ୍ୟକ</string>
+    <string name="url_required">URL ଆଵଶ୍ୟକ</string>
+    <string name="theme">ଥିମ୍</string>
+    <string name="theme_light">ହାଲୁକା</string>
+    <string name="theme_dark">ଗାଢ଼</string>
+    <string name="theme_day_night">ଦିନ/ରାତି</string>
+    <string name="widget_do_nothing">କିଛି କରନ୍ତୁନି</string>
+    <string name="date_and_time">ତାରିଖ ଓ ସମୟ</string>
+    <string name="start_of_week">ସପ୍ତାହ ଆରମ୍ଭ</string>
+    <string name="user">ଉପଭୋକ୍ତା</string>
+    <string name="password">ପାସ୍‍ୱର୍ଡ଼</string>
+    <string name="url">URL</string>
+    <string name="error_adding_account">ତ୍ରୁଟି: %s</string>
+    <string name="repeats_hourly">ପ୍ରତି ଘଣ୍ଟା</string>
+    <string name="repeat_monthly_second_week">ଦ୍ୱିତୀୟ</string>
+    <string name="repeat_monthly_third_week">ତୃତୀୟ</string>
+    <string name="repeat_monthly_fourth_week">ଚତୁର୍ଥ</string>
+    <string name="help">ସହାୟତା</string>
+    <string name="help_and_feedback">ସାହାଯ୍ୟ ଓ ମତାମତ</string>
+    <string name="version_string">ସଂସ୍କରଣ %s</string>
+    <string name="enter_title_hint">ଆଖ୍ୟା ପ୍ରଵେଶ କରନ୍ତୁ</string>
+    <string name="preferences_advanced">ଵିକଶିତ</string>
+    <string name="more_settings">ଅଧିକ ସେଟିଂ</string>
+    <string name="custom_filter_or">କିମ୍ବା</string>
+    <string name="device_settings">ଡିଵାଇସ୍ ସେଟିଂ</string>
+    <string name="open_source">ଖୋଲା ଉତ୍ସ</string>
+    <string name="invite">ନିମନ୍ତ୍ରଣ ପଠାଇବା</string>
+    <string name="invite_invalid">ନିମନ୍ତ୍ରଣ ଅମାନ୍ୟ ଅଟେ</string>
+    <string name="picker_mode_calendar">କ୍ୟାଲେଣ୍ଡର</string>
+    <string name="picker_mode_clock">ଘଡ଼ି</string>
+    <string name="widget_show_title">ଆଖ୍ୟା ଦେଖାଅ</string>
+    <string name="SSD_sort_my_order">ମୋର କ୍ରମ</string>
+    <string name="SSD_sort_start">ଆରମ୍ଭ ତାରିଖ ଅନୁଯାୟୀ</string>
+    <string name="SSD_sort_modified">ଗତ ସଂଶୋଧନ ଅନୁଯାୟୀ</string>
+    <string name="FLA_new_filter">ନୂଆ ଶୋଧକ ସୃଷ୍ଟି କରିବା</string>
+    <string name="TEA_note_label">ଵର୍ଣ୍ଣନା</string>
+    <string name="TEA_importance_label">ପ୍ରାଥମିକତା</string>
+    <string name="default_random_reminder_hourly">ପ୍ରତି ଘଣ୍ଟା</string>
+    <string name="repeat_every">ପ୍ରତ୍ୟେକ</string>
+    <string name="repeat_option_every_year">ପ୍ରତିଵର୍ଷ</string>
+    <string name="repeat_option_every_month">ପ୍ରତି ମାସ</string>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%d ଘଣ୍ଟା</item>
+        <item quantity="other">%d ଘଣ୍ଟା</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">ସପ୍ତାହ</item>
+        <item quantity="other">ସପ୍ତାହ</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%d ଵର୍ଷ</item>
+        <item quantity="other">%d ଵର୍ଷ</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%d ସପ୍ତାହ</item>
+        <item quantity="other">%d ସପ୍ତାହ</item>
+    </plurals>
+    <plurals name="repeat_times">
+        <item quantity="one">ଥର</item>
+        <item quantity="other">ଥର</item>
+    </plurals>
+    <string name="widget_show_menu">ମେନୁ ଦେଖାଅ</string>
+    <string name="translations">ଅନୁଵାଦରେ ଯୋଗଦାନ କରନ୍ତୁ</string>
+    <string name="privacy_policy">ଗୋପନୀୟତା ନୀତି</string>
+    <string name="date_shortcut_hour">ଘଣ୍ଟାଏ ପାଇଁ</string>
+    <string name="date_shortcut_tomorrow_afternoon">ଆସନ୍ତାକାଲି ଅପରାହ୍ଣ</string>
+    <string name="username_required">ଉପଭୋକ୍ତା ନାମ ଆଵଶ୍ୟକ</string>
+    <string name="url_invalid_scheme">http(s):// ସହ ଆରମ୍ଭ ହେବା ଦରକାର</string>
+    <string name="theme_black">କଳା</string>
+    <string name="language">ଭାଷା</string>
+    <string name="theme_system_default">ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ</string>
+    <string name="restart_later">ପରେ</string>
+    <string name="led_notification">LED ଵିଜ୍ଞପ୍ତି</string>
+    <string name="widget_due_date_after_title">ଆଖ୍ୟା ପରେ</string>
+    <string name="widget_due_date_below_title">ଆଖ୍ୟା ତଳେ</string>
+    <string name="repeats_minutely">ପ୍ରତି ମିନିଟ୍</string>
+    <string name="repeat_monthly_first_week">ପ୍ରଥମ</string>
+    <string name="repeat_monthly_fifth_week">ପଞ୍ଚମ</string>
+    <string name="network_error">ସଂଯୋଗ କରିହେଲା ନାହିଁ</string>
+    <string name="about">ଵିଷୟରେ</string>
+    <string name="show_description">ଵର୍ଣ୍ଣନା ଦେଖାଅ</string>
+    <string name="show_full_description">ସମ୍ପୂର୍ଣ୍ଣ ଵର୍ଣ୍ଣନା ଦେଖାଅ</string>
+    <string name="preferences_look_and_feel">ରୂପ ଏଵଂ ଅନୁଭଵ</string>
+    <string name="color_wheel">ରଙ୍ଗ ଚକ୍ର</string>
+    <string name="custom_filter_and">ଏଵଂ</string>
+    <string name="filter_overdue">ଅତିଦେୟ</string>
+    <string name="no_thanks">ନାହିଁ ଥାଉ</string>
+    <string name="got_it">ବୁଝିଗଲି!</string>
+    <string name="last_backup">ଗତ ବ୍ୟାକଅପ୍: %s</string>
+    <string name="invite_awaiting_response">ନିମନ୍ତ୍ରଣ ପ୍ରତିକ୍ରିୟାର ଅପେକ୍ଷାରେ</string>
+    <string name="consent_agree">ସହମତ</string>
+    <string name="TVA_add_comment">ଏକ ମନ୍ତଵ୍ୟ ଯୋଡ଼ନ୍ତୁ…</string>
+    <string name="social">ସାମାଜିକ</string>
+    <string name="github_sponsor">ପ୍ରାୟୋଜକ</string>
+    <string name="invite_declined">ନିମନ୍ତ୍ରଣ ପ୍ରତ୍ୟାଖ୍ୟାନ ହୋଇଛି</string>
+    <string name="more_options">ଅଧିକ ଵିକଳ୍ପ</string>
+    <string name="support">ସମର୍ଥନ</string>
+    <string name="consent_deny">ଏବେ ନୁହେଁ</string>
+    <string name="privacy">ଗୋପନୀୟତା</string>
+    <string name="app_password">ଆପ୍ ପାସ୍‍ୱର୍ଡ଼</string>
+    <string name="email">ଇମେଲ୍</string>
+    <string name="app_passwords">ଆପ୍ ପାସ୍‍ୱର୍ଡ଼</string>
+</resources>
