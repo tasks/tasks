@@ -388,20 +388,18 @@
 +|    +--- com.google.firebase:firebase-abt:21.1.1 (*)
 +|    +--- com.google.firebase:firebase-installations-interop:17.1.0 (*)
 +|    \--- androidx.annotation:annotation:1.1.0 -> 1.6.0 (*)
-++--- com.google.android.gms:play-services-location:19.0.1
-+|    +--- com.google.android.gms:play-services-base:18.0.1
+++--- com.google.android.gms:play-services-location:21.0.1
++|    +--- com.google.android.gms:play-services-base:18.1.0
 +|    |    +--- androidx.collection:collection:1.0.0 -> 1.2.0 (*)
 +|    |    +--- androidx.core:core:1.2.0 -> 1.9.0 (*)
 +|    |    +--- androidx.fragment:fragment:1.0.0 -> 1.5.7 (*)
-+|    |    +--- com.google.android.gms:play-services-basement:18.0.0 -> 18.1.0 (*)
-+|    |    \--- com.google.android.gms:play-services-tasks:18.0.1 -> 18.0.2 (*)
-+|    +--- com.google.android.gms:play-services-basement:18.0.0 -> 18.1.0 (*)
-+|    +--- com.google.android.gms:play-services-places-placereport:17.0.0
-+|    |    \--- com.google.android.gms:play-services-basement:17.0.0 -> 18.1.0 (*)
-+|    \--- com.google.android.gms:play-services-tasks:18.0.1 -> 18.0.2 (*)
++|    |    +--- com.google.android.gms:play-services-basement:18.1.0 (*)
++|    |    \--- com.google.android.gms:play-services-tasks:18.0.2 (*)
++|    +--- com.google.android.gms:play-services-basement:18.1.0 (*)
++|    \--- com.google.android.gms:play-services-tasks:18.0.2 (*)
 ++--- com.google.android.gms:play-services-maps:18.1.0
 +|    +--- androidx.fragment:fragment:1.0.0 -> 1.5.7 (*)
-+|    +--- com.google.android.gms:play-services-base:18.0.1 (*)
++|    +--- com.google.android.gms:play-services-base:18.0.1 -> 18.1.0 (*)
 +|    \--- com.google.android.gms:play-services-basement:18.0.0 -> 18.1.0 (*)
 ++--- com.android.billingclient:billing-ktx:4.1.0
 +|    +--- com.android.billingclient:billing:4.1.0
@@ -462,7 +460,7 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.10 -> 1.8.20 (*)
 +|    |    \--- androidx.appcompat:appcompat-resources:1.6.1 (c)
 +|    +--- androidx.loader:loader:1.0.0 (*)
-+|    +--- com.google.android.gms:play-services-base:18.0.1 (*)
++|    +--- com.google.android.gms:play-services-base:18.0.1 -> 18.1.0 (*)
 +|    +--- com.google.android.gms:play-services-basement:18.0.0 -> 18.1.0 (*)
 +|    \--- com.google.android.gms:play-services-tasks:18.0.1 -> 18.0.2 (*)
 ++--- org.jetbrains.kotlin:kotlin-parcelize-runtime:1.8.20

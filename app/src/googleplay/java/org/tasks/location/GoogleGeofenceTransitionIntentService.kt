@@ -19,7 +19,7 @@ class GoogleGeofenceTransitionIntentService : InjectingJobIntentService() {
     @Inject lateinit var notifier: Notifier
 
     override suspend fun doWork(intent: Intent) {
-        val geofencingEvent = GeofencingEvent.fromIntent(intent)
+        val geofencingEvent = GeofencingEvent.fromIntent(intent) ?: return
         if (geofencingEvent.hasError()) {
             Timber.e("geofence error code %s", geofencingEvent.errorCode)
             return
@@ -28,7 +28,7 @@ class GoogleGeofenceTransitionIntentService : InjectingJobIntentService() {
         val triggeringGeofences = geofencingEvent.triggeringGeofences
         Timber.i("Received geofence transition: %s, %s", transitionType, triggeringGeofences)
         if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER || transitionType == Geofence.GEOFENCE_TRANSITION_EXIT) {
-            triggeringGeofences.forEach {
+            triggeringGeofences?.forEach {
                 triggerNotification(it, transitionType == Geofence.GEOFENCE_TRANSITION_ENTER)
             }
         } else {
