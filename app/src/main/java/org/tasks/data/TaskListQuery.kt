@@ -16,9 +16,9 @@ object TaskListQuery {
             Task.ID.eq(field("${TaskListFragment.CALDAV_METADATA_JOIN}.cd_task")),
             field("${TaskListFragment.CALDAV_METADATA_JOIN}.cd_deleted").eq(0))
     val JOINS = """
-        ${Join.inner(CaldavTask.TABLE.`as`(TaskListFragment.CALDAV_METADATA_JOIN), JOIN_CALDAV)}
-        ${Join.inner(CaldavCalendar.TABLE, field("${TaskListFragment.CALDAV_METADATA_JOIN}.cd_calendar").eq(CaldavCalendar.UUID))}
-        ${Join.inner(CaldavAccount.TABLE, CaldavCalendar.ACCOUNT.eq(CaldavAccount.UUID))}
+        ${Join.left(CaldavTask.TABLE.`as`(TaskListFragment.CALDAV_METADATA_JOIN), JOIN_CALDAV)}
+        ${Join.left(CaldavCalendar.TABLE, field("${TaskListFragment.CALDAV_METADATA_JOIN}.cd_calendar").eq(CaldavCalendar.UUID))}
+        ${Join.left(CaldavAccount.TABLE, CaldavCalendar.ACCOUNT.eq(CaldavAccount.UUID))}
         ${Join.left(Geofence.TABLE, Geofence.TASK.eq(Task.ID))}
         ${Join.left(Place.TABLE, Place.UID.eq(Geofence.PLACE))}
     """.trimIndent()

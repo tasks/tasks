@@ -5,6 +5,7 @@ import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
@@ -37,6 +38,7 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var taskMover: TaskMover
 
     private lateinit var adapter: GoogleTaskManualSortAdapter
     private val tasks = ArrayList<TaskContainer>()
@@ -415,7 +417,7 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
         tasks.clear()
-        adapter = GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager)
+        adapter = GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
         adapter.setDataSource(dataSource)
     }
 

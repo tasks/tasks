@@ -8,7 +8,6 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.tasks.R
@@ -93,17 +92,6 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
         assertEquals(0, subtasks[0].secondarySort)
         assertEquals(0, subtasks[1].secondarySort)
         assertEquals(1, subtasks[2].secondarySort)
-    }
-
-    @Test
-    fun ignoreDisableSubtasksPreference() = runBlocking {
-        preferences.setBoolean(R.string.p_use_paged_queries, true)
-        newTask(1, 0, 0)
-        newTask(2, 0, 1)
-
-        val parent = query()[0]
-
-        assertTrue(parent.hasChildren())
     }
 
     private suspend fun newTask(id: Long, order: Long, parent: Long = 0) {

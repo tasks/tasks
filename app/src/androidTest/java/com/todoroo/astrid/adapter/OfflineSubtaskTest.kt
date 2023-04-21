@@ -7,6 +7,7 @@ import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
@@ -33,6 +34,7 @@ class OfflineSubtaskTest : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var taskMover: TaskMover
 
     private lateinit var adapter: TaskAdapter
     private val tasks = ArrayList<TaskContainer>()
@@ -48,7 +50,7 @@ class OfflineSubtaskTest : InjectingTestCase() {
         super.setUp()
         preferences.clear()
         tasks.clear()
-        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager)
+        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
         adapter.setDataSource(dataSource)
     }
 
