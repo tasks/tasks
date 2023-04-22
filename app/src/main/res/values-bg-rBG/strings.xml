@@ -69,7 +69,7 @@
     <string name="CRA_calendar_reminders_pref_title">Асистент за календара</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ще ви напомня за предстоящи събития в календара и ще ви подканва да се подготвите за тях</string>
     <string name="CRA_default_list_name">План за действие: %s</string>
-    <string name="none">Няма</string>
+    <string name="none">Без</string>
     <string name="EPr_edit_screen_options">Настройки на екрана за редактиране</string>
     <string name="EPr_beastMode_reset">Подразбирани настройки</string>
     <string name="EPr_fullTask_title">Пълно заглавие на задачата</string>
@@ -545,9 +545,9 @@
     <string name="choose_synchronization_service">Избор на услуга</string>
     <string name="enter_title_hint">Въведете заглавие</string>
     <string name="subtasks_multilevel_google_task">Вложени задачи не се поддържат от Google Tasks</string>
-    <string name="widget_on_click">При щракване</string>
+    <string name="widget_on_click">При докосване</string>
     <string name="whats_new">Какво е новото</string>
-    <string name="no_app_found">Няма приложение, което да обработи тази заявка</string>
+    <string name="no_app_found">Липсва приложение, което да обработи тази заявка</string>
     <string name="etesync_selection_description">Синхронизация, шифрована от край до край</string>
     <string name="preferences_look_and_feel">Външен вид и усещане</string>
     <string name="troubleshooting">Отстраняване на неизправности</string>
@@ -699,7 +699,7 @@
     <string name="alarm_before_start">%s преди началото</string>
     <string name="completed">Завършена</string>
     <string name="customize_edit_screen_summary">Подреждане или премахване на полета</string>
-    <string name="compact">Компактен</string>
+    <string name="compact">Компакт</string>
     <string name="no_google_play_subscription">Не е намерен подходящ абонамент от Google Play</string>
     <string name="authentication_required">Необходимо е удостоверяване</string>
     <string name="upgrade_tasks_org_account_description">Синхронизирайте с Tasks.org и си сътрудничете с други потребители</string>
@@ -739,4 +739,5 @@
     <string name="consent_deny">Не сега</string>
     <string name="default_reminder">Напомняне по подразбиране</string>
     <string name="rmd_time_description">Показват се известия за задачите без краен час</string>
+    <string name="sort_list">По списък</string>
 </resources>
