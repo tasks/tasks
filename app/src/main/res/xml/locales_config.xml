@@ -38,6 +38,7 @@
     <locale android:name="ml" />
     <locale android:name="nb" />
     <locale android:name="nl" />
+    <locale android:name="or" />
     <locale android:name="pl" />
     <locale android:name="pt" />
     <locale android:name="pt-rBR" />
