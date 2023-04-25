@@ -34,7 +34,7 @@ class CaldavManualSortTaskAdapter internal constructor(
             indent == previous.indent -> previous.caldavSortOrder + 1
             else -> getTask((to - 1 downTo 0).find { getTask(it).indent == indent }!!).caldavSortOrder + 1
         }
-        caldavDao.move(task, newParent, newPosition)
+        caldavDao.move(task, oldParent, newParent, newPosition)
         taskDao.touch(task.id)
         localBroadcastManager.broadcastRefresh()
     }
