@@ -66,7 +66,7 @@ class CommentBarFragment : Fragment() {
         commentField.setHorizontallyScrolling(false)
         commentField.maxLines = Int.MAX_VALUE
         if (
-            preferences.getBoolean(R.string.p_show_task_edit_comments, true) &&
+            preferences.getBoolean(R.string.p_show_task_edit_comments, false) &&
             viewModel.isWritable
         ) {
             commentBar.visibility = View.VISIBLE

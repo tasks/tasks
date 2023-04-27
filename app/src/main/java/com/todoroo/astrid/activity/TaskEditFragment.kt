@@ -264,7 +264,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                             Divider(modifier = Modifier.fillMaxWidth())
                         }
                     }
-                    if (preferences.getBoolean(R.string.p_show_task_edit_comments, true)) {
+                    if (preferences.getBoolean(R.string.p_show_task_edit_comments, false)) {
                         Comments()
                     }
                 }
