@@ -24,7 +24,12 @@ import com.todoroo.andlib.sql.UnaryCriterion
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.api.*
+import com.todoroo.astrid.api.BooleanCriterion
+import com.todoroo.astrid.api.CustomFilter
+import com.todoroo.astrid.api.CustomFilterCriterion
+import com.todoroo.astrid.api.MultipleSelectCriterion
+import com.todoroo.astrid.api.PermaSql
+import com.todoroo.astrid.api.TextInputCriterion
 import com.todoroo.astrid.core.CriterionInstance
 import com.todoroo.astrid.core.CustomFilterAdapter
 import com.todoroo.astrid.core.CustomFilterItemTouchHelper
@@ -42,7 +47,7 @@ import org.tasks.db.QueryUtils
 import org.tasks.extensions.Context.openUri
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.themes.CustomIcons
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.max
 
@@ -73,17 +78,20 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         }
         when {
             savedInstanceState != null -> lifecycleScope.launch {
-                setCriteria(CriterionInstance.fromString(
-                        filterCriteriaProvider, savedInstanceState.getString(EXTRA_CRITERIA)!!))
+                setCriteria(
+                    filterCriteriaProvider.fromString(
+                        savedInstanceState.getString(EXTRA_CRITERIA)!!
+                    )
+                )
             }
             filter != null -> lifecycleScope.launch {
-                setCriteria(CriterionInstance.fromString(
-                        filterCriteriaProvider, filter!!.criterion))
+                setCriteria(filterCriteriaProvider.fromString(filter!!.criterion))
             }
             intent.hasExtra(EXTRA_CRITERIA) -> lifecycleScope.launch {
                 name.setText(intent.getStringExtra(EXTRA_TITLE))
-                setCriteria(CriterionInstance.fromString(
-                        filterCriteriaProvider, intent.getStringExtra(EXTRA_CRITERIA)!!))
+                setCriteria(
+                    filterCriteriaProvider.fromString(intent.getStringExtra(EXTRA_CRITERIA)!!)
+                )
             }
             else -> setCriteria(universe())
         }
@@ -233,12 +241,12 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             f.title = newName
             f.setColor(selectedColor)
             f.setIcon(selectedIcon)
-            f.values = AndroidUtilities.mapToSerializedString(values)
+            f.values = AndroidUtilities.mapToSerializedString(criteria.values)
             f.criterion = CriterionInstance.serialize(criteria)
             if (f.criterion.isNullOrBlank()) {
                 throw RuntimeException("Criterion cannot be empty")
             }
-            f.setSql(sql)
+            f.setSql(criteria.sql)
             if (isNew) {
                 f.id = filterDao.insert(f)
             } else {
@@ -267,8 +275,8 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 || selectedColor != filter!!.tint
                 || selectedIcon != filter!!.icon
                 || CriterionInstance.serialize(criteria) != filter!!.criterion.trim()
-                || values != filter!!.valuesForNewTasks
-                || sql != filter!!.originalSqlQuery
+                || criteria.values != filter!!.valuesForNewTasks
+                || criteria.sql != filter!!.originalSqlQuery
     }
 
     override fun finish() {
@@ -314,10 +322,6 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         val sql = StringBuilder(Query.select(Field.COUNT).from(Task.TABLE).toString())
                 .append(" WHERE ")
         for (instance in criteria) {
-            var value = instance.valueFromCriterion
-            if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?")) {
-                value = ""
-            }
             when (instance.type) {
                 CriterionInstance.TYPE_ADD -> sql.append("OR ")
                 CriterionInstance.TYPE_SUBTRACT -> sql.append("AND NOT ")
@@ -328,7 +332,10 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             if (instance.type == CriterionInstance.TYPE_UNIVERSE || instance.criterion.sql == null) {
                 sql.append(activeAndVisible()).append(' ')
             } else {
-                var subSql: String? = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value!!))
+                var subSql: String? = instance.criterion.sql.replace(
+                    "?",
+                    UnaryCriterion.sanitize(instance.valueFromCriterion!!)
+                )
                 subSql = PermaSql.replacePlaceholdersForQuery(subSql)
                 sql.append(Task.ID).append(" IN (").append(subSql).append(")")
             }
@@ -347,57 +354,48 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         adapter.submitList(criteria)
     }
 
-    private fun getValue(instance: CriterionInstance): String? {
-        var value = instance.valueFromCriterion
-        if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?")) {
-            value = ""
-        }
-        return value
-    }
-
-    // special code for all tasks universe
-    private val sql: String
-        get() {
-            val sql = StringBuilder(" WHERE ")
-            for (instance in criteria) {
-                val value = getValue(instance)
-                when (instance.type) {
-                    CriterionInstance.TYPE_ADD -> sql.append(" OR ")
-                    CriterionInstance.TYPE_SUBTRACT -> sql.append(" AND NOT ")
-                    CriterionInstance.TYPE_INTERSECT -> sql.append(" AND ")
-                }
-
-                // special code for all tasks universe
-                if (instance.type == CriterionInstance.TYPE_UNIVERSE || instance.criterion.sql == null) {
-                    sql.append(activeAndVisible())
-                } else {
-                    val subSql = instance.criterion.sql
-                            .replace("?", UnaryCriterion.sanitize(value!!))
-                            .trim()
-                    sql.append(Task.ID).append(" IN (").append(subSql).append(")")
-                }
-            }
-            return sql.toString()
-        }
-
-    private val values: Map<String, Any>
-        get() {
-            val values: MutableMap<String, Any> = HashMap()
-            for (instance in criteria) {
-                val value = getValue(instance)
-                if (instance.criterion.valuesForNewTasks != null
-                        && instance.type == CriterionInstance.TYPE_INTERSECT) {
-                    for ((key, value1) in instance.criterion.valuesForNewTasks) {
-                        values[key.replace("?", value!!)] = value1.toString().replace("?", value)
-                    }
-                }
-            }
-            return values
-        }
-
     companion object {
         const val TOKEN_FILTER = "token_filter"
         const val EXTRA_TITLE = "extra_title"
         const val EXTRA_CRITERIA = "extra_criteria"
+
+        val List<CriterionInstance>.sql: String
+            get() {
+                val sql = StringBuilder(" WHERE ")
+                for (instance in this) {
+                    val value = instance.valueFromCriterion
+                    when (instance.type) {
+                        CriterionInstance.TYPE_ADD -> sql.append(" OR ")
+                        CriterionInstance.TYPE_SUBTRACT -> sql.append(" AND NOT ")
+                        CriterionInstance.TYPE_INTERSECT -> sql.append(" AND ")
+                    }
+
+                    // special code for all tasks universe
+                    if (instance.type == CriterionInstance.TYPE_UNIVERSE || instance.criterion.sql == null) {
+                        sql.append(activeAndVisible())
+                    } else {
+                        val subSql = instance.criterion.sql
+                            .replace("?", UnaryCriterion.sanitize(value!!))
+                            .trim()
+                        sql.append(Task.ID).append(" IN (").append(subSql).append(")")
+                    }
+                }
+                return sql.toString()
+            }
+
+        private val List<CriterionInstance>.values: Map<String, Any>
+            get() {
+                val values: MutableMap<String, Any> = HashMap()
+                for (instance in this) {
+                    val value = instance.valueFromCriterion
+                    if (instance.criterion.valuesForNewTasks != null
+                        && instance.type == CriterionInstance.TYPE_INTERSECT) {
+                        for ((key, value1) in instance.criterion.valuesForNewTasks) {
+                            values[key.replace("?", value!!)] = value1.toString().replace("?", value)
+                        }
+                    }
+                }
+                return values
+            }
     }
 }

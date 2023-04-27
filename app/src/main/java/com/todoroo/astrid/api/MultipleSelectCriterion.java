@@ -20,7 +20,7 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
 
   /** Parcelable Creator Object */
   public static final Parcelable.Creator<MultipleSelectCriterion> CREATOR =
-      new Parcelable.Creator<MultipleSelectCriterion>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override
