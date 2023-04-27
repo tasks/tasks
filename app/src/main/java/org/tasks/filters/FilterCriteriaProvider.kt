@@ -19,9 +19,11 @@ import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.Strings
+import org.tasks.activities.FilterSettingsActivity.Companion.sql
 import org.tasks.data.Alarm
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
+import org.tasks.data.Filter
 import org.tasks.data.GoogleTask
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.Tag
@@ -37,6 +39,13 @@ class FilterCriteriaProvider @Inject constructor(
         private val googleTaskListDao: GoogleTaskListDao,
         private val caldavDao: CaldavDao) {
     private val r = context.resources
+
+    suspend fun rebuildFilter(filter: Filter) {
+        val serialized = filter.criterion?.takeIf { it.isNotBlank() }
+        val criterion = fromString(serialized)
+        filter.setSql(criterion.sql)
+        filter.criterion = CriterionInstance.serialize(criterion)
+    }
 
     suspend fun fromString(criterion: String?): List<CriterionInstance> {
         if (criterion.isNullOrBlank()) {

@@ -10,6 +10,7 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskMover
+import com.todoroo.astrid.service.Upgrade_13_2
 import com.todoroo.astrid.service.Upgrader
 import com.todoroo.astrid.service.Upgrader.Companion.V12_4
 import com.todoroo.astrid.service.Upgrader.Companion.V12_8
@@ -38,6 +39,7 @@ import org.tasks.data.TaskListMetadataDao
 import org.tasks.data.UserActivityDao
 import org.tasks.db.Migrations.repeatFrom
 import org.tasks.db.Migrations.withoutFrom
+import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import java.io.FileNotFoundException
@@ -61,6 +63,7 @@ class TasksJsonImporter @Inject constructor(
         private val taskMover: TaskMover,
         private val taskListMetadataDao: TaskListMetadataDao,
         private val vtodoCache: VtodoCache,
+        private val filterCriteriaProvider: FilterCriteriaProvider,
     ) {
 
     private val result = ImportResult()
@@ -123,7 +126,12 @@ class TasksJsonImporter @Inject constructor(
                     )
                 }
             }
-            backupContainer.filters?.forEach { filter ->
+            backupContainer
+                .filters
+                ?.onEach {
+                    if (version < Upgrade_13_2.VERSION) filterCriteriaProvider.rebuildFilter(it)
+                }
+                ?.forEach { filter ->
                 filter.setColor(themeToColor(context, version, filter.getColor()!!))
                 if (filterDao.getByName(filter.title!!) == null) {
                     filterDao.insert(filter)
