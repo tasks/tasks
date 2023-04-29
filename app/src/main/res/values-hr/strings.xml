@@ -223,7 +223,7 @@
     <string name="app_passwords">Lozinke za program</string>
     <string name="app_password">Lozinka za program</string>
     <string name="sign_in_to_tasks">Prijavi se na Tasks.org</string>
-    <string name="save_percent">Spremi %d% %</string>
+    <string name="save_percent">Spremi %d %%</string>
     <string name="above_average">Iznad prosjeka</string>
     <string name="migrate_count">Premjesti %s na Tasks.org</string>
     <string name="migrating_tasks">Migriranje zadataka</string>
