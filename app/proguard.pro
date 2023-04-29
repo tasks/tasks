@@ -16,9 +16,7 @@
 -dontwarn javax.inject.**
 -dontwarn com.google.j2objc.annotations.**
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
--dontwarn com.google.errorprone.annotations.CanIgnoreReturnValue
--dontwarn com.google.errorprone.annotations.concurrent.LazyInit
--dontwarn com.google.errorprone.annotations.ForOverride
+-dontwarn com.google.errorprone.annotations.**
 
 # https://github.com/square/okhttp/blob/0b74bba08805c28f6aede626cf06f213ef6480f2/README.md
 -dontwarn okhttp3.**
@@ -50,3 +48,9 @@
 -dontnote **.ILicensingService
 -dontnote sun.misc.Unsafe
 -dontwarn sun.misc.Unsafe
+
+# errors from upgrading to AGP 8
+-dontwarn java.beans.Transient
+-dontwarn org.joda.convert.FromString
+-dontwarn org.joda.convert.ToString
+-dontwarn org.json.JSONString
