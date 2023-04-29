@@ -82,7 +82,7 @@
     <string name="TAd_actionEditTask">Redakti</string>
     <string name="TLA_menu_settings">Agordoj</string>
     <string name="TLA_menu_search">Serĉi</string>
-    <string name="TLA_no_items">Ne estas ajn taskojn.</string>
+    <string name="TLA_no_items">Neniuj taskoj</string>
     <string name="WID_dateButtonUnset">Alklaku por ŝanĝi</string>
     <string name="DLG_undo">Malfari</string>
     <string name="DLG_hour_minutes">Tempo (horoj : minutoj)</string>
