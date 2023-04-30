@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import androidx.preference.PreferenceManager
+import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.activity.BeastModePreferences
@@ -463,7 +464,8 @@ class Preferences @JvmOverloads constructor(
 
     fun bundleNotifications(): Boolean = getBoolean(R.string.p_bundle_notifications, true)
 
-    fun usePersistentReminders(): Boolean = getBoolean(R.string.p_rmd_persistent, true)
+    fun usePersistentReminders(): Boolean =
+        AndroidUtilities.preUpsideDownCake() && getBoolean(R.string.p_rmd_persistent, true)
 
     var isSyncOngoing: Boolean
         get() = syncFlags.any { getBoolean(it, false) }

@@ -142,6 +142,11 @@ class Notifications : InjectingPreferenceFragment() {
             R.string.p_rmd_vibrate,
             R.string.p_led_notification
         )
+        requires(
+            AndroidUtilities.preUpsideDownCake(),
+            R.string.p_rmd_persistent,
+            R.string.p_wearable_notifications,
+        )
     }
 
     override fun onResume() {
