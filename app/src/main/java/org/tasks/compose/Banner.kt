@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.Tasks
 
@@ -149,7 +149,7 @@ fun BannerTextButton(text: Int, onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun BeastModePreview() = AppCompatTheme {
+private fun BeastModePreview() = MdcTheme {
     BeastModeBanner(visible = true, showSettings = {}, dismiss = {})
 }
 
@@ -157,7 +157,7 @@ private fun BeastModePreview() = AppCompatTheme {
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun SubscriptionNagPreview() = AppCompatTheme {
+private fun SubscriptionNagPreview() = MdcTheme {
     SubscriptionNagBanner(visible = true, subscribe = {}, dismiss = {})
 }
 

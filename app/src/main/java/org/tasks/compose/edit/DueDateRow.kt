@@ -11,7 +11,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
@@ -59,7 +59,7 @@ fun DueDate(dueDate: String?, overdue: Boolean) {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun DueDatePreview() {
-    AppCompatTheme {
+    MdcTheme {
         DueDateRow(
             dueDate = "Today",
             overdue = false,
@@ -72,7 +72,7 @@ fun DueDatePreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoDueDatePreview() {
-    AppCompatTheme {
+    MdcTheme {
         DueDateRow(
             dueDate = null,
             overdue = false,

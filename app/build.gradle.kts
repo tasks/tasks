@@ -232,6 +232,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime-livedata")
+    implementation(libs.compose.theme.adapter)
     implementation(libs.androidx.activity.compose)
     implementation("androidx.compose.material:material-icons-extended")
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -241,7 +242,6 @@ dependencies {
 
     implementation(libs.accompanist.flowlayout)
     implementation(libs.accompanist.permissions)
-    implementation(libs.accompanist.themeadapter)
 
     googleplayImplementation(platform(libs.firebase))
     googleplayImplementation("com.google.firebase:firebase-crashlytics")

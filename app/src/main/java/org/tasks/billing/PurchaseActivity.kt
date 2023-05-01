@@ -8,7 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -19,7 +19,7 @@ import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.preferences.Preferences
 import org.tasks.themes.Theme
-import java.util.Locale
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -53,7 +53,7 @@ class PurchaseActivity : InjectingAppCompatActivity(), OnPurchasesUpdated {
         }
 
         setContent {
-            AppCompatTheme {
+            MdcTheme {
                 Dialog(onDismissRequest = { finish() }) {
                     PurchaseText(
                         nameYourPrice = nameYourPrice,

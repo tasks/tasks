@@ -9,7 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.sync.AddAccountDialog.Platform
@@ -76,7 +76,7 @@ fun AddAccountDialog(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun AddAccountDialogPreview() {
-    AppCompatTheme {
+    MdcTheme {
         AddAccountDialog(hasTasksAccount = false, selected = {})
     }
 }

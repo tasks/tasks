@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
@@ -69,7 +69,7 @@ fun CalendarRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoCalendar() {
-    AppCompatTheme {
+    MdcTheme {
         CalendarRow(eventUri = null, selectedCalendar = null, onClick = {}, clear = {})
     }
 }
@@ -78,7 +78,7 @@ fun NoCalendar() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NewCalendar() {
-    AppCompatTheme {
+    MdcTheme {
         CalendarRow(eventUri = null, selectedCalendar = "Personal", onClick = {}, clear = {})
     }
 }
@@ -87,7 +87,7 @@ fun NewCalendar() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun ExistingCalendar() {
-    AppCompatTheme {
+    MdcTheme {
         CalendarRow(eventUri = "abcd", selectedCalendar = null, onClick = {}, clear = {})
     }
 }

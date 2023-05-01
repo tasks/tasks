@@ -18,7 +18,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 
 @Composable
@@ -56,6 +56,6 @@ fun ServerSelector(selected: Int, onSelected: (Int) -> Unit) {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ServerSelectorPreview() =
-    AppCompatTheme {
+    MdcTheme {
         ServerSelector(1) {}
     }

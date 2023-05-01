@@ -8,7 +8,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.DateUtilities.now
@@ -53,7 +53,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
         (parent as ComposeView).apply {
             listViewModel = ViewModelProvider(requireParentFragment())[TaskListViewModel::class.java]
             setContent {
-                AppCompatTheme {
+                MdcTheme {
                     SubtaskRow(
                         originalFilter = viewModel.originalList,
                         filter = viewModel.selectedList.collectAsStateLifecycleAware().value,

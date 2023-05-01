@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.ui.TimeDurationControlSet
 import dagger.hilt.android.AndroidEntryPoint
@@ -91,7 +91,7 @@ class TimerControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                AppCompatTheme {
+                MdcTheme {
                     TimerRow(
                         started = viewModel.timerStarted.collectAsStateLifecycleAware().value,
                         estimated = viewModel.estimatedSeconds.collectAsStateLifecycleAware().value,

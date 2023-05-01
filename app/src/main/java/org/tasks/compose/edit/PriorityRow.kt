@@ -14,7 +14,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.data.Task
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
@@ -109,7 +109,7 @@ fun RowScope.PriorityButton(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PriorityPreview() {
-    AppCompatTheme {
+    MdcTheme {
         PriorityRow(
             priority = Task.Priority.MEDIUM,
             onChangePriority = {},
@@ -122,7 +122,7 @@ fun PriorityPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PriorityPreviewNoDesaturate() {
-    AppCompatTheme {
+    MdcTheme {
         PriorityRow(
             priority = Task.Priority.MEDIUM,
             onChangePriority = {},
@@ -135,7 +135,7 @@ fun PriorityPreviewNoDesaturate() {
 @Preview(locale = "de", widthDp = 320, showBackground = true)
 @Composable
 fun PriorityNarrowWidth() {
-    AppCompatTheme {
+    MdcTheme {
         PriorityRow(
             priority = Task.Priority.MEDIUM,
             onChangePriority = {},

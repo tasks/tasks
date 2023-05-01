@@ -5,7 +5,7 @@ import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.update
 import org.tasks.R
@@ -29,7 +29,7 @@ class TagsControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                AppCompatTheme {
+                MdcTheme {
                     TagsRow(
                         tags = viewModel.selectedTags.collectAsStateLifecycleAware().value,
                         colorProvider = { chipProvider.getColor(it) },

@@ -13,7 +13,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.ui.StartDateControlSet.Companion.getRelativeDateString
 import org.tasks.R
@@ -81,7 +81,7 @@ fun StartDate(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoStartDate() {
-    AppCompatTheme {
+    MdcTheme {
         StartDateRow(
             startDate = 0L,
             selectedDay = StartDatePicker.NO_DAY,
@@ -98,7 +98,7 @@ fun NoStartDate() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun FutureStartDate() {
-    AppCompatTheme {
+    MdcTheme {
         StartDateRow(
             startDate = 1657080392000L,
             selectedDay = StartDatePicker.DUE_DATE,
@@ -115,7 +115,7 @@ fun FutureStartDate() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun PastStartDate() {
-    AppCompatTheme {
+    MdcTheme {
         StartDateRow(
             startDate = 1657080392000L,
             selectedDay = StartDatePicker.DUE_TIME,

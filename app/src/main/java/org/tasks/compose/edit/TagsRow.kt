@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.compose.Chip
 import org.tasks.compose.ChipGroup
@@ -57,7 +57,7 @@ fun TagsRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoTags() {
-    AppCompatTheme {
+    MdcTheme {
         TagsRow(
             tags = emptyList(),
             colorProvider = { 0 },
@@ -71,7 +71,7 @@ fun NoTags() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun SingleTag() {
-    AppCompatTheme {
+    MdcTheme {
         TagsRow(
             tags = listOf(
                 TagData("Home").apply {
@@ -89,7 +89,7 @@ fun SingleTag() {
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun BunchOfTags() {
-    AppCompatTheme {
+    MdcTheme {
         TagsRow(
             tags = listOf(
                 TagData("One"),
@@ -108,7 +108,7 @@ fun BunchOfTags() {
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun TagWithReallyLongName() {
-    AppCompatTheme {
+    MdcTheme {
         TagsRow(
             tags = listOf(
                 TagData("This is a tag with a really really long name").apply {

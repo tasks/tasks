@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
@@ -35,7 +35,7 @@ class AddAccountDialog : DialogFragment() {
             .newDialog()
             .setTitle(R.string.choose_synchronization_service)
             .setContent {
-                AppCompatTheme {
+                MdcTheme {
                     org.tasks.compose.AddAccountDialog(
                         hasTasksAccount = hasTasksAccount,
                         selected = this::selected

@@ -7,7 +7,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
 import org.tasks.R
@@ -46,7 +46,7 @@ fun ListRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun ListPreview() {
-    AppCompatTheme {
+    MdcTheme {
         ListRow(
             list = Filter("Default list", QueryTemplate()),
             colorProvider = { -769226 },

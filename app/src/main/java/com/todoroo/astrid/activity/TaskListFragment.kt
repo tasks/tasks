@@ -36,9 +36,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
@@ -163,7 +163,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         is TaskListEvent.BegForSubscription -> {
             binding.banner.setContent {
                 var showBanner by rememberSaveable { mutableStateOf(true) }
-                AppCompatTheme {
+                MdcTheme {
                     SubscriptionNagBanner(
                         visible = showBanner,
                         subscribe = {
