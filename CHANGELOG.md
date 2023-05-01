@@ -1,4 +1,4 @@
-### 13.2.0 - (2023-04-30)
+### 13.2.0 - (2023-05-01)
 
 * Add 'By list' sort mode [#1265](https://github.com/tasks/tasks/issues/1265)
 * Save task when pressing done [#2125](https://github.com/tasks/tasks/pull/2125)
