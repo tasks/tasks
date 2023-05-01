@@ -1,0 +1,13 @@
+* Add 'By list' sort mode
+* Save task when pressing done
+* Use ISO 8601 date formatting for backup filenames
+* Fix filter sorting bug
+* Fix manual sorting crash
+* Fix manual sorting bug
+* Don't set `COUNT=0` on recurrence rules
+* Improve task list performance
+* Attempt to hide inactive widgets in settings
+* Disable persistent reminders on Android 14+
+  * Android 14+ no longer supports persistent reminders 😢
+* Fix notifications on Android 14
+* More bug and crash fixes

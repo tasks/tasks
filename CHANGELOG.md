@@ -1,4 +1,4 @@
-### 13.2.0 - (2023-04-29)
+### 13.2.0 - (2023-04-30)
 
 * Add 'By list' sort mode [#1265](https://github.com/tasks/tasks/issues/1265)
 * Save task when pressing done [#2125](https://github.com/tasks/tasks/pull/2125)
@@ -9,6 +9,8 @@
 * Don't set `COUNT=0` on recurrence rules [#2158](https://github.com/tasks/tasks/issues/2158)
 * Improve task list performance [#2062](https://github.com/tasks/tasks/issues/2062)
 * Attempt to hide inactive widgets in settings [#2145](https://github.com/tasks/tasks/issues/2145)
+* Disable persistent reminders on Android 14+
+  * Android 14+ no longer supports persistent reminders 😢
 * Fix notifications on Android 14
 * Fix crash when missing exact alarm permissions
 * Update logic for adding default reminders during sync
