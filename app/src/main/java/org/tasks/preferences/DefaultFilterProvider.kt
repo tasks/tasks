@@ -200,7 +200,7 @@ class DefaultFilterProvider @Inject constructor(
         private const val TYPE_FILTER = 0
         private const val TYPE_CUSTOM_FILTER = 1
         private const val TYPE_TAG = 2
-        private const val TYPE_GOOGLE_TASKS = 3
+        const val TYPE_GOOGLE_TASKS = 3
         private const val TYPE_CALDAV = 4
         private const val TYPE_LOCATION = 5
         private const val FILTER_MY_TASKS = 0

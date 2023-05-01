@@ -32,7 +32,7 @@ internal class ProductionModule {
         fileStorage: FileStorage,
     ): Database {
         val builder = Room.databaseBuilder(context, Database::class.java, Database.NAME)
-                .addMigrations(*Migrations.migrations(fileStorage))
+                .addMigrations(*Migrations.migrations(context, fileStorage))
         if (!BuildConfig.DEBUG || !preferences.getBoolean(R.string.p_crash_main_queries, false)) {
             builder.allowMainThreadQueries()
         }

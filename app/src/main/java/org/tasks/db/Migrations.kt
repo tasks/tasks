@@ -1,6 +1,8 @@
 package org.tasks.db
 
+import android.content.Context
 import android.database.sqlite.SQLiteException
+import androidx.core.database.getStringOrNull
 import androidx.room.DeleteColumn
 import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
@@ -10,6 +12,7 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
+import org.tasks.R
 import org.tasks.caldav.FileStorage
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_REL_END
@@ -22,6 +25,8 @@ import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.OpenTaskDao.Companion.getLong
 import org.tasks.extensions.getLongOrNull
 import org.tasks.extensions.getString
+import org.tasks.preferences.DefaultFilterProvider
+import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import timber.log.Timber
@@ -590,8 +595,22 @@ object Migrations {
         }
     }
 
-    private val MIGRATION_87_88 = object : Migration(87, 88) {
+    private fun migration_87_88(context: Context) = object : Migration(87, 88) {
         override fun migrate(database: SupportSQLiteDatabase) {
+            val prefs = Preferences(context)
+            val defaultList = prefs.getStringValue(R.string.p_default_list)?.split(":")
+            if (
+                (defaultList?.size == 2) &&
+                (defaultList[0].toIntOrNull()?.equals(DefaultFilterProvider.TYPE_GOOGLE_TASKS) == true)
+            ) {
+                database.query("SELECT `gtl_remote_id` FROM `google_task_lists` WHERE `gtl_id` = ${defaultList[1]}").use { cursor ->
+                    if (cursor.moveToFirst()) {
+                        cursor.getStringOrNull(0)?.let { uuid ->
+                            prefs.setString(R.string.p_default_list, "${DefaultFilterProvider.TYPE_GOOGLE_TASKS}:$uuid")
+                        }
+                    }
+                }
+            }
             // migrate google task accounts and lists to caldav table
             database.execSQL("ALTER TABLE `caldav_lists` ADD COLUMN `cdl_last_sync` INTEGER NOT NULL DEFAULT 0")
             database.execSQL("INSERT INTO `caldav_accounts` (`cda_account_type`, `cda_server_type`, `cda_uuid`, `cda_name`, `cda_username`, `cda_collapsed`) SELECT $TYPE_GOOGLE_TASKS, $SERVER_UNKNOWN, `gta_account`, `gta_account`, `gta_account`, `gta_collapsed` FROM `google_task_accounts`")
@@ -611,7 +630,10 @@ object Migrations {
         }
     }
 
-    fun migrations(fileStorage: FileStorage) = arrayOf(
+    fun migrations(
+        context: Context,
+        fileStorage: FileStorage
+    ) = arrayOf(
             MIGRATION_35_36,
             MIGRATION_36_37,
             MIGRATION_37_38,
@@ -654,7 +676,7 @@ object Migrations {
             MIGRATION_84_85,
             MIGRATION_85_86,
             MIGRATION_86_87,
-            MIGRATION_87_88,
+            migration_87_88(context),
     )
 
     private fun noop(from: Int, to: Int): Migration = object : Migration(from, to) {
