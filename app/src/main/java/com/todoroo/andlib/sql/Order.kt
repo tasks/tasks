@@ -2,13 +2,13 @@ package com.todoroo.andlib.sql
 
 import com.todoroo.andlib.sql.OrderType.ASC
 import com.todoroo.andlib.sql.OrderType.DESC
-import java.util.*
 
 class Order private constructor(private val expression: Any, private val orderType: OrderType = ASC) {
     private val secondaryExpressions = ArrayList<Order>()
 
-    fun addSecondaryExpression(secondary: Order) {
+    fun addSecondaryExpression(secondary: Order): Order {
         secondaryExpressions.add(secondary)
+        return this
     }
 
     override fun toString() =

@@ -52,5 +52,6 @@ data class CaldavCalendar(
         val ACCOUNT = TABLE.column("cdl_account")
         val UUID = TABLE.column("cdl_uuid")
         @JvmField val NAME = TABLE.column("cdl_name")
+        @JvmField val ORDER = TABLE.column("cdl_order")
     }
 }

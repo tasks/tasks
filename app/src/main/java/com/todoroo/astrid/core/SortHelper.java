@@ -50,7 +50,9 @@ public class SortHelper {
   private static final String ADJUSTED_START_DATE =
       "(CASE WHEN (hideUntil / 1000) % 60 > 0 THEN hideUntil ELSE (hideUntil + 86399000) END)";
   private static final Order ORDER_TITLE = Order.asc(Functions.upper(Task.TITLE));
-  private static final Order ORDER_LIST = Order.asc(Functions.upper(CaldavCalendar.NAME));
+  private static final Order ORDER_LIST =
+          Order.asc(Functions.upper(CaldavCalendar.ORDER))
+                  .addSecondaryExpression(Order.asc(CaldavCalendar.NAME));
 
   /** Takes a SQL query, and if there isn't already an order, creates an order. */
   public static String adjustQueryForFlagsAndSort(
@@ -176,7 +178,7 @@ public class SortHelper {
       case SORT_CREATED -> "tasks.created";
       case SORT_GTASKS -> "tasks.`order`";
       case SORT_CALDAV -> CALDAV_ORDER_COLUMN;
-      case SORT_LIST -> "cdl_name";
+      case SORT_LIST -> "CASE WHEN cdl_order = -1 THEN cdl_name ELSE cdl_order END";
       default -> "(CASE WHEN (tasks.dueDate=0) "
               + // if no due date
               "THEN (strftime('%s','now')*1000)*2 "
