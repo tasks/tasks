@@ -572,7 +572,7 @@
 +|    |    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-common-java8:2.6.1 (c)
 +|    |    \--- androidx.lifecycle:lifecycle-livedata-core:2.6.1 (c)
-+|    +--- com.google.android.material:material:1.6.0 -> 1.8.0
++|    +--- com.google.android.material:material:1.6.0 -> 1.9.0
 +|    |    +--- androidx.annotation:annotation:1.2.0 -> 1.6.0 (*)
 +|    |    +--- androidx.appcompat:appcompat:1.5.0 -> 1.6.1 (*)
 +|    |    +--- androidx.cardview:cardview:1.0.0 (*)
@@ -715,7 +715,7 @@
 ++--- com.github.franmontiel:PersistentCookieJar:1.0.1
 +|    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 4.11.0 (*)
 ++--- com.google.code.gson:gson:2.10.1
-++--- com.google.android.material:material:1.8.0 (*)
+++--- com.google.android.material:material:1.9.0 (*)
 ++--- androidx.constraintlayout:constraintlayout:2.1.4 (*)
 ++--- androidx.swiperefreshlayout:swiperefreshlayout:1.1.0
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.6.0 (*)
@@ -1010,7 +1010,7 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.20 -> 1.8.21 (*)
 +|    |    +--- androidx.core:core-ktx:1.9.0 (*)
 +|    |    +--- androidx.appcompat:appcompat:1.5.1 -> 1.6.1 (*)
-+|    |    +--- com.google.android.material:material:1.7.0 -> 1.8.0 (*)
++|    |    +--- com.google.android.material:material:1.7.0 -> 1.9.0 (*)
 +|    |    +--- androidx.compose.runtime:runtime:1.3.1 -> 1.4.3 (*)
 +|    |    \--- androidx.compose.foundation:foundation:1.3.1 -> 1.4.3 (*)
 +|    \--- androidx.compose.material:material:1.3.1 -> 1.4.3 (*)
