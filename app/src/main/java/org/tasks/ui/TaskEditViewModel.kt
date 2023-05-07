@@ -267,11 +267,6 @@ class TaskEditViewModel @Inject constructor(
             taskDao.createNew(task)
         }
 
-        if (isNew || originalList != selectedList.value) {
-            task.parent = 0
-            taskMover.move(listOf(task.id), selectedList.value)
-        }
-
         if ((isNew && selectedLocation.value != null) || originalLocation != selectedLocation.value) {
             originalLocation?.let { location ->
                 if (location.geofence.id > 0) {
@@ -337,6 +332,11 @@ class TaskEditViewModel @Inject constructor(
         }
 
         taskDao.save(task, null)
+
+        if (isNew || originalList != selectedList.value) {
+            task.parent = 0
+            taskMover.move(listOf(task.id), selectedList.value)
+        }
 
         if (
             selectedAlarms.value.toHashSet() != originalAlarms.toHashSet() ||
