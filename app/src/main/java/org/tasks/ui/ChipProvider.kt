@@ -126,7 +126,13 @@ class ChipProvider @Inject constructor(
             )
         }
 
-        if (!isSubtask && !sortByList && preferences.showListChip && filter !is CaldavFilter) {
+        if (
+            !isSubtask &&
+            !sortByList &&
+            preferences.showListChip &&
+            filter !is CaldavFilter &&
+            filter !is GtasksFilter
+        ) {
             remember(list, isGoogleTask) {
                 lists
                     .getCaldavList(list)
