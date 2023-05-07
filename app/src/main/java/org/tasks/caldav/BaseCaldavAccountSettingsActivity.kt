@@ -41,6 +41,7 @@ import org.tasks.data.CaldavDao
 import org.tasks.databinding.ActivityCaldavAccountSettingsBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
+import org.tasks.extensions.Context.cookiePersistor
 import org.tasks.extensions.Context.openUri
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.security.KeyStoreEncryption
@@ -59,7 +60,6 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var firebase: Firebase
-    @Inject lateinit var cookiePersistor: CookiePersistor
 
     protected var caldavAccount: CaldavAccount? = null
     protected lateinit var binding: ActivityCaldavAccountSettingsBinding
@@ -350,7 +350,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     }
 
     protected open suspend fun removeAccount() {
-        cookiePersistor.clearSession(caldavAccount?.url)
+        cookiePersistor(caldavAccount?.username).clearSession(caldavAccount?.url)
         taskDeleter.delete(caldavAccount!!)
         setResult(Activity.RESULT_OK)
         finish()

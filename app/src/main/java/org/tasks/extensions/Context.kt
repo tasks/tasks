@@ -3,12 +3,14 @@ package org.tasks.extensions
 import android.content.ActivityNotFoundException
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.widget.Toast
 import androidx.annotation.AnyRes
 import androidx.browser.customtabs.CustomTabsIntent
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import org.tasks.R
 
 object Context {
@@ -55,4 +57,12 @@ object Context {
             .authority(packageName)
             .path(res.toString())
             .build()
+
+    fun Context.cookiePersistor(key: String? = null) =
+        SharedPrefsCookiePersistor(
+            getSharedPreferences(
+                "CookiePersistence${key?.let { "_$it" } ?: ""}",
+                MODE_PRIVATE
+            )
+        )
 }

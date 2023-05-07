@@ -127,7 +127,7 @@ class MicrosoftAuthenticationActivity : ComponentActivity() {
         )
         val userInfo = withContext(Dispatchers.IO) {
             httpClientFactory
-                .newClient()
+                .newClient(foreground = false)
                 .newCall(
                     Request.Builder()
                         .url(discovery.userinfoEndpoint!!.toString())

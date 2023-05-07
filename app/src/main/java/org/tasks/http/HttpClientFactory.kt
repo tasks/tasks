@@ -3,7 +3,6 @@ package org.tasks.http
 import android.content.Context
 import at.bitfire.cert4android.CustomCertManager
 import at.bitfire.dav4jvm.BasicDigestAuthHandler
-import com.franmontiel.persistentcookiejar.persistence.CookiePersistor
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,6 +13,7 @@ import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.caldav.TasksCookieJar
 import org.tasks.data.CaldavAccount
+import org.tasks.extensions.Context.cookiePersistor
 import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.microsoft.MicrosoftService
@@ -28,15 +28,20 @@ class HttpClientFactory @Inject constructor(
     private val preferences: Preferences,
     private val interceptor: DebugNetworkInterceptor,
     private val encryption: KeyStoreEncryption,
-    private val cookiePersistor: CookiePersistor,
 ) {
+    suspend fun newClient(foreground: Boolean) = newClient(
+        foreground = foreground,
+        cookieKey = null,
+        block = {},
+    )
+
     suspend fun newClient(
         foreground: Boolean = false,
         username: String? = null,
         encryptedPassword: String? = null
     ): OkHttpClient {
         val decrypted = encryptedPassword?.let { encryption.decrypt(it) }
-        return newClient(foreground = foreground) { builder ->
+        return newClient(foreground = foreground, cookieKey = username) { builder ->
             if (!username.isNullOrBlank() && !decrypted.isNullOrBlank()) {
                 val auth = BasicDigestAuthHandler(null, username, decrypted)
                 builder.addNetworkInterceptor(auth)
@@ -47,6 +52,7 @@ class HttpClientFactory @Inject constructor(
 
     suspend fun newClient(
         foreground: Boolean = false,
+        cookieKey: String? = null,
         block: (OkHttpClient.Builder) -> Unit = {}
     ): OkHttpClient {
         val customCertManager = withContext(Dispatchers.Default) {
@@ -63,7 +69,7 @@ class HttpClientFactory @Inject constructor(
             .sslSocketFactory(sslContext.socketFactory, customCertManager)
             .hostnameVerifier(hostnameVerifier)
             .addInterceptor(UserAgentInterceptor)
-            .cookieJar(TasksCookieJar(persistor = cookiePersistor))
+            .cookieJar(TasksCookieJar(persistor = context.cookiePersistor(cookieKey)))
 
         block(builder)
 
@@ -86,7 +92,7 @@ class HttpClientFactory @Inject constructor(
         if (!authState.isAuthorized) {
             throw RuntimeException("Needs authentication")
         }
-        val client = newClient {
+        val client = newClient(cookieKey = account.username) {
             it.addInterceptor { chain ->
                 chain.proceed(
                     chain.request().newBuilder()

@@ -3,8 +3,6 @@ package org.tasks.injection
 import android.app.NotificationManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import com.franmontiel.persistentcookiejar.persistence.CookiePersistor
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.todoroo.astrid.dao.Database
 import dagger.Module
 import dagger.Provides
@@ -123,8 +121,4 @@ class ApplicationModule {
     @Provides
     fun providesNotificationManager(@ApplicationContext context: Context) =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    @Provides
-    fun cookiePersistor(@ApplicationContext context: Context): CookiePersistor =
-        SharedPrefsCookiePersistor(context)
 }

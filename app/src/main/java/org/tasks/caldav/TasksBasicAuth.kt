@@ -6,7 +6,7 @@ import okhttp3.Response
 import org.tasks.billing.Inventory
 
 class TasksBasicAuth(
-        user: String,
+        val user: String,
         token: String,
         private val inventory: Inventory
 ) : Interceptor {

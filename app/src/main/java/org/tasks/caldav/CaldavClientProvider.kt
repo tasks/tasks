@@ -74,7 +74,14 @@ class CaldavClientProvider @Inject constructor(
         auth: Interceptor?,
         foreground: Boolean = false,
     ): OkHttpClient {
-        return httpClientFactory.newClient(foreground = foreground) { builder ->
+        return httpClientFactory.newClient(
+            foreground = foreground,
+            cookieKey = when (auth) {
+                is BasicDigestAuthHandler -> auth.username
+                is TasksBasicAuth -> auth.user
+                else -> null
+            }
+        ) { builder ->
             builder
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)

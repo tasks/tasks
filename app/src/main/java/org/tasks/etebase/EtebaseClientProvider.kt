@@ -31,7 +31,7 @@ class EtebaseClientProvider @Inject constructor(
 
     @Throws(KeyManagementException::class, NoSuchAlgorithmException::class)
     suspend fun forUrl(url: String, username: String, password: String?, session: String? = null, foreground: Boolean = false): EtebaseClient = withContext(Dispatchers.IO) {
-        val httpClient = createHttpClient(foreground)
+        val httpClient = createHttpClient(foreground, username)
         val client = Client.create(httpClient, url)
         val etebase = session
                 ?.let { Account.restore(client, it, null) }
@@ -39,8 +39,11 @@ class EtebaseClientProvider @Inject constructor(
         EtebaseClient(context, username, etebase, caldavDao)
     }
 
-    private suspend fun createHttpClient(foreground: Boolean): OkHttpClient {
-        return httpClientFactory.newClient(foreground = foreground) { builder ->
+    private suspend fun createHttpClient(foreground: Boolean, cookieKey: String): OkHttpClient {
+        return httpClientFactory.newClient(
+            foreground = foreground,
+            cookieKey = cookieKey,
+        ) { builder ->
             builder
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
