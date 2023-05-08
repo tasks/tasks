@@ -1,4 +1,4 @@
-### 13.2.0 - (2023-05-01)
+### 13.2.0 - (2023-05-07)
 
 * Add 'By list' sort mode [#1265](https://github.com/tasks/tasks/issues/1265)
 * Save task when pressing done [#2125](https://github.com/tasks/tasks/pull/2125)
@@ -6,6 +6,7 @@
 * Fix filter sorting bug [#1561](https://github.com/tasks/tasks/issues/1561)
 * Fix manual sorting crash [#2141](https://github.com/tasks/tasks/issues/2141)
 * Fix manual sorting bug [#2101](https://github.com/tasks/tasks/issues/2101)
+* Fix multiple accounts on same server [#2301](https://github.com/tasks/tasks/issues/2301)
 * Don't set `COUNT=0` on recurrence rules [#2158](https://github.com/tasks/tasks/issues/2158)
 * Improve task list performance [#2062](https://github.com/tasks/tasks/issues/2062)
 * Attempt to hide inactive widgets in settings [#2145](https://github.com/tasks/tasks/issues/2145)
