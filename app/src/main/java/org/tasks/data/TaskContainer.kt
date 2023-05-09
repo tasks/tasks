@@ -1,5 +1,6 @@
 package org.tasks.data
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import com.todoroo.astrid.data.Task
 
@@ -9,7 +10,7 @@ data class TaskContainer(
     @Embedded val location: Location? = null,
     val isGoogleTask: Boolean = false,
     val parentComplete: Boolean = false,
-    val tagsString: String? = null,
+    @ColumnInfo(name = "tags") val tagsString: String? = null,
     val children: Int = 0,
     val sortGroup: Long? = null,
     val primarySort: Long = 0,
