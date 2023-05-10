@@ -72,9 +72,9 @@
   <!-- ****************************** -->
   <uses-permission android:name="android.permission.READ_SYNC_STATS" />
 
-  <!-- ***************************** -->
-  <!-- Exclude OpenTasks permissions -->
-  <!-- ***************************** -->
+  <!-- ****************************************** -->
+  <!-- Exclude OpenTasks and jtxBoard permissions -->
+  <!-- ****************************************** -->
   <uses-permission android:name="org.dmfs.permission.READ_TASKS" tools:node="remove"/>
   <uses-permission android:name="org.dmfs.permission.WRITE_TASKS" tools:node="remove"/>
   <permission-group android:name="org.dmfs.tasks.permissiongroup.Tasks" tools:node="remove"/>
@@ -87,6 +87,8 @@
   <uses-permission
       android:name="${applicationId}.permission.WRITE_TASKS"
       tools:node="remove" />
+  <uses-permission android:name="at.techbee.jtx.permission.READ" tools:node="remove" />
+  <uses-permission android:name="at.techbee.jtx.permission.WRITE" tools:node="remove" />
 
   <!-- ============================================== Exported Permissions = -->
 
