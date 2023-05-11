@@ -179,7 +179,9 @@ class GoogleTaskSynchronizer @Inject constructor(
     @Throws(IOException::class)
     private suspend fun pushTask(task: com.todoroo.astrid.data.Task, gtasksInvoker: GtasksInvoker) {
         for (deleted in googleTaskDao.getDeletedByTaskId(task.id)) {
-            gtasksInvoker.deleteGtask(deleted.calendar, deleted.remoteId)
+            deleted.remoteId?.let {
+                gtasksInvoker.deleteGtask(deleted.calendar, it)
+            }
             googleTaskDao.delete(deleted)
         }
         val gtasksMetadata = googleTaskDao.getByTaskId(task.id) ?: return
