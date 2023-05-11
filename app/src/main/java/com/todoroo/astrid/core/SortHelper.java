@@ -194,8 +194,8 @@ public class SortHelper {
 
   public static Order orderForSortTypeRecursive(int sortMode, boolean reverse) {
     Order order = switch (sortMode) {
-      case SORT_MODIFIED, SORT_CREATED -> Order.desc("primary_sort");
-      default -> Order.asc("primary_sort");
+      case SORT_MODIFIED, SORT_CREATED -> Order.desc("primary_sort").addSecondaryExpression(Order.desc("secondary_sort"));
+      default -> Order.asc("primary_sort").addSecondaryExpression(Order.asc("secondary_sort"));
     };
     if (sortMode != SORT_ALPHA) {
       order.addSecondaryExpression(Order.asc("sort_title"));
