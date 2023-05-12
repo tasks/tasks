@@ -180,7 +180,14 @@ class GoogleTaskSynchronizer @Inject constructor(
     private suspend fun pushTask(task: com.todoroo.astrid.data.Task, gtasksInvoker: GtasksInvoker) {
         for (deleted in googleTaskDao.getDeletedByTaskId(task.id)) {
             deleted.remoteId?.let {
-                gtasksInvoker.deleteGtask(deleted.calendar, it)
+                try {
+                    gtasksInvoker.deleteGtask(deleted.calendar, it)
+                } catch (e: GoogleJsonResponseException) {
+                    when (e.statusCode) {
+                        400 -> Timber.e(e)
+                        else -> throw e
+                    }
+                }
             }
             googleTaskDao.delete(deleted)
         }
