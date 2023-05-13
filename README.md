@@ -15,7 +15,7 @@ Please visit [tasks.org](https://tasks.org) for end user documentation and suppo
 [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg?logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=alex@tasks.org)
 [![Liberapay donate button](https://img.shields.io/liberapay/receives/tasks.svg?logo=liberapay)](https://liberapay.com/tasks/donate)
 
-![tests](https://github.com/tasks/tasks/workflows/Run%20tests/badge.svg) [![weblate](https://hosted.weblate.org/widgets/tasks/-/android/svg-badge.svg)](https://hosted.weblate.org/engage/tasks/?utm_source=widget) [![codebeat badge](https://codebeat.co/badges/07924fca-2f18-4eff-99a3-120ec5ac2d5f)](https://codebeat.co/projects/github-com-tasks-tasks-main)
+[![build](https://github.com/tasks/tasks/actions/workflows/bundle.yml/badge.svg)](https://github.com/tasks/tasks/actions/workflows/bundle.yml) [![weblate](https://hosted.weblate.org/widgets/tasks/-/android/svg-badge.svg)](https://hosted.weblate.org/engage/tasks/?utm_source=widget) [![codebeat badge](https://codebeat.co/badges/07924fca-2f18-4eff-99a3-120ec5ac2d5f)](https://codebeat.co/projects/github-com-tasks-tasks-main)
 
 ### Contributing
 
