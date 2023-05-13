@@ -40,4 +40,19 @@ platform :android do
   lane :lint do
     gradle(task: ":app:lintGoogleplayRelease :app:lintGenericRelease --no-configuration-cache")
   end
+
+  desc "Bundle"
+  lane :bundle do
+        gradle(
+            task: "bundleGoogleplayRelease",
+            properties: {
+                "tasksKeyAlias": ENV["KEY_ALIAS"],
+                "tasksStoreFile": ENV["KEY_PATH"],
+                "tasksStorePassword": ENV["KEY_STORE_PASSWORD"],
+                "tasksKeyPassword": ENV["KEY_PASSWORD"],
+                "tasks_mapbox_key": ENV["MAPBOX_KEY"],
+                "tasks_google_key": ENV["GOOGLE_KEY"]
+            }
+        )
+  end
 end
