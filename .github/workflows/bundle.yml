@@ -7,11 +7,11 @@ permissions:
   contents: read
 
 jobs:
-#  check:
-#    uses: ./.github/workflows/check.yml
+  check:
+    uses: ./.github/workflows/check.yml
   bundle:
     runs-on: ubuntu-latest
-#    needs: [ check ]
+    needs: [ check ]
     steps:
       - name: Decode Keystore
         run: |
