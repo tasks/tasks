@@ -30,7 +30,7 @@ jobs:
         run: chmod +x gradlew
       - name: Bundle
         env:
-          KEY_PATH: ${RUNNER_TEMP}/keystore.jks
+          KEY_PATH: "${RUNNER_TEMP}/keystore.jks"
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}

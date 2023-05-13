@@ -47,7 +47,7 @@ platform :android do
             task: "bundleGoogleplayRelease",
             properties: {
                 "tasksKeyAlias": ENV["KEY_ALIAS"],
-                "tasksStoreFile": ENV["KEY_STORE"],
+                "tasksStoreFile": ENV["KEY_PATH"],
                 "tasksStorePassword": ENV["KEY_STORE_PASSWORD"],
                 "tasksKeyPassword": ENV["KEY_PASSWORD"],
                 "tasks_mapbox_key": ENV["MAPBOX_KEY"],
