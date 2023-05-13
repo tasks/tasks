@@ -739,4 +739,5 @@
     <string name="sign_in_to_tasks_disclosure">E-posta adresiniz ve hesap kimliğiniz Tasks.org tarafından iletilecek ve saklanacaktır. Bu bilgiler kimlik doğrulama ve hizmetle ilgili önemli duyuruları size sağlamak için kullanılacaktır. Bu bilgiler hiç kimse ile paylaşılmayacaktır.</string>
     <string name="default_reminder">Öntanımlı Anımsatıcı</string>
     <string name="rmd_time_description">Bitiş zamanı olmayan görevler için bildirimleri göster</string>
+    <string name="sort_list">Listeye göre</string>
 </resources>
