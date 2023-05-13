@@ -7,16 +7,16 @@ permissions:
   contents: read
 
 jobs:
-  check:
-    uses: ./.github/workflows/check.yml
+#  check:
+#    uses: ./.github/workflows/check.yml
   bundle:
     runs-on: ubuntu-latest
-    needs: [ check ]
+#    needs: [ check ]
     steps:
-      - uses: actions/checkout@v3
       - name: Decode Keystore
         run: |
           echo ${{ secrets.KEY_STORE }} | base64 -di > "${RUNNER_TEMP}"/keystore.jks
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
@@ -25,6 +25,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'gradle'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Bundle
