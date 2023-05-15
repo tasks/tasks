@@ -15,7 +15,7 @@
 \n</string>
     <string name="import_progress_read">할일 %d 읽는 중…</string>
     <string name="read_permission_label">Tasks 권한</string>
-    <string name="discard_confirmation">변경 사항을 버리시겠습니까?</string>
+    <string name="discard_confirmation">변경 사항을 폐기할까요\?</string>
     <string name="keep_editing">계속 편집</string>
     <string name="DLG_delete_this_task_question">이 할일을 삭제할까요?</string>
     <string name="DLG_hour_minutes">시간 (시 : 분)</string>
@@ -41,7 +41,7 @@
     <string name="TEA_estimatedDuration_label">완료 예상 시간은\?</string>
     <string name="TEA_elapsedDuration_label">할일 처리에 쓰인 시간</string>
     <string name="save">저장</string>
-    <string name="TEA_timer_est">동부표준시 %s</string>
+    <string name="TEA_timer_est">%s 예정</string>
     <string name="TEA_timer_elap">경과 시간: %s</string>
     <string name="due_date">마감일</string>
     <string name="due_time">마감 시간</string>
@@ -61,8 +61,8 @@
     <string name="CRA_ignore_body">여러번 달력 일정을 무시하셨습니다. Tasks가 일정 추가를 그만 물어볼까요\?</string>
     <string name="CRA_ignore_all">모든 이벤트 무시하기</string>
     <string name="CRA_ignore_this">이 이벤트만 무시하기</string>
-    <string name="CRA_speech_bubble_start">%s 가 곧 시작될 것 같습니다. 활동 아이템 목록을 만들까요?</string>
-    <string name="CRA_speech_bubble_end">%s 를 방금 마치신 것 같습니다. 활동 아이템 목록을 만들까요?</string>
+    <string name="CRA_speech_bubble_start">%s 가 곧 시작됩니다. 활동 아이템 목록을 만들까요\?</string>
+    <string name="CRA_speech_bubble_end">%s 를 방금 마쳤습니다. 활동 아이템 목록을 만들까요\?</string>
     <string name="CRA_postpone">연기하기</string>
     <string name="CRA_calendar_reminders_pref_title">달력 도우미</string>
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks가 다가오는 달력 일정에 대비하도록 알려드립니다</string>
@@ -81,13 +81,13 @@
     <string name="EPr_delete_task_data">할일 데이터 지우기</string>
     <string name="EPr_delete_task_data_warning">모든 할일이 영구적으로 삭제될 것입니다</string>
     <string name="EPr_manage_delete_completed_gcal">완료한 할일의 달력 일정 삭제</string>
-    <string name="EPr_manage_delete_completed_gcal_message">완료한 할일의 모든 이벤트를 정말 삭제할까요?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">완료한 할일의 모든 이벤트를 삭제할까요\?</string>
     <string name="EPr_manage_delete_gcal_status">%d 달력 일정을 삭제했습니다!</string>
     <string name="EPr_manage_delete_all_gcal">할일의 모든 달력 일정 삭제</string>
     <string name="EPr_manage_delete_all_gcal_message">할일의 모든 이벤트를 정말 삭제할까요?</string>
     <string name="task_defaults">할일 기본값</string>
     <string name="EPr_default_importance_title">기본 우선순위</string>
-    <string name="EPr_default_reminders_title">기본 알림</string>
+    <string name="EPr_default_reminders_title">기본 알람</string>
     <string name="EPr_default_location_reminder_title">기본 위치 알람</string>
     <string name="EPr_default_reminders_mode_title">기본 벨소리/진동 형식</string>
     <string name="priority_high">높음</string>
@@ -95,7 +95,7 @@
     <string name="priority_low">낮음</string>
     <string name="day_after_tomorrow">모레</string>
     <string name="next_week">다음 주</string>
-    <string name="no_reminders">알림 없음</string>
+    <string name="no_reminders">알람 없음</string>
     <string name="default_location_reminder_on_arrival">도착 시</string>
     <string name="default_location_reminder_on_departure">출발 시</string>
     <string name="default_location_reminder_on_arrival_or_departure">도착 및 출발 시</string>
@@ -134,12 +134,12 @@
     <string name="snooze_all">모든 알람 잠시 미루기</string>
     <string name="rmd_EPr_quiet_hours_start_title">알림 꺼짐 시작 시간</string>
     <string name="rmd_EPr_quiet_hours_end_title">알림 꺼짐 종료 시간</string>
-    <string name="rmd_EPr_rmd_time_title">알림 설정</string>
+    <string name="rmd_EPr_rmd_time_title">알람 시간</string>
     <string name="rmd_EPr_rmd_time_desc">마감일이 없는 할일 알림은 %s 에 나타날 것입니다</string>
     <string name="persistent_notifications">항구적 알림</string>
     <string name="persistent_notifications_description">항구적 알림은 지울 수 없습니다</string>
-    <string name="rmd_EPr_defaultRemind_title">무작위 알림</string>
-    <string name="default_random_reminder_disabled">사용안함</string>
+    <string name="rmd_EPr_defaultRemind_title">무작위 알람</string>
+    <string name="default_random_reminder_disabled">비활성화</string>
     <string name="default_random_reminder_hourly">매시간</string>
     <string name="default_random_reminder_daily">매일</string>
     <string name="default_random_reminder_weekly">매주</string>
@@ -231,8 +231,8 @@
     <string name="TEA_timer_comment_spent">소요 시간:</string>
     <string name="voice_create_prompt">할일을 만들려면 말하세요</string>
     <string name="EPr_voiceInputEnabled_title">음성 입력</string>
-    <string name="EPr_voiceRemindersEnabled_title">음성 알림</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">할일 알림 시 할일 제목을 소리내어 읽어줍니다</string>
+    <string name="EPr_voiceRemindersEnabled_title">음성 알람</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">할일 알람 시 제목을 소리내어 읽어줍니다</string>
     <string name="delete_task">할일 지우기</string>
     <string name="voice_command_added_task">추가된 할일</string>
     <plurals name="Ntasks">
@@ -262,7 +262,7 @@
     <string name="translations">번역 참여하기</string>
     <string name="contact_developer">개발자에게 연락</string>
     <string name="rate_tasks">Tasks 평가하기</string>
-    <string name="quiet_hours_summary">무음 시간대에는 알림 해제</string>
+    <string name="quiet_hours_summary">무음 시간대에는 알람 해제</string>
     <string name="TLA_menu_donate">기부하기</string>
     <string name="add_reminder">알람 추가</string>
     <string name="add_location">위치 추가</string>
@@ -283,8 +283,8 @@
     <string name="date_shortcut_tomorrow_afternoon">내일 오후</string>
     <string name="date_shortcut_must_come_before">%1$s 는 %2$s 보다 이전에 위치해야 합니다</string>
     <string name="date_shortcut_must_come_after">%1$s 는 %2$s 보다 이후에 위치해야 합니다</string>
-    <string name="discard_changes">변경 사항을 취소할까요?</string>
-    <string name="discard">변경사항 취소</string>
+    <string name="discard_changes">변경 사항을 폐기할까요\?</string>
+    <string name="discard">변경사항 폐기</string>
     <string name="tag_settings">태그 설정</string>
     <string name="list_settings">목록 설정</string>
     <string name="delete">삭제</string>
@@ -428,7 +428,7 @@
         <item quantity="other">%d 하위할일</item>
     </plurals>
     <string name="expand_subtasks">하위할일 펼치기</string>
-    <string name="collapse_subtasks">하위할일 숨기기</string>
+    <string name="collapse_subtasks">하위할일 접기</string>
     <string name="TEA_add_subtask">하위할일 추가</string>
     <string name="subtasks">하위할일</string>
     <string name="subtasks_multilevel_google_task">Google Tasks는 다단계 하위할일을 지원하지 않습니다</string>
@@ -476,7 +476,7 @@
     <string name="preferences_advanced">고급</string>
     <string name="help_and_feedback">도움말 및 피드백</string>
     <string name="theme_system_default">시스템 기본설정</string>
-    <string name="menu_discard_changes">변경사항 취소</string>
+    <string name="menu_discard_changes">변경사항 폐기</string>
     <string name="tell_me_how_im_doing">잘하고 있는지 의견 부탁드립니다</string>
     <string name="no_thanks">아니오 괜찮습니다</string>
     <string name="support_development_subscribe">부가 기능을 해제하고 오픈소스 소프트웨어를 지원하십시오</string>
@@ -573,7 +573,7 @@
     <string name="your_subscription_expired">구독이 만료되었습니다. 서비스를 재개하려면 지금 구독하세요.</string>
     <string name="background_location">백그라운드 위치정보</string>
     <string name="permission_read_tasks">Tasks 데이터베이스에 대한 전체 액세스</string>
-    <string name="background_location_permission_required">앱이 닫히거나 사용하지 않을 때에도 위치 기반 미리 알림을 사용하도록 위치 데이터를 수집합니다.</string>
+    <string name="background_location_permission_required">앱이 닫히거나 사용하지 않을 때에도 위치 기반 미리 알람이 동작하도록 위치 데이터를 수집합니다.</string>
     <string name="migrate_count">Tasks.org 로 %s 개 이동</string>
     <string name="migrate">이전</string>
     <string name="migrating_tasks">할일 이전 중</string>
@@ -691,7 +691,7 @@
     <string name="microsoft_selection_description">마이크로소프트 계정과 동기화</string>
     <string name="app_bar_collapse">앱 바메뉴 접기</string>
     <string name="top">상단</string>
-    <string name="enable_reminders">알람 켜기</string>
+    <string name="enable_reminders">알람 활성화</string>
     <string name="hint_customize_edit_body">필드 순서를 변경하거나 삭제하실 수 있습니다</string>
     <string name="sign_in_to_tasks_disclosure">이메일 주소와 계정 ID가 Tasks.org으로 전송되어 보관됩니다. 이 정보는 계정 인증과 서비스 관련 중요 공지를 전달하기 위해 쓰이며, 다른 누구와도 공유하지 않습니다.</string>
     <string name="completion_sound">완료 효과음 재생</string>
@@ -706,7 +706,7 @@
     <string name="custom_filter_has_reminder">알림 있음</string>
     <string name="snackbar_tasks_completed">%d 할일 완료</string>
     <string name="caldav_server_unknown">미정</string>
-    <string name="caldav_server_other"></string>
+    <string name="caldav_server_other">기타</string>
     <plurals name="reminder_minutes">
         <item quantity="other">분</item>
     </plurals>
@@ -728,8 +728,9 @@
     </plurals>
     <string name="alarm_after_due">마감 후 %s</string>
     <string name="consent_deny">지금은 아닙니다</string>
-    <string name="default_reminder">기본 알림</string>
+    <string name="default_reminder">기본 알람</string>
     <plurals name="reminder_week">
         <item quantity="other">주</item>
     </plurals>
+    <string name="when_started">시작시</string>
 </resources>
