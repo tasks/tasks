@@ -728,4 +728,8 @@
     </plurals>
     <string name="alarm_after_due">마감 후 %s</string>
     <string name="consent_deny">지금은 아닙니다</string>
+    <string name="default_reminder">기본 알림</string>
+    <plurals name="reminder_week">
+        <item quantity="other">주</item>
+    </plurals>
 </resources>
