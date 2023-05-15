@@ -7,10 +7,12 @@
     <string name="backup_BAc_export">지금 백업하기</string>
     <string name="export_toast">%1$s 를 %2$s 로 백업함.</string>
     <string name="import_summary_title">간편 복원</string>
-    <string name="import_summary_message">파일 %1$s: %2$s 개의 일정 포함.\n\n
-%3$s 개 가져오기 성공,\n
-%4$s 개 이미 존재,\n
-%5$s 개 에러 발생\n</string>
+    <string name="import_summary_message">파일 %1$s: %2$s 개의 할일 포함.
+\n
+\n %3$s 개 가져오기 성공,
+\n %4$s 개 이미 존재,
+\n %5$s 개 에러 발생
+\n</string>
     <string name="import_progress_read">할일 %d 읽는 중…</string>
     <string name="read_permission_label">Tasks 권한</string>
     <string name="discard_confirmation">변경 사항을 버리시겠습니까?</string>
@@ -36,8 +38,8 @@
     <string name="TEA_title_hint">할일 제목</string>
     <string name="TEA_importance_label">우선순위</string>
     <string name="TEA_note_label">설명</string>
-    <string name="TEA_estimatedDuration_label">일정 완료 예상 시간은?</string>
-    <string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
+    <string name="TEA_estimatedDuration_label">완료 예상 시간은\?</string>
+    <string name="TEA_elapsedDuration_label">할일 처리에 쓰인 시간</string>
     <string name="save">저장</string>
     <string name="TEA_timer_est">동부표준시 %s</string>
     <string name="TEA_timer_elap">경과 시간: %s</string>
@@ -51,19 +53,19 @@
     <string name="TEA_control_location">위치</string>
     <string name="TEA_control_notes">설명</string>
     <string name="TEA_control_files">파일</string>
-    <string name="TEA_control_reminders">일정 알림</string>
+    <string name="TEA_control_reminders">알람</string>
     <string name="TEA_control_timer">타이머 조절</string>
     <string name="TEA_control_hidden_section">----항상 숨김----</string>
     <string name="CRA_ignore">무시하기</string>
     <string name="CRA_title">모임 목록이 필요하세요?</string>
-    <string name="CRA_ignore_body">여러번 달력 일정을 무시하셨습니다. Tasks가 일정을 그만 물어볼까요\?</string>
+    <string name="CRA_ignore_body">여러번 달력 일정을 무시하셨습니다. Tasks가 일정 추가를 그만 물어볼까요\?</string>
     <string name="CRA_ignore_all">모든 이벤트 무시하기</string>
     <string name="CRA_ignore_this">이 이벤트만 무시하기</string>
     <string name="CRA_speech_bubble_start">%s 가 곧 시작될 것 같습니다. 활동 아이템 목록을 만들까요?</string>
     <string name="CRA_speech_bubble_end">%s 를 방금 마치신 것 같습니다. 활동 아이템 목록을 만들까요?</string>
     <string name="CRA_postpone">연기하기</string>
     <string name="CRA_calendar_reminders_pref_title">달력 도우미</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks가 다가오는 달력 일정을 알려서 미리 준비하도록 할 것입니다</string>
+    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks가 다가오는 달력 일정에 대비하도록 알려드립니다</string>
     <string name="CRA_default_list_name">활동 아이템: %s</string>
     <string name="none">없음</string>
     <string name="EPr_edit_screen_options">화면 설정 편집하기</string>
@@ -72,8 +74,8 @@
     <string name="EPr_show_task_edit_comments">할일 편집에서 댓글 표시</string>
     <string name="task_list_options">할일 목록 옵션</string>
     <string name="EPr_cal_end_or_start_at_due_time">달력 일정 시간</string>
-    <string name="EPr_cal_end_at_due_time">설정한 시간에 달력 일정 종료</string>
-    <string name="EPr_cal_start_at_due_time">설정한 시간에 달력 일정 시작</string>
+    <string name="EPr_cal_end_at_due_time">마감 시간에 달력 일정 종료</string>
+    <string name="EPr_cal_start_at_due_time">마감 시간에 달력 일정 시작</string>
     <string name="EPr_reset_preferences">설정 초기화</string>
     <string name="EPr_reset_preferences_warning">설정이 기본값으로 초기화될 것입니다</string>
     <string name="EPr_delete_task_data">할일 데이터 지우기</string>
@@ -86,7 +88,7 @@
     <string name="task_defaults">할일 기본값</string>
     <string name="EPr_default_importance_title">기본 우선순위</string>
     <string name="EPr_default_reminders_title">기본 알림</string>
-    <string name="EPr_default_location_reminder_title">기본 위치 알림</string>
+    <string name="EPr_default_location_reminder_title">기본 위치 알람</string>
     <string name="EPr_default_reminders_mode_title">기본 벨소리/진동 형식</string>
     <string name="priority_high">높음</string>
     <string name="priority_medium">중간</string>
@@ -132,7 +134,7 @@
     <string name="snooze_all">모든 알람 잠시 미루기</string>
     <string name="rmd_EPr_quiet_hours_start_title">알림 꺼짐 시작 시간</string>
     <string name="rmd_EPr_quiet_hours_end_title">알림 꺼짐 종료 시간</string>
-    <string name="rmd_EPr_rmd_time_title">기본 알림 설정</string>
+    <string name="rmd_EPr_rmd_time_title">알림 설정</string>
     <string name="rmd_EPr_rmd_time_desc">마감일이 없는 할일 알림은 %s 에 나타날 것입니다</string>
     <string name="persistent_notifications">항구적 알림</string>
     <string name="persistent_notifications_description">항구적 알림은 지울 수 없습니다</string>
@@ -255,14 +257,14 @@
     <string name="enabled">활성화됨</string>
     <string name="font_size">글자 크기</string>
     <string name="row_spacing">줄 간격</string>
-    <string name="customize_edit_screen">일정 편집화면 레이아웃 설정하기</string>
+    <string name="customize_edit_screen">할일 편집화면 레이아웃 설정하기</string>
     <string name="source_code">소스 코드</string>
     <string name="translations">번역 참여하기</string>
     <string name="contact_developer">개발자에게 연락</string>
     <string name="rate_tasks">Tasks 평가하기</string>
     <string name="quiet_hours_summary">무음 시간대에는 알림 해제</string>
     <string name="TLA_menu_donate">기부하기</string>
-    <string name="add_reminder">알림 추가</string>
+    <string name="add_reminder">알람 추가</string>
     <string name="add_location">위치 추가</string>
     <string name="remove">지우기</string>
     <string name="randomly">무작위로</string>
@@ -282,7 +284,7 @@
     <string name="date_shortcut_must_come_before">%1$s 는 %2$s 보다 이전에 위치해야 합니다</string>
     <string name="date_shortcut_must_come_after">%1$s 는 %2$s 보다 이후에 위치해야 합니다</string>
     <string name="discard_changes">변경 사항을 취소할까요?</string>
-    <string name="discard">버리기</string>
+    <string name="discard">변경사항 취소</string>
     <string name="tag_settings">태그 설정</string>
     <string name="list_settings">목록 설정</string>
     <string name="delete">삭제</string>
@@ -366,7 +368,7 @@
     <string name="dont_add_to_calendar">달력에 일정 추가하지 않기</string>
     <string name="default_calendar">기본 달력</string>
     <string name="badges_description">Tasks 앱 아이콘 위에 할일 개수를 표시합니다. 모든 런처가 배지 기능을 지원하지는 않습니다. </string>
-    <string name="bundle_notifications_summary">상태바에 알림이 여러 개 있을 경우 하나로 모아서 표시합니다</string>
+    <string name="bundle_notifications_summary">여러 상태바 알림을 하나로 묶어서 표시합니다</string>
     <string name="repeat_monthly_same_day_each_month">매월 같은 날에</string>
     <string name="repeat_monthly_every_day_of_nth_week">매 %1$s %2$s</string>
     <string name="repeat_monthly_on_every_day_of_nth_week">매 %1$s %2$s 마다</string>
@@ -474,7 +476,7 @@
     <string name="preferences_advanced">고급</string>
     <string name="help_and_feedback">도움말 및 피드백</string>
     <string name="theme_system_default">시스템 기본설정</string>
-    <string name="menu_discard_changes">변경사항 버리기</string>
+    <string name="menu_discard_changes">변경사항 취소</string>
     <string name="tell_me_how_im_doing">잘하고 있는지 의견 부탁드립니다</string>
     <string name="no_thanks">아니오 괜찮습니다</string>
     <string name="support_development_subscribe">부가 기능을 해제하고 오픈소스 소프트웨어를 지원하십시오</string>
@@ -521,7 +523,7 @@
     <string name="action_new_task">새 할일</string>
     <string name="widget_due_date_hidden">숨기기</string>
     <string name="widget_due_date_below_title">제목 밑</string>
-    <string name="widget_due_date_reschedule">할일 일정변경</string>
+    <string name="widget_due_date_reschedule">할일 기한 변경</string>
     <string name="widget_open_list">목록 열기</string>
     <string name="widget_do_nothing">아무 동작 하지 않음</string>
     <string name="widget_on_click">클릭 시</string>
@@ -539,7 +541,7 @@
     <string name="CFC_list_name">목록…</string>
     <string name="default_location">기본 위치</string>
     <string name="delete_comment">이 댓글을 삭제할까요\?</string>
-    <string name="multi_select_reschedule">일정변경</string>
+    <string name="multi_select_reschedule">기한 변경</string>
     <string name="backup_location_warning">경고: Tasks 삭제 시 %s의 파일도 삭제됩니다! 파일 삭제를 방지하려면 다른 위치를 지정하세요.</string>
     <string name="backups_ignore_warnings_summary">백업이 필요 없거나 앱 사용자가 직접 백업을 하고 있는 경우, 백업 경고를 무시합니다</string>
     <string name="backups_ignore_warnings">경고 무시하기</string>
@@ -680,4 +682,50 @@
     <string name="chat_libera">Libera 채팅에서 #tasks에 참여하세요</string>
     <string name="foreground_location">전경 위치</string>
     <string name="TEA_creation_date">생성일</string>
+    <string name="now">지금</string>
+    <string name="alarm_after_start">시작 후 %s</string>
+    <string name="caldav_server_type">서버 유형</string>
+    <string name="filter_snoozed">알람 미뤄짐</string>
+    <string name="sign_in">로그인</string>
+    <string name="rmd_time_description">상태바 알림에 마감 시한이 없는 할일 보이기</string>
+    <string name="microsoft_selection_description">마이크로소프트 계정과 동기화</string>
+    <string name="app_bar_collapse">앱 바메뉴 접기</string>
+    <string name="top">상단</string>
+    <string name="enable_reminders">알람 켜기</string>
+    <string name="hint_customize_edit_body">필드 순서를 변경하거나 삭제하실 수 있습니다</string>
+    <string name="sign_in_to_tasks_disclosure">이메일 주소와 계정 ID가 Tasks.org으로 전송되어 보관됩니다. 이 정보는 계정 인증과 서비스 관련 중요 공지를 전달하기 위해 쓰이며, 다른 누구와도 공유하지 않습니다.</string>
+    <string name="completion_sound">완료 효과음 재생</string>
+    <string name="bottom">하단</string>
+    <string name="alarm_before_start">시작 %s 전</string>
+    <string name="alarm_before_due">마감 %s 전</string>
+    <string name="completed_tasks_at_bottom">완료한 할일을 하단으로 이동</string>
+    <string name="snoozed_until">%s까지 알람 잠시 미루기</string>
+    <string name="custom_notification">사용자정의 상태바 알림</string>
+    <string name="consent_agree">동의</string>
+    <string name="randomly_every">매 %s마다 무작위로</string>
+    <string name="custom_filter_has_reminder">알림 있음</string>
+    <string name="snackbar_tasks_completed">%d 할일 완료</string>
+    <string name="caldav_server_unknown">미정</string>
+    <string name="caldav_server_other"></string>
+    <plurals name="reminder_minutes">
+        <item quantity="other">분</item>
+    </plurals>
+    <string name="customize_edit_screen_summary">필드 순서 변경 또는 삭제</string>
+    <string name="sort_completion_group">%s 완료</string>
+    <string name="completed_tasks_sort">완료일순 정렬</string>
+    <string name="dismiss">닫기</string>
+    <string name="hint_customize_edit_title">정보가 너무 많은가요\?</string>
+    <string name="app_bar_position">앱 바메뉴 위치</string>
+    <string name="completed">완료</string>
+    <string name="snackbar_task_completed">할일 완료</string>
+    <string name="enable_reminders_description">안드로이드 설정에 알람이 비활성화 되어있습니다</string>
+    <string name="sort_list">목록 순</string>
+    <plurals name="reminder_hours">
+        <item quantity="other">시간</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="other">일</item>
+    </plurals>
+    <string name="alarm_after_due">마감 후 %s</string>
+    <string name="consent_deny">지금은 아닙니다</string>
 </resources>
