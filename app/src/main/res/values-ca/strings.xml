@@ -213,4 +213,77 @@
     <string name="ring_nonstop">Sona ininterrompudament</string>
     <string name="snooze_all">Posposa tot</string>
     <string name="repeat_every">Cada</string>
+    <plurals name="reminder_hours">
+        <item quantity="one">Hora</item>
+        <item quantity="other">Hores</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">mes</item>
+        <item quantity="other">mesos</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%d mes</item>
+        <item quantity="other">%d mesos</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">any</item>
+        <item quantity="other">anys</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%d any</item>
+        <item quantity="other">%d anys</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">hora</item>
+        <item quantity="other">hores</item>
+    </plurals>
+    <plurals name="list_count">
+        <item quantity="one">%d llista</item>
+        <item quantity="other">%d llistes</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%d setmana</item>
+        <item quantity="other">%d setmanes</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Setmana</item>
+        <item quantity="other">Setmanes</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%d dia</item>
+        <item quantity="other">%d dies</item>
+    </plurals>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minut</item>
+        <item quantity="other">Minuts</item>
+    </plurals>
+    <string name="sort_list">Per llista</string>
+    <plurals name="subtask_count">
+        <item quantity="one">%d subtasca</item>
+        <item quantity="other">%d subtasques</item>
+    </plurals>
+    <plurals name="repeat_times">
+        <item quantity="one">vegada</item>
+        <item quantity="other">vegades</item>
+    </plurals>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minut</item>
+        <item quantity="other">minuts</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%d hora</item>
+        <item quantity="other">%d hores</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">dia</item>
+        <item quantity="other">dies</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Dia</item>
+        <item quantity="other">Dies</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">setmana</item>
+        <item quantity="other">setmanes</item>
+    </plurals>
 </resources>
