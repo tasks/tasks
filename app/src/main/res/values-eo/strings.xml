@@ -388,4 +388,10 @@
     <string name="filter_snoozed">Paŭzigitaj</string>
     <string name="filter_after_today">Post hodiaŭ</string>
     <string name="snoozed_until">Paŭzigite ĝis %s</string>
+    <string name="repeats_plural">Ripetas ĉiu %s</string>
+    <string name="repeats_plural_on">Ripetas ĉiu %1$s je %2$s</string>
+    <string name="repeats_plural_until">Ripetas ĉiu %1$s ĝis %2$s</string>
+    <string name="randomly_every">Hazarde ĉiu %s</string>
+    <string name="alarm_after_due">%s post limdato</string>
+    <string name="widget_due_date_after_title">Post titolo</string>
 </resources>
