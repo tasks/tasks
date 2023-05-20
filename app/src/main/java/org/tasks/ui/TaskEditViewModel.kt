@@ -293,6 +293,20 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = currentTimeMillis()
         }
 
+        if (!task.hasStartDate()) {
+            selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_START }
+        }
+        if (!task.hasDueDate()) {
+            selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_END }
+        }
+
+        taskDao.save(task, null)
+
+        if (isNew || originalList != selectedList.value) {
+            task.parent = 0
+            taskMover.move(listOf(task.id), selectedList.value)
+        }
+
         for (subtask in newSubtasks.value) {
             if (Strings.isNullOrEmpty(subtask.title)) {
                 continue
@@ -322,20 +336,6 @@ class TaskEditViewModel @Inject constructor(
                     taskDao.save(subtask)
                 }
             }
-        }
-
-        if (!task.hasStartDate()) {
-            selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_START }
-        }
-        if (!task.hasDueDate()) {
-            selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_END }
-        }
-
-        taskDao.save(task, null)
-
-        if (isNew || originalList != selectedList.value) {
-            task.parent = 0
-            taskMover.move(listOf(task.id), selectedList.value)
         }
 
         if (
