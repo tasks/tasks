@@ -165,7 +165,7 @@ public class SortHelper {
     return switch (sortType) {
       case SORT_ALPHA ->
         // Return an empty string, providing a value to fill the WITH clause template
-              "''";
+              "UPPER(tasks.title)";
       case SORT_DUE -> "(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
               + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
               + " END)+tasks.importance";
