@@ -5,9 +5,19 @@ import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.*
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.SeekBarPreference
+import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.core.SortHelper.*
+import com.todoroo.astrid.core.SortHelper.SORT_ALPHA
+import com.todoroo.astrid.core.SortHelper.SORT_CREATED
+import com.todoroo.astrid.core.SortHelper.SORT_DUE
+import com.todoroo.astrid.core.SortHelper.SORT_IMPORTANCE
+import com.todoroo.astrid.core.SortHelper.SORT_LIST
+import com.todoroo.astrid.core.SortHelper.SORT_MODIFIED
+import com.todoroo.astrid.core.SortHelper.SORT_START
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -209,6 +219,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
                         SORT_ALPHA -> R.string.SSD_sort_alpha
                         SORT_MODIFIED -> R.string.SSD_sort_modified
                         SORT_CREATED -> R.string.sort_created
+                        SORT_LIST -> R.string.sort_list
                         else -> R.string.SSD_sort_auto
                     }
                 })
