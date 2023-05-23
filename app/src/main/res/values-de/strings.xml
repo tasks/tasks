@@ -739,4 +739,5 @@
     <string name="sign_in">Anmelden</string>
     <string name="rmd_time_description">Benachrichtigungen für Aufgaben ohne Fälligkeitsdatum anzeigen</string>
     <string name="default_reminder">Standarderinnerung</string>
+    <string name="sort_list">Nach Liste</string>
 </resources>
