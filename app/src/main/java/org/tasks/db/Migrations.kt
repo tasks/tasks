@@ -603,7 +603,7 @@ object Migrations {
                 (defaultList?.size == 2) &&
                 (defaultList[0].toIntOrNull()?.equals(DefaultFilterProvider.TYPE_GOOGLE_TASKS) == true)
             ) {
-                database.query("SELECT `gtl_remote_id` FROM `google_task_lists` WHERE `gtl_id` = ${defaultList[1]}").use { cursor ->
+                database.query("SELECT `gtl_remote_id` FROM `google_task_lists` WHERE `gtl_id` = '${defaultList[1]}'").use { cursor ->
                     if (cursor.moveToFirst()) {
                         cursor.getStringOrNull(0)?.let { uuid ->
                             prefs.setString(R.string.p_default_list, "${DefaultFilterProvider.TYPE_GOOGLE_TASKS}:$uuid")
