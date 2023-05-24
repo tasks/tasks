@@ -432,7 +432,6 @@
     </plurals>
     <string name="expand_subtasks">Fold ut gjøremålssteg</string>
     <string name="collapse_subtasks">Fold sammen gjøremålssteg</string>
-    <string name="enter_title_hint">Skriv inn tittel</string>
     <string name="TEA_add_subtask">Legg til gjøremålssteg</string>
     <string name="subtasks">Gjøremålssteg</string>
     <string name="subtasks_multilevel_google_task">Gjøremålssteg med flere nivåer støttes ikke av Google Tasks</string>
@@ -513,7 +512,6 @@
     <string name="filter_eisenhower_box_3">Ikke viktig og haster</string>
     <string name="filter_eisenhower_box_2">Viktig og haster ikke</string>
     <string name="filter_eisenhower_box_1">Viktig og haster</string>
-    <string name="add_filter">Legg til filter</string>
     <string name="add_tags">Legg til etiketter</string>
     <string name="filter_no_tags">Ingen etiketter</string>
     <string name="filter_after_today">Fra i morgen av</string>
@@ -530,8 +528,6 @@
     <string name="place_settings">Stedsinnstillinger</string>
     <string name="places">Steder</string>
     <string name="got_it">Skjønner!</string>
-    <string name="no_thanks">Nei takk</string>
-    <string name="tell_me_how_im_doing">Fortell meg hvordan jeg ligger an</string>
     <string name="sort_modified_group">Endret %s</string>
     <string name="sort_created_group">Opprettet %s</string>
     <string name="yesterday_lowercase">i går</string>
@@ -571,7 +567,6 @@
     <string name="default_tags">Forvalgte etiketter</string>
     <string name="repeat_type_completion_capitalized">Fullføringsdato</string>
     <string name="default_location">Forvalgt plassering</string>
-    <string name="delete_comment">Slett denne kommentaren\?</string>
     <string name="custom_filter_is_subtask">Er et gjøremålssteg</string>
     <string name="custom_filter_has_subtask">Har gjøremålssteg</string>
     <string name="date_picker_multiple">Flere</string>

@@ -435,7 +435,6 @@
     <string name="TEA_add_subtask">Subtaak toevoegen</string>
     <string name="subtasks">Subtaken</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ondersteunt geen subtaken op meerdere niveaus</string>
-    <string name="enter_title_hint">Voer titel in</string>
     <string name="enter_tag_name">Label kiezen</string>
     <string name="create_new_tag">\"%s\" aanmaken</string>
     <string name="display_name">Weergavenaam</string>
@@ -521,7 +520,6 @@
     <string name="filter_low_priority">Lage prioriteit</string>
     <string name="filter_medium_priority">Gemiddelde prioriteit</string>
     <string name="filter_high_priority">Hoge prioriteit</string>
-    <string name="add_filter">Filter toevoegen</string>
     <string name="add_tags">Labels toevoegen</string>
     <string name="filter_no_tags">Geen labels</string>
     <string name="filter_after_today">Na vandaag</string>
@@ -532,8 +530,6 @@
     <string name="support_development_subscribe">Ontgrendel extra mogelijkheden en ondersteun opensource software</string>
     <string name="got_it">Begrepen!</string>
     <string name="whats_new">Wat is nieuw</string>
-    <string name="no_thanks">Nee bedankt</string>
-    <string name="tell_me_how_im_doing">Vertel me alsjeblieft hoe ik het doe</string>
     <string name="enjoying_tasks">Gebruik je Tasks graag\?</string>
     <string name="action_new_task">Nieuwe taak</string>
     <string name="sort_created_group">Gemaakt %s</string>
@@ -572,7 +568,6 @@
     <string name="default_location">Locatie</string>
     <string name="default_tags">Standaardlabel</string>
     <string name="multi_select_reschedule">Opnieuw inplannen</string>
-    <string name="delete_comment">Deze opmerking wissen\?</string>
     <string name="date_picker_multiple">Meerdere</string>
     <string name="cancel">Annuleren</string>
     <string name="ok">OK</string>

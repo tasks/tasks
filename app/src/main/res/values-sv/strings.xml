@@ -427,7 +427,6 @@
     <string name="lists">Listor</string>
     <string name="sort_modified_group">Modifierad %s</string>
     <string name="sort_created_group">Skapad %s</string>
-    <string name="no_thanks">Nej tack</string>
     <string name="filter_no_priority">Ingen prioritet</string>
     <string name="filter_low_priority">Låg prioritet</string>
     <string name="filter_high_priority">Hög prioritet</string>
@@ -455,7 +454,6 @@
     <string name="preferences_advanced">Avancerat</string>
     <string name="show_advanced_settings">Visa avancerade inställningar</string>
     <string name="create_new_tag">Skapa \"%s\"</string>
-    <string name="enter_title_hint">Ange titel</string>
     <string name="action_new_task">Ny uppgift</string>
     <string name="help_and_feedback">Hjälp &amp; återkoppling</string>
     <string name="widget_due_date_hidden">Dold</string>
@@ -542,7 +540,6 @@
     <string name="your_subscription_expired">Ditt abonnemang har löpt ut. Abonnera nu för att återuppta tjänsten.</string>
     <string name="custom_filter_is_subtask">Är en deluppgift</string>
     <string name="custom_filter_has_subtask">Har deluppgifter</string>
-    <string name="delete_comment">Ta bort denna kommentar\?</string>
     <string name="date_picker_multiple">Flera</string>
     <string name="multi_select_reschedule">Planera om</string>
     <string name="backup_location_warning">VARNING: Filer som finns i %s kommer att tas bort om Tasks avinstalleras! Vänligen välj en anpassad plats för att förhindra att Android tar bort dina filer.</string>
@@ -566,7 +563,6 @@
     <string name="sort_start_group">Starta %s</string>
     <string name="got_it">Förstått!</string>
     <string name="support_development_subscribe">Lås upp ytterligare funktioner och stöd programvara med öppen källkod</string>
-    <string name="tell_me_how_im_doing">Vänligen berätta för mig hur det går för mig</string>
     <string name="tasks_needs_your_support">Tasks behöver ditt stöd!</string>
     <string name="enjoying_tasks">Gillar du Tasks\?</string>
     <string name="filter_eisenhower_box_4">Inte viktigt och inte brådskande</string>
@@ -574,7 +570,6 @@
     <string name="filter_eisenhower_box_2">Viktigt och inte brådskande</string>
     <string name="filter_eisenhower_box_1">Viktigt och brådskande</string>
     <string name="filter_medium_priority">Medium prioritet</string>
-    <string name="add_filter">Lägg till filter</string>
     <string name="add_tags">Lägg till taggar</string>
     <string name="filter_no_tags">Inga taggar</string>
     <string name="filter_any_due_date">Alla förfallodagar</string>

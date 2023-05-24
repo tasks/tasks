@@ -446,7 +446,6 @@
     <string name="TEA_add_subtask">Ajouter une sous-tâche</string>
     <string name="subtasks">Sous-tâches</string>
     <string name="subtasks_multilevel_google_task">Les sous-tâches multi-niveaux ne sont pas prises en charge par Google Tasks</string>
-    <string name="enter_title_hint">Entrer le titre</string>
     <string name="enter_tag_name">Entrez le nom de l\'étiquette</string>
     <string name="create_new_tag">Créer « %s »</string>
     <string name="display_name">Afficher le nom</string>
@@ -532,7 +531,6 @@
     <string name="filter_low_priority">Priorité basse</string>
     <string name="filter_medium_priority">Priorité moyenne</string>
     <string name="filter_high_priority">Haute priorité</string>
-    <string name="add_filter">Ajouter un filtre</string>
     <string name="add_tags">Ajouter des étiquettes</string>
     <string name="filter_no_tags">Aucune étiquette</string>
     <string name="filter_after_today">Après aujourd\'hui</string>
@@ -541,9 +539,7 @@
     <string name="filter_overdue">En retard</string>
     <string name="sort_created">Par date de création</string>
     <string name="got_it">J\'ai compris !</string>
-    <string name="no_thanks">Non, merci</string>
     <string name="support_development_subscribe">Déverrouillez des fonctionnalités supplémentaires et supportez les logiciels à code ouvert</string>
-    <string name="tell_me_how_im_doing">S’ll vous plaît, dites-moi comment je vais</string>
     <string name="enjoying_tasks">Vous aimez les Tasks \?</string>
     <string name="whats_new">Quoi de neuf</string>
     <string name="action_new_task">Nouvelle tâche</string>
@@ -582,7 +578,6 @@
     <string name="repeat_type_completion_capitalized">Date d’achèvement</string>
     <string name="default_tags">Étiquettes par défaut</string>
     <string name="default_location">Emplacement par défaut</string>
-    <string name="delete_comment">Supprimer ce commentaire \?</string>
     <string name="date_picker_multiple">Plusieurs</string>
     <string name="multi_select_reschedule">Replanifier</string>
     <string name="cancel">Annuler</string>

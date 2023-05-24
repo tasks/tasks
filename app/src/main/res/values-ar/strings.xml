@@ -144,7 +144,6 @@
     <string name="action_call">اتصل</string>
     <string name="TLA_no_items">لا يوجد مهمات هنا.</string>
     <string name="action_open">افتح</string>
-    <string name="no_thanks">لا شكراً</string>
     <string name="color">اللون</string>
     <string name="import_progress_read">قراءة المهمة %d…</string>
     <string name="EPr_delete_task_data_warning">سيتم حذف جميع المهام بشكل دائم</string>
@@ -328,9 +327,7 @@
     <string name="sign_in_with_google">تسجيل الدخول بجوجل</string>
     <string name="privacy">الخصوصيّة</string>
     <string name="current_subscription">الاشتراك الحالي: %s</string>
-    <string name="delete_comment">حذف هذا التعليق؟</string>
     <string name="account">حساب</string>
-    <string name="tell_me_how_im_doing">رجاءً أخبرني كيف أبدي</string>
     <string name="tasks_needs_your_support">Tasks يحتاج دعمك!</string>
     <string name="enjoying_tasks">مستمتع بTasks؟</string>
     <string name="filter_eisenhower_box_4">غير مهم وغير مستعجل</string>
@@ -341,7 +338,6 @@
     <string name="filter_low_priority">أولويّة منخفضة</string>
     <string name="filter_high_priority">أولويّة عالية</string>
     <string name="filter_medium_priority">أولويّة متوسّطة</string>
-    <string name="add_filter">أضف تصفية</string>
     <string name="filter_after_today">بعد اليوم</string>
     <string name="select_all">اختيار الكلّ</string>
     <string name="share">مشاركة</string>
@@ -404,7 +400,6 @@
     <string name="place_settings">إعدادات الأماكن</string>
     <string name="upgrade_blurb_1">أهلًا! أنا أليكس (Alex). أنا المطور المستقل وراء Tasks</string>
     <string name="enter_tag_name">أدخل اسم العلامة</string>
-    <string name="enter_title_hint">أدخل العنوان</string>
     <string name="version_string">نسخة %s</string>
     <string name="third_party_licenses">رخص طرف ثالث</string>
     <string name="choose_new_location">اختر موقعًا جديدًا</string>

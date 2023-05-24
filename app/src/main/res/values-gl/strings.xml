@@ -373,7 +373,6 @@
     <string name="google_tasks_selection_description">Servizo básico que sincroniza coa túa conta de Google</string>
     <string name="chip_appearance_icon_only">Só iconas</string>
     <string name="add_tags">Engadir etiquetas</string>
-    <string name="add_filter">Engadir filtro</string>
     <string name="filter_any_due_date">Calquera data de fin</string>
     <string name="filter_high_priority">Prioridade alta</string>
     <string name="filter_low_priority">Prioridade baixa</string>
@@ -444,7 +443,6 @@
     <string name="hide_unused_tags">Agochar etiquetas sen usar</string>
     <string name="hide_unused_places">Agochar lugares sen usar</string>
     <string name="account">Conta</string>
-    <string name="delete_comment">Borrar este comentario\?</string>
     <string name="custom_filter_has_subtask">Ten subtarefas</string>
     <string name="tasks_org_account_required">Precísase de conta en Tasks.org</string>
     <string name="map_theme_use_app_theme">Empregar estilo de aplicativo</string>
@@ -465,7 +463,6 @@
     <string name="widget_footer">Rodapé</string>
     <string name="repeats_weekly">por semana</string>
     <string name="version_string">Versión %s</string>
-    <string name="enter_title_hint">Introducir título</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="TEA_timer_est">Est. %s</string>
     <string name="sort_created">Por data de creación</string>
@@ -562,7 +559,6 @@
     <string name="filter_after_today">Despois de hoxe</string>
     <string name="filter_no_tags">Sen etiquetas</string>
     <string name="filter_eisenhower_box_3">Non importantes e urxentes</string>
-    <string name="no_thanks">Sen agradecementos</string>
     <string name="sort_start_group">Comeza %s</string>
     <string name="sort_due_group">Ata o %s</string>
     <string name="open_last_viewed_list">Abrir a última lista vista</string>

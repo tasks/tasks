@@ -469,7 +469,6 @@
     <string name="choose_synchronization_service">Обрати платформу</string>
     <string name="create_new_tag">Створити \"%s\"</string>
     <string name="enter_tag_name">Введіть назву мітки</string>
-    <string name="enter_title_hint">Введіть назву</string>
     <string name="subtasks_multilevel_google_task">Багаторівневі підзавдання не підтримуються Google Tasks</string>
     <string name="collapse_subtasks">Згорнути підзавдання</string>
     <string name="expand_subtasks">Розгорнути підзавдання</string>
@@ -540,7 +539,6 @@
     <string name="your_subscription_expired">Термін дії вашої підписки закінчився. Підпишіться зараз, щоб відновити обслуговування.</string>
     <string name="custom_filter_is_subtask">Підзавдання</string>
     <string name="custom_filter_has_subtask">Є підзавдання</string>
-    <string name="delete_comment">Видалити цей коментар\?</string>
     <string name="date_picker_multiple">Декілька</string>
     <string name="multi_select_reschedule">Перенести</string>
     <string name="backup_location_warning">УВАГА: Файли, розташовані у %s, будуть видалені у разі видалення Tasks! Оберіть інше розташування, щоб Android не видалив ваші файли.</string>
@@ -564,9 +562,7 @@
     <string name="sort_modified_group">Змінено %s</string>
     <string name="sort_created_group">Створено %s</string>
     <string name="got_it">Зрозуміло!</string>
-    <string name="no_thanks">Ні, дякую</string>
     <string name="support_development_subscribe">Розблокувати додаткові функції та підтримати програмне забезпечення з відкритим джерельним кодом</string>
-    <string name="tell_me_how_im_doing">Скажіть, будь ласка, як я справляюся</string>
     <string name="enjoying_tasks">Подобається Tasks\?</string>
     <string name="filter_eisenhower_box_4">Не важливе і не термінове</string>
     <string name="filter_eisenhower_box_3">Не важливе і термінове</string>
@@ -576,7 +572,6 @@
     <string name="filter_low_priority">Низький пріоритет</string>
     <string name="filter_medium_priority">Середній пріоритет</string>
     <string name="filter_high_priority">Високий пріоритет</string>
-    <string name="add_filter">Додати фільтр</string>
     <string name="add_tags">Додати мітки</string>
     <string name="filter_no_tags">Без міток</string>
     <string name="filter_after_today">Після сьогоднішнього дня</string>

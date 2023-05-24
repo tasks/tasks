@@ -266,7 +266,6 @@
   <string name="TEA_ctrl_locations_pref">TEA_ctrl_locations_pref</string>
   <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
   <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
-  <string name="TEA_ctrl_comments">TEA_ctrl_comments</string>
   <string name="TEA_ctrl_gcal">TEA_ctrl_gcal</string>
   <string name="TEA_ctrl_google_task_list">TEA_ctrl_gtask</string>
   <string name="TEA_ctrl_creation_date">TEA_ctrl_creation_date</string>

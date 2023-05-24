@@ -109,12 +109,6 @@
     <item name="android:editTextColor">@color/black_87</item>
   </style>
 
-  <style name="CommentsRow" >
-    <item name="android:focusable">true</item>
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-  </style>
-
   <style name="TagSettingsRow" parent="Widget.Design.TextInputLayout">
     <item name="android:textSize">18sp</item>
     <item name="android:clickable">true</item>
@@ -175,11 +169,6 @@
 
   <style name="task_list_container">
     <item name="android:elevation" tools:ignore="NewApi">@dimen/elevation_refresh_indicator</item>
-  </style>
-
-  <style name="priority_button" parent="Widget.AppCompat.CompoundButton.RadioButton">
-    <item name="android:layout_width">@dimen/priority_button_width</item>
-    <item name="android:layout_height">24dp</item>
   </style>
 
   <style name="OutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">

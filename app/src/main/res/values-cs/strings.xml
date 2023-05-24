@@ -436,7 +436,6 @@
     <string name="expand_subtasks">Rozbalit podúkoly</string>
     <string name="collapse_subtasks">Sbalit podúkoly</string>
     <string name="subtasks_multilevel_google_task">Úkoly Google nepodporují víceúrovňové podúkoly</string>
-    <string name="enter_title_hint">Zadejte název</string>
     <string name="enter_tag_name">Zadejte název štítku</string>
     <string name="create_new_tag">Vytvořit „%s“</string>
     <string name="choose_synchronization_service">Zvolte službu</string>
@@ -517,7 +516,6 @@
     <string name="open_last_viewed_list">Otevřít poslední prohlížený seznam</string>
     <string name="on_launch">Při spuštění</string>
     <string name="lists">Seznamy</string>
-    <string name="add_filter">Přidat filtr</string>
     <string name="upgrade_blurb_2">Strávil jsem tisíce hodin prací na Tasks a bezplatně zveřejňuji veškerý zdrojový kód online. Za účelem podpory mé práce některé funkce vyžadují předplatné</string>
     <string name="upgrade_blurb_1">Ahoj! Jmenuji se Alex a jsem nezávislý vývojář aplikace Tasks</string>
     <string name="color_wheel">Více barev</string>
@@ -526,7 +524,6 @@
     <string name="disable_sort_groups">Zakázat třídící skupiny</string>
     <string name="building_notifications">Vytvářejí se oznámení</string>
     <string name="got_it">Rozumím!</string>
-    <string name="no_thanks">Ne, děkuji</string>
     <string name="support_development_subscribe">Odemkněte si další funkce a podpořte software s otevřeným zdrojovým kódem</string>
     <string name="enjoying_tasks">Líbí se vám Tasks\?</string>
     <string name="filter_eisenhower_box_4">Ani naléhavé, ani důležité</string>
@@ -602,7 +599,6 @@
     <string name="sort_created_group">Vytvořeno %s</string>
     <string name="sort_start_group">Začátek %s</string>
     <string name="sort_due_group">Termín %s</string>
-    <string name="tell_me_how_im_doing">Prosím, řekněte mi, jak se mi to daří</string>
     <string name="tasks_needs_your_support">Tato aplikace potřebuje Vaši podporu!</string>
     <string name="tasks_org_description">Synchronizujte své úkoly pomocí Tasks.org</string>
     <string name="background_location_permission_required">Tato aplikace sbírá údaje o Vaší poloze, aby fungovala upozornění podle polohy i když aplikaci zrovna nepoužíváte.</string>
@@ -610,7 +606,6 @@
     <string name="manage_drawer">Upravit postranní nabídku</string>
     <string name="custom_filter_is_subtask">Je podúkol</string>
     <string name="custom_filter_has_subtask">Má podúkoly</string>
-    <string name="delete_comment">Smazat tento komentář\?</string>
     <string name="date_picker_multiple">Vícenásobné</string>
     <string name="chip_appearance">Vzhled známek</string>
     <string name="chips">Známky</string>

@@ -469,7 +469,6 @@
         <item quantity="many">%d תת־משימות</item>
         <item quantity="other">%d תת־משימות</item>
     </plurals>
-    <string name="enter_title_hint">הזן כותרת</string>
     <string name="collapse_subtasks">כיווץ תתי משימות</string>
     <string name="expand_subtasks">הרחבת תתי משימות</string>
     <string name="action_new_task">משימה חדשה</string>
@@ -482,13 +481,11 @@
     <string name="chip_appearance_icon_only">סמל בלבד</string>
     <string name="back">חזרה</string>
     <string name="got_it">הבנתי!</string>
-    <string name="no_thanks">לא תודה</string>
     <string name="support_development_subscribe">פתיחת אפשרויות נוספות ותמיכה בתוכנות קוד פתוח</string>
     <string name="filter_no_priority">ללא עדיפות</string>
     <string name="filter_low_priority">עדיפות נמוכה</string>
     <string name="filter_medium_priority">עדיפות בינונית</string>
     <string name="filter_high_priority">עדיפות גבוהה</string>
-    <string name="add_filter">הוספת מסנן</string>
     <string name="add_tags">הוסף תגיות</string>
     <string name="filter_no_tags">אין תגיות</string>
     <string name="filter_after_today">אחרי היום</string>
@@ -554,7 +551,6 @@
     <string name="documentation">תיעוד</string>
     <string name="etesync_account_description">דורש חשבון אצל EteSync.com או שרת באירוח עצמי</string>
     <string name="caldav_account_description">דורש חשבון עם ספק שירות CalDAV או שרת באירוח עצמי. ניתן למצוא ספק שירות תחת tasks.org/caldav</string>
-    <string name="tell_me_how_im_doing">נשמח לשמוע איך החוויה שלך</string>
     <string name="enjoying_tasks">Tasks נושא חן בעיניך\?</string>
     <string name="filter_eisenhower_box_4">לא חשוב ולא דחוף</string>
     <string name="filter_eisenhower_box_3">לא חשוב ודחוף</string>
@@ -599,7 +595,6 @@
     <string name="android_auto_backup">שירות הגיבוי של Android</string>
     <string name="no_app_found">לאף יישומון אין אפשרות לטפל בבקשה הזו</string>
     <string name="header_spacing">ריווח</string>
-    <string name="delete_comment">למחוק את ההערה הזאת\?</string>
     <string name="date_picker_multiple">מגוון</string>
     <string name="multi_select_reschedule">תזמון מחדש</string>
     <string name="default_recurrence">מחזוריות כבררת מחדל</string>

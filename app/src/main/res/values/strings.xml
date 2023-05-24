@@ -526,7 +526,6 @@ File %1$s contained %2$s.\n\n
   <string name="expand_subtasks">Expand subtasks</string>
   <string name="collapse_subtasks">Collapse subtasks</string>
   <string name="subtasks_multilevel_google_task">Multi-level subtasks not supported by Google Tasks</string>
-  <string name="enter_title_hint">Enter title</string>
   <string name="disable_sort_groups">Disable sort groups</string>
   <string name="enter_tag_name">Enter tag name</string>
   <string name="create_new_tag">Create \"%s\"</string>
@@ -597,7 +596,6 @@ File %1$s contained %2$s.\n\n
   <string name="filter_after_today">After today</string>
   <string name="filter_no_tags">No tags</string>
   <string name="add_tags">Add tags</string>
-  <string name="add_filter">Add filter</string>
   <string name="filter_high_priority">High priority</string>
   <string name="filter_medium_priority">Medium priority</string>
   <string name="filter_low_priority">Low priority</string>
@@ -608,9 +606,7 @@ File %1$s contained %2$s.\n\n
   <string name="filter_eisenhower_box_4">Not important and not urgent</string>
   <string name="enjoying_tasks">Enjoying Tasks?</string>
   <string name="tasks_needs_your_support">Tasks needs your support!</string>
-  <string name="tell_me_how_im_doing">Please tell me how I\'m doing</string>
   <string name="support_development_subscribe">Unlock additional features and support open source software</string>
-  <string name="no_thanks">No thanks</string>
   <string name="got_it">Got it!</string>
   <string name="sort_start_group">Start %s</string>
   <string name="sort_due_group">Due %s</string>
@@ -637,7 +633,6 @@ File %1$s contained %2$s.\n\n
   <string name="backup_location_warning">WARNING: Files located in %s will be deleted if Tasks is uninstalled! Please choose a custom location to prevent Android from deleting your files.</string>
   <string name="multi_select_reschedule">Reschedule</string>
   <string name="date_picker_multiple">Multiple</string>
-  <string name="delete_comment">Delete this comment?</string>
   <string name="custom_filter_has_subtask">Has subtasks</string>
   <string name="custom_filter_is_subtask">Is subtask</string>
   <string name="custom_filter_has_reminder">Has reminder</string>

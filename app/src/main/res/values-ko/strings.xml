@@ -432,7 +432,6 @@
     <string name="TEA_add_subtask">하위할일 추가</string>
     <string name="subtasks">하위할일</string>
     <string name="subtasks_multilevel_google_task">Google Tasks는 다단계 하위할일을 지원하지 않습니다</string>
-    <string name="enter_title_hint">제목 입력</string>
     <string name="enter_tag_name">태그 이름 입력</string>
     <string name="create_new_tag">\"%s\" 생성</string>
     <string name="this_feature_requires_a_subscription">이 기능을 사용하려면 구독해야 합니다</string>
@@ -477,8 +476,6 @@
     <string name="help_and_feedback">도움말 및 피드백</string>
     <string name="theme_system_default">시스템 기본설정</string>
     <string name="menu_discard_changes">변경사항 폐기</string>
-    <string name="tell_me_how_im_doing">잘하고 있는지 의견 부탁드립니다</string>
-    <string name="no_thanks">아니오 괜찮습니다</string>
     <string name="support_development_subscribe">부가 기능을 해제하고 오픈소스 소프트웨어를 지원하십시오</string>
     <string name="got_it">확인했습니다!</string>
     <string name="compact">촘촘하게</string>
@@ -494,7 +491,6 @@
     <string name="filter_low_priority">낮은 우선순위</string>
     <string name="filter_medium_priority">중간 우선순위</string>
     <string name="filter_high_priority">높은 우선순위</string>
-    <string name="add_filter">필터 추가</string>
     <string name="add_tags">태그 추가</string>
     <string name="filter_no_tags">태그 없음</string>
     <string name="filter_after_today">오늘 이후</string>
@@ -540,7 +536,6 @@
     <string name="default_recurrence">기본 반복</string>
     <string name="CFC_list_name">목록…</string>
     <string name="default_location">기본 위치</string>
-    <string name="delete_comment">이 댓글을 삭제할까요\?</string>
     <string name="multi_select_reschedule">기한 변경</string>
     <string name="backup_location_warning">경고: Tasks 삭제 시 %s의 파일도 삭제됩니다! 파일 삭제를 방지하려면 다른 위치를 지정하세요.</string>
     <string name="backups_ignore_warnings_summary">백업이 필요 없거나 앱 사용자가 직접 백업을 하고 있는 경우, 백업 경고를 무시합니다</string>

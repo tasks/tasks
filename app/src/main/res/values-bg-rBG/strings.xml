@@ -426,7 +426,6 @@
     <string name="hide_unused_places">Скриване на неизползвани места</string>
     <string name="hide_unused_tags">Скриване на неизползвани етикети</string>
     <string name="support">Поддръжка</string>
-    <string name="tell_me_how_im_doing">Кажете ни как се справяме</string>
     <string name="enjoying_tasks">Харесвате ли Tasks\?</string>
     <string name="filter_eisenhower_box_4">Не важни и не спешни</string>
     <string name="filter_eisenhower_box_3">Не важни, но спешни</string>
@@ -443,7 +442,6 @@
     <string name="default_location">Място по подразбиране</string>
     <string name="enter_tag_name">Въведете име на етикета</string>
     <string name="create_new_tag">Добавяне на „%s“</string>
-    <string name="add_filter">Добавяне на филтър</string>
     <string name="add_tags">Добавяне на етикети</string>
     <string name="error_adding_account">Грешка: %s</string>
     <string name="place_settings">Настройки на местата</string>
@@ -543,7 +541,6 @@
     <string name="show_advanced_settings">Разширени настройки</string>
     <string name="caldav_selection_description">Синхронизиране въз основа на отворени стандарти</string>
     <string name="choose_synchronization_service">Избор на услуга</string>
-    <string name="enter_title_hint">Въведете заглавие</string>
     <string name="subtasks_multilevel_google_task">Вложени задачи не се поддържат от Google Tasks</string>
     <string name="widget_on_click">При докосване</string>
     <string name="whats_new">Какво е новото</string>
@@ -574,7 +571,6 @@
     <string name="chip_appearance_icon_only">Само икона</string>
     <string name="filter_medium_priority">Среден приоритет</string>
     <string name="tasks_needs_your_support">Tasks се нуждае от подкрепа!</string>
-    <string name="no_thanks">Не, благодаря</string>
     <string name="local_lists">Местни списъци</string>
     <string name="background_location_permission_required">Tasks събира данни за местоположението, за да прави напомняния на тази основа, дори и когато приложението е затворено или не се използва.</string>
     <string name="when_started">При започване</string>
@@ -645,7 +641,6 @@
     <string name="app_password">Парола на приложението</string>
     <string name="upgrade_automation">Автоматизация</string>
     <string name="upgrade_desktop_access">Достъп от настолно устройство</string>
-    <string name="delete_comment">Изтриване на коментара\?</string>
     <string name="custom_filter_has_reminder">Има напомняне</string>
     <string name="follow_twitter">Следвайте @tasks_org</string>
     <string name="remove_user">Премахване на потребителя\?</string>

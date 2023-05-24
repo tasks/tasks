@@ -435,7 +435,6 @@
     <string name="TEA_add_subtask">Alt görev ekle</string>
     <string name="subtasks">Alt görevler</string>
     <string name="subtasks_multilevel_google_task">Google Görevler, çoklu düzey alt görevleri desteklemez</string>
-    <string name="enter_title_hint">Başlık girin</string>
     <string name="enter_tag_name">Etiket adı girin</string>
     <string name="create_new_tag">\"%s\" oluştur</string>
     <string name="display_name">Gösterim adı</string>
@@ -519,7 +518,6 @@
     <string name="filter_low_priority">Düşük öncelik</string>
     <string name="filter_medium_priority">Orta öncelik</string>
     <string name="filter_high_priority">Yüksek öncelik</string>
-    <string name="add_filter">Süzgeç ekle</string>
     <string name="add_tags">Etiket ekle</string>
     <string name="filter_no_tags">Etiket yok</string>
     <string name="filter_after_today">Bugünden sonra</string>
@@ -529,9 +527,7 @@
     <string name="custom_filter_and">VE</string>
     <string name="custom_filter_criteria">Süzme ölçütü</string>
     <string name="sort_created">Oluşturulma zamanına göre</string>
-    <string name="tell_me_how_im_doing">Lütfen nasıl yaptığımı anlat</string>
     <string name="got_it">Anladım!</string>
-    <string name="no_thanks">Teşekkürler</string>
     <string name="support_development_subscribe">Ek özellikleri açın ve açık kaynaklı yazılımı destekleyin</string>
     <string name="enjoying_tasks">Tasks\'ı Beğeniyor Musunuz\?</string>
     <string name="whats_new">Yenilikler</string>
@@ -571,7 +567,6 @@
     <string name="repeat_type_completion_capitalized">Tamamlanma tarihi</string>
     <string name="default_tags">Öntanımlı etiketler</string>
     <string name="default_location">Öntanımlı konum</string>
-    <string name="delete_comment">Bu yorum silinsin mi\?</string>
     <string name="date_picker_multiple">Birden çok</string>
     <string name="multi_select_reschedule">Yeniden zamanla</string>
     <string name="cancel">İptal</string>

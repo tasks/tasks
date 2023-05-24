@@ -98,9 +98,7 @@
     <string name="on_launch">Ved opstart</string>
     <string name="sort_modified_group">Redigeret %s</string>
     <string name="got_it">Forstået!</string>
-    <string name="no_thanks">Nej tak</string>
     <string name="support_development_subscribe">Lås ekstra funktioner op og støt open-source software</string>
-    <string name="tell_me_how_im_doing">Fortæl mig, hvad jeg gør godt</string>
     <string name="enjoying_tasks">Nyder du Tasks\?</string>
     <string name="filter_eisenhower_box_4">Ikke vigtigt og ikke presserende</string>
     <string name="filter_eisenhower_box_3">Ikke vigtigt og presserende</string>
@@ -110,7 +108,6 @@
     <string name="filter_low_priority">Lav prioritet</string>
     <string name="filter_medium_priority">Middel prioritet</string>
     <string name="filter_high_priority">Høj prioritet</string>
-    <string name="add_filter">Tilføj filter</string>
     <string name="add_tags">Tilføj tags</string>
     <string name="filter_no_tags">Ingen tags</string>
     <string name="filter_after_today">Efter i dag</string>
@@ -176,7 +173,6 @@
     <string name="create_new_tag">Opret “%s”</string>
     <string name="enter_tag_name">Indtast tag</string>
     <string name="disable_sort_groups">Slå sorteringsgrupper fra</string>
-    <string name="enter_title_hint">Indtast titel</string>
     <string name="subtasks_multilevel_google_task">Flere niveauer af underopgaver understøttes ikke af Google Tasks</string>
     <string name="collapse_subtasks">Skjul underopgaver</string>
     <string name="expand_subtasks">Udvid underopgaver</string>
@@ -642,7 +638,6 @@
     <string name="social">Social</string>
     <string name="chat_libera">Deltag i #tasks på Libera Chat</string>
     <string name="follow_twitter">Følg @tasks_org</string>
-    <string name="delete_comment">Slet denne kommentar\?</string>
     <string name="date_picker_multiple">Flere</string>
     <string name="multi_select_reschedule">Planlæg om</string>
     <string name="android_auto_backup_device_summary">Du skal også tilmelde dig backup-tjenesten via indstillingerne på din enhed. Det er ikke alle enheder, der tilbyder backup-tjeneste.</string>

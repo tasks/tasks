@@ -110,7 +110,6 @@
 
   <color name="white_100">#ffffffff</color>
   <color name="white_87">#deffffff</color>
-  <color name="white_72">#b8ffffff</color>
   <color name="white_60">#99ffffff</color>
   <color name="white_38">#61ffffff</color>
   <color name="white_12">#1fffffff</color>
@@ -141,7 +140,6 @@
   <color name="dialog_background">@color/md_background_light</color>
   <color name="icon_tint">@color/icon_tint_light</color>
   <color name="icon_tint_with_alpha">@color/icon_tint_light_alpha</color>
-  <color name="drawer_color">@color/md_background_light</color>
   <color name="drawer_color_selected">@color/drawer_background_light_selected</color>
   <color name="text_secondary">@color/black_60</color>
   <color name="text_tertiary">@color/black_38</color>

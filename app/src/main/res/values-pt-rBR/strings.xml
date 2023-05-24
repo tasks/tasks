@@ -461,7 +461,6 @@
     <string name="create_new_tag">Criar \"%s\"</string>
     <string name="enter_tag_name">Adicione nome da etiqueta</string>
     <string name="disable_sort_groups">Desabilitar ordenação em grupos</string>
-    <string name="enter_title_hint">Adicione um título</string>
     <string name="subtasks_multilevel_google_task">Sub-tarefas em múltiplos níveis não suportado pelo Google Tasks</string>
     <string name="collapse_subtasks">Recolher sub-tarefas</string>
     <string name="expand_subtasks">Expandir sub-tarefas</string>
@@ -523,9 +522,7 @@
     <string name="sort_modified_group">Modificado %s</string>
     <string name="sort_created_group">Criado %s</string>
     <string name="got_it">Entendi!</string>
-    <string name="no_thanks">Agora não</string>
     <string name="support_development_subscribe">Desbloquear funcionalidades adicionais e apoie software de código aberto</string>
-    <string name="tell_me_how_im_doing">Por favor, diga-me como está tudo</string>
     <string name="enjoying_tasks">Curtindo Tasks\?</string>
     <string name="filter_eisenhower_box_4">Não é importante e não é urgente</string>
     <string name="filter_eisenhower_box_3">Não é importante e urgente</string>
@@ -535,7 +532,6 @@
     <string name="filter_low_priority">Prioridade baixa</string>
     <string name="filter_medium_priority">Prioridade média</string>
     <string name="filter_high_priority">Máxima prioridade</string>
-    <string name="add_filter">Adicionar filtro</string>
     <string name="add_tags">Adicionar categorias</string>
     <string name="filter_no_tags">Sem categoria</string>
     <string name="filter_after_today">Depois de hoje</string>
@@ -566,7 +562,6 @@
     <string name="your_subscription_expired">Sua assinatura expirou. Assine agora para continuar o serviço.</string>
     <string name="custom_filter_is_subtask">É uma subtarefa</string>
     <string name="custom_filter_has_subtask">Tem subtarefas</string>
-    <string name="delete_comment">Deletar esse comentário\?</string>
     <string name="date_picker_multiple">Múliplo</string>
     <string name="multi_select_reschedule">Reprogramar</string>
     <string name="backup_location_warning">AVISO: os arquivos localizados em %s serão excluídos se o Tasks for desinstalado! Escolha um local personalizado para evitar que o Android exclua seus arquivos.</string>

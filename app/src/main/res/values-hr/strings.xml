@@ -97,7 +97,6 @@
     <string name="discard_changes">Odbaciti promjene\?</string>
     <string name="discard">Odbaci</string>
     <string name="menu_discard_changes">Odbaci promjene</string>
-    <string name="add_filter">Stvori filtar</string>
     <string name="shortcut_pick_time">Odaberi vrijeme</string>
     <string name="next_month">Sljedeći mjesec</string>
     <string name="next_week">Sljedeći tjedan</string>
@@ -250,7 +249,6 @@
     <string name="your_subscription_expired">Tvoja je pretplata istekla. Pretplati se za nastavljanje korištenja usluge.</string>
     <string name="custom_filter_is_subtask">Je podzadatak</string>
     <string name="custom_filter_has_subtask">Sadrži podzadatke</string>
-    <string name="delete_comment">Izbrisati ovaj komentar\?</string>
     <string name="date_picker_multiple">Višestruko</string>
     <string name="multi_select_reschedule">Promijeni termin</string>
     <string name="backup_location_warning">UPOZORENJE: Datoteke koje se nalaze u %s izbrisat će se ako se program Tasks deinstalira! Za sprečavanje Androida da briše datoteke odaberi prilagođeno mjesto.</string>
@@ -277,7 +275,6 @@
     <string name="tasks_org_description">Sinkroniziraj tvoje zadatke s Tasks.org</string>
     <string name="enter_tag_name">Upiši ime oznake</string>
     <string name="disable_sort_groups">Onemogući razvrstavanje po grupama</string>
-    <string name="enter_title_hint">Upiši naslov</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ne podržava višerazinske podzadatke</string>
     <string name="collapse_subtasks">Sklopi podzadatke</string>
     <string name="expand_subtasks">Rasklopi podzadatke</string>
@@ -548,9 +545,7 @@
     <string name="sort_due_group">Rok %s</string>
     <string name="sort_start_group">Počni %s</string>
     <string name="got_it">Razumijem!</string>
-    <string name="no_thanks">Ne hvala</string>
     <string name="support_development_subscribe">Otključaj dodatne funkcije i podrži softver otvorenog koda</string>
-    <string name="tell_me_how_im_doing">Javi mi što misliš o programu</string>
     <string name="tasks_needs_your_support">Tasks treba tovju podršku!</string>
     <string name="enjoying_tasks">Sviđa ti se Tasks\?</string>
     <string name="filter_eisenhower_box_4">Nije važno i nije hitno</string>

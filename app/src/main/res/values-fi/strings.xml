@@ -389,7 +389,6 @@
     <string name="choose_synchronization_service">Valitse alusta</string>
     <string name="create_new_tag">Luo \"%s\"</string>
     <string name="enter_tag_name">Anna tunnisteen nimi</string>
-    <string name="enter_title_hint">Syötä otsikko</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ei tue monitasoisia alitehtäviä</string>
     <string name="collapse_subtasks">Pienennä alitehtävät</string>
     <string name="expand_subtasks">Laajenna alitehtävät</string>
@@ -474,7 +473,6 @@
     <string name="sort_created">Luontiajan mukaan</string>
     <string name="widget_show_dividers">Näytä jakajat</string>
     <string name="got_it">Selvä!</string>
-    <string name="no_thanks">Ei kiitos</string>
     <string name="action_new_task">Uusi tehtävä</string>
     <string name="pro_dashclock_extension">Dashclock-laajennus</string>
     <string name="upgrade_to_pro">Päivitä pro versioon</string>
@@ -490,11 +488,9 @@
     <string name="google_tasks_selection_description">Perus palvelu joka synkronoi sinun Google tilisi kanssa</string>
     <string name="opacity_footer">Alatunnisteen läpinäkyvyys</string>
     <string name="support_development_subscribe">Avaa lisäominaisuuksia ja tue avoimen lähdekoodin ohjelmistoa</string>
-    <string name="tell_me_how_im_doing">Kerrothan miten onnistuin</string>
     <string name="enjoying_tasks">Pidätkö Tasks ohjelmasta\?</string>
     <string name="filter_low_priority">Alhainen tärkeys</string>
     <string name="filter_high_priority">Suuri tärkeys</string>
-    <string name="add_filter">Lisää suodin</string>
     <string name="filter_no_tags">Ei tunnisteita</string>
     <string name="filter_after_today">Tämän päivän jälkeen</string>
     <string name="filter_today_only">Vain tänään</string>
@@ -613,7 +609,6 @@
     <string name="your_subscription_expired">Tilauksesi on päättynyt. Tilaa nyt jatkaaksesi palvelua.</string>
     <string name="custom_filter_is_subtask">On alitehtävä</string>
     <string name="custom_filter_has_subtask">Sisältää alitehtäviä</string>
-    <string name="delete_comment">Poista tämä kommentti\?</string>
     <string name="date_picker_multiple">monikerta</string>
     <string name="multi_select_reschedule">Aikataulun muuttaminen</string>
     <string name="backup_location_warning">VAROITUS: Tiedostot, jotka sijaitsevat kohdassa %s, poistetaan, jos Tasks poistetaan! Valitse mukautettu sijainti estääksesi Androidia poistamasta tiedostojasi.</string>

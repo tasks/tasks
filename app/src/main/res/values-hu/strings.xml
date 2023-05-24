@@ -433,7 +433,6 @@
     <string name="TEA_add_subtask">Részfeladat hozzáadása</string>
     <string name="subtasks">Részfeladatok</string>
     <string name="subtasks_multilevel_google_task">A Google Tasks nem támogatja a többszintű részfeladatokat</string>
-    <string name="enter_title_hint">Cím megadása</string>
     <string name="enter_tag_name">Címke neve</string>
     <string name="create_new_tag">\"%s\" létrehozása</string>
     <string name="display_name">Megjelenített név</string>
@@ -519,7 +518,6 @@
     <string name="filter_low_priority">Alacsony prioritás</string>
     <string name="filter_medium_priority">Közepes prioritás</string>
     <string name="filter_high_priority">Magas prioritás</string>
-    <string name="add_filter">Filter hozzáadása</string>
     <string name="add_tags">Címke hozzáadása</string>
     <string name="filter_no_tags">Címke nélkül</string>
     <string name="filter_after_today">Mától</string>
@@ -528,9 +526,7 @@
     <string name="filter_overdue">Határidőn túli</string>
     <string name="sort_created">Létrehozás ideje alapján</string>
     <string name="got_it">Megértettem!</string>
-    <string name="no_thanks">Köszönöm, nem</string>
     <string name="support_development_subscribe">További finkciók feloldása és a nyílt szoftver támogatása</string>
-    <string name="tell_me_how_im_doing">Kérlek mondd el, hogy csinálom</string>
     <string name="enjoying_tasks">Tetszik a Tasks\?</string>
     <string name="whats_new">Újdonságok</string>
     <string name="action_new_task">Új feladat</string>
@@ -569,7 +565,6 @@
     <string name="repeat_type_completion_capitalized">Befejezés dátuma</string>
     <string name="default_tags">Alapértelmezett címkék</string>
     <string name="default_location">Alapértelmezett hely</string>
-    <string name="delete_comment">Megjegyzés törlése\?</string>
     <string name="date_picker_multiple">Többszörös</string>
     <string name="multi_select_reschedule">Újraütemezés</string>
     <string name="always_display_full_date">Teljes dátum mutatása</string>

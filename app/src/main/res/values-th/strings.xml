@@ -107,7 +107,6 @@
     <string name="your_subscription_expired">การสมัครใช้งานของคุณหมดอายุแล้ว สมัครสมาชิกตอนนี้เพื่อกลับมาใช้บริการต่อ</string>
     <string name="custom_filter_is_subtask">เป็นงานย่อย</string>
     <string name="custom_filter_has_subtask">มีงานย่อย</string>
-    <string name="delete_comment">ลบข้อคิดเห็นนี้หรือไม่\?</string>
     <string name="date_picker_multiple">หลายเท่า</string>
     <string name="multi_select_reschedule">จัดกําหนดการใหม่</string>
     <string name="backup_location_warning">คําเตือน: แฟ้มที่อยู่ใน %s จะถูกลบถ้างานถูกถอนการติดตั้ง! โปรดเลือกตําแหน่งที่ตั้งที่กําหนดเองเพื่อป้องกันไม่ให้ Android ลบไฟล์ของคุณ</string>
@@ -133,9 +132,7 @@
     <string name="sort_due_group">ครบกําหนด %s</string>
     <string name="sort_start_group">เริ่ม %s</string>
     <string name="got_it">เข้าใจแล้ว!</string>
-    <string name="no_thanks">ไม่เป็นไรขอบคุณ</string>
     <string name="support_development_subscribe">ปลดล็อกคุณสมบัติเพิ่มเติมและสนับสนุนซอฟต์แวร์โอเพ่นซอร์ส</string>
-    <string name="tell_me_how_im_doing">บอกฉันทีว่าฉันกําลังทําอะไร</string>
     <string name="tasks_needs_your_support">งานต้องการการสนับสนุนของคุณ!</string>
     <string name="enjoying_tasks">สนุกกับงาน\?</string>
     <string name="filter_eisenhower_box_4">ไม่สําคัญและไม่เร่งด่วน</string>
@@ -146,7 +143,6 @@
     <string name="filter_low_priority">ลําดับความสําคัญต่ํา</string>
     <string name="filter_medium_priority">ความสำคัญปานกลาง</string>
     <string name="filter_high_priority">ลําดับความสําคัญสูง</string>
-    <string name="add_filter">เพิ่มตัวกรอง</string>
     <string name="add_tags">เพิ่มแท็ก</string>
     <string name="places">สถานที่</string>
     <string name="desaturate_colors_summary_off">สีจะไม่ถูก desaturated ในธีมสีเข้ม</string>
@@ -182,7 +178,6 @@
     <string name="create_new_tag">สร้าง \"%s\"</string>
     <string name="enter_tag_name">ป้อนชื่อแท็ก</string>
     <string name="disable_sort_groups">ปิดใช้งานกลุ่มการเรียงลําดับ</string>
-    <string name="enter_title_hint">ใส่ชื่อเรื่อง</string>
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
     <string name="collapse_subtasks">ยุบงานย่อย</string>
     <string name="expand_subtasks">ขยายงานย่อย</string>

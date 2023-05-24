@@ -427,9 +427,7 @@
     <string name="name_your_price">価格はあなた次第</string>
     <string name="cancel">キャンセル</string>
     <string name="email">電子メール</string>
-    <string name="no_thanks">いいえ、結構です</string>
     <string name="got_it">わかりました！</string>
-    <string name="add_filter">フィルターを追加</string>
     <string name="add_tags">タグを追加</string>
     <string name="filter_no_tags">タグなし</string>
     <string name="hide_unused_tags">使われていないタグを隠す</string>
@@ -561,7 +559,6 @@
     <string name="filter_overdue">遅延</string>
     <string name="filter_any_due_date">締切あり</string>
     <string name="filter_medium_priority">優先度 中</string>
-    <string name="tell_me_how_im_doing">ご意見をお聞かせください</string>
     <string name="support_development_subscribe">追加機能を解放し、オープンソースソフトウェアをサポートする</string>
     <string name="open_last_viewed_list">最後に表示したリストを開く</string>
     <string name="last_backup">最新のバックアップ: %s</string>
@@ -596,7 +593,6 @@
     <string name="chips">チップ</string>
     <string name="now">今</string>
     <string name="choose_synchronization_service">プラットフォームを選択</string>
-    <string name="enter_title_hint">タイトルを入力</string>
     <string name="upgrade_blurb_1">こんにちは！私は Alex です。Tasks のインディーディベロッパーです</string>
     <string name="no_google_play_subscription">対象の Google Play の定期購入がありません</string>
     <string name="price_per_year">$%s/年</string>
@@ -619,7 +615,6 @@
     <string name="wearable_notifications_summary">ウェアラブルデバイスに通知を表示する</string>
     <string name="auto_dismiss_datetime_list">タスクリスト</string>
     <string name="backup_location_warning">警告: Tasks を削除すると %s にあるファイルも削除されます。ファイルの削除を回避するには、別の場所を指定してください。</string>
-    <string name="delete_comment">コメントを削除しますか？</string>
     <string name="insufficient_sponsorship">対象の GitHub スポンサーシップがありません</string>
     <string name="multi_select_reschedule">スケジュール変更</string>
     <string name="date_picker_multiple">複数</string>

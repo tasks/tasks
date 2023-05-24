@@ -435,7 +435,6 @@
     <string name="TEA_add_subtask">Gehitu azpi-zeregina</string>
     <string name="subtasks">Azpi-zereginak</string>
     <string name="subtasks_multilevel_google_task">Google Tasks-ek ez ditu hainbat mailako azpi-zereginak onartzen</string>
-    <string name="enter_title_hint">Sartu izenburua</string>
     <string name="enter_tag_name">Idatzi etiketaren izena</string>
     <string name="create_new_tag">Sortu \"%s\"</string>
     <string name="display_name">Erakutsi izena</string>
@@ -495,7 +494,6 @@
     <string name="filter_low_priority">Lehentasun txikia</string>
     <string name="filter_medium_priority">Lehentasun ertaina</string>
     <string name="filter_high_priority">Lehentasun handia</string>
-    <string name="add_filter">Gehitu iragazkia</string>
     <string name="add_tags">Gehitu etiketak</string>
     <string name="filter_no_tags">Etiketarik ez</string>
     <string name="filter_after_today">Gaurtik aurrera</string>
@@ -530,9 +528,7 @@
     <string name="widget_show_menu">Erakutsi menua</string>
     <string name="sort_created">Sorrera dataren arabera</string>
     <string name="got_it">Ulertuta!</string>
-    <string name="no_thanks">Ez eskerrik asko</string>
     <string name="support_development_subscribe">Desblokeatu ezaugarri gehigarriak eta babestu software librea</string>
-    <string name="tell_me_how_im_doing">Esadazu nola noan</string>
     <string name="enjoying_tasks">Tasks gogoko\?</string>
     <string name="whats_new">Zer dago berri</string>
     <string name="action_new_task">Zeregin berria</string>
@@ -562,7 +558,6 @@
     <string name="your_subscription_expired">Zure harpidetza agortu da. Harpidetu orain zerbitzua berrekiteko.</string>
     <string name="custom_filter_is_subtask">Azpizeregina da</string>
     <string name="custom_filter_has_subtask">Azpizereginak dauzka</string>
-    <string name="delete_comment">Ezabatu iruzkin hau\?</string>
     <string name="date_picker_multiple">Hainbat</string>
     <string name="multi_select_reschedule">Birprogramatu</string>
     <string name="backup_location_warning">ABISUA: %s helbideko fitxategiak ezabatuko dira Tasks desinstalatzen bada! AUkeratu kokaleku pertsonalizatu bat Androidek zure fitxategiak ezabatzea eragozteko.</string>

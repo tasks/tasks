@@ -451,7 +451,6 @@
     <string name="expand_subtasks">Развернуть подзадачи</string>
     <string name="collapse_subtasks">Свернуть подзадачи</string>
     <string name="subtasks_multilevel_google_task">Многоуровневые подзадачи не поддерживаются Google Tasks</string>
-    <string name="enter_title_hint">Введите название</string>
     <string name="enter_tag_name">Введите имя тега</string>
     <string name="create_new_tag">Создать \"%s\"</string>
     <string name="display_name">Отображаемое название</string>
@@ -533,7 +532,6 @@
     <string name="filter_low_priority">Низкий приоритет</string>
     <string name="filter_medium_priority">Средний приоритет</string>
     <string name="filter_high_priority">Высокий приоритет</string>
-    <string name="add_filter">Добавить фильтр</string>
     <string name="add_tags">Добавить теги</string>
     <string name="filter_no_tags">Без тегов</string>
     <string name="filter_after_today">После сегодняшнего дня</string>
@@ -546,9 +544,7 @@
     <string name="custom_filter_criteria">Критерии фильтрации</string>
     <string name="sort_created">Дата создания</string>
     <string name="got_it">Понятно!</string>
-    <string name="no_thanks">Нет, спасибо</string>
     <string name="support_development_subscribe">Разблокировать дополнительные функции и поддержать ПО с открытым исходным кодом</string>
-    <string name="tell_me_how_im_doing">Пожалуйста, дайте мне знать, как я справляюсь</string>
     <string name="enjoying_tasks">Нравится Tasks\?</string>
     <string name="whats_new">Что нового</string>
     <string name="action_new_task">Новая задача</string>
@@ -587,7 +583,6 @@
     <string name="repeat_type_completion_capitalized">Дата завершения</string>
     <string name="custom_filter_is_subtask">Подзадача</string>
     <string name="custom_filter_has_subtask">Есть подзадачи</string>
-    <string name="delete_comment">Удалить этот комментарий\?</string>
     <string name="default_tags">Теги по умолчанию</string>
     <string name="default_location">Местоположение по умолчанию</string>
     <string name="always_display_full_date">Показать полную дату</string>

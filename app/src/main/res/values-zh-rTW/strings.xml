@@ -201,7 +201,6 @@
     <string name="filter_low_priority">低優先級</string>
     <string name="filter_medium_priority">中優先級</string>
     <string name="filter_high_priority">高優先級</string>
-    <string name="add_filter">新增篩選</string>
     <string name="add_tags">新增標籤</string>
     <string name="filter_no_tags">沒有標籤</string>
     <string name="filter_after_today">今天之後</string>
@@ -336,9 +335,7 @@
     <string name="open_last_viewed_list">開器最後觀看的清單</string>
     <string name="on_launch">啟動時</string>
     <string name="got_it">知道了！</string>
-    <string name="no_thanks">不了謝謝</string>
     <string name="support_development_subscribe">解鎖附加功能和支持開源軟體</string>
-    <string name="tell_me_how_im_doing">請告訴我我做得如何</string>
     <string name="enjoying_tasks">喜歡 Tasks 嗎？</string>
     <string name="filter_eisenhower_box_4">不重要不急迫</string>
     <string name="filter_eisenhower_box_3">不重要急迫</string>
@@ -385,7 +382,6 @@
     <string name="choose_synchronization_service">選擇一個平臺</string>
     <string name="create_new_tag">建立 \"%s\"</string>
     <string name="enter_tag_name">輸入標籤名稱</string>
-    <string name="enter_title_hint">輸入標題</string>
     <string name="collapse_subtasks">收起次工作</string>
     <string name="expand_subtasks">展開副工作</string>
     <string name="google_tasks_add_to_top">新任務置頂</string>

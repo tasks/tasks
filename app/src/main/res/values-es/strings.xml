@@ -451,7 +451,6 @@
     <string name="TEA_add_subtask">Añadir subtarea</string>
     <string name="subtasks">Subtareas</string>
     <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
-    <string name="enter_title_hint">Introducir título</string>
     <string name="enter_tag_name">Introduzca el nombre de la etiqueta</string>
     <string name="create_new_tag">Crear «%s»</string>
     <string name="display_name">Mostrar el nombre</string>
@@ -537,7 +536,6 @@
     <string name="filter_low_priority">Baja prioridad</string>
     <string name="filter_medium_priority">Prioridad media</string>
     <string name="filter_high_priority">Alta prioridad</string>
-    <string name="add_filter">Añadir filtro</string>
     <string name="add_tags">Añade etiquetas</string>
     <string name="filter_no_tags">Ninguna etiqueta</string>
     <string name="filter_after_today">Despues de hoy</string>
@@ -546,9 +544,7 @@
     <string name="filter_overdue">Atrasada</string>
     <string name="sort_created">En el momento de la creación</string>
     <string name="got_it">¡Entendido!</string>
-    <string name="no_thanks">No, gracias</string>
     <string name="support_development_subscribe">Desbloquee funciones adicionales y apoye el software de código abierto</string>
-    <string name="tell_me_how_im_doing">Comparta sus opiniones</string>
     <string name="enjoying_tasks">¿Disfruta Tasks\?</string>
     <string name="whats_new">Qué hay de nuevo</string>
     <string name="action_new_task">Nueva tarea</string>
@@ -587,7 +583,6 @@
     <string name="repeat_type_completion_capitalized">Fecha de finalización</string>
     <string name="default_tags">Etiquetas predeterminadas</string>
     <string name="default_location">Ubicación predeterminada</string>
-    <string name="delete_comment">¿Eliminar este comentario\?</string>
     <string name="date_picker_multiple">Múltiples</string>
     <string name="multi_select_reschedule">Reprogramar</string>
     <string name="ok">Aceptar</string>

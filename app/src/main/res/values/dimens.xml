@@ -2,11 +2,9 @@
 <resources>
   <dimen name="half_keyline_first">8dp</dimen>
   <dimen name="quarter_keyline_first">4dp</dimen>
-  <dimen name="task_edit_spacing">20dp</dimen>
   <dimen name="keyline_first">16dp</dimen>
   <dimen name="keyline_second">32dp</dimen>
   <dimen name="keyline_content_inset">56dp</dimen>
-  <dimen name="priority_button_width">40dp</dimen>
   <dimen name="bottom_sheet_corners">12dp</dimen>
   <dimen name="task_list_footer_height">88dp</dimen>
 
@@ -36,11 +34,8 @@
 
   <dimen name="task_list_item_spacing">4dp</dimen>
 
-  <dimen name="chip_spacing">4dp</dimen>
   <dimen name="chip_stroke">1dp</dimen>
   <dimen name="chip_icon_size">18dp</dimen>
-  <dimen name="chip_min_height">26dp</dimen>
 
   <dimen name="icon_picker_size">48dp</dimen>
-  <dimen name="list_item_spacing">8dp</dimen>
 </resources>

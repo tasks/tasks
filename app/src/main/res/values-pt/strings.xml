@@ -436,14 +436,12 @@
     <string name="sort_modified_group">Alterado %s</string>
     <string name="sort_created_group">Criado %s</string>
     <string name="action_new_task">Nova tarefa</string>
-    <string name="no_thanks">Não obrigado</string>
     <string name="whats_new">Novidades</string>
     <string name="sort_created">Pela data da criação</string>
     <string name="filter_no_priority">Sem prioridade</string>
     <string name="filter_low_priority">Baixa prioridade</string>
     <string name="filter_medium_priority">Prioridade média</string>
     <string name="filter_high_priority">Alta prioridade</string>
-    <string name="add_filter">Adicionar filtro</string>
     <string name="add_tags">Adicionar etiquetas</string>
     <string name="filter_no_tags">Sem etiquetas</string>
     <string name="filter_after_today">Depois de hoje</string>
@@ -519,7 +517,6 @@
     <string name="display_name">Mostrar nome</string>
     <string name="create_new_tag">Criar \"%s\"</string>
     <string name="enter_tag_name">Digite o nome da etiqueta</string>
-    <string name="enter_title_hint">Digite um título</string>
     <string name="subtasks_multilevel_google_task">As subtarefas em vários níveis não são suportadas pelo Google Tasks</string>
     <string name="subtasks">Subtarefas</string>
     <string name="TEA_add_subtask">Adicionar subtarefa</string>
@@ -539,7 +536,6 @@
     <string name="open_last_viewed_list">Abrir a última lista vista</string>
     <string name="got_it">Entendi!</string>
     <string name="support_development_subscribe">Desbloqueie funcionalidades adicionais e apoie programas de código-fonte aberto</string>
-    <string name="tell_me_how_im_doing">Por favor, conte-me a sua opinião</string>
     <string name="enjoying_tasks">Gosta do Tasks\?</string>
     <string name="filter_eisenhower_box_4">Não é importante e não é urgente</string>
     <string name="filter_eisenhower_box_3">Não é importante e urgente</string>
@@ -565,7 +561,6 @@
     <string name="price_per_month">%s$/mês</string>
     <string name="price_per_year">%s$/ano</string>
     <string name="custom_filter_is_subtask">É uma subtarefa</string>
-    <string name="delete_comment">Eliminar este comentário\?</string>
     <string name="backup_location_warning">AVISO: os ficheiros localizados em \"%s\" serão eliminados se o Tasks for desinstalado! Escolha outra localização para impedir que o Android elimine os seus ficheiros.</string>
     <string name="backups_ignore_warnings">Ignorar avisos</string>
     <string name="device_settings">Definições do dispositivo</string>

@@ -436,7 +436,6 @@
     <string name="TEA_add_subtask">Teilaufgabe hinzufügen</string>
     <string name="subtasks">Teilaufgaben</string>
     <string name="subtasks_multilevel_google_task">Mehrstufige Teilaufgaben werden von Google Tasks nicht unterstützt</string>
-    <string name="enter_title_hint">Titel eingeben</string>
     <string name="display_name">Anzeigename</string>
     <string name="this_feature_requires_a_subscription">Diese Funktion benötigt ein Abonnement</string>
     <string name="help_and_feedback">Hilfe und Rückmeldung</string>
@@ -518,7 +517,6 @@
     <string name="filter_low_priority">Niedrige Dringlichkeit</string>
     <string name="filter_medium_priority">Mittlere Dringlichkeit</string>
     <string name="filter_high_priority">Hohe Dringlichkeit</string>
-    <string name="add_filter">Filter hinzufügen</string>
     <string name="filter_today_only">Nur heute</string>
     <string name="sort_created">Nach Erstellungszeit</string>
     <string name="filter_after_today">Ab morgen</string>
@@ -533,7 +531,6 @@
     <string name="filter_eisenhower_box_2">Wichtig und nicht dringend</string>
     <string name="filter_eisenhower_box_1">Wichtig und dringend</string>
     <string name="got_it">Verstanden!</string>
-    <string name="no_thanks">Nein, danke</string>
     <string name="action_new_task">Neue Aufgabe</string>
     <string name="support_development_subscribe">Schalten Sie zusätzliche Funktionen frei und unterstützen Sie quelloffene Software</string>
     <string name="yesterday_lowercase">gestern</string>
@@ -552,7 +549,6 @@
     <string name="date_shortcut_tomorrow_evening">Morgen Abend</string>
     <string name="reset_sort_order">Sortierung zurücksetzen</string>
     <string name="permission_read_tasks">Vollzugriff auf die Tasks-Datenbank</string>
-    <string name="tell_me_how_im_doing">Erzählen Sie mir bitte, wie gut ich das mache</string>
     <string name="davx5_selection_description">Aufgaben mit der DAVx⁵-Anwendung synchronisieren</string>
     <string name="no_app_found">Keine Anwendung konnte diese Anfrage bearbeiten</string>
     <string name="foreground_location">Standort im Vordergrund</string>
@@ -564,7 +560,6 @@
     <string name="last_backup_never">nie</string>
     <string name="device_settings">Geräteeinstellungen</string>
     <string name="account">Konto</string>
-    <string name="delete_comment">Kommentar löschen?</string>
     <string name="cancel">Abbrechen</string>
     <string name="ok">OK</string>
     <string name="header_spacing">Abstände</string>

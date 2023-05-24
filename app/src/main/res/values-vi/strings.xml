@@ -136,7 +136,6 @@
     <string name="your_subscription_expired">Đăng ký của bạn đã hết hạn. Đăng ký ngay để tiếp tục dịch vụ.</string>
     <string name="custom_filter_is_subtask">Là công việc con</string>
     <string name="custom_filter_has_subtask">Có công việc con</string>
-    <string name="delete_comment">Xoá bình luận này\?</string>
     <string name="date_picker_multiple">Nhiều</string>
     <string name="multi_select_reschedule">Lên lịch lại</string>
     <string name="backup_location_warning">CẢNH BÁO: Các tệp được đặt ở %s sẽ bị xoá nếu Tasks bị gỡ cài đặt! Vui lòng chọn một vị trí tuỳ chỉnh để ngăn Android không xoá các tệp của bạn.</string>
@@ -162,9 +161,7 @@
     <string name="sort_due_group">Hạn %s</string>
     <string name="sort_start_group">Bắt đầu %s</string>
     <string name="got_it">Hiểu rồi!</string>
-    <string name="no_thanks">Không, cảm ơn</string>
     <string name="support_development_subscribe">Mở khoá các tính năng bổ sung và hỗ trợ phần mềm mã nguồn mở</string>
-    <string name="tell_me_how_im_doing">Vui lòng nói cho tôi xem tôi như thế nào</string>
     <string name="tasks_needs_your_support">Tasks cần sự hỗ trợ của bạn!</string>
     <string name="enjoying_tasks">Đang tận hưởng Tasks\?</string>
     <string name="filter_eisenhower_box_4">Không quan trọng và không gấp</string>
@@ -175,7 +172,6 @@
     <string name="filter_low_priority">Ưu tiên thấp</string>
     <string name="filter_medium_priority">Ưu tiên trung bình</string>
     <string name="filter_high_priority">Ưu tiên cao</string>
-    <string name="add_filter">Thêm bộ lọc</string>
     <string name="add_tags">Thêm thẻ</string>
     <string name="filter_no_tags">Không có thẻ</string>
     <string name="filter_after_today">Sau hôm nay</string>
@@ -243,7 +239,6 @@
     <string name="create_new_tag">Tạo \"%s\"</string>
     <string name="enter_tag_name">Nhập tên thẻ</string>
     <string name="disable_sort_groups">Tắt các nhóm sắp xếp</string>
-    <string name="enter_title_hint">Nhập tiêu đề</string>
     <string name="subtasks_multilevel_google_task">Các công việc con có nhiều cấp không được Google Tasks hỗ trợ</string>
     <string name="collapse_subtasks">Thu gọn các công việc con</string>
     <string name="expand_subtasks">Mở rộng các công việc con</string>

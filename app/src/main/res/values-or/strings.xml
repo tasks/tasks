@@ -109,7 +109,6 @@
     <string name="help">ସହାୟତା</string>
     <string name="help_and_feedback">ସାହାଯ୍ୟ ଓ ମତାମତ</string>
     <string name="version_string">ସଂସ୍କରଣ %s</string>
-    <string name="enter_title_hint">ଆଖ୍ୟା ପ୍ରଵେଶ କରନ୍ତୁ</string>
     <string name="preferences_advanced">ଵିକଶିତ</string>
     <string name="more_settings">ଅଧିକ ସେଟିଂ</string>
     <string name="custom_filter_or">କିମ୍ବା</string>
@@ -175,7 +174,6 @@
     <string name="color_wheel">ରଙ୍ଗ ଚକ୍ର</string>
     <string name="custom_filter_and">ଏଵଂ</string>
     <string name="filter_overdue">ଅତିଦେୟ</string>
-    <string name="no_thanks">ନାହିଁ ଥାଉ</string>
     <string name="got_it">ବୁଝିଗଲି!</string>
     <string name="last_backup">ଗତ ବ୍ୟାକଅପ୍: %s</string>
     <string name="invite_awaiting_response">ନିମନ୍ତ୍ରଣ ପ୍ରତିକ୍ରିୟାର ଅପେକ୍ଷାରେ</string>

@@ -16,7 +16,6 @@
     <string name="sort_created_group">සැකසූ %s</string>
     <string name="sort_due_group">නියමිත %s</string>
     <string name="sort_start_group">ආරම්භය %s</string>
-    <string name="tell_me_how_im_doing">කරුණාකර මට කියන්න මගේ කාර්යය කොහොමද කියලා</string>
     <string name="filter_overdue">නියමිත දිනය පසුවූ</string>
     <string name="filter_any_due_date">ඕනෑම නියමිත දිනයක්</string>
     <string name="compact">සංගත</string>
@@ -122,7 +121,6 @@
     <string name="insufficient_sponsorship">සුදුසුකම් ලත් GitHub අනුග්‍රාහකත්වයක් හමු නොවීය</string>
     <string name="insufficient_subscription">දායකත්ව මට්ටම ප්‍රමාණවත් නොවේ. සේවාව නැවත ආරම්භ කිරීම සඳහා කරුණාකර ඔබගේ දායකත්වය යාවත්කාලීන කරන්න.</string>
     <string name="your_subscription_expired">ඔබගේ දායකත්වය කල් ඉකුත් වී ඇත. සේවාව නැවත ආරම්භ කිරීම සඳහා දැන්ම දායක වන්න.</string>
-    <string name="delete_comment">මෙම අදහස මකන්නද\?</string>
     <string name="multi_select_reschedule">නැවත සකස් කරන්න</string>
     <string name="backup_location_warning">අවවාදයයි: Tasks අස්ථාපනය කරන විට %s හි ඇති ගොනු මැකෙනු ඇත! ඔබගේ ගොනු Android විසින් මකාදැමීම වැලැක්වීමට කරුණාකර අභිරුචි ස්ථානයක් තෝරන්න.</string>
     <string name="backups_ignore_warnings_summary">ඔබට උපස්ථ අවශ්‍ය නොවන්නේ නම් හෝ ඔබේම උපස්ථ විසඳුමක් තිබේ නම් උපස්ථ අනතුරු ඇඟවීම් නොසලකා හරින්න</string>
@@ -138,7 +136,6 @@
     <string name="reset_sort_order">වර්ග කිරීමේ අනුපිළිවෙල නැවත සකසන්න</string>
     <string name="lists">ලැයිස්තු</string>
     <string name="got_it">තේරුම් ගත්තා!</string>
-    <string name="no_thanks">නැහැ ස්තුතියි</string>
     <string name="support_development_subscribe">අමතර විශේෂාංග අගුළු ඇරීම සහ විවෘත මෘදුකාංග සඳහා සහාය වීම</string>
     <string name="tasks_needs_your_support">Tasks සඳහා ඔබේ සහාය අවශ්‍යයි!</string>
     <string name="enjoying_tasks">Tasks සතුටුදායකද\?</string>
@@ -150,7 +147,6 @@
     <string name="filter_low_priority">අඩු ප්‍රමුඛතාවය</string>
     <string name="filter_medium_priority">මධ්‍යම ප්‍රමුඛතාවය</string>
     <string name="filter_high_priority">ඉහළ ප්‍රමුඛතාවය</string>
-    <string name="add_filter">පෙරණයක් එක්කරන්න</string>
     <string name="add_tags">ටැග් එක් කරන්න</string>
     <string name="filter_no_tags">ටැග් නැති</string>
     <string name="filter_after_today">අදින් පසු</string>
@@ -528,7 +524,6 @@
     <string name="create_new_tag">\"%s\" සාදන්න</string>
     <string name="enter_tag_name">ටැගයේ නම ඇතුළත් කරන්න</string>
     <string name="disable_sort_groups">වර්ග කිරීමේ කණ්ඩායම් අක්‍රීය කරන්න</string>
-    <string name="enter_title_hint">මාතෘකාව ඇතුළත් කරන්න</string>
     <string name="subtasks_multilevel_google_task">Google Tasks විසින් බහු මට්ටමේ උප කාර්යයන් සඳහා සහාය නොදක්වයි</string>
     <string name="collapse_subtasks">උප කාර්යයන් හකුළුවන්න</string>
     <string name="expand_subtasks">උප කාර්යයන් පුළුල් කරන්න</string>

@@ -446,7 +446,6 @@
     <string name="TEA_add_subtask">Dodaj podzadanie</string>
     <string name="subtasks">Podzadania</string>
     <string name="subtasks_multilevel_google_task">Wielopoziomowe podzadania nie są obsługiwane przez Google Tasks</string>
-    <string name="enter_title_hint">Wprowadź tytuł</string>
     <string name="enter_tag_name">Wprowadź nazwę tagu</string>
     <string name="create_new_tag">Stwórz \"%s\"</string>
     <string name="display_name">Imię</string>
@@ -528,7 +527,6 @@
     <string name="filter_low_priority">Niski priorytet</string>
     <string name="filter_medium_priority">Średni priorytet</string>
     <string name="filter_high_priority">Wysoki priorytet</string>
-    <string name="add_filter">Dodaj filtr</string>
     <string name="add_tags">Dodaj tagi</string>
     <string name="filter_no_tags">Brak tagów</string>
     <string name="filter_after_today">Po dniu dzisiejszym</string>
@@ -541,9 +539,7 @@
     <string name="custom_filter_criteria">Kryteria filtrowania</string>
     <string name="sort_created">Według czasu stworzenia</string>
     <string name="got_it">Rozumiem!</string>
-    <string name="no_thanks">Nie, dziękuję</string>
     <string name="support_development_subscribe">Odblokuj dodatkowe funkcje i wesprzyj oprogramowanie open source</string>
-    <string name="tell_me_how_im_doing">Powiedz prosze, jak mi idzie</string>
     <string name="enjoying_tasks">Podoba Ci się Tasks\?</string>
     <string name="whats_new">Co nowego</string>
     <string name="sort_modified_group">Zmienione %s</string>
@@ -579,7 +575,6 @@
     <string name="no_app_found">Żadna aplikacja nie może obsłużyć tego żądania</string>
     <string name="custom_filter_is_subtask">Jest podzadaniem</string>
     <string name="custom_filter_has_subtask">Ma podzadania</string>
-    <string name="delete_comment">Usunąć ten komentarz\?</string>
     <string name="date_picker_multiple">Wielokrotnie</string>
     <string name="multi_select_reschedule">Przełóż</string>
     <string name="default_recurrence">Powtarzanie domyślne</string>

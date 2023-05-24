@@ -425,7 +425,6 @@
     <string name="TEA_add_subtask">添加子任务</string>
     <string name="subtasks">子任务</string>
     <string name="subtasks_multilevel_google_task">Google Tasks 不支持多层级子任务</string>
-    <string name="enter_title_hint">输入标题</string>
     <string name="enter_tag_name">输入标签名称</string>
     <string name="create_new_tag">创建 \"%s\"</string>
     <string name="display_name">显示名称</string>
@@ -511,7 +510,6 @@
     <string name="filter_low_priority">低优先级</string>
     <string name="filter_medium_priority">中等优先级</string>
     <string name="filter_high_priority">高优先级</string>
-    <string name="add_filter">添加过滤器</string>
     <string name="add_tags">添加标签</string>
     <string name="filter_no_tags">无标签</string>
     <string name="filter_after_today">今日以后</string>
@@ -520,9 +518,7 @@
     <string name="filter_overdue">已过期</string>
     <string name="sort_created">按创建时间</string>
     <string name="got_it">知道了！</string>
-    <string name="no_thanks">不，谢谢</string>
     <string name="support_development_subscribe">解锁额外功能并支持开源软件</string>
-    <string name="tell_me_how_im_doing">请告诉我做得怎么样</string>
     <string name="enjoying_tasks">享受Tasks\?</string>
     <string name="whats_new">更新日志</string>
     <string name="action_new_task">新任务</string>
@@ -561,7 +557,6 @@
     <string name="repeat_type_completion_capitalized">完成日期</string>
     <string name="default_tags">默认标签</string>
     <string name="default_location">默认位置</string>
-    <string name="delete_comment">是否删除该注解？</string>
     <string name="date_picker_multiple">多个</string>
     <string name="multi_select_reschedule">重新计划</string>
     <string name="always_display_full_date">显示完整日期</string>

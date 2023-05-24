@@ -472,7 +472,6 @@
     <string name="google_tasks_selection_description">Servizio di base sincronizzato con il tuo account Google</string>
     <string name="choose_synchronization_service">Seleziona una piattaforma</string>
     <string name="enter_tag_name">Inserisci il nome dell\'etichetta</string>
-    <string name="enter_title_hint">Inserisci titolo</string>
     <string name="collapse_subtasks">Comprimi attività secondarie</string>
     <string name="name_your_price">Scegli tu il prezzo</string>
     <string name="third_party_licenses">Licenze di terze parti</string>
@@ -549,15 +548,12 @@
     <string name="sort_modified_group">Modificato %s</string>
     <string name="sort_created_group">Creato %s</string>
     <string name="got_it">Capito!</string>
-    <string name="no_thanks">No grazie</string>
     <string name="support_development_subscribe">Sblocca funzionalità aggiuntive e supporta il software open source</string>
-    <string name="tell_me_how_im_doing">Per favore, dimmi come me la cavo</string>
     <string name="enjoying_tasks">Ti piace Tasks\?</string>
     <string name="filter_no_priority">Senza priorità</string>
     <string name="filter_low_priority">Bassa priorità</string>
     <string name="filter_medium_priority">Media priorità</string>
     <string name="filter_high_priority">Alta priorità</string>
-    <string name="add_filter">Aggiungi filtro</string>
     <string name="filter_no_tags">Senza etichetta</string>
     <string name="filter_after_today">Da domani</string>
     <string name="filter_any_due_date">Qualsiasi scadenza</string>
@@ -587,7 +583,6 @@
     <string name="repeat_type_completion_capitalized">Data di completamento</string>
     <string name="default_tags">Etichetta predefinita</string>
     <string name="default_location">Posizione predefinita</string>
-    <string name="delete_comment">Eliminare questo commento\?</string>
     <string name="date_picker_multiple">Molteplici</string>
     <string name="multi_select_reschedule">Modifica pianificazione</string>
     <string name="always_display_full_date">Mostra data completa</string>

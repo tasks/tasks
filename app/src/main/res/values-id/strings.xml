@@ -349,7 +349,6 @@
     <string name="google_tasks_add_to_top">Tugas baru di atas</string>
     <string name="expand_subtasks">Lebarkan subtugas</string>
     <string name="subtasks_multilevel_google_task">Subtugas level-ganda tidak didukung oleh Google Tasks</string>
-    <string name="enter_title_hint">Masukkan judul</string>
     <string name="enter_tag_name">Masukkan nama tag</string>
     <string name="create_new_tag">Buat \"%s\"</string>
     <string name="this_feature_requires_a_subscription">Fitur ini membutuhkan Anda berlangganan versi pro</string>
@@ -453,7 +452,6 @@
     <string name="astrid_sort_order">Sortiran manual astrid</string>
     <string name="display_name">Nama tampilan</string>
     <string name="background_location_permission_required">Aplikasi ini mengumpulkan data lokasi untuk mengaktifkan pengingat berdasarkan lokasi bahkan saat aplikasi ditutup atau sedang tidak digunakan.</string>
-    <string name="tell_me_how_im_doing">Tolong beritahu saya bagaimana hasil pekerjaan saya</string>
     <string name="repeats_plural_on_number_of_times">Ulangi setiap %1$s pada %2$s, terjadi %3$d %4$s</string>
     <string name="repeats_plural_number_of_times">Ulangi setiap %1$s, terjadi %2$d %3$s</string>
     <string name="repeats_plural_until">Ulangi setiap %1$s sampai %2$s</string>
@@ -498,7 +496,6 @@
     <string name="your_subscription_expired">Langganan Anda telah berakhir. Berlangganan kembali untuk melanjutkan layanan.</string>
     <string name="custom_filter_is_subtask">Adalah subtugas</string>
     <string name="custom_filter_has_subtask">Memiliki subtugas</string>
-    <string name="delete_comment">Hapus komentar ini\?</string>
     <string name="date_picker_multiple">Banyak</string>
     <string name="multi_select_reschedule">Jadwalkan Ulang</string>
     <string name="backup_location_warning">PERINGATAN: File yang terletak pada %s akan dihapus jika pemasangan Tasks dihapus! Pilih lokasi khusus untuk mencegah Android menghapus file Anda.</string>
@@ -524,7 +521,6 @@
     <string name="sort_due_group">Jatuh tempo %s</string>
     <string name="sort_start_group">Mulai %s</string>
     <string name="got_it">Ok Kaka!</string>
-    <string name="no_thanks">Tidak, terima kasih</string>
     <string name="support_development_subscribe">Temukan fitur tambahan dan dukung perangkat lunak sumber terbuka</string>
     <string name="enjoying_tasks">Menikmati Tasks\?</string>
     <string name="filter_eisenhower_box_4">Tidak penting dan tidak mendesak</string>
@@ -535,7 +531,6 @@
     <string name="filter_low_priority">Prioritas rendah</string>
     <string name="filter_medium_priority">Prioritas sedang</string>
     <string name="filter_high_priority">Prioritas tinggi</string>
-    <string name="add_filter">Tambahkan filter</string>
     <string name="add_tags">Tambahkan tag</string>
     <string name="filter_no_tags">Tidak ada tag</string>
     <string name="filter_after_today">Setelah hari ini</string>

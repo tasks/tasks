@@ -88,7 +88,6 @@
     <string name="your_subscription_expired">Abonamentul dvs. a expirat. Abonați-vă acum pentru a relua serviciul.</string>
     <string name="custom_filter_is_subtask">Este o sarcină secundară</string>
     <string name="custom_filter_has_subtask">Are sarcini secundare</string>
-    <string name="delete_comment">Ștergeți acest comentariu\?</string>
     <string name="date_picker_multiple">Multiplu</string>
     <string name="multi_select_reschedule">Reprogramați</string>
     <string name="backup_location_warning">AVERTISMENT: Fișierele localizate în %s vor fi șterse dacă Tasks este dezinstalat! Vă rugăm să alegeți o locație personalizată pentru a împiedica Android să vă șteargă fișierele.</string>
@@ -541,9 +540,7 @@
     <string name="sort_due_group">Cu scadență %s</string>
     <string name="sort_start_group">Start %s</string>
     <string name="got_it">Am găsit!</string>
-    <string name="no_thanks">Nu, mulțumesc</string>
     <string name="support_development_subscribe">Deblocați funcții suplimentare și sprijiniți software-ul cu sursă deschisă</string>
-    <string name="tell_me_how_im_doing">Te rog să-mi spui cum mă descurc</string>
     <string name="tasks_needs_your_support">Tasks are nevoie de sprijinul tău!</string>
     <string name="enjoying_tasks">Îți place Tasks\?</string>
     <string name="filter_eisenhower_box_4">Nu este important și nu este urgent</string>
@@ -554,7 +551,6 @@
     <string name="filter_low_priority">Prioritate scăzută</string>
     <string name="filter_medium_priority">Prioritate medie</string>
     <string name="filter_high_priority">Prioritate ridicată</string>
-    <string name="add_filter">Adăugați un filtru</string>
     <string name="add_tags">Adăugați etichete</string>
     <string name="filter_no_tags">Fără etichete</string>
     <string name="filter_after_today">După ziua de azi</string>
@@ -622,7 +618,6 @@
     <string name="create_new_tag">Creați \"%s\"</string>
     <string name="enter_tag_name">Introduceți numele etichetei</string>
     <string name="disable_sort_groups">Dezactivați grupurile de sortare</string>
-    <string name="enter_title_hint">Introduceți titlul</string>
     <string name="subtasks_multilevel_google_task">Subactivitățile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>
     <string name="collapse_subtasks">Colapsarea subactivităților</string>
     <string name="expand_subtasks">Extindeți subactivitățile</string>

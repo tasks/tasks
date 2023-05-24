@@ -481,7 +481,6 @@
     <string name="select_all">Pasirinkti viską</string>
     <string name="filter_today_only">Tik šiandien</string>
     <string name="filter_no_tags">Be etikečių</string>
-    <string name="enter_title_hint">Įveskite pavadinimą</string>
     <string name="button_unsubscribe">Atšaukti prenumeratą</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="subscription">Prenumerata</string>
@@ -638,7 +637,6 @@
     <string name="your_subscription_expired">Jūsų prenumeratos galiojimo laikas baigėsi. Prenumeruokite dabar, norėdami tęsti paslaugą.</string>
     <string name="custom_filter_is_subtask">Ar antrinė užduotis</string>
     <string name="custom_filter_has_subtask">Turi antrinių užduočių</string>
-    <string name="delete_comment">Ištrinti šį komentarą\?</string>
     <string name="backup_location_warning">ĮSPĖJIMAS: failai, esantys %s, bus ištrinti, jei užduotys bus pašalintos! Nustatykite kitą, pasirinktinę vietą, kad Android negalėtų ištrinti failų.</string>
     <string name="backups_ignore_warnings_summary">Nepaisyti įspėjimų apie atsarginę kopiją, jei jums nereikia atsarginių kopijų arba turite savo atsarginės kopijos sprendimą</string>
     <string name="backups_ignore_warnings">Nepaisyti įspėjimų</string>
@@ -659,9 +657,7 @@
     <string name="sort_due_group">Terminas %s</string>
     <string name="sort_start_group">Pradžia %s</string>
     <string name="got_it">Supratau!</string>
-    <string name="no_thanks">Ne, ačiū</string>
     <string name="support_development_subscribe">Atrakinkite papildomas funkcijas ir palaikykite atvirojo kodo programinę įrangą</string>
-    <string name="tell_me_how_im_doing">Pasakykite man, kaip man sekasi</string>
     <string name="tasks_needs_your_support">Tasks reikia jūsų palaikymo!</string>
     <string name="enjoying_tasks">Ar jums patinka Tasks\?</string>
     <string name="calendar_event_created">Kalendoriaus įvykis sukurtas %s</string>
@@ -677,7 +673,6 @@
     <string name="chip_appearance">Skrituliuko išvaizda</string>
     <string name="chips">Skrituliukai</string>
     <string name="widget_id">Valdiklio ID: %d</string>
-    <string name="add_filter">Pridėti filtrą</string>
     <string name="add_tags">Pridėti etiketes</string>
     <string name="auto_dismiss_datetime">Automatiškai uždaryti datos ir laiko parinkiklį</string>
     <string name="hide_unused_places">Slėpti nenaudojamas vietas</string>
