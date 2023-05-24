@@ -1,4 +1,4 @@
-### 13.2.3 - (2023-05-20)
+### 13.2.4 - (2023-05-24)
 * Add 'By list' sort mode [#1265](https://github.com/tasks/tasks/issues/1265)
 * Save task when pressing done [#2125](https://github.com/tasks/tasks/pull/2125)
 * Use ISO 8601 date formatting for backup filenames [#1550](https://github.com/tasks/tasks/pull/1550)
