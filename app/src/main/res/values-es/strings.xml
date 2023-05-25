@@ -753,4 +753,8 @@
     <string name="default_reminder">Aviso por defecto</string>
     <string name="rmd_time_description">Mostrar notificaciones de tareas sin fecha de vencimiento</string>
     <string name="sort_list">Por lista</string>
+    <string name="sort_ascending">Ascendente</string>
+    <string name="sort_sorting">Clasificación</string>
+    <string name="sort_grouping">Agrupación</string>
+    <string name="sort_descending">Descendente</string>
 </resources>
