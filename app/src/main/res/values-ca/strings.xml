@@ -285,4 +285,8 @@
         <item quantity="one">setmana</item>
         <item quantity="other">setmanes</item>
     </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%d minut</item>
+        <item quantity="other">%d minuts</item>
+    </plurals>
 </resources>
