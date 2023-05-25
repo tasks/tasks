@@ -308,7 +308,6 @@
     <string name="move">Sposta</string>
     <string name="filter_settings">Impostazioni filtro</string>
     <string name="show_completed">Mostra completate</string>
-    <string name="reverse">Inverso</string>
     <string name="add_attachment">Aggiungi allegato</string>
     <string name="take_a_picture">Scatta una foto</string>
     <string name="pick_from_gallery">Scegli dalla galleria</string>
@@ -518,7 +517,6 @@
     <string name="auto_dismiss_datetime_edit">Modifica attività</string>
     <string name="auto_dismiss_datetime_list_summary">Chiudi automaticamente quando aperto dall\'elenco attività</string>
     <string name="auto_dismiss_datetime_list">Elenco attività</string>
-    <string name="disable_sort_groups">Disabilita i gruppi di ordinamento</string>
     <string name="whats_new">Novità</string>
     <string name="widget_due_date_hidden">Nascosto</string>
     <string name="widget_due_date_below_title">Sotto il titolo</string>

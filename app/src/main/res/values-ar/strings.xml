@@ -159,7 +159,6 @@
     <string name="on_launch">عند فتح التطبيق</string>
     <string name="desaturate_colors_summary_off">ستكون الألوان مشبعة في المظهر الداكن</string>
     <string name="desaturate_colors_summary_on">ستكون الألوان غير مشبعة في المظهر الداكن</string>
-    <string name="disable_sort_groups">تعطيل مجموعات الترتيب</string>
     <string name="default_list">القائمة الافتراضية</string>
     <string name="google_tasks_add_to_top">اضف المهام الجديدة لاعلى القائمة</string>
     <string name="add_account">أضف حساب</string>
@@ -420,7 +419,6 @@
     <string name="url">رابط</string>
     <string name="widget_due_date_hidden">مخفي</string>
     <string name="widget_footer">تذييل</string>
-    <string name="reverse">عكس</string>
     <string name="show_unstarted">إظهار الغير مبدوء</string>
     <string name="discard">رمي</string>
     <string name="menu_discard_changes">رمي التغييرات</string>

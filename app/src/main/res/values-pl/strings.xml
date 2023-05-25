@@ -303,7 +303,6 @@
     <string name="move">Przenieś</string>
     <string name="filter_settings">Ustawienia filtrów</string>
     <string name="show_completed">Pokaż ukończone</string>
-    <string name="reverse">Odwrotnie</string>
     <string name="add_attachment">Dodaj załącznik</string>
     <string name="take_a_picture">Wybierz obrazek</string>
     <string name="pick_from_gallery">Wybierz z galerii</string>
@@ -553,7 +552,6 @@
     <string name="lists">Listy</string>
     <string name="open_last_viewed_list">Otwórz ostatnio przeglądaną listę</string>
     <string name="on_launch">Przy uruchomieniu</string>
-    <string name="disable_sort_groups">Wyłącz grupy sortowania</string>
     <string name="date_shortcut_tomorrow_night">Jutro w nocy</string>
     <string name="date_shortcut_tomorrow_evening">Jutro wieczorem</string>
     <string name="CFC_list_name">Na liście…</string>

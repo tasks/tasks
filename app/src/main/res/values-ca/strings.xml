@@ -89,7 +89,6 @@
     <string name="filters">Filtres</string>
     <string name="filter_settings">Configuració dels filtres</string>
     <string name="show_completed">Mostra completades</string>
-    <string name="reverse">Ordenació inversa</string>
     <string name="language">Idioma</string>
     <string name="settings_localization">Localització</string>
     <string name="led_notification">Led de notificació</string>

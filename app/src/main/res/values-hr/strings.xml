@@ -71,7 +71,6 @@
     <string name="EPr_delete_task_data">Izbriši podatke zadatka</string>
     <string name="EPr_reset_preferences_warning">Postavke će se vratiti na zadane vrijednosti</string>
     <string name="EPr_reset_preferences">Obnovi postavke</string>
-    <string name="reverse">Obrnuto</string>
     <string name="EPr_manage_delete_gcal_status">Izbrisano %d kalendarskih događaja!</string>
     <string name="actfm_picture_clear">Ukloni sliku</string>
     <string name="delete_multiple_tasks_confirmation">%s izbrisano</string>
@@ -274,7 +273,6 @@
     <string name="google_tasks_selection_description">Osnovna usluga koja sinkronizira s tvojim Google računom</string>
     <string name="tasks_org_description">Sinkroniziraj tvoje zadatke s Tasks.org</string>
     <string name="enter_tag_name">Upiši ime oznake</string>
-    <string name="disable_sort_groups">Onemogući razvrstavanje po grupama</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ne podržava višerazinske podzadatke</string>
     <string name="collapse_subtasks">Sklopi podzadatke</string>
     <string name="expand_subtasks">Rasklopi podzadatke</string>

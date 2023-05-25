@@ -291,7 +291,6 @@
     <string name="move">Mozgatás</string>
     <string name="filter_settings">Szűrő beállítások</string>
     <string name="show_completed">Elvégzettek megjelenítése</string>
-    <string name="reverse">Visszafelé</string>
     <string name="add_attachment">Csatolmány hozzáadása</string>
     <string name="take_a_picture">Kép készítése</string>
     <string name="pick_from_gallery">Kiválasztás a galériából</string>
@@ -540,7 +539,6 @@
     <string name="on_launch">Indításkor</string>
     <string name="astrid_sort_order_summary">Astrid egyéni sorbarendezés engedélyezése a \"Saját Feladatok\" és a \"Ma\" listákra illetve a címkékre. Ezt a sorbarendezési módot egy jövőbeni frissítésben fel fogja váltani a \"Saját sorrend\"</string>
     <string name="astrid_sort_order">Astrid egyéni sorbarendezés</string>
-    <string name="disable_sort_groups">Sorbarendezési csoportok letiltása</string>
     <string name="CFC_list_name">Ebben a listában…</string>
     <string name="date_shortcut_tomorrow_night">Holnap éjszaka</string>
     <string name="date_shortcut_tomorrow_evening">Holnap este</string>

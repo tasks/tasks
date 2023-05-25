@@ -80,7 +80,7 @@ import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
-import org.tasks.dialogs.SortDialog
+import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
@@ -416,8 +416,14 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_sort -> {
-                SortDialog.newSortDialog(filter)
-                        .show(childFragmentManager, FRAG_TAG_SORT_DIALOG)
+                requireActivity().startActivityForResult(
+                    SortSettingsActivity.getIntent(
+                        requireActivity(),
+                        filter.supportsManualSort(),
+                        filter.supportsAstridSorting() && preferences.isAstridSortEnabled,
+                    ),
+                    REQUEST_SORT
+                )
                 true
             }
             R.id.menu_show_unstarted -> {
@@ -979,10 +985,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val VOICE_RECOGNITION_REQUEST_CODE = 1234
         private const val EXTRA_FILTER = "extra_filter"
         private const val FRAG_TAG_REMOTE_LIST_PICKER = "frag_tag_remote_list_picker"
-        private const val FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
         private const val REQUEST_LIST_SETTINGS = 10101
         private const val REQUEST_TAG_TASKS = 10106
+        const val REQUEST_SORT = 10107
         private const val SEARCH_DEBOUNCE_TIMEOUT = 300L
         fun newTaskListFragment(context: Context, filter: Filter?): TaskListFragment {
             val fragment = TaskListFragment()

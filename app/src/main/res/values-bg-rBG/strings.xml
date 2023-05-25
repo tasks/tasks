@@ -299,7 +299,6 @@
     <string name="move">Преместване</string>
     <string name="filter_settings">Настройки на филтър</string>
     <string name="show_completed">Завършени</string>
-    <string name="reverse">Обратно</string>
     <string name="add_attachment">Добавяне на прикачен файл</string>
     <string name="take_a_picture">Заснемане</string>
     <string name="pick_from_gallery">Изберете от галерия</string>
@@ -597,7 +596,6 @@
     </plurals>
     <string name="randomly_every">Произволно на всеки %s</string>
     <string name="multi_select_reschedule">Пренасрочване</string>
-    <string name="disable_sort_groups">Изключване на сортиране на групи</string>
     <string name="auto_dismiss_datetime">Автоматично затваряне след избор на дата и час</string>
     <string name="picker_mode_time">Режим на избор на час</string>
     <string name="more_options">Допълнителни настройки</string>

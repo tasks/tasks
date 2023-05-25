@@ -334,7 +334,6 @@
     <string name="take_a_picture">تصویر لیں</string>
     <string name="add_attachment">اٹیچ منٹ لگائیں</string>
     <string name="no_app_found">کوئی ایپ اس درخواست پر عمل نہیں کر سکتی</string>
-    <string name="reverse">الٹا کریں</string>
     <string name="filter_criteria_unstarted">شروع نہ کیے گئے</string>
     <string name="show_completed">مکمل ہو چکے دکھائیں</string>
     <string name="show_unstarted">غیر شروع دکھائیں</string>
@@ -512,6 +511,5 @@
     <string name="choose_synchronization_service">پلیٹ فارم منتخب کریں</string>
     <string name="create_new_tag">\"%s\" بنائیں</string>
     <string name="enter_tag_name">ٹیگ کا نام درج کریں</string>
-    <string name="disable_sort_groups">گروپس کی ترتیب ختم کریں</string>
     <string name="missing_permissions">حذف شدہ اجازتیں</string>
 </resources>

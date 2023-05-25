@@ -10,13 +10,13 @@ import org.tasks.time.DateTimeUtils.startOfDay
 class SectionedDataSource constructor(
     tasks: List<TaskContainer>,
     disableHeaders: Boolean,
-    val sortMode: Int,
+    val groupMode: Int,
     private val collapsed: Set<Long>,
     private val completedAtBottom: Boolean,
 ) {
     private val tasks = tasks.toMutableList()
 
-    private val sections = if (disableHeaders) {
+    private val sections = if (disableHeaders || groupMode == SortHelper.GROUP_NONE) {
         SparseArray()
     } else {
         getSections()
@@ -67,12 +67,12 @@ class SectionedDataSource constructor(
             } else if (sortGroup == null) {
                 continue
             } else if (
-                sortMode == SortHelper.SORT_LIST ||
-                sortMode == SortHelper.SORT_IMPORTANCE ||
+                groupMode == SortHelper.SORT_LIST ||
+                groupMode == SortHelper.SORT_IMPORTANCE ||
                 sortGroup == 0L
             ) {
                 sortGroup
-            } else if (sortMode == SortHelper.SORT_DUE) {
+            } else if (groupMode == SortHelper.SORT_DUE) {
                 when {
                     sortGroup == 0L -> 0
                     sortGroup < startOfToday -> HEADER_OVERDUE
@@ -93,12 +93,12 @@ class SectionedDataSource constructor(
                             sections.add(AdapterSection(i, header, 0, isCollapsed))
                         }
                     }
-                    sortMode == SortHelper.SORT_LIST ||
-                    sortMode == SortHelper.SORT_IMPORTANCE ->
+                    groupMode == SortHelper.SORT_LIST ||
+                    groupMode == SortHelper.SORT_IMPORTANCE ->
                         if (header != previous) {
                             sections.add(AdapterSection(i, header, 0, isCollapsed))
                         }
-                    sortMode == SortHelper.SORT_DUE -> {
+                    groupMode == SortHelper.SORT_DUE -> {
                         val previousOverdue = previous < startOfToday
                         val currentOverdue = header == HEADER_OVERDUE
                         if (previous > 0 &&

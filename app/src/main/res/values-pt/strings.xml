@@ -279,7 +279,6 @@
     <string name="copy">Copiar</string>
     <string name="filter_settings">Definições dos filtros</string>
     <string name="show_completed">Mostrar terminadas</string>
-    <string name="reverse">Reverter</string>
     <string name="add_attachment">Adicionar anexo</string>
     <string name="take_a_picture">Tirar uma fotografia</string>
     <string name="pick_from_gallery">Escolher da galeria de imagens</string>
@@ -428,7 +427,6 @@
     <string name="date_shortcut_tomorrow_night">Amanhã à noite</string>
     <string name="date_shortcut_tomorrow_evening">Amanhã ao fim do dia</string>
     <string name="CFC_list_name">Na lista…</string>
-    <string name="disable_sort_groups">Ordenar grupos desativado</string>
     <string name="lists">Listas</string>
     <string name="astrid_sort_order_summary">Ativar ordenação manual do Astrid para \'Minhas tarefas\', \'Hoje\' e etiquetas. Este modo de ordenação eventualmente será substituído por \'Minha ordenação\' numa futura atualização</string>
     <string name="astrid_sort_order">Ordenação manual do Astrid</string>

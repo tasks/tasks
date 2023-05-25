@@ -287,7 +287,6 @@
     <string name="move">Déplacer</string>
     <string name="filter_settings">Paramètres du filtre</string>
     <string name="show_completed">Afficher les tâches terminées</string>
-    <string name="reverse">Inverser</string>
     <string name="add_attachment">Ajouter une pièce jointe</string>
     <string name="take_a_picture">Prendre une photo</string>
     <string name="pick_from_gallery">Choisir depuis la galerie</string>
@@ -553,7 +552,6 @@
     <string name="lists">Listes</string>
     <string name="astrid_sort_order_summary">Activez le mode de tri manuel d’Astrid pour « Mes tâches », « Aujourd\'hui », et les étiquettes. Ce mode de tri sera remplacé par « Mon ordre » dans une future mise à jour</string>
     <string name="astrid_sort_order">Tri manuel Astrid</string>
-    <string name="disable_sort_groups">Désactiver les groupes de tri</string>
     <string name="CFC_list_name">Dans la liste…</string>
     <string name="date_shortcut_tomorrow_evening">Demain soir</string>
     <string name="date_shortcut_tomorrow_night">Nuit prochaine</string>

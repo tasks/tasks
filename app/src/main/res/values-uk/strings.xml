@@ -310,7 +310,6 @@
     <string name="move">Перемістити</string>
     <string name="filter_settings">Налаштування фільтрів</string>
     <string name="show_completed">Показати завершені</string>
-    <string name="reverse">Реверс</string>
     <string name="add_attachment">Додати вкладення</string>
     <string name="take_a_picture">Зробити знімок</string>
     <string name="pick_from_gallery">Обрати з галереї</string>
@@ -593,7 +592,6 @@
     <string name="auto_dismiss_datetime_list">Список завдань</string>
     <string name="davx5_selection_description">Синхронізувати ваші завдання з застосунком DAVx⁵</string>
     <string name="decsync_selection_description">Синхронізація на основі файлів</string>
-    <string name="disable_sort_groups">Вимкнути групи сортування</string>
     <string name="whats_new">Що нового</string>
     <string name="background_location_permission_required">Tasks збирає дані геолокації, щоб активувати нагадування на основі розташування навіть коли застосунок закритий або не використовується.</string>
     <string name="action_new_task">Нове завдання</string>

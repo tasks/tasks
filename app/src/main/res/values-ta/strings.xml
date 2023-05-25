@@ -218,7 +218,6 @@
     <string name="choose_synchronization_service">ஒரு தளத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="create_new_tag">\"%s\" ஐ உருவாக்கவும்</string>
     <string name="enter_tag_name">குறிச்சொல் பெயரை உள்ளிடவும்</string>
-    <string name="disable_sort_groups">வரிசை குழுக்களை முடக்கு</string>
     <string name="subtasks_multilevel_google_task">கூகிள் பணிகளால் பல நிலை துணை பணிகள் ஆதரிக்கப்படவில்லை</string>
     <string name="collapse_subtasks">துணை பணிகளைச் சுருக்கவும்</string>
     <string name="expand_subtasks">துணை பணிகளை விரிவாக்குங்கள்</string>
@@ -355,7 +354,6 @@
     <string name="pick_from_gallery">கேலரியில் இருந்து எடுக்கவும்</string>
     <string name="take_a_picture">படம் எடுக்கவும்</string>
     <string name="add_attachment">இணைப்பை சேர்க்கவும்</string>
-    <string name="reverse">தலைகீழ்</string>
     <string name="show_completed">நிகழ்ச்சி முடிந்தது</string>
     <string name="filter_settings">அமைப்புகளை வடிகட்டவும்</string>
     <string name="move">நகர்வு</string>

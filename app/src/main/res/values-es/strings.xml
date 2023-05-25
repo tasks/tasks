@@ -307,7 +307,6 @@
     <string name="move">Mover</string>
     <string name="filter_settings">Configuración del filtro</string>
     <string name="show_completed">Mostrar completadas</string>
-    <string name="reverse">Invertir</string>
     <string name="add_attachment">Adjuntar archivo</string>
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elegir desde la galería</string>
@@ -558,7 +557,6 @@
     <string name="lists">Listas</string>
     <string name="astrid_sort_order_summary">Active el modo de ordenación manual de Astrid para «Mis tareas», «Hoy» y las etiquetas. Este modo de ordenación se reemplazará por «Mi orden» en una futura actualización</string>
     <string name="astrid_sort_order">Clasificación manual de Astrid</string>
-    <string name="disable_sort_groups">Deshabilitar grupos de ordenación</string>
     <string name="CFC_list_name">En la lista…</string>
     <string name="date_shortcut_tomorrow_night">Mañana por la noche</string>
     <string name="date_shortcut_tomorrow_evening">Mañana por la tarde</string>

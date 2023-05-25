@@ -29,7 +29,8 @@ internal object TaskListQueryNonRecursive {
     fun getNonRecursiveQuery(filter: Filter, preferences: QueryPreferences): MutableList<String> {
         val joinedQuery = JOINS + filter.getSqlQuery()
         val sortMode = preferences.sortMode
-        val sortGroup = field(SortHelper.getSortGroup(sortMode) ?: "NULL").`as`("sortGroup")
+        val groupMode = preferences.groupMode
+        val sortGroup = field(SortHelper.getSortGroup(groupMode) ?: "NULL").`as`("sortGroup")
         val query = SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, sortMode)
         val completeAtBottom = if (preferences.completedTasksAtBottom) "parentComplete ASC," else ""
         val completionSort =

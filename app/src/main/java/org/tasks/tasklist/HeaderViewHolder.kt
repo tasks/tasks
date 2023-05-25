@@ -20,7 +20,7 @@ class HeaderViewHolder(
     private var sortGroup = -1L
     private var rotation = 0f
 
-    fun bind(filter: Filter, sortMode: Int, section: AdapterSection) {
+    fun bind(filter: Filter, groupMode: Int, section: AdapterSection) {
         sortGroup = section.value
         val header = if (filter.supportsSorting()) {
             headerFormatter.headerStringBlocking(section.value)
@@ -33,7 +33,7 @@ class HeaderViewHolder(
         } else {
             row.visibility = View.VISIBLE
             this.title.text = header
-            this.title.setTextColor(section.headerColor(context, sortMode))
+            this.title.setTextColor(section.headerColor(context, groupMode))
             rotation = if (section.collapsed) -180f else 0f
             chevron.rotation = rotation
         }

@@ -40,6 +40,7 @@ locale = "1.0.2"
 make-it-easy = "4.0.1"
 markwon = "4.6.2"
 material = "1.9.0"
+material3 = "1.1.0"
 mockito = "5.3.1"
 okhttp = "4.11.0"
 opentasks = "562fec5"
@@ -69,6 +70,7 @@ xpp3 = "1.1.6"
 [libraries]
 accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-compose = { module = "androidx.compose:compose-bom", version.ref = "compose" }
@@ -138,6 +140,7 @@ markwon-strikethrough = { module = "io.noties.markwon:ext-strikethrough", versio
 markwon-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }
 markwon-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }

@@ -72,10 +72,6 @@ public class WidgetPreferences implements QueryPreferences {
     return getBoolean(R.string.p_widget_show_start_dates, true);
   }
 
-  boolean disableGroups() {
-    return getBoolean(R.string.p_widget_disable_groups, false);
-  }
-
   boolean showPlaces() {
     return getBoolean(R.string.p_widget_show_places, true);
   }
@@ -257,6 +253,11 @@ public class WidgetPreferences implements QueryPreferences {
   }
 
   @Override
+  public int getGroupMode() {
+    return getInt(R.string.p_widget_group, SortHelper.GROUP_NONE);
+  }
+
+  @Override
   public boolean isManualSort() {
     return getBoolean(R.string.p_widget_sort_manual, false);
   }
@@ -267,8 +268,13 @@ public class WidgetPreferences implements QueryPreferences {
   }
 
   @Override
-  public boolean isReverseSort() {
-    return getBoolean(R.string.p_widget_sort_reverse, false);
+  public boolean getSortAscending() {
+    return getBoolean(R.string.p_widget_sort_ascending, false);
+  }
+
+  @Override
+  public boolean getGroupAscending() {
+    return getBoolean(R.string.p_widget_group_ascending, false);
   }
 
   @Override
@@ -300,6 +306,11 @@ public class WidgetPreferences implements QueryPreferences {
   }
 
   @Override
+  public void setGroupMode(int groupMode) {
+    setInt(R.string.p_widget_group, groupMode);
+  }
+
+  @Override
   public void setManualSort(boolean isManualSort) {
     setBoolean(R.string.p_widget_sort_manual, isManualSort);
   }
@@ -310,8 +321,13 @@ public class WidgetPreferences implements QueryPreferences {
   }
 
   @Override
-  public void setReverseSort(boolean isReverseSort) {
-    setBoolean(R.string.p_widget_sort_reverse, isReverseSort);
+  public void setSortAscending(boolean ascending) {
+    setBoolean(R.string.p_widget_sort_ascending, ascending);
+  }
+
+  @Override
+  public void setGroupAscending(boolean ascending) {
+    setBoolean(R.string.p_widget_group_ascending, ascending);
   }
 
   @Override

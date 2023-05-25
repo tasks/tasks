@@ -32,7 +32,7 @@ import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import org.tasks.ui.ChipProvider
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -70,7 +70,6 @@ class TaskViewHolder internal constructor(
     }
     private val chipGroup: ComposeView = binding.chipGroup
     private val alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate
-    private val showGroupHeaders = preferences.showGroupHeaders()
 
     lateinit var task: TaskContainer
 
@@ -145,8 +144,8 @@ class TaskViewHolder internal constructor(
         setupDueDate(sortMode == SORT_DUE)
         setupChips(
             filter = filter,
-            sortByStartDate = sortMode == SORT_START && showGroupHeaders,
-            sortByList = sortMode == SORT_LIST && showGroupHeaders
+            sortByStartDate = sortMode == SORT_START,
+            sortByList = sortMode == SORT_LIST
         )
         if (preferences.getBoolean(R.string.p_show_description, true)) {
             markdown.setMarkdown(description, task.notes)
@@ -207,7 +206,6 @@ class TaskViewHolder internal constructor(
             }
             val dateValue: String? = if (sortByDueDate
                     && (task.sortGroup ?: 0) >= now().startOfDay()
-                    && showGroupHeaders
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
                     DateUtilities.getTimeString(context, newDateTime(task.dueDate))

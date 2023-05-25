@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
+import com.todoroo.andlib.sql.OrderType;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.data.CaldavCalendar;
@@ -29,6 +30,7 @@ import java.util.Locale;
  */
 public class SortHelper {
 
+  public static final int GROUP_NONE = -1;
   public static final int SORT_AUTO = 0;
   public static final int SORT_ALPHA = 1;
   public static final int SORT_DUE = 2;
@@ -49,6 +51,21 @@ public class SortHelper {
       "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
   private static final String ADJUSTED_START_DATE =
       "(CASE WHEN (hideUntil / 1000) % 60 > 0 THEN hideUntil ELSE (hideUntil + 86399000) END)";
+
+  private static final String GROUP_DUE_DATE = "((CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+          + "tasks.dueDate END)+tasks.importance * 1000)";
+
+  private static final String SORT_DUE_DATE = "((CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+          + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
+          + " END)+tasks.importance * 1000)";
+
+  private static final String GROUP_START_DATE = "((CASE WHEN (tasks.hideUntil=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+          + "tasks.hideUntil END)+tasks.importance * 1000)";
+
+  private static final String SORT_START_DATE = "((CASE WHEN (tasks.hideUntil=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+          + ADJUSTED_START_DATE.replace("hideUntil", "tasks.hideUntil")
+          + " END)+tasks.importance * 1000)";
+
   private static final Order ORDER_TITLE = Order.asc(Functions.upper(Task.TITLE));
   private static final Order ORDER_LIST =
           Order.asc(Functions.upper(CaldavCalendar.ORDER))
@@ -64,7 +81,7 @@ public class SortHelper {
     if (!originalSql.toUpperCase().contains("ORDER BY")) {
       Order order = orderForSortType(sort);
 
-      if (preferences.isReverseSort()) {
+      if (order.getOrderType() == OrderType.ASC != preferences.getSortAscending()) {
         order = order.reverse();
       }
       originalSql += " ORDER BY " + order;
@@ -108,9 +125,7 @@ public class SortHelper {
                     + " END)+importance");
         break;
       case SORT_IMPORTANCE:
-        order =
-            Order.asc(
-                "importance*(strftime('%s','now')*1000)+(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000) ELSE dueDate END)");
+        order = Order.asc("importance");
         break;
       case SORT_MODIFIED:
         order = Order.desc(Task.MODIFICATION_DATE);
@@ -161,21 +176,19 @@ public class SortHelper {
     }
   }
 
-  public static String orderSelectForSortTypeRecursive(int sortType) {
+  private static String sortGroup(String column) {
+    return "datetime(" + column + " / 1000, 'unixepoch', 'localtime', 'start of day')";
+  }
+
+  public static String orderSelectForSortTypeRecursive(int sortType, boolean grouping) {
     return switch (sortType) {
-      case SORT_ALPHA ->
-        // Return an empty string, providing a value to fill the WITH clause template
-              "UPPER(tasks.title)";
-      case SORT_DUE -> "(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
-              + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
-              + " END)+tasks.importance";
-      case SORT_START -> "(CASE WHEN (tasks.hideUntil=0) THEN (strftime('%s','now')*1000)*2 ELSE "
-              + ADJUSTED_START_DATE.replace("hideUntil", "tasks.hideUntil")
-              + " END)+tasks.importance";
-      case SORT_IMPORTANCE ->
-              "tasks.importance*(strftime('%s','now')*1000)+(CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000) ELSE tasks.dueDate END)";
-      case SORT_MODIFIED -> "tasks.modified";
-      case SORT_CREATED -> "tasks.created";
+      case GROUP_NONE -> "1";
+      case SORT_ALPHA -> "UPPER(tasks.title)";
+      case SORT_DUE -> grouping ? sortGroup(GROUP_DUE_DATE) : SORT_DUE_DATE;
+      case SORT_START -> grouping ? sortGroup(GROUP_START_DATE) : SORT_START_DATE;
+      case SORT_IMPORTANCE -> "tasks.importance";
+      case SORT_MODIFIED -> grouping ? sortGroup("tasks.modified") : "tasks.modified";
+      case SORT_CREATED -> grouping ? sortGroup("tasks.created") : "tasks.created";
       case SORT_GTASKS -> "tasks.`order`";
       case SORT_CALDAV -> CALDAV_ORDER_COLUMN;
       case SORT_LIST -> "CASE WHEN cdl_order = -1 THEN cdl_name ELSE cdl_order END";
@@ -192,18 +205,19 @@ public class SortHelper {
     };
   }
 
-  public static Order orderForSortTypeRecursive(int sortMode, boolean reverse) {
-    Order order = switch (sortMode) {
-      case SORT_MODIFIED, SORT_CREATED -> Order.desc("primary_sort").addSecondaryExpression(Order.desc("secondary_sort"));
-      default -> Order.asc("primary_sort").addSecondaryExpression(Order.asc("secondary_sort"));
-    };
+  public static Order orderForGroupTypeRecursive(int groupMode, boolean ascending) {
+    return ascending
+            ? Order.asc("primary_group")
+            : Order.desc("primary_group");
+  }
+
+  public static Order orderForSortTypeRecursive(int sortMode, boolean ascending) {
+    Order order = ascending || sortMode == SORT_GTASKS || sortMode == SORT_CALDAV
+            ? Order.asc("primary_sort").addSecondaryExpression(Order.asc("secondary_sort"))
+            : Order.desc("primary_sort").addSecondaryExpression(Order.desc("secondary_sort"));
     if (sortMode != SORT_ALPHA) {
       order.addSecondaryExpression(Order.asc("sort_title"));
     }
-    if (reverse) {
-      order = order.reverse();
-    }
-
     return order;
   }
 }

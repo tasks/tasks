@@ -238,7 +238,6 @@
     <string name="choose_synchronization_service">Chọn nền tảng</string>
     <string name="create_new_tag">Tạo \"%s\"</string>
     <string name="enter_tag_name">Nhập tên thẻ</string>
-    <string name="disable_sort_groups">Tắt các nhóm sắp xếp</string>
     <string name="subtasks_multilevel_google_task">Các công việc con có nhiều cấp không được Google Tasks hỗ trợ</string>
     <string name="collapse_subtasks">Thu gọn các công việc con</string>
     <string name="expand_subtasks">Mở rộng các công việc con</string>
@@ -394,7 +393,6 @@
     <string name="take_a_picture">Chụp ảnh</string>
     <string name="add_attachment">Thêm tệp đính kèm</string>
     <string name="no_app_found">Không có ứng dụng nào có thể xử lý yêu cầu này</string>
-    <string name="reverse">Đảo ngược</string>
     <string name="filter_criteria_unstarted">Chưa bắt đầu</string>
     <string name="show_completed">Hiện mục đã hoàn thành</string>
     <string name="show_unstarted">Hiện mục chưa bắt đầu</string>

@@ -17,7 +17,6 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.activity.BeastModePreferences
-import com.todoroo.astrid.api.AstridApiConstants
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
@@ -41,7 +40,6 @@ class Preferences @JvmOverloads constructor(
         name: String? = getSharedPreferencesName(context)
 ) : QueryPreferences {
     private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
-    private val publicPrefs: SharedPreferences = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE)
 
     fun androidBackupServiceEnabled() = getBoolean(R.string.p_backups_android_backup_enabled, true)
 
@@ -180,7 +178,6 @@ class Preferences @JvmOverloads constructor(
 
     @SuppressLint("ApplySharedPref")
     fun clear() {
-        publicPrefs.edit().clear().commit()
         prefs.edit().clear().commit()
     }
 
@@ -353,10 +350,12 @@ class Preferences @JvmOverloads constructor(
         set(value) = setLong(R.string.p_install_date, value)
 
     override var sortMode: Int
-        get() = publicPrefs.getInt(PREF_SORT_SORT, SortHelper.SORT_AUTO)
-        set(value) {
-            setPublicPref(PREF_SORT_SORT, value)
-        }
+        get() = getInt(R.string.p_sort_mode, SortHelper.SORT_AUTO)
+        set(value) { setInt(R.string.p_sort_mode, value) }
+
+    override var groupMode: Int
+        get() = getInt(R.string.p_group_mode, SortHelper.GROUP_NONE)
+        set(value) { setInt(R.string.p_group_mode, value) }
 
     override var showHidden: Boolean
         get() = getBoolean(R.string.p_show_hidden_tasks, true)
@@ -375,11 +374,6 @@ class Preferences @JvmOverloads constructor(
 
     override val sortCompletedByCompletionDate: Boolean
         get() = getBoolean(R.string.p_completed_tasks_sort, true)
-
-    private fun setPublicPref(key: String, value: Int) {
-        val edit = publicPrefs.edit()
-        edit?.putInt(key, value)?.apply()
-    }
 
     val backupDirectory: Uri?
         get() = getDirectory(R.string.p_backup_dir, "backups")
@@ -493,13 +487,22 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_manual_sort, false)
         set(value) { setBoolean(R.string.p_manual_sort, value) }
 
-    override var isAstridSort: Boolean
-        get() = getBoolean(R.string.p_astrid_sort_enabled, false) && getBoolean(R.string.p_astrid_sort, false)
-        set(value) { setBoolean(R.string.p_astrid_sort, value) }
+    val isAstridSortEnabled: Boolean
+        get() = getBoolean(R.string.p_astrid_sort_enabled, false)
 
-    override var isReverseSort: Boolean
-        get() = getBoolean(R.string.p_reverse_sort, false)
-        set(value) { setBoolean(R.string.p_reverse_sort, value) }
+    override var isAstridSort: Boolean
+        get() = isAstridSortEnabled && getBoolean(R.string.p_astrid_sort, false)
+        set(value) {
+            setBoolean(R.string.p_astrid_sort, value)
+        }
+
+    override var sortAscending: Boolean
+        get() = getBoolean(R.string.p_sort_ascending, false)
+        set(value) { setBoolean(R.string.p_sort_ascending, value) }
+
+    override var groupAscending: Boolean
+        get() = getBoolean(R.string.p_group_ascending, false)
+        set(value) { setBoolean(R.string.p_group_ascending, value) }
 
     val defaultPriority: Int
         get() = getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW)
@@ -532,8 +535,6 @@ class Preferences @JvmOverloads constructor(
     val defaultThemeColor: Int
         get() = getInt(R.string.p_theme_color, ColorProvider.BLUE_500)
 
-    fun showGroupHeaders(): Boolean = !getBoolean(R.string.p_disable_sort_groups, false)
-
     val markdown: Boolean
         get() = getBoolean(R.string.p_markdown, false)
 
@@ -559,8 +560,6 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_linkify_task_edit, false)
 
     companion object {
-        private const val PREF_SORT_SORT = "sort_sort" // $NON-NLS-1$
-
         private fun getSharedPreferencesName(context: Context): String =
                 context.packageName + "_preferences"
 

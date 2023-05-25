@@ -3,7 +3,7 @@ package com.todoroo.andlib.sql
 import com.todoroo.andlib.sql.OrderType.ASC
 import com.todoroo.andlib.sql.OrderType.DESC
 
-class Order private constructor(private val expression: Any, private val orderType: OrderType = ASC) {
+class Order private constructor(private val expression: Any, val orderType: OrderType = ASC) {
     private val secondaryExpressions = ArrayList<Order>()
 
     fun addSecondaryExpression(secondary: Order): Order {

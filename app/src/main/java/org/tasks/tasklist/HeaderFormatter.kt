@@ -23,28 +23,28 @@ class HeaderFormatter @Inject constructor(
 
     fun headerStringBlocking(
         value: Long,
-        sortMode: Int = preferences.sortMode,
+        groupMode: Int = preferences.groupMode,
         alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate,
         style: FormatStyle = FormatStyle.FULL,
         compact: Boolean = false,
     ) = runBlocking {
-        headerString(value, sortMode, alwaysDisplayFullDate, style, compact)
+        headerString(value, groupMode, alwaysDisplayFullDate, style, compact)
     }
 
     suspend fun headerString(
         value: Long,
-        sortMode: Int = preferences.sortMode,
+        groupMode: Int = preferences.groupMode,
         alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate,
         style: FormatStyle = FormatStyle.FULL,
         compact: Boolean = false
     ): String =
         when {
             value == SectionedDataSource.HEADER_COMPLETED -> context.getString(R.string.completed)
-            sortMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(value))
-            sortMode == SortHelper.SORT_LIST ->
+            groupMode == SortHelper.SORT_IMPORTANCE -> context.getString(priorityToString(value))
+            groupMode == SortHelper.SORT_LIST ->
                 listCache.getOrPut(value) { caldavDao.getCalendarById(value)?.name }?: "list: $value"
             value == SectionedDataSource.HEADER_OVERDUE -> context.getString(R.string.filter_overdue)
-            value == 0L -> context.getString(when (sortMode) {
+            value == 0L -> context.getString(when (groupMode) {
                 SortHelper.SORT_DUE -> R.string.no_due_date
                 SortHelper.SORT_START -> R.string.no_start_date
                 else -> R.string.no_date
@@ -55,13 +55,13 @@ class HeaderFormatter @Inject constructor(
                 )
                 when {
                     compact -> dateString
-                    sortMode == SortHelper.SORT_DUE ->
+                    groupMode == SortHelper.SORT_DUE ->
                         context.getString(R.string.sort_due_group, dateString)
-                    sortMode == SortHelper.SORT_START ->
+                    groupMode == SortHelper.SORT_START ->
                         context.getString(R.string.sort_start_group, dateString)
-                    sortMode == SortHelper.SORT_CREATED ->
+                    groupMode == SortHelper.SORT_CREATED ->
                         context.getString(R.string.sort_created_group, dateString)
-                    sortMode == SortHelper.SORT_MODIFIED ->
+                    groupMode == SortHelper.SORT_MODIFIED ->
                         context.getString(R.string.sort_modified_group, dateString)
                     else -> throw IllegalArgumentException()
                 }

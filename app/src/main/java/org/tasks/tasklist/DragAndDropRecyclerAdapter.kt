@@ -38,7 +38,6 @@ class DragAndDropRecyclerAdapter(
         preferences: Preferences) : TaskListRecyclerAdapter(adapter, viewHolderFactory, taskList, preferences), DragAndDropDiffer<TaskContainer, SectionedDataSource> {
     private val disableHeaders = taskList.getFilter().let {
         !it.supportsSorting()
-                || !preferences.showGroupHeaders()
                 || (it.supportsManualSort() && preferences.isManualSort)
                 || (it.supportsAstridSorting() && preferences.isAstridSort)
     }
@@ -56,14 +55,14 @@ class DragAndDropRecyclerAdapter(
         val viewType = getItemViewType(position)
         if (viewType == 1) {
             val headerSection = items.getSection(position)
-            (holder as HeaderViewHolder).bind(taskList.getFilter(), preferences.sortMode, headerSection)
+            (holder as HeaderViewHolder).bind(taskList.getFilter(), preferences.groupMode, headerSection)
         } else {
             super.onBindViewHolder(holder, position)
         }
     }
 
     override val sortMode: Int
-        get() = items.sortMode
+        get() = items.groupMode
 
     override fun getItemViewType(position: Int) = if (items.isHeader(position)) 1 else 0
 
@@ -94,7 +93,7 @@ class DragAndDropRecyclerAdapter(
             SectionedDataSource(
                 list,
                 disableHeaders,
-                preferences.sortMode,
+                preferences.groupMode,
                 adapter.getCollapsed(),
                 preferences.completedTasksAtBottom,
             )

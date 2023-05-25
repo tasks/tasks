@@ -177,7 +177,6 @@
     <string name="choose_synchronization_service">เลือกแพลตฟอร์ม</string>
     <string name="create_new_tag">สร้าง \"%s\"</string>
     <string name="enter_tag_name">ป้อนชื่อแท็ก</string>
-    <string name="disable_sort_groups">ปิดใช้งานกลุ่มการเรียงลําดับ</string>
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
     <string name="collapse_subtasks">ยุบงานย่อย</string>
     <string name="expand_subtasks">ขยายงานย่อย</string>
@@ -334,7 +333,6 @@
     <string name="take_a_picture">ถ่ายรูป</string>
     <string name="add_attachment">เพิ่มสิ่งที่แนบมา</string>
     <string name="no_app_found">ไม่มีแอปใดที่สามารถจัดการคําขอนี้</string>
-    <string name="reverse">พลิกกลับ</string>
     <string name="filter_criteria_unstarted">ยังไม่เริ่มต้น</string>
     <string name="show_completed">การแสดงเสร็จสมบูรณ์</string>
     <string name="show_unstarted">แสดงสิ่งที่ไม่ได้เริ่มต้น</string>

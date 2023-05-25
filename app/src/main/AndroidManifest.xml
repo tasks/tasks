@@ -659,7 +659,11 @@
       android:theme="@style/Tasks" />
       <activity android:name="org.tasks.sync.microsoft.MicrosoftListSettingsActivity" />
 
-    <!-- launcher icons -->
+      <activity
+          android:name="org.tasks.dialogs.SortSettingsActivity"
+          android:theme="@style/TranslucentWindow" />
+
+      <!-- launcher icons -->
 
     <activity-alias
       android:enabled="true"

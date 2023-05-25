@@ -212,7 +212,6 @@
     <string name="take_a_picture">Faceți o fotografie</string>
     <string name="add_attachment">Adăugați atașament</string>
     <string name="no_app_found">Nici o aplicație nu a putut gestiona această cerere</string>
-    <string name="reverse">Inversați</string>
     <string name="filter_criteria_unstarted">Nu a început</string>
     <string name="show_completed">Afișaj finalizat</string>
     <string name="show_unstarted">Afișați datele nepornite</string>
@@ -617,7 +616,6 @@
     <string name="choose_synchronization_service">Selectați o platformă</string>
     <string name="create_new_tag">Creați \"%s\"</string>
     <string name="enter_tag_name">Introduceți numele etichetei</string>
-    <string name="disable_sort_groups">Dezactivați grupurile de sortare</string>
     <string name="subtasks_multilevel_google_task">Subactivitățile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>
     <string name="collapse_subtasks">Colapsarea subactivităților</string>
     <string name="expand_subtasks">Extindeți subactivitățile</string>

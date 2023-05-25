@@ -271,10 +271,13 @@
   <string name="TEA_ctrl_creation_date">TEA_ctrl_creation_date</string>
   <string name="p_show_hidden_tasks">show_hidden_tasks</string>
   <string name="p_show_completed_tasks">show_completed_tasks</string>
-  <string name="p_reverse_sort">reverse_sort</string>
+  <string name="p_sort_ascending">sort_ascending</string>
+  <string name="p_group_ascending">group_ascending</string>
   <string name="p_manual_sort">manual_sort</string>
   <string name="p_astrid_sort">astrid_sort</string>
   <string name="p_astrid_sort_enabled">astrid_sort_enabled</string>
+  <string name="p_sort_mode">sort_mode</string>
+  <string name="p_group_mode">group_mode</string>
 
   <string-array name="TEA_control_sets_prefs">
     <item>@string/TEA_ctrl_hide_until_pref</item>
@@ -328,8 +331,10 @@
 
   <string name="p_widget_filter">widget-id-</string>
   <string name="p_widget_theme">widget-theme-v2-</string>
-  <string name="p_widget_sort">widget-sort-</string>
-  <string name="p_widget_sort_reverse">widget-sort-reverse-</string>
+  <string name="p_widget_sort">widget-sort-v2-</string>
+  <string name="p_widget_group">widget-group-</string>
+  <string name="p_widget_sort_ascending">widget-sort-ascending-</string>
+  <string name="p_widget_group_ascending">widget-group-ascending-</string>
   <string name="p_widget_sort_manual">widget-sort-manual-</string>
   <string name="p_widget_sort_astrid">widget-sort-astrid-</string>
   <string name="p_widget_show_hidden">widget-hidden-</string>
@@ -344,7 +349,6 @@
   <string name="p_widget_show_dividers">widget-show-dividers-</string>
   <string name="p_widget_show_subtasks">widget-show-subtasks-</string>
   <string name="p_widget_show_start_dates">widget-show-start-dates-</string>
-  <string name="p_widget_disable_groups">widget-disable_groups-</string>
   <string name="p_widget_show_places">widget-show-places-</string>
   <string name="p_widget_show_lists">widget-show-lists-</string>
   <string name="p_widget_show_tags">widget-show-tags-</string>
@@ -389,7 +393,6 @@
   <string name="preference_screen">preference_screen</string>
   <string name="p_add_to_top">google_tasks_add_to_top</string>
   <string name="p_google_tasks_position_hack">google_tasks_position_hack</string>
-  <string name="p_disable_sort_groups">disable_sort_groups</string>
   <string name="p_wearable_notifications">wearable_notifications</string>
   <string name="p_notified_oauth_error">notified_oauth_error_%1$s_%2$s</string>
   <string name="p_chip_appearance">chip_appearance</string>

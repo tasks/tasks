@@ -25,6 +25,14 @@
     <item name="textInputStyle">@style/OutlinedBox</item>
   </style>
 
+  <style name="TranslucentWindow" parent="TasksBase">
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowAnimationStyle">@null</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowIsFloating">false</item>
+  </style>
+
   <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Light">
     <item name="toolbarNavigationButtonStyle">@style/BlackNavigation</item>
     <item name="iconTint">@color/text_primary</item>

@@ -313,7 +313,6 @@
     <string name="move">Perkelti</string>
     <string name="filter_settings">Filtrų nustatymai</string>
     <string name="show_completed">Rodyti užbaigtas</string>
-    <string name="reverse">Atvirkščiai</string>
     <string name="add_attachment">Pridėti priedą</string>
     <string name="take_a_picture">Nufotografuoti</string>
     <string name="pick_from_gallery">Pasirinkti iš galerijos</string>
@@ -693,7 +692,6 @@
     <string name="choose_synchronization_service">Pasirinkti platformą</string>
     <string name="create_new_tag">Sukurti „%s“</string>
     <string name="enter_tag_name">Įvesti etiketės pavadinimą</string>
-    <string name="disable_sort_groups">Išjungti rūšiavimo grupes</string>
     <string name="subtasks_multilevel_google_task">„Google Tasks“ nepalaiko kelių lygių antrinių užduočių</string>
     <string name="collapse_subtasks">Sutraukti antrines užduotis</string>
     <string name="expand_subtasks">Išplėsti antrines užduotis</string>

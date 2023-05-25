@@ -211,7 +211,6 @@
     <string name="copy">Copiar</string>
     <string name="filter_settings">Configuración de filtros</string>
     <string name="show_completed">Amosar finalizadas</string>
-    <string name="reverse">Invertir</string>
     <string name="add_attachment">Anexar ficheiro</string>
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elixir desde a galería</string>
@@ -430,7 +429,6 @@
     <string name="license_summary">Tasks é software de código aberto, con licenza baixo a GNU General Public License v3.0</string>
     <string name="requires_pro_subscription">Precísase dunha suscrición pro</string>
     <string name="this_feature_requires_a_subscription">Esta característica necesita dunha suscrición</string>
-    <string name="disable_sort_groups">Desactivar ordenación de grupos</string>
     <string name="enter_tag_name">Introduce nome de etiqueta</string>
     <string name="create_new_tag">Crear \"%s\"</string>
     <string name="show_advanced_settings">Amosar configuración avanzada</string>

@@ -292,7 +292,6 @@
     <string name="move">이동</string>
     <string name="filter_settings">필터 설정</string>
     <string name="show_completed">완료한 할일 표시</string>
-    <string name="reverse">역순</string>
     <string name="add_attachment">첨부파일 추가</string>
     <string name="take_a_picture">사진 촬영</string>
     <string name="pick_from_gallery">갤러리에서 선택</string>
@@ -552,7 +551,6 @@
     <string name="lists">목록</string>
     <string name="open_last_viewed_list">마지막으로 보던 목록 열기</string>
     <string name="davx5_selection_description">DAVx⁵ 앱과 내 할일 동기화</string>
-    <string name="disable_sort_groups">정렬그룹 비활성화</string>
     <string name="default_tags">기본 태그</string>
     <string name="no_app_found">이 요청을 처리할 앱이 없습니다</string>
     <string name="date_shortcut_tomorrow_night">내일 밤</string>

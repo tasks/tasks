@@ -22,9 +22,13 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -36,7 +40,7 @@ import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.data.TagDataDao
 import org.tasks.databinding.TaskListActivityBinding
-import org.tasks.dialogs.SortDialog.SortDialogCallback
+import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.filters.PlaceFilter
 import org.tasks.injection.InjectingAppCompatActivity
@@ -48,14 +52,18 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
-import org.tasks.ui.*
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
+import org.tasks.ui.MainActivityEvent
+import org.tasks.ui.MainActivityEventBus
+import org.tasks.ui.NavigationDrawerFragment
 import org.tasks.ui.NavigationDrawerFragment.Companion.newNavigationDrawer
+import org.tasks.ui.TaskListEvent
+import org.tasks.ui.TaskListEventBus
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, TimerControlSetCallback, SortDialogCallback {
+class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, TimerControlSetCallback {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
@@ -121,6 +129,10 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                     data
                             ?.getParcelableExtra<Place>(LocationPickerActivity.EXTRA_PLACE)
                             ?.let { startActivity(getTaskListIntent(this, PlaceFilter(it))) }
+                }
+            TaskListFragment.REQUEST_SORT ->
+                if (resultCode == RESULT_OK) {
+                    sortChanged(data?.getBooleanExtra(SortSettingsActivity.EXTRA_FORCE_RELOAD, false) ?: false)
                 }
             else ->
                 super.onActivityResult(requestCode, resultCode, data)
@@ -437,7 +449,7 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         }
     }
 
-    override fun sortChanged(reload: Boolean) {
+    private fun sortChanged(reload: Boolean) {
         taskListFragment?.clearCollapsed()
         localBroadcastManager.broadcastRefresh()
         if (reload) {

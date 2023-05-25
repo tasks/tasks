@@ -203,7 +203,6 @@
     <string name="delete">Ta bort</string>
     <string name="filter_settings">Filterinställningar</string>
     <string name="show_completed">Visa slutförda</string>
-    <string name="reverse">Omvänt</string>
     <string name="add_attachment">Bifoga filer</string>
     <string name="take_a_picture">Ta en bild</string>
     <string name="pick_from_gallery">Välj från album</string>
@@ -634,7 +633,6 @@
     <string name="tasks_org_account">Tasks.org-konto</string>
     <string name="copied_to_clipboard">%s kopierat till urklipp</string>
     <string name="app_password_save">Använd dessa uppgifter för att konfigurera en tredjepartsapp. De ger fullständig åtkomst till ditt Tasks.org-konto, skriv inte ner dem eller dela dem med någon!</string>
-    <string name="disable_sort_groups">Inaktivera sorteringsgrupper</string>
     <string name="background_location_permission_required">Tasks samlar in platsdata för att möjliggöra platsbaserade påminnelser, även när appen är stängd eller inte används.</string>
     <string name="repeat_monthly_fifth_week">femte</string>
     <string name="widget_show_dividers">Visa avdelare</string>

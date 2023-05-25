@@ -325,7 +325,6 @@
     <string name="move">הזז</string>
     <string name="filter_settings">הגדרות סינון</string>
     <string name="show_completed">הצגת משימות שבוצעו</string>
-    <string name="reverse">אחורה</string>
     <string name="add_attachment">הוספ/י קובץ</string>
     <string name="take_a_picture">צלם תמונה</string>
     <string name="pick_from_gallery">בחירה מהגלריה</string>
@@ -517,7 +516,6 @@
     <string name="google_tasks_selection_description">שירות בסיסי שמסתנכרן מול חשבון ה־Google שלך</string>
     <string name="choose_synchronization_service">בחירת פלטפורמה</string>
     <string name="enter_tag_name">נא למלא שם תגית</string>
-    <string name="disable_sort_groups">השבתת מיון קבוצות</string>
     <string name="subtasks_multilevel_google_task">תת־משימות מקוננות אינן נתמכות על ידי Google Tasks</string>
     <string name="widget_due_date_reschedule">לתזמן משימה מחדש</string>
     <string name="widget_open_list">לפתוח רשימה</string>

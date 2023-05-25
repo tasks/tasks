@@ -220,7 +220,6 @@
     <string name="take_a_picture">拍一張照</string>
     <string name="add_attachment">新增附件</string>
     <string name="no_app_found">沒有程式能夠回應這項操作</string>
-    <string name="reverse">還原</string>
     <string name="move">移動</string>
     <string name="copy">複製</string>
     <string name="delete">刪除</string>

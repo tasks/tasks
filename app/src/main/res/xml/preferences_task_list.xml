@@ -67,11 +67,6 @@
         android:key="@string/p_completed_tasks_sort"
         android:title="@string/completed_tasks_sort" />
 
-    <SwitchPreferenceCompat
-        android:defaultValue="false"
-        android:key="@string/p_disable_sort_groups"
-        android:title="@string/disable_sort_groups" />
-
     <PreferenceCategory android:title="@string/chips">
 
         <ListPreference

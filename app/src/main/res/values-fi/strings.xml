@@ -280,7 +280,6 @@
     <string name="copy">Kopio</string>
     <string name="filter_settings">Suodatusasetukset</string>
     <string name="show_completed">Näytä valmiit</string>
-    <string name="reverse">Käänteinen</string>
     <string name="add_attachment">Lisää liite</string>
     <string name="take_a_picture">Ota kuva</string>
     <string name="pick_from_gallery">Valitse galleriasta</string>
@@ -629,7 +628,6 @@
     <string name="davx5_selection_description">Tehtävien synkronointi DAVx⁵sovelluksen kanssa</string>
     <string name="decsync_selection_description">Tiedostopohjainen synkronointi</string>
     <string name="tasks_org_description">Synkronoi tehtävät Tasks.orgin kanssa</string>
-    <string name="disable_sort_groups">Lajitteluryhmien poistaminen käytöstä</string>
     <string name="subscription">Tilaus</string>
     <string name="caldav_home_set_not_found">Kotijoukkoa ei löytynyt</string>
     <string name="repeat_monthly_fifth_week">viides</string>

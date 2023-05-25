@@ -290,7 +290,6 @@
     <string name="move">Verplaatsen</string>
     <string name="filter_settings">Filter instellen</string>
     <string name="show_completed">Voltooide tonen</string>
-    <string name="reverse">Omkeren</string>
     <string name="add_attachment">Bijlage toevoegen</string>
     <string name="take_a_picture">Foto maken</string>
     <string name="pick_from_gallery">Uit galerij kiezen</string>
@@ -542,7 +541,6 @@
     <string name="on_launch">Bij het starten</string>
     <string name="lists">Lijsten</string>
     <string name="open_last_viewed_list">Laatst bekeken lijst openen</string>
-    <string name="disable_sort_groups">Groepen sorteren uitzetten</string>
     <string name="CFC_list_name">In de lijst…</string>
     <string name="date_shortcut_tomorrow_night">Morgennacht</string>
     <string name="date_shortcut_tomorrow_evening">Morgenavond</string>

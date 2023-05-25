@@ -431,7 +431,6 @@
     <string name="repeats_from">පුනරාවර්තනය වනුයේ</string>
     <string name="bundle_notifications">බහු දැනුම්දීම්</string>
     <string name="accent">දෙවන වර්ණය</string>
-    <string name="reverse">ආපසු</string>
     <string name="date_shortcut_must_come_after">%1$s, %2$s ට පසුව පැමිණිය යුතුය</string>
     <string name="date_shortcut_must_come_before">%2$s පෙර %1$s පැමිණිය යුතුය</string>
     <string name="rmd_EPr_quiet_hours_end_title">නිහඬ කාලය අවසානය</string>
@@ -523,7 +522,6 @@
     <string name="choose_synchronization_service">සේවාවක් තෝරන්න</string>
     <string name="create_new_tag">\"%s\" සාදන්න</string>
     <string name="enter_tag_name">ටැගයේ නම ඇතුළත් කරන්න</string>
-    <string name="disable_sort_groups">වර්ග කිරීමේ කණ්ඩායම් අක්‍රීය කරන්න</string>
     <string name="subtasks_multilevel_google_task">Google Tasks විසින් බහු මට්ටමේ උප කාර්යයන් සඳහා සහාය නොදක්වයි</string>
     <string name="collapse_subtasks">උප කාර්යයන් හකුළුවන්න</string>
     <string name="expand_subtasks">උප කාර්යයන් පුළුල් කරන්න</string>

@@ -321,7 +321,6 @@
     <string name="delete">Slett</string>
     <string name="copy">Kopier</string>
     <string name="move">Flytt</string>
-    <string name="reverse">Omvend</string>
     <string name="add_attachment">Legg til vedlegg</string>
     <string name="take_a_picture">Ta et bilde</string>
     <string name="pick_from_gallery">Velg fra galleri</string>
@@ -540,7 +539,6 @@
     <string name="whats_new">Hva er nytt</string>
     <string name="CFC_list_name">På listen…</string>
     <string name="date_shortcut_tomorrow_evening">I morgen på kvelden</string>
-    <string name="disable_sort_groups">Skru av sorteringsgrupper</string>
     <string name="action_new_task">Nytt gjøremål</string>
     <string name="permission_read_tasks">Full tilgang til Tasks-database</string>
     <string name="open_last_viewed_list">Åpne sist viste liste</string>

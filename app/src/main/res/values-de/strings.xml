@@ -290,7 +290,6 @@
     <string name="move">Bewegen</string>
     <string name="filter_settings">Filtereinstellungen</string>
     <string name="show_completed">Erledigte anzeigen</string>
-    <string name="reverse">Rückwärts</string>
     <string name="add_attachment">Anhang hinzufügen</string>
     <string name="take_a_picture">Bild aufnehmen</string>
     <string name="pick_from_gallery">Aus Galerie wählen</string>
@@ -540,7 +539,6 @@
     <string name="open_last_viewed_list">Zuletzt betrachtete Liste öffnen</string>
     <string name="lists">Listen</string>
     <string name="on_launch">Beim Start</string>
-    <string name="disable_sort_groups">Sortierung nach Gruppen deaktivieren</string>
     <string name="CFC_list_name">In der Liste…</string>
     <string name="astrid_sort_order">Manuelle Sortierung nach Astrid</string>
     <string name="sort_modified_group">%s bearbeitet</string>

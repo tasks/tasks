@@ -28,7 +28,7 @@ import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
-import org.tasks.dialogs.SortDialog.newSortDialog
+import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
@@ -47,7 +47,6 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
         const val EXTRA_WIDGET_ID = "extra_widget_id"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
-        private const val FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog"
         private const val FRAG_TAG_FILTER_PICKER = "frag_tag_filter_picker"
 
         fun newScrollableWidget(appWidgetId: Int): ScrollableWidget {
@@ -74,6 +73,12 @@ class ScrollableWidget : InjectingPreferenceFragment() {
             widgetPreferences.setFilter(defaultFilterProvider.getFilterPreferenceValue(it))
             updateFilter()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        updateSort()
     }
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
@@ -105,7 +110,6 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         setupCheckbox(R.string.p_widget_show_lists)
         setupCheckbox(R.string.p_widget_show_tags)
         setupCheckbox(R.string.p_widget_show_full_task_title, false)
-        setupCheckbox(R.string.p_widget_disable_groups, false)
         setupCheckbox(R.string.p_widget_show_hidden, false)
         setupCheckbox(R.string.p_widget_show_completed, false)
         val showDescription = setupCheckbox(R.string.p_widget_show_description, true)
@@ -126,8 +130,16 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
         findPreference(R.string.p_widget_sort).setOnPreferenceClickListener {
             lifecycleScope.launch {
-                newSortDialog(this@ScrollableWidget, REQUEST_SORT, getFilter(), appWidgetId)
-                        .show(parentFragmentManager, FRAG_TAG_SORT_DIALOG)
+                val filter = getFilter()
+                requireActivity().startActivityForResult(
+                    SortSettingsActivity.getIntent(
+                        requireActivity(),
+                        filter.supportsManualSort(),
+                        filter.supportsAstridSorting(),
+                        appWidgetId,
+                    ),
+                    REQUEST_SORT
+                )
             }
             false
         }

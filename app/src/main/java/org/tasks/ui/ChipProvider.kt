@@ -54,8 +54,7 @@ class ChipProvider @Inject constructor(
             derivedStateOf {
                 if (
                     timeOnly &&
-                    sortGroup?.startOfDay() == startDate.startOfDay() &&
-                    preferences.showGroupHeaders()
+                    sortGroup?.startOfDay() == startDate.startOfDay()
                 ) {
                     startDate
                         .takeIf { Task.hasDueTime(it) }

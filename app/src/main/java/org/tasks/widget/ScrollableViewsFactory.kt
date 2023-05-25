@@ -73,11 +73,11 @@ internal class ScrollableViewsFactory(
     private var showLists = false
     private var showTags = false
     private var collapsed = mutableSetOf(HEADER_COMPLETED)
-    private var sortMode = -1
+    private var groupMode = -1
     private var tasks = SectionedDataSource(
         emptyList(),
         disableHeaders = false,
-        sortMode = 0,
+        groupMode = 0,
         collapsed,
         preferences.completedTasksAtBottom,
     )
@@ -101,7 +101,7 @@ internal class ScrollableViewsFactory(
             tasks = SectionedDataSource(
                     taskDao.fetchTasks { getQuery(filter, it) },
                     disableGroups,
-                    sortMode,
+                    groupMode,
                     collapsed,
                     widgetPreferences.completedTasksAtBottom,
             )
@@ -149,7 +149,7 @@ internal class ScrollableViewsFactory(
         val header: String? = if (filter?.supportsSorting() == true) {
             headerFormatter.headerStringBlocking(
                 value = section.value,
-                sortMode = sortMode,
+                groupMode = groupMode,
                 alwaysDisplayFullDate = showFullDate,
                 style = FormatStyle.MEDIUM,
                 compact = compact,
@@ -167,7 +167,7 @@ internal class ScrollableViewsFactory(
             R.id.header,
             section.headerColor(
                 context,
-                sortMode,
+                groupMode,
                 if (isDark) R.color.white_60 else R.color.black_60
             )
         )
@@ -264,7 +264,7 @@ internal class ScrollableViewsFactory(
                 )
             }
             if (taskContainer.isHidden && showStartDates) {
-                val sortByDate = sortMode == SortHelper.SORT_START && !disableGroups
+                val sortByDate = groupMode == SortHelper.SORT_START && !disableGroups
                 chipProvider
                         .getStartDateChip(taskContainer, showFullDate, sortByDate)
                         ?.let { row.addView(R.id.chips, it) }
@@ -314,9 +314,10 @@ internal class ScrollableViewsFactory(
                 row.setViewPadding(R.id.widget_due_end, hPad, vPad, hPad, vPad)
             }
             row.setViewVisibility(dueDateRes, View.VISIBLE)
-            val text = if (sortMode == SortHelper.SORT_DUE
-                && (task.sortGroup ?: 0L) >= now().startOfDay()
-                && !disableGroups
+            val text = if (
+                groupMode == SortHelper.SORT_DUE &&
+                (task.sortGroup ?: 0L) >= now().startOfDay() &&
+                !disableGroups
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
                     DateUtilities.getTimeString(context, DateTimeUtils.newDateTime(task.dueDate))
@@ -361,7 +362,7 @@ internal class ScrollableViewsFactory(
         dueDateTextSize = max(10f, textSize - 2)
         filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.filterId)
         showDividers = widgetPreferences.showDividers()
-        disableGroups = widgetPreferences.disableGroups() || filter?.let {
+        disableGroups = filter?.let {
             !it.supportsSorting()
                     || (it.supportsManualSort() && widgetPreferences.isManualSort)
                     || (it.supportsAstridSorting() && widgetPreferences.isAstridSort)
@@ -372,13 +373,13 @@ internal class ScrollableViewsFactory(
         showLists = widgetPreferences.showLists()
         showTags = widgetPreferences.showTags()
         showFullDate = widgetPreferences.alwaysDisplayFullDate
-        widgetPreferences.sortMode.takeIf { it != sortMode }
-                ?.let {
-                    if (sortMode >= 0) {
-                        widgetPreferences.setCollapsed(mutableSetOf(HEADER_COMPLETED))
-                    }
-                    sortMode = it
+        widgetPreferences.groupMode.takeIf { it != groupMode }
+            ?.let {
+                if (groupMode != SortHelper.GROUP_NONE) {
+                    widgetPreferences.setCollapsed(mutableSetOf(HEADER_COMPLETED))
                 }
+                groupMode = it
+            }
         collapsed = widgetPreferences.collapsed
         compact = widgetPreferences.compact
     }

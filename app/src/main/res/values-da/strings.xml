@@ -74,7 +74,6 @@
     <string name="repeats_single_on">Gentages %1$s hver %2$s</string>
     <string name="opacity_header">Topbjælkens ugennemsigtighed</string>
     <string name="back_button_saves_task">Tilbage-knappen gemmer opgaven</string>
-    <string name="reverse">Omvendt</string>
     <string name="date_shortcut_tomorrow_night">I morgen aften</string>
     <string name="date_shortcut_tomorrow_evening">I morgen eftermiddag</string>
     <string name="date_shortcut_tomorrow_afternoon">I morgen middag</string>
@@ -172,7 +171,6 @@
     <string name="choose_synchronization_service">Vælg tjeneste</string>
     <string name="create_new_tag">Opret “%s”</string>
     <string name="enter_tag_name">Indtast tag</string>
-    <string name="disable_sort_groups">Slå sorteringsgrupper fra</string>
     <string name="subtasks_multilevel_google_task">Flere niveauer af underopgaver understøttes ikke af Google Tasks</string>
     <string name="collapse_subtasks">Skjul underopgaver</string>
     <string name="expand_subtasks">Udvid underopgaver</string>

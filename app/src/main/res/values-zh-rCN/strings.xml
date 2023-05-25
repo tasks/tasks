@@ -275,7 +275,6 @@
     <string name="move">移动</string>
     <string name="filter_settings">过滤器设置</string>
     <string name="show_completed">显示已完成任务</string>
-    <string name="reverse">反向</string>
     <string name="add_attachment">添加附件</string>
     <string name="take_a_picture">拍张照片</string>
     <string name="pick_from_gallery">从相册选一张</string>
@@ -532,7 +531,6 @@
     <string name="on_launch">启动时</string>
     <string name="astrid_sort_order_summary">为“我的任务”，“今天”和标签启用 Astrid 的手动排序模式。在以后的更新中，此排序模式将被“我的顺序”代替</string>
     <string name="astrid_sort_order">Astrid 手动排序</string>
-    <string name="disable_sort_groups">禁用组别排序</string>
     <string name="CFC_list_name">在某列表中…</string>
     <string name="date_shortcut_tomorrow_night">明天晚上</string>
     <string name="date_shortcut_tomorrow_evening">明天傍晚</string>

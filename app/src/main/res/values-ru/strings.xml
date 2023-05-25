@@ -309,7 +309,6 @@
     <string name="move">Перенести</string>
     <string name="filter_settings">Настройки фильтра</string>
     <string name="show_completed">Показать выполненные</string>
-    <string name="reverse">Наоборот</string>
     <string name="add_attachment">Прикрепить файл</string>
     <string name="take_a_picture">Сделать снимок</string>
     <string name="pick_from_gallery">Выбрать из галереи</string>
@@ -558,7 +557,6 @@
     <string name="lists">Списки</string>
     <string name="open_last_viewed_list">Открыть последний просмотренный список</string>
     <string name="on_launch">При запуске</string>
-    <string name="disable_sort_groups">Отключить группы сортировки</string>
     <string name="date_shortcut_tomorrow_night">Завтра ночью</string>
     <string name="date_shortcut_tomorrow_evening">Завтра вечером</string>
     <string name="CFC_list_name">В списке…</string>

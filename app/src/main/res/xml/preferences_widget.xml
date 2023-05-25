@@ -147,12 +147,6 @@
       android:key="@string/p_widget_show_dividers"
       android:title="@string/widget_show_dividers" />
 
-    <SwitchPreferenceCompat
-      android:defaultValue="false"
-      android:key="@string/p_widget_disable_groups"
-      android:title="@string/disable_sort_groups"
-      app:singleLineTitle="false" />
-
   </PreferenceCategory>
 
   <PreferenceCategory

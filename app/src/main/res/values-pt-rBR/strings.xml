@@ -289,7 +289,6 @@
     <string name="move">Mover</string>
     <string name="filter_settings">Configurações de filtro</string>
     <string name="show_completed">Mostrar concluídas</string>
-    <string name="reverse">Reverso</string>
     <string name="add_attachment">Adicionar anexo</string>
     <string name="take_a_picture">Tirar uma foto</string>
     <string name="pick_from_gallery">Selecionar da galeria</string>
@@ -460,7 +459,6 @@
     <string name="choose_synchronization_service">Selecione uma plataforma</string>
     <string name="create_new_tag">Criar \"%s\"</string>
     <string name="enter_tag_name">Adicione nome da etiqueta</string>
-    <string name="disable_sort_groups">Desabilitar ordenação em grupos</string>
     <string name="subtasks_multilevel_google_task">Sub-tarefas em múltiplos níveis não suportado pelo Google Tasks</string>
     <string name="collapse_subtasks">Recolher sub-tarefas</string>
     <string name="expand_subtasks">Expandir sub-tarefas</string>
