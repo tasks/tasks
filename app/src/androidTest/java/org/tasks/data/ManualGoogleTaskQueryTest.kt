@@ -105,6 +105,6 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
     }
 
     private suspend fun query(): List<TaskContainer> = taskDao.fetchTasks {
-        TaskListQuery.getQuery(preferences, filter, it)
+        TaskListQuery.getQuery(preferences, filter)
     }
 }

@@ -422,7 +422,7 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
     }
 
     private fun move(from: Int, to: Int, indent: Int = 0) = runBlocking {
-        tasks.addAll(taskDao.fetchTasks { getQuery(preferences, filter, it) })
+        tasks.addAll(taskDao.fetchTasks { getQuery(preferences, filter) })
         val adjustedTo = if (from < to) to + 1 else to
         adapter.moved(from, adjustedTo, indent)
     }

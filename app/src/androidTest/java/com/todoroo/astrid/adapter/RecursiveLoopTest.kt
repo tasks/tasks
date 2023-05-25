@@ -76,7 +76,7 @@ class RecursiveLoopTest : InjectingTestCase() {
     }
 
     private suspend fun getTasks() = taskDao.fetchTasks {
-        getQuery(preferences, BuiltInFilterExposer.getTodayFilter(context.resources), it)
+        getQuery(preferences, BuiltInFilterExposer.getTodayFilter(context.resources))
     }
 
     private suspend fun addTask(vararg properties: PropertyValue<in Task?, *>): Long {
