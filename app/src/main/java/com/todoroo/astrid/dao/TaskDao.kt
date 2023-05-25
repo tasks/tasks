@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.date.DateTimeUtils.isAfterNow
@@ -151,7 +150,7 @@ class TaskDao @Inject constructor(
 
     internal suspend fun insert(task: Task): Long = taskDao.insert(task)
 
-    internal suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>): List<TaskContainer> =
+    internal suspend fun fetchTasks(callback: suspend () -> List<String>): List<TaskContainer> =
             taskDao.fetchTasks(callback)
 
     internal suspend fun getAll(): List<Task> = taskDao.getAll()

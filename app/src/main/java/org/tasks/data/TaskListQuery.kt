@@ -33,13 +33,12 @@ object TaskListQuery {
     fun getQuery(
             preferences: QueryPreferences,
             filter: Filter,
-            subtasks: SubtaskInfo
     ): MutableList<String> = when {
         filter.supportsManualSort() && preferences.isManualSort ->
             getRecursiveQuery(filter, preferences)
         filter.supportsAstridSorting() && preferences.isAstridSort ->
             getNonRecursiveQuery(filter, preferences)
-        filter.supportsSubtasks() && subtasks.usesSubtasks() ->
+        filter.supportsSorting() ->
             getRecursiveQuery(filter, preferences)
         else -> getNonRecursiveQuery(filter, preferences)
     }

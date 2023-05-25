@@ -18,7 +18,6 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
@@ -99,7 +98,7 @@ internal class ScrollableViewsFactory(
         runBlocking {
             updateSettings()
             tasks = SectionedDataSource(
-                    taskDao.fetchTasks { getQuery(filter, it) },
+                    taskDao.fetchTasks { getQuery(filter) },
                     disableGroups,
                     groupMode,
                     collapsed,
@@ -295,8 +294,8 @@ internal class ScrollableViewsFactory(
 
     private fun getTask(position: Int): TaskContainer? = tasks.getItem(position)
 
-    private suspend fun getQuery(filter: Filter?, subtasks: SubtaskInfo): List<String> {
-        val queries = getQuery(widgetPreferences, filter!!, subtasks)
+    private suspend fun getQuery(filter: Filter?): List<String> {
+        val queries = getQuery(widgetPreferences, filter!!)
         val last = queries.size - 1
         queries[last] =
                 subtasksHelper.applySubtasksToWidgetFilter(filter, widgetPreferences, queries[last])

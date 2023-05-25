@@ -9,7 +9,6 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.tasks.data.SubtaskInfo
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
@@ -53,16 +52,11 @@ class TaskListViewModel @Inject constructor(
         }
         try {
             viewModelScope.launch {
-                val subtasks = taskDao.getSubtaskInfo()
-                performNonPagedQuery(subtasks)
+                _tasks.value = taskDao.fetchTasks { getQuery(preferences, filter!!) }
             }
         } catch (e: Exception) {
             Timber.e(e)
         }
-    }
-
-    private suspend fun performNonPagedQuery(subtasks: SubtaskInfo) {
-        _tasks.value = taskDao.fetchTasks(subtasks) { getQuery(preferences, filter!!, it) }
     }
 
     val value: List<TaskContainer>

@@ -95,14 +95,10 @@ abstract class TaskDao(private val database: Database) {
             + "WHERE completed > 0 AND calendarUri IS NOT NULL AND calendarUri != ''")
     abstract suspend fun clearCompletedCalendarEvents(): Int
 
-    open suspend fun fetchTasks(callback: suspend (SubtaskInfo) -> List<String>): List<TaskContainer> {
-        return fetchTasks(getSubtaskInfo(), callback)
-    }
-
-    open suspend fun fetchTasks(subtasks: SubtaskInfo, callback: suspend (SubtaskInfo) -> List<String>): List<TaskContainer> =
+    open suspend fun fetchTasks(callback: suspend () -> List<String>): List<TaskContainer> =
             database.withTransaction {
                 val start = if (BuildConfig.DEBUG) now() else 0
-                val queries = callback(subtasks)
+                val queries = callback()
                 val last = queries.size - 1
                 for (i in 0 until last) {
                     query(SimpleSQLiteQuery(queries[i]))
@@ -114,7 +110,7 @@ abstract class TaskDao(private val database: Database) {
 
     suspend fun fetchTasks(preferences: Preferences, filter: Filter): List<TaskContainer> =
             fetchTasks {
-                TaskListQuery.getQuery(preferences, filter, it)
+                TaskListQuery.getQuery(preferences, filter)
             }
 
     @RawQuery
@@ -125,9 +121,6 @@ abstract class TaskDao(private val database: Database) {
 
     @RawQuery
     abstract suspend fun count(query: SimpleSQLiteQuery): Int
-
-    @Query("SELECT EXISTS(SELECT 1 FROM tasks WHERE parent > 0 AND deleted = 0) AS hasSubtasks")
-    abstract suspend fun getSubtaskInfo(): SubtaskInfo
 
     suspend fun touch(ids: List<Long>, now: Long = currentTimeMillis()) =
         ids.eachChunk { internalTouch(it, now) }
