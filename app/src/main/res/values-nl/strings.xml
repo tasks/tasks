@@ -732,4 +732,8 @@
     <string name="default_reminder">Standaard Herinnering</string>
     <string name="rmd_time_description">Toon meldingen voor taken zonder vervaltijd</string>
     <string name="sort_list">Op lijstvolgorde</string>
+    <string name="sort_sorting">Sorteren</string>
+    <string name="sort_grouping">Groeperen</string>
+    <string name="sort_ascending">Oplopend</string>
+    <string name="sort_descending">Aflopend</string>
 </resources>
