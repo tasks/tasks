@@ -729,4 +729,9 @@
     <string name="consent_deny">Most nem</string>
     <string name="sign_in_to_tasks_disclosure">Az Ön e-mail címét és azonodítóját a Tasks.org tárolja. Ezek az információk azonosításra és fontos, a szolgáltatással kapcsolatos információk eljuttatásának céljából kerülnek felhasználásra. Ez az információ senkivel sem kerül megosztásra.</string>
     <string name="enable_reminders">Emlékeztetők engedélyezése</string>
+    <string name="sort_list">Lista szerint</string>
+    <string name="sort_sorting">Sorbarendezés</string>
+    <string name="sort_grouping">Csoportosítás</string>
+    <string name="sort_ascending">Növekvő</string>
+    <string name="sort_descending">Csökkenő</string>
 </resources>
