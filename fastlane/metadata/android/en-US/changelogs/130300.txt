@@ -1,0 +1,5 @@
+* Sorting improvements
+  * Configure sort grouping
+  * Configure sorting within sort group
+  * Configure completed task sorting
+* Update translations
