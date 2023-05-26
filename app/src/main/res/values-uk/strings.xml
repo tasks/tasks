@@ -760,4 +760,8 @@
     <string name="rmd_time_description">Показувати сповіщення про завдання без запланованого часу</string>
     <string name="default_reminder">Типове нагадування</string>
     <string name="sort_list">За списком</string>
+    <string name="sort_sorting">Сортування</string>
+    <string name="sort_grouping">Групування</string>
+    <string name="sort_ascending">За зростанням</string>
+    <string name="sort_descending">За спаданням</string>
 </resources>
