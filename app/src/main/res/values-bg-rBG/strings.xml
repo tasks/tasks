@@ -732,4 +732,8 @@
     <string name="default_reminder">Напомняне по подразбиране</string>
     <string name="rmd_time_description">Показват се известия за задачите без краен час</string>
     <string name="sort_list">По списък</string>
+    <string name="sort_descending">Низходящо</string>
+    <string name="sort_sorting">Сортиране</string>
+    <string name="sort_grouping">Групиране</string>
+    <string name="sort_ascending">Възходящо</string>
 </resources>
