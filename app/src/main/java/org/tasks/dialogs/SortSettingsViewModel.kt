@@ -97,6 +97,7 @@ class SortSettingsViewModel @Inject constructor(
     fun setCompletedMode(completedMode: Int) {
         preferences.completedMode = completedMode
         val ascending = when (completedMode) {
+            SortHelper.SORT_COMPLETED,
             SortHelper.SORT_MODIFIED,
             SortHelper.SORT_CREATED -> false
             else -> true

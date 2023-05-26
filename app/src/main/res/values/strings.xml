@@ -737,4 +737,5 @@ File %1$s contained %2$s.\n\n
   <string name="sort_grouping">Grouping</string>
   <string name="sort_ascending">Ascending</string>
   <string name="sort_descending">Descending</string>
+  <string name="sort_not_available">Not available for tags, filters, or places</string>
 </resources>

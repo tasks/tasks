@@ -18,9 +18,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Chip
 import androidx.compose.material.ChipDefaults
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -44,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -136,14 +140,20 @@ class SortSettingsActivity : ComponentActivity() {
                         scrimColor = Color.Transparent,
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                         content = {
-                            SortPicker(
-                                selected = state.groupMode,
-                                options = groupOptions,
-                                onSelected = {
-                                    viewModel.setGroupMode(it)
-                                    closePicker()
-                                }
-                            )
+                            Column(
+                                modifier = Modifier
+                                    .verticalScroll(rememberScrollState())
+                                    .fillMaxWidth()
+                            ) {
+                                SortPicker(
+                                    selected = state.groupMode,
+                                    options = groupOptions,
+                                    onClick = {
+                                        viewModel.setGroupMode(it)
+                                        closePicker()
+                                    }
+                                )
+                            }
                         }
                     )
                     LaunchedEffect(Unit) {
@@ -204,14 +214,20 @@ class SortSettingsActivity : ComponentActivity() {
                         scrimColor = Color.Transparent,
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                         content = {
-                            SortPicker(
-                                selected = state.completedMode,
-                                options = completedOptions,
-                                onSelected = {
-                                    viewModel.setCompletedMode(it)
-                                    closePicker()
-                                }
-                            )
+                            Column(
+                                modifier = Modifier
+                                    .verticalScroll(rememberScrollState())
+                                    .fillMaxWidth()
+                            ) {
+                                SortPicker(
+                                    selected = state.completedMode,
+                                    options = completedOptions,
+                                    onClick = {
+                                        viewModel.setCompletedMode(it)
+                                        closePicker()
+                                    }
+                                )
+                            }
                         }
                     )
                     LaunchedEffect(Unit) {
@@ -268,30 +284,39 @@ fun SortSheetContent(
     setAstridSort: (Boolean) -> Unit,
     onSelected: (Int) -> Unit,
 ) {
-    if (manualSortEnabled) {
-        SortOption(resId = R.string.SSD_sort_my_order, selected = manualSortSelected) {
-            setManualSort(true)
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxWidth()
+    ) {
+        SortPicker(
+            selected = if (manualSortSelected) -1 else selected,
+            options = sortOptions,
+            onClick = { onSelected(it) },
+        )
+        if (astridSortEnabled) {
+            SortOption(
+                resId = R.string.astrid_sort_order,
+                selected = manualSortSelected,
+                onClick = { setAstridSort(true) }
+            )
         }
+        SortOption(
+            resId = R.string.SSD_sort_my_order,
+            selected = manualSortSelected && !astridSortEnabled,
+            enabled = manualSortEnabled,
+            onClick = { setManualSort(true) },
+        )
     }
-    if (astridSortEnabled) {
-        SortOption(resId = R.string.astrid_sort_order, selected = manualSortSelected) {
-            setAstridSort(true)
-        }
-    }
-    SortPicker(
-        selected = if (manualSortSelected) -1 else selected,
-        options = sortOptions,
-        onSelected = { onSelected(it) },
-    )
 }
 
 val sortOptions = linkedMapOf(
-    R.string.SSD_sort_auto to SortHelper.SORT_AUTO,
-    R.string.SSD_sort_start to SortHelper.SORT_START,
     R.string.SSD_sort_due to SortHelper.SORT_DUE,
+    R.string.SSD_sort_start to SortHelper.SORT_START,
     R.string.SSD_sort_importance to SortHelper.SORT_IMPORTANCE,
     R.string.SSD_sort_alpha to SortHelper.SORT_ALPHA,
     R.string.SSD_sort_modified to SortHelper.SORT_MODIFIED,
+    R.string.SSD_sort_auto to SortHelper.SORT_AUTO,
     R.string.sort_created to SortHelper.SORT_CREATED,
 )
 
@@ -307,8 +332,8 @@ val groupOptions = linkedMapOf(
 
 private val completedOptions = linkedMapOf(
     R.string.sort_completed to SortHelper.SORT_COMPLETED,
-    R.string.SSD_sort_start to SortHelper.SORT_START,
     R.string.SSD_sort_due to SortHelper.SORT_DUE,
+    R.string.SSD_sort_start to SortHelper.SORT_START,
     R.string.SSD_sort_importance to SortHelper.SORT_IMPORTANCE,
     R.string.SSD_sort_alpha to SortHelper.SORT_ALPHA,
     R.string.SSD_sort_modified to SortHelper.SORT_MODIFIED,
@@ -319,13 +344,13 @@ private val completedOptions = linkedMapOf(
 fun SortPicker(
     selected: Int,
     options: Map<Int, Int>,
-    onSelected: (Int) -> Unit,
+    onClick: (Int) -> Unit,
 ) {
     options.forEach { (resId, sortMode) ->
         SortOption(
             resId = resId,
             selected = selected == sortMode,
-            onClick = { onSelected(sortMode) },
+            onClick = { onClick(sortMode) },
         )
     }
 }
@@ -334,21 +359,37 @@ fun SortPicker(
 fun SortOption(
     resId: Int,
     selected: Boolean,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
-    Text(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        text = stringResource(id = resId),
-        style = MaterialTheme.typography.h6.copy(
-            color = if (selected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface,
-        ),
-    )
+            .clickable(enabled = enabled, onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        Text(
+            text = stringResource(id = resId),
+            style = MaterialTheme.typography.h6.copy(
+                color = when {
+                    selected -> MaterialTheme.colors.primary
+                    enabled -> MaterialTheme.colors.onSurface
+                    else -> MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
+                }
+            ),
+        )
+        if (!enabled) {
+            Text(
+                text = stringResource(id = R.string.sort_not_available),
+                style = MaterialTheme.typography.body2.copy(
+                    color = MaterialTheme.colors.error,
+                    fontStyle = FontStyle.Italic,
+                ),
+            )
+        }
+    }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BottomSheetContent(
     groupMode: Int,
@@ -374,6 +415,7 @@ fun BottomSheetContent(
     ) {
         Column(
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .weight(1f)
                 .clickable { clickGroupMode() }
         ) {

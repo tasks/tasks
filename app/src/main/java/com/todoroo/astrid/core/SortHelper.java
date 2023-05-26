@@ -53,17 +53,19 @@ public class SortHelper {
   private static final String ADJUSTED_START_DATE =
       "(CASE WHEN (hideUntil / 1000) % 60 > 0 THEN hideUntil ELSE (hideUntil + 86399000) END)";
 
-  private static final String GROUP_DUE_DATE = "((CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+  private static final Long NO_DATE = 3538339200000L;
+
+  private static final String GROUP_DUE_DATE = "((CASE WHEN (tasks.dueDate=0) THEN " + NO_DATE + " ELSE "
           + "tasks.dueDate END)+tasks.importance * 1000)";
 
-  private static final String SORT_DUE_DATE = "((CASE WHEN (tasks.dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+  private static final String SORT_DUE_DATE = "((CASE WHEN (tasks.dueDate=0) THEN " + NO_DATE + " ELSE "
           + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
           + " END)+tasks.importance * 1000)";
 
-  private static final String GROUP_START_DATE = "((CASE WHEN (tasks.hideUntil=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+  private static final String GROUP_START_DATE = "((CASE WHEN (tasks.hideUntil=0) THEN " + NO_DATE + " ELSE "
           + "tasks.hideUntil END)+tasks.importance * 1000)";
 
-  private static final String SORT_START_DATE = "((CASE WHEN (tasks.hideUntil=0) THEN (strftime('%s','now')*1000)*2 ELSE "
+  private static final String SORT_START_DATE = "((CASE WHEN (tasks.hideUntil=0) THEN " + NO_DATE + " ELSE "
           + ADJUSTED_START_DATE.replace("hideUntil", "tasks.hideUntil")
           + " END)+tasks.importance * 1000)";
 
