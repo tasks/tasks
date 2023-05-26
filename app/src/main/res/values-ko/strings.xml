@@ -705,7 +705,6 @@
     </plurals>
     <string name="customize_edit_screen_summary">필드 순서 변경 또는 삭제</string>
     <string name="sort_completion_group">%s 완료</string>
-    <string name="completed_tasks_sort">완료일순 정렬</string>
     <string name="dismiss">닫기</string>
     <string name="hint_customize_edit_title">정보가 너무 많은가요\?</string>
     <string name="app_bar_position">앱 바메뉴 위치</string>

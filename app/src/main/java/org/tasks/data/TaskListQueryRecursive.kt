@@ -60,6 +60,7 @@ internal object TaskListQueryRecursive {
             manualSort && filter is CaldavFilter -> SortHelper.SORT_CALDAV
             else -> sortPreference
         }
+        val completedMode = preferences.completedMode
         val groupAscending =
             preferences.groupAscending && groupMode != SortHelper.GROUP_NONE
         val sortAscending =
@@ -72,12 +73,11 @@ internal object TaskListQueryRecursive {
             primarySortSelect
         }
         val parentCompleted = if (preferences.completedTasksAtBottom) "tasks.completed > 0" else "0"
-        val completionSort =
-            if (preferences.completedTasksAtBottom && preferences.sortCompletedByCompletionDate) {
-                "tasks.completed"
-            } else {
-                "0"
-            }
+        val completionSort = if (preferences.completedTasksAtBottom) {
+            "(CASE WHEN tasks.completed > 0 THEN ${SortHelper.orderSelectForSortTypeRecursive(completedMode, false)} ELSE 0 END)"
+        } else {
+            "0"
+        }
         val withClause = """
             CREATE TEMPORARY TABLE `recursive_tasks` AS
             WITH RECURSIVE recursive_tasks (task, parent_complete, subtask_complete, completion_sort, parent, collapsed, hidden, indent, title, primary_group, primary_sort, secondary_sort, sort_group) AS (
@@ -96,7 +96,7 @@ internal object TaskListQueryRecursive {
                 $parentQuery
                 UNION ALL SELECT tasks._id, recursive_tasks.parent_complete, $parentCompleted as subtask_complete, $completionSort as completion_sort, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, recursive_tasks.primary_group as primary_group, recursive_tasks.primary_sort as primary_sort, $secondarySortSelect as secondary_sort, recursive_tasks.sort_group FROM tasks
                 $SUBTASK_QUERY
-                ORDER BY parent_complete ASC, sort_indent DESC, subtask_complete ASC, completion_sort DESC, ${SortHelper.orderForGroupTypeRecursive(groupMode, groupAscending)}, ${SortHelper.orderForSortTypeRecursive(sortMode, sortAscending)}
+                ORDER BY parent_complete ASC, sort_indent DESC, subtask_complete ASC, completion_sort ${if (preferences.completedAscending) "ASC" else "DESC"}, ${SortHelper.orderForGroupTypeRecursive(groupMode, groupAscending)}, ${SortHelper.orderForSortTypeRecursive(sortMode, sortAscending)}
             ) SELECT * FROM recursive_tasks
             WHERE indent = (SELECT MAX(indent) FROM recursive_tasks as r WHERE r.task = recursive_tasks.task)
         """.trimIndent()

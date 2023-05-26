@@ -41,6 +41,7 @@ public class SortHelper {
   public static final int SORT_CALDAV = 7;
   public static final int SORT_START = 8;
   public static final int SORT_LIST = 9;
+  public static final int SORT_COMPLETED = 10;
 
   public static final long APPLE_EPOCH = 978307200000L; // 1/1/2001 GMT
   @SuppressLint("DefaultLocale")
@@ -192,6 +193,7 @@ public class SortHelper {
       case SORT_GTASKS -> "tasks.`order`";
       case SORT_CALDAV -> CALDAV_ORDER_COLUMN;
       case SORT_LIST -> "CASE WHEN cdl_order = -1 THEN cdl_name ELSE cdl_order END";
+      case SORT_COMPLETED -> "tasks.completed";
       default -> "(CASE WHEN (tasks.dueDate=0) "
               + // if no due date
               "THEN (strftime('%s','now')*1000)*2 "

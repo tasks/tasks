@@ -55,18 +55,6 @@
         android:summary="@string/linkify_description"
         android:title="@string/linkify" />
 
-    <SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:key="@string/p_completed_tasks_at_bottom"
-        android:title="@string/completed_tasks_at_bottom"
-        app:allowDividerAbove="true" />
-
-    <SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:dependency="@string/p_completed_tasks_at_bottom"
-        android:key="@string/p_completed_tasks_sort"
-        android:title="@string/completed_tasks_sort" />
-
     <PreferenceCategory android:title="@string/chips">
 
         <ListPreference

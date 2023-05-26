@@ -667,7 +667,6 @@
     <string name="upgrade_tasks_org_account_description">Tasks.org と同期し、他のユーザーと共同作業が可能</string>
     <string name="upgrade_desktop_access">デスクトップアクセス</string>
     <string name="upgrade_open_source_description">あなたの支援が継続的な開発を支えます</string>
-    <string name="completed_tasks_sort">完了日順で並び替え</string>
     <string name="snackbar_tasks_completed">完了したタスク: %d</string>
     <string name="alarm_before_start">着手 %s 前</string>
     <string name="alarm_after_start">着手 %s 後</string>

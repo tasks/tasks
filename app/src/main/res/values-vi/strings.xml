@@ -672,7 +672,6 @@
     <string name="snoozed_until">Đã đặt báo lại cho đến %s</string>
     <string name="snackbar_task_completed">Công việc đã hoàn tất</string>
     <string name="completed_tasks_at_bottom">Di chuyển công việc đã hoàn tất xuống dưới</string>
-    <string name="completed_tasks_sort">Sắp xếp theo ngày hoàn thành</string>
     <string name="snackbar_tasks_completed">%d công việc đã hoàn tất</string>
     <string name="alarm_before_start">%s trước bắt đầu</string>
     <string name="alarm_after_start">%s sau bắt đầu</string>

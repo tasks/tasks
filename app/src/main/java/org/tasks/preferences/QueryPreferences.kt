@@ -5,6 +5,8 @@ interface QueryPreferences {
 
     var groupMode: Int
 
+    var completedMode: Int
+
     var isManualSort: Boolean
 
     var isAstridSort: Boolean
@@ -13,13 +15,13 @@ interface QueryPreferences {
 
     var groupAscending: Boolean
 
+    var completedAscending: Boolean
+
     val showHidden: Boolean
 
     val showCompleted: Boolean
 
     var alwaysDisplayFullDate: Boolean
 
-    val completedTasksAtBottom: Boolean
-
-    val sortCompletedByCompletionDate: Boolean
+    var completedTasksAtBottom: Boolean
 }

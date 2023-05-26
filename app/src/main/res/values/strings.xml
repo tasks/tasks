@@ -43,6 +43,7 @@ File %1$s contained %2$s.\n\n
   <string name="SSD_sort_modified">By last modified</string>
   <string name="sort_created">By creation time</string>
   <string name="sort_list">By list</string>
+  <string name="sort_completed">By completion time</string>
   <string name="FLA_search_filter">Matching \'%s\'</string>
   <string name="FLA_new_filter">Create new filter</string>
   <string name="TEA_title_hint">Task name</string>
@@ -713,7 +714,6 @@ File %1$s contained %2$s.\n\n
   <string name="completed">Completed</string>
   <string name="snackbar_task_completed">Task completed</string>
   <string name="completed_tasks_at_bottom">Move completed tasks to bottom</string>
-  <string name="completed_tasks_sort">Sort by completion date</string>
   <string name="snackbar_tasks_completed">%d tasks completed</string>
   <string name="alarm_before_start">%s before start</string>
   <string name="alarm_after_start">%s after start</string>

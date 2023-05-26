@@ -741,7 +741,6 @@
     <string name="snoozed_until">Užmigdyta iki %s</string>
     <string name="completion_sound">Groti užbaigimo garsą</string>
     <string name="TEA_creation_date">Sukūrimo data</string>
-    <string name="completed_tasks_sort">Rūšiuoti pagal užbaigimo datą</string>
     <string name="microsoft_selection_description">Sinchronizuoti su asmenine Microsoft paskyra</string>
     <string name="sort_completion_group">Užbaigimas %s</string>
     <string name="completed_tasks_at_bottom">Perkelti užbaigtas užduotis į apačią</string>

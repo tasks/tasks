@@ -702,7 +702,6 @@
     <string name="TEA_creation_date">Opprettelsesdato</string>
     <string name="microsoft_selection_description">Synkroniser med din personlige Microsoft-konto</string>
     <string name="sort_completion_group">Fullføring %s</string>
-    <string name="completed_tasks_sort">Sorter etter fullførelsesdato</string>
     <string name="snackbar_tasks_completed">%d gjøremål fullført</string>
     <string name="sign_in">Logg inn</string>
     <string name="custom_filter_has_reminder">Har påminnelse</string>

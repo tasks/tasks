@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -27,8 +28,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.ArrowUpward
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Switch
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -79,12 +82,16 @@ class SortSettingsActivity : ComponentActivity() {
                 val scope = rememberCoroutineScope()
                 var showGroupPicker by remember { mutableStateOf(false) }
                 var showSortPicker by remember { mutableStateOf(false) }
+                var showCompletedPicker by remember { mutableStateOf(false) }
                 ModalBottomSheet(
                     onDismissRequest = {
                         val forceReload = viewModel.forceReload
+                        val changedGroup = viewModel.changedGroup
                         setResult(
                             RESULT_OK,
-                            Intent().putExtra(EXTRA_FORCE_RELOAD, forceReload)
+                            Intent()
+                                .putExtra(EXTRA_FORCE_RELOAD, forceReload)
+                                .putExtra(EXTRA_CHANGED_GROUP, changedGroup)
                         )
                         finish()
                         overridePendingTransition(0, 0)
@@ -97,14 +104,20 @@ class SortSettingsActivity : ComponentActivity() {
                         BottomSheetContent(
                             groupMode = state.groupMode,
                             sortMode = state.sortMode,
+                            completedMode = state.completedMode,
                             sortAscending = state.sortAscending,
                             groupAscending = state.groupAscending,
+                            completedAscending = state.completedAscending,
                             manualSort = state.manualSort && manualEnabled,
                             astridSort = state.astridSort && astridEnabled,
+                            completedAtBottom = state.completedAtBottom,
                             setSortAscending = { viewModel.setSortAscending(it) },
                             setGroupAscending = { viewModel.setGroupAscending(it) },
+                            setCompletedAscending = { viewModel.setCompletedAscending(it) },
+                            setCompletedAtBottom = { viewModel.setCompletedAtBottom(it) },
                             clickGroupMode = { showGroupPicker = true },
                             clickSortMode = { showSortPicker = true },
+                            clickCompletedMode = { showCompletedPicker = true },
                         )
                     }
                 )
@@ -123,8 +136,9 @@ class SortSettingsActivity : ComponentActivity() {
                         scrimColor = Color.Transparent,
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                         content = {
-                            GroupSheetContent(
+                            SortPicker(
                                 selected = state.groupMode,
+                                options = groupOptions,
                                 onSelected = {
                                     viewModel.setGroupMode(it)
                                     closePicker()
@@ -175,6 +189,35 @@ class SortSettingsActivity : ComponentActivity() {
                         sheetState.show()
                     }
                 }
+                if (showCompletedPicker) {
+                    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                    val closePicker: () -> Unit = {
+                        scope.launch {
+                            sheetState.hide()
+                            showCompletedPicker = false
+                        }
+                    }
+                    ModalBottomSheet(
+                        onDismissRequest = closePicker,
+                        sheetState = sheetState,
+                        containerColor = MaterialTheme.colors.surface,
+                        scrimColor = Color.Transparent,
+                        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+                        content = {
+                            SortPicker(
+                                selected = state.completedMode,
+                                options = completedOptions,
+                                onSelected = {
+                                    viewModel.setCompletedMode(it)
+                                    closePicker()
+                                }
+                            )
+                        }
+                    )
+                    LaunchedEffect(Unit) {
+                        sheetState.show()
+                    }
+                }
                 LaunchedEffect(Unit) {
                     mainSheetState.show()
                 }
@@ -195,6 +238,7 @@ class SortSettingsActivity : ComponentActivity() {
         const val EXTRA_ASTRID_ORDER = "extra_astrid_order"
         const val EXTRA_WIDGET_ID = "extra_widget_id"
         const val EXTRA_FORCE_RELOAD = "extra_force_reload"
+        const val EXTRA_CHANGED_GROUP = "extra_changed_group"
         const val WIDGET_NONE = -1
 
         fun getIntent(
@@ -234,83 +278,56 @@ fun SortSheetContent(
             setAstridSort(true)
         }
     }
-    SortOption(
-        resId = R.string.SSD_sort_auto,
-        selected = !manualSortSelected && selected == SortHelper.SORT_AUTO,
-        onClick = { onSelected(SortHelper.SORT_AUTO) }
-    )
-    SortOption(
-        resId = R.string.SSD_sort_start,
-        selected = !manualSortSelected && selected == SortHelper.SORT_START,
-        onClick = { onSelected(SortHelper.SORT_START) }
-    )
-    SortOption(
-        resId = R.string.SSD_sort_due,
-        selected = !manualSortSelected && selected == SortHelper.SORT_DUE,
-        onClick = { onSelected(SortHelper.SORT_DUE) }
-    )
-    SortOption(
-        resId = R.string.SSD_sort_importance,
-        selected = !manualSortSelected && selected == SortHelper.SORT_IMPORTANCE,
-        onClick = { onSelected(SortHelper.SORT_IMPORTANCE) }
-    )
-    SortOption(
-        resId = R.string.SSD_sort_alpha,
-        selected = !manualSortSelected && selected == SortHelper.SORT_ALPHA,
-        onClick = { onSelected(SortHelper.SORT_ALPHA) }
-    )
-    SortOption(
-        resId = R.string.SSD_sort_modified,
-        selected = !manualSortSelected && selected == SortHelper.SORT_MODIFIED,
-        onClick = { onSelected(SortHelper.SORT_MODIFIED) }
-    )
-    SortOption(
-        resId = R.string.sort_created,
-        selected = !manualSortSelected && selected == SortHelper.SORT_CREATED,
-        onClick = { onSelected(SortHelper.SORT_CREATED) }
+    SortPicker(
+        selected = if (manualSortSelected) -1 else selected,
+        options = sortOptions,
+        onSelected = { onSelected(it) },
     )
 }
 
+val sortOptions = linkedMapOf(
+    R.string.SSD_sort_auto to SortHelper.SORT_AUTO,
+    R.string.SSD_sort_start to SortHelper.SORT_START,
+    R.string.SSD_sort_due to SortHelper.SORT_DUE,
+    R.string.SSD_sort_importance to SortHelper.SORT_IMPORTANCE,
+    R.string.SSD_sort_alpha to SortHelper.SORT_ALPHA,
+    R.string.SSD_sort_modified to SortHelper.SORT_MODIFIED,
+    R.string.sort_created to SortHelper.SORT_CREATED,
+)
+
+val groupOptions = linkedMapOf(
+    R.string.none to SortHelper.GROUP_NONE,
+    R.string.SSD_sort_due to SortHelper.SORT_DUE,
+    R.string.SSD_sort_start to SortHelper.SORT_START,
+    R.string.SSD_sort_importance to SortHelper.SORT_IMPORTANCE,
+    R.string.SSD_sort_modified to SortHelper.SORT_MODIFIED,
+    R.string.sort_created to SortHelper.SORT_CREATED,
+    R.string.sort_list to SortHelper.SORT_LIST,
+)
+
+private val completedOptions = linkedMapOf(
+    R.string.sort_completed to SortHelper.SORT_COMPLETED,
+    R.string.SSD_sort_start to SortHelper.SORT_START,
+    R.string.SSD_sort_due to SortHelper.SORT_DUE,
+    R.string.SSD_sort_importance to SortHelper.SORT_IMPORTANCE,
+    R.string.SSD_sort_alpha to SortHelper.SORT_ALPHA,
+    R.string.SSD_sort_modified to SortHelper.SORT_MODIFIED,
+    R.string.sort_created to SortHelper.SORT_CREATED,
+)
+
 @Composable
-fun GroupSheetContent(
+fun SortPicker(
     selected: Int,
+    options: Map<Int, Int>,
     onSelected: (Int) -> Unit,
 ) {
-    SortOption(
-        resId = R.string.none,
-        selected = selected == SortHelper.GROUP_NONE,
-        onClick = { onSelected(SortHelper.GROUP_NONE) }
-    )
-    SortOption(
-        resId = R.string.SSD_sort_due,
-        selected = selected == SortHelper.SORT_DUE,
-        onClick = { onSelected(SortHelper.SORT_DUE) }
-    )
-    SortOption(
-        resId = R.string.SSD_sort_start,
-        selected = selected == SortHelper.SORT_START,
-        onClick = { onSelected(SortHelper.SORT_START) }
-    )
-    SortOption(
-        resId = R.string.SSD_sort_importance,
-        selected = selected == SortHelper.SORT_IMPORTANCE,
-        onClick = { onSelected(SortHelper.SORT_IMPORTANCE) }
-    )
-    SortOption(
-        resId = R.string.SSD_sort_modified,
-        selected = selected == SortHelper.SORT_MODIFIED,
-        onClick = { onSelected(SortHelper.SORT_MODIFIED) }
-    )
-    SortOption(
-        resId = R.string.sort_created,
-        selected = selected == SortHelper.SORT_CREATED,
-        onClick = { onSelected(SortHelper.SORT_CREATED) }
-    )
-    SortOption(
-        resId = R.string.sort_list,
-        selected = selected == SortHelper.SORT_LIST,
-        onClick = { onSelected(SortHelper.SORT_LIST) }
-    )
+    options.forEach { (resId, sortMode) ->
+        SortOption(
+            resId = resId,
+            selected = selected == sortMode,
+            onClick = { onSelected(sortMode) },
+        )
+    }
 }
 
 @Composable
@@ -336,14 +353,20 @@ fun SortOption(
 fun BottomSheetContent(
     groupMode: Int,
     sortMode: Int,
+    completedMode: Int,
     sortAscending: Boolean,
     groupAscending: Boolean,
+    completedAscending: Boolean,
     manualSort: Boolean,
     astridSort: Boolean,
+    completedAtBottom: Boolean,
     setSortAscending: (Boolean) -> Unit,
     setGroupAscending: (Boolean) -> Unit,
+    setCompletedAscending: (Boolean) -> Unit,
+    setCompletedAtBottom: (Boolean) -> Unit,
     clickGroupMode: () -> Unit,
     clickSortMode: () -> Unit,
+    clickCompletedMode: () -> Unit,
 ) {
     Row(
         modifier = Modifier.padding(16.dp),
@@ -369,24 +392,9 @@ fun BottomSheetContent(
                 SortHelper.SORT_IMPORTANCE -> !groupAscending
                 else -> groupAscending
             }
-            Chip(
-                onClick = { setGroupAscending(!groupAscending) },
-                shape = RoundedCornerShape(4.dp),
-                border = ChipDefaults.outlinedBorder,
-                colors = ChipDefaults.outlinedChipColors(),
-                leadingIcon = {
-                    Icon(
-                        imageVector = if (displayAscending) Icons.Outlined.ArrowUpward else Icons.Outlined.ArrowDownward,
-                        modifier = Modifier.size(16.dp),
-                        contentDescription = null,
-                    )
-                },
-                content = {
-                    Text(
-                        text = stringResource(id = if (displayAscending) R.string.sort_ascending else R.string.sort_descending),
-                        style = MaterialTheme.typography.body1,
-                    )
-                },
+            OrderingChip(
+                ascending = displayAscending,
+                onClick = { setGroupAscending(!groupAscending) }
             )
         }
     }
@@ -421,27 +429,92 @@ fun BottomSheetContent(
                 SortHelper.SORT_IMPORTANCE -> !sortAscending
                 else -> sortAscending
             }
-            Chip(
-                onClick = { setSortAscending(!sortAscending) },
-                shape = RoundedCornerShape(4.dp),
-                border = ChipDefaults.outlinedBorder,
-                colors = ChipDefaults.outlinedChipColors(),
-                leadingIcon = {
-                    Icon(
-                        imageVector = if (displayAscending) Icons.Outlined.ArrowUpward else Icons.Outlined.ArrowDownward,
-                        modifier = Modifier.size(16.dp),
-                        contentDescription = null,
-                    )
-                },
-                content = {
-                    Text(
-                        text = stringResource(id = if (displayAscending) R.string.sort_ascending else R.string.sort_descending),
-                        style = MaterialTheme.typography.body1,
-                    )
-                },
+            OrderingChip(
+                ascending = displayAscending,
+                onClick = { setSortAscending(!sortAscending) }
             )
         }
     }
+    if (!astridSort) {
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+                .height(1.dp)
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(horizontal = 16.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.completed_tasks_at_bottom),
+                style = MaterialTheme.typography.body1,
+                modifier = Modifier.weight(1f),
+            )
+            Switch(
+                checked = completedAtBottom,
+                onCheckedChange = { setCompletedAtBottom(it) }
+            )
+        }
+        if (completedAtBottom) {
+            Row(
+                modifier = Modifier.padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { clickCompletedMode() }
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.completed),
+                        style = MaterialTheme.typography.h6,
+                    )
+                    Text(
+                        text = stringResource(id = completedMode.modeString),
+                        style = MaterialTheme.typography.body1,
+                    )
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                val displayAscending = when (completedMode) {
+                    SortHelper.SORT_IMPORTANCE -> !completedAscending
+                    else -> completedAscending
+                }
+                OrderingChip(
+                    ascending = displayAscending,
+                    onClick = { setCompletedAscending(!completedAscending) }
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun OrderingChip(
+    ascending: Boolean,
+    onClick: () -> Unit,
+) {
+    Chip(
+        onClick = onClick,
+        shape = RoundedCornerShape(4.dp),
+        border = ChipDefaults.outlinedBorder,
+        colors = ChipDefaults.outlinedChipColors(),
+        leadingIcon = {
+            Icon(
+                imageVector = if (ascending) Icons.Outlined.ArrowUpward else Icons.Outlined.ArrowDownward,
+                modifier = Modifier.size(16.dp),
+                contentDescription = null,
+            )
+        },
+        content = {
+            Text(
+                text = stringResource(id = if (ascending) R.string.sort_ascending else R.string.sort_descending),
+                style = MaterialTheme.typography.body1,
+            )
+        },
+    )
+
 }
 
 private val Int.modeString: Int
@@ -454,6 +527,7 @@ private val Int.modeString: Int
         SortHelper.SORT_CREATED -> R.string.sort_created
         SortHelper.SORT_START -> R.string.SSD_sort_start
         SortHelper.SORT_LIST -> R.string.sort_list
+        SortHelper.SORT_COMPLETED -> R.string.sort_completed
         else -> R.string.SSD_sort_auto
     }
 
@@ -462,17 +536,25 @@ private val Int.modeString: Int
 @Composable
 fun PreviewSortBottomSheet() {
     MdcTheme {
-        BottomSheetContent(
-            groupMode = SortHelper.GROUP_NONE,
-            sortMode = SortHelper.SORT_AUTO,
-            sortAscending = false,
-            groupAscending = false,
-            manualSort = false,
-            astridSort = false,
-            clickGroupMode = {},
-            clickSortMode = {},
-            setSortAscending = {},
-            setGroupAscending = {},
-        )
+        Column {
+            BottomSheetContent(
+                groupMode = SortHelper.GROUP_NONE,
+                sortMode = SortHelper.SORT_AUTO,
+                completedMode = SortHelper.SORT_ALPHA,
+                sortAscending = false,
+                groupAscending = false,
+                completedAscending = false,
+                manualSort = false,
+                astridSort = false,
+                completedAtBottom = true,
+                clickGroupMode = {},
+                clickSortMode = {},
+                clickCompletedMode = {},
+                setCompletedAtBottom = {},
+                setSortAscending = {},
+                setGroupAscending = {},
+                setCompletedAscending = {},
+            )
+        }
     }
 }

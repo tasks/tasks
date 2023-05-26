@@ -357,6 +357,10 @@ class Preferences @JvmOverloads constructor(
         get() = getInt(R.string.p_group_mode, SortHelper.GROUP_NONE)
         set(value) { setInt(R.string.p_group_mode, value) }
 
+    override var completedMode: Int
+        get() = getInt(R.string.p_completed_mode, SortHelper.SORT_COMPLETED)
+        set(value) { setInt(R.string.p_completed_mode, value) }
+
     override var showHidden: Boolean
         get() = getBoolean(R.string.p_show_hidden_tasks, true)
         set(value) { setBoolean(R.string.p_show_hidden_tasks, value) }
@@ -369,11 +373,9 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_always_display_full_date, false)
         set(value) { setBoolean(R.string.p_always_display_full_date, value)}
 
-    override val completedTasksAtBottom: Boolean
+    override var completedTasksAtBottom: Boolean
         get() = getBoolean(R.string.p_completed_tasks_at_bottom, true)
-
-    override val sortCompletedByCompletionDate: Boolean
-        get() = getBoolean(R.string.p_completed_tasks_sort, true)
+        set(value) { setBoolean(R.string.p_completed_tasks_at_bottom, value) }
 
     val backupDirectory: Uri?
         get() = getDirectory(R.string.p_backup_dir, "backups")
@@ -503,6 +505,10 @@ class Preferences @JvmOverloads constructor(
     override var groupAscending: Boolean
         get() = getBoolean(R.string.p_group_ascending, false)
         set(value) { setBoolean(R.string.p_group_ascending, value) }
+
+    override var completedAscending: Boolean
+        get() = getBoolean(R.string.p_completed_ascending, false)
+        set(value) { setBoolean(R.string.p_completed_ascending, value) }
 
     val defaultPriority: Int
         get() = getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW)

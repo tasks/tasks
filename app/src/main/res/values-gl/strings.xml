@@ -405,7 +405,6 @@
     <string name="caldav_server_unknown">Descoñecido</string>
     <string name="caldav_server_other">Outro</string>
     <string name="more_options">Máis opcións</string>
-    <string name="completed_tasks_sort">Escoller por data de fin</string>
     <string name="snackbar_tasks_completed">%d tarefas finalizadas</string>
     <string name="caldav_server_type">Tipo de servidor</string>
     <string name="filter_snoozed">Posposta</string>

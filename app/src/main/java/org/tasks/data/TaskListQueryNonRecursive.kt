@@ -33,8 +33,7 @@ internal object TaskListQueryNonRecursive {
         val sortGroup = field(SortHelper.getSortGroup(groupMode) ?: "NULL").`as`("sortGroup")
         val query = SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, sortMode)
         val completeAtBottom = if (preferences.completedTasksAtBottom) "parentComplete ASC," else ""
-        val completionSort =
-            if (preferences.completedTasksAtBottom && preferences.sortCompletedByCompletionDate) {
+        val completionSort = if (preferences.completedTasksAtBottom) {
                 "tasks.completed DESC,"
             } else {
                 ""

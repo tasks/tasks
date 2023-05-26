@@ -688,7 +688,6 @@
     </plurals>
     <string name="randomly_every">Tilfældigt hver %s</string>
     <string name="snackbar_task_completed">Opgave udført</string>
-    <string name="completed_tasks_sort">Sorter efter færdiggørelsesdato</string>
     <plurals name="reminder_hours">
         <item quantity="one">Time</item>
         <item quantity="other">Timer</item>

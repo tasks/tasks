@@ -684,7 +684,6 @@
     <string name="upgrade_google_tasks">Синхронизиранр на няколко профила</string>
     <string name="snackbar_task_completed">Задачата е завършена</string>
     <string name="share_list">Споделяне на списък</string>
-    <string name="completed_tasks_sort">Сортиране по дата на завършване</string>
     <string name="app_bar_collapse">Свиване на лентата на приложението</string>
     <string name="insufficient_sponsorship">Не е намерен подходящо спонсорство в GitHub</string>
     <string name="upgrade_automation_description">Приставки за Tasker, Automate и Locale</string>

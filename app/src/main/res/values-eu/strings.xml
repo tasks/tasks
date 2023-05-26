@@ -685,7 +685,6 @@
     <string name="completed">Amaituta</string>
     <string name="snackbar_task_completed">Amaitutako zereginak</string>
     <string name="completed_tasks_at_bottom">Betetako atazak behealdera mugitu</string>
-    <string name="completed_tasks_sort">Ordenatu amaiera-dataren arabera</string>
     <string name="snackbar_tasks_completed">%d atazak osatuta</string>
     <string name="alarm_before_start">%s hasi aurretik</string>
     <string name="alarm_after_start">%s hasi ondoren</string>

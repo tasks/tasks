@@ -705,7 +705,6 @@
     <string name="custom_notification">Notificação personalizada</string>
     <string name="snackbar_task_completed">Tarefa completa</string>
     <string name="snackbar_tasks_completed">%d tarefas concluídas</string>
-    <string name="completed_tasks_sort">Classificar por data de conclusão</string>
     <string name="alarm_before_start">%s antes de começar</string>
     <string name="alarm_after_start">%s após o início</string>
     <string name="alarm_before_due">%s antes do vencimento</string>

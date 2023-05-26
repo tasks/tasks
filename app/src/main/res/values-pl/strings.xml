@@ -732,7 +732,6 @@
     <string name="top">Góra</string>
     <string name="custom_notification">Własne powiadomienie</string>
     <string name="snackbar_task_completed">Zadanie zakończone</string>
-    <string name="completed_tasks_sort">Posortuj po dacie zakończenia</string>
     <string name="snackbar_tasks_completed">%d zadań zakończonych</string>
     <string name="alarm_before_start">%s przed startem</string>
     <string name="alarm_after_start">%s po rozpoczęciu</string>

@@ -730,7 +730,6 @@
     <string name="top">Horní</string>
     <string name="completed">Splněný</string>
     <string name="completed_tasks_at_bottom">Přesunout splněné úkoly naspod</string>
-    <string name="completed_tasks_sort">Seřadit podle data splnění</string>
     <string name="snackbar_tasks_completed">%d úkolů splněno</string>
     <string name="caldav_server_type">Typ serveru</string>
     <string name="filter_snoozed">Odloženo</string>

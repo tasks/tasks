@@ -688,7 +688,6 @@
     <string name="snackbar_task_completed">Taak voltooid</string>
     <string name="completed_tasks_at_bottom">Plaats voltooide taken onderaan</string>
     <string name="snackbar_tasks_completed">%d taken voltooid</string>
-    <string name="completed_tasks_sort">Sorteren op datum voltooien</string>
     <string name="alarm_before_due">%s voor vervallen</string>
     <string name="alarm_after_due">%s na vervallen</string>
     <string name="alarm_before_start">%s voor begin</string>

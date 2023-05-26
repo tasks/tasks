@@ -703,7 +703,6 @@
     <string name="rmd_time_description">Näytä ilmoitukset tehtäville ilman eräpäivää</string>
     <string name="microsoft_selection_description">Synkronoi henkilökohtaisen Microsoft-tilin kanssa</string>
     <string name="completed_tasks_at_bottom">Siirrä valmiit tehtävät alimmaiseksi</string>
-    <string name="completed_tasks_sort">Järjestä valmistumispäivän mukaan</string>
     <string name="caldav_server_unknown">Tuntematon</string>
     <string name="caldav_server_other">Muu</string>
     <string name="caldav_server_type">Palvelimen tyyppi</string>

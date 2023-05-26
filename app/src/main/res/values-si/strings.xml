@@ -705,7 +705,6 @@
         <item quantity="other">මිනිත්තු</item>
     </plurals>
     <string name="completed_tasks_at_bottom">සම්පුර්ණ කරන ලද කාර්යයන් පහළට ගෙන යන්න</string>
-    <string name="completed_tasks_sort">සම්පූර්ණ කරන දිනය අනුව වර්ග කරන්න</string>
     <string name="alarm_before_start">%s ආරම්භයට පෙර</string>
     <string name="alarm_after_start">%s ආරම්භයෙන් පසුව</string>
 </resources>

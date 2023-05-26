@@ -132,7 +132,10 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
                 }
             TaskListFragment.REQUEST_SORT ->
                 if (resultCode == RESULT_OK) {
-                    sortChanged(data?.getBooleanExtra(SortSettingsActivity.EXTRA_FORCE_RELOAD, false) ?: false)
+                    sortChanged(
+                        reload = data?.getBooleanExtra(SortSettingsActivity.EXTRA_FORCE_RELOAD, false) ?: false,
+                        groupChange = data?.getBooleanExtra(SortSettingsActivity.EXTRA_CHANGED_GROUP, false) ?: false,
+                    )
                 }
             else ->
                 super.onActivityResult(requestCode, resultCode, data)
@@ -449,8 +452,10 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         }
     }
 
-    private fun sortChanged(reload: Boolean) {
-        taskListFragment?.clearCollapsed()
+    private fun sortChanged(reload: Boolean, groupChange: Boolean) {
+        if (groupChange) {
+            taskListFragment?.clearCollapsed()
+        }
         localBroadcastManager.broadcastRefresh()
         if (reload) {
             openTaskListFragment(filter, true)

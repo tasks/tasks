@@ -296,8 +296,8 @@ public class WidgetPreferences implements QueryPreferences {
   }
 
   @Override
-  public boolean getSortCompletedByCompletionDate() {
-    return preferences.getSortCompletedByCompletionDate();
+  public void setCompletedTasksAtBottom(boolean value) {
+    preferences.setBoolean(R.string.p_completed_tasks_at_bottom, value);
   }
 
   @Override
@@ -333,5 +333,25 @@ public class WidgetPreferences implements QueryPreferences {
   @Override
   public void setAlwaysDisplayFullDate(boolean noWeekday) {
     preferences.setAlwaysDisplayFullDate(noWeekday);
+  }
+
+  @Override
+  public int getCompletedMode() {
+    return preferences.getCompletedMode();
+  }
+
+  @Override
+  public void setCompletedMode(int mode) {
+    preferences.setCompletedMode(mode);
+  }
+
+  @Override
+  public boolean getCompletedAscending() {
+    return preferences.getCompletedAscending();
+  }
+
+  @Override
+  public void setCompletedAscending(boolean ascending) {
+    preferences.setCompletedAscending(ascending);
   }
 }
