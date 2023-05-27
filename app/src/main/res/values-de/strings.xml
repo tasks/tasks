@@ -732,4 +732,9 @@
     <string name="rmd_time_description">Benachrichtigungen für Aufgaben ohne Fälligkeitsdatum anzeigen</string>
     <string name="default_reminder">Standarderinnerung</string>
     <string name="sort_list">Nach Liste</string>
+    <string name="sort_sorting">Sortierung</string>
+    <string name="sort_grouping">Gruppierung</string>
+    <string name="sort_ascending">Aufsteigend</string>
+    <string name="sort_descending">Absteigend</string>
+    <string name="sort_completed">Nach Erledigungszeit</string>
 </resources>
