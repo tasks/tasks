@@ -753,4 +753,9 @@
     <string name="default_reminder">Standardni podsjetitelj</string>
     <string name="rmd_time_description">Prikaži obavijesti za zadatke bez rokova</string>
     <string name="sort_list">Po popisu</string>
+    <string name="sort_sorting">Razvrstavanje</string>
+    <string name="sort_grouping">Grupiranje</string>
+    <string name="sort_ascending">Uzlazno</string>
+    <string name="sort_descending">Silazno</string>
+    <string name="sort_completed">Po vremenu završavanja</string>
 </resources>
