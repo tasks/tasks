@@ -753,4 +753,9 @@
     <string name="default_reminder">Promemoria predefinito</string>
     <string name="rmd_time_description">Mostra le notifiche per le attività senza scadenza</string>
     <string name="sort_list">Per lista</string>
+    <string name="sort_sorting">Ordinamento</string>
+    <string name="sort_grouping">Raggruppamento</string>
+    <string name="sort_ascending">Crescente</string>
+    <string name="sort_descending">Decrescente</string>
+    <string name="sort_completed">Per tempo di completamento</string>
 </resources>
