@@ -752,4 +752,5 @@
     <string name="sort_sorting">Triage</string>
     <string name="sort_ascending">Ascendant</string>
     <string name="sort_descending">Descendant</string>
+    <string name="sort_completed">Par délai d\'achèvement</string>
 </resources>
