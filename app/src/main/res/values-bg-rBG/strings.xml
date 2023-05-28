@@ -83,7 +83,7 @@
     <string name="EPr_delete_task_data">Премахване на задачите</string>
     <string name="EPr_delete_task_data_warning">Всички задачи ще бъдат безвъзвратно премахнати</string>
     <string name="EPr_manage_delete_completed_gcal">Премахване от календара на събития от изпълнени задачи</string>
-    <string name="EPr_manage_delete_completed_gcal_message">Наистина ли желаете всички събития към изпълнени задачи да бъдат премахнати\?</string>
+    <string name="EPr_manage_delete_completed_gcal_message">Наистина ли желаете всички събития към завършени задачи да бъдат премахнати\?</string>
     <string name="EPr_manage_delete_gcal_status">От календара са премахнати %d събития!</string>
     <string name="EPr_manage_delete_all_gcal">Премахвне от календара на всички събития към задачи</string>
     <string name="EPr_manage_delete_all_gcal_message">Наистина ли желаете всички събития към задачи да бъдат премахнати\?</string>
@@ -736,4 +736,6 @@
     <string name="sort_sorting">Сортиране</string>
     <string name="sort_grouping">Групиране</string>
     <string name="sort_ascending">Възходящо</string>
+    <string name="sort_not_available">Не е налично за етикети, филтри или места</string>
+    <string name="sort_completed">По време на завършване</string>
 </resources>
