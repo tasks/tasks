@@ -753,4 +753,5 @@
     <string name="sort_ascending">Ascendant</string>
     <string name="sort_descending">Descendant</string>
     <string name="sort_completed">Par délai d\'achèvement</string>
+    <string name="sort_not_available">Non disponible pour les étiquettes, les filtres ou les lieux</string>
 </resources>
