@@ -758,4 +758,5 @@
     <string name="sort_ascending">Crescente</string>
     <string name="sort_descending">Decrescente</string>
     <string name="sort_completed">Per tempo di completamento</string>
+    <string name="sort_not_available">Non disponibile per etichette, filtri o luoghi</string>
 </resources>
