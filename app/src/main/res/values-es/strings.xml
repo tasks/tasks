@@ -758,4 +758,5 @@
     <string name="sort_grouping">Agrupación</string>
     <string name="sort_descending">Descendente</string>
     <string name="sort_completed">Por hora de finalización</string>
+    <string name="sort_not_available">No disponible para etiquetas, filtros, o sitios</string>
 </resources>
