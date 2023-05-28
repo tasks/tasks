@@ -737,4 +737,5 @@
     <string name="sort_ascending">Oplopend</string>
     <string name="sort_descending">Aflopend</string>
     <string name="sort_completed">Op tijdstip voltooid</string>
+    <string name="sort_not_available">Niet beschikbaar voor labels, filters, of locaties</string>
 </resources>
