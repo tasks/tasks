@@ -764,4 +764,6 @@
     <string name="sort_grouping">Групування</string>
     <string name="sort_ascending">За зростанням</string>
     <string name="sort_descending">За спаданням</string>
+    <string name="sort_completed">За часом виконання</string>
+    <string name="sort_not_available">Недоступно для міток, фільтрів і місць</string>
 </resources>
