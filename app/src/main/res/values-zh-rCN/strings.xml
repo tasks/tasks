@@ -716,4 +716,11 @@
     <string name="consent_deny">再想想</string>
     <string name="default_reminder">默认提醒</string>
     <string name="rmd_time_description">显示没有到期时间的任务的通知</string>
+    <string name="sort_not_available">不适用于标签、过滤器或地点</string>
+    <string name="sort_list">按列表</string>
+    <string name="sort_sorting">排序</string>
+    <string name="sort_grouping">分组</string>
+    <string name="sort_ascending">升序</string>
+    <string name="sort_descending">降序</string>
+    <string name="sort_completed">按完成时间</string>
 </resources>
