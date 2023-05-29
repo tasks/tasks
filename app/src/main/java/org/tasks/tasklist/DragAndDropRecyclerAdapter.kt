@@ -64,6 +64,9 @@ class DragAndDropRecyclerAdapter(
     override val sortMode: Int
         get() = items.groupMode
 
+    override val subtaskSortMode: Int
+        get() = items.subtaskMode
+
     override fun getItemViewType(position: Int) = if (items.isHeader(position)) 1 else 0
 
     override fun submitList(list: List<TaskContainer>) {
@@ -91,11 +94,12 @@ class DragAndDropRecyclerAdapter(
 
     override fun transform(list: List<TaskContainer>): SectionedDataSource =
             SectionedDataSource(
-                list,
-                disableHeaders,
-                preferences.groupMode,
-                adapter.getCollapsed(),
-                preferences.completedTasksAtBottom,
+                tasks = list,
+                disableHeaders = disableHeaders,
+                groupMode = preferences.groupMode,
+                subtaskMode = preferences.subtaskMode,
+                collapsed = adapter.getCollapsed(),
+                completedAtBottom = preferences.completedTasksAtBottom,
             )
 
     override fun diff(last: SectionedDataSource, next: SectionedDataSource) =

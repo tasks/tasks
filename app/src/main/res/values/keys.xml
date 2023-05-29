@@ -274,12 +274,14 @@
   <string name="p_sort_ascending">sort_ascending</string>
   <string name="p_group_ascending">group_ascending</string>
   <string name="p_completed_ascending">completed_ascending</string>
+  <string name="p_subtask_ascending">subtask_ascending</string>
   <string name="p_manual_sort">manual_sort</string>
   <string name="p_astrid_sort">astrid_sort</string>
   <string name="p_astrid_sort_enabled">astrid_sort_enabled</string>
   <string name="p_sort_mode">sort_mode</string>
   <string name="p_group_mode">group_mode</string>
   <string name="p_completed_mode">completed_mode</string>
+  <string name="p_subtask_mode">subtask_mode</string>
 
   <string-array name="TEA_control_sets_prefs">
     <item>@string/TEA_ctrl_hide_until_pref</item>

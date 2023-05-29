@@ -42,6 +42,7 @@ public class SortHelper {
   public static final int SORT_START = 8;
   public static final int SORT_LIST = 9;
   public static final int SORT_COMPLETED = 10;
+  public static final int SORT_MANUAL = 11;
 
   public static final long APPLE_EPOCH = 978307200000L; // 1/1/2001 GMT
   @SuppressLint("DefaultLocale")
@@ -215,10 +216,20 @@ public class SortHelper {
             : Order.desc("primary_group");
   }
 
-  public static Order orderForSortTypeRecursive(int sortMode, boolean ascending) {
-    Order order = ascending || sortMode == SORT_GTASKS || sortMode == SORT_CALDAV
-            ? Order.asc("primary_sort").addSecondaryExpression(Order.asc("secondary_sort"))
-            : Order.desc("primary_sort").addSecondaryExpression(Order.desc("secondary_sort"));
+  public static Order orderForSortTypeRecursive(
+          int sortMode,
+          boolean primaryAscending,
+          int secondaryMode,
+          boolean secondaryAscending
+  ) {
+    Order order = primaryAscending || sortMode == SORT_GTASKS || sortMode == SORT_CALDAV
+            ? Order.asc("primary_sort")
+            : Order.desc("primary_sort");
+    order.addSecondaryExpression(
+            secondaryAscending || secondaryMode == SORT_GTASKS || secondaryMode == SORT_CALDAV
+                    ? Order.asc("secondary_sort")
+                    : Order.desc("secondary_sort")
+    );
     if (sortMode != SORT_ALPHA) {
       order.addSecondaryExpression(Order.asc("sort_title"));
     }

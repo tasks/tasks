@@ -354,4 +354,24 @@ public class WidgetPreferences implements QueryPreferences {
   public void setCompletedAscending(boolean ascending) {
     preferences.setCompletedAscending(ascending);
   }
+
+  @Override
+  public int getSubtaskMode() {
+    return preferences.getSubtaskMode();
+  }
+
+  @Override
+  public void setSubtaskMode(int mode) {
+    preferences.setSubtaskMode(mode);
+  }
+
+  @Override
+  public boolean getSubtaskAscending() {
+    return preferences.getSubtaskAscending();
+  }
+
+  @Override
+  public void setSubtaskAscending(boolean ascending) {
+    preferences.setSubtaskAscending(ascending);
+  }
 }

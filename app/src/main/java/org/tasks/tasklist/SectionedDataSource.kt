@@ -11,6 +11,7 @@ class SectionedDataSource constructor(
     tasks: List<TaskContainer>,
     disableHeaders: Boolean,
     val groupMode: Int,
+    val subtaskMode: Int,
     private val collapsed: Set<Long>,
     private val completedAtBottom: Boolean,
 ) {

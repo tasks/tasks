@@ -73,10 +73,12 @@ internal class ScrollableViewsFactory(
     private var showTags = false
     private var collapsed = mutableSetOf(HEADER_COMPLETED)
     private var groupMode = -1
+    private var subtaskMode = -1
     private var tasks = SectionedDataSource(
         emptyList(),
         disableHeaders = false,
-        groupMode = 0,
+        groupMode = SortHelper.GROUP_NONE,
+        subtaskMode = SortHelper.SORT_MANUAL,
         collapsed,
         preferences.completedTasksAtBottom,
     )
@@ -101,6 +103,7 @@ internal class ScrollableViewsFactory(
                     taskDao.fetchTasks { getQuery(filter) },
                     disableGroups,
                     groupMode,
+                    subtaskMode,
                     collapsed,
                     widgetPreferences.completedTasksAtBottom,
             )
@@ -379,6 +382,7 @@ internal class ScrollableViewsFactory(
                 }
                 groupMode = it
             }
+        subtaskMode = widgetPreferences.subtaskMode
         collapsed = widgetPreferences.collapsed
         compact = widgetPreferences.compact
     }

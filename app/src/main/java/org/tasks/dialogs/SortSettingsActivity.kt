@@ -30,6 +30,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.ExpandCircleDown
+import androidx.compose.material.icons.outlined.SubdirectoryArrowRight
 import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -89,6 +90,7 @@ class SortSettingsActivity : ComponentActivity() {
                 var showGroupPicker by remember { mutableStateOf(false) }
                 var showSortPicker by remember { mutableStateOf(false) }
                 var showCompletedPicker by remember { mutableStateOf(false) }
+                var showSubtaskPicker by remember { mutableStateOf(false) }
                 ModalBottomSheet(
                     onDismissRequest = {
                         val forceReload = viewModel.forceReload
@@ -111,19 +113,23 @@ class SortSettingsActivity : ComponentActivity() {
                             groupMode = state.groupMode,
                             sortMode = state.sortMode,
                             completedMode = state.completedMode,
+                            subtaskMode = state.subtaskMode,
                             sortAscending = state.sortAscending,
                             groupAscending = state.groupAscending,
                             completedAscending = state.completedAscending,
+                            subtaskAscending = state.subtaskAscending,
                             manualSort = state.manualSort && manualEnabled,
                             astridSort = state.astridSort && astridEnabled,
                             completedAtBottom = state.completedAtBottom,
                             setSortAscending = { viewModel.setSortAscending(it) },
                             setGroupAscending = { viewModel.setGroupAscending(it) },
                             setCompletedAscending = { viewModel.setCompletedAscending(it) },
+                            setSubtaskAscending = { viewModel.setSubtaskAscending(it) },
                             setCompletedAtBottom = { viewModel.setCompletedAtBottom(it) },
                             clickGroupMode = { showGroupPicker = true },
                             clickSortMode = { showSortPicker = true },
                             clickCompletedMode = { showCompletedPicker = true },
+                            clickSubtaskMode = { showSubtaskPicker = true },
                         )
                     }
                 )
@@ -236,6 +242,41 @@ class SortSettingsActivity : ComponentActivity() {
                         sheetState.show()
                     }
                 }
+                if (showSubtaskPicker) {
+                    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+                    val closePicker: () -> Unit = {
+                        scope.launch {
+                            sheetState.hide()
+                            showSubtaskPicker = false
+                        }
+                    }
+                    ModalBottomSheet(
+                        onDismissRequest = closePicker,
+                        sheetState = sheetState,
+                        containerColor = MaterialTheme.colors.surface,
+                        scrimColor = Color.Transparent,
+                        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+                        content = {
+                            Column(
+                                modifier = Modifier
+                                    .verticalScroll(rememberScrollState())
+                                    .fillMaxWidth()
+                            ) {
+                                SortPicker(
+                                    selected = state.subtaskMode,
+                                    options = subtaskOptions,
+                                    onClick = {
+                                        viewModel.setSubtaskMode(it)
+                                        closePicker()
+                                    }
+                                )
+                            }
+                        }
+                    )
+                    LaunchedEffect(Unit) {
+                        sheetState.show()
+                    }
+                }
                 LaunchedEffect(Unit) {
                     mainSheetState.show()
                 }
@@ -322,6 +363,17 @@ val sortOptions = linkedMapOf(
     R.string.sort_created to SortHelper.SORT_CREATED,
 )
 
+val subtaskOptions = linkedMapOf(
+    R.string.SSD_sort_my_order to SortHelper.SORT_MANUAL,
+    R.string.SSD_sort_due to SortHelper.SORT_DUE,
+    R.string.SSD_sort_start to SortHelper.SORT_START,
+    R.string.SSD_sort_importance to SortHelper.SORT_IMPORTANCE,
+    R.string.SSD_sort_alpha to SortHelper.SORT_ALPHA,
+    R.string.SSD_sort_modified to SortHelper.SORT_MODIFIED,
+    R.string.SSD_sort_auto to SortHelper.SORT_AUTO,
+    R.string.sort_created to SortHelper.SORT_CREATED,
+)
+
 val groupOptions = linkedMapOf(
     R.string.none to SortHelper.GROUP_NONE,
     R.string.SSD_sort_due to SortHelper.SORT_DUE,
@@ -397,19 +449,23 @@ fun BottomSheetContent(
     groupMode: Int,
     sortMode: Int,
     completedMode: Int,
+    subtaskMode: Int,
     sortAscending: Boolean,
     groupAscending: Boolean,
     completedAscending: Boolean,
+    subtaskAscending: Boolean,
     manualSort: Boolean,
     astridSort: Boolean,
     completedAtBottom: Boolean,
     setSortAscending: (Boolean) -> Unit,
     setGroupAscending: (Boolean) -> Unit,
     setCompletedAscending: (Boolean) -> Unit,
+    setSubtaskAscending: (Boolean) -> Unit,
     setCompletedAtBottom: (Boolean) -> Unit,
     clickGroupMode: () -> Unit,
     clickSortMode: () -> Unit,
     clickCompletedMode: () -> Unit,
+    clickSubtaskMode: () -> Unit,
 ) {
     SortRow(
         title = R.string.sort_grouping,
@@ -436,6 +492,16 @@ fun BottomSheetContent(
         setAscending = setSortAscending,
     )
     if (!astridSort) {
+        if (!manualSort) {
+            SortRow(
+                title = R.string.subtasks,
+                icon = Icons.Outlined.SubdirectoryArrowRight,
+                ascending = subtaskAscending,
+                sortMode = subtaskMode,
+                onClick = clickSubtaskMode,
+                setAscending = setSubtaskAscending,
+            )
+        }
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
@@ -558,6 +624,7 @@ private val Int.modeString: Int
         SortHelper.SORT_START -> R.string.SSD_sort_start
         SortHelper.SORT_LIST -> R.string.sort_list
         SortHelper.SORT_COMPLETED -> R.string.sort_completed
+        SortHelper.SORT_MANUAL -> R.string.SSD_sort_my_order
         else -> R.string.SSD_sort_auto
     }
 
@@ -571,19 +638,23 @@ fun PreviewSortBottomSheet() {
                 groupMode = SortHelper.GROUP_NONE,
                 sortMode = SortHelper.SORT_AUTO,
                 completedMode = SortHelper.SORT_ALPHA,
+                subtaskMode = SortHelper.SORT_MANUAL,
                 sortAscending = false,
                 groupAscending = false,
                 completedAscending = false,
+                subtaskAscending = false,
                 manualSort = false,
                 astridSort = false,
                 completedAtBottom = true,
                 clickGroupMode = {},
                 clickSortMode = {},
                 clickCompletedMode = {},
+                clickSubtaskMode = {},
                 setCompletedAtBottom = {},
                 setSortAscending = {},
                 setGroupAscending = {},
                 setCompletedAscending = {},
+                setSubtaskAscending = {},
             )
         }
     }

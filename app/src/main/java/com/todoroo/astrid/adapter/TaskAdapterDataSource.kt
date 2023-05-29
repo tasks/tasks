@@ -12,4 +12,6 @@ interface TaskAdapterDataSource {
     fun nearestHeader(position: Int): Long = -1
 
     val sortMode: Int get() = -1
+
+    val subtaskSortMode: Int get() = -1
 }

@@ -30,6 +30,8 @@ class SortSettingsViewModel @Inject constructor(
         val sortAscending: Boolean,
         val completedMode: Int,
         val completedAscending: Boolean,
+        val subtaskMode: Int,
+        val subtaskAscending: Boolean,
     )
     private val widgetId = savedStateHandle[SortSettingsActivity.EXTRA_WIDGET_ID] ?: WIDGET_NONE
     private val preferences =
@@ -48,6 +50,8 @@ class SortSettingsViewModel @Inject constructor(
         completedAtBottom = preferences.completedTasksAtBottom,
         sortMode = preferences.sortMode,
         sortAscending = preferences.sortAscending,
+        subtaskMode = preferences.subtaskMode,
+        subtaskAscending = preferences.subtaskAscending,
     )
     private val _viewState = MutableStateFlow(initialState)
     val state = _viewState.asStateFlow()
@@ -65,6 +69,11 @@ class SortSettingsViewModel @Inject constructor(
     fun setCompletedAscending(ascending: Boolean) {
         preferences.completedAscending = ascending
         _viewState.update { it.copy(completedAscending = ascending) }
+    }
+
+    fun setSubtaskAscending(ascending: Boolean) {
+        preferences.subtaskAscending = ascending
+        _viewState.update { it.copy(subtaskAscending = ascending) }
     }
 
     fun setCompletedAtBottom(completedAtBottom: Boolean) {
@@ -127,6 +136,22 @@ class SortSettingsViewModel @Inject constructor(
                 astridSort = false,
                 sortMode = sortMode,
                 sortAscending = ascending,
+            )
+        }
+    }
+
+    fun setSubtaskMode(subtaskMode: Int) {
+        preferences.subtaskMode = subtaskMode
+        val ascending = when (subtaskMode) {
+            SortHelper.SORT_MODIFIED,
+            SortHelper.SORT_CREATED -> false
+            else -> true
+        }
+        preferences.subtaskAscending = ascending
+        _viewState.update {
+            it.copy(
+                subtaskMode = subtaskMode,
+                subtaskAscending = ascending
             )
         }
     }

@@ -7,6 +7,8 @@ interface QueryPreferences {
 
     var completedMode: Int
 
+    var subtaskMode: Int
+
     var isManualSort: Boolean
 
     var isAstridSort: Boolean
@@ -16,6 +18,8 @@ interface QueryPreferences {
     var groupAscending: Boolean
 
     var completedAscending: Boolean
+
+    var subtaskAscending: Boolean
 
     val showHidden: Boolean
 

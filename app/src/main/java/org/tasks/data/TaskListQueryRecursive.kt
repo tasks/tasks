@@ -54,24 +54,28 @@ internal object TaskListQueryRecursive {
                     (manualSort || groupPreference == SortHelper.SORT_LIST) -> SortHelper.GROUP_NONE
             else -> groupPreference
         }
-        val sortPreference = preferences.sortMode
         val sortMode = when {
             manualSort && filter is GtasksFilter -> SortHelper.SORT_GTASKS
             manualSort && filter is CaldavFilter -> SortHelper.SORT_CALDAV
-            else -> sortPreference
+            else -> preferences.sortMode
+        }
+        val subtaskPreference = preferences.subtaskMode
+        val subtaskMode = when {
+            manualSort && filter is GtasksFilter -> SortHelper.SORT_GTASKS
+            manualSort && filter is CaldavFilter -> SortHelper.SORT_CALDAV
+            subtaskPreference == SortHelper.SORT_MANUAL -> SortHelper.SORT_CALDAV
+            else -> subtaskPreference
         }
         val completedMode = preferences.completedMode
         val groupAscending =
             preferences.groupAscending && groupMode != SortHelper.GROUP_NONE
         val sortAscending =
             preferences.sortAscending && sortMode != SortHelper.SORT_GTASKS && sortMode != SortHelper.SORT_CALDAV
+        val subtaskAscending =
+            preferences.subtaskAscending && subtaskMode != SortHelper.SORT_GTASKS && subtaskMode != SortHelper.SORT_CALDAV
         val primaryGroupSelector = SortHelper.orderSelectForSortTypeRecursive(groupMode, true)
         val primarySortSelect = SortHelper.orderSelectForSortTypeRecursive(sortMode, false)
-        val secondarySortSelect = if (sortMode == SortHelper.SORT_LIST) {
-            "NULL"
-        } else {
-            primarySortSelect
-        }
+        val subtaskSort = SortHelper.orderSelectForSortTypeRecursive(subtaskMode, false)
         val parentCompleted = if (preferences.completedTasksAtBottom) "tasks.completed > 0" else "0"
         val completionSort = if (preferences.completedTasksAtBottom) {
             "(CASE WHEN tasks.completed > 0 THEN ${SortHelper.orderSelectForSortTypeRecursive(completedMode, false)} ELSE 0 END)"
@@ -94,9 +98,9 @@ internal object TaskListQueryRecursive {
                     }
                 }
                 $parentQuery
-                UNION ALL SELECT tasks._id, recursive_tasks.parent_complete, $parentCompleted as subtask_complete, $completionSort as completion_sort, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, recursive_tasks.primary_group as primary_group, recursive_tasks.primary_sort as primary_sort, $secondarySortSelect as secondary_sort, recursive_tasks.sort_group FROM tasks
+                UNION ALL SELECT tasks._id, recursive_tasks.parent_complete, $parentCompleted as subtask_complete, $completionSort as completion_sort, recursive_tasks.task as parent, tasks.collapsed as collapsed, CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END as hidden, recursive_tasks.indent+1 AS sort_indent, UPPER(tasks.title) AS sort_title, recursive_tasks.primary_group as primary_group, recursive_tasks.primary_sort as primary_sort, $subtaskSort as secondary_sort, recursive_tasks.sort_group FROM tasks
                 $SUBTASK_QUERY
-                ORDER BY parent_complete ASC, sort_indent DESC, subtask_complete ASC, completion_sort ${if (preferences.completedAscending) "ASC" else "DESC"}, ${SortHelper.orderForGroupTypeRecursive(groupMode, groupAscending)}, ${SortHelper.orderForSortTypeRecursive(sortMode, sortAscending)}
+                ORDER BY parent_complete ASC, sort_indent DESC, subtask_complete ASC, completion_sort ${if (preferences.completedAscending) "ASC" else "DESC"}, ${SortHelper.orderForGroupTypeRecursive(groupMode, groupAscending)}, ${SortHelper.orderForSortTypeRecursive(sortMode, sortAscending, subtaskMode, subtaskAscending)}
             ) SELECT * FROM recursive_tasks
             WHERE indent = (SELECT MAX(indent) FROM recursive_tasks as r WHERE r.task = recursive_tasks.task)
         """.trimIndent()

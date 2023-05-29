@@ -361,6 +361,10 @@ class Preferences @JvmOverloads constructor(
         get() = getInt(R.string.p_completed_mode, SortHelper.SORT_COMPLETED)
         set(value) { setInt(R.string.p_completed_mode, value) }
 
+    override var subtaskMode: Int
+        get() = getInt(R.string.p_subtask_mode, SortHelper.SORT_MANUAL)
+        set(value) { setInt(R.string.p_subtask_mode, value) }
+
     override var showHidden: Boolean
         get() = getBoolean(R.string.p_show_hidden_tasks, true)
         set(value) { setBoolean(R.string.p_show_hidden_tasks, value) }
@@ -509,6 +513,10 @@ class Preferences @JvmOverloads constructor(
     override var completedAscending: Boolean
         get() = getBoolean(R.string.p_completed_ascending, false)
         set(value) { setBoolean(R.string.p_completed_ascending, value) }
+
+    override var subtaskAscending: Boolean
+        get() = getBoolean(R.string.p_subtask_ascending, false)
+        set(value) { setBoolean(R.string.p_subtask_ascending, value) }
 
     val defaultPriority: Int
         get() = getIntegerFromString(R.string.p_default_importance_key, Task.Priority.LOW)
