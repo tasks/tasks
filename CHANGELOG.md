@@ -1,16 +1,20 @@
-### 13.3 - (2023-05-26)
+### 13.3.1 - (2023-05-31)
 
 * Sorting improvements
   * Configure sort grouping
   * Configure sorting within sort group
   * Configure completed task sorting
+* Fix Google Task list chips showing on widget
 * Update translations
   * Bulgarian - @StoyanDimitrov
   * Catalan - @and4po
+  * Chinese (Simplified) - Poesty Li
+  * Croatian - @milotype
   * Dutch - @fvbommel
   * French - @FlorianLeChat
-  * German - @qwerty287
+  * German - @qwerty287, @franconian
   * Hungarian - Kaci
+  * Italian - @ppasserini
   * Spanish - @FlorianLeChat
   * Ukrainian - @IhorHordiichuk
 
