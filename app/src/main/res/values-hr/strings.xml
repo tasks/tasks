@@ -758,4 +758,5 @@
     <string name="sort_ascending">Uzlazno</string>
     <string name="sort_descending">Silazno</string>
     <string name="sort_completed">Po vremenu završavanja</string>
+    <string name="sort_not_available">Nije dostupno za oznake, filtre i mjesta</string>
 </resources>
