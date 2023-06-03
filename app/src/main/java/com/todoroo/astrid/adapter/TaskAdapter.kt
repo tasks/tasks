@@ -259,7 +259,11 @@ open class TaskAdapter(
             task.parent = newParent.id
             googleTaskDao.insertAndShift(
                 task = task.task,
-                caldavTask = CaldavTask(task.id, list, remoteId = null),
+                caldavTask = CaldavTask(
+                    task = task.id,
+                    calendar = list,
+                    remoteId = null
+                ),
                 top = newTasksOnTop
             )
         }
@@ -272,8 +276,8 @@ open class TaskAdapter(
     private suspend fun changeCaldavParent(task: TaskContainer, newParent: TaskContainer?) {
         val list = newParent?.caldav ?: task.caldav!!
         val caldavTask = task.caldavTask ?: CaldavTask(
-            task.id,
-            list,
+            task = task.id,
+            calendar = list,
         )
         val newParentId = newParent?.id ?: 0
         if (newParentId == 0L) {
@@ -293,7 +297,10 @@ open class TaskAdapter(
                     ?.plus(1)
         }
         if (caldavTask.id == 0L) {
-            val newTask = CaldavTask(task.id, list)
+            val newTask = CaldavTask(
+                task = task.id,
+                calendar = list,
+            )
             newTask.remoteParent = caldavTask.remoteParent
             caldavTask.id = caldavDao.insert(newTask)
         } else {

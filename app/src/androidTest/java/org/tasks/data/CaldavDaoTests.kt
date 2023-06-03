@@ -27,8 +27,7 @@ class CaldavDaoTests : InjectingTestCase() {
     fun insertNewTaskAtTopOfEmptyList() = runBlocking {
         val task = newTask()
         taskDao.createNew(task)
-        val caldavTask = CaldavTask(task.id, "calendar")
-        caldavDao.insert(task, caldavTask, true)
+        caldavDao.insert(task, CaldavTask(task = task.id, calendar = "calendar"), true)
 
         checkOrder(null, task.id)
     }
@@ -40,9 +39,8 @@ class CaldavDaoTests : InjectingTestCase() {
         val second = newTask(with(CREATION_TIME, created.plusSeconds(1)))
         taskDao.createNew(first)
         taskDao.createNew(second)
-        caldavDao.insert(first, CaldavTask(first.id, "calendar"), true)
-
-        caldavDao.insert(second, CaldavTask(second.id, "calendar"), true)
+        caldavDao.insert(first, CaldavTask(task = first.id, calendar = "calendar"), true)
+        caldavDao.insert(second, CaldavTask(task = second.id, calendar = "calendar"), true)
 
         checkOrder(null, first.id)
         checkOrder(created.minusSeconds(1), second.id)
@@ -55,9 +53,8 @@ class CaldavDaoTests : InjectingTestCase() {
         val second = newTask(with(CREATION_TIME, created.plusSeconds(1)))
         taskDao.createNew(first)
         taskDao.createNew(second)
-        caldavDao.insert(first, CaldavTask(first.id, "calendar"), false)
-
-        caldavDao.insert(second, CaldavTask(second.id, "calendar"), false)
+        caldavDao.insert(first, CaldavTask(task = first.id, calendar = "calendar"), false)
+        caldavDao.insert(second, CaldavTask(task = second.id, calendar = "calendar"), false)
 
         checkOrder(null, first.id)
         checkOrder(null, second.id)
@@ -70,9 +67,8 @@ class CaldavDaoTests : InjectingTestCase() {
         val second = newTask(with(CREATION_TIME, created))
         taskDao.createNew(first)
         taskDao.createNew(second)
-        caldavDao.insert(first, CaldavTask(first.id, "calendar"), false)
-
-        caldavDao.insert(second, CaldavTask(second.id, "calendar"), false)
+        caldavDao.insert(first, CaldavTask(task = first.id, calendar = "calendar"), false)
+        caldavDao.insert(second, CaldavTask(task = second.id, calendar = "calendar"), false)
 
         checkOrder(null, first.id)
         checkOrder(created.plusSeconds(1), second.id)
@@ -82,8 +78,7 @@ class CaldavDaoTests : InjectingTestCase() {
     fun insertNewTaskAtBottomOfEmptyList() = runBlocking {
         val task = newTask()
         taskDao.createNew(task)
-        val caldavTask = CaldavTask(task.id, "calendar")
-        caldavDao.insert(task, caldavTask, false)
+        caldavDao.insert(task, CaldavTask(task = task.id, calendar = "calendar"), false)
 
         checkOrder(null, task.id)
     }

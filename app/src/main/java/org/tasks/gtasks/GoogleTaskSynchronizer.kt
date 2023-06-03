@@ -311,7 +311,11 @@ class GoogleTaskSynchronizer @Inject constructor(
             var googleTask = googleTaskDao.getByRemoteId(remoteId)
             var task: com.todoroo.astrid.data.Task? = null
             if (googleTask == null) {
-                googleTask = CaldavTask(0, "", remoteId = null)
+                googleTask = CaldavTask(
+                    task = 0,
+                    calendar = "",
+                    remoteId = null,
+                )
             } else if (googleTask.task > 0) {
                 task = taskDao.fetch(googleTask.task)
             }

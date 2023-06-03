@@ -198,7 +198,7 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
         val t = newTaskContainer(*properties)
         val task = t.task
         taskDao.createNew(task)
-        val caldavTask = CaldavTask(t.id, "calendar")
+        val caldavTask = CaldavTask(task = t.id, calendar = "calendar")
         if (task.parent > 0) {
             caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.parent)
         }

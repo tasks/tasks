@@ -1,6 +1,9 @@
 package org.tasks.data
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
@@ -16,66 +19,34 @@ import com.todoroo.astrid.helper.UUIDHelper
         ),
     ]
 )
-class CaldavTask {
+data class CaldavTask(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cd_id")
     @Transient
-    var id: Long = 0
-
+    var id: Long = 0,
     @ColumnInfo(name = "cd_task", index = true)
     @Transient
-    var task: Long = 0
-
+    var task: Long,
     @ColumnInfo(name = "cd_calendar")
-    var calendar: String? = null
-
-    @ColumnInfo(name = "cd_object")
-    var `object`: String? = null
-        get() = field ?: "$remoteId.ics"
-
+    var calendar: String?,
     @ColumnInfo(name = "cd_remote_id")
-    var remoteId: String? = null
-
+    var remoteId: String? = UUIDHelper.newUUID(),
+    @ColumnInfo(name = "cd_object")
+    var `object`: String? = remoteId?.let { "$it.ics" },
     @ColumnInfo(name = "cd_etag")
-    var etag: String? = null
-
+    var etag: String? = null,
     @ColumnInfo(name = "cd_last_sync")
-    var lastSync: Long = 0
-
+    var lastSync: Long = 0,
     @ColumnInfo(name = "cd_deleted")
-    var deleted: Long = 0
-
+    var deleted: Long = 0,
     @ColumnInfo(name = "cd_remote_parent")
-    var remoteParent: String? = null
-
+    var remoteParent: String? = null,
     @ColumnInfo(name = "gt_moved")
-    var isMoved: Boolean = false
-
+    var isMoved: Boolean = false,
     @ColumnInfo(name = "gt_remote_order")
-    var remoteOrder: Long = 0
-
-    constructor()
-
-    @Ignore
-    constructor(task: Long, calendar: String?) {
-        this.task = task
-        this.calendar = calendar
-        remoteId = UUIDHelper.newUUID()
-        `object` = "$remoteId.ics"
-    }
-
-    @Ignore
-    constructor(task: Long, calendar: String?, remoteId: String?, `object`: String? = null) {
-        this.task = task
-        this.calendar = calendar
-        this.remoteId = remoteId
-        this.`object` = `object`
-    }
-
+    var remoteOrder: Long = 0,
+) {
     fun isDeleted() = deleted > 0
-
-    override fun toString(): String =
-            "CaldavTask(id=$id, task=$task, calendar=$calendar, `object`=$`object`, remoteId=$remoteId, etag=$etag, lastSync=$lastSync, deleted=$deleted, remoteParent=$remoteParent, isMoved=$isMoved, remoteOrder=$remoteOrder)"
 
     companion object {
         const val KEY = "caldav"

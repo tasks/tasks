@@ -61,7 +61,7 @@ class DeletionDaoTests : InjectingTestCase() {
         val task = newTask(with(DELETION_TIME, newDateTime()))
         taskDao.createNew(task)
         caldavDao.insert(CaldavCalendar(name = "", uuid = "1234", account = LOCAL))
-        caldavDao.insert(CaldavTask(task.id, "1234"))
+        caldavDao.insert(CaldavTask(task = task.id, calendar = "1234"))
 
         deletionDao.purgeDeleted()
 
@@ -73,7 +73,7 @@ class DeletionDaoTests : InjectingTestCase() {
         val task = newTask()
         taskDao.createNew(task)
         caldavDao.insert(CaldavCalendar(name = "", uuid = "1234", account = LOCAL))
-        caldavDao.insert(CaldavTask(task.id, "1234"))
+        caldavDao.insert(CaldavTask(task = task.id, calendar = "1234"))
 
         deletionDao.purgeDeleted()
 
@@ -85,7 +85,7 @@ class DeletionDaoTests : InjectingTestCase() {
         val task = newTask(with(DELETION_TIME, newDateTime()))
         taskDao.createNew(task)
         caldavDao.insert(CaldavCalendar(name = "", uuid = "1234", account = UUIDHelper.newUUID()))
-        caldavDao.insert(CaldavTask(task.id, "1234"))
+        caldavDao.insert(CaldavTask(task = task.id, calendar = "1234"))
 
         deletionDao.purgeDeleted()
 

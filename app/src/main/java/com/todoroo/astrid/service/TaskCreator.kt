@@ -17,11 +17,23 @@ import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.utility.TitleParser.parse
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.*
+import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.whenDue
 import org.tasks.data.Alarm.Companion.whenOverdue
 import org.tasks.data.Alarm.Companion.whenStarted
+import org.tasks.data.AlarmDao
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.Geofence
+import org.tasks.data.GoogleTask
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.LocationDao
+import org.tasks.data.Place
+import org.tasks.data.Tag
+import org.tasks.data.TagDao
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
@@ -56,23 +68,43 @@ class TaskCreator @Inject constructor(
         if (task.hasTransitory(GoogleTask.KEY)) {
             googleTaskDao.insertAndShift(
                 task,
-                CaldavTask(task.id, task.getTransitory<String>(GoogleTask.KEY)!!, remoteId = null),
+                CaldavTask(
+                    task = task.id,
+                    calendar = task.getTransitory<String>(GoogleTask.KEY)!!,
+                    remoteId = null
+                ),
                 addToTop
             )
         } else if (task.hasTransitory(CaldavTask.KEY)) {
             caldavDao.insert(
-                    task, CaldavTask(task.id, task.getTransitory<String>(CaldavTask.KEY)), addToTop)
+                task,
+                CaldavTask(
+                    task = task.id,
+                    calendar = task.getTransitory(CaldavTask.KEY),
+                ),
+                addToTop
+            )
         } else {
             val remoteList = defaultFilterProvider.getDefaultList()
             if (remoteList is GtasksFilter) {
                 googleTaskDao.insertAndShift(
                     task,
-                    CaldavTask(task.id, remoteList.remoteId, remoteId = null),
+                    CaldavTask(
+                        task = task.id,
+                        calendar = remoteList.remoteId,
+                        remoteId = null
+                    ),
                     addToTop
                 )
             } else if (remoteList is CaldavFilter) {
                 caldavDao.insert(
-                        task, CaldavTask(task.id, remoteList.uuid), addToTop)
+                    task,
+                    CaldavTask(
+                        task = task.id,
+                        calendar = remoteList.uuid,
+                    ),
+                    addToTop
+                )
             }
         }
         if (task.hasTransitory(Place.KEY)) {

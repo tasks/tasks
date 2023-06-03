@@ -46,12 +46,13 @@ class VtodoCache @Inject constructor(
     }
 
     fun putVtodo(calendar: CaldavCalendar, caldavTask: CaldavTask, vtodo: String?) {
+        val `object` = caldavTask.`object`?.takeIf { it.isNotBlank() } ?: return
         val directory =
             fileStorage
                 .getFile(calendar.account, caldavTask.calendar)
                 ?.apply { mkdirs() }
                 ?: return
-        fileStorage.write(File(directory, caldavTask.`object`!!), vtodo)
+        fileStorage.write(File(directory, `object`), vtodo)
     }
 
     suspend fun delete(taskIds: List<Long>) {

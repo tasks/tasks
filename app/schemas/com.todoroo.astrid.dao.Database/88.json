@@ -40,10 +40,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "uid"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {
@@ -118,10 +118,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -168,10 +168,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -206,10 +206,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "file_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -244,10 +244,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -398,10 +398,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {
@@ -472,10 +472,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {
@@ -581,10 +581,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "place_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {
@@ -635,10 +635,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "geofence_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {
@@ -701,10 +701,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {
@@ -785,10 +785,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -865,17 +865,17 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "cdl_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
       },
       {
         "tableName": "caldav_tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_object` TEXT, `cd_remote_id` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, FOREIGN KEY(`cd_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cd_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cd_task` INTEGER NOT NULL, `cd_calendar` TEXT, `cd_remote_id` TEXT, `cd_object` TEXT, `cd_etag` TEXT, `cd_last_sync` INTEGER NOT NULL, `cd_deleted` INTEGER NOT NULL, `cd_remote_parent` TEXT, `gt_moved` INTEGER NOT NULL, `gt_remote_order` INTEGER NOT NULL, FOREIGN KEY(`cd_task`) REFERENCES `tasks`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -896,14 +896,14 @@
             "notNull": false
           },
           {
-            "fieldPath": "object",
-            "columnName": "cd_object",
+            "fieldPath": "remoteId",
+            "columnName": "cd_remote_id",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "remoteId",
-            "columnName": "cd_remote_id",
+            "fieldPath": "object",
+            "columnName": "cd_object",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -945,10 +945,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "cd_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {
@@ -1041,10 +1041,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "cda_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -1085,10 +1085,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {
@@ -1152,10 +1152,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {
@@ -1233,10 +1233,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": true,
           "columnNames": [
             "attachment_id"
-          ],
-          "autoGenerate": true
+          ]
         },
         "indices": [
           {

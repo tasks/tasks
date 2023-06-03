@@ -5,7 +5,18 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.*
+import org.tasks.data.Alarm
+import org.tasks.data.AlarmDao
+import org.tasks.data.Attachment
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.Geofence
+import org.tasks.data.GoogleTaskDao
+import org.tasks.data.LocationDao
+import org.tasks.data.Tag
+import org.tasks.data.TagDao
+import org.tasks.data.TagDataDao
+import org.tasks.data.TaskAttachmentDao
 import org.tasks.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -59,15 +70,21 @@ class TaskDuplicator @Inject constructor(
         if (googleTask != null) {
             googleTaskDao.insertAndShift(
                 clone,
-                CaldavTask(clone.id, googleTask.calendar!!, remoteId = null),
+                CaldavTask(
+                    task = clone.id,
+                    calendar = googleTask.calendar,
+                    remoteId = null
+                ),
                 addToTop
             )
         }
         val caldavTask = caldavDao.getTask(originalId)
         if (caldavTask != null) {
-            val newDavTask = CaldavTask(clone.id, caldavTask.calendar)
-            if (parentId != 0L)
-            {
+            val newDavTask = CaldavTask(
+                task = clone.id,
+                calendar = caldavTask.calendar
+            )
+            if (parentId != 0L) {
                 val remoteParent = caldavDao.getRemoteIdForTask(parentId)
                 newDavTask.remoteParent = remoteParent
             }

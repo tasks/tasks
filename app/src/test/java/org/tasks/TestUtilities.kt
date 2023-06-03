@@ -16,7 +16,7 @@ import org.tasks.time.DateTime
 import java.io.StringReader
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.util.*
+import java.util.TimeZone
 
 object TestUtilities {
     fun withTZ(id: String, runnable: suspend () -> Unit) =
@@ -57,7 +57,7 @@ object TestUtilities {
         val task = Task()
         val remote = icalendarFromFile(path)
         task.applyRemote(remote, null)
-        return Triple(task, CaldavTask(), remote)
+        return Triple(task, CaldavTask(task = 0, calendar = null), remote)
     }
 
     fun icalendarFromFile(path: String): at.bitfire.ical4android.Task =

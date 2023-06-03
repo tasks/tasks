@@ -214,11 +214,10 @@ class TasksJsonImporter @Inject constructor(
                             task = taskId,
                             calendar = googleTask.listId,
                             remoteId = googleTask.remoteId,
-                        ).apply {
-                            remoteOrder = googleTask.remoteOrder
-                            remoteParent = googleTask.remoteParent
-                            lastSync = googleTask.lastSync
-                        }
+                            remoteOrder = googleTask.remoteOrder,
+                            remoteParent = googleTask.remoteParent,
+                            lastSync = googleTask.lastSync,
+                        )
                     )
                 }
                 for (location in backup.locations) {

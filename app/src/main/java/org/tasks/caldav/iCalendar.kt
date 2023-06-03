@@ -10,7 +10,6 @@ import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
-import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskCreator.Companion.setDefaultReminders
@@ -19,17 +18,37 @@ import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.Property
 import net.fortuna.ical4j.model.component.VAlarm
 import net.fortuna.ical4j.model.parameter.RelType
-import net.fortuna.ical4j.model.property.*
-import org.tasks.Strings.isNullOrEmpty
+import net.fortuna.ical4j.model.property.Action
+import net.fortuna.ical4j.model.property.Completed
+import net.fortuna.ical4j.model.property.DateProperty
+import net.fortuna.ical4j.model.property.DtStart
+import net.fortuna.ical4j.model.property.Due
+import net.fortuna.ical4j.model.property.Geo
+import net.fortuna.ical4j.model.property.ProdId
+import net.fortuna.ical4j.model.property.RelatedTo
+import net.fortuna.ical4j.model.property.Status
+import net.fortuna.ical4j.model.property.XProperty
+import org.tasks.BuildConfig
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.caldav.extensions.toAlarms
 import org.tasks.caldav.extensions.toVAlarms
-import org.tasks.data.*
+import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.AlarmDao
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.Geofence
+import org.tasks.data.LocationDao
+import org.tasks.data.Place
+import org.tasks.data.TagDao
+import org.tasks.data.TagData
+import org.tasks.data.TagDataDao
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.date.DateTimeUtils.toLocal
@@ -45,7 +64,7 @@ import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
 import java.text.ParseException
-import java.util.*
+import java.util.TimeZone
 import javax.inject.Inject
 import kotlin.math.max
 import kotlin.math.min
@@ -151,13 +170,10 @@ class iCalendar @Inject constructor(
         val categories = remoteModel.categories
         categories.clear()
         categories.addAll(tagDataDao.getTagDataForTask(task.id).map { it.name!! })
-        if (isNullOrEmpty(caldavTask.remoteId)) {
-            val caldavUid = UUIDHelper.newUUID()
-            caldavTask.remoteId = caldavUid
-            remoteModel.uid = caldavUid
-        } else {
-            remoteModel.uid = caldavTask.remoteId
+        if (BuildConfig.DEBUG && caldavTask.remoteId.isNullOrBlank()) {
+            throw IllegalStateException()
         }
+        remoteModel.uid = caldavTask.remoteId
         val location = locationDao.getGeofences(task.id)
         val localGeo = toGeo(location)
         if (localGeo == null || !localGeo.equalish(remoteModel.geoPosition)) {
@@ -189,7 +205,12 @@ class iCalendar @Inject constructor(
                     taskDao.createNew(this)
                     existing?.task = id
                 }
-        val caldavTask = existing ?: CaldavTask(task.id, calendar.uuid, remote.uid, obj)
+        val caldavTask = existing ?: CaldavTask(
+            task = task.id,
+            calendar = calendar.uuid,
+            remoteId = remote.uid,
+            `object` = obj
+        )
         val isNew = caldavTask.id == com.todoroo.astrid.data.Task.NO_ID
         val dirty = task.modificationDate > caldavTask.lastSync || caldavTask.lastSync == 0L
         val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }

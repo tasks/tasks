@@ -317,15 +317,22 @@ class TaskEditViewModel @Inject constructor(
             taskDao.createNew(subtask)
             alarmDao.insert(subtask.getDefaultAlarms())
             firebase?.addTask("subtasks")
-            when (selectedList.value) {
+            when (val filter = selectedList.value) {
                 is GtasksFilter -> {
-                    val googleTask = CaldavTask(subtask.id, (selectedList.value as GtasksFilter).remoteId, remoteId = null)
+                    val googleTask = CaldavTask(
+                        task = subtask.id,
+                        calendar = filter.remoteId,
+                        remoteId = null,
+                    )
                     subtask.parent = task.id
                     googleTask.isMoved = true
                     googleTaskDao.insertAndShift(subtask, googleTask, false)
                 }
                 is CaldavFilter -> {
-                    val caldavTask = CaldavTask(subtask.id, (selectedList.value as CaldavFilter).uuid)
+                    val caldavTask = CaldavTask(
+                        task = subtask.id,
+                        calendar = filter.uuid,
+                    )
                     subtask.parent = task.id
                     caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
                     taskDao.save(subtask)
