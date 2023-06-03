@@ -269,7 +269,7 @@ public class WidgetPreferences implements QueryPreferences {
 
   @Override
   public boolean getSortAscending() {
-    return getBoolean(R.string.p_widget_sort_ascending, false);
+    return getBoolean(R.string.p_widget_sort_ascending, true);
   }
 
   @Override
