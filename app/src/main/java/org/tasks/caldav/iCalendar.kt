@@ -199,18 +199,21 @@ class iCalendar @Inject constructor(
         obj: String? = null,
         eTag: String? = null
     ) {
-        val task = existing?.task?.let { taskDao.fetch(it) }
-                ?: taskCreator.createWithValues("").apply {
-                    readOnly = calendar.access == ACCESS_READ_ONLY
-                    taskDao.createNew(this)
-                    existing?.task = id
-                }
-        val caldavTask = existing ?: CaldavTask(
-            task = task.id,
-            calendar = calendar.uuid,
-            remoteId = remote.uid,
-            `object` = obj
-        )
+        val task = existing?.task
+            ?.let { taskDao.fetch(it) }
+            ?: taskCreator.createWithValues("").apply {
+                readOnly = calendar.access == ACCESS_READ_ONLY
+                taskDao.createNew(this)
+            }
+        val caldavTask =
+            existing
+                ?.copy(task = task.id)
+                ?: CaldavTask(
+                    task = task.id,
+                    calendar = calendar.uuid,
+                    remoteId = remote.uid,
+                    `object` = obj
+                )
         val isNew = caldavTask.id == com.todoroo.astrid.data.Task.NO_ID
         val dirty = task.modificationDate > caldavTask.lastSync || caldavTask.lastSync == 0L
         val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }

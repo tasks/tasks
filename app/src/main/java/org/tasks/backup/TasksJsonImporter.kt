@@ -262,8 +262,7 @@ class TasksJsonImporter @Inject constructor(
                     }
                     ?.let { taskAttachmentDao.insert(it) }
                 backup.caldavTasks?.forEach { caldavTask ->
-                    caldavTask.task = taskId
-                    caldavDao.insert(caldavTask)
+                    caldavDao.insert(caldavTask.copy(task = taskId))
                 }
                 backup.vtodo?.let {
                     val caldavTask =

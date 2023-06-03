@@ -377,13 +377,18 @@ class GoogleTaskSynchronizer @Inject constructor(
             alarmDao.insert(task.getDefaultAlarms())
         }
         taskDao.save(task)
-        googleTask.lastSync = task.modificationDate
-        googleTask.task = task.id
-        if (googleTask.id == 0L) {
-            googleTaskDao.insert(googleTask)
-        } else {
-            googleTaskDao.update(googleTask)
-        }
+        googleTask
+            .copy(
+                task = task.id,
+                lastSync = task.modificationDate,
+            )
+            .let {
+                if (it.id == 0L) {
+                    googleTaskDao.insert(it)
+                } else {
+                    googleTaskDao.update(it)
+                }
+            }
     }
 
     companion object {

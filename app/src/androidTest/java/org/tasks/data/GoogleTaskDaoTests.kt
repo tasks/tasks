@@ -257,8 +257,11 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     private suspend fun insert(googleTask: CaldavTask, top: Boolean = false) {
         val task = newTask()
         taskDao.createNew(task)
-        googleTask.task = task.id
-        googleTaskDao.insertAndShift(task, googleTask, top)
+        googleTaskDao.insertAndShift(
+            task,
+            googleTask.copy(task = task.id),
+            top
+        )
     }
 
     private suspend fun getByRemoteId(remoteId: String): CaldavTask {

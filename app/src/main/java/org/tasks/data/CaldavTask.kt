@@ -26,7 +26,7 @@ data class CaldavTask(
     val id: Long = 0,
     @ColumnInfo(name = "cd_task", index = true)
     @Transient
-    var task: Long,
+    val task: Long,
     @ColumnInfo(name = "cd_calendar")
     var calendar: String?,
     @ColumnInfo(name = "cd_remote_id")
