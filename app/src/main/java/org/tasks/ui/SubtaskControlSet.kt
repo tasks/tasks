@@ -4,7 +4,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -59,7 +58,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
                         filter = viewModel.selectedList.collectAsStateLifecycleAware().value,
                         hasParent = viewModel.hasParent,
                         desaturate = preferences.desaturateDarkMode,
-                        existingSubtasks = listViewModel.tasks.observeAsState(initial = emptyList()).value,
+                        existingSubtasks = listViewModel.tasks.collectAsStateLifecycleAware(initial = emptyList()).value,
                         newSubtasks = viewModel.newSubtasks.collectAsStateLifecycleAware().value,
                         openSubtask = this@SubtaskControlSet::openSubtask,
                         completeExistingSubtask = this@SubtaskControlSet::complete,

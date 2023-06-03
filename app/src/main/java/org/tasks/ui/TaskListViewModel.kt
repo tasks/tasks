@@ -1,64 +1,66 @@
 package org.tasks.ui
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
+import org.tasks.LocalBroadcastManager
+import org.tasks.compose.throttleLatest
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.preferences.Preferences
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
         private val preferences: Preferences,
-        private val taskDao: TaskDao) : ViewModel() {
+        private val taskDao: TaskDao,
+        private val localBroadcastManager: LocalBroadcastManager,
+) : ViewModel() {
 
-    private var _tasks = MutableLiveData<List<TaskContainer>>()
-    val tasks: LiveData<List<TaskContainer>>
-        get() = _tasks
-    private var filter: Filter? = null
-    private var manualSortFilter = false
+    data class State(
+        val filter: Filter? = null,
+        val now: Long = DateUtilities.now(),
+    )
 
-    fun setFilter(filter: Filter) {
-        manualSortFilter = (filter.supportsManualSort() && preferences.isManualSort
-                || filter.supportsAstridSorting() && preferences.isAstridSort)
-        if (filter != this.filter || filter.getSqlQuery() != this.filter!!.getSqlQuery()) {
-            this.filter = filter
-            _tasks = MutableLiveData()
+    private val _state = MutableStateFlow(State())
+
+    val tasks: Flow<List<TaskContainer>> =
+        _state
+            .filter { it.filter != null }
+            .throttleLatest(333)
+            .map { taskDao.fetchTasks { getQuery(preferences, it.filter!!) } }
+
+    private val refreshReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
             invalidate()
         }
     }
 
-    fun observe(owner: LifecycleOwner, observer: (List<TaskContainer>) -> Unit) =
-            _tasks.observe(owner, observer)
-
-    fun searchByFilter(filter: Filter?) {
-        this.filter = filter
-        invalidate()
+    fun setFilter(filter: Filter) {
+        _state.update {
+            it.copy(filter = filter)
+        }
     }
 
     fun invalidate() {
-        AndroidUtilities.assertMainThread()
-        if (filter == null) {
-            return
-        }
-        try {
-            viewModelScope.launch {
-                _tasks.value = taskDao.fetchTasks { getQuery(preferences, filter!!) }
-            }
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
+        _state.update { it.copy(now = DateUtilities.now()) }
     }
 
-    val value: List<TaskContainer>
-        get() = _tasks.value ?: emptyList()
+    init {
+        localBroadcastManager.registerRefreshReceiver(refreshReceiver)
+    }
+
+    override fun onCleared() {
+        localBroadcastManager.unregisterReceiver(refreshReceiver)
+    }
 }

@@ -12,7 +12,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.speech.RecognizerIntent
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
@@ -30,7 +35,9 @@ import androidx.core.view.isVisible
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,20 +52,33 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
-import com.todoroo.astrid.api.*
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
+import com.todoroo.astrid.api.CaldavFilter
+import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.api.IdListFilter
+import com.todoroo.astrid.api.SearchFilter
+import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.repeats.RepeatTaskHelper
-import com.todoroo.astrid.service.*
+import com.todoroo.astrid.service.TaskCompleter
+import com.todoroo.astrid.service.TaskCreator
+import com.todoroo.astrid.service.TaskDeleter
+import com.todoroo.astrid.service.TaskDuplicator
+import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
@@ -93,12 +113,18 @@ import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerActivity
-import org.tasks.tasklist.*
+import org.tasks.tasklist.DragAndDropRecyclerAdapter
+import org.tasks.tasklist.TaskViewHolder
+import org.tasks.tasklist.ViewHolderFactory
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
-import org.tasks.ui.*
+import org.tasks.ui.TaskEditEvent
+import org.tasks.ui.TaskEditEventBus
+import org.tasks.ui.TaskListEvent
+import org.tasks.ui.TaskListEventBus
+import org.tasks.ui.TaskListViewModel
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.max
 
@@ -263,14 +289,18 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         listViewModel.setFilter((if (searchQuery == null) filter else createSearchFilter(searchQuery!!)))
         (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         recyclerView.layoutManager = LinearLayoutManager(context)
-        listViewModel.observe(this) {
-            submitList(it)
-            if (it.isEmpty()) {
-                swipeRefreshLayout.visibility = View.GONE
-                emptyRefreshLayout.visibility = View.VISIBLE
-            } else {
-                swipeRefreshLayout.visibility = View.VISIBLE
-                emptyRefreshLayout.visibility = View.GONE
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                listViewModel.tasks.collect {
+                    submitList(it)
+                    if (it.isEmpty()) {
+                        swipeRefreshLayout.visibility = View.GONE
+                        emptyRefreshLayout.visibility = View.VISIBLE
+                    } else {
+                        swipeRefreshLayout.visibility = View.VISIBLE
+                        emptyRefreshLayout.visibility = View.GONE
+                    }
+                }
             }
         }
         setupRefresh(swipeRefreshLayout)
@@ -383,11 +413,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             delay(SEARCH_DEBOUNCE_TIMEOUT)
             searchQuery = query?.trim { it <= ' ' } ?: ""
             if (searchQuery?.isEmpty() == true) {
-                listViewModel.searchByFilter(
+                listViewModel.setFilter(
                     BuiltInFilterExposer.getMyTasksFilter(requireContext().resources))
             } else {
                 val savedFilter = createSearchFilter(searchQuery!!)
-                listViewModel.searchByFilter(savedFilter)
+                listViewModel.setFilter(savedFilter)
             }
         }
     }
@@ -572,7 +602,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     private fun refresh() {
-        loadTaskListContent()
         setSyncOngoing()
     }
 
@@ -666,7 +695,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
         search.setOnQueryTextListener(null)
-        listViewModel.searchByFilter(filter)
+        listViewModel.setFilter(filter)
         searchJob?.cancel()
         searchQuery = null
         if (preferences.isTopAppBar) {
