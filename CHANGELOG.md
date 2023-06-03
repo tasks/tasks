@@ -1,4 +1,4 @@
-### 13.3.1 - (2023-05-31)
+### 13.3.2 - (2023-06-02)
 
 * Sorting improvements
   * Configure sort grouping
