@@ -23,7 +23,7 @@ data class CaldavTask(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cd_id")
     @Transient
-    var id: Long = 0,
+    val id: Long = 0,
     @ColumnInfo(name = "cd_task", index = true)
     @Transient
     var task: Long,

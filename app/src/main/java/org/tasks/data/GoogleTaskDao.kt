@@ -1,6 +1,11 @@
 package org.tasks.data
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.todoroo.astrid.data.Task
 import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 
@@ -20,7 +25,7 @@ abstract class GoogleTaskDao {
         } else {
             task.order = getBottom(caldavTask.calendar!!, task.parent)
         }
-        caldavTask.id = insert(caldavTask)
+        insert(caldavTask)
         update(task)
     }
 

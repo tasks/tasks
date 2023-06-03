@@ -302,7 +302,7 @@ open class TaskAdapter(
                 calendar = list,
             )
             newTask.remoteParent = caldavTask.remoteParent
-            caldavTask.id = caldavDao.insert(newTask)
+            caldavDao.insert(newTask)
         } else {
             caldavDao.update(caldavTask)
         }

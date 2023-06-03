@@ -267,7 +267,7 @@ class iCalendar @Inject constructor(
             caldavTask.lastSync = task.modificationDate
         }
         if (isNew) {
-            caldavTask.id = caldavDao.insert(caldavTask)
+            caldavDao.insert(caldavTask)
             Timber.d("NEW %s", caldavTask)
         } else {
             caldavDao.update(caldavTask)

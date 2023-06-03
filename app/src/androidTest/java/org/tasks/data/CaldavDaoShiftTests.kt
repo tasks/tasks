@@ -152,9 +152,12 @@ class CaldavDaoShiftTests : InjectingTestCase() {
         if (task.parent > 0) {
             caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.parent)
         }
-        caldavTask.id = caldavDao.insert(caldavTask)
         tasks.add(
-            t.copy(caldavTask = caldavTask)
+            t.copy(
+                caldavTask = caldavTask.copy(
+                    id = caldavDao.insert(caldavTask)
+                )
+            )
         )
     }
 }
