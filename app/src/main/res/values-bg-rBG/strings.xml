@@ -513,7 +513,7 @@
     <string name="opacity_footer">Непрозрачност на долния колонтитул</string>
     <string name="google_tasks_selection_description">Обикновена услуга за синхронизиране чрез профила ви в Google</string>
     <string name="documentation">Документация</string>
-    <string name="upgrade_blurb_2">Прекарах хиляди часове в работа по Tasks и публикувам целия изходен код безплатно. За да поддържам работата си, някои възможности изискват абонамент</string>
+    <string name="upgrade_blurb_2">Прекарвам хиляди часове в работа по Tasks и публикувам изходният код безплатно. За да поддържам работата си, някои възможности изискват абонамент</string>
     <string name="widget_due_date_hidden">Скрито</string>
     <string name="icon">Икона</string>
     <string name="got_it">Добре</string>
@@ -538,7 +538,7 @@
     <string name="etesync_account_description">Необходим е профил при доставчик на услуга за EteSync.com или собствен сървър</string>
     <string name="caldav_account_description">Необходим е профил при доставчик на услуга за CalDAV или собствен сървър. Намерете доставчик на услуга, като посетите tasks.org/caldav</string>
     <string name="show_advanced_settings">Разширени настройки</string>
-    <string name="caldav_selection_description">Синхронизиране въз основа на отворени стандарти</string>
+    <string name="caldav_selection_description">Синхронизиране посредством отворени стандарти</string>
     <string name="choose_synchronization_service">Избор на услуга</string>
     <string name="subtasks_multilevel_google_task">Вложени задачи не се поддържат от Google Tasks</string>
     <string name="widget_on_click">При докосване</string>
@@ -563,8 +563,8 @@
     <string name="widget_open_list">Отваряне на списък</string>
     <string name="url">Адрес</string>
     <string name="tasks_org_description">Синхронизирайте задачите си чрез Tasks.org</string>
-    <string name="davx5_selection_description">Синхронизирайте задачите си с DAVx⁵</string>
-    <string name="upgrade_blurb_1">Здравейте! Казвам се Алекс. Аз съм независимият разработчик, който стои зад Tasks</string>
+    <string name="davx5_selection_description">Синхронизиране на задачите с DAVx⁵</string>
+    <string name="upgrade_blurb_1">Здравейте! Аз съм Алекс. Независимият разработчик, който стои зад Tasks</string>
     <string name="custom_filter_criteria">Критерии за филтриране</string>
     <string name="filter_high_priority">Висок приоритет</string>
     <string name="chip_appearance_icon_only">Само икона</string>
@@ -617,7 +617,7 @@
     <string name="filter_any_due_date">Всяка крайна дата</string>
     <string name="android_auto_backup">Услуга за резервни копия на Android</string>
     <string name="device_settings">Настройки на устройството</string>
-    <string name="support_development_subscribe">Отключване на допълнителни възможности и подкрепяне на софтуера с отворен код</string>
+    <string name="support_development_subscribe">Отключване на допълнителни възможности и подкрепа на софтуера с отворен код</string>
     <string name="sort_start_group">Започната %s</string>
     <string name="sort_due_group">Завършена %s</string>
     <string name="on_launch">При стартиране</string>
@@ -635,10 +635,10 @@
     <string name="migrate_count">Преместване на %s в Tasks.org</string>
     <string name="above_average">Над средното</string>
     <string name="migrating_tasks">Преместване на задачи</string>
-    <string name="save_percent">Запазване %d%%</string>
+    <string name="save_percent">Спестявате %d%%</string>
     <string name="app_password">Парола на приложението</string>
     <string name="upgrade_automation">Автоматизация</string>
-    <string name="upgrade_desktop_access">Достъп от настолно устройство</string>
+    <string name="upgrade_desktop_access">От настолни устройства</string>
     <string name="custom_filter_has_reminder">Има напомняне</string>
     <string name="follow_twitter">Следвайте @tasks_org</string>
     <string name="remove_user">Премахване на потребителя\?</string>
@@ -661,7 +661,7 @@
     <string name="caldav_server_other">Друг</string>
     <string name="filter_snoozed">Отложени</string>
     <string name="app_password_created_at">Създадена: %s</string>
-    <string name="upgrade_open_source_description">Вашия абонамент поддържа непрекъснатото развитие</string>
+    <string name="upgrade_open_source_description">Абонаментът поддържа непрекъснатото развитие</string>
     <string name="your_subscription_expired">Абонаментът е изтекъл. Подновете го, за да се възстанови услугата.</string>
     <string name="tasks_org_account">Профил в Tasks.org</string>
     <string name="list_members">Списък на участниците</string>
@@ -681,7 +681,7 @@
     <string name="privacy">Поверителност</string>
     <string name="google_play_subscribers">Абинати от Google Play</string>
     <string name="upgrade_more_customization_description">Отключване на всички теми, цветове и пиктограми</string>
-    <string name="upgrade_google_tasks">Синхронизиранр на няколко профила</string>
+    <string name="upgrade_google_tasks">Синхронизиране на няколко профила</string>
     <string name="snackbar_task_completed">Задачата е завършена</string>
     <string name="share_list">Споделяне на списък</string>
     <string name="app_bar_collapse">Свиване на лентата на приложението</string>
@@ -694,7 +694,7 @@
     <string name="compact">Компакт</string>
     <string name="no_google_play_subscription">Не е намерен подходящ абонамент от Google Play</string>
     <string name="authentication_required">Необходимо е удостоверяване</string>
-    <string name="upgrade_tasks_org_account_description">Синхронизирайте с Tasks.org и си сътрудничете с други потребители</string>
+    <string name="upgrade_tasks_org_account_description">Синхронизиране чрез Tasks.org и сътрудничество с други потребители</string>
     <string name="alarm_after_start">%s след началото</string>
     <string name="snackbar_tasks_completed">%d задачи са завършени</string>
     <string name="alarm_before_due">%s до</string>
@@ -704,7 +704,7 @@
     <string name="hint_customize_edit_title">Твърде много информация\?</string>
     <string name="hint_customize_edit_body">Можете да настроите екрана като подреждате или премахвате полета</string>
     <string name="account_not_included">Не е включено в абонамента „Посочете своя цена“</string>
-    <string name="upgrade_desktop_access_description">Синхронизиране с други клиенти като Outlook и Apple Reminders</string>
+    <string name="upgrade_desktop_access_description">Синхронизиране с клиенти като Outlook и Apple Reminders</string>
     <string name="map_theme_use_app_theme">С темата на приложението</string>
     <string name="app_password_enter_description">Дайте име на паролата (по избор)</string>
     <string name="android_auto_backup_device_summary">Трябва да изберете услуга за резервни копия в настройките на устройството. Не всички устройства предлагат такава услуга.</string>
