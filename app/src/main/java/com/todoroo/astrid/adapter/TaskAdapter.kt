@@ -146,7 +146,6 @@ open class TaskAdapter(
         } else if (newParent != null) {
             if (task.caldav != newParent.caldav) {
                 caldavDao.markDeleted(listOf(task.id))
-                task.caldavTask = null
             }
         }
         when {
@@ -258,8 +257,11 @@ open class TaskAdapter(
             )
         } else {
             task.parent = newParent.id
-            task.caldavTask = CaldavTask(task.id, list, remoteId = null)
-            googleTaskDao.insertAndShift(task.task, task.caldavTask!!, newTasksOnTop)
+            googleTaskDao.insertAndShift(
+                task = task.task,
+                caldavTask = CaldavTask(task.id, list, remoteId = null),
+                top = newTasksOnTop
+            )
         }
         taskDao.touch(task.id)
         if (BuildConfig.DEBUG) {
@@ -294,7 +296,6 @@ open class TaskAdapter(
             val newTask = CaldavTask(task.id, list)
             newTask.remoteParent = caldavTask.remoteParent
             caldavTask.id = caldavDao.insert(newTask)
-            task.caldavTask = caldavTask
         } else {
             caldavDao.update(caldavTask)
         }

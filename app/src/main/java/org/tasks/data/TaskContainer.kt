@@ -6,7 +6,7 @@ import com.todoroo.astrid.data.Task
 
 data class TaskContainer(
     @Embedded val task: Task,
-    @Embedded var caldavTask: CaldavTask? = null,
+    @Embedded val caldavTask: CaldavTask? = null,
     @Embedded val location: Location? = null,
     val isGoogleTask: Boolean = false,
     val parentComplete: Boolean = false,

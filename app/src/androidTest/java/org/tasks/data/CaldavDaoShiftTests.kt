@@ -146,7 +146,6 @@ class CaldavDaoShiftTests : InjectingTestCase() {
 
     private suspend fun addTask(calendar: String, vararg properties: PropertyValue<in TaskContainer?, *>) {
         val t = TaskContainerMaker.newTaskContainer(*properties)
-        tasks.add(t)
         val task = t.task
         taskDao.createNew(task)
         val caldavTask = CaldavTask(t.id, calendar)
@@ -154,6 +153,8 @@ class CaldavDaoShiftTests : InjectingTestCase() {
             caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.parent)
         }
         caldavTask.id = caldavDao.insert(caldavTask)
-        t.caldavTask = caldavTask
+        tasks.add(
+            t.copy(caldavTask = caldavTask)
+        )
     }
 }

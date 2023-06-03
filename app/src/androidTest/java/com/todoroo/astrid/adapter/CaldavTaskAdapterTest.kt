@@ -196,7 +196,6 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
 
     private fun addTask(vararg properties: PropertyValue<in TaskContainer?, *>) = runBlocking {
         val t = newTaskContainer(*properties)
-        tasks.add(t)
         val task = t.task
         taskDao.createNew(task)
         val caldavTask = CaldavTask(t.id, "calendar")
@@ -204,6 +203,8 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
             caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.parent)
         }
         caldavTask.id = caldavDao.insert(caldavTask)
-        t.caldavTask = caldavTask
+        tasks.add(
+            t.copy(caldavTask = caldavTask)
+        )
     }
 }
