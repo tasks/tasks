@@ -53,7 +53,7 @@
     <string name="CFC_dueBefore_name">Venciment per…</string>
     <string name="no_due_date">Sense data de venciment</string>
     <string name="next_month">El mes que ve</string>
-    <string name="CFC_importance_text">Per menys important?</string>
+    <string name="CFC_importance_text">Com a mínim prioritat \?</string>
     <string name="CFC_importance_name">Importància…</string>
     <string name="CFC_title_contains_name">El títol conté…</string>
     <string name="CFC_title_contains_text">Títol conté: ?</string>
@@ -196,7 +196,7 @@
     <string name="CFC_tag_text">Etiqueta: \?</string>
     <string name="CFC_tag_contains_name">El nom de l\'etiqueta conté…</string>
     <string name="calendar_event_not_found">Esdeveniment de calendari no trobat</string>
-    <string name="rmd_EPr_rmd_time_title">Recordatori per defecte</string>
+    <string name="rmd_EPr_rmd_time_title">Hora del recordatori</string>
     <string name="rmd_EPr_rmd_time_desc">Notificacions per tasques sense data de venciment apareixeran a %s</string>
     <plurals name="task_count">
         <item quantity="one">%d tasca</item>
@@ -289,4 +289,12 @@
         <item quantity="one">%d minut</item>
         <item quantity="other">%d minuts</item>
     </plurals>
+    <string name="sort_completed">Per data de finalització</string>
+    <string name="repeat_snackbar">%1$s reprogramat pel %2$s</string>
+    <string name="repeat_type_completion_capitalized">Data de finalització</string>
+    <string name="repeat_number_of_times">Repeteix un número de vegades</string>
+    <string name="repeat_type_due">data de venciment</string>
+    <string name="repeat_type_completion">data de finalització</string>
+    <string name="TEA_creation_date">Data de creació</string>
+    <string name="repeat_occurs">Succeeix</string>
 </resources>
