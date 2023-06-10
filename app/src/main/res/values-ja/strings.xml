@@ -17,7 +17,7 @@
     <string name="read_permission_label">Tasks へのアクセス</string>
     <string name="discard_confirmation">本当に変更を破棄しますか？</string>
     <string name="keep_editing">編集を続ける</string>
-    <string name="DLG_delete_this_task_question">このタスクを削除しますか？</string>
+    <string name="DLG_delete_this_task_question">タスクを削除しますか？</string>
     <string name="DLG_hour_minutes">時間 (時 : 分)</string>
     <string name="DLG_undo">元に戻す</string>
     <string name="WID_dateButtonUnset">タップして設定</string>
@@ -42,7 +42,7 @@
     <string name="TEA_estimatedDuration_label">所要時間</string>
     <string name="TEA_elapsedDuration_label">経過時間</string>
     <string name="save">保存</string>
-    <string name="TEA_timer_est">所要時間の予想 %s</string>
+    <string name="TEA_timer_est">所要時間 %s</string>
     <string name="TEA_timer_elap">経過時間 %s</string>
     <string name="no_time">時間なし</string>
     <string name="due_date">締切日</string>
@@ -228,9 +228,9 @@
     <string name="TPl_notification">%s のタイマーがアクティブです!</string>
     <string name="TFE_workingOn">タスクの予定時間です</string>
     <string name="TEA_timer_controls">タイマー</string>
-    <string name="TEA_timer_comment_started">このタスクを開始しました:</string>
-    <string name="TEA_timer_comment_stopped">このタスクの実行を中止しました:</string>
-    <string name="TEA_timer_comment_spent">消費時間:</string>
+    <string name="TEA_timer_comment_started">タスクを開始:</string>
+    <string name="TEA_timer_comment_stopped">タスクを中断:</string>
+    <string name="TEA_timer_comment_spent">経過時間:</string>
     <string name="voice_create_prompt">話してタスクを作成してください</string>
     <string name="EPr_voiceInputEnabled_title">音声入力</string>
     <string name="EPr_voiceRemindersEnabled_title">音声リマインダー</string>
@@ -270,10 +270,10 @@
     <string name="add_reminder">リマインダーを追加</string>
     <string name="add_location">場所を追加</string>
     <string name="remove">削除</string>
-    <string name="randomly">ランダムに</string>
+    <string name="randomly">ランダム</string>
     <string name="pick_a_date_and_time">日付と時間を選択</string>
     <string name="when_overdue">締切を過ぎたとき</string>
-    <string name="when_due">締切時に</string>
+    <string name="when_due">締切時</string>
     <string name="geofence_radius">ジオフェンスの半径</string>
     <string name="tags">タグ</string>
     <string name="filters">フィルター</string>
@@ -286,7 +286,7 @@
     <string name="date_shortcut_tomorrow_afternoon">明日の昼</string>
     <string name="date_shortcut_must_come_before">%1$s は %2$s の前に来る必要があります</string>
     <string name="date_shortcut_must_come_after">%1$s は %2$s の後に来る必要があります</string>
-    <string name="discard_changes">変更を破棄しますか?</string>
+    <string name="discard_changes">変更を破棄しますか？</string>
     <string name="discard">破棄</string>
     <string name="tag_settings">タグ設定</string>
     <string name="list_settings">リスト設定</string>
@@ -337,7 +337,7 @@
     <string name="copy_multiple_tasks_confirmation">%s コピー済</string>
     <string name="delete_multiple_tasks_confirmation">%s 削除しました</string>
     <string name="delete_selected_tasks">選択したタスクを削除しますか？</string>
-    <string name="copy_selected_tasks">選択したタスクをコピーしますか?</string>
+    <string name="copy_selected_tasks">選択したタスクをコピーしますか？</string>
     <string name="date_and_time">日付と時刻</string>
     <string name="start_of_week">週の始まり</string>
     <string name="use_locale_default">ロケールのデフォルトを使用する</string>
@@ -648,7 +648,7 @@
     <string name="current_subscription">現在のサブスクリプション: %s</string>
     <string name="upgrade_more_customization_description">すべてのテーマ、カラー、アイコンが使用可能</string>
     <string name="randomly_every">%s ごとにランダム</string>
-    <string name="when_started">着手時に</string>
+    <string name="when_started">着手時</string>
     <string name="default_recurrence">デフォルトの繰り返し</string>
     <string name="subtasks_multilevel_google_task">Google Tasks は多層式のサブタスクに対応していません</string>
     <string name="back">戻る</string>
@@ -722,4 +722,10 @@
     <string name="open_source">オープンソース</string>
     <string name="app_password_save">これらの認証情報は、サードパーティアプリを設定するために使用します。あなたの Tasks.org アカウントへの完全なアクセスを許可するものであるため、書き留めたり、誰とも共有しないでください！</string>
     <string name="sort_list">リスト</string>
+    <string name="sort_not_available">タグ、フィルター、場所 には適用されません</string>
+    <string name="sort_sorting">並べ替え</string>
+    <string name="sort_grouping">グループ化</string>
+    <string name="sort_ascending">昇順</string>
+    <string name="sort_descending">降順</string>
+    <string name="sort_completed">完了日時</string>
 </resources>
