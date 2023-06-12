@@ -13,6 +13,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,16 +22,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Chip
-import androidx.compose.material.ChipDefaults
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.ArrowUpward
+import androidx.compose.material.icons.outlined.ExpandCircleDown
+import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -45,7 +45,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -409,84 +411,41 @@ fun BottomSheetContent(
     clickSortMode: () -> Unit,
     clickCompletedMode: () -> Unit,
 ) {
-    Row(
-        modifier = Modifier.padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .weight(1f)
-                .clickable { clickGroupMode() }
-        ) {
-            Text(
-                text = stringResource(id = R.string.sort_grouping),
-                style = MaterialTheme.typography.h6,
-            )
-            Text(
-                text = stringResource(id = groupMode.modeString),
-                style = MaterialTheme.typography.body1,
-            )
-        }
-        if (groupMode != SortHelper.GROUP_NONE) {
-            Spacer(modifier = Modifier.width(16.dp))
-            val displayAscending = when (groupMode) {
-                SortHelper.SORT_IMPORTANCE -> !groupAscending
-                else -> groupAscending
+    SortRow(
+        title = R.string.sort_grouping,
+        icon = Icons.Outlined.ExpandCircleDown,
+        ascending = groupAscending,
+        sortMode = groupMode,
+        showAscending = groupMode != SortHelper.GROUP_NONE,
+        onClick = clickGroupMode,
+        setAscending = setGroupAscending
+    )
+    SortRow(
+        title = R.string.sort_sorting,
+        body = remember(manualSort, astridSort, sortMode) {
+            when {
+                manualSort -> R.string.SSD_sort_my_order
+                astridSort -> R.string.astrid_sort_order
+                else -> sortMode.modeString
             }
-            OrderingChip(
-                ascending = displayAscending,
-                onClick = { setGroupAscending(!groupAscending) }
-            )
-        }
-    }
-    Row(
-        modifier = Modifier.padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .clickable { clickSortMode() }
-        ) {
-            Text(
-                text = stringResource(id = R.string.sort_sorting),
-                style = MaterialTheme.typography.h6,
-            )
-            Text(
-                text = stringResource(
-                    id = when {
-                        manualSort -> R.string.SSD_sort_my_order
-                        astridSort -> R.string.astrid_sort_order
-                        else -> sortMode.modeString
-                    }
-                ),
-                style = MaterialTheme.typography.body1,
-            )
-        }
-        if (!(manualSort || astridSort)) {
-            Spacer(modifier = Modifier.width(16.dp))
-            val displayAscending = when (sortMode) {
-                SortHelper.SORT_AUTO,
-                SortHelper.SORT_IMPORTANCE -> !sortAscending
-                else -> sortAscending
-            }
-            OrderingChip(
-                ascending = displayAscending,
-                onClick = { setSortAscending(!sortAscending) }
-            )
-        }
-    }
+        },
+        ascending = sortAscending,
+        sortMode = sortMode,
+        showAscending = !(manualSort || astridSort),
+        onClick = clickSortMode,
+        setAscending = setSortAscending,
+    )
     if (!astridSort) {
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp)
                 .height(1.dp)
         )
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .clickable { setCompletedAtBottom(!completedAtBottom) },
         ) {
             Text(
                 text = stringResource(R.string.completed_tasks_at_bottom),
@@ -499,64 +458,93 @@ fun BottomSheetContent(
             )
         }
         if (completedAtBottom) {
-            Row(
-                modifier = Modifier.padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .clickable { clickCompletedMode() }
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.completed),
-                        style = MaterialTheme.typography.h6,
-                    )
-                    Text(
-                        text = stringResource(id = completedMode.modeString),
-                        style = MaterialTheme.typography.body1,
-                    )
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-                val displayAscending = when (completedMode) {
-                    SortHelper.SORT_IMPORTANCE -> !completedAscending
-                    else -> completedAscending
-                }
-                OrderingChip(
-                    ascending = displayAscending,
-                    onClick = { setCompletedAscending(!completedAscending) }
-                )
-            }
+            Divider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+            )
+            SortRow(
+                title = R.string.completed,
+                ascending = completedAscending,
+                sortMode = completedMode,
+                onClick = clickCompletedMode,
+                setAscending = setCompletedAscending,
+            )
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun OrderingChip(
+fun SortRow(
+    icon: ImageVector = Icons.Outlined.SwapVert,
+    title: Int,
+    ascending: Boolean,
+    sortMode: Int,
+    body: Int = remember(sortMode) { sortMode.modeString },
+    showAscending: Boolean = true,
+    onClick: () -> Unit,
+    setAscending: (Boolean) -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .clickable { onClick() }
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            modifier = Modifier
+                .padding(end = 16.dp)
+                .size(24.dp)
+                .alpha(ContentAlpha.medium),
+        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(text = stringResource(id = title), style = MaterialTheme.typography.body1)
+            Text(text = stringResource(id = body), style = MaterialTheme.typography.body2)
+        }
+        if (showAscending) {
+            Spacer(modifier = Modifier.width(16.dp))
+            val displayAscending = when (sortMode) {
+                SortHelper.SORT_AUTO,
+                SortHelper.SORT_IMPORTANCE -> !ascending
+
+                else -> ascending
+            }
+            OrderingButton(
+                ascending = displayAscending,
+                onClick = { setAscending(!ascending) }
+            )
+        }
+    }
+}
+
+@Composable
+fun OrderingButton(
     ascending: Boolean,
     onClick: () -> Unit,
 ) {
-    Chip(
-        onClick = onClick,
-        shape = RoundedCornerShape(4.dp),
-        border = ChipDefaults.outlinedBorder,
-        colors = ChipDefaults.outlinedChipColors(),
-        leadingIcon = {
-            Icon(
-                imageVector = if (ascending) Icons.Outlined.ArrowUpward else Icons.Outlined.ArrowDownward,
-                modifier = Modifier.size(16.dp),
-                contentDescription = null,
-            )
-        },
-        content = {
-            Text(
-                text = stringResource(id = if (ascending) R.string.sort_ascending else R.string.sort_descending),
-                style = MaterialTheme.typography.body1,
-            )
-        },
-    )
-
+    Row(
+        modifier = Modifier
+            .height(32.dp)
+            .clickable { onClick() },
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Divider(modifier = Modifier
+            .width(1.dp)
+            .fillMaxHeight())
+        Icon(
+            imageVector = if (ascending) Icons.Outlined.ArrowUpward else Icons.Outlined.ArrowDownward,
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .size(16.dp),
+            contentDescription = null,
+        )
+        Text(
+            text = stringResource(id = if (ascending) R.string.sort_ascending else R.string.sort_descending),
+            style = MaterialTheme.typography.body2,
+        )
+    }
 }
 
 private val Int.modeString: Int
