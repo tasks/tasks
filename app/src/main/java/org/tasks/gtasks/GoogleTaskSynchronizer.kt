@@ -109,7 +109,6 @@ class GoogleTaskSynchronizer @Inject constructor(
             return
         }
         val gtasksInvoker = invokers.getGtasksInvoker(account.username!!)
-        pushLocalChanges(account, gtasksInvoker)
         val gtaskLists: MutableList<TaskList> = ArrayList()
         var nextPageToken: String? = null
         var eTag: String? = null
@@ -130,6 +129,7 @@ class GoogleTaskSynchronizer @Inject constructor(
                 preferences.setString(R.string.p_default_list, null)
             }
         }
+        pushLocalChanges(account, gtasksInvoker)
         for (list in googleTaskListDao.getByRemoteId(gtaskLists.map { it.id })) {
             if (isNullOrEmpty(list.uuid)) {
                 firebase.reportException(RuntimeException("Empty remote id"))
