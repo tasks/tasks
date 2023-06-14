@@ -722,7 +722,7 @@
     <string name="open_source">オープンソース</string>
     <string name="app_password_save">これらの認証情報は、サードパーティアプリを設定するために使用します。あなたの Tasks.org アカウントへの完全なアクセスを許可するものであるため、書き留めたり、誰とも共有しないでください！</string>
     <string name="sort_list">リスト</string>
-    <string name="sort_not_available">タグ、フィルター、場所 には適用されません</string>
+    <string name="sort_not_available">タグ、フィルター、場所には使用できません</string>
     <string name="sort_sorting">並べ替え</string>
     <string name="sort_grouping">グループ化</string>
     <string name="sort_ascending">昇順</string>
