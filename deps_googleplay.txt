@@ -183,18 +183,18 @@
 +|    |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1 (c)
 +|    +--- androidx.databinding:databinding-runtime:8.0.2 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.8.21 (*)
-++--- com.google.firebase:firebase-bom:32.1.0
+++--- com.google.firebase:firebase-bom:32.1.1
 +|    +--- com.google.firebase:firebase-analytics:21.3.0 (c)
 +|    +--- com.google.firebase:firebase-config-ktx:21.4.0 (c)
 +|    +--- com.google.firebase:firebase-crashlytics:18.3.7 (c)
 +|    +--- com.google.firebase:firebase-installations:17.1.3 (c)
-+|    +--- com.google.firebase:firebase-common:20.3.2 (c)
-+|    +--- com.google.firebase:firebase-common-ktx:20.3.2 (c)
++|    +--- com.google.firebase:firebase-common:20.3.3 (c)
++|    +--- com.google.firebase:firebase-common-ktx:20.3.3 (c)
 +|    +--- com.google.firebase:firebase-config:21.4.0 (c)
 +|    \--- com.google.firebase:firebase-encoders:17.0.0 (c)
 ++--- com.google.firebase:firebase-crashlytics -> 18.3.7
 +|    +--- com.google.firebase:firebase-installations:17.1.3
-+|    |    +--- com.google.firebase:firebase-common:20.3.1 -> 20.3.2
++|    |    +--- com.google.firebase:firebase-common:20.3.1 -> 20.3.3
 +|    |    |    +--- com.google.firebase:firebase-annotations:16.2.0
 +|    |    |    |    \--- javax.inject:javax.inject:1
 +|    |    |    +--- com.google.firebase:firebase-components:17.1.0
@@ -295,7 +295,7 @@
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.6.0 (*)
 +|    |    \--- com.google.firebase:firebase-encoders:17.0.0 (*)
 +|    +--- com.google.firebase:firebase-annotations:16.2.0 (*)
-+|    +--- com.google.firebase:firebase-common:20.3.1 -> 20.3.2 (*)
++|    +--- com.google.firebase:firebase-common:20.3.1 -> 20.3.3 (*)
 +|    +--- com.google.firebase:firebase-components:17.1.0 (*)
 +|    +--- com.google.android.datatransport:transport-api:3.0.0
 +|    |    \--- androidx.annotation:annotation:1.1.0 -> 1.6.0 (*)
@@ -350,7 +350,7 @@
 +|    |    |    +--- com.google.android.gms:play-services-basement:18.1.0 (*)
 +|    |    |    \--- com.google.android.gms:play-services-measurement-base:21.3.0 (*)
 +|    |    +--- com.google.android.gms:play-services-tasks:18.0.1 -> 18.0.2 (*)
-+|    |    +--- com.google.firebase:firebase-common:20.2.0 -> 20.3.2 (*)
++|    |    +--- com.google.firebase:firebase-common:20.2.0 -> 20.3.3 (*)
 +|    |    +--- com.google.firebase:firebase-components:17.0.1 -> 17.1.0 (*)
 +|    |    +--- com.google.firebase:firebase-installations:17.0.1 -> 17.1.3 (*)
 +|    |    +--- com.google.firebase:firebase-installations-interop:17.0.0 -> 17.1.0 (*)
@@ -363,9 +363,9 @@
 ++--- com.google.firebase:firebase-config-ktx -> 21.4.0
 +|    +--- com.google.firebase:firebase-installations:17.1.3 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.10 -> 1.8.21 (*)
-+|    +--- com.google.firebase:firebase-common:20.3.1 -> 20.3.2 (*)
++|    +--- com.google.firebase:firebase-common:20.3.1 -> 20.3.3 (*)
 +|    +--- com.google.firebase:firebase-components:17.1.0 (*)
-+|    +--- com.google.firebase:firebase-common-ktx:20.3.1 -> 20.3.2
++|    +--- com.google.firebase:firebase-common-ktx:20.3.1 -> 20.3.3
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4 -> 1.7.1
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1 (*)
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.7.1 (*)
@@ -373,15 +373,15 @@
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20 -> 1.8.21 (*)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.10 -> 1.8.21 (*)
 +|    |    +--- com.google.firebase:firebase-annotations:16.2.0 (*)
-+|    |    +--- com.google.firebase:firebase-common:20.3.2 (*)
++|    |    +--- com.google.firebase:firebase-common:20.3.3 (*)
 +|    |    +--- com.google.firebase:firebase-components:17.1.0 (*)
 +|    |    \--- androidx.annotation:annotation:1.5.0 -> 1.6.0 (*)
 +|    +--- com.google.firebase:firebase-config:21.4.0
 +|    |    +--- com.google.firebase:firebase-installations:17.1.2 -> 17.1.3 (*)
 +|    |    +--- com.google.firebase:firebase-annotations:16.2.0 (*)
-+|    |    +--- com.google.firebase:firebase-common:20.3.1 -> 20.3.2 (*)
++|    |    +--- com.google.firebase:firebase-common:20.3.1 -> 20.3.3 (*)
 +|    |    +--- com.google.firebase:firebase-abt:21.1.1
-+|    |    |    +--- com.google.firebase:firebase-common:20.2.0 -> 20.3.2 (*)
++|    |    |    +--- com.google.firebase:firebase-common:20.2.0 -> 20.3.3 (*)
 +|    |    |    +--- com.google.firebase:firebase-components:17.0.1 -> 17.1.0 (*)
 +|    |    |    +--- com.google.firebase:firebase-measurement-connector:18.0.0 -> 19.0.0 (*)
 +|    |    |    \--- com.google.android.gms:play-services-basement:18.1.0 (*)
