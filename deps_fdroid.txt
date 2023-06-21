@@ -566,7 +566,7 @@
 +|    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 4.11.0 (*)
 ++--- com.google.code.gson:gson:2.10.1
 ++--- com.google.android.material:material:1.9.0 (*)
-++--- androidx.compose.material3:material3:1.1.0
+++--- androidx.compose.material3:material3:1.1.1
 +|    +--- androidx.activity:activity-compose:1.5.0 -> 1.7.2
 +|    |    +--- androidx.activity:activity-ktx:1.7.2 (*)
 +|    |    +--- androidx.compose.runtime:runtime:1.0.1 -> 1.4.3
@@ -854,7 +854,7 @@
 +|    +--- androidx.compose.material:material-icons-core:1.4.3 (c)
 +|    +--- androidx.compose.material:material-icons-extended:1.4.3 (c)
 +|    +--- androidx.compose.material:material-ripple:1.4.3 (c)
-+|    +--- androidx.compose.material3:material3:1.1.0 (c)
++|    +--- androidx.compose.material3:material3:1.1.0 -> 1.1.1 (c)
 +|    +--- androidx.compose.runtime:runtime:1.4.3 (c)
 +|    +--- androidx.compose.runtime:runtime-livedata:1.4.3 (c)
 +|    +--- androidx.compose.ui:ui:1.4.3 (c)
