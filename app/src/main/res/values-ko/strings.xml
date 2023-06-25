@@ -29,10 +29,10 @@
     <string name="action_call">전화</string>
     <string name="action_open">열기</string>
     <string name="SSD_sort_auto">Tasks 스마트 정렬</string>
-    <string name="SSD_sort_alpha">제목순</string>
-    <string name="SSD_sort_due">마감일순</string>
-    <string name="SSD_sort_importance">우선순위순</string>
-    <string name="SSD_sort_modified">최종 변경일시순</string>
+    <string name="SSD_sort_alpha">제목 기준</string>
+    <string name="SSD_sort_due">마감일 기준</string>
+    <string name="SSD_sort_importance">우선순위 기준</string>
+    <string name="SSD_sort_modified">최종 변경일시 기준</string>
     <string name="FLA_search_filter">\'%s\' 검색 중</string>
     <string name="FLA_new_filter">새 필터 만들기</string>
     <string name="TEA_title_hint">할일 제목</string>
@@ -229,7 +229,7 @@
     <string name="TEA_timer_comment_started">이 할일 시작:</string>
     <string name="TEA_timer_comment_stopped">이 할일 중지:</string>
     <string name="TEA_timer_comment_spent">소요 시간:</string>
-    <string name="voice_create_prompt">할일을 만들려면 말하세요</string>
+    <string name="voice_create_prompt">할일을 생성하려면 말하세요</string>
     <string name="EPr_voiceInputEnabled_title">음성 입력</string>
     <string name="EPr_voiceRemindersEnabled_title">음성 알람</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">할일 알람 시 제목을 소리내어 읽어줍니다</string>
@@ -351,7 +351,7 @@
     <string name="repeats_single_until">%2$s까지 %1$s 반복</string>
     <string name="repeats_single_number_of_times">%1$s마다 %2$d %3$s 반복</string>
     <string name="repeats_single_on_until">%3$s까지 %1$s %2$s에 반복</string>
-    <string name="repeats_single_on_number_of_times">%1$s 마다 %2$s에 %3$d %4$s회 동안 반복</string>
+    <string name="repeats_single_on_number_of_times">%1$s 마다 %2$s에 %3$d %4$s 동안 반복</string>
     <string name="repeats_minutely">매분</string>
     <string name="repeats_hourly">매시간</string>
     <string name="repeats_daily">매일</string>
@@ -361,7 +361,7 @@
     <string name="repeats_plural">매%s 반복</string>
     <string name="repeats_plural_on">매%1$s %2$s 에 반복</string>
     <string name="repeats_plural_until">%2$s 까지 매 %1$s 반복</string>
-    <string name="repeats_plural_number_of_times">매 %1$s 마다 %2$d %3$s회 동안 반복</string>
+    <string name="repeats_plural_number_of_times">매 %1$s 마다 %2$d %3$s 동안 반복</string>
     <string name="repeats_plural_on_until">%3$s 까지 매 %1$s %2$s 에 반복</string>
     <string name="repeats_plural_on_number_of_times">매 %1$s 마다 %2$s에 %3$d %4$s 반복</string>
     <string name="dont_add_to_calendar">달력에 일정 추가하지 않기</string>
@@ -449,11 +449,11 @@
     <string name="chip_appearance_icon_only">아이콘만</string>
     <string name="chip_appearance_text_only">글자만</string>
     <string name="chip_appearance_text_and_icon">글자와 아이콘</string>
-    <string name="hide_unused_places">사용하지 않는 위치 숨기기</string>
+    <string name="hide_unused_places">사용하지 않는 장소 숨기기</string>
     <string name="hide_unused_tags">사용하지 않는 태그 숨기기</string>
     <string name="navigation_drawer">네비게이션 서랍</string>
-    <string name="place_settings">위치 설정</string>
-    <string name="places">위치</string>
+    <string name="place_settings">장소 설정</string>
+    <string name="places">장소</string>
     <string name="upgrade_blurb_1">안녕하세요! Tasks의 1인 개발자 알렉스입니다</string>
     <string name="desaturate_colors_summary_on">다크 테마 사용 시 채도를 낮춥니다</string>
     <string name="desaturate_colors_summary_off">다크 테마 사용 시 채도를 낮추지 않습니다</string>
@@ -528,7 +528,7 @@
     <string name="opacity_header">헤더 불투명도</string>
     <string name="widget_show_dividers">할일 구분선 표시</string>
     <string name="widget_show_menu">메뉴 표시</string>
-    <string name="sort_created">생성일시순</string>
+    <string name="sort_created">생성일시 기준</string>
     <string name="yesterday_lowercase">어제</string>
     <string name="tomorrow_lowercase">내일</string>
     <string name="today_lowercase">오늘</string>
@@ -596,7 +596,7 @@
     <string name="default_due_date">기본 마감일</string>
     <string name="default_start_date">기본 시작일</string>
     <string name="start_date">시작일</string>
-    <string name="SSD_sort_start">시작일순</string>
+    <string name="SSD_sort_start">시작일 기준</string>
     <string name="yesterday_abbrev_lowercase">어제</string>
     <string name="tomorrow_abbrev_lowercase">내일</string>
     <string name="filter_any_start_date">시작일 있음</string>
@@ -711,7 +711,7 @@
     <string name="completed">완료</string>
     <string name="snackbar_task_completed">할일 완료</string>
     <string name="enable_reminders_description">안드로이드 설정에 알람이 비활성화 되어있습니다</string>
-    <string name="sort_list">목록 순</string>
+    <string name="sort_list">목록 기준</string>
     <plurals name="reminder_hours">
         <item quantity="other">시간</item>
     </plurals>
@@ -725,4 +725,10 @@
         <item quantity="other">주</item>
     </plurals>
     <string name="when_started">시작시</string>
+    <string name="sort_sorting">정렬</string>
+    <string name="sort_descending">내림차순</string>
+    <string name="sort_completed">완료일시 기준</string>
+    <string name="sort_not_available">태그, 필터, 장소는 사용 불가</string>
+    <string name="sort_ascending">오름차순</string>
+    <string name="sort_grouping">분류</string>
 </resources>
