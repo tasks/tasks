@@ -734,4 +734,6 @@
     <string name="sort_grouping">Csoportosítás</string>
     <string name="sort_ascending">Növekvő</string>
     <string name="sort_descending">Csökkenő</string>
+    <string name="sort_not_available">Nem elérhető címkékre, szűrőkre és helyekre</string>
+    <string name="sort_completed">Befejezés ideje alapján</string>
 </resources>
