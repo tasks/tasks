@@ -731,4 +731,11 @@
     <string name="sign_in">Iniciar sessão</string>
     <string name="default_reminder">Lembrete predefinido</string>
     <string name="rmd_time_description">Mostrar notificações para tarefas sem fecho</string>
+    <string name="sort_list">Por lista</string>
+    <string name="sort_not_available">Não disponível para etiquetas, filtros ou locais</string>
+    <string name="sort_sorting">Ordenação</string>
+    <string name="sort_grouping">Agrupamento</string>
+    <string name="sort_ascending">Ascendente</string>
+    <string name="sort_descending">Descendente</string>
+    <string name="sort_completed">Por hora de finalização</string>
 </resources>
