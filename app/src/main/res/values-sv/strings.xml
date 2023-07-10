@@ -123,7 +123,7 @@
     <string name="rmd_NoA_snooze">Skjut upp</string>
     <string name="rmd_EPr_quiet_hours_start_title">Tyst period börjar</string>
     <string name="rmd_EPr_quiet_hours_end_title">Tyst period slutar</string>
-    <string name="rmd_EPr_rmd_time_title">Standardpåminnelse</string>
+    <string name="rmd_EPr_rmd_time_title">Påminnelsetid</string>
     <string name="rmd_EPr_rmd_time_desc">Aviseringar för uppgifter utan sluttid visas vid %s</string>
     <string name="persistent_notifications">Beständiga aviseringar</string>
     <string name="persistent_notifications_description">Beständiga aviseringar kan inte rensas</string>
@@ -318,7 +318,7 @@
     <string name="google_drive_backup">Google Drive-säkerhetskopia</string>
     <string name="row_spacing">Radavstånd</string>
     <string name="add_location">Lägg till plats</string>
-    <string name="geofence_radius">Radie</string>
+    <string name="geofence_radius">Geofence radie</string>
     <string name="location_radius_meters">%s m</string>
     <string name="copy">Kopiera</string>
     <string name="move">Flytta</string>
@@ -713,4 +713,24 @@
     <string name="customize_edit_screen_summary">Ordna om eller ta bort fält</string>
     <string name="hint_customize_edit_title">För mycket information\?</string>
     <string name="hint_customize_edit_body">Du kan anpassa den här skärmen genom att ordna om eller ta bort fält</string>
+    <string name="default_reminder">Standardpåminnelse</string>
+    <string name="rmd_time_description">Visa aviseringar för uppgifter utan deadlinetid</string>
+    <string name="ok">\@android:string/ok</string>
+    <string name="cancel">\@android:string/cancel</string>
+    <string name="sign_in_to_tasks_disclosure">Din e-postadress och konto-id kommer föras över till och lagras av Tasks.org. Uppgifterna kommer användas för autentisering och för att förse dig med viktiga tjänsterelaterade meddelanden. Informationen kommer inte delas med någon annan.</string>
+    <string name="consent_agree">Samtyck</string>
+    <string name="consent_deny">Inte nu</string>
+    <string name="enable_reminders_description">Påminnelser är avstängda i Android-inställningarna</string>
+    <string name="TEA_creation_date">Skapande datum</string>
+    <string name="sort_completion_group">Slutfört %s</string>
+    <string name="sign_in">Logga in</string>
+    <string name="sort_list">Efter lista</string>
+    <string name="sort_not_available">Inte tillgängligt för taggar, filter eller platser</string>
+    <string name="enable_reminders">Aktivera påminnelser</string>
+    <string name="sort_sorting">Sortering</string>
+    <string name="sort_grouping">Gruppering</string>
+    <string name="sort_ascending">Stigande</string>
+    <string name="sort_descending">Nedåtgående</string>
+    <string name="sort_completed">Efter färdigställd tid</string>
+    <string name="microsoft_selection_description">Synkronisera med ditt personliga Microsoft-konto</string>
 </resources>
