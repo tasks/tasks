@@ -1,3 +1,22 @@
+### 13.4 - (2023-07-16)
+
+* Sorting improvements
+  * Add subtask sort configuration
+  * Update sort menu button design
+* Don't show subtasks of hidden tasks in 'My Tasks'
+* Fix Google Tasks sync issue
+* Update translations
+  * Bulgarian - @StoyanDimitrov
+  * Catalan - @and4po, Eudald Puy Polls
+  * Croatian - @milotype
+  * Dutch - @fvbommel
+  * German - @schneidr
+  * Hungarian - Kaci
+  * Japanese - Naga
+  * Korean - Sunjae Choi
+  * Portuguese - @laralem
+  * Swedish - @bittin
+
 ### 13.3.2 - (2023-06-02)
 
 * Sorting improvements

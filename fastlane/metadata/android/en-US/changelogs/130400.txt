@@ -1,0 +1,6 @@
+* Sorting improvements
+  * Add subtask sort configuration
+  * Update sort menu button design
+* Don't show subtasks of hidden tasks in 'My Tasks'
+* Fix Google Tasks sync issue
+* Update translations
