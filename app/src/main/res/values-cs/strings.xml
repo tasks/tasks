@@ -747,4 +747,5 @@
     <string name="consent_agree">Souhlasím</string>
     <string name="consent_deny">Teď ne</string>
     <string name="sign_in">Přihlásit se</string>
+    <string name="next_arrival_departure">Příští příchod/odchod</string>
 </resources>

@@ -6,5 +6,7 @@ interface SnoozeCallback {
 
   void snoozeForTime(DateTime time);
 
+  void snoozeNextVisit();
+
   void pickDateTime();
 }

@@ -96,6 +96,7 @@ public class SnoozeDialog extends DialogFragment {
     }
 
     items.add(getString(R.string.pick_a_date_and_time));
+    items.add(getString(R.string.next_arrival_departure));
 
     return dialogBuilder
         .newDialog(R.string.rmd_NoA_snooze)
@@ -113,6 +114,10 @@ public class SnoozeDialog extends DialogFragment {
                 case 5:
                   dialog.dismiss();
                   snoozeCallback.pickDateTime();
+                  break;
+                case 6:
+                  dialog.dismiss();
+                  snoozeCallback.snoozeNextVisit();
                   break;
               }
             })
