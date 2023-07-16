@@ -18,7 +18,10 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.data.*
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavTask
+import org.tasks.data.TaskDao
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.filters.NotificationsFilter
 import org.tasks.filters.RecentlyModifiedFilter
@@ -79,7 +82,7 @@ class BuiltInFilterExposer @Inject constructor(
         fun getMyTasksFilter(r: Resources): Filter {
             return SortableFilter(
                     r.getString(R.string.BFE_Active),
-                    QueryTemplate().where(activeAndVisible()))
+                    QueryTemplate().where(and(activeAndVisible(), Task.PARENT.eq(0))))
         }
 
         fun getTodayFilter(r: Resources): Filter {
