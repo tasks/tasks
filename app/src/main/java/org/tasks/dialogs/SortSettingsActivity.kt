@@ -500,6 +500,7 @@ fun BottomSheetContent(
                 sortMode = subtaskMode,
                 onClick = clickSubtaskMode,
                 setAscending = setSubtaskAscending,
+                showAscending = subtaskMode != SortHelper.SORT_MANUAL
             )
         }
         Divider(
