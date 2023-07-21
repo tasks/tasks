@@ -18,7 +18,8 @@ data class Tasks(
         val isReminderOn: Boolean = false,
         val createdDateTime: String? = null,
         val lastModifiedDateTime: String? = null,
-        val completedDateTime: CompletedDateTime? = null,
+        val completedDateTime: DateTime? = null,
+        val dueDateTime: DateTime? = null,
         val linkedResources: List<LinkedResource>? = null,
         @field:Json(name = "@removed") val removed: Removed? = null,
     ) {
@@ -38,7 +39,7 @@ data class Tasks(
             val reason: String,
         )
 
-        data class CompletedDateTime(
+        data class DateTime(
             val dateTime: String,
             val timeZone: String,
         )

@@ -5,12 +5,14 @@ import com.todoroo.astrid.data.Task
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
+import org.tasks.TestUtilities.withTZ
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TagDataMaker.NAME
 import org.tasks.makers.TagDataMaker.newTagData
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.DESCRIPTION
+import org.tasks.makers.TaskMaker.DUE_TIME
 import org.tasks.makers.TaskMaker.PRIORITY
 import org.tasks.makers.TaskMaker.TITLE
 import org.tasks.makers.TaskMaker.newTask
@@ -111,5 +113,46 @@ class ConvertToMicrosoftTests {
             )
         )
         assertEquals(listOf("tag1", "tag2"), remote.categories)
+    }
+
+    @Test
+    fun setCreationTime() {
+        withTZ("America/Chicago") {
+            val remote = Task(
+                creationDate = DateTime(2023, 7, 21, 0, 42, 13, 475).millis,
+            ).toRemote(newCaldavTask(), emptyList())
+            assertEquals(
+                "2023-07-21T05:42:13.4750000Z",
+                remote.createdDateTime
+            )
+        }
+    }
+
+    @Test
+    fun setModificationTime() {
+        withTZ("America/Chicago") {
+            val remote = Task(
+                modificationDate = DateTime(2023, 7, 21, 0, 49, 4, 3).millis,
+            ).toRemote(newCaldavTask(), emptyList())
+            assertEquals(
+                "2023-07-21T05:49:04.0030000Z",
+                remote.lastModifiedDateTime
+            )
+        }
+    }
+
+    @Test
+    fun setDueDateTime() {
+        withTZ("America/Chicago") {
+            val remote = newTask(
+                with(
+                    DUE_TIME,
+                    DateTime(2023, 7, 21, 13, 30)
+                )
+            )
+                .toRemote(newCaldavTask(), emptyList())
+            assertEquals("2023-07-21T05:00:00.0000000", remote.dueDateTime?.dateTime)
+            assertEquals("UTC", remote.dueDateTime?.timeZone)
+        }
     }
 }
