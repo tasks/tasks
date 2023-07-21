@@ -149,7 +149,7 @@
     <string name="silent">Tichý</string>
     <string name="sound">Zvuk</string>
     <string name="vibrations">Vibrace</string>
-    <string name="quiet_hours">Nerušit od</string>
+    <string name="quiet_hours">Období nerušení</string>
     <string name="backup_directory">Složka pro zálohy</string>
     <string name="miscellaneous">Různé</string>
     <string name="enabled">Povoleno</string>
@@ -747,4 +747,11 @@
     <string name="consent_agree">Souhlasím</string>
     <string name="consent_deny">Teď ne</string>
     <string name="sign_in">Přihlásit se</string>
+    <string name="sort_not_available">Není k dispozici pro štítky, filtry a místa</string>
+    <string name="sort_list">Podle seznamu</string>
+    <string name="sort_sorting">Řazení</string>
+    <string name="sort_grouping">Seskupení</string>
+    <string name="sort_ascending">Vzestupně</string>
+    <string name="sort_descending">Sestupně</string>
+    <string name="sort_completed">Podle času dokončení</string>
 </resources>
