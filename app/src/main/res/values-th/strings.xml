@@ -234,9 +234,7 @@
     <string name="repeat_monthly_third_week">ที่สาม</string>
     <string name="repeat_monthly_second_week">ที่สอง</string>
     <string name="repeat_monthly_first_week">ก่อน</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">ทุกๆ %1$s %2$s</string>
     <string name="repeat_monthly_every_day_of_nth_week">ทุกๆ %1$s %2$s</string>
-    <string name="repeat_monthly_same_day_each_month">ในวันเดียวกันของทุกเดือน</string>
     <string name="bundle_notifications_summary">รวมการแจ้งเตือนหลายรายการไว้ในรายการเดียว</string>
     <string name="badges_description">แสดงจํานวนงานบนไอคอนตัวเปิดใช้งาน ตัวเรียกใช้งานไม่รองรับป้ายทั้งหมด</string>
     <string name="default_calendar">ปฏิทินเริ่มต้น</string>
@@ -416,10 +414,6 @@
     <string name="new_list">สร้างรายการใหม่</string>
     <string name="new_tag">สร้างแท็กใหม่</string>
     <string name="repeat_snackbar">%1$s จัดกําหนดการใหม่สําหรับ %2$s</string>
-    <string name="repeat_occurs">เกิดขึ้น</string>
-    <string name="repeat_number_of_times">ทําซ้ําหลายครั้ง</string>
-    <string name="repeat_until">ทําซ้ําจนถึง %s</string>
-    <string name="repeat_forever">ทําซ้ําตลอดไป</string>
     <string name="repeat_type_completion_capitalized">วันที่เสร็จสมบูรณ์</string>
     <string name="repeat_type_completion">วันที่เสร็จสมบูรณ์</string>
     <string name="repeat_type_due">วันที่ครบกําหนด</string>
@@ -471,18 +465,11 @@
     <plurals name="task_count">
         <item quantity="other">%d งาน</item>
     </plurals>
-    <string name="repeat_yearly">ทําซ้ําทุกปี</string>
-    <string name="repeat_monthly">ทําซ้ําทุกเดือน</string>
-    <string name="repeat_weekly">ทําซ้ําทุกสัปดาห์</string>
-    <string name="repeat_daily">ทำซ้ำทุกวัน</string>
-    <string name="repeat_hourly">ทําซ้ํารายชั่วโมง</string>
-    <string name="repeat_minutely">ทําซ้ําเป็นนาที</string>
     <string name="repeat_option_every_year">ทุกปี</string>
     <string name="repeat_option_every_month">ทุกเดือน</string>
     <string name="repeat_option_every_week">ทุกสัปดาห์</string>
     <string name="repeat_option_every_day">ทุกวัน</string>
     <string name="repeat_option_does_not_repeat">ไม่ซ้ำ</string>
-    <string name="repeat_every">ทุกๆ</string>
     <string name="default_random_reminder_bi_weekly">รายปักษ์</string>
     <string name="default_random_reminder_weekly">รายสัปดาห์</string>
     <string name="default_random_reminder_daily">ทุกวัน</string>

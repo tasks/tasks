@@ -39,8 +39,6 @@
         <item quantity="one">taon</item>
         <item quantity="other">mga taon</item>
     </plurals>
-    <string name="repeat_forever">Ulitin habambuhay</string>
-    <string name="repeat_until">Ulitin hanggang %s</string>
     <string name="delete_task">Tanggalin gawain</string>
     <string name="vibrations">Mga taginting</string>
     <string name="source_code">Pinagmulang code</string>

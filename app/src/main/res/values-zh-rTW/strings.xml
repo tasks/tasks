@@ -114,8 +114,6 @@
         <item quantity="one">%d 分鐘</item>
         <item quantity="other">%d 分鐘</item>
     </plurals>
-    <string name="repeat_forever">永遠重複</string>
-    <string name="repeat_until">重複到 %s</string>
     <string name="new_tag">新增標籤</string>
     <string name="new_list">新增清單</string>
     <string name="TPl_notification">%s 的碼錶啟動了！</string>
@@ -263,8 +261,6 @@
     <string name="voice_command_added_task">已新增的任務</string>
     <string name="delete_tag_confirmation">要刪除 %s 嗎 \?</string>
     <string name="repeat_snackbar">%1$s 重新安排至 %2$s</string>
-    <string name="repeat_occurs">發生</string>
-    <string name="repeat_number_of_times">重複次數</string>
     <string name="repeat_type_completion_capitalized">完成日期</string>
     <string name="repeat_type_completion">完成日期</string>
     <string name="repeat_type_due">截止日期</string>
@@ -278,7 +274,6 @@
     <string name="repeat_option_every_week">每星期</string>
     <string name="repeat_option_every_day">每天</string>
     <string name="repeat_option_does_not_repeat">不重複</string>
-    <string name="repeat_every">每</string>
     <string name="persistent_notifications_description">固定通知將無法被消除</string>
     <string name="persistent_notifications">固定通知</string>
     <string name="snooze_all">全部延遲提醒</string>
@@ -430,9 +425,7 @@
     <string name="repeat_monthly_third_week">第三週</string>
     <string name="repeat_monthly_second_week">第二週</string>
     <string name="repeat_monthly_first_week">第一週</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">在每 %1$s %2$s</string>
     <string name="repeat_monthly_every_day_of_nth_week">每 %1$s %2$s</string>
-    <string name="repeat_monthly_same_day_each_month">每月的同一天</string>
     <string name="bundle_notifications_summary">結合多項通知成一項通知</string>
     <string name="default_calendar">預設日曆</string>
     <string name="dont_add_to_calendar">不要新增至日曆</string>
@@ -529,12 +522,6 @@
     <plurals name="repeat_times">
         <item quantity="other">時間</item>
     </plurals>
-    <string name="repeat_yearly">每年重覆</string>
-    <string name="repeat_monthly">每月重複</string>
-    <string name="repeat_weekly">每週重複</string>
-    <string name="repeat_daily">每天重複</string>
-    <string name="repeat_hourly">每小時重複</string>
-    <string name="repeat_minutely">每分鐘重複</string>
     <string name="repeat_option_custom">自訂…</string>
     <string name="repeat_option_every_year">每年</string>
     <string name="filter_any_start_date">任何起始日期</string>

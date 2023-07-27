@@ -143,19 +143,12 @@
     <string name="default_random_reminder_daily">Ежедневно</string>
     <string name="default_random_reminder_weekly">Еженедельно</string>
     <string name="default_random_reminder_bi_weekly">Каждые две недели</string>
-    <string name="repeat_every">Каждую(ые)</string>
     <string name="repeat_option_does_not_repeat">Не повторять</string>
     <string name="repeat_option_every_day">Ежедневно</string>
     <string name="repeat_option_every_week">Еженедельно</string>
     <string name="repeat_option_every_month">Ежемесячно</string>
     <string name="repeat_option_every_year">Ежегодно</string>
     <string name="repeat_option_custom">Другой…</string>
-    <string name="repeat_minutely">ПОВТОРЯТЬ ЕЖЕМИНУТНО</string>
-    <string name="repeat_hourly">ПОВТОРЯТЬ ЕЖЕЧАСНО</string>
-    <string name="repeat_daily">ПОВТОРЯТЬ ЕЖЕДНЕВНО</string>
-    <string name="repeat_weekly">ПОВТОРЯТЬ ЕЖЕНЕДЕЛЬНО</string>
-    <string name="repeat_monthly">ПОВТОРЯТЬ ЕЖЕМЕСЯЧНО</string>
-    <string name="repeat_yearly">ПОВТОРЯТЬ ЕЖЕГОДНО</string>
     <plurals name="task_count">
         <item quantity="one">%d задача</item>
         <item quantity="few">%d задачи</item>
@@ -228,10 +221,6 @@
     </plurals>
     <string name="repeat_type_due">намеченной даты</string>
     <string name="repeat_type_completion">даты завершения</string>
-    <string name="repeat_forever">Повторять всегда</string>
-    <string name="repeat_until">Повторять до %s</string>
-    <string name="repeat_number_of_times">Повторять несколько раз</string>
-    <string name="repeat_occurs">Повторять</string>
     <string name="repeat_snackbar">%1$s перенесено на %2$s</string>
     <string name="new_tag">Создать новый тег</string>
     <string name="new_list">Создать новый список</string>
@@ -385,9 +374,7 @@
     <string name="default_calendar">Календарь по умолчанию</string>
     <string name="badges_description">Отображать количество задач на иконке приложения. Не все лаунчеры это поддерживают.</string>
     <string name="bundle_notifications_summary">Группировать несколько уведомлений в одно</string>
-    <string name="repeat_monthly_same_day_each_month">в тот же день ежемесячно</string>
     <string name="repeat_monthly_every_day_of_nth_week">каждый %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">в каждый %1$s %2$s</string>
     <string name="repeat_monthly_first_week">первая</string>
     <string name="repeat_monthly_second_week">вторая</string>
     <string name="repeat_monthly_third_week">третья</string>

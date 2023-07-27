@@ -141,19 +141,12 @@
     <string name="default_random_reminder_daily">Naponta</string>
     <string name="default_random_reminder_weekly">Hetente</string>
     <string name="default_random_reminder_bi_weekly">Kéthetente</string>
-    <string name="repeat_every">Minden</string>
     <string name="repeat_option_does_not_repeat">Nincs ismétlés</string>
     <string name="repeat_option_every_day">Minden nap</string>
     <string name="repeat_option_every_week">Minden héten</string>
     <string name="repeat_option_every_month">Minden hónapban</string>
     <string name="repeat_option_every_year">Minden évben</string>
     <string name="repeat_option_custom">Egyéni…</string>
-    <string name="repeat_minutely">ISMÉTLÉS PERCENKÉNT</string>
-    <string name="repeat_hourly">ISMÉTLÉS ÓRÁNKÉNT</string>
-    <string name="repeat_daily">ISMÉTLÉS NAPONTA</string>
-    <string name="repeat_weekly">ISMÉTLÉS HETENTE</string>
-    <string name="repeat_monthly">ISMÉTLÉS HAVONTA</string>
-    <string name="repeat_yearly">ISMÉTLÉS ÉVENTE</string>
     <plurals name="task_count">
         <item quantity="one">%d feladat</item>
         <item quantity="other">%d feladat</item>
@@ -212,10 +205,6 @@
     </plurals>
     <string name="repeat_type_due">határidő</string>
     <string name="repeat_type_completion">befejezés dátuma</string>
-    <string name="repeat_forever">Ismétlés örökké</string>
-    <string name="repeat_until">Ismétlés eddig: %s</string>
-    <string name="repeat_number_of_times">Ismétlés meghatározott alkalommal</string>
-    <string name="repeat_occurs">Előfordul</string>
     <string name="repeat_snackbar">%1$s újraütemezve ekkorra: %2$s</string>
     <string name="new_tag">Új címke létrehozása</string>
     <string name="new_list">Új lista létrehozása</string>
@@ -368,9 +357,7 @@
     <string name="default_calendar">Alapértelmezett naptár</string>
     <string name="badges_description">Feladatok számának megjelenítése a Tasks ikonon. Nem minden launcher által támogatott funkció.</string>
     <string name="bundle_notifications_summary">Több értesítés összevonása eggyé</string>
-    <string name="repeat_monthly_same_day_each_month">minden hónap egyazon napján</string>
     <string name="repeat_monthly_every_day_of_nth_week">minden %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">minden %1$s %2$s</string>
     <string name="repeat_monthly_first_week">első</string>
     <string name="repeat_monthly_second_week">második</string>
     <string name="repeat_monthly_third_week">harmadik</string>

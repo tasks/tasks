@@ -135,19 +135,12 @@
     <string name="default_random_reminder_daily">chaque jour</string>
     <string name="default_random_reminder_weekly">hebdomadaire</string>
     <string name="default_random_reminder_bi_weekly">bi-hebdomadaire</string>
-    <string name="repeat_every">Tou(te)s les</string>
     <string name="repeat_option_does_not_repeat">Ne pas répéter</string>
     <string name="repeat_option_every_day">Tous les jours</string>
     <string name="repeat_option_every_week">Toutes les semaines</string>
     <string name="repeat_option_every_month">Tous les mois</string>
     <string name="repeat_option_every_year">Tous les ans</string>
     <string name="repeat_option_custom">Personnalisé…</string>
-    <string name="repeat_minutely">Répéter toutes les minutes</string>
-    <string name="repeat_hourly">Répéter toutes les heures</string>
-    <string name="repeat_daily">Répéter tous les jours</string>
-    <string name="repeat_weekly">Répéter toutes les semaines</string>
-    <string name="repeat_monthly">Répéter tous les mois</string>
-    <string name="repeat_yearly">Répéter tous les ans</string>
     <plurals name="task_count">
         <item quantity="one">%d tâche</item>
         <item quantity="many">%d tâches</item>
@@ -210,10 +203,6 @@
     </plurals>
     <string name="repeat_type_due">date d\'échéance</string>
     <string name="repeat_type_completion">date d\'achèvement</string>
-    <string name="repeat_forever">Répéter indéfiniment</string>
-    <string name="repeat_until">Répéter jusqu\'à %s</string>
-    <string name="repeat_number_of_times">Nombre de répétitions</string>
-    <string name="repeat_occurs">Se répète</string>
     <string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
     <string name="new_tag">Créer une nouvelle étiquette</string>
     <string name="new_list">Créer une nouvelle liste</string>
@@ -362,9 +351,7 @@
     <string name="default_calendar">Calendrier par défaut</string>
     <string name="badges_description">Afficher un compteur de tâche sur l\'icône du lanceur de Tasks. Certains lanceurs ne supportent pas les badges.</string>
     <string name="bundle_notifications_summary">Combiner plusieurs notifications en une seule</string>
-    <string name="repeat_monthly_same_day_each_month">le même jour chaque mois</string>
     <string name="repeat_monthly_every_day_of_nth_week">tous les %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">tous les %1$s %2$s</string>
     <string name="repeat_monthly_first_week">première</string>
     <string name="repeat_monthly_second_week">seconde</string>
     <string name="repeat_monthly_third_week">troisième</string>

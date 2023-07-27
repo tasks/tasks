@@ -148,19 +148,12 @@
     <string name="default_random_reminder_daily">ежедневно</string>
     <string name="default_random_reminder_weekly">ежеседмично</string>
     <string name="default_random_reminder_bi_weekly">на две седмици</string>
-    <string name="repeat_every">Всеки(а)</string>
     <string name="repeat_option_does_not_repeat">Не се повтаря</string>
     <string name="repeat_option_every_day">всеки ден</string>
     <string name="repeat_option_every_week">всяка седмица</string>
     <string name="repeat_option_every_month">всеки месец</string>
     <string name="repeat_option_every_year">всяка година</string>
     <string name="repeat_option_custom">По избор…</string>
-    <string name="repeat_minutely">Да се повтаря всяка минута</string>
-    <string name="repeat_hourly">Да се повтаря всеки час</string>
-    <string name="repeat_daily">Да се повтаря всеки ден</string>
-    <string name="repeat_weekly">Да се повтаря всяка седмица</string>
-    <string name="repeat_monthly">Да се повтаря всеки месец</string>
-    <string name="repeat_yearly">Да се повтаря всяка година</string>
     <plurals name="task_count">
         <item quantity="one">%d задача</item>
         <item quantity="other">%d задачи</item>
@@ -219,10 +212,6 @@
     </plurals>
     <string name="repeat_type_due">крайна дата</string>
     <string name="repeat_type_completion">дата на завършване</string>
-    <string name="repeat_forever">Да се повтаря винаги</string>
-    <string name="repeat_until">Да се повтаря до %s</string>
-    <string name="repeat_number_of_times">Да се повтаря няколко пъти</string>
-    <string name="repeat_occurs">Да се повтаря</string>
     <string name="repeat_snackbar">%1$s е преместена за %2$s</string>
     <string name="new_tag">Създаване на етикет</string>
     <string name="new_list">Създаване на списък</string>
@@ -375,9 +364,7 @@
     <string name="default_calendar">Календар по подразбиране</string>
     <string name="badges_description">Броят на задачите е видим върху иконата на Tasks. Не всички начални екрани го поддържат.</string>
     <string name="bundle_notifications_summary">Няколко известия се обединяват в едно</string>
-    <string name="repeat_monthly_same_day_each_month">на един и същи ден всеки месец</string>
     <string name="repeat_monthly_every_day_of_nth_week">всеки %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">на всеки %1$s %2$s</string>
     <string name="repeat_monthly_first_week">първа</string>
     <string name="repeat_monthly_second_week">втора</string>
     <string name="repeat_monthly_third_week">трета</string>

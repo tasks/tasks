@@ -28,7 +28,7 @@ import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.IconPreference
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.BasicRecurrenceDialog
-import org.tasks.repeats.BasicRecurrenceDialog.EXTRA_RRULE
+import org.tasks.repeats.BasicRecurrenceDialog.Companion.EXTRA_RRULE
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.tags.TagPickerActivity
 import org.tasks.tags.TagPickerActivity.Companion.EXTRA_SELECTED

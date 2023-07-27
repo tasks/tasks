@@ -133,8 +133,6 @@
     <string name="default_random_reminder_daily">varje dag</string>
     <string name="default_random_reminder_weekly">varje vecka</string>
     <string name="default_random_reminder_bi_weekly">varannan vecka</string>
-    <string name="repeat_forever">Upprepa för alltid</string>
-    <string name="repeat_until">Repetera till %s</string>
     <string name="repeat_snackbar">%1$s omplanerat till %2$s</string>
     <string name="new_tag">Skapa en ny ettikett</string>
     <string name="new_list">Skapa en ny lista</string>
@@ -241,19 +239,12 @@
     <string name="default_location_reminder_on_departure">Vid avgång</string>
     <string name="default_location_reminder_on_arrival_or_departure">Vid ankomst och avgång</string>
     <string name="snooze_all">Snooza alla</string>
-    <string name="repeat_every">Varje</string>
     <string name="repeat_option_does_not_repeat">Repetera inte</string>
     <string name="repeat_option_every_day">Varje dag</string>
     <string name="repeat_option_every_week">Varje vecka</string>
     <string name="repeat_option_every_month">Varje månad</string>
     <string name="repeat_option_every_year">Varje år</string>
     <string name="repeat_option_custom">Anpassad…</string>
-    <string name="repeat_minutely">REPETERA VARJE MINUT</string>
-    <string name="repeat_hourly">REPETERA VARJE TIMME</string>
-    <string name="repeat_daily">REPETERA VARJE DAG</string>
-    <string name="repeat_weekly">REPETERA VARJE VECKA</string>
-    <string name="repeat_monthly">REPETERA VARJE MÅNAD</string>
-    <string name="repeat_yearly">REPETERA VARJE ÅR</string>
     <plurals name="task_count">
         <item quantity="one">%d uppgift</item>
         <item quantity="other">%d uppgifter</item>
@@ -312,8 +303,6 @@
     </plurals>
     <string name="repeat_type_due">förfallodatum</string>
     <string name="repeat_type_completion">datum färdigställt</string>
-    <string name="repeat_number_of_times">Upprepa ett antal gånger</string>
-    <string name="repeat_occurs">Inträffar</string>
     <string name="TEA_timer_controls">Tidtagare</string>
     <string name="google_drive_backup">Google Drive-säkerhetskopia</string>
     <string name="row_spacing">Radavstånd</string>
@@ -371,9 +360,7 @@
     <string name="default_calendar">Standardkalender</string>
     <string name="badges_description">Visa en uppgiftsräkning på Tasks-startikon. Inte alla startprogram stöder märken.</string>
     <string name="bundle_notifications_summary">Kombinera flera aviseringar till en</string>
-    <string name="repeat_monthly_same_day_each_month">samma dag varje månad</string>
     <string name="repeat_monthly_every_day_of_nth_week">varje %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">på varje %1$s %2$s</string>
     <string name="repeat_monthly_first_week">första</string>
     <string name="repeat_monthly_second_week">andra</string>
     <string name="repeat_monthly_third_week">Tredje</string>

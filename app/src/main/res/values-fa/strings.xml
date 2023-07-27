@@ -124,8 +124,6 @@
     </plurals>
     <string name="repeat_type_due">تاریخ موعود</string>
     <string name="repeat_type_completion">تاریخ اتمام</string>
-    <string name="repeat_forever">تکرار بینهایت</string>
-    <string name="repeat_until">تکرار تا %s</string>
     <string name="new_tag">ایجاد تگ جدید</string>
     <string name="new_list">ایجاد لیست جدید</string>
     <string name="TFE_workingOn">وظایف زمانبندی شده</string>

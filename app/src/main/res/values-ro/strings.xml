@@ -114,9 +114,7 @@
     <string name="repeat_monthly_third_week">al treilea</string>
     <string name="repeat_monthly_second_week">al doilea</string>
     <string name="repeat_monthly_first_week">prima</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">la fiecare %1$s %2$s</string>
     <string name="repeat_monthly_every_day_of_nth_week">în fiecare %1$s %2$s</string>
-    <string name="repeat_monthly_same_day_each_month">în aceeași zi în fiecare lună</string>
     <string name="bundle_notifications_summary">Combinați mai multe notificări într-una singură</string>
     <string name="badges_description">Afișarea unui număr de sarcini pe pictograma de lansare a aplicației Tasks. Nu toate lansatoarele acceptă insigne.</string>
     <string name="default_calendar">Calendar implicit</string>
@@ -366,19 +364,12 @@
         <item quantity="few">%d sarcini</item>
         <item quantity="other">%d sarcini</item>
     </plurals>
-    <string name="repeat_yearly">SE REPETĂ ANUAL</string>
-    <string name="repeat_monthly">REPETIȚIE LUNARĂ</string>
-    <string name="repeat_weekly">REPETAȚI SĂPTĂMÂNAL</string>
-    <string name="repeat_daily">REPETIȚI ZILNIC</string>
-    <string name="repeat_hourly">REPETIȚIE ORARĂ</string>
-    <string name="repeat_minutely">REPETĂ CU MINUȚIOZITATE</string>
     <string name="repeat_option_custom">Personalizat…</string>
     <string name="repeat_option_every_year">În fiecare an</string>
     <string name="repeat_option_every_month">In fiecare luna</string>
     <string name="repeat_option_every_week">În fiecare săptămână</string>
     <string name="repeat_option_every_day">Zilnic</string>
     <string name="repeat_option_does_not_repeat">Nu se repetă</string>
-    <string name="repeat_every">Fiecare</string>
     <string name="default_random_reminder_bi_weekly">Bi-săptămânal</string>
     <string name="default_random_reminder_weekly">Săptămânal</string>
     <string name="default_random_reminder_daily">Zilnic</string>
@@ -658,10 +649,6 @@
     <string name="new_list">Creați o nouă listă</string>
     <string name="new_tag">Creați o nouă etichetă</string>
     <string name="repeat_snackbar">%1$s reprogramat pentru %2$s</string>
-    <string name="repeat_occurs">Se întâmplă</string>
-    <string name="repeat_number_of_times">Se repetă de mai multe ori</string>
-    <string name="repeat_until">Se repetă până la %s</string>
-    <string name="repeat_forever">Repetă pentru totdeauna</string>
     <string name="repeat_type_completion_capitalized">Data de finalizare</string>
     <string name="repeat_type_completion">data finalizării</string>
     <string name="repeat_type_due">data scadentă</string>

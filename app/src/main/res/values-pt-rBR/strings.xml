@@ -139,19 +139,12 @@
     <string name="default_random_reminder_daily">Diariamente</string>
     <string name="default_random_reminder_weekly">Semanalmente</string>
     <string name="default_random_reminder_bi_weekly">A cada duas semanas</string>
-    <string name="repeat_every">Todo</string>
     <string name="repeat_option_does_not_repeat">Não repete</string>
     <string name="repeat_option_every_day">Todos os dias</string>
     <string name="repeat_option_every_week">Todas as semanas</string>
     <string name="repeat_option_every_month">Todos os meses</string>
     <string name="repeat_option_every_year">Todos os anos</string>
     <string name="repeat_option_custom">Personalizado…</string>
-    <string name="repeat_minutely">REPETIR A CADA MINUTO</string>
-    <string name="repeat_hourly">REPETIR A CADA HORA</string>
-    <string name="repeat_daily">REPETIR DIARIAMENTE</string>
-    <string name="repeat_weekly">REPETIR SEMANALMENTE</string>
-    <string name="repeat_monthly">REPETIR MENSALMENTE</string>
-    <string name="repeat_yearly">REPETIR ANUALMENTE</string>
     <plurals name="task_count">
         <item quantity="one">%d tarefa</item>
         <item quantity="other">%d tarefas</item>
@@ -210,10 +203,6 @@
     </plurals>
     <string name="repeat_type_due">data de vencimento</string>
     <string name="repeat_type_completion">data de conclusão</string>
-    <string name="repeat_forever">Repetir para sempre</string>
-    <string name="repeat_until">Repetir até %s</string>
-    <string name="repeat_number_of_times">Repetir um número de vezes</string>
-    <string name="repeat_occurs">Ocorre</string>
     <string name="repeat_snackbar">%1$s remarcada para %2$s</string>
     <string name="new_tag">Criar nova etiqueta</string>
     <string name="new_list">Criar nova lista</string>
@@ -365,9 +354,7 @@
     <string name="default_calendar">Calendário padrão</string>
     <string name="badges_description">Mostrar a contagem de tarefas no ícone do Tasks no launcher. Nem todos os launchers suportam emblemas.</string>
     <string name="bundle_notifications_summary">Combinar múltiplas notificações em uma única</string>
-    <string name="repeat_monthly_same_day_each_month">no mesmo dia cada mês</string>
     <string name="repeat_monthly_every_day_of_nth_week">todo %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">em todo %1$s %2$s</string>
     <string name="repeat_monthly_first_week">primeiro</string>
     <string name="repeat_monthly_second_week">segundo</string>
     <string name="repeat_monthly_third_week">terceiro</string>

@@ -138,8 +138,6 @@
     <string name="default_random_reminder_daily">Diariamente</string>
     <string name="default_random_reminder_weekly">Semanalmente</string>
     <string name="default_random_reminder_bi_weekly">Quincenalmente</string>
-    <string name="repeat_forever">Repetir de por sempre</string>
-    <string name="repeat_until">Repetir ata o %s</string>
     <string name="repeat_snackbar">%1$s reprogramou esta tarefa para %2$s</string>
     <string name="new_tag">Crear nova etiqueta</string>
     <string name="new_list">Crea unha nova lista</string>
@@ -327,8 +325,6 @@
     <string name="repeat_option_every_week">Todas as semanas</string>
     <string name="repeat_option_every_month">Todos os meses</string>
     <string name="repeat_option_custom">Personalizado…</string>
-    <string name="repeat_minutely">REPETIR POR MINUTOS</string>
-    <string name="repeat_daily">REPETIR POR DÍAS</string>
     <plurals name="task_count">
         <item quantity="one">%d tarefa</item>
         <item quantity="other">%d tarefas</item>
@@ -341,7 +337,6 @@
         <item quantity="one">tempo</item>
         <item quantity="other">tempos</item>
     </plurals>
-    <string name="repeat_number_of_times">Repetir un número de veces</string>
     <string name="tomorrow_lowercase">mañá</string>
     <string name="next_tuesday">Próx Mar</string>
     <string name="next_wednesday">Próx Mér</string>
@@ -354,7 +349,6 @@
     <string name="action_create_new_task">Crear nova tarefa</string>
     <string name="show_description">Amosar descrición</string>
     <string name="repeats_plural_on">Repetir cada %1$s en %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">en cada %1$s %2$s</string>
     <string name="cannot_access_account">Non se pode acceder á conta</string>
     <string name="location_remind_arrival">Recordatorio de chegada</string>
     <string name="location_remind_departure">Recordatorio de saída</string>
@@ -424,7 +418,6 @@
     <string name="repeats_hourly">por hora</string>
     <string name="repeats_plural_on_until">Repetir cada %1$s en %2$s ata %3$s</string>
     <string name="repeats_plural_on_number_of_times">Repetir cada %1$s o %2$s, ocorre que %3$d %4$s</string>
-    <string name="repeat_monthly_same_day_each_month">no mesmo día de cada mes</string>
     <string name="license_summary">Tasks é software de código aberto, con licenza baixo a GNU General Public License v3.0</string>
     <string name="requires_pro_subscription">Precísase dunha suscrición pro</string>
     <string name="this_feature_requires_a_subscription">Esta característica necesita dunha suscrición</string>
@@ -511,12 +504,7 @@
     <string name="default_location_reminder_on_arrival_or_departure">Á chegada e á saída</string>
     <string name="no_start_date">Sen data de inicio</string>
     <string name="snooze_all">Pospoñer todo</string>
-    <string name="repeat_every">Todo</string>
     <string name="repeat_option_every_year">Todos os anos</string>
-    <string name="repeat_hourly">REPETIR POR HORAS</string>
-    <string name="repeat_weekly">REPETIR POR SEMANAS</string>
-    <string name="repeat_monthly">REPETIR POR MESES</string>
-    <string name="repeat_yearly">REPETIR POR ANOS</string>
     <string name="google_drive_backup">Seguranza en Google Drive</string>
     <string name="url_required">Precísase a URL</string>
     <string name="opacity_row">Opacidade da fila</string>
@@ -599,7 +587,6 @@
     <string name="alarm_after_start">%s despois do inicio</string>
     <string name="alarm_before_due">%s antes do límite</string>
     <string name="alarm_after_due">%s despois do límite</string>
-    <string name="repeat_occurs">Ocorre</string>
     <string name="CFC_startBefore_text">Comeza con: \?</string>
     <string name="CFC_startBefore_name">Comezar por…</string>
     <string name="filter_any_start_date">Calquera data de inicio</string>

@@ -144,19 +144,12 @@
     <string name="default_random_reminder_daily">יומי</string>
     <string name="default_random_reminder_weekly">שבועי</string>
     <string name="default_random_reminder_bi_weekly">דו שבועי</string>
-    <string name="repeat_every">כל</string>
     <string name="repeat_option_does_not_repeat">לא חוזר</string>
     <string name="repeat_option_every_day">כל יום</string>
     <string name="repeat_option_every_week">כל שבוע</string>
     <string name="repeat_option_every_month">כל חודש</string>
     <string name="repeat_option_every_year">כל שנה</string>
     <string name="repeat_option_custom">התאמה אישית…</string>
-    <string name="repeat_minutely">חזרה בדקות</string>
-    <string name="repeat_hourly">חזרה בשעות</string>
-    <string name="repeat_daily">חזרה בימים</string>
-    <string name="repeat_weekly">חזרה בשבועות</string>
-    <string name="repeat_monthly">חזרה בחודשים</string>
-    <string name="repeat_yearly">חזרה בשנים</string>
     <plurals name="task_count">
         <item quantity="one">%d משימה</item>
         <item quantity="two">%d משימות</item>
@@ -243,10 +236,6 @@
     </plurals>
     <string name="repeat_type_due">תאריך יעד</string>
     <string name="repeat_type_completion">תאריך סיום</string>
-    <string name="repeat_forever">חזור לנצח</string>
-    <string name="repeat_until">חזרה עד %s</string>
-    <string name="repeat_number_of_times">חוזר מספר פעמים</string>
-    <string name="repeat_occurs">קורה</string>
     <string name="repeat_snackbar">%1$s תזמן מחדש משימה חוזרת זו ל־%2$s</string>
     <string name="new_tag">יצירת תגית חדשה</string>
     <string name="new_list">יצירת רשימה חדשה</string>
@@ -402,9 +391,7 @@
     <string name="default_calendar">יומן ברירת מחדל</string>
     <string name="badges_description">הצגת כמות המשימות על הסמל של Tasks במשגר. לא כל המשגרים תומכים בעיטורים.</string>
     <string name="bundle_notifications_summary">שילוב מספר התראות באמת</string>
-    <string name="repeat_monthly_same_day_each_month">באותו היום בכל חודש</string>
     <string name="repeat_monthly_every_day_of_nth_week">בכל %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">בכל %1$s %2$s</string>
     <string name="repeat_monthly_first_week">ראשון</string>
     <string name="repeat_monthly_second_week">שני</string>
     <string name="repeat_monthly_third_week">שלישי</string>

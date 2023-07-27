@@ -663,7 +663,11 @@
           android:name="org.tasks.dialogs.SortSettingsActivity"
           android:theme="@style/TranslucentWindow" />
 
-      <!-- launcher icons -->
+    <activity
+        android:name="org.tasks.repeats.CustomRecurrenceActivity"
+        android:theme="@style/Tasks" />
+
+    <!-- launcher icons -->
 
     <activity-alias
       android:enabled="true"

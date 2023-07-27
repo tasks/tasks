@@ -312,9 +312,7 @@
     <string name="repeat_monthly_third_week">treći</string>
     <string name="repeat_monthly_second_week">drugi</string>
     <string name="repeat_monthly_first_week">prvi</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">na svaki %1$s %2$s</string>
     <string name="repeat_monthly_every_day_of_nth_week">svaki %1$s %2$s</string>
-    <string name="repeat_monthly_same_day_each_month">na isti dan svaki mjesec</string>
     <string name="bundle_notifications_summary">Spoji više obavijesti u jednu</string>
     <string name="badges_description">Prikaži broj zadataka na ikoni pokretača programa Tasks. Neki pokretači ne podržavaju značke.</string>
     <string name="default_calendar">Standardni kalendar</string>
@@ -452,13 +450,6 @@
         <item quantity="few">%d zadatka</item>
         <item quantity="other">%d zadataka</item>
     </plurals>
-    <string name="repeat_yearly">PONAVLJAJ GODIŠNJE</string>
-    <string name="repeat_monthly">PONAVLJAJ MJESEČNO</string>
-    <string name="repeat_weekly">PONAVLJAJ TJEDNO</string>
-    <string name="repeat_daily">PONAVLJAJ DNEVNO</string>
-    <string name="repeat_hourly">PONAVLJAJ SVAKI SAT</string>
-    <string name="repeat_minutely">PONAVLJAJ SVAKE MINUTE</string>
-    <string name="repeat_every">Svakih</string>
     <string name="default_random_reminder_bi_weekly">Dvotjedno</string>
     <string name="default_random_reminder_weekly">Tjedno</string>
     <string name="default_random_reminder_daily">Dnevno</string>
@@ -611,10 +602,6 @@
     <string name="TPl_notification">Mjerači vremena aktivni za %s!</string>
     <string name="delete_tag_confirmation">Izbrisati %s\?</string>
     <string name="repeat_snackbar">%1$s preraspoređen za %2$s</string>
-    <string name="repeat_occurs">Pojavljivanja</string>
-    <string name="repeat_number_of_times">Ponavljaj x-puta</string>
-    <string name="repeat_until">Ponavljaj do %s</string>
-    <string name="repeat_forever">Ponavljaj zauvijek</string>
     <string name="repeat_type_completion_capitalized">Datum obavljanja</string>
     <string name="repeat_type_completion">datum obavljanja</string>
     <string name="repeat_type_due">datum roka</string>

@@ -67,8 +67,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Inici de Silenci</string>
     <string name="rmd_EPr_quiet_hours_end_title">Final de Silenci</string>
     <string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
-    <string name="repeat_forever">Repeteix indefinidament</string>
-    <string name="repeat_until">Repeteix fins %s</string>
     <string name="TPl_notification">Temporitzadors actius per %s!</string>
     <string name="TFE_workingOn">Tasques sent cronometrades</string>
     <string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
@@ -177,7 +175,6 @@
     <string name="default_random_reminder_bi_weekly">Cada dues setmanes</string>
     <string name="repeat_option_every_week">Setmanalment</string>
     <string name="repeat_option_every_year">Anualment</string>
-    <string name="repeat_daily">REPETEIX CADA DIA</string>
     <string name="CFC_startBefore_text">Comença per: \?</string>
     <string name="CFC_startBefore_name">Comença per…</string>
     <string name="CFC_tag_contains_text">El nom de l\'etiqueta conté: \?</string>
@@ -189,9 +186,6 @@
     <string name="default_random_reminder_daily">A diari</string>
     <string name="default_random_reminder_weekly">Setmanalment</string>
     <string name="repeat_option_custom">Personalitza…</string>
-    <string name="repeat_minutely">REPETEIX CADA MINUT</string>
-    <string name="repeat_hourly">REPETEIX CADA HORA</string>
-    <string name="repeat_weekly">REPETEIX CADA SETMANA</string>
     <string name="no_start_date">Sense data d\'inici</string>
     <string name="CFC_tag_text">Etiqueta: \?</string>
     <string name="CFC_tag_contains_name">El nom de l\'etiqueta conté…</string>
@@ -202,8 +196,6 @@
         <item quantity="one">%d tasca</item>
         <item quantity="other">%d tasques</item>
     </plurals>
-    <string name="repeat_monthly">REPETEIX MENSUALMENT</string>
-    <string name="repeat_yearly">REPETEIX ANUALMENT</string>
     <string name="gtasks_GLA_errorIOAuth">Ho sentim, hem tingut problemes de comunicació amb els servidors de Google. Per favor torna-ho a intentar.</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
     <string name="gtasks_error_accountNotFound">Compte %s no trobat-si us plau desconnecta i torna a connectar-te des de la configuració de Google Tasks.</string>
@@ -211,7 +203,6 @@
     <string name="ring_five_times">Sona cinc cops</string>
     <string name="ring_nonstop">Sona ininterrompudament</string>
     <string name="snooze_all">Posposa tot</string>
-    <string name="repeat_every">Cada</string>
     <plurals name="reminder_hours">
         <item quantity="one">Hora</item>
         <item quantity="other">Hores</item>
@@ -292,9 +283,7 @@
     <string name="sort_completed">Per data de finalització</string>
     <string name="repeat_snackbar">%1$s reprogramat pel %2$s</string>
     <string name="repeat_type_completion_capitalized">Data de finalització</string>
-    <string name="repeat_number_of_times">Repeteix un número de vegades</string>
     <string name="repeat_type_due">data de venciment</string>
     <string name="repeat_type_completion">data de finalització</string>
     <string name="TEA_creation_date">Data de creació</string>
-    <string name="repeat_occurs">Succeeix</string>
 </resources>

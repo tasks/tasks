@@ -132,19 +132,12 @@
     <string name="default_random_reminder_daily">每天</string>
     <string name="default_random_reminder_weekly">每周</string>
     <string name="default_random_reminder_bi_weekly">每两周</string>
-    <string name="repeat_every">每</string>
     <string name="repeat_option_does_not_repeat">不要重复</string>
     <string name="repeat_option_every_day">每天</string>
     <string name="repeat_option_every_week">每周</string>
     <string name="repeat_option_every_month">每月</string>
     <string name="repeat_option_every_year">每年</string>
     <string name="repeat_option_custom">自定义…</string>
-    <string name="repeat_minutely">按分钟重复</string>
-    <string name="repeat_hourly">按小时重复</string>
-    <string name="repeat_daily">按天重复</string>
-    <string name="repeat_weekly">按周重复</string>
-    <string name="repeat_monthly">按月重复</string>
-    <string name="repeat_yearly">按年重复</string>
     <plurals name="task_count">
         <item quantity="other">%d 个任务</item>
     </plurals>
@@ -200,10 +193,6 @@
     </plurals>
     <string name="repeat_type_due">截止日期</string>
     <string name="repeat_type_completion">完成日期</string>
-    <string name="repeat_forever">永远重复</string>
-    <string name="repeat_until">重复到 %s</string>
-    <string name="repeat_number_of_times">重复多次</string>
-    <string name="repeat_occurs">发生</string>
     <string name="repeat_snackbar">%1$s 重新安排在 %2$s</string>
     <string name="new_tag">新建标签</string>
     <string name="new_list">新建列表</string>
@@ -352,9 +341,7 @@
     <string name="default_calendar">默认日历</string>
     <string name="badges_description">在 Tasks 启动图标上显示任务计数。不是所有的启动器都支持角标。</string>
     <string name="bundle_notifications_summary">将多个通知合并为一个通知</string>
-    <string name="repeat_monthly_same_day_each_month">在每月的同一天</string>
     <string name="repeat_monthly_every_day_of_nth_week">每 %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">在每 %1$s 个 %2$s</string>
     <string name="repeat_monthly_first_week">第一个</string>
     <string name="repeat_monthly_second_week">第二个</string>
     <string name="repeat_monthly_third_week">第三个</string>

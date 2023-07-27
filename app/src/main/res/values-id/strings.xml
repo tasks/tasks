@@ -101,19 +101,12 @@
     <string name="default_random_reminder_daily">Harian</string>
     <string name="default_random_reminder_weekly">Mingguan</string>
     <string name="default_random_reminder_bi_weekly">Dua mingguan</string>
-    <string name="repeat_every">Setiap</string>
     <string name="repeat_option_does_not_repeat">Tidak berulang</string>
     <string name="repeat_option_every_day">Setiap hari</string>
     <string name="repeat_option_every_week">Setiap minggu</string>
     <string name="repeat_option_every_month">Setiap bulan</string>
     <string name="repeat_option_every_year">Setiap tahun</string>
     <string name="repeat_option_custom">Khusus…</string>
-    <string name="repeat_minutely">ULANGI PER MENIT</string>
-    <string name="repeat_hourly">ULANGI PER JAM</string>
-    <string name="repeat_daily">ULANGI HARIAN</string>
-    <string name="repeat_weekly">ULANGI MINGGUAN</string>
-    <string name="repeat_monthly">ULANGI BULANAN</string>
-    <string name="repeat_yearly">ULANGI TAHUNAN</string>
     <plurals name="task_count">
         <item quantity="other">%d tugas</item>
     </plurals>
@@ -158,9 +151,6 @@
     </plurals>
     <string name="repeat_type_due">tanggal jatuh tempo</string>
     <string name="repeat_type_completion">tanggal selesai</string>
-    <string name="repeat_forever">Ulangi selamanya</string>
-    <string name="repeat_until">Ulangi sampai %s</string>
-    <string name="repeat_number_of_times">Ulangi beberapa kali</string>
     <string name="new_tag">Buat tag baru</string>
     <string name="new_list">Buat daftar baru</string>
     <string name="delete_tag_confirmation">Hapus %s\?</string>
@@ -309,7 +299,6 @@
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks akan mengucapkan nama tugas selama pengingat tugas berjalan</string>
     <string name="badges_description">Tampilkan jumlah tugas pada ikon peluncur Tasks. Tidak semua peluncur mendukung fitur lencana ini.</string>
     <string name="bundle_notifications_summary">Gabung beberapa notifikasi menjadi satu</string>
-    <string name="repeat_monthly_same_day_each_month">pada hari yang sama setiap bulan</string>
     <string name="repeat_monthly_first_week">pertama</string>
     <string name="repeat_monthly_second_week">kedua</string>
     <string name="repeat_monthly_third_week">ketiga</string>
@@ -566,7 +555,6 @@
     <string name="subscription">Langganan</string>
     <string name="caldav_home_set_not_found">Set beranda tidak ditemukan</string>
     <string name="repeat_monthly_fifth_week">kelima</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">pada setiap %1$s %2$s</string>
     <string name="repeat_monthly_every_day_of_nth_week">setiap %1$s %2$s</string>
     <string name="repeats_plural_on_until">Ulangi setiap %1$s pada %2$s sampai %3$s</string>
     <string name="repeats_plural_on">Ulangi setiap %1$s pada %2$s</string>
@@ -589,7 +577,6 @@
     <string name="TFE_workingOn">Tugas yang Dicatat Waktu</string>
     <string name="TPl_notification">Pencatat Waktu Aktif untuk %s!</string>
     <string name="repeat_snackbar">%1$s dijadwalkan ulang untuk %2$s</string>
-    <string name="repeat_occurs">Terjadi</string>
     <string name="repeat_type_completion_capitalized">tanggal selesai</string>
     <string name="persistent_notifications_description">Notifikasi tetap tidak dapat dihapus</string>
     <string name="rmd_EPr_rmd_time_desc">Notifikasi untuk tugas tanpa waktu jatuh tempo akan muncul pada %s</string>

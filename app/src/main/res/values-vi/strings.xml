@@ -291,11 +291,9 @@
     <string name="repeat_monthly_last_week">cuối cùng</string>
     <string name="repeat_monthly_fifth_week">thứ năm</string>
     <string name="repeat_monthly_fourth_week">thứ tư</string>
-    <string name="repeat_monthly_same_day_each_month">vào ngày đó mỗi tháng</string>
     <string name="repeat_monthly_third_week">thứ ba</string>
     <string name="repeat_monthly_second_week">thứ hai</string>
     <string name="repeat_monthly_first_week">đầu tiên</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">vào mỗi %1$s %2$s</string>
     <string name="repeat_monthly_every_day_of_nth_week">mỗi %1$s %2$s</string>
     <string name="bundle_notifications_summary">Kết hợp nhiều thông báo thành một</string>
     <string name="badges_description">Hiển thị số lượng công việc trên biểu tượng trên launcher của Tasks. Không phải tất cả launcher đều hỗ trợ huy hiệu.</string>
@@ -490,10 +488,6 @@
     <string name="new_list">Tạo danh sách mới</string>
     <string name="new_tag">Tạo thẻ mới</string>
     <string name="repeat_snackbar">%1$s đã được lên lịch lại cho %2$s</string>
-    <string name="repeat_occurs">Xảy ra</string>
-    <string name="repeat_number_of_times">Lặp lại một số lần</string>
-    <string name="repeat_until">Lặp lại đến %s</string>
-    <string name="repeat_forever">Lặp lại mãi mãi</string>
     <string name="repeat_type_completion_capitalized">Ngày hoàn thành</string>
     <string name="repeat_type_completion">ngày hoàn thành</string>
     <string name="repeat_type_due">ngày hạn</string>
@@ -545,19 +539,12 @@
     <plurals name="task_count">
         <item quantity="other">%d công việc</item>
     </plurals>
-    <string name="repeat_yearly">LẶP LẠI HÀNG NĂM</string>
-    <string name="repeat_monthly">LẶP LẠI HÀNG THÁNG</string>
-    <string name="repeat_weekly">LẶP LẠI HÀNG TUẦN</string>
-    <string name="repeat_daily">LẶP LẠI HÀNG NGÀY</string>
-    <string name="repeat_hourly">LẶP LẠI HÀNG TIẾNG</string>
-    <string name="repeat_minutely">LẶP LẠI HÀNG PHÚT</string>
     <string name="repeat_option_custom">Tuỳ chỉnh…</string>
     <string name="repeat_option_every_year">Mỗi năm</string>
     <string name="repeat_option_every_month">Mỗi tháng</string>
     <string name="repeat_option_every_week">Mỗi tuần</string>
     <string name="repeat_option_every_day">Mỗi ngày</string>
     <string name="repeat_option_does_not_repeat">Không lặp lại</string>
-    <string name="repeat_every">Mỗi</string>
     <string name="default_random_reminder_bi_weekly">Mỗi hai tuần</string>
     <string name="default_random_reminder_weekly">Hàng tuần</string>
     <string name="default_random_reminder_daily">Hàng ngày</string>

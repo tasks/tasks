@@ -148,19 +148,12 @@
     <string name="default_random_reminder_daily">Kas dieną</string>
     <string name="default_random_reminder_weekly">Kas savaitę</string>
     <string name="default_random_reminder_bi_weekly">Du kart savaitėje</string>
-    <string name="repeat_every">Kiekvieną</string>
     <string name="repeat_option_does_not_repeat">Nekartoti</string>
     <string name="repeat_option_every_day">Kiekvieną dieną</string>
     <string name="repeat_option_every_week">Kiekvieną savaitę</string>
     <string name="repeat_option_every_month">Kiekvieną mėnesį</string>
     <string name="repeat_option_every_year">Kiekvienais metais</string>
     <string name="repeat_option_custom">Individualizuotas…</string>
-    <string name="repeat_minutely">KARTOTI KAS MINUTĘ</string>
-    <string name="repeat_hourly">KARTOTI KAS VALANDĄ</string>
-    <string name="repeat_daily">KARTOTI KAS DIENĄ</string>
-    <string name="repeat_weekly">KARTOTI KAS SAVAITĘ</string>
-    <string name="repeat_monthly">KARTOTI KAS MĖNESĮ</string>
-    <string name="repeat_yearly">KARTOTI KAS METUS</string>
     <plurals name="task_count">
         <item quantity="one">%d užduotis</item>
         <item quantity="few">%d užduotys</item>
@@ -233,10 +226,6 @@
     </plurals>
     <string name="repeat_type_due">termino data</string>
     <string name="repeat_type_completion">Užbaigimo data</string>
-    <string name="repeat_forever">Kartoti amžinai</string>
-    <string name="repeat_until">Kartoti iki %s</string>
-    <string name="repeat_number_of_times">Kartoti nustatytą kiekį kartų</string>
-    <string name="repeat_occurs">Įvyksta</string>
     <string name="repeat_snackbar">%1$s perplanuotas šiai datai: %2$s</string>
     <string name="new_tag">Sukurti naują etiketę</string>
     <string name="new_list">Sukurti naują sąrašą</string>
@@ -389,9 +378,7 @@
     <string name="default_calendar">Numatytas kalendorius</string>
     <string name="badges_description">Rodyti užduočių kiekį Tasks paleidimo piktogramoje. Ne visos paleidimo programos palaiko šią funkciją.</string>
     <string name="bundle_notifications_summary">Sujungti kelis pranešimus į vieną</string>
-    <string name="repeat_monthly_same_day_each_month">Tą pačią mėnesio dieną</string>
     <string name="repeat_monthly_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
     <string name="repeat_monthly_first_week">pirmą</string>
     <string name="repeat_monthly_second_week">antrą</string>
     <string name="repeat_monthly_third_week">trečią</string>

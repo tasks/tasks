@@ -126,7 +126,6 @@
     <string name="TEA_note_label">ଵର୍ଣ୍ଣନା</string>
     <string name="TEA_importance_label">ପ୍ରାଥମିକତା</string>
     <string name="default_random_reminder_hourly">ପ୍ରତି ଘଣ୍ଟା</string>
-    <string name="repeat_every">ପ୍ରତ୍ୟେକ</string>
     <string name="repeat_option_every_year">ପ୍ରତିଵର୍ଷ</string>
     <string name="repeat_option_every_month">ପ୍ରତି ମାସ</string>
     <plurals name="repeat_n_hours">

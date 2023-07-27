@@ -134,19 +134,12 @@
     <string name="default_random_reminder_daily">Päivittäin</string>
     <string name="default_random_reminder_weekly">Viikoittain</string>
     <string name="default_random_reminder_bi_weekly">Jokatoinen viikko</string>
-    <string name="repeat_every">Joka</string>
     <string name="repeat_option_does_not_repeat">Älä toista</string>
     <string name="repeat_option_every_day">Joka päivä</string>
     <string name="repeat_option_every_week">Joka viikko</string>
     <string name="repeat_option_every_month">Joka kuukausi</string>
     <string name="repeat_option_every_year">Joka vuosi</string>
     <string name="repeat_option_custom">Valinnainen…</string>
-    <string name="repeat_minutely">TOISTA MINUUTEITTAIN</string>
-    <string name="repeat_hourly">TOISTA TUNNEITTAIN</string>
-    <string name="repeat_daily">TOISTA PÄIVITTÄIN</string>
-    <string name="repeat_weekly">TOISTA VIIKOTTAIN</string>
-    <string name="repeat_monthly">TOISTA KUUKAUSITTAIN</string>
-    <string name="repeat_yearly">TOISTA VUOSITTAIN</string>
     <plurals name="task_count">
         <item quantity="one">%d tehtävä</item>
         <item quantity="other">%d tehtävät</item>
@@ -205,10 +198,6 @@
     </plurals>
     <string name="repeat_type_due">Määräpäivä</string>
     <string name="repeat_type_completion">valmistumispäivä</string>
-    <string name="repeat_forever">Toista loputtomiin</string>
-    <string name="repeat_until">Toista kunnes %s</string>
-    <string name="repeat_number_of_times">Toista useita kertoja</string>
-    <string name="repeat_occurs">Tapahtuu</string>
     <string name="repeat_snackbar">%1$s uudelleenajastettu %2$s</string>
     <string name="new_tag">Luo uusi tunniste</string>
     <string name="new_list">Luo uusi lista</string>
@@ -347,9 +336,7 @@
     <string name="default_calendar">Oletus kalenteri</string>
     <string name="badges_description">Näytä tehtävien lukumäärä Tasksin käynnistyskuvakkeessa. Kaikki käynnistimet eivät tue merkkejä.</string>
     <string name="bundle_notifications_summary">Yhdistä useita ilmoituksia yhdeksi</string>
-    <string name="repeat_monthly_same_day_each_month">sama päivä joka kuukausi</string>
     <string name="repeat_monthly_every_day_of_nth_week">joka %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">jokaisella %1$s %2$s</string>
     <string name="repeat_monthly_first_week">ensimmäinen</string>
     <string name="repeat_monthly_second_week">toinen</string>
     <string name="repeat_monthly_third_week">kolmas</string>

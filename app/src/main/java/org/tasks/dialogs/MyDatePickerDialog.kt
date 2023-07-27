@@ -5,7 +5,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALENDAR
 import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_TEXT
@@ -65,15 +64,6 @@ class MyDatePickerDialog : DialogFragment() {
     companion object {
         const val FRAG_TAG_DATE_PICKER = "frag_date_picker"
         const val EXTRA_TIMESTAMP = "extra_timestamp"
-
-        @JvmStatic
-        fun newDatePicker(target: Fragment, rc: Int, initial: Long) =
-            MyDatePickerDialog().apply {
-                arguments = Bundle().apply {
-                    putLong(EXTRA_TIMESTAMP, initial)
-                }
-                setTargetFragment(target, rc)
-            }
 
         @JvmStatic
         fun newDatePicker(initial: Long, inputMode: Int) =

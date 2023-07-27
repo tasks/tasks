@@ -14,8 +14,6 @@
     <string name="CFC_dueBefore_text">Po datumu: ?</string>
     <string name="gcal_completed_title">%s (završeno)</string>
     <string name="rmd_EPr_defaultRemind_title">Nasumice posetnik</string>
-    <string name="repeat_forever">Ponavljaj zauvek</string>
-    <string name="repeat_until">Interval ponavljanja %s</string>
     <string name="delete_task">Obriši zadatak</string>
     <string name="vibrations">Vibracije</string>
     <string name="contact_developer">Kontaktiraj razvojni tim</string>

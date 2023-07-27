@@ -79,7 +79,6 @@
     <string name="default_random_reminder_daily">يومي</string>
     <string name="default_random_reminder_weekly">أسبوعي</string>
     <string name="default_random_reminder_bi_weekly">مرتين في الأسبوع</string>
-    <string name="repeat_forever">كرِّر للأبد</string>
     <string name="TEA_timer_controls">مؤقت</string>
     <string name="TEA_timer_comment_started">بدء هذه المهمة:</string>
     <string name="TEA_timer_comment_spent">الوقت المنقضي:</string>
@@ -196,7 +195,6 @@
     <string name="priority_medium">متوسط</string>
     <string name="priority_high">عال</string>
     <string name="date_and_time">التاريخ والوقت</string>
-    <string name="repeat_until">كرِّر حتَّى %s</string>
     <plurals name="task_count">
         <item quantity="zero">لا مهام</item>
         <item quantity="one">مهمة واحدة</item>
@@ -207,12 +205,6 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">تاريخ الإكمال</string>
     <string name="repeat_type_completion">تاريخ الإكمال</string>
-    <string name="repeat_minutely">كرِّر كل دقيقة</string>
-    <string name="repeat_yearly">كرِّر سنويًّا</string>
-    <string name="repeat_monthly">كرِّر شهريًّا</string>
-    <string name="repeat_weekly">كرِّر أسبوعيًّا</string>
-    <string name="repeat_daily">كرِّر يوميًّا</string>
-    <string name="repeat_hourly">كرِّر كلّ ساعة</string>
     <string name="above_average">فوق المتوسط</string>
     <string name="icon">الأيقونة</string>
     <string name="copy">نسخ</string>
@@ -222,8 +214,6 @@
     <string name="date_shortcut_night">ليلًا</string>
     <string name="date_shortcut_evening">مساءً</string>
     <string name="date_shortcut_morning">صباحًا</string>
-    <string name="repeat_number_of_times">كرّر عددًا من المرات</string>
-    <string name="repeat_every">كلّ</string>
     <string name="default_random_reminder_hourly">كل ساعة</string>
     <string name="no_reminders">لا منبهات</string>
     <string name="always_display_full_date">أظهر التاريخ الكامل</string>
@@ -410,7 +400,6 @@
     <string name="this_feature_requires_a_subscription">هذه الميزة تحتاج إلى اشتراك</string>
     <string name="network_error">لم يمكن الاتصال</string>
     <string name="tasker_create_task">أنشأ مهمّة</string>
-    <string name="repeat_monthly_same_day_each_month">في نفس اليوم شهريًّا</string>
     <string name="default_calendar">التقويم الافتراضي</string>
     <string name="dont_add_to_calendar">لا تضف إلى التقويم</string>
     <string name="repeats_from">تكرار من</string>
@@ -574,7 +563,6 @@
     <string name="upgrade_to_pro">طور لاصدار متقدم</string>
     <string name="help_and_feedback">مساعدة وتبليغات</string>
     <string name="tasker_list_notification">قائمة الاشعارات</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">في كل %1$s %2$s</string>
     <string name="repeat_monthly_every_day_of_nth_week">كل %1$s %2$s</string>
     <string name="repeats_plural_on_until">كرره كل %1$s في %2$s حتى %3$s</string>
     <string name="repeats_plural_number_of_times">كرره كل %1$s، يحدث %2$d %3$s</string>
@@ -691,7 +679,6 @@
         <item quantity="many">%d ساعة</item>
         <item quantity="other">%d ساعة</item>
     </plurals>
-    <string name="repeat_occurs">يحدث</string>
     <string name="background_location">موقع الخلفية</string>
     <string name="foreground_location">موقع المقدمة</string>
     <string name="sort_due_group">مستحق %s</string>

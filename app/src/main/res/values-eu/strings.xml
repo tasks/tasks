@@ -144,19 +144,12 @@
     <string name="default_random_reminder_daily">Egunero</string>
     <string name="default_random_reminder_weekly">Astero</string>
     <string name="default_random_reminder_bi_weekly">Bi astean behin</string>
-    <string name="repeat_every">Errepikapena</string>
     <string name="repeat_option_does_not_repeat">Ez errepikatu</string>
     <string name="repeat_option_every_day">Egunero</string>
     <string name="repeat_option_every_week">Astero</string>
     <string name="repeat_option_every_month">Hilabetero</string>
     <string name="repeat_option_every_year">Urtero</string>
     <string name="repeat_option_custom">Pertsonalizatua…</string>
-    <string name="repeat_minutely">ERREPIKATU MINUTUKO</string>
-    <string name="repeat_hourly">ERREPIKATU ORDUKO</string>
-    <string name="repeat_daily">ERREPIKATU EGUNEKO</string>
-    <string name="repeat_weekly">ERREPIKATU ASTEKO</string>
-    <string name="repeat_monthly">ERREPIKATU HILABETEKO</string>
-    <string name="repeat_yearly">ERREPIKATU URTEKO</string>
     <plurals name="task_count">
         <item quantity="one">Zeregin %d</item>
         <item quantity="other">%d zeregin</item>
@@ -215,10 +208,6 @@
     </plurals>
     <string name="repeat_type_due">epemuga-data</string>
     <string name="repeat_type_completion">burutze-data</string>
-    <string name="repeat_forever">Errepikatu betirako</string>
-    <string name="repeat_until">Errepikatu %s arte</string>
-    <string name="repeat_number_of_times">Errepikatu aldi kopuru bat</string>
-    <string name="repeat_occurs">Errepikapenak</string>
     <string name="repeat_snackbar">%1$s %2$s-rako programatuta</string>
     <string name="new_tag">Sortu etiketa berria</string>
     <string name="new_list">Sortu zerrenda berria</string>
@@ -373,9 +362,7 @@
     <string name="default_calendar">Lehenetsitako egutegia</string>
     <string name="badges_description">Bistaratu zeregin kopurua abiarazleko Tasks ikonoan. Abiarazle guztiek ez dituzte dominak onartzen.</string>
     <string name="bundle_notifications_summary">Taldekatu hainbat jakinarazpen batean</string>
-    <string name="repeat_monthly_same_day_each_month">egun berean hilero</string>
     <string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s bakoitzean</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">%1$s %2$s bakoitzean</string>
     <string name="repeat_monthly_first_week">lehen</string>
     <string name="repeat_monthly_second_week">bigarren</string>
     <string name="repeat_monthly_third_week">hirugarren</string>

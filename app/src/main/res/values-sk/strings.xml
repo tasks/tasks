@@ -144,19 +144,12 @@
     <string name="default_random_reminder_daily">denne</string>
     <string name="default_random_reminder_weekly">Týždenne</string>
     <string name="default_random_reminder_bi_weekly">Každý druhý týždeň</string>
-    <string name="repeat_every">Každý</string>
     <string name="repeat_option_does_not_repeat">Neopakovať</string>
     <string name="repeat_option_every_day">Každý deň</string>
     <string name="repeat_option_every_week">Každý týždeň</string>
     <string name="repeat_option_every_month">Každý mesiac</string>
     <string name="repeat_option_every_year">Každý rok</string>
     <string name="repeat_option_custom">Vlastné…</string>
-    <string name="repeat_minutely">OPAKOVAŤ KAŽDÚ MINÚTU</string>
-    <string name="repeat_hourly">OPAKOVAŤ KAŽDÚ HODINU</string>
-    <string name="repeat_daily">OPAKOVAŤ KAŽDÝ DEŇ</string>
-    <string name="repeat_weekly">OPAKOVAŤ KAŽDÝ TÝŽDEŇ</string>
-    <string name="repeat_monthly">OPAKOVAŤ KAŽDÝ MESIAC</string>
-    <string name="repeat_yearly">OPAKOVAŤ KAŽDÝ ROK</string>
     <plurals name="task_count">
         <item quantity="one">%d úloha</item>
         <item quantity="other">%d úloh</item>
@@ -215,10 +208,6 @@
     </plurals>
     <string name="repeat_type_due">termín</string>
     <string name="repeat_type_completion">deň dokončenia</string>
-    <string name="repeat_forever">Opakovať donekonečna</string>
-    <string name="repeat_until">Opakovať do %s</string>
-    <string name="repeat_number_of_times">Opakovať určitý počet krát</string>
-    <string name="repeat_occurs">Vyskytuje sa</string>
     <string name="repeat_snackbar">%1$s preložené na %2$s</string>
     <string name="new_tag">Vytvoriť nový štítok</string>
     <string name="new_list">Vytvoriť nový zoznam</string>
@@ -369,9 +358,7 @@
     <string name="default_calendar">Východzí kalendár</string>
     <string name="badges_description">Zobraziť počet úloh na ikone spustenia Úloh. Niektoré spúšťače nepodporujú odznaky.</string>
     <string name="bundle_notifications_summary">Zlúč viaceré upozornenia do jedného</string>
-    <string name="repeat_monthly_same_day_each_month">v ten istý deň v každom mesiaci</string>
     <string name="repeat_monthly_every_day_of_nth_week">každý %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">na každý %1$s %2$s</string>
     <string name="repeat_monthly_first_week">prvý</string>
     <string name="repeat_monthly_second_week">druhý</string>
     <string name="repeat_monthly_third_week">tretí</string>

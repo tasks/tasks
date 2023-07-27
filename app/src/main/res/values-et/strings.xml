@@ -109,7 +109,6 @@
     <string name="rmd_EPr_rmd_time_title">Vaikimisi meeldetuletus</string>
     <string name="persistent_notifications">Püsiv meeldetuletus</string>
     <string name="default_random_reminder_disabled">Välja lülitatud</string>
-    <string name="repeat_every">Iga</string>
     <string name="repeat_option_does_not_repeat">Ei kordu</string>
     <string name="repeat_option_every_day">Iga päev</string>
     <string name="repeat_option_every_week">Iga nädal</string>
@@ -117,9 +116,6 @@
     <string name="repeat_option_every_year">Iga aasta</string>
     <string name="repeat_option_custom">Kohandatud…</string>
     <string name="repeat_type_completion">lõpetamise kuupäev</string>
-    <string name="repeat_forever">Korda igavesti</string>
-    <string name="repeat_until">Korda kuni %s</string>
-    <string name="repeat_number_of_times">Korda määratud arv kordi</string>
     <string name="new_list">Loo uus nimekiri</string>
     <string name="TEA_timer_controls">Taimer</string>
     <string name="delete_task">Kustuta ülesanne</string>

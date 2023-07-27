@@ -143,19 +143,12 @@
     <string name="default_random_reminder_daily">Dagelijks</string>
     <string name="default_random_reminder_weekly">Wekelijks</string>
     <string name="default_random_reminder_bi_weekly">Elke twee weken</string>
-    <string name="repeat_every">Elke</string>
     <string name="repeat_option_does_not_repeat">Niet herhalen</string>
     <string name="repeat_option_every_day">Elke dag</string>
     <string name="repeat_option_every_week">Elke week</string>
     <string name="repeat_option_every_month">Elke maand</string>
     <string name="repeat_option_every_year">Elk jaar</string>
     <string name="repeat_option_custom">Aangepast…</string>
-    <string name="repeat_minutely">HERHAAL ELKE MINUUT</string>
-    <string name="repeat_hourly">HERHAAL ELK UUR</string>
-    <string name="repeat_daily">HERHAAL DAGELIJKS</string>
-    <string name="repeat_weekly">HERHAAL WEKELIJKS</string>
-    <string name="repeat_monthly">HERHAAL MAANDELIJKS</string>
-    <string name="repeat_yearly">HERHAAL JAARLIJKS</string>
     <plurals name="task_count">
         <item quantity="one">%d taak</item>
         <item quantity="other">%d taken</item>
@@ -214,10 +207,6 @@
     </plurals>
     <string name="repeat_type_due">vervaldatum</string>
     <string name="repeat_type_completion">voltooiingsdatum</string>
-    <string name="repeat_forever">Eindeloos herhalen</string>
-    <string name="repeat_until">Herhalen tot %s</string>
-    <string name="repeat_number_of_times">N-keer herhalen</string>
-    <string name="repeat_occurs">Gebeurt</string>
     <string name="repeat_snackbar">%1$s verplaatst naar %2$s</string>
     <string name="new_tag">Nieuw label aanmaken</string>
     <string name="new_list">Nieuwe lijst maken</string>
@@ -363,9 +352,7 @@
     <string name="default_calendar">Standaardkalender</string>
     <string name="badges_description">Toon taken teller bij pictogram van Tasks. Niet alle launchers ondersteunen badges.</string>
     <string name="bundle_notifications_summary">Combineer meerdere meldingen samen in één</string>
-    <string name="repeat_monthly_same_day_each_month">elke maand op dezelfde dag</string>
     <string name="repeat_monthly_every_day_of_nth_week">elke %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">op elke %1$s %2$s</string>
     <string name="repeat_monthly_first_week">eerste</string>
     <string name="repeat_monthly_second_week">tweede</string>
     <string name="repeat_monthly_third_week">derde</string>

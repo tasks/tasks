@@ -45,9 +45,6 @@
     <string name="geofence_radius">අරය</string>
     <string name="voice_command_added_task">කාර්යය එකතු කරන ලදි</string>
     <string name="TEA_timer_comment_started">මෙම කාර්යය ආරම්භ කරන ලදි:</string>
-    <string name="repeat_occurs">සිදු වේ</string>
-    <string name="repeat_number_of_times">කිහිප වතාවක් නැවත කරන්න</string>
-    <string name="repeat_until">%s තෙක් නැවත කරන්න</string>
     <plurals name="repeat_minutes">
         <item quantity="one">විනාඩි</item>
         <item quantity="other">විනාඩි</item>
@@ -234,7 +231,6 @@
     <string name="davx5_selection_description">DAVx⁵ යෙදුම සමඟ ඔබගේ කාර්යයන් සමමුහුර්ත කරන්න</string>
     <string name="decsync_selection_description">ගොනු මත පදනම් වූ සමමුහුර්තකරණය</string>
     <string name="tasks_org_description">Tasks.org සමඟ ඔබේ කාර්යයන් සමමුහුර්ත කරන්න</string>
-    <string name="repeat_every">සෑම</string>
     <string name="widget_show_checkboxes">පිරික්සුම් කොටු පෙන්වන්න</string>
     <string name="yesterday_abbrev_lowercase">ඊයේ</string>
     <string name="yest">ඊයේ</string>
@@ -269,7 +265,6 @@
     <string name="delete_tag_confirmation">%s මකාදමනවාද\?</string>
     <string name="new_list">නව ලැයිස්තුවක් සාදන්න</string>
     <string name="new_tag">නව ටැගයක් සාදන්න</string>
-    <string name="repeat_forever">දිගටම නැවත කරන්න</string>
     <string name="repeat_type_completion_capitalized">සම්පූර්ණ කරන දිනය</string>
     <string name="repeat_type_completion">සම්පූර්ණ කරන දිනය</string>
     <plurals name="repeat_n_years">
@@ -329,12 +324,6 @@
         <item quantity="other">කාර්යයන් %d</item>
     </plurals>
     <string name="rmd_EPr_rmd_time_desc">නියමිත වේලාවක් නොමැති කාර්යයන් සඳහා දැනුම්දීම් %s හි දිස්වනු ඇත</string>
-    <string name="repeat_yearly">වසරකට වතාවක් නැවත</string>
-    <string name="repeat_monthly">මාසයකට වතාවක් නැවත</string>
-    <string name="repeat_weekly">සතියකට වතාවක් නැවත</string>
-    <string name="repeat_daily">සෑම දිනකම නැවත</string>
-    <string name="repeat_hourly">පැයකට වතාවක් නැවත</string>
-    <string name="repeat_minutely">මිනිත්තුවකට වතාවක් නැවත</string>
     <string name="repeat_option_custom">අභිරුචි…</string>
     <string name="repeat_option_every_year">සෑම වසරකම</string>
     <string name="repeat_option_every_month">සෑම මාසයකම</string>
@@ -412,7 +401,6 @@
     <string name="pro_dashclock_extension">Dashclock දිගුව</string>
     <string name="upgrade_to_pro">Pro වෙත උත්ශ්‍රේණි කරන්න</string>
     <string name="caldav_home_set_not_found">CalDAV Home Set හමු නොවීය</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">සෑම %1$s %2$s</string>
     <string name="repeat_monthly_every_day_of_nth_week">සෑම %1$s %2$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_on_number_of_times">පුනරාවර්තනය සෑම %1$s %2$s, %3$d %4$s සිදු වේ</string>
@@ -572,7 +560,6 @@
     <string name="repeat_monthly_third_week">තෙවන</string>
     <string name="repeat_monthly_second_week">දෙවැනි</string>
     <string name="repeat_monthly_first_week">පළමුවන</string>
-    <string name="repeat_monthly_same_day_each_month">සෑම මසකම එකම දිනයක</string>
     <string name="bundle_notifications_summary">බහුවිධ දැනුම්දීම් එකකට ඒකාබද්ධ කරන්න</string>
     <string name="badges_description">Tasks දියත් කිරීමේ නිරූපකයේ කාර්ය ගණන පෙන්වන්න. සියලුම දියත් කරන්නන් (launchers) ලාංඡන සඳහා සහය නොදක්වයි.</string>
     <string name="default_calendar">පෙරනිමි දින දර්ශනය</string>

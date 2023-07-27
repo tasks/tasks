@@ -117,8 +117,6 @@
     <string name="default_random_reminder_daily">Denně</string>
     <string name="default_random_reminder_weekly">Týdně</string>
     <string name="default_random_reminder_bi_weekly">Každých čtrnáct dní</string>
-    <string name="repeat_forever">Opakovat stále</string>
-    <string name="repeat_until">Opakovat až do %s</string>
     <string name="new_tag">Vytvořit nový štítek</string>
     <string name="delete_tag_confirmation">Smazat %s?</string>
     <string name="TPl_notification">Časovače aktivní pro %s!</string>
@@ -221,18 +219,12 @@
     <string name="snooze_all">Odložit vše</string>
     <string name="persistent_notifications">Trvalá upozornění</string>
     <string name="persistent_notifications_description">Trvalá upozornění nemohou být odstraněna</string>
-    <string name="repeat_every">Každý</string>
     <string name="repeat_option_does_not_repeat">Neopakuje se</string>
     <string name="repeat_option_every_day">Každý den</string>
     <string name="repeat_option_every_week">Každý týden</string>
     <string name="repeat_option_every_month">Každý měsíc</string>
     <string name="repeat_option_every_year">Každý rok</string>
     <string name="repeat_option_custom">Vlastní…</string>
-    <string name="repeat_hourly">OPAKOVAT PO HODINĚ</string>
-    <string name="repeat_daily">OPAKOVAT DENNĚ</string>
-    <string name="repeat_weekly">OPAKOVAT TÝDNĚ</string>
-    <string name="repeat_monthly">OPAKOVAT MĚSÍČNĚ</string>
-    <string name="repeat_yearly">OPAKOVAT KAŽDOROČNĚ</string>
     <plurals name="task_count">
         <item quantity="one">%d úkol</item>
         <item quantity="few">%d úkoly</item>
@@ -310,7 +302,6 @@
     </plurals>
     <string name="repeat_type_due">termínu úkolu</string>
     <string name="repeat_type_completion">okamžiku dokončení</string>
-    <string name="repeat_occurs">Výskytů</string>
     <string name="repeat_snackbar">Úkol %1$s byl znovu naplánován na %2$s</string>
     <string name="new_list">Vytvořit nový seznam</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks bude při upomínce nahlas číst název úkolu</string>
@@ -381,7 +372,6 @@
     <string name="default_calendar">Výchozí kalendář</string>
     <string name="badges_description">Zobrazit počet úkolů u ikony Tasks. Některé spouštěče tuto funkci nepodporují.</string>
     <string name="bundle_notifications_summary">Seskupit několik upozornění do jednoho</string>
-    <string name="repeat_monthly_same_day_each_month">ve stejný den každý měsíc</string>
     <string name="repeat_monthly_every_day_of_nth_week">každý %1$s %2$s</string>
     <string name="repeat_monthly_first_week">první</string>
     <string name="repeat_monthly_second_week">druhý</string>
@@ -405,8 +395,6 @@
     <string name="requires_pro_subscription">Vyžaduje PRO předplatné</string>
     <string name="logout">Odhlásit se</string>
     <string name="this_feature_requires_a_subscription">Tato funkce vyžaduje předplatné</string>
-    <string name="repeat_minutely">OPAKOVAT PO MINUTĚ</string>
-    <string name="repeat_number_of_times">Opakovat několikrát</string>
     <string name="when_overdue">Po termínu</string>
     <string name="logout_warning">Všechna data daného účtu budou z tohoto zařízení odstraněna</string>
     <string name="cannot_access_account">Nepodařilo se připojit k účtu</string>
@@ -421,7 +409,6 @@
     <string name="list_settings">Nastavení seznamu</string>
     <string name="repeats_plural_on_number_of_times">Opakuje se každý %1$s v %2$s, ještě %3$d %4$s</string>
     <string name="theme_system_default">Podle systému</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">každý %1$s %2$s</string>
     <string name="or_choose_a_location">Nebo vyberte místo</string>
     <string name="missing_permissions">Chybí oprávnění</string>
     <string name="location_permission_required_location">Oprávnění k přístupu k poloze je nutné pro zjištění vaší aktuální polohy</string>

@@ -89,8 +89,6 @@
         <item quantity="one">år</item>
         <item quantity="other">år</item>
     </plurals>
-    <string name="repeat_forever">Gjenta for alltid</string>
-    <string name="repeat_until">Gjenta til %s</string>
     <string name="TPl_notification">%s har aktive tidtakere!</string>
     <string name="TFE_workingOn">Gjøremål med tidtaker</string>
     <string name="TEA_timer_controls">Nedtelling</string>
@@ -229,19 +227,12 @@
     <string name="default_random_reminder_daily">Daglig</string>
     <string name="default_random_reminder_weekly">Ukentlig</string>
     <string name="default_random_reminder_bi_weekly">Annenhver uke</string>
-    <string name="repeat_every">Hver</string>
     <string name="repeat_option_does_not_repeat">Gjentas ikke</string>
     <string name="repeat_option_every_day">Hver dag</string>
     <string name="repeat_option_every_week">Hver uke</string>
     <string name="repeat_option_every_month">Månedlig</string>
     <string name="repeat_option_every_year">Årlig</string>
     <string name="repeat_option_custom">Egendefinert…</string>
-    <string name="repeat_minutely">GJENTA HVERT MINUTT</string>
-    <string name="repeat_hourly">GJENTA HVER TIME</string>
-    <string name="repeat_daily">GJENTA DAGLIG</string>
-    <string name="repeat_weekly">GJENTA UKENTLIG</string>
-    <string name="repeat_monthly">GJENTA MÅNEDLIG</string>
-    <string name="repeat_yearly">GJENTA ÅRLIG</string>
     <plurals name="task_count">
         <item quantity="one">%d gjøremål</item>
         <item quantity="other">%d gjøremål</item>
@@ -272,8 +263,6 @@
     </plurals>
     <string name="repeat_type_due">tidsfristsdato</string>
     <string name="repeat_type_completion">fullføringsdato</string>
-    <string name="repeat_number_of_times">Gjenta et antall ganger</string>
-    <string name="repeat_occurs">Inntreffer</string>
     <string name="repeat_snackbar">%1$s flyttet til %2$s</string>
     <string name="new_tag">Opprett en ny etikett</string>
     <string name="new_list">Opprett en ny liste</string>
@@ -373,9 +362,7 @@
     <string name="dont_add_to_calendar">Ikke legg til i kalender</string>
     <string name="default_calendar">Forvalgt kalender</string>
     <string name="badges_description">Vis gjøremålsantall i Task-oppstarterikonet. Ikke alle oppstartere støtter merker.</string>
-    <string name="repeat_monthly_same_day_each_month">på samme dag hver måned</string>
     <string name="repeat_monthly_every_day_of_nth_week">hver %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">hver %1$s %2$s</string>
     <string name="repeat_monthly_first_week">første</string>
     <string name="repeat_monthly_second_week">andre</string>
     <string name="repeat_monthly_third_week">tredje</string>

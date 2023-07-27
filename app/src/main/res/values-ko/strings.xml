@@ -144,19 +144,12 @@
     <string name="default_random_reminder_daily">매일</string>
     <string name="default_random_reminder_weekly">매주</string>
     <string name="default_random_reminder_bi_weekly">격주로</string>
-    <string name="repeat_every">매</string>
     <string name="repeat_option_does_not_repeat">반복하지 않기</string>
     <string name="repeat_option_every_day">매일</string>
     <string name="repeat_option_every_week">매주</string>
     <string name="repeat_option_every_month">매월</string>
     <string name="repeat_option_every_year">매년</string>
     <string name="repeat_option_custom">사용자설정…</string>
-    <string name="repeat_minutely">매분 반복</string>
-    <string name="repeat_hourly">매시 반복</string>
-    <string name="repeat_daily">매일 반복</string>
-    <string name="repeat_weekly">매주 반복</string>
-    <string name="repeat_monthly">매월 반복</string>
-    <string name="repeat_yearly">매년 반복</string>
     <plurals name="task_count">
         <item quantity="one">%d 할일</item>
         <item quantity="other">%d 할일들</item>
@@ -215,10 +208,6 @@
     </plurals>
     <string name="repeat_type_due">마감일</string>
     <string name="repeat_type_completion">완료일</string>
-    <string name="repeat_forever">계속 반복</string>
-    <string name="repeat_until">%s 까지 반복</string>
-    <string name="repeat_number_of_times">여러회 반복</string>
-    <string name="repeat_occurs">반복횟수</string>
     <string name="repeat_snackbar">%1$s 이 %2$s 로 변경되었습니다</string>
     <string name="new_tag">새 태그 만들기</string>
     <string name="new_list">새 목록 만들기</string>
@@ -368,9 +357,7 @@
     <string name="default_calendar">기본 달력</string>
     <string name="badges_description">Tasks 앱 아이콘 위에 할일 개수를 표시합니다. 모든 런처가 배지 기능을 지원하지는 않습니다. </string>
     <string name="bundle_notifications_summary">여러 상태바 알림을 하나로 묶어서 표시합니다</string>
-    <string name="repeat_monthly_same_day_each_month">매월 같은 날에</string>
     <string name="repeat_monthly_every_day_of_nth_week">매 %1$s %2$s</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">매 %1$s %2$s 마다</string>
     <string name="repeat_monthly_first_week">첫번째</string>
     <string name="repeat_monthly_second_week">두번째</string>
     <string name="repeat_monthly_third_week">세번째</string>

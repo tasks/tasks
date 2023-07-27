@@ -140,7 +140,6 @@
     <string name="calendar_event_not_found">کیلنڈر ایونٹ نہیں مل سکا</string>
     <string name="gcal_TEA_showCalendar_label">کیلنڈر ایونٹ کھولیں</string>
     <string name="gcal_TEA_error">کیلنڈر میں کام شامل کرنے میں خرابی!</string>
-    <string name="repeat_every">ہر ایک</string>
     <string name="default_random_reminder_bi_weekly">ہفتے میں دو بار</string>
     <string name="default_random_reminder_weekly">ہفتہ وار</string>
     <string name="default_random_reminder_daily">روزانہ</string>
@@ -160,10 +159,6 @@
     <string name="ring_five_times">پانچ بار رنگ بجنا</string>
     <string name="ring_once">ایک بار رنگ بجنا</string>
     <string name="premium_record_audio">ایک نوٹ ریکارڈ کریں</string>
-    <string name="repeat_weekly">ہفتہ وار دہرانا</string>
-    <string name="repeat_daily">روزانہ دہرانا</string>
-    <string name="repeat_hourly">گھنٹہ وار دہرانا</string>
-    <string name="repeat_minutely">منٹ وار دہرانا</string>
     <string name="repeat_option_custom">کسٹم…</string>
     <string name="repeat_option_every_year">ہر سال</string>
     <string name="repeat_option_every_month">ہر مہینے</string>
@@ -183,10 +178,6 @@
     <string name="default_start_date">ڈیفالٹ تاریخ آغاز</string>
     <string name="start_date">تاریخ آغاز</string>
     <string name="SSD_sort_start">بلحاظ تاریخ آغاز</string>
-    <string name="repeat_occurs">واقع ہونا</string>
-    <string name="repeat_number_of_times">چند مرتبہ دہرانا</string>
-    <string name="repeat_until">%s تک دہرانا</string>
-    <string name="repeat_forever">ہمیشہ دہرانا</string>
     <string name="repeat_type_completion_capitalized">تاریخ تکمیل</string>
     <string name="repeat_type_completion">تاریخ تکمیل</string>
     <string name="repeat_type_due">مقررہ تاریخ</string>
@@ -254,8 +245,6 @@
         <item quantity="one">%d ٹاسک</item>
         <item quantity="other">%d ٹاسکس</item>
     </plurals>
-    <string name="repeat_yearly">سالانہ دہرانا</string>
-    <string name="repeat_monthly">مہینہ وار دہرانا</string>
     <string name="yesterday_lowercase">گزشتہ کل</string>
     <string name="yesterday">گزشتہ کل</string>
     <string name="tomorrow_lowercase">آنے والا کل</string>
@@ -420,9 +409,7 @@
     <string name="repeat_monthly_third_week">تیسرا</string>
     <string name="repeat_monthly_second_week">دوسرا</string>
     <string name="repeat_monthly_first_week">پہلا</string>
-    <string name="repeat_monthly_on_every_day_of_nth_week">ہر %1$s%2$s کو</string>
     <string name="repeat_monthly_every_day_of_nth_week">ہر %1$s%2$s</string>
-    <string name="repeat_monthly_same_day_each_month">ہر مہینے کو ایک ہی دن</string>
     <string name="bundle_notifications_summary">متعدد نوٹیفیکیشنز کو ایک میں کر دیں</string>
     <string name="badges_description">ٹاسکس ایپ کے آئیکن پر ٹاسک کی تعداد ظاہر کریں۔ تمام لانچرز نشانات کو سپوڑٹ نہیں کرتے۔</string>
     <string name="default_calendar">ڈیفالٹ کیلںنڈر</string>
