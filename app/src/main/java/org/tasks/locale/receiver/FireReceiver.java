@@ -11,7 +11,7 @@ import timber.log.Timber;
 public final class FireReceiver extends BroadcastReceiver {
 
   @Override
-  public final void onReceive(final Context context, final Intent intent) {
+  public void onReceive(final Context context, final Intent intent) {
     Timber.d("Received %s", intent); // $NON-NLS-1$
 
     /*

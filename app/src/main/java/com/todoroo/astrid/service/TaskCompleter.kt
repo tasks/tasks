@@ -9,7 +9,6 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.GoogleTaskDao
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -18,7 +17,6 @@ import javax.inject.Inject
 class TaskCompleter @Inject internal constructor(
     @ApplicationContext private val context: Context,
     private val taskDao: TaskDao,
-    private val googleTaskDao: GoogleTaskDao,
     private val preferences: Preferences,
     private val notificationManager: NotificationManager,
     private val localBroadcastManager: LocalBroadcastManager,

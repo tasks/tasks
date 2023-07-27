@@ -27,7 +27,7 @@ import java.util.Map;
 public class PlaceFilter extends Filter {
 
   public static final Parcelable.Creator<PlaceFilter> CREATOR =
-      new Parcelable.Creator<PlaceFilter>() {
+      new Parcelable.Creator<>() {
 
         @Override
         public PlaceFilter createFromParcel(Parcel source) {

@@ -18,7 +18,7 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
 
   /** Parcelable Creator Object */
   public static final Parcelable.Creator<TextInputCriterion> CREATOR =
-      new Parcelable.Creator<TextInputCriterion>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

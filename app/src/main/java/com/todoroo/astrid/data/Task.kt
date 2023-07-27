@@ -2,7 +2,11 @@ package com.todoroo.astrid.data
 
 import android.os.Parcelable
 import androidx.annotation.IntDef
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.todoroo.andlib.data.Table
 import com.todoroo.andlib.sql.Field
@@ -242,9 +246,6 @@ data class Task(
                 && isCollapsed == original.isCollapsed
                 && order == original.order
     }
-
-    val isSaved: Boolean
-        get() = id != NO_ID
 
     @Synchronized
     fun suppressSync() {

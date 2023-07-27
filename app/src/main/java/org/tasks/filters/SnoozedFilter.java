@@ -15,7 +15,7 @@ import org.tasks.data.Alarm;
 public class SnoozedFilter extends Filter {
 
   public static final Creator<SnoozedFilter> CREATOR =
-      new Creator<SnoozedFilter>() {
+      new Creator<>() {
 
         /** {@inheritDoc} */
         @Override

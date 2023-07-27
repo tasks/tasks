@@ -12,7 +12,7 @@ import org.tasks.time.DateTime;
 public class RecentlyModifiedFilter extends Filter {
 
   public static final Parcelable.Creator<RecentlyModifiedFilter> CREATOR =
-      new Parcelable.Creator<RecentlyModifiedFilter>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

@@ -24,7 +24,7 @@ public class GtasksFilter extends Filter {
 
   /** Parcelable Creator Object */
   public static final Parcelable.Creator<GtasksFilter> CREATOR =
-      new Parcelable.Creator<GtasksFilter>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

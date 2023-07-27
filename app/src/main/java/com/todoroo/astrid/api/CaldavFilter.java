@@ -23,7 +23,7 @@ public class CaldavFilter extends Filter {
 
   /** Parcelable Creator Object */
   public static final Parcelable.Creator<CaldavFilter> CREATOR =
-      new Parcelable.Creator<CaldavFilter>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

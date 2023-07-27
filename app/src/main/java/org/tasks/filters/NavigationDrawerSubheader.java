@@ -11,7 +11,7 @@ import com.todoroo.astrid.api.FilterListItem;
 public class NavigationDrawerSubheader extends FilterListItem {
 
   public static final Parcelable.Creator<NavigationDrawerSubheader> CREATOR =
-      new Parcelable.Creator<NavigationDrawerSubheader>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

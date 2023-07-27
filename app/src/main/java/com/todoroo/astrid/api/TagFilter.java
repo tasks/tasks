@@ -2,23 +2,27 @@ package com.todoroo.astrid.api;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
+
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.data.Task;
-import java.util.HashMap;
-import java.util.Map;
+
 import org.tasks.R;
 import org.tasks.data.Tag;
 import org.tasks.data.TagData;
 import org.tasks.data.TaskDao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TagFilter extends Filter {
 
   /** Parcelable Creator Object */
   public static final Parcelable.Creator<TagFilter> CREATOR =
-      new Parcelable.Creator<TagFilter>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

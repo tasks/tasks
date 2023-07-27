@@ -28,7 +28,7 @@ public class Filter extends FilterListItem {
 
   /** Parcelable Creator Object */
   public static final Parcelable.Creator<Filter> CREATOR =
-      new Parcelable.Creator<Filter>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

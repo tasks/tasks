@@ -53,7 +53,7 @@ public class ThemeAccent implements Pickable {
       };
 
   public static final Parcelable.Creator<ThemeAccent> CREATOR =
-      new Parcelable.Creator<ThemeAccent>() {
+      new Parcelable.Creator<>() {
         @Override
         public ThemeAccent createFromParcel(Parcel source) {
           return new ThemeAccent(source);
@@ -95,14 +95,10 @@ public class ThemeAccent implements Pickable {
 
   @Override
   public boolean isFree() {
-    if (style == R.style.BlueGreyAccent ||
+    return style == R.style.BlueGreyAccent ||
             style == R.style.RedAccent ||
             style == R.style.BlueGreyAccentDesaturated ||
-            style == R.style.RedAccentDesaturated
-    ) {
-      return true;
-    }
-    return false;
+            style == R.style.RedAccentDesaturated;
   }
 
   @Deprecated

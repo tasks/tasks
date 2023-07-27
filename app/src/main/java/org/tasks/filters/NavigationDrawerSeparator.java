@@ -8,7 +8,7 @@ import com.todoroo.astrid.api.FilterListItem;
 public class NavigationDrawerSeparator extends FilterListItem {
 
   public static final Parcelable.Creator<NavigationDrawerSeparator> CREATOR =
-      new Parcelable.Creator<NavigationDrawerSeparator>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

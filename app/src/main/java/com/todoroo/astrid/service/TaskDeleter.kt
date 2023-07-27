@@ -7,7 +7,6 @@ import org.tasks.caldav.VtodoCache
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.DeletionDao
-import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.db.QueryUtils
@@ -22,7 +21,6 @@ class TaskDeleter @Inject constructor(
         private val workManager: WorkManager,
         private val taskDao: TaskDao,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val googleTaskDao: GoogleTaskDao,
         private val preferences: Preferences,
         private val syncAdapters: SyncAdapters,
         private val vtodoCache: VtodoCache,

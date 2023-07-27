@@ -9,7 +9,7 @@ import java.util.Map;
 public class SortableFilter extends Filter {
 
   public static final Parcelable.Creator<SortableFilter> CREATOR =
-      new Parcelable.Creator<SortableFilter>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

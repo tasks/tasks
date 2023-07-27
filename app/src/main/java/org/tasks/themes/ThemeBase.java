@@ -18,7 +18,7 @@ public class ThemeBase implements Parcelable {
   public static final String EXTRA_THEME_OVERRIDE = "extra_theme_override";
   public static final int DEFAULT_BASE_THEME = 5;
   public static final Parcelable.Creator<ThemeBase> CREATOR =
-      new Parcelable.Creator<ThemeBase>() {
+      new Parcelable.Creator<>() {
         @Override
         public ThemeBase createFromParcel(Parcel source) {
           return new ThemeBase(source);

@@ -10,7 +10,7 @@ public class NavigationDrawerAction extends FilterListItem {
 
   /** Parcelable Creator Object */
   public static final Parcelable.Creator<NavigationDrawerAction> CREATOR =
-      new Parcelable.Creator<NavigationDrawerAction>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

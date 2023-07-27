@@ -63,13 +63,6 @@ class AlertDialogBuilder internal constructor(private val context: Context) {
         return this
     }
 
-    fun setAdapter(
-        adapter: ListAdapter?, onClickListener: DialogInterface.OnClickListener?
-    ): AlertDialogBuilder {
-        builder.setAdapter(adapter, onClickListener)
-        return this
-    }
-
     fun setView(dialogView: View?): AlertDialogBuilder {
         builder.setView(dialogView)
         return this
@@ -124,13 +117,6 @@ class AlertDialogBuilder internal constructor(private val context: Context) {
 
     fun setTitle(title: String?): AlertDialogBuilder {
         builder.setTitle(title)
-        return this
-    }
-
-    fun setOnDismissListener(
-        onDismissListener: DialogInterface.OnDismissListener?
-    ): AlertDialogBuilder {
-        builder.setOnDismissListener(onDismissListener)
         return this
     }
 

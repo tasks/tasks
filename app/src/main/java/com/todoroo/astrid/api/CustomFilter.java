@@ -2,15 +2,18 @@ package com.todoroo.astrid.api;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
-import java.util.Objects;
+
 import org.tasks.R;
+
+import java.util.Objects;
 
 public class CustomFilter extends Filter {
 
   /** Parcelable Creator Object */
   public static final Parcelable.Creator<CustomFilter> CREATOR =
-      new Parcelable.Creator<CustomFilter>() {
+      new Parcelable.Creator<>() {
 
         /** {@inheritDoc} */
         @Override

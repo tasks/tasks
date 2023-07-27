@@ -143,7 +143,7 @@ public class ThemeColor implements Pickable {
       };
 
   public static final Parcelable.Creator<ThemeColor> CREATOR =
-      new Parcelable.Creator<ThemeColor>() {
+      new Parcelable.Creator<>() {
         @Override
         public ThemeColor createFromParcel(Parcel source) {
           return new ThemeColor(source);

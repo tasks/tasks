@@ -15,8 +15,6 @@ open class Field(expression: String) : DBObject(expression) {
 
     fun gt(value: Any?): Criterion = UnaryCriterion.gt(this, value)
 
-    fun gte(value: Any?): Criterion = UnaryCriterion.gte(this, value)
-
     fun lt(value: Any?): Criterion = UnaryCriterion.lt(this, value)
 
     fun lte(value: Any?): Criterion = UnaryCriterion.lte(this, value)

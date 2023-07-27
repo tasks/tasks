@@ -691,6 +691,6 @@
     <string name="snackbar_task_completed">Tugas selesai</string>
     <string name="custom_notification">Notifikasi kustom</string>
     <string name="hint_customize_edit_body">Kamu dapat mengubah bagian ini dengan mengurutkan atau menghapus kolom</string>
-    <string name="alarm_before_start">Detik sebelum mulai</string>
-    <string name="alarm_after_start">Detik setelah mulai</string>
+    <string name="alarm_before_start">%s sebelum mulai</string>
+    <string name="alarm_after_start">%s setelah mulai</string>
 </resources>

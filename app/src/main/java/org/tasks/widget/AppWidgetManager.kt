@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.widget.TasksWidget
 import javax.inject.Inject
 
 class AppWidgetManager @Inject constructor(

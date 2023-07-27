@@ -131,7 +131,7 @@ public class CheckBoxTriStates extends AppCompatCheckBox {
 
   static class SavedState extends BaseSavedState {
     public static final Parcelable.Creator<SavedState> CREATOR =
-        new Parcelable.Creator<SavedState>() {
+        new Parcelable.Creator<>() {
           @Override
           public SavedState createFromParcel(Parcel in) {
             return new SavedState(in);
