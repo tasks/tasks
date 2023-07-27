@@ -85,8 +85,8 @@
     <string name="EPr_manage_delete_all_gcal">Alle kalender-items voor taken wissen</string>
     <string name="EPr_manage_delete_all_gcal_message">Alle items voor taken blijvend wissen\?</string>
     <string name="task_defaults">Specificaties</string>
-    <string name="EPr_default_importance_title">Prioriteit</string>
-    <string name="EPr_default_reminders_title">Herinneringen</string>
+    <string name="EPr_default_importance_title">Standaard prioriteit</string>
+    <string name="EPr_default_reminders_title">Standaard herinneringen</string>
     <string name="EPr_default_location_reminder_title">Locatie herinneringen</string>
     <string name="EPr_default_reminders_mode_title">Beltoon/trillen</string>
     <string name="priority_high">Hoog</string>
@@ -601,7 +601,7 @@
     <string name="local_lists">Lokale lijsten</string>
     <string name="default_due_date">Standaard vervaldatum</string>
     <string name="start_date">Begindatum</string>
-    <string name="default_start_date">Begindatum</string>
+    <string name="default_start_date">Standaard begindatum</string>
     <string name="show_unstarted">Niet-gestarte tonen</string>
     <string name="filter_criteria_unstarted">Niet-gestarte</string>
     <string name="no_start_date">Geen begindatum</string>
@@ -725,4 +725,17 @@
     <string name="sort_descending">Aflopend</string>
     <string name="sort_completed">Op tijdstip voltooid</string>
     <string name="sort_not_available">Niet beschikbaar voor labels, filters, of locaties</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">gebeurtenis</item>
+        <item quantity="other">gebeurtenissen</item>
+    </plurals>
+    <string name="repeats_custom_recurrence">Aangepaste herhaling</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Maandelijks op de %1$s %2$s</string>
+    <string name="repeats_never">Nooit</string>
+    <string name="repeats_on">Op</string>
+    <string name="repeats_every">Herhaalt iedere</string>
+    <string name="repeats_weekly_on">Herhaalt op</string>
+    <string name="repeats_after">Na</string>
+    <string name="repeats_ends">Eindigt</string>
+    <string name="repeat_monthly_on_day_number">Maandelijks op dag %1d</string>
 </resources>
