@@ -222,7 +222,7 @@
     <plurals name="Ntasks">
         <item quantity="one">1 tâche</item>
         <item quantity="many">%d tâches</item>
-        <item quantity="other">%d tâches</item>
+        <item quantity="other">%d tâche(s)</item>
     </plurals>
     <string name="today">Aujourd\'hui</string>
     <string name="tomorrow">Demain</string>
@@ -741,4 +741,18 @@
     <string name="sort_descending">Descendant</string>
     <string name="sort_completed">Par délai d\'achèvement</string>
     <string name="sort_not_available">Non disponible pour les étiquettes, les filtres ou les lieux</string>
+    <string name="repeats_on">Sur</string>
+    <string name="repeats_after">Après</string>
+    <string name="repeats_ends">Finit</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">événement</item>
+        <item quantity="many">événements</item>
+        <item quantity="other">événement(s)</item>
+    </plurals>
+    <string name="repeats_custom_recurrence">Récurrence personnalisée</string>
+    <string name="repeat_monthly_on_day_number">Mensuellement le jour %1d</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Mensuel sur le %1$s %2$s</string>
+    <string name="repeats_every">Répéter chaque</string>
+    <string name="repeats_weekly_on">Se répète le</string>
+    <string name="repeats_never">Jamais</string>
 </resources>
