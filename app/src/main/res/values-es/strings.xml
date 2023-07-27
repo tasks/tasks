@@ -746,4 +746,18 @@
     <string name="sort_descending">Descendente</string>
     <string name="sort_completed">Por hora de finalización</string>
     <string name="sort_not_available">No disponible para etiquetas, filtros, o sitios</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">ocurrencia</item>
+        <item quantity="many">ocurrencias</item>
+        <item quantity="other">ocurrencias</item>
+    </plurals>
+    <string name="repeat_monthly_on_day_number">Mensualmente en el día %1d</string>
+    <string name="repeats_custom_recurrence">Recurrencia personalizada</string>
+    <string name="repeats_on">En</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Mensualmente en el %1$s %2$s</string>
+    <string name="repeats_every">Se repite cada</string>
+    <string name="repeats_weekly_on">Se repite en</string>
+    <string name="repeats_never">Nunca</string>
+    <string name="repeats_after">Después</string>
+    <string name="repeats_ends">Termina</string>
 </resources>
