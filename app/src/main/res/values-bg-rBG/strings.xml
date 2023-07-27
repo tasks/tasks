@@ -725,4 +725,6 @@
     <string name="sort_ascending">Възходящо</string>
     <string name="sort_not_available">Не е налично за етикети, филтри или места</string>
     <string name="sort_completed">По време на завършване</string>
+    <string name="repeats_never">Никога</string>
+    <string name="repeats_after">След</string>
 </resources>
