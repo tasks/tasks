@@ -746,4 +746,18 @@
     <string name="sort_descending">Decrescente</string>
     <string name="sort_completed">Per tempo di completamento</string>
     <string name="sort_not_available">Non disponibile per etichette, filtri o luoghi</string>
+    <string name="repeats_never">Mai</string>
+    <string name="repeats_custom_recurrence">Ricorrenza personalizzata</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">Occorrenza</item>
+        <item quantity="many">Occorrenze</item>
+        <item quantity="other">Occorrenza</item>
+    </plurals>
+    <string name="repeats_every">Si ripete ogni</string>
+    <string name="repeats_weekly_on">Ripeti su</string>
+    <string name="repeats_on">Su</string>
+    <string name="repeats_after">Dopo</string>
+    <string name="repeats_ends">Termina</string>
+    <string name="repeat_monthly_on_day_number">Mensilmente il giorno %1d</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Mensilmente il %1$s %2$s</string>
 </resources>
