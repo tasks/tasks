@@ -1,3 +1,14 @@
+### 13.5 (2023-07-28)
+
+* New custom recurrence picker
+* Update translations
+  * Bulgarian - @StoyanDimitrov
+  * Czech - @ceskyDJ
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * Italian - @ppasserini
+  * Spanish - @FlorianLeChat
+
 ### 13.4 - (2023-07-16)
 
 * Sorting improvements
