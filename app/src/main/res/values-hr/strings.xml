@@ -746,4 +746,18 @@
     <string name="sort_descending">Silazno</string>
     <string name="sort_completed">Po vremenu završavanja</string>
     <string name="sort_not_available">Nije dostupno za oznake, filtre i mjesta</string>
+    <string name="repeats_never">Nikada</string>
+    <string name="repeats_after">Nakon</string>
+    <string name="repeats_every">Ponavlja se svaki</string>
+    <string name="repeats_weekly_on">Ponavlja se u</string>
+    <string name="repeats_ends">Završava</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Mjesečno na %1$s %2$s</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">događanje</item>
+        <item quantity="few">događanja</item>
+        <item quantity="other">događanja</item>
+    </plurals>
+    <string name="repeats_custom_recurrence">Prilagođeno ponavljanje</string>
+    <string name="repeat_monthly_on_day_number">Mjesečno na %1d. dan</string>
+    <string name="repeats_on">U</string>
 </resources>
