@@ -6,7 +6,6 @@ import com.todoroo.andlib.sql.Join
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
-import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.TaskListQueryNonRecursive.getNonRecursiveQuery
 import org.tasks.data.TaskListQueryRecursive.getRecursiveQuery
 import org.tasks.preferences.QueryPreferences
@@ -25,7 +24,7 @@ object TaskListQuery {
     val FIELDS = listOf(
             field("tasks.*"),
             field("${TaskListFragment.CALDAV_METADATA_JOIN}.*"),
-            field("CASE ${CaldavAccount.ACCOUNT_TYPE} WHEN $TYPE_GOOGLE_TASKS THEN 1 ELSE 0 END").`as`("isGoogleTask"),
+            field("${CaldavAccount.ACCOUNT_TYPE}").`as`("accountType"),
             field("geofences.*"),
             field("places.*"))
 

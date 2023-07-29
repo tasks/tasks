@@ -68,7 +68,7 @@ open class TaskAdapter(
     open fun getIndent(task: TaskContainer): Int = task.indent
 
     open fun canMove(source: TaskContainer, from: Int, target: TaskContainer, to: Int): Boolean {
-        if (target.isGoogleTask) {
+        if (target.isSingleLevelSubtask) {
             return if (!source.hasChildren() || to <= 0 || to >= count - 1) {
                 true
             } else if (from < to) {
@@ -91,7 +91,7 @@ open class TaskAdapter(
 
     open fun maxIndent(previousPosition: Int, task: TaskContainer): Int {
         val previous = getTask(previousPosition)
-        return if (previous.isGoogleTask) {
+        return if (previous.isSingleLevelSubtask) {
             if (task.hasChildren()) 0 else 1
         } else {
             previous.indent + 1
@@ -104,7 +104,7 @@ open class TaskAdapter(
                 return 0
             }
             val next = getTask(it)
-            if (next.isGoogleTask) {
+            if (next.isSingleLevelSubtask) {
                 return if (task.hasChildren() || !next.hasParent()) 0 else 1
             }
             if (!taskIsChild(task, it)) {
