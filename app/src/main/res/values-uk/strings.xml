@@ -753,4 +753,19 @@
     <string name="sort_descending">За спаданням</string>
     <string name="sort_completed">За часом виконання</string>
     <string name="sort_not_available">Недоступно для міток, фільтрів і місць</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">повторення</item>
+        <item quantity="few">повторення</item>
+        <item quantity="many">повторень</item>
+        <item quantity="other">повторень</item>
+    </plurals>
+    <string name="repeats_custom_recurrence">Користувацьке повторення</string>
+    <string name="repeats_every">Повторюється кожні</string>
+    <string name="repeats_weekly_on">Повторюється</string>
+    <string name="repeats_on">" "</string>
+    <string name="repeats_after">Після</string>
+    <string name="repeats_ends">Завершується</string>
+    <string name="repeats_never">Ніколи</string>
+    <string name="repeat_monthly_on_day_number">Щомісяця у %1d</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Щомісяця %1$s %2$s</string>
 </resources>
