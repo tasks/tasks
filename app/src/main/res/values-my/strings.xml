@@ -1,2 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="actfm_picture_clear">ရုပ်ပုံကိုဖယ်မယ်</string>
+    <string name="TVA_add_comment">မှတ်ချက်ရေးမယ်…</string>
+    <string name="backup_BAc_import">အရန်သိမ်းထားသည်များကိုပြန်သွင်းမည်</string>
+    <string name="import_progress_read">လုပ်စရာကိုကြည့်နေသည် %d…</string>
+    <string name="export_toast">အရန်သိမ်းပြီး %1$s to %2$s.</string>
+    <string name="keep_editing">ဆက် ပြုပြင်</string>
+    <string name="DLG_delete_this_task_question">ဒီအလုပ်ကို ဖျက်မည်</string>
+    <string name="DLG_hour_minutes">အချိန် (နာရီ : မိနစ်)</string>
+    <string name="DLG_undo">မလုပ်တော့</string>
+    <string name="WID_dateButtonUnset">ဖန်တီးမည်</string>
+    <string name="TLA_menu_sort">စီမည်</string>
+    <string name="TLA_menu_search">ရှာမယ်</string>
+    <string name="TLA_menu_settings">ဆက်တင်များ</string>
+    <string name="TAd_actionEditTask">ပြုပြင်</string>
+    <string name="manage_drawer">မီနူး ကိုပြင်ဆင်မည်</string>
+    <string name="SSD_sort_my_order">အစီအစဥ်</string>
+    <string name="astrid_sort_order"></string>
+    <string name="SSD_sort_importance">အရေးပါမှုအားဖြင့်</string>
+    <string name="sort_list">စာရင်းဖြင့်</string>
+    <string name="sort_completed">အလုပ်ပြီးသောအချိန်ဖြင့်</string>
+    <string name="FLA_search_filter">ကိုက်ညီသည် \'%s\'</string>
+    <string name="FLA_new_filter">စစ်ထုတ်မည်</string>
+    <string name="TEA_title_hint">အလုပ်ခေါင်းစဥ်</string>
+    <string name="TEA_add_subtask">အလုပ်ခွဲထည့်မယ်</string>
+    <string name="TEA_elapsedDuration_label">အချိန်ကုန်ပြီးသား</string>
+    <string name="save">သိမ်းမည်</string>
+    <string name="TEA_timer_est">Est. %s</string>
+    <string name="TEA_timer_elap">Elapsed %s</string>
+    <string name="due_date">ဆုံးရက်</string>
+    <string name="due_time">ပြီးဆုံးချိန်</string>
+    <string name="start_date">စရက်</string>
+    <string name="week_before_due">မပြီးဆုံးမီတစ်ပတ်အလို</string>
+    <string name="TEA_control_repeat">ထပ်လုပ်မည်</string>
+    <string name="TEA_control_gcal">ပြက္ခဒိန်</string>
+    <string name="TEA_control_importance">အရေးပါမှု</string>
+    <string name="TEA_control_location">တည်နေရာ</string>
+    <string name="TEA_control_reminders">သတိပေးမှုများ</string>
+    <string name="TEA_control_timer">အချိန်မှတ်ခြင်းထိန်းချုပ်မှုများ</string>
+    <string name="TEA_creation_date">ဖန်တီးသောရက်</string>
+    <string name="CRA_ignore">ဂရုမပြုပါ</string>
+    <string name="CRA_title">အချိန်းအချက်စာရင်းလိုအပ်လား\?</string>
+    <string name="CRA_ignore_body">သင်ပြက္ခဒိန်ပေါ်ရိှအလုပ်အများအပြားကုိလျစ်လျှူရူ့ခဲ့တယ်။အက်ပ်ကသင့်ကိုသတိပေးနေခြင်းကိုရပ်ရမလား\?</string>
+    <string name="CRA_ignore_all">လုပ်စရာအားလုံးကို လျစ်လျှူရှုပါ</string>
+    <string name="CRA_ignore_this">ဒီအလုပ်ကိုပဲလျစ်လျှူရှုမည်</string>
+    <string name="ok">အိုကေ</string>
+    <string name="cancel">ပယ်ဖျက်ပါ</string>
+    <string name="display_name">အမည်</string>
+    <string name="read_permission_label">အက်ပ် ခွင့်ပြုချက်</string>
+    <string name="backup_BPr_header">အရန်သိမ်းထားသော</string>
+    <string name="backup_BAc_export">အခု အရန်သိမ်္းပါ</string>
+    <string name="import_summary_message">ဖိုင် %1$s ပါဝင်သည် %2$s.
+\n
+\n %3$s သွင်းပြီး,
+\n %4$s ရိှပြီးသား
+\n %5$s ချို့ယွင်းမှုများရိှ
+\n</string>
+    <string name="discard_confirmation">သင်ပြောင်းလဲထားတာတွေကို ပယ်ဖျက်မှာလား</string>
+    <string name="action_call">ဖုန်းခေါ်မည်</string>
+    <string name="action_open">ဖွင့်မည်</string>
+    <string name="TLA_no_items">မှတ်ထားသော အလုပ် မရိှပါဘူး။</string>
+    <string name="TEA_importance_label">အရေးပါမှု</string>
+    <string name="SSD_sort_due">ဆုံးရက်ဖြင့်</string>
+    <string name="SSD_sort_alpha">ခေါင်းစဥ်ဖြင့်</string>
+    <string name="SSD_sort_auto">စမတ် အစီအစဥ်</string>
+    <string name="SSD_sort_start">စရက်ဖြင့်</string>
+    <string name="SSD_sort_modified">နောက်ဆုံးပြုပြင်ခဲ့မှု</string>
+    <string name="sort_created">ဖန်တီးသောအချိန်ဖြင့်</string>
+    <string name="TEA_note_label">ဖော်ပြချက်</string>
+    <string name="TEA_control_notes">ဖော်ပြချက်</string>
+    <string name="TEA_estimatedDuration_label">အချိန်ဘယ်လောက်ယူမှာလဲ\?</string>
+    <string name="day_before_due">မပြီးဆုံးမီတစ်ရက်အလို</string>
+    <string name="TEA_control_hidden_section">----အမြဲတမ်းဝှက်ထားမည်----</string>
+    <string name="TEA_control_files">ဖိုင်များ</string>
+</resources>
