@@ -697,4 +697,23 @@
     <string name="sign_in">Đăng nhập</string>
     <string name="consent_agree">Đồng ý</string>
     <string name="consent_deny">Không phải bây giờ</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="other">lần xảy ra</item>
+    </plurals>
+    <string name="repeats_weekly_on">Lặp lại vào</string>
+    <string name="repeats_never">Không bao giờ</string>
+    <string name="repeats_on">Bật</string>
+    <string name="repeats_after">Sau</string>
+    <string name="repeats_ends">Kết thúc</string>
+    <string name="repeat_monthly_on_day_number">Hàng tháng vào ngày %1d</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Hàng tháng vào %1$s %2$s</string>
+    <string name="sort_not_available">Không có sẵn cho tag, bộ lọc hay nơi chốn</string>
+    <string name="repeats_custom_recurrence">Lặp lại tùy chỉnh</string>
+    <string name="repeats_every">Lặp lại mỗi</string>
+    <string name="sort_list">Theo danh sách</string>
+    <string name="sort_sorting">Sắp xếp</string>
+    <string name="sort_grouping">Gộp nhóm</string>
+    <string name="sort_ascending">Tăng dần</string>
+    <string name="sort_descending">Giảm dần</string>
+    <string name="sort_completed">Theo thời gian hoàn thành</string>
 </resources>
