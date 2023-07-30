@@ -238,9 +238,10 @@
     <string name="delete_task">Удалить задачу</string>
     <string name="voice_command_added_task">Добавленная задача</string>
     <plurals name="Ntasks">
-        <item quantity="one">1 задача</item>
+        <item quantity="one">%d задача</item>
         <item quantity="few">%d задачи</item>
         <item quantity="many">%d задач</item>
+        <item quantity="other">%d задач</item>
     </plurals>
     <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
@@ -744,4 +745,26 @@
     <string name="sign_in">Войти</string>
     <string name="default_reminder">Напоминание по умолчанию</string>
     <string name="rmd_time_description">Показывать уведомления для задач без срока выполнения</string>
+    <string name="repeats_weekly_on">Повторять в</string>
+    <string name="repeats_on">В</string>
+    <string name="repeats_after">После</string>
+    <string name="repeats_ends">Завершается</string>
+    <string name="repeat_monthly_on_day_number">Ежемесячно на %1d день</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Ежемесячно в %1$s %2$s</string>
+    <string name="repeats_never">Никогда</string>
+    <string name="repeats_every">Повторять каждый</string>
+    <string name="repeats_custom_recurrence">Пользовательское повторение</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">повтор</item>
+        <item quantity="few">повтора</item>
+        <item quantity="many">повторов</item>
+        <item quantity="other">повторов</item>
+    </plurals>
+    <string name="sort_not_available">Недоступно для тегов, фильтров или мест</string>
+    <string name="sort_list">Список</string>
+    <string name="sort_sorting">Сортировка</string>
+    <string name="sort_grouping">Группировка</string>
+    <string name="sort_ascending">По возрастанию</string>
+    <string name="sort_descending">По убыванию</string>
+    <string name="sort_completed">Время выполнения</string>
 </resources>
