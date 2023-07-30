@@ -214,7 +214,7 @@
     <string name="new_tag">新しいタグを作成</string>
     <string name="new_list">新しいリストを作成</string>
     <string name="delete_tag_confirmation">%s を削除しますか？</string>
-    <string name="TPl_notification">%s のタイマーがアクティブです!</string>
+    <string name="TPl_notification">%s のタイマーが計測中です！</string>
     <string name="TFE_workingOn">タスクの予定時間です</string>
     <string name="TEA_timer_controls">タイマー</string>
     <string name="TEA_timer_comment_started">タスクを開始:</string>
@@ -227,7 +227,7 @@
     <string name="delete_task">タスクを削除</string>
     <string name="voice_command_added_task">追加されたタスク</string>
     <plurals name="Ntasks">
-        <item quantity="other">タスク %d 件</item>
+        <item quantity="other">%d 件のタスク</item>
     </plurals>
     <string name="today">今日</string>
     <string name="tomorrow">明日</string>
@@ -242,9 +242,9 @@
     <string name="sound">サウンド</string>
     <string name="vibrations">振動</string>
     <string name="quiet_hours">静寂モード</string>
-    <string name="attachment_directory">添付フォルダ</string>
-    <string name="backup_directory">フォルダをバックアップ</string>
-    <string name="google_drive_backup">Googleドライブにバックアップ</string>
+    <string name="attachment_directory">添付フォルダー</string>
+    <string name="backup_directory">フォルダーをバックアップ</string>
+    <string name="google_drive_backup">Google ドライブにバックアップ</string>
     <string name="miscellaneous">その他</string>
     <string name="enabled">有効</string>
     <string name="font_size">フォントサイズ</string>
@@ -338,18 +338,18 @@
     <string name="badges">バッジ</string>
     <string name="list">リスト</string>
     <string name="repeats_from">繰り返し開始</string>
-    <string name="repeats_single">%s を繰り返し</string>
+    <string name="repeats_single">%s 繰り返し</string>
     <string name="repeats_single_on">%1$s を %2$s に繰り返し</string>
     <string name="repeats_single_until">%1$s を %2$s まで繰り返し</string>
     <string name="repeats_single_number_of_times">%1$s を %2$d %3$s に繰り返し</string>
     <string name="repeats_single_on_until">%1$s を %2$s に %3$s まで繰り返し</string>
     <string name="repeats_single_on_number_of_times">%1$s を %2$s に %3$d %4$s 繰り返し</string>
-    <string name="repeats_minutely">毎分</string>
-    <string name="repeats_hourly">毎時</string>
-    <string name="repeats_daily">毎日</string>
-    <string name="repeats_weekly">毎週</string>
-    <string name="repeats_monthly">毎月</string>
-    <string name="repeats_yearly">毎年</string>
+    <string name="repeats_minutely">…分ごとに</string>
+    <string name="repeats_hourly">…時間ごとに</string>
+    <string name="repeats_daily">…日ごとに</string>
+    <string name="repeats_weekly">…週ごとに</string>
+    <string name="repeats_monthly">…か月ごとに</string>
+    <string name="repeats_yearly">…年ごとに</string>
     <string name="repeats_plural">%s ごとに繰り返し</string>
     <string name="repeats_plural_on">%1$s ごとに %2$s に繰り返し</string>
     <string name="repeats_plural_until">%1$s ごとに %2$s まで繰り返し</string>
