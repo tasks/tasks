@@ -17,7 +17,9 @@ import net.fortuna.ical4j.model.Recur.Frequency.YEARLY
 import net.fortuna.ical4j.model.WeekDay
 import net.fortuna.ical4j.model.WeekDayList
 import net.fortuna.ical4j.model.property.RRule
+import org.tasks.data.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_ACCOUNT_TYPE
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_DATE
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_RRULE
 import org.tasks.time.DateTime
@@ -43,11 +45,12 @@ class CustomRecurrenceViewModel @Inject constructor(
         val endSelection: Int = 0,
         val endDate: Long = dueDate.toDateTime().plusMonths(1).startOfDay().millis,
         val endCount: Int = 1,
-        val frequencyOptions: List<Recur.Frequency> = DEFAULT_FREQUENCIES,
+        val frequencyOptions: List<Recur.Frequency> = FREQ_ALL,
         val daysOfWeek: List<DayOfWeek> = Locale.getDefault().daysOfWeek(),
         val selectedDays: List<DayOfWeek> = emptyList(),
         val locale: Locale = Locale.getDefault(),
         val monthDay: WeekDay? = null,
+        val isMicrosoftTask: Boolean = false,
     ) {
         val dueDayOfWeek: DayOfWeek
             get() = Instant.ofEpochMilli(dueDate).atZone(ZoneId.systemDefault()).dayOfWeek
@@ -78,17 +81,15 @@ class CustomRecurrenceViewModel @Inject constructor(
             .get<Long>(EXTRA_DATE)
             ?.takeIf { it > 0 }
             ?: System.currentTimeMillis().startOfDay()
-        val selectedDays = if (recur?.frequency == WEEKLY) {
-            recur.dayList?.toDaysOfWeek()
-        } else {
-            emptyList()
-        }
+        val isMicrosoftTask = savedStateHandle.get<Int>(EXTRA_ACCOUNT_TYPE) == TYPE_MICROSOFT
+        val frequencies = if (isMicrosoftTask) FREQ_MICROSOFT else FREQ_ALL
         _state.update { state ->
             state.copy(
                 interval = recur?.interval?.takeIf { it > 0 } ?: 1,
-                frequency = recur?.frequency ?: WEEKLY,
+                frequency = recur?.frequency?.takeIf { frequencies.contains(it) } ?: WEEKLY,
                 dueDate = dueDate,
                 endSelection = when {
+                    isMicrosoftTask -> 0
                     recur == null -> 0
                     recur.until != null -> 1
                     recur.count >= 0 -> 2
@@ -103,7 +104,12 @@ class CustomRecurrenceViewModel @Inject constructor(
                     ?.toDaysOfWeek()
                     ?: emptyList(),
                 locale = locale,
-                monthDay = recur?.dayList?.takeIf { recur.frequency == MONTHLY }?.firstOrNull(),
+                monthDay = recur
+                    ?.dayList
+                    ?.takeIf { recur.frequency == MONTHLY && !isMicrosoftTask }
+                    ?.firstOrNull(),
+                isMicrosoftTask = isMicrosoftTask,
+                frequencyOptions = frequencies,
             )
         }
     }
@@ -182,7 +188,8 @@ class CustomRecurrenceViewModel @Inject constructor(
     }
 
     companion object {
-        val DEFAULT_FREQUENCIES = listOf(MINUTELY, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY)
+        val FREQ_ALL = listOf(MINUTELY, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY)
+        val FREQ_MICROSOFT = listOf(DAILY, WEEKLY, MONTHLY, YEARLY)
 
         private fun Locale.daysOfWeek(): List<DayOfWeek> {
             val values = DayOfWeek.values()

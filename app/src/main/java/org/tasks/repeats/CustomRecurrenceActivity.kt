@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,11 +41,13 @@ class CustomRecurrenceActivity : FragmentActivity() {
     companion object {
         const val EXTRA_RRULE = "extra_rrule"
         const val EXTRA_DATE = "extra_date"
+        const val EXTRA_ACCOUNT_TYPE = "extra_account_type"
 
         @JvmStatic
-        fun newIntent(context: Context, rrule: String?, dueDate: Long) =
+        fun newIntent(context: Context, rrule: String?, dueDate: Long, accountType: Int) =
             Intent(context, CustomRecurrenceActivity::class.java)
                 .putExtra(EXTRA_DATE, dueDate)
                 .putExtra(EXTRA_RRULE, rrule)
+                .putExtra(EXTRA_ACCOUNT_TYPE, accountType)
     }
 }

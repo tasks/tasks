@@ -185,7 +185,7 @@ class CaldavAccount : Parcelable {
     }
 
     override fun toString(): String {
-        return "CaldavAccount(id=$id, uuid=$uuid, name=$name, url=$url, username=$username, password=$password, error=$error, accountType=$accountType, isCollapsed=$isCollapsed, serverType=$serverType)"
+        return "CaldavAccount(id=$id, uuid=$uuid, name=$name, url=$url, username=$username, password=<redacted>>, error=$error, accountType=$accountType, isCollapsed=$isCollapsed, serverType=$serverType)"
     }
 
     fun isTasksSubscription(context: Context): Boolean {

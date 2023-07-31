@@ -3,7 +3,6 @@ package org.tasks.repeats
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,11 +12,10 @@ import com.google.common.collect.Lists
 import dagger.hilt.android.AndroidEntryPoint
 import net.fortuna.ical4j.model.Recur
 import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_ACCOUNT_TYPE
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.newIntent
 import org.tasks.repeats.RecurrenceUtils.newRecur
-import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.ui.SingleCheckedArrayAdapter
 import timber.log.Timber
 import javax.inject.Inject
@@ -35,17 +33,19 @@ class BasicRecurrenceDialog : DialogFragment() {
         }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val arguments = arguments
-        val dueDate = arguments!!.getLong(EXTRA_DATE, currentTimeMillis())
-        val rule = arguments.getString(EXTRA_RRULE)
-        var rrule: Recur? = null
-        try {
-            if (!isNullOrEmpty(rule)) {
-                rrule = newRecur(rule!!)
-            }
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
+        val args = requireArguments()
+        val rule = args.getString(EXTRA_RRULE)
+        val rrule =
+            rule
+                .takeIf { !it.isNullOrBlank() }
+                ?.let {
+                    try {
+                        newRecur(it)
+                    } catch (e: Exception) {
+                        Timber.e(e)
+                        null
+                    }
+                }
         val customPicked = isCustomValue(rrule)
         val repeatOptions: List<String> =
             Lists.newArrayList(*requireContext().resources.getStringArray(R.array.repeat_options))
@@ -64,40 +64,47 @@ class BasicRecurrenceDialog : DialogFragment() {
         }
         return dialogBuilder
             .newDialog()
-            .setSingleChoiceItems(
-                adapter,
-                selected
-            ) { dialogInterface: DialogInterface, i: Int ->
-                var i = i
-                if (customPicked) {
-                    if (i == 0) {
-                        dialogInterface.dismiss()
+            .setSingleChoiceItems(adapter, selected) { dialog, selectedIndex: Int ->
+                val i = if (customPicked) {
+                    if (selectedIndex == 0) {
+                        dialog.dismiss()
                         return@setSingleChoiceItems
                     }
-                    i--
+                    selectedIndex - 1
+                } else {
+                    selectedIndex
                 }
-                val result: Recur?
-                when (i) {
-                    0 -> result = null
+                val result = when (i) {
+                    0 -> null
                     5 -> {
-                        customRecurrence.launch(newIntent(requireContext(), rule, dueDate))
+                        customRecurrence.launch(
+                            newIntent(
+                                context = requireContext(),
+                                rrule = rule,
+                                dueDate = args.getLong(EXTRA_DATE),
+                                accountType = args.getInt(EXTRA_ACCOUNT_TYPE)
+                            )
+                        )
                         return@setSingleChoiceItems
                     }
                     else -> {
-                        result = newRecur()
-                        result.interval = 1
-                        when (i) {
-                            1 -> result.setFrequency(Recur.Frequency.DAILY.name)
-                            2 -> result.setFrequency(Recur.Frequency.WEEKLY.name)
-                            3 -> result.setFrequency(Recur.Frequency.MONTHLY.name)
-                            4 -> result.setFrequency(Recur.Frequency.YEARLY.name)
+                        val frequency = when(i) {
+                            1 -> Recur.Frequency.DAILY
+                            2 -> Recur.Frequency.WEEKLY
+                            3 -> Recur.Frequency.MONTHLY
+                            4 -> Recur.Frequency.YEARLY
+                            else -> throw IllegalArgumentException()
+                        }
+                        newRecur().apply {
+                            interval = 1
+                            setFrequency(frequency.name)
                         }
                     }
                 }
                 val intent = Intent()
                 intent.putExtra(EXTRA_RRULE, result?.toString())
                 targetFragment!!.onActivityResult(targetRequestCode, RESULT_OK, intent)
-                dialogInterface.dismiss()
+                dialog.dismiss()
             }
             .show()
     }
@@ -114,16 +121,19 @@ class BasicRecurrenceDialog : DialogFragment() {
         const val EXTRA_RRULE = "extra_rrule"
         private const val EXTRA_DATE = "extra_date"
         fun newBasicRecurrenceDialog(
-            target: Fragment?, rc: Int, rrule: String?, dueDate: Long
+            target: Fragment?,
+            rc: Int,
+            rrule: String?,
+            dueDate: Long,
+            accountType: Int,
         ): BasicRecurrenceDialog {
             val dialog = BasicRecurrenceDialog()
             dialog.setTargetFragment(target, rc)
-            val arguments = Bundle()
-            if (rrule != null) {
-                arguments.putString(EXTRA_RRULE, rrule)
+            dialog.arguments = Bundle().apply {
+                rrule?.let { putString(EXTRA_RRULE, it) }
+                putLong(EXTRA_DATE, dueDate)
+                putInt(EXTRA_ACCOUNT_TYPE, accountType)
             }
-            arguments.putLong(EXTRA_DATE, dueDate)
-            dialog.arguments = arguments
             return dialog
         }
     }

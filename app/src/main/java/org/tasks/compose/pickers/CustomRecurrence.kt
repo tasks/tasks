@@ -156,7 +156,7 @@ fun CustomRecurrence(
                         selected = state.selectedDays,
                         toggle = toggleDay,
                     )
-                } else if (state.frequency == Recur.Frequency.MONTHLY) {
+                } else if (state.frequency == Recur.Frequency.MONTHLY && !state.isMicrosoftTask) {
                     MonthlyPicker(
                         monthDay = state.monthDay,
                         dayNumber = state.dueDayOfMonth,
@@ -167,18 +167,20 @@ fun CustomRecurrence(
                         onSelected = setMonthSelection,
                     )
                 }
-                Divider(
-                    modifier = Modifier.padding(vertical = if (state.frequency == Recur.Frequency.WEEKLY) 11.dp else 16.dp),
-                    color = border()
-                )
-                EndsPicker(
-                    selection = state.endSelection,
-                    endDate = state.endDate,
-                    endOccurrences = state.endCount,
-                    setEndDate = setEndDate,
-                    setSelection = setSelectedEndType,
-                    setOccurrences = setOccurrences,
-                )
+                if (!state.isMicrosoftTask) {
+                    Divider(
+                        modifier = Modifier.padding(vertical = if (state.frequency == Recur.Frequency.WEEKLY) 11.dp else 16.dp),
+                        color = border()
+                    )
+                    EndsPicker(
+                        selection = state.endSelection,
+                        endDate = state.endDate,
+                        endOccurrences = state.endCount,
+                        setEndDate = setEndDate,
+                        setSelection = setSelectedEndType,
+                        setOccurrences = setOccurrences,
+                    )
+                }
             }
         }
     }

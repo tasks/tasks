@@ -1,0 +1,51 @@
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#Collection(todoTask)",
+  "@odata.deltaLink": "https://graph.microsoft.com/v1.0/me/todo/lists/AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoALgAAA8dKmrSa60tBjeiKoPukmoQBAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAA==/tasks/delta?$deltatoken=l7WI41swwioT5csv4k99ngHvnDU_spnidrOYzb78--8L_CvTDIAkbXl6MuXT-elfDvxAaStXSRqnXHi-F76OGkTL9CQOnOhkx-vCewPuUdY.XsfDMIxn_aFfN1pQ1QjiU4-UJBzkm7SbIdTgPm-Ie38",
+  "value": [
+    {
+      "@odata.type": "#microsoft.graph.todoTask",
+      "@odata.etag": "W/\"SRPGnpbHYES1XW8UlYrtsgAGZZbjOA==\"",
+      "importance": "normal",
+      "isReminderOn": false,
+      "status": "notStarted",
+      "title": "Test weekdays",
+      "createdDateTime": "2023-07-31T04:49:33.0062602Z",
+      "lastModifiedDateTime": "2023-07-31T04:49:33.0698644Z",
+      "hasAttachments": false,
+      "categories": [],
+      "id": "AQMkADAwATNiZmYAZC04OABiMC0xZDlkLTAwAi0wMAoARgAAA8dKmrSa60tBjeiKoPukmoQHAEkTxp6Wx2BEtV1vFJWK7bIAAAIBEgAAAEkTxp6Wx2BEtV1vFJWK7bIABmV2YRAAAAA=",
+      "body": {
+        "content": "",
+        "contentType": "text"
+      },
+      "dueDateTime": {
+        "dateTime": "2023-07-31T05:00:00.0000000",
+        "timeZone": "UTC"
+      },
+      "recurrence": {
+        "pattern": {
+          "type": "weekly",
+          "interval": 2,
+          "month": 0,
+          "dayOfMonth": 0,
+          "daysOfWeek": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday"
+          ],
+          "firstDayOfWeek": "sunday",
+          "index": "first"
+        },
+        "range": {
+          "type": "noEnd",
+          "startDate": "2023-07-31",
+          "endDate": "0001-01-01",
+          "recurrenceTimeZone": "UTC",
+          "numberOfOccurrences": 0
+        }
+      }
+    }
+  ]
+}

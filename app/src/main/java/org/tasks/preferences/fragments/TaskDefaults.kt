@@ -15,6 +15,7 @@ import org.tasks.R
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarPicker.Companion.newCalendarPicker
 import org.tasks.calendars.CalendarProvider
+import org.tasks.data.CaldavAccount
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.data.TagData
@@ -84,7 +85,13 @@ class TaskDefaults : InjectingPreferenceFragment() {
                             .getStringValue(R.string.p_default_recurrence)
                             ?.takeIf { it.isNotBlank() }
                     BasicRecurrenceDialog
-                            .newBasicRecurrenceDialog(this, REQUEST_RECURRENCE, rrule, -1)
+                            .newBasicRecurrenceDialog(
+                                target = this,
+                                rc = REQUEST_RECURRENCE,
+                                rrule = rrule,
+                                dueDate = 0,
+                                accountType = CaldavAccount.TYPE_LOCAL
+                            )
                             .show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
                     false
                 }

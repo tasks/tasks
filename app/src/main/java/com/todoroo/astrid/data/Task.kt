@@ -155,7 +155,7 @@ data class Task(
     }
 
     val isRecurring: Boolean
-        get() = !Strings.isNullOrEmpty(recurrence)
+        get() = recurrence?.isNotBlank() == true
 
     fun setRecurrence(rrule: Recur?) {
         recurrence = rrule?.toString()

@@ -96,4 +96,36 @@ class ConvertFromMicrosoftTests {
             )
         }
     }
+
+    @Test
+    fun parseDailyRecurrence() {
+        withTZ("America/Chicago") {
+            val (local, _) = TestUtilities.mstodo("microsoft/repeat_daily.txt")
+            assertEquals("FREQ=DAILY", local.recurrence)
+        }
+    }
+
+    @Test
+    fun parseWeekdayRecurrence() {
+        withTZ("America/Chicago") {
+            val (local, _) = TestUtilities.mstodo("microsoft/repeat_weekdays.txt")
+            assertEquals("FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,TU,WE,TH,FR", local.recurrence)
+        }
+    }
+
+    @Test
+    fun parseAbsoluteMonthlyRecurrence() {
+        withTZ("America/Chicago") {
+            val (local, _) = TestUtilities.mstodo("microsoft/repeat_monthly.txt")
+            assertEquals("FREQ=MONTHLY", local.recurrence)
+        }
+    }
+
+    @Test
+    fun parseAbsoluteYearlyRecurrence() {
+        withTZ("America/Chicago") {
+            val (local, _) = TestUtilities.mstodo("microsoft/repeat_yearly.txt")
+            assertEquals("FREQ=YEARLY", local.recurrence)
+        }
+    }
 }
