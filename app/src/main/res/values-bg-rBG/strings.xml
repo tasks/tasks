@@ -133,7 +133,7 @@
     <string name="ring_once">Звънене веднъж</string>
     <string name="ring_five_times">Звънене пет пъти</string>
     <string name="ring_nonstop">Звънене без прекъсване</string>
-    <string name="rmd_NoA_done">Завършено</string>
+    <string name="rmd_NoA_done">Завършване</string>
     <string name="rmd_NoA_snooze">Отлагане</string>
     <string name="snooze_all">Отлагане на всички</string>
     <string name="rmd_EPr_quiet_hours_start_title">Начало на тихи часове</string>
