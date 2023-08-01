@@ -217,8 +217,8 @@
     <string name="TPl_notification">%s のタイマーが計測中です！</string>
     <string name="TFE_workingOn">タスクの予定時間です</string>
     <string name="TEA_timer_controls">タイマー</string>
-    <string name="TEA_timer_comment_started">タスクを開始:</string>
-    <string name="TEA_timer_comment_stopped">タスクを中断:</string>
+    <string name="TEA_timer_comment_started">タスクが進行中:</string>
+    <string name="TEA_timer_comment_stopped">タスクを中断中:</string>
     <string name="TEA_timer_comment_spent">経過時間:</string>
     <string name="voice_create_prompt">話してタスクを作成してください</string>
     <string name="EPr_voiceInputEnabled_title">音声入力</string>
