@@ -32,7 +32,7 @@
     <string name="SSD_sort_alpha">タイトル</string>
     <string name="SSD_sort_due">締切日時</string>
     <string name="SSD_sort_importance">優先度</string>
-    <string name="SSD_sort_modified">更新日時</string>
+    <string name="SSD_sort_modified">変更日時</string>
     <string name="FLA_search_filter">「%s」の検索結果</string>
     <string name="FLA_new_filter">新しいフィルターを作成</string>
     <string name="TEA_title_hint">タスク名</string>
@@ -102,7 +102,7 @@
     <string name="default_location_reminder_on_departure">出発時</string>
     <string name="default_location_reminder_on_arrival_or_departure">到着時と出発時</string>
     <string name="BFE_Active">マイ タスク</string>
-    <string name="BFE_Recent">最近編集したタスク</string>
+    <string name="BFE_Recent">最近変更したタスク</string>
     <string name="custom_filter_or">または</string>
     <string name="custom_filter_not">除外</string>
     <string name="custom_filter_and">かつ</string>
@@ -675,7 +675,7 @@
     <string name="filter_any_start_date">着手日時あり</string>
     <string name="chip_appearance">チップの外観</string>
     <string name="desaturate_colors_summary_on">ダークテーマの使用時に彩度が下がります</string>
-    <string name="sort_modified_group">更新: %s</string>
+    <string name="sort_modified_group">変更: %s</string>
     <string name="sort_start_group">着手: %s</string>
     <string name="sort_due_group">締切: %s</string>
     <string name="on_launch">起動時</string>
@@ -715,4 +715,5 @@
     <string name="sort_ascending">昇順</string>
     <string name="sort_descending">降順</string>
     <string name="sort_completed">完了日時</string>
+    <string name="repeat_monthly_on_day_number">毎月 %1d 日</string>
 </resources>
