@@ -725,4 +725,8 @@
     <string name="sort_descending">Absteigend</string>
     <string name="sort_completed">Nach Erledigungszeit</string>
     <string name="sort_not_available">Für Schlagworte, Filter oder Orte nicht verfügbar</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">Vorkommen</item>
+        <item quantity="other">Vorkommen</item>
+    </plurals>
 </resources>
