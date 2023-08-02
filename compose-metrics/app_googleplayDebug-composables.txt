@@ -1,0 +1,786 @@
+restartable scheme("[androidx.compose.ui.UiComposable]") fun DueDateRow(
+  unstable <this>: TaskEditFragment
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun PriorityRow(
+  unstable <this>: TaskEditFragment
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun DescriptionRow(
+  unstable <this>: TaskEditFragment
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun ListRow(
+  unstable <this>: TaskEditFragment
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun CreationRow(
+  unstable <this>: TaskEditFragment
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun Comments(
+  unstable <this>: TaskEditFragment
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddAccountDialog(
+  stable hasTasksAccount: Boolean
+  stable selected: Function1<Platform, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddAccountDialogPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun AddRandomReminderDialog(
+  unstable viewState: ViewState
+  stable addAlarm: Function1<Alarm, Unit>
+  stable closeDialog: Function0<Unit>
+  unused unstable <this>: AddReminderDialog
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun AddCustomReminderDialog(
+  unstable viewState: ViewState
+  stable addAlarm: Function1<Alarm, Unit>
+  stable closeDialog: Function0<Unit>
+  unstable <this>: AddReminderDialog
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddRepeatReminderDialog(
+  stable openDialog: MutableState<Boolean>
+  stable initialInterval: Int
+  stable initialUnits: Int
+  stable initialRepeat: Int
+  stable selected: Function3<Int, Int, Int, Unit>
+  unused unstable <this>: AddReminderDialog
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddRandomReminder(
+  stable time: MutableState<Int>
+  stable units: MutableState<Int>
+  unused unstable <this>: AddReminderDialog
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddCustomReminder(
+  stable time: MutableState<Int>
+  stable units: MutableState<Int>
+  stable interval: MutableState<Int>
+  stable recurringUnits: MutableState<Int>
+  stable repeat: MutableState<Int>
+  stable showRecurring: Function0<Unit>
+  unused unstable <this>: AddReminderDialog
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddRecurringReminder(
+  stable openDialog: Boolean
+  stable interval: MutableState<Int>
+  stable units: MutableState<Int>
+  stable repeat: MutableState<Int>
+  unused unstable <this>: AddReminderDialog
+)
+restartable skippable fun ShowKeyboard(
+  stable visible: Boolean
+  stable focusRequester: FocusRequester
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun OutlinedIntInput(
+  stable time: MutableState<Int>
+  stable modifier: Modifier? = @static Companion
+  stable minValue: Int = @dynamic LiveLiterals$AddReminderDialogKt.Int$param-minValue$fun-OutlinedIntInput()
+  stable autoSelect: Boolean = @dynamic LiveLiterals$AddReminderDialogKt.Boolean$param-autoSelect$fun-OutlinedIntInput()
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CenteredH6(
+  stable resId: Int
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CenteredH6(
+  stable text: String
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun RadioRow(
+  stable index: Int
+  stable option: Int
+  stable time: MutableState<Int>
+  stable units: MutableState<Int>
+  stable formatString: Int? = @static null
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun BodyText(
+  stable modifier: Modifier? = @static Companion
+  stable text: String
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun AddAlarmDialog(
+  unstable viewState: ViewState
+  unstable existingAlarms: List<Alarm>
+  stable addAlarm: Function1<Alarm, Unit>
+  stable addRandom: Function0<Unit>
+  stable addCustom: Function0<Unit>
+  stable pickDateAndTime: Function0<Unit>
+  stable dismiss: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddCustomReminderOne()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddCustomReminder()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddRepeatingReminderOne()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddRepeatingReminder()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddRandomReminderOne()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddRandomReminder()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AddReminderDialog()
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun AnimatedBanner(
+  stable visible: Boolean
+  stable content: Function2<Composer, Int, Unit>
+  stable buttons: Function2<Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SubscriptionNagBanner(
+  stable visible: Boolean
+  stable subscribe: Function0<Unit>
+  stable dismiss: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun BeastModeBanner(
+  stable visible: Boolean
+  stable showSettings: Function0<Unit>
+  stable dismiss: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun BannerTextButton(
+  stable text: Int
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun BeastModePreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SubscriptionNagPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun CheckBox(
+  unstable task: Task
+  stable onCompleteClick: Function0<Unit>
+  stable modifier: Modifier? = @static Companion
+  stable desaturate: Boolean
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Chip(
+  stable icon: Int?
+  stable name: String?
+  stable theme: Int
+  stable showText: Boolean
+  stable showIcon: Boolean
+  stable onClick: Function0<Unit>
+  stable colorProvider: Function1<Int, Int>
+  stable clear: Function0<Unit>? = @static null
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Chip(
+  stable text: String? = @static null
+  stable icon: Int? = @static null
+  stable color: Color
+  stable onClick: Function0<Unit>? = @static {
+
+}
+
+  stable clear: Function0<Unit>? = @static null
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ChipIcon(
+  stable iconRes: Int?
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TasksChipIconAndTextPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TasksChipIconTextAndClearPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TasksChipIconPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TasksChipTextPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun ChipGroup(
+  stable modifier: Modifier? = @static Companion
+  stable content: Function2<Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ClearButton(
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TextButton(
+  stable text: Int
+  stable onClick: Function0<Unit>
+  stable <this>: Constants
+)
+fun textButtonColors(
+  unused stable <this>: Constants
+): ButtonColors
+fun textFieldColors(
+  unused stable <this>: Constants
+): TextFieldColors
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun CustomDialog(
+  stable visible: Boolean
+  stable onDismiss: Function0<Unit>
+  stable content: Function2<Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DeleteButton(
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DialogRow(
+  stable text: Int
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DisabledText(
+  stable text: String
+  stable modifier: Modifier? = @static Companion
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun FilterChip(
+  unstable filter: Filter
+  stable defaultIcon: Int
+  stable showText: Boolean
+  stable showIcon: Boolean
+  stable onClick: Function1<Filter, Unit>
+  stable colorProvider: Function1<Int, Int>
+)
+fun rememberFlow(
+  unstable flow: Flow<T>
+  unstable lifecycleOwner: LifecycleOwner? = @dynamic LocalLifecycleOwner.<get-current>($composer, 0)
+): Flow<T>
+fun collectAsStateLifecycleAware(
+  unstable <this>: Flow<T>
+  initial: R
+  unstable context: CoroutineContext? = @static EmptyCoroutineContext
+): State<R>
+fun collectAsStateLifecycleAware(
+  unstable <this>: StateFlow<T>
+  unstable context: CoroutineContext? = @static EmptyCoroutineContext
+): State<T>
+fun border()
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun OutlinedBox(
+  stable modifier: Modifier? = @static Companion
+  stable content: @[ExtensionFunctionType] Function3<BoxScope, Composer, Int, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun OutlinedSpinner(
+  stable text: String
+  unstable options: List<String>
+  stable onSelected: Function1<Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun OutlinedNumberInput(
+  stable number: Int
+  stable onTextChanged: Function1<Int, Unit>
+  stable onFocus: Function0<Unit>? = @static {
+
+}
+
+)
+restartable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun Pager(
+  unstable state: PagerState
+  stable modifier: Modifier? = @static Companion
+  stable offscreenLimit: Int = @dynamic LiveLiterals$PagerKt.Int$param-offscreenLimit$fun-Pager()
+  stable pageContent: @[ExtensionFunctionType] Function3<PagerScope, Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Owner()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NotOwner()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun PrincipalList(
+  unstable principals: List<PrincipalWithAccess>
+  stable onRemove: Function1<PrincipalWithAccess, Unit>?
+  unused stable <this>: ListSettingsComposables
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun PrincipalRow(
+  unstable principal: PrincipalWithAccess
+  stable onRemove: Function1<PrincipalWithAccess, Unit>?
+  unused stable <this>: ListSettingsComposables
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ServerSelector(
+  stable selected: Int
+  stable onSelected: Function1<Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ServerSelectorPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Invite()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun InviteDark()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun InviteFilled()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun InviteDarkFilled()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ShareInviteDialog(
+  stable openDialog: MutableState<Boolean>
+  stable email: Boolean
+  stable invite: Function1<String, Unit>
+  unused stable <this>: ShareInvite
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ShareInvite(
+  stable email: Boolean
+  stable text: MutableState<String>
+  unused stable <this>: ShareInvite
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SignInDialog(
+  stable selected: Function1<Platform, Unit>
+  stable help: Function0<Unit>
+  stable cancel: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ConsentDialog(
+  stable agree: Function1<Boolean, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SignInDialogPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DisclosurePreview()
+restartable fun Spinner(
+  unstable options: List<String>
+  unstable values: List<T>
+  selected: T
+  stable expanded: Boolean
+  stable modifier: Modifier? = @static Companion
+  stable onSelected: Function1<T, Unit>
+  stable setExpanded: Function1<Boolean, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PurchaseText(
+  stable nameYourPrice: MutableState<Boolean>? = @dynamic mutableStateOf(
+  value   =   LiveLiterals$SubscriptionKt  .  Boolean$arg-0$call-mutableStateOf$param-nameYourPrice$fun-PurchaseText$class-PurchaseText  (  )
+)
+  stable sliderPosition: MutableState<Float>? = @dynamic mutableStateOf(
+  value   =   LiveLiterals$SubscriptionKt  .  Float$arg-0$call-mutableStateOf$param-sliderPosition$fun-PurchaseText$class-PurchaseText  (  )
+)
+  stable github: Boolean = @dynamic LiveLiterals$SubscriptionKt.Boolean$param-github$fun-PurchaseText$class-PurchaseText()
+  stable solidButton: Boolean = @dynamic LiveLiterals$SubscriptionKt.Boolean$param-solidButton$fun-PurchaseText$class-PurchaseText()
+  stable badge: Boolean = @dynamic LiveLiterals$SubscriptionKt.Boolean$param-badge$fun-PurchaseText$class-PurchaseText()
+  stable onDisplayed: Function0<Unit>? = @static {
+
+}
+
+  stable subscribe: Function2<Int, Boolean, Unit>
+  unused unstable <this>: PurchaseText
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SponsorButton(
+  unused unstable <this>: PurchaseText
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun GreetingText(
+  stable resId: Int
+  unused unstable <this>: PurchaseText
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun GooglePlayButtons(
+  stable nameYourPrice: MutableState<Boolean>
+  stable sliderPosition: MutableState<Float>
+  unstable pagerState: PagerState
+  stable subscribe: Function2<Int, Boolean, Unit>
+  stable solidButton: Boolean
+  stable badge: Boolean
+  unused unstable <this>: PurchaseText
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PagerItem(
+  stable feature: CarouselItem
+  stable disabled: Boolean = @dynamic LiveLiterals$SubscriptionKt.Boolean$param-disabled$fun-PagerItem$class-PurchaseText()
+  unused unstable <this>: PurchaseText
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TasksAccount(
+  stable subscribe: Function2<Int, Boolean, Unit>
+  unused unstable <this>: PurchaseText
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PurchaseButton(
+  stable price: Int
+  stable monthly: Boolean = @dynamic LiveLiterals$SubscriptionKt.Boolean$param-monthly$fun-PurchaseButton$class-PurchaseText()
+  stable popperText: String? = @dynamic LiveLiterals$SubscriptionKt.String$param-popperText$fun-PurchaseButton$class-PurchaseText()
+  stable onClick: Function2<Int, Boolean, Unit>
+  unused unstable <this>: PurchaseText
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NameYourPrice(
+  stable sliderPosition: MutableState<Float>
+  stable subscribe: Function2<Int, Boolean, Unit>
+  unused unstable <this>: PurchaseText
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PurchaseDialogPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PurchaseDialogPreviewSolid()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PurchaseDialogPreviewBadge()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SubtaskChip(
+  stable collapsed: Boolean
+  stable children: Int
+  stable compact: Boolean
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SyncAccount(
+  stable title: Int
+  stable description: Int
+  stable icon: Int
+  stable tint: Color? = @static null
+  stable onClick: Function0<Unit>
+)
+restartable skippable fun SystemBars(
+  stable statusBarColor: Color
+  stable navigationBarColor: Color
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TaskEditIcon(
+  stable id: Int
+  stable modifier: Modifier? = @static Companion
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun TaskEditRow(
+  stable iconRes: Int = @dynamic LiveLiterals$TaskEditRowKt.Int$param-iconRes$fun-TaskEditRow()
+  stable icon: Function2<Composer, Int, Unit>? = @static composableLambda($composer, -994143420, true) { $composer: Composer?, $changed: Int ->
+  sourceInformation  (  $composer  ,   "C19@626L6,16@518L305:TaskEditRow.kt#pvtc9k"  )  
+  if (  $changed   and   0b1011   !==   0b0010   ||   !  $composer  .  skipping  ) {
+    if (    isTraceInProgress    (    )    ) {
+      traceEventStart      (      -994143420      ,       $changed      ,       -1      ,       "org.tasks.compose.TaskEditRow.<anonymous> (TaskEditRow.kt:15)"      )
+    }
+    
+    TaskEditIcon    (    iconRes    ,     Companion    .    alpha    (    ContentAlpha    .    <get-medium>    (    $composer    ,     ContentAlpha    .    $stable    )    )    .    padding    (    LiveLiterals$TaskEditRowKt    .    Int$$$this$call-$get-dp$$arg-0$call-padding$arg-1$call-TaskEditIcon$fun-$anonymous$$param-icon$fun-TaskEditRow    (    )    .    dp    ,     LiveLiterals$TaskEditRowKt    .    Int$$$this$call-$get-dp$$arg-1$call-padding$arg-1$call-TaskEditIcon$fun-$anonymous$$param-icon$fun-TaskEditRow    (    )    .    dp    ,     LiveLiterals$TaskEditRowKt    .    Int$$$this$call-$get-dp$$arg-2$call-padding$arg-1$call-TaskEditIcon$fun-$anonymous$$param-icon$fun-TaskEditRow    (    )    .    dp    ,     LiveLiterals$TaskEditRowKt    .    Int$$$this$call-$get-dp$$arg-3$call-padding$arg-1$call-TaskEditIcon$fun-$anonymous$$param-icon$fun-TaskEditRow    (    )    .    dp    )    ,     $composer    ,     0b1110     and     $dirty    ,     0    )    
+    if (    isTraceInProgress    (    )    ) {
+      traceEventEnd      (      )
+    }
+
+  } else {
+    $composer    .    skipToGroupEnd    (    )
+  }
+
+}
+
+  stable content: Function2<Composer, Int, Unit>
+  stable onClick: Function0<Unit>? = @static null
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun AlarmRow(
+  unstable vm: ReminderControlSetViewModel? = @dynamic viewModel(null, null, null, null, $composer, 0, 0b1111)
+  stable permissionStatus: PermissionStatus
+  stable launchPermissionRequest: Function0<Unit>
+  unstable alarms: List<Alarm>
+  stable ringMode: Int
+  unstable locale: Locale
+  stable addAlarm: Function1<Alarm, Unit>
+  stable deleteAlarm: Function1<Alarm, Unit>
+  stable openRingType: Function0<Unit>
+  stable pickDateAndTime: Function1<@[ParameterName(name = 'replace')] Alarm?, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun Alarms(
+  unstable alarms: List<Alarm>
+  stable ringMode: Int
+  unstable locale: Locale
+  stable replaceAlarm: Function1<Alarm, Unit>
+  stable addAlarm: Function0<Unit>
+  stable deleteAlarm: Function1<Alarm, Unit>
+  stable openRingType: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AlarmRow(
+  stable text: String
+  stable onClick: Function0<Unit>
+  stable remove: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoAlarms()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PermissionDenied()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun AttachmentRow(
+  unstable attachments: List<TaskAttachment>
+  stable openAttachment: Function1<TaskAttachment, Unit>
+  stable deleteAttachment: Function1<TaskAttachment, Unit>
+  stable addAttachment: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoThumbnail(
+  stable filename: String
+  stable mimeType: String?
+  stable open: Function0<Unit>
+  stable delete: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DeleteAttachment(
+  stable <this>: BoxScope
+  stable onClick: Function0<Unit>
+  stable color: Color
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoAttachments()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AttachmentPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CalendarRow(
+  stable eventUri: String?
+  stable selectedCalendar: String?
+  stable onClick: Function0<Unit>
+  stable clear: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoCalendar()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NewCalendar()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ExistingCalendar()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun CommentsRow(
+  unstable comments: List<UserActivity>
+  stable deleteComment: Function1<UserActivity, Unit>
+  stable openImage: Function1<Uri, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun Comment(
+  unstable comment: UserActivity
+  stable deleteComment: Function1<UserActivity, Unit>
+  stable openImage: Function1<Uri, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun DescriptionRow(
+  stable text: String?
+  stable onChanged: Function1<CharSequence?, Unit>
+  unstable linkify: Linkify?
+  unstable markdownProvider: MarkdownProvider?
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EmptyDescriptionPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DescriptionPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DueDateRow(
+  stable dueDate: String?
+  stable overdue: Boolean
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DueDate(
+  stable dueDate: String?
+  stable overdue: Boolean
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DueDatePreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoDueDatePreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun InfoRow(
+  stable creationDate: Long?
+  stable modificationDate: Long?
+  stable completionDate: Long?
+  unstable locale: Locale? = @dynamic getDefault()
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun InfoPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun ListRow(
+  unstable list: Filter?
+  stable colorProvider: Function1<Int, Int>
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ListPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun LocationRow(
+  unstable location: Location?
+  stable hasPermissions: Boolean
+  stable onClick: Function0<Unit>
+  stable openGeofenceOptions: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Location(
+  stable name: String
+  stable address: String?
+  stable geofenceOn: Boolean
+  stable openGeofenceOptions: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoLocation()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SampleLocation()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PriorityRow(
+  stable priority: Int
+  stable onChangePriority: Function1<Int, Unit>
+  stable desaturate: Boolean
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Priority(
+  stable selected: Int
+  stable onClick: Function1<Int, Unit>? = @static { it: Int ->
+
+}
+
+  stable desaturate: Boolean
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PriorityButton(
+  stable <this>: RowScope
+  stable priority: Int
+  stable selected: Int
+  stable desaturate: Boolean
+  stable onClick: Function1<Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PriorityPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PriorityPreviewNoDesaturate()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PriorityNarrowWidth()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun RepeatRow(
+  stable recurrence: String?
+  stable repeatAfterCompletion: Boolean
+  stable onClick: Function0<Unit>
+  stable onRepeatFromChanged: Function1<Boolean, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Repeat(
+  stable recurrence: String?
+  stable repeatFromCompletion: Boolean
+  stable onRepeatFromChanged: Function1<Boolean, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun RepeatPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoRepeatPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun StartDateRow(
+  stable startDate: Long
+  stable selectedDay: Long
+  stable selectedTime: Int
+  stable currentTime: Long = @dynamic now()
+  stable hasDueDate: Boolean
+  stable printDate: Function0<String>
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun StartDate(
+  stable startDate: Long
+  stable selectedDay: Long
+  stable selectedTime: Int
+  stable currentTime: Long
+  stable hasDueDate: Boolean
+  stable printDate: Function0<String>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoStartDate()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FutureStartDate()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PastStartDate()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun SubtaskRow(
+  unstable originalFilter: Filter?
+  unstable filter: Filter?
+  stable hasParent: Boolean
+  stable desaturate: Boolean
+  unstable existingSubtasks: List<TaskContainer>
+  unstable newSubtasks: List<Task>
+  stable openSubtask: Function1<Task, Unit>
+  stable completeExistingSubtask: Function2<Task, Boolean, Unit>
+  stable completeNewSubtask: Function1<Task, Unit>
+  stable toggleSubtask: Function2<Long, Boolean, Unit>
+  stable addSubtask: Function0<Unit>
+  stable deleteSubtask: Function1<Task, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun NewSubtaskRow(
+  unstable subtask: Task
+  stable desaturate: Boolean
+  stable addSubtask: Function0<Unit>
+  stable onComplete: Function1<Task, Unit>
+  stable onDelete: Function1<Task, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun ExistingSubtaskRow(
+  unstable task: TaskContainer
+  stable indent: Int
+  stable desaturate: Boolean
+  stable onRowClick: Function0<Unit>
+  stable onCompleteClick: Function0<Unit>
+  stable onToggleSubtaskClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoSubtasks()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SubtasksPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun TagsRow(
+  unstable tags: List<TagData>
+  stable colorProvider: Function1<Int, Int>
+  stable onClick: Function0<Unit>
+  stable onClear: Function1<TagData, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoTags()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SingleTag()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun BunchOfTags()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TagWithReallyLongName()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TimerRow(
+  stable started: Long
+  stable estimated: Int
+  stable elapsed: Int
+  stable timerClicked: Function0<Unit>
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoTimer()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun RunningTimer()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CalendarPicker(
+  unstable viewModel: CalendarPickerViewModel? = @dynamic viewModel(null, null, null, null, $composer, 0, 0b1111)
+  stable selected: String?
+  stable onSelected: Function1<AndroidCalendar?, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun CalendarPickerList(
+  unstable calendars: List<AndroidCalendar>
+  stable selected: String?
+  stable onSelected: Function1<AndroidCalendar?, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CalendarPickerPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CalendarPickerNoneSelected()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun CheckableIconRow(
+  unstable icon: Painter
+  stable tint: Color
+  stable text: String
+  stable selected: Boolean
+  stable onClick: Function0<Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun CheckableIconRow(
+  unstable icon: Painter
+  stable tint: Color
+  stable selected: Boolean
+  stable onClick: Function0<Unit>
+  stable content: Function2<Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CollapsibleRow(
+  stable text: String
+  stable collapsed: Boolean
+  stable onClick: Function0<Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun CustomRecurrence(
+  unstable state: ViewState
+  stable save: Function0<Unit>
+  stable discard: Function0<Unit>
+  stable setInterval: Function1<Int, Unit>
+  stable setSelectedFrequency: Function1<Frequency, Unit>
+  stable setEndDate: Function1<Long, Unit>
+  stable setSelectedEndType: Function1<Int, Unit>
+  stable setOccurrences: Function1<Int, Unit>
+  stable toggleDay: Function1<DayOfWeek, Unit>
+  stable setMonthSelection: Function1<Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Header(
+  stable resId: Int
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun WeekdayPicker(
+  unstable daysOfWeek: List<DayOfWeek>
+  unstable selected: List<DayOfWeek>
+  stable toggle: Function1<DayOfWeek, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun MonthlyPicker(
+  unstable monthDay: WeekDay?
+  stable dayNumber: Int
+  stable dayOfWeek: DayOfWeek
+  stable nthWeek: Int
+  stable isLastWeek: Boolean
+  unstable locale: Locale
+  stable onSelected: Function1<Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EndsPicker(
+  stable selection: Int
+  stable endDate: Long
+  stable endOccurrences: Int
+  stable setOccurrences: Function1<Int, Unit>
+  stable setEndDate: Function1<Long, Unit>
+  stable setSelection: Function1<Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun RadioRow(
+  stable selected: Boolean
+  stable onClick: Function0<Unit>
+  stable content: @[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun WeeklyPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MonthlyPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MinutelyPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HourlyPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DailyPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun YearlyPreview()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DatePickerDialog(
+  stable initialDate: Long
+  stable selected: Function1<Long, Unit>
+  stable dismiss: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DatePickerPreview()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun FilterPicker(
+  unstable viewModel: FilterPickerViewModel? = @dynamic viewModel(null, null, null, null, $composer, 0, 0b1111)
+  unstable selected: Filter?
+  stable onSelected: Function1<Filter, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SortSheetContent(
+  stable manualSortSelected: Boolean
+  stable manualSortEnabled: Boolean
+  stable astridSortEnabled: Boolean
+  stable selected: Int
+  stable setManualSort: Function1<Boolean, Unit>
+  stable setAstridSort: Function1<Boolean, Unit>
+  stable onSelected: Function1<Int, Unit>
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun SortPicker(
+  stable selected: Int
+  unstable options: Map<Int, Int>
+  stable onClick: Function1<Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SortOption(
+  stable resId: Int
+  stable selected: Boolean
+  stable enabled: Boolean = @dynamic LiveLiterals$SortSettingsActivityKt.Boolean$param-enabled$fun-SortOption()
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun BottomSheetContent(
+  stable groupMode: Int
+  stable sortMode: Int
+  stable completedMode: Int
+  stable subtaskMode: Int
+  stable sortAscending: Boolean
+  stable groupAscending: Boolean
+  stable completedAscending: Boolean
+  stable subtaskAscending: Boolean
+  stable manualSort: Boolean
+  stable astridSort: Boolean
+  stable completedAtBottom: Boolean
+  stable setSortAscending: Function1<Boolean, Unit>
+  stable setGroupAscending: Function1<Boolean, Unit>
+  stable setCompletedAscending: Function1<Boolean, Unit>
+  stable setSubtaskAscending: Function1<Boolean, Unit>
+  stable setCompletedAtBottom: Function1<Boolean, Unit>
+  stable clickGroupMode: Function0<Unit>
+  stable clickSortMode: Function0<Unit>
+  stable clickCompletedMode: Function0<Unit>
+  stable clickSubtaskMode: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SortRow(
+  stable icon: ImageVector? = @dynamic Outlined.SwapVert
+  stable title: Int
+  stable ascending: Boolean
+  stable sortMode: Int
+  stable body: Int = @dynamic remember(sortMode, {
+  sortMode  .  modeString
+}
+, $composer, 0b1110 and $dirty shr 0b1001)
+  stable showAscending: Boolean = @dynamic LiveLiterals$SortSettingsActivityKt.Boolean$param-showAscending$fun-SortRow()
+  stable onClick: Function0<Unit>
+  stable setAscending: Function1<Boolean, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun OrderingButton(
+  stable ascending: Boolean
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PreviewSortBottomSheet()
+restartable scheme("[androidx.compose.ui.UiComposable]") fun StartDateChip(
+  stable sortGroup: Long?
+  stable startDate: Long
+  stable compact: Boolean
+  stable timeOnly: Boolean
+  unstable <this>: ChipProvider
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun Chips(
+  unstable filter: Filter?
+  stable id: Long
+  stable children: Int
+  stable collapsed: Boolean
+  stable isHidden: Boolean
+  stable sortGroup: Long?
+  stable startDate: Long
+  stable place: Place?
+  stable tagsString: String?
+  stable sortByStartDate: Boolean
+  stable sortByList: Boolean
+  stable list: String?
+  stable isSubtask: Boolean
+  stable isGoogleTask: Boolean
+  stable toggleSubtasks: Function2<Long, Boolean, Unit>
+  stable onClick: Function1<Filter, Unit>
+  unstable <this>: ChipProvider
+)

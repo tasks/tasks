@@ -9,3 +9,4 @@ local.properties
 Thumbs.db
 /captures/
 /fastlane/report.xml
+/compose-metrics/
