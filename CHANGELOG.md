@@ -1,3 +1,16 @@
+### 13.5.1 (2023-08-02)
+
+* Fix crash when importing Google Tasks from a backup file
+* Added Burmese translations - @htetoh
+* Update translations
+  * Chinese (Simplified) - Poesty Li
+  * Croatian - @milotype
+  * Japanese - Kazushi Hayama
+  * Polish - @alex-ter
+  * Russian - @alex-ter
+  * Ukrainian - @IhorHordiichuk
+  * Vietnamese - @unbiaseduser
+
 ### 13.5 (2023-07-28)
 
 * New custom recurrence picker
