@@ -172,9 +172,18 @@ class TasksJsonImporter @Inject constructor(
                             result.skipCount++
                             return@forEach
                         }
-                if (true == backup.caldavTasks
-                                ?.filter { it.deleted == 0L }
-                                ?.any { caldavDao.getTask(it.calendar!!, it.`object`!!) != null }) {
+                if (
+                    backup.caldavTasks
+                        ?.filter { it.deleted == 0L }
+                        ?.any {
+                            val existing = if (it.`object`.isNullOrBlank()) {
+                                caldavDao.getTaskByRemoteId(it.calendar!!, it.remoteId!!)
+                            } else {
+                                caldavDao.getTask(it.calendar!!, it.`object`!!)
+                            }
+                            existing != null
+                        } == true
+                    ) {
                     result.skipCount++
                     return@forEach
                 }
