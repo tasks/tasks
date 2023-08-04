@@ -727,4 +727,15 @@
     <string name="sort_completed">По време на завършване</string>
     <string name="repeats_never">Никога</string>
     <string name="repeats_after">След</string>
+    <string name="repeats_every">Повтаряне всеки</string>
+    <string name="repeats_weekly_on">Повтаряне в</string>
+    <string name="repeats_ends">Край</string>
+    <string name="repeats_custom_recurrence">Потребителско повторение</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">повторение</item>
+        <item quantity="other">повторения</item>
+    </plurals>
+    <string name="repeats_on">В</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Ежемесечно в %1$s %2$s</string>
+    <string name="repeat_monthly_on_day_number">Ежемесечно на %1d ден</string>
 </resources>
