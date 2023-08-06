@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.DateUtilities
@@ -25,8 +26,14 @@ import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.millisOfDay
 import org.tasks.time.DateTimeUtils.startOfDay
 import java.time.format.FormatStyle
-import java.util.*
-import java.util.Calendar.*
+import java.util.Calendar.FRIDAY
+import java.util.Calendar.MONDAY
+import java.util.Calendar.SATURDAY
+import java.util.Calendar.SUNDAY
+import java.util.Calendar.THURSDAY
+import java.util.Calendar.TUESDAY
+import java.util.Calendar.WEDNESDAY
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,6 +63,7 @@ class DateTimePicker : BaseDateTimePicker() {
         const val EXTRA_TIME = "extra_time"
         const val EXTRA_TASKS = "extra_tasks"
         const val EXTRA_TIMESTAMP = "extra_timestamp"
+        const val EXTRA_HIDE_NO_DATE = "extra_hide_no_date"
         private const val REQUEST_TIME = 10101
         private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
         private const val NO_DAY = 0L
@@ -63,26 +71,37 @@ class DateTimePicker : BaseDateTimePicker() {
         private const val MULTIPLE_DAYS = -1L
         private const val MULTIPLE_TIMES = -1
 
-        fun newDateTimePicker(autoClose: Boolean, vararg tasks: Task): DateTimePicker {
-            val bundle = Bundle()
-            bundle.putLongArray(EXTRA_TASKS, tasks.map { it.id }.toLongArray())
+        fun newDateTimePicker(
+                autoClose: Boolean,
+                vararg tasks: Task
+        ): DateTimePicker {
+            val fragment = DateTimePicker()
             val dueDates = tasks.map { it.dueDate.startOfDay() }.toSet()
             val dueTimes = tasks.map { it.dueDate.millisOfDay() }.toSet()
-            bundle.putLong(EXTRA_DAY, if (dueDates.size == 1) dueDates.first() else MULTIPLE_DAYS)
-            bundle.putInt(EXTRA_TIME, if (dueTimes.size == 1) dueTimes.first() else MULTIPLE_TIMES)
-            bundle.putBoolean(EXTRA_AUTO_CLOSE, autoClose)
-            val fragment = DateTimePicker()
-            fragment.arguments = bundle
+            fragment.arguments = Bundle().apply {
+                putLongArray(EXTRA_TASKS, tasks.map { it.id }.toLongArray())
+                putLong(EXTRA_DAY, if (dueDates.size == 1) dueDates.first() else MULTIPLE_DAYS)
+                putInt(EXTRA_TIME, if (dueTimes.size == 1) dueTimes.first() else MULTIPLE_TIMES)
+                putBoolean(EXTRA_HIDE_NO_DATE, tasks.any { it.isRecurring })
+                putBoolean(EXTRA_AUTO_CLOSE, autoClose)
+            }
             return fragment
         }
 
-        fun newDateTimePicker(target: Fragment, rc: Int, current: Long, autoClose: Boolean): DateTimePicker {
-            val bundle = Bundle()
-            bundle.putLong(EXTRA_DAY, current.startOfDay())
-            bundle.putInt(EXTRA_TIME, current.millisOfDay())
-            bundle.putBoolean(EXTRA_AUTO_CLOSE, autoClose)
+        fun newDateTimePicker(
+                target: Fragment,
+                rc: Int,
+                current: Long,
+                autoClose: Boolean,
+                hideNoDate: Boolean,
+        ): DateTimePicker {
             val fragment = DateTimePicker()
-            fragment.arguments = bundle
+            fragment.arguments = Bundle().apply {
+                putLong(EXTRA_DAY, current.startOfDay())
+                putInt(EXTRA_TIME, current.millisOfDay())
+                putBoolean(EXTRA_AUTO_CLOSE, autoClose)
+                putBoolean(EXTRA_HIDE_NO_DATE, hideNoDate)
+            }
             fragment.setTargetFragment(target, rc)
             return fragment
         }
@@ -105,6 +124,7 @@ class DateTimePicker : BaseDateTimePicker() {
                         else -> throw IllegalArgumentException()
                     }
                 )
+            noDateButton.isGone = requireArguments().getBoolean(EXTRA_HIDE_NO_DATE, false)
             noDateButton.setOnClickListener { clearDate() }
             noTime.setOnClickListener { clearTime() }
             todayButton.setOnClickListener { setToday() }

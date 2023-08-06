@@ -450,13 +450,14 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             onClick = {
                 DateTimePicker
                     .newDateTimePicker(
-                        this@TaskEditFragment,
-                        REQUEST_DATE,
-                        editViewModel.dueDate.value,
-                        preferences.getBoolean(
+                        target = this@TaskEditFragment,
+                        rc = REQUEST_DATE,
+                        current = editViewModel.dueDate.value,
+                        autoClose = preferences.getBoolean(
                             R.string.p_auto_dismiss_datetime_edit_screen,
                             false
-                        )
+                        ),
+                        hideNoDate = editViewModel.recurrence.value?.isNotBlank() == true,
                     )
                     .show(parentFragmentManager, FRAG_TAG_DATE_PICKER)
             }

@@ -34,7 +34,11 @@ class RepeatControlSet : TaskEditControlFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_RECURRENCE) {
             if (resultCode == RESULT_OK) {
-                viewModel.recurrence.value = data?.getStringExtra(BasicRecurrenceDialog.EXTRA_RRULE)
+                val result = data?.getStringExtra(BasicRecurrenceDialog.EXTRA_RRULE)
+                viewModel.recurrence.value = result
+                if (result?.isNotBlank() == true && viewModel.dueDate.value == 0L) {
+                    viewModel.setDueDate(DateTime().startOfDay().millis)
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
