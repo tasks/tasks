@@ -6,7 +6,7 @@ import timber.log.Timber
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors.newSingleThreadExecutor
 
-internal class Throttle constructor(
+internal class Throttle(
         ratePerPeriod: Int,
         private val periodMillis: Long = 1000,
         private val tag: String = "",

@@ -18,7 +18,7 @@ class TaskEditPreferences : InjectingPreferenceFragment() {
                 requireContext(),
                 R.drawable.ic_keyboard_arrow_right_24px
             )?.mutate()
-            tint = context?.getColor(R.color.icon_tint_with_alpha)
+            tint = context.getColor(R.color.icon_tint_with_alpha)
             iconVisible = true
         }
     }

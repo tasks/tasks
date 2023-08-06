@@ -78,7 +78,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     override val isNew: Boolean
         get() = isNewList
 
-    override val toolbarTitle: String?
+    override val toolbarTitle: String
         get() = if (isNew) getString(R.string.new_list) else gtasksList.name!!
 
     private fun showProgressIndicator() {

@@ -44,7 +44,7 @@ fun OutlinedSpinner(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            offset = DpOffset(-8.dp, 0.dp),
+            offset = DpOffset((-8).dp, 0.dp),
         ) {
             options.forEachIndexed { index, item ->
                 DropdownMenuItem(

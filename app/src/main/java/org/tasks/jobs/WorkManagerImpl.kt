@@ -47,7 +47,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 
-class WorkManagerImpl constructor(
+class WorkManagerImpl(
         private val context: Context,
         private val preferences: Preferences,
         private val caldavDao: CaldavDao,

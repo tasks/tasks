@@ -259,8 +259,8 @@ class FilterCriteriaProvider @Inject constructor(
                                             // EOD today if the specified date is NOW
                                             or(Task.DUE_DATE.lte("?"),
                                                 and(field("${Task.DUE_DATE} / 1000 % 60").eq(0),
-                                                    field("?").eq(field("${PermaSql.VALUE_NOW}")),
-                                                    Task.DUE_DATE.lte("${PermaSql.VALUE_EOD}")))))
+                                                    field("?").eq(field(PermaSql.VALUE_NOW)),
+                                                    Task.DUE_DATE.lte(PermaSql.VALUE_EOD)))))
                             .toString(),
                     values,
                     r.getStringArray(R.array.CFC_dueBefore_entries),

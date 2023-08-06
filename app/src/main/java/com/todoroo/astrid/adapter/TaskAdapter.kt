@@ -192,7 +192,7 @@ open class TaskAdapter(
         return false
     }
 
-    internal fun findParent(indent: Int, to: Int): TaskContainer? {
+    private fun findParent(indent: Int, to: Int): TaskContainer? {
         if (indent == 0 || to == 0) {
             return null
         }

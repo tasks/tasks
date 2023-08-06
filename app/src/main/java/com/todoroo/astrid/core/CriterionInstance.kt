@@ -34,20 +34,27 @@ class CriterionInstance {
     // $NON-NLS-1$
     val titleFromCriterion: String
         get() {
-            if (criterion is MultipleSelectCriterion) {
-                if (selectedIndex >= 0 && (criterion as MultipleSelectCriterion).entryTitles != null && selectedIndex < (criterion as MultipleSelectCriterion).entryTitles.size) {
-                    val title = (criterion as MultipleSelectCriterion).entryTitles[selectedIndex]
-                    return criterion.text.replace("?", title)
+            when (criterion) {
+                is MultipleSelectCriterion -> {
+                    if (selectedIndex >= 0 && (criterion as MultipleSelectCriterion).entryTitles != null && selectedIndex < (criterion as MultipleSelectCriterion).entryTitles.size) {
+                        val title = (criterion as MultipleSelectCriterion).entryTitles[selectedIndex]
+                        return criterion.text.replace("?", title)
+                    }
+                    return criterion.text
                 }
-                return criterion.text
-            } else if (criterion is TextInputCriterion) {
-                return if (selectedText == null) {
-                    criterion.text
-                } else criterion.text.replace("?", selectedText!!)
-            } else if (criterion is BooleanCriterion) {
-                return criterion.name
+
+                is TextInputCriterion -> {
+                    return if (selectedText == null) {
+                        criterion.text
+                    } else criterion.text.replace("?", selectedText!!)
+                }
+
+                is BooleanCriterion -> {
+                    return criterion.name
+                }
+                // $NON-NLS-1$
+                else -> throw UnsupportedOperationException("Unknown criterion type")
             }
-            throw UnsupportedOperationException("Unknown criterion type") // $NON-NLS-1$
         }
 
     // $NON-NLS-1$
@@ -56,16 +63,23 @@ class CriterionInstance {
             if (type == TYPE_UNIVERSE) {
                 return null
             }
-            if (criterion is MultipleSelectCriterion) {
-                return if (selectedIndex >= 0 && (criterion as MultipleSelectCriterion).entryValues != null && selectedIndex < (criterion as MultipleSelectCriterion).entryValues.size) {
-                    (criterion as MultipleSelectCriterion).entryValues[selectedIndex]
-                } else criterion.text
-            } else if (criterion is TextInputCriterion) {
-                return selectedText
-            } else if (criterion is BooleanCriterion) {
-                return criterion.name
+            when (criterion) {
+                is MultipleSelectCriterion -> {
+                    return if (selectedIndex >= 0 && (criterion as MultipleSelectCriterion).entryValues != null && selectedIndex < (criterion as MultipleSelectCriterion).entryValues.size) {
+                        (criterion as MultipleSelectCriterion).entryValues[selectedIndex]
+                    } else criterion.text
+                }
+
+                is TextInputCriterion -> {
+                    return selectedText
+                }
+
+                is BooleanCriterion -> {
+                    return criterion.name
+                }
+                // $NON-NLS-1$
+                else -> throw UnsupportedOperationException("Unknown criterion type")
             }
-            throw UnsupportedOperationException("Unknown criterion type") // $NON-NLS-1$
         }
 
     private fun serialize(): String {

@@ -27,8 +27,7 @@ abstract class BaseInvoker(
             withContext(Dispatchers.IO) {
                 credentialsAdapter.checkToken()
                 Timber.d("%s request: %s", caller, request)
-                val response: T?
-                response = try {
+                val response: T? = try {
                     if (preferences.isFlipperEnabled) {
                         val start = DateUtilities.now()
                         val httpResponse = request.executeUnparsed()

@@ -6,12 +6,19 @@ import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import net.openid.appauth.*
+import net.openid.appauth.AppAuthConfiguration
+import net.openid.appauth.AuthorizationException
+import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.AuthorizationService
+import net.openid.appauth.ClientAuthentication
+import net.openid.appauth.RegistrationRequest
+import net.openid.appauth.RegistrationResponse
+import net.openid.appauth.TokenRequest
+import net.openid.appauth.TokenResponse
 import net.openid.appauth.browser.AnyBrowserMatcher
 import kotlin.coroutines.suspendCoroutine
 
-class AuthorizationService constructor(
+class AuthorizationService(
         val iss: String,
         context: Context,
         debugConnectionBuilder: DebugConnectionBuilder

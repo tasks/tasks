@@ -52,7 +52,7 @@ class BasicRecurrenceDialog : DialogFragment() {
         val adapter = SingleCheckedArrayAdapter(requireContext(), repeatOptions)
         var selected = 0
         if (customPicked) {
-            adapter.insert(repeatRuleToString!!.toString(rule), 0)
+            adapter.insert(repeatRuleToString.toString(rule), 0)
         } else if (rrule != null) {
             selected = when (rrule.frequency) {
                 Recur.Frequency.DAILY -> 1

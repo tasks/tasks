@@ -15,7 +15,7 @@ import org.tasks.time.DateTime
 import org.tasks.ui.TimePreference
 import java.time.DayOfWeek
 import java.time.format.TextStyle
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 private const val REQUEST_MORNING = 10007
@@ -126,7 +126,7 @@ class DateAndTime : InjectingPreferenceFragment(), Preference.OnPreferenceChange
     private fun updateStartOfWeek(value: String) {
         val preference = getStartOfWeekPreference()
         val index = preference.findIndexOfValue(value)
-        val summary: String? = getWeekdayEntries().get(index)
+        val summary: String? = getWeekdayEntries()[index]
         preference.summary = summary
     }
 

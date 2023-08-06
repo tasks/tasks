@@ -100,10 +100,8 @@ object FileHelper {
             ContentResolver.SCHEME_CONTENT -> {
                 val cursor = context.contentResolver.query(uri, null, null, null, null)
                 if (cursor != null && cursor.moveToFirst()) {
-                    return try {
-                        cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
-                    } finally {
-                        cursor.close()
+                    return cursor.use {
+                        it.getString(it.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
                     }
                 }
             }
@@ -217,7 +215,7 @@ object FileHelper {
         when (uri.scheme) {
             ContentResolver.SCHEME_CONTENT -> {
                 val dir = DocumentFile.fromTreeUri(context, uri)
-                val documentFiles = Arrays.asList(*dir!!.listFiles())
+                val documentFiles = listOf(*dir!!.listFiles())
                 while (true) {
                     val result = tempName + extension
                     if (Iterables.any(documentFiles) { f: DocumentFile? -> f!!.name == result }) {

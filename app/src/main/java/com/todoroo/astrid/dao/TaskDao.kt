@@ -112,8 +112,8 @@ class TaskDao @Inject constructor(
     }
 
     private suspend fun afterUpdate(task: Task, original: Task?) {
-        val completionDateModified = task.completionDate != original?.completionDate ?: 0
-        val deletionDateModified = task.deletionDate != original?.deletionDate ?: 0
+        val completionDateModified = task.completionDate != (original?.completionDate ?: 0)
+        val deletionDateModified = task.deletionDate != (original?.deletionDate ?: 0)
         val justCompleted = completionDateModified && task.isCompleted
         val justDeleted = deletionDateModified && task.isDeleted
         if (task.calendarURI?.isNotBlank() == true) {

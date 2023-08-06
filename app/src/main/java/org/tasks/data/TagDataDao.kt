@@ -2,7 +2,12 @@ package org.tasks.data
 
 import androidx.core.util.Pair
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
@@ -10,8 +15,6 @@ import org.tasks.db.DbUtils
 import org.tasks.filters.AlphanumComparator
 import org.tasks.filters.TagFilters
 import org.tasks.time.DateTimeUtils.currentTimeMillis
-import java.util.*
-import kotlin.collections.HashSet
 
 @Dao
 abstract class TagDataDao {
@@ -25,7 +28,7 @@ abstract class TagDataDao {
      * If a tag already exists in the database that case insensitively matches the given tag, return
      * that. Otherwise, return the argument
      */
-    suspend fun getTagWithCase(tag: String): String? = getTagByName(tag)?.name ?: tag
+    suspend fun getTagWithCase(tag: String): String = getTagByName(tag)?.name ?: tag
 
     suspend fun searchTags(query: String): List<TagData> = searchTagsInternal("%$query%").sort()
 

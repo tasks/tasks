@@ -34,7 +34,7 @@ import java.nio.charset.StandardCharsets
  * changes are detected by comparing the hash of the last known configuration to the read
  * configuration. When a configuration change is detected, the app state is reset.
  */
-class Configuration constructor(
+class Configuration(
         private val context: Context,
         private val authConfig: Int,
         debugConnectionBuilder: DebugConnectionBuilder

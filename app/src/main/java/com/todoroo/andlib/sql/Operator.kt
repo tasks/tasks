@@ -14,7 +14,6 @@ class Operator private constructor(private val operator: String) {
         val `in` = Operator("IN")
         val exists = Operator("EXISTS")
         val gt = Operator(">")
-        val gte = Operator(">=")
         val lt = Operator("<")
         val lte = Operator("<=")
     }

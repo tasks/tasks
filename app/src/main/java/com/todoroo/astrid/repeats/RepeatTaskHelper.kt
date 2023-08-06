@@ -75,7 +75,7 @@ class RepeatTaskHelper @Inject constructor(
         val previousDueDate =
                 oldDueDate
                         .takeIf { it > 0 }
-                        ?: newDueDate - (computeNextDueDate(task, recurrence, repeatAfterCompletion) - newDueDate)
+                        ?: (newDueDate - (computeNextDueDate(task, recurrence, repeatAfterCompletion) - newDueDate))
         rescheduleAlarms(task.id, previousDueDate, newDueDate)
         taskCompleter.setComplete(task, false)
         broadcastCompletion(task, previousDueDate)

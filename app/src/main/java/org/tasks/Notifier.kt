@@ -69,7 +69,7 @@ class Notifier @Inject constructor(
                 .setGroupSummary(true)
                 .setGroup(filter.listingTitle)
                 .setStyle(style)
-        notificationManager.notify(filter.listingTitle.hashCode().toLong(), builder, true, false, false)
+        notificationManager.notify(filter.listingTitle.hashCode().toLong(), builder, alert = true, nonstop = false, fiveTimes = false)
     }
 
     suspend fun triggerNotifications(place: Long, geofences: List<Geofence>, arrival: Boolean) =

@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 
-class TasksClient constructor(
+class TasksClient(
         provider: CaldavClientProvider,
         httpClient: OkHttpClient,
         private val httpUrl: HttpUrl?

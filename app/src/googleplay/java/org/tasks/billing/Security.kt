@@ -28,7 +28,7 @@ package org.tasks.billing
  * by implementing security measure X is greater than the money you would lose if you don't
  * implement X. Talk to a UX designer if you find yourself obsessing over security.
  *
- * The good news is, in implementing [BillingRepository], a number of measures is taken to help
+ * The good news is, in implementing BillingRepository, a number of measures is taken to help
  * prevent fraudulent activities in your app. We don't just focus on tech savvy hackers, but also
  * on fraudulent users who may want to exploit loopholes. Just to name an obvious case:
  * triangulation using Google Play, your secure server, and a local cache helps against non-techie

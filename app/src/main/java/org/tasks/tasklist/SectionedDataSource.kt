@@ -7,7 +7,7 @@ import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.TaskContainer
 import org.tasks.time.DateTimeUtils.startOfDay
 
-class SectionedDataSource constructor(
+class SectionedDataSource(
     tasks: List<TaskContainer>,
     disableHeaders: Boolean,
     val groupMode: Int,
@@ -144,7 +144,7 @@ class SectionedDataSource constructor(
         sections.remove(toPosition)
         val newSectionedPosition = old.sectionedPosition + offset
         val previousSection = if (isHeader(newSectionedPosition - 1)) sections[newSectionedPosition - 1] else null
-        val newFirstPosition = previousSection?.firstPosition ?: old.firstPosition + offset
+        val newFirstPosition = previousSection?.firstPosition ?: (old.firstPosition + offset)
         val new = AdapterSection(newFirstPosition, old.value, newSectionedPosition, old.collapsed)
         sections.append(new.sectionedPosition, new)
     }

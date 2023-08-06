@@ -47,7 +47,10 @@ class CommentBarFragment : Fragment() {
     lateinit var viewModel: TaskEditViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View {
         viewModel = ViewModelProvider(requireParentFragment())[TaskEditViewModel::class.java]
         val view = bind(container)
         createView(savedInstanceState)

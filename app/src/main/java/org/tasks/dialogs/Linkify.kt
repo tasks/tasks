@@ -60,7 +60,7 @@ class Linkify @Inject constructor(
         }
     }
 
-    private inner class ClickHandlingURLSpan constructor(
+    private inner class ClickHandlingURLSpan(
         url: String?,
         private val linkClickHandler: ((String) -> Boolean),
         private val rowClickHandler: (() -> Unit),

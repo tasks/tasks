@@ -107,7 +107,11 @@ class DateTimePicker : BaseDateTimePicker() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View {
         binding = DialogDateTimePickerBinding.inflate(theme.getLayoutInflater(requireContext()))
         setupShortcutsAndCalendar()
         with (binding.shortcuts) {
@@ -206,7 +210,7 @@ class DateTimePicker : BaseDateTimePicker() {
     private fun currentDate() = returnDate(day = customDate)
     private fun currentTime() = returnSelectedTime(customTime)
 
-    fun pickTime() {
+    private fun pickTime() {
         val time = if (selectedTime == MULTIPLE_TIMES
                 || !Task.hasDueTime(today.withMillisOfDay(selectedTime).millis)) {
             today.noon().millisOfDay

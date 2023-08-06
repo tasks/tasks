@@ -5,11 +5,11 @@ import android.content.res.Resources
 import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.R
 import org.tasks.data.Alarm
-import java.util.*
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 import kotlin.math.absoluteValue
 
-class AlarmToString constructor(context: Context, var locale: Locale) {
+class AlarmToString(context: Context, var locale: Locale) {
     private val resources = context.resources
 
     fun toString(alarm: Alarm): String {

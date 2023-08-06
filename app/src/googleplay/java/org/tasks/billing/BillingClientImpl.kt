@@ -2,12 +2,22 @@ package org.tasks.billing
 
 import android.app.Activity
 import android.content.Context
-import com.android.billingclient.api.*
-import com.android.billingclient.api.BillingClient.*
+import com.android.billingclient.api.AcknowledgePurchaseParams
+import com.android.billingclient.api.BillingClient.BillingResponseCode
+import com.android.billingclient.api.BillingClient.SkuType
+import com.android.billingclient.api.BillingClient.newBuilder
+import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingFlowParams.ProrationMode
 import com.android.billingclient.api.BillingFlowParams.SubscriptionUpdateParams
+import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.ConsumeParams
 import com.android.billingclient.api.Purchase.PurchaseState
 import com.android.billingclient.api.Purchase.PurchasesResult
+import com.android.billingclient.api.PurchasesUpdatedListener
+import com.android.billingclient.api.SkuDetailsParams
+import com.android.billingclient.api.consumePurchase
+import com.android.billingclient.api.querySkuDetails
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -125,7 +135,7 @@ class BillingClientImpl(
                 .setPurchaseToken(purchase.purchaseToken)
                 .build()
             withContext(Dispatchers.IO) {
-                suspendCoroutine<BillingResult> { cont ->
+                suspendCoroutine { cont ->
                     billingClient.acknowledgePurchase(params) {
                         Timber.d("acknowledge: ${it.responseCodeString} $purchase")
                         cont.resume(it)

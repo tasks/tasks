@@ -7,7 +7,12 @@ import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.Query
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.astrid.data.Task
-import org.tasks.data.*
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavTask
+import org.tasks.data.Geofence
+import org.tasks.data.Place
+import org.tasks.data.Tag
+import org.tasks.data.UserActivity
 
 class SearchFilter : Filter {
     private constructor()
@@ -21,7 +26,7 @@ class SearchFilter : Filter {
         @JvmField
         val CREATOR: Parcelable.Creator<SearchFilter> = object : Parcelable.Creator<SearchFilter> {
             /** {@inheritDoc}  */
-            override fun createFromParcel(source: Parcel): SearchFilter? {
+            override fun createFromParcel(source: Parcel): SearchFilter {
                 val item = SearchFilter()
                 item.readFromParcel(source)
                 return item

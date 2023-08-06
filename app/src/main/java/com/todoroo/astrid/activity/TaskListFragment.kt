@@ -306,11 +306,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         setupRefresh(swipeRefreshLayout)
         setupRefresh(emptyRefreshLayout)
         binding.toolbar.title = filter.listingTitle
-        binding.appbarlayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+        binding.appbarlayout.addOnOffsetChangedListener { _, verticalOffset ->
             if (verticalOffset == 0 && binding.bottomAppBar.isScrolledDown) {
                 binding.bottomAppBar.performShow()
             }
-        })
+        }
         val toolbar = if (preferences.isTopAppBar) {
             binding.bottomAppBar.isVisible = false
             with (binding.fab) {
@@ -639,7 +639,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             VOICE_RECOGNITION_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
                 lifecycleScope.launch {
                     val match: List<String>? = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    if (match != null && match.isNotEmpty() && match[0].isNotEmpty()) {
+                    if (!match.isNullOrEmpty() && match[0].isNotEmpty()) {
                         var recognizedSpeech = match[0]
                         recognizedSpeech = (recognizedSpeech.substring(0, 1)
                             .uppercase(Locale.getDefault())

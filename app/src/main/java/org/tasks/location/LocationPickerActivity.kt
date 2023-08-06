@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
-import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
@@ -137,15 +136,14 @@ class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemC
                     }
                 })
         params.behavior = behavior
-        appBarLayout.addOnOffsetChangedListener(
-                OnOffsetChangedListener { appBarLayout: AppBarLayout, offset: Int ->
-                    if (offset == 0 && this.offset != 0) {
-                        closeSearch()
-                        AndroidUtilities.hideKeyboard(this)
-                    }
-                    this.offset = offset
-                    toolbar.alpha = abs(offset / appBarLayout.totalScrollRange.toFloat())
-                })
+        appBarLayout.addOnOffsetChangedListener { appBarLayout: AppBarLayout, offset: Int ->
+            if (offset == 0 && this.offset != 0) {
+                closeSearch()
+                AndroidUtilities.hideKeyboard(this)
+            }
+            this.offset = offset
+            toolbar.alpha = abs(offset / appBarLayout.totalScrollRange.toFloat())
+        }
         coordinatorLayout.addOnLayoutChangeListener(
                 object : View.OnLayoutChangeListener {
                     override fun onLayoutChange(

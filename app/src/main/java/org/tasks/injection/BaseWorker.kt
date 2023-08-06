@@ -22,12 +22,8 @@ abstract class BaseWorker(
         } catch (e: Exception) {
             firebase.reportException(e)
             Result.failure()
-        } finally {
-            destroy()
         }
     }
 
     protected abstract suspend fun run(): Result
-
-    protected open fun destroy() {}
 }

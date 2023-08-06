@@ -40,7 +40,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var preferences: Preferences
 
-    lateinit var listViewModel: TaskListViewModel
+    private lateinit var listViewModel: TaskListViewModel
 
     override fun createView(savedInstanceState: Bundle?) {
         viewModel.task.takeIf { it.id > 0 }?.let {

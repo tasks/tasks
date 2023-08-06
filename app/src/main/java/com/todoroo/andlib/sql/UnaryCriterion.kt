@@ -19,8 +19,6 @@ open class UnaryCriterion private constructor(private val expression: Field, ope
 
         fun gt(field: Field, value: Any?): Criterion = UnaryCriterion(field, Operator.gt, value)
 
-        fun gte(field: Field, value: Any?): Criterion = UnaryCriterion(field, Operator.gte, value)
-
         fun lt(field: Field, value: Any?): Criterion = UnaryCriterion(field, Operator.lt, value)
 
         fun lte(field: Field, value: Any?): Criterion = UnaryCriterion(field, Operator.lte, value)

@@ -36,7 +36,7 @@ class GoogleMapFragment @Inject constructor(
     }
 
     override val mapPosition: MapPosition?
-        get() = map?.cameraPosition?.let { it ->
+        get() = map?.cameraPosition?.let {
             val target = it.target
             return MapPosition(target.latitude, target.longitude, it.zoom)
         }

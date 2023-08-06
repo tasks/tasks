@@ -353,8 +353,7 @@ class SubtasksFilterUpdater @Inject constructor(
                 node: Node, children: JSONArray, callback: ((Node?) -> Unit)?) {
             for (i in 1 until children.length()) {
                 val subarray = children.optJSONArray(i)
-                var uuid: String
-                uuid = if (subarray == null) {
+                val uuid: String = if (subarray == null) {
                     children.getString(i)
                 } else {
                     subarray.getString(0)

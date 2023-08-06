@@ -220,7 +220,7 @@ class iCalendar @Inject constructor(
         task.applyRemote(remote, local)
         caldavTask.applyRemote(remote, local)
 
-        if (remote.lastAck ?: 0 > task.reminderLast) {
+        if ((remote.lastAck ?: 0) > task.reminderLast) {
             notificationManager.cancel(task.id)
         }
 

@@ -121,8 +121,7 @@ class Astrid2TaskProvider : ContentProvider() {
         }
 
     private fun tagNameToLong(tag: String?): Long {
-        val m: MessageDigest
-        m = try {
+        val m: MessageDigest = try {
             MessageDigest.getInstance("MD5")
         } catch (e: NoSuchAlgorithmException) {
             Timber.e(e)
@@ -173,7 +172,8 @@ class Astrid2TaskProvider : ContentProvider() {
             projection: Array<String>?,
             selection: String?,
             selectionArgs: Array<String>?,
-            sortOrder: String?): Cursor? {
+            sortOrder: String?
+    ): Cursor {
         return when (URI_MATCHER.match(uri)) {
             URI_TASKS -> tasks
             URI_TAGS -> tags

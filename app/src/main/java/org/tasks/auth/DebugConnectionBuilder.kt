@@ -20,8 +20,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import net.openid.appauth.Preconditions
 import net.openid.appauth.connectivity.ConnectionBuilder
 import okhttp3.internal.tls.OkHostnameVerifier
-import org.tasks.DebugNetworkInterceptor
-import org.tasks.preferences.Preferences
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
@@ -36,11 +34,9 @@ import javax.net.ssl.SSLContext
  */
 class DebugConnectionBuilder @Inject constructor(
         @ApplicationContext private val context: Context,
-        private val interceptor: DebugNetworkInterceptor,
-        private val preferences: Preferences,
 ) : ConnectionBuilder {
 
-    var appInForeground: Boolean = true
+    private var appInForeground: Boolean = true
 
     @Throws(IOException::class)
     override fun openConnection(uri: Uri): HttpURLConnection {

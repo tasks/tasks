@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.scan
-import java.util.*
+import java.util.Queue
 
 interface DragAndDropDiffer<T, R> : ListUpdateCallback {
     val channel: Channel<List<T>>
@@ -58,10 +58,10 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
         channel
             .consumeAsFlow()
             .map { transform(it) }
-            .scan(Pair(initial, null), { last: Pair<R, DiffUtil.DiffResult?>, next: R ->
+            .scan(Pair(initial, null)) { last: Pair<R, DiffUtil.DiffResult?>, next: R ->
                 calculateDiff(last, next)
-            })
-            .drop(1)
+            }
+                .drop(1)
             .flowOn(Dispatchers.Default)
             .onEach { applyDiff(it) }
             .launchIn(CoroutineScope(Dispatchers.Main + Job()))

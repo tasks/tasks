@@ -51,7 +51,7 @@ object Context {
     fun Context.toast(text: String?, duration: Int = Toast.LENGTH_LONG) =
         text?.let { Toast.makeText(this, it, duration).show() }
 
-    fun Context.getResourceUri(@AnyRes res: Int) =
+    fun Context.getResourceUri(@AnyRes res: Int): Uri =
         Uri.Builder()
             .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
             .authority(packageName)

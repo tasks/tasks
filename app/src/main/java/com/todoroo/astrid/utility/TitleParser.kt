@@ -14,7 +14,8 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagDataDao
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import timber.log.Timber
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -403,7 +404,7 @@ object TitleParser {
         )
         for (i in words.indices) {
             wordsToNum[words[i]] = i + 1
-            wordsToNum[Integer.toString(i + 1)] = i + 1
+            wordsToNum[(i + 1).toString()] = i + 1
         }
         wordsToNum["other"] = 2
         val pattern = Pattern.compile("(?i)\\bevery (\\w*)\\b")

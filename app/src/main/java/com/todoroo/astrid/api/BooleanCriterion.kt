@@ -3,7 +3,7 @@ package com.todoroo.astrid.api
 import android.os.Parcel
 import android.os.Parcelable
 
-class BooleanCriterion constructor() : CustomFilterCriterion(), Parcelable {
+class BooleanCriterion() : CustomFilterCriterion(), Parcelable {
 
     constructor(identifier: String, title: String, sql: String): this() {
         this.identifier = identifier

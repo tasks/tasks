@@ -1,6 +1,10 @@
 package org.tasks.preferences.fragments
 
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +37,7 @@ import org.tasks.jobs.WorkManager
 import org.tasks.preferences.IconPreference
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -171,7 +175,7 @@ class TasksAccount : BaseAccountPreference() {
                             onPreferenceClickListener = null
                         } else {
                             setOnPreferenceClickListener {
-                                context?.openUri(R.string.url_sponsor)
+                                context.openUri(R.string.url_sponsor)
                                 false
                             }
                         }
@@ -231,7 +235,7 @@ class TasksAccount : BaseAccountPreference() {
             category.addPreference(IconPreference(requireContext()).apply {
                 layoutResource = R.layout.preference_icon
                 iconVisible = true
-                drawable = context?.getDrawable(R.drawable.ic_outline_delete_24px)
+                drawable = context.getDrawable(R.drawable.ic_outline_delete_24px)
                 tint = ContextCompat.getColor(requireContext(), R.color.icon_tint_with_alpha)
                 title = description
                 iconClickListener = View.OnClickListener { _ ->

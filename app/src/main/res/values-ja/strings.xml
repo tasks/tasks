@@ -108,7 +108,7 @@
     <string name="custom_filter_and">かつ</string>
     <string name="CFA_button_add">条件を追加</string>
     <string name="CFC_dueBefore_text">締切: \?</string>
-    <string name="CFC_dueBefore_name">...に締切</string>
+    <string name="CFC_dueBefore_name">…に締切</string>
     <string name="no_due_date">締切日時なし</string>
     <string name="next_month">1 か月後</string>
     <string name="CFC_importance_text">優先度</string>
@@ -497,7 +497,7 @@
     <string name="ok">OK</string>
     <string name="always_display_full_date">完全な日付を表示</string>
     <string name="astrid_sort_order_summary">「マイタスク」「今日」そしてタグにおいて Astrid の手動並べ替えモードを有効にします。この並べ替えモードは将来のアップデートで「マイ設定」に置き換えられる予定です</string>
-    <string name="CFC_startBefore_name">...に着手</string>
+    <string name="CFC_startBefore_name">…に着手</string>
     <string name="widget_due_date_reschedule">タスクを再計画</string>
     <plurals name="reminder_minutes">
         <item quantity="other">分</item>
