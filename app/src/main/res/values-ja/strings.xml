@@ -716,4 +716,15 @@
     <string name="sort_descending">降順</string>
     <string name="sort_completed">完了日時</string>
     <string name="repeat_monthly_on_day_number">毎月 %1d 日</string>
+    <string name="repeats_on">日付</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="other">繰り返し</item>
+    </plurals>
+    <string name="repeats_never">なし</string>
+    <string name="repeats_weekly_on">曜日</string>
+    <string name="repeats_every">繰り返し間隔</string>
+    <string name="repeats_custom_recurrence">繰り返しの設定</string>
+    <string name="repeats_ends">終了</string>
+    <string name="repeats_after">回数</string>
+    <string name="repeat_monthly_on_the_nth_weekday">毎月 %1$s %2$s</string>
 </resources>
