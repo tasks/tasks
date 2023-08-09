@@ -567,11 +567,11 @@
     <string name="notification_troubleshooting_summary">Докоснете тук, ако имате проблеми с известията</string>
     <plurals name="reminder_hours">
         <item quantity="one">Час</item>
-        <item quantity="other">Часове</item>
+        <item quantity="other">Часа</item>
     </plurals>
     <plurals name="reminder_days">
         <item quantity="one">Ден</item>
-        <item quantity="other">Дни</item>
+        <item quantity="other">Дна</item>
     </plurals>
     <plurals name="reminder_week">
         <item quantity="one">Седмица</item>
@@ -684,7 +684,7 @@
     <string name="upgrade_tasks_org_account_description">Синхронизиране чрез Tasks.org и сътрудничество с други потребители</string>
     <string name="alarm_after_start">%s след началото</string>
     <string name="snackbar_tasks_completed">%d задачи са завършени</string>
-    <string name="alarm_before_due">%s до</string>
+    <string name="alarm_before_due">%s преди</string>
     <string name="date_picker_multiple">Няколко</string>
     <string name="alarm_after_due">%s след</string>
     <string name="dismiss">Отхвърляне</string>
