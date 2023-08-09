@@ -51,7 +51,7 @@ android {
         textReport = true
     }
 
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         testApplicationId = "org.tasks.test"
