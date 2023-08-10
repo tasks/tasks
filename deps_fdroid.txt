@@ -834,7 +834,7 @@
 +|         +--- com.google.http-client:google-http-client-gson:1.42.3 (*)
 +|         +--- com.google.guava:guava:31.1-jre -> 32.0.0-android (*)
 +|         \--- com.google.http-client:google-http-client:1.42.3 (*)
-++--- com.google.apis:google-api-services-drive:v3-rev20230610-2.0.0
+++--- com.google.apis:google-api-services-drive:v3-rev20230714-2.0.0
 +|    \--- com.google.api-client:google-api-client:2.2.0 (*)
 ++--- com.google.auth:google-auth-library-oauth2-http:1.19.0
 +|    +--- com.google.auto.value:auto-value-annotations:1.10.1
