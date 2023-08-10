@@ -571,7 +571,7 @@
     </plurals>
     <plurals name="reminder_days">
         <item quantity="one">Ден</item>
-        <item quantity="other">Дна</item>
+        <item quantity="other">Дни</item>
     </plurals>
     <plurals name="reminder_week">
         <item quantity="one">Седмица</item>
