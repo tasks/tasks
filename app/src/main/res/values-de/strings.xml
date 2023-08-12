@@ -718,15 +718,24 @@
     <string name="sign_in">Anmelden</string>
     <string name="rmd_time_description">Benachrichtigungen für Aufgaben ohne Fälligkeitsdatum anzeigen</string>
     <string name="default_reminder">Standarderinnerung</string>
-    <string name="sort_list">Nach Liste</string>
+    <string name="sort_list">Nach Listen</string>
     <string name="sort_sorting">Sortierung</string>
     <string name="sort_grouping">Gruppierung</string>
     <string name="sort_ascending">Aufsteigend</string>
     <string name="sort_descending">Absteigend</string>
     <string name="sort_completed">Nach Erledigungszeit</string>
-    <string name="sort_not_available">Für Schlagworte, Filter oder Orte nicht verfügbar</string>
+    <string name="sort_not_available">Nicht verfügbar für Tags, Filter oder Orte</string>
     <plurals name="repeat_occurrence">
         <item quantity="one">Vorkommen</item>
         <item quantity="other">Vorkommen</item>
     </plurals>
+    <string name="repeats_custom_recurrence">Benutzerdefinierte Wiederholung</string>
+    <string name="repeats_after">Nach</string>
+    <string name="repeats_ends">Endet</string>
+    <string name="repeats_weekly_on">Wiederholt sich am</string>
+    <string name="repeats_never">Nie</string>
+    <string name="repeats_on">Am</string>
+    <string name="repeats_every">Wiederholt sich</string>
+    <string name="repeat_monthly_on_day_number">Monatlich an Tag %1d</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Monatlich an dem %1$s %2$s</string>
 </resources>
