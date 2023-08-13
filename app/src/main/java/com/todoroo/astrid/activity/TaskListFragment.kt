@@ -882,7 +882,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     private fun copySelectedItems(tasks: List<Long>) = lifecycleScope.launch {
-        finishActionMode()
         val duplicates = withContext(NonCancellable) {
             taskDuplicator.duplicate(tasks)
         }
