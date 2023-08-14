@@ -775,11 +775,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_select_all -> {
-                lifecycleScope.launch {
-                    taskAdapter.setSelected(taskDao.fetchTasks(preferences, filter)
-                            .map(TaskContainer::id))
-                    updateModeTitle()
-                    recyclerAdapter?.notifyDataSetChanged()
+                lifecycleScope.launch {               
+                    setSelected(taskDao.fetchTasks(preferences, filter)
+                        .map(TaskContainer::id))
                 }
                 true
             }
@@ -881,12 +879,19 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         makeSnackbar(R.string.delete_multiple_tasks_confirmation, result.size.toString())?.show()
     }
 
+    
+    private fun setSelected(tasks: List<Long>) {
+         taskAdapter.setSelected(tasks)
+         updateModeTitle()
+         recyclerAdapter?.notifyDataSetChanged()
+    }
+
     private fun copySelectedItems(tasks: List<Long>) = lifecycleScope.launch {
-        finishActionMode()
         val duplicates = withContext(NonCancellable) {
             taskDuplicator.duplicate(tasks)
         }
         onTaskCreated(duplicates)
+        setSelected(duplicates.map(Task::id))
         makeSnackbar(R.string.copy_multiple_tasks_confirmation, duplicates.size.toString())?.show()
     }
 
