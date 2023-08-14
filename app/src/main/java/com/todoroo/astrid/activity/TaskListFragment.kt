@@ -776,8 +776,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             R.id.menu_select_all -> {
                 lifecycleScope.launch {               
-                setSelected(taskDao.fetchTasks(preferences, filter)
-                    .map(TaskContainer::id))
+                    setSelected(taskDao.fetchTasks(preferences, filter)
+                        .map(TaskContainer::id))
                 }
                 true
             }
