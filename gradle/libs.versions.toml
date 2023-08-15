@@ -160,29 +160,4 @@ shortcut-badger = { module = "me.leolin:ShortcutBadger", version.ref = "shortcut
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }
 
-[bundles]
-coil = [
-    "coil-compose",
-    "coil-video",
-    "coil-svg",
-    "coil-gif",
-]
-flipper = [
-    "facebook-flipper",
-    "facebook-flipper-network",
-    "facebook-soloader",
-]
-markwon = [
-    "markwon",
-    "markwon-editor",
-    "markwon-linkify",
-    "markwon-strikethrough",
-    "markwon-tables",
-    "markwon-tasklist",
-]
-retrofit = [
-    "retrofit",
-    "retrofit-moshi",
-]
-
 [plugins]
