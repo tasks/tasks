@@ -716,6 +716,10 @@
     <string name="repeats_on">于</string>
     <string name="repeats_custom_recurrence">自定义重复周期</string>
     <plurals name="repeat_occurrence">
-        <item quantity="other">发生</item>
+        <item quantity="other">次发生</item>
     </plurals>
+    <string name="repeats_after">前有</string>
+    <string name="repeats_ends">结束</string>
+    <string name="repeat_monthly_on_day_number">每月 %1d 日</string>
+    <string name="repeat_monthly_on_the_nth_weekday">每月的%1$s%2$s</string>
 </resources>
