@@ -326,7 +326,7 @@ class TaskEditViewModel @Inject constructor(
                     )
                     subtask.parent = task.id
                     googleTask.isMoved = true
-                    googleTaskDao.insertAndShift(subtask, googleTask, false)
+                    googleTaskDao.insertAndShift(subtask, googleTask, preferences.addTasksToTop())
                 }
                 is CaldavFilter -> {
                     val caldavTask = CaldavTask(
@@ -336,7 +336,7 @@ class TaskEditViewModel @Inject constructor(
                     subtask.parent = task.id
                     caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
                     taskDao.save(subtask)
-                    caldavDao.insert(subtask, caldavTask, false)
+                    caldavDao.insert(subtask, caldavTask, preferences.addTasksToTop())
                 }
                 else -> {
                     subtask.parent = task.id
