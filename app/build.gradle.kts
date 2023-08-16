@@ -62,6 +62,12 @@ android {
         minSdk = 24
         testInstrumentationRunner = "org.tasks.TestRunner"
 
+        kapt {
+            arguments {
+                arg("dagger.ignoreProvisionKeyWildcards", "ENABLED")
+            }
+        }
+
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
             arg("room.incremental", "true")
