@@ -4,7 +4,6 @@ import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 
 plugins {
     id("com.android.application")
-    id("checkstyle")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     kotlin("android")
@@ -148,11 +147,6 @@ android {
     }
 
     namespace = "org.tasks"
-}
-
-configure<CheckstyleExtension> {
-    configFile = project.file("google_checks.xml")
-    toolVersion = "8.16"
 }
 
 configurations.all {
