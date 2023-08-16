@@ -129,7 +129,7 @@
     <string name="snooze_all">Adiar todos</string>
     <string name="rmd_EPr_quiet_hours_start_title">Começo das horas quietas</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fim das horas quietas</string>
-    <string name="rmd_EPr_rmd_time_title">Lembrete padrão</string>
+    <string name="rmd_EPr_rmd_time_title">Lembrete</string>
     <string name="rmd_EPr_rmd_time_desc">Notificações de tarefas sem tempo de vencimento vão aparecer à(s) %s</string>
     <string name="persistent_notifications">Notificações persistentes</string>
     <string name="persistent_notifications_description">Notificações persistentes não podem ser removidas</string>
@@ -715,4 +715,10 @@
     <string name="enable_reminders_description">Os lembretes estão desativados nas configurações do Android</string>
     <string name="TEA_creation_date">Data de criação</string>
     <string name="sign_in">Entrar</string>
+    <string name="repeats_custom_recurrence">Recorrência personalizada</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">ocorrência</item>
+        <item quantity="many">ocorrências</item>
+        <item quantity="other">ocorrências</item>
+    </plurals>
 </resources>
