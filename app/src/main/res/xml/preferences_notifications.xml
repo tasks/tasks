@@ -69,16 +69,7 @@
     android:title="@string/more_settings"
     android:key="@string/more_settings"
     android:summary="@string/more_notification_settings_summary"
-    app:icon="@drawable/ic_open_in_new_24px">
-
-    <intent android:action="android.settings.APP_NOTIFICATION_SETTINGS">
-      <!--suppress AndroidElementNotAllowed -->
-      <extra
-        android:name="android.provider.extra.APP_PACKAGE"
-        android:value="@string/app_package" />
-    </intent>
-
-  </Preference>
+    app:icon="@drawable/ic_open_in_new_24px" />
 
   <PreferenceCategory android:title="@string/default_reminder">
 

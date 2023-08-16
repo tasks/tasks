@@ -5,6 +5,7 @@ import android.content.Context.POWER_SERVICE
 import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
@@ -24,6 +25,7 @@ import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.extensions.Context.getResourceUri
 import org.tasks.injection.InjectingPreferenceFragment
+import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.ShortcutBadger
@@ -112,6 +114,17 @@ class Notifications : InjectingPreferenceFragment() {
                 }
                 true
             }
+
+        findPreference(R.string.more_settings).setOnPreferenceClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startActivity(
+                    Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
+                        .putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+                        .putExtra(Settings.EXTRA_CHANNEL_ID, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
+                )
+            }
+            true
+        }
 
         val persistentReminders =
             findPreference(R.string.p_rmd_persistent) as SwitchPreferenceCompat
