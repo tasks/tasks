@@ -11,6 +11,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.android.gms.oss-licenses-plugin")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
 
 repositories {
@@ -61,11 +62,9 @@ android {
         minSdk = 24
         testInstrumentationRunner = "org.tasks.TestRunner"
 
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas")
-                arg("room.incremental", "true")
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+            arg("room.incremental", "true")
         }
     }
 
@@ -191,7 +190,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.room)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.appcompat)
     implementation(libs.markwon)
     implementation(libs.markwon.editor)
