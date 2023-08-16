@@ -9,6 +9,12 @@
     app:showAsAction="always" />
 
   <item
+    android:id="@+id/edit_priority"
+    android:icon="@drawable/ic_outline_flag_24px"
+    android:title="@string/priority_high"
+    app:showAsAction="always" />
+
+  <item
     android:id="@+id/move_tasks"
     android:icon="@drawable/ic_list_24px"
     android:title="@string/move"
