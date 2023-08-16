@@ -100,6 +100,7 @@ import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
+import org.tasks.dialogs.PriorityPicker.Companion.newPriorityPicker
 import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
@@ -750,6 +751,22 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 }
                 true
             }
+            R.id.edit_priority -> {
+                lifecycleScope.launch {
+                    taskDao
+                        .fetch(selected)
+                        .filterNot { it.readOnly }
+                        .takeIf { it.isNotEmpty() }
+                        ?.let {
+                            newPriorityPicker(
+                                preferences.getBoolean(R.string.p_desaturate_colors, false),
+                                *it.toTypedArray())
+                                .show(parentFragmentManager, FRAG_TAG_PRIORITY_PICKER)
+                        }
+                }
+//                finishActionMode()
+                true
+            }
             R.id.move_tasks -> {
                 lifecycleScope.launch {
                     val singleFilter = taskMover.getSingleFilter(selected)
@@ -775,9 +792,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_select_all -> {
-                lifecycleScope.launch {               
-                    setSelected(taskDao.fetchTasks(preferences, filter)
-                        .map(TaskContainer::id))
+                lifecycleScope.launch {
+                    taskAdapter.setSelected(taskDao.fetchTasks(preferences, filter)
+                            .map(TaskContainer::id))
+                    updateModeTitle()
+                    recyclerAdapter?.notifyDataSetChanged()
                 }
                 true
             }
@@ -879,19 +898,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         makeSnackbar(R.string.delete_multiple_tasks_confirmation, result.size.toString())?.show()
     }
 
-    
-    private fun setSelected(tasks: List<Long>) {
-         taskAdapter.setSelected(tasks)
-         updateModeTitle()
-         recyclerAdapter?.notifyDataSetChanged()
-    }
-
     private fun copySelectedItems(tasks: List<Long>) = lifecycleScope.launch {
+        finishActionMode()
         val duplicates = withContext(NonCancellable) {
             taskDuplicator.duplicate(tasks)
         }
         onTaskCreated(duplicates)
-        setSelected(duplicates.map(Task::id))
         makeSnackbar(R.string.copy_multiple_tasks_confirmation, duplicates.size.toString())?.show()
     }
 
@@ -1020,6 +1032,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val EXTRA_FILTER = "extra_filter"
         private const val FRAG_TAG_REMOTE_LIST_PICKER = "frag_tag_remote_list_picker"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
+        private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
         private const val REQUEST_LIST_SETTINGS = 10101
         private const val REQUEST_TAG_TASKS = 10106
         const val REQUEST_SORT = 10107
