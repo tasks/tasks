@@ -758,9 +758,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         .filterNot { it.readOnly }
                         .takeIf { it.isNotEmpty() }
                         ?.let {
-                            newPriorityPicker(
-                                preferences.getBoolean(R.string.p_desaturate_colors, false),
-                                *it.toTypedArray())
+                            newPriorityPicker(preferences.getBoolean(R.string.p_desaturate_colors, false), it)
                                 .show(parentFragmentManager, FRAG_TAG_PRIORITY_PICKER)
                         }
                 }
