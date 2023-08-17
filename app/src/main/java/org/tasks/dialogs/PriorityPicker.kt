@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.compose.collectAsStateLifecycleAware
-import org.tasks.compose.edit.PriorityOnly
+import org.tasks.compose.edit.Priority
 import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.databinding.DialogPriorityPickerBinding
 import javax.inject.Inject
