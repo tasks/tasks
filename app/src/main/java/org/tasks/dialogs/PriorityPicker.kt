@@ -29,7 +29,7 @@ class PriorityPicker : DialogFragment() {
         const val EXTRA_TASKS = "extra_tasks"
         const val EXTRA_DESATURATE = "extra_desaturatee"
 
-        fun newPriorityPicker(desaturateColors: Boolean, vararg tasks: Task): PriorityPicker {
+        fun newPriorityPicker(desaturateColors: Boolean, tasks: List<Task>): PriorityPicker {
             val bundle = Bundle()
             bundle.putLongArray(EXTRA_TASKS, tasks.map { it.id }.toLongArray())
             bundle.putBoolean(EXTRA_DESATURATE, desaturateColors)
