@@ -46,7 +46,7 @@ class PriorityPicker : DialogFragment() {
         return requireActivity().let { fragmentActivity ->
             val inflater = fragmentActivity.layoutInflater
             val binding = DialogPriorityPickerBinding.inflate(inflater, null, false)
-            binding.priorityRow.setContent { PriorityOnly(selected = priorityPickerViewModel.priority.collectAsStateLifecycleAware().value,
+            binding.priorityRow.setContent { Priority(selected = priorityPickerViewModel.priority.collectAsStateLifecycleAware().value,
                 onClick = { priorityPickerViewModel.setPriority( it ) }, desaturate = savedInstanceState?.getBoolean(
                 EXTRA_DESATURATE) ?: false) }
             val builder = AlertDialog.Builder(fragmentActivity)
