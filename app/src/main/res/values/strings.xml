@@ -339,6 +339,7 @@ File %1$s contained %2$s.\n\n
   <string name="location_radius_meters">%s m</string>
   <string name="tags">Tags</string>
   <string name="priorities">Priorities</string>
+  <string name="change_priority">Change priority</string>
   <string name="filters">Filters</string>
   <string name="date_shortcut_hour">For an hour</string>
   <string name="date_shortcut_morning">Morning</string>
