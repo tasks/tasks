@@ -261,6 +261,7 @@
     <string name="when_due">Wenn fällig</string>
     <string name="tags">Schlagwörter</string>
     <string name="priorities">Dringlichkeit</string>
+    <string name="change_priority">Dringlichkeit ändern</string>
     <string name="filters">Filter</string>
     <string name="date_shortcut_hour">Für eine Stunde</string>
     <string name="date_shortcut_morning">Vormittag</string>
