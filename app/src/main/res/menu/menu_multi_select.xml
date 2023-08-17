@@ -11,7 +11,7 @@
   <item
     android:id="@+id/edit_priority"
     android:icon="@drawable/ic_outline_flag_24px"
-    android:title="@string/priority_high"
+    android:title="@string/priorities"
     app:showAsAction="always" />
 
   <item
