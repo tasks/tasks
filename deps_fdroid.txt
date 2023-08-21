@@ -1051,22 +1051,22 @@
 +|    +--- androidx.vectordrawable:vectordrawable-animated:1.1.0 (*)
 +|    +--- io.coil-kt:coil-base:2.4.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 1.9.0 (*)
-++--- com.google.accompanist:accompanist-flowlayout:0.30.1
-+|    +--- androidx.compose.foundation:foundation:1.4.0 -> 1.5.0 (*)
-+|    +--- androidx.compose.ui:ui-util:1.4.0 -> 1.5.0 (*)
+++--- com.google.accompanist:accompanist-flowlayout:0.32.0
++|    +--- androidx.compose.foundation:foundation:1.5.0 (*)
++|    +--- androidx.compose.ui:ui-util:1.5.0 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.7.1 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10 -> 1.9.0 (*)
-++--- com.google.accompanist:accompanist-permissions:0.30.1
-+|    +--- androidx.activity:activity-compose:1.5.1 -> 1.7.2 (*)
-+|    +--- androidx.compose.foundation:foundation:1.4.0 -> 1.5.0 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0 (*)
+++--- com.google.accompanist:accompanist-permissions:0.32.0
++|    +--- androidx.activity:activity-compose:1.7.2 (*)
++|    +--- androidx.compose.foundation:foundation:1.5.0 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.7.1 (*)
 +|    +--- io.github.aakira:napier:1.4.1
 +|    |    \--- io.github.aakira:napier-android:1.4.1
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.32 -> 1.9.0 (*)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.4.32 -> 1.9.0
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10 -> 1.9.0 (*)
-+\--- com.google.accompanist:accompanist-systemuicontroller:0.30.1
++|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0 (*)
++\--- com.google.accompanist:accompanist-systemuicontroller:0.32.0
 +     +--- androidx.core:core-ktx:1.8.0 -> 1.10.0 (*)
-+     +--- androidx.compose.ui:ui:1.4.0 -> 1.5.0 (*)
++     +--- androidx.compose.ui:ui:1.5.0 (*)
 +     +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4 -> 1.7.1 (*)
-+     \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10 -> 1.9.0 (*)
++     \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0 (*)

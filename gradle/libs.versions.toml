@@ -1,5 +1,5 @@
 [versions]
-accompanist = "0.30.1"
+accompanist = "0.32.0"
 activity-compose = "1.7.2"
 appauth = "0.11.1"
 appcompat = "1.6.1"
