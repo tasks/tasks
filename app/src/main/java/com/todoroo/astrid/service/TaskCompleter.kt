@@ -3,6 +3,8 @@ package com.todoroo.astrid.service
 import android.app.NotificationManager
 import android.app.NotificationManager.INTERRUPTION_FILTER_ALL
 import android.content.Context
+import android.media.AudioAttributes
+import android.media.AudioAttributes.USAGE_NOTIFICATION_EVENT
 import android.media.RingtoneManager
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
@@ -72,7 +74,16 @@ class TaskCompleter @Inject internal constructor(
             preferences
                 .completionSound
                 ?.takeUnless { preferences.isCurrentlyQuietHours }
-                ?.let { RingtoneManager.getRingtone(context, it).play() }
+                ?.let {
+                    RingtoneManager
+                        .getRingtone(context, it)
+                        .apply {
+                            audioAttributes = AudioAttributes.Builder()
+                                .setUsage(USAGE_NOTIFICATION_EVENT)
+                                .build()
+                        }
+                        .play()
+                }
         }
     }
 }
