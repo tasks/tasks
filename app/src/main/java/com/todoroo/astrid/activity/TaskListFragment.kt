@@ -762,7 +762,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                 .show(parentFragmentManager, FRAG_TAG_PRIORITY_PICKER)
                         }
                 }
-//                finishActionMode()
                 true
             }
             R.id.move_tasks -> {
