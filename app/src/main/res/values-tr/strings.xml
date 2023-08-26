@@ -719,4 +719,16 @@
     <string name="default_reminder">Öntanımlı Anımsatıcı</string>
     <string name="rmd_time_description">Bitiş zamanı olmayan görevler için bildirimleri göster</string>
     <string name="sort_list">Listeye göre</string>
+    <string name="repeats_ends">Biter</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">gerçekleşim</item>
+        <item quantity="other">gerçekleşim</item>
+    </plurals>
+    <string name="repeats_custom_recurrence">Özel yineleme</string>
+    <string name="repeats_every">Her ... yineler</string>
+    <string name="repeats_weekly_on">Yineler</string>
+    <string name="repeats_never">Asla</string>
+    <string name="repeats_on">Şunda</string>
+    <string name="repeats_after">Sonra</string>
+    <string name="sort_completed">Tamamlanma zamanına göre</string>
 </resources>
