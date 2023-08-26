@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="actfm_picture_clear">Elimina d\'imatge</string>
-    <string name="TVA_add_comment">Afegiu un comentari…</string>
+    <string name="actfm_picture_clear">Elimina la imatge</string>
+    <string name="TVA_add_comment">Afegeix un comentari…</string>
     <string name="backup_BPr_header">Còpies de seguretat</string>
-    <string name="backup_BAc_import">Importar copia de seguretat</string>
-    <string name="backup_BAc_export">Copia ara</string>
+    <string name="backup_BAc_import">Importa una còpia de seguretat</string>
+    <string name="backup_BAc_export">Fes una còpia de seguretat ara</string>
     <string name="import_summary_title">Resum de la restauració</string>
     <string name="import_progress_read">S\'està llegint la tasca %d</string>
-    <string name="read_permission_label">Permís del Tasks</string>
+    <string name="read_permission_label">Permisos del Tasks</string>
     <string name="DLG_delete_this_task_question">Voleu suprimir aquesta tasca?</string>
     <string name="DLG_hour_minutes">Temps (hores : minuts)</string>
     <string name="DLG_undo">Desfés</string>
@@ -21,7 +21,7 @@
     <string name="SSD_sort_due">Per data de venciment</string>
     <string name="SSD_sort_importance">Per prioritat</string>
     <string name="SSD_sort_modified">Per última modificació</string>
-    <string name="FLA_search_filter">Coincidència \'%s\'</string>
+    <string name="FLA_search_filter">Coincidència «%s»</string>
     <string name="TEA_title_hint">Nom de la tasca</string>
     <string name="TEA_importance_label">Prioritat</string>
     <string name="no_date">Sense data</string>
@@ -105,7 +105,7 @@
     <string name="FLA_new_filter">Crea un filtre</string>
     <string name="save">Desa</string>
     <string name="TEA_timer_est">Est. %s</string>
-    <string name="SSD_sort_my_order">La meva comanda</string>
+    <string name="SSD_sort_my_order">El meu ordre</string>
     <string name="TEA_add_subtask">Afegeix una subtasca</string>
     <string name="display_name">Mostra el nom</string>
     <string name="CRA_ignore_this">Ignora només aquest esdeveniment</string>
@@ -115,7 +115,7 @@
     <string name="TEA_control_location">Ubicació</string>
     <string name="TEA_control_gcal">Agenda</string>
     <string name="TEA_control_repeat">Repeteix</string>
-    <string name="due_time">Data de venciment</string>
+    <string name="due_time">Hora de venciment</string>
     <string name="TEA_timer_elap">Transcorregut %s</string>
     <string name="email">Correu-e</string>
     <string name="EPr_default_location_reminder_title">Recordatoris d\'ubicació per defecte</string>
@@ -153,7 +153,7 @@
     <string name="astrid_sort_order_summary">Activa el mode d\'ordenació manual d\'Astrid per a les etiquetes «Les meves tasques», «Avui» i «etiquetes». Aquest mode d\'ordenació serà substituït per «El meu ordre» en una actualització futura</string>
     <string name="astrid_sort_order">Ordenació manual d\'Astrid</string>
     <string name="manage_drawer">Gestiona el calaix</string>
-    <string name="cancel">Cancel·lar</string>
+    <string name="cancel">Cancel·la</string>
     <string name="ok">D\'acord</string>
     <string name="priority_high">Alt</string>
     <string name="default_location">Ubicació predeterminada</string>
