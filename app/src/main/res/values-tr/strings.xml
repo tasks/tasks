@@ -234,7 +234,7 @@
     <string name="tmrw">Yarın</string>
     <string name="yest">Dün</string>
     <string name="widget_show_checkboxes">Onay kutularını göster</string>
-    <string name="widget_show_header">Başlığı göster</string>
+    <string name="widget_show_header">Üstü göster</string>
     <string name="widget_show_settings">Ayarları göster</string>
     <string name="notifications">Bildirimler</string>
     <string name="silent">Sessiz</string>
@@ -731,4 +731,11 @@
     <string name="repeats_on">Şunda</string>
     <string name="repeats_after">Sonra</string>
     <string name="sort_completed">Tamamlanma zamanına göre</string>
+    <string name="repeat_monthly_on_day_number">%1d. günde aylık</string>
+    <string name="repeat_monthly_on_the_nth_weekday">%1$s %2$s günde aylık</string>
+    <string name="sort_not_available">Etiketler, süzgeçler veya yerler için kullanılamaz</string>
+    <string name="sort_sorting">Sıralama</string>
+    <string name="sort_ascending">Artan</string>
+    <string name="sort_descending">Azalan</string>
+    <string name="sort_grouping">Kümeleme</string>
 </resources>
