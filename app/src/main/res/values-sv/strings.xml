@@ -457,7 +457,7 @@
     <string name="etesync_account_description">Kräver ett konto hos EteSync.com eller en egen värdserver</string>
     <string name="caldav_account_description">Kräver ett konto hos en CalDAV-tjänsteleverantör eller en egen server. Hitta en tjänsteleverantör genom att besöka tasks.org/caldav</string>
     <string name="menu_discard_changes">Ignorera ändringar</string>
-    <string name="astrid_sort_order_summary">Aktivera Astrids manuella sorteringsläge för \"Mina uppgifter\", \"Idag\" och taggar. Detta sorteringsläge kommer att ersättas av \"Min ordning\" i en framtida uppdatering</string>
+    <string name="astrid_sort_order_summary">Slå på Astrids manuella sortering för \'Mina uppgifter\', \'Idag\', och taggar. Den här sorteringen kommer ersättas av \'Min sortering\' i en framtida uppdatering.</string>
     <string name="markdown_description">Aktivera Markdown i titel och beskrivning</string>
     <string name="markdown">Prissänkning</string>
     <string name="more_options">Fler alternativ</string>
@@ -652,11 +652,11 @@
     <string name="always_display_full_date">Visa hela datumet</string>
     <string name="start_date">Startdatum</string>
     <string name="TEA_add_subtask">Lägg till deluppgift</string>
-    <string name="sort_created">Efter skapelsetid</string>
+    <string name="sort_created">Efter skapandetillfälle</string>
     <string name="SSD_sort_start">Efter startdatum</string>
     <string name="astrid_sort_order">Astrid manuell sortering</string>
-    <string name="manage_drawer">Hantera låda</string>
-    <string name="display_name">Visningsnamn</string>
+    <string name="manage_drawer">Hantera listmeny</string>
+    <string name="display_name">Visa namnet</string>
     <string name="now">Nu</string>
     <string name="app_bar_position">Appfältets position</string>
     <string name="app_bar_collapse">Fäll in appfält</string>
@@ -708,7 +708,7 @@
     <string name="consent_agree">Samtyck</string>
     <string name="consent_deny">Inte nu</string>
     <string name="enable_reminders_description">Påminnelser är avstängda i Android-inställningarna</string>
-    <string name="TEA_creation_date">Skapande datum</string>
+    <string name="TEA_creation_date">Skapatdatum</string>
     <string name="sort_completion_group">Slutfört %s</string>
     <string name="sign_in">Logga in</string>
     <string name="sort_list">Efter lista</string>
