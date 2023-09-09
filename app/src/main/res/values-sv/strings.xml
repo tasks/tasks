@@ -720,4 +720,14 @@
     <string name="sort_descending">Nedåtgående</string>
     <string name="sort_completed">Efter färdigställd tid</string>
     <string name="microsoft_selection_description">Synkronisera med ditt personliga Microsoft-konto</string>
+    <string name="repeats_every">Upprepas varje</string>
+    <string name="repeats_after">Efter</string>
+    <string name="repeats_never">Aldrig</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">händelse</item>
+        <item quantity="other">händelser</item>
+    </plurals>
+    <string name="repeats_ends">Avslutas</string>
+    <string name="repeats_on">På</string>
+    <string name="repeats_weekly_on">Upprepas på</string>
 </resources>
