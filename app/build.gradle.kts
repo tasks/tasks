@@ -7,7 +7,6 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     kotlin("android")
-    kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("com.google.android.gms.oss-licenses-plugin")
     id("kotlin-parcelize")
@@ -61,12 +60,6 @@ android {
         targetSdk = 33
         minSdk = 24
         testInstrumentationRunner = "org.tasks.TestRunner"
-
-        kapt {
-            arguments {
-                arg("dagger.ignoreProvisionKeyWildcards", "ENABLED")
-            }
-        }
 
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
@@ -188,8 +181,8 @@ dependencies {
     implementation(libs.dmfs.jems)
 
     implementation(libs.dagger.hilt)
-    kapt(libs.dagger.hilt.compiler)
-    kapt(libs.androidx.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.work)
 
     implementation(libs.androidx.fragment.ktx)
@@ -276,8 +269,8 @@ dependencies {
     googleplayImplementation(libs.play.services.oss.licenses)
 
     androidTestImplementation(libs.dagger.hilt.testing)
-    kaptAndroidTest(libs.dagger.hilt.compiler)
-    kaptAndroidTest(libs.androidx.hilt.compiler)
+    kspAndroidTest(libs.dagger.hilt.compiler)
+    kspAndroidTest(libs.androidx.hilt.compiler)
     androidTestImplementation(libs.mockito.android)
     androidTestImplementation(libs.make.it.easy)
     androidTestImplementation(libs.androidx.test.runner)
