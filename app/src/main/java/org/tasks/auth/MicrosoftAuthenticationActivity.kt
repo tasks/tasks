@@ -116,28 +116,26 @@ class MicrosoftAuthenticationActivity : ComponentActivity() {
         }
     }
 
-    private suspend fun getEmail(accessToken: String?): String? {
+    private suspend fun getEmail(accessToken: String?): String? = withContext(Dispatchers.IO) {
         if (accessToken == null) {
-            return null
+            return@withContext null
         }
         val discovery = AuthorizationServiceDiscovery(
             JSONObject(
                 intent.getStringExtra(EXTRA_SERVICE_DISCOVERY)!!
             )
         )
-        val userInfo = withContext(Dispatchers.IO) {
-            httpClientFactory
-                .newClient(foreground = false)
-                .newCall(
-                    Request.Builder()
-                        .url(discovery.userinfoEndpoint!!.toString())
-                        .addHeader("Authorization", "Bearer $accessToken")
-                        .build()
-                )
-                .execute()
-        }
-        val response = userInfo.body?.string() ?: return null
-        return JSONObject(response).getString("email")
+        val userInfo = httpClientFactory
+            .newClient(foreground = false)
+            .newCall(
+                Request.Builder()
+                    .url(discovery.userinfoEndpoint!!.toString())
+                    .addHeader("Authorization", "Bearer $accessToken")
+                    .build()
+            )
+            .execute()
+        val response = userInfo.body?.string() ?: return@withContext null
+        JSONObject(response).getString("email")
     }
 
     private fun error(message: String) {
