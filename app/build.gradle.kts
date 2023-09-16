@@ -135,6 +135,7 @@ android {
             dimension = "store"
         }
         create("googleplay") {
+            isDefault = true
             dimension = "store"
         }
     }
