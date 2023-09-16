@@ -40,7 +40,7 @@ fun PriorityRow(
     TaskEditRow(
         iconRes = R.drawable.ic_outline_flag_24px,
         content = {
-            Priority(
+            PriorityLabeled(
                 selected = priority,
                 onClick = { onChangePriority(it) },
                 desaturate = desaturate,
@@ -51,6 +51,24 @@ fun PriorityRow(
 
 @Composable
 fun Priority(
+    selected: Int,
+    onClick: (Int) -> Unit = {},
+    desaturate: Boolean,
+) {
+    Row(horizontalArrangement = Arrangement.SpaceBetween) {
+        for (i in Task.Priority.NONE downTo Task.Priority.HIGH) {
+            PriorityButton(
+                priority = i,
+                selected = selected,
+                onClick = onClick,
+                desaturate = desaturate,
+            )
+        }
+    }
+}
+
+@Composable
+fun PriorityLabeled(
     selected: Int,
     onClick: (Int) -> Unit = {},
     desaturate: Boolean,
@@ -70,16 +88,7 @@ fun Priority(
             modifier = Modifier.padding(end = 16.dp)
         )
         Spacer(modifier = Modifier.weight(1f))
-        Row(horizontalArrangement = Arrangement.SpaceBetween) {
-            for (i in Task.Priority.NONE downTo Task.Priority.HIGH) {
-                PriorityButton(
-                    priority = i,
-                    selected = selected,
-                    onClick = onClick,
-                    desaturate = desaturate,
-                )
-            }
-        }
+        Priority(selected = selected, onClick = onClick, desaturate = desaturate)
     }
 }
 
