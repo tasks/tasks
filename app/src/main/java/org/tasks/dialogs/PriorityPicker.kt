@@ -50,7 +50,7 @@ class PriorityPicker : DialogFragment() {
                 onClick = { priorityPickerViewModel.setPriority( it ) }, desaturate = savedInstanceState?.getBoolean(
                 EXTRA_DESATURATE) ?: false) }
             val builder = AlertDialog.Builder(fragmentActivity)
-                .setTitle("Change priority")
+                .setTitle(R.string.change_priority)
                 .setView(binding.root)
 
             builder.setNegativeButton("Cancel") { _, _ ->
