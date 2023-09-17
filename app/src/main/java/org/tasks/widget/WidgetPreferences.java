@@ -279,7 +279,7 @@ public class WidgetPreferences implements QueryPreferences {
 
   @Override
   public boolean getShowHidden() {
-    return getBoolean(R.string.p_widget_show_hidden, false);
+    return getBoolean(R.string.p_widget_show_hidden, true);
   }
 
   @Override
