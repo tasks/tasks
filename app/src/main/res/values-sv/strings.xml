@@ -702,8 +702,6 @@
     <string name="hint_customize_edit_body">Du kan anpassa den här skärmen genom att ordna om eller ta bort fält</string>
     <string name="default_reminder">Standardpåminnelse</string>
     <string name="rmd_time_description">Visa aviseringar för uppgifter utan deadlinetid</string>
-    <string name="ok">\@android:string/ok</string>
-    <string name="cancel">\@android:string/cancel</string>
     <string name="sign_in_to_tasks_disclosure">Din e-postadress och konto-id kommer föras över till och lagras av Tasks.org. Uppgifterna kommer användas för autentisering och för att förse dig med viktiga tjänsterelaterade meddelanden. Informationen kommer inte delas med någon annan.</string>
     <string name="consent_agree">Samtyck</string>
     <string name="consent_deny">Inte nu</string>

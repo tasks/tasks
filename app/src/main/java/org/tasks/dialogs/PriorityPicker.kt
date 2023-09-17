@@ -11,6 +11,7 @@ import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.Priority
 import org.tasks.databinding.DialogDateTimePickerBinding
@@ -53,10 +54,10 @@ class PriorityPicker : DialogFragment() {
                 .setTitle(R.string.change_priority)
                 .setView(binding.root)
 
-            builder.setNegativeButton("Cancel") { _, _ ->
+            builder.setNegativeButton(R.string.cancel) { _, _ ->
 
             }
-            builder.setPositiveButton("Ok") { _, _ ->
+            builder.setPositiveButton(R.string.ok) { _, _ ->
                 changePriority()
             }
             builder.create()

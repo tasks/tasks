@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="ok">@android:string/ok</string>
-  <string name="cancel">@android:string/cancel</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Cancel</string>
   <string name="actfm_picture_clear">Clear Picture</string>
   <string name="TVA_add_comment">Add a comment…</string>
   <string name="display_name">Display name</string>

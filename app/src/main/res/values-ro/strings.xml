@@ -729,8 +729,6 @@
     <string name="dismiss">Respingeți</string>
     <string name="enable_reminders">Activați memento-uri</string>
     <string name="enable_reminders_description">Reamintirile sunt dezactivate în Setări Android</string>
-    <string name="ok">\@android:string/ok</string>
-    <string name="cancel">\@android:string/anulează</string>
     <string name="TEA_creation_date">Data creării</string>
     <string name="default_reminder">Reamintire implicită</string>
     <string name="rmd_time_description">Afișați notificări pentru sarcinile fără termene limită</string>
