@@ -738,4 +738,5 @@
     <string name="repeats_after">Na</string>
     <string name="repeats_ends">Eindigt</string>
     <string name="repeat_monthly_on_day_number">Maandelijks op dag %1d</string>
+    <string name="change_priority">Prioriteit veranderen</string>
 </resources>
