@@ -194,7 +194,9 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
         val openTask = !intent.isFromHistory
                 && (intent.hasExtra(OPEN_TASK) || intent.hasExtra(CREATE_TASK))
         val tef = taskEditFragment
-        Timber.d("""
+        if (BuildConfig.DEBUG) {
+            Timber.d(
+                """
             
             **********
             broughtToFront: ${intent.broughtToFront}
@@ -206,7 +208,9 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             CREATE_TASK: ${intent.hasExtra(CREATE_TASK)}
             taskListFragment: ${taskListFragment?.getFilter()?.let { "${it.listingTitle}: $it" }}
             taskEditFragment: ${taskEditFragment?.editViewModel?.task}
-            **********""")
+            **********"""
+            )
+        }
         if (!openTask && (openFilter != null || !loadFilter.isNullOrBlank())) {
             tef?.let {
                 lifecycleScope.launch {
@@ -546,10 +550,9 @@ class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandl
             get() = flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT > 0
 
         val Intent.flagsToString
-            get() = if (BuildConfig.DEBUG) "" else
-                Intent::class.java.declaredFields
-                        .filter { it.name.startsWith("FLAG_") }
-                        .filter { flags or it.getInt(null) == flags }
-                        .joinToString(" | ") { it.name }
+            get() = Intent::class.java.declaredFields
+                .filter { it.name.startsWith("FLAG_") }
+                .filter { flags or it.getInt(null) == flags }
+                .joinToString(" | ") { it.name }
     }
 }
