@@ -1,3 +1,26 @@
+### 13.6 (2023-09-17)
+
+* Change priority with multi-select [#2257](https://github.com/tasks/tasks/pull/2452) - @vulewuxe86
+* Automatically select newly copied tasks [#2246](https://github.com/tasks/tasks/pull/2446) - @vulewuxe86
+* Reduce minimum size for widgets [#2436](https://github.com/tasks/tasks/pull/2436) - @histefanhere
+* Improve handling text shared to Tasks [#2485](https://github.com/tasks/tasks/issues/2485)
+* Use notification audio stream for completion sound
+* Notification preference 'More settings' opens channel settings directly
+* Respect 'New tasks on top' preference when creating subtasks
+* Automatically add due dates for recurring tasks
+* Fix crash on startup
+* Update translations
+  * Brazilian Portuguese - @gorgonun
+  * Bulgarian - @StoyanDimitrov, @salif
+  * Catalan - Joan Montané
+  * Chinese (Simplified) - Poesty Li
+  * Chinese (Traditional) - @abc0922001
+  * German - @qwerty287, deep map
+  * Italian - @ppasserini
+  * Japanese - Kazushi Hayama, Naga
+  * Swedish - @Anaemix, @bittin
+  * Turkish - @emintufan
+
 ### 13.5.1 (2023-08-02)
 
 * Fix crash when importing Google Tasks from a backup file
