@@ -738,4 +738,5 @@
     <string name="repeats_on">В</string>
     <string name="repeat_monthly_on_the_nth_weekday">Ежемесечно в %1$s %2$s</string>
     <string name="repeat_monthly_on_day_number">Ежемесечно на %1d ден</string>
+    <string name="change_priority">Промяна на приоритет</string>
 </resources>
