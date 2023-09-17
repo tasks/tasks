@@ -640,7 +640,7 @@
     <string name="tasks_org_account_required">Потрібен обліковий запис Tasks.org</string>
     <string name="map_theme">Тема карти</string>
     <string name="cancel">Скасувати</string>
-    <string name="ok">OK</string>
+    <string name="ok">Гаразд</string>
     <string name="privacy">Приватність</string>
     <string name="open_source">Відкритий джерельний код</string>
     <string name="issue_tracker">Відстеження помилок</string>
@@ -768,4 +768,5 @@
     <string name="repeats_never">Ніколи</string>
     <string name="repeat_monthly_on_day_number">Щомісяця у %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Щомісяця %1$s %2$s</string>
+    <string name="change_priority">Змінити пріоритет</string>
 </resources>
