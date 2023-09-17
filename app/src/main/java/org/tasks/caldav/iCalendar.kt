@@ -24,7 +24,6 @@ import net.fortuna.ical4j.model.property.DateProperty
 import net.fortuna.ical4j.model.property.DtStart
 import net.fortuna.ical4j.model.property.Due
 import net.fortuna.ical4j.model.property.Geo
-import net.fortuna.ical4j.model.property.ProdId
 import net.fortuna.ical4j.model.property.RelatedTo
 import net.fortuna.ical4j.model.property.Status
 import net.fortuna.ical4j.model.property.XProperty
@@ -65,6 +64,7 @@ import java.io.ByteArrayOutputStream
 import java.io.StringReader
 import java.text.ParseException
 import java.util.TimeZone
+import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlin.math.max
 import kotlin.math.min
@@ -239,7 +239,7 @@ class iCalendar @Inject constructor(
             isNew &&
             remote.reminders.isEmpty() &&
             !calendar.ctag.isNullOrBlank() && // not initial sync
-            !remote.prodId().supportsReminders() // other client doesn't support reminder sync
+            vtodo?.prodId()?.supportsReminders() != true // other client doesn't support reminder sync
         ) {
             task.setDefaultReminders(preferences)
             alarmService.synchronizeAlarms(task.id, task.getDefaultAlarms().toMutableSet())
@@ -284,6 +284,7 @@ class iCalendar @Inject constructor(
         private const val MOZ_SNOOZE_TIME = "X-MOZ-SNOOZE-TIME"
         private const val MOZ_LASTACK = "X-MOZ-LASTACK"
         private const val HIDE_SUBTASKS = "1"
+        private val PRODID_MATCHER = ".*?PRODID:(.*?)\n.*".toPattern(Pattern.DOTALL)
         // VALARM extensions: https://datatracker.ietf.org/doc/html/rfc9074
         private val IGNORE_ALARM = DateTime("19760401T005545Z")
         private val IS_PARENT = { r: RelatedTo ->
@@ -326,8 +327,11 @@ class iCalendar @Inject constructor(
             }
 
         // this isn't necessarily the task originator but its the best we can do
-        fun ProdId.supportsReminders(): Boolean =
-            CLIENTS_WITH_REMINDER_SYNC.any { value.contains(it) }
+        fun String.supportsReminders(): Boolean =
+            CLIENTS_WITH_REMINDER_SYNC.any { contains(it) }
+
+        fun String.prodId(): String? =
+            PRODID_MATCHER.matcher(this).takeIf { it.matches() }?.group(1)
 
         private val CLIENTS_WITH_REMINDER_SYNC = listOf(
             "tasks.org",
