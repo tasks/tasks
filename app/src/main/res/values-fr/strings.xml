@@ -755,4 +755,5 @@
     <string name="repeats_every">Répéter chaque</string>
     <string name="repeats_weekly_on">Se répète le</string>
     <string name="repeats_never">Jamais</string>
+    <string name="change_priority">Priorité du changement</string>
 </resources>
