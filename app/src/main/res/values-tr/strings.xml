@@ -738,4 +738,5 @@
     <string name="sort_ascending">Artan</string>
     <string name="sort_descending">Azalan</string>
     <string name="sort_grouping">Kümeleme</string>
+    <string name="change_priority">Önceliği değiştir</string>
 </resources>
