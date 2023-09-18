@@ -723,4 +723,16 @@
     <string name="sort_descending">Csökkenő</string>
     <string name="sort_not_available">Nem elérhető címkékre, szűrőkre és helyekre</string>
     <string name="sort_completed">Befejezés ideje alapján</string>
+    <string name="change_priority">Sürgősség módosítása</string>
+    <string name="repeats_every">Ismétlődik minden</string>
+    <string name="repeats_after">Után</string>
+    <string name="repeats_custom_recurrence">Egyedi ismétlődés</string>
+    <string name="repeats_never">Soha</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">előfordulás</item>
+        <item quantity="other">előfordulás</item>
+    </plurals>
+    <string name="repeat_monthly_on_day_number">Minden hónap %1d napján</string>
+    <string name="repeats_ends">Befejeződik</string>
+    <string name="repeats_weekly_on">Ismétlődik</string>
 </resources>
