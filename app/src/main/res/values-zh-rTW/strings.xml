@@ -207,7 +207,7 @@
     <string name="astrid_sort_order_summary">在我的工作、今天與和標籤畫面啟用來自 Astrid 的手動排序模式。這種排序模式未來將被「我的順序」取代</string>
     <string name="astrid_sort_order">Astrid 手動排序</string>
     <string name="cancel">取消</string>
-    <string name="ok">確認</string>
+    <string name="ok">OK</string>
     <string name="name_cannot_be_empty">名稱不能為空白</string>
     <string name="tag_already_exists">標籤已經存在</string>
     <string name="send_anonymous_statistics_summary">傳送匿名使用情況紀錄和崩潰報告來幫助改善 Tasks。不會傳送任何個人資訊。</string>
@@ -717,4 +717,5 @@
     <string name="sort_grouping">分組</string>
     <string name="sort_descending">遞減</string>
     <string name="sort_completed">依完成時間</string>
+    <string name="change_priority">更改優先順序</string>
 </resources>
