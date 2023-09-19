@@ -760,4 +760,5 @@
     <string name="repeats_ends">Termina</string>
     <string name="repeat_monthly_on_day_number">Mensilmente il giorno %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Mensilmente il %1$s %2$s</string>
+    <string name="change_priority">Cambia priorità</string>
 </resources>
