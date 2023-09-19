@@ -40,7 +40,7 @@ abstract class TaskListRecyclerAdapter internal constructor(
 
     fun toggle(taskViewHolder: TaskViewHolder) {
         adapter.toggleSelection(taskViewHolder.task)
-        notifyItemChanged(taskViewHolder.adapterPosition)
+        notifyItemChanged(taskViewHolder.bindingAdapterPosition)
         if (adapter.getSelected().isEmpty()) {
             taskList.finishActionMode()
         } else {

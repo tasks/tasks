@@ -86,8 +86,8 @@ public class BeastModeRecyclerAdapter extends RecyclerView.Adapter<BeastModeView
     @Override
     public boolean onMove(
         RecyclerView recyclerView, RecyclerView.ViewHolder from, RecyclerView.ViewHolder to) {
-      int fromPosition = from.getAdapterPosition();
-      int toPosition = to.getAdapterPosition();
+      int fromPosition = from.getBindingAdapterPosition();
+      int toPosition = to.getBindingAdapterPosition();
       Collections.swap(items, fromPosition, toPosition);
       notifyItemMoved(fromPosition, toPosition);
       return true;
