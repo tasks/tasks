@@ -129,7 +129,7 @@ class DragAndDropRecyclerAdapter(
                 taskList.startActionMode()
                 (viewHolder as TaskViewHolder?)!!.moving = true
                 dragging = true
-                val position = viewHolder!!.adapterPosition
+                val position = viewHolder!!.bindingAdapterPosition
                 updateIndents(viewHolder as TaskViewHolder?, position, position)
             }
         }
@@ -137,19 +137,19 @@ class DragAndDropRecyclerAdapter(
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
             return when {
                 !dragAndDropEnabled() -> NO_MOVEMENT
-                adapter.isHeader(viewHolder.adapterPosition) -> NO_MOVEMENT
+                adapter.isHeader(viewHolder.bindingAdapterPosition) -> NO_MOVEMENT
                 adapter.numSelected > 0 -> NO_MOVEMENT
                 else -> ALLOW_DRAGGING
             }
-        }
+        }  
 
         override fun onMove(
                 recyclerView: RecyclerView,
                 src: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder): Boolean {
             taskList.finishActionMode()
-            val fromPosition = src.adapterPosition
-            val toPosition = target.adapterPosition
+            val fromPosition = src.bindingAdapterPosition
+            val toPosition = target.bindingAdapterPosition
             val source = src as TaskViewHolder
             val isHeader = isHeader(toPosition)
             if (!isHeader && !adapter.canMove(source.task, fromPosition, (target as TaskViewHolder).task, toPosition)) {
@@ -235,7 +235,7 @@ class DragAndDropRecyclerAdapter(
                     vh.indent = targetIndent
                     moved(from, to, targetIndent)
                 } else if (task.indent != targetIndent) {
-                    val position = vh.adapterPosition
+                    val position = vh.bindingAdapterPosition
                     vh.task.indent = targetIndent
                     vh.task.targetIndent = targetIndent
                     vh.indent = targetIndent
