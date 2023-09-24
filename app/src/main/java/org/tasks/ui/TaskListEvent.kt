@@ -7,5 +7,4 @@ typealias TaskListEventBus = MutableSharedFlow<TaskListEvent>
 sealed interface TaskListEvent {
     data class TaskCreated(val uuid: String) : TaskListEvent
     data class CalendarEventCreated(val title: String?, val uri: String) : TaskListEvent
-    object BegForSubscription : TaskListEvent
 }

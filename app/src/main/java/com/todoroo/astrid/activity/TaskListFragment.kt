@@ -24,10 +24,6 @@ import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
 import androidx.core.view.forEach
@@ -49,7 +45,6 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
@@ -82,15 +77,14 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
-import org.tasks.Tasks.Companion.IS_GOOGLE_PLAY
 import org.tasks.activities.FilterSettingsActivity
 import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
-import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.compose.SubscriptionNagBanner
+import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.CaldavDao
 import org.tasks.data.TagDataDao
 import org.tasks.data.TaskContainer
@@ -179,7 +173,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private lateinit var callbacks: TaskListFragmentCallbackHandler
     private lateinit var binding: FragmentTaskListBinding
 
-    @OptIn(ExperimentalAnimationApi::class)
     private fun process(event: TaskListEvent) = when (event) {
         is TaskListEvent.TaskCreated ->
             onTaskCreated(event.uuid)
@@ -187,36 +180,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             makeSnackbar(R.string.calendar_event_created, event.title)
                 ?.setAction(R.string.action_open) { context?.openUri(event.uri) }
                 ?.show()
-        is TaskListEvent.BegForSubscription -> {
-            binding.banner.setContent {
-                var showBanner by rememberSaveable { mutableStateOf(true) }
-                MdcTheme {
-                    SubscriptionNagBanner(
-                        visible = showBanner,
-                        subscribe = {
-                            showBanner = false
-                            preferences.lastSubscribeRequest = now()
-                            purchase()
-                            firebase.logEvent(R.string.event_banner_sub, R.string.param_click to true)
-                        },
-                        dismiss = {
-                            showBanner = false
-                            preferences.lastSubscribeRequest = now()
-                            firebase.logEvent(R.string.event_banner_sub, R.string.param_click to false)
-                        },
-                    )
-                }
-            }
-        }
-    }
-
-    private fun purchase() {
-        if (IS_GOOGLE_PLAY) {
-            startActivity(Intent(context, PurchaseActivity::class.java))
-        } else {
-            preferences.lastSubscribeRequest = now()
-            context?.openUri(R.string.url_donate)
-        }
     }
 
     override fun onRefresh() {
@@ -266,6 +229,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
+    @OptIn(ExperimentalAnimationApi::class)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTaskListBinding.inflate(inflater, container, false)
@@ -292,9 +256,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         recyclerView.layoutManager = LinearLayoutManager(context)
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                listViewModel.tasks.collect {
-                    submitList(it)
-                    if (it.isEmpty()) {
+                listViewModel.state.collect {
+                    submitList(it.tasks)
+                    if (it.tasks.isEmpty()) {
                         swipeRefreshLayout.visibility = View.GONE
                         emptyRefreshLayout.visibility = View.VISIBLE
                     } else {
@@ -342,6 +306,16 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 taskMover.move(selected, it)
             }
             finishActionMode()
+        }
+        binding.banner.setContent {
+            val showBanner = listViewModel.state.collectAsStateLifecycleAware().value.begForSubscription
+            MdcTheme {
+                SubscriptionNagBanner(
+                    visible = showBanner,
+                    subscribe = { listViewModel.dismissBanner(clickedPurchase = true) },
+                    dismiss = { listViewModel.dismissBanner(clickedPurchase = false) },
+                )
+            }
         }
         return binding.root
     }

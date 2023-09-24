@@ -58,7 +58,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
                         filter = viewModel.selectedList.collectAsStateLifecycleAware().value,
                         hasParent = viewModel.hasParent,
                         desaturate = preferences.desaturateDarkMode,
-                        existingSubtasks = listViewModel.tasks.collectAsStateLifecycleAware(initial = emptyList()).value,
+                        existingSubtasks = listViewModel.state.collectAsStateLifecycleAware().value.tasks,
                         newSubtasks = viewModel.newSubtasks.collectAsStateLifecycleAware().value,
                         openSubtask = this@SubtaskControlSet::openSubtask,
                         completeExistingSubtask = this@SubtaskControlSet::complete,

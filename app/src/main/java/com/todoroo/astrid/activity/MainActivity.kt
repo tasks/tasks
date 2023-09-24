@@ -57,8 +57,6 @@ import org.tasks.ui.MainActivityEvent
 import org.tasks.ui.MainActivityEventBus
 import org.tasks.ui.NavigationDrawerFragment
 import org.tasks.ui.NavigationDrawerFragment.Companion.newNavigationDrawer
-import org.tasks.ui.TaskListEvent
-import org.tasks.ui.TaskListEventBus
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -76,7 +74,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, Timer
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var alarmDao: AlarmDao
     @Inject lateinit var eventBus: MainActivityEventBus
-    @Inject lateinit var taskListEventBus: TaskListEventBus
     @Inject lateinit var playServices: PlayServices
     @Inject lateinit var firebase: Firebase
 
@@ -474,16 +471,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, Timer
     private fun finishActionMode() {
         actionMode?.finish()
         actionMode = null
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        lifecycleScope.launch {
-            if (!inventory.hasPro && !firebase.subscribeCooldown) {
-                taskListEventBus.tryEmit(TaskListEvent.BegForSubscription)
-            }
-        }
     }
 
     companion object {
