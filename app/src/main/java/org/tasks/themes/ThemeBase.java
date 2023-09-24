@@ -1,14 +1,17 @@
 package org.tasks.themes;
 
+import static org.tasks.extensions.Context.INSTANCE;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.ContextThemeWrapper;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+
 import org.tasks.R;
 import org.tasks.billing.Inventory;
 import org.tasks.preferences.Preferences;
@@ -77,11 +80,7 @@ public class ThemeBase implements Parcelable {
   }
 
   public boolean isDarkTheme(Activity activity) {
-    return index == 4 || index == 5
-        ? Configuration.UI_MODE_NIGHT_YES
-            == (activity.getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK)
-        : index > 0;
+    return index == 4 || index == 5 ? INSTANCE.isNightMode(activity) : index > 0;
   }
 
   public ContextThemeWrapper wrap(Context context) {

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
+import android.content.res.Configuration
 import android.net.Uri
 import android.widget.Toast
 import androidx.annotation.AnyRes
@@ -24,6 +25,12 @@ object Context {
             toast(R.string.no_app_found)
         }
     }
+
+    val Context.nightMode: Int
+        get() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+    val Context.isNightMode: Boolean
+        get() = nightMode == Configuration.UI_MODE_NIGHT_YES
 
     fun Context.openUri(resId: Int, vararg formatArgs: Any) = openUri(getString(resId, formatArgs))
 

@@ -2,7 +2,6 @@ package org.tasks.widget
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Paint
 import android.view.View
@@ -22,6 +21,7 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.date.DateTimeUtils
+import org.tasks.extensions.Context.isNightMode
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -90,7 +90,7 @@ internal class ScrollableViewsFactory(
     private val checkIfDark: Boolean
         get() = when (widgetPreferences.themeIndex) {
             0 -> false
-            3 -> context.isDark
+            3 -> context.isNightMode
             else -> true
         }
 
@@ -390,11 +390,5 @@ internal class ScrollableViewsFactory(
     init {
         val metrics = context.resources.displayMetrics
         indentPadding = (20 * metrics.density).toInt()
-    }
-
-    companion object {
-        val Context.isDark: Boolean
-            get() = (Configuration.UI_MODE_NIGHT_YES ==
-                    (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK))
     }
 }

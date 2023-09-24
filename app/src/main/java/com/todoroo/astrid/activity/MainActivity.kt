@@ -7,7 +7,6 @@ package com.todoroo.astrid.activity
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -43,6 +42,7 @@ import org.tasks.data.TagDataDao
 import org.tasks.databinding.TaskListActivityBinding
 import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.dialogs.WhatsNewDialog
+import org.tasks.extensions.Context.nightMode
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents.getTaskListIntent
 import org.tasks.location.LocationPickerActivity
@@ -354,9 +354,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, Timer
             preferences.setBoolean(R.string.p_just_updated, false)
         }
     }
-
-    private val nightMode: Int
-        get() = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
     override suspend fun onTaskListItemClicked(task: Task?) {
         AndroidUtilities.assertMainThread()

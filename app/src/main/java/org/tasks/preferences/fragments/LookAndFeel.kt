@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import androidx.annotation.StringRes
@@ -26,6 +25,7 @@ import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
+import org.tasks.extensions.Context.isNightMode
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.LocalePickerDialog
 import org.tasks.preferences.DefaultFilterProvider
@@ -37,7 +37,7 @@ import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import org.tasks.themes.ThemeColor
 import org.tasks.themes.ThemeColor.getLauncherColor
 import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -74,7 +74,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
         }
 
         findPreference(R.string.p_desaturate_colors).setOnPreferenceChangeListener { _, _ ->
-            if (context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
+            if (context?.isNightMode == true) {
                 activity?.recreate()
             }
             true
