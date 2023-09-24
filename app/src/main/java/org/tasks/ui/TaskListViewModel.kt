@@ -50,6 +50,7 @@ class TaskListViewModel @Inject constructor(
         val now: Long = DateUtilities.now(),
         val tasks: List<TaskContainer> = emptyList(),
         val begForSubscription: Boolean = false,
+        val syncOngoing: Boolean = false,
     )
 
     private val _state = MutableStateFlow(State())
@@ -68,7 +69,12 @@ class TaskListViewModel @Inject constructor(
     }
 
     fun invalidate() {
-        _state.update { it.copy(now = DateUtilities.now()) }
+        _state.update {
+            it.copy(
+                now = DateUtilities.now(),
+                syncOngoing = preferences.isSyncOngoing,
+            )
+        }
     }
 
     fun dismissBanner(clickedPurchase: Boolean) {

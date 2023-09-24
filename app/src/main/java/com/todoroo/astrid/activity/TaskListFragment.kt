@@ -44,7 +44,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.android.material.snackbar.Snackbar
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
@@ -104,7 +103,6 @@ import org.tasks.extensions.formatNumber
 import org.tasks.extensions.setOnQueryTextListener
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents
-import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
@@ -128,7 +126,6 @@ import kotlin.math.max
 class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickListener,
         MenuItem.OnActionExpandListener, SearchView.OnQueryTextListener, ActionMode.Callback,
         TaskViewHolder.ViewHolderCallbacks {
-    private val refreshReceiver = RefreshReceiver()
     private val repeatConfirmationReceiver = RepeatConfirmationReceiver()
 
     @Inject lateinit var syncAdapters: SyncAdapters
@@ -148,7 +145,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var defaultThemeColor: ThemeColor
     @Inject lateinit var colorProvider: ColorProvider
-    @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var shortcutManager: ShortcutManager
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var locale: Locale
@@ -156,11 +152,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var repeatTaskHelper: RepeatTaskHelper
     @Inject lateinit var taskListEventBus: TaskListEventBus
     @Inject lateinit var taskEditEventBus: TaskEditEventBus
-    
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var emptyRefreshLayout: SwipeRefreshLayout
-    private lateinit var coordinatorLayout: CoordinatorLayout
-    private lateinit var recyclerView: RecyclerView
     
     private val listViewModel: TaskListViewModel by viewModels()
     private lateinit var taskAdapter: TaskAdapter
@@ -190,17 +181,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onRefresh() {
         syncAdapters.sync(true)
-        lifecycleScope.launch {
-            delay(1000)
-            refresh()
-        }
-    }
-
-    private fun setSyncOngoing() {
-        AndroidUtilities.assertMainThread()
-        val ongoing = preferences.isSyncOngoing
-        swipeRefreshLayout.isRefreshing = ongoing
-        emptyRefreshLayout.isRefreshing = ongoing
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -246,10 +226,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTaskListBinding.inflate(inflater, container, false)
         filter = getFilter()
+        val swipeRefreshLayout: SwipeRefreshLayout
+        val emptyRefreshLayout: SwipeRefreshLayout
+        val recyclerView: RecyclerView
         with (binding) {
             swipeRefreshLayout = bodyStandard.swipeLayout
             emptyRefreshLayout = bodyEmpty.swipeLayoutEmpty
-            coordinatorLayout = taskListCoordinator
             recyclerView = bodyStandard.recyclerView
             fab.setOnClickListener { createNewTask() }
             fab.isVisible = filter.isWritable
@@ -277,6 +259,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         swipeRefreshLayout.visibility = View.VISIBLE
                         emptyRefreshLayout.visibility = View.GONE
                     }
+                    swipeRefreshLayout.isRefreshing = it.syncOngoing
+                    emptyRefreshLayout.isRefreshing = it.syncOngoing
                 }
             }
         }
@@ -336,7 +320,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         if (recyclerAdapter !is DragAndDropRecyclerAdapter) {
             setAdapter(
                     DragAndDropRecyclerAdapter(
-                            taskAdapter, recyclerView, viewHolderFactory, this, tasks, preferences))
+                            taskAdapter, binding.bodyStandard.recyclerView, viewHolderFactory, this, tasks, preferences))
         } else {
             recyclerAdapter?.submitList(tasks)
         }
@@ -344,7 +328,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     private fun setAdapter(adapter: DragAndDropRecyclerAdapter) {
         recyclerAdapter = adapter
-        recyclerView.adapter = adapter
+        binding.bodyStandard.recyclerView.adapter = adapter
         taskAdapter.setDataSource(adapter)
     }
 
@@ -447,14 +431,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 item.isChecked = !item.isChecked
                 preferences.showHidden = item.isChecked
                 loadTaskListContent()
-                localBroadcastManager.broadcastRefresh()
                 true
             }
             R.id.menu_show_completed -> {
                 item.isChecked = !item.isChecked
                 preferences.showCompleted = item.isChecked
                 loadTaskListContent()
-                localBroadcastManager.broadcastRefresh()
                 true
             }
             R.id.menu_clear_completed -> {
@@ -558,9 +540,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onResume() {
         super.onResume()
-        localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
         localBroadcastManager.registerTaskCompletedReceiver(repeatConfirmationReceiver)
-        refresh()
     }
 
     private fun makeSnackbar(@StringRes res: Int, vararg args: Any?): Snackbar? {
@@ -568,7 +548,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     private fun makeSnackbar(text: String): Snackbar? = activity?.let {
-        Snackbar.make(coordinatorLayout, text, 4000)
+        Snackbar.make(binding.taskListCoordinator, text, 4000)
                 .setAnchorView(R.id.fab)
                 .setTextColor(it.getColor(R.color.snackbar_text_color))
                 .setActionTextColor(it.getColor(R.color.snackbar_action_color))
@@ -580,11 +560,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onPause() {
         super.onPause()
         localBroadcastManager.unregisterReceiver(repeatConfirmationReceiver)
-        localBroadcastManager.unregisterReceiver(refreshReceiver)
-    }
-
-    private fun refresh() {
-        setSyncOngoing()
     }
 
     fun loadTaskListContent() {
@@ -697,10 +672,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onQueryTextChange(query: String): Boolean {
         searchByQuery(query)
         return true
-    }
-
-    fun broadcastRefresh() {
-        localBroadcastManager.broadcastRefresh()
     }
 
     override fun onCreateActionMode(actionMode: ActionMode, menu: Menu): Boolean {
@@ -947,12 +918,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun toggleSubtasks(task: Long, collapsed: Boolean) {
         lifecycleScope.launch {
             taskDao.setCollapsed(task, collapsed)
-        }
-    }
-
-    private inner class RefreshReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            refresh()
         }
     }
 
