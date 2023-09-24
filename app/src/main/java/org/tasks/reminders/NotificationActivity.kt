@@ -3,11 +3,11 @@ package org.tasks.reminders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.data.TaskDao
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.NotificationManager
 import org.tasks.receivers.CompleteTaskReceiver
@@ -16,7 +16,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NotificationActivity : InjectingAppCompatActivity(), NotificationDialog.NotificationHandler {
+class NotificationActivity : AppCompatActivity(), NotificationDialog.NotificationHandler {
     @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var themeAccent: ThemeAccent

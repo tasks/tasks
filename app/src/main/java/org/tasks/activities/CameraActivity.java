@@ -6,19 +6,25 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+
 import com.todoroo.astrid.utility.Constants;
-import dagger.hilt.android.AndroidEntryPoint;
-import java.io.File;
-import java.io.IOException;
-import javax.inject.Inject;
+
 import org.tasks.files.FileHelper;
-import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
 @AndroidEntryPoint
-public class CameraActivity extends InjectingAppCompatActivity {
+public class CameraActivity extends AppCompatActivity {
 
   private static final int REQUEST_CODE_CAMERA = 75;
   private static final String EXTRA_URI = "extra_output";

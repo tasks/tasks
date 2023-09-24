@@ -10,6 +10,7 @@ import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.DialogUtilities
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +27,6 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.gtasks.GoogleAccountManager
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.preferences.ActivityPermissionRequestor
 import org.tasks.preferences.PermissionRequestor
 import javax.inject.Inject
@@ -38,7 +38,7 @@ import javax.inject.Inject
  * @author Sam Bosley
  */
 @AndroidEntryPoint
-class GtasksLoginActivity : InjectingAppCompatActivity() {
+class GtasksLoginActivity : AppCompatActivity() {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var googleAccountManager: GoogleAccountManager
     @Inject lateinit var caldavDao: CaldavDao

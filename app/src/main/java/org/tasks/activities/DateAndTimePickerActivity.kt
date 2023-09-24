@@ -2,6 +2,7 @@ package org.tasks.activities
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -10,7 +11,6 @@ import org.tasks.dialogs.MyDatePickerDialog.Companion.newDatePicker
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.dialogs.MyTimePickerDialog.Companion.timeInputMode
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeAccent
 import org.tasks.time.DateTime
@@ -18,7 +18,7 @@ import org.tasks.time.DateTimeUtils.currentTimeMillis
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DateAndTimePickerActivity : InjectingAppCompatActivity() {
+class DateAndTimePickerActivity : AppCompatActivity() {
     @Inject lateinit var themeAccent: ThemeAccent
     @Inject lateinit var preferences: Preferences
 

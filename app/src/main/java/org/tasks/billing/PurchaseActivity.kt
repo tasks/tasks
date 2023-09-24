@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
@@ -16,14 +17,13 @@ import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.compose.PurchaseText.PurchaseText
 import org.tasks.extensions.Context.toast
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.preferences.Preferences
 import org.tasks.themes.Theme
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PurchaseActivity : InjectingAppCompatActivity(), OnPurchasesUpdated {
+class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
     @Inject lateinit var theme: Theme
     @Inject lateinit var billingClient: BillingClient
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager

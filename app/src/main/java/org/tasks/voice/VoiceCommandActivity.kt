@@ -3,6 +3,7 @@ package org.tasks.voice
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
@@ -11,11 +12,10 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.extensions.Context.toast
-import org.tasks.injection.InjectingAppCompatActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VoiceCommandActivity : InjectingAppCompatActivity() {
+class VoiceCommandActivity : AppCompatActivity() {
     @Inject lateinit var taskCreator: TaskCreator
     @Inject @ApplicationContext lateinit var context: Context
     @Inject lateinit var firebase: Firebase

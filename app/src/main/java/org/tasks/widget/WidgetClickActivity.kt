@@ -1,6 +1,7 @@
 package org.tasks.widget
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -12,13 +13,12 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.dialogs.BaseDateTimePicker.OnDismissHandler
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class WidgetClickActivity : InjectingAppCompatActivity(), OnDismissHandler {
+class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager

@@ -4,6 +4,7 @@ import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
@@ -13,7 +14,6 @@ import kotlinx.coroutines.launch
 import org.tasks.analytics.Firebase
 import org.tasks.data.TaskAttachment
 import org.tasks.files.FileHelper
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -25,7 +25,7 @@ import javax.inject.Inject
  * Create a new task based on incoming links from the "share" menu
  */
 @AndroidEntryPoint
-class ShareLinkActivity : InjectingAppCompatActivity() {
+class ShareLinkActivity : AppCompatActivity() {
     @Inject lateinit var taskCreator: TaskCreator
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var firebase: Firebase

@@ -8,6 +8,7 @@ import android.os.Parcelable
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -39,7 +40,6 @@ import org.tasks.databinding.ActivityLocationPickerBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.toast
 import org.tasks.extensions.setOnQueryTextListener
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.location.LocationPickerAdapter.OnLocationPicked
 import org.tasks.location.LocationSearchAdapter.OnPredictionPicked
 import org.tasks.location.MapFragment.MapFragmentCallback
@@ -54,7 +54,7 @@ import javax.inject.Inject
 import kotlin.math.abs
 
 @AndroidEntryPoint
-class LocationPickerActivity : InjectingAppCompatActivity(), Toolbar.OnMenuItemClickListener, MapFragmentCallback, OnLocationPicked, SearchView.OnQueryTextListener, OnPredictionPicked, MenuItem.OnActionExpandListener {
+class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener, MapFragmentCallback, OnLocationPicked, SearchView.OnQueryTextListener, OnPredictionPicked, MenuItem.OnActionExpandListener {
     private lateinit var toolbar: Toolbar
     private lateinit var appBarLayout: AppBarLayout
     private lateinit var toolbarLayout: CollapsingToolbarLayout

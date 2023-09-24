@@ -3,20 +3,20 @@ package org.tasks.widget
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
 import org.tasks.dialogs.FilterPicker.Companion.EXTRA_FILTER
 import org.tasks.dialogs.FilterPicker.Companion.SELECT_FILTER
 import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class WidgetFilterSelectionActivity : InjectingAppCompatActivity() {
+class WidgetFilterSelectionActivity : AppCompatActivity() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
@@ -13,13 +14,12 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.dialogs.MyTimePickerDialog
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.themes.ThemeAccent
 import org.tasks.time.DateTime
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SnoozeActivity : InjectingAppCompatActivity(), SnoozeCallback, DialogInterface.OnCancelListener {
+class SnoozeActivity : AppCompatActivity(), SnoozeCallback, DialogInterface.OnCancelListener {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var alarmService: AlarmService
     @Inject lateinit var themeAccent: ThemeAccent

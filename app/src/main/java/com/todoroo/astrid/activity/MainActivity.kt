@@ -11,6 +11,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities
@@ -43,7 +44,6 @@ import org.tasks.databinding.TaskListActivityBinding
 import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.filters.PlaceFilter
-import org.tasks.injection.InjectingAppCompatActivity
 import org.tasks.intents.TaskIntents.getTaskListIntent
 import org.tasks.location.LocationPickerActivity
 import org.tasks.play.PlayServices
@@ -63,7 +63,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : InjectingAppCompatActivity(), TaskListFragmentCallbackHandler, TimerControlSetCallback {
+class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, TimerControlSetCallback {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
