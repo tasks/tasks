@@ -6,7 +6,7 @@ appcompat = "1.6.1"
 cert4android = "7814052"
 coil = "2.4.0"
 colorpicker = "0.0.15"
-compose = "2023.09.00"
+compose = "2023.09.01"
 compose-compiler = "1.5.3"
 compose-theme-adapter = "1.2.1"
 constraintlayout = "2.1.4"
@@ -40,7 +40,6 @@ locale = "1.0.2"
 make-it-easy = "4.0.1"
 markwon = "4.6.2"
 material = "1.9.0"
-material3 = "1.1.1"
 mockito = "5.5.0"
 okhttp = "4.11.0"
 opentasks = "562fec5"
@@ -74,6 +73,7 @@ accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-compose = { module = "androidx.compose:compose-bom", version.ref = "compose" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment-ktx" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt" }
@@ -140,7 +140,6 @@ markwon-strikethrough = { module = "io.noties.markwon:ext-strikethrough", versio
 markwon-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }
 markwon-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }

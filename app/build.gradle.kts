@@ -211,7 +211,7 @@ dependencies {
     implementation(libs.persistent.cookiejar)
     implementation(libs.gson)
     implementation(libs.material)
-    implementation(libs.material3)
+    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.preference)
