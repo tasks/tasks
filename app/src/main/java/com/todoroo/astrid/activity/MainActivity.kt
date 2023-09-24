@@ -393,23 +393,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, Timer
         newNavigationDrawer(filter).show(supportFragmentManager, FRAG_TAG_NAV_DRAWER)
     }
 
-    override fun onBackPressed() {
-        taskEditFragment?.let {
-            if (preferences.backButtonSavesTask()) {
-                lifecycleScope.launch {
-                    it.save()
-                }
-            } else {
-                it.discardButtonClick()
-            }
-            return@onBackPressed
-        }
-        if (taskListFragment?.collapseSearchView() == true) {
-            return
-        }
-        finish()
-    }
-
     private val taskListFragment: TaskListFragment?
         get() = supportFragmentManager.findFragmentByTag(FRAG_TAG_TASK_LIST) as TaskListFragment?
 

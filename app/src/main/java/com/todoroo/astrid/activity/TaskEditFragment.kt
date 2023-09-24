@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
@@ -141,6 +142,16 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        requireActivity().onBackPressedDispatcher.addCallback(owner = viewLifecycleOwner) {
+            if (preferences.backButtonSavesTask()) {
+                lifecycleScope.launch {
+                    save()
+                }
+            } else {
+                discardButtonClick()
+            }
+        }
+
         binding = FragmentTaskEditBinding.inflate(inflater)
         val view: View = binding.root
         val model = editViewModel.task
@@ -385,7 +396,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     suspend fun save(remove: Boolean = true) = editViewModel.save(remove)
 
-    fun discardButtonClick() {
+    private fun discardButtonClick() {
        if (editViewModel.hasChanges()) {
            dialogBuilder
                    .newDialog(R.string.discard_confirmation)

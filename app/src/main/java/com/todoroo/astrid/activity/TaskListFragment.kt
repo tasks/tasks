@@ -18,6 +18,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
@@ -172,6 +173,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     lateinit var themeColor: ThemeColor
     private lateinit var callbacks: TaskListFragmentCallbackHandler
     private lateinit var binding: FragmentTaskListBinding
+    private val onBackPressed = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            search.collapseActionView()
+        }
+    }
 
     private fun process(event: TaskListEvent) = when (event) {
         is TaskListEvent.TaskCreated ->
@@ -227,6 +233,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         taskListEventBus
             .onEach(this::process)
             .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressed)
     }
 
     @OptIn(ExperimentalAnimationApi::class)
@@ -571,11 +583,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         localBroadcastManager.unregisterReceiver(refreshReceiver)
     }
 
-    fun collapseSearchView(): Boolean {
-        return (search.isActionViewExpanded
-                && (search.collapseActionView() || !search.isActionViewExpanded))
-    }
-
     private fun refresh() {
         setSyncOngoing()
     }
@@ -658,6 +665,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+        onBackPressed.isEnabled = true
         search.setOnQueryTextListener(this)
         if (searchQuery == null) {
             searchByQuery("")
@@ -669,6 +677,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+        onBackPressed.isEnabled = false
         search.setOnQueryTextListener(null)
         listViewModel.setFilter(filter)
         searchJob?.cancel()
