@@ -45,7 +45,6 @@ import org.tasks.extensions.Context.nightMode
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents.getTaskListIntent
 import org.tasks.location.LocationPickerActivity
-import org.tasks.play.PlayServices
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
@@ -73,7 +72,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, Timer
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var alarmDao: AlarmDao
     @Inject lateinit var eventBus: MainActivityEventBus
-    @Inject lateinit var playServices: PlayServices
     @Inject lateinit var firebase: Firebase
 
     private var currentNightMode = 0
@@ -105,8 +103,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, Timer
     private suspend fun process(event: MainActivityEvent) = when (event) {
         is MainActivityEvent.OpenTask ->
             onTaskListItemClicked(event.task)
-        is MainActivityEvent.RequestRating ->
-            playServices.requestReview(this)
         is MainActivityEvent.ClearTaskEditFragment ->
             removeTaskEditFragment()
     }

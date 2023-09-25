@@ -101,6 +101,7 @@ import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_LIST
 import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_PRIORITY
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
+import org.tasks.play.PlayServices
 import org.tasks.preferences.Preferences
 import org.tasks.ui.CalendarControlSet
 import org.tasks.ui.ChipProvider
@@ -131,6 +132,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var taskEditEventBus: TaskEditEventBus
     @Inject lateinit var locale: Locale
     @Inject lateinit var chipProvider: ChipProvider
+    @Inject lateinit var playServices: PlayServices
 
     val editViewModel: TaskEditViewModel by viewModels()
     lateinit var binding: FragmentTaskEditBinding
@@ -394,7 +396,10 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         return model
     }
 
-    suspend fun save(remove: Boolean = true) = editViewModel.save(remove)
+    suspend fun save(remove: Boolean = true) {
+        editViewModel.save(remove)
+        activity?.let { playServices.requestReview(it) }
+    }
 
     private fun discardButtonClick() {
        if (editViewModel.hasChanges()) {

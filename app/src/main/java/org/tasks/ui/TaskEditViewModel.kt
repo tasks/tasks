@@ -392,7 +392,6 @@ class TaskEditViewModel @Inject constructor(
             model.calendarURI?.takeIf { it.isNotBlank() }?.let {
                 taskListEvents.emit(TaskListEvent.CalendarEventCreated(model.title, it))
             }
-            mainActivityEvents.emit(MainActivityEvent.RequestRating)
         }
         true
     }
