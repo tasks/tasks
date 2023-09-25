@@ -6,6 +6,7 @@
 package com.todoroo.astrid.activity
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -19,6 +20,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
@@ -169,6 +171,20 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             search.collapseActionView()
         }
     }
+
+    private val sortRequest =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.let { data ->
+                    if (data.getBooleanExtra(SortSettingsActivity.EXTRA_FORCE_RELOAD, false)) {
+                        activity?.recreate()
+                    }
+                    if (data.getBooleanExtra(SortSettingsActivity.EXTRA_CHANGED_GROUP, false)) {
+                        taskAdapter.clearCollapsed()
+                    }
+                }
+            }
+        }
 
     private fun process(event: TaskListEvent) = when (event) {
         is TaskListEvent.TaskCreated ->
@@ -417,13 +433,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_sort -> {
-                requireActivity().startActivityForResult(
+                sortRequest.launch(
                     SortSettingsActivity.getIntent(
                         requireActivity(),
                         filter.supportsManualSort(),
                         filter.supportsAstridSorting() && preferences.isAstridSortEnabled,
-                    ),
-                    REQUEST_SORT
+                    )
                 )
                 true
             }
@@ -984,7 +999,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
         private const val REQUEST_LIST_SETTINGS = 10101
         private const val REQUEST_TAG_TASKS = 10106
-        const val REQUEST_SORT = 10107
         private const val SEARCH_DEBOUNCE_TIMEOUT = 300L
         fun newTaskListFragment(context: Context, filter: Filter?): TaskListFragment {
             val fragment = TaskListFragment()

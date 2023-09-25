@@ -40,7 +40,6 @@ import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.data.TagDataDao
 import org.tasks.databinding.TaskListActivityBinding
-import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.extensions.Context.nightMode
 import org.tasks.filters.PlaceFilter
@@ -126,13 +125,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, Timer
                     data
                             ?.getParcelableExtra<Place>(LocationPickerActivity.EXTRA_PLACE)
                             ?.let { startActivity(getTaskListIntent(this, PlaceFilter(it))) }
-                }
-            TaskListFragment.REQUEST_SORT ->
-                if (resultCode == RESULT_OK) {
-                    sortChanged(
-                        reload = data?.getBooleanExtra(SortSettingsActivity.EXTRA_FORCE_RELOAD, false) ?: false,
-                        groupChange = data?.getBooleanExtra(SortSettingsActivity.EXTRA_CHANGED_GROUP, false) ?: false,
-                    )
                 }
             else ->
                 super.onActivityResult(requestCode, resultCode, data)
@@ -430,16 +422,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, Timer
         if (view != null) {
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-    }
-
-    private fun sortChanged(reload: Boolean, groupChange: Boolean) {
-        if (groupChange) {
-            taskListFragment?.clearCollapsed()
-        }
-        localBroadcastManager.broadcastRefresh()
-        if (reload) {
-            openTaskListFragment(filter, true)
         }
     }
 
