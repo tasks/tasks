@@ -18,7 +18,6 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
-import com.todoroo.astrid.timers.TimerControlSet.TimerControlSetCallback
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -58,7 +57,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, TimerControlSetCallback {
+class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var theme: Theme
@@ -382,14 +381,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, Timer
 
     private val taskEditFragment: TaskEditFragment?
         get() = supportFragmentManager.findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT) as TaskEditFragment?
-
-    override suspend fun stopTimer(): Task {
-        return taskEditFragment!!.stopTimer()
-    }
-
-    override suspend fun startTimer(): Task {
-        return taskEditFragment!!.startTimer()
-    }
 
     private val isSinglePaneLayout: Boolean
         get() = !resources.getBoolean(R.bool.two_pane_layout)

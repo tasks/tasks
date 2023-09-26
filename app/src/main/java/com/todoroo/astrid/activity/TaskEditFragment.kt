@@ -10,7 +10,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -51,7 +50,6 @@ import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.tags.TagsControlSet
 import com.todoroo.astrid.timers.TimerControlSet
-import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.ui.ReminderControlSet
 import com.todoroo.astrid.ui.StartDateControlSet
 import dagger.hilt.android.AndroidEntryPoint
@@ -126,7 +124,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Inject lateinit var taskEditControlSetFragmentManager: TaskEditControlSetFragmentManager
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var firebase: Firebase
-    @Inject lateinit var timerPlugin: TimerPlugin
     @Inject lateinit var linkify: Linkify
     @Inject lateinit var markdownProvider: MarkdownProvider
     @Inject lateinit var taskEditEventBus: TaskEditEventBus
@@ -369,31 +366,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             return true
         }
         return false
-    }
-
-    suspend fun stopTimer(): Task {
-        val model = editViewModel.task
-        timerPlugin.stopTimer(model)
-        val elapsedTime = DateUtils.formatElapsedTime(model.elapsedSeconds.toLong())
-        editViewModel.addComment(String.format(
-                "%s %s\n%s %s",  // $NON-NLS-1$
-                getString(R.string.TEA_timer_comment_stopped),
-                DateUtilities.getTimeString(context, newDateTime()),
-                getString(R.string.TEA_timer_comment_spent),
-                elapsedTime),
-                null)
-        return model
-    }
-
-    suspend fun startTimer(): Task {
-        val model = editViewModel.task
-        timerPlugin.startTimer(model)
-        editViewModel.addComment(String.format(
-                "%s %s",
-                getString(R.string.TEA_timer_comment_started),
-                DateUtilities.getTimeString(context, newDateTime())),
-                null)
-        return model
     }
 
     suspend fun save(remove: Boolean = true) {
