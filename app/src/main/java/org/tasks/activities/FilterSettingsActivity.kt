@@ -1,12 +1,10 @@
 package org.tasks.activities
 
 import android.app.Activity
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.core.widget.addTextChangedListener
@@ -44,7 +42,9 @@ import org.tasks.data.FilterDao
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.databinding.FilterSettingsActivityBinding
 import org.tasks.db.QueryUtils
+import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.extensions.Context.openUri
+import org.tasks.extensions.hideKeyboard
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.themes.CustomIcons
 import java.util.Locale
@@ -164,7 +164,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         }
 
     private fun addCriteria() {
-        AndroidUtilities.hideKeyboard(this)
+        hideKeyboard()
         fab.shrink()
         lifecycleScope.launch {
             val all = filterCriteriaProvider.all()
@@ -280,8 +280,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     }
 
     override fun finish() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(name.windowToken, 0)
+        hideKeyboard(name)
         super.finish()
     }
 

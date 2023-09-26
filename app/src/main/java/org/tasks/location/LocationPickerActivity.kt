@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -39,6 +38,7 @@ import org.tasks.data.PlaceUsage
 import org.tasks.databinding.ActivityLocationPickerBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.toast
+import org.tasks.extensions.hideKeyboard
 import org.tasks.extensions.setOnQueryTextListener
 import org.tasks.location.LocationPickerAdapter.OnLocationPicked
 import org.tasks.location.LocationSearchAdapter.OnPredictionPicked
@@ -139,7 +139,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         appBarLayout.addOnOffsetChangedListener { appBarLayout: AppBarLayout, offset: Int ->
             if (offset == 0 && this.offset != 0) {
                 closeSearch()
-                AndroidUtilities.hideKeyboard(this)
+                hideKeyboard()
             }
             this.offset = offset
             toolbar.alpha = abs(offset / appBarLayout.totalScrollRange.toFloat())
@@ -267,7 +267,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
             Timber.e("Place is null")
             return
         }
-        AndroidUtilities.hideKeyboard(this)
+        hideKeyboard()
         lifecycleScope.launch {
             var place = place
             if (place.id <= 0) {

@@ -1,9 +1,12 @@
 package org.tasks.locale.ui.activity;
 
+import static org.tasks.extensions.ActivityExtensionsKt.hideKeyboard;
+
 import android.content.Intent;
 import android.os.Bundle;
-import com.todoroo.andlib.utility.AndroidUtilities;
+
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
+
 import timber.log.Timber;
 
 public abstract class AbstractFragmentPluginAppCompatActivity
@@ -49,7 +52,7 @@ public abstract class AbstractFragmentPluginAppCompatActivity
 
   @Override
   public void finish() {
-    AndroidUtilities.hideKeyboard(this);
+    hideKeyboard(this);
     if (isLocalePluginIntent(getIntent())) {
       if (!mIsCancelled) {
         final Bundle resultBundle = getResultBundle();

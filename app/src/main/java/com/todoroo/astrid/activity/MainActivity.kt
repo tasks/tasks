@@ -5,11 +5,9 @@
  */
 package com.todoroo.astrid.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.lifecycle.lifecycleScope
@@ -42,6 +40,7 @@ import org.tasks.data.TagDataDao
 import org.tasks.databinding.TaskListActivityBinding
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.extensions.Context.nightMode
+import org.tasks.extensions.hideKeyboard
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents.getTaskListIntent
 import org.tasks.location.LocationPickerActivity
@@ -410,14 +409,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler, Timer
                 setFilter(it.getFilter())
                 it.loadTaskListContent()
             }
-        }
-    }
-
-    private fun hideKeyboard() {
-        val view = currentFocus
-        if (view != null) {
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 

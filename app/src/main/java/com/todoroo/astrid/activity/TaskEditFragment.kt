@@ -43,7 +43,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.composethemeadapter.MdcTheme
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
@@ -92,6 +91,7 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.Linkify
+import org.tasks.extensions.hideKeyboard
 import org.tasks.files.FileHelper
 import org.tasks.fragments.TaskEditControlSetFragmentManager
 import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_CREATION
@@ -360,7 +360,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        AndroidUtilities.hideKeyboard(activity)
+        activity?.hideKeyboard()
         if (item.itemId == R.id.menu_delete) {
             deleteButtonClick()
             return true

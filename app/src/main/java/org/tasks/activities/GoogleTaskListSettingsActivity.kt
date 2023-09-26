@@ -25,6 +25,7 @@ import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.databinding.ActivityGoogleTaskListSettingsBinding
+import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.extensions.Context.toast
 import org.tasks.themes.CustomIcons
 import timber.log.Timber
@@ -125,8 +126,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     }
 
     override fun finish() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(name.windowToken, 0)
+        hideKeyboard(name)
         super.finish()
     }
 

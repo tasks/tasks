@@ -24,6 +24,7 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.CameraActivity
 import org.tasks.databinding.FragmentCommentBarBinding
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.files.ImageHelper
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
@@ -148,7 +149,7 @@ class CommentBarFragment : Fragment() {
 
     private fun addComment() {
         addComment(commentField.text.toString())
-        AndroidUtilities.hideSoftInputForViews(activity, commentField)
+        activity.hideKeyboard(commentField)
     }
 
     private fun setPictureButtonToPendingPicture() {

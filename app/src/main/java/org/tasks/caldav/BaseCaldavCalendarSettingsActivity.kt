@@ -26,6 +26,7 @@ import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.databinding.ActivityCaldavCalendarSettingsBinding
+import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.themes.CustomIcons
 import org.tasks.ui.DisplayableException
 import java.net.ConnectException
@@ -200,8 +201,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         get() = name.text.toString().trim { it <= ' ' }
 
     override fun finish() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(name.windowToken, 0)
+        hideKeyboard(name)
         super.finish()
     }
 

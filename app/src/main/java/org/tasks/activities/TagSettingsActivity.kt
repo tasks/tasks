@@ -24,6 +24,7 @@ import org.tasks.data.TagDao
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
 import org.tasks.databinding.ActivityTagSettingsBinding
+import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.themes.CustomIcons
 import javax.inject.Inject
 
@@ -118,8 +119,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
     }
 
     override fun finish() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(name.windowToken, 0)
+        hideKeyboard(name)
         super.finish()
     }
 
