@@ -51,17 +51,6 @@
     <string name="TEA_control_reminders">Lembretes</string>
     <string name="TEA_control_timer">Controlos temporais</string>
     <string name="TEA_control_hidden_section">----Ocultar sempre----</string>
-    <string name="CRA_ignore">Ignorar</string>
-    <string name="CRA_title">Precisa de uma lista de reuniões\?</string>
-    <string name="CRA_ignore_body">Você ignorou vários eventos de calendário. Pretende que o Tasks não o notifique novamente?</string>
-    <string name="CRA_ignore_all">Ignorar todos os eventos</string>
-    <string name="CRA_ignore_this">Ignorar apenas este evento</string>
-    <string name="CRA_speech_bubble_start">Parece que %s está perto de ser iniciada. Quer criar uma lista para os itens da ação?</string>
-    <string name="CRA_speech_bubble_end">Parece que %s está terminada. Quer criar uma lista para os itens da ação?</string>
-    <string name="CRA_postpone">Mais tarde</string>
-    <string name="CRA_calendar_reminders_pref_title">Assistente de calendário</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">O Tasks irá lembra-lo sobre os próximos eventos de calendário e pedir a sua preparação</string>
-    <string name="CRA_default_list_name">Itens de ação: %s</string>
     <string name="none">Nenhum</string>
     <string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
     <string name="EPr_beastMode_reset">Restaurar definições originas</string>

@@ -104,17 +104,6 @@
     <string name="EPr_beastMode_reset">ڈیفالٹ پر ری سیٹ کریں</string>
     <string name="EPr_edit_screen_options">اسکرین آپشنز میں ترمیم کریں</string>
     <string name="none">کوئی نہیں</string>
-    <string name="CRA_default_list_name">ایکشن آئٹمز: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">ٹاسک آپ کو آنے والے کیلنڈرایونٹس کے بارے میں یاد دلائے گا اور آپ کو ان کے لئے تیار رہنے کا اشارہ کرے گا</string>
-    <string name="CRA_calendar_reminders_pref_title">کیلنڈر اسسٹنٹ</string>
-    <string name="CRA_postpone">شاید بعد میں</string>
-    <string name="CRA_speech_bubble_end">ایسا لگتا ہے کہ آپ نے ابھی %s ختم کیا ہے۔ ایکشن آئٹمز کی فہرست بنانا چاہتے ہیں؟</string>
-    <string name="CRA_speech_bubble_start">لگتا ہے %sجلد شروع ہو رہا ہے۔ کیا آپ ایکشن آئٹمز کی فہرست بنانا چاہتے ہیں؟</string>
-    <string name="CRA_ignore_this">صرف اس ایونٹ کو نظر انداز کریں</string>
-    <string name="CRA_ignore_all">تمام ایونٹس کو نظرانداز کریں</string>
-    <string name="CRA_ignore_body">آپ نے متعدد کیلنڈرایونٹس کو نظرانداز کیا ہے۔ کیا ٹاسک کو ان کے بارے میں آپ سے پوچھنا چھوڑنا چاہئے؟</string>
-    <string name="CRA_title">میٹنگ لسٹ کی ضرورت ہے؟</string>
-    <string name="CRA_ignore">نظر انداز کریں</string>
     <string name="TEA_timer_est">تقریبا %s</string>
     <string name="CFC_title_contains_text">عنوان مشتمل ہے:?</string>
     <string name="CFC_title_contains_name">عنوان مشتمل ہے…</string>

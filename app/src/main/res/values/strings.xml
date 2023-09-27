@@ -70,17 +70,6 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_hidden_section">----Hide Always----</string>
   <string name="TEA_creation_date">Creation date</string>
-  <string name="CRA_ignore">Ignore</string>
-  <string name="CRA_title">Need a meeting list?</string>
-  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Tasks stop asking you about them?</string>
-  <string name="CRA_ignore_all">Ignore all events</string>
-  <string name="CRA_ignore_this">Ignore this event only</string>
-  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
-  <string name="CRA_postpone">Maybe afterwards</string>
-  <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks will remind you about upcoming calendar events and prompt you to prepare for them</string>
-  <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="none">None</string>
   <string name="EPr_edit_screen_options">Edit screen options</string>
   <string name="EPr_beastMode_reset">Reset to defaults</string>

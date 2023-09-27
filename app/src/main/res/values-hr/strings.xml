@@ -64,7 +64,6 @@
     <string name="FLA_new_filter">Stvori filtar</string>
     <string name="FLA_search_filter">Uspoređuje se „%s”</string>
     <string name="action_call">Nazovi</string>
-    <string name="CRA_ignore">Zanemari</string>
     <string name="TEA_control_reminders">Podsjetnici</string>
     <string name="SSD_sort_my_order">Moj poredak</string>
     <string name="keep_editing">Nastavi uređivati</string>
@@ -126,9 +125,6 @@
     <string name="TEA_timer_est">Cca %s</string>
     <string name="TEA_elapsedDuration_label">Već utrošeno vrijeme</string>
     <string name="week_before_due">Tjedan prije roka</string>
-    <string name="CRA_ignore_body">Zanemario/la si nekoliko kalendarskih događaja. Želiš li da Tasks prestane pitati o njima\?</string>
-    <string name="CRA_ignore_this">Zanemari samo ovaj događaj</string>
-    <string name="CRA_ignore_all">Zanemari sve događaje</string>
     <string name="TEA_control_hidden_section">----Uvijek sakrij----</string>
     <string name="day_before_due">Dan prije roka</string>
     <string name="TEA_estimatedDuration_label">Koliko će trajati\?</string>
@@ -519,13 +515,6 @@
     <string name="task_list_options">Opcije za popis zadataka</string>
     <string name="EPr_show_task_edit_comments">Pokaži komentare u uređivanju zadatka</string>
     <string name="none">Ništa</string>
-    <string name="CRA_default_list_name">Radnje: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks će te podsjetiti o nadolazećim kalendarskim događajima i zatražiti da se za njih pripremiš</string>
-    <string name="CRA_calendar_reminders_pref_title">Kalendarski pomoćnik</string>
-    <string name="CRA_postpone">Možda naknadno</string>
-    <string name="CRA_speech_bubble_end">Čini se da si upravo završio/la %s. Želiš li stvoriti popis za radnje\?</string>
-    <string name="CRA_speech_bubble_start">Čini se da %s uskoro počinje. Želiš li stvoriti popis za radnje\?</string>
-    <string name="CRA_title">Trebaš popis sastanaka\?</string>
     <string name="TEA_control_timer">Funkcije mjerača vremena</string>
     <string name="open_last_viewed_list">Otvori zadnji pogledani popis</string>
     <string name="on_launch">Pri pokretanju</string>

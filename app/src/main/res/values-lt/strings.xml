@@ -58,17 +58,6 @@
     <string name="TEA_control_reminders">Priminimai</string>
     <string name="TEA_control_timer">Laikmačio nustatymai</string>
     <string name="TEA_control_hidden_section">----Visada slėpti----</string>
-    <string name="CRA_ignore">Ignoruoti</string>
-    <string name="CRA_title">Reikia susitikimų sąrašo?</string>
-    <string name="CRA_ignore_body">Jūs ignoravote kelis kalendoriaus įvykius. Ar Tasks turėtų nustoti apie juos klausti?</string>
-    <string name="CRA_ignore_all">Ignoruoti visus įvykius</string>
-    <string name="CRA_ignore_this">Ignoruoti tik šį vienintelį įvykį</string>
-    <string name="CRA_speech_bubble_start">Atrodo, kad %s greitai prasidės. Ar norite sukurti veiksmų sąrašą?</string>
-    <string name="CRA_speech_bubble_end">Atrodo, kad jūs ką tik užbaigėte %s. Ar norite sukurti veiksmų sąrašą?</string>
-    <string name="CRA_postpone">Galbūt vėliau</string>
-    <string name="CRA_calendar_reminders_pref_title">Kalendoriaus asistentas</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks programa primins apie artėjančius kalendoriaus įvykius ir pasiūlys jiems pasiruošti</string>
-    <string name="CRA_default_list_name">Veiksmo elementai: %s</string>
     <string name="none">Nėra</string>
     <string name="EPr_edit_screen_options">Redaguoti ekrano parinktys</string>
     <string name="EPr_beastMode_reset">Ištrinti numatytus</string>

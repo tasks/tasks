@@ -65,8 +65,6 @@
     <string name="day_after_tomorrow">Postmorgaŭ</string>
     <string name="always_display_full_date">Montri tutan daton</string>
     <string name="none">Neniu</string>
-    <string name="CRA_calendar_reminders_pref_title">Kalendara asistanto</string>
-    <string name="CRA_postpone">Eble poste</string>
     <string name="TEA_control_hidden_section">----Ĉiam kaŝigu----</string>
     <string name="TEA_control_files">Dosieroj</string>
     <string name="TEA_control_notes">Priskribo</string>
@@ -168,9 +166,6 @@
     <string name="EPr_delete_task_data">Forigi datumon de Tasks</string>
     <string name="EPr_fullTask_title">Montri tutan taskan titolon</string>
     <string name="EPr_edit_screen_options">Redakti ekranajn opciojn</string>
-    <string name="CRA_ignore_this">Ignori nur ĉi tiun eventon</string>
-    <string name="CRA_ignore_all">Ignori ĉiujn eventojn</string>
-    <string name="CRA_ignore">Ignori</string>
     <string name="TEA_control_reminders">Memorigiloj</string>
     <string name="TEA_control_importance">Prioritato</string>
     <string name="TEA_control_repeat">Ripeti</string>
@@ -201,8 +196,6 @@
     <string name="backup_BPr_header">Savkopioj</string>
     <string name="email">Retpoŝto</string>
     <string name="filter_overdue">Posttempa</string>
-    <string name="CRA_ignore_body">Vi ignoris plurajn kalendarajn eventojn. Ĉu Taskoj ĉesu demandi vin pri ili\?</string>
-    <string name="CRA_title">Ĉu vi bezonas kunvenliston\?</string>
     <string name="TEA_control_timer">Tempokontroloj</string>
     <string name="TEA_control_location">Loko</string>
     <string name="TEA_elapsedDuration_label">Tempo jam pasinta</string>
@@ -341,7 +334,6 @@
     <string name="EPr_cal_end_or_start_at_due_time">Tempo de kalendara evento</string>
     <string name="actfm_picture_clear">Forigi bildon</string>
     <string name="FLA_search_filter">Kongruante kun \'%s\'</string>
-    <string name="CRA_speech_bubble_start">Ŝajnas ke %s komenciĝos baldaŭ. Ĉu vi deziras krei liston de farendaĵoj\?</string>
     <string name="TEA_creation_date">Kreodato</string>
     <string name="EPr_beastMode_reset">Restarigi defaŭltojn</string>
     <string name="dont_add_to_calendar">Ne aldoni al kalendaro</string>
@@ -354,7 +346,6 @@
     <string name="share">Kunhavigi</string>
     <string name="calendar_event_created">Kreis kalendara evento por %s</string>
     <string name="sort_created_group">Kreita %s</string>
-    <string name="CRA_speech_bubble_end">Ŝajnas ke vi ĵus finis %s. Ĉu vi deziras krei liston de farendaĵoj\?</string>
     <string name="EPr_manage_delete_completed_gcal_message">Ĉu vi certe volas forigi ĉiujn de viaj eventoj de kompletaj taskoj\?</string>
     <string name="when_due">Kiam atendata</string>
     <string name="when_started">Kiam komencita</string>
@@ -368,8 +359,6 @@
     <string name="shortcut_pick_time">Elekti horon</string>
     <string name="auto_dismiss_datetime_summary">Fermi data/hora elektilo post elekti daton aŭ horon</string>
     <string name="app_password_created_at">Kreita: %s</string>
-    <string name="CRA_default_list_name">Farendaĵoj: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks memorigos al vi venontaj kalendaraj eventoj kaj instigi ke vi preparu por ili.</string>
     <string name="task_defaults">Taskaj defaŭltoj</string>
     <string name="task_list_options">Taskolistaj agordoj</string>
     <string name="auto_dismiss_datetime">Aŭtomate fermi datan/horan elektilon</string>

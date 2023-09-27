@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="CRA_calendar_reminders_pref_title">Trợ lý lịch</string>
-    <string name="CRA_speech_bubble_end">Có vẻ là bạn vừa hoàn thành %s. Bạn có muốn tạo danh sách các mục hành động không\?</string>
-    <string name="CRA_speech_bubble_start">Có vẻ là %s sẽ sớm bắt đầu. Bạn có muốn tạo danh sách các mục hành động không\?</string>
-    <string name="CRA_ignore_this">Chỉ bỏ qua sự kiện này</string>
-    <string name="CRA_ignore_all">Bỏ qua tất cả sự kiện</string>
-    <string name="CRA_ignore_body">Bạn đã bỏ qua một vài sự kiện trong lịch. Tasks có nên dừng hỏi bạn về chúng không\?</string>
-    <string name="CRA_title">Cần danh sách cuộc họp không\?</string>
-    <string name="CRA_ignore">Bỏ qua</string>
     <string name="TEA_control_reminders">Lời nhắc</string>
     <string name="TEA_control_files">Tệp</string>
     <string name="TEA_control_notes">Mô tả</string>
@@ -636,9 +628,6 @@
     <string name="EPr_beastMode_reset">Đặt lại về mặc định</string>
     <string name="EPr_edit_screen_options">Chỉnh sửa các tuỳ chọn màn hình</string>
     <string name="none">Không có</string>
-    <string name="CRA_default_list_name">Mục hành động: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks sẽ nhắc lại bạn về những sự kiện trong lịch sắp tới và nhắc bạn chuẩn bị cho chúng</string>
-    <string name="CRA_postpone">Có lẽ về sau</string>
     <string name="TEA_control_hidden_section">----Luôn ẩn----</string>
     <string name="TEA_control_timer">Điều khiển hẹn giờ</string>
     <string name="TEA_timer_est">Ước tính %s</string>

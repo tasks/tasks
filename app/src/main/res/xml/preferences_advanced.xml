@@ -23,12 +23,6 @@
     app:allowDividerAbove="true"
     app:singleLineTitle="false" />
 
-  <SwitchPreferenceCompat
-    android:defaultValue="false"
-    android:key="@string/p_calendar_reminders"
-    android:summary="@string/CRA_calendar_reminders_pref_desc_enabled"
-    android:title="@string/CRA_calendar_reminders_pref_title" />
-
   <Preference
     android:key="@string/EPr_manage_delete_completed_gcal"
     android:title="@string/EPr_manage_delete_completed_gcal" />

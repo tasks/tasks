@@ -8,14 +8,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
+
 import androidx.annotation.Nullable;
+
 import com.todoroo.astrid.data.Task;
-import dagger.hilt.android.qualifiers.ApplicationContext;
+
+import org.tasks.preferences.PermissionChecker;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.inject.Inject;
-import org.tasks.preferences.PermissionChecker;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import timber.log.Timber;
 
 public class CalendarEventProvider {
@@ -30,26 +36,13 @@ public class CalendarEventProvider {
 
   private final ContentResolver contentResolver;
   private final PermissionChecker permissionChecker;
-  private final CalendarEventAttendeeProvider calendarEventAttendeeProvider;
 
   @Inject
   public CalendarEventProvider(
       @ApplicationContext Context context,
-      PermissionChecker permissionChecker,
-      CalendarEventAttendeeProvider calendarEventAttendeeProvider) {
+      PermissionChecker permissionChecker) {
     this.permissionChecker = permissionChecker;
-    this.calendarEventAttendeeProvider = calendarEventAttendeeProvider;
     contentResolver = context.getContentResolver();
-  }
-
-  @Nullable
-  public AndroidCalendarEvent getEvent(long eventId) {
-    List<AndroidCalendarEvent> events =
-        getCalendarEvents(
-            CalendarContract.Events.CONTENT_URI,
-            _ID + " = ?",
-            new String[] {Long.toString(eventId)});
-    return events.isEmpty() ? null : events.get(0);
   }
 
   @Nullable
@@ -114,8 +107,7 @@ public class CalendarEventProvider {
                   cursor.getString(titleIndex),
                   cursor.getLong(startIndex),
                   cursor.getLong(endIndex),
-                  cursor.getInt(calendarIdIndex),
-                  calendarEventAttendeeProvider.getAttendees(id)));
+                  cursor.getInt(calendarIdIndex)));
         }
       }
     } catch (Exception e) {

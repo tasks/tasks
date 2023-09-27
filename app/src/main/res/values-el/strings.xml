@@ -48,17 +48,6 @@
     <string name="TEA_control_reminders">Υπενθυμίσεις</string>
     <string name="TEA_control_timer">Χειριστήρια χρονοδιακόπτη</string>
     <string name="TEA_control_hidden_section">-----Απόκρυψη πάντα-----</string>
-    <string name="CRA_ignore">Αγνοήστε</string>
-    <string name="CRA_title">Χρειάζεστε λίστα για συνάντηση?</string>
-    <string name="CRA_ignore_body">Αγνοήσατε αρκετές κλήσεις. Να σταματήσουμε να ρωτάμε για αυτές;</string>
-    <string name="CRA_ignore_all">Αγνόηση όλων των γεγονότων</string>
-    <string name="CRA_ignore_this">Αγνόηση μόνο αυτού του γεγονότος</string>
-    <string name="CRA_speech_bubble_start">Φαίνεται ότι %s ξεκινάει σύντομα.Θέλεις να δημιουργήσω μια λίστα με τα ενεργά αντικείμενα;</string>
-    <string name="CRA_speech_bubble_end">Φαίνεται ότι τελείωσες με το %s.Θέλεις να δημιουργήσω μια λίστα με τα ενεργά αντικείμενα;</string>
-    <string name="CRA_postpone">Ίσως αργότερα</string>
-    <string name="CRA_calendar_reminders_pref_title">Βοηθός ημερολογίου</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Η εφαρμογή θα σας υπενθυμίσει για επερχόμενα γεγονότα ημερολογίου και θα σας ειδοποιήσουν για να προετοιμαστείτε για αυτά</string>
-    <string name="CRA_default_list_name">Αντικείμενα ενεργειών: %s</string>
     <string name="EPr_edit_screen_options">Επεξεργασία επιλογών εμφάνισης</string>
     <string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>
     <string name="EPr_fullTask_title">Εμφάνισε πλήρη τίτλο εργασίας</string>

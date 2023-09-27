@@ -85,9 +85,6 @@
   <!-- default random reminder setting (in hours) -->
   <string name="p_rmd_default_random_hours">notif_default_reminder</string>
 
-  <!-- calendar reminders preference -->
-  <string name="p_calendar_reminders">p_calendar_reminder</string>
-
   <!-- filters to show -->
   <string name="p_filters_enabled">drawer_filters_enabled</string>
   <string name="p_show_today_filter">p_show_today_f</string>

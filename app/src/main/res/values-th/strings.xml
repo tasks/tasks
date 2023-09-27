@@ -576,17 +576,6 @@
     <string name="EPr_beastMode_reset">รีเซ็ตเป็นค่าเริ่มต้น</string>
     <string name="EPr_edit_screen_options">แก้ไขตัวเลือกหน้าจอ</string>
     <string name="none">ไม่มีใคร</string>
-    <string name="CRA_default_list_name">รายการการกระทํา: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">งานจะเตือนคุณเกี่ยวกับเหตุการณ์ในปฏิทินที่กําลังจะมาถึง และพร้อมท์ให้คุณเตรียมพร้อมสําหรับเหตุการณ์เหล่านั้น</string>
-    <string name="CRA_calendar_reminders_pref_title">ผู้ช่วยปฏิทิน</string>
-    <string name="CRA_postpone">อาจจะหลังจากนั้น</string>
-    <string name="CRA_speech_bubble_end">ดูเหมือนคุณเพิ่งจบด้วย %s ต้องการสร้างรายการสําหรับรายการการกระทําหรือไม่\?</string>
-    <string name="CRA_speech_bubble_start">ดูเหมือนว่า %s จะเริ่มแล้ว ต้องการสร้างรายการสําหรับรายการการกระทําหรือไม่\?</string>
-    <string name="CRA_ignore_this">ละเว้นเหตุการณ์นี้เท่านั้น</string>
-    <string name="CRA_ignore_all">ละเว้นเหตุการณ์ทั้งหมด</string>
-    <string name="CRA_ignore_body">คุณละเว้นกิจกรรมในปฏิทินหลายกิจกรรม งานควรหยุดถามคุณเกี่ยวกับพวกเขาหรือไม่\?</string>
-    <string name="CRA_title">คุณต้องการรายชื่อการประชุม\?</string>
-    <string name="CRA_ignore">ละเว้น</string>
     <string name="date_shortcut_tomorrow_night">คืนพรุ่งนี้</string>
     <string name="date_shortcut_tomorrow_evening">พรุ่งนี้เย็น</string>
     <string name="date_shortcut_tomorrow_afternoon">พรุ่งนี้บ่าย</string>

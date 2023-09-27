@@ -436,12 +436,6 @@
       android:name=".activities.PlaceSettingsActivity"
       android:theme="@style/Tasks" />
 
-    <activity
-      android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
-      android:theme="@style/TasksDialog"/>
-
-    <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver"/>
-
     <activity android:name=".activities.GoogleTaskListSettingsActivity"/>
 
     <activity
@@ -494,12 +488,6 @@
     <service
       android:exported="false"
       android:name=".scheduling.NotificationSchedulerIntentService"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
-
-    <receiver android:name=".scheduling.CalendarNotificationIntentService$Broadcast"/>
-    <service
-      android:exported="false"
-      android:name=".scheduling.CalendarNotificationIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     <receiver android:name=".notifications.NotificationClearedReceiver"/>

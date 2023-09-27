@@ -54,17 +54,6 @@
     <string name="TEA_control_reminders">Recordatorios</string>
     <string name="TEA_control_timer">Controles de tempo</string>
     <string name="TEA_control_hidden_section">---Agochar sempre---</string>
-    <string name="CRA_ignore">Ignorar</string>
-    <string name="CRA_title">Precisa dunha lista de reunións\?</string>
-    <string name="CRA_ignore_body">Ignorou varios eventos do calendario. Quere que Tasks lle deixe de preguntar por eles\?</string>
-    <string name="CRA_ignore_all">Ignorar todos os eventos</string>
-    <string name="CRA_ignore_this">Ignorar só este evento</string>
-    <string name="CRA_speech_bubble_start">Semella que %s vai comezar pronto. Quere crear unha lista de accións\?</string>
-    <string name="CRA_speech_bubble_end">Semella que acaba de rematar %s. Quere crear unha lista de accións\?</string>
-    <string name="CRA_postpone">Igual despois</string>
-    <string name="CRA_calendar_reminders_pref_title">Asistente de calendario</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks lembraralle os próximos eventos do calendario e pediralle que se prepare para eles</string>
-    <string name="CRA_default_list_name">Accións: %s</string>
     <string name="none">Ningunha</string>
     <string name="EPr_edit_screen_options">Editar opcións de pantalla</string>
     <string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>

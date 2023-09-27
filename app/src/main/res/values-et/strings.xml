@@ -43,10 +43,6 @@
     <string name="TEA_control_files">Failid</string>
     <string name="TEA_control_reminders">Meelespead</string>
     <string name="TEA_control_hidden_section">----Peida alati----</string>
-    <string name="CRA_ignore">Ignoreeri</string>
-    <string name="CRA_ignore_this">Ignoreeri ainult seda sündmust</string>
-    <string name="CRA_postpone">Võib-olla hiljem</string>
-    <string name="CRA_calendar_reminders_pref_title">Kalendri assistent</string>
     <string name="none">Pole</string>
     <string name="EPr_edit_screen_options">Muutmise vaate valikud</string>
     <string name="EPr_beastMode_reset">Taasta vaikeväärtused</string>

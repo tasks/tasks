@@ -444,17 +444,6 @@
     <string name="EPr_beastMode_reset">Resetare la valorile implicite</string>
     <string name="EPr_edit_screen_options">Editarea opțiunilor de afișare</string>
     <string name="none">Niciuna</string>
-    <string name="CRA_default_list_name">măsuri de acțiune: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks vă va reaminti despre evenimentele viitoare din calendar și vă va solicita să vă pregătiți pentru ele</string>
-    <string name="CRA_calendar_reminders_pref_title">Asistent pentru calendar</string>
-    <string name="CRA_postpone">Poate după aceea</string>
-    <string name="CRA_speech_bubble_end">Se pare că tocmai ați terminat cu %s. Doriți să creați o listă cu măsuri din acțiune\?</string>
-    <string name="CRA_speech_bubble_start">Se pare că %s începe în curând. Doriți să creați o listă de acțiuni\?</string>
-    <string name="CRA_ignore_this">Ignoră doar acest eveniment</string>
-    <string name="CRA_ignore_all">Ignoră toate evenimentele</string>
-    <string name="CRA_ignore_body">Ați ignorat mai multe evenimente din calendar. Doriți ca Tasks să nu vă mai întrebe despre ele\?</string>
-    <string name="CRA_title">Aveți nevoie de o listă de întâlniri\?</string>
-    <string name="CRA_ignore">Ignoră</string>
     <string name="TEA_control_hidden_section">----Ascundeți mereu----</string>
     <string name="TEA_control_timer">Comenzi de temporizare</string>
     <string name="TEA_control_reminders">Reamintire</string>

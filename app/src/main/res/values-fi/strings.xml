@@ -51,17 +51,6 @@
     <string name="TEA_control_reminders">Muistutukset</string>
     <string name="TEA_control_timer">Ajastuksen säätimet</string>
     <string name="TEA_control_hidden_section">----Piilota aina----</string>
-    <string name="CRA_ignore">Ohita</string>
-    <string name="CRA_title">Tarvitaanko listaa tapaamisista?</string>
-    <string name="CRA_ignore_body">Olet ohittanut useita kalenteritapahtumia. Lopettaako Tasks niistä kyselemisen?</string>
-    <string name="CRA_ignore_all">Ohita kaikki tapahtumat</string>
-    <string name="CRA_ignore_this">Ohita vain tämä tapahtuma</string>
-    <string name="CRA_speech_bubble_start">%s näyttää alkavan pian. Haluatko luoda luettelon toimenpiteistä?</string>
-    <string name="CRA_speech_bubble_end">Näyttää että %s on päättynyt. Haluatko luoda tehtävälistan?</string>
-    <string name="CRA_postpone">Ehkä myöhemmin</string>
-    <string name="CRA_calendar_reminders_pref_title">Kalenteriavustin</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ilmoittaa tulevista kalenteritapahtumista ja kehottaa valmistautumaan niihin</string>
-    <string name="CRA_default_list_name">Tehtäviä listalla: %s</string>
     <string name="none">Ei mitään</string>
     <string name="EPr_edit_screen_options">Muokkaa näytön vaihtoehtoja</string>
     <string name="EPr_beastMode_reset">Palauta oletukset</string>

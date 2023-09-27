@@ -56,17 +56,6 @@
     <string name="TEA_control_reminders">תזכורות</string>
     <string name="TEA_control_timer">הערכת זמן</string>
     <string name="TEA_control_hidden_section">----להסתיר תמיד----</string>
-    <string name="CRA_ignore">התעלם</string>
-    <string name="CRA_title">צריך רשימה לפגישה?</string>
-    <string name="CRA_ignore_body">התעלמת ממספר אירועי יומן. האם עלי לחדול מלהזכיר לך אירועי יומן?</string>
-    <string name="CRA_ignore_all">התעלם מכל האירועים</string>
-    <string name="CRA_ignore_this">התעלם מאירוע זה בלבד</string>
-    <string name="CRA_speech_bubble_start">נראה כי %s מתחילה בקרוב. הֲתִּרְצֶה ליצור רשימה לפריטי פעולה?</string>
-    <string name="CRA_speech_bubble_end">נראה כי בדיוק סיימת את %s. הֲתִּרְצֶה ליצור רשימה לפריטי פעולה?</string>
-    <string name="CRA_postpone">אולי אחר-כך</string>
-    <string name="CRA_calendar_reminders_pref_title">יועץ יומן</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">אסטריד תזכיר לך אירועי יומן עתידיים ותעודד אותך להתכונן אליהם</string>
-    <string name="CRA_default_list_name">פריטי פעולה: %s</string>
     <string name="none">ללא</string>
     <string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>
     <string name="EPr_beastMode_reset">אפס להגדרות ברירת מחדל</string>

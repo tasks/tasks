@@ -56,17 +56,6 @@
     <string name="TEA_control_reminders">Anımsatıcılar</string>
     <string name="TEA_control_timer">Kronometre Denetimleri</string>
     <string name="TEA_control_hidden_section">----Sürekli Gizle----</string>
-    <string name="CRA_ignore">Yok say</string>
-    <string name="CRA_title">Toplantı listesine mi gereksiniyorsunuz\?</string>
-    <string name="CRA_ignore_body">Bir kaç tane takvim etkinliğini yok saydınız. Tasks\'in size bunlar hakkında sormayı kesmesini ister misiniz?</string>
-    <string name="CRA_ignore_all">Tüm etkinlikleri yok say</string>
-    <string name="CRA_ignore_this">Yalnızca bu etkinliği yok say</string>
-    <string name="CRA_speech_bubble_start">%s çok yakında başlayacak gözüküyor. Bir liste hazırlamak ister misiniz?</string>
-    <string name="CRA_speech_bubble_end">%s bitmiş gibi gözüküyor. Bir liste hazırlamak ister misiniz?</string>
-    <string name="CRA_postpone">Belki daha sonra</string>
-    <string name="CRA_calendar_reminders_pref_title">Takvim asistanı</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks, gelecek takvim etkinliklerini anımsatacak ve hazırlanmanız için bilgilendirecek</string>
-    <string name="CRA_default_list_name">Eylem Ögeleri: %s</string>
     <string name="none">Hiçbiri</string>
     <string name="EPr_edit_screen_options">Düzenleme ekranı ayarları</string>
     <string name="EPr_beastMode_reset">Öntanımlılara sıfırla</string>

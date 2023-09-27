@@ -46,17 +46,6 @@
     <string name="TEA_control_reminders">Opomniki</string>
     <string name="TEA_control_timer">Upravljanje s štoparico</string>
     <string name="TEA_control_hidden_section">----Vedno skrij----</string>
-    <string name="CRA_ignore">Ignoriraj</string>
-    <string name="CRA_title">Potrebujete seznam sestankov?</string>
-    <string name="CRA_ignore_body">Ignorirali ste številne dogodke na koledarju. Naj vas aplikacija Opravki neha spraševati o njih?</string>
-    <string name="CRA_ignore_all">Naj ignoriram vse dogodke</string>
-    <string name="CRA_ignore_this">Ignoriraj samo ta dogodek</string>
-    <string name="CRA_speech_bubble_start">%s naj bi se kmalu začel. Želite ustvariti seznam izvedbenih opravil?</string>
-    <string name="CRA_speech_bubble_end">Zdi se, da ste ravno končali %s. Želite ustvariti seznam izvedbenih opravil?</string>
-    <string name="CRA_postpone">Mogoče kasneje</string>
-    <string name="CRA_calendar_reminders_pref_title">Pomočnik za koledar</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Aplikacija Opravki vas bo opominjala o prihajajočih dogodkih na koledarju in vas pozivala, da se nanje pripravite</string>
-    <string name="CRA_default_list_name">Število izvedbenih opravil: %s</string>
     <string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
     <string name="EPr_beastMode_reset">Povrni privzeto nastavitev</string>
     <string name="EPr_fullTask_title">Prikaži celoten naziv opravka</string>

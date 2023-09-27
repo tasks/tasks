@@ -29,7 +29,6 @@ import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.data.AlarmDao
@@ -252,13 +251,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
                 openTask(filter)
             }
         }
-        if (intent.hasExtra(TOKEN_CREATE_NEW_LIST_NAME)) {
-            val listName = intent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME)
-            intent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME)
-            val activityIntent = Intent(this@MainActivity, TagSettingsActivity::class.java)
-            activityIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, listName)
-            startActivityForResult(activityIntent, NavigationDrawerFragment.REQUEST_NEW_LIST)
-        }
     }
 
     private fun showDetailFragment() {
@@ -415,7 +407,6 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
 
     companion object {
         /** For indicating the new list screen should be launched at fragment setup time  */
-        const val TOKEN_CREATE_NEW_LIST_NAME = "newListName" // $NON-NLS-1$
         const val OPEN_FILTER = "open_filter" // $NON-NLS-1$
         const val LOAD_FILTER = "load_filter"
         const val CREATE_TASK = "open_task" // $NON-NLS-1$

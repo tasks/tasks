@@ -27,13 +27,6 @@
     <string name="EPr_beastMode_reset">இயல்புநிலைக்கு மீட்டமை</string>
     <string name="EPr_edit_screen_options">திரை விருப்பங்களைத் திருத்து</string>
     <string name="none">எதுவுமில்லை</string>
-    <string name="CRA_calendar_reminders_pref_title">நாள்காட்டி உதவியாளர்</string>
-    <string name="CRA_postpone">ஒருவேளை பின்னர்</string>
-    <string name="CRA_ignore_this">இந்த நிகழ்வை மட்டும் புறக்கணிக்கவும்</string>
-    <string name="CRA_ignore_all">எல்லா நிகழ்வுகளையும் புறக்கணிக்கவும்</string>
-    <string name="CRA_ignore_body">பல காலண்டர் நிகழ்வுகளை நீங்கள் புறக்கணித்துவிட்டீர்கள். பணிகள் அவற்றைப் பற்றி உங்களிடம் கேட்பதை நிறுத்த வேண்டுமா\?</string>
-    <string name="CRA_title">சந்திப்பு பட்டியல் வேண்டுமா\?</string>
-    <string name="CRA_ignore">புறக்கணிக்கவும்</string>
     <string name="TEA_control_hidden_section">---- எப்போதும் மறை ----</string>
     <string name="TEA_control_timer">டைமர் கட்டுப்பாடுகள்</string>
     <string name="TEA_control_reminders">நினைவூட்டல்கள்</string>
@@ -492,10 +485,6 @@
         <item quantity="other">%d பணிகள்</item>
     </plurals>
     <string name="EPr_manage_delete_gcal_status">%d நாள்காட்டி நிகழ்வுகள் நீக்கப்பட்டன!</string>
-    <string name="CRA_default_list_name">செயல் உருப்படிகள்: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">வரவிருக்கும் காலண்டர் நிகழ்வுகளைப் பற்றி பணிகள் உங்களுக்கு நினைவூட்டுவதோடு, அவற்றைத் தயாரிக்கும்படி கேட்கும்</string>
-    <string name="CRA_speech_bubble_end">நீங்கள் %s உடன் முடித்ததாகத் தெரிகிறது. செயல் உருப்படிகளுக்கான பட்டியலை உருவாக்க விரும்புகிறீர்களா\?</string>
-    <string name="CRA_speech_bubble_start">%s விரைவில் தொடங்குவது போல் தெரிகிறது. செயல் உருப்படிகளுக்கான பட்டியலை உருவாக்க விரும்புகிறீர்களா\?</string>
     <string name="TEA_timer_elap">கழிந்தது %s</string>
     <string name="TEA_timer_est">எஸ்டி. %s</string>
     <string name="FLA_search_filter">பொருந்தும் \'%s\'</string>

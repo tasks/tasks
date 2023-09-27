@@ -51,17 +51,6 @@
     <string name="TEA_control_reminders">Przypomnienia</string>
     <string name="TEA_control_timer">Sterowanie zegara</string>
     <string name="TEA_control_hidden_section">----Zawsze ukrywaj----</string>
-    <string name="CRA_ignore">Ignoruj</string>
-    <string name="CRA_title">Czy potrzebujesz listy spotkań?</string>
-    <string name="CRA_ignore_body">Zignorowałeś kilka wydarzeń z kalendarza. Czy Tasks powinien przestać cię o nie pytać?</string>
-    <string name="CRA_ignore_all">Ignoruj wszystkie wydarzenia</string>
-    <string name="CRA_ignore_this">Ignoruj tylko to wydarzenie</string>
-    <string name="CRA_speech_bubble_start">Wygląda na to, że %s niedługo się zaczyna. Czy chcesz stworzyć listę dla wydarzeń aktywnych?</string>
-    <string name="CRA_speech_bubble_end">Wygląda na to, że ukończyłeś %s. Czy chcesz stworzyć listę dla aktywnych pozycji?</string>
-    <string name="CRA_postpone">Może później</string>
-    <string name="CRA_calendar_reminders_pref_title">Asystent kalendarza</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks będzie przypominał ci o nadchodzących wydarzeniach w kalendarzu oraz będzie nakłaniał do przygotowania się do nich</string>
-    <string name="CRA_default_list_name">Wydarzenia aktywne: %s</string>
     <string name="none">Brak</string>
     <string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
     <string name="EPr_beastMode_reset">Przywróć domyślne</string>

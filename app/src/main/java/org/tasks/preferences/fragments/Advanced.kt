@@ -4,12 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.Preference
-import androidx.preference.SwitchPreferenceCompat
 import com.todoroo.astrid.dao.Database
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.PermissionUtil
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
 import org.tasks.calendars.CalendarEventProvider
@@ -18,11 +15,7 @@ import org.tasks.etebase.EtebaseLocalCache
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingPreferenceFragment
-import org.tasks.preferences.FragmentPermissionRequestor
-import org.tasks.preferences.PermissionChecker
-import org.tasks.preferences.PermissionRequestor
 import org.tasks.preferences.Preferences
-import org.tasks.scheduling.CalendarNotificationIntentService
 import javax.inject.Inject
 
 private const val REQUEST_CODE_FILES_DIR = 10000
@@ -34,11 +27,7 @@ class Advanced : InjectingPreferenceFragment() {
     @Inject lateinit var database: Database
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var calendarEventProvider: CalendarEventProvider
-    @Inject lateinit var permissionRequester: FragmentPermissionRequestor
-    @Inject lateinit var permissionChecker: PermissionChecker
     @Inject lateinit var vtodoCache: VtodoCache
-
-    private lateinit var calendarReminderPreference: SwitchPreferenceCompat
 
     override fun getPreferenceXml() = R.xml.preferences_advanced
 
@@ -77,10 +66,6 @@ class Advanced : InjectingPreferenceFragment() {
                 false
             }
         updateAttachmentDirectory()
-
-        calendarReminderPreference =
-            findPreference(R.string.p_calendar_reminders) as SwitchPreferenceCompat
-        initializeCalendarReminderPreference()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -98,36 +83,6 @@ class Advanced : InjectingPreferenceFragment() {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String?>, grantResults: IntArray
-    ) {
-        if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
-            if (PermissionUtil.verifyPermissions(grantResults)) {
-                calendarReminderPreference.isChecked = true
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
-    }
-
-    private fun initializeCalendarReminderPreference() {
-        calendarReminderPreference.onPreferenceChangeListener =
-            Preference.OnPreferenceChangeListener { _, newValue ->
-                if (newValue == null) {
-                    false
-                } else if (!(newValue as Boolean)) {
-                    true
-                } else if (permissionRequester.requestCalendarPermissions()) {
-                    CalendarNotificationIntentService.enqueueWork(context)
-                    true
-                } else {
-                    false
-                }
-            }
-        calendarReminderPreference.isChecked =
-            calendarReminderPreference.isChecked && permissionChecker.canAccessCalendars()
     }
 
     private fun updateAttachmentDirectory() {

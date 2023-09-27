@@ -56,17 +56,6 @@
     <string name="TEA_control_reminders">Oroigarriak</string>
     <string name="TEA_control_timer">Kronometroaren kontrolak</string>
     <string name="TEA_control_hidden_section">----Ezkutatu beti----</string>
-    <string name="CRA_ignore">Ezikusi</string>
-    <string name="CRA_title">Batzarren zerrenda bat behar duzu\?</string>
-    <string name="CRA_ignore_body">Egutegiko gertaera batzuk ezikusi dituzu. Nahiago zenuke Tasks aplikazioak horiei buruz galdetuko ez balu\?</string>
-    <string name="CRA_ignore_all">Ezikusi gertaera guztiak</string>
-    <string name="CRA_ignore_this">Ezikusi gertaera hau soilik</string>
-    <string name="CRA_speech_bubble_start">Badirudi %s laster hasiko dela. Ekintzen zerrenda bat sortu nahi duzu\?</string>
-    <string name="CRA_speech_bubble_end">Badirudi %s amaitu duzula. Ekintzen zerrenda bat sortu nahi duzu\?</string>
-    <string name="CRA_postpone">Agian geroago</string>
-    <string name="CRA_calendar_reminders_pref_title">Egutegiaren laguntzailea</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks aplikazioak egutegiko gertaerak gogorarazi egingo dizkizu hurbil daudenean horietarako prestatu zaitezen</string>
-    <string name="CRA_default_list_name">Ekintzak: %s</string>
     <string name="none">Bat ere ez</string>
     <string name="EPr_edit_screen_options">Edizio pantailaren aukerak</string>
     <string name="EPr_beastMode_reset">Berrezarri lehenetsitakoak</string>

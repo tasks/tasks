@@ -38,11 +38,6 @@
     <string name="TEA_control_reminders">သတိပေးမှုများ</string>
     <string name="TEA_control_timer">အချိန်မှတ်ခြင်းထိန်းချုပ်မှုများ</string>
     <string name="TEA_creation_date">ဖန်တီးသောရက်</string>
-    <string name="CRA_ignore">ဂရုမပြုပါ</string>
-    <string name="CRA_title">အချိန်းအချက်စာရင်းလိုအပ်လား\?</string>
-    <string name="CRA_ignore_body">သင်ပြက္ခဒိန်ပေါ်ရိှအလုပ်အများအပြားကုိလျစ်လျှူရူ့ခဲ့တယ်။အက်ပ်ကသင့်ကိုသတိပေးနေခြင်းကိုရပ်ရမလား\?</string>
-    <string name="CRA_ignore_all">လုပ်စရာအားလုံးကို လျစ်လျှူရှုပါ</string>
-    <string name="CRA_ignore_this">ဒီအလုပ်ကိုပဲလျစ်လျှူရှုမည်</string>
     <string name="ok">အိုကေ</string>
     <string name="cancel">ပယ်ဖျက်ပါ</string>
     <string name="display_name">အမည်</string>

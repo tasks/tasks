@@ -35,16 +35,12 @@
     <string name="TEA_control_notes">Deskripsi</string>
     <string name="TEA_control_files">Berkas</string>
     <string name="TEA_control_reminders">Pengingat</string>
-    <string name="CRA_ignore">Abaikan</string>
-    <string name="CRA_ignore_all">Abaikan semua acara</string>
-    <string name="CRA_ignore_this">Abaikan hanya acara ini</string>
     <string name="TLA_no_items">Belum ada tugas yang dibuat.</string>
     <string name="action_call">Panggil</string>
     <string name="SSD_sort_due">Berdasarkan tanggal Jatuh tempo</string>
     <string name="due_date">Tanggal jatuh tempo</string>
     <string name="due_time">Waktu jatuh tempo</string>
     <string name="TEA_control_hidden_section">----Selalu Sembunyi----</string>
-    <string name="CRA_calendar_reminders_pref_title">Asisten kalender</string>
     <string name="none">Tidak Ada</string>
     <string name="EPr_edit_screen_options">Opsi layar sunting</string>
     <string name="EPr_beastMode_reset">Setel ulang ke bawaan</string>
@@ -282,7 +278,6 @@
 \n %5$s memiliki kesalahan
 \n</string>
     <string name="read_permission_label">Perizinan Tugas</string>
-    <string name="CRA_title">Membutuhkan daftar pertemuan\?</string>
     <string name="EPr_cal_end_at_due_time">Akhiri acara kelender pada waktu jatuh tempo</string>
     <string name="EPr_cal_start_at_due_time">Mulai acara kalender pada waktu jatuh tempo</string>
     <string name="EPr_manage_delete_all_gcal">Hapus semua acara kalender untuk tugas</string>
@@ -416,7 +411,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">Pada saat kedatangan dan keberangkatan</string>
     <string name="default_location">Lokasi bawaan</string>
     <string name="EPr_default_location_reminder_title">Pengingat lokasi bawaan</string>
-    <string name="CRA_ignore_body">Anda telah mengabaikan beberapa acara dalam kalender. Haruskah Tasks berhenti menanyakannya kepada Anda\?</string>
     <string name="TEA_control_timer">Atur Pengingat</string>
     <string name="week_before_due">Minggu sebelum jatuh tempo</string>
     <string name="TEA_timer_elap">Terlewat %s</string>
@@ -426,11 +420,6 @@
     <string name="WID_dateButtonUnset">Klik untuk mengatur</string>
     <string name="cancel">Batal</string>
     <string name="ok">Oke</string>
-    <string name="CRA_default_list_name">Tindakan Item: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tugas akan mengingatkan Anda tentang acara kalender mendatang dan menyarankan Anda untuk bersiap-siap untuk hal tersebut</string>
-    <string name="CRA_postpone">Mungkin setelahnya</string>
-    <string name="CRA_speech_bubble_end">Sepertinya Anda telah menyelesaikan %s. Ingin membuat sebuah daftar untuk tindakan item\?</string>
-    <string name="CRA_speech_bubble_start">Sepertinya %s akan segela dimulai. Ingin membuat sebuah daftar untuk tindakan item\?</string>
     <string name="day_before_due">Hari sebelum jatuh tempo</string>
     <string name="start_date">Tanggal mulai</string>
     <string name="TEA_estimatedDuration_label">Berapa lama\?</string>

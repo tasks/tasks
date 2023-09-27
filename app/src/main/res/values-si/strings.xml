@@ -343,8 +343,6 @@
     <string name="ring_five_times">පස් වතාවක් නාද කරන්න</string>
     <string name="CFC_list_name">ලැයිස්තුවේ…</string>
     <string name="CFC_gtasks_list_name">GTasks ලැයිස්තුවේ…</string>
-    <string name="CRA_speech_bubble_end">ඔබ දැන් %s අවසන් කළ බව පෙනේ. ක්‍රියාකාරී අයිතම සඳහා ලැයිස්තුවක් සෑදීමට අවශ්‍යද\?</string>
-    <string name="CRA_speech_bubble_start">%s ඉක්මනින් ආරම්භ වන බව පෙනේ. ක්‍රියාකාරී අයිතම සඳහා ලැයිස්තුවක් සෑදීමට අවශ්‍යද\?</string>
     <string name="SSD_sort_modified">අවසන් වරට වෙනස් කරන ලද දිනය අනුව</string>
     <string name="astrid_sort_order">Astrid අතින් වර්ග කිරීම</string>
     <string name="TVA_add_comment">අදහස දක්වන්න…</string>
@@ -440,15 +438,6 @@
     <string name="EPr_beastMode_reset">පෙරනිමි වෙත යළි පිහිටුවන්න</string>
     <string name="EPr_edit_screen_options">තිර විකල්ප සංස්කරණය කරන්න</string>
     <string name="none">කිසිවක් නැත</string>
-    <string name="CRA_default_list_name">ක්‍රියා අයිතම: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">දිනදර්ශනයේ ඉදිරියට එන සිදුවීම් පිළිබඳව Tasks ඔබට මතක් කර දෙන අතර ඒවා සඳහා සූදානම් වීමට ඔබෙන් විමසනු ඇත</string>
-    <string name="CRA_calendar_reminders_pref_title">දින දර්ශන සහකරු</string>
-    <string name="CRA_postpone">පසුව</string>
-    <string name="CRA_ignore_this">මෙම සිදුවීම පමණක් නොසලකා හරින්න</string>
-    <string name="CRA_ignore_all">සියලුම සිදුවීම් නොසලකා හරින්න</string>
-    <string name="CRA_ignore_body">ඔබ දින දර්ශන කාර්යයන් කිහිපයක් නොසලකා හැර ඇත. Tasks ඵ්වා ගැන ඔබෙන් විමසීම නතර කළ යුතුද\?</string>
-    <string name="CRA_title">රැස්වීම් ලැයිස්තුවක් අවශ්‍යද\?</string>
-    <string name="CRA_ignore">නොසලකා හරින්න</string>
     <string name="TEA_control_hidden_section">---- සැමවිටම සඟවන්න ----</string>
     <string name="TEA_control_reminders">මතක් කිරීම්</string>
     <string name="TEA_control_files">ගොනු</string>

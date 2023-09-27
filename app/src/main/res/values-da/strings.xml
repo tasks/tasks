@@ -37,8 +37,6 @@
     <string name="TEA_control_files">Filer</string>
     <string name="TEA_control_reminders">Påmindelser</string>
     <string name="TEA_control_hidden_section">----Skjul altid----</string>
-    <string name="CRA_ignore_all">Ignorér alle begivenheder</string>
-    <string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
     <string name="EPr_default_importance_title">Standardprioritet</string>
     <string name="EPr_default_reminders_title">Standardpåmindelser</string>
     <string name="BFE_Active">Mine opgaver</string>
@@ -501,15 +499,6 @@
     <string name="EPr_beastMode_reset">Gendan standardindstillinger</string>
     <string name="EPr_edit_screen_options">Rediger skærmindstillinger</string>
     <string name="none">Ingen</string>
-    <string name="CRA_default_list_name">Opgaver: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks vil minde dig om kommende begivenheder og foreslå dig at forberede dig på dem</string>
-    <string name="CRA_calendar_reminders_pref_title">Kalender-assistent</string>
-    <string name="CRA_postpone">Måske senere</string>
-    <string name="CRA_speech_bubble_end">%s er vist lige overstået. Vil du oprette en liste til opgaver\?</string>
-    <string name="CRA_speech_bubble_start">%s begynder vist snart. Vil du oprette en liste til opgaver\?</string>
-    <string name="CRA_ignore_body">Du har ignoreret flere begivenheder i din kalender. Skal Tasks stoppe med at minde dig om dem\?</string>
-    <string name="CRA_title">Brug for en mødeliste\?</string>
-    <string name="CRA_ignore">Ignorér</string>
     <string name="TEA_control_timer">Timer-indstillinger</string>
     <string name="TEA_control_location">Sted</string>
     <string name="TEA_control_gcal">Kalender</string>

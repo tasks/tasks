@@ -58,17 +58,6 @@
     <string name="TEA_control_reminders">リマインダー</string>
     <string name="TEA_control_timer">タイマー設定</string>
     <string name="TEA_control_hidden_section">----常に隠す----</string>
-    <string name="CRA_ignore">無視</string>
-    <string name="CRA_title">ミーティングリストが必要ですか？</string>
-    <string name="CRA_ignore_body">いくつかのカレンダーの予定を無視しました。お知らせを停止しますか？</string>
-    <string name="CRA_ignore_all">すべての予定を無視</string>
-    <string name="CRA_ignore_this">この予定のみ無視</string>
-    <string name="CRA_speech_bubble_start">%s がまもなく開始するようです。アクションアイテムのリストを作成しますか？</string>
-    <string name="CRA_speech_bubble_end">%s が完了したようです。アクションアイテムのリストを作成しますか？</string>
-    <string name="CRA_postpone">あとで</string>
-    <string name="CRA_calendar_reminders_pref_title">カレンダーアシスタント</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks が近づいているカレンダーの予定を通知して準備するように促します</string>
-    <string name="CRA_default_list_name">アクションアイテム: %s</string>
     <string name="none">なし</string>
     <string name="EPr_edit_screen_options">編集画面</string>
     <string name="EPr_beastMode_reset">デフォルトにリセット</string>

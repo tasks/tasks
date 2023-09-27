@@ -50,17 +50,6 @@
     <string name="TEA_control_reminders">提醒</string>
     <string name="TEA_control_timer">定时器控件</string>
     <string name="TEA_control_hidden_section">----始终隐藏----</string>
-    <string name="CRA_ignore">忽略</string>
-    <string name="CRA_title">是否需要会议列表？</string>
-    <string name="CRA_ignore_body">您已经忽略了几个日历事件。Tasks 是否应该停止向你询问这些事件？</string>
-    <string name="CRA_ignore_all">忽略所有事件</string>
-    <string name="CRA_ignore_this">只忽略该事件</string>
-    <string name="CRA_speech_bubble_start">看起来 %s 即将开始。想要为这个行动项目创建一个列表吗？</string>
-    <string name="CRA_speech_bubble_end">看起来你刚完成了 %s 。想要为这个行动项目创建一个列表吗？</string>
-    <string name="CRA_postpone">以后再说</string>
-    <string name="CRA_calendar_reminders_pref_title">日历助手</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks 将会提醒你即将到来的日历事件，并提示你为他们做准备</string>
-    <string name="CRA_default_list_name">行动项目：%s</string>
     <string name="none">无</string>
     <string name="EPr_edit_screen_options">编辑屏幕选项</string>
     <string name="EPr_beastMode_reset">恢复默认值</string>

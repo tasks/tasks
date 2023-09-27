@@ -3,7 +3,6 @@
     <string name="TVA_add_comment">ഒരു അഭിപ്രായം ചേർക്കുക…</string>
     <string name="backup_BPr_header">ബാക്കപ്പുകൾ</string>
     <string name="backup_BAc_export">ഇപ്പോൾ ബാക്കപ്പ് ചെയ്യുക</string>
-    <string name="CRA_postpone">ഒരുപക്ഷേ അതിനുശേഷം</string>
     <string name="EPr_fullTask_title">പൂർണ്ണമായ ടാസ്കിന്റെ ശീർഷകം കാണിക്കുക</string>
     <string name="EPr_delete_task_data">ടാസ്‌ക് ഡാറ്റ ഇല്ലാതാക്കുക</string>
     <string name="EPr_delete_task_data_warning">എല്ലാ ടാസ്കുകളും ശാശ്വതമായി ഇല്ലാതാക്കപ്പെടും</string>
@@ -37,6 +36,4 @@
     <string name="TEA_control_files">ഫയലുകൾ</string>
     <string name="TEA_control_reminders">ഓർമ്മപ്പെടുത്തലുകൾ</string>
     <string name="TEA_control_hidden_section">---- എല്ലായ്പ്പോഴും മറയ്‌ക്കുക ----</string>
-    <string name="CRA_ignore">അവഗണിക്കുക</string>
-    <string name="CRA_title">ഒരു മീറ്റിംഗ് ലിസ്റ്റ് ആവശ്യമുണ്ടോ\?</string>
 </resources>

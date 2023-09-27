@@ -53,17 +53,6 @@
     <string name="TEA_control_reminders">Pripomienky</string>
     <string name="TEA_control_timer">Stopky - nastavenie</string>
     <string name="TEA_control_hidden_section">----Skryť vždy----</string>
-    <string name="CRA_ignore">Ignorovať</string>
-    <string name="CRA_title">Potrebuješ zoznam na stretnutie?</string>
-    <string name="CRA_ignore_body">Nevenoval si pozornosť niekoľkým udalostiam kalendára. Chceš, aby sa Úlohy na ne prestali pýtať?</string>
-    <string name="CRA_ignore_all">Ignorovať všetky udalosti</string>
-    <string name="CRA_ignore_this">Ignorovať túto udalosť</string>
-    <string name="CRA_speech_bubble_start">Zdá sa, že %s čoskoro začne. Chceš vytvoriť zoznam pre tieto položky?</string>
-    <string name="CRA_speech_bubble_end">Zdá sa, že si skončil s %s. Chceš vytvoriť zoznam pre tieto položky?</string>
-    <string name="CRA_postpone">Možno neskôr</string>
-    <string name="CRA_calendar_reminders_pref_title">Asistent pre kalendár</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Úlohy vám pripomenú nadchádzajúce udalosti z kalendára a vyzvú vás, aby ste sa na ne pripravili.</string>
-    <string name="CRA_default_list_name">Položky akcie: %s</string>
     <string name="none">Žiadna</string>
     <string name="EPr_edit_screen_options">Možnosti úprav zobrazenia</string>
     <string name="EPr_beastMode_reset">Obnoviť na predvolené</string>

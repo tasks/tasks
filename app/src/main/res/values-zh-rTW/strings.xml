@@ -45,17 +45,6 @@
     <string name="TEA_control_reminders">提醒</string>
     <string name="TEA_control_timer">定時器設定</string>
     <string name="TEA_control_hidden_section">----永遠隱藏----</string>
-    <string name="CRA_ignore">忽略</string>
-    <string name="CRA_title">需要會議列表嗎？</string>
-    <string name="CRA_ignore_body">您忽略了幾個活動，Tasks應否不再就該活動詢問您呢？</string>
-    <string name="CRA_ignore_all">忽略全部活動</string>
-    <string name="CRA_ignore_this">只忽略此活動</string>
-    <string name="CRA_speech_bubble_start">看來%s即將開始，您要為行動事項建立新列表嗎？</string>
-    <string name="CRA_speech_bubble_end">看來%s剛結束，您要為行動事項建立新列表嗎？</string>
-    <string name="CRA_postpone">等下再說</string>
-    <string name="CRA_calendar_reminders_pref_title">月曆小助理</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks會提醒您月曆上的活動，並且會提前提示您</string>
-    <string name="CRA_default_list_name">行動事項：%s</string>
     <string name="none">無</string>
     <string name="EPr_edit_screen_options">編輯畫面選項</string>
     <string name="EPr_beastMode_reset">恢復預設值</string>

@@ -56,17 +56,6 @@
     <string name="TEA_control_reminders">Нагадування</string>
     <string name="TEA_control_timer">Управління таймером</string>
     <string name="TEA_control_hidden_section">----Завжди ховати----</string>
-    <string name="CRA_ignore">Ігнорувати</string>
-    <string name="CRA_title">Потрібен список зустрічей\?</string>
-    <string name="CRA_ignore_body">Ви знехтували кількома подіями в календарі. Припинити запитувати про них\?</string>
-    <string name="CRA_ignore_all">Ігнорувати всі події</string>
-    <string name="CRA_ignore_this">Проігнорувати лише цю подію</string>
-    <string name="CRA_speech_bubble_start">Схоже, невдовзі розпочнеться %s. Бажаєте створити список дій\?</string>
-    <string name="CRA_speech_bubble_end">Схоже, ви щойно завершили %s. Бажаєте створити список дій\?</string>
-    <string name="CRA_postpone">Можливо, згодом</string>
-    <string name="CRA_calendar_reminders_pref_title">Асистент календаря</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks буде нагадувати вам про майбутні події у календарі та пропонувати приготуватися до них</string>
-    <string name="CRA_default_list_name">Список дій: %s</string>
     <string name="none">Немає</string>
     <string name="EPr_edit_screen_options">Налаштування екрана редагування</string>
     <string name="EPr_beastMode_reset">Скинути налаштування</string>

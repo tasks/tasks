@@ -58,17 +58,6 @@
     <string name="TEA_control_reminders">Напомняне</string>
     <string name="TEA_control_timer">Отчитане на времето</string>
     <string name="TEA_control_hidden_section">----Винаги скрито----</string>
-    <string name="CRA_ignore">Пренебрегване</string>
-    <string name="CRA_title">Нуждаете се от списък със срещите\?</string>
-    <string name="CRA_ignore_body">Пренебрегнали сте няколко събития от календара. Трябва ли Tasks да спрe да пита за тях\?</string>
-    <string name="CRA_ignore_all">Пропускане на всички събития</string>
-    <string name="CRA_ignore_this">Пропускане само на това събитие</string>
-    <string name="CRA_speech_bubble_start">Изглежда, че %s започва скоро. Искате ли план за действие\?</string>
-    <string name="CRA_speech_bubble_end">Изглежда, че току-що сте завършили %s. Искате ли план за действие\?</string>
-    <string name="CRA_postpone">Може би после</string>
-    <string name="CRA_calendar_reminders_pref_title">Асистент за календара</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ще ви напомня за предстоящи събития в календара и ще ви подканва да се подготвите за тях</string>
-    <string name="CRA_default_list_name">План за действие: %s</string>
     <string name="none">Без</string>
     <string name="EPr_edit_screen_options">Настройки на екрана за редактиране</string>
     <string name="EPr_beastMode_reset">Подразбирани настройки</string>

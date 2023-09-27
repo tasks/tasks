@@ -29,7 +29,6 @@ import org.tasks.location.GeofenceApi
 import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.RefreshReceiver
-import org.tasks.scheduling.CalendarNotificationIntentService
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.scheduling.RefreshScheduler
 import org.tasks.themes.ThemeBase
@@ -90,7 +89,6 @@ class Tasks : Application(), Configuration.Provider {
     private fun backgroundWork() = CoroutineScope(Dispatchers.Default).launch {
         inventory.updateTasksAccount()
         NotificationSchedulerIntentService.enqueueWork(context)
-        CalendarNotificationIntentService.enqueueWork(context)
         refreshScheduler.get().scheduleAll()
         workManager.get().apply {
             updateBackgroundSync()

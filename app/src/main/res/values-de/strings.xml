@@ -55,17 +55,6 @@
     <string name="TEA_control_reminders">Erinnerungen</string>
     <string name="TEA_control_timer">Timer-Einstellungen</string>
     <string name="TEA_control_hidden_section">----Immer Ausblenden----</string>
-    <string name="CRA_ignore">Ablehnen</string>
-    <string name="CRA_title">Wollen Sie eine Besprechungsliste erstellen\?</string>
-    <string name="CRA_ignore_body">Sie haben mehrere Kalendereinträge ignoriert. Soll Tasks nicht mehr danach fragen\?</string>
-    <string name="CRA_ignore_all">Alle Termine ablehnen</string>
-    <string name="CRA_ignore_this">Nur diesen Termin ablehnen</string>
-    <string name="CRA_speech_bubble_start">Denken Sie daran, dass %s bald beginnt. Wollen Sie eine Liste mit Aufgaben erstellen\?</string>
-    <string name="CRA_speech_bubble_end">Haben Sie %s gerade abgeschlossen\? Wollen Sie noch eine Liste mit Aufgaben erstellen\?</string>
-    <string name="CRA_postpone">Vielleicht später</string>
-    <string name="CRA_calendar_reminders_pref_title">Kalender-Assistent</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks wird Sie an zukünftige Kalendereinträge erinnern und Sie auf die Vorbereitung hinweisen</string>
-    <string name="CRA_default_list_name">Einzelaufgaben: %s</string>
     <string name="none">Keine</string>
     <string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
     <string name="EPr_beastMode_reset">Auf Standardeinstellungen zurücksetzen</string>

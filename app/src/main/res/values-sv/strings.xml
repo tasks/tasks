@@ -48,17 +48,6 @@
     <string name="TEA_control_reminders">Påminnelser</string>
     <string name="TEA_control_timer">Tidtagarinställningar</string>
     <string name="TEA_control_hidden_section">----Dölj alltid----</string>
-    <string name="CRA_ignore">Ignorera</string>
-    <string name="CRA_title">Behöver du en lista över möten?</string>
-    <string name="CRA_ignore_body">Du har ignorerat flera kalenderhändelser. Vill du att Tasks slutar fråga dig om dem?</string>
-    <string name="CRA_ignore_all">Ignorera alla händelser</string>
-    <string name="CRA_ignore_this">Ignorera endast denna händelse</string>
-    <string name="CRA_speech_bubble_start">Det verkar som %s börjar snart. Vill du skapa en lista för saker att göra?</string>
-    <string name="CRA_speech_bubble_end">Det verkar som du just slutfört %s. Vill du skapa en lista för saker att göra?</string>
-    <string name="CRA_postpone">Kanske senare</string>
-    <string name="CRA_calendar_reminders_pref_title">Kalenderassistent</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks kommer att påminna om kommande kalenderhändelser och uppmana dig att förbereda dem</string>
-    <string name="CRA_default_list_name">Saker att göra: %s</string>
     <string name="none">Ingen</string>
     <string name="EPr_edit_screen_options">Ändra skärminställningar</string>
     <string name="EPr_beastMode_reset">Återställ till standardvärden</string>

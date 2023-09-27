@@ -163,17 +163,6 @@
     <string name="TEA_control_gcal">Kalneder</string>
     <string name="TEA_control_location">Sted</string>
     <string name="TEA_control_timer">Tidtakingskontroller</string>
-    <string name="CRA_ignore">Ignorer</string>
-    <string name="CRA_title">Trenger du en møteliste\?</string>
-    <string name="CRA_ignore_body">Du har ignorert flere kalenderhendelser. Skal Tasks slutte å påminne deg om dem\?</string>
-    <string name="CRA_ignore_all">Ignorer alle hendelser</string>
-    <string name="CRA_ignore_this">Kun ignorer denne hendelsen</string>
-    <string name="CRA_speech_bubble_start">Ser ut til at %s starter snart. Ønsker du å opprette en gjøremålsliste\?</string>
-    <string name="CRA_speech_bubble_end">Ser ut til at du akkurat fullførte %s. Ønsker du å opprette en gjøremålsliste\?</string>
-    <string name="CRA_postpone">Kanskje etterpå</string>
-    <string name="CRA_calendar_reminders_pref_title">Kalenderassistent</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks påminner deg om kommende kalenderhendelser og formaner forberedelse</string>
-    <string name="CRA_default_list_name">Gjøremål: %s</string>
     <string name="none">Ingen</string>
     <string name="EPr_edit_screen_options">Rediger skjermvalg</string>
     <string name="EPr_beastMode_reset">Tilbakestill til forvalg</string>

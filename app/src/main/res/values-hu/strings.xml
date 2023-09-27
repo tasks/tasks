@@ -54,17 +54,6 @@
     <string name="TEA_control_reminders">Emlékeztetők</string>
     <string name="TEA_control_timer">Időzítő Beállítása</string>
     <string name="TEA_control_hidden_section">---Elrejtve---</string>
-    <string name="CRA_ignore">Kihagy</string>
-    <string name="CRA_title">Szeretne egy listát a találkozókról?</string>
-    <string name="CRA_ignore_body">Kihagytál jónéhány naptáreseményt. Ne kérdezzen rá többet a Tasks?</string>
-    <string name="CRA_ignore_all">Minden esemény kihagyása</string>
-    <string name="CRA_ignore_this">Jelenlegi esemény kihagyása</string>
-    <string name="CRA_speech_bubble_start">Úgy tűnik, a(z) %s nemsokára kezdődik. Szeretne létrehozni egy listát az akciópontoknak?</string>
-    <string name="CRA_speech_bubble_end">Úgy tűnik, a(z) %s véget ért. Szeretne létrehozni egy listát az akciópontoknak?</string>
-    <string name="CRA_postpone">Talán később</string>
-    <string name="CRA_calendar_reminders_pref_title">Naptár segéd</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">A Tasks emlékeztetni fog a közelgő naptáreseményekre, és a felkészülésre</string>
-    <string name="CRA_default_list_name">Akciópontok: %s</string>
     <string name="none">Nincs</string>
     <string name="EPr_edit_screen_options">Szerkesztési képernyő beállításai</string>
     <string name="EPr_beastMode_reset">Visszaállítás alapértékre</string>

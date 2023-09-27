@@ -35,12 +35,6 @@
     <string name="TEA_control_files">الملفات</string>
     <string name="TEA_control_reminders">مذكرات</string>
     <string name="TEA_control_hidden_section">---إخفاء دائمًا---</string>
-    <string name="CRA_ignore">تجاهل</string>
-    <string name="CRA_title">تريد قائمة للمقابلات؟</string>
-    <string name="CRA_ignore_all">تجاهل جميع الأحداث</string>
-    <string name="CRA_ignore_this">تجاهل هذا الحدث فقط</string>
-    <string name="CRA_postpone">ربَّما لاحقًا</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">تاسكس سوف يذكرك في أحداث التقويم القادمة وسوف يحثك لتكون جاهزاً</string>
     <string name="EPr_edit_screen_options">تعديل خيارات الشاشة</string>
     <string name="EPr_beastMode_reset">إعادة التعيين إلى الإعدادات الافتراضية</string>
     <string name="EPr_fullTask_title">إظهار عنوان المهمة الكامل</string>
@@ -232,7 +226,6 @@
     <string name="default_start_date">تاريخ البدأ الافتراضي</string>
     <string name="EPr_delete_task_data">حذف معلومات المهام</string>
     <string name="EPr_reset_preferences">إعادة ضبط الإعدادات</string>
-    <string name="CRA_calendar_reminders_pref_title">مساعد التقويم</string>
     <string name="TEA_timer_est">تقريبًا %s</string>
     <string name="FLA_search_filter">موافقًا ل\'%s\'</string>
     <string name="logout">تسجيل الخروج</string>
@@ -426,9 +419,6 @@
     <string name="miscellaneous">متنوّع</string>
     <string name="CFC_tag_text">علامة: \?</string>
     <string name="CFC_importance_text">الأولويّة على الأقل \?</string>
-    <string name="CRA_default_list_name">عناصر العمل: %s</string>
-    <string name="CRA_speech_bubble_end">يبدو أنك انتهيت للتو من %s. هل تريد إنشاء قائمة بعناصر العمل؟</string>
-    <string name="CRA_speech_bubble_start">يبدو أن %s سيبدأ قريبًا. هل تريد إنشاء قائمة بعناصر العمل؟</string>
     <string name="TEA_control_timer">ضوابط المؤقت</string>
     <string name="more_options">خيارات أكثر</string>
     <string name="upgrade_open_source_description">اشتراكك يدعم التطور المستمر</string>
@@ -468,7 +458,6 @@
     <string name="gtasks_error_accountNotFound">لم يتم العثور على الحساب %s، الرجاء تسجيل الخروج ثم تسجيل الدخول من إعدادات Google Tasks.</string>
     <string name="CFC_startBefore_name">بدأ عند…</string>
     <string name="CFC_startBefore_text">بدأ عند: \?</string>
-    <string name="CRA_ignore_body">لقد تجاهلت بضعاً من أحداث التقويم. هل يجب أن يتوقف تاسكس عن سؤالك عنها؟</string>
     <string name="astrid_sort_order_summary">تشغيل وضع ترتيب Astrid اليدوي ل\'مهامي\' و\'اليوم\' والعلامات. وضع الترتيب هذا سيستبدل ب\'ترتيبي\' في تحديثٍ مستقبلي</string>
     <string name="manage_drawer">إدارة الدرج</string>
     <string name="markdown_description">تشغيل الماركداون في العنوان والوصف</string>

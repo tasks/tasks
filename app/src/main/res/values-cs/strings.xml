@@ -46,16 +46,6 @@
     <string name="TEA_control_reminders">Upomínky</string>
     <string name="TEA_control_timer">Ovladač časovače</string>
     <string name="TEA_control_hidden_section">-----Vždy skrývat----</string>
-    <string name="CRA_ignore">Ignorovat</string>
-    <string name="CRA_title">Potřebujete seznam schůze?</string>
-    <string name="CRA_ignore_body">Ignorovali jste několik událostí v kalendáři. Má vás Tasks přestat o nich informovat\?</string>
-    <string name="CRA_ignore_all">Ignorovat všechny události</string>
-    <string name="CRA_ignore_this">Ignorovat pouze tuto událost</string>
-    <string name="CRA_speech_bubble_start">Vypadá to, že %s začíná brzy. Chcete vytvořit seznam pro akční položky\?</string>
-    <string name="CRA_speech_bubble_end">Vypadá to, že jste právě skončil s %s. Chcete vytvořit seznam pro akční položky?</string>
-    <string name="CRA_postpone">Možná později</string>
-    <string name="CRA_calendar_reminders_pref_title">Asistent pro kalendář</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Aplikace Tasks vám připomene nadcházející události v kalendáři a vyzve vás, abyste se na ně připravili</string>
     <string name="none">Žádný</string>
     <string name="EPr_edit_screen_options">Upravit možnosti zobrazení</string>
     <string name="EPr_beastMode_reset">Obnovit výchozí hodnoty</string>
@@ -498,7 +488,6 @@
     <string name="CFC_list_name">V seznamu…</string>
     <string name="astrid_sort_order_summary">Zapněte ruční řazení Astrid pro „Moje úkoly“, „Dnes“ a štítky. Tento režim řazení bude v budoucnu nahrazen režimem „Vlastní řazení“</string>
     <string name="astrid_sort_order">Ruční řazení Astrid</string>
-    <string name="CRA_default_list_name">Předměty akce: %s</string>
     <string name="open_last_viewed_list">Otevřít poslední prohlížený seznam</string>
     <string name="on_launch">Při spuštění</string>
     <string name="lists">Seznamy</string>

@@ -56,17 +56,6 @@
     <string name="TEA_control_reminders">알람</string>
     <string name="TEA_control_timer">타이머 조절</string>
     <string name="TEA_control_hidden_section">----항상 숨김----</string>
-    <string name="CRA_ignore">무시하기</string>
-    <string name="CRA_title">모임 목록이 필요하세요?</string>
-    <string name="CRA_ignore_body">여러번 달력 일정을 무시하셨습니다. Tasks가 일정 추가를 그만 물어볼까요\?</string>
-    <string name="CRA_ignore_all">모든 이벤트 무시하기</string>
-    <string name="CRA_ignore_this">이 이벤트만 무시하기</string>
-    <string name="CRA_speech_bubble_start">%s 가 곧 시작됩니다. 활동 아이템 목록을 만들까요\?</string>
-    <string name="CRA_speech_bubble_end">%s 를 방금 마쳤습니다. 활동 아이템 목록을 만들까요\?</string>
-    <string name="CRA_postpone">연기하기</string>
-    <string name="CRA_calendar_reminders_pref_title">달력 도우미</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks가 다가오는 달력 일정에 대비하도록 알려드립니다</string>
-    <string name="CRA_default_list_name">활동 아이템: %s</string>
     <string name="none">없음</string>
     <string name="EPr_edit_screen_options">화면 설정 편집하기</string>
     <string name="EPr_beastMode_reset">기본값으로 초기화하기</string>

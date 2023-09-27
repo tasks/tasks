@@ -108,10 +108,6 @@
     <string name="SSD_sort_my_order">El meu ordre</string>
     <string name="TEA_add_subtask">Afegeix una subtasca</string>
     <string name="display_name">Mostra el nom</string>
-    <string name="CRA_ignore_this">Ignora només aquest esdeveniment</string>
-    <string name="CRA_ignore_all">Ignora tots els esdeveniments</string>
-    <string name="CRA_title">Us cal una llista de reunions\?</string>
-    <string name="CRA_ignore">Ignora</string>
     <string name="TEA_control_location">Ubicació</string>
     <string name="TEA_control_gcal">Agenda</string>
     <string name="TEA_control_repeat">Repeteix</string>
@@ -140,13 +136,6 @@
     <string name="EPr_show_task_edit_comments">Mostra els comentaris en l\'edició de la tasca</string>
     <string name="EPr_edit_screen_options">Edita les opcions de la pantalla</string>
     <string name="none">Cap</string>
-    <string name="CRA_default_list_name">Accions: %s</string>
-    <string name="CRA_calendar_reminders_pref_desc_enabled">Les tasques us recordaran els propers esdeveniments del calendari i us demanarà que us prepareu per a ells</string>
-    <string name="CRA_calendar_reminders_pref_title">Ajudant del calendari</string>
-    <string name="CRA_postpone">Potser després</string>
-    <string name="CRA_speech_bubble_end">Sembla que acabes d\'acabar amb %s. Vols crear una llista d\'accions\?</string>
-    <string name="CRA_speech_bubble_start">Sembla que %s començarà aviat. Vols crear una llista d\'accions\?</string>
-    <string name="CRA_ignore_body">Heu ignorat diversos esdeveniments del calendari. Tasks ha de deixar de demanar per ells\?</string>
     <string name="start_date">Data d\'inici</string>
     <string name="sort_created">Per data de creació</string>
     <string name="SSD_sort_start">Per data d\'inici</string>

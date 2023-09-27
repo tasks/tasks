@@ -42,12 +42,6 @@
     <string name="TEA_control_reminders">یادآوری ها</string>
     <string name="TEA_control_timer">کنترل تایمر</string>
     <string name="TEA_control_hidden_section">----همیشه مخفی----</string>
-    <string name="CRA_ignore">رد کردن</string>
-    <string name="CRA_title">نیاز به لیست ملاقات دارید ؟</string>
-    <string name="CRA_ignore_all">نادیده گرفتن تمام رویداد ها</string>
-    <string name="CRA_ignore_this">فقط نادیده گرفتن این رویداد</string>
-    <string name="CRA_postpone">شاید یعدا</string>
-    <string name="CRA_calendar_reminders_pref_title">دستیار تقویم</string>
     <string name="none">هیچکدام</string>
     <string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
     <string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
