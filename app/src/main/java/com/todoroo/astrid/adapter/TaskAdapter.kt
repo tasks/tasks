@@ -137,30 +137,38 @@ open class TaskAdapter(
 
     open suspend fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
-        val newParent = findParent(indent, to)
-        if ((newParent?.id ?: 0) == task.parent) {
-            if (indent == 0) {
-                changeSortGroup(task, if (from < to) to - 1 else to)
-            } else if (dataSource.subtaskSortMode == SORT_MANUAL) {
-                if (task.isGoogleTask) {
-                    moveGoogleTask(from, to, indent)
-                } else {
-                    moveCaldavTask(from, to, indent)
+        if (dataSource.sortMode == SORT_MANUAL) {
+            if (task.isGoogleTask) {
+                moveGoogleTask(from, to, indent)
+            } else {
+                moveCaldavTask(from, to, indent)
+            }
+        } else {
+            val newParent = findParent(indent, to)
+            if ((newParent?.id ?: 0) == task.parent) {
+                if (indent == 0) {
+                    changeSortGroup(task, if (from < to) to - 1 else to)
+                } else if (dataSource.subtaskSortMode == SORT_MANUAL) {
+                    if (task.isGoogleTask) {
+                        moveGoogleTask(from, to, indent)
+                    } else {
+                        moveCaldavTask(from, to, indent)
+                    }
+                }
+                return
+            } else if (newParent != null) {
+                if (task.caldav != newParent.caldav) {
+                    caldavDao.markDeleted(listOf(task.id))
                 }
             }
-            return
-        } else if (newParent != null) {
-            if (task.caldav != newParent.caldav) {
-                caldavDao.markDeleted(listOf(task.id))
+            when {
+                newParent == null -> {
+                    moveToTopLevel(task)
+                    changeSortGroup(task, if (from < to) to - 1 else to)
+                }
+                newParent.isGoogleTask -> changeGoogleTaskParent(task, newParent)
+                newParent.isCaldavTask() -> changeCaldavParent(task, newParent)
             }
-        }
-        when {
-            newParent == null -> {
-                moveToTopLevel(task)
-                changeSortGroup(task, if (from < to) to - 1 else to)
-            }
-            newParent.isGoogleTask -> changeGoogleTaskParent(task, newParent)
-            newParent.isCaldavTask() -> changeCaldavParent(task, newParent)
         }
     }
 

@@ -1,9 +1,7 @@
 package com.todoroo.astrid.adapter
 
 import android.content.Context
-import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
@@ -44,13 +42,14 @@ class TaskAdapterProvider @Inject constructor(
                 }
             }
         }
-        if (filter.supportsManualSort() && preferences.isManualSort) {
-            when (filter) {
-                is GtasksFilter -> return GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
-                is CaldavFilter -> return CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
-            }
-        }
-        return TaskAdapter(preferences.addTasksToTop(), googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
+        return TaskAdapter(
+            newTasksOnTop = if (filter.supportsManualSort() && preferences.isManualSort) false else preferences.addTasksToTop(),
+            googleTaskDao = googleTaskDao,
+            caldavDao = caldavDao,
+            taskDao = taskDao,
+            localBroadcastManager = localBroadcastManager,
+            taskMover = taskMover
+        )
     }
 
     private fun createManualTagTaskAdapter(filter: TagFilter): TaskAdapter = runBlocking {

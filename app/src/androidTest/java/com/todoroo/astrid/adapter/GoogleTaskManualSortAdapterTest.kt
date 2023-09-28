@@ -40,7 +40,7 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var taskMover: TaskMover
 
-    private lateinit var adapter: GoogleTaskManualSortAdapter
+    private lateinit var adapter: TaskAdapter
     private val tasks = ArrayList<TaskContainer>()
     private val filter = GtasksFilter(newCaldavCalendar(with(CaldavCalendarMaker.UUID, "1234")))
     private val dataSource = object : TaskAdapterDataSource {
@@ -417,7 +417,7 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
         tasks.clear()
-        adapter = GoogleTaskManualSortAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
+        adapter = TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
         adapter.setDataSource(dataSource)
     }
 
