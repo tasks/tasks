@@ -29,6 +29,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
+import androidx.core.content.IntentCompat
 import androidx.core.view.forEach
 import androidx.core.view.isVisible
 import androidx.core.view.setMargins
@@ -179,6 +180,20 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         taskAdapter.clearCollapsed()
                     }
                 }
+            }
+        }
+
+    private val listSettingsRequest =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode != RESULT_OK) return@registerForActivityResult
+            val data = result.data ?: return@registerForActivityResult
+            when (data.action) {
+                ACTION_DELETED ->
+                    openFilter(BuiltInFilterExposer.getMyTasksFilter(resources))
+                ACTION_RELOAD ->
+                    IntentCompat.getParcelableExtra(data, MainActivity.OPEN_FILTER, Filter::class.java)?.let {
+                        openFilter(it)
+                    }
             }
         }
 
@@ -374,7 +389,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }
         menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable() && filter.isWritable
-        search = binding.toolbar.menu.findItem(R.id.menu_search).setOnActionExpandListener(this)
+        search = binding.toolbar.menu.findItem(R.id.menu_search).also {
+            it.setOnActionExpandListener(this)
+            it.setOnQueryTextListener(this)
+        }
         menu.findItem(R.id.menu_clear_completed).isVisible = filter.isWritable
     }
 
@@ -436,40 +454,44 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_filter_settings -> {
-                val filterSettings = Intent(activity, FilterSettingsActivity::class.java)
-                filterSettings.putExtra(FilterSettingsActivity.TOKEN_FILTER, filter)
-                startActivityForResult(filterSettings, REQUEST_LIST_SETTINGS)
+                listSettingsRequest.launch(
+                    Intent(activity, FilterSettingsActivity::class.java)
+                        .putExtra(FilterSettingsActivity.TOKEN_FILTER, filter)
+                )
                 true
             }
             R.id.menu_caldav_list_fragment -> {
                 val calendar = (filter as CaldavFilter).calendar
                 lifecycleScope.launch {
                     val account = caldavDao.getAccountByUuid(calendar.account!!)
-                    val caldavSettings = Intent(activity, account!!.listSettingsClass())
-                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account)
-                        .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, calendar)
-                    startActivityForResult(caldavSettings, REQUEST_LIST_SETTINGS)
+                    listSettingsRequest.launch(
+                        Intent(activity, account!!.listSettingsClass())
+                            .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account)
+                            .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_CALENDAR, calendar)
+                    )
                 }
                 true
             }
             R.id.menu_location_settings -> {
                 val place = (filter as PlaceFilter).place
-                val intent = Intent(activity, PlaceSettingsActivity::class.java)
-                intent.putExtra(PlaceSettingsActivity.EXTRA_PLACE, place as Parcelable)
-                startActivityForResult(intent, REQUEST_LIST_SETTINGS)
+                listSettingsRequest.launch(
+                    Intent(activity, PlaceSettingsActivity::class.java)
+                            .putExtra(PlaceSettingsActivity.EXTRA_PLACE, place as Parcelable)
+                )
                 true
             }
             R.id.menu_gtasks_list_settings -> {
-                val gtasksSettings = Intent(activity, GoogleTaskListSettingsActivity::class.java)
-                gtasksSettings.putExtra(
-                        GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, (filter as GtasksFilter).list)
-                startActivityForResult(gtasksSettings, REQUEST_LIST_SETTINGS)
+                listSettingsRequest.launch(
+                    Intent(activity, GoogleTaskListSettingsActivity::class.java)
+                            .putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, (filter as GtasksFilter).list)
+                )
                 true
             }
             R.id.menu_tag_settings -> {
-                val tagSettings = Intent(activity, TagSettingsActivity::class.java)
-                tagSettings.putExtra(TagSettingsActivity.EXTRA_TAG_DATA, (filter as TagFilter).tagData)
-                startActivityForResult(tagSettings, REQUEST_LIST_SETTINGS)
+                listSettingsRequest.launch(
+                    Intent(activity, TagSettingsActivity::class.java)
+                            .putExtra(TagSettingsActivity.EXTRA_TAG_DATA, (filter as TagFilter).tagData)
+                )
                 true
             }
             R.id.menu_expand_subtasks -> {
@@ -594,14 +616,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     }
                 }
             }
-            REQUEST_LIST_SETTINGS -> if (resultCode == RESULT_OK) {
-                val action = data!!.action
-                if (ACTION_DELETED == action) {
-                    openFilter(BuiltInFilterExposer.getMyTasksFilter(resources))
-                } else if (ACTION_RELOAD == action) {
-                    openFilter(data.getParcelableExtra(MainActivity.OPEN_FILTER))
-                }
-            }
             REQUEST_TAG_TASKS -> if (resultCode == RESULT_OK) {
                 lifecycleScope.launch {
                     val modified = tagDataDao.applyTags(
@@ -619,17 +633,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
     }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        return onOptionsItemSelected(item)
-    }
-
     private fun onTaskListItemClicked(task: Task?) = lifecycleScope.launch {
         callbacks.onTaskListItemClicked(task)
     }
 
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
         onBackPressed.isEnabled = true
-        search.setOnQueryTextListener(this)
         listViewModel.setSearchQuery("")
         if (preferences.isTopAppBar) {
             binding.toolbar.menu.forEach { it.isVisible = false }
@@ -639,8 +648,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
         onBackPressed.isEnabled = false
-        search.setOnQueryTextListener(null)
-        listViewModel.setFilter(filter)
         listViewModel.setSearchQuery(null)
         if (preferences.isTopAppBar) {
             setupMenu(binding.toolbar)
@@ -964,7 +971,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val FRAG_TAG_REMOTE_LIST_PICKER = "frag_tag_remote_list_picker"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
         private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
-        private const val REQUEST_LIST_SETTINGS = 10101
         private const val REQUEST_TAG_TASKS = 10106
         fun newTaskListFragment(context: Context, filter: Filter?): TaskListFragment {
             val fragment = TaskListFragment()
