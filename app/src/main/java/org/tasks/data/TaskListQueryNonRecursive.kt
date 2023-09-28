@@ -3,7 +3,6 @@ package org.tasks.data
 import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.Query
-import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
@@ -12,13 +11,15 @@ import org.tasks.filters.RecentlyModifiedFilter
 import org.tasks.preferences.QueryPreferences
 
 internal object TaskListQueryNonRecursive {
-    private val JOIN_TAGS = Task.ID.eq(field("${TaskListFragment.TAGS_METADATA_JOIN}.task"))
+    private const val TAGS_METADATA_JOIN = "for_tags"
+
+    private val JOIN_TAGS = Task.ID.eq(field("$TAGS_METADATA_JOIN.task"))
     private val JOINS = """
-        ${Join.left(Tag.TABLE.`as`(TaskListFragment.TAGS_METADATA_JOIN), JOIN_TAGS)}
+        ${Join.left(Tag.TABLE.`as`(TAGS_METADATA_JOIN), JOIN_TAGS)}
         ${TaskListQuery.JOINS}
     """.trimIndent()
     private val TAGS =
-            field("group_concat(distinct(${TaskListFragment.TAGS_METADATA_JOIN}.tag_uid))")
+            field("group_concat(distinct($TAGS_METADATA_JOIN.tag_uid))")
                     .`as`("tags")
     private val FIELDS =
         TaskListQuery.FIELDS.plus(listOf(

@@ -3,7 +3,6 @@ package org.tasks.data
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join
-import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskListQueryNonRecursive.getNonRecursiveQuery
@@ -11,19 +10,20 @@ import org.tasks.data.TaskListQueryRecursive.getRecursiveQuery
 import org.tasks.preferences.QueryPreferences
 
 object TaskListQuery {
+    private const val CALDAV_METADATA_JOIN = "for_caldav"
     private val JOIN_CALDAV = Criterion.and(
-            Task.ID.eq(field("${TaskListFragment.CALDAV_METADATA_JOIN}.cd_task")),
-            field("${TaskListFragment.CALDAV_METADATA_JOIN}.cd_deleted").eq(0))
+            Task.ID.eq(field("$CALDAV_METADATA_JOIN.cd_task")),
+            field("$CALDAV_METADATA_JOIN.cd_deleted").eq(0))
     val JOINS = """
-        ${Join.left(CaldavTask.TABLE.`as`(TaskListFragment.CALDAV_METADATA_JOIN), JOIN_CALDAV)}
-        ${Join.left(CaldavCalendar.TABLE, field("${TaskListFragment.CALDAV_METADATA_JOIN}.cd_calendar").eq(CaldavCalendar.UUID))}
+        ${Join.left(CaldavTask.TABLE.`as`(CALDAV_METADATA_JOIN), JOIN_CALDAV)}
+        ${Join.left(CaldavCalendar.TABLE, field("$CALDAV_METADATA_JOIN.cd_calendar").eq(CaldavCalendar.UUID))}
         ${Join.left(CaldavAccount.TABLE, CaldavCalendar.ACCOUNT.eq(CaldavAccount.UUID))}
         ${Join.left(Geofence.TABLE, Geofence.TASK.eq(Task.ID))}
         ${Join.left(Place.TABLE, Place.UID.eq(Geofence.PLACE))}
     """.trimIndent()
     val FIELDS = listOf(
             field("tasks.*"),
-            field("${TaskListFragment.CALDAV_METADATA_JOIN}.*"),
+            field("$CALDAV_METADATA_JOIN.*"),
             field("${CaldavAccount.ACCOUNT_TYPE}").`as`("accountType"),
             field("geofences.*"),
             field("places.*"))

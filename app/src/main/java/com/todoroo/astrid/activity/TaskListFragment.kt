@@ -621,7 +621,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     }
                 }
             }
-            REQUEST_LIST_SETTINGS -> if (resultCode == Activity.RESULT_OK) {
+            REQUEST_LIST_SETTINGS -> if (resultCode == RESULT_OK) {
                 val action = data!!.action
                 if (ACTION_DELETED == action) {
                     openFilter(BuiltInFilterExposer.getMyTasksFilter(resources))
@@ -629,7 +629,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     openFilter(data.getParcelableExtra(MainActivity.OPEN_FILTER))
                 }
             }
-            REQUEST_TAG_TASKS -> if (resultCode == Activity.RESULT_OK) {
+            REQUEST_TAG_TASKS -> if (resultCode == RESULT_OK) {
                 lifecycleScope.launch {
                     val modified = tagDataDao.applyTags(
                             taskDao
@@ -985,8 +985,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     companion object {
-        const val TAGS_METADATA_JOIN = "for_tags" // $NON-NLS-1$
-        const val CALDAV_METADATA_JOIN = "for_caldav" // $NON-NLS-1$
         const val ACTION_RELOAD = "action_reload"
         const val ACTION_DELETED = "action_deleted"
         private const val EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids"
