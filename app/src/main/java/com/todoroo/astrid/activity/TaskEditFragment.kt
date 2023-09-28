@@ -35,6 +35,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.os.BundleCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -138,6 +139,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             activity?.recreate()
         }
+
+    val task: Task?
+        get() = BundleCompat.getParcelable(requireArguments(), EXTRA_TASK, Task::class.java)
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -514,7 +518,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     }
 
     companion object {
-        const val TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"
         const val EXTRA_TASK = "extra_task"
         const val EXTRA_LIST = "extra_list"
         const val EXTRA_LOCATION = "extra_location"

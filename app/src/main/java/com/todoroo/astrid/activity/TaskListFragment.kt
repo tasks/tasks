@@ -34,6 +34,7 @@ import androidx.core.view.forEach
 import androidx.core.view.isVisible
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -105,9 +106,9 @@ import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
 import org.tasks.extensions.formatNumber
+import org.tasks.extensions.hideKeyboard
 import org.tasks.extensions.setOnQueryTextListener
 import org.tasks.filters.PlaceFilter
-import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
@@ -160,13 +161,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var taskEditEventBus: TaskEditEventBus
     
     private val listViewModel: TaskListViewModel by viewModels()
+    private val mainViewModel: MainActivityViewModel by activityViewModels()
     private lateinit var taskAdapter: TaskAdapter
     private var recyclerAdapter: DragAndDropRecyclerAdapter? = null
     private lateinit var filter: Filter
     private lateinit var search: MenuItem
     private var mode: ActionMode? = null
     lateinit var themeColor: ThemeColor
-    private lateinit var callbacks: TaskListFragmentCallbackHandler
     private lateinit var binding: FragmentTaskListBinding
     private val onBackPressed = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
@@ -195,10 +196,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             val data = result.data ?: return@registerForActivityResult
             when (data.action) {
                 ACTION_DELETED ->
-                    openFilter(BuiltInFilterExposer.getMyTasksFilter(resources))
+                    mainViewModel.setFilter(BuiltInFilterExposer.getMyTasksFilter(resources))
                 ACTION_RELOAD ->
                     IntentCompat.getParcelableExtra(data, MainActivity.OPEN_FILTER, Filter::class.java)?.let {
-                        openFilter(it)
+                        mainViewModel.setFilter(it)
                     }
             }
         }
@@ -225,11 +226,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 startActionMode()
             }
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(requireContext())
-        callbacks = activity as TaskListFragmentCallbackHandler
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -325,7 +321,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             (binding.toolbar.layoutParams as AppBarLayout.LayoutParams).scrollFlags = 0
         }
         toolbar.setOnMenuItemClickListener(this)
-        toolbar.setNavigationOnClickListener { callbacks.onNavigationIconClicked() }
+        toolbar.setNavigationOnClickListener {
+            activity?.hideKeyboard()
+            mainViewModel.setDrawerOpen(true)
+        }
         setupMenu(toolbar)
         childFragmentManager.setFilterPickerResultListener(this) {
             val selected = taskAdapter.getSelected()
@@ -409,14 +408,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             it.setOnQueryTextListener(this)
         }
         menu.findItem(R.id.menu_clear_completed).isVisible = filter.isWritable
-    }
-
-    private fun openFilter(filter: Filter?) {
-        if (filter == null) {
-            startActivity(TaskIntents.getTaskListByIdIntent(context, null))
-        } else {
-            startActivity(TaskIntents.getTaskListIntent(context, filter))
-        }
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -649,7 +640,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     private fun onTaskListItemClicked(task: Task?) = lifecycleScope.launch {
-        callbacks.onTaskListItemClicked(task)
+        mainViewModel.setTask(task)
     }
 
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
@@ -671,7 +662,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
-        openFilter(requireContext().createSearchQuery(query.trim()))
+        mainViewModel.setFilter(requireContext().createSearchQuery(query.trim()))
         search.collapseActionView()
         return true
     }
@@ -828,11 +819,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
     }
 
-    interface TaskListFragmentCallbackHandler {
-        suspend fun onTaskListItemClicked(task: Task?)
-        fun onNavigationIconClicked()
-    }
-
     val isActionModeActive: Boolean
         get() = mode != null
 
@@ -911,8 +897,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onClick(filter: Filter) {
         if (!isActionModeActive) {
-            val context = activity
-            context?.startActivity(TaskIntents.getTaskListIntent(context, filter))
+            mainViewModel.setFilter(filter)
         }
     }
 
@@ -998,12 +983,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
         private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
         private const val REQUEST_TAG_TASKS = 10106
-        fun newTaskListFragment(context: Context, filter: Filter?): TaskListFragment {
+
+        fun newTaskListFragment(filter: Filter): TaskListFragment {
             val fragment = TaskListFragment()
             val bundle = Bundle()
-            bundle.putParcelable(
-                    EXTRA_FILTER,
-                    filter ?: BuiltInFilterExposer.getMyTasksFilter(context.resources))
+            bundle.putParcelable(EXTRA_FILTER, filter)
             fragment.arguments = bundle
             return fragment
         }

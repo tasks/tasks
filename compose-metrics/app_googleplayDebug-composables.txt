@@ -510,6 +510,7 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HeaderIte
   stable onErrorClick: Function0<Unit>
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun MenuRow(
+  stable modifier: Modifier? = @static Companion
   stable padding: PaddingValues? = @static PaddingValues(
   horizontal   =   16  .  dp
 )

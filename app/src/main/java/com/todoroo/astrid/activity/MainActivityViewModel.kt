@@ -1,18 +1,22 @@
 package com.todoroo.astrid.activity
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.todoroo.astrid.activity.MainActivity.Companion.LOAD_FILTER
+import com.todoroo.astrid.activity.MainActivity.Companion.OPEN_FILTER
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.Filter.Companion.NO_COUNT
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
+import com.todoroo.astrid.data.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -21,6 +25,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
@@ -39,8 +44,9 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-@SuppressLint("StaticFieldLeak")
 class MainActivityViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
+    @ApplicationContext context: Context,
     private val defaultFilterProvider: DefaultFilterProvider,
     private val filterProvider: FilterProvider,
     private val taskDao: TaskDao,
@@ -53,12 +59,22 @@ class MainActivityViewModel @Inject constructor(
 
     data class State(
         val begForMoney: Boolean = false,
-        val filter: Filter? = null,
+        val filter: Filter,
+        val task: Task? = null,
         val drawerOpen: Boolean = false,
         val drawerItems: ImmutableList<DrawerItem> = persistentListOf(),
     )
 
-    private val _state = MutableStateFlow(State())
+    private val _state = MutableStateFlow(
+        State(
+            filter = savedStateHandle.get<Filter>(OPEN_FILTER)
+                ?: savedStateHandle.get<String>(LOAD_FILTER)?.let {
+                    runBlocking { defaultFilterProvider.getFilterFromPreference(it) }
+                }
+                ?: runBlocking { defaultFilterProvider.getStartupFilter() },
+            begForMoney = if (IS_GENERIC) !inventory.hasTasksAccount else !inventory.hasPro,
+        )
+    )
     val state = _state.asStateFlow()
 
     private val refreshReceiver = object : BroadcastReceiver() {
@@ -70,10 +86,18 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
-    fun setFilter(filter: Filter) {
-        _state.update { it.copy(filter = filter) }
+    fun setFilter(
+        filter: Filter,
+        task: Task? = null,
+    ) {
+        _state.update {
+            it.copy(
+                filter = filter,
+                task = task,
+            )
+        }
         updateFilters()
-        defaultFilterProvider.lastViewedFilter = filter
+        defaultFilterProvider.setLastViewedFilter(filter)
     }
 
     fun setDrawerOpen(open: Boolean) {
@@ -83,11 +107,6 @@ class MainActivityViewModel @Inject constructor(
     init {
         localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
         updateFilters()
-        _state.update {
-            it.copy(
-                begForMoney = if (IS_GENERIC) !inventory.hasTasksAccount else !inventory.hasPro
-            )
-        }
     }
 
     override fun onCleared() {
@@ -171,7 +190,10 @@ class MainActivityViewModel @Inject constructor(
                 caldavDao.setCollapsed(subheader.id, collapsed)
                 localBroadcastManager.broadcastRefreshList()
             }
-            else -> {}
         }
+    }
+
+    fun setTask(task: Task?) {
+        _state.update { it.copy(task = task) }
     }
 }

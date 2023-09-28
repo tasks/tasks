@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.DateUtilities.now
+import com.todoroo.astrid.activity.MainActivityViewModel
 import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -36,11 +38,11 @@ class SubtaskControlSet : TaskEditControlFragment() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var checkBoxProvider: CheckBoxProvider
     @Inject lateinit var chipProvider: ChipProvider
-    @Inject lateinit var eventBus: MainActivityEventBus
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var preferences: Preferences
 
     private lateinit var listViewModel: TaskListViewModel
+    private val mainViewModel: MainActivityViewModel by activityViewModels()
 
     override fun createView(savedInstanceState: Bundle?) {
         viewModel.task.takeIf { it.id > 0 }?.let {
@@ -92,7 +94,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
     }
 
     private fun openSubtask(task: Task) = lifecycleScope.launch {
-        eventBus.emit(MainActivityEvent.OpenTask(task))
+        mainViewModel.setTask(task)
     }
 
     private fun toggleSubtask(taskId: Long, collapsed: Boolean) = lifecycleScope.launch {

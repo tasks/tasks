@@ -42,6 +42,10 @@ object Context {
     val Context.isNightMode: Boolean
         get() = nightMode == Configuration.UI_MODE_NIGHT_YES
 
+    @Deprecated("Not supposed to use this")
+    val Context.isSinglePaneLayout: Boolean
+        get() = !resources.getBoolean(R.bool.two_pane_layout)
+
     fun Context.openUri(resId: Int, vararg formatArgs: Any) = openUri(getString(resId, formatArgs))
 
     fun Context.openUri(url: String?) =

@@ -41,10 +41,6 @@ class DefaultFilterProvider @Inject constructor(
         @Deprecated("use coroutines") get() = runBlocking { getFilterFromPreference(R.string.p_dashclock_filter) }
         set(filter) = setFilterPreference(filter, R.string.p_dashclock_filter)
 
-    var lastViewedFilter: Filter
-        @Deprecated("use coroutines") get() = runBlocking { getFilterFromPreference(R.string.p_last_viewed_list) }
-        set(filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
-
     var defaultList: Filter
         @Deprecated("use coroutines") get() = runBlocking { getDefaultList() }
         set(filter) = setFilterPreference(filter, R.string.p_default_list)
@@ -61,6 +57,8 @@ class DefaultFilterProvider @Inject constructor(
             getFilterFromPreference(preferences.getStringValue(R.string.p_default_list), null)
                     ?.takeIf { it.isWritable }
                     ?: getAnyList()
+
+    fun setLastViewedFilter(filter: Filter) = setFilterPreference(filter, R.string.p_last_viewed_list)
 
     private suspend fun getLastViewedFilter() = getFilterFromPreference(R.string.p_last_viewed_list)
 

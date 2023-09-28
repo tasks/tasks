@@ -139,7 +139,6 @@ unstable class MainActivity {
   unstable var defaultFilterProvider: DefaultFilterProvider
   unstable var theme: Theme
   unstable var taskDao: TaskDao
-  unstable var localBroadcastManager: LocalBroadcastManager
   unstable var taskCreator: TaskCreator
   unstable var inventory: Inventory
   unstable var colorProvider: ColorProvider
@@ -156,12 +155,13 @@ unstable class MainActivity {
   unstable val settingsRequest: ActivityResultLauncher<@[FlexibleNullability] Intent?>
   <runtime stability> = Unstable
 }
-stable class State {
+unstable class State {
   stable val begForMoney: Boolean
-  runtime val filter: Filter?
+  runtime val filter: Filter
+  unstable val task: Task?
   stable val drawerOpen: Boolean
   runtime val drawerItems: ImmutableList<DrawerItem>
-  <runtime stability> = 
+  <runtime stability> = Unstable
 }
 unstable class MainActivityViewModel {
   unstable val defaultFilterProvider: DefaultFilterProvider
@@ -231,13 +231,13 @@ unstable class TaskListFragment {
   unstable var taskListEventBus: MutableSharedFlow<TaskListEvent>{ org.tasks.ui.TaskListEventBus }
   unstable var taskEditEventBus: MutableSharedFlow<TaskEditEvent>{ org.tasks.ui.TaskEditEventBus }
   unstable val listViewModel$delegate: Lazy<TaskListViewModel>
+  unstable val mainViewModel$delegate: Lazy<MainActivityViewModel>
   unstable var taskAdapter: TaskAdapter
   unstable var recyclerAdapter: DragAndDropRecyclerAdapter?
   runtime var filter: Filter
   unstable var search: MenuItem
   unstable var mode: ActionMode?
   unstable var themeColor: ThemeColor
-  runtime var callbacks: TaskListFragmentCallbackHandler
   unstable var binding: FragmentTaskListBinding
   stable val onBackPressed: <no name provided>
   unstable val sortRequest: ActivityResultLauncher<@[FlexibleNullability] Intent?>
@@ -3071,10 +3071,6 @@ unstable class LocationControlSet {
   unstable var permissionChecker: PermissionChecker
   <runtime stability> = Unstable
 }
-unstable class OpenTask {
-  unstable val task: Task
-  <runtime stability> = Unstable
-}
 stable class ClearTaskEditFragment {
   <runtime stability> = Stable
 }
@@ -3086,10 +3082,10 @@ unstable class SubtaskControlSet {
   unstable var taskDao: TaskDao
   unstable var checkBoxProvider: CheckBoxProvider
   unstable var chipProvider: ChipProvider
-  unstable var eventBus: MutableSharedFlow<MainActivityEvent>{ org.tasks.ui.MainActivityEventBus }
   unstable var colorProvider: ColorProvider
   unstable var preferences: Preferences
   unstable var listViewModel: TaskListViewModel
+  unstable val mainViewModel$delegate: Lazy<MainActivityViewModel>
   <runtime stability> = Unstable
 }
 unstable class TaskEditControlFragment {
