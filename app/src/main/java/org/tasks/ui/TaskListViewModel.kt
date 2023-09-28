@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.SearchFilter
+import com.todoroo.astrid.core.BuiltInFilterExposer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -48,6 +50,7 @@ class TaskListViewModel @Inject constructor(
     data class State(
         val filter: Filter? = null,
         val now: Long = DateUtilities.now(),
+        val searchQuery: String? = null,
         val tasks: List<TaskContainer> = emptyList(),
         val begForSubscription: Boolean = false,
         val syncOngoing: Boolean = false,
@@ -66,6 +69,10 @@ class TaskListViewModel @Inject constructor(
         _state.update {
             it.copy(filter = filter)
         }
+    }
+
+    fun setSearchQuery(query: String?) {
+        _state.update { it.copy(searchQuery = query?.trim()) }
     }
 
     fun invalidate() {
@@ -99,7 +106,14 @@ class TaskListViewModel @Inject constructor(
         _state
             .filter { it.filter != null }
             .throttleLatest(333)
-            .map { taskDao.fetchTasks { getQuery(preferences, it.filter!!) } }
+            .map {
+                val filter = when {
+                    it.searchQuery == null -> it.filter!!
+                    it.searchQuery.isBlank() -> BuiltInFilterExposer.getMyTasksFilter(context.resources)
+                    else -> context.createSearchQuery(it.searchQuery)
+                }
+                taskDao.fetchTasks { getQuery(preferences, filter) }
+            }
             .onEach { tasks ->
                 _state.update {
                     it.copy(tasks = tasks)
@@ -119,5 +133,10 @@ class TaskListViewModel @Inject constructor(
 
     override fun onCleared() {
         localBroadcastManager.unregisterReceiver(refreshReceiver)
+    }
+
+    companion object {
+        fun Context.createSearchQuery(query: String): Filter =
+            SearchFilter(getString(R.string.FLA_search_filter, query), query)
     }
 }

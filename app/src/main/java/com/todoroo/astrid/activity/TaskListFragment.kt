@@ -55,7 +55,6 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.IdListFilter
-import com.todoroo.astrid.api.SearchFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
@@ -69,9 +68,7 @@ import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -119,6 +116,7 @@ import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskListEvent
 import org.tasks.ui.TaskListEventBus
 import org.tasks.ui.TaskListViewModel
+import org.tasks.ui.TaskListViewModel.Companion.createSearchQuery
 import java.time.format.FormatStyle
 import java.util.Locale
 import javax.inject.Inject
@@ -159,9 +157,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private lateinit var taskAdapter: TaskAdapter
     private var recyclerAdapter: DragAndDropRecyclerAdapter? = null
     private lateinit var filter: Filter
-    private var searchJob: Job? = null
     private lateinit var search: MenuItem
-    private var searchQuery: String? = null
     private var mode: ActionMode? = null
     lateinit var themeColor: ThemeColor
     private lateinit var callbacks: TaskListFragmentCallbackHandler
@@ -219,7 +215,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         super.onSaveInstanceState(outState)
         val selectedTaskIds: List<Long> = taskAdapter.getSelected()
         outState.putLongArray(EXTRA_SELECTED_TASK_IDS, selectedTaskIds.toLongArray())
-        outState.putString(EXTRA_SEARCH, searchQuery)
         outState.putLongArray(EXTRA_COLLAPSED, taskAdapter.getCollapsed().toLongArray())
     }
 
@@ -258,10 +253,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         // set up list adapters
         taskAdapter = taskAdapterProvider.createTaskAdapter(filter)
         taskAdapter.setCollapsed(savedInstanceState?.getLongArray(EXTRA_COLLAPSED))
-        if (savedInstanceState != null) {
-            searchQuery = savedInstanceState.getString(EXTRA_SEARCH)
-        }
-        listViewModel.setFilter((if (searchQuery == null) filter else createSearchFilter(searchQuery!!)))
+        listViewModel.setFilter(filter)
         (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         recyclerView.layoutManager = LinearLayoutManager(context)
         lifecycleScope.launch {
@@ -392,25 +384,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         } else {
             startActivity(TaskIntents.getTaskListIntent(context, filter))
         }
-    }
-
-    private fun searchByQuery(query: String?) {
-        searchJob?.cancel()
-        searchJob = lifecycleScope.launch {
-            delay(SEARCH_DEBOUNCE_TIMEOUT)
-            searchQuery = query?.trim { it <= ' ' } ?: ""
-            if (searchQuery?.isEmpty() == true) {
-                listViewModel.setFilter(
-                    BuiltInFilterExposer.getMyTasksFilter(requireContext().resources))
-            } else {
-                val savedFilter = createSearchFilter(searchQuery!!)
-                listViewModel.setFilter(savedFilter)
-            }
-        }
-    }
-
-    private fun createSearchFilter(query: String): Filter {
-        return SearchFilter(getString(R.string.FLA_search_filter, query), query)
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -657,9 +630,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
         onBackPressed.isEnabled = true
         search.setOnQueryTextListener(this)
-        if (searchQuery == null) {
-            searchByQuery("")
-        }
+        listViewModel.setSearchQuery("")
         if (preferences.isTopAppBar) {
             binding.toolbar.menu.forEach { it.isVisible = false }
         }
@@ -670,8 +641,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         onBackPressed.isEnabled = false
         search.setOnQueryTextListener(null)
         listViewModel.setFilter(filter)
-        searchJob?.cancel()
-        searchQuery = null
+        listViewModel.setSearchQuery(null)
         if (preferences.isTopAppBar) {
             setupMenu(binding.toolbar)
         }
@@ -679,13 +649,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {
-        openFilter(createSearchFilter(query.trim { it <= ' ' }))
+        openFilter(requireContext().createSearchQuery(query.trim()))
         search.collapseActionView()
         return true
     }
 
     override fun onQueryTextChange(query: String): Boolean {
-        searchByQuery(query)
+        listViewModel.setSearchQuery(query)
         return true
     }
 
@@ -988,7 +958,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         const val ACTION_RELOAD = "action_reload"
         const val ACTION_DELETED = "action_deleted"
         private const val EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids"
-        private const val EXTRA_SEARCH = "extra_search"
         private const val EXTRA_COLLAPSED = "extra_collapsed"
         private const val VOICE_RECOGNITION_REQUEST_CODE = 1234
         private const val EXTRA_FILTER = "extra_filter"
@@ -997,7 +966,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
         private const val REQUEST_LIST_SETTINGS = 10101
         private const val REQUEST_TAG_TASKS = 10106
-        private const val SEARCH_DEBOUNCE_TIMEOUT = 300L
         fun newTaskListFragment(context: Context, filter: Filter?): TaskListFragment {
             val fragment = TaskListFragment()
             val bundle = Bundle()
