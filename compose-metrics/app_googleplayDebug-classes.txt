@@ -148,11 +148,33 @@ unstable class MainActivity {
   runtime var alarmDao: AlarmDao
   unstable var eventBus: MutableSharedFlow<MainActivityEvent>{ org.tasks.ui.MainActivityEventBus }
   unstable var firebase: Firebase
+  unstable val viewModel$delegate: Lazy<MainActivityViewModel>
   stable var currentNightMode: Int
   stable var currentPro: Boolean
-  runtime var filter: Filter?
   unstable var actionMode: ActionMode?
   unstable var binding: TaskListActivityBinding
+  unstable val settingsRequest: ActivityResultLauncher<@[FlexibleNullability] Intent?>
+  <runtime stability> = Unstable
+}
+stable class State {
+  stable val begForMoney: Boolean
+  runtime val filter: Filter?
+  stable val drawerOpen: Boolean
+  runtime val drawerItems: ImmutableList<DrawerItem>
+  <runtime stability> = 
+}
+unstable class MainActivityViewModel {
+  unstable val defaultFilterProvider: DefaultFilterProvider
+  unstable val filterProvider: FilterProvider
+  stable val taskDao: TaskDao
+  unstable val localBroadcastManager: LocalBroadcastManager
+  unstable val inventory: Inventory
+  unstable val colorProvider: ColorProvider
+  stable val caldavDao: CaldavDao
+  unstable val preferences: Preferences
+  unstable val _state: MutableStateFlow<State>
+  unstable val state: StateFlow<State>
+  stable val refreshReceiver: <no name provided>
   <runtime stability> = Unstable
 }
 unstable class ShareLinkActivity {
@@ -222,14 +244,6 @@ unstable class TaskListFragment {
   unstable val listSettingsRequest: ActivityResultLauncher<@[FlexibleNullability] Intent?>
   <runtime stability> = Unstable
 }
-unstable class ActionViewHolder {
-  unstable val context: Context
-  stable val onClick: Function1<NavigationDrawerAction, Unit>
-  unstable val row: View
-  unstable val text: TextView
-  unstable val icon: ImageView
-  <runtime stability> = Unstable
-}
 unstable class AstridTaskAdapter {
   unstable val list: TaskListMetadata
   runtime val filter: AstridOrderingFilter
@@ -267,16 +281,12 @@ unstable class NavigationDrawerAdapter {
   unstable val colorProvider: ColorProvider
   unstable val subheaderClickHandler: SubheaderClickHandler
   stable var onClick: Function1<FilterListItem?, Unit>
-  runtime var selected: Filter?
   unstable val channel: Channel<List<FilterListItem>>
   unstable val updates: Queue<Pair<MutableList<FilterListItem>, DiffResult?>>
   unstable val scope: CoroutineScope
   unstable var items: MutableList<FilterListItem>
   stable var dragging: Boolean
   <runtime stability> = Unstable
-}
-stable class SeparatorViewHolder {
-  <runtime stability> = Stable
 }
 unstable class SubheaderClickHandler {
   unstable val activity: Activity
@@ -329,37 +339,34 @@ stable class BooleanCriterion {
 unstable class CaldavFilter {
   unstable val calendar: CaldavCalendar
   stable val principals: Int
-  stable var count: Int
+  stable val count: Int
   <runtime stability> = Unstable
 }
-unstable class CustomFilter {
+stable class CustomFilter {
   stable val filter: Filter
-  stable var count: Int
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
-unstable class FilterImpl {
+stable class FilterImpl {
   stable val title: String?
   stable val sql: String?
   stable val valuesForNewTasks: String?
   stable val icon: Int
   stable val tint: Int
-  stable var count: Int
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
 unstable class GtasksFilter {
   unstable val list: CaldavCalendar
-  stable var count: Int
+  stable val count: Int
   <runtime stability> = Unstable
 }
-unstable class SearchFilter {
+stable class SearchFilter {
   stable val title: String
   stable val query: String
-  stable var count: Int
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
 unstable class TagFilter {
   unstable val tagData: TagData
-  stable var count: Int
+  stable val count: Int
   stable var filterOverride: String?
   <runtime stability> = Unstable
 }
@@ -758,7 +765,7 @@ unstable class FilterSettingsActivity {
   unstable var nameLayout: TextInputLayout
   unstable var recyclerView: RecyclerView
   unstable var fab: ExtendedFloatingActionButton
-  unstable var filter: CustomFilter?
+  stable var filter: CustomFilter?
   unstable var adapter: CustomFilterAdapter
   unstable var criteria: MutableList<CriterionInstance>
   stable val defaultIcon: Int
@@ -1276,6 +1283,24 @@ unstable class PurchaseText {
   stable val POPPER: String
   unstable val featureList: List<CarouselItem>
   <runtime stability> = Unstable
+}
+stable class Filter {
+  stable val title: String
+  stable val icon: Int
+  stable val color: Int
+  stable val count: Int
+  stable val shareCount: Int
+  stable val selected: Boolean
+  stable val type: Function0<Filter>
+  <runtime stability> = Stable
+}
+stable class Header {
+  stable val title: String
+  stable val collapsed: Boolean
+  stable val hasError: Boolean
+  stable val canAdd: Boolean
+  stable val type: Function0<NavigationDrawerSubheader>
+  <runtime stability> = Stable
 }
 unstable class DashClockExtension {
   unstable val job: CompletableJob
@@ -1907,7 +1932,6 @@ unstable class FilterCriteriaProvider {
 }
 unstable class FilterProvider {
   unstable val context: Context
-  unstable val inventory: Inventory
   unstable val builtInFilterExposer: BuiltInFilterExposer
   runtime val filterDao: FilterDao
   stable val tagDataDao: TagDataDao
@@ -1930,20 +1954,7 @@ unstable class LocationFilters {
 unstable class MyTasksFilter {
   stable val title: String
   stable var filterOverride: String?
-  stable var count: Int
   <runtime stability> = Unstable
-}
-unstable class NavigationDrawerAction {
-  stable val title: String
-  stable val icon: Int
-  stable val requestCode: Int
-  unstable val intent: Intent?
-  stable val itemType: Type
-  <runtime stability> = Unstable
-}
-stable class NavigationDrawerSeparator {
-  stable val itemType: Type
-  <runtime stability> = Stable
 }
 unstable class NavigationDrawerSubheader {
   stable val title: String?
@@ -1956,25 +1967,22 @@ unstable class NavigationDrawerSubheader {
   stable val itemType: Type
   <runtime stability> = Unstable
 }
-unstable class NotificationsFilter {
+stable class NotificationsFilter {
   stable val title: String
-  stable var count: Int
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
-unstable class PlaceFilter {
+stable class PlaceFilter {
   stable val place: Place
-  stable var count: Int
-  <runtime stability> = Unstable
+  stable val count: Int
+  <runtime stability> = Stable
 }
-unstable class RecentlyModifiedFilter {
+stable class RecentlyModifiedFilter {
   stable val title: String
-  stable var count: Int
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
-unstable class SnoozedFilter {
+stable class SnoozedFilter {
   stable val title: String
-  stable var count: Int
-  <runtime stability> = Unstable
+  <runtime stability> = Stable
 }
 unstable class TagFilters {
   unstable var tagData: TagData
@@ -1984,7 +1992,6 @@ unstable class TagFilters {
 unstable class TodayFilter {
   stable val title: String
   stable var filterOverride: String?
-  stable var count: Int
   <runtime stability> = Unstable
 }
 unstable class CommentBarFragment {
@@ -2857,7 +2864,7 @@ unstable class TagPickerActivity {
   unstable var inventory: Inventory
   unstable var colorProvider: ColorProvider
   unstable val viewModel$delegate: Lazy<TagPickerViewModel>
-  unstable var taskIds: ArrayList<Long>?
+  unstable var taskIds: ArrayList<Long>?{ kotlin.collections.TypeAliasesKt.ArrayList<Long>? }
   unstable var editText: EditText
   <runtime stability> = Unstable
 }
@@ -3061,26 +3068,6 @@ unstable class OpenTask {
 }
 stable class ClearTaskEditFragment {
   <runtime stability> = Stable
-}
-unstable class NavigationDrawerFragment {
-  unstable var adapter: NavigationDrawerAdapter
-  unstable var preferences: Preferences
-  unstable var recyclerView: RecyclerView
-  unstable val viewModel$delegate: Lazy<NavigationDrawerViewModel>
-  <runtime stability> = Unstable
-}
-unstable class ViewState {
-  runtime val selected: Filter?
-  unstable val filters: List<FilterListItem>
-  <runtime stability> = Unstable
-}
-unstable class NavigationDrawerViewModel {
-  unstable val filterProvider: FilterProvider
-  stable val taskDao: TaskDao
-  unstable val localBroadcastManager: LocalBroadcastManager
-  unstable val _viewState: MutableStateFlow<ViewState>
-  stable val refreshReceiver: <no name provided>
-  <runtime stability> = Unstable
 }
 unstable class SubtaskControlSet {
   unstable var activity: Activity

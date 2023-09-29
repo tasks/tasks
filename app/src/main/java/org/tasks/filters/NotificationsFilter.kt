@@ -3,7 +3,6 @@ package org.tasks.filters
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.Filter.Companion.NO_COUNT
 import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.data.Task
 import kotlinx.parcelize.Parcelize
@@ -13,7 +12,6 @@ import org.tasks.notifications.Notification
 @Parcelize
 data class NotificationsFilter(
     override val title: String,
-    override var count: Int = NO_COUNT,
 ) : Filter {
     override val icon: Int
         get() = R.drawable.ic_outline_notifications_24px

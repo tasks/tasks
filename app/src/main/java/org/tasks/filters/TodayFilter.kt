@@ -4,7 +4,6 @@ import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.AstridOrderingFilter
-import com.todoroo.astrid.api.Filter.Companion.NO_COUNT
 import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.data.Task
@@ -16,7 +15,6 @@ import org.tasks.themes.CustomIcons
 data class TodayFilter(
     override val title: String,
     override var filterOverride: String? = null,
-    override var count: Int = NO_COUNT,
 ) : AstridOrderingFilter {
     override val sql: String
         get() = QueryTemplate()

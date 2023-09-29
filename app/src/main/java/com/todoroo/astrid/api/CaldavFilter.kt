@@ -15,7 +15,7 @@ import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 data class CaldavFilter(
     val calendar: CaldavCalendar,
     val principals: Int = 0,
-    override var count: Int = NO_COUNT,
+    override val count: Int = NO_COUNT,
 ) : Filter {
     override val title: String?
         get() = calendar.name

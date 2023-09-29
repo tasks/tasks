@@ -7,9 +7,8 @@ data class LocationFilters(
     @JvmField @Embedded var place: Place,
     @JvmField var count: Int
 ) {
-    fun toLocationFilter(): PlaceFilter {
-        val filter = PlaceFilter(place)
-        filter.count = count
-        return filter
-    }
+    fun toLocationFilter(): PlaceFilter = PlaceFilter(
+        place = place,
+        count = count,
+    )
 }

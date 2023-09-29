@@ -14,7 +14,7 @@ import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 @Parcelize
 data class TagFilter(
     val tagData: TagData,
-    override var count: Int = NO_COUNT,
+    override val count: Int = NO_COUNT,
     override var filterOverride: String? = null,
 ) : AstridOrderingFilter {
     override val title: String?

@@ -100,11 +100,6 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     private fun updateFilters() = lifecycleScope.launch {
         filterProvider
                 .drawerCustomizationItems()
-                .onEach { f ->
-                    if (f is Filter) {
-                        f.count = 0
-                    }
-                }
                 .let { adapter.submitList(it) }
     }
 

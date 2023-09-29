@@ -207,6 +207,7 @@ dependencies {
     debugImplementation(libs.kotlin.reflect)
 
     implementation(libs.kotlin.jdk8)
+    implementation(libs.kotlin.immutable)
     implementation(libs.okhttp)
     implementation(libs.persistent.cookiejar)
     implementation(libs.gson)

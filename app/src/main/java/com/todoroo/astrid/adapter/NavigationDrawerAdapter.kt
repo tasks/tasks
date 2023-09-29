@@ -18,7 +18,6 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.billing.Inventory
-import org.tasks.filters.NavigationDrawerAction
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.themes.ColorProvider
 import java.util.LinkedList
@@ -38,7 +37,6 @@ class NavigationDrawerAdapter @Inject constructor(
     DragAndDropDiffer<FilterListItem, MutableList<FilterListItem>> {
 
     private lateinit var onClick: (FilterListItem?) -> Unit
-    private var selected: Filter? = null
     override val channel = Channel<List<FilterListItem>>(Channel.UNLIMITED)
     override val updates: Queue<Pair<MutableList<FilterListItem>, DiffUtil.DiffResult?>> = LinkedList()
     override val scope: CoroutineScope =
@@ -58,11 +56,6 @@ class NavigationDrawerAdapter @Inject constructor(
 
     override fun getItemCount() = items.size
 
-    fun setSelected(selected: Filter?) {
-        this.selected = selected
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val type = FilterListItem.Type.values()[viewType]
         val view = LayoutInflater.from(parent.context).inflate(type.layout, parent, false)
@@ -70,20 +63,17 @@ class NavigationDrawerAdapter @Inject constructor(
             FilterListItem.Type.ITEM -> FilterViewHolder(
                         view, true, locale, activity, inventory, colorProvider) { onClickFilter(it) }
             FilterListItem.Type.SUBHEADER -> SubheaderViewHolder(view, subheaderClickHandler)
-            FilterListItem.Type.ACTION -> ActionViewHolder(activity, view) { onClickFilter(it) }
-            else -> SeparatorViewHolder(view)
         }
     }
 
     private fun onClickFilter(filter: FilterListItem?) =
-        onClick(if (filter == selected) null else filter)
+        onClick(filter)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
         when (item.itemType) {
             FilterListItem.Type.ITEM ->
-                (holder as FilterViewHolder).bind(item as Filter, item == selected, max(item.count, 0))
-            FilterListItem.Type.ACTION -> (holder as ActionViewHolder).bind(item as NavigationDrawerAction)
+                (holder as FilterViewHolder).bind(item as Filter, false, max(item.count, 0))
             FilterListItem.Type.SUBHEADER ->
                 (holder as SubheaderViewHolder).bind((item as NavigationDrawerSubheader))
             else -> {}

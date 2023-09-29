@@ -8,9 +8,8 @@ data class GoogleTaskFilters(
     @JvmField @Embedded val googleTaskList: CaldavCalendar,
     @JvmField val count: Int,
 ) {
-    fun toGtasksFilter(): GtasksFilter {
-        val filter = GtasksFilter(googleTaskList)
-        filter.count = count
-        return filter
-    }
+    fun toGtasksFilter(): GtasksFilter = GtasksFilter(
+        list = googleTaskList,
+        count = count,
+    )
 }

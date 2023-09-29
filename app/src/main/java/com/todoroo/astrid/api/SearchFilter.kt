@@ -4,7 +4,6 @@ import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.Query
 import com.todoroo.andlib.sql.QueryTemplate
-import com.todoroo.astrid.api.Filter.Companion.NO_COUNT
 import com.todoroo.astrid.data.Task
 import kotlinx.parcelize.Parcelize
 import org.tasks.data.CaldavCalendar
@@ -18,7 +17,6 @@ import org.tasks.data.UserActivity
 data class SearchFilter(
     override val title: String,
     val query: String,
-    override var count: Int = NO_COUNT,
 ) : Filter {
     override val sql: String
         get() {

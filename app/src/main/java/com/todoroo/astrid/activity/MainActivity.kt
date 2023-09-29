@@ -8,12 +8,23 @@ package com.todoroo.astrid.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.activity.TaskListFragment.TaskListFragmentCallbackHandler
+import com.todoroo.astrid.adapter.SubheaderClickHandler
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -29,20 +40,32 @@ import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.Tasks.Companion.IS_GENERIC
+import org.tasks.activities.NavigationDrawerCustomization
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
+import org.tasks.billing.PurchaseActivity
+import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.compose.drawer.DrawerAction
+import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.data.AlarmDao
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.data.TagDataDao
 import org.tasks.databinding.TaskListActivityBinding
+import org.tasks.dialogs.NewFilterDialog
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.extensions.Context.nightMode
+import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.hideKeyboard
+import org.tasks.filters.FilterProvider
 import org.tasks.filters.PlaceFilter
 import org.tasks.intents.TaskIntents.getTaskListIntent
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.DefaultFilterProvider
+import org.tasks.preferences.HelpAndFeedback
+import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
@@ -50,8 +73,6 @@ import org.tasks.themes.ThemeColor
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
 import org.tasks.ui.MainActivityEvent
 import org.tasks.ui.MainActivityEventBus
-import org.tasks.ui.NavigationDrawerFragment
-import org.tasks.ui.NavigationDrawerFragment.Companion.newNavigationDrawer
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -71,14 +92,23 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
     @Inject lateinit var eventBus: MainActivityEventBus
     @Inject lateinit var firebase: Firebase
 
+    private val viewModel: MainActivityViewModel by viewModels()
     private var currentNightMode = 0
     private var currentPro = false
-    private var filter: Filter? = null
     private var actionMode: ActionMode? = null
     private lateinit var binding: TaskListActivityBinding
 
+    private val filter: Filter?
+        get() = viewModel.state.value.filter
+
+    private val settingsRequest =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            recreate()
+        }
+
     /** @see android.app.Activity.onCreate
      */
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme.applyTheme(this)
@@ -86,15 +116,112 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
         currentPro = inventory.hasPro
         binding = TaskListActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if (savedInstanceState != null) {
-            filter = savedInstanceState.getParcelable(EXTRA_FILTER)
-            applyTheme()
-        }
         handleIntent()
+
+        binding.composeView.setContent {
+            val state = viewModel.state.collectAsStateLifecycleAware().value
+            if (state.drawerOpen) {
+                MdcTheme {
+                    val sheetState = rememberModalBottomSheetState(
+                        skipPartiallyExpanded = preferences.isTopAppBar,
+                    )
+                    ModalBottomSheet(
+                        sheetState = sheetState,
+                        containerColor = MaterialTheme.colors.surface,
+                        onDismissRequest = { viewModel.setDrawerOpen(false) }
+                    ) {
+                        val scope = rememberCoroutineScope()
+                        TaskListDrawer(
+                            begForMoney = state.begForMoney,
+                            filters = state.drawerItems,
+                            onClick = {
+                                when (it) {
+                                    is DrawerItem.Filter -> {
+                                        openTaskListFragment(it.type())
+                                        scope.launch(Dispatchers.Default) {
+                                            sheetState.hide()
+                                            viewModel.setDrawerOpen(false)
+                                        }
+                                    }
+                                    is DrawerItem.Header -> {
+                                        viewModel.toggleCollapsed(it.type())
+                                    }
+                                }
+                            },
+                            onAddClick = {
+                                scope.launch(Dispatchers.Default) {
+                                    sheetState.hide()
+                                    viewModel.setDrawerOpen(false)
+                                    val subheaderType = it.type()
+                                    val rc = subheaderType.addIntentRc
+                                    if (rc == FilterProvider.REQUEST_NEW_FILTER) {
+                                        NewFilterDialog.newFilterDialog().show(
+                                            supportFragmentManager,
+                                            SubheaderClickHandler.FRAG_TAG_NEW_FILTER
+                                        )
+                                    } else {
+                                        val intent = subheaderType.addIntent ?: return@launch
+                                        startActivityForResult(intent, rc)
+                                    }
+                                }
+                            },
+                            onDrawerAction = {
+                                viewModel.setDrawerOpen(false)
+                                when (it) {
+                                    DrawerAction.PURCHASE ->
+                                        if (IS_GENERIC)
+                                            openUri(R.string.url_donate)
+                                        else
+                                            startActivity(
+                                                Intent(
+                                                    this@MainActivity,
+                                                    PurchaseActivity::class.java
+                                                )
+                                            )
+
+                                    DrawerAction.CUSTOMIZE_DRAWER ->
+                                        startActivity(
+                                            Intent(
+                                                this@MainActivity,
+                                                NavigationDrawerCustomization::class.java
+                                            )
+                                        )
+
+                                    DrawerAction.SETTINGS ->
+                                        settingsRequest.launch(
+                                            Intent(
+                                                this@MainActivity,
+                                                MainPreferences::class.java
+                                            )
+                                        )
+
+                                    DrawerAction.HELP_AND_FEEDBACK ->
+                                        startActivity(
+                                            Intent(
+                                                this@MainActivity,
+                                                HelpAndFeedback::class.java
+                                            )
+                                        )
+                                }
+                            },
+                            onErrorClick = {
+                                startActivity(Intent(this@MainActivity, MainPreferences::class.java))
+                            },
+                        )
+                    }
+                }
+            }
+        }
 
         eventBus
             .onEach(this::process)
             .launchIn(lifecycleScope)
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                applyTheme()
+            }
+        }
     }
 
     private suspend fun process(event: MainActivityEvent) = when (event) {
@@ -106,14 +233,13 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            NavigationDrawerFragment.REQUEST_SETTINGS -> recreate()
-            NavigationDrawerFragment.REQUEST_NEW_LIST ->
+            REQUEST_NEW_LIST ->
                 if (resultCode == RESULT_OK) {
                     data
                             ?.getParcelableExtra<Filter>(OPEN_FILTER)
                             ?.let { startActivity(getTaskListIntent(this, it)) }
                 }
-            NavigationDrawerFragment.REQUEST_NEW_PLACE ->
+            REQUEST_NEW_PLACE ->
                 if (resultCode == RESULT_OK) {
                     data
                             ?.getParcelableExtra<Place>(LocationPickerActivity.EXTRA_PLACE)
@@ -130,14 +256,9 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
         handleIntent()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(EXTRA_FILTER, filter)
-    }
-
     private fun clearUi() {
         finishActionMode()
-        navigationDrawer?.dismiss()
+        viewModel.setDrawerOpen(false)
     }
 
     private suspend fun getTaskToLoad(filter: Filter?): Task? {
@@ -274,8 +395,10 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
     }
 
     private fun setFilter(newFilter: Filter?) {
-        filter = newFilter
-        applyTheme()
+        newFilter?.let {
+            viewModel.setFilter(it)
+            applyTheme()
+        }
     }
 
     private fun openTaskListFragment(filter: Filter?, force: Boolean = false) {
@@ -291,8 +414,7 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
         if (!force && filter == newFilter) {
             return
         }
-        filter = newFilter
-        defaultFilterProvider.lastViewedFilter = newFilter
+        viewModel.setFilter(newFilter)
         applyTheme()
         supportFragmentManager
                 .beginTransaction()
@@ -308,10 +430,8 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
     }
 
     private val filterColor: ThemeColor
-        get() = if (filter != null && filter!!.tint != 0) colorProvider.getThemeColor(filter!!.tint, true) else theme.themeColor
-
-    private val navigationDrawer: NavigationDrawerFragment?
-        get() = supportFragmentManager.findFragmentByTag(FRAG_TAG_NAV_DRAWER) as? NavigationDrawerFragment
+        get() = filter?.tint?.takeIf { it != 0 }
+            ?.let { colorProvider.getThemeColor(it, true) } ?: theme.themeColor
 
     override fun onResume() {
         super.onResume()
@@ -362,7 +482,7 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
 
     override fun onNavigationIconClicked() {
         hideKeyboard()
-        newNavigationDrawer(filter).show(supportFragmentManager, FRAG_TAG_NAV_DRAWER)
+        viewModel.setDrawerOpen(true)
     }
 
     private val taskListFragment: TaskListFragment?
@@ -413,10 +533,10 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
         const val FINISH_AFFINITY = "finish_affinity"
         private const val FRAG_TAG_TASK_LIST = "frag_tag_task_list"
         private const val FRAG_TAG_WHATS_NEW = "frag_tag_whats_new"
-        private const val FRAG_TAG_NAV_DRAWER = "frag_tag_nav_drawer"
-        private const val EXTRA_FILTER = "extra_filter"
         private const val FLAG_FROM_HISTORY
                 = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
+        const val REQUEST_NEW_LIST = 10100
+        const val REQUEST_NEW_PLACE = 10104
 
         val Intent.getFilter: Filter?
             get() = if (isFromHistory) {

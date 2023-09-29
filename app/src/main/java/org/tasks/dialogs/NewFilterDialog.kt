@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.CustomFilterCriterion
 import com.todoroo.astrid.core.CriterionInstance
 import com.todoroo.astrid.core.CriterionInstance.Companion.TYPE_INTERSECT
@@ -14,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.FilterSettingsActivity
 import org.tasks.filters.FilterCriteriaProvider
-import org.tasks.ui.NavigationDrawerFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -123,7 +123,7 @@ class NewFilterDialog : DialogFragment() {
             intent.putExtra(FilterSettingsActivity.EXTRA_TITLE, title)
             intent.putExtra(FilterSettingsActivity.EXTRA_CRITERIA, serialize(list))
         }
-        activity?.startActivityForResult(intent, NavigationDrawerFragment.REQUEST_NEW_LIST)
+        activity?.startActivityForResult(intent, MainActivity.REQUEST_NEW_LIST)
         dismiss()
     }
 

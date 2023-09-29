@@ -9,12 +9,9 @@ data class CaldavFilters(
     @JvmField val count: Int,
     @JvmField val principals: Int,
 ) {
-    fun toCaldavFilter(): CaldavFilter {
-        val filter = CaldavFilter(
-            calendar = caldavCalendar,
-            principals = principals,
-        )
-        filter.count = count
-        return filter
-    }
+    fun toCaldavFilter(): CaldavFilter = CaldavFilter(
+        calendar = caldavCalendar,
+        principals = principals,
+        count = count,
+    )
 }

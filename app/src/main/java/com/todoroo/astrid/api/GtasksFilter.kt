@@ -15,7 +15,7 @@ import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 @Parcelize
 data class GtasksFilter(
     val list: CaldavCalendar,
-    override var count: Int = NO_COUNT,
+    override val count: Int = NO_COUNT,
 ) : Filter {
     override val title: String?
         get() = list.name

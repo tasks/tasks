@@ -8,9 +8,8 @@ data class TagFilters(
     @JvmField @Embedded var tagData: TagData,
     @JvmField var count: Int,
 ) {
-    fun toTagFilter(): TagFilter {
-        val filter = TagFilter(tagData)
-        filter.count = count
-        return filter
-    }
+    fun toTagFilter(): TagFilter = TagFilter(
+        tagData = tagData,
+        count = count,
+    )
 }

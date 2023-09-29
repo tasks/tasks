@@ -36,7 +36,6 @@ import org.tasks.themes.ThemeBase.DEFAULT_BASE_THEME
 import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import org.tasks.themes.ThemeColor
 import org.tasks.themes.ThemeColor.getLauncherColor
-import org.tasks.ui.NavigationDrawerFragment.Companion.REQUEST_PURCHASE
 import java.util.Locale
 import javax.inject.Inject
 
@@ -246,6 +245,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
         private const val REQUEST_ACCENT_PICKER = 10003
         private const val REQUEST_LAUNCHER_PICKER = 10004
         private const val REQUEST_LOCALE = 10006
+        private const val REQUEST_PURCHASE = 10007
         private const val FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker"
         private const val FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"

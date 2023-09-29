@@ -397,6 +397,42 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compo
   stable content: Function2<Composer, Int, Unit>
   stable onClick: Function0<Unit>? = @static null
 )
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TaskListDrawer(
+  stable begForMoney: Boolean
+  filters: ImmutableList<DrawerItem>
+  stable onClick: Function1<DrawerItem, Unit>
+  stable onDrawerAction: Function1<DrawerAction, Unit>
+  stable onAddClick: Function1<Header, Unit>
+  stable onErrorClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FilterItem(
+  stable item: Filter
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MenuAction(
+  stable icon: Int
+  stable title: Int
+  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DrawerIcon(
+  stable icon: Int
+  stable color: Int = @static 0
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HeaderItem(
+  stable item: Header
+  stable canAdd: Boolean
+  stable toggleCollapsed: Function0<Unit>
+  stable onAddClick: Function0<Unit>
+  stable onErrorClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun MenuRow(
+  stable padding: PaddingValues? = @static PaddingValues(
+  horizontal   =   16  .  dp
+)
+  stable onClick: Function0<Unit>
+  stable content: @[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MenuPreview()
 restartable scheme("[androidx.compose.ui.UiComposable]") fun AlarmRow(
   unstable vm: ReminderControlSetViewModel? = @dynamic viewModel(null, null, null, null, $composer, 0, 0b1111)
   stable permissionStatus: PermissionStatus

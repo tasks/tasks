@@ -30,20 +30,14 @@ import org.tasks.filters.TodayFilter
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
-/**
- * Exposes Astrid's built in filters to the NavigationDrawerFragment
- *
- * @author Tim Su <tim></tim>@todoroo.com>
- */
 class BuiltInFilterExposer @Inject constructor(
         @param:ApplicationContext private val context: Context,
         private val preferences: Preferences,
-        private val taskDao: TaskDao) {
+        private val taskDao: TaskDao
+) {
 
     val myTasksFilter: Filter
-        get() {
-            return getMyTasksFilter(context.resources)
-        }
+        get() = getMyTasksFilter(context.resources)
 
     suspend fun filters(): List<Filter> {
         val r = context.resources
@@ -67,9 +61,7 @@ class BuiltInFilterExposer @Inject constructor(
     }
 
     companion object {
-        fun getMyTasksFilter(r: Resources): AstridOrderingFilter {
-            return MyTasksFilter(r.getString(R.string.BFE_Active))
-        }
+        fun getMyTasksFilter(r: Resources) = MyTasksFilter(r.getString(R.string.BFE_Active))
 
         fun getTodayFilter(r: Resources): Filter {
             return TodayFilter(r.getString(R.string.today))
@@ -148,7 +140,7 @@ class BuiltInFilterExposer @Inject constructor(
             )
 
         fun getRecentlyModifiedFilter(r: Resources) =
-                RecentlyModifiedFilter(r.getString(R.string.BFE_Recent))
+            RecentlyModifiedFilter(r.getString(R.string.BFE_Recent))
 
         fun getSnoozedFilter(r: Resources) = SnoozedFilter(r.getString(R.string.filter_snoozed))
 

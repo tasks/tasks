@@ -1,7 +1,6 @@
 package com.todoroo.astrid.api
 
 import android.os.Parcelable
-import com.todoroo.astrid.api.Filter.Companion.NO_COUNT
 import kotlinx.parcelize.Parcelize
 
 interface Filter : FilterListItem, Parcelable {
@@ -14,7 +13,8 @@ interface Filter : FilterListItem, Parcelable {
     val tint: Int
         get() = 0
     @Deprecated("Remove this")
-    var count: Int
+    val count: Int
+        get() = NO_COUNT
     val order: Int
         get() = NO_ORDER
     override val itemType: FilterListItem.Type
@@ -49,7 +49,6 @@ data class FilterImpl(
     override val valuesForNewTasks: String? = null,
     override val icon: Int = -1,
     override val tint: Int = 0,
-    override var count: Int = NO_COUNT,
 ) : Filter {
     override fun areItemsTheSame(other: FilterListItem): Boolean {
         return other is Filter && sql == other.sql
