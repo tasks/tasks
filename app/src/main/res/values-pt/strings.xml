@@ -542,7 +542,7 @@
     <string name="background_location_permission_required">O Tarefas recolhe dados de localização para permitir lembretes baseados em localização, mesmo quando a aplicação está fechada ou não estiver a ser usada.</string>
     <string name="default_tags">Etiquetas predefinidas</string>
     <string name="header_spacing">Espaçamento</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="repeat_type_completion_capitalized">Data de término</string>
     <string name="always_display_full_date">Mostrar data completa</string>
     <plurals name="list_count">
@@ -630,8 +630,8 @@
     <string name="map_theme">Tema do mapa</string>
     <string name="default_recurrence">Recorrência predefinida</string>
     <string name="no_app_found">Nenhuma aplicação pode manipular este pedido</string>
-    <string name="filter_criteria_unstarted">Sem estrela</string>
-    <string name="show_unstarted">Mostrar sem estrela</string>
+    <string name="filter_criteria_unstarted">Não iniciada</string>
+    <string name="show_unstarted">Mostrar não iniciadas</string>
     <string name="widget_show_title">Mostrar título</string>
     <string name="yesterday_abbrev_lowercase">ontem</string>
     <string name="tomorrow_abbrev_lowercase">amanhã</string>
@@ -714,4 +714,19 @@
     <string name="sort_ascending">Ascendente</string>
     <string name="sort_descending">Descendente</string>
     <string name="sort_completed">Por hora de finalização</string>
+    <string name="change_priority">Mudar prioridade</string>
+    <string name="repeats_every">Repete a cada</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Mensalmente na %1$s %2$s</string>
+    <string name="repeats_after">Após</string>
+    <string name="repeats_custom_recurrence">Recorrência personalizada</string>
+    <string name="repeats_never">Nunca</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">ocorrência</item>
+        <item quantity="many">ocorrências</item>
+        <item quantity="other">ocorrências</item>
+    </plurals>
+    <string name="repeat_monthly_on_day_number">Mensalmente no dia %1d</string>
+    <string name="repeats_ends">Termina</string>
+    <string name="repeats_on">Ligado</string>
+    <string name="repeats_weekly_on">Repete em</string>
 </resources>
