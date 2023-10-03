@@ -223,8 +223,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
     }
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
+    override fun onAttach(context: Context) {
+        super.onAttach(requireContext())
         callbacks = activity as TaskListFragmentCallbackHandler
     }
 
