@@ -198,14 +198,13 @@ class GoogleTaskSynchronizer @Inject constructor(
         val defaultRemoteList = defaultFilterProvider.defaultList
         var listId = if (defaultRemoteList is GtasksFilter) defaultRemoteList.remoteId else DEFAULT_LIST
         if (isNullOrEmpty(gtasksMetadata.remoteId)) { // Create case
-            val selectedList = gtasksMetadata.calendar
-            if (!isNullOrEmpty(selectedList)) {
-                listId = selectedList
+            gtasksMetadata.calendar?.takeIf { it.isNotBlank() }?.let {
+                listId = it
             }
             newlyCreated = true
         } else { // update case
             remoteId = gtasksMetadata.remoteId
-            listId = gtasksMetadata.calendar
+            listId = gtasksMetadata.calendar!!
             remoteModel.id = remoteId
         }
 

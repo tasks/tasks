@@ -38,25 +38,25 @@ class TaskMover @Inject constructor(
         val googleTaskLists = googleTaskDao.getLists(tasks)
         if (caldavCalendars.isEmpty()) {
             if (googleTaskLists.size == 1) {
-                return GtasksFilter(googleTaskListDao.getByRemoteId(googleTaskLists[0]))
+                return googleTaskListDao.getByRemoteId(googleTaskLists[0])?.let { GtasksFilter(it) }
             }
         } else if (googleTaskLists.isEmpty()) {
             if (caldavCalendars.size == 1) {
-                return CaldavFilter(caldavDao.getCalendar(caldavCalendars[0]))
+                return caldavDao.getCalendar(caldavCalendars[0])?.let { CaldavFilter(it) }
             }
         }
         return null
     }
 
     suspend fun move(task: Long, list: Long) {
-        val list = caldavDao.getCalendarById(list) ?: return
-        val account = list.account?.let { caldavDao.getAccountByUuid(it) } ?: return
+        val calendar = caldavDao.getCalendarById(list) ?: return
+        val account = calendar.account?.let { caldavDao.getAccountByUuid(it) } ?: return
         move(
             ids = listOf(task),
             selectedList = if (account.accountType == CaldavAccount.TYPE_GOOGLE_TASKS)
-                GtasksFilter(list)
+                GtasksFilter(calendar)
             else
-                CaldavFilter(list))
+                CaldavFilter(calendar))
     }
 
     suspend fun move(ids: List<Long>, selectedList: Filter) {

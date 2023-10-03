@@ -87,7 +87,7 @@ class BuiltInFilterExposer @Inject constructor(
 
         fun getTodayFilter(r: Resources): Filter {
             val todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today))
-            val todayValues: MutableMap<String?, Any> = HashMap()
+            val todayValues: MutableMap<String, Any> = HashMap()
             todayValues[Task.DUE_DATE.name] = PermaSql.VALUE_NOON
             return SortableFilter(
                     todayTitle,

@@ -181,7 +181,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
         setResult(
                 Activity.RESULT_OK,
                 Intent(TaskListFragment.ACTION_RELOAD)
-                        .putExtra(MainActivity.OPEN_FILTER, CaldavFilter(caldavCalendar)))
+                        .putExtra(MainActivity.OPEN_FILTER, CaldavFilter(caldavCalendar!!)))
         finish()
     }
 

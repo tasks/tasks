@@ -274,7 +274,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         } else newName != filter!!.listingTitle
                 || selectedColor != filter!!.tint
                 || selectedIcon != filter!!.icon
-                || CriterionInstance.serialize(criteria) != filter!!.criterion.trim()
+                || CriterionInstance.serialize(criteria) != filter!!.criterion!!.trim()
                 || criteria.values != filter!!.valuesForNewTasks
                 || criteria.sql != filter!!.originalSqlQuery
     }

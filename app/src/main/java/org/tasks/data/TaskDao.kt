@@ -1,6 +1,11 @@
 package org.tasks.data
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.room.Update
+import androidx.room.withTransaction
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field
@@ -210,7 +215,7 @@ FROM recursive_tasks
     }
 
     suspend fun count(filter: Filter): Int {
-        val query = getQuery(filter.sqlQuery, Field.COUNT)
+        val query = getQuery(filter.originalSqlQuery!!, Field.COUNT)
         val start = if (BuildConfig.DEBUG) now() else 0
         val count = count(query)
         Timber.v("%sms: %s", now() - start, query.sql)
