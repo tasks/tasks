@@ -18,7 +18,6 @@ import org.tasks.data.TaskListMetadataDao
 import org.tasks.db.QueryUtils.showHiddenAndCompleted
 import org.tasks.preferences.QueryPreferences
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class SubtasksHelper @Inject constructor(
@@ -33,7 +32,7 @@ class SubtasksHelper @Inject constructor(
     ): String {
         var query = originalQuery
         if (filter.supportsAstridSorting() && preferences.isAstridSort) {
-            val tagData = tagDataDao.getTagByName(filter.listingTitle)
+            val tagData = tagDataDao.getTagByName(filter.listingTitle!!)
             val tlm = when {
                 tagData != null ->
                     taskListMetadataDao.fetchByTagOrFilter(tagData.remoteId!!)
@@ -47,7 +46,7 @@ class SubtasksHelper @Inject constructor(
                 query = query.replace("ORDER BY .*".toRegex(), "")
                 query += " ORDER BY ${getOrderString(tagData, tlm)}"
                 query = showHiddenAndCompleted(query)
-                filter.setFilterQueryOverride(query)
+                filter.filterOverride = query
             }
         }
         return query

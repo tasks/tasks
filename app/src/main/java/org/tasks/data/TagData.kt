@@ -7,7 +7,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 import com.todoroo.astrid.data.Task
 import org.tasks.themes.CustomIcons.LABEL
 

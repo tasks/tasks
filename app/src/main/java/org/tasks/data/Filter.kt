@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 import org.tasks.Strings
 import org.tasks.themes.CustomIcons.FILTER
 

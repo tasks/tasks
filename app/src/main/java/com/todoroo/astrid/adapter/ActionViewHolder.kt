@@ -5,14 +5,15 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.todoroo.astrid.api.FilterListItem
 import org.tasks.databinding.FilterAdapterActionBinding
+import org.tasks.filters.NavigationDrawerAction
 import org.tasks.themes.DrawableUtil
 
 class ActionViewHolder internal constructor(
     private val context: Context,
     itemView: View,
-    private val onClick: ((FilterListItem?) -> Unit)?) : RecyclerView.ViewHolder(itemView) {
+    private val onClick: (NavigationDrawerAction) -> Unit
+) : RecyclerView.ViewHolder(itemView) {
 
     private val row: View
     private val text: TextView
@@ -26,13 +27,11 @@ class ActionViewHolder internal constructor(
         }
     }
 
-    fun bind(filter: FilterListItem) {
+    fun bind(filter: NavigationDrawerAction) {
         text.text = filter.listingTitle
         icon.setImageDrawable(DrawableUtil.getWrapped(context, filter.icon))
-        if (onClick != null) {
-            row.setOnClickListener {
-                onClick.invoke(filter)
-            }
+        row.setOnClickListener {
+            onClick.invoke(filter)
         }
     }
 }

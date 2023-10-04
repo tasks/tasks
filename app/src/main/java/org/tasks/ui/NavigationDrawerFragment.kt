@@ -94,7 +94,9 @@ class NavigationDrawerFragment : BottomSheetDialogFragment() {
                 REQUEST_PURCHASE ->
                     startActivity(Intent(context, PurchaseActivity::class.java))
                 REQUEST_DONATE -> context?.openUri(R.string.url_donate)
-                else -> activity?.startActivityForResult(item.intent, item.requestCode)
+                else -> item.intent?.let {
+                    activity?.startActivityForResult(it, item.requestCode)
+                }
             }
         }
         dismiss()

@@ -9,7 +9,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.data.Table
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 import com.todoroo.astrid.helper.UUIDHelper
 import kotlinx.parcelize.Parcelize
 import org.tasks.Strings

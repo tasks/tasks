@@ -7,7 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.todoroo.astrid.api.*
+import com.todoroo.astrid.api.CaldavFilter
+import com.todoroo.astrid.api.CustomFilter
+import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.api.TagFilter
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.databinding.FilterAdapterRowBinding
@@ -16,7 +20,7 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons.getIconResId
 import org.tasks.themes.DrawableUtil
-import java.util.*
+import java.util.Locale
 
 class FilterViewHolder internal constructor(
     itemView: View,
@@ -25,7 +29,7 @@ class FilterViewHolder internal constructor(
     private val context: Context,
     private val inventory: Inventory,
     private val colorProvider: ColorProvider,
-    private val onClick: ((FilterListItem?) -> Unit)?
+    private val onClick: (Filter) -> Unit,
 ) : RecyclerView.ViewHolder(itemView) {
 
     private val row: View
@@ -34,7 +38,7 @@ class FilterViewHolder internal constructor(
     private val size: TextView
     private val shareIndicator: ImageView
 
-    lateinit var filter: FilterListItem
+    lateinit var filter: Filter
 
     init {
         FilterAdapterRowBinding.bind(itemView).let {
@@ -53,7 +57,7 @@ class FilterViewHolder internal constructor(
         itemView.isSelected = moving
     }
 
-    fun bind(filter: FilterListItem, selected: Boolean, count: Int?) {
+    fun bind(filter: Filter, selected: Boolean, count: Int?) {
         this.filter = filter
         if (navigationDrawer) {
             itemView.isSelected = selected
@@ -71,21 +75,20 @@ class FilterViewHolder internal constructor(
             size.visibility = View.VISIBLE
         }
         shareIndicator.apply {
-            isVisible = filter.principals > 0
+            isVisible = filter is CaldavFilter && filter.principals > 0
             setImageResource(when {
+                filter !is CaldavFilter -> 0
                 filter.principals <= 0 -> 0
                 filter.principals == 1 -> R.drawable.ic_outline_perm_identity_24px
                 else -> R.drawable.ic_outline_people_outline_24
             })
         }
-        if (onClick != null) {
-            row.setOnClickListener {
-                onClick.invoke(filter)
-            }
+        row.setOnClickListener {
+            onClick.invoke(filter)
         }
     }
 
-    private fun getColor(filter: FilterListItem): Int {
+    private fun getColor(filter: Filter): Int {
         if (filter.tint != 0) {
             val color = colorProvider.getThemeColor(filter.tint, true)
             if (color.isFree || inventory.purchasedThemes()) {
@@ -95,7 +98,7 @@ class FilterViewHolder internal constructor(
         return context.getColor(R.color.text_primary)
     }
 
-    private fun getIcon(filter: FilterListItem): Int {
+    private fun getIcon(filter: Filter): Int {
         if (filter.icon < 1000 || inventory.hasPro) {
             val icon = getIconResId(filter.icon)
             if (icon != null) {

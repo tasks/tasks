@@ -6,35 +6,15 @@ import androidx.annotation.MenuRes
 import com.todoroo.andlib.sql.QueryTemplate
 
 open class Filter : FilterListItem {
-    /**
-     * Values to apply to a task when quick-adding a task from this filter. For example, when a user
-     * views tasks tagged 'ABC', the tasks they create should also be tagged 'ABC'. If set to null, no
-     * additional values will be stored for a task. Can use [PermaSql]
-     */
     val valuesForNewTasks: MutableMap<String, Any> = HashMap()
-
-    /**
-     * [PermaSql] query for this filter. The query will be appended to the select statement
-     * after "`SELECT fields FROM table %s`". It is recommended that you use a [ ] to construct your query.
-     *
-     *
-     * Examples:
-     *
-     *
-     *  * `"WHERE completionDate = 0"`
-     *  * `"INNER JOIN " +
-     * Constants.TABLE_METADATA + " ON metadata.task = tasks.id WHERE
-     * metadata.namespace = " + NAMESPACE + " AND metadata.key = 'a' AND
-     * metadata.value = 'b' GROUP BY tasks.id ORDER BY tasks.title"`
-     *
-     */
     var originalSqlQuery: String? = null
-
-    /**
-     * Field for holding a modified sqlQuery based on sqlQuery. Useful for adjusting query for
-     * sort/subtasks without breaking the equality checking based on sqlQuery.
-     */
-    private var filterOverride: String? = null
+    @Deprecated("for astrid manual order") var filterOverride: String? = null
+    var id = 0L
+    var icon = -1
+    var listingTitle: String? = null
+    var tint = 0
+    var count = -1
+    var order = NO_ORDER
 
     constructor(listingTitle: String?, sqlQuery: QueryTemplate?) : this(
         listingTitle,
@@ -77,85 +57,45 @@ open class Filter : FilterListItem {
         return filterOverride ?: originalSqlQuery!!
     }
 
-    // --- parcelable
-    fun setFilterQueryOverride(filterOverride: String?) {
-        this.filterOverride = filterOverride
-    }
-
-    override fun hashCode(): Int {
-        val prime = 31
-        var result = 1
-        result = prime * result + if (originalSqlQuery == null) 0 else originalSqlQuery.hashCode()
-        result = prime * result + if (listingTitle == null) 0 else listingTitle.hashCode()
-        return result
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-        if (other == null) {
-            return false
-        }
-        if (javaClass != other.javaClass) {
-            return false
-        }
-        val filter = other as Filter
-        if (originalSqlQuery == null) {
-            if (filter.originalSqlQuery != null) {
-                return false
-            }
-        } else if (originalSqlQuery != filter.originalSqlQuery) {
-            return false
-        }
-        return if (listingTitle == null) {
-            filter.listingTitle == null
-        } else listingTitle == filter.listingTitle
-    }
-
-    override fun getItemType(): Type {
-        return Type.ITEM
-    }
+    override val itemType = FilterListItem.Type.ITEM
 
     /** {@inheritDoc}  */
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        super.writeToParcel(dest, flags)
-        dest.writeString("") // old title
+        dest.writeLong(id)
+        dest.writeInt(icon)
+        dest.writeString(listingTitle)
+        dest.writeInt(tint)
+        dest.writeInt(count)
+        dest.writeInt(order)
         dest.writeString(originalSqlQuery)
         dest.writeMap(valuesForNewTasks)
     }
 
-    override fun readFromParcel(source: Parcel) {
-        super.readFromParcel(source)
-        source.readString() // old title
+    open fun readFromParcel(source: Parcel) {
+        id = source.readLong()
+        icon = source.readInt()
+        listingTitle = source.readString()
+        tint = source.readInt()
+        count = source.readInt()
+        order = source.readInt()
         originalSqlQuery = source.readString()
         source.readMap(valuesForNewTasks, javaClass.classLoader)
     }
 
-    open fun supportsAstridSorting(): Boolean {
-        return false
-    }
+    open fun supportsAstridSorting() = false
 
-    open fun supportsManualSort(): Boolean {
-        return false
-    }
+    open fun supportsManualSort() = false
 
-    open fun supportsHiddenTasks(): Boolean {
-        return true
-    }
+    open fun supportsHiddenTasks() = true
 
-    open fun supportsSubtasks(): Boolean {
-        return true
-    }
+    open fun supportsSubtasks() = true
 
-    open fun supportsSorting(): Boolean {
-        return true
-    }
+    open fun supportsSorting() = true
+
+    open val isReadOnly: Boolean = false
 
     val isWritable: Boolean
         get() = !isReadOnly
-    open val isReadOnly: Boolean
-        get() = false
 
     fun hasBeginningMenu(): Boolean {
         return beginningMenu != 0
@@ -173,28 +113,55 @@ open class Filter : FilterListItem {
     open val menu: Int
         get() = 0
 
-    override fun toString(): String {
-        return ("Filter{"
-                + "sqlQuery='"
-                + originalSqlQuery
-                + '\''
-                + ", filterOverride='"
-                + filterOverride
-                + '\''
-                + ", valuesForNewTasks="
-                + valuesForNewTasks
-                + '}')
-    }
+    override fun describeContents() = 0
 
     override fun areItemsTheSame(other: FilterListItem): Boolean {
-        return other is Filter && originalSqlQuery == other.originalSqlQuery
+        return other is Filter && id == other.id && originalSqlQuery == other.originalSqlQuery
     }
 
     override fun areContentsTheSame(other: FilterListItem): Boolean {
-        return super.areContentsTheSame(other) && originalSqlQuery == (other as Filter).originalSqlQuery
+        return this == other
+    }
+
+    override fun toString(): String {
+        return "Filter(valuesForNewTasks=$valuesForNewTasks, originalSqlQuery=$originalSqlQuery, filterOverride=$filterOverride, id=$id, icon=$icon, listingTitle=$listingTitle, tint=$tint, count=$count, order=$order)"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Filter
+
+        if (valuesForNewTasks != other.valuesForNewTasks) return false
+        if (originalSqlQuery != other.originalSqlQuery) return false
+        if (filterOverride != other.filterOverride) return false
+        if (id != other.id) return false
+        if (icon != other.icon) return false
+        if (listingTitle != other.listingTitle) return false
+        if (tint != other.tint) return false
+        if (count != other.count) return false
+        if (order != other.order) return false
+        return isReadOnly == other.isReadOnly
+    }
+
+    override fun hashCode(): Int {
+        var result = valuesForNewTasks.hashCode()
+        result = 31 * result + (originalSqlQuery?.hashCode() ?: 0)
+        result = 31 * result + (filterOverride?.hashCode() ?: 0)
+        result = 31 * result + id.hashCode()
+        result = 31 * result + icon
+        result = 31 * result + (listingTitle?.hashCode() ?: 0)
+        result = 31 * result + tint
+        result = 31 * result + count
+        result = 31 * result + order
+        result = 31 * result + isReadOnly.hashCode()
+        return result
     }
 
     companion object {
+        const val NO_ORDER = -1
+
         @JvmField
         val CREATOR: Parcelable.Creator<Filter> = object : Parcelable.Creator<Filter> {
             /** {@inheritDoc}  */

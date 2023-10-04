@@ -73,6 +73,8 @@ class FilterPickerViewModel @Inject constructor(
             NavigationDrawerSubheader.SubheaderType.TASKS,
             NavigationDrawerSubheader.SubheaderType.ETESYNC ->
                 caldavDao.setCollapsed(subheader.id, collapsed)
+
+            else -> throw IllegalStateException()
         }
         localBroadcastManager.broadcastRefreshList()
     }

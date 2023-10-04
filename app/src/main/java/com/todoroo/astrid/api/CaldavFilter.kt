@@ -14,7 +14,8 @@ import org.tasks.data.CaldavTask
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 
 class CaldavFilter(
-    val calendar: CaldavCalendar
+    val calendar: CaldavCalendar,
+    val principals: Int = 0,
 ) : Filter(calendar.name, queryTemplate(calendar), getValuesForNewTask(calendar)) {
 
     init {
@@ -41,7 +42,7 @@ class CaldavFilter(
     override val menu = R.menu.menu_caldav_list_fragment
 
     override fun areContentsTheSame(other: FilterListItem): Boolean {
-        return super.areContentsTheSame(other) && calendar == (other as CaldavFilter).calendar
+        return super.areContentsTheSame(other) && calendar == (other as CaldavFilter).calendar && principals == other.principals
     }
 
     companion object {

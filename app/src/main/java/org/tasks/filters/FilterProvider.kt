@@ -4,21 +4,27 @@ import android.content.Context
 import android.content.Intent
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 import com.todoroo.astrid.api.FilterListItem
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.NavigationDrawerCustomization
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.billing.Inventory
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.data.*
+import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
+import org.tasks.data.CaldavDao
+import org.tasks.data.FilterDao
+import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.LocationDao
+import org.tasks.data.TagDataDao
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.HelpAndFeedback
@@ -172,7 +178,7 @@ class FilterProvider @Inject constructor(
 
     private val navDrawerFooter: List<FilterListItem>
         get() = listOf(NavigationDrawerSeparator())
-                .plusIf(BuildConfig.FLAVOR == "generic" && !inventory.hasTasksAccount) {
+                .plusIf(IS_GENERIC && !inventory.hasTasksAccount) {
                     NavigationDrawerAction(
                             context.getString(R.string.TLA_menu_donate),
                             R.drawable.ic_outline_attach_money_24px,
@@ -184,21 +190,30 @@ class FilterProvider @Inject constructor(
                             R.drawable.ic_outline_attach_money_24px,
                             NavigationDrawerFragment.REQUEST_PURCHASE)
                 }
-                .plus(NavigationDrawerAction(
+                .plus(
+                    NavigationDrawerAction(
                         context.getString(R.string.manage_drawer),
                         R.drawable.ic_outline_edit_24px,
-                        Intent(context, NavigationDrawerCustomization::class.java),
-                        0))
-                .plus(NavigationDrawerAction(
+                        0,
+                        Intent(context, NavigationDrawerCustomization::class.java)
+                    )
+                )
+                .plus(
+                    NavigationDrawerAction(
                         context.getString(R.string.TLA_menu_settings),
                         R.drawable.ic_outline_settings_24px,
-                        Intent(context, MainPreferences::class.java),
-                        NavigationDrawerFragment.REQUEST_SETTINGS))
-                .plus(NavigationDrawerAction(
+                        NavigationDrawerFragment.REQUEST_SETTINGS,
+                        Intent(context, MainPreferences::class.java)
+                    )
+                )
+                .plus(
+                    NavigationDrawerAction(
                         context.getString(R.string.help_and_feedback),
                         R.drawable.ic_outline_help_outline_24px,
-                        Intent(context, HelpAndFeedback::class.java),
-                        0))
+                        0,
+                        Intent(context, HelpAndFeedback::class.java)
+                    )
+                )
 
     private suspend fun googleTaskFilter(account: CaldavAccount, showCreate: Boolean): List<FilterListItem> =
             listOf(

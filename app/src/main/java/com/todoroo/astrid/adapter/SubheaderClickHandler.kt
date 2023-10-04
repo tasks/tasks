@@ -9,7 +9,11 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.data.CaldavDao
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.filters.NavigationDrawerSubheader
-import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.*
+import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.CALDAV
+import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.ETESYNC
+import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS
+import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.PREFERENCE
+import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.TASKS
 import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.ui.NavigationDrawerFragment
@@ -30,6 +34,7 @@ class SubheaderClickHandler @Inject constructor(
                 CALDAV,
                 TASKS,
                 ETESYNC -> caldavDao.setCollapsed(subheader.id, collapsed)
+                else -> throw IllegalArgumentException()
             }
             localBroadcastManager.broadcastRefreshList()
         }

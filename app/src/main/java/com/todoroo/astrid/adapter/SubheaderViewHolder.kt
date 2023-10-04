@@ -16,6 +16,8 @@ internal class SubheaderViewHolder(
     private val clickHandler: ClickHandler,
 ): RecyclerView.ViewHolder(itemView) {
 
+    var listingTitle: String? = null
+
     interface ClickHandler {
         fun onClick(subheader: NavigationDrawerSubheader)
         fun onAdd(subheader: NavigationDrawerSubheader)

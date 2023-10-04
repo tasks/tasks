@@ -36,7 +36,7 @@ class CustomFilter : Filter {
     }
 
     override val menu: Int
-        get() = if (getId() > 0) R.menu.menu_custom_filter else 0
+        get() = if (id > 0) R.menu.menu_custom_filter else 0
 
     override fun areContentsTheSame(other: FilterListItem): Boolean {
         return super.areContentsTheSame(other) && criterion == (other as CustomFilter).criterion

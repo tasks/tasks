@@ -1,7 +1,11 @@
 package org.tasks.data
 
-import androidx.room.*
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
+import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 
 @Dao
 interface FilterDao {

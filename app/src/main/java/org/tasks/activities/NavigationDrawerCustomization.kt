@@ -9,20 +9,32 @@ import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.ItemTouchHelper.*
+import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
+import androidx.recyclerview.widget.ItemTouchHelper.Callback
 import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags
+import androidx.recyclerview.widget.ItemTouchHelper.DOWN
+import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.adapter.FilterViewHolder
 import com.todoroo.astrid.adapter.NavigationDrawerAdapter
-import com.todoroo.astrid.api.*
+import com.todoroo.astrid.api.CaldavFilter
+import com.todoroo.astrid.api.CustomFilter
+import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.api.FilterListItem.Type.ITEM
+import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.api.TagFilter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.data.*
+import org.tasks.data.CaldavDao
+import org.tasks.data.FilterDao
+import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.LocationDao
+import org.tasks.data.TagDataDao
 import org.tasks.databinding.ActivityTagOrganizerBinding
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.PlaceFilter
@@ -88,7 +100,11 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     private fun updateFilters() = lifecycleScope.launch {
         filterProvider
                 .drawerCustomizationItems()
-                .onEach { f -> f.count = 0 }
+                .onEach { f ->
+                    if (f is Filter) {
+                        f.count = 0
+                    }
+                }
                 .let { adapter.submitList(it) }
     }
 
@@ -203,8 +219,10 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
                             }
                             .filter(getPredicate(viewHolder.filter))
                             .forEachIndexed { order, filter ->
-                                filter.order = order
-                                setOrder(order, filter)
+                                if (filter is Filter) {
+                                    filter.order = order
+                                    setOrder(order, filter)
+                                }
                             }
                     updateFilters()
                 }
@@ -223,7 +241,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
             }
         }
 
-        private suspend fun setOrder(order: Int, filter: FilterListItem) {
+        private suspend fun setOrder(order: Int, filter: Filter) {
             when (filter) {
                 is GtasksFilter -> caldavDao.setOrder(filter.list.id, order)
                 is CaldavFilter -> caldavDao.setOrder(filter.calendar.id, order)

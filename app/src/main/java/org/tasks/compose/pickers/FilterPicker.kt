@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
@@ -40,7 +41,7 @@ fun FilterPicker(
             when (filter) {
                 is NavigationDrawerSubheader -> {
                     CollapsibleRow(
-                        text = filter.listingTitle,
+                        text = filter.listingTitle!!,
                         collapsed = filter.isCollapsed,
                         onClick = { viewModel.onClick(filter) },
                     )
@@ -54,13 +55,13 @@ fun FilterPicker(
                     ) {
                         Row(verticalAlignment = CenterVertically) {
                             Text(
-                                text = filter.listingTitle,
+                                text = filter.listingTitle!!,
                                 style = MaterialTheme.typography.body2.copy(
                                     fontWeight = FontWeight.Medium
                                 ),
                                 modifier = Modifier.weight(1f),
                             )
-                            if (filter.principals > 0) {
+                            if (filter is CaldavFilter && filter.principals > 0) {
                                 Icon(
                                     painter = painterResource(
                                         id = when (filter.principals) {

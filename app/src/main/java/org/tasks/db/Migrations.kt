@@ -7,7 +7,7 @@ import androidx.room.DeleteColumn
 import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE

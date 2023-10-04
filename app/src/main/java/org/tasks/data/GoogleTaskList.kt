@@ -1,6 +1,6 @@
 package org.tasks.data
 
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 
 @Deprecated("Only used for backup migration")
 data class GoogleTaskList(

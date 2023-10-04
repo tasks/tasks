@@ -18,9 +18,12 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.billing.Inventory
+import org.tasks.filters.NavigationDrawerAction
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.themes.ColorProvider
-import java.util.*
+import java.util.LinkedList
+import java.util.Locale
+import java.util.Queue
 import java.util.concurrent.Executors
 import javax.inject.Inject
 import kotlin.math.max
@@ -79,8 +82,8 @@ class NavigationDrawerAdapter @Inject constructor(
         val item = getItem(position)
         when (item.itemType) {
             FilterListItem.Type.ITEM ->
-                (holder as FilterViewHolder).bind(item, item == selected, max(item.count, 0))
-            FilterListItem.Type.ACTION -> (holder as ActionViewHolder).bind(item)
+                (holder as FilterViewHolder).bind(item as Filter, item == selected, max(item.count, 0))
+            FilterListItem.Type.ACTION -> (holder as ActionViewHolder).bind(item as NavigationDrawerAction)
             FilterListItem.Type.SUBHEADER ->
                 (holder as SubheaderViewHolder).bind((item as NavigationDrawerSubheader))
             else -> {}

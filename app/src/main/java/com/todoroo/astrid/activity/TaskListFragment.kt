@@ -265,7 +265,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             fab.isVisible = filter.isWritable
         }
         themeColor = if (filter.tint != 0) colorProvider.getThemeColor(filter.tint, true) else defaultThemeColor
-        filter.setFilterQueryOverride(null)
+        filter.filterOverride = null
 
         // set up list adapters
         taskAdapter = taskAdapterProvider.createTaskAdapter(filter)

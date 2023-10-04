@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.todoroo.andlib.utility.DateUtilities.now
-import com.todoroo.astrid.api.FilterListItem.NO_ORDER
+import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 import com.todoroo.astrid.data.Task
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.filters.LocationFilters

@@ -48,7 +48,7 @@ class SubtasksFilterUpdater @Inject constructor(
         query = query.replace("ORDER BY .*".toRegex(), "")
         query += "ORDER BY $orderString"
         query = showHiddenAndCompleted(query)
-        filter.setFilterQueryOverride(query)
+        filter.filterOverride = query
     }
 
     fun getIndentForTask(targetTaskId: String?): Int {
