@@ -2,10 +2,7 @@ package org.tasks.filters
 
 import android.content.Intent
 import com.todoroo.astrid.api.FilterListItem
-import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class NavigationDrawerSubheader(
     val listingTitle: String?,
     val error: Boolean,
@@ -23,7 +20,6 @@ data class NavigationDrawerSubheader(
         return this == other
     }
 
-    @IgnoredOnParcel
     override val itemType = FilterListItem.Type.SUBHEADER
 
     enum class SubheaderType {

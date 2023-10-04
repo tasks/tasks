@@ -1,10 +1,9 @@
 package com.todoroo.astrid.api
 
-import android.os.Parcelable
 import androidx.annotation.LayoutRes
 import org.tasks.R
 
-interface FilterListItem : Parcelable {
+interface FilterListItem {
     val itemType: Type
 
     fun areItemsTheSame(other: FilterListItem): Boolean

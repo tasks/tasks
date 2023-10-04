@@ -5,7 +5,7 @@ import android.os.Parcelable
 import androidx.annotation.MenuRes
 import com.todoroo.andlib.sql.QueryTemplate
 
-open class Filter : FilterListItem {
+open class Filter : FilterListItem, Parcelable {
     val valuesForNewTasks: MutableMap<String, Any> = HashMap()
     var originalSqlQuery: String? = null
     @Deprecated("for astrid manual order") var filterOverride: String? = null
