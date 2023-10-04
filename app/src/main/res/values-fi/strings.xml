@@ -185,7 +185,7 @@
         <item quantity="one">%d vuosi</item>
         <item quantity="other">%d vuotta</item>
     </plurals>
-    <string name="repeat_type_due">Määräpäivä</string>
+    <string name="repeat_type_due">määräpäivä</string>
     <string name="repeat_type_completion">valmistumispäivä</string>
     <string name="repeat_snackbar">%1$s uudelleenajastettu %2$s</string>
     <string name="new_tag">Luo uusi tunniste</string>
@@ -703,4 +703,20 @@
     <string name="alarm_before_start">%s ennen aloitusta</string>
     <string name="alarm_after_due">%s määräajan jälkeen</string>
     <string name="alarm_before_due">%s ennen määräaikaa</string>
+    <string name="sort_ascending">Nouseva</string>
+    <string name="change_priority">Vaihda prioriteetti</string>
+    <string name="repeats_every">Toistuu joka</string>
+    <string name="sort_completed">Valmistumisajan mukaan</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Kuukauden %1$s %2$s</string>
+    <string name="repeats_after">Jälkeen</string>
+    <string name="sort_list">Luettelojen mukaan</string>
+    <string name="repeats_custom_recurrence">Mukautettu toisto</string>
+    <string name="sort_sorting">Järjestys</string>
+    <string name="repeats_never">Ei koskaan</string>
+    <string name="repeat_monthly_on_day_number">Kuukausittain %1d päivä</string>
+    <string name="repeats_ends">Loppuu</string>
+    <string name="repeats_on">Päällä</string>
+    <string name="repeats_weekly_on">Toista</string>
+    <string name="sort_descending">Laskeva</string>
+    <string name="sort_grouping">Ryhmittele</string>
 </resources>
