@@ -175,6 +175,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 result.data?.let { data ->
                     if (data.getBooleanExtra(SortSettingsActivity.EXTRA_FORCE_RELOAD, false)) {
                         activity?.recreate()
+                    } else {
+                        listViewModel.invalidate()
                     }
                     if (data.getBooleanExtra(SortSettingsActivity.EXTRA_CHANGED_GROUP, false)) {
                         taskAdapter.clearCollapsed()
