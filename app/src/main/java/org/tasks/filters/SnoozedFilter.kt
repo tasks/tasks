@@ -10,7 +10,7 @@ import com.todoroo.astrid.data.Task
 import org.tasks.data.Alarm
 
 class SnoozedFilter : Filter {
-    constructor(listingTitle: String?) : super(listingTitle, queryTemplate)
+    constructor(title: String?) : super(title, queryTemplate)
     private constructor()
 
     override fun supportsHiddenTasks(): Boolean {

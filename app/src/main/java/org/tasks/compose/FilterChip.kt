@@ -15,7 +15,7 @@ fun FilterChip(
 ) {
     Chip(
         CustomIcons.getIcon(filter.icon, defaultIcon),
-        filter.listingTitle,
+        filter.title,
         filter.tint,
         showText,
         showIcon,

@@ -49,7 +49,7 @@ class Notifications : InjectingPreferenceFragment() {
         super.onCreate(savedInstanceState)
         childFragmentManager.setFilterPickerResultListener(this) {
             defaultFilterProvider.setBadgeFilter(it)
-            findPreference(R.string.p_badge_list).summary = it.listingTitle
+            findPreference(R.string.p_badge_list).summary = it.title
             localBroadcastManager.broadcastRefresh()
         }
     }
@@ -87,7 +87,7 @@ class Notifications : InjectingPreferenceFragment() {
 
         val badgePreference: Preference = findPreference(R.string.p_badge_list)
         val filter = defaultFilterProvider.getBadgeFilter()
-        badgePreference.summary = filter.listingTitle
+        badgePreference.summary = filter.title
         badgePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             lifecycleScope.launch {
                 newFilterPicker(defaultFilterProvider.getBadgeFilter())

@@ -74,7 +74,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         if (savedInstanceState == null && filter != null) {
             selectedColor = filter!!.tint
             selectedIcon = filter!!.icon
-            name.setText(filter!!.listingTitle)
+            name.setText(filter!!.title)
         }
         when {
             savedInstanceState != null -> lifecycleScope.launch {
@@ -228,7 +228,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         get() = filter == null
 
     override val toolbarTitle: String?
-        get() = if (isNew) getString(R.string.FLA_new_filter) else filter!!.listingTitle
+        get() = if (isNew) getString(R.string.FLA_new_filter) else filter!!.title
 
     override suspend fun save() {
         val newName = newName
@@ -271,12 +271,12 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         return if (isNew) {
             (!Strings.isNullOrEmpty(newName)
                     || selectedColor != 0 || selectedIcon != -1 || criteria.size > 1)
-        } else newName != filter!!.listingTitle
+        } else newName != filter!!.title
                 || selectedColor != filter!!.tint
                 || selectedIcon != filter!!.icon
                 || CriterionInstance.serialize(criteria) != filter!!.criterion!!.trim()
                 || criteria.values != filter!!.valuesForNewTasks
-                || criteria.sql != filter!!.originalSqlQuery
+                || criteria.sql != filter!!.sql
     }
 
     override fun finish() {

@@ -184,11 +184,11 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
             broughtToFront: ${intent.broughtToFront}
             isFromHistory: ${intent.isFromHistory}
             flags: ${intent.flagsToString}
-            OPEN_FILTER: ${openFilter?.let { "${it.listingTitle}: $it" }}
+            OPEN_FILTER: ${openFilter?.let { "${it.title}: $it" }}
             LOAD_FILTER: $loadFilter
             OPEN_TASK: ${intent.getParcelableExtra<Task>(OPEN_TASK)}
             CREATE_TASK: ${intent.hasExtra(CREATE_TASK)}
-            taskListFragment: ${taskListFragment?.getFilter()?.let { "${it.listingTitle}: $it" }}
+            taskListFragment: ${taskListFragment?.getFilter()?.let { "${it.title}: $it" }}
             taskEditFragment: ${taskEditFragment?.editViewModel?.task}
             **********"""
             )
@@ -306,7 +306,7 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
     private fun applyTheme() {
         val filterColor = filterColor
         filterColor.applyToNavigationBar(this)
-        filterColor.applyTaskDescription(this, filter?.listingTitle ?: getString(R.string.app_name))
+        filterColor.applyTaskDescription(this, filter?.title ?: getString(R.string.app_name))
         theme.withThemeColor(filterColor).applyToContext(this)
     }
 

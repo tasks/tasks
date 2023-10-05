@@ -212,7 +212,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
     }
 
     private fun updateFilter() = lifecycleScope.launch {
-        findPreference(R.string.p_widget_filter).summary = getFilter().listingTitle
+        findPreference(R.string.p_widget_filter).summary = getFilter().title
         updateSort()
     }
 

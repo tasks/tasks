@@ -44,7 +44,7 @@ class Notifier @Inject constructor(
         val intent = TaskIntents.getTaskListIntent(context, filter)
         val pendingIntent = PendingIntent.getActivity(
             context,
-            filter.listingTitle.hashCode(),
+            filter.title.hashCode(),
             intent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -60,16 +60,16 @@ class Notifier @Inject constructor(
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setTicker(summaryTitle)
                 .setContentTitle(summaryTitle)
-                .setContentText(filter.listingTitle)
+                .setContentText(filter.title)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setWhen(DateTimeUtils.currentTimeMillis())
                 .setShowWhen(true)
                 .setColor(colorProvider.getPriorityColor(maxPriority, true))
                 .setGroupSummary(true)
-                .setGroup(filter.listingTitle)
+                .setGroup(filter.title)
                 .setStyle(style)
-        notificationManager.notify(filter.listingTitle.hashCode().toLong(), builder, alert = true, nonstop = false, fiveTimes = false)
+        notificationManager.notify(filter.title.hashCode().toLong(), builder, alert = true, nonstop = false, fiveTimes = false)
     }
 
     suspend fun triggerNotifications(place: Long, geofences: List<Geofence>, arrival: Boolean) =

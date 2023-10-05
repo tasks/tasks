@@ -184,7 +184,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
 
     private fun updateRemoteListSummary() = lifecycleScope.launch {
         val defaultFilter = defaultFilterProvider.getDefaultList()
-        findPreference(R.string.p_default_list).summary = defaultFilter.listingTitle
+        findPreference(R.string.p_default_list).summary = defaultFilter.title
     }
 
     private fun updateDefaultLocation() = lifecycleScope.launch {

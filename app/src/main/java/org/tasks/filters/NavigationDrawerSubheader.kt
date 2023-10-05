@@ -4,7 +4,7 @@ import android.content.Intent
 import com.todoroo.astrid.api.FilterListItem
 
 data class NavigationDrawerSubheader(
-    val listingTitle: String?,
+    val title: String?,
     val error: Boolean,
     val isCollapsed: Boolean,
     val subheaderType: SubheaderType,

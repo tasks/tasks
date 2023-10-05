@@ -41,7 +41,7 @@ fun FilterPicker(
             when (filter) {
                 is NavigationDrawerSubheader -> {
                     CollapsibleRow(
-                        text = filter.listingTitle!!,
+                        text = filter.title!!,
                         collapsed = filter.isCollapsed,
                         onClick = { viewModel.onClick(filter) },
                     )
@@ -55,7 +55,7 @@ fun FilterPicker(
                     ) {
                         Row(verticalAlignment = CenterVertically) {
                             Text(
-                                text = filter.listingTitle!!,
+                                text = filter.title!!,
                                 style = MaterialTheme.typography.body2.copy(
                                     fontWeight = FontWeight.Medium
                                 ),

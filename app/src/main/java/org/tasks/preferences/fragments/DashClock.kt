@@ -44,7 +44,7 @@ class DashClock : InjectingPreferenceFragment() {
 
     private suspend fun refreshPreferences() {
         val filter = defaultFilterProvider.getFilterFromPreference(R.string.p_dashclock_filter)
-        findPreference(R.string.p_dashclock_filter).summary = filter.listingTitle
+        findPreference(R.string.p_dashclock_filter).summary = filter.title
     }
 
     companion object {

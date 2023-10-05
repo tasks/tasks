@@ -45,7 +45,7 @@ class TaskDeleter @Inject constructor(
     suspend fun clearCompleted(filter: Filter): Int {
         val deleteFilter = Filter(
             null,
-            QueryUtils.removeOrder(QueryUtils.showHiddenAndCompleted(filter.originalSqlQuery!!)),
+            QueryUtils.removeOrder(QueryUtils.showHiddenAndCompleted(filter.sql!!)),
             emptyMap()
         )
         val completed = taskDao.fetchTasks(preferences, deleteFilter)

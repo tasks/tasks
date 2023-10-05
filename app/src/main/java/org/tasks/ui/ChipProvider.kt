@@ -154,7 +154,7 @@ class ChipProvider @Inject constructor(
                     tags.remove(filter.uuid)
                 }
                 tags.mapNotNull(lists::getTag)
-                    .sortedBy(TagFilter::listingTitle)
+                    .sortedBy(TagFilter::title)
             }
                 .forEach {
                     FilterChip(

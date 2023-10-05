@@ -6,10 +6,10 @@ import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
 
 class SortableFilter : Filter {
-    constructor(listingTitle: String?, sqlQuery: QueryTemplate?) : super(listingTitle, sqlQuery)
+    constructor(title: String?, sql: QueryTemplate) : super(title, sql)
     constructor(
-        listingTitle: String?, sqlQuery: QueryTemplate?, valuesForNewTasks: Map<String, Any>?
-    ) : super(listingTitle, sqlQuery, valuesForNewTasks)
+        title: String?, sql: QueryTemplate, valuesForNewTasks: Map<String, Any>
+    ) : super(title, sql, valuesForNewTasks)
 
     private constructor()
 

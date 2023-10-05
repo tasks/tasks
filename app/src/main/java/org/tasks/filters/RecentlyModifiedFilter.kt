@@ -10,7 +10,7 @@ import com.todoroo.astrid.data.Task
 import org.tasks.time.DateTime
 
 class RecentlyModifiedFilter : Filter {
-    constructor(listingTitle: String?) : super(listingTitle, queryTemplate)
+    constructor(title: String?) : super(title, queryTemplate)
     private constructor()
 
     override fun supportsHiddenTasks() = false

@@ -87,10 +87,10 @@ class TaskerListNotification : InjectingPreferenceFragment() {
     }
 
     private fun refreshPreferences() {
-        findPreference(R.string.filter).summary = filter.listingTitle
+        findPreference(R.string.filter).summary = filter.title
     }
 
-    fun getResultBlurb(): String? = filter.listingTitle
+    fun getResultBlurb(): String? = filter.title
 
     fun getBundle(): Bundle =
             ListNotificationBundle.generateBundle(defaultFilterProvider.getFilterPreferenceValue(filter))

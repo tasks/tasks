@@ -291,7 +291,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
         setupRefresh(swipeRefreshLayout)
         setupRefresh(emptyRefreshLayout)
-        binding.toolbar.title = filter.listingTitle
+        binding.toolbar.title = filter.title
         binding.appbarlayout.addOnOffsetChangedListener { _, verticalOffset ->
             if (verticalOffset == 0 && binding.bottomAppBar.isScrolledDown) {
                 binding.bottomAppBar.performShow()
@@ -779,7 +779,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         val intent = ShareCompat
             .IntentBuilder(requireContext())
             .setType("text/plain")
-            .setSubject(filter.listingTitle)
+            .setSubject(filter.title)
             .setText(output)
             .createChooserIntent()
         startActivity(intent)

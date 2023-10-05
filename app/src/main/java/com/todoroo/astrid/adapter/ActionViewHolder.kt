@@ -28,7 +28,7 @@ class ActionViewHolder internal constructor(
     }
 
     fun bind(filter: NavigationDrawerAction) {
-        text.text = filter.listingTitle
+        text.text = filter.title
         icon.setImageDrawable(DrawableUtil.getWrapped(context, filter.icon))
         row.setOnClickListener {
             onClick.invoke(filter)

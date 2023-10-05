@@ -109,7 +109,7 @@ class AlphanumComparator<T>(private val getTitle: (T) -> String?) : Comparator<T
 
     companion object {
         @JvmField
-        val FILTER = AlphanumComparator(Filter::listingTitle)
+        val FILTER = AlphanumComparator(Filter::title)
         val TAGDATA = AlphanumComparator(TagData::name)
     }
 }

@@ -6,12 +6,12 @@ import androidx.annotation.MenuRes
 import com.todoroo.andlib.sql.QueryTemplate
 
 open class Filter : FilterListItem, Parcelable {
-    val valuesForNewTasks: MutableMap<String, Any> = HashMap()
-    var originalSqlQuery: String? = null
+    var valuesForNewTasks: Map<String, Any> = HashMap()
+    var sql: String? = null
     @Deprecated("for astrid manual order") var filterOverride: String? = null
     var id = 0L
     var icon = -1
-    var listingTitle: String? = null
+    var title: String? = null
     var tint = 0
     var count = -1
     var order = NO_ORDER
@@ -19,38 +19,35 @@ open class Filter : FilterListItem, Parcelable {
     /**
      * Utility constructor for creating a Filter object
      *
-     * @param listingTitle Title of this item as displayed on the lists page, e.g. Inbox
-     * @param sqlQuery SQL query for this list (see [.sqlQuery] for examples).
+     * @param title Title of this item as displayed on the lists page, e.g. Inbox
+     * @param sql SQL query for this list (see [.sqlQuery] for examples).
      */
     constructor(
-        listingTitle: String?,
-        sqlQuery: QueryTemplate?,
-        valuesForNewTasks: Map<String, Any>? = emptyMap(),
-    ) : this(listingTitle, sqlQuery?.toString(), valuesForNewTasks)
+        title: String?,
+        sql: QueryTemplate,
+        valuesForNewTasks: Map<String, Any> = emptyMap(),
+    ) : this(title, sql.toString(), valuesForNewTasks)
 
     /**
      * Utility constructor for creating a Filter object
      *
-     * @param listingTitle Title of this item as displayed on the lists page, e.g. Inbox
-     * @param sqlQuery SQL query for this list (see [.sqlQuery] for examples).
+     * @param title Title of this item as displayed on the lists page, e.g. Inbox
+     * @param sql SQL query for this list (see [.sqlQuery] for examples).
      */
     internal constructor(
-        listingTitle: String?,
-        sqlQuery: String?,
-        valuesForNewTasks: Map<String, Any>?
+        title: String?,
+        sql: String,
+        valuesForNewTasks: Map<String, Any>
     ) {
-        this.listingTitle = listingTitle
-        originalSqlQuery = sqlQuery
-        filterOverride = null
-        if (valuesForNewTasks != null) {
-            this.valuesForNewTasks.putAll(valuesForNewTasks)
-        }
+        this.title = title
+        this.sql = sql
+        this.valuesForNewTasks = valuesForNewTasks
     }
 
     protected constructor()
 
     fun getSqlQuery(): String {
-        return filterOverride ?: originalSqlQuery!!
+        return filterOverride ?: sql!!
     }
 
     override val itemType = FilterListItem.Type.ITEM
@@ -59,22 +56,22 @@ open class Filter : FilterListItem, Parcelable {
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeLong(id)
         dest.writeInt(icon)
-        dest.writeString(listingTitle)
+        dest.writeString(title)
         dest.writeInt(tint)
         dest.writeInt(count)
         dest.writeInt(order)
-        dest.writeString(originalSqlQuery)
+        dest.writeString(sql)
         dest.writeMap(valuesForNewTasks)
     }
 
     open fun readFromParcel(source: Parcel) {
         id = source.readLong()
         icon = source.readInt()
-        listingTitle = source.readString()
+        title = source.readString()
         tint = source.readInt()
         count = source.readInt()
         order = source.readInt()
-        originalSqlQuery = source.readString()
+        sql = source.readString()
         source.readMap(valuesForNewTasks, javaClass.classLoader)
     }
 
@@ -112,7 +109,7 @@ open class Filter : FilterListItem, Parcelable {
     override fun describeContents() = 0
 
     override fun areItemsTheSame(other: FilterListItem): Boolean {
-        return other is Filter && id == other.id && originalSqlQuery == other.originalSqlQuery
+        return other is Filter && id == other.id && sql == other.sql
     }
 
     override fun areContentsTheSame(other: FilterListItem): Boolean {
@@ -120,7 +117,7 @@ open class Filter : FilterListItem, Parcelable {
     }
 
     override fun toString(): String {
-        return "Filter(valuesForNewTasks=$valuesForNewTasks, originalSqlQuery=$originalSqlQuery, filterOverride=$filterOverride, id=$id, icon=$icon, listingTitle=$listingTitle, tint=$tint, count=$count, order=$order)"
+        return "Filter(valuesForNewTasks=$valuesForNewTasks, sql=$sql, filterOverride=$filterOverride, id=$id, icon=$icon, title=$title, tint=$tint, count=$count, order=$order)"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -130,11 +127,11 @@ open class Filter : FilterListItem, Parcelable {
         other as Filter
 
         if (valuesForNewTasks != other.valuesForNewTasks) return false
-        if (originalSqlQuery != other.originalSqlQuery) return false
+        if (sql != other.sql) return false
         if (filterOverride != other.filterOverride) return false
         if (id != other.id) return false
         if (icon != other.icon) return false
-        if (listingTitle != other.listingTitle) return false
+        if (title != other.title) return false
         if (tint != other.tint) return false
         if (count != other.count) return false
         if (order != other.order) return false
@@ -143,11 +140,11 @@ open class Filter : FilterListItem, Parcelable {
 
     override fun hashCode(): Int {
         var result = valuesForNewTasks.hashCode()
-        result = 31 * result + (originalSqlQuery?.hashCode() ?: 0)
+        result = 31 * result + (sql?.hashCode() ?: 0)
         result = 31 * result + (filterOverride?.hashCode() ?: 0)
         result = 31 * result + id.hashCode()
         result = 31 * result + icon
-        result = 31 * result + (listingTitle?.hashCode() ?: 0)
+        result = 31 * result + (title?.hashCode() ?: 0)
         result = 31 * result + tint
         result = 31 * result + count
         result = 31 * result + order

@@ -63,7 +63,7 @@ class DashClockExtension : DashClockExtension() {
                     .icon(R.drawable.ic_check_white_24dp)
                     .status(count.toString())
                     .expandedTitle(resources.getQuantityString(R.plurals.task_count, count, count))
-                    .expandedBody(filter.listingTitle)
+                    .expandedBody(filter.title)
                     .clickIntent(clickIntent)
             if (count == 1) {
                 val tasks = taskDao.fetchFiltered(filter)

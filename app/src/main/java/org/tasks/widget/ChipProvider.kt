@@ -99,7 +99,7 @@ class ChipProvider @Inject constructor(
         }
         return tags
                 .mapNotNull(chipListCache::getTag)
-                .sortedBy(TagFilter::listingTitle)
+                .sortedBy(TagFilter::title)
                 .mapNotNull { newChip(it, R.drawable.ic_outline_label_24px) }
     }
 
@@ -108,7 +108,7 @@ class ChipProvider @Inject constructor(
             return null
         }
         val chip = newChip()
-        chip.setTextViewText(R.id.chip_text, filter.listingTitle)
+        chip.setTextViewText(R.id.chip_text, filter.title)
         val icon = filter.icon
                 .takeIf { it >= 0 }
                 ?.let { CustomIcons.getIconResId(it) }

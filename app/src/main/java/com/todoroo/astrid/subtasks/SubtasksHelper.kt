@@ -32,7 +32,7 @@ class SubtasksHelper @Inject constructor(
     ): String {
         var query = originalQuery
         if (filter.supportsAstridSorting() && preferences.isAstridSort) {
-            val tagData = tagDataDao.getTagByName(filter.listingTitle!!)
+            val tagData = tagDataDao.getTagByName(filter.title!!)
             val tlm = when {
                 tagData != null ->
                     taskListMetadataDao.fetchByTagOrFilter(tagData.remoteId!!)

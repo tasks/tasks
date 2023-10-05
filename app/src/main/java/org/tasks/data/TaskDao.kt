@@ -215,7 +215,7 @@ FROM recursive_tasks
     }
 
     suspend fun count(filter: Filter): Int {
-        val query = getQuery(filter.originalSqlQuery!!, Field.COUNT)
+        val query = getQuery(filter.sql!!, Field.COUNT)
         val start = if (BuildConfig.DEBUG) now() else 0
         val count = count(query)
         Timber.v("%sms: %s", now() - start, query.sql)

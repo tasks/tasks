@@ -67,7 +67,7 @@ class FilterViewHolder internal constructor(
         val icon = getIcon(filter)
         this.icon.setImageDrawable(DrawableUtil.getWrapped(context, icon))
         this.icon.drawable.setTint(getColor(filter))
-        text.text = filter.listingTitle
+        text.text = filter.title
         if (count == null || count == 0) {
             size.visibility = View.INVISIBLE
         } else {

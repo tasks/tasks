@@ -58,7 +58,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
         super.onCreate(savedInstanceState)
         childFragmentManager.setFilterPickerResultListener(this) {
             defaultFilterProvider.setDefaultOpenFilter(it)
-            findPreference(R.string.p_default_open_filter).summary = it.listingTitle
+            findPreference(R.string.p_default_open_filter).summary = it.title
             localBroadcastManager.broadcastRefresh()
         }
     }
@@ -82,7 +82,7 @@ class LookAndFeel : InjectingPreferenceFragment() {
 
         val defaultList = findPreference(R.string.p_default_open_filter)
         val filter = defaultFilterProvider.getDefaultOpenFilter()
-        defaultList.summary = filter.listingTitle
+        defaultList.summary = filter.title
         defaultList.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             lifecycleScope.launch {
                 newFilterPicker(defaultFilterProvider.getDefaultOpenFilter())

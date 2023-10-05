@@ -68,7 +68,7 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
         updateFilterAndTheme()
 
         supportFragmentManager.setFilterPickerResultListener(this) {
-            if (selectedFilter != null && selectedFilter!!.listingTitle == getShortcutName()) {
+            if (selectedFilter != null && selectedFilter!!.title == getShortcutName()) {
                 shortcutName.text = null
             }
             selectedFilter = it
@@ -101,10 +101,10 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
 
     private fun updateFilterAndTheme() {
         if (isNullOrEmpty(getShortcutName()) && selectedFilter != null) {
-            shortcutName.setText(selectedFilter!!.listingTitle)
+            shortcutName.setText(selectedFilter!!.title)
         }
         if (selectedFilter != null) {
-            shortcutList.setText(selectedFilter!!.listingTitle)
+            shortcutList.setText(selectedFilter!!.title)
         }
         updateTheme()
     }

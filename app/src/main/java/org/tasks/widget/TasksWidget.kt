@@ -104,7 +104,7 @@ class TasksWidget : AppWidgetProvider() {
                 ColorUtils.setAlphaComponent(bgColor, widgetPreferences.footerOpacity))
         val filter = runBlocking { defaultFilterProvider.getFilterFromPreference(filterId) }
         remoteViews.setTextViewText(R.id.widget_title, if (widgetPreferences.showTitle()) {
-            filter.listingTitle
+            filter.title
         } else {
             null
         })

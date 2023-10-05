@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
-import org.tasks.Strings
 import org.tasks.themes.CustomIcons.FILTER
 
 @Entity(tableName = "filters")
@@ -43,8 +42,8 @@ class Filter {
         this.sql = sql
     }
 
-    val valuesAsMap: Map<String, Any>?
-        get() = if (Strings.isNullOrEmpty(values)) null else AndroidUtilities.mapFromSerializedString(values)
+    val valuesAsMap: Map<String, Any>
+        get() = AndroidUtilities.mapFromSerializedString(values)
 
     @Suppress("RedundantNullableReturnType")
     fun getColor(): Int? = color ?: 0
