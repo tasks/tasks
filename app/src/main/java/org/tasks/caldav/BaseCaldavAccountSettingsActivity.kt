@@ -334,6 +334,7 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         discard()
     }
 

@@ -81,6 +81,7 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         if (isNullOrEmpty(viewModel.text)) {
             val data = Intent()
             data.putExtra(EXTRA_TASKS, taskIds)

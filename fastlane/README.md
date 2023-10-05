@@ -47,6 +47,14 @@ Deploy a new version to the Google Play
 
 Lint
 
+### android bundle
+
+```sh
+[bundle exec] fastlane android bundle
+```
+
+Bundle
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

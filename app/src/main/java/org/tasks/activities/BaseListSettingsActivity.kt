@@ -72,6 +72,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         discard()
     }
 

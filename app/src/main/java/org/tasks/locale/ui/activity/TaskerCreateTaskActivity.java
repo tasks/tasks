@@ -107,6 +107,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
 
   @Override
   public void onBackPressed() {
+    super.onBackPressed();
     discardButtonClick();
   }
 
