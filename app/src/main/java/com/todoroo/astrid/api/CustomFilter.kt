@@ -2,7 +2,9 @@ package com.todoroo.astrid.api
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.todoroo.andlib.utility.AndroidUtilities
 import org.tasks.R
+import org.tasks.themes.CustomIcons
 
 class CustomFilter : Filter {
     var criterion: String? = null
@@ -10,13 +12,13 @@ class CustomFilter : Filter {
 
     constructor(filter: org.tasks.data.Filter) : super(
         filter.title,
-        filter.getSql(),
-        filter.valuesAsMap
+        filter.sql!!,
+        AndroidUtilities.mapFromSerializedString(filter.values)
     ) {
         id = filter.id
         criterion = filter.criterion
-        tint = filter.getColor()!!
-        icon = filter.getIcon()!!
+        tint = filter.color ?: 0
+        icon = filter.icon ?: CustomIcons.FILTER
         order = filter.order
     }
 

@@ -25,6 +25,7 @@ import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.BooleanCriterion
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.CustomFilterCriterion
+import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 import com.todoroo.astrid.api.MultipleSelectCriterion
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.api.TextInputCriterion
@@ -237,24 +238,25 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             return
         }
         if (hasChanges()) {
-            val f = Filter()
-            f.title = newName
-            f.setColor(selectedColor)
-            f.setIcon(selectedIcon)
-            f.values = AndroidUtilities.mapToSerializedString(criteria.values)
-            f.criterion = CriterionInstance.serialize(criteria)
+            var f = Filter(
+                id = filter?.id ?: 0L,
+                title = newName,
+                color = selectedColor,
+                icon = selectedIcon,
+                values = AndroidUtilities.mapToSerializedString(criteria.values),
+                criterion = CriterionInstance.serialize(criteria),
+                sql = criteria.sql,
+                order = filter?.order ?: NO_ORDER,
+            )
             if (f.criterion.isNullOrBlank()) {
                 throw RuntimeException("Criterion cannot be empty")
             }
-            f.setSql(criteria.sql)
             if (isNew) {
-                f.id = filterDao.insert(f)
+                f = f.copy(
+                    id = filterDao.insert(f)
+                )
             } else {
-                filter?.let {
-                    f.id = it.id
-                    f.order = it.order
-                    filterDao.update(f)
-                }
+                filterDao.update(f)
             }
             setResult(
                     Activity.RESULT_OK,

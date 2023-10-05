@@ -22,6 +22,7 @@ import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
 import org.tasks.data.CaldavTaskContainer
+import org.tasks.data.Filter
 import org.tasks.data.FilterDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.Location
@@ -87,7 +88,7 @@ class Upgrader @Inject constructor(
             run(from, V9_7_3) { caldavDao.updateParents() }
             run(from, V10_0_2) {
                 filterDao.getFilters()
-                        .filter { it.getSql().trim() == "WHERE" }
+                        .filter { it.dirtyHack.trim() == "WHERE" }
                         .forEach { filterDao.delete(it) }
             }
             run(from, Upgrade_11_3.VERSION) {
@@ -154,8 +155,11 @@ class Upgrader @Inject constructor(
             tagDataDao.update(tagData)
         }
         for (filter in filterDao.getFilters()) {
-            filter.setColor(getAndroidColor(filter.getColor()!!))
-            filterDao.update(filter)
+            filterDao.update(
+                filter.copy(
+                    color = getAndroidColor(filter.color ?: 0)
+                )
+            )
         }
     }
 
@@ -220,25 +224,34 @@ class Upgrader @Inject constructor(
 
     private suspend fun migrateGoogleTaskFilters() {
         for (filter in filterDao.getFilters()) {
-            filter.setSql(migrateGoogleTaskFilters(filter.getSql()))
-            filter.criterion = migrateGoogleTaskFilters(filter.criterion)
-            filterDao.update(filter)
+            filterDao.update(
+                filter.copy(
+                    sql = migrateGoogleTaskFilters(filter.dirtyHack),
+                    criterion = migrateGoogleTaskFilters(filter.criterion),
+                )
+            )
         }
     }
 
     private suspend fun migrateCaldavFilters() {
         for (filter in filterDao.getFilters()) {
-            filter.setSql(migrateCaldavFilters(filter.getSql()))
-            filter.criterion = migrateCaldavFilters(filter.criterion)
-            filterDao.update(filter)
+            filterDao.update(
+                filter.copy(
+                    sql = migrateCaldavFilters(filter.dirtyHack),
+                    criterion = migrateCaldavFilters(filter.criterion),
+                )
+            )
         }
     }
 
     private suspend fun migrateFilters() {
         for (filter in filterDao.getFilters()) {
-            filter.setSql(migrateMetadata(filter.getSql()))
-            filter.criterion = migrateMetadata(filter.criterion)
-            filterDao.update(filter)
+            filterDao.update(
+                filter.copy(
+                    sql = migrateMetadata(filter.dirtyHack),
+                    criterion = migrateMetadata(filter.criterion),
+                )
+            )
         }
     }
 
@@ -390,5 +403,8 @@ class Upgrader @Inject constructor(
                 else -> def
             }
         }
+
+        private val Filter.dirtyHack: String
+            get() = sql!!.replace("tasks.userId=0", "1")
     }
 }

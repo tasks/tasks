@@ -40,11 +40,13 @@ class FilterCriteriaProvider @Inject constructor(
         private val caldavDao: CaldavDao) {
     private val r = context.resources
 
-    suspend fun rebuildFilter(filter: Filter) {
+    suspend fun rebuildFilter(filter: Filter): Filter {
         val serialized = filter.criterion?.takeIf { it.isNotBlank() }
         val criterion = fromString(serialized)
-        filter.setSql(criterion.sql)
-        filter.criterion = CriterionInstance.serialize(criterion)
+        return filter.copy(
+            sql = criterion.sql,
+            criterion = CriterionInstance.serialize(criterion),
+        )
     }
 
     suspend fun fromString(criterion: String?): List<CriterionInstance> {

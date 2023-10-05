@@ -126,17 +126,19 @@ class TasksJsonImporter @Inject constructor(
                     )
                 }
             }
-            backupContainer
-                .filters
-                ?.onEach {
+            backupContainer.filters
+                ?.map {
                     if (version < Upgrade_13_2.VERSION) filterCriteriaProvider.rebuildFilter(it)
+                    else it
+                }?.forEach { filter ->
+                    if (filterDao.getByName(filter.title!!) == null) {
+                        filterDao.insert(
+                            filter.copy(
+                                color = themeToColor(context, version, filter.color ?: 0)
+                            )
+                        )
+                    }
                 }
-                ?.forEach { filter ->
-                filter.setColor(themeToColor(context, version, filter.getColor()!!))
-                if (filterDao.getByName(filter.title!!) == null) {
-                    filterDao.insert(filter)
-                }
-            }
             backupContainer.caldavAccounts?.forEach { account ->
                 if (caldavDao.getAccountByUuid(account.uuid!!) == null) {
                     caldavDao.insert(account)
