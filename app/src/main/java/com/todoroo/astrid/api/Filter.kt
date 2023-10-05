@@ -16,20 +16,16 @@ open class Filter : FilterListItem, Parcelable {
     var count = -1
     var order = NO_ORDER
 
-    constructor(listingTitle: String?, sqlQuery: QueryTemplate?) : this(
-        listingTitle,
-        sqlQuery,
-        emptyMap<String, Any>()
-    )
-
     /**
      * Utility constructor for creating a Filter object
      *
      * @param listingTitle Title of this item as displayed on the lists page, e.g. Inbox
      * @param sqlQuery SQL query for this list (see [.sqlQuery] for examples).
      */
-    protected constructor(
-        listingTitle: String?, sqlQuery: QueryTemplate?, valuesForNewTasks: Map<String, Any>?
+    constructor(
+        listingTitle: String?,
+        sqlQuery: QueryTemplate?,
+        valuesForNewTasks: Map<String, Any>? = emptyMap(),
     ) : this(listingTitle, sqlQuery?.toString(), valuesForNewTasks)
 
     /**
