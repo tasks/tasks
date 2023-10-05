@@ -7,7 +7,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.LifecycleOwner
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -28,11 +27,7 @@ class FilterPicker : DialogFragment() {
                     onSelected = { filter ->
                         val data = Bundle()
                         data.putParcelable(EXTRA_FILTER, filter)
-                        if (filter.valuesForNewTasks != null) {
-                            data.putString(
-                                EXTRA_FILTER_VALUES,
-                                AndroidUtilities.mapToSerializedString(filter.valuesForNewTasks))
-                        }
+                        filter.valuesForNewTasks?.let { data.putString(EXTRA_FILTER_VALUES, it) }
                         setFragmentResult(SELECT_FILTER, data)
                         dismiss()
                     }

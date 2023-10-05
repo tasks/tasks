@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.material.composethemeadapter.MdcTheme
-import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.FilterImpl
 import org.tasks.R
 import org.tasks.compose.ChipGroup
 import org.tasks.compose.FilterChip
@@ -48,7 +48,7 @@ fun ListRow(
 fun ListPreview() {
     MdcTheme {
         ListRow(
-            list = Filter("Default list", QueryTemplate()),
+            list = FilterImpl("Default list", ""),
             colorProvider = { -769226 },
             onClick = {},
         )

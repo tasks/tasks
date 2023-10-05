@@ -1,67 +1,46 @@
 package com.todoroo.astrid.api
 
-import android.os.Parcel
-import android.os.Parcelable
-import androidx.core.os.ParcelCompat
 import com.todoroo.andlib.sql.Criterion.Companion.and
 import com.todoroo.andlib.sql.Join.Companion.inner
 import com.todoroo.andlib.sql.QueryTemplate
+import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.astrid.api.Filter.Companion.NO_COUNT
 import com.todoroo.astrid.data.Task
-import org.tasks.R
+import kotlinx.parcelize.Parcelize
 import org.tasks.data.Tag
 import org.tasks.data.TagData
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 
-class TagFilter(
-    val tagData: TagData
-) : Filter(tagData.name, queryTemplate(tagData.remoteId), getValuesForNewTask(tagData)) {
+@Parcelize
+data class TagFilter(
+    val tagData: TagData,
+    override var count: Int = NO_COUNT,
+    override var filterOverride: String? = null,
+) : AstridOrderingFilter {
+    override val title: String?
+        get() = tagData.name
+    override val sql: String
+        get() = QueryTemplate()
+            .join(inner(Tag.TABLE, Task.ID.eq(Tag.TASK)))
+            .where(and(Tag.TAG_UID.eq(uuid), activeAndVisible()))
+            .toString()
 
-    init {
-        id = tagData.id!!
-        tint = tagData.getColor()!!
-        icon = tagData.getIcon()!!
-        order = tagData.order
-    }
+    override val order: Int
+        get() = tagData.order
+
+    override val valuesForNewTasks: String
+        get() = AndroidUtilities.mapToSerializedString(mapOf(Tag.KEY to tagData.name!!))
+
+    override val icon: Int
+        get() = tagData.getIcon()!!
+
+    override val tint: Int
+        get() = tagData.getColor()!!
 
     val uuid: String
         get() = tagData.remoteId!!
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeParcelable(tagData, 0)
-    }
-
-    override fun supportsAstridSorting() = true
-
-    override val menu = R.menu.menu_tag_view_fragment
-
-    override fun areContentsTheSame(other: FilterListItem): Boolean {
-        return tagData == (other as TagFilter).tagData
-    }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<TagFilter> = object : Parcelable.Creator<TagFilter> {
-            override fun createFromParcel(source: Parcel): TagFilter {
-                return TagFilter(
-                    ParcelCompat.readParcelable(source, javaClass.classLoader, TagData::class.java)!!
-                )
-            }
-
-            override fun newArray(size: Int): Array<TagFilter?> {
-                return arrayOfNulls(size)
-            }
-        }
-
-        private fun queryTemplate(uuid: String?): QueryTemplate {
-            return QueryTemplate()
-                .join(inner(Tag.TABLE, Task.ID.eq(Tag.TASK)))
-                .where(and(Tag.TAG_UID.eq(uuid), activeAndVisible()))
-        }
-
-        private fun getValuesForNewTask(tagData: TagData): Map<String, Any> {
-            val values: MutableMap<String, Any> = HashMap()
-            values[Tag.KEY] = tagData.name!!
-            return values
-        }
+    override fun areItemsTheSame(other: FilterListItem): Boolean {
+        return other is TagFilter && tagData.id!! == other.tagData.id
     }
 }

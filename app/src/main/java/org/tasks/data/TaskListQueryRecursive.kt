@@ -45,7 +45,7 @@ internal object TaskListQueryRecursive {
         val parentQuery = when (filter) {
             is CaldavFilter -> newCaldavQuery(filter.uuid)
             is GtasksFilter -> newCaldavQuery(filter.list.uuid!!)
-            else -> PermaSql.replacePlaceholdersForQuery(filter.getSqlQuery())
+            else -> PermaSql.replacePlaceholdersForQuery(filter.sql!!)
         }
         val manualSort = preferences.isManualSort
         val groupPreference = preferences.groupMode

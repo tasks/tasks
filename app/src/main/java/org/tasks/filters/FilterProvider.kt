@@ -287,7 +287,8 @@ class FilterProvider @Inject constructor(
     companion object {
         private val COMPARATOR = Comparator<Filter> { f1, f2 ->
             when {
-                f1.order == NO_ORDER && f2.order == NO_ORDER -> f1.id.compareTo(f2.id)
+                f1.order == NO_ORDER && f2.order == NO_ORDER ->
+                    AlphanumComparator.FILTER.compare(f1, f2)
                 f1.order == NO_ORDER -> 1
                 f2.order == NO_ORDER -> -1
                 f1.order < f2.order -> -1

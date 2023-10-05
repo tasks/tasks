@@ -11,9 +11,8 @@ import com.todoroo.andlib.sql.Criterion.Companion.and
 import com.todoroo.andlib.sql.Criterion.Companion.or
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.QueryTemplate
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.PermaSql
+import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -22,13 +21,12 @@ import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavTask
 import org.tasks.data.TaskDao
-import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.NotificationsFilter
 import org.tasks.filters.RecentlyModifiedFilter
 import org.tasks.filters.SnoozedFilter
-import org.tasks.filters.SortableFilter
+import org.tasks.filters.TodayFilter
 import org.tasks.preferences.Preferences
-import org.tasks.themes.CustomIcons
 import javax.inject.Inject
 
 /**
@@ -43,122 +41,117 @@ class BuiltInFilterExposer @Inject constructor(
 
     val myTasksFilter: Filter
         get() {
-            val myTasksFilter = getMyTasksFilter(context.resources)
-            myTasksFilter.icon = CustomIcons.ALL_INBOX
-            return myTasksFilter
+            return getMyTasksFilter(context.resources)
         }
 
     suspend fun filters(): List<Filter> {
         val r = context.resources
         val filters: MutableList<Filter> = ArrayList()
         if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
-            val todayFilter = getTodayFilter(r)
-            todayFilter.icon = CustomIcons.TODAY
-            filters.add(todayFilter)
+            filters.add(getTodayFilter(r))
         }
         if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
-            val recentlyModifiedFilter = getRecentlyModifiedFilter(r)
-            recentlyModifiedFilter.icon = CustomIcons.HISTORY
-            filters.add(recentlyModifiedFilter)
+            filters.add(getRecentlyModifiedFilter(r))
         }
         if (taskDao.snoozedReminders() > 0) {
-            val snoozedFilter = getSnoozedFilter(r)
-            snoozedFilter.icon = R.drawable.ic_snooze_white_24dp
-            filters.add(snoozedFilter)
+            filters.add(getSnoozedFilter(r))
         }
         if (taskDao.activeTimers() > 0) {
             filters.add(TimerPlugin.createFilter(context))
         }
         if (taskDao.hasNotifications() > 0) {
-            val element = NotificationsFilter(context)
-            element.icon = R.drawable.ic_outline_notifications_24px
-            filters.add(element)
+            filters.add(getNotificationsFilter(context))
         }
         return filters
     }
 
     companion object {
-        /** Build inbox filter  */
         fun getMyTasksFilter(r: Resources): Filter {
-            return SortableFilter(
-                    r.getString(R.string.BFE_Active),
-                    QueryTemplate().where(and(activeAndVisible(), Task.PARENT.eq(0))))
+            return MyTasksFilter(r.getString(R.string.BFE_Active))
         }
 
         fun getTodayFilter(r: Resources): Filter {
-            val todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today))
-            val todayValues: MutableMap<String, Any> = HashMap()
-            todayValues[Task.DUE_DATE.name] = PermaSql.VALUE_NOON
-            return SortableFilter(
-                    todayTitle,
-                    QueryTemplate()
-                            .where(
-                                    and(
-                                            activeAndVisible(),
-                                            Task.DUE_DATE.gt(0),
-                                            Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
-                    todayValues)
+            return TodayFilter(r.getString(R.string.today))
         }
 
         fun getNoListFilter() =
-                Filter(
-                        "No list",
-                        QueryTemplate()
-                                .join(Join.left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
-                                .where(CaldavTask.ID.eq(null))
-                ).apply {
-                    icon = R.drawable.ic_outline_cloud_off_24px
-                }
+            FilterImpl(
+                title = "No list",
+                sql = QueryTemplate()
+                    .join(Join.left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
+                    .where(CaldavTask.ID.eq(null))
+                    .toString(),
+                icon = R.drawable.ic_outline_cloud_off_24px,
+            )
 
         fun getDeleted() =
-                Filter("Deleted", QueryTemplate().where(Task.DELETION_DATE.gt(0)))
-                        .apply { icon = R.drawable.ic_outline_delete_24px }
+            FilterImpl(
+                title = "Deleted",
+                sql = QueryTemplate().where(Task.DELETION_DATE.gt(0)).toString(),
+                icon = R.drawable.ic_outline_delete_24px,
+            )
 
         fun getMissingListFilter() =
-                Filter(
-                        "Missing list",
-                        QueryTemplate()
-                                .join(Join.left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
-                                .join(Join.left(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)))
-                                .where(and(CaldavTask.ID.gt(0), CaldavCalendar.UUID.eq(null)))
-                ).apply {
-                    icon = R.drawable.ic_outline_cloud_off_24px
-                }
+            FilterImpl(
+                title = "Missing list",
+                sql = QueryTemplate()
+                    .join(Join.left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
+                    .join(
+                        Join.left(
+                            CaldavCalendar.TABLE,
+                            CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)
+                        )
+                    )
+                    .where(and(CaldavTask.ID.gt(0), CaldavCalendar.UUID.eq(null)))
+                    .toString(),
+                icon = R.drawable.ic_outline_cloud_off_24px,
+            )
 
         fun getMissingAccountFilter() =
-                Filter(
-                        "Missing account",
-                        QueryTemplate()
-                                .join(Join.left(CaldavTask.TABLE, and(CaldavTask.TASK.eq(Task.ID))))
-                                .join(Join.left(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR)))
-                                .join(Join.left(CaldavAccount.TABLE, CaldavAccount.UUID.eq(CaldavCalendar.ACCOUNT)))
-                                .where(and(CaldavTask.ID.gt(0), CaldavAccount.UUID.eq(null)))
-                ).apply {
-                    icon = R.drawable.ic_outline_cloud_off_24px
-                }
+            FilterImpl(
+                title = "Missing account",
+                sql = QueryTemplate()
+                    .join(
+                        Join.left(CaldavTask.TABLE, and(CaldavTask.TASK.eq(Task.ID)))
+                    ).join(
+                        Join.left(CaldavCalendar.TABLE, CaldavCalendar.UUID.eq(CaldavTask.CALENDAR))
+                    ).join(
+                        Join.left(
+                            CaldavAccount.TABLE, CaldavAccount.UUID.eq(CaldavCalendar.ACCOUNT)
+                        )
+                    )
+                    .where(and(CaldavTask.ID.gt(0), CaldavAccount.UUID.eq(null)))
+                    .toString(),
+                icon = R.drawable.ic_outline_cloud_off_24px,
+            )
 
         fun getNoTitleFilter() =
-                Filter(
-                        "No title",
-                        QueryTemplate().where(or(Task.TITLE.eq(null), Task.TITLE.eq("")))
-                ).apply {
-                    icon = R.drawable.ic_outline_clear_24px
-                }
+            FilterImpl(
+                title = "No title",
+                sql = QueryTemplate().where(or(Task.TITLE.eq(null), Task.TITLE.eq(""))).toString(),
+                icon = R.drawable.ic_outline_clear_24px,
+            )
 
         fun getNoCreateDateFilter() =
-                Filter("No create time", QueryTemplate().where(Task.CREATION_DATE.eq(0)))
-                        .apply { icon = R.drawable.ic_outline_add_24px }
+            FilterImpl(
+                title = "No create time",
+                sql = QueryTemplate().where(Task.CREATION_DATE.eq(0)).toString(),
+                icon = R.drawable.ic_outline_add_24px,
+            )
 
         fun getNoModificationDateFilter() =
-                Filter("No modify time", QueryTemplate().where(Task.MODIFICATION_DATE.eq(0)))
-                        .apply { icon = R.drawable.ic_outline_edit_24px }
+            FilterImpl(
+                title = "No modify time",
+                sql = QueryTemplate().where(Task.MODIFICATION_DATE.eq(0)).toString(),
+                icon = R.drawable.ic_outline_edit_24px,
+            )
 
         fun getRecentlyModifiedFilter(r: Resources) =
                 RecentlyModifiedFilter(r.getString(R.string.BFE_Recent))
 
         fun getSnoozedFilter(r: Resources) = SnoozedFilter(r.getString(R.string.filter_snoozed))
 
-        fun getNotificationsFilter(context: Context) = NotificationsFilter(context)
+        fun getNotificationsFilter(context: Context) = NotificationsFilter(context.getString(R.string.notifications))
 
         @JvmStatic
         fun isInbox(context: Context, filter: Filter?) =

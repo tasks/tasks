@@ -47,15 +47,19 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.android.material.snackbar.Snackbar
+import com.todoroo.andlib.sql.Join
+import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.CaldavFilter
+import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.api.IdListFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
@@ -86,6 +90,7 @@ import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.CaldavDao
+import org.tasks.data.Tag
 import org.tasks.data.TagDataDao
 import org.tasks.data.TaskContainer
 import org.tasks.databinding.FragmentTaskListBinding
@@ -175,12 +180,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 result.data?.let { data ->
                     if (data.getBooleanExtra(SortSettingsActivity.EXTRA_FORCE_RELOAD, false)) {
                         activity?.recreate()
-                    } else {
-                        listViewModel.invalidate()
                     }
                     if (data.getBooleanExtra(SortSettingsActivity.EXTRA_CHANGED_GROUP, false)) {
                         taskAdapter.clearCollapsed()
                     }
+                    listViewModel.invalidate()
                 }
             }
         }
@@ -265,7 +269,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             fab.isVisible = filter.isWritable
         }
         themeColor = if (filter.tint != 0) colorProvider.getThemeColor(filter.tint, true) else defaultThemeColor
-        filter.filterOverride = null
+        (filter as? AstridOrderingFilter)?.filterOverride = null
 
         // set up list adapters
         taskAdapter = taskAdapterProvider.createTaskAdapter(filter)
@@ -360,12 +364,19 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private fun setupMenu(appBar: Toolbar) {
         val menu = appBar.menu
         menu.clear()
-        if (filter.hasBeginningMenu()) {
-            appBar.inflateMenu(filter.beginningMenu)
+        if (filter is PlaceFilter) {
+            appBar.inflateMenu(R.menu.menu_location_actions)
         }
         appBar.inflateMenu(R.menu.menu_task_list_fragment_bottom)
-        if (filter.hasMenu()) {
-            appBar.inflateMenu(filter.menu)
+        when (filter) {
+            is CaldavFilter -> R.menu.menu_caldav_list_fragment
+            is CustomFilter -> R.menu.menu_custom_filter
+            is GtasksFilter -> R.menu.menu_gtasks_list_fragment
+            is TagFilter -> R.menu.menu_tag_view_fragment
+            is PlaceFilter -> R.menu.menu_location_list_fragment
+            else -> null
+        }?.let {
+            appBar.inflateMenu(it)
         }
         if (appBar is BottomAppBar) {
             menu.removeItem(R.id.menu_search)
@@ -430,7 +441,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     SortSettingsActivity.getIntent(
                         requireActivity(),
                         filter.supportsManualSort(),
-                        filter.supportsAstridSorting() && preferences.isAstridSortEnabled,
+                        filter is AstridOrderingFilter && preferences.isAstridSortEnabled,
                     )
                 )
                 true
@@ -745,8 +756,19 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             R.id.menu_share -> {
                 lifecycleScope.launch {
-                    selected.chunkedMap { taskDao.fetchTasks(preferences, IdListFilter(it)) }
-                            .apply { send(this) }
+                    selected
+                        .chunkedMap {
+                            taskDao.fetchTasks(
+                                preferences,
+                                FilterImpl(
+                                    sql = QueryTemplate()
+                                        .join(Join.left(Tag.TABLE, Tag.TASK.eq(Task.ID)))
+                                        .where(Task.ID.`in`(it))
+                                        .toString()
+                                )
+                            )
+                        }
+                        .let { send(it) }
                 }
                 true
             }

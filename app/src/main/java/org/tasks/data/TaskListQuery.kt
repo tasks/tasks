@@ -3,6 +3,7 @@ package org.tasks.data
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskListQueryNonRecursive.getNonRecursiveQuery
@@ -35,7 +36,7 @@ object TaskListQuery {
     ): MutableList<String> = when {
         filter.supportsManualSort() && preferences.isManualSort ->
             getRecursiveQuery(filter, preferences)
-        filter.supportsAstridSorting() && preferences.isAstridSort ->
+        filter is AstridOrderingFilter && preferences.isAstridSort ->
             getNonRecursiveQuery(filter, preferences)
         filter.supportsSorting() ->
             getRecursiveQuery(filter, preferences)

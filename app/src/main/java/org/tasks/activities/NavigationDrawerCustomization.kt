@@ -210,7 +210,6 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
             (viewHolder as FilterViewHolder).setMoving(false)
 
             if (from != to) {
-                viewHolder.filter.order = to
                 lifecycleScope.launch {
                     adapter.items
                             .apply {
@@ -218,9 +217,9 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
                                 add(to, viewHolder.filter)
                             }
                             .filter(getPredicate(viewHolder.filter))
+                            // TODO: use transaction, or shift positions with a single query
                             .forEachIndexed { order, filter ->
                                 if (filter is Filter) {
-                                    filter.order = order
                                     setOrder(order, filter)
                                 }
                             }

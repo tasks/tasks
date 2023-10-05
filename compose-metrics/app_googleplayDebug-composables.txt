@@ -193,8 +193,8 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DisabledT
   stable text: String
   stable modifier: Modifier? = @static Companion
 )
-restartable scheme("[androidx.compose.ui.UiComposable]") fun FilterChip(
-  unstable filter: Filter
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FilterChip(
+  filter: Filter
   stable defaultIcon: Int
   stable showText: Boolean
   stable showIcon: Boolean
@@ -482,8 +482,8 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun InfoRow(
   unstable locale: Locale? = @dynamic getDefault()
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun InfoPreview()
-restartable scheme("[androidx.compose.ui.UiComposable]") fun ListRow(
-  unstable list: Filter?
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ListRow(
+  list: Filter?
   stable colorProvider: Function1<Int, Int>
   stable onClick: Function0<Unit>
 )
@@ -567,8 +567,8 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun NoStartDa
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FutureStartDate()
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PastStartDate()
 restartable scheme("[androidx.compose.ui.UiComposable]") fun SubtaskRow(
-  unstable originalFilter: Filter?
-  unstable filter: Filter?
+  originalFilter: Filter?
+  filter: Filter?
   stable hasParent: Boolean
   stable desaturate: Boolean
   unstable existingSubtasks: List<TaskContainer>
@@ -701,9 +701,9 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DatePicke
   stable dismiss: Function0<Unit>
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DatePickerPreview()
-restartable scheme("[androidx.compose.ui.UiComposable]") fun FilterPicker(
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FilterPicker(
   unstable viewModel: FilterPickerViewModel? = @dynamic viewModel(null, null, null, null, $composer, 0, 0b1111)
-  unstable selected: Filter?
+  selected: Filter?
   stable onSelected: Function1<Filter, Unit>
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SortSheetContent(
@@ -774,7 +774,7 @@ restartable scheme("[androidx.compose.ui.UiComposable]") fun StartDateChip(
   unstable <this>: ChipProvider
 )
 restartable scheme("[androidx.compose.ui.UiComposable]") fun Chips(
-  unstable filter: Filter?
+  filter: Filter?
   stable id: Long
   stable children: Int
   stable collapsed: Boolean

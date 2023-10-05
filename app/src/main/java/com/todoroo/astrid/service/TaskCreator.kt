@@ -1,5 +1,6 @@
 package com.todoroo.astrid.service
 
+import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
@@ -123,7 +124,10 @@ class TaskCreator @Inject constructor(
     }
 
     suspend fun createWithValues(filter: Filter?, title: String?): Task {
-        return create(filter?.valuesForNewTasks, title)
+        return create(
+            AndroidUtilities.mapFromSerializedString(filter?.valuesForNewTasks),
+            title
+        )
     }
 
     /**

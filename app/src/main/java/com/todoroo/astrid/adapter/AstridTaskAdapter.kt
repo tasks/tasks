@@ -1,7 +1,7 @@
 package com.todoroo.astrid.adapter
 
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskMover
@@ -13,19 +13,19 @@ import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListMetadata
 import timber.log.Timber
-import java.util.*
+import java.util.Collections
 import kotlin.math.abs
 
 @Deprecated("legacy astrid manual sorting")
 class AstridTaskAdapter internal constructor(
-        private val list: TaskListMetadata,
-        private val filter: Filter,
-        private val updater: SubtasksFilterUpdater,
-        googleTaskDao: GoogleTaskDao,
-        caldavDao: CaldavDao,
-        private val taskDao: TaskDao,
-        private val localBroadcastManager: LocalBroadcastManager,
-        taskMover: TaskMover,
+    private val list: TaskListMetadata,
+    private val filter: AstridOrderingFilter,
+    private val updater: SubtasksFilterUpdater,
+    googleTaskDao: GoogleTaskDao,
+    caldavDao: CaldavDao,
+    private val taskDao: TaskDao,
+    private val localBroadcastManager: LocalBroadcastManager,
+    taskMover: TaskMover,
 ) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover) {
 
     private val chainedCompletions = Collections.synchronizedMap(HashMap<String, ArrayList<String>>())

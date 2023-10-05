@@ -1,6 +1,7 @@
 package com.todoroo.astrid.subtasks
 
 import android.content.Context
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.isInbox
 import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.isTodayFilter
@@ -31,7 +32,7 @@ class SubtasksHelper @Inject constructor(
             originalQuery: String
     ): String {
         var query = originalQuery
-        if (filter.supportsAstridSorting() && preferences.isAstridSort) {
+        if (filter is AstridOrderingFilter && preferences.isAstridSort) {
             val tagData = tagDataDao.getTagByName(filter.title!!)
             val tlm = when {
                 tagData != null ->

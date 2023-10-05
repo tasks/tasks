@@ -12,6 +12,4 @@ data class NavigationDrawerAction(
     override val itemType = FilterListItem.Type.ACTION
 
     override fun areItemsTheSame(other: FilterListItem) = this == other
-
-    override fun areContentsTheSame(other: FilterListItem) = true
 }

@@ -12,6 +12,7 @@ import com.todoroo.andlib.sql.Criterion.Companion.and
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -94,12 +95,17 @@ class TimerPlugin @Inject constructor(
 
     companion object {
         fun createFilter(context: Context): Filter {
-            val filter = Filter(
-                    context.getString(R.string.TFE_workingOn),
-                    QueryTemplate()
-                            .where(and(Task.TIMER_START.gt(0), Task.DELETION_DATE.eq(0))))
-            filter.icon = R.drawable.ic_outline_timer_24px
-            return filter
+            return FilterImpl(
+                title = context.getString(R.string.TFE_workingOn),
+                sql = QueryTemplate()
+                    .where(
+                        and(
+                            Task.TIMER_START.gt(0),
+                            Task.DELETION_DATE.eq(0)
+                        )
+                    ).toString(),
+                icon = R.drawable.ic_outline_timer_24px,
+            )
         }
     }
 }

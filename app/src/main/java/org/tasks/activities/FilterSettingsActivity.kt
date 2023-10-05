@@ -243,7 +243,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 title = newName,
                 color = selectedColor,
                 icon = selectedIcon,
-                values = AndroidUtilities.mapToSerializedString(criteria.values),
+                values = criteria.values,
                 criterion = CriterionInstance.serialize(criteria),
                 sql = criteria.sql,
                 order = filter?.order ?: NO_ORDER,
@@ -384,7 +384,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 return sql.toString()
             }
 
-        private val List<CriterionInstance>.values: Map<String, Any>
+        private val List<CriterionInstance>.values: String
             get() {
                 val values: MutableMap<String, Any> = HashMap()
                 for (instance in this) {
@@ -396,7 +396,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                         }
                     }
                 }
-                return values
+                return AndroidUtilities.mapToSerializedString(values)
             }
     }
 }

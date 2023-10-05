@@ -288,10 +288,7 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
             return
         }
         val newFilter = taskListFragment.getFilter()
-        if (filter != null
-                && !force
-                && filter!!.areItemsTheSame(newFilter)
-                && filter!!.areContentsTheSame(newFilter)) {
+        if (!force && filter == newFilter) {
             return
         }
         filter = newFilter
