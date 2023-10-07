@@ -18,6 +18,8 @@ interface WorkManager {
 
     suspend fun sync(immediate: Boolean)
 
+    suspend fun startEnqueuedSync()
+
     fun reverseGeocode(place: Place)
 
     fun updateBackgroundSync()

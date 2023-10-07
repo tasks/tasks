@@ -70,6 +70,12 @@ class Tasks : Application(), Configuration.Provider {
                         }
                     }
                 }
+
+                override fun onPause(owner: LifecycleOwner) {
+                    owner.lifecycle.coroutineScope.launch {
+                        workManager.get().startEnqueuedSync()
+                    }
+                }
             }
         )
     }
