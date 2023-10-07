@@ -1,15 +1,15 @@
 package org.tasks.widget
 
-import android.app.Activity
-import android.content.Intent
-import android.content.Intent.ShortcutIconResource
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.pm.ShortcutInfoCompat
+import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.graphics.drawable.IconCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -124,13 +124,15 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
 
     private fun save() {
         val filterId = defaultFilterProvider.getFilterPreferenceValue(selectedFilter!!)
-        val shortcutIntent = TaskIntents.getTaskListByIdIntent(this, filterId)
-        val icon: Parcelable = ShortcutIconResource.fromContext(this, ThemeColor.ICONS[themeIndex])
-        val intent = Intent("com.android.launcher.action.INSTALL_SHORTCUT")
-        intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent)
-        intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getShortcutName())
-        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon)
-        setResult(Activity.RESULT_OK, intent)
+        ShortcutManagerCompat.requestPinShortcut(
+            this,
+            ShortcutInfoCompat.Builder(this, UUIDHelper.newUUID())
+                .setShortLabel(getShortcutName())
+                .setIntent(TaskIntents.getTaskListByIdIntent(this, filterId))
+                .setIcon(IconCompat.createWithResource(this, ThemeColor.ICONS[themeIndex]))
+                .build(),
+            null,
+        )
         finish()
     }
 
