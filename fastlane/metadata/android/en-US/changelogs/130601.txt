@@ -1,9 +1,11 @@
 * Change priority with multi-select - @vulewuxe86
 * Automatically select newly copied tasks - @vulewuxe86
 * Reduce minimum size for widgets - @histefanhere
+* Replace deprecated method call - @kmj-99
 * Improve handling text shared to Tasks
 * Use notification audio stream for completion sound
 * Notification preference 'More settings' opens channel settings directly
 * Respect 'New tasks on top' preference when creating subtasks
 * Automatically add due dates for recurring tasks
+* Fix crash on startup
 * Update translations
