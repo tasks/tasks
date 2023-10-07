@@ -1,8 +1,9 @@
-### 13.6 (2023-09-17)
+### 13.6 (2023-10-07)
 
 * Change priority with multi-select [#2257](https://github.com/tasks/tasks/pull/2452) - @vulewuxe86
 * Automatically select newly copied tasks [#2246](https://github.com/tasks/tasks/pull/2446) - @vulewuxe86
 * Reduce minimum size for widgets [#2436](https://github.com/tasks/tasks/pull/2436) - @histefanhere
+* Replace deprecated method call [#2526](https://github.com/tasks/tasks/pull/2526) - @kmj-99
 * Improve handling text shared to Tasks [#2485](https://github.com/tasks/tasks/issues/2485)
 * Use notification audio stream for completion sound
 * Notification preference 'More settings' opens channel settings directly
@@ -15,11 +16,16 @@
   * Catalan - Joan Montané
   * Chinese (Simplified) - Poesty Li
   * Chinese (Traditional) - @abc0922001
-  * German - @qwerty287, deep map
+  * Dutch - @fvbommel
+  * French - @FlorianLeChat
+  * German - @qwerty287, deep map, @franconian
+  * Hungarian - Kaci
   * Italian - @ppasserini
   * Japanese - Kazushi Hayama, Naga
+  * Spanish - @FlorianLeChat
   * Swedish - @Anaemix, @bittin
-  * Turkish - @emintufan
+  * Turkish - @emintufan, @oersen
+  * Ukrainian - @IhorHordiichuk
 
 ### 13.5.1 (2023-08-02)
 
