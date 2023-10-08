@@ -720,4 +720,7 @@
     <string name="repeat_monthly_on_the_nth_weekday">Månadsvis på %1$s %2$s</string>
     <string name="repeats_custom_recurrence">Anpassad upprepning</string>
     <string name="repeat_monthly_on_day_number">Månadsvis på dag %1d</string>
+    <string name="change_priority">Ändra prioritet</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Avbryt</string>
 </resources>
