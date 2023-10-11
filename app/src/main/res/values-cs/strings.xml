@@ -730,4 +730,19 @@
     <string name="sort_ascending">Vzestupně</string>
     <string name="sort_descending">Sestupně</string>
     <string name="sort_completed">Podle času dokončení</string>
+    <string name="change_priority">Změnit prioritu</string>
+    <string name="repeats_every">Opakuje se každý</string>
+    <string name="repeat_monthly_on_the_nth_weekday">%1$s. %2$s v měsíci</string>
+    <string name="repeats_after">Po</string>
+    <string name="repeats_custom_recurrence">Vlastní opakování</string>
+    <string name="repeats_never">Nikdy</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">výskyt</item>
+        <item quantity="few">výskyty</item>
+        <item quantity="other">výskytů</item>
+    </plurals>
+    <string name="repeat_monthly_on_day_number">%1d. den v měsíci</string>
+    <string name="repeats_ends">Končí</string>
+    <string name="repeats_on">V</string>
+    <string name="repeats_weekly_on">Opakuje se v</string>
 </resources>
