@@ -126,8 +126,8 @@
     <string name="rmd_NoA_done">完了</string>
     <string name="rmd_NoA_snooze">スヌーズ</string>
     <string name="snooze_all">すべてスヌーズ</string>
-    <string name="rmd_EPr_quiet_hours_start_title">静寂モードの開始時刻</string>
-    <string name="rmd_EPr_quiet_hours_end_title">静寂モードの終了時刻</string>
+    <string name="rmd_EPr_quiet_hours_start_title">おやすみモードの開始時刻</string>
+    <string name="rmd_EPr_quiet_hours_end_title">おやすみモードの終了時刻</string>
     <string name="rmd_EPr_rmd_time_title">リマインダーの時刻</string>
     <string name="rmd_EPr_rmd_time_desc">締切時刻が設定されていないタスクは %s に通知されます</string>
     <string name="persistent_notifications">継続通知</string>
@@ -230,7 +230,7 @@
     <string name="silent">サイレント</string>
     <string name="sound">サウンド</string>
     <string name="vibrations">振動</string>
-    <string name="quiet_hours">静寂モード</string>
+    <string name="quiet_hours">おやすみモード</string>
     <string name="attachment_directory">添付フォルダー</string>
     <string name="backup_directory">フォルダーをバックアップ</string>
     <string name="google_drive_backup">Google ドライブにバックアップ</string>
@@ -243,7 +243,7 @@
     <string name="translations">翻訳に貢献する</string>
     <string name="contact_developer">開発者に連絡</string>
     <string name="rate_tasks">Tasks を評価</string>
-    <string name="quiet_hours_summary">静寂モードの間はリマインダーを停止します</string>
+    <string name="quiet_hours_summary">おやすみモードの間はリマインダーを停止します</string>
     <string name="TLA_menu_donate">寄付</string>
     <string name="add_reminder">リマインダーを追加</string>
     <string name="add_location">場所を追加</string>
@@ -255,7 +255,7 @@
     <string name="geofence_radius">ジオフェンスの半径</string>
     <string name="tags">タグ</string>
     <string name="filters">フィルター</string>
-    <string name="date_shortcut_hour">1時間</string>
+    <string name="date_shortcut_hour">1 時間</string>
     <string name="date_shortcut_morning">朝</string>
     <string name="date_shortcut_afternoon">昼</string>
     <string name="date_shortcut_evening">夕方</string>
@@ -716,4 +716,5 @@
     <string name="repeats_ends">終了</string>
     <string name="repeats_after">回数</string>
     <string name="repeat_monthly_on_the_nth_weekday">毎月 %1$s %2$s</string>
+    <string name="change_priority">優先度を変更</string>
 </resources>
