@@ -46,7 +46,6 @@ opentasks = "562fec5"
 osmdroid = "6.1.17"
 oss-licenses-plugin = "0.10.6"
 persistent-cookiejar = "1.0.1"
-play-billing-ktx = "4.1.0"
 play-core-ktx = "1.8.1"
 play-core = "1.10.3"
 play-services-maps = "18.1.0"
@@ -147,7 +146,7 @@ okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.
 osmdroid = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroid" }
 oss-licenses-plugin = { module = "com.google.android.gms:oss-licenses-plugin", version.ref = "oss-licenses-plugin" }
 persistent-cookiejar = { module = "com.github.franmontiel:PersistentCookieJar", version.ref = "persistent-cookiejar" }
-play-billing-ktx = { module = "com.android.billingclient:billing-ktx", version.ref = "play-billing-ktx" }
+play-billing-ktx = { module = "com.android.billingclient:billing-ktx", version = "6.0.1" }
 play-core-ktx = { module = "com.google.android.play:core-ktx", version.ref = "play-core-ktx" }
 play-core = { module = "com.google.android.play:core", version.ref = "play-core" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "play-services-maps" }

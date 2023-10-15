@@ -438,8 +438,11 @@
 +|    +--- androidx.fragment:fragment:1.0.0 -> 1.6.1 (*)
 +|    +--- com.google.android.gms:play-services-base:18.0.1 -> 18.1.0 (*)
 +|    \--- com.google.android.gms:play-services-basement:18.0.0 -> 18.1.0 (*)
-++--- com.android.billingclient:billing-ktx:4.1.0
-+|    +--- com.android.billingclient:billing:4.1.0
+++--- com.android.billingclient:billing-ktx:6.0.1
++|    +--- com.android.billingclient:billing:6.0.1
++|    |    +--- com.google.android.datatransport:transport-api:3.0.0 (*)
++|    |    +--- com.google.android.datatransport:transport-backend-cct:3.1.8 -> 3.1.9 (*)
++|    |    \--- com.google.android.datatransport:transport-runtime:3.1.8 -> 3.1.9 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.0 -> 1.9.10 (*)
 +|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9 -> 1.7.1 (*)
 ++--- com.google.android.play:core:1.10.3
