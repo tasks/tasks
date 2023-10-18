@@ -150,7 +150,7 @@ unstable class MainActivity {
   unstable var firebase: Firebase
   stable var currentNightMode: Int
   stable var currentPro: Boolean
-  unstable var filter: Filter?
+  runtime var filter: Filter?
   unstable var actionMode: ActionMode?
   unstable var binding: TaskListActivityBinding
   <runtime stability> = Unstable
@@ -211,7 +211,7 @@ unstable class TaskListFragment {
   unstable val listViewModel$delegate: Lazy<TaskListViewModel>
   unstable var taskAdapter: TaskAdapter
   unstable var recyclerAdapter: DragAndDropRecyclerAdapter?
-  unstable var filter: Filter
+  runtime var filter: Filter
   unstable var search: MenuItem
   unstable var mode: ActionMode?
   unstable var themeColor: ThemeColor
@@ -232,11 +232,11 @@ unstable class ActionViewHolder {
 }
 unstable class AstridTaskAdapter {
   unstable val list: TaskListMetadata
-  unstable val filter: Filter
+  runtime val filter: AstridOrderingFilter
   unstable val updater: SubtasksFilterUpdater
   unstable val taskDao: TaskDao
   unstable val localBroadcastManager: LocalBroadcastManager
-  unstable val chainedCompletions: @[FlexibleNullability] @[FlexibleMutability] MutableMap<@[FlexibleNullability] String?, @[FlexibleNullability] ArrayList<String>?>?
+  unstable val chainedCompletions: @[FlexibleNullability] @[FlexibleMutability] MutableMap<@[FlexibleNullability] String?, @[FlexibleNullability] ArrayList<String>?{ kotlin.collections.TypeAliasesKt.ArrayList<String>? }>?
   <runtime stability> = Unstable
 }
 stable class CaldavManualSortTaskAdapter {
@@ -254,7 +254,7 @@ unstable class FilterViewHolder {
   unstable val icon: ImageView
   unstable val size: TextView
   unstable val shareIndicator: ImageView
-  unstable var filter: Filter
+  runtime var filter: Filter
   <runtime stability> = Unstable
 }
 stable class GoogleTaskManualSortAdapter {
@@ -267,7 +267,7 @@ unstable class NavigationDrawerAdapter {
   unstable val colorProvider: ColorProvider
   unstable val subheaderClickHandler: SubheaderClickHandler
   stable var onClick: Function1<FilterListItem?, Unit>
-  unstable var selected: Filter?
+  runtime var selected: Filter?
   unstable val channel: Channel<List<FilterListItem>>
   unstable val updates: Queue<Pair<MutableList<FilterListItem>, DiffResult?>>
   unstable val scope: CoroutineScope
@@ -329,42 +329,38 @@ stable class BooleanCriterion {
 unstable class CaldavFilter {
   unstable val calendar: CaldavCalendar
   stable val principals: Int
-  stable val menu: Int
+  stable var count: Int
   <runtime stability> = Unstable
 }
 unstable class CustomFilter {
-  stable var criterion: String?
+  stable val filter: Filter
+  stable var count: Int
   <runtime stability> = Unstable
 }
-unstable class Filter {
-  unstable val valuesForNewTasks: MutableMap<String, Any>
-  stable var originalSqlQuery: String?
-  stable var filterOverride: String?
-  stable var id: Long
-  stable var icon: Int
-  stable var listingTitle: String?
-  stable var tint: Int
+unstable class FilterImpl {
+  stable val title: String?
+  stable val sql: String?
+  stable val valuesForNewTasks: String?
+  stable val icon: Int
+  stable val tint: Int
   stable var count: Int
-  stable var order: Int
-  stable val itemType: Type
-  stable val isReadOnly: Boolean
   <runtime stability> = Unstable
 }
 unstable class GtasksFilter {
   unstable val list: CaldavCalendar
-  stable val menu: Int
+  stable var count: Int
   <runtime stability> = Unstable
 }
-unstable class IdListFilter {
-  unstable var ids: List<Long?>?
+unstable class SearchFilter {
+  stable val title: String
+  stable val query: String
+  stable var count: Int
   <runtime stability> = Unstable
-}
-stable class SearchFilter {
-  <runtime stability> = Stable
 }
 unstable class TagFilter {
   unstable val tagData: TagData
-  stable val menu: Int
+  stable var count: Int
+  stable var filterOverride: String?
   <runtime stability> = Unstable
 }
 unstable class BuiltInFilterExposer {
@@ -1366,16 +1362,16 @@ runtime class ContentProviderDaoBlocking {
 stable class DeletionDao {
   <runtime stability> = Stable
 }
-unstable class Filter {
-  stable var id: Long
-  stable var title: String?
-  stable var sql: String?
-  stable var values: String?
-  stable var criterion: String?
-  stable var color: Int?
-  stable var icon: Int?
-  stable var order: Int
-  <runtime stability> = Unstable
+stable class Filter {
+  stable val id: Long
+  stable val title: String?
+  stable val sql: String?
+  stable val values: String?
+  stable val criterion: String?
+  stable val color: Int?
+  stable val icon: Int?
+  stable val order: Int
+  <runtime stability> = Stable
 }
 unstable class Geofence {
   stable val id: Long
@@ -1931,8 +1927,14 @@ unstable class LocationFilters {
   stable var count: Int
   <runtime stability> = Unstable
 }
+unstable class MyTasksFilter {
+  stable val title: String
+  stable var filterOverride: String?
+  stable var count: Int
+  <runtime stability> = Unstable
+}
 unstable class NavigationDrawerAction {
-  stable val listingTitle: String
+  stable val title: String
   stable val icon: Int
   stable val requestCode: Int
   unstable val intent: Intent?
@@ -1944,7 +1946,7 @@ stable class NavigationDrawerSeparator {
   <runtime stability> = Stable
 }
 unstable class NavigationDrawerSubheader {
-  stable val listingTitle: String?
+  stable val title: String?
   stable val error: Boolean
   stable val isCollapsed: Boolean
   stable val subheaderType: SubheaderType
@@ -1954,26 +1956,34 @@ unstable class NavigationDrawerSubheader {
   stable val itemType: Type
   <runtime stability> = Unstable
 }
-stable class NotificationsFilter {
-  <runtime stability> = Stable
+unstable class NotificationsFilter {
+  stable val title: String
+  stable var count: Int
+  <runtime stability> = Unstable
 }
-stable class PlaceFilter {
+unstable class PlaceFilter {
   stable val place: Place
-  stable val beginningMenu: Int
-  stable val menu: Int
-  <runtime stability> = Stable
+  stable var count: Int
+  <runtime stability> = Unstable
 }
-stable class RecentlyModifiedFilter {
-  <runtime stability> = Stable
+unstable class RecentlyModifiedFilter {
+  stable val title: String
+  stable var count: Int
+  <runtime stability> = Unstable
 }
-stable class SnoozedFilter {
-  <runtime stability> = Stable
-}
-stable class SortableFilter {
-  <runtime stability> = Stable
+unstable class SnoozedFilter {
+  stable val title: String
+  stable var count: Int
+  <runtime stability> = Unstable
 }
 unstable class TagFilters {
   unstable var tagData: TagData
+  stable var count: Int
+  <runtime stability> = Unstable
+}
+unstable class TodayFilter {
+  stable val title: String
+  stable var filterOverride: String?
   stable var count: Int
   <runtime stability> = Unstable
 }
@@ -2575,7 +2585,7 @@ unstable class TaskListPreferences {
 unstable class TaskerListNotification {
   unstable var defaultFilterProvider: DefaultFilterProvider
   unstable var inventory: Inventory
-  unstable var filter: Filter
+  runtime var filter: Filter
   stable var cancelled: Boolean
   <runtime stability> = Unstable
 }
@@ -3064,7 +3074,7 @@ unstable class NavigationDrawerFragment {
   <runtime stability> = Unstable
 }
 unstable class ViewState {
-  unstable val selected: Filter?
+  runtime val selected: Filter?
   unstable val filters: List<FilterListItem>
   <runtime stability> = Unstable
 }
@@ -3144,7 +3154,7 @@ unstable class TaskEditViewModel {
   unstable val startDate: MutableStateFlow<Long>
   stable var originalCalendar: String?
   unstable var selectedCalendar: MutableStateFlow<String?>
-  unstable val originalList: Filter
+  runtime val originalList: Filter
   unstable var selectedList: MutableStateFlow<Filter>
   unstable var originalLocation: Location?
   unstable var selectedLocation: MutableStateFlow<Location?>
@@ -3170,7 +3180,7 @@ stable class CalendarEventCreated {
   <runtime stability> = Stable
 }
 unstable class State {
-  unstable val filter: Filter?
+  runtime val filter: Filter?
   stable val now: Long
   stable val searchQuery: String?
   unstable val tasks: List<TaskContainer>
@@ -3215,7 +3225,7 @@ unstable class ShortcutConfigActivity {
   unstable var shortcutName: TextInputEditText
   unstable var colorIcon: TextView
   unstable var clear: View
-  unstable var selectedFilter: Filter?
+  runtime var selectedFilter: Filter?
   stable var selectedTheme: Int
   <runtime stability> = Unstable
 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.utility.Flags
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -39,7 +40,7 @@ class DragAndDropRecyclerAdapter(
     private val disableHeaders = taskList.getFilter().let {
         !it.supportsSorting()
                 || (it.supportsManualSort() && preferences.isManualSort)
-                || (it.supportsAstridSorting() && preferences.isAstridSort)
+                || (it is AstridOrderingFilter && preferences.isAstridSort)
     }
     private val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback()).apply {
         attachToRecyclerView(recyclerView)

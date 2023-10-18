@@ -9,6 +9,7 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService.RemoteViewsFactory
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.now
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.data.Task
@@ -367,7 +368,7 @@ internal class ScrollableViewsFactory(
         disableGroups = filter?.let {
             !it.supportsSorting()
                     || (it.supportsManualSort() && widgetPreferences.isManualSort)
-                    || (it.supportsAstridSorting() && widgetPreferences.isAstridSort)
+                    || (it is AstridOrderingFilter && widgetPreferences.isAstridSort)
         } == true
         showPlaces = widgetPreferences.showPlaces()
         showSubtasks = widgetPreferences.showSubtasks()

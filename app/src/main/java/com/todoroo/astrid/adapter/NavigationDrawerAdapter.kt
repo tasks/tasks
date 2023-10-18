@@ -108,7 +108,7 @@ class NavigationDrawerAdapter @Inject constructor(
             old[oldPosition].areItemsTheSame(new[newPosition])
 
         override fun areContentsTheSame(oldPosition: Int, newPosition: Int) =
-            old[oldPosition].areContentsTheSame(new[newPosition])
+            old[oldPosition] == new[newPosition]
     }
 
     override fun onChanged(position: Int, count: Int, payload: Any?) =

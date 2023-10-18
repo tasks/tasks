@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterDataSource
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
@@ -24,7 +25,7 @@ abstract class TaskListRecyclerAdapter internal constructor(
         val filter = taskList.getFilter()
         val groupsEnabled = filter.supportsSorting()
                 && !(filter.supportsManualSort() && preferences.isManualSort)
-                && !(filter.supportsAstridSorting() && preferences.isAstridSort)
+                && !(filter is AstridOrderingFilter && preferences.isAstridSort)
         val task = getItem(position)
         if (task != null) {
             (holder as TaskViewHolder)

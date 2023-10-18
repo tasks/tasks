@@ -16,10 +16,6 @@ data class NavigationDrawerSubheader(
         return other is NavigationDrawerSubheader && subheaderType == other.subheaderType && id == other.id
     }
 
-    override fun areContentsTheSame(other: FilterListItem): Boolean {
-        return this == other
-    }
-
     override val itemType = FilterListItem.Type.SUBHEADER
 
     enum class SubheaderType {

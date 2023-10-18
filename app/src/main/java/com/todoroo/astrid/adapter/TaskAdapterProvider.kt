@@ -1,6 +1,7 @@
 package com.todoroo.astrid.adapter
 
 import android.content.Context
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
@@ -33,7 +34,7 @@ class TaskAdapterProvider @Inject constructor(
         private val taskMover: TaskMover,
 ) {
     fun createTaskAdapter(filter: Filter): TaskAdapter {
-        if (filter.supportsAstridSorting() && preferences.isAstridSort) {
+        if (filter is AstridOrderingFilter && preferences.isAstridSort) {
             when (filter) {
                 is TagFilter -> return createManualTagTaskAdapter(filter)
                 else -> {
@@ -67,7 +68,7 @@ class TaskAdapterProvider @Inject constructor(
         AstridTaskAdapter(list!!, filter, updater, googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
     }
 
-    private fun createManualFilterTaskAdapter(filter: Filter): TaskAdapter? = runBlocking {
+    private fun createManualFilterTaskAdapter(filter: AstridOrderingFilter): TaskAdapter? = runBlocking {
         var filterId: String? = null
         var prefId: String? = null
         if (BuiltInFilterExposer.isInbox(context, filter)) {

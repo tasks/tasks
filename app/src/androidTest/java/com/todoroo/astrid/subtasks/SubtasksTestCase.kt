@@ -1,7 +1,7 @@
 package com.todoroo.astrid.subtasks
 
 import androidx.test.InstrumentationRegistry
-import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 abstract class SubtasksTestCase : InjectingTestCase() {
     lateinit var updater: SubtasksFilterUpdater
-    lateinit var filter: Filter
+    lateinit var filter: AstridOrderingFilter
     @Inject lateinit var taskListMetadataDao: TaskListMetadataDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import org.tasks.BuildConfig;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -80,12 +81,12 @@ public class AndroidUtilities {
     result.append(SERIALIZATION_SEPARATOR);
   }
 
-  public static Map<String, Object> mapFromSerializedString(String string) {
+  public static Map<String, Serializable> mapFromSerializedString(String string) {
     if (string == null) {
       return new HashMap<>();
     }
 
-    Map<String, Object> result = new HashMap<>();
+    Map<String, Serializable> result = new HashMap<>();
     fromSerialized(
         string,
         result,
@@ -189,11 +190,6 @@ public class AndroidUtilities {
 
   private static boolean isMainThread() {
     return Thread.currentThread() == Looper.getMainLooper().getThread();
-  }
-
-  /** Capitalize the first character */
-  public static String capitalize(String string) {
-    return string.substring(0, 1).toUpperCase() + string.substring(1);
   }
 
   interface SerializedPut<T> {

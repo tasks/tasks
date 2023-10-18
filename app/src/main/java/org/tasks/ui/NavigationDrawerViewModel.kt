@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.Filter.Companion.NO_COUNT
 import com.todoroo.astrid.api.FilterListItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -51,7 +52,7 @@ class NavigationDrawerViewModel @Inject constructor(
         filterProvider
             .navDrawerItems()
             .onEach {
-                if (it is Filter && it.count == -1) {
+                if (it is Filter && it.count == NO_COUNT) {
                     it.count = try {
                         taskDao.count(it)
                     } catch (e: Exception) {

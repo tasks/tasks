@@ -1,6 +1,6 @@
 package com.todoroo.astrid.subtasks
 
-import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.isValidUuid
@@ -16,7 +16,8 @@ import javax.inject.Inject
 
 class SubtasksFilterUpdater @Inject constructor(
         private val taskListMetadataDao: TaskListMetadataDao,
-        private val taskDao: TaskDao) {
+        private val taskDao: TaskDao
+) {
     private val idToNode = HashMap<String, Node?>()
     private var treeRoot: Node? = null
     private fun getSerializedTree(list: TaskListMetadata?): String? {
@@ -38,12 +39,12 @@ class SubtasksFilterUpdater @Inject constructor(
         }
     }
 
-    suspend fun initialize(list: TaskListMetadata?, filter: Filter) {
+    suspend fun initialize(list: TaskListMetadata?, filter: AstridOrderingFilter) {
         initializeFromSerializedTree(list, filter, getSerializedTree(list))
         applyToFilter(filter)
     }
 
-    private fun applyToFilter(filter: Filter) {
+    private fun applyToFilter(filter: AstridOrderingFilter) {
         var query = filter.getSqlQuery()
         query = query.replace("ORDER BY .*".toRegex(), "")
         query += "ORDER BY $orderString"
@@ -56,13 +57,13 @@ class SubtasksFilterUpdater @Inject constructor(
         return n.indent
     }
 
-    suspend fun initializeFromSerializedTree(list: TaskListMetadata?, filter: Filter, serializedTree: String?) {
+    suspend fun initializeFromSerializedTree(list: TaskListMetadata?, filter: AstridOrderingFilter, serializedTree: String?) {
         idToNode.clear()
         treeRoot = buildTreeModel(serializedTree) { node -> node?.let { idToNode[it.uuid] = it } }
         verifyTreeModel(list, filter)
     }
 
-    private suspend fun verifyTreeModel(list: TaskListMetadata?, filter: Filter) {
+    private suspend fun verifyTreeModel(list: TaskListMetadata?, filter: AstridOrderingFilter) {
         var changedThings = false
         val keySet: Set<String> = idToNode.keys
         val currentIds: MutableSet<String> = HashSet(keySet)
@@ -146,12 +147,12 @@ class SubtasksFilterUpdater @Inject constructor(
         }
     }
 
-    suspend fun indent(list: TaskListMetadata, filter: Filter, targetTaskId: String?, delta: Int) {
+    suspend fun indent(list: TaskListMetadata, filter: AstridOrderingFilter, targetTaskId: String?, delta: Int) {
         val node = idToNode[targetTaskId]
         indentHelper(list, filter, node, delta)
     }
 
-    private suspend fun indentHelper(list: TaskListMetadata, filter: Filter, node: Node?, delta: Int) {
+    private suspend fun indentHelper(list: TaskListMetadata, filter: AstridOrderingFilter, node: Node?, delta: Int) {
         if (node == null) {
             return
         }
@@ -205,7 +206,7 @@ class SubtasksFilterUpdater @Inject constructor(
         }
     }
 
-    suspend fun moveTo(list: TaskListMetadata, filter: Filter, targetTaskId: String?, beforeTaskId: String) {
+    suspend fun moveTo(list: TaskListMetadata, filter: AstridOrderingFilter, targetTaskId: String?, beforeTaskId: String) {
         val target = idToNode[targetTaskId] ?: return
         if ("-1" == beforeTaskId) { // $NON-NLS-1$
             moveToEndOfList(list, filter, target)
@@ -229,7 +230,7 @@ class SubtasksFilterUpdater @Inject constructor(
         setNodeIndent(toMove, toMove.parent!!.indent + 1)
     }
 
-    private suspend fun moveHelper(list: TaskListMetadata, filter: Filter, moveThis: Node, beforeThis: Node) {
+    private suspend fun moveHelper(list: TaskListMetadata, filter: AstridOrderingFilter, moveThis: Node, beforeThis: Node) {
         val oldParent = moveThis.parent
         val oldSiblings = oldParent!!.children
         val newParent = beforeThis.parent
@@ -269,7 +270,7 @@ class SubtasksFilterUpdater @Inject constructor(
         return false
     }
 
-    private suspend fun moveToEndOfList(list: TaskListMetadata, filter: Filter, moveThis: Node) {
+    private suspend fun moveToEndOfList(list: TaskListMetadata, filter: AstridOrderingFilter, moveThis: Node) {
         val parent = moveThis.parent
         parent!!.children.remove(moveThis)
         treeRoot!!.children.add(moveThis)
@@ -279,7 +280,7 @@ class SubtasksFilterUpdater @Inject constructor(
         applyToFilter(filter)
     }
 
-    suspend fun onCreateTask(list: TaskListMetadata?, filter: Filter, uuid: String) {
+    suspend fun onCreateTask(list: TaskListMetadata?, filter: AstridOrderingFilter, uuid: String) {
         if (idToNode.containsKey(uuid) || !isValidUuid(uuid)) {
             return
         }
@@ -290,7 +291,7 @@ class SubtasksFilterUpdater @Inject constructor(
         applyToFilter(filter)
     }
 
-    suspend fun onDeleteTask(list: TaskListMetadata?, filter: Filter, taskId: String?) {
+    suspend fun onDeleteTask(list: TaskListMetadata?, filter: AstridOrderingFilter, taskId: String?) {
         val task = idToNode[taskId] ?: return
         val parent = task.parent
         val siblings = parent!!.children

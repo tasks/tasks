@@ -3,6 +3,7 @@ package org.tasks.data
 import com.todoroo.andlib.sql.Field.Companion.field
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.Query
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
@@ -28,7 +29,7 @@ internal object TaskListQueryNonRecursive {
         )).toTypedArray()
 
     fun getNonRecursiveQuery(filter: Filter, preferences: QueryPreferences): MutableList<String> {
-        val joinedQuery = JOINS + filter.getSqlQuery()
+        val joinedQuery = JOINS + if (filter is AstridOrderingFilter) filter.getSqlQuery() else filter.sql!!
         val sortMode = preferences.sortMode
         val groupMode = preferences.groupMode
         val sortGroup = field(SortHelper.getSortGroup(groupMode) ?: "NULL").`as`("sortGroup")

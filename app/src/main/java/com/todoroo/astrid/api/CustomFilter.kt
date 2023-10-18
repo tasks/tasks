@@ -1,59 +1,36 @@
 package com.todoroo.astrid.api
 
-import android.os.Parcel
-import android.os.Parcelable
-import com.todoroo.andlib.utility.AndroidUtilities
-import org.tasks.R
+import com.todoroo.astrid.api.Filter.Companion.NO_COUNT
+import kotlinx.parcelize.Parcelize
 import org.tasks.themes.CustomIcons
 
-class CustomFilter : Filter {
-    var criterion: String? = null
-        private set
+@Parcelize
+data class CustomFilter(
+    val filter: org.tasks.data.Filter,
+    override var count: Int = NO_COUNT,
+) : Filter {
+    override val title: String?
+        get() = filter.title
+    override val sql: String
+        get() = filter.sql!!
 
-    constructor(filter: org.tasks.data.Filter) : super(
-        filter.title,
-        filter.sql!!,
-        AndroidUtilities.mapFromSerializedString(filter.values)
-    ) {
-        id = filter.id
-        criterion = filter.criterion
-        tint = filter.color ?: 0
-        icon = filter.icon ?: CustomIcons.FILTER
-        order = filter.order
-    }
+    override val valuesForNewTasks: String?
+        get() = filter.values
 
-    private constructor(parcel: Parcel) {
-        readFromParcel(parcel)
-    }
+    val criterion: String?
+        get() = filter.criterion
 
-    /** {@inheritDoc}  */
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        super.writeToParcel(dest, flags)
-        dest.writeString(criterion)
-    }
+    override val order: Int
+        get() = filter.order
 
-    override fun readFromParcel(source: Parcel) {
-        super.readFromParcel(source)
-        criterion = source.readString()
-    }
+    val id: Long
+        get() = filter.id
+    override val icon: Int
+        get() = filter.icon ?: CustomIcons.FILTER
+    override val tint: Int
+        get() = filter.color ?: 0
 
-    override val menu: Int
-        get() = if (id > 0) R.menu.menu_custom_filter else 0
-
-    override fun areContentsTheSame(other: FilterListItem): Boolean {
-        return super.areContentsTheSame(other) && criterion == (other as CustomFilter).criterion
-    }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<CustomFilter> = object : Parcelable.Creator<CustomFilter> {
-            override fun createFromParcel(source: Parcel): CustomFilter? {
-                return CustomFilter(source)
-            }
-
-            override fun newArray(size: Int): Array<CustomFilter?> {
-                return arrayOfNulls(size)
-            }
-        }
+    override fun areItemsTheSame(other: FilterListItem): Boolean {
+        return other is CustomFilter && id == other.id
     }
 }

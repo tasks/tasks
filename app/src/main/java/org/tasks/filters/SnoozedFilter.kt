@@ -1,39 +1,38 @@
 package org.tasks.filters
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.todoroo.andlib.sql.Criterion.Companion.and
 import com.todoroo.andlib.sql.Join.Companion.inner
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.Filter.Companion.NO_COUNT
+import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.data.Task
+import kotlinx.parcelize.Parcelize
+import org.tasks.R
 import org.tasks.data.Alarm
 
-class SnoozedFilter : Filter {
-    constructor(title: String?) : super(title, queryTemplate)
-    private constructor()
+@Parcelize
+data class SnoozedFilter(
+    override val title: String,
+    override var count: Int = NO_COUNT,
+) : Filter {
+    override val icon: Int
+        get() = R.drawable.ic_snooze_white_24dp
 
-    override fun supportsHiddenTasks(): Boolean {
-        return false
-    }
+    override val sql: String
+        get() = QueryTemplate()
+            .join(inner(Alarm.TABLE, Task.ID.eq(Alarm.TASK)))
+            .where(
+                and(
+                    Task.DELETION_DATE.lte(0),
+                    Alarm.TYPE.eq(Alarm.TYPE_SNOOZE)
+                )
+            )
+            .toString()
 
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<SnoozedFilter> =
-            object : Parcelable.Creator<SnoozedFilter> {
-                override fun createFromParcel(source: Parcel): SnoozedFilter {
-                    val item = SnoozedFilter()
-                    item.readFromParcel(source)
-                    return item
-                }
+    override fun supportsHiddenTasks() = false
 
-                override fun newArray(size: Int): Array<SnoozedFilter?> {
-                    return arrayOfNulls(size)
-                }
-            }
-        private val queryTemplate: QueryTemplate
-            get() = QueryTemplate()
-                .join(inner(Alarm.TABLE, Task.ID.eq(Alarm.TASK)))
-                .where(and(Task.DELETION_DATE.lte(0), Alarm.TYPE.eq(Alarm.TYPE_SNOOZE)))
+    override fun areItemsTheSame(other: FilterListItem): Boolean {
+        return other is SnoozedFilter
     }
 }

@@ -11,7 +11,7 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.DateUtilities.now
-import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCompleter
@@ -44,7 +44,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
 
     override fun createView(savedInstanceState: Bundle?) {
         viewModel.task.takeIf { it.id > 0 }?.let {
-            listViewModel.setFilter(Filter("subtasks", getQueryTemplate(it)))
+            listViewModel.setFilter(FilterImpl("subtasks", getQueryTemplate(it)))
         }
     }
 
@@ -105,12 +105,13 @@ class SubtaskControlSet : TaskEditControlFragment() {
 
     companion object {
         val TAG = R.string.TEA_ctrl_subtask_pref
-        private fun getQueryTemplate(task: Task): QueryTemplate = QueryTemplate()
+        private fun getQueryTemplate(task: Task): String = QueryTemplate()
             .where(
                 Criterion.and(
                     activeAndVisible(),
                     Task.PARENT.eq(task.id)
                 )
             )
+            .toString()
     }
 }

@@ -10,6 +10,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.SortHelper.SORT_ALPHA
 import com.todoroo.astrid.core.SortHelper.SORT_CREATED
@@ -135,7 +136,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
                     SortSettingsActivity.getIntent(
                         requireActivity(),
                         filter.supportsManualSort(),
-                        filter.supportsAstridSorting(),
+                        filter is AstridOrderingFilter,
                         appWidgetId,
                     ),
                     REQUEST_SORT
@@ -221,7 +222,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
         findPreference(R.string.p_widget_sort).setSummary(
                 if (filter.supportsManualSort() && widgetPreferences.isManualSort) {
                     R.string.SSD_sort_my_order
-                } else if (filter.supportsAstridSorting() && widgetPreferences.isAstridSort) {
+                } else if (filter is AstridOrderingFilter && widgetPreferences.isAstridSort) {
                     R.string.astrid_sort_order
                 } else {
                     when (widgetPreferences.sortMode) {

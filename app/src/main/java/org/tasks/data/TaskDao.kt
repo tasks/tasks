@@ -222,7 +222,7 @@ FROM recursive_tasks
         return count
     }
 
-    suspend fun fetchFiltered(filter: Filter): List<Task> = fetchFiltered(filter.getSqlQuery())
+    suspend fun fetchFiltered(filter: Filter): List<Task> = fetchFiltered(filter.sql!!)
 
     suspend fun fetchFiltered(queryTemplate: String): List<Task> {
         val query = getQuery(queryTemplate, Task.FIELDS)

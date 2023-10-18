@@ -8,8 +8,4 @@ class NavigationDrawerSeparator : FilterListItem {
     override fun areItemsTheSame(other: FilterListItem): Boolean {
         return other is NavigationDrawerSeparator
     }
-
-    override fun areContentsTheSame(other: FilterListItem): Boolean {
-        return true
-    }
 }
