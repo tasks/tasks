@@ -434,10 +434,11 @@
 +|    |    \--- com.google.android.gms:play-services-tasks:18.0.2 (*)
 +|    +--- com.google.android.gms:play-services-basement:18.1.0 (*)
 +|    \--- com.google.android.gms:play-services-tasks:18.0.2 (*)
-++--- com.google.android.gms:play-services-maps:18.1.0
+++--- com.google.android.gms:play-services-maps:18.2.0
 +|    +--- androidx.fragment:fragment:1.0.0 -> 1.6.1 (*)
 +|    +--- com.google.android.gms:play-services-base:18.0.1 -> 18.1.0 (*)
-+|    \--- com.google.android.gms:play-services-basement:18.0.0 -> 18.1.0 (*)
++|    +--- com.google.android.gms:play-services-basement:18.0.0 -> 18.1.0 (*)
++|    \--- com.google.android.gms:play-services-tasks:18.0.1 -> 18.0.2 (*)
 ++--- com.android.billingclient:billing-ktx:6.0.1
 +|    +--- com.android.billingclient:billing:6.0.1
 +|    |    +--- com.google.android.datatransport:transport-api:3.0.0 (*)
