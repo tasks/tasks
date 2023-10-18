@@ -11,6 +11,7 @@ import com.todoroo.andlib.sql.Criterion.Companion.and
 import com.todoroo.andlib.sql.Criterion.Companion.or
 import com.todoroo.andlib.sql.Join
 import com.todoroo.andlib.sql.QueryTemplate
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.data.Task
@@ -66,7 +67,7 @@ class BuiltInFilterExposer @Inject constructor(
     }
 
     companion object {
-        fun getMyTasksFilter(r: Resources): Filter {
+        fun getMyTasksFilter(r: Resources): AstridOrderingFilter {
             return MyTasksFilter(r.getString(R.string.BFE_Active))
         }
 
