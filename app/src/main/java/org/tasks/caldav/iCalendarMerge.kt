@@ -2,6 +2,7 @@ package org.tasks.caldav
 
 import at.bitfire.ical4android.Task
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.data.Task.Priority.Companion.HIGH
 import com.todoroo.astrid.data.Task.Priority.Companion.LOW
 import com.todoroo.astrid.data.Task.Priority.Companion.MEDIUM
@@ -23,6 +24,7 @@ fun com.todoroo.astrid.data.Task.applyRemote(
 ): com.todoroo.astrid.data.Task {
     applyCompletedAt(remote, local)
     applyCreatedAt(remote, local)
+    applyModified(remote, local)
     applyTitle(remote, local)
     applyDescription(remote, local)
     applyPriority(remote, local)
@@ -61,7 +63,16 @@ private fun com.todoroo.astrid.data.Task.applyCreatedAt(remote: Task, local: Tas
     val localCreated = local?.createdAt?.let { newDateTime(it, UTC) }?.toLocal()?.millis
     if (localCreated == null || localCreated == creationDate) {
         remote.createdAt?.let {
-            creationDate = newDateTime(it, UTC).toLocal().millis
+            creationDate = newDateTime(it, UTC).toLocal().millis.coerceAtMost(now())
+        }
+    }
+}
+
+private fun com.todoroo.astrid.data.Task.applyModified(remote: Task, local: Task?) {
+    val localModified = local?.lastModified?.let { newDateTime(it, UTC) }?.toLocal()?.millis
+    if (localModified == null || localModified == modificationDate) {
+        remote.lastModified?.let {
+            modificationDate = newDateTime(it, UTC).toLocal().millis.coerceAtMost(now())
         }
     }
 }

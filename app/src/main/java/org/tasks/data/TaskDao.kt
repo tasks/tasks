@@ -188,15 +188,19 @@ FROM recursive_tasks
     @Insert
     abstract suspend fun insert(task: Task): Long
 
-    suspend fun update(task: Task, original: Task? = null): Boolean {
-        if (!task.insignificantChange(original)) {
-            task.modificationDate = now()
-        }
-        return updateInternal(task) == 1
-    }
+    suspend fun update(task: Task, original: Task? = null): Task =
+        task
+            .copy(
+                modificationDate = when {
+                    original?.let { task.significantChange(it) } == true -> now()
+                    task.modificationDate == 0L -> task.creationDate
+                    else -> task.modificationDate
+                }
+            )
+            .also { updateInternal(it) }
 
     @Update
-    internal abstract suspend fun updateInternal(task: Task): Int
+    internal abstract suspend fun updateInternal(task: Task)
 
     suspend fun createNew(task: Task): Long {
         task.id = NO_ID
