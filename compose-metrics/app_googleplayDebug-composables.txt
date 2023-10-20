@@ -289,6 +289,13 @@ restartable fun Spinner(
   stable onSelected: Function1<T, Unit>
   stable setExpanded: Function1<Boolean, Unit>
 )
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun StartDateChip(
+  stable sortGroup: Long?
+  stable startDate: Long
+  stable compact: Boolean
+  stable timeOnly: Boolean
+  stable colorProvider: Function1<Int, Int>
+)
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PurchaseText(
   stable nameYourPrice: MutableState<Boolean>? = @dynamic mutableStateOf(
   value   =   false
@@ -766,29 +773,3 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun OrderingB
   stable onClick: Function0<Unit>
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PreviewSortBottomSheet()
-restartable scheme("[androidx.compose.ui.UiComposable]") fun StartDateChip(
-  stable sortGroup: Long?
-  stable startDate: Long
-  stable compact: Boolean
-  stable timeOnly: Boolean
-  unstable <this>: ChipProvider
-)
-restartable scheme("[androidx.compose.ui.UiComposable]") fun Chips(
-  filter: Filter?
-  stable id: Long
-  stable children: Int
-  stable collapsed: Boolean
-  stable isHidden: Boolean
-  stable sortGroup: Long?
-  stable startDate: Long
-  stable place: Place?
-  stable tagsString: String?
-  stable sortByStartDate: Boolean
-  stable sortByList: Boolean
-  stable list: String?
-  stable isSubtask: Boolean
-  stable isGoogleTask: Boolean
-  stable toggleSubtasks: Function2<Long, Boolean, Unit>
-  stable onClick: Function1<Filter, Unit>
-  unstable <this>: ChipProvider
-)

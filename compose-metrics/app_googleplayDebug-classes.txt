@@ -3037,11 +3037,7 @@ unstable class ChipProvider {
   unstable val activity: Activity
   unstable val inventory: Inventory
   unstable val lists: ChipListCache
-  unstable val preferences: Preferences
   unstable val colorProvider: ColorProvider
-  unstable val locale: Locale
-  stable val showIcon: Boolean
-  stable val showText: Boolean
   <runtime stability> = Unstable
 }
 unstable class CompletableViewModel {
