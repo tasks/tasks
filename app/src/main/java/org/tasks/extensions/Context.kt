@@ -7,6 +7,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.content.res.Configuration
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.Uri
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -80,4 +82,14 @@ object Context {
                 MODE_PRIVATE
             )
         )
+
+    fun Context.hasNetworkConnectivity(): Boolean {
+        return try {
+            with(getSystemService(ConnectivityManager::class.java)) {
+                getNetworkCapabilities(activeNetwork)?.hasCapability(NET_CAPABILITY_INTERNET) == true
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }
 }

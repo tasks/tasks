@@ -97,10 +97,13 @@ class WorkManagerImpl(
         }
     }
 
+    @SuppressLint("EnqueueWork")
     override suspend fun sync(immediate: Boolean) {
         val builder = OneTimeWorkRequest.Builder(SyncWork::class.java)
                 .setInputData(EXTRA_IMMEDIATE to immediate)
-                .setConstraints(networkConstraints)
+        if (!openTaskDao.shouldSync()) {
+            builder.setConstraints(networkConstraints)
+        }
         if (!immediate) {
             builder.setInitialDelay(1, TimeUnit.MINUTES)
         }

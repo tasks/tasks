@@ -29,6 +29,7 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.OpenTaskDao
 import org.tasks.etebase.EtebaseSynchronizer
+import org.tasks.extensions.Context.hasNetworkConnectivity
 import org.tasks.gtasks.GoogleTaskSynchronizer
 import org.tasks.injection.BaseWorker
 import org.tasks.opentasks.OpenTasksSynchronizer
@@ -91,12 +92,15 @@ class SyncWork @AssistedInject constructor(
         if (preferences.isManualSort) {
             preferences.isPositionHackEnabled = true
         }
-        googleTaskJobs().plus(caldavJobs()).awaitAll()
+        val hasNetworkConnectivity = context.hasNetworkConnectivity()
+        if (hasNetworkConnectivity) {
+            googleTaskJobs().plus(caldavJobs()).awaitAll()
+        }
         inventory.updateTasksAccount()
         if (openTaskDao.shouldSync()) {
             openTasksSynchronizer.get().sync()
 
-            if (isImmediate) {
+            if (isImmediate && hasNetworkConnectivity) {
                 AccountManager
                     .get(context)
                     .accounts
