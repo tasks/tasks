@@ -125,9 +125,7 @@ class WorkManagerImpl(
 
     override fun updateBackgroundSync() {
         throttle.run {
-            val enabled =
-                    caldavDao.getAccounts(TYPE_GOOGLE_TASKS, TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE).isNotEmpty() ||
-                    openTaskDao.shouldSync()
+            val enabled = caldavDao.getAccounts(TYPE_GOOGLE_TASKS, TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE).isNotEmpty()
             if (enabled) {
                 Timber.d("Enabling background sync")
                 val builder = PeriodicWorkRequest.Builder(SyncWork::class.java, 1, TimeUnit.HOURS)
