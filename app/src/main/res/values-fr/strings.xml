@@ -195,7 +195,7 @@
         <item quantity="many">%d ans</item>
         <item quantity="other">%d ans</item>
     </plurals>
-    <string name="repeat_type_due">date d\'échéance</string>
+    <string name="repeat_type_due">la date d\'échéance</string>
     <string name="repeat_type_completion">date d\'achèvement</string>
     <string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
     <string name="new_tag">Créer une nouvelle étiquette</string>
@@ -322,30 +322,30 @@
     <string name="notification_disable_battery_optimizations_description">L\'optimisation de la batterie peut retarder les notifications</string>
     <string name="bundle_notifications">Regrouper les notifications</string>
     <string name="list">Liste</string>
-    <string name="repeats_from">Se répète depuis</string>
-    <string name="repeats_single">Se répète %s</string>
-    <string name="repeats_single_on">Se répète %1$s le %2$s</string>
-    <string name="repeats_single_until">Se répète %1$s jusqu\'à %2$s</string>
-    <string name="repeats_single_number_of_times">Se répète %1$s, pendant %2$d %3$s</string>
-    <string name="repeats_single_on_until">Se répète %1$s le %2$s jusqu\'à %3$s</string>
-    <string name="repeats_single_on_number_of_times">Se répète %1$s le %2$s, pendant %3$d %4$s</string>
+    <string name="repeats_from">Répéter depuis</string>
+    <string name="repeats_single">Répéter %s</string>
+    <string name="repeats_single_on">Répéter %1$s, le %2$s</string>
+    <string name="repeats_single_until">Répéter %1$s, jusqu\'au %2$s</string>
+    <string name="repeats_single_number_of_times">Répéter %1$s, %2$d %3$s</string>
+    <string name="repeats_single_on_until">Répéter %1$s, le %2$s, jusqu\'au %3$s</string>
+    <string name="repeats_single_on_number_of_times">Répéter %1$s, le %2$s, %3$d %4$s</string>
     <string name="repeats_minutely">toutes les minutes</string>
     <string name="repeats_hourly">toutes les heures</string>
     <string name="repeats_daily">tous les jours</string>
     <string name="repeats_weekly">toutes les semaines</string>
     <string name="repeats_monthly">tous les mois</string>
-    <string name="repeats_yearly">toutes les années</string>
-    <string name="repeats_plural">Se répète chaque %s</string>
-    <string name="repeats_plural_on">Se répète chaque %1$s le %2$s</string>
-    <string name="repeats_plural_until">Se répète chaque %1$s jusqu\'à %2$s</string>
-    <string name="repeats_plural_number_of_times">Se répète chaque %1$s, pendant %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Se répète chaque %1$s le %2$s jusqu\'à %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Se répète chaque %1$s le %2$s, pendant %3$d %4$s</string>
+    <string name="repeats_yearly">tous les ans</string>
+    <string name="repeats_plural">Répéter par intervalle de %s</string>
+    <string name="repeats_plural_on">Répéter par intervalle de %1$s, le %2$s</string>
+    <string name="repeats_plural_until">Répéter par intervalle de %1$s, jusqu\'au %2$s</string>
+    <string name="repeats_plural_number_of_times">Répéter par intervalle de %1$s, %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Répéter par intervalle de %1$s, le %2$s, jusqu\'au %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Répéter par intervalle de %1$s, le %2$s, %3$d %4$s</string>
     <string name="dont_add_to_calendar">Ne pas ajouter au calendrier</string>
     <string name="default_calendar">Calendrier par défaut</string>
     <string name="badges_description">Afficher un compteur de tâches sur l\'icône du lanceur de Tasks. Certains lanceurs ne supportent pas les badges.</string>
     <string name="bundle_notifications_summary">Regrouper plusieurs notifications en une seule</string>
-    <string name="repeat_monthly_every_day_of_nth_week">chaque %1$s %2$s</string>
+    <string name="repeat_monthly_every_day_of_nth_week">par intervalle de %1$s %2$s</string>
     <string name="repeat_monthly_first_week">premier</string>
     <string name="repeat_monthly_second_week">deuxième</string>
     <string name="repeat_monthly_third_week">troisième</string>
@@ -566,7 +566,7 @@
     <string name="custom_filter_has_subtask">A des sous-tâches</string>
     <string name="current_subscription">Abonnement en cours : %s</string>
     <string name="price_per_month">%s $/mois</string>
-    <string name="price_per_year">%s $/an</string>
+    <string name="price_per_year">%s $ par an</string>
     <string name="insufficient_subscription">Niveau d\'abonnement insuffisant. Veuillez mettre à niveau votre abonnement pour reprendre le service.</string>
     <string name="your_subscription_expired">Votre abonnement a expiré. Veuillez vous réabonnez dès maintenant pour reprendre le service.</string>
     <string name="background_location_permission_required">Tasks collecte des données de localisation pour permettre des rappels basés sur les emplacements, même lorsque l\'application est fermée ou non utilisée.</string>
@@ -686,7 +686,7 @@
     <string name="alarm_before_due">%s avant l\'échéance</string>
     <string name="alarm_after_due">%s après l\'échéance</string>
     <string name="custom_filter_has_reminder">A un rappel</string>
-    <string name="snoozed_until">Répéter jusqu\'au %s</string>
+    <string name="snoozed_until">Reporter jusqu\'à %s</string>
     <plurals name="reminder_days">
         <item quantity="one">Jour</item>
         <item quantity="many">Jours</item>
@@ -708,7 +708,7 @@
         <item quantity="other">Heures</item>
     </plurals>
     <string name="custom_notification">Notification personnalisée</string>
-    <string name="randomly_every">Aléatoirement, tous les %s</string>
+    <string name="randomly_every">Aléatoirement, par intervalle de %s</string>
     <string name="caldav_server_unknown">Inconnu</string>
     <string name="filter_snoozed">Répété</string>
     <string name="caldav_server_other">Autre</string>
@@ -743,11 +743,11 @@
         <item quantity="many">occurrences</item>
         <item quantity="other">occurrences</item>
     </plurals>
-    <string name="repeats_custom_recurrence">Récurrence personnalisée</string>
+    <string name="repeats_custom_recurrence">Répétition personnalisée</string>
     <string name="repeat_monthly_on_day_number">Tous les mois le jour %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Tous les mois sur le %1$s %2$s</string>
-    <string name="repeats_every">Se répète chaque</string>
-    <string name="repeats_weekly_on">Se répète le</string>
+    <string name="repeats_every">Répéter par intervalle de</string>
+    <string name="repeats_weekly_on">Répéter le</string>
     <string name="repeats_never">Jamais</string>
     <string name="change_priority">Modifier la priorité</string>
 </resources>
