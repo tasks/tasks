@@ -52,7 +52,7 @@
     <string name="TEA_control_location">Emplacement</string>
     <string name="TEA_control_files">Fichiers</string>
     <string name="TEA_control_reminders">Rappels</string>
-    <string name="TEA_control_timer">Contrôles de rappel</string>
+    <string name="TEA_control_timer">Minuteur</string>
     <string name="TEA_control_hidden_section">----Toujours masquer----</string>
     <string name="none">Aucun</string>
     <string name="EPr_edit_screen_options">Modifier les options d\'affichage</string>
