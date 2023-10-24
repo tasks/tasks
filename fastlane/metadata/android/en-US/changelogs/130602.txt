@@ -1,0 +1,10 @@
+* Push pending changes when app is backgrounded
+* Don't require internet connection for DAVx5/EteSync/DecSync sync
+* Don't perform background sync for DAVx5/EteSync/DecSync
+  * Background sync is performed by the sync app
+* Preserve modification times on initial sync
+* Replace deprecated method call
+* Improve task list scrolling performance
+* Fix hourly recurrence bug
+* Update translations
+

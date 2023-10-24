@@ -1,3 +1,24 @@
+### 13.6.1 (2023-11-24)
+
+* Push pending changes when app is backgrounded
+* Don't require internet connection for DAVx5/EteSync/DecSync sync
+* Don't perform background sync for DAVx5/EteSync/DecSync
+  * Background sync is performed by the sync app
+* Preserve modification times on initial sync [#2496](https://github.com/tasks/tasks/issues/2496)
+* Replace deprecated method call [#2547](https://github.com/tasks/tasks/pull/2547) - @kmj-99
+* Improve task list scrolling performance
+* Fix hourly recurrence bug
+* Update translations
+  * Chinese (Simplified) - Eric
+  * Croatian - @milotype
+  * Czech - @ceskyDJ
+  * Finnish - @millerii
+  * French - Lionel HANNEQUIN, Bruno Duyé
+  * Japanese - Kazushi Hayama
+  * Portuguese - @loucurapt
+  * Romanian - @ygorigor
+  * Swedish - @bittin
+
 ### 13.6 (2023-10-07)
 
 * Change priority with multi-select [#2257](https://github.com/tasks/tasks/pull/2452) - @vulewuxe86
