@@ -16,6 +16,15 @@ class RepeatYearlyTests : RepeatTests() {
     }
 
     @Test
+    fun testRepeatYearlyFromDueDateNoInterval() {
+        val task = newFromDue("FREQ=YEARLY", newDayTime(2016, 8, 28, 1, 44))
+
+        val next = calculateNextDueDate(task)
+
+        assertEquals(newDayTime(2017, 8, 28, 1, 44), next)
+    }
+
+    @Test
     fun testRepeatYearlyFromCompleteDateCompleteBefore() {
         val task = newFromDue(
                 "FREQ=YEARLY;INTERVAL=1",

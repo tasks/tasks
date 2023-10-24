@@ -17,6 +17,15 @@ class RepeatMinutelyTests : RepeatTests() {
     }
 
     @Test
+    fun testRepeatMinutelyFromDueDateNoInterval() {
+        val task = newFromDue("FREQ=MINUTELY", newDayTime(2016, 8, 26, 12, 30))
+
+        val next = calculateNextDueDate(task)
+
+        assertEquals(newDayTime(2016, 8, 26, 12, 31), next)
+    }
+
+    @Test
     fun testRepeatMinutelyFromCompleteDateCompleteBefore() {
         val task = newFromDue(
                 "FREQ=MINUTELY;INTERVAL=1",

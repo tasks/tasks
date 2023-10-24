@@ -18,6 +18,20 @@ class RepeatHourlyTests : RepeatTests() {
     }
 
     @Test
+    fun testRepeatHourlyNoInterval() {
+        val task = newFromDue(
+            "FREQ=HOURLY",
+            newDayTime(2016, 8, 30, 0, 25),
+            with(COMPLETION_TIME, DateTime(2016, 8, 29, 0, 14, 13, 451)),
+            afterComplete = true
+        )
+
+        val next = calculateNextDueDate(task)
+
+        assertEquals(newDayTime(2016, 8, 29, 1, 14), next)
+    }
+
+    @Test
     fun testRepeatHourlyFromCompleteDateCompleteBefore() {
         val task = newFromDue(
                 "FREQ=HOURLY;INTERVAL=1",

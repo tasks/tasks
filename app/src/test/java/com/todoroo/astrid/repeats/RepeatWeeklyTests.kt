@@ -16,6 +16,15 @@ class RepeatWeeklyTests : RepeatTests() {
     }
 
     @Test
+    fun testRepeatWeeklyFromDueDateNoInterval() {
+        val task = newFromDue("FREQ=WEEKLY", newDayTime(2016, 8, 28, 1, 34))
+
+        val next = calculateNextDueDate(task)
+
+        assertEquals(newDayTime(2016, 9, 4, 1, 34), next)
+    }
+
+    @Test
     fun testRepeatBiWeekly() {
         val task = newFromDue("FREQ=WEEKLY;INTERVAL=2", newDayTime(2016, 8, 28, 1, 34))
 
