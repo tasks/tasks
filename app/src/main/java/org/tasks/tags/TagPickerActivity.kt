@@ -16,10 +16,10 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Inventory
 import org.tasks.data.TagData
 import org.tasks.databinding.ActivityTagPickerBinding
+import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -65,6 +65,22 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         viewModel.observe(this) { recyclerAdapter.submitList(it) }
         editText.setText(viewModel.text)
+
+        addBackPressedCallback {
+            if (isNullOrEmpty(viewModel.text)) {
+                val data = Intent()
+                data.putExtra(EXTRA_TASKS, taskIds)
+                data.putParcelableArrayListExtra(
+                    EXTRA_PARTIALLY_SELECTED,
+                    viewModel.getPartiallySelected()
+                )
+                data.putParcelableArrayListExtra(EXTRA_SELECTED, viewModel.getSelected())
+                setResult(Activity.RESULT_OK, data)
+                finish()
+            } else {
+                clear()
+            }
+        }
     }
 
     private fun onToggle(tagData: TagData, vh: TagPickerViewHolder) = lifecycleScope.launch {
@@ -78,20 +94,6 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
 
     private fun onSearch(text: CharSequence?) {
         viewModel.search(text?.toString() ?: "")
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        if (isNullOrEmpty(viewModel.text)) {
-            val data = Intent()
-            data.putExtra(EXTRA_TASKS, taskIds)
-            data.putParcelableArrayListExtra(EXTRA_PARTIALLY_SELECTED, viewModel.getPartiallySelected())
-            data.putParcelableArrayListExtra(EXTRA_SELECTED, viewModel.getSelected())
-            setResult(Activity.RESULT_OK, data)
-            finish()
-        } else {
-            clear()
-        }
     }
 
     private fun clear() {

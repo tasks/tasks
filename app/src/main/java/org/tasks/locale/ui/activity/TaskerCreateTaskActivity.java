@@ -1,5 +1,6 @@
 package org.tasks.locale.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -105,9 +106,9 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
     return binding.title.getText().toString().trim();
   }
 
+  @SuppressLint("MissingSuperCall")
   @Override
   public void onBackPressed() {
-    super.onBackPressed();
     discardButtonClick();
   }
 

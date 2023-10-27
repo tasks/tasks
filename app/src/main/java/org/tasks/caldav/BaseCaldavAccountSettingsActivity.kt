@@ -44,6 +44,7 @@ import org.tasks.dialogs.Linkify
 import org.tasks.extensions.Context.cookiePersistor
 import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.extensions.Context.openUri
+import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.ui.DisplayableException
@@ -144,6 +145,10 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
                     selected = it
                 }
             }
+        }
+
+        addBackPressedCallback {
+            discard()
         }
     }
 
@@ -331,11 +336,6 @@ abstract class BaseCaldavAccountSettingsActivity : ThemedInjectingAppCompatActiv
             hideKeyboard(binding.name)
             super.finish()
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        discard()
     }
 
     private fun removeAccountPrompt() {

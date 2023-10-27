@@ -249,8 +249,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        requireActivity().onBackPressedDispatcher.addCallback(onBackPressed)
+        
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressed)
     }
 
     @OptIn(ExperimentalAnimationApi::class)

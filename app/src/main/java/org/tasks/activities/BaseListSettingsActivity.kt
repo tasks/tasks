@@ -18,6 +18,7 @@ import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.IconPickerDialog
 import org.tasks.dialogs.IconPickerDialog.IconPickerCallback
+import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons.getIconResId
@@ -63,17 +64,16 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
             toolbar.inflateMenu(R.menu.menu_tag_settings)
         }
         toolbar.setOnMenuItemClickListener(this)
+
+        addBackPressedCallback {
+            discard()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(EXTRA_SELECTED_THEME, selectedColor)
         outState.putInt(EXTRA_SELECTED_ICON, selectedIcon)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        discard()
     }
 
     protected abstract fun hasChanges(): Boolean
