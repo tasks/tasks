@@ -1,4 +1,4 @@
-### 13.6.1 (2023-11-24)
+### 13.6.1 (2023-11-27)
 
 * Push pending changes when app is backgrounded
 * Don't require internet connection for DAVx5/EteSync/DecSync sync
