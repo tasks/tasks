@@ -10,6 +10,7 @@ import com.todoroo.astrid.data.Task
 import kotlinx.parcelize.Parcelize
 import org.tasks.R
 import org.tasks.data.Alarm
+import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 
 @Parcelize
 data class SnoozedFilter(
@@ -24,7 +25,7 @@ data class SnoozedFilter(
             .join(inner(Alarm.TABLE, Task.ID.eq(Alarm.TASK)))
             .where(
                 and(
-                    Task.DELETION_DATE.lte(0),
+                    activeAndVisible(),
                     Alarm.TYPE.eq(Alarm.TYPE_SNOOZE)
                 )
             )

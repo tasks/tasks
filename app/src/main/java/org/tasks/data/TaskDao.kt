@@ -42,7 +42,7 @@ abstract class TaskDao(private val database: Database) {
     @Query("SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
     abstract suspend fun activeTimers(): Int
 
-    @Query("SELECT COUNT(1) FROM tasks INNER JOIN alarms ON tasks._id = alarms.task WHERE type = $TYPE_SNOOZE")
+    @Query("SELECT COUNT(1) FROM tasks INNER JOIN alarms ON tasks._id = alarms.task WHERE deleted = 0 AND completed = 0 AND type = $TYPE_SNOOZE")
     abstract suspend fun snoozedReminders(): Int
 
     @Query("SELECT COUNT(1) FROM tasks INNER JOIN notification ON tasks._id = notification.task")
