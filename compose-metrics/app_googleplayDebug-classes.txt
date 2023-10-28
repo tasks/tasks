@@ -1302,6 +1302,15 @@ stable class Header {
   stable val type: Function0<NavigationDrawerSubheader>
   <runtime stability> = Stable
 }
+stable class SheetState {
+  stable val skipPartiallyExpanded: Boolean
+  stable val skipHiddenState: Boolean
+  stable var swipeableState: SwipeableV2State<SheetValue>
+}
+stable class BottomSheetDefaults {
+  stable val Elevation: Dp
+  stable val SheetPeekHeight: Dp
+}
 unstable class DashClockExtension {
   unstable val job: CompletableJob
   unstable val scope: CoroutineScope

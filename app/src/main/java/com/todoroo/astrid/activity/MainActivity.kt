@@ -14,9 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -48,6 +52,9 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.drawer.DrawerAction
 import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.drawer.ModalBottomSheet
+import org.tasks.compose.drawer.SheetState
+import org.tasks.compose.drawer.SheetValue
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.data.AlarmDao
 import org.tasks.data.LocationDao
@@ -122,9 +129,29 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
             val state = viewModel.state.collectAsStateLifecycleAware().value
             if (state.drawerOpen) {
                 MdcTheme {
-                    val sheetState = rememberModalBottomSheetState(
-                        skipPartiallyExpanded = preferences.isTopAppBar,
-                    )
+                    var expanded by remember { mutableStateOf(false) }
+                    val skipPartiallyExpanded = remember(expanded) {
+                        expanded || preferences.isTopAppBar
+                    }
+                    val sheetState = rememberSaveable(
+                        skipPartiallyExpanded,
+                        saver = SheetState.Saver(
+                            skipPartiallyExpanded = skipPartiallyExpanded,
+                            confirmValueChange = { true },
+                        )
+                    ) {
+                        SheetState(
+                            skipPartiallyExpanded = skipPartiallyExpanded,
+                            initialValue = if (skipPartiallyExpanded) SheetValue.Expanded else SheetValue.PartiallyExpanded,
+                            confirmValueChange = { true },
+                            skipHiddenState = false,
+                        )
+                    }
+                    LaunchedEffect(sheetState.targetValue) {
+                        if (sheetState.targetValue == SheetValue.Expanded) {
+                            expanded = true
+                        }
+                    }
                     ModalBottomSheet(
                         sheetState = sheetState,
                         containerColor = MaterialTheme.colors.surface,

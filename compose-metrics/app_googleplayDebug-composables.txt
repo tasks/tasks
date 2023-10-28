@@ -397,6 +397,90 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compo
   stable content: Function2<Composer, Int, Unit>
   stable onClick: Function0<Unit>? = @static null
 )
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun ModalBottomSheet(
+  stable onDismissRequest: Function0<Unit>
+  stable modifier: Modifier? = @static Companion
+  stable sheetState: SheetState? = @dynamic rememberModalBottomSheetState(false, null, $composer, 0, 0b0011)
+  stable shape: Shape? = @dynamic BottomSheetDefaults.<get-ExpandedShape>($composer, 0b0110)
+  stable containerColor: Color = @dynamic BottomSheetDefaults.<get-ContainerColor>($composer, 0b0110)
+  stable contentColor: Color = @dynamic contentColorFor(containerColor, $composer, 0b1110 and $dirty shr 0b1100)
+  stable tonalElevation: Dp = @static BottomSheetDefaults.Elevation
+  stable scrimColor: Color = @dynamic BottomSheetDefaults.<get-ScrimColor>($composer, 0b0110)
+  stable dragHandle: Function2<Composer, Int, Unit>? = @static ComposableSingletons$ModalBottomSheetKt.lambda-1
+  stable windowInsets: WindowInsets? = @dynamic BottomSheetDefaults.<get-windowInsets>($composer, 0b0110)
+  stable content: @[ExtensionFunctionType] Function3<ColumnScope, Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun ModalBottomSheet(
+  stable onDismissRequest: Function0<Unit>
+  stable modifier: Modifier? = @static Companion
+  stable sheetState: SheetState? = @dynamic rememberModalBottomSheetState(false, null, $composer, 0, 0b0011)
+  stable shape: Shape? = @dynamic BottomSheetDefaults.<get-ExpandedShape>($composer, 0b0110)
+  stable containerColor: Color = @dynamic BottomSheetDefaults.<get-ContainerColor>($composer, 0b0110)
+  stable contentColor: Color = @dynamic contentColorFor(containerColor, $composer, 0b1110 and $dirty shr 0b1100)
+  stable tonalElevation: Dp = @static BottomSheetDefaults.Elevation
+  stable scrimColor: Color = @dynamic BottomSheetDefaults.<get-ScrimColor>($composer, 0b0110)
+  stable dragHandle: Function2<Composer, Int, Unit>? = @static ComposableSingletons$ModalBottomSheetKt.lambda-2
+  stable content: @[ExtensionFunctionType] Function3<ColumnScope, Composer, Int, Unit>
+)
+fun rememberModalBottomSheetState(
+  stable skipPartiallyExpanded: Boolean = @static false
+  stable confirmValueChange: Function1<SheetValue, Boolean>? = @static { it: SheetValue ->
+  true
+}
+
+): SheetState
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Scrim(
+  stable color: Color
+  stable onDismissRequest: Function0<Unit>
+  stable visible: Boolean
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun ModalBottomSheetPopup(
+  stable onDismissRequest: Function0<Unit>
+  stable windowInsets: WindowInsets
+  stable content: Function2<Composer, Int, Unit>
+)
+restartable fun Content(
+  unstable <this>: ModalBottomSheetWindow
+)
+fun <get-ExpandedShape>(
+  unused stable <this>: BottomSheetDefaults
+): Shape
+fun <get-ContainerColor>(
+  unused stable <this>: BottomSheetDefaults
+): Color
+fun <get-ScrimColor>(
+  unused stable <this>: BottomSheetDefaults
+): Color
+fun <get-windowInsets>(
+  unused stable <this>: BottomSheetDefaults
+): WindowInsets
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DragHandle(
+  stable modifier: Modifier? = @static Companion
+  stable width: Dp = @static 32.dp
+  stable height: Dp = @static 4.dp
+  stable shape: Shape? = @dynamic MaterialTheme.<get-shapes>($composer, MaterialTheme.$stable).extraLarge
+  stable color: Color = @dynamic MaterialTheme.<get-colorScheme>($composer, MaterialTheme.$stable).onSurfaceVariant.copy(
+  alpha   =   0.4f
+)
+  unused stable <this>: BottomSheetDefaults
+)
+fun rememberSheetState(
+  stable skipPartiallyExpanded: Boolean = @static false
+  stable confirmValueChange: Function1<SheetValue, Boolean>? = @static { it: SheetValue ->
+  true
+}
+
+  stable initialValue: SheetValue? = @static SheetValue.Hidden
+  stable skipHiddenState: Boolean = @static false
+): SheetState
+fun rememberSwipeableV2State(
+  initialValue: T
+  unstable animationSpec: AnimationSpec<Float>? = @static SwipeableV2Defaults.AnimationSpec
+  stable confirmValueChange: Function1<@[ParameterName(name = 'newValue')] T, Boolean>? = @static { it: T ->
+  true
+}
+
+): SwipeableV2State<T>
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TaskListDrawer(
   stable begForMoney: Boolean
   filters: ImmutableList<DrawerItem>
