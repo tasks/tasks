@@ -1,3 +1,7 @@
+### 13.6.2 (2023-11-30)
+
+* Fix updating modification timestamp on edits
+
 ### 13.6.1 (2023-11-27)
 
 * Push pending changes when app is backgrounded

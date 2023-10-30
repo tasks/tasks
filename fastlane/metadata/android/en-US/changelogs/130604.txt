@@ -1,0 +1,1 @@
+* Fix updating modification timestamp on edits
