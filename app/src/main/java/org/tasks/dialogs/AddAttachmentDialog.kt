@@ -60,6 +60,7 @@ class AddAttachmentDialog : DialogFragment() {
         targetFragment?.safeStartActivityForResult(
                 Intent(Intent.ACTION_PICK).apply {
                     setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+                    putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
                 },
                 REQUEST_GALLERY
         )
