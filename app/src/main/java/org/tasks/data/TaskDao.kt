@@ -188,7 +188,7 @@ FROM recursive_tasks
     @Insert
     abstract suspend fun insert(task: Task): Long
 
-    suspend fun update(task: Task, original: Task? = null): Task =
+    suspend fun update(task: Task, original: Task?): Task =
         task
             .copy(
                 modificationDate = when {
