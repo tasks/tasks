@@ -26,11 +26,17 @@ import java.io.IOException
 import java.util.*
 
 object FileHelper {
-    fun newFilePickerIntent(activity: Activity?, initial: Uri?, vararg mimeTypes: String?): Intent =
+    fun newFilePickerIntent(
+        activity: Activity?,
+        initial: Uri?,
+        allowMultiple: Boolean = false,
+        vararg mimeTypes: String?,
+    ): Intent =
             Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                 putExtra("android.content.extra.SHOW_ADVANCED", true)
                 putExtra("android.content.extra.FANCY", true)
                 putExtra("android.content.extra.SHOW_FILESIZE", true)
+                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, allowMultiple)
                 addCategory(Intent.CATEGORY_OPENABLE)
                 setInitialUri(activity, this, initial)
 
