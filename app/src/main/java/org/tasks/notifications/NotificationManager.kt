@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.AndroidUtilities.preUpsideDownCake
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
@@ -175,7 +176,9 @@ class NotificationManager @Inject constructor(
             alert: Boolean,
             nonstop: Boolean,
             fiveTimes: Boolean) {
-        builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true))
+        if (preUpsideDownCake()) {
+            builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true))
+        }
         if (AndroidUtilities.preOreo()) {
             if (alert) {
                 builder
