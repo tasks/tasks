@@ -99,7 +99,7 @@ class TaskDuplicator @Inject constructor(
             alarmDao.insert(alarms.map { Alarm(clone.id, it.time, it.type) })
         }
         gcalHelper.createTaskEventIfEnabled(clone)
-        taskDao.save(clone, null) // TODO: delete me
+        taskDao.save(clone) // TODO: delete me
         taskAttachmentDao
             .getAttachmentsForTask(originalId)
             .map {

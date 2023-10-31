@@ -300,7 +300,7 @@ class TaskEditViewModel @Inject constructor(
             selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_END }
         }
 
-        taskDao.save(task, null)
+        taskDao.save(task)
 
         if (isNew || originalList != selectedList.value) {
             task.parent = 0

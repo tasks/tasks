@@ -112,7 +112,7 @@ class CaldavDaoShiftTests : InjectingTestCase() {
     fun ignoreDeletedTasksWhenShiftingDown() = runBlocking {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask(with(CREATED, created))
-        taskDao.update(taskDao.fetch(tasks[0].id).apply { this?.deletionDate = now() }!!)
+        taskDao.update(taskDao.fetch(tasks[0].id).apply { this?.deletionDate = now() }!!, null)
 
         caldavDao.shiftDown("calendar", 0, created.toAppleEpoch())
 

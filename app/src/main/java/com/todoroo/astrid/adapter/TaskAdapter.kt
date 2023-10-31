@@ -443,6 +443,6 @@ open class TaskAdapter(
             task.parent = newParent
         }
         caldavDao.update(caldavTask.id, caldavTask.remoteParent)
-        taskDao.save(task.task, null)
+        taskDao.save(task.task)
     }
 }
