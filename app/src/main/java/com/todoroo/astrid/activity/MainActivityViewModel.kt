@@ -72,6 +72,7 @@ class MainActivityViewModel @Inject constructor(
 
     fun setFilter(filter: Filter) {
         _state.update { it.copy(filter = filter) }
+        updateFilters()
         defaultFilterProvider.lastViewedFilter = filter
     }
 
@@ -94,6 +95,7 @@ class MainActivityViewModel @Inject constructor(
     }
 
     fun updateFilters() = viewModelScope.launch(Dispatchers.Default) {
+        val selected = state.value.filter
         filterProvider
             .drawerItems()
             .map { item ->
@@ -109,6 +111,7 @@ class MainActivityViewModel @Inject constructor(
                                 Timber.e(e)
                                 0
                             },
+                            selected = item == selected,
                             shareCount = if (item is CaldavFilter) item.principals else 0,
                             type = { item },
                         )

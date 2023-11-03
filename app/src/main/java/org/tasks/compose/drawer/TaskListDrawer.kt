@@ -6,6 +6,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -82,7 +83,10 @@ fun TaskListDrawer(
     ) {
         items(items = filters) {
             when (it) {
-                is DrawerItem.Filter -> FilterItem(item = it, onClick = { onClick(it) })
+                is DrawerItem.Filter -> FilterItem(
+                    item = it,
+                    onClick = { onClick(it) }
+                )
                 is DrawerItem.Header -> HeaderItem(
                     item = it,
                     canAdd = it.canAdd,
@@ -138,6 +142,14 @@ private fun FilterItem(
     onClick: () -> Unit,
 ) {
     MenuRow(
+        modifier = Modifier
+            .background(
+                if (item.selected)
+                    MaterialTheme.colors.onSurface.copy(alpha = .1f)
+                else
+                    Color.Transparent
+            )
+            .clickable(onClick = onClick),
         onClick = onClick,
     ) {
         if (item.icon != -1) {
@@ -263,12 +275,13 @@ private fun HeaderItem(
 
 @Composable
 private fun MenuRow(
+    modifier: Modifier = Modifier,
     padding: PaddingValues = PaddingValues(horizontal = 16.dp),
     onClick: () -> Unit,
     content: @Composable RowScope.() -> Unit,
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .clickable(onClick = onClick)
             .height(48.dp)
             .padding(padding)
