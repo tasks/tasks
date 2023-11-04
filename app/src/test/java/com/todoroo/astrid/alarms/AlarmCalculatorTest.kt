@@ -145,18 +145,20 @@ class AlarmCalculatorTest {
 
     @Test
     fun scheduleRelativeAfterDue() {
-        val alarm = alarmCalculator.toAlarmEntry(
-            newTask(with(DUE_DATE, now)),
-            Alarm(0L, DAYS.toMillis(1), TYPE_REL_END)
-        )
+        freezeAt(DateTime(2023, 11, 3, 17, 13)) {
+            val alarm = alarmCalculator.toAlarmEntry(
+                newTask(with(DUE_DATE, newDateTime())),
+                Alarm(0L, DAYS.toMillis(1), TYPE_REL_END)
+            )
 
-        assertEquals(
-            newAlarmEntry(
-                with(TIME, now.plusDays(1).startOfDay().withHourOfDay(13)),
-                with(TYPE, TYPE_REL_END)
-            ),
-            alarm
-        )
+            assertEquals(
+                newAlarmEntry(
+                    with(TIME, DateTime(2023, 11, 4, 13, 0, 0)),
+                    with(TYPE, TYPE_REL_END)
+                ),
+                alarm
+            )
+        }
     }
 
     @Test
@@ -177,18 +179,20 @@ class AlarmCalculatorTest {
 
     @Test
     fun scheduleRelativeAfterStart() = runBlocking {
-        val alarm = alarmCalculator.toAlarmEntry(
-            newTask(with(DUE_DATE, now), with(HIDE_TYPE, HIDE_UNTIL_DUE)),
-            Alarm(0, DAYS.toMillis(1), TYPE_REL_START)
-        )
+        freezeAt(DateTime(2023, 11, 3, 17, 13)) {
+            val alarm = alarmCalculator.toAlarmEntry(
+                newTask(with(DUE_DATE, newDateTime()), with(HIDE_TYPE, HIDE_UNTIL_DUE)),
+                Alarm(0, DAYS.toMillis(1), TYPE_REL_START)
+            )
 
-        assertEquals(
-            newAlarmEntry(
-                with(TIME, now.plusDays(1).startOfDay().withHourOfDay(13)),
-                with(TYPE, TYPE_REL_START)
-            ),
-            alarm
-        )
+            assertEquals(
+                newAlarmEntry(
+                    with(TIME, DateTime(2023, 11, 4, 13, 0)),
+                    with(TYPE, TYPE_REL_START)
+                ),
+                alarm
+            )
+        }
     }
 
     @Test

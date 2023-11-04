@@ -8,7 +8,6 @@ import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.NO_UUID
-import org.tasks.Strings
 import org.tasks.date.DateTimeUtils
 import org.tasks.makers.Maker.make
 import org.tasks.repeats.RecurrenceUtils.newRecur
@@ -21,7 +20,6 @@ object TaskMaker {
     val START_DATE: Property<Task, DateTime?> = newProperty()
     val REMINDER_LAST: Property<Task, DateTime?> = newProperty()
     val HIDE_TYPE: Property<Task, Int> = newProperty()
-    val REMINDERS: Property<Task, Int> = newProperty()
     val MODIFICATION_TIME: Property<Task, DateTime> = newProperty()
     val CREATION_TIME: Property<Task, DateTime> = newProperty()
     val COMPLETION_TIME: Property<Task, DateTime> = newProperty()
@@ -37,35 +35,32 @@ object TaskMaker {
     val ORDER: Property<Task, Long> = newProperty()
 
     private val instantiator = Instantiator { lookup: PropertyLookup<Task> ->
-        val task = Task()
-        val title = lookup.valueOf(TITLE, null as String?)
-        if (!Strings.isNullOrEmpty(title)) {
-            task.title = title!!
-        }
-        val id = lookup.valueOf(ID, Task.NO_ID)
-        if (id != Task.NO_ID) {
-            task.id = id
-        }
-        val priority = lookup.valueOf(PRIORITY, -1)
-        if (priority >= 0) {
-            task.priority = priority
-        }
-        val dueDate = lookup.valueOf(DUE_DATE, null as DateTime?)
-        if (dueDate != null) {
-            task.dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate.millis)
-        }
-        val dueTime = lookup.valueOf(DUE_TIME, null as DateTime?)
-        if (dueTime != null) {
-            task.dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueTime.millis)
-        }
-        val completionTime = lookup.valueOf(COMPLETION_TIME, null as DateTime?)
-        if (completionTime != null) {
-            task.completionDate = completionTime.millis
-        }
-        val deletedTime = lookup.valueOf(DELETION_TIME, null as DateTime?)
-        if (deletedTime != null) {
-            task.deletionDate = deletedTime.millis
-        }
+        val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())
+        val task = Task(
+            id = lookup.valueOf(ID, Task.NO_ID),
+            title = lookup.valueOf(TITLE, null as String?),
+            priority = lookup.valueOf(PRIORITY, Task.Priority.NONE),
+            dueDate = lookup.valueOf(DUE_DATE, null as DateTime?)
+                ?.let { Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, it.millis) }
+                ?: lookup.valueOf(DUE_TIME, null as DateTime?)
+                ?.let { Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, it.millis) }
+                ?: 0L,
+            completionDate = lookup.valueOf(COMPLETION_TIME, null as DateTime?)?.millis ?: 0L,
+            deletionDate = lookup.valueOf(DELETION_TIME, null as DateTime?)?.millis ?: 0L,
+            reminderLast = lookup.valueOf(REMINDER_LAST, null as DateTime?)?.millis ?: 0L,
+            recurrence = lookup.valueOf(RECUR, null as String?)?.let { newRecur(it).toString() },
+            repeatFrom = if (lookup.valueOf(AFTER_COMPLETE, false))
+                Task.RepeatFrom.COMPLETION_DATE
+            else
+                Task.RepeatFrom.DUE_DATE,
+            notes = lookup.valueOf(DESCRIPTION, null as String?),
+            isCollapsed = lookup.valueOf(COLLAPSED, false),
+            remoteId = lookup.valueOf(UUID, NO_UUID),
+            parent = lookup.valueOf(PARENT, 0L),
+            order = lookup.valueOf(ORDER, null as Long?),
+            creationDate = creationTime.millis,
+            modificationDate = lookup.valueOf(MODIFICATION_TIME, creationTime).millis,
+        )
         lookup.valueOf(START_DATE, null as DateTime?)?.let {
             task.hideUntil = task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, it.millis)
         }
@@ -73,30 +68,6 @@ object TaskMaker {
         if (hideType >= 0) {
             task.hideUntil = task.createHideUntil(hideType, 0)
         }
-        val reminderFlags = lookup.valueOf(REMINDERS, -1)
-        if (reminderFlags >= 0) {
-            task.ringFlags = reminderFlags
-        }
-        val reminderLast = lookup.valueOf(REMINDER_LAST, null as DateTime?)
-        if (reminderLast != null) {
-            task.reminderLast = reminderLast.millis
-        }
-        lookup.valueOf(RECUR, null as String?)?.let {
-            task.setRecurrence(newRecur(it))
-        }
-        task.repeatFrom = if (lookup.valueOf(AFTER_COMPLETE, false)) {
-            Task.RepeatFrom.COMPLETION_DATE
-        } else {
-            Task.RepeatFrom.DUE_DATE
-        }
-        task.notes = lookup.valueOf(DESCRIPTION, null as String?)
-        task.isCollapsed = lookup.valueOf(COLLAPSED, false)
-        task.uuid = lookup.valueOf(UUID, NO_UUID)
-        val creationTime = lookup.valueOf(CREATION_TIME, DateTimeUtils.newDateTime())
-        task.creationDate = creationTime.millis
-        task.modificationDate = lookup.valueOf(MODIFICATION_TIME, creationTime).millis
-        task.parent = lookup.valueOf(PARENT, 0L)
-        task.order = lookup.valueOf(ORDER, null as Long?)
         task
     }
 

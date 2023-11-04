@@ -210,9 +210,7 @@ open class TaskAdapter(
             SORT_IMPORTANCE -> {
                 val newPriority = dataSource.nearestHeader(if (pos == 0) 1 else pos).toInt()
                 if (newPriority != task.priority) {
-                    val t = task.task
-                    t.priority = newPriority
-                    taskDao.save(t)
+                    taskDao.save(task.task.copy(priority = newPriority))
                 }
             }
             SORT_LIST -> taskMover.move(task.id, dataSource.nearestHeader(if (pos == 0) 1 else pos))

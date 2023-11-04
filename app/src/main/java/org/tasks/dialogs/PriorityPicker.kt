@@ -69,8 +69,7 @@ class PriorityPicker : DialogFragment() {
             taskDao
                 .fetch(taskIds.toList())
                 .forEach {
-                    it.priority = priorityPickerViewModel.priority.value
-                    taskDao.save(it)
+                    taskDao.save(it.copy(priority = priorityPickerViewModel.priority.value))
                 }
         }
         dismiss()

@@ -135,14 +135,13 @@ class TaskCreator @Inject constructor(
      * base task model.
      */
     internal suspend fun create(values: Map<String, Any>?, title: String?): Task {
-        val task = Task()
-        task.creationDate = DateUtilities.now()
-        task.modificationDate = DateUtilities.now()
-        if (title != null) {
-            task.title = title.trim { it <= ' ' }
-        }
-        task.uuid = UUIDHelper.newUUID()
-        task.priority = preferences.defaultPriority
+        val task = Task(
+            title = title?.trim { it <= ' ' },
+            creationDate = DateUtilities.now(),
+            modificationDate = DateUtilities.now(),
+            remoteId = UUIDHelper.newUUID(),
+            priority = preferences.defaultPriority,
+        )
         preferences.getStringValue(R.string.p_default_recurrence)
                 ?.takeIf { it.isNotBlank() }
                 ?.let {

@@ -12,9 +12,10 @@ open class NewSyncTestCase : InjectingTestCase() {
     @Inject lateinit var tagDataDao: TagDataDao
 
     suspend fun createTask(): Task {
-        val task = Task()
-        task.title = SYNC_TASK_TITLE
-        task.priority = SYNC_TASK_IMPORTANCE
+        val task = Task(
+            title = SYNC_TASK_TITLE,
+            priority = SYNC_TASK_IMPORTANCE,
+        )
         taskDao.createNew(task)
         return task
     }

@@ -3,6 +3,7 @@ package com.todoroo.astrid.service
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.NO_ID
 import com.todoroo.astrid.gcal.GCalHelper
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.Alarm
@@ -47,25 +48,25 @@ class TaskDuplicator @Inject constructor(
             .also { localBroadcastManager.broadcastRefresh() }
     }
 
-    private suspend fun clone(clone: Task, parentId: Long): Task {
-        val originalId = clone.id
-        with(clone) {
-            creationDate = DateUtilities.now()
-            modificationDate = DateUtilities.now()
-            reminderLast = 0
-            completionDate = 0L
-            calendarURI = ""
-            parent = parentId
-            uuid = Task.NO_UUID
-            suppressSync()
-            suppressRefresh()
-        }
+    private suspend fun clone(task: Task, parentId: Long): Task {
+        val clone = task.copy(
+            id = NO_ID,
+            creationDate = DateUtilities.now(),
+            modificationDate = DateUtilities.now(),
+            reminderLast = 0,
+            completionDate = 0L,
+            calendarURI = "",
+            parent = parentId,
+            remoteId = Task.NO_UUID,
+        )
+        clone.suppressSync()
+        clone.suppressRefresh()
         val newId = taskDao.createNew(clone)
-        val tags = tagDataDao.getTagDataForTask(originalId)
+        val tags = tagDataDao.getTagDataForTask(task.id)
         if (tags.isNotEmpty()) {
             tagDao.insert(tags.map { Tag(clone, it) })
         }
-        val googleTask = googleTaskDao.getByTaskId(originalId)
+        val googleTask = googleTaskDao.getByTaskId(task.id)
         val addToTop = preferences.addTasksToTop()
         if (googleTask != null) {
             googleTaskDao.insertAndShift(
@@ -78,7 +79,7 @@ class TaskDuplicator @Inject constructor(
                 addToTop
             )
         }
-        val caldavTask = caldavDao.getTask(originalId)
+        val caldavTask = caldavDao.getTask(task.id)
         if (caldavTask != null) {
             val newDavTask = CaldavTask(
                 task = clone.id,
@@ -90,18 +91,18 @@ class TaskDuplicator @Inject constructor(
             }
             caldavDao.insert(clone, newDavTask, addToTop)
         }
-        for (g in locationDao.getGeofencesForTask(originalId)) {
+        for (g in locationDao.getGeofencesForTask(task.id)) {
             locationDao.insert(
                     Geofence(clone.id, g.place, g.isArrival, g.isDeparture))
         }
-        val alarms = alarmDao.getAlarms(originalId)
+        val alarms = alarmDao.getAlarms(task.id)
         if (alarms.isNotEmpty()) {
             alarmDao.insert(alarms.map { Alarm(clone.id, it.time, it.type) })
         }
         gcalHelper.createTaskEventIfEnabled(clone)
         taskDao.save(clone, null) // TODO: delete me
         taskAttachmentDao
-            .getAttachmentsForTask(originalId)
+            .getAttachmentsForTask(task.id)
             .map {
                 Attachment(
                     task = clone.id,
@@ -110,7 +111,7 @@ class TaskDuplicator @Inject constructor(
                 )
             }
             .let { taskAttachmentDao.insert(it) }
-        getDirectChildren(originalId).forEach { subtask ->
+        getDirectChildren(task.id).forEach { subtask ->
             clone(subtask, newId)
         }
         return clone
