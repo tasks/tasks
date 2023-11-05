@@ -204,7 +204,7 @@
     <string name="TPl_notification">Minuteries actives pour « %s » !</string>
     <string name="TFE_workingOn">Tâches minutées</string>
     <string name="TEA_timer_controls">Minuteur</string>
-    <string name="TEA_timer_comment_started">débuta cette tâche :</string>
+    <string name="TEA_timer_comment_started">a commencé cette tâche :</string>
     <string name="TEA_timer_comment_stopped">a arrêté d\'effectuer cette tâche :</string>
     <string name="TEA_timer_comment_spent">Temps écoulé :</string>
     <string name="voice_create_prompt">Parler pour créer une nouvelle tâche</string>
@@ -361,7 +361,7 @@
     <string name="refresh_purchases">Rafraîchir les achats</string>
     <string name="button_subscribe">S\'abonner</string>
     <string name="about">À propos</string>
-    <string name="license_summary">Tasks est un logiciel libre à code source ouvert, codé sous licence « GNU », « General Public License » version 3.0.</string>
+    <string name="license_summary">Tasks est un logiciel libre à code source ouvert, codé sous licence « GNU », « General Public License » version 3.0</string>
     <string name="pro_dashclock_extension">Extension du tableau de bord</string>
     <string name="requires_pro_subscription">Nécessite un abonnement « pro »</string>
     <string name="logout">Se déconnecter</string>
