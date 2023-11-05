@@ -20,7 +20,7 @@
     <string name="DLG_delete_this_task_question">Deze taak wissen\?</string>
     <string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
     <string name="DLG_undo">Terugzetten</string>
-    <string name="WID_dateButtonUnset">Vastleggen</string>
+    <string name="WID_dateButtonUnset">Tikken</string>
     <string name="TLA_no_items">Hier zijn geen taken.</string>
     <string name="TLA_menu_sort">Sorteren</string>
     <string name="TLA_menu_search">Zoeken</string>
@@ -376,7 +376,7 @@
     <string name="building_notifications">Meldingen aanmaken</string>
     <string name="choose_a_location">Locatie kiezen</string>
     <string name="pick_this_location">Locatie onder naald kiezen</string>
-    <string name="or_choose_a_location">Of eerdere locatie kiezen</string>
+    <string name="or_choose_a_location">Of kies een locatie</string>
     <string name="missing_permissions">Ontbrekende app-rechten</string>
     <string name="location_permission_required_location">App-recht Locatie is vereist voor de actuele locatie</string>
     <string name="open_map">Kaart openen</string>
