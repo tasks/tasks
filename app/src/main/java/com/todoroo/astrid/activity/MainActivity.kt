@@ -147,8 +147,8 @@ class MainActivity : AppCompatActivity(), TaskListFragmentCallbackHandler {
                             skipHiddenState = false,
                         )
                     }
-                    LaunchedEffect(sheetState.targetValue) {
-                        if (sheetState.targetValue == SheetValue.Expanded) {
+                    LaunchedEffect(sheetState.currentValue) {
+                        if (sheetState.currentValue == SheetValue.Expanded) {
                             expanded = true
                         }
                     }
