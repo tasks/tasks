@@ -47,11 +47,16 @@ class TaskListViewModel @Inject constructor(
     private val firebase: Firebase,
 ) : ViewModel() {
 
+    sealed interface TasksResults {
+        data object Loading : TasksResults
+        data class Results(val tasks: List<TaskContainer>) : TasksResults
+    }
+
     data class State(
         val filter: Filter? = null,
         val now: Long = DateUtilities.now(),
         val searchQuery: String? = null,
-        val tasks: List<TaskContainer> = emptyList(),
+        val tasks: TasksResults = TasksResults.Loading,
         val begForSubscription: Boolean = false,
         val syncOngoing: Boolean = false,
     )
@@ -116,7 +121,7 @@ class TaskListViewModel @Inject constructor(
             }
             .onEach { tasks ->
                 _state.update {
-                    it.copy(tasks = tasks)
+                    it.copy(tasks = TasksResults.Results(tasks))
                 }
             }
             .flowOn(Dispatchers.Default)

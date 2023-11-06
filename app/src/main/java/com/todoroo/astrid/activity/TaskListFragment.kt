@@ -280,16 +280,18 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 listViewModel.state.collect {
-                    submitList(it.tasks)
-                    if (it.tasks.isEmpty()) {
-                        swipeRefreshLayout.visibility = View.GONE
-                        emptyRefreshLayout.visibility = View.VISIBLE
-                    } else {
-                        swipeRefreshLayout.visibility = View.VISIBLE
-                        emptyRefreshLayout.visibility = View.GONE
+                    if (it.tasks is TaskListViewModel.TasksResults.Results) {
+                        submitList(it.tasks.tasks)
+                        if (it.tasks.tasks.isEmpty()) {
+                            swipeRefreshLayout.visibility = View.GONE
+                            emptyRefreshLayout.visibility = View.VISIBLE
+                        } else {
+                            swipeRefreshLayout.visibility = View.VISIBLE
+                            emptyRefreshLayout.visibility = View.GONE
+                        }
+                        swipeRefreshLayout.isRefreshing = it.syncOngoing
+                        emptyRefreshLayout.isRefreshing = it.syncOngoing
                     }
-                    swipeRefreshLayout.isRefreshing = it.syncOngoing
-                    emptyRefreshLayout.isRefreshing = it.syncOngoing
                 }
             }
         }

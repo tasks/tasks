@@ -3,14 +3,24 @@ package org.tasks.compose.edit
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -27,8 +37,14 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.data.Task
-import org.tasks.compose.*
+import org.tasks.compose.CheckBox
+import org.tasks.compose.ClearButton
+import org.tasks.compose.DisabledText
+import org.tasks.compose.SubtaskChip
+import org.tasks.compose.TaskEditIcon
+import org.tasks.compose.TaskEditRow
 import org.tasks.data.TaskContainer
+import org.tasks.ui.TaskListViewModel
 
 @Composable
 fun SubtaskRow(
@@ -36,7 +52,7 @@ fun SubtaskRow(
     filter: Filter?,
     hasParent: Boolean,
     desaturate: Boolean,
-    existingSubtasks: List<TaskContainer>,
+    existingSubtasks: TaskListViewModel.TasksResults,
     newSubtasks: List<Task>,
     openSubtask: (Task) -> Unit,
     completeExistingSubtask: (Task, Boolean) -> Unit,
@@ -73,15 +89,22 @@ fun SubtaskRow(
                     )
                 } else {
                     Spacer(modifier = Modifier.height(height = 8.dp))
-                    existingSubtasks.forEach { task ->
-                        ExistingSubtaskRow(
-                            task = task,
-                            desaturate = desaturate,
-                            indent = if (filter !is GtasksFilter) task.indent else 0,
-                            onRowClick = { openSubtask(task.task) },
-                            onCompleteClick = { completeExistingSubtask(task.task, !task.isCompleted) },
-                            onToggleSubtaskClick = { toggleSubtask(task.id, !task.isCollapsed) }
-                        )
+                    if (existingSubtasks is TaskListViewModel.TasksResults.Results) {
+                        existingSubtasks.tasks.forEach { task ->
+                            ExistingSubtaskRow(
+                                task = task,
+                                desaturate = desaturate,
+                                indent = if (filter !is GtasksFilter) task.indent else 0,
+                                onRowClick = { openSubtask(task.task) },
+                                onCompleteClick = {
+                                    completeExistingSubtask(
+                                        task.task,
+                                        !task.isCompleted
+                                    )
+                                },
+                                onToggleSubtaskClick = { toggleSubtask(task.id, !task.isCollapsed) }
+                            )
+                        }
                     }
                     newSubtasks.forEach { subtask ->
                         NewSubtaskRow(
@@ -214,7 +237,7 @@ fun NoSubtasks() {
             filter = null,
             hasParent = false,
             desaturate = true,
-            existingSubtasks = emptyList(),
+            existingSubtasks = TaskListViewModel.TasksResults.Results(emptyList()),
             newSubtasks = emptyList(),
             openSubtask = {},
             completeExistingSubtask = { _, _ -> },
@@ -236,20 +259,22 @@ fun SubtasksPreview() {
             filter = null,
             hasParent = false,
             desaturate = true,
-            existingSubtasks = listOf(
-                TaskContainer(
-                    task = Task().apply {
-                        title = "Existing subtask 1"
-                        priority = Task.Priority.HIGH
-                    },
-                    indent = 0
-                ),
-                TaskContainer(
-                    task = Task().apply {
-                        title = "Existing subtask 2 with a really long title"
-                        priority = Task.Priority.LOW
-                    },
-                    indent = 1
+            existingSubtasks = TaskListViewModel.TasksResults.Results(
+                listOf(
+                    TaskContainer(
+                        task = Task(
+                            title = "Existing subtask 1",
+                            priority = Task.Priority.HIGH,
+                        ),
+                        indent = 0
+                    ),
+                    TaskContainer(
+                        task = Task(
+                            title = "Existing subtask 2 with a really long title",
+                            priority = Task.Priority.LOW,
+                        ),
+                        indent = 1
+                    )
                 )
             ),
             newSubtasks = listOf(
