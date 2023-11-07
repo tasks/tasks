@@ -114,7 +114,7 @@
     <string name="gtasks_GLA_errorIOAuth">בעיה בהתחברות לשרתי גוגל. נא נסה שוב מאוחר יותר.</string>
     <string name="gtasks_GPr_header">״משימות גוגל״</string>
     <string name="gtasks_error_accountNotFound">החשבון %s לא נמצא. אנא התנתק והתחבר שוב במסך הגדרות של ״משימות גוגל״.</string>
-    <string name="premium_record_audio">הקלד הערה</string>
+    <string name="premium_record_audio">הקלט הערה</string>
     <string name="ring_once">צלצל פעם אחת</string>
     <string name="ring_five_times">צלצל חמש פעמים</string>
     <string name="ring_nonstop">צלצל ללא הפסקה</string>
