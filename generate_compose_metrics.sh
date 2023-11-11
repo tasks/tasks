@@ -1,6 +1,6 @@
 #!/bin/sh
 
-./gradlew clean :app:compileGoogleplayDebugKotlin \
+./gradlew clean :app:compileGoogleplayReleaseKotlin \
     --no-build-cache \
     -Pandroidx.enableComposeCompilerMetrics=true \
     -Pandroidx.enableComposeCompilerReports=true \
