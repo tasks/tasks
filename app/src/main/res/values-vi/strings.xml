@@ -705,4 +705,5 @@
     <string name="sort_ascending">Tăng dần</string>
     <string name="sort_descending">Giảm dần</string>
     <string name="sort_completed">Theo thời gian hoàn thành</string>
+    <string name="change_priority">Thay đổi mức độ ưu tiên</string>
 </resources>
