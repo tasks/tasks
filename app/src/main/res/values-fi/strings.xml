@@ -171,7 +171,7 @@
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">kuukausi</item>
-        <item quantity="other">kuukaudet</item>
+        <item quantity="other">kuukausi</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d kuukausi</item>
