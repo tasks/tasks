@@ -114,7 +114,7 @@ class TaskCreator @Inject constructor(
                 locationDao.insert(Geofence(place.uid, preferences))
             }
         }
-        taskDao.save(task)
+        taskDao.save(task, null)
         alarmDao.insert(task.getDefaultAlarms())
         return task
     }

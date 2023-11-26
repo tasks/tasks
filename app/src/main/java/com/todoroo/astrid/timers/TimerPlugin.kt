@@ -55,7 +55,7 @@ class TimerPlugin @Inject constructor(
                 task.elapsedSeconds = task.elapsedSeconds + newElapsed
             }
         }
-        taskDao.update(task, taskDao.fetch(task.id))
+        taskDao.update(task)
         updateNotifications()
     }
 
