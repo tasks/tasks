@@ -1,8 +1,13 @@
-### 13.6.2 (2023-11-30)
+### 13.6.3 (2023-11-25)
+
+* Revert "Preserve modification times on initial sync" [#2460](https://github.com/tasks/tasks/issues/2640)
+* Fix unnecessary DecSync work
+
+### 13.6.2 (2023-10-30)
 
 * Fix updating modification timestamp on edits
 
-### 13.6.1 (2023-11-27)
+### 13.6.1 (2023-10-27)
 
 * Push pending changes when app is backgrounded
 * Don't require internet connection for DAVx5/EteSync/DecSync sync
