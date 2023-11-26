@@ -1,0 +1,2 @@
+* Revert "Preserve modification times on initial sync"
+* Fix unnecessary DecSync work

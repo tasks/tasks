@@ -215,7 +215,7 @@ class iCalendar @Inject constructor(
                     `object` = obj
                 )
         val isNew = caldavTask.id == com.todoroo.astrid.data.Task.NO_ID
-        val dirty = !isNew && task.modificationDate > caldavTask.lastSync
+        val dirty = task.modificationDate > caldavTask.lastSync || caldavTask.lastSync == 0L
         val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
         task.applyRemote(remote, local)
         caldavTask.applyRemote(remote, local)
@@ -263,11 +263,7 @@ class iCalendar @Inject constructor(
 
         task.suppressSync()
         task.suppressRefresh()
-        if (isNew) {
-            taskDao.save(task, null)
-        } else {
-            taskDao.save(task)
-        }
+        taskDao.save(task)
         vtodoCache.putVtodo(calendar, caldavTask, vtodo)
         caldavTask.etag = eTag
         if (!dirty) {

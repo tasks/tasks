@@ -1,3 +1,8 @@
+### 13.6.3 (2023-11-25)
+
+* Revert "Preserve modification times on initial sync" [#2460](https://github.com/tasks/tasks/issues/2640)
+* Fix unnecessary DecSync work
+
 ### 13.6.2 (2023-10-30)
 
 * Fix updating modification timestamp on edits

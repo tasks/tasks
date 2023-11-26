@@ -106,8 +106,9 @@ class TaskDao @Inject constructor(
         }
 
     suspend fun save(task: Task, original: Task?) {
-        val updated = taskDao.update(task, original)
-        afterUpdate(updated, original)
+        if (taskDao.update(task, original)) {
+            afterUpdate(task, original)
+        }
     }
 
     private suspend fun afterUpdate(task: Task, original: Task?) {

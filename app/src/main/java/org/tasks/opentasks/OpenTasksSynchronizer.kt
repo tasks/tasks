@@ -15,7 +15,12 @@ import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar
-import org.tasks.data.*
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavDao
+import org.tasks.data.CaldavTask
+import org.tasks.data.MyAndroidTask
+import org.tasks.data.OpenTaskDao
 import org.tasks.data.OpenTaskDao.Companion.filterActive
 import org.tasks.data.OpenTaskDao.Companion.isDavx5
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
@@ -151,7 +156,7 @@ class OpenTasksSynchronizer @Inject constructor(
         val etags = openTaskDao.getEtags(listId)
         etags.forEach { (uid, sync1, version) ->
             val caldavTask = caldavDao.getTaskByRemoteId(calendar.uuid!!, uid)
-            val etag = if (account.isEteSync) version else sync1
+            val etag = if (account.isEteSync || account.isDecSync) version else sync1
             if (caldavTask?.etag == null || caldavTask.etag != etag) {
                 applyChanges(account, calendar, listId, uid, etag, caldavTask)
             }
@@ -236,5 +241,8 @@ class OpenTasksSynchronizer @Inject constructor(
     companion object {
         private val CaldavAccount.isEteSync: Boolean
             get() = uuid?.isEteSync() == true
+
+        private val CaldavAccount.isDecSync: Boolean
+            get() = uuid?.isDecSync() == true
     }
 }

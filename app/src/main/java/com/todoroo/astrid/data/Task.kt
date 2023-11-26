@@ -187,25 +187,31 @@ data class Task(
     val isNew: Boolean
         get() = id == NO_ID
 
-    fun significantChange(task: Task): Boolean =
-        id != task.id
-                || title != task.title
-                || priority != task.priority
-                || dueDate != task.dueDate
-                || hideUntil != task.hideUntil
-                || creationDate != task.creationDate
-                || modificationDate != task.modificationDate
-                || completionDate != task.completionDate
-                || deletionDate != task.deletionDate
-                || notes != task.notes
-                || estimatedSeconds != task.estimatedSeconds
-                || elapsedSeconds != task.elapsedSeconds
-                || ringFlags != task.ringFlags
-                || recurrence != task.recurrence
-                || calendarURI != task.calendarURI
-                || parent != task.parent
-                || remoteId != task.remoteId
-                || order != task.order
+    fun insignificantChange(task: Task?): Boolean {
+        if (this === task) {
+            return true
+        }
+        return if (task == null) {
+            false
+        } else id == task.id
+                && title == task.title
+                && priority == task.priority
+                && dueDate == task.dueDate
+                && hideUntil == task.hideUntil
+                && creationDate == task.creationDate
+                && modificationDate == task.modificationDate
+                && completionDate == task.completionDate
+                && deletionDate == task.deletionDate
+                && notes == task.notes
+                && estimatedSeconds == task.estimatedSeconds
+                && elapsedSeconds == task.elapsedSeconds
+                && ringFlags == task.ringFlags
+                && recurrence == task.recurrence
+                && calendarURI == task.calendarURI
+                && parent == task.parent
+                && remoteId == task.remoteId
+                && order == task.order
+    }
 
     fun googleTaskUpToDate(original: Task?): Boolean {
         if (this === original) {
