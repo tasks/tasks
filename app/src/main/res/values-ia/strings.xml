@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="TVA_add_comment">Adder un commento…</string>
-    <string name="actfm_picture_clear">Nettar imagine</string>
+    <string name="actfm_picture_clear">Rader le imagine</string>
     <string name="keep_editing">Sequer le edition</string>
     <string name="DLG_undo">Disfacer</string>
     <string name="display_name">Monstrar le nomine</string>
     <string name="action_open">Aperir</string>
     <string name="action_call">Appellar</string>
     <string name="manage_drawer">Gerer le tiratorio</string>
-    <string name="TAd_actionEditTask">Editar</string>
+    <string name="TAd_actionEditTask">Modificar</string>
     <string name="TLA_menu_settings">Parametros</string>
     <string name="TLA_menu_search">Cercar</string>
     <string name="TLA_menu_sort">Ordinar</string>
@@ -23,12 +23,19 @@
     <string name="help_and_feedback">Adjuta e commentarios</string>
     <string name="notifications">Notificationes</string>
     <string name="today_lowercase">hodie</string>
-    <string name="pick_a_date_and_time">Eliger un data e hora</string>
+    <string name="pick_a_date_and_time">Seliger un data e hora</string>
     <string name="privacy_policy">Politica de confidentialitate</string>
     <string name="filter_today_only">Solmente hodie</string>
     <string name="privacy">Confidentialitate</string>
     <string name="open_source">Codice aperte</string>
     <string name="upgrade_open_source_description">Tu subscription supporta le developpamento continuate</string>
-    <string name="about">A proposito</string>
+    <string name="about">A proposito de</string>
     <string name="today">Hodie</string>
+    <string name="save">Salvar</string>
+    <string name="TEA_control_files">Files</string>
+    <string name="backup_BPr_header">Copias de securitate</string>
+    <string name="SSD_sort_alpha">Per titulo</string>
+    <string name="sort_list">Per lista</string>
+    <string name="SSD_sort_start">Per data de initio</string>
+    <string name="read_permission_label">Permissiones de Tasks</string>
 </resources>
