@@ -11,7 +11,6 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.gcal.GCalHelper
-import com.todoroo.astrid.service.TaskCompleter
 import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
@@ -31,7 +30,6 @@ class RepeatTaskHelper @Inject constructor(
         private val alarmService: AlarmService,
         private val taskDao: TaskDao,
         private val localBroadcastManager: LocalBroadcastManager,
-        private val taskCompleter: TaskCompleter,
 ) {
     suspend fun handleRepeat(task: Task) {
         val recurrence = task.recurrence
@@ -77,7 +75,6 @@ class RepeatTaskHelper @Inject constructor(
                         .takeIf { it > 0 }
                         ?: (newDueDate - (computeNextDueDate(task, recurrence, repeatAfterCompletion) - newDueDate))
         rescheduleAlarms(task.id, previousDueDate, newDueDate)
-        taskCompleter.setComplete(task, false)
         broadcastCompletion(task, previousDueDate)
     }
 

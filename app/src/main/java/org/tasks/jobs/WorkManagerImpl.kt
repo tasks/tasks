@@ -56,16 +56,6 @@ class WorkManagerImpl(
     private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     private val workManager = androidx.work.WorkManager.getInstance(context)
 
-    override fun scheduleRepeat(task: Task) {
-        enqueue(
-            OneTimeWorkRequest.Builder(AfterSaveWork::class.java)
-                .setInputData(
-                    AfterSaveWork.EXTRA_ID to task.id,
-                    AfterSaveWork.EXTRA_SUPPRESS_COMPLETION_SNACKBAR to task.isSuppressRefresh()
-                )
-        )
-    }
-
     override fun updateCalendar(task: Task) {
         enqueue(
             OneTimeWorkRequest.Builder(UpdateCalendarWork::class.java)

@@ -8,8 +8,6 @@ import org.tasks.data.Place
 
 interface WorkManager {
 
-    fun scheduleRepeat(task: Task)
-
     fun updateCalendar(task: Task)
 
     fun migrateLocalTasks(caldavAccount: CaldavAccount)
