@@ -6,23 +6,30 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioAttributes.USAGE_NOTIFICATION_EVENT
 import android.media.RingtoneManager
+import androidx.room.withTransaction
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.gcal.GCalHelper
+import com.todoroo.astrid.repeats.RepeatTaskHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
-import org.tasks.jobs.WorkManager
+import org.tasks.data.CaldavDao
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject
 
 class TaskCompleter @Inject internal constructor(
     @ApplicationContext private val context: Context,
+    private val database: Database,
     private val taskDao: TaskDao,
     private val preferences: Preferences,
     private val notificationManager: NotificationManager,
     private val localBroadcastManager: LocalBroadcastManager,
-    private val workManager: WorkManager,
+    private val repeatTaskHelper: RepeatTaskHelper,
+    private val caldavDao: CaldavDao,
+    private val gCalHelper: GCalHelper
 ) {
     suspend fun setComplete(taskId: Long) =
             taskDao
@@ -58,16 +65,23 @@ class TaskCompleter @Inject internal constructor(
             return
         }
         val completed = completionDate > 0
-        taskDao.setCompletionDate(tasks.mapNotNull { it.remoteId }, completionDate)
-        tasks.forEachIndexed { i, original ->
-            if (i < tasks.size - 1) {
-                original.suppressRefresh()
+        database.withTransaction {
+            taskDao.setCompletionDate(tasks.mapNotNull { it.remoteId }, completionDate)
+            tasks.forEachIndexed { i, original ->
+                if (i < tasks.lastIndex) {
+                    original.suppressRefresh()
+                }
+                taskDao.saved(original)
             }
-            taskDao.saved(original)
-        }
-        tasks.forEach {
-            if (completed && it.isRecurring) {
-                workManager.scheduleRepeat(it)
+            tasks.forEach { task ->
+                if (completed && task.isRecurring) {
+                    gCalHelper.updateEvent(task)
+
+                    if (caldavDao.getAccountForTask(task.id)?.isSuppressRepeatingTasks != true) {
+                        repeatTaskHelper.handleRepeat(task)
+                        setComplete(task, false)
+                    }
+                }
             }
         }
         if (completed && notificationManager.currentInterruptionFilter == INTERRUPTION_FILTER_ALL) {

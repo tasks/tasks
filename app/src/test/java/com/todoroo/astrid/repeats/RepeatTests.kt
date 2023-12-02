@@ -22,7 +22,6 @@ abstract class RepeatTests {
             alarmService,
             mock(TaskDao::class.java),
             mock(LocalBroadcastManager::class.java),
-            mock(TaskCompleter::class.java)
     )
 
     @Before

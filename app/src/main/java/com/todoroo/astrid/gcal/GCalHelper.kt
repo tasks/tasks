@@ -21,7 +21,7 @@ import org.tasks.data.TaskDao
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import timber.log.Timber
-import java.util.*
+import java.util.TimeZone
 import javax.inject.Inject
 
 class GCalHelper @Inject constructor(
