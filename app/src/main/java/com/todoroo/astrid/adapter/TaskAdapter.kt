@@ -138,7 +138,7 @@ open class TaskAdapter(
     open suspend fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val newParent = findParent(indent, to)
-        if ((newParent?.id ?: 0) == task.parent) {
+        if ((newParent?.id ?: 0) == task.parent || (indent > 0 && dataSource.subtaskSortMode == SORT_MANUAL)) {
             if (indent == 0) {
                 changeSortGroup(task, if (from < to) to - 1 else to)
             } else if (dataSource.subtaskSortMode == SORT_MANUAL) {
@@ -279,7 +279,7 @@ open class TaskAdapter(
 
     private suspend fun changeCaldavParent(task: TaskContainer, newParent: TaskContainer?) {
         val list = newParent?.caldav ?: task.caldav!!
-        val caldavTask = task.caldavTask ?: CaldavTask(
+        val caldavTask = task.caldavTask.takeIf { list == task.caldav } ?: CaldavTask(
             task = task.id,
             calendar = list,
         )
@@ -287,9 +287,8 @@ open class TaskAdapter(
         if (newParentId == 0L) {
             caldavTask.remoteParent = ""
         } else {
-            val parentTask = caldavDao.getTask(newParentId) ?: return
             caldavTask.calendar = list
-            caldavTask.remoteParent = parentTask.remoteId
+            caldavTask.remoteParent = newParent?.caldavTask?.remoteId ?: return
         }
         task.task.order = if (newTasksOnTop) {
             caldavDao.findFirstTask(list, newParentId)
@@ -301,12 +300,13 @@ open class TaskAdapter(
                     ?.plus(1)
         }
         if (caldavTask.id == 0L) {
-            val newTask = CaldavTask(
-                task = task.id,
-                calendar = list,
+            caldavDao.insert(
+                CaldavTask(
+                    task = task.id,
+                    calendar = list,
+                    remoteParent = caldavTask.remoteParent,
+                )
             )
-            newTask.remoteParent = caldavTask.remoteParent
-            caldavDao.insert(newTask)
         } else {
             caldavDao.update(caldavTask)
         }
@@ -417,7 +417,12 @@ open class TaskAdapter(
             indent == previous.indent -> previous.caldavSortOrder + 1
             else -> getTask((to - 1 downTo 0).find { getTask(it).indent == indent }!!).caldavSortOrder + 1
         }
-        caldavDao.move(task, oldParent, newParent, newPosition)
+        caldavDao.move(
+            task = task,
+            previousParent = oldParent,
+            newParent = newParent,
+            newPosition = newPosition,
+        )
         taskDao.touch(task.id)
         localBroadcastManager.broadcastRefresh()
     }
@@ -434,13 +439,24 @@ open class TaskAdapter(
         val caldavTask = task.caldavTask ?: return
         if (newParent == 0L) {
             caldavTask.remoteParent = ""
-            task.parent = 0
+            caldavDao.update(caldavTask.id, caldavTask.remoteParent)
         } else {
             val parentTask = caldavDao.getTask(newParent) ?: return
-            caldavTask.remoteParent = parentTask.remoteId
-            task.parent = newParent
+            if (parentTask.calendar == caldavTask.calendar) {
+                caldavTask.remoteParent = parentTask.remoteId
+                caldavDao.update(caldavTask.id, caldavTask.remoteParent)
+            } else {
+                caldavDao.markDeleted(listOf(task.id))
+                caldavDao.insert(
+                    CaldavTask(
+                        task = task.id,
+                        calendar = parentTask.calendar,
+                        remoteParent = parentTask.remoteId,
+                    )
+                )
+            }
         }
-        caldavDao.update(caldavTask.id, caldavTask.remoteParent)
+        task.parent = newParent
         taskDao.save(task.task, null)
     }
 }

@@ -199,6 +199,9 @@ class iCalendar @Inject constructor(
         obj: String? = null,
         eTag: String? = null
     ) {
+        if (existing?.isDeleted() == true) {
+            return
+        }
         val task = existing?.task
             ?.let { taskDao.fetch(it) }
             ?: taskCreator.createWithValues("").apply {

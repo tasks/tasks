@@ -313,13 +313,19 @@ GROUP BY caldav_lists.cdl_uuid
     abstract suspend fun updateParents(calendar: String)
 
     @Transaction
-    open suspend fun move(task: TaskContainer, previousParent: Long, newParent: Long, newPosition: Long?) {
+    open suspend fun move(
+        task: TaskContainer,
+        previousParent: Long,
+        newParent: Long,
+        newPosition: Long?,
+    ) {
         val previousPosition = task.caldavSortOrder
         if (newPosition != null) {
             if (newParent == previousParent && newPosition < previousPosition) {
                 shiftDown(task.caldav!!, newParent, newPosition, previousPosition)
             } else {
-                shiftDown(task.caldav!!, newParent, newPosition)
+                val list = newParent.takeIf { it > 0 }?.let { getTask(it)?.calendar } ?: task.caldav!!
+                shiftDown(list, newParent, newPosition)
             }
         }
         task.task.order = newPosition

@@ -55,7 +55,6 @@ import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.extensions.formatNumber
 import org.tasks.filters.NavigationDrawerSubheader
-import timber.log.Timber
 
 @Composable
 fun TaskListDrawer(
@@ -243,7 +242,6 @@ private fun HeaderItem(
                     animationSpec = tween(250),
                     label = "arrow rotation",
                 )
-                Timber.d("rotation: $rotation")
                 Icon(
                     modifier = Modifier.rotate(rotation),
                     imageVector = Icons.Outlined.ExpandMore,
