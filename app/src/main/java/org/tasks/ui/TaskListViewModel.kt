@@ -15,10 +15,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -109,15 +110,20 @@ class TaskListViewModel @Inject constructor(
         localBroadcastManager.registerRefreshReceiver(refreshReceiver)
 
         _state
-            .filter { it.filter != null }
+            .mapNotNull { state -> state.filter?.let { it to state.searchQuery } }
+            .distinctUntilChanged()
             .throttleLatest(333)
-            .map {
-                val filter = when {
-                    it.searchQuery == null -> it.filter!!
-                    it.searchQuery.isBlank() -> BuiltInFilterExposer.getMyTasksFilter(context.resources)
-                    else -> context.createSearchQuery(it.searchQuery)
+            .map { (filter, searchQuery) ->
+                taskDao.fetchTasks {
+                    getQuery(
+                        preferences = preferences,
+                        filter = when {
+                            searchQuery == null -> filter
+                            searchQuery.isBlank() -> BuiltInFilterExposer.getMyTasksFilter(context.resources)
+                            else -> context.createSearchQuery(searchQuery)
+                        }
+                    )
                 }
-                taskDao.fetchTasks { getQuery(preferences, filter) }
             }
             .onEach { tasks ->
                 _state.update {
