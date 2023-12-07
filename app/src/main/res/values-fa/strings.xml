@@ -214,4 +214,19 @@
     <string name="SSD_sort_my_order">خرید من</string>
     <string name="action_call">زنگ</string>
     <string name="action_open">باز</string>
+    <string name="TEA_control_location">مکان</string>
+    <string name="EPr_delete_task_data_warning">همه وظایف به شکل دائم حذف خواهند شد</string>
+    <string name="start_date">تاریخ شروع</string>
+    <string name="EPr_show_task_edit_comments">نمایش نظرات در ویرایش وظیفه</string>
+    <string name="EPr_reset_preferences_warning">ترجیحات به مقادیر پیشفرض برخواهند گشت</string>
+    <string name="sort_completed">براساس زمان تکمیل</string>
+    <string name="sort_list">براساس لیست</string>
+    <string name="always_display_full_date">نمایش تاریخ کامل</string>
+    <string name="SSD_sort_start">براساس زمان شروع</string>
+    <string name="TEA_add_subtask">اضافه کردن زیر وظیفه</string>
+    <string name="sort_created">براساس زمان ساخت</string>
+    <string name="EPr_reset_preferences">بازنشانی ترجیحات</string>
+    <string name="TEA_creation_date">تاریخ ساخت</string>
+    <string name="EPr_manage_delete_completed_gcal">وقایع تقویم را برای وضایف کامل شده حذف کن</string>
+    <string name="manage_drawer">مدیریت کشو‌</string>
 </resources>
