@@ -76,7 +76,10 @@ class CustomRecurrenceViewModel @Inject constructor(
 
     init {
         val daysOfWeek = locale.daysOfWeek()
-        val recur = savedStateHandle.get<String>(EXTRA_RRULE)?.let { RRule(it) }?.recur
+        val recur = savedStateHandle.get<String>(EXTRA_RRULE)
+            ?.takeIf { it.isNotBlank() }
+            ?.let { RRule(it) }
+            ?.recur
         val dueDate = savedStateHandle
             .get<Long>(EXTRA_DATE)
             ?.takeIf { it > 0 }
