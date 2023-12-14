@@ -41,7 +41,7 @@ jobs:
           GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
         run: bundle exec fastlane bundle
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: release
           path: app/build/outputs/**

@@ -26,7 +26,7 @@ jobs:
       - name: Lint checks
         run: bundle exec fastlane lint
       - name: Archive lint reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: lint-reports
@@ -49,7 +49,7 @@ jobs:
           api-level: 29
           script: ./gradlew -Pcoverage app:testGoogleplayDebugUnitTest app:connectedGoogleplayDebugAndroidTest
       - name: Upload test reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: test-reports
