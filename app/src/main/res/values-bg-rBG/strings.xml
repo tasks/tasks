@@ -650,12 +650,12 @@
     <string name="caldav_server_type">Вид на сървъра</string>
     <string name="app_password_last_access">Последно използвана: %s</string>
     <string name="generate_new_password">Създаване на нова парола</string>
-    <string name="open_last_viewed_list">Отваряне на последно прегледнания списък</string>
+    <string name="open_last_viewed_list">Отваряне на последно прегледания списък</string>
     <string name="reset_sort_order">Нулиране на сортирането</string>
     <string name="follow_reddit">Присъединете се към r/tasks</string>
     <string name="open_source">Отворен код</string>
     <string name="privacy">Поверителност</string>
-    <string name="google_play_subscribers">Абинати от Google Play</string>
+    <string name="google_play_subscribers">Абонати на Google Play</string>
     <string name="upgrade_more_customization_description">Отключване на всички теми, цветове и пиктограми</string>
     <string name="upgrade_google_tasks">Синхронизиране на няколко профила</string>
     <string name="snackbar_task_completed">Задачата е завършена</string>
