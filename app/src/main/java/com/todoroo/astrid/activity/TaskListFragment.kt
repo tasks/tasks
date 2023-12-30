@@ -403,10 +403,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }
         menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable() && filter.isWritable
-        search = binding.toolbar.menu.findItem(R.id.menu_search).also {
-            it.setOnActionExpandListener(this)
-            it.setOnQueryTextListener(this)
-        }
+        search = binding.toolbar.menu.findItem(R.id.menu_search).setOnActionExpandListener(this)
         menu.findItem(R.id.menu_clear_completed).isVisible = filter.isWritable
     }
 
@@ -644,7 +641,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
-        onBackPressed.isEnabled = true
+        onBackPressed.isEnabled = true    
+        search.setOnQueryTextListener(this)
         listViewModel.setSearchQuery("")
         if (preferences.isTopAppBar) {
             binding.toolbar.menu.forEach { it.isVisible = false }
@@ -653,7 +651,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-        onBackPressed.isEnabled = false
+        onBackPressed.isEnabled = false    
+        search.setOnQueryTextListener(null)
+        listViewModel.setFilter(filter)
         listViewModel.setSearchQuery(null)
         if (preferences.isTopAppBar) {
             setupMenu(binding.toolbar)
