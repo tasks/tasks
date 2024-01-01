@@ -891,7 +891,7 @@
 +|         +--- androidx.core:core:1.1.0 -> 1.12.0 (*)
 +|         +--- androidx.annotation:annotation:1.1.0 -> 1.7.0 (*)
 +|         \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
-++--- org.osmdroid:osmdroid-android:6.1.17
+++--- org.osmdroid:osmdroid-android:6.1.18
 ++--- com.squareup.retrofit2:retrofit:2.9.0
 +|    \--- com.squareup.okhttp3:okhttp:3.14.9 -> 4.12.0 (*)
 ++--- com.squareup.retrofit2:converter-moshi:2.9.0
