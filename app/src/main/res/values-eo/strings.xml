@@ -230,7 +230,7 @@
     <string name="default_tags">Defaŭltaj etikedoj</string>
     <string name="default_list">Defaŭlta listo</string>
     <string name="no_title">(Sen titolo)</string>
-    <string name="url_required">Ligilo bezonata</string>
+    <string name="url_required">URL bezonata</string>
     <string name="password_required">Pasvorto bezonata</string>
     <string name="username_required">Uzantnomo bezonata</string>
     <string name="name_cannot_be_empty">Nomo ne povas malpleni</string>
@@ -263,7 +263,7 @@
     <string name="add_location">Aldoni lokon</string>
     <string name="add_reminder">Aldoni memorigilo</string>
     <string name="source_code">Fontkodo</string>
-    <string name="row_spacing">Vica interspaco</string>
+    <string name="row_spacing">Intervica spaco</string>
     <string name="header_spacing">Interspaco</string>
     <string name="enabled">Ŝaltita</string>
     <string name="miscellaneous">Diversaj</string>
@@ -286,8 +286,8 @@
     <string name="voice_command_added_task">Aldonita tasko</string>
     <string name="EPr_voiceInputEnabled_title">Voĉa enigo</string>
     <string name="voice_create_prompt">Diri por krei taskon</string>
-    <string name="TEA_timer_comment_stopped">finigis ĉi-taskon:</string>
-    <string name="TEA_timer_comment_started">komencis ĉi-taskon:</string>
+    <string name="TEA_timer_comment_stopped">ĉesigis ĉi tiun taskon:</string>
+    <string name="TEA_timer_comment_started">komencis ĉi tiun taskon:</string>
     <string name="TEA_timer_controls">Tempumilo</string>
     <string name="new_list">Krei novan liston</string>
     <string name="new_tag">Krei novan etikedon</string>
@@ -570,4 +570,6 @@
     <string name="caldav_server_other">Alia</string>
     <string name="enable_reminders">Ŝalti memorigojn</string>
     <string name="sign_in">Ensaluti</string>
+    <string name="filter_criteria_unstarted">Nekomencita</string>
+    <string name="customize_edit_screen_summary">Rearanĝi aŭ forigi kampojn</string>
 </resources>
