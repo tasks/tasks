@@ -206,7 +206,7 @@ public final class ShortcutBadger {
     }
   }
 
-  // Initialize Badger if a launcher is availalble (eg. set as default on the device)
+  // Initialize Badger if a launcher is available (eg. set as default on the device)
   // Returns true if a launcher is available, in this case, the Badger will be set and sShortcutBadger will be non null.
   private static boolean initBadger(Context context) {
     Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());

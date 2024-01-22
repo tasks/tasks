@@ -32,7 +32,7 @@ public class VoiceOutputAssistant implements OnInitListener {
   public void initTTS() {
     if (mTts == null) {
       mTts = new TextToSpeech(context, this);
-      Timber.d("Inititalized %s", mTts);
+      Timber.d("Initialized %s", mTts);
     }
   }
 
