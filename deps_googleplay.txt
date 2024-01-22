@@ -463,7 +463,7 @@
 +|    +--- com.google.firebase:firebase-components:17.1.5 (*)
 +|    +--- com.google.firebase:firebase-installations-interop:17.1.0 -> 17.1.1 (*)
 +|    \--- com.google.firebase:firebase-abt:21.1.1 (*)
-++--- com.google.android.gms:play-services-location:21.0.1
+++--- com.google.android.gms:play-services-location:21.1.0
 +|    +--- com.google.android.gms:play-services-base:18.1.0
 +|    |    +--- androidx.collection:collection:1.0.0 -> 1.3.0 (*)
 +|    |    +--- androidx.core:core:1.2.0 -> 1.12.0 (*)
@@ -471,7 +471,8 @@
 +|    |    +--- com.google.android.gms:play-services-basement:18.1.0 (*)
 +|    |    \--- com.google.android.gms:play-services-tasks:18.0.2 (*)
 +|    +--- com.google.android.gms:play-services-basement:18.1.0 (*)
-+|    \--- com.google.android.gms:play-services-tasks:18.0.2 (*)
++|    +--- com.google.android.gms:play-services-tasks:18.0.2 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.0 -> 1.9.22 (*)
 ++--- com.google.android.gms:play-services-maps:18.2.0
 +|    +--- androidx.fragment:fragment:1.0.0 -> 1.6.2 (*)
 +|    +--- com.google.android.gms:play-services-base:18.0.1 -> 18.1.0 (*)
@@ -485,7 +486,7 @@
 +|    |    +--- com.google.android.datatransport:transport-runtime:3.1.8 -> 3.1.9 (*)
 +|    |    +--- com.google.android.gms:play-services-base:18.0.1 -> 18.1.0 (*)
 +|    |    +--- com.google.android.gms:play-services-basement:18.0.1 -> 18.1.0 (*)
-+|    |    +--- com.google.android.gms:play-services-location:19.0.0 -> 21.0.1 (*)
++|    |    +--- com.google.android.gms:play-services-location:19.0.0 -> 21.1.0 (*)
 +|    |    +--- com.google.android.gms:play-services-tasks:18.0.1 -> 18.0.2 (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 1.9.22 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.4.0 -> 1.9.22 (*)
