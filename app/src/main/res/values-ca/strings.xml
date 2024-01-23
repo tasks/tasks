@@ -275,4 +275,30 @@
     <string name="repeat_type_due">data de venciment</string>
     <string name="repeat_type_completion">data de finalització</string>
     <string name="TEA_creation_date">Data de creació</string>
+    <string name="tomorrow_abbrev_lowercase">demà</string>
+    <string name="new_list">Crea una nova llista</string>
+    <string name="voice_create_prompt">Parla per crear una tasca</string>
+    <string name="widget_show_header">Mostra la capçalera</string>
+    <string name="now">Ara</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">aparició</item>
+        <item quantity="many">aparicions</item>
+        <item quantity="other">aparicions</item>
+    </plurals>
+    <string name="voice_command_added_task">Tasca afegida</string>
+    <string name="tomorrow_lowercase">demà</string>
+    <string name="next_sunday">Proper diumenge</string>
+    <string name="next_monday">Proper dll</string>
+    <string name="next_friday">Proper dv</string>
+    <string name="widget_show_checkboxes">Mostra les caselles</string>
+    <string name="today_lowercase">avui</string>
+    <string name="next_thursday">Proper dj</string>
+    <string name="EPr_voiceInputEnabled_title">Entrada de veu</string>
+    <string name="EPr_voiceRemindersEnabled_title">Recordatori de veu</string>
+    <string name="yesterday_lowercase">ahir</string>
+    <string name="tmrw">Demà</string>
+    <string name="new_tag">Crea una nova etiqueta</string>
+    <string name="delete_tag_confirmation">Esborra %s?</string>
+    <string name="next_saturday">Proper ds</string>
+    <string name="TEA_timer_controls">Temporitzador</string>
 </resources>
