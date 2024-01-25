@@ -134,7 +134,7 @@
     <string name="default_random_reminder_hourly">Ĉiuhore</string>
     <string name="default_random_reminder_disabled">Malŝaltitaj</string>
     <string name="rmd_EPr_defaultRemind_title">Hazardaj memorigiloj</string>
-    <string name="rmd_EPr_rmd_time_title">Defaŭlta memorigilo</string>
+    <string name="rmd_EPr_rmd_time_title">Memorigo-tempo</string>
     <string name="CFC_list_name">En listo…</string>
     <string name="CFC_gtasks_list_name">En GTasks Listo…</string>
     <string name="CFC_gtasks_list_text">En Listo: \?</string>
@@ -258,7 +258,7 @@
     <string name="date_shortcut_morning">Mateno</string>
     <string name="tags">Etikedoj</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="geofence_radius">Radiuso</string>
+    <string name="geofence_radius">Virtuala periferio</string>
     <string name="pick_a_date_and_time">Elekti daton kaj horon</string>
     <string name="add_location">Aldoni lokon</string>
     <string name="add_reminder">Aldoni memorigilo</string>
@@ -321,7 +321,7 @@
     <string name="rmd_NoA_done">Finite</string>
     <string name="premium_record_audio">Registri noton</string>
     <string name="gtasks_GPr_header">Google Tasks</string>
-    <string name="gtasks_GLA_authenticating">Aŭtentigado…</string>
+    <string name="gtasks_GLA_authenticating">Aŭtentikigas…</string>
     <string name="gtasks_GTA_clear_completed">Viŝi finitajn</string>
     <string name="gcal_completed_title">%s (finita)</string>
     <string name="gcal_TEA_error">Eraro dum aldoni taskon al kalendaro!</string>
@@ -339,7 +339,7 @@
     <string name="dont_add_to_calendar">Ne aldoni al kalendaro</string>
     <string name="add_tags">Aldoni etikedojn</string>
     <string name="EPr_manage_delete_completed_gcal">Forigi kalandarajn eventojn de kompletaj taskoj</string>
-    <string name="EPr_delete_task_data_warning">"Ĉiuj taskoj estos porĉiame  forigitaj"</string>
+    <string name="EPr_delete_task_data_warning">Ĉiuj taskoj estos porĉiame forigitaj</string>
     <string name="EPr_reset_preferences_warning">Restarigos agordojn al defaŭltaj valoroj</string>
     <string name="astrid_sort_order">Astrid mana ordigado</string>
     <string name="auto_dismiss_datetime_widget_summary">Aŭtomate fermi kiam elekti per umilo</string>
@@ -618,4 +618,29 @@
     <string name="automatic_backups">Aŭtomata savkopio</string>
     <string name="android_auto_backup">Savkopia Servo de Android</string>
     <string name="last_backup">Lasta savkopio: %s</string>
+    <string name="map_theme">Mapa temo</string>
+    <string name="TPl_notification">Tempumiloj Aktivaj por %s!</string>
+    <string name="alarm_before_due">%s antaŭ limdato</string>
+    <string name="no_app_found">Neniu programeto povis pritrakti ĉi tiun peton</string>
+    <string name="launcher_icon">Lanĉila piktogramo</string>
+    <string name="accent">Akcento</string>
+    <string name="caldav_home_set_not_found">Ne trovis hejman aron</string>
+    <string name="refresh_purchases">Reŝargi aĉetojn</string>
+    <string name="background_location_permission_required">Tasks kolektas lokan datumon por ebligi lok-bazitajn memorigilojn, eĉ kiam la programo estas fermita aŭ ne uzata.</string>
+    <string name="dismiss">Fermi</string>
+    <string name="completed">Finite</string>
+    <string name="completed_tasks_at_bottom">Movi finitajn taskojn al malsupro</string>
+    <string name="hint_customize_edit_body">Vi povas adapti ĉi tiun ekranon per rearanĝi aŭ forigi kampojn</string>
+    <string name="date_shortcut_hour">Unu horo</string>
+    <string name="filter">Filtrilo</string>
+    <string name="url_host_name_required">Bezonas servilonomon</string>
+    <string name="url_invalid_scheme">Devas komenci per http(s)://</string>
+    <string name="back_button_saves_task">Butono reen konservas taskon</string>
+    <string name="restart_required">Restartigu Tasks por efikigi ĉi tiun ŝanĝon</string>
+    <string name="restart_now">Restartigi tuj</string>
+    <string name="led_notification">LED sciigo</string>
+    <string name="etesync_selection_description">Fin-al-fina ĉifrada sinkronigo</string>
+    <string name="backup_location_warning">AVERTO: Dosieroj situas en %s estos forigitaj se Tasks malinstaliĝos! Bonvolu elekti propran lokon por malpermesi ke Android forigos viajn dosierojn.</string>
+    <string name="snackbar_task_completed">Tasko finita</string>
+    <string name="snackbar_tasks_completed">%d taskoj estas finitaj</string>
 </resources>
