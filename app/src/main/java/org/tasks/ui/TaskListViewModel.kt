@@ -40,6 +40,7 @@ import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.db.QueryUtils
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.QueryPreferences
 import javax.inject.Inject
 
 @HiltViewModel
@@ -118,7 +119,13 @@ class TaskListViewModel @Inject constructor(
         val deleteFilter = FilterImpl(
             sql = QueryUtils.removeOrder(QueryUtils.showHiddenAndCompleted(filter.sql!!)),
         )
-        val completed = taskDao.fetchTasks(preferences, deleteFilter)
+        val completed = taskDao.fetchTasks(
+            object : QueryPreferences by preferences {
+                override val showCompleted: Boolean
+                    get() = true
+            },
+            deleteFilter
+        )
             .filter(TaskContainer::isCompleted)
             .filterNot(TaskContainer::isReadOnly)
             .map(TaskContainer::id)

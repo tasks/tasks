@@ -141,5 +141,21 @@ class TaskListViewModelTest : InjectingTestCase() {
         assertTrue(taskDao.fetch(child)!!.isDeleted)
     }
 
+    @Test
+    fun clearHiddenSubtask() = runBlocking {
+        preferences.showCompleted = false
+        val parent = taskDao.createNew(Task())
+        val child = taskDao.createNew(
+            Task(
+                parent = parent,
+                completionDate = now(),
+            )
+        )
+
+        clearCompleted()
+
+        assertTrue(taskDao.fetch(child)!!.isDeleted)
+    }
+
     private suspend fun clearCompleted() = viewModel.markDeleted(viewModel.getTasksToClear())
 }

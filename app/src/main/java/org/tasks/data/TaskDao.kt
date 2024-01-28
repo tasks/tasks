@@ -21,7 +21,7 @@ import org.tasks.BuildConfig
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.db.SuspendDbUtils.eachChunk
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.QueryPreferences
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import timber.log.Timber
 
@@ -113,7 +113,7 @@ abstract class TaskDao(private val database: Database) {
                 result
             }
 
-    suspend fun fetchTasks(preferences: Preferences, filter: Filter): List<TaskContainer> =
+    suspend fun fetchTasks(preferences: QueryPreferences, filter: Filter): List<TaskContainer> =
             fetchTasks {
                 TaskListQuery.getQuery(preferences, filter)
             }
@@ -175,7 +175,7 @@ FROM recursive_tasks
 """)
     abstract suspend fun getParents(parent: Long): List<Long>
 
-    internal suspend fun setCollapsed(preferences: Preferences, filter: Filter, collapsed: Boolean) {
+    internal suspend fun setCollapsed(preferences: QueryPreferences, filter: Filter, collapsed: Boolean) {
         fetchTasks(preferences, filter)
                 .filter(TaskContainer::hasChildren)
                 .map(TaskContainer::id)
