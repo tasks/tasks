@@ -750,4 +750,5 @@
     <string name="repeat_monthly_on_day_number">Mjesečno na %1d. dan</string>
     <string name="repeats_on">U</string>
     <string name="change_priority">Promijeni prioritet</string>
+    <string name="clear_completed_tasks_count">%s će se izbrisati</string>
 </resources>
