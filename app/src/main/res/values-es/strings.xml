@@ -323,8 +323,8 @@
     <string name="widget_header_settings">Configuración de cabecera</string>
     <string name="widget_row_settings">Configuración de fila</string>
     <string name="clear_completed_tasks_confirmation">¿Borrar tareas completadas?</string>
-    <string name="copy_multiple_tasks_confirmation">%s copiadas</string>
-    <string name="delete_multiple_tasks_confirmation">%s borradas</string>
+    <string name="copy_multiple_tasks_confirmation">%s copiada(s)</string>
+    <string name="delete_multiple_tasks_confirmation">%s borrada(s)</string>
     <string name="delete_selected_tasks">¿Borrar tareas seleccionadas?</string>
     <string name="copy_selected_tasks">¿Copiar tareas seleccionadas?</string>
     <string name="date_and_time">Fecha y hora</string>
@@ -750,4 +750,5 @@
     <string name="repeats_after">Después</string>
     <string name="repeats_ends">Termina</string>
     <string name="change_priority">Prioridad de cambio</string>
+    <string name="clear_completed_tasks_count">%s será(n) eliminada(s)</string>
 </resources>
