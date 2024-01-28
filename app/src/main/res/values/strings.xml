@@ -408,6 +408,7 @@ File %1$s contained %2$s.\n\n
   <string name="widget_due_date_below_title">Below title</string>
   <string name="widget_due_date_hidden">Hidden</string>
   <string name="clear_completed_tasks_confirmation">Clear completed tasks?</string>
+  <string name="clear_completed_tasks_count">%s will be deleted</string>
   <string name="copy_multiple_tasks_confirmation">%s copied</string>
   <string name="delete_multiple_tasks_confirmation">%s deleted</string>
   <string name="delete_selected_tasks">Delete selected tasks?</string>

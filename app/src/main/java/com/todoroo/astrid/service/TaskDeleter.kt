@@ -3,12 +3,12 @@ package com.todoroo.astrid.service
 import android.content.Context
 import androidx.room.withTransaction
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
@@ -16,10 +16,8 @@ import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.DeletionDao
 import org.tasks.data.LocationDao
-import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.UserActivityDao
-import org.tasks.db.QueryUtils
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
@@ -47,7 +45,7 @@ class TaskDeleter @Inject constructor(
 
     suspend fun markDeleted(item: Task) = markDeleted(listOf(item.id))
 
-    suspend fun markDeleted(taskIds: List<Long>): List<Task> {
+    suspend fun markDeleted(taskIds: List<Long>): List<Task> = withContext(NonCancellable) {
         val ids = taskIds
             .toSet()
             .plus(taskIds.chunkedMap(taskDao::getChildren))
@@ -60,21 +58,7 @@ class TaskDeleter @Inject constructor(
         }
         syncAdapters.sync()
         localBroadcastManager.broadcastRefresh()
-        return taskDao.fetch(ids)
-    }
-
-    suspend fun clearCompleted(filter: Filter): Int {
-        val deleteFilter = FilterImpl(
-            sql = QueryUtils.removeOrder(QueryUtils.showHiddenAndCompleted(filter.sql!!)),
-        )
-        val completed = taskDao.fetchTasks(preferences, deleteFilter)
-                .filter(TaskContainer::isCompleted)
-                .filterNot(TaskContainer::isReadOnly)
-                .map(TaskContainer::id)
-                .toMutableList()
-        completed.removeAll(deletionDao.hasRecurringAncestors(completed))
-        markDeleted(completed)
-        return completed.size
+        taskDao.fetch(ids)
     }
 
     suspend fun delete(task: Task) = delete(task.id)

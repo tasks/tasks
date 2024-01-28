@@ -8,8 +8,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
+import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.api.SearchFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
+import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -30,9 +33,11 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.compose.throttleLatest
+import org.tasks.data.DeletionDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.db.QueryUtils
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -43,6 +48,8 @@ class TaskListViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val preferences: Preferences,
     private val taskDao: TaskDao,
+    private val taskDeleter: TaskDeleter,
+    private val deletionDao: DeletionDao,
     private val localBroadcastManager: LocalBroadcastManager,
     private val inventory: Inventory,
     private val firebase: Firebase,
@@ -105,6 +112,23 @@ class TaskListViewModel @Inject constructor(
             }
         }
     }
+
+    suspend fun getTasksToClear(): List<Long> {
+        val filter = _state.value.filter ?: return emptyList()
+        val deleteFilter = FilterImpl(
+            sql = QueryUtils.removeOrder(QueryUtils.showHiddenAndCompleted(filter.sql!!)),
+        )
+        val completed = taskDao.fetchTasks(preferences, deleteFilter)
+            .filter(TaskContainer::isCompleted)
+            .filterNot(TaskContainer::isReadOnly)
+            .map(TaskContainer::id)
+            .toMutableList()
+        completed.removeAll(deletionDao.hasRecurringAncestors(completed))
+        return completed
+    }
+
+    suspend fun markDeleted(tasks: List<Long>): List<Task> =
+        taskDeleter.markDeleted(tasks)
 
     init {
         localBroadcastManager.registerRefreshReceiver(refreshReceiver)

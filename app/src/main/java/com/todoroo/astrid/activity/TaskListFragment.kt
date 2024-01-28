@@ -68,7 +68,6 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
-import com.todoroo.astrid.service.TaskDeleter
 import com.todoroo.astrid.service.TaskDuplicator
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
@@ -105,7 +104,6 @@ import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
-import org.tasks.extensions.formatNumber
 import org.tasks.extensions.hideKeyboard
 import org.tasks.extensions.setOnQueryTextListener
 import org.tasks.filters.PlaceFilter
@@ -136,7 +134,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private val repeatConfirmationReceiver = RepeatConfirmationReceiver()
 
     @Inject lateinit var syncAdapters: SyncAdapters
-    @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var taskCreator: TaskCreator
@@ -449,11 +446,28 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_clear_completed -> {
-                dialogBuilder
-                        .newDialog(R.string.clear_completed_tasks_confirmation)
-                        .setPositiveButton(R.string.ok) { _, _ -> clearCompleted() }
-                        .setNegativeButton(R.string.cancel, null)
-                        .show()
+                lifecycleScope.launch {
+                    val tasks = listViewModel.getTasksToClear()
+                    val countString = requireContext().resources.getQuantityString(R.plurals.Ntasks, tasks.size, tasks.size)
+                    if (tasks.isEmpty()) {
+                        context?.toast(R.string.delete_multiple_tasks_confirmation, countString)
+                    } else {
+                        dialogBuilder
+                            .newDialog(R.string.clear_completed_tasks_confirmation)
+                            .setMessage(R.string.clear_completed_tasks_count, countString)
+                            .setPositiveButton(R.string.ok) { _, _ ->
+                                lifecycleScope.launch {
+                                    listViewModel.markDeleted(tasks)
+                                    context?.toast(
+                                        R.string.delete_multiple_tasks_confirmation,
+                                        countString
+                                    )
+                                }
+                            }
+                            .setNegativeButton(R.string.cancel, null)
+                            .show()
+                    }
+                }
                 true
             }
             R.id.menu_filter_settings -> {
@@ -523,11 +537,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             else -> onOptionsItemSelected(item)
         }
-    }
-
-    private fun clearCompleted() = lifecycleScope.launch {
-        val count = taskDeleter.clearCompleted(filter)
-        context?.toast(R.string.delete_multiple_tasks_confirmation, locale.formatNumber(count))
     }
 
     private fun createNewTask() {
@@ -845,7 +854,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         finishActionMode()
 
         val result = withContext(NonCancellable) {
-            taskDeleter.markDeleted(tasks)
+            listViewModel.markDeleted(tasks)
         }
         result.forEach { onTaskDelete(it) }
         makeSnackbar(R.string.delete_multiple_tasks_confirmation, result.size.toString())?.show()
