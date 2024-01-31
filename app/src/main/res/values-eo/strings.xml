@@ -657,7 +657,7 @@
     <string name="widget_id">Fenestraĵa ID: %d</string>
     <string name="sort_start_group">Komenci %s</string>
     <string name="open_last_viewed_list">Malfermi liston de laste rigardita</string>
-    <string name="permission_read_tasks">Plena atingorajto al Tasks datumbazo</string>
+    <string name="permission_read_tasks">Tuta atingorajto al Tasks datumbazo</string>
     <string name="foreground_location">Malfona loko</string>
     <string name="background_location">Fona loko</string>
     <string name="multi_select_reschedule">Replani</string>
@@ -709,4 +709,14 @@
     <string name="caldav_account_description">Bezonas konton de CalDAV servprovizanto aŭ memgastigan servilon. Por trovi servprovizanton vizitu task.org/caldav</string>
     <string name="date_picker_multiple">Pluraj</string>
     <string name="your_subscription_expired">Via abono finiĝis. Abonu tuj por reaktivigi servon.</string>
+    <string name="upgrade_tasks_org_account_description">Sinkronigi kun Tasks.org kaj kunlabori kun aliaj uzantoj</string>
+    <string name="app_password_save">Uzu ĉi tiujn identigilojn por agordi programeton de ekstera liveranto. Ili permesas tutan atingorajton al via Tasks.org konto. Ne skribi ilin aŭ konigi ilin al iu ajn!</string>
+    <string name="picker_mode_date">Datelektila reĝimo</string>
+    <string name="picker_mode_time">Tempelektila reĝimo</string>
+    <string name="upgrade_more_customization_description">Malŝlosi ĉiujn etosojn, kolorojn, kaj piktogramojn</string>
+    <string name="upgrade_desktop_access">Aliri per labortablo</string>
+    <string name="upgrade_automation_description">Kromprogramo por Tasker, Automate, kaj Locale</string>
+    <string name="app_bar_position">Pozicio de programa stango</string>
+    <string name="account_not_included">Ne inkluzivite per \'Elekti propran prezon\' abonoj</string>
+    <string name="upgrade_desktop_access_description">Sinkronigi kun klientoj de ekstera liveranto kiel Outlook kaj Apple Reminders</string>
 </resources>
