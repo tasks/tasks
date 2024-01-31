@@ -707,4 +707,5 @@
     <string name="sort_descending">遞減</string>
     <string name="sort_completed">依完成時間</string>
     <string name="change_priority">更改優先順序</string>
+    <string name="clear_completed_tasks_count">%s 將會刪除</string>
 </resources>
