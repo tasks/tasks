@@ -723,4 +723,5 @@
     <string name="change_priority">Ändra prioritet</string>
     <string name="ok">OK</string>
     <string name="cancel">Avbryt</string>
+    <string name="clear_completed_tasks_count">%s kommer att tas bort</string>
 </resources>
