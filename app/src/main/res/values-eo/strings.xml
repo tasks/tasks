@@ -676,7 +676,7 @@
     <string name="app_password_delete_confirmation">Ajna programeto uzante ĉi tiun pasvorton elsalutiĝos</string>
     <string name="badges">Signoj</string>
     <string name="sort_completion_group">Finita: %s</string>
-    <string name="wearable_notifications_summary">Vidigi sciigojn sur via portebla aparato</string>
+    <string name="wearable_notifications_summary">Vidigi sciigojn per via portebla aparato</string>
     <string name="opacity_header">Kapa netravideblo</string>
     <string name="clear_completed_tasks_confirmation">Ĉu forigi finitajn taskojn?</string>
     <string name="repeat_monthly_on_day_number">Monate ĉe la %1d tago</string>
@@ -700,7 +700,7 @@
     <string name="repeats_plural_on_until">Ripetiĝas ĉiu %1$s ĉe %2$s ĝis %3$s</string>
     <string name="repeats_plural_on_number_of_times">Ripetiĝas ĉiu %1$s ĉe %2$s, okazas %3$d%4$s</string>
     <string name="etesync_account_description">Bezonas konton de EteSync.com aŭ memgastigan servilon</string>
-    <string name="wearable_notifications">Sciigoj de portebla aparataro</string>
+    <string name="wearable_notifications">Sciigoj per portebla aparataro</string>
     <string name="android_auto_backup_device_summary">Vi devas ankaŭ doni permeson al savkopia servo per viaj aparataj agordoj. Ne ĉiuj aparatoj provizas savkopian servon.</string>
     <string name="sign_in_to_tasks_disclosure">Via retpoŝtadreso kaj konta ID estos transsendita kaj konservita de Tasks.org. Ĉi tiu informo estos uzata por aŭtentigi kaj por provizi al vi gravajn anoncojn rilate al servo. Ĉi tiu informo ne estos diskongita al iu ajn.</string>
     <string name="clear_completed_tasks_count">%s estos forigitaj</string>
