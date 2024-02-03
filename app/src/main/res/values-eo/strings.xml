@@ -719,4 +719,14 @@
     <string name="app_bar_position">Pozicio de programa stango</string>
     <string name="account_not_included">Ne inkluzivite per \'Elekti propran prezon\' abonoj</string>
     <string name="upgrade_desktop_access_description">Sinkronigi kun klientoj de ekstera liveranto kiel Outlook kaj Apple Reminders</string>
+    <string name="pro_dashclock_extension">Dashclock kromprogramo</string>
+    <string name="widget_on_click">Post alklaki</string>
+    <string name="tasker_list_notification">Sciigo de listo</string>
+    <string name="list_members">Anoj de la listo</string>
+    <string name="auto_dismiss_datetime_edit">Redakti taskon</string>
+    <string name="markdown">Simpla Marklingo</string>
+    <string name="markdown_description">Ebligi simplan markadon en titolo kaj priskribo</string>
+    <string name="app_bar_collapse">Maletendi apbreton</string>
+    <string name="chips">Elementoj</string>
+    <string name="chip_appearance">Aspekto de elemento</string>
 </resources>
