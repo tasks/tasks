@@ -307,7 +307,7 @@ class NotificationManager @Inject constructor(
         }
 
         // read properties
-        val markdown = markdownProvider.markdown()
+        val markdown = markdownProvider.markdown(force = true)
         val taskTitle = markdown.toMarkdown(task.title)
         val taskDescription = markdown.toMarkdown(task.notes)
 
