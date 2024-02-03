@@ -42,6 +42,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.withTransaction
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.google.android.material.appbar.AppBarLayout
@@ -63,6 +64,7 @@ import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
+import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.repeats.RepeatTaskHelper
@@ -156,6 +158,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var repeatTaskHelper: RepeatTaskHelper
     @Inject lateinit var taskListEventBus: TaskListEventBus
     @Inject lateinit var taskEditEventBus: TaskEditEventBus
+    @Inject lateinit var database: Database
     
     private val listViewModel: TaskListViewModel by viewModels()
     private val mainViewModel: MainActivityViewModel by activityViewModels()
@@ -938,7 +941,12 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             lifecycleScope.launch {
                 val tasks =
                     (intent.getSerializableExtra(EXTRAS_TASK_ID) as? ArrayList<Long>)
-                        ?.let { taskDao.fetch(it) }
+                        ?.let {
+                            // hack to wait for task save transaction to complete
+                            database.withTransaction {
+                                taskDao.fetch(it)
+                            }
+                        }
                         ?.filterNot { it.readOnly }
                         ?.takeIf { it.isNotEmpty() }
                         ?: return@launch
