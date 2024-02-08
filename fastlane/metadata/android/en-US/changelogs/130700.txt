@@ -1,0 +1,13 @@
+* Fix returning to previous filter after search
+* Fix wearable notifications on Android 14+
+* Fix issue causing repeating tasks to not repeat
+* Fix dragging a task into a subtask in another list
+* Rewrote navigation drawer in Jetpack Compose
+* Internal changes to navigation
+* Enable multi-select when adding attachments
+* Show count of tasks to be deleted when clearing completed
+* Include hidden subtasks when clearing completed
+* Don't show hidden or completed tasks in snoozed filter
+* Remove markdown from repeating task snackbar
+* Update translations
+
