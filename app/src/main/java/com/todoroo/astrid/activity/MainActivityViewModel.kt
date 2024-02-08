@@ -130,7 +130,7 @@ class MainActivityViewModel @Inject constructor(
                                 Timber.e(e)
                                 0
                             },
-                            selected = item == selected,
+                            selected = item.areItemsTheSame(selected),
                             shareCount = if (item is CaldavFilter) item.principals else 0,
                             type = { item },
                         )
