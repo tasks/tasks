@@ -109,7 +109,7 @@ internal class ScrollableViewsFactory(
                     widgetPreferences.completedTasksAtBottom,
             )
             if (collapsed.retainAll(tasks.getSectionValues())) {
-                widgetPreferences.setCollapsed(collapsed)
+                widgetPreferences.collapsed = collapsed
             }
         }
     }
@@ -379,7 +379,7 @@ internal class ScrollableViewsFactory(
         widgetPreferences.groupMode.takeIf { it != groupMode }
             ?.let {
                 if (groupMode != SortHelper.GROUP_NONE) {
-                    widgetPreferences.setCollapsed(mutableSetOf(HEADER_COMPLETED))
+                    widgetPreferences.collapsed = mutableSetOf(HEADER_COMPLETED)
                 }
                 groupMode = it
             }

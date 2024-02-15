@@ -84,8 +84,7 @@ class ScrollableWidget : InjectingPreferenceFragment() {
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         appWidgetId = requireArguments().getInt(EXTRA_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
-        widgetPreferences = WidgetPreferences(context, preferences, appWidgetId)
-
+        widgetPreferences = WidgetPreferences(requireContext(), preferences, appWidgetId)
         val row = setupSlider(R.string.p_widget_opacity, 100)
         val header = setupSlider(R.string.p_widget_header_opacity, row.value)
         val footer = setupSlider(R.string.p_widget_footer_opacity, row.value)

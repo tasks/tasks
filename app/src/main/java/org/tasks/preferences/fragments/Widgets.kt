@@ -42,7 +42,7 @@ class Widgets : InjectingPreferenceFragment() {
     }
 
     private suspend fun createPreference(id: Int): Preference {
-        val widgetPrefs = WidgetPreferences(context, preferences, id)
+        val widgetPrefs = WidgetPreferences(requireContext(), preferences, id)
         val pref = IconPreference(requireContext())
         tintColorPreference(pref, widgetPrefs.color)
         pref.drawable = AppCompatResources.getDrawable(

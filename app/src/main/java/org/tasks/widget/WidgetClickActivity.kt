@@ -74,7 +74,7 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 } else {
                     collapsed.remove(group)
                 }
-                widgetPreferences.setCollapsed(collapsed)
+                widgetPreferences.collapsed = collapsed
                 localBroadcastManager.broadcastRefresh()
                 finish()
             }
