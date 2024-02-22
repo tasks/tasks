@@ -505,10 +505,10 @@
 +|    +--- androidx.savedstate:savedstate:1.2.0 -> 1.2.1 (*)
 +|    +--- javax.inject:javax.inject:1
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.20 -> 1.9.22 (*)
-++--- androidx.hilt:hilt-work:1.1.0
+++--- androidx.hilt:hilt-work:1.2.0
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.7.0 (*)
-+|    +--- androidx.hilt:hilt-common:1.1.0
-+|    |    \--- com.google.dagger:hilt-core:2.48 -> 2.50 (*)
++|    +--- androidx.hilt:hilt-common:1.2.0
++|    |    \--- com.google.dagger:hilt-core:2.49 -> 2.50 (*)
 +|    +--- androidx.work:work-runtime:2.3.4 -> 2.8.1
 +|    |    +--- androidx.annotation:annotation-experimental:1.0.0 -> 1.4.0 (*)
 +|    |    +--- androidx.core:core:1.1.0 -> 1.12.0 (*)
@@ -538,7 +538,7 @@
 +|    |    +--- androidx.startup:startup-runtime:1.0.0 -> 1.1.1 (*)
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.21 -> 1.9.22 (*)
-+|    \--- com.google.dagger:hilt-android:2.48 -> 2.50 (*)
++|    \--- com.google.dagger:hilt-android:2.49 -> 2.50 (*)
 ++--- androidx.fragment:fragment-ktx:1.6.2
 +|    +--- androidx.activity:activity-ktx:1.5.1 -> 1.8.2
 +|    |    +--- androidx.activity:activity:1.8.2 (*)
