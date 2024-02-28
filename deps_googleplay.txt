@@ -208,13 +208,13 @@
 +|         +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0 (c)
 +|         +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0 (c)
 +|         \--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0 (c)
-++--- com.google.firebase:firebase-bom:32.7.2
+++--- com.google.firebase:firebase-bom:32.7.3
 +|    +--- com.google.firebase:firebase-analytics:21.5.1 (c)
-+|    +--- com.google.firebase:firebase-config-ktx:21.6.1 (c)
++|    +--- com.google.firebase:firebase-config-ktx:21.6.2 (c)
 +|    +--- com.google.firebase:firebase-crashlytics:18.6.2 (c)
 +|    +--- com.google.firebase:firebase-common:20.4.2 (c)
 +|    +--- com.google.firebase:firebase-common-ktx:20.4.2 (c)
-+|    +--- com.google.firebase:firebase-config:21.6.1 (c)
++|    +--- com.google.firebase:firebase-config:21.6.2 (c)
 +|    +--- com.google.firebase:firebase-installations:17.2.0 (c)
 +|    \--- com.google.firebase:firebase-encoders:17.0.0 (c)
 ++--- com.google.firebase:firebase-crashlytics -> 18.6.2
@@ -458,10 +458,10 @@
 +|         +--- com.google.android.gms:play-services-basement:18.1.0 (*)
 +|         +--- com.google.android.gms:play-services-measurement-base:21.5.1 (*)
 +|         \--- com.google.android.gms:play-services-measurement-impl:21.5.1 (*)
-++--- com.google.firebase:firebase-config-ktx -> 21.6.1
+++--- com.google.firebase:firebase-config-ktx -> 21.6.2
 +|    +--- com.google.firebase:firebase-common:20.4.2 (*)
 +|    +--- com.google.firebase:firebase-common-ktx:20.4.2 (*)
-+|    +--- com.google.firebase:firebase-config:21.6.1
++|    +--- com.google.firebase:firebase-config:21.6.2
 +|    |    +--- com.google.firebase:firebase-config-interop:16.0.1 (*)
 +|    |    +--- com.google.firebase:firebase-annotations:16.2.0 (*)
 +|    |    +--- com.google.firebase:firebase-installations-interop:17.1.0 -> 17.1.1 (*)
