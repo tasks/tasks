@@ -745,4 +745,5 @@
     <string name="repeats_ends">Končí</string>
     <string name="repeats_on">V</string>
     <string name="repeats_weekly_on">Opakuje se v</string>
+    <string name="clear_completed_tasks_count">%s bude smazáno</string>
 </resources>
