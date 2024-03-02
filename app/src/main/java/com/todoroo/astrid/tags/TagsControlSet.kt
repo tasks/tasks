@@ -12,6 +12,7 @@ import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.TagsRow
 import org.tasks.tags.TagPickerActivity
+import org.tasks.tags.TagPickerActivityCompose
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
@@ -21,7 +22,8 @@ class TagsControlSet : TaskEditControlFragment() {
     @Inject lateinit var chipProvider: ChipProvider
     
     private fun onRowClick() {
-        val intent = Intent(context, TagPickerActivity::class.java)
+        //val intent = Intent(context, TagPickerActivity::class.java)
+        val intent = Intent(context, TagPickerActivityCompose::class.java)
         intent.putParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED, viewModel.selectedTags.value)
         startActivityForResult(intent, REQUEST_TAG_PICKER_ACTIVITY)
     }

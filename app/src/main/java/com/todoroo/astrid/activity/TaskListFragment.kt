@@ -93,6 +93,7 @@ import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerActivity
+import org.tasks.tags.TagPickerActivityCompose
 import org.tasks.tasklist.*
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
@@ -704,7 +705,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             R.id.edit_tags -> {
                 lifecycleScope.launch {
                     val tags = tagDataDao.getTagSelections(selected)
-                    val intent = Intent(context, TagPickerActivity::class.java)
+                    //val intent = Intent(context, TagPickerActivity::class.java)
+                    val intent = Intent(context, TagPickerActivityCompose::class.java)
                     intent.putExtra(TagPickerActivity.EXTRA_TASKS, selected)
                     intent.putParcelableArrayListExtra(
                             TagPickerActivity.EXTRA_PARTIALLY_SELECTED,
