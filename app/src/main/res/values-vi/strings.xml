@@ -706,4 +706,5 @@
     <string name="sort_descending">Giảm dần</string>
     <string name="sort_completed">Theo thời gian hoàn thành</string>
     <string name="change_priority">Thay đổi mức độ ưu tiên</string>
+    <string name="clear_completed_tasks_count">%s sẽ bị xóa</string>
 </resources>
