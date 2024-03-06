@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,38 +15,34 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.TriStateCheckbox
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.android.material.search.SearchBar
+import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.tasks.R
 import org.tasks.Strings
 import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
-import org.tasks.data.TagDataDao_Impl
 import org.tasks.injection.ThemedInjectingAppCompatActivity
-import java.util.ArrayList
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
@@ -62,10 +57,10 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
         val intent = intent
         taskIds = intent.getSerializableExtra(TagPickerActivity.EXTRA_TASKS) as ArrayList<Long>?
         if (savedInstanceState == null) {
-            intent.getParcelableArrayListExtra<TagData>(TagPickerActivity.EXTRA_SELECTED)?.let {
+            val selected = intent.getParcelableArrayListExtra<TagData>(TagPickerActivity.EXTRA_SELECTED)
+            if ( selected != null ) {
                 viewModel.setSelected(
-                    it,
-                    intent.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED)
+                    selected, intent.getParcelableArrayListExtra<TagData>(TagPickerActivity.EXTRA_PARTIALLY_SELECTED)
                 )
             }
         }
@@ -73,21 +68,30 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
         viewModel.search(searchPattern.value)
 
         setContent {
-            TagPicker(
-                searchPattern,
-                viewModel.tagsList.observeAsState(initial = emptyList()),
-                onTextChange = { newText -> viewModel.search(newText); searchPattern.value = newText },
-                onBackClicked = { onBackPressed() },
-                checkedState = {
-                    when(viewModel.getState(it)) {
-                        CheckBoxTriStates.State.CHECKED -> ToggleableState.On
-                        CheckBoxTriStates.State.PARTIALLY_CHECKED -> ToggleableState.Indeterminate
-                        else -> ToggleableState.Off
-                    }
-                },
-                onTagClicked = { onToggle(it, viewModel.getState(it) != CheckBoxTriStates.State.CHECKED) },
-                createTag = {  onNewTag(it.name!!); searchPattern.value = "" }
-            )
+            MdcTheme {
+                TagPicker(
+                    searchPattern,
+                    viewModel.tagsList.observeAsState(initial = emptyList()),
+                    onTextChange = { newText ->
+                        viewModel.search(newText); searchPattern.value = newText
+                    },
+                    onBackClicked = { onBackPressed() },
+                    checkedState = {
+                        when (viewModel.getState(it)) {
+                            CheckBoxTriStates.State.CHECKED -> ToggleableState.On
+                            CheckBoxTriStates.State.PARTIALLY_CHECKED -> ToggleableState.Indeterminate
+                            else -> ToggleableState.Off
+                        }
+                    },
+                    onTagClicked = {
+                        onToggle(
+                            it,
+                            viewModel.getState(it) != CheckBoxTriStates.State.CHECKED
+                        )
+                    },
+                    createTag = { onNewTag(it.name!!); searchPattern.value = "" }
+                )
+            } /* setContent */
         }
     } /* onCreate */
 
@@ -100,21 +104,18 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
     override fun onBackPressed() {
         if (Strings.isNullOrEmpty(viewModel.text)) {
             val data = Intent()
-            data.putExtra(TagPickerActivity.EXTRA_TASKS, taskIds)
-            data.putParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED, viewModel.getPartiallySelected())
-            data.putParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED, viewModel.getSelected())
+            data.putExtra(EXTRA_TASKS, taskIds)
+            data.putParcelableArrayListExtra(EXTRA_PARTIALLY_SELECTED, viewModel.getPartiallySelected())
+            data.putParcelableArrayListExtra(EXTRA_SELECTED, viewModel.getSelected())
             setResult(Activity.RESULT_OK, data)
             finish()
         } else {
-            clear()
+            searchPattern.value = ""
+            viewModel.search("")
         }
     } /* onBackPressed */
 
-    private fun clear() {
-        searchPattern.value = ""
-        viewModel.search(searchPattern.value)
-    }
-
+    /* Copy og the TagPickerActivity's companion object */
     companion object {
         const val EXTRA_SELECTED = "extra_tags"
         const val EXTRA_PARTIALLY_SELECTED = "extra_partial"
@@ -135,11 +136,13 @@ internal fun TagPicker(
 ) {
     Box ( modifier = Modifier.fillMaxSize() )
     {
-        Column {
+        Column (modifier = Modifier.padding(horizontal = 12.dp)) {
             Box( modifier = Modifier.fillMaxWidth() ) {
                 SearchBar(searchPattern, onTextChange, onBackClicked)
             }
-            Box ( modifier = Modifier.weight(1f)) {
+            Box (
+                modifier = Modifier.weight(1f)
+            ) {
                 PickerBox(tagsList, checkedState, onTagClicked, createTag)
             }
         }
@@ -152,11 +155,28 @@ internal fun SearchBar(
     onTextChange: (String) -> Unit,
     onBack: () -> Unit
 ) {
-    Row () {
-        IconButton(onClick = onBack) {
-           Icon(Icons.Default.ArrowBack, "Done")
-        }
-        TextField(value = text.value, onValueChange = { onTextChange(it); text.value = it })
+    val invitation = LocalContext.current.getString(R.string.enter_tag_name)
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            ImageVector.vectorResource(id = R.drawable.ic_outline_arrow_back_24px),
+            "Done",
+            modifier = Modifier
+                .padding(6.dp)
+                .clickable { onBack() }
+        )
+
+        TextField(
+            value = text.value,
+            onValueChange = { onTextChange(it); text.value = it },
+            placeholder = { Text(invitation) },
+            colors = TextFieldDefaults.textFieldColors(
+                textColor = MaterialTheme.colors.onBackground,
+                backgroundColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            modifier = Modifier.padding(start = 6.dp)
+        )
     }
 }
 
@@ -167,9 +187,7 @@ internal fun PickerBox(
     onClick: (TagData) -> Unit = {},
     newItem: (TagData) -> Unit = {}
 ) {
-    LazyColumn (
-        modifier = Modifier.padding(horizontal = 10.dp)
-    ) {
+    LazyColumn {
         items(
             tags.value,
             key = { if (it.id == null) -1 else it.id!! }
@@ -177,15 +195,30 @@ internal fun PickerBox(
             val checked = remember { mutableStateOf ( getState(it) ) }
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                val icon = ImageVector.vectorResource(R.drawable.ic_outline_label_24px) /* TODO(take icon and color from the TagData)*/
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "",
+                    modifier = Modifier.padding(6.dp)
+                )
                 if ( it.id == null ) {
-                    Text( it.name!!, modifier = Modifier.clickable { newItem(it) } )
-                    Text("Create new", modifier = Modifier.clickable { newItem(it) } )
+                    val text = LocalContext.current.getString(R.string.new_tag) + " \"${it.name!!}\""
+                    Text(
+                        text,
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp)
+                            .clickable { newItem(it) } )
                 } else {
-                    Text(it.name!!)
+                    Text(
+                        it.name!!,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(horizontal = 24.dp)
+                        )
                     TriStateCheckbox(
+                        modifier = Modifier.padding(6.dp),
                         state = checked.value,
                         onClick = {
                             onClick(it)
@@ -200,7 +233,7 @@ internal fun PickerBox(
 
 internal fun genTestTags(): List<TagData>
 {
-    var idcc: Long = 1;
+    var idcc: Long = 1
     val tagnames = "alfa beta gamma delta kappa theta alfa1 beta1 gamma1 delta1 kappa1 theta1"
     val list = tagnames.split(" ")
     val res = list.map { name -> TagData(name).also{ it.id = idcc++  } }
