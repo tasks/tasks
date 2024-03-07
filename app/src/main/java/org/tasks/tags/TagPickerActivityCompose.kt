@@ -20,6 +20,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.TriStateCheckbox
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Label
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -41,11 +43,20 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings
+import org.tasks.billing.Inventory
 import org.tasks.data.TagData
 import org.tasks.injection.ThemedInjectingAppCompatActivity
+import org.tasks.themes.ColorProvider
+import org.tasks.themes.CustomIcons
+import org.tasks.themes.Theme
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
+    @Inject lateinit var theme: Theme
+    @Inject lateinit var inventory: Inventory
+    @Inject lateinit var colorProvider: ColorProvider
+
 
     private val viewModel: TagPickerViewModel by viewModels()
     private var taskIds: ArrayList<Long>? = null
@@ -89,7 +100,9 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
                             viewModel.getState(it) != CheckBoxTriStates.State.CHECKED
                         )
                     },
-                    createTag = { onNewTag(it.name!!); searchPattern.value = "" }
+                    createTag = { onNewTag(it.name!!); searchPattern.value = "" },
+                    getTagIcon = { tagData ->  getIcon(tagData) },
+                    getTagColor = { tagData ->  getColor(tagData) }
                 )
             } /* setContent */
         }
@@ -115,13 +128,32 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
         }
     } /* onBackPressed */
 
+    private fun getColor(tagData: TagData): Color {
+        if (tagData.getColor() != 0) {
+            val themeColor = colorProvider.getThemeColor(tagData.getColor()!!, true)
+            if (inventory.purchasedThemes() || themeColor.isFree) {
+                return Color(themeColor.primaryColor)
+            }
+        }
+        return Color(getColor(R.color.icon_tint_with_alpha))
+    }
+
+    private fun getIcon(tagData: TagData): Int
+    {
+        val iconIndex = tagData.getIcon()
+        var iconResource = R.drawable.ic_outline_label_24px
+        if ( (iconIndex != null) && (iconIndex < 1000 || inventory.hasPro) ) {
+            iconResource = CustomIcons.getIconResId(iconIndex) ?: R.drawable.ic_outline_label_24px
+        }
+        return iconResource
+    }
+
     /* Copy og the TagPickerActivity's companion object */
     companion object {
         const val EXTRA_SELECTED = "extra_tags"
         const val EXTRA_PARTIALLY_SELECTED = "extra_partial"
         const val EXTRA_TASKS = "extra_tasks"
     }
-
 }
 
 @Composable
@@ -132,7 +164,9 @@ internal fun TagPicker(
     onBackClicked: () -> Unit,
     checkedState: (TagData) -> ToggleableState = { ToggleableState.Off },
     onTagClicked: (TagData) -> Unit,
-    createTag: (TagData) -> Unit
+    createTag: (TagData) -> Unit,
+    getTagIcon: (TagData) -> Int,
+    getTagColor: (TagData) -> Color
 ) {
     Box ( modifier = Modifier.fillMaxSize() )
     {
@@ -143,7 +177,7 @@ internal fun TagPicker(
             Box (
                 modifier = Modifier.weight(1f)
             ) {
-                PickerBox(tagsList, checkedState, onTagClicked, createTag)
+                PickerBox(tagsList, checkedState, onTagClicked, createTag, getTagIcon, getTagColor)
             }
         }
     }
@@ -185,35 +219,33 @@ internal fun PickerBox(
     tags: State<List<TagData>>,
     getState: (TagData) -> ToggleableState = { ToggleableState.Off },
     onClick: (TagData) -> Unit = {},
-    newItem: (TagData) -> Unit = {}
+    newItem: (TagData) -> Unit = {},
+    getTagIcon: (TagData) -> Int = { R.drawable.ic_outline_label_24px },
+    getTagColor: (TagData) -> Color = { Color.Gray }
 ) {
     LazyColumn {
-        items(
-            tags.value,
-            key = { if (it.id == null) -1 else it.id!! }
-        ) {
+        items( tags.value, key = { if (it.id == null) -1 else it.id!! } )
+        {
             val checked = remember { mutableStateOf ( getState(it) ) }
-            Row(
+            Row(                        /* TODO( this Row shall be clickable with appropriate behavior )*/
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                val icon = ImageVector.vectorResource(R.drawable.ic_outline_label_24px) /* TODO(take icon and color from the TagData)*/
                 Icon(
-                    imageVector = icon,
+                    imageVector = ImageVector.vectorResource(getTagIcon(it)),
                     contentDescription = "",
-                    modifier = Modifier.padding(6.dp)
+                    modifier = Modifier.padding(6.dp),
+                    tint = getTagColor(it)
                 )
                 if ( it.id == null ) {
                     val text = LocalContext.current.getString(R.string.new_tag) + " \"${it.name!!}\""
-                    Text(
-                        text,
-                        modifier = Modifier
+                    Text( text,
+                          modifier = Modifier
                             .padding(horizontal = 24.dp)
                             .clickable { newItem(it) } )
                 } else {
-                    Text(
-                        it.name!!,
-                        modifier = Modifier
+                    Text(it.name!!,
+                         modifier = Modifier
                             .weight(1f)
                             .padding(horizontal = 24.dp)
                         )
@@ -244,5 +276,5 @@ internal fun genTestTags(): List<TagData>
 @Preview(showBackground = true, backgroundColor = 0xffffff)
 internal fun PickerBoxPreview() {
     val list = remember { mutableStateOf( genTestTags() ) }
-    PickerBox(list)
+    PickerBox(list, getTagColor = { Color.Green })
 }
