@@ -20,8 +20,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.TriStateCheckbox
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Label
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -212,7 +210,7 @@ internal fun SearchBar(
             modifier = Modifier.padding(start = 6.dp)
         )
     }
-}
+} /* SearchBar */
 
 @Composable
 internal fun PickerBox(
@@ -227,9 +225,13 @@ internal fun PickerBox(
         items( tags.value, key = { if (it.id == null) -1 else it.id!! } )
         {
             val checked = remember { mutableStateOf ( getState(it) ) }
-            Row(                        /* TODO( this Row shall be clickable with appropriate behavior )*/
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+            Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        if ( it.id == null ) newItem(it)
+                        else { onClick(it); checked.value = getState(it) }
+                    },
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(getTagIcon(it)),
@@ -252,10 +254,7 @@ internal fun PickerBox(
                     TriStateCheckbox(
                         modifier = Modifier.padding(6.dp),
                         state = checked.value,
-                        onClick = {
-                            onClick(it)
-                            checked.value = getState(it)
-                        }
+                        onClick = { onClick(it); checked.value = getState(it) }
                     )
                 }
             }
@@ -266,10 +265,9 @@ internal fun PickerBox(
 internal fun genTestTags(): List<TagData>
 {
     var idcc: Long = 1
-    val tagnames = "alfa beta gamma delta kappa theta alfa1 beta1 gamma1 delta1 kappa1 theta1"
-    val list = tagnames.split(" ")
-    val res = list.map { name -> TagData(name).also{ it.id = idcc++  } }
-    return res
+    return "alfa beta gamma delta kappa theta alfa1 beta1 gamma1 delta1 kappa1 theta1"
+        .split(" ")
+        .map { name -> TagData(name).also{ it.id = idcc++ } }
 }
 
 @Composable
