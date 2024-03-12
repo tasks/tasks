@@ -1,5 +1,16 @@
 package org.tasks.tags
 
+/*
+ * TagPickerActivityCompose is a replacement for TagPickerActivity reimplemented
+ * using JetPack Compose framework.
+ *
+ * ViewModel is a bit modified but stays backward compatible with TagPickerActivity, so to
+ * switch back to it just find lines like this
+ *       //val intent = Intent(context, TagPickerActivity::class.java)
+ *       val intent = Intent(context, TagPickerActivityCompose::class.java)
+ * in TaskListFragment.kt and TagsControlSet.kt and move comment mark to another line.
+ */
+
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -74,6 +85,7 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
             }
         }
 
+        searchPattern.value = viewModel.text ?: ""
         viewModel.search(searchPattern.value)
 
         setContent {
