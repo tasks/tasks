@@ -429,9 +429,9 @@ File %1$s contained %2$s.\n\n
   <string name="repeats_from">Repeats from</string>
   <string name="repeats_single">Repeats %s</string>
   <string name="repeats_single_on">Repeats %1$s on %2$s</string>
-  <string name="repeats_single_until">Repeats %1$s until %2$s</string>
+  <string name="repeats_single_until">Repeats %1$s, ends on %2$s</string>
   <string name="repeats_single_number_of_times">Repeats %1$s, occurs %2$d %3$s</string>
-  <string name="repeats_single_on_until">Repeats %1$s on %2$s until %3$s</string>
+  <string name="repeats_single_on_until">Repeats %1$s on %2$s, ends on %3$s</string>
   <string name="repeats_single_on_number_of_times">Repeats %1$s on %2$s, occurs %3$d %4$s</string>
   <string name="repeats_minutely">minutely</string>
   <string name="repeats_hourly">hourly</string>
@@ -448,9 +448,9 @@ File %1$s contained %2$s.\n\n
   <string name="repeats_ends">Ends</string>
   <string name="repeats_plural">Repeats every %s</string>
   <string name="repeats_plural_on">Repeats every %1$s on %2$s</string>
-  <string name="repeats_plural_until">Repeats every %1$s until %2$s</string>
+  <string name="repeats_plural_until">Repeats every %1$s, ends on %2$s</string>
   <string name="repeats_plural_number_of_times">Repeats every %1$s, occurs %2$d %3$s</string>
-  <string name="repeats_plural_on_until">Repeats every %1$s on %2$s until %3$s</string>
+  <string name="repeats_plural_on_until">Repeats every %1$s on %2$s, ends on %3$s</string>
   <string name="repeats_plural_on_number_of_times">Repeats every %1$s on %2$s, occurs %3$d %4$s</string>
   <string name="list_separator_with_space">,\u0020</string>
   <string name="dont_add_to_calendar">Don\'t add to calendar</string>
