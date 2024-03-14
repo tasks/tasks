@@ -492,7 +492,7 @@
     <string name="filter_no_priority">Keine Dringlichkeit</string>
     <string name="filter_low_priority">Niedrige Dringlichkeit</string>
     <string name="filter_medium_priority">Mittlere Dringlichkeit</string>
-    <string name="filter_high_priority">Hohe Dringlichkeit</string>
+    <string name="filter_high_priority">Hohe Wichtigkeit</string>
     <string name="filter_today_only">Nur heute</string>
     <string name="sort_created">Nach Erstellungszeit</string>
     <string name="filter_after_today">Ab morgen</string>
