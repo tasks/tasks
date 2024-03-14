@@ -145,6 +145,18 @@ android {
         }
     }
 
+    testOptions {
+        managedDevices {
+            localDevices {
+                create("pixel2api29") {
+                    device = "Pixel 2"
+                    apiLevel = 29
+                    systemImageSource = "aosp"
+                }
+            }
+        }
+    }
+
     namespace = "org.tasks"
 }
 
