@@ -11,7 +11,8 @@ import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.time.DateTime
 import java.text.ParseException
-import java.util.*
+import java.util.Locale
+import java.util.TimeZone
 import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
@@ -84,7 +85,7 @@ class RepeatRuleToStringTest : InjectingTestCase() {
         Freeze.freezeAt(DateTime(2021, 1, 4)) {
             withTZ(BERLIN) {
                 assertEquals(
-                    "Repeats daily until February 23",
+                    "Repeats daily, ends on February 23",
                     toString("RRULE:FREQ=DAILY;UNTIL=20210223;INTERVAL=1")
                 )
             }
@@ -96,7 +97,7 @@ class RepeatRuleToStringTest : InjectingTestCase() {
         Freeze.freezeAt(DateTime(2021, 1, 4)) {
             withTZ(LONDON) {
                 assertEquals(
-                    "Repeats daily until February 23",
+                    "Repeats daily, ends on February 23",
                     toString("RRULE:FREQ=DAILY;UNTIL=20210223;INTERVAL=1")
                 )
             }
@@ -108,7 +109,7 @@ class RepeatRuleToStringTest : InjectingTestCase() {
         Freeze.freezeAt(DateTime(2021, 1, 4)) {
             withTZ(NEW_YORK) {
                 assertEquals(
-                    "Repeats daily until February 23",
+                    "Repeats daily, ends on February 23",
                     toString("RRULE:FREQ=DAILY;UNTIL=20210223;INTERVAL=1")
                 )
             }
