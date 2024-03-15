@@ -360,7 +360,7 @@
     <string name="repeats_from">חוזר החל מ-</string>
     <string name="repeats_single">חזרות %s</string>
     <string name="repeats_single_on">חזרות %1$s ב- %2$s</string>
-    <string name="repeats_single_until">חוזר %1$s  עד %2$s</string>
+    <string name="repeats_single_until">חוזר %1$s עד %2$s</string>
     <string name="repeats_single_number_of_times">חוזר %1$s, , חל ב-%2$d %3$s</string>
     <string name="repeats_single_on_until">חוזר %1$s ב-%2$s עד %3$s</string>
     <string name="repeats_single_on_number_of_times">חוזר %1$s ב-%2$s, מתרחש %3$d %4$s</string>
