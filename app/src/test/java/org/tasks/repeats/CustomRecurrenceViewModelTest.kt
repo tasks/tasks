@@ -168,6 +168,6 @@ class CustomRecurrenceViewModelTest {
                     EXTRA_DATE to dueDate.millis,
                 )
             ),
-            locale = Locale.US
+            locale = Locale.getDefault()
         ).also(block)
 }
