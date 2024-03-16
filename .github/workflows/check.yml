@@ -44,7 +44,10 @@ jobs:
           java-version: '17'
           cache: 'gradle'
       - name: run tests
-        run: ./gradlew -Pcoverage app:testGoogleplayDebugUnitTest app:pixel2api29GoogleplayDebugAndroidTest
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          script: ./gradlew -Pcoverage app:testGoogleplayDebugUnitTest app:connectedGoogleplayDebugAndroidTest
       - name: Upload test reports
         uses: actions/upload-artifact@v4
         if: ${{ always() }}
