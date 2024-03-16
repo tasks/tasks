@@ -44,7 +44,7 @@ jobs:
           java-version: '17'
           cache: 'gradle'
       - name: run tests
-        run: ./gradlew -Pcoverage app:testGoogleplayDebugUnitTest app:pixel2api29GoogleplayDebugAndroidTest
+        run: ./gradlew -Pcoverage app:testGoogleplayDebugUnitTest app:pixel2api30GoogleplayDebugAndroidTest
       - name: Upload test reports
         uses: actions/upload-artifact@v4
         if: ${{ always() }}
