@@ -121,7 +121,7 @@
     <string name="default_random_reminder_daily">每天</string>
     <string name="default_random_reminder_weekly">每周</string>
     <string name="default_random_reminder_bi_weekly">每两周</string>
-    <string name="repeat_option_does_not_repeat">不要重复</string>
+    <string name="repeat_option_does_not_repeat">不重复</string>
     <string name="repeat_option_every_day">每天</string>
     <string name="repeat_option_every_week">每周</string>
     <string name="repeat_option_every_month">每月</string>
@@ -182,7 +182,7 @@
     </plurals>
     <string name="repeat_type_due">截止日期</string>
     <string name="repeat_type_completion">完成日期</string>
-    <string name="repeat_snackbar">%1$s 重新安排在 %2$s</string>
+    <string name="repeat_snackbar">重新安排了 %2$s 的 %1$s</string>
     <string name="new_tag">新建标签</string>
     <string name="new_list">新建列表</string>
     <string name="delete_tag_confirmation">是否删除 %s？</string>
@@ -307,13 +307,13 @@
     <string name="bundle_notifications">合并通知</string>
     <string name="badges">角标</string>
     <string name="list">列表</string>
-    <string name="repeats_from">重复触发于</string>
-    <string name="repeats_single">%s重复</string>
-    <string name="repeats_single_on">%1$s的%2$s重复</string>
-    <string name="repeats_single_until">%1$s重复，直至%2$s</string>
+    <string name="repeats_from">重复始于</string>
+    <string name="repeats_single">重复 %s</string>
+    <string name="repeats_single_on">重复 %1$s 于 %2$s</string>
+    <string name="repeats_single_until">重复 %1$s ，结束于 %2$s</string>
     <string name="repeats_single_number_of_times">重复%1$s，发生 %2$d %3$s</string>
-    <string name="repeats_single_on_until">%1$s的%2$s重复，直至%3$s</string>
-    <string name="repeats_single_on_number_of_times">%1$s的%2$s重复，发生 %3$d %4$s</string>
+    <string name="repeats_single_on_until">重复 %1$s 于 %2$s，结束于 %3$s</string>
+    <string name="repeats_single_on_number_of_times">重复 %1$s 于 %2$s，发生 %3$d %4$s</string>
     <string name="repeats_minutely">每分钟</string>
     <string name="repeats_hourly">每小时</string>
     <string name="repeats_daily">每日</string>
@@ -321,11 +321,11 @@
     <string name="repeats_monthly">每月</string>
     <string name="repeats_yearly">每年</string>
     <string name="repeats_plural">每%s重复</string>
-    <string name="repeats_plural_on">每%1$s的%2$s重复</string>
-    <string name="repeats_plural_until">每%1$s重复，直至%2$s</string>
+    <string name="repeats_plural_on">每 %1$s 于 %2$s 重复</string>
+    <string name="repeats_plural_until">每%1$s重复，结束于%2$s</string>
     <string name="repeats_plural_number_of_times">每%1$s重复，发生 %2$d %3$s</string>
-    <string name="repeats_plural_on_until">每%1$s的%2$s重复，直至%3$s</string>
-    <string name="repeats_plural_on_number_of_times">每%1$s的%2$s重复，发生 %3$d %4$s</string>
+    <string name="repeats_plural_on_until">每 %1$s 于 %2$s 重复，结束于 %3$s</string>
+    <string name="repeats_plural_on_number_of_times">每 %1$s 于 %2$s 重复，发生 %3$d %4$s</string>
     <string name="dont_add_to_calendar">不添加到日历</string>
     <string name="default_calendar">默认日历</string>
     <string name="badges_description">在 Tasks 启动图标上显示任务计数。不是所有的启动器都支持角标。</string>
@@ -695,7 +695,7 @@
     <string name="sort_ascending">升序</string>
     <string name="sort_descending">降序</string>
     <string name="sort_completed">按完成时间</string>
-    <string name="repeats_every">重复每</string>
+    <string name="repeats_every">重复频率</string>
     <string name="repeats_weekly_on">重复于</string>
     <string name="repeats_never">永不</string>
     <string name="repeats_on">于</string>
