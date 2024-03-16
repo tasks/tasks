@@ -340,9 +340,9 @@
     <string name="repeats_from">Repetir desde </string>
     <string name="repeats_single">Repetir %s</string>
     <string name="repeats_single_on">Repetir %1$s cada %2$s</string>
-    <string name="repeats_single_until">Repetir %1$s hasta %2$s</string>
+    <string name="repeats_single_until">Se repite %1$s, termina en %2$s</string>
     <string name="repeats_single_number_of_times">Repetir %1$s, %2$d %3$s</string>
-    <string name="repeats_single_on_until">Repetir %1$s cada %2$s hasta %3$s</string>
+    <string name="repeats_single_on_until">Se repite %1$s en %2$s , termina en %3$s</string>
     <string name="repeats_single_on_number_of_times">Repetir %1$s cada %2$s, %3$d %4$s</string>
     <string name="repeats_minutely">cada minuto</string>
     <string name="repeats_hourly">cada hora</string>
@@ -352,9 +352,9 @@
     <string name="repeats_yearly">anualmente</string>
     <string name="repeats_plural">Repetir cada %s</string>
     <string name="repeats_plural_on">Repetir cada %1$s el %2$s</string>
-    <string name="repeats_plural_until">Repetir cada %1$s hasta %2$s</string>
+    <string name="repeats_plural_until">Se repite petir cada %1$s, y finaliza %2$s</string>
     <string name="repeats_plural_number_of_times">Repetir cada %1$s, %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Repetir cada %1$s el %2$s hasta %3$s</string>
+    <string name="repeats_plural_on_until">Se repite cada %1$s en %2$s , termina el %3$s</string>
     <string name="repeats_plural_on_number_of_times">Repetir cada %1$s el %2$s, %3$d %4$s</string>
     <string name="dont_add_to_calendar">No añadir al calendario</string>
     <string name="default_calendar">Calendario predeterminado</string>
