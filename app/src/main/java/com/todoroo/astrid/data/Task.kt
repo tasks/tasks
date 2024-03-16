@@ -138,9 +138,11 @@ data class Task(
 
     val isOverdue: Boolean
         get() {
-            val dueDate = dueDate
+            if (isCompleted || !hasDueDate()) {
+                return false
+            }
             val compareTo = if (hasDueTime()) DateUtilities.now() else DateTimeUtils.newDateTime().startOfDay().millis
-            return dueDate < compareTo && !isCompleted
+            return dueDate < compareTo
         }
 
     fun repeatAfterCompletion(): Boolean = repeatFrom == RepeatFrom.COMPLETION_DATE

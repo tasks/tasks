@@ -1,14 +1,16 @@
 package com.todoroo.astrid.data
 
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.tasks.Freeze
 import org.tasks.Freeze.Companion.freezeAt
 import org.tasks.date.DateTimeUtils
 import org.tasks.time.DateTime
-import java.util.*
+import java.util.TreeSet
 
 class TaskTest {
     @Before
@@ -168,8 +170,8 @@ class TaskTest {
     }
 
     @Test
-    fun testTaskWithNoDueDateIsOverdue() {
-        assertTrue(Task().isOverdue)
+    fun testTaskWithNoDueDateIsNotOverdue() {
+        assertFalse(Task().isOverdue)
     }
 
     @Test
