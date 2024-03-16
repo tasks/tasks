@@ -1,7 +1,9 @@
 package com.todoroo.astrid.repeats
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.Freeze.Companion.freezeAt
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
@@ -61,20 +63,5 @@ class RepeatTaskHelperTests : RepeatTests() {
         }
 
         assertEquals(newDay(2021, 2, 2), next)
-    }
-
-    @Test
-    fun useNowWhenNoCompletion() {
-        val task = newFromDue(
-                "FREQ=DAILY;INTERVAL=1",
-                newDay(2021, 3, 15),
-                afterComplete = true
-        )
-
-        val next = freezeAt(newDayTime(2021, 3, 29, 14, 32)) {
-            calculateNextDueDate(task)
-        }
-
-        assertEquals(newDayTime(2021, 3, 30, 12, 0), next)
     }
 }

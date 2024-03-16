@@ -49,16 +49,11 @@ class RepeatTaskHelper @Inject constructor(
             }
             newDueDate = computeNextDueDate(task, recurrence, repeatAfterCompletion)
             if (newDueDate == -1L) {
+                broadcastCompletion(task)
                 return
             }
         } catch (e: ParseException) {
             Timber.e(e)
-            return
-        }
-        val oldDueDate = task.dueDate
-        val repeatUntil = task.repeatUntil
-        if (repeatFinished(newDueDate, repeatUntil)) {
-            broadcastCompletion(task)
             return
         }
         if (count > 1) {
@@ -67,6 +62,7 @@ class RepeatTaskHelper @Inject constructor(
         }
         task.reminderLast = 0L
         task.completionDate = 0L
+        val oldDueDate = task.dueDate
         task.setDueDateAdjustingHideUntil(newDueDate)
         gcalHelper.rescheduleRepeatingTask(task)
         taskDao.save(task)
@@ -124,29 +120,35 @@ class RepeatTaskHelper @Inject constructor(
 
     companion object {
         private val weekdayCompare = Comparator { object1: WeekDay, object2: WeekDay -> WeekDay.getCalendarDay(object1) - WeekDay.getCalendarDay(object2) }
-        private fun repeatFinished(newDueDate: Long, repeatUntil: Long): Boolean {
-            return repeatUntil > 0 && newDateTime(newDueDate).startOfDay().millis > repeatUntil
-        }
 
         /** Compute next due date  */
         @Throws(ParseException::class)
         fun computeNextDueDate(task: Task, recurrence: String, repeatAfterCompletion: Boolean): Long {
             val rrule = initRRule(recurrence)
+            if (rrule.until != null && rrule.until is Date && task.hasDueTime()) {
+                // Tasks lets you create tasks with due date-times, but recurrence until with due dates
+                // This violates the spec and should be fixed in the picker
+                rrule.until = DateTime.from(rrule.until).endOfDay().toDateTime()
+            }
 
             // initialize startDateAsDV
             val original = setUpStartDate(task, repeatAfterCompletion, rrule.frequency)
             val startDateAsDV = setUpStartDateAsDV(task, original)
-            return if (rrule.frequency == Recur.Frequency.HOURLY || rrule.frequency == Recur.Frequency.MINUTELY) {
-                handleSubdayRepeat(original, rrule)
-            } else if (rrule.frequency == Recur.Frequency.WEEKLY && rrule.dayList.isNotEmpty() && repeatAfterCompletion) {
-                handleWeeklyRepeatAfterComplete(rrule, original, task.hasDueTime())
-            } else if (rrule.frequency == Recur.Frequency.MONTHLY && rrule.dayList.isEmpty()) {
-                handleMonthlyRepeat(original, startDateAsDV, task.hasDueTime(), rrule)
-            } else {
-                invokeRecurrence(rrule, original, startDateAsDV)
+            return when {
+                rrule.frequency == Recur.Frequency.SECONDLY ||
+                rrule.frequency == Recur.Frequency.MINUTELY ||
+                rrule.frequency == Recur.Frequency.HOURLY ->
+                    handleSubdayRepeat(original, rrule)
+                rrule.frequency == Recur.Frequency.WEEKLY && rrule.dayList.isNotEmpty() && repeatAfterCompletion ->
+                    handleWeeklyRepeatAfterComplete(rrule, original, task.hasDueTime())
+                rrule.frequency == Recur.Frequency.MONTHLY && rrule.dayList.isEmpty() ->
+                    handleMonthlyRepeat(original, startDateAsDV, task.hasDueTime(), rrule)
+                else ->
+                    invokeRecurrence(rrule, original, startDateAsDV)
             }
         }
 
+        @Deprecated("probably don't need this?")
         private fun handleWeeklyRepeatAfterComplete(
                 recur: Recur, original: DateTime, hasDueTime: Boolean): Long {
             val byDay = recur.dayList
@@ -166,6 +168,7 @@ class RepeatTaskHelper @Inject constructor(
             }
         }
 
+        @Deprecated("Properly support last day of month and remove this")
         private fun handleMonthlyRepeat(
                 original: DateTime, startDateAsDV: Date, hasDueTime: Boolean, recur: Recur): Long {
             return if (original.isLastDayOfMonth) {
@@ -195,7 +198,7 @@ class RepeatTaskHelper @Inject constructor(
         private fun invokeRecurrence(recur: Recur, original: DateTime, startDateAsDV: Date): Long {
             return recur.getNextDate(startDateAsDV, startDateAsDV)
                 ?.let { buildNewDueDate(original, it) }
-                ?: throw IllegalStateException("recur=$recur original=$original startDateAsDv=$startDateAsDV")
+                ?: -1
         }
 
         /** Compute long due date from DateValue  */
@@ -253,6 +256,7 @@ class RepeatTaskHelper @Inject constructor(
             }
         }
 
+        @Deprecated("probably don't need this?")
         private fun handleSubdayRepeat(startDate: DateTime, recur: Recur): Long {
             val millis: Long = when (recur.frequency) {
                 Recur.Frequency.HOURLY -> DateUtilities.ONE_HOUR

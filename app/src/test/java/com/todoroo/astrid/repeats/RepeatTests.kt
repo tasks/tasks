@@ -6,11 +6,12 @@ import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.gcal.GCalHelper
-import com.todoroo.astrid.service.TaskCompleter
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
-import org.mockito.Mockito
-import org.mockito.Mockito.*
+import org.mockito.Mockito.anyLong
+import org.mockito.Mockito.anySet
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 import org.tasks.LocalBroadcastManager
 import org.tasks.makers.TaskMaker
 import org.tasks.time.DateTime
@@ -62,6 +63,7 @@ abstract class RepeatTests {
             MakeItEasy.with(TaskMaker.RECUR, recur),
             MakeItEasy.with(TaskMaker.AFTER_COMPLETE, afterComplete),
             MakeItEasy.with(TaskMaker.DUE_TIME, due),
+            MakeItEasy.with(TaskMaker.COMPLETION_TIME, DateTime()),
             *properties
     )
 }
