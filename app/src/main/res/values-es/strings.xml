@@ -481,8 +481,6 @@
     <string name="settings_default">Predefinido</string>
     <string name="widget_id">Widget ID: %d</string>
     <string name="widget_open_list">Lista abierta</string>
-    <string name="widget_do_nothing">No hacer nada</string>
-    <string name="widget_on_click">Al pulsar</string>
     <string name="widget_show_menu">Mostrar menú</string>
     <string name="widget_due_date_hidden">Oculto</string>
     <string name="widget_due_date_below_title">Debajo del título</string>
@@ -497,8 +495,6 @@
     <string name="auto_dismiss_datetime_edit">Edición de tareas</string>
     <string name="auto_dismiss_datetime_list_summary">Cierre automático al seleccionar de la lista de tareas</string>
     <string name="auto_dismiss_datetime_list">Lista de tareas</string>
-    <string name="widget_due_date_reschedule">Reprogramar tarea</string>
-    <string name="widget_footer">Pie de página</string>
     <string name="custom_filter_not">NO</string>
     <string name="custom_filter_or">O</string>
     <string name="custom_filter_and">Y</string>

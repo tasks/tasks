@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import org.tasks.dialogs.SortSettingsActivity.Companion.WIDGET_NONE
 import org.tasks.preferences.Preferences
+import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
 import org.tasks.widget.WidgetPreferences
 import javax.inject.Inject
 
@@ -82,9 +83,15 @@ class SortSettingsViewModel @Inject constructor(
     }
 
     fun setGroupMode(groupMode: Int) {
+        if (preferences.groupMode == groupMode) {
+            return
+        }
         if (groupMode != SortHelper.GROUP_NONE) {
             preferences.isManualSort = false
             preferences.isAstridSort = false
+            if (preferences is WidgetPreferences) {
+                preferences.collapsed = setOf(HEADER_COMPLETED)
+            }
         }
         preferences.groupMode = groupMode
         val ascending = when (groupMode) {

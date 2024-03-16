@@ -253,11 +253,7 @@
     <string name="widget_due_date_hidden">Skjult</string>
     <string name="widget_due_date_below_title">Under titel</string>
     <string name="widget_due_date_after_title">Efter titel</string>
-    <string name="widget_due_date_reschedule">Udsæt opgave</string>
     <string name="widget_open_list">Åbn liste</string>
-    <string name="widget_do_nothing">Gør ingenting</string>
-    <string name="widget_on_click">Ved tryk</string>
-    <string name="widget_footer">Fodbjælke</string>
     <string name="widget_row_settings">Rækkeindstillinger</string>
     <string name="widget_header_settings">Topbjælkeindstillinger</string>
     <string name="widget_settings">Widget-indstillinger</string>

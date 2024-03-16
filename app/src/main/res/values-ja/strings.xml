@@ -416,11 +416,9 @@
     <string name="repeat_monthly_fifth_week">第五週</string>
     <string name="help_and_feedback">ヘルプとフィードバック</string>
     <string name="widget_open_list">リストをひらく</string>
-    <string name="widget_do_nothing">何もしない</string>
     <string name="theme_system_default">システムデフォルト</string>
     <string name="opacity_row">行の透明度</string>
     <string name="opacity_footer">フッターの透明度</string>
-    <string name="widget_footer">フッター</string>
     <string name="opacity_header">ヘッダーの透明度</string>
     <string name="map_theme">地図のテーマ</string>
     <string name="default_tags">デフォルトのタグ</string>
@@ -487,7 +485,6 @@
     <string name="always_display_full_date">完全な日付を表示</string>
     <string name="astrid_sort_order_summary">「マイタスク」「今日」そしてタグにおいて Astrid の手動並べ替えモードを有効にします。この並べ替えモードは将来のアップデートで「マイ設定」に置き換えられる予定です</string>
     <string name="CFC_startBefore_name">…に着手</string>
-    <string name="widget_due_date_reschedule">タスクを再計画</string>
     <plurals name="reminder_minutes">
         <item quantity="other">分</item>
     </plurals>
@@ -660,7 +657,6 @@
     <string name="disable_battery_optimizations">バッテリー最適化を無効にする</string>
     <string name="background_location">バックグラウンド時の位置情報</string>
     <string name="above_average">平均以上</string>
-    <string name="widget_on_click">クリック時</string>
     <string name="filter_any_start_date">着手日時あり</string>
     <string name="chip_appearance">チップの外観</string>
     <string name="desaturate_colors_summary_on">ダークテーマの使用時に彩度が下がります</string>

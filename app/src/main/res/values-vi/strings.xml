@@ -331,11 +331,7 @@
     <string name="widget_due_date_hidden">Ẩn</string>
     <string name="widget_due_date_below_title">Dưới tiêu đề</string>
     <string name="widget_due_date_after_title">Sau tiêu đề</string>
-    <string name="widget_due_date_reschedule">Lên lịch lại công việc</string>
     <string name="widget_open_list">Mở danh sách</string>
-    <string name="widget_do_nothing">Không làm gì cả</string>
-    <string name="widget_on_click">Khi nhấn</string>
-    <string name="widget_footer">Chân trang</string>
     <string name="widget_row_settings">Cài đặt hàng</string>
     <string name="widget_header_settings">Cài đặt tiêu đề</string>
     <string name="widget_settings">Cài đặt tiện ích</string>

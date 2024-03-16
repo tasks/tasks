@@ -463,9 +463,7 @@
     <string name="select_all">Alles auswählen</string>
     <string name="share">Teilen</string>
     <string name="hide_check_button">Erledigt-Schaltfläche ausblenden</string>
-    <string name="widget_on_click">Nach Klick</string>
     <string name="widget_show_dividers">Trennlinien anzeigen</string>
-    <string name="widget_do_nothing">Nichts tun</string>
     <string name="opacity_footer">Deckkraft der Fußzeile</string>
     <string name="opacity_row">Deckkraft der Zeilen</string>
     <string name="opacity_header">Deckkraft der Kopfleiste</string>
@@ -483,8 +481,6 @@
     <string name="auto_dismiss_datetime_edit_summary">Automatisch schließen wenn aus der Aufgabenbearbeitung gewählt</string>
     <string name="auto_dismiss_datetime_list_summary">Automatisch schließen wenn aus der Aufgabenliste gewählt</string>
     <string name="auto_dismiss_datetime_list">Aufgabenliste</string>
-    <string name="widget_due_date_reschedule">Aufgabe verlegen</string>
-    <string name="widget_footer">Fußzeile</string>
     <string name="custom_filter_and">UND</string>
     <string name="custom_filter_not">NICHT</string>
     <string name="custom_filter_or">ODER</string>

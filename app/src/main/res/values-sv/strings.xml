@@ -433,7 +433,6 @@
     <string name="help_and_feedback">Hjälp &amp; återkoppling</string>
     <string name="widget_due_date_hidden">Dold</string>
     <string name="widget_open_list">Öppna lista</string>
-    <string name="widget_do_nothing">Gör ingenting</string>
     <string name="date_shortcut_tomorrow_night">Imorgon natt</string>
     <string name="date_shortcut_tomorrow_evening">Imorgon kväll</string>
     <string name="widget_show_menu">Visa meny</string>
@@ -591,9 +590,6 @@
     <string name="subscription">Abonnemang</string>
     <string name="widget_due_date_below_title">Under titeln</string>
     <string name="widget_due_date_after_title">Efter titeln</string>
-    <string name="widget_due_date_reschedule">Planera om uppgift</string>
-    <string name="widget_on_click">När du klickar på</string>
-    <string name="widget_footer">Sidfot</string>
     <string name="theme_system_default">Systemets standardinställning</string>
     <string name="map_theme">Tema för kartor</string>
     <string name="opacity_footer">Opacitet för sidfot</string>

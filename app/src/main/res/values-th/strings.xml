@@ -279,11 +279,7 @@
     <string name="widget_due_date_hidden">ซ่อนเร้น</string>
     <string name="widget_due_date_below_title">ใต้ชื่อเรื่อง</string>
     <string name="widget_due_date_after_title">หลังชื่อเรื่อง</string>
-    <string name="widget_due_date_reschedule">กำหนดการงานใหม่</string>
     <string name="widget_open_list">เปิดรายการ</string>
-    <string name="widget_do_nothing">ไม่ต้องทําอะไร</string>
-    <string name="widget_on_click">เมื่อคลิก</string>
-    <string name="widget_footer">ส่วนท้าย</string>
     <string name="widget_row_settings">การตั้งค่าแถว</string>
     <string name="widget_header_settings">การตั้งค่าส่วนหัว</string>
     <string name="widget_settings">การตั้งค่าวิดเจ็ต</string>

@@ -71,7 +71,7 @@ class ColorProvider @Inject constructor(
                 -5792882 to -5135210 // birch
         )
 
-        fun priorityColor(priority: Int, isDarkMode: Boolean, desaturate: Boolean): Int {
+        fun priorityColor(priority: Int, isDarkMode: Boolean = false, desaturate: Boolean = false): Int {
             val color = when (priority) {
                 in Int.MIN_VALUE..Task.Priority.HIGH -> RED_500
                 Task.Priority.MEDIUM -> AMBER_500

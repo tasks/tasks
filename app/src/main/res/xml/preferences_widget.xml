@@ -180,24 +180,4 @@
 
   </PreferenceCategory>
 
-  <PreferenceCategory android:title="@string/widget_on_click">
-
-    <ListPreference
-      android:defaultValue="0"
-      android:key="@string/p_widget_due_date_click"
-      android:entryValues="@array/widget_due_date_click_values"
-      android:entries="@array/widget_due_date_click_titles"
-      android:title="@string/due_date"
-      android:summary="%s" />
-
-    <ListPreference
-      android:defaultValue="0"
-      android:key="@string/p_widget_footer_click"
-      android:entryValues="@array/widget_empty_click_values"
-      android:entries="@array/widget_empty_click_titles"
-      android:title="@string/widget_footer"
-      android:summary="%s" />
-
-  </PreferenceCategory>
-
 </PreferenceScreen>

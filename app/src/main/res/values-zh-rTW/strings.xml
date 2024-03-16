@@ -436,11 +436,7 @@
     <string name="widget_due_date_hidden">隱藏</string>
     <string name="widget_due_date_below_title">標題之下</string>
     <string name="widget_due_date_after_title">標題之後</string>
-    <string name="widget_due_date_reschedule">重新規劃工作</string>
     <string name="widget_open_list">開啟清單</string>
-    <string name="widget_do_nothing">無動作</string>
-    <string name="widget_on_click">點擊時</string>
-    <string name="widget_footer">註腳</string>
     <string name="widget_row_settings">行設定</string>
     <string name="widget_header_settings">標頭設定</string>
     <string name="widget_settings">小工具設定</string>

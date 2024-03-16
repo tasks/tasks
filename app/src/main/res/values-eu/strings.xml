@@ -491,11 +491,7 @@
     <string name="widget_due_date_hidden">Ezkutatuta</string>
     <string name="widget_due_date_below_title">Izenburuaren azpian</string>
     <string name="widget_due_date_after_title">Izenburua eta gero</string>
-    <string name="widget_due_date_reschedule">Birprogramatu zeregina</string>
     <string name="widget_open_list">Ireki zerrenda</string>
-    <string name="widget_do_nothing">Ez egin ezer</string>
-    <string name="widget_on_click">Sakatzean</string>
-    <string name="widget_footer">Oina</string>
     <string name="opacity_footer">Oinaren opakotasuna</string>
     <string name="opacity_row">Errenkadaren opakotasuna</string>
     <string name="opacity_header">Goiburuaren opakotasuna</string>

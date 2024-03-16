@@ -490,11 +490,7 @@
     <string name="widget_due_date_hidden">Спрятано</string>
     <string name="widget_due_date_below_title">Под названием</string>
     <string name="widget_due_date_after_title">После названия</string>
-    <string name="widget_due_date_reschedule">Перенести задачу</string>
     <string name="widget_open_list">Открыть список</string>
-    <string name="widget_do_nothing">Ничего не делать</string>
-    <string name="widget_on_click">По щелчку</string>
-    <string name="widget_footer">Футер</string>
     <string name="opacity_footer">Непрозрачность футера</string>
     <string name="opacity_row">Непрозрачность строки</string>
     <string name="opacity_header">Непрозрачность заголовка</string>

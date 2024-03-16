@@ -482,8 +482,6 @@
     <string name="widget_id">Identifiant du widget : %d</string>
     <string name="widget_show_menu">Afficher le menu</string>
     <string name="widget_open_list">Ouvrir la liste</string>
-    <string name="widget_do_nothing">Ne rien faire</string>
-    <string name="widget_on_click">Lors d\'un appui</string>
     <string name="widget_due_date_hidden">Masquée</string>
     <string name="widget_due_date_below_title">Sous le titre</string>
     <string name="widget_due_date_after_title">Après le titre</string>
@@ -497,8 +495,6 @@
     <string name="auto_dismiss_datetime_edit">Édition de tâche</string>
     <string name="auto_dismiss_datetime_list_summary">Fermeture automatique lors de la sélection depuis la liste des tâches</string>
     <string name="auto_dismiss_datetime_list">Liste des tâches</string>
-    <string name="widget_due_date_reschedule">Replanifier la tâche</string>
-    <string name="widget_footer">Pied de page</string>
     <string name="custom_filter_criteria">Critères de filtrage</string>
     <string name="custom_filter_not">NON</string>
     <string name="custom_filter_or">OU</string>

@@ -142,26 +142,6 @@
     <item>2</item>
   </string-array>
 
-  <string-array name="widget_empty_click_titles">
-    <item>@string/widget_do_nothing</item>
-    <item>@string/widget_open_list</item>
-  </string-array>
-
-  <string-array name="widget_empty_click_values">
-    <item>0</item>
-    <item>1</item>
-  </string-array>
-
-  <string-array name="widget_due_date_click_titles">
-    <item>@string/widget_due_date_reschedule</item>
-    <item>@string/widget_do_nothing</item>
-  </string-array>
-
-  <string-array name="widget_due_date_click_values">
-    <item>0</item>
-    <item>1</item>
-  </string-array>
-
   <string-array name="widget_due_date_position_values">
     <item>0</item>
     <item>1</item>
@@ -362,8 +342,6 @@
   <string name="p_widget_show_menu">widget-show-menu-</string>
   <string name="p_widget_header_opacity">widget-header-opacity-</string>
   <string name="p_widget_footer_opacity">widget-empty-space-opacity-</string>
-  <string name="p_widget_footer_click">widget-empty-space-click-</string>
-  <string name="p_widget_due_date_click">widget-due-date-click-</string>
   <string name="p_widget_due_date_position">widget-due-date-position-</string>
   <string name="p_widget_header_spacing">widget-header-spacing-</string>
   <string name="p_widget_spacing">widget-spacing-</string>

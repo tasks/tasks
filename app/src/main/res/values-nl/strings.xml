@@ -466,8 +466,6 @@
     <string name="widget_id">Widget ID: %d</string>
     <string name="widget_show_menu">Menu tonen</string>
     <string name="widget_open_list">Lijst openen</string>
-    <string name="widget_do_nothing">Niets doen</string>
-    <string name="widget_on_click">Bij klikken</string>
     <string name="widget_due_date_hidden">Verborgen</string>
     <string name="widget_due_date_below_title">Onder titel</string>
     <string name="widget_due_date_after_title">Na titel</string>
@@ -481,8 +479,6 @@
     <string name="auto_dismiss_datetime_widget">Widget</string>
     <string name="auto_dismiss_datetime_edit">Taken bewerken</string>
     <string name="auto_dismiss_datetime_list">Takenlijst</string>
-    <string name="widget_due_date_reschedule">Taak opnieuw inplannen</string>
-    <string name="widget_footer">Voettekst</string>
     <string name="custom_filter_not">NIET</string>
     <string name="custom_filter_or">OF</string>
     <string name="custom_filter_and">EN</string>

@@ -159,11 +159,7 @@
     <string name="widget_due_date_hidden">Ascuns</string>
     <string name="widget_due_date_below_title">Sub titlul</string>
     <string name="widget_due_date_after_title">După titlu</string>
-    <string name="widget_due_date_reschedule">Reprogramează sarcina</string>
     <string name="widget_open_list">Listă deschisă</string>
-    <string name="widget_do_nothing">Nu face nimic</string>
-    <string name="widget_on_click">La clic</string>
-    <string name="widget_footer">Subsol</string>
     <string name="widget_row_settings">Setări de rânduri</string>
     <string name="widget_header_settings">Setări de antet</string>
     <string name="widget_settings">Setări Widget</string>

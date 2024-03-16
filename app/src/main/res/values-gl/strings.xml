@@ -247,7 +247,6 @@
     <string name="filter_no_priority">Sen prioridade</string>
     <string name="repeat_type_due">data de fin</string>
     <string name="geofence_radius">Radio</string>
-    <string name="widget_due_date_reschedule">Reprogramar a tarefa</string>
     <string name="use_locale_default">Usar predefinido do sistema</string>
     <string name="add_account">Engadir conta</string>
     <string name="error_adding_account">Erro: %s</string>
@@ -400,8 +399,6 @@
     <string name="subtasks">Subtarefas</string>
     <string name="menu_discard_changes">Descartar mudanzas</string>
     <string name="username_required">Precísase nome de usuario</string>
-    <string name="widget_on_click">Co clic</string>
-    <string name="widget_do_nothing">Non facer nada</string>
     <string name="widget_open_list">Abrir lista</string>
     <string name="user">Usuario/a</string>
     <string name="repeats_hourly">por hora</string>
@@ -439,7 +436,6 @@
     <string name="app_passwords_more_info">Sincroniza as tarefas e os calendarios en aplicativos de terceiros para escritorio ou dispositivos móbiles. Preme aquí para máis información</string>
     <string name="generate_new_password">Xerar novo contrasinal</string>
     <string name="upgrade_desktop_access">Acceso ao escritorio</string>
-    <string name="widget_footer">Rodapé</string>
     <string name="repeats_weekly">por semana</string>
     <string name="version_string">Versión %s</string>
     <string name="gtasks_GPr_header">Google Tasks</string>

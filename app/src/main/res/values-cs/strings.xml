@@ -471,11 +471,7 @@
     <string name="widget_due_date_hidden">Skrytý</string>
     <string name="widget_due_date_below_title">Pod názvem</string>
     <string name="widget_due_date_after_title">Za názvem</string>
-    <string name="widget_on_click">Při kliknutí na</string>
-    <string name="widget_due_date_reschedule">Změnit termín úkolu</string>
     <string name="widget_open_list">Otevřít seznam</string>
-    <string name="widget_do_nothing">Nic nedělat</string>
-    <string name="widget_footer">Zápatí</string>
     <string name="widget_show_dividers">Zobrazit oddělovače</string>
     <string name="whats_new">Co je nového</string>
     <string name="pick_this_location">Vybrat toto místo</string>

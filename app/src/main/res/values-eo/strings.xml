@@ -215,7 +215,6 @@
     <string name="delete_multiple_tasks_confirmation">%s forigitaj</string>
     <string name="copy_multiple_tasks_confirmation">%s kopitaj</string>
     <string name="widget_open_list">Malfermu liston</string>
-    <string name="widget_do_nothing">Faru nenion</string>
     <string name="widget_settings">Agordoj de fenestraĵo</string>
     <string name="restart_later">Poste</string>
     <string name="language">Lingvo</string>
@@ -581,8 +580,6 @@
     <string name="repeats_single_until">Ripetiĝas %1$s ĝis %2$s</string>
     <string name="got_it">Komprenite!</string>
     <string name="backups_ignore_warnings_summary">Ignori avertojn pri savkopioj se vi ne bezonas savkopiojn aŭ jam havas propran savkopian solvon</string>
-    <string name="widget_footer">Piedlinio</string>
-    <string name="widget_due_date_reschedule">Tempe replani taskon</string>
     <string name="use_locale_default">Uzi defaŭltan lokaĵaron</string>
     <string name="error_adding_account">Eraro: %s</string>
     <string name="logout_warning">Ĉiu de la datumo de ĉi tiu konto foriĝos el via aparato</string>
@@ -720,7 +717,6 @@
     <string name="account_not_included">Ne inkluzivite per \'Elekti propran prezon\' abonoj</string>
     <string name="upgrade_desktop_access_description">Sinkronigi kun klientoj de ekstera liveranto kiel Outlook kaj Apple Reminders</string>
     <string name="pro_dashclock_extension">Dashclock kromprogramo</string>
-    <string name="widget_on_click">Post alklaki</string>
     <string name="tasker_list_notification">Sciigo de listo</string>
     <string name="list_members">Anoj de la listo</string>
     <string name="auto_dismiss_datetime_edit">Redakti taskon</string>

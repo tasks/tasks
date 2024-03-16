@@ -467,8 +467,6 @@
     <string name="widget_due_date_below_title">Cím alatt</string>
     <string name="widget_due_date_after_title">Cím után</string>
     <string name="widget_open_list">Lista megnyitása</string>
-    <string name="widget_do_nothing">Nincs művelet</string>
-    <string name="widget_on_click">Kattintásra</string>
     <string name="opacity_footer">Lábléc átlátszóság</string>
     <string name="opacity_row">Sor átlátszóság</string>
     <string name="opacity_header">Fejléc átlátszóság</string>
@@ -479,8 +477,6 @@
     <string name="auto_dismiss_datetime_edit">Feladat szerkesztés</string>
     <string name="auto_dismiss_datetime_list_summary">Automatikus bezárás a feladat listáról történő választáskor</string>
     <string name="auto_dismiss_datetime_list">Feladat lista</string>
-    <string name="widget_due_date_reschedule">Task újraütemezése</string>
-    <string name="widget_footer">Lábléc</string>
     <string name="custom_filter_not">NEM</string>
     <string name="custom_filter_or">VAGY</string>
     <string name="custom_filter_and">ÉS</string>

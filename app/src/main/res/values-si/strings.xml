@@ -37,7 +37,6 @@
     <string name="widget_due_date_hidden">සඟවන්න</string>
     <string name="widget_due_date_below_title">මාතෘකාවට පහළින්</string>
     <string name="widget_due_date_after_title">මාතෘකාවෙන් පසු</string>
-    <string name="widget_on_click">ක්ලික් කරන විට</string>
     <string name="widget_settings">විජට් සැකසුම්</string>
     <string name="map_theme">සිතියම් තේමාව</string>
     <string name="default_recurrence">පෙරනිමි පුනරාවර්තනය</string>
@@ -185,10 +184,7 @@
     <string name="delete_multiple_tasks_confirmation">%s මකා දමන ලදි</string>
     <string name="copy_multiple_tasks_confirmation">%s පිටපත් කරන ලදි</string>
     <string name="clear_completed_tasks_confirmation">සම්පුර්ණ කරන ලද කාර්යයන් ඉවත් කරනවාද\?</string>
-    <string name="widget_due_date_reschedule">කාර්යය නැවත සකස් කිරීම</string>
     <string name="widget_open_list">ලැයිස්තුව විවෘත කරන්න</string>
-    <string name="widget_do_nothing">කිසිවක් නොකරන්න</string>
-    <string name="widget_footer">පාදකය</string>
     <string name="widget_row_settings">පේළි සැකසුම්</string>
     <string name="widget_header_settings">ශීර්ෂ සැකසුම්</string>
     <string name="hardware_support_required">දෘඩාංග සහාය අවශ්‍යයි</string>

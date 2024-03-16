@@ -8,6 +8,7 @@ import com.todoroo.astrid.service.Upgrader.Companion.getLegacyColor
 import org.tasks.R
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
+import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
 import timber.log.Timber
 
 class WidgetPreferences(
@@ -15,65 +16,77 @@ class WidgetPreferences(
     private val preferences: Preferences,
     private val widgetId: Int
 ) : QueryPreferences {
-    fun showHeader(): Boolean {
-        return getBoolean(R.string.p_widget_show_header, true)
+
+    data class WidgetHeaderSettings(
+        val showHeader: Boolean,
+        val showTitle: Boolean,
+        val showSettings: Boolean,
+        val showMenu: Boolean,
+        val color: Int,
+        val headerOpacity: Int,
+        val headerSpacing: Int,
+        val headerLayout: Int,
+    )
+
+    data class WidgetRowSettings(
+        val showFullTaskTitle: Boolean,
+        val showCheckboxes: Boolean,
+        val showDescription: Boolean,
+        val showFullDescription: Boolean,
+        val showDividers: Boolean,
+        val showSubtaskChips: Boolean,
+        val showStartChips: Boolean,
+        val showPlaceChips: Boolean,
+        val showListChips: Boolean,
+        val showTagChips: Boolean,
+        val vPad: Int,
+        val textSize: Float,
+        val showFullDate: Boolean,
+        val compact: Boolean,
+        val groupMode: Int,
+        val dueDatePosition: Int,
+    ) {
+        val showDueDates get() = dueDatePosition != 2
+        val endDueDate get() = dueDatePosition != 1
     }
 
-    fun showTitle(): Boolean {
-        return getBoolean(R.string.p_widget_show_title, true)
-    }
+    fun getWidgetHeaderSettings() = WidgetHeaderSettings(
+        showHeader = getBoolean(R.string.p_widget_show_header, true),
+        showTitle = getBoolean(R.string.p_widget_show_title, true),
+        showSettings = getBoolean(R.string.p_widget_show_settings, true),
+        showMenu = getBoolean(R.string.p_widget_show_menu, true),
+        color = color,
+        headerOpacity = getAlphaValue(R.string.p_widget_header_opacity),
+        headerSpacing = getSpacing(R.string.p_widget_header_spacing),
+        headerLayout = when (getIntegerFromString(R.string.p_widget_header_spacing)) {
+            1 -> R.layout.widget_title_compact
+            2 -> R.layout.widget_title_none
+            else -> R.layout.widget_title_default
+        },
+    )
 
-    fun showCheckboxes(): Boolean {
-        return getBoolean(R.string.p_widget_show_checkboxes, true)
-    }
+    fun getWidgetListSettings() = WidgetRowSettings(
+        showFullTaskTitle = getBoolean(R.string.p_widget_show_full_task_title, false),
+        showCheckboxes = getBoolean(R.string.p_widget_show_checkboxes, true),
+        showDescription = getBoolean(R.string.p_widget_show_description, true),
+        showFullDescription = getBoolean(R.string.p_widget_show_full_description, false),
+        showDividers = getBoolean(R.string.p_widget_show_dividers, true),
+        showSubtaskChips = getBoolean(R.string.p_widget_show_subtasks, true),
+        showStartChips = getBoolean(R.string.p_widget_show_start_dates, true),
+        showPlaceChips = getBoolean(R.string.p_widget_show_places, true),
+        showListChips = getBoolean(R.string.p_widget_show_lists, true),
+        showTagChips = getBoolean(R.string.p_widget_show_tags, true),
+        vPad = getSpacing(R.string.p_widget_spacing),
+        textSize = getInt(R.string.p_widget_font_size, 16).toFloat(),
+        showFullDate = preferences.alwaysDisplayFullDate,
+        compact = getBoolean(R.string.p_widget_compact, false),
+        groupMode = groupMode,
+        dueDatePosition = dueDatePosition,
+    )
 
-    fun showSettings(): Boolean {
-        return getBoolean(R.string.p_widget_show_settings, true)
-    }
+    val dueDatePosition: Int get() = getIntegerFromString(R.string.p_widget_due_date_position)
 
-    fun showMenu(): Boolean {
-        return getBoolean(R.string.p_widget_show_menu, true)
-    }
-
-    fun showFullTaskTitle(): Boolean {
-        return getBoolean(R.string.p_widget_show_full_task_title, false)
-    }
-
-    fun showDescription(): Boolean {
-        return getBoolean(R.string.p_widget_show_description, true)
-    }
-
-    fun showFullDescription(): Boolean {
-        return getBoolean(R.string.p_widget_show_full_description, false)
-    }
-
-    fun showDividers(): Boolean {
-        return getBoolean(R.string.p_widget_show_dividers, true)
-    }
-
-    fun showSubtasks(): Boolean {
-        return getBoolean(R.string.p_widget_show_subtasks, true)
-    }
-
-    fun showStartDates(): Boolean {
-        return getBoolean(R.string.p_widget_show_start_dates, true)
-    }
-
-    fun showPlaces(): Boolean {
-        return getBoolean(R.string.p_widget_show_places, true)
-    }
-
-    fun showLists(): Boolean {
-        return getBoolean(R.string.p_widget_show_lists, true)
-    }
-
-    fun showTags(): Boolean {
-        return getBoolean(R.string.p_widget_show_tags, true)
-    }
-
-    val dueDatePosition: Int
-        get() = getIntegerFromString(R.string.p_widget_due_date_position)
-    var collapsed: MutableSet<Long>
+    var collapsed: Set<Long>
         get() {
             val value = getString(R.string.p_widget_collapsed)
             val collapsed = HashSet<Long>()
@@ -91,17 +104,6 @@ class WidgetPreferences(
         set(collapsed) {
             setString(R.string.p_widget_collapsed, Joiner.on(",").join(collapsed))
         }
-    val widgetSpacing: Int
-        get() = getSpacing(R.string.p_widget_spacing)
-    val headerSpacing: Int
-        get() = getSpacing(R.string.p_widget_header_spacing)
-    val headerLayout: Int
-        get() = when (getIntegerFromString(R.string.p_widget_header_spacing)) {
-            1 -> R.layout.widget_title_compact
-            2 -> R.layout.widget_title_none
-            else -> R.layout.widget_title_default
-        }
-
     private fun getSpacing(pref: Int): Int {
         val spacing = getIntegerFromString(pref)
         if (spacing == 2) {
@@ -111,13 +113,11 @@ class WidgetPreferences(
         return context.resources.getDimension(dimen).toInt()
     }
 
-    val fontSize: Int
-        get() = getInt(R.string.p_widget_font_size, 16)
     val filterId: String?
         get() = getString(R.string.p_widget_filter)
     val themeIndex: Int
         get() = getInt(R.string.p_widget_theme, 3)
-    var color: Int
+    val color: Int
         get() {
             var color = getInt(R.string.p_widget_color_v2, 0)
             if (color != 0) {
@@ -128,23 +128,13 @@ class WidgetPreferences(
             setInt(R.string.p_widget_color_v2, color)
             return color
         }
-        set(color) {
-            setInt(R.string.p_widget_color_v2, color)
-        }
-    val headerOpacity: Int
-        get() = getAlphaValue(R.string.p_widget_header_opacity)
+    fun setColor(color: Int) {
+        setInt(R.string.p_widget_color_v2, color)
+    }
     val footerOpacity: Int
         get() = getAlphaValue(R.string.p_widget_footer_opacity)
     val rowOpacity: Int
         get() = getAlphaValue(R.string.p_widget_opacity)
-
-    fun openOnFooterClick(): Boolean {
-        return getIntegerFromString(R.string.p_widget_footer_click) == 1
-    }
-
-    fun rescheduleOnDueDateClick(): Boolean {
-        return getIntegerFromString(R.string.p_widget_due_date_click) == 0
-    }
 
     private fun getAlphaValue(resId: Int): Int {
         return (getInt(resId, 100) / 100.0 * 255.0).toInt()
@@ -159,15 +149,13 @@ class WidgetPreferences(
     }
 
     fun setFilter(filterPreferenceValue: String?) {
-        collapsed = HashSet()
+        collapsed = setOf(HEADER_COMPLETED)
         preferences.setString(getKey(R.string.p_widget_filter), filterPreferenceValue)
     }
 
-    var compact: Boolean
-        get() = getBoolean(R.string.p_widget_compact, false)
-        set(value) {
-            setBoolean(R.string.p_widget_compact, value)
-        }
+    fun setCompact(compact: Boolean) {
+        setBoolean(R.string.p_widget_compact, compact)
+    }
 
     private fun getInt(resId: Int, defValue: Int): Int {
         return preferences.getInt(getKey(resId), defValue)
@@ -246,11 +234,8 @@ class WidgetPreferences(
         get() = getBoolean(R.string.p_widget_show_hidden, true)
     override val showCompleted: Boolean
         get() = getBoolean(R.string.p_widget_show_completed, false)
-    override var alwaysDisplayFullDate: Boolean
+    override val alwaysDisplayFullDate: Boolean
         get() = preferences.alwaysDisplayFullDate
-        set(noWeekday) {
-            preferences.alwaysDisplayFullDate = noWeekday
-        }
     override var completedTasksAtBottom: Boolean
         get() = preferences.completedTasksAtBottom
         set(value) {

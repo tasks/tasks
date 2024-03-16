@@ -432,7 +432,6 @@
     <string name="sort_created">Pagal sukūrimo datą</string>
     <string name="custom_filter_criteria">Filtravimo kriterijai</string>
     <string name="auto_dismiss_datetime_list_summary">Automatiškai uždaryti renkantis iš užduočių sąrašo</string>
-    <string name="widget_do_nothing">Nieko nedaryti</string>
     <string name="widget_due_date_below_title">Žemiau pavadinimo</string>
     <string name="widget_due_date_after_title">Po pavadinimo</string>
     <string name="opacity_footer">Apatinės antraštės permatomumas</string>
@@ -463,7 +462,6 @@
     <string name="yesterday_lowercase">vakar</string>
     <string name="tomorrow_lowercase">rytoj</string>
     <string name="today_lowercase">šiandien</string>
-    <string name="widget_footer">Apatinė antraštė</string>
     <string name="widget_due_date_hidden">Paslėpta</string>
     <string name="settings_default">Numatyta</string>
     <string name="share">Dalintis</string>
@@ -569,8 +567,6 @@
     <string name="background_location_permission_required">Tasks renka vietovės duomenis, kad įgalintų priminimus pagal vietovę, net kai programa uždaryta arba nenaudojama.</string>
     <string name="help_and_feedback">Pagalba ir atsiliepimai</string>
     <string name="error_adding_account">Klaida: %s</string>
-    <string name="widget_due_date_reschedule">Nukelti užduotį</string>
-    <string name="widget_on_click">Paspaudus</string>
     <string name="default_tags">Numatytos etiketės</string>
     <string name="location_radius_meters">%s m.</string>
     <string name="subtasks">Antrinės užduotys</string>

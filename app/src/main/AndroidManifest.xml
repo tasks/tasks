@@ -315,7 +315,7 @@
     <!-- ======================================================== Services = -->
 
     <service
-      android:name=".widget.ScrollableWidgetUpdateService"
+      android:name=".widget.TasksWidgetAdapter"
       android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
     <service

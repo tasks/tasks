@@ -6,7 +6,7 @@ import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.preferences.BasePreferences
-import org.tasks.preferences.fragments.ScrollableWidget.Companion.newScrollableWidget
+import org.tasks.preferences.fragments.WidgetSettings.Companion.newWidgetSettings
 
 @AndroidEntryPoint
 class WidgetConfigActivity : BasePreferences() {
@@ -32,5 +32,5 @@ class WidgetConfigActivity : BasePreferences() {
 
     override fun getRootTitle() = R.string.widget_settings
 
-    override fun getRootPreference() = newScrollableWidget(appWidgetId)
+    override fun getRootPreference() = newWidgetSettings(appWidgetId)
 }

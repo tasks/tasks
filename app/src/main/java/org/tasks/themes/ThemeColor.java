@@ -248,6 +248,7 @@ public class ThemeColor implements Pickable {
     return colorPrimary;
   }
 
+  @ColorInt
   public int getColorOnPrimary() {
     return colorOnPrimary;
   }

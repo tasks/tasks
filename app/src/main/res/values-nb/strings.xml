@@ -432,8 +432,6 @@
     <string name="widget_id">Miniprograms-ID: %d</string>
     <string name="color_wheel">Fargehjul</string>
     <string name="widget_open_list">Åpne liste</string>
-    <string name="widget_do_nothing">Ikke gjør noe</string>
-    <string name="widget_on_click">Ved klikk</string>
     <string name="menu_discard_changes">Forkast endringer</string>
     <string name="widget_show_menu">Vis meny</string>
     <string name="preferences_look_and_feel">Utseende og oppførsel</string>
@@ -458,7 +456,6 @@
     <string name="widget_due_date_hidden">Skjult</string>
     <string name="widget_due_date_below_title">Under tittelen</string>
     <string name="widget_due_date_after_title">Etter tittel</string>
-    <string name="widget_footer">Bunntekst</string>
     <string name="opacity_footer">Bunntekst-dekkevne</string>
     <string name="opacity_row">Rad-dekkevne</string>
     <string name="opacity_header">Topptekst-dekkevne</string>
@@ -494,7 +491,6 @@
     <string name="filter_today_only">Kun i dag</string>
     <string name="etesync_selection_description">Ende-til-ende-kryptert synkronisering</string>
     <string name="caldav_selection_description">Synkronisering basert på åpne internettstandarder</string>
-    <string name="widget_due_date_reschedule">Endre gjøremålstidspunkt</string>
     <string name="sort_created">Etter opprettelsestid</string>
     <string name="auto_dismiss_datetime_list">Gjøremålsliste</string>
     <string name="auto_dismiss_datetime_list_summary">Lukk automatisk når valgt fra gjøremålsliste</string>

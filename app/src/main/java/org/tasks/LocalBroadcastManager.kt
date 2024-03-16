@@ -79,6 +79,10 @@ class LocalBroadcastManager @Inject constructor(
         localBroadcastManager.sendBroadcast(Intent(REFRESH_PURCHASES))
     }
 
+    fun reconfigureWidgets() {
+        appWidgetManager.widgetIds.forEach { reconfigureWidget(it) }
+    }
+
     fun reconfigureWidget(appWidgetId: Int) {
         appWidgetManager.reconfigureWidgets(appWidgetId)
     }

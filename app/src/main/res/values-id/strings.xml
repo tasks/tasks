@@ -383,9 +383,7 @@
     <string name="tasker_list_notification">Daftar Notifikasi</string>
     <string name="widget_due_date_hidden">Tersembunyi</string>
     <string name="widget_due_date_after_title">Sesudah judul</string>
-    <string name="widget_due_date_reschedule">Jadwalkan ulang tugas</string>
     <string name="widget_open_list">Buka daftar</string>
-    <string name="widget_do_nothing">Jangan lakukan apapun</string>
     <string name="theme_system_default">Bawaan sistem</string>
     <string name="default_recurrence">Pengulangan bawaan</string>
     <string name="default_tags">Tag bawaan</string>
@@ -549,8 +547,6 @@
     <string name="repeats_plural_on">Ulangi setiap %1$s pada %2$s</string>
     <string name="bundle_notifications">Notifikasi Bundel</string>
     <string name="widget_due_date_below_title">Dibawah judul</string>
-    <string name="widget_on_click">Pada klik</string>
-    <string name="widget_footer">Tajuk bawah</string>
     <string name="opacity_footer">Opasitas tajuk bawah</string>
     <string name="opacity_row">Opasitas baris</string>
     <string name="opacity_header">Opasitas tajuk</string>

@@ -39,7 +39,7 @@
 
     <ImageView
       android:id="@+id/chip_background"
-      android:src="@drawable/widget_chip_dark_bg"
+      android:src="@drawable/widget_chip_bg"
       android:layout_alignParentStart="true"
       android:layout_alignParentTop="true"
       android:layout_alignBottom="@id/chip_text"

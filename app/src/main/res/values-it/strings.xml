@@ -497,11 +497,7 @@
     <string name="widget_due_date_hidden">Nascosto</string>
     <string name="widget_due_date_below_title">Sotto il titolo</string>
     <string name="widget_due_date_after_title">Dopo il titolo</string>
-    <string name="widget_due_date_reschedule">Pianifica di nuovo l\'attività</string>
     <string name="widget_open_list">Apri lista</string>
-    <string name="widget_do_nothing">Non fare nulla</string>
-    <string name="widget_on_click">Al clic</string>
-    <string name="widget_footer">Piè di pagina</string>
     <string name="yesterday_lowercase">ieri</string>
     <string name="tomorrow_lowercase">domani</string>
     <string name="today_lowercase">oggi</string>

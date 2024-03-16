@@ -292,11 +292,7 @@
     <string name="widget_due_date_hidden">மறைக்கப்பட்டுள்ளது</string>
     <string name="widget_due_date_below_title">தலைப்புக்கு கீழே</string>
     <string name="widget_due_date_after_title">தலைப்புக்குப் பிறகு</string>
-    <string name="widget_due_date_reschedule">பணியை மறுபரிசீலனை செய்யுங்கள்</string>
     <string name="widget_open_list">திறந்த பட்டியல்</string>
-    <string name="widget_do_nothing">எதுவும் செய்ய வேண்டாம்</string>
-    <string name="widget_on_click">கிளிக் செய்தால்</string>
-    <string name="widget_footer">அடிக்குறிப்பு</string>
     <string name="widget_row_settings">வரிசை அமைப்புகள்</string>
     <string name="widget_header_settings">தலைப்பு அமைப்புகள்</string>
     <string name="widget_settings">விட்ஜெட் அமைப்புகள்</string>

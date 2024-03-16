@@ -575,11 +575,7 @@
     <string name="widget_due_date_hidden">Сховано</string>
     <string name="widget_due_date_below_title">Під назвою</string>
     <string name="widget_due_date_after_title">Після назви</string>
-    <string name="widget_due_date_reschedule">Перенести завдання</string>
     <string name="widget_open_list">Відкрити список</string>
-    <string name="widget_do_nothing">Нічого не робити</string>
-    <string name="widget_on_click">Після натискання</string>
-    <string name="widget_footer">Спід</string>
     <string name="opacity_footer">Непрозорість споду</string>
     <string name="opacity_row">Непрозорість строки</string>
     <string name="opacity_header">Непрозорість заголовка</string>

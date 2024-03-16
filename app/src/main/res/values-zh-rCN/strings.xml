@@ -456,8 +456,6 @@
     <string name="widget_id">部件ID：%d</string>
     <string name="widget_show_menu">显示菜单</string>
     <string name="widget_open_list">打开列表</string>
-    <string name="widget_do_nothing">什么也不做</string>
-    <string name="widget_on_click">点击时</string>
     <string name="auto_dismiss_datetime_widget_summary">从小部件中选择时自动关闭</string>
     <string name="auto_dismiss_datetime_widget">小部件</string>
     <string name="auto_dismiss_datetime_edit_summary">从任务编辑中选择时自动关闭</string>
@@ -467,8 +465,6 @@
     <string name="widget_due_date_hidden">隐藏</string>
     <string name="widget_due_date_below_title">标题下方</string>
     <string name="widget_due_date_after_title">标题后</string>
-    <string name="widget_due_date_reschedule">重新安排任务</string>
-    <string name="widget_footer">页脚</string>
     <string name="opacity_footer">页脚不透明度</string>
     <string name="opacity_row">行不透明度</string>
     <string name="opacity_header">标题不透明度</string>

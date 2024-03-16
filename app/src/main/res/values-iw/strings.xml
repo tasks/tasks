@@ -493,11 +493,7 @@
     <string name="choose_synchronization_service">בחירת פלטפורמה</string>
     <string name="enter_tag_name">נא למלא שם תגית</string>
     <string name="subtasks_multilevel_google_task">תת־משימות מקוננות אינן נתמכות על ידי Google Tasks</string>
-    <string name="widget_due_date_reschedule">לתזמן משימה מחדש</string>
     <string name="widget_open_list">לפתוח רשימה</string>
-    <string name="widget_do_nothing">לא לעשות כלום</string>
-    <string name="widget_on_click">בלחיצה</string>
-    <string name="widget_footer">כותרת תחתונה</string>
     <string name="theme_system_default">בררת המחדל של המערכת</string>
     <string name="opacity_footer">אטימות הכותרת התחתונה</string>
     <string name="opacity_header">אטימות כותרת</string>

@@ -484,11 +484,7 @@
     <string name="widget_due_date_hidden">Ukryte</string>
     <string name="widget_due_date_below_title">Poniżej tytułu</string>
     <string name="widget_due_date_after_title">Po tytule</string>
-    <string name="widget_due_date_reschedule">Przesuń zadanie</string>
     <string name="widget_open_list">Otwórz listę</string>
-    <string name="widget_do_nothing">Nie rób nic</string>
-    <string name="widget_on_click">Po kliknięciu</string>
-    <string name="widget_footer">Stopka</string>
     <string name="opacity_footer">Nieprzezroczystość stopki</string>
     <string name="opacity_row">Nieprzezroczystość wierszy</string>
     <string name="opacity_header">Nieprzezroczystość nagłówka</string>

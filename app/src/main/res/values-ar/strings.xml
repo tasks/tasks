@@ -249,8 +249,6 @@
     <string name="user">المستعمل</string>
     <string name="copy_selected_tasks">نسخ المهام المختارة؟</string>
     <string name="delete_selected_tasks">حذف المهام المختارة؟</string>
-    <string name="widget_do_nothing">لا تفعل شيئًا</string>
-    <string name="widget_on_click">عند النّقر</string>
     <string name="restart_now">إعادة التشغيل الآن</string>
     <string name="name_cannot_be_empty">لا يمكن أن يكون الاسم فارغًا</string>
     <string name="send_anonymous_statistics">طوّر Tasks</string>
@@ -400,7 +398,6 @@
     <string name="error_adding_account">خطأ: %s</string>
     <string name="url">رابط</string>
     <string name="widget_due_date_hidden">مخفي</string>
-    <string name="widget_footer">تذييل</string>
     <string name="show_unstarted">إظهار الغير مبدوء</string>
     <string name="discard">رمي</string>
     <string name="menu_discard_changes">رمي التغييرات</string>
@@ -565,7 +562,6 @@
     <string name="bundle_notifications">حزمة الاشعارات</string>
     <string name="use_locale_default">استخدم الإعدادات المحلية الافتراضية</string>
     <string name="clear_completed_tasks_confirmation">أزل المهام المتممة؟</string>
-    <string name="widget_due_date_reschedule">أعد جدولة المهمة</string>
     <string name="hardware_support_required">مطلوب دعم الأجهزة</string>
     <string name="restart_required">أعد تشغيل التطبيق ليأخذ هذا التغيير تأثيره</string>
     <string name="map_theme">قالب الخارطة</string>

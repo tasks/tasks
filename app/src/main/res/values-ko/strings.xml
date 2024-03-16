@@ -494,12 +494,8 @@
     <string name="action_new_task">새 할일</string>
     <string name="widget_due_date_hidden">숨기기</string>
     <string name="widget_due_date_below_title">제목 밑</string>
-    <string name="widget_due_date_reschedule">할일 기한 변경</string>
     <string name="widget_open_list">목록 열기</string>
-    <string name="widget_do_nothing">아무 동작 하지 않음</string>
-    <string name="widget_on_click">클릭 시</string>
     <string name="opacity_footer">푸터 불투명도</string>
-    <string name="widget_footer">푸터</string>
     <string name="opacity_row">줄 불투명도</string>
     <string name="opacity_header">헤더 불투명도</string>
     <string name="widget_show_dividers">할일 구분선 표시</string>

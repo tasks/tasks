@@ -326,7 +326,6 @@
     <string name="discard_changes">تبدیلیاں مسترد کریں؟</string>
     <string name="date_shortcut_must_come_after">%1$s کو %2$sسے پہلے آنا چاہیے</string>
     <string name="date_shortcut_must_come_before">%1$s کو %2$s سے پہلے آنا چایئے</string>
-    <string name="widget_footer">نچلا حصہ</string>
     <string name="widget_row_settings">قطار کی سیٹنگ</string>
     <string name="widget_header_settings">ہیڈر کی سیٹنگ</string>
     <string name="widget_settings">ویجٹ سیٹنگ</string>
@@ -387,10 +386,7 @@
     <string name="widget_due_date_hidden">چھپا ہوا</string>
     <string name="widget_due_date_below_title">عنوان کے نیچے</string>
     <string name="widget_due_date_after_title">عنوان کے بعد</string>
-    <string name="widget_due_date_reschedule">ٹاسک ری شیڈیول کریں</string>
     <string name="widget_open_list">فہرست کھولیں</string>
-    <string name="widget_do_nothing">کچھ نہ کریں</string>
-    <string name="widget_on_click">کلک پر</string>
     <string name="tasker_create_task">ٹاسک بنائیں</string>
     <string name="repeat_monthly_last_week">آخری</string>
     <string name="repeat_monthly_fifth_week">پانچواں</string>

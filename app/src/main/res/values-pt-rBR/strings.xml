@@ -454,11 +454,7 @@
     <string name="widget_due_date_hidden">Escondido</string>
     <string name="widget_due_date_below_title">Abaixo do título</string>
     <string name="widget_due_date_after_title">Depois do título</string>
-    <string name="widget_due_date_reschedule">Reagendar tarefa</string>
     <string name="widget_open_list">Abrir a lista</string>
-    <string name="widget_do_nothing">Não fazer nada</string>
-    <string name="widget_on_click">Quando clicado</string>
-    <string name="widget_footer">Rodapé</string>
     <string name="theme_system_default">Padrão do Sistema</string>
     <string name="menu_discard_changes">Descartar mudanças</string>
     <string name="CFC_tag_text">Etiqueta: \?</string>

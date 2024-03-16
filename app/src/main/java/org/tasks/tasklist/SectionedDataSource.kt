@@ -8,12 +8,12 @@ import org.tasks.data.TaskContainer
 import org.tasks.time.DateTimeUtils.startOfDay
 
 class SectionedDataSource(
-    tasks: List<TaskContainer>,
-    disableHeaders: Boolean,
-    val groupMode: Int,
-    val subtaskMode: Int,
-    private val collapsed: Set<Long>,
-    private val completedAtBottom: Boolean,
+    tasks: List<TaskContainer> = emptyList(),
+    disableHeaders: Boolean = false,
+    val groupMode: Int = SortHelper.GROUP_NONE,
+    val subtaskMode: Int = SortHelper.SORT_MANUAL,
+    private val collapsed: Set<Long> = emptySet(),
+    private val completedAtBottom: Boolean = true,
 ) {
     private val tasks = tasks.toMutableList()
 
