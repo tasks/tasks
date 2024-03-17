@@ -93,9 +93,9 @@
     <string name="next_month">Próximo mês</string>
     <string name="CFC_importance_text">Mínima prioridade \?</string>
     <string name="CFC_importance_name">Prioridade…</string>
-    <string name="CFC_tag_name">Tag…</string>
-    <string name="CFC_tag_contains_name">Nome da tag contém…</string>
-    <string name="CFC_tag_contains_text">Nome da tag contém: ?</string>
+    <string name="CFC_tag_name">Estiqueta…</string>
+    <string name="CFC_tag_contains_name">Nome da etiqueta contém…</string>
+    <string name="CFC_tag_contains_text">Nome da etiqueta contém: ?</string>
     <string name="CFC_title_contains_name">Título…</string>
     <string name="CFC_title_contains_text">Título contem: ?</string>
     <string name="gcal_TEA_error">Erro ao inserir a tarefa no calendário!</string>
@@ -260,7 +260,7 @@
     <string name="date_shortcut_must_come_after">%1$s deve vir depois de %2$s</string>
     <string name="discard_changes">Descartar alterações?</string>
     <string name="discard">Descartar</string>
-    <string name="tag_settings">Config. Tags</string>
+    <string name="tag_settings">Config. de etiquetas</string>
     <string name="list_settings">Configurações da lista</string>
     <string name="delete">Excluir</string>
     <string name="copy">Copiar</string>
@@ -323,9 +323,9 @@
     <string name="repeats_from">Repetir a partir de</string>
     <string name="repeats_single">Repetir %s</string>
     <string name="repeats_single_on">Repetir %1$s em %2$s</string>
-    <string name="repeats_single_until">Repetir %1$s até %2$s</string>
+    <string name="repeats_single_until">Repete %1$s, até %2$s</string>
     <string name="repeats_single_number_of_times">Repetir %1$s, ocorre %2$d %3$s</string>
-    <string name="repeats_single_on_until">Repetir %1$s em %2$s até %3$s</string>
+    <string name="repeats_single_on_until">Repete %1$s em %2$s, até %3$s</string>
     <string name="repeats_single_on_number_of_times">Repetir %1$s em %2$s, ocorre %3$d %4$s</string>
     <string name="repeats_minutely">a cada minuto</string>
     <string name="repeats_hourly">a cada hora</string>
@@ -335,9 +335,9 @@
     <string name="repeats_yearly">anualmente</string>
     <string name="repeats_plural">Repetir todo %s</string>
     <string name="repeats_plural_on">Repetir todo %1$s em %2$s</string>
-    <string name="repeats_plural_until">Repete todo %1$s até %2$s</string>
+    <string name="repeats_plural_until">"Repete a cada  %1$s, até %2$s"</string>
     <string name="repeats_plural_number_of_times">Repetir todo %1$s, ocorre %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Repete cada %1$s em %2$s até %3$s</string>
+    <string name="repeats_plural_on_until">Repete a cada %1$s em %2$s , até %3$s</string>
     <string name="repeats_plural_on_number_of_times">Repete todo %1$s em %2$s, ocorre %3$d %4$s</string>
     <string name="dont_add_to_calendar">Não inserir no calendário</string>
     <string name="default_calendar">Calendário padrão</string>
@@ -520,7 +520,7 @@
     <string name="email">Correio eletrônico</string>
     <string name="start_date">Data inicial</string>
     <string name="SSD_sort_start">Por data inicial</string>
-    <string name="cancel">cancelar</string>
+    <string name="cancel">Cancelar</string>
     <string name="ok">OK</string>
     <string name="upgrade_automation_description">Plug-ins para Tasker, Automate e Locale</string>
     <string name="current_subscription">Assinatura atual: %s</string>
@@ -706,4 +706,21 @@
         <item quantity="many">ocorrências</item>
         <item quantity="other">ocorrências</item>
     </plurals>
+    <string name="sort_not_available">Não disponível por tags, filtros, ou locais</string>
+    <string name="repeat_monthly_on_day_number">Mensalmente no dia %1d</string>
+    <string name="change_priority">Mudar prioridade</string>
+    <string name="sort_list">Por lista</string>
+    <string name="sort_sorting">Listagem</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Mensalmente na %1$s %2$s</string>
+    <string name="sort_completed">Por data de conclusão</string>
+    <string name="sort_completion_group">Término em %s</string>
+    <string name="repeats_every">Repete a cada</string>
+    <string name="repeats_weekly_on">Repete em</string>
+    <string name="repeats_never">Nunca</string>
+    <string name="repeats_on">Em</string>
+    <string name="repeats_after">Após</string>
+    <string name="repeats_ends">Termina</string>
+    <string name="sort_grouping">Agrupamento</string>
+    <string name="sort_ascending">Ascendente</string>
+    <string name="sort_descending">Descendente</string>
 </resources>
