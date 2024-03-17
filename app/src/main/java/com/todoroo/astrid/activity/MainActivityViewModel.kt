@@ -16,7 +16,6 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -46,7 +45,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    @ApplicationContext context: Context,
     private val defaultFilterProvider: DefaultFilterProvider,
     private val filterProvider: FilterProvider,
     private val taskDao: TaskDao,
