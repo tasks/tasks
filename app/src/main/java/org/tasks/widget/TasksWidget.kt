@@ -136,13 +136,10 @@ class TasksWidget : AppWidgetProvider() {
             hPad = hPad,
             onClick = getNewTaskIntent(context, filter, id),
         )
-        addView(
-            R.id.title_container,
-            RemoteViews(context.packageName, widgetPreferences.headerLayout)
-        )
+
         setViewPadding(
             R.id.widget_title,
-            if (widgetPreferences.showMenu) 0 else hPad, 0, 0, 0
+            if (widgetPreferences.showMenu) 0 else hPad, vPad, 0, vPad
         )
         setTextColor(R.id.widget_title, color.colorOnPrimary)
         setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filter, id))

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/widget_title"
-  android:layout_height="@dimen/widget_height_default"
-  style="@style/WidgetTitle"
-  tools:text="@string/BFE_Active"
-  tools:textColor="@android:color/black" />

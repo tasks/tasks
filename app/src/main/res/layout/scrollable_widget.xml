@@ -34,12 +34,15 @@
       android:contentDescription="@string/widget_settings"
       tools:padding="@dimen/widget_padding"/>
 
-    <FrameLayout
-      android:id="@+id/title_container"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_toEndOf="@id/widget_change_list"
-      android:layout_toStartOf="@id/widget_reconfigure" />
+    <TextView
+        android:id="@+id/widget_title"
+        android:layout_height="wrap_content"
+        style="@style/WidgetTitle"
+        android:layout_toEndOf="@id/widget_change_list"
+        android:layout_toStartOf="@id/widget_reconfigure"
+        android:maxLines="1"
+        tools:text="@string/BFE_Active"
+        tools:textColor="@android:color/black" />
 
   </RelativeLayout>
 

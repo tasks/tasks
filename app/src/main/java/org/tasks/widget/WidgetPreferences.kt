@@ -25,7 +25,6 @@ class WidgetPreferences(
         val color: Int,
         val headerOpacity: Int,
         val headerSpacing: Int,
-        val headerLayout: Int,
     )
 
     data class WidgetRowSettings(
@@ -58,11 +57,6 @@ class WidgetPreferences(
         color = color,
         headerOpacity = getAlphaValue(R.string.p_widget_header_opacity),
         headerSpacing = getSpacing(R.string.p_widget_header_spacing),
-        headerLayout = when (getIntegerFromString(R.string.p_widget_header_spacing)) {
-            1 -> R.layout.widget_title_compact
-            2 -> R.layout.widget_title_none
-            else -> R.layout.widget_title_default
-        },
     )
 
     fun getWidgetListSettings() = WidgetRowSettings(
