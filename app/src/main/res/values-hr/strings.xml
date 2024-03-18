@@ -315,9 +315,9 @@
     <string name="dont_add_to_calendar">Nemoj dodati kalendaru</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_on_number_of_times">Ponavlja se svakih %1$s na %2$s, događa se %3$d %4$s</string>
-    <string name="repeats_plural_on_until">Ponavlja se svakih %1$s na %2$s do %3$s</string>
+    <string name="repeats_plural_on_until">Ponavlja se svakih %1$s na %2$s, završava %3$s</string>
     <string name="repeats_plural_number_of_times">Ponavlja se svakih %1$s, događa se %2$d %3$s</string>
-    <string name="repeats_plural_until">Ponavlja se svakih %1$s do %2$s</string>
+    <string name="repeats_plural_until">Ponavlja se svakih %1$s, završava %2$s</string>
     <string name="repeats_plural_on">Ponavlja se svakih %1$s na %2$s</string>
     <string name="repeats_plural">Ponavlja se svakih %s</string>
     <string name="repeats_yearly">godišnje</string>
@@ -327,9 +327,9 @@
     <string name="repeats_hourly">svaki sat</string>
     <string name="repeats_minutely">svake minute</string>
     <string name="repeats_single_on_number_of_times">Ponavlja se %1$s na %2$s, događa se %3$d %4$s</string>
-    <string name="repeats_single_on_until">Ponavlja se %1$s na %2$s do %3$s</string>
+    <string name="repeats_single_on_until">Ponavlja se %1$s na %2$s, završava %3$s</string>
     <string name="repeats_single_number_of_times">Ponavlja se %1$s, događa se %2$d %3$s</string>
-    <string name="repeats_single_until">Ponavlja se %1$s do %2$s</string>
+    <string name="repeats_single_until">Ponavlja se %1$s, završava %2$s</string>
     <string name="repeats_single_on">Ponavlja se %1$s na %2$s</string>
     <string name="repeats_single">Ponavlja se %s</string>
     <string name="repeats_from">Ponavlja se od</string>
