@@ -1,0 +1,7 @@
+* Dynamic widget theme
+* Replace 'until' with 'ends on' for repeating tasks
+* Fix loading selected list on startup
+* Fix repeating tasks ending one day early
+* Fix repeating task crash
+* Update translations
+

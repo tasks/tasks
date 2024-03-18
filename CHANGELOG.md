@@ -1,3 +1,18 @@
+### 13.8 (2024-03-18)
+
+* Dynamic widget theme (name-your-price subscription required)
+* Replace 'until' with 'ends on' for repeating tasks [#2797](https://github.com/tasks/tasks/pull/2797) - @akwala
+* Fix loading selected list on startup [#2777](https://github.com/tasks/tasks/issues/2777)
+* Fix repeating tasks ending one day early
+* Fix repeating task crash
+* Update translations
+  * Brazilian Portuguese - @mayhmemo
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Czech - Odweta
+  * German - @macpac59
+  * Spanish - gallegonovato
+  * Vietnamese - @ngocanhtve
+
 ### 13.7 (2024-02-07)
 
 * Fix returning to previous filter after search [#2700](https://github.com/tasks/tasks/pull/2700)
@@ -31,7 +46,7 @@
   * Swedish - @bittin
   * Turkish - @oersen
   * Ukrainian - Сергій
-  * Vietnamese -@ngocanhtve
+  * Vietnamese - @ngocanhtve
 
 ### 13.6.3 (2023-11-25)
 
