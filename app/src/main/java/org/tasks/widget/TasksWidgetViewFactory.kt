@@ -18,7 +18,6 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.date.DateTimeUtils
-import org.tasks.extensions.Context.isNightMode
 import org.tasks.extensions.setBackgroundResource
 import org.tasks.extensions.setColorFilter
 import org.tasks.extensions.setMaxLines
@@ -56,16 +55,11 @@ internal class TasksWidgetViewFactory(
             || (filter.supportsManualSort() && widgetPreferences.isManualSort)
             || (filter is AstridOrderingFilter && widgetPreferences.isAstridSort)
     private var tasks = SectionedDataSource()
-    private val isDark = when (widgetPreferences.themeIndex) {
-        0 -> false
-        3 -> context.isNightMode
-        else -> true
-    }
-    private val onSurface = context.getColor(if (isDark) R.color.white_87 else R.color.black_87)
-    private val onSurfaceVariant = context.getColor(if (isDark) R.color.white_60 else R.color.black_60)
+    private val onSurface = context.getColor(if (settings.isDark) R.color.white_87 else R.color.black_87)
+    private val onSurfaceVariant = context.getColor(if (settings.isDark) R.color.white_60 else R.color.black_60)
 
     init {
-        chipProvider.isDark = isDark
+        chipProvider.isDark = settings.isDark
     }
 
     override fun onCreate() {}
@@ -134,7 +128,7 @@ internal class TasksWidgetViewFactory(
                 section.headerColor(
                     context,
                     settings.groupMode,
-                    if (isDark) R.color.white_60 else R.color.black_60
+                    if (settings.isDark) R.color.white_60 else R.color.black_60
                 )
             )
             if (!settings.showDividers) {

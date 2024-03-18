@@ -1,11 +1,13 @@
 package org.tasks.widget
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import com.google.common.base.Joiner
 import com.google.common.base.Splitter
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.service.Upgrader.Companion.getLegacyColor
 import org.tasks.R
+import org.tasks.extensions.Context.isNightMode
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
@@ -23,8 +25,10 @@ class WidgetPreferences(
         val showSettings: Boolean,
         val showMenu: Boolean,
         val color: Int,
+        val backgroundColor: Int,
         val headerOpacity: Int,
         val headerSpacing: Int,
+        val isDark: Boolean,
     )
 
     data class WidgetRowSettings(
@@ -44,6 +48,7 @@ class WidgetPreferences(
         val compact: Boolean,
         val groupMode: Int,
         val dueDatePosition: Int,
+        val isDark: Boolean,
     ) {
         val showDueDates get() = dueDatePosition != 2
         val endDueDate get() = dueDatePosition != 1
@@ -55,8 +60,10 @@ class WidgetPreferences(
         showSettings = getBoolean(R.string.p_widget_show_settings, true),
         showMenu = getBoolean(R.string.p_widget_show_menu, true),
         color = color,
+        backgroundColor = backgroundColor,
         headerOpacity = getAlphaValue(R.string.p_widget_header_opacity),
         headerSpacing = getSpacing(R.string.p_widget_header_spacing),
+        isDark = isDark,
     )
 
     fun getWidgetListSettings() = WidgetRowSettings(
@@ -76,9 +83,27 @@ class WidgetPreferences(
         compact = getBoolean(R.string.p_widget_compact, false),
         groupMode = groupMode,
         dueDatePosition = dueDatePosition,
+        isDark = isDark,
     )
 
     val dueDatePosition: Int get() = getIntegerFromString(R.string.p_widget_due_date_position)
+
+    private val isDark: Boolean
+        get() = when (themeIndex) {
+            0 -> false
+            3, 4 -> context.isNightMode
+            else -> true
+        }
+
+    private val backgroundColor: Int
+        get() = context.getColor(
+            when (themeIndex) {
+                1 -> android.R.color.black
+                2 -> R.color.md_background_dark
+                3, 4 -> R.color.widget_background_follow_system
+                else -> android.R.color.white
+            }
+        )
 
     var collapsed: Set<Long>
         get() {
@@ -113,6 +138,16 @@ class WidgetPreferences(
         get() = getInt(R.string.p_widget_theme, 3)
     val color: Int
         get() {
+            if (themeIndex == 4) {
+                return ContextCompat.getColor(
+                    context,
+                    if (isDark) {
+                        com.google.android.material.R.color.m3_sys_color_dynamic_dark_primary
+                    } else {
+                        com.google.android.material.R.color.m3_sys_color_dynamic_light_primary
+                    }
+                )
+            }
             var color = getInt(R.string.p_widget_color_v2, 0)
             if (color != 0) {
                 return color

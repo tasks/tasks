@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.todoroo.andlib.utility.AndroidUtilities.preS
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
@@ -58,9 +59,9 @@ class ThemePickerDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED)
         widget = arguments?.getBoolean(EXTRA_WIDGET) ?: false
-        val themes = resources.getStringArray(
-            if (widget) R.array.widget_themes else R.array.base_theme_names
-        )
+        val themes = resources
+            .getStringArray(if (widget) R.array.widget_themes else R.array.base_theme_names)
+            .let { if (widget && (preS() || !inventory.hasPro)) it.dropLast(1).toTypedArray() else it }
 
         adapter = object : ArrayAdapter<String>(requireActivity(), R.layout.simple_list_item_single_choice, themes) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

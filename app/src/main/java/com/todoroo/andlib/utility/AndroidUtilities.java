@@ -140,8 +140,12 @@ public class AndroidUtilities {
     return !atLeastOreo();
   }
 
+  public static boolean preS() {
+    return !atLeastS();
+  }
+
   public static boolean preTiramisu() {
-    return VERSION.SDK_INT < VERSION_CODES.TIRAMISU;
+    return !atLeastTiramisu();
   }
 
   public static boolean preUpsideDownCake() {

@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.RemoteViews
-import androidx.annotation.ColorInt
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,15 +74,14 @@ class TasksWidget : AppWidgetProvider() {
             } else {
                 setViewVisibility(R.id.widget_header, View.GONE)
             }
-            val bgColor = getBackgroundColor(widgetPreferences.themeIndex)
             setBackgroundColor(
                 viewId = R.id.list_view,
-                color = bgColor,
+                color = settings.backgroundColor,
                 opacity = widgetPreferences.rowOpacity,
             )
             setBackgroundColor(
                 viewId = R.id.empty_view,
-                color = bgColor,
+                color = settings.backgroundColor,
                 opacity = widgetPreferences.footerOpacity,
             )
             setOnClickPendingIntent(R.id.empty_view, getOpenListIntent(context, filter, id))
@@ -166,17 +164,6 @@ class TasksWidget : AppWidgetProvider() {
         } else {
             setViewVisibility(viewId, View.GONE)
         }
-    }
-
-    @ColorInt
-    private fun getBackgroundColor(themeIndex: Int): Int {
-        val background: Int = when (themeIndex) {
-            1 -> android.R.color.black
-            2 -> R.color.md_background_dark
-            3 -> R.color.widget_background_follow_system
-            else -> android.R.color.white
-        }
-        return context.getColor(background)
     }
 
     private fun getPendingIntentTemplate(context: Context): PendingIntent =

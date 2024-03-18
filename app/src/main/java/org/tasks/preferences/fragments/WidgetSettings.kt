@@ -200,8 +200,10 @@ class WidgetSettings : InjectingPreferenceFragment() {
     }
 
     private fun updateTheme() {
+        val index = widgetPreferences.themeIndex
         val widgetNames = resources.getStringArray(R.array.widget_themes)
-        findPreference(R.string.p_widget_theme).summary = widgetNames[widgetPreferences.themeIndex]
+        findPreference(R.string.p_widget_theme).summary = widgetNames[index]
+        findPreference(R.string.p_widget_color_v2).isVisible = index != 4
     }
 
     private fun updateColor() {

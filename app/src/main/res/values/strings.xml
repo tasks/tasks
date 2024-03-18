@@ -389,6 +389,7 @@ File %1$s contained %2$s.\n\n
   <string name="theme_wallpaper">Wallpaper</string>
   <string name="theme_day_night">Day/Night</string>
   <string name="theme_system_default">System default</string>
+  <string name="theme_dynamic">Dynamic</string>
   <string name="language">Language</string>
   <string name="restart_required">Restart Tasks for this change to take effect</string>
   <string name="restart_now">Restart now</string>

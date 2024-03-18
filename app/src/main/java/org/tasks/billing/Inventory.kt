@@ -12,7 +12,6 @@ import org.tasks.data.CaldavDao
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.Preferences
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -59,6 +58,7 @@ class Inventory @Inject constructor(
 
     var hasPro = false
         get() {
+            @Suppress("KotlinConstantConditions")
             return BuildConfig.FLAVOR == "generic"
                     || (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false))
                     || hasTasksAccount
