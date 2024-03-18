@@ -7,9 +7,7 @@
 
   <!-- theme attributes -->
   <attr format="reference" name="overlay_theme"/>
-  <attr format="dimension" name="card_elevation"/>
   <attr format="integer" name="horizontal_divider_visibility"/>
-  <attr format="color" name="colorOnPrimaryHint"/>
 
   <declare-styleable name="TimePreference">
     <attr format="string" name="time_summary"/>

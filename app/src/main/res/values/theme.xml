@@ -23,7 +23,6 @@
     <item name="android:textColorPrimary">@color/text_primary</item>
     <item name="android:textColorSecondary">@color/text_secondary</item>
     <item name="android:textColorTertiary">@color/text_tertiary</item>
-    <item name="card_elevation">2dp</item>
     <item name="horizontal_divider_visibility">2</item> <!-- View.GONE -->
     <item name="materialTimePickerTheme">@style/ClockTheme</item>
     <item name="materialCalendarTheme">@style/CalendarTheme</item>
@@ -56,7 +55,6 @@
     <item name="android:windowBackground">@color/black_38</item>
     <item name="android:colorBackground">@color/black_60</item>
     <item name="android:windowShowWallpaper">true</item>
-    <item name="card_elevation">0dp</item>
   </style>
 
 </resources>
