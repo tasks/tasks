@@ -123,6 +123,7 @@ internal class TasksWidgetViewFactory(
                     R.drawable.ic_keyboard_arrow_up_black_18dp
                 }
             )
+            setColorFilter(R.id.arrow, onSurfaceVariant)
             setTextColor(
                 R.id.header,
                 section.headerColor(
