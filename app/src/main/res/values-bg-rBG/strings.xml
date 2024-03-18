@@ -333,9 +333,9 @@
     <string name="repeats_from">Повтаря се от</string>
     <string name="repeats_single">Повтаря се %s</string>
     <string name="repeats_single_on">Повтаря се %1$s в/ъв %2$s</string>
-    <string name="repeats_single_until">Повтаря се %1$s до %2$s</string>
+    <string name="repeats_single_until">Повтаря се %1$s, завършва на %2$s</string>
     <string name="repeats_single_number_of_times">Повтаря се %1$s, възниква %2$d %3$s</string>
-    <string name="repeats_single_on_until">Повтаря се %1$s в/ъв %2$s до %3$s</string>
+    <string name="repeats_single_on_until">Повтаря се %1$s в/ъв %2$s, завършва на %3$s</string>
     <string name="repeats_single_on_number_of_times">Повтаря се %1$s в/ъв %2$s, възниква %3$d %4$s</string>
     <string name="repeats_minutely">ежеминутно</string>
     <string name="repeats_hourly">ежечасно</string>
@@ -345,9 +345,9 @@
     <string name="repeats_yearly">ежегодишно</string>
     <string name="repeats_plural">Повтаря се всеки %s</string>
     <string name="repeats_plural_on">Повтаря се всеки %1$s в/ъв %2$s</string>
-    <string name="repeats_plural_until">Повтаря се всеки %1$s до %2$s</string>
+    <string name="repeats_plural_until">Повтаря се всеки %1$s, завършва на %2$s</string>
     <string name="repeats_plural_number_of_times">Повтаря се всеки %1$s, възниква %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Повтаря се всеки %1$s в/ъв %2$s до %3$s</string>
+    <string name="repeats_plural_on_until">Повтаря се всеки %1$s в/ъв %2$s, завършва на %3$s</string>
     <string name="repeats_plural_on_number_of_times">Повтаря се всеки %1$s в/ъв %2$s, възниква %3$d %4$s</string>
     <string name="dont_add_to_calendar">Не се добавя в календар</string>
     <string name="default_calendar">Календар по подразбиране</string>
