@@ -1,4 +1,4 @@
-### 13.8 (2024-03-18)
+### 13.8 (2024-03-19)
 
 * Dynamic widget theme (name-your-price subscription required)
 * Replace 'until' with 'ends on' for repeating tasks [#2797](https://github.com/tasks/tasks/pull/2797) - @akwala
