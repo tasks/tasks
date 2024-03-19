@@ -7,10 +7,14 @@
 * Fix repeating task crash
 * Update translations
   * Brazilian Portuguese - @mayhmemo
+  * Bulgarian - @StoyanDimitrov
+  * Catalan - @ferranpujolcamins
   * Chinese (Simplified) - 大王叫我来巡山
+  * Croatian - @milotype
   * Czech - Odweta
   * German - @macpac59
   * Spanish - gallegonovato
+  * Swedish - @bittin
   * Vietnamese - @ngocanhtve
 
 ### 13.7 (2024-02-07)
