@@ -89,7 +89,12 @@ class TasksWidget : AppWidgetProvider() {
             setRemoteAdapter(
                 R.id.list_view,
                 Intent(context, TasksWidgetAdapter::class.java)
-                    .putExtra(TasksWidgetAdapter.EXTRA_FILTER, filter)
+                    .putExtra(
+                        TasksWidgetAdapter.EXTRA_FILTER,
+                        Bundle().apply {
+                            putParcelable(TasksWidgetAdapter.EXTRA_FILTER, filter)
+                        }
+                    )
                     .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id)
                     .setData(cacheBuster)
             )
