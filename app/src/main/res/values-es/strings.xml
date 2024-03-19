@@ -747,4 +747,5 @@
     <string name="repeats_ends">Termina</string>
     <string name="change_priority">Prioridad de cambio</string>
     <string name="clear_completed_tasks_count">%s será(n) eliminada(s)</string>
+    <string name="theme_dynamic">Dinámico</string>
 </resources>
