@@ -6,7 +6,7 @@
     <string name="backup_BAc_import">Importa una còpia de seguretat</string>
     <string name="backup_BAc_export">Fes una còpia de seguretat ara</string>
     <string name="import_summary_title">Resum de la restauració</string>
-    <string name="import_progress_read">S\'està llegint la tasca %d</string>
+    <string name="import_progress_read">S\'està llegint la tasca %d…</string>
     <string name="read_permission_label">Permisos del Tasks</string>
     <string name="DLG_delete_this_task_question">Voleu suprimir aquesta tasca?</string>
     <string name="DLG_hour_minutes">Temps (hores : minuts)</string>
@@ -107,7 +107,7 @@
     <string name="TEA_timer_est">Est. %s</string>
     <string name="SSD_sort_my_order">El meu ordre</string>
     <string name="TEA_add_subtask">Afegeix una subtasca</string>
-    <string name="display_name">Mostra el nom</string>
+    <string name="display_name">Nom de visualització</string>
     <string name="TEA_control_location">Ubicació</string>
     <string name="TEA_control_gcal">Agenda</string>
     <string name="TEA_control_repeat">Repeteix</string>
