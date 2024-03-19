@@ -328,9 +328,9 @@
     <string name="repeats_from">Upprepas från</string>
     <string name="repeats_single">Upprepas %s</string>
     <string name="repeats_single_on">Upprepas %1$s vid %2$s</string>
-    <string name="repeats_single_until">Upprepas %1$s till %2$s</string>
+    <string name="repeats_single_until">Upprepas %1$s slutar på %2$s</string>
     <string name="repeats_single_number_of_times">Upprepas %1$s, inträffar %2$d %3$s</string>
-    <string name="repeats_single_on_until">Upprepar %1$s på %2$s till %3$s</string>
+    <string name="repeats_single_on_until">Upprepar %1$s på %2$s slutar på %3$s</string>
     <string name="repeats_single_on_number_of_times">Upprepar %1$s på %2$s, inträffar %3$d %4$s</string>
     <string name="repeats_minutely">Varje minut</string>
     <string name="repeats_hourly">Varje timme</string>
@@ -340,9 +340,9 @@
     <string name="repeats_yearly">varje år</string>
     <string name="repeats_plural">Upprepas varje %s</string>
     <string name="repeats_plural_on">Upprepas %1$s vid %2$s</string>
-    <string name="repeats_plural_until">Upprepar varje %1$s tills %2$s</string>
+    <string name="repeats_plural_until">Upprepar varje %1$s slutar på %2$s</string>
     <string name="repeats_plural_number_of_times">Upprepar varje %1$s, inträffar %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Upprepar varje %1$s på %2$s till %3$s</string>
+    <string name="repeats_plural_on_until">Upprepar varje %1$s på %2$s slutar på %3$s</string>
     <string name="repeats_plural_on_number_of_times">Upprepar varje %1$s på %2$s, inträffar %3$d %4$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Lägg inte till i kalender</string>
