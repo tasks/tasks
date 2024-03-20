@@ -353,9 +353,9 @@
     <string name="repeats_yearly">ogni anno</string>
     <string name="repeats_plural">Ripeti ogni %s</string>
     <string name="repeats_plural_on">Ripetuta ogni %1$s il %2$s</string>
-    <string name="repeats_plural_until">Ripetuta ogni %1$s fino al %2$s</string>
+    <string name="repeats_plural_until">Ripeti ogni %1$s fino al %2$s</string>
     <string name="repeats_plural_number_of_times">Ripetuta ogni %1$s, cade il %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Ripetuta ogni %1$s il %2$s fino al %3$s</string>
+    <string name="repeats_plural_on_until">Ripeti ogni %1$s il %2$s fino al %3$s</string>
     <string name="repeats_plural_on_number_of_times">Ripetuta ogni %1$s il %2$s, cade il %3$d %4$s</string>
     <string name="dont_add_to_calendar">Non  aggiungere al calendario</string>
     <string name="default_calendar">Calendario predefinito</string>
@@ -746,4 +746,6 @@
     <string name="repeat_monthly_on_day_number">Mensilmente il giorno %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Mensilmente il %1$s %2$s</string>
     <string name="change_priority">Cambia priorità</string>
+    <string name="theme_dynamic">Dinamico</string>
+    <string name="clear_completed_tasks_count">%s sarà cancellato</string>
 </resources>
