@@ -709,4 +709,5 @@
     <string name="repeat_monthly_on_the_nth_weekday">每月的%1$s%2$s</string>
     <string name="change_priority">更改优先级</string>
     <string name="clear_completed_tasks_count">%s 将被删除</string>
+    <string name="theme_dynamic">动态</string>
 </resources>
