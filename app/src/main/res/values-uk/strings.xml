@@ -344,9 +344,9 @@
     <string name="repeats_from">Повторювати з</string>
     <string name="repeats_single">Повторювати %s</string>
     <string name="repeats_single_on">Повторювати %1$s по %2$s</string>
-    <string name="repeats_single_until">Повторювати %1$s до %2$s</string>
+    <string name="repeats_single_until">Повторювати %1$s, завершується %2$s</string>
     <string name="repeats_single_number_of_times">Повторювати %1$s, стається %2$d %3$s</string>
-    <string name="repeats_single_on_until">Повторювати %1$s по %2$s до %3$s</string>
+    <string name="repeats_single_on_until">Повторювати %1$s по %2$s, завершується %3$s</string>
     <string name="repeats_single_on_number_of_times">Повторювати %1$s по %2$s, стається %3$d %4$s</string>
     <string name="repeats_minutely">щохвилини</string>
     <string name="repeats_hourly">щогодинно</string>
@@ -356,9 +356,9 @@
     <string name="repeats_yearly">щороку</string>
     <string name="repeats_plural">Повторювати що %s</string>
     <string name="repeats_plural_on">Повторювати що  %1$s по %2$s</string>
-    <string name="repeats_plural_until">Повторювати що %1$s до %2$s</string>
+    <string name="repeats_plural_until">Повторювати що %1$s, завершується %2$s</string>
     <string name="repeats_plural_number_of_times">Повторювати що %1$s, стається %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Повторювати що %1$s по %2$s до %3$s</string>
+    <string name="repeats_plural_on_until">Повторювати що %1$s по %2$s, завершується %3$s</string>
     <string name="repeats_plural_on_number_of_times">Повторювати що %1$s по %2$s, станеться %3$d %4$s</string>
     <string name="dont_add_to_calendar">Не додавати до календаря</string>
     <string name="default_calendar">Типовий календар</string>
@@ -755,4 +755,5 @@
     <string name="repeat_monthly_on_the_nth_weekday">Щомісяця %1$s %2$s</string>
     <string name="change_priority">Змінити пріоритет</string>
     <string name="clear_completed_tasks_count">%s буде видалено</string>
+    <string name="theme_dynamic">Динамічна</string>
 </resources>
