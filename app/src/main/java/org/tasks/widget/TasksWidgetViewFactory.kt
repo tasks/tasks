@@ -24,7 +24,6 @@ import org.tasks.extensions.setMaxLines
 import org.tasks.extensions.setTextSize
 import org.tasks.extensions.strikethrough
 import org.tasks.markdown.Markdown
-import org.tasks.preferences.Preferences
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.themes.ColorProvider.Companion.priorityColor
@@ -37,7 +36,7 @@ import kotlin.math.max
 
 internal class TasksWidgetViewFactory(
     private val subtasksHelper: SubtasksHelper,
-    preferences: Preferences,
+    private val widgetPreferences: WidgetPreferences,
     private val filter: Filter,
     private val context: Context,
     private val widgetId: Int,
@@ -48,7 +47,6 @@ internal class TasksWidgetViewFactory(
     private val headerFormatter: HeaderFormatter,
 ) : RemoteViewsFactory {
     private val indentPadding = (20 * context.resources.displayMetrics.density).toInt()
-    private val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
     private val settings = widgetPreferences.getWidgetListSettings()
     private val hPad = context.resources.getDimension(R.dimen.widget_padding).toInt()
     private val disableGroups = !filter.supportsSorting()
