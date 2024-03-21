@@ -706,7 +706,7 @@
         <item quantity="many">ocorrências</item>
         <item quantity="other">ocorrências</item>
     </plurals>
-    <string name="sort_not_available">Não disponível por tags, filtros, ou locais</string>
+    <string name="sort_not_available">Não disponível por etiquetas, filtros, ou locais</string>
     <string name="repeat_monthly_on_day_number">Mensalmente no dia %1d</string>
     <string name="change_priority">Mudar prioridade</string>
     <string name="sort_list">Por lista</string>
@@ -723,4 +723,6 @@
     <string name="sort_grouping">Agrupamento</string>
     <string name="sort_ascending">Ascendente</string>
     <string name="sort_descending">Descendente</string>
+    <string name="theme_dynamic">Dinâmico</string>
+    <string name="clear_completed_tasks_count">%s serão deletadas</string>
 </resources>
