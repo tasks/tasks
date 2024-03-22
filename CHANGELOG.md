@@ -1,10 +1,12 @@
-### 13.8 (2024-03-20)
+### 13.8 (2024-03-22)
 
 * Dynamic widget theme (name-your-price subscription required)
 * Replace 'until' with 'ends on' for repeating tasks [#2797](https://github.com/tasks/tasks/pull/2797) - @akwala
 * Fix loading selected list on startup [#2777](https://github.com/tasks/tasks/issues/2777)
 * Fix repeating tasks ending one day early
 * Fix repeating task crash
+* Fix backup import crash
+* Fix Astrid manual ordering crash in widget
 * Update translations
   * Brazilian Portuguese - @mayhmemo
   * Bulgarian - @StoyanDimitrov
@@ -16,6 +18,7 @@
   * Italian - @ppasserini
   * Spanish - gallegonovato
   * Swedish - @bittin
+  * Ukrainian - @IhorHordiichuk
   * Vietnamese - @ngocanhtve
 
 ### 13.7 (2024-02-07)
