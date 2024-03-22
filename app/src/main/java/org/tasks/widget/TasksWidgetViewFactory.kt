@@ -261,11 +261,8 @@ internal class TasksWidgetViewFactory(
     private fun getTask(position: Int): TaskContainer? = tasks.getItem(position)
 
     private suspend fun getQuery(filter: Filter): List<String> {
-        val queries = getQuery(widgetPreferences, filter)
-        val last = queries.size - 1
-        queries[last] =
-            subtasksHelper.applySubtasksToWidgetFilter(filter, widgetPreferences, queries[last])
-        return queries
+        subtasksHelper.applySubtasksToWidgetFilter(filter, widgetPreferences)
+        return getQuery(widgetPreferences, filter)
     }
 
     private fun formatDueDate(row: RemoteViews, task: TaskContainer) = with(row) {

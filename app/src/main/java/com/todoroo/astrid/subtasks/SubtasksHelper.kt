@@ -26,13 +26,13 @@ class SubtasksHelper @Inject constructor(
         private val taskDao: TaskDao,
         private val tagDataDao: TagDataDao,
         private val taskListMetadataDao: TaskListMetadataDao) {
+
     suspend fun applySubtasksToWidgetFilter(
             filter: Filter,
             preferences: QueryPreferences,
-            originalQuery: String
-    ): String {
-        var query = originalQuery
+    ) {
         if (filter is AstridOrderingFilter && preferences.isAstridSort) {
+            var query = filter.sql!!
             val tagData = tagDataDao.getTagByName(filter.title!!)
             val tlm = when {
                 tagData != null ->
@@ -50,7 +50,6 @@ class SubtasksHelper @Inject constructor(
                 filter.filterOverride = query
             }
         }
-        return query
     }
 
     private suspend fun getOrderString(tagData: TagData?, tlm: TaskListMetadata?): String {
