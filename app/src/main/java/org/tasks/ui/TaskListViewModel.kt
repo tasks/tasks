@@ -28,17 +28,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.Tasks
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.billing.PurchaseActivity
 import org.tasks.compose.throttleLatest
 import org.tasks.data.DeletionDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.db.QueryUtils
-import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import javax.inject.Inject
@@ -46,7 +43,7 @@ import javax.inject.Inject
 @HiltViewModel
 @SuppressLint("StaticFieldLeak")
 class TaskListViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @ApplicationContext context: Context,
     private val preferences: Preferences,
     private val taskDao: TaskDao,
     private val taskDeleter: TaskDeleter,
@@ -104,14 +101,6 @@ class TaskListViewModel @Inject constructor(
         }
         preferences.lastSubscribeRequest = DateUtilities.now()
         firebase.logEvent(R.string.event_banner_sub, R.string.param_click to clickedPurchase)
-        if (clickedPurchase) {
-            if (Tasks.IS_GOOGLE_PLAY) {
-                context.startActivity(Intent(context, PurchaseActivity::class.java))
-            } else {
-                preferences.lastSubscribeRequest = DateUtilities.now()
-                context.openUri(R.string.url_donate)
-            }
-        }
     }
 
     suspend fun getTasksToClear(): List<Long> {

@@ -27,6 +27,7 @@ import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.ui.platform.LocalContext
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
 import androidx.core.content.IntentCompat
@@ -83,11 +84,13 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
+import org.tasks.Tasks
 import org.tasks.activities.FilterSettingsActivity
 import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
+import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.collectAsStateLifecycleAware
@@ -336,12 +339,23 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             finishActionMode()
         }
         binding.banner.setContent {
+            val context = LocalContext.current
             val showBanner = listViewModel.state.collectAsStateLifecycleAware().value.begForSubscription
             MdcTheme {
                 SubscriptionNagBanner(
                     visible = showBanner,
-                    subscribe = { listViewModel.dismissBanner(clickedPurchase = true) },
-                    dismiss = { listViewModel.dismissBanner(clickedPurchase = false) },
+                    subscribe = {
+                        listViewModel.dismissBanner(clickedPurchase = true)
+                        if (Tasks.IS_GOOGLE_PLAY) {
+                            context.startActivity(Intent(context, PurchaseActivity::class.java))
+                        } else {
+                            preferences.lastSubscribeRequest = DateUtilities.now()
+                            context.openUri(R.string.url_donate)
+                        }
+                    },
+                    dismiss = {
+                        listViewModel.dismissBanner(clickedPurchase = false)
+                    },
                 )
             }
         }
