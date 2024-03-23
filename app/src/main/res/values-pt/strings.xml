@@ -725,4 +725,6 @@
     <string name="repeats_ends">Termina</string>
     <string name="repeats_on">Ligado</string>
     <string name="repeats_weekly_on">Repete em</string>
+    <string name="theme_dynamic">Dinâmico</string>
+    <string name="clear_completed_tasks_count">%s serão eliminadas</string>
 </resources>
