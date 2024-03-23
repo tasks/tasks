@@ -178,7 +178,10 @@ class TasksJsonImporter @Inject constructor(
                     backup.caldavTasks
                         ?.filter { it.deleted == 0L }
                         ?.any {
-                            val existing = if (it.`object`.isNullOrBlank()) {
+                            val existing = if (
+                                it.`object`.isNullOrBlank() ||
+                                it.`object` == "null.ics" // caused by an old bug
+                            ) {
                                 it.remoteId?.let { remoteId ->
                                     caldavDao.getTaskByRemoteId(it.calendar!!, remoteId)
                                 }
