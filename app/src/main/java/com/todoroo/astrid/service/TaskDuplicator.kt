@@ -67,7 +67,7 @@ class TaskDuplicator @Inject constructor(
             tagDao.insert(tags.map { Tag(clone, it) })
         }
         val googleTask = googleTaskDao.getByTaskId(task.id)
-        val addToTop = preferences.addTasksToTop()
+        val caldavTask = caldavDao.getTask(task.id)
         if (googleTask != null) {
             googleTaskDao.insertAndShift(
                 clone,
@@ -76,11 +76,9 @@ class TaskDuplicator @Inject constructor(
                     calendar = googleTask.calendar,
                     remoteId = null
                 ),
-                addToTop
+                preferences.addTasksToTop()
             )
-        }
-        val caldavTask = caldavDao.getTask(task.id)
-        if (caldavTask != null) {
+        } else if (caldavTask != null) {
             val newDavTask = CaldavTask(
                 task = clone.id,
                 calendar = caldavTask.calendar
@@ -89,7 +87,7 @@ class TaskDuplicator @Inject constructor(
                 val remoteParent = caldavDao.getRemoteIdForTask(parentId)
                 newDavTask.remoteParent = remoteParent
             }
-            caldavDao.insert(clone, newDavTask, addToTop)
+            caldavDao.insert(clone, newDavTask, preferences.addTasksToTop())
         }
         for (g in locationDao.getGeofencesForTask(task.id)) {
             locationDao.insert(
