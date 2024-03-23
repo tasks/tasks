@@ -52,10 +52,6 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
             context,
             SavedStateHandle().apply {
                 set(TaskEditFragment.EXTRA_TASK, task)
-                set(TaskEditFragment.EXTRA_LIST, defaultFilterProvider.getList(task))
-                set(TaskEditFragment.EXTRA_LOCATION, locationDao.getLocation(task, preferences))
-                set(TaskEditFragment.EXTRA_TAGS, tagDataDao.getTags(task))
-                set(TaskEditFragment.EXTRA_ALARMS, alarmDao.getAlarms(task))
             },
             taskDao,
             taskDeleter,
@@ -78,6 +74,7 @@ open class BaseTaskEditViewModelTest : InjectingTestCase() {
             userActivityDao = userActivityDao,
             taskAttachmentDao = db.taskAttachmentDao,
             alarmDao = db.alarmDao,
+            defaultFilterProvider = defaultFilterProvider,
         )
     }
 

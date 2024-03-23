@@ -28,7 +28,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.adapter.SubheaderClickHandler
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
@@ -36,14 +35,11 @@ import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
@@ -426,25 +422,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun newTaskEditFragment(task: Task): TaskEditFragment {
+    private fun newTaskEditFragment(task: Task): TaskEditFragment {
         AndroidUtilities.assertMainThread()
         clearUi()
-        return coroutineScope {
-            withContext(Dispatchers.Default) {
-                val freshTask = async { if (task.isNew) task else taskDao.fetch(task.id) ?: task }
-                val list = async { defaultFilterProvider.getList(task) }
-                val location = async { locationDao.getLocation(task, preferences) }
-                val tags = async { tagDataDao.getTags(task) }
-                val alarms = async { alarmDao.getAlarms(task) }
-                newTaskEditFragment(
-                    freshTask.await(),
-                    list.await(),
-                    location.await(),
-                    tags.await(),
-                    alarms.await(),
-                )
-            }
-        }
+        return TaskEditFragment.newTaskEditFragment(task)
     }
 
     private val isSinglePaneLayout: Boolean

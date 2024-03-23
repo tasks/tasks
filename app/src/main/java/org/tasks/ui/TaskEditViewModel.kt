@@ -58,6 +58,7 @@ import org.tasks.data.UserActivityDao
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
+import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.currentTimeMillis
@@ -67,32 +68,33 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskEditViewModel @Inject constructor(
-        @ApplicationContext private val context: Context,
-        savedStateHandle: SavedStateHandle,
-        private val taskDao: TaskDao,
-        private val taskDeleter: TaskDeleter,
-        private val timerPlugin: TimerPlugin,
-        private val permissionChecker: PermissionChecker,
-        private val calendarEventProvider: CalendarEventProvider,
-        private val gCalHelper: GCalHelper,
-        private val taskMover: TaskMover,
-        private val locationDao: LocationDao,
-        private val geofenceApi: GeofenceApi,
-        private val tagDao: TagDao,
-        private val tagDataDao: TagDataDao,
-        private val preferences: Preferences,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
-        private val taskCompleter: TaskCompleter,
-        private val alarmService: AlarmService,
-        private val taskListEvents: TaskListEventBus,
-        private val mainActivityEvents: MainActivityEventBus,
-        private val firebase: Firebase? = null,
-        private val userActivityDao: UserActivityDao,
-        private val alarmDao: AlarmDao,
-        private val taskAttachmentDao: TaskAttachmentDao,
+    @ApplicationContext private val applicationContext: Context,
+    savedStateHandle: SavedStateHandle,
+    private val taskDao: TaskDao,
+    private val taskDeleter: TaskDeleter,
+    private val timerPlugin: TimerPlugin,
+    private val permissionChecker: PermissionChecker,
+    private val calendarEventProvider: CalendarEventProvider,
+    private val gCalHelper: GCalHelper,
+    private val taskMover: TaskMover,
+    private val locationDao: LocationDao,
+    private val geofenceApi: GeofenceApi,
+    private val tagDao: TagDao,
+    private val tagDataDao: TagDataDao,
+    private val preferences: Preferences,
+    private val googleTaskDao: GoogleTaskDao,
+    private val caldavDao: CaldavDao,
+    private val taskCompleter: TaskCompleter,
+    private val alarmService: AlarmService,
+    private val taskListEvents: TaskListEventBus,
+    private val mainActivityEvents: MainActivityEventBus,
+    private val firebase: Firebase? = null,
+    private val userActivityDao: UserActivityDao,
+    private val alarmDao: AlarmDao,
+    private val taskAttachmentDao: TaskAttachmentDao,
+    private val defaultFilterProvider: DefaultFilterProvider,
 ) : ViewModel() {
-    private val resources = context.resources
+    private val resources = applicationContext.resources
     private var cleared = false
 
     val task: Task = savedStateHandle[TaskEditFragment.EXTRA_TASK]!!
@@ -144,18 +146,19 @@ class TaskEditViewModel @Inject constructor(
     }
     var selectedCalendar = MutableStateFlow(originalCalendar)
 
-    val originalList: Filter = savedStateHandle[TaskEditFragment.EXTRA_LIST]!!
+    val originalList: Filter = runBlocking { defaultFilterProvider.getList(task) }
     var selectedList = MutableStateFlow(originalList)
 
-    private var originalLocation: Location? = savedStateHandle[TaskEditFragment.EXTRA_LOCATION]
+    private val originalLocation: Location? =
+        runBlocking { locationDao.getLocation(task, preferences) }
     var selectedLocation = MutableStateFlow(originalLocation)
 
-    private val originalTags: List<TagData> =
-        savedStateHandle.get<ArrayList<TagData>>(TaskEditFragment.EXTRA_TAGS) ?: emptyList()
+    private val originalTags: List<TagData> = runBlocking { tagDataDao.getTags(task) }
     val selectedTags = MutableStateFlow(ArrayList(originalTags))
 
-    private lateinit var originalAttachments: List<TaskAttachment>
-    val selectedAttachments = MutableStateFlow(emptyList<TaskAttachment>())
+    private val originalAttachments: List<TaskAttachment> =
+        runBlocking { taskAttachmentDao.getAttachments(task.id) }
+    val selectedAttachments = MutableStateFlow(originalAttachments)
 
     private val originalAlarms: List<Alarm> = if (isNew) {
         ArrayList<Alarm>().apply {
@@ -173,9 +176,8 @@ class TaskEditViewModel @Inject constructor(
             }
         }
     } else {
-        savedStateHandle[TaskEditFragment.EXTRA_ALARMS]!!
+        runBlocking { alarmDao.getAlarms(task) }
     }
-
     var selectedAlarms = MutableStateFlow(originalAlarms)
 
     var ringNonstop: Boolean = task.isNotifyModeNonstop
@@ -226,8 +228,7 @@ class TaskEditViewModel @Inject constructor(
                 originalList != selectedList.value ||
                 originalLocation != selectedLocation.value ||
                 originalTags.toHashSet() != selectedTags.value.toHashSet() ||
-                (::originalAttachments.isInitialized &&
-                        originalAttachments.toHashSet() != selectedAttachments.value.toHashSet()) ||
+                originalAttachments.toHashSet() != selectedAttachments.value.toHashSet() ||
                 newSubtasks.value.isNotEmpty() ||
                 getRingFlags() != when {
                     task.isNotifyModeFive -> NOTIFY_MODE_FIVE
@@ -362,10 +363,7 @@ class TaskEditViewModel @Inject constructor(
             task.modificationDate = now()
         }
 
-        if (
-            this@TaskEditViewModel::originalAttachments.isInitialized &&
-            selectedAttachments.value.toHashSet() != originalAttachments.toHashSet()
-        ) {
+        if (selectedAttachments.value.toHashSet() != originalAttachments.toHashSet()) {
             originalAttachments
                 .minus(selectedAttachments.value.toSet())
                 .map { it.remoteId }
@@ -430,7 +428,7 @@ class TaskEditViewModel @Inject constructor(
         if (isNew) {
             timerPlugin.stopTimer(task)
             originalAttachments.plus(selectedAttachments.value).toSet().takeIf { it.isNotEmpty() }
-                ?.onEach { FileHelper.delete(context, it.uri.toUri()) }
+                ?.onEach { FileHelper.delete(applicationContext, it.uri.toUri()) }
                 ?.let { taskAttachmentDao.delete(it.toList()) }
         }
         clear(remove)
@@ -470,7 +468,7 @@ class TaskEditViewModel @Inject constructor(
     fun addComment(message: String?, picture: Uri?) {
         val userActivity = UserActivity()
         if (picture != null) {
-            val output = FileHelper.copyToUri(context, preferences.attachmentsDirectory!!, picture)
+            val output = FileHelper.copyToUri(applicationContext, preferences.attachmentsDirectory!!, picture)
             userActivity.setPicture(output)
         }
         userActivity.message = message
@@ -479,15 +477,6 @@ class TaskEditViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(NonCancellable) {
                 userActivityDao.createNew(userActivity)
-            }
-        }
-    }
-
-    init {
-        viewModelScope.launch {
-            taskAttachmentDao.getAttachments(task.id).let { attachments ->
-                selectedAttachments.update { attachments }
-                originalAttachments = attachments
             }
         }
     }

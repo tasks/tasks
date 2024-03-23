@@ -44,7 +44,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.files.FilesControlSet
@@ -70,9 +69,6 @@ import org.tasks.compose.edit.DueDateRow
 import org.tasks.compose.edit.InfoRow
 import org.tasks.compose.edit.ListRow
 import org.tasks.compose.edit.PriorityRow
-import org.tasks.data.Alarm
-import org.tasks.data.Location
-import org.tasks.data.TagData
 import org.tasks.data.UserActivityDao
 import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.databinding.TaskEditCalendarBinding
@@ -519,10 +515,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     companion object {
         const val EXTRA_TASK = "extra_task"
-        const val EXTRA_LIST = "extra_list"
-        const val EXTRA_LOCATION = "extra_location"
-        const val EXTRA_TAGS = "extra_tags"
-        const val EXTRA_ALARMS = "extra_alarms"
 
         private const val FRAG_TAG_GOOGLE_TASK_LIST_SELECTION =
             "frag_tag_google_task_list_selection"
@@ -540,18 +532,10 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
         fun newTaskEditFragment(
             task: Task,
-            list: Filter,
-            location: Location?,
-            tags: ArrayList<TagData>,
-            alarms: ArrayList<Alarm>,
         ): TaskEditFragment {
             val taskEditFragment = TaskEditFragment()
             val arguments = Bundle()
             arguments.putParcelable(EXTRA_TASK, task)
-            arguments.putParcelable(EXTRA_LIST, list)
-            arguments.putParcelable(EXTRA_LOCATION, location)
-            arguments.putParcelableArrayList(EXTRA_TAGS, tags)
-            arguments.putParcelableArrayList(EXTRA_ALARMS, alarms)
             taskEditFragment.arguments = arguments
             return taskEditFragment
         }
