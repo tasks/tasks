@@ -1,0 +1,4 @@
+* Fix copy causing duplicate Google Tasks
+* Fix navigation drawer crash
+* Fix backup import dropping tasks
+

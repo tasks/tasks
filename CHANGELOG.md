@@ -1,3 +1,9 @@
+### 13.8.1 (2024-03-24)
+
+* Fix copy causing duplicate Google Tasks
+* Fix navigation drawer crash
+* Fix backup import dropping tasks
+
 ### 13.8 (2024-03-22)
 
 * Dynamic widget theme (name-your-price subscription required)
