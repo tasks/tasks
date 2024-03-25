@@ -1,9 +1,11 @@
 package org.tasks.extensions
 
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.content.res.Configuration
@@ -91,5 +93,14 @@ object Context {
         } catch (e: Exception) {
             false
         }
+    }
+
+    fun Context.findActivity(): Activity? {
+        var context = this
+        while (context is ContextWrapper) {
+            if (context is Activity) return context
+            context = context.baseContext
+        }
+        return null
     }
 }

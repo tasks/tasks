@@ -14,11 +14,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.mandatorySystemGestures
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -46,6 +43,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.api.FilterImpl
@@ -58,6 +56,7 @@ import org.tasks.filters.NavigationDrawerSubheader
 
 @Composable
 fun TaskListDrawer(
+    bottomPadding: Dp = 0.dp,
     begForMoney: Boolean,
     filters: ImmutableList<DrawerItem>,
     onClick: (DrawerItem) -> Unit,
@@ -65,14 +64,9 @@ fun TaskListDrawer(
     onAddClick: (DrawerItem.Header) -> Unit,
     onErrorClick: () -> Unit,
 ) {
-    val insets = WindowInsets.mandatorySystemGestures
     LazyColumn(
         modifier = Modifier
-            .padding(
-                bottom = insets
-                    .asPaddingValues()
-                    .calculateBottomPadding()
-            )
+            .padding(bottom = bottomPadding)
             .animateContentSize(
                 animationSpec = spring(
                     dampingRatio = Spring.DampingRatioNoBouncy,
