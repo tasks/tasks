@@ -92,7 +92,7 @@ internal class TasksWidgetViewFactory(
 
     override fun getViewTypeCount(): Int = 2
 
-    override fun getItemId(position: Int) = getTask(position)?.id ?: 0
+    override fun getItemId(position: Int) = getTask(position).id
 
     override fun hasStableIds(): Boolean = true
 
@@ -145,7 +145,7 @@ internal class TasksWidgetViewFactory(
 
     private fun buildUpdate(position: Int): RemoteViews? {
         return try {
-            val taskContainer = getTask(position) ?: return null
+            val taskContainer = getTask(position)
             val task = taskContainer.task
             val textColorTitle = when {
                 task.isHidden -> onSurfaceVariant
@@ -258,7 +258,7 @@ internal class TasksWidgetViewFactory(
         }
     }
 
-    private fun getTask(position: Int): TaskContainer? = tasks.getItem(position)
+    private fun getTask(position: Int): TaskContainer = tasks.getItem(position)
 
     private suspend fun getQuery(filter: Filter): List<String> {
         subtasksHelper.applySubtasksToWidgetFilter(filter, widgetPreferences)

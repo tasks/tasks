@@ -44,6 +44,7 @@ import org.tasks.compose.SubtaskChip
 import org.tasks.compose.TaskEditIcon
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.TaskContainer
+import org.tasks.tasklist.SectionedDataSource
 import org.tasks.ui.TaskListViewModel
 
 @Composable
@@ -90,7 +91,11 @@ fun SubtaskRow(
                 } else {
                     Spacer(modifier = Modifier.height(height = 8.dp))
                     if (existingSubtasks is TaskListViewModel.TasksResults.Results) {
-                        existingSubtasks.tasks.forEach { task ->
+                        existingSubtasks
+                            .tasks
+                            .filterIsInstance<TaskListViewModel.UiItem.Task>()
+                            .map { it.task }
+                            .forEach { task ->
                             ExistingSubtaskRow(
                                 task = task,
                                 desaturate = desaturate,
@@ -237,7 +242,7 @@ fun NoSubtasks() {
             filter = null,
             hasParent = false,
             desaturate = true,
-            existingSubtasks = TaskListViewModel.TasksResults.Results(emptyList()),
+            existingSubtasks = TaskListViewModel.TasksResults.Results(SectionedDataSource()),
             newSubtasks = emptyList(),
             openSubtask = {},
             completeExistingSubtask = { _, _ -> },
@@ -260,20 +265,22 @@ fun SubtasksPreview() {
             hasParent = false,
             desaturate = true,
             existingSubtasks = TaskListViewModel.TasksResults.Results(
-                listOf(
-                    TaskContainer(
-                        task = Task(
-                            title = "Existing subtask 1",
-                            priority = Task.Priority.HIGH,
+                SectionedDataSource(
+                    tasks = listOf(
+                        TaskContainer(
+                            task = Task(
+                                title = "Existing subtask 1",
+                                priority = Task.Priority.HIGH,
+                            ),
+                            indent = 0
                         ),
-                        indent = 0
-                    ),
-                    TaskContainer(
-                        task = Task(
-                            title = "Existing subtask 2 with a really long title",
-                            priority = Task.Priority.LOW,
-                        ),
-                        indent = 1
+                        TaskContainer(
+                            task = Task(
+                                title = "Existing subtask 2 with a really long title",
+                                priority = Task.Priority.LOW,
+                            ),
+                            indent = 1
+                        )
                     )
                 )
             ),

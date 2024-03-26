@@ -22,7 +22,6 @@ import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils.toAppleEpoch
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
 import org.tasks.time.DateTimeUtils.millisOfDay
 
 open class TaskAdapter(
@@ -34,7 +33,6 @@ open class TaskAdapter(
         private val taskMover: TaskMover,
 ) {
     private val selected = HashSet<Long>()
-    private val collapsed = mutableSetOf(HEADER_COMPLETED)
     private lateinit var dataSource: TaskAdapterDataSource
 
     val count: Int
@@ -55,15 +53,6 @@ open class TaskAdapter(
     }
 
     fun clearSelections() = selected.clear()
-
-    fun getCollapsed() = HashSet(collapsed)
-
-    fun setCollapsed(groups: LongArray?) {
-        clearCollapsed()
-        groups?.toList()?.let(collapsed::addAll)
-    }
-
-    fun clearCollapsed() = collapsed.retainAll(listOf(HEADER_COMPLETED))
 
     open fun getIndent(task: TaskContainer): Int = task.indent
 
@@ -122,14 +111,6 @@ open class TaskAdapter(
             selected.remove(id)
         } else {
             selected.add(id)
-        }
-    }
-
-    fun toggleCollapsed(group: Long) {
-        if (collapsed.contains(group)) {
-            collapsed.remove(group)
-        } else {
-            collapsed.add(group)
         }
     }
 

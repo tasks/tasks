@@ -8,15 +8,14 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterDataSource
 import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.core.SortHelper
-import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
 
 abstract class TaskListRecyclerAdapter internal constructor(
         private val adapter: TaskAdapter,
         internal val viewHolderFactory: ViewHolderFactory,
         private val taskList: TaskListFragment,
-        internal val preferences: Preferences)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ListUpdateCallback, TaskAdapterDataSource {
+        internal val preferences: Preferences
+): RecyclerView.Adapter<RecyclerView.ViewHolder>(), ListUpdateCallback, TaskAdapterDataSource {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
             = viewHolderFactory.newViewHolder(parent, taskList)
@@ -51,7 +50,7 @@ abstract class TaskListRecyclerAdapter internal constructor(
 
     abstract fun dragAndDropEnabled(): Boolean
 
-    abstract fun submitList(list: List<TaskContainer>)
+    abstract fun submitList(list: SectionedDataSource)
 
     override fun onInserted(position: Int, count: Int) {
         notifyItemRangeInserted(position, count)

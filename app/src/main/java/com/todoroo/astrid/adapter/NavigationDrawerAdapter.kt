@@ -34,11 +34,11 @@ class NavigationDrawerAdapter @Inject constructor(
     private val colorProvider: ColorProvider,
     private val subheaderClickHandler: SubheaderClickHandler,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
-    DragAndDropDiffer<FilterListItem, MutableList<FilterListItem>> {
+    DragAndDropDiffer<FilterListItem, ArrayList<FilterListItem>> {
 
     private lateinit var onClick: (FilterListItem?) -> Unit
-    override val channel = Channel<List<FilterListItem>>(Channel.UNLIMITED)
-    override val updates: Queue<Pair<MutableList<FilterListItem>, DiffUtil.DiffResult?>> = LinkedList()
+    override val channel = Channel<ArrayList<FilterListItem>>(Channel.UNLIMITED)
+    override val updates: Queue<Pair<ArrayList<FilterListItem>, DiffUtil.DiffResult?>> = LinkedList()
     override val scope: CoroutineScope =
         CoroutineScope(Executors.newSingleThreadExecutor().asCoroutineDispatcher() + Job())
     override var items = initializeDiffer(ArrayList())
@@ -84,9 +84,7 @@ class NavigationDrawerAdapter @Inject constructor(
 
     private fun getItem(position: Int) = items[position]
 
-    override fun transform(list: List<FilterListItem>) = list.toMutableList()
-
-    override fun diff(last: MutableList<FilterListItem>, next: MutableList<FilterListItem>) =
+    override fun diff(last: ArrayList<FilterListItem>, next: ArrayList<FilterListItem>) =
             DiffUtil.calculateDiff(DiffCallback(last, next))
 
     private class DiffCallback(val old: List<FilterListItem>, val new: List<FilterListItem>) : DiffUtil.Callback() {

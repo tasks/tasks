@@ -6,6 +6,7 @@ import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.TaskContainer
 import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.ui.TaskListViewModel.UiItem
 
 class SectionedDataSource(
     tasks: List<TaskContainer> = emptyList(),
@@ -14,7 +15,7 @@ class SectionedDataSource(
     val subtaskMode: Int = SortHelper.SORT_MANUAL,
     private val collapsed: Set<Long> = emptySet(),
     private val completedAtBottom: Boolean = true,
-) {
+): List<UiItem> {
     private val tasks = tasks.toMutableList()
 
     private val sections = if (disableHeaders || groupMode == SortHelper.GROUP_NONE) {
@@ -23,7 +24,7 @@ class SectionedDataSource(
         getSections()
     }
 
-    fun getItem(position: Int): TaskContainer? = tasks.getOrNull(sectionedPositionToPosition(position))
+    fun getItem(position: Int): TaskContainer = tasks[sectionedPositionToPosition(position)]
 
     fun getHeaderValue(position: Int): Long = getSection(position).value
 
@@ -48,8 +49,51 @@ class SectionedDataSource(
     val taskCount: Int
         get() = tasks.size
 
-    val size: Int
+    override val size: Int
         get() = tasks.size + sections.size()
+
+    override fun get(index: Int) =
+        sections[index]
+            ?.let { UiItem.Header(it.value) }
+            ?: UiItem.Task(getItem(index))
+
+    override fun isEmpty() = size == 0
+
+    override fun iterator(): Iterator<UiItem> {
+        return object : Iterator<UiItem> {
+            private var index = 0
+            override fun hasNext() = index < size
+            override fun next(): UiItem = get(index++)
+        }
+    }
+
+    override fun listIterator(): ListIterator<UiItem> {
+        TODO("Not yet implemented")
+    }
+
+    override fun listIterator(index: Int): ListIterator<UiItem> {
+        TODO("Not yet implemented")
+    }
+
+    override fun subList(fromIndex: Int, toIndex: Int): List<UiItem> {
+        TODO("Not yet implemented")
+    }
+
+    override fun lastIndexOf(element: UiItem): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun indexOf(element: UiItem): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun containsAll(elements: Collection<UiItem>): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun contains(element: UiItem): Boolean {
+        TODO("Not yet implemented")
+    }
 
     fun getSection(position: Int): AdapterSection = sections[position]
 

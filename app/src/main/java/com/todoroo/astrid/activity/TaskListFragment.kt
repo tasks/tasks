@@ -118,6 +118,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerActivity
 import org.tasks.tasklist.DragAndDropRecyclerAdapter
+import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TaskViewHolder
 import org.tasks.tasklist.ViewHolderFactory
 import org.tasks.themes.ColorProvider
@@ -188,7 +189,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         activity?.recreate()
                     }
                     if (data.getBooleanExtra(SortSettingsActivity.EXTRA_CHANGED_GROUP, false)) {
-                        taskAdapter.clearCollapsed()
+                        listViewModel.clearCollapsed()
                     }
                     listViewModel.invalidate()
                 }
@@ -237,7 +238,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         super.onSaveInstanceState(outState)
         val selectedTaskIds: List<Long> = taskAdapter.getSelected()
         outState.putLongArray(EXTRA_SELECTED_TASK_IDS, selectedTaskIds.toLongArray())
-        outState.putLongArray(EXTRA_COLLAPSED, taskAdapter.getCollapsed().toLongArray())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -274,7 +274,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
         // set up list adapters
         taskAdapter = taskAdapterProvider.createTaskAdapter(filter)
-        taskAdapter.setCollapsed(savedInstanceState?.getLongArray(EXTRA_COLLAPSED))
         listViewModel.setFilter(filter)
         (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -362,11 +361,19 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         return binding.root
     }
 
-    private fun submitList(tasks: List<TaskContainer>) {
+    private fun submitList(tasks: SectionedDataSource) {
         if (recyclerAdapter !is DragAndDropRecyclerAdapter) {
             setAdapter(
                     DragAndDropRecyclerAdapter(
-                            taskAdapter, binding.bodyStandard.recyclerView, viewHolderFactory, this, tasks, preferences))
+                        adapter = taskAdapter,
+                        recyclerView = binding.bodyStandard.recyclerView,
+                        viewHolderFactory = viewHolderFactory,
+                        taskList = this,
+                        tasks = tasks,
+                        preferences = preferences,
+                        toggleCollapsed = { listViewModel.toggleCollapsed(it) },
+                    )
+            )
         } else {
             recyclerAdapter?.submitList(tasks)
         }
@@ -894,8 +901,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         makeSnackbar(R.string.copy_multiple_tasks_confirmation, duplicates.size.toString())?.show()
     }
 
-    fun clearCollapsed() = taskAdapter.clearCollapsed()
-
     override fun onCompletedTask(task: TaskContainer, newState: Boolean) {
         if (task.isReadOnly) {
             return
@@ -1010,7 +1015,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         const val ACTION_RELOAD = "action_reload"
         const val ACTION_DELETED = "action_deleted"
         private const val EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids"
-        private const val EXTRA_COLLAPSED = "extra_collapsed"
         private const val VOICE_RECOGNITION_REQUEST_CODE = 1234
         private const val EXTRA_FILTER = "extra_filter"
         private const val FRAG_TAG_REMOTE_LIST_PICKER = "frag_tag_remote_list_picker"

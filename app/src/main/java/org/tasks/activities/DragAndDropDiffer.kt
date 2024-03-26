@@ -13,25 +13,24 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.scan
 import java.util.Queue
 
-interface DragAndDropDiffer<T, R> : ListUpdateCallback {
-    val channel: Channel<List<T>>
+interface DragAndDropDiffer<T, R : List<T>> : ListUpdateCallback {
+    val channel: Channel<R>
     val updates: Queue<Pair<R, DiffUtil.DiffResult?>>
     var items: R
     var dragging: Boolean
     val scope: CoroutineScope
 
-    fun submitList(list: List<T>) {
+    fun submitList(list: R) {
         channel.trySend(list)
     }
 
     fun calculateDiff(last: Pair<R, DiffUtil.DiffResult?>, next: R): Pair<R, DiffUtil.DiffResult?> {
         AndroidUtilities.assertNotMainThread()
-        return Pair(next, diff(last.first!!, next))
+        return Pair(next, diff(last.first, next))
     }
 
     fun applyDiff(update: Pair<R, DiffUtil.DiffResult?>) {
@@ -53,11 +52,9 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
     }
 
     @ExperimentalCoroutinesApi
-    fun initializeDiffer(list: List<T>): R {
-        val initial = transform(list)
+    fun initializeDiffer(initial: R): R {
         channel
             .consumeAsFlow()
-            .map { transform(it) }
             .scan(Pair(initial, null)) { last: Pair<R, DiffUtil.DiffResult?>, next: R ->
                 calculateDiff(last, next)
             }
@@ -67,8 +64,6 @@ interface DragAndDropDiffer<T, R> : ListUpdateCallback {
             .launchIn(CoroutineScope(Dispatchers.Main + Job()))
         return initial
     }
-
-    fun transform(list: List<T>): R
 
     fun diff(last: R, next: R): DiffUtil.DiffResult
 

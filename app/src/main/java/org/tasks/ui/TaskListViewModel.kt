@@ -7,6 +7,7 @@ import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.api.SearchFilter
@@ -19,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -36,8 +36,10 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.db.QueryUtils
+import org.tasks.filters.MyTasksFilter
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
+import org.tasks.tasklist.SectionedDataSource
 import javax.inject.Inject
 
 @HiltViewModel
@@ -53,18 +55,24 @@ class TaskListViewModel @Inject constructor(
     private val firebase: Firebase,
 ) : ViewModel() {
 
+    sealed class UiItem {
+        data class Header(val value: Long): UiItem()
+        data class Task(val task: TaskContainer): UiItem()
+    }
+
     sealed interface TasksResults {
         data object Loading : TasksResults
-        data class Results(val tasks: List<TaskContainer>) : TasksResults
+        data class Results(val tasks: SectionedDataSource) : TasksResults
     }
 
     data class State(
-        val filter: Filter? = null,
+        val filter: Filter = MyTasksFilter(""),
         val now: Long = DateUtilities.now(),
         val searchQuery: String? = null,
         val tasks: TasksResults = TasksResults.Loading,
         val begForSubscription: Boolean = false,
         val syncOngoing: Boolean = false,
+        val collapsed: Set<Long> = setOf(SectionedDataSource.HEADER_COMPLETED),
     )
 
     private val _state = MutableStateFlow(State())
@@ -104,7 +112,7 @@ class TaskListViewModel @Inject constructor(
     }
 
     suspend fun getTasksToClear(): List<Long> {
-        val filter = _state.value.filter ?: return emptyList()
+        val filter = _state.value.filter
         val deleteFilter = FilterImpl(
             sql = QueryUtils.removeOrder(QueryUtils.showHiddenAndCompleted(filter.sql!!)),
         )
@@ -130,13 +138,12 @@ class TaskListViewModel @Inject constructor(
         localBroadcastManager.registerRefreshReceiver(refreshReceiver)
 
         _state
-            .filter { it.filter != null }
             .map { it.copy(tasks = TasksResults.Loading) }
             .distinctUntilChanged()
             .throttleLatest(333)
             .map {
                 val filter = when {
-                    it.searchQuery == null -> it.filter!!
+                    it.searchQuery == null -> it.filter
                     it.searchQuery.isBlank() -> BuiltInFilterExposer.getMyTasksFilter(context.resources)
                     else -> context.createSearchQuery(it.searchQuery)
                 }
@@ -144,7 +151,20 @@ class TaskListViewModel @Inject constructor(
             }
             .onEach { tasks ->
                 _state.update {
-                    it.copy(tasks = TasksResults.Results(tasks))
+                    it.copy(
+                        tasks = TasksResults.Results(
+                            SectionedDataSource(
+                                tasks = tasks,
+                                disableHeaders = !it.filter.supportsSorting()
+                                        || (it.filter.supportsManualSort() && preferences.isManualSort)
+                                        || (it.filter is AstridOrderingFilter && preferences.isAstridSort),
+                                groupMode = preferences.groupMode,
+                                subtaskMode = preferences.subtaskMode,
+                                collapsed = it.collapsed,
+                                completedAtBottom = preferences.completedTasksAtBottom,
+                            )
+                        )
+                    )
                 }
             }
             .flowOn(Dispatchers.Default)
@@ -161,6 +181,24 @@ class TaskListViewModel @Inject constructor(
 
     override fun onCleared() {
         localBroadcastManager.unregisterReceiver(refreshReceiver)
+    }
+
+    fun clearCollapsed() {
+        _state.update {
+            it.copy(collapsed = setOf(SectionedDataSource.HEADER_COMPLETED))
+        }
+    }
+
+    fun toggleCollapsed(group: Long) {
+        _state.update {
+            it.copy(
+                collapsed = if (it.collapsed.contains(group)) {
+                    it.collapsed.minus(group)
+                } else {
+                    it.collapsed.plus(group)
+                }
+            )
+        }
     }
 
     companion object {

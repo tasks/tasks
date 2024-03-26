@@ -100,7 +100,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
     private fun updateFilters() = lifecycleScope.launch {
         filterProvider
                 .drawerCustomizationItems()
-                .let { adapter.submitList(it) }
+                .let { adapter.submitList(ArrayList(it)) }
     }
 
     private fun onClick(item: FilterListItem?) {

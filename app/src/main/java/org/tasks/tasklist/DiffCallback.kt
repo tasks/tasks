@@ -30,7 +30,7 @@ internal class DiffCallback(
         return if (isHeader) {
             old.groupMode == new.groupMode && old.getHeaderValue(oldPosition) == new.getHeaderValue(newPosition)
         } else {
-            old.getItem(oldPosition)!!.id == new.getItem(newPosition)!!.id
+            old.getItem(oldPosition).id == new.getItem(newPosition).id
         }
     }
 
@@ -38,8 +38,8 @@ internal class DiffCallback(
         if (new.isHeader(newPosition)) {
             return old.getSection(oldPosition).collapsed == new.getSection(newPosition).collapsed
         }
-        val oldItem = old.getItem(oldPosition)!!
-        val newItem = new.getItem(newPosition)!!
+        val oldItem = old.getItem(oldPosition)
+        val newItem = new.getItem(newPosition)
         return !refreshDates && oldItem == newItem && oldItem.indent == adapter.getIndent(newItem)
     }
 }
