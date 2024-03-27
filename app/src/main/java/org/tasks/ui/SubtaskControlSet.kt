@@ -26,6 +26,7 @@ import org.tasks.compose.edit.SubtaskRow
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.preferences.Preferences
+import org.tasks.tasklist.SectionedDataSource
 import org.tasks.themes.ColorProvider
 import javax.inject.Inject
 
@@ -60,7 +61,11 @@ class SubtaskControlSet : TaskEditControlFragment() {
                         filter = viewModel.selectedList.collectAsStateLifecycleAware().value,
                         hasParent = viewModel.hasParent,
                         desaturate = preferences.desaturateDarkMode,
-                        existingSubtasks = listViewModel.state.collectAsStateLifecycleAware().value.tasks,
+                        existingSubtasks = if (viewModel.isNew) {
+                            TaskListViewModel.TasksResults.Results(SectionedDataSource())
+                        } else {
+                            listViewModel.state.collectAsStateLifecycleAware().value.tasks
+                        },
                         newSubtasks = viewModel.newSubtasks.collectAsStateLifecycleAware().value,
                         openSubtask = this@SubtaskControlSet::openSubtask,
                         completeExistingSubtask = this@SubtaskControlSet::complete,
