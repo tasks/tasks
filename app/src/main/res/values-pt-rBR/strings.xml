@@ -733,7 +733,7 @@
     <string name="sort_list">Por lista</string>
     <string name="sort_sorting">Listagem</string>
     <string name="repeat_monthly_on_the_nth_weekday">Mensalmente na %1$s %2$s</string>
-    <string name="sort_completed">Por data de conclusão</string>
+    <string name="sort_completed">Por hora de conclusão</string>
     <string name="sort_completion_group">Conclusão %s</string>
     <string name="repeats_every">Repete a cada</string>
     <string name="repeats_weekly_on">Repete em</string>
