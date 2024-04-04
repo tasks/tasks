@@ -31,8 +31,8 @@ import org.tasks.preferences.Preferences
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.BasicRecurrenceDialog.Companion.EXTRA_RRULE
 import org.tasks.repeats.RepeatRuleToString
-import org.tasks.tags.TagPickerActivity
-import org.tasks.tags.TagPickerActivity.Companion.EXTRA_SELECTED
+import org.tasks.tags.TagPickerActivityCompose
+import org.tasks.tags.TagPickerActivityCompose.Companion.EXTRA_SELECTED
 import javax.inject.Inject
 
 private const val FRAG_TAG_DEFAULT_LIST_SELECTION = "frag_tag_default_list_selection"
@@ -108,7 +108,7 @@ class TaskDefaults : InjectingPreferenceFragment() {
         findPreference(R.string.p_default_tags)
                 .setOnPreferenceClickListener {
                     lifecycleScope.launch {
-                        val intent = Intent(context, TagPickerActivity::class.java)
+                        val intent = Intent(context, TagPickerActivityCompose::class.java)
                                 .putParcelableArrayListExtra(
                                         EXTRA_SELECTED,
                                         ArrayList(defaultTags())
