@@ -1,15 +1,15 @@
 package org.tasks.tags
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
-import org.tasks.tags.CheckBoxTriStates.State
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,6 +22,10 @@ class TagPickerViewModel @Inject constructor(
     private val partiallySelected: MutableSet<TagData> = HashSet()
     var text: String? = null
         private set
+
+    private val _pattern = mutableStateOf("")
+    val pattern: State<String>
+        get() = _pattern
 
     fun observe(owner: LifecycleOwner, observer: (List<TagData>) -> Unit) =
             tags.observe(owner, observer)
@@ -49,6 +53,7 @@ class TagPickerViewModel @Inject constructor(
             }
         }
         text = newText
+        _pattern.value = newText
     }
 
     private fun onUpdate(results: MutableList<TagData>) {
@@ -65,20 +70,20 @@ class TagPickerViewModel @Inject constructor(
                 }
             }
             .toMutableList()
-        if (!isNullOrEmpty(text) && !results.any { text.equals(it.name, ignoreCase = true) }) {
-            sorted.add(0, TagData(text))
+        if (pattern.value != "" && !results.any { pattern.value.equals(it.name, ignoreCase = true) }) {
+            sorted.add(0, TagData(pattern.value))
         }
         tags.value = sorted
     }
 
-    fun getState(tagData: TagData): State {
+    fun getState(tagData: TagData): CheckBoxTriStates.State {
         if (partiallySelected.contains(tagData)) {
-            return State.PARTIALLY_CHECKED
+            return CheckBoxTriStates.State.PARTIALLY_CHECKED
         }
-        return if (selected.contains(tagData)) State.CHECKED else State.UNCHECKED
+        return if (selected.contains(tagData)) CheckBoxTriStates.State.CHECKED else CheckBoxTriStates.State.UNCHECKED
     }
 
-    suspend fun toggle(tagData: TagData, checked: Boolean): State {
+    suspend fun toggle(tagData: TagData, checked: Boolean): CheckBoxTriStates.State {
         var tagData = tagData
         if (tagData.id == null) {
             tagData = TagData(tagData.name)
@@ -87,10 +92,10 @@ class TagPickerViewModel @Inject constructor(
         partiallySelected.remove(tagData)
         return if (checked) {
             selected.add(tagData)
-            State.CHECKED
+            CheckBoxTriStates.State.CHECKED
         } else {
             selected.remove(tagData)
-            State.UNCHECKED
+            CheckBoxTriStates.State.UNCHECKED
         }
     }
 
