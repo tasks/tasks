@@ -2,6 +2,7 @@ package org.tasks.tags
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.state.ToggleableState
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -76,14 +77,14 @@ class TagPickerViewModel @Inject constructor(
         tags.value = sorted
     }
 
-    fun getState(tagData: TagData): CheckBoxTriStates.State {
+    fun getState(tagData: TagData): ToggleableState {
         if (partiallySelected.contains(tagData)) {
-            return CheckBoxTriStates.State.PARTIALLY_CHECKED
+            return ToggleableState.Indeterminate
         }
-        return if (selected.contains(tagData)) CheckBoxTriStates.State.CHECKED else CheckBoxTriStates.State.UNCHECKED
+        return if (selected.contains(tagData)) ToggleableState.On else ToggleableState.Off
     }
 
-    suspend fun toggle(tagData: TagData, checked: Boolean): CheckBoxTriStates.State {
+    suspend fun toggle(tagData: TagData, checked: Boolean): ToggleableState {
         var tagData = tagData
         if (tagData.id == null) {
             tagData = TagData(tagData.name)
@@ -92,10 +93,10 @@ class TagPickerViewModel @Inject constructor(
         partiallySelected.remove(tagData)
         return if (checked) {
             selected.add(tagData)
-            CheckBoxTriStates.State.CHECKED
+            ToggleableState.On
         } else {
             selected.remove(tagData)
-            CheckBoxTriStates.State.UNCHECKED
+            ToggleableState.Off
         }
     }
 

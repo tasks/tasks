@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.compose.ui.state.ToggleableState
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -22,7 +23,7 @@ import org.tasks.themes.Theme
 import java.util.*
 import javax.inject.Inject
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class TagPickerActivity : ThemedInjectingAppCompatActivity() {
     @Inject lateinit var theme: Theme
     @Inject lateinit var inventory: Inventory
@@ -70,7 +71,13 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
     private fun onToggle(tagData: TagData, vh: TagPickerViewHolder) = lifecycleScope.launch {
         val newTag = tagData.id == null
         val newState = viewModel.toggle(tagData, vh.isChecked || newTag)
-        vh.updateCheckbox(newState)
+        vh.updateCheckbox(
+            when (newState) {
+                ToggleableState.On -> CheckBoxTriStates.State.CHECKED
+                ToggleableState.Off -> CheckBoxTriStates.State.UNCHECKED
+                else -> CheckBoxTriStates.State.PARTIALLY_CHECKED
+            }
+        )
         if (newTag) {
             clear()
         }

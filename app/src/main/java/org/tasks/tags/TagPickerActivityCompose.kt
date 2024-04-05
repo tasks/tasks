@@ -197,18 +197,10 @@ internal fun PickerBox(
     getTagIcon: (TagData) -> Int = { R.drawable.ic_outline_label_24px },
     getTagColor: (TagData) -> Color = { Color.Gray }
 ) {
-    val getState: (TagData) -> ToggleableState = {
-        when (viewModel.getState(it)) {
-            CheckBoxTriStates.State.CHECKED -> ToggleableState.On
-            CheckBoxTriStates.State.PARTIALLY_CHECKED -> ToggleableState.Indeterminate
-            else -> ToggleableState.Off
-        }
-    }
     val onClick: (TagData) -> Unit = {
         viewModel.viewModelScope.launch {
-            viewModel.toggle(it, viewModel.getState(it) != CheckBoxTriStates.State.CHECKED) }
+            viewModel.toggle(it, viewModel.getState(it) != ToggleableState.On) }
     }
-
     val newItem: (TagData) -> Unit = {
         viewModel.viewModelScope.launch { viewModel.createNew(it.name!!); viewModel.search("") }
     }
@@ -216,13 +208,13 @@ internal fun PickerBox(
     LazyColumn {
         items( tags.value, key = { if (it.id == null) -1 else it.id!! } )
         {
-            val checked = remember { mutableStateOf ( getState(it) ) }
+            val checked = remember { mutableStateOf ( viewModel.getState(it) ) }
             Row(modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
                     if (it.id == null) newItem(it)
                     else {
-                        onClick(it); checked.value = getState(it)
+                        onClick(it); checked.value = viewModel.getState(it)
                     }
                 },
                 verticalAlignment = Alignment.CenterVertically,
@@ -248,7 +240,7 @@ internal fun PickerBox(
                     TriStateCheckbox(
                         modifier = Modifier.padding(6.dp),
                         state = checked.value,
-                        onClick = { onClick(it); checked.value = getState(it) }
+                        onClick = { onClick(it); checked.value = viewModel.getState(it) }
                     )
                 }
             }

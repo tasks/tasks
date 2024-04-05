@@ -3,6 +3,7 @@ package org.tasks.tags
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.state.ToggleableState
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import org.tasks.R
@@ -31,7 +32,15 @@ internal class TagRecyclerAdapter(
 
     override fun onBindViewHolder(holder: TagPickerViewHolder, position: Int) {
         val tagData = differ.currentList[position]
-        holder.bind(tagData, getColor(tagData), getIcon(tagData), viewModel.getState(tagData))
+        val backCompat: (ToggleableState) -> CheckBoxTriStates.State =
+        { state: ToggleableState ->
+            when (state) {
+                ToggleableState.On -> CheckBoxTriStates.State.CHECKED
+                ToggleableState.Off -> CheckBoxTriStates.State.UNCHECKED
+                else -> CheckBoxTriStates.State.PARTIALLY_CHECKED
+            }
+        }
+        holder.bind(tagData, getColor(tagData), getIcon(tagData), backCompat(viewModel.getState(tagData)))
     }
 
     override fun getItemCount(): Int = differ.currentList.size
