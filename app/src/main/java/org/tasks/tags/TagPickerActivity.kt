@@ -23,7 +23,7 @@ import org.tasks.themes.Theme
 import java.util.*
 import javax.inject.Inject
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class TagPickerActivity : ThemedInjectingAppCompatActivity() {
     @Inject lateinit var theme: Theme
     @Inject lateinit var inventory: Inventory
