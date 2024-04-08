@@ -21,12 +21,14 @@ class TagPickerViewModel @Inject constructor(
     private val tags = MutableLiveData<List<TagData>>()
     private val selected: MutableSet<TagData> = HashSet()
     private val partiallySelected: MutableSet<TagData> = HashSet()
-    var text: String? = null
-        private set
 
-    private val _pattern = mutableStateOf("")
-    val pattern: State<String>
-        get() = _pattern
+    val searchText: State<String>
+        get() = _searchText
+    private val _searchText = mutableStateOf("")
+
+    val tagToCreate: State<String>
+        get() = _tagToCreate
+    private val _tagToCreate = mutableStateOf("")
 
     fun observe(owner: LifecycleOwner, observer: (List<TagData>) -> Unit) =
             tags.observe(owner, observer)
@@ -47,17 +49,16 @@ class TagPickerViewModel @Inject constructor(
     fun getPartiallySelected() = ArrayList(partiallySelected)
 
     fun search(newText: String) {
-        if (!newText.equals(text, ignoreCase = true)) {
+        if (newText == "" || !newText.equals(_searchText.value, ignoreCase = true)) {
             viewModelScope.launch {
                 val results = tagDataDao.searchTags(newText)
-                onUpdate(results.toMutableList())
+                onUpdate(newText, results.toMutableList())
             }
         }
-        text = newText
-        _pattern.value = newText
+        _searchText.value = newText
     }
 
-    private fun onUpdate(results: MutableList<TagData>) {
+    private fun onUpdate(newText: String, results: MutableList<TagData>) {
         val sorted = results
             .sortedWith { l, r ->
                 val lSelected = selected.contains(l) || partiallySelected.contains(r)
@@ -71,9 +72,10 @@ class TagPickerViewModel @Inject constructor(
                 }
             }
             .toMutableList()
-        if (pattern.value != "" && !results.any { pattern.value.equals(it.name, ignoreCase = true) }) {
-            sorted.add(0, TagData(pattern.value))
-        }
+        if ( newText != "" && !results.any {newText.equals(it.name, ignoreCase = true) } )
+            _tagToCreate.value = newText
+        else
+            _tagToCreate.value = ""
         tags.value = sorted
     }
 

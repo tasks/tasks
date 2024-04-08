@@ -20,6 +20,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -97,7 +98,7 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
     } /* onCreate */
 
     override fun onBackPressed() {
-        if (Strings.isNullOrEmpty(viewModel.pattern.value)) {
+        if (Strings.isNullOrEmpty(viewModel.searchText.value)) {
             val data = Intent()
             data.putExtra(EXTRA_TASKS, taskIds)
             data.putParcelableArrayListExtra(EXTRA_PARTIALLY_SELECTED, viewModel.getPartiallySelected())
@@ -164,7 +165,7 @@ internal fun SearchBar(
     viewModel: TagPickerViewModel,
     onBack: () -> Unit
 ) {
-    val searchPattern = remember { viewModel.pattern }
+    val searchPattern = remember { viewModel.searchText }
     val invitation = LocalContext.current.getString(R.string.enter_tag_name)
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
@@ -191,7 +192,7 @@ internal fun SearchBar(
 } /* SearchBar */
 
 @Composable
-internal fun PickerBox(
+internal fun PickerBox (
     viewModel: TagPickerViewModel,
     tags: State<List<TagData>>,
     getTagIcon: (TagData) -> Int = { R.drawable.ic_outline_label_24px },
@@ -201,52 +202,68 @@ internal fun PickerBox(
         viewModel.viewModelScope.launch {
             viewModel.toggle(it, viewModel.getState(it) != ToggleableState.On) }
     }
-    val newItem: (TagData) -> Unit = {
-        viewModel.viewModelScope.launch { viewModel.createNew(it.name!!); viewModel.search("") }
+
+    val newItem: (String) -> Unit = {
+        viewModel.viewModelScope.launch { viewModel.createNew(it); viewModel.search("") }
     }
 
     LazyColumn {
-        items( tags.value, key = { if (it.id == null) -1 else it.id!! } )
+        if (viewModel.tagToCreate.value != "") {
+            item(key = -1) {
+                val text = LocalContext.current.getString(R.string.new_tag) + " \"${viewModel.tagToCreate.value}\""
+                TagRow(
+                    icon = ImageVector.vectorResource(R.drawable.ic_outline_add_24px),
+                    iconColor = Color(LocalContext.current.getColor(R.color.icon_tint_with_alpha)),
+                    text = text,
+                    onClick = { newItem(viewModel.searchText.value) }
+                )
+            }
+        }
+
+        items( tags.value, key = { tag -> tag.id!! } )
         {
             val checked = remember { mutableStateOf ( viewModel.getState(it) ) }
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .clickable {
-                    if (it.id == null) newItem(it)
-                    else {
-                        onClick(it); checked.value = viewModel.getState(it)
-                    }
-                },
-                verticalAlignment = Alignment.CenterVertically,
+            val clickChecked: () -> Unit = { onClick(it); checked.value = viewModel.getState(it) }
+            TagRow(
+                icon = ImageVector.vectorResource(getTagIcon(it)),
+                iconColor = getTagColor(it),
+                text = it.name!!,
+                onClick = clickChecked
             ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(getTagIcon(it)),
-                    contentDescription = "",
+                TriStateCheckbox(
                     modifier = Modifier.padding(6.dp),
-                    tint = getTagColor(it)
+                    state = checked.value,
+                    onClick = clickChecked
                 )
-                if ( it.id == null ) {
-                    val text = LocalContext.current.getString(R.string.new_tag) + " \"${it.name!!}\""
-                    Text( text,
-                          modifier = Modifier
-                              .padding(horizontal = 24.dp)
-                              .clickable { newItem(it) } )
-                } else {
-                    Text(it.name!!,
-                         modifier = Modifier
-                             .weight(1f)
-                             .padding(horizontal = 24.dp)
-                        )
-                    TriStateCheckbox(
-                        modifier = Modifier.padding(6.dp),
-                        state = checked.value,
-                        onClick = { onClick(it); checked.value = viewModel.getState(it) }
-                    )
-                }
             }
         }
     }
 } /* PickerBox */
+
+@Composable
+internal fun TagRow (
+    icon: ImageVector,
+    iconColor: Color,
+    text: String,
+    onClick: () -> Unit,
+    checkBox: @Composable RowScope.() -> Unit = {}
+) {
+    Row(modifier = Modifier.fillMaxWidth().clickable{ onClick() },
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = "",
+            modifier = Modifier.padding(6.dp),
+            tint = iconColor
+        )
+        Text(
+            text,
+            modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
+        )
+        checkBox()
+    }
+} /* TagRow */
 
 /*
 internal fun genTestTags(): List<TagData>
