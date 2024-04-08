@@ -517,7 +517,7 @@
     <string name="got_it">J\'ai compris !</string>
     <string name="support_development_subscribe">Déverrouillez des fonctionnalités supplémentaires et soutenez les logiciels à code source ouvert</string>
     <string name="enjoying_tasks">Appréciez-vous Tasks \?</string>
-    <string name="whats_new">Quoi de neuf \?</string>
+    <string name="whats_new">Quoi de neuf ?</string>
     <string name="action_new_task">Nouvelle tâche</string>
     <string name="yesterday_lowercase">hier</string>
     <string name="tomorrow_lowercase">demain</string>
@@ -746,4 +746,5 @@
     <string name="repeats_weekly_on">Répéter le</string>
     <string name="repeats_never">Jamais</string>
     <string name="change_priority">Modifier la priorité</string>
+    <string name="theme_dynamic">Dynamique</string>
 </resources>
