@@ -116,7 +116,6 @@ import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
-import org.tasks.tags.TagPickerActivity
 import org.tasks.tags.TagPickerActivityCompose
 import org.tasks.tasklist.*
 import org.tasks.themes.ColorProvider
