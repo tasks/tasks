@@ -14,6 +14,7 @@ package org.tasks.tags
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
@@ -68,6 +69,11 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
 
     private val viewModel: TagPickerViewModel by viewModels()
     private var taskIds: ArrayList<Long>? = null
+    private val onBackPressed = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            handleBackPressed()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,13 +89,15 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
             }
         }
 
+        onBackPressedDispatcher.addCallback(this, onBackPressed)
+
         viewModel.search("")
 
         setContent {
             MdcTheme {
                 TagPicker(
                     viewModel,
-                    onBackClicked = { onBackPressed() },
+                    onBackClicked = { handleBackPressed() },
                     getTagIcon = { tagData ->  getIcon(tagData) },
                     getTagColor = { tagData ->  getColor(tagData) }
                 )
@@ -97,7 +105,8 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
         }
     } /* onCreate */
 
-    override fun onBackPressed() {
+/*    override fun onBackPressed() {
+        super.onBackPressed()
         if (Strings.isNullOrEmpty(viewModel.searchText.value)) {
             val data = Intent()
             data.putExtra(EXTRA_TASKS, taskIds)
@@ -108,7 +117,20 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
         } else {
             viewModel.search("")
         }
-    } /* onBackPressed */
+    } /* onBackPressed */ */
+
+    private fun handleBackPressed() {
+        if (Strings.isNullOrEmpty(viewModel.searchText.value)) {
+            val data = Intent()
+            data.putExtra(EXTRA_TASKS, taskIds)
+            data.putParcelableArrayListExtra(EXTRA_PARTIALLY_SELECTED, viewModel.getPartiallySelected())
+            data.putParcelableArrayListExtra(EXTRA_SELECTED, viewModel.getSelected())
+            setResult(Activity.RESULT_OK, data)
+            finish()
+        } else {
+            viewModel.search("")
+        }
+    } /* handleBackPressed */
 
     private fun getColor(tagData: TagData): Color {
         if (tagData.getColor() != 0) {
