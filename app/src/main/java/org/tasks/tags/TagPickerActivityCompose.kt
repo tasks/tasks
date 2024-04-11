@@ -54,6 +54,7 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.billing.Inventory
 import org.tasks.data.TagData
+import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons
@@ -69,11 +70,6 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
 
     private val viewModel: TagPickerViewModel by viewModels()
     private var taskIds: ArrayList<Long>? = null
-    private val onBackPressed = object : OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() {
-            handleBackPressed()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +85,7 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
             }
         }
 
-        onBackPressedDispatcher.addCallback(this, onBackPressed)
+        addBackPressedCallback { handleBackPressed() }
 
         viewModel.search("")
 
@@ -104,20 +100,6 @@ class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
             } /* setContent */
         }
     } /* onCreate */
-
-/*    override fun onBackPressed() {
-        super.onBackPressed()
-        if (Strings.isNullOrEmpty(viewModel.searchText.value)) {
-            val data = Intent()
-            data.putExtra(EXTRA_TASKS, taskIds)
-            data.putParcelableArrayListExtra(EXTRA_PARTIALLY_SELECTED, viewModel.getPartiallySelected())
-            data.putParcelableArrayListExtra(EXTRA_SELECTED, viewModel.getSelected())
-            setResult(Activity.RESULT_OK, data)
-            finish()
-        } else {
-            viewModel.search("")
-        }
-    } /* onBackPressed */ */
 
     private fun handleBackPressed() {
         if (Strings.isNullOrEmpty(viewModel.searchText.value)) {
