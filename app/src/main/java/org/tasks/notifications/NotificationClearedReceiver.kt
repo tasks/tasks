@@ -24,13 +24,16 @@ class NotificationClearedReceiver : BroadcastReceiver() {
         Timber.d("cleared $notificationId")
         if (notificationId <= 0L) return
         scope.launch {
-            if (!preferences.useSwipeToSnooze()) {
-                notificationManager.cancel(notificationId)
+            if (preferences.useSwipeToSnooze()) {
+                var snoozeTime = preferences.swipeToSnoozeIntervalMS()
+                // snoozing for 0ms will cause the alarm service to miss this notification
+                // so sleep for 1s instead
+                if (snoozeTime == 0L) snoozeTime = 1000L
+                alarmService.snooze(snoozeTime, listOf(notificationId))
                 return@launch
+            } else {
+                notificationManager.cancel(notificationId)
             }
-            var snoozeTime = preferences.swipeToSnoozeIntervalMS()
-            if (snoozeTime == 0L) snoozeTime = 1000L
-            alarmService.snooze(snoozeTime, listOf(notificationId))
         }
     }
 }
