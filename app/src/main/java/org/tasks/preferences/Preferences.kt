@@ -471,7 +471,7 @@ class Preferences @JvmOverloads constructor(
             getBoolean(R.string.p_rmd_swipe_to_snooze_enabled, false)
 
     fun swipeToSnoozeIntervalMS(): Long =
-            getLong(R.string.p_rmd_swipe_to_snooze_time_minutes, 0)
+            getIntegerFromString(R.string.p_rmd_swipe_to_snooze_time_minutes, 0).toLong()
 
     var isSyncOngoing: Boolean
         get() = syncFlags.any { getBoolean(it, false) }
