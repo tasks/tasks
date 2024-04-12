@@ -1,6 +1,7 @@
 package org.tasks.filters
 
 import com.todoroo.andlib.sql.Criterion.Companion.and
+import com.todoroo.andlib.sql.Functions.now
 import com.todoroo.andlib.sql.Join.Companion.inner
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
@@ -24,7 +25,8 @@ data class SnoozedFilter(
             .where(
                 and(
                     activeAndVisible(),
-                    Alarm.TYPE.eq(Alarm.TYPE_SNOOZE)
+                    Alarm.TYPE.eq(Alarm.TYPE_SNOOZE),
+                    Alarm.TIME.gt(now()),
                 )
             )
             .toString()

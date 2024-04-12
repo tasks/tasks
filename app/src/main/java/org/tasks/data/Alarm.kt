@@ -119,6 +119,7 @@ class Alarm : Parcelable {
         @JvmField val TABLE = Table(TABLE_NAME)
         @JvmField val TASK = TABLE.column("task")
         @JvmField val TYPE = TABLE.column("type")
+        @JvmField val TIME = TABLE.column("time")
 
         const val TYPE_DATE_TIME = 0
         const val TYPE_REL_START = 1
