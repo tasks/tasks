@@ -30,7 +30,6 @@ class NotificationClearedReceiver : BroadcastReceiver() {
                 // so sleep for 1s instead
                 if (snoozeTime == 0L) snoozeTime = 1000L
                 alarmService.snooze(snoozeTime, listOf(notificationId))
-                return@launch
             } else {
                 notificationManager.cancel(notificationId)
             }
