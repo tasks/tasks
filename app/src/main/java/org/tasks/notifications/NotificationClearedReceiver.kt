@@ -18,6 +18,7 @@ class NotificationClearedReceiver : BroadcastReceiver() {
     @Inject @ApplicationScope lateinit var scope: CoroutineScope
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var alarmService: AlarmService
+
     override fun onReceive(context: Context, intent: Intent) {
         val notificationId = intent.getLongExtra(NotificationManager.EXTRA_NOTIFICATION_ID, -1L)
         Timber.d("cleared $notificationId")
