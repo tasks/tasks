@@ -310,6 +310,9 @@
       <meta-data
         android:name="android.appwidget.provider"
         android:resource="@xml/scrollable_widget_provider_info"/>
+      <meta-data
+          android:name="com.samsung.android.appwidget.provider"
+          android:resource="@xml/samsung_scrollable_flex_window_widget_meta_info"/>
     </receiver>
 
     <!-- ======================================================== Services = -->
