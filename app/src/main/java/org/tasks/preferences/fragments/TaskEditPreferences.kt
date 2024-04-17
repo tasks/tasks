@@ -2,6 +2,7 @@ package org.tasks.preferences.fragments
 
 import android.os.Bundle
 import androidx.appcompat.content.res.AppCompatResources
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.injection.InjectingPreferenceFragment
@@ -21,5 +22,7 @@ class TaskEditPreferences : InjectingPreferenceFragment() {
             tint = context.getColor(R.color.icon_tint_with_alpha)
             iconVisible = true
         }
+
+        findPreference(R.string.p_show_edit_screen_without_unlock).isVisible = atLeastOreoMR1()
     }
 }

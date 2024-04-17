@@ -176,6 +176,9 @@ class Preferences @JvmOverloads constructor(
             return if (firstDayOfWeek < 1 || firstDayOfWeek > 7) 0 else firstDayOfWeek
         }
 
+    val showEditScreenWithoutUnlock: Boolean
+        get() = getBoolean(R.string.p_show_edit_screen_without_unlock, false)
+
     @SuppressLint("ApplySharedPref")
     fun clear() {
         prefs.edit().clear().commit()
