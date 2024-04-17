@@ -43,6 +43,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.composethemeadapter.MdcTheme
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -149,6 +150,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             } else {
                 discardButtonClick()
             }
+        }
+        if (atLeastOreoMR1()) {
+            activity?.setShowWhenLocked(preferences.showEditScreenWithoutUnlock)
         }
 
         binding = FragmentTaskEditBinding.inflate(inflater)
@@ -303,6 +307,13 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             editViewModel.selectedList.update { filter }
         }
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (atLeastOreoMR1()) {
+            activity?.setShowWhenLocked(false)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

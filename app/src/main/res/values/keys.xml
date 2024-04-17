@@ -98,6 +98,7 @@
 
   <!-- show comments in task edit -->
   <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
+  <string name="p_show_edit_screen_without_unlock">show_edit_screen_without_unlock</string>
 
   <string-array name="EPr_reminder_random_hours">
     <!-- values (in hours) associated with random reminders above. -->
