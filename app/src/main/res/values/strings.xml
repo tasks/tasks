@@ -370,6 +370,7 @@ File %1$s contained %2$s.\n\n
   <string name="no_title">(No title)</string>
   <string name="back_button_saves_task">Back button saves task</string>
   <string name="show_edit_screen_without_unlock">Show edit screen without unlock</string>
+  <string name="show_edit_screen_without_unlock_summary">Enables use of Quick Settings tile without unlocking device</string>
   <string name="default_list">Default list</string>
   <string name="default_tags">Default tags</string>
   <string name="default_recurrence">Default recurrence</string>
