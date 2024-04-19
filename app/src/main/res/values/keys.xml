@@ -75,6 +75,17 @@
   <!-- whether "clear all notifications" clears astrid notifications -->
   <string name="p_rmd_persistent">notif_annoy</string>
 
+  <string name="p_rmd_swipe_to_snooze_enabled">notif_swipe_to_snooze_enabled</string>
+  <string name="p_rmd_swipe_to_snooze_time_minutes">notif_swipe_to_snooze_time_minutes</string>
+
+  <string-array name="swipe_to_snooze_time_values">
+    <item>0</item>
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+    <item>1440</item>
+  </string-array>
+
   <!-- whether to vibrate phone when reminder fires -->
   <string name="p_rmd_vibrate">notif_vibrate</string>
 

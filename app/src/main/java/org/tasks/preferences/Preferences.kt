@@ -468,7 +468,13 @@ class Preferences @JvmOverloads constructor(
     fun bundleNotifications(): Boolean = getBoolean(R.string.p_bundle_notifications, true)
 
     fun usePersistentReminders(): Boolean =
-        AndroidUtilities.preUpsideDownCake() && getBoolean(R.string.p_rmd_persistent, true)
+            AndroidUtilities.preUpsideDownCake() && getBoolean(R.string.p_rmd_persistent, true)
+
+    fun useSwipeToSnooze(): Boolean =
+            getBoolean(R.string.p_rmd_swipe_to_snooze_enabled, false)
+
+    fun swipeToSnoozeIntervalMS(): Long =
+            getIntegerFromString(R.string.p_rmd_swipe_to_snooze_time_minutes, 0).toLong()
 
     var isSyncOngoing: Boolean
         get() = syncFlags.any { getBoolean(it, false) }
