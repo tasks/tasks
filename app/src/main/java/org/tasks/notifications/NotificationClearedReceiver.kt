@@ -3,6 +3,7 @@ package org.tasks.notifications
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.alarms.AlarmService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +30,10 @@ class NotificationClearedReceiver : BroadcastReceiver() {
                 // snoozing for 0ms will cause the alarm service to miss this notification
                 // so sleep for 1s instead
                 if (snoozeTime == 0L) snoozeTime = 1000L
-                alarmService.snooze(snoozeTime, listOf(notificationId))
+                alarmService.snooze(
+                    time = now() + snoozeTime,
+                    taskIds = listOf(notificationId)
+                )
             } else {
                 notificationManager.cancel(notificationId)
             }
