@@ -30,12 +30,12 @@
     <string name="SSD_sort_auto">Intelligente Sortierung</string>
     <string name="SSD_sort_alpha">Nach Titel</string>
     <string name="SSD_sort_due">Nach Fälligkeitsdatum</string>
-    <string name="SSD_sort_importance">Nach Wichtigkeit</string>
+    <string name="SSD_sort_importance">Nach Priorität</string>
     <string name="SSD_sort_modified">Nach letzter Änderung</string>
     <string name="FLA_search_filter">Suche nach \'%s\'</string>
     <string name="FLA_new_filter">Neuen Filter erstellen</string>
     <string name="TEA_title_hint">Aufgabenname</string>
-    <string name="TEA_importance_label">Wichtigkeit</string>
+    <string name="TEA_importance_label">Priorität</string>
     <string name="TEA_note_label">Beschreibung</string>
     <string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
     <string name="TEA_elapsedDuration_label">Schon benötigte Zeit</string>
@@ -48,7 +48,7 @@
     <string name="week_before_due">Woche vor Fälligkeit</string>
     <string name="TEA_control_repeat">Wiederholen</string>
     <string name="TEA_control_gcal">Kalender</string>
-    <string name="TEA_control_importance">Wichtigkeit</string>
+    <string name="TEA_control_importance">Priorität</string>
     <string name="TEA_control_location">Ort</string>
     <string name="TEA_control_notes">Beschreibung</string>
     <string name="TEA_control_files">Dateien</string>
@@ -74,7 +74,7 @@
     <string name="EPr_manage_delete_all_gcal">Alle Kalendereinträge für Aufgaben löschen</string>
     <string name="EPr_manage_delete_all_gcal_message">Möchten Sie wirklich alle Kalendereinträge für Aufgaben löschen\?</string>
     <string name="task_defaults">Vorgaben für Aufgaben</string>
-    <string name="EPr_default_importance_title">Wichtigkeitsstandard</string>
+    <string name="EPr_default_importance_title">Standardpriorität</string>
     <string name="EPr_default_reminders_title">Standard-Erinnerungen</string>
     <string name="EPr_default_location_reminder_title">Standard-Standort-Erinnerungen</string>
     <string name="EPr_default_reminders_mode_title">Alarm/Vibrationssignal</string>
@@ -94,8 +94,8 @@
     <string name="CFC_dueBefore_name">Fällig …</string>
     <string name="no_due_date">Ohne Fälligkeit</string>
     <string name="next_month">Nächster Monat</string>
-    <string name="CFC_importance_text">Mindestwichtigkeit?</string>
-    <string name="CFC_importance_name">Wichtigkeit …</string>
+    <string name="CFC_importance_text">Mindestpriorität?</string>
+    <string name="CFC_importance_name">Priorität…</string>
     <string name="CFC_tag_text">Schlagwort: \?</string>
     <string name="CFC_tag_name">Schlagwort …</string>
     <string name="CFC_tag_contains_name">Schlagwort enthält …</string>
@@ -249,7 +249,7 @@
     <string name="when_overdue">Wenn überfällig</string>
     <string name="when_due">Wenn fällig</string>
     <string name="tags">Schlagwörter</string>
-    <string name="change_priority">Wichtigkeit ändern</string>
+    <string name="change_priority">Priorität ändern</string>
     <string name="filters">Filter</string>
     <string name="date_shortcut_hour">Für eine Stunde</string>
     <string name="date_shortcut_morning">Vormittag</string>
@@ -485,10 +485,10 @@
     <string name="custom_filter_not">NICHT</string>
     <string name="custom_filter_or">ODER</string>
     <string name="custom_filter_criteria">Filterkriterien</string>
-    <string name="filter_no_priority">Keine Wichtigkeit</string>
-    <string name="filter_low_priority">Niedrige Wichtigkeit</string>
-    <string name="filter_medium_priority">Mittlere Wichtigkeit</string>
-    <string name="filter_high_priority">Hohe Wichtigkeit</string>
+    <string name="filter_no_priority">Keine Priorität</string>
+    <string name="filter_low_priority">Niedrige Priorität</string>
+    <string name="filter_medium_priority">Mittlere Priorität</string>
+    <string name="filter_high_priority">Hohe Priorität</string>
     <string name="filter_today_only">Nur heute</string>
     <string name="sort_created">Nach Erstellungszeit</string>
     <string name="filter_after_today">Ab morgen</string>
@@ -724,4 +724,6 @@
     <string name="repeats_every">Wiederholt sich</string>
     <string name="repeat_monthly_on_day_number">Monatlich an Tag %1d</string>
     <string name="repeat_monthly_on_the_nth_weekday">Monatlich an dem %1$s %2$s</string>
+    <string name="clear_completed_tasks_count">%s werden gelöscht</string>
+    <string name="theme_dynamic">Dynamisch</string>
 </resources>

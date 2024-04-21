@@ -35,4 +35,11 @@
         android:title="@string/EPr_show_task_edit_comments"
         app:singleLineTitle="false" />
 
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_show_edit_screen_without_unlock"
+        android:title="@string/show_edit_screen_without_unlock"
+        android:summary="@string/show_edit_screen_without_unlock_summary"
+        app:singleLineTitle="false" />
+
 </PreferenceScreen>

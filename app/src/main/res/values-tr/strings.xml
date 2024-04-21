@@ -328,9 +328,9 @@
     <string name="repeats_from">Şundan sonra yinele</string>
     <string name="repeats_single">%s yineler</string>
     <string name="repeats_single_on">%2$s gününde %1$s yineler</string>
-    <string name="repeats_single_until">%2$s gününe dek %1$s yineler</string>
+    <string name="repeats_single_until">%1$s yineler, %2$s biter</string>
     <string name="repeats_single_number_of_times">%1$s yineler, %2$d %3$s gerçekleşir</string>
-    <string name="repeats_single_on_until">%3$s gününe dek %2$s gününde %1$s yineler</string>
+    <string name="repeats_single_on_until">%2$s gününde %1$s yineler, %3$s biter</string>
     <string name="repeats_single_on_number_of_times">%2$s gününde %1$s yineler, %3$d %4$s gerçekleşir</string>
     <string name="repeats_minutely">Dakikalık</string>
     <string name="repeats_hourly">Saatlik</string>
@@ -340,9 +340,9 @@
     <string name="repeats_yearly">Yıllık</string>
     <string name="repeats_plural">Her %s yineler</string>
     <string name="repeats_plural_on">%2$s gününde her %1$s yineler</string>
-    <string name="repeats_plural_until">%2$s gününe dek her %1$s yineler</string>
+    <string name="repeats_plural_until">Her %1$s yineler, %2$s biter</string>
     <string name="repeats_plural_number_of_times">Her %1$s yineler, %2$d %3$s gerçekleşir</string>
-    <string name="repeats_plural_on_until">%3$s gününe dek %2$s gününde her %1$s yineler</string>
+    <string name="repeats_plural_on_until">%2$s gününde her %1$s yineler, %3$s biter</string>
     <string name="repeats_plural_on_number_of_times">%2$s gününde her %1$s yineler, %3$d %4$s gerçekleşir</string>
     <string name="dont_add_to_calendar">Takvime ekleme</string>
     <string name="default_calendar">Öntanımlı takvim</string>
@@ -725,4 +725,5 @@
     <string name="sort_grouping">Kümeleme</string>
     <string name="change_priority">Önceliği değiştir</string>
     <string name="clear_completed_tasks_count">%s silinecek</string>
+    <string name="theme_dynamic">Dinamik</string>
 </resources>

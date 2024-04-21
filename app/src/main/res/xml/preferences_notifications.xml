@@ -71,6 +71,23 @@
     android:summary="@string/more_notification_settings_summary"
     app:icon="@drawable/ic_open_in_new_24px" />
 
+  <PreferenceCategory android:title="@string/swipe_to_snooze_title">
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/p_rmd_swipe_to_snooze_enabled"
+        android:title="@string/enabled" />
+
+    <ListPreference
+        android:defaultValue="15"
+        android:entries="@array/swipe_to_snooze_times"
+        android:entryValues="@array/swipe_to_snooze_time_values"
+        android:key="@string/p_rmd_swipe_to_snooze_time_minutes"
+        android:summary="@string/swipe_to_snooze_time_description"
+        android:title="@string/swipe_to_snooze_description"
+        android:dependency="@string/p_rmd_swipe_to_snooze_enabled" />
+  </PreferenceCategory>
+
   <PreferenceCategory android:title="@string/default_reminder">
 
     <SwitchPreferenceCompat

@@ -176,6 +176,9 @@ class Preferences @JvmOverloads constructor(
             return if (firstDayOfWeek < 1 || firstDayOfWeek > 7) 0 else firstDayOfWeek
         }
 
+    val showEditScreenWithoutUnlock: Boolean
+        get() = getBoolean(R.string.p_show_edit_screen_without_unlock, false)
+
     @SuppressLint("ApplySharedPref")
     fun clear() {
         prefs.edit().clear().commit()
@@ -465,7 +468,15 @@ class Preferences @JvmOverloads constructor(
     fun bundleNotifications(): Boolean = getBoolean(R.string.p_bundle_notifications, true)
 
     fun usePersistentReminders(): Boolean =
-        AndroidUtilities.preUpsideDownCake() && getBoolean(R.string.p_rmd_persistent, true)
+            AndroidUtilities.preUpsideDownCake() && getBoolean(R.string.p_rmd_persistent, true)
+
+    fun useSwipeToSnooze(): Boolean =
+            getBoolean(R.string.p_rmd_swipe_to_snooze_enabled, false)
+
+    fun swipeToSnoozeIntervalMS(): Long =
+        TimeUnit.MINUTES.toMillis(
+            getIntegerFromString(R.string.p_rmd_swipe_to_snooze_time_minutes, 0).toLong()
+        )
 
     var isSyncOngoing: Boolean
         get() = syncFlags.any { getBoolean(it, false) }

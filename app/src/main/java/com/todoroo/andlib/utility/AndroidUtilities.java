@@ -160,6 +160,10 @@ public class AndroidUtilities {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
   }
 
+  public static boolean atLeastOreoMR1() {
+    return Build.VERSION.SDK_INT >= VERSION_CODES.O_MR1;
+  }
+
   public static boolean atLeastP() {
     return VERSION.SDK_INT >= Build.VERSION_CODES.P;
   }

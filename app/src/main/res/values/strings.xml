@@ -150,6 +150,14 @@ File %1$s contained %2$s.\n\n
   <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without due times will appear at %s</string>
   <string name="persistent_notifications">Persistent notifications</string>
   <string name="persistent_notifications_description">Persistent notifications cannot be cleared</string>
+  <string name="swipe_to_snooze_title">Swipe to snooze</string>
+  <string name="swipe_to_snooze_description">Snooze time</string>
+  <string name="swipe_to_snooze_time_description">A cleared notification will be snoozed and recreated %s</string>
+  <string name="swipe_to_snooze_time_immediately">immediately</string>
+  <string name="swipe_to_snooze_time_15_minutes">after 15 minutes</string>
+  <string name="swipe_to_snooze_time_30_minutes">after 30 minutes</string>
+  <string name="swipe_to_snooze_time_1_hour">after 1 hour</string>
+  <string name="swipe_to_snooze_time_24_hours">after 24 hours</string>
   <string name="rmd_EPr_defaultRemind_title">Random reminders</string>
   <string name="default_random_reminder_disabled">Disabled</string>
   <string name="default_random_reminder_hourly">Hourly</string>
@@ -369,6 +377,8 @@ File %1$s contained %2$s.\n\n
   <string name="url_invalid_scheme">Must begin with http(s)://</string>
   <string name="no_title">(No title)</string>
   <string name="back_button_saves_task">Back button saves task</string>
+  <string name="show_edit_screen_without_unlock">Show edit screen without unlock</string>
+  <string name="show_edit_screen_without_unlock_summary">Enables use of Quick Settings tile without unlocking device</string>
   <string name="default_list">Default list</string>
   <string name="default_tags">Default tags</string>
   <string name="default_recurrence">Default recurrence</string>
