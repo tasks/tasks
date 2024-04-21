@@ -147,7 +147,7 @@
     <string name="CFC_tag_name">Etikedo…</string>
     <string name="CFC_tag_text">Etikedo: \?</string>
     <string name="CFC_importance_name">Prioritato…</string>
-    <string name="next_month">Sekvanta Monato</string>
+    <string name="next_month">Venontmonate</string>
     <string name="CFC_startBefore_name">Ek…</string>
     <string name="CFC_startBefore_text">Ek: \?</string>
     <string name="CFC_dueBefore_name">Ĝis…</string>
@@ -163,9 +163,9 @@
     <string name="EPr_default_reminders_title">Defaŭltaj memorigiloj</string>
     <string name="default_start_date">Defaŭlta komencdato</string>
     <string name="EPr_manage_delete_gcal_status">Forigis %d kalendarajn eventojn!</string>
-    <string name="EPr_delete_task_data">Forigi datumon de Tasks</string>
+    <string name="EPr_delete_task_data">Forigi taskan datumon</string>
     <string name="EPr_fullTask_title">Vidigi tutan taskan titolon</string>
-    <string name="EPr_edit_screen_options">Redakti ekranajn opciojn</string>
+    <string name="EPr_edit_screen_options">Redakti ekranajn agordojn</string>
     <string name="TEA_control_reminders">Memorigiloj</string>
     <string name="TEA_control_importance">Prioritato</string>
     <string name="TEA_control_repeat">Ripeti</string>
@@ -188,7 +188,7 @@
 \n
 \n%3$s importitaj,
 \n%4$s jam ekzistas
-\n%5$s havis eraroj
+\n%5$s havis erarojn
 \n</string>
     <string name="export_toast">Savkopiis %1$s al %2$s.</string>
     <string name="backup_BAc_import">Importi savkopion</string>
@@ -196,7 +196,7 @@
     <string name="backup_BPr_header">Savkopioj</string>
     <string name="email">Retpoŝto</string>
     <string name="filter_overdue">Posttempa</string>
-    <string name="TEA_control_timer">Tempokontroloj</string>
+    <string name="TEA_control_timer">Tempokontroliloj</string>
     <string name="TEA_control_location">Loko</string>
     <string name="TEA_elapsedDuration_label">Tempo jam pasinta</string>
     <string name="TEA_estimatedDuration_label">Kiom da tempo ĝi daŭros\?</string>
@@ -260,7 +260,7 @@
     <string name="geofence_radius">Virtuala periferio</string>
     <string name="pick_a_date_and_time">Elekti daton kaj horon</string>
     <string name="add_location">Aldoni lokon</string>
-    <string name="add_reminder">Aldoni memorigilo</string>
+    <string name="add_reminder">Aldoni memorigilon</string>
     <string name="source_code">Fontkodo</string>
     <string name="row_spacing">Intervica spaco</string>
     <string name="header_spacing">Interspaco</string>
@@ -279,10 +279,10 @@
     <string name="next_friday">Sekva ven</string>
     <string name="next_wednesday">Sekva mer</string>
     <string name="next_tuesday">Sekva mar</string>
-    <string name="next_monday">Sekva lun</string>
+    <string name="next_monday">Venonta lun</string>
     <string name="next_sunday">Sekva dim</string>
     <string name="next_thursday">Sekva ĵaŭ</string>
-    <string name="voice_command_added_task">Aldonita tasko</string>
+    <string name="voice_command_added_task">Tasko Aldonite</string>
     <string name="EPr_voiceInputEnabled_title">Voĉa enigo</string>
     <string name="voice_create_prompt">Diri por krei taskon</string>
     <string name="TEA_timer_comment_stopped">ĉesigis ĉi tiun taskon:</string>
@@ -494,7 +494,7 @@
     <string name="persistent_notifications">Daŭraj sciigoj</string>
     <string name="invite_declined">Malakceptis inviton</string>
     <string name="notification_disable_battery_optimizations_description">Optimumigoj de baterio povus prokrastigi sciigojn</string>
-    <string name="sort_completed">Per fintempo</string>
+    <string name="sort_completed">Laŭ fintempo</string>
     <string name="customize_edit_screen">Adapti redaktan ekranon</string>
     <string name="change_priority">Ŝanĝi prioritaton</string>
     <string name="filter_settings">Agordoj de filtrilo</string>
@@ -726,4 +726,14 @@
     <string name="chips">Elementoj</string>
     <string name="chip_appearance">Aspekto de elemento</string>
     <string name="theme_dynamic">Dinamika</string>
+    <string name="show_edit_screen_without_unlock">Vidigi redaktilon sen malŝlosi</string>
+    <string name="show_edit_screen_without_unlock_summary">Permesi uzon de Rapidaj Agordoj sen malŝlosi aparaton</string>
+    <string name="swipe_to_snooze_time_description">Forigita sciigo paŭziĝos kaj rekreiĝos je %s</string>
+    <string name="swipe_to_snooze_description">Daŭro por paŭzigi</string>
+    <string name="swipe_to_snooze_time_immediately">tuj</string>
+    <string name="swipe_to_snooze_time_15_minutes">post 15 minutoj</string>
+    <string name="swipe_to_snooze_time_1_hour">post 1 horo</string>
+    <string name="swipe_to_snooze_time_24_hours">post 24 horoj</string>
+    <string name="swipe_to_snooze_title">Ŝovumi por paŭzigi</string>
+    <string name="swipe_to_snooze_time_30_minutes">post 30 minutoj</string>
 </resources>
