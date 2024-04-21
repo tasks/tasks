@@ -748,4 +748,14 @@
     <string name="change_priority">Prioridad de cambio</string>
     <string name="clear_completed_tasks_count">%s será(n) eliminada(s)</string>
     <string name="theme_dynamic">Dinámico</string>
+    <string name="swipe_to_snooze_title">Desliza el dedo para repetir</string>
+    <string name="swipe_to_snooze_time_1_hour">después de 1 hora</string>
+    <string name="swipe_to_snooze_time_24_hours">después de 24 horas</string>
+    <string name="show_edit_screen_without_unlock">Mostrar pantalla de edición sin desbloquear</string>
+    <string name="show_edit_screen_without_unlock_summary">Permite utilizar la ventana de ajustes rápidos sin desbloquear el dispositivo</string>
+    <string name="swipe_to_snooze_description">Tiempo de repetición</string>
+    <string name="swipe_to_snooze_time_description">Una notificación borrada será pospuesta y recreada %s</string>
+    <string name="swipe_to_snooze_time_immediately">inmediatamente</string>
+    <string name="swipe_to_snooze_time_15_minutes">después de 15 minutos</string>
+    <string name="swipe_to_snooze_time_30_minutes">después de 30 minutos</string>
 </resources>
