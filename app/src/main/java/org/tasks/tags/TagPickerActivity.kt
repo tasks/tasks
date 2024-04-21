@@ -1,22 +1,5 @@
 package org.tasks.tags
 
-/*
- * TagPickerActivityCompose is a replacement for TagPickerActivity reimplemented
- * using JetPack Compose framework.
- *
- * The modification eliminates TagRecycleAdapter.
- * TriStateCheckbox from Compose is used instead of CheckBoxTriState.
- * Source code for TagRecycleAdapter and TagPickerActivity were deleted because they became incompatible
- * with modified TagPickerViewModel, but were not excluded from build due to the hilt logic.
- *
- * There is a tag "FeatureReady" in the git commits log which marks the state when the main logic was
- * already implemented via Compose but but viewModel was modified with backward compatibility so to
- * switch back to View implementation its enough to find lines like this
- *       //val intent = Intent(context, TagPickerActivity::class.java)
- *       val intent = Intent(context, TagPickerActivityCompose::class.java)
- * in TaskListFragment.kt and TagsControlSet.kt and move comment mark to another line.
- */
-
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -67,7 +50,7 @@ import org.tasks.themes.Theme
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TagPickerActivityCompose : ThemedInjectingAppCompatActivity() {
+class TagPickerActivity : ThemedInjectingAppCompatActivity() {
     @Inject lateinit var theme: Theme
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider

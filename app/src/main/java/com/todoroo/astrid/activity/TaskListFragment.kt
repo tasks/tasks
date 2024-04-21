@@ -116,8 +116,11 @@ import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
-import org.tasks.tags.TagPickerActivityCompose
-import org.tasks.tasklist.*
+import org.tasks.tags.TagPickerActivity
+import org.tasks.tasklist.DragAndDropRecyclerAdapter
+import org.tasks.tasklist.SectionedDataSource
+import org.tasks.tasklist.TaskViewHolder
+import org.tasks.tasklist.ViewHolderFactory
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
 import org.tasks.ui.TaskEditEvent
@@ -655,10 +658,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 lifecycleScope.launch {
                     val modified = tagDataDao.applyTags(
                             taskDao
-                                .fetch(data!!.getSerializableExtra(TagPickerActivityCompose.EXTRA_TASKS) as ArrayList<Long>)
+                                .fetch(data!!.getSerializableExtra(TagPickerActivity.EXTRA_TASKS) as ArrayList<Long>)
                                 .filterNot { it.readOnly },
-                            data.getParcelableArrayListExtra(TagPickerActivityCompose.EXTRA_PARTIALLY_SELECTED)!!,
-                            data.getParcelableArrayListExtra(TagPickerActivityCompose.EXTRA_SELECTED)!!
+                            data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_PARTIALLY_SELECTED)!!,
+                            data.getParcelableArrayListExtra(TagPickerActivity.EXTRA_SELECTED)!!
                     )
                     taskDao.touch(modified)
                 }
@@ -724,13 +727,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             R.id.edit_tags -> {
                 lifecycleScope.launch {
                     val tags = tagDataDao.getTagSelections(selected)
-                    val intent = Intent(context, TagPickerActivityCompose::class.java)
-                    intent.putExtra(TagPickerActivityCompose.EXTRA_TASKS, selected)
+                    val intent = Intent(context, TagPickerActivity::class.java)
+                    intent.putExtra(TagPickerActivity.EXTRA_TASKS, selected)
                     intent.putParcelableArrayListExtra(
-                            TagPickerActivityCompose.EXTRA_PARTIALLY_SELECTED,
+                            TagPickerActivity.EXTRA_PARTIALLY_SELECTED,
                             ArrayList(tagDataDao.getByUuid(tags.first!!)))
                     intent.putParcelableArrayListExtra(
-                            TagPickerActivityCompose.EXTRA_SELECTED, ArrayList(tagDataDao.getByUuid(tags.second!!)))
+                            TagPickerActivity.EXTRA_SELECTED, ArrayList(tagDataDao.getByUuid(tags.second!!)))
                     startActivityForResult(intent, REQUEST_TAG_TASKS)
                 }
                 true

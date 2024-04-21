@@ -145,7 +145,6 @@ android {
         }
     }
 
-/*
     testOptions {
         managedDevices {
             localDevices {
@@ -157,7 +156,6 @@ android {
             }
         }
     }
-*/
 
     namespace = "org.tasks"
 }
