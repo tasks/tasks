@@ -710,4 +710,14 @@
     <string name="change_priority">更改优先级</string>
     <string name="clear_completed_tasks_count">%s 将被删除</string>
     <string name="theme_dynamic">动态</string>
+    <string name="swipe_to_snooze_time_description">清除的通知将被推迟并于 %s 被再次创建</string>
+    <string name="swipe_to_snooze_time_immediately">立即</string>
+    <string name="swipe_to_snooze_time_30_minutes">30 分钟后</string>
+    <string name="swipe_to_snooze_time_1_hour">1 小时后</string>
+    <string name="swipe_to_snooze_time_24_hours">24 小时后</string>
+    <string name="swipe_to_snooze_title">滑动延后</string>
+    <string name="swipe_to_snooze_description">延后时长</string>
+    <string name="swipe_to_snooze_time_15_minutes">15 分钟后</string>
+    <string name="show_edit_screen_without_unlock_summary">允许不解锁设备的情况下使用“快速设置”磁贴</string>
+    <string name="show_edit_screen_without_unlock">不解锁显示编辑屏</string>
 </resources>
