@@ -1,6 +1,6 @@
 [versions]
 accompanist = "0.32.0"
-activity-compose = "1.8.2"
+activity-compose = "1.9.0"
 appauth = "0.11.1"
 appcompat = "1.6.1"
 cert4android = "7814052"
