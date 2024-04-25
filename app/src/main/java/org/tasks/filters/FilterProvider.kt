@@ -42,7 +42,7 @@ class FilterProvider @Inject constructor(
             caldavFilters(false)
 
     suspend fun drawerItems(): List<FilterListItem> =
-        getAllFilters(showCreate = true)
+        getAllFilters(showCreate = true, hideUnused = true)
 
     suspend fun filterPickerItems(): List<FilterListItem> =
             getAllFilters(showCreate = false)
