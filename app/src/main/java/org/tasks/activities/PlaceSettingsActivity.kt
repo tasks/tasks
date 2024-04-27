@@ -121,6 +121,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
             radius = slider.value.toInt(),
         )
         locationDao.update(place)
+        localBroadcastManager.broadcastRefresh()
         setResult(
                 Activity.RESULT_OK,
                 Intent(TaskListFragment.ACTION_RELOAD)

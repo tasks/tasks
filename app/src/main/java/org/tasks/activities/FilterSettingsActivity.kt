@@ -36,6 +36,7 @@ import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.data.Filter
@@ -58,6 +59,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var locale: Locale
     @Inject lateinit var database: Database
     @Inject lateinit var filterCriteriaProvider: FilterCriteriaProvider
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var name: TextInputEditText
     private lateinit var nameLayout: TextInputLayout
@@ -258,6 +260,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             } else {
                 filterDao.update(f)
             }
+            localBroadcastManager.broadcastRefresh()
             setResult(
                     Activity.RESULT_OK,
                     Intent(TaskListFragment.ACTION_RELOAD)
