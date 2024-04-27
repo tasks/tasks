@@ -18,6 +18,7 @@ import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.TagDao
@@ -32,6 +33,7 @@ import javax.inject.Inject
 class TagSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var tagDao: TagDao
+    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var name: TextInputEditText
     private lateinit var nameLayout: TextInputLayout
@@ -89,6 +91,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
             tagData.setColor(selectedColor)
             tagData.setIcon(selectedIcon)
             tagDataDao.createNew(tagData)
+            localBroadcastManager.broadcastRefresh()
             setResult(Activity.RESULT_OK, Intent().putExtra(MainActivity.OPEN_FILTER, TagFilter(tagData)))
         } else if (hasChanges()) {
             tagData.name = newName
@@ -96,6 +99,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
             tagData.setIcon(selectedIcon)
             tagDataDao.update(tagData)
             tagDao.rename(tagData.remoteId!!, newName)
+            localBroadcastManager.broadcastRefresh()
             setResult(
                     Activity.RESULT_OK,
                     Intent(TaskListFragment.ACTION_RELOAD)
