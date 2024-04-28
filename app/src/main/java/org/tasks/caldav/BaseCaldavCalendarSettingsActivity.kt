@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
@@ -16,8 +16,6 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.BaseListSettingsActivity
-import org.tasks.compose.DeleteButton
-import org.tasks.compose.ListSettings.Toaster
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount

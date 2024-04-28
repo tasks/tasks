@@ -14,7 +14,6 @@ import org.tasks.themes.TasksTheme
 @AndroidEntryPoint
 class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

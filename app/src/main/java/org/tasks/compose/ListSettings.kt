@@ -171,7 +171,7 @@ object ListSettings {
         requestKeyboard: Boolean,
         modifier: Modifier = Modifier,
         label: String = stringResource(R.string.display_name),
-        errorState: Color = colorResource(id = org.tasks.kmp.R.color.red_a400), //MaterialTheme.colorScheme.secondary,
+        errorState: Color = MaterialTheme.colors.secondary,
         activeState: Color = LocalContentColor.current.copy(alpha = 0.75f),
         inactiveState: Color = LocalContentColor.current.copy(alpha = 0.3f),
     ) {
@@ -239,6 +239,7 @@ object ListSettings {
                 IconButton(onClick = { selectColor() }) {
                     if (color.value == Color.Unspecified) {
                         Icon(
+                            modifier = Modifier.padding(Constants.KEYLINE_FIRST),
                             imageVector = ImageVector.vectorResource(R.drawable.ic_outline_not_interested_24px),
                             tint = colorResource(R.color.icon_tint_with_alpha),
                             contentDescription = null
@@ -304,22 +305,14 @@ object ListSettings {
         right: @Composable (() -> Unit)? = null,
         modifier: Modifier = Modifier
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
-            Box (modifier = Modifier.size(56.dp), contentAlignment = Alignment.Center) {
-                left()
-            }
-            Box (
-                modifier = Modifier
-                .height(56.dp)
-                .weight(1f), contentAlignment = Alignment.CenterStart
-            ) {
-                center()
-            }
-            right?.let {
-                Box (modifier = Modifier.size(56.dp), contentAlignment = Alignment.Center) {
-                    it.invoke()
-                }
-            }
+        Row(
+            modifier = modifier.requiredHeight(56.dp),
+            verticalAlignment = Alignment.CenterVertically
+        )
+        {
+            left()
+            center()
+            right?.invoke(this)
         }
     }
 
