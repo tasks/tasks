@@ -17,7 +17,6 @@ import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.NO_ID
 import com.todoroo.astrid.helper.UUIDHelper
-import kotlinx.coroutines.flow.Flow
 import org.tasks.BuildConfig
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.db.SuspendDbUtils.chunkedMap
@@ -26,24 +25,11 @@ import org.tasks.preferences.QueryPreferences
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import timber.log.Timber
 
-private const val MAX_TIME = 9999999999999
-
 @Dao
 abstract class TaskDao(private val database: Database) {
 
-    @Query("""
-SELECT MIN(min_value)
-FROM (
-  SELECT
-      MIN(
-        CASE WHEN dueDate > :now THEN dueDate ELSE $MAX_TIME END,
-        CASE WHEN hideUntil > :now THEN hideUntil ELSE $MAX_TIME END
-      ) as min_value
-  FROM tasks
-    WHERE completed = 0 AND deleted = 0
-)
-    """)
-    abstract fun nextRefresh(now: Long): Flow<Long>
+    @Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0 AND (hideUntil > :now OR dueDate > :now)")
+    internal abstract suspend fun needsRefresh(now: Long = now()): List<Task>
 
     @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     abstract suspend fun fetch(id: Long): Task?

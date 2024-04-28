@@ -6,18 +6,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.work.Constraints
-import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.*
 import androidx.work.ExistingWorkPolicy.APPEND_OR_REPLACE
 import androidx.work.ExistingWorkPolicy.REPLACE
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequest
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkContinuation
-import androidx.work.WorkInfo
-import androidx.work.WorkRequest
-import androidx.work.Worker
-import androidx.work.workDataOf
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import com.todoroo.andlib.utility.DateUtilities
@@ -26,14 +17,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.data.CaldavAccount
+import org.tasks.data.*
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.CaldavDao
-import org.tasks.data.OpenTaskDao
-import org.tasks.data.Place
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.jobs.DriveUploader.Companion.EXTRA_PURGE
@@ -44,7 +32,9 @@ import org.tasks.jobs.SyncWork.Companion.EXTRA_IMMEDIATE
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKUP
+import org.tasks.jobs.WorkManager.Companion.TAG_MIDNIGHT_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_MIGRATE_LOCAL
+import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_UPDATE_PURCHASES
@@ -52,7 +42,7 @@ import org.tasks.notifications.Throttle
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils
 import timber.log.Timber
-import java.util.Random
+import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
 
@@ -135,6 +125,11 @@ class WorkManagerImpl(
             }
         }
     }
+
+    override fun scheduleRefresh(time: Long) = enqueueUnique(TAG_REFRESH, RefreshWork::class.java, time)
+
+    override fun scheduleMidnightRefresh() =
+            enqueueUnique(TAG_MIDNIGHT_REFRESH, MidnightRefreshWork::class.java, midnight())
 
     override fun scheduleNotification(scheduledTime: Long) {
         val time = max(DateUtilities.now(), scheduledTime)
