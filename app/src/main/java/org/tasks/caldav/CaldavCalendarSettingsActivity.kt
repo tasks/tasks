@@ -1,22 +1,40 @@
 package org.tasks.caldav
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.AlertDialog
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.core.view.isVisible
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.compose.Constants
 import org.tasks.compose.ListSettingsComposables.PrincipalList
 import org.tasks.compose.ShareInvite.ShareInviteDialog
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.SERVER_NEXTCLOUD
+import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
+import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
+import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.data.PrincipalDao
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
@@ -36,10 +54,14 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
     private val viewModel: CaldavCalendarViewModel by viewModels()
 
+    private var principalsList: MutableState<List<PrincipalWithAccess>> = mutableStateOf( emptyList<PrincipalWithAccess>().toMutableList())
+    private val removeDialog = mutableStateOf<PrincipalWithAccess?>(null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.inFlight.observe(this) { progressView.isVisible = it }
+        viewModel.inFlight.observe(this) { showProgress.value = it }
+
         viewModel.error.observe(this) { throwable ->
             throwable?.let {
                 requestFailed(it)
@@ -62,11 +84,62 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                 }
             }
         }
-        if (caldavAccount.canShare && (isNew || caldavCalendar?.access == ACCESS_OWNER)) {
-            findViewById<ComposeView>(R.id.fab)
-                .apply { isVisible = true }
-                .setContent {
-                    TasksTheme {
+
+        setContent {
+            MdcTheme {
+                Box(contentAlignment = Alignment.TopStart) {// Box to layout FAB over main content
+                    baseCaldavSettingsContent {
+                        caldavCalendar?.takeIf { it.id > 0 }?.let {
+                            principalDao.getPrincipals(it.id).observeAsState().value?.let { list->
+                                principalsList.value = list
+                            }
+                        }
+                        if (principalsList.value.isNotEmpty())
+                            PrincipalList(
+                                principalsList.value,
+                                onRemove = if (canRemovePrincipals) ::onRemove else null
+                            )
+                    }
+
+                    removeDialog.value?.let { principal ->
+                        AlertDialog(
+                            onDismissRequest = { removeDialog.value = null },
+                            confirmButton = {
+                                Constants.TextButton(text = R.string.ok) {
+                                    removePrincipal(principal)
+                                    removeDialog.value = null
+                                }
+                            },
+                            dismissButton = {
+                                Constants.TextButton(text = R.string.cancel) {
+                                    removeDialog.value = null
+                                }
+                            },
+                            title = {
+                                Text(
+                                    stringResource(id = R.string.remove_user),
+                                    style = MaterialTheme.typography.h6
+                                )
+                            },
+                            text = {
+                                Text(
+                                    text = stringResource(
+                                        R.string.remove_user_confirmation,
+                                        principal.name,
+                                        caldavCalendar?.name ?: ""
+                                    ),
+                                    style = MaterialTheme.typography.body1
+                                )
+                            }
+                        )
+                    }
+
+                }
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.BottomEnd
+                ) {
+                    if (caldavAccount.canShare && (isNew || caldavCalendar?.access == ACCESS_OWNER)) {
                         val openDialog = rememberSaveable { mutableStateOf(false) }
                         ShareInviteDialog(
                             openDialog,
@@ -79,16 +152,17 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                         }
                         FloatingActionButton(
                             onClick = { openDialog.value = true },
-                            containerColor = MaterialTheme.colorScheme.primary
+                            modifier = Modifier.padding(Constants.KEYLINE_FIRST)
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_outline_person_add_24),
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimary,
+                                tint = MaterialTheme.colors.onPrimary,
                             )
                         }
                     }
                 }
+            }
         }
     }
 
@@ -96,15 +170,8 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         get() = caldavCalendar?.access == ACCESS_OWNER && caldavAccount.canRemovePrincipal
 
     private fun onRemove(principal: PrincipalWithAccess) {
-        if (requestInProgress()) {
-            return
-        }
-        dialogBuilder
-            .newDialog(R.string.remove_user)
-            .setMessage(R.string.remove_user_confirmation, principal.name, caldavCalendar?.name)
-            .setNegativeButton(R.string.cancel, null)
-            .setPositiveButton(R.string.ok) { _, _ -> removePrincipal(principal) }
-            .show()
+        if (requestInProgress()) return
+        removeDialog.value = principal
     }
 
     private fun removePrincipal(principal: PrincipalWithAccess) = lifecycleScope.launch {
