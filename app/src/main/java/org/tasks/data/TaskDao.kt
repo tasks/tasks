@@ -25,11 +25,24 @@ import org.tasks.preferences.QueryPreferences
 import org.tasks.time.DateTimeUtils.currentTimeMillis
 import timber.log.Timber
 
+private const val MAX_TIME = 9999999999999
+
 @Dao
 abstract class TaskDao(private val database: Database) {
 
-    @Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0 AND (hideUntil > :now OR dueDate > :now)")
-    internal abstract suspend fun needsRefresh(now: Long = now()): List<Task>
+    @Query("""
+SELECT MIN(min_value)
+FROM (
+  SELECT
+      MIN(
+        CASE WHEN dueDate > :now THEN dueDate ELSE $MAX_TIME END,
+        CASE WHEN hideUntil > :now THEN hideUntil ELSE $MAX_TIME END
+      ) as min_value
+  FROM tasks
+    WHERE completed = 0 AND deleted = 0
+)
+    """)
+    abstract suspend fun nextRefresh(now: Long = System.currentTimeMillis()): Long
 
     @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     abstract suspend fun fetch(id: Long): Task?

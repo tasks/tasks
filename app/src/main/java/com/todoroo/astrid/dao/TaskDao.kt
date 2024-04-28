@@ -21,13 +21,11 @@ import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
-import org.tasks.scheduling.RefreshScheduler
 import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
 class TaskDao @Inject constructor(
         private val taskDao: TaskDao,
-        private val refreshScheduler: RefreshScheduler,
         private val localBroadcastManager: LocalBroadcastManager,
         private val notificationManager: NotificationManager,
         private val geofenceApi: GeofenceApi,
@@ -134,7 +132,7 @@ class TaskDao @Inject constructor(
                     geofenceApi.update(task.id)
                 }
                 alarmService.scheduleAlarms(task)
-                refreshScheduler.scheduleRefresh(task)
+                workManager.scheduleRefresh()
                 if (!task.isSuppressRefresh()) {
                     localBroadcastManager.broadcastRefresh()
                 }

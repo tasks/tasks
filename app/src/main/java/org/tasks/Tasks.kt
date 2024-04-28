@@ -30,7 +30,6 @@ import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.RefreshReceiver
 import org.tasks.scheduling.NotificationSchedulerIntentService
-import org.tasks.scheduling.RefreshScheduler
 import org.tasks.themes.ThemeBase
 import org.tasks.widget.AppWidgetManager
 import timber.log.Timber
@@ -47,12 +46,11 @@ class Tasks : Application(), Configuration.Provider {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var upgrader: Lazy<Upgrader>
     @Inject lateinit var workManager: Lazy<WorkManager>
-    @Inject lateinit var refreshScheduler: Lazy<RefreshScheduler>
     @Inject lateinit var geofenceApi: Lazy<GeofenceApi>
     @Inject lateinit var appWidgetManager: Lazy<AppWidgetManager>
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
-    
+
     override fun onCreate() {
         super.onCreate()
         buildSetup.setup()
@@ -95,15 +93,15 @@ class Tasks : Application(), Configuration.Provider {
     private fun backgroundWork() = CoroutineScope(Dispatchers.Default).launch {
         inventory.updateTasksAccount()
         NotificationSchedulerIntentService.enqueueWork(context)
-        refreshScheduler.get().scheduleAll()
         workManager.get().apply {
             updateBackgroundSync()
             scheduleMidnightRefresh()
             scheduleBackup()
             scheduleConfigRefresh()
-            OpenTaskContentObserver.registerObserver(context, contentObserver.get())
             updatePurchases()
+            scheduleRefresh()
         }
+        OpenTaskContentObserver.registerObserver(context, contentObserver.get())
         geofenceApi.get().registerAll()
         FileHelper.delete(context, preferences.cacheDirectory)
         appWidgetManager.get().reconfigureWidgets()

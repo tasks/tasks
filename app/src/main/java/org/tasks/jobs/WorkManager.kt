@@ -20,7 +20,7 @@ interface WorkManager {
 
     fun updateBackgroundSync()
 
-    fun scheduleRefresh(time: Long)
+    suspend fun scheduleRefresh()
 
     fun scheduleMidnightRefresh()
 

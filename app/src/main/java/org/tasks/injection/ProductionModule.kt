@@ -13,6 +13,7 @@ import org.tasks.R
 import org.tasks.caldav.FileStorage
 import org.tasks.data.CaldavDao
 import org.tasks.data.OpenTaskDao
+import org.tasks.data.TaskDao
 import org.tasks.db.Migrations
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManagerImpl
@@ -51,6 +52,7 @@ internal class ProductionModule {
             @ApplicationContext context: Context,
             preferences: Preferences,
             caldavDao: CaldavDao,
-            openTaskDao: OpenTaskDao
-    ): WorkManager = WorkManagerImpl(context, preferences, caldavDao, openTaskDao)
+            openTaskDao: OpenTaskDao,
+            taskDao: TaskDao,
+    ): WorkManager = WorkManagerImpl(context, preferences, caldavDao, openTaskDao, taskDao)
 }
