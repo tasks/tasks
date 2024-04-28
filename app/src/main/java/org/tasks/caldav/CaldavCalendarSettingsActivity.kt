@@ -1,22 +1,40 @@
 package org.tasks.caldav
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.AlertDialog
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.core.view.isVisible
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.compose.Constants
 import org.tasks.compose.ListSettingsComposables.PrincipalList
 import org.tasks.compose.ShareInvite.ShareInviteDialog
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavAccount.Companion.SERVER_NEXTCLOUD
+import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
+import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
+import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.data.PrincipalDao
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
@@ -36,10 +54,14 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
     private val viewModel: CaldavCalendarViewModel by viewModels()
 
+    private var principalsList: MutableState<List<PrincipalWithAccess>> = mutableStateOf( emptyList<PrincipalWithAccess>().toMutableList())
+    private val removeDialog = mutableStateOf<PrincipalWithAccess?>(null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.inFlight.observe(this) { progressView.isVisible = it }
+        viewModel.inFlight.observe(this) { showProgress.value = it }
+
         viewModel.error.observe(this) { throwable ->
             throwable?.let {
                 requestFailed(it)
@@ -89,6 +111,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                         }
                     }
                 }
+            }
         }
     }
 
@@ -96,15 +119,8 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         get() = caldavCalendar?.access == ACCESS_OWNER && caldavAccount.canRemovePrincipal
 
     private fun onRemove(principal: PrincipalWithAccess) {
-        if (requestInProgress()) {
-            return
-        }
-        dialogBuilder
-            .newDialog(R.string.remove_user)
-            .setMessage(R.string.remove_user_confirmation, principal.name, caldavCalendar?.name)
-            .setNegativeButton(R.string.cancel, null)
-            .setPositiveButton(R.string.ok) { _, _ -> removePrincipal(principal) }
-            .show()
+        if (requestInProgress()) return
+        removeDialog.value = principal
     }
 
     private fun removePrincipal(principal: PrincipalWithAccess) = lifecycleScope.launch {
