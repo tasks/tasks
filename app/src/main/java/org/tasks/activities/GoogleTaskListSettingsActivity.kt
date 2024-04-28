@@ -1,15 +1,13 @@
 package org.tasks.activities
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.ProgressBar
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.material.SnackbarHostState
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
@@ -22,6 +20,11 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.compose.ListSettings.ListSettingsSnackBar
+import org.tasks.data.CaldavAccount
+import org.tasks.data.CaldavCalendar
+import org.tasks.data.GoogleTaskListDao
+import org.tasks.themes.CustomIcons
 import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
@@ -39,15 +42,14 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private lateinit var name: TextInputEditText
-    private lateinit var progressView: ProgressBar
-
     private var isNewList = false
     private lateinit var gtasksList: CaldavCalendar
     private val createListViewModel: CreateListViewModel by viewModels()
     private val renameListViewModel: RenameListViewModel by viewModels()
     private val deleteListViewModel: DeleteListViewModel by viewModels()
     override val defaultIcon = TasksIcons.LIST
+
+    val snackbar = SnackbarHostState()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         gtasksList = intent.getParcelableExtra(EXTRA_STORE_DATA)
@@ -61,21 +63,28 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
             selectedColor = gtasksList.color
             selectedIcon.update { gtasksList.icon }
         }
-        if (isNewList) {
-            name.requestFocus()
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT)
-        } else {
-            name.setText(gtasksList.name)
-        }
+
+        if (!isNewList) textState.value = gtasksList.name!!
+
         if (createListViewModel.inProgress
                 || renameListViewModel.inProgress
                 || deleteListViewModel.inProgress) {
             showProgressIndicator()
         }
+
         createListViewModel.observe(this, this::onListCreated, this::requestFailed)
         renameListViewModel.observe(this, this::onListRenamed, this::requestFailed)
         deleteListViewModel.observe(this, this::onListDeleted, this::requestFailed)
+
+        setContent {
+            MdcTheme {
+                baseSettingsContent()
+
+                ListSettingsSnackBar(state = snackbar)
+
+            }
+        }
+
         updateTheme()
     }
 
@@ -86,14 +95,14 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         get() = if (isNew) getString(R.string.new_list) else gtasksList.name!!
 
     private fun showProgressIndicator() {
-        progressView.visibility = View.VISIBLE
+        showProgress.value = true
     }
 
     private fun hideProgressIndicator() {
-        progressView.visibility = View.GONE
+        showProgress.value = false
     }
 
-    private fun requestInProgress() = progressView.visibility == View.VISIBLE
+    private fun requestInProgress() = showProgress.value
 
     override suspend fun save() {
         if (requestInProgress()) {
@@ -101,7 +110,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         }
         val newName = newName
         if (isNullOrEmpty(newName)) {
-            toast(R.string.name_cannot_be_empty)
+            errorState.value = getString(R.string.name_cannot_be_empty)
             return
         }
         when {
@@ -133,14 +142,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     }
 
     override fun finish() {
-        hideKeyboard(name)
         super.finish()
-    }
-
-    override fun bind() = ActivityGoogleTaskListSettingsBinding.inflate(layoutInflater).let {
-        name = it.name
-        progressView = it.progressBar.progressBar
-        it.root
     }
 
     override fun promptDelete() {
@@ -161,7 +163,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     }
 
     private val newName: String
-        get() = name.text.toString().trim { it <= ' ' }
+        get() = textState.value.trim { it <= ' ' }
 
     override fun hasChanges(): Boolean =
         if (isNewList) {
@@ -219,7 +221,8 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     private fun requestFailed(error: Throwable) {
         Timber.e(error)
         hideProgressIndicator()
-        toast(R.string.gtasks_GLA_errorIOAuth)
+        lifecycleScope.launch { snackbar.showSnackbar(getString(R.string.gtasks_GLA_errorIOAuth)) }
+        //toast(R.string.gtasks_GLA_errorIOAuth)
         return
     }
 

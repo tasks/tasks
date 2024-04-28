@@ -57,6 +57,11 @@
         android:clipToPadding="false"
         android:nestedScrollingEnabled="false"/>
 
+      <androidx.compose.ui.platform.ComposeView
+          android:id="@+id/filter_criteria_list"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+
     </LinearLayout>
 
   </androidx.core.widget.NestedScrollView>
