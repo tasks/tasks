@@ -1,0 +1,10 @@
+* Add swipe-to-snooze
+* Add option to use quick tile without unlocking device
+* Add support for Z Flip 5 cover screen
+* Fix drawer not updating after editing items
+* Migrate tag picker screen to Compose
+* Add Russian app store description
+* Fix duplicate notifications
+* Fix hiding empty items from drawer
+* Exclude old snoozed tasks from snoozed task filter
+* Update translations
