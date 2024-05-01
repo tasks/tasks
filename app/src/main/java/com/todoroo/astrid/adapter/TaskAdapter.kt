@@ -151,7 +151,7 @@ open class TaskAdapter(
 
     fun getItemUuid(position: Int): String = getTask(position).uuid
 
-    open suspend fun onCompletedTask(task: TaskContainer, newState: Boolean) {}
+    open suspend fun onCompletedTask(uuid: String, newState: Boolean) {}
 
     open suspend fun onTaskCreated(uuid: String) {}
 

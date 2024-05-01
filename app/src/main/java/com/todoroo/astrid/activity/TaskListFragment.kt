@@ -907,7 +907,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
         lifecycleScope.launch {
             taskCompleter.setComplete(task.task, newState)
-            taskAdapter.onCompletedTask(task, newState)
+            taskAdapter.onCompletedTask(task.uuid, newState)
             loadTaskListContent()
         }
     }
