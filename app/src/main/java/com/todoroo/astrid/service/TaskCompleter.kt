@@ -65,24 +65,29 @@ class TaskCompleter @Inject internal constructor(
             return
         }
         val completed = completionDate > 0
+        val modified = System.currentTimeMillis()
         database.withTransaction {
-            taskDao.setCompletionDate(tasks.mapNotNull { it.remoteId }, completionDate)
-            tasks.forEachIndexed { i, original ->
-                if (i < tasks.lastIndex) {
-                    original.suppressRefresh()
+            tasks
+                .map {
+                    it.copy(
+                        completionDate = completionDate,
+                        modificationDate = modified,
+                    )
                 }
-                taskDao.saved(original)
-            }
-            tasks.forEach { task ->
-                if (completed && task.isRecurring) {
-                    gCalHelper.updateEvent(task)
+                .also { completed ->
+                    completed.subList(0, completed.lastIndex).forEach { it.suppressRefresh() }
+                    taskDao.save(completed, tasks)
+                }
+                .forEach { task ->
+                    if (completed && task.isRecurring) {
+                        gCalHelper.updateEvent(task)
 
-                    if (caldavDao.getAccountForTask(task.id)?.isSuppressRepeatingTasks != true) {
-                        repeatTaskHelper.handleRepeat(task)
-                        setComplete(task, false)
+                        if (caldavDao.getAccountForTask(task.id)?.isSuppressRepeatingTasks != true) {
+                            repeatTaskHelper.handleRepeat(task)
+                            setComplete(task, false)
+                        }
                     }
                 }
-            }
         }
         if (completed && notificationManager.currentInterruptionFilter == INTERRUPTION_FILTER_ALL) {
             preferences

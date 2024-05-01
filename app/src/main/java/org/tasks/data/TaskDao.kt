@@ -211,6 +211,9 @@ FROM recursive_tasks
     @Update
     internal abstract suspend fun updateInternal(task: Task): Int
 
+    @Update
+    internal abstract suspend fun updateInternal(tasks: List<Task>)
+
     suspend fun createNew(task: Task): Long {
         task.id = NO_ID
         if (task.creationDate == 0L) {
