@@ -231,7 +231,6 @@
     <string name="quiet_hours">무음 시간대</string>
     <string name="attachment_directory">첨부파일 위치</string>
     <string name="backup_directory">백업 위치</string>
-    <string name="miscellaneous">기타</string>
     <string name="enabled">활성화됨</string>
     <string name="font_size">글자 크기</string>
     <string name="row_spacing">줄 간격</string>
@@ -489,7 +488,6 @@
     <string name="auto_dismiss_datetime_list">할일 목록</string>
     <string name="auto_dismiss_datetime">일시 선택상자 닫기</string>
     <string name="whats_new">새 기능</string>
-    <string name="building_notifications">알림 생성하기</string>
     <string name="widget_due_date_after_title">제목 다음</string>
     <string name="action_new_task">새 할일</string>
     <string name="widget_due_date_hidden">숨기기</string>

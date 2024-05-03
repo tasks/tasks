@@ -2,7 +2,6 @@ package com.todoroo.astrid.service
 
 import android.content.Context
 import androidx.room.withTransaction
-import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.timers.TimerPlugin
@@ -22,7 +21,6 @@ import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
-import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
@@ -32,13 +30,11 @@ class TaskDeleter @Inject constructor(
     private val deletionDao: DeletionDao,
     private val taskDao: TaskDao,
     private val localBroadcastManager: LocalBroadcastManager,
-    private val preferences: Preferences,
     private val syncAdapters: SyncAdapters,
     private val vtodoCache: VtodoCache,
     private val notificationManager: NotificationManager,
     private val geofenceApi: GeofenceApi,
     private val timerPlugin: TimerPlugin,
-    private val alarmService: AlarmService,
     private val userActivityDao: UserActivityDao,
     private val locationDao: LocationDao,
 ) {
@@ -96,7 +92,6 @@ class TaskDeleter @Inject constructor(
             throw IllegalStateException()
         }
         tasks.forEach { task ->
-            alarmService.cancelAlarms(task)
             notificationManager.cancel(task)
             locationDao.getGeofencesForTask(task).forEach {
                 locationDao.delete(it)

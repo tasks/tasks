@@ -12,6 +12,7 @@ import androidx.work.ExistingWorkPolicy.APPEND_OR_REPLACE
 import androidx.work.ExistingWorkPolicy.REPLACE
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
+import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkContinuation
 import androidx.work.WorkInfo
@@ -20,7 +21,7 @@ import androidx.work.Worker
 import androidx.work.workDataOf
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
-import com.todoroo.andlib.utility.DateUtilities
+import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -34,7 +35,6 @@ import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.Place
-import org.tasks.data.TaskDao
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.jobs.DriveUploader.Companion.EXTRA_PURGE
@@ -46,6 +46,7 @@ import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKUP
 import org.tasks.jobs.WorkManager.Companion.TAG_MIGRATE_LOCAL
+import org.tasks.jobs.WorkManager.Companion.TAG_NOTIFICATIONS
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
@@ -63,7 +64,6 @@ class WorkManagerImpl(
     private val preferences: Preferences,
     private val caldavDao: CaldavDao,
     private val openTaskDao: OpenTaskDao,
-    private val taskDao: TaskDao,
 ): WorkManager {
     private val throttle = Throttle(200, 60000, "WORK")
     private val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -142,9 +142,19 @@ class WorkManagerImpl(
     override suspend fun scheduleRefresh(timestamp: Long) =
         enqueueUnique(TAG_REFRESH, RefreshWork::class.java, timestamp)
 
+    override fun triggerNotifications(expedited: Boolean) {
+        enqueueUnique(
+            TAG_NOTIFICATIONS,
+            NotificationWork::class.java,
+            time = if (expedited) 0 else now() + 5_000,
+            expedited = expedited,
+        )
+    }
+
     override fun scheduleNotification(scheduledTime: Long) {
-        val time = max(DateUtilities.now(), scheduledTime)
+        val time = max(now(), scheduledTime)
         if (time < DateTimeUtils.currentTimeMillis()) {
+
             val intent = notificationIntent
             if (AndroidUtilities.atLeastOreo()) {
                 context.startForegroundService(intent)
@@ -199,21 +209,25 @@ class WorkManagerImpl(
     private val networkConstraints: Constraints
         get() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
 
-    override fun cancelNotifications() {
-        alarmManager.cancel(notificationPendingIntent)
-    }
-
     override fun updatePurchases() =
         enqueueUnique(TAG_UPDATE_PURCHASES, UpdatePurchaseWork::class.java)
 
     @SuppressLint("EnqueueWork")
-    private fun enqueueUnique(key: String, c: Class<out Worker?>, time: Long = 0) {
-        val delay = time - DateUtilities.now()
+    private fun enqueueUnique(
+        key: String,
+        c: Class<out Worker?>,
+        time: Long = 0,
+        expedited: Boolean = false,
+    ) {
+        val delay = time - now()
         val builder = OneTimeWorkRequest.Builder(c)
         if (delay > 0) {
             builder.setInitialDelay(delay, TimeUnit.MILLISECONDS)
         }
-        Timber.d("$key: ${DateTimeUtils.printTimestamp(time)} (${DateTimeUtils.printDuration(delay)})")
+        if (expedited) {
+            builder.setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+        }
+        Timber.d("$key: ${DateTimeUtils.printTimestamp(delay)} (${DateTimeUtils.printDuration(delay)})")
         enqueue(workManager.beginUniqueWork(key, REPLACE, builder.build()))
     }
 
@@ -230,26 +244,15 @@ class WorkManagerImpl(
     }
 
     private val notificationIntent: Intent
-        get() = Intent(context, NotificationService::class.java)
+        get() = Intent(context, NotificationReceiver::class.java)
 
     private val notificationPendingIntent: PendingIntent
-        get() {
-            return if (AndroidUtilities.atLeastOreo()) {
-                PendingIntent.getForegroundService(
-                    context,
-                    0,
-                    notificationIntent,
-                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-                )
-            } else {
-                PendingIntent.getService(
-                    context,
-                    0,
-                    notificationIntent,
-                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-                )
-            }
-        }
+        get() = PendingIntent.getBroadcast(
+            context,
+            0,
+            notificationIntent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
     private suspend fun getSyncJob() = withContext(Dispatchers.IO) {
         workManager.getWorkInfosForUniqueWork(TAG_SYNC).get()

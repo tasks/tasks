@@ -248,7 +248,6 @@
     <string name="attachment_directory">Папка вложений</string>
     <string name="backup_directory">Папка резервных копий</string>
     <string name="google_drive_backup">Резервное копирование в Google Drive</string>
-    <string name="miscellaneous">Прочие настройки</string>
     <string name="enabled">Включено</string>
     <string name="font_size">Размер шрифта</string>
     <string name="row_spacing">Межстрочный интервал</string>
@@ -412,7 +411,6 @@
     <string name="url">URL</string>
     <string name="error_adding_account">Ошибка: %s</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="building_notifications">Генерация уведомлений</string>
     <string name="SSD_sort_my_order">Мой порядок</string>
     <plurals name="subtask_count">
         <item quantity="one">%d подзадача</item>

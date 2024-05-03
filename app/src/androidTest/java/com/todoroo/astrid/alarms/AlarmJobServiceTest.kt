@@ -19,7 +19,6 @@ import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.jobs.AlarmEntry
-import org.tasks.jobs.NotificationQueue
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.makers.TaskMaker.DELETION_TIME
 import org.tasks.makers.TaskMaker.DUE_DATE
@@ -34,7 +33,6 @@ import javax.inject.Inject
 class AlarmJobServiceTest : InjectingTestCase() {
     @Inject lateinit var alarmDao: AlarmDao
     @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var jobs: NotificationQueue
     @Inject lateinit var alarmService: AlarmService
 
     @Test
@@ -42,7 +40,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
         val task = taskDao.createNew(newTask())
         val alarm = insertAlarm(Alarm(task, DateTime(2017, 9, 24, 19, 57).millis, TYPE_DATE_TIME))
 
-        verify(AlarmEntry(alarm, task, DateTime(2017, 9, 24, 19, 57).millis, TYPE_DATE_TIME))
+        verify(overdue = listOf(AlarmEntry(alarm, task, DateTime(2017, 9, 24, 19, 57).millis, TYPE_DATE_TIME)))
     }
 
     @Test
@@ -90,7 +88,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
         alarmDao.insert(Alarm(task, DateUtilities.ONE_HOUR, TYPE_RANDOM))
         val alarm = alarmDao.insert(Alarm(task, now.plusMonths(12).millis, TYPE_SNOOZE))
 
-        verify(AlarmEntry(alarm, task, now.plusMonths(12).millis, TYPE_SNOOZE))
+        verify(future = listOf(AlarmEntry(alarm, task, now.plusMonths(12).millis, TYPE_SNOOZE)))
     }
 
     private suspend fun insertAlarm(alarm: Alarm): Long {
@@ -98,9 +96,13 @@ class AlarmJobServiceTest : InjectingTestCase() {
         return alarm.id
     }
 
-    private suspend fun verify(vararg alarms: AlarmEntry) {
-        alarmService.scheduleAllAlarms()
+    private suspend fun verify(
+        overdue: List<AlarmEntry> = emptyList(),
+        future: List<AlarmEntry> = emptyList(),
+    ) {
+        val (actualOverdue, actualFuture) = alarmService.getAlarms()
 
-        assertEquals(alarms.toList(), jobs.getJobs())
+        assertEquals(overdue, actualOverdue)
+        assertEquals(future, actualFuture)
     }
 }

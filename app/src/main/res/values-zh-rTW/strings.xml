@@ -131,7 +131,6 @@
     <string name="sound">鈴聲</string>
     <string name="vibrations">震動</string>
     <string name="backup_directory">備份資料夾</string>
-    <string name="miscellaneous">雜項設定</string>
     <string name="enabled">啟用</string>
     <string name="row_spacing">行距</string>
     <string name="translations">貢獻翻譯</string>
@@ -379,7 +378,6 @@
     <string name="or_choose_a_location">或選擇一個地點</string>
     <string name="pick_this_location">選擇此地點</string>
     <string name="choose_a_location">選擇一個地點</string>
-    <string name="building_notifications">產生通知</string>
     <string name="location_departed">於 %s 離開</string>
     <string name="location_arrived">於 %s 到達</string>
     <string name="visit_website">訪問網站</string>

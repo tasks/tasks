@@ -6,12 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.alarms.AlarmService
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.injection.InjectingJobIntentService
-import org.tasks.jobs.NotificationQueue
+import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationManager
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,17 +18,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NotificationSchedulerIntentService : InjectingJobIntentService() {
     @Inject @ApplicationContext lateinit var context: Context
-    @Inject lateinit var alarmService: AlarmService
-    @Inject lateinit var notificationQueue: NotificationQueue
     @Inject lateinit var notificationManager: NotificationManager
+    @Inject lateinit var workManager: WorkManager
 
     override suspend fun doWork(intent: Intent) {
         Timber.d("onHandleWork(%s)", intent)
         createNotificationChannels()
-        notificationQueue.clear()
         val cancelExistingNotifications = intent.getBooleanExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, false)
         notificationManager.restoreNotifications(cancelExistingNotifications)
-        alarmService.scheduleAllAlarms()
+        workManager.triggerNotifications()
     }
 
     private fun createNotificationChannels() {
@@ -42,9 +39,6 @@ class NotificationSchedulerIntentService : InjectingJobIntentService() {
             notificationManager.createNotificationChannel(
                     createNotificationChannel(
                             NotificationManager.NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls, true))
-            notificationManager.createNotificationChannel(
-                    createNotificationChannel(
-                            NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS, R.string.miscellaneous, false))
         }
     }
 

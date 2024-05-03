@@ -510,7 +510,6 @@
     <string name="or_choose_a_location">නැතහොත් ස්ථානයක් තෝරන්න</string>
     <string name="pick_this_location">මෙම ස්ථානය තෝරන්න</string>
     <string name="choose_a_location">ස්ථානයක් තෝරන්න</string>
-    <string name="building_notifications">දැනුම්දීම් ජනනය කරමින් ඇත</string>
     <string name="location_departed">%s පිටත් විය</string>
     <string name="visit_website">වෙබ් අඩවියට පිවිසෙන්න</string>
     <string name="location_remind_departure">පිටත්වීමේදී මතක් කරන්න</string>
@@ -617,7 +616,6 @@
     <string name="font_size">අකුරු ප්‍රමාණය</string>
     <string name="enabled">සක්‍රීයයි</string>
     <string name="subtasks">උප කාර්යයන්</string>
-    <string name="miscellaneous">විවිධ</string>
     <string name="google_drive_backup">ගූගල් ඩ්‍රයිව් උපස්ථය</string>
     <string name="backup_directory">උපස්ථ ෆෝල්ඩරය</string>
     <string name="attachment_directory">ඇමුණුම් ෆෝල්ඩරය</string>

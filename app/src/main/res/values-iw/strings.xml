@@ -263,7 +263,6 @@
     <string name="attachment_directory">תיקיית קבצים מצורפים</string>
     <string name="backup_directory">תיקיית גיבוי</string>
     <string name="google_drive_backup">גיבוי Google Drive</string>
-    <string name="miscellaneous">שונות</string>
     <string name="enabled">אפשר</string>
     <string name="font_size">גודל גופן</string>
     <string name="row_spacing">מרווח שורה</string>
@@ -413,7 +412,6 @@
     <string name="visit_website">מעבר לאתר האינטרנט</string>
     <string name="location_arrived">הגיע ב-%s</string>
     <string name="location_departed">עזב ב-%s</string>
-    <string name="building_notifications">מייצר התראות</string>
     <string name="choose_a_location">בחרו מיקום</string>
     <string name="pick_this_location">בחרו את המיקום הזה</string>
     <string name="or_choose_a_location">או בחרו מיקום</string>

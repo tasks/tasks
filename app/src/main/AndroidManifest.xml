@@ -532,10 +532,6 @@
         android:value="org.tasks.dashclock.DashClockSettings"/>
     </service>
 
-    <service
-      android:exported="false"
-      android:name=".jobs.NotificationService"/>
-
     <activity
       android:exported="true"
       android:name=".dashclock.DashClockSettings"/>
@@ -600,6 +596,8 @@
         <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
       </intent-filter>
     </receiver>
+
+    <receiver android:name="org.tasks.jobs.NotificationReceiver" />
 
     <activity
         android:name=".auth.MicrosoftAuthenticationActivity"

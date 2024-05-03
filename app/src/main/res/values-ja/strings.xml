@@ -234,7 +234,6 @@
     <string name="attachment_directory">添付フォルダー</string>
     <string name="backup_directory">フォルダーをバックアップ</string>
     <string name="google_drive_backup">Google ドライブにバックアップ</string>
-    <string name="miscellaneous">その他</string>
     <string name="enabled">有効</string>
     <string name="font_size">フォントサイズ</string>
     <string name="row_spacing">行間隔</string>
@@ -382,7 +381,6 @@
     <string name="visit_website">Webサイトを参照</string>
     <string name="location_arrived">%s に到着</string>
     <string name="location_departed">%s に出発</string>
-    <string name="building_notifications">通知を生成しています</string>
     <string name="choose_a_location">場所を選択</string>
     <string name="pick_this_location">この場所を選択</string>
     <string name="or_choose_a_location">または場所を選ぶ</string>

@@ -216,7 +216,6 @@
     <string name="quiet_hours">静音时间</string>
     <string name="attachment_directory">附件文件夹</string>
     <string name="backup_directory">备份文件夹</string>
-    <string name="miscellaneous">杂项</string>
     <string name="enabled">启用</string>
     <string name="font_size">字体大小</string>
     <string name="row_spacing">行间距</string>
@@ -374,7 +373,6 @@
     <string name="visit_website">访问网站</string>
     <string name="location_arrived">到达 %s</string>
     <string name="location_departed">离开 %s</string>
-    <string name="building_notifications">生成通知</string>
     <string name="choose_a_location">选择一个位置</string>
     <string name="pick_this_location">选中这个位置</string>
     <string name="or_choose_a_location">或选择一个位置</string>

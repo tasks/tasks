@@ -55,12 +55,14 @@ class NotificationManager @Inject constructor(
     }
 
     @SuppressLint("CheckResult")
-    suspend fun cancel(ids: Iterable<Long>) {
+    suspend fun cancel(ids: Iterable<Long>, delete: Boolean = true) {
         for (id in ids) {
             notificationManager.cancel(id.toInt())
         }
         queue.remove(ids)
-        notificationDao.deleteAll(ids.toList())
+        if (delete) {
+            notificationDao.deleteAll(ids.toList())
+        }
         notifyTasks(emptyList(), alert = false, nonstop = false, fiveTimes = false)
     }
 
@@ -210,7 +212,7 @@ class NotificationManager @Inject constructor(
         )
         val evicted = queue.add(notificationId)
         if (evicted.size > 0) {
-            cancel(evicted)
+            cancel(evicted, delete = false)
         }
         for (i in 0 until ringTimes) {
             if (i > 0) {
@@ -403,7 +405,6 @@ class NotificationManager @Inject constructor(
         const val NOTIFICATION_CHANNEL_DEFAULT = "notifications"
         const val NOTIFICATION_CHANNEL_TASKER = "notifications_tasker"
         const val NOTIFICATION_CHANNEL_TIMERS = "notifications_timers"
-        const val NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous"
         const val MAX_NOTIFICATIONS = 21
         const val EXTRA_NOTIFICATION_ID = "extra_notification_id"
         const val SUMMARY_NOTIFICATION_ID = 0

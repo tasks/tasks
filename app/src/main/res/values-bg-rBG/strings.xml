@@ -237,7 +237,6 @@
     <string name="attachment_directory">Папка за прикачени файлове</string>
     <string name="backup_directory">Папка за резервни копия</string>
     <string name="google_drive_backup">Резервно копие в Google Drive</string>
-    <string name="miscellaneous">Разни</string>
     <string name="enabled">Включено</string>
     <string name="font_size">Размер на шрифта</string>
     <string name="row_spacing">Междуредие</string>
@@ -385,7 +384,6 @@
     <string name="visit_website">Отваряне на страницата</string>
     <string name="location_arrived">Пристигнахте в %s</string>
     <string name="location_departed">Отпътувахте от %s</string>
-    <string name="building_notifications">Създаване на известия</string>
     <string name="choose_a_location">Изберете местоположение</string>
     <string name="pick_this_location">Изберете това местоположение</string>
     <string name="or_choose_a_location">Или изберете местоположение</string>

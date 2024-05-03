@@ -222,7 +222,6 @@
     <string name="quiet_hours">Hiljainen aika</string>
     <string name="attachment_directory">Liitehakemisto</string>
     <string name="backup_directory">Varmuuskopioiden hakemisto</string>
-    <string name="miscellaneous">Sekalaista</string>
     <string name="enabled">Sallittu</string>
     <string name="font_size">Kirjasimen koko</string>
     <string name="row_spacing">Rivinväli</string>
@@ -379,7 +378,6 @@
     <string name="or_choose_a_location">Tai valitse muu sijainti</string>
     <string name="pick_this_location">Valitse tämä sijainti</string>
     <string name="choose_a_location">Valitse sijainti</string>
-    <string name="building_notifications">Ilmoitusten muodostaminen</string>
     <string name="visit_website">Käy verkkosivulla</string>
     <string name="location_remind_departure">Muistuta lähtiessä</string>
     <string name="location_remind_arrival">Muistuta saapuessa</string>

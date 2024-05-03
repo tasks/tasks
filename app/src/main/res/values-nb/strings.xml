@@ -267,7 +267,6 @@
     <string name="attachment_directory">Vedleggsmappe</string>
     <string name="backup_directory">Sikkerhetskopimappe</string>
     <string name="google_drive_backup">Google Drive-sikkerhetskopi</string>
-    <string name="miscellaneous">Ymse</string>
     <string name="enabled">Påskrudd</string>
     <string name="font_size">Skriftstørrelse</string>
     <string name="customize_edit_screen">Tilpass redigeringsskjerm</string>
@@ -384,7 +383,6 @@
     <string name="visit_website">Besøk nettside</string>
     <string name="location_arrived">Ankom %s</string>
     <string name="location_departed">Forlot %s</string>
-    <string name="building_notifications">Oppretter merknader</string>
     <string name="choose_a_location">Velg et sted</string>
     <string name="pick_this_location">Velg dette stedet</string>
     <string name="or_choose_a_location">Eller velg et sted</string>

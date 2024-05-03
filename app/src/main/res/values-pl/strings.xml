@@ -242,7 +242,6 @@
     <string name="attachment_directory">Katalog załączników</string>
     <string name="backup_directory">Katalog kopii zapasowych</string>
     <string name="google_drive_backup">Kopia zapasowa na Dysku Google</string>
-    <string name="miscellaneous">Różne</string>
     <string name="enabled">Włączone</string>
     <string name="font_size">Rozmiar czcionki</string>
     <string name="row_spacing">Odstęp wierszy</string>
@@ -388,7 +387,6 @@
     <string name="visit_website">Wejdź na stronę</string>
     <string name="location_arrived">Przybyto do %s</string>
     <string name="location_departed">Wyruszono z %s</string>
-    <string name="building_notifications">Generowanie powiadomień</string>
     <string name="choose_a_location">Wybierz lokalizację</string>
     <string name="pick_this_location">Ustaw wybraną lokalizację</string>
     <string name="or_choose_a_location">Lub wybierz lokalizację</string>

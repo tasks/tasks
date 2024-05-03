@@ -100,7 +100,6 @@ class Notifier @Inject constructor(
                             }
                             ?: false
                 }
-                .takeLast(NotificationManager.MAX_NOTIFICATIONS)
 
         if (notifications.isEmpty()) {
             return

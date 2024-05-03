@@ -288,7 +288,6 @@
     <string name="font_size">فونٹ سائز</string>
     <string name="enabled">فعال</string>
     <string name="subtasks">ذیلی ٹاسکس</string>
-    <string name="miscellaneous">متفرقات</string>
     <string name="google_drive_backup">گوگل ڈرائیو بیک اپ</string>
     <string name="backup_directory">بیک اپ فولڈر</string>
     <string name="attachment_directory">اٹیچ منٹ فولڈر</string>
@@ -438,7 +437,6 @@
     <string name="repeats_plural_on_number_of_times">ہر %1$sکو %2$s پر دہراتا ہے، %3$d%4$sپر واقع ہوتا ہے</string>
     <string name="pick_this_location">یہ جگہ منتخب کریں</string>
     <string name="choose_a_location">جگہ منتخب کریں</string>
-    <string name="building_notifications">نوٹیفیکیشنز بنائیں</string>
     <string name="location_departed">%s رخصت ہو گیا</string>
     <string name="location_arrived">%s پر پہنچ گیا</string>
     <string name="visit_website">ویب سائٹس کھولیں</string>

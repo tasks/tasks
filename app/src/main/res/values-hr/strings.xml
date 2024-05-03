@@ -284,7 +284,6 @@
     <string name="or_choose_a_location">Ili odaberi jednu lokaciju</string>
     <string name="pick_this_location">Odaberi ovu lokaciju</string>
     <string name="choose_a_location">Odaberi jednu lokaciju</string>
-    <string name="building_notifications">Generiranje obavijesti</string>
     <string name="location_departed">Otišao/la %s</string>
     <string name="location_arrived">Stigao/la %s</string>
     <string name="linkify_description">Dodaj poveznice na web-stranice, adrese i telefonske brojeve</string>
@@ -425,7 +424,6 @@
     <string name="translations">Doprinesi prijevodima</string>
     <string name="row_spacing">Razmak između redaka</string>
     <string name="header_spacing">Razmak</string>
-    <string name="miscellaneous">Razno</string>
     <string name="google_drive_backup">Sigurnosna kopija na Google Drive</string>
     <string name="backup_directory">Mapa sigurnosnih kopija</string>
     <string name="attachment_directory">Mapa priloga</string>

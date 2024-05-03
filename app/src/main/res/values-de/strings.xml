@@ -230,7 +230,6 @@
     <string name="attachment_directory">Ordner für Anhänge</string>
     <string name="backup_directory">Sicherungsordner</string>
     <string name="google_drive_backup">Google Drive-Sicherung</string>
-    <string name="miscellaneous">Verschiedenes</string>
     <string name="enabled">Aktiviert</string>
     <string name="font_size">Schriftgröße</string>
     <string name="row_spacing">Zeilenabstand</string>
@@ -376,7 +375,6 @@
     <string name="visit_website">Website öffnen</string>
     <string name="location_arrived">Angekommen um %s</string>
     <string name="location_departed">Abgereist um %s</string>
-    <string name="building_notifications">Benachrichtigungen generieren</string>
     <string name="choose_a_location">Ort auswählen</string>
     <string name="pick_this_location">Diesen Ort auswählen</string>
     <string name="or_choose_a_location">Oder Ort auswählen</string>

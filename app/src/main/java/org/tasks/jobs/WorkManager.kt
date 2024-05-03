@@ -23,6 +23,8 @@ interface WorkManager {
 
     suspend fun scheduleRefresh(timestamp: Long = now() + 5_000)
 
+    fun triggerNotifications(expedited: Boolean = false)
+
     fun scheduleNotification(scheduledTime: Long)
 
     fun scheduleBackup()
@@ -30,8 +32,6 @@ interface WorkManager {
     fun scheduleConfigRefresh()
 
     fun scheduleDriveUpload(uri: Uri, purge: Boolean)
-
-    fun cancelNotifications()
 
     fun updatePurchases()
 
@@ -44,5 +44,6 @@ interface WorkManager {
         const val TAG_REMOTE_CONFIG = "tag_remote_config"
         const val TAG_MIGRATE_LOCAL = "tag_migrate_local"
         const val TAG_UPDATE_PURCHASES = "tag_update_purchases"
+        const val TAG_NOTIFICATIONS = "tag_notifications"
     }
 }

@@ -5,14 +5,16 @@
  */
 package com.todoroo.astrid.alarms
 
-import com.todoroo.astrid.data.Task
+import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.AlarmDao
 import org.tasks.data.TaskDao
-import org.tasks.jobs.NotificationQueue
+import org.tasks.jobs.AlarmEntry
+import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationManager
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -22,10 +24,10 @@ import javax.inject.Inject
  */
 class AlarmService @Inject constructor(
     private val alarmDao: AlarmDao,
-    private val jobs: NotificationQueue,
     private val taskDao: TaskDao,
     private val localBroadcastManager: LocalBroadcastManager,
     private val notificationManager: NotificationManager,
+    private val workManager: WorkManager,
     private val alarmCalculator: AlarmCalculator,
 ) {
     suspend fun getAlarms(taskId: Long): List<Alarm> = alarmDao.getAlarms(taskId)
@@ -36,7 +38,6 @@ class AlarmService @Inject constructor(
      * @return true if data was changed
      */
     suspend fun synchronizeAlarms(taskId: Long, alarms: MutableSet<Alarm>): Boolean {
-        val task = taskDao.fetch(taskId) ?: return false
         var changed = false
         for (existing in alarmDao.getAlarms(taskId)) {
             if (!alarms.removeIf {
@@ -55,24 +56,10 @@ class AlarmService @Inject constructor(
             changed = true
         }
         if (changed) {
-            scheduleAlarms(task)
+            workManager.triggerNotifications()
             localBroadcastManager.broadcastRefreshList()
         }
         return changed
-    }
-
-    suspend fun scheduleAllAlarms() {
-        alarmDao
-            .getActiveAlarms()
-            .groupBy { it.task }
-            .forEach { (taskId, alarms) ->
-                val task = taskDao.fetch(taskId) ?: return@forEach
-                scheduleAlarms(task, alarms)
-            }
-    }
-
-    fun cancelAlarms(taskId: Long) {
-        jobs.cancelForTask(taskId)
     }
 
     suspend fun snooze(time: Long, taskIds: List<Long>) {
@@ -80,26 +67,31 @@ class AlarmService @Inject constructor(
         alarmDao.getSnoozed(taskIds).let { alarmDao.delete(it) }
         taskIds.map { Alarm(it, time, TYPE_SNOOZE) }.let { alarmDao.insert(it) }
         taskDao.touch(taskIds)
-        scheduleAlarms(taskIds)
+        workManager.triggerNotifications()
     }
 
-    suspend fun scheduleAlarms(taskIds: List<Long>) {
-        taskDao.fetch(taskIds).forEach { scheduleAlarms(it) }
-    }
-
-    /** Schedules alarms for a single task  */
-    suspend fun scheduleAlarms(task: Task) {
-        scheduleAlarms(task, alarmDao.getActiveAlarms(task.id))
-    }
-
-    private fun scheduleAlarms(task: Task, alarms: List<Alarm>) {
-        jobs.cancelForTask(task.id)
-        val alarmEntries = alarms.mapNotNull {
-            alarmCalculator.toAlarmEntry(task, it)
-        }
-        val next =
-            alarmEntries.find { it.type == TYPE_SNOOZE } ?: alarmEntries.minByOrNull { it.time }
-        next?.let { jobs.add(it) }
+    suspend fun getAlarms(): Pair<List<AlarmEntry>, List<AlarmEntry>> {
+        val start = DateUtilities.now()
+        val overdue = ArrayList<AlarmEntry>()
+        val future = ArrayList<AlarmEntry>()
+        alarmDao.getActiveAlarms()
+            .groupBy { it.task }
+            .forEach { (taskId, alarms) ->
+                val task = taskDao.fetch(taskId) ?: return@forEach
+                val alarmEntries = alarms.mapNotNull {
+                    alarmCalculator.toAlarmEntry(task, it)
+                }
+                val (now, later) = alarmEntries.partition { it.time <= DateUtilities.now() }
+                later
+                    .find { it.type == TYPE_SNOOZE }
+                    ?.let { future.add(it) }
+                    ?: run {
+                        now.firstOrNull()?.let { overdue.add(it) }
+                        later.minByOrNull { it.time }?.let { future.add(it) }
+                    }
+            }
+        Timber.d("took ${DateUtilities.now() - start}ms overdue=${overdue.size} future=${future.size}")
+        return overdue to future
     }
 
     companion object {

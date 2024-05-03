@@ -194,7 +194,6 @@
     <string name="or_choose_a_location">หรือเลือกตําแหน่งที่ตั้ง</string>
     <string name="pick_this_location">เลือกตําแหน่งที่ตั้งนี้</string>
     <string name="choose_a_location">เลือกตําแหน่งที่ตั้ง</string>
-    <string name="building_notifications">การสร้างการแจ้งเตือน</string>
     <string name="location_departed">ออกเดินทาง %s</string>
     <string name="location_arrived">มาถึง %s</string>
     <string name="visit_website">เยี่ยมชมเว็บไซต์</string>
@@ -363,7 +362,6 @@
     <string name="font_size">ขนาดแบบอักษร</string>
     <string name="enabled">เปิด</string>
     <string name="subtasks">งานย่อย</string>
-    <string name="miscellaneous">เบ็ดเตล็ด</string>
     <string name="google_drive_backup">การสํารองข้อมูลของ Google ไดรฟ์</string>
     <string name="backup_directory">โฟลเดอร์สำรอง</string>
     <string name="attachment_directory">โฟลเดอร์สิ่งที่แนบมา</string>

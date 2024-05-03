@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.dao
 
-import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.timers.TimerPlugin
@@ -28,7 +27,6 @@ class TaskDao @Inject constructor(
         private val geofenceApi: GeofenceApi,
         private val timerPlugin: TimerPlugin,
         private val syncAdapters: SyncAdapters,
-        private val alarmService: AlarmService,
         private val workManager: WorkManager,
 ) {
 
@@ -123,7 +121,7 @@ class TaskDao @Inject constructor(
         if (completionDateModified || deletionDateModified) {
             geofenceApi.update(task.id)
         }
-        alarmService.scheduleAlarms(task)
+        workManager.triggerNotifications()
         workManager.scheduleRefresh()
         if (!task.isSuppressRefresh()) {
             localBroadcastManager.broadcastRefresh()

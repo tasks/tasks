@@ -243,7 +243,6 @@
     <string name="attachment_directory">Pasta de anexo</string>
     <string name="backup_directory">Pasta de backup</string>
     <string name="google_drive_backup">Backup no Google Drive</string>
-    <string name="miscellaneous">Miscelânea</string>
     <string name="enabled">Ativado</string>
     <string name="font_size">Tamanho do texto</string>
     <string name="row_spacing">Espaçamento da linha</string>
@@ -391,7 +390,6 @@
     <string name="visit_website">Visitar website</string>
     <string name="location_arrived">Chegou às %s</string>
     <string name="location_departed">Saiu às %s</string>
-    <string name="building_notifications">Gerando notificações</string>
     <string name="choose_a_location">Escolher uma localização</string>
     <string name="pick_this_location">Selecionar essa localização</string>
     <string name="or_choose_a_location">Ou escolha uma localização</string>
