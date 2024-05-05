@@ -7,6 +7,9 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
+import org.tasks.data.TaskDao
+import org.tasks.date.DateTimeUtils
+import kotlin.math.min
 
 @HiltWorker
 class RefreshWork @AssistedInject constructor(
@@ -15,6 +18,7 @@ class RefreshWork @AssistedInject constructor(
     firebase: Firebase,
     private val localBroadcastManager: LocalBroadcastManager,
     private val workManager: WorkManager,
+    private val taskDao: TaskDao,
 ) : RepeatingWorker(context, workerParams, firebase) {
 
     override suspend fun run(): Result {
@@ -22,5 +26,6 @@ class RefreshWork @AssistedInject constructor(
         return Result.success()
     }
 
-    override suspend fun scheduleNext() = workManager.scheduleRefresh()
+    override suspend fun scheduleNext() =
+        workManager.scheduleRefresh(min(taskDao.nextRefresh(), DateTimeUtils.midnight()))
 }

@@ -95,7 +95,6 @@ class Tasks : Application(), Configuration.Provider {
         NotificationSchedulerIntentService.enqueueWork(context)
         workManager.get().apply {
             updateBackgroundSync()
-            scheduleMidnightRefresh()
             scheduleBackup()
             scheduleConfigRefresh()
             updatePurchases()

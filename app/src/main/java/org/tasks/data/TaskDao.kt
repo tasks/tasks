@@ -42,7 +42,7 @@ FROM (
     WHERE completed = 0 AND deleted = 0
 )
     """)
-    abstract suspend fun nextRefresh(now: Long = System.currentTimeMillis()): Long
+    abstract suspend fun nextRefresh(now: Long = now()): Long
 
     @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     abstract suspend fun fetch(id: Long): Task?

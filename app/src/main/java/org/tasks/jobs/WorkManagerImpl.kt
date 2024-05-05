@@ -45,7 +45,6 @@ import org.tasks.jobs.SyncWork.Companion.EXTRA_IMMEDIATE
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKUP
-import org.tasks.jobs.WorkManager.Companion.TAG_MIDNIGHT_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_MIGRATE_LOCAL
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
@@ -140,11 +139,8 @@ class WorkManagerImpl(
         }
     }
 
-    override suspend fun scheduleRefresh() =
-        enqueueUnique(TAG_REFRESH, RefreshWork::class.java, taskDao.nextRefresh())
-
-    override fun scheduleMidnightRefresh() =
-            enqueueUnique(TAG_MIDNIGHT_REFRESH, MidnightRefreshWork::class.java, midnight())
+    override suspend fun scheduleRefresh(timestamp: Long) =
+        enqueueUnique(TAG_REFRESH, RefreshWork::class.java, timestamp)
 
     override fun scheduleNotification(scheduledTime: Long) {
         val time = max(DateUtilities.now(), scheduledTime)
