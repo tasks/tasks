@@ -33,17 +33,17 @@
     <string name="TEA_control_importance">الأولويّة</string>
     <string name="TEA_control_notes">وصف</string>
     <string name="TEA_control_files">الملفات</string>
-    <string name="TEA_control_reminders">مذكرات</string>
+    <string name="TEA_control_reminders">تذكيرات</string>
     <string name="TEA_control_hidden_section">---إخفاء دائمًا---</string>
     <string name="EPr_edit_screen_options">تعديل خيارات الشاشة</string>
     <string name="EPr_beastMode_reset">إعادة التعيين إلى الإعدادات الافتراضية</string>
     <string name="EPr_fullTask_title">إظهار عنوان المهمة الكامل</string>
     <string name="task_list_options">خيارات قائمة المهام</string>
     <string name="EPr_manage_delete_completed_gcal">حذف أحداث التقويم للمهام المُتَممه</string>
-    <string name="EPr_manage_delete_all_gcal">حذف جميع نشاطات التقويم للمهام</string>
+    <string name="EPr_manage_delete_all_gcal">حذف جميع أحداث المهام من التقوييم</string>
     <string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام؟</string>
     <string name="task_defaults">افتراضيات المهام</string>
-    <string name="EPr_default_reminders_title">منبهات افتراضية</string>
+    <string name="EPr_default_reminders_title">التذكير الافتراضى</string>
     <string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
     <string name="day_after_tomorrow">بعد غد</string>
     <string name="next_week">الأسبوع القادم</string>
@@ -68,7 +68,7 @@
     <string name="rmd_EPr_quiet_hours_start_title">ابتداء ساعات الهدوء</string>
     <string name="rmd_EPr_quiet_hours_end_title">إنتهاء ساعات الهدوء</string>
     <string name="rmd_EPr_rmd_time_title">وقت التنبيه الإفتراضي</string>
-    <string name="rmd_EPr_defaultRemind_title">منبهات عشوائية</string>
+    <string name="rmd_EPr_defaultRemind_title">تذكيرات عشوائية</string>
     <string name="default_random_reminder_disabled">معطل</string>
     <string name="default_random_reminder_daily">يومي</string>
     <string name="default_random_reminder_weekly">أسبوعي</string>
@@ -104,8 +104,8 @@
     <string name="enabled">مفعّل</string>
     <string name="font_size">حجم الخط</string>
     <string name="customize_edit_screen">تعديل الشاشة</string>
-    <string name="source_code">مصدر الكود</string>
-    <string name="translations">أسهم في الترجمة</string>
+    <string name="source_code">الكود المصدرى</string>
+    <string name="translations">ساهم في الترجمة</string>
     <string name="contact_developer">تواصل مع المطور</string>
     <string name="rate_tasks">قيّم تاسكس</string>
     <string name="quiet_hours_summary">لا منبهات أثناء أوقات الراحة</string>
@@ -177,7 +177,7 @@
     <string name="help">مساعدة</string>
     <string name="start_of_week">بداية أسبوع</string>
     <string name="take_a_picture">التقط صورة</string>
-    <string name="yesterday_lowercase">البارحة</string>
+    <string name="yesterday_lowercase">أمس</string>
     <string name="tomorrow_lowercase">الغد</string>
     <string name="today_lowercase">اليوم</string>
     <string name="repeat_option_every_year">سنويًّا</string>
@@ -189,9 +189,9 @@
     <string name="priority_high">عال</string>
     <string name="date_and_time">التاريخ والوقت</string>
     <plurals name="task_count">
-        <item quantity="zero">لا مهام</item>
-        <item quantity="one">مهمة واحدة</item>
-        <item quantity="two">مهمتان</item>
+        <item quantity="zero">%d مهمة</item>
+        <item quantity="one">%d مهمة</item>
+        <item quantity="two">مهمتين</item>
         <item quantity="few">%d مهام</item>
         <item quantity="many">%d مهمة</item>
         <item quantity="other">%d مهمة</item>
@@ -208,7 +208,7 @@
     <string name="date_shortcut_evening">مساءً</string>
     <string name="date_shortcut_morning">صباحًا</string>
     <string name="default_random_reminder_hourly">كل ساعة</string>
-    <string name="no_reminders">لا منبهات</string>
+    <string name="no_reminders">بدون تذكير</string>
     <string name="always_display_full_date">أظهر التاريخ الكامل</string>
     <string name="SSD_sort_my_order">ترتيبي</string>
     <string name="cancel">إلغاء</string>
@@ -221,7 +221,7 @@
     <string name="astrid_sort_order">ترتيب Astrid اليدوي</string>
     <string name="display_name">اسم العرض</string>
     <string name="filter_any_start_date">أيّ تاريخ بدأ</string>
-    <string name="no_start_date">لا تاريخ بدأ</string>
+    <string name="no_start_date">بدون تاريخ بدأ</string>
     <string name="default_start_date">تاريخ البدأ الافتراضي</string>
     <string name="EPr_delete_task_data">حذف معلومات المهام</string>
     <string name="EPr_reset_preferences">إعادة ضبط الإعدادات</string>
@@ -263,7 +263,7 @@
     <string name="yesterday_abbrev_lowercase">البارحة</string>
     <string name="tomorrow_abbrev_lowercase">غدًا</string>
     <string name="delete_tag_confirmation">احذف %s؟</string>
-    <string name="repeat_option_does_not_repeat">لا تكرار</string>
+    <string name="repeat_option_does_not_repeat">بدون تكرار</string>
     <string name="ring_nonstop">الرنّ بدون توقّف</string>
     <string name="ring_five_times">الرنّ خمس مرات</string>
     <string name="ring_once">الرنّ مرة واحدة</string>
@@ -330,12 +330,12 @@
     <string name="choose_synchronization_service">اختر منصّة</string>
     <string name="create_new_tag">أنشأ \"%s\"</string>
     <string name="filter">تصفية</string>
-    <string name="move">انقل</string>
+    <string name="move">نقل</string>
     <string name="subtasks">مهام فرعيّة</string>
     <plurals name="list_count">
         <item quantity="zero">%d قائمة</item>
         <item quantity="one">%d قائمة</item>
-        <item quantity="two">قائمتان</item>
+        <item quantity="two">قائمتين</item>
         <item quantity="few">%d قوائم</item>
         <item quantity="many">%d قائمة</item>
         <item quantity="other">%d قائمة</item>
@@ -398,9 +398,9 @@
     <string name="url">رابط</string>
     <string name="widget_due_date_hidden">مخفي</string>
     <string name="show_unstarted">إظهار الغير مبدوء</string>
-    <string name="discard">رمي</string>
-    <string name="menu_discard_changes">رمي التغييرات</string>
-    <string name="discard_changes">رمي التغييرات؟</string>
+    <string name="discard">تجاهل</string>
+    <string name="menu_discard_changes">تجاهل التغييرات</string>
+    <string name="discard_changes">تجاهل التغييرات؟</string>
     <string name="next_saturday">السبت القادم</string>
     <string name="next_friday">الجمعة القادمة</string>
     <string name="next_thursday">الخميس القادم</string>
@@ -459,15 +459,15 @@
     <plurals name="repeat_minutes">
         <item quantity="zero">صفر دقيقة</item>
         <item quantity="one">دقيقة واحدة</item>
-        <item quantity="two">دقيقتان</item>
+        <item quantity="two">دقيقتين</item>
         <item quantity="few">دقائق</item>
-        <item quantity="many">دقائق</item>
-        <item quantity="other">دقائق</item>
+        <item quantity="many">دقيقة</item>
+        <item quantity="other">دقيقة</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="zero">%d دقيقة</item>
-        <item quantity="one">دقيقة واحدة</item>
-        <item quantity="two">دقيقتان</item>
+        <item quantity="one">%d دقيقة</item>
+        <item quantity="two">دقيقتين</item>
         <item quantity="few">%d دقائق</item>
         <item quantity="many">%d دقيقة</item>
         <item quantity="other">%d دقيقة</item>
@@ -587,7 +587,7 @@
     <string name="rmd_EPr_rmd_time_desc">اشعارات لمهام بدون وقت استحقاق ستظهر عند %s</string>
     <string name="gtasks_GLA_authenticating">قيد المصادقة…</string>
     <string name="CFC_gtasks_list_name">في قوائم مهام كوكل…</string>
-    <string name="no_due_date">لا تاريخ استحقاق</string>
+    <string name="no_due_date">بدون تاريخ استحقاق</string>
     <string name="EPr_default_location_reminder_title">مذكرات الموقع الافتراضية</string>
     <string name="default_due_date">وقت الاستحقاق الافتراضي</string>
     <string name="EPr_cal_start_at_due_time">بدء أحداث التقويم عند الوقت المحدد</string>
@@ -672,8 +672,8 @@
         <item quantity="one">سنة</item>
         <item quantity="two">سنتين</item>
         <item quantity="few">سنوات</item>
-        <item quantity="many">سنوات</item>
-        <item quantity="other">سنوات</item>
+        <item quantity="many">سنة</item>
+        <item quantity="other">سنة</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="zero">شهر</item>
@@ -688,32 +688,32 @@
         <item quantity="one">أسبوع</item>
         <item quantity="two">أسبوعين</item>
         <item quantity="few">أسابيع</item>
-        <item quantity="many">أسابيع</item>
-        <item quantity="other">أسابيع</item>
+        <item quantity="many">أسبوع</item>
+        <item quantity="other">أسبوع</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="zero">يوم</item>
         <item quantity="one">يوم</item>
         <item quantity="two">يومين</item>
         <item quantity="few">أيام</item>
-        <item quantity="many">أيام</item>
-        <item quantity="other">أيام</item>
+        <item quantity="many">يوم</item>
+        <item quantity="other">يوم</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="zero">ساعة</item>
         <item quantity="one">‪‫ساعة</item>
         <item quantity="two">ساعتين</item>
         <item quantity="few">ساعات</item>
-        <item quantity="many">ساعات</item>
-        <item quantity="other">ساعات</item>
+        <item quantity="many">ساعة</item>
+        <item quantity="other">ساعة</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="zero">مرة</item>
         <item quantity="one">مرة</item>
-        <item quantity="two">مرات</item>
+        <item quantity="two">مرتين</item>
         <item quantity="few">مرات</item>
-        <item quantity="many">مرات</item>
-        <item quantity="other">مرات</item>
+        <item quantity="many">مرة</item>
+        <item quantity="other">مرة</item>
     </plurals>
     <string name="now">اﻵن</string>
     <string name="TEA_creation_date">تاريخ الإنشاء</string>
@@ -738,4 +738,54 @@
     <string name="when_started">عند البدئ</string>
     <string name="microsoft_selection_description">مزامنة مع حساب مايكروسوفت الخاص بك</string>
     <string name="completion_sound">تشغيل صوت الإكتمال</string>
+    <string name="theme_dynamic">ديناميكى</string>
+    <plurals name="reminder_hours">
+        <item quantity="zero">صفر ساعة</item>
+        <item quantity="one">ساعة</item>
+        <item quantity="two">ساعتين</item>
+        <item quantity="few">ساعات</item>
+        <item quantity="many">ساعة</item>
+        <item quantity="other">ساعة</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="zero">صفر اسبوع</item>
+        <item quantity="one">اسبوع</item>
+        <item quantity="two">اسبوعين</item>
+        <item quantity="few">اسابيع</item>
+        <item quantity="many">اسبوع</item>
+        <item quantity="other">اسبوع</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="zero">صفر يوم</item>
+        <item quantity="one">يوم</item>
+        <item quantity="two">يومين</item>
+        <item quantity="few">أيام</item>
+        <item quantity="many">يوم</item>
+        <item quantity="other">يوم</item>
+    </plurals>
+    <string name="sort_list">بالقوائم</string>
+    <string name="sort_completed">بوقت الانتهاء</string>
+    <string name="swipe_to_snooze_title">التمرير للاغفاء</string>
+    <string name="swipe_to_snooze_time_immediately">فورا</string>
+    <string name="swipe_to_snooze_time_15_minutes">بعد ربع ساعه</string>
+    <string name="swipe_to_snooze_time_30_minutes">بعد نصف ساعه</string>
+    <string name="swipe_to_snooze_time_1_hour">بعد ساعه</string>
+    <string name="swipe_to_snooze_time_24_hours">بعد ٢٤ ساعه</string>
+    <plurals name="repeat_occurrence">
+        <item quantity="zero">مرة</item>
+        <item quantity="one">مرة</item>
+        <item quantity="two">مرة</item>
+        <item quantity="few">مرات</item>
+        <item quantity="many">مرة</item>
+        <item quantity="other">مرة</item>
+    </plurals>
+    <plurals name="reminder_minutes">
+        <item quantity="zero">صفر دقيقة</item>
+        <item quantity="one">دقيقة</item>
+        <item quantity="two">دقيقتين</item>
+        <item quantity="few">دقائق</item>
+        <item quantity="many">دقيقة</item>
+        <item quantity="other">دقيقة</item>
+    </plurals>
+    <string name="change_priority">تغيير الاولوية</string>
 </resources>
