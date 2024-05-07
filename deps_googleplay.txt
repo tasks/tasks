@@ -426,8 +426,8 @@
 +|    |    |    |    +--- androidx.concurrent:concurrent-futures:1.1.0 (*)
 +|    |    |    |    +--- androidx.core:core-ktx:1.8.0 -> 1.13.0 (*)
 +|    |    |    |    +--- androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05 (*)
-+|    |    |    |    +--- com.google.guava:guava:31.1-android -> 32.0.0-android
-+|    |    |    |    |    +--- com.google.guava:failureaccess:1.0.1
++|    |    |    |    +--- com.google.guava:guava:31.1-android -> 33.0.0-jre
++|    |    |    |    |    +--- com.google.guava:failureaccess:1.0.2
 +|    |    |    |    |    \--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
 +|    |    |    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.21 -> 1.9.23 (*)
@@ -438,7 +438,7 @@
 +|    |    |    +--- com.google.android.gms:play-services-stats:17.0.2
 +|    |    |    |    +--- androidx.legacy:legacy-support-core-utils:1.0.0 (*)
 +|    |    |    |    \--- com.google.android.gms:play-services-basement:18.0.0 -> 18.3.0 (*)
-+|    |    |    \--- com.google.guava:guava:31.1-android -> 32.0.0-android (*)
++|    |    |    \--- com.google.guava:guava:31.1-android -> 33.0.0-jre (*)
 +|    |    \--- com.google.android.gms:play-services-stats:17.0.2 (*)
 +|    +--- com.google.android.gms:play-services-measurement-api:21.6.2
 +|    |    +--- com.google.android.gms:play-services-basement:18.3.0 (*)
@@ -453,7 +453,7 @@
 +|    |    +--- com.google.firebase:firebase-installations:17.0.1 -> 17.2.0 (*)
 +|    |    +--- com.google.firebase:firebase-installations-interop:17.0.0 -> 17.1.1 (*)
 +|    |    +--- com.google.firebase:firebase-measurement-connector:19.0.0 (*)
-+|    |    +--- com.google.guava:guava:31.1-android -> 32.0.0-android (*)
++|    |    +--- com.google.guava:guava:31.1-android -> 33.0.0-jre (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.10 -> 1.9.23 (*)
 +|    \--- com.google.android.gms:play-services-measurement-sdk:21.6.2
 +|         +--- androidx.collection:collection:1.0.0 -> 1.4.0 (*)
@@ -595,7 +595,7 @@
 +|    |    |    |    \--- joda-time:joda-time:2.10.2
 +|    |    |    \--- com.google.re2j:re2j:1.6
 +|    |    +--- org.slf4j:slf4j-api:1.7.36 -> 2.0.3
-+|    |    +--- commons-codec:commons-codec:1.15
++|    |    +--- commons-codec:commons-codec:1.15 -> 1.16.1
 +|    |    +--- org.apache.commons:commons-lang3:3.12.0
 +|    |    +--- org.apache.commons:commons-collections4:4.4
 +|    |    \--- commons-validator:commons-validator:1.7 (*)
@@ -1079,32 +1079,36 @@
 ++--- com.github.twofortyfouram:android-plugin-api-for-locale:1.0.2
 ++--- com.rubiconproject.oss:jchronic:0.2.6
 ++--- me.leolin:ShortcutBadger:1.1.22
-++--- com.google.apis:google-api-services-tasks:v1-rev20240225-2.0.0
-+|    \--- com.google.api-client:google-api-client:2.2.0
-+|         +--- commons-codec:commons-codec:1.15
-+|         +--- com.google.oauth-client:google-oauth-client:1.34.1
-+|         |    +--- com.google.http-client:google-http-client:1.42.0 -> 1.43.3
-+|         |    |    +--- com.google.guava:guava:30.1.1-android -> 32.0.0-android (*)
+++--- com.google.apis:google-api-services-tasks:v1-rev20240423-2.0.0
++|    \--- com.google.api-client:google-api-client:2.4.0
++|         +--- commons-codec:commons-codec:1.16.1
++|         +--- com.google.oauth-client:google-oauth-client:1.35.0
++|         |    +--- com.google.http-client:google-http-client:1.43.3 -> 1.44.1
++|         |    |    +--- com.google.guava:guava:30.1.1-android -> 33.0.0-jre (*)
++|         |    |    +--- io.grpc:grpc-context:1.60.1
++|         |    |    |    \--- io.grpc:grpc-api:1.60.1
 +|         |    |    +--- io.opencensus:opencensus-api:0.31.1
-+|         |    |    |    \--- io.grpc:grpc-context:1.27.2
++|         |    |    |    \--- io.grpc:grpc-context:1.27.2 -> 1.60.1 (*)
 +|         |    |    \--- io.opencensus:opencensus-contrib-http-util:0.31.1
 +|         |    |         +--- io.opencensus:opencensus-api:0.31.1 (*)
-+|         |    |         \--- com.google.guava:guava:29.0-android -> 32.0.0-android (*)
-+|         |    +--- com.google.http-client:google-http-client-gson:1.42.0 -> 1.43.3
-+|         |    |    +--- com.google.http-client:google-http-client:1.43.3 (*)
++|         |    |         \--- com.google.guava:guava:29.0-android -> 33.0.0-jre (*)
++|         |    +--- com.google.http-client:google-http-client-gson:1.43.3 -> 1.44.1
++|         |    |    +--- com.google.http-client:google-http-client:1.44.1 (*)
 +|         |    |    \--- com.google.code.gson:gson:2.10.1
-+|         |    \--- com.google.guava:guava:31.1-android -> 32.0.0-android (*)
-+|         +--- com.google.http-client:google-http-client-gson:1.42.3 -> 1.43.3 (*)
-+|         +--- com.google.guava:guava:31.1-jre -> 32.0.0-android (*)
-+|         \--- com.google.http-client:google-http-client:1.42.3 -> 1.43.3 (*)
++|         |    \--- com.google.guava:guava:31.1-android -> 33.0.0-jre (*)
++|         +--- com.google.auth:google-auth-library-credentials:1.23.0
++|         +--- com.google.auth:google-auth-library-oauth2-http:1.23.0
++|         |    +--- com.google.auto.value:auto-value-annotations:1.10.4
++|         |    +--- com.google.auth:google-auth-library-credentials:1.23.0
++|         |    +--- com.google.http-client:google-http-client:1.43.3 -> 1.44.1 (*)
++|         |    +--- com.google.http-client:google-http-client-gson:1.43.3 -> 1.44.1 (*)
++|         |    \--- com.google.guava:guava:32.0.0-android -> 33.0.0-jre (*)
++|         +--- com.google.http-client:google-http-client-gson:1.44.1 (*)
++|         +--- com.google.guava:guava:33.0.0-jre (*)
++|         \--- com.google.http-client:google-http-client:1.44.1 (*)
 ++--- com.google.apis:google-api-services-drive:v3-rev20240123-2.0.0
-+|    \--- com.google.api-client:google-api-client:2.2.0 (*)
-++--- com.google.auth:google-auth-library-oauth2-http:1.20.0
-+|    +--- com.google.auto.value:auto-value-annotations:1.10.4
-+|    +--- com.google.auth:google-auth-library-credentials:1.20.0
-+|    +--- com.google.http-client:google-http-client:1.43.3 (*)
-+|    +--- com.google.http-client:google-http-client-gson:1.43.3 (*)
-+|    \--- com.google.guava:guava:32.0.0-android (*)
++|    \--- com.google.api-client:google-api-client:2.2.0 -> 2.4.0 (*)
+++--- com.google.auth:google-auth-library-oauth2-http:1.20.0 -> 1.23.0 (*)
 ++--- androidx.work:work-runtime-ktx:2.8.1
 +|    +--- androidx.work:work-runtime:2.8.1 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.7.21 -> 1.9.23 (*)
