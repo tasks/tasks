@@ -84,10 +84,17 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
+    suspend fun resetFilter() {
+        setFilter(defaultFilterProvider.getDefaultOpenFilter())
+    }
+
     fun setFilter(
         filter: Filter,
         task: Task? = null,
     ) {
+        if (filter == _state.value.filter && task == null) {
+            return
+        }
         _state.update {
             it.copy(
                 filter = filter,

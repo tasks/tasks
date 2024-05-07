@@ -19,7 +19,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -80,6 +80,7 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -175,11 +176,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private var mode: ActionMode? = null
     lateinit var themeColor: ThemeColor
     private lateinit var binding: FragmentTaskListBinding
-    private val onBackPressed = object : OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() {
-            search.collapseActionView()
-        }
-    }
 
     private val sortRequest =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -248,15 +244,21 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressed)
-    }
-
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        requireActivity().onBackPressedDispatcher.addCallback(owner = viewLifecycleOwner) {
+            if (search.isActionViewExpanded) {
+                search.collapseActionView()
+            } else {
+                requireActivity().finish()
+                if (!preferences.getBoolean(R.string.p_open_last_viewed_list, true)) {
+                    runBlocking {
+                        mainViewModel.resetFilter()
+                    }
+                }
+            }
+        }
         binding = FragmentTaskListBinding.inflate(inflater, container, false)
         filter = getFilter()
         val swipeRefreshLayout: SwipeRefreshLayout
@@ -676,7 +678,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
-        onBackPressed.isEnabled = true
         search.setOnQueryTextListener(this)
         listViewModel.setSearchQuery("")
         if (preferences.isTopAppBar) {
@@ -686,7 +687,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     }
 
     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-        onBackPressed.isEnabled = false
         search.setOnQueryTextListener(null)
         listViewModel.setFilter(filter)
         listViewModel.setSearchQuery(null)

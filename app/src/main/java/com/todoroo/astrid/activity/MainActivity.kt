@@ -283,7 +283,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val filter = intent.getFilter
                 ?: intent.getFilterString?.let { defaultFilterProvider.getFilterFromPreference(it) }
-                ?: defaultFilterProvider.getStartupFilter()
+                ?: viewModel.state.value.filter
             val task = getTaskToLoad(filter)
             viewModel.setFilter(filter = filter, task = task)
         }
