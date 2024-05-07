@@ -92,7 +92,8 @@ internal class TasksWidgetViewFactory(
 
     override fun getViewTypeCount(): Int = 2
 
-    override fun getItemId(position: Int) = getTask(position).id
+    override fun getItemId(position: Int) =
+        if (tasks.isHeader(position)) tasks.getSection(position).value else getTask(position).id
 
     override fun hasStableIds(): Boolean = true
 
