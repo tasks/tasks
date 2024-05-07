@@ -139,9 +139,9 @@ android {
             dimension = "store"
         }
     }
-    packagingOptions {
+    packaging {
         resources {
-            excludes += setOf("META-INF/*.kotlin_module")
+            excludes += setOf("META-INF/*.kotlin_module", "META-INF/INDEX.LIST")
         }
     }
 
