@@ -84,7 +84,10 @@ class TaskCompleter @Inject internal constructor(
 
                         if (caldavDao.getAccountForTask(task.id)?.isSuppressRepeatingTasks != true) {
                             repeatTaskHelper.handleRepeat(task)
-                            setComplete(task, false)
+                            if (task.completionDate == 0L) {
+                                // un-complete children
+                                setComplete(task, false)
+                            }
                         }
                     }
                 }

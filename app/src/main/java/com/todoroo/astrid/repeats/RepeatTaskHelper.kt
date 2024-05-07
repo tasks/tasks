@@ -81,7 +81,11 @@ class RepeatTaskHelper @Inject constructor(
     }
 
     suspend fun undoRepeat(task: Task, oldDueDate: Long) {
-        task.completionDate = 0L
+        if (task.completionDate > 0) {
+            task.completionDate = 0
+            taskDao.save(task)
+            return
+        }
         try {
             val recur = newRecur(task.recurrence!!)
             val count = recur.count
