@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.AstridOrderingFilter
+import com.todoroo.astrid.api.EmptyFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.api.SearchFilter
@@ -36,7 +37,6 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.db.QueryUtils
-import org.tasks.filters.MyTasksFilter
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.tasklist.SectionedDataSource
@@ -66,7 +66,7 @@ class TaskListViewModel @Inject constructor(
     }
 
     data class State(
-        val filter: Filter = MyTasksFilter(""),
+        val filter: Filter = EmptyFilter(),
         val now: Long = DateUtilities.now(),
         val searchQuery: String? = null,
         val tasks: TasksResults = TasksResults.Loading,
