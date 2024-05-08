@@ -32,7 +32,7 @@ data class CaldavTask(
     @ColumnInfo(name = "cd_remote_id")
     var remoteId: String? = UUIDHelper.newUUID(),
     @ColumnInfo(name = "cd_object")
-    var `object`: String? = remoteId?.let { "$it.ics" },
+    var obj: String? = remoteId?.let { "$it.ics" },
     @ColumnInfo(name = "cd_etag")
     var etag: String? = null,
     @ColumnInfo(name = "cd_last_sync")

@@ -15,14 +15,14 @@ class VtodoCache @Inject constructor(
 ) {
     fun move(from: CaldavCalendar, to: CaldavCalendar, task: CaldavTask) {
         val source =
-            fileStorage.getFile(from.account, from.uuid, task.`object`)
+            fileStorage.getFile(from.account, from.uuid, task.obj)
         if (source?.exists() != true) {
             return
         }
         val target =
             fileStorage.getFile(to.account, to.uuid)
                 ?.apply { mkdirs() }
-                ?.let { File(it, task.`object`!!) }
+                ?.let { File(it, task.obj!!) }
                 ?: return
         source.copyTo(target, overwrite = true)
         source.delete()
@@ -40,13 +40,13 @@ class VtodoCache @Inject constructor(
         val file = fileStorage.getFile(
             calendar?.account,
             caldavTask?.calendar,
-            caldavTask?.`object`
+            caldavTask?.obj
         )
         return fileStorage.read(file)
     }
 
     fun putVtodo(calendar: CaldavCalendar, caldavTask: CaldavTask, vtodo: String?) {
-        val `object` = caldavTask.`object`?.takeIf { it.isNotBlank() } ?: return
+        val `object` = caldavTask.obj?.takeIf { it.isNotBlank() } ?: return
         val directory =
             fileStorage
                 .getFile(calendar.account, caldavTask.calendar)
@@ -65,7 +65,7 @@ class VtodoCache @Inject constructor(
 
     fun delete(calendar: CaldavCalendar, caldavTask: CaldavTask) {
         fileStorage
-            .getFile(calendar.account!!, caldavTask.calendar!!, caldavTask.`object`!!)
+            .getFile(calendar.account!!, caldavTask.calendar!!, caldavTask.obj!!)
             ?.delete()
     }
 

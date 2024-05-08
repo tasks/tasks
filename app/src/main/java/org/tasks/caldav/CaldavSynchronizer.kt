@@ -301,9 +301,9 @@ class CaldavSynchronizer @Inject constructor(
             caldavTask: CaldavTask
     ): Boolean {
         try {
-            if (!isNullOrEmpty(caldavTask.`object`)) {
+            if (!isNullOrEmpty(caldavTask.obj)) {
                 val remote = DavResource(
-                        httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.`object`!!).build())
+                        httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.obj!!).build())
                 remote.delete(null) {}
             }
         } catch (e: HttpException) {
@@ -339,7 +339,7 @@ class CaldavSynchronizer @Inject constructor(
         val requestBody = data.toRequestBody(contentType = MIME_ICALENDAR)
         try {
             val remote = DavResource(
-                    httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.`object`!!).build())
+                    httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.obj!!).build())
             remote.put(requestBody) {
                 if (it.isSuccessful) {
                     fromResponse(it)?.eTag?.takeIf(String::isNotBlank)?.let { etag ->

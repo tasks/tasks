@@ -167,7 +167,7 @@ class TaskMover @Inject constructor(
                     task = id1,
                     calendar = listId,
                     remoteId = caldavTask.remoteId,
-                    `object` = caldavTask.`object`,
+                    obj = caldavTask.obj,
                 )
                 vtodoCache.move(from!!, selected.calendar, caldavTask)
                 caldavDao.insert(task, newParent, preferences.addTasksToTop())
@@ -177,7 +177,7 @@ class TaskMover @Inject constructor(
                                 task = it.task,
                                 calendar = listId,
                                 remoteId = it.remoteId,
-                                `object` = it.`object`,
+                                obj = it.obj,
                             )
                             vtodoCache.move(from, selected.calendar, it)
                             newChild.remoteParent = it.remoteParent

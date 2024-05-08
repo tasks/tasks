@@ -61,11 +61,11 @@ class EtebaseClient(
 
     suspend fun updateItem(collection: Collection, task: CaldavTask, content: ByteArray): Item {
         val itemManager = etebase.collectionManager.getItemManager(collection)
-        val item = cache.itemGet(itemManager, collection.uid, task.`object`!!)
+        val item = cache.itemGet(itemManager, collection.uid, task.obj!!)
                 ?: itemManager
                         .create(ItemMetadata().apply { name = task.remoteId!! }, "")
                         .apply {
-                            task.`object` = uid
+                            task.obj = uid
                             caldavDao.update(task)
                         }
         item.meta = updateMtime(item.meta, task.lastSync)
@@ -75,7 +75,7 @@ class EtebaseClient(
 
     suspend fun deleteItem(collection: Collection, task: CaldavTask): Item? {
         val itemManager = etebase.collectionManager.getItemManager(collection)
-        return cache.itemGet(itemManager, collection.uid, task.`object`!!)
+        return cache.itemGet(itemManager, collection.uid, task.obj!!)
                 ?.takeIf { !it.isDeleted }
                 ?.apply {
                     meta = updateMtime(meta)

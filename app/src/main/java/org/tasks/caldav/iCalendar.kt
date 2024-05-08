@@ -215,7 +215,7 @@ class iCalendar @Inject constructor(
                     task = task.id,
                     calendar = calendar.uuid,
                     remoteId = remote.uid,
-                    `object` = obj
+                    obj = obj
                 )
         val isNew = caldavTask.id == com.todoroo.astrid.data.Task.NO_ID
         val dirty = task.modificationDate > caldavTask.lastSync || caldavTask.lastSync == 0L

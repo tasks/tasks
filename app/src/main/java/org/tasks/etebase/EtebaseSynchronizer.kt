@@ -206,7 +206,7 @@ class EtebaseSynchronizer @Inject constructor(
                     caldavDao.update(it)
                 }
             } else {
-                caldavTask?.`object` = item.uid
+                caldavTask?.obj = item.uid
                 iCal.fromVtodo(account, caldavCalendar, caldavTask, task, vtodo, item.uid, null)
             }
         }

@@ -80,7 +80,7 @@ abstract class TagDataDao {
             + " LEFT JOIN tags ON tags.task = tasks._id"
             + " WHERE tasks._id IN (:tasks)"
             + " GROUP BY tasks._id")
-    internal abstract suspend fun getAllTags(tasks: List<Long>): List<String>
+    internal abstract suspend fun getAllTags(tasks: List<Long>): List<String?>
 
     @Transaction
     open suspend fun applyTags(

@@ -24,7 +24,7 @@ object CaldavTaskMaker {
             remoteId = remoteId,
             remoteParent = it.valueOf(REMOTE_PARENT, null as String?),
             etag = it.valueOf(ETAG, null as String?),
-            `object` = it.valueOf(OBJECT, remoteId?.let { id -> "$id.ics" }),
+            obj = it.valueOf(OBJECT, remoteId?.let { id -> "$id.ics" }),
         )
     }
 
