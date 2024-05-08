@@ -1,4 +1,4 @@
-### 13.9.1 (2024-05-08)
+### 13.9.2 (2024-05-08)
 
 * Fix widget crash [#2873](https://github.com/tasks/tasks/issues/2873)
 * Fix recurrence unable to finish [#2874](https://github.com/tasks/tasks/issues/2874)
