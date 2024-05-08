@@ -1,3 +1,14 @@
+### 13.9.1 (2024-05-08)
+
+* Fix widget crash [#2873](https://github.com/tasks/tasks/issues/2873)
+* Fix recurrence unable to finish [#2874](https://github.com/tasks/tasks/issues/2874)
+* Fix edit screen being cleared when reopening app [#2857](https://github.com/tasks/tasks/issues/2857)
+* Fix performance regressions
+* Simplified internal alarm scheduling logic
+* Update translations
+  * Arabic - @islam2hamy
+  * Bulgarian - @StoyanDimitrov
+
 ### 13.9 (2024-05-01)
 
 * @elmuffo: Add swipe-to-snooze [#2839](https://github.com/tasks/tasks/pull/2839)

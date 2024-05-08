@@ -1,0 +1,6 @@
+* Fix widget crash
+* Fix recurrence unable to finish
+* Fix edit screen being cleared when reopening app
+* Fix performance regressions
+* Simplified internal alarm scheduling logic
+* Update translations
