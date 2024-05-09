@@ -39,22 +39,20 @@ class NotificationWork @AssistedInject constructor(
         }
         repeat(3) {
             val (overdue, future) = alarmService.getAlarms()
-            if (overdue.isNotEmpty()) {
-                overdue
-                    .sortedBy { it.time }
-                    .also { alarms ->
-                        alarms
-                            .filter { it.type == TYPE_SNOOZE }
-                            .map { it.id }
-                            .let { alarmDao.deleteByIds(it) }
-                    }
-                    .map { it.toNotification() }
-                    .let { notifier.triggerNotifications(it) }
-            } else {
-                nextAlarm = future.minOfOrNull { it.time } ?: 0
-                Timber.d("nextAlarm=${nextAlarm.toDateTime()}")
+            nextAlarm = future.minOfOrNull { it.time } ?: 0
+            if (overdue.isEmpty()) {
                 return Result.success()
             }
+            overdue
+                .sortedBy { it.time }
+                .also { alarms ->
+                    alarms
+                        .filter { it.type == TYPE_SNOOZE }
+                        .map { it.id }
+                        .let { alarmDao.deleteByIds(it) }
+                }
+                .map { it.toNotification() }
+                .let { notifier.triggerNotifications(it) }
         }
         firebase.reportException(IllegalStateException("Should have returned already"))
         return Result.failure()
@@ -62,6 +60,7 @@ class NotificationWork @AssistedInject constructor(
 
     override suspend fun scheduleNext() {
         if (nextAlarm > 0) {
+            Timber.d("nextAlarm=${nextAlarm.toDateTime()}")
             workManager.scheduleNotification(preferences.adjustForQuietHours(nextAlarm))
         }
     }

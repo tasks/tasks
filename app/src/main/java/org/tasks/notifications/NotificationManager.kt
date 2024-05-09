@@ -11,7 +11,6 @@ import com.todoroo.astrid.core.BuiltInFilterExposer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.Alarm
 import org.tasks.data.LocationDao
 import org.tasks.data.TaskDao
@@ -293,16 +292,6 @@ class NotificationManager @Inject constructor(
 
         // you're done, or not yours - don't sound, do delete
         if (task.isCompleted || task.isDeleted) {
-            return null
-        }
-
-        // new task edit in progress
-        if (isNullOrEmpty(task.title)) {
-            return null
-        }
-
-        // it's hidden - don't sound, don't delete
-        if (task.isHidden && type == Alarm.TYPE_RANDOM) {
             return null
         }
 

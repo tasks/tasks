@@ -82,8 +82,7 @@ class AlarmCalculator(
             }
             `when` += (reminderPeriod * (0.85f + 0.3f * random.nextFloat())).toLong()
             if (`when` < DateUtilities.now()) {
-                `when` =
-                    DateUtilities.now() + ((0.5f + 6 * random.nextFloat()) * DateUtilities.ONE_HOUR).toLong()
+                `when` = Math.max(DateUtilities.now(), task.hideUntil)
             }
             return `when`
         }

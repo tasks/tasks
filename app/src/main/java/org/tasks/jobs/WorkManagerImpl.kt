@@ -227,7 +227,7 @@ class WorkManagerImpl(
         if (expedited) {
             builder.setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
         }
-        Timber.d("$key: ${DateTimeUtils.printTimestamp(delay)} (${DateTimeUtils.printDuration(delay)})")
+        Timber.d("$key: expedited=$expedited ${DateTimeUtils.printTimestamp(delay)} (${DateTimeUtils.printDuration(delay)})")
         enqueue(workManager.beginUniqueWork(key, REPLACE, builder.build()))
     }
 
