@@ -310,7 +310,29 @@ class AlarmCalculatorTest {
             )
 
             assertEquals(
-                newAlarmEntry(with(TIME, now.plusMillis(10148400)), with(TYPE, TYPE_RANDOM)),
+                newAlarmEntry(with(TIME, now), with(TYPE, TYPE_RANDOM)),
+                alarm
+            )
+        }
+    }
+
+    @Test
+    fun scheduleOverdueRandomReminderForHiddenTask() {
+        random.seed = 0.3865f
+        freezeAt(now) {
+            val task = newTask(
+                with(REMINDER_LAST, now.minusDays(14)),
+                with(CREATION_TIME, now.minusDays(30)),
+                with(DUE_TIME, now.plusHours(1)),
+                with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME),
+            )
+            val alarm = alarmCalculator.toAlarmEntry(
+                task,
+                Alarm(0L, ONE_WEEK, TYPE_RANDOM)
+            )
+
+            assertEquals(
+                newAlarmEntry(with(TIME, task.dueDate.toDateTime()), with(TYPE, TYPE_RANDOM)),
                 alarm
             )
         }
