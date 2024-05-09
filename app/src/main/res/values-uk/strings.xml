@@ -248,6 +248,7 @@
     <string name="attachment_directory">Тека з прикріпленими файлами</string>
     <string name="backup_directory">Тека з резервними копіями</string>
     <string name="google_drive_backup">Резервне копіювання до Google Drive</string>
+    <string name="miscellaneous">Різне</string>
     <string name="enabled">Увімкнено</string>
     <string name="font_size">Розмір шрифту</string>
     <string name="row_spacing">Відстань між рядками</string>
@@ -396,6 +397,7 @@
     <string name="visit_website">Відвідати сторінку</string>
     <string name="location_arrived">Прибув до %s</string>
     <string name="location_departed">Відправився з %s</string>
+    <string name="building_notifications">Генерація нагадувань</string>
     <string name="choose_a_location">Обрати місце</string>
     <string name="pick_this_location">Обрати це місце</string>
     <string name="or_choose_a_location">Або вказати інше місце</string>

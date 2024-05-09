@@ -182,6 +182,7 @@
     <string name="or_choose_a_location">Eller vælg et sted</string>
     <string name="pick_this_location">Vælg dette sted</string>
     <string name="choose_a_location">Vælg sted</string>
+    <string name="building_notifications">Genererer notifikationer</string>
     <string name="location_departed">Afgået fra %s</string>
     <string name="location_arrived">Ankommet til %s</string>
     <string name="visit_website">Besøg hjemmeside</string>
@@ -329,6 +330,7 @@
     <string name="font_size">Skriftstørrelse</string>
     <string name="enabled">Aktiveret</string>
     <string name="subtasks">Underopgaver</string>
+    <string name="miscellaneous">Diverse</string>
     <string name="google_drive_backup">Google Drive-backup</string>
     <string name="backup_directory">Mappe til sikkerhedskopi</string>
     <string name="attachment_directory">Mappe til vedhæftede filer</string>

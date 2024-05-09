@@ -230,6 +230,7 @@
     <string name="quiet_hours">Rusttijd</string>
     <string name="attachment_directory">Map voor bijlagen</string>
     <string name="google_drive_backup">Backup naar Google Drive</string>
+    <string name="miscellaneous">Diversen</string>
     <string name="enabled">Actief</string>
     <string name="font_size">Lettergrootte</string>
     <string name="row_spacing">Regelafstand</string>
@@ -372,6 +373,7 @@
     <string name="visit_website">Website bezoeken</string>
     <string name="location_arrived">Aangekomen op %s</string>
     <string name="location_departed">Vertrokken van %s</string>
+    <string name="building_notifications">Meldingen aanmaken</string>
     <string name="choose_a_location">Locatie kiezen</string>
     <string name="pick_this_location">Locatie onder naald kiezen</string>
     <string name="or_choose_a_location">Of kies een locatie</string>

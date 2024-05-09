@@ -167,6 +167,7 @@
     <string name="attachment_directory">Direktori isi lampiran</string>
     <string name="backup_directory">Direktori cadangan</string>
     <string name="google_drive_backup">Cadangan Google Drive</string>
+    <string name="miscellaneous">Lain-lain</string>
     <string name="subtasks">Subtugas</string>
     <string name="enabled">Aktif</string>
     <string name="font_size">Ukuran huruf</string>
@@ -375,6 +376,7 @@
     <string name="davx5_selection_description">Sinkronkan tugas Anda dengan aplikasi DAVx⁵</string>
     <string name="whats_new">Apa yang Baru</string>
     <string name="missing_permissions">Perizinan hilang</string>
+    <string name="building_notifications">Menghasilkan notifikasi</string>
     <string name="location_remind_departure">Ingatkan pada saat keberangkatan</string>
     <string name="location_remind_arrival">Ingatkan saat kedatangan</string>
     <string name="action_new_task">Tugas Baru</string>

@@ -246,6 +246,7 @@
     <string name="attachment_directory">Carpeta de datos adjuntos</string>
     <string name="backup_directory">Carpeta de copias de seguridad</string>
     <string name="google_drive_backup">Copia de seguridad en Google Drive</string>
+    <string name="miscellaneous">Miscelánea</string>
     <string name="enabled">Activado</string>
     <string name="font_size">Tamaño de letra</string>
     <string name="row_spacing">Espaciado de fila</string>
@@ -392,6 +393,7 @@
     <string name="visit_website">Visitar página web</string>
     <string name="location_arrived">Llegada a %s</string>
     <string name="location_departed">Salida de %s</string>
+    <string name="building_notifications">Generando notificaciones</string>
     <string name="choose_a_location">Escoger ubicación</string>
     <string name="pick_this_location">Seleccionar esta ubicación</string>
     <string name="or_choose_a_location">O elegir una ubicación</string>

@@ -233,6 +233,7 @@
     <string name="attachment_directory">Priečinok pre prílohy</string>
     <string name="backup_directory">Zalóhovať adresár</string>
     <string name="google_drive_backup">Kopírovať na Disk Google</string>
+    <string name="miscellaneous">Rôzne</string>
     <string name="enabled">Povolené</string>
     <string name="font_size">Veľkosť písma</string>
     <string name="row_spacing">Šírka riadkov</string>
@@ -379,6 +380,7 @@
     <string name="visit_website">Navštíviť stránky</string>
     <string name="location_arrived">Príchod o %s</string>
     <string name="location_departed">Odchod o %s</string>
+    <string name="building_notifications">Všeobecné upozornenia</string>
     <string name="choose_a_location">Vybrať polohu</string>
     <string name="pick_this_location">Vybrať túto polohu</string>
     <string name="or_choose_a_location">Alebo vybrať polohu ručne</string>

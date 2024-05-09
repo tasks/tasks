@@ -139,6 +139,7 @@
     <string name="vibrations">Vibrace</string>
     <string name="quiet_hours">Období nerušení</string>
     <string name="backup_directory">Složka pro zálohy</string>
+    <string name="miscellaneous">Různé</string>
     <string name="enabled">Povoleno</string>
     <string name="font_size">Velikost písma</string>
     <string name="source_code">Zdrojové kódy</string>
@@ -491,6 +492,7 @@
     <string name="color_wheel">Více barev</string>
     <string name="invalid_username_or_password">Neplatné uživatelské jméno nebo heslo</string>
     <string name="davx5_selection_description">Synchronizujte své úkoly pomocí aplikace DAVx⁵</string>
+    <string name="building_notifications">Vytvářejí se oznámení</string>
     <string name="got_it">Rozumím!</string>
     <string name="support_development_subscribe">Odemkněte si další funkce a podpořte software s otevřeným zdrojovým kódem</string>
     <string name="enjoying_tasks">Líbí se vám Tasks\?</string>

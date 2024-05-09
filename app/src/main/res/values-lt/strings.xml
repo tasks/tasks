@@ -252,6 +252,7 @@
     <string name="attachment_directory">Pridedamo failo aplankas</string>
     <string name="backup_directory">Atsarginių kopijų aplankas</string>
     <string name="google_drive_backup">Google Drive atsarginė kopija</string>
+    <string name="miscellaneous">Įvairūs</string>
     <string name="enabled">Įjungta</string>
     <string name="font_size">Šrifto dydis</string>
     <string name="row_spacing">Eilutės plotis</string>
@@ -399,6 +400,7 @@
     <string name="visit_website">Aplankyti svetainę</string>
     <string name="location_arrived">Atvykus į %s</string>
     <string name="location_departed">Išvykus iš %s</string>
+    <string name="building_notifications">Generuojami pranešimai</string>
     <string name="choose_a_location">Pasirinkti vietą</string>
     <string name="pick_this_location">Pasirinkti šią vietą</string>
     <string name="or_choose_a_location">Arba pasirinkti vietą</string>

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.AndroidUtilities.preS
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
@@ -39,6 +40,15 @@ class NotificationSchedulerIntentService : InjectingJobIntentService() {
             notificationManager.createNotificationChannel(
                     createNotificationChannel(
                             NotificationManager.NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls, true))
+            if (preS()) {
+                notificationManager.createNotificationChannel(
+                    createNotificationChannel(
+                        NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS,
+                        R.string.miscellaneous,
+                        false
+                    )
+                )
+            }
         }
     }
 

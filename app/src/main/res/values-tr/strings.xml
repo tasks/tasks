@@ -233,6 +233,7 @@
     <string name="attachment_directory">Ek klasörü</string>
     <string name="backup_directory">Yedekleme klasörü</string>
     <string name="google_drive_backup">Google Drive yedeği</string>
+    <string name="miscellaneous">Türlü</string>
     <string name="enabled">Etkin</string>
     <string name="font_size">Yazı tipi boyutu</string>
     <string name="row_spacing">Satır aralığı</string>
@@ -380,6 +381,7 @@
     <string name="visit_website">Web siteyi ziyaret et</string>
     <string name="location_arrived">Varıldı: %s</string>
     <string name="location_departed">Kalkıldı: %s</string>
+    <string name="building_notifications">Bildirimler oluşturuluyor</string>
     <string name="choose_a_location">Konum seç</string>
     <string name="pick_this_location">Bu konumu seç</string>
     <string name="or_choose_a_location">Ya da konum seç</string>

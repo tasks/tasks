@@ -265,6 +265,7 @@
     <string name="row_spacing">Intervica spaco</string>
     <string name="header_spacing">Interspaco</string>
     <string name="enabled">Ŝaltita</string>
+    <string name="miscellaneous">Diversaj</string>
     <string name="backup_directory">Dosierujo de savkopioj</string>
     <string name="quiet_hours">Silentaj horoj</string>
     <string name="vibrations">Vibradoj</string>
@@ -473,6 +474,7 @@
     <string name="help">Helpo</string>
     <string name="about">Pri</string>
     <string name="enter_tag_name">Entajpu etikedonomon</string>
+    <string name="building_notifications">Generas sciigojn</string>
     <string name="whats_new">Novaĵoj</string>
     <string name="action_create_new_task">Krei novan taskon</string>
     <string name="show_description">Vidigi priskribon</string>

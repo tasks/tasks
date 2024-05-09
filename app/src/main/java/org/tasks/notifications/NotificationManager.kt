@@ -403,6 +403,7 @@ class NotificationManager @Inject constructor(
         const val NOTIFICATION_CHANNEL_DEFAULT = "notifications"
         const val NOTIFICATION_CHANNEL_TASKER = "notifications_tasker"
         const val NOTIFICATION_CHANNEL_TIMERS = "notifications_timers"
+        const val NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous"
         const val MAX_NOTIFICATIONS = 21
         const val EXTRA_NOTIFICATION_ID = "extra_notification_id"
         const val SUMMARY_NOTIFICATION_ID = 0

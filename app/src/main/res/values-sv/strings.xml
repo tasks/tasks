@@ -156,6 +156,7 @@
     <string name="quiet_hours">Tyst period</string>
     <string name="attachment_directory">Lagringsplats för bilagor</string>
     <string name="backup_directory">Säkerhetskopieringsmapp</string>
+    <string name="miscellaneous">Övrigt</string>
     <string name="enabled">Aktiverad</string>
     <string name="font_size">Teckenstorlek</string>
     <string name="customize_edit_screen">Anpassa redigeringsvyn</string>
@@ -381,6 +382,7 @@
     <string name="visit_website">Besök hemsida</string>
     <string name="location_arrived">Anlände vid %s</string>
     <string name="location_departed">Avgick %s</string>
+    <string name="building_notifications">Genererar aviseringar</string>
     <string name="choose_a_location">Välj en plats</string>
     <string name="pick_this_location">Välj denna plats</string>
     <string name="or_choose_a_location">Eller välj en plats</string>

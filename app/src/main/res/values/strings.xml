@@ -309,6 +309,7 @@ File %1$s contained %2$s.\n\n
   <string name="attachment_directory">Attachment folder</string>
   <string name="backup_directory">Backup folder</string>
   <string name="google_drive_backup">Google Drive backup</string>
+  <string name="miscellaneous">Miscellaneous</string>
   <string name="subtasks">Subtasks</string>
   <string name="enabled">Enabled</string>
   <string name="font_size">Font size</string>
@@ -505,6 +506,7 @@ File %1$s contained %2$s.\n\n
   <string name="visit_website">Visit website</string>
   <string name="location_arrived">Arrived at %s</string>
   <string name="location_departed">Departed %s</string>
+  <string name="building_notifications">Generating notifications</string>
   <string name="choose_a_location">Choose a location</string>
   <string name="pick_this_location">Select this location</string>
   <string name="or_choose_a_location">Or choose a location</string>

@@ -162,6 +162,7 @@
     <string name="quiet_hours">Horario silencioso</string>
     <string name="attachment_directory">Cartafol de anexos</string>
     <string name="backup_directory">Cartafol de copias de seguranza</string>
+    <string name="miscellaneous">Miscelánea</string>
     <string name="enabled">Activado</string>
     <string name="font_size">Tamaño da fonte</string>
     <string name="row_spacing">Espazado de fila</string>
@@ -342,6 +343,7 @@
     <string name="visit_website">Visitar a páxina web</string>
     <string name="location_arrived">Chegouse ás %s</string>
     <string name="location_departed">Saiuse ás %s</string>
+    <string name="building_notifications">Xerando as notificacións</string>
     <string name="choose_a_location">Escolle a posición</string>
     <string name="pick_this_location">Escoller esta posición</string>
     <string name="or_choose_a_location">Ou escolle unha posición</string>

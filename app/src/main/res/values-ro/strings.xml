@@ -251,6 +251,7 @@
     <string name="font_size">Dimensiunea fontului</string>
     <string name="enabled">Activat</string>
     <string name="subtasks">Sub-sarcini</string>
+    <string name="miscellaneous">Diverse</string>
     <string name="google_drive_backup">Copie de rezervă Google Drive</string>
     <string name="backup_directory">Dosar de rezervă</string>
     <string name="attachment_directory">Fișier atașat</string>
@@ -608,6 +609,7 @@
     <string name="or_choose_a_location">Sau alege o locație</string>
     <string name="pick_this_location">Selectează această locație</string>
     <string name="choose_a_location">Alege o locație</string>
+    <string name="building_notifications">Generarea de notificări</string>
     <string name="location_departed">A plecat %s</string>
     <string name="location_arrived">A sosit la %s</string>
     <string name="visit_website">Vizitează site-ul web</string>

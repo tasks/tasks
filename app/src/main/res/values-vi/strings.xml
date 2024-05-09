@@ -247,6 +247,7 @@
     <string name="or_choose_a_location">Hoặc chọn vị trí</string>
     <string name="pick_this_location">Chọn vị trí này</string>
     <string name="choose_a_location">Chọn vị trí</string>
+    <string name="building_notifications">Đang tạo các thông báo</string>
     <string name="location_departed">Đã khởi hành %s</string>
     <string name="location_arrived">Đã đến %s</string>
     <string name="visit_website">Đi đến trang web</string>
@@ -424,6 +425,7 @@
     <string name="font_size">Cỡ chữ</string>
     <string name="enabled">Bật</string>
     <string name="subtasks">Công việc con</string>
+    <string name="miscellaneous">Khác</string>
     <string name="google_drive_backup">Sao lưu Google Drive</string>
     <string name="backup_directory">Thư mục sao lưu</string>
     <string name="attachment_directory">Thư mục tệp đính kèm</string>

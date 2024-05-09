@@ -221,6 +221,7 @@
     <string name="quiet_hours">Horas de silêncio</string>
     <string name="attachment_directory">Pasta de anexo</string>
     <string name="backup_directory">Pasta de cópias de segurança</string>
+    <string name="miscellaneous">Outras</string>
     <string name="enabled">Ativo</string>
     <string name="font_size">Tamanho das letras</string>
     <string name="row_spacing">Espaçamento entre linhas</string>
@@ -346,6 +347,7 @@
     <string name="or_choose_a_location">Ou escolha uma localização</string>
     <string name="pick_this_location">Selecionar esta localização</string>
     <string name="choose_a_location">Escolher uma localização</string>
+    <string name="building_notifications">A gerar notificações</string>
     <string name="location_departed">Saiu às %s</string>
     <string name="location_arrived">Chegou às %s</string>
     <string name="visit_website">Visitar site web</string>

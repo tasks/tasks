@@ -230,6 +230,7 @@
     <string name="attachment_directory">Csatolmányok mappája</string>
     <string name="backup_directory">Mentési mappa</string>
     <string name="google_drive_backup">Mentés Google Drive-ba</string>
+    <string name="miscellaneous">Egyéb</string>
     <string name="enabled">Engedélyezve</string>
     <string name="font_size">Karakter méret</string>
     <string name="row_spacing">Sorköz</string>
@@ -378,6 +379,7 @@
     <string name="visit_website">Weboldal megnyitása</string>
     <string name="location_arrived">Megérkezett ekkor: %s</string>
     <string name="location_departed">Elindult ekkor: %s</string>
+    <string name="building_notifications">Értesítések létrehozása</string>
     <string name="choose_a_location">Hely kiválasztása</string>
     <string name="pick_this_location">Hely kiválasztása</string>
     <string name="or_choose_a_location">Vagy másik hely keresése</string>

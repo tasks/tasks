@@ -1,17 +1,21 @@
 package org.tasks.jobs
 
 import android.content.Context
+import androidx.core.app.NotificationCompat
 import androidx.hilt.work.HiltWorker
+import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.alarms.AlarmService
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import org.tasks.Notifier
+import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.AlarmDao
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 
@@ -61,4 +65,16 @@ class NotificationWork @AssistedInject constructor(
             workManager.scheduleNotification(preferences.adjustForQuietHours(nextAlarm))
         }
     }
+
+    // Foreground service for Android 11 and below
+    override fun getForegroundInfo() = ForegroundInfo(
+        -1,
+        NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS)
+            .setSound(null)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setSmallIcon(R.drawable.ic_check_white_24dp)
+            .setContentTitle(context.getString(R.string.app_name))
+            .setContentText(context.getString(R.string.building_notifications))
+            .build()
+    )
 }

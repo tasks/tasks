@@ -157,6 +157,7 @@
     <string name="add_account">أضف حساب</string>
     <string name="led_notification">إشعار LED</string>
     <string name="wearable_notifications_summary">عرض الإشعارات على الساعة الذكية</string>
+    <string name="building_notifications">توليد الإخطارات</string>
     <string name="bundle_notifications_summary">ادمج عدة إشعارات في شعار واحد</string>
     <string name="notification_troubleshooting_summary">انقر هنا إذا كنت تواجه مشاكل في الإشعارات</string>
     <string name="TEA_control_location">الموقع</string>
@@ -412,6 +413,7 @@
     <string name="url_required">الرابط مطلوب</string>
     <string name="location_radius_meters">%s م</string>
     <string name="header_spacing">التباعد</string>
+    <string name="miscellaneous">متنوّع</string>
     <string name="CFC_tag_text">علامة: \?</string>
     <string name="CFC_importance_text">الأولويّة على الأقل \?</string>
     <string name="TEA_control_timer">ضوابط المؤقت</string>
