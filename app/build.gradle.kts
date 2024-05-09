@@ -55,8 +55,8 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 130902
-        versionName = "13.9.2"
+        versionCode = 130903
+        versionName = "13.9.3"
         targetSdk = 33
         minSdk = 24
         testInstrumentationRunner = "org.tasks.TestRunner"
