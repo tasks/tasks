@@ -8,6 +8,7 @@ import androidx.core.app.NotificationCompat
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.preUpsideDownCake
 import com.todoroo.astrid.core.BuiltInFilterExposer
+import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -24,6 +25,7 @@ import org.tasks.reminders.SnoozeActivity
 import org.tasks.reminders.SnoozeDialog
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -382,6 +384,40 @@ class NotificationManager @Inject constructor(
                         context.getString(R.string.rmd_NoA_snooze),
                         snoozePendingIntent)
                 .extend(wearableExtender)
+    }
+
+    suspend fun updateTimerNotification() {
+        val count = taskDao.activeTimers()
+        if (count == 0) {
+            cancel(Constants.NOTIFICATION_TIMER.toLong())
+        } else {
+            val filter = BuiltInFilterExposer.getTimerFilter(context.resources)
+            val notifyIntent = TaskIntents.getTaskListIntent(context, filter)
+            val pendingIntent = PendingIntent.getActivity(
+                context,
+                Constants.NOTIFICATION_TIMER,
+                notifyIntent,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            val r = context.resources
+            val appName = r.getString(R.string.app_name)
+            val text = r.getString(
+                R.string.TPl_notification, r.getQuantityString(R.plurals.Ntasks, count, count))
+            val builder = NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TIMERS)
+                .setContentIntent(pendingIntent)
+                .setContentTitle(appName)
+                .setContentText(text)
+                .setWhen(DateTimeUtils.currentTimeMillis())
+                .setSmallIcon(R.drawable.ic_timer_white_24dp)
+                .setAutoCancel(false)
+                .setOngoing(true)
+            notify(
+                Constants.NOTIFICATION_TIMER.toLong(),
+                builder,
+                alert = false,
+                nonstop = false,
+                fiveTimes = false)
+        }
     }
 
     private fun cancelSummaryNotification() {

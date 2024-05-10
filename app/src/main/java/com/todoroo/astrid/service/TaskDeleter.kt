@@ -102,7 +102,7 @@ class TaskDeleter @Inject constructor(
                 userActivityDao.delete(it)
             }
         }
-        timerPlugin.updateNotifications()
+        notificationManager.updateTimerNotification()
         deletionDao.purgeDeleted()
     }
 }
