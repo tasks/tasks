@@ -12,6 +12,7 @@ import dagger.assisted.AssistedInject
 import org.tasks.Notifier
 import org.tasks.R
 import org.tasks.analytics.Firebase
+import org.tasks.data.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.AlarmDao
 import org.tasks.date.DateTimeUtils.toDateTime
@@ -37,12 +38,8 @@ class NotificationWork @AssistedInject constructor(
             nextAlarm = preferences.adjustForQuietHours(now())
             return Result.success()
         }
-        repeat(3) {
-            val (overdue, future) = alarmService.getAlarms()
-            nextAlarm = future.minOfOrNull { it.time } ?: 0
-            if (overdue.isEmpty()) {
-                return Result.success()
-            }
+        val (overdue, _) = alarmService.getAlarms()
+        if (overdue.isNotEmpty()) {
             overdue
                 .sortedBy { it.time }
                 .also { alarms ->
@@ -54,8 +51,14 @@ class NotificationWork @AssistedInject constructor(
                 .map { it.toNotification() }
                 .let { notifier.triggerNotifications(it) }
         }
-        firebase.reportException(IllegalStateException("Should have returned already"))
-        return Result.failure()
+        val alreadyTriggered = overdue.map { it.taskId }.toSet()
+        val (moreOverdue, future) = alarmService.getAlarms()
+        nextAlarm = moreOverdue
+            .filterNot { it.type == TYPE_RANDOM || alreadyTriggered.contains(it.taskId)}
+            .plus(future)
+            .minOfOrNull { it.time }
+            ?: 0
+        return Result.success()
     }
 
     override suspend fun scheduleNext() {
