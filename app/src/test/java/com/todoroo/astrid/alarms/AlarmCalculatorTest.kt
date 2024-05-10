@@ -310,7 +310,7 @@ class AlarmCalculatorTest {
             )
 
             assertEquals(
-                newAlarmEntry(with(TIME, now), with(TYPE, TYPE_RANDOM)),
+                newAlarmEntry(with(TIME, now.minusDays(14).plusMillis(584206592)), with(TYPE, TYPE_RANDOM)),
                 alarm
             )
         }

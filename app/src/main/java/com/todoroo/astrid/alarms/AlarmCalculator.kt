@@ -1,6 +1,5 @@
 package com.todoroo.astrid.alarms
 
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import org.tasks.data.Alarm
 import org.tasks.jobs.AlarmEntry
@@ -81,10 +80,7 @@ class AlarmCalculator(
                 `when` = task.creationDate
             }
             `when` += (reminderPeriod * (0.85f + 0.3f * random.nextFloat())).toLong()
-            if (`when` < DateUtilities.now()) {
-                `when` = Math.max(DateUtilities.now(), task.hideUntil)
-            }
-            return `when`
+            return Math.max(`when`, task.hideUntil)
         }
         return AlarmService.NO_ALARM
     }
