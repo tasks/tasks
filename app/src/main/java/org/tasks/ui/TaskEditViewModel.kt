@@ -14,11 +14,10 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.SyncFlags
+import com.todoroo.astrid.data.FORCE_CALDAV_SYNC
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_FIVE
 import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_NONSTOP
-import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.data.Task.Companion.hasDueTime
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
@@ -55,13 +54,14 @@ import org.tasks.data.TaskAttachment
 import org.tasks.data.TaskAttachmentDao
 import org.tasks.data.UserActivity
 import org.tasks.data.UserActivityDao
+import org.tasks.data.createDueDate
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils.currentTimeMillis
 import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -284,7 +284,7 @@ class TaskEditViewModel @Inject constructor(
                 )
                 geofenceApi.update(place)
             }
-            task.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)
+            task.putTransitory(FORCE_CALDAV_SYNC, true)
             task.modificationDate = currentTimeMillis()
         }
 
@@ -358,7 +358,7 @@ class TaskEditViewModel @Inject constructor(
             (isNew && selectedAlarms.value.isNotEmpty())
         ) {
             alarmService.synchronizeAlarms(task.id, selectedAlarms.value.toMutableSet())
-            task.putTransitory(SyncFlags.FORCE_CALDAV_SYNC, true)
+            task.putTransitory(FORCE_CALDAV_SYNC, true)
             task.modificationDate = now()
         }
 

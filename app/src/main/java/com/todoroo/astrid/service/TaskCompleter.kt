@@ -17,6 +17,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.CaldavDao
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -65,7 +66,7 @@ class TaskCompleter @Inject internal constructor(
             return
         }
         val completed = completionDate > 0
-        val modified = System.currentTimeMillis()
+        val modified = currentTimeMillis()
         database.withTransaction {
             tasks
                 .map {

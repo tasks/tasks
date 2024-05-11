@@ -4,13 +4,16 @@ import com.todoroo.astrid.data.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.whenOverdue
+import org.tasks.data.createDueDate
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.newTask
-import org.tasks.time.DateTimeUtils.currentTimeMillis
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
@@ -22,7 +25,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         setup(task)
 
         viewModel.setStartDate(
-            Task.createDueDate(
+            createDueDate(
                 Task.URGENCY_SPECIFIC_DAY_TIME,
                 currentTimeMillis()
             )
@@ -43,7 +46,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         setup(task)
 
         viewModel.setDueDate(
-            Task.createDueDate(
+            createDueDate(
                 Task.URGENCY_SPECIFIC_DAY_TIME,
                 currentTimeMillis()
             )
@@ -64,7 +67,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         setup(task)
 
         viewModel.setDueDate(
-            Task.createDueDate(
+            createDueDate(
                 Task.URGENCY_SPECIFIC_DAY_TIME,
                 currentTimeMillis()
             )

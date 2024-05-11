@@ -36,14 +36,15 @@ import androidx.compose.ui.unit.dp
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.data.Task
 import org.tasks.compose.CheckBox
 import org.tasks.compose.ClearButton
 import org.tasks.compose.DisabledText
 import org.tasks.compose.SubtaskChip
 import org.tasks.compose.TaskEditIcon
 import org.tasks.compose.TaskEditRow
+import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskContainer
+import org.tasks.data.isHidden
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.ui.TaskListViewModel
 
@@ -214,7 +215,7 @@ fun ExistingSubtaskRow(
             text = task.title!!,
             modifier = Modifier
                 .weight(1f)
-                .alpha(if (task.isCompleted || task.isHidden) ContentAlpha.disabled else ContentAlpha.high)
+                .alpha(if (task.isCompleted || task.task.isHidden) ContentAlpha.disabled else ContentAlpha.high)
                 .align(Alignment.Top)
                 .padding(top = 12.dp),
             style = MaterialTheme.typography.body1.copy(

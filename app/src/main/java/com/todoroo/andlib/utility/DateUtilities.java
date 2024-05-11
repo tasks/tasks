@@ -7,7 +7,7 @@
 package com.todoroo.andlib.utility;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils2.currentTimeMillis;
 
 import android.content.Context;
 import android.text.format.DateFormat;

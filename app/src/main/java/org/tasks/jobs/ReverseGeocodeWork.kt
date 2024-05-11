@@ -10,6 +10,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
+import org.tasks.data.mapPosition
 import org.tasks.injection.BaseWorker
 import org.tasks.location.Geocoder
 import timber.log.Timber

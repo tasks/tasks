@@ -3,15 +3,8 @@ package org.tasks.db
 import android.content.Context
 import android.database.sqlite.SQLiteException
 import androidx.core.database.getStringOrNull
-import androidx.room.DeleteColumn
-import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
-import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
-import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
 import org.tasks.R
 import org.tasks.caldav.FileStorage
 import org.tasks.data.Alarm.Companion.TYPE_RANDOM
@@ -22,7 +15,12 @@ import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
 import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
+import org.tasks.data.NO_ORDER
 import org.tasks.data.OpenTaskDao.Companion.getLong
+import com.todoroo.astrid.data.Task
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
+import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
 import org.tasks.extensions.getLongOrNull
 import org.tasks.extensions.getString
 import org.tasks.preferences.DefaultFilterProvider
@@ -34,12 +32,6 @@ import java.io.File
 import java.util.concurrent.TimeUnit.HOURS
 
 object Migrations {
-
-    @DeleteColumn.Entries(
-        DeleteColumn(tableName = "caldav_accounts", columnName = "cda_encryption_key"),
-        DeleteColumn(tableName = "caldav_accounts", columnName = "cda_repeat"),
-    )
-    class AutoMigrate83to84: AutoMigrationSpec
 
     private val MIGRATION_35_36: Migration = object : Migration(35, 36) {
         override fun migrate(database: SupportSQLiteDatabase) {

@@ -65,9 +65,7 @@ import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
@@ -96,9 +94,12 @@ import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.CaldavDao
+import com.todoroo.astrid.dao.Database
 import org.tasks.data.Tag
 import org.tasks.data.TagDataDao
+import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskContainer
+import org.tasks.data.listSettingsClass
 import org.tasks.databinding.FragmentTaskListBinding
 import org.tasks.db.SuspendDbUtils.chunkedMap
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker

@@ -9,6 +9,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
+import org.tasks.data.isTasksSubscription
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.Preferences
 import timber.log.Timber

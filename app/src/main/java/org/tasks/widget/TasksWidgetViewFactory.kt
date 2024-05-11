@@ -17,6 +17,9 @@ import org.tasks.R
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.data.hasNotes
+import org.tasks.data.isHidden
+import org.tasks.data.isOverdue
 import org.tasks.date.DateTimeUtils
 import org.tasks.extensions.setBackgroundResource
 import org.tasks.extensions.setColorFilter
@@ -229,7 +232,7 @@ internal class TasksWidgetViewFactory(
                             )
                     )
                 }
-                if (taskContainer.isHidden && settings.showStartChips) {
+                if (taskContainer.task.isHidden && settings.showStartChips) {
                     val sortByDate = settings.groupMode == SortHelper.SORT_START && !disableGroups
                     chipProvider
                         .getStartDateChip(taskContainer, settings.showFullDate, sortByDate)
@@ -296,7 +299,7 @@ internal class TasksWidgetViewFactory(
             setTextViewText(dueDateRes, text)
             setTextColor(
                 dueDateRes,
-                if (task.isOverdue) context.getColor(R.color.overdue) else onSurfaceVariant
+                if (task.task.isOverdue) context.getColor(R.color.overdue) else onSurfaceVariant
             )
             setTextSize(dueDateRes, max(10f, settings.textSize - 2))
             setOnClickFillInIntent(

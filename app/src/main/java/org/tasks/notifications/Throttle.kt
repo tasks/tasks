@@ -1,7 +1,7 @@
 package org.tasks.notifications
 
 import kotlinx.coroutines.runBlocking
-import org.tasks.time.DateTimeUtils.currentTimeMillis
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors.newSingleThreadExecutor

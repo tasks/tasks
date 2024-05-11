@@ -8,6 +8,8 @@ import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import com.todoroo.astrid.data.Task.Companion.NO_UUID
+import org.tasks.data.createDueDate
+import org.tasks.data.createHideUntil
 import org.tasks.date.DateTimeUtils
 import org.tasks.makers.Maker.make
 import org.tasks.repeats.RecurrenceUtils.newRecur
@@ -41,9 +43,9 @@ object TaskMaker {
             title = lookup.valueOf(TITLE, null as String?),
             priority = lookup.valueOf(PRIORITY, Task.Priority.NONE),
             dueDate = lookup.valueOf(DUE_DATE, null as DateTime?)
-                ?.let { Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, it.millis) }
+                ?.let { createDueDate(Task.URGENCY_SPECIFIC_DAY, it.millis) }
                 ?: lookup.valueOf(DUE_TIME, null as DateTime?)
-                ?.let { Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, it.millis) }
+                ?.let { createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, it.millis) }
                 ?: 0L,
             completionDate = lookup.valueOf(COMPLETION_TIME, null as DateTime?)?.millis ?: 0L,
             deletionDate = lookup.valueOf(DELETION_TIME, null as DateTime?)?.millis ?: 0L,

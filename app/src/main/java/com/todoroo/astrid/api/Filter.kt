@@ -2,6 +2,8 @@ package com.todoroo.astrid.api
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import org.tasks.data.NO_COUNT
+import org.tasks.data.NO_ORDER
 
 interface Filter : FilterListItem, Parcelable {
     val valuesForNewTasks: String?
@@ -28,11 +30,6 @@ interface Filter : FilterListItem, Parcelable {
     fun supportsHiddenTasks(): Boolean = true
     fun supportsSubtasks(): Boolean = true
     fun supportsSorting(): Boolean = true
-
-    companion object {
-        const val NO_ORDER = -1
-        const val NO_COUNT = -1
-    }
 }
 
 @Deprecated("Use manual ordering")

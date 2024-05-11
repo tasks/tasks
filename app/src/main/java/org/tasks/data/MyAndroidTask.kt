@@ -3,9 +3,14 @@ package org.tasks.data
 import android.content.ContentUris
 import android.database.Cursor
 import android.net.Uri
-import at.bitfire.ical4android.*
+import at.bitfire.ical4android.AndroidTask
+import at.bitfire.ical4android.BatchOperation
 import at.bitfire.ical4android.BatchOperation.CpoBuilder.Companion.newInsert
 import at.bitfire.ical4android.BatchOperation.CpoBuilder.Companion.newUpdate
+import at.bitfire.ical4android.ICalendar
+import at.bitfire.ical4android.Ical4Android
+import at.bitfire.ical4android.Task
+import at.bitfire.ical4android.UnknownProperty
 import at.bitfire.ical4android.util.MiscUtils.CursorHelper.toValues
 import net.fortuna.ical4j.model.Parameter
 import net.fortuna.ical4j.model.parameter.RelType
@@ -13,7 +18,7 @@ import net.fortuna.ical4j.model.parameter.Related
 import net.fortuna.ical4j.model.property.Action
 import org.dmfs.tasks.contract.TaskContract
 import org.tasks.data.OpenTaskDao.Companion.getLong
-import java.util.*
+import java.util.Locale
 import java.util.logging.Level
 
 class MyAndroidTask() : AndroidTask(null) {

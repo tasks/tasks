@@ -1,9 +1,9 @@
 package org.tasks.jobs;
 
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
-import static org.tasks.time.DateTimeUtils.printTimestamp;
+import static org.tasks.time.DateTimeUtils2.currentTimeMillis;
+import static org.tasks.time.DateTimeUtilsKt.printTimestamp;
 
-import org.tasks.notifications.Notification;
+import org.tasks.data.Notification;
 
 import java.util.Objects;
 

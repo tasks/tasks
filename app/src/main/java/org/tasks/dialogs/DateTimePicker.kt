@@ -12,11 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.R
+import com.todoroo.astrid.data.Task
+import org.tasks.data.createDueDate
 import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
@@ -272,11 +273,11 @@ class DateTimePicker : BaseDateTimePicker() {
                                 }
                                 it.setDueDateAdjustingHideUntil(when {
                                     day == NO_DAY -> 0L
-                                    time == NO_TIME -> Task.createDueDate(
+                                    time == NO_TIME -> createDueDate(
                                             Task.URGENCY_SPECIFIC_DAY,
                                             day
                                     )
-                                    else -> Task.createDueDate(
+                                    else -> createDueDate(
                                             Task.URGENCY_SPECIFIC_DAY_TIME,
                                             day.toDateTime().withMillisOfDay(time).millis
                                     )

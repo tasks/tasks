@@ -26,7 +26,6 @@ import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragmen
 import com.todoroo.astrid.adapter.SubheaderClickHandler
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -48,6 +47,8 @@ import org.tasks.data.AlarmDao
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.data.TagDataDao
+import com.todoroo.astrid.data.Task
+import org.tasks.data.getLocation
 import org.tasks.databinding.TaskListActivityBinding
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.dialogs.WhatsNewDialog

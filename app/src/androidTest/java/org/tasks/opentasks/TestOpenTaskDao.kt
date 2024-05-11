@@ -20,11 +20,11 @@ class TestOpenTaskDao @Inject constructor(
         private val caldavDao: CaldavDao
 ) : OpenTaskDao(context, caldavDao) {
     suspend fun insertList(
-            name: String = DEFAULT_LIST,
-            type: String = DEFAULT_TYPE,
-            account: String = DEFAULT_ACCOUNT,
-            url: String = UUIDHelper.newUUID(),
-            accessLevel: Int = ACCESS_LEVEL_OWNER,
+        name: String = DEFAULT_LIST,
+        type: String = DEFAULT_TYPE,
+        account: String = DEFAULT_ACCOUNT,
+        url: String = UUIDHelper.newUUID(),
+        accessLevel: Int = ACCESS_LEVEL_OWNER,
     ): Pair<Long, CaldavCalendar> {
         val uri = taskLists.buildUpon()
                 .appendQueryParameter(TaskContract.CALLER_IS_SYNCADAPTER, "true")

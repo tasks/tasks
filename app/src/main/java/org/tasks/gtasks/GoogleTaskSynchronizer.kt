@@ -8,7 +8,6 @@ import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.Tasks
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.gtasks.GtasksListService
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities
 import com.todoroo.astrid.gtasks.api.GtasksInvoker

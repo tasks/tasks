@@ -21,6 +21,7 @@ import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -123,7 +124,7 @@ class TasksJsonExporter @Inject constructor(
         }
         val data: MutableMap<String, Any> = HashMap()
         data["version"] = BuildConfig.VERSION_CODE
-        data["timestamp"] = System.currentTimeMillis()
+        data["timestamp"] = currentTimeMillis()
         data["data"] = BackupContainer(
                 taskBackups,
                 locationDao.getPlaces(),

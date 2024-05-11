@@ -54,6 +54,8 @@ import org.tasks.jobs.WorkManager.Companion.TAG_UPDATE_PURCHASES
 import org.tasks.notifications.Throttle
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.printTimestamp
 import timber.log.Timber
 import java.util.Random
 import java.util.concurrent.TimeUnit
@@ -153,7 +155,7 @@ class WorkManagerImpl(
 
     override fun scheduleNotification(scheduledTime: Long) {
         val time = max(now(), scheduledTime)
-        if (time < DateTimeUtils.currentTimeMillis()) {
+        if (time < currentTimeMillis()) {
 
             val intent = notificationIntent
             if (AndroidUtilities.atLeastOreo()) {
@@ -227,7 +229,7 @@ class WorkManagerImpl(
         if (expedited) {
             builder.setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
         }
-        Timber.d("$key: expedited=$expedited ${DateTimeUtils.printTimestamp(delay)} (${DateTimeUtils.printDuration(delay)})")
+        Timber.d("$key: expedited=$expedited ${printTimestamp(delay)} (${DateTimeUtils.printDuration(delay)})")
         enqueue(workManager.beginUniqueWork(key, REPLACE, builder.build()))
     }
 

@@ -7,7 +7,7 @@ import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.data.Task
 import kotlinx.parcelize.Parcelize
 import org.tasks.R
-import org.tasks.notifications.Notification
+import org.tasks.data.Notification
 
 @Parcelize
 data class NotificationsFilter(

@@ -24,6 +24,7 @@ import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_DATE
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_RRULE
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.ZoneId
@@ -83,7 +84,7 @@ class CustomRecurrenceViewModel @Inject constructor(
         val dueDate = savedStateHandle
             .get<Long>(EXTRA_DATE)
             ?.takeIf { it > 0 }
-            ?: System.currentTimeMillis().startOfDay()
+            ?: currentTimeMillis().startOfDay()
         val isMicrosoftTask = savedStateHandle.get<Int>(EXTRA_ACCOUNT_TYPE) == TYPE_MICROSOFT
         val frequencies = if (isMicrosoftTask) FREQ_MICROSOFT else FREQ_ALL
         _state.update { state ->

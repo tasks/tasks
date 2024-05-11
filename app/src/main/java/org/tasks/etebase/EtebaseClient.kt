@@ -1,14 +1,17 @@
 package org.tasks.etebase
 
 import android.content.Context
-import com.etebase.client.*
+import com.etebase.client.Account
 import com.etebase.client.Collection
+import com.etebase.client.FetchOptions
+import com.etebase.client.Item
+import com.etebase.client.ItemMetadata
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
-import org.tasks.time.DateTimeUtils.currentTimeMillis
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 
 class EtebaseClient(

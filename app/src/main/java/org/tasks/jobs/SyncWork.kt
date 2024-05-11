@@ -34,6 +34,7 @@ import org.tasks.gtasks.GoogleTaskSynchronizer
 import org.tasks.injection.BaseWorker
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 @HiltWorker
 class SyncWork @AssistedInject constructor(
@@ -70,7 +71,7 @@ class SyncWork @AssistedInject constructor(
         localBroadcastManager.broadcastRefresh()
         try {
             doSync()
-            preferences.lastSync = System.currentTimeMillis()
+            preferences.lastSync = currentTimeMillis()
         } catch (e: Exception) {
             firebase.reportException(e)
         } finally {

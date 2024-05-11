@@ -6,6 +6,7 @@
 
 package com.todoroo.astrid.core;
 
+import static org.tasks.data.CaldavDaoKt.APPLE_EPOCH;
 import static org.tasks.db.QueryUtils.showCompleted;
 import static org.tasks.db.QueryUtils.showHidden;
 
@@ -44,7 +45,6 @@ public class SortHelper {
   public static final int SORT_COMPLETED = 10;
   public static final int SORT_MANUAL = 11;
 
-  public static final long APPLE_EPOCH = 978307200000L; // 1/1/2001 GMT
   @SuppressLint("DefaultLocale")
   public static final String CALDAV_ORDER_COLUMN =
       String.format(Locale.US, "IFNULL(tasks.`order`, (tasks.created - %d) / 1000)", APPLE_EPOCH);

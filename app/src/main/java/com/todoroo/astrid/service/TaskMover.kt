@@ -5,7 +5,6 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
@@ -15,7 +14,9 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.GoogleTaskListDao
+import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskDao
+import org.tasks.data.getLocalList
 import org.tasks.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters

@@ -6,11 +6,14 @@
 package com.todoroo.astrid.dao
 
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.timers.TimerPlugin
 import org.tasks.LocalBroadcastManager
+import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
+import org.tasks.data.fetchFiltered
+import org.tasks.data.fetchTasks
+import org.tasks.data.setCollapsed
 import org.tasks.date.DateTimeUtils.isAfterNow
 import org.tasks.db.SuspendDbUtils.eachChunk
 import org.tasks.jobs.WorkManager

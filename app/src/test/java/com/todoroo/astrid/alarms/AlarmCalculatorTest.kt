@@ -2,7 +2,6 @@ package com.todoroo.astrid.alarms
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.andlib.utility.DateUtilities.ONE_WEEK
-import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_DUE
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_DUE_TIME
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
@@ -21,6 +20,7 @@ import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.Alarm.Companion.whenDue
 import org.tasks.data.Alarm.Companion.whenOverdue
 import org.tasks.data.Alarm.Companion.whenStarted
+import org.tasks.data.createDueDate
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.makers.AlarmEntryMaker.TIME
@@ -271,7 +271,7 @@ class AlarmCalculatorTest {
     @Test
     fun reminderOverdueEveryDay() = runBlocking {
         val dueDate =
-            Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, DateTime(2022, 1, 30, 13, 30).millis)
+            createDueDate(URGENCY_SPECIFIC_DAY_TIME, DateTime(2022, 1, 30, 13, 30).millis)
                 .toDateTime()
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(DUE_TIME, dueDate), with(REMINDER_LAST, dueDate.plusDays(6))),
@@ -287,7 +287,7 @@ class AlarmCalculatorTest {
     @Test
     fun endDailyOverdueReminder() = runBlocking {
         val dueDate =
-            Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, DateTime(2022, 1, 30, 13, 30).millis)
+            createDueDate(URGENCY_SPECIFIC_DAY_TIME, DateTime(2022, 1, 30, 13, 30).millis)
                 .toDateTime()
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(DUE_TIME, dueDate), with(REMINDER_LAST, dueDate.plusDays(7))),

@@ -25,7 +25,7 @@ import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavDao
-import org.tasks.time.DateTimeUtils.currentTimeMillis
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 

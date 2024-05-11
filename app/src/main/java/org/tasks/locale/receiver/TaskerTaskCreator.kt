@@ -2,15 +2,15 @@ package org.tasks.locale.receiver
 
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.data.AlarmDao
+import org.tasks.data.createDueDate
 import org.tasks.locale.bundle.TaskCreationBundle
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.time.LocalDate
 import java.time.LocalTime
@@ -43,7 +43,7 @@ class TaskerTaskCreator @Inject internal constructor(
                 val dueTime = LocalTime.parse(dueTimeString, timeFormatter)
                 task.dueDate = createDueDate(
                         Task.URGENCY_SPECIFIC_DAY_TIME,
-                        DateTime(if (task.hasDueDate()) task.dueDate else DateTimeUtils.currentTimeMillis())
+                        DateTime(if (task.hasDueDate()) task.dueDate else currentTimeMillis())
                                 .withHourOfDay(dueTime.hour)
                                 .withMinuteOfHour(dueTime.minute)
                                 .millis)

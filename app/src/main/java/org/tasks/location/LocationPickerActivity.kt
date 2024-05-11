@@ -35,6 +35,7 @@ import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.data.PlaceUsage
+import org.tasks.data.mapPosition
 import org.tasks.databinding.ActivityLocationPickerBinding
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.toast

@@ -8,8 +8,12 @@ import org.junit.Before
 import org.junit.Test
 import org.tasks.Freeze
 import org.tasks.Freeze.Companion.freezeAt
+import org.tasks.data.createDueDate
+import org.tasks.data.isHidden
+import org.tasks.data.isOverdue
 import org.tasks.date.DateTimeUtils
 import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import java.util.TreeSet
 
 class TaskTest {
@@ -25,37 +29,37 @@ class TaskTest {
 
     @Test
     fun testCreateDueDateNoUrgency() {
-        assertEquals(0, Task.createDueDate(Task.URGENCY_NONE, 1L))
+        assertEquals(0, createDueDate(Task.URGENCY_NONE, 1L))
     }
 
     @Test
     fun testCreateDueDateToday() {
         val expected = DateTime(2013, 12, 31, 12, 0, 0, 0).millis
-        assertEquals(expected, Task.createDueDate(Task.URGENCY_TODAY, -1L))
+        assertEquals(expected, createDueDate(Task.URGENCY_TODAY, -1L))
     }
 
     @Test
     fun testCreateDueDateTomorrow() {
         val expected = DateTime(2014, 1, 1, 12, 0, 0, 0).millis
-        assertEquals(expected, Task.createDueDate(Task.URGENCY_TOMORROW, -1L))
+        assertEquals(expected, createDueDate(Task.URGENCY_TOMORROW, -1L))
     }
 
     @Test
     fun testCreateDueDateDayAfter() {
         val expected = DateTime(2014, 1, 2, 12, 0, 0, 0).millis
-        assertEquals(expected, Task.createDueDate(Task.URGENCY_DAY_AFTER, -1L))
+        assertEquals(expected, createDueDate(Task.URGENCY_DAY_AFTER, -1L))
     }
 
     @Test
     fun testCreateDueDateNextWeek() {
         val expected = DateTime(2014, 1, 7, 12, 0, 0, 0).millis
-        assertEquals(expected, Task.createDueDate(Task.URGENCY_NEXT_WEEK, -1L))
+        assertEquals(expected, createDueDate(Task.URGENCY_NEXT_WEEK, -1L))
     }
 
     @Test
     fun testCreateDueDateInTwoWeeks() {
         val expected = DateTime(2014, 1, 14, 12, 0, 0, 0).millis
-        assertEquals(expected, Task.createDueDate(Task.URGENCY_IN_TWO_WEEKS, -1L))
+        assertEquals(expected, createDueDate(Task.URGENCY_IN_TWO_WEEKS, -1L))
     }
 
     @Test
@@ -66,13 +70,13 @@ class TaskTest {
                 .withSecondOfMinute(0)
                 .withMillisOfSecond(0)
                 .millis
-        assertEquals(expected, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, specificDueDate.millis))
+        assertEquals(expected, createDueDate(Task.URGENCY_SPECIFIC_DAY, specificDueDate.millis))
     }
 
     @Test
     fun testRemoveSecondsForSpecificTime() {
         val expected = specificDueDate.withSecondOfMinute(1).withMillisOfSecond(0).millis
-        assertEquals(expected, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, specificDueDate.millis))
+        assertEquals(expected, createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, specificDueDate.millis))
     }
 
     @Test
@@ -144,7 +148,7 @@ class TaskTest {
 
     @Test
     fun testTaskIsNotHiddenAtHideUntilTime() {
-        val now = org.tasks.time.DateTimeUtils.currentTimeMillis()
+        val now = currentTimeMillis()
         freezeAt(now) {
             val task = Task()
             task.hideUntil = now
@@ -154,7 +158,7 @@ class TaskTest {
 
     @Test
     fun testTaskIsHiddenBeforeHideUntilTime() {
-        val now = org.tasks.time.DateTimeUtils.currentTimeMillis()
+        val now = currentTimeMillis()
         freezeAt(now) {
             val task = Task()
             task.hideUntil = now + 1
@@ -176,7 +180,7 @@ class TaskTest {
 
     @Test
     fun testTaskNotOverdueAtDueTime() {
-        val now = org.tasks.time.DateTimeUtils.currentTimeMillis()
+        val now = currentTimeMillis()
         freezeAt(now) {
             val task = Task()
             task.dueDate = now
@@ -186,7 +190,7 @@ class TaskTest {
 
     @Test
     fun testTaskIsOverduePastDueTime() {
-        val dueDate = org.tasks.time.DateTimeUtils.currentTimeMillis()
+        val dueDate = currentTimeMillis()
         freezeAt(dueDate + 1) {
             val task = Task()
             task.dueDate = dueDate

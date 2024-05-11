@@ -9,6 +9,7 @@ import org.tasks.data.TagData
 import org.tasks.sync.microsoft.Tasks.Task.RecurrenceDayOfWeek
 import org.tasks.sync.microsoft.Tasks.Task.RecurrenceType
 import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import java.text.SimpleDateFormat
 import java.time.ZonedDateTime
 import java.util.Locale
@@ -32,7 +33,7 @@ object MicrosoftConverter {
             defaultPriority != Task.Priority.HIGH -> defaultPriority
             else -> Task.Priority.NONE
         }
-        completionDate = remote.completedDateTime.toLong(System.currentTimeMillis())
+        completionDate = remote.completedDateTime.toLong(currentTimeMillis())
         dueDate = remote.dueDateTime.toLong(0L)
         creationDate = remote.createdDateTime.parseDateTime()
         modificationDate = remote.lastModifiedDateTime.parseDateTime()
@@ -163,7 +164,7 @@ object MicrosoftConverter {
     private fun String?.parseDateTime(): Long =
         this
             ?.let { ZonedDateTime.parse(this).toInstant().toEpochMilli() }
-            ?: System.currentTimeMillis()
+            ?: currentTimeMillis()
 
     private fun Tasks.Task.DateTime?.toLong(default: Long): Long =
         this

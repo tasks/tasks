@@ -4,7 +4,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.Freeze.Companion.freezeAt
 import org.tasks.time.DateTime
-import java.util.*
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import java.util.TimeZone
 
 class DateTimeUtilsTest {
     private val now = DateTime(2014, 1, 1, 15, 17, 53, 0)
@@ -12,7 +13,7 @@ class DateTimeUtilsTest {
     @Test
     fun testGetCurrentTime() {
         freezeAt(now) {
-            assertEquals(now.millis, org.tasks.time.DateTimeUtils.currentTimeMillis())
+            assertEquals(now.millis, currentTimeMillis())
         }
     }
 

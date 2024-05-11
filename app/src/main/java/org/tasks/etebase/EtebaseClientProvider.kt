@@ -9,6 +9,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavDao
+import org.tasks.data.getPassword
 import org.tasks.http.HttpClientFactory
 import org.tasks.security.KeyStoreEncryption
 import java.security.KeyManagementException

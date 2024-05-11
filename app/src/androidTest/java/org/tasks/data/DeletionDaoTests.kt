@@ -6,7 +6,9 @@ import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.CaldavDao.Companion.LOCAL
 import org.tasks.date.DateTimeUtils.newDateTime
@@ -16,7 +18,7 @@ import org.tasks.makers.TaskMaker.CREATION_TIME
 import org.tasks.makers.TaskMaker.DELETION_TIME
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
@@ -43,7 +45,7 @@ class DeletionDaoTests : InjectingTestCase() {
         deletionDao.markDeleted(listOf(task.id))
         task = taskDao.fetch(task.id)!!
         assertTrue(task.modificationDate > task.creationDate)
-        assertTrue(task.modificationDate < DateTimeUtils.currentTimeMillis())
+        assertTrue(task.modificationDate < currentTimeMillis())
     }
 
     @Test
@@ -53,7 +55,7 @@ class DeletionDaoTests : InjectingTestCase() {
         deletionDao.markDeleted(listOf(task.id))
         task = taskDao.fetch(task.id)!!
         assertTrue(task.deletionDate > task.creationDate)
-        assertTrue(task.deletionDate < DateTimeUtils.currentTimeMillis())
+        assertTrue(task.deletionDate < currentTimeMillis())
     }
 
     @Test

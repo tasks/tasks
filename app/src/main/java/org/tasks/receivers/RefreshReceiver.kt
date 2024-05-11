@@ -7,6 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.data.TaskDao
+import org.tasks.data.count
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences

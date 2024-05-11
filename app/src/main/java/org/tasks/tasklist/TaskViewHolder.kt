@@ -30,6 +30,9 @@ import org.tasks.compose.FilterChip
 import org.tasks.compose.StartDateChip
 import org.tasks.compose.SubtaskChip
 import org.tasks.data.TaskContainer
+import org.tasks.data.hasNotes
+import org.tasks.data.isHidden
+import org.tasks.data.isOverdue
 import org.tasks.databinding.TaskAdapterRowBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.Linkify
@@ -157,7 +160,7 @@ class TaskViewHolder internal constructor(
         )
         if (preferences.getBoolean(R.string.p_show_description, true)) {
             markdown.setMarkdown(description, task.notes)
-            description.visibility = if (task.hasNotes()) View.VISIBLE else View.GONE
+            description.visibility = if (task.task.hasNotes()) View.VISIBLE else View.GONE
         }
         if (markdown.enabled || preferences.getBoolean(R.string.p_linkify_task_list, false)) {
             linkify.setMovementMethod(
@@ -197,7 +200,7 @@ class TaskViewHolder internal constructor(
             nameView.paintFlags = nameView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
             nameView.setTextColor(
-                    context.getColor(if (task.isHidden) R.color.text_tertiary else R.color.text_primary))
+                    context.getColor(if (task.task.isHidden) R.color.text_tertiary else R.color.text_primary))
             nameView.paintFlags = nameView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
         completeBox.isChecked = task.isCompleted
@@ -207,7 +210,7 @@ class TaskViewHolder internal constructor(
 
     private fun setupDueDate(sortByDueDate: Boolean) {
         if (task.hasDueDate()) {
-            if (task.isOverdue) {
+            if (task.task.isOverdue) {
                 dueDate.setTextColor(textColorOverdue)
             } else {
                 dueDate.setTextColor(textColorSecondary)
@@ -232,7 +235,7 @@ class TaskViewHolder internal constructor(
         val id = task.id
         val children = task.children
         val collapsed = task.isCollapsed
-        val isHidden = task.isHidden
+        val isHidden = task.task.isHidden
         val sortGroup = task.sortGroup
         val startDate = task.task.hideUntil
         val place = task.location?.place

@@ -4,13 +4,16 @@ package org.tasks.caldav
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
-import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.data.Task.Priority.Companion.HIGH
 import com.todoroo.astrid.data.Task.Priority.Companion.LOW
 import com.todoroo.astrid.data.Task.Priority.Companion.MEDIUM
 import net.fortuna.ical4j.model.property.Status
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.tasks.data.createDueDate
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask

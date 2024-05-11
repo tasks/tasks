@@ -2,7 +2,7 @@ package org.tasks.date
 
 import org.tasks.time.DateTime
 import org.tasks.time.DateTime.UTC
-import java.util.*
+import java.util.TimeZone
 
 object DateTimeUtils {
     @JvmStatic
@@ -24,8 +24,6 @@ object DateTimeUtils {
 
     @JvmStatic
     fun newDateTime(timestamp: Long, timeZone: TimeZone): DateTime = DateTime(timestamp, timeZone)
-
-    fun Long.toAppleEpoch(): Long = DateTime(this).toAppleEpoch()
 
     fun Long.toDateTime(): DateTime = DateTime(this)
 

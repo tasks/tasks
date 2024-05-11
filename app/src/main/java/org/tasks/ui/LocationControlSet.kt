@@ -19,6 +19,8 @@ import org.tasks.compose.edit.LocationRow
 import org.tasks.data.Geofence
 import org.tasks.data.Location
 import org.tasks.data.Place
+import org.tasks.data.createGeofence
+import org.tasks.data.open
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.GeofenceDialog
 import org.tasks.extensions.Context.openUri
@@ -128,7 +130,7 @@ class LocationControlSet : TaskEditControlFragment() {
                 val place: Place = data!!.getParcelableExtra(LocationPickerActivity.EXTRA_PLACE)!!
                 val location = viewModel.selectedLocation.value
                 val geofence = if (location == null) {
-                    Geofence(place.uid, preferences)
+                    createGeofence(place.uid, preferences)
                 } else {
                     val existing = location.geofence
                     Geofence(

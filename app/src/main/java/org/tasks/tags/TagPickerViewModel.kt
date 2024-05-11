@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
+import org.tasks.data.searchTags
 import javax.inject.Inject
 
 @HiltViewModel

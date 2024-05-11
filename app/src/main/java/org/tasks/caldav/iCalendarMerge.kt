@@ -2,10 +2,6 @@ package org.tasks.caldav
 
 import at.bitfire.ical4android.Task
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.data.Task.Priority.Companion.HIGH
-import com.todoroo.astrid.data.Task.Priority.Companion.LOW
-import com.todoroo.astrid.data.Task.Priority.Companion.MEDIUM
-import com.todoroo.astrid.data.Task.Priority.Companion.NONE
 import net.fortuna.ical4j.model.property.Status
 import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.getLocal
@@ -13,6 +9,11 @@ import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.caldav.iCalendar.Companion.toMillis
 import org.tasks.data.CaldavTask
+import com.todoroo.astrid.data.Task.Priority.Companion.HIGH
+import com.todoroo.astrid.data.Task.Priority.Companion.LOW
+import com.todoroo.astrid.data.Task.Priority.Companion.MEDIUM
+import com.todoroo.astrid.data.Task.Priority.Companion.NONE
+import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.time.DateTime.UTC
 import org.tasks.time.DateTimeUtils.startOfSecond

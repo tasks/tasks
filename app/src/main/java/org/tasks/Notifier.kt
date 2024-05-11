@@ -11,15 +11,16 @@ import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_GEO_ENTER
 import org.tasks.data.Alarm.Companion.TYPE_GEO_EXIT
 import org.tasks.data.Geofence
+import org.tasks.data.Notification
 import org.tasks.data.TaskDao
+import org.tasks.data.fetchFiltered
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.AudioManager
-import org.tasks.notifications.Notification
 import org.tasks.notifications.NotificationManager
 import org.tasks.notifications.TelephonyManager
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
-import org.tasks.time.DateTimeUtils
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.min
@@ -63,7 +64,7 @@ class Notifier @Inject constructor(
                 .setContentText(filter.title)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setWhen(DateTimeUtils.currentTimeMillis())
+                .setWhen(currentTimeMillis())
                 .setShowWhen(true)
                 .setColor(colorProvider.getPriorityColor(maxPriority, true))
                 .setGroupSummary(true)
@@ -79,7 +80,7 @@ class Notifier @Inject constructor(
                         Notification().apply {
                             taskId = it.task
                             type = if (arrival) TYPE_GEO_ENTER else TYPE_GEO_EXIT
-                            timestamp = DateTimeUtils.currentTimeMillis()
+                            timestamp = currentTimeMillis()
                             location = place
                         }
                     }

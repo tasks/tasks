@@ -25,7 +25,6 @@ import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.BooleanCriterion
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.CustomFilterCriterion
-import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 import com.todoroo.astrid.api.MultipleSelectCriterion
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.api.TextInputCriterion
@@ -41,6 +40,7 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.data.Filter
 import org.tasks.data.FilterDao
+import org.tasks.data.NO_ORDER
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.databinding.FilterSettingsActivityBinding
 import org.tasks.db.QueryUtils

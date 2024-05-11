@@ -23,6 +23,7 @@ import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeColor
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -85,7 +86,7 @@ class TasksWidget : AppWidgetProvider() {
                 opacity = widgetPreferences.footerOpacity,
             )
             setOnClickPendingIntent(R.id.empty_view, getOpenListIntent(context, filter, id))
-            val cacheBuster = Uri.parse("tasks://widget/" + System.currentTimeMillis())
+            val cacheBuster = Uri.parse("tasks://widget/" + currentTimeMillis())
             setRemoteAdapter(
                 R.id.list_view,
                 Intent(context, TasksWidgetAdapter::class.java)

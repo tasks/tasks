@@ -1,7 +1,9 @@
 package org.tasks
 
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.DateTimeUtils2.setCurrentMillisFixed
+import org.tasks.time.DateTimeUtils2.setCurrentMillisSystem
 
 class Freeze {
     fun <T> thawAfter(run: () -> T): T {
@@ -15,7 +17,7 @@ class Freeze {
     companion object {
 
         fun freezeClock(run: () -> Unit): Any {
-            return freezeAt(DateTimeUtils.currentTimeMillis()).thawAfter(run)
+            return freezeAt(currentTimeMillis()).thawAfter(run)
         }
 
         fun <T> freezeAt(dateTime: DateTime, run: () -> T): T {
@@ -31,12 +33,12 @@ class Freeze {
         }
 
         fun freezeAt(millis: Long): Freeze {
-            DateTimeUtils.setCurrentMillisFixed(millis)
+            setCurrentMillisFixed(millis)
             return Freeze()
         }
 
         fun thaw() {
-            DateTimeUtils.setCurrentMillisSystem()
+            setCurrentMillisSystem()
         }
     }
 }

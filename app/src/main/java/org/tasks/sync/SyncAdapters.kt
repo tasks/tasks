@@ -1,8 +1,5 @@
 package org.tasks.sync
 
-import com.todoroo.astrid.data.SyncFlags
-import com.todoroo.astrid.data.SyncFlags.FORCE_CALDAV_SYNC
-import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -16,8 +13,11 @@ import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.CaldavDao
+import com.todoroo.astrid.data.FORCE_CALDAV_SYNC
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.OpenTaskDao
+import com.todoroo.astrid.data.SUPPRESS_SYNC
+import com.todoroo.astrid.data.Task
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
 import org.tasks.preferences.Preferences
@@ -45,7 +45,7 @@ class SyncAdapters @Inject constructor(
     }
 
     fun sync(task: Task, original: Task?) = scope.launch {
-        if (task.checkTransitory(SyncFlags.SUPPRESS_SYNC)) {
+        if (task.checkTransitory(SUPPRESS_SYNC)) {
             return@launch
         }
         val needsGoogleTaskSync = !task.googleTaskUpToDate(original)

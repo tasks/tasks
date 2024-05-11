@@ -12,7 +12,6 @@ import com.todoroo.astrid.data.Task.Companion.DUE_DATE
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_NONE
 import com.todoroo.astrid.data.Task.Companion.IMPORTANCE
-import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.helper.UUIDHelper
 import com.todoroo.astrid.utility.TitleParser.parse
@@ -26,7 +25,6 @@ import org.tasks.data.Alarm.Companion.whenStarted
 import org.tasks.data.AlarmDao
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
-import org.tasks.data.Geofence
 import org.tasks.data.GoogleTask
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.LocationDao
@@ -35,6 +33,9 @@ import org.tasks.data.Tag
 import org.tasks.data.TagDao
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
+import org.tasks.data.createDueDate
+import org.tasks.data.createGeofence
+import org.tasks.data.createHideUntil
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
@@ -111,7 +112,7 @@ class TaskCreator @Inject constructor(
         if (task.hasTransitory(Place.KEY)) {
             val place = locationDao.getPlace(task.getTransitory<String>(Place.KEY)!!)
             if (place != null) {
-                locationDao.insert(Geofence(place.uid, preferences))
+                locationDao.insert(createGeofence(place.uid, preferences))
             }
         }
         taskDao.save(task, null)

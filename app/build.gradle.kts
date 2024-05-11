@@ -60,12 +60,6 @@ android {
         targetSdk = 33
         minSdk = 24
         testInstrumentationRunner = "org.tasks.TestRunner"
-
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-            arg("room.incremental", "true")
-            arg("room.generateKotlin", "true")
-        }
     }
 
     signingConfigs {
@@ -175,6 +169,7 @@ val genericImplementation by configurations
 val googleplayImplementation by configurations
 
 dependencies {
+    implementation(project(":data"))
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.bitfire.dav4jvm) {
         exclude(group = "junit")
@@ -203,7 +198,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.room)
-    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.appcompat)
     implementation(libs.markwon)
     implementation(libs.markwon.editor)

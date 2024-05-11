@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.TaskDao
+import org.tasks.data.count
+import org.tasks.data.fetchFiltered
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences

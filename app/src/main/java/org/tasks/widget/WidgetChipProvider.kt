@@ -8,11 +8,12 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
-import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
+import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskContainer
+import org.tasks.data.isHidden
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.extensions.setColorFilter
 import org.tasks.filters.PlaceFilter
@@ -50,7 +51,7 @@ class WidgetChipProvider @Inject constructor(
     }
 
     fun getStartDateChip(task: TaskContainer, showFullDate: Boolean, sortByStartDate: Boolean): RemoteViews? {
-        return if (task.isHidden) {
+        return if (task.task.isHidden) {
             val time = if (sortByStartDate && task.sortGroup?.startOfDay() == task.task.hideUntil.startOfDay()) {
                 task.task.hideUntil
                     .takeIf { Task.hasDueTime(it) }

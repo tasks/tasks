@@ -1,7 +1,9 @@
 package org.tasks
 
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.DateTimeUtils2.setCurrentMillisFixed
+import org.tasks.time.DateTimeUtils2.setCurrentMillisSystem
 
 class SuspendFreeze {
 
@@ -16,7 +18,7 @@ class SuspendFreeze {
     companion object {
 
         suspend fun <T> freezeClock(run: suspend () -> T): T {
-            return freezeAt(DateTimeUtils.currentTimeMillis()).thawAfter(run)
+            return freezeAt(currentTimeMillis()).thawAfter(run)
         }
 
         suspend fun <T> freezeAt(dateTime: DateTime, run: suspend () -> T): T {
@@ -32,12 +34,12 @@ class SuspendFreeze {
         }
 
         fun freezeAt(millis: Long): SuspendFreeze {
-            DateTimeUtils.setCurrentMillisFixed(millis)
+            setCurrentMillisFixed(millis)
             return SuspendFreeze()
         }
 
         fun thaw() {
-            DateTimeUtils.setCurrentMillisSystem()
+            setCurrentMillisSystem()
         }
     }
 }

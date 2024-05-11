@@ -3,9 +3,9 @@ package org.tasks.filters
 import android.content.Context
 import android.content.Intent
 import com.todoroo.astrid.activity.MainActivity
+import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.Filter.Companion.NO_ORDER
 import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,9 +20,18 @@ import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.CaldavDao
 import org.tasks.data.FilterDao
+import org.tasks.data.GoogleTaskFilters
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.LocationDao
+import org.tasks.data.LocationFilters
+import org.tasks.data.NO_ORDER
 import org.tasks.data.TagDataDao
+import org.tasks.data.TagFilters
+import org.tasks.data.listSettingsClass
+import org.tasks.data.setupLocalAccount
+import org.tasks.data.toGtasksFilter
+import org.tasks.data.toLocationFilter
+import org.tasks.data.toTagFilter
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.Preferences
@@ -236,7 +245,13 @@ class FilterProvider @Inject constructor(
                     .apply { if (account.isCollapsed) return this }
                     .plus(caldavDao
                                 .getCaldavFilters(account.uuid!!)
-                                .map(CaldavFilters::toCaldavFilter)
+                                .map {
+                                    CaldavFilter(
+                                        calendar = it.caldavCalendar,
+                                        principals = it.principals,
+                                        count = it.count,
+                                    )
+                                }
                                 .sort())
 
     companion object {

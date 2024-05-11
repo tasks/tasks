@@ -13,7 +13,6 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.api.SearchFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -33,9 +32,11 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.compose.throttleLatest
 import org.tasks.data.DeletionDao
+import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.data.fetchTasks
 import org.tasks.db.QueryUtils
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences

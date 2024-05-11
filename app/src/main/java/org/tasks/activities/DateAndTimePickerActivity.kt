@@ -14,7 +14,7 @@ import org.tasks.dialogs.MyTimePickerDialog.Companion.timeInputMode
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ThemeAccent
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils.currentTimeMillis
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 @AndroidEntryPoint

@@ -4,12 +4,12 @@ import com.todoroo.andlib.sql.Criterion.Companion.and
 import com.todoroo.andlib.sql.Join.Companion.left
 import com.todoroo.andlib.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.api.Filter.Companion.NO_COUNT
 import com.todoroo.astrid.data.Task
 import kotlinx.parcelize.Parcelize
 import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavTask
 import org.tasks.data.GoogleTask
+import org.tasks.data.NO_COUNT
 import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 
 @Parcelize

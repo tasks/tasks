@@ -8,7 +8,6 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.getMyTasksFilter
-import com.todoroo.astrid.data.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
@@ -22,6 +21,8 @@ import org.tasks.data.GoogleTaskDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.LocationDao
 import org.tasks.data.TagDataDao
+import com.todoroo.astrid.data.Task
+import org.tasks.data.getLocalList
 import org.tasks.filters.PlaceFilter
 import timber.log.Timber
 import javax.inject.Inject

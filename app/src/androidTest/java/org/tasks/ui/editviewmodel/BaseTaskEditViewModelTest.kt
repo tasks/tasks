@@ -19,6 +19,7 @@ import org.tasks.data.AlarmDao
 import org.tasks.data.LocationDao
 import org.tasks.data.TagDataDao
 import org.tasks.data.UserActivityDao
+import org.tasks.data.getLocation
 import org.tasks.injection.InjectingTestCase
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.DefaultFilterProvider

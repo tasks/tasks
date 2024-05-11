@@ -10,7 +10,7 @@ import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeClock
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.time.DateTimeUtils
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
@@ -23,7 +23,7 @@ class TaskTest : InjectingTestCase() {
         freezeClock {
             val task = Task()
             taskDao.createNew(task)
-            assertEquals(DateTimeUtils.currentTimeMillis(), task.creationDate)
+            assertEquals(currentTimeMillis(), task.creationDate)
         }
     }
 

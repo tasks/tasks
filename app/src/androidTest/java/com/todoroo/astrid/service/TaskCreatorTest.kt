@@ -1,6 +1,8 @@
 package com.todoroo.astrid.service
 
-import com.todoroo.astrid.api.PermaSql.*
+import com.todoroo.astrid.api.PermaSql.VALUE_EOD
+import com.todoroo.astrid.api.PermaSql.VALUE_EOD_NEXT_WEEK
+import com.todoroo.astrid.api.PermaSql.VALUE_EOD_TOMORROW
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.DUE_DATE
 import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL
@@ -12,6 +14,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.R
 import org.tasks.SuspendFreeze.Companion.freezeAt
+import org.tasks.data.createDueDate
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
@@ -35,7 +38,7 @@ class TaskCreatorTest : InjectingTestCase() {
 
         assertEquals(DateTime(2021, 2, 4).millis, task.hideUntil)
         assertEquals(
-                Task.createDueDate(URGENCY_SPECIFIC_DAY, DateTime(2021, 2, 5).millis),
+                createDueDate(URGENCY_SPECIFIC_DAY, DateTime(2021, 2, 5).millis),
                 task.dueDate
         )
     }
@@ -63,7 +66,7 @@ class TaskCreatorTest : InjectingTestCase() {
 
         assertEquals(DateTime(2021, 2, 4).millis, task.hideUntil)
         assertEquals(
-                Task.createDueDate(URGENCY_SPECIFIC_DAY, DateTime(2021, 2, 4).millis),
+                createDueDate(URGENCY_SPECIFIC_DAY, DateTime(2021, 2, 4).millis),
                 task.dueDate
         )
     }
@@ -93,7 +96,7 @@ class TaskCreatorTest : InjectingTestCase() {
         }
 
         assertEquals(
-                Task.createDueDate(URGENCY_SPECIFIC_DAY, DateTime(2021, 2, 5).millis),
+                createDueDate(URGENCY_SPECIFIC_DAY, DateTime(2021, 2, 5).millis),
                 task.dueDate
         )
     }

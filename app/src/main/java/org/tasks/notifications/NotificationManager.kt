@@ -14,6 +14,8 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.Alarm
 import org.tasks.data.LocationDao
+import org.tasks.data.Notification
+import org.tasks.data.NotificationDao
 import org.tasks.data.TaskDao
 import org.tasks.intents.TaskIntents
 import org.tasks.markdown.MarkdownProvider
@@ -25,7 +27,7 @@ import org.tasks.reminders.SnoozeActivity
 import org.tasks.reminders.SnoozeDialog
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,15 +35,15 @@ import kotlin.math.min
 
 @Singleton
 class NotificationManager @Inject constructor(
-        @param:ApplicationContext private val context: Context,
-        private val preferences: Preferences,
-        private val notificationDao: NotificationDao,
-        private val taskDao: TaskDao,
-        private val locationDao: LocationDao,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val notificationManager: ThrottledNotificationManager,
-        private val markdownProvider: MarkdownProvider,
-        private val permissionChecker: PermissionChecker,
+    @param:ApplicationContext private val context: Context,
+    private val preferences: Preferences,
+    private val notificationDao: NotificationDao,
+    private val taskDao: TaskDao,
+    private val locationDao: LocationDao,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val notificationManager: ThrottledNotificationManager,
+    private val markdownProvider: MarkdownProvider,
+    private val permissionChecker: PermissionChecker,
 ) {
     private val colorProvider = ColorProvider(context, preferences)
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
@@ -96,10 +98,10 @@ class NotificationManager @Inject constructor(
     }
 
     suspend fun notifyTasks(
-            newNotifications: List<Notification>,
-            alert: Boolean,
-            nonstop: Boolean,
-            fiveTimes: Boolean) {
+        newNotifications: List<Notification>,
+        alert: Boolean,
+        nonstop: Boolean,
+        fiveTimes: Boolean) {
         val existingNotifications = notificationDao.getAllOrdered()
         notificationDao.insertAll(newNotifications)
         val totalCount = existingNotifications.size + newNotifications.size
@@ -142,11 +144,11 @@ class NotificationManager @Inject constructor(
     }
 
     private suspend fun createNotifications(
-            notifications: List<Notification>,
-            alert: Boolean,
-            nonstop: Boolean,
-            fiveTimes: Boolean,
-            useGroupKey: Boolean
+        notifications: List<Notification>,
+        alert: Boolean,
+        nonstop: Boolean,
+        fiveTimes: Boolean,
+        useGroupKey: Boolean
     ) {
         if (!permissionChecker.canNotify()) {
             Timber.w("Notifications disabled")
@@ -407,7 +409,7 @@ class NotificationManager @Inject constructor(
                 .setContentIntent(pendingIntent)
                 .setContentTitle(appName)
                 .setContentText(text)
-                .setWhen(DateTimeUtils.currentTimeMillis())
+                .setWhen(currentTimeMillis())
                 .setSmallIcon(R.drawable.ic_timer_white_24dp)
                 .setAutoCancel(false)
                 .setOngoing(true)

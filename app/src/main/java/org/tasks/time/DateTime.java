@@ -1,7 +1,6 @@
 package org.tasks.time;
 
-import static com.todoroo.astrid.core.SortHelper.APPLE_EPOCH;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils2.currentTimeMillis;
 import static java.util.Calendar.FRIDAY;
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
@@ -11,6 +10,8 @@ import static java.util.Calendar.TUESDAY;
 import static java.util.Calendar.WEDNESDAY;
 
 import net.fortuna.ical4j.model.WeekDay;
+
+import org.tasks.data.CaldavDao;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -304,7 +305,7 @@ public class DateTime {
   }
 
   public boolean isBeforeNow() {
-    return timestamp < DateTimeUtils.currentTimeMillis();
+    return timestamp < currentTimeMillis();
   }
 
   public boolean isBefore(DateTime dateTime) {
@@ -376,7 +377,7 @@ public class DateTime {
   }
 
   public long toAppleEpoch() {
-    return (timestamp - APPLE_EPOCH) / 1000;
+    return CaldavDao.toAppleEpoch(timestamp);
   }
 
   public int getDayOfWeekInMonth() {

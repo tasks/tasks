@@ -11,7 +11,12 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Pause
 import androidx.compose.material.icons.outlined.PlayArrow
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
@@ -22,6 +27,7 @@ import kotlinx.coroutines.delay
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
@@ -35,7 +41,7 @@ fun TimerRow(
     TaskEditRow(
         iconRes = R.drawable.ic_outline_timer_24px,
         content = {
-            var now by remember { mutableStateOf(System.currentTimeMillis()) }
+            var now by remember { mutableStateOf(currentTimeMillis()) }
 
             val newElapsed = if (started > 0) (now - started) / 1000L else 0
             val estimatedString = estimated
@@ -79,7 +85,7 @@ fun TimerRow(
                 }
                 IconButton(
                     onClick = {
-                        now = System.currentTimeMillis()
+                        now = currentTimeMillis()
                         timerClicked()
                     },
                     modifier = Modifier.padding(vertical = 8.dp),
@@ -98,7 +104,7 @@ fun TimerRow(
             LaunchedEffect(key1 = started) {
                 while (started > 0) {
                     delay(1.seconds)
-                    now = System.currentTimeMillis()
+                    now = currentTimeMillis()
                 }
             }
         },
@@ -120,6 +126,6 @@ fun NoTimer() {
 @Composable
 fun RunningTimer() {
     MdcTheme {
-        TimerRow(started = System.currentTimeMillis(), estimated = 900, elapsed = 400, timerClicked = {}, onClick = {})
+        TimerRow(started = currentTimeMillis(), estimated = 900, elapsed = 400, timerClicked = {}, onClick = {})
     }
 }

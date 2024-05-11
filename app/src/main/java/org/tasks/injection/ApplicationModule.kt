@@ -31,7 +31,7 @@ import org.tasks.data.TaskDao
 import org.tasks.data.TaskListMetadataDao
 import org.tasks.data.UserActivityDao
 import org.tasks.jobs.WorkManager
-import org.tasks.notifications.NotificationDao
+import org.tasks.data.NotificationDao
 import java.util.Locale
 import javax.inject.Singleton
 

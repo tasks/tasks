@@ -13,6 +13,7 @@ import org.mockito.Mockito.anySet
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.tasks.LocalBroadcastManager
+import org.tasks.data.createDueDate
 import org.tasks.makers.TaskMaker
 import org.tasks.time.DateTime
 
@@ -35,7 +36,7 @@ abstract class RepeatTests {
 
     protected fun newDay(year: Int, month: Int, day: Int) =
             DateTime(
-                    Task.createDueDate(
+                    createDueDate(
                             Task.URGENCY_SPECIFIC_DAY,
                             DateTime(year, month, day).millis
                     )
@@ -43,7 +44,7 @@ abstract class RepeatTests {
 
     protected fun newDayTime(year: Int, month: Int, day: Int, hour: Int, minute: Int) =
             DateTime(
-                    Task.createDueDate(
+                    createDueDate(
                             Task.URGENCY_SPECIFIC_DAY_TIME,
                             DateTime(year, month, day, hour, minute).millis
                     )
@@ -55,10 +56,10 @@ abstract class RepeatTests {
     }
 
     protected fun newFromDue(
-            recur: String,
-            due: DateTime,
-            vararg properties: PropertyValue<in Task?, *>,
-            afterComplete: Boolean = false
+        recur: String,
+        due: DateTime,
+        vararg properties: PropertyValue<in Task?, *>,
+        afterComplete: Boolean = false
     ) = TaskMaker.newTask(
             MakeItEasy.with(TaskMaker.RECUR, recur),
             MakeItEasy.with(TaskMaker.AFTER_COMPLETE, afterComplete),

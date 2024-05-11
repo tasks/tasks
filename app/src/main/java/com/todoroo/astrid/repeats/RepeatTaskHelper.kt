@@ -9,7 +9,6 @@ import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.createDueDate
 import com.todoroo.astrid.gcal.GCalHelper
 import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.Recur
@@ -17,6 +16,8 @@ import net.fortuna.ical4j.model.WeekDay
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.createDueDate
+import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
@@ -236,7 +237,7 @@ class RepeatTaskHelper @Inject constructor(
 
         /** Set up repeat start date  */
         private fun setUpStartDate(
-                task: Task, repeatAfterCompletion: Boolean, frequency: Recur.Frequency): DateTime {
+            task: Task, repeatAfterCompletion: Boolean, frequency: Recur.Frequency): DateTime {
             return if (repeatAfterCompletion) {
                 var startDate = if (task.isCompleted) newDateTime(task.completionDate) else newDateTime()
                 if (task.hasDueTime() && frequency != Recur.Frequency.HOURLY && frequency != Recur.Frequency.MINUTELY) {

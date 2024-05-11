@@ -22,6 +22,9 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
+import org.tasks.data.accountSettingsClass
+import org.tasks.data.prefIcon
+import org.tasks.data.prefTitle
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast

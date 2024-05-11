@@ -6,10 +6,6 @@ import at.bitfire.ical4android.util.DateUtils.ical4jTimeZone
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
-import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
-import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskCreator.Companion.setDefaultReminders
@@ -42,12 +38,18 @@ import org.tasks.data.CaldavCalendar
 import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.CaldavDao
 import org.tasks.data.CaldavTask
-import org.tasks.data.Geofence
 import org.tasks.data.LocationDao
 import org.tasks.data.Place
 import org.tasks.data.TagDao
 import org.tasks.data.TagData
 import org.tasks.data.TagDataDao
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
+import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
+import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
+import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
+import org.tasks.data.createDueDate
+import org.tasks.data.createGeofence
+import org.tasks.data.createHideUntil
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.date.DateTimeUtils.toLocal
@@ -110,7 +112,7 @@ class iCalendar @Inject constructor(
         val existing = locationDao.getGeofences(taskId)
         if (existing == null) {
             locationDao.insert(
-                Geofence(
+                createGeofence(
                     place.uid,
                     preferences
                 ).copy(task = taskId)
@@ -308,11 +310,11 @@ class iCalendar @Inject constructor(
         fun Due?.toMillis() =
             when (this?.date) {
                 null -> 0
-                is DateTime -> com.todoroo.astrid.data.Task.createDueDate(
+                is DateTime -> createDueDate(
                     URGENCY_SPECIFIC_DAY_TIME,
                     getLocal(this)
                 )
-                else -> com.todoroo.astrid.data.Task.createDueDate(
+                else -> createDueDate(
                     URGENCY_SPECIFIC_DAY,
                     getLocal(this)
                 )

@@ -28,7 +28,7 @@ import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils.currentTimeMillis
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 

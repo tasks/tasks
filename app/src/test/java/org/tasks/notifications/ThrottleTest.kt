@@ -7,7 +7,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.tasks.Freeze
-import org.tasks.time.DateTimeUtils
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 @ExperimentalCoroutinesApi
 class ThrottleTest {
@@ -22,7 +22,7 @@ class ThrottleTest {
     @Test
     fun dontThrottle() {
         throttle = Throttle(3, executor = SynchronousExecutor()) { sleep.add(it) }
-        val now = DateTimeUtils.currentTimeMillis()
+        val now = currentTimeMillis()
         runAt(now)
         runAt(now)
         runAt(now)
@@ -33,7 +33,7 @@ class ThrottleTest {
     @Test
     fun throttleForOneMillisecond() {
         throttle = Throttle(3, executor = SynchronousExecutor()) { sleep.add(it) }
-        val now = DateTimeUtils.currentTimeMillis()
+        val now = currentTimeMillis()
         runAt(now)
         runAt(now)
         runAt(now)
@@ -44,7 +44,7 @@ class ThrottleTest {
     @Test
     fun throttleForOneSecond() {
         throttle = Throttle(3, executor = SynchronousExecutor()) { sleep.add(it) }
-        val now = DateTimeUtils.currentTimeMillis()
+        val now = currentTimeMillis()
         runAt(now)
         runAt(now)
         runAt(now)
@@ -55,7 +55,7 @@ class ThrottleTest {
     @Test
     fun throttleMultiple() {
         throttle = Throttle(3, executor = SynchronousExecutor()) { sleep.add(it) }
-        val now = DateTimeUtils.currentTimeMillis()
+        val now = currentTimeMillis()
         runAt(now)
         runAt(now + 200)
         runAt(now + 600)

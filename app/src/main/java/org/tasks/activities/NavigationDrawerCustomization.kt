@@ -35,6 +35,7 @@ import org.tasks.data.FilterDao
 import org.tasks.data.GoogleTaskListDao
 import org.tasks.data.LocationDao
 import org.tasks.data.TagDataDao
+import org.tasks.data.listSettingsClass
 import org.tasks.databinding.ActivityTagOrganizerBinding
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.PlaceFilter

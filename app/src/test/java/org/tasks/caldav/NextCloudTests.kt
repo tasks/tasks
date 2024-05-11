@@ -6,8 +6,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.tasks.TestUtilities.vtodo
+import org.tasks.data.createDueDate
 import org.tasks.time.DateTime
-import java.util.*
+import java.util.TimeZone
 
 class NextCloudTests {
     private val defaultTimeZone = TimeZone.getDefault()
@@ -50,7 +51,7 @@ class NextCloudTests {
     @Test
     fun readAllDayTask() {
         assertEquals(
-                Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2021, 2, 1).millis),
+                createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2021, 2, 1).millis),
                 vtodo("nextcloud/all_day_task.txt").dueDate
         )
     }
