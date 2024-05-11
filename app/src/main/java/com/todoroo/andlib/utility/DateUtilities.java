@@ -7,7 +7,6 @@
 package com.todoroo.andlib.utility;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
-import static org.tasks.time.DateTimeUtils2.currentTimeMillis;
 
 import android.content.Context;
 import android.text.format.DateFormat;
@@ -37,11 +36,6 @@ public class DateUtilities {
   public static final long ONE_MINUTE = 60000L;
 
   static Boolean is24HourOverride = null;
-
-  /** Returns unixtime for current time */
-  public static long now() {
-    return currentTimeMillis();
-  }
 
   /* ======================================================================
    * =========================================================== formatters

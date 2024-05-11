@@ -1,7 +1,6 @@
 package org.tasks.caldav
 
 import at.bitfire.ical4android.Task
-import com.todoroo.andlib.utility.DateUtilities
 import net.fortuna.ical4j.model.property.Status
 import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.getLocal
@@ -17,6 +16,7 @@ import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.time.DateTime.UTC
 import org.tasks.time.DateTimeUtils.startOfSecond
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 fun com.todoroo.astrid.data.Task.applyRemote(
     remote: Task,
@@ -50,7 +50,7 @@ private fun com.todoroo.astrid.data.Task.applyCompletedAt(remote: Task, local: T
             completionDate = getLocal(completedAt)
         } else if (remote.status === Status.VTODO_COMPLETED) {
             if (!isCompleted) {
-                completionDate = DateUtilities.now()
+                completionDate = currentTimeMillis()
             }
         } else {
             completionDate = 0L

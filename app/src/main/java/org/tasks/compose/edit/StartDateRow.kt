@@ -14,18 +14,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.material.composethemeadapter.MdcTheme
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.ui.StartDateControlSet.Companion.getRelativeDateString
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
 import org.tasks.dialogs.StartDatePicker
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 @Composable
 fun StartDateRow(
     startDate: Long,
     selectedDay: Long,
     selectedTime: Int,
-    currentTime: Long = DateUtilities.now(),
+    currentTime: Long = currentTimeMillis(),
     hasDueDate: Boolean,
     printDate: () -> String,
     onClick: () -> Unit,

@@ -8,7 +8,6 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALENDAR
 import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_TEXT
-import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.preferences.Preferences
@@ -45,7 +44,7 @@ class MyDatePickerDialog : DialogFragment() {
     }
 
     private val initial: Long
-        get() = arguments?.getLong(MyTimePickerDialog.EXTRA_TIMESTAMP) ?: DateUtilities.now().startOfDay()
+        get() = arguments?.getLong(MyTimePickerDialog.EXTRA_TIMESTAMP) ?: currentTimeMillis().startOfDay()
 
     private fun selected(year: Int, month: Int, day: Int) {
         targetFragment?.onActivityResult(

@@ -7,6 +7,7 @@
 package com.todoroo.astrid.api;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.time.DateTimeUtils2.currentTimeMillis;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import org.tasks.time.DateTime;
@@ -51,7 +52,7 @@ public final class PermaSql {
   /** Replace placeholder strings with actual */
   public static String replacePlaceholdersForQuery(String value) {
     if (value.contains(VALUE_NOW)) {
-      value = value.replace(VALUE_NOW, Long.toString(DateUtilities.now()));
+      value = value.replace(VALUE_NOW, Long.toString(currentTimeMillis()));
     }
     if (value.contains(VALUE_EOD)
         || value.contains(VALUE_EOD_DAY_AFTER)
@@ -74,7 +75,7 @@ public final class PermaSql {
 
   public static String replacePlaceholdersForNewTask(String value) {
     if (value.contains(VALUE_NOW)) {
-      value = value.replace(VALUE_NOW, Long.toString(DateUtilities.now()));
+      value = value.replace(VALUE_NOW, Long.toString(currentTimeMillis()));
     }
     if (value.contains(VALUE_EOD)
         || value.contains(VALUE_EOD_DAY_AFTER)

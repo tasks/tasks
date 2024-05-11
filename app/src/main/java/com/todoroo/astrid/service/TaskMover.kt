@@ -1,7 +1,6 @@
 package com.todoroo.astrid.service
 
 import android.content.Context
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
@@ -20,6 +19,7 @@ import org.tasks.data.getLocalList
 import org.tasks.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 class TaskMover @Inject constructor(
@@ -102,7 +102,7 @@ class TaskMover @Inject constructor(
         }
         val id = task.id
         val children = taskDao.getChildren(id)
-        caldavDao.markDeleted(children + id, DateUtilities.now())
+        caldavDao.markDeleted(children + id, currentTimeMillis())
         when(selected) {
             is GtasksFilter -> {
                 val listId = selected.remoteId
@@ -158,7 +158,7 @@ class TaskMover @Inject constructor(
             children = caldavDao.getTasks(childIds)
             toDelete.addAll(childIds)
         }
-        caldavDao.markDeleted(toDelete, DateUtilities.now())
+        caldavDao.markDeleted(toDelete, currentTimeMillis())
         when (selected) {
             is CaldavFilter -> {
                 val from = caldavDao.getCalendar(caldavTask.calendar!!)

@@ -7,7 +7,6 @@ import androidx.core.net.toUri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.api.CaldavFilter
@@ -359,7 +358,7 @@ class TaskEditViewModel @Inject constructor(
         ) {
             alarmService.synchronizeAlarms(task.id, selectedAlarms.value.toMutableSet())
             task.putTransitory(FORCE_CALDAV_SYNC, true)
-            task.modificationDate = now()
+            task.modificationDate = currentTimeMillis()
         }
 
         if (
@@ -475,7 +474,7 @@ class TaskEditViewModel @Inject constructor(
         }
         userActivity.message = message
         userActivity.targetId = task.uuid
-        userActivity.created = now()
+        userActivity.created = currentTimeMillis()
         viewModelScope.launch {
             withContext(NonCancellable) {
                 userActivityDao.createNew(userActivity)

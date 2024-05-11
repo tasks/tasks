@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service
 
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.data.Task.Companion.NO_ID
@@ -20,6 +19,7 @@ import org.tasks.data.TagDataDao
 import org.tasks.data.TaskAttachmentDao
 import org.tasks.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 class TaskDuplicator @Inject constructor(
@@ -51,8 +51,8 @@ class TaskDuplicator @Inject constructor(
     private suspend fun clone(task: Task, parentId: Long): Task {
         val clone = task.copy(
             id = NO_ID,
-            creationDate = DateUtilities.now(),
-            modificationDate = DateUtilities.now(),
+            creationDate = currentTimeMillis(),
+            modificationDate = currentTimeMillis(),
             reminderLast = 0,
             completionDate = 0L,
             calendarURI = "",

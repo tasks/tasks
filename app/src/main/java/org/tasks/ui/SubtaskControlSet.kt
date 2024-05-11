@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.sql.Criterion
 import com.todoroo.andlib.sql.QueryTemplate
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.activity.MainActivityViewModel
 import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.dao.TaskDao
@@ -28,6 +27,7 @@ import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.themes.ColorProvider
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -75,7 +75,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
                             viewModel.newSubtasks.value =
                                 ArrayList(viewModel.newSubtasks.value).apply {
                                     val modified = it.copy(
-                                        completionDate = if (it.isCompleted) 0 else now()
+                                        completionDate = if (it.isCompleted) 0 else currentTimeMillis()
                                     )
                                     set(indexOf(it), modified)
                                 }

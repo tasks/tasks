@@ -6,7 +6,6 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -19,6 +18,7 @@ import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.PARENT
 import org.tasks.makers.TaskMaker.newTask
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
@@ -44,23 +44,23 @@ class TaskDaoTests : InjectingTestCase() {
         // create hidden task
         task = Task()
         task.title = "hidden"
-        task.hideUntil = DateUtilities.now() + 10000
+        task.hideUntil = currentTimeMillis() + 10000
         taskDao.createNew(task)
 
         // create task with deadlines
         task = Task()
         task.title = "deadlineInFuture"
-        task.dueDate = DateUtilities.now() + 10000
+        task.dueDate = currentTimeMillis() + 10000
         taskDao.createNew(task)
         task = Task()
         task.title = "deadlineInPast"
-        task.dueDate = DateUtilities.now() - 10000
+        task.dueDate = currentTimeMillis() - 10000
         taskDao.createNew(task)
 
         // create completed task
         task = Task()
         task.title = "completed"
-        task.completionDate = DateUtilities.now() - 10000
+        task.completionDate = currentTimeMillis() - 10000
         taskDao.createNew(task)
 
         // check is active

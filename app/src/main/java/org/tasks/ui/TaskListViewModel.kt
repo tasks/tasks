@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.EmptyFilter
 import com.todoroo.astrid.api.Filter
@@ -41,6 +40,7 @@ import org.tasks.db.QueryUtils
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.tasklist.SectionedDataSource
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 @HiltViewModel
@@ -68,7 +68,7 @@ class TaskListViewModel @Inject constructor(
 
     data class State(
         val filter: Filter = EmptyFilter(),
-        val now: Long = DateUtilities.now(),
+        val now: Long = currentTimeMillis(),
         val searchQuery: String? = null,
         val tasks: TasksResults = TasksResults.Loading,
         val begForSubscription: Boolean = false,
@@ -98,7 +98,7 @@ class TaskListViewModel @Inject constructor(
     fun invalidate() {
         _state.update {
             it.copy(
-                now = DateUtilities.now(),
+                now = currentTimeMillis(),
                 syncOngoing = preferences.isSyncOngoing,
             )
         }
@@ -108,7 +108,7 @@ class TaskListViewModel @Inject constructor(
         _state.update {
             it.copy(begForSubscription = false)
         }
-        preferences.lastSubscribeRequest = DateUtilities.now()
+        preferences.lastSubscribeRequest = currentTimeMillis()
         firebase.logEvent(R.string.event_banner_sub, R.string.param_click to clickedPurchase)
     }
 

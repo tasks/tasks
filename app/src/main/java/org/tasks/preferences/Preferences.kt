@@ -15,7 +15,6 @@ import androidx.documentfile.provider.DocumentFile
 import androidx.preference.PreferenceManager
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.data.Task
@@ -30,6 +29,7 @@ import org.tasks.extensions.Context.getResourceUri
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeBase
 import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.io.File
 import java.net.URI
@@ -497,8 +497,8 @@ class Preferences @JvmOverloads constructor(
         get() = BuildConfig.DEBUG && getBoolean(R.string.p_flipper, false)
 
     var isPositionHackEnabled: Boolean
-        get() = getLong(R.string.p_google_tasks_position_hack, 0) > now() - DateUtilities.ONE_WEEK
-        set(value) { setLong(R.string.p_google_tasks_position_hack, if (value) now() else 0) }
+        get() = getLong(R.string.p_google_tasks_position_hack, 0) > currentTimeMillis() - DateUtilities.ONE_WEEK
+        set(value) { setLong(R.string.p_google_tasks_position_hack, if (value) currentTimeMillis() else 0) }
 
     override var isManualSort: Boolean
         get() = getBoolean(R.string.p_manual_sort, false)

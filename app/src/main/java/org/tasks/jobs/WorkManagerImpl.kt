@@ -21,7 +21,6 @@ import androidx.work.Worker
 import androidx.work.workDataOf
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.data.Task
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -148,13 +147,13 @@ class WorkManagerImpl(
         enqueueUnique(
             TAG_NOTIFICATIONS,
             NotificationWork::class.java,
-            time = if (expedited) 0 else now() + 5_000,
+            time = if (expedited) 0 else currentTimeMillis() + 5_000,
             expedited = expedited,
         )
     }
 
     override fun scheduleNotification(scheduledTime: Long) {
-        val time = max(now(), scheduledTime)
+        val time = max(currentTimeMillis(), scheduledTime)
         if (time < currentTimeMillis()) {
 
             val intent = notificationIntent
@@ -221,7 +220,7 @@ class WorkManagerImpl(
         time: Long = 0,
         expedited: Boolean = false,
     ) {
-        val delay = time - now()
+        val delay = time - currentTimeMillis()
         val builder = OneTimeWorkRequest.Builder(c)
         if (delay > 0) {
             builder.setInitialDelay(delay, TimeUnit.MILLISECONDS)

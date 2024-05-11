@@ -5,10 +5,10 @@
  */
 package com.todoroo.astrid.timers
 
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.data.Task
 import org.tasks.data.TaskDao
 import org.tasks.notifications.NotificationManager
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 class TimerPlugin @Inject constructor(
@@ -31,11 +31,11 @@ class TimerPlugin @Inject constructor(
     private suspend fun updateTimer(task: Task, start: Boolean) {
         if (start) {
             if (task.timerStart == 0L) {
-                task.timerStart = DateUtilities.now()
+                task.timerStart = currentTimeMillis()
             }
         } else {
             if (task.timerStart > 0) {
-                val newElapsed = ((DateUtilities.now() - task.timerStart) / 1000L).toInt()
+                val newElapsed = ((currentTimeMillis() - task.timerStart) / 1000L).toInt()
                 task.timerStart = 0L
                 task.elapsedSeconds += newElapsed
             }

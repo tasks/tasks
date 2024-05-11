@@ -5,7 +5,6 @@ import androidx.core.app.NotificationCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.alarms.AlarmService
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -18,6 +17,7 @@ import org.tasks.data.AlarmDao
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 
 @HiltWorker
@@ -35,7 +35,7 @@ class NotificationWork @AssistedInject constructor(
 
     override suspend fun run(): Result {
         if (preferences.isCurrentlyQuietHours) {
-            nextAlarm = preferences.adjustForQuietHours(now())
+            nextAlarm = preferences.adjustForQuietHours(currentTimeMillis())
             return Result.success()
         }
         val (overdue, _) = alarmService.getAlarms()

@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
@@ -40,6 +39,7 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.CheckBoxProvider
 import org.tasks.ui.ChipProvider
 import java.time.format.FormatStyle
@@ -216,7 +216,7 @@ class TaskViewHolder internal constructor(
                 dueDate.setTextColor(textColorSecondary)
             }
             val dateValue: String? = if (sortByDueDate
-                    && (task.sortGroup ?: 0) >= now().startOfDay()
+                    && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
                     DateUtilities.getTimeString(context, newDateTime(task.dueDate))

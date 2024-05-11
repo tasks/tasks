@@ -3,7 +3,6 @@ package org.tasks.googleapis
 import com.google.api.client.googleapis.services.json.AbstractGoogleJsonClientRequest
 import com.google.api.client.http.HttpResponseException
 import com.google.api.client.json.GenericJson
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.gtasks.api.HttpCredentialsAdapter
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException
 import kotlinx.coroutines.Dispatchers
@@ -11,6 +10,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.io.IOException
 
@@ -29,9 +29,11 @@ abstract class BaseInvoker(
                 Timber.d("%s request: %s", caller, request)
                 val response: T? = try {
                     if (preferences.isFlipperEnabled) {
-                        val start = DateUtilities.now()
+                        val start = currentTimeMillis()
                         val httpResponse = request.executeUnparsed()
-                        interceptor.report(httpResponse, request.responseClass, start, DateUtilities.now())
+                        interceptor.report(httpResponse, request.responseClass, start,
+                            currentTimeMillis()
+                        )
                     } else {
                         request.execute()
                     }

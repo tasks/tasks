@@ -1,6 +1,5 @@
 package com.todoroo.astrid.adapter
 
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -12,6 +11,7 @@ import org.tasks.data.CaldavDao
 import org.tasks.data.GoogleTaskDao
 import org.tasks.data.TaskContainer
 import org.tasks.data.TaskListMetadata
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.util.Collections
 import kotlin.math.abs
@@ -67,7 +67,7 @@ class AstridTaskAdapter internal constructor(
     override suspend fun onTaskDeleted(task: Task) = updater.onDeleteTask(list, filter, task.uuid)
 
     override suspend fun onCompletedTask(uuid: String, newState: Boolean) {
-        val completionDate = if (newState) DateUtilities.now() else 0
+        val completionDate = if (newState) currentTimeMillis() else 0
         if (!newState) {
             val chained = chainedCompletions[uuid]
             if (chained != null) {

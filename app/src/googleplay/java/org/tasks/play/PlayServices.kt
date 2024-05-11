@@ -8,12 +8,12 @@ import com.google.android.gms.common.GoogleApiAvailability.getInstance
 import com.google.android.play.core.ktx.launchReview
 import com.google.android.play.core.ktx.requestReview
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.todoroo.andlib.utility.DateUtilities.now
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 class PlayServices @Inject constructor(
@@ -33,7 +33,7 @@ class PlayServices @Inject constructor(
                 val request = requestReview()
                 launchReview(activity, request)
             }
-            preferences.lastReviewRequest = now()
+            preferences.lastReviewRequest = currentTimeMillis()
             firebase.logEvent(R.string.event_request_review)
         } catch (e: Exception) {
             firebase.reportException(e)

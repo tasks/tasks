@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.alarms
 
-import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.Alarm
 import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
@@ -14,6 +13,7 @@ import org.tasks.data.TaskDao
 import org.tasks.jobs.AlarmEntry
 import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationManager
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -71,7 +71,7 @@ class AlarmService @Inject constructor(
     }
 
     suspend fun getAlarms(): Pair<List<AlarmEntry>, List<AlarmEntry>> {
-        val start = DateUtilities.now()
+        val start = currentTimeMillis()
         val overdue = ArrayList<AlarmEntry>()
         val future = ArrayList<AlarmEntry>()
         alarmDao.getActiveAlarms()
@@ -81,7 +81,7 @@ class AlarmService @Inject constructor(
                 val alarmEntries = alarms.mapNotNull {
                     alarmCalculator.toAlarmEntry(task, it)
                 }
-                val (now, later) = alarmEntries.partition { it.time <= DateUtilities.now() }
+                val (now, later) = alarmEntries.partition { it.time <= currentTimeMillis() }
                 later
                     .find { it.type == TYPE_SNOOZE }
                     ?.let { future.add(it) }
@@ -90,7 +90,7 @@ class AlarmService @Inject constructor(
                         later.minByOrNull { it.time }?.let { future.add(it) }
                     }
             }
-        Timber.d("took ${DateUtilities.now() - start}ms overdue=${overdue.size} future=${future.size}")
+        Timber.d("took ${currentTimeMillis() - start}ms overdue=${overdue.size} future=${future.size}")
         return overdue to future
     }
 

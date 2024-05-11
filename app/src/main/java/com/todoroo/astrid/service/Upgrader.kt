@@ -6,7 +6,6 @@ import androidx.annotation.ColorRes
 import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import dagger.Lazy
@@ -36,6 +35,7 @@ import org.tasks.data.UpgraderDao
 import org.tasks.data.UserActivityDao
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.widget.AppWidgetManager
 import org.tasks.widget.WidgetPreferences
 import java.io.File
@@ -123,7 +123,7 @@ class Upgrader @Inject constructor(
 
     private fun setInstallDetails(version: Int) {
         preferences.installVersion = version
-        preferences.installDate = now()
+        preferences.installDate = currentTimeMillis()
     }
 
     private fun run(from: Int, version: Int, runnable: suspend () -> Unit) {

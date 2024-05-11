@@ -125,6 +125,7 @@ import org.tasks.tasklist.TaskViewHolder
 import org.tasks.tasklist.ViewHolderFactory
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.ThemeColor
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskEditEvent
 import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskListEvent
@@ -351,7 +352,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         if (Tasks.IS_GOOGLE_PLAY) {
                             context.startActivity(Intent(context, PurchaseActivity::class.java))
                         } else {
-                            preferences.lastSubscribeRequest = DateUtilities.now()
+                            preferences.lastSubscribeRequest = currentTimeMillis()
                             context.openUri(R.string.url_donate)
                         }
                     },

@@ -5,8 +5,8 @@ import com.facebook.flipper.plugins.network.NetworkReporter
 import com.facebook.flipper.plugins.network.NetworkReporter.ResponseInfo
 import com.google.api.client.http.*
 import com.google.api.client.json.GenericJson
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -18,12 +18,12 @@ internal class FlipperHttpInterceptor<T>(private val plugin: NetworkFlipperPlugi
         private set
 
     override fun intercept(request: HttpRequest) {
-        plugin.reportRequest(toRequestInfo(request, DateUtilities.now()))
+        plugin.reportRequest(toRequestInfo(request, currentTimeMillis()))
     }
 
     @Throws(IOException::class)
     override fun interceptResponse(response: HttpResponse) {
-        plugin.reportResponse(toResponseInfo(response, DateUtilities.now()))
+        plugin.reportResponse(toResponseInfo(response, currentTimeMillis()))
     }
 
     @Throws(IOException::class)

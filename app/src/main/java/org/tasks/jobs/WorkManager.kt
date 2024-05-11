@@ -1,11 +1,11 @@
 package org.tasks.jobs
 
 import android.net.Uri
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.data.Task
 import org.tasks.BuildConfig
 import org.tasks.data.CaldavAccount
 import org.tasks.data.Place
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 interface WorkManager {
 
@@ -21,7 +21,7 @@ interface WorkManager {
 
     fun updateBackgroundSync()
 
-    suspend fun scheduleRefresh(timestamp: Long = now() + 5_000)
+    suspend fun scheduleRefresh(timestamp: Long = currentTimeMillis() + 5_000)
 
     fun triggerNotifications(expedited: Boolean = false)
 

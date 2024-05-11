@@ -7,11 +7,11 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.todoroo.andlib.utility.DateUtilities.now
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -64,14 +64,14 @@ class Firebase @Inject constructor(
     }
 
     private val installCooldown: Boolean
-        get() = preferences.installDate + days("install_cooldown", 14L) > now()
+        get() = preferences.installDate + days("install_cooldown", 14L) > currentTimeMillis()
 
     val reviewCooldown: Boolean
-        get() = installCooldown || preferences.lastReviewRequest + days("review_cooldown", 30L) > now()
+        get() = installCooldown || preferences.lastReviewRequest + days("review_cooldown", 30L) > currentTimeMillis()
 
     val subscribeCooldown: Boolean
         get() = installCooldown
-                || preferences.lastSubscribeRequest + days("subscribe_cooldown", 30L) > now()
+                || preferences.lastSubscribeRequest + days("subscribe_cooldown", 30L) > currentTimeMillis()
 
     val moreOptionsBadge: Boolean
         get() = remoteConfig?.getBoolean("more_options_badge") ?: false

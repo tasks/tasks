@@ -12,7 +12,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.coroutineScope
 import androidx.work.Configuration
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
 import dagger.hilt.android.HiltAndroidApp
@@ -31,6 +30,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.receivers.RefreshReceiver
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.themes.ThemeBase
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.widget.AppWidgetManager
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -62,7 +62,7 @@ class Tasks : Application(), Configuration.Provider {
         ProcessLifecycleOwner.get().lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
-                    if (now() - preferences.lastSync > TimeUnit.MINUTES.toMillis(5)) {
+                    if (currentTimeMillis() - preferences.lastSync > TimeUnit.MINUTES.toMillis(5)) {
                         owner.lifecycle.coroutineScope.launch {
                             workManager.get().sync(true)
                         }

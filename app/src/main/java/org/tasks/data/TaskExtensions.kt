@@ -6,10 +6,11 @@ import net.fortuna.ical4j.model.Recur
 import org.tasks.date.DateTimeUtils
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 /** Checks whether task is hidden. Requires HIDDEN_UNTIL  */
 val Task.isHidden
-    get() = hideUntil > DateUtilities.now()
+    get() = hideUntil > currentTimeMillis()
 
 /**
  * Create hide until for this task.
@@ -43,7 +44,7 @@ val Task.isOverdue: Boolean
         if (isCompleted || !hasDueDate()) {
             return false
         }
-        val compareTo = if (hasDueTime()) DateUtilities.now() else DateTimeUtils.newDateTime().startOfDay().millis
+        val compareTo = if (hasDueTime()) currentTimeMillis() else DateTimeUtils.newDateTime().startOfDay().millis
         return dueDate < compareTo
     }
 
@@ -65,11 +66,11 @@ fun Task.hasNotes(): Boolean {
 fun createDueDate(setting: Int, customDate: Long): Long {
     val date: Long = when (setting) {
         Task.URGENCY_NONE -> 0
-        Task.URGENCY_TODAY -> DateUtilities.now()
-        Task.URGENCY_TOMORROW -> DateUtilities.now() + DateUtilities.ONE_DAY
-        Task.URGENCY_DAY_AFTER -> DateUtilities.now() + 2 * DateUtilities.ONE_DAY
-        Task.URGENCY_NEXT_WEEK -> DateUtilities.now() + DateUtilities.ONE_WEEK
-        Task.URGENCY_IN_TWO_WEEKS -> DateUtilities.now() + 2 * DateUtilities.ONE_WEEK
+        Task.URGENCY_TODAY -> currentTimeMillis()
+        Task.URGENCY_TOMORROW -> currentTimeMillis() + DateUtilities.ONE_DAY
+        Task.URGENCY_DAY_AFTER -> currentTimeMillis() + 2 * DateUtilities.ONE_DAY
+        Task.URGENCY_NEXT_WEEK -> currentTimeMillis() + DateUtilities.ONE_WEEK
+        Task.URGENCY_IN_TWO_WEEKS -> currentTimeMillis() + 2 * DateUtilities.ONE_WEEK
         Task.URGENCY_SPECIFIC_DAY, Task.URGENCY_SPECIFIC_DAY_TIME -> customDate
         else -> throw IllegalArgumentException("Unknown setting $setting")
     }

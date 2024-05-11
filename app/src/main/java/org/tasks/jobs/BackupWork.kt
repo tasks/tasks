@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.documentfile.provider.DocumentFile
 import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
-import com.todoroo.andlib.utility.DateUtilities
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import org.tasks.R
@@ -14,6 +13,7 @@ import org.tasks.backup.BackupConstants
 import org.tasks.backup.BackupConstants.BACKUP_CLEANUP_MATCHER
 import org.tasks.backup.TasksJsonExporter
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.io.File
 import java.io.FileFilter
@@ -28,7 +28,7 @@ class BackupWork @AssistedInject constructor(
         private val workManager: WorkManager) : RepeatingWorker(context, workerParams, firebase) {
     
     override suspend fun run(): Result {
-        preferences.setLong(R.string.p_last_backup, DateUtilities.now())
+        preferences.setLong(R.string.p_last_backup, currentTimeMillis())
         startBackup(context)
         return Result.success()
     }

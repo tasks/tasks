@@ -7,7 +7,6 @@ import android.media.AudioAttributes
 import android.media.AudioAttributes.USAGE_NOTIFICATION_EVENT
 import android.media.RingtoneManager
 import androidx.room.withTransaction
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.Database
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.data.Task
@@ -39,7 +38,7 @@ class TaskCompleter @Inject internal constructor(
                     ?: Timber.e("Could not find task $taskId")
 
     suspend fun setComplete(item: Task, completed: Boolean, includeChildren: Boolean = true) {
-        val completionDate = if (completed) DateUtilities.now() else 0L
+        val completionDate = if (completed) currentTimeMillis() else 0L
         ArrayList<Task?>()
             .apply {
                 if (includeChildren) {

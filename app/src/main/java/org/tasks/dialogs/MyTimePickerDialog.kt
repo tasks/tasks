@@ -13,13 +13,13 @@ import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOC
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
 import com.google.android.material.timepicker.TimeFormat.CLOCK_24H
-import com.todoroo.andlib.utility.DateUtilities.now
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,7 +47,7 @@ class MyTimePickerDialog : DialogFragment() {
     }
 
     private val initial: Long
-        get() = arguments?.getLong(EXTRA_TIMESTAMP) ?: now().startOfDay()
+        get() = arguments?.getLong(EXTRA_TIMESTAMP) ?: currentTimeMillis().startOfDay()
 
     private fun selected(hour: Int, minute: Int) {
         targetFragment?.onActivityResult(

@@ -3,7 +3,6 @@ package org.tasks.caldav
 import at.bitfire.ical4android.Task
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import at.bitfire.ical4android.util.DateUtils.ical4jTimeZone
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator
@@ -61,6 +60,7 @@ import org.tasks.repeats.RecurrenceUtils.newRRule
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils.startOfMinute
 import org.tasks.time.DateTimeUtils.toDate
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
@@ -261,7 +261,7 @@ class iCalendar @Inject constructor(
                 val changed =
                     alarmService.synchronizeAlarms(caldavTask.task, remoteReminders.toMutableSet())
                 if (changed) {
-                    task.modificationDate = DateUtilities.now()
+                    task.modificationDate = currentTimeMillis()
                 }
             }
         }

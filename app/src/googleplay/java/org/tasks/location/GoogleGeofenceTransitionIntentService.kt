@@ -5,11 +5,11 @@ import android.content.Context
 import android.content.Intent
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
-import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.Notifier
 import org.tasks.data.LocationDao
 import org.tasks.injection.InjectingJobIntentService
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -45,9 +45,9 @@ class GoogleGeofenceTransitionIntentService : InjectingJobIntentService() {
                 return
             }
             val geofences = if (arrival) {
-                locationDao.getArrivalGeofences(place.uid!!, DateUtilities.now())
+                locationDao.getArrivalGeofences(place.uid!!, currentTimeMillis())
             } else {
-                locationDao.getDepartureGeofences(place.uid!!, DateUtilities.now())
+                locationDao.getDepartureGeofences(place.uid!!, currentTimeMillis())
             }
             notifier.triggerNotifications(place.id, geofences, arrival)
         } catch (e: Exception) {

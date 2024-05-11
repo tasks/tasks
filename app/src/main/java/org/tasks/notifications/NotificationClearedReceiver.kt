@@ -3,13 +3,13 @@ package org.tasks.notifications
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.alarms.AlarmService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.tasks.injection.ApplicationScope
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ class NotificationClearedReceiver : BroadcastReceiver() {
                 // so sleep for 1s instead
                 if (snoozeTime == 0L) snoozeTime = 1000L
                 alarmService.snooze(
-                    time = now() + snoozeTime,
+                    time = currentTimeMillis() + snoozeTime,
                     taskIds = listOf(notificationId)
                 )
             } else {

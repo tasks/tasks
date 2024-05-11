@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService.RemoteViewsFactory
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.andlib.utility.DateUtilities.now
 import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.SortHelper
@@ -31,6 +30,7 @@ import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.themes.ColorProvider.Companion.priorityColor
 import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.CheckBoxProvider.Companion.getCheckboxRes
 import timber.log.Timber
 import java.time.format.FormatStyle
@@ -285,7 +285,7 @@ internal class TasksWidgetViewFactory(
             setViewVisibility(dueDateRes, View.VISIBLE)
             val text = if (
                 settings.groupMode == SortHelper.SORT_DUE &&
-                (task.sortGroup ?: 0L) >= now().startOfDay() &&
+                (task.sortGroup ?: 0L) >= currentTimeMillis().startOfDay() &&
                 !disableGroups
             ) {
                 task.takeIf { it.hasDueTime() }?.let {

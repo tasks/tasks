@@ -39,6 +39,7 @@ import org.tasks.data.createHideUntil
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -138,8 +139,8 @@ class TaskCreator @Inject constructor(
     internal suspend fun create(values: Map<String, Any>?, title: String?): Task {
         val task = Task(
             title = title?.trim { it <= ' ' },
-            creationDate = DateUtilities.now(),
-            modificationDate = DateUtilities.now(),
+            creationDate = currentTimeMillis(),
+            modificationDate = currentTimeMillis(),
             remoteId = UUIDHelper.newUUID(),
             priority = preferences.defaultPriority,
         )

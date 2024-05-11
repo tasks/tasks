@@ -5,7 +5,6 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import at.bitfire.cert4android.CustomCertManager.Companion.resetCertificates
-import com.todoroo.andlib.utility.DateUtilities.now
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
@@ -14,6 +13,7 @@ import org.tasks.billing.Inventory
 import org.tasks.extensions.Context.toast
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.math.min
@@ -62,7 +62,7 @@ class Debug : InjectingPreferenceFragment() {
 
         findPreference(R.string.debug_clear_hints).setOnPreferenceClickListener {
             preferences.installDate =
-                min(preferences.installDate, now() - TimeUnit.DAYS.toMillis(14))
+                min(preferences.installDate, currentTimeMillis() - TimeUnit.DAYS.toMillis(14))
             preferences.lastSubscribeRequest = 0L
             preferences.lastReviewRequest = 0L
             preferences.shownBeastModeHint = false

@@ -20,6 +20,7 @@ import org.tasks.calendars.CalendarEventProvider
 import org.tasks.data.TaskDao
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.util.TimeZone
 import javax.inject.Inject
@@ -134,7 +135,9 @@ class GCalHelper @Inject constructor(
     private fun createStartAndEndDate(task: Task, values: ContentValues) {
         val dueDate = task.dueDate
         val tzCorrectedDueDate = dueDate + TimeZone.getDefault().getOffset(dueDate)
-        val tzCorrectedDueDateNow = DateUtilities.now() + TimeZone.getDefault().getOffset(DateUtilities.now())
+        val tzCorrectedDueDateNow = currentTimeMillis() + TimeZone.getDefault().getOffset(
+            currentTimeMillis()
+        )
         // FIXME: doesn't respect timezones, see story 17443653
         if (task.hasDueDate()) {
             if (task.hasDueTime()) {
