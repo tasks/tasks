@@ -1,16 +1,16 @@
 package com.todoroo.astrid.api
 
-import com.todoroo.andlib.sql.Criterion.Companion.and
-import com.todoroo.andlib.sql.Join.Companion.left
-import com.todoroo.andlib.sql.QueryTemplate
+import org.tasks.data.sql.Criterion.Companion.and
+import org.tasks.data.sql.Join.Companion.left
+import org.tasks.data.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import kotlinx.parcelize.Parcelize
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavTask
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
 import org.tasks.data.GoogleTask
 import org.tasks.data.NO_COUNT
-import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 
 @Parcelize
 data class GtasksFilter(

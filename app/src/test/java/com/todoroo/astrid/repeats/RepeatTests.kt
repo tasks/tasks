@@ -4,7 +4,7 @@ import com.natpryce.makeiteasy.MakeItEasy
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import kotlinx.coroutines.runBlocking
 import org.junit.Before

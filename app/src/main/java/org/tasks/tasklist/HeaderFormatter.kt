@@ -7,7 +7,7 @@ import com.todoroo.astrid.core.SortHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
-import org.tasks.data.CaldavDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.preferences.Preferences
 import java.time.format.FormatStyle
 import java.util.Locale

@@ -3,9 +3,9 @@ package org.tasks.ui.editviewmodel
 import androidx.lifecycle.SavedStateHandle
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.Database
+import org.tasks.data.db.Database
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskDeleter
@@ -15,10 +15,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
 import org.tasks.calendars.CalendarEventProvider
-import org.tasks.data.AlarmDao
-import org.tasks.data.LocationDao
-import org.tasks.data.TagDataDao
-import org.tasks.data.UserActivityDao
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.getLocation
 import org.tasks.injection.InjectingTestCase
 import org.tasks.location.GeofenceApi

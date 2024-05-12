@@ -42,7 +42,7 @@ import org.tasks.compose.DisabledText
 import org.tasks.compose.SubtaskChip
 import org.tasks.compose.TaskEditIcon
 import org.tasks.compose.TaskEditRow
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.tasks.data.TaskContainer
 import org.tasks.data.isHidden
 import org.tasks.tasklist.SectionedDataSource

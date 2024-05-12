@@ -5,9 +5,9 @@ import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.data.Task
-import org.tasks.data.Tag
-import org.tasks.data.TagData
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Tag
+import org.tasks.data.entity.TagData
 import org.tasks.makers.Maker.make
 
 object TagMaker {

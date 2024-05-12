@@ -10,12 +10,22 @@ import com.google.common.io.Files
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.todoroo.andlib.utility.DialogUtilities
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.backup.BackupContainer.TaskBackup
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.*
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.FilterDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.TagDao
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.dao.TaskListMetadataDao
+import org.tasks.data.dao.UserActivityDao
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
@@ -31,19 +41,19 @@ import java.nio.charset.Charset
 import javax.inject.Inject
 
 class TasksJsonExporter @Inject constructor(
-        private val tagDataDao: TagDataDao,
-        private val taskDao: TaskDao,
-        private val userActivityDao: UserActivityDao,
-        private val preferences: Preferences,
-        private val alarmDao: AlarmDao,
-        private val locationDao: LocationDao,
-        private val tagDao: TagDao,
-        private val filterDao: FilterDao,
-        private val taskAttachmentDao: TaskAttachmentDao,
-        private val caldavDao: CaldavDao,
-        private val workManager: WorkManager,
-        private val taskListMetadataDao: TaskListMetadataDao,
-        private val vtodoCache: VtodoCache,
+    private val tagDataDao: TagDataDao,
+    private val taskDao: TaskDao,
+    private val userActivityDao: UserActivityDao,
+    private val preferences: Preferences,
+    private val alarmDao: AlarmDao,
+    private val locationDao: LocationDao,
+    private val tagDao: TagDao,
+    private val filterDao: FilterDao,
+    private val taskAttachmentDao: TaskAttachmentDao,
+    private val caldavDao: CaldavDao,
+    private val workManager: WorkManager,
+    private val taskListMetadataDao: TaskListMetadataDao,
+    private val vtodoCache: VtodoCache,
     ) {
 
     private var context: Context? = null

@@ -8,7 +8,7 @@ import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task.Companion.isUuidEmpty
+import org.tasks.data.entity.Task.Companion.isUuidEmpty
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import com.todoroo.astrid.subtasks.SubtasksHelper
@@ -16,22 +16,22 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.TaskListMetadata
-import org.tasks.data.TaskListMetadataDao
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.entity.TaskListMetadata
+import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 class TaskAdapterProvider @Inject constructor(
-        @param:ApplicationContext private val context: Context,
-        private val preferences: Preferences,
-        private val taskListMetadataDao: TaskListMetadataDao,
-        private val taskDao: TaskDao,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val taskMover: TaskMover,
+    @param:ApplicationContext private val context: Context,
+    private val preferences: Preferences,
+    private val taskListMetadataDao: TaskListMetadataDao,
+    private val taskDao: TaskDao,
+    private val googleTaskDao: GoogleTaskDao,
+    private val caldavDao: CaldavDao,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val taskMover: TaskMover,
 ) {
     fun createTaskAdapter(filter: Filter): TaskAdapter {
         if (filter is AstridOrderingFilter && preferences.isAstridSort) {

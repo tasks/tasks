@@ -2,7 +2,7 @@ package org.tasks.caldav
 
 import net.fortuna.ical4j.model.property.Geo
 import org.tasks.data.Location
-import org.tasks.data.Place
+import org.tasks.data.entity.Place
 import java.math.BigDecimal
 import kotlin.math.min
 

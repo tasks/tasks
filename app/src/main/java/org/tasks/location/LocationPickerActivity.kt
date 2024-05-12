@@ -32,8 +32,8 @@ import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.GeoUtils.toLikeString
-import org.tasks.data.LocationDao
-import org.tasks.data.Place
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Place
 import org.tasks.data.PlaceUsage
 import org.tasks.data.mapPosition
 import org.tasks.databinding.ActivityLocationPickerBinding

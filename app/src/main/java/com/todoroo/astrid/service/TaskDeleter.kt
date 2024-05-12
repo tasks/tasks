@@ -2,8 +2,8 @@ package com.todoroo.astrid.service
 
 import android.content.Context
 import androidx.room.withTransaction
-import com.todoroo.astrid.dao.Database
-import com.todoroo.astrid.data.Task
+import org.tasks.data.db.Database
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.timers.TimerPlugin
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.NonCancellable
@@ -11,13 +11,13 @@ import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.DeletionDao
-import org.tasks.data.LocationDao
-import org.tasks.data.TaskDao
-import org.tasks.data.UserActivityDao
-import org.tasks.db.SuspendDbUtils.chunkedMap
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.DeletionDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.dao.UserActivityDao
+import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager

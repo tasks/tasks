@@ -2,7 +2,7 @@ package org.tasks.location
 
 import android.os.Bundle
 import androidx.annotation.DrawableRes
-import org.tasks.data.Place
+import org.tasks.data.entity.Place
 
 interface PlaceSearch {
     fun restoreState(savedInstanceState: Bundle?)

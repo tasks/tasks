@@ -1,7 +1,7 @@
 package org.tasks.opentasks
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
@@ -13,11 +13,11 @@ import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.caldav.iCalendar.Companion.snooze
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
-import org.tasks.data.AlarmDao
-import org.tasks.data.TagDao
-import org.tasks.data.TagDataDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.TagDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker
 import org.tasks.makers.CaldavTaskMaker.CALENDAR

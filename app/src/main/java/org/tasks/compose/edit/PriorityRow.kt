@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.material.composethemeadapter.MdcTheme
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
 import org.tasks.themes.ColorProvider.Companion.priorityColor

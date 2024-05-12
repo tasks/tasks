@@ -24,8 +24,8 @@ import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.AlarmRow
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog

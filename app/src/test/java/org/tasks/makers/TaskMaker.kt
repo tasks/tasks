@@ -5,9 +5,9 @@ import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
-import com.todoroo.astrid.data.Task.Companion.NO_UUID
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
+import org.tasks.data.entity.Task.Companion.NO_UUID
 import org.tasks.data.createDueDate
 import org.tasks.data.createHideUntil
 import org.tasks.date.DateTimeUtils

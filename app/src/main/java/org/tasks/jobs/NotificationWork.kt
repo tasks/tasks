@@ -11,9 +11,9 @@ import dagger.assisted.AssistedInject
 import org.tasks.Notifier
 import org.tasks.R
 import org.tasks.analytics.Firebase
-import org.tasks.data.Alarm.Companion.TYPE_RANDOM
-import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
-import org.tasks.data.AlarmDao
+import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
+import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.dao.AlarmDao
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences

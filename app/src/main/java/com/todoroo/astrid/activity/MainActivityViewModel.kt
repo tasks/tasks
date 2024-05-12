@@ -28,10 +28,10 @@ import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.billing.Inventory
 import org.tasks.compose.drawer.DrawerItem
-import org.tasks.data.CaldavDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.NO_COUNT
-import com.todoroo.astrid.data.Task
-import org.tasks.data.TaskDao
+import org.tasks.data.entity.Task
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.count
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader

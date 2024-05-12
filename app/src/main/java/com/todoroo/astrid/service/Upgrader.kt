@@ -18,21 +18,21 @@ import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
 import org.tasks.data.CaldavTaskContainer
-import org.tasks.data.Filter
-import org.tasks.data.FilterDao
-import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.entity.Filter
+import org.tasks.data.dao.FilterDao
+import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.Location
-import org.tasks.data.LocationDao
-import org.tasks.data.Tag
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
-import org.tasks.data.TaskAttachmentDao
-import org.tasks.data.UpgraderDao
-import org.tasks.data.UserActivityDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Tag
+import org.tasks.data.dao.TagDao
+import org.tasks.data.entity.TagData
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.dao.UpgraderDao
+import org.tasks.data.dao.UserActivityDao
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -42,27 +42,27 @@ import java.io.File
 import javax.inject.Inject
 
 class Upgrader @Inject constructor(
-        @param:ApplicationContext private val context: Context,
-        private val preferences: Preferences,
-        private val tagDataDao: TagDataDao,
-        private val tagDao: TagDao,
-        private val filterDao: FilterDao,
-        private val defaultFilterProvider: DefaultFilterProvider,
-        private val googleTaskListDao: GoogleTaskListDao,
-        private val userActivityDao: UserActivityDao,
-        private val taskAttachmentDao: TaskAttachmentDao,
-        private val caldavDao: CaldavDao,
-        private val taskDao: TaskDao,
-        private val locationDao: LocationDao,
-        private val iCal: iCalendar,
-        private val widgetManager: AppWidgetManager,
-        private val taskMover: TaskMover,
-        private val upgraderDao: UpgraderDao,
-        private val vtodoCache: VtodoCache,
-        private val upgrade_11_3: Lazy<Upgrade_11_3>,
-        private val upgrade_11_12_3: Lazy<Upgrade_11_12_3>,
-        private val upgrade_12_4: Lazy<Upgrade_12_4>,
-        private val upgrade_13_2: Lazy<Upgrade_13_2>,
+    @param:ApplicationContext private val context: Context,
+    private val preferences: Preferences,
+    private val tagDataDao: TagDataDao,
+    private val tagDao: TagDao,
+    private val filterDao: FilterDao,
+    private val defaultFilterProvider: DefaultFilterProvider,
+    private val googleTaskListDao: GoogleTaskListDao,
+    private val userActivityDao: UserActivityDao,
+    private val taskAttachmentDao: TaskAttachmentDao,
+    private val caldavDao: CaldavDao,
+    private val taskDao: TaskDao,
+    private val locationDao: LocationDao,
+    private val iCal: iCalendar,
+    private val widgetManager: AppWidgetManager,
+    private val taskMover: TaskMover,
+    private val upgraderDao: UpgraderDao,
+    private val vtodoCache: VtodoCache,
+    private val upgrade_11_3: Lazy<Upgrade_11_3>,
+    private val upgrade_11_12_3: Lazy<Upgrade_11_12_3>,
+    private val upgrade_12_4: Lazy<Upgrade_12_4>,
+    private val upgrade_13_2: Lazy<Upgrade_13_2>,
 ) {
 
     fun upgrade(from: Int, to: Int) {

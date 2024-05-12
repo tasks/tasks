@@ -1,13 +1,13 @@
 package org.tasks.filters
 
-import com.todoroo.andlib.sql.Join
-import com.todoroo.andlib.sql.QueryTemplate
+import org.tasks.data.sql.Join
+import org.tasks.data.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import kotlinx.parcelize.Parcelize
 import org.tasks.R
-import org.tasks.data.Notification
+import org.tasks.data.entity.Notification
 
 @Parcelize
 data class NotificationsFilter(

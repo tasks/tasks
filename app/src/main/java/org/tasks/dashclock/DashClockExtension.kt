@@ -12,7 +12,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.count
 import org.tasks.data.fetchFiltered
 import org.tasks.intents.TaskIntents

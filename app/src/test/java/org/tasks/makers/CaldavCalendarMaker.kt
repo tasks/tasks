@@ -4,7 +4,7 @@ import com.natpryce.makeiteasy.Instantiator
 import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyValue
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.makers.Maker.make
 
 object CaldavCalendarMaker {

@@ -4,13 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.dao.Database
+import org.tasks.data.db.Database
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
 import org.tasks.calendars.CalendarEventProvider
-import org.tasks.data.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.etebase.EtebaseLocalCache
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper

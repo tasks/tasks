@@ -9,7 +9,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.data.CaldavAccount
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.getPassword
 import org.tasks.http.HttpClientFactory
 import org.tasks.security.KeyStoreEncryption

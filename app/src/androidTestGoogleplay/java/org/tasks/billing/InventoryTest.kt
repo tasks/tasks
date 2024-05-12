@@ -7,7 +7,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.CaldavDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences

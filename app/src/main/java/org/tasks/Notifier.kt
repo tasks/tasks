@@ -7,12 +7,12 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_GEO_ENTER
-import org.tasks.data.Alarm.Companion.TYPE_GEO_EXIT
-import org.tasks.data.Geofence
-import org.tasks.data.Notification
-import org.tasks.data.TaskDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_GEO_ENTER
+import org.tasks.data.entity.Alarm.Companion.TYPE_GEO_EXIT
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Notification
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.fetchFiltered
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.AudioManager
@@ -26,13 +26,13 @@ import javax.inject.Inject
 import kotlin.math.min
 
 class Notifier @Inject constructor(
-        @param:ApplicationContext private val context: Context,
-        private val taskDao: TaskDao,
-        private val notificationManager: NotificationManager,
-        private val telephonyManager: TelephonyManager,
-        private val audioManager: AudioManager,
-        private val voiceOutputAssistant: VoiceOutputAssistant,
-        private val preferences: Preferences) {
+    @param:ApplicationContext private val context: Context,
+    private val taskDao: TaskDao,
+    private val notificationManager: NotificationManager,
+    private val telephonyManager: TelephonyManager,
+    private val audioManager: AudioManager,
+    private val voiceOutputAssistant: VoiceOutputAssistant,
+    private val preferences: Preferences) {
 
     private val colorProvider: ColorProvider = ColorProvider(context, preferences)
 

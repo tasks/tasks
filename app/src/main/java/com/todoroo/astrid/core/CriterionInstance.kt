@@ -5,7 +5,7 @@ import com.todoroo.astrid.api.BooleanCriterion
 import com.todoroo.astrid.api.CustomFilterCriterion
 import com.todoroo.astrid.api.MultipleSelectCriterion
 import com.todoroo.astrid.api.TextInputCriterion
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 
 class CriterionInstance {
     lateinit var criterion: CustomFilterCriterion

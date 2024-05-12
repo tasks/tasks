@@ -19,7 +19,7 @@ import org.osmdroid.views.overlay.TilesOverlay
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 import org.tasks.R
-import org.tasks.data.Place
+import org.tasks.data.entity.Place
 import org.tasks.location.MapFragment.MapFragmentCallback
 import javax.inject.Inject
 

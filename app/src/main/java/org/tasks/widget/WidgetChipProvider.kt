@@ -11,7 +11,7 @@ import com.todoroo.astrid.api.TagFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.tasks.data.TaskContainer
 import org.tasks.data.isHidden
 import org.tasks.date.DateTimeUtils.toDateTime

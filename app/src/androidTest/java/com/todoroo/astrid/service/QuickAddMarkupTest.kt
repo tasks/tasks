@@ -5,14 +5,14 @@
  */
 package com.todoroo.astrid.service
 
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.utility.TitleParser
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.tasks.data.TagDataDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import java.util.*

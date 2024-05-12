@@ -7,14 +7,14 @@ import android.media.AudioAttributes
 import android.media.AudioAttributes.USAGE_NOTIFICATION_EVENT
 import android.media.RingtoneManager
 import androidx.room.withTransaction
-import com.todoroo.astrid.dao.Database
+import org.tasks.data.db.Database
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.CaldavDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber

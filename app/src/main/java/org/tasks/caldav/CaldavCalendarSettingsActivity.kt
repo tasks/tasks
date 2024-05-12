@@ -17,14 +17,14 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.ListSettingsComposables.PrincipalList
 import org.tasks.compose.ShareInvite.ShareInviteDialog
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.SERVER_NEXTCLOUD
-import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
-import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
-import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
-import org.tasks.data.PrincipalDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_NEXTCLOUD
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.PrincipalWithAccess
 import javax.inject.Inject
 
@@ -116,10 +116,10 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
     }
 
     override suspend fun updateNameAndColor(
-            account: CaldavAccount,
-            calendar: CaldavCalendar,
-            name: String,
-            color: Int
+        account: CaldavAccount,
+        calendar: CaldavCalendar,
+        name: String,
+        color: Int
     ) {
         viewModel.updateCalendar(account, calendar, name, color, selectedIcon)
     }

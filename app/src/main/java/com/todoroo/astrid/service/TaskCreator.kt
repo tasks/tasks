@@ -7,32 +7,32 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.DUE_DATE
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_NONE
-import com.todoroo.astrid.data.Task.Companion.IMPORTANCE
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.DUE_DATE
+import org.tasks.data.entity.Task.Companion.HIDE_UNTIL
+import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_NONE
+import org.tasks.data.entity.Task.Companion.IMPORTANCE
 import com.todoroo.astrid.gcal.GCalHelper
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.utility.TitleParser.parse
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_RANDOM
-import org.tasks.data.Alarm.Companion.whenDue
-import org.tasks.data.Alarm.Companion.whenOverdue
-import org.tasks.data.Alarm.Companion.whenStarted
-import org.tasks.data.AlarmDao
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
+import org.tasks.data.entity.Alarm.Companion.whenDue
+import org.tasks.data.entity.Alarm.Companion.whenOverdue
+import org.tasks.data.entity.Alarm.Companion.whenStarted
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
 import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.LocationDao
-import org.tasks.data.Place
-import org.tasks.data.Tag
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Place
+import org.tasks.data.entity.Tag
+import org.tasks.data.dao.TagDao
+import org.tasks.data.entity.TagData
+import org.tasks.data.dao.TagDataDao
 import org.tasks.data.createDueDate
 import org.tasks.data.createGeofence
 import org.tasks.data.createHideUntil
@@ -44,16 +44,16 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class TaskCreator @Inject constructor(
-        private val gcalHelper: GCalHelper,
-        private val preferences: Preferences,
-        private val tagDataDao: TagDataDao,
-        private val taskDao: TaskDao,
-        private val tagDao: TagDao,
-        private val googleTaskDao: GoogleTaskDao,
-        private val defaultFilterProvider: DefaultFilterProvider,
-        private val caldavDao: CaldavDao,
-        private val locationDao: LocationDao,
-        private val alarmDao: AlarmDao,
+    private val gcalHelper: GCalHelper,
+    private val preferences: Preferences,
+    private val tagDataDao: TagDataDao,
+    private val taskDao: TaskDao,
+    private val tagDao: TagDao,
+    private val googleTaskDao: GoogleTaskDao,
+    private val defaultFilterProvider: DefaultFilterProvider,
+    private val caldavDao: CaldavDao,
+    private val locationDao: LocationDao,
+    private val alarmDao: AlarmDao,
 ) {
 
     suspend fun basicQuickAddTask(title: String): Task {

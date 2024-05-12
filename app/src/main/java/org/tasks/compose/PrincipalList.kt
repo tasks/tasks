@@ -29,13 +29,13 @@ import org.tasks.R
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.ICON_ALPHA
 import org.tasks.compose.Constants.KEYLINE_FIRST
-import org.tasks.data.CaldavCalendar.Companion.INVITE_ACCEPTED
-import org.tasks.data.CaldavCalendar.Companion.INVITE_DECLINED
-import org.tasks.data.CaldavCalendar.Companion.INVITE_INVALID
-import org.tasks.data.CaldavCalendar.Companion.INVITE_NO_RESPONSE
-import org.tasks.data.CaldavCalendar.Companion.INVITE_UNKNOWN
-import org.tasks.data.Principal
-import org.tasks.data.PrincipalAccess
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_ACCEPTED
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_DECLINED
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_INVALID
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_NO_RESPONSE
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
+import org.tasks.data.entity.Principal
+import org.tasks.data.entity.PrincipalAccess
 import org.tasks.data.PrincipalWithAccess
 
 private val principals = listOf(

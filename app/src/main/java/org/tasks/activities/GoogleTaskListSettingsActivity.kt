@@ -22,9 +22,9 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.databinding.ActivityGoogleTaskListSettingsBinding
 import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.extensions.Context.toast

@@ -8,15 +8,15 @@ package com.todoroo.astrid.gtasks
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.service.TaskDeleter
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.GoogleTaskListDao
 import javax.inject.Inject
 
 class GtasksListService @Inject constructor(
-        private val googleTaskListDao: GoogleTaskListDao,
-        private val taskDeleter: TaskDeleter,
-        private val localBroadcastManager: LocalBroadcastManager,
+    private val googleTaskListDao: GoogleTaskListDao,
+    private val taskDeleter: TaskDeleter,
+    private val localBroadcastManager: LocalBroadcastManager,
 ) {
 
     /**

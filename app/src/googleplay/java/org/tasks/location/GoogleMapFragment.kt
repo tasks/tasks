@@ -10,7 +10,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.data.Place
+import org.tasks.data.entity.Place
 import org.tasks.location.MapFragment.MapFragmentCallback
 import javax.inject.Inject
 

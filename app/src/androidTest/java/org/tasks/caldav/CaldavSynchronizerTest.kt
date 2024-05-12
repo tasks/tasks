@@ -1,15 +1,15 @@
 package org.tasks.caldav
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.ETAG
@@ -46,11 +46,13 @@ class CaldavSynchronizerTest : CaldavTest() {
 
     @Test
     fun dontFetchCalendarIfCtagMatches() = runBlocking {
-        caldavDao.insert(CaldavCalendar(
-            account = this@CaldavSynchronizerTest.account.uuid,
-            ctag = "http://sabre.io/ns/sync/1",
-            url = "${this@CaldavSynchronizerTest.account.url}test-shared/",
-        ))
+        caldavDao.insert(
+            CaldavCalendar(
+                account = this@CaldavSynchronizerTest.account.uuid,
+                ctag = "http://sabre.io/ns/sync/1",
+                url = "${this@CaldavSynchronizerTest.account.url}test-shared/",
+            )
+        )
         enqueue(OC_SHARE_PROPFIND)
 
         sync()

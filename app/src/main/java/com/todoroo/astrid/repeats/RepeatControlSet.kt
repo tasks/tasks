@@ -22,8 +22,8 @@ import net.fortuna.ical4j.model.WeekDay
 import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.RepeatRow
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.dao.CaldavDao
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.RepeatRuleToString

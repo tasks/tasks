@@ -5,10 +5,10 @@ package com.todoroo.astrid.service
 import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.reminders
-import org.tasks.data.AlarmDao
+import org.tasks.data.dao.AlarmDao
 import org.tasks.data.CaldavTaskContainer
-import org.tasks.data.TaskDao
-import org.tasks.data.UpgraderDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.dao.UpgraderDao
 import javax.inject.Inject
 
 class Upgrade_12_4 @Inject constructor(

@@ -28,24 +28,24 @@ import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.caldav.extensions.toAlarms
 import org.tasks.caldav.extensions.toVAlarms
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_RANDOM
-import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
-import org.tasks.data.AlarmDao
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.LocationDao
-import org.tasks.data.Place
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
-import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
-import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
+import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Place
+import org.tasks.data.dao.TagDao
+import org.tasks.data.entity.TagData
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
+import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
+import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY
+import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import org.tasks.data.createDueDate
 import org.tasks.data.createGeofence
 import org.tasks.data.createHideUntil
@@ -73,19 +73,19 @@ import kotlin.math.min
 
 @Suppress("ClassName")
 class iCalendar @Inject constructor(
-        private val tagDataDao: TagDataDao,
-        private val preferences: Preferences,
-        private val locationDao: LocationDao,
-        private val workManager: WorkManager,
-        private val geofenceApi: GeofenceApi,
-        private val taskCreator: TaskCreator,
-        private val tagDao: TagDao,
-        private val taskDao: TaskDao,
-        private val caldavDao: CaldavDao,
-        private val alarmDao: AlarmDao,
-        private val alarmService: AlarmService,
-        private val vtodoCache: VtodoCache,
-        private val notificationManager: NotificationManager,
+    private val tagDataDao: TagDataDao,
+    private val preferences: Preferences,
+    private val locationDao: LocationDao,
+    private val workManager: WorkManager,
+    private val geofenceApi: GeofenceApi,
+    private val taskCreator: TaskCreator,
+    private val tagDao: TagDao,
+    private val taskDao: TaskDao,
+    private val caldavDao: CaldavDao,
+    private val alarmDao: AlarmDao,
+    private val alarmService: AlarmService,
+    private val vtodoCache: VtodoCache,
+    private val notificationManager: NotificationManager,
 ) {
 
     suspend fun setPlace(taskId: Long, geo: Geo?) {
@@ -144,7 +144,7 @@ class iCalendar @Inject constructor(
         account: CaldavAccount,
         calendar: CaldavCalendar,
         caldavTask: CaldavTask,
-        task: com.todoroo.astrid.data.Task
+        task: org.tasks.data.entity.Task
     ): ByteArray {
         var remoteModel: Task? = null
         try {
@@ -165,7 +165,7 @@ class iCalendar @Inject constructor(
     suspend fun toVtodo(
         account: CaldavAccount,
         caldavTask: CaldavTask,
-        task: com.todoroo.astrid.data.Task,
+        task: org.tasks.data.entity.Task,
         remoteModel: Task
     ): ByteArray {
         remoteModel.applyLocal(caldavTask, task)
@@ -219,7 +219,7 @@ class iCalendar @Inject constructor(
                     remoteId = remote.uid,
                     obj = obj
                 )
-        val isNew = caldavTask.id == com.todoroo.astrid.data.Task.NO_ID
+        val isNew = caldavTask.id == org.tasks.data.entity.Task.NO_ID
         val dirty = task.modificationDate > caldavTask.lastSync || caldavTask.lastSync == 0L
         val local = vtodoCache.getVtodo(calendar, caldavTask)?.let { fromVtodo(it) }
         task.applyRemote(remote, local)
@@ -303,7 +303,7 @@ class iCalendar @Inject constructor(
         private val IS_MOZ_SNOOZE_TIME = { x: Property? -> x?.name.equals(MOZ_SNOOZE_TIME, true) }
         private val IS_MOZ_LASTACK = { x: Property? -> x?.name.equals(MOZ_LASTACK, true) }
 
-        fun Due?.apply(task: com.todoroo.astrid.data.Task) {
+        fun Due?.apply(task: org.tasks.data.entity.Task) {
             task.dueDate = toMillis()
         }
 
@@ -320,11 +320,11 @@ class iCalendar @Inject constructor(
                 )
             }
 
-        fun DtStart?.apply(task: com.todoroo.astrid.data.Task) {
+        fun DtStart?.apply(task: org.tasks.data.entity.Task) {
             task.hideUntil = toMillis(task)
         }
 
-        fun DtStart?.toMillis(task: com.todoroo.astrid.data.Task) =
+        fun DtStart?.toMillis(task: org.tasks.data.entity.Task) =
             when (this?.date) {
                 null -> 0
                 is DateTime -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, getLocal(this))
@@ -443,7 +443,7 @@ class iCalendar @Inject constructor(
                         ?: unknownProperties.removeIf(IS_MOZ_SNOOZE_TIME)
             }
 
-        fun Task.applyLocal(caldavTask: CaldavTask, task: com.todoroo.astrid.data.Task) {
+        fun Task.applyLocal(caldavTask: CaldavTask, task: org.tasks.data.entity.Task) {
             createdAt = newDateTime(task.creationDate).toUTC().millis
             summary = task.title
             description = task.notes
@@ -486,9 +486,9 @@ class iCalendar @Inject constructor(
             }
             lastModified = newDateTime(task.modificationDate).toUTC().millis
             priority = when (task.priority) {
-                com.todoroo.astrid.data.Task.Priority.NONE -> 0
-                com.todoroo.astrid.data.Task.Priority.MEDIUM -> 5
-                com.todoroo.astrid.data.Task.Priority.HIGH ->
+                org.tasks.data.entity.Task.Priority.NONE -> 0
+                org.tasks.data.entity.Task.Priority.MEDIUM -> 5
+                org.tasks.data.entity.Task.Priority.HIGH ->
                     if (priority < 5) max(1, priority) else 1
                 else -> if (priority > 5) min(9, priority) else 9
             }

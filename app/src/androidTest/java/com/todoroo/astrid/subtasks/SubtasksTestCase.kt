@@ -4,10 +4,10 @@ import androidx.test.InstrumentationRegistry
 import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
-import org.tasks.data.TaskListMetadataDao
+import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.preferences.Preferences
 import javax.inject.Inject

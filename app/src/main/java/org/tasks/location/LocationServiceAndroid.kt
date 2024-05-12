@@ -9,7 +9,7 @@ import android.net.Uri
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.data.MergedGeofence
-import org.tasks.data.Place
+import org.tasks.data.entity.Place
 import org.tasks.preferences.PermissionChecker
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

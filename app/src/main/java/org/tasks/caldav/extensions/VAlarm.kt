@@ -10,7 +10,7 @@ import net.fortuna.ical4j.model.property.Repeat
 import net.fortuna.ical4j.model.property.Trigger
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.getDateTime
-import org.tasks.data.Alarm
+import org.tasks.data.entity.Alarm
 import java.time.Duration
 import java.time.Instant
 import java.time.temporal.TemporalAmount

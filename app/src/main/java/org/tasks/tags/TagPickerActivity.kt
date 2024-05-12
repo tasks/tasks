@@ -41,7 +41,7 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.billing.Inventory
-import org.tasks.data.TagData
+import org.tasks.data.entity.TagData
 import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider

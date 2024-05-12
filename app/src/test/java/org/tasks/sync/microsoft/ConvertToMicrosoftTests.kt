@@ -1,14 +1,14 @@
 package org.tasks.sync.microsoft
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.Freeze.Companion.freezeAt
 import org.tasks.TestUtilities.withTZ
-import org.tasks.data.CaldavTask
+import org.tasks.data.entity.CaldavTask
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TagDataMaker.NAME

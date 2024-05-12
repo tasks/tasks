@@ -1,39 +1,39 @@
 package com.todoroo.astrid.service
 
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.NO_ID
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.NO_ID
 import com.todoroo.astrid.gcal.GCalHelper
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.Alarm
-import org.tasks.data.AlarmDao
-import org.tasks.data.Attachment
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.Geofence
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.LocationDao
-import org.tasks.data.Tag
-import org.tasks.data.TagDao
-import org.tasks.data.TagDataDao
-import org.tasks.data.TaskAttachmentDao
-import org.tasks.db.DbUtils.dbchunk
+import org.tasks.data.entity.Alarm
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.entity.Attachment
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Geofence
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Tag
+import org.tasks.data.dao.TagDao
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 class TaskDuplicator @Inject constructor(
-        private val gcalHelper: GCalHelper,
-        private val taskDao: TaskDao,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val tagDao: TagDao,
-        private val tagDataDao: TagDataDao,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
-        private val locationDao: LocationDao,
-        private val alarmDao: AlarmDao,
-        private val preferences: Preferences,
-        private val taskAttachmentDao: TaskAttachmentDao,
+    private val gcalHelper: GCalHelper,
+    private val taskDao: TaskDao,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val tagDao: TagDao,
+    private val tagDataDao: TagDataDao,
+    private val googleTaskDao: GoogleTaskDao,
+    private val caldavDao: CaldavDao,
+    private val locationDao: LocationDao,
+    private val alarmDao: AlarmDao,
+    private val preferences: Preferences,
+    private val taskAttachmentDao: TaskAttachmentDao,
 ) {
 
     suspend fun duplicate(taskIds: List<Long>): List<Task> {
@@ -91,7 +91,8 @@ class TaskDuplicator @Inject constructor(
         }
         for (g in locationDao.getGeofencesForTask(task.id)) {
             locationDao.insert(
-                    Geofence(clone.id, g.place, g.isArrival, g.isDeparture))
+                    Geofence(clone.id, g.place, g.isArrival, g.isDeparture)
+            )
         }
         val alarms = alarmDao.getAlarms(task.id)
         if (alarms.isNotEmpty()) {

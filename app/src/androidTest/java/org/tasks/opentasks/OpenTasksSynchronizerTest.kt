@@ -8,9 +8,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID

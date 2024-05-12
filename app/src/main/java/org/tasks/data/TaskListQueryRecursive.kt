@@ -1,18 +1,20 @@
 package org.tasks.data
 
-import com.todoroo.andlib.data.Table
-import com.todoroo.andlib.sql.Criterion
-import com.todoroo.andlib.sql.Field.Companion.field
-import com.todoroo.andlib.sql.Join
-import com.todoroo.andlib.sql.Query
-import com.todoroo.andlib.sql.QueryTemplate
+import org.tasks.data.db.Table
+import org.tasks.data.sql.Criterion
+import org.tasks.data.sql.Field.Companion.field
+import org.tasks.data.sql.Join
+import org.tasks.data.sql.Query
+import org.tasks.data.sql.QueryTemplate
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
-import com.todoroo.astrid.data.Task
-import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.entity.Task
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Tag
 import org.tasks.preferences.QueryPreferences
 
 internal object TaskListQueryRecursive {
@@ -20,7 +22,9 @@ internal object TaskListQueryRecursive {
     private val RECURSIVE_TASK = field("$RECURSIVE.task")
     private val FIELDS =
             TaskListQuery.FIELDS.plus(listOf(
-                    field("(${Query.select(field("group_concat(distinct(tag_uid))")).from(Tag.TABLE).where(Task.ID.eq(Tag.TASK))} GROUP BY ${Tag.TASK})").`as`("tags"),
+                    field("(${
+                        Query.select(field("group_concat(distinct(tag_uid))")).from(Tag.TABLE).where(
+                        Task.ID.eq(Tag.TASK))} GROUP BY ${Tag.TASK})").`as`("tags"),
                     field("indent"),
                     field("sort_group").`as`("sortGroup"),
                     field("children"),
@@ -119,7 +123,8 @@ internal object TaskListQueryRecursive {
 
     private fun newCaldavQuery(list: String) =
             QueryTemplate()
-                    .join(Join.inner(
+                    .join(
+                        Join.inner(
                             CaldavTask.TABLE,
                             Criterion.and(
                                     CaldavTask.CALENDAR.eq(list),

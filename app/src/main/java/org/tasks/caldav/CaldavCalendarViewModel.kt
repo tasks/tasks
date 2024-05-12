@@ -4,14 +4,18 @@ import android.content.Intent
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.CaldavFilter
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.data.*
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
-import org.tasks.data.CaldavCalendar.Companion.INVITE_UNKNOWN
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.PrincipalDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 

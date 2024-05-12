@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.R
-import org.tasks.data.Place
+import org.tasks.data.entity.Place
 import org.tasks.extensions.JsonObject.getStringOrNull
 import org.tasks.preferences.Preferences
 import java.io.IOException

@@ -2,10 +2,10 @@ package org.tasks.caldav.extensions
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
-import org.tasks.data.Alarm.Companion.TYPE_REL_END
-import org.tasks.data.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.time.DateTime
 import org.tasks.time.DateTime.UTC
 import java.util.concurrent.TimeUnit.HOURS

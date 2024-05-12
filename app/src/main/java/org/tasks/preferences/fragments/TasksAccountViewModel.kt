@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.tasks.caldav.CaldavClientProvider
-import org.tasks.data.CaldavAccount
+import org.tasks.data.entity.CaldavAccount
 import timber.log.Timber
 import javax.inject.Inject
 

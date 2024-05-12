@@ -2,7 +2,7 @@ package org.tasks.injection
 
 import android.content.Context
 import androidx.room.Room
-import com.todoroo.astrid.dao.Database
+import org.tasks.data.db.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

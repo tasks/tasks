@@ -11,9 +11,9 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavCalendarMaker.ID

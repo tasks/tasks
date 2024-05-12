@@ -13,9 +13,9 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.isPaymentRequired
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
+import org.tasks.data.dao.CaldavDao
 import org.tasks.preferences.IconPreference
 import javax.inject.Inject
 

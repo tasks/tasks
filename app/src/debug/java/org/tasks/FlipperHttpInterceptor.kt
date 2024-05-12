@@ -5,7 +5,7 @@ import com.facebook.flipper.plugins.network.NetworkReporter
 import com.facebook.flipper.plugins.network.NetworkReporter.ResponseInfo
 import com.google.api.client.http.*
 import com.google.api.client.json.GenericJson
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.io.ByteArrayOutputStream

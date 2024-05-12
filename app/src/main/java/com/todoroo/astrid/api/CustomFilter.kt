@@ -5,7 +5,7 @@ import org.tasks.themes.CustomIcons
 
 @Parcelize
 data class CustomFilter(
-    val filter: org.tasks.data.Filter,
+    val filter: org.tasks.data.entity.Filter,
 ) : Filter {
     override val title: String?
         get() = filter.title

@@ -1,6 +1,7 @@
 package org.tasks.data
 
 import androidx.room.Embedded
+import org.tasks.data.entity.Place
 
 class PlaceUsage {
     @Embedded lateinit var place: Place

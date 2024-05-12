@@ -12,7 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.data.MergedGeofence
-import org.tasks.data.Place
+import org.tasks.data.entity.Place
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 

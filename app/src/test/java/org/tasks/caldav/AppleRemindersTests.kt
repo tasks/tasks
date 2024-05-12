@@ -1,6 +1,6 @@
 package org.tasks.caldav
 
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -8,8 +8,8 @@ import org.junit.Before
 import org.junit.Test
 import org.tasks.TestUtilities.alarms
 import org.tasks.TestUtilities.vtodo
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.time.DateTime
 import java.util.*
 

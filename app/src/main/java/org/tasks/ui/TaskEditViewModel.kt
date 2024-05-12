@@ -13,11 +13,11 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.FORCE_CALDAV_SYNC
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_FIVE
-import com.todoroo.astrid.data.Task.Companion.NOTIFY_MODE_NONSTOP
-import com.todoroo.astrid.data.Task.Companion.hasDueTime
+import org.tasks.data.entity.FORCE_CALDAV_SYNC
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_FIVE
+import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_NONSTOP
+import org.tasks.data.entity.Task.Companion.hasDueTime
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
@@ -36,23 +36,23 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarEventProvider
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_REL_END
-import org.tasks.data.Alarm.Companion.TYPE_REL_START
-import org.tasks.data.AlarmDao
-import org.tasks.data.Attachment
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTaskDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.entity.Attachment
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.Location
-import org.tasks.data.LocationDao
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
-import org.tasks.data.TaskAttachment
-import org.tasks.data.TaskAttachmentDao
-import org.tasks.data.UserActivity
-import org.tasks.data.UserActivityDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.TagDao
+import org.tasks.data.entity.TagData
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.TaskAttachment
+import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.entity.UserActivity
+import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.createDueDate
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
@@ -66,30 +66,30 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskEditViewModel @Inject constructor(
-        @ApplicationContext private val context: Context,
-        savedStateHandle: SavedStateHandle,
-        private val taskDao: TaskDao,
-        private val taskDeleter: TaskDeleter,
-        private val timerPlugin: TimerPlugin,
-        private val permissionChecker: PermissionChecker,
-        private val calendarEventProvider: CalendarEventProvider,
-        private val gCalHelper: GCalHelper,
-        private val taskMover: TaskMover,
-        private val locationDao: LocationDao,
-        private val geofenceApi: GeofenceApi,
-        private val tagDao: TagDao,
-        private val tagDataDao: TagDataDao,
-        private val preferences: Preferences,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
-        private val taskCompleter: TaskCompleter,
-        private val alarmService: AlarmService,
-        private val taskListEvents: TaskListEventBus,
-        private val mainActivityEvents: MainActivityEventBus,
-        private val firebase: Firebase? = null,
-        private val userActivityDao: UserActivityDao,
-        private val alarmDao: AlarmDao,
-        private val taskAttachmentDao: TaskAttachmentDao,
+    @ApplicationContext private val context: Context,
+    savedStateHandle: SavedStateHandle,
+    private val taskDao: TaskDao,
+    private val taskDeleter: TaskDeleter,
+    private val timerPlugin: TimerPlugin,
+    private val permissionChecker: PermissionChecker,
+    private val calendarEventProvider: CalendarEventProvider,
+    private val gCalHelper: GCalHelper,
+    private val taskMover: TaskMover,
+    private val locationDao: LocationDao,
+    private val geofenceApi: GeofenceApi,
+    private val tagDao: TagDao,
+    private val tagDataDao: TagDataDao,
+    private val preferences: Preferences,
+    private val googleTaskDao: GoogleTaskDao,
+    private val caldavDao: CaldavDao,
+    private val taskCompleter: TaskCompleter,
+    private val alarmService: AlarmService,
+    private val taskListEvents: TaskListEventBus,
+    private val mainActivityEvents: MainActivityEventBus,
+    private val firebase: Firebase? = null,
+    private val userActivityDao: UserActivityDao,
+    private val alarmDao: AlarmDao,
+    private val taskAttachmentDao: TaskAttachmentDao,
 ) : ViewModel() {
     private val resources = context.resources
     private var cleared = false

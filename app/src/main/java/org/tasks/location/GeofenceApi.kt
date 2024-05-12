@@ -1,15 +1,15 @@
 package org.tasks.location
 
-import org.tasks.data.LocationDao
-import org.tasks.data.Place
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Place
 import org.tasks.preferences.PermissionChecker
 import timber.log.Timber
 import javax.inject.Inject
 
 class GeofenceApi @Inject constructor(
-        private val permissionChecker: PermissionChecker,
-        private val locationDao: LocationDao,
-        private val locationService: LocationService
+    private val permissionChecker: PermissionChecker,
+    private val locationDao: LocationDao,
+    private val locationService: LocationService
 ) {
     suspend fun registerAll() = locationDao.getPlacesWithGeofences().forEach { update(it) }
 

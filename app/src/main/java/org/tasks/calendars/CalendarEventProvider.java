@@ -11,7 +11,7 @@ import android.provider.CalendarContract;
 
 import androidx.annotation.Nullable;
 
-import com.todoroo.astrid.data.Task;
+import org.tasks.data.entity.Task;
 
 import org.tasks.preferences.PermissionChecker;
 

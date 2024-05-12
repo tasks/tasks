@@ -14,12 +14,12 @@ import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavDao.Companion.toAppleEpoch
-import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTaskDao
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.CaldavDao.Companion.toAppleEpoch
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import org.tasks.data.TaskContainer
 import org.tasks.data.createDueDate
 import org.tasks.data.createHideUntil
@@ -27,12 +27,12 @@ import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.time.DateTimeUtils.millisOfDay
 
 open class TaskAdapter(
-        private val newTasksOnTop: Boolean,
-        private val googleTaskDao: GoogleTaskDao,
-        private val caldavDao: CaldavDao,
-        private val taskDao: TaskDao,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val taskMover: TaskMover,
+    private val newTasksOnTop: Boolean,
+    private val googleTaskDao: GoogleTaskDao,
+    private val caldavDao: CaldavDao,
+    private val taskDao: TaskDao,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val taskMover: TaskMover,
 ) {
     private val selected = HashSet<Long>()
     private lateinit var dataSource: TaskAdapterDataSource

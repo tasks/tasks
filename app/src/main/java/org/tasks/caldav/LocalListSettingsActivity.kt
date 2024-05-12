@@ -4,9 +4,9 @@ import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
 
 @AndroidEntryPoint
 class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
@@ -22,7 +22,7 @@ class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
             createSuccessful(null)
 
     override suspend fun updateNameAndColor(
-            account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
+        account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
             updateCalendar()
 
     override suspend fun deleteCalendar(caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar) =

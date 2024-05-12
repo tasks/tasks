@@ -1,7 +1,7 @@
 package org.tasks.data
 
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import net.fortuna.ical4j.model.Recur
 import org.tasks.date.DateTimeUtils
 import org.tasks.date.DateTimeUtils.toDateTime

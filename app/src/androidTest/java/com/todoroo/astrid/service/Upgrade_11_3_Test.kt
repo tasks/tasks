@@ -3,7 +3,7 @@
 package com.todoroo.astrid.service
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
@@ -12,9 +12,9 @@ import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.TestUtilities.assertEquals
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
-import org.tasks.data.TaskDao
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar

@@ -8,30 +8,30 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.GoogleTaskListDao
-import com.todoroo.astrid.data.Task
-import org.tasks.data.TaskDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.dao.GoogleTaskListDao
+import org.tasks.data.entity.Task
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.getLocalList
-import org.tasks.db.DbUtils.dbchunk
+import org.tasks.data.db.DbUtils.dbchunk
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 class TaskMover @Inject constructor(
-        @param:ApplicationContext private val context: Context,
-        private val taskDao: TaskDao,
-        private val caldavDao: CaldavDao,
-        private val googleTaskDao: GoogleTaskDao,
-        private val googleTaskListDao: GoogleTaskListDao,
-        private val preferences: Preferences,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val syncAdapters: SyncAdapters,
-        private val vtodoCache: VtodoCache,
+    @param:ApplicationContext private val context: Context,
+    private val taskDao: TaskDao,
+    private val caldavDao: CaldavDao,
+    private val googleTaskDao: GoogleTaskDao,
+    private val googleTaskListDao: GoogleTaskListDao,
+    private val preferences: Preferences,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val syncAdapters: SyncAdapters,
+    private val vtodoCache: VtodoCache,
 ) {
 
     suspend fun getSingleFilter(tasks: List<Long>): Filter? {

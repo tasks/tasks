@@ -1,17 +1,17 @@
 package com.todoroo.astrid.api
 
-import com.todoroo.andlib.sql.Criterion
-import com.todoroo.andlib.sql.Join
-import com.todoroo.andlib.sql.Query
-import com.todoroo.andlib.sql.QueryTemplate
-import com.todoroo.astrid.data.Task
+import org.tasks.data.sql.Criterion
+import org.tasks.data.sql.Join
+import org.tasks.data.sql.Query
+import org.tasks.data.sql.QueryTemplate
+import org.tasks.data.entity.Task
 import kotlinx.parcelize.Parcelize
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavTask
-import org.tasks.data.Geofence
-import org.tasks.data.Place
-import org.tasks.data.Tag
-import org.tasks.data.UserActivity
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Place
+import org.tasks.data.entity.Tag
+import org.tasks.data.entity.UserActivity
 
 @Parcelize
 data class SearchFilter(

@@ -2,6 +2,8 @@ package org.tasks.data
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import org.tasks.data.entity.Principal
+import org.tasks.data.entity.PrincipalAccess
 
 data class PrincipalWithAccess(
     @Embedded val access: PrincipalAccess,

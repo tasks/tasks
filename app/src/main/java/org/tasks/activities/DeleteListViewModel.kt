@@ -1,7 +1,7 @@
 package org.tasks.activities
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.googleapis.InvokerFactory
 import org.tasks.ui.ActionViewModel
 import javax.inject.Inject

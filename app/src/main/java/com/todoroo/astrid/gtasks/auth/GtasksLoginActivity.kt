@@ -21,10 +21,10 @@ import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
-import org.tasks.data.CaldavDao
-import org.tasks.data.GoogleTaskListDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.gtasks.GoogleAccountManager
 import org.tasks.preferences.ActivityPermissionRequestor

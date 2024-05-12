@@ -8,14 +8,14 @@ package com.todoroo.astrid.repeats
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.createDueDate
 import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime

@@ -2,7 +2,7 @@ package org.tasks.injection
 
 import android.content.Context
 import androidx.room.Room
-import com.todoroo.astrid.dao.Database
+import org.tasks.data.db.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +11,7 @@ import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.caldav.FileStorage
-import org.tasks.data.CaldavDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.OpenTaskDao
 import org.tasks.db.Migrations
 import org.tasks.jobs.WorkManager
@@ -48,9 +48,9 @@ internal class ProductionModule {
     @Provides
     @Singleton
     fun getWorkManager(
-            @ApplicationContext context: Context,
-            preferences: Preferences,
-            caldavDao: CaldavDao,
-            openTaskDao: OpenTaskDao,
+        @ApplicationContext context: Context,
+        preferences: Preferences,
+        caldavDao: CaldavDao,
+        openTaskDao: OpenTaskDao,
     ): WorkManager = WorkManagerImpl(context, preferences, caldavDao, openTaskDao)
 }

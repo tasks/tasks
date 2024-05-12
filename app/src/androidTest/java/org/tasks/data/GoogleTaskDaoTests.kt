@@ -9,7 +9,12 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
-import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.dao.GoogleTaskListDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavTask
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar

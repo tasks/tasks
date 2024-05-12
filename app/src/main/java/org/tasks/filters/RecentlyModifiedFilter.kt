@@ -1,11 +1,11 @@
 package org.tasks.filters
 
-import com.todoroo.andlib.sql.Criterion.Companion.and
-import com.todoroo.andlib.sql.Order.Companion.desc
-import com.todoroo.andlib.sql.QueryTemplate
+import org.tasks.data.sql.Criterion.Companion.and
+import org.tasks.data.sql.Order.Companion.desc
+import org.tasks.data.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import kotlinx.parcelize.Parcelize
 import org.tasks.themes.CustomIcons
 import org.tasks.time.DateTime

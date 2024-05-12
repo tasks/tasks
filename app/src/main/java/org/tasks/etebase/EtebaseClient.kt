@@ -8,9 +8,9 @@ import com.etebase.client.Item
 import com.etebase.client.ItemMetadata
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 
@@ -47,9 +47,9 @@ class EtebaseClient(
     }
 
     suspend fun fetchItems(
-            collection: Collection,
-            calendar: CaldavCalendar,
-            callback: suspend (Pair<String?, List<Item>>) -> Unit
+        collection: Collection,
+        calendar: CaldavCalendar,
+        callback: suspend (Pair<String?, List<Item>>) -> Unit
     ) {
         val itemManager = etebase.collectionManager.getItemManager(collection)
         var stoken = calendar.ctag

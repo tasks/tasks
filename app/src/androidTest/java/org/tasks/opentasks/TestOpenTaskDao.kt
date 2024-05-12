@@ -4,13 +4,13 @@ import android.content.ContentProviderResult
 import android.content.Context
 import at.bitfire.ical4android.BatchOperation
 import at.bitfire.ical4android.Task
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
 import org.dmfs.tasks.contract.TaskContract.TaskListColumns.ACCESS_LEVEL_OWNER
 import org.tasks.caldav.iCalendar
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
 import javax.inject.Inject

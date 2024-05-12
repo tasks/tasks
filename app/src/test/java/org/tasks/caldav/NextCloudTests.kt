@@ -1,6 +1,6 @@
 package org.tasks.caldav
 
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before

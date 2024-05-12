@@ -1,13 +1,13 @@
 package org.tasks.filters
 
 import android.content.Context
-import com.todoroo.andlib.sql.Criterion.Companion.and
-import com.todoroo.andlib.sql.Criterion.Companion.exists
-import com.todoroo.andlib.sql.Criterion.Companion.or
-import com.todoroo.andlib.sql.Field.Companion.field
-import com.todoroo.andlib.sql.Join.Companion.inner
-import com.todoroo.andlib.sql.Query.Companion.select
-import com.todoroo.andlib.sql.UnaryCriterion.Companion.isNotNull
+import org.tasks.data.sql.Criterion.Companion.and
+import org.tasks.data.sql.Criterion.Companion.exists
+import org.tasks.data.sql.Criterion.Companion.or
+import org.tasks.data.sql.Field.Companion.field
+import org.tasks.data.sql.Join.Companion.inner
+import org.tasks.data.sql.Query.Companion.select
+import org.tasks.data.sql.UnaryCriterion.Companion.isNotNull
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.BooleanCriterion
 import com.todoroo.astrid.api.CustomFilterCriterion
@@ -15,29 +15,30 @@ import com.todoroo.astrid.api.MultipleSelectCriterion
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.api.TextInputCriterion
 import com.todoroo.astrid.core.CriterionInstance
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.activities.FilterSettingsActivity.Companion.sql
-import org.tasks.data.Alarm
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.Filter
+import org.tasks.data.entity.Alarm
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Filter
 import org.tasks.data.GoogleTask
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.Tag
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
-import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.dao.GoogleTaskListDao
+import org.tasks.data.entity.Tag
+import org.tasks.data.entity.TagData
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import timber.log.Timber
 import javax.inject.Inject
 
 class FilterCriteriaProvider @Inject constructor(
-        @param:ApplicationContext private val context: Context,
-        private val tagDataDao: TagDataDao,
-        private val googleTaskListDao: GoogleTaskListDao,
-        private val caldavDao: CaldavDao) {
+    @param:ApplicationContext private val context: Context,
+    private val tagDataDao: TagDataDao,
+    private val googleTaskListDao: GoogleTaskListDao,
+    private val caldavDao: CaldavDao
+) {
     private val r = context.resources
 
     suspend fun rebuildFilter(filter: Filter): Filter {
@@ -259,7 +260,8 @@ class FilterCriteriaProvider @Inject constructor(
                                             // find tasks that have due dates before the specified
                                             // date, or all-day tasks that have due dates before
                                             // EOD today if the specified date is NOW
-                                            or(Task.DUE_DATE.lte("?"),
+                                            or(
+                                                Task.DUE_DATE.lte("?"),
                                                 and(field("${Task.DUE_DATE} / 1000 % 60").eq(0),
                                                     field("?").eq(field(PermaSql.VALUE_NOW)),
                                                     Task.DUE_DATE.lte(PermaSql.VALUE_EOD)))))

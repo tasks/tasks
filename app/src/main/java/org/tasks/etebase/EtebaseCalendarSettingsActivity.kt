@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
 
 @AndroidEntryPoint
 class EtebaseCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
@@ -25,7 +25,7 @@ class EtebaseCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
             createCalendarViewModel.createCalendar(caldavAccount, name, color)
 
     override suspend fun updateNameAndColor(
-            account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
+        account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
             updateCalendarViewModel.updateCalendar(account, calendar, name, color)
 
     override suspend fun deleteCalendar(caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar) =

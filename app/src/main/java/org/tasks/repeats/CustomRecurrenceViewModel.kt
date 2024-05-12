@@ -17,7 +17,7 @@ import net.fortuna.ical4j.model.Recur.Frequency.YEARLY
 import net.fortuna.ical4j.model.WeekDay
 import net.fortuna.ical4j.model.WeekDayList
 import net.fortuna.ical4j.model.property.RRule
-import org.tasks.data.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_ACCOUNT_TYPE
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_DATE

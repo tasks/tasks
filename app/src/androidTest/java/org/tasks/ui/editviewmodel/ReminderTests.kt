@@ -1,6 +1,6 @@
 package org.tasks.ui.editviewmodel
 
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
@@ -8,8 +8,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.whenOverdue
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.whenOverdue
 import org.tasks.data.createDueDate
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.newTask

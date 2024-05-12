@@ -1,18 +1,18 @@
 package org.tasks.caldav
 
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
-import org.tasks.data.CaldavCalendar.Companion.INVITE_ACCEPTED
-import org.tasks.data.PrincipalDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_ACCEPTED
+import org.tasks.data.dao.PrincipalDao
 import org.tasks.injection.ProductionModule
 import javax.inject.Inject
 

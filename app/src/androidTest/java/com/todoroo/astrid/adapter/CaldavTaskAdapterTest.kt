@@ -12,6 +12,9 @@ import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.*
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.entity.CaldavTask
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskContainerMaker.PARENT

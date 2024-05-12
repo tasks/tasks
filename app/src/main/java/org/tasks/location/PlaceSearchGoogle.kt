@@ -9,9 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Request
 import org.tasks.R
-import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.CaldavDao
-import org.tasks.data.Place
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.Place
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.HttpException
 import timber.log.Timber

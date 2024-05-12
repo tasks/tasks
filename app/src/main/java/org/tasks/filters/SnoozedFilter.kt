@@ -1,16 +1,16 @@
 package org.tasks.filters
 
-import com.todoroo.andlib.sql.Criterion.Companion.and
-import com.todoroo.andlib.sql.Functions.now
-import com.todoroo.andlib.sql.Join.Companion.inner
-import com.todoroo.andlib.sql.QueryTemplate
+import org.tasks.data.sql.Criterion.Companion.and
+import org.tasks.data.sql.Functions.now
+import org.tasks.data.sql.Join.Companion.inner
+import org.tasks.data.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import kotlinx.parcelize.Parcelize
 import org.tasks.R
-import org.tasks.data.Alarm
-import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.entity.Alarm
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 
 @Parcelize
 data class SnoozedFilter(

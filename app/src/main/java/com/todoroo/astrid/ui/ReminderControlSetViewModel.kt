@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import org.tasks.data.Alarm
+import org.tasks.data.entity.Alarm
 
 class ReminderControlSetViewModel : ViewModel() {
 

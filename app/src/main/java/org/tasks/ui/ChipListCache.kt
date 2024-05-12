@@ -2,18 +2,18 @@ package org.tasks.ui
 
 import com.todoroo.astrid.api.TagFilter
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.TagData
+import org.tasks.data.dao.TagDataDao
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class ChipListCache @Inject internal constructor(
-        caldavDao: CaldavDao,
-        tagDataDao: TagDataDao,
-        private val localBroadcastManager: LocalBroadcastManager) {
+    caldavDao: CaldavDao,
+    tagDataDao: TagDataDao,
+    private val localBroadcastManager: LocalBroadcastManager) {
 
     private val caldavCalendars: MutableMap<String?, CaldavCalendar> = HashMap()
     private val tagDatas: MutableMap<String?, TagFilter> = HashMap()

@@ -9,8 +9,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.Timeout
 import org.tasks.R
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.dao.CaldavDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption

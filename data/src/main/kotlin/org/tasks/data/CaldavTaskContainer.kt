@@ -1,8 +1,9 @@
 package org.tasks.data
 
 import androidx.room.Embedded
-import com.todoroo.astrid.data.Task
-import org.tasks.data.CaldavDao.Companion.toAppleEpoch
+import org.tasks.data.entity.Task
+import org.tasks.data.dao.CaldavDao.Companion.toAppleEpoch
+import org.tasks.data.entity.CaldavTask
 
 class CaldavTaskContainer {
     @Embedded lateinit var task: Task

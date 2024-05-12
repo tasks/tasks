@@ -8,7 +8,7 @@ import com.todoroo.astrid.subtasks.SubtasksHelper
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
-import org.tasks.data.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences

@@ -16,15 +16,15 @@ import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.CaldavFilter
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.BaseListSettingsActivity
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
 import org.tasks.databinding.ActivityCaldavCalendarSettingsBinding
 import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.themes.CustomIcons
@@ -114,10 +114,11 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
     protected abstract suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int)
 
     protected abstract suspend fun updateNameAndColor(
-            account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int)
+        account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int)
 
     protected abstract suspend fun deleteCalendar(
-            caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar)
+        caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar
+    )
 
     private fun showProgressIndicator() {
         progressView.visibility = View.VISIBLE

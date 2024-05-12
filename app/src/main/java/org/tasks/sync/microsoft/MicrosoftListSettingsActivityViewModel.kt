@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.HttpClientFactory.Companion.MEDIA_TYPE_JSON
 import retrofit2.HttpException

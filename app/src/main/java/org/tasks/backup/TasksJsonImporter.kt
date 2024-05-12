@@ -7,7 +7,7 @@ import android.os.Handler
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.service.Upgrade_13_2
@@ -19,24 +19,24 @@ import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.AlarmDao
-import org.tasks.data.Attachment
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
-import org.tasks.data.FilterDao
-import org.tasks.data.Geofence
-import org.tasks.data.LocationDao
-import org.tasks.data.Place
-import org.tasks.data.Tag
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
-import org.tasks.data.TaskAttachmentDao
-import org.tasks.data.TaskListMetadataDao
-import org.tasks.data.UserActivityDao
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.entity.Attachment
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.dao.FilterDao
+import org.tasks.data.entity.Geofence
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Place
+import org.tasks.data.entity.Tag
+import org.tasks.data.dao.TagDao
+import org.tasks.data.entity.TagData
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.dao.TaskListMetadataDao
+import org.tasks.data.dao.UserActivityDao
 import org.tasks.db.Migrations.repeatFrom
 import org.tasks.db.Migrations.withoutFrom
 import org.tasks.filters.FilterCriteriaProvider
@@ -49,21 +49,21 @@ import java.io.InputStreamReader
 import javax.inject.Inject
 
 class TasksJsonImporter @Inject constructor(
-        private val tagDataDao: TagDataDao,
-        private val userActivityDao: UserActivityDao,
-        private val taskDao: TaskDao,
-        private val locationDao: LocationDao,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val alarmDao: AlarmDao,
-        private val tagDao: TagDao,
-        private val filterDao: FilterDao,
-        private val taskAttachmentDao: TaskAttachmentDao,
-        private val caldavDao: CaldavDao,
-        private val preferences: Preferences,
-        private val taskMover: TaskMover,
-        private val taskListMetadataDao: TaskListMetadataDao,
-        private val vtodoCache: VtodoCache,
-        private val filterCriteriaProvider: FilterCriteriaProvider,
+    private val tagDataDao: TagDataDao,
+    private val userActivityDao: UserActivityDao,
+    private val taskDao: TaskDao,
+    private val locationDao: LocationDao,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val alarmDao: AlarmDao,
+    private val tagDao: TagDao,
+    private val filterDao: FilterDao,
+    private val taskAttachmentDao: TaskAttachmentDao,
+    private val caldavDao: CaldavDao,
+    private val preferences: Preferences,
+    private val taskMover: TaskMover,
+    private val taskListMetadataDao: TaskListMetadataDao,
+    private val vtodoCache: VtodoCache,
+    private val filterCriteriaProvider: FilterCriteriaProvider,
     ) {
 
     private val result = ImportResult()

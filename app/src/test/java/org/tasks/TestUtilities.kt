@@ -3,12 +3,12 @@ package org.tasks
 import android.content.Context
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import com.squareup.moshi.Moshi
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import kotlinx.coroutines.runBlocking
 import org.tasks.caldav.applyRemote
 import org.tasks.caldav.iCalendar.Companion.reminders
-import org.tasks.data.Alarm
-import org.tasks.data.CaldavTask
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.CaldavTask
 import org.tasks.preferences.Preferences
 import org.tasks.sync.microsoft.MicrosoftConverter.applyRemote
 import org.tasks.sync.microsoft.Tasks

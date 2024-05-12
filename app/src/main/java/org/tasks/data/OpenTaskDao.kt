@@ -13,8 +13,10 @@ import org.dmfs.tasks.contract.TaskContract.*
 import org.dmfs.tasks.contract.TaskContract.Properties
 import org.json.JSONObject
 import org.tasks.R
-import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
-import org.tasks.data.CaldavAccount.Companion.openTaskType
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
+import org.tasks.data.entity.CaldavAccount.Companion.openTaskType
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavCalendar
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject

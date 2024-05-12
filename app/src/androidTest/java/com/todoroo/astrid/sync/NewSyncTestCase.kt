@@ -1,9 +1,9 @@
 package com.todoroo.astrid.sync
 
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.TagData
+import org.tasks.data.dao.TagDataDao
 import org.tasks.injection.InjectingTestCase
 import javax.inject.Inject
 

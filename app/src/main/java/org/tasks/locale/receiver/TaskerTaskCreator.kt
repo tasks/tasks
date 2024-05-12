@@ -1,12 +1,12 @@
 package org.tasks.locale.receiver
 
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
-import org.tasks.data.AlarmDao
+import org.tasks.data.dao.AlarmDao
 import org.tasks.data.createDueDate
 import org.tasks.locale.bundle.TaskCreationBundle
 import org.tasks.time.DateTime
@@ -20,10 +20,10 @@ import kotlin.math.max
 import kotlin.math.min
 
 class TaskerTaskCreator @Inject internal constructor(
-        private val taskCreator: TaskCreator,
-        private val taskDao: TaskDao,
-        private val firebase: Firebase,
-        private val alarmDao: AlarmDao,
+    private val taskCreator: TaskCreator,
+    private val taskDao: TaskDao,
+    private val firebase: Firebase,
+    private val alarmDao: AlarmDao,
 ) {
     suspend fun handle(bundle: TaskCreationBundle) {
         val task = taskCreator.basicQuickAddTask(bundle.title)

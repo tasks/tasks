@@ -1,13 +1,14 @@
 package org.tasks.data
 
-import com.todoroo.andlib.sql.Field.Companion.field
-import com.todoroo.andlib.sql.Join
-import com.todoroo.andlib.sql.Query
+import org.tasks.data.sql.Field.Companion.field
+import org.tasks.data.sql.Join
+import org.tasks.data.sql.Query
 import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Tag
+import org.tasks.data.entity.Task
 import org.tasks.filters.RecentlyModifiedFilter
 import org.tasks.preferences.QueryPreferences
 

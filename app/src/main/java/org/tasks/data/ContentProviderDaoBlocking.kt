@@ -2,8 +2,10 @@ package org.tasks.data
 
 import android.database.Cursor
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import kotlinx.coroutines.runBlocking
+import org.tasks.data.dao.ContentProviderDao
+import org.tasks.data.entity.TagData
 import javax.inject.Inject
 
 @Deprecated("use coroutines")

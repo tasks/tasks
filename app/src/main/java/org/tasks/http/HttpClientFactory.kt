@@ -12,7 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.DebugNetworkInterceptor
 import org.tasks.caldav.TasksCookieJar
-import org.tasks.data.CaldavAccount
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.extensions.Context.cookiePersistor
 import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption

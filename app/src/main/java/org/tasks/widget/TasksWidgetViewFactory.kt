@@ -14,7 +14,7 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.TaskContainer
-import org.tasks.data.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.data.hasNotes
 import org.tasks.data.isHidden

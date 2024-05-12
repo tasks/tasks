@@ -1,7 +1,10 @@
 package org.tasks.data
 
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.tasks.R
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Place
 import org.tasks.preferences.Preferences
 
 suspend fun LocationDao.getLocation(task: Task, preferences: Preferences): Location? {

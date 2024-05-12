@@ -1,7 +1,7 @@
 package org.tasks.location
 
 import androidx.appcompat.app.AppCompatActivity
-import org.tasks.data.Place
+import org.tasks.data.entity.Place
 
 interface MapFragment {
     fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean)

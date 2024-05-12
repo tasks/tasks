@@ -14,7 +14,7 @@ import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.R
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.TaskEditRow
-import org.tasks.data.UserActivity
+import org.tasks.data.entity.UserActivity
 import java.util.*
 
 @Composable

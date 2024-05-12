@@ -13,8 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.LocationDao
-import org.tasks.data.Place
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Place
 import org.tasks.data.mapPosition
 import org.tasks.databinding.ActivityLocationSettingsBinding
 import org.tasks.extensions.formatNumber

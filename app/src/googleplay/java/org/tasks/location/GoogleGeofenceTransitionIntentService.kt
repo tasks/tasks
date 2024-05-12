@@ -7,7 +7,7 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.Notifier
-import org.tasks.data.LocationDao
+import org.tasks.data.dao.LocationDao
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber

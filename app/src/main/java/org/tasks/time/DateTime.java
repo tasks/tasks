@@ -11,7 +11,7 @@ import static java.util.Calendar.WEDNESDAY;
 
 import net.fortuna.ical4j.model.WeekDay;
 
-import org.tasks.data.CaldavDao;
+import org.tasks.data.dao.CaldavDao;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

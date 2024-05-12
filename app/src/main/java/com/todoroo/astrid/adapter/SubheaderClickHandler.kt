@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.CaldavDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader

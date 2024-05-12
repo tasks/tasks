@@ -2,7 +2,7 @@
 
 package com.todoroo.astrid.service
 
-import org.tasks.data.FilterDao
+import org.tasks.data.dao.FilterDao
 import org.tasks.filters.FilterCriteriaProvider
 import javax.inject.Inject
 

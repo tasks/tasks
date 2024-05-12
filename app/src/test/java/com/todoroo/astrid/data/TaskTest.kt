@@ -9,6 +9,7 @@ import org.junit.Test
 import org.tasks.Freeze
 import org.tasks.Freeze.Companion.freezeAt
 import org.tasks.data.createDueDate
+import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
 import org.tasks.data.isOverdue
 import org.tasks.date.DateTimeUtils

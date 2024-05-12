@@ -4,6 +4,8 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Ignore
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Place
 import java.io.Serializable
 
 data class Location(

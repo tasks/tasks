@@ -30,10 +30,10 @@ import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.compose.throttleLatest
-import org.tasks.data.DeletionDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.dao.DeletionDao
+import org.tasks.data.entity.Task
 import org.tasks.data.TaskContainer
-import org.tasks.data.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.data.fetchTasks
 import org.tasks.db.QueryUtils

@@ -1,7 +1,7 @@
 package org.tasks.db
 
-import com.todoroo.andlib.sql.Functions
-import com.todoroo.astrid.data.Task
+import org.tasks.data.sql.Functions
+import org.tasks.data.entity.Task
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

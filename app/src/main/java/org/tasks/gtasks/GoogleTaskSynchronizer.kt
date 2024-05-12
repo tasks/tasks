@@ -22,6 +22,13 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.data.*
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.dao.GoogleTaskListDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.googleapis.InvokerFactory
 import org.tasks.preferences.DefaultFilterProvider
@@ -40,23 +47,23 @@ import javax.net.ssl.SSLException
 import kotlin.math.max
 
 class GoogleTaskSynchronizer @Inject constructor(
-        @param:ApplicationContext private val context: Context,
-        private val googleTaskListDao: GoogleTaskListDao,
-        private val caldavDao: CaldavDao,
-        private val gtasksListService: GtasksListService,
-        private val preferences: Preferences,
-        private val taskDao: TaskDao,
-        private val firebase: Firebase,
-        private val googleTaskDao: GoogleTaskDao,
-        private val taskCreator: TaskCreator,
-        private val defaultFilterProvider: DefaultFilterProvider,
-        private val permissionChecker: PermissionChecker,
-        private val googleAccountManager: GoogleAccountManager,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val inventory: Inventory,
-        private val taskDeleter: TaskDeleter,
-        private val invokers: InvokerFactory,
-        private val alarmDao: AlarmDao,
+    @param:ApplicationContext private val context: Context,
+    private val googleTaskListDao: GoogleTaskListDao,
+    private val caldavDao: CaldavDao,
+    private val gtasksListService: GtasksListService,
+    private val preferences: Preferences,
+    private val taskDao: TaskDao,
+    private val firebase: Firebase,
+    private val googleTaskDao: GoogleTaskDao,
+    private val taskCreator: TaskCreator,
+    private val defaultFilterProvider: DefaultFilterProvider,
+    private val permissionChecker: PermissionChecker,
+    private val googleAccountManager: GoogleAccountManager,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val inventory: Inventory,
+    private val taskDeleter: TaskDeleter,
+    private val invokers: InvokerFactory,
+    private val alarmDao: AlarmDao,
 ) {
     suspend fun sync(account: CaldavAccount, i: Int) {
         Timber.d("%s: start sync", account)
@@ -176,7 +183,7 @@ class GoogleTaskSynchronizer @Inject constructor(
     }
 
     @Throws(IOException::class)
-    private suspend fun pushTask(task: com.todoroo.astrid.data.Task, gtasksInvoker: GtasksInvoker) {
+    private suspend fun pushTask(task: org.tasks.data.entity.Task, gtasksInvoker: GtasksInvoker) {
         for (deleted in googleTaskDao.getDeletedByTaskId(task.id)) {
             deleted.remoteId?.let {
                 try {
@@ -307,7 +314,7 @@ class GoogleTaskSynchronizer @Inject constructor(
         for (gtask in tasks) {
             val remoteId = gtask.id
             var googleTask = googleTaskDao.getByRemoteId(remoteId)
-            var task: com.todoroo.astrid.data.Task? = null
+            var task: org.tasks.data.entity.Task? = null
             if (googleTask == null) {
                 googleTask = CaldavTask(
                     task = 0,
@@ -347,7 +354,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             task.title = getTruncatedValue(task.title, gtask.title, MAX_TITLE_LENGTH)
             task.completionDate = GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtask.completed?.let(::DateTime))
             val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due?.let(::DateTime))
-            mergeDates(createDueDate(com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
+            mergeDates(createDueDate(org.tasks.data.entity.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
             task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
             googleTask.calendar = listId
             if (task.title?.isNotBlank() == true || task.notes?.isNotBlank() == true) {
@@ -361,13 +368,13 @@ class GoogleTaskSynchronizer @Inject constructor(
         )
     }
 
-    private suspend fun setOrderAndParent(googleTask: CaldavTask, task: Task, local: com.todoroo.astrid.data.Task) {
+    private suspend fun setOrderAndParent(googleTask: CaldavTask, task: Task, local: org.tasks.data.entity.Task) {
         task.position?.toLongOrNull()?.let { googleTask.remoteOrder = it }
         googleTask.remoteParent = task.parent?.takeIf { it.isNotBlank() }
         local.parent = googleTask.remoteParent?.let { googleTaskDao.getTask(it) } ?: 0L
     }
 
-    private suspend fun write(task: com.todoroo.astrid.data.Task, googleTask: CaldavTask) {
+    private suspend fun write(task: org.tasks.data.entity.Task, googleTask: CaldavTask) {
         task.suppressSync()
         task.suppressRefresh()
         if (task.isNew) {
@@ -401,7 +408,7 @@ class GoogleTaskSynchronizer @Inject constructor(
             }
         }
 
-        fun mergeDates(remoteDueDate: Long, local: com.todoroo.astrid.data.Task?) {
+        fun mergeDates(remoteDueDate: Long, local: org.tasks.data.entity.Task?) {
             if (remoteDueDate > 0 && local!!.hasDueTime()) {
                 val oldDate = newDateTime(local.dueDate)
                 val newDate = newDateTime(remoteDueDate)
@@ -409,7 +416,7 @@ class GoogleTaskSynchronizer @Inject constructor(
                         .withMinuteOfHour(oldDate.minuteOfHour)
                         .withSecondOfMinute(oldDate.secondOfMinute)
                 local.setDueDateAdjustingHideUntil(
-                        createDueDate(com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME, newDate.millis))
+                        createDueDate(org.tasks.data.entity.Task.URGENCY_SPECIFIC_DAY_TIME, newDate.millis))
             } else {
                 local!!.setDueDateAdjustingHideUntil(remoteDueDate)
             }

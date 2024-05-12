@@ -8,8 +8,8 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
-import org.tasks.data.LocationDao
-import org.tasks.data.Place
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Place
 import org.tasks.data.mapPosition
 import org.tasks.injection.BaseWorker
 import org.tasks.location.Geocoder
@@ -22,7 +22,8 @@ class ReverseGeocodeWork @AssistedInject constructor(
         firebase: Firebase,
         private val localBroadcastManager: LocalBroadcastManager,
         private val geocoder: Geocoder,
-        private val locationDao: LocationDao) : BaseWorker(context, workerParams, firebase) {
+        private val locationDao: LocationDao
+) : BaseWorker(context, workerParams, firebase) {
 
     override suspend fun run(): Result {
         val id = inputData.getLong(PLACE_ID, 0)

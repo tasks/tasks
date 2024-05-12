@@ -2,7 +2,7 @@ package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
@@ -10,7 +10,12 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.caldav.GeoUtils.toLikeString
-import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Place
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule

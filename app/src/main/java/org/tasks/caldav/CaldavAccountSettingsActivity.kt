@@ -5,11 +5,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.analytics.Constants
-import org.tasks.data.CaldavAccount
+import org.tasks.data.entity.CaldavAccount
 import timber.log.Timber
 
 @AndroidEntryPoint

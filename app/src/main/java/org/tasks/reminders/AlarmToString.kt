@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.R
-import org.tasks.data.Alarm
+import org.tasks.data.entity.Alarm
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import kotlin.math.absoluteValue

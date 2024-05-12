@@ -30,11 +30,11 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.data.CaldavDao
-import org.tasks.data.FilterDao
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.LocationDao
-import org.tasks.data.TagDataDao
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.FilterDao
+import org.tasks.data.dao.GoogleTaskListDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.data.listSettingsClass
 import org.tasks.databinding.ActivityTagOrganizerBinding
 import org.tasks.filters.FilterProvider

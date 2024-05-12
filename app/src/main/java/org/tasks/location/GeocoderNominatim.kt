@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.Request
 import org.tasks.BuildConfig
 import org.tasks.R
-import org.tasks.data.Place
+import org.tasks.data.entity.Place
 import org.tasks.extensions.JsonObject.getOrNull
 import org.tasks.extensions.JsonObject.getStringOrNull
 import org.tasks.http.HttpClientFactory

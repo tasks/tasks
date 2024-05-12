@@ -3,10 +3,10 @@
 package org.tasks.caldav
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
-import com.todoroo.astrid.data.Task.Priority.Companion.HIGH
-import com.todoroo.astrid.data.Task.Priority.Companion.LOW
-import com.todoroo.astrid.data.Task.Priority.Companion.MEDIUM
+import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY
+import org.tasks.data.entity.Task.Priority.Companion.HIGH
+import org.tasks.data.entity.Task.Priority.Companion.LOW
+import org.tasks.data.entity.Task.Priority.Companion.MEDIUM
 import net.fortuna.ical4j.model.property.Status
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

@@ -6,7 +6,7 @@ import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.data.Task.Companion.NO_ID
+import org.tasks.data.entity.Task.Companion.NO_ID
 import org.tasks.data.TaskContainer
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.makers.Maker.make

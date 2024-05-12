@@ -2,6 +2,7 @@ package org.tasks.data
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.tasks.data.entity.Principal
 
 class PrincipalTest {
     @Test

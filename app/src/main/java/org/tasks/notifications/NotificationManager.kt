@@ -12,11 +12,11 @@ import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.Alarm
-import org.tasks.data.LocationDao
-import org.tasks.data.Notification
-import org.tasks.data.NotificationDao
-import org.tasks.data.TaskDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Notification
+import org.tasks.data.dao.NotificationDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.intents.TaskIntents
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.PermissionChecker

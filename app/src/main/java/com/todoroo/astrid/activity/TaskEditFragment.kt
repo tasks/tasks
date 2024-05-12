@@ -47,7 +47,7 @@ import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.tags.TagsControlSet
@@ -71,10 +71,10 @@ import org.tasks.compose.edit.DueDateRow
 import org.tasks.compose.edit.InfoRow
 import org.tasks.compose.edit.ListRow
 import org.tasks.compose.edit.PriorityRow
-import org.tasks.data.Alarm
+import org.tasks.data.entity.Alarm
 import org.tasks.data.Location
-import org.tasks.data.TagData
-import org.tasks.data.UserActivityDao
+import org.tasks.data.entity.TagData
+import org.tasks.data.dao.UserActivityDao
 import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.databinding.TaskEditCalendarBinding
 import org.tasks.databinding.TaskEditFilesBinding

@@ -5,7 +5,7 @@ import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
-import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
+import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.jobs.AlarmEntry
 import org.tasks.makers.Maker.make

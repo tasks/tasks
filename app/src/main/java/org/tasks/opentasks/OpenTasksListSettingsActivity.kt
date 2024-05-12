@@ -5,8 +5,8 @@ import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
 
 @AndroidEntryPoint
 class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
@@ -22,7 +22,7 @@ class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
     override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) {}
 
     override suspend fun updateNameAndColor(
-            account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
+        account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
             updateCalendar()
 
     override suspend fun deleteCalendar(caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar) {}

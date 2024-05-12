@@ -1,7 +1,7 @@
 package org.tasks.sync.microsoft
 
 import com.squareup.moshi.Json
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.entity.CaldavCalendar
 
 data class TaskLists(
     @field:Json(name = "@odata.context") val context: String,

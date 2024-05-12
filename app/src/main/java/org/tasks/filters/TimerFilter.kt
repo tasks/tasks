@@ -1,10 +1,10 @@
 package org.tasks.filters
 
-import com.todoroo.andlib.sql.Criterion
-import com.todoroo.andlib.sql.QueryTemplate
+import org.tasks.data.sql.Criterion
+import org.tasks.data.sql.QueryTemplate
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import kotlinx.parcelize.Parcelize
 import org.tasks.R
 

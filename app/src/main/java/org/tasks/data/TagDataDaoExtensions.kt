@@ -1,5 +1,7 @@
 package org.tasks.data
 
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.TagData
 import org.tasks.filters.AlphanumComparator
 
 suspend fun TagDataDao.searchTags(query: String): List<TagData> = searchTagsInternal("%$query%").sort()

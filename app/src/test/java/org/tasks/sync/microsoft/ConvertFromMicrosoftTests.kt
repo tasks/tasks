@@ -1,7 +1,7 @@
 package org.tasks.sync.microsoft
 
 import com.natpryce.makeiteasy.MakeItEasy
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -32,12 +32,12 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.ui.ReminderControlSetViewModel.ViewState
 import kotlinx.coroutines.android.awaitFrame
 import org.tasks.R
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_DATE_TIME
-import org.tasks.data.Alarm.Companion.TYPE_RANDOM
-import org.tasks.data.Alarm.Companion.TYPE_REL_END
-import org.tasks.data.Alarm.Companion.TYPE_REL_START
-import org.tasks.data.Alarm.Companion.whenStarted
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
+import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.entity.Alarm.Companion.whenStarted
 import org.tasks.reminders.AlarmToString.Companion.getRepeatString
 import java.util.concurrent.TimeUnit
 

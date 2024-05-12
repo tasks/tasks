@@ -13,7 +13,7 @@ import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
 import at.bitfire.dav4jvm.property.*
 import at.bitfire.dav4jvm.property.ResourceType.Companion.CALENDAR
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl
@@ -29,12 +29,12 @@ import org.tasks.caldav.property.OCInvite
 import org.tasks.caldav.property.OCOwnerPrincipal
 import org.tasks.caldav.property.PropertyUtils.NS_OWNCLOUD
 import org.tasks.caldav.property.ShareAccess
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.SERVER_NEXTCLOUD
-import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
-import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
-import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_NEXTCLOUD
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.ui.DisplayableException
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory

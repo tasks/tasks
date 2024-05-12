@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.tasks.themes.ColorProvider
 import org.tasks.ui.CheckBoxProvider.Companion.getCheckboxRes
 

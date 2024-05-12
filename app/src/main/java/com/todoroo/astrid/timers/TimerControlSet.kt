@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.ui.TimeDurationControlSet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

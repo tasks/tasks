@@ -1,6 +1,6 @@
 package org.tasks.repeats
 
-import com.todoroo.astrid.data.Task.Companion.sanitizeRecur
+import org.tasks.data.entity.Task.Companion.sanitizeRecur
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.property.RRule
 

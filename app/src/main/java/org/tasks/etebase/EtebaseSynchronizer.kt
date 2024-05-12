@@ -10,7 +10,7 @@ import com.etebase.client.exceptions.PermissionDeniedException
 import com.etebase.client.exceptions.ServerErrorException
 import com.etebase.client.exceptions.TemporaryServerErrorException
 import com.etebase.client.exceptions.UnauthorizedException
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.property.ProdId
@@ -22,22 +22,22 @@ import org.tasks.billing.Inventory
 import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
 
 class EtebaseSynchronizer @Inject constructor(
-        @param:ApplicationContext private val context: Context,
-        private val caldavDao: CaldavDao,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val taskDeleter: TaskDeleter,
-        private val inventory: Inventory,
-        private val clientProvider: EtebaseClientProvider,
-        private val iCal: iCalendar,
-        private val vtodoCache: VtodoCache,
+    @param:ApplicationContext private val context: Context,
+    private val caldavDao: CaldavDao,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val taskDeleter: TaskDeleter,
+    private val inventory: Inventory,
+    private val clientProvider: EtebaseClientProvider,
+    private val iCal: iCalendar,
+    private val vtodoCache: VtodoCache,
 ) {
     companion object {
         init {

@@ -1,7 +1,7 @@
 package com.todoroo.astrid.alarms
 
-import com.todoroo.astrid.data.Task
-import org.tasks.data.Alarm
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Alarm
 import org.tasks.jobs.AlarmEntry
 import org.tasks.preferences.Preferences
 import org.tasks.reminders.Random

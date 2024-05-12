@@ -1,11 +1,11 @@
 package org.tasks.sync.microsoft
 
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
 import net.fortuna.ical4j.model.WeekDayList
-import org.tasks.data.CaldavTask
-import org.tasks.data.TagData
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.TagData
 import org.tasks.sync.microsoft.Tasks.Task.RecurrenceDayOfWeek
 import org.tasks.sync.microsoft.Tasks.Task.RecurrenceType
 import org.tasks.time.DateTime

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.UUIDHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.openid.appauth.AuthorizationException
@@ -14,19 +14,19 @@ import net.openid.appauth.GrantTypeValues
 import net.openid.appauth.TokenRequest
 import org.tasks.R
 import org.tasks.caldav.CaldavClientProvider
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.dao.CaldavDao
 import org.tasks.security.KeyStoreEncryption
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-        @ApplicationContext private val context: Context,
-        private val provider: CaldavClientProvider,
-        private val caldavDao: CaldavDao,
-        private val encryption: KeyStoreEncryption,
-        private val debugConnectionBuilder: DebugConnectionBuilder
+    @ApplicationContext private val context: Context,
+    private val provider: CaldavClientProvider,
+    private val caldavDao: CaldavDao,
+    private val encryption: KeyStoreEncryption,
+    private val debugConnectionBuilder: DebugConnectionBuilder
 ) : ViewModel() {
     val error = MutableLiveData<Throwable>()
 

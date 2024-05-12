@@ -12,12 +12,12 @@ import android.net.Uri
 import android.provider.CalendarContract
 import android.text.format.Time
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.calendars.CalendarEventProvider
-import org.tasks.data.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -26,11 +26,11 @@ import java.util.TimeZone
 import javax.inject.Inject
 
 class GCalHelper @Inject constructor(
-        @ApplicationContext private val context: Context,
-        private val taskDao: TaskDao,
-        private val preferences: Preferences,
-        private val permissionChecker: PermissionChecker,
-        private val calendarEventProvider: CalendarEventProvider) {
+    @ApplicationContext private val context: Context,
+    private val taskDao: TaskDao,
+    private val preferences: Preferences,
+    private val permissionChecker: PermissionChecker,
+    private val calendarEventProvider: CalendarEventProvider) {
 
     private val cr: ContentResolver = context.contentResolver
 

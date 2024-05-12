@@ -8,19 +8,19 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarEventProvider
-import org.tasks.data.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.injection.BaseWorker
 import org.tasks.preferences.PermissionChecker
 
 @HiltWorker
 class UpdateCalendarWork @AssistedInject constructor(
-        @Assisted context: Context,
-        @Assisted workerParams: WorkerParameters,
-        firebase: Firebase,
-        private val taskDao: TaskDao,
-        private val gCalHelper: GCalHelper,
-        private val calendarEventProvider: CalendarEventProvider,
-        private val permissionChecker: PermissionChecker
+    @Assisted context: Context,
+    @Assisted workerParams: WorkerParameters,
+    firebase: Firebase,
+    private val taskDao: TaskDao,
+    private val gCalHelper: GCalHelper,
+    private val calendarEventProvider: CalendarEventProvider,
+    private val permissionChecker: PermissionChecker
 ) : BaseWorker(context, workerParams, firebase) {
 
     override suspend fun run(): Result {

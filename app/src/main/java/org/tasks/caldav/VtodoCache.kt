@@ -1,9 +1,9 @@
 package org.tasks.caldav
 
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton

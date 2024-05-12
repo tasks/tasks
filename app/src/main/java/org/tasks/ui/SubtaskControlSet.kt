@@ -9,12 +9,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.composethemeadapter.MdcTheme
-import com.todoroo.andlib.sql.Criterion
-import com.todoroo.andlib.sql.QueryTemplate
+import org.tasks.data.sql.Criterion
+import org.tasks.data.sql.QueryTemplate
 import com.todoroo.astrid.activity.MainActivityViewModel
 import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,8 +22,8 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.SubtaskRow
-import org.tasks.data.GoogleTaskDao
-import org.tasks.data.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.themes.ColorProvider

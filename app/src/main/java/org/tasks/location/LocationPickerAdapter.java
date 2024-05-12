@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.data.Place;
+import org.tasks.data.entity.Place;
 import org.tasks.data.PlaceUsage;
 import org.tasks.location.LocationPickerAdapter.PlaceViewHolder;
 import org.tasks.themes.ColorProvider;

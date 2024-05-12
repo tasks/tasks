@@ -7,17 +7,17 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
-import org.tasks.data.CaldavAccount.Companion.TYPE_ETEBASE
-import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
-import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
-import org.tasks.data.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.CaldavDao
-import com.todoroo.astrid.data.FORCE_CALDAV_SYNC
-import org.tasks.data.GoogleTaskDao
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.FORCE_CALDAV_SYNC
+import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.OpenTaskDao
-import com.todoroo.astrid.data.SUPPRESS_SYNC
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.SUPPRESS_SYNC
+import org.tasks.data.entity.Task
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
 import org.tasks.preferences.Preferences
@@ -27,12 +27,12 @@ import javax.inject.Singleton
 
 @Singleton
 class SyncAdapters @Inject constructor(
-        workManager: WorkManager,
-        private val caldavDao: CaldavDao,
-        private val googleTaskDao: GoogleTaskDao,
-        private val openTaskDao: OpenTaskDao,
-        private val preferences: Preferences,
-        private val localBroadcastManager: LocalBroadcastManager
+    workManager: WorkManager,
+    private val caldavDao: CaldavDao,
+    private val googleTaskDao: GoogleTaskDao,
+    private val openTaskDao: OpenTaskDao,
+    private val preferences: Preferences,
+    private val localBroadcastManager: LocalBroadcastManager
 ) {
     private val scope = CoroutineScope(newSingleThreadExecutor().asCoroutineDispatcher() + SupervisorJob())
     private val sync = Debouncer(TAG_SYNC) { workManager.sync(it) }

@@ -39,7 +39,7 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
-import org.tasks.data.TaskAttachment
+import org.tasks.data.entity.TaskAttachment
 import org.tasks.files.FileHelper
 
 private val SIZE = 128.dp

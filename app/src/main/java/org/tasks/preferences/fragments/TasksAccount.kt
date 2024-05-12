@@ -28,9 +28,9 @@ import org.tasks.auth.SignInActivity
 import org.tasks.auth.SignInActivity.Platform
 import org.tasks.billing.Inventory
 import org.tasks.billing.Purchase
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.isPaymentRequired
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
+import org.tasks.data.dao.CaldavDao
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager

@@ -1,10 +1,10 @@
 package org.tasks.jobs
 
 import android.net.Uri
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.tasks.BuildConfig
-import org.tasks.data.CaldavAccount
-import org.tasks.data.Place
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.Place
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 interface WorkManager {

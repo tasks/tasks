@@ -6,7 +6,7 @@
 
 package com.todoroo.astrid.core;
 
-import static org.tasks.data.CaldavDaoKt.APPLE_EPOCH;
+import static org.tasks.data.dao.CaldavDaoKt.APPLE_EPOCH;
 import static org.tasks.db.QueryUtils.showCompleted;
 import static org.tasks.db.QueryUtils.showHidden;
 
@@ -14,12 +14,12 @@ import android.annotation.SuppressLint;
 
 import androidx.annotation.Nullable;
 
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.OrderType;
-import com.todoroo.astrid.data.Task;
+import org.tasks.data.sql.Functions;
+import org.tasks.data.sql.Order;
+import org.tasks.data.sql.OrderType;
+import org.tasks.data.entity.Task;
 
-import org.tasks.data.CaldavCalendar;
+import org.tasks.data.entity.CaldavCalendar;
 import org.tasks.preferences.QueryPreferences;
 
 import java.util.Locale;

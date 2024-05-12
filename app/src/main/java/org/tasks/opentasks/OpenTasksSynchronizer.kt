@@ -3,8 +3,8 @@ package org.tasks.opentasks
 import android.content.Context
 import at.bitfire.ical4android.BatchOperation
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.NO_ID
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.NO_ID
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
@@ -15,10 +15,10 @@ import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
-import org.tasks.data.CaldavTask
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavTask
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.OpenTaskDao.Companion.filterActive
@@ -32,15 +32,15 @@ import javax.inject.Singleton
 
 @Singleton
 class OpenTasksSynchronizer @Inject constructor(
-        @ApplicationContext private val context: Context,
-        private val caldavDao: CaldavDao,
-        private val taskDeleter: TaskDeleter,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val taskDao: TaskDao,
-        private val firebase: Firebase,
-        private val iCalendar: iCalendar,
-        private val openTaskDao: OpenTaskDao,
-        private val inventory: Inventory) {
+    @ApplicationContext private val context: Context,
+    private val caldavDao: CaldavDao,
+    private val taskDeleter: TaskDeleter,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val taskDao: TaskDao,
+    private val firebase: Firebase,
+    private val iCalendar: iCalendar,
+    private val openTaskDao: OpenTaskDao,
+    private val inventory: Inventory) {
 
     suspend fun sync() {
         val lists = openTaskDao.getListsByAccount().filterActive(caldavDao)

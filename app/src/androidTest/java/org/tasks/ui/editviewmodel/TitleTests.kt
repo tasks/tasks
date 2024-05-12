@@ -1,7 +1,7 @@
 package org.tasks.ui.editviewmodel
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.data.Task.Priority.Companion.HIGH
+import org.tasks.data.entity.Task.Priority.Companion.HIGH
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking

@@ -14,18 +14,18 @@ import org.tasks.R
 import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.TYPE_ETESYNC
-import org.tasks.data.CaldavAccount.Companion.TYPE_LOCAL
-import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
-import org.tasks.data.CaldavDao
-import org.tasks.data.FilterDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETESYNC
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.FilterDao
 import org.tasks.data.GoogleTaskFilters
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.data.LocationDao
+import org.tasks.data.dao.GoogleTaskListDao
+import org.tasks.data.dao.LocationDao
 import org.tasks.data.LocationFilters
 import org.tasks.data.NO_ORDER
-import org.tasks.data.TagDataDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.data.TagFilters
 import org.tasks.data.listSettingsClass
 import org.tasks.data.setupLocalAccount
@@ -38,14 +38,14 @@ import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
 class FilterProvider @Inject constructor(
-        @param:ApplicationContext private val context: Context,
-        private val builtInFilterExposer: BuiltInFilterExposer,
-        private val filterDao: FilterDao,
-        private val tagDataDao: TagDataDao,
-        private val googleTaskListDao: GoogleTaskListDao,
-        private val caldavDao: CaldavDao,
-        private val preferences: Preferences,
-        private val locationDao: LocationDao
+    @param:ApplicationContext private val context: Context,
+    private val builtInFilterExposer: BuiltInFilterExposer,
+    private val filterDao: FilterDao,
+    private val tagDataDao: TagDataDao,
+    private val googleTaskListDao: GoogleTaskListDao,
+    private val caldavDao: CaldavDao,
+    private val preferences: Preferences,
+    private val locationDao: LocationDao
 ) {
     suspend fun listPickerItems(): List<FilterListItem> =
             caldavFilters(false)

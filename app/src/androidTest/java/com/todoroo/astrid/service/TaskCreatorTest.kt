@@ -3,10 +3,10 @@ package com.todoroo.astrid.service
 import com.todoroo.astrid.api.PermaSql.VALUE_EOD
 import com.todoroo.astrid.api.PermaSql.VALUE_EOD_NEXT_WEEK
 import com.todoroo.astrid.api.PermaSql.VALUE_EOD_TOMORROW
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.data.Task.Companion.DUE_DATE
-import com.todoroo.astrid.data.Task.Companion.HIDE_UNTIL
-import com.todoroo.astrid.data.Task.Companion.URGENCY_SPECIFIC_DAY
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.DUE_DATE
+import org.tasks.data.entity.Task.Companion.HIDE_UNTIL
+import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking

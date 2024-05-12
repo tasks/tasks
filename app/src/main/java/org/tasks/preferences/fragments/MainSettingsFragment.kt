@@ -21,7 +21,7 @@ import org.tasks.billing.Purchase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
-import org.tasks.data.CaldavAccount
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.accountSettingsClass
 import org.tasks.data.prefIcon
 import org.tasks.data.prefTitle

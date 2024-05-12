@@ -21,8 +21,8 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.AttachmentRow
-import org.tasks.data.TaskAttachment
-import org.tasks.data.TaskAttachmentDao
+import org.tasks.data.entity.TaskAttachment
+import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.dialogs.AddAttachmentDialog
 import org.tasks.files.FileHelper
 import org.tasks.preferences.Preferences

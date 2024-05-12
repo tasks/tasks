@@ -3,9 +3,9 @@ package org.tasks.preferences
 import android.annotation.SuppressLint
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.todoroo.astrid.data.Task.Companion.NOTIFY_AFTER_DEADLINE
-import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_DEADLINE
-import com.todoroo.astrid.data.Task.Companion.NOTIFY_AT_START
+import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
+import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
+import org.tasks.data.entity.Task.Companion.NOTIFY_AT_START
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

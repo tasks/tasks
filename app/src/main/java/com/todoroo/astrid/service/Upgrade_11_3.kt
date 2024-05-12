@@ -6,15 +6,15 @@ import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.apply
 import org.tasks.data.OpenTaskDao
-import org.tasks.data.TaskDao
-import org.tasks.data.UpgraderDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.dao.UpgraderDao
 import javax.inject.Inject
 
 class Upgrade_11_3 @Inject constructor(
-        private val upgraderDao: UpgraderDao,
-        private val openTaskDao: OpenTaskDao,
-        private val taskDao: TaskDao,
-        private val vtodoCache: VtodoCache,
+    private val upgraderDao: UpgraderDao,
+    private val openTaskDao: OpenTaskDao,
+    private val taskDao: TaskDao,
+    private val vtodoCache: VtodoCache,
 ) {
     internal suspend fun applyiCalendarStartDates() {
         val (hasStartDate, noStartDate) =

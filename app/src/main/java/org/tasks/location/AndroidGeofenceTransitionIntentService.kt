@@ -6,7 +6,7 @@ import android.content.Intent
 import android.location.LocationManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.Notifier
-import org.tasks.data.LocationDao
+import org.tasks.data.dao.LocationDao
 import org.tasks.injection.InjectingJobIntentService
 import timber.log.Timber
 import javax.inject.Inject

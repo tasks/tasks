@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.tasks.Event
-import org.tasks.data.Place
+import org.tasks.data.entity.Place
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,10 +17,10 @@ class PlaceSearchViewModel @Inject constructor(
     private val selection = MutableLiveData<Place>()
 
     fun observe(
-            owner: LifecycleOwner?,
-            onResults: Observer<List<PlaceSearchResult>>?,
-            onSelection: Observer<Place>?,
-            onError: Observer<Event<String>>?) {
+        owner: LifecycleOwner?,
+        onResults: Observer<List<PlaceSearchResult>>?,
+        onSelection: Observer<Place>?,
+        onError: Observer<Event<String>>?) {
         searchResults.observe(owner!!, onResults!!)
         selection.observe(owner, onSelection!!)
         error.observe(owner, onError!!)

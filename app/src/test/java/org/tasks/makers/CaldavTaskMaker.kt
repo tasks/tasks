@@ -4,8 +4,8 @@ import com.natpryce.makeiteasy.Instantiator
 import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.helper.UUIDHelper
-import org.tasks.data.CaldavTask
+import org.tasks.data.UUIDHelper
+import org.tasks.data.entity.CaldavTask
 import org.tasks.makers.Maker.make
 
 object CaldavTaskMaker {

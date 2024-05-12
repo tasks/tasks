@@ -8,14 +8,14 @@ package com.todoroo.astrid.dao
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.timers.TimerPlugin
 import org.tasks.LocalBroadcastManager
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import org.tasks.data.TaskContainer
-import org.tasks.data.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.fetchFiltered
 import org.tasks.data.fetchTasks
 import org.tasks.data.setCollapsed
 import org.tasks.date.DateTimeUtils.isAfterNow
-import org.tasks.db.SuspendDbUtils.eachChunk
+import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
@@ -24,13 +24,13 @@ import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
 class TaskDao @Inject constructor(
-        private val taskDao: TaskDao,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val notificationManager: NotificationManager,
-        private val geofenceApi: GeofenceApi,
-        private val timerPlugin: TimerPlugin,
-        private val syncAdapters: SyncAdapters,
-        private val workManager: WorkManager,
+    private val taskDao: TaskDao,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val notificationManager: NotificationManager,
+    private val geofenceApi: GeofenceApi,
+    private val timerPlugin: TimerPlugin,
+    private val syncAdapters: SyncAdapters,
+    private val workManager: WorkManager,
 ) {
 
     suspend fun fetch(id: Long): Task? = taskDao.fetch(id)

@@ -2,9 +2,11 @@ package org.tasks.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
-import com.todoroo.astrid.data.Task
-import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
-import org.tasks.data.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.CaldavTask
 
 data class TaskContainer(
     @Embedded val task: Task,

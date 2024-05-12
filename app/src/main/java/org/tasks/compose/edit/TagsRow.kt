@@ -13,7 +13,7 @@ import org.tasks.compose.Chip
 import org.tasks.compose.ChipGroup
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
-import org.tasks.data.TagData
+import org.tasks.data.entity.TagData
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons
 

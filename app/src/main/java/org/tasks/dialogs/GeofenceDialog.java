@@ -17,7 +17,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import org.tasks.R;
-import org.tasks.data.Geofence;
+import org.tasks.data.entity.Geofence;
 import org.tasks.data.Location;
 import org.tasks.databinding.LocationDetailsBinding;
 import org.tasks.preferences.PermissionChecker;

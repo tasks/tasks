@@ -9,6 +9,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.CaldavTask
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskContainerMaker

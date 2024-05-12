@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.data.CaldavDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.dialogs.FilterPicker.Companion.EXTRA_LISTS_ONLY
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader

@@ -5,7 +5,7 @@ import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
-import org.tasks.data.TagData
+import org.tasks.data.entity.TagData
 import org.tasks.makers.Maker.make
 
 object TagDataMaker {

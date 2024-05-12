@@ -1,10 +1,12 @@
 package org.tasks.data
 
 import android.content.Context
-import com.todoroo.astrid.helper.UUIDHelper
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.tasks.R
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
 
 private val mutex = Mutex()
 

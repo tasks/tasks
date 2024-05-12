@@ -12,8 +12,8 @@ import at.bitfire.dav4jvm.property.*
 import at.bitfire.dav4jvm.property.GetETag.Companion.fromResponse
 import at.bitfire.ical4android.ICalendar.Companion.prodId
 import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.data.Task
-import com.todoroo.astrid.helper.UUIDHelper
+import org.tasks.data.entity.Task
+import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.property.ProdId
@@ -35,22 +35,27 @@ import org.tasks.caldav.property.ShareAccess.Companion.NO_ACCESS
 import org.tasks.caldav.property.ShareAccess.Companion.READ
 import org.tasks.caldav.property.ShareAccess.Companion.READ_WRITE
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
-import org.tasks.data.*
-import org.tasks.data.CaldavAccount.Companion.ERROR_UNAUTHORIZED
-import org.tasks.data.CaldavAccount.Companion.SERVER_OPEN_XCHANGE
-import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
-import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
-import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
-import org.tasks.data.CaldavAccount.Companion.SERVER_UNKNOWN
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_ONLY
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_READ_WRITE
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_UNKNOWN
-import org.tasks.data.CaldavCalendar.Companion.INVITE_ACCEPTED
-import org.tasks.data.CaldavCalendar.Companion.INVITE_DECLINED
-import org.tasks.data.CaldavCalendar.Companion.INVITE_INVALID
-import org.tasks.data.CaldavCalendar.Companion.INVITE_NO_RESPONSE
-import org.tasks.data.CaldavCalendar.Companion.INVITE_UNKNOWN
+import org.tasks.data.entity.CaldavAccount.Companion.ERROR_UNAUTHORIZED
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OPEN_XCHANGE
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_UNKNOWN
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_UNKNOWN
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_ACCEPTED
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_DECLINED
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_INVALID
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_NO_RESPONSE
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.PrincipalDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.PrincipalAccess
 import timber.log.Timber
 import java.io.IOException
 import java.net.ConnectException
@@ -62,17 +67,17 @@ import javax.inject.Inject
 import javax.net.ssl.SSLException
 
 class CaldavSynchronizer @Inject constructor(
-        @param:ApplicationContext private val context: Context,
-        private val caldavDao: CaldavDao,
-        private val taskDao: TaskDao,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val taskDeleter: TaskDeleter,
-        private val inventory: Inventory,
-        private val firebase: Firebase,
-        private val provider: CaldavClientProvider,
-        private val iCal: iCalendar,
-        private val principalDao: PrincipalDao,
-        private val vtodoCache: VtodoCache,
+    @param:ApplicationContext private val context: Context,
+    private val caldavDao: CaldavDao,
+    private val taskDao: TaskDao,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val taskDeleter: TaskDeleter,
+    private val inventory: Inventory,
+    private val firebase: Firebase,
+    private val provider: CaldavClientProvider,
+    private val iCal: iCalendar,
+    private val principalDao: PrincipalDao,
+    private val vtodoCache: VtodoCache,
 ) {
     suspend fun sync(account: CaldavAccount) {
         Thread.currentThread().contextClassLoader = context.classLoader
@@ -277,10 +282,10 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     private suspend fun pushLocalChanges(
-            account: CaldavAccount,
-            caldavCalendar: CaldavCalendar,
-            httpClient: OkHttpClient,
-            httpUrl: HttpUrl
+        account: CaldavAccount,
+        caldavCalendar: CaldavCalendar,
+        httpClient: OkHttpClient,
+        httpUrl: HttpUrl
     ) {
         for (task in caldavDao.getMoved(caldavCalendar.uuid!!)) {
             deleteRemoteResource(httpClient, httpUrl, caldavCalendar, task)
@@ -295,10 +300,10 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     private suspend fun deleteRemoteResource(
-            httpClient: OkHttpClient,
-            httpUrl: HttpUrl,
-            calendar: CaldavCalendar,
-            caldavTask: CaldavTask
+        httpClient: OkHttpClient,
+        httpUrl: HttpUrl,
+        calendar: CaldavCalendar,
+        caldavTask: CaldavTask
     ): Boolean {
         try {
             if (!isNullOrEmpty(caldavTask.obj)) {

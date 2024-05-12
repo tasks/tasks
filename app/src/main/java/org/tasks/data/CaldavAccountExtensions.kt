@@ -10,6 +10,7 @@ import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.data.OpenTaskDao.Companion.isDavx5
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
 import org.tasks.data.OpenTaskDao.Companion.isEteSync
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.etebase.EtebaseCalendarSettingsActivity
 import org.tasks.etesync.EteSyncAccountSettingsActivity

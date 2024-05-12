@@ -6,13 +6,13 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCreator
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.analytics.Firebase
-import org.tasks.data.TaskAttachment
+import org.tasks.data.entity.TaskAttachment
 import org.tasks.files.FileHelper
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.Preferences

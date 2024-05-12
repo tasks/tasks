@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.service
 
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.utility.TitleParser
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -16,7 +16,7 @@ import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 import org.tasks.R
-import org.tasks.data.TagDataDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.date.DateTimeUtils
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule

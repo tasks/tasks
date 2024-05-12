@@ -7,8 +7,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.getPassword
 import org.tasks.http.HttpClientFactory
 import org.tasks.security.KeyStoreEncryption
@@ -18,10 +18,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class EtebaseClientProvider @Inject constructor(
-        @ApplicationContext private val context: Context,
-        private val encryption: KeyStoreEncryption,
-        private val caldavDao: CaldavDao,
-        private val httpClientFactory: HttpClientFactory,
+    @ApplicationContext private val context: Context,
+    private val encryption: KeyStoreEncryption,
+    private val caldavDao: CaldavDao,
+    private val httpClientFactory: HttpClientFactory,
 ) {
     @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
     suspend fun forAccount(account: CaldavAccount): EtebaseClient = forUrl(

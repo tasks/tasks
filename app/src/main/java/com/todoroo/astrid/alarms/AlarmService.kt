@@ -6,10 +6,10 @@
 package com.todoroo.astrid.alarms
 
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.Alarm
-import org.tasks.data.Alarm.Companion.TYPE_SNOOZE
-import org.tasks.data.AlarmDao
-import org.tasks.data.TaskDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.jobs.AlarmEntry
 import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationManager

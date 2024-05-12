@@ -31,7 +31,7 @@ import org.tasks.compose.ClearButton
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
 import org.tasks.compose.collectAsStateLifecycleAware
-import org.tasks.data.Alarm
+import org.tasks.data.entity.Alarm
 import org.tasks.reminders.AlarmToString
 import java.util.Locale
 

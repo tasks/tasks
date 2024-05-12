@@ -7,7 +7,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
-import org.tasks.data.TaskDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.date.DateTimeUtils
 import kotlin.math.min
 

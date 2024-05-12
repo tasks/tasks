@@ -43,11 +43,11 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.drawer.TasksMenu
-import org.tasks.data.AlarmDao
-import org.tasks.data.LocationDao
-import org.tasks.data.Place
-import org.tasks.data.TagDataDao
-import com.todoroo.astrid.data.Task
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.entity.Place
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.Task
 import org.tasks.data.getLocation
 import org.tasks.databinding.TaskListActivityBinding
 import org.tasks.dialogs.NewFilterDialog

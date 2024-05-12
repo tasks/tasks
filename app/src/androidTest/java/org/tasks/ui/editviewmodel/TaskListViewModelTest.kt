@@ -1,7 +1,7 @@
 package org.tasks.ui.editviewmodel
 
 import com.todoroo.astrid.core.BuiltInFilterExposer
-import com.todoroo.astrid.data.Task
+import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -13,8 +13,8 @@ import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.data.DeletionDao
-import org.tasks.data.TaskDao
+import org.tasks.data.dao.DeletionDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
