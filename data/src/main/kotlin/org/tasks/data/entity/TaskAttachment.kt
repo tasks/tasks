@@ -4,9 +4,12 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.tasks.data.UUIDHelper
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+import org.tasks.data.UUIDHelper
 
+@Serializable
 @Parcelize
 @Entity(tableName = "attachment_file")
 data class TaskAttachment(

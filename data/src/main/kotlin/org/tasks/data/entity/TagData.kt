@@ -7,9 +7,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.tasks.data.LABEL
 import org.tasks.data.NO_ORDER
 
+@Serializable
 @Entity(tableName = "tagdata")
 class TagData : Parcelable {
     @PrimaryKey(autoGenerate = true)

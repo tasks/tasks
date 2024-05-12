@@ -131,6 +131,7 @@ kotlin-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutab
 kotlin-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.6.2" }
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 locale = { module = "com.github.twofortyfouram:android-plugin-api-for-locale", version.ref = "locale" }
 make-it-easy = { module = "com.natpryce:make-it-easy", version.ref = "make-it-easy" }

@@ -1,6 +1,9 @@
 package org.tasks.data
 
+import kotlinx.serialization.Serializable
+
 @Deprecated("Only used for backup migration")
+@Serializable
 data class GoogleTaskList(
     var account: String? = null,
     var remoteId: String? = null,

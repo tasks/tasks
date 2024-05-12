@@ -7,23 +7,28 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
-import org.tasks.data.db.Table
-import org.tasks.data.sql.Field
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+import kotlinx.serialization.json.JsonNames
+import org.tasks.data.db.Table
+import org.tasks.data.sql.Field
 import timber.log.Timber
 
 const val SUPPRESS_SYNC = "suppress_sync"
 const val FORCE_CALDAV_SYNC = "force_caldav_sync"
 
+@Serializable
 @Parcelize
 @Entity(
         tableName = Task.TABLE_NAME,
         indices = [
             Index(name = "t_rid", value = ["remoteId"], unique = true),
             Index(name = "active_and_visible", value = ["completed", "deleted", "hideUntil"])])
-data class Task(
+data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     @Transient
@@ -53,7 +58,8 @@ data class Task(
     @ColumnInfo(name = "timerStart")
     var timerStart: Long = 0L,
     @ColumnInfo(name = "notificationFlags")
-    @SerializedName("ringFlags", alternate = ["reminderFlags"])
+    @SerialName("ringFlags")
+    @JsonNames("reminderFlags")
     var ringFlags: Int = 0,
     @ColumnInfo(name = "lastNotified")
     var reminderLast: Long = 0L,

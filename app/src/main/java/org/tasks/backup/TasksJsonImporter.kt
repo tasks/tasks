@@ -4,10 +4,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.net.Uri
 import android.os.Handler
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.service.Upgrade_13_2
@@ -16,27 +13,34 @@ import com.todoroo.astrid.service.Upgrader.Companion.V12_4
 import com.todoroo.astrid.service.Upgrader.Companion.V12_8
 import com.todoroo.astrid.service.Upgrader.Companion.V6_4
 import com.todoroo.astrid.service.Upgrader.Companion.getAndroidColor
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.int
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.AlarmDao
-import org.tasks.data.entity.Attachment
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
-import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavTask
 import org.tasks.data.dao.FilterDao
-import org.tasks.data.entity.Geofence
 import org.tasks.data.dao.LocationDao
-import org.tasks.data.entity.Place
-import org.tasks.data.entity.Tag
 import org.tasks.data.dao.TagDao
-import org.tasks.data.entity.TagData
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.data.dao.UserActivityDao
+import org.tasks.data.entity.Attachment
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Place
+import org.tasks.data.entity.Tag
+import org.tasks.data.entity.TagData
+import org.tasks.data.entity.Task
 import org.tasks.db.Migrations.repeatFrom
 import org.tasks.db.Migrations.withoutFrom
 import org.tasks.filters.FilterCriteriaProvider
@@ -78,18 +82,17 @@ class TasksJsonImporter @Inject constructor(
 
     suspend fun importTasks(context: Context, backupFile: Uri?, progressDialog: ProgressDialog?): ImportResult {
         val handler = Handler(context.mainLooper)
-        val gson = Gson()
         val `is`: InputStream? = try {
             context.contentResolver.openInputStream(backupFile!!)
         } catch (e: FileNotFoundException) {
             throw IllegalStateException(e)
         }
         val reader = InputStreamReader(`is`, TasksJsonExporter.UTF_8)
-        val input = gson.fromJson(reader, JsonObject::class.java)
+        val input = Json.parseToJsonElement(reader.readText())
         try {
-            val data = input["data"]
-            val version = input["version"].asInt
-            val backupContainer = gson.fromJson(data, BackupContainer::class.java)
+            val data = input.jsonObject["data"]!!
+            val version = input.jsonObject["version"]!!.jsonPrimitive.int
+            val backupContainer = Json.decodeFromJsonElement<BackupContainer>(data)
             backupContainer.tags?.forEach { tagData ->
                 findTagData(tagData)?.let {
                     return@forEach
@@ -345,6 +348,7 @@ class TasksJsonImporter @Inject constructor(
         var skipCount = 0
     }
 
+    @Serializable
     class LegacyLocation {
         var name: String? = null
         var address: String? = null

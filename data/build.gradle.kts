@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
+    kotlin("plugin.serialization") version "1.9.10"
 }
 
 repositories {
@@ -51,7 +52,7 @@ android {
 dependencies {
     implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.androidx.room)
-    implementation(libs.gson)
+    implementation(libs.kotlinx.serialization)
     implementation(libs.timber)
     ksp(libs.androidx.room.compiler)
 }

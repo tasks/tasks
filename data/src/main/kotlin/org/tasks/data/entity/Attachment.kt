@@ -5,7 +5,11 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+import org.tasks.data.entity.Task.Companion.NO_ID
 
+@Serializable
 @Entity(
     tableName = "attachment",
     foreignKeys = [
@@ -31,10 +35,10 @@ data class Attachment(
     val id: Long? = null,
     @ColumnInfo(name = "task", index = true)
     @Transient
-    val task: Long,
+    val task: Long = NO_ID,
     @ColumnInfo(name = "file", index = true)
     @Transient
-    val fileId: Long,
+    val fileId: Long = NO_ID,
     @ColumnInfo(name = "file_uuid")
     val attachmentUid: String,
 )

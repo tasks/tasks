@@ -6,10 +6,11 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import org.tasks.data.db.Table
 import kotlinx.parcelize.Parcelize
-import java.io.Serializable
+import kotlinx.serialization.Serializable
+import org.tasks.data.db.Table
 
+@Serializable
 @Parcelize
 @Entity(
     tableName = Geofence.TABLE_NAME,
@@ -36,7 +37,7 @@ data class Geofence(
     val isArrival: Boolean = false,
     @ColumnInfo(name = "departure")
     var isDeparture: Boolean = false,
-) : Serializable, Parcelable {
+) : java.io.Serializable, Parcelable {
     @Ignore
     constructor(
         task: Long,

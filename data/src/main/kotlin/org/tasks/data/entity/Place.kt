@@ -6,14 +6,16 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import org.tasks.data.db.Table
-import org.tasks.data.UUIDHelper
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.tasks.data.NO_ORDER
-import java.io.Serializable
+import org.tasks.data.UUIDHelper
+import org.tasks.data.db.Table
 import java.util.regex.Pattern
 import kotlin.math.abs
 
+@Serializable
 @Parcelize
 @Entity(
     tableName = Place.TABLE_NAME,
@@ -48,7 +50,7 @@ data class Place(
     val order: Int = NO_ORDER,
     @ColumnInfo(name = "radius", defaultValue = "250")
     val radius: Int = 250,
-) : Serializable, Parcelable {
+) : java.io.Serializable, Parcelable {
     val displayName: String
         get() {
             if (!name.isNullOrEmpty() && !COORDS.matcher(name!!).matches()) {

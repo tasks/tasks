@@ -7,10 +7,13 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.tasks.data.db.Table
 import org.tasks.time.printTimestamp
 import java.util.concurrent.TimeUnit
 
+@Serializable
 @Entity(
     tableName = Alarm.TABLE_NAME,
     foreignKeys = [

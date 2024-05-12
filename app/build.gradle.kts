@@ -11,6 +11,7 @@ plugins {
     id("com.google.android.gms.oss-licenses-plugin")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+    kotlin("plugin.serialization") version "1.9.10"
 }
 
 repositories {
@@ -215,6 +216,7 @@ dependencies {
 
     implementation(libs.kotlin.jdk8)
     implementation(libs.kotlin.immutable)
+    implementation(libs.kotlinx.serialization)
     implementation(libs.okhttp)
     implementation(libs.persistent.cookiejar)
     implementation(libs.gson)

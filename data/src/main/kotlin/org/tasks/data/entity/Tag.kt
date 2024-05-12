@@ -5,8 +5,11 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.tasks.data.db.Table
 
+@Serializable
 @Entity(
     tableName = "tags",
     foreignKeys = [

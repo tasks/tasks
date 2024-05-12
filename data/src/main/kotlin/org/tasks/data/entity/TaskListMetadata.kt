@@ -3,13 +3,10 @@ package org.tasks.data.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.tasks.data.entity.Task
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
-/**
- * Data Model which represents a user.
- *
- * @author Tim Su <tim></tim>@todoroo.com>
- */
+@Serializable
 @Entity(tableName = "task_list_metadata")
 class TaskListMetadata {
     @PrimaryKey(autoGenerate = true)

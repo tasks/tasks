@@ -7,12 +7,15 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import org.tasks.data.db.Table
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.json.JSONException
 import org.json.JSONObject
+import org.tasks.data.db.Table
 import timber.log.Timber
 import java.io.File
 
+@Serializable
 @Entity(tableName = "userActivity")
 class UserActivity : Parcelable {
     @PrimaryKey(autoGenerate = true)

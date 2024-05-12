@@ -240,7 +240,20 @@
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1 -> 1.7.3 (*)
 +|    |    +--- androidx.room:room-common:2.6.1 (c)
 +|    |    \--- androidx.room:room-runtime:2.6.1 (c)
-+|    +--- com.google.code.gson:gson:2.10.1
++|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2
++|    |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.6.2
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 1.9.23 (*)
++|    |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.6.2
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2 (c)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.6.2 (c)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2 (c)
++|    |         |    \--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.6.2 (c)
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.9.21 -> 1.9.23 (*)
++|    |         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2
++|    |              \--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.6.2
++|    |                   +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 1.9.23 (*)
++|    |                   +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.6.2 (*)
++|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.9.21 -> 1.9.23 (*)
 +|    +--- com.jakewharton.timber:timber:5.0.1
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 -> 1.9.23 (*)
 +|    |    \--- org.jetbrains:annotations:20.1.0 -> 23.0.0
@@ -602,6 +615,7 @@
 ++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7
 +|    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.7
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 1.9.23 (*)
+++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2 (*)
 ++--- com.squareup.okhttp3:okhttp:4.12.0 (*)
 ++--- com.github.franmontiel:PersistentCookieJar:1.0.1
 +|    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 4.12.0 (*)

@@ -4,10 +4,13 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.tasks.data.db.Table
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+import org.tasks.data.db.Table
 import java.net.HttpURLConnection
 
+@Serializable
 @Parcelize
 @Entity(tableName = "caldav_accounts")
 data class CaldavAccount(

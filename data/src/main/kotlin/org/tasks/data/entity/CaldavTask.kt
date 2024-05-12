@@ -4,9 +4,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import org.tasks.data.db.Table
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.tasks.data.UUIDHelper
+import org.tasks.data.db.Table
+import org.tasks.data.entity.Task.Companion.NO_ID
 
+@Serializable
 @Entity(
     tableName = "caldav_tasks",
     foreignKeys = [
@@ -25,7 +29,7 @@ data class CaldavTask(
     val id: Long = 0,
     @ColumnInfo(name = "cd_task", index = true)
     @Transient
-    val task: Long,
+    val task: Long = NO_ID,
     @ColumnInfo(name = "cd_calendar")
     var calendar: String?,
     @ColumnInfo(name = "cd_remote_id")
