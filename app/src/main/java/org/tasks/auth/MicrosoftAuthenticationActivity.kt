@@ -72,18 +72,19 @@ class MicrosoftAuthenticationActivity : ComponentActivity() {
                 caldavDao
                     .getAccount(TYPE_MICROSOFT, email)
                     ?.let {
-                        it.password = encryption.encrypt(authState.jsonSerializeString())
-                        caldavDao.update(it)
+                        caldavDao.update(
+                            it.copy(password = encryption.encrypt(authState.jsonSerializeString()))
+                        )
                     }
                     ?: caldavDao
                         .insert(
-                            CaldavAccount().apply {
-                                uuid = UUIDHelper.newUUID()
-                                name = email
-                                username = email
-                                password = encryption.encrypt(authState.jsonSerializeString())
-                                accountType = TYPE_MICROSOFT
-                            }
+                            CaldavAccount(
+                                uuid = UUIDHelper.newUUID(),
+                                name = email,
+                                username = email,
+                                password = encryption.encrypt(authState.jsonSerializeString()),
+                                accountType = TYPE_MICROSOFT,
+                            )
                         )
                         .also {
                             firebase.logEvent(

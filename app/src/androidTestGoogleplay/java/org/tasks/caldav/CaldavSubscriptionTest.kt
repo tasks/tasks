@@ -25,10 +25,8 @@ class CaldavSubscriptionTest : CaldavTest() {
         inventory.clear()
         inventory.add(emptyList())
 
-        account = CaldavAccount().apply {
-            uuid = UUIDHelper.newUUID()
-            id = caldavDao.insert(this)
-        }
+        account = CaldavAccount(uuid = UUIDHelper.newUUID())
+            .let { it.copy(id = caldavDao.insert(it)) }
 
         synchronizer.sync(account)
 

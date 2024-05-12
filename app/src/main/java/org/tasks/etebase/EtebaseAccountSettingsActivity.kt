@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import com.todoroo.astrid.data.Task
 import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.analytics.Constants
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.data.CaldavAccount
-import com.todoroo.astrid.data.Task
 import org.tasks.data.getPassword
 import timber.log.Timber
 import javax.inject.Inject
@@ -51,9 +51,10 @@ class EtebaseAccountSettingsActivity : BaseCaldavAccountSettingsActivity(), Tool
         get() = R.string.etesync_account_description
 
     private suspend fun addAccount(session: String) {
-        caldavAccount = CaldavAccount()
-        caldavAccount!!.accountType = CaldavAccount.TYPE_ETEBASE
-        caldavAccount!!.uuid = UUIDHelper.newUUID()
+        caldavAccount = CaldavAccount(
+            accountType = CaldavAccount.TYPE_ETEBASE,
+            uuid = UUIDHelper.newUUID(),
+        )
         applyTo(caldavAccount!!, session)
     }
 

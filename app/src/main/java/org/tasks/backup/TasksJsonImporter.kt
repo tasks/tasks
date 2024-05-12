@@ -100,12 +100,12 @@ class TasksJsonImporter @Inject constructor(
             backupContainer.googleTaskAccounts?.forEach { googleTaskAccount ->
                 if (caldavDao.getAccount(TYPE_GOOGLE_TASKS, googleTaskAccount.account!!) == null) {
                     caldavDao.insert(
-                        CaldavAccount().apply {
-                            accountType = TYPE_GOOGLE_TASKS
-                            uuid = googleTaskAccount.account
-                            name = googleTaskAccount.account
-                            username = googleTaskAccount.account
-                        }
+                        CaldavAccount(
+                            accountType = TYPE_GOOGLE_TASKS,
+                            uuid = googleTaskAccount.account,
+                            name = googleTaskAccount.account,
+                            username = googleTaskAccount.account,
+                        )
                     )
                 }
             }

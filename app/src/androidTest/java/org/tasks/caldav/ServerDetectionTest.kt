@@ -79,13 +79,14 @@ class ServerDetectionTest : CaldavTest() {
         vararg headers: Pair<String, String>,
         accountType: Int = TYPE_CALDAV
     ) {
-        account = CaldavAccount().apply {
-            uuid = UUIDHelper.newUUID()
-            username = "username"
-            password = encryption.encrypt("password")
-            url = server.url("/remote.php/dav/calendars/user1/").toString()
-            id = caldavDao.insert(this)
-            this.accountType = accountType
+        account = CaldavAccount(
+            uuid = UUIDHelper.newUUID(),
+            username = "username",
+            password = encryption.encrypt("password"),
+            url = server.url("/remote.php/dav/calendars/user1/").toString(),
+            accountType = accountType,
+        ).let {
+            it.copy(id = caldavDao.insert(it))
         }
         this.headers.putAll(headers)
         enqueue(NO_CALENDARS)

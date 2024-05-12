@@ -13,7 +13,6 @@ import org.junit.Test
 import org.tasks.R
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.CaldavAccountMaker.newCaldavAccount
 import org.tasks.makers.CaldavCalendarMaker.UUID
 import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
@@ -42,7 +41,7 @@ class ManualGoogleTaskQueryTest : InjectingTestCase() {
         preferences.setBoolean(R.string.p_manual_sort, true)
         val calendar = newCaldavCalendar(with(UUID, "1234"))
         runBlocking {
-            caldavDao.insert(newCaldavAccount())
+            caldavDao.insert(CaldavAccount())
             caldavDao.insert(calendar)
         }
         filter = GtasksFilter(calendar)

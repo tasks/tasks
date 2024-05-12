@@ -49,7 +49,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.androidx.room)
     implementation(libs.gson)

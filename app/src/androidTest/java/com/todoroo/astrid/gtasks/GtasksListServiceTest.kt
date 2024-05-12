@@ -90,10 +90,10 @@ class GtasksListServiceTest : InjectingTestCase() {
     }
 
     private suspend fun setLists(vararg list: TaskList) {
-        val account = CaldavAccount().apply {
-            username = "account"
-            uuid = "account"
-        }
+        val account = CaldavAccount(
+            username = "account",
+            uuid = "account",
+        )
         caldavDao.insert(account)
         gtasksListService.updateLists(account, listOf(*list))
     }

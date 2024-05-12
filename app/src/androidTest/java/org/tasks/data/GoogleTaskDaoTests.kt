@@ -12,8 +12,6 @@ import org.junit.Test
 import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.CaldavAccountMaker.ACCOUNT_TYPE
-import org.tasks.makers.CaldavAccountMaker.newCaldavAccount
 import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
@@ -35,7 +33,7 @@ class GoogleTaskDaoTests : InjectingTestCase() {
     override fun setUp() {
         super.setUp()
         runBlocking {
-            caldavDao.insert(newCaldavAccount(with(ACCOUNT_TYPE, TYPE_GOOGLE_TASKS)))
+            caldavDao.insert(CaldavAccount(uuid = "account", accountType = TYPE_GOOGLE_TASKS))
             caldavDao.insert(newCaldavCalendar())
         }
     }

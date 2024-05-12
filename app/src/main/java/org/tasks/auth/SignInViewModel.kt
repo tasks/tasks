@@ -76,19 +76,19 @@ class SignInViewModel @Inject constructor(
                     .homeSet(username, tokenString)
             val password = encryption.encrypt(tokenString)
             return caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
-                    ?.apply {
-                        error = null
-                        this.password = password
-                        caldavDao.update(this)
+                    ?.let {
+                        it.copy(error = null, password = password)
+                            .also { caldavDao.update(it) }
                     }
-                    ?: CaldavAccount().apply {
-                        accountType = CaldavAccount.TYPE_TASKS
-                        uuid = UUIDHelper.newUUID()
-                        this.username = username
-                        this.password = password
-                        url = homeSet
-                        name = idToken.email ?: idToken.login
-                        caldavDao.insert(this)
+                    ?: CaldavAccount(
+                        accountType = CaldavAccount.TYPE_TASKS,
+                        uuid = UUIDHelper.newUUID(),
+                        username = username,
+                        password = password,
+                        url = homeSet,
+                        name = idToken.email ?: idToken.login,
+                    ).let {
+                        it.copy(id = caldavDao.insert(it))
                     }
         } catch (e: Exception) {
             error.postValue(e)

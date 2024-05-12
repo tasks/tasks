@@ -3,7 +3,7 @@ package org.tasks.data
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
@@ -17,10 +17,10 @@ class GoogleTaskListDaoTest : InjectingTestCase() {
 
     @Test
     fun noResultsForEmptyAccount() = runBlocking {
-        val account = CaldavAccount().apply {
-            uuid = "user@gmail.com"
-            username = "user@gmail.com"
-        }
+        val account = CaldavAccount(
+            uuid = "user@gmail.com",
+            username = "user@gmail.com",
+        )
         caldavDao.insert(account)
 
         assertTrue(googleTaskListDao.getGoogleTaskFilters(account.username!!).isEmpty())

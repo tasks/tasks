@@ -47,11 +47,11 @@ class OpenTasksSynchronizer @Inject constructor(
         lists.keys
             .filter { caldavDao.getAccountByUuid(it) == null }
             .map {
-                CaldavAccount().apply {
-                    name = it.split(":")[1]
-                    uuid = it
-                    accountType = CaldavAccount.TYPE_OPENTASKS
-                }
+                CaldavAccount(
+                    name = it.split(":")[1],
+                    uuid = it,
+                    accountType = CaldavAccount.TYPE_OPENTASKS,
+                )
             }
             .onEach { caldavDao.insert(it) }
             .forEach {

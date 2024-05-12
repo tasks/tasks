@@ -4,7 +4,9 @@ import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_OPENTASKS
@@ -38,10 +40,12 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
 
     @Test
     fun deleteRemovedAccounts() = runBlocking {
-        caldavDao.insert(CaldavAccount().apply {
-            uuid = "bitfire.at.davdroid:test_account"
-            accountType = TYPE_OPENTASKS
-        })
+        caldavDao.insert(
+            CaldavAccount(
+                uuid = "bitfire.at.davdroid:test_account",
+                accountType = TYPE_OPENTASKS,
+            )
+        )
 
         synchronizer.sync()
 

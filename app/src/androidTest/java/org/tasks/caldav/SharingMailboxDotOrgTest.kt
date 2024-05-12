@@ -22,12 +22,13 @@ class SharingMailboxDotOrgTest : CaldavTest() {
 
     @Test
     fun ownerAccess() = runBlocking {
-        account = CaldavAccount().apply {
-            uuid = UUIDHelper.newUUID()
-            username = "3"
-            password = encryption.encrypt("password")
-            url = server.url("/caldav/").toString()
-            id = caldavDao.insert(this)
+        account = CaldavAccount(
+            uuid = UUIDHelper.newUUID(),
+            username = "3",
+            password = encryption.encrypt("password"),
+            url = server.url("/caldav/").toString(),
+        ).let {
+            it.copy(id = caldavDao.insert(it))
         }
         val calendar = CaldavCalendar(
             account = this@SharingMailboxDotOrgTest.account.uuid,
@@ -45,12 +46,13 @@ class SharingMailboxDotOrgTest : CaldavTest() {
 
     @Test
     fun principalForSharee() = runBlocking {
-        account = CaldavAccount().apply {
-            uuid = UUIDHelper.newUUID()
-            username = "3"
-            password = encryption.encrypt("password")
-            url = server.url("/caldav/").toString()
-            id = caldavDao.insert(this)
+        account = CaldavAccount(
+            uuid = UUIDHelper.newUUID(),
+            username = "3",
+            password = encryption.encrypt("password"),
+            url = server.url("/caldav/").toString(),
+        ).let {
+            it.copy(id = caldavDao.insert(it))
         }
         val calendar = CaldavCalendar(
             account = this@SharingMailboxDotOrgTest.account.uuid,

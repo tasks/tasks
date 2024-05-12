@@ -6,7 +6,9 @@ import com.todoroo.astrid.helper.UUIDHelper
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
@@ -85,8 +87,7 @@ class CaldavDaoTests : InjectingTestCase() {
 
     @Test
     fun noResultsForEmptyAccounts() = runBlocking {
-        val caldavAccount = CaldavAccount()
-        caldavAccount.uuid = UUIDHelper.newUUID()
+        val caldavAccount = CaldavAccount(uuid = UUIDHelper.newUUID())
         caldavDao.insert(caldavAccount)
         assertTrue(caldavDao.getCaldavFilters(caldavAccount.uuid!!).isEmpty())
     }

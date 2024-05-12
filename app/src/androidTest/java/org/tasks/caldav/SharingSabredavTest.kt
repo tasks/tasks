@@ -23,12 +23,13 @@ class SharingSabredavTest : CaldavTest() {
     @Inject lateinit var principalDao: PrincipalDao
 
     private suspend fun setupAccount(user: String) {
-        account = CaldavAccount().apply {
-            uuid = UUIDHelper.newUUID()
-            username = user
-            password = encryption.encrypt("password")
-            url = server.url("/calendars/$user/").toString()
-            id = caldavDao.insert(this)
+        account = CaldavAccount(
+            uuid = UUIDHelper.newUUID(),
+            username = user,
+            password = encryption.encrypt("password"),
+            url = server.url("/calendars/$user/").toString(),
+        ).let {
+            it.copy(id = caldavDao.insert(it))
         }
     }
 

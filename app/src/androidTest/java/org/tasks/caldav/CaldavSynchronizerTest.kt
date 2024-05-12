@@ -25,12 +25,13 @@ class CaldavSynchronizerTest : CaldavTest() {
     @Before
     override fun setUp() = runBlocking {
         super.setUp()
-        account = CaldavAccount().apply {
-            uuid = UUIDHelper.newUUID()
-            username = "username"
-            password = encryption.encrypt("password")
-            url = server.url("/remote.php/dav/calendars/user1/").toString()
-            id = caldavDao.insert(this)
+        account = CaldavAccount(
+            uuid = UUIDHelper.newUUID(),
+            username = "username",
+            password = encryption.encrypt("password"),
+            url = server.url("/remote.php/dav/calendars/user1/").toString(),
+        ).let {
+            it.copy(id = caldavDao.insert(it))
         }
     }
 

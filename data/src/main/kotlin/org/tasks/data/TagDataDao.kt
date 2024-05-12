@@ -1,6 +1,5 @@
 package org.tasks.data
 
-import androidx.core.util.Pair
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete

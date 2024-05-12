@@ -11,6 +11,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.tasks.data.CaldavAccount
 import org.tasks.data.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.CaldavCalendar
@@ -19,9 +20,6 @@ import org.tasks.data.GoogleTaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.jobs.WorkManager
-import org.tasks.makers.CaldavAccountMaker
-import org.tasks.makers.CaldavAccountMaker.ACCOUNT_TYPE
-import org.tasks.makers.CaldavAccountMaker.newCaldavAccount
 import org.tasks.makers.CaldavCalendarMaker
 import org.tasks.makers.CaldavCalendarMaker.ACCOUNT
 import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
@@ -319,6 +317,11 @@ class TaskMoverTest : InjectingTestCase() {
     }
 
     private suspend fun setAccountType(account: String, type: Int) {
-        caldavDao.insert(newCaldavAccount(with(CaldavAccountMaker.UUID, account), with(ACCOUNT_TYPE, type)))
+        caldavDao.insert(
+            CaldavAccount(
+                uuid = account,
+                accountType = type,
+            )
+        )
     }
 }
