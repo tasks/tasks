@@ -1,19 +1,20 @@
 package org.tasks.location
 
 import android.content.Context
-import com.google.gson.JsonElement
-import com.google.gson.JsonParser
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Request
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.entity.Place
-import org.tasks.extensions.JsonObject.getOrNull
-import org.tasks.extensions.JsonObject.getStringOrNull
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.HttpException
+import org.tasks.location.GeocoderMapbox.Companion.asCoordinates
 import javax.inject.Inject
 
 class GeocoderNominatim @Inject constructor(
@@ -41,26 +42,24 @@ class GeocoderNominatim @Inject constructor(
         private const val UA_VALUE = "${BuildConfig.APPLICATION_ID}/${BuildConfig.VERSION_NAME} (${BuildConfig.FLAVOR}-${BuildConfig.BUILD_TYPE})"
 
         internal fun jsonToPlace(json: String): Place? =
-                JsonParser
-                        .parseString(json).asJsonObject.getAsJsonArray("features")
-                        .takeIf { it.size() > 0 }?.get(0)?.asJsonObject
-                        ?.let { feature ->
+            Json.parseToJsonElement(json)
+                .jsonObject["features"]
+                ?.jsonArray
+                ?.firstOrNull()
+                ?.let { feature ->
                             val geocoding = feature
-                                    .get("properties").asJsonObject
-                                    .get("geocoding").asJsonObject
-                            val geometry = feature.get("geometry").asJsonObject
-                            val coords = geometry.get("coordinates").asCoordinates
+                                .jsonObject["properties"]!!
+                                .jsonObject["geocoding"]!!
+                            val geometry = feature.jsonObject["geometry"]!!
+                            val coords = geometry.jsonObject["coordinates"]!!.asCoordinates
                             return Place(
-                                name = geocoding.getStringOrNull("name")
-                                    ?: geocoding.getStringOrNull("housenumber")
-                                        ?.let { "$it ${geocoding.get("street").asString}" },
-                                address = geocoding.getOrNull("label")?.asString,
+                                name = geocoding.jsonObject["name"]?.jsonPrimitive?.content
+                                    ?: geocoding.jsonObject["housenumber"]?.jsonPrimitive?.content
+                                    ?.let { "$it ${geocoding.jsonObject["street"]?.jsonPrimitive?.content}" },
+                                address = geocoding.jsonObject["label"]?.jsonPrimitive?.content,
                                 longitude = coords.first,
                                 latitude = coords.second,
                             )
                         }
-
-        private val JsonElement.asCoordinates: Pair<Double, Double>
-            get() = asJsonArray.let { Pair(it[0].asDouble, it[1].asDouble) }
     }
 }

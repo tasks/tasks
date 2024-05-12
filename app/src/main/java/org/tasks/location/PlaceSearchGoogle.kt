@@ -2,15 +2,19 @@ package org.tasks.location
 
 import android.content.Context
 import android.os.Bundle
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.double
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import okhttp3.Request
 import org.tasks.R
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.Place
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.HttpException
@@ -93,52 +97,45 @@ class PlaceSearchGoogle @Inject constructor(
                         "international_phone_number"
                 ).joinToString(",")
 
-        internal fun String.toJson(): JsonObject = JsonParser.parseString(this).asJsonObject
+        internal fun String.toJson(): JsonObject = Json.parseToJsonElement(this).jsonObject
 
         private fun checkResult(json: JsonObject) {
-            val status = json.get("status").asString
+            val status = json["status"]?.jsonPrimitive?.content
             when {
                 status == "OK" -> return
-                json.has("error_message") ->
-                    throw IllegalStateException(json.get("error_message").asString)
-                else ->
-                    throw IllegalStateException(status)
+                else -> throw IllegalStateException(
+                    json["error_message"]?.jsonPrimitive?.content ?: status
+                )
             }
         }
 
         internal fun toSearchResults(json: JsonObject): List<PlaceSearchResult> =
-                json.get("predictions")
-                        .asJsonArray
-                        .map { it.asJsonObject }
-                        .filter { it.has("place_id") }
+                json["predictions"]!!
+                        .jsonArray
+                        .map { it.jsonObject }
+                        .filter { it.contains("place_id") }
                         .map { toSearchEntry(it) }
 
         private fun toSearchEntry(json: JsonObject): PlaceSearchResult {
-            val place = json.get("structured_formatting").asJsonObject
+            val place = json["structured_formatting"]!!.jsonObject
             return PlaceSearchResult(
-                    json.get("place_id").asString,
-                    place.get("main_text").asString,
-                    place.get("secondary_text").asString
+                    json["place_id"]!!.jsonPrimitive.content,
+                    place["main_text"]!!.jsonPrimitive.content,
+                    place["secondary_text"]!!.jsonPrimitive.content,
             )
         }
 
         internal fun toPlace(json: JsonObject): Place {
-            val result = json.get("result").asJsonObject
-            val location = result.get("geometry").asJsonObject.get("location").asJsonObject
+            val result = json["result"]!!.jsonObject
+            val location = result["geometry"]!!.jsonObject["location"]!!.jsonObject
             return Place(
-                name = result.get("name").asString,
-                address = result.getString("formatted_address"),
-                phone = result.getString("international_phone_number"),
-                url = result.getString("website"),
-                latitude = location.get("lat").asDouble,
-                longitude = location.get("lng").asDouble,
+                name = result["name"]!!.jsonPrimitive.content,
+                address = result["formatted_address"]?.jsonPrimitive?.content,
+                phone = result["international_phone_number"]?.jsonPrimitive?.content,
+                url = result["website"]?.jsonPrimitive?.content,
+                latitude = location["lat"]!!.jsonPrimitive.double,
+                longitude = location["lng"]!!.jsonPrimitive.double,
             )
-        }
-
-        private fun JsonObject.getString(field: String): String? = if (has(field)) {
-            get(field).asString
-        } else {
-            null
         }
     }
 }

@@ -848,7 +848,6 @@
 ++--- com.squareup.okhttp3:okhttp:4.12.0 (*)
 ++--- com.github.franmontiel:PersistentCookieJar:1.0.1
 +|    \--- com.squareup.okhttp3:okhttp:3.1.2 -> 4.12.0 (*)
-++--- com.google.code.gson:gson:2.10.1
 ++--- com.google.android.material:material:1.12.0 (*)
 ++--- androidx.compose.material3:material3 -> 1.2.1
 +|    \--- androidx.compose.material3:material3-android:1.2.1

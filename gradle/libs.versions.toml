@@ -24,7 +24,6 @@ google-api-drive = "v3-rev20240327-2.0.0"
 google-api-tasks = "v1-rev20240423-2.0.0"
 google-services = "4.4.1"
 gradle = "8.4.0"
-gson = "2.10.1"
 hilt = "1.2.0"
 ical4android = "12fe73a"
 jchronic = "0.2.6"
@@ -123,7 +122,6 @@ google-api-drive = { module = "com.google.apis:google-api-services-drive", versi
 google-api-tasks = { module = "com.google.apis:google-api-services-tasks", version.ref = "google-api-tasks" }
 google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jchronic = { module = "com.rubiconproject.oss:jchronic", version.ref = "jchronic" }
 junit = { module = "junit:junit", version.ref = "junit-junit" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

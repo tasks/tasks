@@ -219,7 +219,6 @@ dependencies {
     implementation(libs.kotlinx.serialization)
     implementation(libs.okhttp)
     implementation(libs.persistent.cookiejar)
-    implementation(libs.gson)
     implementation(libs.material)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.constraintlayout)

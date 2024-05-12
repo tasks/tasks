@@ -1,16 +1,23 @@
 package org.tasks.billing
 
 import com.android.billingclient.api.Purchase
-import com.google.gson.GsonBuilder
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.billing.BillingClientImpl.Companion.STATE_PURCHASED
 import java.util.regex.Pattern
 
 class Purchase(private val purchase: Purchase) {
 
-    constructor(json: String?) : this(GsonBuilder().create().fromJson<Purchase>(json, Purchase::class.java))
+    constructor(json: String) : this(
+        Json.parseToJsonElement(json).jsonObject.let {
+            Purchase(it["zza"]!!.jsonPrimitive.content, it["zzb"]!!.jsonPrimitive.content)
+        }
+    )
 
     fun toJson(): String {
-        return GsonBuilder().create().toJson(purchase)
+        return Json.encodeToString(mapOf("zza" to purchase.originalJson, "zzb" to purchase.signature))
     }
 
     override fun toString(): String {
