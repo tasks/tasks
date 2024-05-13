@@ -1,17 +1,17 @@
 package org.tasks.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import org.tasks.data.entity.Principal
-import org.tasks.data.entity.PrincipalAccess
+import kotlinx.coroutines.flow.Flow
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.Principal
+import org.tasks.data.entity.PrincipalAccess
 
 @Dao
 interface PrincipalDao {
@@ -72,5 +72,5 @@ WHERE list = :list
 
     @Transaction
     @Query("SELECT * FROM principal_access WHERE list = :id")
-    fun getPrincipals(id: Long): LiveData<List<PrincipalWithAccess>>
+    fun getPrincipals(id: Long): Flow<List<PrincipalWithAccess>>
 }

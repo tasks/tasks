@@ -7,16 +7,16 @@ import androidx.room.RawQuery
 import androidx.room.Update
 import androidx.room.withTransaction
 import androidx.sqlite.db.SimpleSQLiteQuery
-import org.tasks.data.sql.Criterion
-import org.tasks.data.sql.Functions
-import org.tasks.data.db.Database
-import org.tasks.data.entity.Task
-import org.tasks.data.UUIDHelper
 import org.tasks.data.BuildConfig
 import org.tasks.data.TaskContainer
-import org.tasks.data.entity.Alarm
+import org.tasks.data.UUIDHelper
+import org.tasks.data.db.Database
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Task
+import org.tasks.data.sql.Criterion
+import org.tasks.data.sql.Functions
 import org.tasks.time.DateTimeUtils2
 import timber.log.Timber
 
@@ -149,7 +149,7 @@ FROM (
     @Query("UPDATE tasks SET parent = :parent WHERE _id IN (:children) AND _id != :parent")
     internal abstract suspend fun setParentInternal(parent: Long, children: List<Long>)
 
-    @Query("UPDATE tasks SET lastNotified = :timestamp WHERE _id = :id AND lastNotified != :timestamp")
+    @Query("UPDATE tasks SET lastNotified = :timestamp WHERE _id = :id")
     abstract suspend fun setLastNotified(id: Long, timestamp: Long)
 
     suspend fun getChildren(id: Long): List<Long> = getChildren(listOf(id))

@@ -13,12 +13,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceCategory
 import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
@@ -28,9 +26,9 @@ import org.tasks.auth.SignInActivity
 import org.tasks.auth.SignInActivity.Platform
 import org.tasks.billing.Inventory
 import org.tasks.billing.Purchase
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
-import org.tasks.data.dao.CaldavDao
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
@@ -43,33 +41,27 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TasksAccount : BaseAccountPreference() {
 
-    @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var locale: Locale
 
     private val viewModel: TasksAccountViewModel by viewModels()
 
-    private lateinit var caldavAccountLiveData: LiveData<CaldavAccount>
-
-    val caldavAccount: CaldavAccount
-        get() = caldavAccountLiveData.value ?: requireArguments().getParcelable(EXTRA_ACCOUNT)!!
-
     private val refreshReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            refreshUi(caldavAccount)
+            lifecycleScope.launch {
+                refreshUi(account)
+            }
         }
     }
 
     override fun getPreferenceXml() = R.xml.preferences_tasks
 
     private fun clearPurchaseError(purchase: Purchase?) {
-        if (purchase?.isTasksSubscription == true && caldavAccount.error.isPaymentRequired()) {
-            caldavAccount.error = null
+        if (purchase?.isTasksSubscription == true && account.error.isPaymentRequired()) {
             lifecycleScope.launch {
-                caldavDao.update(caldavAccount)
+                caldavDao.update(account.copy(error = null))
             }
         }
     }
@@ -79,21 +71,18 @@ class TasksAccount : BaseAccountPreference() {
 
         inventory.subscription.observe(this) { clearPurchaseError(it) }
 
-        caldavAccountLiveData = caldavDao.watchAccount(
-                requireArguments().getParcelable<CaldavAccount>(EXTRA_ACCOUNT)!!.id
-        )
         if (savedInstanceState == null) {
-            viewModel.refreshPasswords(caldavAccount)
+            viewModel.refreshPasswords(account)
         }
 
         findPreference(R.string.local_lists).setOnPreferenceClickListener {
-            workManager.migrateLocalTasks(caldavAccount)
+            workManager.migrateLocalTasks(account)
             context?.toast(R.string.migrating_tasks)
             false
         }
 
         findPreference(R.string.generate_new_password).setOnPreferenceChangeListener { _, description ->
-            viewModel.requestNewPassword(caldavAccount, description as String)
+            viewModel.requestNewPassword(account, description as String)
             false
         }
 
@@ -101,16 +90,13 @@ class TasksAccount : BaseAccountPreference() {
     }
 
     override suspend fun removeAccount() {
-        // try to delete session from caldav.tasks.org
-        taskDeleter.delete(caldavAccount)
+        super.removeAccount()
+        // TODO: try to delete session from caldav.tasks.org
         inventory.updateTasksAccount()
     }
 
     override fun onResume() {
         super.onResume()
-        caldavAccountLiveData.observe(this) { account ->
-            account?.let { refreshUi(it) }
-        }
         viewModel.appPasswords.observe(this) { passwords ->
             passwords?.let { refreshPasswords(passwords) }
         }
@@ -124,7 +110,7 @@ class TasksAccount : BaseAccountPreference() {
                         .setView(view)
                         .setPositiveButton(R.string.ok) { _, _ ->
                             viewModel.clearNewPassword()
-                            viewModel.refreshPasswords(caldavAccount)
+                            viewModel.refreshPasswords(account)
                         }
                         .setCancelable(false)
                         .setNeutralButton(R.string.help) { _, _ ->
@@ -155,9 +141,9 @@ class TasksAccount : BaseAccountPreference() {
     }
 
     private val isGithub: Boolean
-        get() = caldavAccount.username?.startsWith("github") == true
+        get() = account.username?.startsWith("github") == true
 
-    private fun refreshUi(account: CaldavAccount) {
+    override suspend fun refreshUi(account: CaldavAccount) {
         (findPreference(R.string.sign_in_with_google) as IconPreference).apply {
             if (account.error.isNullOrBlank()) {
                 isVisible = false
@@ -243,7 +229,7 @@ class TasksAccount : BaseAccountPreference() {
                             .setTitle(R.string.delete_tag_confirmation, description)
                             .setMessage(R.string.app_password_delete_confirmation)
                             .setPositiveButton(R.string.ok) { _, _ ->
-                                viewModel.deletePassword(caldavAccount, it.id)
+                                viewModel.deletePassword(account, it.id)
                             }
                             .setNegativeButton(R.string.cancel, null)
                             .show()
@@ -269,8 +255,6 @@ class TasksAccount : BaseAccountPreference() {
     }
 
     companion object {
-        private const val EXTRA_ACCOUNT = "extra_account"
-
         fun newTasksAccountPreference(account: CaldavAccount): Fragment {
             val fragment = TasksAccount()
             fragment.arguments = Bundle().apply {

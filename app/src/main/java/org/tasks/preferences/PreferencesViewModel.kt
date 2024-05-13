@@ -10,12 +10,13 @@ import com.google.api.services.drive.DriveScopes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.backup.BackupConstants
-import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.googleapis.InvokerFactory
 import org.tasks.gtasks.GoogleAccountManager
@@ -29,13 +30,14 @@ class PreferencesViewModel @Inject constructor(
     private val preferences: Preferences,
     invokers: InvokerFactory,
     private val googleAccountManager: GoogleAccountManager,
-    caldavDao: CaldavDao,
+    private val caldavDao: CaldavDao,
 ) : ViewModel() {
     private val driveInvoker = invokers.getDriveInvoker()
     val lastBackup = MutableLiveData<Long?>()
     val lastDriveBackup = MutableLiveData<Long?>()
     val lastAndroidBackup = MutableLiveData<Long>()
-    var caldavAccounts = caldavDao.watchAccounts()
+    val caldavAccounts: Flow<List<CaldavAccount>>
+        get() = caldavDao.watchAccounts()
 
     private fun isStale(timestamp: Long?) =
             timestamp != null
@@ -63,7 +65,8 @@ class PreferencesViewModel @Inject constructor(
             return if (enabled) account else null
         }
 
-    fun tasksAccount(): CaldavAccount? = caldavAccounts.value?.firstOrNull { it.isTasksOrg }
+    suspend fun tasksAccount(): CaldavAccount? =
+        caldavDao.getAccounts(CaldavAccount.TYPE_TASKS).firstOrNull()
 
     fun updateDriveBackup() = viewModelScope.launch {
         if (driveAccount.isNullOrBlank()) {

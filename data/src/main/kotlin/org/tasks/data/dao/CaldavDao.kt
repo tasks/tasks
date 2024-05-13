@@ -1,13 +1,18 @@
 package org.tasks.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import org.tasks.data.entity.Task
+import kotlinx.coroutines.flow.Flow
+import org.tasks.data.CaldavFilters
+import org.tasks.data.CaldavTaskContainer
+import org.tasks.data.NO_ORDER
+import org.tasks.data.TaskContainer
+import org.tasks.data.db.DbUtils.dbchunk
+import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
@@ -15,13 +20,8 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.CaldavFilters
 import org.tasks.data.entity.CaldavTask
-import org.tasks.data.CaldavTaskContainer
-import org.tasks.data.NO_ORDER
-import org.tasks.data.TaskContainer
-import org.tasks.data.db.DbUtils.dbchunk
-import org.tasks.data.db.SuspendDbUtils.chunkedMap
+import org.tasks.data.entity.Task
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 const val APPLE_EPOCH = 978307200000L // 1/1/2001 GMT
@@ -32,7 +32,7 @@ abstract class CaldavDao {
     abstract fun listCount(account: String): Int
 
     @Query("SELECT * FROM caldav_lists")
-    abstract fun subscribeToCalendars(): LiveData<List<CaldavCalendar>>
+    abstract fun subscribeToCalendars(): Flow<List<CaldavCalendar>>
 
     @Query("SELECT * FROM caldav_lists WHERE cdl_uuid = :uuid LIMIT 1")
     abstract suspend fun getCalendarByUuid(uuid: String): CaldavCalendar?
@@ -55,7 +55,7 @@ abstract class CaldavDao {
     abstract suspend fun getAccount(type: Int, username: String): CaldavAccount?
 
     @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
-    abstract fun watchAccount(id: Long): LiveData<CaldavAccount>
+    abstract fun watchAccount(id: Long): Flow<CaldavAccount?>
 
     @Query("""
 SELECT *
@@ -66,7 +66,7 @@ ORDER BY CASE cda_account_type
              ELSE 1
              END, UPPER(cda_name)
     """)
-    abstract fun watchAccounts(): LiveData<List<CaldavAccount>>
+    abstract fun watchAccounts(): Flow<List<CaldavAccount>>
 
     @Query("""
 SELECT *

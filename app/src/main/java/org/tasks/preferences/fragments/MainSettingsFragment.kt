@@ -11,6 +11,8 @@ import androidx.preference.PreferenceScreen
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.R
@@ -21,8 +23,8 @@ import org.tasks.billing.Purchase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavAccountSettingsActivity
-import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.accountSettingsClass
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.prefIcon
 import org.tasks.data.prefTitle
 import org.tasks.etebase.EtebaseAccountSettingsActivity
@@ -89,7 +91,11 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         viewModel.lastBackup.observe(this) { updateBackupWarning() }
         viewModel.lastAndroidBackup.observe(this) { updateBackupWarning() }
         viewModel.lastDriveBackup.observe(this) { updateBackupWarning() }
-        viewModel.caldavAccounts.observe(this) { refreshAccounts() }
+        viewModel
+            .caldavAccounts
+            .onEach { refreshAccounts(it) }
+            .launchIn(lifecycleScope)
+
         if (BuildConfig.FLAVOR == "generic") {
             remove(R.string.upgrade_to_pro)
         } else {
@@ -141,8 +147,7 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
         updateWidgetVisibility()
     }
 
-    private fun refreshAccounts() {
-        val caldavAccounts = viewModel.caldavAccounts.value ?: emptyList()
+    private fun refreshAccounts(caldavAccounts: List<CaldavAccount>) {
         val addAccount = findPreference(R.string.add_account)
         val index = preferenceScreen.indexOf(addAccount)
         var current = 0
@@ -165,8 +170,10 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
     }
 
     private fun addAccount(): Boolean {
-        newAccountDialog(hasTasksAccount = viewModel.tasksAccount() != null)
-            .show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
+        lifecycleScope.launch {
+            newAccountDialog(hasTasksAccount = viewModel.tasksAccount() != null)
+                .show(parentFragmentManager, FRAG_TAG_ADD_ACCOUNT)
+        }
         return false
     }
 

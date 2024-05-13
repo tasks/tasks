@@ -32,9 +32,9 @@ import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.GeoUtils.toLikeString
+import org.tasks.data.PlaceUsage
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
-import org.tasks.data.PlaceUsage
 import org.tasks.data.mapPosition
 import org.tasks.databinding.ActivityLocationPickerBinding
 import org.tasks.dialogs.DialogBuilder
@@ -150,11 +150,9 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
                     override fun onLayoutChange(
                             v: View, l: Int, t: Int, r: Int, b: Int, ol: Int, ot: Int, or: Int, ob: Int) {
                         coordinatorLayout.removeOnLayoutChangeListener(this)
-                        locationDao
-                                .getPlaceUsage()
-                                .observe(this@LocationPickerActivity) {
-                                    places: List<PlaceUsage> -> updatePlaces(places)
-                                }
+                        lifecycleScope.launch {
+                            updatePlaces(locationDao.getPlaceUsage())
+                        }
                     }
                 })
         if (offset != 0) {

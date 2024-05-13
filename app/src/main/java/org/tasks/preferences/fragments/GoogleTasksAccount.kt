@@ -4,10 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
-import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -15,32 +13,20 @@ import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
-import org.tasks.data.dao.CaldavDao
 import org.tasks.preferences.IconPreference
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class GoogleTasksAccount : BaseAccountPreference() {
 
-    @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var caldavDao: CaldavDao
-
-    private lateinit var googleTaskAccountLiveData: LiveData<CaldavAccount>
-
-    val googleTaskAccount: CaldavAccount
-        get() = googleTaskAccountLiveData.value ?: requireArguments().getParcelable(EXTRA_ACCOUNT)!!
 
     private val purchaseReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             lifecycleScope.launch {
-                googleTaskAccount.let {
-                    if (inventory.subscription.value != null && it.error.isPaymentRequired()) {
-                        it.error = null
-                        caldavDao.update(it)
-                    }
-                    refreshUi(it)
+                if (inventory.subscription.value != null && account.error.isPaymentRequired()) {
+                    caldavDao.update(account.copy(error = null))
                 }
             }
         }
@@ -51,17 +37,8 @@ class GoogleTasksAccount : BaseAccountPreference() {
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         super.setupPreferences(savedInstanceState)
 
-        googleTaskAccountLiveData = caldavDao.watchAccount(
-                arguments?.getParcelable<CaldavAccount>(EXTRA_ACCOUNT)?.id ?: 0
-        )
-        googleTaskAccountLiveData.observe(this) { refreshUi(it) }
-
         findPreference(R.string.reinitialize_account)
                 .setOnPreferenceClickListener { requestLogin() }
-    }
-
-    override suspend fun removeAccount() {
-        taskDeleter.delete(googleTaskAccount)
     }
 
     override fun onResume() {
@@ -76,10 +53,7 @@ class GoogleTasksAccount : BaseAccountPreference() {
         localBroadcastManager.unregisterReceiver(purchaseReceiver)
     }
 
-    private fun refreshUi(account: CaldavAccount?) {
-        if (account == null) {
-            return
-        }
+    override suspend fun refreshUi(account: CaldavAccount) {
         (findPreference(R.string.sign_in_with_google) as IconPreference).apply {
             if (account.error.isNullOrBlank()) {
                 isVisible = false
@@ -116,8 +90,6 @@ class GoogleTasksAccount : BaseAccountPreference() {
     }
 
     companion object {
-        private const val EXTRA_ACCOUNT = "extra_account"
-
         fun String?.isUnauthorized(): Boolean =
                 this?.startsWith("401 Unauthorized", ignoreCase = true) == true
 

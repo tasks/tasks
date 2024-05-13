@@ -17,6 +17,9 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.ListSettingsComposables.PrincipalList
 import org.tasks.compose.ShareInvite.ShareInviteDialog
+import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.data.PrincipalWithAccess
+import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_NEXTCLOUD
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
@@ -24,8 +27,6 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
-import org.tasks.data.dao.PrincipalDao
-import org.tasks.data.PrincipalWithAccess
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,14 +52,14 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         }
 
         caldavCalendar?.takeIf { it.id > 0 }?.let {
-            principalDao.getPrincipals(it.id).observe(this) {
-                findViewById<ComposeView>(R.id.people)
-                    .apply { isVisible = it.isNotEmpty() }
-                    .setContent {
-                        MdcTheme {
-                            PrincipalList(it, if (canRemovePrincipals) this::onRemove else null)
-                        }
-                    }
+            findViewById<ComposeView>(R.id.people).setContent {
+                MdcTheme {
+                    val principals = principalDao.getPrincipals(it.id).collectAsStateLifecycleAware(initial = emptyList()).value
+                    PrincipalList(
+                        principals = principals,
+                        onRemove = if (canRemovePrincipals) { { onRemove(it) } } else null,
+                    )
+                }
             }
         }
         if (caldavAccount.canShare && (isNew || caldavCalendar?.access == ACCESS_OWNER)) {

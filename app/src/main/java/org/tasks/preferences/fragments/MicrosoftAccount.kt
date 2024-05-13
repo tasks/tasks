@@ -5,9 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -15,7 +13,6 @@ import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
-import org.tasks.data.dao.CaldavDao
 import org.tasks.preferences.IconPreference
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import javax.inject.Inject
@@ -23,26 +20,16 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MicrosoftAccount : BaseAccountPreference() {
 
-    @Inject lateinit var taskDeleter: TaskDeleter
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-    @Inject lateinit var caldavDao: CaldavDao
 
     private val microsoftVM: MicrosoftSignInViewModel by viewModels()
-    private lateinit var microsoftAccountLiveData: LiveData<CaldavAccount>
-
-    val microsoftAccount: CaldavAccount
-        get() = microsoftAccountLiveData.value ?: requireArguments().getParcelable(EXTRA_ACCOUNT)!!
 
     private val purchaseReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             lifecycleScope.launch {
-                microsoftAccount.let {
-                    if (inventory.subscription.value != null && it.error.isPaymentRequired()) {
-                        it.error = null
-                        caldavDao.update(it)
-                    }
-                    refreshUi(it)
+                if (inventory.subscription.value != null && account.error.isPaymentRequired()) {
+                    caldavDao.update(account.copy(error = null))
                 }
             }
         }
@@ -53,17 +40,8 @@ class MicrosoftAccount : BaseAccountPreference() {
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         super.setupPreferences(savedInstanceState)
 
-        microsoftAccountLiveData = caldavDao.watchAccount(
-                arguments?.getParcelable<CaldavAccount>(EXTRA_ACCOUNT)?.id ?: 0
-        )
-        microsoftAccountLiveData.observe(this) { refreshUi(it) }
-
         findPreference(R.string.reinitialize_account)
                 .setOnPreferenceClickListener { requestLogin() }
-    }
-
-    override suspend fun removeAccount() {
-        taskDeleter.delete(microsoftAccount)
     }
 
     override fun onResume() {
@@ -78,10 +56,7 @@ class MicrosoftAccount : BaseAccountPreference() {
         localBroadcastManager.unregisterReceiver(purchaseReceiver)
     }
 
-    private fun refreshUi(account: CaldavAccount?) {
-        if (account == null) {
-            return
-        }
+    override suspend fun refreshUi(account: CaldavAccount) {
         (findPreference(R.string.sign_in_with_google) as IconPreference).apply {
             if (account.error.isNullOrBlank()) {
                 isVisible = false
@@ -110,7 +85,7 @@ class MicrosoftAccount : BaseAccountPreference() {
     }
 
     private fun requestLogin(): Boolean {
-        microsoftAccount.username?.let {
+        account.username?.let {
             microsoftVM.signIn(requireActivity()) // should force a specific account
         }
         return false

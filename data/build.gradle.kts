@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.androidx.room)
     implementation(libs.kotlinx.serialization)
     implementation(libs.timber)

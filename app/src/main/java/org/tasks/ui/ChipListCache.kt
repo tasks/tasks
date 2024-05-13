@@ -1,11 +1,14 @@
 package org.tasks.ui
 
 import com.todoroo.astrid.api.TagFilter
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.TagData
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.TagData
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -38,7 +41,7 @@ class ChipListCache @Inject internal constructor(
     fun getTag(tag: String?): TagFilter? = tagDatas[tag]
 
     init {
-        caldavDao.subscribeToCalendars().observeForever { updated: List<CaldavCalendar> -> updateCaldavCalendars(updated) }
-        tagDataDao.subscribeToTags().observeForever { updated: List<TagData> -> updateTags(updated) }
+        caldavDao.subscribeToCalendars().onEach { updateCaldavCalendars(it) }.launchIn(GlobalScope)
+        tagDataDao.subscribeToTags().onEach { updateTags(it) }.launchIn(GlobalScope)
     }
 }

@@ -1,25 +1,25 @@
 package org.tasks.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import org.tasks.data.entity.Task
-import org.tasks.data.UUIDHelper
+import kotlinx.coroutines.flow.Flow
 import org.tasks.data.NO_ORDER
+import org.tasks.data.TagFilters
+import org.tasks.data.UUIDHelper
+import org.tasks.data.db.DbUtils
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
-import org.tasks.data.TagFilters
-import org.tasks.data.db.DbUtils
+import org.tasks.data.entity.Task
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 @Dao
 abstract class TagDataDao {
     @Query("SELECT * FROM tagdata")
-    abstract fun subscribeToTags(): LiveData<List<TagData>>
+    abstract fun subscribeToTags(): Flow<List<TagData>>
 
     @Query("SELECT * FROM tagdata WHERE name = :name COLLATE NOCASE LIMIT 1")
     abstract suspend fun getTagByName(name: String): TagData?

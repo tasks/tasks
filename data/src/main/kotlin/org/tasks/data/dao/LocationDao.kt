@@ -1,20 +1,19 @@
 package org.tasks.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import org.tasks.data.entity.Geofence
 import org.tasks.data.Location
 import org.tasks.data.LocationFilters
 import org.tasks.data.MergedGeofence
 import org.tasks.data.NO_ORDER
-import org.tasks.data.entity.Place
 import org.tasks.data.PlaceUsage
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Place
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 @Dao
@@ -110,7 +109,7 @@ interface LocationDao {
     suspend fun getPlace(uid: String): Place?
 
     @Query("SELECT places.*, IFNULL(COUNT(geofence_id),0) AS count FROM places LEFT OUTER JOIN geofences ON geofences.place = places.uid GROUP BY uid ORDER BY COUNT(geofence_id) DESC")
-    fun getPlaceUsage(): LiveData<List<PlaceUsage>>
+    suspend fun getPlaceUsage(): List<PlaceUsage>
 
     @Query("SELECT * FROM places WHERE latitude LIKE :latitude AND longitude LIKE :longitude")
     suspend fun findPlace(latitude: String, longitude: String): Place?
