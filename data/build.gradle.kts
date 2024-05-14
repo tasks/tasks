@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
-    kotlin("plugin.serialization") version "1.9.10"
+    kotlin("plugin.serialization") version "1.9.24"
 }
 
 repositories {
