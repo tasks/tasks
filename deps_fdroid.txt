@@ -390,7 +390,7 @@
 +|    |    |    +--- androidx.core:core:1.3.0 -> 1.13.0 (*)
 +|    |    |    +--- androidx.emoji2:emoji2:1.3.0 (*)
 +|    |    |    \--- androidx.emoji2:emoji2:1.3.0 (c)
-+|    |    +--- androidx.fragment:fragment:1.3.6 -> 1.7.0
++|    |    +--- androidx.fragment:fragment:1.3.6 -> 1.7.1
 +|    |    |    +--- androidx.activity:activity:1.8.1 -> 1.9.0 (*)
 +|    |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.7.1 (*)
 +|    |    |    +--- androidx.annotation:annotation-experimental:1.4.0 (*)
@@ -412,7 +412,7 @@
 +|    |    |    |    +--- androidx.core:core:1.0.0 -> 1.13.0 (*)
 +|    |    |    |    \--- androidx.customview:customview:1.0.0 -> 1.1.0 (*)
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 1.9.24 (*)
-+|    |    |    \--- androidx.fragment:fragment-ktx:1.7.0 (c)
++|    |    |    \--- androidx.fragment:fragment-ktx:1.7.1 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-runtime:2.5.1 -> 2.7.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-viewmodel:2.5.1 -> 2.7.0 (*)
 +|    |    +--- androidx.resourceinspection:resourceinspection-annotation:1.0.1
@@ -426,7 +426,7 @@
 +|    |    +--- androidx.lifecycle:lifecycle-runtime:2.2.0 -> 2.7.0 (*)
 +|    |    +--- androidx.arch.core:core-common:2.1.0 -> 2.2.0 (*)
 +|    |    +--- androidx.arch.core:core-runtime:2.1.0 -> 2.2.0 (*)
-+|    |    +--- androidx.fragment:fragment:1.2.0 -> 1.7.0 (*)
++|    |    +--- androidx.fragment:fragment:1.2.0 -> 1.7.1 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-common:2.2.0 -> 2.7.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.2.0 -> 2.7.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-process:2.2.0 -> 2.7.0 (*)
@@ -502,7 +502,7 @@
 +|    |    |         \--- androidx.print:print:1.0.0
 +|    |    |              \--- androidx.annotation:annotation:1.0.0 -> 1.7.1 (*)
 +|    |    +--- androidx.annotation:annotation-experimental:1.0.0 -> 1.4.0 (*)
-+|    |    +--- androidx.fragment:fragment:1.2.5 -> 1.7.0 (*)
++|    |    +--- androidx.fragment:fragment:1.2.5 -> 1.7.1 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-runtime:2.0.0 -> 2.7.0 (*)
 +|    |    +--- androidx.recyclerview:recyclerview:1.0.0 -> 1.3.2
 +|    |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.7.1 (*)
@@ -525,7 +525,7 @@
 +|    |         +--- androidx.annotation:annotation-experimental:1.3.0 -> 1.4.0 (*)
 +|    |         +--- androidx.collection:collection:1.1.0 -> 1.4.0 (*)
 +|    |         +--- androidx.core:core:1.3.2 -> 1.13.0 (*)
-+|    |         +--- androidx.fragment:fragment:1.1.0 -> 1.7.0 (*)
++|    |         +--- androidx.fragment:fragment:1.1.0 -> 1.7.1 (*)
 +|    |         \--- androidx.recyclerview:recyclerview:1.3.1-rc01 -> 1.3.2 (*)
 +|    \--- org.conscrypt:conscrypt-android:2.5.2
 ++--- com.github.tasks.opentasks:opentasks-provider:562fec5
@@ -543,7 +543,7 @@
 +|    +--- androidx.activity:activity:1.5.1 -> 1.9.0 (*)
 +|    +--- androidx.annotation:annotation:1.2.0 -> 1.7.1 (*)
 +|    +--- androidx.annotation:annotation-experimental:1.3.1 -> 1.4.0 (*)
-+|    +--- androidx.fragment:fragment:1.5.1 -> 1.7.0 (*)
++|    +--- androidx.fragment:fragment:1.5.1 -> 1.7.1 (*)
 +|    +--- androidx.lifecycle:lifecycle-common:2.5.1 -> 2.7.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel:2.5.1 -> 2.7.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1 -> 2.7.0 (*)
@@ -566,7 +566,7 @@
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.21 -> 1.9.24 (*)
 +|    \--- com.google.dagger:hilt-android:2.49 -> 2.50 (*)
-++--- androidx.fragment:fragment-ktx:1.7.0
+++--- androidx.fragment:fragment-ktx:1.7.1
 +|    +--- androidx.activity:activity-ktx:1.8.1 -> 1.9.0
 +|    |    +--- androidx.activity:activity:1.9.0 (*)
 +|    |    +--- androidx.core:core-ktx:1.13.0 (*)
@@ -583,12 +583,12 @@
 +|    |    +--- androidx.collection:collection:1.4.0 (*)
 +|    |    \--- androidx.collection:collection:1.4.0 (c)
 +|    +--- androidx.core:core-ktx:1.2.0 -> 1.13.0 (*)
-+|    +--- androidx.fragment:fragment:1.7.0 (*)
++|    +--- androidx.fragment:fragment:1.7.1 (*)
 +|    +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.1 -> 2.7.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1 -> 2.7.0 (*)
 +|    +--- androidx.savedstate:savedstate-ktx:1.2.1 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 1.9.24 (*)
-+|    \--- androidx.fragment:fragment:1.7.0 (c)
++|    \--- androidx.fragment:fragment:1.7.1 (c)
 ++--- androidx.lifecycle:lifecycle-runtime-ktx:2.7.0 (*)
 ++--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0 (*)
 ++--- androidx.room:room-ktx:2.6.1 (*)
@@ -851,7 +851,7 @@
 +|    +--- androidx.appcompat:appcompat:1.1.0 -> 1.6.1 (*)
 +|    +--- androidx.core:core:1.6.0 -> 1.13.0 (*)
 +|    +--- androidx.activity:activity-ktx:1.5.1 -> 1.9.0 (*)
-+|    +--- androidx.fragment:fragment-ktx:1.3.6 -> 1.7.0 (*)
++|    +--- androidx.fragment:fragment-ktx:1.3.6 -> 1.7.1 (*)
 +|    +--- androidx.recyclerview:recyclerview:1.0.0 -> 1.3.2 (*)
 +|    +--- androidx.slidingpanelayout:slidingpanelayout:1.2.0
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.7.1 (*)
@@ -1043,7 +1043,7 @@
 +|    +--- androidx.compose.ui:ui:1.6.7 (*)
 +|    +--- androidx.compose.ui:ui-util:1.6.7 (*)
 +|    +--- androidx.databinding:viewbinding:4.1.2 -> 8.4.0 (*)
-+|    +--- androidx.fragment:fragment-ktx:1.3.2 -> 1.7.0 (*)
++|    +--- androidx.fragment:fragment-ktx:1.3.2 -> 1.7.1 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 1.9.24 (*)
 +|    +--- androidx.compose.ui:ui:1.6.7 (c)
 +|    +--- androidx.compose.ui:ui-tooling-preview:1.6.7 (c)
