@@ -8,14 +8,14 @@ package com.todoroo.astrid.dao
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.timers.TimerPlugin
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.entity.Task
 import org.tasks.data.TaskContainer
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.db.SuspendDbUtils.eachChunk
+import org.tasks.data.entity.Task
 import org.tasks.data.fetchFiltered
 import org.tasks.data.fetchTasks
 import org.tasks.data.setCollapsed
 import org.tasks.date.DateTimeUtils.isAfterNow
-import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
@@ -108,12 +108,10 @@ class TaskDao @Inject constructor(
         val completionDateModified = task.completionDate != (original?.completionDate ?: 0)
         val deletionDateModified = task.deletionDate != (original?.deletionDate ?: 0)
         val justCompleted = completionDateModified && task.isCompleted
-        val justDeleted = deletionDateModified && task.isDeleted
         if (task.calendarURI?.isNotBlank() == true) {
             workManager.updateCalendar(task)
         }
-        if (justCompleted || justDeleted) {
-            notificationManager.cancel(task.id)
+        if (justCompleted) {
             if (task.timerStart > 0) {
                 timerPlugin.stopTimer(task)
             }

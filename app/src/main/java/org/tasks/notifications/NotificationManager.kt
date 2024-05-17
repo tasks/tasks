@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat.InterruptionFilter
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.preUpsideDownCake
 import com.todoroo.astrid.core.BuiltInFilterExposer
@@ -12,11 +13,11 @@ import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.data.entity.Alarm
 import org.tasks.data.dao.LocationDao
-import org.tasks.data.entity.Notification
 import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Notification
 import org.tasks.intents.TaskIntents
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.PermissionChecker
@@ -45,6 +46,10 @@ class NotificationManager @Inject constructor(
     private val markdownProvider: MarkdownProvider,
     private val permissionChecker: PermissionChecker,
 ) {
+    @InterruptionFilter
+    val currentInterruptionFilter: Int
+        get() = notificationManager.currentInterruptionFilter
+
     private val colorProvider = ColorProvider(context, preferences)
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 

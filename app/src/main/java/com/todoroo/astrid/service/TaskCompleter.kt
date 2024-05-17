@@ -1,20 +1,20 @@
 package com.todoroo.astrid.service
 
-import android.app.NotificationManager
 import android.app.NotificationManager.INTERRUPTION_FILTER_ALL
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioAttributes.USAGE_NOTIFICATION_EVENT
 import android.media.RingtoneManager
 import androidx.room.withTransaction
-import org.tasks.data.db.Database
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.db.Database
+import org.tasks.data.entity.Task
+import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
@@ -64,6 +64,7 @@ class TaskCompleter @Inject internal constructor(
         if (tasks.isEmpty()) {
             return
         }
+        tasks.forEach { notificationManager.cancel(it.id) }
         val completed = completionDate > 0
         val modified = currentTimeMillis()
         database.withTransaction {

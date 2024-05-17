@@ -5,8 +5,8 @@
  */
 package com.todoroo.astrid.timers
 
-import org.tasks.data.entity.Task
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.Task
 import org.tasks.notifications.NotificationManager
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
