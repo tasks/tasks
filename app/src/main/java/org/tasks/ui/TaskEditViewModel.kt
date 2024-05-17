@@ -13,11 +13,6 @@ import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.FORCE_CALDAV_SYNC
-import org.tasks.data.entity.Task
-import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_FIVE
-import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_NONSTOP
-import org.tasks.data.entity.Task.Companion.hasDueTime
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
@@ -36,24 +31,29 @@ import org.tasks.R
 import org.tasks.Strings
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarEventProvider
+import org.tasks.data.Location
+import org.tasks.data.createDueDate
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.TagDao
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
-import org.tasks.data.dao.AlarmDao
 import org.tasks.data.entity.Attachment
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavTask
-import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.Location
-import org.tasks.data.dao.LocationDao
-import org.tasks.data.dao.TagDao
+import org.tasks.data.entity.FORCE_CALDAV_SYNC
 import org.tasks.data.entity.TagData
-import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_FIVE
+import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_NONSTOP
+import org.tasks.data.entity.Task.Companion.hasDueTime
 import org.tasks.data.entity.TaskAttachment
-import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.data.entity.UserActivity
-import org.tasks.data.dao.UserActivityDao
-import org.tasks.data.createDueDate
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
@@ -299,6 +299,15 @@ class TaskEditViewModel @Inject constructor(
             selectedAlarms.value = selectedAlarms.value.filterNot { a -> a.type == TYPE_REL_END }
         }
 
+        if (
+            selectedAlarms.value.toHashSet() != originalAlarms.toHashSet() ||
+            (isNew && selectedAlarms.value.isNotEmpty())
+        ) {
+            alarmService.synchronizeAlarms(task.id, selectedAlarms.value.toMutableSet())
+            task.putTransitory(FORCE_CALDAV_SYNC, true)
+            task.modificationDate = currentTimeMillis()
+        }
+
         taskDao.save(task, null)
 
         if (isNew || originalList != selectedList.value) {
@@ -350,15 +359,6 @@ class TaskEditViewModel @Inject constructor(
                     taskDao.save(subtask)
                 }
             }
-        }
-
-        if (
-            selectedAlarms.value.toHashSet() != originalAlarms.toHashSet() ||
-            (isNew && selectedAlarms.value.isNotEmpty())
-        ) {
-            alarmService.synchronizeAlarms(task.id, selectedAlarms.value.toMutableSet())
-            task.putTransitory(FORCE_CALDAV_SYNC, true)
-            task.modificationDate = currentTimeMillis()
         }
 
         if (
