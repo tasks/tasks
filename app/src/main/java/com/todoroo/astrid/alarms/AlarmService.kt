@@ -6,13 +6,14 @@
 package com.todoroo.astrid.alarms
 
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.entity.Alarm
-import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.jobs.AlarmEntry
 import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationManager
+import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import javax.inject.Inject
@@ -56,7 +57,6 @@ class AlarmService @Inject constructor(
             changed = true
         }
         if (changed) {
-            workManager.triggerNotifications()
             localBroadcastManager.broadcastRefreshList()
         }
         return changed
@@ -81,7 +81,7 @@ class AlarmService @Inject constructor(
                 val alarmEntries = alarms.mapNotNull {
                     alarmCalculator.toAlarmEntry(task, it)
                 }
-                val (now, later) = alarmEntries.partition { it.time <= currentTimeMillis() }
+                val (now, later) = alarmEntries.partition { it.time <= DateTime().startOfMinute().plusMinutes(1).millis }
                 later
                     .find { it.type == TYPE_SNOOZE }
                     ?.let { future.add(it) }

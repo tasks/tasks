@@ -101,6 +101,8 @@ class TaskDao @Inject constructor(
     suspend fun save(task: Task, original: Task?) {
         if (taskDao.update(task, original)) {
             afterUpdate(task, original)
+            workManager.triggerNotifications()
+            workManager.scheduleRefresh()
         }
     }
 
@@ -122,8 +124,6 @@ class TaskDao @Inject constructor(
         if (completionDateModified || deletionDateModified) {
             geofenceApi.update(task.id)
         }
-        workManager.triggerNotifications()
-        workManager.scheduleRefresh()
         if (!task.isSuppressRefresh()) {
             localBroadcastManager.broadcastRefresh()
         }

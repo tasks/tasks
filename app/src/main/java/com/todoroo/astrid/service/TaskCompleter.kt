@@ -14,6 +14,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Task
+import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -29,7 +30,8 @@ class TaskCompleter @Inject internal constructor(
     private val localBroadcastManager: LocalBroadcastManager,
     private val repeatTaskHelper: RepeatTaskHelper,
     private val caldavDao: CaldavDao,
-    private val gCalHelper: GCalHelper
+    private val gCalHelper: GCalHelper,
+    private val workManager: WorkManager,
 ) {
     suspend fun setComplete(taskId: Long) =
             taskDao
@@ -93,6 +95,8 @@ class TaskCompleter @Inject internal constructor(
                     }
                 }
         }
+        workManager.triggerNotifications()
+        workManager.scheduleRefresh()
         if (completed && notificationManager.currentInterruptionFilter == INTERRUPTION_FILTER_ALL) {
             preferences
                 .completionSound
