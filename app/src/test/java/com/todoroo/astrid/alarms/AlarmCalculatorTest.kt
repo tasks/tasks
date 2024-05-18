@@ -18,14 +18,12 @@ import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Alarm.Companion.whenDue
 import org.tasks.data.entity.Alarm.Companion.whenOverdue
 import org.tasks.data.entity.Alarm.Companion.whenStarted
+import org.tasks.data.entity.Notification
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_DUE
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_DUE_TIME
 import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.makers.AlarmEntryMaker.TIME
-import org.tasks.makers.AlarmEntryMaker.TYPE
-import org.tasks.makers.AlarmEntryMaker.newAlarmEntry
 import org.tasks.makers.TaskMaker.CREATION_TIME
 import org.tasks.makers.TaskMaker.DUE_DATE
 import org.tasks.makers.TaskMaker.DUE_TIME
@@ -70,7 +68,7 @@ class AlarmCalculatorTest {
             Alarm(time = now.millis + 1, type = TYPE_DATE_TIME)
         )
 
-        assertEquals(newAlarmEntry(with(TIME, now.plusMillis(1)), with(TYPE, TYPE_DATE_TIME)), alarm)
+        assertEquals(Notification(timestamp = now.millis + 1, type = TYPE_DATE_TIME), alarm)
     }
 
     @Test
@@ -80,10 +78,7 @@ class AlarmCalculatorTest {
             Alarm(time = now.millis, type = TYPE_SNOOZE)
         )
 
-        assertEquals(
-            newAlarmEntry(with(TIME, now), with(TYPE, TYPE_SNOOZE)),
-            alarm
-        )
+        assertEquals(Notification(timestamp = now.millis, type = TYPE_SNOOZE), alarm)
     }
 
     @Test
@@ -91,9 +86,9 @@ class AlarmCalculatorTest {
         val alarm = alarmCalculator.toAlarmEntry(newTask(with(DUE_DATE, now)), whenDue(0L))
 
         assertEquals(
-            newAlarmEntry(
-                with(TIME, now.startOfDay().withHourOfDay(13)),
-                with(TYPE, TYPE_REL_END)
+            Notification(
+                timestamp = now.startOfDay().withHourOfDay(13).millis,
+                type = TYPE_REL_END
             ),
             alarm
         )
@@ -104,8 +99,9 @@ class AlarmCalculatorTest {
         val alarm = alarmCalculator.toAlarmEntry(newTask(with(DUE_TIME, now)), whenDue(0L))
 
         assertEquals(
-            newAlarmEntry(
-                with(TIME, now.startOfMinute().plusMillis(1000)), with(TYPE, TYPE_REL_END)
+            Notification(
+                timestamp = now.startOfMinute().plusMillis(1000).millis,
+                type = TYPE_REL_END
             ),
             alarm
         )
@@ -119,9 +115,9 @@ class AlarmCalculatorTest {
         )
 
         assertEquals(
-            newAlarmEntry(
-                with(TIME, now.startOfDay().withHourOfDay(13)),
-                with(TYPE, TYPE_REL_START)
+            Notification(
+                timestamp = now.startOfDay().withHourOfDay(13).millis,
+                type = TYPE_REL_START
             ),
             alarm
         )
@@ -135,9 +131,9 @@ class AlarmCalculatorTest {
         )
 
         assertEquals(
-            newAlarmEntry(
-                with(TIME, now.startOfMinute().plusMillis(1000)),
-                with(TYPE, TYPE_REL_START)
+            Notification(
+                timestamp = now.startOfMinute().plusMillis(1000).millis,
+                type = TYPE_REL_START
             ),
             alarm
         )
@@ -152,9 +148,9 @@ class AlarmCalculatorTest {
             )
 
             assertEquals(
-                newAlarmEntry(
-                    with(TIME, DateTime(2023, 11, 4, 13, 0, 0)),
-                    with(TYPE, TYPE_REL_END)
+                Notification(
+                    timestamp = DateTime(2023, 11, 4, 13, 0, 0).millis,
+                    type = TYPE_REL_END
                 ),
                 alarm
             )
@@ -169,9 +165,9 @@ class AlarmCalculatorTest {
         )
 
         assertEquals(
-            newAlarmEntry(
-                with(TIME, now.plusDays(1).startOfMinute().plusMillis(1000)),
-                with(TYPE, TYPE_REL_END)
+            Notification(
+                timestamp = now.plusDays(1).startOfMinute().plusMillis(1000).millis,
+                type = TYPE_REL_END
             ),
             alarm
         )
@@ -186,9 +182,9 @@ class AlarmCalculatorTest {
             )
 
             assertEquals(
-                newAlarmEntry(
-                    with(TIME, DateTime(2023, 11, 4, 13, 0)),
-                    with(TYPE, TYPE_REL_START)
+                Notification(
+                    timestamp = DateTime(2023, 11, 4, 13, 0).millis,
+                    type = TYPE_REL_START
                 ),
                 alarm
             )
@@ -203,9 +199,9 @@ class AlarmCalculatorTest {
         )
 
         assertEquals(
-            newAlarmEntry(
-                with(TIME, now.plusDays(1).startOfMinute().plusMillis(1000)),
-                with(TYPE, TYPE_REL_START)
+            Notification(
+                timestamp = now.plusDays(1).startOfMinute().plusMillis(1000).millis,
+                type = TYPE_REL_START
             ),
             alarm
         )
@@ -219,9 +215,9 @@ class AlarmCalculatorTest {
         )
 
         assertEquals(
-            newAlarmEntry(
-                with(TIME, now.plusMinutes(5).startOfMinute().plusMillis(1000)),
-                with(TYPE, TYPE_REL_END)
+            Notification(
+                timestamp = now.plusMinutes(5).startOfMinute().plusMillis(1000).millis,
+                type = TYPE_REL_END
             ),
             alarm
         )
@@ -235,9 +231,9 @@ class AlarmCalculatorTest {
         )
 
         assertEquals(
-            newAlarmEntry(
-                with(TIME, now.plusMinutes(10).startOfMinute().plusMillis(1000)),
-                with(TYPE, TYPE_REL_END)
+            Notification(
+                timestamp = now.plusMinutes(10).startOfMinute().plusMillis(1000).millis,
+                type = TYPE_REL_END
             ),
             alarm
         )
@@ -279,7 +275,7 @@ class AlarmCalculatorTest {
         )
 
         assertEquals(
-            newAlarmEntry(with(TIME, dueDate.plusDays(7)), with(TYPE, TYPE_REL_END)),
+            Notification(timestamp = dueDate.plusDays(7).millis, type = TYPE_REL_END),
             alarm
         )
     }
@@ -310,7 +306,9 @@ class AlarmCalculatorTest {
             )
 
             assertEquals(
-                newAlarmEntry(with(TIME, now.minusDays(14).plusMillis(584206592)), with(TYPE, TYPE_RANDOM)),
+                Notification(
+                    timestamp = now.minusDays(14).plusMillis(584206592).millis,
+                    type = TYPE_RANDOM),
                 alarm
             )
         }
@@ -331,10 +329,7 @@ class AlarmCalculatorTest {
                 Alarm(time = ONE_WEEK, type = TYPE_RANDOM)
             )
 
-            assertEquals(
-                newAlarmEntry(with(TIME, task.dueDate.toDateTime()), with(TYPE, TYPE_RANDOM)),
-                alarm
-            )
+            assertEquals(Notification(timestamp = task.dueDate, type = TYPE_RANDOM), alarm)
         }
     }
 
@@ -352,9 +347,9 @@ class AlarmCalculatorTest {
             )
 
             assertEquals(
-                newAlarmEntry(
-                    with(TIME, now.minusDays(1).plusMillis(584206592)),
-                    with(TYPE, TYPE_RANDOM)
+                Notification(
+                    timestamp = now.minusDays(1).plusMillis(584206592).millis,
+                    type = TYPE_RANDOM
                 ),
                 alarm
             )
@@ -375,9 +370,9 @@ class AlarmCalculatorTest {
             )
 
             assertEquals(
-                newAlarmEntry(
-                    with(TIME, now.minusDays(1).plusMillis(584206592)),
-                    with(TYPE, TYPE_RANDOM)
+                Notification(
+                    timestamp = now.minusDays(1).plusMillis(584206592).millis,
+                    type = TYPE_RANDOM
                 ),
                 alarm
             )

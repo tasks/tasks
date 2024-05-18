@@ -1,8 +1,8 @@
 package com.todoroo.astrid.alarms
 
-import org.tasks.data.entity.Task
 import org.tasks.data.entity.Alarm
-import org.tasks.jobs.AlarmEntry
+import org.tasks.data.entity.Notification
+import org.tasks.data.entity.Task
 import org.tasks.preferences.Preferences
 import org.tasks.reminders.Random
 import org.tasks.time.DateTimeUtils.withMillisOfDay
@@ -18,7 +18,7 @@ class AlarmCalculator(
         preferences: Preferences
     ) : this(preferences.isDefaultDueTimeEnabled, Random(), preferences.defaultDueTime)
 
-    fun toAlarmEntry(task: Task, alarm: Alarm): AlarmEntry? {
+    fun toAlarmEntry(task: Task, alarm: Alarm): Notification? {
         val trigger = when (alarm.type) {
             Alarm.TYPE_SNOOZE,
             Alarm.TYPE_DATE_TIME ->
@@ -50,12 +50,12 @@ class AlarmCalculator(
             trigger <= AlarmService.NO_ALARM ->
                 null
             trigger > task.reminderLast || alarm.type == Alarm.TYPE_SNOOZE ->
-                AlarmEntry(alarm.id, alarm.task, trigger, alarm.type)
+                Notification(taskId = alarm.task, timestamp = trigger, type = alarm.type)
             alarm.repeat > 0 -> {
                 val past = (task.reminderLast - trigger) / alarm.interval
                 val next = trigger + (past + 1) * alarm.interval
                 if (past < alarm.repeat && next > task.reminderLast) {
-                    AlarmEntry(alarm.id, alarm.task, next, alarm.type)
+                    Notification(taskId = alarm.task, timestamp = next, type = alarm.type)
                 } else {
                     null
                 }
