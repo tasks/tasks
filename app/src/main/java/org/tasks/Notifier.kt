@@ -7,12 +7,12 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_GEO_ENTER
 import org.tasks.data.entity.Alarm.Companion.TYPE_GEO_EXIT
 import org.tasks.data.entity.Geofence
 import org.tasks.data.entity.Notification
-import org.tasks.data.dao.TaskDao
 import org.tasks.data.fetchFiltered
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.AudioManager
@@ -77,12 +77,12 @@ class Notifier @Inject constructor(
             geofences
                     .filter { if (arrival) it.isArrival else it.isDeparture }
                     .map {
-                        Notification().apply {
-                            taskId = it.task
-                            type = if (arrival) TYPE_GEO_ENTER else TYPE_GEO_EXIT
-                            timestamp = currentTimeMillis()
-                            location = place
-                        }
+                        Notification(
+                            taskId = it.task,
+                            type = if (arrival) TYPE_GEO_ENTER else TYPE_GEO_EXIT,
+                            timestamp = currentTimeMillis(),
+                            location = place,
+                        )
                     }
                     .let { triggerNotifications(it) }
 

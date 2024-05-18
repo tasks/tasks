@@ -24,15 +24,15 @@ import org.tasks.data.db.Table
 data class Notification(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "uid")
-    var uid: Long = 0,
+    val uid: Long = 0,
     @ColumnInfo(name = "task")
-    var taskId: Long = 0,
+    val taskId: Long = 0,
     @ColumnInfo(name = "timestamp")
-    var timestamp: Long = 0,
+    val timestamp: Long = 0,
     @ColumnInfo(name = "type")
-    var type: Int = 0,
+    val type: Int = 0,
     @ColumnInfo(name = "location")
-    var location: Long? = null,
+    val location: Long? = null,
 ) {
     companion object {
         const val TABLE_NAME = "notification"
