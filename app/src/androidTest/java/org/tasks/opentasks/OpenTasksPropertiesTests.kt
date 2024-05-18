@@ -279,12 +279,10 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
     }
 
     @Test
-    fun removeSnoozeTime() = runBlocking {
+    fun removeSnoozeTime() = withTZ(CHICAGO) {
         val (listId, list) = withVtodo(SNOOZED)
 
-        withTZ(CHICAGO) {
-            synchronizer.sync()
-        }
+        synchronizer.sync()
 
         val task = caldavDao.getTaskByRemoteId(list.uuid!!, "4CBBC669-70E3-474D-A0A3-0FC42A14A5A5")
             ?: throw IllegalStateException("Missing task")
