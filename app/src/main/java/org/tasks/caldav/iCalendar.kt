@@ -28,27 +28,27 @@ import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.caldav.extensions.toAlarms
 import org.tasks.caldav.extensions.toVAlarms
+import org.tasks.data.createDueDate
+import org.tasks.data.createGeofence
+import org.tasks.data.createHideUntil
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.TagDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
-import org.tasks.data.dao.AlarmDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavTask
-import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
-import org.tasks.data.dao.TagDao
 import org.tasks.data.entity.TagData
-import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY_TIME
 import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY
 import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
-import org.tasks.data.createDueDate
-import org.tasks.data.createGeofence
-import org.tasks.data.createHideUntil
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.date.DateTimeUtils.toLocal
@@ -504,7 +504,7 @@ class iCalendar @Inject constructor(
 
         val Task.reminders: List<Alarm>
             get() = alarms.filtered.toAlarms().let { alarms ->
-                snooze?.let { time -> alarms.plus(Alarm(0, time, TYPE_SNOOZE))} ?: alarms
+                snooze?.let { time -> alarms.plus(Alarm(time = time, type = TYPE_SNOOZE))} ?: alarms
             }
 
         internal fun getDateTime(timestamp: Long): DateTime {

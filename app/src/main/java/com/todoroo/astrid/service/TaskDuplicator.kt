@@ -1,23 +1,23 @@
 package com.todoroo.astrid.service
 
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
-import org.tasks.data.entity.Task.Companion.NO_ID
 import com.todoroo.astrid.gcal.GCalHelper
 import org.tasks.LocalBroadcastManager
-import org.tasks.data.entity.Alarm
 import org.tasks.data.dao.AlarmDao
-import org.tasks.data.entity.Attachment
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavTask
-import org.tasks.data.entity.Geofence
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.LocationDao
-import org.tasks.data.entity.Tag
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.data.db.DbUtils.dbchunk
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Attachment
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Tag
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.NO_ID
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
@@ -96,7 +96,7 @@ class TaskDuplicator @Inject constructor(
         }
         val alarms = alarmDao.getAlarms(task.id)
         if (alarms.isNotEmpty()) {
-            alarmDao.insert(alarms.map { Alarm(clone.id, it.time, it.type) })
+            alarmDao.insert(alarms.map { Alarm(task = clone.id, time = it.time, type = it.type) })
         }
         gcalHelper.createTaskEventIfEnabled(clone)
         taskDao.save(clone, null) // TODO: delete me

@@ -1,6 +1,5 @@
 package org.tasks.caldav
 
-import org.tasks.data.entity.Task
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -10,8 +9,9 @@ import org.tasks.TestUtilities.alarms
 import org.tasks.TestUtilities.vtodo
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
+import org.tasks.data.entity.Task
 import org.tasks.time.DateTime
-import java.util.*
+import java.util.TimeZone
 
 class AppleRemindersTests {
     private val defaultTimeZone = TimeZone.getDefault()
@@ -85,7 +85,7 @@ class AppleRemindersTests {
     @Test
     fun dateTimeReminder() {
         assertEquals(
-            listOf(Alarm(0, 1642568400000, TYPE_DATE_TIME)),
+            listOf(Alarm(time = 1642568400000, type = TYPE_DATE_TIME)),
             "apple/date_time_reminder.txt".alarms
         )
     }

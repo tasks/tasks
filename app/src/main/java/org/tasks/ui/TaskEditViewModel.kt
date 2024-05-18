@@ -168,7 +168,7 @@ class TaskEditViewModel @Inject constructor(
                 add(Alarm.whenOverdue(0))
             }
             if (task.randomReminder > 0) {
-                add(Alarm(0, task.randomReminder, Alarm.TYPE_RANDOM))
+                add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
             }
         }
     } else {

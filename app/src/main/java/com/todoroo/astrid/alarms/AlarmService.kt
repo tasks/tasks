@@ -68,8 +68,8 @@ class AlarmService @Inject constructor(
 
     suspend fun snooze(time: Long, taskIds: List<Long>) {
         notificationManager.cancel(taskIds)
-        alarmDao.getSnoozed(taskIds).let { alarmDao.delete(it) }
-        taskIds.map { Alarm(it, time, TYPE_SNOOZE) }.let { alarmDao.insert(it) }
+        alarmDao.deleteSnoozed(taskIds)
+        alarmDao.insert(taskIds.map { Alarm(task = it, time = time, type = TYPE_SNOOZE) })
         taskDao.touch(taskIds)
         workManager.triggerNotifications()
     }

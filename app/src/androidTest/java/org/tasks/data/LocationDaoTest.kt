@@ -2,20 +2,23 @@ package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.caldav.GeoUtils.toLikeString
-import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Geofence
 import org.tasks.data.entity.Place
+import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
@@ -122,7 +125,13 @@ class LocationDaoTest : InjectingTestCase() {
             val place = Place()
             locationDao.insert(place)
             val task = taskDao.createNew(newTask())
-            alarmDao.insert(Alarm(task, newDateTime().plusMinutes(15).millis, TYPE_SNOOZE))
+            alarmDao.insert(
+                Alarm(
+                    task = task,
+                    time = newDateTime().plusMinutes(15).millis,
+                    type = TYPE_SNOOZE
+                )
+            )
             locationDao.insert(Geofence(task = task, place = place.uid, isArrival = true))
 
             assertTrue(locationDao.getArrivalGeofences(place.uid!!, currentTimeMillis()).isEmpty())
@@ -135,7 +144,13 @@ class LocationDaoTest : InjectingTestCase() {
             val place = Place()
             locationDao.insert(place)
             val task = taskDao.createNew(newTask())
-            alarmDao.insert(Alarm(task, newDateTime().plusMinutes(15).millis, TYPE_SNOOZE))
+            alarmDao.insert(
+                Alarm(
+                    task = task,
+                    time = newDateTime().plusMinutes(15).millis,
+                    type = TYPE_SNOOZE
+                )
+            )
             locationDao.insert(Geofence(task = task, place = place.uid, isDeparture = true))
 
             assertTrue(locationDao.getDepartureGeofences(place.uid!!, currentTimeMillis()).isEmpty())
@@ -148,7 +163,13 @@ class LocationDaoTest : InjectingTestCase() {
             val place = Place()
             locationDao.insert(place)
             val task = taskDao.createNew(newTask())
-            alarmDao.insert(Alarm(task, newDateTime().minusMinutes(15).millis, TYPE_SNOOZE))
+            alarmDao.insert(
+                Alarm(
+                    task = task,
+                    time = newDateTime().minusMinutes(15).millis,
+                    type = TYPE_SNOOZE
+                )
+            )
             val geofence = Geofence(task = task, place = place.uid, isArrival = true)
                 .let { it.copy(id = locationDao.insert(it)) }
 
@@ -164,7 +185,13 @@ class LocationDaoTest : InjectingTestCase() {
             val place = Place()
             locationDao.insert(place)
             val task = taskDao.createNew(newTask())
-            alarmDao.insert(Alarm(task, newDateTime().minusMinutes(15).millis, TYPE_SNOOZE))
+            alarmDao.insert(
+                Alarm(
+                    task = task,
+                    time = newDateTime().minusMinutes(15).millis,
+                    type = TYPE_SNOOZE
+                )
+            )
             val geofence = Geofence(task = task, place = place.uid, isDeparture = true)
                 .let { it.copy(id = locationDao.insert(it)) }
 

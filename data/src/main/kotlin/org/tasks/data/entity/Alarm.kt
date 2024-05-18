@@ -4,7 +4,6 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
@@ -43,17 +42,6 @@ data class Alarm(
     @ColumnInfo(name = "interval", defaultValue = "0")
     var interval: Long = 0,
 ) : Parcelable {
-    @Ignore
-    constructor(task: Long, time: Long, type: Int, repeat: Int = 0, interval: Long = 0): this(
-        id = 0,
-        task = task,
-        time = time,
-        type = type,
-        repeat = repeat,
-        interval = interval
-    )
-
-
     fun same(other: Alarm) =
         type == other.type &&
                 time == other.time &&
@@ -80,11 +68,17 @@ data class Alarm(
         const val TYPE_GEO_ENTER = 5
         const val TYPE_GEO_EXIT = 6
 
-        fun whenStarted(task: Long) = Alarm(task, 0, TYPE_REL_START)
+        fun whenStarted(task: Long) = Alarm(task = task, type = TYPE_REL_START)
 
-        fun whenDue(task: Long) = Alarm(task, 0, TYPE_REL_END)
+        fun whenDue(task: Long) = Alarm(task = task, type = TYPE_REL_END)
 
         fun whenOverdue(task: Long) =
-            Alarm(task, TimeUnit.DAYS.toMillis(1), TYPE_REL_END, 6, TimeUnit.DAYS.toMillis(1))
+            Alarm(
+                task = task,
+                time = TimeUnit.DAYS.toMillis(1),
+                type = TYPE_REL_END,
+                repeat = 6,
+                interval = TimeUnit.DAYS.toMillis(1)
+            )
     }
 }

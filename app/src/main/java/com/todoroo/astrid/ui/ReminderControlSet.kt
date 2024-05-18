@@ -31,7 +31,7 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.ui.TaskEditControlFragment
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -98,7 +98,7 @@ class ReminderControlSet : TaskEditControlFragment() {
                                 data.getLongExtra(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
                             val replace: Alarm? = data.getParcelableExtra(EXTRA_REPLACE)
                             replace?.let { viewModel.removeAlarm(it) }
-                            viewModel.addAlarm(Alarm(0, timestamp, TYPE_DATE_TIME))
+                            viewModel.addAlarm(Alarm(time = timestamp, type = TYPE_DATE_TIME))
                         }
                     AlarmRow(
                         locale = locale,

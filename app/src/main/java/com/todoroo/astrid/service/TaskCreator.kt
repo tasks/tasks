@@ -7,35 +7,35 @@ import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
-import org.tasks.data.entity.Task.Companion.DUE_DATE
-import org.tasks.data.entity.Task.Companion.HIDE_UNTIL
-import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_NONE
-import org.tasks.data.entity.Task.Companion.IMPORTANCE
 import com.todoroo.astrid.gcal.GCalHelper
-import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.utility.TitleParser.parse
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.data.GoogleTask
+import org.tasks.data.UUIDHelper
+import org.tasks.data.createDueDate
+import org.tasks.data.createGeofence
+import org.tasks.data.createHideUntil
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.TagDao
+import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
 import org.tasks.data.entity.Alarm.Companion.whenDue
 import org.tasks.data.entity.Alarm.Companion.whenOverdue
 import org.tasks.data.entity.Alarm.Companion.whenStarted
-import org.tasks.data.dao.AlarmDao
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavTask
-import org.tasks.data.GoogleTask
-import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Tag
-import org.tasks.data.dao.TagDao
 import org.tasks.data.entity.TagData
-import org.tasks.data.dao.TagDataDao
-import org.tasks.data.createDueDate
-import org.tasks.data.createGeofence
-import org.tasks.data.createHideUntil
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.DUE_DATE
+import org.tasks.data.entity.Task.Companion.HIDE_UNTIL
+import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_NONE
+import org.tasks.data.entity.Task.Companion.IMPORTANCE
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
@@ -235,7 +235,7 @@ class TaskCreator @Inject constructor(
                 }
             }
             if (randomReminder > 0) {
-                add(Alarm(id, randomReminder, TYPE_RANDOM))
+                add(Alarm(task = id, time = randomReminder, type = TYPE_RANDOM))
             }
         }
     }

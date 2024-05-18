@@ -29,13 +29,10 @@ WHERE tasks._id = :taskId
 """)
     suspend fun getActiveAlarms(taskId: Long): List<Alarm>
 
-    @Query("SELECT * FROM alarms WHERE type = $TYPE_SNOOZE AND task IN (:taskIds)")
-    suspend fun getSnoozed(taskIds: List<Long>): List<Alarm>
-
     @Query("SELECT * FROM alarms WHERE task = :taskId")
     suspend fun getAlarms(taskId: Long): List<Alarm>
 
-    @Query("DELETE FROM alarms WHERE type = $TYPE_SNOOZE AND task IN(:taskIds)")
+    @Query("DELETE FROM alarms WHERE type = $TYPE_SNOOZE AND task IN (:taskIds)")
     suspend fun deleteSnoozed(taskIds: List<Long>)
 
     @Delete

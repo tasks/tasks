@@ -1,6 +1,5 @@
 package org.tasks.ui.editviewmodel
 
-import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
@@ -8,9 +7,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.tasks.data.createDueDate
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.whenOverdue
-import org.tasks.data.createDueDate
+import org.tasks.data.entity.Task
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -34,7 +34,14 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         save()
 
         assertEquals(
-            listOf(Alarm(1, 0, Alarm.TYPE_REL_START).apply { id = 1 }),
+            listOf(
+                Alarm(
+                    id = 1,
+                    task = 1,
+                    time = 0,
+                    type = Alarm.TYPE_REL_START
+                )
+            ),
             alarmDao.getAlarms(task.id)
         )
     }
@@ -55,7 +62,14 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         save()
 
         assertEquals(
-            listOf(Alarm(1, 0, Alarm.TYPE_REL_END).apply { id = 1 }),
+            listOf(
+                Alarm(
+                    id = 1,
+                    task = 1,
+                    time = 0,
+                    type = Alarm.TYPE_REL_END
+                )
+            ),
             alarmDao.getAlarms(task.id)
         )
     }

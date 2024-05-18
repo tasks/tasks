@@ -17,11 +17,8 @@ class VAlarmTests {
         assertEquals(
             "BEGIN:VALARM\r\nTRIGGER;VALUE=DATE-TIME:20220121T190000Z\r\nACTION:DISPLAY\r\nDESCRIPTION:Default Tasks.org description\r\nEND:VALARM\r\n",
             Alarm(
-                0,
-                DateTime(2022, 1, 21, 19, 0, 0, 0, UTC).millis,
-                TYPE_DATE_TIME,
-                0,
-                0
+                time = DateTime(2022, 1, 21, 19, 0, 0, 0, UTC).millis,
+                type = TYPE_DATE_TIME,
             ).toVAlarm().toString()
         )
     }
@@ -29,11 +26,8 @@ class VAlarmTests {
     @Test
     fun dateTimeFromAlarm() {
         val alarm = Alarm(
-            0,
-            DateTime(2022, 1, 21, 19, 0, 0, 0, UTC).millis,
-            TYPE_DATE_TIME,
-            0,
-            0
+            time = DateTime(2022, 1, 21, 19, 0, 0, 0, UTC).millis,
+            type = TYPE_DATE_TIME,
         )
         assertEquals(alarm, alarm.toVAlarm()?.toAlarm())
     }
@@ -42,13 +36,13 @@ class VAlarmTests {
     fun beforeStartToVAlarm() {
         assertEquals(
             "BEGIN:VALARM\r\nTRIGGER;RELATED=START:-PT1H15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Default Tasks.org description\r\nEND:VALARM\r\n",
-            Alarm(0, -MINUTES.toMillis(75), TYPE_REL_START, 0, 0).toVAlarm().toString()
+            Alarm(time = -MINUTES.toMillis(75), type = TYPE_REL_START).toVAlarm().toString()
         )
     }
 
     @Test
     fun beforeStartFromAlarm() {
-        val alarm = Alarm(0, -MINUTES.toMillis(75), TYPE_REL_START, 0, 0)
+        val alarm = Alarm(time = -MINUTES.toMillis(75), type = TYPE_REL_START)
         assertEquals(alarm, alarm.toVAlarm()?.toAlarm())
     }
 
@@ -56,13 +50,13 @@ class VAlarmTests {
     fun afterStartToVAlarm() {
         assertEquals(
             "BEGIN:VALARM\r\nTRIGGER;RELATED=START:PT1H15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Default Tasks.org description\r\nEND:VALARM\r\n",
-            Alarm(0, MINUTES.toMillis(75), TYPE_REL_START, 0, 0).toVAlarm().toString()
+            Alarm(time = MINUTES.toMillis(75), type = TYPE_REL_START).toVAlarm().toString()
         )
     }
 
     @Test
     fun afterStartFromAlarm() {
-        val alarm = Alarm(0, MINUTES.toMillis(75), TYPE_REL_START, 0, 0)
+        val alarm = Alarm(time = MINUTES.toMillis(75), type = TYPE_REL_START)
         assertEquals(alarm, alarm.toVAlarm()?.toAlarm())
     }
 
@@ -70,13 +64,13 @@ class VAlarmTests {
     fun beforeEndToVAlarm() {
         assertEquals(
             "BEGIN:VALARM\r\nTRIGGER;RELATED=END:-PT1H15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Default Tasks.org description\r\nEND:VALARM\r\n",
-            Alarm(0, -MINUTES.toMillis(75), TYPE_REL_END, 0, 0).toVAlarm().toString()
+            Alarm(time = -MINUTES.toMillis(75), type = TYPE_REL_END).toVAlarm().toString()
         )
     }
 
     @Test
     fun beforeEndFromAlarm() {
-        val alarm = Alarm(0, -MINUTES.toMillis(75), TYPE_REL_END, 0, 0)
+        val alarm = Alarm(time = -MINUTES.toMillis(75), type = TYPE_REL_END)
         assertEquals(alarm, alarm.toVAlarm()?.toAlarm())
     }
 
@@ -84,13 +78,13 @@ class VAlarmTests {
     fun afterEndToVAlarm() {
         assertEquals(
             "BEGIN:VALARM\r\nTRIGGER;RELATED=END:PT1H15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Default Tasks.org description\r\nEND:VALARM\r\n",
-            Alarm(0, MINUTES.toMillis(75), TYPE_REL_END, 0, 0).toVAlarm().toString()
+            Alarm(time = MINUTES.toMillis(75), type = TYPE_REL_END).toVAlarm().toString()
         )
     }
 
     @Test
     fun afterEndFromAlarm() {
-        val alarm = Alarm(0, MINUTES.toMillis(75), TYPE_REL_END, 0, 0)
+        val alarm = Alarm(time = MINUTES.toMillis(75), type = TYPE_REL_END)
         assertEquals(alarm, alarm.toVAlarm()?.toAlarm())
     }
 
@@ -98,13 +92,23 @@ class VAlarmTests {
     fun repeatingAlarm() {
         assertEquals(
             "BEGIN:VALARM\r\nTRIGGER;RELATED=START:P1DT8H\r\nACTION:DISPLAY\r\nDESCRIPTION:Default Tasks.org description\r\nREPEAT:15\r\nDURATION:PT15M\r\nEND:VALARM\r\n",
-            Alarm(0, HOURS.toMillis(32), TYPE_REL_START, 15, MINUTES.toMillis(15)).toVAlarm().toString()
+            Alarm(
+                time = HOURS.toMillis(32),
+                type = TYPE_REL_START,
+                repeat = 15,
+                interval = MINUTES.toMillis(15)
+            ).toVAlarm().toString()
         )
     }
 
     @Test
     fun repeatingFromAlarm() {
-        val alarm = Alarm(0, HOURS.toMillis(32), TYPE_REL_START, 15, MINUTES.toMillis(15))
+        val alarm = Alarm(
+            time = HOURS.toMillis(32),
+            type = TYPE_REL_START,
+            repeat = 15,
+            interval = MINUTES.toMillis(15)
+        )
         assertEquals(alarm, alarm.toVAlarm()?.toAlarm())
     }
 }

@@ -40,7 +40,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
                     )
                 )
             )
-            alarmService.synchronizeAlarms(1, mutableSetOf(Alarm(0, 0, Alarm.TYPE_REL_END)))
+            alarmService.synchronizeAlarms(1, mutableSetOf(Alarm(type = Alarm.TYPE_REL_END)))
 
             testResults(emptyList(), DateTime(2024, 5, 18, 18, 0).millis)
         }
@@ -57,7 +57,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
                     )
                 )
             )
-            alarmService.synchronizeAlarms(1, mutableSetOf(Alarm(0, 0, Alarm.TYPE_REL_END)))
+            alarmService.synchronizeAlarms(1, mutableSetOf(Alarm(type = Alarm.TYPE_REL_END)))
 
             testResults(
                 listOf(
@@ -87,9 +87,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
                 1,
                 mutableSetOf(
                     Alarm(
-                        0,
-                        0,
-                        Alarm.TYPE_REL_END,
+                        type = Alarm.TYPE_REL_END,
                         repeat = 1,
                         interval = TimeUnit.HOURS.toMillis(6)
                     )
@@ -123,8 +121,8 @@ class AlarmJobServiceTest : InjectingTestCase() {
             alarmService.synchronizeAlarms(
                 1,
                 mutableSetOf(
-                    Alarm(0, 0, Alarm.TYPE_REL_END),
-                    Alarm(0, DateTimeUtils2.currentTimeMillis(), Alarm.TYPE_SNOOZE)
+                    Alarm(type = Alarm.TYPE_REL_END),
+                    Alarm(time = DateTimeUtils2.currentTimeMillis(), type = Alarm.TYPE_SNOOZE)
                 )
             )
 
@@ -160,11 +158,10 @@ class AlarmJobServiceTest : InjectingTestCase() {
             alarmService.synchronizeAlarms(
                 1,
                 mutableSetOf(
-                    Alarm(0, 0, Alarm.TYPE_REL_END),
+                    Alarm(type = Alarm.TYPE_REL_END),
                     Alarm(
-                        0,
-                        DateTimeUtils2.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5),
-                        Alarm.TYPE_SNOOZE
+                        time = DateTimeUtils2.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5),
+                        type = Alarm.TYPE_SNOOZE
                     )
                 )
             )
@@ -190,7 +187,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
             )
             alarmService.synchronizeAlarms(
                 1,
-                mutableSetOf(Alarm(0, 0, Alarm.TYPE_REL_END))
+                mutableSetOf(Alarm(type = Alarm.TYPE_REL_END))
             )
 
             testResults(
@@ -214,7 +211,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
             )
             alarmService.synchronizeAlarms(
                 1,
-                mutableSetOf(Alarm(0, 0, Alarm.TYPE_REL_END))
+                mutableSetOf(Alarm(type = Alarm.TYPE_REL_END))
             )
 
             testResults(
@@ -238,7 +235,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
             )
             alarmService.synchronizeAlarms(
                 1,
-                mutableSetOf(Alarm(0, 0, Alarm.TYPE_REL_END))
+                mutableSetOf(Alarm(type = Alarm.TYPE_REL_END))
             )
 
             testResults(
