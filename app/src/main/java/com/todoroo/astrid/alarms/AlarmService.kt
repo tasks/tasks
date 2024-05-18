@@ -8,11 +8,14 @@ package com.todoroo.astrid.alarms
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.db.DbUtils
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.entity.Notification
 import org.tasks.jobs.AlarmEntry
 import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationManager
+import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
@@ -30,6 +33,7 @@ class AlarmService @Inject constructor(
     private val notificationManager: NotificationManager,
     private val workManager: WorkManager,
     private val alarmCalculator: AlarmCalculator,
+    private val preferences: Preferences,
 ) {
     suspend fun getAlarms(taskId: Long): List<Alarm> = alarmDao.getAlarms(taskId)
 
@@ -70,7 +74,33 @@ class AlarmService @Inject constructor(
         workManager.triggerNotifications()
     }
 
-    suspend fun getAlarms(): Pair<List<AlarmEntry>, List<AlarmEntry>> {
+    suspend fun triggerAlarms(
+        trigger: suspend (List<Notification>) -> Unit
+    ): Long {
+        if (preferences.isCurrentlyQuietHours) {
+            return preferences.adjustForQuietHours(currentTimeMillis())
+        }
+        val (overdue, _) = getAlarms()
+        overdue
+            .sortedBy { it.time }
+            .also { alarms ->
+                alarms
+                    .map { it.taskId }
+                    .chunked(DbUtils.MAX_SQLITE_ARGS)
+                    .onEach { alarmDao.deleteSnoozed(it) }
+            }
+            .map { it.toNotification() }
+            .let { trigger(it) }
+        val alreadyTriggered = overdue.map { it.taskId }.toSet()
+        val (moreOverdue, future) = getAlarms()
+        return moreOverdue
+            .filterNot { it.type == Alarm.TYPE_RANDOM || alreadyTriggered.contains(it.taskId) }
+            .plus(future)
+            .minOfOrNull { it.time }
+            ?: 0
+    }
+
+    internal suspend fun getAlarms(): Pair<List<AlarmEntry>, List<AlarmEntry>> {
         val start = currentTimeMillis()
         val overdue = ArrayList<AlarmEntry>()
         val future = ArrayList<AlarmEntry>()
@@ -83,7 +113,8 @@ class AlarmService @Inject constructor(
                 }
                 val (now, later) = alarmEntries.partition { it.time <= DateTime().startOfMinute().plusMinutes(1).millis }
                 later
-                    .find { it.type == TYPE_SNOOZE }
+                    .filter { it.type == TYPE_SNOOZE }
+                    .maxByOrNull { it.time }
                     ?.let { future.add(it) }
                     ?: run {
                         now.firstOrNull()?.let { overdue.add(it) }

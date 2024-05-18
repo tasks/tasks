@@ -11,13 +11,8 @@ import dagger.assisted.AssistedInject
 import org.tasks.Notifier
 import org.tasks.R
 import org.tasks.analytics.Firebase
-import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
-import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
-import org.tasks.data.dao.AlarmDao
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.notifications.NotificationManager
-import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 
 @HiltWorker
@@ -27,44 +22,19 @@ class NotificationWork @AssistedInject constructor(
     firebase: Firebase,
     private val workManager: WorkManager,
     private val alarmService: AlarmService,
-    private val alarmDao: AlarmDao,
-    private val preferences: Preferences,
     private val notifier: Notifier,
 ) : RepeatingWorker(context, workerParams, firebase) {
     private var nextAlarm: Long = 0
 
     override suspend fun run(): Result {
-        if (preferences.isCurrentlyQuietHours) {
-            nextAlarm = preferences.adjustForQuietHours(currentTimeMillis())
-            return Result.success()
-        }
-        val (overdue, _) = alarmService.getAlarms()
-        if (overdue.isNotEmpty()) {
-            overdue
-                .sortedBy { it.time }
-                .also { alarms ->
-                    alarms
-                        .filter { it.type == TYPE_SNOOZE }
-                        .map { it.id }
-                        .let { alarmDao.deleteByIds(it) }
-                }
-                .map { it.toNotification() }
-                .let { notifier.triggerNotifications(it) }
-        }
-        val alreadyTriggered = overdue.map { it.taskId }.toSet()
-        val (moreOverdue, future) = alarmService.getAlarms()
-        nextAlarm = moreOverdue
-            .filterNot { it.type == TYPE_RANDOM || alreadyTriggered.contains(it.taskId)}
-            .plus(future)
-            .minOfOrNull { it.time }
-            ?: 0
+        nextAlarm = alarmService.triggerAlarms { notifier.triggerNotifications(it) }
         return Result.success()
     }
 
     override suspend fun scheduleNext() {
         if (nextAlarm > 0) {
             Timber.d("nextAlarm=${nextAlarm.toDateTime()}")
-            workManager.scheduleNotification(preferences.adjustForQuietHours(nextAlarm))
+            workManager.scheduleNotification(nextAlarm)
         }
     }
 

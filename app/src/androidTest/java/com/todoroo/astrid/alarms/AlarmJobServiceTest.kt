@@ -1,108 +1,258 @@
 package com.todoroo.astrid.alarms
 
-import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.tasks.data.entity.Alarm
-import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
-import org.tasks.data.entity.Alarm.Companion.TYPE_RANDOM
-import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
-import org.tasks.data.entity.Alarm.Companion.whenDue
-import org.tasks.data.entity.Alarm.Companion.whenOverdue
-import org.tasks.data.dao.AlarmDao
+import org.tasks.SuspendFreeze.Companion.freezeAt
+import org.tasks.data.createDueDate
 import org.tasks.data.dao.TaskDao
-import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Notification
+import org.tasks.data.entity.Task
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.jobs.AlarmEntry
-import org.tasks.makers.TaskMaker.COMPLETION_TIME
-import org.tasks.makers.TaskMaker.DELETION_TIME
-import org.tasks.makers.TaskMaker.DUE_DATE
-import org.tasks.makers.TaskMaker.DUE_TIME
-import org.tasks.makers.TaskMaker.REMINDER_LAST
-import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils2
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @UninstallModules(ProductionModule::class)
 @HiltAndroidTest
 class AlarmJobServiceTest : InjectingTestCase() {
-    @Inject lateinit var alarmDao: AlarmDao
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var alarmService: AlarmService
 
     @Test
-    fun scheduleAlarm() = runBlocking {
-        val task = taskDao.createNew(newTask())
-        val alarm = insertAlarm(Alarm(task, DateTime(2017, 9, 24, 19, 57).millis, TYPE_DATE_TIME))
+    fun testNoAlarms() = runBlocking {
+        testResults(emptyList(), 0)
+    }
 
-        verify(overdue = listOf(AlarmEntry(alarm, task, DateTime(2017, 9, 24, 19, 57).millis, TYPE_DATE_TIME)))
+    @Test
+    fun futureAlarmWithNoPastAlarm() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY,
+                        DateTime(2024, 5, 18).millis
+                    )
+                )
+            )
+            alarmService.synchronizeAlarms(1, mutableSetOf(Alarm(0, 0, Alarm.TYPE_REL_END)))
+
+            testResults(emptyList(), DateTime(2024, 5, 18, 18, 0).millis)
+        }
+    }
+
+    @Test
+    fun pastAlarmWithNoFutureAlarm() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY,
+                        DateTime(2024, 5, 17).millis
+                    )
+                )
+            )
+            alarmService.synchronizeAlarms(1, mutableSetOf(Alarm(0, 0, Alarm.TYPE_REL_END)))
+
+            testResults(
+                listOf(
+                    Notification(
+                        taskId = 1L,
+                        timestamp = DateTimeUtils2.currentTimeMillis(),
+                        type = Alarm.TYPE_REL_END
+                    )
+                ),
+                0
+            )
+        }
+    }
+
+    @Test
+    fun pastRecurringAlarmWithFutureRecurrence() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY,
+                        DateTime(2024, 5, 17).millis
+                    )
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(
+                    Alarm(
+                        0,
+                        0,
+                        Alarm.TYPE_REL_END,
+                        repeat = 1,
+                        interval = TimeUnit.HOURS.toMillis(6)
+                    )
+                )
+            )
+
+            testResults(
+                listOf(
+                    Notification(
+                        taskId = 1L,
+                        timestamp = DateTimeUtils2.currentTimeMillis(),
+                        type = Alarm.TYPE_REL_END
+                    )
+                ),
+                DateTime(2024, 5, 18, 0, 0).millis
+            )
+        }
+    }
+
+    @Test
+    fun pastAlarmsRemoveSnoozed() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY,
+                        DateTime(2024, 5, 17).millis
+                    )
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(
+                    Alarm(0, 0, Alarm.TYPE_REL_END),
+                    Alarm(0, DateTimeUtils2.currentTimeMillis(), Alarm.TYPE_SNOOZE)
+                )
+            )
+
+            testResults(
+                listOf(
+                    Notification(
+                        taskId = 1L,
+                        timestamp = DateTimeUtils2.currentTimeMillis(),
+                        type = Alarm.TYPE_REL_END
+                    )
+                ),
+                0
+            )
+
+            assertEquals(
+                listOf(Alarm(id = 1, task = 1, time = 0, type = Alarm.TYPE_REL_END)),
+                alarmService.getAlarms(1)
+            )
+        }
+    }
+
+    @Test
+    fun futureSnoozeOverrideOverdue() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY,
+                        DateTime(2024, 5, 17).millis
+                    )
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(
+                    Alarm(0, 0, Alarm.TYPE_REL_END),
+                    Alarm(
+                        0,
+                        DateTimeUtils2.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5),
+                        Alarm.TYPE_SNOOZE
+                    )
+                )
+            )
+
+            testResults(
+                emptyList(),
+                DateTimeUtils2.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5)
+            )
+        }
     }
 
     @Test
     fun ignoreStaleAlarm() = runBlocking {
-        val alarmTime = DateTime(2017, 9, 24, 19, 57)
-        val task = taskDao.createNew(newTask(with(REMINDER_LAST, alarmTime.endOfMinute())))
-        alarmDao.insert(Alarm(task, alarmTime.millis, TYPE_DATE_TIME))
-
-        verify()
-    }
-
-    @Test
-    fun dontScheduleReminderForCompletedTask() = runBlocking {
-        val task = taskDao.insert(
-            newTask(
-                with(DUE_DATE, newDateTime()),
-                with(COMPLETION_TIME, newDateTime())
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY,
+                        DateTime(2024, 5, 17).millis
+                    ),
+                    reminderLast = DateTime(2024, 5, 17, 18, 0).millis,
+                )
             )
-        )
-        alarmDao.insert(whenDue(task))
-
-        verify()
-    }
-
-    @Test
-    fun dontScheduleReminderForDeletedTask() = runBlocking {
-        val task = taskDao.insert(
-            newTask(
-                with(DUE_DATE, newDateTime()),
-                with(DELETION_TIME, newDateTime())
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(Alarm(0, 0, Alarm.TYPE_REL_END))
             )
-        )
-        alarmDao.insert(whenDue(task))
 
-        verify()
+            testResults(
+                emptyList(),
+                0
+            )
+        }
     }
 
     @Test
-    fun snoozeOverridesAll() = runBlocking {
-        val now = newDateTime()
-        val task = taskDao.insert(newTask(with(DUE_TIME, now)))
+    fun dontScheduleForCompletedTask() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY,
+                        DateTime(2024, 5, 17).millis
+                    ),
+                    completionDate = DateTime(2024, 5, 17, 14, 0).millis,
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(Alarm(0, 0, Alarm.TYPE_REL_END))
+            )
 
-        alarmDao.insert(whenDue(task))
-        alarmDao.insert(whenOverdue(task))
-        alarmDao.insert(Alarm(task, DateUtilities.ONE_HOUR, TYPE_RANDOM))
-        val alarm = alarmDao.insert(Alarm(task, now.plusMonths(12).millis, TYPE_SNOOZE))
-
-        verify(future = listOf(AlarmEntry(alarm, task, now.plusMonths(12).millis, TYPE_SNOOZE)))
+            testResults(
+                emptyList(),
+                0
+            )
+        }
     }
 
-    private suspend fun insertAlarm(alarm: Alarm): Long {
-        alarm.id = alarmDao.insert(alarm)
-        return alarm.id
+    @Test
+    fun dontScheduleForDeletedTask() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY,
+                        DateTime(2024, 5, 17).millis
+                    ),
+                    deletionDate = DateTime(2024, 5, 17, 14, 0).millis,
+                )
+            )
+            alarmService.synchronizeAlarms(
+                1,
+                mutableSetOf(Alarm(0, 0, Alarm.TYPE_REL_END))
+            )
+
+            testResults(
+                emptyList(),
+                0
+            )
+        }
     }
 
-    private suspend fun verify(
-        overdue: List<AlarmEntry> = emptyList(),
-        future: List<AlarmEntry> = emptyList(),
-    ) {
-        val (actualOverdue, actualFuture) = alarmService.getAlarms()
-
-        assertEquals(overdue, actualOverdue)
-        assertEquals(future, actualFuture)
+    private suspend fun testResults(notifications: List<Notification>, nextAlarm: Long) {
+        val actualNextAlarm = alarmService.triggerAlarms {
+            assertEquals(notifications, it)
+            it.forEach { taskDao.setLastNotified(it.taskId, DateTimeUtils2.currentTimeMillis()) }
+        }
+        assertEquals(nextAlarm, actualNextAlarm)
     }
 }

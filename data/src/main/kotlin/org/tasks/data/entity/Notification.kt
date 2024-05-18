@@ -21,26 +21,19 @@ import org.tasks.data.db.Table
         )
     ]
 )
-class Notification {
+data class Notification(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "uid")
-    var uid = 0
-
+    var uid: Long = 0,
     @ColumnInfo(name = "task")
-    var taskId: Long = 0
-
+    var taskId: Long = 0,
     @ColumnInfo(name = "timestamp")
-    var timestamp: Long = 0
-
+    var timestamp: Long = 0,
     @ColumnInfo(name = "type")
-    var type = 0
-
+    var type: Int = 0,
     @ColumnInfo(name = "location")
-    var location: Long? = null
-
-    override fun toString(): String =
-            "Notification(uid=$uid, taskId=$taskId, timestamp=$timestamp, type=$type, location=$location)"
-
+    var location: Long? = null,
+) {
     companion object {
         const val TABLE_NAME = "notification"
         val TABLE = Table(TABLE_NAME)

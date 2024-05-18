@@ -4,9 +4,9 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import org.tasks.data.entity.Task
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.entity.Task
 
 @Dao
 interface AlarmDao {
@@ -35,8 +35,8 @@ WHERE tasks._id = :taskId
     @Query("SELECT * FROM alarms WHERE task = :taskId")
     suspend fun getAlarms(taskId: Long): List<Alarm>
 
-    @Query("DELETE FROM alarms WHERE _id IN(:alarmIds)")
-    suspend fun deleteByIds(alarmIds: List<Long>)
+    @Query("DELETE FROM alarms WHERE type = $TYPE_SNOOZE AND task IN(:taskIds)")
+    suspend fun deleteSnoozed(taskIds: List<Long>)
 
     @Delete
     suspend fun delete(alarm: Alarm)
