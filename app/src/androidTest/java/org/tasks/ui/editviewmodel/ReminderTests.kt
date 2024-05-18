@@ -90,7 +90,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         save()
 
         assertEquals(
-            listOf(whenOverdue(1).apply { id = 1 }),
+            listOf(whenOverdue(1).copy(id = 1)),
             alarmDao.getAlarms(task.id)
         )
     }

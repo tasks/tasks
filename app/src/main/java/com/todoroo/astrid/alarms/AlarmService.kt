@@ -45,19 +45,13 @@ class AlarmService @Inject constructor(
     suspend fun synchronizeAlarms(taskId: Long, alarms: MutableSet<Alarm>): Boolean {
         var changed = false
         for (existing in alarmDao.getAlarms(taskId)) {
-            if (!alarms.removeIf {
-                    it.type == existing.type &&
-                            it.time == existing.time &&
-                            it.repeat == existing.repeat &&
-                            it.interval == existing.interval
-                }) {
+            if (!alarms.removeIf { it.same(existing)}) {
                 alarmDao.delete(existing)
                 changed = true
             }
         }
-        for (alarm in alarms) {
-            alarm.task = taskId
-            alarmDao.insert(alarm)
+        alarmDao.insert(alarms.map { it.copy(task = taskId) })
+        if (alarms.isNotEmpty()) {
             changed = true
         }
         if (changed) {

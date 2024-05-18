@@ -8,15 +8,15 @@ package com.todoroo.astrid.repeats
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
 import org.tasks.LocalBroadcastManager
+import org.tasks.data.createDueDate
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
-import org.tasks.data.createDueDate
+import org.tasks.data.entity.Task
 import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.repeats.RecurrenceUtils.newRecur
@@ -115,9 +115,11 @@ class RepeatTaskHelper @Inject constructor(
         }
         alarmService.getAlarms(taskId)
             .filter { it.type != TYPE_SNOOZE }
-            .onEach {
+            .map {
                 if (it.type == Alarm.TYPE_DATE_TIME) {
-                    it.time += newDueDate - oldDueDate
+                    it.copy(time = it.time + newDueDate - oldDueDate)
+                } else {
+                    it
                 }
             }
             .let { alarmService.synchronizeAlarms(taskId, it.toMutableSet()) }

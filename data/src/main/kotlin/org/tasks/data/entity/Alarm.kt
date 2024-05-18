@@ -29,18 +29,18 @@ data class Alarm(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     @Transient
-    var id: Long = 0,
+    val id: Long = 0,
     @ColumnInfo(name = "task", index = true)
     @Transient
-    var task: Long = 0,
+    val task: Long = 0,
     @ColumnInfo(name = "time")
-    var time: Long = 0,
+    val time: Long = 0,
     @ColumnInfo(name = "type", defaultValue = "0")
-    var type: Int = 0,
+    val type: Int = 0,
     @ColumnInfo(name = "repeat", defaultValue = "0")
-    var repeat: Int = 0,
+    val repeat: Int = 0,
     @ColumnInfo(name = "interval", defaultValue = "0")
-    var interval: Long = 0,
+    val interval: Long = 0,
 ) : Parcelable {
     fun same(other: Alarm) =
         type == other.type &&

@@ -202,10 +202,7 @@ class TasksJsonImporter @Inject constructor(
                 taskDao.createNew(task)
                 val taskId = task.id
                 val taskUuid = task.uuid
-                for (alarm in backup.alarms) {
-                    alarm.task = taskId
-                    alarmDao.insert(alarm)
-                }
+                alarmDao.insert(backup.alarms.map { it.copy(task = taskId) })
                 if (version < V12_4) {
                     task.defaultReminders(task.ringFlags)
                     alarmDao.insert(task.getDefaultAlarms())

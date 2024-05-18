@@ -249,9 +249,8 @@ class iCalendar @Inject constructor(
             task.setDefaultReminders(preferences)
             alarmService.synchronizeAlarms(task.id, task.getDefaultAlarms().toMutableSet())
         } else if (account.reminderSync) {
-            val alarms = alarmDao.getAlarms(task.id).onEach {
-                it.id = 0
-                it.task = 0
+            val alarms = alarmDao.getAlarms(task.id).map {
+                it.copy(id = 0, task = 0)
             }
             val randomReminders = alarms.filter { it.type == TYPE_RANDOM }
             val localReminders =
