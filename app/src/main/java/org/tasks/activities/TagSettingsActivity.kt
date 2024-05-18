@@ -16,14 +16,13 @@ import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.TagFilter
-import org.tasks.data.UUIDHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.dao.TagDao
-import org.tasks.data.entity.TagData
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.TagData
 import org.tasks.databinding.ActivityTagSettingsBinding
 import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.themes.CustomIcons
@@ -38,19 +37,17 @@ class TagSettingsActivity : BaseListSettingsActivity() {
     private lateinit var name: TextInputEditText
     private lateinit var nameLayout: TextInputLayout
 
-    private var isNewTag = false
     private lateinit var tagData: TagData
+    private val isNewTag: Boolean
+        get() = tagData.id == null
+
     override val defaultIcon: Int = CustomIcons.LABEL
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        tagData = intent.getParcelableExtra(EXTRA_TAG_DATA)
-                ?: TagData().apply {
-                    isNewTag = true
-                    remoteId = UUIDHelper.newUUID()
-                }
+        tagData = intent.getParcelableExtra(EXTRA_TAG_DATA) ?: TagData()
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            selectedColor = tagData.getColor()!!
+            selectedColor = tagData.color ?: 0
             selectedIcon = tagData.getIcon()!!
         }
         name.setText(tagData.name)
@@ -87,23 +84,37 @@ class TagSettingsActivity : BaseListSettingsActivity() {
             return
         }
         if (isNewTag) {
-            tagData.name = newName
-            tagData.setColor(selectedColor)
-            tagData.setIcon(selectedIcon)
-            tagDataDao.createNew(tagData)
-            localBroadcastManager.broadcastRefresh()
-            setResult(Activity.RESULT_OK, Intent().putExtra(MainActivity.OPEN_FILTER, TagFilter(tagData)))
+            tagData
+                .copy(
+                    name = newName,
+                    color = selectedColor,
+                    icon = selectedIcon,
+                )
+                .let { it.copy(id = tagDataDao.insert(it)) }
+                .let {
+                    localBroadcastManager.broadcastRefresh()
+                    setResult(
+                        Activity.RESULT_OK,
+                        Intent().putExtra(MainActivity.OPEN_FILTER, TagFilter(it))
+                    )
+                }
         } else if (hasChanges()) {
-            tagData.name = newName
-            tagData.setColor(selectedColor)
-            tagData.setIcon(selectedIcon)
-            tagDataDao.update(tagData)
-            tagDao.rename(tagData.remoteId!!, newName)
-            localBroadcastManager.broadcastRefresh()
-            setResult(
-                    Activity.RESULT_OK,
-                    Intent(TaskListFragment.ACTION_RELOAD)
-                            .putExtra(MainActivity.OPEN_FILTER, TagFilter(tagData)))
+            tagData
+                .copy(
+                    name = newName,
+                    color = selectedColor,
+                    icon = selectedIcon,
+                )
+                .let {
+                    tagDataDao.update(it)
+                    tagDao.rename(it.remoteId!!, newName)
+                    localBroadcastManager.broadcastRefresh()
+                    setResult(
+                        Activity.RESULT_OK,
+                        Intent(TaskListFragment.ACTION_RELOAD)
+                            .putExtra(MainActivity.OPEN_FILTER, TagFilter(it))
+                    )
+                }
         }
         finish()
     }
@@ -112,7 +123,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
         return if (isNewTag) {
             selectedColor >= 0 || selectedIcon >= 0 || !isNullOrEmpty(newName)
         } else {
-            selectedColor != tagData.getColor()
+            selectedColor != (tagData.color ?: 0)
                     || selectedIcon != tagData.getIcon()
                     || newName != tagData.name
         }

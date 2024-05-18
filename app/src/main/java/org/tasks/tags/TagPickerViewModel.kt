@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.tasks.data.entity.TagData
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.TagData
 import org.tasks.data.searchTags
 import javax.inject.Inject
 
@@ -90,8 +90,8 @@ class TagPickerViewModel @Inject constructor(
     suspend fun toggle(tagData: TagData, checked: Boolean): ToggleableState {
         var tagData = tagData
         if (tagData.id == null) {
-            tagData = TagData(tagData.name)
-            tagDataDao.createNew(tagData)
+            tagData = TagData(name = tagData.name)
+                .let { it.copy(id = tagDataDao.insert(it)) }
         }
         partiallySelected.remove(tagData)
         return if (checked) {
@@ -104,9 +104,10 @@ class TagPickerViewModel @Inject constructor(
     }
 
     suspend fun createNew(name: String) {
-        val tagData = TagData(name)
-        tagDataDao.createNew(tagData)
-        selected.add(tagData)
+        selected.add(
+            TagData(name = name)
+                .let { it.copy(id = tagDataDao.insert(it)) }
+        )
         search("")
     }
 }

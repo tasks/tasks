@@ -10,10 +10,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.TagData
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.TagDataMaker.NAME
-import org.tasks.makers.TagDataMaker.newTagData
 import org.tasks.makers.TagMaker.TAGDATA
 import org.tasks.makers.TagMaker.TAGUID
 import org.tasks.makers.TagMaker.TASK
@@ -31,13 +30,13 @@ class TagDataDaoTest : InjectingTestCase() {
 
     @Test
     fun tagDataOrderedByNameIgnoresNullNames() = runBlocking {
-        tagDataDao.createNew(newTagData(with(NAME, null as String?)))
+        tagDataDao.insert(TagData(name = null))
         assertTrue(tagDataDao.tagDataOrderedByName().isEmpty())
     }
 
     @Test
     fun tagDataOrderedByNameIgnoresEmptyNames() = runBlocking {
-        tagDataDao.createNew(newTagData(with(NAME, "")))
+        tagDataDao.insert(TagData(name = ""))
         assertTrue(tagDataDao.tagDataOrderedByName().isEmpty())
     }
 
@@ -48,20 +47,19 @@ class TagDataDaoTest : InjectingTestCase() {
 
     @Test
     fun getTagWithCaseFixesCase() = runBlocking {
-        tagDataDao.createNew(newTagData(with(NAME, "Derp")))
+        tagDataDao.insert(TagData(name = "Derp"))
         assertEquals("Derp", tagDataDao.getTagWithCase("derp"))
     }
 
     @Test
     fun getTagsByName() = runBlocking {
-        val tagData = newTagData(with(NAME, "Derp"))
-        tagDataDao.createNew(tagData)
+        val tagData = TagData(name = "Derp").let { it.copy(id = tagDataDao.insert(it)) }
         assertEquals(listOf(tagData), tagDataDao.getTags(listOf("Derp")))
     }
 
     @Test
     fun getTagsByNameCaseSensitive() = runBlocking {
-        tagDataDao.createNew(newTagData(with(NAME, "Derp")))
+        tagDataDao.insert(TagData(name = "Derp"))
         assertTrue(tagDataDao.getTags(listOf("derp")).isEmpty())
     }
 
@@ -71,10 +69,8 @@ class TagDataDaoTest : InjectingTestCase() {
         val taskTwo = newTask()
         taskDao.createNew(taskOne)
         taskDao.createNew(taskTwo)
-        val tagOne = newTagData(with(NAME, "one"))
-        val tagTwo = newTagData(with(NAME, "two"))
-        tagDataDao.createNew(tagOne)
-        tagDataDao.createNew(tagTwo)
+        val tagOne = TagData(name = "one").let { it.copy(id = tagDataDao.insert(it)) }
+        val tagTwo = TagData(name = "two").let { it.copy(id = tagDataDao.insert(it)) }
         tagDao.insert(newTag(with(TAGDATA, tagOne), with(TASK, taskOne)))
         tagDao.insert(newTag(with(TAGDATA, tagTwo), with(TASK, taskTwo)))
         assertEquals(listOf(tagOne), tagDataDao.getTagDataForTask(taskOne.id))
@@ -83,8 +79,8 @@ class TagDataDaoTest : InjectingTestCase() {
     @Test
     fun getEmptyTagSelections() = runBlocking {
         val selections = tagDataDao.getTagSelections(listOf(1L))
-        assertTrue(selections.first!!.isEmpty())
-        assertTrue(selections.second!!.isEmpty())
+        assertTrue(selections.first.isEmpty())
+        assertTrue(selections.second.isEmpty())
     }
 
     @Test
@@ -99,7 +95,7 @@ class TagDataDaoTest : InjectingTestCase() {
     fun getEmptyPartialSelections() = runBlocking {
         newTag(1, "tag1")
         newTag(2, "tag1")
-        assertTrue(tagDataDao.getTagSelections(listOf(1L, 2L)).first!!.isEmpty())
+        assertTrue(tagDataDao.getTagSelections(listOf(1L, 2L)).first.isEmpty())
     }
 
     @Test
@@ -113,15 +109,15 @@ class TagDataDaoTest : InjectingTestCase() {
     fun getEmptyCommonSelections() = runBlocking {
         newTag(1, "tag1")
         newTag(2, "tag2")
-        assertTrue(tagDataDao.getTagSelections(listOf(1L, 2L)).second!!.isEmpty())
+        assertTrue(tagDataDao.getTagSelections(listOf(1L, 2L)).second.isEmpty())
     }
 
     @Test
     fun getSelectionsWithNoTags() = runBlocking {
         newTag(1)
         val selections = tagDataDao.getTagSelections(listOf(1L))
-        assertTrue(selections.first!!.isEmpty())
-        assertTrue(selections.second!!.isEmpty())
+        assertTrue(selections.first.isEmpty())
+        assertTrue(selections.second.isEmpty())
     }
 
     @Test
@@ -130,7 +126,7 @@ class TagDataDaoTest : InjectingTestCase() {
         newTag(2)
         val selections = tagDataDao.getTagSelections(listOf(1L, 2L))
         assertEquals(setOf("tag1"), selections.first)
-        assertTrue(selections.second!!.isEmpty())
+        assertTrue(selections.second.isEmpty())
     }
 
     private suspend fun newTag(taskId: Long, vararg tags: String) {

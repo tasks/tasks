@@ -97,8 +97,9 @@ class TasksJsonImporter @Inject constructor(
                 findTagData(tagData)?.let {
                     return@forEach
                 }
-                tagData.setColor(themeToColor(context, version, tagData.getColor()!!))
-                tagDataDao.createNew(tagData)
+                tagDataDao.insert(
+                    tagData.copy(color = themeToColor(context, version, tagData.color ?: 0))
+                )
             }
             backupContainer.googleTaskAccounts?.forEach { googleTaskAccount ->
                 if (caldavDao.getAccount(TYPE_GOOGLE_TASKS, googleTaskAccount.account!!) == null) {

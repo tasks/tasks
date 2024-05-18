@@ -1,15 +1,15 @@
 package com.todoroo.astrid.api
 
+import com.todoroo.andlib.utility.AndroidUtilities
+import kotlinx.parcelize.Parcelize
+import org.tasks.data.NO_COUNT
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.entity.Tag
+import org.tasks.data.entity.TagData
+import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.QueryTemplate
-import com.todoroo.andlib.utility.AndroidUtilities
-import org.tasks.data.entity.Task
-import kotlinx.parcelize.Parcelize
-import org.tasks.data.NO_COUNT
-import org.tasks.data.entity.Tag
-import org.tasks.data.entity.TagData
-import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 
 @Parcelize
 data class TagFilter(
@@ -35,7 +35,7 @@ data class TagFilter(
         get() = tagData.getIcon()!!
 
     override val tint: Int
-        get() = tagData.getColor()!!
+        get() = tagData.color ?: 0
 
     val uuid: String
         get() = tagData.remoteId!!

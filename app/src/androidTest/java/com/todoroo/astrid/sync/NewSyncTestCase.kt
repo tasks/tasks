@@ -1,9 +1,9 @@
 package com.todoroo.astrid.sync
 
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
-import org.tasks.data.entity.TagData
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.TagData
+import org.tasks.data.entity.Task
 import org.tasks.injection.InjectingTestCase
 import javax.inject.Inject
 
@@ -21,9 +21,8 @@ open class NewSyncTestCase : InjectingTestCase() {
     }
 
     suspend fun createTagData(): TagData {
-        val tag = TagData()
-        tag.name = "new tag"
-        tagDataDao.createNew(tag)
+        val tag = TagData(name = "new tag")
+        tagDataDao.insert(tag)
         return tag
     }
 

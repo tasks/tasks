@@ -133,9 +133,10 @@ class iCalendar @Inject constructor(
         val existing = tags.map(TagData::name)
         val toCreate = categories subtract existing
         for (name in toCreate) {
-            val tag = TagData(name)
-            tagDataDao.createNew(tag)
-            tags.add(tag)
+            tags.add(
+                TagData(name = name)
+                    .let { it.copy(id = tagDataDao.insert(it)) }
+            )
         }
         return tags
     }

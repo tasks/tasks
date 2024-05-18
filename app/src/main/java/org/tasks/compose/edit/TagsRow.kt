@@ -38,7 +38,7 @@ fun TagsRow(
                                 R.drawable.ic_outline_label_24px
                             ),
                             name = tag.name,
-                            theme = tag.getColor()!!,
+                            theme = tag.color ?: 0,
                             showText = true,
                             showIcon = true,
                             onClick = onClick,
@@ -74,10 +74,11 @@ fun SingleTag() {
     MdcTheme {
         TagsRow(
             tags = listOf(
-                TagData("Home").apply {
-                    setIcon(1062)
-                    setColor(ColorProvider.BLUE_500)
-                }
+                TagData(
+                    name = "Home",
+                    icon = 1062,
+                    color = ColorProvider.BLUE_500
+                )
             ),
             colorProvider = { it },
             onClick = {},
@@ -92,11 +93,11 @@ fun BunchOfTags() {
     MdcTheme {
         TagsRow(
             tags = listOf(
-                TagData("One"),
-                TagData("Two"),
-                TagData("Three"),
-                TagData("Four"),
-                TagData("Five"),
+                TagData(name = "One"),
+                TagData(name = "Two"),
+                TagData(name = "Three"),
+                TagData(name = "Four"),
+                TagData(name = "Five"),
             ),
             colorProvider = { it },
             onClick = {},
@@ -111,10 +112,11 @@ fun TagWithReallyLongName() {
     MdcTheme {
         TagsRow(
             tags = listOf(
-                TagData("This is a tag with a really really long name").apply {
-                    setIcon(1062)
-                    setColor(ColorProvider.BLUE_500)
-                }
+                TagData(
+                    name = "This is a tag with a really really long name",
+                    icon = 1062,
+                    color = ColorProvider.BLUE_500
+                )
             ),
             colorProvider = { it },
             onClick = {},

@@ -199,12 +199,8 @@ class TaskCreator @Inject constructor(
 
     suspend fun createTags(task: Task) {
         for (tag in task.tags) {
-            var tagData = tagDataDao.getTagByName(tag)
-            if (tagData == null) {
-                tagData = TagData()
-                tagData.name = tag
-                tagDataDao.createNew(tagData)
-            }
+            val tagData = tagDataDao.getTagByName(tag)
+            ?: TagData(name = tag).also { tagDataDao.insert(it) }
             tagDao.insert(Tag(task, tagData))
         }
     }

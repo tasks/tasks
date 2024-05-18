@@ -9,7 +9,6 @@ import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.NO_ORDER
 import org.tasks.data.TagFilters
-import org.tasks.data.UUIDHelper
 import org.tasks.data.db.DbUtils
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
@@ -129,13 +128,6 @@ abstract class TagDataDao {
 
     @Insert
     abstract suspend fun insert(tags: Iterable<Tag>)
-
-    suspend fun createNew(tag: TagData) {
-        if (Task.isUuidEmpty(tag.remoteId)) {
-            tag.remoteId = UUIDHelper.newUUID()
-        }
-        tag.id = insert(tag)
-    }
 
     @Query("SELECT tagdata.*, COUNT(tasks._id) AS count"
             + " FROM tagdata"

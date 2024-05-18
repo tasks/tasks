@@ -103,8 +103,8 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
     } /* handleBackPressed */
 
     private fun getColor(tagData: TagData): Color {
-        if (tagData.getColor() != 0) {
-            val themeColor = colorProvider.getThemeColor(tagData.getColor()!!, true)
+        if ((tagData.color ?: 0) != 0) {
+            val themeColor = colorProvider.getThemeColor(tagData.color ?: 0, true)
             if (inventory.purchasedThemes() || themeColor.isFree) {
                 return Color(themeColor.primaryColor)
             }

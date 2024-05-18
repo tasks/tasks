@@ -13,9 +13,9 @@ import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.UpgraderDao
 import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.TagData
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.TagDataMaker
 import org.tasks.makers.TagMaker
 import org.tasks.makers.TaskMaker
 import javax.inject.Inject
@@ -34,10 +34,10 @@ class UpgraderDaoTests : InjectingTestCase() {
     fun getCaldavTasksWithTags() = runBlocking {
         val task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.ID, 1L))
         taskDao.createNew(task)
-        val one = TagDataMaker.newTagData()
-        val two = TagDataMaker.newTagData()
-        tagDataDao.createNew(one)
-        tagDataDao.createNew(two)
+        val one = TagData()
+        val two = TagData()
+        tagDataDao.insert(one)
+        tagDataDao.insert(two)
         tagDao.insert(TagMaker.newTag(MakeItEasy.with(TagMaker.TASK, task), MakeItEasy.with(TagMaker.TAGDATA, one)))
         tagDao.insert(TagMaker.newTag(MakeItEasy.with(TagMaker.TASK, task), MakeItEasy.with(TagMaker.TAGDATA, two)))
         caldavDao.insert(CaldavTask(task = task.id, calendar = "calendar"))
@@ -48,8 +48,8 @@ class UpgraderDaoTests : InjectingTestCase() {
     fun ignoreNonCaldavTaskWithTags() = runBlocking {
         val task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.ID, 1L))
         taskDao.createNew(task)
-        val tag = TagDataMaker.newTagData()
-        tagDataDao.createNew(tag)
+        val tag = TagData()
+        tagDataDao.insert(tag)
         tagDao.insert(TagMaker.newTag(MakeItEasy.with(TagMaker.TASK, task), MakeItEasy.with(TagMaker.TAGDATA, tag)))
         assertTrue(upgraderDao.tasksWithTags().isEmpty())
     }
@@ -58,7 +58,7 @@ class UpgraderDaoTests : InjectingTestCase() {
     fun ignoreCaldavTaskWithoutTags() = runBlocking {
         val task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.ID, 1L))
         taskDao.createNew(task)
-        tagDataDao.createNew(TagDataMaker.newTagData())
+        tagDataDao.insert(TagData())
         caldavDao.insert(CaldavTask(task = task.id, calendar = "calendar"))
         assertTrue(upgraderDao.tasksWithTags().isEmpty())
     }
