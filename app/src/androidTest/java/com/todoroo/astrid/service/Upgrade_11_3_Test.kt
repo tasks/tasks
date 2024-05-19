@@ -3,7 +3,6 @@
 package com.todoroo.astrid.service
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
@@ -12,12 +11,12 @@ import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.TestUtilities.assertEquals
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.Task
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.TASK
@@ -44,7 +43,7 @@ class Upgrade_11_3_Test : InjectingTestCase() {
     @Before
     override fun setUp() {
         super.setUp()
-        calendar = newCaldavCalendar()
+        calendar = CaldavCalendar()
         runBlocking {
             caldavDao.insert(calendar)
         }

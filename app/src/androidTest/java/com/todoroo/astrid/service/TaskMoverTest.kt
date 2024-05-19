@@ -11,18 +11,15 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.jobs.WorkManager
-import org.tasks.makers.CaldavCalendarMaker
-import org.tasks.makers.CaldavCalendarMaker.ACCOUNT
-import org.tasks.makers.CaldavCalendarMaker.newCaldavCalendar
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
@@ -46,8 +43,8 @@ class TaskMoverTest : InjectingTestCase() {
     @Before
     fun setup() {
         runBlocking {
-            caldavDao.insert(newCaldavCalendar(with(CaldavCalendarMaker.UUID, "1"), with(ACCOUNT, "account1")))
-            caldavDao.insert(newCaldavCalendar(with(CaldavCalendarMaker.UUID, "2"), with(ACCOUNT, "account2")))
+            caldavDao.insert(CaldavCalendar(uuid = "1", account = "account1"))
+            caldavDao.insert(CaldavCalendar(uuid = "2", account = "account2"))
         }
     }
 
@@ -309,7 +306,7 @@ class TaskMoverTest : InjectingTestCase() {
     }
 
     private suspend fun moveToGoogleTasks(list: String, vararg tasks: Long) {
-        taskMover.move(tasks.toList(), GtasksFilter(newCaldavCalendar(with(CaldavCalendarMaker.UUID, list))))
+        taskMover.move(tasks.toList(), GtasksFilter(CaldavCalendar(uuid = list)))
     }
 
     private suspend fun moveToCaldavList(calendar: String, vararg tasks: Long) {
