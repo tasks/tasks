@@ -7,6 +7,7 @@ import androidx.room.RawQuery
 import androidx.room.Update
 import androidx.room.withTransaction
 import androidx.sqlite.db.SimpleSQLiteQuery
+import co.touchlab.kermit.Logger
 import org.tasks.data.BuildConfig
 import org.tasks.data.TaskContainer
 import org.tasks.data.UUIDHelper
@@ -18,7 +19,6 @@ import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.Functions
 import org.tasks.time.DateTimeUtils2
-import timber.log.Timber
 
 private const val MAX_TIME = 9999999999999
 
@@ -117,11 +117,9 @@ FROM (
                     query(SimpleSQLiteQuery(queries[i]))
                 }
                 val result = fetchTasks(SimpleSQLiteQuery(queries[last]))
-                Timber.v(
-                    "%sms: %s",
-                    DateTimeUtils2.currentTimeMillis() - start,
-                    queries.joinToString(";\n")
-                )
+                Logger.v("TaskDao") {
+                    "${DateTimeUtils2.currentTimeMillis() - start}ms: ${queries.joinToString(";\n")}"
+                }
                 result
             }
 

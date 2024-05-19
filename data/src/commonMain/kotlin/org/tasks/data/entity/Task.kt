@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import co.touchlab.kermit.Logger
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -16,7 +17,6 @@ import kotlinx.serialization.Transient
 import kotlinx.serialization.json.JsonNames
 import org.tasks.data.db.Table
 import org.tasks.data.sql.Field
-import timber.log.Timber
 
 const val SUPPRESS_SYNC = "suppress_sync"
 const val FORCE_CALDAV_SYNC = "force_caldav_sync"
@@ -356,7 +356,7 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
                 val value = uuid.toLong()
                 value > 0
             } catch (e: NumberFormatException) {
-                Timber.e(e)
+                Logger.e("Invalid uuid", e, tag = "Task")
                 isUuidEmpty(uuid)
             }
         }

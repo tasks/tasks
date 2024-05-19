@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
     kotlin("plugin.serialization") version "1.9.24"
@@ -11,6 +11,26 @@ repositories {
     google()
 }
 
+kotlin {
+    applyDefaultHierarchyTemplate()
+    androidTarget {
+        publishLibraryVariants("release")
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.androidx.room)
+                implementation(libs.kotlinx.serialization)
+                implementation(libs.kermit)
+            }
+        }
+    }
+}
 android {
     namespace = "org.tasks.data"
     compileSdk = 34
@@ -44,14 +64,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
 
 dependencies {
-    implementation(libs.androidx.room)
-    implementation(libs.kotlinx.serialization)
-    implementation(libs.timber)
-    ksp(libs.androidx.room.compiler)
+    add("kspAndroid", libs.androidx.room.compiler)
 }

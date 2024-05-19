@@ -7,12 +7,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import co.touchlab.kermit.Logger
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.json.JSONException
 import org.json.JSONObject
 import org.tasks.data.db.Table
-import timber.log.Timber
 import java.io.File
 
 @Serializable
@@ -92,7 +92,7 @@ class UserActivity : Parcelable {
                 if (value.isNullOrBlank()) {
                     return null
                 }
-                if (value!!.contains("uri") || value.contains("path")) {
+                if (value.contains("uri") || value.contains("path")) {
                     val json = JSONObject(value)
                     if (json.has("uri")) {
                         return Uri.parse(json.getString("uri"))
@@ -104,7 +104,7 @@ class UserActivity : Parcelable {
                 }
                 null
             } catch (e: JSONException) {
-                Timber.e(e)
+                Logger.e("Failed to parse picture uri", e, tag = "UserActivity")
                 null
             }
         }

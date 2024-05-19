@@ -2,7 +2,7 @@ package org.tasks.injection
 
 import android.content.Context
 import androidx.room.Room
-import org.tasks.data.db.Database
+import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,8 +11,9 @@ import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.caldav.FileStorage
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.OpenTaskDao
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.db.Database
 import org.tasks.db.Migrations
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManagerImpl
@@ -31,8 +32,13 @@ internal class ProductionModule {
         preferences: Preferences,
         fileStorage: FileStorage,
     ): Database {
-        val builder = Room.databaseBuilder(context, Database::class.java, Database.NAME)
-                .addMigrations(*Migrations.migrations(context, fileStorage))
+        val databaseFile = context.getDatabasePath(Database.NAME)
+        val builder = Room.databaseBuilder<Database>(
+            context = context,
+            name = databaseFile.absolutePath
+        )
+            .addMigrations(*Migrations.migrations(context, fileStorage))
+            .openHelperFactory(FrameworkSQLiteOpenHelperFactory())
         if (!BuildConfig.DEBUG || !preferences.getBoolean(R.string.p_crash_main_queries, false)) {
             builder.allowMainThreadQueries()
         }
