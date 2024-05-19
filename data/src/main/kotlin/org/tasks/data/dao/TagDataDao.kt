@@ -93,7 +93,16 @@ abstract class TagDataDao {
             val added = selected subtract getTagDataForTask(task.id)
             if (added.isNotEmpty()) {
                 modified.add(task.id)
-                insert(added.map { Tag(task, it) })
+                insert(
+                    added.map {
+                        Tag(
+                            task = task.id,
+                            taskUid = task.uuid,
+                            name = it.name,
+                            tagUid = it.remoteId
+                        )
+                    }
+                )
             }
         }
         return ArrayList(modified)

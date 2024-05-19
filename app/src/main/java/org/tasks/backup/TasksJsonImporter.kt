@@ -258,10 +258,13 @@ class TasksJsonImporter @Inject constructor(
                 }
                 for (tag in backup.tags) {
                     val tagData = findTagData(tag) ?: continue
-                    tag.task = taskId
-                    tag.tagUid = tagData.remoteId
-                    tag.setTaskUid(taskUuid)
-                    tagDao.insert(tag)
+                    tagDao.insert(
+                        tag.copy(
+                            task = taskId,
+                            taskUid = task.remoteId,
+                            tagUid = tagData.remoteId
+                        )
+                    )
                 }
                 backup.geofences?.forEach { geofence ->
                     locationDao.insert(

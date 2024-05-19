@@ -10,13 +10,10 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.TagMaker.TAGDATA
-import org.tasks.makers.TagMaker.TAGUID
-import org.tasks.makers.TagMaker.TASK
-import org.tasks.makers.TagMaker.newTag
 import org.tasks.makers.TaskMaker.ID
 import org.tasks.makers.TaskMaker.newTask
 import javax.inject.Inject
@@ -71,8 +68,8 @@ class TagDataDaoTest : InjectingTestCase() {
         taskDao.createNew(taskTwo)
         val tagOne = TagData(name = "one").let { it.copy(id = tagDataDao.insert(it)) }
         val tagTwo = TagData(name = "two").let { it.copy(id = tagDataDao.insert(it)) }
-        tagDao.insert(newTag(with(TAGDATA, tagOne), with(TASK, taskOne)))
-        tagDao.insert(newTag(with(TAGDATA, tagTwo), with(TASK, taskTwo)))
+        tagDao.insert(Tag(task = taskOne.id, taskUid = taskOne.uuid, tagUid = tagOne.remoteId))
+        tagDao.insert(Tag(task = taskTwo.id, taskUid = taskTwo.uuid, tagUid = tagTwo.remoteId))
         assertEquals(listOf(tagOne), tagDataDao.getTagDataForTask(taskOne.id))
     }
 
@@ -133,7 +130,7 @@ class TagDataDaoTest : InjectingTestCase() {
         val task = newTask(with(ID, taskId))
         taskDao.createNew(task)
         for (tag in tags) {
-            tagDao.insert(newTag(with(TASK, task), with(TAGUID, tag)))
+            tagDao.insert(Tag(task = task.id, taskUid = task.uuid, tagUid = tag))
         }
     }
 }

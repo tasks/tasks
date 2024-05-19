@@ -20,6 +20,7 @@ import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.injection.ProductionModule
@@ -27,9 +28,6 @@ import org.tasks.makers.CaldavTaskMaker
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
-import org.tasks.makers.TagMaker.TAGDATA
-import org.tasks.makers.TagMaker.TASK
-import org.tasks.makers.TagMaker.newTag
 import org.tasks.makers.TaskMaker
 import org.tasks.makers.TaskMaker.COLLAPSED
 import org.tasks.makers.TaskMaker.ORDER
@@ -302,9 +300,9 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
     }
 
     private suspend fun insertTag(task: Task, name: String) =
-            TagData(name = name)
-                .apply { tagDataDao.insert(this) }
-                .let { tagDao.insert(newTag(with(TASK, task), with(TAGDATA, it))) }
+        TagData(name = name)
+            .apply { tagDataDao.insert(this) }
+            .let { tagDao.insert(Tag(task = task.id, taskUid = task.uuid, tagUid = it.remoteId)) }
 
     companion object {
         private val CHICAGO = TimeZone.getTimeZone("America/Chicago")

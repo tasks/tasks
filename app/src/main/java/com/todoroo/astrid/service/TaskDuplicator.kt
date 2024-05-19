@@ -64,7 +64,16 @@ class TaskDuplicator @Inject constructor(
         val newId = taskDao.createNew(clone)
         val tags = tagDataDao.getTagDataForTask(task.id)
         if (tags.isNotEmpty()) {
-            tagDao.insert(tags.map { Tag(clone, it) })
+            tagDao.insert(
+                tags.map {
+                    Tag(
+                        task = clone.id,
+                        taskUid = clone.uuid,
+                        name = it.name,
+                        tagUid = it.remoteId
+                    )
+                }
+            )
         }
         val googleTask = googleTaskDao.getByTaskId(task.id)
         val caldavTask = caldavDao.getTask(task.id)

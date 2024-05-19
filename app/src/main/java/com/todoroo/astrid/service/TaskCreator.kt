@@ -201,7 +201,14 @@ class TaskCreator @Inject constructor(
         for (tag in task.tags) {
             val tagData = tagDataDao.getTagByName(tag)
             ?: TagData(name = tag).also { tagDataDao.insert(it) }
-            tagDao.insert(Tag(task, tagData))
+            tagDao.insert(
+                Tag(
+                    task = task.id,
+                    taskUid = task.uuid,
+                    name = tagData.name,
+                    tagUid = tagData.remoteId
+                )
+            )
         }
     }
 

@@ -13,10 +13,10 @@ import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.UpgraderDao
 import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
-import org.tasks.makers.TagMaker
 import org.tasks.makers.TaskMaker
 import javax.inject.Inject
 
@@ -38,8 +38,8 @@ class UpgraderDaoTests : InjectingTestCase() {
         val two = TagData()
         tagDataDao.insert(one)
         tagDataDao.insert(two)
-        tagDao.insert(TagMaker.newTag(MakeItEasy.with(TagMaker.TASK, task), MakeItEasy.with(TagMaker.TAGDATA, one)))
-        tagDao.insert(TagMaker.newTag(MakeItEasy.with(TagMaker.TASK, task), MakeItEasy.with(TagMaker.TAGDATA, two)))
+        tagDao.insert(Tag(task = task.id, taskUid = task.uuid, tagUid = one.remoteId))
+        tagDao.insert(Tag(task = task.id, taskUid = task.uuid, tagUid = two.remoteId))
         caldavDao.insert(CaldavTask(task = task.id, calendar = "calendar"))
         assertEquals(listOf(task.id), upgraderDao.tasksWithTags())
     }
@@ -50,7 +50,7 @@ class UpgraderDaoTests : InjectingTestCase() {
         taskDao.createNew(task)
         val tag = TagData()
         tagDataDao.insert(tag)
-        tagDao.insert(TagMaker.newTag(MakeItEasy.with(TagMaker.TASK, task), MakeItEasy.with(TagMaker.TAGDATA, tag)))
+        tagDao.insert(Tag(task = task.id, taskUid = task.uuid, tagUid = tag.remoteId))
         assertTrue(upgraderDao.tasksWithTags().isEmpty())
     }
 

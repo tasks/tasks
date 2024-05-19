@@ -1,9 +1,13 @@
 package org.tasks.data.dao
 
-import androidx.room.*
-import org.tasks.data.entity.Task
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Transaction
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
+import org.tasks.data.entity.Task
 
 @Dao
 abstract class TagDao {
@@ -44,7 +48,16 @@ abstract class TagDao {
 
     suspend fun insert(task: Task, tags: Collection<TagData>) {
         if (!tags.isEmpty()) {
-            insert(tags.map { Tag(task, it) })
+            insert(
+                tags.map {
+                    Tag(
+                        task = task.id,
+                        taskUid = task.uuid,
+                        name = it.name,
+                        tagUid = it.remoteId
+                    )
+                }
+            )
         }
     }
 }
