@@ -18,7 +18,7 @@ import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.ContentProviderDao
+import org.tasks.data.dao.Astrid2ContentProviderDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -106,7 +106,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun getContentProviderDao(db: Database): ContentProviderDao = db.contentProviderDao()
+    fun getContentProviderDao(db: Database): Astrid2ContentProviderDao = db.contentProviderDao()
 
     @Provides
     @Singleton

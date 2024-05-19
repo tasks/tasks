@@ -5,7 +5,6 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioAttributes.USAGE_NOTIFICATION_EVENT
 import android.media.RingtoneManager
-import androidx.room.withTransaction
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatTaskHelper
@@ -14,6 +13,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Task
+import org.tasks.data.withTransaction
 import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences

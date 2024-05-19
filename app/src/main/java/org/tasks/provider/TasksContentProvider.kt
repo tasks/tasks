@@ -38,10 +38,12 @@ class TasksContentProvider : ContentProvider() {
             URI_TODO_AGENDA -> {
                 hilt.firebase.logEvent(R.string.event_todoagenda)
                 hilt.contentProviderDao.rawQuery(
-                        SupportSQLiteQueryBuilder
-                                .builder(TODO_AGENDA_TABLES)
-                                .selection(selection, selectionArgs)
-                                .create())
+                    SupportSQLiteQueryBuilder
+                        .builder(TODO_AGENDA_TABLES)
+                        .selection(selection, selectionArgs)
+                        .create()
+                        .sql
+                )
             }
             URI_TASKS -> hilt.contentProviderDao.getTasks()
             URI_LISTS -> hilt.contentProviderDao.getLists()

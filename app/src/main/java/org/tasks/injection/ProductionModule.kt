@@ -2,7 +2,7 @@ package org.tasks.injection
 
 import android.content.Context
 import androidx.room.Room
-import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,8 +37,8 @@ internal class ProductionModule {
             context = context,
             name = databaseFile.absolutePath
         )
+            .setDriver(BundledSQLiteDriver())
             .addMigrations(*Migrations.migrations(context, fileStorage))
-            .openHelperFactory(FrameworkSQLiteOpenHelperFactory())
         if (!BuildConfig.DEBUG || !preferences.getBoolean(R.string.p_crash_main_queries, false)) {
             builder.allowMainThreadQueries()
         }

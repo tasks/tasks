@@ -1,15 +1,12 @@
 package org.tasks.data.dao
 
-import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Query
-import androidx.room.RawQuery
-import androidx.sqlite.db.SupportSQLiteQuery
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 
 @Dao
-interface ContentProviderDao {
+interface Astrid2ContentProviderDao {
     @Query("SELECT name FROM tags WHERE task = :taskId ORDER BY UPPER(name) ASC")
     suspend fun getTagNames(taskId: Long): List<String>
 
@@ -30,16 +27,4 @@ interface ContentProviderDao {
 
     @Query("SELECT * FROM tagdata WHERE name IS NOT NULL AND name != '' ORDER BY UPPER(name) ASC")
     suspend fun tagDataOrderedByName(): List<TagData>
-
-    @Query("SELECT * FROM tasks")
-    fun getTasks(): Cursor
-
-    @Query("""
-        SELECT caldav_lists.*, caldav_accounts.cda_name
-        FROM caldav_lists
-          INNER JOIN caldav_accounts ON cdl_account = cda_uuid""")
-    fun getLists(): Cursor
-
-    @RawQuery
-    fun rawQuery(query: SupportSQLiteQuery): Cursor
 }

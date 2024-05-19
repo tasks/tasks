@@ -1,7 +1,6 @@
 package com.todoroo.astrid.service
 
 import android.content.Context
-import androidx.room.withTransaction
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
@@ -17,6 +16,8 @@ import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Task
+import org.tasks.data.inTransaction
+import org.tasks.data.withTransaction
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager

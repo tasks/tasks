@@ -200,6 +200,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.room)
+    implementation(libs.androidx.sqlite)
     implementation(libs.androidx.appcompat)
     implementation(libs.markwon)
     implementation(libs.markwon.editor)

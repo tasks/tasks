@@ -1,13 +1,12 @@
 package org.tasks.data
 
-import androidx.sqlite.db.SimpleSQLiteQuery
-import org.tasks.data.sql.Field
-import org.tasks.data.sql.Query
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
-import org.tasks.data.entity.Task
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.SuspendDbUtils.eachChunk
+import org.tasks.data.entity.Task
+import org.tasks.data.sql.Field
+import org.tasks.data.sql.Query
 import org.tasks.preferences.QueryPreferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
@@ -30,7 +29,7 @@ suspend fun TaskDao.fetchFiltered(queryTemplate: String): List<Task> {
     val query = getQuery(queryTemplate, Task.FIELDS)
     val start = if (BuildConfig.DEBUG) currentTimeMillis() else 0
     val tasks = fetchTasks(query)
-    Timber.v("%sms: %s", currentTimeMillis() - start, query.sql)
+    Timber.v("%sms: %s", currentTimeMillis() - start, query)
     return tasks.map(TaskContainer::task)
 }
 
@@ -38,13 +37,12 @@ suspend fun TaskDao.count(filter: Filter): Int {
     val query = getQuery(filter.sql!!, Field.COUNT)
     val start = if (BuildConfig.DEBUG) currentTimeMillis() else 0
     val count = countRaw(query)
-    Timber.v("%sms: %s", currentTimeMillis() - start, query.sql)
+    Timber.v("%sms: %s", currentTimeMillis() - start, query)
     return count
 }
 
-private fun getQuery(queryTemplate: String, vararg fields: Field): SimpleSQLiteQuery =
-    SimpleSQLiteQuery(
-        Query.select(*fields)
-            .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))
-            .from(Task.TABLE)
-            .toString())
+private fun getQuery(queryTemplate: String, vararg fields: Field): String =
+    Query.select(*fields)
+        .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))
+        .from(Task.TABLE)
+        .toString()

@@ -11,7 +11,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavTask
-import org.tasks.data.dao.ContentProviderDao
+import org.tasks.data.dao.Astrid2ContentProviderDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.entity.Filter
 import org.tasks.data.dao.FilterDao
@@ -78,7 +78,7 @@ abstract class Database : RoomDatabase() {
     abstract fun taskDao(): TaskDao
     abstract fun caldavDao(): CaldavDao
     abstract fun deletionDao(): DeletionDao
-    abstract fun contentProviderDao(): ContentProviderDao
+    abstract fun contentProviderDao(): Astrid2ContentProviderDao
     abstract fun upgraderDao(): UpgraderDao
     abstract fun principalDao(): PrincipalDao
 
