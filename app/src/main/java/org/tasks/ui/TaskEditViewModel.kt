@@ -44,6 +44,9 @@ import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
+import org.tasks.data.entity.Alarm.Companion.whenDue
+import org.tasks.data.entity.Alarm.Companion.whenOverdue
+import org.tasks.data.entity.Alarm.Companion.whenStarted
 import org.tasks.data.entity.Attachment
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.FORCE_CALDAV_SYNC
@@ -118,21 +121,35 @@ class TaskEditViewModel @Inject constructor(
     val dueDate = MutableStateFlow(task.dueDate)
 
     fun setDueDate(value: Long) {
+        val addedDueDate = value > 0 && dueDate.value == 0L
         dueDate.value = when {
             value == 0L -> 0
             hasDueTime(value) -> createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, value)
             else -> createDueDate(Task.URGENCY_SPECIFIC_DAY, value)
+        }
+        if (addedDueDate) {
+            val reminderFlags = preferences.defaultReminders
+            if (reminderFlags.isFlagSet(Task.NOTIFY_AT_DEADLINE)) {
+                selectedAlarms.value = selectedAlarms.value.plusAlarm(whenDue(task.id))
+            }
+            if (reminderFlags.isFlagSet(Task.NOTIFY_AFTER_DEADLINE)) {
+                selectedAlarms.value = selectedAlarms.value.plusAlarm(whenOverdue(task.id))
+            }
         }
     }
 
     val startDate = MutableStateFlow(task.hideUntil)
 
     fun setStartDate(value: Long) {
+        val addedStartDate = value > 0 && startDate.value == 0L
         startDate.value = when {
             value == 0L -> 0
             hasDueTime(value) ->
                 value.toDateTime().withSecondOfMinute(1).withMillisOfSecond(0).millis
             else -> value.startOfDay()
+        }
+        if (addedStartDate && preferences.defaultReminders.isFlagSet(Task.NOTIFY_AT_START)) {
+            selectedAlarms.value = selectedAlarms.value.plusAlarm(whenStarted(task.id))
         }
     }
 
@@ -159,13 +176,13 @@ class TaskEditViewModel @Inject constructor(
     private val originalAlarms: List<Alarm> = if (isNew) {
         ArrayList<Alarm>().apply {
             if (task.isNotifyAtStart) {
-                add(Alarm.whenStarted(0))
+                add(whenStarted(0))
             }
             if (task.isNotifyAtDeadline) {
-                add(Alarm.whenDue(0))
+                add(whenDue(0))
             }
             if (task.isNotifyAfterDeadline) {
-                add(Alarm.whenOverdue(0))
+                add(whenOverdue(0))
             }
             if (task.randomReminder > 0) {
                 add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
@@ -493,5 +510,10 @@ class TaskEditViewModel @Inject constructor(
 
     companion object {
         fun String?.stripCarriageReturns(): String? = this?.replace("\\r\\n?".toRegex(), "\n")
+
+        private fun Int.isFlagSet(flag: Int): Boolean = this and flag > 0
+
+        private fun List<Alarm>.plusAlarm(alarm: Alarm): List<Alarm> =
+            if (any { it.same(alarm) }) this else this + alarm
     }
 }
