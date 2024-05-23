@@ -125,15 +125,16 @@ class TasksJsonExporter @Inject constructor(
             val caldavTasks = caldavDao.getTasks(taskId)
             taskBackups.add(
                     TaskBackup(
-                        task,
-                        alarmDao.getAlarms(taskId),
-                        locationDao.getGeofencesForTask(taskId),
-                        tagDao.getTagsForTask(taskId),
-                        userActivityDao.getComments(taskId),
-                        taskAttachmentDao.getAttachmentsForTask(taskId),
-                        caldavTasks,
-                        vtodoCache.getVtodo( caldavTasks.firstOrNull { !it.isDeleted() })
-                    ))
+                        task = task,
+                        alarms = alarmDao.getAlarms(taskId),
+                        geofences = locationDao.getGeofencesForTask(taskId),
+                        tags = tagDao.getTagsForTask(taskId),
+                        comments = userActivityDao.getComments(taskId),
+                        attachments = taskAttachmentDao.getAttachmentsForTask(taskId),
+                        caldavTasks = caldavTasks,
+                        vtodo = vtodoCache.getVtodo(caldavTasks.firstOrNull { !it.isDeleted() })
+                    )
+            )
         }
         val data = JsonObject(
             mapOf(

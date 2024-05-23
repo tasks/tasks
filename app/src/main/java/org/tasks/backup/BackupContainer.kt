@@ -48,7 +48,7 @@ class BackupContainer(
         val comments: List<UserActivity>,
         val attachments: List<Attachment>?,
         val caldavTasks: List<CaldavTask>?,
-        val vtodo: String?,
+        val vtodo: String? = null,
         val google: List<GoogleTask> = emptyList(),
     ) {
         val locations: List<LegacyLocation> = emptyList()
