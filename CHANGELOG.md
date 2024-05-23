@@ -1,3 +1,8 @@
+### 13.9.7 (2024-05-23)
+
+* Add default reminders when adding start/due dates to existing tasks [#1846](https://github.com/tasks/tasks/issues/1846)
+* Fix import backup crash
+
 ### 13.9.6 (2024-05-18)
 
 * Fix widget crash [#2873](https://github.com/tasks/tasks/issues/2873)
