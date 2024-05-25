@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.tasks.data.UUIDHelper
@@ -35,6 +36,7 @@ data class CaldavTask(
     @ColumnInfo(name = "cd_remote_id")
     var remoteId: String? = UUIDHelper.newUUID(),
     @ColumnInfo(name = "cd_object")
+    @SerialName("object")
     var obj: String? = remoteId?.let { "$it.ics" },
     @ColumnInfo(name = "cd_etag")
     var etag: String? = null,
