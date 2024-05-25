@@ -7,7 +7,6 @@ cert4android = "7814052"
 coil = "2.6.0"
 colorpicker = "0.0.15"
 compose = "2024.05.00"
-compose-compiler = "1.5.14"
 compose-theme-adapter = "1.2.1"
 constraintlayout = "2.1.4"
 dagger-hilt = "2.50"
@@ -30,7 +29,7 @@ jchronic = "0.2.6"
 jems = "1.33"
 junit-junit = "4.13.2"
 junit = "1.1.5"
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 kotlinx-coroutines-test = "1.8.1"
 leakcanary = "2.14"
 lib-recur = "0.11.4"
@@ -98,7 +97,6 @@ coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
 coil-video = { module = "io.coil-kt:coil-video", version.ref = "coil" }
 colorpicker = { module = "com.github.QuadFlask:colorpicker", version.ref = "colorpicker" }
-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 compose-theme-adapter = { module = "com.google.android.material:compose-theme-adapter", version.ref = "compose-theme-adapter" }
 dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
@@ -162,3 +160,5 @@ xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

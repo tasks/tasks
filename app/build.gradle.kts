@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.application")
@@ -11,7 +12,8 @@ plugins {
     id("com.google.android.gms.oss-licenses-plugin")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
-    kotlin("plugin.serialization") version "1.9.24"
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.compose.compiler)
 }
 
 repositories {
@@ -28,6 +30,19 @@ repositories {
             includeModule("com.github.twofortyfouram", "android-plugin-api-for-locale")
             includeModule("com.github.franmontiel", "PersistentCookieJar")
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+        val composeReports = project.properties["composeMetrics"] ?: project.buildDir.absolutePath
+        freeCompilerArgs = listOf(
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${composeReports}/compose-metrics",
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${composeReports}/compose-metrics",
+        )
     }
 }
 
@@ -83,20 +98,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
-        val composeReports = project.properties["composeMetrics"] ?: project.buildDir.absolutePath
-        freeCompilerArgs = listOf(
-            "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${composeReports}/compose-metrics",
-            "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${composeReports}/compose-metrics",
-        )
-    }
     flavorDimensions += listOf("store")
 
     @Suppress("LocalVariableName")
