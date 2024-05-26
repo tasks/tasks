@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import org.tasks.R;
 import org.tasks.billing.Inventory;
+import org.tasks.data.PlaceExtensionsKt;
 import org.tasks.data.entity.Place;
 import org.tasks.data.PlaceUsage;
 import org.tasks.location.LocationPickerAdapter.PlaceViewHolder;
@@ -107,7 +108,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
 
     void bind(PlaceUsage placeUsage, int color, int icon) {
       place = placeUsage.place;
-      String name = place.getDisplayName();
+      String name = PlaceExtensionsKt.getDisplayName(place);
       String address = place.getDisplayAddress();
       Drawable wrapped = DrawableUtil.getWrapped(itemView.getContext(), icon);
       this.icon.setImageDrawable(wrapped);

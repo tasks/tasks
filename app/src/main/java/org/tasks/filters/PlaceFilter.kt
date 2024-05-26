@@ -1,20 +1,21 @@
 package org.tasks.filters
 
 import android.content.Context
-import org.tasks.data.sql.Criterion.Companion.and
-import org.tasks.data.sql.Field.Companion.field
-import org.tasks.data.sql.Join.Companion.inner
-import org.tasks.data.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.FilterListItem
 import kotlinx.parcelize.Parcelize
-import org.tasks.data.entity.Geofence
 import org.tasks.data.NO_COUNT
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.displayName
+import org.tasks.data.entity.Geofence
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
-import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.data.open
+import org.tasks.data.sql.Criterion.Companion.and
+import org.tasks.data.sql.Field.Companion.field
+import org.tasks.data.sql.Join.Companion.inner
+import org.tasks.data.sql.QueryTemplate
 import org.tasks.themes.CustomIcons
 
 @Parcelize

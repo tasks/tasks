@@ -43,9 +43,6 @@ data class Location(
     val isDeparture: Boolean
         get() = geofence.isDeparture
 
-    val displayName: String
-        get() = place.displayName
-
     val displayAddress: String?
         get() = place.displayAddress
 

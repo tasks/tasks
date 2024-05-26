@@ -21,8 +21,9 @@ import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
-import org.tasks.data.entity.Geofence
 import org.tasks.data.Location
+import org.tasks.data.displayName
+import org.tasks.data.entity.Geofence
 import org.tasks.data.entity.Place
 
 @Composable

@@ -16,10 +16,11 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.LocationRow
-import org.tasks.data.entity.Geofence
 import org.tasks.data.Location
-import org.tasks.data.entity.Place
 import org.tasks.data.createGeofence
+import org.tasks.data.displayName
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Place
 import org.tasks.data.open
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.GeofenceDialog

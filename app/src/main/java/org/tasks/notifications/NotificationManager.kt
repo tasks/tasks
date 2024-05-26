@@ -16,6 +16,7 @@ import org.tasks.R
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.displayName
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Notification
 import org.tasks.intents.TaskIntents

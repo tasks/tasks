@@ -1,6 +1,6 @@
 package org.tasks.data.entity
 
-import android.location.Location
+
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -12,8 +12,6 @@ import kotlinx.serialization.Transient
 import org.tasks.data.NO_ORDER
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Table
-import java.util.regex.Pattern
-import kotlin.math.abs
 
 @Serializable
 @Parcelize
@@ -51,20 +49,8 @@ data class Place(
     @ColumnInfo(name = "radius", defaultValue = "250")
     val radius: Int = 250,
 ) : java.io.Serializable, Parcelable {
-    val displayName: String
-        get() {
-            if (!name.isNullOrEmpty() && !COORDS.matcher(name!!).matches()) {
-                return name
-            }
-            return if (!address.isNullOrEmpty()) {
-                address!!
-            } else {
-                "${formatCoordinate(latitude, true)} ${formatCoordinate(longitude, false)}"
-            }
-        }
-
     val displayAddress: String?
-        get() = if (address.isNullOrEmpty()) null else address!!.replace("$name, ", "")
+        get() = if (address.isNullOrEmpty()) null else address.replace("$name, ", "")
 
     companion object {
         const val KEY = "place"
@@ -73,21 +59,5 @@ data class Place(
         @JvmField val UID = TABLE.column("uid")
         @JvmField val NAME = TABLE.column("name")
         @JvmField val ADDRESS = TABLE.column("address")
-        private val pattern = Pattern.compile("(\\d+):(\\d+):(\\d+\\.\\d+)")
-        private val COORDS = Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$")
-        private fun formatCoordinate(coordinates: Double, latitude: Boolean): String {
-            val output = Location.convert(abs(coordinates), Location.FORMAT_SECONDS)
-            val matcher = pattern.matcher(output)
-            return if (matcher.matches()) {
-                val direction = if (latitude) {
-                    if (coordinates > 0) "N" else "S"
-                } else {
-                    if (coordinates > 0) "E" else "W"
-                }
-                "${matcher.group(1)}°${matcher.group(2)}'${matcher.group(3)}\"$direction"
-            } else {
-                coordinates.toString()
-            }
-        }
     }
 }

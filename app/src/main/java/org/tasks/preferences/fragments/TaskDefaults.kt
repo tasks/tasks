@@ -20,6 +20,7 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.TagData
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.displayName
 import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.injection.InjectingPreferenceFragment

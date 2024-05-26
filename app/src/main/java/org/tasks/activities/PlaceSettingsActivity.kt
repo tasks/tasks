@@ -14,6 +14,7 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.dao.LocationDao
+import org.tasks.data.displayName
 import org.tasks.data.entity.Place
 import org.tasks.data.mapPosition
 import org.tasks.databinding.ActivityLocationSettingsBinding

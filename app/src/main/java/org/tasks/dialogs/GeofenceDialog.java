@@ -17,6 +17,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import org.tasks.R;
+import org.tasks.data.LocationExtensionsKt;
 import org.tasks.data.entity.Geofence;
 import org.tasks.data.Location;
 import org.tasks.databinding.LocationDetailsBinding;
@@ -63,7 +64,7 @@ public class GeofenceDialog extends DialogFragment {
     arrivalView.setChecked(geofence.isArrival());
     departureView.setChecked(geofence.isDeparture());
     return dialogBuilder
-        .newDialog(original.getDisplayName())
+        .newDialog(LocationExtensionsKt.getDisplayName(original))
         .setView(binding.getRoot())
         .setNegativeButton(R.string.cancel, null)
         .setOnCancelListener(this::sendResult)
