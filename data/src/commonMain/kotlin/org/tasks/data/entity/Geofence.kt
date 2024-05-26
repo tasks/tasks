@@ -3,7 +3,6 @@ package org.tasks.data.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 import org.tasks.CommonParcelable
@@ -38,30 +37,6 @@ data class Geofence(
     @ColumnInfo(name = "departure")
     var isDeparture: Boolean = false,
 ) : java.io.Serializable, CommonParcelable {
-    @Ignore
-    constructor(
-        task: Long,
-        place: String?,
-        arrival: Boolean,
-        departure: Boolean
-    ): this(
-        task = task,
-        place = place,
-        isArrival = arrival,
-        isDeparture = departure,
-    )
-
-    @Ignore
-    constructor(
-        place: String?,
-        arrival: Boolean,
-        departure: Boolean
-    ): this(
-        place = place,
-        isArrival = arrival,
-        isDeparture = departure,
-    )
-
     companion object {
         const val TABLE_NAME = "geofences"
         @JvmField val TABLE = Table(TABLE_NAME)

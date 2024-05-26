@@ -135,9 +135,9 @@ class LocationControlSet : TaskEditControlFragment() {
                 } else {
                     val existing = location.geofence
                     Geofence(
-                            place.uid,
-                            existing.isArrival,
-                            existing.isDeparture
+                            place = place.uid,
+                            isArrival = existing.isArrival,
+                            isDeparture = existing.isDeparture,
                     )
                 }
                 setLocation(Location(geofence, place))
