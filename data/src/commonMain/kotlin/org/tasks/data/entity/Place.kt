@@ -1,20 +1,20 @@
 package org.tasks.data.entity
 
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.tasks.CommonParcelable
+import org.tasks.CommonParcelize
 import org.tasks.data.NO_ORDER
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Table
 
 @Serializable
-@Parcelize
+@CommonParcelize
 @Entity(
     tableName = Place.TABLE_NAME,
     indices = [
@@ -48,7 +48,7 @@ data class Place(
     val order: Int = NO_ORDER,
     @ColumnInfo(name = "radius", defaultValue = "250")
     val radius: Int = 250,
-) : java.io.Serializable, Parcelable {
+) : java.io.Serializable, CommonParcelable {
     val displayAddress: String?
         get() = if (address.isNullOrEmpty()) null else address.replace("$name, ", "")
 

@@ -1,17 +1,17 @@
 package org.tasks.data.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.tasks.CommonParcelable
+import org.tasks.CommonParcelize
 import org.tasks.data.LABEL
 import org.tasks.data.NO_ORDER
 import org.tasks.data.UUIDHelper
 
-@Parcelize
+@CommonParcelize
 @Serializable
 @Entity(tableName = "tagdata")
 data class TagData(
@@ -31,7 +31,7 @@ data class TagData(
     private val icon: Int? = -1,
     @ColumnInfo(name = "td_order")
     val order: Int = NO_ORDER,
-) : Parcelable {
+) : CommonParcelable {
     @Suppress("RedundantNullableReturnType")
     fun getIcon(): Int? = icon ?: LABEL
 }

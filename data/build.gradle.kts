@@ -1,3 +1,7 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -14,7 +18,9 @@ repositories {
 kotlin {
     applyDefaultHierarchyTemplate()
     androidTarget {
-        publishLibraryVariants("release")
+        compilerOptions {
+            freeCompilerArgs.addAll("-P", "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=org.tasks.CommonParcelize")
+        }
         compilations.all {
             kotlinOptions {
                 jvmTarget = "17"
@@ -22,12 +28,10 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.androidx.room)
-                implementation(libs.kotlinx.serialization)
-                implementation(libs.kermit)
-            }
+        commonMain.dependencies {
+            implementation(libs.androidx.room)
+            implementation(libs.kotlinx.serialization)
+            implementation(libs.kermit)
         }
     }
 }
