@@ -29,7 +29,7 @@ const val APPLE_EPOCH = 978307200000L // 1/1/2001 GMT
 @Dao
 abstract class CaldavDao {
     @Query("SELECT COUNT(*) FROM caldav_lists WHERE cdl_account = :account")
-    abstract fun listCount(account: String): Int
+    abstract suspend fun listCount(account: String): Int
 
     @Query("SELECT * FROM caldav_lists")
     abstract fun subscribeToCalendars(): Flow<List<CaldavCalendar>>

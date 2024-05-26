@@ -1,8 +1,13 @@
 package org.tasks.data.dao
 
-import androidx.room.*
-import org.tasks.data.entity.TaskAttachment
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import org.tasks.data.entity.Attachment
+import org.tasks.data.entity.TaskAttachment
 
 @Dao
 interface TaskAttachmentDao {
@@ -34,5 +39,5 @@ interface TaskAttachmentDao {
     suspend fun update(attachment: TaskAttachment)
 
     @Delete
-    fun delete(value: List<TaskAttachment>)
+    suspend fun delete(value: List<TaskAttachment>)
 }

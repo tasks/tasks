@@ -1,19 +1,28 @@
 package org.tasks.caldav
 
 import android.content.Context
-import at.bitfire.dav4jvm.*
+import at.bitfire.dav4jvm.DavCalendar
 import at.bitfire.dav4jvm.DavCalendar.Companion.MIME_ICALENDAR
+import at.bitfire.dav4jvm.DavResource
+import at.bitfire.dav4jvm.Property
+import at.bitfire.dav4jvm.PropertyRegistry
+import at.bitfire.dav4jvm.Response
 import at.bitfire.dav4jvm.Response.HrefRelation
 import at.bitfire.dav4jvm.exception.DavException
 import at.bitfire.dav4jvm.exception.HttpException
 import at.bitfire.dav4jvm.exception.ServiceUnavailableException
 import at.bitfire.dav4jvm.exception.UnauthorizedException
-import at.bitfire.dav4jvm.property.*
+import at.bitfire.dav4jvm.property.CalendarColor
+import at.bitfire.dav4jvm.property.CalendarData
+import at.bitfire.dav4jvm.property.CurrentUserPrincipal
+import at.bitfire.dav4jvm.property.CurrentUserPrivilegeSet
+import at.bitfire.dav4jvm.property.DisplayName
+import at.bitfire.dav4jvm.property.GetCTag
+import at.bitfire.dav4jvm.property.GetETag
 import at.bitfire.dav4jvm.property.GetETag.Companion.fromResponse
+import at.bitfire.dav4jvm.property.SyncToken
 import at.bitfire.ical4android.ICalendar.Companion.prodId
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
-import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.property.ProdId
@@ -28,19 +37,30 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
-import org.tasks.caldav.property.*
+import org.tasks.caldav.property.Invite
+import org.tasks.caldav.property.OCAccess
+import org.tasks.caldav.property.OCInvite
+import org.tasks.caldav.property.OCOwnerPrincipal
+import org.tasks.caldav.property.OCUser
 import org.tasks.caldav.property.PropertyUtils.register
+import org.tasks.caldav.property.ShareAccess
 import org.tasks.caldav.property.ShareAccess.Companion.NOT_SHARED
 import org.tasks.caldav.property.ShareAccess.Companion.NO_ACCESS
 import org.tasks.caldav.property.ShareAccess.Companion.READ
 import org.tasks.caldav.property.ShareAccess.Companion.READ_WRITE
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
+import org.tasks.caldav.property.Sharee
+import org.tasks.data.UUIDHelper
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.PrincipalDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.ERROR_UNAUTHORIZED
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OPEN_XCHANGE
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_UNKNOWN
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
@@ -50,12 +70,9 @@ import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_DECLINED
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_INVALID
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_NO_RESPONSE
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.PrincipalDao
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.PrincipalAccess
+import org.tasks.data.entity.Task
 import timber.log.Timber
 import java.io.IOException
 import java.net.ConnectException
@@ -202,6 +219,9 @@ class CaldavSynchronizer @Inject constructor(
     }
 
     private suspend fun setError(account: CaldavAccount, message: String?) {
+        if (!message.isNullOrBlank()) {
+            Timber.e("${account.name}: $message")
+        }
         account.error = message
         caldavDao.update(account)
         localBroadcastManager.broadcastRefreshList()
@@ -362,7 +382,7 @@ class CaldavSynchronizer @Inject constructor(
         Timber.d("SENT %s", caldavTask)
     }
 
-    fun Response.principals(
+    suspend fun Response.principals(
         account: CaldavAccount,
         list: CaldavCalendar
     ): List<PrincipalAccess> {

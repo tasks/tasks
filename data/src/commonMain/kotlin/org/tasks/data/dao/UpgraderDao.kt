@@ -34,5 +34,5 @@ WHERE cd_deleted = 0
     suspend fun getOpenTasksForList(account: String, url: String): List<CaldavTaskContainer>
 
     @Query("UPDATE tasks SET hideUntil = :startDate WHERE _id = :task")
-    fun setStartDate(task: Long, startDate: Long)
+    suspend fun setStartDate(task: Long, startDate: Long)
 }

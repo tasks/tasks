@@ -5,8 +5,8 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.sqlite.db.SupportSQLiteQuery
-import org.tasks.data.entity.Task
 import org.tasks.data.entity.TagData
+import org.tasks.data.entity.Task
 
 @Dao
 interface ContentProviderDao {
