@@ -6,7 +6,7 @@ import androidx.room.Query
 import androidx.room.Update
 import androidx.room.execSQL
 import co.touchlab.kermit.Logger
-import org.tasks.data.BuildConfig
+import org.tasks.IS_DEBUG
 import org.tasks.data.TaskContainer
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Database
@@ -111,7 +111,7 @@ FROM (
 
     open suspend fun fetchTasks(callback: suspend () -> List<String>): List<TaskContainer> =
         database.withTransaction {
-            val start = if (BuildConfig.DEBUG) DateTimeUtils2.currentTimeMillis() else 0
+            val start = if (IS_DEBUG) DateTimeUtils2.currentTimeMillis() else 0
             val queries = callback()
             val last = queries.size - 1
             for (i in 0 until last) {
@@ -205,7 +205,7 @@ FROM recursive_tasks
         if (Task.isUuidEmpty(task.remoteId)) {
             task.remoteId = UUIDHelper.newUUID()
         }
-        if (BuildConfig.DEBUG) {
+        if (IS_DEBUG) {
             require(task.remoteId?.isNotBlank() == true && task.remoteId != "0")
         }
         val insert = insert(task)

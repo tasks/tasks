@@ -17,6 +17,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Task
 import org.tasks.data.inTransaction
+import org.tasks.data.pictureUri
 import org.tasks.data.withTransaction
 import org.tasks.files.FileHelper
 import org.tasks.location.GeofenceApi

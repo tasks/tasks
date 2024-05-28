@@ -1,6 +1,5 @@
 package org.tasks.data.entity
 
-import android.os.Parcelable
 import androidx.annotation.IntDef
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -8,13 +7,14 @@ import androidx.room.Ignore
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import co.touchlab.kermit.Logger
-import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlinx.serialization.json.JsonNames
+import org.tasks.CommonParcelable
+import org.tasks.CommonParcelize
+import org.tasks.CommonRawValue
 import org.tasks.data.db.Table
 import org.tasks.data.sql.Field
 
@@ -22,7 +22,7 @@ const val SUPPRESS_SYNC = "suppress_sync"
 const val FORCE_CALDAV_SYNC = "force_caldav_sync"
 
 @Serializable
-@Parcelize
+@CommonParcelize
 @Entity(
         tableName = Task.TABLE_NAME,
         indices = [
@@ -82,8 +82,8 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     var readOnly: Boolean = false,
     @Ignore
     @Transient
-    private var transitoryData: @RawValue HashMap<String, Any>? = null,
-) : Parcelable {
+    private var transitoryData: @CommonRawValue HashMap<String, Any>? = null,
+) : CommonParcelable {
     var uuid: String
         get() = if (remoteId.isNullOrEmpty()) NO_UUID else remoteId!!
         set(uuid) {
@@ -237,15 +237,8 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
             return getTransitory(Tag.KEY) ?: ArrayList()
         }
 
-    fun setTags(tags: ArrayList<String>) {
-        if (transitoryData == null) {
-            transitoryData = HashMap()
-        }
-        transitoryData!![Tag.KEY] = tags
-    }
-
     fun hasTransitory(key: String?): Boolean {
-        return transitoryData != null && transitoryData!!.containsKey(key)
+        return transitoryData?.containsKey(key) == true
     }
 
     fun <T> getTransitory(key: String?): T? = transitoryData?.get(key) as T?

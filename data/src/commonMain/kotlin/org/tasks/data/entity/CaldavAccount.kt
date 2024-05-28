@@ -1,17 +1,17 @@
 package org.tasks.data.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.tasks.CommonParcelable
+import org.tasks.CommonParcelize
 import org.tasks.data.db.Table
 import java.net.HttpURLConnection
 
 @Serializable
-@Parcelize
+@CommonParcelize
 @Entity(tableName = "caldav_accounts")
 data class CaldavAccount(
     @PrimaryKey(autoGenerate = true)
@@ -38,7 +38,7 @@ data class CaldavAccount(
     val isCollapsed: Boolean = false,
     @ColumnInfo(name = "cda_server_type")
     var serverType: Int = SERVER_UNKNOWN,
-) : Parcelable {
+) : CommonParcelable {
     val isCaldavAccount: Boolean
         get() = accountType == TYPE_CALDAV
 

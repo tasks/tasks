@@ -27,6 +27,7 @@ kotlin {
             }
         }
     }
+    jvm()
     sourceSets {
         commonMain.dependencies {
             implementation(libs.androidx.room)
@@ -34,6 +35,7 @@ kotlin {
             implementation(libs.kermit)
         }
     }
+    task("testClasses")
 }
 android {
     namespace = "org.tasks.data"

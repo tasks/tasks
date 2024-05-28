@@ -193,7 +193,7 @@ class TaskCreator @Inject constructor(
         } catch (e: Throwable) {
             Timber.e(e)
         }
-        task.setTags(tags)
+        task.putTransitory(Tag.KEY, tags)
         return task
     }
 

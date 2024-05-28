@@ -22,6 +22,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.caldav.VtodoCache
+import org.tasks.data.convertPictureUri
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.FilterDao

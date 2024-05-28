@@ -6,4 +6,10 @@ package org.tasks
 @Retention(AnnotationRetention.BINARY)
 annotation class CommonParcelize
 
+@Target(AnnotationTarget.TYPE)
+@Retention(AnnotationRetention.BINARY)
+expect annotation class CommonRawValue()
+
 expect interface CommonParcelable
+
+expect val IS_DEBUG: Boolean

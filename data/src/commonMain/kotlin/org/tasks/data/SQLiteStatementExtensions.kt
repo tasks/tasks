@@ -114,7 +114,7 @@ fun SQLiteStatement.getTasks(): List<TaskContainer> {
                 remoteOrder = getLong(_cursorIndexOfRemoteOrder),
             )
         }
-        val accountType = getInt(_cursorIndexOfAccountType)
+        val accountType = getIntOrNull(_cursorIndexOfAccountType) ?: 0
         val geofence = getLongOrNull(_cursorIndexOfId_2)?.takeIf { it > 0 }?.let {
             Geofence(
                 id = it,
@@ -156,7 +156,7 @@ fun SQLiteStatement.getTasks(): List<TaskContainer> {
                 children = getIntOrNull(_cursorIndexOfChildren) ?: 0,
                 primarySort = getLongOrNull(_cursorIndexOfPrimarySort) ?: 0,
                 secondarySort = getLongOrNull(_cursorIndexOfSecondarySort) ?: 0,
-                parentComplete = getBoolean(_cursorIndexOfParentComplete),
+                parentComplete = getBooleanOrNull(_cursorIndexOfParentComplete) ?: false,
             )
         )
     }
@@ -171,3 +171,6 @@ private fun SQLiteStatement.getLongOrNull(index: Int): Long? =
 
 private fun SQLiteStatement.getIntOrNull(index: Int): Int? =
     if (index == -1 || isNull(index)) null else this.getInt(index)
+
+private fun SQLiteStatement.getBooleanOrNull(index: Int): Boolean? =
+    if (index == -1 || isNull(index)) null else this.getBoolean(index)

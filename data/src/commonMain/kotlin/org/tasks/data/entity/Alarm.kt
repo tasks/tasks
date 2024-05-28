@@ -1,18 +1,18 @@
 package org.tasks.data.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.tasks.CommonParcelable
+import org.tasks.CommonParcelize
 import org.tasks.data.db.Table
 import org.tasks.time.printTimestamp
 import java.util.concurrent.TimeUnit
 
-@Parcelize
+@CommonParcelize
 @Serializable
 @Entity(
     tableName = Alarm.TABLE_NAME,
@@ -41,7 +41,7 @@ data class Alarm(
     val repeat: Int = 0,
     @ColumnInfo(name = "interval", defaultValue = "0")
     val interval: Long = 0,
-) : Parcelable {
+) : CommonParcelable {
     fun same(other: Alarm) =
         type == other.type &&
                 time == other.time &&

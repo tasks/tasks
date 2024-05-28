@@ -1,18 +1,18 @@
 package org.tasks.data.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.tasks.CommonParcelable
+import org.tasks.CommonParcelize
 import org.tasks.data.LIST
 import org.tasks.data.NO_ORDER
 import org.tasks.data.db.Table
 
 @Serializable
-@Parcelize
+@CommonParcelize
 @Entity(tableName = "caldav_lists")
 data class CaldavCalendar(
     @PrimaryKey(autoGenerate = true)
@@ -28,7 +28,7 @@ data class CaldavCalendar(
     @ColumnInfo(name = "cdl_order") val order: Int = NO_ORDER,
     @ColumnInfo(name = "cdl_access") var access: Int = ACCESS_OWNER,
     @ColumnInfo(name = "cdl_last_sync") val lastSync: Long = 0,
-) : Parcelable {
+) : CommonParcelable {
     @Suppress("RedundantNullableReturnType")
     fun getIcon(): Int? {
         return (if (icon == null) LIST else icon!!)

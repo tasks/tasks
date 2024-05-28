@@ -3,15 +3,16 @@ package org.tasks.data.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
-import androidx.room.Transaction
 import org.tasks.data.dao.CaldavDao.Companion.LOCAL
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.db.Database
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.withTransaction
 
 @Dao
-abstract class DeletionDao {
+abstract class DeletionDao(private val database: Database) {
     @Query("DELETE FROM tasks WHERE _id IN(:ids)")
     internal abstract suspend fun deleteTasks(ids: List<Long>)
 
@@ -41,12 +42,7 @@ WHERE recurring = 1
     """)
     abstract suspend fun internalHasRecurringAncestors(ids: List<Long>): List<Long>
 
-    @Transaction
-    open suspend fun delete(ids: List<Long>) {
-        ids.eachChunk {
-            deleteTasks(it)
-        }
-    }
+    suspend fun delete(ids: List<Long>) { ids.eachChunk { deleteTasks(it) } }
 
     @Query("UPDATE tasks "
             + "SET modified = (strftime('%s','now')*1000), deleted = (strftime('%s','now')*1000)"
@@ -63,13 +59,13 @@ WHERE recurring = 1
     @Delete
     internal abstract suspend fun deleteCaldavCalendar(caldavCalendar: CaldavCalendar)
 
-    @Transaction
-    open suspend fun delete(caldavCalendar: CaldavCalendar): List<Long> {
-        val tasks = getActiveCaldavTasks(caldavCalendar.uuid!!)
-        delete(tasks)
-        deleteCaldavCalendar(caldavCalendar)
-        return tasks
-    }
+    suspend fun delete(caldavCalendar: CaldavCalendar): List<Long> =
+        database.withTransaction {
+            val tasks = getActiveCaldavTasks(caldavCalendar.uuid!!)
+            delete(tasks)
+            deleteCaldavCalendar(caldavCalendar)
+            tasks
+        }
 
     @Query("SELECT * FROM caldav_lists WHERE cdl_account = :account")
     abstract suspend fun getCalendars(account: String): List<CaldavCalendar>
@@ -80,13 +76,13 @@ WHERE recurring = 1
     @Query("DELETE FROM tasks WHERE _id IN (SELECT _id FROM tasks INNER JOIN caldav_tasks ON _id = cd_task INNER JOIN caldav_lists ON cdl_uuid = cd_calendar WHERE cdl_account = '$LOCAL' AND deleted > 0 AND cd_deleted = 0)")
     abstract suspend fun purgeDeleted()
 
-    @Transaction
-    open suspend fun delete(caldavAccount: CaldavAccount): List<Long> {
-        val deleted = ArrayList<Long>()
-        for (calendar in getCalendars(caldavAccount.uuid!!)) {
-            deleted.addAll(delete(calendar))
+    suspend fun delete(caldavAccount: CaldavAccount): List<Long> =
+        database.withTransaction {
+            val deleted = ArrayList<Long>()
+            for (calendar in getCalendars(caldavAccount.uuid!!)) {
+                deleted.addAll(delete(calendar))
+            }
+            deleteCaldavAccount(caldavAccount)
+            deleted
         }
-        deleteCaldavAccount(caldavAccount)
-        return deleted
-    }
 }

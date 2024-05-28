@@ -1,16 +1,16 @@
 package org.tasks.data.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.tasks.CommonParcelable
+import org.tasks.CommonParcelize
 import org.tasks.data.UUIDHelper
 
 @Serializable
-@Parcelize
+@CommonParcelize
 @Entity(tableName = "attachment_file")
 data class TaskAttachment(
     @PrimaryKey(autoGenerate = true)
@@ -23,7 +23,7 @@ data class TaskAttachment(
     val name: String,
     @ColumnInfo(name = "uri")
     val uri: String,
-) : Parcelable {
+) : CommonParcelable {
     companion object {
         const val KEY = "attachment"
         const val FILES_DIRECTORY_DEFAULT = "attachments"

@@ -1,6 +1,6 @@
 package org.tasks.time
 
-import org.tasks.data.BuildConfig
+import org.tasks.IS_DEBUG
 import java.util.Date
 
 object DateTimeUtils2 {
@@ -24,4 +24,4 @@ object DateTimeUtils2 {
 }
 
 fun printTimestamp(timestamp: Long): String =
-    if (BuildConfig.DEBUG) Date(timestamp).toString() else timestamp.toString()
+    if (IS_DEBUG) Date(timestamp).toString() else timestamp.toString()

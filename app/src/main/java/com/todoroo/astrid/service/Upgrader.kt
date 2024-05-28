@@ -20,6 +20,7 @@ import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.data.CaldavTaskContainer
 import org.tasks.data.Location
+import org.tasks.data.convertPictureUri
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskListDao

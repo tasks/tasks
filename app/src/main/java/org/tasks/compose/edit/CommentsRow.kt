@@ -2,7 +2,11 @@ package org.tasks.compose.edit
 
 import android.net.Uri
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +19,8 @@ import org.tasks.R
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.UserActivity
-import java.util.*
+import org.tasks.data.pictureUri
+import java.util.Locale
 
 @Composable
 fun CommentsRow(
