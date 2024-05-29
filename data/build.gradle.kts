@@ -3,16 +3,11 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.ksp)
-    id("kotlin-parcelize")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
-}
-
-repositories {
-    mavenCentral()
-    google()
+    alias(libs.plugins.ksp)
 }
 
 kotlin {

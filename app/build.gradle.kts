@@ -4,33 +4,16 @@ import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("com.android.application")
+    alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     kotlin("android")
     id("dagger.hilt.android.plugin")
     id("com.google.android.gms.oss-licenses-plugin")
-    id("kotlin-parcelize")
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.compose.compiler)
-}
-
-repositories {
-    mavenCentral()
-    google()
-    maven {
-        url = uri("https://jitpack.io")
-        content {
-            includeGroup("com.github.tasks")
-            includeModule("com.github.bitfireAT", "cert4android")
-            includeModule("com.github.bitfireAT", "dav4jvm")
-            includeModule("com.github.tasks.opentasks", "opentasks-provider")
-            includeModule("com.github.QuadFlask", "colorpicker")
-            includeModule("com.github.twofortyfouram", "android-plugin-api-for-locale")
-            includeModule("com.github.franmontiel", "PersistentCookieJar")
-        }
-    }
 }
 
 kotlin {
@@ -66,15 +49,15 @@ android {
         textReport = true
     }
 
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
         versionCode = 130907
         versionName = "13.9.7"
-        targetSdk = 33
-        minSdk = 24
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "org.tasks.TestRunner"
     }
 

@@ -1,4 +1,7 @@
 [versions]
+android-compileSdk = "34"
+android-minSdk = "24"
+android-targetSdk = "33"
 accompanist = "0.32.0"
 activity-compose = "1.9.0"
 appauth = "0.11.1"
@@ -159,9 +162,11 @@ timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }
 
 [plugins]
-androidLibrary = { id = "com.android.library", version.ref = "agp" }
-kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.21" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
