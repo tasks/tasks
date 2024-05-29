@@ -590,19 +590,19 @@
 +|    |         |         +--- androidx.annotation:annotation:1.8.0 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.0 (*)
 +|    |         |         \--- androidx.room:room-runtime:2.7.0-alpha02 (c)
-+|    |         +--- androidx.sqlite:sqlite:2.5.0-alpha02
-+|    |         |    \--- androidx.sqlite:sqlite-android:2.5.0-alpha02
++|    |         +--- androidx.sqlite:sqlite:2.5.0-alpha02 -> 2.5.0-alpha03
++|    |         |    \--- androidx.sqlite:sqlite-android:2.5.0-alpha03
 +|    |         |         +--- androidx.annotation:annotation:1.8.0 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.0 (*)
-+|    |         |         +--- androidx.sqlite:sqlite-framework:2.5.0-alpha02 (c)
-+|    |         |         \--- androidx.sqlite:sqlite-bundled:2.5.0-alpha02 (c)
-+|    |         +--- androidx.sqlite:sqlite-framework:2.5.0-alpha02
-+|    |         |    \--- androidx.sqlite:sqlite-framework-android:2.5.0-alpha02
++|    |         |         +--- androidx.sqlite:sqlite-framework:2.5.0-alpha03 (c)
++|    |         |         \--- androidx.sqlite:sqlite-bundled:2.5.0-alpha03 (c)
++|    |         +--- androidx.sqlite:sqlite-framework:2.5.0-alpha02 -> 2.5.0-alpha03
++|    |         |    \--- androidx.sqlite:sqlite-framework-android:2.5.0-alpha03
 +|    |         |         +--- androidx.annotation:annotation:1.8.0 (*)
-+|    |         |         +--- androidx.sqlite:sqlite:2.5.0-alpha02 (*)
++|    |         |         +--- androidx.sqlite:sqlite:2.5.0-alpha03 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.0 (*)
-+|    |         |         +--- androidx.sqlite:sqlite:2.5.0-alpha02 (c)
-+|    |         |         \--- androidx.sqlite:sqlite-bundled:2.5.0-alpha02 (c)
++|    |         |         +--- androidx.sqlite:sqlite:2.5.0-alpha03 (c)
++|    |         |         \--- androidx.sqlite:sqlite-bundled:2.5.0-alpha03 (c)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.0 (*)
 +|    |         +--- org.jetbrains.kotlinx:atomicfu:0.17.0
 +|    |         |    \--- org.jetbrains.kotlinx:atomicfu-jvm:0.17.0
@@ -803,7 +803,7 @@
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.1.0 -> 2.8.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-service:2.1.0 -> 2.8.0 (*)
 +|    |    +--- androidx.room:room-runtime:2.5.0 -> 2.7.0-alpha02 (*)
-+|    |    +--- androidx.sqlite:sqlite-framework:2.3.0 -> 2.5.0-alpha02 (*)
++|    |    +--- androidx.sqlite:sqlite-framework:2.3.0 -> 2.5.0-alpha03 (*)
 +|    |    +--- androidx.startup:startup-runtime:1.0.0 -> 1.1.1 (*)
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.7.21 -> 2.0.0 (*)
@@ -834,12 +834,12 @@
 ++--- androidx.lifecycle:lifecycle-runtime-ktx:2.8.0 (*)
 ++--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0 (*)
 ++--- androidx.room:room-runtime:2.7.0-alpha02 (*)
-++--- androidx.sqlite:sqlite-bundled:2.5.0-alpha02
-+|    \--- androidx.sqlite:sqlite-bundled-android:2.5.0-alpha02
-+|         +--- androidx.sqlite:sqlite:2.5.0-alpha02 (*)
+++--- androidx.sqlite:sqlite-bundled:2.5.0-alpha03
++|    \--- androidx.sqlite:sqlite-bundled-android:2.5.0-alpha03
++|         +--- androidx.sqlite:sqlite:2.5.0-alpha03 (*)
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.0 (*)
-+|         +--- androidx.sqlite:sqlite:2.5.0-alpha02 (c)
-+|         \--- androidx.sqlite:sqlite-framework:2.5.0-alpha02 (c)
++|         +--- androidx.sqlite:sqlite:2.5.0-alpha03 (c)
++|         \--- androidx.sqlite:sqlite-framework:2.5.0-alpha03 (c)
 ++--- androidx.appcompat:appcompat:1.6.1 (*)
 ++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.8.0 (*)
