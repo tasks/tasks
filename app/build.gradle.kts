@@ -154,7 +154,7 @@ val genericImplementation by configurations
 val googleplayImplementation by configurations
 
 dependencies {
-    implementation(project(":data"))
+    implementation(projects.data)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.bitfire.dav4jvm) {
         exclude(group = "junit")
