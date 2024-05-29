@@ -16,5 +16,3 @@ suspend fun <T> RoomDatabase.withTransaction(block: suspend TransactionScope<T>.
 
 suspend fun <T> RoomDatabase.rawQuery(query: String, block: (SQLiteStatement) -> T): T =
     useReaderConnection { transactor -> transactor.usePrepared(query) { block(it) } }
-
-suspend fun RoomDatabase.inTransaction(): Boolean = useReaderConnection { it.inTransaction() }

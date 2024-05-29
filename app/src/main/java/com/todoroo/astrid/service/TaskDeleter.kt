@@ -4,7 +4,6 @@ import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
-import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.DeletionDao
@@ -16,7 +15,6 @@ import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Task
-import org.tasks.data.inTransaction
 import org.tasks.data.pictureUri
 import org.tasks.data.withTransaction
 import org.tasks.files.FileHelper
@@ -88,9 +86,6 @@ class TaskDeleter @Inject constructor(
     }
 
     private suspend fun cleanup(tasks: List<Long>) {
-        if (BuildConfig.DEBUG && !database.inTransaction()) {
-            throw IllegalStateException()
-        }
         tasks.forEach { task ->
             notificationManager.cancel(task)
             locationDao.getGeofencesForTask(task).forEach {
