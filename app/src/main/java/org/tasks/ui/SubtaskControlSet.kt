@@ -9,12 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.composethemeadapter.MdcTheme
-import org.tasks.data.sql.Criterion
-import org.tasks.data.sql.QueryTemplate
 import com.todoroo.astrid.activity.MainActivityViewModel
-import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +19,8 @@ import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.SubtaskRow
 import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.entity.Task
+import org.tasks.filters.SubtaskFilter
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.themes.ColorProvider
@@ -47,7 +44,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
 
     override fun createView(savedInstanceState: Bundle?) {
         viewModel.task.takeIf { it.id > 0 }?.let {
-            listViewModel.setFilter(FilterImpl("subtasks", getQueryTemplate(it)))
+            listViewModel.setFilter(SubtaskFilter(it.id))
         }
     }
 
@@ -112,13 +109,5 @@ class SubtaskControlSet : TaskEditControlFragment() {
 
     companion object {
         val TAG = R.string.TEA_ctrl_subtask_pref
-        private fun getQueryTemplate(task: Task): String = QueryTemplate()
-            .where(
-                Criterion.and(
-                    activeAndVisible(),
-                    Task.PARENT.eq(task.id)
-                )
-            )
-            .toString()
     }
 }

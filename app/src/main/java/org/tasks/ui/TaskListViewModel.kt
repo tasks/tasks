@@ -30,11 +30,11 @@ import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.compose.throttleLatest
-import org.tasks.data.dao.DeletionDao
-import org.tasks.data.entity.Task
 import org.tasks.data.TaskContainer
-import org.tasks.data.dao.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.data.dao.DeletionDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.Task
 import org.tasks.data.fetchTasks
 import org.tasks.db.QueryUtils
 import org.tasks.preferences.Preferences
@@ -156,7 +156,7 @@ class TaskListViewModel @Inject constructor(
                         tasks = TasksResults.Results(
                             SectionedDataSource(
                                 tasks = tasks,
-                                disableHeaders = !it.filter.supportsSorting()
+                                disableHeaders = it.filter.disableHeaders()
                                         || (it.filter.supportsManualSort() && preferences.isManualSort)
                                         || (it.filter is AstridOrderingFilter && preferences.isAstridSort),
                                 groupMode = preferences.groupMode,
