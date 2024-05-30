@@ -1,3 +1,4 @@
+rootProject.name = "Tasks"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
