@@ -790,4 +790,8 @@
         <item quantity="other">دقيقة</item>
     </plurals>
     <string name="change_priority">تغيير الاولوية</string>
+    <string name="sort_descending">تنازلى</string>
+    <string name="sort_ascending">تصاعدى</string>
+    <string name="sort_grouping">التجميع</string>
+    <string name="sort_sorting">الترتيب</string>
 </resources>
