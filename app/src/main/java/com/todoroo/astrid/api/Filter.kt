@@ -30,6 +30,7 @@ interface Filter : FilterListItem, Parcelable {
     fun supportsHiddenTasks(): Boolean = true
     fun supportsSubtasks(): Boolean = true
     fun supportsSorting(): Boolean = true
+    fun disableHeaders(): Boolean = !supportsSorting()
 }
 
 @Deprecated("Use manual ordering")
