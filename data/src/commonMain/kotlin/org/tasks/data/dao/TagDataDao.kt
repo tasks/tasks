@@ -4,19 +4,20 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.NO_ORDER
 import org.tasks.data.TagFilters
+import org.tasks.data.db.Database
 import org.tasks.data.db.DbUtils
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
+import org.tasks.data.withTransaction
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 @Dao
-abstract class TagDataDao {
+abstract class TagDataDao(private val database: Database) {
     @Query("SELECT * FROM tagdata")
     abstract fun subscribeToTags(): Flow<List<TagData>>
 
@@ -79,12 +80,11 @@ abstract class TagDataDao {
             + " GROUP BY tasks._id")
     internal abstract suspend fun getAllTags(tasks: List<Long>): List<String?>
 
-    @Transaction
-    open suspend fun applyTags(
+    suspend fun applyTags(
         tasks: List<Task>,
         partiallySelected: List<TagData>,
         selected: List<TagData>
-    ): List<Long> {
+    ): List<Long> = database.withTransaction {
         val modified = HashSet<Long>()
         val keep = partiallySelected.plus(selected).map { it.remoteId!! }
         for (sublist in tasks.chunked(DbUtils.MAX_SQLITE_ARGS - keep.size)) {
@@ -108,13 +108,14 @@ abstract class TagDataDao {
                 )
             }
         }
-        return ArrayList(modified)
+        ArrayList(modified)
     }
 
-    @Transaction
-    open suspend fun delete(tagData: TagData) {
-        deleteTags(tagData.remoteId!!)
-        deleteTagData(tagData)
+    suspend fun delete(tagData: TagData) {
+        database.withTransaction {
+            deleteTags(tagData.remoteId!!)
+            deleteTagData(tagData)
+        }
     }
 
     @Delete
