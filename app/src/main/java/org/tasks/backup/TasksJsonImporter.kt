@@ -92,7 +92,7 @@ class TasksJsonImporter @Inject constructor(
         try {
             val data = input.jsonObject["data"]!!
             val version = input.jsonObject["version"]!!.jsonPrimitive.int
-            val backupContainer = Json.decodeFromJsonElement<BackupContainer>(data)
+            val backupContainer = json.decodeFromJsonElement<BackupContainer>(data)
             backupContainer.tags?.forEach { tagData ->
                 findTagData(tagData)?.let {
                     return@forEach
@@ -203,7 +203,7 @@ class TasksJsonImporter @Inject constructor(
                 taskDao.createNew(task)
                 val taskId = task.id
                 val taskUuid = task.uuid
-                alarmDao.insert(backup.alarms.map { it.copy(task = taskId) })
+                backup.alarms?.map { it.copy(task = taskId) }?.let { alarmDao.insert(it) }
                 if (version < V12_4) {
                     task.defaultReminders(task.ringFlags)
                     alarmDao.insert(task.getDefaultAlarms())
@@ -218,14 +218,14 @@ class TasksJsonImporter @Inject constructor(
                     task.repeatFrom = task.recurrence.repeatFrom()
                     task.recurrence = task.recurrence.withoutFrom()
                 }
-                for (comment in backup.comments) {
+                backup.comments?.forEach { comment ->
                     comment.targetId = taskUuid
                     if (version < V6_4) {
                         comment.convertPictureUri()
                     }
                     userActivityDao.createNew(comment)
                 }
-                for (googleTask in backup.google) {
+                backup.google?.forEach { googleTask ->
                     caldavDao.insert(
                         CaldavTask(
                             task = taskId,
@@ -237,7 +237,7 @@ class TasksJsonImporter @Inject constructor(
                         )
                     )
                 }
-                for (location in backup.locations) {
+                backup.locations?.forEach { location ->
                     val place = Place(
                         longitude = location.longitude,
                         latitude = location.latitude,
@@ -256,8 +256,8 @@ class TasksJsonImporter @Inject constructor(
                         )
                     )
                 }
-                for (tag in backup.tags) {
-                    val tagData = findTagData(tag) ?: continue
+                backup.tags?.forEach tags@ { tag ->
+                    val tagData = findTagData(tag) ?: return@tags
                     tagDao.insert(
                         tag.copy(
                             task = taskId,
@@ -349,6 +349,7 @@ class TasksJsonImporter @Inject constructor(
         var skipCount = 0
     }
 
+    @Deprecated("For backup use only")
     @Serializable
     class LegacyLocation {
         var name: String? = null
@@ -363,6 +364,7 @@ class TasksJsonImporter @Inject constructor(
     }
 
     companion object {
+        private val json = Json { ignoreUnknownKeys = true}
         private val ignorePrefs = intArrayOf(
                 R.string.p_current_version,
                 R.string.p_backups_android_backup_last
