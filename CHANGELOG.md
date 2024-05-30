@@ -1,3 +1,8 @@
+### 13.9.8 (2024-05-30)
+
+* Fix import backup crashes
+* Fix showing completed subtasks in edit screen
+
 ### 13.9.7 (2024-05-23)
 
 * Add default reminders when adding start/due dates to existing tasks [#1846](https://github.com/tasks/tasks/issues/1846)

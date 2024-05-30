@@ -1,0 +1,2 @@
+* Fix import backup crashes
+* Fix showing completed subtasks in edit screen
