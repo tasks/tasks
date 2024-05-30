@@ -65,7 +65,6 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          arch: x86
           profile: Nexus 6
           disable-animations: true
           force-avd-creation: false
@@ -73,7 +72,6 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          arch: x86
           profile: Nexus 6
           disable-animations: true
           force-avd-creation: false
