@@ -37,6 +37,7 @@ jobs:
     strategy:
       matrix:
         flavor: [Googleplay, Generic]
+        api-level: [29]
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -51,10 +52,31 @@ jobs:
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
+      - name: AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+      - name: create AVD
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          arch: x86
+          profile: Nexus 6
+          disable-animations: true
+          force-avd-creation: false
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: ${{ matrix.api-level }}
+          arch: x86
+          profile: Nexus 6
+          disable-animations: true
+          force-avd-creation: false
           script: ./gradlew -Pcoverage app:test${{ matrix.flavor }}DebugUnitTest app:connected${{ matrix.flavor }}DebugAndroidTest
       - name: Upload test reports
         uses: actions/upload-artifact@v4
