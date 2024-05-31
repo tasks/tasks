@@ -111,8 +111,8 @@
     <string name="gtasks_error_accountNotFound">Conta %s não encontrada—Desconecte e faça login novamente nas configurações do Google Tarefas.</string>
     <string name="premium_record_audio">Gravar uma nota de áudio</string>
     <string name="ring_once">Reproduzir uma vez</string>
-    <string name="ring_five_times">Tocar cinco vezes</string>
-    <string name="ring_nonstop">Tocar sem parar</string>
+    <string name="ring_five_times">Reproduzir cinco vezes</string>
+    <string name="ring_nonstop">Reproduzir sem parar</string>
     <string name="rmd_NoA_done">Concluída</string>
     <string name="rmd_NoA_snooze">Adiar</string>
     <string name="snooze_all">Adiar todos</string>
