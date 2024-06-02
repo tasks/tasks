@@ -534,16 +534,16 @@
     <string name="when_started">開始后</string>
     <string name="bundle_notifications">捆綁通知</string>
     <string name="repeats_plural_on_number_of_times">每%1$s的%2$s重複，總共 %3$d %4$s</string>
-    <string name="repeats_single_until">%1$s重複，直至%2$s</string>
+    <string name="repeats_single_until">重複 %1$s，於 %2$s 結束</string>
     <string name="tasker_list_notification">列表通知</string>
     <string name="repeats_plural_on">每%1$s的%2$s重複</string>
     <string name="repeats_plural_number_of_times">每%1$s重複，總共%2$d %3$s</string>
     <string name="badges">徽章</string>
-    <string name="repeats_plural_until">每%1$s重複，直至%2$s</string>
-    <string name="repeats_plural_on_until">每%1$s的%2$s重複，直至 %3$s</string>
+    <string name="repeats_plural_until">每 %1$s 重複一次，於 %2$s 結束</string>
+    <string name="repeats_plural_on_until">每 %1$s 在 %2$s 重複一次，在 %3$s 結束</string>
     <string name="repeats_single_on">%1$s的%2$s重複</string>
     <string name="repeats_single_number_of_times">%1$s重複，總共%2$d %3$s</string>
-    <string name="repeats_single_on_until">%1$s的%2$s重複，直至%3$s</string>
+    <string name="repeats_single_on_until">在 %2$s 上重複 %1$s，在 %3$s 結束</string>
     <string name="repeats_single_on_number_of_times">%1$s的%2$s重複，總共%3$d %4$s</string>
     <string name="badges_description">在Tasks啓動圖標上顯示任務數，不是所有啓動器都支持。</string>
     <string name="randomly_every">每 %s 隨機</string>
@@ -682,7 +682,7 @@
     <string name="social">社群</string>
     <string name="date_picker_multiple">多個</string>
     <string name="background_location">背景定位</string>
-    <string name="backups_ignore_warnings_summary">如果您不需要備份或有自己的備份解決方案，請忽略備份警告。</string>
+    <string name="backups_ignore_warnings_summary">如果你不需要備份或有自己的備份解決方案，請忽略備份警告</string>
     <string name="upgrade_desktop_access">桌面訪問</string>
     <string name="completed">已完成</string>
     <string name="app_bar_collapse">折疊應用程式列</string>
@@ -704,4 +704,14 @@
     <string name="sort_completed">依完成時間</string>
     <string name="change_priority">更改優先順序</string>
     <string name="clear_completed_tasks_count">%s 將會刪除</string>
+    <string name="swipe_to_snooze_title">滑動以延後</string>
+    <string name="swipe_to_snooze_description">延後時間</string>
+    <string name="swipe_to_snooze_time_immediately">立即</string>
+    <string name="swipe_to_snooze_time_15_minutes">15 分鐘後</string>
+    <string name="swipe_to_snooze_time_24_hours">24 小時後</string>
+    <string name="theme_dynamic">動態</string>
+    <string name="show_edit_screen_without_unlock">無需解除鎖定即可顯示編輯螢幕</string>
+    <string name="swipe_to_snooze_time_description">已清除的通知將被延後並重新建立 %s</string>
+    <string name="swipe_to_snooze_time_30_minutes">30 分鐘後</string>
+    <string name="swipe_to_snooze_time_1_hour">1 小時後</string>
 </resources>
