@@ -726,4 +726,9 @@
     <string name="repeat_monthly_on_the_nth_weekday">Monatlich an dem %1$s %2$s</string>
     <string name="clear_completed_tasks_count">%s werden gelöscht</string>
     <string name="theme_dynamic">Dynamisch</string>
+    <string name="swipe_to_snooze_time_immediately">sofort</string>
+    <string name="swipe_to_snooze_time_15_minutes">nach 15 Minuten</string>
+    <string name="swipe_to_snooze_time_30_minutes">nach 30 Minuten</string>
+    <string name="swipe_to_snooze_time_1_hour">nach 1 Stunde</string>
+    <string name="swipe_to_snooze_time_24_hours">nach 24 Stunden</string>
 </resources>
