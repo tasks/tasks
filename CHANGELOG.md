@@ -1,4 +1,4 @@
-### 13.9.8 (2024-05-30)
+### 13.9.9 (2024-05-30)
 
 * Fix import backup crashes
 * Fix showing completed subtasks in edit screen
