@@ -62,6 +62,7 @@ class Tasks : Application(), Configuration.Provider {
         ProcessLifecycleOwner.get().lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
+                    localBroadcastManager.broadcastRefresh()
                     if (currentTimeMillis() - preferences.lastSync > TimeUnit.MINUTES.toMillis(5)) {
                         owner.lifecycle.coroutineScope.launch {
                             workManager.get().sync(true)
