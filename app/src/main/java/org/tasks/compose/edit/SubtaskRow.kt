@@ -42,8 +42,8 @@ import org.tasks.compose.DisabledText
 import org.tasks.compose.SubtaskChip
 import org.tasks.compose.TaskEditIcon
 import org.tasks.compose.TaskEditRow
-import org.tasks.data.entity.Task
 import org.tasks.data.TaskContainer
+import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.ui.TaskListViewModel
@@ -149,7 +149,7 @@ fun NewSubtaskRow(
             modifier = Modifier.align(Alignment.Top),
             desaturate = desaturate,
         )
-        var text by remember { mutableStateOf(subtask.title ?: "") }
+        var text by remember(subtask.remoteId) { mutableStateOf(subtask.title ?: "") }
         val focusRequester = remember { FocusRequester() }
         BasicTextField(
             value = text,

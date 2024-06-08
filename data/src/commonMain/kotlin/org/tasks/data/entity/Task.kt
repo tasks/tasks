@@ -15,6 +15,7 @@ import kotlinx.serialization.json.JsonNames
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.CommonRawValue
+import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Table
 import org.tasks.data.sql.Field
 
@@ -70,7 +71,7 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     @ColumnInfo(name = "calendarUri")
     var calendarURI: String? = null,
     @ColumnInfo(name = "remoteId")
-    var remoteId: String? = NO_UUID,
+    var remoteId: String? = UUIDHelper.newUUID(),
     @ColumnInfo(name = "collapsed")
     var isCollapsed: Boolean = false,
     @ColumnInfo(name = "parent")
