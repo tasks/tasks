@@ -145,6 +145,41 @@ class AlarmJobServiceTest : InjectingTestCase() {
     }
 
     @Test
+    fun alarmsOneMinuteApart() = runBlocking {
+        freezeAt(DateTime(2024, 5, 17, 23, 20)) {
+            taskDao.insert(
+                Task(
+                    dueDate = createDueDate(
+                        Task.URGENCY_SPECIFIC_DAY_TIME,
+                        DateTime(2024, 5, 17, 23, 20).millis
+                    )
+                )
+            )
+            alarmService.synchronizeAlarms(1, mutableSetOf(Alarm(type = Alarm.TYPE_REL_END)))
+            taskDao.insert(Task())
+            alarmService.synchronizeAlarms(
+                taskId = 2,
+                alarms = mutableSetOf(
+                    Alarm(
+                        type = Alarm.TYPE_SNOOZE,
+                        time = DateTime(2024, 5, 17, 23, 21).millis)
+                )
+            )
+
+            testResults(
+                listOf(
+                    Notification(
+                        taskId = 1L,
+                        timestamp = DateTimeUtils2.currentTimeMillis(),
+                        type = Alarm.TYPE_REL_END
+                    )
+                ),
+                DateTime(2024, 5, 17, 23, 21).millis
+            )
+        }
+    }
+
+    @Test
     fun futureSnoozeOverrideOverdue() = runBlocking {
         freezeAt(DateTime(2024, 5, 17, 23, 20)) {
             taskDao.insert(

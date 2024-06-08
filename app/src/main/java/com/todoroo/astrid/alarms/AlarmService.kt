@@ -104,7 +104,9 @@ class AlarmService @Inject constructor(
                 val alarmEntries = alarms.mapNotNull {
                     alarmCalculator.toAlarmEntry(task, it)
                 }
-                val (now, later) = alarmEntries.partition { it.timestamp <= DateTime().startOfMinute().plusMinutes(1).millis }
+                val (now, later) = alarmEntries.partition {
+                    it.timestamp < DateTime().startOfMinute().plusMinutes(1).millis
+                }
                 later
                     .filter { it.type == TYPE_SNOOZE }
                     .maxByOrNull { it.timestamp }

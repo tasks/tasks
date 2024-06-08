@@ -73,15 +73,15 @@ class AlarmCalculator(
      * We take the last reminder time and add approximately the reminder period. If it's still in
      * the past, we set it to some time in the near future.
      */
-    private fun calculateNextRandomReminder(random: Random, task: Task, reminderPeriod: Long): Long {
+    private fun calculateNextRandomReminder(random: Random, task: Task, reminderPeriod: Long) =
         if (reminderPeriod > 0) {
-            var `when` = task.reminderLast
-            if (`when` == 0L) {
-                `when` = task.creationDate
-            }
-            `when` += (reminderPeriod * (0.85f + 0.3f * random.nextFloat())).toLong()
-            return Math.max(`when`, task.hideUntil)
+            maxOf(
+                task.reminderLast
+                    .coerceAtLeast(task.creationDate)
+                    .plus((reminderPeriod * (0.85f + 0.3f * random.nextFloat())).toLong()),
+                task.hideUntil
+            )
+        } else {
+            AlarmService.NO_ALARM
         }
-        return AlarmService.NO_ALARM
-    }
 }
