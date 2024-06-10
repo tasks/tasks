@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.Filter
@@ -38,6 +37,7 @@ import org.tasks.dialogs.Linkify
 import org.tasks.filters.PlaceFilter
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
+import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.CheckBoxProvider
@@ -249,7 +249,7 @@ class TaskViewHolder internal constructor(
         val toggleSubtasks = { task: Long, collapsed: Boolean -> callback.toggleSubtasks(task, collapsed) }
         val onClick = { it: Filter -> callback.onClick(it) }
         chipGroup.setContent {
-            MdcTheme {
+            TasksTheme {
                 ChipGroup(
                     modifier = Modifier.padding(
                         end = 16.dp,

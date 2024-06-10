@@ -47,7 +47,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.android.material.snackbar.Snackbar
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
@@ -124,6 +123,7 @@ import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TaskViewHolder
 import org.tasks.tasklist.ViewHolderFactory
 import org.tasks.themes.ColorProvider
+import org.tasks.themes.TasksTheme
 import org.tasks.themes.ThemeColor
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskEditEvent
@@ -344,7 +344,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         binding.banner.setContent {
             val context = LocalContext.current
             val showBanner = listViewModel.state.collectAsStateLifecycleAware().value.begForSubscription
-            MdcTheme {
+            TasksTheme {
                 SubscriptionNagBanner(
                     visible = showBanner,
                     subscribe = {

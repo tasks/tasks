@@ -2,16 +2,15 @@ package org.tasks.caldav
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
@@ -27,6 +26,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.themes.TasksTheme
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -53,7 +53,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
         caldavCalendar?.takeIf { it.id > 0 }?.let {
             findViewById<ComposeView>(R.id.people).setContent {
-                MdcTheme {
+                TasksTheme {
                     val principals = principalDao.getPrincipals(it.id).collectAsStateLifecycleAware(initial = emptyList()).value
                     PrincipalList(
                         principals = principals,
@@ -66,7 +66,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
             findViewById<ComposeView>(R.id.fab)
                 .apply { isVisible = true }
                 .setContent {
-                    MdcTheme {
+                    TasksTheme {
                         val openDialog = rememberSaveable { mutableStateOf(false) }
                         ShareInviteDialog(
                             openDialog,
@@ -77,11 +77,14 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                                 openDialog.value = false
                             }
                         }
-                        FloatingActionButton(onClick = { openDialog.value = true }) {
+                        FloatingActionButton(
+                            onClick = { openDialog.value = true },
+                            containerColor = MaterialTheme.colorScheme.primary
+                        ) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_outline_person_add_24),
                                 contentDescription = null,
-                                tint = MaterialTheme.colors.onPrimary,
+                                tint = MaterialTheme.colorScheme.onPrimary,
                             )
                         }
                     }

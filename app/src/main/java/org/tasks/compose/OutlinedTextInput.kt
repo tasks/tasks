@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -26,7 +26,7 @@ import org.tasks.extensions.formatNumber
 import org.tasks.extensions.parseInteger
 import java.util.Locale
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OutlinedNumberInput(
     number: Int,
@@ -52,8 +52,8 @@ fun OutlinedNumberInput(
                 ?: 0
             onTextChanged(newValue)
         },
-        textStyle = MaterialTheme.typography.body1.copy(
-            color = MaterialTheme.colors.onSurface,
+        textStyle = MaterialTheme.typography.bodyLarge.copy(
+            color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center,
         ),
         modifier = Modifier
@@ -70,12 +70,12 @@ fun OutlinedNumberInput(
             .width(60.dp)
             .height(45.dp)
             .fillMaxWidth(),
-        cursorBrush = SolidColor(MaterialTheme.colors.onBackground),
+        cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
         interactionSource = interactionSource,
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
     ) {
-        TextFieldDefaults.TextFieldDecorationBox(
+        TextFieldDefaults.DecorationBox(
             value = number.toString(),
             innerTextField = it,
             singleLine = true,

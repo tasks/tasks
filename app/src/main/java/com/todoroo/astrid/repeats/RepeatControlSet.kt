@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.GtasksFilter
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +26,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.RepeatRuleToString
+import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.TaskEditControlFragment
@@ -85,7 +85,7 @@ class RepeatControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                MdcTheme {
+                TasksTheme {
                     RepeatRow(
                         recurrence = viewModel.recurrence.collectAsStateLifecycleAware().value?.let {
                             repeatRuleToString.toString(it)

@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -36,8 +36,9 @@ fun CollapsibleRow(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.body2.copy(
+            style = MaterialTheme.typography.bodyMedium.copy(
                 fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurface,
             ),
             modifier = Modifier.weight(1f),
         )
@@ -48,7 +49,7 @@ fun CollapsibleRow(
         Icon(
             imageVector = Icons.Outlined.KeyboardArrowUp,
             contentDescription = null,
-            tint = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
+            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
             modifier = Modifier.rotate(rotationAngle)
         )
     }

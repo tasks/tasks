@@ -5,12 +5,13 @@ import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Pause
 import androidx.compose.material.icons.outlined.PlayArrow
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,11 +23,11 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.material.composethemeadapter.MdcTheme
 import kotlinx.coroutines.delay
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
+import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import kotlin.time.Duration.Companion.seconds
 
@@ -81,6 +82,7 @@ fun TimerRow(
                         modifier = Modifier
                             .weight(1f)
                             .padding(vertical = 20.dp),
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                 }
                 IconButton(
@@ -97,7 +99,8 @@ fun TimerRow(
                             Icons.Outlined.PlayArrow
                         },
                         modifier = Modifier.alpha(ContentAlpha.medium),
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -116,7 +119,7 @@ fun TimerRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoTimer() {
-    MdcTheme {
+    TasksTheme {
         TimerRow(started = 0, estimated = 0, elapsed = 0, timerClicked = {}, onClick = {})
     }
 }
@@ -125,7 +128,7 @@ fun NoTimer() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun RunningTimer() {
-    MdcTheme {
+    TasksTheme {
         TimerRow(started = currentTimeMillis(), estimated = 900, elapsed = 400, timerClicked = {}, onClick = {})
     }
 }

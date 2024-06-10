@@ -20,7 +20,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.adapter.SubheaderClickHandler
@@ -60,6 +59,7 @@ import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
+import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import org.tasks.ui.EmptyTaskEditFragment.Companion.newEmptyTaskEditFragment
 import org.tasks.ui.MainActivityEvent
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         binding.composeView.setContent {
             val state = viewModel.state.collectAsStateLifecycleAware().value
             if (state.drawerOpen) {
-                MdcTheme {
+                TasksTheme {
                     TasksMenu(
                         bottomPadding = WindowInsets.mandatorySystemGestures
                             .asPaddingValues()

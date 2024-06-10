@@ -3,7 +3,7 @@ package org.tasks.compose.drawer
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -75,7 +75,7 @@ fun TasksMenu(
     }
     ModalBottomSheet(
         sheetState = sheetState,
-        containerColor = MaterialTheme.colors.surface,
+        containerColor = MaterialTheme.colorScheme.surface,
         onDismissRequest = { dismiss() }
     ) {
         val scope = rememberCoroutineScope()

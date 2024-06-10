@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast.LENGTH_SHORT
 import androidx.compose.ui.platform.ComposeView
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.activity.TaskEditFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -19,6 +18,7 @@ import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.CalendarRow
 import org.tasks.extensions.Context.toast
 import org.tasks.preferences.PermissionChecker
+import org.tasks.themes.TasksTheme
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -45,7 +45,7 @@ class CalendarControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                MdcTheme {
+                TasksTheme {
                     CalendarRow(
                         eventUri = viewModel.eventUri.collectAsStateLifecycleAware().value,
                         selectedCalendar = viewModel.selectedCalendar.collectAsStateLifecycleAware().value?.let {

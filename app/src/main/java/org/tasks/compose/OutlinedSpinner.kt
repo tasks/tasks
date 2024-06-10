@@ -3,13 +3,13 @@ package org.tasks.compose
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,11 +34,14 @@ fun OutlinedSpinner(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(start = 8.dp),
         ) {
-            Text(text = text)
+            Text(
+                text = text,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
             Icon(
                 imageVector = Icons.Outlined.ArrowDropDown,
                 contentDescription = null,
-                tint = MaterialTheme.colors.onSurface,
+                tint = MaterialTheme.colorScheme.onSurface,
             )
         }
         DropdownMenu(
@@ -52,10 +55,11 @@ fun OutlinedSpinner(
                         expanded = false
                         onSelected(index)
                     },
-                    content = {
+                    text = {
                         Text(
                             text = item,
-                            style = MaterialTheme.typography.body2,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
                         )
                     },
                 )

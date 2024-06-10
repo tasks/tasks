@@ -235,7 +235,6 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime-livedata")
-    implementation(libs.compose.theme.adapter)
     implementation(libs.androidx.activity.compose)
     implementation("androidx.compose.material:material-icons-extended")
     implementation(libs.androidx.lifecycle.viewmodel.compose)

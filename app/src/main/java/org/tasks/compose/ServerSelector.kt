@@ -5,8 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,8 +18,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
+import org.tasks.themes.TasksTheme
 
 @Composable
 fun ServerSelector(selected: Int, onSelected: (Int) -> Unit) {
@@ -29,7 +29,7 @@ fun ServerSelector(selected: Int, onSelected: (Int) -> Unit) {
         .clickable { expanded = !expanded }) {
         Text(
             text = stringResource(id = R.string.caldav_server_type),
-            style = MaterialTheme.typography.caption.copy(
+            style = MaterialTheme.typography.bodySmall.copy(
                 color = colorResource(id = R.color.text_secondary)
             ),
         )
@@ -47,7 +47,7 @@ fun ServerSelector(selected: Int, onSelected: (Int) -> Unit) {
             setExpanded = { expanded = it },
             modifier = Modifier
                 .padding(vertical = 6.dp)
-                .fillMaxWidth()
+                .fillMaxWidth(),
         )
     }
 }
@@ -56,6 +56,6 @@ fun ServerSelector(selected: Int, onSelected: (Int) -> Unit) {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ServerSelectorPreview() =
-    MdcTheme {
+    TasksTheme {
         ServerSelector(1) {}
     }

@@ -23,9 +23,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.ArrowUpward
@@ -55,13 +55,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.core.SortHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.SystemBars
 import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
 class SortSettingsActivity : ComponentActivity() {
@@ -74,15 +74,15 @@ class SortSettingsActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = ContextCompat.getColor(this, android.R.color.transparent)
         setContent {
-            MdcTheme {
+            TasksTheme {
                 val scrimColor = if (isSystemInDarkTheme())
                     Color(0x52454545)
                 else
-                    MaterialTheme.colors.onSurface.copy(.5f)
+                    MaterialTheme.colorScheme.onSurface.copy(.5f)
                 // edge-to-edge potentially fixed in material3 v1.2.0
                 SystemBars(
                     statusBarColor = scrimColor,
-                    navigationBarColor = MaterialTheme.colors.surface,
+                    navigationBarColor = MaterialTheme.colorScheme.surface,
                 )
                 val state = viewModel.state.collectAsStateLifecycleAware().value
                 val mainSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -105,7 +105,7 @@ class SortSettingsActivity : ComponentActivity() {
                         overridePendingTransition(0, 0)
                     },
                     sheetState = mainSheetState,
-                    containerColor = MaterialTheme.colors.surface,
+                    containerColor = MaterialTheme.colorScheme.surface,
                     scrimColor = scrimColor,
                     shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                     content = {
@@ -144,7 +144,7 @@ class SortSettingsActivity : ComponentActivity() {
                     ModalBottomSheet(
                         onDismissRequest = closePicker,
                         sheetState = sheetState,
-                        containerColor = MaterialTheme.colors.surface,
+                        containerColor = MaterialTheme.colorScheme.surface,
                         scrimColor = Color.Transparent,
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                         content = {
@@ -179,7 +179,7 @@ class SortSettingsActivity : ComponentActivity() {
                     ModalBottomSheet(
                         onDismissRequest = closePicker,
                         sheetState = sheetState,
-                        containerColor = MaterialTheme.colors.surface,
+                        containerColor = MaterialTheme.colorScheme.surface,
                         scrimColor = Color.Transparent,
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                         content = {
@@ -218,7 +218,7 @@ class SortSettingsActivity : ComponentActivity() {
                     ModalBottomSheet(
                         onDismissRequest = closePicker,
                         sheetState = sheetState,
-                        containerColor = MaterialTheme.colors.surface,
+                        containerColor = MaterialTheme.colorScheme.surface,
                         scrimColor = Color.Transparent,
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                         content = {
@@ -253,7 +253,7 @@ class SortSettingsActivity : ComponentActivity() {
                     ModalBottomSheet(
                         onDismissRequest = closePicker,
                         sheetState = sheetState,
-                        containerColor = MaterialTheme.colors.surface,
+                        containerColor = MaterialTheme.colorScheme.surface,
                         scrimColor = Color.Transparent,
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
                         content = {
@@ -424,19 +424,19 @@ fun SortOption(
     ) {
         Text(
             text = stringResource(id = resId),
-            style = MaterialTheme.typography.h6.copy(
+            style = MaterialTheme.typography.titleLarge.copy(
                 color = when {
-                    selected -> MaterialTheme.colors.primary
-                    enabled -> MaterialTheme.colors.onSurface
-                    else -> MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
+                    selected -> MaterialTheme.colorScheme.primary
+                    enabled -> MaterialTheme.colorScheme.onSurface
+                    else -> MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
                 }
             ),
         )
         if (!enabled) {
             Text(
                 text = stringResource(id = R.string.sort_not_available),
-                style = MaterialTheme.typography.body2.copy(
-                    color = MaterialTheme.colors.error,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.error,
                     fontStyle = FontStyle.Italic,
                 ),
             )
@@ -516,7 +516,7 @@ fun BottomSheetContent(
         ) {
             Text(
                 text = stringResource(R.string.completed_tasks_at_bottom),
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.weight(1f),
             )
             Switch(
@@ -567,8 +567,8 @@ fun SortRow(
                 .alpha(ContentAlpha.medium),
         )
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = stringResource(id = title), style = MaterialTheme.typography.body1)
-            Text(text = stringResource(id = body), style = MaterialTheme.typography.body2)
+            Text(text = stringResource(id = title), style = MaterialTheme.typography.bodyLarge)
+            Text(text = stringResource(id = body), style = MaterialTheme.typography.bodyMedium)
         }
         if (showAscending) {
             Spacer(modifier = Modifier.width(16.dp))
@@ -609,7 +609,7 @@ fun OrderingButton(
         )
         Text(
             text = stringResource(id = if (ascending) R.string.sort_ascending else R.string.sort_descending),
-            style = MaterialTheme.typography.body2,
+            style = MaterialTheme.typography.bodyMedium,
         )
     }
 }
@@ -633,7 +633,7 @@ private val Int.modeString: Int
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSortBottomSheet() {
-    MdcTheme {
+    TasksTheme {
         Column {
             BottomSheetContent(
                 groupMode = SortHelper.GROUP_NONE,

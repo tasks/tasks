@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.ui.ReminderControlSetViewModel
 import org.tasks.R
 import org.tasks.compose.AddAlarmDialog
@@ -33,6 +32,7 @@ import org.tasks.compose.TaskEditRow
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.entity.Alarm
 import org.tasks.reminders.AlarmToString
+import org.tasks.themes.TasksTheme
 import java.util.Locale
 
 @OptIn(ExperimentalPermissionsApi::class, ExperimentalComposeUiApi::class)
@@ -85,7 +85,7 @@ fun AlarmRow(
                         )
                         Text(
                             text = stringResource(id = R.string.enable_reminders_description),
-                            style = MaterialTheme.typography.caption,
+                            style = MaterialTheme.typography.bodySmall,
                             color = colorResource(id = R.color.red_500),
                         )
                         Spacer(modifier = Modifier.height(20.dp))
@@ -163,12 +163,13 @@ fun Alarms(
                             else -> R.string.ring_once
                         }
                     ),
-                    style = MaterialTheme.typography.body1.copy(
+                    style = MaterialTheme.typography.bodyLarge.copy(
                         textDecoration = TextDecoration.Underline
                     ),
                     modifier = Modifier
                         .padding(vertical = 12.dp, horizontal = 16.dp)
-                        .clickable(onClick = openRingType)
+                        .clickable(onClick = openRingType),
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
             }
         }
@@ -192,6 +193,7 @@ private fun AlarmRow(
             modifier = Modifier
                 .padding(vertical = 12.dp)
                 .weight(weight = 1f),
+            color = MaterialTheme.colorScheme.onSurface,
         )
         ClearButton(onClick = remove)
     }
@@ -202,7 +204,7 @@ private fun AlarmRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoAlarms() {
-    MdcTheme {
+    TasksTheme {
         AlarmRow(
             alarms = emptyList(),
             ringMode = 0,
@@ -222,7 +224,7 @@ fun NoAlarms() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun PermissionDenied() {
-    MdcTheme {
+    TasksTheme {
         AlarmRow(
             alarms = emptyList(),
             ringMode = 0,

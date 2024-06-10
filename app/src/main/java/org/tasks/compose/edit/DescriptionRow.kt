@@ -14,12 +14,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.widget.addTextChangedListener
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
 import org.tasks.dialogs.Linkify
 import org.tasks.markdown.MarkdownProvider
+import org.tasks.themes.TasksTheme
 
 @Composable
 fun DescriptionRow(
@@ -85,7 +85,7 @@ fun DescriptionRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun EmptyDescriptionPreview() {
-    MdcTheme {
+    TasksTheme {
         DescriptionRow(
             text = null,
             onChanged = {},
@@ -100,7 +100,7 @@ fun EmptyDescriptionPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun DescriptionPreview() {
-    MdcTheme {
+    TasksTheme {
         DescriptionRow(
             text = """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

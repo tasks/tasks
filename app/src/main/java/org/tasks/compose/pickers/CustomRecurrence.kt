@@ -21,18 +21,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -47,7 +49,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.os.ConfigurationCompat
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
@@ -57,11 +58,13 @@ import org.tasks.compose.OutlinedNumberInput
 import org.tasks.compose.OutlinedSpinner
 import org.tasks.compose.border
 import org.tasks.repeats.CustomRecurrenceViewModel
+import org.tasks.themes.TasksTheme
 import java.time.DayOfWeek
 import java.time.format.FormatStyle
 import java.time.format.TextStyle
 import java.util.Locale
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomRecurrence(
     state: CustomRecurrenceViewModel.ViewState,
@@ -81,6 +84,12 @@ fun CustomRecurrence(
     Scaffold(
         topBar = {
             TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
+                    actionIconContentColor = MaterialTheme.colorScheme.onSurface,
+                ),
                 title = {
                     Text(
                         text = stringResource(id = R.string.repeats_custom_recurrence),
@@ -91,7 +100,7 @@ fun CustomRecurrence(
                         Icon(
                             imageVector = Icons.Outlined.ArrowBack,
                             contentDescription = stringResource(id = R.string.save),
-                            tint = MaterialTheme.colors.onSurface,
+                            tint = MaterialTheme.colorScheme.onSurface,
                         )
                     }
                 },
@@ -99,19 +108,17 @@ fun CustomRecurrence(
                     TextButton(onClick = discard) {
                         Text(
                             text = stringResource(id = R.string.cancel),
-                            style = MaterialTheme.typography.body1.copy(
+                            style = MaterialTheme.typography.bodyLarge.copy(
                                 fontFeatureSettings = "c2sc, smcp"
                             )
                         )
                     }
                 },
-                backgroundColor = MaterialTheme.colors.surface,
-                contentColor = MaterialTheme.colors.onSurface,
             )
         }
     ) { padding ->
         Surface(
-            color = MaterialTheme.colors.surface,
+            color = MaterialTheme.colorScheme.surface,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
@@ -190,8 +197,8 @@ fun CustomRecurrence(
 private fun Header(resId: Int) {
     Text(
         text = stringResource(id = resId),
-        style = MaterialTheme.typography.caption,
-        color = MaterialTheme.colors.onSurface,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.padding(horizontal = 16.dp),
     )
 }
@@ -230,7 +237,7 @@ private fun WeekdayPicker(
                     .size(36.dp)
                     .let {
                         if (selected.contains(dayOfWeek)) {
-                            it.background(MaterialTheme.colors.secondary, shape = CircleShape)
+                            it.background(MaterialTheme.colorScheme.secondary, shape = CircleShape)
                         } else {
                             it.border(1.dp, border(), shape = CircleShape)
                         }
@@ -240,8 +247,8 @@ private fun WeekdayPicker(
             ) {
                 Text(
                     text = string,
-                    style = MaterialTheme.typography.body2,
-                    color = if (selected.contains(dayOfWeek)) MaterialTheme.colors.onSecondary else MaterialTheme.colors.onSurface
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = if (selected.contains(dayOfWeek)) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onSurface
                 )
             }
         }
@@ -411,7 +418,7 @@ private val Recur.Frequency.plural: Int
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun WeeklyPreview() {
-    MdcTheme {
+    TasksTheme {
         CustomRecurrence(
             state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.WEEKLY),
             save = {},
@@ -431,7 +438,7 @@ fun WeeklyPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun MonthlyPreview() {
-    MdcTheme {
+    TasksTheme {
         CustomRecurrence(
             state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.MONTHLY),
             save = {},
@@ -451,7 +458,7 @@ fun MonthlyPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun MinutelyPreview() {
-    MdcTheme {
+    TasksTheme {
         CustomRecurrence(
             state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.MINUTELY),
             save = {},
@@ -471,7 +478,7 @@ fun MinutelyPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun HourlyPreview() {
-    MdcTheme {
+    TasksTheme {
         CustomRecurrence(
             state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.HOURLY),
             save = {},
@@ -491,7 +498,7 @@ fun HourlyPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun DailyPreview() {
-    MdcTheme {
+    TasksTheme {
         CustomRecurrence(
             state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.DAILY),
             save = {},
@@ -511,7 +518,7 @@ fun DailyPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun YearlyPreview() {
-    MdcTheme {
+    TasksTheme {
         CustomRecurrence(
             state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.YEARLY),
             save = {},

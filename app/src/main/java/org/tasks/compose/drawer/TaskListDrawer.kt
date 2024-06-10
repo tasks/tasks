@@ -22,8 +22,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ExpandMore
@@ -32,6 +30,8 @@ import androidx.compose.material.icons.outlined.PermIdentity
 import androidx.compose.material.icons.outlined.SyncProblem
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,7 +45,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.api.FilterImpl
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -53,6 +52,7 @@ import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.extensions.formatNumber
 import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.themes.TasksTheme
 
 @Composable
 fun TaskListDrawer(
@@ -138,7 +138,7 @@ private fun FilterItem(
         modifier = Modifier
             .background(
                 if (item.selected)
-                    MaterialTheme.colors.onSurface.copy(alpha = .1f)
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = .1f)
                 else
                     Color.Transparent
             )
@@ -151,7 +151,7 @@ private fun FilterItem(
         Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = item.title,
-            color = MaterialTheme.colors.onSurface,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f),
         )
         if (item.shareCount > 0) {
@@ -161,7 +161,7 @@ private fun FilterItem(
                     else -> Icons.Outlined.PeopleOutline
                 },
                 contentDescription = null,
-                tint = MaterialTheme.colors.onSurface.copy(
+                tint = MaterialTheme.colorScheme.onSurface.copy(
                     alpha = ContentAlpha.medium
                 ),
             )
@@ -174,7 +174,7 @@ private fun FilterItem(
                 val locale = LocalConfiguration.current.locales[0]
                 Text(
                     text = locale.formatNumber(item.count),
-                    color = MaterialTheme.colors.onSurface,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
             }
         }
@@ -192,7 +192,7 @@ private fun MenuAction(
         Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = stringResource(id = title),
-            color = MaterialTheme.colors.onSurface,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f),
         )
     }
@@ -205,7 +205,7 @@ private fun DrawerIcon(icon: Int, color: Int = 0) {
         painter = painterResource(id = icon),
         contentDescription = null,
         tint = when (color) {
-            0 -> MaterialTheme.colors.onSurface
+            0 -> MaterialTheme.colorScheme.onSurface
             else -> Color(color)
         }.copy(alpha = ContentAlpha.medium)
     )
@@ -228,7 +228,7 @@ private fun HeaderItem(
             Text(
                 modifier = Modifier.weight(1f),
                 text = item.title,
-                color = MaterialTheme.colors.onSurface,
+                color = MaterialTheme.colorScheme.onSurface,
             )
             IconButton(onClick = toggleCollapsed) {
                 val rotation by animateFloatAsState(
@@ -240,7 +240,7 @@ private fun HeaderItem(
                     modifier = Modifier.rotate(rotation),
                     imageVector = Icons.Outlined.ExpandMore,
                     contentDescription = null,
-                    tint = MaterialTheme.colors.onSurface,
+                    tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
             if (canAdd) {
@@ -248,7 +248,7 @@ private fun HeaderItem(
                     Icon(
                         imageVector = Icons.Outlined.Add,
                         contentDescription = null,
-                        tint = MaterialTheme.colors.onSurface,
+                        tint = MaterialTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -257,7 +257,7 @@ private fun HeaderItem(
                     Icon(
                         imageVector = Icons.Outlined.SyncProblem,
                         contentDescription = null,
-                        tint = MaterialTheme.colors.error,
+                        tint = MaterialTheme.colorScheme.error,
                     )
                 }
             }
@@ -287,7 +287,7 @@ private fun MenuRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun MenuPreview() {
-    MdcTheme {
+    TasksTheme {
         TaskListDrawer(
             filters = persistentListOf(
                 DrawerItem.Filter(

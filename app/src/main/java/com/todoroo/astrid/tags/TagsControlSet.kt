@@ -5,13 +5,13 @@ import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
-import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.update
 import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.TagsRow
 import org.tasks.tags.TagPickerActivity
+import org.tasks.themes.TasksTheme
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
@@ -29,7 +29,7 @@ class TagsControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                MdcTheme {
+                TasksTheme {
                     TagsRow(
                         tags = viewModel.selectedTags.collectAsStateLifecycleAware().value,
                         colorProvider = { chipProvider.getColor(it) },

@@ -10,7 +10,6 @@ cert4android = "7814052"
 coil = "2.6.0"
 colorpicker = "0.0.15"
 compose = "2024.05.00"
-compose-theme-adapter = "1.2.1"
 constraintlayout = "2.1.4"
 dagger-hilt = "2.50"
 dashclock-api = "2.0.0"
@@ -101,7 +100,6 @@ coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
 coil-video = { module = "io.coil-kt:coil-video", version.ref = "coil" }
 colorpicker = { module = "com.github.QuadFlask:colorpicker", version.ref = "colorpicker" }
-compose-theme-adapter = { module = "com.google.android.material:compose-theme-adapter", version.ref = "compose-theme-adapter" }
 dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
 dagger-hilt-gradle = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger-hilt" }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
-import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.dialogs.DialogBuilder
@@ -35,12 +34,10 @@ class AddAccountDialog : DialogFragment() {
             .newDialog()
             .setTitle(R.string.choose_synchronization_service)
             .setContent {
-                MdcTheme {
-                    org.tasks.compose.AddAccountDialog(
-                        hasTasksAccount = hasTasksAccount,
-                        selected = this::selected
-                    )
-                }
+                org.tasks.compose.AddAccountDialog(
+                    hasTasksAccount = hasTasksAccount,
+                    selected = this::selected
+                )
             }
             .setNeutralButton(R.string.help) { _, _ -> activity?.openUri(R.string.help_url_sync) }
             .setNegativeButton(R.string.cancel, null)

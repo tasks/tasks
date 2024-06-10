@@ -28,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.exception.HttpException
-import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import net.openid.appauth.*
@@ -42,6 +41,7 @@ import org.tasks.compose.ConsentDialog
 import org.tasks.compose.SignInDialog
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.openUri
+import org.tasks.themes.TasksTheme
 import org.tasks.themes.ThemeColor
 import timber.log.Timber
 import java.util.concurrent.CountDownLatch
@@ -98,7 +98,7 @@ class SignInActivity : ComponentActivity() {
             var selectedPlatform by rememberSaveable {
                 mutableStateOf(autoSelect)
             }
-            MdcTheme {
+            TasksTheme {
                 selectedPlatform
                     ?.let {
                         Dialog(onDismissRequest = { finish() }) {

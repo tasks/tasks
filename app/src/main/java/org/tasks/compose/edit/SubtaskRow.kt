@@ -13,8 +13,8 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,7 +33,6 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import org.tasks.compose.CheckBox
@@ -46,6 +45,7 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
 import org.tasks.tasklist.SectionedDataSource
+import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskListViewModel
 
 @Composable
@@ -157,7 +157,7 @@ fun NewSubtaskRow(
                 text = it
                 subtask.title = it
             },
-            cursorBrush = SolidColor(MaterialTheme.colors.onSurface),
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
             modifier = Modifier
                 .weight(1f)
                 .focusable(enabled = true)
@@ -165,9 +165,9 @@ fun NewSubtaskRow(
                 .alpha(if (subtask.isCompleted) ContentAlpha.disabled else ContentAlpha.high)
                 .align(Alignment.Top)
                 .padding(top = 12.dp),
-            textStyle = MaterialTheme.typography.body1.copy(
+            textStyle = MaterialTheme.typography.bodyLarge.copy(
                 textDecoration = if (subtask.isCompleted) TextDecoration.LineThrough else TextDecoration.None,
-                color = MaterialTheme.colors.onSurface,
+                color = MaterialTheme.colorScheme.onSurface,
             ),
             keyboardOptions = KeyboardOptions.Default.copy(
                 capitalization = KeyboardCapitalization.Sentences,
@@ -218,8 +218,9 @@ fun ExistingSubtaskRow(
                 .alpha(if (task.isCompleted || task.task.isHidden) ContentAlpha.disabled else ContentAlpha.high)
                 .align(Alignment.Top)
                 .padding(top = 12.dp),
-            style = MaterialTheme.typography.body1.copy(
-                textDecoration = if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None
+            style = MaterialTheme.typography.bodyLarge.copy(
+                textDecoration = if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None,
+                color = MaterialTheme.colorScheme.onSurface,
             )
         )
         if (task.hasChildren()) {
@@ -237,7 +238,7 @@ fun ExistingSubtaskRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoSubtasks() {
-    MdcTheme {
+    TasksTheme {
         SubtaskRow(
             originalFilter = null,
             filter = null,
@@ -259,7 +260,7 @@ fun NoSubtasks() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun SubtasksPreview() {
-    MdcTheme {
+    TasksTheme {
         SubtaskRow(
             originalFilter = null,
             filter = null,

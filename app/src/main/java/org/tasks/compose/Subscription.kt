@@ -3,11 +3,34 @@ package org.tasks.compose
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,12 +45,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.KEYLINE_FIRST
 import org.tasks.compose.PurchaseText.PurchaseText
 import org.tasks.extensions.Context.openUri
+import org.tasks.themes.TasksTheme
 
 object PurchaseText {
     private const val POPPER = "\uD83C\uDF89"
@@ -152,9 +175,9 @@ object PurchaseText {
         val context = LocalContext.current
         OutlinedButton(
             onClick = { context.openUri(R.string.url_sponsor) },
-            colors = ButtonDefaults.textButtonColors(
-                backgroundColor = MaterialTheme.colors.secondary,
-                contentColor = MaterialTheme.colors.onSecondary
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.onSecondary
             ),
             modifier = Modifier.padding(KEYLINE_FIRST, 0.dp, KEYLINE_FIRST, KEYLINE_FIRST)
         ) {
@@ -165,8 +188,8 @@ object PurchaseText {
                 )
                 Text(
                     text = stringResource(R.string.github_sponsor),
-                    color = MaterialTheme.colors.onSecondary,
-                    style = MaterialTheme.typography.body1
+                    color = MaterialTheme.colorScheme.onSecondary,
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }
@@ -177,8 +200,8 @@ object PurchaseText {
         Text(
             modifier = Modifier.padding(KEYLINE_FIRST, KEYLINE_FIRST, KEYLINE_FIRST, 0.dp),
             text = stringResource(resId),
-            color = MaterialTheme.colors.onBackground,
-            style = MaterialTheme.typography.body1,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
         )
     }
@@ -196,7 +219,7 @@ object PurchaseText {
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Divider(color = MaterialTheme.colors.onSurface, thickness = 0.25.dp)
+            Divider(color = MaterialTheme.colorScheme.onSurface, thickness = 0.25.dp)
             Spacer(Modifier.height(KEYLINE_FIRST))
             if (nameYourPrice.value) {
                 NameYourPrice(sliderPosition, subscribe)
@@ -210,8 +233,8 @@ object PurchaseText {
                     pagerState.currentPage = 0
                 },
                 colors = ButtonDefaults.textButtonColors(
-                    backgroundColor = if (solidButton)
-                        MaterialTheme.colors.secondary
+                    containerColor = if (solidButton)
+                        MaterialTheme.colorScheme.primary
                     else
                         Color.Transparent
                 )
@@ -229,20 +252,20 @@ object PurchaseText {
                                 R.string.more_options
                         ),
                         color = if (solidButton)
-                            MaterialTheme.colors.onSecondary
+                            MaterialTheme.colorScheme.onSecondary
                         else
-                            MaterialTheme.colors.secondary,
-                        style = MaterialTheme.typography.body1
+                            MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 }
             }
             Text(
                 text = stringResource(R.string.pro_free_trial),
-                style = MaterialTheme.typography.caption,
+                style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier
                     .fillMaxWidth(.75f)
                     .padding(KEYLINE_FIRST),
-                color = MaterialTheme.colors.onBackground,
+                color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
             )
         }
@@ -281,7 +304,7 @@ object PurchaseText {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(0.dp, 4.dp),
-                        color = MaterialTheme.colors.onBackground,
+                        color = MaterialTheme.colorScheme.onBackground,
                         style = TextStyle(
                             fontWeight = FontWeight.Bold,
                             fontSize = 14.sp,
@@ -292,7 +315,7 @@ object PurchaseText {
                     Text(
                         text = stringResource(if (disabled) R.string.account_not_included else feature.description),
                         modifier = Modifier.fillMaxWidth(),
-                        color = if (disabled) Color.Red else MaterialTheme.colors.onBackground,
+                        color = if (disabled) Color.Red else MaterialTheme.colorScheme.onBackground,
                         style = TextStyle(
                             fontWeight = if (disabled) FontWeight.Bold else FontWeight.Normal,
                             fontSize = 12.sp,
@@ -343,7 +366,7 @@ object PurchaseText {
             Button(
                 onClick = { onClick(price, monthly) },
                 colors = ButtonDefaults.textButtonColors(
-                    backgroundColor = MaterialTheme.colors.secondary
+                    containerColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
                 Text(
@@ -351,14 +374,14 @@ object PurchaseText {
                         if (monthly) R.string.price_per_month else R.string.price_per_year,
                         price
                     ),
-                    color = MaterialTheme.colors.onSecondary,
-                    style = MaterialTheme.typography.body1
+                    color = MaterialTheme.colorScheme.onSecondary,
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
             Text(
                 text = popperText,
-                color = MaterialTheme.colors.onSurface,
-                style = MaterialTheme.typography.caption,
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.bodySmall,
             )
         }
     }
@@ -377,8 +400,8 @@ object PurchaseText {
                     valueRange = 1f..25f,
                     steps = 25,
                     colors = SliderDefaults.colors(
-                        thumbColor = MaterialTheme.colors.secondary,
-                        activeTrackColor = MaterialTheme.colors.secondary,
+                        thumbColor = MaterialTheme.colorScheme.secondary,
+                        activeTrackColor = MaterialTheme.colorScheme.secondary,
                         inactiveTrackColor = colorResource(R.color.text_tertiary),
                         activeTickColor = Color.Transparent,
                         inactiveTickColor = Color.Transparent
@@ -415,7 +438,7 @@ object PurchaseText {
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun PurchaseDialogPreview() {
-    MdcTheme {
+    TasksTheme {
         PurchaseText { _, _ -> }
     }
 }
@@ -424,7 +447,7 @@ private fun PurchaseDialogPreview() {
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun PurchaseDialogPreviewSolid() {
-    MdcTheme {
+    TasksTheme {
         PurchaseText(solidButton = true) { _, _ -> }
     }
 }
@@ -433,7 +456,7 @@ private fun PurchaseDialogPreviewSolid() {
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun PurchaseDialogPreviewBadge() {
-    MdcTheme {
+    TasksTheme {
         PurchaseText(badge = true) { _, _ -> }
     }
 }

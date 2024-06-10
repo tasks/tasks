@@ -17,7 +17,6 @@ import androidx.compose.ui.platform.ComposeView
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
@@ -30,6 +29,7 @@ import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
 import org.tasks.scheduling.NotificationSchedulerIntentService
+import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskEditControlFragment
 import java.util.Locale
 import javax.inject.Inject
@@ -76,7 +76,7 @@ class ReminderControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                MdcTheme {
+                TasksTheme {
                     val ringMode by remember { this@ReminderControlSet.ringMode }
                     val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
                         rememberPermissionState(

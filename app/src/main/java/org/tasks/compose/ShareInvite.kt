@@ -5,15 +5,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.darkColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -27,28 +26,29 @@ import org.tasks.R
 import org.tasks.compose.Constants.TextButton
 import org.tasks.compose.Constants.textFieldColors
 import org.tasks.compose.ShareInvite.ShareInvite
+import org.tasks.themes.TasksTheme
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
-private fun Invite() = MaterialTheme {
+private fun Invite() = TasksTheme {
     ShareInvite(true, remember { mutableStateOf("") })
 }
 
 @Preview(showBackground = true, backgroundColor = 0x202124)
 @Composable
-private fun InviteDark() = MaterialTheme(darkColors()) {
+private fun InviteDark() = TasksTheme(useDarkTheme = true) {
     ShareInvite(false, remember { mutableStateOf("") })
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
-private fun InviteFilled() = MaterialTheme {
+private fun InviteFilled() = TasksTheme {
     ShareInvite(true, remember { mutableStateOf("user@example.com") })
 }
 
 @Preview(showBackground = true, backgroundColor = 0x202124)
 @Composable
-private fun InviteDarkFilled() = MaterialTheme(darkColors()) {
+private fun InviteDarkFilled() = TasksTheme(useDarkTheme = true) {
     ShareInvite(false, remember { mutableStateOf("user@example.com") })
 }
 
@@ -84,14 +84,20 @@ object ShareInvite {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
                 stringResource(R.string.share_list),
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface,
             )
             Spacer(Modifier.height(Constants.KEYLINE_FIRST))
             val label = stringResource(if (email) R.string.email else R.string.user)
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = text.value,
-                label = { Text(label) },
+                label = {
+                    Text(
+                        text = label,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = if (email) KeyboardType.Email else KeyboardType.Text
                 ),
@@ -102,7 +108,7 @@ object ShareInvite {
                         contentDescription = label
                     )
                 },
-                textStyle = MaterialTheme.typography.body1,
+                textStyle = MaterialTheme.typography.bodyLarge,
                 colors = textFieldColors(),
             )
         }

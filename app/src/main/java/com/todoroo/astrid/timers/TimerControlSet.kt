@@ -13,17 +13,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.ui.TimeDurationControlSet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.TimerRow
+import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
+import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
@@ -89,7 +89,7 @@ class TimerControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                MdcTheme {
+                TasksTheme {
                     TimerRow(
                         started = viewModel.timerStarted.collectAsStateLifecycleAware().value,
                         estimated = viewModel.estimatedSeconds.collectAsStateLifecycleAware().value,

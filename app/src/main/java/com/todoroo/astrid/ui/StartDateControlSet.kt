@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.getTimeString
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,9 +21,10 @@ import org.tasks.dialogs.StartDatePicker.Companion.EXTRA_TIME
 import org.tasks.dialogs.StartDatePicker.Companion.NO_DAY
 import org.tasks.dialogs.StartDatePicker.Companion.NO_TIME
 import org.tasks.preferences.Preferences
+import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskEditControlFragment
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -48,7 +48,7 @@ class StartDateControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?) =
         (parent as ComposeView).apply {
             setContent {
-                MdcTheme {
+                TasksTheme {
                     val selectedDay = vm.selectedDay.collectAsStateLifecycleAware().value
                     val selectedTime = vm.selectedTime.collectAsStateLifecycleAware().value
                     StartDateRow(

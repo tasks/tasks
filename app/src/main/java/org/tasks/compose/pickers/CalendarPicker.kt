@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -18,11 +18,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.calendars.AndroidCalendar
 import org.tasks.calendars.CalendarPickerViewModel
 import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.themes.TasksTheme
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -67,7 +67,7 @@ fun CalendarPickerList(
     ) {
         CheckableIconRow(
             icon = painterResource(id = R.drawable.ic_outline_block_24),
-            tint = MaterialTheme.colors.onSurface,
+            tint = MaterialTheme.colorScheme.onSurface,
             text = stringResource(id = R.string.dont_add_to_calendar),
             selected = selectedCalendar == null,
             onClick = { onSelected(null) },
@@ -88,7 +88,7 @@ fun CalendarPickerList(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun CalendarPickerPreview() {
-    MdcTheme {
+    TasksTheme {
         CalendarPickerList(
             calendars = listOf(
                 AndroidCalendar("1", "Home", -765666),
@@ -105,7 +105,7 @@ fun CalendarPickerPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun CalendarPickerNoneSelected() {
-    MdcTheme {
+    TasksTheme {
         CalendarPickerList(
             calendars = listOf(
                 AndroidCalendar("1", "Home", -765666),

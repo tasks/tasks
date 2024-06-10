@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -18,6 +17,7 @@ import org.tasks.analytics.Firebase
 import org.tasks.compose.PurchaseText.PurchaseText
 import org.tasks.extensions.Context.toast
 import org.tasks.preferences.Preferences
+import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import java.util.Locale
 import javax.inject.Inject
@@ -53,7 +53,7 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
         }
 
         setContent {
-            MdcTheme {
+            TasksTheme {
                 Dialog(onDismissRequest = { finish() }) {
                     PurchaseText(
                         nameYourPrice = nameYourPrice,

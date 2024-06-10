@@ -9,12 +9,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.LocalMinimumInteractiveComponentEnforcement
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.RadioButton
-import androidx.compose.material.RadioButtonDefaults
-import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -25,11 +25,11 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.material.composethemeadapter.MdcTheme
-import org.tasks.data.entity.Task
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
+import org.tasks.data.entity.Task
 import org.tasks.themes.ColorProvider.Companion.priorityColor
+import org.tasks.themes.TasksTheme
 
 @Composable
 fun PriorityRow(
@@ -84,15 +84,16 @@ fun PriorityLabeled(
     ) {
         Text(
             text = stringResource(id = R.string.TEA_importance_label),
-            style = MaterialTheme.typography.body1,
-            modifier = Modifier.padding(end = 16.dp)
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(end = 16.dp),
+            color = MaterialTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.weight(1f))
         Priority(selected = selected, onClick = onClick, desaturate = desaturate)
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RowScope.PriorityButton(
     @Task.Priority priority: Int,
@@ -129,7 +130,7 @@ fun RowScope.PriorityButton(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PriorityPreview() {
-    MdcTheme {
+    TasksTheme {
         PriorityRow(
             priority = Task.Priority.MEDIUM,
             onChangePriority = {},
@@ -142,7 +143,7 @@ fun PriorityPreview() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PriorityPreviewNoDesaturate() {
-    MdcTheme {
+    TasksTheme {
         PriorityRow(
             priority = Task.Priority.MEDIUM,
             onChangePriority = {},
@@ -155,7 +156,7 @@ fun PriorityPreviewNoDesaturate() {
 @Preview(locale = "de", widthDp = 320, showBackground = true)
 @Composable
 fun PriorityNarrowWidth() {
-    MdcTheme {
+    TasksTheme {
         PriorityRow(
             priority = Task.Priority.MEDIUM,
             onChangePriority = {},

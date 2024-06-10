@@ -11,11 +11,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +36,7 @@ import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_NO_RESPONSE
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
 import org.tasks.data.entity.Principal
 import org.tasks.data.entity.PrincipalAccess
+import org.tasks.themes.TasksTheme
 
 private val principals = listOf(
     PrincipalWithAccess(
@@ -52,14 +52,14 @@ private val principals = listOf(
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-private fun Owner() = MaterialTheme {
+private fun Owner() = TasksTheme {
     ListSettingsComposables.PrincipalList(principals) {}
 }
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = UI_MODE_NIGHT_YES)
 @Composable
-private fun NotOwner() = MaterialTheme {
+private fun NotOwner() = TasksTheme {
     ListSettingsComposables.PrincipalList(principals, null)
 }
 
@@ -79,8 +79,8 @@ object ListSettingsComposables {
         ) {
             Text(
                 stringResource(R.string.list_members),
-                style = MaterialTheme.typography.h6,
-                color = colors.onBackground
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface,
             )
             Spacer(Modifier.height(HALF_KEYLINE))
             principals.forEach {
@@ -108,7 +108,7 @@ object ListSettingsComposables {
                 Icon(
                     painter = painterResource(R.drawable.ic_outline_perm_identity_24px),
                     contentDescription = null,
-                    tint = colors.onBackground,
+                    tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .padding(end = KEYLINE_FIRST)
                         .alpha(ICON_ALPHA),
@@ -121,8 +121,8 @@ object ListSettingsComposables {
                 Column {
                     Text(
                         principal.name,
-                        style = MaterialTheme.typography.body1,
-                        color = colors.onBackground,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                     if (principal.inviteStatus != INVITE_ACCEPTED) {
                         Text(
@@ -135,10 +135,10 @@ object ListSettingsComposables {
                                     R.string.invite_invalid
                                 else -> throw IllegalStateException()
                             }),
-                            style = MaterialTheme.typography.body2,
+                            style = MaterialTheme.typography.bodyMedium,
                             color = when (principal.inviteStatus) {
                                 INVITE_DECLINED, INVITE_INVALID -> colorResource(R.color.overdue)
-                                else -> colors.onBackground
+                                else -> MaterialTheme.colorScheme.onSurface
                             },
                         )
                     }
@@ -155,7 +155,7 @@ object ListSettingsComposables {
                         Icon(
                             painter = painterResource(R.drawable.ic_outline_clear_24px),
                             contentDescription = null,
-                            tint = colors.onBackground,
+                            tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.alpha(ICON_ALPHA)
                         )
                     }

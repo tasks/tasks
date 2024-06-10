@@ -12,19 +12,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.Tasks
+import org.tasks.themes.TasksTheme
 
 @ExperimentalAnimationApi
 @Composable
@@ -76,8 +76,9 @@ fun SubscriptionNagBanner(
                         R.string.tasks_needs_your_support
                     }
                 ),
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(horizontal = 16.dp),
+                color = MaterialTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
@@ -88,8 +89,9 @@ fun SubscriptionNagBanner(
                         R.string.support_development_subscribe
                     }
                 ),
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(horizontal = 16.dp),
+                color = MaterialTheme.colorScheme.onSurface,
             )
         },
         buttons = {
@@ -116,14 +118,16 @@ fun BeastModeBanner(
         content = {
             Text(
                 text = stringResource(id = R.string.hint_customize_edit_title),
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(horizontal = 16.dp),
+                color = MaterialTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = stringResource(id = R.string.hint_customize_edit_body),
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(horizontal = 16.dp),
+                color = MaterialTheme.colorScheme.onSurface,
             )
         },
         buttons = {
@@ -138,8 +142,8 @@ fun BannerTextButton(text: Int, onClick: () -> Unit) {
     TextButton(onClick = onClick) {
         Text(
             text = stringResource(id = text),
-            style = MaterialTheme.typography.button.copy(
-                color = MaterialTheme.colors.secondary
+            style = MaterialTheme.typography.labelLarge.copy(
+                color = MaterialTheme.colorScheme.onSurface
             ),
         )
     }
@@ -149,7 +153,7 @@ fun BannerTextButton(text: Int, onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun BeastModePreview() = MdcTheme {
+private fun BeastModePreview() = TasksTheme {
     BeastModeBanner(visible = true, showSettings = {}, dismiss = {})
 }
 
@@ -157,7 +161,7 @@ private fun BeastModePreview() = MdcTheme {
 @Preview(showBackground = true)
 @Preview(showBackground = true, backgroundColor = 0x202124, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun SubscriptionNagPreview() = MdcTheme {
+private fun SubscriptionNagPreview() = TasksTheme {
     SubscriptionNagBanner(visible = true, subscribe = {}, dismiss = {})
 }
 

@@ -4,8 +4,8 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -13,11 +13,11 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.ui.StartDateControlSet.Companion.getRelativeDateString
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
 import org.tasks.dialogs.StartDatePicker
+import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 @Composable
@@ -67,9 +67,9 @@ fun StartDate(
         },
         color = when {
             selectedDay < 0 && !hasDueDate -> colorResource(id = R.color.overdue)
-            startDate == 0L -> MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
+            startDate == 0L -> MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
             startDate < currentTime -> colorResource(id = R.color.overdue)
-            else -> MaterialTheme.colors.onSurface
+            else -> MaterialTheme.colorScheme.onSurface
         },
         modifier = Modifier
             .padding(vertical = 20.dp)
@@ -81,7 +81,7 @@ fun StartDate(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoStartDate() {
-    MdcTheme {
+    TasksTheme {
         StartDateRow(
             startDate = 0L,
             selectedDay = StartDatePicker.NO_DAY,
@@ -98,7 +98,7 @@ fun NoStartDate() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun FutureStartDate() {
-    MdcTheme {
+    TasksTheme {
         StartDateRow(
             startDate = 1657080392000L,
             selectedDay = StartDatePicker.DUE_DATE,
@@ -115,7 +115,7 @@ fun FutureStartDate() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun PastStartDate() {
-    MdcTheme {
+    TasksTheme {
         StartDateRow(
             startDate = 1657080392000L,
             selectedDay = StartDatePicker.DUE_TIME,

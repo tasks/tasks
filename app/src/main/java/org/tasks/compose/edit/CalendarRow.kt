@@ -4,21 +4,22 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
+import org.tasks.themes.TasksTheme
 
 @Composable
 fun CalendarRow(
@@ -36,7 +37,8 @@ fun CalendarRow(
                         text = stringResource(id = R.string.gcal_TEA_showCalendar_label),
                         modifier = Modifier
                             .weight(1f)
-                            .padding(vertical = 20.dp)
+                            .padding(vertical = 20.dp),
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                     IconButton(
                         onClick = { clear() },
@@ -53,6 +55,7 @@ fun CalendarRow(
                 Text(
                     text = selectedCalendar,
                     modifier = Modifier.padding(vertical = 20.dp),
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
             } else {
                 DisabledText(
@@ -69,7 +72,7 @@ fun CalendarRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoCalendar() {
-    MdcTheme {
+    TasksTheme {
         CalendarRow(eventUri = null, selectedCalendar = null, onClick = {}, clear = {})
     }
 }
@@ -78,7 +81,7 @@ fun NoCalendar() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NewCalendar() {
-    MdcTheme {
+    TasksTheme {
         CalendarRow(eventUri = null, selectedCalendar = "Personal", onClick = {}, clear = {})
     }
 }
@@ -87,7 +90,7 @@ fun NewCalendar() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun ExistingCalendar() {
-    MdcTheme {
+    TasksTheme {
         CalendarRow(eventUri = "abcd", selectedCalendar = null, onClick = {}, clear = {})
     }
 }

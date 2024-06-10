@@ -10,7 +10,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.core.util.Pair
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -30,6 +29,7 @@ import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.PermissionChecker.backgroundPermissions
 import org.tasks.preferences.Preferences
+import org.tasks.themes.TasksTheme
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -85,7 +85,7 @@ class LocationControlSet : TaskEditControlFragment() {
     override fun bind(parent: ViewGroup?): View =
         (parent as ComposeView).apply {
             setContent {
-                MdcTheme {
+                TasksTheme {
                     val hasPermissions =
                         rememberMultiplePermissionsState(permissions = backgroundPermissions())
                             .allPermissionsGranted

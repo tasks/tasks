@@ -15,12 +15,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.TriStateCheckbox
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
@@ -35,7 +35,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
-import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
@@ -46,6 +45,7 @@ import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons
+import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
 
@@ -78,7 +78,7 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
         viewModel.search("")
 
         setContent {
-            MdcTheme {
+            TasksTheme {
                 TagPicker(
                     viewModel,
                     onBackClicked = { handleBackPressed() },
@@ -165,16 +165,23 @@ internal fun SearchBar(
             "Done",
             modifier = Modifier
                 .padding(6.dp)
-                .clickable { onBack() }
+                .clickable { onBack() },
+            tint = MaterialTheme.colorScheme.onSurface,
         )
 
         TextField(
             value = searchPattern.value,
             onValueChange = { viewModel.search(it) },
-            placeholder = { Text(invitation) },
-            colors = TextFieldDefaults.textFieldColors(
-                textColor = MaterialTheme.colors.onBackground,
-                backgroundColor = Color.Transparent,
+            placeholder = {
+                Text(
+                    text = invitation,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            },
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                unfocusedContainerColor = Color.Transparent,
+                focusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
@@ -240,7 +247,9 @@ internal fun TagRow (
     onClick: () -> Unit,
     checkBox: @Composable RowScope.() -> Unit = {}
 ) {
-    Row(modifier = Modifier.fillMaxWidth().clickable{ onClick() },
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
@@ -251,7 +260,10 @@ internal fun TagRow (
         )
         Text(
             text,
-            modifier = Modifier.weight(1f).padding(horizontal = 24.dp)
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 24.dp),
+            color = MaterialTheme.colorScheme.onSurface,
         )
         checkBox()
     }

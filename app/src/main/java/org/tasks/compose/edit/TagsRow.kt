@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.R
 import org.tasks.compose.Chip
 import org.tasks.compose.ChipGroup
@@ -16,6 +15,7 @@ import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.TagData
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons
+import org.tasks.themes.TasksTheme
 
 @Composable
 fun TagsRow(
@@ -57,7 +57,7 @@ fun TagsRow(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun NoTags() {
-    MdcTheme {
+    TasksTheme {
         TagsRow(
             tags = emptyList(),
             colorProvider = { 0 },
@@ -71,7 +71,7 @@ fun NoTags() {
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun SingleTag() {
-    MdcTheme {
+    TasksTheme {
         TagsRow(
             tags = listOf(
                 TagData(
@@ -90,7 +90,7 @@ fun SingleTag() {
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun BunchOfTags() {
-    MdcTheme {
+    TasksTheme {
         TagsRow(
             tags = listOf(
                 TagData(name = "One"),
@@ -109,7 +109,7 @@ fun BunchOfTags() {
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun TagWithReallyLongName() {
-    MdcTheme {
+    TasksTheme {
         TagsRow(
             tags = listOf(
                 TagData(

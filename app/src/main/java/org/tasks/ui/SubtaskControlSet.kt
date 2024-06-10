@@ -8,7 +8,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.astrid.activity.MainActivityViewModel
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCompleter
@@ -24,6 +23,7 @@ import org.tasks.filters.SubtaskFilter
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.themes.ColorProvider
+import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
@@ -52,7 +52,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
         (parent as ComposeView).apply {
             listViewModel = ViewModelProvider(requireParentFragment())[TaskListViewModel::class.java]
             setContent {
-                MdcTheme {
+                TasksTheme {
                     SubtaskRow(
                         originalFilter = viewModel.originalList,
                         filter = viewModel.selectedList.collectAsStateLifecycleAware().value,

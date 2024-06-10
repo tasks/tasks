@@ -23,7 +23,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Divider
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,7 +42,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.Filter
@@ -103,6 +102,7 @@ import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
 import org.tasks.play.PlayServices
 import org.tasks.preferences.Preferences
+import org.tasks.themes.TasksTheme
 import org.tasks.ui.CalendarControlSet
 import org.tasks.ui.ChipProvider
 import org.tasks.ui.LocationControlSet
@@ -272,7 +272,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             }
         }
         binding.composeView.setContent {
-            MdcTheme {
+            TasksTheme {
                 Column(modifier = Modifier.gesturesDisabled(editViewModel.isReadOnly)) {
                     taskEditControlSetFragmentManager.displayOrder.forEachIndexed { index, tag ->
                         if (index < taskEditControlSetFragmentManager.visibleSize) {
@@ -340,7 +340,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         binding.banner.setContent {
             var visible by rememberSaveable { mutableStateOf(true) }
             val context = LocalContext.current
-            MdcTheme {
+            TasksTheme {
                 BeastModeBanner(
                     visible,
                     showSettings = {

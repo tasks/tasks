@@ -4,8 +4,8 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,7 +19,7 @@ fun DialogRow(@StringRes text: Int, onClick: () -> Unit) {
             .clickable { onClick() }
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp),
-        color = MaterialTheme.colors.onSurface,
-        style = MaterialTheme.typography.body1,
+        color = MaterialTheme.colorScheme.onSurface,
+        style = MaterialTheme.typography.bodyLarge,
     )
 }

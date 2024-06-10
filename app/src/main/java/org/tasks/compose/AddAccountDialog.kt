@@ -5,14 +5,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.android.material.composethemeadapter.MdcTheme
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.sync.AddAccountDialog.Platform
+import org.tasks.themes.TasksTheme
 
 @Composable
 fun AddAccountDialog(
@@ -52,7 +52,7 @@ fun AddAccountDialog(
             title = R.string.caldav,
             description = R.string.caldav_selection_description,
             icon = R.drawable.ic_webdav_logo,
-            tint = MaterialTheme.colors.onSurface.copy(
+            tint = MaterialTheme.colorScheme.onSurface.copy(
                 alpha = ContentAlpha.medium
             ),
             onClick = { selected(Platform.CALDAV) }
@@ -76,7 +76,7 @@ fun AddAccountDialog(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun AddAccountDialogPreview() {
-    MdcTheme {
+    TasksTheme {
         AddAccountDialog(hasTasksAccount = false, selected = {})
     }
 }
