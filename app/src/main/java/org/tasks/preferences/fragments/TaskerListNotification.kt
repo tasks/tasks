@@ -2,13 +2,13 @@ package org.tasks.preferences.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
+import org.tasks.filters.Filter
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.bundle.ListNotificationBundle
 import org.tasks.preferences.DefaultFilterProvider

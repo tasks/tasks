@@ -53,11 +53,8 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
-import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
@@ -112,6 +109,9 @@ import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
 import org.tasks.extensions.hideKeyboard
 import org.tasks.extensions.setOnQueryTextListener
+import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.Filter
+import org.tasks.filters.FilterImpl
 import org.tasks.filters.PlaceFilter
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Device

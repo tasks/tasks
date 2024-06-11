@@ -1,20 +1,20 @@
 package org.tasks.data
 
+import com.todoroo.astrid.api.CaldavFilter
+import com.todoroo.astrid.api.GtasksFilter
+import com.todoroo.astrid.api.PermaSql
+import com.todoroo.astrid.core.SortHelper
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.data.db.Table
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Tag
+import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.Field.Companion.field
 import org.tasks.data.sql.Join
 import org.tasks.data.sql.Query
 import org.tasks.data.sql.QueryTemplate
-import com.todoroo.astrid.api.CaldavFilter
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.api.PermaSql
-import com.todoroo.astrid.core.SortHelper
-import org.tasks.data.entity.Task
-import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
-import org.tasks.data.entity.CaldavTask
-import org.tasks.data.entity.Tag
+import org.tasks.filters.Filter
 import org.tasks.preferences.QueryPreferences
 
 internal object TaskListQueryRecursive {

@@ -155,6 +155,7 @@ val googleplayImplementation by configurations
 
 dependencies {
     implementation(projects.data)
+    implementation(projects.kmp)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.bitfire.dav4jvm) {
         exclude(group = "junit")

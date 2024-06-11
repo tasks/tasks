@@ -10,6 +10,8 @@ import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.QueryTemplate
+import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.FilterListItem
 
 @Parcelize
 data class TagFilter(

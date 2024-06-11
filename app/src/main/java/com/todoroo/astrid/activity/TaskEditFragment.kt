@@ -44,9 +44,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.repeats.RepeatControlSet
 import com.todoroo.astrid.tags.TagsControlSet
@@ -70,10 +68,11 @@ import org.tasks.compose.edit.DueDateRow
 import org.tasks.compose.edit.InfoRow
 import org.tasks.compose.edit.ListRow
 import org.tasks.compose.edit.PriorityRow
-import org.tasks.data.entity.Alarm
 import org.tasks.data.Location
-import org.tasks.data.entity.TagData
 import org.tasks.data.dao.UserActivityDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.TagData
+import org.tasks.data.entity.Task
 import org.tasks.databinding.FragmentTaskEditBinding
 import org.tasks.databinding.TaskEditCalendarBinding
 import org.tasks.databinding.TaskEditFilesBinding
@@ -92,6 +91,7 @@ import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.hideKeyboard
 import org.tasks.files.FileHelper
+import org.tasks.filters.Filter
 import org.tasks.fragments.TaskEditControlSetFragmentManager
 import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_CREATION
 import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_DESCRIPTION

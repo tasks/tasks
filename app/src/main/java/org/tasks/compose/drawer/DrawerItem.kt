@@ -10,7 +10,7 @@ sealed interface DrawerItem {
         val count: Int = 0,
         val shareCount: Int = 0,
         val selected: Boolean = false,
-        val type: () -> com.todoroo.astrid.api.Filter,
+        val type: () -> org.tasks.filters.Filter,
     ) : DrawerItem
     data class Header(
         val title: String,

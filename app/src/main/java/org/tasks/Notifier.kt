@@ -3,7 +3,6 @@ package org.tasks
 import android.app.PendingIntent
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.voice.VoiceOutputAssistant
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
@@ -14,6 +13,7 @@ import org.tasks.data.entity.Alarm.Companion.TYPE_GEO_EXIT
 import org.tasks.data.entity.Geofence
 import org.tasks.data.entity.Notification
 import org.tasks.data.fetchFiltered
+import org.tasks.filters.Filter
 import org.tasks.intents.TaskIntents
 import org.tasks.notifications.AudioManager
 import org.tasks.notifications.NotificationManager

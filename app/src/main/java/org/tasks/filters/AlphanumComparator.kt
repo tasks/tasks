@@ -1,6 +1,5 @@
 package org.tasks.filters
 
-import com.todoroo.astrid.api.Filter
 import org.tasks.data.entity.TagData
 import java.util.*
 

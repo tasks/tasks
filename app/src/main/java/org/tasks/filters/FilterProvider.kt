@@ -5,8 +5,6 @@ import android.content.Intent
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig

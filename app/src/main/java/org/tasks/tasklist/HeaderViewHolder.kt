@@ -5,8 +5,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.todoroo.astrid.api.Filter
 import org.tasks.R
+import org.tasks.filters.Filter
 
 class HeaderViewHolder(
         private val context: Context,

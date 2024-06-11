@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.dao
 
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.timers.TimerPlugin
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.TaskContainer
@@ -16,6 +15,7 @@ import org.tasks.data.fetchFiltered
 import org.tasks.data.fetchTasks
 import org.tasks.data.setCollapsed
 import org.tasks.date.DateTimeUtils.isAfterNow
+import org.tasks.filters.Filter
 import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager

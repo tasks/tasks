@@ -2,21 +2,21 @@ package com.todoroo.astrid.service
 
 import android.content.Context
 import com.todoroo.astrid.api.CaldavFilter
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavTask
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.GoogleTaskListDao
-import org.tasks.data.entity.Task
 import org.tasks.data.dao.TaskDao
-import org.tasks.data.getLocalList
 import org.tasks.data.db.DbUtils.dbchunk
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Task
+import org.tasks.data.getLocalList
+import org.tasks.filters.Filter
 import org.tasks.preferences.Preferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.time.DateTimeUtils2.currentTimeMillis

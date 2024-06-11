@@ -10,14 +10,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.FilterListItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
+import org.tasks.R
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.billing.Inventory
+import org.tasks.filters.Filter
+import org.tasks.filters.FilterListItem
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.themes.ColorProvider
 import java.util.LinkedList
@@ -58,7 +59,11 @@ class NavigationDrawerAdapter @Inject constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val type = FilterListItem.Type.values()[viewType]
-        val view = LayoutInflater.from(parent.context).inflate(type.layout, parent, false)
+        val layout = when (type) {
+            FilterListItem.Type.ITEM -> R.layout.filter_adapter_row
+            FilterListItem.Type.SUBHEADER -> R.layout.filter_adapter_subheader
+        }
+        val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return when (type) {
             FilterListItem.Type.ITEM -> FilterViewHolder(
                         view, true, locale, activity, inventory, colorProvider) { onClickFilter(it) }

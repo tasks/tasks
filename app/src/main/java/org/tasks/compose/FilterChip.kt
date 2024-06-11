@@ -1,7 +1,7 @@
 package org.tasks.compose
 
 import androidx.compose.runtime.Composable
-import com.todoroo.astrid.api.Filter
+import org.tasks.filters.Filter
 import org.tasks.themes.CustomIcons
 
 @Composable

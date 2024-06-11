@@ -1,14 +1,11 @@
 package com.todoroo.astrid.adapter
 
 import android.content.Context
-import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.CaldavFilter
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task.Companion.isUuidEmpty
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import com.todoroo.astrid.subtasks.SubtasksHelper
@@ -18,8 +15,11 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.entity.TaskListMetadata
 import org.tasks.data.dao.TaskListMetadataDao
+import org.tasks.data.entity.Task.Companion.isUuidEmpty
+import org.tasks.data.entity.TaskListMetadata
+import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.Filter
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 

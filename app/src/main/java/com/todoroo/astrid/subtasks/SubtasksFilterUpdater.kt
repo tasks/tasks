@@ -1,6 +1,5 @@
 package com.todoroo.astrid.subtasks
 
-import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.dao.TaskDao
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.isValidUuid
@@ -10,6 +9,7 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.entity.TaskListMetadata
 import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.db.QueryUtils.showHiddenAndCompleted
+import org.tasks.filters.AstridOrderingFilter
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject

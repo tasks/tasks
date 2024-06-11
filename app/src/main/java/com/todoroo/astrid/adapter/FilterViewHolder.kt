@@ -9,13 +9,13 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.databinding.FilterAdapterRowBinding
 import org.tasks.extensions.formatNumber
+import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.CustomIcons.getIconResId

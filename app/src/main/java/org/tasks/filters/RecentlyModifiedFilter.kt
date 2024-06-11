@@ -3,8 +3,6 @@ package org.tasks.filters
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Order.Companion.desc
 import org.tasks.data.sql.QueryTemplate
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.FilterListItem
 import org.tasks.data.entity.Task
 import kotlinx.parcelize.Parcelize
 import org.tasks.themes.CustomIcons

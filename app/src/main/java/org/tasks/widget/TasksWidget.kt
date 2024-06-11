@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.RemoteViews
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
-import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
@@ -19,6 +18,7 @@ import org.tasks.dialogs.FilterPicker
 import org.tasks.extensions.setBackgroundColor
 import org.tasks.extensions.setColorFilter
 import org.tasks.extensions.setRipple
+import org.tasks.filters.Filter
 import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences

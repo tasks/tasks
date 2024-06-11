@@ -1,11 +1,11 @@
-package com.todoroo.astrid.api
+package org.tasks.filters
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import org.tasks.CommonParcelable
+import org.tasks.CommonParcelize
 import org.tasks.data.NO_COUNT
 import org.tasks.data.NO_ORDER
 
-interface Filter : FilterListItem, Parcelable {
+interface Filter : FilterListItem, CommonParcelable {
     val valuesForNewTasks: String?
         get() = null
     val sql: String?
@@ -40,7 +40,7 @@ interface AstridOrderingFilter : Filter {
     fun getSqlQuery(): String = filterOverride ?: sql!!
 }
 
-@Parcelize
+@CommonParcelize
 data class FilterImpl(
     override val title: String? = null,
     override val sql: String? = null,

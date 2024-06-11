@@ -3,7 +3,6 @@ package com.todoroo.astrid.service
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.dao.TaskDao
@@ -36,6 +35,7 @@ import org.tasks.data.entity.Task.Companion.DUE_DATE
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_NONE
 import org.tasks.data.entity.Task.Companion.IMPORTANCE
+import org.tasks.filters.Filter
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay

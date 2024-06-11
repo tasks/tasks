@@ -1,12 +1,12 @@
 package org.tasks.data
 
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.PermaSql
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Field
 import org.tasks.data.sql.Query
+import org.tasks.filters.Filter
 import org.tasks.preferences.QueryPreferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber

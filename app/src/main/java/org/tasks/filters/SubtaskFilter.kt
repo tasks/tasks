@@ -1,7 +1,5 @@
 package org.tasks.filters
 
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.FilterListItem
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import org.tasks.data.dao.TaskDao

@@ -1,16 +1,16 @@
 package com.todoroo.astrid.adapter
 
-import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import org.tasks.LocalBroadcastManager
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.TaskContainer
+import org.tasks.data.entity.Task
 import org.tasks.data.entity.TaskListMetadata
+import org.tasks.filters.AstridOrderingFilter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
 import java.util.Collections

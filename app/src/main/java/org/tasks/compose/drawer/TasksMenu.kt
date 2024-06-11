@@ -3,8 +3,8 @@ package org.tasks.compose.drawer
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -17,7 +17,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.todoroo.astrid.api.Filter
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,6 +26,7 @@ import org.tasks.activities.NavigationDrawerCustomization
 import org.tasks.billing.PurchaseActivity
 import org.tasks.extensions.Context.findActivity
 import org.tasks.extensions.Context.openUri
+import org.tasks.filters.Filter
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.preferences.HelpAndFeedback
 import org.tasks.preferences.MainPreferences

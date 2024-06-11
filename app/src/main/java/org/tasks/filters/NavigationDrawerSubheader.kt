@@ -1,7 +1,6 @@
 package org.tasks.filters
 
 import android.content.Intent
-import com.todoroo.astrid.api.FilterListItem
 
 data class NavigationDrawerSubheader(
     val title: String?,

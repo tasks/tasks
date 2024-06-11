@@ -1,13 +1,13 @@
 package com.todoroo.astrid.subtasks
 
 import androidx.test.InstrumentationRegistry
-import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.tasks.data.dao.TaskListMetadataDao
+import org.tasks.data.entity.Task
+import org.tasks.filters.AstridOrderingFilter
 import org.tasks.injection.InjectingTestCase
 import org.tasks.preferences.Preferences
 import javax.inject.Inject

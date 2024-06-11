@@ -10,6 +10,8 @@ import org.tasks.data.entity.CaldavTask
 import org.tasks.data.NO_COUNT
 import org.tasks.data.entity.Task
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.filters.Filter
+import org.tasks.filters.FilterListItem
 
 @Parcelize
 data class CaldavFilter(

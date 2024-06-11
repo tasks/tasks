@@ -45,12 +45,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.todoroo.astrid.api.FilterImpl
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.extensions.formatNumber
+import org.tasks.filters.FilterImpl
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.themes.TasksTheme
 

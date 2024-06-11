@@ -2,8 +2,6 @@ package org.tasks.filters
 
 import android.content.Context
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.FilterListItem
 import kotlinx.parcelize.Parcelize
 import org.tasks.data.NO_COUNT
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible

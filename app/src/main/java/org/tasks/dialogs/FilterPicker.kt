@@ -7,10 +7,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.LifecycleOwner
-import com.todoroo.astrid.api.Filter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.compose.pickers.FilterPicker
+import org.tasks.filters.Filter
 import javax.inject.Inject
 
 @AndroidEntryPoint

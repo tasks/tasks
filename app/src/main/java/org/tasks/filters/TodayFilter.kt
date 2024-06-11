@@ -3,8 +3,6 @@ package org.tasks.filters
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.QueryTemplate
 import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.api.AstridOrderingFilter
-import com.todoroo.astrid.api.FilterListItem
 import com.todoroo.astrid.api.PermaSql
 import org.tasks.data.entity.Task
 import kotlinx.parcelize.Parcelize

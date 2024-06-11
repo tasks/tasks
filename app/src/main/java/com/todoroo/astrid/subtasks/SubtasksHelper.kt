@@ -1,22 +1,22 @@
 package com.todoroo.astrid.subtasks
 
 import android.content.Context
-import com.todoroo.astrid.api.AstridOrderingFilter
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.isInbox
 import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.isTodayFilter
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task.Companion.isValidUuid
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.buildOrderString
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.buildTreeModel
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.serializeTree
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.entity.TagData
 import org.tasks.data.dao.TagDataDao
-import org.tasks.data.entity.TaskListMetadata
 import org.tasks.data.dao.TaskListMetadataDao
+import org.tasks.data.entity.TagData
+import org.tasks.data.entity.Task.Companion.isValidUuid
+import org.tasks.data.entity.TaskListMetadata
 import org.tasks.db.QueryUtils.showHiddenAndCompleted
+import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.Filter
 import org.tasks.preferences.QueryPreferences
 import timber.log.Timber
 import javax.inject.Inject
@@ -29,8 +29,8 @@ class SubtasksHelper @Inject constructor(
 ) {
 
     suspend fun applySubtasksToWidgetFilter(
-            filter: Filter,
-            preferences: QueryPreferences,
+        filter: Filter,
+        preferences: QueryPreferences,
     ) {
         if (filter is AstridOrderingFilter && preferences.isAstridSort) {
             var query = filter.sql!!

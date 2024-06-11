@@ -10,7 +10,6 @@ import com.todoroo.astrid.activity.MainActivity.Companion.LOAD_FILTER
 import com.todoroo.astrid.activity.MainActivity.Companion.OPEN_FILTER
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,11 +27,12 @@ import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.billing.Inventory
 import org.tasks.compose.drawer.DrawerItem
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.NO_COUNT
-import org.tasks.data.entity.Task
-import org.tasks.data.dao.TaskDao
 import org.tasks.data.count
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.Task
+import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.PlaceFilter

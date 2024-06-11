@@ -23,7 +23,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.adapter.SubheaderClickHandler
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,6 +52,7 @@ import org.tasks.dialogs.NewFilterDialog
 import org.tasks.dialogs.WhatsNewDialog
 import org.tasks.extensions.Context.nightMode
 import org.tasks.extensions.hideKeyboard
+import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.PlaceFilter
 import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE

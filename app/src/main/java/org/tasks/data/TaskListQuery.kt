@@ -1,11 +1,5 @@
 package org.tasks.data
 
-import org.tasks.data.sql.Criterion
-import org.tasks.data.sql.Field.Companion.field
-import org.tasks.data.sql.Join
-import com.todoroo.astrid.api.AstridOrderingFilter
-import com.todoroo.astrid.api.Filter
-import org.tasks.data.entity.Task
 import org.tasks.data.TaskListQueryNonRecursive.getNonRecursiveQuery
 import org.tasks.data.TaskListQueryRecursive.getRecursiveQuery
 import org.tasks.data.entity.CaldavAccount
@@ -13,6 +7,12 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Geofence
 import org.tasks.data.entity.Place
+import org.tasks.data.entity.Task
+import org.tasks.data.sql.Criterion
+import org.tasks.data.sql.Field.Companion.field
+import org.tasks.data.sql.Join
+import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.Filter
 import org.tasks.preferences.QueryPreferences
 
 object TaskListQuery {
@@ -39,8 +39,8 @@ object TaskListQuery {
 
     @JvmStatic
     fun getQuery(
-            preferences: QueryPreferences,
-            filter: Filter,
+        preferences: QueryPreferences,
+        filter: Filter,
     ): MutableList<String> = when {
         filter.supportsManualSort() && preferences.isManualSort ->
             getRecursiveQuery(filter, preferences)

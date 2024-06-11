@@ -6,16 +6,14 @@ import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService.RemoteViewsFactory
 import com.todoroo.andlib.utility.DateUtilities
-import com.todoroo.astrid.api.AstridOrderingFilter
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.TaskContainer
-import org.tasks.data.dao.TaskDao
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.hasNotes
 import org.tasks.data.isHidden
 import org.tasks.data.isOverdue
@@ -25,6 +23,8 @@ import org.tasks.extensions.setColorFilter
 import org.tasks.extensions.setMaxLines
 import org.tasks.extensions.setTextSize
 import org.tasks.extensions.strikethrough
+import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.Filter
 import org.tasks.markdown.Markdown
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource

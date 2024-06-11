@@ -6,8 +6,6 @@ import android.content.Intent
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.FilterListItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +18,8 @@ import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.data.dao.CaldavDao
 import org.tasks.dialogs.FilterPicker.Companion.EXTRA_LISTS_ONLY
+import org.tasks.filters.Filter
+import org.tasks.filters.FilterListItem
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.preferences.Preferences

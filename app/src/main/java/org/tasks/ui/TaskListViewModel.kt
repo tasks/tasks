@@ -6,10 +6,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.todoroo.astrid.api.AstridOrderingFilter
 import com.todoroo.astrid.api.EmptyFilter
-import com.todoroo.astrid.api.Filter
-import com.todoroo.astrid.api.FilterImpl
 import com.todoroo.astrid.api.SearchFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.service.TaskDeleter
@@ -37,6 +34,9 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
 import org.tasks.data.fetchTasks
 import org.tasks.db.QueryUtils
+import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.Filter
+import org.tasks.filters.FilterImpl
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.tasklist.SectionedDataSource

@@ -10,8 +10,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
-import com.todoroo.astrid.api.AstridOrderingFilter
-import com.todoroo.astrid.api.Filter
 import com.todoroo.astrid.core.SortHelper.SORT_ALPHA
 import com.todoroo.astrid.core.SortHelper.SORT_CREATED
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
@@ -31,6 +29,8 @@ import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
 import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
+import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.Filter
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
