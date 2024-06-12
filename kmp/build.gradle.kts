@@ -19,6 +19,7 @@ kotlin {
             freeCompilerArgs.addAll("-P", "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=org.tasks.CommonParcelize")
         }
     }
+    jvm()
     sourceSets {
         commonMain.dependencies {
             implementation(projects.data)
@@ -26,6 +27,7 @@ kotlin {
             implementation(libs.kermit)
         }
     }
+    task("testClasses")
 }
 
 android {
