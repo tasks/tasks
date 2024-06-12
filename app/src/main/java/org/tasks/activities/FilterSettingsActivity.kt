@@ -42,6 +42,7 @@ import org.tasks.data.entity.Filter
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.NO_ORDER
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.rawQuery
 import org.tasks.databinding.FilterSettingsActivityBinding
 import org.tasks.db.QueryUtils
 import org.tasks.extensions.Context.hideKeyboard
@@ -321,7 +322,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
 
     private fun help() = openUri(R.string.url_filters)
 
-    private fun updateList() {
+    private fun updateList() = lifecycleScope.launch {
         var max = 0
         var last = -1
         val sql = StringBuilder(Query.select(Field.COUNT).from(Task.TABLE).toString())
@@ -345,8 +346,8 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 sql.append(Task.ID).append(" IN (").append(subSql).append(")")
             }
             val sqlString = QueryUtils.showHiddenAndCompleted(sql.toString())
-            database.query(sqlString, null).use { cursor ->
-                cursor.moveToNext()
+            database.rawQuery(sqlString) { cursor ->
+                cursor.step()
                 instance.start = if (last == -1) cursor.getInt(0) else last
                 instance.end = cursor.getInt(0)
                 last = instance.end
