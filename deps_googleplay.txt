@@ -36,8 +36,6 @@
 +|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.3 (c)
 +|              |         |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 (c)
 +|              |         |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3 (c)
-+|              |         |         +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.8.20 -> 2.0.0
-+|              |         |         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 (*)
 +|              |         |         \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20 -> 2.0.0
 +|              |         |              +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 (*)
 +|              |         |              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.0
@@ -625,13 +623,28 @@
 +|    |              \--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.6.3
 +|    |                   +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.0.0 (*)
 +|    |                   +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.6.3 (*)
-+|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.9.22 -> 2.0.0 (*)
++|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.9.22 -> 2.0.0
++|    |                        \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 (*)
 +|    +--- co.touchlab:kermit:2.0.3
 +|    |    \--- co.touchlab:kermit-android:2.0.3
 +|    |         +--- co.touchlab:kermit-core:2.0.3
 +|    |         |    \--- co.touchlab:kermit-core-android:2.0.3
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.0.0 (*)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.0.0 (*)
++|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.0.0 (*)
+++--- project :kmp
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 (*)
++|    +--- project :data (*)
++|    +--- org.jetbrains.compose.runtime:runtime:1.6.10
++|    |    \--- androidx.compose.runtime:runtime:1.6.7
++|    |         \--- androidx.compose.runtime:runtime-android:1.6.7
++|    |              +--- androidx.collection:collection:1.4.0 (*)
++|    |              +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.0 (*)
++|    |              +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1 -> 1.7.3 (*)
++|    |              +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1 -> 1.7.3 (*)
++|    |              +--- androidx.compose.runtime:runtime-livedata:1.6.7 (c)
++|    |              \--- androidx.compose.runtime:runtime-saveable:1.6.7 (c)
++|    +--- co.touchlab:kermit:2.0.3 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.0.0 (*)
 ++--- com.github.bitfireAT:dav4jvm:2.2.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 2.0.0 (*)
@@ -874,21 +887,12 @@
 +|    \--- androidx.compose.material3:material3-android:1.2.1
 +|         +--- androidx.activity:activity-compose:1.5.0 -> 1.9.0
 +|         |    +--- androidx.activity:activity-ktx:1.9.0 (*)
-+|         |    +--- androidx.compose.runtime:runtime:1.0.1 -> 1.6.7
-+|         |    |    \--- androidx.compose.runtime:runtime-android:1.6.7
-+|         |    |         +--- androidx.collection:collection:1.4.0 (*)
-+|         |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.0 (*)
-+|         |    |         +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22 -> 2.0.0 (*)
-+|         |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1 -> 1.7.3 (*)
-+|         |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1 -> 1.7.3 (*)
-+|         |    |         +--- androidx.compose.runtime:runtime-livedata:1.6.7 (c)
-+|         |    |         \--- androidx.compose.runtime:runtime-saveable:1.6.7 (c)
++|         |    +--- androidx.compose.runtime:runtime:1.0.1 -> 1.6.7 (*)
 +|         |    +--- androidx.compose.runtime:runtime-saveable:1.0.1 -> 1.6.7
 +|         |    |    \--- androidx.compose.runtime:runtime-saveable-android:1.6.7
 +|         |    |         +--- androidx.annotation:annotation:1.1.0 -> 1.8.0 (*)
 +|         |    |         +--- androidx.compose.runtime:runtime:1.6.7 (*)
 +|         |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.0 (*)
-+|         |    |         +--- org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22 -> 2.0.0 (*)
 +|         |    |         +--- androidx.compose.runtime:runtime:1.6.7 (c)
 +|         |    |         \--- androidx.compose.runtime:runtime-livedata:1.6.7 (c)
 +|         |    +--- androidx.compose.ui:ui:1.0.1 -> 1.6.7

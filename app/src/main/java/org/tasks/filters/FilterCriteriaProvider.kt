@@ -1,6 +1,27 @@
 package org.tasks.filters
 
 import android.content.Context
+import com.todoroo.astrid.api.BooleanCriterion
+import com.todoroo.astrid.api.CustomFilterCriterion
+import com.todoroo.astrid.api.MultipleSelectCriterion
+import com.todoroo.astrid.api.PermaSql
+import com.todoroo.astrid.api.TextInputCriterion
+import com.todoroo.astrid.core.CriterionInstance
+import dagger.hilt.android.qualifiers.ApplicationContext
+import org.tasks.R
+import org.tasks.Strings
+import org.tasks.activities.FilterSettingsActivity.Companion.sql
+import org.tasks.data.GoogleTask
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskListDao
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Filter
+import org.tasks.data.entity.Tag
+import org.tasks.data.entity.TagData
+import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Criterion.Companion.exists
 import org.tasks.data.sql.Criterion.Companion.or
@@ -8,28 +29,6 @@ import org.tasks.data.sql.Field.Companion.field
 import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.Query.Companion.select
 import org.tasks.data.sql.UnaryCriterion.Companion.isNotNull
-import com.todoroo.andlib.utility.AndroidUtilities
-import com.todoroo.astrid.api.BooleanCriterion
-import com.todoroo.astrid.api.CustomFilterCriterion
-import com.todoroo.astrid.api.MultipleSelectCriterion
-import com.todoroo.astrid.api.PermaSql
-import com.todoroo.astrid.api.TextInputCriterion
-import com.todoroo.astrid.core.CriterionInstance
-import org.tasks.data.entity.Task
-import dagger.hilt.android.qualifiers.ApplicationContext
-import org.tasks.R
-import org.tasks.Strings
-import org.tasks.activities.FilterSettingsActivity.Companion.sql
-import org.tasks.data.entity.Alarm
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavTask
-import org.tasks.data.entity.Filter
-import org.tasks.data.GoogleTask
-import org.tasks.data.dao.GoogleTaskListDao
-import org.tasks.data.entity.Tag
-import org.tasks.data.entity.TagData
-import org.tasks.data.dao.TagDataDao
-import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -57,7 +56,7 @@ class FilterCriteriaProvider @Inject constructor(
         val entries: MutableList<CriterionInstance> = java.util.ArrayList()
         for (row in criterion.trim().split("\n")) {
             val split = row
-                .split(AndroidUtilities.SERIALIZATION_SEPARATOR)
+                .split(SERIALIZATION_SEPARATOR)
                 .map { unescape(it) }
             if (split.size != 4 && split.size != 5) {
                 Timber.e("invalid row: %s", row)
@@ -415,8 +414,9 @@ class FilterCriteriaProvider @Inject constructor(
         private fun unescape(item: String?): String {
             return if (Strings.isNullOrEmpty(item)) {
                 ""
-            } else item!!.replace(
-                AndroidUtilities.SEPARATOR_ESCAPE, AndroidUtilities.SERIALIZATION_SEPARATOR)
+            } else {
+                item!!.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR)
+            }
         }
     }
 }

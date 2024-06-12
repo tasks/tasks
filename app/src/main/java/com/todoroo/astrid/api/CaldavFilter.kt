@@ -12,6 +12,7 @@ import org.tasks.data.entity.Task
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterListItem
+import org.tasks.filters.mapToSerializedString
 
 @Parcelize
 data class CaldavFilter(
@@ -33,7 +34,7 @@ data class CaldavFilter(
             )
             .toString()
     override val valuesForNewTasks: String
-        get() = AndroidUtilities.mapToSerializedString(mapOf(CaldavTask.KEY to calendar.uuid!!))
+        get() = mapToSerializedString(mapOf(CaldavTask.KEY to calendar.uuid!!))
 
     override val order: Int
         get() = calendar.order

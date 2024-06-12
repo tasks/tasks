@@ -12,6 +12,7 @@ import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.QueryTemplate
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.FilterListItem
+import org.tasks.filters.mapToSerializedString
 
 @Parcelize
 data class TagFilter(
@@ -31,7 +32,7 @@ data class TagFilter(
         get() = tagData.order
 
     override val valuesForNewTasks: String
-        get() = AndroidUtilities.mapToSerializedString(mapOf(Tag.KEY to tagData.name!!))
+        get() = mapToSerializedString(mapOf(Tag.KEY to tagData.name!!))
 
     override val icon: Int
         get() = tagData.getIcon()!!

@@ -13,6 +13,7 @@ import org.tasks.data.NO_COUNT
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterListItem
+import org.tasks.filters.mapToSerializedString
 
 @Parcelize
 data class GtasksFilter(
@@ -35,7 +36,7 @@ data class GtasksFilter(
             .toString()
 
     override val valuesForNewTasks: String
-        get() = AndroidUtilities.mapToSerializedString(mapOf(GoogleTask.KEY to list.uuid!!))
+        get() = mapToSerializedString(mapOf(GoogleTask.KEY to list.uuid!!))
 
     override val order: Int
         get() = list.order

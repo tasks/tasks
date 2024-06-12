@@ -1,7 +1,6 @@
 package org.tasks.filters
 
 import android.content.Context
-import com.todoroo.andlib.utility.AndroidUtilities
 import kotlinx.parcelize.Parcelize
 import org.tasks.data.NO_COUNT
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
@@ -22,7 +21,7 @@ data class PlaceFilter(
     override val count: Int = NO_COUNT,
 ) : Filter {
     override val valuesForNewTasks: String
-        get() = AndroidUtilities.mapToSerializedString(mapOf(Place.KEY to place.uid!!))
+        get() = mapToSerializedString(mapOf(Place.KEY to place.uid!!))
     override val sql: String
         get() = QueryTemplate()
             .join(inner(G2, Task.ID.eq(G2_TASK)))

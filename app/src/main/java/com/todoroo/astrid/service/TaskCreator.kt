@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service
 
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.GtasksFilter
@@ -36,6 +35,7 @@ import org.tasks.data.entity.Task.Companion.HIDE_UNTIL
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_NONE
 import org.tasks.data.entity.Task.Companion.IMPORTANCE
 import org.tasks.filters.Filter
+import org.tasks.filters.mapFromSerializedString
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils.startOfDay
@@ -125,12 +125,8 @@ class TaskCreator @Inject constructor(
         return create(null, title)
     }
 
-    suspend fun createWithValues(filter: Filter?, title: String?): Task {
-        return create(
-            AndroidUtilities.mapFromSerializedString(filter?.valuesForNewTasks),
-            title
-        )
-    }
+    suspend fun createWithValues(filter: Filter?, title: String?): Task =
+        create(mapFromSerializedString(filter?.valuesForNewTasks), title)
 
     /**
      * Create task from the given content values, saving it. This version doesn't need to start with a

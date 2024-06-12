@@ -48,6 +48,7 @@ import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.hideKeyboard
 import org.tasks.filters.FilterCriteriaProvider
+import org.tasks.filters.mapToSerializedString
 import org.tasks.themes.CustomIcons
 import java.util.Locale
 import javax.inject.Inject
@@ -399,7 +400,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                         }
                     }
                 }
-                return AndroidUtilities.mapToSerializedString(values)
+                return mapToSerializedString(values)
             }
     }
 }

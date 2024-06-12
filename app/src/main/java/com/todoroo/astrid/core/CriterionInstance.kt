@@ -1,11 +1,12 @@
 package com.todoroo.astrid.core
 
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.api.BooleanCriterion
 import com.todoroo.astrid.api.CustomFilterCriterion
 import com.todoroo.astrid.api.MultipleSelectCriterion
 import com.todoroo.astrid.api.TextInputCriterion
 import org.tasks.data.UUIDHelper
+import org.tasks.filters.SEPARATOR_ESCAPE
+import org.tasks.filters.SERIALIZATION_SEPARATOR
 
 class CriterionInstance {
     lateinit var criterion: CustomFilterCriterion
@@ -90,7 +91,7 @@ class CriterionInstance {
                 escape(criterion.text),
                 type,
                 criterion.sql ?: "")
-                .joinToString(AndroidUtilities.SERIALIZATION_SEPARATOR)
+                .joinToString(SERIALIZATION_SEPARATOR)
     }
 
     override fun toString(): String {
@@ -132,9 +133,7 @@ class CriterionInstance {
         const val TYPE_UNIVERSE = 3
 
         private fun escape(item: String?): String {
-            return item?.replace(
-                    AndroidUtilities.SERIALIZATION_SEPARATOR, AndroidUtilities.SEPARATOR_ESCAPE)
-                    ?: "" // $NON-NLS-1$
+            return item?.replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE) ?: ""
         }
 
         fun serialize(criterion: List<CriterionInstance>): String {

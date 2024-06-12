@@ -22,6 +22,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.data)
+            implementation(compose.runtime)
+            implementation(libs.kermit)
         }
     }
 }
