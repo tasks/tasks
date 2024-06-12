@@ -1,7 +1,6 @@
 package org.tasks.filters
 
 import org.tasks.CommonParcelable
-import org.tasks.CommonParcelize
 import org.tasks.data.NO_COUNT
 import org.tasks.data.NO_ORDER
 
@@ -31,24 +30,4 @@ interface Filter : FilterListItem, CommonParcelable {
     fun supportsSubtasks(): Boolean = true
     fun supportsSorting(): Boolean = true
     fun disableHeaders(): Boolean = !supportsSorting()
-}
-
-@Deprecated("Use manual ordering")
-interface AstridOrderingFilter : Filter {
-    var filterOverride: String?
-
-    fun getSqlQuery(): String = filterOverride ?: sql!!
-}
-
-@CommonParcelize
-data class FilterImpl(
-    override val title: String? = null,
-    override val sql: String? = null,
-    override val valuesForNewTasks: String? = null,
-    override val icon: Int = -1,
-    override val tint: Int = 0,
-) : Filter {
-    override fun areItemsTheSame(other: FilterListItem): Boolean {
-        return other is Filter && sql == other.sql
-    }
 }

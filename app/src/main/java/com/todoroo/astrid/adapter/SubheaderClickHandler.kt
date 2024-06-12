@@ -7,8 +7,6 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.CaldavDao
-import org.tasks.dialogs.NewFilterDialog
-import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.CALDAV
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.ETESYNC
@@ -34,20 +32,8 @@ class SubheaderClickHandler @Inject constructor(
                 CALDAV,
                 TASKS,
                 ETESYNC -> caldavDao.setCollapsed(subheader.id, collapsed)
-                else -> throw IllegalArgumentException()
             }
             localBroadcastManager.broadcastRefreshList()
-        }
-    }
-
-    override fun onAdd(subheader: NavigationDrawerSubheader) {
-        when (subheader.addIntentRc) {
-            FilterProvider.REQUEST_NEW_FILTER ->
-                NewFilterDialog.newFilterDialog().show(
-                    (activity as AppCompatActivity).supportFragmentManager,
-                    FRAG_TAG_NEW_FILTER
-                )
-            else -> activity.startActivityForResult(subheader.addIntent, subheader.addIntentRc)
         }
     }
 

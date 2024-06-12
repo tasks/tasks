@@ -1,20 +1,16 @@
-package com.todoroo.astrid.api
+package org.tasks.filters
 
+import org.tasks.CommonParcelize
+import org.tasks.data.NO_COUNT
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Join.Companion.left
 import org.tasks.data.sql.QueryTemplate
-import com.todoroo.andlib.utility.AndroidUtilities
-import kotlinx.parcelize.Parcelize
-import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.entity.CaldavTask
-import org.tasks.data.NO_COUNT
-import org.tasks.data.entity.Task
-import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
-import org.tasks.filters.Filter
-import org.tasks.filters.FilterListItem
-import org.tasks.filters.mapToSerializedString
 
-@Parcelize
+@CommonParcelize
 data class CaldavFilter(
     val calendar: CaldavCalendar,
     val principals: Int = 0,

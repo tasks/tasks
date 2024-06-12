@@ -3,7 +3,7 @@ package org.tasks.caldav
 import android.content.Intent
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.api.CaldavFilter
+import org.tasks.filters.CaldavFilter
 import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel

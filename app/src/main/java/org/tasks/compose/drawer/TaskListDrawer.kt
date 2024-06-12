@@ -307,8 +307,6 @@ fun MenuPreview() {
                             false,
                             NavigationDrawerSubheader.SubheaderType.PREFERENCE,
                             0L,
-                            0,
-                            null
                         )
                     },
                 )

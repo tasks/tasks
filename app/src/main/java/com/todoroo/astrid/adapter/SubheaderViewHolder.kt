@@ -18,7 +18,6 @@ internal class SubheaderViewHolder(
 
     interface ClickHandler {
         fun onClick(subheader: NavigationDrawerSubheader)
-        fun onAdd(subheader: NavigationDrawerSubheader)
         fun showError()
     }
 
@@ -31,7 +30,7 @@ internal class SubheaderViewHolder(
     private lateinit var subheader: NavigationDrawerSubheader
 
     fun bind(subheader: NavigationDrawerSubheader) {
-        add.isVisible = subheader.addIntent != null
+        add.isVisible = false
         this.subheader = subheader
         text.text = subheader.title
         when {
@@ -63,6 +62,5 @@ internal class SubheaderViewHolder(
             }
         }
         errorIcon.setOnClickListener { clickHandler.showError() }
-        add.setOnClickListener { clickHandler.onAdd(subheader) }
     }
 }

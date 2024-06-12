@@ -1,7 +1,7 @@
 package com.todoroo.astrid.service
 
 import android.content.Context
-import com.todoroo.astrid.api.CaldavFilter
+import org.tasks.filters.CaldavFilter
 import com.todoroo.astrid.api.GtasksFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
@@ -57,7 +57,8 @@ class TaskMover @Inject constructor(
             selectedList = if (account.accountType == CaldavAccount.TYPE_GOOGLE_TASKS)
                 GtasksFilter(calendar)
             else
-                CaldavFilter(calendar))
+                CaldavFilter(calendar)
+        )
     }
 
     suspend fun move(ids: List<Long>, selectedList: Filter) {

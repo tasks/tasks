@@ -56,6 +56,9 @@ abstract class CaldavDao(private val database: Database) {
     abstract suspend fun getAccount(type: Int, username: String): CaldavAccount?
 
     @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
+    abstract suspend fun getAccount(id: Long): CaldavAccount?
+
+    @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
     abstract fun watchAccount(id: Long): Flow<CaldavAccount?>
 
     @Query("""

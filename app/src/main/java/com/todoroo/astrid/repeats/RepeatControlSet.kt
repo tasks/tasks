@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.api.CaldavFilter
+import org.tasks.filters.CaldavFilter
 import com.todoroo.astrid.api.GtasksFilter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

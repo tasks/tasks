@@ -3,7 +3,6 @@ package org.tasks.filters
 import android.content.Context
 import android.content.Intent
 import com.todoroo.astrid.activity.MainActivity
-import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -60,15 +59,15 @@ class FilterProvider @Inject constructor(
     private fun getDebugFilters(): List<FilterListItem> =
             if (BuildConfig.DEBUG) {
                 val collapsed = preferences.getBoolean(R.string.p_collapse_debug, false)
-                listOf(NavigationDrawerSubheader(
+                listOf(
+                    NavigationDrawerSubheader(
                         context.getString(R.string.debug),
                         false,
                         collapsed,
                         SubheaderType.PREFERENCE,
                         R.string.p_collapse_debug.toLong(),
-                        0,
-                        null,
-                ))
+                    )
+                )
                         .apply { if (collapsed) return this }
                         .plus(listOf(
                                 BuiltInFilterExposer.getNoListFilter(),
@@ -90,14 +89,15 @@ class FilterProvider @Inject constructor(
             } else {
                 val collapsed = preferences.getBoolean(R.string.p_collapse_filters, false)
                 listOf(
-                        NavigationDrawerSubheader(
-                                context.getString(R.string.filters),
-                                false,
-                                collapsed,
-                                SubheaderType.PREFERENCE,
-                                R.string.p_collapse_filters.toLong(),
-                                REQUEST_NEW_FILTER,
-                                if (showCreate) Intent() else null))
+                    NavigationDrawerSubheader(
+                        context.getString(R.string.filters),
+                        false,
+                        collapsed,
+                        SubheaderType.PREFERENCE,
+                        R.string.p_collapse_filters.toLong(),
+                        if (showCreate) REQUEST_NEW_FILTER else 0,
+                    )
+                )
                         .apply { if (collapsed) return this }
                         .plusAllIf(showBuiltIn) {
                             builtInFilterExposer.filters()
@@ -111,18 +111,15 @@ class FilterProvider @Inject constructor(
             } else {
                 val collapsed = preferences.getBoolean(R.string.p_collapse_tags, false)
                 listOf(
-                        NavigationDrawerSubheader(
-                                context.getString(R.string.tags),
-                                false,
-                                collapsed,
-                                SubheaderType.PREFERENCE,
-                                R.string.p_collapse_tags.toLong(),
-                                MainActivity.REQUEST_NEW_LIST,
-                                if (showCreate) {
-                                    Intent(context, TagSettingsActivity::class.java)
-                                } else {
-                                    null
-                                }))
+                    NavigationDrawerSubheader(
+                        context.getString(R.string.tags),
+                        false,
+                        collapsed,
+                        SubheaderType.PREFERENCE,
+                        R.string.p_collapse_tags.toLong(),
+                        if (showCreate) MainActivity.REQUEST_NEW_TAGS else 0,
+                    )
+                )
                         .apply { if (collapsed) return this }
                         .plus(tagDataDao.getTagFilters()
                                     .filterIf(hideUnused && preferences.getBoolean(R.string.p_tags_hide_unused, false)) {
@@ -138,18 +135,15 @@ class FilterProvider @Inject constructor(
             } else {
                 val collapsed = preferences.getBoolean(R.string.p_collapse_locations, false)
                 listOf(
-                        NavigationDrawerSubheader(
-                                context.getString(R.string.places),
-                                false,
-                                collapsed,
-                                SubheaderType.PREFERENCE,
-                                R.string.p_collapse_locations.toLong(),
-                                MainActivity.REQUEST_NEW_PLACE,
-                                if (showCreate) {
-                                    Intent(context, LocationPickerActivity::class.java)
-                                } else {
-                                    null
-                                }))
+                    NavigationDrawerSubheader(
+                        context.getString(R.string.places),
+                        false,
+                        collapsed,
+                        SubheaderType.PREFERENCE,
+                        R.string.p_collapse_locations.toLong(),
+                        if (showCreate) MainActivity.REQUEST_NEW_PLACE else 0,
+                    )
+                )
                         .apply { if (collapsed) return this }
                         .plus(locationDao.getPlaceFilters()
                                     .filterIf(hideUnused && preferences.getBoolean(R.string.p_places_hide_unused, false)) {
@@ -177,26 +171,29 @@ class FilterProvider @Inject constructor(
                     .toList()
                     .plusAllIf(BuildConfig.DEBUG) { getDebugFilters() }
 
-    private suspend fun googleTaskFilter(account: CaldavAccount, showCreate: Boolean): List<FilterListItem> =
-            listOf(
-                    NavigationDrawerSubheader(
-                            account.username,
-                            account.error?.isNotBlank() ?: false,
-                            account.isCollapsed,
-                            SubheaderType.GOOGLE_TASKS,
-                            account.id,
-                            MainActivity.REQUEST_NEW_LIST,
-                            if (showCreate) {
-                                Intent(context, GoogleTaskListSettingsActivity::class.java)
-                                    .putExtra(GoogleTaskListSettingsActivity.EXTRA_ACCOUNT, account)
-                            } else {
-                                null
-                            }))
-                    .apply { if (account.isCollapsed) return this }
-                    .plus(googleTaskListDao
-                                .getGoogleTaskFilters(account.username!!)
-                                .map(GoogleTaskFilters::toGtasksFilter)
-                                .sort())
+    private suspend fun googleTaskFilter(
+        account: CaldavAccount,
+        showCreate: Boolean,
+    ): List<FilterListItem> {
+        val collapsed = account.isCollapsed
+        return listOf(
+            NavigationDrawerSubheader(
+                account.username,
+                account.error?.isNotBlank() ?: false,
+                collapsed,
+                SubheaderType.GOOGLE_TASKS,
+                account.id,
+                if (showCreate) MainActivity.REQUEST_NEW_LIST else 0,
+            )
+        )
+            .apply { if (collapsed) return this }
+            .plus(
+                googleTaskListDao
+                    .getGoogleTaskFilters(account.username!!)
+                    .map(GoogleTaskFilters::toGtasksFilter)
+                    .sort()
+            )
+    }
 
     private suspend fun caldavFilters(showCreate: Boolean = true): List<FilterListItem> =
             caldavDao.getAccounts()
@@ -213,44 +210,41 @@ class FilterProvider @Inject constructor(
                     }
                 }
 
-    private suspend fun caldavFilter(account: CaldavAccount, showCreate: Boolean): List<FilterListItem> =
-            listOf(
-                    NavigationDrawerSubheader(
-                            if (account.accountType == TYPE_LOCAL) {
-                                context.getString(R.string.local_lists)
-                            } else {
-                                account.name
-                            },
-                            account.error?.isNotBlank() ?: false,
-                            account.isCollapsed,
-                            when {
-                                account.isTasksOrg -> SubheaderType.TASKS
-                                account.isEteSyncAccount -> SubheaderType.ETESYNC
-                                else -> SubheaderType.CALDAV
-                            },
-                            account.id,
-                            MainActivity.REQUEST_NEW_LIST,
-                            if (showCreate) {
-                                Intent(context, account.listSettingsClass())
-                                    .putExtra(
-                                        BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT,
-                                        account
-                                    )
-                            } else {
-                                null
-                            }
-                    ))
-                    .apply { if (account.isCollapsed) return this }
-                    .plus(caldavDao
-                                .getCaldavFilters(account.uuid!!)
-                                .map {
-                                    CaldavFilter(
-                                        calendar = it.caldavCalendar,
-                                        principals = it.principals,
-                                        count = it.count,
-                                    )
-                                }
-                                .sort())
+    private suspend fun caldavFilter(
+        account: CaldavAccount,
+        showCreate: Boolean,
+    ): List<FilterListItem> {
+        val collapsed = account.isCollapsed
+        return listOf(
+            NavigationDrawerSubheader(
+                if (account.accountType == TYPE_LOCAL) {
+                    context.getString(R.string.local_lists)
+                } else {
+                    account.name
+                },
+                account.error?.isNotBlank() ?: false,
+                collapsed,
+                when {
+                    account.isTasksOrg -> SubheaderType.TASKS
+                    account.isEteSyncAccount -> SubheaderType.ETESYNC
+                    else -> SubheaderType.CALDAV
+                },
+                account.id,
+                if (showCreate) MainActivity.REQUEST_NEW_LIST else 0,
+            )
+        )
+            .apply { if (collapsed) return this }
+            .plus(caldavDao
+                .getCaldavFilters(account.uuid!!)
+                .map {
+                    CaldavFilter(
+                        calendar = it.caldavCalendar,
+                        principals = it.principals,
+                        count = it.count,
+                    )
+                }
+                .sort())
+    }
 
     companion object {
         const val REQUEST_NEW_FILTER = 101015

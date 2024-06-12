@@ -1,7 +1,7 @@
 package com.todoroo.astrid.service
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.api.CaldavFilter
+import org.tasks.filters.CaldavFilter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest

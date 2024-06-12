@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.activity.MainActivity.Companion.LOAD_FILTER
 import com.todoroo.astrid.activity.MainActivity.Companion.OPEN_FILTER
-import com.todoroo.astrid.api.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
@@ -32,6 +31,7 @@ import org.tasks.data.count
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
@@ -145,7 +145,7 @@ class MainActivityViewModel @Inject constructor(
                             title = item.title ?: "",
                             collapsed = item.isCollapsed,
                             hasError = item.error,
-                            canAdd = item.addIntent != null,
+                            canAdd = item.addIntentRc != 0,
                             type = { item },
                         )
                     else -> throw IllegalArgumentException()

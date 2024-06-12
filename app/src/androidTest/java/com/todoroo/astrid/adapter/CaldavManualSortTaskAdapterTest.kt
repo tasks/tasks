@@ -2,7 +2,7 @@ package com.todoroo.astrid.adapter
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.api.CaldavFilter
+import org.tasks.filters.CaldavFilter
 import com.todoroo.astrid.dao.TaskDao
 import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskMover

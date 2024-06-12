@@ -1,6 +1,6 @@
 package org.tasks.data
 
-import com.todoroo.astrid.api.CaldavFilter
+import org.tasks.filters.CaldavFilter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
