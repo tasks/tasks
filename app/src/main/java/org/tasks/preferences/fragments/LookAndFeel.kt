@@ -17,12 +17,12 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
+import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter
 import org.tasks.dialogs.ColorWheelPicker
-import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
-import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.ThemePickerDialog
 import org.tasks.dialogs.ThemePickerDialog.Companion.newThemePickerDialog
 import org.tasks.extensions.Context.isNightMode
@@ -51,16 +51,13 @@ class LookAndFeel : InjectingPreferenceFragment() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var locale: Locale
 
-    override fun getPreferenceXml() = R.xml.preferences_look_and_feel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        childFragmentManager.setFilterPickerResultListener(this) {
-            defaultFilterProvider.setDefaultOpenFilter(it)
-            findPreference(R.string.p_default_open_filter).summary = it.title
-            localBroadcastManager.broadcastRefresh()
-        }
+    private val listPickerLauncher = registerForListPickerResult {
+        defaultFilterProvider.setDefaultOpenFilter(it)
+        findPreference(R.string.p_default_open_filter).summary = it.title
+        localBroadcastManager.broadcastRefresh()
     }
+
+    override fun getPreferenceXml() = R.xml.preferences_look_and_feel
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         val themePref = findPreference(R.string.p_theme)
@@ -84,8 +81,10 @@ class LookAndFeel : InjectingPreferenceFragment() {
         defaultList.summary = filter.title
         defaultList.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             lifecycleScope.launch {
-                newFilterPicker(defaultFilterProvider.getDefaultOpenFilter())
-                    .show(childFragmentManager, FRAG_TAG_FILTER_PICKER)
+                listPickerLauncher.launch(
+                    context = requireContext(),
+                    selectedFilter = defaultFilterProvider.getDefaultOpenFilter(),
+                )
             }
             true
         }
@@ -249,6 +248,5 @@ class LookAndFeel : InjectingPreferenceFragment() {
         private const val FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker"
         private const val FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
-        private const val FRAG_TAG_FILTER_PICKER = "frag_tag_filter_picker"
     }
 }

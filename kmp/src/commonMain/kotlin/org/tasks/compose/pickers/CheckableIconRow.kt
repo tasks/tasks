@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.Icon
@@ -17,12 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun CheckableIconRow(
-    icon: Painter,
+    icon: ImageVector,
     tint: Color,
     text: String,
     selected: Boolean,
@@ -45,7 +44,7 @@ fun CheckableIconRow(
 
 @Composable
 fun CheckableIconRow(
-    icon: Painter,
+    icon: ImageVector,
     tint: Color,
     selected: Boolean,
     onClick: () -> Unit,
@@ -58,9 +57,9 @@ fun CheckableIconRow(
             .clickable { onClick() }
     ) {
         Icon(
-            painter = icon,
+            imageVector = icon,
             contentDescription = null,
-            tint = tint.copy(alpha = ContentAlpha.medium),
+            tint = tint,
             modifier = Modifier.padding(start = 16.dp, end = 32.dp, top = 12.dp, bottom = 12.dp),
         )
         Box(modifier = Modifier.weight(1f)) {
@@ -70,7 +69,7 @@ fun CheckableIconRow(
             Icon(
                 imageVector = Icons.Outlined.Check,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
             )
         } else {

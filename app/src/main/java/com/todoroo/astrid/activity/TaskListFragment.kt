@@ -53,7 +53,6 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
-import org.tasks.filters.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.api.GtasksFilter
 import com.todoroo.astrid.api.TagFilter
@@ -84,6 +83,8 @@ import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
+import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.TaskContainer
@@ -100,8 +101,6 @@ import org.tasks.data.withTransaction
 import org.tasks.databinding.FragmentTaskListBinding
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
-import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.PriorityPicker.Companion.newPriorityPicker
 import org.tasks.dialogs.SortSettingsActivity
 import org.tasks.extensions.Context.openUri
@@ -110,6 +109,7 @@ import org.tasks.extensions.Fragment.safeStartActivityForResult
 import org.tasks.extensions.hideKeyboard
 import org.tasks.extensions.setOnQueryTextListener
 import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.PlaceFilter
@@ -178,6 +178,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private var mode: ActionMode? = null
     lateinit var themeColor: ThemeColor
     private lateinit var binding: FragmentTaskListBinding
+    private val listPickerLauncher = registerForListPickerResult {
+        val selected = taskAdapter.getSelected()
+        lifecycleScope.launch {
+            taskMover.move(selected, it)
+        }
+        finishActionMode()
+    }
 
     private val sortRequest =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -334,13 +341,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             mainViewModel.setDrawerOpen(true)
         }
         setupMenu(toolbar)
-        childFragmentManager.setFilterPickerResultListener(this) {
-            val selected = taskAdapter.getSelected()
-            lifecycleScope.launch {
-                taskMover.move(selected, it)
-            }
-            finishActionMode()
-        }
         binding.banner.setContent {
             val context = LocalContext.current
             val showBanner = listViewModel.state.collectAsStateLifecycleAware().value.begForSubscription
@@ -756,8 +756,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             R.id.move_tasks -> {
                 lifecycleScope.launch {
                     val singleFilter = taskMover.getSingleFilter(selected)
-                    newFilterPicker(singleFilter, true)
-                        .show(childFragmentManager, FRAG_TAG_REMOTE_LIST_PICKER)
+                    listPickerLauncher.launch(
+                        context = requireActivity(),
+                        selectedFilter = singleFilter,
+                        listsOnly = true,
+                    )
                 }
                 true
             }
@@ -1019,7 +1022,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         private const val EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids"
         private const val VOICE_RECOGNITION_REQUEST_CODE = 1234
         private const val EXTRA_FILTER = "extra_filter"
-        private const val FRAG_TAG_REMOTE_LIST_PICKER = "frag_tag_remote_list_picker"
         private const val FRAG_TAG_DATE_TIME_PICKER = "frag_tag_date_time_picker"
         private const val FRAG_TAG_PRIORITY_PICKER = "frag_tag_priority_picker"
         private const val REQUEST_TAG_TASKS = 10106

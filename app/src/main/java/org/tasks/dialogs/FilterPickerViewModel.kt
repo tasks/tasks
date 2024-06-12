@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.billing.Inventory
+import org.tasks.compose.FilterSelectionActivity
 import org.tasks.data.dao.CaldavDao
-import org.tasks.dialogs.FilterPicker.Companion.EXTRA_LISTS_ONLY
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterListItem
 import org.tasks.filters.FilterProvider
@@ -38,10 +38,13 @@ class FilterPickerViewModel @Inject constructor(
     private val preferences: Preferences,
     private val caldavDao: CaldavDao,
 ) : ViewModel() {
-    private val listsOnly = savedStateHandle[EXTRA_LISTS_ONLY] ?: false
+    private val listsOnly = savedStateHandle[FilterSelectionActivity.EXTRA_LISTS_ONLY] ?: false
 
     data class ViewState(
         val filters: List<FilterListItem> = emptyList(),
+        val allFilters: List<Filter> = emptyList(),
+        val searchResults: List<Filter> = emptyList(),
+        val query: String = "",
     )
 
     private val _viewState = MutableStateFlow(ViewState())
@@ -55,12 +58,20 @@ class FilterPickerViewModel @Inject constructor(
     }
 
     private fun refresh() = viewModelScope.launch {
-        val items = if (listsOnly) {
-            filterProvider.listPickerItems().filterNot { it is Filter && it.isReadOnly }
-        } else {
-            filterProvider.filterPickerItems()
+        _viewState.update { state ->
+            state.copy(
+                filters = if (listsOnly) {
+                    filterProvider.listPickerItems().filterNot { it is Filter && it.isReadOnly }
+                } else {
+                    filterProvider.filterPickerItems()
+                },
+                allFilters = if (listsOnly) {
+                    filterProvider.allLists().filterNot { it.isReadOnly }
+                } else {
+                    filterProvider.allFilters()
+                },
+            )
         }
-        _viewState.update { it.copy(filters = items) }
     }
 
     fun onClick(subheader: NavigationDrawerSubheader) = viewModelScope.launch {
@@ -101,6 +112,17 @@ class FilterPickerViewModel @Inject constructor(
 
     override fun onCleared() {
         localBroadcastManager.unregisterReceiver(refreshReceiver)
+    }
+
+    fun onQueryChange(query: String) {
+        _viewState.update { state ->
+            state.copy(
+                query = query,
+                searchResults = state.allFilters
+                    .filter { it.title!!.contains(query, ignoreCase = true) }
+                    .sortedBy { it.title },
+            )
+        }
     }
 
     init {

@@ -6,8 +6,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
-import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
+import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.filters.Filter
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.locale.bundle.ListNotificationBundle
@@ -20,7 +20,6 @@ class TaskerListNotification : InjectingPreferenceFragment() {
     companion object {
         const val EXTRA_FILTER = "extra_filter"
         private const val REQUEST_SUBSCRIPTION = 10125
-        private const val FRAG_TAG_FILTER_PICKER = "frag_tag_filter_picker"
 
         fun newTaskerListNotification(filter: String?): TaskerListNotification {
             val fragment = TaskerListNotification()
@@ -36,16 +35,12 @@ class TaskerListNotification : InjectingPreferenceFragment() {
 
     lateinit var filter: Filter
     var cancelled: Boolean = false
+    private val listPickerLauncher = registerForListPickerResult {
+        filter = it
+        refreshPreferences()
+    }
 
     override fun getPreferenceXml() = R.xml.preferences_tasker
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        childFragmentManager.setFilterPickerResultListener(this) {
-            filter = it
-            refreshPreferences()
-        }
-    }
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         filter = if (savedInstanceState == null) {
@@ -57,8 +52,10 @@ class TaskerListNotification : InjectingPreferenceFragment() {
         refreshPreferences()
 
         findPreference(R.string.filter).setOnPreferenceClickListener {
-            newFilterPicker(filter)
-                .show(childFragmentManager, FRAG_TAG_FILTER_PICKER)
+            listPickerLauncher.launch(
+                context = requireContext(),
+                selectedFilter = filter,
+            )
             false
         }
 

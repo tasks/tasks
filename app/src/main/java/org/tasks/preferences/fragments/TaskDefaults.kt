@@ -6,23 +6,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
-import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
-import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
-import org.tasks.data.entity.Task.Companion.NOTIFY_AT_START
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarPicker.Companion.newCalendarPicker
 import org.tasks.calendars.CalendarProvider
-import org.tasks.data.entity.CaldavAccount
+import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.data.dao.LocationDao
-import org.tasks.data.entity.Place
-import org.tasks.data.entity.TagData
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.displayName
-import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
-import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.Place
+import org.tasks.data.entity.TagData
+import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
+import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
+import org.tasks.data.entity.Task.Companion.NOTIFY_AT_START
 import org.tasks.injection.InjectingPreferenceFragment
 import org.tasks.location.LocationPickerActivity
 import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
@@ -36,7 +36,6 @@ import org.tasks.tags.TagPickerActivity
 import org.tasks.tags.TagPickerActivity.Companion.EXTRA_SELECTED
 import javax.inject.Inject
 
-private const val FRAG_TAG_DEFAULT_LIST_SELECTION = "frag_tag_default_list_selection"
 private const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
 private const val REQUEST_CALENDAR_SELECTION = 10011
 
@@ -51,13 +50,9 @@ class TaskDefaults : InjectingPreferenceFragment() {
     @Inject lateinit var tagDataDao: TagDataDao
 
     private lateinit var defaultCalendarPref: Preference
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        childFragmentManager.setFilterPickerResultListener(this) {
-            defaultFilterProvider.defaultList = it
-            updateRemoteListSummary()
-        }
+    private val listPickerLauncher = registerForListPickerResult {
+        defaultFilterProvider.defaultList = it
+        updateRemoteListSummary()
     }
 
     override fun getPreferenceXml() = R.xml.preferences_task_defaults
@@ -74,8 +69,11 @@ class TaskDefaults : InjectingPreferenceFragment() {
         findPreference(R.string.p_default_list)
             .setOnPreferenceClickListener {
                 lifecycleScope.launch {
-                    newFilterPicker(defaultFilterProvider.getDefaultList(), true)
-                        .show(childFragmentManager, FRAG_TAG_DEFAULT_LIST_SELECTION)
+                    listPickerLauncher.launch(
+                        context = requireContext(),
+                        selectedFilter = defaultFilterProvider.getDefaultList(),
+                        listsOnly = true,
+                    )
                 }
                 false
             }

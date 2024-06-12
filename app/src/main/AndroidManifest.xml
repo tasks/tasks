@@ -211,7 +211,7 @@
     <activity
       android:exported="true"
       android:excludeFromRecents="true"
-      android:name=".widget.WidgetFilterSelectionActivity"
+      android:name=".compose.FilterSelectionActivity"
       android:taskAffinity=""
       android:theme="@style/TranslucentDialog"/>
 

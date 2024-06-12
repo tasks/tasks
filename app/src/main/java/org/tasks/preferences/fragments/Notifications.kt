@@ -20,8 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
-import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
-import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
+import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.extensions.Context.getResourceUri
 import org.tasks.injection.InjectingPreferenceFragment
@@ -43,16 +43,13 @@ class Notifications : InjectingPreferenceFragment() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var voiceOutputAssistant: VoiceOutputAssistant
 
-    override fun getPreferenceXml() = R.xml.preferences_notifications
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        childFragmentManager.setFilterPickerResultListener(this) {
-            defaultFilterProvider.setBadgeFilter(it)
-            findPreference(R.string.p_badge_list).summary = it.title
-            localBroadcastManager.broadcastRefresh()
-        }
+    private val listPickerLauncher = registerForListPickerResult {
+        defaultFilterProvider.setBadgeFilter(it)
+        findPreference(R.string.p_badge_list).summary = it.title
+        localBroadcastManager.broadcastRefresh()
     }
+
+    override fun getPreferenceXml() = R.xml.preferences_notifications
 
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         rescheduleNotificationsOnChange(
@@ -90,8 +87,10 @@ class Notifications : InjectingPreferenceFragment() {
         badgePreference.summary = filter.title
         badgePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             lifecycleScope.launch {
-                newFilterPicker(defaultFilterProvider.getBadgeFilter())
-                    .show(childFragmentManager, FRAG_TAG_FILTER_PICKER)
+                listPickerLauncher.launch(
+                    context = requireContext(),
+                    selectedFilter = defaultFilterProvider.getBadgeFilter(),
+                )
             }
             true
         }
@@ -354,6 +353,5 @@ class Notifications : InjectingPreferenceFragment() {
         private const val REQUEST_CODE_ALERT_RINGTONE = 10005
         private const val REQUEST_CODE_TTS_CHECK = 10006
         private const val REQUEST_CODE_COMPLETION_SOUND = 10007
-        private const val FRAG_TAG_FILTER_PICKER = "frag_tag_filter_picker"
     }
 }

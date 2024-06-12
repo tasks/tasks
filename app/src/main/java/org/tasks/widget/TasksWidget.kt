@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
-import org.tasks.dialogs.FilterPicker
+import org.tasks.compose.FilterSelectionActivity
 import org.tasks.extensions.setBackgroundColor
 import org.tasks.extensions.setColorFilter
 import org.tasks.extensions.setRipple
@@ -213,9 +213,9 @@ class TasksWidget : AppWidgetProvider() {
     }
 
     private fun getChooseListIntent(context: Context, filter: Filter, widgetId: Int): PendingIntent {
-        val intent = Intent(context, WidgetFilterSelectionActivity::class.java)
+        val intent = Intent(context, FilterSelectionActivity::class.java)
         intent.flags = FLAGS
-        intent.putExtra(FilterPicker.EXTRA_FILTER, filter)
+        intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, filter)
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
         intent.action = "choose_list"
         return PendingIntent.getActivity(

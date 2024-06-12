@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Block
+import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -66,7 +69,7 @@ fun CalendarPickerList(
             .padding(vertical = 12.dp)
     ) {
         CheckableIconRow(
-            icon = painterResource(id = R.drawable.ic_outline_block_24),
+            icon = Icons.Outlined.Block,
             tint = MaterialTheme.colorScheme.onSurface,
             text = stringResource(id = R.string.dont_add_to_calendar),
             selected = selectedCalendar == null,
@@ -74,7 +77,7 @@ fun CalendarPickerList(
         )
         calendars.forEach {
             CheckableIconRow(
-                icon = painterResource(id = R.drawable.ic_outline_event_24px),
+                icon = Icons.Outlined.Event,
                 tint = Color(it.color),
                 text = it.name,
                 selected = selectedCalendar == it,

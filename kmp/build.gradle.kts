@@ -21,8 +21,15 @@ kotlin {
     }
     jvm()
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.androidx.ui.tooling.preview.android)
+        }
         commonMain.dependencies {
             implementation(projects.data)
+            implementation(compose.components.resources)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
             implementation(compose.runtime)
             implementation(libs.kermit)
         }
@@ -42,6 +49,10 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        compose = true
     }
 
     dependencies {

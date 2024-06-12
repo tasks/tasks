@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material3.Icon
@@ -49,7 +48,7 @@ fun CollapsibleRow(
         Icon(
             imageVector = Icons.Outlined.KeyboardArrowUp,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+            tint = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.rotate(rotationAngle)
         )
     }

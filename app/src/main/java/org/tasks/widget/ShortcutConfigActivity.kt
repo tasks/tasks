@@ -3,7 +3,9 @@ package org.tasks.widget
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.IntentCompat
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
@@ -11,13 +13,13 @@ import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.data.UUIDHelper
 import org.tasks.databinding.ActivityWidgetShortcutLayoutBinding
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
-import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
-import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.filters.Filter
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.intents.TaskIntents
@@ -38,6 +40,13 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
 
     private var selectedFilter: Filter? = null
     private var selectedTheme = 0
+    private val listPickerResult = registerForListPickerResult {
+        if (selectedFilter != null && selectedFilter!!.title == getShortcutName()) {
+            shortcutName.text = null
+        }
+        selectedFilter = it
+        updateFilterAndTheme()
+    }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,14 +75,6 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
             selectedTheme = savedInstanceState.getInt(EXTRA_THEME)
         }
         updateFilterAndTheme()
-
-        supportFragmentManager.setFilterPickerResultListener(this) {
-            if (selectedFilter != null && selectedFilter!!.title == getShortcutName()) {
-                shortcutName.text = null
-            }
-            selectedFilter = it
-            updateFilterAndTheme()
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -90,8 +91,7 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
     }
 
     private fun showListPicker() {
-        newFilterPicker(selectedFilter)
-            .show(supportFragmentManager, FRAG_TAG_FILTER_PICKER)
+        listPickerResult.launch(context = this, selectedFilter = selectedFilter)
     }
 
     private fun showThemePicker() {
@@ -145,6 +145,5 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
         private const val EXTRA_FILTER = "extra_filter"
         private const val EXTRA_THEME = "extra_theme"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
-        private const val FRAG_TAG_FILTER_PICKER = "frag_tag_filter_picker"
     }
 }

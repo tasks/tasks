@@ -61,6 +61,8 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarPicker
 import org.tasks.compose.BeastModeBanner
+import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.CommentsRow
 import org.tasks.compose.edit.DescriptionRow
@@ -86,8 +88,6 @@ import org.tasks.databinding.TaskEditTimerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.dialogs.FilterPicker.Companion.newFilterPicker
-import org.tasks.dialogs.FilterPicker.Companion.setFilterPickerResultListener
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.hideKeyboard
 import org.tasks.files.FileHelper
@@ -140,6 +140,9 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             activity?.recreate()
         }
+    private val listPickerLauncher = registerForListPickerResult { filter ->
+        editViewModel.selectedList.update { filter }
+    }
 
     val task: Task?
         get() = BundleCompat.getParcelable(requireArguments(), EXTRA_TASK, Task::class.java)
@@ -306,9 +309,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
                     }
                 }
             }
-        }
-        childFragmentManager.setFilterPickerResultListener(this) { filter ->
-            editViewModel.selectedList.update { filter }
         }
         return view
     }
@@ -493,11 +493,11 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             list = list,
             colorProvider = { chipProvider.getColor(it) },
             onClick = {
-                newFilterPicker(list, true)
-                    .show(
-                        childFragmentManager,
-                        FRAG_TAG_GOOGLE_TASK_LIST_SELECTION
-                    )
+                listPickerLauncher.launch(
+                    context = context,
+                    selectedFilter = list,
+                    listsOnly = true
+                )
             }
         )
     }
@@ -535,8 +535,6 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         const val EXTRA_TAGS = "extra_tags"
         const val EXTRA_ALARMS = "extra_alarms"
 
-        private const val FRAG_TAG_GOOGLE_TASK_LIST_SELECTION =
-            "frag_tag_google_task_list_selection"
         const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
         private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
         const val REQUEST_CODE_PICK_CALENDAR = 70
