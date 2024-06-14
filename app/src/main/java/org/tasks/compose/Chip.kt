@@ -6,7 +6,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,7 +20,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -79,7 +77,6 @@ fun Chip(
                         imageVector = Icons.Outlined.Cancel,
                         modifier = Modifier
                             .size(16.dp)
-                            .alpha(ContentAlpha.medium)
                             .clickable { onClearClick() },
                         contentDescription = stringResource(id = R.string.delete),
                     )
@@ -88,6 +85,7 @@ fun Chip(
             modifier = Modifier.defaultMinSize(minHeight = 26.dp),
             colors = FilterChipDefaults.filterChipColors(
                 containerColor = color.copy(alpha = .1f),
+                iconColor = MaterialTheme.colorScheme.onSurface,
                 labelColor = MaterialTheme.colorScheme.onSurface,
             ),
             label = {
