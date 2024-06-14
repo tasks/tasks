@@ -1,0 +1,4 @@
+* Add search bar to drawer
+* Add search bar to list picker
+* Fix deleting new subtasks from edit screen
+* Update translations

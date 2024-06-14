@@ -1,3 +1,14 @@
+### 13.10 (2024-06-14)
+
+* Add search bar to drawer
+* Add search bar to list picker
+* Fix deleting new subtasks from edit screen
+* Update translations
+  * Arabic - @islam2hamy
+  * Brazilian Portuguese - Jose Delvani
+  * Chinese (Traditional) - hugoalh
+  * German - min7-i
+
 ### 13.9.9 (2024-05-30)
 
 * Fix import backup crashes
