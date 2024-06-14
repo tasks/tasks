@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -63,12 +64,17 @@ class FilterSelectionActivity : AppCompatActivity() {
                             state.query.isNotBlank()
                         }
                     }
+                    BackHandler {
+                        if (searching) {
+                            viewModel.onQueryChange("")
+                        } else {
+                            finish()
+                        }
+                    }
                     SearchableFilterPicker(
                         filters = if (searching) state.searchResults else state.filters,
                         query = state.query,
                         onQueryChange = { viewModel.onQueryChange(it) },
-                        active = true,
-                        dismiss = { finish() },
                         getIcon = { ImageVector.vectorResource(id = viewModel.getIcon(it)) },
                         getColor = { viewModel.getColor(it) },
                         selected = selected,

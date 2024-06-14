@@ -32,7 +32,6 @@ fun FilterPickerPreview() {
             ),
             query = "",
             onQueryChange = {},
-            active = true,
             selected = null,
             onClick = {},
             getIcon = { when (it.icon) {
@@ -40,7 +39,6 @@ fun FilterPickerPreview() {
                 else -> Icons.Outlined.QuestionMark
             } },
             getColor = { 0 },
-            dismiss = {},
         )
     }
 }
