@@ -42,6 +42,8 @@ fun TasksMenu(
     toggleCollapsed: (NavigationDrawerSubheader) -> Unit,
     addFilter: (NavigationDrawerSubheader) -> Unit,
     dismiss: () -> Unit,
+    query: String,
+    onQueryChange: (String) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
     val skipPartiallyExpanded = remember(expanded) {
@@ -128,6 +130,8 @@ fun TasksMenu(
             onErrorClick = {
                 context.startActivity(Intent(context, MainPreferences::class.java))
             },
+            query = query,
+            onQueryChange = onQueryChange,
         )
     }
 }

@@ -1,16 +1,13 @@
-package org.tasks.previews
+package org.tasks.previews.pickers
 
 import android.content.res.Configuration
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AllInbox
 import androidx.compose.material.icons.outlined.QuestionMark
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import org.tasks.compose.pickers.SearchableFilterPicker
+import org.tasks.themes.TasksTheme
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.NavigationDrawerSubheader
 
@@ -21,9 +18,7 @@ import org.tasks.filters.NavigationDrawerSubheader
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
 fun FilterPickerPreview() {
-    MaterialTheme(
-        colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
-    ) {
+    TasksTheme {
         SearchableFilterPicker(
             filters = listOf(
                 FilterImpl("My Tasks", icon = 4),

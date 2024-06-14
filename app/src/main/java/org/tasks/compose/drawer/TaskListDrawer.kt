@@ -16,17 +16,18 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.PeopleOutline
 import androidx.compose.material.icons.outlined.PermIdentity
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.SyncProblem
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -34,7 +35,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -49,6 +52,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
+import org.tasks.compose.components.SearchBar
 import org.tasks.extensions.formatNumber
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.NavigationDrawerSubheader
@@ -63,7 +67,14 @@ fun TaskListDrawer(
     onDrawerAction: (DrawerAction) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
     onErrorClick: () -> Unit,
+    query: String,
+    onQueryChange: (String) -> Unit,
 ) {
+    val searching by remember (query) {
+        derivedStateOf {
+            query.isNotBlank()
+        }
+    }
     LazyColumn(
         modifier = Modifier
             .padding(bottom = bottomPadding)
@@ -73,7 +84,33 @@ fun TaskListDrawer(
                     stiffness = Spring.StiffnessMedium
                 )
             )
+            .imePadding()
     ) {
+        item {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                SearchBar(
+                    modifier = Modifier
+                        .padding(start = 8.dp, bottom = 4.dp)
+                        .weight(1f),
+                    text = query,
+                    onTextChange = { onQueryChange(it) },
+                    placeHolder = stringResource(id = R.string.TLA_menu_search),
+                    onCloseClicked = { onQueryChange("") },
+                    onSearchClicked = {
+                        // TODO: close keyboard
+                    },
+                )
+                IconButton(onClick = { onDrawerAction(DrawerAction.SETTINGS) }) {
+                    Icon(
+                        imageVector = Icons.Outlined.Settings,
+                        contentDescription = stringResource(id = R.string.TLA_menu_settings),
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+            }
+        }
         items(items = filters) {
             when (it) {
                 is DrawerItem.Filter -> FilterItem(
@@ -89,48 +126,42 @@ fun TaskListDrawer(
                 )
             }
         }
-        item {
-            Divider(modifier = Modifier.fillMaxWidth())
-        }
-        if (begForMoney) {
+        if (!searching) {
             item {
-                MenuAction(
-                    icon = R.drawable.ic_outline_attach_money_24px,
-                    title = if (IS_GENERIC) R.string.TLA_menu_donate else R.string.name_your_price
-                ) {
-                    onDrawerAction(DrawerAction.PURCHASE)
+                Divider(modifier = Modifier.fillMaxWidth())
+            }
+            if (begForMoney) {
+                item {
+                    MenuAction(
+                        icon = R.drawable.ic_outline_attach_money_24px,
+                        title = if (IS_GENERIC) R.string.TLA_menu_donate else R.string.name_your_price
+                    ) {
+                        onDrawerAction(DrawerAction.PURCHASE)
+                    }
                 }
             }
-        }
-        item {
-            MenuAction(
-                icon = R.drawable.ic_outline_edit_24px,
-                title = R.string.manage_drawer
-            ) {
-                onDrawerAction(DrawerAction.CUSTOMIZE_DRAWER)
+            item {
+                MenuAction(
+                    icon = R.drawable.ic_outline_edit_24px,
+                    title = R.string.manage_drawer
+                ) {
+                    onDrawerAction(DrawerAction.CUSTOMIZE_DRAWER)
+                }
             }
-        }
-        item {
-            MenuAction(
-                icon = R.drawable.ic_outline_settings_24px,
-                title = R.string.TLA_menu_settings
-            ) {
-                onDrawerAction(DrawerAction.SETTINGS)
-            }
-        }
-        item {
-            MenuAction(
-                icon = R.drawable.ic_outline_help_outline_24px,
-                title = R.string.help_and_feedback
-            ) {
-                onDrawerAction(DrawerAction.HELP_AND_FEEDBACK)
+            item {
+                MenuAction(
+                    icon = R.drawable.ic_outline_help_outline_24px,
+                    title = R.string.help_and_feedback
+                ) {
+                    onDrawerAction(DrawerAction.HELP_AND_FEEDBACK)
+                }
             }
         }
     }
 }
 
 @Composable
-private fun FilterItem(
+internal fun FilterItem(
     item: DrawerItem.Filter,
     onClick: () -> Unit,
 ) {
@@ -161,9 +192,7 @@ private fun FilterItem(
                     else -> Icons.Outlined.PeopleOutline
                 },
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface.copy(
-                    alpha = ContentAlpha.medium
-                ),
+                tint = MaterialTheme.colorScheme.onSurface,
             )
         }
         Box(
@@ -207,12 +236,12 @@ private fun DrawerIcon(icon: Int, color: Int = 0) {
         tint = when (color) {
             0 -> MaterialTheme.colorScheme.onSurface
             else -> Color(color)
-        }.copy(alpha = ContentAlpha.medium)
+        }
     )
 }
 
 @Composable
-private fun HeaderItem(
+internal fun HeaderItem(
     item: DrawerItem.Header,
     canAdd: Boolean,
     toggleCollapsed: () -> Unit,
@@ -289,6 +318,7 @@ private fun MenuRow(
 fun MenuPreview() {
     TasksTheme {
         TaskListDrawer(
+            begForMoney = true,
             filters = persistentListOf(
                 DrawerItem.Filter(
                     title = "My Tasks",
@@ -313,9 +343,10 @@ fun MenuPreview() {
             ),
             onClick = {},
             onDrawerAction = {},
-            begForMoney = true,
             onAddClick = {},
             onErrorClick = {},
+            query = "",
+            onQueryChange = {},
         )
     }
 }

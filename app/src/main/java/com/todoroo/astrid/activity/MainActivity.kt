@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                         bottomPadding = WindowInsets.mandatorySystemGestures
                             .asPaddingValues()
                             .calculateBottomPadding(),
-                        items = state.drawerItems,
+                        items = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
                         begForMoney = state.begForMoney,
                         isTopAppBar = preferences.isTopAppBar,
                         setFilter = { viewModel.setFilter(it) },
@@ -161,6 +161,8 @@ class MainActivity : AppCompatActivity() {
                             }
                         },
                         dismiss = { viewModel.setDrawerOpen(false) },
+                        query = state.menuQuery,
+                        onQueryChange = { viewModel.queryMenu(it) },
                     )
                 }
             }

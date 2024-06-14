@@ -62,6 +62,8 @@ class MainActivityViewModel @Inject constructor(
         val task: Task? = null,
         val drawerOpen: Boolean = false,
         val drawerItems: ImmutableList<DrawerItem> = persistentListOf(),
+        val searchItems: ImmutableList<DrawerItem> = persistentListOf(),
+        val menuQuery: String = "",
     )
 
     private val _state = MutableStateFlow(
@@ -107,7 +109,12 @@ class MainActivityViewModel @Inject constructor(
     }
 
     fun setDrawerOpen(open: Boolean) {
-        _state.update { it.copy(drawerOpen = open) }
+        _state.update {
+            it.copy(
+                drawerOpen = open,
+                menuQuery = if (!open) "" else it.menuQuery,
+            )
+        }
     }
 
     init {
@@ -152,6 +159,27 @@ class MainActivityViewModel @Inject constructor(
                 }
             }
             .let { filters -> _state.update { it.copy(drawerItems = filters.toPersistentList()) } }
+        val query = _state.value.menuQuery
+        filterProvider
+            .allFilters()
+            .filter { it.title!!.contains(query, ignoreCase = true) }
+            .map { item ->
+                DrawerItem.Filter(
+                    title = item.title ?: "",
+                    icon = getIcon(item),
+                    color = getColor(item),
+                    count = item.count.takeIf { it != NO_COUNT } ?: try {
+                        taskDao.count(item)
+                    } catch (e: Exception) {
+                        Timber.e(e)
+                        0
+                    },
+                    selected = item.areItemsTheSame(selected),
+                    shareCount = if (item is CaldavFilter) item.principals else 0,
+                    type = { item },
+                )
+            }
+            .let { filters -> _state.update { it.copy(searchItems = filters.toPersistentList()) } }
     }
 
     private fun getColor(filter: Filter): Int {
@@ -201,5 +229,10 @@ class MainActivityViewModel @Inject constructor(
 
     fun setTask(task: Task?) {
         _state.update { it.copy(task = task) }
+    }
+
+    fun queryMenu(query: String) {
+        _state.update { it.copy(menuQuery = query) }
+        updateFilters()
     }
 }
