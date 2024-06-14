@@ -158,7 +158,7 @@ retrofit-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.re
 shortcut-badger = { module = "me.leolin:ShortcutBadger", version.ref = "shortcut-badger" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }
-androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version = "1.6.7" }
+androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version = "1.6.8" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
