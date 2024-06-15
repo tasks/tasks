@@ -123,7 +123,7 @@ google-services = { module = "com.google.gms:google-services", version.ref = "go
 gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 jchronic = { module = "com.rubiconproject.oss:jchronic", version.ref = "jchronic" }
 junit = { module = "junit:junit", version.ref = "junit-junit" }
-kermit = { module = "co.touchlab:kermit", version = "2.0.3" }
+kermit = { module = "co.touchlab:kermit", version = "2.0.4" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.7" }
 kotlin-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }

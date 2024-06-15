@@ -262,10 +262,10 @@
 +|    |                   +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.6.3 (*)
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.9.22 -> 2.0.0
 +|    |                        \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 (*)
-+|    +--- co.touchlab:kermit:2.0.3
-+|    |    \--- co.touchlab:kermit-android:2.0.3
-+|    |         +--- co.touchlab:kermit-core:2.0.3
-+|    |         |    \--- co.touchlab:kermit-core-android:2.0.3
++|    +--- co.touchlab:kermit:2.0.4
++|    |    \--- co.touchlab:kermit-android:2.0.4
++|    |         +--- co.touchlab:kermit-core:2.0.4
++|    |         |    \--- co.touchlab:kermit-core-android:2.0.4
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.0.0 (*)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.0.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.0.0 (*)
@@ -598,7 +598,7 @@
 +|    |              +--- androidx.compose.material:material-icons-core:1.6.7 (c)
 +|    |              \--- androidx.compose.material:material-ripple:1.6.7 (c)
 +|    +--- org.jetbrains.compose.runtime:runtime:1.6.10 (*)
-+|    +--- co.touchlab:kermit:2.0.3 (*)
++|    +--- co.touchlab:kermit:2.0.4 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.0.0 (*)
 ++--- com.github.bitfireAT:dav4jvm:2.2.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 2.0.0 (*)
