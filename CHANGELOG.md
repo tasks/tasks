@@ -1,4 +1,4 @@
-### 13.10 (2024-06-14)
+### 13.10 (2024-06-16)
 
 * Add search bar to drawer
 * Add search bar to list picker
