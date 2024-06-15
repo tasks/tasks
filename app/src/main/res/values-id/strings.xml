@@ -596,7 +596,6 @@
     <string name="remove_user_confirmation">%1$s tidak akan mempunyai akses lagi pada %2$s</string>
     <string name="remove_user">Hapus pengguna\?</string>
     <string name="list_members">Daftar anggota</string>
-    <string name="manage_drawer">Laci Kelola</string>
     <string name="invite_invalid">Undangan tidak valid</string>
     <string name="invite_awaiting_response">Undangan menunggu respon</string>
     <string name="invite_declined">Undangan ditolak</string>

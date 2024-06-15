@@ -69,7 +69,7 @@ class NavigationDrawerCustomization : ThemedInjectingAppCompatActivity(), Toolba
         toolbar = binding.toolbar.toolbar
 
         with(toolbar) {
-            title = getString(R.string.manage_drawer)
+            title = getString(R.string.customize_drawer)
             navigationIcon = getDrawable(R.drawable.ic_outline_arrow_back_24px)
             setNavigationOnClickListener { finish() }
             setOnMenuItemClickListener(this@NavigationDrawerCustomization)

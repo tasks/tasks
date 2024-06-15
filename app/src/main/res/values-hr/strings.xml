@@ -157,7 +157,6 @@
     <string name="not_signed_in">Nisi prijavljen/a</string>
     <string name="contact_developer">Kontaktiraj programera</string>
     <string name="hide_unused_places">Sakrij nekorištena mjesta</string>
-    <string name="manage_drawer">Upravljaj ladicom</string>
     <string name="place_settings">Postavke mjesta</string>
     <string name="places">Mjesta</string>
     <string name="desaturate_colors_summary_off">Boje neće biti nezasićene u tamnim temama</string>

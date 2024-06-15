@@ -14,16 +14,21 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.mandatorySystemGestures
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.AttachMoney
 import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.PeopleOutline
 import androidx.compose.material.icons.outlined.PermIdentity
@@ -37,21 +42,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.R
-import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.compose.components.SearchBar
 import org.tasks.extensions.formatNumber
 import org.tasks.filters.FilterImpl
@@ -60,7 +66,6 @@ import org.tasks.themes.TasksTheme
 
 @Composable
 fun TaskListDrawer(
-    bottomPadding: Dp = 0.dp,
     begForMoney: Boolean,
     filters: ImmutableList<DrawerItem>,
     onClick: (DrawerItem) -> Unit,
@@ -75,16 +80,19 @@ fun TaskListDrawer(
             query.isNotBlank()
         }
     }
+    var hasFocus by remember { mutableStateOf(false) }
     LazyColumn(
         modifier = Modifier
-            .padding(bottom = bottomPadding)
             .animateContentSize(
                 animationSpec = spring(
                     dampingRatio = Spring.DampingRatioNoBouncy,
                     stiffness = Spring.StiffnessMedium
                 )
             )
-            .imePadding()
+            .imePadding(),
+        contentPadding = PaddingValues(bottom = WindowInsets.mandatorySystemGestures
+            .asPaddingValues()
+            .calculateBottomPadding()),
     ) {
         item {
             Row(
@@ -92,8 +100,16 @@ fun TaskListDrawer(
             ) {
                 SearchBar(
                     modifier = Modifier
+                        .onFocusChanged { hasFocus = it.hasFocus }
                         .padding(start = 8.dp, bottom = 4.dp)
-                        .weight(1f),
+                        .weight(1f)
+                        .animateContentSize(
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioNoBouncy,
+                                stiffness = Spring.StiffnessMedium
+                            )
+                        )
+                    ,
                     text = query,
                     onTextChange = { onQueryChange(it) },
                     placeHolder = stringResource(id = R.string.TLA_menu_search),
@@ -102,12 +118,30 @@ fun TaskListDrawer(
                         // TODO: close keyboard
                     },
                 )
-                IconButton(onClick = { onDrawerAction(DrawerAction.SETTINGS) }) {
-                    Icon(
-                        imageVector = Icons.Outlined.Settings,
-                        contentDescription = stringResource(id = R.string.TLA_menu_settings),
-                        tint = MaterialTheme.colorScheme.onSurface,
-                    )
+                if (!hasFocus) {
+                    if (begForMoney) {
+                        IconButton(onClick = { onDrawerAction(DrawerAction.PURCHASE) }) {
+                            Icon(
+                                imageVector = Icons.Outlined.AttachMoney,
+                                contentDescription = stringResource(id = R.string.button_subscribe),
+                                tint = MaterialTheme.colorScheme.onSurface,
+                            )
+                        }
+                    }
+                    IconButton(onClick = { onDrawerAction(DrawerAction.HELP_AND_FEEDBACK) }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
+                            contentDescription = stringResource(id = R.string.help_and_feedback),
+                            tint = MaterialTheme.colorScheme.onSurface,
+                        )
+                    }
+                    IconButton(onClick = { onDrawerAction(DrawerAction.SETTINGS) }) {
+                        Icon(
+                            imageVector = Icons.Outlined.Settings,
+                            contentDescription = stringResource(id = R.string.TLA_menu_settings),
+                            tint = MaterialTheme.colorScheme.onSurface,
+                        )
+                    }
                 }
             }
         }
@@ -129,32 +163,6 @@ fun TaskListDrawer(
         if (!searching) {
             item {
                 Divider(modifier = Modifier.fillMaxWidth())
-            }
-            if (begForMoney) {
-                item {
-                    MenuAction(
-                        icon = R.drawable.ic_outline_attach_money_24px,
-                        title = if (IS_GENERIC) R.string.TLA_menu_donate else R.string.name_your_price
-                    ) {
-                        onDrawerAction(DrawerAction.PURCHASE)
-                    }
-                }
-            }
-            item {
-                MenuAction(
-                    icon = R.drawable.ic_outline_edit_24px,
-                    title = R.string.manage_drawer
-                ) {
-                    onDrawerAction(DrawerAction.CUSTOMIZE_DRAWER)
-                }
-            }
-            item {
-                MenuAction(
-                    icon = R.drawable.ic_outline_help_outline_24px,
-                    title = R.string.help_and_feedback
-                ) {
-                    onDrawerAction(DrawerAction.HELP_AND_FEEDBACK)
-                }
             }
         }
     }

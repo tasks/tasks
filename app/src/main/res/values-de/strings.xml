@@ -610,7 +610,6 @@
     <string name="social">Sozial</string>
     <string name="follow_twitter">Folgen Sie @tasks_org</string>
     <string name="map_theme">Kartendesign</string>
-    <string name="manage_drawer">Seitenleiste verwalten</string>
     <string name="map_theme_use_app_theme">Anwendungsthema nutzen</string>
     <string name="tasks_org_account_required">Tasks.org-Konto erforderlich</string>
     <string name="invite_awaiting_response">Einladung wartet auf Antwort</string>

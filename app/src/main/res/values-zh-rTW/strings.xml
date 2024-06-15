@@ -529,7 +529,6 @@
     <string name="next_sunday">下週日</string>
     <string name="CFC_startBefore_name">起始…</string>
     <string name="CFC_startBefore_text">起始: \?</string>
-    <string name="manage_drawer">管理側邊欄</string>
     <string name="now">現在</string>
     <string name="when_started">開始后</string>
     <string name="bundle_notifications">捆綁通知</string>

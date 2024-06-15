@@ -533,7 +533,6 @@
     <string name="compact">Kompaktiška</string>
     <string name="hide_check_button">Slėpti žymėjimo mygtuką</string>
     <string name="navigation_drawer">Navigacijos parankinės juosta</string>
-    <string name="manage_drawer">Tvarkyti parankinės juostą</string>
     <string name="foreground_location">Vietos nustatymas</string>
     <string name="background_location">Foninis vietos nustatymas</string>
     <string name="multi_select_reschedule">Perplanuoti</string>

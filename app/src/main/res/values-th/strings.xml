@@ -610,7 +610,6 @@
     <string name="SSD_sort_my_order">ใบสั่งของฉัน</string>
     <string name="action_open">เปิด</string>
     <string name="action_call">โทร</string>
-    <string name="manage_drawer">จัดการลิ้นชัก</string>
     <string name="TLA_menu_settings">การตั้งค่า</string>
     <string name="TLA_menu_search">ค้น</string>
     <string name="TLA_no_items">ไม่มีงานที่นี่</string>

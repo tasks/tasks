@@ -2,6 +2,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
   android:key="@string/preference_screen">
 
+    <Preference
+        android:summary="@string/customize_drawer_summary"
+        android:title="@string/customize_drawer">
+        <intent
+            android:targetClass="org.tasks.activities.NavigationDrawerCustomization"
+            android:targetPackage="@string/app_package" />
+    </Preference>
+
     <PreferenceCategory android:title="@string/filters">
 
         <SwitchPreferenceCompat

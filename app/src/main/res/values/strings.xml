@@ -29,7 +29,8 @@ File %1$s contained %2$s.\n\n
   <string name="TLA_menu_search">Search</string>
   <string name="TLA_menu_settings">Settings</string>
   <string name="TAd_actionEditTask">Edit</string>
-  <string name="manage_drawer">Manage drawer</string>
+  <string name="customize_drawer">Customize drawer</string>
+  <string name="customize_drawer_summary">Drag and drop to rearrange menu items</string>
   <string name="action_call">Call</string>
   <string name="action_open">Open</string>
   <string name="SSD_sort_my_order">My order</string>

@@ -661,7 +661,6 @@
     <string name="next_tuesday">Następny wtorek</string>
     <string name="next_monday">Następny poniedziałek</string>
     <string name="next_sunday">Następna niedziela</string>
-    <string name="manage_drawer">Zarządzaj szufladą</string>
     <string name="completed">Zakończone</string>
     <string name="app_bar_collapse">Zwiń pasek aplikacji</string>
     <string name="caldav_server_unknown">Nieznane</string>

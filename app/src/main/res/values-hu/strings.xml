@@ -613,7 +613,6 @@
     <string name="remove_user_confirmation">%1$s nem fog hozzáférni ehhez: %2$s</string>
     <string name="remove_user">Felhasználó eltávolítása\?</string>
     <string name="list_members">Listatagok</string>
-    <string name="manage_drawer">Fiók kezelése</string>
     <string name="invite_invalid">Érvénytelen meghívás</string>
     <string name="invite_awaiting_response">Válaszra váró meghívás</string>
     <string name="invite_declined">Meghívás visszautasítva</string>

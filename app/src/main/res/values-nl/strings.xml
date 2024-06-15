@@ -615,7 +615,6 @@
     <string name="list_members">Leden op de lijst</string>
     <string name="remove_user_confirmation">%1$s krijgt geen toegang meer tot %2$s</string>
     <string name="remove_user">Gebruiker verwijderen\?</string>
-    <string name="manage_drawer">Bewerken</string>
     <string name="share_list">Lijst delen</string>
     <string name="invite">Uitnodigen</string>
     <string name="invite_invalid">Uitnodiging ongeldig</string>

@@ -621,7 +621,6 @@
     <string name="start_date">Aloituspäivä</string>
     <string name="SSD_sort_start">Aloituspäivän mukaan</string>
     <string name="astrid_sort_order">Astrid manuaalinen lajittelu</string>
-    <string name="manage_drawer">Laatikon hallinta</string>
     <string name="github_sponsors">GitHubin sponsorit</string>
     <string name="google_play_subscribers">Google Play -tilaajat</string>
     <string name="not_signed_in">Ei kirjautunut sisään</string>

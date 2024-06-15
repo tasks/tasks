@@ -201,7 +201,6 @@
     <string name="TEA_elapsedDuration_label">Tempo jam pasinta</string>
     <string name="TEA_estimatedDuration_label">Kiom da tempo ĝi daŭros\?</string>
     <string name="FLA_new_filter">Krei novan filtrilon</string>
-    <string name="manage_drawer">Administri tirkeston</string>
     <string name="read_permission_label">Permesoj de Tasks</string>
     <string name="import_summary_title">Restaŭri resumon</string>
     <string name="import_progress_read">Legas taskon, %d…</string>

@@ -15,14 +15,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Tasks
-import org.tasks.activities.NavigationDrawerCustomization
 import org.tasks.billing.PurchaseActivity
 import org.tasks.extensions.Context.findActivity
 import org.tasks.extensions.Context.openUri
@@ -34,7 +31,6 @@ import org.tasks.preferences.MainPreferences
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TasksMenu(
-    bottomPadding: Dp = 0.dp,
     items: ImmutableList<DrawerItem>,
     isTopAppBar: Boolean,
     begForMoney: Boolean,
@@ -82,7 +78,6 @@ fun TasksMenu(
     ) {
         val scope = rememberCoroutineScope()
         TaskListDrawer(
-            bottomPadding = bottomPadding,
             begForMoney = begForMoney,
             filters = items,
             onClick = {
@@ -114,11 +109,6 @@ fun TasksMenu(
                             context.openUri(R.string.url_donate)
                         else
                             context.startActivity(Intent(context, PurchaseActivity::class.java))
-
-                    DrawerAction.CUSTOMIZE_DRAWER ->
-                        context.startActivity(
-                            Intent(context, NavigationDrawerCustomization::class.java)
-                        )
 
                     DrawerAction.SETTINGS ->
                         settingsRequest.launch(Intent(context, MainPreferences::class.java))

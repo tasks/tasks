@@ -141,7 +141,6 @@
     <string name="SSD_sort_start">Per data d\'inici</string>
     <string name="astrid_sort_order_summary">Activa el mode d\'ordenació manual d\'Astrid per a les etiquetes «Les meves tasques», «Avui» i «etiquetes». Aquest mode d\'ordenació serà substituït per «El meu ordre» en una actualització futura</string>
     <string name="astrid_sort_order">Ordenació manual d\'Astrid</string>
-    <string name="manage_drawer">Gestiona el calaix</string>
     <string name="cancel">Cancel·la</string>
     <string name="ok">D\'acord</string>
     <string name="priority_high">Alt</string>

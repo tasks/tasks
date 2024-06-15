@@ -632,7 +632,6 @@
     <string name="remove_user_confirmation">%1$s n’aura plus accès à %2$s</string>
     <string name="remove_user">Supprimer l’utilisatrice ou l\'utilisateur \?</string>
     <string name="list_members">Lister les membres</string>
-    <string name="manage_drawer">Gérer le tiroir</string>
     <string name="invite_invalid">Invitation non valide</string>
     <string name="invite_awaiting_response">Invitation en attente de réponse</string>
     <string name="invite_declined">Invitation déclinée</string>

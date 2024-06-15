@@ -573,7 +573,6 @@
     <string name="tasks_org_description">Synchronizujte své úkoly pomocí Tasks.org</string>
     <string name="background_location_permission_required">Tato aplikace sbírá údaje o Vaší poloze, aby fungovala upozornění podle polohy i když aplikaci zrovna nepoužíváte.</string>
     <string name="reinitialize_account">Znovu inicializovat</string>
-    <string name="manage_drawer">Upravit postranní nabídku</string>
     <string name="custom_filter_is_subtask">Je podúkol</string>
     <string name="custom_filter_has_subtask">Má podúkoly</string>
     <string name="date_picker_multiple">Vícenásobné</string>

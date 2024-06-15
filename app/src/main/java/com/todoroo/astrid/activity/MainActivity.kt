@@ -11,9 +11,6 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.mandatorySystemGestures
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -112,9 +109,6 @@ class MainActivity : AppCompatActivity() {
             if (state.drawerOpen) {
                 TasksTheme {
                     TasksMenu(
-                        bottomPadding = WindowInsets.mandatorySystemGestures
-                            .asPaddingValues()
-                            .calculateBottomPadding(),
                         items = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
                         begForMoney = state.begForMoney,
                         isTopAppBar = preferences.isTopAppBar,

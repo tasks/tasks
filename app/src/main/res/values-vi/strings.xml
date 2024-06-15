@@ -32,7 +32,6 @@
     <string name="astrid_sort_order_summary">Bật chế độ sắp xếp thủ công của Astrid đối với \'Công việc của tôi\', \'Hôm nay\', và các thẻ. Chế độ sắp xếp này sẽ được \'Thứ tự của tôi\' thay thế ở một bản cập nhật trong tương lai</string>
     <string name="action_open">Mở</string>
     <string name="action_call">Gọi</string>
-    <string name="manage_drawer">Quản lý ngăn</string>
     <string name="TAd_actionEditTask">Chỉnh sửa</string>
     <string name="TLA_menu_settings">Cài đặt</string>
     <string name="TLA_menu_search">Tìm kiếm</string>
