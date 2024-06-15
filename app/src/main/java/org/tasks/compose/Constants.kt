@@ -31,12 +31,12 @@ object Constants {
 
     @Composable
     fun textButtonColors() = ButtonDefaults.textButtonColors(
-        contentColor = MaterialTheme.colorScheme.onSecondary
+        contentColor = MaterialTheme.colorScheme.onSurface
     )
 
     @Composable
     fun textFieldColors() = OutlinedTextFieldDefaults.colors(
-        cursorColor = MaterialTheme.colorScheme.secondary,
-        focusedTextColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = ContentAlpha.high),
+        cursorColor = MaterialTheme.colorScheme.onSurface,
+        focusedTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.high),
     )
 }
