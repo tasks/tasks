@@ -101,7 +101,7 @@ fun TaskListDrawer(
                 SearchBar(
                     modifier = Modifier
                         .onFocusChanged { hasFocus = it.hasFocus }
-                        .padding(start = 8.dp, bottom = 4.dp)
+                        .padding(start = 8.dp, end = if (hasFocus) 8.dp else 0.dp, bottom = 4.dp)
                         .weight(1f)
                         .animateContentSize(
                             animationSpec = spring(
