@@ -153,7 +153,7 @@ class WidgetPreferences(
                 return color
             }
             val index = getInt(R.string.p_widget_color, -1)
-            color = context.getColor(getLegacyColor(index, R.color.blue_500))
+            color = context.getColor(getLegacyColor(index, org.tasks.kmp.R.color.blue_500))
             setInt(R.string.p_widget_color_v2, color)
             return color
         }

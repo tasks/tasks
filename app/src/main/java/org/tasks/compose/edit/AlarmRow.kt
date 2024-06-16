@@ -76,12 +76,12 @@ fun AlarmRow(
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         text = stringResource(id = R.string.enable_reminders),
-                        color = colorResource(id = R.color.red_500),
+                        color = colorResource(id = org.tasks.kmp.R.color.red_500),
                     )
                     Text(
                         text = stringResource(id = R.string.enable_reminders_description),
                         style = MaterialTheme.typography.bodySmall,
-                        color = colorResource(id = R.color.red_500),
+                        color = colorResource(id = org.tasks.kmp.R.color.red_500),
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                 }

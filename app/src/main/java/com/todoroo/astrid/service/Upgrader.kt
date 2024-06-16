@@ -6,7 +6,6 @@ import androidx.annotation.ColorRes
 import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
-import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import dagger.Lazy
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -34,6 +33,7 @@ import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Filter
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.TagData
+import org.tasks.filters.GtasksFilter
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -381,26 +381,26 @@ class Upgrader @Inject constructor(
         @ColorRes
         fun getLegacyColor(index: Int, def: Int): Int {
             return when (index) {
-                0 -> R.color.blue_grey_500
-                1 -> R.color.grey_900
-                2 -> R.color.red_500
-                3 -> R.color.pink_500
-                4 -> R.color.purple_500
-                5 -> R.color.deep_purple_500
-                6 -> R.color.indigo_500
-                7 -> R.color.blue_500
-                8 -> R.color.light_blue_500
-                9 -> R.color.cyan_500
-                10 -> R.color.teal_500
-                11 -> R.color.green_500
-                12 -> R.color.light_green_500
-                13 -> R.color.lime_500
-                14 -> R.color.yellow_500
-                15 -> R.color.amber_500
-                16 -> R.color.orange_500
-                17 -> R.color.deep_orange_500
-                18 -> R.color.brown_500
-                19 -> R.color.grey_500
+                0 -> org.tasks.kmp.R.color.blue_grey_500
+                1 -> org.tasks.kmp.R.color.grey_900
+                2 -> org.tasks.kmp.R.color.red_500
+                3 -> org.tasks.kmp.R.color.pink_500
+                4 -> org.tasks.kmp.R.color.purple_500
+                5 -> org.tasks.kmp.R.color.deep_purple_500
+                6 -> org.tasks.kmp.R.color.indigo_500
+                7 -> org.tasks.kmp.R.color.blue_500
+                8 -> org.tasks.kmp.R.color.light_blue_500
+                9 -> org.tasks.kmp.R.color.cyan_500
+                10 -> org.tasks.kmp.R.color.teal_500
+                11 -> org.tasks.kmp.R.color.green_500
+                12 -> org.tasks.kmp.R.color.light_green_500
+                13 -> org.tasks.kmp.R.color.lime_500
+                14 -> org.tasks.kmp.R.color.yellow_500
+                15 -> org.tasks.kmp.R.color.amber_500
+                16 -> org.tasks.kmp.R.color.orange_500
+                17 -> org.tasks.kmp.R.color.deep_orange_500
+                18 -> org.tasks.kmp.R.color.brown_500
+                19 -> org.tasks.kmp.R.color.grey_500
                 20 -> R.color.white_100
                 else -> def
             }

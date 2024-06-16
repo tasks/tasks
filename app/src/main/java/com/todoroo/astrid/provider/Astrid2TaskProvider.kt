@@ -76,10 +76,10 @@ class Astrid2TaskProvider : ContentProvider() {
         @ColorRes
         private fun getPriorityResId(priority: Int): Int {
             return when {
-                priority <= 0 -> R.color.red_500
-                priority == 1 -> R.color.amber_500
-                priority == 2 -> R.color.blue_500
-                else -> R.color.grey_500
+                priority <= 0 -> org.tasks.kmp.R.color.red_500
+                priority == 1 -> org.tasks.kmp.R.color.amber_500
+                priority == 2 -> org.tasks.kmp.R.color.blue_500
+                else -> org.tasks.kmp.R.color.grey_500
             }
         }
 

@@ -259,7 +259,7 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
                 ?.mutate()
         pref.tint = context?.getColor(when {
             hasError -> R.color.overdue
-            hasWarning -> R.color.orange_500
+            hasWarning -> org.tasks.kmp.R.color.orange_500
             else -> R.color.icon_tint_with_alpha
         })
     }
