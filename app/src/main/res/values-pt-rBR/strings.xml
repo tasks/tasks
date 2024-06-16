@@ -755,4 +755,6 @@
     <string name="swipe_to_snooze_time_30_minutes">após 30 minutos</string>
     <string name="swipe_to_snooze_time_1_hour">após 1 hora</string>
     <string name="swipe_to_snooze_time_24_hours">após 24 horas</string>
+    <string name="customize_drawer">Personalizar menu</string>
+    <string name="customize_drawer_summary">Arraste e solte para reorganizar os itens do menu</string>
 </resources>
