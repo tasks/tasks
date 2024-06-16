@@ -259,8 +259,7 @@ dependencies {
     googleplayImplementation(libs.play.services.location)
     googleplayImplementation(libs.play.services.maps)
     googleplayImplementation(libs.play.billing.ktx)
-    googleplayImplementation(libs.play.core)
-    googleplayImplementation(libs.play.core.ktx)
+    googleplayImplementation(libs.play.review)
     googleplayImplementation(libs.play.services.oss.licenses)
 
     androidTestImplementation(libs.dagger.hilt.testing)
