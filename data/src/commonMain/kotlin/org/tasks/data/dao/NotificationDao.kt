@@ -25,4 +25,7 @@ interface NotificationDao {
 
     @Query("SELECT MAX(timestamp) FROM notification")
     suspend fun latestTimestamp(): Long?
+
+    @Query("SELECT EXISTS(SELECT 1 FROM notification WHERE task = :taskId)")
+    suspend fun hasNotification(taskId: Long): Boolean
 }
