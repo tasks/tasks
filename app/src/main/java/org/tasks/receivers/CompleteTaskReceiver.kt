@@ -8,11 +8,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.tasks.injection.ApplicationScope
+import org.tasks.notifications.NotificationManager
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class CompleteTaskReceiver : BroadcastReceiver() {
+    @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject @ApplicationScope lateinit var scope: CoroutineScope
 
@@ -20,6 +22,7 @@ class CompleteTaskReceiver : BroadcastReceiver() {
         val taskId = intent.getLongExtra(TASK_ID, 0)
         Timber.i("Completing %s", taskId)
         scope.launch {
+            notificationManager.cancel(taskId)
             taskCompleter.setComplete(taskId)
         }
     }
