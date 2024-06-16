@@ -1,10 +1,8 @@
-package com.todoroo.astrid.api
+package org.tasks.filters
 
-import kotlinx.parcelize.Parcelize
-import org.tasks.filters.Filter
-import org.tasks.filters.FilterListItem
+import org.tasks.CommonParcelize
 
-@Parcelize
+@CommonParcelize
 class EmptyFilter(
     override val sql: String? = "WHERE 0",
     override val title: String? = null

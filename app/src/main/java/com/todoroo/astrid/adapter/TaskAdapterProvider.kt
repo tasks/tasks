@@ -2,8 +2,8 @@ package com.todoroo.astrid.adapter
 
 import android.content.Context
 import org.tasks.filters.CaldavFilter
-import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.api.TagFilter
+import org.tasks.filters.GtasksFilter
+import org.tasks.filters.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover

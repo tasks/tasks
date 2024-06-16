@@ -2,7 +2,7 @@ package com.todoroo.astrid.adapter
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.api.GtasksFilter
+import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest

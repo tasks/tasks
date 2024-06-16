@@ -9,8 +9,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import org.tasks.filters.CaldavFilter
 import com.todoroo.astrid.api.CustomFilter
-import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.api.TagFilter
+import org.tasks.filters.GtasksFilter
+import org.tasks.filters.TagFilter
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.databinding.FilterAdapterRowBinding

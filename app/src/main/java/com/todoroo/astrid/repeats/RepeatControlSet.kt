@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.lifecycleScope
 import org.tasks.filters.CaldavFilter
-import com.todoroo.astrid.api.GtasksFilter
+import org.tasks.filters.GtasksFilter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import net.fortuna.ical4j.model.Recur

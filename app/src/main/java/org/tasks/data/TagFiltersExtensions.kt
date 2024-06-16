@@ -1,6 +1,6 @@
 package org.tasks.data
 
-import com.todoroo.astrid.api.TagFilter
+import org.tasks.filters.TagFilter
 
 fun TagFilters.toTagFilter(): TagFilter = TagFilter(
     tagData = tagData,

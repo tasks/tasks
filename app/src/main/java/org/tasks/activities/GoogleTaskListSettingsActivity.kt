@@ -13,7 +13,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import com.todoroo.astrid.api.GtasksFilter
+import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable

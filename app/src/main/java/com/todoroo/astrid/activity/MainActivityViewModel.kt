@@ -9,8 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.activity.MainActivity.Companion.LOAD_FILTER
 import com.todoroo.astrid.activity.MainActivity.Companion.OPEN_FILTER
 import com.todoroo.astrid.api.CustomFilter
-import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.api.TagFilter
+import org.tasks.filters.GtasksFilter
+import org.tasks.filters.TagFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf

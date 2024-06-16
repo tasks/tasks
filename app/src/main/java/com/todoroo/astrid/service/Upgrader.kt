@@ -6,7 +6,7 @@ import androidx.annotation.ColorRes
 import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
-import com.todoroo.astrid.api.GtasksFilter
+import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import dagger.Lazy
 import dagger.hilt.android.qualifiers.ApplicationContext

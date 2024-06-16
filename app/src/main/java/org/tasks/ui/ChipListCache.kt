@@ -1,6 +1,6 @@
 package org.tasks.ui
 
-import com.todoroo.astrid.api.TagFilter
+import org.tasks.filters.TagFilter
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

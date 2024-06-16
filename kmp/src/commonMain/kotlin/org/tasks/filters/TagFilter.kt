@@ -1,7 +1,6 @@
-package com.todoroo.astrid.api
+package org.tasks.filters
 
-import com.todoroo.andlib.utility.AndroidUtilities
-import kotlinx.parcelize.Parcelize
+import org.tasks.CommonParcelize
 import org.tasks.data.NO_COUNT
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.data.entity.Tag
@@ -10,11 +9,8 @@ import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.QueryTemplate
-import org.tasks.filters.AstridOrderingFilter
-import org.tasks.filters.FilterListItem
-import org.tasks.filters.mapToSerializedString
 
-@Parcelize
+@CommonParcelize
 data class TagFilter(
     val tagData: TagData,
     override val count: Int = NO_COUNT,

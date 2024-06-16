@@ -1,6 +1,6 @@
 package org.tasks.data
 
-import com.todoroo.astrid.api.GtasksFilter
+import org.tasks.filters.GtasksFilter
 
 fun GoogleTaskFilters.toGtasksFilter(): GtasksFilter = GtasksFilter(
     list = googleTaskList,

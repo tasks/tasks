@@ -6,7 +6,7 @@ import com.google.api.client.util.DateTime
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.Tasks
-import com.todoroo.astrid.api.GtasksFilter
+import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gtasks.GtasksListService
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities

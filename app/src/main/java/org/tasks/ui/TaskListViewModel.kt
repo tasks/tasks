@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.todoroo.astrid.api.EmptyFilter
-import com.todoroo.astrid.api.SearchFilter
+import org.tasks.filters.EmptyFilter
+import org.tasks.filters.SearchFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel

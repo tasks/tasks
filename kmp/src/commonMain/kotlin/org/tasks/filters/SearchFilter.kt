@@ -1,6 +1,6 @@
-package com.todoroo.astrid.api
+package org.tasks.filters
 
-import kotlinx.parcelize.Parcelize
+import org.tasks.CommonParcelize
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Geofence
@@ -12,10 +12,8 @@ import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.Join
 import org.tasks.data.sql.Query
 import org.tasks.data.sql.QueryTemplate
-import org.tasks.filters.Filter
-import org.tasks.filters.FilterListItem
 
-@Parcelize
+@CommonParcelize
 data class SearchFilter(
     override val title: String,
     val query: String,

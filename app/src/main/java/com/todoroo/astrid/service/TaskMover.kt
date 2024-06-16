@@ -2,7 +2,7 @@ package com.todoroo.astrid.service
 
 import android.content.Context
 import org.tasks.filters.CaldavFilter
-import com.todoroo.astrid.api.GtasksFilter
+import org.tasks.filters.GtasksFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager

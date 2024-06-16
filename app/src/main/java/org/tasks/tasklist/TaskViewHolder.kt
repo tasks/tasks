@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.filters.CaldavFilter
-import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.api.TagFilter
+import org.tasks.filters.GtasksFilter
+import org.tasks.filters.TagFilter
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_LIST
 import com.todoroo.astrid.core.SortHelper.SORT_START

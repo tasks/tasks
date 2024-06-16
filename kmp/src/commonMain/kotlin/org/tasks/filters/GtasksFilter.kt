@@ -1,21 +1,17 @@
-package com.todoroo.astrid.api
+package org.tasks.filters
 
-import org.tasks.data.sql.Criterion.Companion.and
-import org.tasks.data.sql.Join.Companion.left
-import org.tasks.data.sql.QueryTemplate
-import com.todoroo.andlib.utility.AndroidUtilities
-import org.tasks.data.entity.Task
-import kotlinx.parcelize.Parcelize
-import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.entity.CaldavTask
+import org.tasks.CommonParcelize
 import org.tasks.data.GoogleTask
 import org.tasks.data.NO_COUNT
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
-import org.tasks.filters.Filter
-import org.tasks.filters.FilterListItem
-import org.tasks.filters.mapToSerializedString
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Task
+import org.tasks.data.sql.Criterion.Companion.and
+import org.tasks.data.sql.Join.Companion.left
+import org.tasks.data.sql.QueryTemplate
 
-@Parcelize
+@CommonParcelize
 data class GtasksFilter(
     val list: CaldavCalendar,
     override val count: Int = NO_COUNT,

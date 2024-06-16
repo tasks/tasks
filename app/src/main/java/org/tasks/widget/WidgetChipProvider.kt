@@ -5,8 +5,8 @@ import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.filters.CaldavFilter
-import com.todoroo.astrid.api.GtasksFilter
-import com.todoroo.astrid.api.TagFilter
+import org.tasks.filters.GtasksFilter
+import org.tasks.filters.TagFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
