@@ -88,6 +88,7 @@ object AndroidUtilities {
         return Build.VERSION.SDK_INT >= VERSION_CODES.S
     }
 
+    @JvmStatic
     fun atLeastTiramisu(): Boolean {
         return Build.VERSION.SDK_INT >= VERSION_CODES.TIRAMISU
     }

@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.activity
 
+import android.Manifest
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.BroadcastReceiver
@@ -27,6 +28,7 @@ import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ShareCompat
@@ -45,9 +47,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionStatus
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
+import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
@@ -85,8 +92,10 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
+import org.tasks.compose.NotificationsDisabledBanner
 import org.tasks.compose.SubscriptionNagBanner
 import org.tasks.compose.collectAsStateLifecycleAware
+import org.tasks.compose.rememberReminderPermissionState
 import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
@@ -103,6 +112,9 @@ import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.PriorityPicker.Companion.newPriorityPicker
 import org.tasks.dialogs.SortSettingsActivity
+import org.tasks.extensions.Context.canScheduleExactAlarms
+import org.tasks.extensions.Context.openAppNotificationSettings
+import org.tasks.extensions.Context.openReminderSettings
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
@@ -116,6 +128,7 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
+import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerActivity
 import org.tasks.tasklist.DragAndDropRecyclerAdapter
@@ -168,7 +181,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var taskEditEventBus: TaskEditEventBus
     @Inject lateinit var database: Database
     @Inject lateinit var markdown: MarkdownProvider
-    
+
     private val listViewModel: TaskListViewModel by viewModels()
     private val mainViewModel: MainActivityViewModel by activityViewModels()
     private lateinit var taskAdapter: TaskAdapter
@@ -253,7 +266,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    @OptIn(ExperimentalAnimationApi::class)
+    @OptIn(ExperimentalAnimationApi::class, ExperimentalPermissionsApi::class)
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         requireActivity().onBackPressedDispatcher.addCallback(owner = viewLifecycleOwner) {
@@ -289,7 +302,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         (recyclerView.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         recyclerView.layoutManager = LinearLayoutManager(context)
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                listViewModel.updateBannerState()
                 listViewModel.state.collect {
                     if (it.tasks is TaskListViewModel.TasksResults.Results) {
                         submitList(it.tasks.tasks)
@@ -343,12 +357,41 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         setupMenu(toolbar)
         binding.banner.setContent {
             val context = LocalContext.current
-            val showBanner = listViewModel.state.collectAsStateLifecycleAware().value.begForSubscription
+            val state = listViewModel.state.collectAsStateLifecycleAware().value
             TasksTheme {
+                val hasRemindersPermission by rememberReminderPermissionState()
+                val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
+                    rememberPermissionState(
+                        Manifest.permission.POST_NOTIFICATIONS,
+                        onPermissionResult = { success ->
+                            if (success) {
+                                NotificationSchedulerIntentService.enqueueWork(context)
+                                listViewModel.dismissNotificationBanner(fix = true)
+                            }
+                        }
+                    )
+                } else {
+                    null
+                }
+                val showNotificationBanner = state.warnNotificationsDisabled &&
+                        (!hasRemindersPermission || notificationPermissions?.status is PermissionStatus.Denied)
+                NotificationsDisabledBanner(
+                    visible = showNotificationBanner,
+                    settings = {
+                        if (!context.canScheduleExactAlarms()) {
+                            context.openReminderSettings()
+                        } else if (notificationPermissions?.status?.shouldShowRationale == true) {
+                            context.openAppNotificationSettings()
+                        } else {
+                            notificationPermissions?.launchPermissionRequest()
+                        }
+                    },
+                    dismiss = { listViewModel.dismissNotificationBanner() },
+                )
                 SubscriptionNagBanner(
-                    visible = showBanner,
+                    visible = state.begForSubscription && !showNotificationBanner,
                     subscribe = {
-                        listViewModel.dismissBanner(clickedPurchase = true)
+                        listViewModel.dismissPurchaseBanner(clickedPurchase = true)
                         if (Tasks.IS_GOOGLE_PLAY) {
                             context.startActivity(Intent(context, PurchaseActivity::class.java))
                         } else {
@@ -357,7 +400,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         }
                     },
                     dismiss = {
-                        listViewModel.dismissBanner(clickedPurchase = false)
+                        listViewModel.dismissPurchaseBanner(clickedPurchase = false)
                     },
                 )
             }

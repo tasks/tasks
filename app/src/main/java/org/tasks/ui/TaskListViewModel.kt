@@ -72,6 +72,7 @@ class TaskListViewModel @Inject constructor(
         val searchQuery: String? = null,
         val tasks: TasksResults = TasksResults.Loading,
         val begForSubscription: Boolean = false,
+        val warnNotificationsDisabled: Boolean = false,
         val syncOngoing: Boolean = false,
         val collapsed: Set<Long> = setOf(SectionedDataSource.HEADER_COMPLETED),
     )
@@ -104,7 +105,16 @@ class TaskListViewModel @Inject constructor(
         }
     }
 
-    fun dismissBanner(clickedPurchase: Boolean) {
+    fun dismissNotificationBanner(
+        fix: Boolean = false,
+    ) {
+        _state.update {
+            it.copy(warnNotificationsDisabled = false)
+        }
+        preferences.warnNotificationsDisabled = fix
+    }
+
+    fun dismissPurchaseBanner(clickedPurchase: Boolean) {
         _state.update {
             it.copy(begForSubscription = false)
         }
@@ -170,14 +180,6 @@ class TaskListViewModel @Inject constructor(
             }
             .flowOn(Dispatchers.Default)
             .launchIn(viewModelScope)
-
-        viewModelScope.launch(Dispatchers.Default) {
-            if (!inventory.hasPro && !firebase.subscribeCooldown) {
-                _state.update {
-                    it.copy(begForSubscription = true)
-                }
-            }
-        }
     }
 
     override fun onCleared() {
@@ -199,6 +201,20 @@ class TaskListViewModel @Inject constructor(
                     it.collapsed.plus(group)
                 }
             )
+        }
+    }
+
+    fun updateBannerState() {
+        viewModelScope.launch(Dispatchers.Default) {
+            _state.update {
+                it.copy(warnNotificationsDisabled = preferences.warnNotificationsDisabled)
+            }
+
+            if (!inventory.hasPro && !firebase.subscribeCooldown) {
+                _state.update {
+                    it.copy(begForSubscription = true)
+                }
+            }
         }
     }
 

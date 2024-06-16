@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionStatus
 import com.todoroo.astrid.ui.ReminderControlSetViewModel
 import org.tasks.R
 import org.tasks.compose.AddAlarmDialog
@@ -35,12 +34,12 @@ import org.tasks.reminders.AlarmToString
 import org.tasks.themes.TasksTheme
 import java.util.Locale
 
-@OptIn(ExperimentalPermissionsApi::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AlarmRow(
     vm: ReminderControlSetViewModel = viewModel(),
-    permissionStatus: PermissionStatus,
-    launchPermissionRequest: () -> Unit,
+    hasNotificationPermissions: Boolean,
+    fixNotificationPermissions: () -> Unit,
     alarms: List<Alarm>,
     ringMode: Int,
     locale: Locale,
@@ -53,43 +52,38 @@ fun AlarmRow(
         iconRes = R.drawable.ic_outline_notifications_24px,
         content = {
             val viewState = vm.viewState.collectAsStateLifecycleAware().value
-            when (permissionStatus) {
-                PermissionStatus.Granted -> {
-                    Alarms(
-                        alarms = alarms,
-                        ringMode = ringMode,
-                        locale = locale,
-                        replaceAlarm = {
-                            vm.setReplace(it)
-                            vm.showAddAlarm(visible = true)
-                        },
-                        addAlarm = {
-                            vm.showAddAlarm(visible = true)
-                        },
-                        deleteAlarm = deleteAlarm,
-                        openRingType = openRingType,
+            if (hasNotificationPermissions) {
+                Alarms(
+                    alarms = alarms,
+                    ringMode = ringMode,
+                    locale = locale,
+                    replaceAlarm = {
+                        vm.setReplace(it)
+                        vm.showAddAlarm(visible = true)
+                    },
+                    addAlarm = {
+                        vm.showAddAlarm(visible = true)
+                    },
+                    deleteAlarm = deleteAlarm,
+                    openRingType = openRingType,
+                )
+            } else {
+                Column(
+                    modifier = Modifier
+                        .padding(end = 16.dp)
+                        .clickable { fixNotificationPermissions() }
+                ) {
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        text = stringResource(id = R.string.enable_reminders),
+                        color = colorResource(id = R.color.red_500),
                     )
-                }
-                is PermissionStatus.Denied -> {
-                    Column(
-                        modifier = Modifier
-                            .padding(end = 16.dp)
-                            .clickable {
-                                launchPermissionRequest()
-                            }
-                    ) {
-                        Spacer(modifier = Modifier.height(20.dp))
-                        Text(
-                            text = stringResource(id = R.string.enable_reminders),
-                            color = colorResource(id = R.color.red_500),
-                        )
-                        Text(
-                            text = stringResource(id = R.string.enable_reminders_description),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = colorResource(id = R.color.red_500),
-                        )
-                        Spacer(modifier = Modifier.height(20.dp))
-                    }
+                    Text(
+                        text = stringResource(id = R.string.enable_reminders_description),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = colorResource(id = R.color.red_500),
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
                 }
             }
 
@@ -212,8 +206,8 @@ fun NoAlarms() {
             addAlarm = {},
             deleteAlarm = {},
             openRingType = {},
-            permissionStatus = PermissionStatus.Granted,
-            launchPermissionRequest = {},
+            hasNotificationPermissions = true,
+            fixNotificationPermissions = {},
             pickDateAndTime = {},
         )
     }
@@ -232,8 +226,8 @@ fun PermissionDenied() {
             addAlarm = {},
             deleteAlarm = {},
             openRingType = {},
-            permissionStatus = PermissionStatus.Denied(true),
-            launchPermissionRequest = {},
+            hasNotificationPermissions = false,
+            fixNotificationPermissions = {},
             pickDateAndTime = {},
         )
     }

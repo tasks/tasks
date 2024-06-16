@@ -2,7 +2,7 @@ package org.tasks.preferences;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastQ;
-import static com.todoroo.andlib.utility.AndroidUtilities.preTiramisu;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu;
 import static java.util.Arrays.asList;
 
 import android.Manifest.permission;
@@ -43,7 +43,8 @@ public class PermissionChecker {
   }
 
   public boolean canNotify() {
-    return preTiramisu() || checkPermissions(permission.POST_NOTIFICATIONS);
+      return org.tasks.extensions.Context.INSTANCE.canScheduleExactAlarms(context)
+            && (!atLeastTiramisu() || checkPermissions(permission.POST_NOTIFICATIONS));
   }
 
   private boolean checkPermissions(String... permissions) {

@@ -414,6 +414,7 @@
   <string name="p_install_version">install_version</string>
   <string name="p_install_date">install_date</string>
   <string name="p_default_location">default_location</string>
+  <string name="p_warn_notifications_disabled">warn_notifications_disabled</string>
 
   <string name="event_showed_purchase_dialog">showed_purchase_dialog</string>
   <string name="event_purchase_result">billing_flow_result</string>

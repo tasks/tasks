@@ -17,13 +17,13 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.core.SortHelper
-import org.tasks.data.entity.Task
-import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
-import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Purchase
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
+import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
 import org.tasks.data.entity.TaskAttachment
 import org.tasks.extensions.Context.getResourceUri
 import org.tasks.themes.ColorProvider
@@ -569,6 +569,10 @@ class Preferences @JvmOverloads constructor(
     var lastReviewRequest: Long
         get() = getLong(R.string.p_last_review_request, 0L)
         set(value) = setLong(R.string.p_last_review_request, value)
+
+    var warnNotificationsDisabled: Boolean
+        get() = getBoolean(R.string.p_warn_notifications_disabled, true)
+        set(value) = setBoolean(R.string.p_warn_notifications_disabled, value)
 
     var lastSubscribeRequest: Long
         get() = getLong(R.string.p_last_subscribe_request, 0L)

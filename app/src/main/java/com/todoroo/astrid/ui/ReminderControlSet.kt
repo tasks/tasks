@@ -23,11 +23,13 @@ import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.AlarmRow
+import org.tasks.compose.rememberReminderPermissionState
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.date.DateTimeUtils
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.MyTimePickerDialog
+import org.tasks.extensions.Context.openReminderSettings
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskEditControlFragment
@@ -78,6 +80,7 @@ class ReminderControlSet : TaskEditControlFragment() {
             setContent {
                 TasksTheme {
                     val ringMode by remember { this@ReminderControlSet.ringMode }
+                    val hasReminderPermissions by rememberReminderPermissionState()
                     val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {
                         rememberPermissionState(
                             Manifest.permission.POST_NOTIFICATIONS,
@@ -103,10 +106,14 @@ class ReminderControlSet : TaskEditControlFragment() {
                     AlarmRow(
                         locale = locale,
                         alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware().value,
-                        permissionStatus = notificationPermissions?.status
-                            ?: PermissionStatus.Granted,
-                        launchPermissionRequest = {
-                            notificationPermissions?.launchPermissionRequest()
+                        hasNotificationPermissions = hasReminderPermissions &&
+                                (notificationPermissions == null || notificationPermissions.status == PermissionStatus.Granted),
+                        fixNotificationPermissions = {
+                            if (hasReminderPermissions) {
+                                notificationPermissions?.launchPermissionRequest()
+                            } else {
+                                context.openReminderSettings()
+                            }
                         },
                         ringMode = ringMode,
                         addAlarm = viewModel::addAlarm,

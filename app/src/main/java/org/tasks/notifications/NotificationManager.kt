@@ -156,7 +156,9 @@ class NotificationManager @Inject constructor(
         fiveTimes: Boolean,
         useGroupKey: Boolean
     ) {
-        if (!permissionChecker.canNotify()) {
+        if (permissionChecker.canNotify()) {
+            preferences.warnNotificationsDisabled = true
+        } else {
             Timber.w("Notifications disabled")
             return
         }
