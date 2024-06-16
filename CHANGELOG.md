@@ -2,6 +2,8 @@
 
 * Add search bar to drawer
 * Add search bar to list picker
+* Android 13+ users must grant additional reminder permissions
+* Fix completing task multiple times from notification
 * Fix deleting new subtasks from edit screen
 * Update translations
   * Arabic - @islam2hamy
