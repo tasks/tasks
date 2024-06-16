@@ -735,4 +735,6 @@
     <string name="swipe_to_snooze_time_24_hours">24 saat sonra</string>
     <string name="show_edit_screen_without_unlock">Kilidi açmadan düzenleme ekranını göster</string>
     <string name="show_edit_screen_without_unlock_summary">Aygıtın kilidini açmadan Hızlı Ayarlar kutucuğunun kullanılmasını sağlar</string>
+    <string name="customize_drawer">Çekmeceyi özelleştir</string>
+    <string name="customize_drawer_summary">Menü ögelerini yeniden düzenlemek için sürükleyip bırakın</string>
 </resources>
