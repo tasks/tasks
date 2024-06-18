@@ -3,8 +3,6 @@ package org.tasks.opentasks
 import android.content.Context
 import at.bitfire.ical4android.BatchOperation
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
-import org.tasks.data.entity.Task.Companion.NO_ID
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
@@ -15,17 +13,20 @@ import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.iCalendar
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavTask
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.OpenTaskDao.Companion.filterActive
 import org.tasks.data.OpenTaskDao.Companion.isDavx5
+import org.tasks.data.OpenTaskDao.Companion.isDavx5Managed
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
 import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.OpenTaskDao.Companion.toLocalCalendar
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Task
+import org.tasks.data.entity.Task.Companion.NO_ID
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -59,6 +60,7 @@ class OpenTasksSynchronizer @Inject constructor(
                     R.string.event_sync_add_account,
                     R.string.param_type to when {
                         it.uuid.isDavx5() -> Constants.SYNC_TYPE_DAVX5
+                        it.uuid.isDavx5Managed() -> Constants.SYNC_TYPE_DAVX5_MANAGED
                         it.uuid.isEteSync() -> Constants.SYNC_TYPE_ETESYNC_OT
                         it.uuid.isDecSync() -> Constants.SYNC_TYPE_DECSYNC
                         else -> throw IllegalArgumentException()

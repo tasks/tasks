@@ -9,16 +9,20 @@ import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.dmfs.tasks.contract.TaskContract.*
+import org.dmfs.tasks.contract.TaskContract.CommonSyncColumns
+import org.dmfs.tasks.contract.TaskContract.LOAD_PROPERTIES
 import org.dmfs.tasks.contract.TaskContract.Properties
+import org.dmfs.tasks.contract.TaskContract.TaskListColumns
+import org.dmfs.tasks.contract.TaskContract.TaskLists
+import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.json.JSONObject
 import org.tasks.R
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.openTaskType
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavCalendar
 import timber.log.Timber
-import java.util.*
+import java.util.UUID
 import javax.inject.Inject
 
 open class OpenTaskDao @Inject constructor(
@@ -144,11 +148,13 @@ open class OpenTaskDao @Inject constructor(
 
     companion object {
         private const val OPENTASK_BATCH_LIMIT = 499
-        const val ACCOUNT_TYPE_DAVx5 = "bitfire.at.davdroid"
+        const val ACCOUNT_TYPE_DAVX5 = "bitfire.at.davdroid"
+        const val ACCOUNT_TYPE_DAVX5_MANAGED = "com.davdroid.managed"
         private const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
         private const val ACCOUNT_TYPE_DECSYNC = "org.decsync.tasks"
         val SUPPORTED_TYPES = setOf(
-                ACCOUNT_TYPE_DAVx5,
+                ACCOUNT_TYPE_DAVX5,
+                ACCOUNT_TYPE_DAVX5_MANAGED,
                 ACCOUNT_TYPE_ETESYNC,
                 ACCOUNT_TYPE_DECSYNC
         )
@@ -157,7 +163,9 @@ open class OpenTaskDao @Inject constructor(
         suspend fun Map<String, List<CaldavCalendar>>.filterActive(caldavDao: CaldavDao) =
                 filterNot { (_, lists) -> caldavDao.anyExist(lists.map { it.url!! }) }
 
-        fun String?.isDavx5(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVx5) == true
+        fun String?.isDavx5(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVX5) == true
+
+        fun String?.isDavx5Managed(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVX5_MANAGED) == true
 
         fun String?.isEteSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_ETESYNC) == true
 

@@ -4,15 +4,15 @@ import android.content.ContentProviderResult
 import android.content.Context
 import at.bitfire.ical4android.BatchOperation
 import at.bitfire.ical4android.Task
-import org.tasks.data.UUIDHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
 import org.dmfs.tasks.contract.TaskContract.TaskListColumns.ACCESS_LEVEL_OWNER
 import org.tasks.caldav.iCalendar
-import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
+import org.tasks.data.UUIDHelper
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavCalendar
 import javax.inject.Inject
 
 class TestOpenTaskDao @Inject constructor(
@@ -92,7 +92,7 @@ class TestOpenTaskDao @Inject constructor(
 
     companion object {
         const val DEFAULT_ACCOUNT = "test_account"
-        const val DEFAULT_TYPE = ACCOUNT_TYPE_DAVx5
+        const val DEFAULT_TYPE = ACCOUNT_TYPE_DAVX5
         const val DEFAULT_LIST = "default_list"
     }
 }

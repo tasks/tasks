@@ -8,6 +8,7 @@ import org.tasks.caldav.CaldavAccountSettingsActivity
 import org.tasks.caldav.CaldavCalendarSettingsActivity
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.data.OpenTaskDao.Companion.isDavx5
+import org.tasks.data.OpenTaskDao.Companion.isDavx5Managed
 import org.tasks.data.OpenTaskDao.Companion.isDecSync
 import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.entity.CaldavAccount
@@ -25,7 +26,7 @@ val CaldavAccount.prefTitle: Int
         isCaldavAccount -> R.string.caldav
         isEtebaseAccount || uuid.isEteSync() -> R.string.etesync
         isEteSyncAccount -> R.string.etesync_v1
-        uuid.isDavx5() -> R.string.davx5
+        uuid.isDavx5() || uuid.isDavx5Managed() -> R.string.davx5
         uuid.isDecSync() -> R.string.decsync
         isMicrosoft -> R.string.microsoft
         isGoogleTasks -> R.string.gtasks_GPr_header
@@ -37,7 +38,7 @@ val CaldavAccount.prefIcon: Int
         isTasksOrg -> R.drawable.ic_round_icon
         isCaldavAccount -> R.drawable.ic_webdav_logo
         isEtebaseAccount || isEteSyncAccount || uuid.isEteSync() -> R.drawable.ic_etesync
-        uuid.isDavx5() -> R.drawable.ic_davx5_icon_green_bg
+        uuid.isDavx5() || uuid.isDavx5Managed() -> R.drawable.ic_davx5_icon_green_bg
         uuid.isDecSync() -> R.drawable.ic_decsync
         isMicrosoft -> R.drawable.ic_microsoft_tasks
         isGoogleTasks -> R.drawable.ic_google
