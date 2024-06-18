@@ -12,13 +12,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.ui.platform.ComposeView
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.ui.TimeDurationControlSet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.TimerRow
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils
@@ -91,9 +91,9 @@ class TimerControlSet : TaskEditControlFragment() {
             setContent {
                 TasksTheme {
                     TimerRow(
-                        started = viewModel.timerStarted.collectAsStateLifecycleAware().value,
-                        estimated = viewModel.estimatedSeconds.collectAsStateLifecycleAware().value,
-                        elapsed = viewModel.elapsedSeconds.collectAsStateLifecycleAware().value,
+                        started = viewModel.timerStarted.collectAsStateWithLifecycle().value,
+                        estimated = viewModel.estimatedSeconds.collectAsStateWithLifecycle().value,
+                        elapsed = viewModel.elapsedSeconds.collectAsStateWithLifecycle().value,
                         timerClicked = this@TimerControlSet::timerClicked,
                         onClick = this@TimerControlSet::onRowClick,
                     )

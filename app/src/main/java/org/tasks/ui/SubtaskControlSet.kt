@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.activity.MainActivityViewModel
 import com.todoroo.astrid.dao.TaskDao
@@ -15,7 +16,6 @@ import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.SubtaskRow
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.Task
@@ -55,15 +55,15 @@ class SubtaskControlSet : TaskEditControlFragment() {
                 TasksTheme {
                     SubtaskRow(
                         originalFilter = viewModel.originalList,
-                        filter = viewModel.selectedList.collectAsStateLifecycleAware().value,
+                        filter = viewModel.selectedList.collectAsStateWithLifecycle().value,
                         hasParent = viewModel.hasParent,
                         desaturate = preferences.desaturateDarkMode,
                         existingSubtasks = if (viewModel.isNew) {
                             TaskListViewModel.TasksResults.Results(SectionedDataSource())
                         } else {
-                            listViewModel.state.collectAsStateLifecycleAware().value.tasks
+                            listViewModel.state.collectAsStateWithLifecycle().value.tasks
                         },
-                        newSubtasks = viewModel.newSubtasks.collectAsStateLifecycleAware().value,
+                        newSubtasks = viewModel.newSubtasks.collectAsStateWithLifecycle().value,
                         openSubtask = this@SubtaskControlSet::openSubtask,
                         completeExistingSubtask = this@SubtaskControlSet::complete,
                         toggleSubtask = this@SubtaskControlSet::toggleSubtask,

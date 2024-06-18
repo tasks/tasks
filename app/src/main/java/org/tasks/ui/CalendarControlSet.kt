@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast.LENGTH_SHORT
 import androidx.compose.ui.platform.ComposeView
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.activity.TaskEditFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.calendars.CalendarPicker
 import org.tasks.calendars.CalendarProvider
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.CalendarRow
 import org.tasks.extensions.Context.toast
 import org.tasks.preferences.PermissionChecker
@@ -47,8 +47,8 @@ class CalendarControlSet : TaskEditControlFragment() {
             setContent {
                 TasksTheme {
                     CalendarRow(
-                        eventUri = viewModel.eventUri.collectAsStateLifecycleAware().value,
-                        selectedCalendar = viewModel.selectedCalendar.collectAsStateLifecycleAware().value?.let {
+                        eventUri = viewModel.eventUri.collectAsStateWithLifecycle().value,
+                        selectedCalendar = viewModel.selectedCalendar.collectAsStateWithLifecycle().value?.let {
                             calendarProvider.getCalendar(it)?.name
                         },
                         onClick = {

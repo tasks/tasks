@@ -17,13 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import org.tasks.R
 import org.tasks.calendars.AndroidCalendar
 import org.tasks.calendars.CalendarPickerViewModel
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.themes.TasksTheme
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -43,7 +43,7 @@ fun CalendarPicker(
     )
     if (hasPermissions.allPermissionsGranted) {
         CalendarPickerList(
-            calendars = viewModel.viewState.collectAsStateLifecycleAware().value.calendars,
+            calendars = viewModel.viewState.collectAsStateWithLifecycle().value.calendars,
             selected = selected,
             onSelected = onSelected,
         )

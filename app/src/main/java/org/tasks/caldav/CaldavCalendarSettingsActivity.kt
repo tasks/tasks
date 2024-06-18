@@ -10,13 +10,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.core.view.isVisible
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.ListSettingsComposables.PrincipalList
 import org.tasks.compose.ShareInvite.ShareInviteDialog
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
@@ -54,7 +54,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         caldavCalendar?.takeIf { it.id > 0 }?.let {
             findViewById<ComposeView>(R.id.people).setContent {
                 TasksTheme {
-                    val principals = principalDao.getPrincipals(it.id).collectAsStateLifecycleAware(initial = emptyList()).value
+                    val principals = principalDao.getPrincipals(it.id).collectAsStateWithLifecycle(initialValue = emptyList()).value
                     PrincipalList(
                         principals = principals,
                         onRemove = if (canRemovePrincipals) { { onRemove(it) } } else null,

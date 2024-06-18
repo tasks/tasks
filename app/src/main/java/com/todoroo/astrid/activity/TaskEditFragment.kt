@@ -39,6 +39,7 @@ import androidx.core.os.BundleCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
@@ -63,7 +64,6 @@ import org.tasks.calendars.CalendarPicker
 import org.tasks.compose.BeastModeBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.CommentsRow
 import org.tasks.compose.edit.DescriptionRow
 import org.tasks.compose.edit.DueDateRow
@@ -435,7 +435,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     @Composable
     private fun DueDateRow() {
-        val dueDate = editViewModel.dueDate.collectAsStateLifecycleAware().value
+        val dueDate = editViewModel.dueDate.collectAsStateWithLifecycle().value
         DueDateRow(
             dueDate = if (dueDate == 0L) {
                 null
@@ -470,7 +470,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Composable
     private fun PriorityRow() {
         PriorityRow(
-            priority = editViewModel.priority.collectAsStateLifecycleAware().value,
+            priority = editViewModel.priority.collectAsStateWithLifecycle().value,
             onChangePriority = { editViewModel.priority.value = it },
             desaturate = preferences.desaturateDarkMode,
         )
@@ -488,7 +488,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     @Composable
     private fun ListRow() {
-        val list = editViewModel.selectedList.collectAsStateLifecycleAware().value
+        val list = editViewModel.selectedList.collectAsStateWithLifecycle().value
         ListRow(
             list = list,
             colorProvider = { chipProvider.getColor(it) },
@@ -517,7 +517,7 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         CommentsRow(
             comments = userActivityDao
                 .watchComments(editViewModel.task.uuid)
-                .collectAsStateLifecycleAware(emptyList())
+                .collectAsStateWithLifecycle(emptyList())
                 .value,
             deleteComment = {
                 lifecycleScope.launch {

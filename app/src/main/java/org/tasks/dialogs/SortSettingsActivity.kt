@@ -23,9 +23,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.ArrowUpward
@@ -34,8 +31,11 @@ import androidx.compose.material.icons.outlined.SubdirectoryArrowRight
 import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -55,12 +55,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.core.SortHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.SystemBars
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
@@ -84,7 +84,7 @@ class SortSettingsActivity : ComponentActivity() {
                     statusBarColor = scrimColor,
                     navigationBarColor = MaterialTheme.colorScheme.surface,
                 )
-                val state = viewModel.state.collectAsStateLifecycleAware().value
+                val state = viewModel.state.collectAsStateWithLifecycle().value
                 val mainSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
                 val scope = rememberCoroutineScope()
                 var showGroupPicker by remember { mutableStateOf(false) }

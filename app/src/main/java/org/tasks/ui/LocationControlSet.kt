@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.util.Pair
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.LocationRow
 import org.tasks.data.Location
 import org.tasks.data.createGeofence
@@ -90,7 +90,7 @@ class LocationControlSet : TaskEditControlFragment() {
                         rememberMultiplePermissionsState(permissions = backgroundPermissions())
                             .allPermissionsGranted
                     LocationRow(
-                        location = viewModel.selectedLocation.collectAsStateLifecycleAware().value,
+                        location = viewModel.selectedLocation.collectAsStateWithLifecycle().value,
                         hasPermissions = hasPermissions,
                         onClick = this@LocationControlSet::onRowClick,
                         openGeofenceOptions = {

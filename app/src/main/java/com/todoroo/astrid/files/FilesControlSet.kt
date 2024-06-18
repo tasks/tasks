@@ -12,16 +12,16 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.AttachmentRow
-import org.tasks.data.entity.TaskAttachment
 import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.entity.TaskAttachment
 import org.tasks.dialogs.AddAttachmentDialog
 import org.tasks.files.FileHelper
 import org.tasks.preferences.Preferences
@@ -50,7 +50,7 @@ class FilesControlSet : TaskEditControlFragment() {
             setContent {
                 TasksTheme {
                     AttachmentRow(
-                        attachments = viewModel.selectedAttachments.collectAsStateLifecycleAware().value,
+                        attachments = viewModel.selectedAttachments.collectAsStateWithLifecycle().value,
                         openAttachment = {
                             FileHelper.startActionView(
                                 requireActivity(),

@@ -40,6 +40,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -61,8 +62,6 @@ import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
 import com.todoroo.astrid.api.CustomFilter
-import org.tasks.filters.GtasksFilter
-import org.tasks.filters.TagFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.repeats.RepeatTaskHelper
@@ -94,7 +93,6 @@ import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForListPickerResult
 import org.tasks.compose.NotificationsDisabledBanner
 import org.tasks.compose.SubscriptionNagBanner
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.rememberReminderPermissionState
 import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
@@ -124,7 +122,9 @@ import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterImpl
+import org.tasks.filters.GtasksFilter
 import org.tasks.filters.PlaceFilter
+import org.tasks.filters.TagFilter
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Device
 import org.tasks.preferences.Preferences
@@ -357,7 +357,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         setupMenu(toolbar)
         binding.banner.setContent {
             val context = LocalContext.current
-            val state = listViewModel.state.collectAsStateLifecycleAware().value
+            val state = listViewModel.state.collectAsStateWithLifecycle().value
             TasksTheme {
                 val hasRemindersPermission by rememberReminderPermissionState()
                 val notificationPermissions = if (AndroidUtilities.atLeastTiramisu()) {

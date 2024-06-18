@@ -68,5 +68,5 @@ android {
 }
 
 dependencies {
-    add("kspAndroid", libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
 }

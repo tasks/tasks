@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -38,7 +39,6 @@ import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.drawer.TasksMenu
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         handleIntent()
 
         binding.composeView.setContent {
-            val state = viewModel.state.collectAsStateLifecycleAware().value
+            val state = viewModel.state.collectAsStateWithLifecycle().value
             if (state.drawerOpen) {
                 TasksTheme {
                     TasksMenu(

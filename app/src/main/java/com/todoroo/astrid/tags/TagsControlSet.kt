@@ -5,10 +5,10 @@ import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.update
 import org.tasks.R
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.TagsRow
 import org.tasks.tags.TagPickerActivity
 import org.tasks.themes.TasksTheme
@@ -31,7 +31,7 @@ class TagsControlSet : TaskEditControlFragment() {
             setContent {
                 TasksTheme {
                     TagsRow(
-                        tags = viewModel.selectedTags.collectAsStateLifecycleAware().value,
+                        tags = viewModel.selectedTags.collectAsStateWithLifecycle().value,
                         colorProvider = { chipProvider.getColor(it) },
                         onClick = this@TagsControlSet::onRowClick,
                         onClear = { tag ->

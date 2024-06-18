@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
@@ -21,7 +22,6 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.AlarmRow
 import org.tasks.compose.rememberReminderPermissionState
 import org.tasks.data.entity.Alarm
@@ -105,7 +105,7 @@ class ReminderControlSet : TaskEditControlFragment() {
                         }
                     AlarmRow(
                         locale = locale,
-                        alarms = viewModel.selectedAlarms.collectAsStateLifecycleAware().value,
+                        alarms = viewModel.selectedAlarms.collectAsStateWithLifecycle().value,
                         hasNotificationPermissions = hasReminderPermissions &&
                                 (notificationPermissions == null || notificationPermissions.status == PermissionStatus.Granted),
                         fixNotificationPermissions = {

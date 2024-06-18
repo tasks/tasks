@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.todoroo.astrid.ui.ReminderControlSetViewModel
@@ -28,7 +29,6 @@ import org.tasks.compose.AddReminderDialog
 import org.tasks.compose.ClearButton
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.data.entity.Alarm
 import org.tasks.reminders.AlarmToString
 import org.tasks.themes.TasksTheme
@@ -51,7 +51,7 @@ fun AlarmRow(
     TaskEditRow(
         iconRes = R.drawable.ic_outline_notifications_24px,
         content = {
-            val viewState = vm.viewState.collectAsStateLifecycleAware().value
+            val viewState = vm.viewState.collectAsStateWithLifecycle().value
             if (hasNotificationPermissions) {
                 Alarms(
                     alarms = alarms,

@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.andlib.utility.DateUtilities.getTimeString
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.StartDateRow
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.StartDatePicker
@@ -49,13 +49,13 @@ class StartDateControlSet : TaskEditControlFragment() {
         (parent as ComposeView).apply {
             setContent {
                 TasksTheme {
-                    val selectedDay = vm.selectedDay.collectAsStateLifecycleAware().value
-                    val selectedTime = vm.selectedTime.collectAsStateLifecycleAware().value
+                    val selectedDay = vm.selectedDay.collectAsStateWithLifecycle().value
+                    val selectedTime = vm.selectedTime.collectAsStateWithLifecycle().value
                     StartDateRow(
-                        startDate = viewModel.startDate.collectAsStateLifecycleAware().value,
+                        startDate = viewModel.startDate.collectAsStateWithLifecycle().value,
                         selectedDay = selectedDay,
                         selectedTime = selectedTime,
-                        hasDueDate = viewModel.dueDate.collectAsStateLifecycleAware().value > 0,
+                        hasDueDate = viewModel.dueDate.collectAsStateWithLifecycle().value > 0,
                         printDate = {
                             DateUtilities.getRelativeDateTime(
                                 context,

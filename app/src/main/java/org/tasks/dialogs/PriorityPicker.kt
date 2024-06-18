@@ -5,15 +5,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.compose.collectAsStateLifecycleAware
 import org.tasks.compose.edit.Priority
+import org.tasks.data.entity.Task
 import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.databinding.DialogPriorityPickerBinding
 import javax.inject.Inject
@@ -47,7 +47,7 @@ class PriorityPicker : DialogFragment() {
         return requireActivity().let { fragmentActivity ->
             val inflater = fragmentActivity.layoutInflater
             val binding = DialogPriorityPickerBinding.inflate(inflater, null, false)
-            binding.priorityRow.setContent { Priority(selected = priorityPickerViewModel.priority.collectAsStateLifecycleAware().value,
+            binding.priorityRow.setContent { Priority(selected = priorityPickerViewModel.priority.collectAsStateWithLifecycle().value,
                 onClick = { priorityPickerViewModel.setPriority( it ) }, desaturate = savedInstanceState?.getBoolean(
                 EXTRA_DESATURATE) ?: false) }
             val builder = AlertDialog.Builder(fragmentActivity)

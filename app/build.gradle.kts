@@ -182,6 +182,7 @@ dependencies {
 
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.room)
     implementation(libs.androidx.sqlite)
@@ -201,7 +202,7 @@ dependencies {
     debugImplementation(libs.kotlin.reflect)
 
     implementation(libs.kotlin.jdk8)
-    implementation(libs.kotlin.immutable)
+    implementation(libs.kotlinx.immutable)
     implementation(libs.kotlinx.serialization)
     implementation(libs.okhttp)
     implementation(libs.persistent.cookiejar)

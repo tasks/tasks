@@ -32,7 +32,7 @@ jems = "1.33"
 junit-junit = "4.13.2"
 junit = "1.1.5"
 kotlin = "2.0.0"
-kotlinx-coroutines-test = "1.8.1"
+kotlinx-coroutines = "1.8.1"
 leakcanary = "2.14"
 lib-recur = "0.11.4"
 lifecycle = "2.8.2"
@@ -77,6 +77,7 @@ androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref =
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
@@ -123,10 +124,10 @@ jchronic = { module = "com.rubiconproject.oss:jchronic", version.ref = "jchronic
 junit = { module = "junit:junit", version.ref = "junit-junit" }
 kermit = { module = "co.touchlab:kermit", version = "2.0.4" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.7" }
 kotlin-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+kotlinx-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.7" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.0" }
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 locale = { module = "com.github.twofortyfouram:android-plugin-api-for-locale", version.ref = "locale" }

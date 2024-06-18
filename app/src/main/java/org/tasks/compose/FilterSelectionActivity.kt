@@ -26,6 +26,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
@@ -54,7 +55,7 @@ class FilterSelectionActivity : AppCompatActivity() {
                 colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
             ) {
                 val viewModel: FilterPickerViewModel = viewModel()
-                val state = viewModel.viewState.collectAsStateLifecycleAware().value
+                val state = viewModel.viewState.collectAsStateWithLifecycle().value
                 BasicAlertDialog(
                     onDismissRequest = { finish() },
                     modifier = Modifier.padding(vertical = 32.dp)
