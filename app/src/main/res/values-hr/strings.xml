@@ -299,7 +299,7 @@
     <string name="upgrade_to_pro">Nadogradi na Pro verziju</string>
     <string name="network_error">Neuspjelo spajanje</string>
     <string name="caldav_home_set_not_found">Početni skup nije pronađen</string>
-    <string name="tasker_list_notification">Obavijesti popisa</string>
+    <string name="tasker_list_notification">Obavijest popisa</string>
     <string name="tasker_create_task">Stvori zadatak</string>
     <string name="repeat_monthly_last_week">zadnji</string>
     <string name="repeat_monthly_fifth_week">peti</string>
@@ -516,7 +516,7 @@
     <string name="sort_modified_group">Promijenjeno %s</string>
     <string name="sort_created_group">Stvoreno %s</string>
     <string name="sort_due_group">Rok %s</string>
-    <string name="sort_start_group">Počni %s</string>
+    <string name="sort_start_group">Pokreni %s</string>
     <string name="got_it">Razumijem!</string>
     <string name="support_development_subscribe">Otključaj dodatne funkcije i podrži softver otvorenog koda</string>
     <string name="tasks_needs_your_support">Tasks treba tovju podršku!</string>
@@ -757,4 +757,6 @@
     <string name="swipe_to_snooze_time_immediately">odmah</string>
     <string name="swipe_to_snooze_time_15_minutes">nakon 15 minuta</string>
     <string name="swipe_to_snooze_time_30_minutes">nakon 30 minuta</string>
+    <string name="customize_drawer">Prilagodi izbornik</string>
+    <string name="customize_drawer_summary">Povuci i ispusti stavke za mijenjanje rasporeda u izborniku</string>
 </resources>
