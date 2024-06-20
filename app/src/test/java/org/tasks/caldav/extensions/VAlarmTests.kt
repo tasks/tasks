@@ -7,7 +7,7 @@ import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.time.DateTime
-import org.tasks.time.DateTime.UTC
+import org.tasks.time.DateTime.Companion.UTC
 import java.util.concurrent.TimeUnit.HOURS
 import java.util.concurrent.TimeUnit.MINUTES
 

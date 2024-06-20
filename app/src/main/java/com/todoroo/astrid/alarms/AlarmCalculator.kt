@@ -5,7 +5,7 @@ import org.tasks.data.entity.Notification
 import org.tasks.data.entity.Task
 import org.tasks.preferences.Preferences
 import org.tasks.reminders.Random
-import org.tasks.time.DateTimeUtils.withMillisOfDay
+import org.tasks.time.withMillisOfDay
 import javax.inject.Inject
 
 class AlarmCalculator(

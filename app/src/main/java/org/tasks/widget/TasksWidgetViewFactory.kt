@@ -29,8 +29,8 @@ import org.tasks.markdown.Markdown
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.themes.ColorProvider.Companion.priorityColor
-import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import org.tasks.ui.CheckBoxProvider.Companion.getCheckboxRes
 import timber.log.Timber
 import java.time.format.FormatStyle

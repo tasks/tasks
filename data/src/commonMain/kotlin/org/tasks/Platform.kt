@@ -13,3 +13,5 @@ expect annotation class CommonRawValue()
 expect interface CommonParcelable
 
 expect val IS_DEBUG: Boolean
+
+expect fun Long.printTimestamp(): String

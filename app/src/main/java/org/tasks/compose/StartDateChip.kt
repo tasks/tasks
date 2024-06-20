@@ -6,10 +6,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import com.todoroo.andlib.utility.DateUtilities
-import org.tasks.data.entity.Task
 import org.tasks.R
+import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.startOfDay
 import java.time.format.FormatStyle
 
 @Composable

@@ -26,6 +26,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.androidx.room)
+            implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kermit)
         }

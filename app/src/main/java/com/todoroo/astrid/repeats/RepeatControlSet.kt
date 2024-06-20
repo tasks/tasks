@@ -29,6 +29,7 @@ import org.tasks.repeats.RepeatRuleToString
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
@@ -43,7 +44,7 @@ class RepeatControlSet : TaskEditControlFragment() {
                 val result = data?.getStringExtra(BasicRecurrenceDialog.EXTRA_RRULE)
                 viewModel.recurrence.value = result
                 if (result?.isNotBlank() == true && viewModel.dueDate.value == 0L) {
-                    viewModel.setDueDate(DateTime().startOfDay().millis)
+                    viewModel.setDueDate(currentTimeMillis().startOfDay())
                 }
             }
         } else {

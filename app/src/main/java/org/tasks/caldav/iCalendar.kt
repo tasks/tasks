@@ -57,10 +57,10 @@ import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRRule
-import org.tasks.time.DateTimeUtils.startOfDay
-import org.tasks.time.DateTimeUtils.startOfMinute
 import org.tasks.time.DateTimeUtils.toDate
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
+import org.tasks.time.startOfMinute
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.StringReader

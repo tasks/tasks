@@ -32,6 +32,7 @@ kotlin {
             implementation(compose.materialIconsExtended)
             implementation(compose.runtime)
             implementation(libs.kermit)
+            implementation(libs.kotlinx.datetime)
         }
     }
     task("testClasses")

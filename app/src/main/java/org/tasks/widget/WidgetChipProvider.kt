@@ -4,9 +4,6 @@ import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import com.todoroo.andlib.utility.DateUtilities
-import org.tasks.filters.CaldavFilter
-import org.tasks.filters.GtasksFilter
-import org.tasks.filters.TagFilter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
@@ -15,10 +12,13 @@ import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.extensions.setColorFilter
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
+import org.tasks.filters.GtasksFilter
 import org.tasks.filters.PlaceFilter
+import org.tasks.filters.TagFilter
 import org.tasks.themes.CustomIcons
-import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.startOfDay
 import org.tasks.ui.ChipListCache
 import java.time.format.FormatStyle
 import java.util.Locale

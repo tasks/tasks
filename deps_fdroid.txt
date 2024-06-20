@@ -257,6 +257,9 @@
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.0 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.0 (*)
 +|    |         \--- androidx.room:room-common:2.7.0-alpha04 (c)
++|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.0
++|    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.6.0
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.0.0 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.0
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 (*)
@@ -611,6 +614,7 @@
 +|    |              \--- androidx.compose.material:material-ripple:1.6.8 (c)
 +|    +--- org.jetbrains.compose.runtime:runtime:1.6.11 (*)
 +|    +--- co.touchlab:kermit:2.0.4 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.0.0 (*)
 ++--- com.github.bitfireAT:dav4jvm:2.2.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 2.0.0 (*)

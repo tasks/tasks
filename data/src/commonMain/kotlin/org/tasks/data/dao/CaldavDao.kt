@@ -389,6 +389,6 @@ ORDER BY primary_sort
     companion object {
         const val LOCAL = "local"
 
-        @JvmStatic fun Long.toAppleEpoch(): Long = (this - APPLE_EPOCH) / 1000
+        fun Long.toAppleEpoch(): Long = (this - APPLE_EPOCH) / 1000
     }
 }

@@ -1,7 +1,7 @@
 package org.tasks.date
 
 import org.tasks.time.DateTime
-import org.tasks.time.DateTime.UTC
+import org.tasks.time.DateTime.Companion.UTC
 import java.util.TimeZone
 
 object DateTimeUtils {

@@ -1,7 +1,7 @@
 package org.tasks.time
 
 import org.tasks.IS_DEBUG
-import java.util.Date
+import org.tasks.printTimestamp
 
 object DateTimeUtils2 {
     @JvmStatic
@@ -24,4 +24,4 @@ object DateTimeUtils2 {
 }
 
 fun printTimestamp(timestamp: Long): String =
-    if (IS_DEBUG) Date(timestamp).toString() else timestamp.toString()
+    if (IS_DEBUG) timestamp.printTimestamp() else timestamp.toString()

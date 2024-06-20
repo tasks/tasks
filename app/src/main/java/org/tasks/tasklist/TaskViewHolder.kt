@@ -14,9 +14,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.andlib.utility.DateUtilities
-import org.tasks.filters.CaldavFilter
-import org.tasks.filters.GtasksFilter
-import org.tasks.filters.TagFilter
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_LIST
 import com.todoroo.astrid.core.SortHelper.SORT_START
@@ -33,13 +30,16 @@ import org.tasks.data.isOverdue
 import org.tasks.databinding.TaskAdapterRowBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.Linkify
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
+import org.tasks.filters.GtasksFilter
 import org.tasks.filters.PlaceFilter
+import org.tasks.filters.TagFilter
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
-import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import org.tasks.ui.ChipProvider
 import java.time.format.FormatStyle

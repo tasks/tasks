@@ -1,12 +1,12 @@
 package org.tasks.data
 
 import com.todoroo.andlib.utility.DateUtilities
-import org.tasks.data.entity.Task
 import net.fortuna.ical4j.model.Recur
+import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 
 /** Checks whether task is hidden. Requires HIDDEN_UNTIL  */
 val Task.isHidden
@@ -44,7 +44,7 @@ val Task.isOverdue: Boolean
         if (isCompleted || !hasDueDate()) {
             return false
         }
-        val compareTo = if (hasDueTime()) currentTimeMillis() else DateTimeUtils.newDateTime().startOfDay().millis
+        val compareTo = if (hasDueTime()) currentTimeMillis() else currentTimeMillis().startOfDay()
         return dueDate < compareTo
     }
 

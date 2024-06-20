@@ -12,8 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import javax.inject.Inject
 
 @AndroidEntryPoint

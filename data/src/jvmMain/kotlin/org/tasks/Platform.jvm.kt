@@ -11,3 +11,5 @@ annotation class RawValue
 actual typealias CommonRawValue = RawValue
 
 actual val IS_DEBUG = false
+
+actual fun Long.printTimestamp(): String = this.toString()

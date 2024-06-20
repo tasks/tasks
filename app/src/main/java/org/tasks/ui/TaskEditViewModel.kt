@@ -9,8 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
-import org.tasks.filters.CaldavFilter
-import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.service.TaskCompleter
@@ -59,12 +57,14 @@ import org.tasks.data.entity.UserActivity
 import org.tasks.data.setPicture
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
+import org.tasks.filters.GtasksFilter
 import org.tasks.location.GeofenceApi
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import timber.log.Timber
 import javax.inject.Inject
 

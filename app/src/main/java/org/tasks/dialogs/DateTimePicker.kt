@@ -16,16 +16,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.data.entity.Task
 import org.tasks.data.createDueDate
+import org.tasks.data.entity.Task
 import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.notifications.NotificationManager
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils.millisOfDay
-import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.millisOfDay
+import org.tasks.time.startOfDay
 import java.time.format.FormatStyle
 import java.util.Calendar.FRIDAY
 import java.util.Calendar.MONDAY
@@ -78,7 +78,7 @@ class DateTimePicker : BaseDateTimePicker() {
         ): DateTimePicker {
             val fragment = DateTimePicker()
             val dueDates = tasks.map { it.dueDate.startOfDay() }.toSet()
-            val dueTimes = tasks.map { it.dueDate.millisOfDay() }.toSet()
+            val dueTimes = tasks.map { it.dueDate.millisOfDay }.toSet()
             fragment.arguments = Bundle().apply {
                 putLongArray(EXTRA_TASKS, tasks.map { it.id }.toLongArray())
                 putLong(EXTRA_DAY, if (dueDates.size == 1) dueDates.first() else MULTIPLE_DAYS)
@@ -99,7 +99,7 @@ class DateTimePicker : BaseDateTimePicker() {
             val fragment = DateTimePicker()
             fragment.arguments = Bundle().apply {
                 putLong(EXTRA_DAY, current.startOfDay())
-                putInt(EXTRA_TIME, current.millisOfDay())
+                putInt(EXTRA_TIME, current.millisOfDay)
                 putBoolean(EXTRA_AUTO_CLOSE, autoClose)
                 putBoolean(EXTRA_HIDE_NO_DATE, hideNoDate)
             }
@@ -267,7 +267,7 @@ class DateTimePicker : BaseDateTimePicker() {
                                     selectedDay
                                 }
                                 val time = if (selectedTime == MULTIPLE_TIMES) {
-                                    if (it.hasDueTime()) it.dueDate.millisOfDay() else NO_TIME
+                                    if (it.hasDueTime()) it.dueDate.millisOfDay else NO_TIME
                                 } else {
                                     selectedTime
                                 }

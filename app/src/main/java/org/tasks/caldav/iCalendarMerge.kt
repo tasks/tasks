@@ -14,9 +14,9 @@ import org.tasks.data.entity.Task.Priority.Companion.MEDIUM
 import org.tasks.data.entity.Task.Priority.Companion.NONE
 import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
-import org.tasks.time.DateTime.UTC
-import org.tasks.time.DateTimeUtils.startOfSecond
+import org.tasks.time.DateTime.Companion.UTC
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfSecond
 
 fun org.tasks.data.entity.Task.applyRemote(
     remote: Task,

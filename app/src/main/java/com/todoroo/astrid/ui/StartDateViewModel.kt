@@ -1,12 +1,12 @@
 package com.todoroo.astrid.ui
 
 import androidx.lifecycle.ViewModel
-import org.tasks.data.entity.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.tasks.R
+import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.dialogs.StartDatePicker
 import org.tasks.dialogs.StartDatePicker.Companion.DAY_BEFORE_DUE
@@ -14,8 +14,8 @@ import org.tasks.dialogs.StartDatePicker.Companion.DUE_DATE
 import org.tasks.dialogs.StartDatePicker.Companion.DUE_TIME
 import org.tasks.dialogs.StartDatePicker.Companion.WEEK_BEFORE_DUE
 import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils.millisOfDay
-import org.tasks.time.DateTimeUtils.startOfDay
+import org.tasks.time.millisOfDay
+import org.tasks.time.startOfDay
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,7 +32,7 @@ class StartDateViewModel @Inject constructor(
 
     fun init(dueDate: Long, startDate: Long, isNew: Boolean) {
         val dueDay = dueDate.startOfDay()
-        val dueTime = dueDate.millisOfDay()
+        val dueTime = dueDate.millisOfDay
         val hideUntil = startDate.takeIf { it > 0 }?.toDateTime()
         if (hideUntil == null) {
             if (isNew) {

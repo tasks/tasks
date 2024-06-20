@@ -1,8 +1,6 @@
 package com.todoroo.astrid.service
 
 import com.todoroo.andlib.utility.DateUtilities
-import org.tasks.filters.CaldavFilter
-import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gcal.GCalHelper
@@ -34,12 +32,14 @@ import org.tasks.data.entity.Task.Companion.DUE_DATE
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_NONE
 import org.tasks.data.entity.Task.Companion.IMPORTANCE
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
+import org.tasks.filters.GtasksFilter
 import org.tasks.filters.mapFromSerializedString
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import timber.log.Timber
 import javax.inject.Inject
 

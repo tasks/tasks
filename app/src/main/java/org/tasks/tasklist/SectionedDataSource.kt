@@ -4,8 +4,8 @@ import android.util.SparseArray
 import androidx.core.util.forEach
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.TaskContainer
-import org.tasks.time.DateTimeUtils.startOfDay
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import org.tasks.ui.TaskListViewModel.UiItem
 
 class SectionedDataSource(
