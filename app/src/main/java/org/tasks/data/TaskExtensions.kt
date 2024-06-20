@@ -1,11 +1,12 @@
 package org.tasks.data
 
-import com.todoroo.andlib.utility.DateUtilities
 import net.fortuna.ical4j.model.Recur
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.ONE_DAY
+import org.tasks.time.ONE_WEEK
 import org.tasks.time.startOfDay
 
 /** Checks whether task is hidden. Requires HIDDEN_UNTIL  */
@@ -22,8 +23,8 @@ fun Task.createHideUntil(setting: Int, customDate: Long): Long {
     val date: Long = when (setting) {
         Task.HIDE_UNTIL_NONE -> return 0
         Task.HIDE_UNTIL_DUE, Task.HIDE_UNTIL_DUE_TIME -> dueDate
-        Task.HIDE_UNTIL_DAY_BEFORE -> dueDate - DateUtilities.ONE_DAY
-        Task.HIDE_UNTIL_WEEK_BEFORE -> dueDate - DateUtilities.ONE_WEEK
+        Task.HIDE_UNTIL_DAY_BEFORE -> dueDate - ONE_DAY
+        Task.HIDE_UNTIL_WEEK_BEFORE -> dueDate - ONE_WEEK
         Task.HIDE_UNTIL_SPECIFIC_DAY, Task.HIDE_UNTIL_SPECIFIC_DAY_TIME -> customDate
         else -> throw IllegalArgumentException("Unknown setting $setting")
     }
@@ -67,10 +68,10 @@ fun createDueDate(setting: Int, customDate: Long): Long {
     val date: Long = when (setting) {
         Task.URGENCY_NONE -> 0
         Task.URGENCY_TODAY -> currentTimeMillis()
-        Task.URGENCY_TOMORROW -> currentTimeMillis() + DateUtilities.ONE_DAY
-        Task.URGENCY_DAY_AFTER -> currentTimeMillis() + 2 * DateUtilities.ONE_DAY
-        Task.URGENCY_NEXT_WEEK -> currentTimeMillis() + DateUtilities.ONE_WEEK
-        Task.URGENCY_IN_TWO_WEEKS -> currentTimeMillis() + 2 * DateUtilities.ONE_WEEK
+        Task.URGENCY_TOMORROW -> currentTimeMillis() + ONE_DAY
+        Task.URGENCY_DAY_AFTER -> currentTimeMillis() + 2 * ONE_DAY
+        Task.URGENCY_NEXT_WEEK -> currentTimeMillis() + ONE_WEEK
+        Task.URGENCY_IN_TWO_WEEKS -> currentTimeMillis() + 2 * ONE_WEEK
         Task.URGENCY_SPECIFIC_DAY, Task.URGENCY_SPECIFIC_DAY_TIME -> customDate
         else -> throw IllegalArgumentException("Unknown setting $setting")
     }

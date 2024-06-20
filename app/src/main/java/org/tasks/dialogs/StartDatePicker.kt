@@ -10,16 +10,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
+import org.tasks.data.entity.Task
 import org.tasks.databinding.DialogStartDatePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
 import org.tasks.notifications.NotificationManager
 import org.tasks.time.DateTime
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -112,7 +112,7 @@ class StartDatePicker : BaseDateTimePicker() {
                 binding.shortcuts.dateGroup.check(R.id.current_date_selection)
                 binding.shortcuts.currentDateSelection.visibility = View.VISIBLE
                 binding.shortcuts.currentDateSelection.text =
-                        DateUtilities.getRelativeDay(context, selectedDay, locale, FormatStyle.MEDIUM)
+                        DateUtilities.getRelativeDay(requireContext(), selectedDay, locale, FormatStyle.MEDIUM)
             }
         }
         if (Task.hasDueTime(selectedTime.toLong())) {
@@ -125,7 +125,7 @@ class StartDatePicker : BaseDateTimePicker() {
                     customTime = selectedTime
                     binding.shortcuts.timeGroup.check(R.id.current_time_selection)
                     binding.shortcuts.currentTimeSelection.visibility = View.VISIBLE
-                    binding.shortcuts.currentTimeSelection.text = DateUtilities.getTimeString(context, today.withMillisOfDay(selectedTime))
+                    binding.shortcuts.currentTimeSelection.text = DateUtilities.getTimeString(requireContext(), today.withMillisOfDay(selectedTime))
                 }
             }
             if (selectedDay == DUE_TIME) {

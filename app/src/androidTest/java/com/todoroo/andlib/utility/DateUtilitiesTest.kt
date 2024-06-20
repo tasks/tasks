@@ -17,7 +17,7 @@ import org.tasks.Freeze.Companion.freezeAt
 import org.tasks.date.DateTimeUtils
 import org.tasks.time.DateTime
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
 class DateUtilitiesTest {
@@ -29,21 +29,21 @@ class DateUtilitiesTest {
     @Test
     fun testGet24HourTime() {
         DateUtilities.is24HourOverride = true
-        assertEquals("09:05", DateUtilities.getTimeString(null, DateTime(2014, 1, 4, 9, 5, 36)))
-        assertEquals("13:00", DateUtilities.getTimeString(null, DateTime(2014, 1, 4, 13, 0, 1)))
+        assertEquals("09:05", DateUtilities.getTimeString(ApplicationProvider.getApplicationContext(), DateTime(2014, 1, 4, 9, 5, 36)))
+        assertEquals("13:00", DateUtilities.getTimeString(ApplicationProvider.getApplicationContext(), DateTime(2014, 1, 4, 13, 0, 1)))
     }
 
     @Test
     fun testGetTime() {
         DateUtilities.is24HourOverride = false
-        assertEquals("9:05 AM", DateUtilities.getTimeString(null, DateTime(2014, 1, 4, 9, 5, 36)))
-        assertEquals("1:05 PM", DateUtilities.getTimeString(null, DateTime(2014, 1, 4, 13, 5, 36)))
+        assertEquals("9:05 AM", DateUtilities.getTimeString(ApplicationProvider.getApplicationContext(), DateTime(2014, 1, 4, 9, 5, 36)))
+        assertEquals("1:05 PM", DateUtilities.getTimeString(ApplicationProvider.getApplicationContext(), DateTime(2014, 1, 4, 13, 5, 36)))
     }
 
     @Test
     fun testGetTimeWithNoMinutes() {
         DateUtilities.is24HourOverride = false
-        assertEquals("1 PM", DateUtilities.getTimeString(null, DateTime(2014, 1, 4, 13, 0, 59))) // derp?
+        assertEquals("1 PM", DateUtilities.getTimeString(ApplicationProvider.getApplicationContext(), DateTime(2014, 1, 4, 13, 0, 59))) // derp?
     }
 
     @Test

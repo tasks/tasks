@@ -345,7 +345,7 @@ class iCalendar @Inject constructor(
         )
 
         internal fun getLocal(property: DateProperty): Long =
-                org.tasks.time.DateTime.from(property.date)?.toLocal()?.millis ?: 0
+                org.tasks.time.DateTime.from(property.date).toLocal().millis
 
         fun fromVtodo(vtodo: String): Task? {
             try {

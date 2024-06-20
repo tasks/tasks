@@ -112,7 +112,7 @@ class TimerControlSet : TaskEditControlFragment() {
         viewModel.addComment(String.format(
             "%s %s\n%s %s",  // $NON-NLS-1$
             getString(R.string.TEA_timer_comment_stopped),
-            DateUtilities.getTimeString(context, DateTimeUtils.newDateTime()),
+            DateUtilities.getTimeString(requireContext(), DateTimeUtils.newDateTime()),
             getString(R.string.TEA_timer_comment_spent),
             elapsedTime),
             null)
@@ -125,7 +125,7 @@ class TimerControlSet : TaskEditControlFragment() {
         viewModel.addComment(String.format(
             "%s %s",
             getString(R.string.TEA_timer_comment_started),
-            DateUtilities.getTimeString(context, DateTimeUtils.newDateTime())),
+            DateUtilities.getTimeString(requireContext(), DateTimeUtils.newDateTime())),
             null)
         return model
     }

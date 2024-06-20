@@ -170,7 +170,7 @@ class DateTimePicker : BaseDateTimePicker() {
                 binding.shortcuts.currentDateSelection.text = if (customDate == MULTIPLE_DAYS) {
                     requireContext().getString(R.string.date_picker_multiple)
                 } else {
-                    DateUtilities.getRelativeDay(context, selectedDay, locale, FormatStyle.MEDIUM)
+                    DateUtilities.getRelativeDay(requireContext(), selectedDay, locale, FormatStyle.MEDIUM)
                 }
             }
         }
@@ -187,7 +187,7 @@ class DateTimePicker : BaseDateTimePicker() {
                     binding.shortcuts.currentTimeSelection.text = if (customTime == MULTIPLE_TIMES) {
                         requireContext().getString(R.string.date_picker_multiple)
                     } else {
-                        DateUtilities.getTimeString(context, today.withMillisOfDay(selectedTime))
+                        DateUtilities.getTimeString(requireContext(), today.withMillisOfDay(selectedTime))
                     }
                 }
             }

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.repeats
 
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gcal.GCalHelper
@@ -21,6 +20,9 @@ import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
+import org.tasks.time.ONE_HOUR
+import org.tasks.time.ONE_MINUTE
+import org.tasks.time.ONE_WEEK
 import timber.log.Timber
 import java.text.ParseException
 import java.util.*
@@ -160,7 +162,7 @@ class RepeatTaskHelper @Inject constructor(
                 recur: Recur, original: DateTime, hasDueTime: Boolean): Long {
             val byDay = recur.dayList
             var newDate = original.millis
-            newDate += DateUtilities.ONE_WEEK * (recur.interval.coerceAtLeast(1) - 1)
+            newDate += ONE_WEEK * (recur.interval.coerceAtLeast(1) - 1)
             var date = DateTime(newDate)
             Collections.sort(byDay, weekdayCompare)
             val next = findNextWeekday(byDay, date)
@@ -266,8 +268,8 @@ class RepeatTaskHelper @Inject constructor(
         @Deprecated("probably don't need this?")
         private fun handleSubdayRepeat(startDate: DateTime, recur: Recur): Long {
             val millis: Long = when (recur.frequency) {
-                Recur.Frequency.HOURLY -> DateUtilities.ONE_HOUR
-                Recur.Frequency.MINUTELY -> DateUtilities.ONE_MINUTE
+                Recur.Frequency.HOURLY -> ONE_HOUR
+                Recur.Frequency.MINUTELY -> ONE_MINUTE
                 else -> throw RuntimeException(
                         "Error handing subday repeat: " + recur.frequency) // $NON-NLS-1$
             }

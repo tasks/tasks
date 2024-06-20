@@ -145,17 +145,11 @@ class DateTime {
         return subtract(Calendar.SECOND, seconds)
     }
 
-    fun minusDays(days: Int): DateTime {
-        return subtract(Calendar.DATE, days)
-    }
+    fun minusDays(days: Int): DateTime = DateTime(millis.minusDays(days))
 
-    fun minusMinutes(minutes: Int): DateTime {
-        return subtract(Calendar.MINUTE, minutes)
-    }
+    fun minusMinutes(minutes: Int): DateTime = DateTime(millis.minusMinutes(minutes))
 
-    fun minusMillis(millis: Long): DateTime {
-        return DateTime(this.millis - millis, timeZone)
-    }
+    fun minusMillis(millis: Long): DateTime = DateTime(this.millis.minusMillis(millis))
 
     val isAfterNow: Boolean
         get() = isAfter(currentTimeMillis())

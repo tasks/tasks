@@ -58,7 +58,7 @@ class StartDateControlSet : TaskEditControlFragment() {
                         hasDueDate = viewModel.dueDate.collectAsStateWithLifecycle().value > 0,
                         printDate = {
                             DateUtilities.getRelativeDateTime(
-                                context,
+                                requireContext(),
                                 selectedDay + selectedTime,
                                 locale,
                                 FormatStyle.FULL,

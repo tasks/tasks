@@ -19,7 +19,6 @@ import com.google.android.material.textfield.TextInputLayout
 import org.tasks.data.sql.Field
 import org.tasks.data.sql.Query
 import org.tasks.data.sql.UnaryCriterion
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.BooleanCriterion
@@ -338,7 +337,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
             if (instance.type == CriterionInstance.TYPE_UNIVERSE || instance.criterion.sql == null) {
                 sql.append(activeAndVisible()).append(' ')
             } else {
-                var subSql: String? = instance.criterion.sql.replace(
+                var subSql: String = instance.criterion.sql.replace(
                     "?",
                     UnaryCriterion.sanitize(instance.valueFromCriterion!!)
                 )

@@ -1,19 +1,20 @@
 package org.tasks.filters
 
+import org.tasks.CommonParcelize
+import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Order.Companion.desc
 import org.tasks.data.sql.QueryTemplate
-import org.tasks.data.entity.Task
-import kotlinx.parcelize.Parcelize
-import org.tasks.themes.CustomIcons
-import org.tasks.time.DateTime
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.minusDays
+import org.tasks.time.startOfMinute
 
-@Parcelize
+@CommonParcelize
 data class RecentlyModifiedFilter(
     override val title: String,
 ) : Filter {
     override val icon: Int
-        get() = CustomIcons.HISTORY
+        get() = 6 // CustomIcons.HISTORY
 
     override val sql: String
         get() = QueryTemplate()
@@ -21,7 +22,7 @@ data class RecentlyModifiedFilter(
                 and(
                     Task.DELETION_DATE.lte(0),
                     Task.MODIFICATION_DATE.gt(
-                        DateTime().minusDays(1).startOfMinute().millis
+                        currentTimeMillis().minusDays(1).startOfMinute()
                     )
                 )
             )

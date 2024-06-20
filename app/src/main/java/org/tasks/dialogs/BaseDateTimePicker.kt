@@ -113,10 +113,10 @@ abstract class BaseDateTimePicker : BottomSheetDialogFragment() {
         afternoon = preferences.dateShortcutAfternoon + 1000
         evening = preferences.dateShortcutEvening + 1000
         night = preferences.dateShortcutNight + 1000
-        morningButton.text = DateUtilities.getTimeString(context, DateTimeUtils.newDateTime().withMillisOfDay(morning))
-        afternoonButton.text = DateUtilities.getTimeString(context, DateTimeUtils.newDateTime().withMillisOfDay(afternoon))
-        eveningButton.text = DateUtilities.getTimeString(context, DateTimeUtils.newDateTime().withMillisOfDay(evening))
-        nightButton.text = DateUtilities.getTimeString(context, DateTimeUtils.newDateTime().withMillisOfDay(night))
+        morningButton.text = DateUtilities.getTimeString(requireContext(), DateTimeUtils.newDateTime().withMillisOfDay(morning))
+        afternoonButton.text = DateUtilities.getTimeString(requireContext(), DateTimeUtils.newDateTime().withMillisOfDay(afternoon))
+        eveningButton.text = DateUtilities.getTimeString(requireContext(), DateTimeUtils.newDateTime().withMillisOfDay(evening))
+        nightButton.text = DateUtilities.getTimeString(requireContext(), DateTimeUtils.newDateTime().withMillisOfDay(night))
         val firstDayOfWeek = preferences.firstDayOfWeek
         if (firstDayOfWeek in 1..7) {
             calendarView.firstDayOfWeek = firstDayOfWeek

@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service
 
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.gcal.GCalHelper
@@ -39,6 +38,7 @@ import org.tasks.filters.mapFromSerializedString
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.ONE_HOUR
 import org.tasks.time.startOfDay
 import timber.log.Timber
 import javax.inject.Inject
@@ -210,7 +210,7 @@ class TaskCreator @Inject constructor(
 
     companion object {
         fun Task.setDefaultReminders(preferences: Preferences) {
-            randomReminder = DateUtilities.ONE_HOUR * preferences.getIntegerFromString(
+            randomReminder = ONE_HOUR * preferences.getIntegerFromString(
                 R.string.p_rmd_default_random_hours,
                 0
             )
