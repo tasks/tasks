@@ -1,7 +1,6 @@
 package com.todoroo.astrid.alarms
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.andlib.utility.DateUtilities.ONE_WEEK
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -32,6 +31,7 @@ import org.tasks.makers.TaskMaker.REMINDER_LAST
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.reminders.Random
 import org.tasks.time.DateTime
+import org.tasks.time.ONE_WEEK
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeUnit.DAYS
 import java.util.concurrent.TimeUnit.MINUTES

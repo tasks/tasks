@@ -2,7 +2,6 @@ package org.tasks.injection
 
 import android.content.Context
 import androidx.room.Room
-import org.tasks.data.db.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.mockito.Mockito.mock
 import org.tasks.TestUtilities
+import org.tasks.data.db.Database
 import org.tasks.jobs.WorkManager
 import org.tasks.location.LocationManager
 import org.tasks.location.MockLocationManager
@@ -25,7 +25,7 @@ class TestModule {
     @Singleton
     fun getDatabase(@ApplicationContext context: Context): Database {
         return Room.inMemoryDatabaseBuilder(context, Database::class.java)
-                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigration(dropAllTables = true)
                 .build()
     }
 
