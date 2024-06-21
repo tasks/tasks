@@ -6,9 +6,9 @@ import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_START
 
 internal class DiffCallback(
-        private val old: SectionedDataSource,
-        private val new: SectionedDataSource,
-        @Deprecated("") private val adapter: TaskAdapter
+    private val old: SectionedDataSource,
+    private val new: SectionedDataSource,
+    @Deprecated("") private val adapter: TaskAdapter
 ) : DiffUtil.Callback() {
 
     private val refreshDates = when (old.groupMode) {

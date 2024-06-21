@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import org.tasks.filters.EmptyFilter
-import org.tasks.filters.SearchFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,8 +33,10 @@ import org.tasks.data.entity.Task
 import org.tasks.data.fetchTasks
 import org.tasks.db.QueryUtils
 import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.EmptyFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterImpl
+import org.tasks.filters.SearchFilter
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.tasklist.SectionedDataSource
@@ -55,11 +55,6 @@ class TaskListViewModel @Inject constructor(
     private val inventory: Inventory,
     private val firebase: Firebase,
 ) : ViewModel() {
-
-    sealed class UiItem {
-        data class Header(val value: Long): UiItem()
-        data class Task(val task: TaskContainer): UiItem()
-    }
 
     sealed interface TasksResults {
         data object Loading : TasksResults

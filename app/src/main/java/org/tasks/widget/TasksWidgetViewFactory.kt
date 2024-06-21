@@ -28,6 +28,7 @@ import org.tasks.filters.Filter
 import org.tasks.markdown.Markdown
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
+import org.tasks.tasklist.headerColor
 import org.tasks.themes.ColorProvider.Companion.priorityColor
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay

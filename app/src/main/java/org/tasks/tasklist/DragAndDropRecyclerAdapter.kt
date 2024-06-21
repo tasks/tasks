@@ -23,7 +23,6 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.activities.DragAndDropDiffer
 import org.tasks.data.TaskContainer
 import org.tasks.preferences.Preferences
-import org.tasks.ui.TaskListViewModel.UiItem
 import java.util.LinkedList
 import java.util.Queue
 import java.util.concurrent.Executors

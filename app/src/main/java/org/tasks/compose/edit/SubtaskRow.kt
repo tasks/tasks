@@ -33,7 +33,6 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.tasks.filters.GtasksFilter
 import org.tasks.compose.CheckBox
 import org.tasks.compose.ClearButton
 import org.tasks.compose.DisabledText
@@ -44,7 +43,9 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
 import org.tasks.filters.Filter
+import org.tasks.filters.GtasksFilter
 import org.tasks.tasklist.SectionedDataSource
+import org.tasks.tasklist.UiItem
 import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskListViewModel
 
@@ -94,7 +95,7 @@ fun SubtaskRow(
                     if (existingSubtasks is TaskListViewModel.TasksResults.Results) {
                         existingSubtasks
                             .tasks
-                            .filterIsInstance<TaskListViewModel.UiItem.Task>()
+                            .filterIsInstance<UiItem.Task>()
                             .map { it.task }
                             .forEach { task ->
                             ExistingSubtaskRow(

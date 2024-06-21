@@ -1,12 +1,10 @@
 package org.tasks.tasklist
 
-import android.util.SparseArray
-import androidx.core.util.forEach
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.TaskContainer
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
-import org.tasks.ui.TaskListViewModel.UiItem
+import java.util.TreeMap
 
 class SectionedDataSource(
     tasks: List<TaskContainer> = emptyList(),
@@ -19,7 +17,7 @@ class SectionedDataSource(
     private val tasks = tasks.toMutableList()
 
     private val sections = if (disableHeaders || groupMode == SortHelper.GROUP_NONE) {
-        SparseArray()
+        TreeMap<Int, AdapterSection>()
     } else {
         getSections()
     }
@@ -32,14 +30,13 @@ class SectionedDataSource(
 
     private fun sectionedPositionToPosition(sectionedPosition: Int): Int {
         if (isHeader(sectionedPosition)) {
-            return sections[sectionedPosition].firstPosition
+            return getSection(sectionedPosition).firstPosition
         }
 
         var offset = 0
-        for (i in 0 until sections.size()) {
-            val section = sections.valueAt(i)
+        sections.forEach { (_, section) ->
             if (section.sectionedPosition > sectionedPosition) {
-                break
+                return@forEach
             }
             --offset
         }
@@ -50,7 +47,7 @@ class SectionedDataSource(
         get() = tasks.size
 
     override val size: Int
-        get() = tasks.size + sections.size()
+        get() = tasks.size + sections.size
 
     override fun get(index: Int) =
         sections[index]
@@ -95,13 +92,13 @@ class SectionedDataSource(
         TODO("Not yet implemented")
     }
 
-    fun getSection(position: Int): AdapterSection = sections[position]
+    fun getSection(position: Int): AdapterSection = sections[position]!!
 
     fun add(position: Int, task: TaskContainer) = tasks.add(sectionedPositionToPosition(position), task)
 
     fun removeAt(position: Int): TaskContainer = tasks.removeAt(sectionedPositionToPosition(position))
 
-    private fun getSections(): SparseArray<AdapterSection> {
+    private fun getSections(): TreeMap<Int, AdapterSection> {
         val sections = ArrayList<AdapterSection>()
         val startOfToday = currentTimeMillis().startOfDay()
         for (i in tasks.indices) {
@@ -174,23 +171,22 @@ class SectionedDataSource(
         return setSections(sections)
     }
 
-    private fun setSections(newSections: List<AdapterSection>): SparseArray<AdapterSection> {
-        val sections = SparseArray<AdapterSection>()
+    private fun setSections(newSections: List<AdapterSection>): TreeMap<Int, AdapterSection> {
+        val sections = TreeMap<Int, AdapterSection>()
         newSections.forEachIndexed { index, section ->
             section.sectionedPosition = section.firstPosition + index
-            sections.append(section.sectionedPosition, section)
+            sections[section.sectionedPosition] = section
         }
         return sections
     }
 
     fun moveSection(toPosition: Int, offset: Int) {
-        val old = sections[toPosition]
-        sections.remove(toPosition)
+        val old = sections.remove(toPosition)!!
         val newSectionedPosition = old.sectionedPosition + offset
         val previousSection = if (isHeader(newSectionedPosition - 1)) sections[newSectionedPosition - 1] else null
         val newFirstPosition = previousSection?.firstPosition ?: (old.firstPosition + offset)
         val new = AdapterSection(newFirstPosition, old.value, newSectionedPosition, old.collapsed)
-        sections.append(new.sectionedPosition, new)
+        sections[new.sectionedPosition] = new
     }
 
     tailrec fun getNearestHeader(sectionedPosition: Int): Long =
@@ -202,11 +198,7 @@ class SectionedDataSource(
             getNearestHeader(sectionedPosition - 1)
         }
 
-    fun getSectionValues(): List<Long> {
-        val values = ArrayList<Long>()
-        sections.forEach { _, header -> values.add(header.value) }
-        return values
-    }
+    fun getSectionValues(): List<Long> = sections.map { (_, header) -> header.value }
 
     companion object {
         const val HEADER_OVERDUE = -1L
