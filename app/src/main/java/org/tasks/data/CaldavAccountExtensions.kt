@@ -38,7 +38,8 @@ val CaldavAccount.prefIcon: Int
         isTasksOrg -> R.drawable.ic_round_icon
         isCaldavAccount -> R.drawable.ic_webdav_logo
         isEtebaseAccount || isEteSyncAccount || uuid.isEteSync() -> R.drawable.ic_etesync
-        uuid.isDavx5() || uuid.isDavx5Managed() -> R.drawable.ic_davx5_icon_green_bg
+        uuid.isDavx5() -> R.drawable.ic_davx5_icon_green_bg
+        uuid.isDavx5Managed() -> R.drawable.ic_davx5_icon_blue_bg
         uuid.isDecSync() -> R.drawable.ic_decsync
         isMicrosoft -> R.drawable.ic_microsoft_tasks
         isGoogleTasks -> R.drawable.ic_google
