@@ -1,15 +1,20 @@
-### 13.10 (2024-06-16)
+### 13.10 (2024-06-21)
 
 * Add search bar to drawer
 * Add search bar to list picker
 * Android 13+ users must grant additional reminder permissions
 * Fix completing task multiple times from notification
 * Fix deleting new subtasks from edit screen
+* Enable Managed DAVx5
 * Update translations
   * Arabic - @islam2hamy
   * Brazilian Portuguese - Jose Delvani
+  * Chinese (Simplified) - 大王叫我来巡山
   * Chinese (Traditional) - hugoalh
+  * Croatian - @milotype
   * German - min7-i
+  * Spanish - gallegonovato
+  * Turkish - @oersen
 
 ### 13.9.9 (2024-05-30)
 
