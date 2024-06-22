@@ -36,7 +36,7 @@ private fun Invite() = TasksTheme {
 
 @Preview(showBackground = true, backgroundColor = 0x202124)
 @Composable
-private fun InviteDark() = TasksTheme(useDarkTheme = true) {
+private fun InviteDark() = TasksTheme(theme = 2) {
     ShareInvite(false, remember { mutableStateOf("") })
 }
 
@@ -48,7 +48,7 @@ private fun InviteFilled() = TasksTheme {
 
 @Preview(showBackground = true, backgroundColor = 0x202124)
 @Composable
-private fun InviteDarkFilled() = TasksTheme(useDarkTheme = true) {
+private fun InviteDarkFilled() = TasksTheme(theme = 2) {
     ShareInvite(false, remember { mutableStateOf("user@example.com") })
 }
 

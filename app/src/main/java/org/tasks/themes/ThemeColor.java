@@ -1,6 +1,7 @@
 package org.tasks.themes;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
+import static org.tasks.themes.ColorUtilsKt.calculateContrast;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -14,7 +15,6 @@ import android.view.View;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
-import androidx.core.graphics.ColorUtils;
 import androidx.core.os.ParcelCompat;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -155,9 +155,6 @@ public class ThemeColor implements Pickable {
         }
       };
 
-  private static final int BLUE = -14575885;
-  private static final int WHITE = -1;
-
   private final int original;
   private final int colorOnPrimary;
   private final int colorPrimary;
@@ -170,18 +167,18 @@ public class ThemeColor implements Pickable {
   public ThemeColor(Context context, int original, int color) {
     this.original = original;
     if (color == 0) {
-      color = BLUE;
+      color = TasksThemeKt.BLUE;
     } else {
       color |= 0xFF000000; // remove alpha
     }
     colorPrimary = color;
 
-    double contrast = ColorUtils.calculateContrast(WHITE, colorPrimary);
+    double contrast = calculateContrast(TasksThemeKt.WHITE, colorPrimary);
     isDark = contrast < 3;
     if (isDark) {
       colorOnPrimary = context.getColor(R.color.black_87);
     } else {
-      colorOnPrimary = WHITE;
+      colorOnPrimary = TasksThemeKt.WHITE;
     }
   }
 
