@@ -1,19 +1,18 @@
 package org.tasks.filters
 
+import org.tasks.CommonParcelize
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.QueryTemplate
-import org.tasks.data.entity.Task
-import kotlinx.parcelize.Parcelize
-import org.tasks.data.dao.TaskDao
-import org.tasks.themes.CustomIcons
 
-@Parcelize
+@CommonParcelize
 data class MyTasksFilter(
     override val title: String,
     override var filterOverride: String? = null,
 ) : AstridOrderingFilter {
     override val icon: Int
-        get() = CustomIcons.ALL_INBOX
+        get() = 4 // CustomIcons.ALL_INBOX
     override val sql: String
         get() = QueryTemplate()
             .where(
