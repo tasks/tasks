@@ -22,6 +22,7 @@ import org.tasks.data.entity.Task
 import org.tasks.filters.SubtaskFilter
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.SectionedDataSource
+import org.tasks.tasklist.TasksResults
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -59,7 +60,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
                         hasParent = viewModel.hasParent,
                         desaturate = preferences.desaturateDarkMode,
                         existingSubtasks = if (viewModel.isNew) {
-                            TaskListViewModel.TasksResults.Results(SectionedDataSource())
+                            TasksResults.Results(SectionedDataSource())
                         } else {
                             listViewModel.state.collectAsStateWithLifecycle().value.tasks
                         },

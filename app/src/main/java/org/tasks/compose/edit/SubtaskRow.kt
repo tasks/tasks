@@ -45,9 +45,9 @@ import org.tasks.data.isHidden
 import org.tasks.filters.Filter
 import org.tasks.filters.GtasksFilter
 import org.tasks.tasklist.SectionedDataSource
+import org.tasks.tasklist.TasksResults
 import org.tasks.tasklist.UiItem
 import org.tasks.themes.TasksTheme
-import org.tasks.ui.TaskListViewModel
 
 @Composable
 fun SubtaskRow(
@@ -55,7 +55,7 @@ fun SubtaskRow(
     filter: Filter?,
     hasParent: Boolean,
     desaturate: Boolean,
-    existingSubtasks: TaskListViewModel.TasksResults,
+    existingSubtasks: TasksResults,
     newSubtasks: List<Task>,
     openSubtask: (Task) -> Unit,
     completeExistingSubtask: (Task, Boolean) -> Unit,
@@ -92,7 +92,7 @@ fun SubtaskRow(
                     )
                 } else {
                     Spacer(modifier = Modifier.height(height = 8.dp))
-                    if (existingSubtasks is TaskListViewModel.TasksResults.Results) {
+                    if (existingSubtasks is TasksResults.Results) {
                         existingSubtasks
                             .tasks
                             .filterIsInstance<UiItem.Task>()
@@ -245,7 +245,7 @@ fun NoSubtasks() {
             filter = null,
             hasParent = false,
             desaturate = true,
-            existingSubtasks = TaskListViewModel.TasksResults.Results(SectionedDataSource()),
+            existingSubtasks = TasksResults.Results(SectionedDataSource()),
             newSubtasks = emptyList(),
             openSubtask = {},
             completeExistingSubtask = { _, _ -> },
@@ -267,7 +267,7 @@ fun SubtasksPreview() {
             filter = null,
             hasParent = false,
             desaturate = true,
-            existingSubtasks = TaskListViewModel.TasksResults.Results(
+            existingSubtasks = TasksResults.Results(
                 SectionedDataSource(
                     tasks = listOf(
                         TaskContainer(

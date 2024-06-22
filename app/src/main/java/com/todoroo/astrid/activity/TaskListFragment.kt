@@ -134,6 +134,7 @@ import org.tasks.tags.TagPickerActivity
 import org.tasks.tasklist.DragAndDropRecyclerAdapter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TaskViewHolder
+import org.tasks.tasklist.TasksResults
 import org.tasks.tasklist.ViewHolderFactory
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
@@ -305,7 +306,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 listViewModel.updateBannerState()
                 listViewModel.state.collect {
-                    if (it.tasks is TaskListViewModel.TasksResults.Results) {
+                    if (it.tasks is TasksResults.Results) {
                         submitList(it.tasks.tasks)
                         if (it.tasks.tasks.isEmpty()) {
                             swipeRefreshLayout.visibility = View.GONE

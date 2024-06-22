@@ -40,6 +40,7 @@ import org.tasks.filters.SearchFilter
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.tasklist.SectionedDataSource
+import org.tasks.tasklist.TasksResults
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
@@ -56,10 +57,6 @@ class TaskListViewModel @Inject constructor(
     private val firebase: Firebase,
 ) : ViewModel() {
 
-    sealed interface TasksResults {
-        data object Loading : TasksResults
-        data class Results(val tasks: SectionedDataSource) : TasksResults
-    }
 
     data class State(
         val filter: Filter = EmptyFilter(),
