@@ -22,9 +22,9 @@ import org.tasks.filters.Filter
 import org.tasks.filters.FilterListItem
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.filters.getIcon
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.CustomIcons
 import javax.inject.Inject
 
 @HiltViewModel
@@ -90,15 +90,7 @@ class FilterPickerViewModel @Inject constructor(
         localBroadcastManager.broadcastRefreshList()
     }
 
-    fun getIcon(filter: Filter): Int {
-        if (filter.icon < 1000 || inventory.hasPro) {
-            val icon = CustomIcons.getIconResId(filter.icon)
-            if (icon != null) {
-                return icon
-            }
-        }
-        return R.drawable.ic_list_24px
-    }
+    fun getIcon(filter: Filter): String = filter.getIcon(inventory)
 
     fun getColor(filter: Filter): Int {
         if (filter.tint != 0) {

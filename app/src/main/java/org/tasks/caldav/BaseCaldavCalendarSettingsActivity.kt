@@ -15,19 +15,20 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import org.tasks.filters.CaldavFilter
-import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.BaseListSettingsActivity
+import org.tasks.data.UUIDHelper
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.CaldavDao
 import org.tasks.databinding.ActivityCaldavCalendarSettingsBinding
 import org.tasks.extensions.Context.hideKeyboard
-import org.tasks.themes.CustomIcons
+import org.tasks.filters.CaldavFilter
+import org.tasks.themes.TasksIcons
 import org.tasks.ui.DisplayableException
 import java.net.ConnectException
 import javax.inject.Inject
@@ -44,7 +45,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
     protected var caldavCalendar: CaldavCalendar? = null
 
     protected lateinit var caldavAccount: CaldavAccount
-    override val defaultIcon: Int = CustomIcons.LIST
+    override val defaultIcon = TasksIcons.LIST
 
     override fun bind() = ActivityCaldavCalendarSettingsBinding.inflate(layoutInflater).let {
         root = it.rootLayout
@@ -71,7 +72,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
             if (caldavCalendar != null) {
                 name.setText(caldavCalendar!!.name)
                 selectedColor = caldavCalendar!!.color
-                selectedIcon = caldavCalendar!!.getIcon()!!
+                selectedIcon.update { caldavCalendar?.icon }
             }
         }
         if (caldavCalendar == null) {
@@ -165,7 +166,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
             url = url,
             name = newName,
             color = selectedColor,
-            icon = selectedIcon,
+            icon = selectedIcon.value,
         )
         caldavDao.insert(caldavCalendar)
         setResult(
@@ -175,20 +176,22 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
     }
 
     protected suspend fun updateCalendar() {
-        caldavCalendar!!.name = newName
-        caldavCalendar!!.color = selectedColor
-        caldavCalendar!!.setIcon(selectedIcon)
-        caldavDao.update(caldavCalendar!!)
+        val result = caldavCalendar!!.copy(
+            name = newName,
+            color = selectedColor,
+            icon = selectedIcon.value,
+        )
+        caldavDao.update(result)
         setResult(
                 Activity.RESULT_OK,
                 Intent(TaskListFragment.ACTION_RELOAD)
-                        .putExtra(MainActivity.OPEN_FILTER, CaldavFilter(caldavCalendar!!)))
+                        .putExtra(MainActivity.OPEN_FILTER, CaldavFilter(result)))
         finish()
     }
 
     override fun hasChanges(): Boolean =
             if (caldavCalendar == null)
-                !isNullOrEmpty(newName) || selectedColor != 0 || selectedIcon != -1
+                !isNullOrEmpty(newName) || selectedColor != 0 || selectedIcon.value?.isBlank() == false
             else
                 nameChanged() || iconChanged() || colorChanged()
 
@@ -196,7 +199,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
 
     private fun colorChanged(): Boolean = selectedColor != caldavCalendar!!.color
 
-    private fun iconChanged(): Boolean = selectedIcon != caldavCalendar!!.getIcon()
+    private fun iconChanged(): Boolean = selectedIcon.value != caldavCalendar!!.icon
 
     private val newName: String
         get() = name.text.toString().trim { it <= ' ' }

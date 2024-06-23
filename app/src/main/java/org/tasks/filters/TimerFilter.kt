@@ -4,12 +4,12 @@ import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.QueryTemplate
 import org.tasks.data.entity.Task
 import kotlinx.parcelize.Parcelize
-import org.tasks.R
+import org.tasks.themes.TasksIcons
 
 @Parcelize
 data class TimerFilter(override val title: String?) : Filter {
     override val icon
-        get() = R.drawable.ic_outline_timer_24px
+        get() = TasksIcons.TIMER
 
     override val sql: String
         get() = QueryTemplate()

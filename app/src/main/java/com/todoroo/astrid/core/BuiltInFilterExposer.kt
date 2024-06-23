@@ -27,6 +27,7 @@ import org.tasks.filters.SnoozedFilter
 import org.tasks.filters.TimerFilter
 import org.tasks.filters.TodayFilter
 import org.tasks.preferences.Preferences
+import org.tasks.themes.TasksIcons
 import javax.inject.Inject
 
 class BuiltInFilterExposer @Inject constructor(
@@ -73,14 +74,14 @@ class BuiltInFilterExposer @Inject constructor(
                     .join(Join.left(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
                     .where(CaldavTask.ID.eq(null))
                     .toString(),
-                icon = R.drawable.ic_outline_cloud_off_24px,
+                icon = TasksIcons.CLOUD_OFF,
             )
 
         fun getDeleted() =
             FilterImpl(
                 title = "Deleted",
                 sql = QueryTemplate().where(Task.DELETION_DATE.gt(0)).toString(),
-                icon = R.drawable.ic_outline_delete_24px,
+                icon = TasksIcons.DELETE,
             )
 
         fun getMissingListFilter() =
@@ -96,7 +97,7 @@ class BuiltInFilterExposer @Inject constructor(
                     )
                     .where(and(CaldavTask.ID.gt(0), CaldavCalendar.UUID.eq(null)))
                     .toString(),
-                icon = R.drawable.ic_outline_cloud_off_24px,
+                icon = TasksIcons.CLOUD_OFF,
             )
 
         fun getMissingAccountFilter() =
@@ -114,28 +115,28 @@ class BuiltInFilterExposer @Inject constructor(
                     )
                     .where(and(CaldavTask.ID.gt(0), CaldavAccount.UUID.eq(null)))
                     .toString(),
-                icon = R.drawable.ic_outline_cloud_off_24px,
+                icon = TasksIcons.CLOUD_OFF,
             )
 
         fun getNoTitleFilter() =
             FilterImpl(
                 title = "No title",
                 sql = QueryTemplate().where(or(Task.TITLE.eq(null), Task.TITLE.eq(""))).toString(),
-                icon = R.drawable.ic_outline_clear_24px,
+                icon = TasksIcons.CLEAR,
             )
 
         fun getNoCreateDateFilter() =
             FilterImpl(
                 title = "No create time",
                 sql = QueryTemplate().where(Task.CREATION_DATE.eq(0)).toString(),
-                icon = R.drawable.ic_outline_add_24px,
+                icon = TasksIcons.ADD,
             )
 
         fun getNoModificationDateFilter() =
             FilterImpl(
                 title = "No modify time",
                 sql = QueryTemplate().where(Task.MODIFICATION_DATE.eq(0)).toString(),
-                icon = R.drawable.ic_outline_edit_24px,
+                icon = TasksIcons.EDIT,
             )
 
         fun getRecentlyModifiedFilter(r: Resources) =

@@ -7,7 +7,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
-import org.tasks.data.LABEL
 import org.tasks.data.NO_ORDER
 import org.tasks.data.UUIDHelper
 
@@ -28,10 +27,7 @@ data class TagData(
     @ColumnInfo(name = "tagOrdering")
     val tagOrdering: String? = "[]",
     @ColumnInfo(name = "td_icon")
-    private val icon: Int? = -1,
+    val icon: String? = null,
     @ColumnInfo(name = "td_order")
     val order: Int = NO_ORDER,
-) : CommonParcelable {
-    @Suppress("RedundantNullableReturnType")
-    fun getIcon(): Int? = icon ?: LABEL
-}
+) : CommonParcelable

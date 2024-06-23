@@ -6,7 +6,7 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.QueryTemplate
-import org.tasks.themes.CustomIcons
+import org.tasks.themes.TasksIcons
 
 @Parcelize
 data class TodayFilter(
@@ -23,8 +23,9 @@ data class TodayFilter(
                 )
             )
             .toString()
-    override val icon: Int
-        get() = CustomIcons.TODAY
+
+    override val icon: String
+        get() = TasksIcons.TODAY
 
     override val valuesForNewTasks: String
         get() = mapToSerializedString(mapOf(Task.DUE_DATE.name to PermaSql.VALUE_NOON))

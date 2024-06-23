@@ -54,3 +54,6 @@
 -dontwarn org.joda.convert.FromString
 -dontwarn org.joda.convert.ToString
 -dontwarn org.json.JSONString
+
+# material icons
+-keep class androidx.compose.material.icons.outlined.**

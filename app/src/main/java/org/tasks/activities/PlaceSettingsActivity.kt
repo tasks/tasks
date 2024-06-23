@@ -10,6 +10,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.update
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -22,7 +23,7 @@ import org.tasks.extensions.formatNumber
 import org.tasks.filters.PlaceFilter
 import org.tasks.location.MapFragment
 import org.tasks.preferences.Preferences
-import org.tasks.themes.CustomIcons
+import org.tasks.themes.TasksIcons
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -49,7 +50,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private lateinit var place: Place
-    override val defaultIcon: Int = CustomIcons.PLACE
+    override val defaultIcon = TasksIcons.PLACE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (intent?.hasExtra(EXTRA_PLACE) != true) {
@@ -69,7 +70,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         if (savedInstanceState == null) {
             name.setText(place.displayName)
             selectedColor = place.color
-            selectedIcon = place.icon
+            selectedIcon.update { place.icon }
         }
 
         val dark = preferences.mapTheme == 2
@@ -106,7 +107,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
 
     override fun hasChanges() = name.text.toString() != place.displayName
                     || selectedColor != place.color
-                    || selectedIcon != place.icon
+                    || selectedIcon.value != place.icon
 
     override suspend fun save() {
         val newName: String = name.text.toString()
@@ -119,7 +120,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(), MapFragment.MapFragmen
         place = place.copy(
             name = newName,
             color = selectedColor,
-            icon = selectedIcon,
+            icon = selectedIcon.value,
             radius = slider.value.toInt(),
         )
         locationDao.update(place)

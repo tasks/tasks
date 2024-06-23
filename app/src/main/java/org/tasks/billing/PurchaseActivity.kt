@@ -47,9 +47,11 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
 
         theme.applyToContext(this)
 
-        savedInstanceState?.let {
-            nameYourPrice.value = it.getBoolean(EXTRA_NAME_YOUR_PRICE)
-            sliderPosition.value = it.getFloat(EXTRA_PRICE)
+        if (savedInstanceState == null) {
+            nameYourPrice.value = intent?.extras?.getBoolean(EXTRA_NAME_YOUR_PRICE) ?: false
+        } else {
+            nameYourPrice.value = savedInstanceState.getBoolean(EXTRA_NAME_YOUR_PRICE)
+            sliderPosition.value = savedInstanceState.getFloat(EXTRA_PRICE)
         }
 
         setContent {
@@ -128,6 +130,6 @@ class PurchaseActivity : AppCompatActivity(), OnPurchasesUpdated {
     companion object {
         const val EXTRA_GITHUB = "extra_github"
         private const val EXTRA_PRICE = "extra_price"
-        private const val EXTRA_NAME_YOUR_PRICE = "extra_name_your_price"
+        const val EXTRA_NAME_YOUR_PRICE = "extra_name_your_price"
     }
 }

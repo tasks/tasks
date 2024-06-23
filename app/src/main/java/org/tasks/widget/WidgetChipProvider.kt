@@ -3,10 +3,13 @@ package org.tasks.widget
 import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
+import com.mikepenz.iconics.IconicsDrawable
+import com.mikepenz.iconics.typeface.library.googlematerial.OutlinedGoogleMaterial
 import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.billing.Inventory
 import org.tasks.data.TaskContainer
 import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
@@ -17,7 +20,7 @@ import org.tasks.filters.Filter
 import org.tasks.filters.GtasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
-import org.tasks.themes.CustomIcons
+import org.tasks.filters.getIcon
 import org.tasks.time.startOfDay
 import org.tasks.ui.ChipListCache
 import java.time.format.FormatStyle
@@ -28,6 +31,7 @@ class WidgetChipProvider @Inject constructor(
     @ApplicationContext private val context: Context,
     private val chipListCache: ChipListCache,
     private val locale: Locale,
+    private val inventory: Inventory,
 ) {
     var isDark = false
 
@@ -109,11 +113,16 @@ class WidgetChipProvider @Inject constructor(
     private fun newChip(filter: Filter, defaultIcon: Int) =
         newChip(filter.tint).apply {
             setTextViewText(R.id.chip_text, filter.title)
-            val icon = filter.icon
-                .takeIf { it >= 0 }
-                ?.let { CustomIcons.getIconResId(it) }
-                ?: defaultIcon
-            setImageViewResource(R.id.chip_icon, icon)
+            if (filter.icon.isNullOrBlank()) {
+                setImageViewResource(R.id.chip_icon, defaultIcon)
+            } else {
+                val icon = filter.getIcon(inventory)
+                val drawable = IconicsDrawable(
+                    context,
+                    OutlinedGoogleMaterial.getIcon("gmo_$icon")
+                )
+                setImageViewBitmap(R.id.chip_icon, drawable.toBitmap())
+            }
         }
 
     private fun newChip(@ColorInt color: Int = 0) = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_chip).apply {

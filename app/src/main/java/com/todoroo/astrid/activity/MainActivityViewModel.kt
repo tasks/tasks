@@ -8,9 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.activity.MainActivity.Companion.LOAD_FILTER
 import com.todoroo.astrid.activity.MainActivity.Companion.OPEN_FILTER
-import com.todoroo.astrid.api.CustomFilter
-import org.tasks.filters.GtasksFilter
-import org.tasks.filters.TagFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -22,7 +19,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
-import org.tasks.R
 import org.tasks.Tasks.Companion.IS_GENERIC
 import org.tasks.billing.Inventory
 import org.tasks.compose.drawer.DrawerItem
@@ -35,11 +31,10 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
-import org.tasks.filters.PlaceFilter
+import org.tasks.filters.getIcon
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.CustomIcons
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -135,7 +130,7 @@ class MainActivityViewModel @Inject constructor(
                     is Filter ->
                         DrawerItem.Filter(
                             title = item.title ?: "",
-                            icon = getIcon(item),
+                            icon = item.getIcon(inventory),
                             color = getColor(item),
                             count = item.count.takeIf { it != NO_COUNT } ?: try {
                                 taskDao.count(item)
@@ -166,7 +161,7 @@ class MainActivityViewModel @Inject constructor(
             .map { item ->
                 DrawerItem.Filter(
                     title = item.title ?: "",
-                    icon = getIcon(item),
+                    icon = item.getIcon(inventory),
                     color = getColor(item),
                     count = item.count.takeIf { it != NO_COUNT } ?: try {
                         taskDao.count(item)
@@ -190,24 +185,6 @@ class MainActivityViewModel @Inject constructor(
             }
         }
         return 0
-    }
-
-    private fun getIcon(filter: Filter): Int {
-        if (filter.icon < 1000 || filter.icon == CustomIcons.PLACE || inventory.hasPro) {
-            val icon = CustomIcons.getIconResId(filter.icon)
-            if (icon != null) {
-                return icon
-            }
-        }
-        return when (filter) {
-            is TagFilter -> R.drawable.ic_outline_label_24px
-            is GtasksFilter,
-            is CaldavFilter -> R.drawable.ic_list_24px
-
-            is CustomFilter -> R.drawable.ic_outline_filter_list_24px
-            is PlaceFilter -> R.drawable.ic_outline_place_24px
-            else -> filter.icon
-        }
     }
 
     fun toggleCollapsed(subheader: NavigationDrawerSubheader) = viewModelScope.launch {

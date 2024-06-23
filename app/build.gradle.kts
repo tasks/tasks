@@ -51,8 +51,8 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 131005
-        versionName = "13.10"
+        versionCode = 131100
+        versionName = "13.11"
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "org.tasks.TestRunner"
@@ -183,6 +183,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.room)
     implementation(libs.androidx.appcompat)
+    implementation(libs.iconics)
+    implementation(libs.iconics.material.design)
     implementation(libs.markwon)
     implementation(libs.markwon.editor)
     implementation(libs.markwon.linkify)

@@ -135,11 +135,11 @@ fun SQLiteStatement.getTasks(): List<TaskContainer> {
                 latitude = getDouble(_cursorIndexOfLatitude),
                 longitude = getDouble(_cursorIndexOfLongitude),
                 color = getInt(_cursorIndexOfColor),
-                icon = getInt(_cursorIndexOfIcon),
+                icon = getTextOrNull(_cursorIndexOfIcon),
                 order = getInt(_cursorIndexOfOrder_1),
                 radius = getInt(_cursorIndexOfRadius),
             )
-        }
+    }
         result.add(
             TaskContainer(
                 task = task,

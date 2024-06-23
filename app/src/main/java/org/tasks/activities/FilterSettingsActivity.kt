@@ -33,6 +33,7 @@ import com.todoroo.astrid.core.CustomFilterItemTouchHelper
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Task
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -49,7 +50,7 @@ import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.hideKeyboard
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.filters.mapToSerializedString
-import org.tasks.themes.CustomIcons
+import org.tasks.themes.TasksIcons
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.max
@@ -70,14 +71,14 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     private var filter: CustomFilter? = null
     private lateinit var adapter: CustomFilterAdapter
     private var criteria: MutableList<CriterionInstance> = ArrayList()
-    override val defaultIcon: Int = CustomIcons.FILTER
+    override val defaultIcon = TasksIcons.FILTER_LIST
 
     override fun onCreate(savedInstanceState: Bundle?) {
         filter = intent.getParcelableExtra(TOKEN_FILTER)
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null && filter != null) {
             selectedColor = filter!!.tint
-            selectedIcon = filter!!.icon
+            selectedIcon.update { filter!!.icon }
             name.setText(filter!!.title)
         }
         when {
@@ -245,7 +246,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                 id = filter?.id ?: 0L,
                 title = newName,
                 color = selectedColor,
-                icon = selectedIcon,
+                icon = selectedIcon.value,
                 values = criteria.values,
                 criterion = CriterionInstance.serialize(criteria),
                 sql = criteria.sql,
@@ -276,10 +277,10 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     override fun hasChanges(): Boolean {
         return if (isNew) {
             (!Strings.isNullOrEmpty(newName)
-                    || selectedColor != 0 || selectedIcon != -1 || criteria.size > 1)
+                    || selectedColor != 0 || selectedIcon.value?.isBlank() == false || criteria.size > 1)
         } else newName != filter!!.title
                 || selectedColor != filter!!.tint
-                || selectedIcon != filter!!.icon
+                || selectedIcon.value != filter!!.icon
                 || CriterionInstance.serialize(criteria) != filter!!.criterion!!.trim()
                 || criteria.values != filter!!.valuesForNewTasks
                 || criteria.sql != filter!!.sql

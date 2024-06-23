@@ -7,6 +7,7 @@ import android.os.Handler
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
 import com.todoroo.astrid.service.TaskMover
+import com.todoroo.astrid.service.Upgrade_13_11.Companion.migrateLegacyIcon
 import com.todoroo.astrid.service.Upgrade_13_2
 import com.todoroo.astrid.service.Upgrader
 import com.todoroo.astrid.service.Upgrader.Companion.V12_4
@@ -99,7 +100,10 @@ class TasksJsonImporter @Inject constructor(
                     return@forEach
                 }
                 tagDataDao.insert(
-                    tagData.copy(color = themeToColor(context, version, tagData.color ?: 0))
+                    tagData.copy(
+                        color = themeToColor(context, version, tagData.color ?: 0),
+                        icon = tagData.icon.migrateLegacyIcon(),
+                    )
                 )
             }
             backupContainer.googleTaskAccounts?.forEach { googleTaskAccount ->
@@ -116,7 +120,11 @@ class TasksJsonImporter @Inject constructor(
             }
             backupContainer.places?.forEach { place ->
                 if (locationDao.getByUid(place.uid!!) == null) {
-                    locationDao.insert(place)
+                    locationDao.insert(
+                        place.copy(
+                            icon = place.icon.migrateLegacyIcon(),
+                        )
+                    )
                 }
             }
             backupContainer.googleTaskLists?.forEach { googleTaskList ->
@@ -126,7 +134,7 @@ class TasksJsonImporter @Inject constructor(
                             account = googleTaskList.account,
                             uuid = googleTaskList.remoteId,
                             color = themeToColor(context, version, googleTaskList.color ?: 0),
-
+                            icon = googleTaskList.icon?.toString().migrateLegacyIcon(),
                         )
                     )
                 }
@@ -139,7 +147,8 @@ class TasksJsonImporter @Inject constructor(
                     if (filterDao.getByName(filter.title!!) == null) {
                         filterDao.insert(
                             filter.copy(
-                                color = themeToColor(context, version, filter.color ?: 0)
+                                color = themeToColor(context, version, filter.color ?: 0),
+                                icon = filter.icon.migrateLegacyIcon(),
                             )
                         )
                     }
@@ -152,7 +161,10 @@ class TasksJsonImporter @Inject constructor(
             backupContainer.caldavCalendars?.forEach { calendar ->
                 if (caldavDao.getCalendarByUuid(calendar.uuid!!) == null) {
                     caldavDao.insert(
-                        calendar.copy(color = themeToColor(context, version, calendar.color))
+                        calendar.copy(
+                            color = themeToColor(context, version, calendar.color),
+                            icon = calendar.icon.migrateLegacyIcon(),
+                        )
                     )
                 }
             }

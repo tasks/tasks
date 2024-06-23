@@ -3,19 +3,19 @@ package org.tasks.caldav
 import android.content.Intent
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import org.tasks.filters.CaldavFilter
-import org.tasks.data.UUIDHelper
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.tasks.data.*
-import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
-import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
+import org.tasks.data.PrincipalWithAccess
+import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
+import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
+import org.tasks.filters.CaldavFilter
 import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
@@ -33,7 +33,7 @@ class CaldavCalendarViewModel @Inject constructor(
         caldavAccount: CaldavAccount,
         name: String,
         color: Int,
-        icon: Int
+        icon: String?
     ): CaldavCalendar? =
         doRequest {
             val url = withContext(Dispatchers.IO) {
@@ -60,20 +60,20 @@ class CaldavCalendarViewModel @Inject constructor(
         calendar: CaldavCalendar,
         name: String,
         color: Int,
-        icon: Int
+        icon: String?
     ) =
         doRequest {
             withContext(Dispatchers.IO) {
                 provider.forAccount(account, calendar.url!!).updateCollection(name, color)
             }
-            calendar.apply {
-                this.name = name
-                this.color = color
-                setIcon(icon)
-                caldavDao.update(this)
-            }
+            val result = calendar.copy(
+                name = name,
+                color = color,
+                icon = icon,
+            )
+            caldavDao.update(result)
             finish.value = Intent(TaskListFragment.ACTION_RELOAD)
-                .putExtra(MainActivity.OPEN_FILTER, CaldavFilter(calendar))
+                .putExtra(MainActivity.OPEN_FILTER, CaldavFilter(result))
         }
 
     suspend fun deleteCalendar(account: CaldavAccount, calendar: CaldavCalendar) =

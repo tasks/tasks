@@ -6,9 +6,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import com.todoroo.andlib.utility.DateUtilities
-import org.tasks.R
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.themes.TasksIcons
 import org.tasks.time.startOfDay
 import java.time.format.FormatStyle
 
@@ -44,7 +44,7 @@ fun StartDateChip(
     }
     if (text != null) {
         Chip(
-            icon = R.drawable.ic_pending_actions_24px,
+            icon = TasksIcons.PENDING_ACTIONS,
             name = text,
             theme = 0,
             showText = true,

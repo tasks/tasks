@@ -30,8 +30,8 @@ data class TagFilter(
     override val valuesForNewTasks: String
         get() = mapToSerializedString(mapOf(Tag.KEY to tagData.name!!))
 
-    override val icon: Int
-        get() = tagData.getIcon()!!
+    override val icon: String?
+        get() = tagData.icon
 
     override val tint: Int
         get() = tagData.color ?: 0

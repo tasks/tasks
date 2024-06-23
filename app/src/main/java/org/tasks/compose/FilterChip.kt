@@ -2,19 +2,18 @@ package org.tasks.compose
 
 import androidx.compose.runtime.Composable
 import org.tasks.filters.Filter
-import org.tasks.themes.CustomIcons
 
 @Composable
 fun FilterChip(
     filter: Filter,
-    defaultIcon: Int,
+    defaultIcon: String,
     showText: Boolean,
     showIcon: Boolean,
     onClick: (Filter) -> Unit,
     colorProvider: (Int) -> Int,
 ) {
     Chip(
-        CustomIcons.getIcon(filter.icon, defaultIcon),
+        filter.icon ?: defaultIcon,
         filter.title,
         filter.tint,
         showText,

@@ -920,8 +920,35 @@
 +|    |              +--- androidx.compose.material:material-icons-core:1.6.8 (c)
 +|    |              \--- androidx.compose.material:material-ripple:1.6.8 (c)
 +|    +--- org.jetbrains.compose.runtime:runtime:1.6.11 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2
++|    |    \--- androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.2
++|    |         +--- androidx.annotation:annotation:1.8.0 (*)
++|    |         +--- androidx.compose.runtime:runtime:1.6.0 -> 1.6.8 (*)
++|    |         +--- androidx.compose.ui:ui:1.6.0 -> 1.6.8 (*)
++|    |         +--- androidx.lifecycle:lifecycle-common:2.8.2 (*)
++|    |         +--- androidx.lifecycle:lifecycle-viewmodel:2.8.2 (*)
++|    |         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.2 (*)
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.0 (*)
++|    |         +--- androidx.lifecycle:lifecycle-common:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-livedata:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-livedata-core:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-livedata-ktx:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-process:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-runtime:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-runtime-compose:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-runtime-ktx:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-service:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-viewmodel:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2 (c)
++|    |         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.2 (c)
++|    |         \--- androidx.lifecycle:lifecycle-common-java8:2.8.2 (c)
 +|    +--- co.touchlab:kermit:2.0.4 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.6.0 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7
++|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.7
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.0.0 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.0.0 (*)
 ++--- com.github.bitfireAT:dav4jvm:2.2.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 2.0.0 (*)
@@ -1136,9 +1163,7 @@
 ++--- io.noties.markwon:ext-tasklist:4.6.2
 +|    \--- io.noties.markwon:core:4.6.2 (*)
 ++--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0 (*)
-++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7
-+|    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.7
-+|         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.0.0 (*)
+++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7 (*)
 ++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0 (*)
 ++--- com.squareup.okhttp3:okhttp:4.12.0 (*)
 ++--- com.github.franmontiel:PersistentCookieJar:1.0.1
@@ -1304,29 +1329,7 @@
 +|    \--- androidx.compose.runtime:runtime-saveable:1.6.8 (c)
 ++--- androidx.activity:activity-compose:1.9.0 (*)
 ++--- androidx.compose.material:material-icons-extended -> 1.6.8 (*)
-++--- androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2
-+|    \--- androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.2
-+|         +--- androidx.annotation:annotation:1.8.0 (*)
-+|         +--- androidx.compose.runtime:runtime:1.6.0 -> 1.6.8 (*)
-+|         +--- androidx.compose.ui:ui:1.6.0 -> 1.6.8 (*)
-+|         +--- androidx.lifecycle:lifecycle-common:2.8.2 (*)
-+|         +--- androidx.lifecycle:lifecycle-viewmodel:2.8.2 (*)
-+|         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.2 (*)
-+|         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.0.0 (*)
-+|         +--- androidx.lifecycle:lifecycle-common:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-livedata:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-livedata-core:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-livedata-ktx:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-process:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-runtime:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-runtime-compose:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-runtime-ktx:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-service:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-viewmodel:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2 (c)
-+|         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.2 (c)
-+|         \--- androidx.lifecycle:lifecycle-common-java8:2.8.2 (c)
+++--- androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2 (*)
 ++--- androidx.compose.ui:ui-viewbinding -> 1.6.8
 +|    +--- androidx.compose.ui:ui:1.6.8 (*)
 +|    +--- androidx.compose.ui:ui-util:1.6.8 (*)

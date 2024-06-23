@@ -215,6 +215,13 @@
       android:theme="@style/TranslucentDialog"/>
 
     <activity
+        android:name=".compose.IconPickerActivity"
+        android:excludeFromRecents="true"
+        android:exported="true"
+        android:taskAffinity=""
+        android:theme="@style/TranslucentDialog" />
+
+    <activity
       android:name=".activities.CameraActivity"
       android:theme="@style/TranslucentDialog"/>
 

@@ -3,7 +3,7 @@ package com.todoroo.astrid.api
 import kotlinx.parcelize.Parcelize
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterListItem
-import org.tasks.themes.CustomIcons
+import org.tasks.themes.TasksIcons
 
 @Parcelize
 data class CustomFilter(
@@ -25,8 +25,10 @@ data class CustomFilter(
 
     val id: Long
         get() = filter.id
-    override val icon: Int
-        get() = filter.icon ?: CustomIcons.FILTER
+
+    override val icon: String
+        get() = filter.icon ?: TasksIcons.FILTER_LIST
+
     override val tint: Int
         get() = filter.color ?: 0
 

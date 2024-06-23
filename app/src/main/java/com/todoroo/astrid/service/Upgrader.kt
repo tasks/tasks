@@ -64,6 +64,7 @@ class Upgrader @Inject constructor(
     private val upgrade_11_12_3: Lazy<Upgrade_11_12_3>,
     private val upgrade_12_4: Lazy<Upgrade_12_4>,
     private val upgrade_13_2: Lazy<Upgrade_13_2>,
+    private val upgrade_13_11: Lazy<Upgrade_13_11>,
 ) {
 
     fun upgrade(from: Int, to: Int) {
@@ -113,6 +114,9 @@ class Upgrader @Inject constructor(
             run(from, Upgrade_13_2.VERSION) {
                 caldavDao.updateParents()
                 upgrade_13_2.get().rebuildFilters()
+            }
+            run(from, Upgrade_13_11.VERSION) {
+                upgrade_13_11.get().migrateIcons()
             }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {

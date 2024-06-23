@@ -13,7 +13,7 @@ import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Field.Companion.field
 import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.QueryTemplate
-import org.tasks.themes.CustomIcons
+import org.tasks.themes.TasksIcons
 
 @Parcelize
 data class PlaceFilter(
@@ -32,8 +32,9 @@ data class PlaceFilter(
     override val order: Int
         get() = place.order
 
-    override val icon: Int
-        get() = place.icon.takeIf { it != -1 } ?: CustomIcons.PLACE
+    override val icon: String
+        get() = place.icon?.takeIf { it.isNotBlank() } ?: TasksIcons.PLACE
+
     override val title: String
         get() = place.displayName
     override val tint: Int

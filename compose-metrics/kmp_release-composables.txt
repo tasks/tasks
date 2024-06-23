@@ -16,6 +16,9 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun BannerTex
   stable text: String
   stable onClick: Function0<Unit>
 )
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Chevron(
+  stable collapsed: Boolean
+)
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SearchBar(
   stable modifier: Modifier? = @static Companion
   stable text: String
@@ -42,6 +45,15 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Collapsib
   stable text: String
   stable collapsed: Boolean
   stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun IconPicker(
+  stable icons: ImmutableMap<String, ImmutableList<Icon>>
+  stable searchResults: ImmutableList<Icon>
+  stable collapsed: ImmutableSet<String>
+  stable query: String
+  stable onQueryChange: Function1<String, Unit>
+  stable onSelected: Function1<Icon, Unit>
+  stable toggleCollapsed: Function2<String, Boolean, Unit>
 )
 restartable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun SearchableFilterPicker(
   unstable filters: List<FilterListItem>

@@ -28,7 +28,7 @@ data class Filter(
     @ColumnInfo(name = "f_color")
     val color: Int? = 0,
     @ColumnInfo(name = "f_icon")
-    val icon: Int? = -1,
+    val icon: String? = null,
     @ColumnInfo(name = "f_order")
     val order: Int = NO_ORDER,
 ) : CommonParcelable

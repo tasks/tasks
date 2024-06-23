@@ -37,6 +37,7 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
+import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
@@ -276,7 +277,7 @@ class TaskViewHolder internal constructor(
                     if (place != null && filter !is PlaceFilter && remember { preferences.showPlaceChip }) {
                         FilterChip(
                             filter = PlaceFilter(place),
-                            defaultIcon = R.drawable.ic_outline_place_24px,
+                            defaultIcon = TasksIcons.PLACE,
                             onClick = onClick,
                             showText = showText,
                             showIcon = showIcon,
@@ -298,7 +299,7 @@ class TaskViewHolder internal constructor(
                         }?.let {
                             FilterChip(
                                 filter = it,
-                                defaultIcon = R.drawable.ic_list_24px,
+                                defaultIcon = TasksIcons.LIST,
                                 onClick = onClick,
                                 showText = showText,
                                 showIcon = showIcon,
@@ -318,7 +319,7 @@ class TaskViewHolder internal constructor(
                             .forEach {
                                 FilterChip(
                                     filter = it,
-                                    defaultIcon = R.drawable.ic_outline_label_24px,
+                                    defaultIcon = TasksIcons.LABEL,
                                     onClick = onClick,
                                     showText = showText,
                                     showIcon = showIcon,

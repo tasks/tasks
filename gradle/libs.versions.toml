@@ -158,6 +158,8 @@ shortcut-badger = { module = "me.leolin:ShortcutBadger", version.ref = "shortcut
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 xpp3 = { module = "org.ogce:xpp3", version.ref = "xpp3" }
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version = "1.6.8" }
+iconics = { module = "com.mikepenz:iconics-core", version = "5.4.0" }
+iconics-material-design = { module = "com.mikepenz:google-material-typeface-outlined", version = "4.0.0.2-kotlin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

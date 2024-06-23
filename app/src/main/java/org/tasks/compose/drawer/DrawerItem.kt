@@ -5,7 +5,7 @@ import org.tasks.filters.NavigationDrawerSubheader
 sealed interface DrawerItem {
     data class Filter(
         val title: String,
-        val icon: Int,
+        val icon: String,
         val color: Int = 0,
         val count: Int = 0,
         val shareCount: Int = 0,

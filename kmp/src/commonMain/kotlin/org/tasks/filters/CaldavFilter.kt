@@ -37,8 +37,9 @@ data class CaldavFilter(
 
     override val tint: Int
         get() = calendar.color
-    override val icon: Int
-        get() = calendar.getIcon()!!
+
+    override val icon: String?
+        get() = calendar.icon
 
     val uuid: String
         get() = calendar.uuid!!

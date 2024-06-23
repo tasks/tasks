@@ -13,22 +13,23 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import org.tasks.filters.GtasksFilter
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.databinding.ActivityGoogleTaskListSettingsBinding
 import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.extensions.Context.toast
-import org.tasks.themes.CustomIcons
+import org.tasks.filters.GtasksFilter
+import org.tasks.themes.TasksIcons
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -46,7 +47,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     private val createListViewModel: CreateListViewModel by viewModels()
     private val renameListViewModel: RenameListViewModel by viewModels()
     private val deleteListViewModel: DeleteListViewModel by viewModels()
-    override val defaultIcon: Int = CustomIcons.LIST
+    override val defaultIcon = TasksIcons.LIST
 
     override fun onCreate(savedInstanceState: Bundle?) {
         gtasksList = intent.getParcelableExtra(EXTRA_STORE_DATA)
@@ -58,7 +59,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             selectedColor = gtasksList.color
-            selectedIcon = gtasksList.getIcon()!!
+            selectedIcon.update { gtasksList.icon }
         }
         if (isNewList) {
             name.requestFocus()
@@ -115,8 +116,11 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
             else -> {
                 if (colorChanged() || iconChanged()) {
                     gtasksList.color = selectedColor
-                    gtasksList.setIcon(selectedIcon)
-                    googleTaskListDao.insertOrReplace(gtasksList)
+                    googleTaskListDao.insertOrReplace(
+                        gtasksList.copy(
+                            icon = selectedIcon.value
+                        )
+                    )
                     localBroadcastManager.broadcastRefresh()
                     setResult(
                             Activity.RESULT_OK,
@@ -166,21 +170,22 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
 
     private fun colorChanged() = selectedColor != gtasksList.color
 
-    private fun iconChanged() = selectedIcon != gtasksList.getIcon()
+    private fun iconChanged() = selectedIcon.value != gtasksList.icon
 
     private fun nameChanged() = newName != gtasksList.name
 
     private suspend fun onListCreated(taskList: TaskList) {
-        with(gtasksList) {
-            uuid = taskList.id
-            name = taskList.title
-            color = selectedColor
-            setIcon(selectedIcon)
-            id = googleTaskListDao.insertOrReplace(this)
-        }
+        val result = gtasksList.copy(
+            uuid = taskList.id,
+            name = taskList.title,
+            color = selectedColor,
+            icon = selectedIcon.value,
+        )
+        val id = googleTaskListDao.insertOrReplace(result)
 
         setResult(
-                Activity.RESULT_OK, Intent().putExtra(MainActivity.OPEN_FILTER, GtasksFilter(gtasksList)))
+            Activity.RESULT_OK,
+            Intent().putExtra(MainActivity.OPEN_FILTER, GtasksFilter(result.copy(id = id))))
         finish()
     }
 
@@ -197,17 +202,17 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
     }
 
     private suspend fun onListRenamed(taskList: TaskList) {
-        with(gtasksList) {
-            name = taskList.title
-            color = selectedColor
-            setIcon(selectedIcon)
-            googleTaskListDao.insertOrReplace(this)
-        }
+        val result = gtasksList.copy(
+            name = taskList.title,
+            color = selectedColor,
+            icon = selectedIcon.value,
+        )
+        googleTaskListDao.insertOrReplace(result)
 
         setResult(
                 Activity.RESULT_OK,
                 Intent(TaskListFragment.ACTION_RELOAD)
-                        .putExtra(MainActivity.OPEN_FILTER, GtasksFilter(gtasksList)))
+                    .putExtra(MainActivity.OPEN_FILTER, GtasksFilter(result)))
         finish()
     }
 

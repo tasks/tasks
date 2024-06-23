@@ -25,7 +25,7 @@ fun AnimatedBanner(
     visible: Boolean,
     title: String,
     body: String,
-    dismissText: String,
+    dismissText: String? = null,
     onDismiss: () -> Unit,
     action: String,
     onAction: () -> Unit,
@@ -48,7 +48,9 @@ fun AnimatedBanner(
             )
         },
         buttons = {
-            BannerTextButton(text = dismissText, onDismiss)
+            dismissText?.let {
+                BannerTextButton(text = it, onDismiss)
+            }
             BannerTextButton(text = action, onAction)
         }
     )

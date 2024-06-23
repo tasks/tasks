@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -31,8 +32,11 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.runtime)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.kermit)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.immutable)
+            implementation(libs.kotlinx.serialization)
         }
     }
     task("testClasses")

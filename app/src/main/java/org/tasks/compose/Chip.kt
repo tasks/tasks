@@ -1,7 +1,6 @@
 package org.tasks.compose
 
 import android.content.res.Configuration
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.defaultMinSize
@@ -21,18 +20,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.tasks.R
-import org.tasks.themes.CustomIcons
+import org.tasks.compose.components.imageVectorByName
+import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 
 @Composable
 fun Chip(
-    @DrawableRes icon: Int?,
+    icon: String?,
     name: String?,
     theme: Int,
     showText: Boolean,
@@ -54,7 +53,7 @@ fun Chip(
 @Composable
 fun Chip(
     text: String? = null,
-    icon: Int? = null,
+    icon: String? = null,
     color: Color,
     onClick: () -> Unit = {},
     clear: (() -> Unit)? = null,
@@ -68,7 +67,7 @@ fun Chip(
             border = BorderStroke(1.dp, color = color),
             leadingIcon = {
                 if (text != null) {
-                    ChipIcon(iconRes = icon)
+                    ChipIcon(icon = icon)
                 }
             },
             trailingIcon = {
@@ -90,7 +89,7 @@ fun Chip(
             ),
             label = {
                 if (text == null) {
-                    ChipIcon(iconRes = icon)
+                    ChipIcon(icon = icon)
                 }
                 text?.let {
                     Text(
@@ -106,10 +105,10 @@ fun Chip(
 }
 
 @Composable
-private fun ChipIcon(iconRes: Int?) {
-    iconRes?.let {
+private fun ChipIcon(icon: String?) {
+    icon?.let {
         Icon(
-            painter = painterResource(id = iconRes),
+            imageVector = imageVectorByName(it) ?: return@let,
             contentDescription = null,
             modifier = Modifier.size(18.dp)
         )
@@ -124,7 +123,7 @@ fun TasksChipIconAndTextPreview() {
     TasksTheme {
         Chip(
             text = "Home",
-            icon = CustomIcons.getIconResId(CustomIcons.LABEL),
+            icon = TasksIcons.LABEL,
             color = Color.Red,
         )
     }
@@ -138,7 +137,7 @@ fun TasksChipIconTextAndClearPreview() {
     TasksTheme {
         Chip(
             text = "Home",
-            icon = CustomIcons.getIconResId(CustomIcons.LABEL),
+            icon = TasksIcons.LABEL,
             color = Color.Red,
             clear = {},
         )
@@ -153,7 +152,7 @@ fun TasksChipIconPreview() {
     TasksTheme {
         Chip(
             text = null,
-            icon = CustomIcons.getIconResId(CustomIcons.LABEL),
+            icon = TasksIcons.LABEL,
             color = Color.Red,
         )
     }

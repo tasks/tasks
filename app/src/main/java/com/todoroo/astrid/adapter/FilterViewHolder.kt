@@ -5,21 +5,23 @@ import android.view.View
 import android.widget.CheckedTextView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.graphics.Color
 import androidx.core.view.isVisible
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.recyclerview.widget.RecyclerView
-import org.tasks.filters.CaldavFilter
-import com.todoroo.astrid.api.CustomFilter
-import org.tasks.filters.GtasksFilter
-import org.tasks.filters.TagFilter
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import org.tasks.R
 import org.tasks.billing.Inventory
+import org.tasks.compose.components.imageVectorByName
 import org.tasks.databinding.FilterAdapterRowBinding
 import org.tasks.extensions.formatNumber
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
-import org.tasks.filters.PlaceFilter
+import org.tasks.filters.getIcon
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.CustomIcons.getIconResId
-import org.tasks.themes.DrawableUtil
 import java.util.Locale
 
 class FilterViewHolder internal constructor(
@@ -34,9 +36,10 @@ class FilterViewHolder internal constructor(
 
     private val row: View
     private val text: CheckedTextView
-    private val icon: ImageView
     private val size: TextView
     private val shareIndicator: ImageView
+    private val icon = MutableStateFlow<String?>(null)
+    private val color = MutableStateFlow(0)
 
     lateinit var filter: Filter
 
@@ -44,7 +47,15 @@ class FilterViewHolder internal constructor(
         FilterAdapterRowBinding.bind(itemView).let {
             row = it.row
             text = it.text
-            icon = it.icon
+            it.icon.setContent {
+                val label = icon.collectAsStateWithLifecycle().value
+                val tint = color.collectAsStateWithLifecycle().value
+                Icon(
+                    imageVector = imageVectorByName(label!!)!!,
+                    contentDescription = label,
+                    tint = if (tint == 0) MaterialTheme.colorScheme.onSurface else Color(tint),
+                )
+            }
             size = it.size
             shareIndicator = it.shareIndicator
         }
@@ -64,9 +75,8 @@ class FilterViewHolder internal constructor(
         } else {
             text.isChecked = selected
         }
-        val icon = getIcon(filter)
-        this.icon.setImageDrawable(DrawableUtil.getWrapped(context, icon))
-        this.icon.drawable.setTint(getColor(filter))
+        icon.update { filter.getIcon(inventory) }
+        color.update { getColor(filter) }
         text.text = filter.title
         if (count == null || count == 0) {
             size.visibility = View.INVISIBLE
@@ -96,22 +106,5 @@ class FilterViewHolder internal constructor(
             }
         }
         return context.getColor(R.color.text_primary)
-    }
-
-    private fun getIcon(filter: Filter): Int {
-        if (filter.icon < 1000 || inventory.hasPro) {
-            val icon = getIconResId(filter.icon)
-            if (icon != null) {
-                return icon
-            }
-        }
-        return when (filter) {
-            is TagFilter -> R.drawable.ic_outline_label_24px
-            is GtasksFilter,
-            is CaldavFilter -> R.drawable.ic_list_24px
-            is CustomFilter -> R.drawable.ic_outline_filter_list_24px
-            is PlaceFilter -> R.drawable.ic_outline_place_24px
-            else -> filter.icon
-        }
     }
 }

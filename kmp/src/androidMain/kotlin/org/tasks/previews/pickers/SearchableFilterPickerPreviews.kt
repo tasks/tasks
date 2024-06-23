@@ -1,15 +1,14 @@
 package org.tasks.previews.pickers
 
 import android.content.res.Configuration
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AllInbox
-import androidx.compose.material.icons.outlined.QuestionMark
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import org.tasks.compose.components.imageVectorByName
 import org.tasks.compose.pickers.SearchableFilterPicker
-import org.tasks.themes.TasksTheme
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.themes.TasksIcons
+import org.tasks.themes.TasksTheme
 
 // this doesn't actually work yet b/c of multiplatform resources
 // https://github.com/JetBrains/compose-multiplatform/issues/4932
@@ -21,7 +20,7 @@ fun FilterPickerPreview() {
     TasksTheme {
         SearchableFilterPicker(
             filters = listOf(
-                FilterImpl("My Tasks", icon = 4),
+                FilterImpl("My Tasks", icon = TasksIcons.ALL_INBOX),
                 NavigationDrawerSubheader(
                     "Filters",
                     false,
@@ -34,10 +33,7 @@ fun FilterPickerPreview() {
             onQueryChange = {},
             selected = null,
             onClick = {},
-            getIcon = { when (it.icon) {
-                4 -> Icons.Outlined.AllInbox
-                else -> Icons.Outlined.QuestionMark
-            } },
+            getIcon = { imageVectorByName(label = it.icon!!)!! },
             getColor = { 0 },
         )
     }

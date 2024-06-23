@@ -3,40 +3,40 @@ package org.tasks.data.db
 import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import org.tasks.data.entity.Task
-import org.tasks.data.entity.Alarm
 import org.tasks.data.dao.AlarmDao
-import org.tasks.data.entity.Attachment
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavTask
 import org.tasks.data.dao.Astrid2ContentProviderDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DeletionDao
-import org.tasks.data.entity.Filter
 import org.tasks.data.dao.FilterDao
-import org.tasks.data.entity.Geofence
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.dao.LocationDao
-import org.tasks.data.entity.Notification
 import org.tasks.data.dao.NotificationDao
+import org.tasks.data.dao.PrincipalDao
+import org.tasks.data.dao.TagDao
+import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.dao.TaskListMetadataDao
+import org.tasks.data.dao.UpgraderDao
+import org.tasks.data.dao.UserActivityDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Attachment
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Filter
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Notification
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Principal
 import org.tasks.data.entity.PrincipalAccess
-import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.Tag
-import org.tasks.data.dao.TagDao
 import org.tasks.data.entity.TagData
-import org.tasks.data.dao.TagDataDao
+import org.tasks.data.entity.Task
 import org.tasks.data.entity.TaskAttachment
-import org.tasks.data.dao.TaskAttachmentDao
-import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.TaskListMetadata
-import org.tasks.data.dao.TaskListMetadataDao
-import org.tasks.data.dao.UpgraderDao
 import org.tasks.data.entity.UserActivity
-import org.tasks.data.dao.UserActivityDao
 
 @Database(
     entities = [
@@ -60,8 +60,9 @@ import org.tasks.data.dao.UserActivityDao
     ],
     autoMigrations = [
         AutoMigration(from = 83, to = 84, spec = AutoMigrate83to84::class),
+        AutoMigration(from = 88, to = 89, spec = AutoMigrate88to89::class),
     ],
-    version = 88
+    version = 89
 )
 abstract class Database : RoomDatabase() {
     abstract fun notificationDao(): NotificationDao

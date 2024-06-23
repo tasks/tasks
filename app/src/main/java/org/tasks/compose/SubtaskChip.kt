@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import org.tasks.R
+import org.tasks.themes.TasksIcons
 import java.text.NumberFormat
 
 @Composable
@@ -16,9 +17,9 @@ fun SubtaskChip(
     val context = LocalContext.current
     Chip(
         icon = if (collapsed)
-            R.drawable.ic_keyboard_arrow_down_black_24dp
+            TasksIcons.KEYBOARD_ARROW_DOWN
         else
-            R.drawable.ic_keyboard_arrow_up_black_24dp,
+            TasksIcons.KEYBOARD_ARROW_UP,
         name = if (compact)
             NumberFormat.getInstance().format(children)
         else

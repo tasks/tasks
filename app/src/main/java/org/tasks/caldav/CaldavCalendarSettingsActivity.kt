@@ -116,7 +116,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
     }
 
     override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) {
-        caldavCalendar = viewModel.createCalendar(caldavAccount, name, color, selectedIcon)
+        caldavCalendar = viewModel.createCalendar(caldavAccount, name, color, selectedIcon.value)
     }
 
     override suspend fun updateNameAndColor(
@@ -125,7 +125,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         name: String,
         color: Int
     ) {
-        viewModel.updateCalendar(account, calendar, name, color, selectedIcon)
+        viewModel.updateCalendar(account, calendar, name, color, selectedIcon.value)
     }
 
     override suspend fun deleteCalendar(

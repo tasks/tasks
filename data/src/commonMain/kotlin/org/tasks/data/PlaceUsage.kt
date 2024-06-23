@@ -10,7 +10,7 @@ class PlaceUsage {
     val color: Int
         get() = place.color
 
-    val icon: Int
+    val icon: String?
         get() = place.icon
 
     override fun equals(other: Any?): Boolean {

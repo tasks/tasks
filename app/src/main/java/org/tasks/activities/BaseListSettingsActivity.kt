@@ -1,6 +1,5 @@
 package org.tasks.activities
 
-import android.content.DialogInterface
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,36 +7,51 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
+import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
+import org.tasks.compose.components.imageVectorByName
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.dialogs.DialogBuilder
-import org.tasks.dialogs.IconPickerDialog
-import org.tasks.dialogs.IconPickerDialog.IconPickerCallback
 import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.CustomIcons.getIconResId
 import org.tasks.themes.DrawableUtil
+import org.tasks.themes.TasksTheme
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
 
-abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), IconPickerCallback, Toolbar.OnMenuItemClickListener, ColorPalettePicker.ColorPickedCallback, ColorWheelPicker.ColorPickedCallback {
+abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Toolbar.OnMenuItemClickListener, ColorPalettePicker.ColorPickedCallback, ColorWheelPicker.ColorPickedCallback {
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var colorProvider: ColorProvider
+    protected abstract val defaultIcon: String
     protected var selectedColor = 0
-    protected var selectedIcon = -1
+    protected var selectedIcon = MutableStateFlow<String?>(null)
 
     private lateinit var clear: View
     private lateinit var color: TextView
-    private lateinit var icon: TextView
     protected lateinit var toolbar: Toolbar
     protected lateinit var colorRow: ViewGroup
-    protected abstract val defaultIcon: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +64,36 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
         colorRow = findViewById<ViewGroup>(R.id.color_row).apply {
             setOnClickListener { showThemePicker() }
         }
-        icon = findViewById(R.id.icon)
+        findViewById<ComposeView>(R.id.icon).setContent {
+            TasksTheme {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    val name = selectedIcon.collectAsStateWithLifecycle().value
+                    val icon = imageVectorByName(name ?:defaultIcon)
+                    if (icon != null) {
+                        Image(
+                            imageVector = icon,
+                            contentDescription = name ?: defaultIcon,
+                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(34.dp))
+                    Text(
+                        text = "Icon",
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontSize = 18.sp,
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+            }
+        }
         findViewById<View>(R.id.icon_row).setOnClickListener { showIconPicker() }
         toolbar = view.findViewById(R.id.toolbar)
         if (savedInstanceState != null) {
             selectedColor = savedInstanceState.getInt(EXTRA_SELECTED_THEME)
-            selectedIcon = savedInstanceState.getInt(EXTRA_SELECTED_ICON)
+            selectedIcon.update { savedInstanceState.getString(EXTRA_SELECTED_ICON) }
         }
         toolbar.title = toolbarTitle
         toolbar.navigationIcon = getDrawable(R.drawable.ic_outline_save_24px)
@@ -73,7 +111,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(EXTRA_SELECTED_THEME, selectedColor)
-        outState.putInt(EXTRA_SELECTED_ICON, selectedIcon)
+        outState.putString(EXTRA_SELECTED_ICON, selectedIcon.value)
     }
 
     protected abstract fun hasChanges(): Boolean
@@ -103,14 +141,12 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
                 .show(supportFragmentManager, FRAG_TAG_COLOR_PICKER)
     }
 
-    private fun showIconPicker() {
-        IconPickerDialog.newIconPicker(selectedIcon).show(supportFragmentManager, FRAG_TAG_ICON_PICKER)
+    val launcher = registerForIconPickerResult { selected ->
+        selectedIcon.update { selected }
     }
 
-    override fun onSelected(dialogInterface: DialogInterface, icon: Int) {
-        selectedIcon = icon
-        dialogInterface.dismiss()
-        updateTheme()
+    private fun showIconPicker() {
+        launcher.launchIconPicker(this, selectedIcon.value)
     }
 
     override fun onColorPicked(color: Int) {
@@ -150,9 +186,6 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
             clear.visibility = View.VISIBLE
         }
         themeColor.applyToNavigationBar(this)
-        val icon = getIconResId(selectedIcon) ?: getIconResId(defaultIcon)
-        DrawableUtil.setLeftDrawable(this, this.icon, icon!!)
-        DrawableUtil.getLeftDrawable(this.icon).setTint(getColor(R.color.icon_tint_with_alpha))
     }
 
     companion object {

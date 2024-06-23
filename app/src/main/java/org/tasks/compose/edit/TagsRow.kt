@@ -2,6 +2,8 @@ package org.tasks.compose.edit
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -14,7 +16,7 @@ import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.TagData
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.CustomIcons
+import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 
 @Composable
@@ -33,10 +35,7 @@ fun TagsRow(
                 } else {
                     tags.sortedBy(TagData::name).forEach { tag ->
                         Chip(
-                            icon = CustomIcons.getIcon(
-                                tag.getIcon()!!,
-                                R.drawable.ic_outline_label_24px
-                            ),
+                            icon = tag.icon ?: TasksIcons.LABEL,
                             name = tag.name,
                             theme = tag.color ?: 0,
                             showText = true,
@@ -76,7 +75,7 @@ fun SingleTag() {
             tags = listOf(
                 TagData(
                     name = "Home",
-                    icon = 1062,
+                    icon = Icons.Outlined.Home.name,
                     color = ColorProvider.BLUE_500
                 )
             ),
@@ -114,7 +113,7 @@ fun TagWithReallyLongName() {
             tags = listOf(
                 TagData(
                     name = "This is a tag with a really really long name",
-                    icon = 1062,
+                    icon = Icons.Outlined.Home.name,
                     color = ColorProvider.BLUE_500
                 )
             ),

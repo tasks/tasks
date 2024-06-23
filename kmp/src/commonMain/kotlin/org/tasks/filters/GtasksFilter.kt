@@ -37,8 +37,8 @@ data class GtasksFilter(
     override val order: Int
         get() = list.order
 
-    override val icon: Int
-        get() = list.getIcon()!!
+    override val icon: String?
+        get() = list.icon
 
     override val tint: Int
         get() = list.color

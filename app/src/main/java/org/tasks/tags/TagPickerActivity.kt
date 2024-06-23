@@ -40,11 +40,14 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.billing.Inventory
+import org.tasks.compose.components.imageVectorByName
 import org.tasks.data.entity.TagData
 import org.tasks.extensions.addBackPressedCallback
+import org.tasks.filters.TagFilter
+import org.tasks.filters.getIcon
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.CustomIcons
+import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
@@ -82,8 +85,8 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
                 TagPicker(
                     viewModel,
                     onBackClicked = { handleBackPressed() },
-                    getTagIcon = { tagData ->  getIcon(tagData) },
-                    getTagColor = { tagData ->  getColor(tagData) }
+                    getTagIcon = { tagData -> getIcon(tagData) },
+                    getTagColor = { tagData -> getColor(tagData) }
                 )
             } /* setContent */
         }
@@ -112,15 +115,7 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
         return Color(getColor(R.color.icon_tint_with_alpha))
     }
 
-    private fun getIcon(tagData: TagData): Int
-    {
-        val iconIndex = tagData.getIcon()
-        var iconResource = R.drawable.ic_outline_label_24px
-        if ( (iconIndex != null) && (iconIndex < 1000 || inventory.hasPro) ) {
-            iconResource = CustomIcons.getIconResId(iconIndex) ?: R.drawable.ic_outline_label_24px
-        }
-        return iconResource
-    }
+    private fun getIcon(tagData: TagData): String = TagFilter(tagData).getIcon(inventory)
 
     /* Copy of the TagPickerActivity's companion object */
     companion object {
@@ -134,7 +129,7 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
 internal fun TagPicker(
     viewModel: TagPickerViewModel,
     onBackClicked: () -> Unit,
-    getTagIcon: (TagData) -> Int,
+    getTagIcon: (TagData) -> String,
     getTagColor: (TagData) -> Color
 ) {
     Box ( modifier = Modifier.fillMaxSize() )
@@ -194,7 +189,7 @@ internal fun SearchBar(
 internal fun PickerBox (
     viewModel: TagPickerViewModel,
     tags: State<List<TagData>>,
-    getTagIcon: (TagData) -> Int = { R.drawable.ic_outline_label_24px },
+    getTagIcon: (TagData) -> String = { TasksIcons.LABEL },
     getTagColor: (TagData) -> Color = { Color.Gray }
 ) {
     val onClick: (TagData) -> Unit = {
@@ -224,7 +219,7 @@ internal fun PickerBox (
             val checked = remember { mutableStateOf ( viewModel.getState(it) ) }
             val clickChecked: () -> Unit = { onClick(it); checked.value = viewModel.getState(it) }
             TagRow(
-                icon = ImageVector.vectorResource(getTagIcon(it)),
+                icon = imageVectorByName(getTagIcon(it))!!,
                 iconColor = getTagColor(it),
                 text = it.name!!,
                 onClick = clickChecked

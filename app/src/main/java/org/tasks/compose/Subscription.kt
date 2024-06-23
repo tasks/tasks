@@ -245,12 +245,7 @@ object PurchaseText {
                     }
                 }) {
                     Text(
-                        text = stringResource(
-                            if (nameYourPrice.value)
-                                R.string.back
-                            else
-                                R.string.more_options
-                        ),
+                        text = stringResource(R.string.more_options),
                         color = if (solidButton)
                             MaterialTheme.colorScheme.onSecondary
                         else
@@ -414,7 +409,7 @@ object PurchaseText {
             ) {
                 PurchaseButton(
                     price = sliderPosition.value.toInt(),
-                    popperText = if (sliderPosition.value.toInt() >= 5)
+                    popperText = if (sliderPosition.value.toInt() >= 7)
                         "${stringResource(R.string.above_average, 16)} $POPPER"
                     else
                         "",

@@ -5,6 +5,7 @@ import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Order.Companion.desc
 import org.tasks.data.sql.QueryTemplate
+import org.tasks.themes.TasksIcons
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.minusDays
 import org.tasks.time.startOfMinute
@@ -13,8 +14,8 @@ import org.tasks.time.startOfMinute
 data class RecentlyModifiedFilter(
     override val title: String,
 ) : Filter {
-    override val icon: Int
-        get() = 6 // CustomIcons.HISTORY
+    override val icon: String
+        get() = TasksIcons.HISTORY
 
     override val sql: String
         get() = QueryTemplate()

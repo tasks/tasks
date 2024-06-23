@@ -58,6 +58,32 @@ unstable class SortHelper {
   unstable val ORDER_LIST: Order
   <runtime stability> = Unstable
 }
+stable class ViewState {
+  stable val icons: ImmutableMap<String, ImmutableList<Icon>>
+  stable val query: String
+  stable val collapsed: ImmutableSet<String>
+}
+unstable class IconPickerViewModel {
+  unstable val _viewState: MutableStateFlow<ViewState>
+  unstable val _searchResults: MutableStateFlow<PersistentList<Icon>>
+  <runtime stability> = Unstable
+}
+unstable class $serializer {
+  unstable val descriptor: SerialDescriptor
+  <runtime stability> = Unstable
+}
+stable class IconMetadata {
+  unstable val icons: List<Icon>
+}
+unstable class $serializer {
+  unstable val descriptor: SerialDescriptor
+  <runtime stability> = Unstable
+}
+stable class Icon {
+  stable val name: String
+  unstable val categories: List<String>
+  unstable val tags: List<String>
+}
 unstable class TaskListQuery {
   stable val CALDAV_METADATA_JOIN: String
   unstable val JOIN_CALDAV: Criterion
@@ -102,7 +128,7 @@ stable class FilterImpl {
   stable val title: String?
   stable val sql: String?
   stable val valuesForNewTasks: String?
-  stable val icon: Int
+  stable val icon: String?
   stable val tint: Int
   <runtime stability> = Stable
 }

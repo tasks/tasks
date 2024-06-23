@@ -36,15 +36,12 @@
       android:visibility="gone"
       app:tint="@color/icon_tint_with_alpha" />
 
-  <ImageView
-    android:id="@+id/icon"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentStart="true"
-    android:background="@null"
-    android:layout_gravity="center_vertical"
-    android:alpha="@dimen/alpha_secondary"
-    android:scaleType="center"/>
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_gravity="center_vertical" />
 
   <CheckedTextView
     android:id="@+id/text"

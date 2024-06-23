@@ -6,16 +6,16 @@ import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.QueryTemplate
 import org.tasks.data.entity.Task
 import kotlinx.parcelize.Parcelize
-import org.tasks.R
 import org.tasks.data.entity.Alarm
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.themes.TasksIcons
 
 @Parcelize
 data class SnoozedFilter(
     override val title: String,
 ) : Filter {
-    override val icon: Int
-        get() = R.drawable.ic_snooze_white_24dp
+    override val icon: String
+        get() = TasksIcons.SNOOZE
 
     override val sql: String
         get() = QueryTemplate()

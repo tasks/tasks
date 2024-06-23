@@ -130,7 +130,7 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun CheckBox(
   stable desaturate: Boolean
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Chip(
-  stable icon: Int?
+  stable icon: String?
   stable name: String?
   stable theme: Int
   stable showText: Boolean
@@ -141,7 +141,7 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Chip(
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Chip(
   stable text: String? = @static null
-  stable icon: Int? = @static null
+  stable icon: String? = @static null
   stable color: Color
   stable onClick: Function0<Unit>? = @static {
 
@@ -150,7 +150,7 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Chip(
   stable clear: Function0<Unit>? = @static null
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ChipIcon(
-  stable iconRes: Int?
+  stable icon: String?
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TasksChipIconAndTextPreview()
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TasksChipIconTextAndClearPreview()
@@ -192,7 +192,7 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DisabledT
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FilterChip(
   unstable filter: Filter
-  stable defaultIcon: Int
+  stable defaultIcon: String
   stable showText: Boolean
   stable showIcon: Boolean
   stable onClick: Function1<Filter, Unit>
@@ -457,13 +457,8 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun FilterIte
   stable item: Filter
   stable onClick: Function0<Unit>
 )
-restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun MenuAction(
-  stable icon: Int
-  stable title: Int
-  stable onClick: Function0<Unit>
-)
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DrawerIcon(
-  stable icon: Int
+  stable icon: String
   stable color: Int = @static 0
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun HeaderItem(
@@ -851,7 +846,7 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PreviewSo
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun TagPicker(
   unstable viewModel: TagPickerViewModel
   stable onBackClicked: Function0<Unit>
-  stable getTagIcon: Function1<TagData, Int>
+  stable getTagIcon: Function1<TagData, String>
   stable getTagColor: Function1<TagData, Color>
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SearchBar(
@@ -861,8 +856,8 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SearchBar
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PickerBox(
   unstable viewModel: TagPickerViewModel
   stable tags: State<List<TagData>>
-  stable getTagIcon: Function1<TagData, Int>? = @static { it: TagData ->
-  drawable  .  ic_outline_label_24px
+  stable getTagIcon: Function1<TagData, String>? = @static { it: TagData ->
+  "label"
 }
 
   stable getTagColor: Function1<TagData, Color>? = @static { it: TagData ->

@@ -200,9 +200,10 @@ unstable class FilterViewHolder {
   stable val onClick: Function1<Filter, Unit>
   unstable val row: View
   unstable val text: CheckedTextView
-  unstable val icon: ImageView
   unstable val size: TextView
   unstable val shareIndicator: ImageView
+  unstable val icon: MutableStateFlow<String?>
+  unstable val color: MutableStateFlow<Int>
   unstable var filter: Filter
   <runtime stability> = Unstable
 }
@@ -470,6 +471,13 @@ unstable class Upgrade_12_4 {
   unstable val vtodoCache: VtodoCache
   <runtime stability> = Unstable
 }
+unstable class Upgrade_13_11 {
+  unstable val locationDao: LocationDao
+  unstable val filterDao: FilterDao
+  unstable val tagDataDao: TagDataDao
+  unstable val caldavDao: CaldavDao
+  <runtime stability> = Unstable
+}
 unstable class Upgrade_13_2 {
   unstable val filterDao: FilterDao
   unstable val filterCriteriaProvider: FilterCriteriaProvider
@@ -497,6 +505,7 @@ unstable class Upgrader {
   unstable val upgrade_11_12_3: Lazy<Upgrade_11_12_3>
   unstable val upgrade_12_4: Lazy<Upgrade_12_4>
   unstable val upgrade_13_2: Lazy<Upgrade_13_2>
+  unstable val upgrade_13_11: Lazy<Upgrade_13_11>
   <runtime stability> = Unstable
 }
 unstable class Node {
@@ -626,12 +635,12 @@ unstable class BaseListSettingsActivity {
   unstable var dialogBuilder: DialogBuilder
   unstable var colorProvider: ColorProvider
   stable var selectedColor: Int
-  stable var selectedIcon: Int
+  unstable var selectedIcon: MutableStateFlow<String?>
   unstable var clear: View
   unstable var color: TextView
-  unstable var icon: TextView
   unstable var toolbar: Toolbar
   unstable var colorRow: ViewGroup
+  unstable val launcher: ActivityResultLauncher<Intent>
   <runtime stability> = Unstable
 }
 unstable class CreateListViewModel {
@@ -662,7 +671,7 @@ unstable class FilterSettingsActivity {
   unstable var filter: CustomFilter?
   unstable var adapter: CustomFilterAdapter
   unstable var criteria: MutableList<CriterionInstance>
-  stable val defaultIcon: Int
+  stable val defaultIcon: String
   <runtime stability> = Unstable
 }
 unstable class GoogleTaskListSettingsActivity {
@@ -676,7 +685,7 @@ unstable class GoogleTaskListSettingsActivity {
   unstable val createListViewModel$delegate: Lazy<CreateListViewModel>
   unstable val renameListViewModel$delegate: Lazy<RenameListViewModel>
   unstable val deleteListViewModel$delegate: Lazy<DeleteListViewModel>
-  stable val defaultIcon: Int
+  stable val defaultIcon: String
   <runtime stability> = Unstable
 }
 unstable class NavigationDrawerCustomization {
@@ -704,7 +713,7 @@ unstable class PlaceSettingsActivity {
   unstable var locale: Locale
   unstable var localBroadcastManager: LocalBroadcastManager
   unstable var place: Place
-  stable val defaultIcon: Int
+  stable val defaultIcon: String
   <runtime stability> = Unstable
 }
 unstable class RenameListViewModel {
@@ -718,7 +727,7 @@ unstable class TagSettingsActivity {
   unstable var name: TextInputEditText
   unstable var nameLayout: TextInputLayout
   unstable var tagData: TagData
-  stable val defaultIcon: Int
+  stable val defaultIcon: String
   <runtime stability> = Unstable
 }
 unstable class UriHandler {
@@ -981,7 +990,7 @@ unstable class BaseCaldavCalendarSettingsActivity {
   unstable var progressView: ProgressBar
   unstable var caldavCalendar: CaldavCalendar?
   unstable var caldavAccount: CaldavAccount
-  stable val defaultIcon: Int
+  stable val defaultIcon: String
   <runtime stability> = Unstable
 }
 unstable class CaldavAccountSettingsActivity {
@@ -1168,6 +1177,9 @@ unstable class FilterSelectionActivity {
   unstable var localBroadcastManager: LocalBroadcastManager
   <runtime stability> = Unstable
 }
+stable class IconPickerActivity {
+  <runtime stability> = Stable
+}
 unstable class PagerState {
   stable var _minPage$delegate: MutableState<Int>
   stable var _maxPage$delegate: MutableState<Int>
@@ -1224,7 +1236,7 @@ stable class AnchoredDraggableDefaults {
 }
 stable class Filter {
   stable val title: String
-  stable val icon: Int
+  stable val icon: String
   stable val color: Int
   stable val count: Int
   stable val shareCount: Int
@@ -2630,14 +2642,28 @@ unstable class ColorProvider {
   <runtime stability> = Unstable
 }
 unstable class CustomIcons {
-  stable val LABEL: Int
-  stable val FILTER: Int
-  stable val ALL_INBOX: Int
-  stable val HISTORY: Int
-  stable val TODAY: Int
-  stable val LIST: Int
-  stable val PLACE: Int
-  unstable var ICONS: Map<Int, Int>
+  stable val Label: String
+  stable val FilterList: String
+  stable val Cloud: String
+  stable val AllInbox: String
+  stable val LabelOff: String
+  stable val History: String
+  stable val Today: String
+  stable val List: String
+  stable val Place: String
+  stable val CloudOff: String
+  stable val Clear: String
+  stable val Add: String
+  stable val Edit: String
+  stable val Delete: String
+  stable val Notifications: String
+  stable val PendingActions: String
+  stable val KeyboardArrowUp: String
+  stable val KeyboardArrowDown: String
+  stable val Snooze: String
+  stable val Timer: String
+  unstable val freeIcons: List<String>
+  unstable val LEGACY_ICONS: Map<Int, String>
   <runtime stability> = Unstable
 }
 unstable class Theme {
@@ -2887,6 +2913,7 @@ unstable class WidgetChipProvider {
   unstable val context: Context
   unstable val chipListCache: ChipListCache
   unstable val locale: Locale
+  unstable val inventory: Inventory
   stable var isDark: Boolean
   <runtime stability> = Unstable
 }

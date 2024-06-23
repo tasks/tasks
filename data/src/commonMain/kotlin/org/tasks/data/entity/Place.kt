@@ -43,7 +43,7 @@ data class Place(
     @ColumnInfo(name = "place_color")
     val color: Int = 0,
     @ColumnInfo(name = "place_icon")
-    val icon: Int = -1,
+    val icon: String? = null,
     @ColumnInfo(name = "place_order")
     val order: Int = NO_ORDER,
     @ColumnInfo(name = "radius", defaultValue = "250")

@@ -15,8 +15,8 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
-import org.tasks.filters.TagFilter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.update
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -25,7 +25,8 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
 import org.tasks.databinding.ActivityTagSettingsBinding
 import org.tasks.extensions.Context.hideKeyboard
-import org.tasks.themes.CustomIcons
+import org.tasks.filters.TagFilter
+import org.tasks.themes.TasksIcons
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,14 +42,14 @@ class TagSettingsActivity : BaseListSettingsActivity() {
     private val isNewTag: Boolean
         get() = tagData.id == null
 
-    override val defaultIcon: Int = CustomIcons.LABEL
+    override val defaultIcon = TasksIcons.LABEL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         tagData = intent.getParcelableExtra(EXTRA_TAG_DATA) ?: TagData()
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             selectedColor = tagData.color ?: 0
-            selectedIcon = tagData.getIcon()!!
+            selectedIcon.update { tagData.icon }
         }
         name.setText(tagData.name)
         if (isNewTag) {
@@ -88,7 +89,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
                 .copy(
                     name = newName,
                     color = selectedColor,
-                    icon = selectedIcon,
+                    icon = selectedIcon.value,
                 )
                 .let { it.copy(id = tagDataDao.insert(it)) }
                 .let {
@@ -103,7 +104,7 @@ class TagSettingsActivity : BaseListSettingsActivity() {
                 .copy(
                     name = newName,
                     color = selectedColor,
-                    icon = selectedIcon,
+                    icon = selectedIcon.value,
                 )
                 .let {
                     tagDataDao.update(it)
@@ -121,10 +122,10 @@ class TagSettingsActivity : BaseListSettingsActivity() {
 
     override fun hasChanges(): Boolean {
         return if (isNewTag) {
-            selectedColor >= 0 || selectedIcon >= 0 || !isNullOrEmpty(newName)
+            selectedColor >= 0 || selectedIcon.value?.isBlank() == false || !isNullOrEmpty(newName)
         } else {
             selectedColor != (tagData.color ?: 0)
-                    || selectedIcon != tagData.getIcon()
+                    || selectedIcon.value != tagData.icon
                     || newName != tagData.name
         }
     }

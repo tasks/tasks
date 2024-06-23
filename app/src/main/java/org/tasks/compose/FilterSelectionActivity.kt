@@ -21,8 +21,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat
 import androidx.fragment.app.Fragment
@@ -30,6 +28,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
+import org.tasks.compose.components.imageVectorByName
 import org.tasks.compose.pickers.SearchableFilterPicker
 import org.tasks.dialogs.FilterPickerViewModel
 import org.tasks.filters.Filter
@@ -76,7 +75,7 @@ class FilterSelectionActivity : AppCompatActivity() {
                         filters = if (searching) state.searchResults else state.filters,
                         query = state.query,
                         onQueryChange = { viewModel.onQueryChange(it) },
-                        getIcon = { ImageVector.vectorResource(id = viewModel.getIcon(it)) },
+                        getIcon = { imageVectorByName(viewModel.getIcon(it))!! },
                         getColor = { viewModel.getColor(it) },
                         selected = selected,
                         onClick = { filter ->

@@ -3,9 +3,7 @@ package org.tasks.compose.drawer
 import android.content.res.Configuration
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -29,7 +27,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.AttachMoney
-import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.PeopleOutline
 import androidx.compose.material.icons.outlined.PermIdentity
 import androidx.compose.material.icons.outlined.Settings
@@ -47,21 +44,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.R
+import org.tasks.compose.components.Chevron
 import org.tasks.compose.components.SearchBar
+import org.tasks.compose.components.imageVectorByName
 import org.tasks.extensions.formatNumber
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 
 @Composable
@@ -184,9 +182,7 @@ internal fun FilterItem(
             .clickable(onClick = onClick),
         onClick = onClick,
     ) {
-        if (item.icon != -1) {
-            DrawerIcon(icon = item.icon, color = item.color)
-        }
+        DrawerIcon(icon = item.icon, color = item.color)
         Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = item.title,
@@ -219,27 +215,10 @@ internal fun FilterItem(
 }
 
 @Composable
-private fun MenuAction(
-    icon: Int,
-    title: Int,
-    onClick: () -> Unit,
-) {
-    MenuRow(onClick = onClick) {
-        DrawerIcon(icon = icon)
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = stringResource(id = title),
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.weight(1f),
-        )
-    }
-}
-
-@Composable
-private fun DrawerIcon(icon: Int, color: Int = 0) {
+private fun DrawerIcon(icon: String, color: Int = 0) {
     Icon(
         modifier = Modifier.size(24.dp),
-        painter = painterResource(id = icon),
+        imageVector = imageVectorByName(icon) ?: return,
         contentDescription = null,
         tint = when (color) {
             0 -> MaterialTheme.colorScheme.onSurface
@@ -268,17 +247,7 @@ internal fun HeaderItem(
                 color = MaterialTheme.colorScheme.onSurface,
             )
             IconButton(onClick = toggleCollapsed) {
-                val rotation by animateFloatAsState(
-                    targetValue = if (item.collapsed) 0f else 180f,
-                    animationSpec = tween(250),
-                    label = "arrow rotation",
-                )
-                Icon(
-                    modifier = Modifier.rotate(rotation),
-                    imageVector = Icons.Outlined.ExpandMore,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurface,
-                )
+                Chevron(item.collapsed)
             }
             if (canAdd) {
                 IconButton(onClick = onAddClick) {
@@ -330,7 +299,7 @@ fun MenuPreview() {
             filters = persistentListOf(
                 DrawerItem.Filter(
                     title = "My Tasks",
-                    icon = R.drawable.ic_outline_all_inbox_24px,
+                    icon = TasksIcons.ALL_INBOX,
                     type = { FilterImpl() },
                 ),
                 DrawerItem.Header(

@@ -13,6 +13,7 @@ import org.tasks.compose.FilterChip
 import org.tasks.compose.TaskEditRow
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterImpl
+import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 
 @Composable
@@ -28,7 +29,7 @@ fun ListRow(
                 if (list != null) {
                     FilterChip(
                         filter = list,
-                        defaultIcon = R.drawable.ic_list_24px,
+                        defaultIcon = TasksIcons.LIST,
                         showText = true,
                         showIcon = true,
                         onClick = { onClick() },

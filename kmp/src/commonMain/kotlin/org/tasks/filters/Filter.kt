@@ -8,8 +8,8 @@ interface Filter : FilterListItem, CommonParcelable {
     val valuesForNewTasks: String?
         get() = null
     val sql: String?
-    val icon: Int
-        get() = -1
+    val icon: String?
+        get() = null
     val title: String?
     val tint: Int
         get() = 0
