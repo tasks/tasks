@@ -19,13 +19,6 @@ plugins {
 kotlin {
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_17)
-        val composeReports = project.properties["composeMetrics"] ?: project.buildDir.absolutePath
-        freeCompilerArgs = listOf(
-            "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${composeReports}/compose-metrics",
-            "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${composeReports}/compose-metrics",
-        )
     }
 }
 

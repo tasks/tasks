@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
@@ -21,4 +23,18 @@ buildscript {
 tasks.getByName<Wrapper>("wrapper") {
     gradleVersion = "8.8"
     distributionType = Wrapper.DistributionType.ALL
+}
+
+allprojects {
+    tasks.withType<KotlinCompile>().configureEach {
+        compilerOptions {
+            val composeReports = project.properties["composeMetrics"] ?: project.buildDir.absolutePath
+            freeCompilerArgs.addAll(
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" + composeReports + "/compose-metrics",
+                "-P",
+                "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" + composeReports + "/compose-metrics",
+            )
+        }
+    }
 }

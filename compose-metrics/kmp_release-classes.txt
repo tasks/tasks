@@ -1,0 +1,177 @@
+stable class drawable {
+  <runtime stability> = Stable
+}
+stable class string {
+  <runtime stability> = Stable
+}
+stable class array {
+  <runtime stability> = Stable
+}
+stable class plurals {
+  <runtime stability> = Stable
+}
+stable class font {
+  <runtime stability> = Stable
+}
+stable class Res {
+  <runtime stability> = Stable
+}
+stable class PermaSql {
+  stable val VALUE_EOD: String
+  stable val VALUE_NOON: String
+  stable val VALUE_EOD_YESTERDAY: String
+  stable val VALUE_EOD_TOMORROW: String
+  stable val VALUE_EOD_DAY_AFTER: String
+  stable val VALUE_EOD_NEXT_WEEK: String
+  stable val VALUE_EOD_NEXT_MONTH: String
+  stable val VALUE_NOW: String
+  stable val VALUE_NOON_YESTERDAY: String
+  stable val VALUE_NOON_TOMORROW: String
+  stable val VALUE_NOON_DAY_AFTER: String
+  stable val VALUE_NOON_NEXT_WEEK: String
+  stable val VALUE_NOON_NEXT_MONTH: String
+  <runtime stability> = Stable
+}
+unstable class SortHelper {
+  stable val GROUP_NONE: Int
+  stable val SORT_AUTO: Int
+  stable val SORT_ALPHA: Int
+  stable val SORT_DUE: Int
+  stable val SORT_IMPORTANCE: Int
+  stable val SORT_MODIFIED: Int
+  stable val SORT_CREATED: Int
+  stable val SORT_GTASKS: Int
+  stable val SORT_CALDAV: Int
+  stable val SORT_START: Int
+  stable val SORT_LIST: Int
+  stable val SORT_COMPLETED: Int
+  stable val SORT_MANUAL: Int
+  stable val CALDAV_ORDER_COLUMN: String
+  stable val ADJUSTED_DUE_DATE: String
+  stable val ADJUSTED_START_DATE: String
+  stable val NO_DATE: Long
+  stable val GROUP_DUE_DATE: String
+  stable val SORT_DUE_DATE: String
+  stable val GROUP_START_DATE: String
+  stable val SORT_START_DATE: String
+  unstable val ORDER_TITLE: Order
+  unstable val ORDER_LIST: Order
+  <runtime stability> = Unstable
+}
+unstable class TaskListQuery {
+  stable val CALDAV_METADATA_JOIN: String
+  unstable val JOIN_CALDAV: Criterion
+  stable val JOINS: String
+  unstable val FIELDS: List<Field>
+  <runtime stability> = Unstable
+}
+unstable class TaskListQueryNonRecursive {
+  stable val TAGS_METADATA_JOIN: String
+  unstable val JOIN_TAGS: Criterion
+  stable val JOINS: String
+  unstable val TAGS: Field
+  unstable val FIELDS: Array<Field>
+  <runtime stability> = Unstable
+}
+unstable class TaskListQueryRecursive {
+  unstable val RECURSIVE: Table
+  unstable val RECURSIVE_TASK: Field
+  unstable val FIELDS: Array<Field>
+  stable val JOINS: String
+  unstable val SUBTASK_QUERY: QueryTemplate
+  <runtime stability> = Unstable
+}
+unstable class QueryUtils {
+  unstable val HIDDEN: Pattern
+  unstable val UNCOMPLETED: Pattern
+  unstable val ORDER: Pattern
+  <runtime stability> = Unstable
+}
+unstable class CaldavFilter {
+  unstable val calendar: CaldavCalendar
+  stable val principals: Int
+  stable val count: Int
+  <runtime stability> = Unstable
+}
+stable class EmptyFilter {
+  stable val sql: String?
+  stable val title: String?
+  <runtime stability> = Stable
+}
+stable class FilterImpl {
+  stable val title: String?
+  stable val sql: String?
+  stable val valuesForNewTasks: String?
+  stable val icon: Int
+  stable val tint: Int
+  <runtime stability> = Stable
+}
+unstable class GtasksFilter {
+  unstable val list: CaldavCalendar
+  stable val count: Int
+  <runtime stability> = Unstable
+}
+unstable class MyTasksFilter {
+  stable val title: String
+  stable var filterOverride: String?
+  <runtime stability> = Unstable
+}
+stable class NavigationDrawerSubheader {
+  stable val title: String?
+  stable val error: Boolean
+  stable val isCollapsed: Boolean
+  stable val subheaderType: SubheaderType
+  stable val id: Long
+  stable val addIntentRc: Int
+  stable val itemType: Type
+  <runtime stability> = Stable
+}
+stable class RecentlyModifiedFilter {
+  stable val title: String
+  <runtime stability> = Stable
+}
+stable class SearchFilter {
+  stable val title: String
+  stable val query: String
+  <runtime stability> = Stable
+}
+unstable class TagFilter {
+  unstable val tagData: TagData
+  stable val count: Int
+  stable var filterOverride: String?
+  <runtime stability> = Unstable
+}
+unstable class AdapterSection {
+  stable var firstPosition: Int
+  stable val value: Long
+  stable var sectionedPosition: Int
+  stable var collapsed: Boolean
+  <runtime stability> = Unstable
+}
+unstable class SectionedDataSource {
+  stable val groupMode: Int
+  stable val subtaskMode: Int
+  unstable val collapsed: Set<Long>
+  stable val completedAtBottom: Boolean
+  unstable val tasks: MutableList<TaskContainer>
+  unstable val sections: TreeMap<Int, AdapterSection>
+  <runtime stability> = Unstable
+}
+stable class Loading {
+  <runtime stability> = Stable
+}
+unstable class Results {
+  unstable val tasks: SectionedDataSource
+  <runtime stability> = Unstable
+}
+stable class Header {
+  stable val value: Long
+  <runtime stability> = Stable
+}
+unstable class Task {
+  unstable val task: TaskContainer
+  <runtime stability> = Unstable
+}
+stable class UiItem {
+  <runtime stability> = Stable
+}
