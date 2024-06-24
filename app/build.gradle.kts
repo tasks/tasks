@@ -22,6 +22,10 @@ kotlin {
     }
 }
 
+composeCompiler {
+    enableStrongSkippingMode = true
+}
+
 android {
     bundle {
         language {
