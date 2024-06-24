@@ -516,7 +516,7 @@
         <item quantity="other">%d lista</item>
     </plurals>
     <string name="astrid_sort_order_summary">Ota käyttöön Astridin manuaalinen lajittelutila \'Omat tehtävät\', \'Tänään\' ja tunnisteet. Tämä lajittelutila korvataan \'Oma järjestys\'-tilalla tulevassa päivityksessä</string>
-    <string name="url_host_name_required">Palvelimen nimi vaaditaan</string>
+    <string name="url_host_name_required">Isäntänimi vaaditaan</string>
     <string name="date_shortcut_tomorrow_evening">Huomenna illalla</string>
     <string name="markdown_description">Ota Markdown käyttöön otsikossa ja kuvauksessa</string>
     <string name="markdown">Markdown</string>
