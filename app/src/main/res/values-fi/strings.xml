@@ -347,7 +347,7 @@
     <string name="chip_appearance_text_only">Vain teksti</string>
     <string name="chip_appearance_text_and_icon">Teksti ja pikkukuvake</string>
     <string name="desaturate_colors_summary_off">Värejä ei muuteta tummiin teemoihin</string>
-    <string name="desaturate_colors_summary_on">Värit näytetään harmaampina tummissa teemoissa</string>
+    <string name="desaturate_colors_summary_on">Värien kirkkautta vähennetään tummissa teemoissa</string>
     <string name="chip_appearance">Lappujen sisältö</string>
     <string name="chips">Lisätietolaput</string>
     <string name="back">Takaisin</string>
