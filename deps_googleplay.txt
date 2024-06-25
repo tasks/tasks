@@ -550,11 +550,11 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.0 -> 2.0.0 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3 -> 1.8.0 (*)
 +|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.8.0 (*)
-++--- com.google.android.gms:play-services-maps:18.2.0
+++--- com.google.android.gms:play-services-maps:19.0.0
 +|    +--- androidx.fragment:fragment:1.0.0 -> 1.8.1 (*)
-+|    +--- com.google.android.gms:play-services-base:18.0.1 -> 18.5.0 (*)
-+|    +--- com.google.android.gms:play-services-basement:18.0.0 -> 18.4.0 (*)
-+|    \--- com.google.android.gms:play-services-tasks:18.0.1 -> 18.2.0 (*)
++|    +--- com.google.android.gms:play-services-base:18.5.0 (*)
++|    +--- com.google.android.gms:play-services-basement:18.4.0 (*)
++|    \--- com.google.android.gms:play-services-tasks:18.2.0 (*)
 ++--- com.android.billingclient:billing-ktx:6.1.0
 +|    +--- com.android.billingclient:billing:6.1.0
 +|    |    +--- androidx.activity:activity:1.2.3 -> 1.9.0 (*)
