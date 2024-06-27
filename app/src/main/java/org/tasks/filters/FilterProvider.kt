@@ -57,7 +57,7 @@ class FilterProvider @Inject constructor(
             getAllFilters(showCreate = false)
 
     suspend fun drawerCustomizationItems(): List<FilterListItem> =
-            getAllFilters(showBuiltIn = false)
+            getAllFilters(showBuiltIn = false, showCreate = true)
 
     private fun getDebugFilters(): List<FilterListItem> =
             if (BuildConfig.DEBUG) {
