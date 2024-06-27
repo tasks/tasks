@@ -1,7 +1,8 @@
-### 13.10 (2024-06-21)
+### 13.10 (2024-06-27)
 
 * Add search bar to drawer
 * Add search bar to list picker
+* Move 'Manage drawer' to ⚙️ > Navigation drawer
 * Android 13+ users must grant additional reminder permissions
 * Fix completing task multiple times from notification
 * Fix deleting new subtasks from edit screen
@@ -12,6 +13,7 @@
   * Chinese (Simplified) - 大王叫我来巡山
   * Chinese (Traditional) - hugoalh
   * Croatian - @milotype
+  * Finnish - Rami Lehtinen, @CSharpest
   * German - min7-i
   * Spanish - gallegonovato
   * Turkish - @oersen
