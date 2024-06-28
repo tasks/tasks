@@ -12,6 +12,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.coroutineScope
 import androidx.work.Configuration
+import com.mikepenz.iconics.Iconics
+import org.tasks.icons.OutlinedGoogleMaterial
+import org.tasks.icons.OutlinedGoogleMaterial2
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
 import dagger.hilt.android.HiltAndroidApp
@@ -92,6 +95,8 @@ class Tasks : Application(), Configuration.Provider {
     }
 
     private fun backgroundWork() = CoroutineScope(Dispatchers.Default).launch {
+        Iconics.registerFont(OutlinedGoogleMaterial)
+        Iconics.registerFont(OutlinedGoogleMaterial2)
         inventory.updateTasksAccount()
         NotificationSchedulerIntentService.enqueueWork(context)
         workManager.get().apply {

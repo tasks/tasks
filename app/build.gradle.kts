@@ -153,6 +153,7 @@ val googleplayImplementation by configurations
 dependencies {
     implementation(projects.data)
     implementation(projects.kmp)
+    implementation(projects.icons)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.bitfire.dav4jvm) {
         exclude(group = "junit")
@@ -184,7 +185,6 @@ dependencies {
     implementation(libs.androidx.room)
     implementation(libs.androidx.appcompat)
     implementation(libs.iconics)
-    implementation(libs.iconics.material.design)
     implementation(libs.markwon)
     implementation(libs.markwon.editor)
     implementation(libs.markwon.linkify)

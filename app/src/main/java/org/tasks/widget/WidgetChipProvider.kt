@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.typeface.library.googlematerial.OutlinedGoogleMaterial
+import org.tasks.icons.OutlinedGoogleMaterial
 import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig

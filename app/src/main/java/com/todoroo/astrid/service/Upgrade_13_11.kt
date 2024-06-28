@@ -47,11 +47,15 @@ class Upgrade_13_11 @Inject constructor(
     companion object {
         const val VERSION = 131100
 
-        fun String?.migrateLegacyIcon(): String? =
-            LEGACY_ICONS[this?.toIntOrNull()] ?: this
+        fun String?.migrateLegacyIcon(): String? {
+            val index = this?.toIntOrNull()
+            return if (index == null) this else LEGACY_ICONS[index]
+        }
 
         private val LEGACY_ICONS by lazy {
             mapOf(
+                -1 to null,
+                0 to null,
                 1 to LABEL,
                 2 to FILTER_LIST,
                 3 to CLOUD,
