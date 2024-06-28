@@ -603,7 +603,9 @@ File %1$s contained %2$s.\n\n
   <string name="filter_eisenhower_box_3">Not important and urgent</string>
   <string name="filter_eisenhower_box_4">Not important and not urgent</string>
   <string name="enjoying_tasks">Enjoying Tasks?</string>
-  <string name="tasks_needs_your_support">Tasks needs your support!</string>
+  <string name="donate_nag">Consider showing your support with a donation!</string>
+  <string name="donate_today">Donate today</string>
+  <string name="donate_maybe_later">Maybe later</string>
   <string name="support_development_subscribe">Unlock additional features and support open source software</string>
   <string name="got_it">Got it!</string>
   <string name="sort_start_group">Start %s</string>

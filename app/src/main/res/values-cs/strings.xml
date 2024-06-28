@@ -569,7 +569,6 @@
     <string name="sort_created_group">Vytvořeno %s</string>
     <string name="sort_start_group">Začátek %s</string>
     <string name="sort_due_group">Termín %s</string>
-    <string name="tasks_needs_your_support">Tato aplikace potřebuje Vaši podporu!</string>
     <string name="tasks_org_description">Synchronizujte své úkoly pomocí Tasks.org</string>
     <string name="background_location_permission_required">Tato aplikace sbírá údaje o Vaší poloze, aby fungovala upozornění podle polohy i když aplikaci zrovna nepoužíváte.</string>
     <string name="reinitialize_account">Znovu inicializovat</string>

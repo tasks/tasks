@@ -410,7 +410,6 @@
     <string name="more_settings">Aliaj agordoj</string>
     <string name="filter_no_tags">Neniu etikedoj</string>
     <string name="support">Helpo</string>
-    <string name="tasks_needs_your_support">Tasks bezonas vian subtenon!</string>
     <string name="upgrade_open_source_description">Via abono subtenas daŭratan programadon</string>
     <string name="license_summary">Tasks estas libre malfermitkoda programaro, rajtigite per la GNU General Public License v3.0</string>
     <string name="send_anonymous_statistics_summary">Permesi sendi anonimajn statistikon kaj prikolapsajn raportojn. Neniu persona datumo estos kolektita.</string>

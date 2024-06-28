@@ -615,7 +615,6 @@
     <string name="local_lists">Lokale lister</string>
     <string name="sort_due_group">Forfalder %s</string>
     <string name="sort_start_group">Start %s</string>
-    <string name="tasks_needs_your_support">Tasks har brug for din støtte!</string>
     <string name="decsync_selection_description">Filbaseret synkronisering</string>
     <string name="tasks_org_description">Synkroniser dine opgaver med Tasks.org</string>
     <string name="background_location_permission_required">Opgaver indsamler placeringsdata for at muliggøre placeringsbaserede påmindelser, selv når appen er lukket eller ikke er i brug.</string>

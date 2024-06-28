@@ -637,7 +637,6 @@
     <string name="picker_mode_calendar">Takvim</string>
     <string name="picker_mode_time">Zaman seçici kipi</string>
     <string name="picker_mode_date">Tarih seçici kipi</string>
-    <string name="tasks_needs_your_support">Tasks, desteğinize gereksiniyor!</string>
     <string name="next_friday">Sonraki Cma</string>
     <string name="next_saturday">Sonraki Cts</string>
     <string name="next_thursday">Sonraki Per</string>

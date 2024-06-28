@@ -627,7 +627,6 @@
     <string name="social">소셜 미디어</string>
     <string name="follow_twitter">\@tasks_org 팔로우</string>
     <string name="local_lists">로컬 목록</string>
-    <string name="tasks_needs_your_support">Tasks가 여러분의 지원을 필요로 합니다!</string>
     <string name="back">이전</string>
     <string name="decsync_selection_description">파일 기반 동기화</string>
     <string name="tasks_org_description">Tasks.org에 할일 동기화</string>

@@ -618,7 +618,6 @@
     <string name="local_lists">Listas locais</string>
     <string name="sort_due_group">Vencimento %s</string>
     <string name="sort_start_group">Começar %s</string>
-    <string name="tasks_needs_your_support">O Tasks precisa da sua ajuda!</string>
     <string name="decsync_selection_description">Sincronização baseada em ficheiro</string>
     <string name="tasks_org_description">Sincronize as suas tarefas com o Tasks.org</string>
     <string name="subscription">Subscrição</string>

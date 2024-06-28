@@ -596,7 +596,6 @@
     <string name="local_lists">Paikalliset luettelot</string>
     <string name="sort_due_group">Erääntyy %s</string>
     <string name="sort_start_group">Aloita %s</string>
-    <string name="tasks_needs_your_support">Tasks tarvitsee tukeasi!</string>
     <string name="davx5_selection_description">Tehtävien synkronointi DAVx⁵sovelluksen kanssa</string>
     <string name="decsync_selection_description">Tiedostopohjainen synkronointi</string>
     <string name="tasks_org_description">Synkronoi tehtävät Tasks.orgin kanssa</string>

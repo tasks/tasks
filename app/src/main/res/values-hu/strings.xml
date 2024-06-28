@@ -624,7 +624,6 @@
     <string name="picker_mode_calendar">Naptár</string>
     <string name="picker_mode_time">Időválasztó mód</string>
     <string name="picker_mode_date">Dátumválasztó mód</string>
-    <string name="tasks_needs_your_support">A Tasks-nak szüksége van a támogatásodra!</string>
     <string name="more_options">Több opció</string>
     <string name="upgrade_automation_description">Tasker, Automate és Locate beépülő modulok</string>
     <string name="upgrade_automation">Automatizálás</string>

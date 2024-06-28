@@ -565,7 +565,6 @@
     <string name="local_lists">Listas locais</string>
     <string name="sort_due_group">Vencimento %s</string>
     <string name="sort_start_group">Começa %s</string>
-    <string name="tasks_needs_your_support">Tasks precisa da sua ajuda!</string>
     <string name="decsync_selection_description">Sincronização baseada em arquivo</string>
     <string name="tasks_org_description">Sincronize suas tarefas com Tasks.org</string>
     <string name="background_location_permission_required">Tasks coleta dados de localização para permitir lembretes baseados em localização, mesmo quando o aplicativo está fechado ou não estiver sendo usado.</string>

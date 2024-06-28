@@ -37,20 +37,16 @@ fun SubscriptionNagBanner(
 ) {
     AnimatedBanner(
         visible = visible,
-        title = stringResource(id = if (Tasks.IS_GENERIC) {
-            R.string.enjoying_tasks
-        } else {
-            R.string.tasks_needs_your_support
-        }),
+        title = stringResource(id = R.string.enjoying_tasks),
         body = stringResource(id = if (Tasks.IS_GENERIC) {
-            R.string.tasks_needs_your_support
+            R.string.donate_nag
         } else {
             R.string.support_development_subscribe
         }),
-        dismissText = stringResource(id = R.string.dismiss),
+        dismissText = stringResource(id = R.string.donate_maybe_later),
         onDismiss = dismiss,
         action = stringResource(id = if (Tasks.IS_GENERIC) {
-            R.string.TLA_menu_donate
+            R.string.donate_today
         } else {
             R.string.button_subscribe
         }),

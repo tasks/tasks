@@ -638,7 +638,6 @@
     <string name="picker_mode_calendar">Kalender</string>
     <string name="picker_mode_time">Zeitauswahlmodus</string>
     <string name="picker_mode_date">Datumsauswahlmodus</string>
-    <string name="tasks_needs_your_support">Tasks braucht deine Unterstützung!</string>
     <string name="next_saturday">Nächsten Samstag</string>
     <string name="next_friday">Nächsten Freitag</string>
     <string name="next_thursday">Nächsten Donnerstag</string>

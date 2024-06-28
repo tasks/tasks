@@ -637,7 +637,6 @@
     <string name="picker_mode_calendar">Egutegia</string>
     <string name="picker_mode_time">Denbora hautatzeko modua</string>
     <string name="picker_mode_date">Data hautatzeko modua</string>
-    <string name="tasks_needs_your_support">Tasksek zure laguntza behar du!</string>
     <string name="next_saturday">Hurrengo larunbata</string>
     <string name="next_friday">Hurrengo ostirala</string>
     <string name="next_thursday">Hurrengo osteguna</string>

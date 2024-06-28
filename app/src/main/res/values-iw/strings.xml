@@ -662,7 +662,6 @@
     <string name="follow_twitter">עקוב אחרי @tasks_org</string>
     <string name="sort_due_group">תאריך היעד הוא %s</string>
     <string name="sort_start_group">התחל %s</string>
-    <string name="tasks_needs_your_support">המשימות זקוקות לתמיכתך!</string>
     <string name="tasks_org_description">סנכרן את המשימות שלך עם Tasks.org</string>
     <string name="subscription">מנוי</string>
     <string name="map_theme">נושא המפה</string>

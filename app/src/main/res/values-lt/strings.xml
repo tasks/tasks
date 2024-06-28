@@ -628,7 +628,6 @@
     <string name="sort_start_group">Pradžia %s</string>
     <string name="got_it">Supratau!</string>
     <string name="support_development_subscribe">Atrakinkite papildomas funkcijas ir palaikykite atvirojo kodo programinę įrangą</string>
-    <string name="tasks_needs_your_support">Tasks reikia jūsų palaikymo!</string>
     <string name="enjoying_tasks">Ar jums patinka Tasks\?</string>
     <string name="calendar_event_created">Kalendoriaus įvykis sukurtas %s</string>
     <string name="auto_dismiss_datetime_summary">Uždaryti datos laiko rinkiklį pasirinkus datą ar laiką</string>

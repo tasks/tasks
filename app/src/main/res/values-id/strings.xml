@@ -618,7 +618,6 @@
     <string name="picker_mode_calendar">Kalender</string>
     <string name="picker_mode_time">Mode pengambil waktu</string>
     <string name="picker_mode_date">Mode pengambil tanggal</string>
-    <string name="tasks_needs_your_support">Tasks memerlukan dukungan Anda!</string>
     <string name="upgrade_blurb_2">Saya telah menghabiskan ribuan jam bekerja pada Tasks, dan saya mempublikasikan semua kode sumber online secara gratis. Untuk mendukung pekerjaan saya, beberapa fitur memerlukan berlangganan</string>
     <string name="upgrade_blurb_1">Hi. Nama saya Alex. Saya adalah pengembang independen dibelakang aplikasi Tasks</string>
     <string name="next_saturday">Sabtu Depan</string>

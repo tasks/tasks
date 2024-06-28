@@ -541,7 +541,6 @@
     <string name="filter_high_priority">Висок приоритет</string>
     <string name="chip_appearance_icon_only">Само икона</string>
     <string name="filter_medium_priority">Среден приоритет</string>
-    <string name="tasks_needs_your_support">Tasks се нуждае от подкрепа!</string>
     <string name="local_lists">Местни списъци</string>
     <string name="background_location_permission_required">Tasks събира данни за местоположението, за да прави напомняния на тази основа, дори и когато приложението е затворено или не се използва.</string>
     <string name="when_started">При започване</string>

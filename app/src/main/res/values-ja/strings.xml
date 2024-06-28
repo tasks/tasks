@@ -560,7 +560,6 @@
     <string name="rmd_time_description">期限のないタスクの通知を表示します</string>
     <string name="davx5_selection_description">DAVx⁵ でタスクを同期する</string>
     <string name="caldav_account_description">CalDAV サービスプロバイダまたはセルフホストサーバのアカウントが必要です。サービスプロバイダを探すには、tasks.org/caldav にアクセスしてください</string>
-    <string name="tasks_needs_your_support">Tasks は皆様のご支援を必要としています！</string>
     <string name="chips">チップ</string>
     <string name="now">今</string>
     <string name="choose_synchronization_service">プラットフォームを選択</string>

@@ -650,7 +650,6 @@
     <string name="desaturate_colors">減淡顏色</string>
     <string name="calendar_event_created">建立行事曆事件於 %s</string>
     <string name="widget_id">小工具 ID：%d</string>
-    <string name="tasks_needs_your_support">Tasks 需要您的支持！</string>
     <string name="permission_read_tasks">完全存取 Tasks 資料庫</string>
     <string name="sort_completion_group">完成於 %s</string>
     <string name="insufficient_subscription">訂閱等級不足。請升級訂閱以恢復服務。</string>
