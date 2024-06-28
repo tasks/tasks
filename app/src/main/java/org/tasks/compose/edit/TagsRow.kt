@@ -2,8 +2,6 @@ package org.tasks.compose.edit
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -75,7 +73,7 @@ fun SingleTag() {
             tags = listOf(
                 TagData(
                     name = "Home",
-                    icon = Icons.Outlined.Home.name,
+                    icon = "home",
                     color = ColorProvider.BLUE_500
                 )
             ),
@@ -113,7 +111,7 @@ fun TagWithReallyLongName() {
             tags = listOf(
                 TagData(
                     name = "This is a tag with a really really long name",
-                    icon = Icons.Outlined.Home.name,
+                    icon = "home",
                     color = ColorProvider.BLUE_500
                 )
             ),
