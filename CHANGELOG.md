@@ -1,3 +1,7 @@
+### 13.11 (2024-06-28)
+
+* New icon picker with over 2,100 icons! (pro feature)
+
 ### 13.10 (2024-06-27)
 
 * Add search bar to drawer
