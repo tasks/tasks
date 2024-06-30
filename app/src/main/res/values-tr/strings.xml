@@ -734,4 +734,7 @@
     <string name="show_edit_screen_without_unlock_summary">Aygıtın kilidini açmadan Hızlı Ayarlar kutucuğunun kullanılmasını sağlar</string>
     <string name="customize_drawer">Çekmeceyi özelleştir</string>
     <string name="customize_drawer_summary">Menü ögelerini yeniden düzenlemek için sürükleyip bırakın</string>
+    <string name="donate_today">Bugün bağış yapın</string>
+    <string name="donate_maybe_later">Belki daha sonra</string>
+    <string name="donate_nag">Desteğinizi bağış yaparak göstermeyi düşünün!</string>
 </resources>
