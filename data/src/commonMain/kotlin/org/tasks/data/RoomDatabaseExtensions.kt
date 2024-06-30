@@ -9,7 +9,7 @@ import androidx.sqlite.SQLiteStatement
 
 suspend fun <T> RoomDatabase.withTransaction(block: suspend TransactionScope<T>.() -> T): T =
     useWriterConnection { transactor ->
-        transactor.withTransaction(Transactor.SQLiteTransactionType.DEFERRED) {
+        transactor.withTransaction(Transactor.SQLiteTransactionType.IMMEDIATE) {
             block()
         }
     }

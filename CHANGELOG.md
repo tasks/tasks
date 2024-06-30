@@ -1,8 +1,8 @@
-### 13.11 (2024-06-28)
+### 13.11 - Under development
 
 * New icon picker with over 2,100 icons! (pro feature)
 
-### 13.10 (2024-06-27)
+### 13.10 (2024-06-30)
 
 * Add search bar to drawer
 * Add search bar to list picker
