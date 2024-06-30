@@ -732,4 +732,9 @@
     <string name="swipe_to_snooze_time_description">Изчистеното известие ще бъде отложено и пресъздадено %s</string>
     <string name="show_edit_screen_without_unlock">Показване на екран за редактиране без отключване</string>
     <string name="show_edit_screen_without_unlock_summary">Използва плочката за бързи настройки без отключване на устройството</string>
+    <string name="customize_drawer">Настройка на менюто</string>
+    <string name="customize_drawer_summary">Пренаредете елементите с плъзгане и пускане</string>
+    <string name="donate_nag">Помислете дали да не покажете подкрепата си чрез дарение!</string>
+    <string name="donate_today">Даряване днес</string>
+    <string name="donate_maybe_later">Може би после</string>
 </resources>
