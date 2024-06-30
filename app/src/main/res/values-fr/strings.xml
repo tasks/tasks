@@ -213,9 +213,9 @@
     <string name="delete_task">Supprimer la tâche</string>
     <string name="voice_command_added_task">Tâche ajoutée</string>
     <plurals name="Ntasks">
-        <item quantity="one">1 tâche</item>
+        <item quantity="one">%d tâche</item>
         <item quantity="many">%d tâches</item>
-        <item quantity="other">%d tâches</item>
+        <item quantity="other">%d tâche(s)</item>
     </plurals>
     <string name="today">Aujourd\'hui</string>
     <string name="tomorrow">Demain</string>
@@ -362,7 +362,7 @@
     <string name="about">À propos</string>
     <string name="license_summary">Tasks est un logiciel libre à code source ouvert, codé sous licence « GNU », « General Public License » version 3.0</string>
     <string name="pro_dashclock_extension">Extension du tableau de bord</string>
-    <string name="requires_pro_subscription">Nécessite un abonnement « pro »</string>
+    <string name="requires_pro_subscription">Nécessite un abonnement Pro</string>
     <string name="logout">Se déconnecter</string>
     <string name="logout_warning">Toutes les données liées à ce compte seront supprimées de votre appareil</string>
     <string name="cannot_access_account">Impossible d\'accéder au compte</string>
@@ -516,7 +516,7 @@
     <string name="got_it">J\'ai compris !</string>
     <string name="support_development_subscribe">Déverrouillez des fonctionnalités supplémentaires et soutenez les logiciels à code source ouvert</string>
     <string name="enjoying_tasks">Appréciez-vous Tasks \?</string>
-    <string name="whats_new">Quoi de neuf ?</string>
+    <string name="whats_new">Nouveautés</string>
     <string name="action_new_task">Nouvelle tâche</string>
     <string name="yesterday_lowercase">hier</string>
     <string name="tomorrow_lowercase">demain</string>
@@ -743,4 +743,20 @@
     <string name="repeats_never">Jamais</string>
     <string name="change_priority">Modifier la priorité</string>
     <string name="theme_dynamic">Dynamique</string>
+    <string name="donate_nag">Pensez à manifester votre soutien en faisant un don !</string>
+    <string name="donate_today">Faites un don aujourd\'hui</string>
+    <string name="donate_maybe_later">Peut-être plus tard</string>
+    <string name="clear_completed_tasks_count">%s sera supprimée</string>
+    <string name="customize_drawer">Personnaliser le tiroir</string>
+    <string name="swipe_to_snooze_time_1_hour">après 1 heure</string>
+    <string name="swipe_to_snooze_time_24_hours">après 24 heures</string>
+    <string name="swipe_to_snooze_time_immediately">immédiatement</string>
+    <string name="swipe_to_snooze_time_15_minutes">après 15 minutes</string>
+    <string name="swipe_to_snooze_title">Balayer pour mettre en veille</string>
+    <string name="swipe_to_snooze_description">Temps de veille</string>
+    <string name="swipe_to_snooze_time_description">Une notification ignorée sera mise en veille et recréée %s</string>
+    <string name="swipe_to_snooze_time_30_minutes">après 30 minutes</string>
+    <string name="show_edit_screen_without_unlock">Afficher l\'écran d\'édition sans déverrouillage</string>
+    <string name="show_edit_screen_without_unlock_summary">Permet d\'utiliser la fenêtre des réglages rapides sans déverrouiller l\'appareil</string>
+    <string name="customize_drawer_summary">Glisser-déposer pour réorganiser les éléments du menu</string>
 </resources>
