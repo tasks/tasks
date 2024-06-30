@@ -754,4 +754,7 @@
     <string name="swipe_to_snooze_time_24_hours">após 24 horas</string>
     <string name="customize_drawer">Personalizar menu</string>
     <string name="customize_drawer_summary">Arraste e solte para reorganizar os itens do menu</string>
+    <string name="donate_nag">Considere mostrar seu apoio com uma doação!</string>
+    <string name="donate_maybe_later">Talvez mais tarde</string>
+    <string name="donate_today">Faça sua doação hoje</string>
 </resources>
