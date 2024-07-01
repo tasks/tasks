@@ -142,7 +142,7 @@
     <string name="astrid_sort_order_summary">Activa el mode d\'ordenació manual d\'Astrid per a les etiquetes «Les meves tasques», «Avui» i «etiquetes». Aquest mode d\'ordenació serà substituït per «El meu ordre» en una actualització futura</string>
     <string name="astrid_sort_order">Ordenació manual d\'Astrid</string>
     <string name="cancel">Cancel·la</string>
-    <string name="ok">D\'acord</string>
+    <string name="ok">OK</string>
     <string name="priority_high">Alt</string>
     <string name="default_location">Ubicació predeterminada</string>
     <string name="EPr_default_reminders_mode_title">So / vibració predeterminat</string>
