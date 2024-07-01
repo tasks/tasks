@@ -70,10 +70,11 @@
     <string name="TPl_notification">Temporitzadors actius per %s!</string>
     <string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
     <string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
-    <string name="TEA_timer_comment_spent">Temps invertit</string>
+    <string name="TEA_timer_comment_spent">Temps invertit:</string>
     <string name="delete_task">Eliminar tasca</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tasca</item>
+        <item quantity="many">%d tasques</item>
         <item quantity="other">%d tasques</item>
     </plurals>
     <string name="today">Avui</string>
@@ -170,7 +171,7 @@
     <string name="ring_once">Sona un cop</string>
     <string name="persistent_notifications">Notificacions persistents</string>
     <string name="persistent_notifications_description">Les notificacions persistents no es poden esborrar</string>
-    <string name="default_random_reminder_daily">A diari</string>
+    <string name="default_random_reminder_daily">Diariament</string>
     <string name="default_random_reminder_weekly">Setmanalment</string>
     <string name="repeat_option_custom">Personalitza…</string>
     <string name="no_start_date">Sense data d\'inici</string>
@@ -181,6 +182,7 @@
     <string name="rmd_EPr_rmd_time_desc">Notificacions per tasques sense data de venciment apareixeran a %s</string>
     <plurals name="task_count">
         <item quantity="one">%d tasca</item>
+        <item quantity="many">%d tasques</item>
         <item quantity="other">%d tasques</item>
     </plurals>
     <string name="gtasks_GLA_errorIOAuth">Ho sentim, hem tingut problemes de comunicació amb els servidors de Google. Per favor torna-ho a intentar.</string>
@@ -192,79 +194,98 @@
     <string name="snooze_all">Posposa tot</string>
     <plurals name="reminder_hours">
         <item quantity="one">Hora</item>
+        <item quantity="many">Hores</item>
         <item quantity="other">Hores</item>
     </plurals>
     <plurals name="repeat_months">
         <item quantity="one">mes</item>
+        <item quantity="many">mesos</item>
         <item quantity="other">mesos</item>
     </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d mes</item>
+        <item quantity="many">%d mesos</item>
         <item quantity="other">%d mesos</item>
     </plurals>
     <plurals name="repeat_years">
         <item quantity="one">any</item>
+        <item quantity="many">anys</item>
         <item quantity="other">anys</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d any</item>
+        <item quantity="many">%d anys</item>
         <item quantity="other">%d anys</item>
     </plurals>
     <plurals name="repeat_hours">
         <item quantity="one">hora</item>
+        <item quantity="many">hores</item>
         <item quantity="other">hores</item>
     </plurals>
     <plurals name="list_count">
         <item quantity="one">%d llista</item>
+        <item quantity="many">%d llistes</item>
         <item quantity="other">%d llistes</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d setmana</item>
+        <item quantity="many">%d setmanes</item>
         <item quantity="other">%d setmanes</item>
     </plurals>
     <plurals name="reminder_week">
         <item quantity="one">Setmana</item>
+        <item quantity="many">Setmanes</item>
         <item quantity="other">Setmanes</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d dia</item>
+        <item quantity="many">%d dies</item>
         <item quantity="other">%d dies</item>
     </plurals>
     <plurals name="reminder_minutes">
         <item quantity="one">Minut</item>
+        <item quantity="many">Minuts</item>
         <item quantity="other">Minuts</item>
     </plurals>
     <string name="sort_list">Per llista</string>
     <plurals name="subtask_count">
         <item quantity="one">%d subtasca</item>
+        <item quantity="many">%d subtasques</item>
         <item quantity="other">%d subtasques</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">vegada</item>
+        <item quantity="many">vegades</item>
         <item quantity="other">vegades</item>
     </plurals>
     <plurals name="repeat_minutes">
         <item quantity="one">minut</item>
+        <item quantity="many">minuts</item>
         <item quantity="other">minuts</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d hora</item>
+        <item quantity="many">%d hores</item>
         <item quantity="other">%d hores</item>
     </plurals>
     <plurals name="repeat_days">
         <item quantity="one">dia</item>
+        <item quantity="many">dies</item>
         <item quantity="other">dies</item>
     </plurals>
     <plurals name="reminder_days">
         <item quantity="one">Dia</item>
+        <item quantity="many">Dies</item>
         <item quantity="other">Dies</item>
     </plurals>
     <plurals name="repeat_weeks">
         <item quantity="one">setmana</item>
+        <item quantity="many">setmanes</item>
         <item quantity="other">setmanes</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minut</item>
+        <item quantity="many">%d minuts</item>
         <item quantity="other">%d minuts</item>
     </plurals>
     <string name="sort_completed">Per data de finalització</string>
@@ -275,7 +296,7 @@
     <string name="TEA_creation_date">Data de creació</string>
     <string name="tomorrow_abbrev_lowercase">demà</string>
     <string name="new_list">Crea una nova llista</string>
-    <string name="voice_create_prompt">Parla per crear una tasca</string>
+    <string name="voice_create_prompt">Parlar per crear una tasca</string>
     <string name="widget_show_header">Mostra la capçalera</string>
     <string name="now">Ara</string>
     <plurals name="repeat_occurrence">
@@ -299,4 +320,110 @@
     <string name="delete_tag_confirmation">Esborra %s?</string>
     <string name="next_saturday">Proper ds</string>
     <string name="TEA_timer_controls">Temporitzador</string>
+    <string name="customize_drawer">Personalitza el calaix</string>
+    <string name="customize_drawer_summary">Arrossegueu i deixeu anar per reordenar els elements del menú</string>
+    <string name="about">Sobre</string>
+    <string name="license_summary">Tasks és un programari lliure de codi obert, amb llicència sota la Llicència Pública General de GNU v3.0</string>
+    <string name="default_calendar">Calendari predeterminat</string>
+    <string name="bundle_notifications_summary">Combina diferents notificacions en una sola</string>
+    <string name="or_choose_a_location">O escollir una ubicació</string>
+    <string name="swipe_to_snooze_time_15_minutes">després de 15 minuts</string>
+    <string name="swipe_to_snooze_time_30_minutes">després de 30 minuts</string>
+    <string name="next_wednesday">Proper dx</string>
+    <string name="url">URL</string>
+    <string name="repeats_hourly">cada hora</string>
+    <string name="repeats_plural_number_of_times">Es repeteix cada %1$s, ocurreix %2$d%3$s</string>
+    <string name="repeats_plural_on_until">Es repeteix cada %1$s el %2$s, finalitza el %3$s</string>
+    <string name="tasker_create_task">Crear tasca</string>
+    <string name="tasker_list_notification">Notificació de llista</string>
+    <string name="upgrade_to_pro">Actualitza a pro</string>
+    <string name="network_error">No s\'ha pogut connectar</string>
+    <string name="subscription">Subscripció</string>
+    <string name="manage_subscription">Modifica la subscripció</string>
+    <string name="linkify">Mostra els enllaços</string>
+    <string name="linkify_description">Afegeix enllaçaos a llocs web, adreces, i números de telèfon</string>
+    <string name="location_remind_departure">Recordar a la sortida</string>
+    <string name="user">Usuari</string>
+    <string name="repeats_weekly">cada setmana</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Cada mes el %1$s %2$s</string>
+    <string name="repeat_monthly_fifth_week">cinquè</string>
+    <string name="button_subscribe">Subscriu-te</string>
+    <string name="refresh_purchases">Actualitza les compres</string>
+    <string name="button_unsubscribe">Cancel·la la subscripció</string>
+    <string name="missing_permissions">Falten permisos</string>
+    <string name="choose_new_location">Escollir una nova ubicació</string>
+    <string name="location_permission_required_location">Es necessiten els permisos de ubicació per trobar la teva ubicació actual</string>
+    <string name="google_tasks_add_to_top">Noves tasques a sobre</string>
+    <string name="start_of_week">Inici de la setmana</string>
+    <string name="help">Ajuda</string>
+    <string name="yest">Ahir</string>
+    <string name="silent">Silenci</string>
+    <string name="vibrations">Vibracions</string>
+    <string name="list">Llista</string>
+    <string name="show_description">Mostra la descripció</string>
+    <string name="third_party_licenses">Llicències de tercers</string>
+    <string name="widget_show_menu">Mostra el menú</string>
+    <string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
+    <string name="change_priority">Canvia la prioritat</string>
+    <string name="date_shortcut_hour">Per una hora</string>
+    <string name="date_shortcut_night">Nit</string>
+    <string name="date_shortcut_morning">Matí</string>
+    <string name="date_shortcut_afternoon">Tarda</string>
+    <string name="repeats_never">Mai</string>
+    <string name="repeats_every">Es repeteix cada</string>
+    <string name="repeats_yearly">cada any</string>
+    <string name="repeats_plural">Es repeteix cada %s</string>
+    <string name="repeats_plural_on_number_of_times">Es repeteix cada %1$s el %2$s, ocurreix %3$d%4$s</string>
+    <string name="repeat_monthly_first_week">primer</string>
+    <string name="background_location_permission_required">Tasks recopila dades d\'ubicació per permetre els recodatoris basats en la ubicació tot i quan l\'aplicació està tancada o no s\'utilitza.</string>
+    <string name="visit_website">Visitar pàgina web</string>
+    <string name="location_arrived">Arribat a %s</string>
+    <string name="open_map">Obrir mapa</string>
+    <string name="whats_new">Què hi ha de nou</string>
+    <string name="building_notifications">Generant notificacions</string>
+    <string name="choose_a_location">Escolleix una ubicació</string>
+    <string name="pick_this_location">Selecciona aquesta ubicació</string>
+    <string name="version_string">Versió %s</string>
+    <string name="collapse_subtasks">Contraure subtasques</string>
+    <string name="invalid_backup_file">Archiu de còpia de seguretat no vàlid</string>
+    <string name="repeat_monthly_third_week">tercer</string>
+    <string name="repeat_monthly_fourth_week">quart</string>
+    <string name="repeat_monthly_last_week">últim</string>
+    <string name="action_create_new_task">Crear una tasca nova</string>
+    <string name="action_new_task">Tasca nova</string>
+    <string name="expand_subtasks">Expandir subtasques</string>
+    <string name="name_your_price">Preu flexible</string>
+    <string name="swipe_to_snooze_time_1_hour">després d\'1 hora</string>
+    <string name="swipe_to_snooze_time_24_hours">després de 24 hores</string>
+    <string name="swipe_to_snooze_time_immediately">immediatament</string>
+    <string name="next_tuesday">Proper dm</string>
+    <string name="yesterday_abbrev_lowercase">ahir</string>
+    <string name="sound">So</string>
+    <string name="rate_tasks">Valora Tasks</string>
+    <string name="tags">Etiquetes</string>
+    <string name="date_shortcut_tomorrow_morning">Demà pel matí</string>
+    <string name="date_shortcut_tomorrow_evening">Demà pel vespre</string>
+    <string name="date_shortcut_tomorrow_night">Demà per la nit</string>
+    <string name="password">Contrasenya</string>
+    <string name="repeats_daily">cada dia</string>
+    <string name="repeats_monthly">cada mes</string>
+    <string name="repeats_ends">Finalitza</string>
+    <string name="repeat_monthly_second_week">segon</string>
+    <string name="repeat_monthly_on_day_number">Cada mes el dia %1d</string>
+    <string name="help_and_feedback">Ajuda i comentaris</string>
+    <string name="show_full_description">Mostra la descripció completa</string>
+    <string name="location_remind_arrival">Recorda a l\'arribar</string>
+    <string name="location_departed">Sortida a %s</string>
+    <string name="widget_show_settings">Mostra la configuració</string>
+    <string name="widget_show_title">Mostra el títol</string>
+    <string name="notifications">Notificacions</string>
+    <string name="date_shortcut_tomorrow_afternoon">Demà per la tarda</string>
+    <string name="date_shortcut_evening">Vespre</string>
+    <string name="date_and_time">Data i temps</string>
+    <string name="repeats_minutely">cada minut</string>
+    <string name="repeats_plural_until">Es repeteix cada %1$s, finalitza el %2$s</string>
+    <string name="list_separator_with_space">", "</string>
+    <string name="repeats_plural_on">Es repeteix cada %1$s el %2$s</string>
+    <string name="swipe_to_snooze_title">Llisca per posposar</string>
+    <string name="error_adding_account">Error: %s</string>
 </resources>
