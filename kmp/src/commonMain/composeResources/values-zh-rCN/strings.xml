@@ -2,4 +2,7 @@
 <resources>
     <string name="search">搜索</string>
     <string name="subscribe">订购</string>
+    <string name="search_no_results">无结果</string>
+    <string name="requires_pro_subscription">专业版功能</string>
+    <string name="subscription_required_description">最低每年 1 美元解锁所有功能</string>
 </resources>
