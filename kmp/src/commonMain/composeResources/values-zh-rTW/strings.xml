@@ -2,4 +2,7 @@
 <resources>
     <string name="subscribe">訂閱</string>
     <string name="search">搜尋</string>
+    <string name="subscription_required_description">解鎖所有功能最低僅需每年 1 美元</string>
+    <string name="search_no_results">沒有結果</string>
+    <string name="requires_pro_subscription">專業版功能</string>
 </resources>
