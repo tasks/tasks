@@ -718,4 +718,7 @@
     <string name="show_edit_screen_without_unlock">不解锁显示编辑屏</string>
     <string name="customize_drawer">自定义抽屉</string>
     <string name="customize_drawer_summary">通过拖放重新安排菜单项</string>
+    <string name="donate_maybe_later">也许以后</string>
+    <string name="donate_nag">考虑用捐赠显示您的支持！</string>
+    <string name="donate_today">现在捐赠</string>
 </resources>
