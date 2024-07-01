@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Buscar</string>
-    <string name="subscribe">Subscrever</string>
+    <string name="subscribe">Assinar</string>
+    <string name="search_no_results">Nenhum resultado</string>
+    <string name="requires_pro_subscription">Função Pro</string>
+    <string name="subscription_required_description">Desbloquear todas as funções por apenas US$ 1/ano</string>
 </resources>
