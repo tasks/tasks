@@ -710,4 +710,8 @@
     <string name="swipe_to_snooze_time_description">已清除的通知將被延後並重新建立 %s</string>
     <string name="swipe_to_snooze_time_30_minutes">30 分鐘後</string>
     <string name="swipe_to_snooze_time_1_hour">1 小時後</string>
+    <string name="customize_drawer_summary">拖放以重新排列選單項目</string>
+    <string name="donate_today">今天捐贈</string>
+    <string name="donate_maybe_later">也許稍後</string>
+    <string name="customize_drawer">自訂抽屜</string>
 </resources>
