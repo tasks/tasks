@@ -2,7 +2,7 @@ package org.tasks.extensions
 
 import java.text.NumberFormat
 import java.text.ParseException
-import java.util.*
+import java.util.Locale
 
 fun Locale.formatNumber(number: Int): String {
     return NumberFormat.getNumberInstance(this).format(number.toLong())
