@@ -8,6 +8,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,9 +17,9 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.mandatorySystemGestures
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -34,13 +35,16 @@ import androidx.compose.material.icons.outlined.PeopleOutline
 import androidx.compose.material.icons.outlined.PermIdentity
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.SyncProblem
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,6 +54,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -63,7 +69,9 @@ import org.tasks.extensions.formatNumber
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.themes.TasksTheme
+import kotlin.math.roundToInt
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskListDrawer(
     begForMoney: Boolean,
@@ -75,29 +83,24 @@ fun TaskListDrawer(
     query: String,
     onQueryChange: (String) -> Unit,
 ) {
-    val searching by remember (query) {
-        derivedStateOf {
-            query.isNotBlank()
-        }
-    }
-    var hasFocus by remember { mutableStateOf(false) }
-    LazyColumn(
+    val bottomAppBarScrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
+    Scaffold(
         modifier = Modifier
-            .animateContentSize(
-                animationSpec = spring(
-                    dampingRatio = Spring.DampingRatioNoBouncy,
-                    stiffness = Spring.StiffnessMedium
-                )
-            )
-            .imePadding(),
-        contentPadding = PaddingValues(bottom = WindowInsets.mandatorySystemGestures
-            .asPaddingValues()
-            .calculateBottomPadding()),
-    ) {
-        item {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+            .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
+        bottomBar = {
+            BottomAppBar(
+                modifier = Modifier.layout { measurable, constraints ->
+                    val placeable = measurable.measure(constraints)
+                    bottomAppBarScrollBehavior.state.heightOffsetLimit = -placeable.height.toFloat()
+                    val height = placeable.height + bottomAppBarScrollBehavior.state.heightOffset
+                    layout(placeable.width, height.roundToInt().coerceAtLeast(0)) {
+                        placeable.place(0, 0)
+                    }
+                },
+                containerColor = MaterialTheme.colorScheme.surface,
+                scrollBehavior = bottomAppBarScrollBehavior
             ) {
+                var hasFocus by remember { mutableStateOf(false) }
                 SearchBar(
                     modifier = Modifier
                         .onFocusChanged { hasFocus = it.hasFocus }
@@ -108,8 +111,7 @@ fun TaskListDrawer(
                                 dampingRatio = Spring.DampingRatioNoBouncy,
                                 stiffness = Spring.StiffnessMedium
                             )
-                        )
-                    ,
+                        ),
                     text = query,
                     onTextChange = { onQueryChange(it) },
                     placeHolder = stringResource(id = R.string.TLA_menu_search),
@@ -145,24 +147,37 @@ fun TaskListDrawer(
                 }
             }
         }
-        items(items = filters) {
-            when (it) {
-                is DrawerItem.Filter -> FilterItem(
-                    item = it,
-                    onClick = { onClick(it) }
+    ) { contentPadding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentPadding = PaddingValues(
+                bottom = maxOf(
+                    WindowInsets.mandatorySystemGestures
+                        .asPaddingValues()
+                        .calculateBottomPadding(),
+                    contentPadding.calculateBottomPadding()
                 )
-                is DrawerItem.Header -> HeaderItem(
-                    item = it,
-                    canAdd = it.canAdd,
-                    toggleCollapsed = { onClick(it) },
-                    onAddClick = { onAddClick(it) },
-                    onErrorClick = onErrorClick,
-                )
-            }
-        }
-        if (!searching) {
-            item {
-                Divider(modifier = Modifier.fillMaxWidth())
+            ),
+            verticalArrangement = Arrangement.Bottom,
+        ) {
+            items(items = filters, key = { it.key() }) {
+                when (it) {
+                    is DrawerItem.Filter -> FilterItem(
+//                        modifier = Modifier.animateItemPlacement(),
+                        item = it,
+                        onClick = { onClick(it) }
+                    )
+
+                    is DrawerItem.Header -> HeaderItem(
+//                        modifier = Modifier.animateItemPlacement(),
+                        item = it,
+                        canAdd = it.canAdd,
+                        toggleCollapsed = { onClick(it) },
+                        onAddClick = { onAddClick(it) },
+                        onErrorClick = onErrorClick,
+                    )
+                }
             }
         }
     }
@@ -170,11 +185,12 @@ fun TaskListDrawer(
 
 @Composable
 internal fun FilterItem(
+    modifier: Modifier = Modifier,
     item: DrawerItem.Filter,
     onClick: () -> Unit,
 ) {
     MenuRow(
-        modifier = Modifier
+        modifier = modifier
             .background(
                 if (item.selected)
                     MaterialTheme.colorScheme.onSurface.copy(alpha = .1f)
@@ -250,13 +266,16 @@ private fun DrawerIcon(icon: Int, color: Int = 0) {
 
 @Composable
 internal fun HeaderItem(
+    modifier: Modifier = Modifier,
     item: DrawerItem.Header,
     canAdd: Boolean,
     toggleCollapsed: () -> Unit,
     onAddClick: () -> Unit,
     onErrorClick: () -> Unit,
 ) {
-    Column {
+    Column(
+        modifier = modifier,
+    ) {
         Divider(modifier = Modifier.fillMaxWidth())
         MenuRow(
             padding = PaddingValues(start = 16.dp),
@@ -331,22 +350,20 @@ fun MenuPreview() {
                 DrawerItem.Filter(
                     title = "My Tasks",
                     icon = R.drawable.ic_outline_all_inbox_24px,
-                    type = { FilterImpl() },
+                    filter = FilterImpl(),
                 ),
                 DrawerItem.Header(
                     title = "Filters",
                     collapsed = false,
                     canAdd = true,
                     hasError = false,
-                    type = {
-                        NavigationDrawerSubheader(
-                            null,
-                            false,
-                            false,
-                            NavigationDrawerSubheader.SubheaderType.PREFERENCE,
-                            0L,
-                        )
-                    },
+                    header = NavigationDrawerSubheader(
+                        null,
+                        false,
+                        false,
+                        NavigationDrawerSubheader.SubheaderType.PREFERENCE,
+                        0L,
+                    ),
                 )
             ),
             onClick = {},

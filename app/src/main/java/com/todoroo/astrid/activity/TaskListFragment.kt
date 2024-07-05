@@ -353,7 +353,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         toolbar.setOnMenuItemClickListener(this)
         toolbar.setNavigationOnClickListener {
             activity?.hideKeyboard()
-            mainViewModel.setDrawerOpen(true)
+            mainViewModel.openDrawer()
         }
         setupMenu(toolbar)
         binding.banner.setContent {

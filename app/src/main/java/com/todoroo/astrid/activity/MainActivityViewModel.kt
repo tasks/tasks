@@ -60,11 +60,13 @@ class MainActivityViewModel @Inject constructor(
         val begForMoney: Boolean = false,
         val filter: Filter,
         val task: Task? = null,
-        val drawerOpen: Boolean = false,
         val drawerItems: ImmutableList<DrawerItem> = persistentListOf(),
         val searchItems: ImmutableList<DrawerItem> = persistentListOf(),
         val menuQuery: String = "",
     )
+
+    private val _drawerOpen = MutableStateFlow(false)
+    val drawerOpen = _drawerOpen.asStateFlow()
 
     private val _state = MutableStateFlow(
         State(
@@ -108,13 +110,13 @@ class MainActivityViewModel @Inject constructor(
         defaultFilterProvider.setLastViewedFilter(filter)
     }
 
-    fun setDrawerOpen(open: Boolean) {
-        _state.update {
-            it.copy(
-                drawerOpen = open,
-                menuQuery = if (!open) "" else it.menuQuery,
-            )
-        }
+    fun closeDrawer() {
+        _drawerOpen.update { false }
+        _state.update { it.copy(menuQuery = "") }
+    }
+
+    fun openDrawer() {
+        _drawerOpen.update { true }
     }
 
     init {
@@ -145,7 +147,7 @@ class MainActivityViewModel @Inject constructor(
                             },
                             selected = item.areItemsTheSame(selected),
                             shareCount = if (item is CaldavFilter) item.principals else 0,
-                            type = { item },
+                            filter = item,
                         )
                     is NavigationDrawerSubheader ->
                         DrawerItem.Header(
@@ -153,7 +155,7 @@ class MainActivityViewModel @Inject constructor(
                             collapsed = item.isCollapsed,
                             hasError = item.error,
                             canAdd = item.addIntentRc != 0,
-                            type = { item },
+                            header = item,
                         )
                     else -> throw IllegalArgumentException()
                 }
@@ -176,7 +178,7 @@ class MainActivityViewModel @Inject constructor(
                     },
                     selected = item.areItemsTheSame(selected),
                     shareCount = if (item is CaldavFilter) item.principals else 0,
-                    type = { item },
+                    filter = item,
                 )
             }
             .let { filters -> _state.update { it.copy(searchItems = filters.toPersistentList()) } }
