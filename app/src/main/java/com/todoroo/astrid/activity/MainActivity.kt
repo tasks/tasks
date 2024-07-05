@@ -8,9 +8,17 @@ package com.todoroo.astrid.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -34,12 +42,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.Tasks
 import org.tasks.activities.GoogleTaskListSettingsActivity
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
+import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.compose.drawer.TasksMenu
+import org.tasks.compose.drawer.DrawerAction
+import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
@@ -51,7 +63,9 @@ import org.tasks.data.listSettingsClass
 import org.tasks.databinding.TaskListActivityBinding
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.dialogs.WhatsNewDialog
+import org.tasks.extensions.Context.findActivity
 import org.tasks.extensions.Context.nightMode
+import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.hideKeyboard
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
@@ -60,6 +74,8 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.location.LocationPickerActivity
 import org.tasks.location.LocationPickerActivity.Companion.EXTRA_PLACE
 import org.tasks.preferences.DefaultFilterProvider
+import org.tasks.preferences.HelpAndFeedback
+import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
@@ -94,6 +110,7 @@ class MainActivity : AppCompatActivity() {
 
     /** @see android.app.Activity.onCreate
      */
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme.applyTheme(this)
@@ -105,59 +122,150 @@ class MainActivity : AppCompatActivity() {
         handleIntent()
 
         binding.composeView.setContent {
-            val state = viewModel.state.collectAsStateWithLifecycle().value
-            if (state.drawerOpen) {
+            if (viewModel.drawerOpen.collectAsStateWithLifecycle().value) {
                 TasksTheme {
-                    TasksMenu(
-                        items = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
-                        begForMoney = state.begForMoney,
-                        isTopAppBar = preferences.isTopAppBar,
-                        setFilter = { viewModel.setFilter(it) },
-                        toggleCollapsed = { viewModel.toggleCollapsed(it) },
-                        addFilter = {
-                            when (it.addIntentRc) {
-                                FilterProvider.REQUEST_NEW_FILTER ->
-                                    NewFilterDialog.newFilterDialog().show(
-                                        supportFragmentManager,
-                                        SubheaderClickHandler.FRAG_TAG_NEW_FILTER
-                                    )
-                                REQUEST_NEW_PLACE ->
-                                    startActivityForResult(
-                                        Intent(this, LocationPickerActivity::class.java),
-                                        REQUEST_NEW_PLACE
-                                    )
-                                REQUEST_NEW_TAGS ->
-                                    startActivityForResult(
-                                        Intent(this, TagSettingsActivity::class.java),
-                                        REQUEST_NEW_LIST
-                                    )
-                                REQUEST_NEW_LIST -> lifecycleScope.launch {
-                                    val account = caldavDao.getAccount(it.id) ?: return@launch
-                                    when (it.subheaderType) {
-                                        NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS ->
-                                            startActivityForResult(
-                                                Intent(this@MainActivity, GoogleTaskListSettingsActivity::class.java)
-                                                    .putExtra(GoogleTaskListSettingsActivity.EXTRA_ACCOUNT, account),
-                                                REQUEST_NEW_LIST
-                                            )
-                                        NavigationDrawerSubheader.SubheaderType.CALDAV,
-                                        NavigationDrawerSubheader.SubheaderType.TASKS,
-                                        NavigationDrawerSubheader.SubheaderType.ETESYNC ->
-                                            startActivityForResult(
-                                                Intent(this@MainActivity, account.listSettingsClass())
-                                                    .putExtra(BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT, account),
-                                                REQUEST_NEW_LIST
-                                            )
-                                        else -> {}
+                    val sheetState = rememberModalBottomSheetState(
+                        skipPartiallyExpanded = true,
+                        confirmValueChange = { true },
+                    )
+                    ModalBottomSheet(
+                        sheetState = sheetState,
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        onDismissRequest = { viewModel.closeDrawer() },
+                    ) {
+                        val state = viewModel.state.collectAsStateWithLifecycle().value
+                        val context = LocalContext.current
+                        val settingsRequest = rememberLauncherForActivityResult(
+                            ActivityResultContracts.StartActivityForResult()
+                        ) {
+                            context.findActivity()?.recreate()
+                        }
+                        val scope = rememberCoroutineScope()
+                        TaskListDrawer(
+                            begForMoney = state.begForMoney,
+                            filters = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
+                            onClick = {
+                                when (it) {
+                                    is DrawerItem.Filter -> {
+                                        viewModel.setFilter(it.filter)
+                                        scope.launch(Dispatchers.Default) {
+                                            sheetState.hide()
+                                            viewModel.closeDrawer()
+                                        }
+                                    }
+
+                                    is DrawerItem.Header -> {
+                                        viewModel.toggleCollapsed(it.header)
                                     }
                                 }
-                                else -> Timber.e("Unhandled request code: $it")
-                            }
-                        },
-                        dismiss = { viewModel.setDrawerOpen(false) },
-                        query = state.menuQuery,
-                        onQueryChange = { viewModel.queryMenu(it) },
-                    )
+                            },
+                            onAddClick = {
+                                scope.launch(Dispatchers.Default) {
+                                    sheetState.hide()
+                                    viewModel.closeDrawer()
+                                    when (it.header.addIntentRc) {
+                                        FilterProvider.REQUEST_NEW_FILTER ->
+                                            NewFilterDialog.newFilterDialog().show(
+                                                supportFragmentManager,
+                                                SubheaderClickHandler.FRAG_TAG_NEW_FILTER
+                                            )
+
+                                        REQUEST_NEW_PLACE ->
+                                            startActivityForResult(
+                                                Intent(
+                                                    this@MainActivity,
+                                                    LocationPickerActivity::class.java
+                                                ),
+                                                REQUEST_NEW_PLACE
+                                            )
+
+                                        REQUEST_NEW_TAGS ->
+                                            startActivityForResult(
+                                                Intent(
+                                                    this@MainActivity,
+                                                    TagSettingsActivity::class.java
+                                                ),
+                                                REQUEST_NEW_LIST
+                                            )
+
+                                        REQUEST_NEW_LIST -> lifecycleScope.launch {
+                                            val account =
+                                                caldavDao.getAccount(it.header.id) ?: return@launch
+                                            when (it.header.subheaderType) {
+                                                NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS ->
+                                                    startActivityForResult(
+                                                        Intent(
+                                                            this@MainActivity,
+                                                            GoogleTaskListSettingsActivity::class.java
+                                                        )
+                                                            .putExtra(
+                                                                GoogleTaskListSettingsActivity.EXTRA_ACCOUNT,
+                                                                account
+                                                            ),
+                                                        REQUEST_NEW_LIST
+                                                    )
+
+                                                NavigationDrawerSubheader.SubheaderType.CALDAV,
+                                                NavigationDrawerSubheader.SubheaderType.TASKS,
+                                                NavigationDrawerSubheader.SubheaderType.ETESYNC ->
+                                                    startActivityForResult(
+                                                        Intent(
+                                                            this@MainActivity,
+                                                            account.listSettingsClass()
+                                                        )
+                                                            .putExtra(
+                                                                BaseCaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT,
+                                                                account
+                                                            ),
+                                                        REQUEST_NEW_LIST
+                                                    )
+
+                                                else -> {}
+                                            }
+                                        }
+
+                                        else -> Timber.e("Unhandled request code: $it")
+                                    }
+                                }
+                            },
+                            onDrawerAction = {
+                                viewModel.closeDrawer()
+                                when (it) {
+                                    DrawerAction.PURCHASE ->
+                                        if (Tasks.IS_GENERIC)
+                                            context.openUri(R.string.url_donate)
+                                        else
+                                            context.startActivity(
+                                                Intent(
+                                                    context,
+                                                    PurchaseActivity::class.java
+                                                )
+                                            )
+
+                                    DrawerAction.SETTINGS ->
+                                        settingsRequest.launch(
+                                            Intent(
+                                                context,
+                                                MainPreferences::class.java
+                                            )
+                                        )
+
+                                    DrawerAction.HELP_AND_FEEDBACK ->
+                                        context.startActivity(
+                                            Intent(
+                                                context,
+                                                HelpAndFeedback::class.java
+                                            )
+                                        )
+                                }
+                            },
+                            onErrorClick = {
+                                context.startActivity(Intent(context, MainPreferences::class.java))
+                            },
+                            query = state.menuQuery,
+                            onQueryChange = { viewModel.queryMenu(it) },
+                        )
+                    }
                 }
             }
         }
@@ -272,7 +380,7 @@ class MainActivity : AppCompatActivity() {
     private fun clearUi() {
         actionMode?.finish()
         actionMode = null
-        viewModel.setDrawerOpen(false)
+        viewModel.closeDrawer()
     }
 
     private suspend fun getTaskToLoad(filter: Filter?): Task? = when {
