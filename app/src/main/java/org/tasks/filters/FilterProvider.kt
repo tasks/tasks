@@ -1,7 +1,6 @@
 package org.tasks.filters
 
 import android.content.Context
-import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -128,7 +127,7 @@ class FilterProvider @Inject constructor(
                         collapsed,
                         SubheaderType.PREFERENCE,
                         R.string.p_collapse_tags.toLong(),
-                        if (showCreate) MainActivity.REQUEST_NEW_TAGS else 0,
+                        if (showCreate) REQUEST_NEW_TAGS else 0,
                     )
                 )
                         .apply { if (collapsed) return this }
@@ -156,7 +155,7 @@ class FilterProvider @Inject constructor(
                         collapsed,
                         SubheaderType.PREFERENCE,
                         R.string.p_collapse_locations.toLong(),
-                        if (showCreate) MainActivity.REQUEST_NEW_PLACE else 0,
+                        if (showCreate) REQUEST_NEW_PLACE else 0,
                     )
                 )
                         .apply { if (collapsed) return this }
@@ -200,7 +199,7 @@ class FilterProvider @Inject constructor(
                 collapsed,
                 SubheaderType.GOOGLE_TASKS,
                 account.id,
-                if (showCreate) MainActivity.REQUEST_NEW_LIST else 0,
+                if (showCreate) REQUEST_NEW_LIST else 0,
             )
         )
             .apply { if (collapsed) return this }
@@ -252,7 +251,7 @@ class FilterProvider @Inject constructor(
                     else -> SubheaderType.CALDAV
                 },
                 account.id,
-                if (showCreate) MainActivity.REQUEST_NEW_LIST else 0,
+                if (showCreate) REQUEST_NEW_LIST else 0,
             )
         )
             .apply { if (collapsed) return this }
@@ -269,6 +268,9 @@ class FilterProvider @Inject constructor(
     }
 
     companion object {
+        const val REQUEST_NEW_LIST = 10100
+        const val REQUEST_NEW_TAGS = 10101
+        const val REQUEST_NEW_PLACE = 10104
         const val REQUEST_NEW_FILTER = 101015
         private val COMPARATOR = Comparator<Filter> { f1, f2 ->
             when {

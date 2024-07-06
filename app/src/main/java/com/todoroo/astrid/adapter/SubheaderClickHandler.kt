@@ -4,9 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.astrid.activity.MainActivity.Companion.REQUEST_NEW_LIST
-import com.todoroo.astrid.activity.MainActivity.Companion.REQUEST_NEW_PLACE
-import com.todoroo.astrid.activity.MainActivity.Companion.REQUEST_NEW_TAGS
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.activities.GoogleTaskListSettingsActivity
@@ -16,6 +13,9 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.listSettingsClass
 import org.tasks.dialogs.NewFilterDialog
 import org.tasks.filters.FilterProvider
+import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_LIST
+import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_PLACE
+import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_TAGS
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.CALDAV
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.ETESYNC

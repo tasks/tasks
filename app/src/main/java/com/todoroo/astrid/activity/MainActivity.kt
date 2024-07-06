@@ -69,6 +69,9 @@ import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.hideKeyboard
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
+import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_LIST
+import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_PLACE
+import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_TAGS
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.PlaceFilter
 import org.tasks.location.LocationPickerActivity
@@ -502,9 +505,6 @@ class MainActivity : AppCompatActivity() {
         private const val FRAG_TAG_TASK_EDIT = "frag_tag_task_edit"
         private const val FLAG_FROM_HISTORY
                 = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
-        const val REQUEST_NEW_LIST = 10100
-        const val REQUEST_NEW_TAGS = 10101
-        const val REQUEST_NEW_PLACE = 10104
 
         val Intent.getFilter: Filter?
             get() = if (isFromHistory) {
