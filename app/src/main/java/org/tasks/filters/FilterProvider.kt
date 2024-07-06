@@ -217,7 +217,7 @@ class FilterProvider @Inject constructor(
         forceExpand: Boolean,
     ): List<FilterListItem> =
             caldavDao.getAccounts()
-                    .ifEmpty { listOf(caldavDao.setupLocalAccount(context)) }
+                    .ifEmpty { listOf(caldavDao.setupLocalAccount()) }
                     .filter { it.accountType != TYPE_LOCAL || preferences.getBoolean(R.string.p_lists_enabled, true) }
                 .flatMap {
                     if (it.isGoogleTasks) {

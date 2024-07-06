@@ -1,8 +1,6 @@
 package org.tasks.preferences
 
-import android.content.Context
 import com.todoroo.astrid.api.CustomFilter
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -31,8 +29,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class DefaultFilterProvider @Inject constructor(
-        // TODO: don't inject context, it breaks built-in filters when overriding language
-    @param:ApplicationContext private val context: Context,
     private val preferences: Preferences,
     private val filterDao: FilterDao,
     private val tagDataDao: TagDataDao,
@@ -41,7 +37,6 @@ class DefaultFilterProvider @Inject constructor(
     private val locationDao: LocationDao,
     private val googleTaskDao: GoogleTaskDao
 ) {
-
     var dashclockFilter: Filter
         @Deprecated("use coroutines") get() = runBlocking { getFilterFromPreference(R.string.p_dashclock_filter) }
         set(filter) = setFilterPreference(filter, R.string.p_dashclock_filter)
@@ -92,7 +87,7 @@ class DefaultFilterProvider @Inject constructor(
 
     private suspend fun getAnyList(): Filter {
         val filter = caldavDao.getGoogleTaskLists().getOrNull(0)?.let(::GtasksFilter)
-                ?: caldavDao.getCalendars().filterNot { it.access == ACCESS_READ_ONLY }.getOrElse(0) { caldavDao.getLocalList(context) }.let(::CaldavFilter)
+                ?: caldavDao.getCalendars().filterNot { it.access == ACCESS_READ_ONLY }.getOrElse(0) { caldavDao.getLocalList() }.let(::CaldavFilter)
         defaultList = filter
         return filter
     }

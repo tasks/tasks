@@ -1,23 +1,24 @@
 package org.tasks.data
 
-import android.content.Context
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import org.tasks.R
+import org.jetbrains.compose.resources.getString
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.default_list
 
 private val mutex = Mutex()
 
-suspend fun CaldavDao.setupLocalAccount(context: Context): CaldavAccount = mutex.withLock {
+suspend fun CaldavDao.setupLocalAccount(): CaldavAccount = mutex.withLock {
     val account = getLocalAccount()
-    getLocalList(context, account)
+    getLocalList(account)
     return account
 }
 
-suspend fun CaldavDao.getLocalList(context: Context) = mutex.withLock {
-    getLocalList(context, getLocalAccount())
+suspend fun CaldavDao.getLocalList() = mutex.withLock {
+    getLocalList(getLocalAccount())
 }
 
 private suspend fun CaldavDao.getLocalAccount() = getAccountByUuid(CaldavDao.LOCAL) ?: CaldavAccount(
@@ -27,10 +28,10 @@ private suspend fun CaldavDao.getLocalAccount() = getAccountByUuid(CaldavDao.LOC
     it.copy(id = insert(it))
 }
 
-private suspend fun CaldavDao.getLocalList(context: Context, account: CaldavAccount): CaldavCalendar =
+private suspend fun CaldavDao.getLocalList(account: CaldavAccount): CaldavCalendar =
     getCalendarsByAccount(account.uuid!!).getOrNull(0)
         ?: CaldavCalendar(
-            name = context.getString(R.string.default_list),
+            name = getString(Res.string.default_list),
             uuid = UUIDHelper.newUUID(),
             account = account.uuid,
         ).apply {
