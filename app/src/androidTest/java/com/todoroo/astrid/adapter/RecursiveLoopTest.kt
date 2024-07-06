@@ -2,9 +2,7 @@ package com.todoroo.astrid.adapter
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.runBlocking
@@ -13,7 +11,9 @@ import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 import org.tasks.data.TaskListQuery.getQuery
+import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.filters.TodayFilter
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.makers.TaskMaker.DUE_DATE
@@ -76,7 +76,7 @@ class RecursiveLoopTest : InjectingTestCase() {
     }
 
     private suspend fun getTasks() = taskDao.fetchTasks {
-        getQuery(preferences, BuiltInFilterExposer.getTodayFilter(context.resources))
+        getQuery(preferences, TodayFilter.create())
     }
 
     private suspend fun addTask(vararg properties: PropertyValue<in Task?, *>): Long {

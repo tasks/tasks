@@ -10,6 +10,10 @@ annotation class CommonParcelize
 @Retention(AnnotationRetention.BINARY)
 expect annotation class CommonRawValue()
 
+@Target(AnnotationTarget.PROPERTY)
+@Retention(AnnotationRetention.SOURCE)
+expect annotation class CommonIgnoredOnParcel()
+
 expect interface CommonParcelable
 
 expect val IS_DEBUG: Boolean

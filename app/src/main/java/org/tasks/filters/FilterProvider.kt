@@ -73,13 +73,13 @@ class FilterProvider @Inject constructor(
                 )
                         .apply { if (collapsed) return this }
                         .plus(listOf(
-                                BuiltInFilterExposer.getNoListFilter(),
-                                BuiltInFilterExposer.getNoTitleFilter(),
-                                BuiltInFilterExposer.getMissingListFilter(),
-                                BuiltInFilterExposer.getMissingAccountFilter(),
-                                BuiltInFilterExposer.getNoCreateDateFilter(),
-                                BuiltInFilterExposer.getNoModificationDateFilter(),
-                                BuiltInFilterExposer.getDeleted()
+                                DebugFilters.getNoListFilter(),
+                                DebugFilters.getNoTitleFilter(),
+                                DebugFilters.getMissingListFilter(),
+                                DebugFilters.getMissingAccountFilter(),
+                                DebugFilters.getNoCreateDateFilter(),
+                                DebugFilters.getNoModificationDateFilter(),
+                                DebugFilters.getDeleted()
                         ))
 
             } else {
@@ -175,7 +175,7 @@ class FilterProvider @Inject constructor(
         forceExpand: Boolean = false,
     ): List<FilterListItem> =
             if (showBuiltIn) {
-                arrayListOf(builtInFilterExposer.myTasksFilter)
+                arrayListOf(MyTasksFilter.create())
             } else {
                 ArrayList<FilterListItem>()
             }

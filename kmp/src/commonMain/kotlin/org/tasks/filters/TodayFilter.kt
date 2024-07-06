@@ -1,14 +1,17 @@
 package org.tasks.filters
 
 import com.todoroo.astrid.api.PermaSql
-import kotlinx.parcelize.Parcelize
+import org.jetbrains.compose.resources.getString
+import org.tasks.CommonParcelize
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.QueryTemplate
 import org.tasks.themes.TasksIcons
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.filter_today
 
-@Parcelize
+@CommonParcelize
 data class TodayFilter(
     override val title: String,
     override var filterOverride: String? = null,
@@ -32,5 +35,9 @@ data class TodayFilter(
 
     override fun areItemsTheSame(other: FilterListItem): Boolean {
         return other is TodayFilter
+    }
+
+    companion object {
+        suspend fun create() = TodayFilter(getString(Res.string.filter_today))
     }
 }

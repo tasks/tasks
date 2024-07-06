@@ -1,13 +1,16 @@
 package org.tasks.filters
 
+import org.jetbrains.compose.resources.getString
+import org.tasks.CommonParcelize
+import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.QueryTemplate
-import org.tasks.data.entity.Task
-import kotlinx.parcelize.Parcelize
 import org.tasks.themes.TasksIcons
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.filter_timer
 
-@Parcelize
-data class TimerFilter(override val title: String?) : Filter {
+@CommonParcelize
+data class TimerFilter(override val title: String) : Filter {
     override val icon
         get() = TasksIcons.TIMER
 
@@ -21,4 +24,8 @@ data class TimerFilter(override val title: String?) : Filter {
             ).toString()
 
     override fun areItemsTheSame(other: FilterListItem) = other is TimerFilter
+
+    companion object {
+        suspend fun create() = TimerFilter(getString(Res.string.filter_timer))
+    }
 }

@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -36,6 +35,7 @@ import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.EmptyFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterImpl
+import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.SearchFilter
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.QueryPreferences
@@ -147,7 +147,7 @@ class TaskListViewModel @Inject constructor(
             .map {
                 val filter = when {
                     it.searchQuery == null -> it.filter
-                    it.searchQuery.isBlank() -> BuiltInFilterExposer.getMyTasksFilter(context.resources)
+                    it.searchQuery.isBlank() -> MyTasksFilter.create()
                     else -> context.createSearchQuery(it.searchQuery)
                 }
                 taskDao.fetchTasks { getQuery(preferences, filter) }

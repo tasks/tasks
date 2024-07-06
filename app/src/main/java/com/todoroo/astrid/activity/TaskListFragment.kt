@@ -62,7 +62,6 @@ import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
 import com.todoroo.astrid.api.CustomFilter
-import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.service.TaskCompleter
@@ -123,6 +122,7 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.GtasksFilter
+import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.markdown.MarkdownProvider
@@ -220,8 +220,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             if (result.resultCode != RESULT_OK) return@registerForActivityResult
             val data = result.data ?: return@registerForActivityResult
             when (data.action) {
-                ACTION_DELETED ->
-                    mainViewModel.setFilter(BuiltInFilterExposer.getMyTasksFilter(resources))
+                ACTION_DELETED -> lifecycleScope.launch {
+                    mainViewModel.setFilter(MyTasksFilter.create())
+                }
                 ACTION_RELOAD ->
                     IntentCompat.getParcelableExtra(data, MainActivity.OPEN_FILTER, Filter::class.java)?.let {
                         mainViewModel.setFilter(it)

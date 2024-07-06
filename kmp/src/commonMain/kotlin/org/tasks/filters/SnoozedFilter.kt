@@ -1,16 +1,19 @@
 package org.tasks.filters
 
+import org.jetbrains.compose.resources.getString
+import org.tasks.CommonParcelize
+import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Functions.now
 import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.QueryTemplate
-import org.tasks.data.entity.Task
-import kotlinx.parcelize.Parcelize
-import org.tasks.data.entity.Alarm
-import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.themes.TasksIcons
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.filter_snoozed
 
-@Parcelize
+@CommonParcelize
 data class SnoozedFilter(
     override val title: String,
 ) : Filter {
@@ -33,5 +36,9 @@ data class SnoozedFilter(
 
     override fun areItemsTheSame(other: FilterListItem): Boolean {
         return other is SnoozedFilter
+    }
+
+    companion object {
+        suspend fun create() = SnoozedFilter(getString(Res.string.filter_snoozed))
     }
 }

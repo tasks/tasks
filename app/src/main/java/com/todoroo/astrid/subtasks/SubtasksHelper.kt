@@ -1,8 +1,6 @@
 package com.todoroo.astrid.subtasks
 
 import android.content.Context
-import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.isInbox
-import com.todoroo.astrid.core.BuiltInFilterExposer.Companion.isTodayFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.buildOrderString
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Companion.buildTreeModel
@@ -17,6 +15,8 @@ import org.tasks.data.entity.TaskListMetadata
 import org.tasks.db.QueryUtils.showHiddenAndCompleted
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.Filter
+import org.tasks.filters.MyTasksFilter
+import org.tasks.filters.TodayFilter
 import org.tasks.preferences.QueryPreferences
 import timber.log.Timber
 import javax.inject.Inject
@@ -38,9 +38,9 @@ class SubtasksHelper @Inject constructor(
             val tlm = when {
                 tagData != null ->
                     taskListMetadataDao.fetchByTagOrFilter(tagData.remoteId!!)
-                isInbox(context, filter) ->
+                filter is MyTasksFilter ->
                     taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_ALL)
-                isTodayFilter(context, filter) ->
+                filter is TodayFilter ->
                     taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_TODAY)
                 else -> null
             }

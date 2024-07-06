@@ -1,10 +1,6 @@
 package com.todoroo.astrid.adapter
 
 import android.content.Context
-import org.tasks.filters.CaldavFilter
-import org.tasks.filters.GtasksFilter
-import org.tasks.filters.TagFilter
-import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
@@ -19,7 +15,12 @@ import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.data.entity.Task.Companion.isUuidEmpty
 import org.tasks.data.entity.TaskListMetadata
 import org.tasks.filters.AstridOrderingFilter
+import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
+import org.tasks.filters.GtasksFilter
+import org.tasks.filters.MyTasksFilter
+import org.tasks.filters.TagFilter
+import org.tasks.filters.TodayFilter
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
@@ -71,10 +72,10 @@ class TaskAdapterProvider @Inject constructor(
     private fun createManualFilterTaskAdapter(filter: AstridOrderingFilter): TaskAdapter? = runBlocking {
         var filterId: String? = null
         var prefId: String? = null
-        if (BuiltInFilterExposer.isInbox(context, filter)) {
+        if (filter is MyTasksFilter) {
             filterId = TaskListMetadata.FILTER_ID_ALL
             prefId = SubtasksFilterUpdater.ACTIVE_TASKS_ORDER
-        } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
+        } else if (filter is TodayFilter) {
             filterId = TaskListMetadata.FILTER_ID_TODAY
             prefId = SubtasksFilterUpdater.TODAY_TASKS_ORDER
         }

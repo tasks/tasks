@@ -3,6 +3,7 @@
 package org.tasks
 
 import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.RawValue
 import org.tasks.data.BuildConfig
 import java.util.Date
@@ -10,6 +11,8 @@ import java.util.Date
 actual typealias CommonParcelable = Parcelable
 
 actual typealias CommonRawValue = RawValue
+
+actual typealias CommonIgnoredOnParcel = IgnoredOnParcel
 
 actual val IS_DEBUG = BuildConfig.DEBUG
 

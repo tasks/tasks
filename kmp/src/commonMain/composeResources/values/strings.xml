@@ -5,4 +5,10 @@
     <string name="requires_pro_subscription">Pro feature</string>
     <string name="subscription_required_description">Unlock all features for as little as $1 USD/year</string>
     <string name="subscribe">Subscribe</string>
+    <string name="filter_my_tasks">My Tasks</string>
+    <string name="filter_notifications">Notifications</string>
+    <string name="filter_snoozed">Snoozed</string>
+    <string name="filter_timer">Tasks Being Timed</string>
+    <string name="filter_today">Today</string>
+    <string name="filter_recently_modified">Recently modified</string>
 </resources>

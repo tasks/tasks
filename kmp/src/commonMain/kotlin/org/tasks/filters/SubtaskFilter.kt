@@ -1,20 +1,20 @@
 package org.tasks.filters
 
-import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
+import org.tasks.CommonIgnoredOnParcel
+import org.tasks.CommonParcelize
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.QueryTemplate
 
-@Parcelize
+@CommonParcelize
 data class SubtaskFilter(
     private val parent: Long,
 ) : Filter {
-    @IgnoredOnParcel
+    @CommonIgnoredOnParcel
     override val title: String = "subtasks"
 
-    @IgnoredOnParcel
+    @CommonIgnoredOnParcel
     override val sql: String =
         QueryTemplate()
             .where(

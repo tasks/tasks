@@ -8,7 +8,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat.InterruptionFilter
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.preUpsideDownCake
-import com.todoroo.astrid.core.BuiltInFilterExposer
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.LocalBroadcastManager
@@ -19,6 +18,8 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.displayName
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Notification
+import org.tasks.filters.NotificationsFilter
+import org.tasks.filters.TimerFilter
 import org.tasks.intents.TaskIntents
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.PermissionChecker
@@ -267,7 +268,7 @@ class NotificationManager @Inject constructor(
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                TaskIntents.getTaskListIntent(context, BuiltInFilterExposer.getNotificationsFilter(context)),
+                                TaskIntents.getTaskListIntent(context, NotificationsFilter.create()),
                             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                         )
                 )
@@ -401,7 +402,7 @@ class NotificationManager @Inject constructor(
         if (count == 0) {
             cancel(Constants.NOTIFICATION_TIMER.toLong())
         } else {
-            val filter = BuiltInFilterExposer.getTimerFilter(context.resources)
+            val filter = TimerFilter.create()
             val notifyIntent = TaskIntents.getTaskListIntent(context, filter)
             val pendingIntent = PendingIntent.getActivity(
                 context,
@@ -412,21 +413,24 @@ class NotificationManager @Inject constructor(
             val r = context.resources
             val appName = r.getString(R.string.app_name)
             val text = r.getString(
-                R.string.TPl_notification, r.getQuantityString(R.plurals.Ntasks, count, count))
-            val builder = NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TIMERS)
-                .setContentIntent(pendingIntent)
-                .setContentTitle(appName)
-                .setContentText(text)
-                .setWhen(currentTimeMillis())
-                .setSmallIcon(R.drawable.ic_timer_white_24dp)
-                .setAutoCancel(false)
-                .setOngoing(true)
+                R.string.TPl_notification, r.getQuantityString(R.plurals.Ntasks, count, count)
+            )
+            val builder =
+                NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TIMERS)
+                    .setContentIntent(pendingIntent)
+                    .setContentTitle(appName)
+                    .setContentText(text)
+                    .setWhen(currentTimeMillis())
+                    .setSmallIcon(R.drawable.ic_timer_white_24dp)
+                    .setAutoCancel(false)
+                    .setOngoing(true)
             notify(
                 Constants.NOTIFICATION_TIMER.toLong(),
                 builder,
                 alert = false,
                 nonstop = false,
-                fiveTimes = false)
+                fiveTimes = false
+            )
         }
     }
 

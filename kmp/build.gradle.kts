@@ -42,6 +42,11 @@ kotlin {
     task("testClasses")
 }
 
+compose.resources {
+    publicResClass = true
+    generateResClass = always
+}
+
 android {
     namespace = "org.tasks.kmp"
     compileSdk = libs.versions.android.compileSdk.get().toInt()

@@ -8,7 +8,13 @@ actual interface CommonParcelable
 @Retention(AnnotationRetention.BINARY)
 annotation class RawValue
 
+@Target(AnnotationTarget.PROPERTY)
+@Retention(AnnotationRetention.SOURCE)
+annotation class IgnoredOnParcel
+
 actual typealias CommonRawValue = RawValue
+
+actual typealias CommonIgnoredOnParcel = IgnoredOnParcel
 
 actual val IS_DEBUG = false
 
