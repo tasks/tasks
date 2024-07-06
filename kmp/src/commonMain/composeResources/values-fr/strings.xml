@@ -11,4 +11,5 @@
     <string name="filter_snoozed">Répété</string>
     <string name="filter_timer">Tâches minutées</string>
     <string name="filter_today">Aujourd\'hui</string>
+    <string name="default_list">Liste par défaut</string>
 </resources>

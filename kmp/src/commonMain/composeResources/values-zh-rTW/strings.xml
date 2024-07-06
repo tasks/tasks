@@ -11,4 +11,5 @@
     <string name="filter_timer">有啟用碼錶的工作</string>
     <string name="filter_today">今天</string>
     <string name="filter_recently_modified">最近修改過</string>
+    <string name="default_list">預設清單</string>
 </resources>

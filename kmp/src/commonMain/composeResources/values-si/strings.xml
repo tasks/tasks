@@ -7,4 +7,5 @@
     <string name="filter_timer">ක්‍රියාත්මකව පවතින කාර්යයන්</string>
     <string name="filter_today">අද</string>
     <string name="filter_recently_modified">මෑතකදී වෙනස් කරන ලදි</string>
+    <string name="default_list">පෙරනිමි ලැයිස්තුව</string>
 </resources>

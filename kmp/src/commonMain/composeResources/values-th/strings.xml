@@ -7,4 +7,5 @@
     <string name="filter_notifications">แจ้ง เตือน</string>
     <string name="filter_timer">งานที่กําลังกําหนดเวลาอยู่</string>
     <string name="filter_recently_modified">เพิ่งถูกแก้ไข</string>
+    <string name="default_list">รายการเริ่มต้น</string>
 </resources>

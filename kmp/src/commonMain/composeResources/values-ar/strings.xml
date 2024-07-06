@@ -7,4 +7,5 @@
     <string name="filter_timer">المهام التي أؤقتت</string>
     <string name="filter_today">اليوم</string>
     <string name="filter_recently_modified">ما تم تعديله مؤخرًا</string>
+    <string name="default_list">القائمة الافتراضية</string>
 </resources>

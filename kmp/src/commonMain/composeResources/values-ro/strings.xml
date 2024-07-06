@@ -8,4 +8,5 @@
     <string name="filter_timer">Sarcini care sunt cronometrate</string>
     <string name="filter_today">Azi</string>
     <string name="filter_recently_modified">Modificat recent</string>
+    <string name="default_list">Listă implicită</string>
 </resources>

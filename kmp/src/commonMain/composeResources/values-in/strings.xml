@@ -8,4 +8,5 @@
     <string name="filter_recently_modified">Baru-baru ini diubah</string>
     <string name="filter_timer">Tugas yang Dicatat Waktu</string>
     <string name="filter_today">Hari ini</string>
+    <string name="default_list">Daftar bawaan</string>
 </resources>

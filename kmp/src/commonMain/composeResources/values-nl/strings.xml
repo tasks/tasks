@@ -8,4 +8,5 @@
     <string name="filter_timer">Taken met opnemen van tijd</string>
     <string name="filter_today">Vandaag</string>
     <string name="filter_recently_modified">Onlangs aangepast</string>
+    <string name="default_list">Standaardlijst</string>
 </resources>

@@ -8,4 +8,5 @@
     <string name="filter_timer">Kronometratutako zereginak</string>
     <string name="filter_today">Gaur</string>
     <string name="filter_recently_modified">Aldatutako azkenak</string>
+    <string name="default_list">Zerrenda nagusia</string>
 </resources>

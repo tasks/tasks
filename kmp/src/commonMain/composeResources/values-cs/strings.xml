@@ -8,4 +8,5 @@
     <string name="filter_timer">Termínované úkoly</string>
     <string name="filter_today">Dnes</string>
     <string name="filter_recently_modified">Nedávno upravené</string>
+    <string name="default_list">Výchozí seznam</string>
 </resources>

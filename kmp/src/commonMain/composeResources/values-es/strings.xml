@@ -11,4 +11,5 @@
     <string name="filter_timer">Tareas que se están cronometrando</string>
     <string name="filter_today">Hoy</string>
     <string name="filter_recently_modified">Recién modificadas</string>
+    <string name="default_list">Lista predeterminada</string>
 </resources>

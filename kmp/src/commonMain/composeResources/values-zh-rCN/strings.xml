@@ -11,4 +11,5 @@
     <string name="filter_timer">任务已开始计时</string>
     <string name="filter_today">今天</string>
     <string name="filter_recently_modified">最近修改过的</string>
+    <string name="default_list">默认列表</string>
 </resources>

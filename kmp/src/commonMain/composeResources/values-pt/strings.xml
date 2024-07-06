@@ -8,4 +8,5 @@
     <string name="filter_timer">Tarefas cronometradas</string>
     <string name="filter_today">Hoje</string>
     <string name="filter_recently_modified">Alteradas recentemente</string>
+    <string name="default_list">Lista predefinida</string>
 </resources>

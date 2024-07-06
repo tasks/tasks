@@ -6,4 +6,5 @@
     <string name="filter_notifications">Meeldetuletused</string>
     <string name="filter_today">Täna</string>
     <string name="filter_recently_modified">Hiljuti muudetud</string>
+    <string name="default_list">Vaikimisi nimekiri</string>
 </resources>

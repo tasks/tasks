@@ -7,4 +7,5 @@
     <string name="filter_timer">பணிகள் முடிந்துவிட்டன</string>
     <string name="filter_today">இன்று</string>
     <string name="filter_recently_modified">சமீபத்தில் மாற்றியவை</string>
+    <string name="default_list">இயல்புநிலை பட்டியல்</string>
 </resources>

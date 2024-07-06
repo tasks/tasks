@@ -8,4 +8,5 @@
     <string name="filter_timer">Tehtävät ajoitettu</string>
     <string name="filter_today">Tänään</string>
     <string name="filter_recently_modified">Äskettäin muokattu</string>
+    <string name="default_list">Oletuslista</string>
 </resources>

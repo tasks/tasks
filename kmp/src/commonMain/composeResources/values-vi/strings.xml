@@ -8,4 +8,5 @@
     <string name="filter_timer">Công việc đang được tính thời gian</string>
     <string name="filter_today">Hôm nay</string>
     <string name="filter_recently_modified">Sửa đổi gần đây</string>
+    <string name="default_list">Danh sách mặc định</string>
 </resources>

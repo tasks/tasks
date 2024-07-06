@@ -8,4 +8,5 @@
     <string name="filter_timer">기한이 정해진 할일</string>
     <string name="filter_today">오늘</string>
     <string name="filter_recently_modified">최근에 변경한 할일</string>
+    <string name="default_list">기본 목록</string>
 </resources>

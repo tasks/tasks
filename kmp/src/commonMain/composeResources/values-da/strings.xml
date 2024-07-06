@@ -8,4 +8,5 @@
     <string name="filter_timer">Opgaver, som bliver timet</string>
     <string name="filter_today">I dag</string>
     <string name="filter_recently_modified">Senest ændrede</string>
+    <string name="default_list">Standardliste</string>
 </resources>

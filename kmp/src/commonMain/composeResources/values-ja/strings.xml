@@ -8,4 +8,5 @@
     <string name="filter_timer">タスクの予定時間です</string>
     <string name="filter_today">今日</string>
     <string name="filter_recently_modified">最近変更したタスク</string>
+    <string name="default_list">デフォルトリスト</string>
 </resources>

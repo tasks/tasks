@@ -11,4 +11,5 @@
     <string name="filter_timer">Tarefas sendo cronometradas</string>
     <string name="filter_today">Hoje</string>
     <string name="filter_recently_modified">Modificadas recentemente</string>
+    <string name="default_list">Lista padrão</string>
 </resources>

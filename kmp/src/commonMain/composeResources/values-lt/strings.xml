@@ -8,4 +8,5 @@
     <string name="filter_timer">Tasks jau matuoja laiką</string>
     <string name="filter_today">Šiandien</string>
     <string name="filter_recently_modified">Neseniai redaguotos</string>
+    <string name="default_list">Numatytas sąrašas</string>
 </resources>

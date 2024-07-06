@@ -7,4 +7,5 @@
     <string name="filter_timer">משימות עם הערכת זמן</string>
     <string name="filter_today">היום</string>
     <string name="filter_recently_modified">עודכנו לאחרונה</string>
+    <string name="default_list">רשימת ברירת מחדל</string>
 </resources>

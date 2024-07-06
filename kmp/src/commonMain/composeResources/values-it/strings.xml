@@ -8,4 +8,5 @@
     <string name="filter_timer">Attività cronometrate</string>
     <string name="filter_today">Oggi</string>
     <string name="filter_recently_modified">Modificate di recente</string>
+    <string name="default_list">Lista predefinita</string>
 </resources>

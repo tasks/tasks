@@ -6,4 +6,5 @@
     <string name="filter_timer">وظایف زمانبندی شده</string>
     <string name="filter_today">امروز</string>
     <string name="filter_recently_modified">اخیرا ویرایش شده</string>
+    <string name="default_list">لیست پیش فرض</string>
 </resources>

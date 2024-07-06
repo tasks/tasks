@@ -8,4 +8,5 @@
     <string name="filter_timer">Gjøremål med tidtaker</string>
     <string name="filter_today">I dag</string>
     <string name="filter_recently_modified">Nylig endret</string>
+    <string name="default_list">Forvalgt liste</string>
 </resources>
