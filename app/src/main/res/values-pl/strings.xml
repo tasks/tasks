@@ -210,7 +210,6 @@
     <string name="new_list">Utwórz nową listę</string>
     <string name="delete_tag_confirmation">Usunąć %s?</string>
     <string name="TPl_notification">Minutniki aktywne przez %s!</string>
-    <string name="TFE_workingOn">Zadania z minutnikiem</string>
     <string name="TEA_timer_controls">Minutnik</string>
     <string name="TEA_timer_comment_started">rozpoczęto zadanie:</string>
     <string name="TEA_timer_comment_stopped">zakończono zadanie:</string>
@@ -685,7 +684,6 @@
     </plurals>
     <string name="caldav_server_other">Inne</string>
     <string name="caldav_server_type">Typ serwera</string>
-    <string name="filter_snoozed">Uśpione</string>
     <string name="now">Teraz</string>
     <string name="custom_filter_has_reminder">Ma przypomnienie</string>
     <string name="snoozed_until">Uśpione do %s</string>

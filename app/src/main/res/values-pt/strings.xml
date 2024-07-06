@@ -191,7 +191,6 @@
     <string name="new_list">Criar nova lista</string>
     <string name="delete_tag_confirmation">Eliminar %s\?</string>
     <string name="TPl_notification">Cronómetro ativo para %s!</string>
-    <string name="TFE_workingOn">Tarefas cronometradas</string>
     <string name="TEA_timer_controls">Cronómetro</string>
     <string name="TEA_timer_comment_started">iniciou esta tarefa:</string>
     <string name="TEA_timer_comment_stopped">parou de fazer esta tarefa:</string>
@@ -688,7 +687,6 @@
     <string name="customize_edit_screen_summary">Reorganizar ou remover campos</string>
     <string name="hint_customize_edit_title">Demasiada informação\?</string>
     <string name="hint_customize_edit_body">Pode personalizar este ecrã reorganizando ou removendo campos</string>
-    <string name="filter_snoozed">Adiado</string>
     <string name="dismiss">Dispensar</string>
     <string name="enable_reminders">Ativar lembretes</string>
     <string name="enable_reminders_description">Os lembretes estão desativados nas configurações do Android</string>

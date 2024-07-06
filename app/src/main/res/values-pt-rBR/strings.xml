@@ -211,7 +211,6 @@
     <string name="new_list">Criar nova lista</string>
     <string name="delete_tag_confirmation">Excluir %s?</string>
     <string name="TPl_notification">Temporizador ativado para %s!</string>
-    <string name="TFE_workingOn">Tarefas sendo cronometradas</string>
     <string name="TEA_timer_controls">Temporizador</string>
     <string name="TEA_timer_comment_started">iniciou essa tarefa:</string>
     <string name="TEA_timer_comment_stopped">parou esta tarefa:</string>
@@ -701,7 +700,6 @@
     <string name="alarm_before_due">%s antes do vencimento</string>
     <string name="alarm_after_due">%s após o vencimento</string>
     <string name="caldav_server_unknown">Desconhecido</string>
-    <string name="filter_snoozed">Adiadas</string>
     <string name="caldav_server_type">Tipo de servidor</string>
     <string name="customize_edit_screen_summary">Reordenar ou remover campos</string>
     <string name="randomly_every">Aleatório a cada %s</string>

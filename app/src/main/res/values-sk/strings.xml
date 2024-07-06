@@ -202,7 +202,6 @@
     <string name="new_list">Vytvoriť nový zoznam</string>
     <string name="delete_tag_confirmation">Zmazať %s?</string>
     <string name="TPl_notification">Stopky aktívne pre %s!</string>
-    <string name="TFE_workingOn">Naplánované Úlohy </string>
     <string name="TEA_timer_controls">Stopky</string>
     <string name="TEA_timer_comment_started">začala táto úloha:</string>
     <string name="TEA_timer_comment_stopped">zastavená je táto úloha:</string>

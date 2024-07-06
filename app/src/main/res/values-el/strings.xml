@@ -101,7 +101,6 @@
     <string name="default_random_reminder_weekly">Εβδομαδιαία</string>
     <string name="default_random_reminder_bi_weekly">κάθε δυο εβδομάδες</string>
     <string name="TPl_notification">Χρονοδιακόπτες ενεργοί για %s!</string>
-    <string name="TFE_workingOn">Καθήκοντα με χρονικό όριο</string>
     <string name="TEA_timer_controls">Χρονοδιακόπτης</string>
     <string name="TEA_timer_comment_started">ξεκίνησε αυτή την εργασία:</string>
     <string name="TEA_timer_comment_stopped">σταμάτησε να κάνεις την εργασία:</string>

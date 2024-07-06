@@ -215,7 +215,6 @@
     <string name="new_list">Создать новый список</string>
     <string name="delete_tag_confirmation">Удалить %s?</string>
     <string name="TPl_notification">Для %s действуют таймеры!</string>
-    <string name="TFE_workingOn">Задачи с таймером</string>
     <string name="TEA_timer_controls">Таймер</string>
     <string name="TEA_timer_comment_started">задача началась:</string>
     <string name="TEA_timer_comment_stopped">задача завершилась:</string>
@@ -708,7 +707,6 @@
     <string name="alarm_before_due">%s до</string>
     <string name="alarm_after_due">%s после</string>
     <string name="alarm_after_start">%s после начала</string>
-    <string name="filter_snoozed">Отложенные</string>
     <string name="caldav_server_unknown">Неизвестный</string>
     <string name="caldav_server_other">Другой</string>
     <string name="randomly_every">Случайно каждые %s</string>

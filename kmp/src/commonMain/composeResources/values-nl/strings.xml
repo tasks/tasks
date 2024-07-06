@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Zoeken</string>
     <string name="subscribe">Abonneren</string>
+    <string name="filter_snoozed">Gepauzeerd</string>
+    <string name="filter_my_tasks">Mijn Taken</string>
+    <string name="filter_notifications">Meldingen</string>
+    <string name="filter_timer">Taken met opnemen van tijd</string>
+    <string name="filter_today">Vandaag</string>
+    <string name="filter_recently_modified">Onlangs aangepast</string>
 </resources>

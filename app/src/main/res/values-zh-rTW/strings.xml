@@ -106,7 +106,6 @@
     <string name="new_tag">新增標籤</string>
     <string name="new_list">新增清單</string>
     <string name="TPl_notification">%s 的碼錶啟動了！</string>
-    <string name="TFE_workingOn">有啟用碼錶的工作</string>
     <string name="TEA_timer_controls">定時器</string>
     <string name="TEA_timer_comment_started">已經開始了這項任務工作：</string>
     <string name="TEA_timer_comment_stopped">已經停止了這項任務工作：</string>
@@ -617,7 +616,6 @@
     <string name="tasks_org_account_required">需要 Tasks.org 帳戶</string>
     <string name="snackbar_tasks_completed">已完成 %d 項任務</string>
     <string name="caldav_server_other">其他</string>
-    <string name="filter_snoozed">延後</string>
     <string name="caldav_server_type">伺服器類型</string>
     <string name="troubleshooting">疑難排解</string>
     <string name="notification_troubleshooting_summary">若有通知問題，點選這裡</string>

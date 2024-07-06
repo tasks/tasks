@@ -643,7 +643,6 @@
     <string name="navigation_drawer">මෙනුව</string>
     <string name="place_settings">ස්ථාන සැකසුම්</string>
     <string name="desaturate_colors_summary_on">අඳුරු තේමාවන් වලදී වර්ණ අසංතෘප්ත වේ</string>
-    <string name="TFE_workingOn">ක්‍රියාත්මකව පවතින කාර්යයන්</string>
     <string name="repeat_snackbar">%1$s, %2$s සඳහා නැවත සකස් කරන ලදි</string>
     <string name="CFC_importance_text">අවම වශයෙන් ප්‍රමුඛතාවය \?</string>
     <string name="chat_libera">ලිබරා චැට් හි #කාර්යයන් හා සම්බන්ධ වන්න</string>

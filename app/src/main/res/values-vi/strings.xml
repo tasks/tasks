@@ -468,7 +468,6 @@
     <string name="TEA_timer_comment_stopped">đã dừng làm công việc này:</string>
     <string name="TEA_timer_comment_started">đã bắt đầu công việc này:</string>
     <string name="TEA_timer_controls">Hẹn giờ</string>
-    <string name="TFE_workingOn">Công việc đang được tính thời gian</string>
     <string name="TPl_notification">Hẹn giờ đang hoạt động đối với %s!</string>
     <string name="delete_tag_confirmation">Xoá %s\?</string>
     <string name="new_list">Tạo danh sách mới</string>
@@ -664,7 +663,6 @@
     <string name="caldav_server_unknown">Không xác định</string>
     <string name="caldav_server_type">Loại máy chủ</string>
     <string name="caldav_server_other">Khác</string>
-    <string name="filter_snoozed">Đã đặt báo lại</string>
     <string name="customize_edit_screen_summary">Sắp xếp lại hoặc xóa các trường</string>
     <string name="dismiss">Bỏ qua</string>
     <string name="hint_customize_edit_title">Quá nhiều thông tin\?</string>

@@ -254,7 +254,6 @@
     <string name="TEA_timer_comment_stopped">یہ ٹاسک روکیں:</string>
     <string name="TEA_timer_comment_started">یہ ٹاسک شروع کیا:</string>
     <string name="TEA_timer_controls">ٹائمر</string>
-    <string name="TFE_workingOn">ٹاسک کا وقت متعین کیا جا رہا ہے</string>
     <string name="TPl_notification">%s کیلئے ٹائمرز فعال ہو گئے!</string>
     <string name="date_shortcut_tomorrow_night">کل رات</string>
     <string name="date_shortcut_tomorrow_evening">کل شام</string>

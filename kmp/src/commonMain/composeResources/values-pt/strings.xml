@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Pesquisar</string>
     <string name="subscribe">Subscrever</string>
+    <string name="filter_my_tasks">Minhas tarefas</string>
+    <string name="filter_notifications">Notificações</string>
+    <string name="filter_snoozed">Adiado</string>
+    <string name="filter_timer">Tarefas cronometradas</string>
+    <string name="filter_today">Hoje</string>
+    <string name="filter_recently_modified">Alteradas recentemente</string>
 </resources>

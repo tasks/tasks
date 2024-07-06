@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Поиск</string>
     <string name="subscribe">Подписаться</string>
+    <string name="filter_my_tasks">Мои задачи</string>
+    <string name="filter_notifications">Уведомления</string>
+    <string name="filter_snoozed">Отложенные</string>
+    <string name="filter_timer">Задачи с таймером</string>
+    <string name="filter_today">Сегодня</string>
+    <string name="filter_recently_modified">Недавно изменённые</string>
 </resources>

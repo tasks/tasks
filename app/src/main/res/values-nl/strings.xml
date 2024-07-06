@@ -201,7 +201,6 @@
     <string name="new_list">Nieuwe lijst maken</string>
     <string name="delete_tag_confirmation">%s wissen\?</string>
     <string name="TPl_notification">Tijdklok is actief voor %s!</string>
-    <string name="TFE_workingOn">Taken met opnemen van tijd</string>
     <string name="TEA_timer_comment_started">aan deze taak begonnen:</string>
     <string name="TEA_timer_comment_stopped">deze taak is gestopt:</string>
     <string name="TEA_timer_comment_spent">Bestede tijd:</string>
@@ -683,7 +682,6 @@
     <string name="custom_notification">Aangepaste melding</string>
     <string name="randomly_every">Willekeurig elke %s</string>
     <string name="caldav_server_type">Type server</string>
-    <string name="filter_snoozed">Gepauzeerd</string>
     <string name="caldav_server_unknown">Onbekend</string>
     <string name="caldav_server_other">Andere</string>
     <string name="customize_edit_screen_summary">Velden herschikken of verwijderen</string>

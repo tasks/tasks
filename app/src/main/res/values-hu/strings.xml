@@ -199,7 +199,6 @@
     <string name="new_list">Új lista létrehozása</string>
     <string name="delete_tag_confirmation">%s törlése?</string>
     <string name="TPl_notification">Időzítők aktiválva eddig: %s!</string>
-    <string name="TFE_workingOn">Időzített Feladatok</string>
     <string name="TEA_timer_controls">Időzítő</string>
     <string name="TEA_timer_comment_started">feladat megkezdve:</string>
     <string name="TEA_timer_comment_stopped">feladat leállítva:</string>
@@ -682,7 +681,6 @@
     <string name="randomly_every">Véletlenszerűen minden %s</string>
     <string name="caldav_server_unknown">Ismeretlen</string>
     <string name="caldav_server_other">Egyéb</string>
-    <string name="filter_snoozed">Elhalasztva</string>
     <string name="dismiss">Nyugtáz</string>
     <string name="caldav_server_type">Szerver típusa</string>
     <string name="customize_edit_screen_summary">Mezők átrendezése vagy törlése</string>

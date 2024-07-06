@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Søk</string>
     <string name="subscribe">Abonner</string>
+    <string name="filter_my_tasks">Mine gjøremål</string>
+    <string name="filter_notifications">Varsler</string>
+    <string name="filter_snoozed">Slumret</string>
+    <string name="filter_timer">Gjøremål med tidtaker</string>
+    <string name="filter_today">I dag</string>
+    <string name="filter_recently_modified">Nylig endret</string>
 </resources>

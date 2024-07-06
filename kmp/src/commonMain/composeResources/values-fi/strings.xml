@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Etsi</string>
     <string name="subscribe">Tilaa</string>
+    <string name="filter_my_tasks">Omat tehtävät</string>
+    <string name="filter_notifications">Ilmoitukset</string>
+    <string name="filter_snoozed">Torkutetut</string>
+    <string name="filter_timer">Tehtävät ajoitettu</string>
+    <string name="filter_today">Tänään</string>
+    <string name="filter_recently_modified">Äskettäin muokattu</string>
 </resources>

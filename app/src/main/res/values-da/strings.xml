@@ -367,7 +367,6 @@
     <string name="TEA_timer_comment_stopped">stoppede med opgaven:</string>
     <string name="TEA_timer_comment_started">begyndte på opgaven:</string>
     <string name="TEA_timer_controls">Timer</string>
-    <string name="TFE_workingOn">Opgaver, som bliver timet</string>
     <string name="TPl_notification">Timere er aktive for %s!</string>
     <string name="delete_tag_confirmation">Slet %s\?</string>
     <string name="new_list">Opret ny liste</string>
@@ -674,7 +673,6 @@
     <string name="caldav_server_unknown">Ukendt</string>
     <string name="caldav_server_other">Andet</string>
     <string name="caldav_server_type">Server type</string>
-    <string name="filter_snoozed">Udsat</string>
     <string name="dismiss">Afvis</string>
     <plurals name="reminder_days">
         <item quantity="one">Dag</item>

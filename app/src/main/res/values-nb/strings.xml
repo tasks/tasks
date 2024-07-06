@@ -90,7 +90,6 @@
         <item quantity="other">år</item>
     </plurals>
     <string name="TPl_notification">%s har aktive tidtakere!</string>
-    <string name="TFE_workingOn">Gjøremål med tidtaker</string>
     <string name="TEA_timer_controls">Nedtelling</string>
     <string name="TEA_timer_comment_started">startet dette gjøremålet:</string>
     <string name="TEA_timer_comment_spent">Tid brukt:</string>
@@ -684,7 +683,6 @@
         <item quantity="other">Uker</item>
     </plurals>
     <string name="randomly_every">Tilfeldig hver/t %s</string>
-    <string name="filter_snoozed">Slumret</string>
     <string name="alarm_before_start">%s før start</string>
     <string name="alarm_after_start">%s etter start</string>
     <string name="alarm_before_due">%s før frist</string>

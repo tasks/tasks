@@ -578,7 +578,6 @@
     <string name="EPr_voiceRemindersEnabled_desc_enabled">تاسكس سيقرأ اسم المهمة أثناء مذكرات المهام</string>
     <string name="EPr_voiceInputEnabled_title">مدخل صوتي</string>
     <string name="TEA_timer_comment_stopped">توقف عن القيام بهذه المهمة:</string>
-    <string name="TFE_workingOn">المهام التي أؤقتت</string>
     <string name="TPl_notification">المؤقت نشط ل%s!</string>
     <string name="repeat_snackbar">%1$s اعد جدولته ل %2$s</string>
     <string name="repeat_type_due">تاريخ الاستحقاق</string>

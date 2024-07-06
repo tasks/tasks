@@ -5,4 +5,10 @@
     <string name="search_no_results">Nenhum resultado</string>
     <string name="requires_pro_subscription">Função Pro</string>
     <string name="subscription_required_description">Desbloquear todas as funções por apenas US$ 1/ano</string>
+    <string name="filter_my_tasks">Minhas tarefas</string>
+    <string name="filter_notifications">Notificações</string>
+    <string name="filter_snoozed">Adiadas</string>
+    <string name="filter_timer">Tarefas sendo cronometradas</string>
+    <string name="filter_today">Hoje</string>
+    <string name="filter_recently_modified">Modificadas recentemente</string>
 </resources>

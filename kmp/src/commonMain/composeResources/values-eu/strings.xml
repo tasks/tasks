@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Bilatu</string>
     <string name="subscribe">Harpidetu</string>
+    <string name="filter_my_tasks">Nire zereginak</string>
+    <string name="filter_notifications">Jakinarazpenak</string>
+    <string name="filter_snoozed">Lo</string>
+    <string name="filter_timer">Kronometratutako zereginak</string>
+    <string name="filter_today">Gaur</string>
+    <string name="filter_recently_modified">Aldatutako azkenak</string>
 </resources>

@@ -110,7 +110,6 @@
     <string name="new_tag">Vytvořit nový štítek</string>
     <string name="delete_tag_confirmation">Smazat %s?</string>
     <string name="TPl_notification">Časovače aktivní pro %s!</string>
-    <string name="TFE_workingOn">Termínované úkoly</string>
     <string name="TEA_timer_controls">Časovač</string>
     <string name="TEA_timer_comment_started">začal tento úkol:</string>
     <string name="TEA_timer_comment_stopped">skončil tento úkol:</string>
@@ -702,7 +701,6 @@
     <string name="completed_tasks_at_bottom">Přesunout splněné úkoly naspod</string>
     <string name="snackbar_tasks_completed">%d úkolů splněno</string>
     <string name="caldav_server_type">Typ serveru</string>
-    <string name="filter_snoozed">Odloženo</string>
     <string name="dismiss">Odmítnout</string>
     <string name="hint_customize_edit_title">Příliš mnoho informací\?</string>
     <string name="hint_customize_edit_body">Tuto obrazovku si můžete přizpůsobit přeskupením nebo odebráním polí</string>

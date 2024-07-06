@@ -216,7 +216,6 @@
     <string name="new_list">Crea nuova lista</string>
     <string name="delete_tag_confirmation">Eliminare %s\?</string>
     <string name="TPl_notification">Timer attivi per %s!</string>
-    <string name="TFE_workingOn">Attività cronometrate</string>
     <string name="TEA_timer_comment_started">attività iniziata:</string>
     <string name="TEA_timer_comment_stopped">attività terminata:</string>
     <string name="TEA_timer_comment_spent">Tempo speso:</string>
@@ -704,7 +703,6 @@
     <string name="custom_notification">Notifica personalizzata</string>
     <string name="randomly_every">Casualmente ogni %s</string>
     <string name="caldav_server_other">Altro</string>
-    <string name="filter_snoozed">Posticipato</string>
     <string name="caldav_server_unknown">Sconosciuto</string>
     <string name="caldav_server_type">Tipo di server</string>
     <string name="dismiss">Ignora</string>

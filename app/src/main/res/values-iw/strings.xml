@@ -230,7 +230,6 @@
     <string name="new_list">יצירת רשימה חדשה</string>
     <string name="delete_tag_confirmation">מחק %s?</string>
     <string name="TPl_notification">הופעל קוצב זמן עבור %s משימות!</string>
-    <string name="TFE_workingOn">משימות עם הערכת זמן</string>
     <string name="TEA_timer_controls">טיימר</string>
     <string name="TEA_timer_comment_started">התחיל משימה זו:</string>
     <string name="TEA_timer_comment_stopped">הפסק ביצוע של משימה זו:</string>

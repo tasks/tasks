@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Hledat</string>
     <string name="subscribe">Předplatit</string>
+    <string name="filter_my_tasks">Moje úkoly</string>
+    <string name="filter_notifications">Oznámení</string>
+    <string name="filter_snoozed">Odloženo</string>
+    <string name="filter_timer">Termínované úkoly</string>
+    <string name="filter_today">Dnes</string>
+    <string name="filter_recently_modified">Nedávno upravené</string>
 </resources>

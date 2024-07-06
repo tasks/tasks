@@ -202,7 +202,6 @@
     <string name="new_list">Yeni liste oluştur</string>
     <string name="delete_tag_confirmation">%s silinsin mi?</string>
     <string name="TPl_notification">%s için kronometre etkin!</string>
-    <string name="TFE_workingOn">Zaman Ölçümü Olan Görevler</string>
     <string name="TEA_timer_controls">Kronometre</string>
     <string name="TEA_timer_comment_started">başlanan görev:</string>
     <string name="TEA_timer_comment_stopped">bu görevden vazgeç:</string>
@@ -685,7 +684,6 @@
     <string name="caldav_server_unknown">Bilinmeyen</string>
     <string name="caldav_server_other">Diğer</string>
     <string name="caldav_server_type">Sunucu türü</string>
-    <string name="filter_snoozed">Ertelendi</string>
     <string name="customize_edit_screen_summary">Alanları yeniden düzenle veya kaldır</string>
     <string name="dismiss">Kapat</string>
     <string name="hint_customize_edit_title">Çok bilgi mi var\?</string>

@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Buscar</string>
     <string name="subscribe">Suscribirse</string>
+    <string name="filter_my_tasks">As miñas tarefas</string>
+    <string name="filter_notifications">Notificacións</string>
+    <string name="filter_snoozed">Posposta</string>
+    <string name="filter_timer">Tarefas a cronometrar</string>
+    <string name="filter_today">Hoxe</string>
+    <string name="filter_recently_modified">Modificadas recentemente</string>
 </resources>

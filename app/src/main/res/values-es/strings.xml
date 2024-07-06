@@ -214,7 +214,6 @@
     <string name="new_list">Crea una nueva lista</string>
     <string name="delete_tag_confirmation">¿Eliminar %s?</string>
     <string name="TPl_notification">Temporizadores activos para %s!</string>
-    <string name="TFE_workingOn">Tareas que se están cronometrando</string>
     <string name="TEA_timer_controls">Temporizador</string>
     <string name="TEA_timer_comment_started">comenzó esta tarea:</string>
     <string name="TEA_timer_comment_stopped">dejó de hacer esta tarea:</string>
@@ -703,7 +702,6 @@
     </plurals>
     <string name="custom_notification">Notificación personalizada</string>
     <string name="caldav_server_type">Tipo de servidor</string>
-    <string name="filter_snoozed">Aplazado</string>
     <string name="randomly_every">Aleatoriamente cada %s</string>
     <string name="caldav_server_unknown">Desconocido</string>
     <string name="caldav_server_other">Otro</string>

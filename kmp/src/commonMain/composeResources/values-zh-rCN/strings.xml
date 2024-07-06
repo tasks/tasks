@@ -5,4 +5,10 @@
     <string name="search_no_results">无结果</string>
     <string name="requires_pro_subscription">专业版功能</string>
     <string name="subscription_required_description">最低每年 1 美元解锁所有功能</string>
+    <string name="filter_my_tasks">我的任务</string>
+    <string name="filter_notifications">通知</string>
+    <string name="filter_snoozed">已推迟</string>
+    <string name="filter_timer">任务已开始计时</string>
+    <string name="filter_today">今天</string>
+    <string name="filter_recently_modified">最近修改过的</string>
 </resources>

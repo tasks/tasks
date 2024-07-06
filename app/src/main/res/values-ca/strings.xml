@@ -68,7 +68,6 @@
     <string name="rmd_EPr_quiet_hours_end_title">Final de Silenci</string>
     <string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
     <string name="TPl_notification">Temporitzadors actius per %s!</string>
-    <string name="TFE_workingOn">Tasques sent cronometrades</string>
     <string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
     <string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
     <string name="TEA_timer_comment_spent">Temps invertit</string>

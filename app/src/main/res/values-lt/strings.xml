@@ -220,7 +220,6 @@
     <string name="new_list">Sukurti naują sąrašą</string>
     <string name="delete_tag_confirmation">Ištrinti %s?</string>
     <string name="TPl_notification">Laikmatis yra aktyvus: %s!</string>
-    <string name="TFE_workingOn">Tasks jau matuoja laiką</string>
     <string name="TEA_timer_controls">Laikmatis</string>
     <string name="TEA_timer_comment_started">Užduotis pradėta:</string>
     <string name="TEA_timer_comment_stopped">Užduotis nustota vykdyti:</string>
@@ -671,7 +670,6 @@
     <string name="hint_customize_edit_body">Galite tinkinti šį ekraną pertvarkydami arba pašalindami laukus</string>
     <string name="caldav_server_type">Serverio tipas</string>
     <string name="hint_customize_edit_title">Per daug informacijos\?</string>
-    <string name="filter_snoozed">Užmigdyta</string>
     <string name="enable_reminders_description">Priminimai išjungti Android nustatymuose</string>
     <string name="rmd_time_description">Rodyti pranešimus apie užduotis neturinčias termino</string>
     <string name="custom_filter_has_reminder">Turi priminimą</string>

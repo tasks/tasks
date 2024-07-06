@@ -404,7 +404,6 @@
     <string name="TEA_timer_comment_stopped">หยุดการทํางานนี้:</string>
     <string name="TEA_timer_comment_started">เริ่มงานนี้:</string>
     <string name="TEA_timer_controls">ตัวจับเวลา</string>
-    <string name="TFE_workingOn">งานที่กําลังกําหนดเวลาอยู่</string>
     <string name="TPl_notification">ตัวจับเวลาที่ใช้งานอยู่สําหรับ %s!</string>
     <string name="new_list">สร้างรายการใหม่</string>
     <string name="new_tag">สร้างแท็กใหม่</string>

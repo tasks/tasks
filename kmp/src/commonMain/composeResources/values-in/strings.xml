@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Cari</string>
     <string name="subscribe">Langganan</string>
+    <string name="filter_my_tasks">Tugas Saya</string>
+    <string name="filter_notifications">Notifikasi</string>
+    <string name="filter_snoozed">Tunda</string>
+    <string name="filter_recently_modified">Baru-baru ini diubah</string>
+    <string name="filter_timer">Tugas yang Dicatat Waktu</string>
+    <string name="filter_today">Hari ini</string>
 </resources>

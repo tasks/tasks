@@ -120,7 +120,6 @@
     <string name="repeat_type_completion">تاریخ اتمام</string>
     <string name="new_tag">ایجاد تگ جدید</string>
     <string name="new_list">ایجاد لیست جدید</string>
-    <string name="TFE_workingOn">وظایف زمانبندی شده</string>
     <string name="TEA_timer_controls">تایمر</string>
     <string name="TEA_timer_comment_started">این وظیفه شروع شده:</string>
     <string name="TEA_timer_comment_stopped">این وظیفه متوقف شده:</string>

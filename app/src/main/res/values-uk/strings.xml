@@ -215,7 +215,6 @@
     <string name="new_list">Новий список</string>
     <string name="delete_tag_confirmation">Видалити %s?</string>
     <string name="TPl_notification">Таймери діють протягом %s!</string>
-    <string name="TFE_workingOn">Завдання з таймером</string>
     <string name="TEA_timer_controls">Таймер</string>
     <string name="TEA_timer_comment_started">Завдання розпочато:</string>
     <string name="TEA_timer_comment_stopped">виконання завдання завершено:</string>
@@ -713,7 +712,6 @@
     <string name="caldav_server_unknown">Невідомий</string>
     <string name="caldav_server_other">Інший</string>
     <string name="caldav_server_type">Тип сервера</string>
-    <string name="filter_snoozed">Відкладені</string>
     <string name="customize_edit_screen_summary">Перевпорядкувати або вилучити поля</string>
     <string name="dismiss">Відхилити</string>
     <string name="hint_customize_edit_title">Забагато інформації\?</string>

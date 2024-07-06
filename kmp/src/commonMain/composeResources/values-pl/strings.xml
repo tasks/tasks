@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Szukaj</string>
     <string name="subscribe">Zasubskrybuj</string>
+    <string name="filter_my_tasks">Moje zadania</string>
+    <string name="filter_notifications">Powiadomienia</string>
+    <string name="filter_snoozed">Uśpione</string>
+    <string name="filter_timer">Zadania z minutnikiem</string>
+    <string name="filter_today">Dzisiaj</string>
+    <string name="filter_recently_modified">Niedawno zmodyfikowane</string>
 </resources>

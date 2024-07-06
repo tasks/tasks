@@ -2,4 +2,9 @@
 <resources>
     <string name="search">සොයන්න</string>
     <string name="subscribe">දායක වන්න</string>
+    <string name="filter_my_tasks">මගේ කාර්යයන්</string>
+    <string name="filter_notifications">දැනුම්දීම්</string>
+    <string name="filter_timer">ක්‍රියාත්මකව පවතින කාර්යයන්</string>
+    <string name="filter_today">අද</string>
+    <string name="filter_recently_modified">මෑතකදී වෙනස් කරන ලදි</string>
 </resources>

@@ -559,7 +559,6 @@
     <string name="tomorrow_abbrev_lowercase">bsk</string>
     <string name="TEA_timer_comment_spent">Waktu terpakai:</string>
     <string name="TEA_timer_controls">Pencatat Waktu</string>
-    <string name="TFE_workingOn">Tugas yang Dicatat Waktu</string>
     <string name="TPl_notification">Pencatat Waktu Aktif untuk %s!</string>
     <string name="repeat_snackbar">%1$s dijadwalkan ulang untuk %2$s</string>
     <string name="repeat_type_completion_capitalized">tanggal selesai</string>
@@ -641,7 +640,6 @@
     <string name="caldav_server_unknown">Tidak diketahui</string>
     <string name="caldav_server_other">Lainnya</string>
     <string name="caldav_server_type">Tipe server</string>
-    <string name="filter_snoozed">Tunda</string>
     <string name="snoozed_until">Tunda sampai %s</string>
     <plurals name="reminder_week">
         <item quantity="other">Minggu</item>

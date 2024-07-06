@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Tìm kiếm</string>
     <string name="subscribe">Đăng ký</string>
+    <string name="filter_my_tasks">Công việc của tôi</string>
+    <string name="filter_notifications">Thông báo</string>
+    <string name="filter_snoozed">Đã đặt báo lại</string>
+    <string name="filter_timer">Công việc đang được tính thời gian</string>
+    <string name="filter_today">Hôm nay</string>
+    <string name="filter_recently_modified">Sửa đổi gần đây</string>
 </resources>

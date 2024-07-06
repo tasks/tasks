@@ -202,7 +202,6 @@
     <string name="new_list">새 목록 만들기</string>
     <string name="delete_tag_confirmation">%s 삭제할까요?</string>
     <string name="TPl_notification">%s 동안 타이머 작동함!</string>
-    <string name="TFE_workingOn">기한이 정해진 할일</string>
     <string name="TEA_timer_controls">타이머</string>
     <string name="TEA_timer_comment_started">이 할일 시작:</string>
     <string name="TEA_timer_comment_stopped">이 할일 중지:</string>
@@ -648,7 +647,6 @@
     <string name="now">지금</string>
     <string name="alarm_after_start">시작 후 %s</string>
     <string name="caldav_server_type">서버 유형</string>
-    <string name="filter_snoozed">알람 미뤄짐</string>
     <string name="sign_in">로그인</string>
     <string name="rmd_time_description">상태바 알림에 마감 시한이 없는 할일 보이기</string>
     <string name="microsoft_selection_description">마이크로소프트 계정과 동기화</string>

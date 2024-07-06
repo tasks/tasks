@@ -581,7 +581,6 @@
     <string name="TEA_timer_comment_stopped">je prekinuo obavljati ovaj zadatak:</string>
     <string name="TEA_timer_comment_started">je započeo ovaj zadatak:</string>
     <string name="TEA_timer_controls">Mjerač vremena</string>
-    <string name="TFE_workingOn">Zadaci kojima se mjeri vrijeme</string>
     <string name="TPl_notification">Mjerači vremena aktivni za %s!</string>
     <string name="delete_tag_confirmation">Izbrisati %s\?</string>
     <string name="repeat_snackbar">%1$s preraspoređen za %2$s</string>
@@ -706,7 +705,6 @@
     <string name="caldav_server_unknown">Nepoznato</string>
     <string name="caldav_server_other">Drugi</string>
     <string name="caldav_server_type">Vrsta poslužitelja</string>
-    <string name="filter_snoozed">Odgođeno</string>
     <string name="dismiss">Odbaci</string>
     <string name="hint_customize_edit_body">Ovaj ekran možeš prilagoditi mijenjanjem rasporeda polja ili uklanjanjem polja</string>
     <string name="customize_edit_screen_summary">Prerasporedi ili ukloni polja</string>

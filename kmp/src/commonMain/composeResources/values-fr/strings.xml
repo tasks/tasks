@@ -5,4 +5,10 @@
     <string name="search_no_results">Aucun résultat</string>
     <string name="requires_pro_subscription">Fonctionnalité Pro</string>
     <string name="subscription_required_description">Débloquer toutes les fonctionnalités pour $1 USD/an</string>
+    <string name="filter_recently_modified">Récemment modifiée</string>
+    <string name="filter_my_tasks">Mes tâches</string>
+    <string name="filter_notifications">Notifications</string>
+    <string name="filter_snoozed">Répété</string>
+    <string name="filter_timer">Tâches minutées</string>
+    <string name="filter_today">Aujourd\'hui</string>
 </resources>

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Cerca</string>
+    <string name="subscribe">Subscriu-te</string>
+    <string name="filter_my_tasks">Tasques actives</string>
+    <string name="filter_notifications">Notificacions</string>
+    <string name="filter_timer">Tasques sent cronometrades</string>
+    <string name="filter_today">Avui</string>
+    <string name="filter_recently_modified">Modificades fa poc</string>
 </resources>

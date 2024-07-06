@@ -101,7 +101,6 @@
     <string name="default_random_reminder_weekly">tedensko</string>
     <string name="default_random_reminder_bi_weekly">vsake dva tedna</string>
     <string name="TPl_notification">Merilniki časa aktivni za %s!</string>
-    <string name="TFE_workingOn">Opravki katerim se meri čas</string>
     <string name="TEA_timer_controls">Merilnik časa</string>
     <string name="TEA_timer_comment_started">ta opravek začel:</string>
     <string name="TEA_timer_comment_stopped">ta opravek končal:</string>

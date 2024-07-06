@@ -361,7 +361,6 @@
     <string name="task_list_options">Taskolistaj agordoj</string>
     <string name="auto_dismiss_datetime">Aŭtomate fermi datan/horan elektilon</string>
     <string name="filters">Filtriloj</string>
-    <string name="filter_snoozed">Paŭzigitaj</string>
     <string name="filter_after_today">Post hodiaŭ</string>
     <string name="snoozed_until">Paŭzigite ĝis %s</string>
     <string name="repeats_plural">Ripetiĝas ĉiu %s</string>
@@ -684,7 +683,6 @@
     <string name="insufficient_sponsorship">Ne trovis elekteblan GitHub sponsorecon</string>
     <string name="no_google_play_subscription">Ne trovis elekteblan Google Play abonon</string>
     <string name="completion_sound">Ludi plenumigan sonon</string>
-    <string name="TFE_workingOn">Taskoj Tempomezuritaj</string>
     <string name="TEA_timer_comment_spent">Tempo pasigita:</string>
     <string name="default_recurrence">Defaŭlta ripetiĝo</string>
     <string name="opacity_footer">Piedlinia netravideblo</string>

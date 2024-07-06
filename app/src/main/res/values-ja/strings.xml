@@ -204,7 +204,6 @@
     <string name="new_list">新しいリストを作成</string>
     <string name="delete_tag_confirmation">%s を削除しますか？</string>
     <string name="TPl_notification">%s のタイマーが計測中です！</string>
-    <string name="TFE_workingOn">タスクの予定時間です</string>
     <string name="TEA_timer_controls">タイマー</string>
     <string name="TEA_timer_comment_started">タスクが進行中:</string>
     <string name="TEA_timer_comment_stopped">タスクを中断中:</string>
@@ -686,7 +685,6 @@
     <string name="bottom">下部</string>
     <string name="android_auto_backup_device_summary">デバイス設定からバックアップサービスの使用を許可する必要があります。すべてのデバイスがバックアップサービスを提供しているわけではありません。</string>
     <string name="dismiss">閉じる</string>
-    <string name="filter_snoozed">スヌーズ中</string>
     <string name="notification_troubleshooting_summary">通知に問題がある場合はこちらをタップ</string>
     <string name="filter_eisenhower_box_1">重要かつ緊急</string>
     <string name="open_source">オープンソース</string>

@@ -294,7 +294,6 @@
     <string name="TEA_timer_comment_stopped">a încetat să mai facă această sarcină:</string>
     <string name="TEA_timer_comment_started">a început această activitate:</string>
     <string name="TEA_timer_controls">Cronometru</string>
-    <string name="TFE_workingOn">Sarcini care sunt cronometrate</string>
     <plurals name="repeat_months">
         <item quantity="one">lună</item>
         <item quantity="few">luni</item>
@@ -703,7 +702,6 @@
     </plurals>
     <string name="caldav_server_unknown">Necunoscut</string>
     <string name="caldav_server_type">Tip de server</string>
-    <string name="filter_snoozed">Amânate</string>
     <string name="caldav_server_other">Altele</string>
     <string name="customize_edit_screen_summary">Rearanjarea sau eliminarea câmpurilor</string>
     <string name="sort_completion_group">Finalizare %s</string>

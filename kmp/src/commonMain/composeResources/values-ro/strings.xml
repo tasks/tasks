@@ -2,4 +2,10 @@
 <resources>
     <string name="search">Căutare</string>
     <string name="subscribe">Abonează-te la</string>
+    <string name="filter_my_tasks">Sarcinile mele</string>
+    <string name="filter_notifications">Notificări</string>
+    <string name="filter_snoozed">Amânate</string>
+    <string name="filter_timer">Sarcini care sunt cronometrate</string>
+    <string name="filter_today">Azi</string>
+    <string name="filter_recently_modified">Modificat recent</string>
 </resources>

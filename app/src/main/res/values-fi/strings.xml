@@ -192,7 +192,6 @@
     <string name="new_list">Luo uusi lista</string>
     <string name="delete_tag_confirmation">Poista %s?</string>
     <string name="TPl_notification">Ajastus aktiivinen %s!</string>
-    <string name="TFE_workingOn">Tehtävät ajoitettu</string>
     <string name="TEA_timer_controls">Ajastin</string>
     <string name="TEA_timer_comment_started">tehtävä aloitettu:</string>
     <string name="TEA_timer_comment_stopped">tehtävä lopetettu:</string>
@@ -688,7 +687,6 @@
     <string name="hint_customize_edit_title">Liian paljon tietoa\?</string>
     <string name="hint_customize_edit_body">Voit muokata tätä näkymää uudelleenjärjestelemällä tai poistamalla kenttiä</string>
     <string name="enable_reminders">Salli muistutukset</string>
-    <string name="filter_snoozed">Torkutetut</string>
     <string name="dismiss">Hylkää</string>
     <string name="customize_edit_screen_summary">Uudelleenjärjestä tai poista kenttiä</string>
     <string name="enable_reminders_description">Muistutukset on poistettu käytöstä Androidin asetuksista</string>

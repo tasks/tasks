@@ -2,4 +2,9 @@
 <resources>
     <string name="search">Hľadať</string>
     <string name="subscribe">Prihlásiť sa</string>
+    <string name="filter_my_tasks">Moje Úlohy</string>
+    <string name="filter_notifications">Oznámenia</string>
+    <string name="filter_timer">Naplánované Úlohy</string>
+    <string name="filter_today">Dnes</string>
+    <string name="filter_recently_modified">Naposledy upravené</string>
 </resources>

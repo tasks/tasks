@@ -127,7 +127,6 @@
     <string name="new_list">Skapa en ny lista</string>
     <string name="delete_tag_confirmation">Ta bort %s?</string>
     <string name="TPl_notification">Tidtagare aktiva för %s!</string>
-    <string name="TFE_workingOn">Uppgifter med tidtagning</string>
     <string name="TEA_timer_comment_started">påbörjade denna uppgift:</string>
     <string name="TEA_timer_comment_stopped">slutade göra denna uppgift:</string>
     <string name="TEA_timer_comment_spent">Nedlagt tid:</string>
@@ -678,7 +677,6 @@
     <string name="caldav_server_unknown">Okänd</string>
     <string name="caldav_server_other">Övrig</string>
     <string name="caldav_server_type">Servertyp</string>
-    <string name="filter_snoozed">Slumrad</string>
     <string name="dismiss">Avfärda</string>
     <string name="customize_edit_screen_summary">Ordna om eller ta bort fält</string>
     <string name="hint_customize_edit_title">För mycket information\?</string>

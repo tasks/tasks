@@ -2,4 +2,10 @@
 <resources>
     <string name="search">검색</string>
     <string name="subscribe">신청</string>
+    <string name="filter_my_tasks">나의 할일</string>
+    <string name="filter_notifications">알림</string>
+    <string name="filter_snoozed">알람 미뤄짐</string>
+    <string name="filter_timer">기한이 정해진 할일</string>
+    <string name="filter_today">오늘</string>
+    <string name="filter_recently_modified">최근에 변경한 할일</string>
 </resources>

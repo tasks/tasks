@@ -202,7 +202,6 @@
     <string name="new_list">Créer une nouvelle liste</string>
     <string name="delete_tag_confirmation">Supprimer « %s » \?</string>
     <string name="TPl_notification">Minuteries actives pour « %s » !</string>
-    <string name="TFE_workingOn">Tâches minutées</string>
     <string name="TEA_timer_controls">Minuteur</string>
     <string name="TEA_timer_comment_started">a commencé cette tâche :</string>
     <string name="TEA_timer_comment_stopped">a arrêté d\'effectuer cette tâche :</string>
@@ -704,7 +703,6 @@
     <string name="custom_notification">Notification personnalisée</string>
     <string name="randomly_every">Aléatoirement, par intervalle de %s</string>
     <string name="caldav_server_unknown">Inconnu</string>
-    <string name="filter_snoozed">Répété</string>
     <string name="caldav_server_other">Autre</string>
     <string name="caldav_server_type">Type de serveur</string>
     <string name="dismiss">Rejeter</string>

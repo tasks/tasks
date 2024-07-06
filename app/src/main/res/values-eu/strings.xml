@@ -202,7 +202,6 @@
     <string name="new_list">Sortu zerrenda berria</string>
     <string name="delete_tag_confirmation">Ezabatu %s\?</string>
     <string name="TPl_notification">Kronometro aktiboak: %s !</string>
-    <string name="TFE_workingOn">Kronometratutako zereginak</string>
     <string name="TEA_timer_controls">Kronometroa</string>
     <string name="TEA_timer_comment_started">zeregin honekin hasita:</string>
     <string name="TEA_timer_comment_stopped">zeregin hau egiteari utzita:</string>
@@ -663,7 +662,6 @@
     <string name="caldav_server_unknown">Ezezaguna</string>
     <string name="caldav_server_other">Bestelakoa</string>
     <string name="caldav_server_type">Zerbitzari-mota</string>
-    <string name="filter_snoozed">Lo</string>
     <string name="dismiss">Baztertu</string>
     <plurals name="reminder_minutes">
         <item quantity="one">Minutu</item>

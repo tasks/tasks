@@ -206,7 +206,6 @@
     <string name="new_list">Създаване на списък</string>
     <string name="delete_tag_confirmation">Изтриване на %s\?</string>
     <string name="TPl_notification">За %s се отчита време!</string>
-    <string name="TFE_workingOn">Задачи, за които се отчита време</string>
     <string name="TEA_timer_controls">Отчитане на време</string>
     <string name="TEA_timer_comment_started">Задачата е започната на:</string>
     <string name="TEA_timer_comment_stopped">Задачата е завършена на:</string>
@@ -629,7 +628,6 @@
     <string name="completed_tasks_at_bottom">Преместване на завършените задачи отдолу</string>
     <string name="caldav_server_unknown">Неизвестен</string>
     <string name="caldav_server_other">Друг</string>
-    <string name="filter_snoozed">Отложени</string>
     <string name="app_password_created_at">Създадена: %s</string>
     <string name="upgrade_open_source_description">Абонаментът поддържа непрекъснатото развитие</string>
     <string name="your_subscription_expired">Абонаментът е изтекъл. Подновете го, за да се възстанови услугата.</string>

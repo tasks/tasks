@@ -413,7 +413,6 @@
     <string name="TEA_timer_comment_stopped">இந்த பணியை செய்வதை நிறுத்தியது:</string>
     <string name="TEA_timer_comment_started">இந்த பணியைத் தொடங்கினார்:</string>
     <string name="TEA_timer_controls">டைமர்</string>
-    <string name="TFE_workingOn">பணிகள் முடிந்துவிட்டன</string>
     <string name="TPl_notification">டைமர்கள் %s க்கு செயலில் உள்ளன!</string>
     <string name="delete_tag_confirmation">%s ஐ நீக்கவா\?</string>
     <string name="new_list">புதிய பட்டியலை உருவாக்கவும்</string>

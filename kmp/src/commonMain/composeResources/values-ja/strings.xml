@@ -2,4 +2,10 @@
 <resources>
     <string name="search">検索</string>
     <string name="subscribe">購入</string>
+    <string name="filter_my_tasks">マイ タスク</string>
+    <string name="filter_notifications">通知</string>
+    <string name="filter_snoozed">スヌーズ中</string>
+    <string name="filter_timer">タスクの予定時間です</string>
+    <string name="filter_today">今日</string>
+    <string name="filter_recently_modified">最近変更したタスク</string>
 </resources>
