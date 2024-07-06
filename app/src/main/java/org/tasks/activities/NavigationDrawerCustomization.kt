@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.adapter.FilterViewHolder
 import com.todoroo.astrid.adapter.NavigationDrawerAdapter
 import org.tasks.filters.CaldavFilter
-import com.todoroo.astrid.api.CustomFilter
+import org.tasks.filters.CustomFilter
 import org.tasks.filters.GtasksFilter
 import org.tasks.filters.TagFilter
 import dagger.hilt.android.AndroidEntryPoint

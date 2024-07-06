@@ -1,11 +1,9 @@
-package com.todoroo.astrid.api
+package org.tasks.filters
 
-import kotlinx.parcelize.Parcelize
-import org.tasks.filters.Filter
-import org.tasks.filters.FilterListItem
+import org.tasks.CommonParcelize
 import org.tasks.themes.TasksIcons
 
-@Parcelize
+@CommonParcelize
 data class CustomFilter(
     val filter: org.tasks.data.entity.Filter,
 ) : Filter {

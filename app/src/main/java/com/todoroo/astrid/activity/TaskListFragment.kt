@@ -61,7 +61,7 @@ import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
-import com.todoroo.astrid.api.CustomFilter
+import org.tasks.filters.CustomFilter
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.service.TaskCompleter

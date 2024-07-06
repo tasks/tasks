@@ -22,7 +22,7 @@ import org.tasks.data.sql.UnaryCriterion
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.BooleanCriterion
-import com.todoroo.astrid.api.CustomFilter
+import org.tasks.filters.CustomFilter
 import com.todoroo.astrid.api.CustomFilterCriterion
 import com.todoroo.astrid.api.MultipleSelectCriterion
 import com.todoroo.astrid.api.PermaSql

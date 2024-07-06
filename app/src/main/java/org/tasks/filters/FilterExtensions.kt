@@ -1,6 +1,5 @@
 package org.tasks.filters
 
-import com.todoroo.astrid.api.CustomFilter
 import org.tasks.billing.Inventory
 import org.tasks.themes.TasksIcons
 

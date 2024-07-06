@@ -1,7 +1,6 @@
 package org.tasks.filters
 
 import android.content.Context
-import com.todoroo.astrid.api.CustomFilter
 import com.todoroo.astrid.core.BuiltInFilterExposer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig

@@ -1,6 +1,6 @@
 package org.tasks.preferences
 
-import com.todoroo.astrid.api.CustomFilter
+import org.tasks.filters.CustomFilter
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
