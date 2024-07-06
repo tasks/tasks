@@ -381,7 +381,7 @@
     <string name="about">Про Tasks</string>
     <string name="license_summary">Tasks — це програмне забезпечення з відкритим кодом, ліцензоване GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Розширення Dashclock</string>
-    <string name="requires_pro_subscription">Потребує преміум підписки</string>
+    <string name="requires_pro_subscription">Потребує передплати pro</string>
     <string name="logout">Вийти</string>
     <string name="logout_warning">Всі дані цього облікового запису буде видалено з пристрою</string>
     <string name="cannot_access_account">Немає доступу до облікового запису</string>
@@ -752,4 +752,19 @@
     <string name="change_priority">Змінити пріоритет</string>
     <string name="clear_completed_tasks_count">%s буде видалено</string>
     <string name="theme_dynamic">Динамічна</string>
+    <string name="donate_today">Підтримати сьогодні</string>
+    <string name="show_edit_screen_without_unlock">Показувати екран редагування без розблокування</string>
+    <string name="donate_nag">Розгляньте можливість підтримати нас внеском!</string>
+    <string name="donate_maybe_later">Можливо пізніше</string>
+    <string name="customize_drawer">Змінити панель</string>
+    <string name="customize_drawer_summary">Перетягніть елементи меню, щоб перевпорядкувати їх</string>
+    <string name="swipe_to_snooze_title">Посуньте, щоб відкласти</string>
+    <string name="swipe_to_snooze_description">Час відкладання</string>
+    <string name="swipe_to_snooze_time_description">Очищене сповіщення буде відкладено і відтворено %s</string>
+    <string name="swipe_to_snooze_time_immediately">негайно</string>
+    <string name="swipe_to_snooze_time_15_minutes">за 15 хвилин</string>
+    <string name="swipe_to_snooze_time_30_minutes">за 30 хвилин</string>
+    <string name="swipe_to_snooze_time_1_hour">за 1 годину</string>
+    <string name="swipe_to_snooze_time_24_hours">за 24 години</string>
+    <string name="show_edit_screen_without_unlock_summary">Дозволяє використовувати плитку швидких налаштувань без розблокування пристрою</string>
 </resources>
