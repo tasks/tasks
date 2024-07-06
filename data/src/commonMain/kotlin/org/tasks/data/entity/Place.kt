@@ -12,6 +12,8 @@ import org.tasks.CommonParcelize
 import org.tasks.data.NO_ORDER
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Table
+import org.tasks.formatCoordinates
+import java.util.regex.Pattern
 
 @Serializable
 @CommonParcelize
@@ -52,7 +54,20 @@ data class Place(
     val displayAddress: String?
         get() = if (address.isNullOrEmpty()) null else address.replace("$name, ", "")
 
+    val displayName: String
+        get() {
+            if (!name.isNullOrEmpty() && !COORDS.matcher(name).matches()) {
+                return name
+            }
+            return if (!address.isNullOrEmpty()) {
+                address
+            } else {
+                "${formatCoordinates(latitude, true)} ${formatCoordinates(longitude, false)}"
+            }
+        }
+
     companion object {
+        private val COORDS = Pattern.compile("^\\d+°\\d+'\\d+\\.\\d+\"[NS] \\d+°\\d+'\\d+\\.\\d+\"[EW]$")
         const val KEY = "place"
         const val TABLE_NAME = "places"
         @JvmField val TABLE = Table(TABLE_NAME)

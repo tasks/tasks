@@ -101,6 +101,7 @@ import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.Tag
 import org.tasks.data.entity.Task
 import org.tasks.data.listSettingsClass
+import org.tasks.data.open
 import org.tasks.data.sql.Join
 import org.tasks.data.sql.QueryTemplate
 import org.tasks.data.withTransaction
@@ -601,7 +602,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 true
             }
             R.id.menu_open_map -> {
-                (filter as PlaceFilter).openMap(context)
+                (filter as PlaceFilter).place.open(context)
                 true
             }
             R.id.menu_share -> {

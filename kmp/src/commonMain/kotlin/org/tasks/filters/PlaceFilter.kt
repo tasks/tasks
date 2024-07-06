@@ -1,21 +1,18 @@
 package org.tasks.filters
 
-import android.content.Context
-import kotlinx.parcelize.Parcelize
+import org.tasks.CommonParcelize
 import org.tasks.data.NO_COUNT
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
-import org.tasks.data.displayName
 import org.tasks.data.entity.Geofence
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
-import org.tasks.data.open
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Field.Companion.field
 import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.QueryTemplate
 import org.tasks.themes.TasksIcons
 
-@Parcelize
+@CommonParcelize
 data class PlaceFilter(
     val place: Place,
     override val count: Int = NO_COUNT,
@@ -37,6 +34,7 @@ data class PlaceFilter(
 
     override val title: String
         get() = place.displayName
+
     override val tint: Int
         get() = place.color
 
@@ -45,10 +43,6 @@ data class PlaceFilter(
 
     override fun areItemsTheSame(other: FilterListItem): Boolean {
         return other is PlaceFilter && place.id == other.place.id
-    }
-
-    fun openMap(context: Context?) {
-        place.open(context)
     }
 
     companion object {

@@ -16,15 +16,14 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mikepenz.iconics.IconicsDrawable;
-import org.tasks.icons.OutlinedGoogleMaterial;
 
 import org.tasks.R;
 import org.tasks.billing.Inventory;
-import org.tasks.data.PlaceExtensionsKt;
 import org.tasks.data.PlaceUsage;
 import org.tasks.data.entity.Place;
 import org.tasks.filters.FilterExtensionsKt;
 import org.tasks.filters.PlaceFilter;
+import org.tasks.icons.OutlinedGoogleMaterial;
 import org.tasks.location.LocationPickerAdapter.PlaceViewHolder;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.ThemeColor;
@@ -108,7 +107,7 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
 
     void bind(PlaceUsage placeUsage, int color, String icon) {
       place = placeUsage.place;
-      String name = PlaceExtensionsKt.getDisplayName(place);
+      String name = place.getDisplayName();
       String address = place.getDisplayAddress();
       Drawable drawable = new IconicsDrawable(
               context,
