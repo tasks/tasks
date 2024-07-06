@@ -9,4 +9,7 @@
     <string name="filter_today">Сьогодні</string>
     <string name="filter_recently_modified">Недавно змінені</string>
     <string name="default_list">Типовий список</string>
+    <string name="search_no_results">Не знайдено</string>
+    <string name="subscription_required_description">Розблокуйте всі функції всього за 1 долар США на рік</string>
+    <string name="requires_pro_subscription">Функція Pro</string>
 </resources>
