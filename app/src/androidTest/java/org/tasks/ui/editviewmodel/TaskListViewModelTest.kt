@@ -1,7 +1,5 @@
 package org.tasks.ui.editviewmodel
 
-import com.todoroo.astrid.core.BuiltInFilterExposer
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -15,6 +13,8 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.Task
+import org.tasks.filters.MyTasksFilter
 import org.tasks.injection.InjectingTestCase
 import org.tasks.injection.ProductionModule
 import org.tasks.preferences.Preferences
@@ -47,7 +47,7 @@ class TaskListViewModelTest : InjectingTestCase() {
             inventory = inventory,
             firebase = firebase,
         )
-        viewModel.setFilter(BuiltInFilterExposer.getMyTasksFilter(context.resources))
+        viewModel.setFilter(runBlocking { MyTasksFilter.create() })
     }
 
     @Test
