@@ -8,4 +8,9 @@
     <string name="filter_today">இன்று</string>
     <string name="filter_recently_modified">சமீபத்தில் மாற்றியவை</string>
     <string name="default_list">இயல்புநிலை பட்டியல்</string>
+    <string name="help_and_feedback">உதவி &amp; கருத்து</string>
+    <string name="settings">அமைப்புகள்</string>
+    <string name="drawer_filters">வடிப்பான்கள்</string>
+    <string name="drawer_tags">குறிச்சொற்கள்</string>
+    <string name="drawer_places">இடங்கள்</string>
 </resources>

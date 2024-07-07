@@ -8,4 +8,10 @@
     <string name="filter_timer">งานที่กําลังกําหนดเวลาอยู่</string>
     <string name="filter_recently_modified">เพิ่งถูกแก้ไข</string>
     <string name="default_list">รายการเริ่มต้น</string>
+    <string name="help_and_feedback">ความช่วยเหลือและคําติชม</string>
+    <string name="settings">การตั้งค่า</string>
+    <string name="drawer_filters">ตัวกรอง</string>
+    <string name="drawer_tags">แท็ก</string>
+    <string name="drawer_places">สถานที่</string>
+    <string name="drawer_local_lists">รายการท้องถิ่น</string>
 </resources>

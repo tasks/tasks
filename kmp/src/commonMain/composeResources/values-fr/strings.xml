@@ -12,4 +12,10 @@
     <string name="filter_timer">Tâches minutées</string>
     <string name="filter_today">Aujourd\'hui</string>
     <string name="default_list">Liste par défaut</string>
+    <string name="help_and_feedback">Aide et remarques</string>
+    <string name="settings">Paramètres</string>
+    <string name="drawer_filters">Filtres</string>
+    <string name="drawer_tags">Étiquettes</string>
+    <string name="drawer_places">Lieux</string>
+    <string name="drawer_local_lists">Listes locales</string>
 </resources>

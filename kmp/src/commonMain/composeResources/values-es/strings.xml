@@ -12,4 +12,10 @@
     <string name="filter_today">Hoy</string>
     <string name="filter_recently_modified">Recién modificadas</string>
     <string name="default_list">Lista predeterminada</string>
+    <string name="help_and_feedback">Ayuda y retroalimentación</string>
+    <string name="settings">Configuraciones</string>
+    <string name="drawer_filters">Filtros</string>
+    <string name="drawer_tags">Etiquetas</string>
+    <string name="drawer_places">Lugares</string>
+    <string name="drawer_local_lists">Listas locales</string>
 </resources>

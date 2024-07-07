@@ -9,4 +9,10 @@
     <string name="filter_today">Danas</string>
     <string name="filter_recently_modified">Nedavno promijenjeni</string>
     <string name="default_list">Standardni popis</string>
+    <string name="help_and_feedback">Pomoć i povratne informacije</string>
+    <string name="settings">Postavke</string>
+    <string name="drawer_filters">Filtri</string>
+    <string name="drawer_tags">Oznake</string>
+    <string name="drawer_places">Mjesta</string>
+    <string name="drawer_local_lists">Popisi na uređaju</string>
 </resources>

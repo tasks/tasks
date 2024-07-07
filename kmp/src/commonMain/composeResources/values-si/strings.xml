@@ -8,4 +8,10 @@
     <string name="filter_today">අද</string>
     <string name="filter_recently_modified">මෑතකදී වෙනස් කරන ලදි</string>
     <string name="default_list">පෙරනිමි ලැයිස්තුව</string>
+    <string name="help_and_feedback">උදව් සහ ප්‍රතිපෝෂණ</string>
+    <string name="settings">සැකසුම්</string>
+    <string name="drawer_filters">පෙරහන්</string>
+    <string name="drawer_tags">ටැග්</string>
+    <string name="drawer_places">ස්ථාන</string>
+    <string name="drawer_local_lists">පවත්නා ලැයිස්තු</string>
 </resources>

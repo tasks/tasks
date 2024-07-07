@@ -9,4 +9,10 @@
     <string name="filter_today">Hôm nay</string>
     <string name="filter_recently_modified">Sửa đổi gần đây</string>
     <string name="default_list">Danh sách mặc định</string>
+    <string name="help_and_feedback">Trợ giúp &amp; phản hồi</string>
+    <string name="settings">Cài đặt</string>
+    <string name="drawer_filters">Bộ lọc</string>
+    <string name="drawer_tags">Thẻ</string>
+    <string name="drawer_places">Địa điểm</string>
+    <string name="drawer_local_lists">Danh sách cục bộ</string>
 </resources>

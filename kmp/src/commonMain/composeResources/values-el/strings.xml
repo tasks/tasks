@@ -3,4 +3,5 @@
     <string name="search">Αναζήτηση</string>
     <string name="filter_timer">Καθήκοντα με χρονικό όριο</string>
     <string name="filter_today">Σήμερα</string>
+    <string name="settings">Ρυθμίσεις</string>
 </resources>

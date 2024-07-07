@@ -9,4 +9,10 @@
     <string name="filter_today">Vandaag</string>
     <string name="filter_recently_modified">Onlangs aangepast</string>
     <string name="default_list">Standaardlijst</string>
+    <string name="help_and_feedback">Hulp &amp; feedback</string>
+    <string name="settings">Instellingen</string>
+    <string name="drawer_filters">Filters</string>
+    <string name="drawer_tags">Labels</string>
+    <string name="drawer_places">Locaties</string>
+    <string name="drawer_local_lists">Lokale lijsten</string>
 </resources>

@@ -9,4 +9,10 @@
     <string name="filter_today">Сегодня</string>
     <string name="filter_recently_modified">Недавно изменённые</string>
     <string name="default_list">Список по умолчанию</string>
+    <string name="drawer_local_lists">Локальные списки</string>
+    <string name="help_and_feedback">Помощь и обратная связь</string>
+    <string name="settings">Настройки</string>
+    <string name="drawer_filters">Фильтры</string>
+    <string name="drawer_tags">Теги</string>
+    <string name="drawer_places">Места</string>
 </resources>

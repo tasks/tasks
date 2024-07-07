@@ -9,4 +9,10 @@
     <string name="filter_today">Tänään</string>
     <string name="filter_recently_modified">Äskettäin muokattu</string>
     <string name="default_list">Oletuslista</string>
+    <string name="help_and_feedback">Apu &amp; palaute</string>
+    <string name="settings">Asetukset</string>
+    <string name="drawer_filters">Suodattimet</string>
+    <string name="drawer_tags">Tunnisteet</string>
+    <string name="drawer_places">Paikat</string>
+    <string name="drawer_local_lists">Paikalliset luettelot</string>
 </resources>

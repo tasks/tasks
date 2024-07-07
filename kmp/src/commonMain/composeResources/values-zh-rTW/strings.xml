@@ -12,4 +12,10 @@
     <string name="filter_today">今天</string>
     <string name="filter_recently_modified">最近修改過</string>
     <string name="default_list">預設清單</string>
+    <string name="help_and_feedback">幫助與回饋</string>
+    <string name="settings">設定</string>
+    <string name="drawer_filters">過濾</string>
+    <string name="drawer_tags">標籤</string>
+    <string name="drawer_places">地點</string>
+    <string name="drawer_local_lists">本機清單</string>
 </resources>

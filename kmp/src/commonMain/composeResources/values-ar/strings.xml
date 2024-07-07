@@ -8,4 +8,10 @@
     <string name="filter_today">اليوم</string>
     <string name="filter_recently_modified">ما تم تعديله مؤخرًا</string>
     <string name="default_list">القائمة الافتراضية</string>
+    <string name="help_and_feedback">مساعدة وتبليغات</string>
+    <string name="settings">إعدادات</string>
+    <string name="drawer_filters">تصفيات</string>
+    <string name="drawer_tags">علامات</string>
+    <string name="drawer_places">الأماكن</string>
+    <string name="drawer_local_lists">القوائم المحلية</string>
 </resources>

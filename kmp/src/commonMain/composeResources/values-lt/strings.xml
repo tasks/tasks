@@ -9,4 +9,10 @@
     <string name="filter_today">Šiandien</string>
     <string name="filter_recently_modified">Neseniai redaguotos</string>
     <string name="default_list">Numatytas sąrašas</string>
+    <string name="help_and_feedback">Pagalba ir atsiliepimai</string>
+    <string name="settings">Nustatymai</string>
+    <string name="drawer_filters">Filtrai</string>
+    <string name="drawer_tags">Etiketė</string>
+    <string name="drawer_places">Vietos</string>
+    <string name="drawer_local_lists">Vietiniai sąrašai</string>
 </resources>

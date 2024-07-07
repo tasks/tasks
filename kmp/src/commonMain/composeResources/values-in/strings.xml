@@ -9,4 +9,10 @@
     <string name="filter_timer">Tugas yang Dicatat Waktu</string>
     <string name="filter_today">Hari ini</string>
     <string name="default_list">Daftar bawaan</string>
+    <string name="help_and_feedback">Bantuan &amp; umpanbalik</string>
+    <string name="settings">Pengaturan</string>
+    <string name="drawer_filters">Filter</string>
+    <string name="drawer_tags">Tag</string>
+    <string name="drawer_places">Tempat</string>
+    <string name="drawer_local_lists">Daftar lokal</string>
 </resources>

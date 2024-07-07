@@ -9,4 +9,10 @@
     <string name="filter_today">I dag</string>
     <string name="filter_recently_modified">Nylig endret</string>
     <string name="default_list">Forvalgt liste</string>
+    <string name="help_and_feedback">Hjelp og tilbakemelding</string>
+    <string name="settings">Innstillinger</string>
+    <string name="drawer_filters">Filtre</string>
+    <string name="drawer_tags">Etiketter</string>
+    <string name="drawer_places">Steder</string>
+    <string name="drawer_local_lists">Lokale lister</string>
 </resources>

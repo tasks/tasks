@@ -9,4 +9,10 @@
     <string name="filter_today">Dnes</string>
     <string name="filter_recently_modified">Nedávno upravené</string>
     <string name="default_list">Výchozí seznam</string>
+    <string name="help_and_feedback">Nápověda a zpětná vazba</string>
+    <string name="settings">Nastavení</string>
+    <string name="drawer_filters">Filtry</string>
+    <string name="drawer_tags">Štítky</string>
+    <string name="drawer_places">Místa</string>
+    <string name="drawer_local_lists">Seznamy jen na tomto zařízení</string>
 </resources>

@@ -3,4 +3,6 @@
     <string name="search">Cercar</string>
     <string name="filter_notifications">Notificationes</string>
     <string name="filter_today">Hodie</string>
+    <string name="help_and_feedback">Adjuta e commentarios</string>
+    <string name="settings">Parametros</string>
 </resources>

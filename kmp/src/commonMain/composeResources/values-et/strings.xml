@@ -7,4 +7,7 @@
     <string name="filter_today">Täna</string>
     <string name="filter_recently_modified">Hiljuti muudetud</string>
     <string name="default_list">Vaikimisi nimekiri</string>
+    <string name="settings">Seaded</string>
+    <string name="drawer_filters">Filtrid</string>
+    <string name="drawer_tags">Sildid</string>
 </resources>

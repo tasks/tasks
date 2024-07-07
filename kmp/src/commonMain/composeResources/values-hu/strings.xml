@@ -9,4 +9,10 @@
     <string name="filter_today">Ma</string>
     <string name="filter_recently_modified">Nemrég módosítva</string>
     <string name="default_list">Alapértelmezett lista</string>
+    <string name="help_and_feedback">Segítség és visszajelzés</string>
+    <string name="settings">Beállítások</string>
+    <string name="drawer_filters">Szűrők</string>
+    <string name="drawer_tags">Címkék</string>
+    <string name="drawer_places">Helyek</string>
+    <string name="drawer_local_lists">Helyi listák</string>
 </resources>

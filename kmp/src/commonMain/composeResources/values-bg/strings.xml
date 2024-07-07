@@ -12,4 +12,10 @@
     <string name="filter_today">Днес</string>
     <string name="filter_recently_modified">Последно променени</string>
     <string name="default_list">Списък по подразбиране</string>
+    <string name="help_and_feedback">Помощ и обратна връзка</string>
+    <string name="settings">Настройки</string>
+    <string name="drawer_filters">Филтри</string>
+    <string name="drawer_tags">Етикети</string>
+    <string name="drawer_places">Места</string>
+    <string name="drawer_local_lists">Местни списъци</string>
 </resources>

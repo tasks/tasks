@@ -9,4 +9,10 @@
     <string name="filter_today">오늘</string>
     <string name="filter_recently_modified">최근에 변경한 할일</string>
     <string name="default_list">기본 목록</string>
+    <string name="help_and_feedback">도움말 및 피드백</string>
+    <string name="settings">설정</string>
+    <string name="drawer_filters">필터</string>
+    <string name="drawer_tags">태그</string>
+    <string name="drawer_places">장소</string>
+    <string name="drawer_local_lists">로컬 목록</string>
 </resources>

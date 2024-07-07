@@ -9,4 +9,10 @@
     <string name="filter_today">Gaur</string>
     <string name="filter_recently_modified">Aldatutako azkenak</string>
     <string name="default_list">Zerrenda nagusia</string>
+    <string name="help_and_feedback">Feedback eta laguntza</string>
+    <string name="settings">Ezarpenak</string>
+    <string name="drawer_filters">Iragazkiak</string>
+    <string name="drawer_tags">Etiketak</string>
+    <string name="drawer_places">Tokiak</string>
+    <string name="drawer_local_lists">Zerrenda lokalak</string>
 </resources>

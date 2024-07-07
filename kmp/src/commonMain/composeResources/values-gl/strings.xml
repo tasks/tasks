@@ -9,4 +9,10 @@
     <string name="filter_today">Hoxe</string>
     <string name="filter_recently_modified">Modificadas recentemente</string>
     <string name="default_list">Lista por defecto</string>
+    <string name="help_and_feedback">Axuda e soporte</string>
+    <string name="settings">Configuracións</string>
+    <string name="drawer_filters">Filtros</string>
+    <string name="drawer_tags">Etiquetas</string>
+    <string name="drawer_places">Lugares</string>
+    <string name="drawer_local_lists">Listas locais</string>
 </resources>

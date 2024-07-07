@@ -7,4 +7,7 @@
     <string name="filter_today">امروز</string>
     <string name="filter_recently_modified">اخیرا ویرایش شده</string>
     <string name="default_list">لیست پیش فرض</string>
+    <string name="settings">تنظیمات</string>
+    <string name="drawer_filters">فیلترها</string>
+    <string name="drawer_tags">برچسب ها</string>
 </resources>

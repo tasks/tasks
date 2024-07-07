@@ -8,4 +8,7 @@
     <string name="filter_today">Dnes</string>
     <string name="filter_recently_modified">Naposledy upravené</string>
     <string name="default_list">Predvolený zoznam</string>
+    <string name="settings">Nastavenia</string>
+    <string name="drawer_filters">Filtre</string>
+    <string name="drawer_tags">Štítky</string>
 </resources>

@@ -9,4 +9,10 @@
     <string name="filter_today">Azi</string>
     <string name="filter_recently_modified">Modificat recent</string>
     <string name="default_list">Listă implicită</string>
+    <string name="help_and_feedback">Ajutor și reacții</string>
+    <string name="settings">Setări</string>
+    <string name="drawer_filters">Filtre</string>
+    <string name="drawer_tags">Etichete</string>
+    <string name="drawer_places">Locuri</string>
+    <string name="drawer_local_lists">Liste locale</string>
 </resources>

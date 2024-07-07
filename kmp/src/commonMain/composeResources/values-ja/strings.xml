@@ -9,4 +9,10 @@
     <string name="filter_today">今日</string>
     <string name="filter_recently_modified">最近変更したタスク</string>
     <string name="default_list">デフォルトリスト</string>
+    <string name="help_and_feedback">ヘルプとフィードバック</string>
+    <string name="settings">設定</string>
+    <string name="drawer_filters">フィルター</string>
+    <string name="drawer_tags">タグ</string>
+    <string name="drawer_places">場所</string>
+    <string name="drawer_local_lists">ローカルリスト</string>
 </resources>

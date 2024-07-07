@@ -9,4 +9,10 @@
     <string name="filter_today">Hoje</string>
     <string name="filter_recently_modified">Alteradas recentemente</string>
     <string name="default_list">Lista predefinida</string>
+    <string name="help_and_feedback">Ajuda e comentários</string>
+    <string name="settings">Definições</string>
+    <string name="drawer_filters">Filtros</string>
+    <string name="drawer_tags">Etiquetas</string>
+    <string name="drawer_places">Locais</string>
+    <string name="drawer_local_lists">Listas locais</string>
 </resources>

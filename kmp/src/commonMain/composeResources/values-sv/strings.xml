@@ -9,4 +9,10 @@
     <string name="filter_today">Idag</string>
     <string name="filter_recently_modified">Nyligen ändrade</string>
     <string name="default_list">Standardlista</string>
+    <string name="drawer_tags">Etiketter</string>
+    <string name="drawer_places">Platser</string>
+    <string name="help_and_feedback">Hjälp &amp; återkoppling</string>
+    <string name="settings">Inställningar</string>
+    <string name="drawer_filters">Filter</string>
+    <string name="drawer_local_lists">Lokala listor</string>
 </resources>

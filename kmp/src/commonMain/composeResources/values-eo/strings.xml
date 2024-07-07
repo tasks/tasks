@@ -9,4 +9,10 @@
     <string name="filter_today">Hodiaŭ</string>
     <string name="filter_recently_modified">Lastatempe ŝanĝitaj</string>
     <string name="default_list">Defaŭlta listo</string>
+    <string name="help_and_feedback">Helpo k pritakso</string>
+    <string name="settings">Agordoj</string>
+    <string name="drawer_filters">Filtriloj</string>
+    <string name="drawer_tags">Etikedoj</string>
+    <string name="drawer_places">Lokoj</string>
+    <string name="drawer_local_lists">Lokaj listoj</string>
 </resources>

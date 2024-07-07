@@ -2,4 +2,7 @@
 <resources>
     <string name="search">ସନ୍ଧାନ</string>
     <string name="filter_today">ଆଜି</string>
+    <string name="help_and_feedback">ସାହାଯ୍ୟ ଓ ମତାମତ</string>
+    <string name="settings">ସେଟିଂ</string>
+    <string name="drawer_filters">ଶୋଧକ</string>
 </resources>

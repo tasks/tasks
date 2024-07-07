@@ -12,4 +12,10 @@
     <string name="filter_today">Bugün</string>
     <string name="filter_recently_modified">Yakında değiştirilenler</string>
     <string name="default_list">Öntanımlı liste</string>
+    <string name="help_and_feedback">Yardım ve geri bildirim</string>
+    <string name="drawer_filters">Süzgeçler</string>
+    <string name="drawer_tags">Etiketler</string>
+    <string name="settings">Ayarlar</string>
+    <string name="drawer_places">Yerler</string>
+    <string name="drawer_local_lists">Yerel listeler</string>
 </resources>

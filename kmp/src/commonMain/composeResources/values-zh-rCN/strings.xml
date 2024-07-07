@@ -12,4 +12,10 @@
     <string name="filter_today">今天</string>
     <string name="filter_recently_modified">最近修改过的</string>
     <string name="default_list">默认列表</string>
+    <string name="drawer_local_lists">本地列表</string>
+    <string name="help_and_feedback">帮助&amp;反馈</string>
+    <string name="settings">设置</string>
+    <string name="drawer_filters">过滤器</string>
+    <string name="drawer_tags">标签</string>
+    <string name="drawer_places">地点</string>
 </resources>
