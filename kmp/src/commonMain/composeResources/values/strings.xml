@@ -12,4 +12,6 @@
     <string name="filter_today">Today</string>
     <string name="filter_recently_modified">Recently modified</string>
     <string name="default_list">Default list</string>
+    <string name="help_and_feedback">Help &amp; feedback</string>
+    <string name="settings">Settings</string>
 </resources>

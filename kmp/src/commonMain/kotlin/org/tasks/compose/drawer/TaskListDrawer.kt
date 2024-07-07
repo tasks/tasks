@@ -1,6 +1,5 @@
 package org.tasks.compose.drawer
 
-import android.content.res.Configuration
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -52,21 +51,18 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
-import org.tasks.R
+import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.components.Chevron
 import org.tasks.compose.components.SearchBar
 import org.tasks.compose.components.imageVectorByName
-import org.tasks.extensions.formatNumber
-import org.tasks.filters.FilterImpl
-import org.tasks.filters.NavigationDrawerSubheader
-import org.tasks.themes.TasksIcons
-import org.tasks.themes.TasksTheme
+import org.tasks.kmp.formatNumber
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.help_and_feedback
+import tasks.kmp.generated.resources.search
+import tasks.kmp.generated.resources.settings
+import tasks.kmp.generated.resources.subscribe
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -112,7 +108,7 @@ fun TaskListDrawer(
                         ),
                     text = query,
                     onTextChange = { onQueryChange(it) },
-                    placeHolder = stringResource(id = R.string.TLA_menu_search),
+                    placeHolder = stringResource(Res.string.search),
                     onCloseClicked = { onQueryChange("") },
                     onSearchClicked = {
                         // TODO: close keyboard
@@ -123,7 +119,7 @@ fun TaskListDrawer(
                         IconButton(onClick = { onDrawerAction(DrawerAction.PURCHASE) }) {
                             Icon(
                                 imageVector = Icons.Outlined.AttachMoney,
-                                contentDescription = stringResource(id = R.string.button_subscribe),
+                                contentDescription = stringResource(Res.string.subscribe),
                                 tint = MaterialTheme.colorScheme.onSurface,
                             )
                         }
@@ -131,14 +127,14 @@ fun TaskListDrawer(
                     IconButton(onClick = { onDrawerAction(DrawerAction.HELP_AND_FEEDBACK) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
-                            contentDescription = stringResource(id = R.string.help_and_feedback),
+                            contentDescription = stringResource(Res.string.help_and_feedback),
                             tint = MaterialTheme.colorScheme.onSurface,
                         )
                     }
                     IconButton(onClick = { onDrawerAction(DrawerAction.SETTINGS) }) {
                         Icon(
                             imageVector = Icons.Outlined.Settings,
-                            contentDescription = stringResource(id = R.string.TLA_menu_settings),
+                            contentDescription = stringResource(Res.string.settings),
                             tint = MaterialTheme.colorScheme.onSurface,
                         )
                     }
@@ -220,9 +216,8 @@ internal fun FilterItem(
             contentAlignment = Alignment.CenterEnd,
         ) {
             if (item.count > 0) {
-                val locale = LocalConfiguration.current.locales[0]
                 Text(
-                    text = locale.formatNumber(item.count),
+                    text = formatNumber(item.count),
                     color = MaterialTheme.colorScheme.onSurface,
                 )
             }
@@ -306,41 +301,4 @@ private fun MenuRow(
         verticalAlignment = Alignment.CenterVertically,
         content = content
     )
-}
-
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun MenuPreview() {
-    TasksTheme {
-        TaskListDrawer(
-            begForMoney = true,
-            filters = persistentListOf(
-                DrawerItem.Filter(
-                    title = "My Tasks",
-                    icon = TasksIcons.ALL_INBOX,
-                    filter = FilterImpl(),
-                ),
-                DrawerItem.Header(
-                    title = "Filters",
-                    collapsed = false,
-                    canAdd = true,
-                    hasError = false,
-                    header = NavigationDrawerSubheader(
-                        null,
-                        false,
-                        false,
-                        NavigationDrawerSubheader.SubheaderType.PREFERENCE,
-                        0L,
-                    ),
-                )
-            ),
-            onClick = {},
-            onDrawerAction = {},
-            onAddClick = {},
-            onErrorClick = {},
-            query = "",
-            onQueryChange = {},
-        )
-    }
 }
