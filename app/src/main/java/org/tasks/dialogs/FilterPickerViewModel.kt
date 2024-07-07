@@ -81,8 +81,7 @@ class FilterPickerViewModel @Inject constructor(
                 preferences.setBoolean(subheader.id.toInt(), collapsed)
             NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS,
             NavigationDrawerSubheader.SubheaderType.CALDAV,
-            NavigationDrawerSubheader.SubheaderType.TASKS,
-            NavigationDrawerSubheader.SubheaderType.ETESYNC ->
+            NavigationDrawerSubheader.SubheaderType.TASKS ->
                 caldavDao.setCollapsed(subheader.id, collapsed)
 
             else -> throw IllegalStateException()

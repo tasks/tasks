@@ -14,7 +14,6 @@ import org.tasks.data.OpenTaskDao.Companion.isEteSync
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.etebase.EtebaseAccountSettingsActivity
 import org.tasks.etebase.EtebaseCalendarSettingsActivity
-import org.tasks.etesync.EteSyncAccountSettingsActivity
 import org.tasks.opentasks.OpenTaskAccountSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.security.KeyStoreEncryption
@@ -25,7 +24,6 @@ val CaldavAccount.prefTitle: Int
         isTasksOrg -> R.string.tasks_org
         isCaldavAccount -> R.string.caldav
         isEtebaseAccount || uuid.isEteSync() -> R.string.etesync
-        isEteSyncAccount -> R.string.etesync_v1
         uuid.isDavx5() || uuid.isDavx5Managed() -> R.string.davx5
         uuid.isDecSync() -> R.string.decsync
         isMicrosoft -> R.string.microsoft
@@ -37,7 +35,7 @@ val CaldavAccount.prefIcon: Int
     get() = when {
         isTasksOrg -> R.drawable.ic_round_icon
         isCaldavAccount -> R.drawable.ic_webdav_logo
-        isEtebaseAccount || isEteSyncAccount || uuid.isEteSync() -> R.drawable.ic_etesync
+        isEtebaseAccount || uuid.isEteSync() -> R.drawable.ic_etesync
         uuid.isDavx5() -> R.drawable.ic_davx5_icon_green_bg
         uuid.isDavx5Managed() -> R.drawable.ic_davx5_icon_blue_bg
         uuid.isDecSync() -> R.drawable.ic_decsync
@@ -55,7 +53,7 @@ fun CaldavAccount.isTasksSubscription(context: Context): Boolean {
 
 fun CaldavAccount.listSettingsClass(): Class<out Activity> = when(accountType) {
     CaldavAccount.TYPE_LOCAL -> LocalListSettingsActivity::class.java
-    CaldavAccount.TYPE_ETESYNC, CaldavAccount.TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
+    CaldavAccount.TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
     CaldavAccount.TYPE_ETEBASE -> EtebaseCalendarSettingsActivity::class.java
     CaldavAccount.TYPE_MICROSOFT -> MicrosoftListSettingsActivity::class.java
     else -> CaldavCalendarSettingsActivity::class.java
@@ -64,7 +62,6 @@ fun CaldavAccount.listSettingsClass(): Class<out Activity> = when(accountType) {
 val CaldavAccount.accountSettingsClass: Class<out BaseCaldavAccountSettingsActivity>
     get() = when {
         isCaldavAccount -> CaldavAccountSettingsActivity::class.java
-        isEteSyncAccount -> EteSyncAccountSettingsActivity::class.java
         isEtebaseAccount -> EtebaseAccountSettingsActivity::class.java
         isOpenTasks -> OpenTaskAccountSettingsActivity::class.java
         else -> throw IllegalArgumentException("Unexpected account type: $this")

@@ -209,8 +209,7 @@ class MainActivity : AppCompatActivity() {
                                                     )
 
                                                 NavigationDrawerSubheader.SubheaderType.CALDAV,
-                                                NavigationDrawerSubheader.SubheaderType.TASKS,
-                                                NavigationDrawerSubheader.SubheaderType.ETESYNC ->
+                                                NavigationDrawerSubheader.SubheaderType.TASKS ->
                                                     startActivityForResult(
                                                         Intent(
                                                             this@MainActivity,

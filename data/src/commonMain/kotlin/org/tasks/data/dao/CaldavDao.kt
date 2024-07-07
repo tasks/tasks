@@ -14,7 +14,6 @@ import org.tasks.data.db.Database
 import org.tasks.data.db.DbUtils.dbchunk
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
@@ -231,7 +230,6 @@ SELECT EXISTS(SELECT 1
               FROM caldav_lists
                        INNER JOIN caldav_accounts ON cdl_account = cda_uuid
               WHERE cda_account_type != $TYPE_OPENTASKS
-                AND cda_account_type != $TYPE_ETESYNC
                 AND cdl_url IN (:urls))
     """)
     abstract suspend fun anyExist(urls: List<String>): Boolean

@@ -42,10 +42,6 @@ data class CaldavAccount(
     val isCaldavAccount: Boolean
         get() = accountType == TYPE_CALDAV
 
-    @Deprecated("use etebase")
-    val isEteSyncAccount: Boolean
-        get() = accountType == TYPE_ETESYNC
-
     val isEtebaseAccount: Boolean
         get() = accountType == TYPE_ETEBASE
 
@@ -87,7 +83,7 @@ data class CaldavAccount(
         val ACCOUNT_TYPE = TABLE.column("cda_account_type")
 
         const val TYPE_CALDAV = 0
-        @Deprecated("use etebase") const val TYPE_ETESYNC = 1
+//        const val TYPE_ETESYNC = 1
         const val TYPE_LOCAL = 2
         const val TYPE_OPENTASKS = 3
         const val TYPE_TASKS = 4

@@ -19,7 +19,5 @@ data class NavigationDrawerSubheader(
         GOOGLE_TASKS,
         CALDAV,
         TASKS,
-        @Deprecated("")
-        ETESYNC
     }
 }

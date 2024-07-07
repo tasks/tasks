@@ -198,8 +198,7 @@ class MainActivityViewModel @Inject constructor(
             }
             NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS,
             NavigationDrawerSubheader.SubheaderType.CALDAV,
-            NavigationDrawerSubheader.SubheaderType.TASKS,
-            NavigationDrawerSubheader.SubheaderType.ETESYNC -> {
+            NavigationDrawerSubheader.SubheaderType.TASKS -> {
                 caldavDao.setCollapsed(subheader.id, collapsed)
                 localBroadcastManager.broadcastRefreshList()
             }

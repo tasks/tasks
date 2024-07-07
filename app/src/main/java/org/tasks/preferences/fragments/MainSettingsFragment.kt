@@ -242,7 +242,7 @@ class MainSettingsFragment : InjectingPreferenceFragment() {
                 }
             }
         }
-        setupErrorIcon(pref, account.hasError, account.isEteSyncAccount)
+        setupErrorIcon(pref, account.hasError)
     }
 
     private fun setupErrorIcon(

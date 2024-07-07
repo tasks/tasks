@@ -15,7 +15,6 @@ import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETESYNC
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.setupLocalAccount
@@ -223,7 +222,7 @@ class FilterProvider @Inject constructor(
                     } else {
                         caldavFilter(
                             it,
-                            showCreate && it.accountType != TYPE_OPENTASKS && it.accountType != TYPE_ETESYNC,
+                            showCreate && it.accountType != TYPE_OPENTASKS,
                             forceExpand,
                         )
                     }
@@ -246,7 +245,6 @@ class FilterProvider @Inject constructor(
                 collapsed,
                 when {
                     account.isTasksOrg -> SubheaderType.TASKS
-                    account.isEteSyncAccount -> SubheaderType.ETESYNC
                     else -> SubheaderType.CALDAV
                 },
                 account.id,

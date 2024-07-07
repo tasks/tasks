@@ -18,7 +18,6 @@ import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_PLACE
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_TAGS
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.CALDAV
-import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.ETESYNC
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.PREFERENCE
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.TASKS
@@ -41,8 +40,7 @@ class SubheaderClickHandler @Inject constructor(
                 PREFERENCE -> preferences.setBoolean(subheader.id.toInt(), collapsed)
                 GOOGLE_TASKS,
                 CALDAV,
-                TASKS,
-                ETESYNC -> caldavDao.setCollapsed(subheader.id, collapsed)
+                TASKS -> caldavDao.setCollapsed(subheader.id, collapsed)
             }
             localBroadcastManager.broadcastRefreshList()
         }
@@ -80,8 +78,7 @@ class SubheaderClickHandler @Inject constructor(
                             )
 
                         NavigationDrawerSubheader.SubheaderType.CALDAV,
-                        NavigationDrawerSubheader.SubheaderType.TASKS,
-                        NavigationDrawerSubheader.SubheaderType.ETESYNC ->
+                        NavigationDrawerSubheader.SubheaderType.TASKS ->
                             activity.startActivityForResult(
                                 Intent(activity, account.listSettingsClass())
                                     .putExtra(

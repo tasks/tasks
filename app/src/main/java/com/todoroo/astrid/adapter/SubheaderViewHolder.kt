@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import org.tasks.R
 import org.tasks.databinding.FilterAdapterSubheaderBinding
 import org.tasks.filters.NavigationDrawerSubheader
-import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.ETESYNC
 
 internal class SubheaderViewHolder(
     itemView: View,
@@ -35,7 +34,7 @@ internal class SubheaderViewHolder(
         this.subheader = subheader
         text.text = subheader.title
         when {
-            subheader.error || subheader.subheaderType == ETESYNC ->
+            subheader.error ->
                 with(errorIcon) {
                 setColorFilter(ContextCompat.getColor(itemView.context, R.color.overdue))
                 visibility = View.VISIBLE
