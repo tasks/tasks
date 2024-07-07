@@ -950,6 +950,17 @@
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.21 -> 2.0.0 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.0.0 (*)
+++--- project :icons
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 (*)
++|    \--- com.mikepenz:iconics-core:5.5.0-b01
++|         +--- androidx.appcompat:appcompat:1.7.0 (*)
++|         +--- org.jetbrains.compose.runtime:runtime:1.6.10 -> 1.6.11 (*)
++|         +--- com.mikepenz:iconics-typeface-api:5.5.0-b01
++|         |    +--- org.jetbrains.compose.runtime:runtime:1.6.10 -> 1.6.11 (*)
++|         |    +--- androidx.core:core-ktx:1.10.1 -> 1.13.0 (*)
++|         |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0 (*)
++|         |    \--- androidx.startup:startup-runtime:1.1.1 (*)
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 (*)
 ++--- com.github.bitfireAT:dav4jvm:2.2.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20 -> 2.0.0 (*)
 +|    +--- org.apache.commons:commons-lang3:3.8.1 -> 3.12.0
@@ -1145,15 +1156,7 @@
 ++--- androidx.lifecycle:lifecycle-viewmodel:2.8.2 (*)
 ++--- androidx.room:room-runtime:2.7.0-alpha04 (*)
 ++--- androidx.appcompat:appcompat:1.7.0 (*)
-++--- com.mikepenz:iconics-core:5.5.0-b01
-+|    +--- androidx.appcompat:appcompat:1.7.0 (*)
-+|    +--- org.jetbrains.compose.runtime:runtime:1.6.10 -> 1.6.11 (*)
-+|    +--- com.mikepenz:iconics-typeface-api:5.5.0-b01
-+|    |    +--- org.jetbrains.compose.runtime:runtime:1.6.10 -> 1.6.11 (*)
-+|    |    +--- androidx.core:core-ktx:1.10.1 -> 1.13.0 (*)
-+|    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0 (*)
-+|    |    \--- androidx.startup:startup-runtime:1.1.1 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 (*)
+++--- com.mikepenz:iconics-core:5.5.0-b01 (*)
 ++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.8.0 (*)
 +|    \--- com.atlassian.commonmark:commonmark:0.13.0
