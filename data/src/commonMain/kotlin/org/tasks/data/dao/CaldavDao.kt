@@ -55,7 +55,7 @@ abstract class CaldavDao(private val database: Database) {
     abstract suspend fun getAccount(type: Int, username: String): CaldavAccount?
 
     @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
-    abstract suspend fun getAccount(id: Long): CaldavAccount?
+    abstract suspend fun getAccount(id: String): CaldavAccount?
 
     @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
     abstract fun watchAccount(id: Long): Flow<CaldavAccount?>
@@ -83,7 +83,7 @@ ORDER BY CASE cda_account_type
     abstract suspend fun getAccounts(): List<CaldavAccount>
 
     @Query("UPDATE caldav_accounts SET cda_collapsed = :collapsed WHERE cda_id = :id")
-    abstract suspend fun setCollapsed(id: Long, collapsed: Boolean)
+    abstract suspend fun setCollapsed(id: String, collapsed: Boolean)
 
     @Insert
     abstract suspend fun insert(caldavAccount: CaldavAccount): Long

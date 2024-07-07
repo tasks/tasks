@@ -26,7 +26,7 @@ fun FilterPickerPreview() {
                     false,
                     false,
                     NavigationDrawerSubheader.SubheaderType.PREFERENCE,
-                    0L,
+                    "",
                 ),
             ),
             query = "",

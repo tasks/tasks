@@ -1,10 +1,6 @@
 package org.tasks.filters
 
-import android.content.Context
-import com.todoroo.astrid.core.BuiltInFilterExposer
-import dagger.hilt.android.qualifiers.ApplicationContext
-import org.tasks.BuildConfig
-import org.tasks.R
+import org.jetbrains.compose.resources.getString
 import org.tasks.data.GoogleTaskFilters
 import org.tasks.data.LocationFilters
 import org.tasks.data.NO_ORDER
@@ -14,33 +10,43 @@ import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.setupLocalAccount
 import org.tasks.data.toGtasksFilter
+import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
+import org.tasks.kmp.IS_DEBUG
+import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.data.toLocationFilter
 import org.tasks.data.toTagFilter
-import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
-import org.tasks.preferences.Preferences
-import javax.inject.Inject
+import org.tasks.preferences.TasksPreferences
+import org.tasks.preferences.TasksPreferences.Companion.collapseDebug
+import org.tasks.preferences.TasksPreferences.Companion.collapseFilters
+import org.tasks.preferences.TasksPreferences.Companion.collapsePlaces
+import org.tasks.preferences.TasksPreferences.Companion.collapseTags
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.drawer_filters
+import tasks.kmp.generated.resources.drawer_local_lists
+import tasks.kmp.generated.resources.drawer_places
+import tasks.kmp.generated.resources.drawer_tags
 
-class FilterProvider @Inject constructor(
-    @param:ApplicationContext private val context: Context,
-    private val builtInFilterExposer: BuiltInFilterExposer,
+class FilterProvider(
     private val filterDao: FilterDao,
     private val tagDataDao: TagDataDao,
     private val googleTaskListDao: GoogleTaskListDao,
     private val caldavDao: CaldavDao,
-    private val preferences: Preferences,
-    private val locationDao: LocationDao
+    private val configuration: DrawerConfiguration,
+    private val locationDao: LocationDao,
+    private val taskDao: TaskDao,
+    private val tasksPreferences: TasksPreferences,
 ) {
     suspend fun listPickerItems(): List<FilterListItem> =
             caldavFilters(showCreate = false, forceExpand = false)
 
     suspend fun drawerItems(): List<FilterListItem> =
         getAllFilters(showCreate = true, hideUnused = true)
-
 
     suspend fun allLists(): List<Filter> =
         caldavFilters(showCreate = false, forceExpand = true)
@@ -56,27 +62,27 @@ class FilterProvider @Inject constructor(
     suspend fun drawerCustomizationItems(): List<FilterListItem> =
             getAllFilters(showBuiltIn = false, showCreate = true)
 
-    private fun getDebugFilters(): List<FilterListItem> =
-            if (BuildConfig.DEBUG) {
-                val collapsed = preferences.getBoolean(R.string.p_collapse_debug, false)
+    private suspend fun getDebugFilters(): List<FilterListItem> =
+            if (IS_DEBUG) {
+                val collapsed = tasksPreferences.get(collapseDebug, false)
                 listOf(
                     NavigationDrawerSubheader(
-                        context.getString(R.string.debug),
+                        "Debug",
                         false,
                         collapsed,
                         SubheaderType.PREFERENCE,
-                        R.string.p_collapse_debug.toLong(),
+                        collapseDebug.name,
                     )
                 )
                         .apply { if (collapsed) return this }
                         .plus(listOf(
-                                DebugFilters.getNoListFilter(),
-                                DebugFilters.getNoTitleFilter(),
-                                DebugFilters.getMissingListFilter(),
-                                DebugFilters.getMissingAccountFilter(),
-                                DebugFilters.getNoCreateDateFilter(),
-                                DebugFilters.getNoModificationDateFilter(),
-                                DebugFilters.getDeleted()
+                            DebugFilters.getNoListFilter(),
+                            DebugFilters.getNoTitleFilter(),
+                            DebugFilters.getMissingListFilter(),
+                            DebugFilters.getMissingAccountFilter(),
+                            DebugFilters.getNoCreateDateFilter(),
+                            DebugFilters.getNoModificationDateFilter(),
+                            DebugFilters.getDeleted()
                         ))
 
             } else {
@@ -88,23 +94,23 @@ class FilterProvider @Inject constructor(
         showBuiltIn: Boolean,
         forceExpand: Boolean,
     ): List<FilterListItem> =
-            if (!preferences.getBoolean(R.string.p_filters_enabled, true)) {
+            if (!configuration.filtersEnabled) {
                 emptyList()
             } else {
-                val collapsed = !forceExpand && preferences.getBoolean(R.string.p_collapse_filters, false)
+                val collapsed = !forceExpand && tasksPreferences.get(collapseFilters, false)
                 listOf(
                     NavigationDrawerSubheader(
-                        context.getString(R.string.filters),
+                        getString(Res.string.drawer_filters),
                         false,
                         collapsed,
                         SubheaderType.PREFERENCE,
-                        R.string.p_collapse_filters.toLong(),
+                        collapseFilters.name,
                         if (showCreate) REQUEST_NEW_FILTER else 0,
                     )
                 )
                         .apply { if (collapsed) return this }
                         .plusAllIf(showBuiltIn) {
-                            builtInFilterExposer.filters()
+                            builtInFilters()
                         }
                         .plus(filterDao.getFilters().map(::CustomFilter).sort())
             }
@@ -114,23 +120,23 @@ class FilterProvider @Inject constructor(
         hideUnused: Boolean,
         forceExpand: Boolean,
     ): List<FilterListItem> =
-            if (!preferences.getBoolean(R.string.p_tags_enabled, true)) {
+            if (!configuration.tagsEnabled) {
                 emptyList()
             } else {
-                val collapsed = !forceExpand && preferences.getBoolean(R.string.p_collapse_tags, false)
+                val collapsed = !forceExpand && tasksPreferences.get(collapseTags, false)
                 listOf(
                     NavigationDrawerSubheader(
-                        context.getString(R.string.tags),
+                        getString(Res.string.drawer_tags),
                         false,
                         collapsed,
                         SubheaderType.PREFERENCE,
-                        R.string.p_collapse_tags.toLong(),
+                        collapseTags.name,
                         if (showCreate) REQUEST_NEW_TAGS else 0,
                     )
                 )
                         .apply { if (collapsed) return this }
                         .plus(tagDataDao.getTagFilters()
-                                    .filterIf(hideUnused && preferences.getBoolean(R.string.p_tags_hide_unused, false)) {
+                                    .filterIf(hideUnused && configuration.hideUnusedTags) {
                                         it.count > 0
                                     }
                                     .map(TagFilters::toTagFilter)
@@ -142,23 +148,23 @@ class FilterProvider @Inject constructor(
         hideUnused: Boolean,
         forceExpand: Boolean,
     ): List<FilterListItem> =
-            if (!preferences.getBoolean(R.string.p_places_enabled, true)) {
+            if (!configuration.placesEnabled) {
                 emptyList()
             } else {
-                val collapsed = !forceExpand && preferences.getBoolean(R.string.p_collapse_locations, false)
+                val collapsed = !forceExpand && tasksPreferences.get(collapsePlaces, false)
                 listOf(
                     NavigationDrawerSubheader(
-                        context.getString(R.string.places),
+                        getString(Res.string.drawer_places),
                         false,
                         collapsed,
                         SubheaderType.PREFERENCE,
-                        R.string.p_collapse_locations.toLong(),
+                        collapsePlaces.name,
                         if (showCreate) REQUEST_NEW_PLACE else 0,
                     )
                 )
                         .apply { if (collapsed) return this }
                         .plus(locationDao.getPlaceFilters()
-                                    .filterIf(hideUnused && preferences.getBoolean(R.string.p_places_hide_unused, false)) {
+                                    .filterIf(hideUnused && configuration.hideUnusedPlaces) {
                                         it.count > 0
                                     }
                                     .map(LocationFilters::toLocationFilter)
@@ -182,7 +188,7 @@ class FilterProvider @Inject constructor(
                     .plus(addPlaces(showCreate, hideUnused, forceExpand))
                     .plus(caldavFilters(showCreate, forceExpand))
                     .toList()
-                    .plusAllIf(BuildConfig.DEBUG) { getDebugFilters() }
+                    .plusAllIf(IS_DEBUG) { getDebugFilters() }
 
     private suspend fun googleTaskFilter(
         account: CaldavAccount,
@@ -196,7 +202,7 @@ class FilterProvider @Inject constructor(
                 account.error?.isNotBlank() ?: false,
                 collapsed,
                 SubheaderType.GOOGLE_TASKS,
-                account.id,
+                account.id.toString(),
                 if (showCreate) REQUEST_NEW_LIST else 0,
             )
         )
@@ -215,7 +221,7 @@ class FilterProvider @Inject constructor(
     ): List<FilterListItem> =
             caldavDao.getAccounts()
                     .ifEmpty { listOf(caldavDao.setupLocalAccount()) }
-                    .filter { it.accountType != TYPE_LOCAL || preferences.getBoolean(R.string.p_lists_enabled, true) }
+                    .filter { it.accountType != TYPE_LOCAL || configuration.localListsEnabled }
                 .flatMap {
                     if (it.isGoogleTasks) {
                         googleTaskFilter(it, showCreate, forceExpand)
@@ -237,7 +243,7 @@ class FilterProvider @Inject constructor(
         return listOf(
             NavigationDrawerSubheader(
                 if (account.accountType == TYPE_LOCAL) {
-                    context.getString(R.string.local_lists)
+                    getString(Res.string.drawer_local_lists)
                 } else {
                     account.name
                 },
@@ -247,7 +253,7 @@ class FilterProvider @Inject constructor(
                     account.isTasksOrg -> SubheaderType.TASKS
                     else -> SubheaderType.CALDAV
                 },
-                account.id,
+                account.id.toString(),
                 if (showCreate) REQUEST_NEW_LIST else 0,
             )
         )
@@ -262,6 +268,26 @@ class FilterProvider @Inject constructor(
                     )
                 }
                 .sort())
+    }
+
+    private suspend fun builtInFilters(): List<Filter> {
+        val filters: MutableList<Filter> = ArrayList()
+        if (configuration.todayFilter) {
+            filters.add(TodayFilter.create())
+        }
+        if (configuration.recentlyModifiedFilter) {
+            filters.add(RecentlyModifiedFilter.create())
+        }
+        if (taskDao.snoozedReminders() > 0) {
+            filters.add(SnoozedFilter.create())
+        }
+        if (taskDao.activeTimers() > 0) {
+            filters.add(TimerFilter.create())
+        }
+        if (taskDao.hasNotifications() > 0) {
+            filters.add(NotificationsFilter.create())
+        }
+        return filters
     }
 
     companion object {

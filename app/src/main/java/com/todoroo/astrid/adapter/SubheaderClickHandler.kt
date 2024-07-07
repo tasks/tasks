@@ -3,6 +3,7 @@ package com.todoroo.astrid.adapter
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -21,15 +22,15 @@ import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.CALDAV
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.PREFERENCE
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType.TASKS
+import org.tasks.preferences.TasksPreferences
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.MainPreferences
-import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject
 
 class SubheaderClickHandler @Inject constructor(
     private val activity: Activity,
-    private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
     private val caldavDao: CaldavDao,
     private val localBroadcastManager: LocalBroadcastManager,
 ): SubheaderViewHolder.ClickHandler {
@@ -37,7 +38,7 @@ class SubheaderClickHandler @Inject constructor(
         (activity as AppCompatActivity).lifecycleScope.launch {
             val collapsed = !subheader.isCollapsed
             when (subheader.subheaderType) {
-                PREFERENCE -> preferences.setBoolean(subheader.id.toInt(), collapsed)
+                PREFERENCE -> tasksPreferences.set(booleanPreferencesKey(subheader.id), collapsed)
                 GOOGLE_TASKS,
                 CALDAV,
                 TASKS -> caldavDao.setCollapsed(subheader.id, collapsed)

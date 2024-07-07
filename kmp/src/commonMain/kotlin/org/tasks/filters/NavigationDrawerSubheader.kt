@@ -5,7 +5,7 @@ data class NavigationDrawerSubheader(
     val error: Boolean,
     val isCollapsed: Boolean,
     val subheaderType: SubheaderType,
-    val id: Long,
+    val id: String,
     val addIntentRc: Int = 0,
 ) : FilterListItem {
     override fun areItemsTheSame(other: FilterListItem): Boolean {

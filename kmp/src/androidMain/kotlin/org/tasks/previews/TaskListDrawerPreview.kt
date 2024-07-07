@@ -34,7 +34,7 @@ fun MenuPreview() {
                         false,
                         false,
                         NavigationDrawerSubheader.SubheaderType.PREFERENCE,
-                        0L,
+                        "",
                     ),
                 )
             ),

@@ -3,7 +3,6 @@ package org.tasks.injection
 import android.app.NotificationManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import org.tasks.data.db.Database
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,21 +16,28 @@ import org.tasks.billing.BillingClient
 import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
 import org.tasks.data.dao.AlarmDao
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.Astrid2ContentProviderDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.dao.LocationDao
+import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.data.dao.UserActivityDao
+import org.tasks.data.db.Database
+import org.tasks.filters.PreferenceDrawerConfiguration
 import org.tasks.jobs.WorkManager
-import org.tasks.data.dao.NotificationDao
+import org.tasks.kmp.createDataStore
+import org.tasks.compose.drawer.DrawerConfiguration
+import org.tasks.filters.FilterProvider
+import org.tasks.preferences.TasksPreferences
+import org.tasks.preferences.Preferences
 import java.util.Locale
 import javax.inject.Singleton
 
@@ -134,4 +140,34 @@ class ApplicationModule {
     @Provides
     fun providesNotificationManager(@ApplicationContext context: Context) =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+    @Singleton
+    @Provides
+    fun providesTasksPreferences(@ApplicationContext context: Context) =
+        TasksPreferences(createDataStore(context))
+
+    @Provides
+    fun providesDrawerConfiguration(preferences: Preferences): DrawerConfiguration =
+        PreferenceDrawerConfiguration(preferences)
+
+    @Provides
+    fun providesFilterProvider(
+        filterDao: FilterDao,
+        tagDataDao: TagDataDao,
+        googleTaskListDao: GoogleTaskListDao,
+        caldavDao: CaldavDao,
+        drawerConfiguration: DrawerConfiguration,
+        locationDao: LocationDao,
+        taskDao: TaskDao,
+        tasksPreferences: TasksPreferences,
+    ) = FilterProvider(
+        filterDao = filterDao,
+        tagDataDao = tagDataDao,
+        googleTaskListDao = googleTaskListDao,
+        caldavDao = caldavDao,
+        configuration = drawerConfiguration,
+        locationDao = locationDao,
+        taskDao = taskDao,
+        tasksPreferences = tasksPreferences,
+    )
 }

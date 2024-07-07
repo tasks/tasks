@@ -14,4 +14,8 @@
     <string name="default_list">Default list</string>
     <string name="help_and_feedback">Help &amp; feedback</string>
     <string name="settings">Settings</string>
+    <string name="drawer_filters">Filters</string>
+    <string name="drawer_tags">Tags</string>
+    <string name="drawer_places">Places</string>
+    <string name="drawer_local_lists">Local lists</string>
 </resources>

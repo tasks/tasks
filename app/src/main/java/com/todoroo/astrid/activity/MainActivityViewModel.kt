@@ -3,6 +3,7 @@ package com.todoroo.astrid.activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,8 +33,8 @@ import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.getIcon
+import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.DefaultFilterProvider
-import org.tasks.preferences.Preferences
 import org.tasks.themes.ColorProvider
 import timber.log.Timber
 import javax.inject.Inject
@@ -48,7 +49,7 @@ class MainActivityViewModel @Inject constructor(
     private val inventory: Inventory,
     private val colorProvider: ColorProvider,
     private val caldavDao: CaldavDao,
-    private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
 ) : ViewModel() {
 
     data class State(
@@ -193,7 +194,7 @@ class MainActivityViewModel @Inject constructor(
         val collapsed = !subheader.isCollapsed
         when (subheader.subheaderType) {
             NavigationDrawerSubheader.SubheaderType.PREFERENCE -> {
-                preferences.setBoolean(subheader.id.toInt(), collapsed)
+                tasksPreferences.set(booleanPreferencesKey(subheader.id), collapsed)
                 localBroadcastManager.broadcastRefreshList()
             }
             NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS,

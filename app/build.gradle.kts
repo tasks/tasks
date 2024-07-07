@@ -178,6 +178,7 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.work)
 
+    implementation(libs.androidx.datastore)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.runtime.compose)
