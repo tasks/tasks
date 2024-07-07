@@ -1,6 +1,16 @@
-### 13.11 - Under development
+### 13.11 - (2024-07-07)
 
 * New icon picker with over 2,100 icons! (pro feature)
+* Update translations
+  * Brazilian Portuguese - Jose Delvani
+  * Bulgarian - @StoyanDimitrov
+  * Catalan - @Seveorr, @jtorrensamer
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Chinese (Traditional) - hugoalh
+  * French - @FlorianLeChat
+  * Spanish - gallegonovato
+  * Turkish - @oersen
+  * Ukrainian - @IhorHordiichuk
 
 ### 13.10 (2024-07-05)
 
