@@ -4,7 +4,7 @@
     <string name="subscribe">Абониране</string>
     <string name="search_no_results">Липсват резултати</string>
     <string name="subscription_required_description">Отключете всички възможности за по-малко от 1 долар/година</string>
-    <string name="requires_pro_subscription">Възможност на версията Pro</string>
+    <string name="requires_pro_subscription">Изисква версия Про</string>
     <string name="filter_my_tasks">Мои задачи</string>
     <string name="filter_notifications">Известия</string>
     <string name="filter_snoozed">Отложени</string>
