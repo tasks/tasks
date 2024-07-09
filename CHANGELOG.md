@@ -1,4 +1,4 @@
-### 13.11 - (2024-07-07)
+### 13.11 (2024-07-12)
 
 * New icon picker with over 2,100 icons! (pro feature)
 * Update translations
