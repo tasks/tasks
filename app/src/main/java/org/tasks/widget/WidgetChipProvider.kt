@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import com.mikepenz.iconics.IconicsDrawable
-import org.tasks.icons.OutlinedGoogleMaterial
 import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
@@ -21,6 +20,7 @@ import org.tasks.filters.GtasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.getIcon
+import org.tasks.icons.OutlinedGoogleMaterial
 import org.tasks.time.startOfDay
 import org.tasks.ui.ChipListCache
 import java.time.format.FormatStyle
@@ -113,16 +113,17 @@ class WidgetChipProvider @Inject constructor(
     private fun newChip(filter: Filter, defaultIcon: Int) =
         newChip(filter.tint).apply {
             setTextViewText(R.id.chip_text, filter.title)
-            if (filter.icon.isNullOrBlank()) {
-                setImageViewResource(R.id.chip_icon, defaultIcon)
-            } else {
-                val icon = filter.getIcon(inventory)
-                val drawable = IconicsDrawable(
-                    context,
-                    OutlinedGoogleMaterial.getIcon("gmo_$icon")
-                )
-                setImageViewBitmap(R.id.chip_icon, drawable.toBitmap())
-            }
+            filter
+                .getIcon(inventory)
+                ?.let {
+                    try {
+                        OutlinedGoogleMaterial.getIcon("gmo_$it")
+                    } catch (_: IllegalArgumentException) {
+                        null
+                    }
+                }
+                ?.let { setImageViewBitmap(R.id.chip_icon, IconicsDrawable(context, it).toBitmap()) }
+                ?: setImageViewResource(R.id.chip_icon, defaultIcon)
         }
 
     private fun newChip(@ColorInt color: Int = 0) = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_chip).apply {

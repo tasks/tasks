@@ -115,7 +115,8 @@ class TagPickerActivity : ThemedInjectingAppCompatActivity() {
         return Color(getColor(R.color.icon_tint_with_alpha))
     }
 
-    private fun getIcon(tagData: TagData): String = TagFilter(tagData).getIcon(inventory)
+    private fun getIcon(tagData: TagData): String =
+        TagFilter(tagData).getIcon(inventory) ?: TasksIcons.LABEL
 
     /* Copy of the TagPickerActivity's companion object */
     companion object {

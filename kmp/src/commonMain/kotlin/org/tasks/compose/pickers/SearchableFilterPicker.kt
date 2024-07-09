@@ -37,7 +37,7 @@ fun SearchableFilterPicker(
     onQueryChange: (String) -> Unit,
     selected: Filter?,
     onClick: (FilterListItem) -> Unit,
-    getIcon: @Composable (Filter) -> ImageVector,
+    getIcon: @Composable (Filter) -> ImageVector?,
     getColor: (Filter) -> Int,
 ) {
     LazyColumn(

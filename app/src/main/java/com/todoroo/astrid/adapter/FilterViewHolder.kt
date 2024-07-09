@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.CheckedTextView
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.isVisible
@@ -15,7 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import org.tasks.R
 import org.tasks.billing.Inventory
-import org.tasks.compose.components.imageVectorByName
+import org.tasks.compose.components.TasksIcon
 import org.tasks.databinding.FilterAdapterRowBinding
 import org.tasks.extensions.formatNumber
 import org.tasks.filters.CaldavFilter
@@ -50,10 +49,9 @@ class FilterViewHolder internal constructor(
             it.icon.setContent {
                 val label = icon.collectAsStateWithLifecycle().value
                 val tint = color.collectAsStateWithLifecycle().value
-                Icon(
-                    imageVector = imageVectorByName(label!!)!!,
-                    contentDescription = label,
-                    tint = if (tint == 0) MaterialTheme.colorScheme.onSurface else Color(tint),
+                TasksIcon(
+                    label = label,
+                    tint = if (tint == 0) MaterialTheme.colorScheme.onSurface else Color(tint)
                 )
             }
             size = it.size

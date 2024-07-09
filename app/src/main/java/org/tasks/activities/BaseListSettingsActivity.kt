@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
@@ -15,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,7 +25,7 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
-import org.tasks.compose.components.imageVectorByName
+import org.tasks.compose.components.TasksIcon
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
@@ -69,15 +67,9 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), To
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    val name = selectedIcon.collectAsStateWithLifecycle().value
-                    val icon = imageVectorByName(name ?:defaultIcon)
-                    if (icon != null) {
-                        Image(
-                            imageVector = icon,
-                            contentDescription = name ?: defaultIcon,
-                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-                        )
-                    }
+                    TasksIcon(
+                        label = selectedIcon.collectAsStateWithLifecycle().value ?: defaultIcon
+                    )
                     Spacer(modifier = Modifier.width(34.dp))
                     Text(
                         text = "Icon",

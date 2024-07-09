@@ -75,7 +75,7 @@ class FilterSelectionActivity : AppCompatActivity() {
                         filters = if (searching) state.searchResults else state.filters,
                         query = state.query,
                         onQueryChange = { viewModel.onQueryChange(it) },
-                        getIcon = { imageVectorByName(viewModel.getIcon(it))!! },
+                        getIcon = { imageVectorByName(viewModel.getIcon(it)) },
                         getColor = { viewModel.getColor(it) },
                         selected = selected,
                         onClick = { filter ->

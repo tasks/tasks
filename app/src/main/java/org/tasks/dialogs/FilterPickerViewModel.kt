@@ -89,7 +89,7 @@ class FilterPickerViewModel @Inject constructor(
         localBroadcastManager.broadcastRefreshList()
     }
 
-    fun getIcon(filter: Filter): String = filter.getIcon(inventory)
+    fun getIcon(filter: Filter): String? = filter.getIcon(inventory)
 
     fun getColor(filter: Filter): Int {
         if (filter.tint != 0) {

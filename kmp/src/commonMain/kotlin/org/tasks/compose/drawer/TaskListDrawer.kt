@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.mandatorySystemGestures
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -56,7 +55,7 @@ import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.components.Chevron
 import org.tasks.compose.components.SearchBar
-import org.tasks.compose.components.imageVectorByName
+import org.tasks.compose.components.TasksIcon
 import org.tasks.kmp.formatNumber
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.help_and_feedback
@@ -194,7 +193,13 @@ internal fun FilterItem(
             .clickable(onClick = onClick),
         onClick = onClick,
     ) {
-        DrawerIcon(icon = item.icon, color = item.color)
+        TasksIcon(
+            label = item.icon,
+            tint = when (item.color) {
+                0 -> MaterialTheme.colorScheme.onSurface
+                else -> Color(color = item.color)
+            }
+        )
         Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = item.title,
@@ -223,19 +228,6 @@ internal fun FilterItem(
             }
         }
     }
-}
-
-@Composable
-private fun DrawerIcon(icon: String, color: Int = 0) {
-    Icon(
-        modifier = Modifier.size(24.dp),
-        imageVector = imageVectorByName(icon) ?: return,
-        contentDescription = null,
-        tint = when (color) {
-            0 -> MaterialTheme.colorScheme.onSurface
-            else -> Color(color)
-        }
-    )
 }
 
 @Composable

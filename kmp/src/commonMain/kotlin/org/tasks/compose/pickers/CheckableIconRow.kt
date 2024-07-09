@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
@@ -44,7 +45,7 @@ fun CheckableIconRow(
 
 @Composable
 fun CheckableIconRow(
-    icon: ImageVector,
+    icon: ImageVector?,
     tint: Color,
     selected: Boolean,
     onClick: () -> Unit,
@@ -56,12 +57,20 @@ fun CheckableIconRow(
             .fillMaxWidth()
             .clickable { onClick() }
     ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = tint,
-            modifier = Modifier.padding(start = 16.dp, end = 32.dp, top = 12.dp, bottom = 12.dp),
-        )
+        Box(
+            modifier = Modifier
+                .padding(start = 16.dp, end = 32.dp, top = 12.dp, bottom = 12.dp)
+                .size(24.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (icon != null) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = tint,
+                )
+            }
+        }
         Box(modifier = Modifier.weight(1f)) {
             content()
         }
