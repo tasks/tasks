@@ -28,7 +28,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
-import org.tasks.compose.components.imageVectorByName
 import org.tasks.compose.pickers.SearchableFilterPicker
 import org.tasks.dialogs.FilterPickerViewModel
 import org.tasks.filters.Filter
@@ -75,7 +74,7 @@ class FilterSelectionActivity : AppCompatActivity() {
                         filters = if (searching) state.searchResults else state.filters,
                         query = state.query,
                         onQueryChange = { viewModel.onQueryChange(it) },
-                        getIcon = { imageVectorByName(viewModel.getIcon(it)) },
+                        getIcon = { viewModel.getIcon(it) },
                         getColor = { viewModel.getColor(it) },
                         selected = selected,
                         onClick = { filter ->

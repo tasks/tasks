@@ -3,7 +3,6 @@ package org.tasks.previews.pickers
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import org.tasks.compose.components.imageVectorByName
 import org.tasks.compose.pickers.SearchableFilterPicker
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.NavigationDrawerSubheader
@@ -33,7 +32,7 @@ fun FilterPickerPreview() {
             onQueryChange = {},
             selected = null,
             onClick = {},
-            getIcon = { imageVectorByName(label = it.icon!!)!! },
+            getIcon = { it.icon },
             getColor = { 0 },
         )
     }

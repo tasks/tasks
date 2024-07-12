@@ -21,4 +21,6 @@ object TasksIcons {
     const val KEYBOARD_ARROW_DOWN = "keyboard_arrow_down"
     const val SNOOZE = "snooze"
     const val TIMER = "timer"
+    const val BLOCK = "block"
+    const val EVENT = "event"
 }

@@ -40,7 +40,7 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.billing.Inventory
-import org.tasks.compose.components.imageVectorByName
+import org.tasks.compose.components.TasksIcon
 import org.tasks.data.entity.TagData
 import org.tasks.extensions.addBackPressedCallback
 import org.tasks.filters.TagFilter
@@ -142,7 +142,12 @@ internal fun TagPicker(
             Box (
                 modifier = Modifier.weight(1f)
             ) {
-                PickerBox(viewModel, viewModel.tagsList.observeAsState(initial = emptyList()), getTagIcon, getTagColor)
+                PickerBox(
+                    viewModel = viewModel,
+                    tags = viewModel.tagsList.observeAsState(initial = emptyList()),
+                    getTagIcon = getTagIcon,
+                    getTagColor = getTagColor
+                )
             }
         }
     }
@@ -207,7 +212,7 @@ internal fun PickerBox (
             item(key = -1) {
                 val text = LocalContext.current.getString(R.string.new_tag) + " \"${viewModel.tagToCreate.value}\""
                 TagRow(
-                    icon = ImageVector.vectorResource(R.drawable.ic_outline_add_24px),
+                    icon = TasksIcons.ADD,
                     iconColor = Color(LocalContext.current.getColor(R.color.icon_tint_with_alpha)),
                     text = text,
                     onClick = { newItem(viewModel.searchText.value) }
@@ -220,7 +225,7 @@ internal fun PickerBox (
             val checked = remember { mutableStateOf ( viewModel.getState(it) ) }
             val clickChecked: () -> Unit = { onClick(it); checked.value = viewModel.getState(it) }
             TagRow(
-                icon = imageVectorByName(getTagIcon(it))!!,
+                icon = getTagIcon(it),
                 iconColor = getTagColor(it),
                 text = it.name!!,
                 onClick = clickChecked
@@ -237,7 +242,7 @@ internal fun PickerBox (
 
 @Composable
 internal fun TagRow (
-    icon: ImageVector,
+    icon: String,
     iconColor: Color,
     text: String,
     onClick: () -> Unit,
@@ -248,10 +253,9 @@ internal fun TagRow (
         .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = "",
+        TasksIcon(
             modifier = Modifier.padding(6.dp),
+            label = icon,
             tint = iconColor
         )
         Text(

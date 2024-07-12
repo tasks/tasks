@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
@@ -17,12 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import org.tasks.compose.components.TasksIcon
 
 @Composable
 fun CheckableIconRow(
-    icon: ImageVector,
+    icon: String?,
     tint: Color,
     text: String,
     selected: Boolean,
@@ -45,7 +44,7 @@ fun CheckableIconRow(
 
 @Composable
 fun CheckableIconRow(
-    icon: ImageVector?,
+    icon: String?,
     tint: Color,
     selected: Boolean,
     onClick: () -> Unit,
@@ -57,20 +56,16 @@ fun CheckableIconRow(
             .fillMaxWidth()
             .clickable { onClick() }
     ) {
-        Box(
-            modifier = Modifier
-                .padding(start = 16.dp, end = 32.dp, top = 12.dp, bottom = 12.dp)
-                .size(24.dp),
-            contentAlignment = Alignment.Center,
-        ) {
-            if (icon != null) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = tint,
-                )
-            }
-        }
+        TasksIcon(
+            modifier = Modifier.padding(
+                start = 16.dp,
+                end = 32.dp,
+                top = 12.dp,
+                bottom = 12.dp
+            ),
+            label = icon,
+            tint = tint,
+        )
         Box(modifier = Modifier.weight(1f)) {
             content()
         }

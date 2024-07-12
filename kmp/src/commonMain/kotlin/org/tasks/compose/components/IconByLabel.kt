@@ -15,10 +15,11 @@ import org.tasks.compose.pickers.label
 
 @Composable
 fun TasksIcon(
+    modifier: Modifier = Modifier,
     label: String?,
     tint: Color = MaterialTheme.colorScheme.onSurface,
 ) {
-    Box(modifier = Modifier.size(24.dp)) {
+    Box(modifier = modifier.size(24.dp)) {
         Icon(
             imageVector = remember (label) {
                 imageVectorByName(label)
