@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.collections.immutable.persistentListOf
 import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.drawer.MenuSearchBar
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.filters.FilterImpl
 import org.tasks.filters.NavigationDrawerSubheader
@@ -17,7 +18,15 @@ import org.tasks.themes.TasksTheme
 fun MenuPreview() {
     TasksTheme {
         TaskListDrawer(
-            begForMoney = true,
+            searchBar = {
+                MenuSearchBar(
+                    begForMoney = true,
+                    onDrawerAction = {},
+                    query = "",
+                    onQueryChange = {}
+                )
+            },
+            bottomSearchBar = true,
             filters = persistentListOf(
                 DrawerItem.Filter(
                     title = "My Tasks",
@@ -39,11 +48,8 @@ fun MenuPreview() {
                 )
             ),
             onClick = {},
-            onDrawerAction = {},
             onAddClick = {},
             onErrorClick = {},
-            query = "",
-            onQueryChange = {},
         )
     }
 }

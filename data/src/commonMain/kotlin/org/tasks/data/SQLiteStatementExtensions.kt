@@ -163,7 +163,7 @@ fun SQLiteStatement.getTasks(): List<TaskContainer> {
     return result
 }
 
-private fun SQLiteStatement.getTextOrNull(index: Int): String? =
+fun SQLiteStatement.getTextOrNull(index: Int): String? =
     if (index == -1 || isNull(index)) null else this.getText(index)
 
 private fun SQLiteStatement.getLongOrNull(index: Int): Long? =

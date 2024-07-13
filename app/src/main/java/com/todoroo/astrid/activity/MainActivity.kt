@@ -26,6 +26,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.todoroo.andlib.utility.AndroidUtilities
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.newTaskEditFragment
 import com.todoroo.astrid.adapter.SubheaderClickHandler
 import com.todoroo.astrid.dao.TaskDao
@@ -51,6 +52,7 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.compose.drawer.DrawerAction
 import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.drawer.MenuSearchBar
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
@@ -145,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         val scope = rememberCoroutineScope()
                         TaskListDrawer(
-                            begForMoney = state.begForMoney,
+                            bottomSearchBar = atLeastR(),
                             filters = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
                             onClick = {
                                 when (it) {
@@ -230,42 +232,47 @@ class MainActivity : AppCompatActivity() {
                                     }
                                 }
                             },
-                            onDrawerAction = {
-                                viewModel.closeDrawer()
-                                when (it) {
-                                    DrawerAction.PURCHASE ->
-                                        if (Tasks.IS_GENERIC)
-                                            context.openUri(R.string.url_donate)
-                                        else
-                                            context.startActivity(
-                                                Intent(
-                                                    context,
-                                                    PurchaseActivity::class.java
-                                                )
-                                            )
-
-                                    DrawerAction.SETTINGS ->
-                                        settingsRequest.launch(
-                                            Intent(
-                                                context,
-                                                MainPreferences::class.java
-                                            )
-                                        )
-
-                                    DrawerAction.HELP_AND_FEEDBACK ->
-                                        context.startActivity(
-                                            Intent(
-                                                context,
-                                                HelpAndFeedback::class.java
-                                            )
-                                        )
-                                }
-                            },
                             onErrorClick = {
                                 context.startActivity(Intent(context, MainPreferences::class.java))
                             },
-                            query = state.menuQuery,
-                            onQueryChange = { viewModel.queryMenu(it) },
+                            searchBar = {
+                                MenuSearchBar(
+                                    begForMoney = state.begForMoney,
+                                    onDrawerAction = {
+                                        viewModel.closeDrawer()
+                                        when (it) {
+                                            DrawerAction.PURCHASE ->
+                                                if (Tasks.IS_GENERIC)
+                                                    context.openUri(R.string.url_donate)
+                                                else
+                                                    context.startActivity(
+                                                        Intent(
+                                                            context,
+                                                            PurchaseActivity::class.java
+                                                        )
+                                                    )
+
+                                            DrawerAction.SETTINGS ->
+                                                settingsRequest.launch(
+                                                    Intent(
+                                                        context,
+                                                        MainPreferences::class.java
+                                                    )
+                                                )
+
+                                            DrawerAction.HELP_AND_FEEDBACK ->
+                                                context.startActivity(
+                                                    Intent(
+                                                        context,
+                                                        HelpAndFeedback::class.java
+                                                    )
+                                                )
+                                        }
+                                    },
+                                    query = state.menuQuery,
+                                    onQueryChange = { viewModel.queryMenu(it) },
+                                )
+                            },
                         )
                     }
                 }

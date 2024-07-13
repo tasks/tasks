@@ -51,7 +51,7 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 131102
+        versionCode = 131103
         versionName = "13.11"
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -184,7 +184,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.room)
-    implementation(libs.androidx.sqlite)
     implementation(libs.androidx.appcompat)
     implementation(libs.iconics)
     implementation(libs.markwon)
