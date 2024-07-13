@@ -43,7 +43,7 @@ class ContentProviderDaoBlocking @Inject constructor(
 private fun SQLiteStatement.toCursor(): Cursor {
     val cursor = MatrixCursor(getColumnNames().toTypedArray())
     while (step()) {
-        cursor.addRow((0 until getColumnCount()).map { getText(it) })
+        cursor.addRow((0 until getColumnCount()).map { getTextOrNull(it) })
     }
     return cursor
 }
