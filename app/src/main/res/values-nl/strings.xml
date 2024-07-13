@@ -320,9 +320,9 @@
     <string name="repeats_from">Herhaalt vanaf</string>
     <string name="repeats_single">Herhaalt %s</string>
     <string name="repeats_single_on">Herhaalt %1$s op %2$s</string>
-    <string name="repeats_single_until">Herhaalt %1$s tot %2$s</string>
+    <string name="repeats_single_until">Herhaalt %1$s, eindigt op %2$s</string>
     <string name="repeats_single_number_of_times">Herhaalt %1$s, gebeurt %2$d %3$s</string>
-    <string name="repeats_single_on_until">Herhaalt %1$s op %2$s tot %3$s</string>
+    <string name="repeats_single_on_until">Herhaalt %1$s op %2$s, eindigt op %3$s</string>
     <string name="repeats_single_on_number_of_times">Herhaalt %1$s op %2$s, gebeurt %3$d %4$s</string>
     <string name="repeats_minutely">elke minuut</string>
     <string name="repeats_hourly">elk uur</string>
@@ -332,9 +332,9 @@
     <string name="repeats_yearly">jaarlijks</string>
     <string name="repeats_plural">Herhaalt elke %s</string>
     <string name="repeats_plural_on">Herhaalt elke %1$s op %2$s</string>
-    <string name="repeats_plural_until">Herhaalt elke %1$s tot %2$s</string>
+    <string name="repeats_plural_until">Herhaalt elke %1$s, eindigt op %2$s</string>
     <string name="repeats_plural_number_of_times">Herhaalt elke %1$s , gebeurt %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Herhaalt elke %1$s op %2$s tot %3$s</string>
+    <string name="repeats_plural_on_until">Herhaalt elke %1$s op %2$s, eindigt op %3$s</string>
     <string name="repeats_plural_on_number_of_times">Herhaalt elke %1$s op %2$s, gebeurt %3$d %4$s</string>
     <string name="dont_add_to_calendar">Niet aan kalender toevoegen</string>
     <string name="default_calendar">Standaardkalender</string>
@@ -720,4 +720,21 @@
     <string name="repeats_ends">Eindigt</string>
     <string name="repeat_monthly_on_day_number">Maandelijks op dag %1d</string>
     <string name="change_priority">Prioriteit veranderen</string>
+    <string name="theme_dynamic">Dynamisch</string>
+    <string name="clear_completed_tasks_count">%s wordt verwijderd</string>
+    <string name="show_edit_screen_without_unlock">Toon het bewerkingscherm zonder ontsluiting</string>
+    <string name="donate_nag">Overweeg om uw steun te tonen met een schenking!</string>
+    <string name="donate_today">Doe vandaag een schenking</string>
+    <string name="donate_maybe_later">Misschien later</string>
+    <string name="customize_drawer">Lade personaliseren</string>
+    <string name="customize_drawer_summary">Sleep en los om menu items te reorganiseren</string>
+    <string name="swipe_to_snooze_time_description">Een overgeslagen melding zal gedempt en opnieuw gecreëerd worden %s</string>
+    <string name="swipe_to_snooze_time_30_minutes">na 30 minuten</string>
+    <string name="swipe_to_snooze_time_1_hour">na 1 uur</string>
+    <string name="swipe_to_snooze_time_24_hours">na 24 uur</string>
+    <string name="swipe_to_snooze_description">Snooze-tijd</string>
+    <string name="swipe_to_snooze_title">Veeg om te snoozen</string>
+    <string name="swipe_to_snooze_time_15_minutes">na 15 minuten</string>
+    <string name="show_edit_screen_without_unlock_summary">Laat gebruik van Snelle Bewerkingstegel toe zonder ontgrendeling toestel</string>
+    <string name="swipe_to_snooze_time_immediately">Onmiddellijk</string>
 </resources>
