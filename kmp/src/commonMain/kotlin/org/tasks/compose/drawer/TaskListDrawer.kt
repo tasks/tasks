@@ -39,6 +39,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -67,77 +69,56 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskListDrawer(
-    begForMoney: Boolean,
+    bottomSearchBar: Boolean,
     filters: ImmutableList<DrawerItem>,
     onClick: (DrawerItem) -> Unit,
-    onDrawerAction: (DrawerAction) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
     onErrorClick: () -> Unit,
-    query: String,
-    onQueryChange: (String) -> Unit,
+    searchBar: @Composable RowScope.() -> Unit,
 ) {
     val bottomAppBarScrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
+    val topAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         modifier = Modifier
-            .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
+            .nestedScroll(
+                if (bottomSearchBar)
+                    bottomAppBarScrollBehavior.nestedScrollConnection
+                else
+                    topAppBarScrollBehavior.nestedScrollConnection
+            ),
         bottomBar = {
-            BottomAppBar(
-                modifier = Modifier.layout { measurable, constraints ->
-                    val placeable = measurable.measure(constraints)
-                    bottomAppBarScrollBehavior.state.heightOffsetLimit = -placeable.height.toFloat()
-                    val height = placeable.height + bottomAppBarScrollBehavior.state.heightOffset
-                    layout(placeable.width, height.roundToInt().coerceAtLeast(0)) {
-                        placeable.place(0, 0)
-                    }
-                },
-                containerColor = MaterialTheme.colorScheme.surface,
-                scrollBehavior = bottomAppBarScrollBehavior
-            ) {
-                var hasFocus by remember { mutableStateOf(false) }
-                SearchBar(
-                    modifier = Modifier
-                        .onFocusChanged { hasFocus = it.hasFocus }
-                        .padding(start = 8.dp, end = if (hasFocus) 8.dp else 0.dp, bottom = 4.dp)
-                        .weight(1f)
-                        .animateContentSize(
-                            animationSpec = spring(
-                                dampingRatio = Spring.DampingRatioNoBouncy,
-                                stiffness = Spring.StiffnessMedium
-                            )
-                        ),
-                    text = query,
-                    onTextChange = { onQueryChange(it) },
-                    placeHolder = stringResource(Res.string.search),
-                    onCloseClicked = { onQueryChange("") },
-                    onSearchClicked = {
-                        // TODO: close keyboard
+            if (bottomSearchBar) {
+                BottomAppBar(
+                    modifier = Modifier.layout { measurable, constraints ->
+                        val placeable = measurable.measure(constraints)
+                        bottomAppBarScrollBehavior.state.heightOffsetLimit =
+                            -placeable.height.toFloat()
+                        val height =
+                            placeable.height + bottomAppBarScrollBehavior.state.heightOffset
+                        layout(placeable.width, height.roundToInt().coerceAtLeast(0)) {
+                            placeable.place(0, 0)
+                        }
                     },
-                )
-                if (!hasFocus) {
-                    if (begForMoney) {
-                        IconButton(onClick = { onDrawerAction(DrawerAction.PURCHASE) }) {
-                            Icon(
-                                imageVector = Icons.Outlined.AttachMoney,
-                                contentDescription = stringResource(Res.string.subscribe),
-                                tint = MaterialTheme.colorScheme.onSurface,
-                            )
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    scrollBehavior = bottomAppBarScrollBehavior
+                ) {
+                    searchBar()
+                }
+            }
+        },
+        topBar = {
+            if (!bottomSearchBar) {
+                TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                    scrollBehavior = topAppBarScrollBehavior,
+                    title = {
+                        Row {
+                            searchBar()
                         }
                     }
-                    IconButton(onClick = { onDrawerAction(DrawerAction.HELP_AND_FEEDBACK) }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
-                            contentDescription = stringResource(Res.string.help_and_feedback),
-                            tint = MaterialTheme.colorScheme.onSurface,
-                        )
-                    }
-                    IconButton(onClick = { onDrawerAction(DrawerAction.SETTINGS) }) {
-                        Icon(
-                            imageVector = Icons.Outlined.Settings,
-                            contentDescription = stringResource(Res.string.settings),
-                            tint = MaterialTheme.colorScheme.onSurface,
-                        )
-                    }
-                }
+                )
             }
         }
     ) { contentPadding ->
@@ -145,14 +126,17 @@ fun TaskListDrawer(
             modifier = Modifier
                 .fillMaxSize(),
             contentPadding = PaddingValues(
-                bottom = maxOf(
+                top = if (bottomSearchBar) 0.dp else contentPadding.calculateTopPadding(),
+                bottom = if (bottomSearchBar)
+                    maxOf(
                     WindowInsets.mandatorySystemGestures
                         .asPaddingValues()
                         .calculateBottomPadding(),
                     contentPadding.calculateBottomPadding()
-                )
+                ) else
+                    48.dp
             ),
-            verticalArrangement = Arrangement.Bottom,
+            verticalArrangement = if (bottomSearchBar) Arrangement.Bottom else Arrangement.Top,
         ) {
             items(items = filters, key = { it.key() }) {
                 when (it) {
@@ -293,4 +277,62 @@ private fun MenuRow(
         verticalAlignment = Alignment.CenterVertically,
         content = content
     )
+}
+
+@Composable
+fun RowScope.MenuSearchBar(
+    begForMoney: Boolean,
+    onDrawerAction: (DrawerAction) -> Unit,
+    query: String,
+    onQueryChange: (String) -> Unit,
+) {
+    var hasFocus by remember { mutableStateOf(false) }
+    SearchBar(
+        modifier = Modifier
+            .onFocusChanged { hasFocus = it.hasFocus }
+            .padding(
+                start = 8.dp,
+                end = if (hasFocus) 8.dp else 0.dp,
+                bottom = 4.dp
+            )
+            .weight(1f)
+            .animateContentSize(
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessMedium
+                )
+            ),
+        text = query,
+        onTextChange = { onQueryChange(it) },
+        placeHolder = stringResource(Res.string.search),
+        onCloseClicked = { onQueryChange("") },
+        onSearchClicked = {
+            // TODO: close keyboard
+        },
+    )
+    if (!hasFocus) {
+        if (begForMoney) {
+            IconButton(onClick = { onDrawerAction(DrawerAction.PURCHASE) }) {
+                Icon(
+                    imageVector = Icons.Outlined.AttachMoney,
+                    contentDescription = stringResource(Res.string.subscribe),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+        }
+        IconButton(onClick = { onDrawerAction(DrawerAction.HELP_AND_FEEDBACK) }) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Outlined.HelpOutline,
+                contentDescription = stringResource(Res.string.help_and_feedback),
+                tint = MaterialTheme.colorScheme.onSurface,
+            )
+        }
+        IconButton(onClick = { onDrawerAction(DrawerAction.SETTINGS) }) {
+            Icon(
+                imageVector = Icons.Outlined.Settings,
+                contentDescription = stringResource(Res.string.settings),
+                tint = MaterialTheme.colorScheme.onSurface,
+            )
+        }
+    }
 }
