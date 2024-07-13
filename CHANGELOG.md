@@ -1,6 +1,8 @@
-### 13.11 (2024-07-12)
+### 13.11 (2024-07-13)
 
 * New icon picker with over 2,100 icons! (pro feature)
+* Fix Todo Agenda Widget integration [todoagenda/#145](https://github.com/andstatus/todoagenda/issues/145)
+* Fix menu search bar on Android 10 and below [#2966](https://github.com/tasks/tasks/issues/2966)
 * Update translations
   * Brazilian Portuguese - Jose Delvani
   * Bulgarian - @StoyanDimitrov
