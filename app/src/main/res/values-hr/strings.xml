@@ -756,4 +756,7 @@
     <string name="swipe_to_snooze_time_30_minutes">nakon 30 minuta</string>
     <string name="customize_drawer">Prilagodi izbornik</string>
     <string name="customize_drawer_summary">Povuci i ispusti stavke za mijenjanje rasporeda u izborniku</string>
+    <string name="donate_nag">Podrži projekt donacijom!</string>
+    <string name="donate_today">Doniraj danas</string>
+    <string name="donate_maybe_later">Možda kasnije</string>
 </resources>
