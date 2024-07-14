@@ -1,3 +1,0 @@
-* New icon picker with over 2,100 icons! (pro feature)
-* Fix Todo Agenda Widget integration
-* Update translations
