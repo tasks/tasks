@@ -1,0 +1,3 @@
+* Fix crash when collapsing list picker sections
+* Enabled Managed DAVx5
+* Update translations

@@ -1,3 +1,10 @@
+### 13.11.1 (2024-07-14)
+
+* Fix crash when collapsing list picker sections
+* Enabled Managed DAVx5
+* Update translations
+  * Bulgarian - @StoyanDimitrov
+
 ### 13.11 (2024-07-14)
 
 * New icon picker with over 2,100 icons! (pro feature)
@@ -22,7 +29,7 @@
 * Android 13+ users must grant additional reminder permissions
 * Fix completing task multiple times from notification
 * Fix deleting new subtasks from edit screen
-* Enable Managed DAVx5
+* ~~Enable Managed DAVx5~~
 * Update translations
   * Arabic - @islam2hamy
   * Brazilian Portuguese - Jose Delvani
