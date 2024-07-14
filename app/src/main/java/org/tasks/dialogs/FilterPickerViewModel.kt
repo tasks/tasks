@@ -3,6 +3,7 @@ package org.tasks.dialogs
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +24,7 @@ import org.tasks.filters.FilterListItem
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.getIcon
-import org.tasks.preferences.Preferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.themes.ColorProvider
 import javax.inject.Inject
 
@@ -35,7 +36,7 @@ class FilterPickerViewModel @Inject constructor(
     private val localBroadcastManager: LocalBroadcastManager,
     private val inventory: Inventory,
     private val colorProvider: ColorProvider,
-    private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
     private val caldavDao: CaldavDao,
 ) : ViewModel() {
     private val listsOnly = savedStateHandle[FilterSelectionActivity.EXTRA_LISTS_ONLY] ?: false
@@ -78,7 +79,7 @@ class FilterPickerViewModel @Inject constructor(
         val collapsed = !subheader.isCollapsed
         when (subheader.subheaderType) {
             NavigationDrawerSubheader.SubheaderType.PREFERENCE ->
-                preferences.setBoolean(subheader.id.toInt(), collapsed)
+                tasksPreferences.set(booleanPreferencesKey(subheader.id), collapsed)
             NavigationDrawerSubheader.SubheaderType.GOOGLE_TASKS,
             NavigationDrawerSubheader.SubheaderType.CALDAV,
             NavigationDrawerSubheader.SubheaderType.TASKS ->
