@@ -1,8 +1,8 @@
 package org.tasks.caldav
 
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavTask
 import java.io.File
 import javax.inject.Inject
@@ -65,15 +65,15 @@ class VtodoCache @Inject constructor(
 
     fun delete(calendar: CaldavCalendar, caldavTask: CaldavTask) {
         fileStorage
-            .getFile(calendar.account!!, caldavTask.calendar!!, caldavTask.obj!!)
+            .getFile(calendar.account, caldavTask.calendar, caldavTask.obj)
             ?.delete()
     }
 
     fun delete(calendar: CaldavCalendar) =
-        fileStorage.getFile(calendar.account!!, calendar.uuid!!)?.deleteRecursively()
+        fileStorage.getFile(calendar.account, calendar.uuid)?.deleteRecursively()
 
     fun delete(account: CaldavAccount) =
-        fileStorage.getFile(account.uuid!!)?.deleteRecursively()
+        fileStorage.getFile(account.uuid)?.deleteRecursively()
 
     fun clear() =
         fileStorage.getFile()?.deleteRecursively()
