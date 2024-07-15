@@ -1,6 +1,7 @@
-### 13.11.1 (2024-07-14)
+### 13.11.1 (2024-07-15)
 
 * Fix crash when collapsing list picker sections
+* Fix crash in database migration
 * Enabled Managed DAVx5
 * Update translations
   * Bulgarian - @StoyanDimitrov
