@@ -149,7 +149,7 @@ open class OpenTaskDao @Inject constructor(
     companion object {
         private const val OPENTASK_BATCH_LIMIT = 499
         const val ACCOUNT_TYPE_DAVX5 = "bitfire.at.davdroid"
-        const val ACCOUNT_TYPE_DAVX5_MANAGED = "com.davdroid.managed"
+        const val ACCOUNT_TYPE_DAVX5_MANAGED = "com.davdroid"
         private const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
         private const val ACCOUNT_TYPE_DECSYNC = "org.decsync.tasks"
         val SUPPORTED_TYPES = setOf(
