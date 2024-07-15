@@ -21,6 +21,7 @@ import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
 import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
 import org.tasks.data.entity.Task.Companion.NOTIFY_AT_START
+import org.tasks.data.getTextOrNull
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRecur
@@ -458,14 +459,14 @@ object Migrations {
                 .use {
                     while (it.step()) {
                         val file = fileStorage.getFile(
-                            it.getText(0),
-                            it.getText(1),
+                            it.getTextOrNull(0),
+                            it.getTextOrNull(1),
                         )
                             ?.apply { mkdirs() }
                             ?: continue
-                        if (it.isNull(2)) continue
-                        val `object` = it.getText(2)
-                        fileStorage.write(File(file, `object`), it.getText(3))
+                        val `object` = it.getTextOrNull(2) ?: continue
+                        val data = it.getTextOrNull(3) ?: continue
+                        fileStorage.write(File(file, `object`), data)
                     }
                 }
             connection.execSQL("ALTER TABLE `caldav_tasks` RENAME TO `caldav_tasks-temp`")
