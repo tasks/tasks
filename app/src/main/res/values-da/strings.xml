@@ -14,7 +14,7 @@
 \n%5$s indeholdt fejl
 \n</string>
     <string name="import_progress_read">Indlæser opgave %d…</string>
-    <string name="read_permission_label">Tasks’ Tilladelser</string>
+    <string name="read_permission_label">Tasks Tilladelser</string>
     <string name="DLG_delete_this_task_question">Slet denne opgave?</string>
     <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
     <string name="WID_dateButtonUnset">Tryk for at indstille</string>
@@ -501,7 +501,7 @@
     <string name="week_before_due">Ugen før frist</string>
     <string name="day_before_due">Dagen før frist</string>
     <string name="due_time">Frist-tid</string>
-    <string name="due_date">Frist-dato</string>
+    <string name="due_date">Forfaldsdato</string>
     <string name="display_name">Vist navn</string>
     <string name="TEA_timer_elap">Brugt %s</string>
     <string name="TEA_timer_est">Ca. %s</string>
@@ -698,4 +698,10 @@
     <string name="consent_deny">Ikke nu</string>
     <string name="TEA_creation_date">Oprettelsesdato</string>
     <string name="sign_in">Log ind</string>
+    <string name="customize_drawer">Tilpas skuffe</string>
+    <string name="customize_drawer_summary">Træk og slip for at omarrangere menupunkter</string>
+    <string name="swipe_to_snooze_description">Udsætte tid</string>
+    <string name="sort_list">Efter liste</string>
+    <string name="sort_completed">Efter færdiggørelsestid</string>
+    <string name="swipe_to_snooze_title">Stryg for at udsætte</string>
 </resources>
