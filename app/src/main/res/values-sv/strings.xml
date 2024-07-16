@@ -597,7 +597,7 @@
     <string name="default_tags">Standardtaggar</string>
     <string name="no_app_found">Ingen app kunde hantera denna begäran</string>
     <string name="filter_criteria_unstarted">Inte påbörjad</string>
-    <string name="show_unstarted">Visa inte startad</string>
+    <string name="show_unstarted">Visa inte påbörjade</string>
     <string name="header_spacing">Avstånd</string>
     <string name="subtasks">Deluppgifter</string>
     <string name="tasks_org_account">Tasks.org-konto</string>
@@ -717,4 +717,18 @@
     <string name="cancel">Avbryt</string>
     <string name="clear_completed_tasks_count">%s kommer att tas bort</string>
     <string name="theme_dynamic">Dynamisk</string>
+    <string name="donate_nag">Överväg att visa ditt stöd med en donation!</string>
+    <string name="donate_today">Donera idag</string>
+    <string name="donate_maybe_later">Kanske senare</string>
+    <string name="show_edit_screen_without_unlock">Visa redigeringsskärm utan upplåsning</string>
+    <string name="show_edit_screen_without_unlock_summary">Aktiverar användning av snabbinställningar utan att låsa upp enheten</string>
+    <string name="customize_drawer_summary">Dra och släpp för att ordna om menyobjekt</string>
+    <string name="swipe_to_snooze_title">Svep för att snooze</string>
+    <string name="swipe_to_snooze_description">Snooze-tid</string>
+    <string name="swipe_to_snooze_time_description">En rensad avisering kommer att snoozas och återskapas %s</string>
+    <string name="swipe_to_snooze_time_immediately">omedelbart</string>
+    <string name="swipe_to_snooze_time_15_minutes">efter 15 minuter</string>
+    <string name="swipe_to_snooze_time_30_minutes">efter 30 minuter</string>
+    <string name="swipe_to_snooze_time_1_hour">efter 1 timme</string>
+    <string name="swipe_to_snooze_time_24_hours">efter 24 timmar</string>
 </resources>
