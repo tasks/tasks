@@ -15,4 +15,7 @@
     <string name="drawer_filters">Filtre</string>
     <string name="drawer_places">Steder</string>
     <string name="drawer_local_lists">Lokale lister</string>
+    <string name="search_no_results">Ingen resultater</string>
+    <string name="requires_pro_subscription">Pro funktion</string>
+    <string name="subscription_required_description">Lås op for alle funktioner for så lidt som $1 USD/år</string>
 </resources>
