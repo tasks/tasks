@@ -17,4 +17,32 @@
 \n</string>
     <string name="ok">ОК</string>
     <string name="cancel">Адмена</string>
+    <string name="read_permission_label">Правы дазволу Tasks</string>
+    <string name="discard_confirmation">Вы ўпэўнены, што хочаце адхіліць змены?</string>
+    <string name="keep_editing">Працягнуць змены</string>
+    <string name="DLG_delete_this_task_question">Выдаліць гэтую задачу?</string>
+    <string name="DLG_hour_minutes">Час (гадзіны : хвіліны)</string>
+    <string name="DLG_undo">Адмяніць</string>
+    <string name="WID_dateButtonUnset">Націсніце, каб наставіць</string>
+    <string name="TLA_no_items">Тут няма задач.</string>
+    <string name="TLA_menu_sort">Сартаванне</string>
+    <string name="TLA_menu_search">Пошук</string>
+    <string name="TLA_menu_settings">Налады</string>
+    <string name="TAd_actionEditTask">Рэдагаваць</string>
+    <string name="action_call">Патэлефанаваць</string>
+    <string name="astrid_sort_order">Ручное сартаванне Astrid</string>
+    <string name="SSD_sort_auto">Разумнае сартаванне</string>
+    <string name="customize_drawer">Наладзіць панэль</string>
+    <string name="customize_drawer_summary">Перацягніце элементы меню, каб іх пераставіць</string>
+    <string name="action_open">Адкрыць</string>
+    <string name="SSD_sort_my_order">Мой парадак</string>
+    <string name="astrid_sort_order_summary">Уключыце рэжым ручнога сартавання Astrid для «Маіх задач», «Сёння» і тэгаў. Гэты рэжым будзе заменены на «Мой парадак» у будучым абнаўленні</string>
+    <string name="SSD_sort_alpha">Па назве</string>
+    <string name="SSD_sort_start">Па даце пачатку</string>
+    <string name="SSD_sort_modified">Па даце апошняй змены</string>
+    <string name="SSD_sort_due">Па даце завяршэння</string>
+    <string name="SSD_sort_importance">Па прыярытэту</string>
+    <string name="sort_created">Па даце стварэння</string>
+    <string name="sort_list">Па спісу</string>
+    <string name="sort_completed">Па часу выканання</string>
 </resources>
