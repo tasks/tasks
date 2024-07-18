@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.typeface.IIcon;
 
 import org.tasks.R;
 import org.tasks.billing.Inventory;
@@ -26,6 +27,7 @@ import org.tasks.filters.PlaceFilter;
 import org.tasks.icons.OutlinedGoogleMaterial;
 import org.tasks.location.LocationPickerAdapter.PlaceViewHolder;
 import org.tasks.themes.ColorProvider;
+import org.tasks.themes.TasksIcons;
 import org.tasks.themes.ThemeColor;
 
 public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHolder> {
@@ -109,10 +111,13 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
       place = placeUsage.place;
       String name = place.getDisplayName();
       String address = place.getDisplayAddress();
-      Drawable drawable = new IconicsDrawable(
-              context,
-              OutlinedGoogleMaterial.INSTANCE.getIcon("gmo_" + icon)
-      ).mutate();
+      IIcon iconicsIcon;
+      try {
+        iconicsIcon = OutlinedGoogleMaterial.INSTANCE.getIcon("gmo_" + icon);
+      } catch (Exception e) {
+        iconicsIcon = OutlinedGoogleMaterial.INSTANCE.getIcon("gmo_" + TasksIcons.PLACE);
+      }
+      Drawable drawable = new IconicsDrawable(context, iconicsIcon).mutate();
       this.icon.setImageDrawable(drawable);
       this.icon.getDrawable().setTint(color);
       this.name.setText(name);
