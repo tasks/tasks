@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import org.tasks.data.entity.Task
-import org.tasks.themes.ColorProvider
+import org.tasks.kmp.org.tasks.themes.ColorProvider.priorityColor
 import org.tasks.ui.CheckBoxProvider.Companion.getCheckboxRes
 
 @Composable
@@ -22,7 +22,7 @@ fun CheckBox(
         Icon(
             painter = painterResource(id = task.getCheckboxRes()),
             tint = Color(
-                ColorProvider.priorityColor(
+                priorityColor(
                     priority = task.priority,
                     isDarkMode = isSystemInDarkTheme(),
                     desaturate = desaturate,

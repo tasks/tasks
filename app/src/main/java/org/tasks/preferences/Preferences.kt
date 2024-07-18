@@ -25,7 +25,7 @@ import org.tasks.data.entity.Task.Companion.NOTIFY_AFTER_DEADLINE
 import org.tasks.data.entity.Task.Companion.NOTIFY_AT_DEADLINE
 import org.tasks.data.entity.TaskAttachment
 import org.tasks.extensions.Context.getResourceUri
-import org.tasks.themes.ColorProvider
+import org.tasks.kmp.org.tasks.themes.ColorProvider.BLUE_500
 import org.tasks.themes.ThemeBase
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -558,7 +558,7 @@ class Preferences @JvmOverloads constructor(
     }
 
     val defaultThemeColor: Int
-        get() = getInt(R.string.p_theme_color, ColorProvider.BLUE_500)
+        get() = getInt(R.string.p_theme_color, BLUE_500)
 
     val markdown: Boolean
         get() = getBoolean(R.string.p_markdown, false)

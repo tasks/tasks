@@ -13,7 +13,7 @@ import org.tasks.compose.ChipGroup
 import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.TagData
-import org.tasks.themes.ColorProvider
+import org.tasks.kmp.org.tasks.themes.ColorProvider.BLUE_500
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 
@@ -74,7 +74,7 @@ fun SingleTag() {
                 TagData(
                     name = "Home",
                     icon = "home",
-                    color = ColorProvider.BLUE_500
+                    color = BLUE_500
                 )
             ),
             colorProvider = { it },
@@ -112,7 +112,7 @@ fun TagWithReallyLongName() {
                 TagData(
                     name = "This is a tag with a really really long name",
                     icon = "home",
-                    color = ColorProvider.BLUE_500
+                    color = BLUE_500
                 )
             ),
             colorProvider = { it },

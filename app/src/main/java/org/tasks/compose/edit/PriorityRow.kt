@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.Task
-import org.tasks.themes.ColorProvider.Companion.priorityColor
+import org.tasks.kmp.org.tasks.themes.ColorProvider.priorityColor
 import org.tasks.themes.TasksTheme
 
 @Composable
