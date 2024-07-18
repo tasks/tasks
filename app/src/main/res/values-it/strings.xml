@@ -378,7 +378,7 @@
     <string name="about">Informazioni</string>
     <string name="license_summary">Tasks è un software libero ed open-source, rilasciato sotto licenza GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Estensione Dashclock</string>
-    <string name="requires_pro_subscription">Richiede la versione Pro</string>
+    <string name="requires_pro_subscription">Richiede versione premium</string>
     <string name="logout">Esci</string>
     <string name="logout_warning">Tutti i dati dell\'account saranno cancellati dal dispositivo</string>
     <string name="cannot_access_account">Impossibile accedere all\'account</string>
@@ -744,4 +744,17 @@
     <string name="change_priority">Cambia priorità</string>
     <string name="theme_dynamic">Dinamico</string>
     <string name="clear_completed_tasks_count">%s sarà cancellato</string>
+    <string name="donate_today">Dona ora</string>
+    <string name="donate_nag">Dimostra il tuo sostegno con una donazione!</string>
+    <string name="donate_maybe_later">Forse più tardi</string>
+    <string name="customize_drawer">Personalizza il drawer</string>
+    <string name="customize_drawer_summary">Trascina le voci del menu per riorganizzarlo</string>
+    <string name="swipe_to_snooze_time_24_hours">dopo 24 ore</string>
+    <string name="swipe_to_snooze_time_15_minutes">dopo 15 minuti</string>
+    <string name="show_edit_screen_without_unlock">Mostra la schermata di modifica senza sbloccare</string>
+    <string name="swipe_to_snooze_title">Trascina per silenziare</string>
+    <string name="swipe_to_snooze_time_immediately">immediatamente</string>
+    <string name="swipe_to_snooze_time_30_minutes">dopo 30 minuti</string>
+    <string name="swipe_to_snooze_time_1_hour">dopo 1 ora</string>
+    <string name="show_edit_screen_without_unlock_summary">Consente l\'uso delle impostazioni rapide senza sbloccare il dispositivo</string>
 </resources>
