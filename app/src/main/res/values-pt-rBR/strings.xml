@@ -61,7 +61,7 @@
     <string name="EPr_cal_end_or_start_at_due_time">Hora do evento do calendário</string>
     <string name="EPr_cal_end_at_due_time">Finalizar eventos do calendário no horário de vencimento</string>
     <string name="EPr_cal_start_at_due_time">Iniciar eventos do calendário no horário de vencimento</string>
-    <string name="EPr_reset_preferences">Restaurar preferências</string>
+    <string name="EPr_reset_preferences">Restaurar configurações</string>
     <string name="EPr_reset_preferences_warning">As preferências serão restauradas para os valores padrões</string>
     <string name="EPr_delete_task_data">Excluir todas as tarefas</string>
     <string name="EPr_delete_task_data_warning">Todas as tarefas serão permanentemente excluídas</string>
@@ -101,10 +101,10 @@
     <string name="gcal_TEA_error">Erro ao inserir a tarefa no calendário!</string>
     <string name="gcal_TEA_showCalendar_label">Abrir evento no calendário</string>
     <string name="calendar_event_not_found">Evento no calendário não encontrado</string>
-    <string name="gcal_completed_title">%s (concluído)</string>
+    <string name="gcal_completed_title">%s (concluída)</string>
     <string name="CFC_gtasks_list_text">Na lista: ?</string>
     <string name="CFC_gtasks_list_name">No Google Tarefas…</string>
-    <string name="gtasks_GTA_clear_completed">Limpar concluídas</string>
+    <string name="gtasks_GTA_clear_completed">Limpar tarefas concluídas</string>
     <string name="gtasks_GLA_authenticating">Autenticando…</string>
     <string name="gtasks_GLA_errorIOAuth">Lamentamos, mas tivemos problemas na comunicação com os servidores do Google. Por favor, tente novamente mais tarde.</string>
     <string name="gtasks_GPr_header">Google Tarefas</string>
@@ -280,7 +280,7 @@
     <string name="copy">Copiar</string>
     <string name="move">Mover</string>
     <string name="filter_settings">Configurações de filtro</string>
-    <string name="show_completed">Mostrar concluídas</string>
+    <string name="show_completed">Mostrar tarefas concluídas</string>
     <string name="add_attachment">Adicionar anexo</string>
     <string name="take_a_picture">Tirar uma foto</string>
     <string name="pick_from_gallery">Selecionar da galeria</string>
@@ -373,9 +373,9 @@
     <string name="refresh_purchases">Atualizar compras</string>
     <string name="button_subscribe">Subscrever</string>
     <string name="about">Sobre</string>
-    <string name="license_summary">Tasks é um software de código aberto licenciado sob a Licença Pública Geral GNU v3.0</string>
+    <string name="license_summary">O Tasks é um software livre de código aberto, licenciado sob a GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
-    <string name="requires_pro_subscription">Requer subscrição Pro</string>
+    <string name="requires_pro_subscription">É necessária uma assinatura pro</string>
     <string name="logout">Sair</string>
     <string name="logout_warning">Todos os dados dessa conta serão removidos do seu dispositivo</string>
     <string name="cannot_access_account">Não é possível acessar a conta</string>
@@ -419,7 +419,7 @@
     <string name="hide_unused_tags">Ocultar etiquetas não usadas</string>
     <string name="navigation_drawer">Menu de navegação</string>
     <string name="place_settings">Configuração de lugares</string>
-    <string name="places">Lugares</string>
+    <string name="places">Locais</string>
     <string name="desaturate_colors_summary_off">Cores não serão dessaturadas em temas escuros</string>
     <string name="desaturate_colors_summary_on">Cores serão dessaturadas em temas escuros</string>
     <string name="desaturate_colors">Dessaturar cores</string>
@@ -452,7 +452,7 @@
     <string name="subtasks_multilevel_google_task">Subtarefas em vários níveis não são suportadas pelo Google Tarefas</string>
     <string name="collapse_subtasks">Recolher sub-tarefas</string>
     <string name="expand_subtasks">Expandir sub-tarefas</string>
-    <string name="name_your_price">Dê seu valor</string>
+    <string name="name_your_price">Dê o seu preço</string>
     <string name="google_tasks_add_to_top">Novas tarefas no topo</string>
     <string name="invalid_backup_file">Arquivo de backup inválido</string>
     <string name="version_string">Versão %s</string>
@@ -492,7 +492,7 @@
     </plurals>
     <string name="CFC_list_name">Na lista…</string>
     <string name="TEA_timer_est">Est. %s</string>
-    <string name="TEA_add_subtask">Adicionar subtarefa</string>
+    <string name="TEA_add_subtask">Adicionar sub-tarefa</string>
     <string name="sort_created">Por hora de criação</string>
     <string name="astrid_sort_order_summary">Ativar ordenação manual do Astrid para \'Minhas tarefas\', \'Hoje\', e etiquetas. Esse modo de ordenação será substituído por \'Minhas ordenações\' em uma atualização futura</string>
     <string name="astrid_sort_order">Ordenação manual do Astrid</string>
@@ -504,8 +504,8 @@
     <string name="lists">Listas</string>
     <string name="open_last_viewed_list">Abrir a última lista visualizada</string>
     <string name="on_launch">Ao iniciar</string>
-    <string name="sort_modified_group">Modificado %s</string>
-    <string name="sort_created_group">Criado %s</string>
+    <string name="sort_modified_group">Modificado em %s</string>
+    <string name="sort_created_group">Criado em %s</string>
     <string name="got_it">Entendi!</string>
     <string name="support_development_subscribe">Desbloquear funcionalidades adicionais e apoie software de código aberto</string>
     <string name="enjoying_tasks">Curtindo Tasks\?</string>
@@ -539,8 +539,8 @@
     <string name="ok">OK</string>
     <string name="upgrade_automation_description">Complementos para Tasker, Automate e Locale</string>
     <string name="current_subscription">Assinatura atual: %s</string>
-    <string name="price_per_month">$%s/mês</string>
-    <string name="price_per_year">$%s/ano</string>
+    <string name="price_per_month">US$ %s/por mês</string>
+    <string name="price_per_year">US$ %s/por ano</string>
     <string name="no_google_play_subscription">Nenhuma assinatura elegível do Google Play foi encontrada</string>
     <string name="insufficient_sponsorship">Nenhum patrocínio elegível do GitHub foi encontrado</string>
     <string name="insufficient_subscription">Nível de assinatura insuficiente. Por favor atualize sua assinatura para continuar o serviço.</string>
@@ -549,7 +549,7 @@
     <string name="custom_filter_has_subtask">Tem subtarefas</string>
     <string name="date_picker_multiple">Várias</string>
     <string name="multi_select_reschedule">Reagendar</string>
-    <string name="backup_location_warning">ATENÇÃO: os arquivos localizados em %s serão excluídos se o Tasks for desinstalado! Escolha um local personalizado para evitar que o Android exclua seus arquivos.</string>
+    <string name="backup_location_warning">ATENÇÃO: os arquivos localizados em \"%s\" serão excluídos se o Tasks for desinstalado! Escolha um local personalizado para evitar que o Android exclua seus arquivos.</string>
     <string name="backups_ignore_warnings_summary">Ignore os avisos de backup se não precisar de backups ou se tiver sua própria solução de backup</string>
     <string name="backups_ignore_warnings">Ignorar alertas</string>
     <string name="background_location">Localização de fundo</string>
@@ -574,13 +574,13 @@
     <string name="default_tags">Etiquetas padrões</string>
     <string name="no_app_found">Nenhum aplicativo pode atender a esta solicitação</string>
     <string name="filter_criteria_unstarted">Não iniciadas</string>
-    <string name="show_unstarted">Mostrar não iniciadas</string>
+    <string name="show_unstarted">Mostrar tarefas não iniciadas</string>
     <string name="default_start_date">Data de início padrão</string>
     <string name="always_display_full_date">Mostrar data completa</string>
     <string name="more_options">Mais opções</string>
     <string name="upgrade_automation">Automação</string>
     <string name="upgrade_open_source_description">Sua assinatura ajuda a continuar o desenvolvimento</string>
-    <string name="upgrade_desktop_access_description">Sincronize com clientes terceiros, como Outlook e Apple Reminders</string>
+    <string name="upgrade_desktop_access_description">Sincronização com clientes de terceiros, como Outlook e Apple Reminders</string>
     <string name="upgrade_desktop_access">Acesso para a versão Desktop</string>
     <string name="upgrade_tasks_org_account_description">Sincronize com Tasks.org e colabore com outros usuários</string>
     <string name="upgrade_google_tasks">Sincronize várias contas</string>
@@ -601,7 +601,7 @@
     <string name="remove_user">Remover usuário\?</string>
     <string name="list_members">Lista de membros</string>
     <string name="map_theme_use_app_theme">Usar tema do aplicativo</string>
-    <string name="account_not_included">Não incluído nas assinaturas de \'Dê seu preço\'</string>
+    <string name="account_not_included">Não incluído nas assinaturas de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta em Tasks.org</string>
     <string name="tasks_org_account">Conta do Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
@@ -611,11 +611,11 @@
     <string name="app_password_created_at">Criado: %s</string>
     <string name="app_password_enter_description">Dê um nome a sua senha (opcional)</string>
     <string name="generate_new_password">Gerar nova senha</string>
-    <string name="app_passwords_more_info">Sincroniza suas tarefas e calendários com desktop e aplicativos móveis de terceiros. Clique aqui para mais detalhes</string>
+    <string name="app_passwords_more_info">Sincronize suas tarefas e calendários com aplicativos móveis e de desktop de terceiros. Toque aqui para obter mais informações</string>
     <string name="app_passwords">Senhas do aplicativo</string>
     <string name="app_password">Senha do aplicativo</string>
     <string name="sign_in_to_tasks">Entrar no Tasks.org</string>
-    <string name="save_percent">Salvar %d%%</string>
+    <string name="save_percent">Economize %d%%</string>
     <string name="above_average">Acima da média</string>
     <string name="migrate_count">Mover %s para Tasks.org</string>
     <string name="migrating_tasks">Migrando tarefas</string>
@@ -664,7 +664,7 @@
     <string name="now">Agora</string>
     <string name="completed_tasks_at_bottom">Mover tarefas concluídas para baixo</string>
     <string name="app_bar_collapse">Recolher barras do aplicativo</string>
-    <string name="completed">Concluído</string>
+    <string name="completed">Concluída</string>
     <string name="completion_sound">Reproduzir som de conclusão</string>
     <string name="app_bar_position">Posição da barra de aplicativos</string>
     <string name="top">Superior</string>
@@ -713,7 +713,7 @@
     <string name="consent_deny">Agora não</string>
     <string name="sign_in_to_tasks_disclosure">Seu endereço de e-mail e seu ID da conta serão transmitidos e armazenados pelo Tasks.org. Estas informações serão usadas para autenticação e para fornecer-lhe anúncios importantes relacionados ao serviço. Estas informações não serão compartilhadas com ninguém.</string>
     <string name="enable_reminders">Ativar lembretes</string>
-    <string name="microsoft_selection_description">Sincronizar com a sua conta Microsoft pessoal</string>
+    <string name="microsoft_selection_description">Sincronize com sua conta pessoal da Microsoft</string>
     <string name="enable_reminders_description">Os lembretes estão desabilitados nas Configurações do Android</string>
     <string name="TEA_creation_date">Data de criação</string>
     <string name="sign_in">Fazer login</string>
