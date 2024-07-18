@@ -4,7 +4,7 @@
     <string name="subscribe">Assinar</string>
     <string name="search_no_results">Nenhum resultado</string>
     <string name="requires_pro_subscription">Função Pro</string>
-    <string name="subscription_required_description">Desbloquear todas as funções por apenas US$ 1/ano</string>
+    <string name="subscription_required_description">Desbloquear todas as funções por apenas US$ 1/por ano</string>
     <string name="filter_my_tasks">Minhas tarefas</string>
     <string name="filter_notifications">Notificações</string>
     <string name="filter_snoozed">Adiadas</string>
@@ -16,6 +16,6 @@
     <string name="settings">Configurações</string>
     <string name="drawer_filters">Filtros</string>
     <string name="drawer_tags">Etiquetas</string>
-    <string name="drawer_places">Lugares</string>
+    <string name="drawer_places">Locais</string>
     <string name="drawer_local_lists">Listas locais</string>
 </resources>
