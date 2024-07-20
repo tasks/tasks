@@ -748,7 +748,7 @@
     <string name="donate_nag">Dimostra il tuo sostegno con una donazione!</string>
     <string name="donate_maybe_later">Forse più tardi</string>
     <string name="customize_drawer">Personalizza il drawer</string>
-    <string name="customize_drawer_summary">Trascina le voci del menu per riorganizzarlo</string>
+    <string name="customize_drawer_summary">Trascina e rilascia le voci del menu per riorganizzarlo</string>
     <string name="swipe_to_snooze_time_24_hours">dopo 24 ore</string>
     <string name="swipe_to_snooze_time_15_minutes">dopo 15 minuti</string>
     <string name="show_edit_screen_without_unlock">Mostra la schermata di modifica senza sbloccare</string>
