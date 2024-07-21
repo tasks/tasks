@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="actfm_picture_clear">Ryd markering</string>
+    <string name="actfm_picture_clear">Ryd Billede</string>
     <string name="TVA_add_comment">Tilføj en kommentar…</string>
     <string name="backup_BPr_header">Sikkerhedskopier</string>
     <string name="backup_BAc_import">Import af sikkerhedskopiering</string>
-    <string name="backup_BAc_export">Backup nu</string>
+    <string name="backup_BAc_export">Sikkerhedskopiér nu</string>
     <string name="export_toast">Sikkerhedskopierede %1$s til %2$s.</string>
     <string name="import_summary_title">Gendan opsummering</string>
     <string name="import_summary_message">Filen %1$s indeholdt %2$s.
@@ -14,7 +14,7 @@
 \n%5$s indeholdt fejl
 \n</string>
     <string name="import_progress_read">Indlæser opgave %d…</string>
-    <string name="read_permission_label">Tasks Tilladelser</string>
+    <string name="read_permission_label">Tasks Tilladelse</string>
     <string name="DLG_delete_this_task_question">Slet denne opgave?</string>
     <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
     <string name="WID_dateButtonUnset">Tryk for at indstille</string>
@@ -646,7 +646,7 @@
     <string name="SSD_sort_start">Efter startdato</string>
     <string name="now">Nu</string>
     <string name="cancel">Annuller</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="app_bar_position">App meny position</string>
     <string name="top">Top</string>
     <string name="bottom">Bund</string>
