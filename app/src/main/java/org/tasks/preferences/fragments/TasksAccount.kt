@@ -16,9 +16,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceCategory
 import com.google.android.material.textfield.TextInputLayout
-import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -32,10 +32,10 @@ import org.tasks.data.entity.CaldavAccount.Companion.isPaymentRequired
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.jobs.WorkManager
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.preferences.IconPreference
 import org.tasks.preferences.fragments.MainSettingsFragment.Companion.REQUEST_TASKS_ORG
-import java.time.format.FormatStyle
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,7 +44,6 @@ class TasksAccount : BaseAccountPreference() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var workManager: WorkManager
-    @Inject lateinit var locale: Locale
 
     private val viewModel: TasksAccountViewModel by viewModels()
 
@@ -98,7 +97,11 @@ class TasksAccount : BaseAccountPreference() {
     override fun onResume() {
         super.onResume()
         viewModel.appPasswords.observe(this) { passwords ->
-            passwords?.let { refreshPasswords(passwords) }
+            passwords?.let {
+                runBlocking {
+                    refreshPasswords(passwords)
+                }
+            }
         }
         viewModel.newPassword.observe(this) {
             it?.let {
@@ -212,7 +215,7 @@ class TasksAccount : BaseAccountPreference() {
         }
     }
 
-    private fun refreshPasswords(passwords: List<TasksAccountViewModel.AppPassword>) {
+    private suspend fun refreshPasswords(passwords: List<TasksAccountViewModel.AppPassword>) {
         findPreference(R.string.app_passwords_more_info).isVisible = passwords.isEmpty()
         val category = findPreference(R.string.app_passwords) as PreferenceCategory
         category.removeAll()
@@ -243,14 +246,11 @@ class TasksAccount : BaseAccountPreference() {
         }
     }
 
-    private fun formatString(date: Long?): String? = date?.let {
-        DateUtilities.getRelativeDay(
-                requireContext(),
-                date,
-                locale,
-                FormatStyle.FULL,
-                false,
-                true
+    private suspend fun formatString(date: Long?): String? = date?.let {
+        getRelativeDay(
+            date,
+            DateStyle.FULL,
+            lowercase = true
         )
     }
 

@@ -13,11 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.RecyclerView
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.core.SortHelper.SORT_DUE
 import com.todoroo.astrid.core.SortHelper.SORT_LIST
 import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.ui.CheckableImageView
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.compose.ChipGroup
 import org.tasks.compose.FilterChip
@@ -28,13 +28,15 @@ import org.tasks.data.hasNotes
 import org.tasks.data.isHidden
 import org.tasks.data.isOverdue
 import org.tasks.databinding.TaskAdapterRowBinding
-import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.Linkify
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.GtasksFilter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
+import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksIcons
@@ -43,8 +45,6 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 import org.tasks.ui.CheckBoxProvider
 import org.tasks.ui.ChipProvider
-import java.time.format.FormatStyle
-import java.util.Locale
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -64,7 +64,6 @@ class TaskViewHolder internal constructor(
     private val rowPaddingDp: Int,
     private val rowPaddingPx: Int,
     private val linkify: Linkify,
-    private val locale: Locale,
     private val markdown: Markdown
 ) : RecyclerView.ViewHolder(binding.root) {
     private val row: ViewGroup = binding.row
@@ -220,10 +219,16 @@ class TaskViewHolder internal constructor(
                     && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
-                    DateUtilities.getTimeString(context, newDateTime(task.dueDate))
+                    getTimeString(task.dueDate, context.is24HourFormat)
                 }
             } else {
-                DateUtilities.getRelativeDateTime(context, task.dueDate, locale, FormatStyle.MEDIUM, alwaysDisplayFullDate, false)
+                runBlocking {
+                    getRelativeDateTime(
+                        task.dueDate,
+                        context.is24HourFormat,
+                        alwaysDisplayFullDate = alwaysDisplayFullDate
+                    )
+                }
             }
             dueDate.text = dateValue
             dueDate.visibility = View.VISIBLE

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService.RemoteViewsFactory
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import kotlinx.coroutines.runBlocking
@@ -17,7 +16,7 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.hasNotes
 import org.tasks.data.isHidden
 import org.tasks.data.isOverdue
-import org.tasks.date.DateTimeUtils
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.setBackgroundResource
 import org.tasks.extensions.setColorFilter
 import org.tasks.extensions.setMaxLines
@@ -26,6 +25,9 @@ import org.tasks.extensions.strikethrough
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.Filter
 import org.tasks.kmp.org.tasks.themes.ColorProvider.priorityColor
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.markdown.Markdown
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
@@ -34,8 +36,6 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 import org.tasks.ui.CheckBoxProvider.Companion.getCheckboxRes
 import timber.log.Timber
-import java.time.format.FormatStyle
-import java.util.Locale
 import kotlin.math.max
 
 internal class TasksWidgetViewFactory(
@@ -45,7 +45,6 @@ internal class TasksWidgetViewFactory(
     private val context: Context,
     private val widgetId: Int,
     private val taskDao: TaskDao,
-    private val locale: Locale,
     private val chipProvider: WidgetChipProvider,
     private val markdown: Markdown,
     private val headerFormatter: HeaderFormatter,
@@ -111,7 +110,7 @@ internal class TasksWidgetViewFactory(
                 value = section.value,
                 groupMode = settings.groupMode,
                 alwaysDisplayFullDate = settings.showFullDate,
-                style = FormatStyle.MEDIUM,
+                style = DateStyle.MEDIUM,
                 compact = settings.compact,
             )
         } else {
@@ -290,12 +289,16 @@ internal class TasksWidgetViewFactory(
                 !disableGroups
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
-                    DateUtilities.getTimeString(context, DateTimeUtils.newDateTime(task.dueDate))
+                    getTimeString(task.dueDate, context.is24HourFormat)
                 }
             } else {
-                DateUtilities.getRelativeDateTime(
-                    context, task.dueDate, locale, FormatStyle.MEDIUM, settings.showFullDate, false
-                )
+                runBlocking {
+                    getRelativeDateTime(
+                        task.dueDate,
+                        context.is24HourFormat,
+                        alwaysDisplayFullDate = settings.showFullDate
+                    )
+                }
             }
             setTextViewText(dueDateRes, text)
             setTextColor(

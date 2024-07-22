@@ -44,7 +44,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastOreoMR1
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.repeats.RepeatControlSet
@@ -57,6 +56,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
@@ -89,6 +89,7 @@ import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.hideKeyboard
 import org.tasks.files.FileHelper
 import org.tasks.filters.Filter
@@ -98,6 +99,8 @@ import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_DESCR
 import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_DUE_DATE
 import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_LIST
 import org.tasks.fragments.TaskEditControlSetFragmentManager.Companion.TAG_PRIORITY
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.NotificationManager
 import org.tasks.play.PlayServices
@@ -111,7 +114,6 @@ import org.tasks.ui.TaskEditEvent
 import org.tasks.ui.TaskEditEventBus
 import org.tasks.ui.TaskEditViewModel
 import org.tasks.ui.TaskEditViewModel.Companion.stripCarriageReturns
-import java.time.format.FormatStyle
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.abs
@@ -436,18 +438,19 @@ class TaskEditFragment : Fragment(), Toolbar.OnMenuItemClickListener {
     @Composable
     private fun DueDateRow() {
         val dueDate = editViewModel.dueDate.collectAsStateWithLifecycle().value
+        val context = LocalContext.current
         DueDateRow(
             dueDate = if (dueDate == 0L) {
                 null
             } else {
-                DateUtilities.getRelativeDateTime(
-                    LocalContext.current,
-                    dueDate,
-                    locale,
-                    FormatStyle.FULL,
-                    preferences.alwaysDisplayFullDate,
-                    false
-                )
+                runBlocking {
+                    getRelativeDateTime(
+                        dueDate,
+                        context.is24HourFormat,
+                        DateStyle.FULL,
+                        alwaysDisplayFullDate = preferences.alwaysDisplayFullDate
+                    )
+                }
             },
             overdue = dueDate.isOverdue,
             onClick = {

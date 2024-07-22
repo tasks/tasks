@@ -2,21 +2,19 @@ package org.tasks.tasklist
 
 import android.content.Context
 import androidx.annotation.StringRes
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.core.SortHelper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.data.dao.CaldavDao
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.preferences.Preferences
-import java.time.format.FormatStyle
-import java.util.Locale
 import javax.inject.Inject
 
 class HeaderFormatter @Inject constructor(
     @ApplicationContext private val context: Context,
     private val preferences: Preferences,
-    private val locale: Locale,
     private val caldavDao: CaldavDao,
 ) {
     private val listCache = HashMap<Long, String?>()
@@ -25,7 +23,7 @@ class HeaderFormatter @Inject constructor(
         value: Long,
         groupMode: Int = preferences.groupMode,
         alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate,
-        style: FormatStyle = FormatStyle.FULL,
+        style: DateStyle = DateStyle.FULL,
         compact: Boolean = false,
     ) = runBlocking {
         headerString(value, groupMode, alwaysDisplayFullDate, style, compact)
@@ -35,7 +33,7 @@ class HeaderFormatter @Inject constructor(
         value: Long,
         groupMode: Int = preferences.groupMode,
         alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate,
-        style: FormatStyle = FormatStyle.FULL,
+        style: DateStyle = DateStyle.FULL,
         compact: Boolean = false
     ): String =
         when {
@@ -50,8 +48,11 @@ class HeaderFormatter @Inject constructor(
                 else -> R.string.no_date
             })
             else -> {
-                val dateString = DateUtilities.getRelativeDay(
-                    context, value, locale, style, alwaysDisplayFullDate, !compact
+                val dateString = getRelativeDay(
+                    value,
+                    style,
+                    alwaysDisplayFullDate = alwaysDisplayFullDate,
+                    lowercase = !compact
                 )
                 when {
                     compact -> dateString

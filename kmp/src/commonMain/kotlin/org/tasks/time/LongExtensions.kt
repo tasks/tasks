@@ -7,6 +7,7 @@ import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atTime
 import kotlinx.datetime.minus
+import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
@@ -95,6 +96,18 @@ fun Long.withMillisOfDay(millisOfDay: Int): Long =
         0
     }
 
+fun Long.plusDays(days: Int): Long =
+    if (this > 0) {
+        with (toLocalDateTime()) {
+            date
+                .plus(days, DateTimeUnit.DAY)
+                .atTime(time)
+                .toEpochMilliseconds()
+        }
+    } else {
+        0
+    }
+
 fun Long.minusDays(days: Int): Long =
     if (this > 0) {
         with (toLocalDateTime()) {
@@ -123,6 +136,12 @@ private fun Long.minus(value: Int, units: DateTimeUnit.TimeBased): Long =
 
 val Long.millisOfDay: Int
     get() = if (this > 0) toLocalDateTime().time.toMillisecondOfDay() else 0
+
+val Long.minuteOfHour: Int
+    get() = if (this > 0) toLocalDateTime().minute else 0
+
+val Long.year: Int
+    get() = if (this > 0) toLocalDateTime().year else 0
 
 private fun Long.toLocalDateTime(): LocalDateTime =
     Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.currentSystemDefault())

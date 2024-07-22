@@ -1,22 +1,26 @@
 package org.tasks.reminders;
 
-import static com.todoroo.andlib.utility.DateUtilities.getTimeString;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import dagger.hilt.android.AndroidEntryPoint;
-import dagger.hilt.android.qualifiers.ApplicationContext;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
+
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.kmp.org.tasks.time.DateUtilitiesKt;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 @AndroidEntryPoint
 public class SnoozeDialog extends DialogFragment {
@@ -92,7 +96,11 @@ public class SnoozeDialog extends DialogFragment {
           String.format(
               "%s (%s)",
               getString(snoozeOption.getResId()),
-              getTimeString(context, snoozeOption.getDateTime())));
+                  DateUtilitiesKt.getTimeString(
+                          snoozeOption.getDateTime().getMillis(),
+                          org.tasks.extensions.Context.INSTANCE.is24HourFormat(context))
+          )
+      );
     }
 
     items.add(getString(R.string.pick_a_date_and_time));

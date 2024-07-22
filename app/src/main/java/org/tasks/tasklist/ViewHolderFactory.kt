@@ -16,7 +16,6 @@ import org.tasks.preferences.ResourceResolver
 import org.tasks.tasklist.TaskViewHolder.ViewHolderCallbacks
 import org.tasks.ui.CheckBoxProvider
 import org.tasks.ui.ChipProvider
-import java.util.Locale
 import javax.inject.Inject
 
 class ViewHolderFactory @Inject constructor(
@@ -25,7 +24,6 @@ class ViewHolderFactory @Inject constructor(
         private val chipProvider: ChipProvider,
         private val checkBoxProvider: CheckBoxProvider,
         private val linkify: Linkify,
-        private val locale: Locale,
         private val headerFormatter: HeaderFormatter,
 ) {
     private val textColorSecondary: Int = ResourceResolver.getData(context, android.R.attr.textColorSecondary)
@@ -64,7 +62,6 @@ class ViewHolderFactory @Inject constructor(
                     rowPaddingDp,
                     rowPaddingPx,
                     linkify,
-                    locale,
                     markdown
             )
 }

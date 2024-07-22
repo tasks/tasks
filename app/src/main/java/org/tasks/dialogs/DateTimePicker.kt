@@ -10,11 +10,11 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.todoroo.andlib.utility.DateUtilities
 import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.Task
@@ -22,11 +22,14 @@ import org.tasks.databinding.DialogDateTimePickerBinding
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
+import org.tasks.extensions.Context.is24HourFormat
+import org.tasks.kmp.org.tasks.time.getRelativeDay
+import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.notifications.NotificationManager
 import org.tasks.time.DateTime
 import org.tasks.time.millisOfDay
 import org.tasks.time.startOfDay
-import java.time.format.FormatStyle
+import org.tasks.time.withMillisOfDay
 import java.util.Calendar.FRIDAY
 import java.util.Calendar.MONDAY
 import java.util.Calendar.SATURDAY
@@ -34,14 +37,12 @@ import java.util.Calendar.SUNDAY
 import java.util.Calendar.THURSDAY
 import java.util.Calendar.TUESDAY
 import java.util.Calendar.WEDNESDAY
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class DateTimePicker : BaseDateTimePicker() {
 
     @Inject lateinit var activity: Activity
-    @Inject lateinit var locale: Locale
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var notificationManager: NotificationManager
 
@@ -170,7 +171,9 @@ class DateTimePicker : BaseDateTimePicker() {
                 binding.shortcuts.currentDateSelection.text = if (customDate == MULTIPLE_DAYS) {
                     requireContext().getString(R.string.date_picker_multiple)
                 } else {
-                    DateUtilities.getRelativeDay(requireContext(), selectedDay, locale, FormatStyle.MEDIUM)
+                    runBlocking {
+                        getRelativeDay(selectedDay)
+                    }
                 }
             }
         }
@@ -184,11 +187,15 @@ class DateTimePicker : BaseDateTimePicker() {
                     customTime = selectedTime
                     binding.shortcuts.timeGroup.check(R.id.current_time_selection)
                     binding.shortcuts.currentTimeSelection.visibility = View.VISIBLE
-                    binding.shortcuts.currentTimeSelection.text = if (customTime == MULTIPLE_TIMES) {
-                        requireContext().getString(R.string.date_picker_multiple)
-                    } else {
-                        DateUtilities.getTimeString(requireContext(), today.withMillisOfDay(selectedTime))
-                    }
+                    binding.shortcuts.currentTimeSelection.text =
+                        if (customTime == MULTIPLE_TIMES) {
+                            requireContext().getString(R.string.date_picker_multiple)
+                        } else {
+                            getTimeString(
+                                today.millis.withMillisOfDay(selectedTime),
+                                requireContext().is24HourFormat
+                            )
+                        }
                 }
             }
         } else {

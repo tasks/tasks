@@ -3,12 +3,12 @@ package org.tasks
 import android.content.Context
 import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import com.squareup.moshi.Moshi
-import org.tasks.data.entity.Task
 import kotlinx.coroutines.runBlocking
 import org.tasks.caldav.applyRemote
 import org.tasks.caldav.iCalendar.Companion.reminders
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Task
 import org.tasks.preferences.Preferences
 import org.tasks.sync.microsoft.MicrosoftConverter.applyRemote
 import org.tasks.sync.microsoft.Tasks
@@ -16,6 +16,7 @@ import org.tasks.time.DateTime
 import java.io.StringReader
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.util.Locale
 import java.util.TimeZone
 
 object TestUtilities {
@@ -31,6 +32,18 @@ object TestUtilities {
             }
         } finally {
             TimeZone.setDefault(def)
+        }
+    }
+
+    fun withLocale(locale: Locale, runnable: suspend () -> Unit) {
+        val def = Locale.getDefault()
+        try {
+            Locale.setDefault(locale)
+            runBlocking {
+                runnable()
+            }
+        } finally {
+            Locale.setDefault(def)
         }
     }
 

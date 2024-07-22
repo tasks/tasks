@@ -1,16 +1,17 @@
 package com.todoroo.andlib.utility
 
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.tasks.Freeze
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.time.DateTime
-import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
 class RelativeDayTest {
@@ -67,12 +68,12 @@ class RelativeDayTest {
         checkRelativeDay(DateTime().plusDays(7), "January 7, 2014", "Jan 7, 2014")
     }
 
-    private fun checkRelativeDay(now: DateTime, full: String, abbreviated: String) {
+    private fun checkRelativeDay(now: DateTime, full: String, abbreviated: String) = runBlocking {
         assertEquals(
                 full,
-                DateUtilities.getRelativeDay(ApplicationProvider.getApplicationContext(), now.millis, Locale.US, FormatStyle.LONG))
+                getRelativeDay(now.millis, DateStyle.LONG))
         assertEquals(
                 abbreviated,
-                DateUtilities.getRelativeDay(ApplicationProvider.getApplicationContext(), now.millis, Locale.US, FormatStyle.MEDIUM))
+                getRelativeDay(now.millis))
     }
 }

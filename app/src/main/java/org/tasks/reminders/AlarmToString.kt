@@ -2,14 +2,13 @@ package org.tasks.reminders
 
 import android.content.Context
 import android.content.res.Resources
-import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.R
 import org.tasks.data.entity.Alarm
-import java.util.Locale
+import org.tasks.kmp.org.tasks.time.getFullDateTime
 import java.util.concurrent.TimeUnit
 import kotlin.math.absoluteValue
 
-class AlarmToString(context: Context, var locale: Locale) {
+class AlarmToString(context: Context) {
     private val resources = context.resources
 
     fun toString(alarm: Alarm): String {
@@ -41,10 +40,10 @@ class AlarmToString(context: Context, var locale: Locale) {
             Alarm.TYPE_SNOOZE ->
                 resources.getString(
                     R.string.snoozed_until,
-                    DateUtilities.getLongDateStringWithTime(alarm.time, locale)
+                    getFullDateTime(alarm.time)
                 )
             else ->
-                DateUtilities.getLongDateStringWithTime(alarm.time, locale)
+                getFullDateTime(alarm.time)
         }
         return if (alarm.repeat > 0) {
             reminder + "\n" + resources.getRepeatString(alarm.repeat, alarm.interval)

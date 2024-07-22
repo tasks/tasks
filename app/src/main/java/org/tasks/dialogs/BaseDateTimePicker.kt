@@ -14,11 +14,13 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
-import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.R
-import org.tasks.date.DateTimeUtils
+import org.tasks.extensions.Context.is24HourFormat
+import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.preferences.Preferences
 import org.tasks.themes.Theme
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.withMillisOfDay
 import javax.inject.Inject
 
 abstract class BaseDateTimePicker : BottomSheetDialogFragment() {
@@ -113,10 +115,12 @@ abstract class BaseDateTimePicker : BottomSheetDialogFragment() {
         afternoon = preferences.dateShortcutAfternoon + 1000
         evening = preferences.dateShortcutEvening + 1000
         night = preferences.dateShortcutNight + 1000
-        morningButton.text = DateUtilities.getTimeString(requireContext(), DateTimeUtils.newDateTime().withMillisOfDay(morning))
-        afternoonButton.text = DateUtilities.getTimeString(requireContext(), DateTimeUtils.newDateTime().withMillisOfDay(afternoon))
-        eveningButton.text = DateUtilities.getTimeString(requireContext(), DateTimeUtils.newDateTime().withMillisOfDay(evening))
-        nightButton.text = DateUtilities.getTimeString(requireContext(), DateTimeUtils.newDateTime().withMillisOfDay(night))
+        val is24HourFormat = requireContext().is24HourFormat
+        val now = currentTimeMillis()
+        morningButton.text = getTimeString(now.withMillisOfDay(morning), is24HourFormat)
+        afternoonButton.text = getTimeString(now.withMillisOfDay(afternoon), is24HourFormat)
+        eveningButton.text = getTimeString(now.withMillisOfDay(evening), is24HourFormat)
+        nightButton.text = getTimeString(now.withMillisOfDay(night), is24HourFormat)
         val firstDayOfWeek = preferences.firstDayOfWeek
         if (firstDayOfWeek in 1..7) {
             calendarView.firstDayOfWeek = firstDayOfWeek

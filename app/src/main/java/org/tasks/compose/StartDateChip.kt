@@ -5,12 +5,15 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import com.todoroo.andlib.utility.DateUtilities
+import kotlinx.coroutines.runBlocking
 import org.tasks.data.entity.Task
-import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.extensions.Context.is24HourFormat
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.themes.TasksIcons
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
-import java.time.format.FormatStyle
 
 @Composable
 fun StartDateChip(
@@ -29,16 +32,15 @@ fun StartDateChip(
             ) {
                 startDate
                     .takeIf { Task.hasDueTime(it) }
-                    ?.let { DateUtilities.getTimeString(context, it.toDateTime()) }
+                    ?.let { getTimeString(currentTimeMillis(), context.is24HourFormat) }
             } else {
-                DateUtilities.getRelativeDateTime(
-                    context,
-                    startDate,
-                    context.resources.configuration.locales[0],
-                    if (compact) FormatStyle.SHORT else FormatStyle.MEDIUM,
-                    false,
-                    false
-                )
+                runBlocking {
+                    getRelativeDateTime(
+                        startDate,
+                        context.is24HourFormat,
+                        if (compact) DateStyle.SHORT else DateStyle.MEDIUM
+                    )
+                }
             }
         }
     }

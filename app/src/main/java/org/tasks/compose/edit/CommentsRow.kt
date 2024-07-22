@@ -14,13 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.todoroo.andlib.utility.DateUtilities
 import org.tasks.R
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.UserActivity
 import org.tasks.data.pictureUri
-import java.util.Locale
+import org.tasks.kmp.org.tasks.time.getFullDateTime
 
 @Composable
 fun CommentsRow(
@@ -75,7 +74,7 @@ fun Comment(
                 )
             }
             Text(
-                text = DateUtilities.getLongDateStringWithTime(comment.created!!, Locale.getDefault()),
+                text = getFullDateTime(comment.created!!),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface,
             )

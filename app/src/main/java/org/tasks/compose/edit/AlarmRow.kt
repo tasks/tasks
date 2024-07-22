@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.todoroo.astrid.ui.ReminderControlSetViewModel
 import org.tasks.R
 import org.tasks.compose.AddAlarmDialog
@@ -32,7 +31,6 @@ import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.Alarm
 import org.tasks.reminders.AlarmToString
 import org.tasks.themes.TasksTheme
-import java.util.Locale
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -42,7 +40,6 @@ fun AlarmRow(
     fixNotificationPermissions: () -> Unit,
     alarms: List<Alarm>,
     ringMode: Int,
-    locale: Locale,
     addAlarm: (Alarm) -> Unit,
     deleteAlarm: (Alarm) -> Unit,
     openRingType: () -> Unit,
@@ -56,7 +53,6 @@ fun AlarmRow(
                 Alarms(
                     alarms = alarms,
                     ringMode = ringMode,
-                    locale = locale,
                     replaceAlarm = {
                         vm.setReplace(it)
                         vm.showAddAlarm(visible = true)
@@ -125,7 +121,6 @@ fun AlarmRow(
 fun Alarms(
     alarms: List<Alarm>,
     ringMode: Int,
-    locale: Locale,
     replaceAlarm: (Alarm) -> Unit,
     addAlarm: () -> Unit,
     deleteAlarm: (Alarm) -> Unit,
@@ -135,7 +130,7 @@ fun Alarms(
         Spacer(modifier = Modifier.height(8.dp))
         alarms.forEach { alarm ->
             AlarmRow(
-                text = AlarmToString(LocalContext.current, locale).toString(alarm),
+                text = AlarmToString(LocalContext.current).toString(alarm),
                 onClick = { replaceAlarm(alarm) },
                 remove = { deleteAlarm(alarm) }
             )
@@ -193,7 +188,6 @@ private fun AlarmRow(
     }
 }
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Preview(showBackground = true, widthDp = 320)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
@@ -202,7 +196,6 @@ fun NoAlarms() {
         AlarmRow(
             alarms = emptyList(),
             ringMode = 0,
-            locale = Locale.getDefault(),
             addAlarm = {},
             deleteAlarm = {},
             openRingType = {},
@@ -213,7 +206,6 @@ fun NoAlarms() {
     }
 }
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Preview(showBackground = true, widthDp = 320)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, widthDp = 320)
 @Composable
@@ -222,7 +214,6 @@ fun PermissionDenied() {
         AlarmRow(
             alarms = emptyList(),
             ringMode = 0,
-            locale = Locale.getDefault(),
             addAlarm = {},
             deleteAlarm = {},
             openRingType = {},

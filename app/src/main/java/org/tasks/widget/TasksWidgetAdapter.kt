@@ -13,7 +13,6 @@ import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.HeaderFormatter
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,7 +22,6 @@ class TasksWidgetAdapter : RemoteViewsService() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var subtasksHelper: SubtasksHelper
-    @Inject lateinit var locale: Locale
     @Inject lateinit var chipProvider: WidgetChipProvider
     @Inject lateinit var markdownProvider: MarkdownProvider
     @Inject lateinit var headerFormatter: HeaderFormatter
@@ -41,7 +39,6 @@ class TasksWidgetAdapter : RemoteViewsService() {
             applicationContext,
             widgetId,
             taskDao,
-            locale,
             chipProvider,
             markdownProvider.markdown(false),
             headerFormatter,

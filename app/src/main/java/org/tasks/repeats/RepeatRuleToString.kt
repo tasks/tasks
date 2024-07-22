@@ -1,19 +1,31 @@
 package org.tasks.repeats
 
 import android.content.Context
-import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.Recur.Frequency
-import net.fortuna.ical4j.model.Recur.Frequency.*
+import net.fortuna.ical4j.model.Recur.Frequency.DAILY
+import net.fortuna.ical4j.model.Recur.Frequency.HOURLY
+import net.fortuna.ical4j.model.Recur.Frequency.MINUTELY
+import net.fortuna.ical4j.model.Recur.Frequency.MONTHLY
+import net.fortuna.ical4j.model.Recur.Frequency.WEEKLY
+import net.fortuna.ical4j.model.Recur.Frequency.YEARLY
 import net.fortuna.ical4j.model.WeekDay.Day
-import net.fortuna.ical4j.model.WeekDay.Day.*
+import net.fortuna.ical4j.model.WeekDay.Day.FR
+import net.fortuna.ical4j.model.WeekDay.Day.MO
+import net.fortuna.ical4j.model.WeekDay.Day.SA
+import net.fortuna.ical4j.model.WeekDay.Day.SU
+import net.fortuna.ical4j.model.WeekDay.Day.TH
+import net.fortuna.ical4j.model.WeekDay.Day.TU
+import net.fortuna.ical4j.model.WeekDay.Day.WE
 import org.tasks.R
 import org.tasks.analytics.Firebase
+import org.tasks.kmp.org.tasks.time.getFullDate
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import java.text.DateFormatSymbols
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 class RepeatRuleToString @Inject constructor(
@@ -47,10 +59,10 @@ class RepeatRuleToString @Inject constructor(
                     repeatUntil == null ->
                         context.getString(R.string.repeats_single_on, frequencyString, dayString)
                     else -> context.getString(
-                            R.string.repeats_single_on_until,
-                            frequencyString,
-                            dayString,
-                            DateUtilities.getLongDateString(repeatUntil, locale)
+                        R.string.repeats_single_on_until,
+                        frequencyString,
+                        dayString,
+                        getFullDate(repeatUntil.millis)
                     )
                 }
             } else if (count > 0) {
@@ -60,9 +72,10 @@ class RepeatRuleToString @Inject constructor(
                 context.getString(R.string.repeats_single, frequencyString)
             } else {
                 context.getString(
-                        R.string.repeats_single_until,
-                        frequencyString,
-                        DateUtilities.getLongDateString(repeatUntil, locale))
+                    R.string.repeats_single_until,
+                    frequencyString,
+                    getFullDate(repeatUntil.millis)
+                )
             }
         } else {
             val plural = getFrequencyPlural(frequency)
@@ -80,10 +93,10 @@ class RepeatRuleToString @Inject constructor(
                     repeatUntil == null ->
                         context.getString(R.string.repeats_plural_on, frequencyPlural, dayString)
                     else -> context.getString(
-                            R.string.repeats_plural_on_until,
-                            frequencyPlural,
-                            dayString,
-                            DateUtilities.getLongDateString(repeatUntil, locale)
+                        R.string.repeats_plural_on_until,
+                        frequencyPlural,
+                        dayString,
+                        getFullDate(repeatUntil.millis)
                     )
                 }
             } else if (count > 0) {
@@ -93,9 +106,10 @@ class RepeatRuleToString @Inject constructor(
                 context.getString(R.string.repeats_plural, frequencyPlural)
             } else {
                 context.getString(
-                        R.string.repeats_plural_until,
-                        frequencyPlural,
-                        DateUtilities.getLongDateString(repeatUntil, locale))
+                    R.string.repeats_plural_until,
+                    frequencyPlural,
+                    getFullDate(repeatUntil.millis)
+                )
             }
         }
     } catch (e: Exception) {

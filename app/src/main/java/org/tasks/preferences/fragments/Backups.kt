@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.fragment.app.activityViewModels
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
-import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PermissionUtil
 import org.tasks.R
@@ -16,11 +15,11 @@ import org.tasks.drive.DriveLoginActivity
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.injection.InjectingPreferenceFragment
+import org.tasks.kmp.org.tasks.time.getFullDateTime
 import org.tasks.preferences.FragmentPermissionRequestor
 import org.tasks.preferences.PermissionRequestor
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.PreferencesViewModel
-import java.util.*
 import javax.inject.Inject
 
 private const val REQUEST_CODE_BACKUP_DIR = 10001
@@ -35,7 +34,6 @@ class Backups : InjectingPreferenceFragment() {
 
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var permissionRequestor: FragmentPermissionRequestor
-    @Inject lateinit var locale: Locale
 
     private val viewModel: PreferencesViewModel by activityViewModels()
 
@@ -101,7 +99,7 @@ class Backups : InjectingPreferenceFragment() {
                         R.string.last_backup,
                         timestamp
                                 ?.takeIf { it >= 0 }
-                                ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
+                                ?.let { getFullDateTime(it) }
                                 ?: getString(R.string.last_backup_never)
                 )
     }
@@ -119,7 +117,7 @@ class Backups : InjectingPreferenceFragment() {
                         R.string.last_backup,
                         timestamp
                                 ?.takeIf { it >= 0 }
-                                ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
+                                ?.let { getFullDateTime(it) }
                                 ?: getString(R.string.last_backup_never)
                 )
     }
@@ -137,7 +135,7 @@ class Backups : InjectingPreferenceFragment() {
                         R.string.last_backup,
                         timestamp
                                 ?.takeIf { it >= 0 }
-                                ?.let { DateUtilities.getLongDateStringWithTime(it, locale) }
+                                ?.let { getFullDateTime(it) }
                                 ?: getString(R.string.last_backup_never)
                 )
     }

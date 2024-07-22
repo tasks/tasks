@@ -1,14 +1,19 @@
 package org.tasks.ui;
 
+import static org.tasks.time.DateTimeUtils2.currentTimeMillis;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+
 import androidx.preference.Preference;
-import com.todoroo.andlib.utility.DateUtilities;
+
 import org.tasks.R;
 import org.tasks.dialogs.MyTimePickerDialog;
+import org.tasks.kmp.org.tasks.time.DateUtilitiesKt;
 import org.tasks.time.DateTime;
+import org.tasks.time.LongExtensionsKt;
 
 public class TimePreference extends Preference {
 
@@ -47,7 +52,10 @@ public class TimePreference extends Preference {
   private void setMillisOfDay(int millisOfDay) {
     this.millisOfDay = millisOfDay;
     String setting =
-        DateUtilities.getTimeString(getContext(), new DateTime().withMillisOfDay(millisOfDay));
+        DateUtilitiesKt.getTimeString(
+                LongExtensionsKt.withMillisOfDay(currentTimeMillis(), millisOfDay),
+                org.tasks.extensions.Context.INSTANCE.is24HourFormat(getContext())
+        );
     setSummary(summary == null ? setting : String.format(summary, setting));
   }
 

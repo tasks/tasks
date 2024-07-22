@@ -142,7 +142,7 @@ class DateTime {
     }
 
     fun minusSeconds(seconds: Int): DateTime {
-        return subtract(Calendar.SECOND, seconds)
+        return add(Calendar.SECOND, -seconds)
     }
 
     fun minusDays(days: Int): DateTime = DateTime(millis.minusDays(days))
@@ -197,10 +197,6 @@ class DateTime {
         val calendar = calendar
         calendar[field] = value
         return DateTime(calendar)
-    }
-
-    private fun subtract(field: Int, value: Int): DateTime {
-        return add(field, -value)
     }
 
     private fun add(field: Int, value: Int): DateTime {
@@ -262,15 +258,14 @@ class DateTime {
             throw RuntimeException()
         }
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
             return true
         }
-        if (o !is DateTime) {
+        if (other !is DateTime) {
             return false
         }
-        val dateTime = o
-        return millis == dateTime.millis && timeZone == dateTime.timeZone
+        return millis == other.millis && timeZone == other.timeZone
     }
 
     override fun hashCode(): Int {
@@ -303,11 +298,10 @@ class DateTime {
 
         fun from(date: Date?): DateTime {
             if (date is net.fortuna.ical4j.model.DateTime) {
-                val dt = date
-                val tz: TimeZone? = dt.timeZone
+                val tz: TimeZone? = date.timeZone
                 return DateTime(
-                    dt.time,
-                    tz ?: if (dt.isUtc) UTC else TimeZone.getDefault()
+                    date.time,
+                    tz ?: if (date.isUtc) UTC else TimeZone.getDefault()
                 )
             } else {
                 return from(date as java.util.Date?)

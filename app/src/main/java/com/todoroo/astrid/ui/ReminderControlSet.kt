@@ -33,14 +33,12 @@ import org.tasks.extensions.Context.openReminderSettings
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.themes.TasksTheme
 import org.tasks.ui.TaskEditControlFragment
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ReminderControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
-    @Inject lateinit var locale: Locale
 
     private val ringMode = mutableStateOf(0)
 
@@ -104,7 +102,6 @@ class ReminderControlSet : TaskEditControlFragment() {
                             viewModel.addAlarm(Alarm(time = timestamp, type = TYPE_DATE_TIME))
                         }
                     AlarmRow(
-                        locale = locale,
                         alarms = viewModel.selectedAlarms.collectAsStateWithLifecycle().value,
                         hasNotificationPermissions = hasReminderPermissions &&
                                 (notificationPermissions == null || notificationPermissions.status == PermissionStatus.Granted),

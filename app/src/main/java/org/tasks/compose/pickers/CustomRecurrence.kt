@@ -1,7 +1,6 @@
 package org.tasks.compose.pickers
 
 import android.content.res.Configuration
-import android.os.LocaleList
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -49,7 +48,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.os.ConfigurationCompat
-import com.todoroo.andlib.utility.DateUtilities
+import kotlinx.coroutines.runBlocking
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
 import org.tasks.R
@@ -57,10 +56,10 @@ import org.tasks.compose.OutlinedBox
 import org.tasks.compose.OutlinedNumberInput
 import org.tasks.compose.OutlinedSpinner
 import org.tasks.compose.border
+import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.repeats.CustomRecurrenceViewModel
 import org.tasks.themes.TasksTheme
 import java.time.DayOfWeek
-import java.time.format.FormatStyle
 import java.time.format.TextStyle
 import java.util.Locale
 
@@ -342,10 +341,11 @@ private fun EndsPicker(
         Text(text = stringResource(id = R.string.repeats_on))
         Spacer(modifier = Modifier.width(8.dp))
         val context = LocalContext.current
-        val locale = remember { LocaleList.getDefault()[0] }
         val endDateString by remember(context, endDate) {
             derivedStateOf {
-                DateUtilities.getRelativeDay(context, endDate, locale, FormatStyle.MEDIUM)
+                runBlocking {
+                    getRelativeDay(endDate)
+                }
             }
         }
         var showDatePicker by remember { mutableStateOf(false) }

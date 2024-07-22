@@ -4,15 +4,15 @@ import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import com.mikepenz.iconics.IconicsDrawable
-import com.todoroo.andlib.utility.DateUtilities
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.billing.Inventory
 import org.tasks.data.TaskContainer
 import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
-import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.setColorFilter
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
@@ -21,16 +21,15 @@ import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.getIcon
 import org.tasks.icons.OutlinedGoogleMaterial
+import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.org.tasks.time.getTimeString
 import org.tasks.time.startOfDay
 import org.tasks.ui.ChipListCache
-import java.time.format.FormatStyle
-import java.util.Locale
 import javax.inject.Inject
 
 class WidgetChipProvider @Inject constructor(
     @ApplicationContext private val context: Context,
     private val chipListCache: ChipListCache,
-    private val locale: Locale,
     private val inventory: Inventory,
 ) {
     var isDark = false
@@ -59,17 +58,16 @@ class WidgetChipProvider @Inject constructor(
             val time = if (sortByStartDate && task.sortGroup?.startOfDay() == task.task.hideUntil.startOfDay()) {
                 task.task.hideUntil
                     .takeIf { Task.hasDueTime(it) }
-                    ?.let { DateUtilities.getTimeString(context, it.toDateTime()) }
+                    ?.let { getTimeString(it, context.is24HourFormat) }
                     ?: return null
             } else {
-                DateUtilities.getRelativeDateTime(
-                    context,
-                    task.task.hideUntil,
-                    locale,
-                    FormatStyle.MEDIUM,
-                    showFullDate,
-                    false
-                )
+                runBlocking {
+                    getRelativeDateTime(
+                        task.task.hideUntil,
+                        context.is24HourFormat,
+                        alwaysDisplayFullDate = showFullDate
+                    )
+                }
             }
             newChip().apply {
                 setTextViewText(R.id.chip_text, time)

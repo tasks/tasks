@@ -15,6 +15,7 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.text.format.DateFormat
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -22,12 +23,21 @@ import androidx.annotation.AnyRes
 import androidx.browser.customtabs.CustomTabsIntent
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
+import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.notifications.NotificationManager.Companion.NOTIFICATION_CHANNEL_DEFAULT
 
 object Context {
     private const val HTTP = "http"
     private const val HTTPS = "https"
+
+    var is24HourOverride: Boolean? = null
+
+    val Context.is24HourFormat: Boolean
+        get() = if (BuildConfig.DEBUG && is24HourOverride != null)
+            is24HourOverride!!
+        else
+            DateFormat.is24HourFormat(this)
 
     fun Context.safeStartActivity(intent: Intent) {
         try {
