@@ -15,4 +15,6 @@
     <string name="drawer_tags">Schlagwörter</string>
     <string name="drawer_places">Orte</string>
     <string name="drawer_local_lists">Lokale Listen</string>
+    <string name="search_no_results">Keine Ergebnisse</string>
+    <string name="requires_pro_subscription">Pro-Funktion</string>
 </resources>
