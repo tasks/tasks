@@ -15,4 +15,14 @@
     <string name="drawer_tags">태그</string>
     <string name="drawer_places">장소</string>
     <string name="drawer_local_lists">로컬 목록</string>
+    <string name="tmrw">내일</string>
+    <string name="tomorrow_abbrev_lowercase">내일</string>
+    <string name="tomorrow">내일</string>
+    <string name="tomorrow_lowercase">내일</string>
+    <string name="yest">어제</string>
+    <string name="yesterday_abbrev_lowercase">어제</string>
+    <string name="yesterday">어제</string>
+    <string name="yesterday_lowercase">어제</string>
+    <string name="today">오늘</string>
+    <string name="today_lowercase">오늘</string>
 </resources>

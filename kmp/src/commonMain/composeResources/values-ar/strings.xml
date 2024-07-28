@@ -14,4 +14,14 @@
     <string name="drawer_tags">علامات</string>
     <string name="drawer_places">الأماكن</string>
     <string name="drawer_local_lists">القوائم المحلية</string>
+    <string name="tmrw">غدًا</string>
+    <string name="tomorrow_abbrev_lowercase">غدًا</string>
+    <string name="tomorrow">غدًا</string>
+    <string name="tomorrow_lowercase">الغد</string>
+    <string name="yest">أمس</string>
+    <string name="yesterday_abbrev_lowercase">البارحة</string>
+    <string name="yesterday">أمس</string>
+    <string name="yesterday_lowercase">أمس</string>
+    <string name="today">اليوم</string>
+    <string name="today_lowercase">اليوم</string>
 </resources>

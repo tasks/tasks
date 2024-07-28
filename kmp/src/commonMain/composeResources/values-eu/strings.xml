@@ -15,4 +15,14 @@
     <string name="drawer_tags">Etiketak</string>
     <string name="drawer_places">Tokiak</string>
     <string name="drawer_local_lists">Zerrenda lokalak</string>
+    <string name="tmrw">Bihar</string>
+    <string name="tomorrow_abbrev_lowercase">bihar</string>
+    <string name="tomorrow">Bihar</string>
+    <string name="yesterday_lowercase">atzo</string>
+    <string name="today">Gaur</string>
+    <string name="today_lowercase">gaur</string>
+    <string name="tomorrow_lowercase">bihar</string>
+    <string name="yest">Atzo</string>
+    <string name="yesterday_abbrev_lowercase">atzo</string>
+    <string name="yesterday">Atzo</string>
 </resources>

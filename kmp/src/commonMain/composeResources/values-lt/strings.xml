@@ -15,4 +15,14 @@
     <string name="drawer_tags">Etiketė</string>
     <string name="drawer_places">Vietos</string>
     <string name="drawer_local_lists">Vietiniai sąrašai</string>
+    <string name="tmrw">Rytoj</string>
+    <string name="tomorrow_abbrev_lowercase">ryt</string>
+    <string name="tomorrow">Rytoj</string>
+    <string name="tomorrow_lowercase">rytoj</string>
+    <string name="yest">Vakar</string>
+    <string name="yesterday_abbrev_lowercase">vakar</string>
+    <string name="yesterday">Vakar</string>
+    <string name="yesterday_lowercase">vakar</string>
+    <string name="today">Šiandien</string>
+    <string name="today_lowercase">šiandien</string>
 </resources>

@@ -15,4 +15,14 @@
     <string name="drawer_tags">Etichete</string>
     <string name="drawer_places">Locuri</string>
     <string name="drawer_local_lists">Liste locale</string>
+    <string name="tmrw">mâine</string>
+    <string name="tomorrow_abbrev_lowercase">mâine</string>
+    <string name="tomorrow">Mâine</string>
+    <string name="tomorrow_lowercase">mâine</string>
+    <string name="yest">Ieri</string>
+    <string name="yesterday_abbrev_lowercase">ieri</string>
+    <string name="yesterday">Ieri</string>
+    <string name="yesterday_lowercase">ieri</string>
+    <string name="today">Azi</string>
+    <string name="today_lowercase">azi</string>
 </resources>

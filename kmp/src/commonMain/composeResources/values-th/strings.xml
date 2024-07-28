@@ -14,4 +14,14 @@
     <string name="drawer_tags">แท็ก</string>
     <string name="drawer_places">สถานที่</string>
     <string name="drawer_local_lists">รายการท้องถิ่น</string>
+    <string name="tmrw">Tmrw (ทริมร์ว)</string>
+    <string name="tomorrow_abbrev_lowercase">tmrw (ทมเมอร์ว)</string>
+    <string name="tomorrow">พรุ่งนี้</string>
+    <string name="tomorrow_lowercase">พรุ่งนี้</string>
+    <string name="yest">ใช่</string>
+    <string name="yesterday_abbrev_lowercase">yest ประมาณว่าใช่</string>
+    <string name="yesterday">เมื่อวาน</string>
+    <string name="today">วันนี้</string>
+    <string name="today_lowercase">วันนี้</string>
+    <string name="yesterday_lowercase">เมื่อวานนี้</string>
 </resources>

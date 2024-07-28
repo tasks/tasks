@@ -11,4 +11,14 @@
     <string name="settings">Configuració</string>
     <string name="drawer_filters">Filtres</string>
     <string name="drawer_tags">Etiquetes</string>
+    <string name="yest">Ahir</string>
+    <string name="tmrw">Demà</string>
+    <string name="tomorrow_abbrev_lowercase">demà</string>
+    <string name="tomorrow">Demà</string>
+    <string name="tomorrow_lowercase">demà</string>
+    <string name="yesterday_abbrev_lowercase">ahir</string>
+    <string name="yesterday">Ahir</string>
+    <string name="yesterday_lowercase">ahir</string>
+    <string name="today">Avui</string>
+    <string name="today_lowercase">avui</string>
 </resources>

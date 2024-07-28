@@ -13,4 +13,12 @@
     <string name="drawer_filters">வடிப்பான்கள்</string>
     <string name="drawer_tags">குறிச்சொற்கள்</string>
     <string name="drawer_places">இடங்கள்</string>
+    <string name="tmrw">நாளை</string>
+    <string name="tomorrow">நாளை</string>
+    <string name="tomorrow_lowercase">நாளை</string>
+    <string name="yest">நேற்று</string>
+    <string name="yesterday">நேற்று</string>
+    <string name="yesterday_lowercase">நேற்று</string>
+    <string name="today">இன்று</string>
+    <string name="today_lowercase">இன்று</string>
 </resources>

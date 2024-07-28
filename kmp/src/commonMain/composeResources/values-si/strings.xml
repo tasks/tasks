@@ -14,4 +14,14 @@
     <string name="drawer_tags">ටැග්</string>
     <string name="drawer_places">ස්ථාන</string>
     <string name="drawer_local_lists">පවත්නා ලැයිස්තු</string>
+    <string name="tmrw">හෙට</string>
+    <string name="tomorrow_abbrev_lowercase">හෙට</string>
+    <string name="tomorrow">හෙට</string>
+    <string name="tomorrow_lowercase">හෙට</string>
+    <string name="yest">ඊයේ</string>
+    <string name="yesterday_abbrev_lowercase">ඊයේ</string>
+    <string name="yesterday_lowercase">ඊයේ</string>
+    <string name="yesterday">ඊයේ</string>
+    <string name="today">අද</string>
+    <string name="today_lowercase">අද</string>
 </resources>

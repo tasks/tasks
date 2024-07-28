@@ -15,4 +15,14 @@
     <string name="drawer_tags">Címkék</string>
     <string name="drawer_places">Helyek</string>
     <string name="drawer_local_lists">Helyi listák</string>
+    <string name="tmrw">Holn</string>
+    <string name="tomorrow_abbrev_lowercase">hlnp</string>
+    <string name="tomorrow">Holnap</string>
+    <string name="tomorrow_lowercase">holnap</string>
+    <string name="today">Ma</string>
+    <string name="yest">Tegn</string>
+    <string name="yesterday_abbrev_lowercase">tgnp</string>
+    <string name="yesterday">Tegnap</string>
+    <string name="yesterday_lowercase">tegnap</string>
+    <string name="today_lowercase">ma</string>
 </resources>

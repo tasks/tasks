@@ -15,4 +15,14 @@
     <string name="drawer_tags">Tunnisteet</string>
     <string name="drawer_places">Paikat</string>
     <string name="drawer_local_lists">Paikalliset luettelot</string>
+    <string name="tmrw">Huomenna</string>
+    <string name="tomorrow_abbrev_lowercase">huomenna</string>
+    <string name="tomorrow">Huomenna</string>
+    <string name="tomorrow_lowercase">huomenna</string>
+    <string name="yesterday">Eilen</string>
+    <string name="yesterday_lowercase">eilen</string>
+    <string name="today">Tänään</string>
+    <string name="today_lowercase">tänään</string>
+    <string name="yest">Eilen</string>
+    <string name="yesterday_abbrev_lowercase">eilen</string>
 </resources>

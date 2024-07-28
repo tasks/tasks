@@ -17,4 +17,14 @@
     <string name="drawer_local_lists">Lokale Listen</string>
     <string name="search_no_results">Keine Ergebnisse</string>
     <string name="requires_pro_subscription">Pro-Funktion</string>
+    <string name="tmrw">Morgen</string>
+    <string name="tomorrow_abbrev_lowercase">morgen</string>
+    <string name="tomorrow">Morgen</string>
+    <string name="tomorrow_lowercase">morgen</string>
+    <string name="yest">Gestern</string>
+    <string name="yesterday_abbrev_lowercase">gestern</string>
+    <string name="yesterday">Gestern</string>
+    <string name="yesterday_lowercase">gestern</string>
+    <string name="today">Heute</string>
+    <string name="today_lowercase">heute</string>
 </resources>

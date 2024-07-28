@@ -15,4 +15,14 @@
     <string name="settings">Inställningar</string>
     <string name="drawer_filters">Filter</string>
     <string name="drawer_local_lists">Lokala listor</string>
+    <string name="tmrw">Imorgon</string>
+    <string name="tomorrow_abbrev_lowercase">imorgon</string>
+    <string name="tomorrow">Imorgon</string>
+    <string name="tomorrow_lowercase">imorgon</string>
+    <string name="yest">Igår</string>
+    <string name="yesterday_abbrev_lowercase">igår</string>
+    <string name="yesterday">Igår</string>
+    <string name="yesterday_lowercase">igår</string>
+    <string name="today">Idag</string>
+    <string name="today_lowercase">idag</string>
 </resources>

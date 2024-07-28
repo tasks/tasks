@@ -18,4 +18,14 @@
     <string name="search_no_results">Nema rezultata</string>
     <string name="requires_pro_subscription">Funkcija Pro verzije</string>
     <string name="subscription_required_description">Otključaj sve funkcije za samo 1 $ godišnje</string>
+    <string name="tmrw">Sutra</string>
+    <string name="tomorrow_abbrev_lowercase">sutra</string>
+    <string name="tomorrow">Sutra</string>
+    <string name="tomorrow_lowercase">sutra</string>
+    <string name="yest">Jučer</string>
+    <string name="yesterday_abbrev_lowercase">jučer</string>
+    <string name="yesterday">Jučer</string>
+    <string name="yesterday_lowercase">jučer</string>
+    <string name="today">Danas</string>
+    <string name="today_lowercase">danas</string>
 </resources>

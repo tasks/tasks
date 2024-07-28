@@ -18,4 +18,14 @@
     <string name="drawer_tags">標籤</string>
     <string name="drawer_places">地點</string>
     <string name="drawer_local_lists">本機清單</string>
+    <string name="tmrw">明天</string>
+    <string name="tomorrow_abbrev_lowercase">明天</string>
+    <string name="tomorrow">明天</string>
+    <string name="yest">昨天</string>
+    <string name="tomorrow_lowercase">明天</string>
+    <string name="yesterday_abbrev_lowercase">昨天</string>
+    <string name="yesterday">昨天</string>
+    <string name="yesterday_lowercase">昨天</string>
+    <string name="today">今天</string>
+    <string name="today_lowercase">今天</string>
 </resources>

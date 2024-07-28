@@ -6,4 +6,9 @@
     <string name="filter_today">Danes</string>
     <string name="filter_recently_modified">Nedavno spremenjeno</string>
     <string name="settings">Nastavitve</string>
+    <string name="tmrw">Jutr</string>
+    <string name="tomorrow">Jutri</string>
+    <string name="yest">Včer</string>
+    <string name="yesterday">Včeraj</string>
+    <string name="today">Danes</string>
 </resources>

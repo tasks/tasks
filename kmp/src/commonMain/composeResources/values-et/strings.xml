@@ -10,4 +10,9 @@
     <string name="settings">Seaded</string>
     <string name="drawer_filters">Filtrid</string>
     <string name="drawer_tags">Sildid</string>
+    <string name="yest">Eile</string>
+    <string name="tmrw">Homme</string>
+    <string name="tomorrow">Homme</string>
+    <string name="yesterday">Eile</string>
+    <string name="today">Täna</string>
 </resources>

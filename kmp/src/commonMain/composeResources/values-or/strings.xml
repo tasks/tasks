@@ -5,4 +5,10 @@
     <string name="help_and_feedback">ସାହାଯ୍ୟ ଓ ମତାମତ</string>
     <string name="settings">ସେଟିଂ</string>
     <string name="drawer_filters">ଶୋଧକ</string>
+    <string name="tomorrow">ଆସନ୍ତାକାଲି</string>
+    <string name="tomorrow_lowercase">ଆସନ୍ତାକାଲି</string>
+    <string name="yesterday">ଗତକାଲି</string>
+    <string name="yesterday_lowercase">ଗତକାଲି</string>
+    <string name="today">ଆଜି</string>
+    <string name="today_lowercase">ଆଜି</string>
 </resources>

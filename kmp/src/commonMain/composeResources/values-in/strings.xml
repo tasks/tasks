@@ -15,4 +15,14 @@
     <string name="drawer_tags">Tag</string>
     <string name="drawer_places">Tempat</string>
     <string name="drawer_local_lists">Daftar lokal</string>
+    <string name="tmrw">Bsk</string>
+    <string name="tomorrow_abbrev_lowercase">bsk</string>
+    <string name="tomorrow">Besok</string>
+    <string name="tomorrow_lowercase">besok</string>
+    <string name="yest">Kmrn</string>
+    <string name="yesterday_abbrev_lowercase">kmrn</string>
+    <string name="yesterday">Kemarin</string>
+    <string name="yesterday_lowercase">kemarin</string>
+    <string name="today">Hari ini</string>
+    <string name="today_lowercase">hari ini</string>
 </resources>

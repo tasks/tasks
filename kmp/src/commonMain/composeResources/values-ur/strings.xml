@@ -12,4 +12,14 @@
     <string name="settings">سیٹنگز</string>
     <string name="drawer_filters">فلٹرز</string>
     <string name="drawer_tags">ٹیگز</string>
+    <string name="tmrw">کل</string>
+    <string name="tomorrow_abbrev_lowercase">کل</string>
+    <string name="tomorrow">آنے والا کل</string>
+    <string name="tomorrow_lowercase">آنے والا کل</string>
+    <string name="yest">گزشتہ کل</string>
+    <string name="yesterday_abbrev_lowercase">گزشتہ کل</string>
+    <string name="yesterday">گزشتہ کل</string>
+    <string name="yesterday_lowercase">گزشتہ کل</string>
+    <string name="today">آج</string>
+    <string name="today_lowercase">آج</string>
 </resources>

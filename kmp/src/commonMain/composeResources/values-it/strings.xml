@@ -15,4 +15,14 @@
     <string name="drawer_tags">Etichette</string>
     <string name="drawer_places">Luoghi</string>
     <string name="drawer_local_lists">Liste locali</string>
+    <string name="tmrw">Domani</string>
+    <string name="tomorrow_abbrev_lowercase">domani</string>
+    <string name="tomorrow">Domani</string>
+    <string name="tomorrow_lowercase">domani</string>
+    <string name="yest">Ieri</string>
+    <string name="yesterday_abbrev_lowercase">ieri</string>
+    <string name="yesterday">Ieri</string>
+    <string name="yesterday_lowercase">ieri</string>
+    <string name="today">Oggi</string>
+    <string name="today_lowercase">oggi</string>
 </resources>

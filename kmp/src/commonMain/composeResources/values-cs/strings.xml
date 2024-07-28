@@ -15,4 +15,14 @@
     <string name="drawer_tags">Štítky</string>
     <string name="drawer_places">Místa</string>
     <string name="drawer_local_lists">Seznamy jen na tomto zařízení</string>
+    <string name="today">Dnes</string>
+    <string name="today_lowercase">dnes</string>
+    <string name="tmrw">Zítra</string>
+    <string name="tomorrow_abbrev_lowercase">zítra</string>
+    <string name="tomorrow">Zítra</string>
+    <string name="yesterday">Včera</string>
+    <string name="tomorrow_lowercase">zítra</string>
+    <string name="yest">Včera</string>
+    <string name="yesterday_abbrev_lowercase">včera</string>
+    <string name="yesterday_lowercase">včera</string>
 </resources>

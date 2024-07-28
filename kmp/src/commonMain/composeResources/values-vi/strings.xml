@@ -15,4 +15,14 @@
     <string name="drawer_tags">Thẻ</string>
     <string name="drawer_places">Địa điểm</string>
     <string name="drawer_local_lists">Danh sách cục bộ</string>
+    <string name="tmrw">N.mai</string>
+    <string name="tomorrow_abbrev_lowercase">n.mai</string>
+    <string name="tomorrow">Ngày mai</string>
+    <string name="tomorrow_lowercase">ngày mai</string>
+    <string name="yest">H.qua</string>
+    <string name="yesterday_abbrev_lowercase">h.qua</string>
+    <string name="yesterday">Hôm qua</string>
+    <string name="yesterday_lowercase">hôm qua</string>
+    <string name="today">Hôm nay</string>
+    <string name="today_lowercase">hôm nay</string>
 </resources>

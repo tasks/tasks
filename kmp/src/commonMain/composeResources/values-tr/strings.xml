@@ -18,4 +18,14 @@
     <string name="settings">Ayarlar</string>
     <string name="drawer_places">Yerler</string>
     <string name="drawer_local_lists">Yerel listeler</string>
+    <string name="tmrw">Yarın</string>
+    <string name="tomorrow_abbrev_lowercase">yarın</string>
+    <string name="tomorrow">Yarın</string>
+    <string name="tomorrow_lowercase">yarın</string>
+    <string name="yest">Dün</string>
+    <string name="yesterday_abbrev_lowercase">dün</string>
+    <string name="yesterday">Dün</string>
+    <string name="yesterday_lowercase">dün</string>
+    <string name="today">Bugün</string>
+    <string name="today_lowercase">bugün</string>
 </resources>

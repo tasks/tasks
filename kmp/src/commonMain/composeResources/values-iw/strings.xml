@@ -14,4 +14,14 @@
     <string name="drawer_tags">תגיות</string>
     <string name="drawer_places">מיקומים</string>
     <string name="drawer_local_lists">רשימות מקומיות</string>
+    <string name="tmrw">מחר</string>
+    <string name="tomorrow_abbrev_lowercase">מחר</string>
+    <string name="tomorrow">מחר</string>
+    <string name="tomorrow_lowercase">מחר</string>
+    <string name="yest">אתמול</string>
+    <string name="yesterday_abbrev_lowercase">כן</string>
+    <string name="yesterday">אתמול</string>
+    <string name="yesterday_lowercase">אתמול</string>
+    <string name="today">היום</string>
+    <string name="today_lowercase">היום</string>
 </resources>

@@ -15,4 +15,14 @@
     <string name="drawer_tags">Etiketter</string>
     <string name="drawer_places">Steder</string>
     <string name="drawer_local_lists">Lokale lister</string>
+    <string name="tmrw">Imrgn</string>
+    <string name="tomorrow_abbrev_lowercase">imrgn</string>
+    <string name="tomorrow">I morgen</string>
+    <string name="tomorrow_lowercase">i morgen</string>
+    <string name="yest">Igår</string>
+    <string name="yesterday_abbrev_lowercase">igår</string>
+    <string name="yesterday">I går</string>
+    <string name="yesterday_lowercase">i går</string>
+    <string name="today">I dag</string>
+    <string name="today_lowercase">i dag</string>
 </resources>

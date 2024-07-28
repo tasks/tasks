@@ -11,4 +11,9 @@
     <string name="settings">Nastavenia</string>
     <string name="drawer_filters">Filtre</string>
     <string name="drawer_tags">Štítky</string>
+    <string name="tomorrow">Zajtra</string>
+    <string name="yest">Včera</string>
+    <string name="yesterday">Včera</string>
+    <string name="today">Dnes</string>
+    <string name="tmrw">Zajtra</string>
 </resources>

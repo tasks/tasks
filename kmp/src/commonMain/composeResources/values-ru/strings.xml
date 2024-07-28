@@ -15,4 +15,14 @@
     <string name="drawer_filters">Фильтры</string>
     <string name="drawer_tags">Теги</string>
     <string name="drawer_places">Места</string>
+    <string name="tmrw">Завтра</string>
+    <string name="tomorrow_abbrev_lowercase">завтра</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="tomorrow_lowercase">завтра</string>
+    <string name="yest">Вчера</string>
+    <string name="yesterday_abbrev_lowercase">вчера</string>
+    <string name="yesterday">Вчера</string>
+    <string name="yesterday_lowercase">вчера</string>
+    <string name="today">Сегодня</string>
+    <string name="today_lowercase">сегодня</string>
 </resources>

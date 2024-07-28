@@ -15,4 +15,14 @@
     <string name="drawer_tags">Etikedoj</string>
     <string name="drawer_places">Lokoj</string>
     <string name="drawer_local_lists">Lokaj listoj</string>
+    <string name="tmrw">morgaŭ</string>
+    <string name="tomorrow_abbrev_lowercase">morgaŭ</string>
+    <string name="tomorrow">Morgaŭ</string>
+    <string name="tomorrow_lowercase">morgaŭ</string>
+    <string name="yest">hieraŭ</string>
+    <string name="yesterday_abbrev_lowercase">hieraŭ</string>
+    <string name="yesterday">Hieraŭ</string>
+    <string name="yesterday_lowercase">hieraŭ</string>
+    <string name="today">Hodiaŭ</string>
+    <string name="today_lowercase">hodiaŭ</string>
 </resources>

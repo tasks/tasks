@@ -18,4 +18,14 @@
     <string name="drawer_tags">Étiquettes</string>
     <string name="drawer_places">Lieux</string>
     <string name="drawer_local_lists">Listes locales</string>
+    <string name="tmrw">Demain</string>
+    <string name="tomorrow_abbrev_lowercase">demain</string>
+    <string name="yest">Hier</string>
+    <string name="yesterday_abbrev_lowercase">hier</string>
+    <string name="tomorrow">Demain</string>
+    <string name="tomorrow_lowercase">demain</string>
+    <string name="yesterday">Hier</string>
+    <string name="yesterday_lowercase">hier</string>
+    <string name="today">Aujourd\'hui</string>
+    <string name="today_lowercase">aujourd\'hui</string>
 </resources>

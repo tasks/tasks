@@ -18,4 +18,14 @@
     <string name="search_no_results">Ingen resultater</string>
     <string name="requires_pro_subscription">Pro funktion</string>
     <string name="subscription_required_description">Lås op for alle funktioner for så lidt som $1 USD/år</string>
+    <string name="tmrw">I morgen</string>
+    <string name="tomorrow_abbrev_lowercase">tmrw</string>
+    <string name="tomorrow">I morgen</string>
+    <string name="tomorrow_lowercase">i morgen</string>
+    <string name="yest">I går</string>
+    <string name="yesterday_abbrev_lowercase">yest</string>
+    <string name="yesterday">I går</string>
+    <string name="yesterday_lowercase">i går</string>
+    <string name="today">I dag</string>
+    <string name="today_lowercase">i dag</string>
 </resources>

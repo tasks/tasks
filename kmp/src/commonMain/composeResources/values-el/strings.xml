@@ -4,4 +4,9 @@
     <string name="filter_timer">Καθήκοντα με χρονικό όριο</string>
     <string name="filter_today">Σήμερα</string>
     <string name="settings">Ρυθμίσεις</string>
+    <string name="tmrw">Αύριο</string>
+    <string name="tomorrow">Αύριο</string>
+    <string name="yest">Χθές</string>
+    <string name="yesterday">Χθές</string>
+    <string name="today">Σήμερα</string>
 </resources>

@@ -18,4 +18,14 @@
     <string name="drawer_tags">Етикети</string>
     <string name="drawer_places">Места</string>
     <string name="drawer_local_lists">Местни списъци</string>
+    <string name="tmrw">Утре</string>
+    <string name="tomorrow_abbrev_lowercase">утре</string>
+    <string name="tomorrow">Утре</string>
+    <string name="tomorrow_lowercase">утре</string>
+    <string name="yest">Вчера</string>
+    <string name="yesterday_abbrev_lowercase">вчера</string>
+    <string name="yesterday">Вчера</string>
+    <string name="yesterday_lowercase">вчера</string>
+    <string name="today">Днес</string>
+    <string name="today_lowercase">днес</string>
 </resources>

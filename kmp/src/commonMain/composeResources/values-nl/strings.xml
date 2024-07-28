@@ -15,4 +15,14 @@
     <string name="drawer_tags">Labels</string>
     <string name="drawer_places">Locaties</string>
     <string name="drawer_local_lists">Lokale lijsten</string>
+    <string name="tmrw">Morgen</string>
+    <string name="tomorrow_abbrev_lowercase">morgen</string>
+    <string name="tomorrow_lowercase">morgen</string>
+    <string name="tomorrow">Morgen</string>
+    <string name="yest">Gister</string>
+    <string name="yesterday_abbrev_lowercase">gister</string>
+    <string name="yesterday">Gisteren</string>
+    <string name="yesterday_lowercase">gisteren</string>
+    <string name="today">Vandaag</string>
+    <string name="today_lowercase">vandaag</string>
 </resources>

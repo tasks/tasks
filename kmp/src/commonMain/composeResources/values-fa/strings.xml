@@ -10,4 +10,9 @@
     <string name="settings">تنظیمات</string>
     <string name="drawer_filters">فیلترها</string>
     <string name="drawer_tags">برچسب ها</string>
+    <string name="tmrw">فردا</string>
+    <string name="tomorrow">فردا</string>
+    <string name="yest">دیروز</string>
+    <string name="yesterday">فردا بعد از ظهر</string>
+    <string name="today">امروز</string>
 </resources>
