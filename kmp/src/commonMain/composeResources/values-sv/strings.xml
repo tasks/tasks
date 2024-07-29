@@ -25,4 +25,7 @@
     <string name="yesterday_lowercase">igår</string>
     <string name="today">Idag</string>
     <string name="today_lowercase">idag</string>
+    <string name="search_no_results">Inga resultat</string>
+    <string name="subscription_required_description">Lås upp alla funktioner för så lite som 1$ USD/år</string>
+    <string name="requires_pro_subscription">Pro funktion</string>
 </resources>
