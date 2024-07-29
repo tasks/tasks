@@ -731,4 +731,5 @@
     <string name="swipe_to_snooze_time_30_minutes">efter 30 minuter</string>
     <string name="swipe_to_snooze_time_1_hour">efter 1 timme</string>
     <string name="swipe_to_snooze_time_24_hours">efter 24 timmar</string>
+    <string name="customize_drawer">Anpassa låda</string>
 </resources>
