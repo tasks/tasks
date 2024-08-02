@@ -732,4 +732,9 @@
     <string name="swipe_to_snooze_time_24_hours">post 24 horoj</string>
     <string name="swipe_to_snooze_title">Ŝovumi por paŭzigi</string>
     <string name="swipe_to_snooze_time_30_minutes">post 30 minutoj</string>
+    <string name="donate_today">Donacu hodiaŭ</string>
+    <string name="donate_nag">Bonvolu doni subtenon per donaco!</string>
+    <string name="donate_maybe_later">Eble poste</string>
+    <string name="customize_drawer">Adapti tirkeston</string>
+    <string name="customize_drawer_summary">Ŝovu kaj demetu por rearanĝi menuerojn</string>
 </resources>
