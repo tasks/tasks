@@ -445,7 +445,7 @@
     <string name="default_random_reminder_daily">Dagligt</string>
     <string name="default_random_reminder_hourly">Hver time</string>
     <string name="default_random_reminder_disabled">Deaktiveret</string>
-    <string name="persistent_notifications_description">Insisterende notifikationer kan ikke ryddes</string>
+    <string name="persistent_notifications_description">Vedvarende meddelelser kan ikke ryddes</string>
     <string name="persistent_notifications">Vedvarende meddelelser</string>
     <string name="rmd_EPr_rmd_time_desc">Meddelelser for opgaver uden forfaldstid vises kl. %s</string>
     <string name="rmd_EPr_rmd_time_title">Påmindelsestid</string>
@@ -704,4 +704,9 @@
     <string name="sort_list">Efter liste</string>
     <string name="sort_completed">Efter færdiggørelsestid</string>
     <string name="swipe_to_snooze_title">Stryg for at udsætte</string>
+    <string name="swipe_to_snooze_time_immediately">øjeblikkeligt</string>
+    <string name="swipe_to_snooze_time_1_hour">efter 1 time</string>
+    <string name="swipe_to_snooze_time_24_hours">efter 24 timer</string>
+    <string name="swipe_to_snooze_time_15_minutes">efter 15 minutter</string>
+    <string name="swipe_to_snooze_time_30_minutes">efter 30 minutter</string>
 </resources>
