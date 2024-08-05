@@ -322,9 +322,9 @@
     <string name="repeats_from">Wiederholt sich ab</string>
     <string name="repeats_single">Wiederholt sich %s</string>
     <string name="repeats_single_on">Wiederholt sich %1$s %2$s</string>
-    <string name="repeats_single_until">Wiederholt sich %1$s bis %2$s</string>
+    <string name="repeats_single_until">Wiederholt sich %1$s, endet bei %2$s</string>
     <string name="repeats_single_number_of_times">Wiederholt sich %1$s, genau %2$d %3$s</string>
-    <string name="repeats_single_on_until">Wiederholt sich %1$s %2$s, bis %3$s</string>
+    <string name="repeats_single_on_until">Wiederholt %1$s am %2$s, endet bei %3$s</string>
     <string name="repeats_single_on_number_of_times">Wiederholt sich %1$s %2$s, genau %3$d %4$s</string>
     <string name="repeats_minutely">minütlich</string>
     <string name="repeats_hourly">stündlich</string>
@@ -727,4 +727,14 @@
     <string name="swipe_to_snooze_time_30_minutes">nach 30 Minuten</string>
     <string name="swipe_to_snooze_time_1_hour">nach 1 Stunde</string>
     <string name="swipe_to_snooze_time_24_hours">nach 24 Stunden</string>
+    <string name="donate_nag">Denken Sie daran, Ihre Unterstützung mit einer Spende zu zeigen!</string>
+    <string name="donate_today">Heute Spenden</string>
+    <string name="donate_maybe_later">Später vieleicht</string>
+    <string name="show_edit_screen_without_unlock_summary">Ermöglicht die Verwendung der Kachel „Schnelleinstellungen“, ohne das Gerät zu entsperren</string>
+    <string name="customize_drawer">Drawer anpassen</string>
+    <string name="customize_drawer_summary">Per Drag &amp; Drop können Menüelemente neu angeordnet werden</string>
+    <string name="swipe_to_snooze_title">Zum Schlummern wischen</string>
+    <string name="swipe_to_snooze_description">Schlummerzeit</string>
+    <string name="show_edit_screen_without_unlock">Bearbeitungsbildschirm ohne Entsperren anzeigen</string>
+    <string name="swipe_to_snooze_time_description">Eine gelöschte Benachrichtigung wird pausiert und erstellt %s neu</string>
 </resources>
