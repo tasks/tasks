@@ -73,7 +73,7 @@
     <string name="save">Konservi</string>
     <string name="TEA_note_label">Priskribo</string>
     <string name="no_date">Sen dato</string>
-    <string name="TEA_title_hint">Taska titolo</string>
+    <string name="TEA_title_hint">Tasknomo</string>
     <string name="SSD_sort_my_order">Propra ordo</string>
     <string name="action_open">Malfermi</string>
     <string name="action_call">Altelefoni</string>
@@ -164,7 +164,7 @@
     <string name="default_start_date">Defaŭlta komencdato</string>
     <string name="EPr_manage_delete_gcal_status">Forigis %d kalendarajn eventojn!</string>
     <string name="EPr_delete_task_data">Forigi taskan datumon</string>
-    <string name="EPr_fullTask_title">Vidigi tutan taskan titolon</string>
+    <string name="EPr_fullTask_title">Vidigi tutan tasknomon</string>
     <string name="EPr_edit_screen_options">Redakti ekranajn agordojn</string>
     <string name="TEA_control_reminders">Memorigiloj</string>
     <string name="TEA_control_importance">Prioritato</string>
@@ -213,7 +213,7 @@
     <string name="delete_selected_tasks">Ĉu forigi elektitajn taskojn\?</string>
     <string name="delete_multiple_tasks_confirmation">%s forigitaj</string>
     <string name="copy_multiple_tasks_confirmation">%s kopitaj</string>
-    <string name="widget_open_list">Malfermu liston</string>
+    <string name="widget_open_list">Malfermi liston</string>
     <string name="widget_settings">Agordoj de fenestraĵo</string>
     <string name="restart_later">Poste</string>
     <string name="language">Lingvo</string>
@@ -349,10 +349,10 @@
     <string name="when_started">Kiam komencita</string>
     <string name="pick_this_location">Elekti ĉi tiun lokon</string>
     <string name="when_overdue">Kiam malfrua</string>
-    <string name="auto_dismiss_datetime_list_summary">Aŭtomate fermi kiam elekti per tasklisto</string>
+    <string name="auto_dismiss_datetime_list_summary">Aŭtomate fermi kiam elekti per taskolisto</string>
     <string name="show_unstarted">Vidigi nekomencitajn</string>
     <string name="sort_modified_group">Modifita: %s</string>
-    <string name="auto_dismiss_datetime_edit_summary">Aŭtomate fermi kiam elekti per taska redakto</string>
+    <string name="auto_dismiss_datetime_edit_summary">Aŭtomate fermi kiam elekti per taskredaktilo</string>
     <string name="or_choose_a_location">Aŭ elekti lokon</string>
     <string name="shortcut_pick_time">Elekti horon</string>
     <string name="auto_dismiss_datetime_summary">Fermi data/hora elektilo post elekti daton aŭ horon</string>
@@ -450,7 +450,7 @@
     <string name="social">Sociaj Komunikiloj</string>
     <string name="more_options">Pli da opcioj</string>
     <string name="ring_nonstop">Sonori daŭre</string>
-    <string name="EPr_show_task_edit_comments">Vidigi komentojn en taska redaktilo</string>
+    <string name="EPr_show_task_edit_comments">Vidigi komentojn en taskredaktilo</string>
     <string name="EPr_cal_end_at_due_time">Finigi kalendarajn eventoj ĉe limtempo</string>
     <string name="EPr_cal_start_at_due_time">Komencu kalendarajn eventoj ĉe limtempo</string>
     <string name="ring_five_times">Sonori kvinfoje</string>
@@ -506,7 +506,7 @@
     </plurals>
     <string name="repeat_type_due">limdato</string>
     <string name="repeat_type_completion">plenumiga dato</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks elparolos nomojn de taskoj dum taskaj memorigoj</string>
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks elparolos tasknomojn dum memorigi</string>
     <string name="attachment_directory">Dosierujo de Aldonaĵoj</string>
     <string name="contact_developer">Kontakti programiston</string>
     <string name="TLA_menu_donate">Donaci</string>
@@ -577,13 +577,13 @@
     <string name="repeats_single_until">Ripetiĝas %1$s, finiĝos %2$s</string>
     <string name="got_it">Komprenite!</string>
     <string name="backups_ignore_warnings_summary">Ignori avertojn pri savkopioj se vi ne bezonas savkopiojn aŭ jam havas propran savkopian solvon</string>
-    <string name="use_locale_default">Uzi defaŭltan lokaĵaron</string>
+    <string name="use_locale_default">Uzi defaŭlton de lokaĵaro</string>
     <string name="error_adding_account">Eraro: %s</string>
     <string name="logout_warning">Ĉiu de la datumo de ĉi tiu konto foriĝos el via aparato</string>
     <string name="location_permission_required_location">Por trovi vian aktualan lokon bezonas permesoj pri loko</string>
     <string name="microsoft_selection_description">Sinkronigi kun via persona konto de Microsoft</string>
     <string name="google_tasks_selection_description">Simpla servo kiu sinkronigas kun via Google konto</string>
-    <string name="auto_dismiss_datetime_list">Taska listo</string>
+    <string name="auto_dismiss_datetime_list">Taskolisto</string>
     <string name="filter_low_priority">Malalta prioritato</string>
     <string name="repeats_from">Ripetiĝas de</string>
     <string name="repeats_single">Ripetiĝas %s</string>
@@ -698,7 +698,7 @@
     <string name="sign_in_to_tasks_disclosure">Via retpoŝtadreso kaj konta ID estos transsendita kaj konservita de Tasks.org. Ĉi tiu informo estos uzata por aŭtentigi kaj por provizi al vi gravajn anoncojn rilate al servo. Ĉi tiu informo ne estos diskongita al iu ajn.</string>
     <string name="clear_completed_tasks_count">%s estos forigitaj</string>
     <string name="repeats_every">Ripetiĝas ĉiu</string>
-    <string name="badges_description">Vidigi taskan nombrilon sur lanĉpiktogramo de Tasks. Ne ĉiuj lanĉiloj subtenas ĉi tiajn simbolojn.</string>
+    <string name="badges_description">Vidigi nombro da taskoj sur lanĉpiktogramo de Tasks. Ne ĉiuj lanĉiloj subtenas ĉi tiajn simbolojn.</string>
     <string name="caldav_account_description">Bezonas konton de CalDAV servprovizanto aŭ memgastigan servilon. Por trovi servprovizanton vizitu task.org/caldav</string>
     <string name="date_picker_multiple">Pluraj</string>
     <string name="your_subscription_expired">Via abono finiĝis. Abonu tuj por reaktivigi servon.</string>
