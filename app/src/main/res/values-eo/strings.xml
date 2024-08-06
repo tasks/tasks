@@ -593,7 +593,7 @@
     <string name="repeats_single_number_of_times">Ripetiĝas %1$s, okazas %2$d%3$s</string>
     <string name="repeats_single_on_until">Ripetiĝas %1$s je %2$s, finiĝos %3$s</string>
     <string name="upgrade_to_pro">Altgradigi al profesia</string>
-    <string name="requires_pro_subscription">Bezonas profesian abonon</string>
+    <string name="requires_pro_subscription">Postulas pagan abonon</string>
     <string name="cannot_access_account">Ne povas atingi konton</string>
     <string name="linkify_description">Aldoni ligilojn de retejoj, adresoj, kaj telefonnumeroj</string>
     <string name="location_remind_departure">Memorigi je foriro</string>
