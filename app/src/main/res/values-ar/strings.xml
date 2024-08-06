@@ -548,9 +548,9 @@
     <string name="help_and_feedback">مساعدة وتبليغات</string>
     <string name="tasker_list_notification">قائمة الاشعارات</string>
     <string name="repeat_monthly_every_day_of_nth_week">كل %1$s %2$s</string>
-    <string name="repeats_plural_on_until">كرره كل %1$s في %2$s حتى %3$s</string>
+    <string name="repeats_plural_on_until">كرره كل %1$s في %2$s . ينتهي عند %3$s</string>
     <string name="repeats_plural_number_of_times">كرره كل %1$s، يحدث %2$d %3$s</string>
-    <string name="repeats_plural_until">كرره كل %1$s حتى %2$s</string>
+    <string name="repeats_plural_until">كرره كل %1$s، ينتهي عند %2$s</string>
     <string name="repeats_plural_on">كرره كل %1$s في %2$s</string>
     <string name="repeats_plural">كرره كل %s</string>
     <string name="repeats_single_on_until">أعده %1$s في %2$s حتى %3$s</string>
@@ -791,4 +791,12 @@
     <string name="sort_ascending">تصاعدى</string>
     <string name="sort_grouping">التجميع</string>
     <string name="sort_sorting">الترتيب</string>
+    <string name="repeats_every">يتكرر كل</string>
+    <string name="repeats_after">بعد</string>
+    <string name="sign_in">سجل دخولك</string>
+    <string name="consent_deny">ليس الآن</string>
+    <string name="dismiss">تجاهل</string>
+    <string name="clear_completed_tasks_count">سيتم حذف %s</string>
+    <string name="repeats_ends">ينتهي عند</string>
+    <string name="repeats_never">أبدا</string>
 </resources>
