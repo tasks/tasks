@@ -60,7 +60,7 @@ timber = "5.0.1"
 swiperefreshlayout = "1.1.0"
 work = "2.8.1"
 androidx-test = "1.6.1"
-androidx-test-runner = "1.6.1"
+androidx-test-runner = "1.6.2"
 xpp3 = "1.1.6"
 
 [libraries]
