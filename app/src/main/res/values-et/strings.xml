@@ -379,7 +379,7 @@
     <string name="more_settings">Rohkem seadeid</string>
     <string name="color_wheel">Värviketas</string>
     <string name="chip_appearance_icon_only">Ainult ikoon</string>
-    <string name="auto_dismiss_datetime_widget">fVidin</string>
+    <string name="auto_dismiss_datetime_widget">Vidin</string>
     <string name="add_tags">Lisa sildid</string>
     <string name="filter_low_priority">Madal prioriteet</string>
     <string name="enjoying_tasks">Kas Tasks meeldib?</string>
@@ -440,7 +440,7 @@
     <string name="privacy">Privaatsus</string>
     <string name="TEA_add_subtask">Lisa alamülesanne</string>
     <string name="sort_list">Nimekirja alusel</string>
-    <string name="due_time"></string>
+    <string name="due_time"/>
     <string name="filter_today_only">Ainult täna</string>
     <string name="filter_no_priority">Prioriteedita</string>
     <string name="filter_criteria_unstarted">Alustamata</string>
@@ -492,4 +492,47 @@
     <string name="now">Kohe</string>
     <string name="sort_created_group">Loodud %s</string>
     <string name="on_launch">Käivitamisel</string>
+    <string name="always_display_full_date">Näita pikka kuupäeva</string>
+    <string name="default_start_date">Vaikimisi alguskuupäev</string>
+    <string name="no_start_date">Alguskuupäev puudub</string>
+    <string name="SSD_sort_start">Alguskuupäeva alusel</string>
+    <string name="tasks_org_account_required">Vajalik on Tasks.org-i konto</string>
+    <string name="save_percent">Salvesta %d%%</string>
+    <string name="repeats_from">Kordub alates</string>
+    <string name="generate_new_password">Loo uus salasõna</string>
+    <string name="snoozed_until">Edasi lükatud kuni %s</string>
+    <string name="default_due_date">Vaikimisi tähtaeg</string>
+    <string name="no_due_date">Tähtaeg puudub</string>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%d minut</item>
+        <item quantity="other">%d minutit</item>
+    </plurals>
+    <string name="display_name">Kuvatav nimi</string>
+    <string name="create_new_tag">Loo \"%s\"</string>
+    <string name="show_advanced_settings"></string>
+    <string name="hide_unused_tags">Peida kasutamata sildid</string>
+    <string name="third_party_licenses">Kolmandate osapoolte litsentsid</string>
+    <string name="name_your_price">Ütle oma hind</string>
+    <string name="hide_unused_places">Peida kasutamata asukohad</string>
+    <string name="not_signed_in">Ei ole sisse logitud</string>
+    <string name="app_password_last_access">Viimati kasutatud: %s</string>
+    <string name="invite_awaiting_response">Kutse ootab vastust</string>
+    <string name="upgrade_google_tasks">Süngi mitu kontot</string>
+    <string name="completion_sound">Esita lõpetamise heli</string>
+    <string name="widget_id">Vidina ID: %d</string>
+    <string name="current_subscription">Pregune tellimus:%s</string>
+    <string name="hint_customize_edit_title">Liiga palju infot?</string>
+    <string name="sort_created">Loomisaja alusel</string>
+    <string name="EPr_default_reminders_mode_title">Vaikimisi helina/värina tüüp</string>
+    <string name="EPr_fullTask_title">Kuva terve ülesande pealkiri</string>
+    <string name="swipe_to_snooze_title">Libista edasilükkamiseks</string>
+    <string name="swipe_to_snooze_time_15_minutes">15 minuti pärast</string>
+    <string name="swipe_to_snooze_time_30_minutes">30 minuti pärast</string>
+    <string name="swipe_to_snooze_time_1_hour">1 tunni pärast</string>
+    <string name="swipe_to_snooze_time_24_hours">24 tunni pärast</string>
+    <string name="chip_appearance_text_and_icon">Tekst ja ikoon</string>
+    <plurals name="task_count">
+        <item quantity="one">%d ülesanne</item>
+        <item quantity="other">%d ülesannet</item>
+    </plurals>
 </resources>
