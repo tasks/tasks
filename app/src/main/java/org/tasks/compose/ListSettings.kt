@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
@@ -92,46 +93,19 @@ private fun IconSelectPreview () {
     }
 }
 
-object ListSettings {
-    @Composable
-    fun ListSettings(
-        title: String,
-        requestKeyboard: Boolean,
-        text: MutableState<String>,
-        error: MutableState<String>,
-        color: State<Color>,
-        icon: State<String>,
-        save: () -> Unit = {},
-        selectIcon: () -> Unit = {},
-        clearColor: () -> Unit = {},
-        selectColor: () -> Unit = {},
-        optionButton: @Composable () -> Unit,
-        /** right button on toolbar, mostly, DeleteButton */
-        showProgress: State<Boolean> = remember { mutableStateOf(false) },
-        extensionContent: @Composable ColumnScope.() -> Unit = {}
-    ) {
-        ListSettingsSurface {
-
-            Toolbar(
-                title = title,
-                save = save,
-                optionButton = optionButton
-            )
-
-            ProgressBar(showProgress)
-
-            TitleInput(
-                text = text, error = error, requestKeyboard = requestKeyboard,
-                modifier = Modifier.padding(horizontal = Constants.KEYLINE_FIRST)
-            )
-
-            Column(modifier = Modifier.fillMaxWidth()) {
-                SelectColorRow(color = color, selectColor = selectColor, clearColor = clearColor)
-                SelectIconRow(icon = icon, selectIcon = selectIcon)
-                extensionContent()
-            }
-        }
+@Composable
+@Preview (showBackground = true)
+private fun ColorSelectPreview () {
+    TasksTheme {
+        ListSettings.SelectColorRow(
+            color = remember { mutableStateOf(Color.Red) },
+            selectColor = {},
+            clearColor = {}
+        )
     }
+}
+
+object ListSettings {
 
     @Composable
     fun Toolbar(
@@ -152,9 +126,7 @@ object ListSettings {
             modifier = Modifier.requiredHeight(56.dp)
         )
         {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = save, modifier = Modifier.size(56.dp)) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_outline_save_24px),
@@ -172,15 +144,12 @@ object ListSettings {
                 optionButton()
             }
         }
-    } /* ListSettingsToolBar */
+    } /* ToolBar */
 
     @Composable
     fun ProgressBar(showProgress: State<Boolean>) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .requiredHeight(3.dp)
-        ) {
+        Box(modifier = Modifier.fillMaxWidth().requiredHeight(3.dp))
+        {
             if (showProgress.value) {
                 LinearProgressIndicator(
                     modifier = Modifier.fillMaxSize(),
@@ -205,9 +174,8 @@ object ListSettings {
         val keyboardController = LocalSoftwareKeyboardController.current
         val requester = remember { FocusRequester() }
 
-        Row(
-            modifier = modifier
-        ) {
+        Row (modifier = modifier)
+        {
             Column {
                 val focused = remember { mutableStateOf(false) }
                 val labelColor = when {
@@ -272,22 +240,19 @@ object ListSettings {
                 IconButton(onClick = { selectColor() }) {
                     if (color.value == Color.Unspecified) {
                         Icon(
-                            modifier = Modifier.padding(Constants.KEYLINE_FIRST),
                             imageVector = ImageVector.vectorResource(R.drawable.ic_outline_not_interested_24px),
                             tint = colorResource(R.color.icon_tint_with_alpha),
                             contentDescription = null
                         )
                     } else {
-                        val borderColor =
-                            colorResource(R.color.icon_tint_with_alpha)  // colorResource(R.color.text_tertiary)
+                        val borderColor = colorResource(R.color.icon_tint_with_alpha)  // colorResource(R.color.text_tertiary)
                         Box(
                             modifier = Modifier.size(56.dp),
                             contentAlignment = Alignment.Center
                         ) {
                             Canvas(modifier = Modifier.size(24.dp)) {
                                 drawCircle(color = color.value)
-                                drawCircle(
-                                    color = borderColor, style = Stroke(width = 4.0f)
+                                drawCircle(color = borderColor, style = Stroke(width = 4.0f)
                                 )
                             }
                         }
@@ -297,9 +262,7 @@ object ListSettings {
             center = {
                 Text(
                     text = LocalContext.current.getString(R.string.color),
-                    modifier = Modifier
-                        .weight(0.8f)
-                        .padding(start = Constants.KEYLINE_FIRST)
+                    modifier = Modifier.padding(start = Constants.KEYLINE_FIRST)
                 )
             },
             right = {
@@ -319,7 +282,7 @@ object ListSettings {
         ListSettingRow(
             modifier = Modifier.clickable(onClick =  selectIcon),
             left = {
-                IconButton(onClick = selectIcon, modifier = Modifier.size(56.dp)) {
+                IconButton(onClick = selectIcon) {
                     TasksIcon(
                         label = icon.value,
                         tint = colorResource(R.color.icon_tint_with_alpha)
@@ -329,9 +292,7 @@ object ListSettings {
             center = {
                 Text(
                     text = LocalContext.current.getString(R.string.icon),
-                    modifier = Modifier
-                        .weight(0.8f)
-                        .padding(start = Constants.KEYLINE_FIRST)
+                    modifier = Modifier.padding(start = Constants.KEYLINE_FIRST)
                 )
             }
         )
@@ -339,22 +300,25 @@ object ListSettings {
 
     @Composable
     fun ListSettingRow(
-        left: @Composable RowScope.() -> Unit,
-        center: @Composable RowScope.() -> Unit,
-        right: @Composable (RowScope.() -> Unit)? = null,
+        left: @Composable () -> Unit,
+        center: @Composable () -> Unit,
+        right: @Composable (() -> Unit)? = null,
         modifier: Modifier = Modifier
     ) {
-        Row(
-            modifier = modifier.requiredHeight(56.dp),
-            verticalAlignment = Alignment.CenterVertically
-        )
-        {
-            left()
-            center()
-            right?.invoke(this)
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
+            Box (modifier = Modifier.size(56.dp), contentAlignment = Alignment.Center) {
+                left()
+            }
+            Box (modifier = Modifier.height(56.dp).weight(1f), contentAlignment = Alignment.CenterStart) {
+                center()
+            }
+            right?.let {
+                Box (modifier = Modifier.size(56.dp), contentAlignment = Alignment.Center) {
+                    it.invoke()
+                }
+            }
         }
     }
-
 
     @Composable
     fun ListSettingsSurface(content: @Composable ColumnScope.() -> Unit) {
@@ -363,8 +327,7 @@ object ListSettings {
                 color = colorResource(id = R.color.window_background),
                 contentColor = colorResource(id = R.color.text_primary)
             ) {
-                Column(modifier = Modifier.fillMaxSize())
-                { content() }
+                Column(modifier = Modifier.fillMaxSize()) { content() }
             }
         }
     }
@@ -381,7 +344,6 @@ object ListSettings {
                     shape = RoundedCornerShape(10.dp),
                     containerColor = colorResource(id = R.color.snackbar_background),
                     contentColor = colorResource(id = R.color.snackbar_text_color),
-                    //shadowElevation = 8.dp
                 ) {
                     Text(text = data.visuals.message, fontSize = 18.sp)
                 }
