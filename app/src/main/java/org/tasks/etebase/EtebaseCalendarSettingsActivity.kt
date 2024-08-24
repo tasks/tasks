@@ -7,6 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
 class EtebaseCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
@@ -22,7 +23,9 @@ class EtebaseCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         updateCalendarViewModel.observe(this, { updateCalendar() }, this::requestFailed)
 
         setContent {
-            baseCaldavSettingsContent()
+            TasksTheme {
+                baseCaldavSettingsContent()
+            }
         }
     }
 

@@ -9,6 +9,7 @@ import org.tasks.compose.DeleteButton
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.dao.CaldavDao
+import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
 class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
@@ -20,9 +21,11 @@ class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         val canDelete = runBlocking { caldavDao.getCalendarsByAccount(CaldavDao.LOCAL).size > 1 }
 
         setContent {
-            baseCaldavSettingsContent (
-                optionButton = { if (!isNew && canDelete) DeleteButton { promptDelete() } }
-            )
+            TasksTheme {
+                baseCaldavSettingsContent (
+                    optionButton = { if (!isNew && canDelete) DeleteButton { promptDelete() } }
+                )
+            }
         }
     }
 

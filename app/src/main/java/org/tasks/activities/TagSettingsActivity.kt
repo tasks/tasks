@@ -20,6 +20,7 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
 import org.tasks.filters.TagFilter
 import org.tasks.themes.TasksIcons
+import org.tasks.themes.TasksTheme
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,7 +48,9 @@ class TagSettingsActivity : BaseListSettingsActivity() {
         }
 
         setContent {
-            baseSettingsContent()
+            TasksTheme {
+                baseSettingsContent()
+            }
         }
         updateTheme()
     }

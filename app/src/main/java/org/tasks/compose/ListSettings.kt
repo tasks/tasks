@@ -62,7 +62,7 @@ import org.tasks.themes.TasksTheme
 @Preview (showBackground = true)
 private fun TitleBarPreview() {
     TasksTheme {
-        ListSettings.ListSettingsToolbar(
+        ListSettings.Toolbar(
             title = "Tollbar title",
             save = { /*TODO*/ }, optionButton = { DeleteButton {} }
         )
@@ -100,15 +100,15 @@ object ListSettings {
     ) {
         ListSettingsSurface {
 
-            ListSettingsToolbar(
+            Toolbar(
                 title = title,
                 save = save,
                 optionButton = optionButton
             )
 
-            ListSettingsProgressBar(showProgress)
+            ProgressBar(showProgress)
 
-            ListSettingsTitleInput(
+            TitleInput(
                 text = text, error = error, requestKeyboard = requestKeyboard,
                 modifier = Modifier.padding(horizontal = Constants.KEYLINE_FIRST)
             )
@@ -122,13 +122,13 @@ object ListSettings {
     }
 
     @Composable
-    fun ListSettingsToolbar(
+    fun Toolbar(
         title: String,
         save: () -> Unit,
         optionButton: @Composable () -> Unit,
     ) {
 
-        /*
+/*  Hady: reminder for the future
     val activity = LocalView.current.context as Activity
     activity.window.statusBarColor = colorResource(id = R.color.drawer_color_selected).toArgb()
 */
@@ -163,7 +163,7 @@ object ListSettings {
     } /* ListSettingsToolBar */
 
     @Composable
-    fun ListSettingsProgressBar(showProgress: State<Boolean>) {
+    fun ProgressBar(showProgress: State<Boolean>) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -180,7 +180,7 @@ object ListSettings {
     }
 
     @Composable
-    fun ListSettingsTitleInput(
+    fun TitleInput(
         text: MutableState<String>,
         error: MutableState<String>,
         requestKeyboard: Boolean,
@@ -359,7 +359,7 @@ object ListSettings {
     }
 
     @Composable
-    fun ListSettingsSnackBar(state: SnackbarHostState) {
+    fun SettingsSnackBar(state: SnackbarHostState) {
         SnackbarHost(state) { data ->
             Box(
                 modifier = Modifier.fillMaxSize(),

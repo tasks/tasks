@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
 class MicrosoftListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
@@ -47,7 +48,9 @@ class MicrosoftListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         }
 
         setContent {
-            baseCaldavSettingsContent()
+            TasksTheme {
+                baseCaldavSettingsContent()
+            }
         }
     }
 
