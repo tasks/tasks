@@ -18,10 +18,10 @@ import org.tasks.compose.Constants
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
-import org.tasks.compose.ListSettings.ListSettingsProgressBar
+import org.tasks.compose.ListSettings.ProgressBar
 import org.tasks.compose.ListSettings.ListSettingsSurface
-import org.tasks.compose.ListSettings.ListSettingsTitleInput
-import org.tasks.compose.ListSettings.ListSettingsToolbar
+import org.tasks.compose.ListSettings.TitleInput
+import org.tasks.compose.ListSettings.Toolbar
 import org.tasks.compose.ListSettings.PromptAction
 import org.tasks.compose.ListSettings.SelectColorRow
 import org.tasks.compose.ListSettings.SelectIconRow
@@ -35,6 +35,7 @@ import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
+
 
 abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), ColorPalettePicker.ColorPickedCallback, ColorWheelPicker.ColorPickedCallback {
     @Inject lateinit var colorProvider: ColorProvider
@@ -123,6 +124,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
         themeColor.applyToNavigationBar(this)
     }
 
+    /** Standard @Compose view content for descendants. TaskTheme must be set up by client */
     @Composable
     protected fun baseSettingsContent(
         title: String = toolbarTitle ?: "",
@@ -130,39 +132,37 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
         optionButton: @Composable () -> Unit = { if (!isNew) DeleteButton { promptDelete() } },
         extensionContent: @Composable ColumnScope.() -> Unit = {}
     ) {
-        TasksTheme {
-            ListSettingsSurface {
-                ListSettingsToolbar(
-                    title = title,
-                    save = { lifecycleScope.launch { save() } },
-                    optionButton = optionButton
-                )
-                ListSettingsProgressBar(showProgress)
-                ListSettingsTitleInput(
-                    text = textState, error = errorState, requestKeyboard = requestKeyboard,
-                    modifier = Modifier.padding(horizontal = Constants.KEYLINE_FIRST)
-                )
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    SelectColorRow(
-                        color = colorState,
-                        selectColor = { showThemePicker() },
-                        clearColor = { clearColor() })
-                    SelectIconRow(
-                        icon = selectedIcon,
-                        selectIcon = { showIconPicker() })
-                    extensionContent()
+        ListSettingsSurface {
+            Toolbar(
+                title = title,
+                save = { lifecycleScope.launch { save() } },
+                optionButton = optionButton
+            )
+            ProgressBar(showProgress)
+            TitleInput(
+                text = textState, error = errorState, requestKeyboard = requestKeyboard,
+                modifier = Modifier.padding(horizontal = Constants.KEYLINE_FIRST)
+            )
+            Column(modifier = Modifier.fillMaxWidth()) {
+                SelectColorRow(
+                    color = colorState,
+                    selectColor = { showThemePicker() },
+                    clearColor = { clearColor() })
+                SelectIconRow(
+                    icon = selectedIcon,
+                    selectIcon = { showIconPicker() })
+                extensionContent()
 
-                    PromptAction(
-                        showDialog = promptDelete,
-                        title = stringResource(id = R.string.delete_tag_confirmation, title),
-                        onAction = { lifecycleScope.launch { delete() } }
-                    )
-                    PromptAction(
-                        showDialog = promptDiscard,
-                        title = stringResource(id = R.string.discard_changes),
-                        onAction = { lifecycleScope.launch { finish() } }
-                    )
-                }
+                PromptAction(
+                    showDialog = promptDelete,
+                    title = stringResource(id = R.string.delete_tag_confirmation, title),
+                    onAction = { lifecycleScope.launch { delete() } }
+                )
+                PromptAction(
+                    showDialog = promptDiscard,
+                    title = stringResource(id = R.string.discard_changes),
+                    onAction = { lifecycleScope.launch { finish() } }
+                )
             }
         }
     }
