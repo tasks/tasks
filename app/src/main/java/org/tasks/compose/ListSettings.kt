@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import org.tasks.R
 import org.tasks.compose.components.TasksIcon
+import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 
 @Composable
@@ -77,6 +78,17 @@ private fun PromptActionPreview() {
             showDialog = remember { mutableStateOf(true) },
             title = "Delete list?",
             onAction = { /*TODO*/ })
+    }
+}
+
+@Composable
+@Preview (showBackground = true)
+private fun IconSelectPreview () {
+    TasksTheme {
+        ListSettings.SelectIconRow(
+            icon = remember { mutableStateOf(TasksIcons.FILTER_LIST) },
+            selectIcon = {}
+        )
     }
 }
 
@@ -307,10 +319,9 @@ object ListSettings {
         ListSettingRow(
             modifier = Modifier.clickable(onClick =  selectIcon),
             left = {
-                IconButton(onClick = selectIcon) {
+                IconButton(onClick = selectIcon, modifier = Modifier.size(56.dp)) {
                     TasksIcon(
                         label = icon.value,
-                        modifier = Modifier.padding(Constants.KEYLINE_FIRST),
                         tint = colorResource(R.color.icon_tint_with_alpha)
                     )
                 }
