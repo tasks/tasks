@@ -12,10 +12,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Slider
-import androidx.compose.material.SliderDefaults
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -123,10 +123,10 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
                         steps = (MAX_RADIUS - MIN_RADIUS) / STEP,
                         onValueChange = { sliderPos.floatValue = it },
                         colors = SliderDefaults.colors(
-                            thumbColor = MaterialTheme.colors.secondary,
-                            activeTrackColor = MaterialTheme.colors.secondary,
+                            thumbColor = MaterialTheme.colorScheme.secondary,
+                            activeTrackColor = MaterialTheme.colorScheme.secondary,
                             inactiveTrackColor = colorResource(id = R.color.text_tertiary),
-                            activeTickColor = MaterialTheme.colors.secondary,
+                            activeTickColor = MaterialTheme.colorScheme.secondary,
                             inactiveTickColor = colorResource(id = R.color.text_tertiary)
                         )
                     )
