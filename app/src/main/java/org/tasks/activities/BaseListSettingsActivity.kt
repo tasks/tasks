@@ -32,6 +32,7 @@ import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
+import org.tasks.themes.TasksTheme
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
 

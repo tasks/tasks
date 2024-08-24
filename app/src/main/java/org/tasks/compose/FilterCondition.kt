@@ -245,7 +245,6 @@ object FilterCondition {
                 }
                 Text(
                     text = locale.formatNumber(criterion.end),
-                    text = locale.formatNumber(criterion.max),
                     modifier = Modifier.padding(end = Constants.KEYLINE_FIRST),
                     color = Color.Gray,
                     fontSize = 14.sp,
