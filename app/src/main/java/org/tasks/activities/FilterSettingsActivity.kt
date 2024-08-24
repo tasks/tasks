@@ -19,23 +19,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
-import org.tasks.data.sql.Field
-import org.tasks.data.sql.Query
-import org.tasks.data.sql.UnaryCriterion
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.api.BooleanCriterion
-import org.tasks.filters.CustomFilter
 import com.todoroo.astrid.api.CustomFilterCriterion
 import com.todoroo.astrid.api.MultipleSelectCriterion
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.api.TextInputCriterion
 import com.todoroo.astrid.core.CriterionInstance
-import org.tasks.data.db.Database
-import org.tasks.data.entity.Task
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -46,17 +38,23 @@ import org.tasks.compose.FilterCondition.InputTextOption
 import org.tasks.compose.FilterCondition.NewCriterionFAB
 import org.tasks.compose.FilterCondition.SelectCriterionType
 import org.tasks.compose.FilterCondition.SelectFromList
-import org.tasks.data.entity.Filter
-import org.tasks.data.dao.FilterDao
 import org.tasks.data.NO_ORDER
+import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
+import org.tasks.data.db.Database
+import org.tasks.data.entity.Filter
+import org.tasks.data.entity.Task
 import org.tasks.data.rawQuery
-import org.tasks.databinding.FilterSettingsActivityBinding
+import org.tasks.data.sql.Field
+import org.tasks.data.sql.Query
+import org.tasks.data.sql.UnaryCriterion
 import org.tasks.db.QueryUtils
 import org.tasks.extensions.Context.openUri
+import org.tasks.filters.CustomFilter
 import org.tasks.filters.FilterCriteriaProvider
 import org.tasks.filters.mapToSerializedString
 import org.tasks.themes.TasksIcons
+import org.tasks.themes.TasksTheme
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.max
@@ -84,8 +82,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null && filter != null) {
             selectedColor = filter!!.tint
-            selectedIcon = filter!!.icon
-            selectedIcon.update { filter!!.icon }
+            selectedIcon.value =  filter!!.icon ?: defaultIcon
             textState.value = filter!!.title ?: ""
         }
         when {
@@ -260,7 +257,7 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
     @Composable
     private fun activityContent ()
     {
-        MdcTheme {
+        TasksTheme {
             Box(  // to layout FAB over the main content
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.TopStart

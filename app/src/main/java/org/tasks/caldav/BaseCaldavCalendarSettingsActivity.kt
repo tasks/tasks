@@ -11,23 +11,17 @@ import at.bitfire.dav4jvm.exception.HttpException
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.service.TaskDeleter
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.ListSettings.ListSettingsSnackBar
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavDao
-import org.tasks.themes.CustomIcons
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.databinding.ActivityCaldavCalendarSettingsBinding
-import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.filters.CaldavFilter
 import org.tasks.themes.TasksIcons
 import org.tasks.ui.DisplayableException
@@ -58,7 +52,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
             if (caldavCalendar != null) {
                 textState.value = caldavCalendar!!.name ?: ""
                 selectedColor = caldavCalendar!!.color
-                selectedIcon.update { caldavCalendar?.icon }
+                selectedIcon.value = caldavCalendar?.icon ?: defaultIcon
             }
         }
         updateTheme()

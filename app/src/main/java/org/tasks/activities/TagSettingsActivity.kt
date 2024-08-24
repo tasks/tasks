@@ -12,21 +12,12 @@ import androidx.activity.compose.setContent
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.update
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.data.TagDao
-import org.tasks.data.TagData
-import org.tasks.data.TagDataDao
-import org.tasks.themes.CustomIcons
-import org.tasks.compose.drawer.BaseSettingsDrawer
-import org.tasks.compose.drawer.BaseSettingsDrawerParam
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
-import org.tasks.databinding.ActivityTagSettingsBinding
-import org.tasks.extensions.Context.hideKeyboard
 import org.tasks.filters.TagFilter
 import org.tasks.themes.TasksIcons
 import javax.inject.Inject
@@ -37,7 +28,6 @@ class TagSettingsActivity : BaseListSettingsActivity() {
     @Inject lateinit var tagDao: TagDao
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private var isNewTag = false
     private lateinit var tagData: TagData
     private val isNewTag: Boolean
         get() = tagData.id == null
@@ -46,18 +36,14 @@ class TagSettingsActivity : BaseListSettingsActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         tagData = intent.getParcelableExtra(EXTRA_TAG_DATA) ?: TagData()
-        tagData = intent.getParcelableExtra(EXTRA_TAG_DATA)
-                ?: TagData().apply {
-                    isNewTag = true
-                    remoteId = UUIDHelper.newUUID()
-                }
+
         if (!isNewTag) textState.value = tagData.name!!
 
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
             selectedColor = tagData.color ?: 0
-            selectedIcon.update { tagData.icon }
+            selectedIcon.value = tagData.icon ?: defaultIcon
         }
 
         setContent {
