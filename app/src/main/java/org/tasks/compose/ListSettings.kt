@@ -149,9 +149,7 @@ object ListSettings {
 
     @Composable
     fun ProgressBar(showProgress: State<Boolean>) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .requiredHeight(3.dp))
+        Box(modifier = Modifier.fillMaxWidth().requiredHeight(3.dp))
         {
             if (showProgress.value) {
                 LinearProgressIndicator(
