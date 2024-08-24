@@ -69,11 +69,50 @@ import java.util.Locale
 
 @Composable
 @Preview (showBackground = true)
-fun ToggleGroupPreview ()
-{
-    FilterCondition.ToggleGroup (
-        items = listOf("AND","OR","NOT")
-    )
+private fun CriterionTypeSelectPreview () {
+    TasksTheme {
+        FilterCondition.SelectCriterionType(
+            title = "Select criterion type",
+            selected = 1,
+            types = listOf("AND", "OR", "NOT"),
+            onCancel = { /*TODO*/ }) {
+        }
+    }
+}
+
+@Composable
+@Preview (showBackground = true)
+private fun InputTextPreview () {
+    TasksTheme {
+        FilterCondition.InputTextOption(title = "Task name contains...", onCancel = { /*TODO*/ }
+        ) {
+
+        }
+    }
+}
+
+@Composable
+@Preview (showBackground = true)
+private fun SwipeOutDecorationPreview () {
+    TasksTheme {
+        Box(modifier = Modifier
+            .height(56.dp)
+            .fillMaxWidth()) {
+            FilterCondition.SwipeOutDecoration()
+        }
+    }
+}
+
+@Composable
+@Preview (showBackground = true)
+private fun FabPreview () {
+    TasksTheme {
+        FilterCondition.NewCriterionFAB(
+            isExtended = remember { mutableStateOf(true) }
+        ) {
+
+        }
+    }
 }
 
 private fun CriterionTypeSelectPreview () {
@@ -259,7 +298,7 @@ object FilterCondition {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.secondary)
+                .background(MaterialTheme.colorScheme.secondary)
         ) {
 
             @Composable
