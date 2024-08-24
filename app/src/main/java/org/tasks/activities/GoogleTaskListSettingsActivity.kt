@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material.SnackbarHostState
+import androidx.compose.material3.SnackbarHostState
 import androidx.lifecycle.lifecycleScope
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity

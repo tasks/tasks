@@ -14,20 +14,20 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ProvideTextStyle
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.SnackbarHostState
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ProvideTextStyle
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -50,11 +50,35 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import org.tasks.R
 import org.tasks.compose.components.TasksIcon
+import org.tasks.themes.TasksTheme
+
+@Composable
+@Preview (showBackground = true)
+private fun TitleBarPreview() {
+    TasksTheme {
+        ListSettings.ListSettingsToolbar(
+            title = "Tollbar title",
+            save = { /*TODO*/ }, optionButton = { DeleteButton {} }
+        )
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun PromptActionPreview() {
+    TasksTheme {
+        ListSettings.PromptAction(
+            showDialog = remember { mutableStateOf(true) },
+            title = "Delete list?",
+            onAction = { /*TODO*/ })
+    }
+}
 
 object ListSettings {
     @Composable
@@ -110,8 +134,8 @@ object ListSettings {
 */
 
         Surface(
-            elevation = 4.dp,
-            color = colorResource(id = org.tasks.R.color.content_background),
+            shadowElevation = 4.dp,
+            color = colorResource(id = R.color.content_background),
             contentColor = colorResource(id = R.color.text_primary),
             modifier = Modifier.requiredHeight(56.dp)
         )
@@ -119,11 +143,10 @@ object ListSettings {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = save) {
+                IconButton(onClick = save, modifier = Modifier.size(56.dp)) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_outline_save_24px),
                         contentDescription = stringResource(id = R.string.save),
-                        modifier = Modifier.padding(Constants.KEYLINE_FIRST)
                     )
                 }
                 Text(
@@ -149,7 +172,7 @@ object ListSettings {
             if (showProgress.value) {
                 LinearProgressIndicator(
                     modifier = Modifier.fillMaxSize(),
-                    backgroundColor = LocalContentColor.current.copy(alpha = 0.3f),  //Color.LightGray,
+                    trackColor = LocalContentColor.current.copy(alpha = 0.3f),  //Color.LightGray,
                     color = colorResource(org.tasks.kmp.R.color.red_a400)
                 )
             }
@@ -163,7 +186,7 @@ object ListSettings {
         requestKeyboard: Boolean,
         modifier: Modifier = Modifier,
         label: String = stringResource(R.string.display_name),
-        errorState: Color = MaterialTheme.colors.secondary,
+        errorState: Color = MaterialTheme.colorScheme.secondary,
         activeState: Color = LocalContentColor.current.copy(alpha = 0.75f),
         inactiveState: Color = LocalContentColor.current.copy(alpha = 0.5f),
     ) {
@@ -206,7 +229,7 @@ object ListSettings {
                         .focusRequester(requester)
                         .onFocusChanged { focused.value = (it.isFocused) }
                 )
-                Divider(
+                HorizontalDivider(
                     color = labelColor,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
@@ -337,7 +360,7 @@ object ListSettings {
 
     @Composable
     fun ListSettingsSnackBar(state: SnackbarHostState) {
-        SnackbarHost(state) {
+        SnackbarHost(state) { data ->
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
@@ -345,11 +368,11 @@ object ListSettings {
                 Snackbar(
                     modifier = Modifier.padding(horizontal = 24.dp),
                     shape = RoundedCornerShape(10.dp),
-                    backgroundColor = colorResource(id = R.color.snackbar_background),
+                    containerColor = colorResource(id = R.color.snackbar_background),
                     contentColor = colorResource(id = R.color.snackbar_text_color),
-                    elevation = 8.dp
+                    //shadowElevation = 8.dp
                 ) {
-                    Text(text = it.message, fontSize = 18.sp)
+                    Text(text = data.visuals.message, fontSize = 18.sp)
                 }
             }
         }
@@ -365,7 +388,7 @@ object ListSettings {
         if (showDialog.value) {
             AlertDialog(
                 onDismissRequest = onCancel,
-                title = { Text(title, style = MaterialTheme.typography.h6) },
+                title = { Text(title, style = MaterialTheme.typography.headlineSmall) },
                 confirmButton = { Constants.TextButton(R.string.ok, onClick = onAction) },
                 dismissButton = { Constants.TextButton(text = R.string.cancel, onCancel) }
             )
