@@ -29,7 +29,6 @@ import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker
-import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
