@@ -223,9 +223,7 @@ object FilterCondition {
                     fontSize = 18.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .weight(0.8f)
-                        .padding(start = 16.dp, top = 16.dp, bottom = 16.dp)
+                    modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 16.dp)
                 )
             },
             right = {
