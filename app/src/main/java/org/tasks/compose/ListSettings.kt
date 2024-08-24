@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import org.tasks.R
+import org.tasks.compose.components.TasksIcon
 
 object ListSettings {
     @Composable
@@ -63,7 +64,7 @@ object ListSettings {
         text: MutableState<String>,
         error: MutableState<String>,
         color: State<Color>,
-        icon: State<Int>,
+        icon: State<String>,
         save: () -> Unit = {},
         selectIcon: () -> Unit = {},
         clearColor: () -> Unit = {},
@@ -110,7 +111,7 @@ object ListSettings {
 
         Surface(
             elevation = 4.dp,
-            color = colorResource(id = R.color.content_background),
+            color = colorResource(id = org.tasks.R.color.content_background),
             contentColor = colorResource(id = R.color.text_primary),
             modifier = Modifier.requiredHeight(56.dp)
         )
@@ -149,7 +150,7 @@ object ListSettings {
                 LinearProgressIndicator(
                     modifier = Modifier.fillMaxSize(),
                     backgroundColor = LocalContentColor.current.copy(alpha = 0.3f),  //Color.LightGray,
-                    color = colorResource(R.color.red_a400)
+                    color = colorResource(org.tasks.kmp.R.color.red_a400)
                 )
             }
         }
@@ -279,15 +280,14 @@ object ListSettings {
         )
 
     @Composable
-    fun SelectIconRow(icon: State<Int>, selectIcon: () -> Unit) =
+    fun SelectIconRow(icon: State<String>, selectIcon: () -> Unit) =
         ListSettingRow(
             modifier = Modifier.clickable(onClick =  selectIcon),
             left = {
                 IconButton(onClick = selectIcon) {
-                    Icon(
+                    TasksIcon(
+                        label = icon.value,
                         modifier = Modifier.padding(Constants.KEYLINE_FIRST),
-                        imageVector = ImageVector.vectorResource(icon.value),
-                        contentDescription = null,
                         tint = colorResource(R.color.icon_tint_with_alpha)
                     )
                 }

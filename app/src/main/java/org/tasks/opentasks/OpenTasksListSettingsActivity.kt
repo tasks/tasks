@@ -3,21 +3,17 @@ package org.tasks.opentasks
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
-import org.tasks.compose.Constants
-import org.tasks.compose.DeleteButton
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavCalendar
 import org.tasks.compose.ListSettings.ListSettingsProgressBar
 import org.tasks.compose.ListSettings.ListSettingsSnackBar
 import org.tasks.compose.ListSettings.ListSettingsSurface
 import org.tasks.compose.ListSettings.ListSettingsToolbar
 import org.tasks.compose.ListSettings.SelectIconRow
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.themes.TasksTheme
 
 @AndroidEntryPoint
 class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
@@ -26,7 +22,7 @@ class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MdcTheme {
+            TasksTheme {
                 ListSettingsSurface {
                     ListSettingsToolbar(
                         title = toolbarTitle,
@@ -34,7 +30,7 @@ class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                         optionButton = { },
                     )
                     ListSettingsProgressBar(showProgress)
-                    SelectIconRow(icon = iconState) {
+                    SelectIconRow(icon = selectedIcon) {
                         showIconPicker()
                     }
                 }

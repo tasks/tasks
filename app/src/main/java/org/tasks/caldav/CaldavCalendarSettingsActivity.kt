@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.AlertDialog
+import androidx.compose.material.Text
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -27,14 +27,6 @@ import org.tasks.R
 import org.tasks.compose.Constants
 import org.tasks.compose.ListSettingsComposables.PrincipalList
 import org.tasks.compose.ShareInvite.ShareInviteDialog
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.SERVER_NEXTCLOUD
-import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
-import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
-import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
-import org.tasks.data.PrincipalDao
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
@@ -73,26 +65,16 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
             finish()
         }
 
-        caldavCalendar?.takeIf { it.id > 0 }?.let {
-            findViewById<ComposeView>(R.id.people).setContent {
-                TasksTheme {
-                    val principals = principalDao.getPrincipals(it.id).collectAsStateWithLifecycle(initialValue = emptyList()).value
-                    PrincipalList(
-                        principals = principals,
-                        onRemove = if (canRemovePrincipals) { { onRemove(it) } } else null,
-                    )
-                }
-            }
-        }
-
         setContent {
-            MdcTheme {
+            TasksTheme {
                 Box(contentAlignment = Alignment.TopStart) {// Box to layout FAB over main content
                     baseCaldavSettingsContent {
-                        caldavCalendar?.takeIf { it.id > 0 }?.let {
-                            principalDao.getPrincipals(it.id).observeAsState().value?.let { list->
-                                principalsList.value = list
-                            }
+                        caldavCalendar?.takeIf { it.id > 0 }?.let { calendar->
+                            val principals = principalDao.getPrincipals(calendar.id).collectAsStateWithLifecycle(initialValue = emptyList()).value
+                            PrincipalList(
+                                principals = principals,
+                                onRemove = if (canRemovePrincipals) { { onRemove(it) } } else null,
+                            )
                         }
                         if (principalsList.value.isNotEmpty())
                             PrincipalList(
@@ -118,7 +100,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                             title = {
                                 Text(
                                     stringResource(id = R.string.remove_user),
-                                    style = MaterialTheme.typography.h6
+                                    style = MaterialTheme.typography.headlineSmall
                                 )
                             },
                             text = {
@@ -128,7 +110,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                                         principal.name,
                                         caldavCalendar?.name ?: ""
                                     ),
-                                    style = MaterialTheme.typography.body1
+                                    style = MaterialTheme.typography.bodyMedium
                                 )
                             }
                         )
@@ -157,7 +139,7 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                             Icon(
                                 painter = painterResource(R.drawable.ic_outline_person_add_24),
                                 contentDescription = null,
-                                tint = MaterialTheme.colors.onPrimary,
+                                tint = MaterialTheme.colorScheme.onPrimary,
                             )
                         }
                     }
