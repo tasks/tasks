@@ -37,7 +37,6 @@ import org.tasks.themes.ThemeColor
 import javax.inject.Inject
 
 abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), ColorPalettePicker.ColorPickedCallback, ColorWheelPicker.ColorPickedCallback {
-    //lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var colorProvider: ColorProvider
     protected abstract val defaultIcon: String
     protected var selectedColor = 0
@@ -78,7 +77,6 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
     protected abstract val isNew: Boolean
     protected abstract val toolbarTitle: String?
     protected abstract suspend fun delete()
-    //protected abstract fun bind(): View
     protected open fun discard() {
         if (hasChanges())  promptDiscard.value = true
         else finish()
