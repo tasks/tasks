@@ -19,7 +19,7 @@ import org.tasks.compose.DeleteButton
 import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
 import org.tasks.compose.ListSettings.ProgressBar
-import org.tasks.compose.ListSettings.SettingsSurface
+import org.tasks.compose.ListSettings.ListSettingsSurface
 import org.tasks.compose.ListSettings.TitleInput
 import org.tasks.compose.ListSettings.Toolbar
 import org.tasks.compose.ListSettings.PromptAction
