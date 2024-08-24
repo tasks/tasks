@@ -121,7 +121,11 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
         fabExtended.value = isNew || criteria.size <= 1
         updateList()
 
-        this.setContent { activityContent() }
+        this.setContent {
+            TasksTheme {
+                activityContent()
+            }
+        }
     }
 
     private fun onDelete(index: Int) {

@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.compose.ListSettings.ListSettingsSnackBar
+import org.tasks.compose.ListSettings.SettingsSnackBar
 import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
@@ -71,9 +71,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         setContent {
             TasksTheme {
                 baseSettingsContent()
-
-                ListSettingsSnackBar(state = snackbar)
-
+                SettingsSnackBar(state = snackbar)
             }
         }
 
