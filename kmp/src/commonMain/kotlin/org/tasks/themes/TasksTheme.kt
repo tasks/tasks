@@ -44,6 +44,7 @@ fun TasksTheme(
         colorScheme = colorScheme.copy(
             primary = Color(primary),
             onPrimary = colorOnPrimary,
+            secondary = Color.Red,      // Hady: Sorry for this hack, I believe the regular solution is planned
         ),
     ) {
         content()
