@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
@@ -171,7 +170,7 @@ object ListSettings {
         requestKeyboard: Boolean,
         modifier: Modifier = Modifier,
         label: String = stringResource(R.string.display_name),
-        errorState: Color = MaterialTheme.colors.secondary,
+        errorState: Color = MaterialTheme.colorScheme.secondary,
         activeState: Color = LocalContentColor.current.copy(alpha = 0.75f),
         inactiveState: Color = LocalContentColor.current.copy(alpha = 0.3f),
     ) {
