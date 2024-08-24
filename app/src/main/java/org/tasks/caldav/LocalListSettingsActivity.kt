@@ -24,8 +24,6 @@ class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                 optionButton = { if (!isNew && canDelete) DeleteButton { promptDelete() } }
             )
         }
-        toolbar.menu.findItem(R.id.delete)?.isVisible =
-                runBlocking { caldavDao.getCalendarsByAccount(CaldavDao.LOCAL).size > 1 }
     }
 
     override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) =

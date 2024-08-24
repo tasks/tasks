@@ -7,32 +7,24 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.SnackbarHostState
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.api.services.tasks.model.TaskList
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.service.TaskDeleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.compose.ListSettings.ListSettingsSnackBar
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.GoogleTaskListDao
-import org.tasks.themes.CustomIcons
 import org.tasks.data.dao.GoogleTaskListDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.databinding.ActivityGoogleTaskListSettingsBinding
-import org.tasks.extensions.Context.hideKeyboard
-import org.tasks.extensions.Context.toast
 import org.tasks.filters.GtasksFilter
 import org.tasks.themes.TasksIcons
+import org.tasks.themes.TasksTheme
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -61,7 +53,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             selectedColor = gtasksList.color
-            selectedIcon.update { gtasksList.icon }
+            selectedIcon.value = gtasksList.icon ?: defaultIcon
         }
 
         if (!isNewList) textState.value = gtasksList.name!!
@@ -77,7 +69,7 @@ class GoogleTaskListSettingsActivity : BaseListSettingsActivity() {
         deleteListViewModel.observe(this, this::onListDeleted, this::requestFailed)
 
         setContent {
-            MdcTheme {
+            TasksTheme {
                 baseSettingsContent()
 
                 ListSettingsSnackBar(state = snackbar)
