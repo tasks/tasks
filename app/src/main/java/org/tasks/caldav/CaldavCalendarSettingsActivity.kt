@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.AlertDialog
+import androidx.compose.material.Text
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,14 +28,6 @@ import org.tasks.R
 import org.tasks.compose.Constants
 import org.tasks.compose.ListSettingsComposables.PrincipalList
 import org.tasks.compose.ShareInvite.ShareInviteDialog
-import org.tasks.data.CaldavAccount
-import org.tasks.data.CaldavAccount.Companion.SERVER_NEXTCLOUD
-import org.tasks.data.CaldavAccount.Companion.SERVER_OWNCLOUD
-import org.tasks.data.CaldavAccount.Companion.SERVER_SABREDAV
-import org.tasks.data.CaldavAccount.Companion.SERVER_TASKS
-import org.tasks.data.CaldavCalendar
-import org.tasks.data.CaldavCalendar.Companion.ACCESS_OWNER
-import org.tasks.data.PrincipalDao
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.dao.PrincipalDao
 import org.tasks.data.entity.CaldavAccount
@@ -73,22 +66,63 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
             finish()
         }
 
-        caldavCalendar?.takeIf { it.id > 0 }?.let {
-            findViewById<ComposeView>(R.id.people).setContent {
-                TasksTheme(theme = tasksTheme.themeBase.index) {
-                    val principals = principalDao.getPrincipals(it.id).collectAsStateWithLifecycle(initialValue = emptyList()).value
-                    PrincipalList(
-                        principals = principals,
-                        onRemove = if (canRemovePrincipals) { { onRemove(it) } } else null,
-                    )
+        setContent {
+            TasksTheme {
+                Box(contentAlignment = Alignment.TopStart) {// Box to layout FAB over main content
+                    baseCaldavSettingsContent {
+                        caldavCalendar?.takeIf { it.id > 0 }?.let { calendar->
+                            val principals = principalDao.getPrincipals(calendar.id).collectAsStateWithLifecycle(initialValue = emptyList()).value
+                            PrincipalList(
+                                principals = principals,
+                                onRemove = if (canRemovePrincipals) { { onRemove(it) } } else null,
+                            )
+                        }
+                        if (principalsList.value.isNotEmpty())
+                            PrincipalList(
+                                principalsList.value,
+                                onRemove = if (canRemovePrincipals) ::onRemove else null
+                            )
+                    }
+
+                    removeDialog.value?.let { principal ->
+                        AlertDialog(
+                            onDismissRequest = { removeDialog.value = null },
+                            confirmButton = {
+                                Constants.TextButton(text = R.string.ok) {
+                                    removePrincipal(principal)
+                                    removeDialog.value = null
+                                }
+                            },
+                            dismissButton = {
+                                Constants.TextButton(text = R.string.cancel) {
+                                    removeDialog.value = null
+                                }
+                            },
+                            title = {
+                                Text(
+                                    stringResource(id = R.string.remove_user),
+                                    style = MaterialTheme.typography.headlineSmall
+                                )
+                            },
+                            text = {
+                                Text(
+                                    text = stringResource(
+                                        R.string.remove_user_confirmation,
+                                        principal.name,
+                                        caldavCalendar?.name ?: ""
+                                    ),
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                            }
+                        )
+                    }
+
                 }
-            }
-        }
-        if (caldavAccount.canShare && (isNew || caldavCalendar?.access == ACCESS_OWNER)) {
-            findViewById<ComposeView>(R.id.fab)
-                .apply { isVisible = true }
-                .setContent {
-                    TasksTheme(theme = tasksTheme.themeBase.index) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.BottomEnd
+                ) {
+                    if (caldavAccount.canShare && (isNew || caldavCalendar?.access == ACCESS_OWNER)) {
                         val openDialog = rememberSaveable { mutableStateOf(false) }
                         ShareInviteDialog(
                             openDialog,

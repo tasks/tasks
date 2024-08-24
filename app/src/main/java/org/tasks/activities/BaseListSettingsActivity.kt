@@ -1,7 +1,5 @@
 package org.tasks.activities
 
-import android.content.DialogInterface
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -13,28 +11,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.composethemeadapter.MdcTheme
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
-import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
-import org.tasks.compose.components.TasksIcon
 import org.tasks.compose.Constants
 import org.tasks.compose.DeleteButton
+import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
+import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
 import org.tasks.compose.ListSettings.ListSettingsProgressBar
 import org.tasks.compose.ListSettings.ListSettingsSurface
 import org.tasks.compose.ListSettings.ListSettingsTitleInput
@@ -50,14 +33,12 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.CustomIcons.getIconResId
-import org.tasks.themes.DrawableUtil
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
 
-abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), IconPickerCallback, ColorPalettePicker.ColorPickedCallback, ColorWheelPicker.ColorPickedCallback {
-    @Inject lateinit var dialogBuilder: DialogBuilder
+abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), ColorPalettePicker.ColorPickedCallback, ColorWheelPicker.ColorPickedCallback {
+    //lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var colorProvider: ColorProvider
     protected abstract val defaultIcon: String
     protected var selectedColor = 0
@@ -78,11 +59,11 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
 
         /* defaultIcon is initialized in the descendant's constructor so it can not be used
            in constructor of the base class. So valid initial value for iconState is set here  */
-        iconState.intValue = getIconResId(defaultIcon)!!
+        selectedIcon.value = defaultIcon
 
         if (savedInstanceState != null) {
             selectedColor = savedInstanceState.getInt(EXTRA_SELECTED_THEME)
-            selectedIcon.update { savedInstanceState.getString(EXTRA_SELECTED_ICON) }
+            selectedIcon.value = savedInstanceState.getString(EXTRA_SELECTED_ICON) ?: defaultIcon
         }
         addBackPressedCallback {
             discard()
@@ -119,13 +100,8 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
         selectedIcon.update { selected }
     }
 
-    private fun showIconPicker() {
+    fun showIconPicker() {
         launcher.launchIconPicker(this, selectedIcon.value)
-
-    override fun onSelected(dialogInterface: DialogInterface, icon: Int) {
-        selectedIcon = icon
-        dialogInterface.dismiss()
-        updateTheme()
     }
 
     override fun onColorPicked(color: Int) {
@@ -145,7 +121,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
             if (selectedColor == 0) Color.Unspecified
             else Color((colorProvider.getThemeColor(selectedColor, true)).primaryColor)
 
-        iconState.intValue = (getIconResId(selectedIcon) ?: getIconResId(defaultIcon))!!
+        //iconState.intValue = (getIconResId(selectedIcon) ?: getIconResId(defaultIcon))!!
 
         themeColor.applyToNavigationBar(this)
     }
@@ -157,7 +133,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
         optionButton: @Composable () -> Unit = { if (!isNew) DeleteButton { promptDelete() } },
         extensionContent: @Composable ColumnScope.() -> Unit = {}
     ) {
-        MdcTheme {
+        TasksTheme {
             ListSettingsSurface {
                 ListSettingsToolbar(
                     title = title,
@@ -175,7 +151,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Ic
                         selectColor = { showThemePicker() },
                         clearColor = { clearColor() })
                     SelectIconRow(
-                        icon = iconState,
+                        icon = selectedIcon,
                         selectIcon = { showIconPicker() })
                     extensionContent()
 
