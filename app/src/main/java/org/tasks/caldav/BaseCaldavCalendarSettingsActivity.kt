@@ -17,7 +17,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.activities.BaseListSettingsActivity
 import org.tasks.compose.DeleteButton
-import org.tasks.compose.ListSettings.SettingsSnackBar
+import org.tasks.compose.ListSettings.Toaster
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
@@ -206,7 +206,7 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
             optionButton = optionButton,
             extensionContent = extensionContent
         )
-        SettingsSnackBar(state = snackbar)
+        Toaster(state = snackbar)
     }
 
     companion object {

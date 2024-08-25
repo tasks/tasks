@@ -109,7 +109,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
                         Row(horizontalArrangement = Arrangement.End) {
                             Text(getString(
                                     R.string.location_radius_meters,
-                                    locale.formatNumber(sliderPos.floatValue.toInt())
+                                    locale.formatNumber(sliderPos.floatValue.roundToInt())
                                 ))
                         }
                     }

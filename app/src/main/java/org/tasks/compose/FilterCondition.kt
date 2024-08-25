@@ -49,6 +49,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -61,7 +62,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.core.os.ConfigurationCompat
 import com.todoroo.astrid.core.CriterionInstance
 import org.tasks.R
-import org.tasks.compose.ListSettings.ListSettingRow
+import org.tasks.compose.ListSettings.SettingRow
 import org.tasks.compose.SwipeOut.SwipeOut
 import org.tasks.extensions.formatNumber
 import org.tasks.themes.TasksTheme
@@ -200,7 +201,7 @@ object FilterCondition {
         val modifier =
             if (dragging) Modifier.background(Color.LightGray)
             else Modifier
-        ListSettingRow(
+        SettingRow(
             modifier = modifier.clickable { onClick(criterion.id) },
             left = {
                 Box(
@@ -250,7 +251,8 @@ object FilterCondition {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.secondary)
+                .background(colorResource(id = org.tasks.kmp.R.color.red_a400))
+                //.background(MaterialTheme.colorScheme.secondary)
         ) {
 
             @Composable

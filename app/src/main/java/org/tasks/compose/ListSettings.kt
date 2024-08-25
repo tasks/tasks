@@ -1,12 +1,14 @@
 package org.tasks.compose
 
+/**
+ * Composables for BaseListSettingActivity
+*/
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -231,7 +233,7 @@ object ListSettings {
 
     @Composable
     fun SelectColorRow(color: State<Color>, selectColor: () -> Unit, clearColor: () -> Unit) =
-        ListSettingRow(
+        SettingRow(
             modifier = Modifier.clickable(onClick =  selectColor),
             left = {
                 IconButton(onClick = { selectColor() }) {
@@ -276,7 +278,7 @@ object ListSettings {
 
     @Composable
     fun SelectIconRow(icon: State<String>, selectIcon: () -> Unit) =
-        ListSettingRow(
+        SettingRow(
             modifier = Modifier.clickable(onClick =  selectIcon),
             left = {
                 IconButton(onClick = selectIcon) {
@@ -296,7 +298,7 @@ object ListSettings {
 
 
     @Composable
-    fun ListSettingRow(
+    fun SettingRow(
         left: @Composable () -> Unit,
         center: @Composable () -> Unit,
         right: @Composable (() -> Unit)? = null,
@@ -306,9 +308,11 @@ object ListSettings {
             Box (modifier = Modifier.size(56.dp), contentAlignment = Alignment.Center) {
                 left()
             }
-            Box (modifier = Modifier
+            Box (
+                modifier = Modifier
                 .height(56.dp)
-                .weight(1f), contentAlignment = Alignment.CenterStart) {
+                .weight(1f), contentAlignment = Alignment.CenterStart
+            ) {
                 center()
             }
             right?.let {
@@ -320,7 +324,7 @@ object ListSettings {
     }
 
     @Composable
-    fun ListSettingsSurface(content: @Composable ColumnScope.() -> Unit) {
+    fun SettingsSurface(content: @Composable ColumnScope.() -> Unit) {
         ProvideTextStyle(LocalTextStyle.current.copy(fontSize = 18.sp)) {
             Surface(
                 color = colorResource(id = R.color.window_background),
@@ -332,7 +336,7 @@ object ListSettings {
     }
 
     @Composable
-    fun SettingsSnackBar(state: SnackbarHostState) {
+    fun Toaster(state: SnackbarHostState) {
         SnackbarHost(state) { data ->
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -361,8 +365,8 @@ object ListSettings {
             AlertDialog(
                 onDismissRequest = onCancel,
                 title = { Text(title, style = MaterialTheme.typography.headlineSmall) },
-                confirmButton = { Constants.TextButton(R.string.ok, onClick = onAction) },
-                dismissButton = { Constants.TextButton(text = R.string.cancel, onCancel) }
+                confirmButton = { Constants.TextButton(text = R.string.ok, onClick = onAction) },
+                dismissButton = { Constants.TextButton(text = R.string.cancel, onClick = onCancel) }
             )
         }
     }
