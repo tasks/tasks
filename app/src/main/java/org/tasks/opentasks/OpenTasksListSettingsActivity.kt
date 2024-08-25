@@ -7,8 +7,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.compose.ListSettings.ProgressBar
-import org.tasks.compose.ListSettings.SettingsSnackBar
-import org.tasks.compose.ListSettings.ListSettingsSurface
+import org.tasks.compose.ListSettings.Toaster
+import org.tasks.compose.ListSettings.SettingsSurface
 import org.tasks.compose.ListSettings.Toolbar
 import org.tasks.compose.ListSettings.SelectIconRow
 import org.tasks.data.entity.CaldavAccount
@@ -23,18 +23,16 @@ class OpenTasksListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
 
         setContent {
             TasksTheme {
-                ListSettingsSurface {
+                SettingsSurface {
                     Toolbar(
                         title = toolbarTitle,
                         save = { lifecycleScope.launch { save() } },
                         optionButton = { },
                     )
                     ProgressBar(showProgress)
-                    SelectIconRow(icon = selectedIcon) {
-                        showIconPicker()
-                    }
+                    SelectIconRow(icon = selectedIcon) { showIconPicker() }
                 }
-                SettingsSnackBar(state = snackbar)
+                Toaster(state = snackbar)
             }
         } /* setContent */
     }

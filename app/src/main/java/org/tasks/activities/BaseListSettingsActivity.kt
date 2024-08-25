@@ -19,7 +19,7 @@ import org.tasks.compose.DeleteButton
 import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
 import org.tasks.compose.ListSettings.ProgressBar
-import org.tasks.compose.ListSettings.ListSettingsSurface
+import org.tasks.compose.ListSettings.SettingsSurface
 import org.tasks.compose.ListSettings.TitleInput
 import org.tasks.compose.ListSettings.Toolbar
 import org.tasks.compose.ListSettings.PromptAction
@@ -32,7 +32,6 @@ import org.tasks.dialogs.ColorWheelPicker
 import org.tasks.extensions.addBackPressedCallback
 import org.tasks.injection.ThemedInjectingAppCompatActivity
 import org.tasks.themes.ColorProvider
-import org.tasks.themes.TasksTheme
 import org.tasks.themes.ThemeColor
 import javax.inject.Inject
 
@@ -124,7 +123,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
         themeColor.applyToNavigationBar(this)
     }
 
-    /** Standard @Compose view content for descendants. TaskTheme must be set up by client */
+    /** Standard @Compose view content for descendants. Caller must wrap it to TasksTheme{} */
     @Composable
     protected fun baseSettingsContent(
         title: String = toolbarTitle ?: "",
@@ -132,7 +131,7 @@ abstract class BaseListSettingsActivity : ThemedInjectingAppCompatActivity(), Co
         optionButton: @Composable () -> Unit = { if (!isNew) DeleteButton { promptDelete() } },
         extensionContent: @Composable ColumnScope.() -> Unit = {}
     ) {
-        ListSettingsSurface {
+        SettingsSurface {
             Toolbar(
                 title = title,
                 save = { lifecycleScope.launch { save() } },
