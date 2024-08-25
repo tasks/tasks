@@ -133,12 +133,13 @@ class CaldavCalendarSettingsActivity : BaseCaldavCalendarSettingsActivity() {
                         }
                         FloatingActionButton(
                             onClick = { openDialog.value = true },
-                            modifier = Modifier.padding(Constants.KEYLINE_FIRST)
+                            modifier = Modifier.padding(Constants.KEYLINE_FIRST),
+                            containerColor = MaterialTheme.colorScheme.secondary
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_outline_person_add_24),
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimary,
+                                tint = MaterialTheme.colorScheme.onSecondary,
                             )
                         }
                     }
