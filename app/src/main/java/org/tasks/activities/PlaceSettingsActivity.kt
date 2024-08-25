@@ -29,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import org.tasks.compose.Constants
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
 import org.tasks.data.mapPosition
@@ -40,6 +41,7 @@ import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 import java.util.Locale
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class PlaceSettingsActivity : BaseListSettingsActivity(),
@@ -94,40 +96,39 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
 
         setContent {
             TasksTheme {
-                baseSettingsContent()
-                {
+                baseSettingsContent() {
                     Row(
                         modifier = Modifier
                             .requiredHeight(56.dp)
                             .fillMaxWidth()
-                            .padding(horizontal = 12.dp),
+                            .padding(horizontal = Constants.KEYLINE_FIRST),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
-                    )
-                    {
+                    ) {
                         Text(stringResource(id = R.string.geofence_radius))
                         Row(horizontalArrangement = Arrangement.End) {
-                            Text(
-                                getString(
+                            Text(getString(
                                     R.string.location_radius_meters,
                                     locale.formatNumber(sliderPos.floatValue.toInt())
-                                )
-                            )
+                                ))
                         }
-
                     }
                     Slider(
                         modifier = Modifier.fillMaxWidth(),
                         value = sliderPos.floatValue,
                         valueRange = (MIN_RADIUS.toFloat()..MAX_RADIUS.toFloat()),
-                        steps = (MAX_RADIUS - MIN_RADIUS) / STEP,
+                        steps = (MAX_RADIUS - MIN_RADIUS) / STEP - 1,
                         onValueChange = { sliderPos.floatValue = it },
                         colors = SliderDefaults.colors(
                             thumbColor = MaterialTheme.colorScheme.secondary,
                             activeTrackColor = MaterialTheme.colorScheme.secondary,
                             inactiveTrackColor = colorResource(id = R.color.text_tertiary),
                             activeTickColor = MaterialTheme.colorScheme.secondary,
-                            inactiveTickColor = colorResource(id = R.color.text_tertiary)
+                            inactiveTickColor = colorResource(id = R.color.text_tertiary),
+                            disabledActiveTrackColor = MaterialTheme.colorScheme.secondary,
+                            disabledInactiveTrackColor = colorResource(id = R.color.text_tertiary),
+                            disabledActiveTickColor = MaterialTheme.colorScheme.secondary,
+                            disabledInactiveTickColor = colorResource(id = R.color.text_tertiary)
                         )
                     )
 
@@ -171,7 +172,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
             name = newName,
             color = selectedColor,
             icon = selectedIcon.value,
-            radius = sliderPos.floatValue.toInt(),
+            radius = sliderPos.floatValue.roundToInt(),
         )
         locationDao.update(place)
         localBroadcastManager.broadcastRefresh()
