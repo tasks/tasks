@@ -148,7 +148,9 @@ object ListSettings {
 
     @Composable
     fun ProgressBar(showProgress: State<Boolean>) {
-        Box(modifier = Modifier.fillMaxWidth().requiredHeight(3.dp))
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .requiredHeight(3.dp))
         {
             if (showProgress.value) {
                 LinearProgressIndicator(
@@ -167,23 +169,24 @@ object ListSettings {
         requestKeyboard: Boolean,
         modifier: Modifier = Modifier,
         label: String = stringResource(R.string.display_name),
-        errorState: Color = MaterialTheme.colorScheme.secondary,
+        errorState: Color = colorResource(id = org.tasks.kmp.R.color.red_a400), //MaterialTheme.colorScheme.secondary,
         activeState: Color = LocalContentColor.current.copy(alpha = 0.75f),
-        inactiveState: Color = LocalContentColor.current.copy(alpha = 0.5f),
+        inactiveState: Color = LocalContentColor.current.copy(alpha = 0.3f),
     ) {
         val keyboardController = LocalSoftwareKeyboardController.current
         val requester = remember { FocusRequester() }
+        val focused = remember { mutableStateOf(false) }
+        val labelColor = when {
+            (error.value != "") -> errorState
+            (focused.value) -> activeState
+            else -> inactiveState
+        }
+        val dividerColor = if (focused.value) errorState else labelColor
+        val labelText = if (error.value != "") error.value else label
 
         Row (modifier = modifier)
         {
             Column {
-                val focused = remember { mutableStateOf(false) }
-                val labelColor = when {
-                    (error.value != "") -> errorState
-                    (focused.value) -> activeState
-                    else -> inactiveState
-                }
-                val labelText = if (error.value != "") error.value else label
                 Text(
                     modifier = Modifier.padding(top = 18.dp, bottom = 4.dp),
                     text = labelText,
@@ -203,14 +206,15 @@ object ListSettings {
                         text.value = it
                         if (error.value != "") error.value = ""
                     },
-                    cursorBrush = SolidColor(LocalContentColor.current),
+                    cursorBrush = SolidColor(errorState), // SolidColor(LocalContentColor.current),
                     modifier = Modifier
+                        .fillMaxWidth()
                         .padding(bottom = 3.dp)
                         .focusRequester(requester)
                         .onFocusChanged { focused.value = (it.isFocused) }
                 )
                 HorizontalDivider(
-                    color = labelColor,
+                    color = dividerColor,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
             }
@@ -219,14 +223,7 @@ object ListSettings {
         if (requestKeyboard) {
             LaunchedEffect(null) {
                 requester.requestFocus()
-
-                /* Part of requester.requestFocus logic is performed in separate coroutine,
-            so the actual view may not be really focused right upon return
-            from it, what makes the subsequent "IME.show" call to be ignored by the system.
-            The delay below is a workaround trick for it.
-            30ms period is not the guarantee but makes it working almost always */
-                delay(30)
-
+                delay(30) // Workaround. Otherwise keyboard don't show in 4/5 tries
                 keyboardController?.show()
             }
         }
@@ -309,7 +306,9 @@ object ListSettings {
             Box (modifier = Modifier.size(56.dp), contentAlignment = Alignment.Center) {
                 left()
             }
-            Box (modifier = Modifier.height(56.dp).weight(1f), contentAlignment = Alignment.CenterStart) {
+            Box (modifier = Modifier
+                .height(56.dp)
+                .weight(1f), contentAlignment = Alignment.CenterStart) {
                 center()
             }
             right?.let {
