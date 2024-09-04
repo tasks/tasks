@@ -25,4 +25,6 @@
     <string name="yesterday_abbrev_lowercase">eile</string>
     <string name="subscription_required_description">Ava kõik funktsioonid, alates vaid 1 dollarist aastas</string>
     <string name="yesterday_lowercase">eile</string>
+    <string name="drawer_places">Asukohad</string>
+    <string name="drawer_local_lists">Seadme loendid</string>
 </resources>
