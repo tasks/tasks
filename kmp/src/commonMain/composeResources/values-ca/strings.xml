@@ -21,4 +21,11 @@
     <string name="yesterday_lowercase">ahir</string>
     <string name="today">Avui</string>
     <string name="today_lowercase">avui</string>
+    <string name="requires_pro_subscription">Característica pro</string>
+    <string name="default_list">Llista per defecte</string>
+    <string name="drawer_places">Llocs</string>
+    <string name="drawer_local_lists">Llistes locals</string>
+    <string name="search_no_results">Sense resultats</string>
+    <string name="subscription_required_description">Desbloqueja tota la funcionalitat des de $1 USD/any</string>
+    <string name="filter_snoozed">Posposada</string>
 </resources>
