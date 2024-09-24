@@ -22,7 +22,7 @@ buildscript {
 }
 
 tasks.getByName<Wrapper>("wrapper") {
-    gradleVersion = "8.9"
+    gradleVersion = "8.10.2"
     distributionType = Wrapper.DistributionType.ALL
 }
 
