@@ -483,4 +483,5 @@
     <string name="url_host_name_required">El hostname és necessari</string>
     <string name="date_shortcut_must_come_after">%1$s ha d\'anar després de %2$s</string>
     <string name="discard_changes">Descarta els canvis?</string>
+    <string name="default_list">Llista per defecte</string>
 </resources>
