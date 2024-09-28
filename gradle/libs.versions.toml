@@ -1,7 +1,7 @@
 [versions]
 android-compileSdk = "34"
 android-minSdk = "24"
-android-targetSdk = "33"
+android-targetSdk = "34"
 accompanist = "0.34.0"
 activity-compose = "1.9.2"
 appauth = "0.11.1"
