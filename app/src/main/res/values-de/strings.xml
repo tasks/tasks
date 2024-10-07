@@ -525,7 +525,7 @@
     <string name="background_location">Standort im Hintergrund</string>
     <string name="backups_ignore_warnings">Warnungen ignorieren</string>
     <string name="automatic_backups">Automatische Sicherungen</string>
-    <string name="android_auto_backup">Android-Sicherungservice</string>
+    <string name="android_auto_backup">Android-Sicherungsservice</string>
     <string name="last_backup">Letzte Sicherung: %s</string>
     <string name="last_backup_never">nie</string>
     <string name="device_settings">Geräteeinstellungen</string>
