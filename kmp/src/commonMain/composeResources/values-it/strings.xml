@@ -25,4 +25,7 @@
     <string name="yesterday_lowercase">ieri</string>
     <string name="today">Oggi</string>
     <string name="today_lowercase">oggi</string>
+    <string name="search_no_results">Nessun risultato</string>
+    <string name="requires_pro_subscription">Funzione Pro</string>
+    <string name="subscription_required_description">Sblocca tutte le funzionalità con $1 USD/anno</string>
 </resources>
