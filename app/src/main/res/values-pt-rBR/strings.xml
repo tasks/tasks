@@ -375,7 +375,7 @@
     <string name="about">Sobre</string>
     <string name="license_summary">O Tasks é um software livre e de código aberto, licenciado sob a GNU General Public License v3.0</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
-    <string name="requires_pro_subscription">Você precisa comprar uma assinatura</string>
+    <string name="requires_pro_subscription">É necessária uma assinatura PRO</string>
     <string name="logout">Sair</string>
     <string name="logout_warning">Todos os dados dessa conta serão removidos do seu dispositivo</string>
     <string name="cannot_access_account">Não é possível acessar a conta</string>
@@ -460,7 +460,7 @@
     <string name="third_party_licenses">Licenças de Terceiros</string>
     <string name="action_new_task">Nova tarefa</string>
     <string name="this_feature_requires_a_subscription">Esse recurso requer uma assinatura</string>
-    <string name="button_unsubscribe">Cancelar plano</string>
+    <string name="button_unsubscribe">Cancelar assinatura</string>
     <string name="help_and_feedback">Ajuda &amp; feedback</string>
     <string name="list_separator_with_space">", "</string>
     <string name="error_adding_account">Erro: %s</string>
