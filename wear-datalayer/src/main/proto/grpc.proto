@@ -17,6 +17,10 @@ message Tasks {
   repeated Task tasks = 1;
 }
 
+message LastUpdate {
+  uint64 now = 1;
+}
+
 message GetTasksRequest {}
 message CompleteTaskRequest {
   uint64 id = 1;
