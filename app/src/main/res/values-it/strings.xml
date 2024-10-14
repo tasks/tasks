@@ -757,4 +757,6 @@
     <string name="swipe_to_snooze_time_30_minutes">dopo 30 minuti</string>
     <string name="swipe_to_snooze_time_1_hour">dopo 1 ora</string>
     <string name="show_edit_screen_without_unlock_summary">Consente l\'uso delle impostazioni rapide senza sbloccare il dispositivo</string>
+    <string name="swipe_to_snooze_description">Posponi</string>
+    <string name="swipe_to_snooze_time_description">Una notifica annullata sarà rinviata e ricreata %s</string>
 </resources>
