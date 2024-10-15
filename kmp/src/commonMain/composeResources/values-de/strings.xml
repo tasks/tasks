@@ -27,4 +27,5 @@
     <string name="yesterday_lowercase">gestern</string>
     <string name="today">Heute</string>
     <string name="today_lowercase">heute</string>
+    <string name="subscription_required_description">Schalten Sie alle Funktionen für nur 1 USD/Jahr frei</string>
 </resources>

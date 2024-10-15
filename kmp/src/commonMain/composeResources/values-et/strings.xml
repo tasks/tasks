@@ -15,4 +15,16 @@
     <string name="tomorrow">Homme</string>
     <string name="yesterday">Eile</string>
     <string name="today">Täna</string>
+    <string name="search_no_results">Tulemusi pole</string>
+    <string name="requires_pro_subscription">Pro funktsioon</string>
+    <string name="tomorrow_lowercase">homme</string>
+    <string name="tomorrow_abbrev_lowercase">hom.</string>
+    <string name="today_lowercase">täna</string>
+    <string name="filter_snoozed">Edasi lükatud</string>
+    <string name="help_and_feedback">Abi ja tagasiside</string>
+    <string name="yesterday_abbrev_lowercase">eile</string>
+    <string name="subscription_required_description">Ava kõik funktsioonid, alates vaid 1 dollarist aastas</string>
+    <string name="yesterday_lowercase">eile</string>
+    <string name="drawer_places">Asukohad</string>
+    <string name="drawer_local_lists">Seadme loendid</string>
 </resources>

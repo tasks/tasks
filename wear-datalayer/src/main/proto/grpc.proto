@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package org.tasks.grpc;
+
+option java_package = "org.tasks";
+option java_outer_classname = "GrpcProto";
+
+message Task {
+  uint64 id = 1;
+  string title = 2;
+  bool completed = 3;
+  uint32 priority = 4;
+  bool repeating = 5;
+}
+
+message Tasks {
+  repeated Task tasks = 1;
+}
+
+message LastUpdate {
+  uint64 now = 1;
+}
+
+message GetTasksRequest {}
+message CompleteTaskRequest {
+  uint64 id = 1;
+  bool completed = 2;
+}
+message CompleteTaskResponse { bool success = 1; }
+
+service WearService {
+  rpc getTasks(GetTasksRequest) returns (Tasks);
+  rpc completeTask(CompleteTaskRequest) returns (CompleteTaskResponse);
+}

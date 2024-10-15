@@ -342,7 +342,7 @@
     <string name="repeats_from">Opakuje se od</string>
     <string name="repeats_single">Opakuje se %s</string>
     <string name="repeats_single_on">Opakuje se %1$s v %2$s</string>
-    <string name="repeats_single_until">Opakuje se %1$s až do %2$s</string>
+    <string name="repeats_single_until">Opakuje se %1$s, až do %2$s</string>
     <string name="repeats_single_number_of_times">Opakuje se %1$s, ještě %2$d %3$s</string>
     <string name="repeats_single_on_until">Opakuje se %1$s v %2$s až do %3$s</string>
     <string name="repeats_single_on_number_of_times">Opakuje se %1$s v %2$s, ještě %3$d %4$s</string>
@@ -738,4 +738,20 @@
     <string name="repeats_on">V</string>
     <string name="repeats_weekly_on">Opakuje se v</string>
     <string name="clear_completed_tasks_count">%s bude smazáno</string>
+    <string name="theme_dynamic">Dynamické</string>
+    <string name="donate_nag">Zvažte podpoření projektu dobrovolným příspěvkem!</string>
+    <string name="donate_today">Přispějte dnes</string>
+    <string name="donate_maybe_later">Možná později</string>
+    <string name="show_edit_screen_without_unlock">Umožnit úpravy bez odemčení zařízení</string>
+    <string name="show_edit_screen_without_unlock_summary">Umožňuje použití dlaždice rychlého nastavení bez odemykání zařízení</string>
+    <string name="customize_drawer">Upravit šuplík</string>
+    <string name="customize_drawer_summary">Přetažením změníte uspořádání položek nabídky</string>
+    <string name="swipe_to_snooze_time_description">Vymazané oznámení bude odloženo a znovu vytvořeno %s</string>
+    <string name="swipe_to_snooze_time_immediately">okamžitě</string>
+    <string name="swipe_to_snooze_time_1_hour">po 1 hodině</string>
+    <string name="swipe_to_snooze_time_30_minutes">po 30 minutách</string>
+    <string name="swipe_to_snooze_time_15_minutes">po 15 minutách</string>
+    <string name="swipe_to_snooze_time_24_hours">po 24 hodinách</string>
+    <string name="swipe_to_snooze_title">Přejetím prstu odložíte</string>
+    <string name="swipe_to_snooze_description">Čas odložení</string>
 </resources>

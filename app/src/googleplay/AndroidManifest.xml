@@ -40,6 +40,19 @@
       android:name=".location.GoogleGeofenceTransitionIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"/>
 
+    <service
+        android:name=".wear.WearDataService"
+        android:exported="true"
+        tools:ignore="ExportedService">
+      <intent-filter>
+        <action android:name="com.google.android.gms.wearable.REQUEST_RECEIVED" />
+        <data
+            android:host="*"
+            android:pathPrefix="/grpc/"
+            android:scheme="wear" />
+      </intent-filter>
+    </service>
+
   </application>
 
 </manifest>

@@ -19,21 +19,20 @@ import androidx.work.WorkInfo
 import androidx.work.WorkRequest
 import androidx.work.Worker
 import androidx.work.workDataOf
-import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
-import org.tasks.data.entity.Task
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.data.OpenTaskDao
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.OpenTaskDao
 import org.tasks.data.entity.Place
+import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.jobs.DriveUploader.Companion.EXTRA_PURGE
@@ -155,13 +154,7 @@ class WorkManagerImpl(
     override fun scheduleNotification(scheduledTime: Long) {
         val time = max(currentTimeMillis(), scheduledTime)
         if (time < currentTimeMillis()) {
-
-            val intent = notificationIntent
-            if (AndroidUtilities.atLeastOreo()) {
-                context.startForegroundService(intent)
-            } else {
-                context.startService(intent)
-            }
+            triggerNotifications(expedited = true)
         } else {
             val pendingIntent = notificationPendingIntent
             if (!atLeastS() || alarmManager.canScheduleExactAlarms()) {
@@ -244,14 +237,11 @@ class WorkManagerImpl(
         }
     }
 
-    private val notificationIntent: Intent
-        get() = Intent(context, NotificationReceiver::class.java)
-
     private val notificationPendingIntent: PendingIntent
         get() = PendingIntent.getBroadcast(
             context,
             0,
-            notificationIntent,
+            Intent(context, NotificationReceiver::class.java),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 

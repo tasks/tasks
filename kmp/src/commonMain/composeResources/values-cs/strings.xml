@@ -25,4 +25,7 @@
     <string name="yest">Včera</string>
     <string name="yesterday_abbrev_lowercase">včera</string>
     <string name="yesterday_lowercase">včera</string>
+    <string name="search_no_results">Žádné výsledky</string>
+    <string name="requires_pro_subscription">Vyžaduje PRO předplatné</string>
+    <string name="subscription_required_description">Odemkněte všechny funkce za pouhých $1 USD ročně</string>
 </resources>

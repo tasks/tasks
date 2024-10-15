@@ -33,10 +33,10 @@ class TaskCompleter @Inject internal constructor(
     private val gCalHelper: GCalHelper,
     private val workManager: WorkManager,
 ) {
-    suspend fun setComplete(taskId: Long) =
+    suspend fun setComplete(taskId: Long, completed: Boolean = true) =
             taskDao
                     .fetch(taskId)
-                    ?.let { setComplete(it, true) }
+                    ?.let { setComplete(it, completed) }
                     ?: Timber.e("Could not find task $taskId")
 
     suspend fun setComplete(item: Task, completed: Boolean, includeChildren: Boolean = true) {

@@ -51,8 +51,8 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = "org.tasks"
-        versionCode = 131106
-        versionName = "13.11.1"
+        versionCode = 131107
+        versionName = "13.11.2"
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "org.tasks.TestRunner"
@@ -237,7 +237,7 @@ dependencies {
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime-livedata")
     implementation(libs.androidx.activity.compose)
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation("androidx.compose.ui:ui-viewbinding")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -261,6 +261,11 @@ dependencies {
     googleplayImplementation(libs.play.billing.ktx)
     googleplayImplementation(libs.play.review)
     googleplayImplementation(libs.play.services.oss.licenses)
+    googleplayImplementation(libs.horologist.datalayer.phone)
+    googleplayImplementation(libs.horologist.datalayer.grpc)
+    googleplayImplementation(libs.horologist.datalayer.core)
+    googleplayImplementation(libs.play.services.wearable)
+    googleplayImplementation(projects.wearDatalayer)
 
     androidTestImplementation(libs.dagger.hilt.testing)
     kspAndroidTest(libs.dagger.hilt.compiler)

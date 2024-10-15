@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="android_wear_capabilities">
+        <item>data_layer_app_helper_device_watch</item>
+        <item>horologist_watch</item>
+    </string-array>
+</resources>
