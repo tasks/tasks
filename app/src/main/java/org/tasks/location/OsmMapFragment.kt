@@ -31,7 +31,7 @@ class OsmMapFragment @Inject constructor(
     private var locationOverlay: MyLocationNewOverlay? = null
     private var circle: Polygon? = null
 
-    override fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean) {
+    override fun init(activity: AppCompatActivity, callback: MapFragmentCallback, dark: Boolean, parent: ViewGroup?) {
         this.callback = callback
         Configuration.getInstance()
                 .load(activity, PreferenceManager.getDefaultSharedPreferences(activity))
@@ -46,7 +46,8 @@ class OsmMapFragment @Inject constructor(
             val copyright = CopyrightOverlay(activity)
             copyright.setTextColor(ContextCompat.getColor(activity, R.color.text_primary))
             overlays.add(copyright)
-            activity.findViewById<ViewGroup>(R.id.map).addView(this)
+            //val parent = parent ?: activity.findViewById<ViewGroup>(R.id.map)
+            (parent ?: activity.findViewById<ViewGroup>(R.id.map)).addView(this)
         }
         callback.onMapReady(this)
     }
