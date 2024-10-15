@@ -5,6 +5,7 @@ package org.tasks.compose
  */
 
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.AnchoredDraggableState
@@ -46,6 +47,7 @@ object SwipeOut {
                 LocalConfiguration.current.screenWidthDp.dp.roundToPx().toFloat()
             }
 
+        val decayAnimationSpec = rememberSplineBasedDecay<Float>()
         val dragState = remember {
             AnchoredDraggableState(
                 initialValue = Anchors.Center,
@@ -54,9 +56,10 @@ object SwipeOut {
                     Anchors.Center at 0f
                     Anchors.Right at screenWidthPx * 3/4
                 },
-                positionalThreshold = { _ -> screenWidthPx/3 },
+                positionalThreshold = { screenWidthPx/3 },
                 velocityThreshold = { 100f },
-                animationSpec = tween()
+                snapAnimationSpec = tween(),
+                decayAnimationSpec = decayAnimationSpec,
             )
         }
 
@@ -83,7 +86,7 @@ object SwipeOut {
                         )
                     }
                     .background(colorResource(id = R.color.content_background)) // MUST BE AFTER .offset modifier (?!?!)
-                    .anchoredDraggable(dragState, Orientation.Horizontal, reverseDirection = false)
+                    .anchoredDraggable(dragState, reverseDirection = false, orientation = Orientation.Horizontal)
             ) {
                 content()
             }
