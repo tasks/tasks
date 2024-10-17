@@ -119,7 +119,7 @@
     <string name="ring_five_times">Suona cinque volte</string>
     <string name="ring_nonstop">Suona ininterrottamente</string>
     <string name="rmd_NoA_done">Completata</string>
-    <string name="rmd_NoA_snooze">Rimanda</string>
+    <string name="rmd_NoA_snooze">Posticipa</string>
     <string name="snooze_all">Posticipa tutti</string>
     <string name="rmd_EPr_quiet_hours_start_title">Inizio ore di quiete</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fine ore di quiete</string>
@@ -679,7 +679,7 @@
     <string name="alarm_after_start">%s dopo l\'inizio</string>
     <string name="alarm_before_due">%s prima della scadenza</string>
     <string name="custom_filter_has_reminder">Ha un promemoria</string>
-    <string name="snoozed_until">In attesa fino a %s</string>
+    <string name="snoozed_until">Posticipa fino a %s</string>
     <plurals name="reminder_hours">
         <item quantity="one">Ora</item>
         <item quantity="many">Ore</item>
@@ -752,11 +752,11 @@
     <string name="swipe_to_snooze_time_24_hours">dopo 24 ore</string>
     <string name="swipe_to_snooze_time_15_minutes">dopo 15 minuti</string>
     <string name="show_edit_screen_without_unlock">Mostra la schermata di modifica senza sbloccare</string>
-    <string name="swipe_to_snooze_title">Trascina per silenziare</string>
+    <string name="swipe_to_snooze_title">Trascina per posticipare</string>
     <string name="swipe_to_snooze_time_immediately">immediatamente</string>
     <string name="swipe_to_snooze_time_30_minutes">dopo 30 minuti</string>
     <string name="swipe_to_snooze_time_1_hour">dopo 1 ora</string>
     <string name="show_edit_screen_without_unlock_summary">Consente l\'uso delle impostazioni rapide senza sbloccare il dispositivo</string>
-    <string name="swipe_to_snooze_description">Posponi</string>
-    <string name="swipe_to_snooze_time_description">Una notifica annullata sarà rinviata e ricreata %s</string>
+    <string name="swipe_to_snooze_description">Posticipa</string>
+    <string name="swipe_to_snooze_time_description">Una notifica annullata sarà posticipata e ricreata %s</string>
 </resources>
