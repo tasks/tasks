@@ -3,6 +3,7 @@ package org.tasks.presentation.screens
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckBox
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
@@ -31,7 +33,7 @@ import org.tasks.kmp.org.tasks.themes.ColorProvider
 @OptIn(ExperimentalHorologistApi::class)
 @Composable
 fun TaskListScreen(
-    tasks: MutableList<GrpcProto.Task>,
+    uiItems: List<GrpcProto.UiItem>,
     onComplete: (Long) -> Unit,
     onClick: (Long) -> Unit,
 ) {
@@ -41,14 +43,24 @@ fun TaskListScreen(
             modifier = Modifier.fillMaxSize(),
             columnState = columnState,
         ) {
-            items(tasks.size) { index ->
-                val task = tasks[index]
-                key(task.id) {
-                    TaskCard(
-                        task = task,
-                        onComplete = { onComplete(task.id) },
-                        onClick = { onClick(task.id) },
-                    )
+            items(uiItems.size) { index ->
+                val item = uiItems[index]
+                key(item.id) {
+                    when (item.type) {
+                        GrpcProto.UiItemType.Task ->
+                            TaskCard(
+                                task = item,
+                                onComplete = { onComplete(item.id) },
+                                onClick = { onClick(item.id) },
+                            )
+
+                        GrpcProto.UiItemType.Header ->
+                            GroupSeparator(header = item)
+
+                        else -> {
+                            throw IllegalStateException("Unknown item type: ${item.type}")
+                        }
+                    }
                 }
             }
         }
@@ -56,8 +68,21 @@ fun TaskListScreen(
 }
 
 @Composable
+fun GroupSeparator(
+    header: GrpcProto.UiItem,
+) {
+    Text(
+        text = header.title,
+        modifier = Modifier
+            .padding(vertical = 12.dp)
+            .fillMaxWidth(),
+        textAlign = TextAlign.Center,
+    )
+}
+
+@Composable
 fun TaskCard(
-    task: GrpcProto.Task,
+    task: GrpcProto.UiItem,
     onComplete: () -> Unit,
     onClick: () -> Unit,
 ) {
@@ -80,7 +105,11 @@ fun TaskCard(
                         else -> Icons.Outlined.CheckBoxOutlineBlank
                     },
                     tint = Color(
-                        ColorProvider.priorityColor(task.priority, isDarkMode = true, desaturate = true)
+                        ColorProvider.priorityColor(
+                            task.priority,
+                            isDarkMode = true,
+                            desaturate = true
+                        )
                     ),
                     contentDescription = null,
                 )

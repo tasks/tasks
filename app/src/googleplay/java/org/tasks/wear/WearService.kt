@@ -2,48 +2,66 @@ package org.tasks.wear
 
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCompleter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import org.tasks.GrpcProto
 import org.tasks.GrpcProto.CompleteTaskRequest
 import org.tasks.GrpcProto.CompleteTaskResponse
 import org.tasks.GrpcProto.GetTasksRequest
-import org.tasks.GrpcProto.Task
 import org.tasks.GrpcProto.Tasks
 import org.tasks.WearServiceGrpcKt
+import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.MyTasksFilter
 import org.tasks.preferences.Preferences
+import org.tasks.tasklist.HeaderFormatter
+import org.tasks.tasklist.SectionedDataSource
+import org.tasks.tasklist.UiItem
 
 class WearService(
     private val taskDao: TaskDao,
     private val preferences: Preferences,
     private val taskCompleter: TaskCompleter,
+    private val headerFormatter: HeaderFormatter,
 ) : WearServiceGrpcKt.WearServiceCoroutineImplBase() {
-
     override suspend fun getTasks(request: GetTasksRequest): Tasks {
+        val filter = MyTasksFilter.create()
+        val payload = SectionedDataSource(
+            tasks = taskDao.fetchTasks(preferences, filter),
+            disableHeaders = filter.disableHeaders()
+                    || (filter.supportsManualSort() && preferences.isManualSort)
+                    || (filter is AstridOrderingFilter && preferences.isAstridSort),
+            groupMode = preferences.groupMode,
+            subtaskMode = preferences.subtaskMode,
+            completedAtBottom = preferences.completedTasksAtBottom,
+        )
         return Tasks.newBuilder()
-            .addAllTasks(getTasks())
+            .addAllItems(
+                payload.map { item ->
+                    when (item) {
+                        is UiItem.Header ->
+                            GrpcProto.UiItem.newBuilder()
+                                .setType(GrpcProto.UiItemType.Header)
+                                .setTitle(headerFormatter.headerString(item.value))
+                                .build()
+                        is UiItem.Task ->
+                            GrpcProto.UiItem.newBuilder()
+                                .setType(GrpcProto.UiItemType.Task)
+                                .setId(item.task.id)
+                                .setPriority(item.task.priority)
+                                .setCompleted(item.task.isCompleted)
+                                .apply {
+                                    if (item.task.title != null) {
+                                        setTitle(item.task.title)
+                                    }
+                                }
+                                .setRepeating(item.task.task.isRecurring)
+                                .build()
+                    }
+                }
+            )
             .build()
     }
 
     override suspend fun completeTask(request: CompleteTaskRequest): CompleteTaskResponse {
         taskCompleter.setComplete(request.id, request.completed)
         return CompleteTaskResponse.newBuilder().setSuccess(true).build()
-    }
-
-    private suspend fun getTasks(): List<Task> = withContext(Dispatchers.IO) {
-        val tasks = taskDao.fetchTasks(preferences, MyTasksFilter.create())
-        return@withContext tasks.map {
-            Task.newBuilder()
-                .setId(it.task.id)
-                .setPriority(it.task.priority)
-                .setCompleted(it.task.isCompleted)
-                .apply {
-                    if (it.task.title != null) {
-                        setTitle(it.task.title)
-                    }
-                }
-                .setRepeating(it.task.isRecurring)
-                .build()
-        }
     }
 }

@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
                             val viewModel: TaskListViewModel = viewModel(navBackStackEntry)
                             val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
                             TaskListScreen(
-                                tasks = uiState.tasks.tasksList,
+                                uiItems = uiState.tasks.itemsList,
                                 onComplete = { viewModel.completeTask(it) },
                                 onClick = { navController.navigate("task_edit/$it") },
                             )

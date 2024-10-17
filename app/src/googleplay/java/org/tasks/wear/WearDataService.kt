@@ -9,6 +9,7 @@ import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.WearServiceGrpcKt
 import org.tasks.preferences.Preferences
+import org.tasks.tasklist.HeaderFormatter
 import javax.inject.Inject
 
 @OptIn(ExperimentalHorologistApi::class)
@@ -18,6 +19,7 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskCompleter: TaskCompleter
+    @Inject lateinit var headerFormatter: HeaderFormatter
 
     override val registry: WearDataLayerRegistry by lazy {
         WearDataLayerRegistry.fromContext(
@@ -33,6 +35,7 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
             taskDao = taskDao,
             preferences = preferences,
             taskCompleter = taskCompleter,
+            headerFormatter = headerFormatter,
         )
     }
 }

@@ -5,16 +5,22 @@ package org.tasks.grpc;
 option java_package = "org.tasks";
 option java_outer_classname = "GrpcProto";
 
-message Task {
-  uint64 id = 1;
-  string title = 2;
-  bool completed = 3;
-  uint32 priority = 4;
-  bool repeating = 5;
+enum UiItemType {
+  Header = 0;
+  Task = 1;
+}
+
+message UiItem {
+  UiItemType type = 1;
+  uint64 id = 2;
+  string title = 3;
+  bool completed = 4;
+  uint32 priority = 5;
+  bool repeating = 6;
 }
 
 message Tasks {
-  repeated Task tasks = 1;
+  repeated UiItem items = 1;
 }
 
 message LastUpdate {

@@ -29,7 +29,7 @@ class HeaderFormatter @Inject constructor(
         headerString(value, groupMode, alwaysDisplayFullDate, style, compact)
     }
 
-    private suspend fun headerString(
+    suspend fun headerString(
         value: Long,
         groupMode: Int = preferences.groupMode,
         alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate,
