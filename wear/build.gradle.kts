@@ -46,6 +46,7 @@ dependencies {
     implementation(projects.kmp)
     implementation(libs.play.services.wearable)
     implementation(platform(libs.androidx.compose))
+    implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)

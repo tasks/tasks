@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Card
@@ -33,18 +34,21 @@ import org.tasks.kmp.org.tasks.themes.ColorProvider
 @OptIn(ExperimentalHorologistApi::class)
 @Composable
 fun TaskListScreen(
-    uiItems: List<GrpcProto.UiItem>,
+    uiItems: LazyPagingItems<GrpcProto.UiItem>,
     onComplete: (Long) -> Unit,
     onClick: (Long) -> Unit,
 ) {
     val columnState = rememberResponsiveColumnState()
-    ScreenScaffold(scrollState = columnState) {
+    ScreenScaffold(
+        scrollState = columnState,
+        positionIndicator = {},
+    ) {
         ScalingLazyColumn(
             modifier = Modifier.fillMaxSize(),
             columnState = columnState,
         ) {
-            items(uiItems.size) { index ->
-                val item = uiItems[index]
+            items(uiItems.itemCount) { index ->
+                val item = uiItems[index] ?: return@items
                 key(item.id) {
                     when (item.type) {
                         GrpcProto.UiItemType.Task ->

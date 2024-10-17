@@ -22,6 +22,8 @@ class WearService(
     private val headerFormatter: HeaderFormatter,
 ) : WearServiceGrpcKt.WearServiceCoroutineImplBase() {
     override suspend fun getTasks(request: GetTasksRequest): Tasks {
+        val position = request.position
+        val limit = request.limit.takeIf { it > 0 } ?: Int.MAX_VALUE
         val filter = MyTasksFilter.create()
         val payload = SectionedDataSource(
             tasks = taskDao.fetchTasks(preferences, filter),
@@ -34,27 +36,30 @@ class WearService(
         )
         return Tasks.newBuilder()
             .addAllItems(
-                payload.map { item ->
-                    when (item) {
-                        is UiItem.Header ->
-                            GrpcProto.UiItem.newBuilder()
-                                .setType(GrpcProto.UiItemType.Header)
-                                .setTitle(headerFormatter.headerString(item.value))
-                                .build()
-                        is UiItem.Task ->
-                            GrpcProto.UiItem.newBuilder()
-                                .setType(GrpcProto.UiItemType.Task)
-                                .setId(item.task.id)
-                                .setPriority(item.task.priority)
-                                .setCompleted(item.task.isCompleted)
-                                .apply {
-                                    if (item.task.title != null) {
-                                        setTitle(item.task.title)
+                payload
+                    .subList(position, position + limit)
+                    .map { item ->
+                        when (item) {
+                            is UiItem.Header ->
+                                GrpcProto.UiItem.newBuilder()
+                                    .setType(GrpcProto.UiItemType.Header)
+                                    .setTitle(headerFormatter.headerString(item.value))
+                                    .build()
+
+                            is UiItem.Task ->
+                                GrpcProto.UiItem.newBuilder()
+                                    .setType(GrpcProto.UiItemType.Task)
+                                    .setId(item.task.id)
+                                    .setPriority(item.task.priority)
+                                    .setCompleted(item.task.isCompleted)
+                                    .apply {
+                                        if (item.task.title != null) {
+                                            setTitle(item.task.title)
+                                        }
                                     }
-                                }
-                                .setRepeating(item.task.task.isRecurring)
-                                .build()
-                    }
+                                    .setRepeating(item.task.task.isRecurring)
+                                    .build()
+                        }
                 }
             )
             .build()

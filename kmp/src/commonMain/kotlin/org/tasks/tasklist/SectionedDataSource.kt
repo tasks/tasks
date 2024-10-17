@@ -73,7 +73,7 @@ class SectionedDataSource(
     }
 
     override fun subList(fromIndex: Int, toIndex: Int): List<UiItem> {
-        TODO("Not yet implemented")
+        return iterator().asSequence().drop(fromIndex).take(toIndex - fromIndex).toList()
     }
 
     override fun lastIndexOf(element: UiItem): Int {

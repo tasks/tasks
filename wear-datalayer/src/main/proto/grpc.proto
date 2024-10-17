@@ -27,7 +27,10 @@ message LastUpdate {
   uint64 now = 1;
 }
 
-message GetTasksRequest {}
+message GetTasksRequest {
+  uint32 position = 1;
+  uint32 limit = 2;
+}
 message CompleteTaskRequest {
   uint64 id = 1;
   bool completed = 2;

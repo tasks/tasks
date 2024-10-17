@@ -19,10 +19,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
@@ -57,9 +57,8 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable("task_list") { navBackStackEntry ->
                             val viewModel: TaskListViewModel = viewModel(navBackStackEntry)
-                            val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
                             TaskListScreen(
-                                uiItems = uiState.tasks.itemsList,
+                                uiItems = viewModel.uiItems.collectAsLazyPagingItems(),
                                 onComplete = { viewModel.completeTask(it) },
                                 onClick = { navController.navigate("task_edit/$it") },
                             )
