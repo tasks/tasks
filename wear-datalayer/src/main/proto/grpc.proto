@@ -20,7 +20,8 @@ message UiItem {
 }
 
 message Tasks {
-  repeated UiItem items = 1;
+  uint32 totalItems = 1;
+  repeated UiItem items = 2;
 }
 
 message LastUpdate {

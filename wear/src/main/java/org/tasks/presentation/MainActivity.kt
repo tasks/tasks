@@ -51,15 +51,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.background(MaterialTheme.colors.background),
                 ) {
                     val navController = rememberSwipeDismissableNavController()
+                    val taskListViewModel: TaskListViewModel = viewModel()
+                    val taskListItems = taskListViewModel.uiItems.collectAsLazyPagingItems()
                     SwipeDismissableNavHost(
                         startDestination = "task_list",
                         navController = navController,
                     ) {
-                        composable("task_list") { navBackStackEntry ->
-                            val viewModel: TaskListViewModel = viewModel(navBackStackEntry)
+                        composable("task_list") {
                             TaskListScreen(
-                                uiItems = viewModel.uiItems.collectAsLazyPagingItems(),
-                                onComplete = { viewModel.completeTask(it) },
+                                uiItems = taskListItems,
+                                onComplete = { taskListViewModel.completeTask(it) },
                                 onClick = { navController.navigate("task_edit/$it") },
                             )
                         }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoFlow
 import com.google.android.horologist.data.TargetNodeId
@@ -40,12 +41,14 @@ class TaskListViewModel(
                             .setLimit(limit)
                             .build()
                     )
-                    .itemsList
+                    .let { Pair(it.totalItems, it.itemsList) }
             }
                 .also { pagingSource = it }
         }
     )
         .flow
+        .cachedIn(viewModelScope)
+
     private val wearDataLayerRegistry = WearDataLayerRegistry.fromContext(
         application = application,
         coroutineScope = viewModelScope,

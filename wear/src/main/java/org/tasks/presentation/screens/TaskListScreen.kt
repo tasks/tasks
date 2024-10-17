@@ -10,7 +10,6 @@ import androidx.compose.material.icons.outlined.CheckBox
 import androidx.compose.material.icons.outlined.CheckBoxOutlineBlank
 import androidx.compose.material.icons.outlined.Repeat
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +27,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
+import com.google.android.horologist.compose.paging.items
 import org.tasks.GrpcProto
 import org.tasks.kmp.org.tasks.themes.ColorProvider
 
@@ -41,19 +41,28 @@ fun TaskListScreen(
     val columnState = rememberResponsiveColumnState()
     ScreenScaffold(
         scrollState = columnState,
-        positionIndicator = {},
     ) {
         ScalingLazyColumn(
             modifier = Modifier.fillMaxSize(),
             columnState = columnState,
         ) {
-            items(uiItems.itemCount) { index ->
-                val item = uiItems[index] ?: return@items
-                key(item.id) {
+            items(
+                items = uiItems,
+                key = { item -> "${item.type}_${item.id}" },
+            ) { item ->
+                if (item == null) {
+                    TaskCard(
+                        task = GrpcProto.UiItem.getDefaultInstance(),
+                        showCheckbox = false,
+                        onComplete = {},
+                        onClick = {},
+                    )
+                } else {
                     when (item.type) {
                         GrpcProto.UiItemType.Task ->
                             TaskCard(
                                 task = item,
+                                showCheckbox = true,
                                 onComplete = { onComplete(item.id) },
                                 onClick = { onClick(item.id) },
                             )
@@ -87,6 +96,7 @@ fun GroupSeparator(
 @Composable
 fun TaskCard(
     task: GrpcProto.UiItem,
+    showCheckbox: Boolean,
     onComplete: () -> Unit,
     onClick: () -> Unit,
 ) {
@@ -98,25 +108,27 @@ fun TaskCard(
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Button(
-                onClick = onComplete,
-                colors = ButtonDefaults.iconButtonColors(),
-            ) {
-                Icon(
-                    imageVector = when {
-                        task.completed -> Icons.Outlined.CheckBox
-                        task.repeating -> Icons.Outlined.Repeat
-                        else -> Icons.Outlined.CheckBoxOutlineBlank
-                    },
-                    tint = Color(
-                        ColorProvider.priorityColor(
-                            task.priority,
-                            isDarkMode = true,
-                            desaturate = true
-                        )
-                    ),
-                    contentDescription = null,
-                )
+            if (showCheckbox) {
+                Button(
+                    onClick = onComplete,
+                    colors = ButtonDefaults.iconButtonColors(),
+                ) {
+                    Icon(
+                        imageVector = when {
+                            task.completed -> Icons.Outlined.CheckBox
+                            task.repeating -> Icons.Outlined.Repeat
+                            else -> Icons.Outlined.CheckBoxOutlineBlank
+                        },
+                        tint = Color(
+                            ColorProvider.priorityColor(
+                                task.priority,
+                                isDarkMode = true,
+                                desaturate = true
+                            )
+                        ),
+                        contentDescription = null,
+                    )
+                }
             }
             Text(
                 text = task.title,

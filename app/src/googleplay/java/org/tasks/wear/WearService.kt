@@ -35,6 +35,7 @@ class WearService(
             completedAtBottom = preferences.completedTasksAtBottom,
         )
         return Tasks.newBuilder()
+            .setTotalItems(payload.size)
             .addAllItems(
                 payload
                     .subList(position, position + limit)
@@ -42,6 +43,7 @@ class WearService(
                         when (item) {
                             is UiItem.Header ->
                                 GrpcProto.UiItem.newBuilder()
+                                    .setId(item.value)
                                     .setType(GrpcProto.UiItemType.Header)
                                     .setTitle(headerFormatter.headerString(item.value))
                                     .build()
