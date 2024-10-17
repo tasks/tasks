@@ -30,7 +30,9 @@
   <!-- ************* -->
   <uses-permission android:name="android.permission.VIBRATE"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-  <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+  <uses-permission
+      android:name="android.permission.SCHEDULE_EXACT_ALARM"
+      tools:ignore="ProtectedPermissions" />
 
   <!-- *************************** -->
   <!-- google calendar integration -->
