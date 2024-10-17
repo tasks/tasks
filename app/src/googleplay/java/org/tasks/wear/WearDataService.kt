@@ -33,7 +33,6 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
             application = applicationContext,
             coroutineScope = lifecycleScope,
         ).apply {
-            registerSerializer(TasksSerializer)
             registerSerializer(LastUpdateSerializer)
         }
     }

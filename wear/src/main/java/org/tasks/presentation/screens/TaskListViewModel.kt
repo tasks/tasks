@@ -21,7 +21,6 @@ import org.tasks.GrpcProto.LastUpdate
 import org.tasks.GrpcProto.Tasks
 import org.tasks.WearServiceGrpcKt
 import org.tasks.wear.LastUpdateSerializer
-import org.tasks.wear.TasksSerializer
 
 data class TaskListScreenState(
     val error: String? = null,
@@ -38,7 +37,6 @@ class TaskListViewModel(
         application = application,
         coroutineScope = scope,
     ).apply {
-        registerSerializer(TasksSerializer)
         registerSerializer(LastUpdateSerializer)
     }
     private val wearService : WearServiceGrpcKt.WearServiceCoroutineStub = wearDataLayerRegistry.grpcClient(
