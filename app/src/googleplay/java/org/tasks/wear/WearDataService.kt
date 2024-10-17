@@ -1,16 +1,12 @@
 package org.tasks.wear
 
-import androidx.datastore.core.DataStore
 import androidx.lifecycle.lifecycleScope
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.grpc.server.BaseGrpcDataService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.GrpcProto.LastUpdate
-import org.tasks.LocalBroadcastManager
 import org.tasks.WearServiceGrpcKt
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
@@ -22,11 +18,6 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskCompleter: TaskCompleter
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
-
-    private val lastUpdate: DataStore<LastUpdate> by lazy {
-        registry.protoDataStore<LastUpdate>(lifecycleScope)
-    }
 
     override val registry: WearDataLayerRegistry by lazy {
         WearDataLayerRegistry.fromContext(
@@ -42,8 +33,6 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
             taskDao = taskDao,
             preferences = preferences,
             taskCompleter = taskCompleter,
-            lastUpdate = lastUpdate,
-            localBroadcastManager = localBroadcastManager,
         )
     }
 }
