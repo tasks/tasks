@@ -28,4 +28,5 @@
     <string name="yesterday_lowercase">ayer</string>
     <string name="today">Hoy</string>
     <string name="today_lowercase">hoy</string>
+    <string name="add_task">Añadir tarea</string>
 </resources>
