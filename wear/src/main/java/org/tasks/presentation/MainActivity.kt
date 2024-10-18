@@ -62,6 +62,7 @@ class MainActivity : ComponentActivity() {
                                 uiItems = taskListItems,
                                 onComplete = { taskListViewModel.completeTask(it) },
                                 onClick = { navController.navigate("task_edit/$it") },
+                                addTask = {},
                             )
                         }
                         composable(

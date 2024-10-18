@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.compose.compiler)
 }
 
@@ -42,10 +43,10 @@ android {
 
 dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation(compose.components.resources)
     implementation(projects.wearDatalayer)
     implementation(projects.kmp)
     implementation(libs.play.services.wearable)
-    implementation(platform(libs.androidx.compose))
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
