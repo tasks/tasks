@@ -28,4 +28,5 @@
     <string name="yesterday_lowercase">вчера</string>
     <string name="today">Днес</string>
     <string name="today_lowercase">днес</string>
+    <string name="add_task">Добавяне на задача</string>
 </resources>
