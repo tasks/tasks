@@ -11,6 +11,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
+import org.tasks.extensions.wearDataLayerRegistry
 import org.tasks.location.Geocoder
 import org.tasks.location.GeocoderMapbox
 import org.tasks.location.GoogleMapFragment
@@ -20,7 +21,6 @@ import org.tasks.location.LocationServiceGooglePlay
 import org.tasks.location.MapFragment
 import org.tasks.location.OsmMapFragment
 import org.tasks.play.PlayServices
-import org.tasks.wear.LastUpdateSerializer
 import org.tasks.wear.WearRefresher
 import org.tasks.wear.WearRefresherImpl
 
@@ -49,12 +49,7 @@ class FlavorModule {
     fun wearDataLayerRegistry(
         @ApplicationContext applicationContext: Context,
         @ApplicationScope coroutineScope: CoroutineScope,
-    ): WearDataLayerRegistry = WearDataLayerRegistry.fromContext(
-        application = applicationContext,
-        coroutineScope = coroutineScope,
-    ).apply {
-        registerSerializer(LastUpdateSerializer)
-    }
+    ) = applicationContext.wearDataLayerRegistry(coroutineScope)
 
     @OptIn(ExperimentalHorologistApi::class)
     @Provides

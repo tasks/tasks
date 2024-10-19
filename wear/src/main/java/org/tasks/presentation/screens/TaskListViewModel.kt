@@ -10,7 +10,6 @@ import androidx.paging.cachedIn
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoFlow
 import com.google.android.horologist.data.TargetNodeId
-import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.grpc.GrpcExtensions.grpcClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
@@ -18,10 +17,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.tasks.GrpcProto
 import org.tasks.GrpcProto.LastUpdate
+import org.tasks.GrpcProto.Settings
+import org.tasks.GrpcProto.ToggleGroupRequest
 import org.tasks.GrpcProto.UiItem
 import org.tasks.WearServiceGrpcKt
+import org.tasks.extensions.wearDataLayerRegistry
 import org.tasks.presentation.MyPagingSource
-import org.tasks.wear.LastUpdateSerializer
 
 @OptIn(ExperimentalHorologistApi::class)
 class TaskListViewModel(
@@ -49,13 +50,9 @@ class TaskListViewModel(
         .flow
         .cachedIn(viewModelScope)
 
-    private val wearDataLayerRegistry = WearDataLayerRegistry.fromContext(
-        application = application,
-        coroutineScope = viewModelScope,
-    ).apply {
-        registerSerializer(LastUpdateSerializer)
-    }
-    private val wearService : WearServiceGrpcKt.WearServiceCoroutineStub = wearDataLayerRegistry.grpcClient(
+    private val registry = application.wearDataLayerRegistry(viewModelScope)
+
+    private val wearService : WearServiceGrpcKt.WearServiceCoroutineStub = registry.grpcClient(
         nodeId = TargetNodeId.PairedPhone,
         coroutineScope = viewModelScope,
     ) {
@@ -63,10 +60,23 @@ class TaskListViewModel(
     }
 
     init {
-        wearDataLayerRegistry
+        registry
             .protoFlow<LastUpdate>(TargetNodeId.PairedPhone)
             .onEach { pagingSource?.invalidate() }
             .launchIn(viewModelScope)
+        registry
+            .protoFlow<Settings>(TargetNodeId.PairedPhone)
+            .onEach { pagingSource?.invalidate() }
+            .launchIn(viewModelScope)
+    }
+
+    fun toggleGroup(value: Long, setCollapsed: Boolean) = viewModelScope.launch {
+        wearService.toggleGroup(
+            ToggleGroupRequest.newBuilder()
+                .setValue(value)
+                .setCollapsed(setCollapsed)
+                .build()
+        )
     }
 
     fun completeTask(it: Long) = viewModelScope.launch {

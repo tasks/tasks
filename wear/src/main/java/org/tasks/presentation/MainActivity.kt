@@ -60,9 +60,14 @@ class MainActivity : ComponentActivity() {
                         composable("task_list") {
                             TaskListScreen(
                                 uiItems = taskListItems,
+                                toggleGroup = { value, collapsed ->
+                                    taskListViewModel.toggleGroup(value, collapsed)
+                                },
                                 onComplete = { taskListViewModel.completeTask(it) },
-                                onClick = { navController.navigate("task_edit/$it") },
+                                openTask = { navController.navigate("task_edit/$it") },
                                 addTask = {},
+                                openMenu = { navController.navigate("menu") },
+                                openSettings = { navController.navigate("settings") },
                             )
                         }
                         composable(
@@ -73,6 +78,16 @@ class MainActivity : ComponentActivity() {
                         ) {
                             val taskId = it.arguments?.getString("taskId")
                             WearApp(taskId ?: "invalid id")
+                        }
+                        composable(
+                            route = "menu",
+                        ) {
+
+                        }
+                        composable(
+                            route = "settings",
+                        ) {
+
                         }
                     }
                 }

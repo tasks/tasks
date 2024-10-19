@@ -1,13 +1,18 @@
 package org.tasks.wear
 
+import androidx.datastore.core.DataStore
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCompleter
+import kotlinx.coroutines.flow.firstOrNull
 import org.tasks.GrpcProto
 import org.tasks.GrpcProto.CompleteTaskRequest
 import org.tasks.GrpcProto.CompleteTaskResponse
 import org.tasks.GrpcProto.GetTasksRequest
 import org.tasks.GrpcProto.Tasks
+import org.tasks.GrpcProto.ToggleGroupRequest
+import org.tasks.GrpcProto.ToggleGroupResponse
 import org.tasks.WearServiceGrpcKt
+import org.tasks.copy
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.MyTasksFilter
 import org.tasks.preferences.Preferences
@@ -20,11 +25,14 @@ class WearService(
     private val preferences: Preferences,
     private val taskCompleter: TaskCompleter,
     private val headerFormatter: HeaderFormatter,
+    private val settings: DataStore<GrpcProto.Settings>,
 ) : WearServiceGrpcKt.WearServiceCoroutineImplBase() {
     override suspend fun getTasks(request: GetTasksRequest): Tasks {
         val position = request.position
         val limit = request.limit.takeIf { it > 0 } ?: Int.MAX_VALUE
         val filter = MyTasksFilter.create()
+        val settingsData = settings.data.firstOrNull()
+        val collapsed = settingsData?.collapsedList?.toSet() ?: emptySet()
         val payload = SectionedDataSource(
             tasks = taskDao.fetchTasks(preferences, filter),
             disableHeaders = filter.disableHeaders()
@@ -33,6 +41,7 @@ class WearService(
             groupMode = preferences.groupMode,
             subtaskMode = preferences.subtaskMode,
             completedAtBottom = preferences.completedTasksAtBottom,
+            collapsed = collapsed,
         )
         return Tasks.newBuilder()
             .setTotalItems(payload.size)
@@ -46,6 +55,7 @@ class WearService(
                                     .setId(item.value)
                                     .setType(GrpcProto.UiItemType.Header)
                                     .setTitle(headerFormatter.headerString(item.value))
+                                    .setCollapsed(collapsed.contains(item.value))
                                     .build()
 
                             is UiItem.Task ->
@@ -70,5 +80,24 @@ class WearService(
     override suspend fun completeTask(request: CompleteTaskRequest): CompleteTaskResponse {
         taskCompleter.setComplete(request.id, request.completed)
         return CompleteTaskResponse.newBuilder().setSuccess(true).build()
+    }
+
+    override suspend fun toggleGroup(request: ToggleGroupRequest): ToggleGroupResponse {
+        settings.updateData {
+            it.copy {
+                if (request.collapsed) {
+                    if (!collapsed.contains(request.value)) {
+                        collapsed.add(request.value)
+                    }
+                } else {
+                    if (collapsed.contains(request.value)) {
+                        collapsed.clear()
+                        collapsed.addAll(it.collapsedList.toMutableList().apply { remove(request.value) })
+                    }
+                }
+            }
+        }
+
+        return ToggleGroupResponse.getDefaultInstance()
     }
 }

@@ -17,6 +17,7 @@ message UiItem {
   bool completed = 4;
   uint32 priority = 5;
   bool repeating = 6;
+  bool collapsed = 7;
 }
 
 message Tasks {
@@ -26,6 +27,11 @@ message Tasks {
 
 message LastUpdate {
   uint64 now = 1;
+}
+
+message Settings {
+  repeated uint64 collapsed = 1;
+  string filter = 2;
 }
 
 message GetTasksRequest {
@@ -38,7 +44,14 @@ message CompleteTaskRequest {
 }
 message CompleteTaskResponse { bool success = 1; }
 
+message ToggleGroupRequest {
+  uint64 value = 1;
+  bool collapsed = 2;
+}
+message ToggleGroupResponse {}
+
 service WearService {
   rpc getTasks(GetTasksRequest) returns (Tasks);
   rpc completeTask(CompleteTaskRequest) returns (CompleteTaskResponse);
+  rpc toggleGroup(ToggleGroupRequest) returns (ToggleGroupResponse);
 }

@@ -1,13 +1,17 @@
 package org.tasks.wear
 
+import androidx.datastore.core.DataStore
 import androidx.lifecycle.lifecycleScope
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.grpc.server.BaseGrpcDataService
 import com.todoroo.astrid.dao.TaskDao
 import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.GrpcProto.Settings
 import org.tasks.WearServiceGrpcKt
+import org.tasks.extensions.wearDataLayerRegistry
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.HeaderFormatter
 import javax.inject.Inject
@@ -22,12 +26,11 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
     @Inject lateinit var headerFormatter: HeaderFormatter
 
     override val registry: WearDataLayerRegistry by lazy {
-        WearDataLayerRegistry.fromContext(
-            application = applicationContext,
-            coroutineScope = lifecycleScope,
-        ).apply {
-            registerSerializer(LastUpdateSerializer)
-        }
+        applicationContext.wearDataLayerRegistry(lifecycleScope)
+    }
+
+    private val settings: DataStore<Settings> by lazy {
+        registry.protoDataStore(lifecycleScope)
     }
 
     override fun buildService(): WearServiceGrpcKt.WearServiceCoroutineImplBase {
@@ -36,6 +39,7 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
             preferences = preferences,
             taskCompleter = taskCompleter,
             headerFormatter = headerFormatter,
+            settings = settings,
         )
     }
 }

@@ -1,18 +1,30 @@
 package org.tasks.presentation.screens
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.CheckBox
 import androidx.compose.material.icons.outlined.CheckBoxOutlineBlank
+import androidx.compose.material.icons.outlined.ExpandMore
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Repeat
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.text.style.TextAlign
@@ -40,9 +52,12 @@ import tasks.kmp.generated.resources.add_task
 @Composable
 fun TaskListScreen(
     uiItems: LazyPagingItems<GrpcProto.UiItem>,
+    toggleGroup: (Long, Boolean) -> Unit,
     onComplete: (Long) -> Unit,
-    onClick: (Long) -> Unit,
+    openTask: (Long) -> Unit,
     addTask: () -> Unit,
+    openMenu: () -> Unit,
+    openSettings: () -> Unit,
 ) {
     val columnState = rememberResponsiveColumnState()
     ScreenScaffold(
@@ -53,20 +68,16 @@ fun TaskListScreen(
             columnState = columnState,
         ) {
             item {
-                TaskCard(
-                    text = stringResource(Res.string.add_task),
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Add,
-                            tint = MaterialTheme.colors.onPrimary,
-                            contentDescription = null,
-                            modifier = Modifier.padding(12.dp),
-                        )
-                    },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    contentColor = MaterialTheme.colors.onPrimary,
-                    onClick = addTask,
+                ButtonHeader(
+                    openMenu = openMenu,
+                    addTask = addTask,
+                    openSettings = openSettings,
                 )
+//                TitleHeader(
+//                    title = "My Tasks",
+//                    openMenu = openMenu,
+//                    addTask = addTask,
+//                )
             }
             items(
                 items = uiItems,
@@ -105,11 +116,15 @@ fun TaskListScreen(
                                         )
                                     }
                                 },
-                                onClick = { onClick(item.id) },
+                                onClick = { openTask(item.id) },
                             )
 
                         GrpcProto.UiItemType.Header ->
-                            GroupSeparator(header = item)
+                            GroupSeparator(
+                                title = item.title,
+                                collapsed = item.collapsed,
+                                onClick = { toggleGroup(item.id, !item.collapsed) },
+                            )
 
                         else -> {
                             throw IllegalStateException("Unknown item type: ${item.type}")
@@ -123,14 +138,39 @@ fun TaskListScreen(
 
 @Composable
 fun GroupSeparator(
-    header: GrpcProto.UiItem,
+    title: String,
+    collapsed: Boolean,
+    onClick: () -> Unit,
 ) {
-    Text(
-        text = header.title,
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
         modifier = Modifier
-            .padding(vertical = 12.dp)
-            .fillMaxWidth(),
-        textAlign = TextAlign.Center,
+            .clip(MaterialTheme.shapes.large)
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(12.dp)
+    ) {
+        Text(
+            text = title,
+        )
+        Spacer(modifier = Modifier.width(4.dp))
+        Chevron(collapsed = collapsed)
+    }
+}
+
+@Composable
+private fun Chevron(collapsed: Boolean) {
+    val rotation by animateFloatAsState(
+        targetValue = if (collapsed) 0f else 180f,
+        animationSpec = tween(250),
+        label = "arrow rotation",
+    )
+    Icon(
+        modifier = Modifier.rotate(rotation),
+        imageVector = Icons.Outlined.ExpandMore,
+        contentDescription = null,
+        tint = MaterialTheme.colors.onSurface,
     )
 }
 
@@ -156,6 +196,96 @@ fun TaskCard(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 color = contentColor,
+            )
+        }
+    }
+}
+
+@Composable
+fun TitleHeader(
+    title: String,
+    openMenu: () -> Unit,
+    addTask: () -> Unit,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Button(
+            onClick = openMenu,
+            colors = ButtonDefaults.iconButtonColors(
+                contentColor = MaterialTheme.colors.onSurface,
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Menu,
+                contentDescription = null,
+            )
+        }
+        Text(
+            text = title,
+            maxLines = 2,
+            modifier = Modifier.weight(1f),
+            style = MaterialTheme.typography.title3,
+            textAlign = TextAlign.Center,
+        )
+        Button(
+            onClick = addTask,
+            colors = ButtonDefaults.iconButtonColors(
+                contentColor = MaterialTheme.colors.onSurface,
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Add,
+                contentDescription = org.jetbrains.compose.resources.stringResource(Res.string.add_task),
+            )
+        }
+    }
+}
+
+@Composable
+fun ButtonHeader(
+    openMenu: () -> Unit,
+    addTask: () -> Unit,
+    openSettings: () -> Unit,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+    ) {
+        Button(
+            onClick = openMenu,
+            colors = ButtonDefaults.iconButtonColors(
+                contentColor = MaterialTheme.colors.onSurface,
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Menu,
+                contentDescription = null,
+            )
+        }
+        Button(
+            onClick = addTask,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.onPrimary,
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Add,
+                contentDescription = stringResource(Res.string.add_task),
+            )
+        }
+        Button(
+            onClick = openSettings,
+            colors = ButtonDefaults.iconButtonColors(
+                contentColor = MaterialTheme.colors.onSurface,
+            )
+
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Settings,
+                contentDescription = null,
             )
         }
     }
