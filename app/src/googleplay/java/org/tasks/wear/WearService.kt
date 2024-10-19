@@ -13,6 +13,7 @@ import org.tasks.GrpcProto.ToggleGroupRequest
 import org.tasks.GrpcProto.ToggleGroupResponse
 import org.tasks.WearServiceGrpcKt
 import org.tasks.copy
+import org.tasks.data.isHidden
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.MyTasksFilter
 import org.tasks.preferences.Preferences
@@ -64,6 +65,7 @@ class WearService(
                                     .setId(item.task.id)
                                     .setPriority(item.task.priority)
                                     .setCompleted(item.task.isCompleted)
+                                    .setHidden(item.task.task.isHidden)
                                     .apply {
                                         if (item.task.title != null) {
                                             setTitle(item.task.title)

@@ -18,6 +18,7 @@ message UiItem {
   uint32 priority = 5;
   bool repeating = 6;
   bool collapsed = 7;
+  bool hidden = 8;
 }
 
 message Tasks {

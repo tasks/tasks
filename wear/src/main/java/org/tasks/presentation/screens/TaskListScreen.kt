@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
@@ -94,6 +95,7 @@ fun TaskListScreen(
                         GrpcProto.UiItemType.Task ->
                             TaskCard(
                                 text = item.title,
+                                hidden = item.hidden,
                                 icon = {
                                     Button(
                                         onClick = { onComplete(item.id, !item.completed) },
@@ -177,6 +179,7 @@ private fun Chevron(collapsed: Boolean) {
 @Composable
 fun TaskCard(
     text: String,
+    hidden: Boolean = false,
     icon: @Composable () -> Unit = {},
     backgroundColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = MaterialTheme.colors.onSurface,
@@ -196,6 +199,7 @@ fun TaskCard(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 color = contentColor,
+                modifier = Modifier.alpha(if (hidden) .6f else 1f)
             )
         }
     }
@@ -237,7 +241,7 @@ fun TitleHeader(
         ) {
             Icon(
                 imageVector = Icons.Outlined.Add,
-                contentDescription = org.jetbrains.compose.resources.stringResource(Res.string.add_task),
+                contentDescription = stringResource(Res.string.add_task),
             )
         }
     }
