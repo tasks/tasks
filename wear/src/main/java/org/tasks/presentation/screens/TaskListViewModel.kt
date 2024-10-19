@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.tasks.GrpcProto
+import org.tasks.GrpcProto.CompleteTaskRequest
 import org.tasks.GrpcProto.LastUpdate
 import org.tasks.GrpcProto.Settings
 import org.tasks.GrpcProto.ToggleGroupRequest
@@ -79,9 +80,15 @@ class TaskListViewModel(
         )
     }
 
-    fun completeTask(it: Long, completed: Boolean) = viewModelScope.launch {
+    fun completeTask(id: Long, completed: Boolean) = viewModelScope.launch {
         wearService.completeTask(
-            GrpcProto.CompleteTaskRequest.newBuilder().setId(it).setCompleted(completed).build()
+            CompleteTaskRequest.newBuilder().setId(id).setCompleted(completed).build()
+        )
+    }
+
+    fun toggleSubtasks(id: Long, collapsed: Boolean) = viewModelScope.launch {
+        wearService.toggleSubtasks(
+            ToggleGroupRequest.newBuilder().setValue(id).setCollapsed(collapsed).build()
         )
     }
 }

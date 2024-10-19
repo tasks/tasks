@@ -73,6 +73,9 @@ class MainActivity : ComponentActivity() {
                                 addTask = {},
                                 openMenu = { navController.navigate("menu") },
                                 openSettings = { navController.navigate("settings") },
+                                toggleSubtasks = { id, collapsed ->
+                                    taskListViewModel.toggleSubtasks(id, collapsed)
+                                }
                             )
                         }
                         composable(

@@ -19,6 +19,8 @@ message UiItem {
   bool repeating = 6;
   bool collapsed = 7;
   bool hidden = 8;
+  uint32 indent = 9;
+  uint32 numSubtasks = 10;
 }
 
 message Tasks {
@@ -61,4 +63,5 @@ service WearService {
   rpc completeTask(CompleteTaskRequest) returns (CompleteTaskResponse);
   rpc toggleGroup(ToggleGroupRequest) returns (ToggleGroupResponse);
   rpc updateSettings(UpdateSettingsRequest) returns (Settings);
+  rpc toggleSubtasks(ToggleGroupRequest) returns (ToggleGroupResponse);
 }

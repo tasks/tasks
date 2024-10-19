@@ -67,6 +67,9 @@ class WearService(
                                     .setPriority(item.task.priority)
                                     .setCompleted(item.task.isCompleted)
                                     .setHidden(item.task.task.isHidden)
+                                    .setIndent(item.task.indent)
+                                    .setCollapsed(item.task.isCollapsed)
+                                    .setNumSubtasks(item.task.children)
                                     .apply {
                                         if (item.task.title != null) {
                                             setTitle(item.task.title)
@@ -106,5 +109,10 @@ class WearService(
 
     override suspend fun updateSettings(request: GrpcProto.UpdateSettingsRequest): GrpcProto.Settings {
         return settings.updateData { request.settings }
+    }
+
+    override suspend fun toggleSubtasks(request: ToggleGroupRequest): ToggleGroupResponse {
+        taskDao.setCollapsed(request.value, request.collapsed)
+        return ToggleGroupResponse.newBuilder().build()
     }
 }
