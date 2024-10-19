@@ -63,7 +63,9 @@ class MainActivity : ComponentActivity() {
                                 toggleGroup = { value, collapsed ->
                                     taskListViewModel.toggleGroup(value, collapsed)
                                 },
-                                onComplete = { taskListViewModel.completeTask(it) },
+                                onComplete = { id, completed ->
+                                    taskListViewModel.completeTask(id, completed)
+                                },
                                 openTask = { navController.navigate("task_edit/$it") },
                                 addTask = {},
                                 openMenu = { navController.navigate("menu") },

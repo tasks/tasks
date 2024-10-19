@@ -79,7 +79,9 @@ class TaskListViewModel(
         )
     }
 
-    fun completeTask(it: Long) = viewModelScope.launch {
-        wearService.completeTask(GrpcProto.CompleteTaskRequest.newBuilder().setId(it).setCompleted(true).build())
+    fun completeTask(it: Long, completed: Boolean) = viewModelScope.launch {
+        wearService.completeTask(
+            GrpcProto.CompleteTaskRequest.newBuilder().setId(it).setCompleted(completed).build()
+        )
     }
 }

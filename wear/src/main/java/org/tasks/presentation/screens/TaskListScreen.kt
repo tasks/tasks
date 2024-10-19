@@ -53,7 +53,7 @@ import tasks.kmp.generated.resources.add_task
 fun TaskListScreen(
     uiItems: LazyPagingItems<GrpcProto.UiItem>,
     toggleGroup: (Long, Boolean) -> Unit,
-    onComplete: (Long) -> Unit,
+    onComplete: (Long, Boolean) -> Unit,
     openTask: (Long) -> Unit,
     addTask: () -> Unit,
     openMenu: () -> Unit,
@@ -96,7 +96,7 @@ fun TaskListScreen(
                                 text = item.title,
                                 icon = {
                                     Button(
-                                        onClick = { onComplete(item.id) },
+                                        onClick = { onComplete(item.id, !item.completed) },
                                         colors = ButtonDefaults.iconButtonColors(),
                                     ) {
                                         Icon(
