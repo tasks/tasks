@@ -25,4 +25,8 @@
     <string name="yesterday">Tegnap</string>
     <string name="yesterday_lowercase">tegnap</string>
     <string name="today_lowercase">ma</string>
+    <string name="search_no_results">nincs találat</string>
+    <string name="requires_pro_subscription">Pro funkció</string>
+    <string name="subscription_required_description">Csupán 1$/év az összes funkcióért</string>
+    <string name="add_task">Feladat létrehozása</string>
 </resources>
