@@ -28,4 +28,5 @@
     <string name="yesterday_lowercase">hier</string>
     <string name="today">Aujourd\'hui</string>
     <string name="today_lowercase">aujourd\'hui</string>
+    <string name="add_task">Ajouter une tâche</string>
 </resources>
