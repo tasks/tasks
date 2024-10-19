@@ -20,6 +20,7 @@ import org.tasks.jobs.WorkManager
 import org.tasks.location.GeofenceApi
 import org.tasks.notifications.NotificationManager
 import org.tasks.preferences.Preferences
+import org.tasks.preferences.QueryPreferences
 import org.tasks.sync.SyncAdapters
 import javax.inject.Inject
 
@@ -54,7 +55,7 @@ class TaskDao @Inject constructor(
     suspend fun getCaldavTasksToPush(calendar: String): List<Task> =
             taskDao.getCaldavTasksToPush(calendar)
 
-    suspend fun fetchTasks(preferences: Preferences, filter: Filter): List<TaskContainer> =
+    suspend fun fetchTasks(preferences: QueryPreferences, filter: Filter): List<TaskContainer> =
             taskDao.fetchTasks(preferences, filter)
 
     suspend fun touch(id: Long) = touch(listOf(id))

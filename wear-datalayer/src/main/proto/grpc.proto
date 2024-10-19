@@ -33,6 +33,11 @@ message LastUpdate {
 message Settings {
   repeated uint64 collapsed = 1;
   string filter = 2;
+  bool showHidden = 3;
+}
+
+message UpdateSettingsRequest {
+  Settings settings = 1;
 }
 
 message GetTasksRequest {
@@ -55,4 +60,5 @@ service WearService {
   rpc getTasks(GetTasksRequest) returns (Tasks);
   rpc completeTask(CompleteTaskRequest) returns (CompleteTaskResponse);
   rpc toggleGroup(ToggleGroupRequest) returns (ToggleGroupResponse);
+  rpc updateSettings(UpdateSettingsRequest) returns (Settings);
 }

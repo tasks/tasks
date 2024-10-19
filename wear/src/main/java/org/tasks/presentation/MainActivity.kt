@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -32,6 +33,8 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.compose.layout.AppScaffold
 import org.tasks.R
+import org.tasks.presentation.screens.SettingsScreen
+import org.tasks.presentation.screens.SettingsViewModel
 import org.tasks.presentation.screens.TaskListScreen
 import org.tasks.presentation.screens.TaskListViewModel
 import org.tasks.presentation.theme.TasksTheme
@@ -88,8 +91,17 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(
                             route = "settings",
-                        ) {
-
+                        ) { navBackStackEntry ->
+                            val settingsViewModel: SettingsViewModel = viewModel(navBackStackEntry)
+                            val viewState = settingsViewModel.viewState.collectAsStateWithLifecycle().value
+                            if (viewState.initialized) {
+                                SettingsScreen(
+                                    showHidden = viewState.settings.showHidden,
+                                    toggleShowHidden = { settingsViewModel.setShowHidden(it) },
+                                )
+                            } else {
+                                // TODO: show spinner
+                            }
                         }
                     }
                 }

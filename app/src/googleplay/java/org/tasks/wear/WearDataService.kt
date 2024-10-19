@@ -36,7 +36,7 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
     override fun buildService(): WearServiceGrpcKt.WearServiceCoroutineImplBase {
         return WearService(
             taskDao = taskDao,
-            preferences = preferences,
+            appPreferences = preferences,
             taskCompleter = taskCompleter,
             headerFormatter = headerFormatter,
             settings = settings,

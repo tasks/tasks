@@ -23,7 +23,7 @@ import org.tasks.tasklist.UiItem
 
 class WearService(
     private val taskDao: TaskDao,
-    private val preferences: Preferences,
+    private val appPreferences: Preferences,
     private val taskCompleter: TaskCompleter,
     private val headerFormatter: HeaderFormatter,
     private val settings: DataStore<GrpcProto.Settings>,
@@ -32,7 +32,8 @@ class WearService(
         val position = request.position
         val limit = request.limit.takeIf { it > 0 } ?: Int.MAX_VALUE
         val filter = MyTasksFilter.create()
-        val settingsData = settings.data.firstOrNull()
+        val settingsData = settings.data.firstOrNull() ?: GrpcProto.Settings.getDefaultInstance()
+        val preferences = WearPreferences(appPreferences, settingsData)
         val collapsed = settingsData?.collapsedList?.toSet() ?: emptySet()
         val payload = SectionedDataSource(
             tasks = taskDao.fetchTasks(preferences, filter),
@@ -101,5 +102,9 @@ class WearService(
         }
 
         return ToggleGroupResponse.getDefaultInstance()
+    }
+
+    override suspend fun updateSettings(request: GrpcProto.UpdateSettingsRequest): GrpcProto.Settings {
+        return settings.updateData { request.settings }
     }
 }
