@@ -23,6 +23,7 @@ import org.tasks.location.OsmMapFragment
 import org.tasks.play.PlayServices
 import org.tasks.wear.WearRefresher
 import org.tasks.wear.WearRefresherImpl
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -63,6 +64,7 @@ class FlavorModule {
 
     @OptIn(ExperimentalHorologistApi::class)
     @Provides
+    @Singleton
     fun getWearRefresher(
         phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
         wearDataLayerRegistry: WearDataLayerRegistry,
