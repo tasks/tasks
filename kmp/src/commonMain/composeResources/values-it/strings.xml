@@ -28,4 +28,5 @@
     <string name="search_no_results">Nessun risultato</string>
     <string name="requires_pro_subscription">Funzione premium</string>
     <string name="subscription_required_description">Sblocca tutte le funzionalità con $1 USD/anno</string>
+    <string name="add_task">Aggiungi attività</string>
 </resources>
