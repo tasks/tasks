@@ -1,6 +1,7 @@
 package org.tasks.filters
 
 import org.jetbrains.compose.resources.getString
+import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.data.GoogleTaskFilters
 import org.tasks.data.LocationFilters
 import org.tasks.data.NO_ORDER
@@ -16,11 +17,10 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.setupLocalAccount
 import org.tasks.data.toGtasksFilter
-import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
-import org.tasks.kmp.IS_DEBUG
-import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.data.toLocationFilter
 import org.tasks.data.toTagFilter
+import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
+import org.tasks.kmp.IS_DEBUG
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.TasksPreferences.Companion.collapseDebug
 import org.tasks.preferences.TasksPreferences.Companion.collapseFilters
@@ -58,6 +58,9 @@ class FilterProvider(
 
     suspend fun filterPickerItems(): List<FilterListItem> =
             getAllFilters(showCreate = false)
+
+    suspend fun wearableFilters(): List<FilterListItem> =
+            getAllFilters(showCreate = false, forceExpand = true, hideUnused = true)
 
     suspend fun drawerCustomizationItems(): List<FilterListItem> =
             getAllFilters(showBuiltIn = false, showCreate = true)

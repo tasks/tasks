@@ -19,6 +19,7 @@ import org.tasks.SettingsKt
 import org.tasks.WearServiceGrpcKt
 import org.tasks.copy
 import org.tasks.extensions.wearDataLayerRegistry
+import org.tasks.tasklist.SectionedDataSource.Companion.HEADER_COMPLETED
 
 data class ViewState(
     val initialized: Boolean = false,
@@ -62,6 +63,14 @@ class SettingsViewModel(
     fun setShowCompleted(showCompleted: Boolean) {
         updateSettings {
             this.showCompleted = showCompleted
+        }
+    }
+
+    fun setFilter(filter: String) {
+        updateSettings {
+            this.filter = filter
+            collapsed.clear()
+            collapsed.add(HEADER_COMPLETED)
         }
     }
 

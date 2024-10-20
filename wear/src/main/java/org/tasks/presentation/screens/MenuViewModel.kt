@@ -14,30 +14,27 @@ import com.google.android.horologist.datalayer.grpc.GrpcExtensions.grpcClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import org.tasks.GrpcProto
-import org.tasks.GrpcProto.CompleteTaskRequest
 import org.tasks.GrpcProto.LastUpdate
+import org.tasks.GrpcProto.ListItem
 import org.tasks.GrpcProto.Settings
-import org.tasks.GrpcProto.ToggleGroupRequest
-import org.tasks.GrpcProto.UiItem
 import org.tasks.WearServiceGrpcKt
 import org.tasks.extensions.wearDataLayerRegistry
 import org.tasks.presentation.MyPagingSource
 
 @OptIn(ExperimentalHorologistApi::class)
-class TaskListViewModel(
+class MenuViewModel(
     application: Application
-) : AndroidViewModel(application) {
-    private var pagingSource: MyPagingSource<UiItem>? = null
-    val uiItems: Flow<PagingData<UiItem>> = Pager(
+): AndroidViewModel(application) {
+    private var pagingSource: MyPagingSource<ListItem>? = null
+    val uiItems: Flow<PagingData<ListItem>> = Pager(
         config = PagingConfig(pageSize = 20),
         pagingSourceFactory = {
             MyPagingSource { position, limit ->
                 wearService
-                    .getTasks(
+                    .getLists(
                         GrpcProto
-                            .GetTasksRequest
+                            .GetListsRequest
                             .newBuilder()
                             .setPosition(position)
                             .setLimit(limit)
@@ -69,30 +66,6 @@ class TaskListViewModel(
             .protoFlow<Settings>(TargetNodeId.PairedPhone)
             .onEach { invalidate() }
             .launchIn(viewModelScope)
-    }
-
-    fun toggleGroup(value: Long, setCollapsed: Boolean) = viewModelScope.launch {
-        wearService.toggleGroup(
-            ToggleGroupRequest.newBuilder()
-                .setValue(value)
-                .setCollapsed(setCollapsed)
-                .build()
-        )
-        invalidate()
-    }
-
-    fun completeTask(id: Long, completed: Boolean) = viewModelScope.launch {
-        wearService.completeTask(
-            CompleteTaskRequest.newBuilder().setId(id).setCompleted(completed).build()
-        )
-        invalidate()
-    }
-
-    fun toggleSubtasks(id: Long, collapsed: Boolean) = viewModelScope.launch {
-        wearService.toggleSubtasks(
-            ToggleGroupRequest.newBuilder().setValue(id).setCollapsed(collapsed).build()
-        )
-        invalidate()
     }
 
     private fun invalidate() {

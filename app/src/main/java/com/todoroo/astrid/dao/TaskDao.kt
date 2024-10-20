@@ -8,6 +8,7 @@ package com.todoroo.astrid.dao
 import com.todoroo.astrid.timers.TimerPlugin
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.TaskContainer
+import org.tasks.data.count
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.Task
@@ -39,6 +40,8 @@ class TaskDao @Inject constructor(
     suspend fun fetch(ids: List<Long>): List<Task> = taskDao.fetch(ids)
 
     suspend fun fetch(remoteId: String): Task? = taskDao.fetch(remoteId)
+
+    suspend fun count(item: Filter): Int = taskDao.count(item)
 
     suspend fun getRecurringTasks(remoteIds: List<String>): List<Task> =
             taskDao.getRecurringTasks(remoteIds)

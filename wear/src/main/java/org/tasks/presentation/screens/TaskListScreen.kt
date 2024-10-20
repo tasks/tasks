@@ -33,7 +33,8 @@ import com.google.android.horologist.compose.paging.items
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.GrpcProto
 import org.tasks.kmp.org.tasks.themes.ColorProvider
-import org.tasks.presentation.components.GroupSeparator
+import org.tasks.presentation.components.CollapsibleHeader
+import org.tasks.presentation.components.EmptyCard
 import org.tasks.presentation.components.TaskCard
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.add_task
@@ -75,14 +76,10 @@ fun TaskListScreen(
                 key = { item -> "${item.type}_${item.id}" },
             ) { item ->
                 if (item == null) {
-                    TaskCard(
-                        text = "",
-                        icon = {},
-                        onClick = {},
-                    )
+                    EmptyCard()
                 } else {
                     when (item.type) {
-                        GrpcProto.UiItemType.Task ->
+                        GrpcProto.ListItemType.Item ->
                             Row {
                                 if (item.indent > 0) {
                                     Spacer(modifier = Modifier.width(20.dp * item.indent))
@@ -119,8 +116,8 @@ fun TaskListScreen(
                                 )
                             }
 
-                        GrpcProto.UiItemType.Header ->
-                            GroupSeparator(
+                        GrpcProto.ListItemType.Header ->
+                            CollapsibleHeader(
                                 title = item.title,
                                 collapsed = item.collapsed,
                                 onClick = { toggleGroup(item.id, !item.collapsed) },

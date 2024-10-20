@@ -5,13 +5,13 @@ package org.tasks.grpc;
 option java_package = "org.tasks";
 option java_outer_classname = "GrpcProto";
 
-enum UiItemType {
+enum ListItemType {
   Header = 0;
-  Task = 1;
+  Item = 1;
 }
 
 message UiItem {
-  UiItemType type = 1;
+  ListItemType type = 1;
   uint64 id = 2;
   string title = 3;
   bool completed = 4;
@@ -34,7 +34,7 @@ message LastUpdate {
 
 message Settings {
   repeated uint64 collapsed = 1;
-  string filter = 2;
+  optional string filter = 2;
   bool showHidden = 3;
   bool showCompleted = 4;
 }
@@ -59,10 +59,29 @@ message ToggleGroupRequest {
 }
 message ToggleGroupResponse {}
 
+message ListItem {
+  ListItemType type = 1;
+  string id = 2;
+  string title = 3;
+  string icon = 4;
+  uint32 color = 5;
+  uint32 taskCount = 6;
+}
+
+message GetListsRequest {
+  uint32 position = 1;
+  uint32 limit = 2;
+}
+message GetListsResponse {
+  uint32 totalItems = 1;
+  repeated ListItem items = 2;
+}
+
 service WearService {
   rpc getTasks(GetTasksRequest) returns (Tasks);
   rpc completeTask(CompleteTaskRequest) returns (CompleteTaskResponse);
   rpc toggleGroup(ToggleGroupRequest) returns (ToggleGroupResponse);
   rpc updateSettings(UpdateSettingsRequest) returns (Settings);
   rpc toggleSubtasks(ToggleGroupRequest) returns (ToggleGroupResponse);
+  rpc getLists(GetListsRequest) returns (GetListsResponse);
 }

@@ -11,9 +11,14 @@ import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.GrpcProto.Settings
 import org.tasks.WearServiceGrpcKt
+import org.tasks.analytics.Firebase
+import org.tasks.billing.Inventory
 import org.tasks.extensions.wearDataLayerRegistry
+import org.tasks.filters.FilterProvider
+import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.tasklist.HeaderFormatter
+import org.tasks.themes.ColorProvider
 import javax.inject.Inject
 
 @OptIn(ExperimentalHorologistApi::class)
@@ -24,6 +29,11 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var headerFormatter: HeaderFormatter
+    @Inject lateinit var firebase: Firebase
+    @Inject lateinit var filterProvider: FilterProvider
+    @Inject lateinit var inventory: Inventory
+    @Inject lateinit var colorProvider: ColorProvider
+    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
 
     override val registry: WearDataLayerRegistry by lazy {
         applicationContext.wearDataLayerRegistry(lifecycleScope)
@@ -40,6 +50,11 @@ class WearDataService : BaseGrpcDataService<WearServiceGrpcKt.WearServiceCorouti
             taskCompleter = taskCompleter,
             headerFormatter = headerFormatter,
             settings = settings,
+            firebase = firebase,
+            filterProvider = filterProvider,
+            inventory = inventory,
+            colorProvider = colorProvider,
+            defaultFilterProvider = defaultFilterProvider,
         )
     }
 }

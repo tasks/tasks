@@ -31,6 +31,8 @@ import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.compose.layout.AppScaffold
+import org.tasks.presentation.screens.MenuScreen
+import org.tasks.presentation.screens.MenuViewModel
 import org.tasks.presentation.screens.SettingsScreen
 import org.tasks.presentation.screens.SettingsViewModel
 import org.tasks.presentation.screens.TaskListScreen
@@ -54,6 +56,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberSwipeDismissableNavController()
                     val taskListViewModel: TaskListViewModel = viewModel()
                     val taskListItems = taskListViewModel.uiItems.collectAsLazyPagingItems()
+                    val settingsViewModel: SettingsViewModel = viewModel()
                     SwipeDismissableNavHost(
                         startDestination = "task_list",
                         navController = navController,
@@ -87,14 +90,21 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(
                             route = "menu",
-                        ) {
-
+                        ) { navBackStackEntry ->
+                            val menuViewModel: MenuViewModel = viewModel(navBackStackEntry)
+                            MenuScreen(
+                                items = menuViewModel.uiItems.collectAsLazyPagingItems(),
+                                selectFilter = {
+                                    settingsViewModel.setFilter(it.id)
+                                    navController.popBackStack()
+                                },
+                            )
                         }
                         composable(
                             route = "settings",
-                        ) { navBackStackEntry ->
-                            val settingsViewModel: SettingsViewModel = viewModel(navBackStackEntry)
-                            val viewState = settingsViewModel.viewState.collectAsStateWithLifecycle().value
+                        ) {
+                            val viewState =
+                                settingsViewModel.viewState.collectAsStateWithLifecycle().value
                             if (viewState.initialized) {
                                 SettingsScreen(
                                     showHidden = viewState.settings.showHidden,
