@@ -28,4 +28,5 @@
     <string name="yesterday_lowercase">ontem</string>
     <string name="today">Hoje</string>
     <string name="today_lowercase">hoje</string>
+    <string name="add_task">Adicionar tarefa</string>
 </resources>
