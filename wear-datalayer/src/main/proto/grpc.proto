@@ -36,6 +36,7 @@ message Settings {
   repeated uint64 collapsed = 1;
   string filter = 2;
   bool showHidden = 3;
+  bool showCompleted = 4;
 }
 
 message UpdateSettingsRequest {

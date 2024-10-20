@@ -98,7 +98,9 @@ class MainActivity : ComponentActivity() {
                             if (viewState.initialized) {
                                 SettingsScreen(
                                     showHidden = viewState.settings.showHidden,
+                                    showCompleted = viewState.settings.showCompleted,
                                     toggleShowHidden = { settingsViewModel.setShowHidden(it) },
+                                    toggleShowCompleted = { settingsViewModel.setShowCompleted(it) },
                                 )
                             } else {
                                 // TODO: show spinner

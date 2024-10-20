@@ -1,11 +1,9 @@
 package org.tasks.presentation.screens
 
 import android.app.Application
-import androidx.datastore.core.DataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
 import com.google.android.horologist.data.ProtoDataStoreHelper.protoFlow
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.datalayer.grpc.GrpcExtensions.grpcClient
@@ -17,6 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.GrpcProto
 import org.tasks.GrpcProto.Settings
+import org.tasks.SettingsKt
 import org.tasks.WearServiceGrpcKt
 import org.tasks.copy
 import org.tasks.extensions.wearDataLayerRegistry
@@ -37,9 +36,6 @@ class SettingsViewModel(
     ) {
         WearServiceGrpcKt.WearServiceCoroutineStub(it)
     }
-    private val settingsFlow: DataStore<Settings> by lazy {
-        registry.protoDataStore(viewModelScope)
-    }
     private val _viewState = MutableStateFlow(ViewState())
     val viewState = _viewState.asStateFlow()
 
@@ -57,12 +53,24 @@ class SettingsViewModel(
             .launchIn(viewModelScope)
     }
 
-    fun setShowHidden(showHidden: Boolean) = viewModelScope.launch {
+    fun setShowHidden(showHidden: Boolean) {
+        updateSettings {
+            this.showHidden = showHidden
+        }
+    }
+
+    fun setShowCompleted(showCompleted: Boolean) {
+        updateSettings {
+            this.showCompleted = showCompleted
+        }
+    }
+
+    private fun updateSettings(block: SettingsKt.Dsl.() -> Unit) = viewModelScope.launch {
         wearService.updateSettings(
             GrpcProto.UpdateSettingsRequest.newBuilder()
                 .setSettings(
                     _viewState.value.settings.copy {
-                        this.showHidden = showHidden
+                        block()
                     }
                 )
                 .build()

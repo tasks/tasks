@@ -10,4 +10,7 @@ class WearPreferences(
 ): QueryPreferences by preferences {
     override val showHidden: Boolean
         get() = settings.showHidden
+
+    override val showCompleted: Boolean
+        get() = settings.showCompleted
 }

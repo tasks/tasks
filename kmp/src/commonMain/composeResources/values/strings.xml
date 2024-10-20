@@ -29,4 +29,6 @@
     <string name="today">Today</string>
     <string name="today_lowercase">today</string>
     <string name="add_task">Add task</string>
+    <string name="show_unstarted">Show unstarted</string>
+    <string name="show_completed">Show completed</string>
 </resources>
