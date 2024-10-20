@@ -401,6 +401,9 @@ class TaskEditViewModel @Inject constructor(
 
         if (task.isCompleted != completed) {
             taskCompleter.setComplete(task, completed)
+            if (task.isCompleted) {
+                firebase?.completeTask("edit_screen")
+            }
         }
 
         if (isNew) {

@@ -422,6 +422,7 @@
   <string name="event_banner_beast">banner_beast</string>
   <string name="event_banner_sub">banner_subscribe</string>
   <string name="event_add_task">add_task</string>
+  <string name="event_complete_task">complete_task</string>
   <string name="event_request_review">request_review</string>
   <string name="param_type">type</string>
   <string name="p_map_theme">map_theme</string>

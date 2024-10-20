@@ -16,6 +16,7 @@ import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.compose.edit.SubtaskRow
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.Task
@@ -39,6 +40,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
     @Inject lateinit var chipProvider: ChipProvider
     @Inject lateinit var colorProvider: ColorProvider
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var firebase: Firebase
 
     private lateinit var listViewModel: TaskListViewModel
     private val mainViewModel: MainActivityViewModel by activityViewModels()
@@ -106,6 +108,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
 
     private fun complete(task: Task, completed: Boolean) = lifecycleScope.launch {
         taskCompleter.setComplete(task, completed)
+        firebase.completeTask("edit_screen_subtask")
     }
 
     companion object {

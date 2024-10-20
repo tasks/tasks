@@ -4,13 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.dao.TaskDao
-import org.tasks.data.entity.Task
 import com.todoroo.astrid.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.analytics.Firebase
+import org.tasks.data.entity.Task
 import org.tasks.dialogs.BaseDateTimePicker.OnDismissHandler
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.intents.TaskIntents
@@ -23,6 +24,7 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var firebase: Firebase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,7 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
             COMPLETE_TASK -> {
                 lifecycleScope.launch(NonCancellable) {
                     taskCompleter.setComplete(task, !task.isCompleted)
+                    firebase.completeTask("widget")
                 }
                 finish()
             }

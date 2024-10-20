@@ -958,6 +958,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
         lifecycleScope.launch {
             taskCompleter.setComplete(task.task, newState)
+            firebase.completeTask("task_list")
             taskAdapter.onCompletedTask(task.uuid, newState)
             loadTaskListContent()
         }

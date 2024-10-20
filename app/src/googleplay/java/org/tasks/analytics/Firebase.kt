@@ -50,6 +50,9 @@ class Firebase @Inject constructor(
     fun addTask(source: String) =
         logEvent(R.string.event_add_task, R.string.param_type to source)
 
+    fun completeTask(source: String) =
+        logEvent(R.string.event_complete_task, R.string.param_type to source)
+
     fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {
         analytics?.logEvent(context.getString(event), Bundle().apply {
             p.forEach {

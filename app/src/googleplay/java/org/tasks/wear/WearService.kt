@@ -12,6 +12,7 @@ import org.tasks.GrpcProto.Tasks
 import org.tasks.GrpcProto.ToggleGroupRequest
 import org.tasks.GrpcProto.ToggleGroupResponse
 import org.tasks.WearServiceGrpcKt
+import org.tasks.analytics.Firebase
 import org.tasks.copy
 import org.tasks.data.isHidden
 import org.tasks.filters.AstridOrderingFilter
@@ -27,6 +28,7 @@ class WearService(
     private val taskCompleter: TaskCompleter,
     private val headerFormatter: HeaderFormatter,
     private val settings: DataStore<GrpcProto.Settings>,
+    private val firebase: Firebase,
 ) : WearServiceGrpcKt.WearServiceCoroutineImplBase() {
     override suspend fun getTasks(request: GetTasksRequest): Tasks {
         val position = request.position
@@ -85,6 +87,7 @@ class WearService(
 
     override suspend fun completeTask(request: CompleteTaskRequest): CompleteTaskResponse {
         taskCompleter.setComplete(request.id, request.completed)
+        firebase.completeTask("wearable")
         return CompleteTaskResponse.newBuilder().setSuccess(true).build()
     }
 
